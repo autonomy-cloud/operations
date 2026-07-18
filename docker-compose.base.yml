@@ -21,6 +21,7 @@ x-common-variables: &common-variables
   ANALYTICS_HOST: ${ANALYTICS_HOST}
   CAPTCHA_ENABLED: ${CAPTCHA_ENABLED}
   CAPTCHA_SITE_KEY: ${CAPTCHA_SITE_KEY}
+  CAST_OPERATIONS_EMBEDDED_MODE: ${CAST_OPERATIONS_EMBEDDED_MODE:-false}
 
   # VAPID keys for Web Push Notifications
   VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY}
@@ -44,6 +45,7 @@ x-common-variables: &common-variables
 x-common-runtime-variables: &common-runtime-variables
   <<: *common-variables
   ONEUPTIME_SECRET: ${ONEUPTIME_SECRET}
+  EMBEDDED_DASHBOARD_AUTH_ENABLED: ${EMBEDDED_DASHBOARD_AUTH_ENABLED:-false}
 
   # Seed a Global LLM Provider from env at startup (e.g. a local Ollama or
   # vLLM server). Set GLOBAL_LLM_PROVIDER_TYPE to enable; unset it to remove
@@ -379,6 +381,7 @@ services:
       ONEUPTIME_HTTP_PORT: ${ONEUPTIME_HTTP_PORT}
       NGINX_LISTEN_ADDRESS: ${NGINX_LISTEN_ADDRESS}
       NGINX_LISTEN_OPTIONS: ${NGINX_LISTEN_OPTIONS}
+      DASHBOARD_FRAME_ANCESTORS: ${DASHBOARD_FRAME_ANCESTORS:-'none'}
       DISABLE_TELEMETRY: ${DISABLE_TELEMETRY_FOR_INGRESS}
     ports:
       - "${ONEUPTIME_HTTP_PORT}:7849"

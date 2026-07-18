@@ -14,6 +14,7 @@ import Button, { ButtonStyleType } from "../Button/Button";
 import Navigation from "../../Utils/Navigation";
 import useComponentOutsideClick from "../../Types/UseComponentOutsideClick";
 import Icon, { ThickProp } from "../Icon/Icon";
+import { CAST_OPERATIONS_EMBEDDED_MODE } from "../../Config";
 
 export interface NavItem {
   id: string;
@@ -187,7 +188,11 @@ const Navbar: FunctionComponent<ComponentProps> = (
   if (isMobile && activeItem) {
     return (
       <div className="relative md:hidden">
-        <nav className="bg-white text-center justify-between py-2 mt-5">
+        <nav
+          className={`bg-white text-center justify-between py-2 ${
+            CAST_OPERATIONS_EMBEDDED_MODE ? "" : "mt-5"
+          }`}
+        >
           {/* Mobile: Show only active item and hamburger menu */}
           <div className="flex items-center justify-between w-full">
             <NavBarItem
@@ -249,7 +254,9 @@ const Navbar: FunctionComponent<ComponentProps> = (
   // Desktop view
   const className: string =
     props.className ||
-    "bg-white flex text-center items-center lg:py-2 hidden md:flex";
+    (CAST_OPERATIONS_EMBEDDED_MODE
+      ? "bg-transparent flex h-10 text-center items-center hidden md:flex"
+      : "bg-white flex text-center items-center lg:py-2 hidden md:flex");
 
   // Find active item in more menu items (needed for breadcrumb)
   const activeMoreItem: MoreMenuItem | undefined = props.moreMenuItems?.find(
@@ -278,7 +285,7 @@ const Navbar: FunctionComponent<ComponentProps> = (
         {/* Combined Home > Product breadcrumb */}
         <div className="flex items-center">
           {/* Home link */}
-          {homeItem && (
+          {homeItem && !CAST_OPERATIONS_EMBEDDED_MODE && (
             <NavBarItem
               key={homeItem.id}
               id={homeItem.id}
@@ -293,17 +300,31 @@ const Navbar: FunctionComponent<ComponentProps> = (
           {/* Separator and active product */}
           {activeMoreItem && (
             <>
-              <span className="text-gray-400 mx-1">/</span>
+              {!CAST_OPERATIONS_EMBEDDED_MODE && (
+                <span className="text-gray-400 mx-1">/</span>
+              )}
               <button
                 onClick={openMoreMenu}
-                className="group bg-gray-100 text-gray-900 hover:bg-gray-200 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium transition-colors cursor-pointer"
+                className={`group text-gray-700 hover:bg-gray-100 rounded-md inline-flex items-center text-sm font-medium transition-colors cursor-pointer ${
+                  CAST_OPERATIONS_EMBEDDED_MODE
+                    ? "py-1.5 px-2"
+                    : "bg-gray-100 text-gray-900 hover:bg-gray-200 py-2 px-3"
+                }`}
               >
                 <Icon
-                  icon={activeMoreItem.icon}
+                  icon={
+                    CAST_OPERATIONS_EMBEDDED_MODE
+                      ? IconProp.Squares
+                      : activeMoreItem.icon
+                  }
                   className="mr-1.5 h-4 w-4 transition-transform duration-150 group-hover:scale-110"
                   thick={ThickProp.Thick}
                 />
-                <span>{activeMoreItem.title}</span>
+                <span>
+                  {CAST_OPERATIONS_EMBEDDED_MODE
+                    ? "Capabilities"
+                    : activeMoreItem.title}
+                </span>
                 <Icon
                   icon={IconProp.ChevronDown}
                   className={`ml-1.5 h-3 w-3 text-gray-500 transition-transform duration-200 ${
@@ -319,7 +340,9 @@ const Navbar: FunctionComponent<ComponentProps> = (
             props.moreMenuItems &&
             props.moreMenuItems.length > 0 && (
               <>
-                <span className="text-gray-400 mx-1">/</span>
+                {!CAST_OPERATIONS_EMBEDDED_MODE && (
+                  <span className="text-gray-400 mx-1">/</span>
+                )}
                 <button
                   onClick={openMoreMenu}
                   className="group text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium transition-colors cursor-pointer"

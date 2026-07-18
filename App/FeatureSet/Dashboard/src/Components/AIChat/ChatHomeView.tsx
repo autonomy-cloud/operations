@@ -88,16 +88,16 @@ const ChatHomeView: FunctionComponent<ComponentProps> = (
         onClick={() => {
           props.onAsk(suggestion.question);
         }}
-        className="group flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-3.5 text-left transition-colors hover:border-gray-300 hover:bg-gray-50 disabled:opacity-50"
+        className="group flex items-start gap-3 rounded-lg border border-gray-200 bg-white p-3 text-left transition-colors hover:border-gray-300 hover:bg-gray-50 disabled:opacity-50"
       >
-        <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 transition-colors group-hover:bg-gray-900 group-hover:text-white">
+        <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-gray-100 text-gray-500 transition-colors group-hover:bg-gray-900 group-hover:text-white">
           <Icon icon={suggestion.icon} className="h-4 w-4" />
         </div>
         <div className="min-w-0">
           <div className="text-sm font-medium text-gray-900">
             {suggestion.title}
           </div>
-          <div className="mt-0.5 text-xs leading-relaxed text-gray-500">
+          <div className="mt-0.5 line-clamp-2 text-xs leading-5 text-gray-500">
             {suggestion.question}
           </div>
         </div>
@@ -106,18 +106,18 @@ const ChatHomeView: FunctionComponent<ComponentProps> = (
   };
 
   return (
-    <div className="flex min-h-full flex-col px-6 py-10">
+    <div className="flex min-h-full flex-col px-5 py-6">
       {/* Hero — speaks about the page the user came from when context exists. */}
-      <div className="mb-8">
-        <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gray-900">
+      <div className="mb-5">
+        <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-gray-900">
           <Icon
             icon={context ? context.icon : IconProp.Sparkles}
-            className="h-5 w-5 text-white"
+            className="h-4 w-4 text-white"
           />
         </div>
         {context ? (
           <>
-            <h3 className="text-lg font-semibold tracking-tight text-gray-900">
+            <h3 className="text-base font-semibold tracking-tight text-gray-900">
               {context.isEntity
                 ? `What would you like to know about this ${context.noun}?`
                 : `What would you like to know about your ${context.noun}?`}
@@ -132,37 +132,35 @@ const ChatHomeView: FunctionComponent<ComponentProps> = (
               </div>
             )}
             <p className="mt-1.5 max-w-md text-sm leading-relaxed text-gray-500">
-              Answers are grounded in this page — OneUptime AI runs real queries
-              against your telemetry and cites them. Remove the context chip in
-              the composer to ask about anything else.
+              Answers are grounded in this page — Operations AI runs real
+              queries against your telemetry and cites them. Remove the context
+              chip in the composer to ask about anything else.
             </p>
           </>
         ) : (
           <>
-            <h3 className="text-lg font-semibold tracking-tight text-gray-900">
-              Ask AI about your data — or tell it to act
+            <h3 className="text-base font-semibold tracking-tight text-gray-900">
+              Ask Operations AI
             </h3>
-            <p className="mt-1.5 max-w-md text-sm leading-relaxed text-gray-500">
-              OneUptime AI runs real queries against your logs, traces, metrics,
-              incidents and monitors — rendering charts and tables inline — and
-              can create incidents or acknowledge alerts, always with your
-              approval.
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+              Query logs, traces, metrics, incidents, and monitors. Get cited
+              answers, charts, and approved operational actions in one thread.
             </p>
           </>
         )}
       </div>
 
       {props.showNoProviderNotice && (
-        <div className="mb-8 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-3.5">
+        <div className="mb-5 flex items-start gap-2.5 rounded-md border border-amber-200 bg-amber-50 px-3 py-2.5">
           <Icon
             icon={IconProp.Info}
             className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500"
           />
-          <div className="text-sm leading-relaxed text-amber-800">
+          <div className="text-xs leading-5 text-amber-800">
             <span className="font-medium">
-              No LLM provider is configured for this project.
+              Connect an AI provider to start chatting.
             </span>{" "}
-            Messages need a provider to run — add one in{" "}
+            Configure one in{" "}
             <Link to={llmProvidersRoute} className="font-medium underline">
               Settings → AI → LLM Providers
             </Link>{" "}
@@ -177,7 +175,7 @@ const ChatHomeView: FunctionComponent<ComponentProps> = (
         </div>
       )}
 
-      <div className="mb-8">
+      <div className="mb-5">
         {contextSuggestions.length > 0 && (
           <div className="mb-2 text-[11px] font-medium uppercase tracking-wide text-gray-400">
             Or explore everything

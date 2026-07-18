@@ -12,6 +12,7 @@ export interface ComponentProps {
   isLoading: boolean;
   error: string;
   topSectionClassName?: string | undefined;
+  topSectionContentClassName?: string | undefined;
   className?: string | undefined;
   hideHeader?: boolean | undefined;
   makeTopSectionUnstick?: boolean | undefined;
@@ -67,6 +68,7 @@ const MasterPage: FunctionComponent<ComponentProps> = (
             <TopSection
               hideHeader={props.hideHeader}
               className={props.topSectionClassName}
+              contentClassName={props.topSectionContentClassName}
               header={props.header}
               navbar={props.navBar}
             />

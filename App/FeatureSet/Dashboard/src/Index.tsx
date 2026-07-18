@@ -8,8 +8,82 @@ import UserUtil from "Common/UI/Utils/User";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { CAST_OPERATIONS_EMBEDDED_MODE } from "Common/UI/Config";
 
 ThemeUtil.initialize();
+
+if (CAST_OPERATIONS_EMBEDDED_MODE) {
+  document.documentElement.classList.add("cast-operations-embedded");
+
+  const castThemeProperties: Record<string, string> = {
+    fontFamily: "--cast-font-family",
+    codeFontFamily: "--cast-code-font-family",
+    fontSize: "--cast-font-size-base",
+    backgroundPrimary: "--cast-background-primary",
+    backgroundSecondary: "--cast-background-secondary",
+    backgroundTertiary: "--cast-background-tertiary",
+    backgroundQuaternary: "--cast-background-quaternary",
+    borderLight: "--cast-border-light",
+    borderMedium: "--cast-border-medium",
+    borderStrong: "--cast-border-strong",
+    radiusSmall: "--cast-radius-small",
+    radiusMedium: "--cast-radius-medium",
+    radiusLarge: "--cast-radius-large",
+    textPrimary: "--cast-text-primary",
+    textSecondary: "--cast-text-secondary",
+    textTertiary: "--cast-text-tertiary",
+    textMuted: "--cast-text-muted",
+    brandPrimary: "--cast-brand-primary",
+    brandSoft: "--cast-brand-soft",
+  };
+
+  window.addEventListener("message", (event: MessageEvent): void => {
+    if (event.source !== window.parent) {
+      return;
+    }
+
+    if (event.data?.type === "CAST_OPERATIONS_NAVIGATE_BACK") {
+      const historyIndex: unknown = window.history.state?.idx;
+
+      if (typeof historyIndex === "number" && historyIndex > 0) {
+        window.history.back();
+      } else {
+        window.parent.postMessage(
+          { type: "CAST_OPERATIONS_BACK_UNAVAILABLE" },
+          event.origin,
+        );
+      }
+      return;
+    }
+
+    if (
+      event.data?.type !== "CAST_COLOR_SCHEME" ||
+      !["light", "dark"].includes(event.data?.colorScheme)
+    ) {
+      return;
+    }
+
+    const useDarkTheme: boolean = event.data.colorScheme === "dark";
+    document.documentElement.classList.toggle("dark", useDarkTheme);
+    document.documentElement.classList.toggle("light", !useDarkTheme);
+
+    if (event.data.theme && typeof event.data.theme === "object") {
+      for (const [themeKey, cssProperty] of Object.entries(
+        castThemeProperties,
+      )) {
+        const value: unknown = event.data.theme[themeKey];
+
+        if (
+          typeof value === "string" &&
+          value.length > 0 &&
+          value.length < 256
+        ) {
+          document.documentElement.style.setProperty(cssProperty, value);
+        }
+      }
+    }
+  });
+}
 
 Telemetry.init({
   serviceName: "dashboard",

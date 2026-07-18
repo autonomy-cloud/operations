@@ -25,6 +25,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { CAST_OPERATIONS_EMBEDDED_MODE } from "Common/UI/Config";
 
 export interface ComponentProps extends PageComponentProps {
   isLoadingProjects: boolean;
@@ -96,7 +97,9 @@ const Home: FunctionComponent<ComponentProps> = (
 
         {!isLoading && !error && currentProjectId && (
           <div>
-            <GettingStarted projectId={currentProjectId} />
+            {!CAST_OPERATIONS_EMBEDDED_MODE && (
+              <GettingStarted projectId={currentProjectId} />
+            )}
 
             <OverviewStats projectId={currentProjectId} />
 

@@ -9,6 +9,8 @@ describe("CookieUtils", () => {
   let mockResponse: ExpressResponse;
 
   beforeEach(() => {
+    delete process.env["EMBEDDED_DASHBOARD_AUTH_ENABLED"];
+
     mockRequest = {
       cookies: {},
     } as ExpressRequest;
@@ -17,6 +19,7 @@ describe("CookieUtils", () => {
   });
 
   afterEach(() => {
+    delete process.env["EMBEDDED_DASHBOARD_AUTH_ENABLED"];
     jest.clearAllMocks();
   });
 
@@ -56,6 +59,24 @@ describe("CookieUtils", () => {
     expect(value).toBe(value);
   });
 
+  test("Should set a partitioned cookie for an embedded dashboard", () => {
+    process.env["EMBEDDED_DASHBOARD_AUTH_ENABLED"] = "true";
+    mockResponse.cookie = jest.fn();
+
+    CookieUtil.setCookie(mockResponse, "testName", "testValue", {});
+
+    expect(mockResponse.cookie).toHaveBeenCalledWith(
+      "testName",
+      "testValue",
+      {
+        path: "/",
+        sameSite: "none",
+        secure: true,
+        partitioned: true,
+      },
+    );
+  });
+
   test("Should remove a cookie", () => {
     const cookieName: string = "testName";
 
@@ -66,6 +87,20 @@ describe("CookieUtils", () => {
     expect(mockResponse.clearCookie).toHaveBeenCalledWith(cookieName, {
       path: "/",
       sameSite: "lax",
+    });
+  });
+
+  test("Should remove a partitioned embedded-dashboard cookie", () => {
+    process.env["EMBEDDED_DASHBOARD_AUTH_ENABLED"] = "true";
+    mockResponse.clearCookie = jest.fn();
+
+    CookieUtil.removeCookie(mockResponse, "testName");
+
+    expect(mockResponse.clearCookie).toHaveBeenCalledWith("testName", {
+      path: "/",
+      sameSite: "none",
+      secure: true,
+      partitioned: true,
     });
   });
 

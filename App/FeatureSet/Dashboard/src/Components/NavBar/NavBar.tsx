@@ -9,6 +9,7 @@ import NavBar, {
 } from "Common/UI/Components/Navbar/NavBar";
 import React, { FunctionComponent, ReactElement } from "react";
 import { useTranslation } from "react-i18next";
+import { CAST_OPERATIONS_EMBEDDED_MODE } from "Common/UI/Config";
 
 export interface ComponentProps {
   show: boolean;
@@ -481,9 +482,10 @@ const DashboardNavbar: FunctionComponent<ComponentProps> = (
   return (
     <NavBar
       items={navItems}
-      rightElement={rightElement}
       moreMenuItems={moreMenuItems}
-      moreMenuFooter={moreMenuFooter}
+      {...(CAST_OPERATIONS_EMBEDDED_MODE
+        ? { moreMenuTitle: "Capabilities" }
+        : { rightElement, moreMenuFooter })}
       moreMenuSearchPlaceholder={t("navbar.search.placeholder")}
       moreMenuNoResultsText={t("navbar.search.noResults")}
       moreMenuKeyboardHint={t("navbar.search.hint")}

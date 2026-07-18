@@ -48,8 +48,11 @@ export const HTTP_PROTOCOL: Protocol =
 export const HOST: string = env("HOST") || "";
 
 export const BILLING_ENABLED: boolean = env("BILLING_ENABLED") === "true";
+export const CAST_OPERATIONS_EMBEDDED_MODE: boolean =
+  env("CAST_OPERATIONS_EMBEDDED_MODE") === "true";
 export const IS_ENTERPRISE_EDITION: boolean =
-  env("IS_ENTERPRISE_EDITION") === "true";
+  env("IS_ENTERPRISE_EDITION") === "true" ||
+  CAST_OPERATIONS_EMBEDDED_MODE;
 export const BILLING_PUBLIC_KEY: string = env("BILLING_PUBLIC_KEY") || "";
 
 export const CAPTCHA_ENABLED: boolean = env("CAPTCHA_ENABLED") === "true";

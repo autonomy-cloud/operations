@@ -11,7 +11,10 @@ import SSOAuthorizationException from "Common/Types/Exception/SsoAuthorizationEx
 import AppLink from "../AppLink/AppLink";
 import MasterPage from "Common/UI/Components/MasterPage/MasterPage";
 import TopAlert, { TopAlertType } from "Common/UI/Components/TopAlert/TopAlert";
-import { BILLING_ENABLED } from "Common/UI/Config";
+import {
+  BILLING_ENABLED,
+  CAST_OPERATIONS_EMBEDDED_MODE,
+} from "Common/UI/Config";
 import Navigation from "Common/UI/Utils/Navigation";
 import Project from "Common/Models/DatabaseModels/Project";
 import React, { FunctionComponent, ReactElement } from "react";
@@ -100,23 +103,41 @@ const DashboardMasterPage: FunctionComponent<ComponentProps> = (
       )}
 
       <MasterPage
-        footer={<Footer />}
+        footer={CAST_OPERATIONS_EMBEDDED_MODE ? undefined : <Footer />}
         header={
-          <Header
-            projects={props.projects}
-            onProjectSelected={props.onProjectSelected}
-            showProjectModal={props.showProjectModal}
-            onProjectModalClose={props.onProjectModalClose}
-            selectedProject={props.selectedProject || null}
-            paymentMethodsCount={props.paymentMethodsCount}
-          />
+          CAST_OPERATIONS_EMBEDDED_MODE ? undefined : (
+            <Header
+              projects={props.projects}
+              onProjectSelected={props.onProjectSelected}
+              showProjectModal={props.showProjectModal}
+              onProjectModalClose={props.onProjectModalClose}
+              selectedProject={props.selectedProject || null}
+              paymentMethodsCount={props.paymentMethodsCount}
+            />
+          )
         }
         navBar={
-          <NavBar show={props.projects.length > 0 && !isOnHideNavbarPage} />
+          CAST_OPERATIONS_EMBEDDED_MODE ? undefined : (
+            <NavBar show={props.projects.length > 0 && !isOnHideNavbarPage} />
+          )
         }
         isLoading={props.isLoading}
         error={error}
-        className="flex flex-col h-screen"
+        topSectionClassName={
+          CAST_OPERATIONS_EMBEDDED_MODE
+            ? "bg-transparent"
+            : undefined
+        }
+        topSectionContentClassName={
+          CAST_OPERATIONS_EMBEDDED_MODE
+            ? "w-full px-3 sm:px-4 lg:px-5"
+            : undefined
+        }
+        className={
+          CAST_OPERATIONS_EMBEDDED_MODE
+            ? "flex min-h-screen flex-col bg-gray-50/40"
+            : "flex flex-col h-screen"
+        }
       >
         {props.children}
       </MasterPage>

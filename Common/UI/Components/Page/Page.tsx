@@ -7,6 +7,7 @@ import Link from "../../../Types/Link";
 import LabelModel from "../../../Models/DatabaseModels/Label";
 import useTranslateValue from "../../Utils/Translation";
 import React, { FunctionComponent, ReactElement, useEffect } from "react";
+import { CAST_OPERATIONS_EMBEDDED_MODE } from "../../Config";
 
 export interface ComponentProps {
   title?: string | undefined;
@@ -29,6 +30,13 @@ export interface ComponentProps {
 const Page: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
+  // Cast owns navigation when Operations is embedded. Rendering the feature
+  // sidebar here would create a second navigation rail inside the Cast shell.
+  const sideMenu: ReactElement | undefined = CAST_OPERATIONS_EMBEDDED_MODE
+    ? undefined
+    : props.sideMenu;
+  const hideEmbeddedPageHeader: boolean =
+    CAST_OPERATIONS_EMBEDDED_MODE && props.sideMenu !== undefined;
   const { translateString } = useTranslateValue();
   const translatedTitle: string | undefined = translateString(props.title);
   const translatedDescription: string | undefined = translateString(
@@ -72,7 +80,9 @@ const Page: FunctionComponent<ComponentProps> = (
     const pageTitle: string | undefined = breadcrumbTitle || translatedTitle;
 
     if (pageTitle) {
-      document.title = `OneUptime | ${pageTitle}`;
+      document.title = CAST_OPERATIONS_EMBEDDED_MODE
+        ? `Cast Operations | ${pageTitle}`
+        : `OneUptime | ${pageTitle}`;
     }
   }, [translatedTitle, props.breadcrumbLinks]);
 
@@ -83,22 +93,34 @@ const Page: FunctionComponent<ComponentProps> = (
   return (
     <div
       className={
-        props.className || "mb-auto max-w-full px-4 sm:px-6 lg:px-8 mt-5 h-max"
+        props.className ||
+        (CAST_OPERATIONS_EMBEDDED_MODE
+          ? "mb-auto max-w-full px-3 sm:px-4 lg:px-5 mt-2 h-max"
+          : "mb-auto max-w-full px-4 sm:px-6 lg:px-8 mt-5 h-max")
       }
     >
-      {((props.breadcrumbLinks && props.breadcrumbLinks.length > 0) ||
-        props.title) && (
-        <div className="mb-5">
-          {props.breadcrumbLinks && props.breadcrumbLinks.length > 0 && (
-            <div className="mt-2">
+      {!hideEmbeddedPageHeader &&
+        ((props.breadcrumbLinks && props.breadcrumbLinks.length > 0) ||
+          props.title) && (
+        <div className={CAST_OPERATIONS_EMBEDDED_MODE ? "mb-3" : "mb-5"}>
+          {!CAST_OPERATIONS_EMBEDDED_MODE &&
+            props.breadcrumbLinks &&
+            props.breadcrumbLinks.length > 0 && (
+            <div className={CAST_OPERATIONS_EMBEDDED_MODE ? "mt-1" : "mt-2"}>
               <Breadcrumbs links={props.breadcrumbLinks} />
             </div>
-          )}
+            )}
           {props.title && (
             <div className="mt-2">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:flex-wrap sm:gap-4">
                 <div className="flex flex-col gap-1 min-w-0">
-                  <h1 className="text-xl font-semibold leading-7 text-gray-900 sm:text-xl sm:tracking-tight sm:truncate">
+                  <h1
+                    className={`font-semibold text-gray-900 sm:tracking-tight sm:truncate ${
+                      CAST_OPERATIONS_EMBEDDED_MODE
+                        ? "text-lg leading-6"
+                        : "text-xl leading-7 sm:text-xl"
+                    }`}
+                  >
                     {translatedTitle}
                   </h1>
                   {translatedDescription && (
@@ -144,10 +166,16 @@ const Page: FunctionComponent<ComponentProps> = (
         </div>
       )}
 
-      {props.sideMenu && (
+      {sideMenu && (
         <div className="mx-auto max-w-full pb-10">
-          <div className="flex flex-col md:flex-row md:gap-4 lg:gap-5">
-            {props.sideMenu}
+          <div
+            className={`flex flex-col md:flex-row ${
+              CAST_OPERATIONS_EMBEDDED_MODE
+                ? "md:gap-3 lg:gap-4"
+                : "md:gap-4 lg:gap-5"
+            }`}
+          >
+            {sideMenu}
 
             {!props.isLoading && (
               <div className="space-y-6 flex-1 min-w-0">{props.children}</div>
@@ -161,8 +189,8 @@ const Page: FunctionComponent<ComponentProps> = (
         </div>
       )}
 
-      {!props.sideMenu && !props.isLoading && props.children}
-      {!props.sideMenu && props.isLoading && <PageLoader isVisible={true} />}
+      {!sideMenu && !props.isLoading && props.children}
+      {!sideMenu && props.isLoading && <PageLoader isVisible={true} />}
     </div>
   );
 };

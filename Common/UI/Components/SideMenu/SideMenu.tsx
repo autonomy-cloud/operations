@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
+import { CAST_OPERATIONS_EMBEDDED_MODE } from "../../Config";
 import Icon from "../Icon/Icon";
 import IconProp from "../../../Types/Icon/IconProp";
 import useComponentOutsideClick from "../../Types/UseComponentOutsideClick";
@@ -411,7 +412,9 @@ const SideMenu: FunctionComponent<ComponentProps> = (props: ComponentProps) => {
   // Desktop view
   return (
     <aside
-      className={`hidden md:block w-52 lg:w-60 flex-shrink-0 mb-10 ${props.className || ""}`}
+      className={`hidden md:block ${
+        CAST_OPERATIONS_EMBEDDED_MODE ? "w-44 lg:w-48" : "w-52 lg:w-60"
+      } flex-shrink-0 mb-10 ${props.className || ""}`}
       role="navigation"
       aria-label="Main navigation"
     >

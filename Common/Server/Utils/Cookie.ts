@@ -24,6 +24,20 @@ export default class CookieUtil {
 
   private static readonly DEFAULT_ACCESS_TOKEN_EXPIRY_SECONDS: number = 15 * 60;
 
+  private static getSessionCookieOptions(): CookieOptions {
+    if (process.env["EMBEDDED_DASHBOARD_AUTH_ENABLED"] === "true") {
+      return {
+        // Embedded Operations runs on a different origin from the Cast shell.
+        // CHIPS keeps the session isolated to that top-level Cast workspace.
+        sameSite: "none",
+        secure: true,
+        partitioned: true,
+      };
+    }
+
+    return { sameSite: "lax" };
+  }
+
   @CaptureSpan()
   public static getCookiesFromCookieString(
     cookieString: string,
@@ -363,7 +377,7 @@ export default class CookieUtil {
   ): void {
     const cookieOptions: CookieOptions = {
       path: "/",
-      sameSite: "lax",
+      ...CookieUtil.getSessionCookieOptions(),
       ...options,
     };
 
@@ -401,7 +415,7 @@ export default class CookieUtil {
   public static removeCookie(res: ExpressResponse, name: string): void {
     res.clearCookie(name, {
       path: "/",
-      sameSite: "lax",
+      ...CookieUtil.getSessionCookieOptions(),
     });
   }
 

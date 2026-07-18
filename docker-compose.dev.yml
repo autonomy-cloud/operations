@@ -134,6 +134,11 @@ services:
     extends:
       file: ./docker-compose.base.yml
       service: app
+    environment:
+      # Use partitioned cookies so authentication survives inside Cast.
+      EMBEDDED_DASHBOARD_AUTH_ENABLED: "true"
+      # Let Cast own branding, workspace identity, and account-level chrome.
+      CAST_OPERATIONS_EMBEDDED_MODE: "true"
     depends_on:
       <<: *common-depends-on
     ports:
@@ -279,6 +284,9 @@ services:
     extends:
       file: ./docker-compose.base.yml
       service: ingress
+    environment:
+      # Permit the workspace-scoped Cast development shell to host Operations.
+      DASHBOARD_FRAME_ANCESTORS: "'self' http://*.localhost:27281"
     depends_on:
       <<: *common-depends-on
 

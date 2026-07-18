@@ -49,6 +49,7 @@ const FRONTEND_ENV_ALLOW_LIST: Array<string> = [
   "GITHUB_APP_NAME",
   "CAPTCHA_ENABLED",
   "CAPTCHA_SITE_KEY",
+  "CAST_OPERATIONS_EMBEDDED_MODE",
   "INBOUND_EMAIL_DOMAIN",
 ];
 
@@ -585,7 +586,8 @@ export const EnableProfiling: boolean =
   process.env["ENABLE_PROFILING"] === "true";
 
 export const IsEnterpriseEdition: boolean =
-  process.env["IS_ENTERPRISE_EDITION"] === "true";
+  process.env["IS_ENTERPRISE_EDITION"] === "true" ||
+  process.env["CAST_OPERATIONS_EMBEDDED_MODE"] === "true";
 
 export const AverageSpanRowSizeInBytes: number = parsePositiveNumberFromEnv(
   "AVERAGE_SPAN_ROW_SIZE_IN_BYTES",

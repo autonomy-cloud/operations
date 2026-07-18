@@ -1,5 +1,4 @@
 import React, { FunctionComponent, ReactElement } from "react";
-import AppLink from "../AppLink/AppLink";
 import Route from "Common/Types/API/Route";
 import Icon from "Common/UI/Components/Icon/Icon";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -40,9 +39,10 @@ const TelemetryNavTabs: FunctionComponent<Props> = (
             BADGE_TONES[tab.badge?.tone || "default"] ||
             BADGE_TONES["default"]!;
           return (
-            <AppLink
+            <a
               key={tab.key}
-              to={tab.to}
+              href={tab.to.toString()}
+              target="_self"
               className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                 isActive
                   ? "bg-indigo-50 text-indigo-700"
@@ -60,7 +60,7 @@ const TelemetryNavTabs: FunctionComponent<Props> = (
               ) : (
                 <></>
               )}
-            </AppLink>
+            </a>
           );
         })}
       </nav>

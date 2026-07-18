@@ -754,7 +754,9 @@ ${PROVISION_SSL_CERTIFICATE_KEY_DIRECTIVE}
 
         add_header Cache-Control "no-cache, no-store, must-revalidate" always;
         add_header X-Content-Type-Options "nosniff" always;
-        add_header X-Frame-Options "DENY" always;
+        # Cast Operations can be embedded by explicitly trusted shell origins.
+        # The deployment default is 'none', preserving the previous deny policy.
+        add_header Content-Security-Policy "frame-ancestors ${DASHBOARD_FRAME_ANCESTORS}" always;
         add_header X-XSS-Protection "1; mode=block" always;
 
         proxy_pass $backend_app;
