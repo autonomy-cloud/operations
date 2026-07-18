@@ -77,7 +77,7 @@ export default class UserWebhookAPI extends BaseAPI<
             projectId: item.projectId?.toString() || "",
             userId: item.userId?.toString() || "",
             message:
-              "This is a OneUptime test webhook. Your endpoint is reachable.",
+              "This is a Cast Operations test webhook. Your endpoint is reachable.",
           };
 
           const sendResult: {

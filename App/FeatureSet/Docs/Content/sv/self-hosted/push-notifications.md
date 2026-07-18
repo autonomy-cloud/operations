@@ -4,7 +4,7 @@ Inbyggda push-aviseringar (iOS/Android) drivs av **Expo Push** och kräver **ing
 
 ## Hur det fungerar
 
-OneUptime-mobilappen registrerar en Expo Push-token med backend. När backend behöver skicka en avisering POSTar den till det offentliga Expo Push API:et, som dirigerar meddelandet till Apple APNs eller Google FCM för appens räkning.
+Cast Operations-mobilappen registrerar en Expo Push-token med backend. När backend behöver skicka en avisering POSTar den till det offentliga Expo Push API:et, som dirigerar meddelandet till Apple APNs eller Google FCM för appens räkning.
 
 Webb-push-aviseringar fortsätter att använda VAPID-nycklar och Web Push-protokollet.
 
@@ -18,7 +18,7 @@ Ingen konfiguration för push-aviseringar krävs. Mobilappens binärfil hanterar
 
 - Se till att mobilappen byggdes med EAS Build (Expo Go stöder inte push-aviseringar)
 - Verifiera att enheten är registrerad i tabellen `UserPush` i din databas
-- Kontrollera OneUptime-serverloggarna efter Expo Push API-fel
+- Kontrollera Cast Operations-serverloggarna efter Expo Push API-fel
 - Bekräfta att enheten har en aktiv internetanslutning och aviseringsbehörigheter aktiverade
 
 ### "DeviceNotRegistered"-fel i loggar
@@ -30,5 +30,5 @@ Expo Push-token är inte längre giltig. Det beror vanligtvis på att appen avin
 Om du stöter på problem med push-aviseringar:
 
 1. Kontrollera felsökningsavsnittet ovan
-2. Granska OneUptime-loggarna för detaljerade felmeddelanden
-3. Kontakta oss på [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Granska Cast Operations-loggarna för detaljerade felmeddelanden
+3. Kontakta oss på [hello@visca.ai](mailto:hello@visca.ai)

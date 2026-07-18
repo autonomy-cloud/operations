@@ -1,6 +1,6 @@
 # Monitor de puerto
 
-El monitoreo de puertos te permite supervisar la disponibilidad de puertos TCP o UDP específicos en un host. OneUptime intenta periódicamente conectarse al puerto especificado y verifica si está abierto y responde.
+El monitoreo de puertos te permite supervisar la disponibilidad de puertos TCP o UDP específicos en un host. Cast Operations intenta periódicamente conectarse al puerto especificado y verifica si está abierto y responde.
 
 ## Información general
 
@@ -13,7 +13,7 @@ Los monitores de puertos prueban si un puerto de red específico acepta conexion
 
 ## Creación de un monitor de puerto
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Puerto** como tipo de monitor
 4. Ingresa el nombre de host o la dirección IP y el número de puerto

@@ -54,7 +54,7 @@ export const handleLlmsTxt: (
 
     const llmsTxt: string = `# ${title}
 
-> This is a public dashboard powered by OneUptime. It shows real-time charts, metrics, and monitoring data.
+> This is a public dashboard powered by Cast Operations. It shows real-time charts, metrics, and monitoring data.
 
 - [Dashboard Overview JSON](${overviewApiUrl}): Machine-readable JSON overview of this dashboard — its title, description, widgets, and the metric names it displays (HTTP GET).
 `;

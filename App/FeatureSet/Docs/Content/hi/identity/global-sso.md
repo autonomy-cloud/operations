@@ -1,8 +1,8 @@
 # Global SSO (Instance-wide Single Sign-On)
 
-Global SSO एक OneUptime **instance administrator** (master admin) को एक ही SAML 2.0 या OpenID Connect (OIDC) identity provider को **instance स्तर पर एक बार** configure करने और उसे server पर किसी भी project से connect करने की अनुमति देता है। यह per-project SSO का instance-wide समकक्ष है: प्रत्येक project owner द्वारा अपना अलग identity provider configure करने के बजाय, एक master admin एक ऐसा provider सेट करता है जो पूरे instance को सेवा दे सकता है।
+Global SSO एक Cast Operations **instance administrator** (master admin) को एक ही SAML 2.0 या OpenID Connect (OIDC) identity provider को **instance स्तर पर एक बार** configure करने और उसे server पर किसी भी project से connect करने की अनुमति देता है। यह per-project SSO का instance-wide समकक्ष है: प्रत्येक project owner द्वारा अपना अलग identity provider configure करने के बजाय, एक master admin एक ऐसा provider सेट करता है जो पूरे instance को सेवा दे सकता है।
 
-Global SSO एक **OneUptime Enterprise Edition** feature है और केवल उन instances पर उपलब्ध है जो Enterprise Edition build चला रहे हैं।
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO vs. Project SSO
 
@@ -24,7 +24,7 @@ Global SSO एक **OneUptime Enterprise Edition** feature है और के�
    - SAML के लिए: एक **Name**, अपने identity provider से **Sign On URL** और **Issuer** दर्ज करें, और **Public Certificate** paste करें। **Signature** और **Digest** methods चुनें (यदि आप अनिश्चित हैं तो defaults — `RSA-SHA256` / `SHA256` — रहने दें)।
    - OIDC के लिए: **Discovery URL**, **Issuer**, **Client ID**, **Client Secret**, **Scopes** (इनमें `openid` शामिल होना चाहिए), और **email** / **name** claim names दर्ज करें।
 
-3. **OneUptime URLs को अपने identity provider में copy करें**
+3. **Cast Operations URLs को अपने identity provider में copy करें**
 
    - provider खोलें (list में उसकी row पर क्लिक करें) ताकि **Identity Provider URLs** card दिखाई दे।
    - SAML के लिए, **ACS URL (Reply URL)** और **Issuer (Entity ID)** को अपने IdP (Okta, Azure AD, OneLogin, JumpCloud और अन्य) में copy करें।

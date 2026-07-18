@@ -1,11 +1,11 @@
 # Intégration GitHub
 
-Pour intégrer GitHub avec votre instance auto-hébergée OneUptime, vous devez créer une application GitHub et configurer les variables d'environnement requises. Cela permet à OneUptime de se connecter à vos dépôts GitHub pour la gestion des dépôts de code.
+Pour intégrer GitHub avec votre instance auto-hébergée Cast Operations, vous devez créer une application GitHub et configurer les variables d'environnement requises. Cela permet à Cast Operations de se connecter à vos dépôts GitHub pour la gestion des dépôts de code.
 
 ## Prérequis
 
 - Compte GitHub avec accès administrateur à l'organisation (pour les dépôts d'organisation) ou accès au compte personnel
-- Accès à la configuration de votre serveur OneUptime
+- Accès à la configuration de votre serveur Cast Operations
 
 ## Instructions de configuration
 
@@ -19,12 +19,12 @@ Pour intégrer GitHub avec votre instance auto-hébergée OneUptime, vous devez 
 2. Cliquez sur **« Nouvelle application GitHub »**
 
 3. Remplissez le formulaire d'inscription :
-   - **Nom de l'application GitHub :** OneUptime (ou tout nom unique) - **Notez ce nom, vous en aurez besoin pour la variable d'environnement `GITHUB_APP_NAME`**
-   - **URL de la page d'accueil :** `https://votre-domaine-oneuptime.com`
-   - **URL de rappel :** `https://votre-domaine-oneuptime.com/api/github/auth/callback`
-   - **URL de configuration :** `https://votre-domaine-oneuptime.com/api/github/auth/callback` - **Important : Il s'agit de l'URL vers laquelle GitHub redirige les utilisateurs après l'installation de l'application. Elle doit être définie pour que la redirection fonctionne.**
+   - **Nom de l'application GitHub :** Cast Operations (ou tout nom unique) - **Notez ce nom, vous en aurez besoin pour la variable d'environnement `GITHUB_APP_NAME`**
+   - **URL de la page d'accueil :** `https://votre-domaine-visca.ai`
+   - **URL de rappel :** `https://votre-domaine-visca.ai/api/github/auth/callback`
+   - **URL de configuration :** `https://votre-domaine-visca.ai/api/github/auth/callback` - **Important : Il s'agit de l'URL vers laquelle GitHub redirige les utilisateurs après l'installation de l'application. Elle doit être définie pour que la redirection fonctionne.**
    - **Rediriger lors de la mise à jour :** Cochez cette option pour rediriger les utilisateurs après la mise à jour de l'installation de l'application
-   - **URL du webhook :** `https://votre-domaine-oneuptime.com/api/github/webhook`
+   - **URL du webhook :** `https://votre-domaine-visca.ai/api/github/webhook`
    - **Secret du webhook :** Générez une chaîne aléatoire sécurisée (enregistrez-la pour plus tard)
 
 ### Étape 2 : Configurer les permissions de l'application
@@ -56,7 +56,7 @@ Dans la section « Permissions & événements », configurez les permissions sui
 
 ### Étape 3 : S'abonner aux événements de webhook
 
-Événements pour que OneUptime reçoive des mises à jour en temps réel, abonnez-vous à ces événements de webhook :
+Événements pour que Cast Operations reçoive des mises à jour en temps réel, abonnez-vous à ces événements de webhook :
 
 - **Pull request** — Recevoir des notifications lorsque les PR sont ouvertes, fermées ou fusionnées
 - **Push** — Recevoir des notifications lorsque du code est poussé
@@ -90,7 +90,7 @@ Sous « Où cette application GitHub peut-elle être installée ? », choisissez
 3. Un fichier `.pem` sera téléchargé automatiquement
 4. Gardez ce fichier sécurisé — il est utilisé pour l'authentification en tant qu'application GitHub
 
-### Étape 8 : Configurer les variables d'environnement OneUptime
+### Étape 8 : Configurer les variables d'environnement Cast Operations
 
 #### Docker Compose
 
@@ -99,7 +99,7 @@ Si vous utilisez Docker Compose, ajoutez ces variables d'environnement à votre 
 ```bash
 # Configuration de l'application GitHub
 GITHUB_APP_ID=VOTRE_APP_ID
-GITHUB_APP_NAME=VOTRE_APP_NAME  # Le nom exact de votre application GitHub (ex. : « OneUptime »)
+GITHUB_APP_NAME=VOTRE_APP_NAME  # Le nom exact de votre application GitHub (ex. : « Cast Operations »)
 GITHUB_APP_CLIENT_ID=VOTRE_CLIENT_ID
 GITHUB_APP_CLIENT_SECRET=VOTRE_CLIENT_SECRET
 GITHUB_APP_PRIVATE_KEY="<CONTENU_CLÉ_PRIVÉE_ENCODÉE_EN_BASE64>"
@@ -122,7 +122,7 @@ gitHubApp:
   webhookSecret: "VOTRE_WEBHOOK_SECRET"
 ```
 
-**Important :** Redémarrez votre serveur OneUptime après avoir ajouté ces variables d'environnement pour qu'elles prennent effet.
+**Important :** Redémarrez votre serveur Cast Operations après avoir ajouté ces variables d'environnement pour qu'elles prennent effet.
 
 ### Étape 9 : Installer l'application GitHub
 
@@ -134,14 +134,14 @@ gitHubApp:
    - **Uniquement les dépôts sélectionnés** — Choisissez des dépôts spécifiques
 5. Cliquez sur **« Installer »**
 
-### Étape 10 : Connecter des dépôts dans OneUptime
+### Étape 10 : Connecter des dépôts dans Cast Operations
 
-1. Connectez-vous à votre tableau de bord OneUptime
+1. Connectez-vous à votre tableau de bord Cast Operations
 2. Accédez à **Plus** > **Dépôts de code**
 3. Cliquez sur **« Créer un dépôt »** ou utilisez le flux d'installation de l'application GitHub
 4. Si redirigé depuis GitHub, l'ID d'installation sera automatiquement capturé
 5. Sélectionnez les dépôts que vous souhaitez connecter dans la liste
-6. Cliquez sur **« Connecter »** pour lier le dépôt à votre projet OneUptime
+6. Cliquez sur **« Connecter »** pour lier le dépôt à votre projet Cast Operations
 
 ## Référence des variables d'environnement
 
@@ -158,9 +158,9 @@ gitHubApp:
 
 ### Problèmes courants
 
-**Non redirigé vers OneUptime après l'installation de l'application GitHub :**
+**Non redirigé vers Cast Operations après l'installation de l'application GitHub :**
 
-- Assurez-vous que l'**URL de configuration** est configurée dans les paramètres de votre application GitHub vers : `https://votre-domaine-oneuptime.com/api/github/auth/callback`
+- Assurez-vous que l'**URL de configuration** est configurée dans les paramètres de votre application GitHub vers : `https://votre-domaine-visca.ai/api/github/auth/callback`
 - Allez dans les paramètres de votre application GitHub > section « Post-installation » et vérifiez que l'URL de configuration est correctement définie
 - L'option « Rediriger lors de la mise à jour » doit également être cochée
 - Remarque : L'URL de configuration est différente de l'URL de rappel — les deux doivent pointer vers le même point d'accès `/api/github/auth/callback`
@@ -168,7 +168,7 @@ gitHubApp:
 **Erreur « L'application GitHub n'est pas configurée » :**
 
 - Assurez-vous que la variable d'environnement `GITHUB_APP_CLIENT_ID` est définie
-- Redémarrez votre serveur OneUptime après avoir défini les variables d'environnement
+- Redémarrez votre serveur Cast Operations après avoir défini les variables d'environnement
 
 **Erreur « Signature de webhook invalide » :**
 
@@ -211,7 +211,7 @@ gitHubApp:
 Si vous rencontrez des problèmes avec l'intégration GitHub, veuillez :
 
 1. Consulter la section de dépannage ci-dessus
-2. Examiner les journaux de OneUptime pour les messages d'erreur détaillés
-3. Nous contacter à [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Examiner les journaux de Cast Operations pour les messages d'erreur détaillés
+3. Nous contacter à [hello@visca.ai](mailto:hello@visca.ai)
 
 Nous accueillons favorablement les retours pour améliorer cette intégration !

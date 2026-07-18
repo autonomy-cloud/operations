@@ -1,6 +1,6 @@
 # API Monitor
 
-API monitoring allows you to monitor the availability, performance, and correctness of your HTTP/REST APIs. OneUptime periodically sends HTTP requests to your API endpoints and evaluates the responses based on your configured criteria.
+API monitoring allows you to monitor the availability, performance, and correctness of your HTTP/REST APIs. Cast Operations periodically sends HTTP requests to your API endpoints and evaluates the responses based on your configured criteria.
 
 ## Overview
 
@@ -15,7 +15,7 @@ API monitors make HTTP requests to your endpoints and check the responses. This 
 
 ## Creating an API Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **API** as the monitor type
 4. Enter the API URL and configure the request settings
@@ -85,7 +85,7 @@ For POST, PUT, and PATCH requests, you can specify a JSON request body. You can 
 
 #### Do Not Follow Redirects
 
-By default, OneUptime follows HTTP redirects (301, 302, etc.). Enable this option if you want to monitor the redirect response itself rather than the final destination.
+By default, Cast Operations follows HTTP redirects (301, 302, etc.). Enable this option if you want to monitor the redirect response itself rather than the final destination.
 
 #### Allow Self-Signed Certificates
 
@@ -99,7 +99,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

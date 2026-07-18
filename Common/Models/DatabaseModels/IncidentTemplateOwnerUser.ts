@@ -158,7 +158,7 @@ export default class IncidentTemplateOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -248,7 +248,7 @@ export default class IncidentTemplateOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "User ID",
-    description: "ID of your OneUptime User in which this object belongs",
+    description: "ID of your Cast Operations User in which this object belongs",
     example: "b8c9d0e1-f2a3-4b4c-5d6e-7f8a9b0c1d2e",
   })
   @Column({
@@ -339,7 +339,7 @@ export default class IncidentTemplateOwnerUser extends BaseModel {
     canReadOnRelationQuery: true,
     title: "IncidentTemplate ID",
     description:
-      "ID of your OneUptime IncidentTemplate in which this object belongs",
+      "ID of your Cast Operations IncidentTemplate in which this object belongs",
     example: "a7b8c9d0-e1f2-4a3b-4c5d-6e7f8a9b0c1d",
   })
   @Column({

@@ -1,6 +1,6 @@
 # Moniteur Docker
 
-La surveillance Docker vous permet de surveiller la santé et les performances de vos hôtes Docker ainsi que des conteneurs qui y sont exécutés. OneUptime collecte des métriques et des journaux de conteneurs via un collecteur OpenTelemetry préconfiguré (l'**agent Docker OneUptime**) et les évalue en fonction de vos critères configurés.
+La surveillance Docker vous permet de surveiller la santé et les performances de vos hôtes Docker ainsi que des conteneurs qui y sont exécutés. Cast Operations collecte des métriques et des journaux de conteneurs via un collecteur OpenTelemetry préconfiguré (l'**agent Docker Cast Operations**) et les évalue en fonction de vos critères configurés.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs Docker utilisent les métriques et les journaux de vos hôtes pour
 
 ## Création d'un moniteur Docker
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Docker** comme type de moniteur
 4. Sélectionnez l'hôte Docker et la portée de ressources à surveiller
@@ -25,7 +25,7 @@ Les moniteurs Docker utilisent les métriques et les journaux de vos hôtes pour
 
 ### Hôte Docker
 
-Sélectionnez l'hôte Docker à surveiller. Les hôtes sont automatiquement enregistrés la première fois que l'agent Docker OneUptime leur transmet des données de télémétrie — il n'est pas nécessaire de les créer manuellement.
+Sélectionnez l'hôte Docker à surveiller. Les hôtes sont automatiquement enregistrés la première fois que l'agent Docker Cast Operations leur transmet des données de télémétrie — il n'est pas nécessaire de les créer manuellement.
 
 ### Portée de la ressource
 
@@ -126,7 +126,7 @@ L'agent Docker utilise le récepteur `docker_stats` d'OpenTelemetry, qui interro
 
 ## Modèles d'alertes préconfigurés
 
-OneUptime fournit des modèles pour les scénarios courants de surveillance Docker :
+Cast Operations fournit des modèles pour les scénarios courants de surveillance Docker :
 
 | Modèle                             | Description                                            | Seuil | Agrégation          |
 | ---------------------------------- | ------------------------------------------------------ | ----- | ------------------- |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 Pour utiliser la surveillance Docker, vous devez :
 
-1. Installer l'agent Docker OneUptime sur chaque hôte Docker que vous souhaitez surveiller
+1. Installer l'agent Docker Cast Operations sur chaque hôte Docker que vous souhaitez surveiller
 2. Passer `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` et `DOCKER_HOST_NAME` comme variables d'environnement
 3. S'assurer que les conteneurs que vous souhaitez observer utilisent le pilote de journalisation `json-file` (voir ci-dessus)
 
-L'agent est publié sous le nom `oneuptime/docker-agent:release` sur Docker Hub. Consultez le [guide d'installation de l'agent Docker](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent) pour les exemples complets `docker run` et `docker compose`.
+L'agent est publié sous le nom `oneuptime/docker-agent:release` sur Docker Hub. Consultez le [guide d'installation de l'agent Docker](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) pour les exemples complets `docker run` et `docker compose`.
 
 ## Dépannage
 
@@ -236,7 +236,7 @@ Cela signifie que le glob d'inclusion `/var/lib/docker/containers/*/*-json.log` 
 
 ### Les journaux arrivent mais sont regroupés sous le mauvais nom d'hôte
 
-OneUptime enregistre automatiquement les hôtes Docker par `resource.host.name`, qui est extrait de la variable d'environnement `DOCKER_HOST_NAME`. Modifier `DOCKER_HOST_NAME` après le premier lot de télémétrie créera une deuxième ligne d'hôte plutôt que de renommer celle existante.
+Cast Operations enregistre automatiquement les hôtes Docker par `resource.host.name`, qui est extrait de la variable d'environnement `DOCKER_HOST_NAME`. Modifier `DOCKER_HOST_NAME` après le premier lot de télémétrie créera une deuxième ligne d'hôte plutôt que de renommer celle existante.
 
 ### Les incidents ne se déclenchent pas pour "CPU élevé"
 

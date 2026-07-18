@@ -1,8 +1,8 @@
-# OneUptime Kubernetes 代理（Helm）
+# Cast Operations Kubernetes 代理（Helm）
 
 ## 概述
 
-OneUptime Kubernetes 代理是一个预打包的 Helm chart，可在你的集群上安装一套基于 OpenTelemetry 的采集器流水线。它会发送节点、Pod、容器和集群指标；Kubernetes 事件；Pod 日志；并且——在默认开启 eBPF 的情况下——还会发送应用追踪、HTTP RED 指标、服务图数据以及 Pod 到 Pod 的网络流量指标。无需更改代码、无需 SDK，只需一条 `helm install`。
+Cast Operations Kubernetes 代理是一个预打包的 Helm chart，可在你的集群上安装一套基于 OpenTelemetry 的采集器流水线。它会发送节点、Pod、容器和集群指标；Kubernetes 事件；Pod 日志；并且——在默认开启 eBPF 的情况下——还会发送应用追踪、HTTP RED 指标、服务图数据以及 Pod 到 Pod 的网络流量指标。无需更改代码、无需 SDK，只需一条 `helm install`。
 
 本页是**安装指南**。如需在代理采集的数据之上配置 Kubernetes 监视器和告警，请参阅 [Kubernetes 代理（监视器）](/docs/monitor/kubernetes-agent)。
 
@@ -11,12 +11,12 @@ OneUptime Kubernetes 代理是一个预打包的 Helm chart，可在你的集群
 - 一个正在运行的 Kubernetes 集群（v1.23+）
 - 已配置可访问你集群的 `kubectl`
 - 已安装 `helm` v3
-- 一个 **OneUptime API 密钥**——可从 _Project Settings → API Keys_ 创建
+- 一个 **Cast Operations API 密钥**——可从 _Project Settings → API Keys_ 创建
 
-## 步骤 1 — 添加 OneUptime Helm 仓库
+## 步骤 1 — 添加 Cast Operations Helm 仓库
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 ```
 
@@ -34,7 +34,7 @@ helm repo update
 
 ## 步骤 3 — 安装 Kubernetes 代理
 
-将 `YOUR_ONEUPTIME_URL`、`YOUR_ONEUPTIME_API_KEY` 以及集群名称替换为适用于你环境的值。集群名称决定了该集群在 OneUptime 中的显示方式——请选择一个稳定的名称，例如 `prod-us-east-1`。
+将 `YOUR_ONEUPTIME_URL`、`YOUR_ONEUPTIME_API_KEY` 以及集群名称替换为适用于你环境的值。集群名称决定了该集群在 Cast Operations 中的显示方式——请选择一个稳定的名称，例如 `prod-us-east-1`。
 
 ### 标准集群（自管理、EKS on EC2、GKE Standard、AKS）
 
@@ -105,7 +105,7 @@ kubernetes-agent-xxxxxxxxxx-xxxxx             1/1     Running   0          1m
 kubernetes-agent-logs-yyyyyyyyyy-yyyyy        1/1     Running   0          1m
 ```
 
-代理连接成功后，你的集群将自动出现在 OneUptime 仪表板的 **Kubernetes** 部分。
+代理连接成功后，你的集群将自动出现在 Cast Operations 仪表板的 **Kubernetes** 部分。
 
 ## 配置选项
 
@@ -231,7 +231,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 **你的基于指标的监视器不会有任何变动。** eBPF RED 指标——请求速率、错误率、持续时间——属于**指标**系列。OBI 会根据每一个请求计算它们，并且它们走的是指标流水线，而采样器并不在这条流水线上。在 `percentage: 10` 下，你得到的是十分之一的追踪，以及 100% 准确的速率/错误/延迟。构建在这些指标之上的仪表板和监视器不受影响。
 
-**但你的基于 span 的监视器会变。** 凡是 OneUptime 从 span 本身派生出来的东西，都会随着采样率一起按比例缩小——在开启它之前，请先看下面的警告。
+**但你的基于 span 的监视器会变。** 凡是 Cast Operations 从 span 本身派生出来的东西，都会随着采样率一起按比例缩小——在开启它之前，请先看下面的警告。
 
 | 键 | 含义 |
 | --- | ------- |
@@ -247,7 +247,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 - **多集群默认即可正常工作。** 两个代理只有在 `hashSeed` 和 `percentage` 上都一致时，才会保留同一条追踪。两者在各处的默认值都相同，因此一条跨越两个集群的追踪无需任何额外配置就能完整存活。只有当你想刻意让两个采样层级**去相关**时才去改 `hashSeed`——因为采样决策是对同一个哈希设定阈值，所以相同种子在不同比例下是嵌套的，第二个层级只会在第一个层级已经保留的追踪里再挑一遍，而不是独立抽样。
 - **Pod 日志从不会被采样**，因此在 `ebpf.logToTraceCorrelation: true` 下，每一条日志记录仍然带着追踪 ID，而这些追踪中只有 `percentage`% 会被保留。大约 (100 − `percentage`)% 的日志记录会显示一个走不通的追踪链接。追踪 → 日志的跳转不受影响；只有日志 → 追踪可能落空。
 
-> **设置这一项时，请重新调校你的基于 span 的监视器。** 采样会减少到达 OneUptime 的 span，因此凡是统计 span 的东西都会统计得更少：一个基于 `Span Count` 的 **Traces** 监视器，以及一个基于 `Exception Count` 的 **Exceptions** 监视器，都只会看到昨天数据量的约 `percentage`%。一个按未采样流量调校过的阈值会悄无声息地不再被跨越——监视器不会报错，它只是陷入沉默。设定采样率时，请把这些阈值除以同样的倍数；采样率是集群级的，因此没有办法让某个单独的服务豁免于它。错误**分组**的退化比线性还要糟糕：常见的异常仍然会浮现出来，但一个罕见的一次性异常更可能是彻底消失，而不是以十分之一的频率出现。
+> **设置这一项时，请重新调校你的基于 span 的监视器。** 采样会减少到达 Cast Operations 的 span，因此凡是统计 span 的东西都会统计得更少：一个基于 `Span Count` 的 **Traces** 监视器，以及一个基于 `Exception Count` 的 **Exceptions** 监视器，都只会看到昨天数据量的约 `percentage`%。一个按未采样流量调校过的阈值会悄无声息地不再被跨越——监视器不会报错，它只是陷入沉默。设定采样率时，请把这些阈值除以同样的倍数；采样率是集群级的，因此没有办法让某个单独的服务豁免于它。错误**分组**的退化比线性还要糟糕：常见的异常仍然会浮现出来，但一个罕见的一次性异常更可能是彻底消失，而不是以十分之一的频率出现。
 
 > **为什么这里没有日志或指标采样。** 采集器的采样器根本无法对指标采样。它可以对日志采样，但它的随机性来源是追踪 ID——而 Pod 日志没有追踪 ID。于是每一条没有追踪 ID 的记录都会哈希到同一个桶里，因此一个日志采样率并不会稀释数据流：取决于种子，它要么全部保留，要么全部删除。与其提供一个会悄悄删除你日志的旋钮，这份 chart 索性不提供。请用[按日志严重性过滤](#按日志严重性过滤)和[命名空间过滤](#命名空间过滤)来精简日志，它们对自己移除的内容是精确的。
 
@@ -330,7 +330,7 @@ oneuptime:
 clusterName: prod
 ```
 
-标签匹配不区分大小写，因此现有的手动创建的 `Production` 标签会被复用，而不会被重复创建。在 OneUptime UI 中手动添加的标签永远不会被代理移除。
+标签匹配不区分大小写，因此现有的手动创建的 `Production` 标签会被复用，而不会被重复创建。在 Cast Operations UI 中手动添加的标签永远不会被代理移除。
 
 ## 升级代理
 
@@ -368,7 +368,7 @@ kubectl delete namespace oneuptime-agent
 
 ## 通过 eBPF 实现应用追踪与 HTTP 指标（默认开启）
 
-该 chart 在每个节点上运行一个带有 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) 的 DaemonSet。它将 eBPF 程序加载到内核中，并自动捕获来自每个受支持运行时（Go、.NET、Java、Node.js、Python、Ruby、Rust）的 HTTP/HTTPS、gRPC 和 SQL/Redis 流量——无需 SDK，也无需 sidecar。追踪和请求指标随后通过集群内的采集器流向 OneUptime。
+该 chart 在每个节点上运行一个带有 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) 的 DaemonSet。它将 eBPF 程序加载到内核中，并自动捕获来自每个受支持运行时（Go、.NET、Java、Node.js、Python、Ruby、Rust）的 HTTP/HTTPS、gRPC 和 SQL/Redis 流量——无需 SDK，也无需 sidecar。追踪和请求指标随后通过集群内的采集器流向 Cast Operations。
 
 **要求：** 启用 BTF 的 Linux 内核 **5.8+**（在 Debian 11+、Ubuntu 20.10+、Fedora 34+、RHEL/Stream 9+ 上为默认）。eBPF DaemonSet 以**特权模式**运行，因为它必须如此才能加载 eBPF 程序。
 
@@ -408,7 +408,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
 ## 减少采集的数据量
 
-开箱即用时，代理是为**覆盖范围**而调优的——它会发送来自整个集群的指标、Pod 日志和 eBPF 追踪，因此每个仪表板和监视器从第一天起就能正常工作。在大型或繁忙的集群上，这可能会超出你所需的遥测量，表现为更高的摄取量（在 OneUptime Cloud 上还意味着更高的成本）。这里的任何设置都不是必需的，但如果某个集群发送的数据超出你的需要，以下就是可以调整的旋钮——大致按影响大小排序。
+开箱即用时，代理是为**覆盖范围**而调优的——它会发送来自整个集群的指标、Pod 日志和 eBPF 追踪，因此每个仪表板和监视器从第一天起就能正常工作。在大型或繁忙的集群上，这可能会超出你所需的遥测量，表现为更高的摄取量（在 Cast Operations Cloud 上还意味着更高的成本）。这里的任何设置都不是必需的，但如果某个集群发送的数据超出你的需要，以下就是可以调整的旋钮——大致按影响大小排序。
 
 诀窍在于**停止采集你不会去查看的内容**，而不是采集所有内容再花钱把它存储起来。下面的每个调整项都是一个 Helm 值，因此你可以在 `helm upgrade --reuse-values` 上用 `--set` 应用它，并以同样的方式将它回滚。
 
@@ -446,7 +446,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
   有关严重性是如何确定的，以及无法分类的日志会如何处理，请参阅[按日志严重性过滤](#按日志严重性过滤)。
 
-- **完全不需要 OneUptime 中的 Pod 日志？** 将它们关闭：
+- **完全不需要 Cast Operations 中的 Pod 日志？** 将它们关闭：
 
   ```bash
   helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
@@ -636,10 +636,10 @@ helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
 
 ## 故障排查
 
-> **最快路径——运行诊断脚本。** 它会检查 Pod 健康状况、解码并验证摄取密钥、检查你的集群能否连通 OneUptime，并询问 OneUptime 你的令牌是否真的被接受——然后打印出单一的根因结论：
+> **最快路径——运行诊断脚本。** 它会检查 Pod 健康状况、解码并验证摄取密钥、检查你的集群能否连通 Cast Operations，并询问 Cast Operations 你的令牌是否真的被接受——然后打印出单一的根因结论：
 >
 > ```bash
-> curl -fsSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
+> curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
 >   | bash -s -- -n oneuptime-agent
 > ```
 >
@@ -664,10 +664,10 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 1. 检查代理 Pod 是否正在运行：`kubectl get pods -n oneuptime-agent`
 2. 检查 metrics-collector 日志：`kubectl logs -n oneuptime-agent -l component=metrics-collector -c otel-collector`（这里没有错误并**不**意味着数据正在到达——见上文）
-3. **验证摄取密钥。** 直接询问 OneUptime 你的令牌是否被接受（`200` = 有效，`401` = 未知/已吊销）：
+3. **验证摄取密钥。** 直接询问 Cast Operations 你的令牌是否被接受（`200` = 有效，`401` = 未知/已吊销）：
 
    ```bash
-   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://oneuptime.com/otlp/v1/validate
+   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
    ```
 
    如果它返回 `401`，则你发布版本中的密钥是错误的或已被吊销。从 _Project Settings → Telemetry Ingestion Keys_ 复制一个有效的密钥并重新部署：
@@ -678,7 +678,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
      --set oneuptime.apiKey=<LIVE_KEY>
    ```
 
-4. 验证你的 OneUptime URL 是否正确，以及你的集群能否通过网络连通它。
+4. 验证你的 Cast Operations URL 是否正确，以及你的集群能否通过网络连通它。
 5. 如果你在重新安装时更改了 `clusterName`，代理会显示为一个**新**集群——旧条目仍保持 "Disconnected"（这是预期的；它已经过时了）。
 
 ### 没有日志出现（仅 API 模式）
@@ -711,7 +711,7 @@ kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
 
 1. 确认 eBPF DaemonSet 健康：`kubectl get pods -n oneuptime-agent -l component=ebpf-instrument`
 2. 打开调试追踪打印器以确认 OBI 正在捕获流量：`--set ebpf.printTraces=true --set ebpf.logLevel=debug`，然后检查 `kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200`
-3. 如果你在 OBI 的 stdout 中看到了 span 但在仪表板中没有，则问题出在采集器 → OneUptime 的导出上——检查 metrics-collector Pod 的日志。
+3. 如果你在 OBI 的 stdout 中看到了 span 但在仪表板中没有，则问题出在采集器 → Cast Operations 的导出上——检查 metrics-collector Pod 的日志。
 
 ## 后续步骤
 

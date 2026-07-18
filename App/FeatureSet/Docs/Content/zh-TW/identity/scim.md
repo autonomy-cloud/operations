@@ -1,25 +1,25 @@
 # SCIM（跨網域身分管理系統，System for Cross-domain Identity Management）
 
-OneUptime 支援 SCIM v2.0 通訊協定，用於自動化的使用者佈建與解除佈建。SCIM 讓 Azure AD、Okta 等身分提供者（IdP）以及其他企業身分系統，能夠自動管理使用者對 OneUptime 專案與狀態頁面的存取權。
+Cast Operations 支援 SCIM v2.0 通訊協定，用於自動化的使用者佈建與解除佈建。SCIM 讓 Azure AD、Okta 等身分提供者（IdP）以及其他企業身分系統，能夠自動管理使用者對 Cast Operations 專案與狀態頁面的存取權。
 
 ## 概觀
 
 SCIM 整合提供下列優點：
 
-- **自動化使用者佈建**：當使用者在您的 IdP 中被指派時，自動於 OneUptime 中建立該使用者
-- **自動化使用者解除佈建**：當使用者在您的 IdP 中被取消指派時，自動將其從 OneUptime 中移除
-- **使用者屬性同步**：讓使用者資訊在您的 IdP 與 OneUptime 之間保持同步
-- **集中式存取管理**：從您既有的身分管理系統管理 OneUptime 的存取權
+- **自動化使用者佈建**：當使用者在您的 IdP 中被指派時，自動於 Cast Operations 中建立該使用者
+- **自動化使用者解除佈建**：當使用者在您的 IdP 中被取消指派時，自動將其從 Cast Operations 中移除
+- **使用者屬性同步**：讓使用者資訊在您的 IdP 與 Cast Operations 之間保持同步
+- **集中式存取管理**：從您既有的身分管理系統管理 Cast Operations 的存取權
 
 ## 專案的 SCIM
 
-專案 SCIM 讓身分提供者能夠管理 OneUptime 專案內的團隊成員。
+專案 SCIM 讓身分提供者能夠管理 Cast Operations 專案內的團隊成員。
 
 ### 設定專案 SCIM
 
 1. **前往專案設定**
 
-   - 進入您的 OneUptime 專案
+   - 進入您的 Cast Operations 專案
    - 前往 **Project Settings** > **Team** > **SCIM**
 
 2. **設定 SCIM 選項**
@@ -30,7 +30,7 @@ SCIM 整合提供下列優點：
    - 複製 **SCIM Base URL** 與 **Bearer Token**，以供您的 IdP 設定使用
 
 3. **設定您的身分提供者**
-   - 使用 SCIM Base URL：`https://oneuptime.com/scim/v2/{scimId}`
+   - 使用 SCIM Base URL：`https://visca.ai/scim/v2/{scimId}`
    - 使用提供的權杖設定 Bearer 權杖驗證
    - 對應使用者屬性（email 為必填）
 
@@ -52,12 +52,12 @@ SCIM 整合提供下列優點：
 
 ### 專案 SCIM 使用者生命週期
 
-1. **在 IdP 中指派使用者**：當使用者在您的 IdP 中被指派至 OneUptime 時
-2. **SCIM 佈建**：IdP 呼叫 OneUptime SCIM API 以建立使用者
+1. **在 IdP 中指派使用者**：當使用者在您的 IdP 中被指派至 Cast Operations 時
+2. **SCIM 佈建**：IdP 呼叫 Cast Operations SCIM API 以建立使用者
 3. **團隊成員資格**：使用者會被自動加入已設定的預設團隊
-4. **授予存取權**：使用者現在可以存取該 OneUptime 專案
+4. **授予存取權**：使用者現在可以存取該 Cast Operations 專案
 5. **取消指派使用者**：當使用者在 IdP 中被取消指派時
-6. **SCIM 解除佈建**：IdP 呼叫 OneUptime SCIM API 以移除使用者
+6. **SCIM 解除佈建**：IdP 呼叫 Cast Operations SCIM API 以移除使用者
 7. **撤銷存取權**：使用者失去對該專案的存取權
 
 ## 狀態頁面的 SCIM
@@ -68,7 +68,7 @@ SCIM 整合提供下列優點：
 
 1. **前往狀態頁面設定**
 
-   - 進入您的 OneUptime 狀態頁面
+   - 進入您的 Cast Operations 狀態頁面
    - 前往 **Status Page Settings** > **Private Users** > **SCIM**
 
 2. **設定 SCIM 選項**
@@ -78,7 +78,7 @@ SCIM 整合提供下列優點：
    - 複製 **SCIM Base URL** 與 **Bearer Token**，以供您的 IdP 設定使用
 
 3. **設定您的身分提供者**
-   - 使用 SCIM Base URL：`https://oneuptime.com/status-page-scim/v2/{scimId}`
+   - 使用 SCIM Base URL：`https://visca.ai/status-page-scim/v2/{scimId}`
    - 使用提供的權杖設定 Bearer 權杖驗證
    - 對應使用者屬性（email 為必填）
 
@@ -95,28 +95,28 @@ SCIM 整合提供下列優點：
 
 ### 狀態頁面 SCIM 使用者生命週期
 
-1. **在 IdP 中指派使用者**：當使用者在您的 IdP 中被指派至 OneUptime 狀態頁面時
-2. **SCIM 佈建**：IdP 呼叫 OneUptime SCIM API 以建立訂閱者
+1. **在 IdP 中指派使用者**：當使用者在您的 IdP 中被指派至 Cast Operations 狀態頁面時
+2. **SCIM 佈建**：IdP 呼叫 Cast Operations SCIM API 以建立訂閱者
 3. **授予存取權**：使用者現在可以存取該私人狀態頁面
 4. **取消指派使用者**：當使用者在 IdP 中被取消指派時
-5. **SCIM 解除佈建**：IdP 呼叫 OneUptime SCIM API 以移除訂閱者
+5. **SCIM 解除佈建**：IdP 呼叫 Cast Operations SCIM API 以移除訂閱者
 6. **撤銷存取權**：使用者失去對該狀態頁面的存取權
 
 ## 身分提供者設定
 
 ### Microsoft Entra ID（前身為 Azure AD）
 
-Microsoft Entra ID 提供企業等級的身分管理，並具備強大的 SCIM 佈建功能。請依照下列詳細步驟設定與 OneUptime 的 SCIM 佈建。
+Microsoft Entra ID 提供企業等級的身分管理，並具備強大的 SCIM 佈建功能。請依照下列詳細步驟設定與 Cast Operations 的 SCIM 佈建。
 
 #### 先決條件
 
 - 具備 Premium P1 或 P2 授權的 Microsoft Entra ID 租用戶（自動佈建所需）
-- 採用 Scale 方案或更高方案的 OneUptime 帳戶
-- 對 Microsoft Entra ID 與 OneUptime 兩者皆具有管理員存取權
+- 採用 Scale 方案或更高方案的 Cast Operations 帳戶
+- 對 Microsoft Entra ID 與 Cast Operations 兩者皆具有管理員存取權
 
-#### 步驟 1：從 OneUptime 取得 SCIM 設定
+#### 步驟 1：從 Cast Operations 取得 SCIM 設定
 
-1. 登入您的 OneUptime 儀表板
+1. 登入您的 Cast Operations 儀表板
 2. 前往 **Project Settings** > **Team** > **SCIM**
 3. 點選 **Create SCIM Configuration**
 4. 輸入易記名稱（例如「Microsoft Entra ID Provisioning」）
@@ -134,18 +134,18 @@ Microsoft Entra ID 提供企業等級的身分管理，並具備強大的 SCIM �
 2. 前往 **Identity** > **Applications** > **Enterprise applications**
 3. 點選 **+ New application**
 4. 點選 **+ Create your own application**
-5. 輸入名稱（例如「OneUptime」）
+5. 輸入名稱（例如「Cast Operations」）
 6. 選取 **Integrate any other application you don't find in the gallery (Non-gallery)**
 7. 點選 **Create**
 
 #### 步驟 3：設定 SCIM 佈建
 
-1. 在您的 OneUptime 企業應用程式中，前往 **Provisioning**
+1. 在您的 Cast Operations 企業應用程式中，前往 **Provisioning**
 2. 點選 **Get started**
 3. 將 **Provisioning Mode** 設定為 **Automatic**
 4. 在 **Admin Credentials** 下：
-   - **Tenant URL**：輸入來自 OneUptime 的 SCIM Base URL（例如 `https://oneuptime.com/api/identity/scim/v2/{your-scim-id}`）
-   - **Secret Token**：輸入來自 OneUptime 的 Bearer Token
+   - **Tenant URL**：輸入來自 Cast Operations 的 SCIM Base URL（例如 `https://visca.ai/api/identity/scim/v2/{your-scim-id}`）
+   - **Secret Token**：輸入來自 Cast Operations 的 Bearer Token
 5. 點選 **Test Connection** 以驗證設定
 6. 點選 **Save**
 
@@ -155,7 +155,7 @@ Microsoft Entra ID 提供企業等級的身分管理，並具備強大的 SCIM �
 2. 點選 **Provision Azure Active Directory Users**
 3. 設定下列屬性對應：
 
-| Azure AD 屬性                                                 | OneUptime SCIM 屬性            | 是否必填 |
+| Azure AD 屬性                                                 | Cast Operations SCIM 屬性            | 是否必填 |
 | ------------------------------------------------------------- | ------------------------------ | -------- |
 | `userPrincipalName`                                           | `userName`                     | 是       |
 | `mail`                                                        | `emails[type eq "work"].value` | 建議     |
@@ -169,14 +169,14 @@ Microsoft Entra ID 提供企業等級的身分管理，並具備強大的 SCIM �
 
 #### 步驟 5：設定群組佈建（選用）
 
-若您在 OneUptime 中啟用了 **Push Groups**：
+若您在 Cast Operations 中啟用了 **Push Groups**：
 
 1. 返回 **Mappings**
 2. 點選 **Provision Azure Active Directory Groups**
 3. 將 **Enabled** 設定為 **Yes** 以啟用群組佈建
 4. 設定下列屬性對應：
 
-| Azure AD 屬性 | OneUptime SCIM 屬性 |
+| Azure AD 屬性 | Cast Operations SCIM 屬性 |
 | ------------- | ------------------- |
 | `displayName` | `displayName`       |
 | `members`     | `members`           |
@@ -185,9 +185,9 @@ Microsoft Entra ID 提供企業等級的身分管理，並具備強大的 SCIM �
 
 #### 步驟 6：指派使用者與群組
 
-1. 在您的 OneUptime 企業應用程式中，前往 **Users and groups**
+1. 在您的 Cast Operations 企業應用程式中，前往 **Users and groups**
 2. 點選 **+ Add user/group**
-3. 選取您想佈建至 OneUptime 的使用者及／或群組
+3. 選取您想佈建至 Cast Operations 的使用者及／或群組
 4. 點選 **Assign**
 
 #### 步驟 7：開始佈建
@@ -208,17 +208,17 @@ Microsoft Entra ID 提供企業等級的身分管理，並具備強大的 SCIM �
 
 ### Okta
 
-Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照下列詳細步驟設定與 OneUptime 的 SCIM 佈建。
+Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照下列詳細步驟設定與 Cast Operations 的 SCIM 佈建。
 
 #### 先決條件
 
 - 具備佈建功能（Lifecycle Management 功能）的 Okta 租用戶
-- 採用 Scale 方案或更高方案的 OneUptime 帳戶
-- 對 Okta 與 OneUptime 兩者皆具有管理員存取權
+- 採用 Scale 方案或更高方案的 Cast Operations 帳戶
+- 對 Okta 與 Cast Operations 兩者皆具有管理員存取權
 
-#### 步驟 1：從 OneUptime 取得 SCIM 設定
+#### 步驟 1：從 Cast Operations 取得 SCIM 設定
 
-1. 登入您的 OneUptime 儀表板
+1. 登入您的 Cast Operations 儀表板
 2. 前往 **Project Settings** > **Team** > **SCIM**
 3. 點選 **Create SCIM Configuration**
 4. 輸入易記名稱（例如「Okta Provisioning」）
@@ -236,7 +236,7 @@ Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照
 
 1. 登入您的 Okta Admin Console
 2. 前往 **Applications** > **Applications**
-3. 找到並選取您既有的 OneUptime 應用程式
+3. 找到並選取您既有的 Cast Operations 應用程式
 
 **若要建立新的應用程式：**
 
@@ -244,13 +244,13 @@ Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照
 2. 前往 **Applications** > **Applications**
 3. 點選 **Create App Integration**
 4. 選取 **SAML 2.0** 並點選 **Next**
-5. 在 App name 中輸入「OneUptime」
+5. 在 App name 中輸入「Cast Operations」
 6. 完成 SAML 設定（請參閱 SSO 文件）
 7. 點選 **Finish**
 
 #### 步驟 3：啟用 SCIM 佈建
 
-1. 在您的 OneUptime 應用程式中，前往 **General** 索引標籤
+1. 在您的 Cast Operations 應用程式中，前往 **General** 索引標籤
 2. 在 **App Settings** 區段中，點選 **Edit**
 3. 在 **Provisioning** 下，選取 **SCIM**
 4. 點選 **Save**
@@ -263,7 +263,7 @@ Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照
 3. 點選 **Configure API Integration**
 4. 勾選 **Enable API integration**
 5. 設定下列項目：
-   - **SCIM connector base URL**：輸入來自 OneUptime 的 SCIM Base URL（例如 `https://oneuptime.com/api/identity/scim/v2/{your-scim-id}`）
+   - **SCIM connector base URL**：輸入來自 Cast Operations 的 SCIM Base URL（例如 `https://visca.ai/api/identity/scim/v2/{your-scim-id}`）
    - **Unique identifier field for users**：輸入 `userName`
    - **Supported provisioning actions**：選取您想啟用的動作：
      - Import New Users and Profile Updates
@@ -290,7 +290,7 @@ Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照
 1. 向下捲動至 **Attribute Mappings**
 2. 確認或設定下列對應：
 
-| Okta 屬性          | OneUptime SCIM 屬性             | 方向        |
+| Okta 屬性          | Cast Operations SCIM 屬性             | 方向        |
 | ------------------ | ------------------------------- | ----------- |
 | `userName`         | `userName`                      | Okta to App |
 | `user.email`       | `emails[primary eq true].value` | Okta to App |
@@ -303,7 +303,7 @@ Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照
 
 #### 步驟 7：設定推送群組（選用）
 
-若您在 OneUptime 中啟用了 **Push Groups**：
+若您在 Cast Operations 中啟用了 **Push Groups**：
 
 1. 前往 **Push Groups** 索引標籤
 2. 點選 **+ Push Groups**
@@ -322,9 +322,9 @@ Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照
 #### 步驟 9：驗證佈建
 
 1. 在 Okta Admin Console 中前往 **Reports** > **System Log**
-2. 篩選與您的 OneUptime 應用程式相關的事件
+2. 篩選與您的 Cast Operations 應用程式相關的事件
 3. 確認佈建事件已成功
-4. 檢查 OneUptime 以確認使用者已被建立
+4. 檢查 Cast Operations 以確認使用者已被建立
 
 #### Okta 疑難排解
 
@@ -332,15 +332,15 @@ Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照
 - **使用者未佈建**：確保使用者已指派至該應用程式，且已啟用佈建
 - **重複的使用者**：確保 `userName` 屬性是唯一的，且正確對應至 email
 - **群組推送失敗**：確認群組存在且具有正確的成員資格
-- **錯誤：401 Unauthorized**：在 OneUptime 中重新產生 Bearer Token 並更新 Okta
+- **錯誤：401 Unauthorized**：在 Cast Operations 中重新產生 Bearer Token 並更新 Okta
 
 ---
 
 ### 其他身分提供者
 
-OneUptime 的 SCIM 實作遵循 SCIM v2.0 規格，應可與任何符合規範的身分提供者搭配運作。一般設定步驟：
+Cast Operations 的 SCIM 實作遵循 SCIM v2.0 規格，應可與任何符合規範的身分提供者搭配運作。一般設定步驟：
 
-1. **SCIM Base URL**：`https://oneuptime.com/api/identity/scim/v2/{scim-id}`（用於專案）或 `https://oneuptime.com/api/identity/status-page-scim/v2/{scim-id}`（用於狀態頁面）
+1. **SCIM Base URL**：`https://visca.ai/api/identity/scim/v2/{scim-id}`（用於專案）或 `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}`（用於狀態頁面）
 2. **驗證**：HTTP Bearer Token
 3. **必填使用者屬性**：`userName`（必須是有效的電子郵件地址）
 4. **支援的操作**：對 Users 與 Groups 進行 GET、POST、PUT、PATCH、DELETE
@@ -399,15 +399,15 @@ OneUptime 的 SCIM 實作遵循 SCIM v2.0 規格，應可與任何符合規範�
 
 ### 當使用者被解除佈建時會發生什麼事？
 
-當使用者被解除佈建時（無論是透過 DELETE 請求，或是將 `active: false` 進行設定），他們會從 SCIM 設定中所設定的團隊中被移除。使用者帳戶本身仍會保留在 OneUptime 中，但會失去對該專案的存取權。
+當使用者被解除佈建時（無論是透過 DELETE 請求，或是將 `active: false` 進行設定），他們會從 SCIM 設定中所設定的團隊中被移除。使用者帳戶本身仍會保留在 Cast Operations 中，但會失去對該專案的存取權。
 
 ### 我可以在不使用 SSO 的情況下使用 SCIM 嗎？
 
-可以，SCIM 與 SSO 是各自獨立的功能。您可以使用 SCIM 進行使用者佈建，同時允許使用者以其 OneUptime 密碼或任何其他驗證方式登入。
+可以，SCIM 與 SSO 是各自獨立的功能。您可以使用 SCIM 進行使用者佈建，同時允許使用者以其 Cast Operations 密碼或任何其他驗證方式登入。
 
-### 我該如何處理已存在於 OneUptime 中的使用者？
+### 我該如何處理已存在於 Cast Operations 中的使用者？
 
-當 SCIM 嘗試建立一個已存在的使用者（以 email 比對）時，OneUptime 只會將其加入所設定的預設團隊，而不會建立重複的使用者。
+當 SCIM 嘗試建立一個已存在的使用者（以 email 比對）時，Cast Operations 只會將其加入所設定的預設團隊，而不會建立重複的使用者。
 
 ### 預設團隊與推送群組之間有什麼差異？
 

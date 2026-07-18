@@ -1,8 +1,8 @@
-# OneUptime Docker Agent
+# Cast Operations Docker Agent
 
 ## Overzicht
 
-De OneUptime Docker Agent is een kant-en-klare container-image die wordt geleverd met een afgestemde OpenTelemetry Collector-configuratie. Draai hem naast je bestaande containers en hij ontdekt automatisch elke container op de host, verzamelt CPU- / geheugen- / netwerk- / block-I/O-metrics plus containerlogs, en stuurt alles via OTLP door naar OneUptime. Eén image, één commando.
+De Cast Operations Docker Agent is een kant-en-klare container-image die wordt geleverd met een afgestemde OpenTelemetry Collector-configuratie. Draai hem naast je bestaande containers en hij ontdekt automatisch elke container op de host, verzamelt CPU- / geheugen- / netwerk- / block-I/O-metrics plus containerlogs, en stuurt alles via OTLP door naar Cast Operations. Eén image, één commando.
 
 Deze pagina is de **installatiehandleiding**. Voor het configureren van Docker-monitors en -waarschuwingen bovenop de gegevens die de agent verzamelt, zie [Docker Monitor](/docs/monitor/docker-monitor).
 
@@ -10,11 +10,11 @@ Deze pagina is de **installatiehandleiding**. Voor het configureren van Docker-m
 
 - Docker Engine 20.10+
 - Toegang tot `/var/run/docker.sock` op de host
-- Een **OneUptime Telemetry Ingestion Token** — maak er een aan via _Project Settings → Telemetry Ingestion Keys_ en kopieer de waarde
+- Een **Cast Operations Telemetry Ingestion Token** — maak er een aan via _Project Settings → Telemetry Ingestion Keys_ en kopieer de waarde
 
 ## Snelstart (Eén commando)
 
-Vervang `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` en de hostnaam door waarden voor jouw omgeving. De hostnaam is hoe deze Docker-host in OneUptime zal verschijnen — kies iets als `prod-docker-01`.
+Vervang `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` en de hostnaam door waarden voor jouw omgeving. De hostnaam is hoe deze Docker-host in Cast Operations zal verschijnen — kies iets als `prod-docker-01`.
 
 ```bash
 docker run -d \
@@ -29,7 +29,7 @@ docker run -d \
   oneuptime/docker-agent:release
 ```
 
-Dat is alles. Zodra de agent verbinding maakt, zal je Docker-host automatisch verschijnen in de **Docker**-sectie van het OneUptime-dashboard.
+Dat is alles. Zodra de agent verbinding maakt, zal je Docker-host automatisch verschijnen in de **Docker**-sectie van het Cast Operations-dashboard.
 
 ## Alternatief — Docker Compose
 
@@ -66,7 +66,7 @@ docker compose up -d
 
 | Variabele                 | Vereist | Beschrijving                                                                                                              |
 | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | Ja      | De URL van je OneUptime-instantie (bijvoorbeeld `https://oneuptime.com` of je zelf-gehoste host)                          |
+| `ONEUPTIME_URL`           | Ja      | De URL van je Cast Operations-instantie (bijvoorbeeld `https://visca.ai` of je zelf-gehoste host)                          |
 | `ONEUPTIME_SERVICE_TOKEN` | Ja      | Telemetry ingestion token uit _Project Settings → Telemetry Ingestion Keys_                                               |
 | `DOCKER_HOST_NAME`        | Nee     | Vriendelijke naam voor deze host. Standaard `docker-host`. Stel hem in op iets stabiels per host (bijv. `prod-docker-01`) |
 
@@ -86,7 +86,7 @@ docker logs -f oneuptime-docker-agent
 
 Zoek naar: `"Everything is ready. Begin running and processing data."`
 
-Binnen ongeveer een minuut zou de host in het OneUptime-dashboard moeten verschijnen, met metrics en logs die binnenstromen.
+Binnen ongeveer een minuut zou de host in het Cast Operations-dashboard moeten verschijnen, met metrics en logs die binnenstromen.
 
 ## De agent upgraden
 
@@ -126,12 +126,12 @@ docker compose down
 | **Containerinformatie** | Uptime, aantal herstarts, aantal processen                          |
 | **Containerlogs**       | stdout- / stderr-logs van alle containers                           |
 
-## Zelf-gehoste OneUptime
+## Zelf-gehoste Cast Operations
 
-Als je OneUptime zelf host, stel `ONEUPTIME_URL` dan in op je eigen instantie:
+Als je Cast Operations zelf host, stel `ONEUPTIME_URL` dan in op je eigen instantie:
 
 ```bash
--e ONEUPTIME_URL="https://your-oneuptime-host.example.com"
+-e ONEUPTIME_URL="https://your-operations-host.example.com"
 ```
 
 Als je instantie alleen HTTP gebruikt, gebruik dan `http://` en de juiste poort.
@@ -146,8 +146,8 @@ De agent-container moet als root draaien (`--user 0:0`) om toegang te krijgen to
 
 1. Controleer of de agent draait: `docker ps --filter name=oneuptime-docker-agent`
 2. Bekijk de agent-logs: `docker logs oneuptime-docker-agent | grep -i error`
-3. Verifieer dat je OneUptime-URL en service token correct zijn
-4. Zorg ervoor dat je Docker-host de OneUptime-instantie via het netwerk kan bereiken
+3. Verifieer dat je Cast Operations-URL en service token correct zijn
+4. Zorg ervoor dat je Docker-host de Cast Operations-instantie via het netwerk kan bereiken
 
 ### Er verschijnen geen metrics
 
@@ -162,5 +162,5 @@ Stel de omgevingsvariabele `DOCKER_HOST_NAME` in op een vriendelijke naam en maa
 ## Volgende stappen
 
 - Configureer **Docker Monitors** om te waarschuwen bij container-CPU- / geheugen- / herstart-condities — zie [Docker Monitor](/docs/monitor/docker-monitor).
-- Voor Kubernetes-clusters in plaats van zelfstandige Docker-hosts, gebruik de [OneUptime Kubernetes Agent](/docs/telemetry/kubernetes-agent).
+- Voor Kubernetes-clusters in plaats van zelfstandige Docker-hosts, gebruik de [Cast Operations Kubernetes Agent](/docs/telemetry/kubernetes-agent).
 - Voor niet-gecontaineriseerde hosts (Linux- / macOS- / Windows-VM's en bare metal), gebruik de [Host OpenTelemetry Collector](/docs/telemetry/host-otel-collector).

@@ -144,7 +144,7 @@ export default class NetworkDeviceOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -223,7 +223,7 @@ export default class NetworkDeviceOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Team ID",
-    description: "ID of your OneUptime Team in which this object belongs",
+    description: "ID of your Cast Operations Team in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -303,7 +303,7 @@ export default class NetworkDeviceOwnerTeam extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Network Device ID",
     description:
-      "ID of your OneUptime Network Device in which this object belongs",
+      "ID of your Cast Operations Network Device in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

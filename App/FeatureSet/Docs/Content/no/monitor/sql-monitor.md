@@ -2,7 +2,7 @@
 
 SQL-spørring-monitoren kjører en skrivebeskyttet SQL-spørring etter en tidsplan fra en probe og varsler basert på resultatet — antallet rader som returneres, en skalarverdi, hvor lang tid spørringen tok, eller en spørringsfeil. Den er bygget for bruksområdet «kjør en spørring og opprett en hendelse», for eksempel for å varsle når antallet kansellerte ordrer de siste fem minuttene stiger kraftig, når en kø-tabell vokser seg for stor, eller når en kritisk rad forsvinner.
 
-Fordi spørringen kjøres fra en probe inne i nettverket ditt, trenger OneUptime aldri en direkte tilkobling til databasen din, og hele resultatsettet forlater aldri proben — bare en liten, avgrenset projeksjon av resultatet rapporteres tilbake.
+Fordi spørringen kjøres fra en probe inne i nettverket ditt, trenger Cast Operations aldri en direkte tilkobling til databasen din, og hele resultatsettet forlater aldri proben — bare en liten, avgrenset projeksjon av resultatet rapporteres tilbake.
 
 ## Støttede databaser
 
@@ -16,7 +16,7 @@ MySQL-kompatible og PostgreSQL-kompatible motorer som bruker samme wire-protokol
 
 ## Slik fungerer det
 
-Ved hver sjekk kobler proben seg til databasen din, kjører spørringen din i en skrivebeskyttet kontekst, leser tilbake maksimalt et avgrenset antall rader, og rapporterer en kompakt projeksjon til OneUptime. Monitorens kriterier evalueres deretter mot den projeksjonen.
+Ved hver sjekk kobler proben seg til databasen din, kjører spørringen din i en skrivebeskyttet kontekst, leser tilbake maksimalt et avgrenset antall rader, og rapporterer en kompakt projeksjon til Cast Operations. Monitorens kriterier evalueres deretter mot den projeksjonen.
 
 Proben rapporterer kun:
 
@@ -26,7 +26,7 @@ Proben rapporterer kun:
 - **Execution Time** — hvor lang tid spørringen tok, i millisekunder.
 - **Query Error** — en renset feilmelding dersom spørringen mislyktes.
 
-Hele resultatsettet sendes aldri til OneUptime, så kundedata replikeres ikke inn i OneUptime-lagring.
+Hele resultatsettet sendes aldri til Cast Operations, så kundedata replikeres ikke inn i Cast Operations-lagring.
 
 ## Sikkerhetsmodell
 
@@ -41,7 +41,7 @@ Hele resultatsettet sendes aldri til OneUptime, så kundedata replikeres ikke in
 
 ## Forutsetninger
 
-- En **probe** med nettverkstilgang til databasens vert og port. Dette kan være en OneUptime-vertsbasert probe (hvis databasen din er tilgjengelig fra internett) eller en selvhostet probe som kjører inne i nettverket ditt. Se probe-dokumentasjonen for hvordan du installerer en egendefinert probe.
+- En **probe** med nettverkstilgang til databasens vert og port. Dette kan være en Cast Operations-vertsbasert probe (hvis databasen din er tilgjengelig fra internett) eller en selvhostet probe som kjører inne i nettverket ditt. Se probe-dokumentasjonen for hvordan du installerer en egendefinert probe.
 - En **skrivebeskyttet databasebruker** og tilkoblingsdetaljene (vert, port, databasenavn, brukernavn, passord).
 
 ## Konfigurasjon
@@ -99,11 +99,11 @@ For en spørring av typen `COUNT(*)` er antallet tilgjengelig både som **Row Co
 
 For at databasepassordet aldri skal lagres i klartekst på monitoren, opprett en [Monitor Secret](/docs/monitor/monitor-secrets) og referer til den fra Password-feltet:
 
-1. Gå til OneUptime Dashboard → Project Settings → Monitor Secrets → Create Monitor Secret.
+1. Gå til Cast Operations Dashboard → Project Settings → Monitor Secrets → Create Monitor Secret.
 2. Opprett en hemmelighet (for eksempel `dbPassword`) og gi denne monitoren tilgang til den.
 3. I Password-feltet på monitoren, skriv inn `{{monitorSecrets.dbPassword}}`.
 
-OneUptime løser hemmeligheten på serversiden før konfigurasjonen sendes til proben. OneUptime oppretter aldri disse hemmelighetene for deg — å referere til en er ditt eget valg.
+Cast Operations løser hemmeligheten på serversiden før konfigurasjonen sendes til proben. Cast Operations oppretter aldri disse hemmelighetene for deg — å referere til en er ditt eget valg.
 
 ## Sette opp kriterier
 

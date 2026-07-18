@@ -60,7 +60,7 @@ Workflows 的核心是讓資料流動——從觸發器流向第一個區塊、�
 
 ### 從 webhook 建構 payload
 
-一個 webhook 帶著像 `{ "service": "checkout", "status": "failed" }` 這樣的主體抵達。若要將其轉換為 OneUptime 事件：
+一個 webhook 帶著像 `{ "service": "checkout", "status": "failed" }` 這樣的主體抵達。若要將其轉換為 Cast Operations 事件：
 
 1. 名為 `CIWebhook` 的 **Webhook** 觸發器。
 2. **Conditions** 區塊：左側 `{{CIWebhook.Request Body.status}}`、運算子 `==`、右側 `failed`。

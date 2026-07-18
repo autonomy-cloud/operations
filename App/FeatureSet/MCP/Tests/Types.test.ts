@@ -7,7 +7,7 @@ import {
   OneUptimeToolCallArgs,
 } from "../Types/McpTypes";
 
-describe("OneUptime Types", () => {
+describe("Cast Operations Types", () => {
   describe("OneUptimeOperation Enum", () => {
     it("should have all required operations", () => {
       expect(OneUptimeOperation.Create).toBe("create");

@@ -149,7 +149,7 @@ export async function runJavaScriptStep(
     claimTimeoutInMs: config.claimTimeoutInMs || DEFAULT_AGENT_CLAIM_TIMEOUT_MS,
     agentId: config.agentId || "",
     missingAgentError:
-      "JavaScript step is missing a Runbook Agent. Pick an agent under Runbooks → Agents. JavaScript no longer runs on the OneUptime Worker.",
+      "JavaScript step is missing a Runbook Agent. Pick an agent under Runbooks → Agents. JavaScript no longer runs on the Cast Operations Worker.",
   });
 }
 

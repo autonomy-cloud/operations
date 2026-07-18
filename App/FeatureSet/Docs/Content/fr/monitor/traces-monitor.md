@@ -1,6 +1,6 @@
 # Moniteur de traces
 
-La surveillance des traces vous permet de surveiller les traces distribuées de vos applications et de déclencher des alertes basées sur les modèles de spans, les comptages et les statuts. OneUptime évalue les données de traces de vos services de télémétrie sur une fenêtre temporelle.
+La surveillance des traces vous permet de surveiller les traces distribuées de vos applications et de déclencher des alertes basées sur les modèles de spans, les comptages et les statuts. Cast Operations évalue les données de traces de vos services de télémétrie sur une fenêtre temporelle.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs de traces recherchent et comptent les spans correspondant à des f
 
 ## Création d'un moniteur de traces
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Traces** comme type de moniteur
 4. Sélectionnez les services de télémétrie à surveiller
@@ -24,7 +24,7 @@ Les moniteurs de traces recherchent et comptent les spans correspondant à des f
 
 ### Services de télémétrie
 
-Sélectionnez un ou plusieurs services depuis lesquels surveiller les traces. Les services doivent envoyer des traces à OneUptime via OpenTelemetry.
+Sélectionnez un ou plusieurs services depuis lesquels surveiller les traces. Les services doivent envoyer des traces à Cast Operations via OpenTelemetry.
 
 ### Filtres de spans
 
@@ -79,4 +79,4 @@ Sélectionnez un ou plusieurs services depuis lesquels surveiller les traces. Le
 
 ## Prérequis d'installation
 
-La surveillance des traces nécessite que vos applications envoient des traces distribuées à OneUptime via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.
+La surveillance des traces nécessite que vos applications envoient des traces distribuées à Cast Operations via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.

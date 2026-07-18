@@ -20,7 +20,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import EnableDocumentation from "../../Types/Database/EnableDocumentation";
 
 /*
- * A conversation between a user and the OneUptime AI about the project's
+ * A conversation between a user and the Cast Operations AI about the project's
  * observability data. Conversations are personal: AIConversationService pins
  * all non-root reads/updates/deletes to the creating user.
  */
@@ -42,7 +42,7 @@ import EnableDocumentation from "../../Types/Database/EnableDocumentation";
   pluralName: "AI Conversations",
   icon: IconProp.ChatBubbleLeftRight,
   tableDescription:
-    "A conversation with the OneUptime AI about observability data (logs, traces, metrics, exceptions, incidents, monitors and alerts).",
+    "A conversation with the Cast Operations AI about observability data (logs, traces, metrics, exceptions, incidents, monitors and alerts).",
 })
 @TableAccessControl({
   create: [

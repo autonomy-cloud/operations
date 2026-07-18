@@ -84,7 +84,7 @@ export enum CodeAgentType {
 export function getCodeAgentDisplayName(type: CodeAgentType): string {
   switch (type) {
     case CodeAgentType.InHouse:
-      return "OneUptime Code Agent";
+      return "Cast Operations Code Agent";
     default:
       return type;
   }

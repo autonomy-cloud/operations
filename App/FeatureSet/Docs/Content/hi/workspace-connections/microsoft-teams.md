@@ -1,16 +1,16 @@
-# OneUptime को Microsoft Teams से Connect करना
+# Cast Operations को Microsoft Teams से Connect करना
 
-### OneUptime को Microsoft Teams से Connect करने के Steps
+### Cast Operations को Microsoft Teams से Connect करने के Steps
 
-1. **OneUptime पर Account बनाएं**
+1. **Cast Operations पर Account बनाएं**
 
-   - [OneUptime.com](https://oneuptime.com) पर जाएं और account बनाएं।
+   - [Cast Operations.com](https://visca.ai) पर जाएं और account बनाएं।
    - Account बनने के बाद, एक नया project बनाएं।
 
-2. **Microsoft Teams को OneUptime Project से Connect करें**
+2. **Microsoft Teams को Cast Operations Project से Connect करें**
 
-   - अपने OneUptime project में **Project Settings** > **Microsoft Teams** पर जाएं।
-   - अपने Microsoft Teams account को OneUptime project से connect करने के लिए prompts follow करें।
+   - अपने Cast Operations project में **Project Settings** > **Microsoft Teams** पर जाएं।
+   - अपने Microsoft Teams account को Cast Operations project से connect करने के लिए prompts follow करें।
 
 3. **Incident Notifications Configure करें**
 

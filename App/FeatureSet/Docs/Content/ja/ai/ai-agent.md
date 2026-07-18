@@ -1,6 +1,6 @@
 # AIエージェント
 
-OneUptime の AI エージェントは、コード内のエラー、パフォーマンスの問題、データベースクエリを自動的に修正します。OpenTelemetry の観測データを活用し、AI エージェントはアラートを送るだけでなく、修正を含むプルリクエストを作成します。
+Cast Operations の AI エージェントは、コード内のエラー、パフォーマンスの問題、データベースクエリを自動的に修正します。OpenTelemetry の観測データを活用し、AI エージェントはアラートを送るだけでなく、修正を含むプルリクエストを作成します。
 
 ## AI エージェントでできること
 
@@ -25,7 +25,7 @@ AI エージェントは、観測データ（トレース、ログ、メトリ�
 
 ## LLM プロバイダーの柔軟性
 
-OneUptime はあらゆる LLM プロバイダーに対応しています。以下をご利用いただけます。
+Cast Operations はあらゆる LLM プロバイダーに対応しています。以下をご利用いただけます。
 
 - **OpenAI GPT** モデル
 - **Anthropic Claude** モデル
@@ -36,7 +36,7 @@ AI モデルをセルフホストして、コードを完全にプライベー�
 
 ## プライバシー
 
-プランに関わらず、OneUptime はお客様のコードを閲覧、保存、またはトレーニングに使用することは一切ありません。
+プランに関わらず、Cast Operations はお客様のコードを閲覧、保存、またはトレーニングに使用することは一切ありません。
 
 - **コードへのアクセスなし**: コードはお客様のインフラストラクチャ内に留まります
 - **データ保存なし**: データ保持ゼロポリシー
@@ -46,13 +46,13 @@ AI モデルをセルフホストして、コードを完全にプライベー�
 
 ### グローバル AI エージェント
 
-**OneUptime SaaS**（クラウドホスト版）をご利用の場合、グローバル AI エージェントは OneUptime によって提供され、事前設定済みですぐにご利用いただけます。これらのエージェントは OneUptime によって管理されており、追加のセットアップは不要です。
+**Cast Operations SaaS**（クラウドホスト版）をご利用の場合、グローバル AI エージェントは Cast Operations によって提供され、事前設定済みですぐにご利用いただけます。これらのエージェントは Cast Operations によって管理されており、追加のセットアップは不要です。
 
 グローバル AI エージェントは、プロジェクト設定で無効にしない限り、すべてのプロジェクトで自動的に利用可能です。
 
 ### セルフホスト AI エージェント
 
-セキュリティ、コンプライアンス、またはネットワークアクセス要件のため、独自のインフラストラクチャ内で AI エージェントを実行する必要がある組織向けに、OneUptime はセルフホスト AI エージェントをサポートしています。
+セキュリティ、コンプライアンス、またはネットワークアクセス要件のため、独自のインフラストラクチャ内で AI エージェントを実行する必要がある組織向けに、Cast Operations はセルフホスト AI エージェントをサポートしています。
 
 セルフホスト AI エージェントの特徴:
 
@@ -63,9 +63,9 @@ AI モデルをセルフホストして、コードを完全にプライベー�
 
 ## セルフホスト AI エージェントのセットアップ
 
-### ステップ 1: OneUptime で AI エージェントを作成する
+### ステップ 1: Cast Operations で AI エージェントを作成する
 
-1. OneUptime ダッシュボードにログインします
+1. Cast Operations ダッシュボードにログインします
 2. **プロジェクト設定** > **AI エージェント** に移動します
 3. **AI エージェントを作成** をクリックして新しいエージェントを追加します
 4. 必須フィールドを入力します:
@@ -85,11 +85,11 @@ AI エージェントを実行するには、Docker がインストールされ�
 docker run --name oneuptime-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -d oneuptime/ai-agent:release
 ```
 
-OneUptime をセルフホストしている場合は、`ONEUPTIME_URL` をカスタムセルフホストインスタンスの URL に変更してください。
+Cast Operations をセルフホストしている場合は、`ONEUPTIME_URL` をカスタムセルフホストインスタンスの URL に変更してください。
 
 #### Docker Compose
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 設定を適用します。
@@ -160,15 +160,15 @@ AI エージェントは以下の環境変数をサポートしています。
 
 | 変数            | 説明                                                              |
 | --------------- | ----------------------------------------------------------------- |
-| `AI_AGENT_KEY`  | OneUptime ダッシュボードからの AI エージェントキー                |
-| `AI_AGENT_ID`   | OneUptime ダッシュボードからの AI エージェント ID                 |
-| `ONEUPTIME_URL` | OneUptime インスタンスの URL（デフォルト: https://oneuptime.com） |
+| `AI_AGENT_KEY`  | Cast Operations ダッシュボードからの AI エージェントキー                |
+| `AI_AGENT_ID`   | Cast Operations ダッシュボードからの AI エージェント ID                 |
+| `ONEUPTIME_URL` | Cast Operations インスタンスの URL（デフォルト: https://visca.ai） |
 
 ## AI エージェントの確認
 
 AI エージェントをデプロイした後:
 
-1. OneUptime ダッシュボードの **プロジェクト設定** > **AI エージェント** に移動します
+1. Cast Operations ダッシュボードの **プロジェクト設定** > **AI エージェント** に移動します
 2. 数分以内にエージェントが **接続済み** と表示されます
 3. ステータスが **切断済み** と表示される場合は、コンテナログでエラーを確認してください
 
@@ -187,7 +187,7 @@ kubectl logs deployment/oneuptime-ai-agent
 ### エージェントが接続できない場合
 
 1. **認証情報の確認**: `AI_AGENT_KEY` と `AI_AGENT_ID` が正しいことを確認します
-2. **ネットワークの確認**: エージェントが OneUptime インスタンスに到達できることを確認します
+2. **ネットワークの確認**: エージェントが Cast Operations インスタンスに到達できることを確認します
 3. **ログの確認**: コンテナログでエラーメッセージを確認します
 4. **ファイアウォールルール**: アウトバウンド HTTPS（ポート 443）が許可されていることを確認します
 
@@ -201,6 +201,6 @@ kubectl logs deployment/oneuptime-ai-agent
 
 AI エージェントで問題が発生した場合:
 
-1. 既知の問題を確認するために [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) をご確認ください
+1. 既知の問題を確認するために [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) をご確認ください
 2. 問題がまだ報告されていない場合は、新しいイシューを作成してください
-3. エンタープライズプランをご利用の場合は、[サポート](https://oneuptime.com/support) にお問い合わせください
+3. エンタープライズプランをご利用の場合は、[サポート](https://visca.ai/support) にお問い合わせください

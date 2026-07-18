@@ -8,7 +8,6 @@ import {
   ClickhouseDatabase as ClickhouseDatabaseName,
   GitSha,
   Host,
-  IsEnterpriseEdition,
 } from "Common/Server/EnvironmentConfig";
 import PostgresSchemaMigrations from "Common/Server/Infrastructure/Postgres/SchemaMigrations/Index";
 import DataMigrationsList from "../FeatureSet/Workers/DataMigrations/Index";
@@ -23,7 +22,6 @@ import logger from "Common/Server/Utils/Logger";
 import Response from "Common/Server/Utils/Response";
 import OneUptimeDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
-import PaymentRequiredException from "Common/Types/Exception/PaymentRequiredException";
 import { JSONArray, JSONObject, JSONValue } from "Common/Types/JSON";
 import {
   getClickhouseClusterName,
@@ -106,7 +104,7 @@ function toIsoOrNull(value: unknown): string | null {
 /*
  * Best-effort credential scrub for the verbatim DDL we dump (ClickHouse
  * create_table_query). Masks values in credential-like `keyword = 'value'`
- * settings and AWS-style access keys. OneUptime's own ClickHouse uses only
+ * settings and AWS-style access keys. Cast Operations’ own ClickHouse uses only
  * MergeTree-family engines with no inline secrets, but external / dictionary
  * engines can embed credentials, so we redact defensively to keep the bundle's
  * "no secrets" guarantee.
@@ -1140,7 +1138,7 @@ async function getMigrationStatus(): Promise<JSONObject> {
 /*
  * Full Postgres schema (tables + columns) read from information_schema. We
  * deliberately dump structure only — never row data — so the support bundle is
- * safe to share with OneUptime for diagnostics.
+ * safe to share with Cast Operations for diagnostics.
  */
 async function getPostgresSchema(): Promise<JSONObject> {
   const result: JSONObject = {
@@ -1284,8 +1282,6 @@ async function getClickhouseSchema(): Promise<JSONObject> {
 const SUPPORT_CONFIG_ALLOW_LIST: Array<string> = [
   "NODE_ENV",
   "HOST",
-  "IS_ENTERPRISE_EDITION",
-  "BILLING_ENABLED",
   "LOG_LEVEL",
   "APP_VERSION",
   "GIT_SHA",
@@ -2667,7 +2663,7 @@ async function getClickhouseDiagnostics(): Promise<JSONObject> {
 }
 
 /*
- * The three telemetry signals OneUptime ingests into ClickHouse and the
+ * The three telemetry signals Cast Operations ingests into ClickHouse and the
  * event-time column each table is partitioned + primary-key ordered on. We count
  * ingestion on THIS column (never `createdAt`) precisely because it is the
  * partition key (toYYYYMMDD) and the leading primary-key column: ClickHouse can
@@ -2858,7 +2854,7 @@ async function getClickhouseTelemetryIngestion(): Promise<JSONObject> {
  *     other container's logs (no Docker socket / Kubernetes API access).
  *   - Postgres: the server log file IF logging_collector is on (we connect as
  *     superuser, so pg_read_file works) — otherwise unavailable, best-effort.
- *   - ClickHouse: system.errors / text_log / query_log / crash_log (OneUptime's
+ *   - ClickHouse: system.errors / text_log / query_log / crash_log (Cast Operations’
  *     ClickHouse config enables these), read-only and time-capped.
  *   - Redis: server log files are NOT reachable over the protocol; we surface
  *     SLOWLOG + INFO errorstats/stats as the closest equivalent.
@@ -2873,7 +2869,7 @@ const PG_LOG_TAIL_MAX_LINES: number = 400;
 
 /*
  * Postgres server log: only readable when the operator has turned on
- * logging_collector (off in OneUptime's default Postgres). We connect as
+ * logging_collector (off in Cast Operations’ default Postgres). We connect as
  * superuser, so when it IS on, pg_current_logfile()+pg_read_file() let us tail
  * it. Degrades gracefully (with a clear note) when logs aren't collected.
  */
@@ -2947,7 +2943,7 @@ async function getPostgresLogs(): Promise<JSONObject> {
 
 /*
  * ClickHouse logs/errors from its system tables — error counters, recent server
- * log lines, failed queries and crashes. OneUptime's ClickHouse config enables
+ * log lines, failed queries and crashes. Cast Operations’ ClickHouse config enables
  * text_log / query_log / error_log / crash_log; each block degrades gracefully
  * if a table is missing or disabled. We deliberately omit the query TEXT from
  * failed queries (it can embed row predicates) and keep only the exception.
@@ -3246,7 +3242,7 @@ function getApplicationLogs(): JSONObject {
 
   return {
     source: "In-process ring buffer (this app instance only).",
-    note: "This OneUptime app process's own recent log lines, captured in memory. The app cannot read its container's stdout or other containers' logs from inside the process — use `kubectl logs` / `docker logs` for the full container logs.",
+    note: "This Cast Operations app process's own recent log lines, captured in memory. The app cannot read its container's stdout or other containers' logs from inside the process — use `kubectl logs` / `docker logs` for the full container logs.",
     count: entries.length,
     entries: entries,
   };
@@ -3283,15 +3279,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      // OneUptime Health is an Enterprise Edition feature — gate server-side to match the UI.
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "The OneUptime Health dashboard is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       if (overviewCache && overviewCache.expiresAt > Date.now()) {
         return Response.sendJsonObjectResponse(req, res, overviewCache.data);
       }
@@ -3327,14 +3314,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "The OneUptime Health dashboard is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       if (queuesCache && queuesCache.expiresAt > Date.now()) {
         return Response.sendJsonObjectResponse(req, res, queuesCache.data);
       }
@@ -3368,14 +3347,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "ClickHouse capacity health is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       return Response.sendJsonObjectResponse(
         req,
         res,
@@ -3396,14 +3367,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "Redis health is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       return Response.sendJsonObjectResponse(req, res, await getRedisStats());
     } catch (err) {
       return next(err);
@@ -3420,14 +3383,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "OneUptime Health logs are only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       const logs: Array<InstanceHealthLog> =
         await InstanceHealthLogService.findBy({
           query: {},
@@ -3500,14 +3455,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "The OneUptime Health dashboard is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       const requestedQueue: string = String(req.params["queueName"]);
 
       // Only allow the known queue names — never feed arbitrary input to BullMQ.
@@ -3553,14 +3500,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "The OneUptime Health dashboard is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       const data: JSONObject = await getDiagnosticLogs();
       return Response.sendJsonObjectResponse(req, res, data);
     } catch (err) {
@@ -3587,14 +3526,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "The OneUptime Health dashboard is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       const diagnostics: JSONObject = await getClickhouseDiagnostics();
       const clusterHealth: JSONObject = (diagnostics["clusterHealth"] ||
         {}) as JSONObject;
@@ -3625,14 +3556,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "The OneUptime Health dashboard is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       const data: JSONObject = await getClickhouseTelemetryIngestion();
       return Response.sendJsonObjectResponse(req, res, data);
     } catch (err) {
@@ -3658,14 +3581,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "The OneUptime Health dashboard is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       const data: JSONObject = await getPostgresClusterHealth();
       return Response.sendJsonObjectResponse(req, res, data);
     } catch (err) {
@@ -3691,14 +3606,6 @@ router.get(
     next: NextFunction,
   ): Promise<void> => {
     try {
-      if (!IsEnterpriseEdition) {
-        throw new PaymentRequiredException(
-          "The OneUptime Health dashboard is only available on the OneUptime Enterprise Edition. " +
-            "Please switch to the Enterprise Edition build to enable this feature. " +
-            "See https://oneuptime.com/enterprise/overview for details.",
-        );
-      }
-
       const data: JSONObject = await getPostgresActivity();
       return Response.sendJsonObjectResponse(req, res, data);
     } catch (err) {
@@ -3786,7 +3693,7 @@ router.get(
         instance: {
           appVersion: AppVersion,
           gitSha: GitSha,
-          edition: IsEnterpriseEdition ? "Enterprise" : "Community",
+          edition: "Complete",
           host: Host,
           nodeVersion: process.version,
         },
@@ -3846,16 +3753,6 @@ const QUERY_REDIS_TIMEOUT_MS: number = 15000;
 const QUERY_REDIS_MAX_COMMANDS: number = 50;
 
 type QueryEngine = "postgres" | "clickhouse" | "redis";
-
-function assertEnterpriseQueryConsole(): void {
-  if (!IsEnterpriseEdition) {
-    throw new PaymentRequiredException(
-      "The OneUptime Health query console is only available on the OneUptime Enterprise Edition. " +
-        "Please switch to the Enterprise Edition build to enable this feature. " +
-        "See https://oneuptime.com/enterprise/overview for details.",
-    );
-  }
-}
 
 // Clamp a requested row limit into [1, QUERY_MAX_ROWS]; default QUERY_DEFAULT_ROWS.
 function resolveRowLimit(value: unknown): number {
@@ -4613,8 +4510,6 @@ async function handleQueryRequest(
   next: NextFunction,
 ): Promise<void> {
   try {
-    assertEnterpriseQueryConsole();
-
     const body: JSONObject = (req.body || {}) as JSONObject;
     const query: string = (body["query"] ?? "").toString();
 

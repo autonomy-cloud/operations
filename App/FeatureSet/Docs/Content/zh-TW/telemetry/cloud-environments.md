@@ -2,16 +2,16 @@
 
 ## 概觀
 
-OneUptime 將受管理的雲端運算歸類為**雲端環境**——AWS ECS / Fargate、Google Cloud Run、Azure Container Apps / Container Instances、AWS Elastic Beanstalk、AWS App Runner 以及 Azure App Service。每一個 `cloud.platform` + `cloud.account.id` + `cloud.region` 的獨特組合會建立一個環境，因此像是 _「AWS ECS · us-east-1 · 123456789012」_ 這樣的組合就是單一實體，它會彙整在其上執行的所有工作負載。
+Cast Operations 將受管理的雲端運算歸類為**雲端環境**——AWS ECS / Fargate、Google Cloud Run、Azure Container Apps / Container Instances、AWS Elastic Beanstalk、AWS App Runner 以及 Azure App Service。每一個 `cloud.platform` + `cloud.account.id` + `cloud.region` 的獨特組合會建立一個環境，因此像是 _「AWS ECS · us-east-1 · 123456789012」_ 這樣的組合就是單一實體，它會彙整在其上執行的所有工作負載。
 
 原始的虛擬機器（EC2、Compute Engine、Azure VM）仍歸類為**主機（Hosts）**，而 Kubernetes 則歸類於 **Kubernetes** 之下。此檢視專門用於受管理的 / PaaS 運算。
 
 ## 先決條件
 
-- 一組 **OneUptime 遙測擷取權杖（Telemetry Ingestion Token）**——可從 _Project Settings → Telemetry Ingestion Keys_ 建立。
+- 一組 **Cast Operations 遙測擷取權杖（Telemetry Ingestion Token）**——可從 _Project Settings → Telemetry Ingestion Keys_ 建立。
 - 在你的工作負載中或與其並行執行的 OpenTelemetry Collector 或 SDK。
 
-## OneUptime 如何識別環境
+## Cast Operations 如何識別環境
 
 | 屬性                  | 是否必要 | 用途                                                                              |
 | --------------------- | -------- | --------------------------------------------------------------------------------- |
@@ -39,12 +39,12 @@ processors:
 OTEL_RESOURCE_DETECTORS=env,ecs
 ```
 
-## 步驟 2 — 將 OTLP 匯出至 OneUptime
+## 步驟 2 — 將 OTLP 匯出至 Cast Operations
 
 ```yaml
 exporters:
   otlphttp/oneuptime:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -64,7 +64,7 @@ service:
       exporters: [otlphttp/oneuptime]
 ```
 
-如果你自行託管 OneUptime，請使用 `https://YOUR-ONEUPTIME-HOST/otlp`。
+如果你自行託管 Cast Operations，請使用 `https://YOUR-OPERATIONS-HOST/otlp`。
 
 ## 你會得到什麼
 

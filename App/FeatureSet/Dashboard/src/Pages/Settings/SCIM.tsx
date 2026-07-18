@@ -59,7 +59,7 @@ const SCIMPage: FunctionComponent<PageComponentProps> = (
             icon: IconProp.User,
             title: "Automatic provisioning",
             subtitle:
-              "Users created in your IdP are added to OneUptime without manual invites.",
+              "Users created in your IdP are added to Cast Operations without manual invites.",
           },
           {
             icon: IconProp.Lock,

@@ -20,7 +20,7 @@
     "switchLanguage": "Cambia lingua"
   },
   "footer": {
-    "copyright": "OneUptime",
+    "copyright": "Cast Operations",
     "contact": "Contatto",
     "privacyAndTerms": "Privacy e termini"
   },
@@ -32,7 +32,7 @@
   },
   "login": {
     "title": "Accedi al tuo account",
-    "subtitle": "Unisciti a migliaia di aziende che usano OneUptime per rimanere sempre online.",
+    "subtitle": "Unisciti a migliaia di aziende che usano Cast Operations per rimanere sempre online.",
     "submitButton": "Accedi",
     "forgotPassword": "Password dimenticata?",
     "useSso": "Usa invece il Single Sign-On (SSO)",
@@ -50,8 +50,8 @@
     }
   },
   "register": {
-    "title": "Crea il tuo account OneUptime",
-    "subtitle": "Unisciti a migliaia di aziende che usano OneUptime per rimanere sempre online.",
+    "title": "Crea il tuo account Cast Operations",
+    "subtitle": "Unisciti a migliaia di aziende che usano Cast Operations per rimanere sempre online.",
     "noCreditCard": "Nessuna carta di credito richiesta.",
     "submitButton": "Registrati",
     "haveAccountPrompt": "Hai già un account?",
@@ -92,7 +92,7 @@
   },
   "verifyEmail": {
     "successTitle": "La tua e-mail è verificata.",
-    "successDescription": "Grazie per aver verificato la tua e-mail. Ora puoi accedere a OneUptime.",
+    "successDescription": "Grazie per aver verificato la tua e-mail. Ora puoi accedere a Cast Operations.",
     "errorTitle": "Spiacenti, qualcosa è andato storto!",
     "returnToSignIn": "Torna all'accesso?",
     "loginLink": "Accedi."

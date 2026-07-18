@@ -1,11 +1,11 @@
 # GitHub-integratie
 
-Om GitHub te integreren met uw zelf-gehoste OneUptime-instantie, moet u een GitHub App aanmaken en de vereiste omgevingsvariabelen configureren. Dit stelt OneUptime in staat verbinding te maken met uw GitHub-repositories voor beheer van code-repositories.
+Om GitHub te integreren met uw zelf-gehoste Cast Operations-instantie, moet u een GitHub App aanmaken en de vereiste omgevingsvariabelen configureren. Dit stelt Cast Operations in staat verbinding te maken met uw GitHub-repositories voor beheer van code-repositories.
 
 ## Vereisten
 
 - GitHub-account met organisatiebeheerdertoestemming (voor organisatierepositories) of persoonlijke accounttoegang
-- Toegang tot uw OneUptime-serverconfiguratie
+- Toegang tot uw Cast Operations-serverconfiguratie
 
 ## Installatie-instructies
 
@@ -19,12 +19,12 @@ Om GitHub te integreren met uw zelf-gehoste OneUptime-instantie, moet u een GitH
 2. Klik op **"Nieuwe GitHub App"**
 
 3. Vul het registratieformulier in:
-   - **GitHub App-naam:** OneUptime (of een unieke naam) - **Sla deze naam op, u heeft hem nodig voor de omgevingsvariabele `GITHUB_APP_NAME`**
-   - **Homepage-URL:** `https://your-oneuptime-domain.com`
-   - **Callback-URL:** `https://your-oneuptime-domain.com/api/github/auth/callback`
-   - **Installatie-URL:** `https://your-oneuptime-domain.com/api/github/auth/callback` - **Belangrijk: Dit is de URL waarnaar GitHub gebruikers omleidt nadat ze de app hebben geïnstalleerd. Deze moet worden ingesteld voor de omleiding om te werken.**
+   - **GitHub App-naam:** Cast Operations (of een unieke naam) - **Sla deze naam op, u heeft hem nodig voor de omgevingsvariabele `GITHUB_APP_NAME`**
+   - **Homepage-URL:** `https://your-operations-domain.com`
+   - **Callback-URL:** `https://your-operations-domain.com/api/github/auth/callback`
+   - **Installatie-URL:** `https://your-operations-domain.com/api/github/auth/callback` - **Belangrijk: Dit is de URL waarnaar GitHub gebruikers omleidt nadat ze de app hebben geïnstalleerd. Deze moet worden ingesteld voor de omleiding om te werken.**
    - **Omleiden bij update:** Vink deze optie aan om gebruikers om te leiden nadat ze de app-installatie hebben bijgewerkt
-   - **Webhook-URL:** `https://your-oneuptime-domain.com/api/github/webhook`
+   - **Webhook-URL:** `https://your-operations-domain.com/api/github/webhook`
    - **Webhookgeheim:** Genereer een veilige willekeurige tekenreeks (sla dit op voor later)
 
 ### Stap 2: App-machtigingen configureren
@@ -90,7 +90,7 @@ Kies onder "Waar kan deze GitHub App worden geïnstalleerd?":
 3. Een `.pem`-bestand wordt automatisch gedownload
 4. Houd dit bestand veilig — het wordt gebruikt voor authenticatie als de GitHub App
 
-### Stap 8: OneUptime omgevingsvariabelen configureren
+### Stap 8: Cast Operations omgevingsvariabelen configureren
 
 #### Docker Compose
 
@@ -99,7 +99,7 @@ Als u Docker Compose gebruikt, voeg dan deze omgevingsvariabelen toe aan uw `con
 ```bash
 # GitHub App-configuratie
 GITHUB_APP_ID=YOUR_APP_ID
-GITHUB_APP_NAME=YOUR_APP_NAME  # De exacte naam van uw GitHub App (bijv. "OneUptime")
+GITHUB_APP_NAME=YOUR_APP_NAME  # De exacte naam van uw GitHub App (bijv. "Cast Operations")
 GITHUB_APP_CLIENT_ID=YOUR_CLIENT_ID
 GITHUB_APP_CLIENT_SECRET=YOUR_CLIENT_SECRET
 GITHUB_APP_PRIVATE_KEY="<BASE64_ENCODED_PRIVATE_KEY_CONTENT>"
@@ -122,7 +122,7 @@ gitHubApp:
   webhookSecret: "YOUR_WEBHOOK_SECRET"
 ```
 
-**Belangrijk:** Herstart uw OneUptime-server na het toevoegen van deze omgevingsvariabelen zodat ze van kracht worden.
+**Belangrijk:** Herstart uw Cast Operations-server na het toevoegen van deze omgevingsvariabelen zodat ze van kracht worden.
 
 ### Stap 9: De GitHub App installeren
 
@@ -134,14 +134,14 @@ gitHubApp:
    - **Alleen geselecteerde repositories** - Kies specifieke repositories
 5. Klik op **"Installeren"**
 
-### Stap 10: Repositories verbinden in OneUptime
+### Stap 10: Repositories verbinden in Cast Operations
 
-1. Log in op uw OneUptime-dashboard
+1. Log in op uw Cast Operations-dashboard
 2. Navigeer naar **Meer** > **Code-repositories**
 3. Klik op **"Repository aanmaken"** of gebruik de GitHub App-installatiestroom
 4. Als u wordt doorgestuurd vanuit GitHub, wordt de installatie-ID automatisch vastgelegd
 5. Selecteer de repositories die u wilt verbinden uit de lijst
-6. Klik op **"Verbinden"** om de repository te koppelen aan uw OneUptime-project
+6. Klik op **"Verbinden"** om de repository te koppelen aan uw Cast Operations-project
 
 ## Omgevingsvariabelen referentie
 
@@ -158,9 +158,9 @@ gitHubApp:
 
 ### Veelgebruikte problemen
 
-**Niet omgeleid terug naar OneUptime na installatie van de GitHub App:**
+**Niet omgeleid terug naar Cast Operations na installatie van de GitHub App:**
 
-- Zorg dat de **Installatie-URL** is geconfigureerd in uw GitHub App-instellingen op: `https://your-oneuptime-domain.com/api/github/auth/callback`
+- Zorg dat de **Installatie-URL** is geconfigureerd in uw GitHub App-instellingen op: `https://your-operations-domain.com/api/github/auth/callback`
 - Ga naar uw GitHub App-instellingen > sectie "Na installatie" en verifieer dat de Installatie-URL correct is ingesteld
 - De optie "Omleiden bij update" moet ook zijn aangevinkt
 - Opmerking: De Installatie-URL verschilt van de Callback-URL — beide moeten verwijzen naar hetzelfde `/api/github/auth/callback`-eindpunt
@@ -168,7 +168,7 @@ gitHubApp:
 **Fout "GitHub App is not configured":**
 
 - Zorg dat de omgevingsvariabele `GITHUB_APP_CLIENT_ID` is ingesteld
-- Herstart uw OneUptime-server na het instellen van omgevingsvariabelen
+- Herstart uw Cast Operations-server na het instellen van omgevingsvariabelen
 
 **Fout "Invalid webhook signature":**
 
@@ -211,7 +211,7 @@ gitHubApp:
 Als u problemen ondervindt met de GitHub-integratie:
 
 1. Controleer de bovenstaande sectie voor probleemoplossing
-2. Bekijk de OneUptime-logboeken voor gedetailleerde foutmeldingen
-3. Neem contact op via [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Bekijk de Cast Operations-logboeken voor gedetailleerde foutmeldingen
+3. Neem contact op via [hello@visca.ai](mailto:hello@visca.ai)
 
 Feedback om deze integratie te verbeteren is van harte welkom!

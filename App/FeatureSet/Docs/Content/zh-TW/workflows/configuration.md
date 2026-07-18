@@ -4,7 +4,7 @@
 
 ## 開啟或關閉工作流程
 
-每個工作流程在 **Settings** 中都有一個 **Enabled** 開關。當它關閉時，工作流程不會執行 — webhook 呼叫、排程時間以及 OneUptime 事件都會被忽略。新的工作流程預設為停用狀態。
+每個工作流程在 **Settings** 中都有一個 **Enabled** 開關。當它關閉時，工作流程不會執行 — webhook 呼叫、排程時間以及 Cast Operations 事件都會被忽略。新的工作流程預設為停用狀態。
 
 將此開關當作您的「準備就緒」關卡：
 
@@ -53,11 +53,11 @@ Webhook 觸發器會給您一個唯一的 URL。任何知道該 URL 的人都可
 
 - 將此 URL 視為密碼。不要公開分享或將其提交到公開的儲存庫。
 - 對於敏感的工作流程，請要求呼叫端系統以標頭（例如 `X-Webhook-Token`）傳送一個共用權杖，並在執行任何重要操作之前，使用 **Conditions** 區塊進行檢查。將預期的權杖儲存為 secret 變數。
-- 對於極為敏感的工作流程，請優先使用 OneUptime 事件觸發器與手動匯入步驟，而非公開的 webhook。
+- 對於極為敏感的工作流程，請優先使用 Cast Operations 事件觸發器與手動匯入步驟，而非公開的 webhook。
 
 ## 對外網路存取
 
-API 與其他 HTTP 區塊會從 OneUptime 發出其請求。如果您自行託管，請確保您的安裝能夠連線到您所呼叫的服務。如果您使用 OneUptime Cloud，我們的對外 IP 範圍列於 [IP Addresses](/docs/configuration/ip-addresses)，您可以在另一端允許它們。
+API 與其他 HTTP 區塊會從 Cast Operations 發出其請求。如果您自行託管，請確保您的安裝能夠連線到您所呼叫的服務。如果您使用 Cast Operations Cloud，我們的對外 IP 範圍列於 [IP Addresses](/docs/configuration/ip-addresses)，您可以在另一端允許它們。
 
 ## 權限
 
@@ -72,14 +72,14 @@ API 與其他 HTTP 區塊會從 OneUptime 發出其請求。如果您自行託�
 
 ## 方案限制
 
-OneUptime Cloud 在較小的方案上會限制每月的執行次數。您目前的限制顯示於 **Project Settings → Billing** 下。當您達到上限時，新的觸發器會被拒絕，直到下一個計費週期為止。自行託管的安裝沒有此限制。
+Cast Operations Cloud 在較小的方案上會限制每月的執行次數。您目前的限制顯示於 **Project Settings → Billing** 下。當您達到上限時，新的觸發器會被拒絕，直到下一個計費週期為止。自行託管的安裝沒有此限制。
 
 ## 何時工作流程不是合適的工具
 
 有幾種情況下您應該選用其他工具：
 
 - **繁重的運算或大型資料集** — 工作流程的設計用於輕量的黏合工作，而非數字運算。請在您自己的基礎架構中執行繁重的工作，並讓工作流程啟動它。
-- **跨越數小時的長時間執行程序** — 單次執行的目的是快速完成。如果您需要「執行 A、等待兩小時、執行 B」，請使用外部排程器，在時機到來時將 webhook 送回 OneUptime。
+- **跨越數小時的長時間執行程序** — 單次執行的目的是快速完成。如果您需要「執行 A、等待兩小時、執行 B」，請使用外部排程器，在時機到來時將 webhook 送回 Cast Operations。
 - **有人員參與的逐步事件回應** — 那正是 [Runbooks](/docs/runbooks/index) 的用途。工作流程是用於無人值守的自動化。
 
 ## 接下來閱讀

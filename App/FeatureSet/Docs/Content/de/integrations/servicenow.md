@@ -1,18 +1,18 @@
 # ServiceNow-Integration
 
-Öffnen Sie automatisch einen [ServiceNow](https://www.servicenow.com)-Vorfall, sobald ein OneUptime-Vorfall erstellt wird – damit ITSM und Monitoring stets synchron bleiben.
+Öffnen Sie automatisch einen [ServiceNow](https://www.servicenow.com)-Vorfall, sobald ein Cast Operations-Vorfall erstellt wird – damit ITSM und Monitoring stets synchron bleiben.
 
-Diese Integration ist **ausgehend**: OneUptime ruft die ServiceNow-[Table API](https://docs.servicenow.com/bundle/utah-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html) auf. Sie verwendet einen OneUptime-**[Workflow](/docs/workflows/index)** mit einem **Incident → On Create**-Auslöser und einer **API-Komponente**.
+Diese Integration ist **ausgehend**: Cast Operations ruft die ServiceNow-[Table API](https://docs.servicenow.com/bundle/utah-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html) auf. Sie verwendet einen Cast Operations-**[Workflow](/docs/workflows/index)** mit einem **Incident → On Create**-Auslöser und einer **API-Komponente**.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /api/now/table/incident)  ──►  ServiceNow incident
+Cast Operations Incident → On Create  ──►  API component (POST /api/now/table/incident)  ──►  ServiceNow incident
 ```
 
 ## Voraussetzungen
 
 - Eine ServiceNow-Instanz (`https://your-instance.service-now.com`).
 - Ein ServiceNow-Benutzer mit den Rollen `rest_api_explorer` / `itil` (oder ausreichenden Rechten zum Erstellen von `incident`-Datensätzen). Basic-Auth mit den Zugangsdaten dieses Benutzers ist der einfachste Einstieg; für die Produktion wird OAuth empfohlen.
-- Ein OneUptime-Projekt, in dem Sie Workflows erstellen können.
+- Ein Cast Operations-Projekt, in dem Sie Workflows erstellen können.
 
 ## Schritt 1 — Zugangsdaten als Geheimnis speichern
 
@@ -24,7 +24,7 @@ Die Table API von ServiceNow akzeptiert **Basic-Auth**.
    printf '%s' 'integration_user:password' | base64
    ```
 
-2. Gehen Sie in OneUptime zu **Workflows → Global Variables → Create**, benennen Sie die Variable `SERVICENOW_AUTH`, fügen Sie die Base64-Zeichenkette ein und aktivieren Sie **Is Secret**.
+2. Gehen Sie in Cast Operations zu **Workflows → Global Variables → Create**, benennen Sie die Variable `SERVICENOW_AUTH`, fügen Sie die Base64-Zeichenkette ein und aktivieren Sie **Is Secret**.
 
 ## Schritt 2 — Den Workflow erstellen
 
@@ -46,7 +46,7 @@ Die Table API von ServiceNow akzeptiert **Basic-Auth**.
 
      ```json
      {
-       "short_description": "OneUptime: {{Incident.title}}",
+       "short_description": "Cast Operations: {{Incident.title}}",
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
@@ -54,15 +54,15 @@ Die Table API von ServiceNow akzeptiert **Basic-Auth**.
      }
      ```
 
-   `correlation_id` erhält einen Rückverweis auf den OneUptime-Vorfall – praktisch, wenn Sie später einen Auflöse-Schritt hinzufügen. ServiceNow `urgency`/`impact` verwenden `1` (hoch), `2` (mittel), `3` (niedrig).
+   `correlation_id` erhält einen Rückverweis auf den Cast Operations-Vorfall – praktisch, wenn Sie später einen Auflöse-Schritt hinzufügen. ServiceNow `urgency`/`impact` verwenden `1` (hoch), `2` (mittel), `3` (niedrig).
 
 4. **Speichern**, aktivieren und einen Test-Vorfall erstellen. Eine `201 Created`-Antwort in den Workflow-Logs gibt die `sys_id` und `number` des neuen Datensatzes zurück (zum Beispiel `INC0012345`).
 
-## Schritt 3 — Bei OneUptime-Auflösung auflösen (optional)
+## Schritt 3 — Bei Cast Operations-Auflösung auflösen (optional)
 
 1. Erstellen Sie einen **zweiten** Workflow mit einem **Incident → On Update**-Auslöser und einem **Conditions**-Block, der prüft, ob der Vorfall aufgelöst ist.
-2. Um den richtigen ServiceNow-Datensatz zu aktualisieren, benötigen Sie seine `sys_id`. Entweder speichern Sie diese am OneUptime-Vorfall in Schritt 2 (lesen Sie `{{CreateRecord.response-body.result.sys_id}}` und schreiben Sie sie mit **Update Incident** in ein Label), oder suchen Sie den Datensatz zuerst mit einem `GET` auf `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}`.
-3. Fügen Sie einen **API**-Block hinzu: **Method** `PATCH`, **URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`, Body `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in OneUptime" }` (`state` `6` = Aufgelöst im Standard-ITIL-Workflow).
+2. Um den richtigen ServiceNow-Datensatz zu aktualisieren, benötigen Sie seine `sys_id`. Entweder speichern Sie diese am Cast Operations-Vorfall in Schritt 2 (lesen Sie `{{CreateRecord.response-body.result.sys_id}}` und schreiben Sie sie mit **Update Incident** in ein Label), oder suchen Sie den Datensatz zuerst mit einem `GET` auf `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}`.
+3. Fügen Sie einen **API**-Block hinzu: **Method** `PATCH`, **URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`, Body `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }` (`state` `6` = Aufgelöst im Standard-ITIL-Workflow).
 
 ## Fehlerbehebung
 

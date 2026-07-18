@@ -1,6 +1,6 @@
 # API-monitor
 
-API-overvåking lar deg overvåke tilgjengelighet, ytelse og korrekthet for dine HTTP/REST API-er. OneUptime sender periodisk HTTP-forespørsler til API-endepunktene dine og evaluerer svarene basert på konfigurerte kriterier.
+API-overvåking lar deg overvåke tilgjengelighet, ytelse og korrekthet for dine HTTP/REST API-er. Cast Operations sender periodisk HTTP-forespørsler til API-endepunktene dine og evaluerer svarene basert på konfigurerte kriterier.
 
 ## Oversikt
 
@@ -15,7 +15,7 @@ API-monitorer sender HTTP-forespørsler til endepunktene dine og sjekker svarene
 
 ## Opprette en API-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **API** som monitortype
 4. Skriv inn API-URL og konfigurer forespørselsinnstillingene
@@ -85,7 +85,7 @@ For POST-, PUT- og PATCH-forespørsler kan du angi en JSON-forespørselskropp. D
 
 #### Følg ikke omdirigeringer
 
-Som standard følger OneUptime HTTP-omdirigeringer (301, 302, osv.). Aktiver dette alternativet hvis du ønsker å overvåke selve omdirigeringssvaret i stedet for det endelige målet.
+Som standard følger Cast Operations HTTP-omdirigeringer (301, 302, osv.). Aktiver dette alternativet hvis du ønsker å overvåke selve omdirigeringssvaret i stedet for det endelige målet.
 
 #### Allow Self-Signed Certificates
 
@@ -99,7 +99,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

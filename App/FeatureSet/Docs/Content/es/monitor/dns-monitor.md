@@ -1,6 +1,6 @@
 # Monitor DNS
 
-El monitoreo DNS te permite supervisar el estado y la corrección de la resolución DNS para tus dominios. OneUptime consulta periódicamente los registros DNS y valida las respuestas según tus criterios configurados.
+El monitoreo DNS te permite supervisar el estado y la corrección de la resolución DNS para tus dominios. Cast Operations consulta periódicamente los registros DNS y valida las respuestas según tus criterios configurados.
 
 ## Información general
 
@@ -14,7 +14,7 @@ Los monitores DNS consultan servidores DNS para tipos de registros específicos 
 
 ## Creación de un monitor DNS
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **DNS** como tipo de monitor
 4. Ingresa el nombre de dominio y el tipo de registro a consultar

@@ -1,6 +1,6 @@
 # Docker-monitor
 
-Docker-overvåking lar deg overvåke helse og ytelse for Docker-vertene dine og containerne som kjører på dem. OneUptime samler inn metrikker og container-logger via en forhåndskonfigurert OpenTelemetry Collector (den **OneUptime Docker-agenten**) og evaluerer dem mot dine konfigurerte kriterier.
+Docker-overvåking lar deg overvåke helse og ytelse for Docker-vertene dine og containerne som kjører på dem. Cast Operations samler inn metrikker og container-logger via en forhåndskonfigurert OpenTelemetry Collector (den **Cast Operations Docker-agenten**) og evaluerer dem mot dine konfigurerte kriterier.
 
 ## Oversikt
 
@@ -14,7 +14,7 @@ Docker-monitorer bruker metrikker og logger fra vertene dine for å gi synlighet
 
 ## Opprette en Docker-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **Docker** som monitortype
 4. Velg Docker-verten og ressursomfanget som skal overvåkes
@@ -25,7 +25,7 @@ Docker-monitorer bruker metrikker og logger fra vertene dine for å gi synlighet
 
 ### Docker-vert
 
-Velg Docker-verten som skal overvåkes. Verter registreres automatisk første gang OneUptime Docker-agenten sender telemetri fra dem – du trenger ikke opprette dem manuelt.
+Velg Docker-verten som skal overvåkes. Verter registreres automatisk første gang Cast Operations Docker-agenten sender telemetri fra dem – du trenger ikke opprette dem manuelt.
 
 ### Ressursomfang
 
@@ -126,7 +126,7 @@ Docker-agenten bruker OpenTelemetry `docker_stats`-mottakeren, som henter Docker
 
 ## Forhåndsbygde varslingsmaler
 
-OneUptime tilbyr maler for vanlige Docker-overvåkingsscenarier:
+Cast Operations tilbyr maler for vanlige Docker-overvåkingsscenarier:
 
 | Mal                    | Beskrivelse                          | Terskel | Aggregering         |
 | ---------------------- | ------------------------------------ | ------- | ------------------- |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 For å bruke Docker-overvåking må du:
 
-1. Installere OneUptime Docker-agenten på hver Docker-vert du ønsker å overvåke
+1. Installere Cast Operations Docker-agenten på hver Docker-vert du ønsker å overvåke
 2. Angi `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` og `DOCKER_HOST_NAME` som miljøvariabler
 3. Sørge for at containerne du ønsker å observere bruker `json-file`-loggdriveren (se ovenfor)
 
-Agenten publiseres som `oneuptime/docker-agent:release` på Docker Hub. Se [installasjonsguiden for Docker-agenten](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent) for fullstendige eksempler med `docker run` og `docker compose`.
+Agenten publiseres som `oneuptime/docker-agent:release` på Docker Hub. Se [installasjonsguiden for Docker-agenten](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) for fullstendige eksempler med `docker run` og `docker compose`.
 
 ## Feilsøking
 
@@ -236,7 +236,7 @@ Dette betyr at include-globen `/var/lib/docker/containers/*/*-json.log` ikke mat
 
 ### Logger kommer frem, men er gruppert under feil vertsnavn
 
-OneUptime registrerer automatisk Docker-verter etter `resource.host.name`, som hentes fra `DOCKER_HOST_NAME`-miljøvariabelen. Å endre `DOCKER_HOST_NAME` etter den første telemetribatchen vil opprette en ny vertrad i stedet for å gi den eksisterende nytt navn.
+Cast Operations registrerer automatisk Docker-verter etter `resource.host.name`, som hentes fra `DOCKER_HOST_NAME`-miljøvariabelen. Å endre `DOCKER_HOST_NAME` etter den første telemetribatchen vil opprette en ny vertrad i stedet for å gi den eksisterende nytt navn.
 
 ### Hendelser utløses ikke for "High CPU"
 

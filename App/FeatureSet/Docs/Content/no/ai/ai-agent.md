@@ -1,6 +1,6 @@
 # AI-agenter
 
-AI-agenter i OneUptime retter automatisk feil, ytelsesproblemer og databasespørringer i koden din. Drevet av OpenTelemetry-observabilitetsdata oppretter AI-agenter pull-forespørsler med rettelser – ikke bare varsler.
+AI-agenter i Cast Operations retter automatisk feil, ytelsesproblemer og databasespørringer i koden din. Drevet av OpenTelemetry-observabilitetsdata oppretter AI-agenter pull-forespørsler med rettelser – ikke bare varsler.
 
 ## Hva kan AI-agenter gjøre?
 
@@ -25,7 +25,7 @@ AI-agenter analyserer observabilitetsdata (spor, logger og metrikker) for å opp
 
 ## Fleksibilitet med LLM-leverandør
 
-OneUptime fungerer med alle LLM-leverandører. Du kan bruke:
+Cast Operations fungerer med alle LLM-leverandører. Du kan bruke:
 
 - **OpenAI GPT**-modeller
 - **Anthropic Claude**-modeller
@@ -36,7 +36,7 @@ Selvhost AI-modellen og hold koden din helt privat.
 
 ## Personvern
 
-Uavhengig av plan ser, lagrer eller trener ikke OneUptime på koden din:
+Uavhengig av plan ser, lagrer eller trener ikke Cast Operations på koden din:
 
 - **Ingen kodetilgang**: Koden din forblir på din infrastruktur
 - **Ingen datalagring**: Nulldataoppbevaringspolicy
@@ -46,13 +46,13 @@ Uavhengig av plan ser, lagrer eller trener ikke OneUptime på koden din:
 
 ### Globale AI-agenter
 
-Hvis du bruker **OneUptime SaaS** (skybasert versjon), leveres globale AI-agenter av OneUptime og er forhåndskonfigurert og klare til bruk. Disse agentene administreres av OneUptime og krever ingen ytterligere oppsett.
+Hvis du bruker **Cast Operations SaaS** (skybasert versjon), leveres globale AI-agenter av Cast Operations og er forhåndskonfigurert og klare til bruk. Disse agentene administreres av Cast Operations og krever ingen ytterligere oppsett.
 
 Globale AI-agenter er automatisk tilgjengelige for alle prosjekter med mindre de er deaktivert i prosjektinnstillingene dine.
 
 ### Selvhostede AI-agenter
 
-For organisasjoner som trenger å kjøre AI-agenter innenfor sin egen infrastruktur (f.eks. av sikkerhets-, samsvar- eller nettverkstilgangskrav), støtter OneUptime selvhostede AI-agenter.
+For organisasjoner som trenger å kjøre AI-agenter innenfor sin egen infrastruktur (f.eks. av sikkerhets-, samsvar- eller nettverkstilgangskrav), støtter Cast Operations selvhostede AI-agenter.
 
 Selvhostede AI-agenter:
 
@@ -63,9 +63,9 @@ Selvhostede AI-agenter:
 
 ## Konfigurere en selvhostet AI-agent
 
-### Trinn 1: Opprett en AI-agent i OneUptime
+### Trinn 1: Opprett en AI-agent i Cast Operations
 
-1. Logg inn på OneUptime-dashbordet ditt
+1. Logg inn på Cast Operations-dashbordet ditt
 2. Gå til **Prosjektinnstillinger** > **AI-agenter**
 3. Klikk **Opprett AI-agent** for å legge til en ny agent
 4. Fyll inn de påkrevde feltene:
@@ -85,11 +85,11 @@ For å kjøre en AI-agent, sørg for at Docker er installert. Kjør agenten med:
 docker run --name oneuptime-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -d oneuptime/ai-agent:release
 ```
 
-Hvis du selvhoster OneUptime, endre `ONEUPTIME_URL` til din egendefinerte selvhostede instans-URL.
+Hvis du selvhoster Cast Operations, endre `ONEUPTIME_URL` til din egendefinerte selvhostede instans-URL.
 
 #### Docker Compose
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 Bruk konfigurasjonen:
@@ -160,15 +160,15 @@ AI-agenten støtter følgende miljøvariabler:
 
 | Variabel        | Beskrivelse                                                          |
 | --------------- | -------------------------------------------------------------------- |
-| `AI_AGENT_KEY`  | AI-agentnøkkelen fra OneUptime-dashbordet ditt                       |
-| `AI_AGENT_ID`   | AI-agent-ID-en fra OneUptime-dashbordet ditt                         |
-| `ONEUPTIME_URL` | URL-en til OneUptime-instansen din (standard: https://oneuptime.com) |
+| `AI_AGENT_KEY`  | AI-agentnøkkelen fra Cast Operations-dashbordet ditt                       |
+| `AI_AGENT_ID`   | AI-agent-ID-en fra Cast Operations-dashbordet ditt                         |
+| `ONEUPTIME_URL` | URL-en til Cast Operations-instansen din (standard: https://visca.ai) |
 
 ## Bekreft AI-agenten din
 
 Etter distribusjon av AI-agenten:
 
-1. Gå til **Prosjektinnstillinger** > **AI-agenter** i OneUptime-dashbordet ditt
+1. Gå til **Prosjektinnstillinger** > **AI-agenter** i Cast Operations-dashbordet ditt
 2. Agenten din skal vises som **Tilkoblet** innen noen minutter
 3. Hvis statusen viser **Frakoblet**, kontroller containerloggene for feil
 
@@ -187,7 +187,7 @@ kubectl logs deployment/oneuptime-ai-agent
 ### Agenten kobler seg ikke til
 
 1. **Verifiser legitimasjon**: Sørg for at `AI_AGENT_KEY` og `AI_AGENT_ID` er riktige
-2. **Sjekk nettverket**: Sørg for at agenten kan nå OneUptime-instansen din
+2. **Sjekk nettverket**: Sørg for at agenten kan nå Cast Operations-instansen din
 3. **Gjennomgå logger**: Sjekk containerlogger for feilmeldinger
 4. **Brannmurregler**: Sørg for at utgående HTTPS (port 443) er tillatt
 
@@ -201,6 +201,6 @@ kubectl logs deployment/oneuptime-ai-agent
 
 Hvis du støter på problemer med AI-agenten din:
 
-1. Sjekk [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) for kjente problemer
+1. Sjekk [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) for kjente problemer
 2. Opprett en ny sak hvis problemet ditt ikke allerede er rapportert
-3. Kontakt [support](https://oneuptime.com/support) hvis du har en enterprise-plan
+3. Kontakt [support](https://visca.ai/support) hvis du har en enterprise-plan

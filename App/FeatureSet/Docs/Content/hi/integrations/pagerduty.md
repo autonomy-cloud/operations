@@ -1,19 +1,19 @@
 # PagerDuty Integration
 
-जब भी OneUptime incident बनाया जाए तो एक [PagerDuty](https://www.pagerduty.com) incident trigger करें, और OneUptime resolve करने पर उसे resolve करें। उपयोगी जब PagerDuty आपके escalation और on-call schedules का मालिक हो और आप OneUptime की monitoring को उसे feed करना चाहते हों।
+जब भी Cast Operations incident बनाया जाए तो एक [PagerDuty](https://www.pagerduty.com) incident trigger करें, और Cast Operations resolve करने पर उसे resolve करें। उपयोगी जब PagerDuty आपके escalation और on-call schedules का मालिक हो और आप Cast Operations की monitoring को उसे feed करना चाहते हों।
 
-यह इंटीग्रेशन **आउटबाउंड** है: OneUptime PagerDuty के [Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/) को कॉल करता है। यह **Incident → On Create** trigger और **API component** के साथ OneUptime **[वर्कफ़्लो](/docs/workflows/index)** का उपयोग करता है।
+यह इंटीग्रेशन **आउटबाउंड** है: Cast Operations PagerDuty के [Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/) को कॉल करता है। यह **Incident → On Create** trigger और **API component** के साथ Cast Operations **[वर्कफ़्लो](/docs/workflows/index)** का उपयोग करता है।
 
-> OneUptime का अपना on-call और escalation built in है — [On Call](/docs/on-call/incoming-call-policy) देखें। इस इंटीग्रेशन का उपयोग केवल तब करें जब आप विशेष रूप से PagerDuty में भी events land कराना चाहते हों।
+> Cast Operations का अपना on-call और escalation built in है — [On Call](/docs/on-call/incoming-call-policy) देखें। इस इंटीग्रेशन का उपयोग केवल तब करें जब आप विशेष रूप से PagerDuty में भी events land कराना चाहते हों।
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
+Cast Operations Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
 ```
 
 ## पूर्वापेक्षाएँ
 
 - **Events API v2** integration के साथ एक PagerDuty service। PagerDuty में: **Service → Integrations → Add integration → Events API v2**। **Integration Key** कॉपी करें (इसे _routing key_ भी कहते हैं)।
-- एक OneUptime project जहाँ आप वर्कफ़्लो बना सकते हैं।
+- एक Cast Operations project जहाँ आप वर्कफ़्लो बना सकते हैं।
 
 ## चरण 1 — routing key store करें
 
@@ -35,10 +35,10 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      {
        "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
        "event_action": "trigger",
-       "dedup_key": "oneuptime-{{Incident._id}}",
+       "dedup_key": "cast-operations-{{Incident._id}}",
        "payload": {
          "summary": "{{Incident.title}}",
-         "source": "OneUptime",
+         "source": "Cast Operations",
          "severity": "critical",
          "custom_details": {
            "description": "{{Incident.description}}"
@@ -47,11 +47,11 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      }
      ```
 
-   **`dedup_key`** इस PagerDuty incident को OneUptime incident से बाँधता है ताकि आप बाद में उसे resolve कर सकें। OneUptime incident id इस्तेमाल करना इसे unique और predictable रखता है।
+   **`dedup_key`** इस PagerDuty incident को Cast Operations incident से बाँधता है ताकि आप बाद में उसे resolve कर सकें। Cast Operations incident id इस्तेमाल करना इसे unique और predictable रखता है।
 
 4. **सहेजें**, enable करें, और एक test incident बनाएँ। Workflow logs में `202` response का मतलब है PagerDuty ने event accept किया।
 
-## चरण 3 — OneUptime resolve पर resolve करें (अनुशंसित)
+## चरण 3 — Cast Operations resolve पर resolve करें (अनुशंसित)
 
 1. **उसी** वर्कफ़्लो में, एक दूसरा **Incident** trigger जोड़ें? नहीं — एक वर्कफ़्लो में एक trigger होता है। इसके बजाय **Incident → On Update** trigger के साथ `Resolve PagerDuty` नामक एक **दूसरा** वर्कफ़्लो बनाएँ।
 2. यह जाँचने के लिए एक **Conditions** ब्लॉक जोड़ें कि incident अब resolved है (incident के state/`{{Incident.currentIncidentState.name}}` को अपने resolved state name से match करें)।
@@ -61,7 +61,7 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
    {
      "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
      "event_action": "resolve",
-     "dedup_key": "oneuptime-{{Incident._id}}"
+     "dedup_key": "cast-operations-{{Incident._id}}"
    }
    ```
 
@@ -69,11 +69,11 @@ PagerDuty `dedup_key` से match करता है और original incident 
 
 ## Severity mapping (वैकल्पिक)
 
-PagerDuty का `severity` `critical`, `error`, `warning`, या `info` accept करता है। OneUptime severities से map करने के लिए, API block से पहले `{{Incident.incidentSeverity.name}}` पर **Conditions** branches जोड़ें और हर से अलग body भेजें।
+PagerDuty का `severity` `critical`, `error`, `warning`, या `info` accept करता है। Cast Operations severities से map करने के लिए, API block से पहले `{{Incident.incidentSeverity.name}}` पर **Conditions** branches जोड़ें और हर से अलग body भेजें।
 
 ## इनबाउंड (वैकल्पिक)
 
-दूसरी दिशा में जाने के लिए — PagerDuty event से OneUptime incident खोलें — एक **Webhook** trigger वर्कफ़्लो जोड़ें और उसके URL पर एक PagerDuty [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (या Events Orchestration) point करें, फिर **Create Incident** इस्तेमाल करें। [inbound pattern](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime) देखें।
+दूसरी दिशा में जाने के लिए — PagerDuty event से Cast Operations incident खोलें — एक **Webhook** trigger वर्कफ़्लो जोड़ें और उसके URL पर एक PagerDuty [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (या Events Orchestration) point करें, फिर **Create Incident** इस्तेमाल करें। [inbound pattern](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime) देखें।
 
 ## समस्या निवारण
 
@@ -84,5 +84,5 @@ PagerDuty का `severity` `critical`, `error`, `warning`, या `info` accept
 ## आगे क्या पढ़ें
 
 - [इंटीग्रेशन अवलोकन](/docs/integrations/index) — patterns और auth cheat sheet।
-- [On Call](/docs/on-call/incoming-call-policy) — OneUptime का built-in escalation।
+- [On Call](/docs/on-call/incoming-call-policy) — Cast Operations का built-in escalation।
 - [Opsgenie](/docs/integrations/opsgenie) — Opsgenie के लिए वही विचार।

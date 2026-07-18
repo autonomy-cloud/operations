@@ -64,7 +64,7 @@ const READ_PERMISSIONS: Array<Permission> = [
   pluralName: "Docker Resources",
   icon: IconProp.Cube,
   tableDescription:
-    "Snapshot of a Docker object (container, image, network, volume) as last reported by the OneUptime Docker Agent. Populated by the telemetry ingest pipeline; not user-editable.",
+    "Snapshot of a Docker object (container, image, network, volume) as last reported by the Cast Operations Docker Agent. Populated by the telemetry ingest pipeline; not user-editable.",
 })
 @Index(["projectId", "dockerHostId", "kind", "name"], {
   unique: true,

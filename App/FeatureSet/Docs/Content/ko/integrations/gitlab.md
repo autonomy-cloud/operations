@@ -1,18 +1,18 @@
 # GitLab 통합
 
-OneUptime 인시던트가 생성될 때 자동으로 [GitLab](https://gitlab.com) 이슈를 열어 — 영향받은 서비스를 소유하는 프로젝트에서 엔지니어링 후속 작업이 이루어지도록 합니다.
+Cast Operations 인시던트가 생성될 때 자동으로 [GitLab](https://gitlab.com) 이슈를 열어 — 영향받은 서비스를 소유하는 프로젝트에서 엔지니어링 후속 작업이 이루어지도록 합니다.
 
-이 통합은 **아웃바운드**: OneUptime이 [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html)를 호출합니다. **Incident → On Create** 트리거와 **API 컴포넌트** 를 갖춘 OneUptime **[Workflow](/docs/workflows/index)** 를 사용합니다. GitLab.com과 자체 관리형 GitLab 모두 동일하게 동작합니다.
+이 통합은 **아웃바운드**: Cast Operations이 [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html)를 호출합니다. **Incident → On Create** 트리거와 **API 컴포넌트** 를 갖춘 Cast Operations **[Workflow](/docs/workflows/index)** 를 사용합니다. GitLab.com과 자체 관리형 GitLab 모두 동일하게 동작합니다.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
+Cast Operations Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
 ```
 
 ## 사전 요건
 
 - GitLab 프로젝트와 해당 **Project ID** (프로젝트 이름 아래 프로젝트 개요 페이지에 표시됨).
 - 이슈를 만들 수 있는 액세스 토큰 — `api` 범위의 **프로젝트**, **그룹**, 또는 **개인 액세스 토큰**: **Settings → Access Tokens**.
-- 워크플로를 만들 수 있는 OneUptime 프로젝트.
+- 워크플로를 만들 수 있는 Cast Operations 프로젝트.
 
 ## 1단계 — 토큰 저장
 
@@ -38,8 +38,8 @@ OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "description": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "description": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": "incident,oneuptime"
      }
      ```

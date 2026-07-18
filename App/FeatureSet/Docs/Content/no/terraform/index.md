@@ -1,12 +1,12 @@
 # Terraform-leverandørdokumentasjon
 
-OneUptime Terraform-leverandøren muliggjør Infrastructure as Code (IaC)-administrasjon av OneUptime-overvåkings-, varslings- og observerbarhetressurser.
+Cast Operations Terraform-leverandøren muliggjør Infrastructure as Code (IaC)-administrasjon av Cast Operations-overvåkings-, varslings- og observerbarhetressurser.
 
 ## Dokumentasjonsseksjoner
 
 ### [Kom i gang](./quick-start.md)
 
-Rask oppsettguide for å komme i gang med OneUptime Terraform-leverandøren på noen minutter.
+Rask oppsettguide for å komme i gang med Cast Operations Terraform-leverandøren på noen minutter.
 
 ### [Komplett leverandørguide](./README.md)
 
@@ -18,24 +18,24 @@ Omfattende dokumentasjon som dekker installasjon, konfigurasjon, ressurser og be
 
 ### [Eksempler](./examples.md)
 
-Eksempler og mønstre fra den virkelige verden for vanlige OneUptime Terraform-konfigurasjoner.
+Eksempler og mønstre fra den virkelige verden for vanlige Cast Operations Terraform-konfigurasjoner.
 
 ## Hurtiglenker
 
-### For OneUptime Cloud-kunder
+### For Cast Operations Cloud-kunder
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Må samsvare med din OneUptime-versjon
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Må samsvare med din Cast Operations-versjon
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Viktig for selvhostede brukere
 
-**Versjonskompatibilitet er kritisk**: Fest alltid Terraform-leverandørversjonen til å samsvare nøyaktig med din OneUptime-installasjonsversjon. Uoverensstemmende versjoner kan forårsake API-kompatibilitetsproblemer.
+**Versjonskompatibilitet er kritisk**: Fest alltid Terraform-leverandørversjonen til å samsvare nøyaktig med din Cast Operations-installasjonsversjon. Uoverensstemmende versjoner kan forårsake API-kompatibilitetsproblemer.
 
 ## Eksterne ressurser
 
-- **Terraform Registry**: [OneUptime-leverandør](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub Repository**: [OneUptime kildekode](https://github.com/OneUptime/oneuptime)
-- **Community Support**: [OneUptime Community](https://community.oneuptime.com)
+- **Terraform Registry**: [Cast Operations-leverandør](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub Repository**: [Cast Operations kildekode](https://github.com/autonomy-cloud/operations)
+- **Community Support**: [Cast Operations Community](https://community.visca.ai)
 
 ## Tilgjengelige ressurser
 
-Leverandøren støtter omfattende OneUptime-ressursadministrasjon:
+Leverandøren støtter omfattende Cast Operations-ressursadministrasjon:
 
 - **Prosjekter og team**: Organiser overvåkingsstrukturen din
 - **Monitorer**: Nettsted-, API-, port-, hjerteslag- og egendefinerte monitorer
@@ -83,9 +83,9 @@ Leverandøren støtter omfattende OneUptime-ressursadministrasjon:
 
 For problemer, spørsmål eller bidrag:
 
-1. **Dokumentasjonsproblemer**: Opprett en sak i [OneUptime-repositoriet](https://github.com/OneUptime/oneuptime/issues)
-2. **Leverandørfeil**: Rapporter i det sentrale OneUptime-repositoriet
-3. **Funksjonsforespørsler**: Diskuter i OneUptime-community
+1. **Dokumentasjonsproblemer**: Opprett en sak i [Cast Operations-repositoriet](https://github.com/autonomy-cloud/operations/issues)
+2. **Leverandørfeil**: Rapporter i det sentrale Cast Operations-repositoriet
+3. **Funksjonsforespørsler**: Diskuter i Cast Operations-community
 4. **Generelle spørsmål**: Bruk community-forumene
 
 ## Neste trinn

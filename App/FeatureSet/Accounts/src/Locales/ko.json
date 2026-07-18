@@ -20,7 +20,7 @@
     "switchLanguage": "언어 변경"
   },
   "footer": {
-    "copyright": "OneUptime",
+    "copyright": "Cast Operations",
     "contact": "연락처",
     "privacyAndTerms": "개인정보 및 약관"
   },
@@ -32,7 +32,7 @@
   },
   "login": {
     "title": "계정에 로그인",
-    "subtitle": "OneUptime을 사용하여 항상 온라인 상태를 유지하는 수천 개의 비즈니스에 참여하세요.",
+    "subtitle": "Cast Operations을 사용하여 항상 온라인 상태를 유지하는 수천 개의 비즈니스에 참여하세요.",
     "submitButton": "로그인",
     "forgotPassword": "비밀번호를 잊으셨나요?",
     "useSso": "대신 SSO (단일 로그인) 사용",
@@ -50,8 +50,8 @@
     }
   },
   "register": {
-    "title": "OneUptime 계정 만들기",
-    "subtitle": "OneUptime을 사용하여 항상 온라인 상태를 유지하는 수천 개의 비즈니스에 참여하세요.",
+    "title": "Cast Operations 계정 만들기",
+    "subtitle": "Cast Operations을 사용하여 항상 온라인 상태를 유지하는 수천 개의 비즈니스에 참여하세요.",
     "noCreditCard": "신용카드가 필요하지 않습니다.",
     "submitButton": "가입하기",
     "haveAccountPrompt": "이미 계정이 있으신가요?",
@@ -92,7 +92,7 @@
   },
   "verifyEmail": {
     "successTitle": "이메일이 확인되었습니다.",
-    "successDescription": "이메일을 확인해 주셔서 감사합니다. 이제 OneUptime에 로그인할 수 있습니다.",
+    "successDescription": "이메일을 확인해 주셔서 감사합니다. 이제 Cast Operations에 로그인할 수 있습니다.",
     "errorTitle": "죄송합니다. 문제가 발생했습니다!",
     "returnToSignIn": "로그인으로 돌아가시겠습니까?",
     "loginLink": "로그인."

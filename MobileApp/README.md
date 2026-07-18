@@ -1,13 +1,13 @@
-# OneUptime Mobile App
+# Cast Operations Mobile App
 
-Expo + React Native mobile app for OneUptime on-call management.
+Expo + React Native mobile app for Cast Operations on-call management.
 
 ## Prerequisites
 
 - Node.js 18+
 - npm
 - [Expo Go](https://expo.dev/go) app on your iOS or Android device (for quick testing)
-- A running OneUptime instance (or use `https://oneuptime.com`)
+- A running Cast Operations instance (or use `https://visca.ai`)
 
 For native builds:
 - **iOS**: macOS with Xcode 15+
@@ -58,8 +58,8 @@ npm run web
 
 On first launch, the app will ask for:
 
-1. **Server URL** - The URL of your OneUptime instance (defaults to `https://oneuptime.com`). The app validates the URL by calling `/api/status` before proceeding.
-2. **Login** - Email and password for your OneUptime account.
+1. **Server URL** - The URL of your Cast Operations instance (defaults to `https://visca.ai`). The app validates the URL by calling `/api/status` before proceeding.
+2. **Login** - Email and password for your Cast Operations account.
 
 Tokens are stored securely in the device Keychain. The server URL is stored in AsyncStorage.
 
@@ -100,7 +100,7 @@ Web push uses VAPID keys (configured separately). See the [Push Notifications do
 
 ## Troubleshooting
 
-- **"Network Error" on login**: Make sure your OneUptime server URL is correct and reachable from your device/emulator.
+- **"Network Error" on login**: Make sure your Cast Operations server URL is correct and reachable from your device/emulator.
 - **Expo Go can't connect**: Ensure your dev machine and phone are on the same Wi-Fi network. Try `npm start -- --tunnel` if direct connections don't work.
 - **iOS build fails**: Run `npx expo prebuild --clean` then `npx expo run:ios`.
 - **Android build fails**: Run `npx expo prebuild --clean` then `npx expo run:android`.

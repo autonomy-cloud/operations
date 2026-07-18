@@ -20,7 +20,7 @@
     "switchLanguage": "切换语言"
   },
   "footer": {
-    "copyright": "OneUptime",
+    "copyright": "Cast Operations",
     "contact": "联系方式",
     "privacyAndTerms": "隐私和条款"
   },
@@ -32,7 +32,7 @@
   },
   "login": {
     "title": "登录您的账户",
-    "subtitle": "加入数千家使用 OneUptime 保持随时在线的企业。",
+    "subtitle": "加入数千家使用 Cast Operations 保持随时在线的企业。",
     "submitButton": "登录",
     "forgotPassword": "忘记密码？",
     "useSso": "改用单点登录（SSO）",
@@ -50,8 +50,8 @@
     }
   },
   "register": {
-    "title": "创建您的 OneUptime 账户",
-    "subtitle": "加入数千家使用 OneUptime 保持随时在线的企业。",
+    "title": "创建您的 Cast Operations 账户",
+    "subtitle": "加入数千家使用 Cast Operations 保持随时在线的企业。",
     "noCreditCard": "无需信用卡。",
     "submitButton": "注册",
     "haveAccountPrompt": "已经有账户？",
@@ -92,7 +92,7 @@
   },
   "verifyEmail": {
     "successTitle": "您的电子邮件已验证。",
-    "successDescription": "感谢您验证您的电子邮件。您现在可以登录 OneUptime。",
+    "successDescription": "感谢您验证您的电子邮件。您现在可以登录 Cast Operations。",
     "errorTitle": "抱歉，出错了！",
     "returnToSignIn": "返回登录？",
     "loginLink": "登录。"

@@ -1,22 +1,22 @@
-# Send Syslog-data til OneUptime
+# Send Syslog-data til Cast Operations
 
 ## Oversikt
 
-OpenTelemetry Ingest-tjenesten aksepterer nå native Syslog-nyttelaster. Du kan videresende meldinger fra enhver RFC3164- eller RFC5424-kompatibel kilde direkte til OneUptime over HTTPS. OneUptime analyserer syslog-prioritet, facility, alvorlighetsgrad, strukturerte data og meldingskropp før alt lagres som søkbare logger.
+OpenTelemetry Ingest-tjenesten aksepterer nå native Syslog-nyttelaster. Du kan videresende meldinger fra enhver RFC3164- eller RFC5424-kompatibel kilde direkte til Cast Operations over HTTPS. Cast Operations analyserer syslog-prioritet, facility, alvorlighetsgrad, strukturerte data og meldingskropp før alt lagres som søkbare logger.
 
 ## Forutsetninger
 
 - **Telemetriinnhentingstoken** – opprett ett fra _Project Settings → Telemetry Ingestion Keys_ og kopier `x-oneuptime-token`-verdien.
 - **Syslog-videresender** – et hvilket som helst verktøy som kan sende HTTP POST-forespørsler (for eksempel `curl`, `rsyslog` via `omhttp`, eller `syslog-ng` med HTTP-destinasjonspluginen).
-- **Tjenestenavn (valgfritt)** – sett `x-oneuptime-service-name`-hodet for å gruppere innkommende logger under en spesifikk telemetritjeneste. Når utelatt, faller OneUptime tilbake til syslog `APP-NAME`, vertsnavn eller `Syslog`.
+- **Tjenestenavn (valgfritt)** – sett `x-oneuptime-service-name`-hodet for å gruppere innkommende logger under en spesifikk telemetritjeneste. Når utelatt, faller Cast Operations tilbake til syslog `APP-NAME`, vertsnavn eller `Syslog`.
 
 ## Endepunkt
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- Erstatt `oneuptime.com` med verten din hvis du selvhoster OneUptime.
+- Erstatt `visca.ai` med verten din hvis du selvhoster Cast Operations.
 - Inkluder alltid `x-oneuptime-token`-hodet i forespørselen.
 
 ## Forespørselskropp
@@ -42,7 +42,7 @@ Send linjeskift-separerte Syslog-strenger eller en JSON-nyttelast med en `messag
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -92,13 +92,13 @@ curl \
 
 ### 1. Nettverks- og sikkerhetsapparater
 
-De fleste nettverksenheter eksponerer fortsatt konfigurasjonsendringer, ACL-treff og trusselsoppdagelser eksklusivt via syslog. Pek det eksisterende reléet (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense og mer) direkte til OneUptime, eller behold et internt relé og videresend over HTTPS:
+De fleste nettverksenheter eksponerer fortsatt konfigurasjonsendringer, ACL-treff og trusselsoppdagelser eksklusivt via syslog. Pek det eksisterende reléet (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense og mer) direkte til Cast Operations, eller behold et internt relé og videresend over HTTPS:
 
 ```bash
-# rsyslog-snippet som batcher meldinger til JSON og poster til OneUptime
+# rsyslog-snippet som batcher meldinger til JSON og poster til Cast Operations
 module(load="omhttp")
 
-template(name="OneUptimeJSON" type="list") {
+template(name="Cast OperationsJSON" type="list") {
   constant(value="{\"messages\":[\"")
   property(name="rawmsg")
   constant(value="\"]}")
@@ -106,14 +106,14 @@ template(name="OneUptimeJSON" type="list") {
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: perimeter-firewall"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -128,14 +128,14 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: linux-fleet"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -155,7 +155,7 @@ Hvis du allerede kjører Fluent Bit eller Fluentd, behold dem for container-logg
 [OUTPUT]
     Name              http
     Match             *
-    Host              oneuptime.com
+    Host              visca.ai
     Port              443
     URI               /syslog/v1/logs
     Format            json
@@ -170,11 +170,11 @@ Dette oppsettet lar deg hente inn syslog fra bare-metal-arbeidere eller maskinva
 
 ### 4. Samsvararkiver uten ventetid
 
-Trenger du å beholde brannmurlogger for PCI eller SOX? Send dem rett til OneUptime, bruk en lang oppbevaringspolicy for telemetritjenesten og eksporter til kaldlagring fra ett enkelt sted. Ingen mer eksportering fra flere syslog-reléer.
+Trenger du å beholde brannmurlogger for PCI eller SOX? Send dem rett til Cast Operations, bruk en lang oppbevaringspolicy for telemetritjenesten og eksporter til kaldlagring fra ett enkelt sted. Ingen mer eksportering fra flere syslog-reléer.
 
 ## Analyserte attributter
 
-OneUptime legger automatisk til følgende attributter til hver loggoppføring:
+Cast Operations legger automatisk til følgende attributter til hver loggoppføring:
 
 - `syslog.priority`, `syslog.facility.code`, `syslog.facility.name`
 - `syslog.severity.code`, `syslog.severity.name`

@@ -50,8 +50,8 @@
     "logout": "Logout"
   },
   "topAlert": {
-    "title": "OneUptime Admin Dashboard",
-    "description": "You can perform your OneUptime server related tasks on this dashboard."
+    "title": "Cast Operations Admin Dashboard",
+    "description": "You can perform your Cast Operations server related tasks on this dashboard."
   },
   "header": {
     "exitAdmin": "Exit Admin",
@@ -74,7 +74,7 @@
     "helpSupport": "Help and Support",
     "legal": "Legal",
     "version": "Version",
-    "versionModalTitle": "OneUptime Version",
+    "versionModalTitle": "Cast Operations Version",
     "versionLabel": "Version",
     "commitLabel": "Commit",
     "versionUnavailable": "Version data is not available"
@@ -115,7 +115,7 @@
     "users": {
       "title": "Users",
       "cardTitle": "Users",
-      "cardDescription": "Here is a list of users in OneUptime.",
+      "cardDescription": "Here is a list of users in Cast Operations.",
       "noItems": "No users found."
     },
     "enterpriseLicenses": {
@@ -150,7 +150,7 @@
     "projects": {
       "title": "Projects",
       "cardTitle": "Projects",
-      "cardDescription": "Here is a list of projects in OneUptime.",
+      "cardDescription": "Here is a list of projects in Cast Operations.",
       "noItems": "No projects found.",
       "stepBasic": "Basic",
       "stepSelectPlan": "Select Plan",
@@ -244,10 +244,10 @@
       "title": "Admin Settings",
       "authentication": {
         "authCardTitle": "Authentication Settings",
-        "authCardDescription": "Authentication Settings for this OneUptime Server instance.",
+        "authCardDescription": "Authentication Settings for this Cast Operations Server instance.",
         "authEditButton": "Edit Settings",
         "projectCreationCardTitle": "Project Creation",
-        "projectCreationCardDescription": "Control who can create new projects on this OneUptime Server.",
+        "projectCreationCardDescription": "Control who can create new projects on this Cast Operations Server.",
         "projectCreationEditButton": "Edit Settings"
       },
       "email": {
@@ -275,7 +275,7 @@
       },
       "whatsapp": {
         "metaCardTitle": "Meta WhatsApp Settings",
-        "metaCardDescription": "Configure Meta WhatsApp credentials. These values are used to send WhatsApp notifications from OneUptime.",
+        "metaCardDescription": "Configure Meta WhatsApp credentials. These values are used to send WhatsApp notifications from Cast Operations.",
         "metaEditButton": "Edit Meta WhatsApp Config",
         "testCardTitle": "Send Test WhatsApp Message",
         "testCardDescription": "Send a test WhatsApp template message to confirm your Meta configuration.",
@@ -288,7 +288,7 @@
       },
       "telegram": {
         "setupCardTitle": "Telegram Setup Guide",
-        "setupCardDescription": "Read this first — it's the quickest path from zero to a working Telegram bot hooked up to OneUptime.",
+        "setupCardDescription": "Read this first — it's the quickest path from zero to a working Telegram bot hooked up to Cast Operations.",
         "configCardTitle": "Telegram Bot Settings",
         "configCardDescription": "Paste the bot token and username @BotFather gave you. These power outbound notifications; the secret token guards the incoming webhook.",
         "configEditButton": "Edit Telegram Config",
@@ -333,7 +333,7 @@
       },
       "apiKey": {
         "cardTitle": "Master API Key Settings",
-        "cardDescription": "This API key has root access to all the resources in all the projects on OneUptime.",
+        "cardDescription": "This API key has root access to all the resources in all the projects on Cast Operations.",
         "editButton": "Edit API Key Settings",
         "apiKeyNotGenerated": "API Key not generated yet."
       },
@@ -443,7 +443,7 @@
   "Acme, Inc.": "Acme, Inc.",
   "Admin Notification Email": "Admin Notification Email",
   "AI Agent Logo": "AI Agent Logo",
-  "Any strong random string. OneUptime rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Any strong random string. OneUptime rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.",
+  "Any strong random string. Cast Operations rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Any strong random string. Cast Operations rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.",
   "App ID": "App ID",
   "App Secret": "App Secret",
   "Application (Client) ID from your Azure AD app registration (or service account for JWT Bearer).": "Application (Client) ID from your Azure AD app registration (or service account for JWT Bearer).",
@@ -493,7 +493,7 @@
   "Health": "Health",
   "Home": "Home",
   "Hostname": "Hostname",
-  "How OneUptime delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "How OneUptime delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.",
+  "How Cast Operations delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "How Cast Operations delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.",
   "If you have a coupon code, enter it here.": "If you have a coupon code, enter it here.",
   "If you have bought more phone numbers from Twilio for specific countries, you can add them here.": "If you have bought more phone numbers from Twilio for specific countries, you can add them here.",
   "If you use port 465, please enable this. Do not enable this if you use port 587.": "If you use port 465, please enable this. Do not enable this if you use port 587.",
@@ -530,9 +530,9 @@
   "OAuth Scope": "OAuth Scope",
   "OAuth Settings": "OAuth Settings",
   "OAuth Token URL": "OAuth Token URL",
-  "OneUptime Health": "OneUptime Health",
+  "Cast Operations Health": "Cast Operations Health",
   "OneUptimeAlertsBot": "OneUptimeAlertsBot",
-  "Operational health of this OneUptime instance.": "Operational health of this OneUptime instance.",
+  "Operational health of this Cast Operations instance.": "Operational health of this Cast Operations instance.",
   "Optional Business Account ID that owns the WhatsApp templates.": "Optional Business Account ID that owns the WhatsApp templates.",
   "Optional Facebook App ID tied to your WhatsApp integration.": "Optional Facebook App ID tied to your WhatsApp integration.",
   "Optional Facebook App Secret used for webhook signature verification.": "Optional Facebook App Secret used for webhook signature verification.",
@@ -540,7 +540,7 @@
   "Password": "Password",
   "Phone Number ID": "Phone Number ID",
   "Pick a friendly name.": "Pick a friendly name.",
-  "Please create a new OneUptime project to get started.": "Please create a new OneUptime project to get started.",
+  "Please create a new Cast Operations project to get started.": "Please create a new Cast Operations project to get started.",
   "Please select a plan.": "Please select a plan.",
   "Port": "Port",
   "Primary Twilio Phone Number": "Primary Twilio Phone Number",
@@ -573,7 +573,7 @@
   "Select the team you would like to add this user to.": "Select the team you would like to add this user to.",
   "Send a broadcast email to all users.": "Send a broadcast email to all users.",
   "Sendgrid API Key": "Sendgrid API Key",
-  "Should we disable sign up of new users to OneUptime?": "Should we disable sign up of new users to OneUptime?",
+  "Should we disable sign up of new users to Cast Operations?": "Should we disable sign up of new users to Cast Operations?",
   "SMTP Email": "SMTP Email",
   "SMTP From Name": "SMTP From Name",
   "SMTP Host": "SMTP Host",
@@ -583,7 +583,7 @@
   "SMTP server hostname. Examples: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)": "SMTP server hostname. Examples: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)",
   "SMTP Username / Email": "SMTP Username / Email",
   "Status": "Status",
-  "Status of the core datastores this OneUptime instance depends on.": "Status of the core datastores this OneUptime instance depends on.",
+  "Status of the core datastores this Cast Operations instance depends on.": "Status of the core datastores this Cast Operations instance depends on.",
   "Subject": "Subject",
   "System components": "System components",
   "Team": "Team",
@@ -591,7 +591,7 @@
   "Team ID": "Team ID",
   "Team Name": "Team Name",
   "Test Email Address": "Test Email Address",
-  "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.": "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.",
+  "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.": "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.",
   "The body of the announcement email. This will be sent to all registered users. You can use Markdown formatting.": "The body of the announcement email. This will be sent to all registered users. You can use Markdown formatting.",
   "The bot token @BotFather sent you — starts with digits, then a colon, then ~35 letters/digits. Not a URL, not a curl command.": "The bot token @BotFather sent you — starts with digits, then a colon, then ~35 letters/digits. Not a URL, not a curl command.",
   "The email address where the test email will be sent.": "The email address where the test email will be sent.",
@@ -600,8 +600,8 @@
   "The subject line of the announcement email.": "The subject line of the announcement email.",
   "The WhatsApp Business phone number ID associated with your sending number.": "The WhatsApp Business phone number ID associated with your sending number.",
   "This AI agent handles automated incident management.": "This AI agent handles automated incident management.",
-  "This API key has root access to all the resources in all the projects on OneUptime.": "This API key has root access to all the resources in all the projects on OneUptime.",
-  "This is the display name your team and customers see, when they receive emails from OneUptime.": "This is the display name your team and customers see, when they receive emails from OneUptime.",
+  "This API key has root access to all the resources in all the projects on Cast Operations.": "This API key has root access to all the resources in all the projects on Cast Operations.",
+  "This is the display name your team and customers see, when they receive emails from Cast Operations.": "This is the display name your team and customers see, when they receive emails from Cast Operations.",
   "This plan is free, forever. ": "This plan is free, forever. ",
   "This probe is to monitor all the internal services.": "This probe is to monitor all the internal services.",
   "Transport": "Transport",

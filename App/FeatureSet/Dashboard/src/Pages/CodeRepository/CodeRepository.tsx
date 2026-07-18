@@ -164,7 +164,7 @@ const CodeRepositoryPage: FunctionComponent<
             <p className="mt-1 text-sm text-gray-500">
               Connecting a repository requires the GitHub App environment
               variables (like <code>GITHUB_APP_NAME</code> and{" "}
-              <code>GITHUB_APP_ID</code>) to be configured on your OneUptime
+              <code>GITHUB_APP_ID</code>) to be configured on your Cast Operations
               server. See the{" "}
               <Link
                 to={Route.fromString("/docs/self-hosted/github-integration")}

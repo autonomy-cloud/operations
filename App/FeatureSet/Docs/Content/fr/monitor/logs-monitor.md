@@ -1,6 +1,6 @@
 # Moniteur de journaux
 
-La surveillance des journaux vous permet de surveiller les journaux de vos applications et de déclencher des alertes basées sur des modèles de journaux, des comptages et des niveaux de gravité. OneUptime évalue les journaux de vos services de télémétrie et les vérifie en fonction de vos critères configurés.
+La surveillance des journaux vous permet de surveiller les journaux de vos applications et de déclencher des alertes basées sur des modèles de journaux, des comptages et des niveaux de gravité. Cast Operations évalue les journaux de vos services de télémétrie et les vérifie en fonction de vos critères configurés.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs de journaux recherchent et comptent les journaux correspondant à 
 
 ## Création d'un moniteur de journaux
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Journaux** comme type de moniteur
 4. Sélectionnez les services de télémétrie à surveiller
@@ -24,7 +24,7 @@ Les moniteurs de journaux recherchent et comptent les journaux correspondant à 
 
 ### Services de télémétrie
 
-Sélectionnez un ou plusieurs services depuis lesquels surveiller les journaux. Les services doivent envoyer des journaux à OneUptime via OpenTelemetry.
+Sélectionnez un ou plusieurs services depuis lesquels surveiller les journaux. Les services doivent envoyer des journaux à Cast Operations via OpenTelemetry.
 
 ### Filtres de journaux
 
@@ -92,4 +92,4 @@ Filtrez les journaux par un ou plusieurs niveaux de gravité :
 
 ## Prérequis d'installation
 
-La surveillance des journaux nécessite que vos applications envoient des journaux à OneUptime via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.
+La surveillance des journaux nécessite que vos applications envoient des journaux à Cast Operations via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.

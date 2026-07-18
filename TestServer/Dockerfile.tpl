@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 #
-# OneUptime-test-server-api Dockerfile
+# Cast Operations-test-server-api Dockerfile
 #
 
 # Pull base image nodejs image.
@@ -21,17 +21,16 @@ RUN npm config set foreground-scripts true
 RUN npm install -g npm@latest
 
 
-# Per-build args (GIT_SHA / APP_VERSION / IS_ENTERPRISE_EDITION) are declared at
 # the bottom so the npm ci / compile layers stay cacheable across commits and
 # across the community + enterprise build passes.
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 
-LABEL org.opencontainers.image.title="OneUptime Test Server"
-LABEL org.opencontainers.image.description="OneUptime synthetic test server used by probes and end-to-end test suites."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.documentation="https://oneuptime.com/docs"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations Test Server"
+LABEL org.opencontainers.image.description="Cast Operations synthetic test server used by probes and end-to-end test suites."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 
@@ -81,7 +80,7 @@ RUN --mount=type=cache,target=/tmp/npm npm ci --prefer-offline
 RUN apk del .gyp
 
 # Expose ports.
-#   - 3800: OneUptime-test-server-api
+#   - 3800: Cast Operations-test-server-api
 EXPOSE 3800
 
 {{ if eq .Env.ENVIRONMENT "development" }}
@@ -99,10 +98,8 @@ USER node
 # cached layer above — only this final metadata layer differs between them.
 ARG GIT_SHA
 ARG APP_VERSION
-ARG IS_ENTERPRISE_EDITION=false
 ENV GIT_SHA=${GIT_SHA}
 ENV APP_VERSION=${APP_VERSION}
-ENV IS_ENTERPRISE_EDITION=${IS_ENTERPRISE_EDITION}
 LABEL org.opencontainers.image.revision="${GIT_SHA}"
 LABEL org.opencontainers.image.version="${APP_VERSION}"
 #Run the app

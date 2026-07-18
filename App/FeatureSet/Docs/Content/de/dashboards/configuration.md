@@ -68,9 +68,9 @@ Ist das Dashboard öffentlich auf einer eigenen Domain, hört die URL sofort nac
 
 ## Sicherung
 
-Wenn Sie OneUptime selbst hosten, reicht eine regelmäßige Datenbank-Sicherung – die Konfiguration des Dashboards wird neben dem Rest Ihres Projekts gespeichert.
+Wenn Sie Cast Operations selbst hosten, reicht eine regelmäßige Datenbank-Sicherung – die Konfiguration des Dashboards wird neben dem Rest Ihres Projekts gespeichert.
 
-Bei OneUptime Cloud werden Sicherungen für Sie erledigt. Wenn Sie eine eigene Kopie wünschen, können Sie das Dashboard über die [OneUptime-API](/docs/api-reference/api-reference) auslesen.
+Bei Cast Operations Cloud werden Sicherungen für Sie erledigt. Wenn Sie eine eigene Kopie wünschen, können Sie das Dashboard über die [Cast Operations-API](/docs/api-reference/api-reference) auslesen.
 
 ## Weiterführende Themen
 

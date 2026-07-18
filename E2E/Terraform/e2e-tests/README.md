@@ -1,6 +1,6 @@
 # Terraform Provider E2E Tests
 
-End-to-end tests for the OneUptime Terraform Provider. These tests validate that the generated Terraform provider works correctly against a running OneUptime instance.
+End-to-end tests for the Cast Operations Terraform Provider. These tests validate that the generated Terraform provider works correctly against a running Cast Operations instance.
 
 ## Directory Structure
 
@@ -33,7 +33,7 @@ The `index.sh` script runs the complete test flow:
 This will:
 
 1. Set up `config.env` from the example file
-2. Start OneUptime services via Docker Compose
+2. Start Cast Operations services via Docker Compose
 3. Wait for services to be ready
 4. Install npm dependencies
 5. Generate the Terraform provider
@@ -43,7 +43,7 @@ This will:
 
 ### Running Individual Scripts
 
-If you already have OneUptime running locally:
+If you already have Cast Operations running locally:
 
 ```bash
 # Set up test account and API key
@@ -131,7 +131,7 @@ The following environment variables are used:
 
 | Variable            | Default            | Description                |
 | ------------------- | ------------------ | -------------------------- |
-| `ONEUPTIME_URL`     | `http://localhost` | OneUptime instance URL     |
+| `ONEUPTIME_URL`     | `http://localhost` | Cast Operations instance URL     |
 | `TF_VAR_api_key`    | (generated)        | API key for authentication |
 | `TF_VAR_project_id` | (generated)        | Project ID for resources   |
 

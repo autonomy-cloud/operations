@@ -1,6 +1,6 @@
 # サーバー/VMモニター
 
-サーバー・VMモニタリングを使用すると、サーバーにシステムメトリクスをOneUptimeに報告する軽量エージェントをインストールすることで、サーバー、仮想マシン、その他のインフラストラクチャの正常性とパフォーマンスを監視できます。
+サーバー・VMモニタリングを使用すると、サーバーにシステムメトリクスをCast Operationsに報告する軽量エージェントをインストールすることで、サーバー、仮想マシン、その他のインフラストラクチャの正常性とパフォーマンスを監視できます。
 
 ## 概要
 
@@ -14,7 +14,7 @@
 
 ## サーバーモニターの作成
 
-1. OneUptime ダッシュボードで **モニター** を開きます
+1. Cast Operations ダッシュボードで **モニター** を開きます
 2. **モニターの作成** をクリックします
 3. モニタータイプとして **サーバー/VM** を選択します
 4. このモニター用の **シークレットキー** が生成されます。エージェントの設定に必要です
@@ -22,26 +22,26 @@
 
 ## インフラストラクチャエージェントのインストール
 
-OneUptimeインフラストラクチャエージェントは、システムメトリクスを収集して30秒ごとにOneUptimeに送信する軽量なGoベースのデーモンです。Linux、macOS、Windowsをサポートしています。
+Cast Operationsインフラストラクチャエージェントは、システムメトリクスを収集して30秒ごとにCast Operationsに送信する軽量なGoベースのデーモンです。Linux、macOS、Windowsをサポートしています。
 
 ### Linux / macOS
 
 ```bash
 # エージェントのインストール
-curl -sSL https://oneuptime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # エージェントの設定
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # エージェントの起動
 sudo oneuptime-infrastructure-agent start
 ```
 
-`YOUR_SECRET_KEY` はモニターの設定に表示されているシークレットキーに、セルフホストの場合は `https://oneuptime.com` をOneUptimeインスタンスのURLに置き換えてください。
+`YOUR_SECRET_KEY` はモニターの設定に表示されているシークレットキーに、セルフホストの場合は `https://visca.ai` をCast OperationsインスタンスのURLに置き換えてください。
 
 ### Windows
 
-1. [GitHub Releases](https://github.com/OneUptime/oneuptime/releases/latest) から最新のエージェントをダウンロードします
+1. [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest) から最新のエージェントをダウンロードします
    - x64システムの場合：`oneuptime-infrastructure-agent_windows_amd64.zip`
    - ARM64システムの場合：`oneuptime-infrastructure-agent_windows_arm64.zip`
 2. zipファイルを展開します
@@ -49,7 +49,7 @@ sudo oneuptime-infrastructure-agent start
 
 ```bash
 # エージェントの設定
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # エージェントの起動
 oneuptime-infrastructure-agent start
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 サーバーがプロキシ経由でインターネットに接続している場合、エージェントがプロキシを使用するように設定できます。
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com --proxy-url=http://proxy.example.com:8080
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## エージェントコマンド
@@ -69,7 +69,7 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 
 | コマンド    | 説明                                                                  |
 | ----------- | --------------------------------------------------------------------- |
-| `configure` | シークレットキーとOneUptime URLでエージェントを設定する               |
+| `configure` | シークレットキーとCast Operations URLでエージェントを設定する               |
 | `start`     | エージェントサービスを起動する                                        |
 | `stop`      | エージェントサービスを停止する                                        |
 | `restart`   | エージェントサービスを再起動する                                      |
@@ -179,7 +179,7 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 - エージェントが実行中か確認します：`sudo oneuptime-infrastructure-agent status`
 - エージェントログを確認します：`sudo oneuptime-infrastructure-agent logs -n 50`
 - シークレットキーが正しいか確認します
-- サーバーがOneUptimeインスタンスのURLに到達できることを確認します
+- サーバーがCast OperationsインスタンスのURLに到達できることを確認します
 - ファイアウォールルールがアウトバウンドHTTPS接続を許可していることを確認します
 
 ### エージェントによるリソース高使用率
@@ -192,7 +192,7 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 ### プロキシの問題
 
 - プロキシのURLとポートが正しいか確認します
-- プロキシがOneUptimeインスタンスへの接続を許可していることを確認します
+- プロキシがCast Operationsインスタンスへの接続を許可していることを確認します
 - 再設定します：`sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
 
 ## ベストプラクティス

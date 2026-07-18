@@ -114,7 +114,7 @@ const ProxmoxClusterSettings: FunctionComponent<
         cardProps={{
           title: "Ceph Storage Link",
           description:
-            "Running Ceph under this Proxmox cluster? Link the OneUptime Ceph cluster that backs its storage to get a Ceph health and capacity card on the Proxmox overview. The link is manual — Proxmox metrics carry no Ceph cluster identity.",
+            "Running Ceph under this Proxmox cluster? Link the Cast Operations Ceph cluster that backs its storage to get a Ceph health and capacity card on the Proxmox overview. The link is manual — Proxmox metrics carry no Ceph cluster identity.",
         }}
         isEditable={true}
         editButtonText="Edit Link"
@@ -125,7 +125,7 @@ const ProxmoxClusterSettings: FunctionComponent<
             },
             title: "Ceph Cluster",
             description:
-              "The OneUptime Ceph cluster backing this Proxmox cluster's storage. Leave empty to unlink. Ceph health never changes the Proxmox health badge — the two products alert separately.",
+              "The Cast Operations Ceph cluster backing this Proxmox cluster's storage. Leave empty to unlink. Ceph health never changes the Proxmox health badge — the two products alert separately.",
             fieldType: FormFieldSchemaType.Dropdown,
             required: false,
             placeholder: "Not linked",

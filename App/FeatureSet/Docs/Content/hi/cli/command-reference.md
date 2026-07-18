@@ -1,12 +1,12 @@
 # Command Reference
 
-सभी OneUptime CLI commands का पूर्ण संदर्भ।
+सभी Cast Operations CLI commands का पूर्ण संदर्भ।
 
 ## Authentication Commands
 
 ### `oneuptime login`
 
-OneUptime instance के साथ authenticate करें।
+Cast Operations instance के साथ authenticate करें।
 
 ```bash
 oneuptime login <api-key> <instance-url> [--context-name <name>]
@@ -15,7 +15,7 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 | Parameter        | Type     | आवश्यक | विवरण                               |
 | ---------------- | -------- | ------ | ----------------------------------- |
 | `<api-key>`      | argument | हाँ    | authentication के लिए API key       |
-| `<instance-url>` | argument | हाँ    | OneUptime instance URL              |
+| `<instance-url>` | argument | हाँ    | Cast Operations instance URL              |
 | `--context-name` | option   | नहीं   | Context नाम (डिफ़ॉल्ट: `"default"`) |
 
 ---

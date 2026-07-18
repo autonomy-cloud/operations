@@ -532,7 +532,7 @@ export default class SlackAPI {
             res,
             slackIntegrationPageUrl.addQueryParam(
               "error",
-              "Looks like this OneUptime project is not connected to any slack workspace. Please try again and sign in to the workspace",
+              "Looks like this Cast Operations project is not connected to any slack workspace. Please try again and sign in to the workspace",
             ),
           );
         }
@@ -1213,7 +1213,7 @@ export default class SlackAPI {
                 });
               }
 
-              // If the user's Slack account is not connected to OneUptime.
+              // If the user's Slack account is not connected to Cast Operations.
               if (!context.userId) {
                 await SlackUtil.sendMessageToThread({
                   authToken: context.projectAuthToken,
@@ -1307,7 +1307,7 @@ export default class SlackAPI {
         if (!questionText) {
           return Response.sendJsonObjectResponse(req, res, {
             response_type: "ephemeral",
-            text: "Usage: `/oneuptime ask which monitors are down?` — ask OneUptime AI about your logs, traces, metrics, incidents and monitors.",
+            text: "Usage: `/oneuptime ask which monitors are down?` — ask Cast Operations AI about your logs, traces, metrics, incidents and monitors.",
           });
         }
 
@@ -1340,7 +1340,7 @@ export default class SlackAPI {
               url: URL.fromString(responseUrl),
               data: {
                 response_type: "ephemeral",
-                text: "This Slack workspace is not connected to any OneUptime project.",
+                text: "This Slack workspace is not connected to any Cast Operations project.",
               },
               headers: {
                 ["Content-Type"]: "application/json",
@@ -1350,7 +1350,7 @@ export default class SlackAPI {
           }
 
           if (!context.userId) {
-            // User's Slack account is not connected to OneUptime.
+            // User's Slack account is not connected to Cast Operations.
             await API.post({
               url: URL.fromString(responseUrl),
               data: {
@@ -1409,11 +1409,11 @@ export default class SlackAPI {
 
   /*
    * Shared "AI Ops" resolution used by both @mentions / DMs (Events API) and
-   * the /oneuptime slash command. Resolves the Slack team_id -> OneUptime
-   * project and the Slack user id -> OneUptime user using the same
+   * the /oneuptime slash command. Resolves the Slack team_id -> Cast Operations
+   * project and the Slack user id -> Cast Operations user using the same
    * WorkspaceProjectAuthToken / WorkspaceUserAuthToken pattern as
    * SlackAuthAction.isAuthorized. Returns undefined when the workspace is not
-   * connected to any OneUptime project at all.
+   * connected to any Cast Operations project at all.
    */
   private static async resolveSlackAiOpsContext(data: {
     slackTeamId: string;
@@ -1623,9 +1623,9 @@ export default class SlackAPI {
 
   /*
    * Message shown to a Slack user whose Slack account is not connected to
-   * OneUptime. Mirrors the copy used in SlackAuthAction.isAuthorized.
+   * Cast Operations. Mirrors the copy used in SlackAuthAction.isAuthorized.
    */
   private static getSlackAccountNotConnectedMessage(): string {
-    return "Unfortunately your Slack account is not connected to OneUptime. Please log into your OneUptime account, click on User Settings and then connect your Slack account.";
+    return "Unfortunately your Slack account is not connected to Cast Operations. Please log into your Cast Operations account, click on User Settings and then connect your Slack account.";
   }
 }

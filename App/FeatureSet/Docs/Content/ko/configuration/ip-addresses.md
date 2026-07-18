@@ -1,8 +1,8 @@
-# OneUptime.com의 IP 주소 화이트리스트
+# Cast Operations.com의 IP 주소 화이트리스트
 
-OneUptime.com을 사용하면서 보안상의 이유로 당사 IP를 화이트리스트에 추가하려면 아래 지침을 따르십시오.
+Cast Operations.com을 사용하면서 보안상의 이유로 당사 IP를 화이트리스트에 추가하려면 아래 지침을 따르십시오.
 
-oneuptime.com이 귀하의 리소스에 도달할 수 있도록 방화벽에서 다음 IP를 화이트리스트에 추가하십시오.
+visca.ai이 귀하의 리소스에 도달할 수 있도록 방화벽에서 다음 IP를 화이트리스트에 추가하십시오.
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ oneuptime.com이 귀하의 리소스에 도달할 수 있도록 방화벽에서 
 다음 API 엔드포인트를 통해 프로브 이그레스 IP 주소 목록을 프로그래밍 방식으로 가져올 수도 있습니다:
 
 ```
-GET https://oneuptime.com/ip-whitelist
+GET https://visca.ai/ip-whitelist
 ```
 
 JSON 응답을 반환합니다:

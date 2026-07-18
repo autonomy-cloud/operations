@@ -1,12 +1,12 @@
 # Production Readiness Checklist
 
-Work through this list to make your OneUptime installation production-ready.
+Work through this list to make your Cast Operations installation production-ready.
 
 ## Pin versions
 
-- [ ] **Pin the OneUptime version.** This prevents breaking changes from
+- [ ] **Pin the Cast Operations version.** This prevents breaking changes from
   affecting your install. Check the latest version on the
-  [releases page](https://github.com/OneUptime/oneuptime/releases), then pin it:
+  [releases page](https://github.com/autonomy-cloud/operations/releases), then pin it:
 
   ```yaml
   image:
@@ -113,5 +113,5 @@ Work through this list to make your OneUptime installation production-ready.
 
 ## Stay current
 
-- [ ] **Update OneUptime regularly.** We release updates every day; we recommend
+- [ ] **Update Cast Operations regularly.** We release updates every day; we recommend
   updating at least once a week for production installs.

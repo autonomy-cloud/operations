@@ -1,6 +1,6 @@
 # Windows 설치 가이드
 
-포괄적인 모니터링 및 인시던트 관리를 위해 Windows에 OneUptime을 데스크탑 애플리케이션으로 설치합니다.
+포괄적인 모니터링 및 인시던트 관리를 위해 Windows에 Cast Operations을 데스크탑 애플리케이션으로 설치합니다.
 
 ## 설치 방법
 
@@ -8,46 +8,46 @@
 
 Edge는 네이티브 기능으로 최상의 Windows PWA 통합을 제공합니다.
 
-1. **Edge에서 OneUptime 열기**
+1. **Edge에서 Cast Operations 열기**
 
    - Microsoft Edge 브라우저를 실행합니다
-   - OneUptime 인스턴스 URL로 이동합니다
-   - OneUptime 계정에 로그인합니다
+   - Cast Operations 인스턴스 URL로 이동합니다
+   - Cast Operations 계정에 로그인합니다
    - 페이지가 완전히 로드될 때까지 기다립니다
 
 2. **앱 설치**
 
    - 주소 표시줄에서 **설치 아이콘** (⊞)을 찾습니다
-   - **"OneUptime 설치"** 버튼을 클릭합니다
+   - **"Cast Operations 설치"** 버튼을 클릭합니다
    - 또는 **세 점 메뉴** → **앱** → **이 사이트를 앱으로 설치**를 클릭합니다
 
 3. **설치 커스터마이징**
 
-   - **앱 이름**: 원하는 경우 수정합니다 (기본값: OneUptime)
+   - **앱 이름**: 원하는 경우 수정합니다 (기본값: Cast Operations)
    - **시작 메뉴**: 시작 메뉴에 추가 여부 선택
    - **작업 표시줄**: 작업 표시줄에 고정하는 옵션
    - **데스크탑**: 데스크탑 바로 가기 만들기
 
 4. **설치 완료**
    - **"설치"**를 클릭하여 완료합니다
-   - OneUptime이 자체 창으로 열립니다
+   - Cast Operations이 자체 창으로 열립니다
    - 설치된 앱 아래의 시작 메뉴에서 찾을 수 있습니다
 
 ### 방법 2: Google Chrome
 
 Chrome은 풍부한 데스크탑 통합으로 훌륭한 PWA 지원을 제공합니다.
 
-1. **Chrome에서 OneUptime 열기**
+1. **Chrome에서 Cast Operations 열기**
 
    - Google Chrome을 실행합니다
-   - OneUptime 인스턴스로 이동합니다
+   - Cast Operations 인스턴스로 이동합니다
    - 로그인되어 있는지 확인합니다
    - 페이지가 완전히 로드될 때까지 기다립니다
 
 2. **주소 표시줄을 통해 설치**
 
    - 주소 표시줄에서 **설치 아이콘** (⊞)을 찾습니다
-   - **"OneUptime 설치"**를 클릭합니다
+   - **"Cast Operations 설치"**를 클릭합니다
    - 또는 메뉴 사용: **세 점** → **추가 도구** → **바로 가기 만들기**
 
 3. **설치 옵션**
@@ -57,7 +57,7 @@ Chrome은 풍부한 데스크탑 통합으로 훌륭한 PWA 지원을 제공합�
    - **"설치"** 또는 **"만들기"**를 클릭합니다
 
 4. **앱 실행**
-   - Windows 시작 메뉴에서 OneUptime을 찾습니다
+   - Windows 시작 메뉴에서 Cast Operations을 찾습니다
    - 또는 데스크탑 바로 가기에서 실행합니다
    - 앱이 전용 창으로 열립니다
 
@@ -65,10 +65,10 @@ Chrome은 풍부한 데스크탑 통합으로 훌륭한 PWA 지원을 제공합�
 
 Firefox는 기본 데스크탑 통합으로 PWA 설치를 지원합니다.
 
-1. **Firefox에서 OneUptime 열기**
+1. **Firefox에서 Cast Operations 열기**
 
    - Firefox 브라우저를 실행합니다
-   - OneUptime URL로 이동합니다
+   - Cast Operations URL로 이동합니다
    - 로그인 프로세스를 완료합니다
 
 2. **PWA 설치**
@@ -78,9 +78,9 @@ Firefox는 기본 데스크탑 통합으로 PWA 설치를 지원합니다.
 
 ### 시작 구성
 
-1. **자동 시작**: Windows와 함께 OneUptime을 시작하도록 구성합니다
+1. **자동 시작**: Windows와 함께 Cast Operations을 시작하도록 구성합니다
    - 작업 표시줄 오른쪽 클릭 → 작업 관리자 → 시작 프로그램
-   - 원하는 경우 OneUptime 활성화
+   - 원하는 경우 Cast Operations 활성화
 2. **기본 크기**: 원하는 창 크기와 위치 설정
 
 ### 알림 설정
@@ -88,12 +88,12 @@ Firefox는 기본 데스크탑 통합으로 PWA 설치를 지원합니다.
 1. **Windows 알림**
 
    - 설정 → 시스템 → 알림 및 작업
-   - OneUptime을 찾고 알림 기본 설정을 구성합니다
+   - Cast Operations을 찾고 알림 기본 설정을 구성합니다
    - 인시던트에 대한 배너 알림 활성화
 
 2. **집중 지원**
    - 방해 금지 설정 구성
-   - OneUptime 중요 알림 허용
+   - Cast Operations 중요 알림 허용
    - 다양한 알림 유형에 대한 우선 순위 수준 설정
 
 ## 문제 해결
@@ -105,7 +105,7 @@ Firefox는 기본 데스크탑 통합으로 PWA 설치를 지원합니다.
 ```
 해결책:
 1. Edge 또는 Chrome을 사용하고 있는지 확인합니다 (권장 브라우저)
-2. OneUptime 인스턴스에 대한 HTTPS 연결 확인
+2. Cast Operations 인스턴스에 대한 HTTPS 연결 확인
 3. 브라우저 캐시와 쿠키를 지웁니다
 4. 브라우저를 최신 버전으로 업데이트합니다
 5. 서버의 PWA 요구 사항이 충족되었는지 확인합니다
@@ -128,7 +128,7 @@ Firefox는 기본 데스크탑 통합으로 PWA 설치를 지원합니다.
 
 ```
 해결책:
-1. Windows 검색에서 "OneUptime"을 검색합니다
+1. Windows 검색에서 "Cast Operations"을 검색합니다
 2. 다른 이름으로 설치되었는지 확인합니다
 3. "최근에 추가된" 앱 섹션을 확인합니다
 4. 재설치하고 "시작 메뉴에 추가"가 체크되어 있는지 확인합니다
@@ -142,9 +142,9 @@ Firefox는 기본 데스크탑 통합으로 PWA 설치를 지원합니다.
 ```
 해결책:
 1. Windows 설정 → 시스템 → 알림 및 작업
-2. OneUptime에 대한 알림 활성화
+2. Cast Operations에 대한 알림 활성화
 3. 집중 지원 설정 확인
-4. OneUptime에서 알림 권한 확인
+4. Cast Operations에서 알림 권한 확인
 5. 먼저 간단한 알림으로 테스트합니다
 ```
 
@@ -155,18 +155,18 @@ Firefox는 기본 데스크탑 통합으로 PWA 설치를 지원합니다.
 1. **Windows 설정 방법**
 
    - 설정 → 앱 → 앱 및 기능
-   - "OneUptime" 검색
+   - "Cast Operations" 검색
    - 클릭하고 "제거" 선택
 
 2. **브라우저 방법**
 
    - Edge/Chrome 열기
    - edge://apps/ 또는 chrome://apps/로 이동
-   - OneUptime 찾기
+   - Cast Operations 찾기
    - 옵션 → 제거 클릭
 
 3. **시작 메뉴 방법**
-   - 시작 메뉴에서 OneUptime을 오른쪽 클릭합니다
+   - 시작 메뉴에서 Cast Operations을 오른쪽 클릭합니다
    - "제거" 선택
    - 제거 확인
 
@@ -174,7 +174,7 @@ Firefox는 기본 데스크탑 통합으로 PWA 설치를 지원합니다.
 
 ### 자동 업데이트
 
-- OneUptime PWA는 온라인 상태에서 자동으로 업데이트됩니다
+- Cast Operations PWA는 온라인 상태에서 자동으로 업데이트됩니다
 - 수동 개입이 필요하지 않습니다
 - 재시작 시 즉시 업데이트가 적용됩니다
 - 중요한 패치가 즉시 배포됩니다

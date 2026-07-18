@@ -23,7 +23,7 @@ export const ONEUPTIME_BASE_URL: URL = URL.fromString(
 );
 
 /*
- * The agent talks to a single mount under the OneUptime app:
+ * The agent talks to a single mount under the Cast Operations app:
  *   POST /runbook-agent-ingest/heartbeat
  *   POST /runbook-agent-ingest/claim-next-job
  *   POST /runbook-agent-ingest/job/:jobId/heartbeat

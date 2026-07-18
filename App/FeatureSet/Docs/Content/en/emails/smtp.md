@@ -1,6 +1,6 @@
 # SMTP Configuration
 
-OneUptime supports sending emails via custom SMTP servers with three authentication methods:
+Cast Operations supports sending emails via custom SMTP servers with three authentication methods:
 
 - **Username and Password** - Traditional SMTP authentication
 - **OAuth 2.0** - Modern authentication for Microsoft 365 and Google Workspace
@@ -10,14 +10,14 @@ This guide covers how to configure OAuth 2.0 authentication for Microsoft 365 an
 
 ## OAuth 2.0 Authentication
 
-OAuth 2.0 provides a more secure way to authenticate with email servers, especially for enterprise environments that have disabled basic authentication. OneUptime supports two OAuth grant types:
+OAuth 2.0 provides a more secure way to authenticate with email servers, especially for enterprise environments that have disabled basic authentication. Cast Operations supports two OAuth grant types:
 
 - **Client Credentials** - Used by Microsoft 365 and most OAuth providers
 - **JWT Bearer** - Used by Google Workspace service accounts
 
 ### Required Fields for OAuth
 
-When configuring SMTP with OAuth authentication in OneUptime, you'll need:
+When configuring SMTP with OAuth authentication in Cast Operations, you'll need:
 
 | Field                   | Description                                                                         |
 | ----------------------- | ----------------------------------------------------------------------------------- |
@@ -42,7 +42,7 @@ To use OAuth with Microsoft 365/Exchange Online, you need to register an applica
 1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com)
 2. Navigate to **Identity** > **Applications** > **App registrations**
 3. Click **New registration**
-4. Enter a name for your application (e.g., "OneUptime SMTP")
+4. Enter a name for your application (e.g., "Cast Operations SMTP")
 5. For **Supported account types**, select "Accounts in this organizational directory only"
 6. Leave **Redirect URI** blank (not needed for client credentials flow)
 7. Click **Register**
@@ -104,9 +104,9 @@ Add-MailboxPermission -Identity "sender@yourdomain.com" -User <service-principal
 
 > **Note:** Use `Add-MailboxPermission` (not `Add-RecipientPermission`). `Add-RecipientPermission` only grants `SendAs` on the recipient and is not sufficient for the service principal to send mail via SMTP with OAuth — you will get an authentication/permission error at send time. `Add-MailboxPermission` with `FullAccess` is the command that actually works.
 
-### Step 5: Configure in OneUptime
+### Step 5: Configure in Cast Operations
 
-In OneUptime, create or edit an SMTP configuration with these settings:
+In Cast Operations, create or edit an SMTP configuration with these settings:
 
 | Field               | Value                                                                        |
 | ------------------- | ---------------------------------------------------------------------------- |
@@ -186,9 +186,9 @@ Google Workspace requires a **service account** with domain-wide delegation to s
 
 Note: It may take a few minutes to 24 hours for the delegation to propagate.
 
-### Step 7: Configure in OneUptime
+### Step 7: Configure in Cast Operations
 
-In OneUptime, create or edit an SMTP configuration with these settings:
+In Cast Operations, create or edit an SMTP configuration with these settings:
 
 | Field               | Value                                                                                                                                          |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -230,16 +230,16 @@ In OneUptime, create or edit an SMTP configuration with these settings:
 
 ### General
 
-- **Test your configuration**: Use the "Send Test Email" button in OneUptime to verify your setup
-- **Check logs**: Review OneUptime logs for detailed error messages
-- **Token caching**: OneUptime caches OAuth tokens and refreshes them automatically before expiry
+- **Test your configuration**: Use the "Send Test Email" button in Cast Operations to verify your setup
+- **Check logs**: Review Cast Operations logs for detailed error messages
+- **Token caching**: Cast Operations caches OAuth tokens and refreshes them automatically before expiry
 
 ---
 
 ## Security Best Practices
 
 1. **Rotate secrets regularly**: Set calendar reminders to rotate client secrets before they expire
-2. **Use dedicated service accounts**: Create separate credentials for OneUptime rather than sharing with other applications
+2. **Use dedicated service accounts**: Create separate credentials for Cast Operations rather than sharing with other applications
 3. **Principle of least privilege**: Only grant the minimum permissions needed (SMTP.SendAsApp for Microsoft, mail.google.com scope for Google)
 4. **Monitor usage**: Review email logs and OAuth application sign-ins for unusual activity
 5. **Secure storage**: Never commit client secrets to version control

@@ -1,8 +1,8 @@
 # Global SSO（インスタンス全体のシングルサインオン）
 
-Global SSO を使用すると、OneUptime の **インスタンス管理者**（マスター管理者）が単一の SAML 2.0 または OpenID Connect（OIDC）アイデンティティプロバイダーを **インスタンスレベルで一度だけ** 設定し、サーバー上の任意のプロジェクトに接続できます。これはプロジェクトごとの SSO に対するインスタンス全体の対応物です。各プロジェクトのオーナーがそれぞれ独自のアイデンティティプロバイダーを設定するのではなく、マスター管理者がインスタンス全体に提供できるものを 1 つ設定します。
+Global SSO を使用すると、Cast Operations の **インスタンス管理者**（マスター管理者）が単一の SAML 2.0 または OpenID Connect（OIDC）アイデンティティプロバイダーを **インスタンスレベルで一度だけ** 設定し、サーバー上の任意のプロジェクトに接続できます。これはプロジェクトごとの SSO に対するインスタンス全体の対応物です。各プロジェクトのオーナーがそれぞれ独自のアイデンティティプロバイダーを設定するのではなく、マスター管理者がインスタンス全体に提供できるものを 1 つ設定します。
 
-Global SSO は **OneUptime Enterprise Edition** の機能であり、Enterprise Edition ビルドを実行しているインスタンスでのみ利用できます。
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO とプロジェクト SSO の比較
 
@@ -24,7 +24,7 @@ Global SSO は **OneUptime Enterprise Edition** の機能であり、Enterprise 
    - SAML の場合: **名前** を入力し、アイデンティティプロバイダーの **Sign On URL** と **Issuer** を入力し、**公開証明書** を貼り付けます。**署名** 方式と **ダイジェスト** 方式を選択します（不明な場合はデフォルトの `RSA-SHA256` / `SHA256` のままにします）。
    - OIDC の場合: **Discovery URL**、**Issuer**、**Client ID**、**Client Secret**、**Scopes**（`openid` を含める必要があります）、および **email** / **name** クレーム名を入力します。
 
-3. **OneUptime の URL をアイデンティティプロバイダーにコピーする**
+3. **Cast Operations の URL をアイデンティティプロバイダーにコピーする**
 
    - プロバイダーを開く（リスト内の行をクリック）と、**Identity Provider URLs** カードが表示されます。
    - SAML の場合、**ACS URL (Reply URL)** と **Issuer (Entity ID)** を IdP（Okta、Azure AD、OneLogin、JumpCloud など）にコピーします。

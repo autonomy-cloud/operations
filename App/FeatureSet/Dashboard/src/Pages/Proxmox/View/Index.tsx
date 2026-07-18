@@ -2156,7 +2156,7 @@ const ProxmoxClusterOverview: FunctionComponent<
     return (
       <Card
         title="Ceph Storage"
-        description="This Proxmox cluster is linked to a Ceph cluster monitored by OneUptime. Ceph health does not affect the Proxmox health badge — it alerts separately."
+        description="This Proxmox cluster is linked to a Ceph cluster monitored by Cast Operations. Ceph health does not affect the Proxmox health badge — it alerts separately."
       >
         <div
           onClick={() => {

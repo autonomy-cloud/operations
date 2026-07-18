@@ -64,7 +64,7 @@ const DockerSwarmClusterDocumentation: FunctionComponent<
     <Fragment>
       <DockerSwarmDocumentationCard
         title="Docker Swarm Agent Installation Guide"
-        description="Follow these steps to install the OneUptime Docker Swarm Agent for this cluster."
+        description="Follow these steps to install the Cast Operations Docker Swarm Agent for this cluster."
       />
     </Fragment>
   );

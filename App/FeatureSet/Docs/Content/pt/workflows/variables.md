@@ -60,7 +60,7 @@ O bloco **Código Customizado** lê variáveis de forma diferente — variáveis
 
 ### Construindo um payload a partir de um webhook
 
-Um webhook chega com um corpo como `{ "service": "checkout", "status": "failed" }`. Para transformar isso em um incidente no OneUptime:
+Um webhook chega com um corpo como `{ "service": "checkout", "status": "failed" }`. Para transformar isso em um incidente no Cast Operations:
 
 1. Gatilho **Webhook** chamado `CIWebhook`.
 2. Bloco **Condições**: à esquerda `{{CIWebhook.Request Body.status}}`, operador `==`, à direita `failed`.

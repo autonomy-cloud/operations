@@ -1,8 +1,8 @@
-# OneUptime Kubernetes Agent (Helm)
+# Cast Operations Kubernetes Agent (Helm)
 
 ## 概觀
 
-OneUptime Kubernetes Agent 是一個預先封裝好的 Helm chart，會在您的叢集上安裝以 OpenTelemetry 為基礎的 collector pipeline。它會傳送節點、Pod、容器與叢集指標；Kubernetes 事件；Pod 日誌；並且——在預設啟用 eBPF 的情況下——還會傳送應用程式追蹤、HTTP RED 指標、service-graph 資料，以及 Pod 對 Pod 的網路流量指標。無需修改程式碼、無需 SDK，只要一個 `helm install`。
+Cast Operations Kubernetes Agent 是一個預先封裝好的 Helm chart，會在您的叢集上安裝以 OpenTelemetry 為基礎的 collector pipeline。它會傳送節點、Pod、容器與叢集指標；Kubernetes 事件；Pod 日誌；並且——在預設啟用 eBPF 的情況下——還會傳送應用程式追蹤、HTTP RED 指標、service-graph 資料，以及 Pod 對 Pod 的網路流量指標。無需修改程式碼、無需 SDK，只要一個 `helm install`。
 
 本頁面是**安裝指南**。若要在 agent 所收集的資料之上設定 Kubernetes 監控與警示，請參閱 [Kubernetes Agent (monitors)](/docs/monitor/kubernetes-agent)。
 
@@ -11,12 +11,12 @@ OneUptime Kubernetes Agent 是一個預先封裝好的 Helm chart，會在您的
 - 一個運作中的 Kubernetes 叢集（v1.23+）
 - 已設定可存取您叢集的 `kubectl`
 - 已安裝 `helm` v3
-- 一組 **OneUptime API key**——請從 _Project Settings → API Keys_ 建立
+- 一組 **Cast Operations API key**——請從 _Project Settings → API Keys_ 建立
 
-## 步驟 1 — 加入 OneUptime Helm Repository
+## 步驟 1 — 加入 Cast Operations Helm Repository
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 ```
 
@@ -34,7 +34,7 @@ helm repo update
 
 ## 步驟 3 — 安裝 Kubernetes Agent
 
-請將 `YOUR_ONEUPTIME_URL`、`YOUR_ONEUPTIME_API_KEY` 以及叢集名稱替換為您環境中的對應值。叢集名稱是此叢集在 OneUptime 中顯示的方式——請選一個穩定的名稱，例如 `prod-us-east-1`。
+請將 `YOUR_ONEUPTIME_URL`、`YOUR_ONEUPTIME_API_KEY` 以及叢集名稱替換為您環境中的對應值。叢集名稱是此叢集在 Cast Operations 中顯示的方式——請選一個穩定的名稱，例如 `prod-us-east-1`。
 
 ### 標準叢集（自行管理、EKS on EC2、GKE Standard、AKS）
 
@@ -105,7 +105,7 @@ kubernetes-agent-xxxxxxxxxx-xxxxx             1/1     Running   0          1m
 kubernetes-agent-logs-yyyyyyyyyy-yyyyy        1/1     Running   0          1m
 ```
 
-一旦 agent 連線成功，您的叢集就會自動出現在 OneUptime 儀表板的 **Kubernetes** 區段中。
+一旦 agent 連線成功，您的叢集就會自動出現在 Cast Operations 儀表板的 **Kubernetes** 區段中。
 
 ## 設定選項
 
@@ -231,7 +231,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 **您以指標為基礎的監控不會有任何變動。** eBPF RED 指標——請求率、錯誤率、延遲——屬於*指標*族群。OBI 會從每一個請求計算它們，而它們走的是指標管線，取樣器並不在其中。在 `percentage: 10` 之下，您會拿到十分之一的追蹤，以及 100% 準確的請求率／錯誤／延遲。以這些指標為基礎所建立的儀表板與監控不受影響。
 
-**您以 span 為基礎的監控則會變動。** 任何 OneUptime 從 span 本身推導出來的東西，都會隨著這個比率一起縮減——在您開啟它之前，請先閱讀下方的警告。
+**您以 span 為基礎的監控則會變動。** 任何 Cast Operations 從 span 本身推導出來的東西，都會隨著這個比率一起縮減——在您開啟它之前，請先閱讀下方的警告。
 
 | 索引鍵 | 意義 |
 | --- | ------- |
@@ -247,7 +247,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 - **跨叢集預設就能運作。** 只有當兩個 agent 在 `hashSeed` 與 `percentage` 上都一致時，它們才會保留同一筆追蹤。兩者在各處的預設值都相同，因此一筆橫跨兩個叢集的追蹤，無需任何額外設定就能完整存活。只有在您想刻意**去相關**兩個取樣層級時，才需要變更 `hashSeed`——因為這個決定是對同一個雜湊取門檻，所以相同的 seed 在不同比率下會呈巢狀關係，於是第二層只會重新挑出第一層已經保留的那些追蹤，而不是獨立抽取。
 - **Pod 日誌永遠不會被取樣**，因此在 `ebpf.logToTraceCorrelation: true` 之下，每一筆日誌記錄仍然會帶有 trace ID，但這些追蹤只有 `percentage`% 會被保留。大約 (100 − `percentage`)% 的日誌記錄，其顯示的追蹤連結會指向一個不存在的追蹤。追蹤 → 日誌的導覽不受影響；只有日誌 → 追蹤可能會落空。
 
-> **設定這個值時，請重新調校您以 span 為基礎的監控。** 取樣會減少抵達 OneUptime 的 span，因此任何在計數 span 的東西都會算得比較少：一個以 `Span Count` 為條件的 **Traces** 監控，以及一個以 `Exception Count` 為條件的 **Exceptions** 監控，看到的大約會是昨天資料量的 `percentage`%。以未取樣流量調校出來的門檻會悄悄地不再被跨越——監控不會報錯，它只是變得靜默。設定這個比率時，請將那些門檻除以相同的倍數；這個比率是叢集範圍的，因此沒有辦法讓個別服務豁免於它。錯誤**分組**的劣化則比線性更嚴重：常見的例外仍然會浮現，但罕見的一次性例外，比起「出現頻率變成十分之一」，更可能是完全消失。
+> **設定這個值時，請重新調校您以 span 為基礎的監控。** 取樣會減少抵達 Cast Operations 的 span，因此任何在計數 span 的東西都會算得比較少：一個以 `Span Count` 為條件的 **Traces** 監控，以及一個以 `Exception Count` 為條件的 **Exceptions** 監控，看到的大約會是昨天資料量的 `percentage`%。以未取樣流量調校出來的門檻會悄悄地不再被跨越——監控不會報錯，它只是變得靜默。設定這個比率時，請將那些門檻除以相同的倍數；這個比率是叢集範圍的，因此沒有辦法讓個別服務豁免於它。錯誤**分組**的劣化則比線性更嚴重：常見的例外仍然會浮現，但罕見的一次性例外，比起「出現頻率變成十分之一」，更可能是完全消失。
 
 > **為什麼這裡沒有日誌或指標取樣。** collector 的取樣器根本無法對指標取樣。它可以對日誌取樣，但它的隨機性來源是 trace ID——而 Pod 日誌沒有 trace ID。於是每一筆沒有 trace ID 的記錄都會雜湊到同一個 bucket，因此日誌比率並不會讓資料流變稀疏：它會依 seed 而定，不是全部保留，就是全部刪除。與其推出一個會默默刪除您日誌的開關，chart 選擇不提供。若要精簡日誌，請改用[依日誌嚴重性篩選](#依日誌嚴重性篩選)與 [Namespace 篩選](#namespace-篩選)，它們對於自己移除什麼是精確的。
 
@@ -330,7 +330,7 @@ oneuptime:
 clusterName: prod
 ```
 
-標籤比對時不分大小寫，因此既有的、手動建立的 `Production` 標籤會被重複使用，而不是被複製出一個新的。在 OneUptime UI 中手動加入的標籤，agent 絕不會將其移除。
+標籤比對時不分大小寫，因此既有的、手動建立的 `Production` 標籤會被重複使用，而不是被複製出一個新的。在 Cast Operations UI 中手動加入的標籤，agent 絕不會將其移除。
 
 ## 升級 Agent
 
@@ -368,7 +368,7 @@ kubectl delete namespace oneuptime-agent
 
 ## 透過 eBPF 取得應用程式追蹤與 HTTP 指標（預設啟用）
 
-此 chart 會在每個節點上執行一個搭載 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) 的 DaemonSet。它會將 eBPF 程式載入核心，並自動擷取來自每個受支援執行階段（Go、.NET、Java、Node.js、Python、Ruby、Rust）的 HTTP/HTTPS、gRPC 與 SQL/Redis 流量——無需 SDK，也不需要 sidecar。追蹤與請求指標接著會流經叢集內的 collector 送往 OneUptime。
+此 chart 會在每個節點上執行一個搭載 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) 的 DaemonSet。它會將 eBPF 程式載入核心，並自動擷取來自每個受支援執行階段（Go、.NET、Java、Node.js、Python、Ruby、Rust）的 HTTP/HTTPS、gRPC 與 SQL/Redis 流量——無需 SDK，也不需要 sidecar。追蹤與請求指標接著會流經叢集內的 collector 送往 Cast Operations。
 
 **需求：** Linux kernel **5.8+** 並支援 BTF（在 Debian 11+、Ubuntu 20.10+、Fedora 34+、RHEL/Stream 9+ 上為預設）。eBPF DaemonSet 以**特權模式（privileged mode）**執行，因為載入 eBPF 程式必須如此。
 
@@ -408,7 +408,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
 ## 減少收集的資料量
 
-agent 在開箱即用時是為了**涵蓋範圍**而調校的——它會傳送整個叢集的指標、Pod 日誌與 eBPF 追蹤，讓每個儀表板與監控從第一天起就能運作。在大型或繁忙的叢集上，這可能會是超出您所需的遙測資料量，並表現為更高的擷取量（在 OneUptime Cloud 上則是更高的成本）。這裡沒有任何項目是必要的，但如果某個叢集傳送的資料超過您想要的量，以下就是可供調整的開關——大致依影響程度排序。
+agent 在開箱即用時是為了**涵蓋範圍**而調校的——它會傳送整個叢集的指標、Pod 日誌與 eBPF 追蹤，讓每個儀表板與監控從第一天起就能運作。在大型或繁忙的叢集上，這可能會是超出您所需的遙測資料量，並表現為更高的擷取量（在 Cast Operations Cloud 上則是更高的成本）。這裡沒有任何項目是必要的，但如果某個叢集傳送的資料超過您想要的量，以下就是可供調整的開關——大致依影響程度排序。
 
 訣竅在於**停止收集您不會查看的資料**，而不是收集全部再付費儲存。下方的每個槓桿都是一個 Helm value，因此您可以在 `helm upgrade --reuse-values` 上用 `--set` 套用它，並以相同方式將其回復。
 
@@ -446,7 +446,7 @@ agent 在開箱即用時是為了**涵蓋範圍**而調校的——它會傳送�
 
   關於嚴重性如何判定，以及無法分類的日誌會有什麼結果，請參閱[依日誌嚴重性篩選](#依日誌嚴重性篩選)。
 
-- **完全不需要 OneUptime 的 Pod 日誌？** 將它們關閉：
+- **完全不需要 Cast Operations 的 Pod 日誌？** 將它們關閉：
 
   ```bash
   helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
@@ -636,10 +636,10 @@ helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
 
 ## 疑難排解
 
-> **最快的途徑——執行診斷指令碼。** 它會檢查 Pod 健康狀態、解碼並驗證 ingestion key、確認您的叢集能否連到 OneUptime，並向 OneUptime 詢問您的 token 是否真的被接受——然後印出單一的根本原因判定結果：
+> **最快的途徑——執行診斷指令碼。** 它會檢查 Pod 健康狀態、解碼並驗證 ingestion key、確認您的叢集能否連到 Cast Operations，並向 Cast Operations 詢問您的 token 是否真的被接受——然後印出單一的根本原因判定結果：
 >
 > ```bash
-> curl -fsSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
+> curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
 >   | bash -s -- -n oneuptime-agent
 > ```
 >
@@ -664,10 +664,10 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 1. 檢查 agent 的 Pod 是否正在執行：`kubectl get pods -n oneuptime-agent`
 2. 檢查 metrics-collector 日誌：`kubectl logs -n oneuptime-agent -l component=metrics-collector -c otel-collector`（此處沒有錯誤**並不**代表資料有抵達——見上文）
-3. **驗證 ingestion key。** 直接向 OneUptime 詢問您的 token 是否被接受（`200` = 有效，`401` = 未知/已撤銷）：
+3. **驗證 ingestion key。** 直接向 Cast Operations 詢問您的 token 是否被接受（`200` = 有效，`401` = 未知/已撤銷）：
 
    ```bash
-   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://oneuptime.com/otlp/v1/validate
+   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
    ```
 
    如果它回傳 `401`，表示您 release 中的 key 是錯誤的或已被撤銷。請從 _Project Settings → Telemetry Ingestion Keys_ 複製一個有效的 key 並重新部署：
@@ -678,7 +678,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
      --set oneuptime.apiKey=<LIVE_KEY>
    ```
 
-4. 確認您的 OneUptime URL 正確，且您的叢集能透過網路連到它。
+4. 確認您的 Cast Operations URL 正確，且您的叢集能透過網路連到它。
 5. 如果您在重新安裝時更改了 `clusterName`，該 agent 會以**新的**叢集出現——舊的項目會維持在 "Disconnected"（這是預期的；它已經過時了）。
 
 ### 沒有日誌出現（僅限 API 模式）
@@ -711,7 +711,7 @@ kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
 
 1. 確認 eBPF DaemonSet 健康：`kubectl get pods -n oneuptime-agent -l component=ebpf-instrument`
 2. 開啟 debug 追蹤列印器以確認 OBI 正在擷取流量：`--set ebpf.printTraces=true --set ebpf.logLevel=debug`，然後檢查 `kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200`
-3. 如果您在 OBI 的 stdout 中看到 span，但在儀表板中卻看不到，那麼問題出在 collector → OneUptime 的匯出——請檢查 metrics-collector Pod 的日誌。
+3. 如果您在 OBI 的 stdout 中看到 span，但在儀表板中卻看不到，那麼問題出在 collector → Cast Operations 的匯出——請檢查 metrics-collector Pod 的日誌。
 
 ## 後續步驟
 

@@ -1,6 +1,6 @@
 # 例外監控
 
-例外監控可讓您監控應用程式的例外狀況與錯誤，當例外數量超過您所設定的閾值時觸發警示。OneUptime 會在某個時間範圍內評估來自您遙測服務的例外資料。
+例外監控可讓您監控應用程式的例外狀況與錯誤，當例外數量超過您所設定的閾值時觸發警示。Cast Operations 會在某個時間範圍內評估來自您遙測服務的例外資料。
 
 ## 概觀
 
@@ -14,7 +14,7 @@
 
 ## 建立例外監控
 
-1. 在 OneUptime Dashboard 中前往 **Monitors**
+1. 在 Cast Operations Dashboard 中前往 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **Exceptions** 作為監控類型
 4. 選擇要監控的遙測服務
@@ -24,7 +24,7 @@
 
 ### 遙測服務
 
-選擇一個或多個服務以監控其例外。服務必須透過 OpenTelemetry 將例外資料傳送至 OneUptime。
+選擇一個或多個服務以監控其例外。服務必須透過 OpenTelemetry 將例外資料傳送至 Cast Operations。
 
 ### 例外篩選條件
 
@@ -80,4 +80,4 @@
 
 ## 設定需求
 
-例外監控需要您的應用程式透過 OpenTelemetry 將例外資料傳送至 OneUptime。請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件以取得設定說明。
+例外監控需要您的應用程式透過 OpenTelemetry 將例外資料傳送至 Cast Operations。請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件以取得設定說明。

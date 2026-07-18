@@ -15,7 +15,7 @@ import ObjectID from "../../../Types/ObjectID";
  *
  *   1. Group-by uses the ClickHouse-stored `resource.`-prefixed attribute
  *      name (`resource.k8s.node.name`), not the bare `k8s.node.name`.
- *      OneUptime stamps OTel resource attributes with a `resource.` prefix
+ *      Cast Operations stamps OTel resource attributes with a `resource.` prefix
  *      at ingest, so the bare key would match nothing and collapse every
  *      node into one mislabeled series.
  *

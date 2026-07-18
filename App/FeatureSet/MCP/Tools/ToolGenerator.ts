@@ -1,6 +1,6 @@
 /**
  * Tool Generator
- * Generates MCP tools for OneUptime models
+ * Generates MCP tools for Cast Operations models
  */
 
 import DatabaseModels from "Common/Models/DatabaseModels/Index";
@@ -37,7 +37,7 @@ import MCPLogger from "../Utils/MCPLogger";
 
 /*
  * Guidance appended to query parameter descriptions so agents can discover
- * the operator syntax the OneUptime API accepts.
+ * the operator syntax the Cast Operations API accepts.
  */
 const QUERY_OPERATOR_HINT: string =
   'Each field accepts a direct value (exact match) or an operator object {"_type": "<Operator>", "value": ...}. ' +
@@ -160,7 +160,7 @@ function applyWritePolicy(tools: McpToolInfo[]): McpToolInfo[] {
 }
 
 /**
- * Generate all MCP tools for all OneUptime models
+ * Generate all MCP tools for all Cast Operations models
  */
 export function generateAllTools(): McpToolInfo[] {
   const allTools: McpToolInfo[] = [];
@@ -205,7 +205,7 @@ export function generateAllTools(): McpToolInfo[] {
   const policedTools: McpToolInfo[] = applyWritePolicy(uniqueTools);
 
   MCPLogger.info(
-    `Generated ${policedTools.length} MCP tools for OneUptime models (including ${workflowTools.length} workflow tools, ${helperTools.length} helper tools and ${publicStatusPageTools.length} public status page tools)`,
+    `Generated ${policedTools.length} MCP tools for Cast Operations models (including ${workflowTools.length} workflow tools, ${helperTools.length} helper tools and ${publicStatusPageTools.length} public status page tools)`,
   );
   return policedTools;
 }
@@ -412,7 +412,7 @@ function createCreateTool(
   return {
     name: `create_${sanitizeToolName(singularName)}`,
     title: `Create ${singularName}`,
-    description: `Create a new ${singularName} in OneUptime. Returns the created ${singularName} object with its ID. Use this to add new ${pluralName} to your project. Note: projectId is inferred from your API key — you do not need to provide it.`,
+    description: `Create a new ${singularName} in Cast Operations. Returns the created ${singularName} object with its ID. Use this to add new ${pluralName} to your project. Note: projectId is inferred from your API key — you do not need to provide it.`,
     inputSchema: {
       type: "object",
       properties: schemaProperties.properties || {},
@@ -440,7 +440,7 @@ function createReadTool(
   return {
     name: `get_${sanitizeToolName(singularName)}`,
     title: `Get ${singularName}`,
-    description: `Retrieve a single ${singularName} by its unique ID from OneUptime. Use list_${sanitizeToolName(pluralName)} first if you need to find the ID.`,
+    description: `Retrieve a single ${singularName} by its unique ID from Cast Operations. Use list_${sanitizeToolName(pluralName)} first if you need to find the ID.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -476,7 +476,7 @@ function createListTool(
   return {
     name: `list_${sanitizeToolName(pluralName)}`,
     title: `List ${pluralName}`,
-    description: `List and search ${pluralName} from OneUptime with optional filtering, pagination, and sorting. Returns an array of ${singularName} objects plus the total matching count.`,
+    description: `List and search ${pluralName} from Cast Operations with optional filtering, pagination, and sorting. Returns an array of ${singularName} objects plus the total matching count.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -524,7 +524,7 @@ function createUpdateTool(
   return {
     name: `update_${sanitizeToolName(singularName)}`,
     title: `Update ${singularName}`,
-    description: `Update an existing ${singularName} in OneUptime. Only include the fields you want to change - unspecified fields will remain unchanged. Use get_${sanitizeToolName(singularName)} afterwards to see the updated record.`,
+    description: `Update an existing ${singularName} in Cast Operations. Only include the fields you want to change - unspecified fields will remain unchanged. Use get_${sanitizeToolName(singularName)} afterwards to see the updated record.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -557,7 +557,7 @@ function createDeleteTool(
   return {
     name: `delete_${sanitizeToolName(singularName)}`,
     title: `Delete ${singularName}`,
-    description: `Permanently delete a ${singularName} from OneUptime. This action cannot be undone. Returns a confirmation message upon successful deletion.`,
+    description: `Permanently delete a ${singularName} from Cast Operations. This action cannot be undone. Returns a confirmation message upon successful deletion.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -590,7 +590,7 @@ function createCountTool(
   return {
     name: `count_${sanitizeToolName(pluralName)}`,
     title: `Count ${pluralName}`,
-    description: `Count the total number of ${pluralName} in OneUptime, optionally filtered by query criteria. Returns a single number. Useful for dashboards, reports, or checking if records exist before listing.`,
+    description: `Count the total number of ${pluralName} in Cast Operations, optionally filtered by query criteria. Returns a single number. Useful for dashboards, reports, or checking if records exist before listing.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -626,7 +626,7 @@ function createAnalyticsListTool(
   return {
     name: `list_${sanitizeToolName(pluralName)}`,
     title: `List ${pluralName}`,
-    description: `Query ${pluralName} telemetry data from OneUptime. IMPORTANT: telemetry tables are large — always filter by a time range and keep limits small (e.g. 10-50). ${QUERY_OPERATOR_HINT}`,
+    description: `Query ${pluralName} telemetry data from Cast Operations. IMPORTANT: telemetry tables are large — always filter by a time range and keep limits small (e.g. 10-50). ${QUERY_OPERATOR_HINT}`,
     inputSchema: {
       type: "object",
       properties: {
@@ -674,7 +674,7 @@ function createAnalyticsCountTool(
   return {
     name: `count_${sanitizeToolName(pluralName)}`,
     title: `Count ${pluralName}`,
-    description: `Count ${pluralName} telemetry records in OneUptime, optionally filtered. Prefer counting with a time-range filter.`,
+    description: `Count ${pluralName} telemetry records in Cast Operations, optionally filtered. Prefer counting with a time-range filter.`,
     inputSchema: {
       type: "object",
       properties: {

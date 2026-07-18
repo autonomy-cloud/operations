@@ -164,7 +164,7 @@ const KubernetesClusters: FunctionComponent<
         cardProps={{
           title: "Kubernetes Clusters",
           description:
-            "Clusters being monitored in this project. Install the OneUptime kubernetes-agent Helm chart to connect a cluster.",
+            "Clusters being monitored in this project. Install the Cast Operations kubernetes-agent Helm chart to connect a cluster.",
         }}
         showViewIdButton={true}
         formFields={[

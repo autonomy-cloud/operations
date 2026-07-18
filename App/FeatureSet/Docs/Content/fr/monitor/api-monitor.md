@@ -1,6 +1,6 @@
 # Moniteur API
 
-La surveillance API vous permet de contrôler la disponibilité, les performances et l'exactitude de vos API HTTP/REST. OneUptime envoie périodiquement des requêtes HTTP à vos points de terminaison API et évalue les réponses selon vos critères configurés.
+La surveillance API vous permet de contrôler la disponibilité, les performances et l'exactitude de vos API HTTP/REST. Cast Operations envoie périodiquement des requêtes HTTP à vos points de terminaison API et évalue les réponses selon vos critères configurés.
 
 ## Aperçu
 
@@ -15,7 +15,7 @@ Les moniteurs API effectuent des requêtes HTTP vers vos points de terminaison e
 
 ## Création d'un moniteur API
 
-1. Accédez à **Moniteurs** dans le tableau de bord OneUptime
+1. Accédez à **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **API** comme type de moniteur
 4. Saisissez l'URL de l'API et configurez les paramètres de requête
@@ -85,7 +85,7 @@ Pour les requêtes POST, PUT et PATCH, vous pouvez spécifier un corps de requê
 
 #### Ne pas suivre les redirections
 
-Par défaut, OneUptime suit les redirections HTTP (301, 302, etc.). Activez cette option si vous souhaitez surveiller la réponse de redirection elle-même plutôt que la destination finale.
+Par défaut, Cast Operations suit les redirections HTTP (301, 302, etc.). Activez cette option si vous souhaitez surveiller la réponse de redirection elle-même plutôt que la destination finale.
 
 #### Allow Self-Signed Certificates
 
@@ -99,7 +99,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

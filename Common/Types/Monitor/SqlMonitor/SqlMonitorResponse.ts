@@ -3,10 +3,10 @@ import ProbeAttempt from "../../Probe/ProbeAttempt";
 
 /*
  * The compact projection of a SQL query result that a probe reports back to
- * OneUptime. Full result sets never leave the probe / the customer network:
+ * Cast Operations. Full result sets never leave the probe / the customer network:
  * only a row count, the first cell (scalar), and the first row are returned.
  * This bounds payload size and avoids replicating customer data into
- * OneUptime storage.
+ * Cast Operations storage.
  */
 export default interface SqlMonitorResponse {
   isOnline: boolean;

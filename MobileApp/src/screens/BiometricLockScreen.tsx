@@ -19,7 +19,7 @@ export default function BiometricLockScreen({
   const authenticate: () => Promise<void> = async (): Promise<void> => {
     const result: LocalAuthentication.LocalAuthenticationResult =
       await LocalAuthentication.authenticateAsync({
-        promptMessage: "Unlock OneUptime",
+        promptMessage: "Unlock Cast Operations",
         fallbackLabel: "Use passcode",
         disableDeviceFallback: false,
       });
@@ -65,7 +65,7 @@ export default function BiometricLockScreen({
           letterSpacing: -0.3,
         }}
       >
-        OneUptime is Locked
+        Cast Operations is Locked
       </Text>
 
       <Text

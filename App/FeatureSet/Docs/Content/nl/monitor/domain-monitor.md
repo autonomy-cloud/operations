@@ -1,6 +1,6 @@
 # Domein Monitor
 
-Domeinmonitoring stelt u in staat de registratiestatus en vervaldatum van uw domeinnamen te bewaken. OneUptime voert periodiek WHOIS-opzoekopdrachten uit om de gezondheid van uw domein bij te houden en u te waarschuwen voordat het verloopt.
+Domeinmonitoring stelt u in staat de registratiestatus en vervaldatum van uw domeinnamen te bewaken. Cast Operations voert periodiek WHOIS-opzoekopdrachten uit om de gezondheid van uw domein bij te houden en u te waarschuwen voordat het verloopt.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Domeinmonitors bevragen WHOIS-gegevens voor uw domeinen om registratiedetails bi
 
 ## Een Domein Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Domein** als het monitortype
 4. Voer de domeinnaam in die u wilt bewaken

@@ -30,12 +30,12 @@ const IncomingCallPolicyDocs: FunctionComponent<
     },
     {
       title: "Twilio Receives the Call",
-      description: "Twilio routes the call to OneUptime via webhook",
+      description: "Twilio routes the call to Cast Operations via webhook",
       icon: IconProp.Call,
       iconColor: new Color("#ef4444"), // red-500
     },
     {
-      title: "OneUptime Processes the Call",
+      title: "Cast Operations Processes the Call",
       description: "Plays greeting message and loads escalation rules",
       icon: IconProp.AltGlobe,
       iconColor: new Color("#22c55e"), // green-500

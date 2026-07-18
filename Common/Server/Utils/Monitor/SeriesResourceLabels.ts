@@ -7,7 +7,7 @@ import { JSONObject } from "../../../Types/JSON";
  *
  *   - the raw OTel resource attribute            (`host.name`)
  *   - the ClickHouse `resource.`-prefixed form   (`resource.host.name`)
- *   - the OneUptime stamps added at ingest        (`oneuptime.host.id`
+ *   - the Cast Operations stamps added at ingest        (`oneuptime.host.id`
  *     / `oneuptime.host.name` and their `resource.`-prefixed twins)
  *
  * This module is the single source of truth for "which label keys
@@ -135,7 +135,7 @@ export const ServiceNameLabelKeys: ReadonlyArray<string> = [
 
 /*
  * The identifiers carried by one series, split by resource type and by
- * id-vs-name. Ids are OneUptime database ids (the `oneuptime.*.id`
+ * id-vs-name. Ids are Cast Operations database ids (the `oneuptime.*.id`
  * stamps); names are the human/telemetry identifiers (host.name,
  * k8s.cluster.name, service.name) that map to a resource's identifier
  * column (`hostIdentifier`, `clusterIdentifier`, `name`).

@@ -2462,7 +2462,7 @@ export default class SlackUtil extends WorkspaceBase {
         (jsonData["messages"] as Array<JSONObject>) || [];
 
       for (const msg of slackMessages) {
-        // Skip bot messages if they're from the OneUptime bot (app messages)
+        // Skip bot messages if they're from the Cast Operations bot (app messages)
         const isBot: boolean =
           Boolean(msg["bot_id"]) || msg["subtype"] === "bot_message";
 

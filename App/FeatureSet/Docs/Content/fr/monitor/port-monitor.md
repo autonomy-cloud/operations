@@ -1,6 +1,6 @@
 # Moniteur de port
 
-La surveillance des ports vous permet de surveiller la disponibilité de ports TCP ou UDP spécifiques sur un hôte. OneUptime tente périodiquement de se connecter au port spécifié et vérifie s'il est ouvert et réactif.
+La surveillance des ports vous permet de surveiller la disponibilité de ports TCP ou UDP spécifiques sur un hôte. Cast Operations tente périodiquement de se connecter au port spécifié et vérifie s'il est ouvert et réactif.
 
 ## Vue d'ensemble
 
@@ -13,7 +13,7 @@ Les moniteurs de ports testent si un port réseau spécifique accepte des connex
 
 ## Création d'un moniteur de port
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Port** comme type de moniteur
 4. Entrez le nom d'hôte ou l'adresse IP et le numéro de port

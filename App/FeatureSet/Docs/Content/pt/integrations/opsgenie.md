@@ -1,18 +1,18 @@
 # Integração com o Opsgenie
 
-Crie um alerta no [Opsgenie](https://www.atlassian.com/software/opsgenie) sempre que um incidente do OneUptime for criado, e feche-o quando o OneUptime resolver.
+Crie um alerta no [Opsgenie](https://www.atlassian.com/software/opsgenie) sempre que um incidente do Cast Operations for criado, e feche-o quando o Cast Operations resolver.
 
-Esta integração é de **saída**: o OneUptime chama a [Alert API do Opsgenie](https://docs.opsgenie.com/docs/alert-api). Ela usa um **[Workflow](/docs/workflows/index)** do OneUptime com um gatilho **Incident → On Create** e um **componente API**.
+Esta integração é de **saída**: o Cast Operations chama a [Alert API do Opsgenie](https://docs.opsgenie.com/docs/alert-api). Ela usa um **[Workflow](/docs/workflows/index)** do Cast Operations com um gatilho **Incident → On Create** e um **componente API**.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
+Cast Operations Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
 ```
 
 ## Pré-requisitos
 
 - Uma **chave de API** do Opsgenie de uma integração de API: **Settings → Integrations → Add → API**. Copie a chave.
 - Saiba sua região. O host de API padrão é `https://api.opsgenie.com`; contas da UE usam `https://api.eu.opsgenie.com`.
-- Um projeto no OneUptime onde você possa criar workflows.
+- Um projeto no Cast Operations onde você possa criar workflows.
 
 ## Passo 1 — Armazene a chave de API
 
@@ -39,32 +39,32 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  �
      ```json
      {
        "message": "{{Incident.title}}",
-       "alias": "oneuptime-{{Incident._id}}",
+       "alias": "cast-operations-{{Incident._id}}",
        "description": "{{Incident.description}}",
        "priority": "P1",
-       "source": "OneUptime"
+       "source": "Cast Operations"
      }
      ```
 
-   O **`alias`** vincula este alerta do Opsgenie ao incidente do OneUptime para que você possa fechá-lo mais tarde pelo alias. Observe que o esquema de autenticação do Opsgenie é a palavra literal `GenieKey` seguida de um espaço e sua chave.
+   O **`alias`** vincula este alerta do Opsgenie ao incidente do Cast Operations para que você possa fechá-lo mais tarde pelo alias. Observe que o esquema de autenticação do Opsgenie é a palavra literal `GenieKey` seguida de um espaço e sua chave.
 
 4. **Salve**, ative e crie um incidente de teste. Uma resposta `202 Accepted` nos logs do workflow significa que o Opsgenie colocou o alerta na fila.
 
-## Passo 3 — Fechar quando o OneUptime resolver (recomendado)
+## Passo 3 — Fechar quando o Cast Operations resolver (recomendado)
 
 1. Crie um **segundo** workflow chamado `Close Opsgenie` com um gatilho **Incident → On Update**.
 2. Adicione um bloco **Conditions** que verifica se o incidente está agora resolvido (ramifique em `{{Incident.currentIncidentState.name}}`).
 3. A partir de **Yes**, adicione um bloco **API**:
    - **Method**: `POST`
-   - **URL**: `https://api.opsgenie.com/v2/alerts/oneuptime-{{Incident._id}}/close?identifierType=alias`
+   - **URL**: `https://api.opsgenie.com/v2/alerts/cast-operations-{{Incident._id}}/close?identifierType=alias`
    - **Headers**: o mesmo `Authorization: GenieKey {{variable.OPSGENIE_KEY}}`
-   - **Body**: `{ "source": "OneUptime", "note": "Resolved in OneUptime" }`
+   - **Body**: `{ "source": "Cast Operations", "note": "Resolved in Cast Operations" }`
 
 O Opsgenie localiza o alerta pelo alias e o fecha.
 
 ## Mapeamento de prioridade (opcional)
 
-As prioridades do Opsgenie vão de `P1` a `P5`. Mapeie a partir das severidades do OneUptime com ramificações **Conditions** em `{{Incident.incidentSeverity.name}}` antes do bloco API.
+As prioridades do Opsgenie vão de `P1` a `P5`. Mapeie a partir das severidades do Cast Operations com ramificações **Conditions** em `{{Incident.incidentSeverity.name}}` antes do bloco API.
 
 ## Solução de problemas
 
@@ -76,4 +76,4 @@ As prioridades do Opsgenie vão de `P1` a `P5`. Mapeie a partir das severidades 
 
 - [Visão geral das integrações](/docs/integrations/index) — padrões e o guia rápido de autenticação.
 - [PagerDuty](/docs/integrations/pagerduty) — a mesma ideia para o PagerDuty.
-- [On Call](/docs/on-call/incoming-call-policy) — o escalonamento integrado do OneUptime.
+- [On Call](/docs/on-call/incoming-call-policy) — o escalonamento integrado do Cast Operations.

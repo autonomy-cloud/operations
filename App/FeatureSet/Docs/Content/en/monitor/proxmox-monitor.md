@@ -1,6 +1,6 @@
 # Proxmox Monitor
 
-Proxmox monitoring allows you to monitor the health and performance of your Proxmox VE clusters — nodes, QEMU VMs, LXC containers, storage, HA state, backup-job coverage, and storage replication. OneUptime collects metrics via a pre-configured OpenTelemetry Collector (the **OneUptime Proxmox Agent**) and evaluates them against your configured criteria.
+Proxmox monitoring allows you to monitor the health and performance of your Proxmox VE clusters — nodes, QEMU VMs, LXC containers, storage, HA state, backup-job coverage, and storage replication. Cast Operations collects metrics via a pre-configured OpenTelemetry Collector (the **Cast Operations Proxmox Agent**) and evaluates them against your configured criteria.
 
 ## Overview
 
@@ -14,7 +14,7 @@ Proxmox monitors use metrics from your clusters to provide visibility into your 
 
 ## Creating a Proxmox Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Proxmox** as the monitor type
 4. Select the Proxmox cluster to monitor
@@ -25,7 +25,7 @@ Proxmox monitors use metrics from your clusters to provide visibility into your 
 
 ### Proxmox Cluster
 
-Select the Proxmox cluster to monitor. Clusters are auto-registered the first time the OneUptime Proxmox Agent ships telemetry from them (keyed by the `proxmox.cluster.name` resource attribute) — you do not need to create them manually.
+Select the Proxmox cluster to monitor. Clusters are auto-registered the first time the Cast Operations Proxmox Agent ships telemetry from them (keyed by the `proxmox.cluster.name` resource attribute) — you do not need to create them manually.
 
 ### Metric Queries
 
@@ -170,7 +170,7 @@ From the exporter's node-level `replication` collector (enabled by default). Ser
 
 ## Pre-built Alert Templates
 
-OneUptime ships 11 templates for common Proxmox monitoring scenarios. Each builds a complete monitor — metric queries, attribute filters, group-by, a fire criteria, and an auto-recover criteria — that you can edit after applying. Thresholds are starting points. All templates evaluate over the past 5 minutes:
+Cast Operations ships 11 templates for common Proxmox monitoring scenarios. Each builds a complete monitor — metric queries, attribute filters, group-by, a fire criteria, and an auto-recover criteria — that you can edit after applying. Thresholds are starting points. All templates evaluate over the past 5 minutes:
 
 | Template                      | Severity | Watches                                                                                       | Fires when                                                                                                                                                                                |
 | ----------------------------- | -------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -192,7 +192,7 @@ OneUptime ships 11 templates for common Proxmox monitoring scenarios. Each build
 
 To use Proxmox monitoring, you need to:
 
-1. Install the OneUptime Proxmox Agent on a machine that can reach your Proxmox VE API — see the [Proxmox Agent installation guide](/docs/telemetry/proxmox). The required read-only API token is a two-command `pveum` snippet (also in the guide)
+1. Install the Cast Operations Proxmox Agent on a machine that can reach your Proxmox VE API — see the [Proxmox Agent installation guide](/docs/telemetry/proxmox). The required read-only API token is a two-command `pveum` snippet (also in the guide)
 2. Pass `ONEUPTIME_URL`, `ONEUPTIME_TELEMETRY_INGESTION_KEY`, `PROXMOX_CLUSTER_NAME`, and the Proxmox API details as environment variables
 3. Wait for the cluster to auto-register (about a minute after the first scrape)
 

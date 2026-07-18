@@ -1,18 +1,18 @@
 # GitLab-integratie
 
-Open automatisch een [GitLab](https://gitlab.com)-issue wanneer een OneUptime-incident wordt aangemaakt — zodat de engineeringopvolging terechtkomt in het project dat eigenaar is van de getroffen service.
+Open automatisch een [GitLab](https://gitlab.com)-issue wanneer een Cast Operations-incident wordt aangemaakt — zodat de engineeringopvolging terechtkomt in het project dat eigenaar is van de getroffen service.
 
-Deze integratie is **outbound**: OneUptime roept de [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html) aan. Ze maakt gebruik van een OneUptime **[Workflow](/docs/workflows/index)** met een **Incident → On Create**-trigger en een **API-component**. Ze werkt hetzelfde op GitLab.com en zelf-beheerde GitLab.
+Deze integratie is **outbound**: Cast Operations roept de [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html) aan. Ze maakt gebruik van een Cast Operations **[Workflow](/docs/workflows/index)** met een **Incident → On Create**-trigger en een **API-component**. Ze werkt hetzelfde op GitLab.com en zelf-beheerde GitLab.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
+Cast Operations Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
 ```
 
 ## Vereisten
 
 - Een GitLab-project en zijn **Project ID** (zichtbaar op de overzichtspagina van het project, onder de projectnaam).
 - Een toegangstoken dat issues kan aanmaken — een **Project-**, **Group-** of **Personal Access Token** met het bereik `api`: **Settings → Access Tokens**.
-- Een OneUptime-project waar je workflows kunt aanmaken.
+- Een Cast Operations-project waar je workflows kunt aanmaken.
 
 ## Stap 1 — Sla het token op
 
@@ -38,8 +38,8 @@ OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "description": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "description": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": "incident,oneuptime"
      }
      ```

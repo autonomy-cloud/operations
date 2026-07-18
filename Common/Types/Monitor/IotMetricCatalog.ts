@@ -20,7 +20,7 @@ export interface IoTMetricDefinition {
 }
 
 /*
- * Metric names follow the OneUptime IoT naming scheme. Each series carries a
+ * Metric names follow the Cast Operations IoT naming scheme. Each series carries a
  * `device.id` datapoint label identifying the IoT device it belongs to, plus
  * the agent stamps `iot.scope` (fleet | device), `iot.device.type` and
  * `iot.device.kind` as datapoint attributes — `defaultResourceScope` is the

@@ -1,6 +1,6 @@
 # SSO (Authentification unique)
 
-OneUptime prend en charge l'authentification unique (SSO) basée sur SAML 2.0 pour l'authentification d'entreprise. Le SSO permet à vos membres d'équipe de se connecter à OneUptime en utilisant le fournisseur d'identité (IdP) de votre organisation, offrant une gestion centralisée des accès et une sécurité renforcée.
+Cast Operations prend en charge l'authentification unique (SSO) basée sur SAML 2.0 pour l'authentification d'entreprise. Le SSO permet à vos membres d'équipe de se connecter à Cast Operations en utilisant le fournisseur d'identité (IdP) de votre organisation, offrant une gestion centralisée des accès et une sécurité renforcée.
 
 ## Aperçu
 
@@ -9,13 +9,13 @@ L'intégration SSO offre les avantages suivants :
 - **Authentification centralisée** : Les utilisateurs se connectent avec leurs identifiants d'entreprise existants
 - **Sécurité renforcée** : Exploitez l'authentification multifacteur et les politiques de sécurité de votre IdP
 - **Gestion des utilisateurs simplifiée** : Gérez les accès depuis votre système de gestion des identités existant
-- **Réduction de la fatigue des mots de passe** : Les utilisateurs n'ont pas besoin de mémoriser un mot de passe OneUptime séparé
+- **Réduction de la fatigue des mots de passe** : Les utilisateurs n'ont pas besoin de mémoriser un mot de passe Cast Operations séparé
 
 ## Configuration du SSO
 
 1. **Accéder aux paramètres du projet**
 
-   - Accédez à votre projet OneUptime
+   - Accédez à votre projet Cast Operations
    - Naviguez vers **Paramètres du projet** > **Authentification** > **SSO**
 
 2. **Créer une configuration SSO**
@@ -28,24 +28,24 @@ L'intégration SSO offre les avantages suivants :
    - Sélectionnez l'**Algorithme de signature** (par ex., `RSA-SHA-256`)
    - Sélectionnez l'**Algorithme de hachage** (par ex., `SHA256`)
 
-3. **Obtenir les métadonnées SSO OneUptime**
+3. **Obtenir les métadonnées SSO Cast Operations**
    - Après l'enregistrement, cliquez sur le bouton **Afficher la configuration SSO**
    - Copiez l'**Identifiant (Entity ID)** — cela est nécessaire dans la configuration de votre IdP
    - Copiez l'**URL de réponse (URL du service consommateur d'assertion)** — cela est nécessaire dans la configuration de votre IdP
 
 ## Configuration SAML Keycloak
 
-Keycloak est une solution populaire de gestion des identités et des accès en open source. Suivez ces étapes pour configurer Keycloak comme fournisseur d'identité SAML pour OneUptime.
+Keycloak est une solution populaire de gestion des identités et des accès en open source. Suivez ces étapes pour configurer Keycloak comme fournisseur d'identité SAML pour Cast Operations.
 
 ### Prérequis
 
 - Une instance Keycloak en cours d'exécution avec un domaine configuré
-- Accès administrateur à Keycloak et à OneUptime
-- Compte OneUptime avec prise en charge SSO
+- Accès administrateur à Keycloak et à Cast Operations
+- Compte Cast Operations avec prise en charge SSO
 
-### Étape 1 : Configurer le SSO OneUptime
+### Étape 1 : Configurer le SSO Cast Operations
 
-1. Connectez-vous à votre tableau de bord OneUptime
+1. Connectez-vous à votre tableau de bord Cast Operations
 2. Naviguez vers **Paramètres du projet** > **Authentification** > **SSO**
 3. Cliquez sur **Créer SSO** et remplissez les champs suivants :
    - **Nom** : Un nom descriptif (par ex., `my-project-oneuptime`)
@@ -61,7 +61,7 @@ Keycloak est une solution populaire de gestion des identités et des accès en o
 1. Dans Keycloak, naviguez vers la configuration de votre client
 2. Cliquez sur **Exporter** (ou accédez à l'onglet **Clés** selon votre version de Keycloak)
 3. Dans le fichier JSON exporté, trouvez la clé avec `certificate` dans le nom
-4. Copiez la valeur du certificat et collez-la dans OneUptime au format suivant :
+4. Copiez la valeur du certificat et collez-la dans Cast Operations au format suivant :
 
 ```
 -----BEGIN CERTIFICATE-----
@@ -74,10 +74,10 @@ MIICnzCCAYcCBgFyPZ8QFzANBgkqhkiG.......
 1. Dans Keycloak, naviguez vers **Clients** dans votre domaine
 2. Créez un nouveau client ou modifiez un existant
 3. Définissez le **Protocole client** sur `saml`
-4. Définissez l'**ID client** sur la valeur de l'**Identifiant (Entity ID)** depuis la **Vue de la configuration SSO** de OneUptime
-5. Définissez les **URI de redirection valides** vers votre URL OneUptime
-6. Définissez l'**URL racine** vers l'URL de base de OneUptime
-7. Collez l'**URL de réponse (URL du service consommateur d'assertion)** de OneUptime dans le champ **URL de liaison POST du service consommateur d'assertion**
+4. Définissez l'**ID client** sur la valeur de l'**Identifiant (Entity ID)** depuis la **Vue de la configuration SSO** de Cast Operations
+5. Définissez les **URI de redirection valides** vers votre URL Cast Operations
+6. Définissez l'**URL racine** vers l'URL de base de Cast Operations
+7. Collez l'**URL de réponse (URL du service consommateur d'assertion)** de Cast Operations dans le champ **URL de liaison POST du service consommateur d'assertion**
 
 ### Étape 4 : Configurer les paramètres du client Keycloak
 
@@ -87,9 +87,9 @@ MIICnzCCAYcCBgFyPZ8QFzANBgkqhkiG.......
 
 ### Étape 5 : Vérifier la configuration
 
-1. Enregistrez tous les paramètres dans Keycloak et OneUptime
-2. Essayez de vous connecter à OneUptime via SSO
-3. Vous devriez être redirigé vers votre page de connexion Keycloak puis vers OneUptime après une authentification réussie
+1. Enregistrez tous les paramètres dans Keycloak et Cast Operations
+2. Essayez de vous connecter à Cast Operations via SSO
+3. Vous devriez être redirigé vers votre page de connexion Keycloak puis vers Cast Operations après une authentification réussie
 
 ### Dépannage Keycloak
 
@@ -102,17 +102,17 @@ MIICnzCCAYcCBgFyPZ8QFzANBgkqhkiG.......
 
 ## Configuration SAML Microsoft Entra ID (anciennement Azure AD / Active Directory)
 
-Microsoft Entra ID est le service de gestion des identités et des accès basé sur le cloud de Microsoft. Suivez ces étapes pour configurer Entra ID comme fournisseur d'identité SAML pour OneUptime.
+Microsoft Entra ID est le service de gestion des identités et des accès basé sur le cloud de Microsoft. Suivez ces étapes pour configurer Entra ID comme fournisseur d'identité SAML pour Cast Operations.
 
 ### Prérequis
 
 - Locataire Microsoft Entra ID (tout niveau prenant en charge les applications d'entreprise avec SSO SAML)
-- Accès administrateur à Microsoft Entra ID et à OneUptime
-- Compte OneUptime avec prise en charge SSO
+- Accès administrateur à Microsoft Entra ID et à Cast Operations
+- Compte Cast Operations avec prise en charge SSO
 
-### Étape 1 : Configurer le SSO OneUptime
+### Étape 1 : Configurer le SSO Cast Operations
 
-1. Connectez-vous à votre tableau de bord OneUptime
+1. Connectez-vous à votre tableau de bord Cast Operations
 2. Naviguez vers **Paramètres du projet** > **Authentification** > **SSO**
 3. Cliquez sur **Créer SSO** et remplissez les champs suivants :
    - **Nom** : Un nom descriptif (par ex., `Azure AD SAML`)
@@ -129,7 +129,7 @@ Microsoft Entra ID est le service de gestion des identités et des accès basé 
 2. Naviguez vers **Identité** > **Applications** > **Applications d'entreprise**
 3. Cliquez sur **+ Nouvelle application**
 4. Cliquez sur **+ Créer votre propre application**
-5. Saisissez un nom (par ex., « OneUptime »)
+5. Saisissez un nom (par ex., « Cast Operations »)
 6. Sélectionnez **Intégrer toute autre application que vous ne trouvez pas dans la galerie (Non-galerie)**
 7. Cliquez sur **Créer**
 
@@ -138,16 +138,16 @@ Microsoft Entra ID est le service de gestion des identités et des accès basé 
 1. Dans votre nouvelle application d'entreprise, accédez à **Authentification unique**
 2. Sélectionnez **SAML** comme méthode d'authentification unique
 3. Dans la **Configuration SAML de base**, cliquez sur **Modifier** et définissez :
-   - **Identifiant (Entity ID)** : Collez l'**Identifiant (Entity ID)** depuis la **Vue de la configuration SSO** de OneUptime
-   - **URL de réponse (URL du service consommateur d'assertion)** : Collez l'**URL de réponse** depuis la **Vue de la configuration SSO** de OneUptime
+   - **Identifiant (Entity ID)** : Collez l'**Identifiant (Entity ID)** depuis la **Vue de la configuration SSO** de Cast Operations
+   - **URL de réponse (URL du service consommateur d'assertion)** : Collez l'**URL de réponse** depuis la **Vue de la configuration SSO** de Cast Operations
 4. Cliquez sur **Enregistrer**
 5. Dans la section **Certificats SAML** :
    - Téléchargez le **Certificat (Base64)**
    - Ouvrez le fichier de certificat téléchargé dans un éditeur de texte et copiez le contenu
-6. Dans la section **Configurer OneUptime**, copiez :
-   - **URL de connexion** — collez-la comme **URL d'ouverture de session** dans OneUptime
-   - **Identifiant Azure AD** — collez-le comme **Émetteur** dans OneUptime
-7. Retournez dans OneUptime et collez le certificat et les URL, puis enregistrez
+6. Dans la section **Configurer Cast Operations**, copiez :
+   - **URL de connexion** — collez-la comme **URL d'ouverture de session** dans Cast Operations
+   - **Identifiant Azure AD** — collez-le comme **Émetteur** dans Cast Operations
+7. Retournez dans Cast Operations et collez le certificat et les URL, puis enregistrez
 
 ### Étape 4 : Configurer les attributs et les revendications utilisateur
 
@@ -173,31 +173,31 @@ Microsoft Entra ID est le service de gestion des identités et des accès basé 
 
 ### Étape 6 : Vérifier la configuration
 
-1. Enregistrez tous les paramètres dans Entra ID et OneUptime
-2. Essayez de vous connecter à OneUptime via SSO
-3. Vous devriez être redirigé vers la page de connexion Microsoft puis vers OneUptime après une authentification réussie
+1. Enregistrez tous les paramètres dans Entra ID et Cast Operations
+2. Essayez de vous connecter à Cast Operations via SSO
+3. Vous devriez être redirigé vers la page de connexion Microsoft puis vers Cast Operations après une authentification réussie
 
 ### Dépannage Microsoft Entra ID
 
-- **Erreur AADSTS700016** : L'Identifiant (Entity ID) dans Entra ID ne correspond pas à OneUptime — vérifiez que les deux valeurs sont identiques
+- **Erreur AADSTS700016** : L'Identifiant (Entity ID) dans Entra ID ne correspond pas à Cast Operations — vérifiez que les deux valeurs sont identiques
 - **Erreur de certificat** : Assurez-vous d'avoir téléchargé le certificat **Base64** (pas le format brut/binaire) et d'avoir inclus les lignes `BEGIN CERTIFICATE` / `END CERTIFICATE`
 - **Utilisateur non affecté** : Les utilisateurs doivent être explicitement affectés à l'application d'entreprise avant de pouvoir se connecter via SSO
-- **Incompatibilité d'ID de nom** : Assurez-vous que la revendication d'ID de nom est définie sur une adresse e-mail correspondant à l'e-mail de l'utilisateur dans OneUptime
+- **Incompatibilité d'ID de nom** : Assurez-vous que la revendication d'ID de nom est définie sur une adresse e-mail correspondant à l'e-mail de l'utilisateur dans Cast Operations
 
 ---
 
 ## Configuration SAML Okta
 
-Okta est une plateforme d'identité largement utilisée qui offre des capacités SSO SAML robustes. Suivez ces étapes pour configurer Okta comme fournisseur d'identité SAML pour OneUptime.
+Okta est une plateforme d'identité largement utilisée qui offre des capacités SSO SAML robustes. Suivez ces étapes pour configurer Okta comme fournisseur d'identité SAML pour Cast Operations.
 
 ### Prérequis
 
 - Organisation Okta avec accès administrateur
-- Compte OneUptime avec prise en charge SSO
+- Compte Cast Operations avec prise en charge SSO
 
-### Étape 1 : Configurer le SSO OneUptime
+### Étape 1 : Configurer le SSO Cast Operations
 
-1. Connectez-vous à votre tableau de bord OneUptime
+1. Connectez-vous à votre tableau de bord Cast Operations
 2. Naviguez vers **Paramètres du projet** > **Authentification** > **SSO**
 3. Cliquez sur **Créer SSO** et remplissez les champs suivants :
    - **Nom** : Un nom descriptif (par ex., `Okta SAML`)
@@ -214,26 +214,26 @@ Okta est une plateforme d'identité largement utilisée qui offre des capacités
 2. Naviguez vers **Applications** > **Applications**
 3. Cliquez sur **Créer une intégration d'application**
 4. Sélectionnez **SAML 2.0** et cliquez sur **Suivant**
-5. Saisissez « OneUptime » comme **Nom de l'application** et cliquez sur **Suivant**
+5. Saisissez « Cast Operations » comme **Nom de l'application** et cliquez sur **Suivant**
 6. Dans la section **Paramètres SAML**, configurez :
-   - **URL d'authentification unique** : Collez l'**URL de réponse (URL du service consommateur d'assertion)** depuis la **Vue de la configuration SSO** de OneUptime
-   - **URI d'audience (SP Entity ID)** : Collez l'**Identifiant (Entity ID)** depuis la **Vue de la configuration SSO** de OneUptime
+   - **URL d'authentification unique** : Collez l'**URL de réponse (URL du service consommateur d'assertion)** depuis la **Vue de la configuration SSO** de Cast Operations
+   - **URI d'audience (SP Entity ID)** : Collez l'**Identifiant (Entity ID)** depuis la **Vue de la configuration SSO** de Cast Operations
    - **Format d'ID de nom** : Sélectionnez `EmailAddress`
    - **Nom d'utilisateur de l'application** : Sélectionnez `E-mail`
 7. Cliquez sur **Suivant**, puis sélectionnez **Je suis un client Okta ajoutant une application interne** et cliquez sur **Terminer**
 
-### Étape 3 : Copier les métadonnées SAML Okta vers OneUptime
+### Étape 3 : Copier les métadonnées SAML Okta vers Cast Operations
 
 1. Dans votre application Okta, accédez à l'onglet **Connexion**
 2. Dans la section **Certificats de signature SAML**, trouvez le certificat actif et cliquez sur **Actions** > **Afficher les métadonnées IdP**
 3. Depuis le XML des métadonnées ou les détails de l'onglet **Connexion** :
-   - Copiez l'**URL d'ouverture de session** (aussi appelée **URL d'authentification unique du fournisseur d'identité**) — collez-la comme **URL d'ouverture de session** dans OneUptime
-   - Copiez l'**Émetteur** (aussi appelé **Émetteur du fournisseur d'identité**) — collez-le comme **Émetteur** dans OneUptime
+   - Copiez l'**URL d'ouverture de session** (aussi appelée **URL d'authentification unique du fournisseur d'identité**) — collez-la comme **URL d'ouverture de session** dans Cast Operations
+   - Copiez l'**Émetteur** (aussi appelé **Émetteur du fournisseur d'identité**) — collez-le comme **Émetteur** dans Cast Operations
 4. Téléchargez le certificat de signature :
    - Dans la section **Certificats de signature SAML**, cliquez sur **Actions** > **Télécharger le certificat** pour le certificat actif
    - Ouvrez le fichier `.cert` téléchargé dans un éditeur de texte et copiez le contenu
-   - Collez le certificat dans OneUptime (y compris les lignes `BEGIN CERTIFICATE` et `END CERTIFICATE`)
-5. Enregistrez la configuration SSO OneUptime
+   - Collez le certificat dans Cast Operations (y compris les lignes `BEGIN CERTIFICATE` et `END CERTIFICATE`)
+5. Enregistrez la configuration SSO Cast Operations
 
 ### Étape 4 : Configurer les déclarations d'attributs (facultatif)
 
@@ -258,14 +258,14 @@ Okta est une plateforme d'identité largement utilisée qui offre des capacités
 
 ### Étape 6 : Vérifier la configuration
 
-1. Enregistrez tous les paramètres dans Okta et OneUptime
-2. Essayez de vous connecter à OneUptime via SSO
-3. Vous devriez être redirigé vers la page de connexion Okta puis vers OneUptime après une authentification réussie
+1. Enregistrez tous les paramètres dans Okta et Cast Operations
+2. Essayez de vous connecter à Cast Operations via SSO
+3. Vous devriez être redirigé vers la page de connexion Okta puis vers Cast Operations après une authentification réussie
 
 ### Dépannage Okta
 
-- **404 ou URL SSO invalide** : Vérifiez que l'**URL d'authentification unique** dans Okta correspond exactement à l'**URL de réponse** de OneUptime
-- **Incompatibilité d'audience** : Assurez-vous que l'**URI d'audience** dans Okta correspond exactement à l'**Identifiant (Entity ID)** de OneUptime
+- **404 ou URL SSO invalide** : Vérifiez que l'**URL d'authentification unique** dans Okta correspond exactement à l'**URL de réponse** de Cast Operations
+- **Incompatibilité d'audience** : Assurez-vous que l'**URI d'audience** dans Okta correspond exactement à l'**Identifiant (Entity ID)** de Cast Operations
 - **Erreur de certificat** : Assurez-vous d'avoir téléchargé le certificat du certificat de signature **actif**, pas un inactif
 - **Utilisateur non affecté** : Les utilisateurs doivent être affectés à l'application Okta avant de pouvoir se connecter via SSO
 - **Erreur d'ID de nom** : Vérifiez que le **Format d'ID de nom** est défini sur `EmailAddress` et que le **Nom d'utilisateur de l'application** est défini sur `E-mail`
@@ -274,14 +274,14 @@ Okta est une plateforme d'identité largement utilisée qui offre des capacités
 
 ## Autres fournisseurs d'identité
 
-L'implémentation SSO de OneUptime utilise le protocole SAML 2.0 et devrait fonctionner avec tout fournisseur d'identité conforme. Les étapes de configuration générales sont :
+L'implémentation SSO de Cast Operations utilise le protocole SAML 2.0 et devrait fonctionner avec tout fournisseur d'identité conforme. Les étapes de configuration générales sont :
 
-1. Dans OneUptime, créez une configuration SSO et notez l'**Identifiant (Entity ID)** et l'**URL de réponse (URL du service consommateur d'assertion)** depuis le bouton **Afficher la configuration SSO**
+1. Dans Cast Operations, créez une configuration SSO et notez l'**Identifiant (Entity ID)** et l'**URL de réponse (URL du service consommateur d'assertion)** depuis le bouton **Afficher la configuration SSO**
 2. Dans votre fournisseur d'identité, créez une application SAML en utilisant :
-   - **URL du service consommateur d'assertion / URL de réponse** : Depuis la configuration SSO de OneUptime
-   - **Entity ID / URI d'audience** : Depuis la configuration SSO de OneUptime
+   - **URL du service consommateur d'assertion / URL de réponse** : Depuis la configuration SSO de Cast Operations
+   - **Entity ID / URI d'audience** : Depuis la configuration SSO de Cast Operations
    - **Format d'ID de nom** : Adresse e-mail
-3. Depuis votre fournisseur d'identité, copiez les éléments suivants dans OneUptime :
+3. Depuis votre fournisseur d'identité, copiez les éléments suivants dans Cast Operations :
    - **URL d'ouverture de session** (point de terminaison SSO)
    - **Émetteur** (Entity ID de l'IdP)
    - **Certificat public** (certificat de signature X.509)
@@ -289,4 +289,4 @@ L'implémentation SSO de OneUptime utilise le protocole SAML 2.0 et devrait fonc
 
 ## Notes sur SSO et les rôles
 
-OneUptime ne prend actuellement pas en charge le mappage des rôles SAML depuis votre fournisseur d'identité. L'accès basé sur les rôles doit être configuré séparément dans les **Paramètres du projet** > **SSO** de OneUptime, où vous pouvez attribuer des rôles par défaut pour les utilisateurs SSO.
+Cast Operations ne prend actuellement pas en charge le mappage des rôles SAML depuis votre fournisseur d'identité. L'accès basé sur les rôles doit être configuré séparément dans les **Paramètres du projet** > **SSO** de Cast Operations, où vous pouvez attribuer des rôles par défaut pour les utilisateurs SSO.

@@ -7,7 +7,7 @@ import { ParsedPodmanResource } from "../../Server/Services/PodmanResourceServic
  *                     PodmanInventoryExtractor
  * ------------------------------------------------------------------
  *
- * Parses a single inventory log record emitted by the OneUptime
+ * Parses a single inventory log record emitted by the Cast Operations
  * Podman Agent's snapshot script. The script polls the local Podman
  * daemon every 5 minutes for containers / images / networks /
  * volumes and emits one JSON object per line into a log file that

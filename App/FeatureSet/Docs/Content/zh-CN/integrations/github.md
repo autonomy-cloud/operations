@@ -1,13 +1,13 @@
 # GitHub 集成
 
-每当创建 OneUptime 事件时，自动创建一个 [GitHub](https://github.com) issue——让工程跟进工作在拥有受影响服务的仓库中得到追踪。
+每当创建 Cast Operations 事件时，自动创建一个 [GitHub](https://github.com) issue——让工程跟进工作在拥有受影响服务的仓库中得到追踪。
 
-此集成为**出站**模式：OneUptime 调用 [GitHub REST API](https://docs.github.com/en/rest/issues/issues)。它使用带有 **Incident → On Create** 触发器和 **API 组件**的 OneUptime **[工作流](/docs/workflows/index)**。
+此集成为**出站**模式：Cast Operations 调用 [GitHub REST API](https://docs.github.com/en/rest/issues/issues)。它使用带有 **Incident → On Create** 触发器和 **API 组件**的 Cast Operations **[工作流](/docs/workflows/index)**。
 
-> **寻找更深层的 GitHub 连接？** OneUptime 还有一个原生 **GitHub App** 集成，用于连接代码仓库（供 AI 代理和代码功能使用）。该集成通过环境变量配置，而不是工作流——参见 [GitHub 集成（自托管）](/docs/self-hosted/github-integration)。本页专门介绍*从事件创建 issue*。
+> **寻找更深层的 GitHub 连接？** Cast Operations 还有一个原生 **GitHub App** 集成，用于连接代码仓库（供 AI 代理和代码功能使用）。该集成通过环境变量配置，而不是工作流——参见 [GitHub 集成（自托管）](/docs/self-hosted/github-integration)。本页专门介绍*从事件创建 issue*。
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## 前提条件
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   在 [github.com/settings/tokens](https://github.com/settings/tokens) 创建。
 
-- 一个可以创建工作流的 OneUptime 项目。
+- 一个可以创建工作流的 Cast Operations 项目。
 
 ## 步骤 1——存储令牌
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**：
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

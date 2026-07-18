@@ -1,25 +1,25 @@
 # SCIM (System for Cross-domain Identity Management)
 
-OneUptime ondersteunt het SCIM v2.0-protocol voor geautomatiseerde gebruikersinrichting en -verwijdering. SCIM stelt identiteitsproviders (IdP's) zoals Azure AD, Okta en andere enterprise-identiteitssystemen in staat om automatisch gebruikerstoegang tot OneUptime-projecten en statuspagina's te beheren.
+Cast Operations ondersteunt het SCIM v2.0-protocol voor geautomatiseerde gebruikersinrichting en -verwijdering. SCIM stelt identiteitsproviders (IdP's) zoals Azure AD, Okta en andere enterprise-identiteitssystemen in staat om automatisch gebruikerstoegang tot Cast Operations-projecten en statuspagina's te beheren.
 
 ## Overzicht
 
 SCIM-integratie biedt de volgende voordelen:
 
-- **Geautomatiseerde gebruikersinrichting**: Automatisch gebruikers aanmaken in OneUptime wanneer ze zijn toegewezen in uw IdP
-- **Geautomatiseerde gebruikersverwijdering**: Automatisch gebruikers verwijderen uit OneUptime wanneer ze zijn verwijderd in uw IdP
-- **Synchronisatie van gebruikersattributen**: Gebruikersinformatie gesynchroniseerd houden tussen uw IdP en OneUptime
-- **Gecentraliseerd toegangsbeheer**: OneUptime-toegang beheren vanuit uw bestaand identiteitsbeheersysteem
+- **Geautomatiseerde gebruikersinrichting**: Automatisch gebruikers aanmaken in Cast Operations wanneer ze zijn toegewezen in uw IdP
+- **Geautomatiseerde gebruikersverwijdering**: Automatisch gebruikers verwijderen uit Cast Operations wanneer ze zijn verwijderd in uw IdP
+- **Synchronisatie van gebruikersattributen**: Gebruikersinformatie gesynchroniseerd houden tussen uw IdP en Cast Operations
+- **Gecentraliseerd toegangsbeheer**: Cast Operations-toegang beheren vanuit uw bestaand identiteitsbeheersysteem
 
 ## SCIM voor projecten
 
-Project-SCIM stelt identiteitsproviders in staat teamleden binnen OneUptime-projecten te beheren.
+Project-SCIM stelt identiteitsproviders in staat teamleden binnen Cast Operations-projecten te beheren.
 
 ### Project-SCIM instellen
 
 1. **Navigeer naar Projectinstellingen**
 
-   - Ga naar uw OneUptime-project
+   - Ga naar uw Cast Operations-project
    - Navigeer naar **Projectinstellingen** > **Team** > **SCIM**
 
 2. **SCIM-instellingen configureren**
@@ -30,7 +30,7 @@ Project-SCIM stelt identiteitsproviders in staat teamleden binnen OneUptime-proj
    - Kopieer de **SCIM Basis-URL** en het **Bearer-token** voor uw IdP-configuratie
 
 3. **Uw identiteitsprovider configureren**
-   - Gebruik de SCIM Basis-URL: `https://oneuptime.com/scim/v2/{scimId}`
+   - Gebruik de SCIM Basis-URL: `https://visca.ai/scim/v2/{scimId}`
    - Configureer bearer-tokenauthenticatie met het opgegeven token
    - Wijs gebruikersattributen toe (e-mail is vereist)
 
@@ -52,12 +52,12 @@ Project-SCIM stelt identiteitsproviders in staat teamleden binnen OneUptime-proj
 
 ### Levenscyclus van Project-SCIM-gebruikers
 
-1. **Gebruikerstoewijzing in IdP**: Wanneer een gebruiker wordt toegewezen aan OneUptime in uw IdP
-2. **SCIM-inrichting**: IdP roept de OneUptime SCIM API aan om de gebruiker aan te maken
+1. **Gebruikerstoewijzing in IdP**: Wanneer een gebruiker wordt toegewezen aan Cast Operations in uw IdP
+2. **SCIM-inrichting**: IdP roept de Cast Operations SCIM API aan om de gebruiker aan te maken
 3. **Teamlidmaatschap**: Gebruiker wordt automatisch toegevoegd aan geconfigureerde standaardteams
-4. **Toegang verleend**: Gebruiker heeft nu toegang tot het OneUptime-project
+4. **Toegang verleend**: Gebruiker heeft nu toegang tot het Cast Operations-project
 5. **Gebruikersverwijdering**: Wanneer gebruiker wordt verwijderd in IdP
-6. **SCIM-verwijdering**: IdP roept de OneUptime SCIM API aan om de gebruiker te verwijderen
+6. **SCIM-verwijdering**: IdP roept de Cast Operations SCIM API aan om de gebruiker te verwijderen
 7. **Toegang ingetrokken**: Gebruiker verliest toegang tot het project
 
 ## SCIM voor statuspagina's
@@ -68,7 +68,7 @@ Statuspagina-SCIM stelt identiteitsproviders in staat abonnees van privé-status
 
 1. **Navigeer naar Statuspagina-instellingen**
 
-   - Ga naar uw OneUptime-statuspagina
+   - Ga naar uw Cast Operations-statuspagina
    - Navigeer naar **Statuspagina-instellingen** > **Privégebruikers** > **SCIM**
 
 2. **SCIM-instellingen configureren**
@@ -78,7 +78,7 @@ Statuspagina-SCIM stelt identiteitsproviders in staat abonnees van privé-status
    - Kopieer de **SCIM Basis-URL** en het **Bearer-token** voor uw IdP-configuratie
 
 3. **Uw identiteitsprovider configureren**
-   - Gebruik de SCIM Basis-URL: `https://oneuptime.com/status-page-scim/v2/{scimId}`
+   - Gebruik de SCIM Basis-URL: `https://visca.ai/status-page-scim/v2/{scimId}`
    - Configureer bearer-tokenauthenticatie met het opgegeven token
    - Wijs gebruikersattributen toe (e-mail is vereist)
 
@@ -95,28 +95,28 @@ Statuspagina-SCIM stelt identiteitsproviders in staat abonnees van privé-status
 
 ### Levenscyclus van Statuspagina-SCIM-gebruikers
 
-1. **Gebruikerstoewijzing in IdP**: Wanneer een gebruiker wordt toegewezen aan de OneUptime-statuspagina in uw IdP
-2. **SCIM-inrichting**: IdP roept de OneUptime SCIM API aan om de abonnee aan te maken
+1. **Gebruikerstoewijzing in IdP**: Wanneer een gebruiker wordt toegewezen aan de Cast Operations-statuspagina in uw IdP
+2. **SCIM-inrichting**: IdP roept de Cast Operations SCIM API aan om de abonnee aan te maken
 3. **Toegang verleend**: Gebruiker heeft nu toegang tot de privé-statuspagina
 4. **Gebruikersverwijdering**: Wanneer gebruiker wordt verwijderd in IdP
-5. **SCIM-verwijdering**: IdP roept de OneUptime SCIM API aan om de abonnee te verwijderen
+5. **SCIM-verwijdering**: IdP roept de Cast Operations SCIM API aan om de abonnee te verwijderen
 6. **Toegang ingetrokken**: Gebruiker verliest toegang tot de statuspagina
 
 ## Configuratie van identiteitsproviders
 
 ### Microsoft Entra ID (voorheen Azure AD)
 
-Microsoft Entra ID biedt enterprise-grade identiteitsbeheer met robuuste SCIM-inrichtingsmogelijkheden. Volg deze gedetailleerde stappen om SCIM-inrichting te configureren met OneUptime.
+Microsoft Entra ID biedt enterprise-grade identiteitsbeheer met robuuste SCIM-inrichtingsmogelijkheden. Volg deze gedetailleerde stappen om SCIM-inrichting te configureren met Cast Operations.
 
 #### Vereisten
 
 - Microsoft Entra ID-tenant met Premium P1 of P2-licentie (vereist voor automatische inrichting)
-- OneUptime-account met Scale-abonnement of hoger
-- Beheerderstoegang tot zowel Microsoft Entra ID als OneUptime
+- Cast Operations-account met Scale-abonnement of hoger
+- Beheerderstoegang tot zowel Microsoft Entra ID als Cast Operations
 
-#### Stap 1: SCIM-configuratie ophalen uit OneUptime
+#### Stap 1: SCIM-configuratie ophalen uit Cast Operations
 
-1. Log in op uw OneUptime-dashboard
+1. Log in op uw Cast Operations-dashboard
 2. Navigeer naar **Projectinstellingen** > **Team** > **SCIM**
 3. Klik op **SCIM-configuratie aanmaken**
 4. Voer een beschrijvende naam in (bijv. "Microsoft Entra ID-inrichting")
@@ -134,18 +134,18 @@ Microsoft Entra ID biedt enterprise-grade identiteitsbeheer met robuuste SCIM-in
 2. Navigeer naar **Identiteit** > **Applicaties** > **Enterprise-toepassingen**
 3. Klik op **+ Nieuwe toepassing**
 4. Klik op **+ Uw eigen toepassing maken**
-5. Voer een naam in (bijv. "OneUptime")
+5. Voer een naam in (bijv. "Cast Operations")
 6. Selecteer **Een andere toepassing integreren die u niet in de galerie vindt (Niet-galerie)**
 7. Klik op **Maken**
 
 #### Stap 3: SCIM-inrichting configureren
 
-1. Ga in uw OneUptime-enterprise-toepassing naar **Inrichting**
+1. Ga in uw Cast Operations-enterprise-toepassing naar **Inrichting**
 2. Klik op **Aan de slag**
 3. Stel de **Inrichtingsmodus** in op **Automatisch**
 4. Voer onder **Beheerdersreferenties** in:
-   - **Tenant-URL**: Voer de SCIM Basis-URL uit OneUptime in (bijv. `https://oneuptime.com/api/identity/scim/v2/{your-scim-id}`)
-   - **Geheim token**: Voer het Bearer-token uit OneUptime in
+   - **Tenant-URL**: Voer de SCIM Basis-URL uit Cast Operations in (bijv. `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **Geheim token**: Voer het Bearer-token uit Cast Operations in
 5. Klik op **Verbinding testen** om de configuratie te verifiëren
 6. Klik op **Opslaan**
 
@@ -155,7 +155,7 @@ Microsoft Entra ID biedt enterprise-grade identiteitsbeheer met robuuste SCIM-in
 2. Klik op **Azure Active Directory-gebruikers inrichten**
 3. Configureer de volgende attribuutkoppelingen:
 
-| Azure AD-attribuut                                            | OneUptime SCIM-attribuut       | Vereist    |
+| Azure AD-attribuut                                            | Cast Operations SCIM-attribuut       | Vereist    |
 | ------------------------------------------------------------- | ------------------------------ | ---------- |
 | `userPrincipalName`                                           | `userName`                     | Ja         |
 | `mail`                                                        | `emails[type eq "work"].value` | Aanbevolen |
@@ -169,14 +169,14 @@ Microsoft Entra ID biedt enterprise-grade identiteitsbeheer met robuuste SCIM-in
 
 #### Stap 5: Groepsinrichting configureren (optioneel)
 
-Als u **Groepen pushen** heeft ingeschakeld in OneUptime:
+Als u **Groepen pushen** heeft ingeschakeld in Cast Operations:
 
 1. Ga terug naar **Koppelingen**
 2. Klik op **Azure Active Directory-groepen inrichten**
 3. Schakel groepsinrichting in door **Ingeschakeld** op **Ja** te zetten
 4. Configureer de volgende attribuutkoppelingen:
 
-| Azure AD-attribuut | OneUptime SCIM-attribuut |
+| Azure AD-attribuut | Cast Operations SCIM-attribuut |
 | ------------------ | ------------------------ |
 | `displayName`      | `displayName`            |
 | `members`          | `members`                |
@@ -185,9 +185,9 @@ Als u **Groepen pushen** heeft ingeschakeld in OneUptime:
 
 #### Stap 6: Gebruikers en groepen toewijzen
 
-1. Ga in uw OneUptime-enterprise-toepassing naar **Gebruikers en groepen**
+1. Ga in uw Cast Operations-enterprise-toepassing naar **Gebruikers en groepen**
 2. Klik op **+ Gebruiker/groep toevoegen**
-3. Selecteer de gebruikers en/of groepen die u wilt inrichten in OneUptime
+3. Selecteer de gebruikers en/of groepen die u wilt inrichten in Cast Operations
 4. Klik op **Toewijzen**
 
 #### Stap 7: Inrichting starten
@@ -208,17 +208,17 @@ Als u **Groepen pushen** heeft ingeschakeld in OneUptime:
 
 ### Okta
 
-Okta biedt flexibel identiteitsbeheer met uitstekende SCIM-ondersteuning. Volg deze gedetailleerde stappen om SCIM-inrichting te configureren met OneUptime.
+Okta biedt flexibel identiteitsbeheer met uitstekende SCIM-ondersteuning. Volg deze gedetailleerde stappen om SCIM-inrichting te configureren met Cast Operations.
 
 #### Vereisten
 
 - Okta-tenant met inrichtingsmogelijkheden (Lifecycle Management-functie)
-- OneUptime-account met Scale-abonnement of hoger
-- Beheerderstoegang tot zowel Okta als OneUptime
+- Cast Operations-account met Scale-abonnement of hoger
+- Beheerderstoegang tot zowel Okta als Cast Operations
 
-#### Stap 1: SCIM-configuratie ophalen uit OneUptime
+#### Stap 1: SCIM-configuratie ophalen uit Cast Operations
 
-1. Log in op uw OneUptime-dashboard
+1. Log in op uw Cast Operations-dashboard
 2. Navigeer naar **Projectinstellingen** > **Team** > **SCIM**
 3. Klik op **SCIM-configuratie aanmaken**
 4. Voer een beschrijvende naam in (bijv. "Okta-inrichting")
@@ -236,7 +236,7 @@ Okta biedt flexibel identiteitsbeheer met uitstekende SCIM-ondersteuning. Volg d
 
 1. Meld u aan bij uw Okta-beheerconsole
 2. Navigeer naar **Applicaties** > **Applicaties**
-3. Zoek uw bestaande OneUptime-applicatie en selecteer deze
+3. Zoek uw bestaande Cast Operations-applicatie en selecteer deze
 
 **Als u een nieuwe applicatie aanmaakt:**
 
@@ -244,13 +244,13 @@ Okta biedt flexibel identiteitsbeheer met uitstekende SCIM-ondersteuning. Volg d
 2. Navigeer naar **Applicaties** > **Applicaties**
 3. Klik op **App-integratie aanmaken**
 4. Selecteer **SAML 2.0** en klik op **Volgende**
-5. Voer "OneUptime" in als app-naam
+5. Voer "Cast Operations" in als app-naam
 6. Voltooi de SAML-configuratie (zie SSO-documentatie)
 7. Klik op **Voltooien**
 
 #### Stap 3: SCIM-inrichting inschakelen
 
-1. Ga in uw OneUptime-applicatie naar het tabblad **Algemeen**
+1. Ga in uw Cast Operations-applicatie naar het tabblad **Algemeen**
 2. Klik in de sectie **App-instellingen** op **Bewerken**
 3. Selecteer bij **Inrichting** de optie **SCIM**
 4. Klik op **Opslaan**
@@ -263,7 +263,7 @@ Okta biedt flexibel identiteitsbeheer met uitstekende SCIM-ondersteuning. Volg d
 3. Klik op **API-integratie configureren**
 4. Vink **API-integratie inschakelen** aan
 5. Configureer het volgende:
-   - **SCIM connector-basis-URL**: Voer de SCIM Basis-URL uit OneUptime in (bijv. `https://oneuptime.com/api/identity/scim/v2/{your-scim-id}`)
+   - **SCIM connector-basis-URL**: Voer de SCIM Basis-URL uit Cast Operations in (bijv. `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
    - **Uniek identificatieveld voor gebruikers**: Voer `userName` in
    - **Ondersteunde inrichtingsacties**: Selecteer de acties die u wilt inschakelen:
      - Nieuwe gebruikers en profielupdates importeren
@@ -290,7 +290,7 @@ Okta biedt flexibel identiteitsbeheer met uitstekende SCIM-ondersteuning. Volg d
 1. Blader omlaag naar **Attribuutkoppelingen**
 2. Controleer of configureer de volgende koppelingen:
 
-| Okta-attribuut     | OneUptime SCIM-attribuut        | Richting      |
+| Okta-attribuut     | Cast Operations SCIM-attribuut        | Richting      |
 | ------------------ | ------------------------------- | ------------- |
 | `userName`         | `userName`                      | Okta naar app |
 | `user.email`       | `emails[primary eq true].value` | Okta naar app |
@@ -303,7 +303,7 @@ Okta biedt flexibel identiteitsbeheer met uitstekende SCIM-ondersteuning. Volg d
 
 #### Stap 7: Groepen pushen configureren (optioneel)
 
-Als u **Groepen pushen** heeft ingeschakeld in OneUptime:
+Als u **Groepen pushen** heeft ingeschakeld in Cast Operations:
 
 1. Ga naar het tabblad **Groepen pushen**
 2. Klik op **+ Groepen pushen**
@@ -322,9 +322,9 @@ Als u **Groepen pushen** heeft ingeschakeld in OneUptime:
 #### Stap 9: Inrichting verifiëren
 
 1. Ga naar **Rapporten** > **Systeemlogboek** in de Okta-beheerconsole
-2. Filter op gebeurtenissen gerelateerd aan uw OneUptime-applicatie
+2. Filter op gebeurtenissen gerelateerd aan uw Cast Operations-applicatie
 3. Verifieer dat inrichtingsgebeurtenissen succesvol zijn
-4. Controleer in OneUptime of gebruikers zijn aangemaakt
+4. Controleer in Cast Operations of gebruikers zijn aangemaakt
 
 #### Probleemoplossing voor Okta
 
@@ -332,15 +332,15 @@ Als u **Groepen pushen** heeft ingeschakeld in OneUptime:
 - **Gebruikers worden niet ingericht**: Zorg dat gebruikers zijn toegewezen aan de applicatie en inrichting is ingeschakeld
 - **Dubbele gebruikers**: Zorg dat het `userName`-attribuut uniek is en correct wordt gekoppeld aan e-mail
 - **Groepsignatuurfouten**: Controleer of groepen bestaan en het juiste lidmaatschap hebben
-- **Fout: 401 Niet geautoriseerd**: Genereer het Bearer-token in OneUptime opnieuw en werk Okta bij
+- **Fout: 401 Niet geautoriseerd**: Genereer het Bearer-token in Cast Operations opnieuw en werk Okta bij
 
 ---
 
 ### Andere identiteitsproviders
 
-De SCIM-implementatie van OneUptime volgt de SCIM v2.0-specificatie en zou moeten werken met elke conforme identiteitsprovider. Algemene configuratiestappen:
+De SCIM-implementatie van Cast Operations volgt de SCIM v2.0-specificatie en zou moeten werken met elke conforme identiteitsprovider. Algemene configuratiestappen:
 
-1. **SCIM Basis-URL**: `https://oneuptime.com/api/identity/scim/v2/{scim-id}` (voor projecten) of `https://oneuptime.com/api/identity/status-page-scim/v2/{scim-id}` (voor statuspagina's)
+1. **SCIM Basis-URL**: `https://visca.ai/api/identity/scim/v2/{scim-id}` (voor projecten) of `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}` (voor statuspagina's)
 2. **Authenticatie**: HTTP Bearer-token
 3. **Vereist gebruikersattribuut**: `userName` (moet een geldig e-mailadres zijn)
 4. **Ondersteunde bewerkingen**: GET, POST, PUT, PATCH, DELETE voor gebruikers en groepen
@@ -399,15 +399,15 @@ De SCIM-implementatie van OneUptime volgt de SCIM v2.0-specificatie en zou moete
 
 ### Wat gebeurt er wanneer een gebruiker wordt verwijderd?
 
-Wanneer een gebruiker wordt verwijderd (via een DELETE-verzoek of door `active: false` in te stellen), wordt deze verwijderd uit de teams die zijn geconfigureerd in de SCIM-instellingen. Het gebruikersaccount zelf blijft bestaan in OneUptime maar verliest toegang tot het project.
+Wanneer een gebruiker wordt verwijderd (via een DELETE-verzoek of door `active: false` in te stellen), wordt deze verwijderd uit de teams die zijn geconfigureerd in de SCIM-instellingen. Het gebruikersaccount zelf blijft bestaan in Cast Operations maar verliest toegang tot het project.
 
 ### Kan ik SCIM gebruiken zonder SSO?
 
-Ja, SCIM en SSO zijn onafhankelijke functies. U kunt SCIM gebruiken voor gebruikersinrichting terwijl u gebruikers toestaat in te loggen met hun OneUptime-wachtwoorden of een andere authenticatiemethode.
+Ja, SCIM en SSO zijn onafhankelijke functies. U kunt SCIM gebruiken voor gebruikersinrichting terwijl u gebruikers toestaat in te loggen met hun Cast Operations-wachtwoorden of een andere authenticatiemethode.
 
-### Hoe ga ik om met gebruikers die al bestaan in OneUptime?
+### Hoe ga ik om met gebruikers die al bestaan in Cast Operations?
 
-Wanneer SCIM probeert een gebruiker aan te maken die al bestaat (overeenkomend op e-mail), voegt OneUptime die gebruiker eenvoudigweg toe aan de geconfigureerde standaardteams in plaats van een dubbele gebruiker aan te maken.
+Wanneer SCIM probeert een gebruiker aan te maken die al bestaat (overeenkomend op e-mail), voegt Cast Operations die gebruiker eenvoudigweg toe aan de geconfigureerde standaardteams in plaats van een dubbele gebruiker aan te maken.
 
 ### Wat is het verschil tussen standaardteams en groepen pushen?
 

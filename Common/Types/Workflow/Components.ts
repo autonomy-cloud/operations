@@ -57,22 +57,22 @@ export const Categories: Array<ComponentCategory> = [
   },
   {
     name: "Slack",
-    description: "Integrate OneUptime with your Slack team.",
+    description: "Integrate Cast Operations with your Slack team.",
     icon: IconProp.SendMessage,
   },
   {
     name: "Discord",
-    description: "Integrate OneUptime with your Discord server.",
+    description: "Integrate Cast Operations with your Discord server.",
     icon: IconProp.SendMessage,
   },
   {
     name: "Microsoft Teams",
-    description: "Integrate OneUptime with your Microsoft Teams.",
+    description: "Integrate Cast Operations with your Microsoft Teams.",
     icon: IconProp.SendMessage,
   },
   {
     name: "Telegram",
-    description: "Integrate OneUptime with your Telegram chats and channels.",
+    description: "Integrate Cast Operations with your Telegram chats and channels.",
     icon: IconProp.SendMessage,
   },
   {

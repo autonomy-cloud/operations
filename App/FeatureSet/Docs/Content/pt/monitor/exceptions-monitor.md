@@ -1,6 +1,6 @@
 # Monitor de Exceções
 
-O monitoramento de exceções permite monitorar exceções e erros de aplicativos, acionando alertas quando as contagens de exceções excedem seus limites configurados. O OneUptime avalia os dados de exceções dos seus serviços de telemetria em uma janela de tempo.
+O monitoramento de exceções permite monitorar exceções e erros de aplicativos, acionando alertas quando as contagens de exceções excedem seus limites configurados. O Cast Operations avalia os dados de exceções dos seus serviços de telemetria em uma janela de tempo.
 
 ## Visão Geral
 
@@ -14,7 +14,7 @@ Os monitores de exceções contam e filtram exceções que correspondem a crité
 
 ## Criando um Monitor de Exceções
 
-1. Vá para **Monitors** no Painel do OneUptime
+1. Vá para **Monitors** no Painel do Cast Operations
 2. Clique em **Create Monitor**
 3. Selecione **Exceptions** como o tipo de monitor
 4. Selecione os serviços de telemetria para monitorar
@@ -24,7 +24,7 @@ Os monitores de exceções contam e filtram exceções que correspondem a crité
 
 ### Serviços de Telemetria
 
-Selecione um ou mais serviços para monitorar exceções. Os serviços devem estar enviando dados de exceções para o OneUptime via OpenTelemetry.
+Selecione um ou mais serviços para monitorar exceções. Os serviços devem estar enviando dados de exceções para o Cast Operations via OpenTelemetry.
 
 ### Filtros de Exceção
 
@@ -80,4 +80,4 @@ Selecione um ou mais serviços para monitorar exceções. Os serviços devem est
 
 ## Requisitos de Configuração
 
-O monitoramento de exceções requer que seus aplicativos enviem dados de exceções para o OneUptime via OpenTelemetry. Consulte a documentação do [OpenTelemetry](/docs/telemetry/open-telemetry) para instruções de configuração.
+O monitoramento de exceções requer que seus aplicativos enviem dados de exceções para o Cast Operations via OpenTelemetry. Consulte a documentação do [OpenTelemetry](/docs/telemetry/open-telemetry) para instruções de configuração.

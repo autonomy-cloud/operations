@@ -718,7 +718,7 @@ function getOneuptimeServiceLabelsSnippet(): string {
   return `# Pattern: any resource attribute prefixed "oneuptime.label." is promoted to a project label
 #   oneuptime.label.<dimension>=<value>  →  becomes a project label named "<dimension>:<value>"
 # The label is attached to this telemetry service automatically (and to the host, if the
-# same collector emits host metrics). Manual labels added via the OneUptime UI are never
+# same collector emits host metrics). Manual labels added via the Cast Operations UI are never
 # removed by ingest. Existing labels are matched case-insensitively, so "production"
 # reuses an existing "Production" label rather than spawning a duplicate.
 
@@ -769,7 +769,7 @@ function getProfileInstallSnippet(lang: Language): {
     case "java":
       return {
         code: `# The Pyroscope Java agent uploads profiles in JFR format, which
-# OneUptime does not ingest yet (pprof and folded text only).
+# Cast Operations does not ingest yet (pprof and folded text only).
 # Profile Java services with the "Grafana Alloy (eBPF)" method above
 # instead — it captures JVM CPU profiles with no agent and no code changes.`,
         language: "bash",
@@ -1316,15 +1316,15 @@ const TelemetryDocumentation: FunctionComponent<ComponentProps> = (
   };
 
   const descriptionForType: Record<TelemetryType, string> = {
-    logs: "Send logs from your application to OneUptime using OpenTelemetry, FluentBit, or Fluentd.",
+    logs: "Send logs from your application to Cast Operations using OpenTelemetry, FluentBit, or Fluentd.",
     metrics:
-      "Send metrics from your application to OneUptime using OpenTelemetry SDKs.",
+      "Send metrics from your application to Cast Operations using OpenTelemetry SDKs.",
     traces:
-      "Send distributed traces from your application to OneUptime using OpenTelemetry SDKs.",
+      "Send distributed traces from your application to Cast Operations using OpenTelemetry SDKs.",
     exceptions:
       "Capture and track exceptions from your application using OpenTelemetry SDKs.",
     profiles:
-      "Send continuous profiling data to OneUptime using Grafana Alloy (eBPF) or Pyroscope language SDKs.",
+      "Send continuous profiling data to Cast Operations using Grafana Alloy (eBPF) or Pyroscope language SDKs.",
   };
 
   const installSnippet: { code: string; language: string } = useMemo(() => {
@@ -1733,8 +1733,8 @@ const TelemetryDocumentation: FunctionComponent<ComponentProps> = (
             3,
             isProfiles ? "Configure the Profiler" : "Configure the SDK",
             isProfiles
-              ? "Initialize the Pyroscope profiling SDK and point it to your OneUptime instance. Profiles will be continuously captured and sent."
-              : "Initialize OpenTelemetry with the OTLP exporter pointing to your OneUptime instance.",
+              ? "Initialize the Pyroscope profiling SDK and point it to your Cast Operations instance. Profiles will be continuously captured and sent."
+              : "Initialize OpenTelemetry with the OTLP exporter pointing to your Cast Operations instance.",
             <CodeBlock
               code={replacePlaceholders(
                 configSnippet.code,
@@ -1810,7 +1810,7 @@ const TelemetryDocumentation: FunctionComponent<ComponentProps> = (
           {renderStep(
             2,
             "Create FluentBit Configuration",
-            "Create a fluent-bit.conf file that reads logs and forwards them to OneUptime via the OpenTelemetry output plugin.",
+            "Create a fluent-bit.conf file that reads logs and forwards them to Cast Operations via the OpenTelemetry output plugin.",
             <CodeBlock
               code={replacePlaceholders(
                 getFluentBitSnippet(),
@@ -1866,7 +1866,7 @@ const TelemetryDocumentation: FunctionComponent<ComponentProps> = (
           {renderStep(
             2,
             "Create Fluentd Configuration",
-            "Create a fluentd.conf file that collects logs and sends them to OneUptime over HTTP.",
+            "Create a fluentd.conf file that collects logs and sends them to Cast Operations over HTTP.",
             <CodeBlock
               code={replacePlaceholders(
                 getFluentdSnippet(),
@@ -2050,7 +2050,7 @@ const TelemetryDocumentation: FunctionComponent<ComponentProps> = (
           modelType={TelemetryIngestionKey}
           name="Create Ingestion Key"
           title="Create Ingestion Key"
-          description="Create a new telemetry ingestion key for sending data to OneUptime."
+          description="Create a new telemetry ingestion key for sending data to Cast Operations."
           onClose={() => {
             setShowCreateModal(false);
           }}

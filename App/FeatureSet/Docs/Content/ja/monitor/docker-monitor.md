@@ -1,6 +1,6 @@
 # Dockerモニター
 
-Dockerモニタリングを使用すると、Dockerホストおよびその上で実行されているコンテナの正常性とパフォーマンスを監視できます。OneUptimeは事前設定済みのOpenTelemetryコレクター（**OneUptime Dockerエージェント**）を介してメトリクスとコンテナログを収集し、設定した条件に基づいてそれらを評価します。
+Dockerモニタリングを使用すると、Dockerホストおよびその上で実行されているコンテナの正常性とパフォーマンスを監視できます。Cast Operationsは事前設定済みのOpenTelemetryコレクター（**Cast Operations Dockerエージェント**）を介してメトリクスとコンテナログを収集し、設定した条件に基づいてそれらを評価します。
 
 ## 概要
 
@@ -14,7 +14,7 @@ Dockerモニターはホストのメトリクスとログを使用して、コ�
 
 ## Dockerモニターの作成
 
-1. OneUptime ダッシュボードで **モニター** を開きます
+1. Cast Operations ダッシュボードで **モニター** を開きます
 2. **モニターの作成** をクリックします
 3. モニタータイプとして **Docker** を選択します
 4. 監視するDockerホストとリソーススコープを選択します
@@ -25,7 +25,7 @@ Dockerモニターはホストのメトリクスとログを使用して、コ�
 
 ### Dockerホスト
 
-監視するDockerホストを選択します。ホストはOneUptime Dockerエージェントが最初にテレメトリーを送信した際に自動登録されるため、手動で作成する必要はありません。
+監視するDockerホストを選択します。ホストはCast Operations Dockerエージェントが最初にテレメトリーを送信した際に自動登録されるため、手動で作成する必要はありません。
 
 ### リソーススコープ
 
@@ -126,7 +126,7 @@ DockerエージェントはOpenTelemetryの `docker_stats` レシーバーを使
 
 ## 事前定義されたアラートテンプレート
 
-OneUptimeは一般的なDockerモニタリングシナリオのテンプレートを提供しています。
+Cast Operationsは一般的なDockerモニタリングシナリオのテンプレートを提供しています。
 
 | テンプレート             | 説明                          | しきい値 | 集計                 |
 | ------------------------ | ----------------------------- | -------- | -------------------- |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 Dockerモニタリングを使用するには、以下が必要です。
 
-1. 監視する各DockerホストにOneUptime Dockerエージェントをインストール
+1. 監視する各DockerホストにCast Operations Dockerエージェントをインストール
 2. `ONEUPTIME_URL`、`ONEUPTIME_SERVICE_TOKEN`、`DOCKER_HOST_NAME` を環境変数として渡す
 3. 観察したいコンテナが `json-file` ログドライバーを使用していることを確認（上記参照）
 
-エージェントは Docker Hub の `oneuptime/docker-agent:release` として公開されています。完全な `docker run` および `docker compose` の例については、[Dockerエージェントのインストールガイド](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent)を参照してください。
+エージェントは Docker Hub の `oneuptime/docker-agent:release` として公開されています。完全な `docker run` および `docker compose` の例については、[Dockerエージェントのインストールガイド](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent)を参照してください。
 
 ## トラブルシューティング
 
@@ -236,7 +236,7 @@ Dockerモニタリングを使用するには、以下が必要です。
 
 ### ログが間違ったホスト名でグループ化される場合
 
-OneUptimeは `resource.host.name` によってDockerホストを自動登録します。この値は `DOCKER_HOST_NAME` 環境変数から取得されます。最初のテレメトリーバッチ送信後に `DOCKER_HOST_NAME` を変更すると、既存のホストの名前が変更されるのではなく、2つ目のホスト行が作成されます。
+Cast Operationsは `resource.host.name` によってDockerホストを自動登録します。この値は `DOCKER_HOST_NAME` 環境変数から取得されます。最初のテレメトリーバッチ送信後に `DOCKER_HOST_NAME` を変更すると、既存のホストの名前が変更されるのではなく、2つ目のホスト行が作成されます。
 
 ### 「CPUが高い」インシデントが発生しない場合
 

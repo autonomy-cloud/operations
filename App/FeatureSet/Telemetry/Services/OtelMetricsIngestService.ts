@@ -979,7 +979,7 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
               const heartbeatMetricType: MetricType = new MetricType();
               heartbeatMetricType.name = heartbeatMetricName;
               heartbeatMetricType.description =
-                "Synthetic heartbeat emitted by OneUptime each time the host's OTel collector ships a metric batch. Use `count > 0` over a window to detect host up/down.";
+                "Synthetic heartbeat emitted by Cast Operations each time the host's OTel collector ships a metric batch. Use `count > 0` over a window to detect host up/down.";
               heartbeatMetricType.unit = "1";
               heartbeatMetricType.services = [];
               metricNameServiceNameMap[heartbeatMetricName] =

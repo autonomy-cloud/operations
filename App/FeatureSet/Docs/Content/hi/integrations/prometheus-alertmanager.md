@@ -1,20 +1,20 @@
 # Prometheus Alertmanager Integration
 
-[Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) notifications को OneUptime incidents में बदलें। Prometheus आपके alerting rules evaluate करता है, Alertmanager उन्हें route करता है, और OneUptime उन्हें record और escalate करता है।
+[Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) notifications को Cast Operations incidents में बदलें। Prometheus आपके alerting rules evaluate करता है, Alertmanager उन्हें route करता है, और Cast Operations उन्हें record और escalate करता है।
 
-यह इंटीग्रेशन **इनबाउंड** है: Alertmanager एक OneUptime **[वर्कफ़्लो](/docs/workflows/index)** में POST करता है जो **Webhook trigger** से शुरू होता है।
+यह इंटीग्रेशन **इनबाउंड** है: Alertmanager एक Cast Operations **[वर्कफ़्लो](/docs/workflows/index)** में POST करता है जो **Webhook trigger** से शुरू होता है।
 
 ```text
-Prometheus rule fires  ──►  Alertmanager webhook receiver  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Prometheus rule fires  ──►  Alertmanager webhook receiver  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## पूर्वापेक्षाएँ
 
 - एक Prometheus + Alertmanager setup जहाँ आप `alertmanager.yml` edit कर सकते हैं।
-- Alertmanager HTTPS के माध्यम से आपके OneUptime instance तक पहुँचने में सक्षम होना चाहिए।
-- एक OneUptime project जहाँ आप वर्कफ़्लो बना सकते हैं।
+- Alertmanager HTTPS के माध्यम से आपके Cast Operations instance तक पहुँचने में सक्षम होना चाहिए।
+- एक Cast Operations project जहाँ आप वर्कफ़्लो बना सकते हैं।
 
-## चरण 1 — OneUptime वर्कफ़्लो बनाएँ
+## चरण 1 — Cast Operations वर्कफ़्लो बनाएँ
 
 1. **Workflows → Create Workflow** खोलें, इसे `Alertmanager → Incidents` नाम दें, और **Builder** खोलें।
 2. एक **Webhook** trigger जोड़ें और **उसका URL कॉपी करें**। ब्लॉक का नाम `Alertmanager` रखें।

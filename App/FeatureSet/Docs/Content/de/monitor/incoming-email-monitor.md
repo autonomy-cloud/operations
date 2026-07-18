@@ -4,15 +4,15 @@ Der Eingehende E-Mail-Monitor ermöglicht das Erstellen und Auflösen von Benach
 
 ## Funktionsweise
 
-1. Wenn Sie einen Eingehenden E-Mail-Monitor erstellen, generiert OneUptime eine eindeutige E-Mail-Adresse für diesen Monitor
+1. Wenn Sie einen Eingehenden E-Mail-Monitor erstellen, generiert Cast Operations eine eindeutige E-Mail-Adresse für diesen Monitor
 2. Jede an diese Adresse gesendete E-Mail wird empfangen und anhand Ihrer konfigurierten Kriterien ausgewertet
-3. Basierend auf den Kriterien kann OneUptime neue Benachrichtigungen erstellen oder vorhandene auflösen
+3. Basierend auf den Kriterien kann Cast Operations neue Benachrichtigungen erstellen oder vorhandene auflösen
 
-Dies ist eine leistungsstarke Möglichkeit, E-Mail-basierte Benachrichtigungssysteme mit dem Incident-Management-Workflow von OneUptime zu integrieren.
+Dies ist eine leistungsstarke Möglichkeit, E-Mail-basierte Benachrichtigungssysteme mit dem Incident-Management-Workflow von Cast Operations zu integrieren.
 
 ## Einen Eingehenden E-Mail-Monitor erstellen
 
-1. Navigieren Sie zu **Monitore** in Ihrem OneUptime-Dashboard
+1. Navigieren Sie zu **Monitore** in Ihrem Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Eingehende E-Mail** als Monitortyp
 4. Konfigurieren Sie die Monitor-Einstellungen:
@@ -108,7 +108,7 @@ Bei der Konfiguration von Incident-Vorlagen können Sie diese Variablen aus eing
 
 ## Self-Hosted-Einrichtung
 
-Wenn Sie OneUptime selbst hosten, müssen Sie einen eingehenden E-Mail-Anbieter konfigurieren. Derzeit unterstützt:
+Wenn Sie Cast Operations selbst hosten, müssen Sie einen eingehenden E-Mail-Anbieter konfigurieren. Derzeit unterstützt:
 
 - **SendGrid Inbound Parse** - Informationen zur Einrichtung finden Sie unter [SendGrid Inbound Email Integration](/docs/self-hosted/sendgrid-inbound-email)
 

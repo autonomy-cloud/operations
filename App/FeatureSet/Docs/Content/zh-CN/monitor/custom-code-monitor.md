@@ -22,7 +22,7 @@ return {
 
 #### 添加密钥
 
-要添加密钥，请前往 OneUptime 控制台 -> 项目设置 -> 监控器密钥 -> 创建监控器密钥。
+要添加密钥，请前往 Cast Operations 控制台 -> 项目设置 -> 监控器密钥 -> 创建监控器密钥。
 
 ![创建密钥](/docs/static/images/CreateMonitorSecret.png)
 
@@ -50,7 +50,7 @@ console.log(stringSecret);
 
 ### 自定义指标
 
-您可以使用 `oneuptime.captureMetric()` 函数从脚本中捕获自定义指标。这些指标存储在 OneUptime 中，可以通过指标浏览器在控制台上制图。
+您可以使用 `oneuptime.captureMetric()` 函数从脚本中捕获自定义指标。这些指标存储在 Cast Operations 中，可以通过指标浏览器在控制台上制图。
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);

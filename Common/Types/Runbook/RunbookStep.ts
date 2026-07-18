@@ -8,7 +8,7 @@ export interface JavaScriptStepConfig {
   timeoutInMs?: number;
   /*
    * ID of the Runbook Agent that should execute this step. Required for the
-   * step to execute — JavaScript never runs on the OneUptime Worker. Only the
+   * step to execute — JavaScript never runs on the Cast Operations Worker. Only the
    * selected agent may claim the job.
    */
   agentId: string;
@@ -40,7 +40,7 @@ export interface BashStepConfig {
   timeoutInMs?: number;
   /*
    * ID of the Runbook Agent that should execute this step. Required for the
-   * step to execute — bash never runs on the OneUptime Worker. Only the
+   * step to execute — bash never runs on the Cast Operations Worker. Only the
    * selected agent may claim the job.
    */
   agentId: string;

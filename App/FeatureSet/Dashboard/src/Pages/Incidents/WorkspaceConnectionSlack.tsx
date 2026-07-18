@@ -73,7 +73,7 @@ const IncidentsPage: FunctionComponent<
 - 📌 **Pin emoji** (pushpin, round_pushpin) - React with a pin emoji to save the message as a **private note** (visible only to your team).
 - 📢 **Megaphone emoji** (mega, loudspeaker, megaphone) - React with a megaphone emoji to save the message as a **public note** (visible on the status page).
 
-When you react with one of these emojis, OneUptime will automatically save the message content as a note to the incident linked to that channel and confirm with a reply in the thread.
+When you react with one of these emojis, Cast Operations will automatically save the message content as a note to the incident linked to that channel and confirm with a reply in the thread.
               `}
             />
           </Card>
@@ -96,7 +96,7 @@ When you react with one of these emojis, OneUptime will automatically save the m
               text={`
 - 📌 **Pin emoji** (pushpin, round_pushpin) - React with a pin emoji to save the message as a **private note** (visible only to your team).
 
-When you react with a pin emoji, OneUptime will automatically save the message content as a private note to the incident episode linked to that channel and confirm with a reply in the thread.
+When you react with a pin emoji, Cast Operations will automatically save the message content as a private note to the incident episode linked to that channel and confirm with a reply in the thread.
               `}
             />
           </Card>

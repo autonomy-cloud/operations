@@ -1,27 +1,27 @@
 # Guia de Início Rápido do Provedor Terraform
 
-Este guia ajudará você a começar a usar o Provedor Terraform do OneUptime em apenas alguns minutos.
+Este guia ajudará você a começar a usar o Provedor Terraform do Cast Operations em apenas alguns minutos.
 
 ## Pré-requisitos
 
 - Terraform >= 1.0 instalado
-- Conta do OneUptime (Cloud ou Auto-Hospedado)
-- Chave de API do OneUptime
+- Conta do Cast Operations (Cloud ou Auto-Hospedado)
+- Chave de API do Cast Operations
 
 ## Passo 1: Criar Chave de API
 
-### Para o OneUptime Cloud
+### Para o Cast Operations Cloud
 
-1. Vá para [OneUptime Cloud](https://oneuptime.com) e faça login
+1. Vá para [Cast Operations Cloud](https://visca.ai) e faça login
 2. Navegue para **Settings** → **API Keys**
 3. Clique em **Create API Key**
 4. Nomeie como "Provedor Terraform"
 5. Selecione as permissões necessárias
 6. Copie a chave de API gerada
 
-### Para o OneUptime Auto-Hospedado
+### Para o Cast Operations Auto-Hospedado
 
-1. Acesse sua instância do OneUptime
+1. Acesse sua instância do Cast Operations
 2. Navegue para **Settings** → **API Keys**
 3. Clique em **Create API Key**
 4. Nomeie como "Provedor Terraform"
@@ -36,12 +36,12 @@ Crie um novo diretório e arquivo `main.tf`:
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       # Para clientes Cloud
       version = "~> 7.0"
 
       # Para clientes Auto-Hospedados - fixe na sua versão exata
-      # version = "= 7.0.123"  # Substitua pela sua versão do OneUptime
+      # version = "= 7.0.123"  # Substitua pela sua versão do Cast Operations
     }
   }
   required_version = ">= 1.0"
@@ -49,24 +49,24 @@ terraform {
 
 provider "oneuptime" {
   # Para clientes Cloud
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
 
   # Para clientes Auto-Hospedados - use a URL da sua instância
-  # oneuptime_url = "https://oneuptime.suaempresa.com"
+  # oneuptime_url = "https://operations.suaempresa.com"
 
   api_key = var.oneuptime_api_key
 }
 
 variable "oneuptime_api_key" {
-  description = "Chave de API do OneUptime"
+  description = "Chave de API do Cast Operations"
   type        = string
   sensitive   = true
 }
 
-# Nota: Projetos devem ser criados manualmente no painel do OneUptime
+# Nota: Projetos devem ser criados manualmente no painel do Cast Operations
 # Use o ID do projeto existente aqui
 variable "project_id" {
-  description = "ID do projeto OneUptime"
+  description = "ID do projeto Cast Operations"
   type        = string
 }
 
@@ -94,7 +94,7 @@ Crie `terraform.tfvars`:
 ```hcl
 # terraform.tfvars
 oneuptime_api_key = "sua-chave-de-api-aqui"
-project_id        = "seu-id-de-projeto-aqui"  # Obtenha isso do painel do OneUptime
+project_id        = "seu-id-de-projeto-aqui"  # Obtenha isso do painel do Cast Operations
 ```
 
 **Importante**: Adicione `terraform.tfvars` ao seu `.gitignore` para manter as chaves de API seguras!
@@ -114,7 +114,7 @@ terraform apply
 
 ## Passo 5: Verificar Recursos
 
-1. Verifique seu painel do OneUptime
+1. Verifique seu painel do Cast Operations
 2. Vá para o projeto existente
 3. Verifique se o "Monitor de Site" foi criado e está em execução
 
@@ -133,14 +133,14 @@ terraform apply
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Sempre obtém a versão 7.x compatível mais recente
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -151,14 +151,14 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Deve corresponder à sua versão do OneUptime exatamente
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Deve corresponder à sua versão do Cast Operations exatamente
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.suaempresa.com"  # Sua URL auto-hospedada
+  oneuptime_url = "https://operations.suaempresa.com"  # Sua URL auto-hospedada
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -181,7 +181,7 @@ Error: Invalid API key
 
 **Solução**:
 
-1. Verifique sua chave de API no painel do OneUptime
+1. Verifique sua chave de API no painel do Cast Operations
 2. Verifique se a chave de API tem permissões suficientes
 3. Certifique-se de que `oneuptime_url` está correto para sua instância
 
@@ -193,7 +193,7 @@ Error: API version incompatible
 
 **Solução**:
 
-1. Verifique sua versão do OneUptime no painel
+1. Verifique sua versão do Cast Operations no painel
 2. Atualize a versão do provedor para corresponder exatamente
 3. Execute `terraform init -upgrade`
 

@@ -22,7 +22,7 @@ const StatusPageFooter: FunctionComponent<ComponentProps> = (
   if (!props.hidePoweredByOneUptimeBranding) {
     links.push({
       title: t("footer.poweredBy"),
-      to: URL.fromString("https://oneuptime.com"),
+      to: URL.fromString("https://visca.ai"),
       openInNewTab: true,
     });
   }

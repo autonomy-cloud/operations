@@ -2,16 +2,16 @@
 
 ## Обзор
 
-OneUptime классифицирует входящую телеметрию как **RUM**, когда она содержит клиентские атрибуты — `browser.*` для веба или `device.*` для мобильных устройств. Каждое приложение идентифицируется по своему `service.name` и полностью принадлежит своему RUM-приложению (клиентская телеметрия никогда не дублируется как серверный Service).
+Cast Operations классифицирует входящую телеметрию как **RUM**, когда она содержит клиентские атрибуты — `browser.*` для веба или `device.*` для мобильных устройств. Каждое приложение идентифицируется по своему `service.name` и полностью принадлежит своему RUM-приложению (клиентская телеметрия никогда не дублируется как серверный Service).
 
 Используйте его, чтобы увидеть, что на самом деле испытывают ваши пользователи: просмотры страниц, ошибки, задержки, используемые платформы / устройства и — когда ваш SDK их передаёт — Core Web Vitals.
 
 ## Предварительные требования
 
-- **Токен приёма телеметрии OneUptime** — создайте его в разделе _Project Settings → Telemetry Ingestion Keys_.
+- **Токен приёма телеметрии Cast Operations** — создайте его в разделе _Project Settings → Telemetry Ingestion Keys_.
 - Браузерный или мобильный SDK OpenTelemetry.
 
-## Как OneUptime идентифицирует RUM-приложение
+## Как Cast Operations идентифицирует RUM-приложение
 
 | Атрибут                  | Обязательно   | Назначение                                           |
 | ------------------------ | ------------- | ---------------------------------------------------- |
@@ -22,14 +22,14 @@ OneUptime классифицирует входящую телеметрию к�
 
 ## Браузер (OpenTelemetry Web)
 
-Направьте экспортёр OTLP/HTTP на OneUptime и задайте в `service.name` имя вашего приложения:
+Направьте экспортёр OTLP/HTTP на Cast Operations и задайте в `service.name` имя вашего приложения:
 
 ```js
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 
-// OneUptime OTLP/HTTP exporter:
+// Cast Operations OTLP/HTTP exporter:
 const exporter = new OTLPTraceExporter({
-  url: "https://oneuptime.com/otlp/v1/traces",
+  url: "https://visca.ai/otlp/v1/traces",
   headers: { "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
 });
 
@@ -41,18 +41,18 @@ const exporter = new OTLPTraceExporter({
 
 ## Мобильные устройства (Swift / Android)
 
-Используйте SDK OpenTelemetry для Swift или Android, задайте `service.name` и экспортируйте OTLP в OneUptime:
+Используйте SDK OpenTelemetry для Swift или Android, задайте `service.name` и экспортируйте OTLP в Cast Operations:
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://oneuptime.com/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
-Атрибуты `device.*` из SDK направляют телеметрию в RUM. Если вы используете самостоятельно размещённый OneUptime, используйте `https://YOUR-ONEUPTIME-HOST/otlp`.
+Атрибуты `device.*` из SDK направляют телеметрию в RUM. Если вы используете самостоятельно размещённый Cast Operations, используйте `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Core Web Vitals
 
-Если ваша браузерная инструментация передаёт web vitals (LCP, INP, CLS, FCP, TTFB) как метрики OpenTelemetry, OneUptime отображает их в обзоре приложения с оценками good / needs-improvement / poor. Если метрики web vitals не передаются, панель объясняет, как начать их отправлять.
+Если ваша браузерная инструментация передаёт web vitals (LCP, INP, CLS, FCP, TTFB) как метрики OpenTelemetry, Cast Operations отображает их в обзоре приложения с оценками good / needs-improvement / poor. Если метрики web vitals не передаются, панель объясняет, как начать их отправлять.
 
 ## Что вы получаете
 

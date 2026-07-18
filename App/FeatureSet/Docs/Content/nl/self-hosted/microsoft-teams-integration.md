@@ -1,11 +1,11 @@
 # Microsoft Teams-integratie
 
-Om Microsoft Teams te integreren met uw zelf-gehoste OneUptime-instantie, moet u Azure App-registratie configureren en de vereiste omgevingsvariabelen instellen.
+Om Microsoft Teams te integreren met uw zelf-gehoste Cast Operations-instantie, moet u Azure App-registratie configureren en de vereiste omgevingsvariabelen instellen.
 
 ## Vereisten
 
 - Azure-account — U kunt er een aanmaken op [https://azure.com](https://azure.com)
-- Toegang tot uw OneUptime-serverconfiguratie
+- Toegang tot uw Cast Operations-serverconfiguratie
 
 ## Installatie-instructies
 
@@ -16,8 +16,8 @@ Om Microsoft Teams te integreren met uw zelf-gehoste OneUptime-instantie, moet u
 3. Vul het registratieformulier in:
    - **Naam:** oneuptime
    - **Ondersteunde accounttypen:** Accounts in elke organisatiemap (Elke Microsoft Entra ID-tenant - Multitenant)
-   - **Omleidings-URI:** Web - `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - Voeg ook toe: `https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **Omleidings-URI:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - Voeg ook toe: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. Klik op "Registreren"
 5. Noteer de "Applicatie (client) ID" — u heeft dit later nodig
 
@@ -71,7 +71,7 @@ Om Microsoft Teams te integreren met uw zelf-gehoste OneUptime-instantie, moet u
 3. Klik op "Beoordelen + aanmaken" en vervolgens op "Aanmaken"
 
 4. Ga na implementatie naar uw bot-resource en navigeer naar "Configuratie"
-5. Stel het "Berichtenverzendings-eindpunt" in op `https://your-oneuptime-domain.com/api/microsoft-bot/messages`
+5. Stel het "Berichtenverzendings-eindpunt" in op `https://your-operations-domain.com/api/microsoft-bot/messages`
 6. Sla de configuratie op
 
 ### Stap 5: Microsoft Teams-kanaal toevoegen aan de bot
@@ -81,7 +81,7 @@ Om Microsoft Teams te integreren met uw zelf-gehoste OneUptime-instantie, moet u
 3. Bekijk de instellingen (inschakelen voor Teams, standaard berichtenopties behouden tenzij u specifieke behoeften heeft)
 4. Klik op "Opslaan" (en "Gereed"/"Publiceren" indien gevraagd) om het Teams-kanaal in te schakelen
 
-### Stap 6: OneUptime omgevingsvariabelen configureren
+### Stap 6: Cast Operations omgevingsvariabelen configureren
 
 #### Docker Compose
 
@@ -104,7 +104,7 @@ microsoftTeamsApp:
    tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**Belangrijk:** Herstart uw OneUptime-server na het toevoegen van deze omgevingsvariabelen zodat ze van kracht worden.
+**Belangrijk:** Herstart uw Cast Operations-server na het toevoegen van deze omgevingsvariabelen zodat ze van kracht worden.
 
 ### Stap 7: Teams App-manifest uploaden
 
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 Als u problemen ondervindt:
 
 - Zorg dat uw app de juiste machtigingen heeft verleend
-- Controleer of de omleidings-URI exact overeenkomt (vervang `your-oneuptime-domain.com` door uw werkelijke domein)
+- Controleer of de omleidings-URI exact overeenkomt (vervang `your-operations-domain.com` door uw werkelijke domein)
 - Verifieer dat uw omgevingsvariabelen correct zijn ingesteld
 - Zorg dat het berichtenverzendings-eindpunt van de bot bereikbaar is vanaf het internet
 - Verifieer dat de bot correct is geconfigureerd met het Teams-kanaal
@@ -129,4 +129,4 @@ Als u problemen ondervindt:
 
 ## Ondersteuning
 
-We willen deze integratie verbeteren, dus feedback is meer dan welkom. Stuur ons uw feedback via [hello@oneuptime.com](mailto:hello@oneuptime.com)
+We willen deze integratie verbeteren, dus feedback is meer dan welkom. Stuur ons uw feedback via [hello@visca.ai](mailto:hello@visca.ai)

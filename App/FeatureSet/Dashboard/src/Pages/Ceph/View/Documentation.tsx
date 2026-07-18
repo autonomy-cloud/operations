@@ -64,7 +64,7 @@ const CephClusterDocumentation: FunctionComponent<
     <Fragment>
       <CephDocumentationCard
         title="Ceph Agent Installation Guide"
-        description="Follow these steps to install the OneUptime Ceph Agent for this cluster."
+        description="Follow these steps to install the Cast Operations Ceph Agent for this cluster."
       />
     </Fragment>
   );

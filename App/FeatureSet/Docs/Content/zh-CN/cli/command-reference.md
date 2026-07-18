@@ -1,12 +1,12 @@
 # 命令参考
 
-OneUptime CLI 所有命令的完整参考。
+Cast Operations CLI 所有命令的完整参考。
 
 ## 认证命令
 
 ### `oneuptime login`
 
-向 OneUptime 实例进行认证。
+向 Cast Operations 实例进行认证。
 
 ```bash
 oneuptime login <api-key> <instance-url> [--context-name <name>]
@@ -15,7 +15,7 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 | 参数             | 类型 | 是否必填 | 描述                            |
 | ---------------- | ---- | -------- | ------------------------------- |
 | `<api-key>`      | 参数 | 是       | 用于认证的 API 密钥             |
-| `<instance-url>` | 参数 | 是       | OneUptime 实例 URL              |
+| `<instance-url>` | 参数 | 是       | Cast Operations 实例 URL              |
 | `--context-name` | 选项 | 否       | 上下文名称（默认：`"default"`） |
 
 ---

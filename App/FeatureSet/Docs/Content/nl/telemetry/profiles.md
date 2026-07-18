@@ -1,14 +1,14 @@
-# Continue profileergegevens verzenden naar OneUptime
+# Continue profileergegevens verzenden naar Cast Operations
 
 ## Overzicht
 
-Continue profilering is de vierde pijler van observabiliteit naast logboeken, metrics en traces. Profielen leggen vast hoe uw applicatie CPU-tijd besteedt, geheugen toewijst en systeemresources gebruikt op functieniveau. OneUptime verwerkt profileergegevens via het OpenTelemetry Protocol (OTLP) en slaat ze op naast uw andere telemetriesignalen voor gecombineerde analyse.
+Continue profilering is de vierde pijler van observabiliteit naast logboeken, metrics en traces. Profielen leggen vast hoe uw applicatie CPU-tijd besteedt, geheugen toewijst en systeemresources gebruikt op functieniveau. Cast Operations verwerkt profileergegevens via het OpenTelemetry Protocol (OTLP) en slaat ze op naast uw andere telemetriesignalen voor gecombineerde analyse.
 
-Met profileergegevens in OneUptime kunt u actieve functies die CPU verbruiken identificeren, geheugenlekken detecteren, knelpunten bij concurrentieproblemen vinden en prestatieproblemen correleren met specifieke traces en spans.
+Met profileergegevens in Cast Operations kunt u actieve functies die CPU verbruiken identificeren, geheugenlekken detecteren, knelpunten bij concurrentieproblemen vinden en prestatieproblemen correleren met specifieke traces en spans.
 
 ## Ondersteunde profieltypen
 
-OneUptime ondersteunt de volgende profieltypen:
+Cast Operations ondersteunt de volgende profieltypen:
 
 | Profieltype   | Beschrijving                                | Eenheid      |
 | ------------- | ------------------------------------------- | ------------ |
@@ -23,7 +23,7 @@ OneUptime ondersteunt de volgende profieltypen:
 
 ### Stap 1 - Een telemetrie-ingestietoken aanmaken
 
-Nadat u zich hebt aangemeld bij OneUptime en een project hebt aangemaakt, klikt u op "Meer" in de navigatiebalk en vervolgens op "Projectinstellingen".
+Nadat u zich hebt aangemeld bij Cast Operations en een project hebt aangemaakt, klikt u op "Meer" in de navigatiebalk en vervolgens op "Projectinstellingen".
 
 Klik op de pagina Telemetrie-ingestiesleutel op "Ingestiesleutel aanmaken" om een token aan te maken.
 
@@ -35,32 +35,32 @@ Zodra u een token hebt aangemaakt, klikt u op "Bekijken" om het token te bekijke
 
 ### Stap 2 - Uw profiler configureren
 
-OneUptime accepteert profileergegevens via zowel gRPC als HTTP met het OTLP-profielenprotocol.
+Cast Operations accepteert profileergegevens via zowel gRPC als HTTP met het OTLP-profielenprotocol.
 
 | Protocol | Eindpunt                                                    |
 | -------- | ----------------------------------------------------------- |
-| gRPC     | `your-oneuptime-host:4317` (standaard gRPC-poort voor OTLP) |
-| HTTP     | `https://your-oneuptime-host/otlp/v1/profiles`              |
+| gRPC     | `your-operations-host:4317` (standaard gRPC-poort voor OTLP) |
+| HTTP     | `https://your-operations-host/otlp/v1/profiles`              |
 
 **Omgevingsvariabelen**
 
-Stel de volgende omgevingsvariabelen in om uw profiler naar OneUptime te laten verwijzen:
+Stel de volgende omgevingsvariabelen in om uw profiler naar Cast Operations te laten verwijzen:
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
-**Zelf-gehoste OneUptime**
+**Zelf-gehoste Cast Operations**
 
-Als u OneUptime zelf host, vervangt u het eindpunt door uw eigen host (bijv. `http(s)://YOUR-ONEUPTIME-HOST/otlp`). Maak voor gRPC rechtstreeks verbinding met poort 4317 op uw OneUptime-host.
+Als u Cast Operations zelf host, vervangt u het eindpunt door uw eigen host (bijv. `http(s)://YOUR-OPERATIONS-HOST/otlp`). Maak voor gRPC rechtstreeks verbinding met poort 4317 op uw Cast Operations-host.
 
 ## Instrumentatiegids
 
 ### Grafana Alloy gebruiken (eBPF-gebaseerde profilering)
 
-Grafana Alloy (voorheen Grafana Agent) kan CPU-profielen verzamelen van alle processen op een Linux-host met behulp van eBPF, zonder codewijzigingen. Configureer het om te exporteren via OTLP naar OneUptime.
+Grafana Alloy (voorheen Grafana Agent) kan CPU-profielen verzamelen van alle processen op een Linux-host met behulp van eBPF, zonder codewijzigingen. Configureer het om te exporteren via OTLP naar Cast Operations.
 
 Voorbeeld Alloy-configuratie:
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "oneuptime" {
   endpoint {
-    url = "https://oneuptime.com/pyroscope"
+    url = "https://visca.ai/pyroscope"
     headers = {
       "x-oneuptime-token" = "YOUR_ONEUPTIME_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ Voor Java-applicaties gebruikt u [async-profiler](https://github.com/async-profi
 ```bash
 # Start uw Java-applicatie met de OpenTelemetry Java-agent
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://oneuptime.com/otlp \
+  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
   -Dotel.exporter.otlp.headers=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -95,7 +95,7 @@ java -javaagent:opentelemetry-javaagent.jar \
 
 ### Go pprof met OTLP-export gebruiken
 
-Voor Go-applicaties kunt u het standaard `net/http/pprof`-pakket gebruiken naast een OTLP-exporter. Configureer continue profilering door periodiek pprof-gegevens te verzamelen en door te sturen naar OneUptime.
+Voor Go-applicaties kunt u het standaard `net/http/pprof`-pakket gebruiken naast een OTLP-exporter. Configureer continue profilering door periodiek pprof-gegevens te verzamelen en door te sturen naar Cast Operations.
 
 ```go
 import (
@@ -110,7 +110,7 @@ func collectProfile() {
     pprof.StartCPUProfile(&buf)
     time.Sleep(30 * time.Second)
     pprof.StopCPUProfile()
-    // Converteer pprof-uitvoer naar OTLP-formaat en stuur naar OneUptime
+    // Converteer pprof-uitvoer naar OTLP-formaat en stuur naar Cast Operations
 }
 ```
 
@@ -125,11 +125,11 @@ Voor Python-applicaties kan [py-spy](https://github.com/benfred/py-spy) CPU-prof
 py-spy record --format speedscope --pid $PID -o profile.json
 ```
 
-Voor continue profilering voert u py-spy naast uw applicatie uit en configureert u de OpenTelemetry Collector om de profielen te verwerken en door te sturen naar OneUptime.
+Voor continue profilering voert u py-spy naast uw applicatie uit en configureert u de OpenTelemetry Collector om de profielen te verwerken en door te sturen naar Cast Operations.
 
 ## De OpenTelemetry Collector gebruiken
 
-U kunt de OpenTelemetry Collector gebruiken als proxy om profielen van uw applicaties te ontvangen en door te sturen naar OneUptime.
+U kunt de OpenTelemetry Collector gebruiken als proxy om profielen van uw applicaties te ontvangen en door te sturen naar Cast Operations.
 
 ```yaml
 receivers:
@@ -142,7 +142,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -159,7 +159,7 @@ service:
 
 ### Vlambalkvisualisatie
 
-OneUptime geeft profielgegevens weer als interactieve vlambalken. Elke balk vertegenwoordigt een functie in de aanroepstapel, en de breedte is evenredig aan de verbruikte tijd of resources. U kunt op een willekeurige functie klikken om in te zoomen en de aanroepers en aangeroepenen te bekijken.
+Cast Operations geeft profielgegevens weer als interactieve vlambalken. Elke balk vertegenwoordigt een functie in de aanroepstapel, en de breedte is evenredig aan de verbruikte tijd of resources. U kunt op een willekeurige functie klikken om in te zoomen en de aanroepers en aangeroepenen te bekijken.
 
 ### Functielijst
 
@@ -167,7 +167,7 @@ Bekijk een sorteerbare tabel van alle functies die zijn vastgelegd in een profie
 
 ### Trace-correlatie
 
-Profielen in OneUptime kunnen worden gecorreleerd met gedistribueerde traces. Wanneer een profiel trace- en span-ID's bevat (via de OTLP-linktabel), kunt u rechtstreeks navigeren van een langzame trace-span naar het bijbehorende CPU- of geheugenprofiel om precies te begrijpen welke code werd uitgevoerd.
+Profielen in Cast Operations kunnen worden gecorreleerd met gedistribueerde traces. Wanneer een profiel trace- en span-ID's bevat (via de OTLP-linktabel), kunt u rechtstreeks navigeren van een langzame trace-span naar het bijbehorende CPU- of geheugenprofiel om precies te begrijpen welke code werd uitgevoerd.
 
 ### Filteren op profieltype
 
@@ -175,10 +175,10 @@ Filter profielen op type (cpu, wall, alloc_objects, alloc_space, goroutine, cont
 
 ## Gegevensbewaring
 
-De bewaring van profielgegevens wordt geconfigureerd per telemetriedienst in uw OneUptime-projectinstellingen. De standaard bewaartermijn is 15 dagen. Gegevens worden automatisch verwijderd nadat de bewaartermijn is verstreken.
+De bewaring van profielgegevens wordt geconfigureerd per telemetriedienst in uw Cast Operations-projectinstellingen. De standaard bewaartermijn is 15 dagen. Gegevens worden automatisch verwijderd nadat de bewaartermijn is verstreken.
 
 Om de bewaartermijn voor een dienst te wijzigen, navigeert u naar **Telemetrie > Diensten > [Uw dienst] > Instellingen** en werkt u de waarde voor gegevensbewaring bij.
 
 ## Hulp nodig?
 
-Neem contact op via support@oneuptime.com als u hulp nodig heeft bij het instellen van profilering met OneUptime.
+Neem contact op via support@visca.ai als u hulp nodig heeft bij het instellen van profilering met Cast Operations.

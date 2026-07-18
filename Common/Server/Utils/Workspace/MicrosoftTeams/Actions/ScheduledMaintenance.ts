@@ -703,7 +703,7 @@ export default class MicrosoftTeamsScheduledMaintenanceActions {
     }
 
     try {
-      // Get OneUptime user ID
+      // Get Cast Operations user ID
       const oneUptimeUserId: ObjectID =
         await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
           teamsUserId: userId,

@@ -1,6 +1,6 @@
 # 网站监控器
 
-网站监控允许您监控任何网站或网页的可用性、性能和响应。OneUptime 定期向您的网站 URL 发送 HTTP 请求，并检查其是否正确响应。
+网站监控允许您监控任何网站或网页的可用性、性能和响应。Cast Operations 定期向您的网站 URL 发送 HTTP 请求，并检查其是否正确响应。
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 ## 创建网站监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **网站** 作为监控器类型
 4. 输入您要监控的网站 URL
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### 不跟随重定向
 
-默认情况下，OneUptime 跟随 HTTP 重定向（301、302 等）。如果您想监控重定向响应本身而非最终目标，请启用此选项。
+默认情况下，Cast Operations 跟随 HTTP 重定向（301、302 等）。如果您想监控重定向响应本身而非最终目标，请启用此选项。
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

@@ -1,6 +1,6 @@
 # Moniteur de site Web
 
-La surveillance de site Web vous permet de surveiller la disponibilité, les performances et la réponse de tout site Web ou page Web. OneUptime envoie périodiquement des requêtes HTTP à l'URL de votre site Web et vérifie si elle répond correctement.
+La surveillance de site Web vous permet de surveiller la disponibilité, les performances et la réponse de tout site Web ou page Web. Cast Operations envoie périodiquement des requêtes HTTP à l'URL de votre site Web et vérifie si elle répond correctement.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs de site Web vérifient vos pages Web en effectuant des requêtes H
 
 ## Création d'un moniteur de site Web
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Site Web** comme type de moniteur
 4. Entrez l'URL du site Web que vous souhaitez surveiller
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### Ne pas suivre les redirections
 
-Par défaut, OneUptime suit les redirections HTTP (301, 302, etc.). Activez cette option si vous souhaitez surveiller la réponse de redirection elle-même plutôt que la destination finale.
+Par défaut, Cast Operations suit les redirections HTTP (301, 302, etc.). Activez cette option si vous souhaitez surveiller la réponse de redirection elle-même plutôt que la destination finale.
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

@@ -25,7 +25,7 @@ const RunbookAgentInstallInstructions: FunctionComponent<ComponentProps> = (
     <div className="space-y-5">
       <p className="text-sm leading-relaxed text-gray-600">
         Run this Docker command on a host inside the infrastructure where you
-        want bash steps to execute. The agent polls OneUptime for jobs tagged
+        want bash steps to execute. The agent polls Cast Operations for jobs tagged
         for it, runs the script locally, and reports the result back.
       </p>
 

@@ -51,7 +51,7 @@ return {
 
 ### Screenshots
 
-script context में एक pre-declared `screenshots` object उपलब्ध है। script में किसी भी point पर इसे screenshots assign करें — ये screenshots **चाहे script throw करे** (assertion failures, timeouts, या unexpected errors सहित) capture होते हैं, इसलिए आप देख सकते हैं कि run fail होने पर page कैसा दिखता था। Captured screenshots उस specific monitor run के लिए OneUptime Dashboard में दिखाई देते हैं।
+script context में एक pre-declared `screenshots` object उपलब्ध है। script में किसी भी point पर इसे screenshots assign करें — ये screenshots **चाहे script throw करे** (assertion failures, timeouts, या unexpected errors सहित) capture होते हैं, इसलिए आप देख सकते हैं कि run fail होने पर page कैसा दिखता था। Captured screenshots उस specific monitor run के लिए Cast Operations Dashboard में दिखाई देते हैं।
 
 ```javascript
 // `screenshots` side-channel के माध्यम से Screenshots capture करें — ये success और failure दोनों पर preserved होते हैं।
@@ -92,7 +92,7 @@ return {
 
 #### एक secret जोड़ना
 
-secret जोड़ने के लिए, कृपया OneUptime Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret पर जाएं।
+secret जोड़ने के लिए, कृपया Cast Operations Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret पर जाएं।
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 
@@ -175,5 +175,5 @@ return {
 - आप `return` statement का उपयोग करके script से data return कर सकते हैं। Screenshots को provided `screenshots` object को assign करें।
 - आप वर्तमान run context में browser type और screen size type पाने के लिए `browserType` और `screenSizeType` variables उपयोग कर सकते हैं।
 - यह एक JavaScript script है, इसलिए आप script में सभी JavaScript features उपयोग कर सकते हैं।
-- यदि आप oneuptime.com उपयोग कर रहे हैं, तो script के context में Playwright और browsers का latest version हमेशा उपलब्ध होगा।
+- यदि आप visca.ai उपयोग कर रहे हैं, तो script के context में Playwright और browsers का latest version हमेशा उपलब्ध होगा।
 - Script का Timeout 2 minutes है। यदि script 2 minutes से अधिक लेती है, तो इसे terminate कर दिया जाएगा।

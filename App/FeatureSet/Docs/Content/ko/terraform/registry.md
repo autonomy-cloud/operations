@@ -2,15 +2,15 @@
 
 ## Terraform 레지스트리에서 설치
 
-OneUptime Terraform 공급자는 공식 [Terraform 레지스트리](https://registry.terraform.io/providers/oneuptime/oneuptime)에서 사용할 수 있습니다.
+Cast Operations Terraform 공급자는 공식 [Terraform 레지스트리](https://registry.terraform.io/providers/autonomy-cloud/operations)에서 사용할 수 있습니다.
 
-### OneUptime 클라우드 사용자의 경우
+### Cast Operations 클라우드 사용자의 경우
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 최신 호환 버전 사용
     }
   }
@@ -18,60 +18,60 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
 
-### 자체 호스팅 OneUptime 사용자의 경우
+### 자체 호스팅 Cast Operations 사용자의 경우
 
-⚠️ **중요**: 자체 호스팅 고객은 공급자 버전을 OneUptime 설치와 정확히 일치하도록 고정해야 합니다.
+⚠️ **중요**: 자체 호스팅 고객은 공급자 버전을 Cast Operations 설치와 정확히 일치하도록 고정해야 합니다.
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # 정확한 OneUptime 버전으로 교체
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # 정확한 Cast Operations 버전으로 교체
     }
   }
   required_version = ">= 1.0"
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # 자체 호스팅 URL
+  oneuptime_url = "https://operations.yourcompany.com"  # 자체 호스팅 URL
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## 자체 호스팅에 버전 고정이 필요한 이유
 
-OneUptime Terraform 공급자는 OneUptime API 사양에서 자동으로 생성됩니다. 각 OneUptime 버전에는 다음이 있을 수 있습니다:
+Cast Operations Terraform 공급자는 Cast Operations API 사양에서 자동으로 생성됩니다. 각 Cast Operations 버전에는 다음이 있을 수 있습니다:
 
 - 다른 API 엔드포인트
 - 업데이트된 리소스 스키마
 - 새롭거나 제거된 기능
 - 변경된 유효성 검사 규칙
 
-OneUptime 설치와 일치하지 않는 공급자 버전을 사용하면 다음이 발생할 수 있습니다:
+Cast Operations 설치와 일치하지 않는 공급자 버전을 사용하면 다음이 발생할 수 있습니다:
 
 - API 호환성 오류
 - 리소스 생성/업데이트 실패
 - 예상치 못한 동작
 - 리소스 상태 드리프트
 
-## OneUptime 버전 찾기
+## Cast Operations 버전 찾기
 
 ### 방법 1: 대시보드
 
-1. OneUptime 대시보드에 로그인합니다
+1. Cast Operations 대시보드에 로그인합니다
 2. **설정** → **정보**로 이동합니다
 3. 버전 번호를 확인합니다 (예: "7.0.123")
 
 ### 방법 2: API
 
 ```bash
-curl https://your-oneuptime-instance.com/api/version | jq '.version'
+curl https://your-operations-instance.com/api/version | jq '.version'
 ```
 
 ### 방법 3: Docker
@@ -83,14 +83,14 @@ docker images | grep oneuptime
 
 ## 공급자 레지스트리 정보
 
-- **레지스트리 URL**: https://registry.terraform.io/providers/oneuptime/oneuptime
-- **소스 저장소**: https://github.com/OneUptime/terraform-provider-oneuptime
-- **문서**: https://registry.terraform.io/providers/oneuptime/oneuptime/latest/docs
-- **릴리스**: https://github.com/OneUptime/terraform-provider-oneuptime/releases
+- **레지스트리 URL**: https://registry.terraform.io/providers/autonomy-cloud/operations
+- **소스 저장소**: https://github.com/autonomy-cloud/operations
+- **문서**: https://registry.terraform.io/providers/autonomy-cloud/operations/latest/docs
+- **릴리스**: https://github.com/autonomy-cloud/operations
 
 ## 버전 호환성 매트릭스
 
-| OneUptime 버전 | 공급자 버전 | Terraform 구성         |
+| Cast Operations 버전 | 공급자 버전 | Terraform 구성         |
 | -------------- | ----------- | ---------------------- |
 | 7.0.x          | 7.0.x       | `version = "~> 7.0.0"` |
 | 7.1.x          | 7.1.x       | `version = "~> 7.1.0"` |
@@ -103,14 +103,14 @@ docker images | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 자체 호스팅의 경우 조정
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # 자체 호스팅의 경우 조정
+  oneuptime_url = "https://visca.ai"  # 자체 호스팅의 경우 조정
   api_key       = var.oneuptime_api_key
 }
 
@@ -152,4 +152,4 @@ resource "oneuptime_monitor" "website" {
 
 ## 레지스트리 업데이트
 
-공급자는 새 OneUptime 버전이 릴리스될 때 Terraform 레지스트리에 자동으로 게시됩니다. 클라우드 사용자는 시맨틱 버전 (`~> 7.0`)을 사용하여 호환 가능한 업데이트를 자동으로 받을 수 있으며, 자체 호스팅 사용자는 정확한 버전으로 고정해야 합니다.
+공급자는 새 Cast Operations 버전이 릴리스될 때 Terraform 레지스트리에 자동으로 게시됩니다. 클라우드 사용자는 시맨틱 버전 (`~> 7.0`)을 사용하여 호환 가능한 업데이트를 자동으로 받을 수 있으며, 자체 호스팅 사용자는 정확한 버전으로 고정해야 합니다.

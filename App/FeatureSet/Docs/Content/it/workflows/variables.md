@@ -60,7 +60,7 @@ Il blocco **Custom Code** legge le variabili in modo diverso — le variabili gl
 
 ### Costruire un payload da un webhook
 
-Arriva un webhook con un body come `{ "service": "checkout", "status": "failed" }`. Per trasformarlo in un incidente OneUptime:
+Arriva un webhook con un body come `{ "service": "checkout", "status": "failed" }`. Per trasformarlo in un incidente Cast Operations:
 
 1. Trigger **Webhook** chiamato `CIWebhook`.
 2. Blocco **Conditions**: left `{{CIWebhook.Request Body.status}}`, operatore `==`, right `failed`.

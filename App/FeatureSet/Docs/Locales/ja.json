@@ -15,7 +15,7 @@
     "previous": "前へ",
     "next": "次へ",
     "helpImproveTitle": "このページの改善にご協力ください",
-    "helpImproveBody": "OneUptime は 100% オープンソースです。誤字を見つけたり、内容を追加したいですか?",
+    "helpImproveBody": "Cast Operations は 100% オープンソースです。誤字を見つけたり、内容を追加したいですか?",
     "editOnGithub": "GitHub でこのページを編集",
     "notFoundBadge": "404 エラー",
     "notFoundTitle": "ページが見つかりません",
@@ -26,9 +26,9 @@
     "errorMessage": "技術的な問題が発生しています。しばらくしてからもう一度お試しください。",
     "tryAgain": "再試行",
     "switchLanguage": "言語を切り替え",
-    "metaTitleSuffix": "OneUptime ドキュメント",
-    "metaTitleDefault": "OneUptime ドキュメント",
-    "metaDescription": "OneUptime の完全なドキュメント — オープンソースのオブザーバビリティ プラットフォーム。アプリケーションの監視、アラートの設定、インシデントの管理方法を学べます。"
+    "metaTitleSuffix": "Cast Operations ドキュメント",
+    "metaTitleDefault": "Cast Operations ドキュメント",
+    "metaDescription": "Cast Operations の完全なドキュメント — オープンソースのオブザーバビリティ プラットフォーム。アプリケーションの監視、アラートの設定、インシデントの管理方法を学べます。"
   },
   "navGroups": {
     "Introduction": "はじめに",
@@ -162,7 +162,7 @@
     "Fix Tasks": "Fix Tasks",
     "LLM Providers": "LLM プロバイダー",
     "MCP Server": "MCP サーバー",
-    "OneUptime API Reference": "OneUptime API リファレンス",
+    "Cast Operations API Reference": "Cast Operations API リファレンス",
     "Slack Integration": "Slack 統合",
     "Microsoft Teams Integration": "Microsoft Teams 統合",
     "GitHub Integration": "GitHub 統合",

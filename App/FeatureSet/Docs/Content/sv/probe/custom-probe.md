@@ -2,7 +2,7 @@
 
 Du kan konfigurera anpassade sonder inuti ditt nätverk för att övervaka resurser i ditt privata nätverk eller resurser som befinner sig bakom din brandvägg.
 
-För att börja behöver du skapa en anpassad sond i dina Projektinställningar > Sond. När du har skapat den anpassade sonden på din OneUptime-instrumentpanel bör du ha `PROBE_ID` och `PROBE_KEY`.
+För att börja behöver du skapa en anpassad sond i dina Projektinställningar > Sond. När du har skapat den anpassade sonden på din Cast Operations-instrumentpanel bör du ha `PROBE_ID` och `PROBE_KEY`.
 
 ### Distribuera sond
 
@@ -11,21 +11,21 @@ För att börja behöver du skapa en anpassad sond i dina Projektinställningar 
 För att köra en sond, se till att du har Docker installerat. Du kan köra en anpassad sond med:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://oneuptime.com -d oneuptime/probe:release
+docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
 ```
 
-Om du egeninstallerar OneUptime kan du ändra `ONEUPTIME_URL` till din anpassade egeninstallerade instans.
+Om du egeninstallerar Cast Operations kan du ändra `ONEUPTIME_URL` till din anpassade egeninstallerade instans.
 
 ##### Proxykonfiguration
 
-Om din sond behöver gå via en proxyserver för att nå OneUptime eller övervaka externa resurser kan du konfigurera proxyinställningar med dessa miljövariabler:
+Om din sond behöver gå via en proxyserver för att nå Cast Operations eller övervaka externa resurser kan du konfigurera proxyinställningar med dessa miljövariabler:
 
 ```
 # För HTTP-proxy
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -34,7 +34,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -43,7 +43,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       # Proxykonfiguration (valfritt)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,7 +102,7 @@ Kör sedan följande kommando:
 docker compose up -d
 ```
 
-Om du egeninstallerar OneUptime kan du ändra `ONEUPTIME_URL` till din anpassade egeninstallerade instans.
+Om du egeninstallerar Cast Operations kan du ändra `ONEUPTIME_URL` till din anpassade egeninstallerade instans.
 
 #### Kubernetes
 
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 Kör sedan följande kommando:
@@ -140,7 +140,7 @@ Kör sedan följande kommando:
 kubectl apply -f oneuptime-probe.yaml
 ```
 
-Om du egeninstallerar OneUptime kan du ändra `ONEUPTIME_URL` till din anpassade egeninstallerade instans.
+Om du egeninstallerar Cast Operations kan du ändra `ONEUPTIME_URL` till din anpassade egeninstallerade instans.
 
 ### Miljövariabler
 
@@ -148,9 +148,9 @@ Sonden stöder följande miljövariabler:
 
 #### Obligatoriska variabler
 
-- `PROBE_KEY` – Sondnyckeln från din OneUptime-instrumentpanel
-- `PROBE_ID` – Sond-ID:t från din OneUptime-instrumentpanel
-- `ONEUPTIME_URL` – URL:en till din OneUptime-instans (standard: https://oneuptime.com)
+- `PROBE_KEY` – Sondnyckeln från din Cast Operations-instrumentpanel
+- `PROBE_ID` – Sond-ID:t från din Cast Operations-instrumentpanel
+- `ONEUPTIME_URL` – URL:en till din Cast Operations-instans (standard: https://visca.ai)
 
 #### Valfria variabler
 
@@ -185,4 +185,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Verifiera
 
-Om sonden körs framgångsrikt bör den visas som `Ansluten` på din OneUptime-instrumentpanel. Om den inte visas som ansluten behöver du kontrollera containerns loggar. Om du fortfarande har problem kan du skapa ett ärende på [GitHub](https://github.com/oneuptime/oneuptime) eller [kontakta supporten](https://oneuptime.com/support).
+Om sonden körs framgångsrikt bör den visas som `Ansluten` på din Cast Operations-instrumentpanel. Om den inte visas som ansluten behöver du kontrollera containerns loggar. Om du fortfarande har problem kan du skapa ett ärende på [GitHub](https://github.com/autonomy-cloud/operations) eller [kontakta supporten](https://visca.ai/support).

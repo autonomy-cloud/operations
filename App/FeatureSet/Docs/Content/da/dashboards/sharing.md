@@ -1,10 +1,10 @@
 # Deling & offentlige dashboards
 
-Som standard er dashboards private for dit projekt — kun loggede teammedlemmer kan se dem. Men OneUptime lader dig også dele et dashboard offentligt, beskytte det med en adgangskode, begrænse det til bestemte IP'er og hoste det på dit eget domæne. Denne side dækker alle fire.
+Som standard er dashboards private for dit projekt — kun loggede teammedlemmer kan se dem. Men Cast Operations lader dig også dele et dashboard offentligt, beskytte det med en adgangskode, begrænse det til bestemte IP'er og hoste det på dit eget domæne. Denne side dækker alle fire.
 
 ## Private dashboards (standarden)
 
-Et dashboard kan kun nås af loggede medlemmer af dit projekt. URL'en ser ud som `https://oneuptime.com/dashboards/<id>/view` og kræver et login.
+Et dashboard kan kun nås af loggede medlemmer af dit projekt. URL'en ser ud som `https://visca.ai/dashboards/<id>/view` og kræver et login.
 
 Inden for projektet kontrollerer ejere og labels, hvem der ser hvad — se [Konfiguration & tilladelser](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Anmodninger fra enhver anden IP afvises.
 
 ## Brugerdefinerede domæner
 
-Fra start serveres et offentligt dashboard på `oneuptime.com`. For at hoste det på dit eget subdomæne såsom `dashboard.acme.com`:
+Fra start serveres et offentligt dashboard på `visca.ai`. For at hoste det på dit eget subdomæne såsom `dashboard.acme.com`:
 
-1. Tilføj en CNAME-record på din DNS, der peger subdomænet til OneUptimes mål.
+1. Tilføj en CNAME-record på din DNS, der peger subdomænet til Cast Operations mål.
 2. Under **Dashboard → Settings → Custom Domains** tilføjer du domænet.
-3. Verificér det. OneUptime tjekker DNS-recorden for dig.
+3. Verificér det. Cast Operations tjekker DNS-recorden for dig.
 4. Når det er verificeret, kan dashboardet nås både på dit brugerdefinerede domæne og den oprindelige URL.
 
 Brugerdefinerede domæner er nyttige til:
@@ -75,7 +75,7 @@ Under **Dashboard → Settings** kan du konfigurere:
 - **Logo** — upload en PNG eller SVG, der vises i headeren.
 - **Favicon** — det lille ikon i browserfanen.
 
-Branding gælder kun, når dashboardet ses offentligt. Interne besøgende ser altid OneUptimes branding.
+Branding gælder kun, når dashboardet ses offentligt. Interne besøgende ser altid Cast Operations branding.
 
 ## Indlejring
 

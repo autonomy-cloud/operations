@@ -1,6 +1,6 @@
 # Docker 監控
 
-Docker 監控讓您能夠監控 Docker 主機以及執行於其上的容器的健康狀態與效能。OneUptime 透過預先設定好的 OpenTelemetry Collector（即 **OneUptime Docker Agent**）收集指標與容器日誌，並依據您所設定的條件加以評估。
+Docker 監控讓您能夠監控 Docker 主機以及執行於其上的容器的健康狀態與效能。Cast Operations 透過預先設定好的 OpenTelemetry Collector（即 **Cast Operations Docker Agent**）收集指標與容器日誌，並依據您所設定的條件加以評估。
 
 ## 概觀
 
@@ -14,7 +14,7 @@ Docker 監控使用來自您主機的指標與日誌，以提供對容器工作�
 
 ## 建立 Docker 監控
 
-1. 前往 OneUptime 儀表板中的 **Monitors**
+1. 前往 Cast Operations 儀表板中的 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **Docker** 作為監控類型
 4. 選擇要監控的 Docker 主機與資源範圍
@@ -25,7 +25,7 @@ Docker 監控使用來自您主機的指標與日誌，以提供對容器工作�
 
 ### Docker 主機
 
-選擇要監控的 Docker 主機。當 OneUptime Docker Agent 首次從主機傳送遙測資料時，主機便會自動註冊——您無需手動建立它們。
+選擇要監控的 Docker 主機。當 Cast Operations Docker Agent 首次從主機傳送遙測資料時，主機便會自動註冊——您無需手動建立它們。
 
 ### 資源範圍
 
@@ -126,7 +126,7 @@ Docker Agent 使用 OpenTelemetry 的 `docker_stats` 接收器，它會以可設
 
 ## 預先建構的警示範本
 
-OneUptime 為常見的 Docker 監控情境提供範本：
+Cast Operations 為常見的 Docker 監控情境提供範本：
 
 | 範本                   | 說明                       | 閾值  | 彙總方式        |
 | ---------------------- | -------------------------- | ----- | --------------- |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 若要使用 Docker 監控，您需要：
 
-1. 在每一台您想監控的 Docker 主機上安裝 OneUptime Docker Agent
+1. 在每一台您想監控的 Docker 主機上安裝 Cast Operations Docker Agent
 2. 將 `ONEUPTIME_URL`、`ONEUPTIME_SERVICE_TOKEN` 與 `DOCKER_HOST_NAME` 作為環境變數傳入
 3. 確保您想觀測的容器使用 `json-file` 日誌驅動程式（見上文）
 
-該 agent 在 Docker Hub 上以 `oneuptime/docker-agent:release` 形式發佈。完整的 `docker run` 與 `docker compose` 範例請參閱 [Docker Agent 安裝指南](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent)。
+該 agent 在 Docker Hub 上以 `oneuptime/docker-agent:release` 形式發佈。完整的 `docker run` 與 `docker compose` 範例請參閱 [Docker Agent 安裝指南](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent)。
 
 ## 疑難排解
 
@@ -236,7 +236,7 @@ docker run ... <image>
 
 ### 日誌有抵達，但被歸類在錯誤的主機名稱底下
 
-OneUptime 會依 `resource.host.name` 自動註冊 Docker 主機，該值取自 `DOCKER_HOST_NAME` 環境變數。在第一批遙測資料之後變更 `DOCKER_HOST_NAME`，會建立第二筆主機記錄，而非將既有主機重新命名。
+Cast Operations 會依 `resource.host.name` 自動註冊 Docker 主機，該值取自 `DOCKER_HOST_NAME` 環境變數。在第一批遙測資料之後變更 `DOCKER_HOST_NAME`，會建立第二筆主機記錄，而非將既有主機重新命名。
 
 ### 「High CPU」未觸發事件
 

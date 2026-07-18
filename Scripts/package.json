@@ -4,7 +4,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OneUptime/oneuptime"
+    "url": "https://github.com/autonomy-cloud/operations"
   },
   "scripts": {
     "compile": "tsc"
@@ -25,6 +25,6 @@
     "ts-jest": "^28.0.5",
     "typescript": "^5.9.2"
   },
-  "author": "OneUptime <hello@oneuptime.com> (https://oneuptime.com/)",
+  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
   "license": "Apache-2.0"
 }

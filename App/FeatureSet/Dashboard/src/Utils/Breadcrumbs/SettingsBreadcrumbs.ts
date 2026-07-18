@@ -55,11 +55,6 @@ export function getSettingsBreadcrumbs(path: string): Array<Link> | undefined {
       "AI Agents",
       "View Agent",
     ]),
-    ...BuildBreadcrumbLinksByTitles(PageMap.SETTINGS_AI_CREDITS, [
-      "Project",
-      "Settings",
-      "AI Credits",
-    ]),
     ...BuildBreadcrumbLinksByTitles(PageMap.SETTINGS_AI_LOGS, [
       "Project",
       "Settings",
@@ -90,21 +85,6 @@ export function getSettingsBreadcrumbs(path: string): Array<Link> | undefined {
       "Project",
       "Settings",
       "Feature Flags",
-    ]),
-    ...BuildBreadcrumbLinksByTitles(PageMap.SETTINGS_BILLING, [
-      "Project",
-      "Settings",
-      "Billing",
-    ]),
-    ...BuildBreadcrumbLinksByTitles(PageMap.SETTINGS_USAGE_HISTORY, [
-      "Project",
-      "Settings",
-      "Usage History",
-    ]),
-    ...BuildBreadcrumbLinksByTitles(PageMap.SETTINGS_BILLING_INVOICES, [
-      "Project",
-      "Settings",
-      "Invoices",
     ]),
     ...BuildBreadcrumbLinksByTitles(PageMap.SETTINGS_SSO, [
       "Project",

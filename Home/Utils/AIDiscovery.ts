@@ -30,10 +30,10 @@ export interface RecentBlogPostLink {
 }
 
 function normalizeBaseUrl(homeUrl: string): string {
-  return (homeUrl || "https://oneuptime.com").replace(/\/$/, "");
+  return (homeUrl || "https://visca.ai").replace(/\/$/, "");
 }
 
-// "Status Page | Free Public & Private Status Pages | OneUptime" -> "Status Page"
+// "Status Page | Free Public & Private Status Pages | Cast Operations" -> "Status Page"
 function shortTitle(seo: PageSEOData): string {
   if (seo.softwareApplication?.name) {
     return seo.softwareApplication.name;
@@ -82,14 +82,14 @@ const machineReadableSection: (baseUrl: string) => Array<string> = (
   return [
     "## Machine-Readable Resources",
     "",
-    `- [OpenAPI specification](${baseUrl}/api/openapi/spec): full REST API schema for the OneUptime platform`,
-    `- [MCP server manifest](${baseUrl}/.well-known/mcp.json): connect AI agents to OneUptime via Model Context Protocol (endpoint: ${baseUrl}/mcp)`,
+    `- [OpenAPI specification](${baseUrl}/api/openapi/spec): full REST API schema for the Cast Operations platform`,
+    `- [MCP server manifest](${baseUrl}/.well-known/mcp.json): connect AI agents to Cast Operations via Model Context Protocol (endpoint: ${baseUrl}/mcp)`,
     `- [Documentation index for LLMs](${baseUrl}/docs/llms.txt): all docs pages with raw markdown variants`,
     `- [API reference](${baseUrl}/reference): human-friendly API documentation`,
     `- [Pricing (JSON)](${baseUrl}/data/pricing.json): plans and feature matrix as JSON`,
     `- [Pricing (Markdown)](${baseUrl}/pricing.md): plans and feature matrix as markdown`,
     `- [Products (JSON)](${baseUrl}/data/products.json): every product with description and feature list`,
-    `- [Comparisons (JSON)](${baseUrl}/data/compare.json): OneUptime vs other tools`,
+    `- [Comparisons (JSON)](${baseUrl}/data/compare.json): Cast Operations vs other tools`,
     `- [Customer reviews (JSON)](${baseUrl}/data/reviews.json)`,
     `- [Blog RSS feed](${baseUrl}/blog/rss.xml): every post also has a raw markdown variant at /blog/post/<post>/markdown`,
   ];
@@ -102,10 +102,10 @@ export function generateLlmsTxt(
   const baseUrl: string = normalizeBaseUrl(homeUrl);
   const lines: Array<string> = [];
 
-  lines.push("# OneUptime");
+  lines.push("# Cast Operations");
   lines.push("");
   lines.push(
-    "> OneUptime is an open-source (Apache 2.0), all-in-one observability platform: uptime monitoring, status pages, incident management, on-call scheduling and alerting, logs, metrics, traces, error tracking, dashboards, workflow automation, runbooks and an AI reliability agent. Available as a cloud service at https://oneuptime.com or self-hosted.",
+    "> Cast Operations is an open-source (Apache 2.0), all-in-one observability platform: uptime monitoring, status pages, incident management, on-call scheduling and alerting, logs, metrics, traces, error tracking, dashboards, workflow automation, runbooks and an AI reliability agent. Available as a cloud service at https://visca.ai or self-hosted.",
   );
   lines.push("");
   lines.push(
@@ -142,12 +142,12 @@ export function generateLlmsTxt(
   }
 
   lines.push("");
-  lines.push("## Compare OneUptime");
+  lines.push("## Compare Cast Operations");
   lines.push("");
   for (const slug of getProductCompareSlugs()) {
     const product: Product = ProductCompare(slug);
     lines.push(
-      `- [OneUptime vs ${product.productName}](${baseUrl}/compare/${slug}.md): ${product.tagline}`,
+      `- [Cast Operations vs ${product.productName}](${baseUrl}/compare/${slug}.md): ${product.tagline}`,
     );
   }
 
@@ -170,11 +170,11 @@ export function generateLlmsTxt(
   );
   lines.push(`- [API Reference](${baseUrl}/reference)`);
   lines.push(
-    `- [MCP Server](${baseUrl}/tool/mcp-server.md): query and manage OneUptime from AI agents`,
+    `- [MCP Server](${baseUrl}/tool/mcp-server.md): query and manage Cast Operations from AI agents`,
   );
   lines.push(`- [Support](${baseUrl}/support)`);
   lines.push(
-    "- [Source code on GitHub](https://github.com/OneUptime/oneuptime)",
+    "- [Source code on GitHub](https://github.com/autonomy-cloud/operations)",
   );
 
   if (recentPosts.length > 0) {
@@ -207,10 +207,10 @@ export function generateLlmsFullTxt(
   const baseUrl: string = normalizeBaseUrl(homeUrl);
   const lines: Array<string> = [];
 
-  lines.push("# OneUptime");
+  lines.push("# Cast Operations");
   lines.push("");
   lines.push(
-    "> OneUptime is an open-source (Apache 2.0), all-in-one observability platform: uptime monitoring, status pages, incident management, on-call scheduling and alerting, logs, metrics, traces, error tracking, dashboards, workflow automation, runbooks and an AI reliability agent. Available as a cloud service at https://oneuptime.com or self-hosted.",
+    "> Cast Operations is an open-source (Apache 2.0), all-in-one observability platform: uptime monitoring, status pages, incident management, on-call scheduling and alerting, logs, metrics, traces, error tracking, dashboards, workflow automation, runbooks and an AI reliability agent. Available as a cloud service at https://visca.ai or self-hosted.",
   );
   lines.push("");
   lines.push(...machineReadableSection(baseUrl));
@@ -242,7 +242,7 @@ export function generateLlmsFullTxt(
   for (const slug of getProductCompareSlugs()) {
     const product: Product = ProductCompare(slug);
     lines.push("");
-    lines.push(`### OneUptime vs ${product.productName}`);
+    lines.push(`### Cast Operations vs ${product.productName}`);
     lines.push("");
     lines.push(product.description);
     lines.push("");
@@ -277,7 +277,7 @@ export function generatePricingMarkdown(homeUrl: string): string {
   lines.push("## Pricing");
   lines.push("");
   lines.push(
-    "> OneUptime pricing starts free. Paid plans are priced per user per month. Telemetry (logs, metrics, traces) is billed on usage at $0.10/GB ingested. Self-hosting the open-source platform is free.",
+    "> Cast Operations pricing starts free. Paid plans are priced per user per month. Telemetry (logs, metrics, traces) is billed on usage at $0.10/GB ingested. Self-hosting the open-source platform is free.",
   );
   lines.push("");
   lines.push("| Plan | Price (monthly billing) | Price (yearly billing) |");
@@ -343,7 +343,7 @@ export function generatePageMarkdown(
   lines.push("## Learn More");
   lines.push("");
   lines.push(
-    `- [All OneUptime products and links for LLMs](${baseUrl}/llms.txt)`,
+    `- [All Cast Operations products and links for LLMs](${baseUrl}/llms.txt)`,
   );
   lines.push(`- [Pricing](${baseUrl}/pricing.md)`);
   lines.push(`- [Documentation](${baseUrl}/docs)`);
@@ -365,7 +365,7 @@ export function generateCompareMarkdown(
   const baseUrl: string = normalizeBaseUrl(homeUrl);
   const lines: Array<string> = [];
 
-  lines.push(`# OneUptime vs ${product.productName}`);
+  lines.push(`# Cast Operations vs ${product.productName}`);
   lines.push("");
   lines.push(`> ${product.tagline}`);
   lines.push("");
@@ -397,7 +397,7 @@ export function generateCompareMarkdown(
       lines.push("");
       lines.push(`### ${category.name}`);
       lines.push("");
-      lines.push(`| Feature | ${tableCell(product.productName)} | OneUptime |`);
+      lines.push(`| Feature | ${tableCell(product.productName)} | Cast Operations |`);
       lines.push("|---|---|---|");
       for (const item of category.data) {
         lines.push(
@@ -434,7 +434,7 @@ export function generateCompareMarkdown(
     lines.push("");
     lines.push("## Real-World Cost Comparison");
     lines.push("");
-    lines.push(`| Scenario | ${tableCell(product.productName)} | OneUptime |`);
+    lines.push(`| Scenario | ${tableCell(product.productName)} | Cast Operations |`);
     lines.push("|---|---|---|");
     for (const useCase of product.useCases as Array<UseCaseComparison>) {
       lines.push(
@@ -478,15 +478,15 @@ export function generateCompareMarkdown(
 export function generateMcpManifest(homeUrl: string): JSONObject {
   const baseUrl: string = normalizeBaseUrl(homeUrl);
   return {
-    name: "OneUptime MCP Server",
+    name: "Cast Operations MCP Server",
     description:
-      "Model Context Protocol server for OneUptime. Lets AI agents query and manage incidents, monitors, alerts, on-call schedules, status pages, logs, metrics and traces.",
+      "Model Context Protocol server for Cast Operations. Lets AI agents query and manage incidents, monitors, alerts, on-call schedules, status pages, logs, metrics and traces.",
     endpoint: `${baseUrl}/mcp`,
     transport: ["streamable-http"],
     authentication: {
       type: "apiKey",
       headers: ["x-api-key", "Authorization: Bearer <api-key>"],
-      instructions: `Create an API key in your OneUptime project settings. Public status page tools and help tools work without authentication. See ${baseUrl}/docs/ai/mcp-server`,
+      instructions: `Create an API key in your Cast Operations project settings. Public status page tools and help tools work without authentication. See ${baseUrl}/docs/ai/mcp-server`,
     },
     capabilities: {
       tools: true,

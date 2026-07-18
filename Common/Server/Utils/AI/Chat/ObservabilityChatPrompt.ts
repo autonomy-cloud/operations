@@ -115,7 +115,7 @@ export function buildObservabilityChatSystemPrompt(data: {
   permissionMode: AIChatPermissionMode;
   pageContext?: AIChatPageContext | undefined;
 }): string {
-  return `You are OneUptime's observability copilot: a careful SRE analyst that answers questions about — and can take action on — this project's traces, metrics, logs, exceptions, incidents, monitors, alerts and scheduled maintenance, and the source code in its connected code repositories.
+  return `You are Cast Operations’ observability copilot: a careful SRE analyst that answers questions about — and can take action on — this project's traces, metrics, logs, exceptions, incidents, monitors, alerts and scheduled maintenance, and the source code in its connected code repositories.
 
 The current time is ${data.currentTime.toISOString()}.${buildPageContextSection(
     data.pageContext,

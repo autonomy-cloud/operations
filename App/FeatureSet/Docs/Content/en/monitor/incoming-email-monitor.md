@@ -4,15 +4,15 @@ Incoming Email Monitor allows you to create and resolve alerts based on emails s
 
 ## How It Works
 
-1. When you create an Incoming Email Monitor, OneUptime generates a unique email address for that monitor
+1. When you create an Incoming Email Monitor, Cast Operations generates a unique email address for that monitor
 2. Any email sent to that address is received and evaluated against your configured criteria
-3. Based on the criteria, OneUptime can create new alerts or resolve existing ones
+3. Based on the criteria, Cast Operations can create new alerts or resolve existing ones
 
-This is a powerful way to integrate email-based alerting systems with OneUptime's incident management workflow.
+This is a powerful way to integrate email-based alerting systems with Cast Operations’ incident management workflow.
 
 ## Creating an Incoming Email Monitor
 
-1. Navigate to **Monitors** in your OneUptime Dashboard
+1. Navigate to **Monitors** in your Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Incoming Email** as the monitor type
 4. Configure the monitor settings:
@@ -118,7 +118,7 @@ This resolves the alert when an email is received.
 
 Many older systems only support email-based alerting. Use Incoming Email Monitor to:
 
-- Convert email alerts into OneUptime incidents
+- Convert email alerts into Cast Operations incidents
 - Automatically resolve incidents when recovery emails arrive
 - Centralize alerting from multiple legacy systems
 
@@ -144,7 +144,7 @@ Monitor batch jobs and scheduled tasks:
 Consolidate alerts from multiple monitoring tools:
 
 - Receive alerts from Nagios, Zabbix, or other tools via email
-- Unify incident management in OneUptime
+- Unify incident management in Cast Operations
 - Maintain a single source of truth for all alerts
 
 ## Template Variables
@@ -171,7 +171,7 @@ The monitor summary shows:
 
 ## Self-Hosted Setup
 
-If you're self-hosting OneUptime, you need to configure an inbound email provider. Currently supported:
+If you're self-hosting Cast Operations, you need to configure an inbound email provider. Currently supported:
 
 - **SendGrid Inbound Parse** - See [SendGrid Inbound Email Integration](/docs/self-hosted/sendgrid-inbound-email) for setup instructions
 
@@ -190,7 +190,7 @@ If you're self-hosting OneUptime, you need to configure an inbound email provide
 1. Verify the email address is correct (check for typos)
 2. Check if the email is being blocked by spam filters
 3. Verify your inbound email provider is configured correctly
-4. Check the OneUptime logs for any error messages
+4. Check the Cast Operations logs for any error messages
 
 ### Alerts Not Being Created
 

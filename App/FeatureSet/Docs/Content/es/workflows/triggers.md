@@ -26,9 +26,9 @@ Si el sistema no está disponible brevemente, la ejecución se retoma en cuanto 
 
 ## Webhook
 
-OneUptime crea una URL única. Cualquier cosa que llegue a esa URL inicia el workflow. Las cabeceras, los parámetros de consulta y el cuerpo de la solicitud se pasan al workflow.
+Cast Operations crea una URL única. Cualquier cosa que llegue a esa URL inicia el workflow. Las cabeceras, los parámetros de consulta y el cuerpo de la solicitud se pasan al workflow.
 
-Útil para: recibir datos en OneUptime desde otra herramienta — callbacks de CI/CD, alertas de otros sistemas de monitorización, registros en tu CRM.
+Útil para: recibir datos en Cast Operations desde otra herramienta — callbacks de CI/CD, alertas de otros sistemas de monitorización, registros en tu CRM.
 
 **Salida**:
 
@@ -40,15 +40,15 @@ La URL acepta tanto `GET` como `POST`. El emisor recibe una confirmación rápid
 
 Trata la URL como una contraseña. Cualquiera que la tenga puede iniciar tu workflow.
 
-## Disparadores de eventos de OneUptime
+## Disparadores de eventos de Cast Operations
 
-Casi cualquier cosa en OneUptime —monitores, incidentes, alertas, mantenimiento programado, páginas de estado, políticas de guardia, equipos— puede disparar un workflow. Cada uno ofrece tres eventos:
+Casi cualquier cosa en Cast Operations —monitores, incidentes, alertas, mantenimiento programado, páginas de estado, políticas de guardia, equipos— puede disparar un workflow. Cada uno ofrece tres eventos:
 
 - **Al Crear** — se activa cuando se añade uno nuevo.
 - **Al Actualizar** — se activa cuando se modifica uno.
 - **Al Eliminar** — se activa cuando se elimina uno.
 
-Así es como construyes "cuando X sucede en OneUptime, haz Y" sin necesidad de comprobar cosas en un bucle.
+Así es como construyes "cuando X sucede en Cast Operations, haz Y" sin necesidad de comprobar cosas en un bucle.
 
 El registro completo se pasa al siguiente bloque. Por ejemplo, el disparador **Incidente → Al Crear** pasa el nuevo incidente, para que el siguiente bloque pueda leer su título, descripción, gravedad y cualquier otro campo.
 
@@ -70,7 +70,7 @@ Busca por nombre en la paleta de disparadores para encontrar el que quieres.
 | Hacer clic en un botón para ejecutar el workflow | **Manual**              |
 | Ejecutar en una programación recurrente          | **Programación**        |
 | Que otro sistema envíe datos                     | **Webhook**             |
-| Reaccionar a algo dentro de OneUptime            | **Evento de OneUptime** |
+| Reaccionar a algo dentro de Cast Operations            | **Evento de Cast Operations** |
 
 Un workflow solo puede tener un disparador. Si necesitas dos formas de iniciar la misma automatización, construye la lógica compartida en un workflow y llámalo desde dos workflows "envoltorio" delgados usando el componente **Ejecutar Workflow**.
 

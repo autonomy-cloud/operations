@@ -68,9 +68,9 @@ Se o painel é público em um domínio personalizado, a URL para de resolver ass
 
 ## Backup
 
-Se você auto-hospeda o OneUptime, um backup regular do banco de dados é suficiente — a configuração do painel é armazenada junto com o restante do seu projeto.
+Se você auto-hospeda o Cast Operations, um backup regular do banco de dados é suficiente — a configuração do painel é armazenada junto com o restante do seu projeto.
 
-No OneUptime Cloud, os backups são feitos para você. Se quiser sua própria cópia, você pode ler o painel via a [API do OneUptime](/docs/api-reference/api-reference).
+No Cast Operations Cloud, os backups são feitos para você. Se quiser sua própria cópia, você pode ler o painel via a [API do Cast Operations](/docs/api-reference/api-reference).
 
 ## O que ler em seguida
 

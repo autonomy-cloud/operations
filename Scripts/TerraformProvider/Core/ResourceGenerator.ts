@@ -430,7 +430,7 @@ func (r *${resourceTypeName}Resource) convertTerraformListToInterface(terraformL
     var stringList []string
     terraformList.ElementsAs(context.Background(), &stringList, false)
     
-    // Convert string array to OneUptime format with _id fields
+    // Convert string array to Cast Operations format with _id fields
     var result []interface{}
     for _, str := range stringList {
         if str != "" {
@@ -451,7 +451,7 @@ func (r *${resourceTypeName}Resource) convertTerraformSetToInterface(terraformSe
     var stringList []string
     terraformSet.ElementsAs(context.Background(), &stringList, false)
     
-    // Convert string array to OneUptime format with _id fields
+    // Convert string array to Cast Operations format with _id fields
     var result []interface{}
     for _, str := range stringList {
         if str != "" {
@@ -522,7 +522,7 @@ func (r *${resourceTypeName}Resource) bigFloatToFloat64(bf *big.Float) interface
     return f
 }
 
-// Helper method to check if a type string is a valid OneUptime ObjectType
+// Helper method to check if a type string is a valid Cast Operations ObjectType
 // Only these types should be marshalled/unmarshalled as typed wrapper objects
 // This list is dynamically generated from Common/Types/JSON.ts ObjectType enum
 func (r *${resourceTypeName}Resource) isValidOneUptimeObjectType(typeStr string) bool {
@@ -1589,7 +1589,7 @@ func (r *${resourceTypeName}Resource) Delete(ctx context.Context, req resource.D
             // Handle numeric values that might be returned as float64
             ${fieldName} = NewJSONSubsetValue(fmt.Sprintf("%v", val))
         } else if typeStr, typeOk := obj["_type"].(string); typeOk && r.isValidOneUptimeObjectType(typeStr) && obj["value"] != nil {
-            // For typed wrapper objects (only valid OneUptime ObjectTypes), preserve the full structure including _type
+            // For typed wrapper objects (only valid Cast Operations ObjectTypes), preserve the full structure including _type
             normalizedObj := r.normalizeURLWrappers(obj)
             if jsonBytes, err := json.Marshal(normalizedObj); err == nil {
                 ${fieldName} = NewJSONSubsetValue(string(jsonBytes))
@@ -1633,7 +1633,7 @@ func (r *${resourceTypeName}Resource) Delete(ctx context.Context, req resource.D
             // Handle numeric values that might be returned as float64
             ${fieldName} = types.StringValue(fmt.Sprintf("%v", val))
         } else if typeStr, typeOk := obj["_type"].(string); typeOk && r.isValidOneUptimeObjectType(typeStr) && obj["value"] != nil {
-            // For typed wrapper objects (only valid OneUptime ObjectTypes), preserve the full structure including _type
+            // For typed wrapper objects (only valid Cast Operations ObjectTypes), preserve the full structure including _type
             normalizedObj := r.normalizeURLWrappers(obj)
             if jsonBytes, err := json.Marshal(normalizedObj); err == nil {
                 ${fieldName} = types.StringValue(string(jsonBytes))
@@ -1697,7 +1697,7 @@ func (r *${resourceTypeName}Resource) Delete(ctx context.Context, req resource.D
         var listItems []attr.Value
         for _, item := range val {
             if itemMap, ok := item.(map[string]interface{}); ok {
-                // Handle objects with _id field (OneUptime format)
+                // Handle objects with _id field (Cast Operations format)
                 if id, ok := itemMap["_id"].(string); ok {
                     listItems = append(listItems, types.StringValue(id))
                 } else if id, ok := itemMap["id"].(string); ok {
@@ -1724,7 +1724,7 @@ func (r *${resourceTypeName}Resource) Delete(ctx context.Context, req resource.D
         var setItems []attr.Value
         for _, item := range val {
             if itemMap, ok := item.(map[string]interface{}); ok {
-                // Handle objects with _id field (OneUptime format)
+                // Handle objects with _id field (Cast Operations format)
                 if id, ok := itemMap["_id"].(string); ok {
                     setItems = append(setItems, types.StringValue(id))
                 } else if id, ok := itemMap["id"].(string); ok {
@@ -1891,7 +1891,7 @@ ${resourceFunctions}
   }
 
   /**
-   * Generates Go code for the valid OneUptime ObjectType map entries.
+   * Generates Go code for the valid Cast Operations ObjectType map entries.
    * This dynamically generates the map from the ObjectType enum to ensure
    * it stays in sync with Common/Types/JSON.ts
    */

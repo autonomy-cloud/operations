@@ -608,7 +608,7 @@ const AIInsightViewPage: FunctionComponent<
       {insight.fixAiRunId ? (
         <Card
           title="Fix Task"
-          description="OneUptime AI queued an agent task for this insight. Fix pull requests are always drafts and always human-reviewed."
+          description="Cast Operations AI queued an agent task for this insight. Fix pull requests are always drafts and always human-reviewed."
         >
           {/*
            * A real anchor (not a Button) so cmd/ctrl-click, middle-click

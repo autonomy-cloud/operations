@@ -1,6 +1,6 @@
 # Installation & Upgrades
 
-How to install, upgrade, and uninstall the OneUptime Helm chart.
+How to install, upgrade, and uninstall the Cast Operations Helm chart.
 
 > New here? The [README Quick Start](../README.md#quick-start) is the fastest path. This page is the full reference.
 
@@ -8,7 +8,7 @@ How to install, upgrade, and uninstall the OneUptime Helm chart.
 
 - A Kubernetes cluster and [`kubectl`](../../../Docs/Kubernetes.md) configured to talk to it.
 - [Helm 3](../../../Docs/Helm.md) installed.
-- A hostname or IP address where OneUptime will be reachable.
+- A hostname or IP address where Cast Operations will be reachable.
 
 ## 1. Create a `values.yaml`
 
@@ -40,11 +40,11 @@ global:
 ## 3. Install the chart
 
 ```console
-helm repo add oneuptime https://helm-chart.oneuptime.com/
-helm install my-oneuptime oneuptime/oneuptime -f values.yaml
+helm repo add oneuptime https://helm-chart.visca.ai/
+helm install my-oneuptime autonomy-cloud/operations -f values.yaml
 ```
 
-That's it — OneUptime will start up in your cluster. For the full list of
+That's it — Cast Operations will start up in your cluster. For the full list of
 settings you can put in `values.yaml`, see the
 [Configuration reference](configuration.md).
 
@@ -55,11 +55,11 @@ settings you can put in `values.yaml`, see the
 helm repo update
 
 # Apply the upgrade
-helm upgrade my-oneuptime oneuptime/oneuptime -f values.yaml
+helm upgrade my-oneuptime autonomy-cloud/operations -f values.yaml
 ```
 
 We release frequently — often several times a day — and upgrades are usually
-safe. Always read the [release notes](https://github.com/OneUptime/oneuptime/releases)
+safe. Always read the [release notes](https://github.com/autonomy-cloud/operations/releases)
 and the [Upgrade notes](upgrade-notes.md) before upgrading, since breaking
 changes are documented there.
 

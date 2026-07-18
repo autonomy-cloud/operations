@@ -16,10 +16,10 @@ export function getKubernetesInstallationMarkdown(
 - \`kubectl\` configured to access your cluster
 - \`helm\` v3 installed
 
-## Step 1: Add the OneUptime Helm Repository
+## Step 1: Add the Cast Operations Helm Repository
 
 \`\`\`bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 \`\`\`
 
@@ -175,7 +175,7 @@ kubectl delete namespace oneuptime-agent
 
 ## What Gets Collected
 
-The OneUptime Kubernetes Agent collects:
+The Cast Operations Kubernetes Agent collects:
 
 | Category | Data |
 |----------|------|
@@ -193,7 +193,7 @@ The OneUptime Kubernetes Agent collects:
 
 ## Application Traces & HTTP Metrics via eBPF (on by default)
 
-The chart runs a DaemonSet with [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) on every node. It loads eBPF programs into the kernel and auto-captures HTTP/HTTPS, gRPC, and SQL/Redis traffic from every supported runtime (Go, .NET, Java, Node.js, Python, Ruby, Rust) — no SDK and no sidecar required. Traces and request metrics then flow through the in-cluster collector to OneUptime.
+The chart runs a DaemonSet with [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) on every node. It loads eBPF programs into the kernel and auto-captures HTTP/HTTPS, gRPC, and SQL/Redis traffic from every supported runtime (Go, .NET, Java, Node.js, Python, Ruby, Rust) — no SDK and no sidecar required. Traces and request metrics then flow through the in-cluster collector to Cast Operations.
 
 **Requirements:** Linux kernel **5.8+** with BTF (default on Debian 11+, Ubuntu 20.10+, Fedora 34+, RHEL/Stream 9+). The eBPF DaemonSet runs in **privileged mode** because it has to, to load eBPF programs.
 
@@ -248,8 +248,8 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \\
 
 1. Check that the agent pods are running: \`kubectl get pods -n oneuptime-agent\`
 2. Check the agent logs: \`kubectl logs -n oneuptime-agent deployment/kubernetes-agent\`
-3. Verify your OneUptime URL and API key are correct
-4. Ensure your cluster can reach the OneUptime instance over the network
+3. Verify your Cast Operations URL and API key are correct
+4. Ensure your cluster can reach the Cast Operations instance over the network
 
 ### No logs appearing (API mode only)
 
@@ -280,6 +280,6 @@ Common causes:
 
 1. Confirm the eBPF DaemonSet is healthy: \`kubectl get pods -n oneuptime-agent -l component=ebpf-instrument\`
 2. Turn on the debug trace printer to confirm OBI is capturing traffic: \`--set ebpf.printTraces=true --set ebpf.logLevel=debug\`, then check \`kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200\`
-3. If you see spans in OBI's stdout but not in the dashboard, the issue is the collector → OneUptime export — check the metrics-collector pod's logs.
+3. If you see spans in OBI's stdout but not in the dashboard, the issue is the collector → Cast Operations export — check the metrics-collector pod's logs.
 `;
 }

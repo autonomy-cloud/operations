@@ -145,7 +145,7 @@ export default class ScheduledMaintenanceOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -226,7 +226,7 @@ export default class ScheduledMaintenanceOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "User ID",
-    description: "ID of your OneUptime User in which this object belongs",
+    description: "ID of your Cast Operations User in which this object belongs",
     example: "8c1d3e5f-a7b9-4c2e-9d6f-1a2b3c4d5e6f",
   })
   @Column({
@@ -308,7 +308,7 @@ export default class ScheduledMaintenanceOwnerUser extends BaseModel {
     canReadOnRelationQuery: true,
     title: "ScheduledMaintenance ID",
     description:
-      "ID of your OneUptime ScheduledMaintenance in which this object belongs",
+      "ID of your Cast Operations ScheduledMaintenance in which this object belongs",
     example: "4b6d8f0a-c2e4-6f8a-9c0d-1e2f3a4b5c6d",
   })
   @Column({

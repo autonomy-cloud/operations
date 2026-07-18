@@ -75,7 +75,7 @@ const CustomSMTPTable: FunctionComponent = (): ReactElement => {
         cardProps={{
           title: "Custom SMTP Configs",
           description:
-            "If you need OneUptime to send emails through your SMTP Server, please enter the server details here.",
+            "If you need Cast Operations to send emails through your SMTP Server, please enter the server details here.",
         }}
         formSteps={[
           {
@@ -174,7 +174,7 @@ const CustomSMTPTable: FunctionComponent = (): ReactElement => {
             required: true,
             defaultValue: MailTransportType.SMTP,
             description:
-              "How OneUptime delivers mail for this config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.",
+              "How Cast Operations delivers mail for this config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.",
           },
           {
             field: {
@@ -429,7 +429,7 @@ const CustomSMTPTable: FunctionComponent = (): ReactElement => {
             fieldType: FormFieldSchemaType.Text,
             required: true,
             description:
-              "This is the display name your team and customers see, when they receive emails from OneUptime.",
+              "This is the display name your team and customers see, when they receive emails from Cast Operations.",
             placeholder: "Company, Inc.",
             disableSpellCheck: true,
           },

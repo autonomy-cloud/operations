@@ -1,6 +1,6 @@
 # Monitor IP
 
-Il monitoraggio IP consente di monitorare la disponibilità e la reattività di qualsiasi indirizzo IPv4 o IPv6. OneUptime verifica periodicamente la connettività all'indirizzo IP di destinazione e ne segnala lo stato.
+Il monitoraggio IP consente di monitorare la disponibilità e la reattività di qualsiasi indirizzo IPv4 o IPv6. Cast Operations verifica periodicamente la connettività all'indirizzo IP di destinazione e ne segnala lo stato.
 
 ## Panoramica
 
@@ -13,7 +13,7 @@ I monitor IP verificano che un indirizzo IP specifico sia raggiungibile e reatti
 
 ## Creazione di un Monitor IP
 
-1. Accedere a **Monitor** nel Dashboard di OneUptime
+1. Accedere a **Monitor** nel Dashboard di Cast Operations
 2. Fare clic su **Crea Monitor**
 3. Selezionare **IP** come tipo di monitor
 4. Inserire l'indirizzo IP da monitorare

@@ -200,7 +200,7 @@ const IoTFleets: FunctionComponent<PageComponentProps> = (): ReactElement => {
         cardProps={{
           title: "IoT Fleets",
           description:
-            "IoT device fleets being monitored in this project. Connect your devices to OneUptime to register a fleet.",
+            "IoT device fleets being monitored in this project. Connect your devices to Cast Operations to register a fleet.",
         }}
         showViewIdButton={true}
         formFields={[

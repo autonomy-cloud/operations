@@ -60,7 +60,7 @@ const getOidcStateCookieName: (projectOidcId: ObjectID) => string = (
 
 /*
  * This route is used to get the OIDC config for the user.
- * when the user logs in from OneUptime and not from the IDP.
+ * when the user logs in from Cast Operations and not from the IDP.
  */
 router.get(
   "/service-provider-login-oidc",

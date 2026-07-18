@@ -1,10 +1,10 @@
-# Integrer OpenTelemetry (logging, metrikker og spor) med OneUptime.
+# Integrer OpenTelemetry (logging, metrikker og spor) med Cast Operations.
 
 ### Trinn 1 – Opprett telemetriinnhentingstoken.
 
-Når du har opprettet en OneUptime-konto, kan du opprette et telemetriinnhentingstoken for å hente inn logger, metrikker og spor fra applikasjonen din.
+Når du har opprettet en Cast Operations-konto, kan du opprette et telemetriinnhentingstoken for å hente inn logger, metrikker og spor fra applikasjonen din.
 
-Etter at du har registrert deg for OneUptime og opprettet et prosjekt, klikker du på "More" i navigasjonslinjen og klikker på "Project Settings".
+Etter at du har registrert deg for Cast Operations og opprettet et prosjekt, klikker du på "More" i navigasjonslinjen og klikker på "Project Settings".
 
 På siden for Telemetry Ingestion Key, klikk på "Create Ingestion Key" for å opprette et token.
 
@@ -20,7 +20,7 @@ Når du har opprettet et token, klikker du på "View" for å se tokenet.
 
 #### Applikasjonslogger
 
-Vi bruker OpenTelemetry til å samle inn applikasjonslogger. OneUptime støtter for øyeblikket logginnhenting fra disse OpenTelemetry SDK-ene. Følg instruksjonene for å konfigurere telemetritjenesten i applikasjonen din.
+Vi bruker OpenTelemetry til å samle inn applikasjonslogger. Cast Operations støtter for øyeblikket logginnhenting fra disse OpenTelemetry SDK-ene. Følg instruksjonene for å konfigurere telemetritjenesten i applikasjonen din.
 
 - [C++](https://opentelemetry.io/docs/instrumentation/cpp/)
 - [Go](https://opentelemetry.io/docs/instrumentation/go/)
@@ -34,34 +34,34 @@ Vi bruker OpenTelemetry til å samle inn applikasjonslogger. OneUptime støtter 
 - [.NET / C#](https://opentelemetry.io/docs/instrumentation/net/)
 - [Swift](https://opentelemetry.io/docs/instrumentation/swift/)
 
-**Integrer med OneUptime**
+**Integrer med Cast Operations**
 
-Når du har konfigurert telemetritjenesten i applikasjonen din, kan du integrere med OneUptime ved å sette følgende miljøvariabler.
+Når du har konfigurert telemetritjenesten i applikasjonen din, kan du integrere med Cast Operations ved å sette følgende miljøvariabler.
 
 | Miljøvariabel               | Verdi                                          |
 | --------------------------- | ---------------------------------------------- |
 | OTEL_EXPORTER_OTLP_HEADERS  | x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN |
-| OTEL_EXPORTER_OTLP_ENDPOINT | https://oneuptime.com/otlp                     |
+| OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **Eksempel**
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=9c8806e0-a4aa-11ee-be95-010d5967b068
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
-**Selvhostet OneUptime**
+**Selvhostet Cast Operations**
 
-Hvis du selvhoster OneUptime, kan dette endres til ditt selvhostede OpenTelemetry Collector-endepunkt (f.eks. `http(s)://YOUR-ONEUPTIME-HOST/otlp`)
+Hvis du selvhoster Cast Operations, kan dette endres til ditt selvhostede OpenTelemetry Collector-endepunkt (f.eks. `http(s)://YOUR-OPERATIONS-HOST/otlp`)
 
-Når du kjører applikasjonen, bør du se loggene på OneUptime telemetritjenestesiden. Ta kontakt med support@oneuptime.com hvis du trenger hjelp.
+Når du kjører applikasjonen, bør du se loggene på Cast Operations telemetritjenestesiden. Ta kontakt med support@visca.ai hvis du trenger hjelp.
 
 #### Bruke OpenTelemetry Collector
 
 Du kan også bruke OpenTelemetry Collector i stedet for å sende telemetridata direkte fra applikasjonen din.
-Hvis du bruker OpenTelemetry Collector, kan du konfigurere OneUptime-eksporteren i Collector-konfigurasjonsfilen.
+Hvis du bruker OpenTelemetry Collector, kan du konfigurere Cast Operations-eksporteren i Collector-konfigurasjonsfilen.
 
 Her er eksempelkonfigurasjonen for OpenTelemetry Collector.
 
@@ -77,12 +77,12 @@ receivers:
 exporters:
   # Eksporter over HTTP
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     # Krever bruk av JSON-koder i stedet for standard Proto(buf)
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "ONEUPTIME_TOKEN" # Din OneUptime-token
+      "x-oneuptime-token": "ONEUPTIME_TOKEN" # Din Cast Operations-token
 
 service:
   pipelines:

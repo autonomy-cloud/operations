@@ -1,6 +1,6 @@
 # Resourcebewerkingen
 
-De OneUptime CLI biedt volledige CRUD-bewerkingen (Aanmaken, Lezen, Bijwerken, Verwijderen) voor alle ondersteunde resources. Resources worden automatisch gedetecteerd van uw OneUptime-instantie.
+De Cast Operations CLI biedt volledige CRUD-bewerkingen (Aanmaken, Lezen, Bijwerken, Verwijderen) voor alle ondersteunde resources. Resources worden automatisch gedetecteerd van uw Cast Operations-instantie.
 
 ## Beschikbare resources
 

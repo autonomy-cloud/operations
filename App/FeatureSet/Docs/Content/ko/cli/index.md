@@ -1,11 +1,11 @@
-# OneUptime CLI
+# Cast Operations CLI
 
-OneUptime CLI는 터미널에서 OneUptime 리소스를 직접 관리하기 위한 명령줄 인터페이스입니다. 모니터, 인시던트, 알림, 상태 페이지 등에 대한 전체 CRUD 작업을 지원합니다.
+Cast Operations CLI는 터미널에서 Cast Operations 리소스를 직접 관리하기 위한 명령줄 인터페이스입니다. 모니터, 인시던트, 알림, 상태 페이지 등에 대한 전체 CRUD 작업을 지원합니다.
 
 ## 기능
 
 - 프로덕션, 스테이징 및 개발을 위한 명명된 컨텍스트를 통한 **다중 환경 지원**
-- OneUptime 인스턴스에서 사용 가능한 리소스의 **자동 검색**
+- Cast Operations 인스턴스에서 사용 가능한 리소스의 **자동 검색**
 - CLI 플래그, 환경 변수 또는 저장된 컨텍스트를 통한 **유연한 인증**
 - JSON, 테이블 및 와이드 표시 모드를 갖춘 **스마트 출력 형식**
 - CI/CD 파이프라인 및 자동화 워크플로를 위한 **스크립팅 가능**
@@ -19,8 +19,8 @@ npm install -g @oneuptime/cli
 ## 빠른 시작
 
 ```bash
-# OneUptime 인스턴스로 인증
-oneuptime login <your-api-key> https://oneuptime.com
+# Cast Operations 인스턴스로 인증
+oneuptime login <your-api-key> https://visca.ai
 
 # 모니터 목록 조회
 oneuptime monitor list

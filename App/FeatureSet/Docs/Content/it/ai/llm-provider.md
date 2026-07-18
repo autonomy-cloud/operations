@@ -1,26 +1,26 @@
 # Provider LLM
 
-OneUptime supporta l'integrazione con vari provider di Large Language Model (LLM) per abilitare funzionalità basate sull'AI in tutta la piattaforma. Questa guida ti aiuterà a configurare il tuo provider LLM.
+Cast Operations supporta l'integrazione con vari provider di Large Language Model (LLM) per abilitare funzionalità basate sull'AI in tutta la piattaforma. Questa guida ti aiuterà a configurare il tuo provider LLM.
 
 ## Cosa Possono Fare i Provider LLM?
 
-I Provider LLM in OneUptime ti aiutano ad automatizzare e migliorare il flusso di lavoro di gestione degli incidenti:
+I Provider LLM in Cast Operations ti aiutano ad automatizzare e migliorare il flusso di lavoro di gestione degli incidenti:
 
 - **Note sugli Incidenti**: Generazione automatica di note e aggiornamenti dettagliati sugli incidenti
 - **Note sugli Avvisi**: Creazione di descrizioni e contesti significativi per gli avvisi
 - **Note sulle Manutenzioni Programmate**: Generazione automatica di note per gli eventi di manutenzione
 - **Postmortem degli Incidenti**: Redazione automatica di report postmortem completi sugli incidenti
-- **Miglioramenti al Codice**: Se colleghi il tuo repository di codice a OneUptime, utilizzeremo il tuo Provider LLM per analizzare i dati di telemetria (log, trace, metriche, eccezioni) e suggerire miglioramenti al codice
+- **Miglioramenti al Codice**: Se colleghi il tuo repository di codice a Cast Operations, utilizzeremo il tuo Provider LLM per analizzare i dati di telemetria (log, trace, metriche, eccezioni) e suggerire miglioramenti al codice
 
-## Utenti di OneUptime SaaS
+## Utenti di Cast Operations SaaS
 
-Se stai utilizzando **OneUptime SaaS** (versione cloud-hosted), puoi usare il **Provider LLM Globale** per impostazione predefinita senza alcuna configurazione aggiuntiva. Il Provider LLM Globale è pre-configurato e pronto all'uso per tutte le funzionalità AI.
+Se stai utilizzando **Cast Operations SaaS** (versione cloud-hosted), puoi usare il **Provider LLM Globale** per impostazione predefinita senza alcuna configurazione aggiuntiva. Il Provider LLM Globale è pre-configurato e pronto all'uso per tutte le funzionalità AI.
 
 Se preferisci usare le tue chiavi API o un provider specifico, puoi comunque configurare un Provider LLM personalizzato seguendo le istruzioni qui sotto.
 
 ## Provider Supportati
 
-OneUptime supporta attualmente i seguenti provider LLM:
+Cast Operations supporta attualmente i seguenti provider LLM:
 
 | Provider              | Descrizione                                                              | Chiave API Richiesta | URL Base Richiesto      |
 | --------------------- | ------------------------------------------------------------------------ | -------------------- | ----------------------- |
@@ -36,7 +36,7 @@ OneUptime supporta attualmente i seguenti provider LLM:
 
 ### Passo 1: Naviga alle Impostazioni dei Provider LLM
 
-1. Accedi alla dashboard di OneUptime
+1. Accedi alla dashboard di Cast Operations
 2. Vai su **Agenti AI** > **Provider LLM**
 3. Clicca su **Crea Provider LLM** per aggiungere un nuovo provider
 
@@ -145,7 +145,7 @@ API Key: (leave blank)
 
 ### vLLM Self-Hosted su Kubernetes (Helm)
 
-Se ospiti OneUptime autonomamente con il chart Helm, puoi eseguire [vLLM](https://docs.vllm.ai) — un server di inferenza compatibile con OpenAI — all'interno del tuo cluster e servire modelli locali sulle tue GPU. Nessun dato lascia la tua infrastruttura.
+Se ospiti Cast Operations autonomamente con il chart Helm, puoi eseguire [vLLM](https://docs.vllm.ai) — un server di inferenza compatibile con OpenAI — all'interno del tuo cluster e servire modelli locali sulle tue GPU. Nessun dato lascia la tua infrastruttura.
 
 1. Abilitalo nei tuoi valori Helm (richiede nodi GPU NVIDIA):
 
@@ -175,7 +175,7 @@ Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-Consulta il [README del chart Helm](https://github.com/OneUptime/oneuptime/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) per lo scheduling delle GPU, i modelli con accesso limitato e le opzioni di tuning.
+Consulta il [README del chart Helm](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) per lo scheduling delle GPU, i modelli con accesso limitato e le opzioni di tuning.
 
 ## Utilizzo di URL Base Personalizzati
 
@@ -211,5 +211,5 @@ Per distribuzioni enterprise o quando si utilizzano servizi proxy, puoi specific
 
 Se riscontri problemi nella configurazione del tuo provider LLM:
 
-1. Controlla le [Segnalazioni su GitHub di OneUptime](https://github.com/OneUptime/oneuptime/issues) per problemi noti
+1. Controlla le [Segnalazioni su GitHub di Cast Operations](https://github.com/autonomy-cloud/operations/issues) per problemi noti
 2. Contatta il supporto se sei su un piano enterprise

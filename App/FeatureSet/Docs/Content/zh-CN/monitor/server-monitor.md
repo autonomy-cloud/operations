@@ -1,6 +1,6 @@
 # 服务器/虚拟机监控器
 
-服务器和虚拟机监控允许您通过安装一个轻量级 Agent 来监控服务器、虚拟机和其他基础设施的健康状况和性能，该 Agent 将系统指标上报给 OneUptime。
+服务器和虚拟机监控允许您通过安装一个轻量级 Agent 来监控服务器、虚拟机和其他基础设施的健康状况和性能，该 Agent 将系统指标上报给 Cast Operations。
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 ## 创建服务器监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **服务器/虚拟机** 作为监控器类型
 4. 将为此监控器生成一个 **密钥** — 您需要它来配置 Agent
@@ -22,26 +22,26 @@
 
 ## 安装基础设施 Agent
 
-OneUptime 基础设施 Agent 是一个轻量级的 Go 语言守护进程，它每 30 秒收集系统指标并发送给 OneUptime。支持 Linux、macOS 和 Windows。
+Cast Operations 基础设施 Agent 是一个轻量级的 Go 语言守护进程，它每 30 秒收集系统指标并发送给 Cast Operations。支持 Linux、macOS 和 Windows。
 
 ### Linux / macOS
 
 ```bash
 # 安装 Agent
-curl -sSL https://oneuptime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # 配置 Agent
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # 启动 Agent
 sudo oneuptime-infrastructure-agent start
 ```
 
-将 `YOUR_SECRET_KEY` 替换为监控器设置中显示的密钥，如果是自托管，请将 `https://oneuptime.com` 替换为您的 OneUptime 实例 URL。
+将 `YOUR_SECRET_KEY` 替换为监控器设置中显示的密钥，如果是自托管，请将 `https://visca.ai` 替换为您的 Cast Operations 实例 URL。
 
 ### Windows
 
-1. 从 [GitHub Releases](https://github.com/OneUptime/oneuptime/releases/latest) 下载最新版 Agent
+1. 从 [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest) 下载最新版 Agent
    - `oneuptime-infrastructure-agent_windows_amd64.zip`（x64 系统）
    - `oneuptime-infrastructure-agent_windows_arm64.zip`（ARM64 系统）
 2. 解压 zip 文件
@@ -49,7 +49,7 @@ sudo oneuptime-infrastructure-agent start
 
 ```bash
 # 配置 Agent
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # 启动 Agent
 oneuptime-infrastructure-agent start
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 如果您的服务器通过代理连接到互联网，可以配置 Agent 使用代理：
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com --proxy-url=http://proxy.example.com:8080
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Agent 命令
@@ -69,7 +69,7 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 
 | 命令        | 描述                                                  |
 | ----------- | ----------------------------------------------------- |
-| `configure` | 使用密钥和 OneUptime URL 配置 Agent                   |
+| `configure` | 使用密钥和 Cast Operations URL 配置 Agent                   |
 | `start`     | 启动 Agent 服务                                       |
 | `stop`      | 停止 Agent 服务                                       |
 | `restart`   | 重启 Agent 服务                                       |
@@ -179,7 +179,7 @@ Agent 从服务器收集以下指标：
 - 验证 Agent 是否正在运行：`sudo oneuptime-infrastructure-agent status`
 - 检查 Agent 日志：`sudo oneuptime-infrastructure-agent logs -n 50`
 - 确认密钥是否正确
-- 确保服务器能够访问您的 OneUptime 实例 URL
+- 确保服务器能够访问您的 Cast Operations 实例 URL
 - 检查防火墙规则是否允许出站 HTTPS 连接
 
 ### Agent 资源占用高
@@ -192,7 +192,7 @@ Agent 设计为轻量级。如果您注意到资源占用高：
 ### 代理问题
 
 - 验证代理 URL 和端口是否正确
-- 确保代理允许连接到您的 OneUptime 实例
+- 确保代理允许连接到您的 Cast Operations 实例
 - 重新配置：`sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
 
 ## 最佳实践

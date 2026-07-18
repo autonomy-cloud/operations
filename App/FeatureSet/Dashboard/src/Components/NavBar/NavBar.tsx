@@ -202,7 +202,7 @@ const DashboardNavbar: FunctionComponent<ComponentProps> = (
       title: t("navbar.items.sentinelInsightsTitle", "Insights"),
       description: t(
         "navbar.items.sentinelInsightsDescription",
-        "Proactive findings from OneUptime AI's telemetry watch — new exceptions, spikes, latency regressions and metric drift.",
+        "Proactive findings from Cast Operations AI's telemetry watch — new exceptions, spikes, latency regressions and metric drift.",
       ),
       route: RouteUtil.populateRouteParams(
         RouteMap[PageMap.AI_INSIGHTS] as Route,
@@ -475,7 +475,7 @@ const DashboardNavbar: FunctionComponent<ComponentProps> = (
     title: t("navbar.moreFooter.title"),
     description: t("navbar.moreFooter.description"),
     link: URL.fromString(
-      "https://github.com/OneUptime/oneuptime/issues/new/choose",
+      "https://github.com/autonomy-cloud/operations/issues/new/choose",
     ),
   };
 

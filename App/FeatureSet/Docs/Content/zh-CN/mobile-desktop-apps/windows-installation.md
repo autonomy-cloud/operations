@@ -1,6 +1,6 @@
 # Windows 安装指南
 
-在 Windows 上将 OneUptime 安装为桌面应用程序，实现全面的监控和事件管理。
+在 Windows 上将 Cast Operations 安装为桌面应用程序，实现全面的监控和事件管理。
 
 ## 安装方法
 
@@ -8,46 +8,46 @@
 
 Edge 提供最佳的 Windows PWA 集成，具有原生功能。
 
-1. **在 Edge 中打开 OneUptime**
+1. **在 Edge 中打开 Cast Operations**
 
    - 启动 Microsoft Edge 浏览器
-   - 导航至您的 OneUptime 实例 URL
-   - 登录您的 OneUptime 账号
+   - 导航至您的 Cast Operations 实例 URL
+   - 登录您的 Cast Operations 账号
    - 等待页面完全加载
 
 2. **安装应用**
 
    - 查找地址栏中的 **安装图标**（⊞）
-   - 点击 **"安装 OneUptime"** 按钮
+   - 点击 **"安装 Cast Operations"** 按钮
    - 或点击 **三点菜单** → **应用** → **将此站点安装为应用**
 
 3. **自定义安装**
 
-   - **应用名称**：根据需要修改（默认：OneUptime）
+   - **应用名称**：根据需要修改（默认：Cast Operations）
    - **开始菜单**：选择是否添加到开始菜单
    - **任务栏**：选择是否固定到任务栏
    - **桌面**：创建桌面快捷方式
 
 4. **完成安装**
    - 点击 **"安装"** 完成
-   - OneUptime 将在自己的窗口中打开
+   - Cast Operations 将在自己的窗口中打开
    - 在开始菜单的已安装应用下找到它
 
 ### 方法二：Google Chrome
 
 Chrome 提供出色的 PWA 支持，具有丰富的桌面集成。
 
-1. **在 Chrome 中打开 OneUptime**
+1. **在 Chrome 中打开 Cast Operations**
 
    - 启动 Google Chrome
-   - 前往您的 OneUptime 实例
+   - 前往您的 Cast Operations 实例
    - 确保已登录
    - 允许页面完全加载
 
 2. **通过地址栏安装**
 
    - 查找地址栏中的 **安装图标**（⊞）
-   - 点击 **"安装 OneUptime"**
+   - 点击 **"安装 Cast Operations"**
    - 或使用菜单：**三个点** → **更多工具** → **创建快捷方式**
 
 3. **安装选项**
@@ -57,7 +57,7 @@ Chrome 提供出色的 PWA 支持，具有丰富的桌面集成。
    - 点击 **"安装"** 或 **"创建"**
 
 4. **启动应用**
-   - 在 Windows 开始菜单中找到 OneUptime
+   - 在 Windows 开始菜单中找到 Cast Operations
    - 或从桌面快捷方式启动
    - 应用在专用窗口中打开
 
@@ -65,10 +65,10 @@ Chrome 提供出色的 PWA 支持，具有丰富的桌面集成。
 
 Firefox 支持 PWA 安装，具有基本的桌面集成。
 
-1. **在 Firefox 中打开 OneUptime**
+1. **在 Firefox 中打开 Cast Operations**
 
    - 启动 Firefox 浏览器
-   - 导航至 OneUptime URL
+   - 导航至 Cast Operations URL
    - 完成登录流程
 
 2. **安装 PWA**
@@ -78,9 +78,9 @@ Firefox 支持 PWA 安装，具有基本的桌面集成。
 
 ### 启动配置
 
-1. **自动启动**：配置 OneUptime 随 Windows 启动
+1. **自动启动**：配置 Cast Operations 随 Windows 启动
    - 右键单击任务栏 → 任务管理器 → 启动
-   - 根据需要启用 OneUptime
+   - 根据需要启用 Cast Operations
 2. **默认大小**：设置首选窗口大小和位置
 
 ### 通知设置
@@ -88,12 +88,12 @@ Firefox 支持 PWA 安装，具有基本的桌面集成。
 1. **Windows 通知**
 
    - 设置 → 系统 → 通知和操作
-   - 找到 OneUptime 并配置告警偏好
+   - 找到 Cast Operations 并配置告警偏好
    - 为事件启用横幅通知
 
 2. **专注助手**
    - 配置勿扰设置
-   - 允许 OneUptime 紧急通知
+   - 允许 Cast Operations 紧急通知
    - 为不同告警类型设置优先级
 
 ## 高级安装选项
@@ -107,7 +107,7 @@ Firefox 支持 PWA 安装，具有基本的桌面集成。
 ```
 解决方案：
 1. 确保使用 Edge 或 Chrome（推荐浏览器）
-2. 验证与 OneUptime 实例的 HTTPS 连接
+2. 验证与 Cast Operations 实例的 HTTPS 连接
 3. 清除浏览器缓存和 Cookie
 4. 将浏览器更新到最新版本
 5. 检查服务器上是否满足 PWA 要求
@@ -130,7 +130,7 @@ Firefox 支持 PWA 安装，具有基本的桌面集成。
 
 ```
 解决方案：
-1. 在 Windows 搜索中搜索「OneUptime」
+1. 在 Windows 搜索中搜索「Cast Operations」
 2. 检查是否以不同名称安装
 3. 在"最近添加"应用部分查找
 4. 重新安装并确保勾选"添加到开始菜单"
@@ -144,9 +144,9 @@ Firefox 支持 PWA 安装，具有基本的桌面集成。
 ```
 解决方案：
 1. Windows 设置 → 系统 → 通知和操作
-2. 为 OneUptime 启用通知
+2. 为 Cast Operations 启用通知
 3. 检查专注助手设置
-4. 确保 OneUptime 中的通知权限
+4. 确保 Cast Operations 中的通知权限
 5. 先测试简单通知
 ```
 
@@ -157,18 +157,18 @@ Firefox 支持 PWA 安装，具有基本的桌面集成。
 1. **Windows 设置方法**
 
    - 设置 → 应用 → 应用和功能
-   - 搜索「OneUptime」
+   - 搜索「Cast Operations」
    - 点击并选择"卸载"
 
 2. **浏览器方法**
 
    - 打开 Edge/Chrome
    - 前往 edge://apps/ 或 chrome://apps/
-   - 找到 OneUptime
+   - 找到 Cast Operations
    - 点击选项 → 卸载
 
 3. **开始菜单方法**
-   - 右键单击开始菜单中的 OneUptime
+   - 右键单击开始菜单中的 Cast Operations
    - 选择"卸载"
    - 确认移除
 
@@ -176,7 +176,7 @@ Firefox 支持 PWA 安装，具有基本的桌面集成。
 
 ### 自动更新
 
-- OneUptime PWA 在在线状态下自动更新
+- Cast Operations PWA 在在线状态下自动更新
 - 无需手动干预
 - 更新在重启时立即应用
 - 紧急补丁即时部署

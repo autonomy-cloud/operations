@@ -54,7 +54,7 @@ service.name = '{{service}}'
 
 When the dropdown is set to `checkout`, the chart filters to the checkout service. When the viewer switches to `payments`, the chart re-renders for payments.
 
-For **Telemetry Attribute** variables, OneUptime knows which attribute the variable maps to and applies the filter to every widget that uses the same attribute — you don't have to edit each widget by hand.
+For **Telemetry Attribute** variables, Cast Operations knows which attribute the variable maps to and applies the filter to every widget that uses the same attribute — you don't have to edit each widget by hand.
 
 ## Time range
 

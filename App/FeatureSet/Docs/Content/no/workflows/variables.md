@@ -60,7 +60,7 @@ Rene JSON-felter aksepterer variabler inne i strengverdier, men du kan ikke bruk
 
 ### Bygge en nyttelast fra en webhook
 
-En webhook kommer inn med en kropp som `{ "service": "checkout", "status": "failed" }`. For å gjøre det om til en OneUptime-hendelse:
+En webhook kommer inn med en kropp som `{ "service": "checkout", "status": "failed" }`. For å gjøre det om til en Cast Operations-hendelse:
 
 1. **Webhook**-trigger kalt `CIWebhook`.
 2. **Betingelser**-blokk: venstre `{{CIWebhook.Request Body.status}}`, operator `==`, høyre `failed`.

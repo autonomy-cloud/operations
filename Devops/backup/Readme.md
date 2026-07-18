@@ -1,4 +1,4 @@
-# Backup OneUptime Database
+# Backup Cast Operations Database
 
 ## Setting up Backup Service
 
@@ -58,7 +58,7 @@ Run:
 bash backup.sh
 ```
 
-# Restore OneUptime Database
+# Restore Cast Operations Database
 
 **Step 1**: Copy restore.sh to root directory.
 

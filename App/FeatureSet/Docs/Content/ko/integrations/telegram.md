@@ -1,11 +1,11 @@
 # Telegram 통합
 
-인시던트 업데이트를 [Telegram](https://telegram.org) 채팅이나 그룹으로 전송합니다. OneUptime에는 내장 **Telegram** 워크플로 컴포넌트가 있어 빠르게 설정할 수 있습니다.
+인시던트 업데이트를 [Telegram](https://telegram.org) 채팅이나 그룹으로 전송합니다. Cast Operations에는 내장 **Telegram** 워크플로 컴포넌트가 있어 빠르게 설정할 수 있습니다.
 
-이 통합은 **아웃바운드**: OneUptime이 Telegram 봇을 통해 메시지를 전송합니다.
+이 통합은 **아웃바운드**: Cast Operations이 Telegram 봇을 통해 메시지를 전송합니다.
 
 ```text
-OneUptime Incident → On Create  ──►  Telegram component  ──►  message in your chat
+Cast Operations Incident → On Create  ──►  Telegram component  ──►  message in your chat
 ```
 
 ## 1단계 — 봇 만들기 및 토큰 가져오기
@@ -21,7 +21,7 @@ OneUptime Incident → On Create  ──►  Telegram component  ──►  mess
 
 ## 3단계 — 시크릿 저장
 
-1. OneUptime에서 **Workflows → Global Variables → Create** 로 이동합니다.
+1. Cast Operations에서 **Workflows → Global Variables → Create** 로 이동합니다.
 2. `TELEGRAM_BOT_TOKEN` (시크릿) 과 `TELEGRAM_CHAT_ID` 를 만듭니다.
 
 ## 4단계 — 워크플로 구성

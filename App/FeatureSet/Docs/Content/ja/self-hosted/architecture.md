@@ -1,6 +1,6 @@
-# OneUptimeセルフホストのアーキテクチャ
+# Cast Operationsセルフホストのアーキテクチャ
 
-以下の図は、OneUptimeが自社環境（例：Kubernetesクラスター）にセルフホストされる場合の一般的な構成と、プローブが内部・外部リソースを監視する方法を示しています。
+以下の図は、Cast Operationsが自社環境（例：Kubernetesクラスター）にセルフホストされる場合の一般的な構成と、プローブが内部・外部リソースを監視する方法を示しています。
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["受信リクエストインジェスト"]
     end
 
-    subgraph Probes["OneUptimeプローブ"]
+    subgraph Probes["Cast Operationsプローブ"]
       direction TB
       P1["クラスター内のプローブPod"]
       P2["ネットワーク上のオプションのプローブVM/コンテナ"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## 図の説明
 
-- エンドユーザーはクラスターのイングレス（NGINX）経由でOneUptimeにアクセスし、UIとAPIにルーティングされます。
+- エンドユーザーはクラスターのイングレス（NGINX）経由でCast Operationsにアクセスし、UIとAPIにルーティングされます。
 - コアサービスはPostgreSQL、Redis、ClickHouseで状態を読み書きします。
 - プローブはクラスター内（推奨）や、ネットワーク上の別の場所でも実行できます。プローブは以下を監視できます：
   - ファイアウォールの内側にある内部/プライベートサービス。

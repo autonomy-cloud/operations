@@ -1,21 +1,21 @@
 # Integração de Email de Entrada com SendGrid
 
-O **Monitor de Email de Entrada** do OneUptime permite criar e resolver alertas com base em emails enviados para endereços de email únicos específicos do monitor. Isso é útil para integração com sistemas legados, ferramentas de alerta ou qualquer serviço que possa enviar emails.
+O **Monitor de Email de Entrada** do Cast Operations permite criar e resolver alertas com base em emails enviados para endereços de email únicos específicos do monitor. Isso é útil para integração com sistemas legados, ferramentas de alerta ou qualquer serviço que possa enviar emails.
 
-Este guia explica como configurar o SendGrid Inbound Parse para encaminhar emails de entrada para sua instância auto-hospedada do OneUptime.
+Este guia explica como configurar o SendGrid Inbound Parse para encaminhar emails de entrada para sua instância auto-hospedada do Cast Operations.
 
 ## Pré-requisitos
 
 - Uma conta SendGrid (o nível gratuito funciona)
 - Um domínio que você controla com acesso às configurações de DNS
-- Sua instância do OneUptime deve ser publicamente acessível (para que o SendGrid possa enviar webhooks)
+- Sua instância do Cast Operations deve ser publicamente acessível (para que o SendGrid possa enviar webhooks)
 
 ## Como Funciona
 
-1. Você cria um **Monitor de Email de Entrada** no OneUptime
-2. O OneUptime gera um endereço de email único para esse monitor (ex.: `monitor-abc123@inbound.seudominio.com`)
-3. Quando um email é enviado para esse endereço, o SendGrid o recebe e o encaminha para o OneUptime via webhook
-4. O OneUptime avalia o email em relação aos critérios configurados para criar ou resolver alertas
+1. Você cria um **Monitor de Email de Entrada** no Cast Operations
+2. O Cast Operations gera um endereço de email único para esse monitor (ex.: `monitor-abc123@inbound.seudominio.com`)
+3. Quando um email é enviado para esse endereço, o SendGrid o recebe e o encaminha para o Cast Operations via webhook
+4. O Cast Operations avalia o email em relação aos critérios configurados para criar ou resolver alertas
 
 ## Instruções de Configuração
 
@@ -27,7 +27,7 @@ Você precisará de um subdomínio dedicado a receber emails de entrada. Recomen
 - `email.seudominio.com`
 - `monitor.seudominio.com`
 
-Este subdomínio será usado exclusivamente para emails de monitor do OneUptime.
+Este subdomínio será usado exclusivamente para emails de monitor do Cast Operations.
 
 ### Passo 2: Configurar o Registro MX do DNS
 
@@ -64,14 +64,14 @@ Para melhor entregabilidade e para evitar que emails sejam marcados como spam:
 | Campo                               | Valor                                                                   |
 | ----------------------------------- | ----------------------------------------------------------------------- |
 | **Receiving Domain**                | Seu subdomínio de entrada (ex.: `inbound.seudominio.com`)               |
-| **Destination URL**                 | `https://seu-dominio-oneuptime.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **Destination URL**                 | `https://seu-dominio-visca.ai/incoming-email/sendgrid/YOUR_SECRET` |
 | **Check incoming emails for spam**  | Opcional — habilite se desejar                                          |
 | **Send raw, full MIME message**     | Deixe desmarcado (não necessário)                                       |
 | **POST the raw, full MIME message** | Deixe desmarcado (não necessário)                                       |
 
 5. Clique em **Add**
 
-### Passo 5: Configurar Variáveis de Ambiente do OneUptime
+### Passo 5: Configurar Variáveis de Ambiente do Cast Operations
 
 #### Docker Compose
 
@@ -95,11 +95,11 @@ inboundEmail:
   # webhookSecret: "seu-segredo-opcional"  # Opcional
 ```
 
-**Importante:** Reinicie seu servidor do OneUptime após adicionar estas variáveis de ambiente.
+**Importante:** Reinicie seu servidor do Cast Operations após adicionar estas variáveis de ambiente.
 
 ### Passo 6: Criar um Monitor de Email de Entrada
 
-1. Faça login no seu Painel do OneUptime
+1. Faça login no seu Painel do Cast Operations
 2. Navegue para **Monitors** > **Create Monitor**
 3. Selecione **Incoming Email** como o tipo de monitor
 4. Configure seu monitor:
@@ -115,9 +115,9 @@ Após a criação, você verá o endereço de email único para este monitor (ex
 
 ### Passo 7: Testar a Integração
 
-1. Copie o endereço de email do monitor do Painel do OneUptime
+1. Copie o endereço de email do monitor do Painel do Cast Operations
 2. Envie um email de teste para esse endereço com um assunto que corresponda aos seus critérios de alerta
-3. Verifique o Painel do OneUptime para verificar:
+3. Verifique o Painel do Cast Operations para verificar:
    - O email foi recebido (visível no Resumo do Monitor)
    - Um alerta foi criado (se os critérios corresponderam)
 
@@ -147,7 +147,7 @@ Ao configurar seu Monitor de Email de Entrada, você pode criar critérios basea
 
 Muitos sistemas legados só podem enviar alertas por email. Crie um Monitor de Email de Entrada para:
 
-- Criar alertas do OneUptime quando o sistema legado envia emails com `[CRITICAL]`
+- Criar alertas do Cast Operations quando o sistema legado envia emails com `[CRITICAL]`
 - Resolver alertas quando emails com `[RESOLVED]` são recebidos
 
 ### Integração com Serviço de Terceiros
@@ -183,16 +183,16 @@ Use critérios de "Email Received" para garantir que você receba emails periód
    - Vá para Settings > Inbound Parse
    - Verifique se seu domínio e URL de webhook estão corretos
 
-3. **Verificar logs do OneUptime:**
+3. **Verificar logs do Cast Operations:**
    - Procure por requisições de webhook nos logs do serviço ProbeIngest
    - Verifique quaisquer mensagens de erro
 
 ### Webhooks Falhando
 
-1. **Certifique-se de que o OneUptime está publicamente acessível:**
+1. **Certifique-se de que o Cast Operations está publicamente acessível:**
 
    - A URL do webhook deve ser acessível pela internet
-   - Teste com: `curl -X POST https://seu-dominio-oneuptime.com/incoming-email/sendgrid`
+   - Teste com: `curl -X POST https://seu-dominio-visca.ai/incoming-email/sendgrid`
 
 2. **Verificar regras de firewall:**
 
@@ -228,7 +228,7 @@ Use critérios de "Email Received" para garantir que você receba emails periód
 
 ## Provedores Alternativos
 
-O OneUptime é projetado para suportar múltiplos provedores de email de entrada. Atualmente suportados:
+O Cast Operations é projetado para suportar múltiplos provedores de email de entrada. Atualmente suportados:
 
 | Provedor                | Status    |
 | ----------------------- | --------- |
@@ -242,7 +242,7 @@ Se você precisar de suporte para um provedor diferente, entre em contato conosc
 Se você encontrar problemas com a integração de Email de Entrada do SendGrid:
 
 1. Verifique a seção de solução de problemas acima
-2. Revise os logs do OneUptime para mensagens de erro detalhadas
-3. Entre em contato conosco em [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Revise os logs do Cast Operations para mensagens de erro detalhadas
+3. Entre em contato conosco em [hello@visca.ai](mailto:hello@visca.ai)
 
 Recebemos feedback para melhorar esta integração!

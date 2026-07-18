@@ -78,7 +78,7 @@ currently enabled. Empty list -> empty string (OBI then exports no metrics).
 {{/*
 Render .Values.oneuptime.labels as OTel resource-processor attribute entries.
 
-The OneUptime ingest pipeline promotes any resource attribute prefixed with
+The Cast Operations ingest pipeline promotes any resource attribute prefixed with
 `oneuptime.label.` into a project Label of the form `<key>:<value>` and
 attaches it to the cluster/service/host that emitted the record — see
 Common/Server/Utils/Telemetry/OneuptimeLabel.ts.
@@ -540,7 +540,7 @@ Args: dict "root" $ "signals" (list "logs" "metrics" "traces")
 {{- end -}}
 filter/telemetry:
   # Drops records matching any condition below, before `batch` — so
-  # filtered telemetry costs no egress and never reaches OneUptime.
+  # filtered telemetry costs no egress and never reaches Cast Operations.
   # Generated from .Values.filters and .Values.namespaceFilters.
   error_mode: ignore
 {{- if $logConds }}

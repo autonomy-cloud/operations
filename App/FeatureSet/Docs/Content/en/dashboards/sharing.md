@@ -1,10 +1,10 @@
 # Sharing & Public Dashboards
 
-By default, dashboards are private to your project — only logged-in team members can see them. But OneUptime also lets you share a dashboard publicly, protect it with a password, restrict it to certain IPs, and host it on your own domain. This page covers all four.
+By default, dashboards are private to your project — only logged-in team members can see them. But Cast Operations also lets you share a dashboard publicly, protect it with a password, restrict it to certain IPs, and host it on your own domain. This page covers all four.
 
 ## Private dashboards (the default)
 
-A dashboard is reachable only to logged-in members of your project. The URL looks like `https://oneuptime.com/dashboards/<id>/view` and requires a login.
+A dashboard is reachable only to logged-in members of your project. The URL looks like `https://visca.ai/dashboards/<id>/view` and requires a login.
 
 Within the project, owners and labels control who sees what — see [Configuration & Permissions](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Requests from any other IP are rejected.
 
 ## Custom domains
 
-Out of the box, a public dashboard is served on `oneuptime.com`. To host it on your own subdomain like `dashboard.acme.com`:
+Out of the box, a public dashboard is served on `visca.ai`. To host it on your own subdomain like `dashboard.acme.com`:
 
-1. Add a CNAME record on your DNS pointing the subdomain to OneUptime's target.
+1. Add a CNAME record on your DNS pointing the subdomain to Cast Operations’ target.
 2. Under **Dashboard → Settings → Custom Domains**, add the domain.
-3. Verify it. OneUptime checks the DNS record for you.
+3. Verify it. Cast Operations checks the DNS record for you.
 4. Once verified, the dashboard is reachable on both your custom domain and the original URL.
 
 Custom domains are useful for:
@@ -75,7 +75,7 @@ Under **Dashboard → Settings**, you can configure:
 - **Logo** — upload a PNG or SVG to show in the header.
 - **Favicon** — the small icon in the browser tab.
 
-Branding applies only when the dashboard is viewed publicly. Internal viewers always see OneUptime's branding.
+Branding applies only when the dashboard is viewed publicly. Internal viewers always see Cast Operations’ branding.
 
 ## Embedding
 

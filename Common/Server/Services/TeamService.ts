@@ -83,7 +83,7 @@ export class Service extends DatabaseService<Model> {
 
       if (scimCount.toNumber() > 0) {
         throw new BadDataException(
-          `Cannot ${data.action} teams while SCIM Push Groups is enabled for this project. Disable Push Groups to manage teams from OneUptime.`,
+          `Cannot ${data.action} teams while SCIM Push Groups is enabled for this project. Disable Push Groups to manage teams from Cast Operations.`,
         );
       }
     }

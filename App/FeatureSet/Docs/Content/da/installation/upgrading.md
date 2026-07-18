@@ -1,6 +1,6 @@
-# Opgradering af OneUptime
+# Opgradering af Cast Operations
 
-Denne guide beskriver, hvordan du sikkert opgraderer din selvhostede OneUptime-installation.
+Denne guide beskriver, hvordan du sikkert opgraderer din selvhostede Cast Operations-installation.
 
 ## Generel vejledning
 
@@ -8,14 +8,14 @@ Denne guide beskriver, hvordan du sikkert opgraderer din selvhostede OneUptime-i
 - Du kan springe mindre/patch-versioner over (f.eks. 8.1 → 8.4), så længe du følger udgivelsesnoterne.
 - Tag altid sikkerhedskopier inden opgradering, og valider, at du kan gendanne dem.
 
-## Opgradering fra OneUptime 10 → 11
+## Opgradering fra Cast Operations 10 → 11
 
 <!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
 
 ### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
 
 In v11, the following authentication and access-management features moved to
-the **OneUptime Enterprise Edition** and are no longer part of the free,
+the **Cast Operations Enterprise Edition** and are no longer part of the free,
 open-source (Community) build:
 
 - **SAML SSO** — both project login and status-page login
@@ -34,16 +34,16 @@ Enterprise Edition.
 **Availability:**
 
 - **Self-hosted:** requires the **Enterprise Edition** build.
-- **OneUptime Cloud:** requires the **Scale** plan (or above).
+- **Cast Operations Cloud:** requires the **Scale** plan (or above).
 
 **If you rely on SSO and self-host**, email
-[support@oneuptime.com](mailto:support@oneuptime.com) for an Enterprise Edition
+[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
 license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
 v11 and we'll help you get it back online. If your team is mid-upgrade and this
 is blocking sign-in, contact us before upgrading production so we can plan it
 with you.
 
-OneUptime 11 genopbygger ClickHouse-telemetrilageret. Denne side forklarer, hvad der ændres, hvem der skal handle, og — for installationer der vil bevare historisk telemetri — hver eneste forespørgsel, der skal til.
+Cast Operations 11 genopbygger ClickHouse-telemetrilageret. Denne side forklarer, hvad der ændres, hvem der skal handle, og — for installationer der vil bevare historisk telemetri — hver eneste forespørgsel, der skal til.
 
 ### Hvad ændres i v11
 
@@ -60,7 +60,7 @@ Telemetri (logs, traces, metrikker, exceptions, profiler, monitor-logs, audit-lo
 | `MonitorLogV2`        | `MonitorLogV3`        |
 | `AuditLogV1`          | `AuditLogV2`          |
 
-To kolonner omdøbes i alle telemetritabeller: `serviceId` → `primaryEntityId` og `serviceType` → `primaryEntityType`. Det er en hård omdøbning — **hvis du forespørger OneUptimes analytics-API direkte med `serviceId`-/`serviceType`-filtre, skal du opdatere dem til de nye navne.** Dashboards, monitors og alerts inde i OneUptime migreres automatisk.
+To kolonner omdøbes i alle telemetritabeller: `serviceId` → `primaryEntityId` og `serviceType` → `primaryEntityType`. Det er en hård omdøbning — **hvis du forespørger Cast Operations analytics-API direkte med `serviceId`-/`serviceType`-filtre, skal du opdatere dem til de nye navne.** Dashboards, monitors og alerts inde i Cast Operations migreres automatisk.
 
 Skiftet er **kun fremadrettet**: de nye tabeller starter tomme, al telemetri der indtages efter opgraderingen lander straks i dem, og historikken fyldes naturligt op med tiden. De gamle tabeller **slettes automatisk** under opgraderingen for at frigive deres diskplads — vil du beholde muligheden for at tage historikken med, så omdøb dem **før** opgraderingen (Trin 0 nedenfor).
 
@@ -84,14 +84,14 @@ clickhouse-client --database oneuptime
 
 Godt at vide, før du går i gang:
 
-- Kopien kan køres sikkert, mens OneUptime er live. Ny telemetri skrives uafhængigt til de nye tabeller; den kopierede historik fylder op bagved.
+- Kopien kan køres sikkert, mens Cast Operations er live. Ny telemetri skrives uafhængigt til de nye tabeller; den kopierede historik fylder op bagved.
 - Forvent timer ved stor skala (hundredvis af GB).
 - Hvert statement nedenfor bærer et `insert_deduplication_token`, og de nye tabeller leveres med et deduplikeringsvindue — så **det er sikkert at genkøre et statement, der fejlede undervejs** (allerede indsatte blokke springes over, også i metrik-rollups), forudsat at du genkører det rimelig hurtigt. Under kraftig live-indtagelse fortrænger vinduet (de seneste 10.000 insert-blokke pr. tabel) til sidst gamle tokens.
 - Kopiering af metrikker genopbygger også automatisk de præaggregerede dashboard-rollups (hver kopieret række fodrer rollup-materialized-views igen) — det gør metrik-kopien langsommere end de andre; kør den til sidst.
 
 #### Trin 0 — omdøb de gamle tabeller før opgraderingen
 
-Opgraderingen sletter de gamle tabeller ved opstart, så flyt først dem, du vil kopiere fra, uden for dens rækkevidde. Stop OneUptime (skaler deploymentet ned) så intet skriver til dem eller kan genskabe dem, og omdøb derefter — `RENAME TABLE` er en øjeblikkelig metadata-operation, og `IF EXISTS` lader blokken springe tabeller over, som din installation aldrig har haft (deployments ældre end midt i 10.0.x mangler muligvis `AuditLogV1` eller nogle `…V2`-tabeller — så findes der ingen historik af den type at kopiere):
+Opgraderingen sletter de gamle tabeller ved opstart, så flyt først dem, du vil kopiere fra, uden for dens rækkevidde. Stop Cast Operations (skaler deploymentet ned) så intet skriver til dem eller kan genskabe dem, og omdøb derefter — `RENAME TABLE` er en øjeblikkelig metadata-operation, og `IF EXISTS` lader blokken springe tabeller over, som din installation aldrig har haft (deployments ældre end midt i 10.0.x mangler muligvis `AuditLogV1` eller nogle `…V2`-tabeller — så findes der ingen historik af den type at kopiere):
 
 ```sql
 RENAME TABLE IF EXISTS LogItemV2 TO LogItemV2_backup;
@@ -105,7 +105,7 @@ RENAME TABLE IF EXISTS AuditLogV1 TO AuditLogV1_backup;
 RENAME TABLE IF EXISTS MetricItemAggMV1mByHost TO MetricItemAggMV1mByHost_backup;
 ```
 
-Opgradér derefter, og lad OneUptime starte helt op, før du fortsætter.
+Opgradér derefter, og lad Cast Operations starte helt op, før du fortsætter.
 
 > Ruller du tilbage til v10 efter omdøbningen (v10 genskaber tomme tabeller med de gamle navne ved opstart), så omdøb `_backup`-tabellerne tilbage til deres oprindelige navne, før du genstarter v10 — ellers lander telemetri indtaget under tilbagerulningen i de genskabte tabeller og slettes ved den senere opgradering.
 
@@ -206,20 +206,20 @@ DROP TABLE IF EXISTS MetricItemAggMV1mByHost_backup SETTINGS max_table_size_to_d
 
 > Tip: test som ved enhver større opgradering først i et staging-miljø, og bekræft at telemetri strømmer ind i de nye tabeller, før du stoler på kopien i produktion.
 
-## Opgradering fra OneUptime 9 → 10
+## Opgradering fra Cast Operations 9 → 10
 
 Ingen ændringer, der kræver manuel handling. Følg blot den almindelige opgraderingsproces.
 
-## Opgradering fra OneUptime 8 → 9
+## Opgradering fra Cast Operations 8 → 9
 
-Helm-chartet klargører ikke længere en Kubernetes Ingress-ressource. OneUptime leverer en ingress gateway-container, der allerede afslutter TLS, administrerer statusside-domæner og dirigerer trafik til platformen, så en klynge-ingress-controller er ikke længere nødvendig.
+Helm-chartet klargører ikke længere en Kubernetes Ingress-ressource. Cast Operations leverer en ingress gateway-container, der allerede afslutter TLS, administrerer statusside-domæner og dirigerer trafik til platformen, så en klynge-ingress-controller er ikke længere nødvendig.
 
 - Fjern eventuelle `oneuptimeIngress`-tilsidesættelser fra dine brugerdefinerede `values.yaml`-filer inden opgradering. Disse nøgler ignoreres nu og vil forårsage valideringsfejl, hvis de efterlades.
 - Sørg for, at `nginx.service.type` afspejler, hvordan du vil eksponere den medfølgende ingress gateway (f.eks. `LoadBalancer`, `NodePort` eller `ClusterIP` med en ekstern load balancer).
-- Bekræft, at eventuelle DNS-poster til statussider eller primære hosts stadig peger på den service eller load balancer, der er foran OneUptime-ingress-gatewayen.
+- Bekræft, at eventuelle DNS-poster til statussider eller primære hosts stadig peger på den service eller load balancer, der er foran Cast Operations-ingress-gatewayen.
 - Efter opgraderingen skal du bekræfte, at TLS-certifikater fortsat fornyes via den indlejrede gateway, og at statusside-domæner løses korrekt.
 
-## Opgradering fra OneUptime 7 → 8
+## Opgradering fra Cast Operations 7 → 8
 
 Hvis du kører på Kubernetes, er der vigtige ændringer der bryder bagudkompatibilitet:
 

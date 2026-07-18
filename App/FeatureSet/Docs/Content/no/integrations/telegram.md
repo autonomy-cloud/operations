@@ -1,11 +1,11 @@
 # Telegram-integrasjon
 
-Send hendelsesoppdateringer til en [Telegram](https://telegram.org)-chat eller -gruppe. OneUptime har en innebygd **Telegram**-arbeidsflytkomponent, så oppsettet er raskt.
+Send hendelsesoppdateringer til en [Telegram](https://telegram.org)-chat eller -gruppe. Cast Operations har en innebygd **Telegram**-arbeidsflytkomponent, så oppsettet er raskt.
 
-Denne integrasjonen er **utgående**: OneUptime sender meldinger gjennom en Telegram-bot.
+Denne integrasjonen er **utgående**: Cast Operations sender meldinger gjennom en Telegram-bot.
 
 ```text
-OneUptime Incident → On Create  ──►  Telegram component  ──►  message in your chat
+Cast Operations Incident → On Create  ──►  Telegram component  ──►  message in your chat
 ```
 
 ## Steg 1 — Opprett en bot og hent tokenet
@@ -21,7 +21,7 @@ OneUptime Incident → On Create  ──►  Telegram component  ──►  mess
 
 ## Steg 3 — Lagre hemmelighetene
 
-1. I OneUptime, gå til **Workflows → Global Variables → Create**.
+1. I Cast Operations, gå til **Workflows → Global Variables → Create**.
 2. Opprett `TELEGRAM_BOT_TOKEN` (hemmelig) og `TELEGRAM_CHAT_ID`.
 
 ## Steg 4 — Bygg arbeidsflyten

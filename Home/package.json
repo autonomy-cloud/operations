@@ -4,7 +4,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OneUptime/oneuptime"
+    "url": "https://github.com/autonomy-cloud/operations"
   },
   "main": "Index.ts",
   "scripts": {
@@ -17,7 +17,7 @@
     "test": "rm -rf build && jest --detectOpenHandles",
     "coverage": "jest --detectOpenHandles --coverage"
   },
-  "author": "OneUptime <hello@oneuptime.com> (https://oneuptime.com/)",
+  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
   "license": "Apache-2.0",
   "dependencies": {
     "Common": "file:../Common",

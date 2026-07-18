@@ -1,6 +1,6 @@
-# Arquitectura auto-alojada de OneUptime
+# Arquitectura auto-alojada de Cast Operations
 
-Este diagrama muestra el aspecto típico de OneUptime cuando se auto-aloja en tu entorno (por ejemplo, en tu clúster Kubernetes), incluyendo cómo las sondas monitorean tanto los recursos internos como los externos.
+Este diagrama muestra el aspecto típico de Cast Operations cuando se auto-aloja en tu entorno (por ejemplo, en tu clúster Kubernetes), incluyendo cómo las sondas monitorean tanto los recursos internos como los externos.
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["Ingesta de solicitudes entrantes"]
     end
 
-    subgraph Probes["Sondas de OneUptime"]
+    subgraph Probes["Sondas de Cast Operations"]
       direction TB
       P1["Pods de sonda en tu clúster"]
       P2["Sonda opcional VM/Contenedor en tu red"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## Qué muestra esto
 
-- Los usuarios finales acceden a OneUptime a través del Ingreso de tu clúster (NGINX), que enruta a la UI y la API.
+- Los usuarios finales acceden a Cast Operations a través del Ingreso de tu clúster (NGINX), que enruta a la UI y la API.
 - Los servicios principales leen/escriben el estado en PostgreSQL, Redis y ClickHouse.
 - Las sondas pueden ejecutarse dentro de tu clúster (recomendado) y/o en otro lugar de tu red. Pueden monitorear:
   - Servicios internos/privados detrás de tu firewall.

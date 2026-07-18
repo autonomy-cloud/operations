@@ -1,22 +1,22 @@
-# Skicka Syslog-data till OneUptime
+# Skicka Syslog-data till Cast Operations
 
 ## Översikt
 
-OpenTelemetry Ingest-tjänsten accepterar nu inbyggda Syslog-nyttolaster. Du kan vidarebefordra meddelanden från valfri RFC3164- eller RFC5424-kompatibel källa direkt till OneUptime via HTTPS. OneUptime tolkar syslog-prioriteten, anläggningen, allvarlighetsgraden, strukturerad data och meddelandetexten innan allt lagras som sökbara loggar.
+OpenTelemetry Ingest-tjänsten accepterar nu inbyggda Syslog-nyttolaster. Du kan vidarebefordra meddelanden från valfri RFC3164- eller RFC5424-kompatibel källa direkt till Cast Operations via HTTPS. Cast Operations tolkar syslog-prioriteten, anläggningen, allvarlighetsgraden, strukturerad data och meddelandetexten innan allt lagras som sökbara loggar.
 
 ## Förutsättningar
 
 - **Telemetriintagningstoken** – skapa en från _Projektinställningar → Telemetriintagningsnycklar_ och kopiera `x-oneuptime-token`-värdet.
 - **Syslog-vidarebefordrare** – vilket verktyg som helst som kan skicka HTTP POST-förfrågningar (t.ex. `curl`, `rsyslog` via `omhttp` eller `syslog-ng` med HTTP-destinationsplugin:et).
-- **Tjänstnamn (valfritt)** – ange `x-oneuptime-service-name`-huvudet för att gruppera inkommande loggar under en specifik telemetritjänst. När det utelämnas faller OneUptime tillbaka på syslog `APP-NAME`, värdnamn eller `Syslog`.
+- **Tjänstnamn (valfritt)** – ange `x-oneuptime-service-name`-huvudet för att gruppera inkommande loggar under en specifik telemetritjänst. När det utelämnas faller Cast Operations tillbaka på syslog `APP-NAME`, värdnamn eller `Syslog`.
 
 ## Slutpunkt
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- Ersätt `oneuptime.com` med din värd om du egeninstallerar OneUptime.
+- Ersätt `visca.ai` med din värd om du egeninstallerar Cast Operations.
 - Inkludera alltid `x-oneuptime-token`-huvudet i förfrågan.
 
 ## Förfrågningsinnehåll
@@ -42,7 +42,7 @@ Skicka radavgränsade Syslog-strängar eller en JSON-nyttolast med en `messages`
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -92,7 +92,7 @@ curl \
 
 ### 1. Nätverks- och säkerhetsapparater
 
-De flesta nätverksutrustningar exponerar fortfarande konfigurationsändringar, ACL-träffar och hotidentifieringar uteslutande via syslog. Peka ditt befintliga relä (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense och mer) direkt till OneUptime, eller behåll ett internt relä och vidarebefordra via HTTPS.
+De flesta nätverksutrustningar exponerar fortfarande konfigurationsändringar, ACL-träffar och hotidentifieringar uteslutande via syslog. Peka ditt befintliga relä (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense och mer) direkt till Cast Operations, eller behåll ett internt relä och vidarebefordra via HTTPS.
 
 ### 2. Linux-servrar och cron-jobb
 
@@ -104,11 +104,11 @@ Om du redan kör FluentBit eller Fluentd, behåll dem för containerloggar och l
 
 ### 4. Efterlevnadsarkiv utan väntan
 
-Behöver du behålla brandväggsloggar för PCI eller SOX? Skicka dem direkt till OneUptime, tillämpa en lång lagringspolicy på telemetritjänsten och exportera till kall lagring från ett enda ställe.
+Behöver du behålla brandväggsloggar för PCI eller SOX? Skicka dem direkt till Cast Operations, tillämpa en lång lagringspolicy på telemetritjänsten och exportera till kall lagring från ett enda ställe.
 
 ## Tolkade attribut
 
-OneUptime lägger automatiskt till följande attribut för varje loggpost:
+Cast Operations lägger automatiskt till följande attribut för varje loggpost:
 
 - `syslog.priority`, `syslog.facility.code`, `syslog.facility.name`
 - `syslog.severity.code`, `syslog.severity.name`

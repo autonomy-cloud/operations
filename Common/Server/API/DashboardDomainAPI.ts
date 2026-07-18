@@ -38,7 +38,7 @@ export default class DashboardDomainAPI extends BaseAPI<
               res,
               new BadDataException(
                 `Custom Domains not enabled for this
-                                OneUptime installation. Please contact
+                                Cast Operations installation. Please contact
                                 your server admin to enable this
                                 feature.`,
               ),
@@ -131,7 +131,7 @@ export default class DashboardDomainAPI extends BaseAPI<
               res,
               new BadDataException(
                 `Custom Domains not enabled for this
-                                OneUptime installation. Please contact
+                                Cast Operations installation. Please contact
                                 your server admin to enable this
                                 feature.`,
               ),

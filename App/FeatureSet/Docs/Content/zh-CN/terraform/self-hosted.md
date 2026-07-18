@@ -1,16 +1,16 @@
-# 自托管 OneUptime Terraform 配置指南
+# 自托管 Cast Operations Terraform 配置指南
 
-本指南专门针对运行自托管 OneUptime 实例的客户。它涵盖了使用 Terraform 提供商与您自己的 OneUptime 部署时的版本管理、配置和最佳实践。
+本指南专门针对运行自托管 Cast Operations 实例的客户。它涵盖了使用 Terraform 提供商与您自己的 Cast Operations 部署时的版本管理、配置和最佳实践。
 
 ## 重要提示
 
-⚠️ **无法通过 Terraform 创建项目** - 必须先在 OneUptime 控制台中手动创建项目。在您的 Terraform 配置中使用项目 ID。
+⚠️ **无法通过 Terraform 创建项目** - 必须先在 Cast Operations 控制台中手动创建项目。在您的 Terraform 配置中使用项目 ID。
 
-⚠️ **自托管客户最重要的规则**：始终将您的 Terraform 提供商版本固定到与您的 OneUptime 安装版本完全匹配的版本。
+⚠️ **自托管客户最重要的规则**：始终将您的 Terraform 提供商版本固定到与您的 Cast Operations 安装版本完全匹配的版本。
 
 ## 资源结构
 
-所有 OneUptime Terraform 资源遵循简化结构：
+所有 Cast Operations Terraform 资源遵循简化结构：
 
 - `name`（必填）- 资源名称
 - `description`（可选）- 资源描述
@@ -18,32 +18,32 @@
 
 ## 关键：版本兼容性
 
-⚠️ **自托管客户最重要的规则**：始终将您的 Terraform 提供商版本固定到与您的 OneUptime 安装版本完全匹配的版本。
+⚠️ **自托管客户最重要的规则**：始终将您的 Terraform 提供商版本固定到与您的 Cast Operations 安装版本完全匹配的版本。
 
 ### 为什么版本固定至关重要
 
-- Terraform 提供商是从 OneUptime API 自动生成的
-- 每个 OneUptime 版本可能有不同的 API 端点和 Schema
+- Terraform 提供商是从 Cast Operations API 自动生成的
+- 每个 Cast Operations 版本可能有不同的 API 端点和 Schema
 - 使用不匹配的提供商版本可能导致错误或意外行为
 - 版本固定确保兼容性和可预测的行为
 
-## 查找您的 OneUptime 版本
+## 查找您的 Cast Operations 版本
 
 ### 方法一：控制台
 
-1. 登录您的 OneUptime 控制台
+1. 登录您的 Cast Operations 控制台
 2. 前往 **设置** → **关于**
 3. 查找版本号（例如"7.0.123"）
 
 ### 方法二：API 端点
 
 ```bash
-curl https://your-oneuptime-instance.com/api/status
+curl https://your-operations-instance.com/api/status
 ```
 
 ### 方法三：Docker 镜像
 
-如果您使用 Docker 运行 OneUptime：
+如果您使用 Docker 运行 Cast Operations：
 
 ```bash
 docker images | grep oneuptime
@@ -75,7 +75,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 替换 123 为您的确切构建号
     }
   }
@@ -83,7 +83,7 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # 您的自托管 URL
+  oneuptime_url = "https://operations.yourcompany.com"  # 您的自托管 URL
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -94,7 +94,7 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # 替换为您的确切版本
     }
   }
@@ -102,22 +102,22 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## 完整的自托管配置示例
 
-以下是自托管 OneUptime 实例的完整示例：
+以下是自托管 Cast Operations 实例的完整示例：
 
 ```hcl
 # versions.tf
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # 必须与您的 OneUptime 版本匹配
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # 必须与您的 Cast Operations 版本匹配
     }
   }
   required_version = ">= 1.0"
@@ -132,13 +132,13 @@ terraform {
 
 # variables.tf
 variable "oneuptime_url" {
-  description = "OneUptime 实例 URL"
+  description = "Cast Operations 实例 URL"
   type        = string
-  default     = "https://oneuptime.yourcompany.com"
+  default     = "https://operations.yourcompany.com"
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API 密钥"
+  description = "Cast Operations API 密钥"
   type        = string
   sensitive   = true
 }
@@ -157,7 +157,7 @@ provider "oneuptime" {
 
 # variables.tf
 variable "project_id" {
-  description = "OneUptime 项目 ID（在控制台中手动创建）"
+  description = "Cast Operations 项目 ID（在控制台中手动创建）"
   type        = string
 }
 
@@ -290,7 +290,7 @@ output "status_page_url" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://oneuptime-dev.yourcompany.com"
+oneuptime_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -298,7 +298,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://oneuptime-staging.yourcompany.com"
+oneuptime_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -306,13 +306,13 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://oneuptime.yourcompany.com"
+oneuptime_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
 ## 自托管升级流程
 
-升级您的 OneUptime 实例时：
+升级您的 Cast Operations 实例时：
 
 ### 1. 升级前检查清单
 
@@ -320,16 +320,16 @@ environment = "production"
 # 备份当前 Terraform 状态
 terraform state pull > backup-$(date +%Y%m%d).tfstate
 
-# 记录当前 OneUptime 版本
-curl https://oneuptime.yourcompany.com/api/status | jq '.version'
+# 记录当前 Cast Operations 版本
+curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # 记录当前提供商版本
 terraform providers | grep oneuptime
 ```
 
-### 2. 升级 OneUptime 实例
+### 2. 升级 Cast Operations 实例
 
-按照您的标准 OneUptime 升级流程（Docker、Helm 等）
+按照您的标准 Cast Operations 升级流程（Docker、Helm 等）
 
 ### 3. 更新 Terraform 提供商
 
@@ -338,7 +338,7 @@ terraform providers | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # 升级后的新版本
     }
   }
@@ -364,12 +364,12 @@ terraform apply
 
 确保您的 Terraform 运行器可以访问：
 
-- OneUptime API 端点（通常是 443 端口/HTTPS）
+- Cast Operations API 端点（通常是 443 端口/HTTPS）
 - 任何被监控的内部资源
 
 ### VPN/私有网络
 
-如果 OneUptime 在私有网络上：
+如果 Cast Operations 在私有网络上：
 
 ```hcl
 provider "oneuptime" {
@@ -403,7 +403,7 @@ export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
 ```hcl
 # 带 TLS 验证的示例
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 
   # 如果支持的话，添加其他安全选项
@@ -441,7 +441,7 @@ Error: connection refused
 
 **解决方案**：
 
-1. 检查 OneUptime 实例是否正在运行
+1. 检查 Cast Operations 实例是否正在运行
 2. 验证 API URL 是否正确
 3. 检查防火墙/网络连接
 4. 验证 TLS 证书是否有效
@@ -454,7 +454,7 @@ Error: API version incompatible
 
 **解决方案**：
 
-1. 检查 OneUptime 版本：`curl https://your-instance/api/status`
+1. 检查 Cast Operations 版本：`curl https://your-instance/api/status`
 2. 将提供商版本更新为匹配版本
 3. 运行 `terraform init -upgrade`
 

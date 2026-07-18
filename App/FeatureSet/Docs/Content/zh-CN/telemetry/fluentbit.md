@@ -1,12 +1,12 @@
-# 使用 FluentBit 向 OneUptime 发送遥测数据
+# 使用 FluentBit 向 Cast Operations 发送遥测数据
 
 ## 概述
 
-您可以使用 [FluentBit](https://docs.fluentbit.io/manual) 插件从您的应用程序和服务中收集日志和遥测数据。该插件将遥测数据发送到 OneUptime OpenTelemetry HTTP 收集器。您可以使用 FluentBit 的 opentelemetry 输出插件将遥测数据发送到 OneUptime OpenTelemetry HTTP 收集器。该插件可在此处找到：https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
+您可以使用 [FluentBit](https://docs.fluentbit.io/manual) 插件从您的应用程序和服务中收集日志和遥测数据。该插件将遥测数据发送到 Cast Operations OpenTelemetry HTTP 收集器。您可以使用 FluentBit 的 opentelemetry 输出插件将遥测数据发送到 Cast Operations OpenTelemetry HTTP 收集器。该插件可在此处找到：https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
 
 ## 入门
 
-FluentBit 支持数百种数据源，您可以将来自任何数据源的日志和遥测数据摄取到 OneUptime 中。一些常用数据源包括：
+FluentBit 支持数百种数据源，您可以将来自任何数据源的日志和遥测数据摄取到 Cast Operations 中。一些常用数据源包括：
 
 - Docker
 - Syslog
@@ -30,11 +30,11 @@ FluentBit 支持数百种数据源，您可以将来自任何数据源的日志�
 ## 前提条件
 
 - **第一步：在您的系统上安装 FluentBit** - 您可以使用[此处](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)提供的说明安装 FluentBit
-- **第二步：注册 OneUptime 账号** - 您可以在[此处](https://oneuptime.com)注册免费账号。请注意，虽然账号是免费的，但日志摄取是付费功能。您可以在[此处](https://oneuptime.com/pricing)找到有关定价的更多详细信息。
-- **第三步：创建 OneUptime 项目** - 拥有账号后，您可以从 OneUptime 控制台创建项目。如果您在创建项目方面需要帮助或有任何问题，请通过 support@oneuptime.com 联系我们。
-- **第四步：创建遥测摄取令牌** - 创建 OneUptime 账号后，您可以创建遥测摄取令牌，用于从应用程序摄取日志、指标和追踪数据。
+- **第二步：注册 Cast Operations 账号** - 您可以在[此处](https://visca.ai)注册免费账号。请注意，虽然账号是免费的，但日志摄取是付费功能。您可以在[此处](https://visca.ai/pricing)找到有关定价的更多详细信息。
+- **第三步：创建 Cast Operations 项目** - 拥有账号后，您可以从 Cast Operations 控制台创建项目。如果您在创建项目方面需要帮助或有任何问题，请通过 support@visca.ai 联系我们。
+- **第四步：创建遥测摄取令牌** - 创建 Cast Operations 账号后，您可以创建遥测摄取令牌，用于从应用程序摄取日志、指标和追踪数据。
 
-注册 OneUptime 并创建项目后。点击导航栏中的"更多"，然后点击"项目设置"。
+注册 Cast Operations 并创建项目后。点击导航栏中的"更多"，然后点击"项目设置"。
 
 在遥测摄取密钥页面，点击"创建摄取密钥"以创建令牌。
 
@@ -46,7 +46,7 @@ FluentBit 支持数百种数据源，您可以将来自任何数据源的日志�
 
 ## 配置
 
-您可以使用以下配置将遥测数据发送到 OneUptime OpenTelemetry HTTP 收集器。您可以将此配置添加到 FluentBit 配置文件中。配置文件通常位于 `/etc/fluent-bit/fluent-bit.yaml`。以下是配置文件的 outputs 部分示例：
+您可以使用以下配置将遥测数据发送到 Cast Operations OpenTelemetry HTTP 收集器。您可以将此配置添加到 FluentBit 配置文件中。配置文件通常位于 `/etc/fluent-bit/fluent-bit.yaml`。以下是配置文件的 outputs 部分示例：
 
 ```yaml
 outputs:
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "oneuptime.com"
+    host: "visca.ai"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "oneuptime.com"
+      host: "visca.ai"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -121,7 +121,7 @@ pipeline:
         - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
-**如果您是自托管 OneUptime**：如果您是自托管 OneUptime，可以将 `host` 替换为您的 OneUptime 实例的主机名。如果您在 HTTP 服务器而非 HTTPS 上托管，可以将 `port` 替换为您的 OneUptime 实例的端口（可能是 80 端口）。
+**如果您是自托管 Cast Operations**：如果您是自托管 Cast Operations，可以将 `host` 替换为您的 Cast Operations 实例的主机名。如果您在 HTTP 服务器而非 HTTPS 上托管，可以将 `port` 替换为您的 Cast Operations 实例的端口（可能是 80 端口）。
 
 在这种情况下，配置应如下所示：
 
@@ -131,7 +131,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "your-oneuptime-instance.com"
+    host: "your-operations-instance.com"
     port: 80
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## 使用
 
-将配置添加到 FluentBit 配置文件后，您可以重启 FluentBit 服务。服务重启后，遥测数据将被发送到 OneUptime HTTP 源。您现在可以在 OneUptime 控制台中看到遥测数据。如果您有任何问题或需要配置方面的帮助，请通过 support@oneuptime.com 联系我们。
+将配置添加到 FluentBit 配置文件后，您可以重启 FluentBit 服务。服务重启后，遥测数据将被发送到 Cast Operations HTTP 源。您现在可以在 Cast Operations 控制台中看到遥测数据。如果您有任何问题或需要配置方面的帮助，请通过 support@visca.ai 联系我们。

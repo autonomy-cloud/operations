@@ -25,7 +25,6 @@ import SettingFeatureFlags from "../Pages/Settings/FeatureFlags";
 
 import SettingsDomains from "../Pages/Settings/Domains";
 
-import SettingsBilling from "../Pages/Settings/Billing";
 import SettingsSSO from "../Pages/Settings/SSO";
 import SettingsOIDC from "../Pages/Settings/OIDC";
 
@@ -33,11 +32,8 @@ import SettingsSCIM from "../Pages/Settings/SCIM";
 
 import SettingsNotificationLogs from "../Pages/Settings/NotificationLogs";
 import SettingsNotifications from "../Pages/Settings/NotificationSettings";
-import SettingsInvoices from "../Pages/Settings/Invoices";
 
 import SettingsMicrosoftTeamsIntegration from "../Pages/Settings/MicrosoftTeamsIntegration";
-
-import SettingsUsageHistory from "../Pages/Settings/UsageHistory";
 
 import SettingsSlackIntegration from "../Pages/Settings/SlackIntegration";
 
@@ -53,8 +49,6 @@ import SettingsLlmProviderView from "../Pages/Settings/LlmProviderView";
 import SettingsAIAgents from "../Pages/Settings/AIAgents";
 
 import SettingsAIAgentView from "../Pages/Settings/AIAgentView";
-
-import SettingsAICredits from "../Pages/Settings/AICredits";
 
 import SettingsAILogs from "../Pages/Settings/AILogs";
 
@@ -166,16 +160,6 @@ const SettingsRoutes: FunctionComponent<ComponentProps> = (
         />
 
         <PageRoute
-          path={RouteUtil.getLastPathForKey(PageMap.SETTINGS_AI_CREDITS)}
-          element={
-            <SettingsAICredits
-              {...props}
-              pageRoute={RouteMap[PageMap.SETTINGS_AI_CREDITS] as Route}
-            />
-          }
-        />
-
-        <PageRoute
           path={RouteUtil.getLastPathForKey(PageMap.SETTINGS_AI_LOGS)}
           element={
             <SettingsAILogs
@@ -191,16 +175,6 @@ const SettingsRoutes: FunctionComponent<ComponentProps> = (
             <SettingsMcpServer
               {...props}
               pageRoute={RouteMap[PageMap.SETTINGS_MCP_SERVER] as Route}
-            />
-          }
-        />
-
-        <PageRoute
-          path={RouteUtil.getLastPathForKey(PageMap.SETTINGS_USAGE_HISTORY)}
-          element={
-            <SettingsUsageHistory
-              {...props}
-              pageRoute={RouteMap[PageMap.SETTINGS_USAGE_HISTORY] as Route}
             />
           }
         />
@@ -350,26 +324,6 @@ const SettingsRoutes: FunctionComponent<ComponentProps> = (
             <SettingsTelemetrySettings
               {...props}
               pageRoute={RouteMap[PageMap.SETTINGS_TELEMETRY_SETTINGS] as Route}
-            />
-          }
-        />
-
-        <PageRoute
-          path={RouteUtil.getLastPathForKey(PageMap.SETTINGS_BILLING)}
-          element={
-            <SettingsBilling
-              {...props}
-              pageRoute={RouteMap[PageMap.SETTINGS_BILLING] as Route}
-            />
-          }
-        />
-
-        <PageRoute
-          path={RouteUtil.getLastPathForKey(PageMap.SETTINGS_BILLING_INVOICES)}
-          element={
-            <SettingsInvoices
-              {...props}
-              pageRoute={RouteMap[PageMap.SETTINGS_BILLING_INVOICES] as Route}
             />
           }
         />

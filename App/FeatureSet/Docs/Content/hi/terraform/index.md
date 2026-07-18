@@ -1,12 +1,12 @@
 # Terraform Provider Documentation
 
-OneUptime Terraform Provider आपको Terraform के माध्यम से Infrastructure as Code (IaC) management करने की अनुमति देता है — monitoring, alerting और observability resources के लिए।
+Cast Operations Terraform Provider आपको Terraform के माध्यम से Infrastructure as Code (IaC) management करने की अनुमति देता है — monitoring, alerting और observability resources के लिए।
 
 ## Documentation Sections
 
 ### [Getting Started](./quick-start.md)
 
-OneUptime Terraform Provider के साथ मिनटों में शुरू करने के लिए Quick setup guide।
+Cast Operations Terraform Provider के साथ मिनटों में शुरू करने के लिए Quick setup guide।
 
 ### [Complete Provider Guide](./README.md)
 
@@ -18,24 +18,24 @@ Installation, configuration, resources और best practices को cover कर
 
 ### [Examples](./examples.md)
 
-सामान्य OneUptime Terraform configurations के लिए real-world examples और patterns।
+सामान्य Cast Operations Terraform configurations के लिए real-world examples और patterns।
 
 ## Quick Links
 
-### OneUptime Cloud Customers के लिए
+### Cast Operations Cloud Customers के लिए
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # अपने OneUptime version से match होना चाहिए
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # अपने Cast Operations version से match होना चाहिए
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Self-Hosted Users के लिए महत्वपूर्ण
 
-**Version Compatibility Critical है**: Terraform provider version को हमेशा exactly अपने OneUptime installation version से match करने के लिए pin करें। Mismatched versions API compatibility issues पैदा कर सकते हैं।
+**Version Compatibility Critical है**: Terraform provider version को हमेशा exactly अपने Cast Operations installation version से match करने के लिए pin करें। Mismatched versions API compatibility issues पैदा कर सकते हैं।
 
 ## External Resources
 
-- **Terraform Registry**: [OneUptime Provider](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub Repository**: [OneUptime Source Code](https://github.com/OneUptime/oneuptime)
-- **Community Support**: [OneUptime Community](https://community.oneuptime.com)
+- **Terraform Registry**: [Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub Repository**: [Cast Operations Source Code](https://github.com/autonomy-cloud/operations)
+- **Community Support**: [Cast Operations Community](https://community.visca.ai)
 
 ## उपलब्ध Resources
 
-Provider, OneUptime resource management का व्यापक समर्थन करता है:
+Provider, Cast Operations resource management का व्यापक समर्थन करता है:
 
 - **Projects & Teams**: अपनी monitoring structure organize करें
 - **Monitors**: Website, API, port, heartbeat और custom monitors
@@ -83,9 +83,9 @@ Provider, OneUptime resource management का व्यापक समर्�
 
 Issues, questions, या contributions के लिए:
 
-1. **Documentation Issues**: [OneUptime repository](https://github.com/OneUptime/oneuptime/issues) में issue बनाएं
-2. **Provider Bugs**: main OneUptime repository में report करें
-3. **Feature Requests**: OneUptime community में discuss करें
+1. **Documentation Issues**: [Cast Operations repository](https://github.com/autonomy-cloud/operations/issues) में issue बनाएं
+2. **Provider Bugs**: main Cast Operations repository में report करें
+3. **Feature Requests**: Cast Operations community में discuss करें
 4. **General Questions**: community forums उपयोग करें
 
 ## Next Steps

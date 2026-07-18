@@ -23,7 +23,7 @@ class JSONWebToken {
       name: Name;
       timezone: Timezone | null; // User's timezone
       isMasterAdmin: boolean;
-      // If this is OneUptime username and password login. This is true, if this is SSO login. Then, this is false.
+      // If this is Cast Operations username and password login. This is true, if this is SSO login. Then, this is false.
       isGlobalLogin: boolean;
       sessionId: ObjectID;
     };

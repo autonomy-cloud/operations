@@ -28,7 +28,7 @@ Es el mismo panel en ambos modos. No hay un paso separado de "publicar"; cada ed
 
 La mayoría de los widgets leen desde uno de tres lugares:
 
-- **Métricas** — elige una métrica y una agregación (promedio, máximo, conteo, percentil). Añade filtros. Elige cómo agrupar el resultado. Este es el mismo constructor de consultas que ves en otras partes de OneUptime.
+- **Métricas** — elige una métrica y una agregación (promedio, máximo, conteo, percentil). Añade filtros. Elige cómo agrupar el resultado. Este es el mismo constructor de consultas que ves en otras partes de Cast Operations.
 - **Listas en vivo** — incidentes, alertas, monitores, pods de Kubernetes, contenedores de Docker, hosts. Cada widget de lista toma un filtro y muestra los elementos que coinciden, actualizados en vivo.
 - **Contenido estático** — el widget **Texto** toma un bloque de Markdown. Úsalo para encabezados, contexto, enlaces a runbooks o notas temporales durante un incidente.
 

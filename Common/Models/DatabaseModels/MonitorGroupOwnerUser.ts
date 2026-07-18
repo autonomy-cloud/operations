@@ -152,7 +152,7 @@ export default class MonitorGroupOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -233,7 +233,7 @@ export default class MonitorGroupOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "User ID",
-    description: "ID of your OneUptime User in which this object belongs",
+    description: "ID of your Cast Operations User in which this object belongs",
     example: "d3e4f5a6-b7c8-9d0e-1f2a-3b4c5d6e7f8a",
   })
   @Column({
@@ -315,7 +315,7 @@ export default class MonitorGroupOwnerUser extends BaseModel {
     canReadOnRelationQuery: true,
     title: "MonitorGroup ID",
     description:
-      "ID of your OneUptime MonitorGroup in which this object belongs",
+      "ID of your Cast Operations MonitorGroup in which this object belongs",
     example: "b1c2d3e4-f5a6-7b8c-9d0e-1f2a3b4c5d6e",
   })
   @Column({

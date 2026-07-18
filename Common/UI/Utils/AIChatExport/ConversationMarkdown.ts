@@ -126,7 +126,7 @@ export default function convertConversationToMarkdown(
   const lines: Array<string> = [
     `# ${options.title || "AI conversation"}`,
     "",
-    `_Exported from OneUptime on ${OneUptimeDate.getDateAsLocalFormattedString(
+    `_Exported from Cast Operations on ${OneUptimeDate.getDateAsLocalFormattedString(
       options.exportedAt,
     )}_`,
     "",

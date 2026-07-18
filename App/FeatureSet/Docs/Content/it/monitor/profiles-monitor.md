@@ -1,6 +1,6 @@
 # Monitor Profili
 
-Il monitoraggio dei profili consente di monitorare i dati di profiling continuo delle proprie applicazioni e attivare avvisi basati su conteggi e pattern di profilo. OneUptime valuta i dati di profilo dei propri servizi di telemetria in una finestra temporale.
+Il monitoraggio dei profili consente di monitorare i dati di profiling continuo delle proprie applicazioni e attivare avvisi basati su conteggi e pattern di profilo. Cast Operations valuta i dati di profilo dei propri servizi di telemetria in una finestra temporale.
 
 ## Panoramica
 
@@ -14,7 +14,7 @@ I monitor profili contano e filtrano i dati di profiling corrispondenti a criter
 
 ## Creazione di un Monitor Profili
 
-1. Accedere a **Monitor** nel Dashboard di OneUptime
+1. Accedere a **Monitor** nel Dashboard di Cast Operations
 2. Fare clic su **Crea Monitor**
 3. Selezionare **Profili** come tipo di monitor
 4. Selezionare i servizi di telemetria da monitorare
@@ -24,7 +24,7 @@ I monitor profili contano e filtrano i dati di profiling corrispondenti a criter
 
 ### Servizi di Telemetria
 
-Selezionare uno o più servizi da cui monitorare i profili. I servizi devono inviare dati di profiling continuo a OneUptime tramite OpenTelemetry.
+Selezionare uno o più servizi da cui monitorare i profili. I servizi devono inviare dati di profiling continuo a Cast Operations tramite OpenTelemetry.
 
 ### Filtri Profilo
 
@@ -62,4 +62,4 @@ Selezionare uno o più servizi da cui monitorare i profili. I servizi devono inv
 
 ## Requisiti di Configurazione
 
-Il monitoraggio dei profili richiede che le proprie applicazioni inviino dati di profiling continuo a OneUptime tramite OpenTelemetry. Vedere la documentazione [OpenTelemetry](/docs/telemetry/open-telemetry) per le istruzioni di configurazione.
+Il monitoraggio dei profili richiede che le proprie applicazioni inviino dati di profiling continuo a Cast Operations tramite OpenTelemetry. Vedere la documentazione [OpenTelemetry](/docs/telemetry/open-telemetry) per le istruzioni di configurazione.

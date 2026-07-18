@@ -2,16 +2,16 @@
 
 ## Overzicht
 
-OneUptime groepeert beheerde cloud-compute in **Cloud-omgevingen** — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner en Azure App Service. Er wordt één omgeving aangemaakt per unieke combinatie van `cloud.platform` + `cloud.account.id` + `cloud.region`, dus iets als _"AWS ECS · us-east-1 · 123456789012"_ is één entiteit die elke workload aggregeert die erop draait.
+Cast Operations groepeert beheerde cloud-compute in **Cloud-omgevingen** — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner en Azure App Service. Er wordt één omgeving aangemaakt per unieke combinatie van `cloud.platform` + `cloud.account.id` + `cloud.region`, dus iets als _"AWS ECS · us-east-1 · 123456789012"_ is één entiteit die elke workload aggregeert die erop draait.
 
 Onbewerkte virtuele machines (EC2, Compute Engine, Azure VM) blijven **Hosts**, en Kubernetes blijft onder **Kubernetes** vallen. Deze weergave is specifiek voor beheerde / PaaS-compute.
 
 ## Vereisten
 
-- Een **OneUptime Telemetry Ingestion Token** — maak er een aan via _Project Settings → Telemetry Ingestion Keys_.
+- Een **Cast Operations Telemetry Ingestion Token** — maak er een aan via _Project Settings → Telemetry Ingestion Keys_.
 - Een OpenTelemetry Collector of SDK die in/naast je workloads draait.
 
-## Hoe OneUptime een omgeving identificeert
+## Hoe Cast Operations een omgeving identificeert
 
 | Attribuut             | Vereist | Doel                                                                                              |
 | --------------------- | ------- | ------------------------------------------------------------------------------------------------- |
@@ -39,12 +39,12 @@ Stel bij een SDK in plaats daarvan `OTEL_RESOURCE_DETECTORS` in:
 OTEL_RESOURCE_DETECTORS=env,ecs
 ```
 
-## Stap 2 — Exporteer OTLP naar OneUptime
+## Stap 2 — Exporteer OTLP naar Cast Operations
 
 ```yaml
 exporters:
   otlphttp/oneuptime:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -64,7 +64,7 @@ service:
       exporters: [otlphttp/oneuptime]
 ```
 
-Als je OneUptime zelf host, gebruik dan `https://YOUR-ONEUPTIME-HOST/otlp`.
+Als je Cast Operations zelf host, gebruik dan `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Wat je krijgt
 

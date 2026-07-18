@@ -60,7 +60,7 @@
 
 ### Webhook からペイロードを組み立てる
 
-`{ "service": "checkout", "status": "failed" }` のようなボディで Webhook が届きます。これを OneUptime のインシデントに変えるには:
+`{ "service": "checkout", "status": "failed" }` のようなボディで Webhook が届きます。これを Cast Operations のインシデントに変えるには:
 
 1. `CIWebhook` という名前の **Webhook** トリガー。
 2. **Conditions** ブロック: 左 `{{CIWebhook.Request Body.status}}`、演算子 `==`、右 `failed`。

@@ -1,6 +1,6 @@
-# OneUptime 自托管架构
+# Cast Operations 自托管架构
 
-此图展示了 OneUptime 在您的环境（例如 Kubernetes 集群）中自托管时的典型架构，包括探针如何监控内部和外部资源。
+此图展示了 Cast Operations 在您的环境（例如 Kubernetes 集群）中自托管时的典型架构，包括探针如何监控内部和外部资源。
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["传入请求数据摄取"]
     end
 
-    subgraph Probes["OneUptime 探针"]
+    subgraph Probes["Cast Operations 探针"]
       direction TB
       P1["集群内的探针 Pod"]
       P2["网络上的可选探针虚拟机/容器"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## 图示说明
 
-- 终端用户通过集群的入口（NGINX）访问 OneUptime，该入口将请求路由到 UI 和 API。
+- 终端用户通过集群的入口（NGINX）访问 Cast Operations，该入口将请求路由到 UI 和 API。
 - 核心服务从 PostgreSQL、Redis 和 ClickHouse 读写状态。
 - 探针可以在集群内（推荐）和/或网络其他地方运行。它们可以监控：
   - 防火墙后面的内部/私有服务。

@@ -65,7 +65,7 @@ const PodmanHostDocumentation: FunctionComponent<
     <Fragment>
       <PodmanDocumentationCard
         title="Podman Agent Installation Guide"
-        description="Follow these steps to install the OneUptime Podman Agent on this host."
+        description="Follow these steps to install the Cast Operations Podman Agent on this host."
       />
     </Fragment>
   );

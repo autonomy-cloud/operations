@@ -1,6 +1,6 @@
 # Metrics Monitor
 
-Metrics-monitoring stelt u in staat aangepaste applicatie- en infrastructuurmetrics te bewaken die worden verzameld via OpenTelemetry. OneUptime evalueert metriekwaarden over een tijdvenster en activeert meldingen op basis van uw geconfigureerde criteria.
+Metrics-monitoring stelt u in staat aangepaste applicatie- en infrastructuurmetrics te bewaken die worden verzameld via OpenTelemetry. Cast Operations evalueert metriekwaarden over een tijdvenster en activeert meldingen op basis van uw geconfigureerde criteria.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Metrics-monitors bevragen en evalueren numerieke metrics van uw telemetriedienst
 
 ## Een Metrics Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Metrics** als het monitortype
 4. Configureer metriekopvragen en optionele formules
@@ -105,4 +105,4 @@ Kies hoe de metriekwaarden voor evaluatie worden geaggregeerd:
 
 ## Installatievereisten
 
-Metrics-monitoring vereist dat uw applicaties of infrastructuur metrics via OpenTelemetry naar OneUptime sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.
+Metrics-monitoring vereist dat uw applicaties of infrastructuur metrics via OpenTelemetry naar Cast Operations sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.

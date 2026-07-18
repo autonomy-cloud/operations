@@ -1,16 +1,16 @@
-# 自架 OneUptime Terraform 設定指南
+# 自架 Cast Operations Terraform 設定指南
 
-本指南專為執行自架 OneUptime 實例的客戶而撰寫。內容涵蓋版本管理、設定，以及搭配您自己的 OneUptime 部署使用 Terraform provider 的最佳實踐。
+本指南專為執行自架 Cast Operations 實例的客戶而撰寫。內容涵蓋版本管理、設定，以及搭配您自己的 Cast Operations 部署使用 Terraform provider 的最佳實踐。
 
 ## 重要注意事項
 
-⚠️ **無法透過 Terraform 建立專案** - 專案必須先在 OneUptime 儀表板中手動建立。請在您的 Terraform 設定中使用該專案 ID。
+⚠️ **無法透過 Terraform 建立專案** - 專案必須先在 Cast Operations 儀表板中手動建立。請在您的 Terraform 設定中使用該專案 ID。
 
-⚠️ **自架客戶最重要的規則**：請務必將您的 Terraform provider 版本固定為與您的 OneUptime 安裝版本完全一致。
+⚠️ **自架客戶最重要的規則**：請務必將您的 Terraform provider 版本固定為與您的 Cast Operations 安裝版本完全一致。
 
 ## 資源結構
 
-所有 OneUptime Terraform 資源都遵循簡化的結構：
+所有 Cast Operations Terraform 資源都遵循簡化的結構：
 
 - `name`（必填）- 資源名稱
 - `description`（選填）- 資源描述
@@ -18,32 +18,32 @@
 
 ## 重要：版本相容性
 
-⚠️ **自架客戶最重要的規則**：請務必將您的 Terraform provider 版本固定為與您的 OneUptime 安裝版本完全一致。
+⚠️ **自架客戶最重要的規則**：請務必將您的 Terraform provider 版本固定為與您的 Cast Operations 安裝版本完全一致。
 
 ### 為什麼版本固定至關重要
 
-- Terraform provider 是從 OneUptime API 自動產生的
-- 每個 OneUptime 版本可能有不同的 API 端點與結構描述
+- Terraform provider 是從 Cast Operations API 自動產生的
+- 每個 Cast Operations 版本可能有不同的 API 端點與結構描述
 - 使用不相符的 provider 版本可能導致錯誤或非預期的行為
 - 版本固定可確保相容性與可預測的行為
 
-## 查詢您的 OneUptime 版本
+## 查詢您的 Cast Operations 版本
 
 ### 方法 1：儀表板
 
-1. 登入您的 OneUptime 儀表板
+1. 登入您的 Cast Operations 儀表板
 2. 前往 **Settings** → **About**
 3. 查看版本號碼（例如「7.0.123」）
 
 ### 方法 2：API 端點
 
 ```bash
-curl https://your-oneuptime-instance.com/api/status
+curl https://your-operations-instance.com/api/status
 ```
 
 ### 方法 3：Docker 映像檔
 
-如果您是使用 Docker 執行 OneUptime：
+如果您是使用 Docker 執行 Cast Operations：
 
 ```bash
 docker images | grep oneuptime
@@ -75,7 +75,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Replace 123 with your exact build number
     }
   }
@@ -83,7 +83,7 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # Your self-hosted URL
+  oneuptime_url = "https://operations.yourcompany.com"  # Your self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -94,7 +94,7 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # Replace with your exact version
     }
   }
@@ -102,22 +102,22 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## 完整的自架設定範例
 
-以下是自架 OneUptime 實例的完整範例：
+以下是自架 Cast Operations 實例的完整範例：
 
 ```hcl
 # versions.tf
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Must match your OneUptime version
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Must match your Cast Operations version
     }
   }
   required_version = ">= 1.0"
@@ -132,13 +132,13 @@ terraform {
 
 # variables.tf
 variable "oneuptime_url" {
-  description = "OneUptime instance URL"
+  description = "Cast Operations instance URL"
   type        = string
-  default     = "https://oneuptime.yourcompany.com"
+  default     = "https://operations.yourcompany.com"
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API Key"
+  description = "Cast Operations API Key"
   type        = string
   sensitive   = true
 }
@@ -157,7 +157,7 @@ provider "oneuptime" {
 
 # variables.tf
 variable "project_id" {
-  description = "OneUptime project ID (create manually in dashboard)"
+  description = "Cast Operations project ID (create manually in dashboard)"
   type        = string
 }
 
@@ -290,7 +290,7 @@ output "status_page_url" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://oneuptime-dev.yourcompany.com"
+oneuptime_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -298,7 +298,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://oneuptime-staging.yourcompany.com"
+oneuptime_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -306,13 +306,13 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://oneuptime.yourcompany.com"
+oneuptime_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
 ## 自架的升級流程
 
-升級您的 OneUptime 實例時：
+升級您的 Cast Operations 實例時：
 
 ### 1. 升級前檢查清單
 
@@ -320,16 +320,16 @@ environment = "production"
 # Backup current Terraform state
 terraform state pull > backup-$(date +%Y%m%d).tfstate
 
-# Note current OneUptime version
-curl https://oneuptime.yourcompany.com/api/status | jq '.version'
+# Note current Cast Operations version
+curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Note current provider version
 terraform providers | grep oneuptime
 ```
 
-### 2. 升級 OneUptime 實例
+### 2. 升級 Cast Operations 實例
 
-請遵循您標準的 OneUptime 升級流程（Docker、Helm 等）
+請遵循您標準的 Cast Operations 升級流程（Docker、Helm 等）
 
 ### 3. 更新 Terraform Provider
 
@@ -338,7 +338,7 @@ terraform providers | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # New version after upgrade
     }
   }
@@ -364,12 +364,12 @@ terraform apply
 
 請確保您的 Terraform runner 可以存取：
 
-- OneUptime API 端點（通常為連接埠 443/HTTPS）
+- Cast Operations API 端點（通常為連接埠 443/HTTPS）
 - 任何受監控的內部資源
 
 ### VPN／私有網路
 
-如果 OneUptime 位於私有網路上：
+如果 Cast Operations 位於私有網路上：
 
 ```hcl
 provider "oneuptime" {
@@ -403,7 +403,7 @@ export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
 ```hcl
 # Example with TLS verification
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 
   # Additional security options if supported
@@ -441,7 +441,7 @@ Error: connection refused
 
 **解決方案**：
 
-1. 檢查 OneUptime 實例是否正在執行
+1. 檢查 Cast Operations 實例是否正在執行
 2. 確認 API URL 是否正確
 3. 檢查防火牆／網路連線
 4. 確認 TLS 憑證是否有效
@@ -454,7 +454,7 @@ Error: API version incompatible
 
 **解決方案**：
 
-1. 檢查 OneUptime 版本：`curl https://your-instance/api/status`
+1. 檢查 Cast Operations 版本：`curl https://your-instance/api/status`
 2. 更新 provider 版本以使其相符
 3. 執行 `terraform init -upgrade`
 

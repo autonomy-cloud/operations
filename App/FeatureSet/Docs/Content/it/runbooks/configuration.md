@@ -2,7 +2,7 @@
 
 ## Come girano davvero Bash e JavaScript
 
-I passi Bash e JavaScript **non vengono mai eseguiti sul Worker OneUptime**. Vengono dispacciati come job a uno specifico [Agente Runbook](/docs/runbooks/agents) — un piccolo processo che installi su un host nella tua infrastruttura.
+I passi Bash e JavaScript **non vengono mai eseguiti sul Worker Cast Operations**. Vengono dispacciati come job a uno specifico [Agente Runbook](/docs/runbooks/agents) — un piccolo processo che installi su un host nella tua infrastruttura.
 
 Il modello di dispatch:
 
@@ -37,7 +37,7 @@ Quando un passo manuale viene spuntato via API, l'esecuzione viene re-inserita i
 
 ## Note di hardening
 
-- **JavaScript e Bash** girano su un host Agente Runbook che controlli tu, non sul Worker OneUptime. JavaScript è racchiuso in un sandbox `isolated-vm` con il prelude consueto (interrompe le catene di prototipi, rimuove `Function`/`eval`, congela i prototipi built-in). Bash gira via `bash -c` con applicazione del timeout sull'agente.
+- **JavaScript e Bash** girano su un host Agente Runbook che controlli tu, non sul Worker Cast Operations. JavaScript è racchiuso in un sandbox `isolated-vm` con il prelude consueto (interrompe le catene di prototipi, rimuove `Function`/`eval`, congela i prototipi built-in). Bash gira via `bash -c` con applicazione del timeout sull'agente.
 - **I passi HTTP** usano un validatore di status permissivo, quindi una risposta 4xx o 5xx viene registrata come passo fallito invece di essere lanciata come eccezione. Così l'output catturato riflette ciò che l'upstream ha effettivamente restituito.
 - **L'autenticazione dell'agente** avviene tramite ID + chiave segreta, impostati sul container dell'agente come variabili d'ambiente. Lato server, l'identità autoritativa dell'agente proviene dalla riga DB indicizzata dall'ID/chiave presentati — i client non possono impersonare un altro agente nemmeno con una chiave compromessa.
 

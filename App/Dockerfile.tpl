@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 #
-# OneUptime-App Dockerfile
+# Cast Operations-App Dockerfile
 #
 
 # Pull base image nodejs image.
@@ -25,17 +25,16 @@ RUN npm install -g npm@latest
 
 
 
-# Per-build args (GIT_SHA / APP_VERSION / IS_ENTERPRISE_EDITION) are declared
 # further down so the expensive npm ci / build layers stay cacheable across
 # commits and across the community + enterprise build passes.
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 
-LABEL org.opencontainers.image.title="OneUptime App"
-LABEL org.opencontainers.image.description="OneUptime core application server — dashboard API, workers, and telemetry ingestion."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.documentation="https://oneuptime.com/docs"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations App"
+LABEL org.opencontainers.image.description="Cast Operations core application server — dashboard API, workers, and telemetry ingestion."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 
@@ -97,7 +96,7 @@ RUN apk del .gyp
 WORKDIR /usr/src/app
 
 # Expose ports.
-#   - 3002: OneUptime-backend
+#   - 3002: Cast Operations-backend
 EXPOSE 3002
 
 {{ if eq .Env.ENVIRONMENT "development" }}
@@ -128,11 +127,8 @@ COPY --chown=1000:1000 ./App/FeatureSet/PublicDashboard /usr/src/app/FeatureSet/
 RUN npm run build-frontends:prod
 # Bundle app source
 RUN npm run compile
-# IS_ENTERPRISE_EDITION only changes ENV/LABEL metadata and is read by no build
 # step, so declaring it last lets the community and enterprise passes share every
 # heavy cached layer above — only this final metadata layer differs.
-ARG IS_ENTERPRISE_EDITION=false
-ENV IS_ENTERPRISE_EDITION=${IS_ENTERPRISE_EDITION}
 USER node
 #Run the app
 CMD [ "npm", "start" ]

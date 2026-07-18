@@ -1,18 +1,18 @@
 # Schnellstartanleitung für den Terraform-Provider
 
-Diese Anleitung hilft Ihnen, in wenigen Minuten mit dem OneUptime Terraform-Provider loszulegen.
+Diese Anleitung hilft Ihnen, in wenigen Minuten mit dem Cast Operations Terraform-Provider loszulegen.
 
 ## Voraussetzungen
 
 - Terraform >= 1.0 installiert
-- OneUptime-Konto (Cloud oder selbst gehostet)
-- OneUptime-API-Schlüssel
+- Cast Operations-Konto (Cloud oder selbst gehostet)
+- Cast Operations-API-Schlüssel
 
 ## Schritt 1: API-Schlüssel erstellen
 
-### Für OneUptime Cloud
+### Für Cast Operations Cloud
 
-1. Gehen Sie zu [OneUptime Cloud](https://oneuptime.com) und melden Sie sich an
+1. Gehen Sie zu [Cast Operations Cloud](https://visca.ai) und melden Sie sich an
 2. Navigieren Sie zu **Einstellungen** → **API-Schlüssel**
 3. Klicken Sie auf **API-Schlüssel erstellen**
 4. Nennen Sie ihn "Terraform Provider"
@@ -27,12 +27,12 @@ Erstellen Sie ein neues Verzeichnis und eine `main.tf`-Datei:
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       # Für Cloud-Kunden
       version = "~> 7.0"
 
       # Für selbst gehostete Kunden - auf genaue Version pinnen
-      # version = "= 7.0.123"  # Durch Ihre OneUptime-Version ersetzen
+      # version = "= 7.0.123"  # Durch Ihre Cast Operations-Version ersetzen
     }
   }
   required_version = ">= 1.0"
@@ -40,23 +40,23 @@ terraform {
 
 provider "oneuptime" {
   # Für Cloud-Kunden
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
 
   # Für selbst gehostete Kunden - verwenden Sie Ihre Instanz-URL
-  # oneuptime_url = "https://oneuptime.yourcompany.com"
+  # oneuptime_url = "https://operations.yourcompany.com"
 
   api_key = var.oneuptime_api_key
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API Key"
+  description = "Cast Operations API Key"
   type        = string
   sensitive   = true
 }
 
-# Hinweis: Projekte müssen manuell im OneUptime-Dashboard erstellt werden
+# Hinweis: Projekte müssen manuell im Cast Operations-Dashboard erstellt werden
 variable "project_id" {
-  description = "OneUptime-Projekt-ID"
+  description = "Cast Operations-Projekt-ID"
   type        = string
 }
 
@@ -84,7 +84,7 @@ Erstellen Sie `terraform.tfvars`:
 ```hcl
 # terraform.tfvars
 oneuptime_api_key = "your-api-key-here"
-project_id        = "your-project-id-here"  # Aus OneUptime-Dashboard erhalten
+project_id        = "your-project-id-here"  # Aus Cast Operations-Dashboard erhalten
 ```
 
 **Wichtig**: Fügen Sie `terraform.tfvars` zu Ihrer `.gitignore`-Datei hinzu, um API-Schlüssel geheim zu halten!
@@ -104,7 +104,7 @@ terraform apply
 
 ## Schritt 5: Ressourcen verifizieren
 
-1. Prüfen Sie Ihr OneUptime-Dashboard
+1. Prüfen Sie Ihr Cast Operations-Dashboard
 2. Gehen Sie zu Ihrem vorhandenen Projekt
 3. Überprüfen Sie, ob der „Website Monitor" erstellt wurde und läuft
 
@@ -125,7 +125,7 @@ terraform apply
 
 **Lösung**:
 
-1. API-Schlüssel im OneUptime-Dashboard überprüfen
+1. API-Schlüssel im Cast Operations-Dashboard überprüfen
 2. Prüfen ob der API-Schlüssel ausreichende Berechtigungen hat
 3. Sicherstellen, dass `oneuptime_url` korrekt ist
 
@@ -133,7 +133,7 @@ terraform apply
 
 **Lösung**:
 
-1. OneUptime-Version im Dashboard prüfen
+1. Cast Operations-Version im Dashboard prüfen
 2. Provider-Version entsprechend aktualisieren
 3. `terraform init -upgrade` ausführen
 

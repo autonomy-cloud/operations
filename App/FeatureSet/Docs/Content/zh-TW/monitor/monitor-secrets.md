@@ -4,7 +4,7 @@
 
 ### 新增密鑰
 
-若要新增密鑰，請前往 OneUptime Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret。
+若要新增密鑰，請前往 Cast Operations Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret。
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 

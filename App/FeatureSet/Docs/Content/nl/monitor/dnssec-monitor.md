@@ -1,6 +1,6 @@
 # DNSSEC Monitor
 
-Met DNSSEC-monitoring kunt u de cryptografische integriteit van DNS-antwoorden voor uw zones valideren. OneUptime voert periodiek volledige DNSSEC-validatie uit — controle van DNSKEY-records, DS-delegatie bij de bovenliggende zone, geldigheid van RRSIG-handtekeningen, consensus van resolvers over de AD-vlag en consistentie tussen autoritatieve naamservers.
+Met DNSSEC-monitoring kunt u de cryptografische integriteit van DNS-antwoorden voor uw zones valideren. Cast Operations voert periodiek volledige DNSSEC-validatie uit — controle van DNSKEY-records, DS-delegatie bij de bovenliggende zone, geldigheid van RRSIG-handtekeningen, consensus van resolvers over de AD-vlag en consistentie tussen autoritatieve naamservers.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ DNSSEC-monitors valideren de volledige vertrouwensketen vanaf de rootzone tot aa
 
 ## Een DNSSEC Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **DNSSEC** als het monitortype
 4. Voer de zone (domein) in die u wilt valideren

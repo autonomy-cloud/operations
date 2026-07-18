@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }

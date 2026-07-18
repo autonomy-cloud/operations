@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OneUptime Helm Charts</title>
-  <meta name="description" content="Official Helm chart repository for OneUptime — deploy the full OneUptime platform and the Kubernetes monitoring agent on Kubernetes." />
-  <link rel="icon" href="https://raw.githubusercontent.com/OneUptime/oneuptime/master/Home/Static/img/OneUptimePNG/1.png" />
+  <title>Cast Operations Helm Charts</title>
+  <meta name="description" content="Official Helm chart repository for Cast Operations — deploy the full Cast Operations platform and the Kubernetes monitoring agent on Kubernetes." />
+  <link rel="icon" href="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg" />
   <style>
     :root {
       --bg: #0b1220;
@@ -89,24 +89,24 @@
 <body>
   <div class="wrap">
     <header>
-      <img src="https://raw.githubusercontent.com/OneUptime/oneuptime/master/Home/Static/img/OneUptimePNG/1.png" alt="OneUptime logo" />
-      <h1>OneUptime Helm Charts</h1>
+      <img src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg" alt="Cast Operations logo" />
+      <h1>Cast Operations Helm Charts</h1>
       <p class="tagline">
-        The official Helm chart repository for OneUptime — deploy the full
+        The official Helm chart repository for Cast Operations — deploy the full
         observability platform and the Kubernetes monitoring agent to your cluster.
       </p>
       <div class="links">
-        <a class="btn primary" href="https://oneuptime.com" target="_blank" rel="noopener">Website</a>
-        <a class="btn" href="https://github.com/OneUptime/oneuptime" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn primary" href="https://visca.ai" target="_blank" rel="noopener">Website</a>
+        <a class="btn" href="https://github.com/autonomy-cloud/operations" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="oneuptime/README.md">Chart Docs</a>
-        <a class="btn" href="https://artifacthub.io/packages/search?repo=oneuptime" target="_blank" rel="noopener">Artifact Hub</a>
+        <a class="btn" href="https://github.com/autonomy-cloud/operations" target="_blank" rel="noopener">Artifact Hub</a>
       </div>
     </header>
 
     <section>
       <h2>Add the repository</h2>
       <p class="sub">Register this repo with Helm and pull the latest chart index.</p>
-      <pre>helm repo add oneuptime https://helm-chart.oneuptime.com/
+      <pre>helm repo add oneuptime https://helm-chart.visca.ai/
 helm repo update</pre>
     </section>
 
@@ -116,15 +116,15 @@ helm repo update</pre>
       <div class="charts">
         <div class="card">
           <h3>oneuptime</h3>
-          <p>Deploys the full OneUptime platform — monitoring, status pages, incident management, on-call, logs, traces, and metrics.</p>
+          <p>Deploys the full Cast Operations platform — monitoring, status pages, incident management, on-call, logs, traces, and metrics.</p>
           <pre>helm install my-oneuptime \
-  oneuptime/oneuptime \
+  autonomy-cloud/operations \
   -f values.yaml</pre>
           <p class="note"><a href="oneuptime/README.md">Read the oneuptime chart docs &rarr;</a></p>
         </div>
         <div class="card">
           <h3>kubernetes-agent</h3>
-          <p>Installs the OneUptime Kubernetes monitoring agent into any cluster (standard, GKE Autopilot, EKS Fargate).</p>
+          <p>Installs the Cast Operations Kubernetes monitoring agent into any cluster (standard, GKE Autopilot, EKS Fargate).</p>
           <pre>helm install my-agent \
   oneuptime/kubernetes-agent \
   -f values.yaml</pre>
@@ -154,9 +154,9 @@ helm repo update</pre>
     </section>
 
     <footer>
-      Made with care by the OneUptime team &middot;
-      <a href="https://oneuptime.com">oneuptime.com</a> &middot;
-      <a href="https://github.com/OneUptime/oneuptime/blob/master/LICENSE">Apache-2.0</a>
+      Made with care by the Cast Operations team &middot;
+      <a href="https://visca.ai">visca.ai</a> &middot;
+      <a href="https://github.com/autonomy-cloud/operations/blob/master/LICENSE">Apache-2.0</a>
     </footer>
   </div>
 </body>

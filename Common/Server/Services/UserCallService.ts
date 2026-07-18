@@ -92,7 +92,7 @@ export class Service extends DatabaseService<Model> {
     }
 
     /*
-     * If the project has its own default Twilio config, OneUptime does not
+     * If the project has its own default Twilio config, Cast Operations does not
      * charge the project's Call/SMS balance, so the low-balance check does not apply.
      */
     const projectTwilioConfig: TwilioConfig | undefined =
@@ -172,7 +172,7 @@ export class Service extends DatabaseService<Model> {
     }
 
     /*
-     * If the project has its own default Twilio config, OneUptime does not
+     * If the project has its own default Twilio config, Cast Operations does not
      * charge the project's Call/SMS balance, so the low-balance check does not apply.
      */
     const projectTwilioConfig: TwilioConfig | undefined =

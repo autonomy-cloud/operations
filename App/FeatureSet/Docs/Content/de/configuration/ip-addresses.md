@@ -1,8 +1,8 @@
-# IP-Adressen-Whitelist für OneUptime.com
+# IP-Adressen-Whitelist für Cast Operations.com
 
-Wenn Sie OneUptime.com verwenden und unsere IP-Adressen aus Sicherheitsgründen auf eine Whitelist setzen möchten, können Sie dies anhand der nachfolgenden Anweisungen tun.
+Wenn Sie Cast Operations.com verwenden und unsere IP-Adressen aus Sicherheitsgründen auf eine Whitelist setzen möchten, können Sie dies anhand der nachfolgenden Anweisungen tun.
 
-Bitte setzen Sie die folgenden IP-Adressen in Ihrer Firewall auf die Whitelist, damit oneuptime.com Ihre Ressourcen erreichen kann.
+Bitte setzen Sie die folgenden IP-Adressen in Ihrer Firewall auf die Whitelist, damit visca.ai Ihre Ressourcen erreichen kann.
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ Diese IP-Adressen können sich ändern. Wir werden Sie im Voraus informieren, fa
 Sie können die Liste der ausgehenden IP-Adressen der Probes auch programmgesteuert über den folgenden API-Endpunkt abrufen:
 
 ```
-GET https://oneuptime.com/ip-whitelist
+GET https://visca.ai/ip-whitelist
 ```
 
 Dies gibt eine JSON-Antwort zurück:

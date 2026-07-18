@@ -1,6 +1,6 @@
 /**
- * OneUptime API Service
- * Handles communication with the OneUptime API
+ * Cast Operations API Service
+ * Handles communication with the Cast Operations API
  */
 
 import OneUptimeOperation from "../Types/OneUptimeOperation";
@@ -25,7 +25,7 @@ export interface OneUptimeApiConfig {
 }
 
 /**
- * Error thrown when the OneUptime API returns a failure response. Carries the
+ * Error thrown when the Cast Operations API returns a failure response. Carries the
  * HTTP status code and the raw response body so tool results can surface
  * actionable detail to the calling agent.
  */
@@ -69,11 +69,11 @@ export default class OneUptimeApiService {
       throw new Error(`Invalid URL format: ${config.url}. Error: ${error}`);
     }
 
-    MCPLogger.info(`OneUptime API Service initialized with: ${config.url}`);
+    MCPLogger.info(`Cast Operations API Service initialized with: ${config.url}`);
   }
 
   /**
-   * Execute a OneUptime operation
+   * Execute a Cast Operations operation
    */
   public static async executeOperation(
     tableName: string,
@@ -126,7 +126,7 @@ export default class OneUptimeApiService {
   }
 
   /**
-   * Make an arbitrary authenticated call to the OneUptime API. Used by
+   * Make an arbitrary authenticated call to the Cast Operations API. Used by
    * hand-written workflow tools (acknowledge/resolve/note/whoami) that
    * compose multiple API operations.
    */
@@ -462,7 +462,7 @@ export default class OneUptimeApiService {
   private static validateInitialization(): void {
     if (!this.api) {
       throw new Error(
-        "OneUptime API Service not initialized. Please call initialize() first.",
+        "Cast Operations API Service not initialized. Please call initialize() first.",
       );
     }
   }

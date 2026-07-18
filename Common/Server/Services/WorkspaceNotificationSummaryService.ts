@@ -548,7 +548,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
     // Footer
     blocks.push(Service.divider());
     blocks.push(
-      Service.md(`_Sent by OneUptime  •  ${summary.name || "Untitled"}_`),
+      Service.md(`_Sent by Cast Operations  •  ${summary.name || "Untitled"}_`),
     );
 
     return blocks;

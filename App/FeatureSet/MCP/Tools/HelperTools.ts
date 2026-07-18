@@ -1,6 +1,6 @@
 /**
  * Helper Tools
- * Provides utility tools for agents to discover and understand OneUptime MCP capabilities
+ * Provides utility tools for agents to discover and understand Cast Operations MCP capabilities
  */
 
 import { McpToolInfo } from "../Types/McpTypes";
@@ -95,7 +95,7 @@ function getResourceDescription(singularName: string): string {
 
   return (
     descriptions[singularName] ||
-    `Manages ${singularName} resources in OneUptime.`
+    `Manages ${singularName} resources in Cast Operations.`
   );
 }
 
@@ -108,7 +108,7 @@ function createHelpTool(resources: ResourceInfo[]): McpToolInfo {
 
   return {
     name: "oneuptime_help",
-    description: `Get help and guidance for using the OneUptime MCP server. Returns information about available resources and common operations. Use this tool first to understand what you can do with OneUptime.
+    description: `Get help and guidance for using the Cast Operations MCP server. Returns information about available resources and common operations. Use this tool first to understand what you can do with Cast Operations.
 
 AVAILABLE RESOURCES:
 ${resourceSummary}
@@ -138,7 +138,7 @@ COMMON WORKFLOWS:
       },
       additionalProperties: false,
     },
-    title: "OneUptime Help",
+    title: "Cast Operations Help",
     annotations: { readOnlyHint: true },
     modelName: "Help",
     operation: OneUptimeOperation.Read,
@@ -154,13 +154,13 @@ function createResourceInfoTool(_resources: ResourceInfo[]): McpToolInfo {
   return {
     name: "oneuptime_list_resources",
     description:
-      "List all available OneUptime resources and their supported operations. Use this to discover what resources you can manage through the MCP server.",
+      "List all available Cast Operations resources and their supported operations. Use this to discover what resources you can manage through the MCP server.",
     inputSchema: {
       type: "object",
       properties: {},
       additionalProperties: false,
     },
-    title: "List OneUptime Resources",
+    title: "List Cast Operations Resources",
     annotations: { readOnlyHint: true },
     modelName: "ResourceInfo",
     operation: OneUptimeOperation.List,
@@ -391,9 +391,9 @@ function handleHelpTool(
 
     default:
       (response["data"] as Record<string, unknown>)["welcome"] =
-        "Welcome to OneUptime MCP Server!";
+        "Welcome to Cast Operations MCP Server!";
       (response["data"] as Record<string, unknown>)["description"] =
-        "OneUptime is an open-source monitoring platform. This MCP server lets you manage incidents, monitors, alerts, and more.";
+        "Cast Operations is an open-source monitoring platform. This MCP server lets you manage incidents, monitors, alerts, and more.";
       (response["data"] as Record<string, unknown>)["availableTopics"] = [
         "resources",
         "incidents",

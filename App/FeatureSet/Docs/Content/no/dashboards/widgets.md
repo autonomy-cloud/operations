@@ -129,7 +129,7 @@ For prosjekter med Docker-overvåking satt opp.
 
 ### Host-liste
 
-Hoster overvåket av OneUptimes server-monitor, med status, CPU, minne og oppetid.
+Hoster overvåket av Cast Operations server-monitor, med status, CPU, minne og oppetid.
 
 **Innstillinger**: filtre etter etiketter eller nåværende tilstand.
 

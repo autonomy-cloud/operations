@@ -2,16 +2,16 @@
 
 ## 概要
 
-OneUptime は、マネージドなクラウドコンピュートを **クラウド環境（Cloud Environments）** としてグループ化します — AWS ECS / Fargate、Google Cloud Run、Azure Container Apps / Container Instances、AWS Elastic Beanstalk、AWS App Runner、そして Azure App Service です。環境は `cloud.platform` + `cloud.account.id` + `cloud.region` の一意な組み合わせごとに 1 つ作成されます。したがって _「AWS ECS · us-east-1 · 123456789012」_ のようなものは、その上で動作するすべてのワークロードを集約する単一のエンティティになります。
+Cast Operations は、マネージドなクラウドコンピュートを **クラウド環境（Cloud Environments）** としてグループ化します — AWS ECS / Fargate、Google Cloud Run、Azure Container Apps / Container Instances、AWS Elastic Beanstalk、AWS App Runner、そして Azure App Service です。環境は `cloud.platform` + `cloud.account.id` + `cloud.region` の一意な組み合わせごとに 1 つ作成されます。したがって _「AWS ECS · us-east-1 · 123456789012」_ のようなものは、その上で動作するすべてのワークロードを集約する単一のエンティティになります。
 
 生の仮想マシン（EC2、Compute Engine、Azure VM）は引き続き **ホスト（Hosts）** であり、Kubernetes は **Kubernetes** 配下に残ります。このビューは、マネージド / PaaS コンピュートに特化したものです。
 
 ## 前提条件
 
-- **OneUptime Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ から作成します。
+- **Cast Operations Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ から作成します。
 - ワークロード内またはワークロードと併せて動作する OpenTelemetry Collector または SDK。
 
-## OneUptime が環境を識別する仕組み
+## Cast Operations が環境を識別する仕組み
 
 | 属性                  | 必須     | 目的                                                                                                                   |
 | --------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -39,12 +39,12 @@ SDK を使用する場合は、代わりに `OTEL_RESOURCE_DETECTORS` を設定�
 OTEL_RESOURCE_DETECTORS=env,ecs
 ```
 
-## ステップ 2 — OTLP を OneUptime にエクスポートする
+## ステップ 2 — OTLP を Cast Operations にエクスポートする
 
 ```yaml
 exporters:
   otlphttp/oneuptime:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -64,7 +64,7 @@ service:
       exporters: [otlphttp/oneuptime]
 ```
 
-OneUptime をセルフホストしている場合は、`https://YOUR-ONEUPTIME-HOST/otlp` を使用してください。
+Cast Operations をセルフホストしている場合は、`https://YOUR-OPERATIONS-HOST/otlp` を使用してください。
 
 ## 得られるもの
 

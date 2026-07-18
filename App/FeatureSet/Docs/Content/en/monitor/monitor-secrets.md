@@ -4,7 +4,7 @@ You can use secrets to store sensitive information that you want to use in your 
 
 ### Adding a secret
 
-To add a secret, please go to OneUptime Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret.
+To add a secret, please go to Cast Operations Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret.
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 

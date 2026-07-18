@@ -4,7 +4,7 @@ Vous pouvez utiliser des secrets pour stocker des informations sensibles que vou
 
 ### Ajouter un secret
 
-Pour ajouter un secret, veuillez aller dans le tableau de bord OneUptime -> Paramètres du projet -> Secrets de moniteur -> Créer un secret de moniteur.
+Pour ajouter un secret, veuillez aller dans le tableau de bord Cast Operations -> Paramètres du projet -> Secrets de moniteur -> Créer un secret de moniteur.
 
 ![Créer un secret](/docs/static/images/CreateMonitorSecret.png)
 

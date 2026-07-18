@@ -1,6 +1,6 @@
 # Port Monitor
 
-Port monitoring allows you to monitor the availability of specific TCP or UDP ports on a host. OneUptime periodically attempts to connect to the specified port and checks whether it is open and responsive.
+Port monitoring allows you to monitor the availability of specific TCP or UDP ports on a host. Cast Operations periodically attempts to connect to the specified port and checks whether it is open and responsive.
 
 ## Overview
 
@@ -13,7 +13,7 @@ Port monitors test whether a specific network port is accepting connections. Thi
 
 ## Creating a Port Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Port** as the monitor type
 4. Enter the hostname or IP address and port number

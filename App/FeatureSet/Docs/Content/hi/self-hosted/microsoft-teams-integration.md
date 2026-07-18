@@ -1,11 +1,11 @@
 # Microsoft Teams Integration
 
-अपने self-hosted OneUptime instance के साथ Microsoft Teams integrate करने के लिए, आपको Azure App Registration configure करना और आवश्यक environment variables सेट अप करने होंगे।
+अपने self-hosted Cast Operations instance के साथ Microsoft Teams integrate करने के लिए, आपको Azure App Registration configure करना और आवश्यक environment variables सेट अप करने होंगे।
 
 ## पूर्व आवश्यकताएं
 
 - Azure Account - [https://azure.com](https://azure.com) पर जाकर बना सकते हैं
-- आपके OneUptime server configuration तक पहुंच
+- आपके Cast Operations server configuration तक पहुंच
 
 ## Setup Instructions
 
@@ -16,8 +16,8 @@
 3. Registration form भरें:
    - **Name:** oneuptime
    - **Supported account types:** Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)
-   - **Redirect URI:** Web - `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - कृपया यह भी जोड़ें: `https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **Redirect URI:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - कृपया यह भी जोड़ें: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. "Register" पर क्लिक करें
 5. "Application (client) ID" नोट करें - आपको बाद में इसकी आवश्यकता होगी
 
@@ -65,7 +65,7 @@
 3. "Review + create" और फिर "Create" पर क्लिक करें
 
 4. Deploy होने के बाद, अपने bot resource पर जाएं और "Configuration" पर जाएं
-5. "Messaging endpoint" को `https://your-oneuptime-domain.com/api/microsoft-bot/messages` पर सेट करें
+5. "Messaging endpoint" को `https://your-operations-domain.com/api/microsoft-bot/messages` पर सेट करें
 6. Configuration save करें
 
 ### चरण 5: Bot में Microsoft Teams Channel जोड़ें
@@ -75,7 +75,7 @@
 3. Settings review करें
 4. Teams channel enable करने के लिए "Save" पर क्लिक करें
 
-### चरण 6: OneUptime Environment Variables Configure करें
+### चरण 6: Cast Operations Environment Variables Configure करें
 
 #### Docker Compose
 
@@ -98,7 +98,7 @@ microsoftTeamsApp:
   tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**महत्वपूर्ण:** इन environment variables को add करने के बाद अपना OneUptime server restart करें ताकि वे effect में आएं।
+**महत्वपूर्ण:** इन environment variables को add करने के बाद अपना Cast Operations server restart करें ताकि वे effect में आएं।
 
 ### चरण 7: Teams App Manifest Upload करें
 
@@ -115,7 +115,7 @@ microsoftTeamsApp:
 यदि आपको कोई समस्या आती है:
 
 - सुनिश्चित करें कि आपके app में correct permissions granted हैं
-- जांचें कि redirect URI exactly match करती है (अपने actual domain से `your-oneuptime-domain.com` बदलें)
+- जांचें कि redirect URI exactly match करती है (अपने actual domain से `your-operations-domain.com` बदलें)
 - सत्यापित करें कि आपके environment variables सही तरीके से सेट हैं
 - सुनिश्चित करें कि bot messaging endpoint internet से accessible है
 - सत्यापित करें कि bot Teams channel के साथ ठीक से configured है
@@ -123,4 +123,4 @@ microsoftTeamsApp:
 
 ## Support
 
-हम इस integration को improve करना चाहते हैं, इसलिए feedback स्वागत है। कृपया हमें [hello@oneuptime.com](mailto:hello@oneuptime.com) पर भेजें
+हम इस integration को improve करना चाहते हैं, इसलिए feedback स्वागत है। कृपया हमें [hello@visca.ai](mailto:hello@visca.ai) पर भेजें

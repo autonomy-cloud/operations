@@ -495,7 +495,7 @@ export default class ExternalStatusPageMonitorUtil {
       const timeout: number = config.timeout || options.timeout || 10000;
       const headers: Record<string, string> = {
         Accept: "application/json",
-        "User-Agent": "OneUptime-Probe/1.0",
+        "User-Agent": "Cast Operations-Probe/1.0",
       };
 
       // Fetch status
@@ -643,7 +643,7 @@ export default class ExternalStatusPageMonitorUtil {
         timeout: config.timeout || options.timeout || 10000,
         headers: {
           Accept: "application/json",
-          "User-Agent": "OneUptime-Probe/1.0",
+          "User-Agent": "Cast Operations-Probe/1.0",
         },
         validateStatus: (status: number) => {
           return status < 500;
@@ -795,7 +795,7 @@ export default class ExternalStatusPageMonitorUtil {
         headers: {
           Accept:
             "application/rss+xml, application/atom+xml, application/xml, text/xml",
-          "User-Agent": "OneUptime-Probe/1.0",
+          "User-Agent": "Cast Operations-Probe/1.0",
         },
         responseType: "text",
       });
@@ -986,7 +986,7 @@ export default class ExternalStatusPageMonitorUtil {
       const response: AxiosResponse = await axios.get(config.statusPageUrl, {
         timeout: config.timeout || options.timeout || 10000,
         headers: {
-          "User-Agent": "OneUptime-Probe/1.0",
+          "User-Agent": "Cast Operations-Probe/1.0",
         },
         validateStatus: () => {
           return true;

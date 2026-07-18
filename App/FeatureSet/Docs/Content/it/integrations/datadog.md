@@ -1,19 +1,19 @@
 # Integrazione con Datadog
 
-Trasforma gli allarmi dei monitor [Datadog](https://www.datadoghq.com) in incidenti OneUptime, in modo che il rilevamento di Datadog alimenti la risposta agli incidenti e le status page di OneUptime.
+Trasforma gli allarmi dei monitor [Datadog](https://www.datadoghq.com) in incidenti Cast Operations, in modo che il rilevamento di Datadog alimenti la risposta agli incidenti e le status page di Cast Operations.
 
-Questa integrazione è **in entrata**: l'[integrazione Webhooks](https://docs.datadoghq.com/integrations/webhooks/) di Datadog fa una POST a un **[Workflow](/docs/workflows/index)** di OneUptime che inizia con un **trigger Webhook**.
+Questa integrazione è **in entrata**: l'[integrazione Webhooks](https://docs.datadoghq.com/integrations/webhooks/) di Datadog fa una POST a un **[Workflow](/docs/workflows/index)** di Cast Operations che inizia con un **trigger Webhook**.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Prerequisiti
 
 - Un account Datadog in cui puoi configurare integrazioni e monitor.
-- Un progetto OneUptime in cui puoi creare workflow.
+- Un progetto Cast Operations in cui puoi creare workflow.
 
-## Passaggio 1 — Crea il workflow OneUptime
+## Passaggio 1 — Crea il workflow Cast Operations
 
 1. Apri **Workflows → Create Workflow**, chiamalo `Datadog → Incidents` e apri il **Builder**.
 2. Aggiungi un trigger **Webhook** e **copia il suo URL**. Rinomina il blocco in `Datadog`.
@@ -60,7 +60,7 @@ Aggiungi l'handle del webhook ai monitor che vuoi inoltrare. Nel **messaggio di 
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-Questo invia sia l'allarme che il ripristino a OneUptime. (Per inoltrare tutto, puoi anche aggiungere `@webhook-oneuptime` a un monitor in modo incondizionato.)
+Questo invia sia l'allarme che il ripristino a Cast Operations. (Per inoltrare tutto, puoi anche aggiungere `@webhook-oneuptime` a un monitor in modo incondizionato.)
 
 ## Passaggio 4 — Testalo
 

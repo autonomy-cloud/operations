@@ -2,16 +2,16 @@
 
 ## Översikt
 
-OneUptime grupperar hanterad molnberäkning i **Molnmiljöer** — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner och Azure App Service. En miljö skapas per unik kombination av `cloud.platform` + `cloud.account.id` + `cloud.region`, så något i stil med _"AWS ECS · us-east-1 · 123456789012"_ är en enda enhet som aggregerar varje arbetsbelastning som körs på den.
+Cast Operations grupperar hanterad molnberäkning i **Molnmiljöer** — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner och Azure App Service. En miljö skapas per unik kombination av `cloud.platform` + `cloud.account.id` + `cloud.region`, så något i stil med _"AWS ECS · us-east-1 · 123456789012"_ är en enda enhet som aggregerar varje arbetsbelastning som körs på den.
 
 Rena virtuella maskiner (EC2, Compute Engine, Azure VM) förblir **Värdar**, och Kubernetes ligger kvar under **Kubernetes**. Den här vyn är specifikt avsedd för hanterad / PaaS-beräkning.
 
 ## Förutsättningar
 
-- En **OneUptime-token för telemetriinmatning** — skapa en från _Project Settings → Telemetry Ingestion Keys_.
+- En **Cast Operations-token för telemetriinmatning** — skapa en från _Project Settings → Telemetry Ingestion Keys_.
 - En OpenTelemetry Collector eller SDK som körs i eller bredvid dina arbetsbelastningar.
 
-## Hur OneUptime identifierar en miljö
+## Hur Cast Operations identifierar en miljö
 
 | Attribut              | Krävs  | Syfte                                                                                                     |
 | --------------------- | ------ | --------------------------------------------------------------------------------------------------------- |
@@ -39,12 +39,12 @@ Med en SDK anger du i stället `OTEL_RESOURCE_DETECTORS`:
 OTEL_RESOURCE_DETECTORS=env,ecs
 ```
 
-## Steg 2 — Exportera OTLP till OneUptime
+## Steg 2 — Exportera OTLP till Cast Operations
 
 ```yaml
 exporters:
   otlphttp/oneuptime:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -64,7 +64,7 @@ service:
       exporters: [otlphttp/oneuptime]
 ```
 
-Om du själv är värd för OneUptime använder du `https://YOUR-ONEUPTIME-HOST/otlp`.
+Om du själv är värd för Cast Operations använder du `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Vad du får
 

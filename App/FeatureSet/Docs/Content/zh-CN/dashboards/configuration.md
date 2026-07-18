@@ -68,9 +68,9 @@
 
 ## 备份
 
-如果你自托管 OneUptime,定期的数据库备份就够了——仪表板配置和项目的其他内容一起存储。
+如果你自托管 Cast Operations,定期的数据库备份就够了——仪表板配置和项目的其他内容一起存储。
 
-在 OneUptime Cloud 上,备份由我们处理。如果你想要自己的副本,可以通过 [OneUptime API](/docs/api-reference/api-reference) 读取仪表板。
+在 Cast Operations Cloud 上,备份由我们处理。如果你想要自己的副本,可以通过 [Cast Operations API](/docs/api-reference/api-reference) 读取仪表板。
 
 ## 接下来读什么
 

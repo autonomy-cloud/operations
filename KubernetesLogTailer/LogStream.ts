@@ -248,7 +248,7 @@ export class LogStream {
    * newline, so a stack trace or pretty-printed JSON arrives as several lines.
    * We hold an in-progress record and append continuation lines — those that do
    * not start a new entry — onto its body, keeping the first line's timestamp,
-   * so each event becomes a single log in OneUptime. A following first-entry
+   * so each event becomes a single log in Cast Operations. A following first-entry
    * line (or a period of silence) flushes it. This mirrors the recombine
    * operator the DaemonSet collector and Docker agent use.
    */

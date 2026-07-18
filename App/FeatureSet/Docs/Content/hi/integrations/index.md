@@ -1,46 +1,46 @@
 # इंटीग्रेशन
 
-OneUptime उन टूल्स से जुड़ता है जो आपकी टीम पहले से इस्तेमाल करती है — Zabbix, Jira, PagerDuty, Slack, और कई अन्य — **[वर्कफ़्लो](/docs/workflows/index)** के माध्यम से, जो बिल्ट-इन ऑटोमेशन इंजन है। कोई अलग प्लगइन इंस्टॉल करने की ज़रूरत नहीं है। आप एक ड्रैग-एंड-ड्रॉप कैनवास पर इंटीग्रेशन जोड़ते हैं, और यह जब भी कुछ होता है तब चलता है।
+Cast Operations उन टूल्स से जुड़ता है जो आपकी टीम पहले से इस्तेमाल करती है — Zabbix, Jira, PagerDuty, Slack, और कई अन्य — **[वर्कफ़्लो](/docs/workflows/index)** के माध्यम से, जो बिल्ट-इन ऑटोमेशन इंजन है। कोई अलग प्लगइन इंस्टॉल करने की ज़रूरत नहीं है। आप एक ड्रैग-एंड-ड्रॉप कैनवास पर इंटीग्रेशन जोड़ते हैं, और यह जब भी कुछ होता है तब चलता है।
 
-यह पेज दो पैटर्न बताता है जो हर इंटीग्रेशन इस्तेमाल करता है। एक बार जब आप इन्हें समझ लेते हैं, तो आप OneUptime को लगभग किसी भी चीज़ से जोड़ सकते हैं — यहाँ तक कि उन टूल्स से भी जिनका अपना पेज यहाँ नहीं है।
+यह पेज दो पैटर्न बताता है जो हर इंटीग्रेशन इस्तेमाल करता है। एक बार जब आप इन्हें समझ लेते हैं, तो आप Cast Operations को लगभग किसी भी चीज़ से जोड़ सकते हैं — यहाँ तक कि उन टूल्स से भी जिनका अपना पेज यहाँ नहीं है।
 
 ## दो पैटर्न
 
 हर इंटीग्रेशन दो में से किसी एक दिशा में डेटा ले जाता है (और कई दोनों इस्तेमाल करते हैं)।
 
-### इनबाउंड — कोई अन्य टूल OneUptime में डेटा भेजता है
+### इनबाउंड — कोई अन्य टूल Cast Operations में डेटा भेजता है
 
-इसे तब इस्तेमाल करें जब किसी बाहरी सिस्टम को _OneUptime में कुछ बनाना या अपडेट करना हो_ — आमतौर पर जब वह कोई समस्या पहचाने तो एक incident या alert खोलना।
+इसे तब इस्तेमाल करें जब किसी बाहरी सिस्टम को _Cast Operations में कुछ बनाना या अपडेट करना हो_ — आमतौर पर जब वह कोई समस्या पहचाने तो एक incident या alert खोलना।
 
-1. एक वर्कफ़्लो बनाएँ जो **[Webhook trigger](/docs/workflows/triggers#webhook)** से शुरू हो। OneUptime आपको एक यूनिक URL देता है।
+1. एक वर्कफ़्लो बनाएँ जो **[Webhook trigger](/docs/workflows/triggers#webhook)** से शुरू हो। Cast Operations आपको एक यूनिक URL देता है।
 2. दूसरे टूल में, एक webhook / notification action कॉन्फ़िगर करें जो कुछ होने पर उस URL पर POST करे।
 3. वर्कफ़्लो में, आने वाला payload पढ़ें और इसे रिकॉर्ड करने के लिए **Create Incident** (या Create Alert) कंपोनेंट का उपयोग करें।
 
 ```text
-Zabbix / Prometheus / Grafana / Datadog  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Zabbix / Prometheus / Grafana / Datadog  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
-### आउटबाउंड — OneUptime किसी अन्य टूल को डेटा भेजता है
+### आउटबाउंड — Cast Operations किसी अन्य टूल को डेटा भेजता है
 
-इसे तब इस्तेमाल करें जब _OneUptime में जो होता है वह किसी अन्य टूल में दिखना चाहिए_ — Jira टिकट खोलना, PagerDuty में किसी को पेज करना, Slack पर पोस्ट करना।
+इसे तब इस्तेमाल करें जब _Cast Operations में जो होता है वह किसी अन्य टूल में दिखना चाहिए_ — Jira टिकट खोलना, PagerDuty में किसी को पेज करना, Slack पर पोस्ट करना।
 
-1. एक वर्कफ़्लो बनाएँ जो **[OneUptime event trigger](/docs/workflows/triggers#oneuptime-event-triggers)** से शुरू हो — उदाहरण के लिए **Incident → On Create**।
+1. एक वर्कफ़्लो बनाएँ जो **[Cast Operations event trigger](/docs/workflows/triggers#oneuptime-event-triggers)** से शुरू हो — उदाहरण के लिए **Incident → On Create**।
 2. एक **[API component](/docs/workflows/components#api)** जोड़ें जो incident के विवरण के साथ दूसरे टूल के REST API को कॉल करे।
 3. कोई भी API key को **secret [global variables](/docs/workflows/variables#global-variables)** के रूप में स्टोर करें ताकि वे वर्कफ़्लो या उसके लॉग में कभी न दिखें।
 
 ```text
-OneUptime Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
+Cast Operations Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
 ```
 
 ## कैटलॉग
 
 | टूल                                                                   | दिशा                 | क्या करता है                                                                              |
 | --------------------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------- |
-| [Zabbix](/docs/integrations/zabbix)                                   | इनबाउंड              | Zabbix की समस्याओं को OneUptime incidents में बदलें (और recovery पर उन्हें resolve करें)। |
+| [Zabbix](/docs/integrations/zabbix)                                   | इनबाउंड              | Zabbix की समस्याओं को Cast Operations incidents में बदलें (और recovery पर उन्हें resolve करें)। |
 | [Jira](/docs/integrations/jira)                                       | आउटबाउंड (+ इनबाउंड) | हर incident के लिए एक Jira issue खोलें; status वापस sync करें।                            |
-| [PagerDuty](/docs/integrations/pagerduty)                             | आउटबाउंड (+ इनबाउंड) | OneUptime incidents से PagerDuty events trigger और resolve करें।                          |
+| [PagerDuty](/docs/integrations/pagerduty)                             | आउटबाउंड (+ इनबाउंड) | Cast Operations incidents से PagerDuty events trigger और resolve करें।                          |
 | [Opsgenie](/docs/integrations/opsgenie)                               | आउटबाउंड (+ इनबाउंड) | Opsgenie alerts बनाएँ और बंद करें।                                                        |
-| [ServiceNow](/docs/integrations/servicenow)                           | आउटबाउंड (+ इनबाउंड) | OneUptime से ServiceNow incidents खोलें।                                                  |
+| [ServiceNow](/docs/integrations/servicenow)                           | आउटबाउंड (+ इनबाउंड) | Cast Operations से ServiceNow incidents खोलें।                                                  |
 | [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager) | इनबाउंड              | Alertmanager notifications को incidents में बदलें।                                        |
 | [Grafana](/docs/integrations/grafana)                                 | इनबाउंड              | Grafana alerts को incidents में बदलें।                                                    |
 | [Datadog](/docs/integrations/datadog)                                 | इनबाउंड              | Datadog monitor alerts को incidents में बदलें।                                            |
@@ -85,7 +85,7 @@ printf '%s' 'you@example.com:your_api_token' | base64
 
 लगभग हर टूल ऊपर के दो पैटर्न में से एक में फिट होता है:
 
-- यदि टूल कुछ होने पर **webhook भेज सकता है**, तो **inbound** पैटर्न इस्तेमाल करें — उसके webhook को OneUptime Webhook trigger की ओर पॉइंट करें।
+- यदि टूल कुछ होने पर **webhook भेज सकता है**, तो **inbound** पैटर्न इस्तेमाल करें — उसके webhook को Cast Operations Webhook trigger की ओर पॉइंट करें।
 - यदि टूल के पास **REST API** है, तो **outbound** पैटर्न इस्तेमाल करें — इसे **API component** से कॉल करें।
 - यदि दोनों के बीच डेटा को नया आकार देने की ज़रूरत है, तो एक **[Custom Code](/docs/workflows/components#custom-code)** ब्लॉक डालें।
 
@@ -94,7 +94,7 @@ printf '%s' 'you@example.com:your_api_token' | base64
 ## आगे क्या पढ़ें
 
 - [वर्कफ़्लो अवलोकन](/docs/workflows/index) — ऑटोमेशन इंजन कैसे काम करता है।
-- [ट्रिगर](/docs/workflows/triggers) — Webhook और OneUptime event triggers विस्तार से।
+- [ट्रिगर](/docs/workflows/triggers) — Webhook और Cast Operations event triggers विस्तार से।
 - [कंपोनेंट](/docs/workflows/components) — API, Webhook, और data components।
 - [वेरिएबल](/docs/workflows/variables) — सीक्रेट और ब्लॉक्स के बीच डेटा पास करना।
 - [Zabbix](/docs/integrations/zabbix) और [Jira](/docs/integrations/jira) — पूरे काम के उदाहरण।

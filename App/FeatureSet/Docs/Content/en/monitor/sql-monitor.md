@@ -2,7 +2,7 @@
 
 The SQL Query Monitor runs a read-only SQL query on a schedule from a probe and alerts on the result — the number of rows returned, a scalar value, how long the query took, or a query error. It is built for the "run a query and open an incident" use case, for example alerting when the number of cancelled orders in the last five minutes spikes, when a queue table grows too large, or when a critical row disappears.
 
-Because the query runs from a probe inside your network, OneUptime never needs a direct connection to your database, and the full result set never leaves the probe — only a small, bounded projection of the result is reported back.
+Because the query runs from a probe inside your network, Cast Operations never needs a direct connection to your database, and the full result set never leaves the probe — only a small, bounded projection of the result is reported back.
 
 ## Supported databases
 
@@ -16,7 +16,7 @@ MySQL-compatible and PostgreSQL-compatible engines that speak the same wire prot
 
 ## How it works
 
-On each check, the probe connects to your database, runs your query in a read-only context, reads back at most a bounded number of rows, and reports a compact projection to OneUptime. Your monitor's criteria are then evaluated against that projection.
+On each check, the probe connects to your database, runs your query in a read-only context, reads back at most a bounded number of rows, and reports a compact projection to Cast Operations. Your monitor's criteria are then evaluated against that projection.
 
 The probe reports only:
 
@@ -26,7 +26,7 @@ The probe reports only:
 - **Execution Time** — how long the query took, in milliseconds.
 - **Query Error** — a sanitized error message if the query failed.
 
-The full result set is never sent to OneUptime, so customer data is not replicated into OneUptime storage.
+The full result set is never sent to Cast Operations, so customer data is not replicated into Cast Operations storage.
 
 ## Security model
 
@@ -41,7 +41,7 @@ Running a customer-supplied query against a production database is sensitive, so
 
 ## Prerequisites
 
-- A **probe** with network access to your database host and port. This can be a OneUptime-hosted probe (if your database is reachable from the internet) or a self-hosted probe running inside your network. See the probe documentation for how to install a custom probe.
+- A **probe** with network access to your database host and port. This can be a Cast Operations-hosted probe (if your database is reachable from the internet) or a self-hosted probe running inside your network. See the probe documentation for how to install a custom probe.
 - A **read-only database user** and the connection details (host, port, database name, username, password), or a read-only Windows/domain identity when using SQL Server Integrated Authentication.
 
 ## Configuration
@@ -109,11 +109,11 @@ For a `COUNT(*)` style query, the count is available both as **Row Count** (whic
 
 So the database password is never stored in plain text on the monitor, create a [Monitor Secret](/docs/monitor/monitor-secrets) and reference it from the Password field:
 
-1. Go to OneUptime Dashboard → Project Settings → Monitor Secrets → Create Monitor Secret.
+1. Go to Cast Operations Dashboard → Project Settings → Monitor Secrets → Create Monitor Secret.
 2. Create a secret (for example `dbPassword`) and grant this monitor access to it.
 3. In the Password field of the monitor, enter `{{monitorSecrets.dbPassword}}`.
 
-OneUptime resolves the secret server-side before the config is handed to the probe. OneUptime never creates these secrets for you — referencing one is your choice.
+Cast Operations resolves the secret server-side before the config is handed to the probe. Cast Operations never creates these secrets for you — referencing one is your choice.
 
 ## Setting up criteria
 

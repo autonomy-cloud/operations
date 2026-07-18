@@ -62,7 +62,7 @@ interface ServiceRow {
 
 /*
  * Like processes, service status is a point-in-time sample re-emitted on
- * every collector scrape (30s in the OneUptime config). A 15-minute window
+ * every collector scrape (30s in the Cast Operations config). A 15-minute window
  * shows the latest state of every service without surfacing stale ghosts
  * from services that were removed a while ago. Refresh re-queries.
  */

@@ -294,7 +294,7 @@ interface Props {
   attributeFilters?: Record<string, string> | undefined;
   attributeFilterDisplayKeys?: Record<string, string> | undefined;
   /*
-   * Scope to a OneUptime entity by its stable entityKeys (membership) —
+   * Scope to a Cast Operations entity by its stable entityKeys (membership) —
    * compiles to `hasAny(entityKeys, [...])` server-side.
    */
   entityKeysFilter?: Array<string> | undefined;

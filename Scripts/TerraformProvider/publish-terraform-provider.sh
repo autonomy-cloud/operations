@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# OneUptime Terraform Provider Publisher
+# Cast Operations Terraform Provider Publisher
 # This script publishes the generated Terraform provider to the Terraform Registry
 # Note: Provider generation and Go module setup is handled by the TypeScript generator
 
@@ -22,7 +22,7 @@ TERRAFORM_DIR="$PROJECT_ROOT/Terraform"
 PROVIDER_FRAMEWORK_DIR="$TERRAFORM_DIR/terraform-provider-oneuptime"
 PROVIDER_NAME="oneuptime"
 PROVIDER_REPO="terraform-provider-$PROVIDER_NAME"
-GITHUB_ORG="OneUptime"
+GITHUB_ORG="Cast Operations"
 VERSION=""
 TEST_RELEASE=false
 SKIP_TESTS=false
@@ -74,7 +74,7 @@ Examples:
 Note: The GITHUB_TOKEN should have the following permissions:
     - repo (for creating releases in the terraform-provider-oneuptime repository)
     - write:packages (if publishing packages)
-    - For organization repos, ensure the token has access to the OneUptime organization
+    - For organization repos, ensure the token has access to the Cast Operations organization
     - The token must have access to the terraform-provider-oneuptime repository
 
 EOF
@@ -137,7 +137,7 @@ validate_prerequisites() {
 
     # Check if we're in the correct directory
     if [[ ! -f "$PROJECT_ROOT/package.json" ]]; then
-        print_error "Not in OneUptime project root directory"
+        print_error "Not in Cast Operations project root directory"
         exit 1
     fi
 
@@ -339,8 +339,8 @@ push_to_repository() {
 
     # Configure git user (must be after git init)
     print_status "Configuring git user..."
-    git config user.name "OneUptime Terraform Provider Bot"
-    git config user.email "terraform-provider@oneuptime.com"
+    git config user.name "Cast Operations Terraform Provider Bot"
+    git config user.email "terraform-provider@visca.ai"
 
     # Set up remote
     if ! git remote get-url origin &> /dev/null; then
@@ -431,9 +431,9 @@ push_to_repository() {
     print_status "Creating commit with generated files..."
     local commit_message="chore: generate provider for version v$VERSION
 
-This commit contains the auto-generated Terraform provider code for OneUptime v$VERSION.
+This commit contains the auto-generated Terraform provider code for Cast Operations v$VERSION.
 
-Generated from OneUptime API specification on $(date -u '+%Y-%m-%d %H:%M:%S UTC').
+Generated from Cast Operations API specification on $(date -u '+%Y-%m-%d %H:%M:%S UTC').
 
 Changes include:
 - Updated provider resources and data sources
@@ -555,12 +555,12 @@ create_github_release() {
 
 ## What's Changed
 
-This release includes the latest OneUptime Terraform provider generated from the OneUptime API specification.
+This release includes the latest Cast Operations Terraform provider generated from the Cast Operations API specification.
 
 ### Features
-- Full support for OneUptime resources and data sources
+- Full support for Cast Operations resources and data sources
 - Auto-generated from OpenAPI specification
-- Supports all OneUptime monitoring and incident management features
+- Supports all Cast Operations monitoring and incident management features
 
 ### Resources Included
 - Monitors and Monitor Groups
@@ -578,14 +578,14 @@ This release includes the latest OneUptime Terraform provider generated from the
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> $VERSION"
     }
   }
 }
 \`\`\`
 
-For detailed documentation and examples, visit: https://registry.terraform.io/providers/oneuptime/oneuptime/latest/docs
+For detailed documentation and examples, visit: https://registry.terraform.io/providers/autonomy-cloud/operations/latest/docs
 
 **Full Changelog**: https://github.com/$GITHUB_ORG/$PROVIDER_REPO/compare/v$(echo $VERSION | awk -F. '{print $1"."$2"."($3-1)}')...v$VERSION
 EOF
@@ -702,7 +702,7 @@ publish_to_registry() {
 
     print_status "Terraform Registry will automatically detect the new release"
     print_status "Monitor the release at: https://github.com/$GITHUB_ORG/$PROVIDER_REPO/releases"
-    print_status "Provider will be available at: https://registry.terraform.io/providers/oneuptime/oneuptime/$VERSION"
+    print_status "Provider will be available at: https://registry.terraform.io/providers/autonomy-cloud/operations/$VERSION"
 
 
 }
@@ -1069,7 +1069,7 @@ show_summary() {
     echo "Version: $VERSION"
     echo "Provider Files Location: $PROVIDER_FRAMEWORK_DIR"
     echo "GitHub Repository: https://github.com/$GITHUB_ORG/$PROVIDER_REPO"
-    echo "Terraform Registry: https://registry.terraform.io/providers/oneuptime/oneuptime"
+    echo "Terraform Registry: https://registry.terraform.io/providers/autonomy-cloud/operations"
     echo ""
 
     if [[ "$RELEASE_ALREADY_EXISTS" == true ]]; then
@@ -1131,7 +1131,7 @@ show_summary() {
 # Main execution function
 main() {
     echo ""
-    print_status "OneUptime Terraform Provider Publisher"
+    print_status "Cast Operations Terraform Provider Publisher"
     print_status "====================================="
     echo ""
 

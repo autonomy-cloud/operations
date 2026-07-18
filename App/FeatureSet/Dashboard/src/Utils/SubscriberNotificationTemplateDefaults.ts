@@ -771,7 +771,7 @@ const episodeNoteCreatedDefaults: EventDefaults = {
  * the default body below can use loops ({{#each report.resources}}) and
  * conditionals ({{#if report.totalResources}}) over the structured `report`
  * object. It is kept self-contained with inline CSS so it renders correctly in
- * email clients without depending on OneUptime's chrome partials (those remain
+ * email clients without depending on Cast Operations’ chrome partials (those remain
  * available to power users who add {{> Start this}} etc.).
  * SMS / Slack / Microsoft Teams / Webhook reports have no worker send path
  * today, so their defaults are best-effort summaries (like Webhook is for the

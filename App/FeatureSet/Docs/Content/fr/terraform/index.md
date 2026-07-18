@@ -1,12 +1,12 @@
 # Documentation du fournisseur Terraform
 
-Le fournisseur Terraform OneUptime permet la gestion en tant qu'infrastructure as code (IaC) de vos ressources de surveillance, d'alerte et d'observabilité OneUptime.
+Le fournisseur Terraform Cast Operations permet la gestion en tant qu'infrastructure as code (IaC) de vos ressources de surveillance, d'alerte et d'observabilité Cast Operations.
 
 ## Sections de documentation
 
 ### [Démarrage rapide](./quick-start.md)
 
-Guide de configuration rapide pour vous aider à démarrer avec le fournisseur Terraform OneUptime en quelques minutes.
+Guide de configuration rapide pour vous aider à démarrer avec le fournisseur Terraform Cast Operations en quelques minutes.
 
 ### [Guide complet du fournisseur](./README.md)
 
@@ -18,24 +18,24 @@ Documentation complète couvrant l'installation, la configuration, les ressource
 
 ### [Exemples](./examples.md)
 
-Exemples concrets et modèles pour les configurations Terraform OneUptime courantes.
+Exemples concrets et modèles pour les configurations Terraform Cast Operations courantes.
 
 ## Liens rapides
 
-### Pour les clients cloud OneUptime
+### Pour les clients cloud Cast Operations
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Doit correspondre à votre version OneUptime
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Doit correspondre à votre version Cast Operations
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.votreentreprise.com"
+  oneuptime_url = "https://operations.votreentreprise.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Important pour les utilisateurs auto-hébergés
 
-**La compatibilité des versions est critique** : Épinglez toujours la version du fournisseur Terraform pour qu'elle corresponde exactement à votre version d'installation OneUptime. Des versions non correspondantes peuvent entraîner des problèmes de compatibilité API.
+**La compatibilité des versions est critique** : Épinglez toujours la version du fournisseur Terraform pour qu'elle corresponde exactement à votre version d'installation Cast Operations. Des versions non correspondantes peuvent entraîner des problèmes de compatibilité API.
 
 ## Ressources externes
 
-- **Registre Terraform** : [Fournisseur OneUptime](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **Dépôt GitHub** : [Code source OneUptime](https://github.com/OneUptime/oneuptime)
-- **Support communautaire** : [Communauté OneUptime](https://community.oneuptime.com)
+- **Registre Terraform** : [Fournisseur Cast Operations](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **Dépôt GitHub** : [Code source Cast Operations](https://github.com/autonomy-cloud/operations)
+- **Support communautaire** : [Communauté Cast Operations](https://community.visca.ai)
 
 ## Ressources disponibles
 
-Le fournisseur prend en charge la gestion complète des ressources OneUptime :
+Le fournisseur prend en charge la gestion complète des ressources Cast Operations :
 
 - **Projets & Équipes** : Organisez votre structure de surveillance
 - **Moniteurs** : Moniteurs de site Web, API, port, signal de vie et personnalisés
@@ -83,9 +83,9 @@ Le fournisseur prend en charge la gestion complète des ressources OneUptime :
 
 Pour les problèmes, questions ou contributions :
 
-1. **Problèmes de documentation** : Créez un ticket dans le [dépôt OneUptime](https://github.com/OneUptime/oneuptime/issues)
-2. **Bugs du fournisseur** : Signalez dans le dépôt principal OneUptime
-3. **Demandes de fonctionnalités** : Discutez dans la communauté OneUptime
+1. **Problèmes de documentation** : Créez un ticket dans le [dépôt Cast Operations](https://github.com/autonomy-cloud/operations/issues)
+2. **Bugs du fournisseur** : Signalez dans le dépôt principal Cast Operations
+3. **Demandes de fonctionnalités** : Discutez dans la communauté Cast Operations
 4. **Questions générales** : Utilisez les forums communautaires
 
 ## Prochaines étapes

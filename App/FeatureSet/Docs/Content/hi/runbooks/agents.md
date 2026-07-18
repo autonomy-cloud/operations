@@ -1,6 +1,6 @@
 # Runbook एजेंट
 
-एक **Runbook एजेंट** एक छोटा सेल्फ-होस्टेड प्रोसेस है जो आपके runbooks के Bash _और_ JavaScript steps को **आपके अपने इन्फ्रास्ट्रक्चर के अंदर** चलाता है। OneUptime का Worker आपके scripts को कभी खुद नहीं चलाता — वह उन्हें कतार में डालता है, और step के लेखक ने जिस Runbook एजेंट को चुना है, वही उन्हें claim करता है, चलाता है और परिणाम वापस भेजता है।
+एक **Runbook एजेंट** एक छोटा सेल्फ-होस्टेड प्रोसेस है जो आपके runbooks के Bash _और_ JavaScript steps को **आपके अपने इन्फ्रास्ट्रक्चर के अंदर** चलाता है। Cast Operations का Worker आपके scripts को कभी खुद नहीं चलाता — वह उन्हें कतार में डालता है, और step के लेखक ने जिस Runbook एजेंट को चुना है, वही उन्हें claim करता है, चलाता है और परिणाम वापस भेजता है।
 
 JavaScript अब भी `isolated-vm` sandbox में चलता है; अंतर सिर्फ इतना है कि वह sandbox हमारे यहाँ नहीं, बल्कि आपके एजेंट host पर रहता है।
 
@@ -8,23 +8,23 @@ JavaScript अब भी `isolated-vm` sandbox में चलता है; �
 
 ## एजेंट क्यों ज़रूरी हैं
 
-पहले OneUptime के संस्करण Bash और JavaScript steps Worker पर चलाते थे। JavaScript sandbox में था (`isolated-vm`), Bash नहीं। दोनों ही सिंगल-टेनेंट सेल्फ-होस्टेड सेटअप से परे किसी भी चीज़ के लिए समस्याजनक थे:
+पहले Cast Operations के संस्करण Bash और JavaScript steps Worker पर चलाते थे। JavaScript sandbox में था (`isolated-vm`), Bash नहीं। दोनों ही सिंगल-टेनेंट सेल्फ-होस्टेड सेटअप से परे किसी भी चीज़ के लिए समस्याजनक थे:
 
 - **विश्वास सीमा।** जो भी runbook लिख सकता था वह Worker पर कोड चला सकता था, जिसके पास Worker की सारी env variables और filesystem तक पहुँच थी। JavaScript का sandbox स्पष्ट चीज़ें ब्लॉक करता था, लेकिन एक दृढ़ उपयोगकर्ता को यह जाँचने से नहीं रोक सकता था कि हमारे नेटवर्क से क्या-क्या पहुँच में है।
-- **पहुँच।** अधिकांश उपयोगी steps _ग्राहक_ के इन्फ्रास्ट्रक्चर पर काम करना चाहते हैं ("इस service को restart करो", "हमारे cluster पर kubectl", "हमारे internal DB में एक record देखो") — OneUptime के नहीं।
+- **पहुँच।** अधिकांश उपयोगी steps _ग्राहक_ के इन्फ्रास्ट्रक्चर पर काम करना चाहते हैं ("इस service को restart करो", "हमारे cluster पर kubectl", "हमारे internal DB में एक record देखो") — Cast Operations के नहीं।
 
 Runbook एजेंट इसे उलट देते हैं। Bash और JavaScript steps हमारे यहाँ नहीं चलते। वे उस host पर चलते हैं जिसे आप नियंत्रित करते हैं, और आप तय करते हैं कि वह host क्या कर सकता है।
 
 ## यह कैसे काम करता है
 
-1. आप OneUptime में एक Runbook एजेंट बनाते हैं। OneUptime एक ID और एक secret key जनरेट करता है।
-2. आप उस ID/key और अपने OneUptime URL के साथ अपने इन्फ्रास्ट्रक्चर के एक host पर एजेंट का container चलाते हैं।
-3. एजेंट हर कुछ सेकंड में OneUptime से पूछता है: "मेरे लिए कोई काम है?"
+1. आप Cast Operations में एक Runbook एजेंट बनाते हैं। Cast Operations एक ID और एक secret key जनरेट करता है।
+2. आप उस ID/key और अपने Cast Operations URL के साथ अपने इन्फ्रास्ट्रक्चर के एक host पर एजेंट का container चलाते हैं।
+3. एजेंट हर कुछ सेकंड में Cast Operations से पूछता है: "मेरे लिए कोई काम है?"
 4. जब आप एक Bash या JavaScript step लिखते हैं, तो ड्रॉपडाउन से एजेंट चुनते हैं — step उस विशिष्ट एजेंट से बँध जाता है।
 5. जब step चलता है, Worker `RunbookAgentJob` पंक्ति डालता है जिसमें `targetAgentId` उस एजेंट पर सेट होता है। केवल वही एजेंट उसे claim कर सकता है।
 6. एजेंट script को लोकल में चलाता है — Bash के लिए `bash -c <script>`, JavaScript के लिए एक `isolated-vm` sandbox — परिणाम कैप्चर करके वापस भेजता है। Worker उस परिणाम के साथ runbook को आगे बढ़ाता है।
 
-एजेंट को बस आपके OneUptime instance तक **outbound HTTPS** चाहिए। यह कोई inbound connection स्वीकार नहीं करता।
+एजेंट को बस आपके Cast Operations instance तक **outbound HTTPS** चाहिए। यह कोई inbound connection स्वीकार नहीं करता।
 
 ## एजेंट इंस्टॉल करें
 
@@ -45,14 +45,14 @@ Runbook एजेंट इसे उलट देते हैं। Bash औ�
 
 अपने environment के किसी भी host पर Docker कमांड चलाएँ जो:
 
-- HTTPS पर आपके OneUptime instance तक पहुँच सकता हो, और
+- HTTPS पर आपके Cast Operations instance तक पहुँच सकता हो, और
 - वे चीज़ें कर सकता हो जो आप Bash/JavaScript steps से करवाना चाहते हैं (जैसे दूसरे hosts पर SSH, `kubectl`, database से बात करना)।
 
 ```bash
 docker run --name oneuptime-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://oneuptime.yourdomain.com \
+  -e ONEUPTIME_URL=https://operations.yourdomain.com \
   -d oneuptime/runbook-agent:release
 ```
 
@@ -61,7 +61,7 @@ docker run --name oneuptime-runbook-agent --restart unless-stopped \
 **Runbooks → Settings → Agents** पर वापस जाएँ। लगभग 60 सेकंड के भीतर एजेंट की पंक्ति को ताज़ा **Last seen** टाइमस्टैम्प के साथ `Connected` में बदल जाना चाहिए। अगर वह `Disconnected` ही रहे:
 
 - container logs (`docker logs oneuptime-runbook-agent`) में auth या नेटवर्क errors देखें।
-- सत्यापित करें कि host `curl` से OneUptime URL तक पहुँचता है।
+- सत्यापित करें कि host `curl` से Cast Operations URL तक पहुँचता है।
 - सत्यापित करें कि ID और key बिना whitespace के copy हुए हैं।
 
 ## किसी step को एजेंट की ओर इंगित करें
@@ -116,7 +116,7 @@ Runbook execution को रद्द करना (execution view या API �
 
 | Variable                                  | आवश्यक | डिफ़ॉल्ट | टिप्पणियाँ                                                                    |
 | ----------------------------------------- | ------ | -------- | ----------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | हाँ    | —        | आपके OneUptime instance का base URL, जैसे `https://oneuptime.yourdomain.com`। |
+| `ONEUPTIME_URL`                           | हाँ    | —        | आपके Cast Operations instance का base URL, जैसे `https://operations.yourdomain.com`। |
 | `RUNBOOK_AGENT_ID`                        | हाँ    | —        | एजेंट के setup modal में दिखाया गया UUID।                                     |
 | `RUNBOOK_AGENT_KEY`                       | हाँ    | —        | एजेंट के setup modal में दिखाया गया secret।                                   |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | नहीं   | `5000`   | एजेंट कितनी बार नए jobs के लिए poll करता है।                                  |
@@ -126,7 +126,7 @@ Runbook execution को रद्द करना (execution view या API �
 
 ## एजेंट की key rotate करना
 
-अगर key लीक हो जाए, OneUptime में एजेंट खोलकर उसकी key reset करें। पुरानी तुरंत काम करना बंद कर देती है। एजेंट container को नई key से update करके restart करें।
+अगर key लीक हो जाए, Cast Operations में एजेंट खोलकर उसकी key reset करें। पुरानी तुरंत काम करना बंद कर देती है। एजेंट container को नई key से update करके restart करें।
 
 ## अनुमतियाँ
 

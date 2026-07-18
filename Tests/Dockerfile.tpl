@@ -17,17 +17,16 @@ RUN npm install -g npm@latest
 RUN apk upgrade --no-cache && apk add --no-cache bash curl
 
 
-# Per-build args (GIT_SHA / APP_VERSION / IS_ENTERPRISE_EDITION) are declared at
 # the bottom so the COPY layer above stays cacheable across the community +
 # enterprise build passes.
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 
-LABEL org.opencontainers.image.title="OneUptime Tests"
-LABEL org.opencontainers.image.description="OneUptime integration and unit test runner image."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.documentation="https://oneuptime.com/docs"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations Tests"
+LABEL org.opencontainers.image.description="Cast Operations integration and unit test runner image."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 
@@ -43,10 +42,8 @@ USER node
 # community + enterprise build passes.
 ARG GIT_SHA
 ARG APP_VERSION
-ARG IS_ENTERPRISE_EDITION=false
 ENV GIT_SHA=${GIT_SHA}
 ENV APP_VERSION=${APP_VERSION}
-ENV IS_ENTERPRISE_EDITION=${IS_ENTERPRISE_EDITION}
 LABEL org.opencontainers.image.revision="${GIT_SHA}"
 LABEL org.opencontainers.image.version="${APP_VERSION}"
 

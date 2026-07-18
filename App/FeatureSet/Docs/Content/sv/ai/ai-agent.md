@@ -1,6 +1,6 @@
 # AI-agenter
 
-AI-agenter i OneUptime åtgärdar automatiskt fel, prestandaproblem och databasfrågor i din kod. Drivna av OpenTelemetry-observabilitetsdata skapar AI-agenter pull requests med åtgärder – inte bara varningar.
+AI-agenter i Cast Operations åtgärdar automatiskt fel, prestandaproblem och databasfrågor i din kod. Drivna av OpenTelemetry-observabilitetsdata skapar AI-agenter pull requests med åtgärder – inte bara varningar.
 
 ## Vad kan AI-agenter göra?
 
@@ -25,7 +25,7 @@ AI-agenter analyserar dina observabilitetsdata (spårningar, loggar och mätvär
 
 ## Flexibilitet med LLM-leverantör
 
-OneUptime fungerar med vilken LLM-leverantör som helst. Du kan använda:
+Cast Operations fungerar med vilken LLM-leverantör som helst. Du kan använda:
 
 - **OpenAI GPT**-modeller
 - **Anthropic Claude**-modeller
@@ -36,7 +36,7 @@ Egeninstallera din AI-modell och håll din kod helt privat.
 
 ## Sekretess
 
-Oavsett din plan ser, lagrar eller tränar OneUptime aldrig på din kod:
+Oavsett din plan ser, lagrar eller tränar Cast Operations aldrig på din kod:
 
 - **Ingen kodåtkomst**: Din kod stannar i din infrastruktur
 - **Ingen datalagring**: Noll-datalagringspolicy
@@ -46,13 +46,13 @@ Oavsett din plan ser, lagrar eller tränar OneUptime aldrig på din kod:
 
 ### Globala AI-agenter
 
-Om du använder **OneUptime SaaS** (molnhanterad version) tillhandahålls globala AI-agenter av OneUptime och är förkonfigurerade och redo att användas. Dessa agenter hanteras av OneUptime och kräver ingen ytterligare konfiguration.
+Om du använder **Cast Operations SaaS** (molnhanterad version) tillhandahålls globala AI-agenter av Cast Operations och är förkonfigurerade och redo att användas. Dessa agenter hanteras av Cast Operations och kräver ingen ytterligare konfiguration.
 
 Globala AI-agenter är automatiskt tillgängliga för alla projekt om de inte är inaktiverade i dina projektinställningar.
 
 ### Egeninstallerade AI-agenter
 
-För organisationer som behöver köra AI-agenter inom sin egen infrastruktur (t.ex. för säkerhet, regelefterlevnad eller nätverksåtkomstkrav) stöder OneUptime egeninstallerade AI-agenter.
+För organisationer som behöver köra AI-agenter inom sin egen infrastruktur (t.ex. för säkerhet, regelefterlevnad eller nätverksåtkomstkrav) stöder Cast Operations egeninstallerade AI-agenter.
 
 Egeninstallerade AI-agenter:
 
@@ -63,9 +63,9 @@ Egeninstallerade AI-agenter:
 
 ## Konfigurera en egeninstallerad AI-agent
 
-### Steg 1: Skapa en AI-agent i OneUptime
+### Steg 1: Skapa en AI-agent i Cast Operations
 
-1. Logga in på din OneUptime-instrumentpanel
+1. Logga in på din Cast Operations-instrumentpanel
 2. Gå till **Projektinställningar** > **AI-agenter**
 3. Klicka på **Skapa AI-agent** för att lägga till en ny agent
 4. Fyll i de obligatoriska fälten:
@@ -85,11 +85,11 @@ För att köra en AI-agent, se till att du har Docker installerat. Kör agenten 
 docker run --name oneuptime-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -d oneuptime/ai-agent:release
 ```
 
-Om du egeninstallerar OneUptime, ändra `ONEUPTIME_URL` till URL:en för din anpassade egeninstallerade instans.
+Om du egeninstallerar Cast Operations, ändra `ONEUPTIME_URL` till URL:en för din anpassade egeninstallerade instans.
 
 #### Docker Compose
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 Tillämpa konfigurationen:
@@ -160,15 +160,15 @@ AI-agenten stöder följande miljövariabler:
 
 | Variabel        | Beskrivning                                                         |
 | --------------- | ------------------------------------------------------------------- |
-| `AI_AGENT_KEY`  | AI-agentnyckeln från din OneUptime-instrumentpanel                  |
-| `AI_AGENT_ID`   | AI-agentens ID från din OneUptime-instrumentpanel                   |
-| `ONEUPTIME_URL` | URL:en till din OneUptime-instans (standard: https://oneuptime.com) |
+| `AI_AGENT_KEY`  | AI-agentnyckeln från din Cast Operations-instrumentpanel                  |
+| `AI_AGENT_ID`   | AI-agentens ID från din Cast Operations-instrumentpanel                   |
+| `ONEUPTIME_URL` | URL:en till din Cast Operations-instans (standard: https://visca.ai) |
 
 ## Verifiera din AI-agent
 
 Efter att du har distribuerat din AI-agent:
 
-1. Gå till **Projektinställningar** > **AI-agenter** i din OneUptime-instrumentpanel
+1. Gå till **Projektinställningar** > **AI-agenter** i din Cast Operations-instrumentpanel
 2. Din agent bör visas som **Ansluten** inom några minuter
 3. Om statusen visar **Frånkopplad**, kontrollera containerloggarna efter fel
 
@@ -187,7 +187,7 @@ kubectl logs deployment/oneuptime-ai-agent
 ### Agenten ansluter inte
 
 1. **Verifiera uppgifter**: Kontrollera att `AI_AGENT_KEY` och `AI_AGENT_ID` är korrekta
-2. **Kontrollera nätverket**: Se till att agenten kan nå din OneUptime-instans
+2. **Kontrollera nätverket**: Se till att agenten kan nå din Cast Operations-instans
 3. **Granska loggar**: Kontrollera containerloggarna efter felmeddelanden
 4. **Brandväggsregler**: Se till att utgående HTTPS (port 443) är tillåtet
 
@@ -201,6 +201,6 @@ kubectl logs deployment/oneuptime-ai-agent
 
 Om du stöter på problem med din AI-agent:
 
-1. Kontrollera [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) för kända problem
+1. Kontrollera [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) för kända problem
 2. Skapa ett nytt ärende om ditt problem inte redan är rapporterat
-3. Kontakta [supporten](https://oneuptime.com/support) om du har en företagsplan
+3. Kontakta [supporten](https://visca.ai/support) om du har en företagsplan

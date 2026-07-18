@@ -26,9 +26,9 @@ Si le système est brièvement indisponible, l'exécution est lancée dès qu'il
 
 ## Webhook
 
-OneUptime crée une URL unique. Tout appel à cette URL démarre le workflow. Les en-têtes, les paramètres de requête et le corps de la requête sont transmis.
+Cast Operations crée une URL unique. Tout appel à cette URL démarre le workflow. Les en-têtes, les paramètres de requête et le corps de la requête sont transmis.
 
-Idéal pour : recevoir des données dans OneUptime depuis un autre outil — rappels CI/CD, alertes provenant d'un autre outil de monitoring, inscriptions dans votre CRM.
+Idéal pour : recevoir des données dans Cast Operations depuis un autre outil — rappels CI/CD, alertes provenant d'un autre outil de monitoring, inscriptions dans votre CRM.
 
 **Sortie** :
 
@@ -40,15 +40,15 @@ L'URL accepte à la fois `GET` et `POST`. L'appelant reçoit un accusé de réce
 
 Traitez l'URL comme un mot de passe. Toute personne qui la possède peut démarrer votre workflow.
 
-## Déclencheurs d'événements OneUptime
+## Déclencheurs d'événements Cast Operations
 
-Presque tout dans OneUptime — monitors, incidents, alertes, maintenances planifiées, status pages, politiques d'astreinte, équipes — peut déclencher un workflow. Chacun offre trois événements :
+Presque tout dans Cast Operations — monitors, incidents, alertes, maintenances planifiées, status pages, politiques d'astreinte, équipes — peut déclencher un workflow. Chacun offre trois événements :
 
 - **On Create** — se déclenche lorsqu'un nouvel élément est ajouté.
 - **On Update** — se déclenche lorsqu'un élément est modifié.
 - **On Delete** — se déclenche lorsqu'un élément est supprimé.
 
-C'est ainsi que vous construisez « quand X se produit dans OneUptime, faire Y » sans avoir à vérifier les choses en boucle.
+C'est ainsi que vous construisez « quand X se produit dans Cast Operations, faire Y » sans avoir à vérifier les choses en boucle.
 
 L'enregistrement complet est transmis au bloc suivant. Par exemple, le déclencheur **Incident → On Create** transmet le nouvel incident, ce qui permet au bloc suivant de lire son titre, sa description, sa gravité et tout autre champ.
 
@@ -70,7 +70,7 @@ Cherchez dans la palette des déclencheurs par nom pour trouver celui que vous v
 | Cliquer sur un bouton pour exécuter le workflow | **Manual**              |
 | Exécuter selon une planification récurrente     | **Schedule**            |
 | Laisser un autre système pousser des données    | **Webhook**             |
-| Réagir à quelque chose dans OneUptime           | **Événement OneUptime** |
+| Réagir à quelque chose dans Cast Operations           | **Événement Cast Operations** |
 
 Un workflow ne peut avoir qu'un seul déclencheur. Si vous avez besoin de deux manières de démarrer la même automatisation, regroupez la logique partagée dans un workflow et appelez-le depuis deux workflows « enveloppes » légers à l'aide du composant **Execute Workflow**.
 

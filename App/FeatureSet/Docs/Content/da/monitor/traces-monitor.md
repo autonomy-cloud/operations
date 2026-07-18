@@ -1,6 +1,6 @@
 # Traces Monitor
 
-Traces-overvågning giver dig mulighed for at overvåge distribuerede traces fra dine applikationer og udløse advarsler baseret på span-mønstre, -antal og -statusser. OneUptime evaluerer trace-data fra dine telemetritjenester over et tidsvindue.
+Traces-overvågning giver dig mulighed for at overvåge distribuerede traces fra dine applikationer og udløse advarsler baseret på span-mønstre, -antal og -statusser. Cast Operations evaluerer trace-data fra dine telemetritjenester over et tidsvindue.
 
 ## Oversigt
 
@@ -14,7 +14,7 @@ Traces-monitorer søger og tæller spans, der matcher specifikke filtre. Dette g
 
 ## Oprettelse af en Traces Monitor
 
-1. Gå til **Monitorer** i OneUptime-dashboardet
+1. Gå til **Monitorer** i Cast Operations-dashboardet
 2. Klik på **Opret monitor**
 3. Vælg **Traces** som monitortype
 4. Vælg de telemetritjenester, der skal overvåges
@@ -24,7 +24,7 @@ Traces-monitorer søger og tæller spans, der matcher specifikke filtre. Dette g
 
 ### Telemetritjenester
 
-Vælg én eller flere tjenester, der skal overvåges traces fra. Tjenester skal sende traces til OneUptime via OpenTelemetry.
+Vælg én eller flere tjenester, der skal overvåges traces fra. Tjenester skal sende traces til Cast Operations via OpenTelemetry.
 
 ### Span-filtre
 
@@ -79,4 +79,4 @@ Vælg én eller flere tjenester, der skal overvåges traces fra. Tjenester skal 
 
 ## Opsætningskrav
 
-Traces-overvågning kræver, at dine applikationer sender distribuerede traces til OneUptime via OpenTelemetry. Se dokumentationen til [OpenTelemetry](/docs/telemetry/open-telemetry) for opsætningsinstruktioner.
+Traces-overvågning kræver, at dine applikationer sender distribuerede traces til Cast Operations via OpenTelemetry. Se dokumentationen til [OpenTelemetry](/docs/telemetry/open-telemetry) for opsætningsinstruktioner.

@@ -1,6 +1,6 @@
 # Kjøringer & logger
 
-Hver gang en arbeidsflyt kjører, lagrer OneUptime et register over hva som skjedde — når den kjørte, om den fungerte, og hva hver blokk gjorde. Det registeret kalles en **kjøring**. Kjøringer er hvordan du bekrefter at en arbeidsflyt fungerte, feilsøker en som ikke gjorde det, og ser tilbake på tidligere aktivitet.
+Hver gang en arbeidsflyt kjører, lagrer Cast Operations et register over hva som skjedde — når den kjørte, om den fungerte, og hva hver blokk gjorde. Det registeret kalles en **kjøring**. Kjøringer er hvordan du bekrefter at en arbeidsflyt fungerte, feilsøker en som ikke gjorde det, og ser tilbake på tidligere aktivitet.
 
 ## Hvor du finner dem
 
@@ -35,7 +35,7 @@ Verdiene som vises er nøyaktig det blokken så — etter at alle variabler ble 
 ### "Arbeidsflyten min kjørte ikke."
 
 1. Sørg for at arbeidsflyten er **aktivert** i Innstillinger. Nye arbeidsflyter starter deaktivert.
-2. For en OneUptime-hendelsestrigger: bekreft at hendelsen faktisk skjedde. Åpne oppføringen og sjekk historikken.
+2. For en Cast Operations-hendelsestrigger: bekreft at hendelsen faktisk skjedde. Åpne oppføringen og sjekk historikken.
 3. For en webhook-trigger: bekreft at det andre systemet sender til riktig URL. De fleste verktøy logger når de sender en webhook — sjekk der.
 4. For en tidsplan-trigger: bekreft at cron-uttrykket matcher tidspunktet du forventer.
 

@@ -143,7 +143,7 @@ export default class DockerHostOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -222,7 +222,7 @@ export default class DockerHostOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "User ID",
-    description: "ID of your OneUptime User in which this object belongs",
+    description: "ID of your Cast Operations User in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -302,7 +302,7 @@ export default class DockerHostOwnerUser extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Docker Host ID",
     description:
-      "ID of your OneUptime Docker Host in which this object belongs",
+      "ID of your Cast Operations Docker Host in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

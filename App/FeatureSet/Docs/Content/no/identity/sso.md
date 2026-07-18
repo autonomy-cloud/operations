@@ -1,6 +1,6 @@
 # SSO (Single Sign-On)
 
-OneUptime støtter SAML 2.0-basert Single Sign-On (SSO) for bedriftsautentisering. SSO lar teammedlemmene dine logge inn på OneUptime med organisasjonens identitetsleverandør (IdP), noe som gir sentralisert tilgangsstyring og forbedret sikkerhet.
+Cast Operations støtter SAML 2.0-basert Single Sign-On (SSO) for bedriftsautentisering. SSO lar teammedlemmene dine logge inn på Cast Operations med organisasjonens identitetsleverandør (IdP), noe som gir sentralisert tilgangsstyring og forbedret sikkerhet.
 
 ## Oversikt
 
@@ -9,13 +9,13 @@ SSO-integrasjon gir følgende fordeler:
 - **Sentralisert autentisering**: Brukere logger inn med eksisterende bedriftslegitimasjon
 - **Forbedret sikkerhet**: Utnytt IdP-ens multifaktorautentisering og sikkerhetspolicyer
 - **Forenklet brukeradministrasjon**: Administrer tilgang fra det eksisterende identitetsstyringssystemet ditt
-- **Redusert passordtretthet**: Brukere trenger ikke å huske et separat OneUptime-passord
+- **Redusert passordtretthet**: Brukere trenger ikke å huske et separat Cast Operations-passord
 
 ## Konfigurere SSO
 
 1. **Naviger til prosjektinnstillinger**
 
-   - Gå til OneUptime-prosjektet ditt
+   - Gå til Cast Operations-prosjektet ditt
    - Naviger til **Prosjektinnstillinger** > **Autentisering** > **SSO**
 
 2. **Opprett SSO-konfigurasjon**
@@ -28,24 +28,24 @@ SSO-integrasjon gir følgende fordeler:
    - Velg **Signaturalgoritme** (f.eks. `RSA-SHA-256`)
    - Velg **Sammendragsalgoritme** (f.eks. `SHA256`)
 
-3. **Hent OneUptime SSO-metadata**
+3. **Hent Cast Operations SSO-metadata**
    - Etter lagring, klikk knappen **Vis SSO-konfig**
    - Kopier **Identifikator (Entity ID)** – dette er nødvendig i IdP-konfigurasjonen din
    - Kopier **Svar-URL (Assertion Consumer Service URL)** – dette er nødvendig i IdP-konfigurasjonen din
 
 ## Keycloak SAML-konfigurasjon
 
-Keycloak er en populær åpen kildekode-løsning for identitets- og tilgangsstyring. Følg disse trinnene for å konfigurere Keycloak som SAML-identitetsleverandør for OneUptime.
+Keycloak er en populær åpen kildekode-løsning for identitets- og tilgangsstyring. Følg disse trinnene for å konfigurere Keycloak som SAML-identitetsleverandør for Cast Operations.
 
 ### Forutsetninger
 
 - En kjørende Keycloak-instans med et konfigurert realm
-- Administratortilgang til både Keycloak og OneUptime
-- OneUptime-konto med SSO-støtte
+- Administratortilgang til både Keycloak og Cast Operations
+- Cast Operations-konto med SSO-støtte
 
-### Trinn 1: Konfigurer OneUptime SSO
+### Trinn 1: Konfigurer Cast Operations SSO
 
-1. Logg inn på OneUptime-dashbordet ditt
+1. Logg inn på Cast Operations-dashbordet ditt
 2. Naviger til **Prosjektinnstillinger** > **Autentisering** > **SSO**
 3. Klikk **Opprett SSO** og fyll inn følgende:
    - **Navn**: Et beskrivende navn (f.eks. `my-project-oneuptime`)
@@ -61,7 +61,7 @@ Keycloak er en populær åpen kildekode-løsning for identitets- og tilgangsstyr
 1. I Keycloak, naviger til klientkonfigurasjonen din
 2. Klikk **Eksporter** (eller gå til fanen **Nøkler** avhengig av Keycloak-versjonen)
 3. I den eksporterte JSON-filen, finn nøkkelen med `certificate` i navnet
-4. Kopier sertifikatverdien og lim den inn i OneUptime i følgende format:
+4. Kopier sertifikatverdien og lim den inn i Cast Operations i følgende format:
 
 ```
 -----BEGIN CERTIFICATE-----
@@ -74,10 +74,10 @@ MIICnzCCAYcCBgFyPZ8QFzANBgkqhkiG.......
 1. I Keycloak, naviger til **Klienter** i realmet ditt
 2. Opprett en ny klient eller rediger en eksisterende
 3. Sett **Klientprotokoll** til `saml`
-4. Sett **Klient-ID** til verdien **Identifikator (Entity ID)** fra OneUptimes **Vis SSO-konfig**
-5. Sett **Gyldige omdirigerings-URI-er** til OneUptime-URL-en din
-6. Sett **Rot-URL** til din OneUptime-basis-URL
-7. Lim inn **Svar-URL (Assertion Consumer Service URL)** fra OneUptime i feltet **Assertion Consumer Service POST Binding URL**
+4. Sett **Klient-ID** til verdien **Identifikator (Entity ID)** fra Cast Operations **Vis SSO-konfig**
+5. Sett **Gyldige omdirigerings-URI-er** til Cast Operations-URL-en din
+6. Sett **Rot-URL** til din Cast Operations-basis-URL
+7. Lim inn **Svar-URL (Assertion Consumer Service URL)** fra Cast Operations i feltet **Assertion Consumer Service POST Binding URL**
 
 ### Trinn 4: Konfigurer Keycloak-klientinnstillinger
 
@@ -87,9 +87,9 @@ MIICnzCCAYcCBgFyPZ8QFzANBgkqhkiG.......
 
 ### Trinn 5: Bekreft konfigurasjonen
 
-1. Lagre alle innstillinger i både Keycloak og OneUptime
-2. Prøv å logge inn på OneUptime med SSO
-3. Du bør omdirigeres til Keycloak-innloggingssiden og tilbake til OneUptime etter vellykket autentisering
+1. Lagre alle innstillinger i både Keycloak og Cast Operations
+2. Prøv å logge inn på Cast Operations med SSO
+3. Du bør omdirigeres til Keycloak-innloggingssiden og tilbake til Cast Operations etter vellykket autentisering
 
 ### Feilsøking av Keycloak
 
@@ -102,17 +102,17 @@ MIICnzCCAYcCBgFyPZ8QFzANBgkqhkiG.......
 
 ## Microsoft Entra ID (tidligere Azure AD / Active Directory) SAML-konfigurasjon
 
-Microsoft Entra ID er Microsofts skybaserte identitets- og tilgangsstyringstjeneste. Følg disse trinnene for å konfigurere Entra ID som SAML-identitetsleverandør for OneUptime.
+Microsoft Entra ID er Microsofts skybaserte identitets- og tilgangsstyringstjeneste. Følg disse trinnene for å konfigurere Entra ID som SAML-identitetsleverandør for Cast Operations.
 
 ### Forutsetninger
 
 - Microsoft Entra ID-leietaker (alle nivåer som støtter bedriftsapplikasjoner med SAML SSO)
-- Administratortilgang til både Microsoft Entra ID og OneUptime
-- OneUptime-konto med SSO-støtte
+- Administratortilgang til både Microsoft Entra ID og Cast Operations
+- Cast Operations-konto med SSO-støtte
 
-### Trinn 1: Konfigurer OneUptime SSO
+### Trinn 1: Konfigurer Cast Operations SSO
 
-1. Logg inn på OneUptime-dashbordet ditt
+1. Logg inn på Cast Operations-dashbordet ditt
 2. Naviger til **Prosjektinnstillinger** > **Autentisering** > **SSO**
 3. Klikk **Opprett SSO** og fyll inn følgende:
    - **Navn**: Et beskrivende navn (f.eks. `Azure AD SAML`)
@@ -129,7 +129,7 @@ Microsoft Entra ID er Microsofts skybaserte identitets- og tilgangsstyringstjene
 2. Naviger til **Identitet** > **Applikasjoner** > **Bedriftsapplikasjoner**
 3. Klikk **+ Ny applikasjon**
 4. Klikk **+ Opprett din egen applikasjon**
-5. Skriv inn et navn (f.eks. "OneUptime")
+5. Skriv inn et navn (f.eks. "Cast Operations")
 6. Velg **Integrer enhver annen applikasjon du ikke finner i galleriet (ikke-galleri)**
 7. Klikk **Opprett**
 
@@ -138,16 +138,16 @@ Microsoft Entra ID er Microsofts skybaserte identitets- og tilgangsstyringstjene
 1. I den nye bedriftsapplikasjonen din, gå til **Single sign-on**
 2. Velg **SAML** som single sign-on-metode
 3. I **Grunnleggende SAML-konfigurasjon**, klikk **Rediger** og sett:
-   - **Identifikator (Entity ID)**: Lim inn **Identifikator (Entity ID)** fra OneUptimes **Vis SSO-konfig**
-   - **Svar-URL (Assertion Consumer Service URL)**: Lim inn **Svar-URL** fra OneUptimes **Vis SSO-konfig**
+   - **Identifikator (Entity ID)**: Lim inn **Identifikator (Entity ID)** fra Cast Operations **Vis SSO-konfig**
+   - **Svar-URL (Assertion Consumer Service URL)**: Lim inn **Svar-URL** fra Cast Operations **Vis SSO-konfig**
 4. Klikk **Lagre**
 5. I seksjonen **SAML-sertifikater**:
    - Last ned **Sertifikat (Base64)**
    - Åpne den nedlastede sertifikatfilen i en teksteditor og kopier innholdet
-6. I seksjonen **Konfigurer OneUptime**, kopier:
-   - **Innloggings-URL** – lim dette inn som **Innloggings-URL** i OneUptime
-   - **Azure AD-identifikator** – lim dette inn som **Utsteder** i OneUptime
-7. Gå tilbake til OneUptime og lim inn sertifikatet og URL-ene, og lagre
+6. I seksjonen **Konfigurer Cast Operations**, kopier:
+   - **Innloggings-URL** – lim dette inn som **Innloggings-URL** i Cast Operations
+   - **Azure AD-identifikator** – lim dette inn som **Utsteder** i Cast Operations
+7. Gå tilbake til Cast Operations og lim inn sertifikatet og URL-ene, og lagre
 
 ### Trinn 4: Konfigurer brukerattributter og krav
 
@@ -173,31 +173,31 @@ Microsoft Entra ID er Microsofts skybaserte identitets- og tilgangsstyringstjene
 
 ### Trinn 6: Bekreft konfigurasjonen
 
-1. Lagre alle innstillinger i både Entra ID og OneUptime
-2. Prøv å logge inn på OneUptime med SSO
-3. Du bør omdirigeres til Microsoft-innloggingssiden og tilbake til OneUptime etter vellykket autentisering
+1. Lagre alle innstillinger i både Entra ID og Cast Operations
+2. Prøv å logge inn på Cast Operations med SSO
+3. Du bør omdirigeres til Microsoft-innloggingssiden og tilbake til Cast Operations etter vellykket autentisering
 
 ### Feilsøking av Microsoft Entra ID
 
-- **AADSTS700016-feil**: Identifikatoren (Entity ID) i Entra ID stemmer ikke overens med OneUptime – bekreft at begge verdier er identiske
+- **AADSTS700016-feil**: Identifikatoren (Entity ID) i Entra ID stemmer ikke overens med Cast Operations – bekreft at begge verdier er identiske
 - **Sertifikatfeil**: Sørg for at du lastet ned **Base64**-sertifikatet (ikke råformat/binærformat) og inkluderte linjene `BEGIN CERTIFICATE` / `END CERTIFICATE`
 - **Bruker ikke tildelt**: Brukere må eksplisitt tildeles bedriftsapplikasjonen før de kan logge inn via SSO
-- **Name ID-mismatch**: Sørg for at Name ID-kravet er satt til en e-postadresse som samsvarer med brukerens e-post i OneUptime
+- **Name ID-mismatch**: Sørg for at Name ID-kravet er satt til en e-postadresse som samsvarer med brukerens e-post i Cast Operations
 
 ---
 
 ## Okta SAML-konfigurasjon
 
-Okta er en mye brukt identitetsplattform som gir robuste SAML SSO-funksjoner. Følg disse trinnene for å konfigurere Okta som SAML-identitetsleverandør for OneUptime.
+Okta er en mye brukt identitetsplattform som gir robuste SAML SSO-funksjoner. Følg disse trinnene for å konfigurere Okta som SAML-identitetsleverandør for Cast Operations.
 
 ### Forutsetninger
 
 - Okta-organisasjon med administratortilgang
-- OneUptime-konto med SSO-støtte
+- Cast Operations-konto med SSO-støtte
 
-### Trinn 1: Konfigurer OneUptime SSO
+### Trinn 1: Konfigurer Cast Operations SSO
 
-1. Logg inn på OneUptime-dashbordet ditt
+1. Logg inn på Cast Operations-dashbordet ditt
 2. Naviger til **Prosjektinnstillinger** > **Autentisering** > **SSO**
 3. Klikk **Opprett SSO** og fyll inn følgende:
    - **Navn**: Et beskrivende navn (f.eks. `Okta SAML`)
@@ -214,26 +214,26 @@ Okta er en mye brukt identitetsplattform som gir robuste SAML SSO-funksjoner. F�
 2. Naviger til **Applikasjoner** > **Applikasjoner**
 3. Klikk **Opprett appintegrasjon**
 4. Velg **SAML 2.0** og klikk **Neste**
-5. Skriv inn "OneUptime" som **Appnavn** og klikk **Neste**
+5. Skriv inn "Cast Operations" som **Appnavn** og klikk **Neste**
 6. I seksjonen **SAML-innstillinger**, konfigurer:
-   - **Single sign-on URL**: Lim inn **Svar-URL (Assertion Consumer Service URL)** fra OneUptimes **Vis SSO-konfig**
-   - **Audience URI (SP Entity ID)**: Lim inn **Identifikator (Entity ID)** fra OneUptimes **Vis SSO-konfig**
+   - **Single sign-on URL**: Lim inn **Svar-URL (Assertion Consumer Service URL)** fra Cast Operations **Vis SSO-konfig**
+   - **Audience URI (SP Entity ID)**: Lim inn **Identifikator (Entity ID)** fra Cast Operations **Vis SSO-konfig**
    - **Name ID-format**: Velg `EmailAddress`
    - **Applikasjonsbrukernavn**: Velg `Email`
 7. Klikk **Neste**, velg deretter **Jeg er en Okta-kunde som legger til en intern app** og klikk **Fullfør**
 
-### Trinn 3: Kopier Okta SAML-metadata til OneUptime
+### Trinn 3: Kopier Okta SAML-metadata til Cast Operations
 
 1. I Okta-applikasjonen din, gå til fanen **Innlogging**
 2. I seksjonen **SAML-signeringssertifikater**, finn det aktive sertifikatet og klikk **Handlinger** > **Vis IdP-metadata**
 3. Fra metadata-XML, eller fra detaljene i fanen **Innlogging**:
-   - Kopier **Innloggings-URL** (også kalt **Identity Provider Single Sign-On URL**) – lim dette inn som **Innloggings-URL** i OneUptime
-   - Kopier **Utsteder** (også kalt **Identity Provider Issuer**) – lim dette inn som **Utsteder** i OneUptime
+   - Kopier **Innloggings-URL** (også kalt **Identity Provider Single Sign-On URL**) – lim dette inn som **Innloggings-URL** i Cast Operations
+   - Kopier **Utsteder** (også kalt **Identity Provider Issuer**) – lim dette inn som **Utsteder** i Cast Operations
 4. Last ned signeringssertifikatet:
    - I seksjonen **SAML-signeringssertifikater**, klikk **Handlinger** > **Last ned sertifikat** for det aktive sertifikatet
    - Åpne den nedlastede `.cert`-filen i en teksteditor og kopier innholdet
-   - Lim inn sertifikatet i OneUptime (inkludert linjene `BEGIN CERTIFICATE` og `END CERTIFICATE`)
-5. Lagre OneUptime SSO-konfigurasjonen
+   - Lim inn sertifikatet i Cast Operations (inkludert linjene `BEGIN CERTIFICATE` og `END CERTIFICATE`)
+5. Lagre Cast Operations SSO-konfigurasjonen
 
 ### Trinn 4: Konfigurer attributtsetninger (valgfritt)
 
@@ -258,14 +258,14 @@ Okta er en mye brukt identitetsplattform som gir robuste SAML SSO-funksjoner. F�
 
 ### Trinn 6: Bekreft konfigurasjonen
 
-1. Lagre alle innstillinger i både Okta og OneUptime
-2. Prøv å logge inn på OneUptime med SSO
-3. Du bør omdirigeres til Okta-innloggingssiden og tilbake til OneUptime etter vellykket autentisering
+1. Lagre alle innstillinger i både Okta og Cast Operations
+2. Prøv å logge inn på Cast Operations med SSO
+3. Du bør omdirigeres til Okta-innloggingssiden og tilbake til Cast Operations etter vellykket autentisering
 
 ### Feilsøking av Okta
 
-- **404 eller ugyldig SSO-URL**: Bekreft at **Single sign-on URL** i Okta stemmer nøyaktig overens med **Svar-URL** fra OneUptime
-- **Audience-mismatch**: Sørg for at **Audience URI** i Okta stemmer nøyaktig overens med **Identifikator (Entity ID)** fra OneUptime
+- **404 eller ugyldig SSO-URL**: Bekreft at **Single sign-on URL** i Okta stemmer nøyaktig overens med **Svar-URL** fra Cast Operations
+- **Audience-mismatch**: Sørg for at **Audience URI** i Okta stemmer nøyaktig overens med **Identifikator (Entity ID)** fra Cast Operations
 - **Sertifikatfeil**: Sørg for at du lastet ned sertifikatet for det **aktive** signeringssertifikatet, ikke et inaktivt
 - **Bruker ikke tildelt**: Brukere må tildeles Okta-applikasjonen før de kan logge inn via SSO
 - **Name ID-feil**: Bekreft at **Name ID-format** er satt til `EmailAddress` og **Applikasjonsbrukernavn** er satt til `Email`
@@ -274,14 +274,14 @@ Okta er en mye brukt identitetsplattform som gir robuste SAML SSO-funksjoner. F�
 
 ## Andre identitetsleverandører
 
-OneUptimes SSO-implementasjon bruker SAML 2.0-protokollen og skal fungere med alle kompatible identitetsleverandører. Generelle konfigurasjonstrinn er:
+Cast Operations SSO-implementasjon bruker SAML 2.0-protokollen og skal fungere med alle kompatible identitetsleverandører. Generelle konfigurasjonstrinn er:
 
-1. I OneUptime, opprett en SSO-konfigurasjon og noter **Identifikator (Entity ID)** og **Svar-URL (Assertion Consumer Service URL)** fra knappen **Vis SSO-konfig**
+1. I Cast Operations, opprett en SSO-konfigurasjon og noter **Identifikator (Entity ID)** og **Svar-URL (Assertion Consumer Service URL)** fra knappen **Vis SSO-konfig**
 2. I identitetsleverandøren din, opprett en SAML-applikasjon med:
-   - **Assertion Consumer Service URL / Svar-URL**: Fra OneUptime SSO-konfig
-   - **Entity ID / Audience URI**: Fra OneUptime SSO-konfig
+   - **Assertion Consumer Service URL / Svar-URL**: Fra Cast Operations SSO-konfig
+   - **Entity ID / Audience URI**: Fra Cast Operations SSO-konfig
    - **Name ID-format**: E-postadresse
-3. Fra identitetsleverandøren din, kopier følgende inn i OneUptime:
+3. Fra identitetsleverandøren din, kopier følgende inn i Cast Operations:
    - **Innloggings-URL** (SSO-endepunkt)
    - **Utsteder** (Entity ID for IdP)
    - **Offentlig sertifikat** (X.509-signeringssertifikat)
@@ -289,4 +289,4 @@ OneUptimes SSO-implementasjon bruker SAML 2.0-protokollen og skal fungere med al
 
 ## Merknader om SSO og roller
 
-OneUptime støtter for øyeblikket ikke kartlegging av SAML-roller fra identitetsleverandøren din. Rollebasert tilgang må konfigureres separat i OneUptimes **Prosjektinnstillinger** > **SSO**-innstillinger, der du kan tildele standardroller for SSO-brukere.
+Cast Operations støtter for øyeblikket ikke kartlegging av SAML-roller fra identitetsleverandøren din. Rollebasert tilgang må konfigureres separat i Cast Operations **Prosjektinnstillinger** > **SSO**-innstillinger, der du kan tildele standardroller for SSO-brukere.

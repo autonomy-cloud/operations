@@ -9,7 +9,7 @@ PROVIDER_DIR="$TEST_DIR/../../../Terraform/terraform-provider-oneuptime"
 source "$TEST_DIR/test-env.sh"
 
 echo "=== Running Terraform E2E Tests ==="
-echo "OneUptime URL: $ONEUPTIME_URL"
+echo "Cast Operations URL: $ONEUPTIME_URL"
 
 # Build and install provider locally
 echo ""
@@ -21,7 +21,7 @@ go build -o terraform-provider-oneuptime
 # Install provider
 OS=$(go env GOOS)
 ARCH=$(go env GOARCH)
-INSTALL_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/oneuptime/oneuptime/1.0.0/${OS}_${ARCH}"
+INSTALL_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/autonomy-cloud/operations/1.0.0/${OS}_${ARCH}"
 mkdir -p "$INSTALL_DIR"
 cp terraform-provider-oneuptime "$INSTALL_DIR/"
 
@@ -59,7 +59,7 @@ echo "Random provider downloaded"
 cat > "$HOME/.terraformrc" << EOF
 provider_installation {
   dev_overrides {
-    "oneuptime/oneuptime" = "$INSTALL_DIR"
+    "autonomy-cloud/operations" = "$INSTALL_DIR"
   }
   direct {}
 }

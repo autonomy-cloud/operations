@@ -1,5 +1,5 @@
 #!/bin/sh
-# OneUptime Docker Swarm Agent — installer.
+# Cast Operations Docker Swarm Agent — installer.
 #
 # Run this on a swarm MANAGER node. It downloads the compose file, the
 # collector config and the inventory poller into
@@ -9,18 +9,18 @@
 set -eu
 
 INSTALL_DIR="/opt/oneuptime-docker-swarm-agent"
-RAW_BASE="https://raw.githubusercontent.com/OneUptime/oneuptime/master/DockerSwarmAgent"
+RAW_BASE="https://raw.githubusercontent.com/autonomy-cloud/operations/master/DockerSwarmAgent"
 
-echo "OneUptime Docker Swarm Agent installer"
+echo "Cast Operations Docker Swarm Agent installer"
 echo "--------------------------------------"
 echo "Run this on a Docker Swarm MANAGER node (the inventory poller needs the manager API)."
 echo ""
 
-printf "OneUptime URL [https://oneuptime.com]: "
+printf "Cast Operations URL [https://visca.ai]: "
 read -r ONEUPTIME_URL
-ONEUPTIME_URL="${ONEUPTIME_URL:-https://oneuptime.com}"
+ONEUPTIME_URL="${ONEUPTIME_URL:-https://visca.ai}"
 
-printf "OneUptime Telemetry Ingestion Key: "
+printf "Cast Operations Telemetry Ingestion Key: "
 read -r ONEUPTIME_SERVICE_TOKEN
 
 printf "Docker Swarm cluster name (the join key) [my-swarm]: "
@@ -52,5 +52,5 @@ docker compose pull
 docker compose up -d
 
 echo ""
-echo "Done. The cluster '${DOCKER_SWARM_CLUSTER_NAME}' should appear in OneUptime within a few minutes."
+echo "Done. The cluster '${DOCKER_SWARM_CLUSTER_NAME}' should appear in Cast Operations within a few minutes."
 echo "Logs: docker compose -f ${INSTALL_DIR}/docker-compose.yml logs -f"

@@ -1,13 +1,9 @@
 import BaseAPI from "Common/Server/API/BaseAPI";
 import BaseAnalyticsAPI from "Common/Server/API/BaseAnalyticsAPI";
-import BillingAPI from "Common/Server/API/BillingAPI";
-import BillingInvoiceAPI from "Common/Server/API/BillingInvoiceAPI";
-import BillingPaymentMethodAPI from "Common/Server/API/BillingPaymentMethodAPI";
 import FileAPI from "Common/Server/API/FileAPI";
 import GlobalConfigAPI from "Common/Server/API/GlobalConfigAPI";
 import MonitorGroupAPI from "Common/Server/API/MonitorGroupAPI";
 import NotificationAPI from "Common/Server/API/NotificationAPI";
-import AIBillingAPI from "Common/Server/API/AIBillingAPI";
 import AIChatAPI from "Common/Server/API/AIChatAPI";
 import AIReadinessAPI from "Common/Server/API/AIReadinessAPI";
 import AIInvestigationAPI from "Common/Server/API/AIInvestigationAPI";
@@ -65,11 +61,6 @@ import TelegramLogAPI from "./TelegramLogAPI";
 
 // Import API
 import ResellerPlanAPI from "Common/Server/API/ResellerPlanAPI";
-import EnterpriseLicenseAPI from "Common/Server/API/EnterpriseLicenseAPI";
-import EnterpriseLicenseInstance from "Common/Models/DatabaseModels/EnterpriseLicenseInstance";
-import EnterpriseLicenseInstanceService, {
-  Service as EnterpriseLicenseInstanceServiceType,
-} from "Common/Server/Services/EnterpriseLicenseInstanceService";
 import OpenSourceDeploymentAPI from "Common/Server/API/OpenSourceDeploymentAPI";
 import MonitorAPI from "Common/Server/API/MonitorAPI";
 import MonitorTemplateAPI from "Common/Server/API/MonitorTemplateAPI";
@@ -3861,24 +3852,6 @@ const BaseAPIFeatureSet: FeatureSet = {
     );
     app.use(
       `/${APP_NAME.toLocaleLowerCase()}`,
-      new EnterpriseLicenseAPI().getRouter(),
-    );
-    /*
-     * Read/list for the admin dashboard Enterprise Licenses page
-     * (empty table ACLs — master admin only).
-     */
-    app.use(
-      `/${APP_NAME.toLocaleLowerCase()}`,
-      new BaseAPI<
-        EnterpriseLicenseInstance,
-        EnterpriseLicenseInstanceServiceType
-      >(
-        EnterpriseLicenseInstance,
-        EnterpriseLicenseInstanceService,
-      ).getRouter(),
-    );
-    app.use(
-      `/${APP_NAME.toLocaleLowerCase()}`,
       new OpenSourceDeploymentAPI().getRouter(),
     );
     app.use(`/${APP_NAME.toLocaleLowerCase()}`, new SlackAPI().getRouter());
@@ -3988,19 +3961,7 @@ const BaseAPIFeatureSet: FeatureSet = {
       new StatusPageSubscriberAPI().getRouter(),
     );
 
-    app.use(
-      `/${APP_NAME.toLocaleLowerCase()}`,
-      new BillingPaymentMethodAPI().getRouter(),
-    );
-
     app.use(`/${APP_NAME.toLocaleLowerCase()}`, new ProjectAPI().getRouter());
-
-    app.use(
-      `/${APP_NAME.toLocaleLowerCase()}`,
-      new BillingInvoiceAPI().getRouter(),
-    );
-
-    app.use(`/${APP_NAME.toLocaleLowerCase()}`, new BillingAPI().getRouter());
 
     app.use(
       `/${APP_NAME.toLocaleLowerCase()}`,
@@ -4154,8 +4115,6 @@ const BaseAPIFeatureSet: FeatureSet = {
     );
 
     app.use(`/${APP_NAME.toLocaleLowerCase()}`, NotificationAPI);
-
-    app.use(`/${APP_NAME.toLocaleLowerCase()}`, AIBillingAPI);
 
     // AI Observability Chat
     app.use(`/${APP_NAME.toLocaleLowerCase()}`, AIChatAPI);

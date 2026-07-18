@@ -1,6 +1,6 @@
 # Installatiegids voor Linux
 
-Installeer OneUptime als desktopapplicatie op Linux-distributies voor uitgebreide monitoring en incidentbeheer.
+Installeer Cast Operations als desktopapplicatie op Linux-distributies voor uitgebreide monitoring en incidentbeheer.
 
 ## Installatiemethoden
 
@@ -10,17 +10,17 @@ Chrome en Chromium bieden de beste Linux PWA-ervaring met native desktopintegrat
 
 #### PWA-installatiestappen:
 
-1. **OneUptime openen in Chrome/Chromium**
+1. **Cast Operations openen in Chrome/Chromium**
 
    - Start uw browser
-   - Navigeer naar de URL van uw OneUptime-instantie
-   - Meld u aan bij uw OneUptime-account
+   - Navigeer naar de URL van uw Cast Operations-instantie
+   - Meld u aan bij uw Cast Operations-account
    - Wacht tot de pagina volledig is geladen
 
 2. **PWA installeren**
 
    - Zoek het **installatiepictogram** (⊞) in de adresbalk
-   - Klik op **"OneUptime installeren"**
+   - Klik op **"Cast Operations installeren"**
    - Of gebruik het **Chrome-menu** (⋮) → **Meer hulpmiddelen** → **Snelkoppeling maken**
 
 3. **Installatieopties**
@@ -31,7 +31,7 @@ Chrome en Chromium bieden de beste Linux PWA-ervaring met native desktopintegrat
    - Klik op **"Installeren"** of **"Maken"**
 
 4. **App starten**
-   - Zoek OneUptime in het applicatiestartprogramma
+   - Zoek Cast Operations in het applicatiestartprogramma
    - Of gebruik de bureaubladsnelkoppeling
    - App opent in een eigen venster
 
@@ -40,7 +40,7 @@ Chrome en Chromium bieden de beste Linux PWA-ervaring met native desktopintegrat
 Firefox ondersteunt PWA-installatie op Linux met basisdesktopintegratie.
 
 1. **PWA installeren**:
-   - Open OneUptime in Firefox
+   - Open Cast Operations in Firefox
    - Zoek naar installatiebanner of -prompt
    - Klik op **"Installeren"** wanneer beschikbaar
    - Opmerking: Beperkte desktopintegratie vergeleken met Chrome
@@ -55,7 +55,7 @@ Edge is beschikbaar op Linux en biedt goede PWA-ondersteuning.
 
 ### Automatische updates
 
-OneUptime PWA wordt automatisch bijgewerkt:
+Cast Operations PWA wordt automatisch bijgewerkt:
 
 - Updates worden toegepast wanneer de browser de app vernieuwt
 - Kritieke beveiligingsupdates worden onmiddellijk geïmplementeerd
@@ -69,7 +69,7 @@ OneUptime PWA wordt automatisch bijgewerkt:
 # Chrome PWA-beheer
 google-chrome chrome://apps/
 
-# Alle OneUptime-gerelateerde browsergegevens verwijderen
+# Alle Cast Operations-gerelateerde browsergegevens verwijderen
 rm -rf ~/.config/google-chrome/Default/Local\ Storage/leveldb/
 rm -rf ~/.cache/google-chrome/Default/
 ```
@@ -78,7 +78,7 @@ rm -rf ~/.cache/google-chrome/Default/
 
 ### Automatische updates
 
-OneUptime PWA wordt automatisch bijgewerkt:
+Cast Operations PWA wordt automatisch bijgewerkt:
 
 - Updates worden toegepast wanneer de browser de app vernieuwt
 - Kritieke beveiligingsupdates worden onmiddellijk geïmplementeerd

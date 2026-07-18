@@ -20,7 +20,7 @@
     "switchLanguage": "भाषा बदलें"
   },
   "footer": {
-    "copyright": "OneUptime",
+    "copyright": "Cast Operations",
     "contact": "संपर्क",
     "privacyAndTerms": "गोपनीयता और शर्तें"
   },
@@ -32,7 +32,7 @@
   },
   "login": {
     "title": "अपने खाते में साइन इन करें",
-    "subtitle": "हजारों व्यवसायों से जुड़ें जो हमेशा ऑनलाइन रहने के लिए OneUptime का उपयोग करते हैं।",
+    "subtitle": "हजारों व्यवसायों से जुड़ें जो हमेशा ऑनलाइन रहने के लिए Cast Operations का उपयोग करते हैं।",
     "submitButton": "लॉगिन",
     "forgotPassword": "पासवर्ड भूल गए?",
     "useSso": "इसके बजाय एकल साइन-ऑन (SSO) का उपयोग करें",
@@ -50,8 +50,8 @@
     }
   },
   "register": {
-    "title": "अपना OneUptime खाता बनाएं",
-    "subtitle": "हजारों व्यवसायों से जुड़ें जो हमेशा ऑनलाइन रहने के लिए OneUptime का उपयोग करते हैं।",
+    "title": "अपना Cast Operations खाता बनाएं",
+    "subtitle": "हजारों व्यवसायों से जुड़ें जो हमेशा ऑनलाइन रहने के लिए Cast Operations का उपयोग करते हैं।",
     "noCreditCard": "क्रेडिट कार्ड की आवश्यकता नहीं।",
     "submitButton": "साइन अप करें",
     "haveAccountPrompt": "क्या आपके पास पहले से ही खाता है?",
@@ -92,7 +92,7 @@
   },
   "verifyEmail": {
     "successTitle": "आपका ईमेल सत्यापित हो गया है।",
-    "successDescription": "अपना ईमेल सत्यापित करने के लिए धन्यवाद। अब आप OneUptime में लॉग इन कर सकते हैं।",
+    "successDescription": "अपना ईमेल सत्यापित करने के लिए धन्यवाद। अब आप Cast Operations में लॉग इन कर सकते हैं।",
     "errorTitle": "क्षमा करें, कुछ गलत हो गया!",
     "returnToSignIn": "साइन इन पर वापस जाएं?",
     "loginLink": "लॉग इन करें।"

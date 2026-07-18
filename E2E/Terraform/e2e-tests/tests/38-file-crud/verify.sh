@@ -7,7 +7,7 @@
 # 3. The state is preserved correctly (idempotency)
 #
 # This is the critical regression test for:
-# https://github.com/OneUptime/oneuptime/issues/XXXX
+# https://github.com/autonomy-cloud/operations/issues/XXXX
 # "Error: Read Not Implemented - This resource does not support read operations"
 
 set -e

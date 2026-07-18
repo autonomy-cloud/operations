@@ -1,10 +1,10 @@
 # Compartilhamento e Painéis Públicos
 
-Por padrão, os painéis são privados ao seu projeto — apenas membros logados da equipe podem vê-los. Mas o OneUptime também permite compartilhar um painel publicamente, protegê-lo com uma senha, restringi-lo a determinados IPs e hospedá-lo no seu próprio domínio. Esta página cobre os quatro.
+Por padrão, os painéis são privados ao seu projeto — apenas membros logados da equipe podem vê-los. Mas o Cast Operations também permite compartilhar um painel publicamente, protegê-lo com uma senha, restringi-lo a determinados IPs e hospedá-lo no seu próprio domínio. Esta página cobre os quatro.
 
 ## Painéis privados (o padrão)
 
-Um painel é acessível apenas a membros logados do seu projeto. A URL se parece com `https://oneuptime.com/dashboards/<id>/view` e exige um login.
+Um painel é acessível apenas a membros logados do seu projeto. A URL se parece com `https://visca.ai/dashboards/<id>/view` e exige um login.
 
 Dentro do projeto, donos e etiquetas controlam quem vê o quê — veja [Configuração e Permissões](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Requisições de qualquer outro IP são rejeitadas.
 
 ## Domínios personalizados
 
-Por padrão, um painel público é servido em `oneuptime.com`. Para hospedá-lo no seu próprio subdomínio como `dashboard.acme.com`:
+Por padrão, um painel público é servido em `visca.ai`. Para hospedá-lo no seu próprio subdomínio como `dashboard.acme.com`:
 
-1. Adicione um registro CNAME no seu DNS apontando o subdomínio para o destino do OneUptime.
+1. Adicione um registro CNAME no seu DNS apontando o subdomínio para o destino do Cast Operations.
 2. Em **Painel → Configurações → Domínios Personalizados**, adicione o domínio.
-3. Verifique-o. O OneUptime checa o registro DNS para você.
+3. Verifique-o. O Cast Operations checa o registro DNS para você.
 4. Uma vez verificado, o painel fica acessível tanto no seu domínio personalizado quanto na URL original.
 
 Domínios personalizados são úteis para:
@@ -75,7 +75,7 @@ Em **Painel → Configurações**, você pode configurar:
 - **Logotipo** — envie um PNG ou SVG para mostrar no cabeçalho.
 - **Favicon** — o pequeno ícone na aba do navegador.
 
-A marca só se aplica quando o painel é visualizado publicamente. Visualizadores internos sempre veem a marca do OneUptime.
+A marca só se aplica quando o painel é visualizado publicamente. Visualizadores internos sempre veem a marca do Cast Operations.
 
 ## Incorporação
 

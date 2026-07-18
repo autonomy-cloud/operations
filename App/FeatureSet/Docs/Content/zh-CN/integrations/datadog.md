@@ -1,19 +1,19 @@
 # Datadog 集成
 
-将 [Datadog](https://www.datadoghq.com) 监控告警转化为 OneUptime 事件，让 Datadog 的检测驱动 OneUptime 的事件响应和状态页。
+将 [Datadog](https://www.datadoghq.com) 监控告警转化为 Cast Operations 事件，让 Datadog 的检测驱动 Cast Operations 的事件响应和状态页。
 
-此集成为**入站**模式：Datadog 的 [Webhooks 集成](https://docs.datadoghq.com/integrations/webhooks/)向以 **Webhook 触发器**开始的 OneUptime **[工作流](/docs/workflows/index)**发送请求。
+此集成为**入站**模式：Datadog 的 [Webhooks 集成](https://docs.datadoghq.com/integrations/webhooks/)向以 **Webhook 触发器**开始的 Cast Operations **[工作流](/docs/workflows/index)**发送请求。
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## 前提条件
 
 - 一个可以配置集成和监控器的 Datadog 账户。
-- 一个可以创建工作流的 OneUptime 项目。
+- 一个可以创建工作流的 Cast Operations 项目。
 
-## 步骤 1——构建 OneUptime 工作流
+## 步骤 1——构建 Cast Operations 工作流
 
 1. 打开 **Workflows → Create Workflow**，命名为 `Datadog → Incidents`，并打开 **Builder**。
 2. 添加 **Webhook** 触发器并**复制其 URL**。将模块重命名为 `Datadog`。
@@ -60,7 +60,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Web
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-这会将告警和恢复都发送到 OneUptime。（要转发所有内容，你也可以无条件地在监控器中添加 `@webhook-oneuptime`。）
+这会将告警和恢复都发送到 Cast Operations。（要转发所有内容，你也可以无条件地在监控器中添加 `@webhook-oneuptime`。）
 
 ## 步骤 4——测试
 

@@ -1,17 +1,17 @@
 # MCP サーバー
 
-OneUptime Model Context Protocol（MCP）サーバーは、LLM に OneUptime インスタンスへの直接アクセスを提供し、AI を活用した監視、インシデント管理、可観測性の操作を可能にします。
+Cast Operations Model Context Protocol（MCP）サーバーは、LLM に Cast Operations インスタンスへの直接アクセスを提供し、AI を活用した監視、インシデント管理、可観測性の操作を可能にします。
 
-## OneUptime MCP サーバーとは？
+## Cast Operations MCP サーバーとは？
 
-OneUptime MCP サーバーは、大規模言語モデル（LLM）と OneUptime インスタンスの橋渡し役です。Model Context Protocol（MCP）を実装しており、Claude などの AI アシスタントが監視インフラと直接やり取りできるようにします。
+Cast Operations MCP サーバーは、大規模言語モデル（LLM）と Cast Operations インスタンスの橋渡し役です。Model Context Protocol（MCP）を実装しており、Claude などの AI アシスタントが監視インフラと直接やり取りできるようにします。
 
 ## 仕組み
 
-MCP サーバーは OneUptime インスタンスと並行してホストされており、Streamable HTTP トランスポート経由でアクセスできます。ローカルへのインストールは不要です。
+MCP サーバーは Cast Operations インスタンスと並行してホストされており、Streamable HTTP トランスポート経由でアクセスできます。ローカルへのインストールは不要です。
 
-**クラウドユーザー**: `https://oneuptime.com/mcp`
-**セルフホストユーザー**: `https://your-oneuptime-domain.com/mcp`
+**クラウドユーザー**: `https://visca.ai/mcp`
+**セルフホストユーザー**: `https://your-operations-domain.com/mcp`
 
 ## 主な機能
 
@@ -25,7 +25,7 @@ MCP サーバーは OneUptime インスタンスと並行してホストされ�
 
 ## できること
 
-OneUptime MCP サーバーを使用すると、AI アシスタントが以下の操作を支援します。
+Cast Operations MCP サーバーを使用すると、AI アシスタントが以下の操作を支援します。
 
 - **モニター管理**: モニターの作成と設定、ステータスの確認、ステータス履歴の確認
 - **インシデント対応**: インシデントの作成、確認応答、解決、内部または公開ノートの追加、解決の追跡
@@ -37,13 +37,13 @@ OneUptime MCP サーバーを使用すると、AI アシスタントが以下の
 
 ## 要件
 
-- OneUptime インスタンス（クラウドまたはセルフホスト）
+- Cast Operations インスタンス（クラウドまたはセルフホスト）
 - MCP 対応クライアント（Claude Desktop、VS Code with GitHub Copilot など）
-- 有効な OneUptime API キー（認証が必要な操作のみ必須 - パブリックツールは不要）
+- 有効な Cast Operations API キー（認証が必要な操作のみ必須 - パブリックツールは不要）
 
 ## API キーの取得
 
-1. OneUptime インスタンスにログインします
+1. Cast Operations インスタンスにログインします
 2. **設定** → **API キー** に移動します
 3. **API キーを作成** をクリックします
 4. 名前を入力します（例: "MCP Server"）
@@ -52,7 +52,7 @@ OneUptime MCP サーバーを使用すると、AI アシスタントが以下の
 
 API キーはプロジェクトスコープです。MCP サーバーはキーからプロジェクトを推測するため、作成ツールに `projectId` 引数を渡す必要はありません。
 
-> **警告 — AI エージェントにマスターキーを渡さないでください。** OneUptime の*マスター* API キーもこのヘッダーで受け付けられ、インスタンス全体の管理者アクセスを付与してしまいます。エージェントに必要な最小限の権限を持つプロジェクト API キーを必ず使用してください（すべての `get_`/`list_`/`count_` ツールには読み取り専用キーで十分です）。
+> **警告 — AI エージェントにマスターキーを渡さないでください。** Cast Operations の*マスター* API キーもこのヘッダーで受け付けられ、インスタンス全体の管理者アクセスを付与してしまいます。エージェントに必要な最小限の権限を持つプロジェクト API キーを必ず使用してください（すべての `get_`/`list_`/`count_` ツールには読み取り専用キーで十分です）。
 
 ## 設定
 
@@ -64,7 +64,7 @@ Claude Desktop 設定ファイルを見つけます。
 **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 **Linux**: `~/.config/Claude/claude_desktop_config.json`
 
-### OneUptime クラウドの場合
+### Cast Operations クラウドの場合
 
 以下の設定を追加します。
 
@@ -73,7 +73,7 @@ Claude Desktop 設定ファイルを見つけます。
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -82,16 +82,16 @@ Claude Desktop 設定ファイルを見つけます。
 }
 ```
 
-### セルフホスト OneUptime の場合
+### セルフホスト Cast Operations の場合
 
-`oneuptime.com` をお使いの OneUptime ドメインに置き換えます。
+`visca.ai` をお使いの Cast Operations ドメインに置き換えます。
 
 ```json
 {
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://your-oneuptime-domain.com/mcp",
+      "url": "https://your-operations-domain.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -109,7 +109,7 @@ Claude Desktop 設定ファイルを見つけます。
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://oneuptime.com/mcp"
+      "url": "https://visca.ai/mcp"
     }
   }
 }
@@ -119,7 +119,7 @@ Claude Desktop 設定ファイルを見つけます。
 
 ### VS Code with GitHub Copilot
 
-VS Code は GitHub Copilot（バージョン 1.99 以降）を使用して MCP サーバーをネイティブにサポートしています。これにより、Copilot が OneUptime データに直接アクセスできるようになります。
+VS Code は GitHub Copilot（バージョン 1.99 以降）を使用して MCP サーバーをネイティブにサポートしています。これにより、Copilot が Cast Operations データに直接アクセスできるようになります。
 
 #### ステップ 1: 要件
 
@@ -135,14 +135,14 @@ VS Code は GitHub Copilot（バージョン 1.99 以降）を使用して MCP �
 
 または、プロジェクト固有の設定として `.vscode/mcp.json` をワークスペースに作成します。
 
-#### OneUptime クラウドの場合
+#### Cast Operations クラウドの場合
 
 ```json
 {
   "servers": {
     "oneuptime": {
       "type": "http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "${input:oneuptime-api-key}"
       }
@@ -152,21 +152,21 @@ VS Code は GitHub Copilot（バージョン 1.99 以降）を使用して MCP �
     {
       "type": "promptString",
       "id": "oneuptime-api-key",
-      "description": "OneUptime API Key",
+      "description": "Cast Operations API Key",
       "password": true
     }
   ]
 }
 ```
 
-#### セルフホスト OneUptime の場合
+#### セルフホスト Cast Operations の場合
 
 ```json
 {
   "servers": {
     "oneuptime": {
       "type": "http",
-      "url": "https://your-oneuptime-domain.com/mcp",
+      "url": "https://your-operations-domain.com/mcp",
       "headers": {
         "x-api-key": "${input:oneuptime-api-key}"
       }
@@ -176,7 +176,7 @@ VS Code は GitHub Copilot（バージョン 1.99 以降）を使用して MCP �
     {
       "type": "promptString",
       "id": "oneuptime-api-key",
-      "description": "OneUptime API Key",
+      "description": "Cast Operations API Key",
       "password": true
     }
   ]
@@ -188,14 +188,14 @@ VS Code は GitHub Copilot（バージョン 1.99 以降）を使用して MCP �
 1. `Ctrl+Shift+P` / `Cmd+Shift+P` を押します
 2. "MCP: List Servers" と入力して利用可能なサーバーを確認します
 3. "oneuptime" をクリックしてサーバーを起動します
-4. プロンプトが表示されたら、OneUptime API キーを入力します
+4. プロンプトが表示されたら、Cast Operations API キーを入力します
 
 #### ステップ 4: Copilot Chat で使用する
 
 GitHub Copilot Chat を開き、エージェントモード（`@workspace` または直接質問）を使用します。
 
 ```
-"What monitors do I have in OneUptime?"
+"What monitors do I have in Cast Operations?"
 "Show me recent incidents"
 "Create a new monitor for https://example.com"
 ```
@@ -222,7 +222,7 @@ MCP サーバーは 2 つの操作モードをサポートしています。
 
 API キーなしで MCP サーバーに接続してパブリックツールにアクセスできます。
 
-- **`oneuptime_help`**: OneUptime MCP の機能に関するヘルプとガイダンスを取得します
+- **`oneuptime_help`**: Cast Operations MCP の機能に関するヘルプとガイダンスを取得します
 - **`oneuptime_list_resources`**: 利用可能なリソースとその操作を一覧表示します
 - **`get_public_status_page_overview`**: パブリックステータスページの概要を取得します
 - **`get_public_status_page_incidents`**: パブリックステータスページからインシデントを取得します
@@ -235,7 +235,7 @@ API キーなしで MCP サーバーに接続してパブリックツールに�
 
 その他のすべての操作（モニター、インシデント、チームの管理など）には、以下のいずれかのヘッダーによる認証が必要です。
 
-- `x-api-key`: OneUptime API キー
+- `x-api-key`: Cast Operations API キー
 - `Authorization`: API キーを含む Bearer トークン（例: `Bearer your-api-key-here`）
 
 `Bearer` スキームは大文字と小文字を区別しません。ツールのエラーは MCP プロトコルエラーとしてではなく、`statusCode`、詳細、提案を含むインバンドのツール結果（`isError: true`）として返されるため、エージェントは失敗内容を読み取って自己修正できます。
@@ -295,21 +295,21 @@ API キーなしで MCP サーバーに接続してパブリックツールに�
 MCP サーバーが稼働していることを確認します。
 
 ```bash
-# For OneUptime Cloud
-curl https://oneuptime.com/mcp/health
+# For Cast Operations Cloud
+curl https://visca.ai/mcp/health
 
 # For Self-Hosted
-curl https://your-oneuptime-domain.com/mcp/health
+curl https://your-operations-domain.com/mcp/health
 ```
 
 利用可能なツールを一覧表示します。
 
 ```bash
-# For OneUptime Cloud
-curl https://oneuptime.com/mcp/tools
+# For Cast Operations Cloud
+curl https://visca.ai/mcp/tools
 
 # For Self-Hosted
-curl https://your-oneuptime-domain.com/mcp/tools
+curl https://your-operations-domain.com/mcp/tools
 ```
 
 ## 使用例
@@ -359,7 +359,7 @@ curl https://your-oneuptime-domain.com/mcp/tools
 
 ```
 "What's the current status of status.example.com?"
-"Show me recent incidents from the OneUptime status page"
+"Show me recent incidents from the Cast Operations status page"
 "Are there any scheduled maintenance events on status.acme.com?"
 "Get the latest announcements from my public status page with ID abc123-..."
 ```
@@ -385,7 +385,7 @@ curl https://your-oneuptime-domain.com/mcp/tools
 
 - 特定の権限を使用する: 必要最小限の権限のみを付与します
 - API キーをローテーションする: 定期的に API キーをローテーションします
-- 使用状況を監視する: OneUptime で API キーの使用状況を追跡します
+- 使用状況を監視する: Cast Operations で API キーの使用状況を追跡します
 - キーを分離する: 環境ごとに異なる API キーを使用します
 
 ## トラブルシューティング
@@ -400,14 +400,14 @@ API キーに必要な権限があることを確認します。
 
 ### 接続の問題
 
-1. OneUptime URL が正しいことを確認します
+1. Cast Operations URL が正しいことを確認します
 2. API キーが有効であることを確認します
-3. OneUptime インスタンスにアクセスできることを確認します
+3. Cast Operations インスタンスにアクセスできることを確認します
 4. ヘルスエンドポイントをテストします
 
 ### 無効な API キー
 
-- OneUptime 設定で API キーを確認します
+- Cast Operations 設定で API キーを確認します
 - 余分なスペースや文字がないか確認します
 - キーが期限切れになっていないことを確認します
 

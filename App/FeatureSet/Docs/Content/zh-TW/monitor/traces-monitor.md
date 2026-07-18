@@ -1,6 +1,6 @@
 # 追蹤監控器
 
-追蹤監控可讓您監控來自應用程式的分散式追蹤，並根據 span 模式、數量與狀態觸發警示。OneUptime 會在一段時間視窗內評估來自您遙測服務的追蹤資料。
+追蹤監控可讓您監控來自應用程式的分散式追蹤，並根據 span 模式、數量與狀態觸發警示。Cast Operations 會在一段時間視窗內評估來自您遙測服務的追蹤資料。
 
 ## 概覽
 
@@ -14,7 +14,7 @@
 
 ## 建立追蹤監控器
 
-1. 前往 OneUptime 儀表板中的 **Monitors**
+1. 前往 Cast Operations 儀表板中的 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **Traces** 作為監控器類型
 4. 選擇要監控的遙測服務
@@ -24,7 +24,7 @@
 
 ### 遙測服務
 
-選擇一個或多個服務以監控其追蹤。服務必須透過 OpenTelemetry 將追蹤傳送至 OneUptime。
+選擇一個或多個服務以監控其追蹤。服務必須透過 OpenTelemetry 將追蹤傳送至 Cast Operations。
 
 ### Span 篩選條件
 
@@ -79,4 +79,4 @@
 
 ## 設定需求
 
-追蹤監控需要您的應用程式透過 OpenTelemetry 將分散式追蹤傳送至 OneUptime。請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件以取得設定說明。
+追蹤監控需要您的應用程式透過 OpenTelemetry 將分散式追蹤傳送至 Cast Operations。請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件以取得設定說明。

@@ -1,19 +1,19 @@
 # Manual Monitor
 
-Manual monitoring आपको ऐसे monitors बनाने की अनुमति देता है जिनकी status पूरी तरह हाथ से या API के माध्यम से प्रबंधित होती है। OneUptime कोई automated checks नहीं करता — आप सीधे monitor status नियंत्रित करते हैं।
+Manual monitoring आपको ऐसे monitors बनाने की अनुमति देता है जिनकी status पूरी तरह हाथ से या API के माध्यम से प्रबंधित होती है। Cast Operations कोई automated checks नहीं करता — आप सीधे monitor status नियंत्रित करते हैं।
 
 ## Overview
 
 Manual monitors placeholder हैं जिन्हें आप स्वयं update करते हैं। यह निम्नलिखित के लिए उपयोगी है:
 
-- external monitoring tools के साथ integrate करना जो OneUptime API के माध्यम से status update करते हैं
+- external monitoring tools के साथ integrate करना जो Cast Operations API के माध्यम से status update करते हैं
 - ऐसी services या systems को track करना जिन्हें automatically monitor नहीं किया जा सकता
 - automated health checks के बिना components के लिए incidents प्रबंधित करना
 - third-party dependencies represent करना जिनकी status आप manually track करते हैं
 
 ## Manual Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **Manual** चुनें
 4. monitor के लिए एक नाम और description दर्ज करें
@@ -26,8 +26,8 @@ Manual monitors में monitoring intervals, probes, या automated criteri
 
 आप manual monitor की status दो तरीकों से update कर सकते हैं:
 
-- **Dashboard** — OneUptime Dashboard से सीधे monitor status बदलें
-- **API** — OneUptime API का उपयोग करके programmatically monitor status update करें
+- **Dashboard** — Cast Operations Dashboard से सीधे monitor status बदलें
+- **API** — Cast Operations API का उपयोग करके programmatically monitor status update करें
 
 ### Incidents और Alerts
 
@@ -44,5 +44,5 @@ Manual monitors में monitoring intervals, probes, या automated criteri
 | Third-party services     | external services की status track करें जिन पर आप depend करते हैं लेकिन directly monitor नहीं कर सकते |
 | Physical infrastructure  | network monitoring के बिना hardware या physical systems represent करें                               |
 | Business processes       | service status को affect करने वाले non-technical processes track करें                                |
-| API-driven status        | external tools को OneUptime API के माध्यम से monitor status update करने दें                          |
-| Status page placeholders | अपने status page पर ऐसे components दिखाएं जो OneUptime के बाहर प्रबंधित हैं                          |
+| API-driven status        | external tools को Cast Operations API के माध्यम से monitor status update करने दें                          |
+| Status page placeholders | अपने status page पर ऐसे components दिखाएं जो Cast Operations के बाहर प्रबंधित हैं                          |

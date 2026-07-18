@@ -1,11 +1,11 @@
 # FAQ और Troubleshooting
 
-OneUptime mobile और desktop apps के लिए अक्सर पूछे जाने वाले प्रश्न और समाधान।
+Cast Operations mobile और desktop apps के लिए अक्सर पूछे जाने वाले प्रश्न और समाधान।
 
-## OneUptime अपनी apps कैसे distribute करता है?
+## Cast Operations अपनी apps कैसे distribute करता है?
 
-- **Mobile (iOS और Android):** OneUptime **OneUptime On-Call** नामक एक native app ship करता है। यह [Apple App Store](https://apps.apple.com/us/app/oneuptime-on-call/id6759615391) और [Google Play](https://play.google.com/store/apps/details?id=com.oneuptime.oncall) पर publish किया गया है। Google Play के बिना Android devices के लिए एक signed [APK download](https://github.com/OneUptime/oneuptime/releases/latest/download/oneuptime-on-call-android-app.apk) भी उपलब्ध है।
-- **Desktop (Windows, macOS, Linux):** OneUptime का web dashboard एक Progressive Web App (PWA) है। आप इसे सीधे Chromium-based browser या Safari से desktop application के रूप में install कर सकते हैं — किसी store account की आवश्यकता नहीं है।
+- **Mobile (iOS और Android):** Cast Operations **Cast Operations On-Call** नामक एक native app ship करता है। यह [Apple App Store](https://github.com/autonomy-cloud/operations/releases) और [Google Play](https://github.com/autonomy-cloud/operations/releases) पर publish किया गया है। Google Play के बिना Android devices के लिए एक signed [APK download](https://github.com/autonomy-cloud/operations/releases/latest/download/cast-operations-on-call-android-app.apk) भी उपलब्ध है।
+- **Desktop (Windows, macOS, Linux):** Cast Operations का web dashboard एक Progressive Web App (PWA) है। आप इसे सीधे Chromium-based browser या Safari से desktop application के रूप में install कर सकते हैं — किसी store account की आवश्यकता नहीं है।
 
 ## Mobile App FAQ
 
@@ -16,11 +16,11 @@ OneUptime mobile और desktop apps के लिए अक्सर पूछ�
 
 ### क्या app मुफ्त है?
 
-हां। OneUptime On-Call app install करने के लिए मुफ्त है। आप अपने मौजूदा OneUptime account से sign in करते हैं।
+हां। Cast Operations On-Call app install करने के लिए मुफ्त है। आप अपने मौजूदा Cast Operations account से sign in करते हैं।
 
-### क्या मैं self-hosted OneUptime instance के साथ app का उपयोग कर सकता हूं?
+### क्या मैं self-hosted Cast Operations instance के साथ app का उपयोग कर सकता हूं?
 
-हां। पहले launch पर, app एक **Server URL** के लिए पूछता है। अपने self-hosted instance का URL enter करें (उदाहरण के लिए, `https://oneuptime.example.com`)। app sign in करने देने से पहले validate करता है कि server reachable है।
+हां। पहले launch पर, app एक **Server URL** के लिए पूछता है। अपने self-hosted instance का URL enter करें (उदाहरण के लिए, `https://operations.example.com`)। app sign in करने देने से पहले validate करता है कि server reachable है।
 
 self-hosted instances पर push notifications के लिए, [Push Notifications](/docs/self-hosted/push-notifications) guide का पालन करें।
 
@@ -34,11 +34,11 @@ self-hosted instances पर push notifications के लिए, [Push Notifica
 
 Mobile push, Expo Push के माध्यम से APNs (iOS) और FCM (Android) का उपयोग करता है। निम्नलिखित check करें:
 
-1. **OneUptime On-Call** के लिए OS level पर notifications enabled हैं।
+1. **Cast Operations On-Call** के लिए OS level पर notifications enabled हैं।
 2. Battery optimisation disabled है और background activity allowed है (Android)।
 3. Do Not Disturb या Focus modes बंद हैं, या app exception list पर है।
 4. आप sign in हैं — push token केवल आपके sign in करने के बाद ही server के साथ register होता है।
-5. **केवल Self-hosted:** Push notifications आपके OneUptime instance पर configured हैं। [Push Notifications](/docs/self-hosted/push-notifications) guide देखें।
+5. **केवल Self-hosted:** Push notifications आपके Cast Operations instance पर configured हैं। [Push Notifications](/docs/self-hosted/push-notifications) guide देखें।
 
 ### क्या मेरे phone पर data सुरक्षित है?
 
@@ -48,14 +48,14 @@ Mobile push, Expo Push के माध्यम से APNs (iOS) और FCM (A
 
 ### क्या मैं app को कई devices पर install कर सकता हूं?
 
-हां। जितने भी devices आपको चाहिए, उन पर एक ही OneUptime account के साथ sign in करें। प्रत्येक device को अपने own push notifications प्राप्त होते हैं।
+हां। जितने भी devices आपको चाहिए, उन पर एक ही Cast Operations account के साथ sign in करें। प्रत्येक device को अपने own push notifications प्राप्त होते हैं।
 
 ### मैं uninstall कैसे करूं?
 
 - **iOS:** icon को long-press करें → **Remove App** → **Delete App**।
-- **Android:** icon को long-press करें → **Uninstall**, या **Settings → Apps → OneUptime On-Call → Uninstall**।
+- **Android:** icon को long-press करें → **Uninstall**, या **Settings → Apps → Cast Operations On-Call → Uninstall**।
 
-आपका OneUptime account और data server पर stored होता है और जब आप app uninstall करते हैं तो हटाया नहीं जाता।
+आपका Cast Operations account और data server पर stored होता है और जब आप app uninstall करते हैं तो हटाया नहीं जाता।
 
 ## Desktop App (PWA) FAQ
 
@@ -65,14 +65,14 @@ Mobile push, Expo Push के माध्यम से APNs (iOS) और FCM (A
 
 ### Desktop app PWA technology का उपयोग क्यों करता है?
 
-- **Instant updates** — जिस क्षण आप deploy करते हैं, app आपके OneUptime instance के साथ sync रहता है।
+- **Instant updates** — जिस क्षण आप deploy करते हैं, app आपके Cast Operations instance के साथ sync रहता है।
 - **किसी store account की आवश्यकता नहीं** — किसी भी modern browser से सीधे install करें।
 - **Single codebase** — वही dashboard Windows, macOS, और Linux पर चलता है।
 
 ### "Install" button क्यों नहीं दिखाई दे रहा?
 
 1. Chromium-based browser (Chrome, Edge, Brave, Arc) या Safari (macOS Sonoma+) का उपयोग करें।
-2. पुष्टि करें कि आपका OneUptime instance HTTPS पर valid certificate के साथ serve हो रहा है।
+2. पुष्टि करें कि आपका Cast Operations instance HTTPS पर valid certificate के साथ serve हो रहा है।
 3. अपना browser cache clear करें और reload करें।
 4. app पहले से ही installed हो सकता है — अपने Applications / Start Menu check करें।
 
@@ -82,7 +82,7 @@ Mobile push, Expo Push के माध्यम से APNs (iOS) और FCM (A
 
 ### मैं desktop PWA को uninstall कैसे करूं?
 
-- **Windows:** **Settings → Apps → OneUptime → Uninstall**, या Start Menu entry पर right-click करें।
+- **Windows:** **Settings → Apps → Cast Operations → Uninstall**, या Start Menu entry पर right-click करें।
 - **macOS:** app को **Applications** से Trash में drag करें, या Dock icon पर right-click करें और **Remove** चुनें।
 - **Linux:** अपने application launcher के uninstall option का उपयोग करें, या relevant `.desktop` file को हटाएं।
 
@@ -98,27 +98,27 @@ Mobile push, Expo Push के माध्यम से APNs (iOS) और FCM (A
 
 **Push notifications delayed या missing (Android):**
 
-- Battery optimisation disable करें: **Settings → Apps → OneUptime On-Call → Battery → Unrestricted**।
+- Battery optimisation disable करें: **Settings → Apps → Cast Operations On-Call → Battery → Unrestricted**।
 - app के लिए Data Saver disable करें।
-- Samsung devices पर, OneUptime On-Call के लिए **Device care → Battery → Background usage limits** बंद करें।
+- Samsung devices पर, Cast Operations On-Call के लिए **Device care → Battery → Background usage limits** बंद करें।
 
 **Push notifications delayed या missing (iOS):**
 
 - app को Force-Quit करने से बचें — iOS background delivery को pause कर सकता है।
 - जब आप on-call हों तो Low Power Mode disable करें।
-- OneUptime On-Call को किसी भी active Focus mode की allow list में add करें।
+- Cast Operations On-Call को किसी भी active Focus mode की allow list में add करें।
 
 **Face ID / Touch ID / fingerprint काम नहीं कर रहा:**
 
 - सुनिश्चित करें कि biometrics आपके OS settings में enrolled हैं।
-- OneUptime On-Call app के अंदर **Settings** screen से biometric unlock को फिर से enable करें।
+- Cast Operations On-Call app के अंदर **Settings** screen से biometric unlock को फिर से enable करें।
 
 ### Desktop App (PWA) Issues
 
 **Install button गायब है:**
 
 - एक supported browser का उपयोग करें (Chromium-based या macOS Sonoma+ पर Safari)।
-- सुनिश्चित करें कि OneUptime instance HTTPS पर serve हो रहा है।
+- सुनिश्चित करें कि Cast Operations instance HTTPS पर serve हो रहा है।
 - page के पूरी तरह load होने का इंतजार करें, फिर install icon के लिए address bar check करें।
 
 **Desktop notifications दिखाई नहीं दे रहे:**
@@ -139,5 +139,5 @@ Mobile push, Expo Push के माध्यम से APNs (iOS) और FCM (A
 
 - Mobile: [iOS](./ios-installation.md) या [Android](./android-installation.md) installation guides देखें।
 - Desktop: [Windows](./windows-installation.md), [macOS](./macos-installation.md), या [Linux](./linux-installation.md) installation guides देखें।
-- [OneUptime GitHub repository](https://github.com/OneUptime/oneuptime) पर एक issue open करें।
-- अपने OneUptime dashboard के माध्यम से support से संपर्क करें।
+- [Cast Operations GitHub repository](https://github.com/autonomy-cloud/operations) पर एक issue open करें।
+- अपने Cast Operations dashboard के माध्यम से support से संपर्क करें।

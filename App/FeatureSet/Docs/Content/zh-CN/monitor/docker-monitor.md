@@ -1,6 +1,6 @@
 # Docker 监控器
 
-Docker 监控允许您监控 Docker 主机及其上运行的容器的健康状况和性能。OneUptime 通过预配置的 OpenTelemetry Collector（**OneUptime Docker Agent**）收集指标和容器日志，并根据您配置的标准进行评估。
+Docker 监控允许您监控 Docker 主机及其上运行的容器的健康状况和性能。Cast Operations 通过预配置的 OpenTelemetry Collector（**Cast Operations Docker Agent**）收集指标和容器日志，并根据您配置的标准进行评估。
 
 ## 概述
 
@@ -14,7 +14,7 @@ Docker 监控器使用来自主机的指标和日志，为您的容器工作负�
 
 ## 创建 Docker 监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **Docker** 作为监控器类型
 4. 选择要监控的 Docker 主机和资源范围
@@ -25,7 +25,7 @@ Docker 监控器使用来自主机的指标和日志，为您的容器工作负�
 
 ### Docker 主机
 
-选择要监控的 Docker 主机。主机在 OneUptime Docker Agent 首次从其发送遥测数据时自动注册——您无需手动创建它们。
+选择要监控的 Docker 主机。主机在 Cast Operations Docker Agent 首次从其发送遥测数据时自动注册——您无需手动创建它们。
 
 ### 资源范围
 
@@ -126,7 +126,7 @@ Docker Agent 使用 OpenTelemetry `docker_stats` 接收器，该接收器以可�
 
 ## 预置告警模板
 
-OneUptime 为常见的 Docker 监控场景提供模板：
+Cast Operations 为常见的 Docker 监控场景提供模板：
 
 | 模板         | 描述                     | 阈值  | 聚合               |
 | ------------ | ------------------------ | ----- | ------------------ |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 要使用 Docker 监控，您需要：
 
-1. 在每个要监控的 Docker 主机上安装 OneUptime Docker Agent
+1. 在每个要监控的 Docker 主机上安装 Cast Operations Docker Agent
 2. 将 `ONEUPTIME_URL`、`ONEUPTIME_SERVICE_TOKEN` 和 `DOCKER_HOST_NAME` 作为环境变量传入
 3. 确保要观察的容器使用 `json-file` 日志驱动程序（见上文）
 
-该 Agent 以 `oneuptime/docker-agent:release` 的形式发布在 Docker Hub 上。完整的 `docker run` 和 `docker compose` 示例请参见 [Docker Agent 安装指南](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent)。
+该 Agent 以 `oneuptime/docker-agent:release` 的形式发布在 Docker Hub 上。完整的 `docker run` 和 `docker compose` 示例请参见 [Docker Agent 安装指南](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent)。
 
 ## 故障排查
 
@@ -236,7 +236,7 @@ docker run ... <image>
 
 ### 日志到达但被归类到错误的主机名下
 
-OneUptime 通过 `resource.host.name` 自动注册 Docker 主机，该值来自 `DOCKER_HOST_NAME` 环境变量。在首次遥测批次发送后更改 `DOCKER_HOST_NAME` 会创建第二个主机行，而不是重命名现有行。
+Cast Operations 通过 `resource.host.name` 自动注册 Docker 主机，该值来自 `DOCKER_HOST_NAME` 环境变量。在首次遥测批次发送后更改 `DOCKER_HOST_NAME` 会创建第二个主机行，而不是重命名现有行。
 
 ### "高 CPU"未触发事件
 

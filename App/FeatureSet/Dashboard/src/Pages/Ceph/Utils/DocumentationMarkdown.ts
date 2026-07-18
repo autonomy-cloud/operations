@@ -7,7 +7,7 @@ export function getCephInstallationMarkdown(data: {
 
 - Docker Engine 20.10+ with the Docker Compose v2 plugin, on any machine that can reach your Ceph mgr daemons (port 9283)
 - The Ceph mgr \`prometheus\` module enabled
-- A OneUptime Telemetry Ingestion Key (selected above)
+- A Cast Operations Telemetry Ingestion Key (selected above)
 
 ### Enable the mgr prometheus module
 
@@ -27,15 +27,15 @@ ceph orch ps --daemon-type mgr   # all mgrs (cephadm clusters)
 ## Quick Start (Install Script)
 
 \`\`\`bash
-curl -sSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/CephAgent/install.sh -o install.sh
+curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/CephAgent/install.sh -o install.sh
 bash install.sh
 \`\`\`
 
-The script prompts for your OneUptime URL, telemetry ingestion key, cluster name, and mgr endpoints, installs to \`/opt/oneuptime-ceph-agent\`, and starts the agent with Docker Compose.
+The script prompts for your Cast Operations URL, telemetry ingestion key, cluster name, and mgr endpoints, installs to \`/opt/oneuptime-ceph-agent\`, and starts the agent with Docker Compose.
 
 ## Alternative: Docker Compose
 
-Download \`docker-compose.yml\` and \`otel-collector-config.yaml\` from the [CephAgent directory](https://github.com/OneUptime/oneuptime/tree/master/CephAgent) into a folder, then create a \`.env\` file next to them:
+Download \`docker-compose.yml\` and \`otel-collector-config.yaml\` from the [CephAgent directory](https://github.com/autonomy-cloud/operations/tree/master/CephAgent) into a folder, then create a \`.env\` file next to them:
 
 \`\`\`bash
 ONEUPTIME_URL=${data.oneuptimeUrl}
@@ -44,7 +44,7 @@ CEPH_CLUSTER_NAME=my-ceph-cluster
 CEPH_MGR_ENDPOINTS=[ceph-mon-1:9283,ceph-mon-2:9283,ceph-mon-3:9283]
 \`\`\`
 
-Replace \`my-ceph-cluster\` with a friendly name for this cluster — it is how the cluster will appear in OneUptime. Keep it stable: changing it registers a new cluster.
+Replace \`my-ceph-cluster\` with a friendly name for this cluster — it is how the cluster will appear in Cast Operations. Keep it stable: changing it registers a new cluster.
 
 Then start the agent:
 
@@ -58,9 +58,9 @@ That's it. Once the agent connects, your cluster will appear automatically in th
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| \`ONEUPTIME_URL\` | Yes | Your OneUptime instance URL (e.g. \`${data.oneuptimeUrl}\`) |
+| \`ONEUPTIME_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.oneuptimeUrl}\`) |
 | \`ONEUPTIME_TELEMETRY_INGESTION_KEY\` | Yes | Telemetry ingestion key (*Project Settings → Telemetry Ingestion Keys*) |
-| \`CEPH_CLUSTER_NAME\` | Yes | Cluster identifier shown in OneUptime. Stamped on every metric as the \`ceph.cluster.name\` resource attribute |
+| \`CEPH_CLUSTER_NAME\` | Yes | Cluster identifier shown in Cast Operations. Stamped on every metric as the \`ceph.cluster.name\` resource attribute |
 | \`CEPH_MGR_ENDPOINTS\` | Yes | Comma-separated \`host:port\` list of **all** mgr daemons, wrapped in square brackets, e.g. \`[ceph-mon-1:9283,ceph-mon-2:9283]\`. The install script adds the brackets for you |
 
 ## The Collector Config
@@ -96,7 +96,7 @@ receivers:
             #   CEPH_MGR_ENDPOINTS=[ceph-mon-1:9283,ceph-mon-2:9283,ceph-mon-3:9283]
             - targets: \${env:CEPH_MGR_ENDPOINTS}
 
-  # Optional: tail the Ceph cluster log and ship it to OneUptime — this is
+  # Optional: tail the Ceph cluster log and ship it to Cast Operations — this is
   # what powers the Cluster Log page of the Ceph dashboard. Off by default
   # because it requires the agent to run on a host that has
   # /var/log/ceph/ceph.log (a mon host by default) AND the directory
@@ -104,7 +104,7 @@ receivers:
   # docker-compose.yml:
   #   - /var/log/ceph:/var/log/ceph:ro
   # Then uncomment this receiver and the \`logs\` pipeline at the bottom of
-  # this file. Lines ship verbatim; OneUptime parses the ceph.log format
+  # this file. Lines ship verbatim; Cast Operations parses the ceph.log format
   # (timestamp, daemon, INF/WRN/ERR level, message) at read time, and the
   # resource processor below stamps \`ceph.cluster.name\` so the log lands
   # on this cluster.
@@ -115,7 +115,7 @@ receivers:
   #   start_at: end
 
 processors:
-  # Stamp every metric with the cluster identity. OneUptime auto-registers
+  # Stamp every metric with the cluster identity. Cast Operations auto-registers
   # the Ceph cluster from \`ceph.cluster.name\`, and every Ceph page and
   # monitor scopes on it — this attribute is what makes the data appear
   # under the Ceph section of the dashboard. Keep it stable: changing it
@@ -132,7 +132,7 @@ processors:
       #   action: upsert
       # The prometheus receiver synthesizes service.name (= the scrape job
       # name, "oneuptime-ceph") and service.instance.id on every batch per
-      # the Prometheus->OTLP compatibility spec. Drop them: OneUptime
+      # the Prometheus->OTLP compatibility spec. Drop them: Cast Operations
       # routes batches by service.name first, so leaving them in would
       # register a phantom "oneuptime-ceph" Service instead of routing
       # this data to the Ceph cluster discovered from \`ceph.cluster.name\`
@@ -218,7 +218,7 @@ docker compose down
 
 ## Optional — Ship the Ceph Cluster Log
 
-The agent can tail \`/var/log/ceph/ceph.log\` and ship it to OneUptime, which powers the **Cluster Log** page of this dashboard. It is off by default because it requires the agent to run on a host that has the cluster log (a mon host by default). To enable it:
+The agent can tail \`/var/log/ceph/ceph.log\` and ship it to Cast Operations, which powers the **Cluster Log** page of this dashboard. It is off by default because it requires the agent to run on a host that has the cluster log (a mon host by default). To enable it:
 
 1. Uncomment the \`filelog\` receiver and the \`logs\` pipeline in \`otel-collector-config.yaml\` (see the config above).
 2. Uncomment the \`/var/log/ceph\` volume mount in \`docker-compose.yml\`.
@@ -228,14 +228,14 @@ The agent can tail \`/var/log/ceph/ceph.log\` and ship it to OneUptime, which po
 
 ### Run the Diagnostic Script First
 
-\`troubleshoot.sh\` checks the whole chain — container runtime, every mgr endpoint (including the active-vs-standby trap), cluster-name stamping, token shape, collector self-metrics, and a **definitive server-side token validation** (OneUptime's OTLP endpoints return a silent \`200\` on a bad ingestion key, so log inspection alone cannot tell you the key is wrong; the script asks \`GET /otlp/v1/validate\` for a real 200/401 verdict):
+\`troubleshoot.sh\` checks the whole chain — container runtime, every mgr endpoint (including the active-vs-standby trap), cluster-name stamping, token shape, collector self-metrics, and a **definitive server-side token validation** (Cast Operations’ OTLP endpoints return a silent \`200\` on a bad ingestion key, so log inspection alone cannot tell you the key is wrong; the script asks \`GET /otlp/v1/validate\` for a real 200/401 verdict):
 
 \`\`\`bash
-curl -sSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/CephAgent/troubleshoot.sh -o troubleshoot.sh
+curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/CephAgent/troubleshoot.sh -o troubleshoot.sh
 bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/oneuptime-ceph-agent
 \`\`\`
 
-### No cluster appears in OneUptime
+### No cluster appears in Cast Operations
 
 1. Check the collector logs: \`docker logs oneuptime-ceph-agent\` — look for export errors (\`401\` means a bad ingestion key, connection refused means a wrong \`ONEUPTIME_URL\`).
 2. Verify a mgr endpoint serves metrics: \`curl http://<active-mgr>:9283/metrics | head\` — you should see \`ceph_*\` metric lines. If not, enable the module: \`ceph mgr module enable prometheus\`.
@@ -249,7 +249,7 @@ You are probably scraping only the (previously) active mgr. List **every** mgr d
 
 1. Check that the agent is running: \`docker ps --filter name=oneuptime-ceph-agent\`
 2. Check the agent logs: \`docker logs oneuptime-ceph-agent | grep -i error\`
-3. Verify your OneUptime URL and ingestion key are correct
-4. Ensure the agent machine can reach the OneUptime instance over the network
+3. Verify your Cast Operations URL and ingestion key are correct
+4. Ensure the agent machine can reach the Cast Operations instance over the network
 `;
 }

@@ -149,7 +149,7 @@ export default class StatusPageOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -229,7 +229,7 @@ export default class StatusPageOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Team ID",
-    description: "ID of your OneUptime Team in which this object belongs",
+    description: "ID of your Cast Operations Team in which this object belongs",
     example: "d4e5f6a7-b8c9-0123-d4e5-f6a7b8c90123",
   })
   @Column({
@@ -308,7 +308,7 @@ export default class StatusPageOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "StatusPage ID",
-    description: "ID of your OneUptime StatusPage in which this object belongs",
+    description: "ID of your Cast Operations StatusPage in which this object belongs",
     example: "a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890",
   })
   @Column({

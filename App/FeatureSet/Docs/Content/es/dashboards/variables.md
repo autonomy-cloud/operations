@@ -54,7 +54,7 @@ service.name = '{{service}}'
 
 Cuando el menú desplegable está en `checkout`, el gráfico filtra al servicio de checkout. Cuando el espectador cambia a `payments`, el gráfico se vuelve a renderizar para payments.
 
-Para variables de **Atributo de telemetría**, OneUptime sabe a qué atributo se asigna la variable y aplica el filtro a cada widget que use el mismo atributo: no tienes que editar cada widget a mano.
+Para variables de **Atributo de telemetría**, Cast Operations sabe a qué atributo se asigna la variable y aplica el filtro a cada widget que use el mismo atributo: no tienes que editar cada widget a mano.
 
 ## Rango de tiempo
 

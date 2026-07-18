@@ -64,11 +64,11 @@ const fetchGitHubStats: () => Promise<void> = async (): Promise<void> => {
       const response: HTTPResponse<Array<JSONObject>> | HTTPErrorResponse =
         await API.get<Array<JSONObject>>({
           url: URL.fromString(
-            `https://api.github.com/repos/oneuptime/oneuptime/contributors?per_page=100&page=${pageNumber}`,
+            `https://api.github.com/repos/autonomy-cloud/operations/contributors?per_page=100&page=${pageNumber}`,
           ),
           headers: {
             Accept: "application/vnd.github.v3+json",
-            "User-Agent": "OneUptime-Home",
+            "User-Agent": "Cast Operations-Home",
           },
         });
 
@@ -111,11 +111,11 @@ const fetchGitHubStats: () => Promise<void> = async (): Promise<void> => {
     const commitsResponse: HTTPResponse<Array<JSONObject>> | HTTPErrorResponse =
       await API.get<Array<JSONObject>>({
         url: URL.fromString(
-          "https://api.github.com/repos/oneuptime/oneuptime/commits?sha=master&per_page=1&page=1",
+          "https://api.github.com/repos/autonomy-cloud/operations/commits?sha=master&per_page=1&page=1",
         ),
         headers: {
           Accept: "application/vnd.github.v3+json",
-          "User-Agent": "OneUptime-Home",
+          "User-Agent": "Cast Operations-Home",
         },
       });
 

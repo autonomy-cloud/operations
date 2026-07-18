@@ -60,7 +60,7 @@ Skicka ett meddelande till en Telegram-chatt med ett bot-token och chatt-ID.
 
 ## E-post
 
-Skicka ett e-postmeddelande via OneUptime.
+Skicka ett e-postmeddelande via Cast Operations.
 
 **Inställningar**:
 
@@ -118,9 +118,9 @@ Använd det för att dela gemensam logik. Bygg ett "posta till incidentkanal"-ar
 
 Det finns en säkerhetsgräns så att arbetsflöden inte kan fortsätta anropa varandra i en loop. Se [Konfiguration & säkerhet](/docs/workflows/configuration).
 
-## OneUptime-datakomponenter
+## Cast Operations-datakomponenter
 
-För varje sorts post i OneUptime (monitorer, incidenter, larm, statussidor, jourpolicyer och många fler) har paletten dessa komponenter — sök på typens namn:
+För varje sorts post i Cast Operations (monitorer, incidenter, larm, statussidor, jourpolicyer och många fler) har paletten dessa komponenter — sök på typens namn:
 
 - **Find One** — hämta en post efter ID eller filter.
 - **Find** — hämta en lista med poster.
@@ -129,13 +129,13 @@ För varje sorts post i OneUptime (monitorer, incidenter, larm, statussidor, jou
 - **Delete** — ta bort en post.
 - **Count** — räkna poster som matchar ett filter.
 
-Det är så ett arbetsflöde kan läsa och ändra OneUptime-data. Till exempel: en webhook från ditt CI-verktyg kan använda **Create Incident** för att öppna en incident med felinformationen.
+Det är så ett arbetsflöde kan läsa och ändra Cast Operations-data. Till exempel: en webhook från ditt CI-verktyg kan använda **Create Incident** för att öppna en incident med felinformationen.
 
 ## Vilken komponent ska jag använda?
 
 Några snabba regler:
 
-- Om det finns ett dedikerat block för det du vill (Slack, E-post, en OneUptime-post), använd det — du får snyggare felhantering och tydligare loggar.
+- Om det finns ett dedikerat block för det du vill (Slack, E-post, en Cast Operations-post), använd det — du får snyggare felhantering och tydligare loggar.
 - För alla andra externa API:er, använd **API**.
 - För att omforma data mellan block, använd **Custom Code** eller **JSON**.
 - För att vidta olika åtgärder baserat på ett värde, använd **Conditions**.

@@ -4,7 +4,7 @@ Runbooks are reusable response procedures — ordered lists of manual or automat
 
 ## At a glance
 
-- **Top-level feature** in the OneUptime dashboard under **Analytics & Automation → Runbooks**.
+- **Top-level feature** in the Cast Operations dashboard under **Analytics & Automation → Runbooks**.
 - **Five step types**: Manual checklist, JavaScript (sandboxed) and Bash (both run on a [Runbook Agent](/docs/runbooks/agents) inside your own infrastructure), HTTP request, and AI (analyze incident and step context with your project's LLM provider).
 - **Three trigger paths**: rules that match incidents/alerts/scheduled maintenance, or a manual "Run Runbook" button on any event.
 - **Snapshot semantics**: when a runbook starts, its steps are copied onto the execution. Editing the template later never mutates an in-flight run.
@@ -35,7 +35,7 @@ A few terms recur across the rest of the runbook docs. Get these straight first:
 ## The lifecycle of a runbook
 
 1. **Author** — Create a runbook, drop in a mix of Manual, JavaScript, HTTP, Bash, and AI steps. Save.
-2. **(Optional) Add a rule** — On Incidents, Alerts, or Scheduled Maintenance settings, tell OneUptime to start this runbook whenever an event's title or description matches a regex.
+2. **(Optional) Add a rule** — On Incidents, Alerts, or Scheduled Maintenance settings, tell Cast Operations to start this runbook whenever an event's title or description matches a regex.
 3. **Trigger** — Either the rule fires automatically when a matching event is created, or a responder clicks **Run Runbook** on the event manually.
 4. **Execute** — A new execution is created with a snapshot of the steps. Automated steps run inline on the Runbook worker; the execution pauses at each Manual step until someone ticks it off.
 5. **Audit** — The execution stays on the event's **Runbooks** tab and on the runbook's **Executions** list forever. Per-step output, errors, and timing are preserved for the postmortem.
@@ -46,7 +46,7 @@ A quick decision guide. The longer breakdown is in [Authoring a Runbook](/docs/r
 
 | Step type        | Reach for it when…                                                                                                                                                                                            | Example                                                                   |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| **Manual**       | A human has to verify something, make a judgement call, or take an action OneUptime can't observe.                                                                                                            | "Confirm secondary region traffic on the load balancer dashboard."        |
+| **Manual**       | A human has to verify something, make a judgement call, or take an action Cast Operations can't observe.                                                                                                            | "Confirm secondary region traffic on the load balancer dashboard."        |
 | **JavaScript**   | You need a small, contained computation — query a config service, transform a payload, run logic before the next step. Runs sandboxed on a [Runbook Agent](/docs/runbooks/agents) in your own infrastructure. | Compute current replica lag and decide whether to proceed.                |
 | **HTTP request** | You're calling an existing API — your own admin endpoint, a cloud provider, PagerDuty, Slack.                                                                                                                 | `POST` to your failover orchestrator.                                     |
 | **Bash**         | You need to run shell commands on your own infrastructure — restart a service, run `kubectl`, call a deploy script. Requires a [Runbook Agent](/docs/runbooks/agents) installed in your environment.          | Restart a service, run `kubectl rollout restart`, exec a recovery script. |
@@ -106,7 +106,7 @@ Runbooks:       [DB primary failover]
 
 **4. Audit.** The execution stays on the incident's **Runbooks** tab. Every step's output is one click away. When you write the postmortem next week, you don't have to ask "what did that script return?" — it's right there.
 
-## How runbooks fit with the rest of OneUptime
+## How runbooks fit with the rest of Cast Operations
 
 - **Monitors** open incidents and alerts; **runbook rules** turn those events into runbook executions. Together they form a closed loop: detect → trigger → respond → record.
 - **Workspace connections** (Slack, Microsoft Teams) are a natural target for runbook HTTP steps — post status updates, notify channels.

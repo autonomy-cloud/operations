@@ -26,9 +26,9 @@ Sollte das System kurzzeitig nicht erreichbar sein, wird die Ausführung nach de
 
 ## Webhook
 
-OneUptime erstellt eine eindeutige URL. Alles, was diese URL aufruft, startet den Workflow. Header, Query-Parameter und Body der Anfrage werden weitergegeben.
+Cast Operations erstellt eine eindeutige URL. Alles, was diese URL aufruft, startet den Workflow. Header, Query-Parameter und Body der Anfrage werden weitergegeben.
 
-Gut geeignet für: Daten aus einem anderen Tool in OneUptime zu empfangen – CI/CD-Callbacks, Benachrichtigungen aus anderem Monitoring, Anmeldungen in Ihrem CRM.
+Gut geeignet für: Daten aus einem anderen Tool in Cast Operations zu empfangen – CI/CD-Callbacks, Benachrichtigungen aus anderem Monitoring, Anmeldungen in Ihrem CRM.
 
 **Ausgabe**:
 
@@ -40,15 +40,15 @@ Die URL akzeptiert sowohl `GET` als auch `POST`. Der Aufrufer erhält eine schne
 
 Behandeln Sie die URL wie ein Passwort. Jeder, der sie besitzt, kann Ihren Workflow starten.
 
-## OneUptime-Ereignis-Auslöser
+## Cast Operations-Ereignis-Auslöser
 
-Fast alles in OneUptime – Monitore, Vorfälle, Benachrichtigungen, geplante Wartungen, Statusseiten, Rufbereitschafts-Richtlinien, Teams – kann einen Workflow auslösen. Für jeden Bereich gibt es drei Ereignisse:
+Fast alles in Cast Operations – Monitore, Vorfälle, Benachrichtigungen, geplante Wartungen, Statusseiten, Rufbereitschafts-Richtlinien, Teams – kann einen Workflow auslösen. Für jeden Bereich gibt es drei Ereignisse:
 
 - **Bei Erstellung** – wird ausgelöst, wenn ein neuer Eintrag hinzugefügt wird.
 - **Bei Aktualisierung** – wird ausgelöst, wenn ein Eintrag geändert wird.
 - **Bei Löschung** – wird ausgelöst, wenn ein Eintrag gelöscht wird.
 
-So bauen Sie „wenn X in OneUptime passiert, tue Y", ohne Dinge in einer Schleife abfragen zu müssen.
+So bauen Sie „wenn X in Cast Operations passiert, tue Y", ohne Dinge in einer Schleife abfragen zu müssen.
 
 Der vollständige Datensatz wird an den nächsten Baustein weitergegeben. Beispielsweise gibt der Auslöser **Vorfall → Bei Erstellung** den neuen Vorfall weiter, sodass der nächste Baustein dessen Titel, Beschreibung, Schweregrad und alle anderen Felder lesen kann.
 
@@ -70,7 +70,7 @@ Suchen Sie in der Auslöser-Palette nach dem Namen, um den gewünschten zu finde
 | eine Schaltfläche zum Starten des Workflows wollen | **Manuell**            |
 | nach einem festen Zeitplan ausführen wollen        | **Zeitplan**           |
 | ein anderes System Daten einsenden lassen wollen   | **Webhook**            |
-| auf etwas innerhalb von OneUptime reagieren wollen | **OneUptime-Ereignis** |
+| auf etwas innerhalb von Cast Operations reagieren wollen | **Cast Operations-Ereignis** |
 
 Ein Workflow kann nur einen Auslöser haben. Wenn Sie dieselbe Automatisierung auf zwei Wegen starten möchten, bauen Sie die gemeinsame Logik in einem Workflow und rufen Sie ihn aus zwei schlanken „Wrapper"-Workflows mit der Komponente **Workflow ausführen** auf.
 

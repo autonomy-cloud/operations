@@ -68,9 +68,9 @@ Als het dashboard publiek staat op een custom domain, stopt de URL met werken zo
 
 ## Backup
 
-Als je OneUptime zelf host, is een reguliere database-backup voldoende — de configuratie van het dashboard wordt naast de rest van je project opgeslagen.
+Als je Cast Operations zelf host, is een reguliere database-backup voldoende — de configuratie van het dashboard wordt naast de rest van je project opgeslagen.
 
-Op OneUptime Cloud worden backups voor je geregeld. Wil je je eigen kopie, dan kun je het dashboard uitlezen via de [OneUptime API](/docs/api-reference/api-reference).
+Op Cast Operations Cloud worden backups voor je geregeld. Wil je je eigen kopie, dan kun je het dashboard uitlezen via de [Cast Operations API](/docs/api-reference/api-reference).
 
 ## Waar verder lezen
 

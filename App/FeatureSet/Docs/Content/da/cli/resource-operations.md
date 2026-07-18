@@ -1,6 +1,6 @@
 # Ressourceoperationer
 
-OneUptime CLI leverer fulde CRUD-operationer (Opret, Læs, Opdater, Slet) for alle understøttede ressourcer. Ressourcer opdages automatisk fra din OneUptime-instans.
+Cast Operations CLI leverer fulde CRUD-operationer (Opret, Læs, Opdater, Slet) for alle understøttede ressourcer. Ressourcer opdages automatisk fra din Cast Operations-instans.
 
 ## Tilgængelige ressourcer
 

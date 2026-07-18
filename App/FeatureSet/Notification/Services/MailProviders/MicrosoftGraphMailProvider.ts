@@ -52,7 +52,7 @@ class GraphSendException extends BadDataException {
  *
  * Why this exists: Microsoft has been disabling SMTP AUTH by default for new
  * tenants since 2022. Customers who already have an Azure AD app with Mail.Send
- * (application) permission cannot use OneUptime's SMTP+XOAUTH2 path even with
+ * (application) permission cannot use Cast Operations’ SMTP+XOAUTH2 path even with
  * correct credentials, because the underlying SMTP AUTH is off at the tenant or
  * mailbox level. Graph bypasses SMTP entirely.
  *
@@ -66,7 +66,7 @@ class GraphSendException extends BadDataException {
  *
  * Throttling: Graph enforces a per-mailbox concurrency limit on sendMail and
  * returns 429 "ApplicationThrottled — over its MailboxConcurrency limit" when a
- * single mailbox has too many requests in flight at once. OneUptime fans out
+ * single mailbox has too many requests in flight at once. Cast Operations fans out
  * many notifications through one sender mailbox, so this provider owns two
  * safeguards:
  *   1. A per-mailbox concurrency gate that keeps in-flight sendMail calls below
@@ -508,7 +508,7 @@ export default class MicrosoftGraphMailProvider implements MailProvider {
     if (status === 429) {
       return (
         "Microsoft Graph rate-limited the request (429). " +
-        "OneUptime limits concurrent sends per mailbox and retries with the " +
+        "Cast Operations limits concurrent sends per mailbox and retries with the " +
         "Retry-After delay, but Graph is still throttling this mailbox. " +
         "Reduce send volume or contact Microsoft to raise quota. " +
         `Graph said: ${detail}`

@@ -50,8 +50,8 @@
     "logout": "Выйти"
   },
   "topAlert": {
-    "title": "Панель администратора OneUptime",
-    "description": "Вы можете выполнять задачи, связанные с сервером OneUptime, на этой панели."
+    "title": "Панель администратора Cast Operations",
+    "description": "Вы можете выполнять задачи, связанные с сервером Cast Operations, на этой панели."
   },
   "header": {
     "exitAdmin": "Выйти из админа",
@@ -74,7 +74,7 @@
     "helpSupport": "Справка и поддержка",
     "legal": "Правовые вопросы",
     "version": "Версия",
-    "versionModalTitle": "Версия OneUptime",
+    "versionModalTitle": "Версия Cast Operations",
     "versionLabel": "Версия",
     "commitLabel": "Коммит",
     "versionUnavailable": "Данные о версии недоступны"
@@ -115,7 +115,7 @@
     "users": {
       "title": "Пользователи",
       "cardTitle": "Пользователи",
-      "cardDescription": "Вот список пользователей в OneUptime.",
+      "cardDescription": "Вот список пользователей в Cast Operations.",
       "noItems": "Пользователи не найдены."
     },
     "enterpriseLicenses": {
@@ -150,7 +150,7 @@
     "projects": {
       "title": "Проекты",
       "cardTitle": "Проекты",
-      "cardDescription": "Вот список проектов в OneUptime.",
+      "cardDescription": "Вот список проектов в Cast Operations.",
       "noItems": "Проекты не найдены.",
       "stepBasic": "Основное",
       "stepSelectPlan": "Выбрать план",
@@ -244,10 +244,10 @@
       "title": "Настройки администратора",
       "authentication": {
         "authCardTitle": "Настройки аутентификации",
-        "authCardDescription": "Настройки аутентификации для этого экземпляра сервера OneUptime.",
+        "authCardDescription": "Настройки аутентификации для этого экземпляра сервера Cast Operations.",
         "authEditButton": "Изменить настройки",
         "projectCreationCardTitle": "Создание проекта",
-        "projectCreationCardDescription": "Управляйте тем, кто может создавать новые проекты на этом сервере OneUptime.",
+        "projectCreationCardDescription": "Управляйте тем, кто может создавать новые проекты на этом сервере Cast Operations.",
         "projectCreationEditButton": "Изменить настройки"
       },
       "email": {
@@ -275,7 +275,7 @@
       },
       "whatsapp": {
         "metaCardTitle": "Настройки Meta WhatsApp",
-        "metaCardDescription": "Настройте учетные данные Meta WhatsApp. Эти значения используются для отправки WhatsApp-уведомлений из OneUptime.",
+        "metaCardDescription": "Настройте учетные данные Meta WhatsApp. Эти значения используются для отправки WhatsApp-уведомлений из Cast Operations.",
         "metaEditButton": "Изменить конфигурацию Meta WhatsApp",
         "testCardTitle": "Отправить тестовое WhatsApp-сообщение",
         "testCardDescription": "Отправьте тестовое шаблонное WhatsApp-сообщение для подтверждения вашей конфигурации Meta.",
@@ -288,7 +288,7 @@
       },
       "telegram": {
         "setupCardTitle": "Руководство по настройке Telegram",
-        "setupCardDescription": "Прочитайте это сначала — это самый быстрый путь от нуля до работающего Telegram-бота, подключенного к OneUptime.",
+        "setupCardDescription": "Прочитайте это сначала — это самый быстрый путь от нуля до работающего Telegram-бота, подключенного к Cast Operations.",
         "configCardTitle": "Настройки Telegram-бота",
         "configCardDescription": "Вставьте токен бота и имя пользователя, которые дал вам @BotFather. Они обеспечивают исходящие уведомления; секретный токен защищает входящий webhook.",
         "configEditButton": "Изменить конфигурацию Telegram",
@@ -333,7 +333,7 @@
       },
       "apiKey": {
         "cardTitle": "Настройки мастер API-ключа",
-        "cardDescription": "Этот API-ключ имеет root-доступ ко всем ресурсам во всех проектах на OneUptime.",
+        "cardDescription": "Этот API-ключ имеет root-доступ ко всем ресурсам во всех проектах на Cast Operations.",
         "editButton": "Изменить настройки API-ключа",
         "apiKeyNotGenerated": "API-ключ ещё не сгенерирован."
       },
@@ -443,7 +443,7 @@
   "Acme, Inc.": "Acme, Inc.",
   "Admin Notification Email": "Email уведомлений администратора",
   "AI Agent Logo": "Логотип ИИ-агента",
-  "Any strong random string. OneUptime rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Любая надёжная случайная строка. OneUptime отклоняет вызовы вебхуков, у которых заголовок X-Telegram-Bot-Api-Secret-Token не совпадает с этим значением.",
+  "Any strong random string. Cast Operations rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Любая надёжная случайная строка. Cast Operations отклоняет вызовы вебхуков, у которых заголовок X-Telegram-Bot-Api-Secret-Token не совпадает с этим значением.",
   "App ID": "ID приложения",
   "App Secret": "Секрет приложения",
   "Application (Client) ID from your Azure AD app registration (or service account for JWT Bearer).": "ID приложения (клиента) из регистрации приложения в Azure AD (или сервисной учётной записи для JWT Bearer).",
@@ -493,7 +493,7 @@
   "Health": "Состояние",
   "Home": "Главная",
   "Hostname": "Имя хоста",
-  "How OneUptime delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Как OneUptime доставляет почту, используя глобальную конфигурацию SMTP. Выберите «SMTP» для большинства серверов. Выберите «Microsoft Graph», если в вашем тенанте Microsoft 365 отключён SMTP AUTH — Graph использует разрешение приложения Mail.Send и полностью обходит SMTP.",
+  "How Cast Operations delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Как Cast Operations доставляет почту, используя глобальную конфигурацию SMTP. Выберите «SMTP» для большинства серверов. Выберите «Microsoft Graph», если в вашем тенанте Microsoft 365 отключён SMTP AUTH — Graph использует разрешение приложения Mail.Send и полностью обходит SMTP.",
   "If you have a coupon code, enter it here.": "Если у вас есть купонный код, введите его здесь.",
   "If you have bought more phone numbers from Twilio for specific countries, you can add them here.": "Если вы приобрели у Twilio дополнительные телефонные номера для конкретных стран, вы можете добавить их здесь.",
   "If you use port 465, please enable this. Do not enable this if you use port 587.": "Если вы используете порт 465, включите это. Не включайте, если вы используете порт 587.",
@@ -530,9 +530,9 @@
   "OAuth Scope": "Область OAuth",
   "OAuth Settings": "Настройки OAuth",
   "OAuth Token URL": "URL токена OAuth",
-  "OneUptime Health": "Состояние OneUptime",
+  "Cast Operations Health": "Состояние Cast Operations",
   "OneUptimeAlertsBot": "OneUptimeAlertsBot",
-  "Operational health of this OneUptime instance.": "Операционное состояние этого экземпляра OneUptime.",
+  "Operational health of this Cast Operations instance.": "Операционное состояние этого экземпляра Cast Operations.",
   "Optional Business Account ID that owns the WhatsApp templates.": "Необязательный идентификатор бизнес-аккаунта, которому принадлежат шаблоны WhatsApp.",
   "Optional Facebook App ID tied to your WhatsApp integration.": "Необязательный идентификатор приложения Facebook, привязанный к вашей интеграции с WhatsApp.",
   "Optional Facebook App Secret used for webhook signature verification.": "Необязательный секрет приложения Facebook, используемый для проверки подписи вебхука.",
@@ -540,7 +540,7 @@
   "Password": "Пароль",
   "Phone Number ID": "ID номера телефона",
   "Pick a friendly name.": "Выберите понятное имя.",
-  "Please create a new OneUptime project to get started.": "Создайте новый проект OneUptime, чтобы начать работу.",
+  "Please create a new Cast Operations project to get started.": "Создайте новый проект Cast Operations, чтобы начать работу.",
   "Please select a plan.": "Пожалуйста, выберите план.",
   "Port": "Порт",
   "Primary Twilio Phone Number": "Основной номер телефона Twilio",
@@ -573,7 +573,7 @@
   "Select the team you would like to add this user to.": "Выберите команду, в которую вы хотите добавить этого пользователя.",
   "Send a broadcast email to all users.": "Отправить рассылку по электронной почте всем пользователям.",
   "Sendgrid API Key": "API-ключ Sendgrid",
-  "Should we disable sign up of new users to OneUptime?": "Следует ли отключить регистрацию новых пользователей в OneUptime?",
+  "Should we disable sign up of new users to Cast Operations?": "Следует ли отключить регистрацию новых пользователей в Cast Operations?",
   "SMTP Email": "SMTP Email",
   "SMTP From Name": "Имя отправителя SMTP",
   "SMTP Host": "Хост SMTP",
@@ -583,7 +583,7 @@
   "SMTP server hostname. Examples: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)": "Имя хоста сервера SMTP. Примеры: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)",
   "SMTP Username / Email": "Имя пользователя SMTP / Email",
   "Status": "Статус",
-  "Status of the core datastores this OneUptime instance depends on.": "Статус основных хранилищ данных, от которых зависит этот экземпляр OneUptime.",
+  "Status of the core datastores this Cast Operations instance depends on.": "Статус основных хранилищ данных, от которых зависит этот экземпляр Cast Operations.",
   "Subject": "Тема",
   "System components": "Системные компоненты",
   "Team": "Команда",
@@ -591,7 +591,7 @@
   "Team ID": "ID команды",
   "Team Name": "Название команды",
   "Test Email Address": "Тестовый email-адрес",
-  "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.": "Тело письма с объявлением. Оно будет отображено в фирменном шаблоне письма OneUptime. Вы можете использовать форматирование Markdown.",
+  "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.": "Тело письма с объявлением. Оно будет отображено в фирменном шаблоне письма Cast Operations. Вы можете использовать форматирование Markdown.",
   "The body of the announcement email. This will be sent to all registered users. You can use Markdown formatting.": "Тело письма с объявлением. Оно будет отправлено всем зарегистрированным пользователям. Вы можете использовать форматирование Markdown.",
   "The bot token @BotFather sent you — starts with digits, then a colon, then ~35 letters/digits. Not a URL, not a curl command.": "Токен бота, отправленный вам @BotFather — начинается с цифр, затем двоеточие, затем ~35 букв/цифр. Не URL и не команда curl.",
   "The email address where the test email will be sent.": "Адрес электронной почты, на который будет отправлено тестовое письмо.",
@@ -600,8 +600,8 @@
   "The subject line of the announcement email.": "Тема письма с объявлением.",
   "The WhatsApp Business phone number ID associated with your sending number.": "ID номера телефона WhatsApp Business, связанный с вашим номером отправки.",
   "This AI agent handles automated incident management.": "Этот ИИ-агент выполняет автоматизированное управление инцидентами.",
-  "This API key has root access to all the resources in all the projects on OneUptime.": "Этот API-ключ имеет root-доступ ко всем ресурсам во всех проектах на OneUptime.",
-  "This is the display name your team and customers see, when they receive emails from OneUptime.": "Это отображаемое имя, которое видят ваша команда и клиенты, когда получают письма от OneUptime.",
+  "This API key has root access to all the resources in all the projects on Cast Operations.": "Этот API-ключ имеет root-доступ ко всем ресурсам во всех проектах на Cast Operations.",
+  "This is the display name your team and customers see, when they receive emails from Cast Operations.": "Это отображаемое имя, которое видят ваша команда и клиенты, когда получают письма от Cast Operations.",
   "This plan is free, forever. ": "Этот план бесплатный, навсегда. ",
   "This probe is to monitor all the internal services.": "Этот зонд предназначен для отслеживания всех внутренних сервисов.",
   "Transport": "Транспорт",

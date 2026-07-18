@@ -1,21 +1,21 @@
 # SendGrid 인바운드 이메일 통합
 
-OneUptime의 **수신 이메일 모니터**를 통해 고유한 모니터별 이메일 주소로 전송된 이메일을 기반으로 알림을 생성하고 해결할 수 있습니다. 레거시 시스템, 알림 도구 또는 이메일을 전송할 수 있는 모든 서비스와 통합하는 데 유용합니다.
+Cast Operations의 **수신 이메일 모니터**를 통해 고유한 모니터별 이메일 주소로 전송된 이메일을 기반으로 알림을 생성하고 해결할 수 있습니다. 레거시 시스템, 알림 도구 또는 이메일을 전송할 수 있는 모든 서비스와 통합하는 데 유용합니다.
 
-이 가이드는 자체 호스팅 OneUptime 인스턴스로 수신 이메일을 전달하도록 SendGrid Inbound Parse를 설정하는 방법을 설명합니다.
+이 가이드는 자체 호스팅 Cast Operations 인스턴스로 수신 이메일을 전달하도록 SendGrid Inbound Parse를 설정하는 방법을 설명합니다.
 
 ## 전제 조건
 
 - SendGrid 계정 (무료 계층 작동)
 - DNS 설정에 액세스할 수 있는 제어 가능한 도메인
-- OneUptime 인스턴스는 공개적으로 액세스 가능해야 합니다 (SendGrid가 웹훅을 전송할 수 있도록)
+- Cast Operations 인스턴스는 공개적으로 액세스 가능해야 합니다 (SendGrid가 웹훅을 전송할 수 있도록)
 
 ## 작동 방식
 
-1. OneUptime에서 **수신 이메일 모니터**를 생성합니다
-2. OneUptime이 해당 모니터에 대한 고유한 이메일 주소를 생성합니다 (예: `monitor-abc123@inbound.yourdomain.com`)
-3. 해당 주소로 이메일이 전송되면 SendGrid가 수신하고 웹훅을 통해 OneUptime으로 전달합니다
-4. OneUptime은 구성된 기준에 따라 이메일을 평가하여 알림을 생성하거나 해결합니다
+1. Cast Operations에서 **수신 이메일 모니터**를 생성합니다
+2. Cast Operations이 해당 모니터에 대한 고유한 이메일 주소를 생성합니다 (예: `monitor-abc123@inbound.yourdomain.com`)
+3. 해당 주소로 이메일이 전송되면 SendGrid가 수신하고 웹훅을 통해 Cast Operations으로 전달합니다
+4. Cast Operations은 구성된 기준에 따라 이메일을 평가하여 알림을 생성하거나 해결합니다
 
 ## 설정 지침
 
@@ -27,7 +27,7 @@ OneUptime의 **수신 이메일 모니터**를 통해 고유한 모니터별 이
 - `email.yourdomain.com`
 - `monitor.yourdomain.com`
 
-이 서브도메인은 OneUptime 모니터 이메일에만 사용됩니다.
+이 서브도메인은 Cast Operations 모니터 이메일에만 사용됩니다.
 
 ### 2단계: DNS MX 레코드 구성
 
@@ -64,14 +64,14 @@ inbound.example.com.  IN  MX  10  mx.sendgrid.net.
 | 필드                           | 값                                                                      |
 | ------------------------------ | ----------------------------------------------------------------------- |
 | **수신 도메인**                | 인바운드 서브도메인 (예: `inbound.yourdomain.com`)                      |
-| **대상 URL**                   | `https://your-oneuptime-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **대상 URL**                   | `https://your-operations-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
 | **수신 이메일 스팸 확인**      | 선택 사항 - 원하는 경우 활성화                                          |
 | **원시 전체 MIME 메시지 전송** | 체크하지 않음 (필요하지 않음)                                           |
 | **원시 전체 MIME 메시지 POST** | 체크하지 않음 (필요하지 않음)                                           |
 
 5. **추가**를 클릭합니다
 
-### 5단계: OneUptime 환경 변수 구성
+### 5단계: Cast Operations 환경 변수 구성
 
 #### Docker Compose
 
@@ -95,11 +95,11 @@ inboundEmail:
   # webhookSecret: "your-optional-secret"  # 선택 사항
 ```
 
-**중요:** 이러한 환경 변수를 추가한 후 OneUptime 서버를 재시작합니다.
+**중요:** 이러한 환경 변수를 추가한 후 Cast Operations 서버를 재시작합니다.
 
 ### 6단계: 수신 이메일 모니터 생성
 
-1. OneUptime 대시보드에 로그인합니다
+1. Cast Operations 대시보드에 로그인합니다
 2. **모니터** > **모니터 생성**으로 이동합니다
 3. **수신 이메일**을 모니터 유형으로 선택합니다
 4. 모니터를 구성합니다:
@@ -115,9 +115,9 @@ inboundEmail:
 
 ### 7단계: 통합 테스트
 
-1. OneUptime 대시보드에서 모니터의 이메일 주소를 복사합니다
+1. Cast Operations 대시보드에서 모니터의 이메일 주소를 복사합니다
 2. 알림 기준과 일치하는 제목의 테스트 이메일을 해당 주소로 전송합니다
-3. OneUptime 대시보드를 확인하여 다음을 검증합니다:
+3. Cast Operations 대시보드를 확인하여 다음을 검증합니다:
    - 이메일이 수신됨 (모니터 요약에서 표시)
    - 알림이 생성됨 (기준이 일치한 경우)
 
@@ -147,7 +147,7 @@ inboundEmail:
 
 많은 레거시 시스템은 이메일 알림만 보낼 수 있습니다. 수신 이메일 모니터를 생성하여:
 
-- 레거시 시스템이 `[CRITICAL]` 이메일을 전송할 때 OneUptime 알림 생성
+- 레거시 시스템이 `[CRITICAL]` 이메일을 전송할 때 Cast Operations 알림 생성
 - `[RESOLVED]` 이메일이 수신되면 알림 해결
 
 ### 타사 서비스 통합
@@ -183,16 +183,16 @@ inboundEmail:
    - 설정 > Inbound Parse로 이동합니다
    - 도메인 및 웹훅 URL이 올바른지 확인합니다
 
-3. **OneUptime 로그 확인:**
+3. **Cast Operations 로그 확인:**
    - ProbeIngest 서비스 로그에서 웹훅 요청을 찾습니다
    - 오류 메시지를 확인합니다
 
 ### 웹훅 실패
 
-1. **OneUptime이 공개적으로 액세스 가능한지 확인:**
+1. **Cast Operations이 공개적으로 액세스 가능한지 확인:**
 
    - 웹훅 URL이 인터넷에서 도달 가능해야 합니다
-   - 테스트: `curl -X POST https://your-oneuptime-domain.com/incoming-email/sendgrid`
+   - 테스트: `curl -X POST https://your-operations-domain.com/incoming-email/sendgrid`
 
 2. **방화벽 규칙 확인:**
 
@@ -223,7 +223,7 @@ inboundEmail:
 SendGrid가 성공적으로 웹훅을 전송하는지 확인하려면:
 
 1. 불행히도 SendGrid는 Inbound Parse에 대한 자세한 로그를 제공하지 않습니다
-2. 들어오는 웹훅 요청에 대한 OneUptime 서버 로그를 확인합니다
+2. 들어오는 웹훅 요청에 대한 Cast Operations 서버 로그를 확인합니다
 3. 임시로 웹훅 전달을 테스트하려면 [RequestBin](https://requestbin.com)과 같은 도구를 사용합니다
 
 ## 보안 모범 사례
@@ -236,7 +236,7 @@ SendGrid가 성공적으로 웹훅을 전송하는지 확인하려면:
 
 ## 대체 공급자
 
-OneUptime은 여러 인바운드 이메일 공급자를 지원하도록 설계되었습니다. 현재 지원되는 공급자:
+Cast Operations은 여러 인바운드 이메일 공급자를 지원하도록 설계되었습니다. 현재 지원되는 공급자:
 
 | 공급자               | 상태    |
 | -------------------- | ------- |
@@ -250,7 +250,7 @@ OneUptime은 여러 인바운드 이메일 공급자를 지원하도록 설계�
 SendGrid 인바운드 이메일 통합에 문제가 발생한 경우:
 
 1. 위의 문제 해결 섹션을 확인합니다
-2. 자세한 오류 메시지에 대한 OneUptime 로그를 검토합니다
-3. [hello@oneuptime.com](mailto:hello@oneuptime.com)으로 문의합니다
+2. 자세한 오류 메시지에 대한 Cast Operations 로그를 검토합니다
+3. [hello@visca.ai](mailto:hello@visca.ai)으로 문의합니다
 
 이 통합을 개선하기 위한 피드백을 환영합니다!

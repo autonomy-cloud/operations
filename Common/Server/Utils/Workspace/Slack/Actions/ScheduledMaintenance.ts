@@ -1235,7 +1235,7 @@ export default class SlackScheduledMaintenanceActions {
       scheduledMaintenanceId: scheduledMaintenanceId,
     });
 
-    // Get the user ID in OneUptime based on Slack user ID
+    // Get the user ID in Cast Operations based on Slack user ID
     const userAuth: WorkspaceUserAuthToken | null =
       await WorkspaceUserAuthTokenService.findOneBy({
         query: {
@@ -1253,7 +1253,7 @@ export default class SlackScheduledMaintenanceActions {
 
     if (!userAuth || !userAuth.userId) {
       logger.debug(
-        "No OneUptime user found for Slack user. Ignoring emoji reaction.",
+        "No Cast Operations user found for Slack user. Ignoring emoji reaction.",
         {
           projectId: projectId?.toString(),
           scheduledMaintenanceId: scheduledMaintenanceId?.toString(),

@@ -4,15 +4,15 @@ El Monitor de correo electrónico entrante te permite crear y resolver alertas b
 
 ## Cómo funciona
 
-1. Cuando creas un Monitor de correo electrónico entrante, OneUptime genera una dirección de correo electrónico única para ese monitor
+1. Cuando creas un Monitor de correo electrónico entrante, Cast Operations genera una dirección de correo electrónico única para ese monitor
 2. Cualquier correo electrónico enviado a esa dirección se recibe y evalúa según tus criterios configurados
-3. Según los criterios, OneUptime puede crear nuevas alertas o resolver las existentes
+3. Según los criterios, Cast Operations puede crear nuevas alertas o resolver las existentes
 
-Esta es una forma eficaz de integrar sistemas de alertas basados en correo electrónico con el flujo de trabajo de gestión de incidentes de OneUptime.
+Esta es una forma eficaz de integrar sistemas de alertas basados en correo electrónico con el flujo de trabajo de gestión de incidentes de Cast Operations.
 
 ## Creación de un Monitor de correo electrónico entrante
 
-1. Navega a **Monitores** en tu panel de OneUptime
+1. Navega a **Monitores** en tu panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Correo electrónico entrante** como tipo de monitor
 4. Configura los ajustes del monitor:
@@ -118,7 +118,7 @@ Esto resuelve la alerta cuando se recibe un correo electrónico.
 
 Muchos sistemas más antiguos solo admiten alertas basadas en correo electrónico. Usa el Monitor de correo electrónico entrante para:
 
-- Convertir alertas de correo electrónico en incidentes de OneUptime
+- Convertir alertas de correo electrónico en incidentes de Cast Operations
 - Resolver automáticamente los incidentes cuando lleguen correos de recuperación
 - Centralizar las alertas de múltiples sistemas heredados
 
@@ -144,7 +144,7 @@ Monitorea trabajos por lotes y tareas programadas:
 Consolida alertas de múltiples herramientas de monitoreo:
 
 - Recibe alertas de Nagios, Zabbix u otras herramientas por correo electrónico
-- Unifica la gestión de incidentes en OneUptime
+- Unifica la gestión de incidentes en Cast Operations
 - Mantiene una única fuente de verdad para todas las alertas
 
 ## Variables de plantilla
@@ -171,7 +171,7 @@ El resumen del monitor muestra:
 
 ## Configuración auto-alojada
 
-Si estás auto-alojando OneUptime, necesitas configurar un proveedor de correo electrónico entrante. Actualmente compatible:
+Si estás auto-alojando Cast Operations, necesitas configurar un proveedor de correo electrónico entrante. Actualmente compatible:
 
 - **SendGrid Inbound Parse**: Consulta [Integración de correo electrónico entrante con SendGrid](/docs/self-hosted/sendgrid-inbound-email) para obtener instrucciones de configuración
 
@@ -190,7 +190,7 @@ Si estás auto-alojando OneUptime, necesitas configurar un proveedor de correo e
 1. Verifica que la dirección de correo sea correcta (comprueba si hay errores tipográficos)
 2. Comprueba si el correo está siendo bloqueado por filtros de spam
 3. Verifica que tu proveedor de correo entrante esté configurado correctamente
-4. Revisa los registros de OneUptime para ver si hay mensajes de error
+4. Revisa los registros de Cast Operations para ver si hay mensajes de error
 
 ### Alertas no creadas
 

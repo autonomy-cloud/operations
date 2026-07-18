@@ -4,7 +4,7 @@ Du kan använda hemligheter för att lagra känslig information som du vill anv�
 
 ### Lägga till en hemlighet
 
-För att lägga till en hemlighet, gå till OneUptime-instrumentpanelen -> Projektinställningar -> Monitorhemligheter -> Skapa monitorhemlighet.
+För att lägga till en hemlighet, gå till Cast Operations-instrumentpanelen -> Projektinställningar -> Monitorhemligheter -> Skapa monitorhemlighet.
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 

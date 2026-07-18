@@ -1,6 +1,6 @@
 # Traces-Monitor
 
-Der Traces-Monitor ermöglicht die Überwachung verteilter Traces aus Ihren Anwendungen und das Auslösen von Benachrichtigungen basierend auf Span-Mustern, -Anzahl und -Status. OneUptime wertet Trace-Daten aus Ihren Telemetrie-Diensten über ein Zeitfenster aus.
+Der Traces-Monitor ermöglicht die Überwachung verteilter Traces aus Ihren Anwendungen und das Auslösen von Benachrichtigungen basierend auf Span-Mustern, -Anzahl und -Status. Cast Operations wertet Trace-Daten aus Ihren Telemetrie-Diensten über ein Zeitfenster aus.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ Traces-Monitore suchen und zählen Spans, die bestimmten Filtern entsprechen. Di
 
 ## Einen Traces-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Traces** als Monitortyp
 4. Wählen Sie die zu überwachenden Telemetrie-Dienste aus
@@ -24,7 +24,7 @@ Traces-Monitore suchen und zählen Spans, die bestimmten Filtern entsprechen. Di
 
 ### Telemetrie-Dienste
 
-Wählen Sie einen oder mehrere Dienste aus, von denen Traces überwacht werden sollen. Dienste müssen Traces über OpenTelemetry an OneUptime senden.
+Wählen Sie einen oder mehrere Dienste aus, von denen Traces überwacht werden sollen. Dienste müssen Traces über OpenTelemetry an Cast Operations senden.
 
 ### Span-Filter
 
@@ -65,4 +65,4 @@ Wählen Sie einen oder mehrere Dienste aus, von denen Traces überwacht werden s
 
 ## Setup-Anforderungen
 
-Der Traces-Monitor erfordert, dass Ihre Anwendungen verteilte Traces über OpenTelemetry an OneUptime senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.
+Der Traces-Monitor erfordert, dass Ihre Anwendungen verteilte Traces über OpenTelemetry an Cast Operations senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.

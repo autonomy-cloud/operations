@@ -1,14 +1,14 @@
 # 수신 전화 정책 (Twilio 통합)
 
-수신 전화 정책을 통해 외부 발신자가 전용 전화번호로 전화를 걸어 온콜 엔지니어에게 연결될 수 있습니다. 누군가가 전화를 걸면 OneUptime은 엔지니어가 응답할 때까지 구성된 에스컬레이션 규칙을 통해 통화를 라우팅합니다.
+수신 전화 정책을 통해 외부 발신자가 전용 전화번호로 전화를 걸어 온콜 엔지니어에게 연결될 수 있습니다. 누군가가 전화를 걸면 Cast Operations은 엔지니어가 응답할 때까지 구성된 에스컬레이션 규칙을 통해 통화를 라우팅합니다.
 
 ## 작동 방식
 
 ```mermaid
 flowchart TD
     A[발신자가<br/>수신 전화 번호로 전화] --> B[Twilio가 통화 수신]
-    B --> C[Twilio가 OneUptime에<br/>웹훅 전송]
-    C --> D[OneUptime이<br/>인사말 메시지 재생]
+    B --> C[Twilio가 Cast Operations에<br/>웹훅 전송]
+    C --> D[Cast Operations이<br/>인사말 메시지 재생]
     D --> E[에스컬레이션 규칙 로드]
     E --> F{규칙 1:<br/>온콜 사용자 시도}
     F -->|응답 없음| G{규칙 2:<br/>백업 팀 시도}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant Caller
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant OnCallEngineer
 
     Caller->>Twilio: 수신 전화 번호로 전화
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML: 인사말 재생
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML: 인사말 재생
     Twilio->>Caller: "연결 중입니다..."
 
     loop 에스컬레이션 규칙
-        OneUptime->>OneUptime: 다음 에스컬레이션 규칙 가져오기
-        OneUptime->>Twilio: TwiML: 온콜 사용자에게 전화
+        Cast Operations->>Cast Operations: 다음 에스컬레이션 규칙 가져오기
+        Cast Operations->>Twilio: TwiML: 온콜 사용자에게 전화
         Twilio->>OnCallEngineer: 전화 울림
         alt 엔지니어가 응답
             OnCallEngineer->>Twilio: 통화 수락
-            Twilio->>OneUptime: 전화 상태: 완료
+            Twilio->>Cast Operations: 전화 상태: 완료
             Twilio->>Caller: 엔지니어에게 연결
             Note over Caller,OnCallEngineer: 통화 진행 중
         else 응답 없음 (타임아웃)
-            Twilio->>OneUptime: 전화 상태: 응답 없음
-            OneUptime->>OneUptime: 다음 규칙 시도
+            Twilio->>Cast Operations: 전화 상태: 응답 없음
+            Cast Operations->>Cast Operations: 다음 규칙 시도
         end
     end
 
     alt 모든 규칙 소진
-        OneUptime->>Twilio: TwiML: 응답 없음 메시지 재생
+        Cast Operations->>Twilio: TwiML: 응답 없음 메시지 재생
         Twilio->>Caller: "아무도 없습니다..."
         Twilio->>Caller: 통화 종료
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - Twilio 계정 - [https://www.twilio.com](https://www.twilio.com)에서 생성합니다
 - Twilio 계정 SID 및 인증 토큰
-- OneUptime 자체 호스팅 인스턴스에 대한 액세스
+- Cast Operations 자체 호스팅 인스턴스에 대한 액세스
 
 ## 개요
 
@@ -74,7 +74,7 @@ sequenceDiagram
 4. 발신자를 첫 번째 가용한 온콜 엔지니어에게 연결합니다
 5. 아무도 응답하지 않으면 다음 규칙으로 에스컬레이션합니다
 
-OneUptime을 자체 호스팅하므로 자체 Twilio 계정을 구성해야 합니다. 이를 통해 전화번호 및 청구에 대한 완전한 제어가 가능합니다.
+Cast Operations을 자체 호스팅하므로 자체 Twilio 계정을 구성해야 합니다. 이를 통해 전화번호 및 청구에 대한 완전한 제어가 가능합니다.
 
 ## 1단계: Twilio 계정 생성
 
@@ -82,9 +82,9 @@ OneUptime을 자체 호스팅하므로 자체 Twilio 계정을 구성해야 합�
 2. 확인 프로세스를 완료합니다
 3. Twilio 콘솔 대시보드에서 **계정 SID** 및 **인증 토큰**을 기록합니다
 
-## 2단계: OneUptime에서 Call/SMS 구성 설정
+## 2단계: Cast Operations에서 Call/SMS 구성 설정
 
-1. OneUptime 대시보드에 로그인합니다
+1. Cast Operations 대시보드에 로그인합니다
 2. **프로젝트 설정** > **Call & SMS** > **커스텀 Call/SMS 구성**으로 이동합니다
 3. **커스텀 Call/SMS 구성 생성**을 클릭합니다
 4. 다음 항목을 입력합니다:
@@ -120,15 +120,15 @@ OneUptime을 자체 호스팅하므로 자체 Twilio 계정을 구성해야 합�
 Twilio 계정에 이미 전화 번호가 있는 경우:
 
 1. **전화 번호** 카드에서 **기존 번호 사용**을 클릭합니다
-2. OneUptime이 Twilio 계정의 모든 전화 번호를 가져옵니다
+2. Cast Operations이 Twilio 계정의 모든 전화 번호를 가져옵니다
 3. 사용할 전화 번호를 선택합니다
 4. **이것을 사용**을 클릭하여 정책에 할당합니다
 
-> **참고**: 전화 번호에 이미 웹훅이 구성되어 있는 경우 OneUptime을 가리키도록 업데이트됩니다.
+> **참고**: 전화 번호에 이미 웹훅이 구성되어 있는 경우 Cast Operations을 가리키도록 업데이트됩니다.
 
 ### 옵션 B: 새 전화 번호 구입
 
-OneUptime에서 직접 새 전화 번호를 구매하려면:
+Cast Operations에서 직접 새 전화 번호를 구매하려면:
 
 1. **전화 번호** 카드에서 **새 번호 구매**를 클릭합니다
 2. 드롭다운에서 **국가**를 선택합니다
@@ -258,7 +258,7 @@ flowchart TD
 ### 전화가 수신되지 않는 경우
 
 - Twilio 구성이 정책에 올바르게 연결되어 있는지 확인합니다
-- OneUptime 인스턴스가 인터넷에서 액세스 가능한지 확인합니다
+- Cast Operations 인스턴스가 인터넷에서 액세스 가능한지 확인합니다
 - Twilio 계정 SID와 인증 토큰이 올바른지 확인합니다
 - Twilio 콘솔에서 오류 로그를 확인합니다
 
@@ -278,8 +278,8 @@ flowchart TD
 ## 보안 고려 사항
 
 - Twilio 인증 토큰을 안전하게 보관하고 공개적으로 노출하지 마십시오
-- OneUptime 인스턴스에 HTTPS를 사용합니다
-- OneUptime은 요청이 Twilio에서 온 것임을 확인하기 위해 웹훅 서명을 검증합니다
+- Cast Operations 인스턴스에 HTTPS를 사용합니다
+- Cast Operations은 요청이 Twilio에서 온 것임을 확인하기 위해 웹훅 서명을 검증합니다
 - 수신 전화 정책에 전화를 걸 수 있는 전화 번호를 제한하는 것을 고려합니다
 
 ## 아키텍처 개요
@@ -291,7 +291,7 @@ graph TB
         B[Twilio 클라우드]
     end
 
-    subgraph "OneUptime"
+    subgraph "Cast Operations"
         C[수신 전화 API]
         D[통화 라우터]
         E[에스컬레이션 엔진]
@@ -320,5 +320,5 @@ graph TB
 수신 전화 정책 기능에 문제가 있는 경우:
 
 1. Twilio 콘솔에서 오류 로그를 확인합니다
-2. OneUptime 서버 로그를 검토합니다
-3. [hello@oneuptime.com](mailto:hello@oneuptime.com)으로 지원팀에 문의합니다
+2. Cast Operations 서버 로그를 검토합니다
+3. [hello@visca.ai](mailto:hello@visca.ai)으로 지원팀에 문의합니다

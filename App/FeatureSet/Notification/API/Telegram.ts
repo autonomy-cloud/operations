@@ -126,11 +126,11 @@ router.post(
       const message: TelegramMessage = {
         to: String(body["toChatId"]),
         body: [
-          "🧪 <b>Test notification from OneUptime</b>",
+          "🧪 <b>Test notification from Cast Operations</b>",
           "",
           "✅ Your Telegram bot is wired up and can reach this chat.",
           "",
-          "You'll receive alerts and on-call pages here once a OneUptime user has Telegram enabled in their notification rules.",
+          "You'll receive alerts and on-call pages here once a Cast Operations user has Telegram enabled in their notification rules.",
         ].join("\n"),
         parseMode: "HTML",
         disableWebPagePreview: true,
@@ -215,7 +215,7 @@ router.post(
       if (!code) {
         await sendBotReply(
           chatId,
-          "ℹ️ Please include your verification code like this:\n\n/start <code>\n\nOpen OneUptime → User Settings → Notification Methods → Telegram to grab your link.",
+          "ℹ️ Please include your verification code like this:\n\n/start <code>\n\nOpen Cast Operations → User Settings → Notification Methods → Telegram to grab your link.",
         );
         return Response.sendEmptySuccessResponse(req, res);
       }
@@ -238,7 +238,7 @@ router.post(
       if (!match) {
         await sendBotReply(
           chatId,
-          "❌ That verification code is invalid or expired. Please open OneUptime and request a new one.",
+          "❌ That verification code is invalid or expired. Please open Cast Operations and request a new one.",
         );
         return Response.sendEmptySuccessResponse(req, res);
       }
@@ -246,7 +246,7 @@ router.post(
       if (match.isVerified) {
         await sendBotReply(
           chatId,
-          "✅ This Telegram account is already linked to OneUptime. You're all set.",
+          "✅ This Telegram account is already linked to Cast Operations. You're all set.",
         );
         return Response.sendEmptySuccessResponse(req, res);
       }
@@ -278,7 +278,7 @@ router.post(
 
       await sendBotReply(
         chatId,
-        "🎉 Verified! You'll now receive OneUptime alerts here.\n\n🔔 Head back to OneUptime to pick which events you want delivered.",
+        "🎉 Verified! You'll now receive Cast Operations alerts here.\n\n🔔 Head back to Cast Operations to pick which events you want delivered.",
       );
 
       return Response.sendEmptySuccessResponse(req, res);

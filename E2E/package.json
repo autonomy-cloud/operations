@@ -4,7 +4,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OneUptime/oneuptime"
+    "url": "https://github.com/autonomy-cloud/operations"
   },
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "debug-tests": "playwright test --debug"
   },
   "keywords": [],
-  "author": "OneUptime <hello@oneuptime.com> (https://oneuptime.com/)",
+  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/node": "^20.10.4"

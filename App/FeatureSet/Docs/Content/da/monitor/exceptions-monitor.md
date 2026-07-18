@@ -1,6 +1,6 @@
 # Undtagelsesmonitor
 
-Undtagelsesovervågning giver dig mulighed for at overvåge applikationsundtagelser og -fejl og udløse advarsler, når antallet af undtagelser overskrider dine konfigurerede grænseværdier. OneUptime evaluerer undtagelsesdata fra dine telemetritjenester over et tidsvindue.
+Undtagelsesovervågning giver dig mulighed for at overvåge applikationsundtagelser og -fejl og udløse advarsler, når antallet af undtagelser overskrider dine konfigurerede grænseværdier. Cast Operations evaluerer undtagelsesdata fra dine telemetritjenester over et tidsvindue.
 
 ## Oversigt
 
@@ -14,7 +14,7 @@ Undtagelsesmonitoer tæller og filtrerer undtagelser, der matcher specifikke kri
 
 ## Oprettelse af en Undtagelsesmonitor
 
-1. Gå til **Monitorer** i OneUptime-dashboardet
+1. Gå til **Monitorer** i Cast Operations-dashboardet
 2. Klik på **Opret monitor**
 3. Vælg **Undtagelser** som monitortype
 4. Vælg de telemetritjenester, der skal overvåges
@@ -24,7 +24,7 @@ Undtagelsesmonitoer tæller og filtrerer undtagelser, der matcher specifikke kri
 
 ### Telemetritjenester
 
-Vælg én eller flere tjenester, der skal overvåges undtagelser fra. Tjenester skal sende undtagelsesdata til OneUptime via OpenTelemetry.
+Vælg én eller flere tjenester, der skal overvåges undtagelser fra. Tjenester skal sende undtagelsesdata til Cast Operations via OpenTelemetry.
 
 ### Undtagelsesfiltre
 
@@ -80,4 +80,4 @@ Vælg én eller flere tjenester, der skal overvåges undtagelser fra. Tjenester 
 
 ## Opsætningskrav
 
-Undtagelsesovervågning kræver, at dine applikationer sender undtagelsesdata til OneUptime via OpenTelemetry. Se dokumentationen til [OpenTelemetry](/docs/telemetry/open-telemetry) for opsætningsinstruktioner.
+Undtagelsesovervågning kræver, at dine applikationer sender undtagelsesdata til Cast Operations via OpenTelemetry. Se dokumentationen til [OpenTelemetry](/docs/telemetry/open-telemetry) for opsætningsinstruktioner.

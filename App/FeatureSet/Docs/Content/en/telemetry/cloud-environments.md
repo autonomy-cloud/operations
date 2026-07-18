@@ -2,16 +2,16 @@
 
 ## Overview
 
-OneUptime groups managed cloud compute into **Cloud Environments** — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner and Azure App Service. One environment is created per unique combination of `cloud.platform` + `cloud.account.id` + `cloud.region`, so something like _"AWS ECS · us-east-1 · 123456789012"_ is a single entity that aggregates every workload running on it.
+Cast Operations groups managed cloud compute into **Cloud Environments** — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner and Azure App Service. One environment is created per unique combination of `cloud.platform` + `cloud.account.id` + `cloud.region`, so something like _"AWS ECS · us-east-1 · 123456789012"_ is a single entity that aggregates every workload running on it.
 
 Raw virtual machines (EC2, Compute Engine, Azure VM) remain **Hosts**, and Kubernetes stays under **Kubernetes**. This view is specifically for managed / PaaS compute.
 
 ## Prerequisites
 
-- A **OneUptime Telemetry Ingestion Token** — create one from _Project Settings → Telemetry Ingestion Keys_.
+- A **Cast Operations Telemetry Ingestion Token** — create one from _Project Settings → Telemetry Ingestion Keys_.
 - An OpenTelemetry Collector or SDK running in/alongside your workloads.
 
-## How OneUptime identifies an environment
+## How Cast Operations identifies an environment
 
 | Attribute             | Required | Purpose                                                                                      |
 | --------------------- | -------- | -------------------------------------------------------------------------------------------- |
@@ -39,12 +39,12 @@ With an SDK, set `OTEL_RESOURCE_DETECTORS` instead:
 OTEL_RESOURCE_DETECTORS=env,ecs
 ```
 
-## Step 2 — Export OTLP to OneUptime
+## Step 2 — Export OTLP to Cast Operations
 
 ```yaml
 exporters:
   otlphttp/oneuptime:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -64,7 +64,7 @@ service:
       exporters: [otlphttp/oneuptime]
 ```
 
-If you self-host OneUptime, use `https://YOUR-ONEUPTIME-HOST/otlp`.
+If you self-host Cast Operations, use `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## What you get
 

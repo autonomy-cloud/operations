@@ -1,11 +1,11 @@
 # Microsoft Teams 통합
 
-자체 호스팅 OneUptime 인스턴스와 Microsoft Teams를 통합하려면 Azure 앱 등록을 구성하고 필요한 환경 변수를 설정해야 합니다.
+자체 호스팅 Cast Operations 인스턴스와 Microsoft Teams를 통합하려면 Azure 앱 등록을 구성하고 필요한 환경 변수를 설정해야 합니다.
 
 ## 전제 조건
 
 - Azure 계정 - [https://azure.com](https://azure.com)에서 생성할 수 있습니다
-- OneUptime 서버 구성에 대한 액세스
+- Cast Operations 서버 구성에 대한 액세스
 
 ## 설정 지침
 
@@ -16,8 +16,8 @@
 3. 등록 양식을 작성합니다:
    - **이름:** oneuptime
    - **지원되는 계정 유형:** 모든 조직 디렉토리의 계정 (모든 Microsoft Entra ID 테넌트 - 멀티테넌트)
-   - **리디렉션 URI:** 웹 - `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - 다음도 추가하십시오: `https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **리디렉션 URI:** 웹 - `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - 다음도 추가하십시오: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. "등록"을 클릭합니다
 5. "애플리케이션(클라이언트) ID"를 기록합니다 - 나중에 필요합니다
 
@@ -71,7 +71,7 @@
 3. "검토 + 만들기"를 클릭한 후 "만들기"를 클릭합니다
 
 4. 배포된 후 봇 리소스로 이동하여 "구성"으로 이동합니다
-5. "메시징 엔드포인트"를 `https://your-oneuptime-domain.com/api/microsoft-bot/messages`로 설정합니다
+5. "메시징 엔드포인트"를 `https://your-operations-domain.com/api/microsoft-bot/messages`로 설정합니다
 6. 구성을 저장합니다
 
 ### 5단계: 봇에 Microsoft Teams 채널 추가
@@ -81,7 +81,7 @@
 3. 설정을 검토합니다 (Teams에 대해 활성화, 특별한 요구 사항이 없는 한 기본 메시징 옵션 유지)
 4. "저장"을 클릭합니다 (메시지가 표시되면 "완료"/"게시"도 클릭)
 
-### 6단계: OneUptime 환경 변수 구성
+### 6단계: Cast Operations 환경 변수 구성
 
 #### Docker Compose
 
@@ -104,7 +104,7 @@ microsoftTeamsApp:
    tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**중요:** 이러한 환경 변수를 추가한 후 OneUptime 서버를 재시작하여 적용합니다.
+**중요:** 이러한 환경 변수를 추가한 후 Cast Operations 서버를 재시작하여 적용합니다.
 
 ### 7단계: Teams 앱 매니페스트 업로드
 
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 문제가 발생하는 경우:
 
 - 앱에 올바른 권한이 부여되어 있는지 확인합니다
-- 리디렉션 URI가 정확히 일치하는지 확인합니다 (`your-oneuptime-domain.com`을 실제 도메인으로 교체)
+- 리디렉션 URI가 정확히 일치하는지 확인합니다 (`your-operations-domain.com`을 실제 도메인으로 교체)
 - 환경 변수가 올바르게 설정되어 있는지 확인합니다
 - 봇 메시징 엔드포인트가 인터넷에서 액세스 가능한지 확인합니다
 - 봇이 Teams 채널과 올바르게 구성되어 있는지 확인합니다
@@ -129,4 +129,4 @@ microsoftTeamsApp:
 
 ## 지원
 
-이 통합을 개선하고 싶으므로 피드백은 대환영입니다. [hello@oneuptime.com](mailto:hello@oneuptime.com)으로 보내 주십시오.
+이 통합을 개선하고 싶으므로 피드백은 대환영입니다. [hello@visca.ai](mailto:hello@visca.ai)으로 보내 주십시오.

@@ -272,7 +272,7 @@ async function handleCallTool(
       );
     }
 
-    // Execute the OneUptime operation with the session's API key
+    // Execute the Cast Operations operation with the session's API key
     const result: unknown = await OneUptimeApiService.executeOperation(
       tool.tableName,
       tool.operation,
@@ -442,7 +442,7 @@ function formatUpdateResponse(
   tool: McpToolInfo,
   id: string | undefined,
 ): JSONObject {
-  // The OneUptime API returns an empty body on update — don't fabricate data.
+  // The Cast Operations API returns an empty body on update — don't fabricate data.
   return {
     success: true,
     operation: "update",

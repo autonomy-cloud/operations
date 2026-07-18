@@ -1,6 +1,6 @@
 # Översikt över instrumentpaneler
 
-Instrumentpaneler förvandlar den data som OneUptime redan samlar in — mätvärden, loggar, traces, incidenter, monitorer, Kubernetes-resurser, värdar — till en enda sida som någon kan kasta en blick på och förstå vad som händer.
+Instrumentpaneler förvandlar den data som Cast Operations redan samlar in — mätvärden, loggar, traces, incidenter, monitorer, Kubernetes-resurser, värdar — till en enda sida som någon kan kasta en blick på och förstå vad som händer.
 
 Placera ett diagram för request-latens bredvid en lista över öppna incidenter, bredvid en mätare för CPU, bredvid ett textstycke med sammanhang. Spara. Dela länken.
 
@@ -66,12 +66,12 @@ Mål: en jour-sida för checkout-tjänsten med latens, felfrekvens, öppna incid
 6. Under det, en **Log Stream**-widget som visar loggar från samma tjänst.
 7. Spara. Byt rullgardinsmenyn till `payments` — samma instrumentpanel visar nu payments-tjänsten.
 
-## Hur instrumentpaneler passar in med resten av OneUptime
+## Hur instrumentpaneler passar in med resten av Cast Operations
 
 - **Monitorer och telemetri** är datakällorna. Varje mätvärde, logg och trace du samlar in kan frågas av en widget.
 - **Incidenter och larm** visas i widgetarna **Incident List** och **Alert List**. Instrumentpaneler är skrivskyddade för dessa — skapa och uppdatera dem på annat håll.
 - **Statussidor** är kundvänd kommunikation ("är systemet uppe?"). Instrumentpaneler är till för att titta på i detalj hur systemet beter sig. De två fungerar tillsammans, de ersätter inte varandra.
-- **Arbetsflöden** är hur OneUptime vidtar åtgärder. Instrumentpaneler är hur du läser av vad som händer.
+- **Arbetsflöden** är hur Cast Operations vidtar åtgärder. Instrumentpaneler är hur du läser av vad som händer.
 
 ## Läs vidare
 

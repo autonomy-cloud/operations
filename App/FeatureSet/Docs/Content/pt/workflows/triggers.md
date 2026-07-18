@@ -26,9 +26,9 @@ Se o sistema ficar brevemente indisponível, a execução é retomada assim que 
 
 ## Webhook
 
-O OneUptime cria uma URL única. Qualquer requisição a essa URL inicia o workflow. Os cabeçalhos, parâmetros de consulta e o corpo da requisição são repassados.
+O Cast Operations cria uma URL única. Qualquer requisição a essa URL inicia o workflow. Os cabeçalhos, parâmetros de consulta e o corpo da requisição são repassados.
 
-Bom para: receber dados de outra ferramenta no OneUptime — callbacks de CI/CD, alertas de outros monitoramentos, cadastros no seu CRM.
+Bom para: receber dados de outra ferramenta no Cast Operations — callbacks de CI/CD, alertas de outros monitoramentos, cadastros no seu CRM.
 
 **Saída**:
 
@@ -40,15 +40,15 @@ A URL aceita tanto `GET` quanto `POST`. O chamador recebe uma confirmação ráp
 
 Trate a URL como uma senha. Quem tiver acesso a ela pode iniciar seu workflow.
 
-## Gatilhos de eventos do OneUptime
+## Gatilhos de eventos do Cast Operations
 
-Quase tudo no OneUptime — monitores, incidentes, alertas, manutenções programadas, páginas de status, políticas de plantão, equipes — pode disparar um workflow. Cada um oferece três eventos:
+Quase tudo no Cast Operations — monitores, incidentes, alertas, manutenções programadas, páginas de status, políticas de plantão, equipes — pode disparar um workflow. Cada um oferece três eventos:
 
 - **Na Criação** — dispara quando um novo é adicionado.
 - **Na Atualização** — dispara quando um é alterado.
 - **Na Exclusão** — dispara quando um é excluído.
 
-É assim que você constrói "quando X acontecer no OneUptime, faça Y" sem precisar ficar verificando coisas em loop.
+É assim que você constrói "quando X acontecer no Cast Operations, faça Y" sem precisar ficar verificando coisas em loop.
 
 O registro completo é repassado ao próximo bloco. Por exemplo, o gatilho **Incidente → Na Criação** repassa o novo incidente, então o próximo bloco pode ler o título, a descrição, a severidade e qualquer outro campo.
 
@@ -70,7 +70,7 @@ Busque pelo nome na paleta de gatilhos para encontrar o que você quer.
 | Clicar em um botão para executar o workflow | **Manual**              |
 | Executar em um agendamento recorrente       | **Agendado**            |
 | Ter outro sistema enviando dados            | **Webhook**             |
-| Reagir a algo dentro do OneUptime           | **Evento do OneUptime** |
+| Reagir a algo dentro do Cast Operations           | **Evento do Cast Operations** |
 
 Um workflow só pode ter um gatilho. Se você precisar de duas formas de iniciar a mesma automação, coloque a lógica compartilhada em um workflow e chame-a a partir de dois workflows "envoltórios" finos usando o componente **Executar Workflow**.
 

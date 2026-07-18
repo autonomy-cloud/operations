@@ -50,7 +50,6 @@ import {
 import BlogPostUtil, { BlogPostHeader } from "./Utils/BlogPost";
 
 // import jobs.
-import "./Jobs/UpdateBlog";
 import { getGitHubStarsCount, formatStarCount } from "./Jobs/FetchGitHubStars";
 import {
   getGitHubContributorsCount,
@@ -104,7 +103,7 @@ const HomeFeatureSet: FeatureSet = {
             res.locals["homeUrl"] = homeUrl;
           } catch {
             // Fallback hard-coded production domain if env misconfigured
-            res.locals["homeUrl"] = "https://oneuptime.com";
+            res.locals["homeUrl"] = "https://visca.ai";
           }
         }
         // Inject SEO data for current path
@@ -324,16 +323,16 @@ const HomeFeatureSet: FeatureSet = {
     app.get(
       "/infrastructure-agent/install.sh",
       (_req: ExpressRequest, res: ExpressResponse) => {
-        // fetch the file from https://raw.githubusercontent.com/oneuptime/infrastructure-agent/release/Scripts/Install/Linux.sh  and send it as response
+        // fetch the file from https://raw.githubusercontent.com/autonomy-cloud/operations/main/App/FeatureSet/Docs/Static/scripts/infrastructure-agent/Scripts/Install/Linux.sh  and send it as response
         res.redirect(
-          "https://raw.githubusercontent.com/OneUptime/oneuptime/release/InfrastructureAgent/Scripts/Install/Linux.sh",
+          "https://raw.githubusercontent.com/autonomy-cloud/operations/release/InfrastructureAgent/Scripts/Install/Linux.sh",
         );
       },
     );
 
     app.get("/install.sh", (_req: ExpressRequest, res: ExpressResponse) => {
       res.redirect(
-        "https://raw.githubusercontent.com/OneUptime/oneuptime/release/Home/Scripts/Install.sh",
+        "https://raw.githubusercontent.com/autonomy-cloud/operations/release/Home/Scripts/Install.sh",
       );
     });
 
@@ -471,7 +470,7 @@ const HomeFeatureSet: FeatureSet = {
           const response: HTTPResponse<Array<JSONObject>> | HTTPErrorResponse =
             await API.get<Array<JSONObject>>({
               url: URL.fromString(
-                "https://api.github.com/repos/oneuptime/oneuptime/contributors?page=" +
+                "https://api.github.com/repos/autonomy-cloud/operations/contributors?page=" +
                   pageNumber,
               ),
             });
@@ -491,7 +490,7 @@ const HomeFeatureSet: FeatureSet = {
 
       const response: HTTPResponse<JSONObject> = await API.get({
         url: URL.fromString(
-          "https://api.github.com/repos/oneuptime/oneuptime/commits?sha=master&per_page=1&page=1",
+          "https://api.github.com/repos/autonomy-cloud/operations/commits?sha=master&per_page=1&page=1",
         ),
       });
 
@@ -512,7 +511,7 @@ const HomeFeatureSet: FeatureSet = {
         if (!gitHubBasicInfo) {
           const basicInfo: HTTPResponse<JSONObject> = await API.get({
             url: URL.fromString(
-              "https://api.github.com/repos/oneuptime/oneuptime",
+              "https://api.github.com/repos/autonomy-cloud/operations",
             ),
           });
 
@@ -1956,16 +1955,16 @@ const HomeFeatureSet: FeatureSet = {
       },
     );
 
-    // robots.txt (dynamic) - If domain is not oneuptime.com, disallow all.
+    // robots.txt (dynamic) - If domain is not visca.ai, disallow all.
     app.get("/robots.txt", (_req: ExpressRequest, res: ExpressResponse) => {
       let body: string = "";
 
-      if (Host !== "oneuptime.com") {
+      if (Host !== "visca.ai") {
         // Disallow everything on non-production / preview / on-prem domains so they are not indexed.
         body = [
           "User-agent: *",
           "Disallow: /",
-          "# Disallowed because host is not oneuptime.com",
+          "# Disallowed because host is not visca.ai",
         ].join("\n");
       } else {
         /*
@@ -1973,7 +1972,7 @@ const HomeFeatureSet: FeatureSet = {
          * res.locals.homeUrl is set earlier middleware; fallback to canonical domain.
          */
         const homeUrl: string = (
-          res.locals["homeUrl"] || "https://oneuptime.com"
+          res.locals["homeUrl"] || "https://visca.ai"
         ).replace(/\/$/, "");
         body = [
           `# LLM-friendly content index: ${homeUrl}/llms.txt`,

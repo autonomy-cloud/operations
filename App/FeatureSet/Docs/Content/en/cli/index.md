@@ -1,11 +1,11 @@
-# OneUptime CLI
+# Cast Operations CLI
 
-The OneUptime CLI is a command-line interface for managing your OneUptime resources directly from the terminal. It supports full CRUD operations on monitors, incidents, alerts, status pages, and more.
+The Cast Operations CLI is a command-line interface for managing your Cast Operations resources directly from the terminal. It supports full CRUD operations on monitors, incidents, alerts, status pages, and more.
 
 ## Features
 
 - **Multi-environment support** with named contexts for production, staging, and development
-- **Auto-discovery** of available resources from your OneUptime instance
+- **Auto-discovery** of available resources from your Cast Operations instance
 - **Flexible authentication** via CLI flags, environment variables, or saved contexts
 - **Smart output formatting** with JSON, table, and wide display modes
 - **Scriptable** for CI/CD pipelines and automation workflows
@@ -19,8 +19,8 @@ npm install -g @oneuptime/cli
 ## Quick Start
 
 ```bash
-# Authenticate with your OneUptime instance
-oneuptime login <your-api-key> https://oneuptime.com
+# Authenticate with your Cast Operations instance
+oneuptime login <your-api-key> https://visca.ai
 
 # List your monitors
 oneuptime monitor list

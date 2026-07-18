@@ -1,21 +1,21 @@
 # SendGrid 收件電子郵件整合
 
-OneUptime 的 **收件電子郵件監控器（Incoming Email Monitor）** 可讓您根據傳送至各監控器專屬電子郵件地址的郵件來建立及解除警示。這對於整合舊有系統、警示工具，或任何能夠傳送電子郵件的服務都非常實用。
+Cast Operations 的 **收件電子郵件監控器（Incoming Email Monitor）** 可讓您根據傳送至各監控器專屬電子郵件地址的郵件來建立及解除警示。這對於整合舊有系統、警示工具，或任何能夠傳送電子郵件的服務都非常實用。
 
-本指南說明如何設定 SendGrid Inbound Parse，將收件電子郵件轉送至您的自架 OneUptime 執行個體。
+本指南說明如何設定 SendGrid Inbound Parse，將收件電子郵件轉送至您的自架 Cast Operations 執行個體。
 
 ## 先決條件
 
 - 一個 SendGrid 帳戶（免費方案即可）
 - 一個您所掌控且可存取 DNS 設定的網域
-- 您的 OneUptime 執行個體必須可公開存取（以便 SendGrid 傳送 webhook）
+- 您的 Cast Operations 執行個體必須可公開存取（以便 SendGrid 傳送 webhook）
 
 ## 運作方式
 
-1. 您在 OneUptime 中建立一個 **收件電子郵件監控器（Incoming Email Monitor）**
-2. OneUptime 會為該監控器產生一個專屬的電子郵件地址（例如 `monitor-abc123@inbound.yourdomain.com`）
-3. 當有電子郵件傳送至該地址時，SendGrid 會收到該郵件並透過 webhook 將其轉送至 OneUptime
-4. OneUptime 會依據您所設定的條件評估該電子郵件，以建立或解除警示
+1. 您在 Cast Operations 中建立一個 **收件電子郵件監控器（Incoming Email Monitor）**
+2. Cast Operations 會為該監控器產生一個專屬的電子郵件地址（例如 `monitor-abc123@inbound.yourdomain.com`）
+3. 當有電子郵件傳送至該地址時，SendGrid 會收到該郵件並透過 webhook 將其轉送至 Cast Operations
+4. Cast Operations 會依據您所設定的條件評估該電子郵件，以建立或解除警示
 
 ## 設定說明
 
@@ -27,7 +27,7 @@ OneUptime 的 **收件電子郵件監控器（Incoming Email Monitor）** 可讓
 - `email.yourdomain.com`
 - `monitor.yourdomain.com`
 
-此子網域將專門用於 OneUptime 監控器電子郵件。
+此子網域將專門用於 Cast Operations 監控器電子郵件。
 
 ### 步驟 2：設定 DNS MX 記錄
 
@@ -64,14 +64,14 @@ inbound.example.com.  IN  MX  10  mx.sendgrid.net.
 | 欄位                                | 值                                                                      |
 | ----------------------------------- | ----------------------------------------------------------------------- |
 | **Receiving Domain**                | 您的收件子網域（例如 `inbound.yourdomain.com`）                         |
-| **Destination URL**                 | `https://your-oneuptime-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **Destination URL**                 | `https://your-operations-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
 | **Check incoming emails for spam**  | 選用——如有需要可啟用                                                    |
 | **Send raw, full MIME message**     | 保持未勾選（非必要）                                                    |
 | **POST the raw, full MIME message** | 保持未勾選（非必要）                                                    |
 
 5. 點選 **Add**
 
-### 步驟 5：設定 OneUptime 環境變數
+### 步驟 5：設定 Cast Operations 環境變數
 
 #### Docker Compose
 
@@ -95,11 +95,11 @@ inboundEmail:
   # webhookSecret: "your-optional-secret"  # Optional
 ```
 
-**重要：** 在新增這些環境變數後，請重新啟動您的 OneUptime 伺服器。
+**重要：** 在新增這些環境變數後，請重新啟動您的 Cast Operations 伺服器。
 
 ### 步驟 6：建立收件電子郵件監控器
 
-1. 登入您的 OneUptime Dashboard
+1. 登入您的 Cast Operations Dashboard
 2. 導覽至 **Monitors** > **Create Monitor**
 3. 選擇 **Incoming Email** 作為監控器類型
 4. 設定您的監控器：
@@ -115,9 +115,9 @@ inboundEmail:
 
 ### 步驟 7：測試整合
 
-1. 從 OneUptime Dashboard 複製該監控器的電子郵件地址
+1. 從 Cast Operations Dashboard 複製該監控器的電子郵件地址
 2. 傳送一封測試電子郵件至該地址，並使主旨符合您的警示條件
-3. 檢查 OneUptime Dashboard 以確認：
+3. 檢查 Cast Operations Dashboard 以確認：
    - 電子郵件已被接收（可在 Monitor Summary 中看到）
    - 已建立警示（如果條件相符）
 
@@ -147,7 +147,7 @@ inboundEmail:
 
 許多舊有系統只能傳送電子郵件警示。建立一個收件電子郵件監控器以：
 
-- 當舊有系統傳送 `[CRITICAL]` 電子郵件時建立 OneUptime 警示
+- 當舊有系統傳送 `[CRITICAL]` 電子郵件時建立 Cast Operations 警示
 - 當收到 `[RESOLVED]` 電子郵件時解除警示
 
 ### 第三方服務整合
@@ -183,16 +183,16 @@ inboundEmail:
    - 前往 Settings > Inbound Parse
    - 確認您的網域與 webhook URL 正確無誤
 
-3. **檢查 OneUptime 記錄：**
+3. **檢查 Cast Operations 記錄：**
    - 在 ProbeIngest 服務記錄中尋找 webhook 請求
    - 檢查是否有任何錯誤訊息
 
 ### Webhook 失敗
 
-1. **確保 OneUptime 可公開存取：**
+1. **確保 Cast Operations 可公開存取：**
 
    - webhook URL 必須能從網際網路存取
-   - 使用以下指令測試：`curl -X POST https://your-oneuptime-domain.com/incoming-email/sendgrid`
+   - 使用以下指令測試：`curl -X POST https://your-operations-domain.com/incoming-email/sendgrid`
 
 2. **檢查防火牆規則：**
 
@@ -223,7 +223,7 @@ inboundEmail:
 若要檢查 SendGrid 是否成功傳送 webhook：
 
 1. 很遺憾，SendGrid 並未針對 Inbound Parse 提供詳細記錄
-2. 檢查您的 OneUptime 伺服器記錄是否有收件 webhook 請求
+2. 檢查您的 Cast Operations 伺服器記錄是否有收件 webhook 請求
 3. 使用如 [RequestBin](https://requestbin.com) 之類的工具暫時測試 webhook 傳送
 
 ## 安全性最佳做法
@@ -236,7 +236,7 @@ inboundEmail:
 
 ## 替代供應商
 
-OneUptime 旨在支援多種收件電子郵件供應商。目前支援的有：
+Cast Operations 旨在支援多種收件電子郵件供應商。目前支援的有：
 
 | 供應商         | 狀態   |
 | -------------- | ------ |
@@ -250,7 +250,7 @@ OneUptime 旨在支援多種收件電子郵件供應商。目前支援的有：
 如果您在使用 SendGrid 收件電子郵件整合時遇到問題：
 
 1. 查看上方的疑難排解章節
-2. 檢視 OneUptime 記錄以取得詳細的錯誤訊息
-3. 透過 [hello@oneuptime.com](mailto:hello@oneuptime.com) 與我們聯絡
+2. 檢視 Cast Operations 記錄以取得詳細的錯誤訊息
+3. 透過 [hello@visca.ai](mailto:hello@visca.ai) 與我們聯絡
 
 我們歡迎您提供意見回饋，以改善此整合！

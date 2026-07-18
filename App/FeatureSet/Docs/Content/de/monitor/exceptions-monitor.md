@@ -1,6 +1,6 @@
 # Ausnahmen-Monitor
 
-Der Ausnahmen-Monitor ermöglicht die Überwachung von Anwendungsausnahmen und -fehlern und löst Benachrichtigungen aus, wenn die Ausnahmezahl Ihre konfigurierten Schwellenwerte überschreitet. OneUptime wertet Ausnahmedaten aus Ihren Telemetrie-Diensten über ein Zeitfenster aus.
+Der Ausnahmen-Monitor ermöglicht die Überwachung von Anwendungsausnahmen und -fehlern und löst Benachrichtigungen aus, wenn die Ausnahmezahl Ihre konfigurierten Schwellenwerte überschreitet. Cast Operations wertet Ausnahmedaten aus Ihren Telemetrie-Diensten über ein Zeitfenster aus.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ Ausnahmen-Monitore zählen und filtern Ausnahmen, die bestimmten Kriterien entsp
 
 ## Einen Ausnahmen-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Ausnahmen** als Monitortyp
 4. Wählen Sie die zu überwachenden Telemetrie-Dienste aus
@@ -24,7 +24,7 @@ Ausnahmen-Monitore zählen und filtern Ausnahmen, die bestimmten Kriterien entsp
 
 ### Telemetrie-Dienste
 
-Wählen Sie einen oder mehrere Dienste aus, von denen Ausnahmen überwacht werden sollen. Dienste müssen Ausnahmedaten über OpenTelemetry an OneUptime senden.
+Wählen Sie einen oder mehrere Dienste aus, von denen Ausnahmen überwacht werden sollen. Dienste müssen Ausnahmedaten über OpenTelemetry an Cast Operations senden.
 
 ### Ausnahmenfilter
 
@@ -80,4 +80,4 @@ Wählen Sie einen oder mehrere Dienste aus, von denen Ausnahmen überwacht werde
 
 ## Setup-Anforderungen
 
-Der Ausnahmen-Monitor erfordert, dass Ihre Anwendungen Ausnahmedaten über OpenTelemetry an OneUptime senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.
+Der Ausnahmen-Monitor erfordert, dass Ihre Anwendungen Ausnahmedaten über OpenTelemetry an Cast Operations senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.

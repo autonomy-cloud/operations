@@ -2,7 +2,7 @@
 
 ## Wie Bash und JavaScript tatsächlich laufen
 
-Bash- und JavaScript-Schritte werden **niemals auf dem OneUptime-Worker ausgeführt**. Sie werden als Jobs an einen bestimmten [Runbook-Agent](/docs/runbooks/agents) verteilt — einen kleinen Prozess, den Sie auf einem Host in Ihrer eigenen Infrastruktur installieren.
+Bash- und JavaScript-Schritte werden **niemals auf dem Cast Operations-Worker ausgeführt**. Sie werden als Jobs an einen bestimmten [Runbook-Agent](/docs/runbooks/agents) verteilt — einen kleinen Prozess, den Sie auf einem Host in Ihrer eigenen Infrastruktur installieren.
 
 Das Dispatch-Modell:
 
@@ -37,7 +37,7 @@ Wenn ein manueller Schritt über die API abgehakt wird, wird die Ausführung ern
 
 ## Härtungshinweise
 
-- **JavaScript und Bash** laufen auf einem Runbook-Agent-Host, den Sie kontrollieren, nicht auf dem OneUptime-Worker. JavaScript ist in eine `isolated-vm`-Sandbox mit dem üblichen Prelude eingewickelt (kappt Prototypketten, entfernt `Function`/`eval`, friert eingebaute Prototypen ein). Bash läuft über `bash -c` mit Timeout-Durchsetzung auf dem Agent.
+- **JavaScript und Bash** laufen auf einem Runbook-Agent-Host, den Sie kontrollieren, nicht auf dem Cast Operations-Worker. JavaScript ist in eine `isolated-vm`-Sandbox mit dem üblichen Prelude eingewickelt (kappt Prototypketten, entfernt `Function`/`eval`, friert eingebaute Prototypen ein). Bash läuft über `bash -c` mit Timeout-Durchsetzung auf dem Agent.
 - **HTTP-Schritte** verwenden einen permissiven Status-Validator, sodass eine 4xx- oder 5xx-Antwort als fehlgeschlagener Schritt protokolliert wird, statt geworfen zu werden. So spiegelt die festgehaltene Ausgabe wider, was die Gegenstelle tatsächlich zurückgegeben hat.
 - **Agent-Auth** erfolgt über ID + Secret-Key, die als Env-Variablen am Agent-Container gesetzt werden. Serverseitig kommt die maßgebliche Agent-Identität aus der DB-Zeile, die per präsentierter ID/Schlüssel adressiert wird — Clients können selbst mit kompromittiertem Schlüssel keinen anderen Agent imitieren.
 

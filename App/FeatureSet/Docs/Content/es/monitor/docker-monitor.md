@@ -1,6 +1,6 @@
 # Monitor Docker
 
-El monitoreo Docker te permite supervisar el estado y el rendimiento de tus hosts Docker y los contenedores que se ejecutan en ellos. OneUptime recopila métricas y registros de contenedores a través de un Colector OpenTelemetry preconfigurado (el **Agente Docker de OneUptime**) y los evalúa según tus criterios configurados.
+El monitoreo Docker te permite supervisar el estado y el rendimiento de tus hosts Docker y los contenedores que se ejecutan en ellos. Cast Operations recopila métricas y registros de contenedores a través de un Colector OpenTelemetry preconfigurado (el **Agente Docker de Cast Operations**) y los evalúa según tus criterios configurados.
 
 ## Información general
 
@@ -14,7 +14,7 @@ Los monitores Docker usan métricas y registros de tus hosts para proporcionar v
 
 ## Creación de un monitor Docker
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Docker** como tipo de monitor
 4. Selecciona el host Docker y el alcance de recursos a monitorear
@@ -25,7 +25,7 @@ Los monitores Docker usan métricas y registros de tus hosts para proporcionar v
 
 ### Host Docker
 
-Selecciona el host Docker a monitorear. Los hosts se registran automáticamente la primera vez que el Agente Docker de OneUptime envía telemetría desde ellos; no es necesario crearlos manualmente.
+Selecciona el host Docker a monitorear. Los hosts se registran automáticamente la primera vez que el Agente Docker de Cast Operations envía telemetría desde ellos; no es necesario crearlos manualmente.
 
 ### Alcance de recursos
 
@@ -126,7 +126,7 @@ El Agente Docker usa el receptor `docker_stats` de OpenTelemetry, que sondea la 
 
 ## Plantillas de alerta predefinidas
 
-OneUptime proporciona plantillas para escenarios comunes de monitoreo Docker:
+Cast Operations proporciona plantillas para escenarios comunes de monitoreo Docker:
 
 | Plantilla                        | Descripción                                         | Umbral | Agregación              |
 | -------------------------------- | --------------------------------------------------- | ------ | ----------------------- |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 Para usar el monitoreo Docker, necesitas:
 
-1. Instalar el Agente Docker de OneUptime en cada host Docker que desees monitorear
+1. Instalar el Agente Docker de Cast Operations en cada host Docker que desees monitorear
 2. Pasar `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` y `DOCKER_HOST_NAME` como variables de entorno
 3. Asegurarte de que los contenedores que deseas observar usen el controlador de registro `json-file` (consulta más arriba)
 
-El agente se publica como `oneuptime/docker-agent:release` en Docker Hub. Consulta la [guía de instalación del Agente Docker](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent) para ver los ejemplos completos de `docker run` y `docker compose`.
+El agente se publica como `oneuptime/docker-agent:release` en Docker Hub. Consulta la [guía de instalación del Agente Docker](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) para ver los ejemplos completos de `docker run` y `docker compose`.
 
 ## Solución de problemas
 
@@ -236,7 +236,7 @@ Esto significa que el glob de inclusión `/var/lib/docker/containers/*/*-json.lo
 
 ### Los registros llegan pero se agrupan bajo el nombre de host incorrecto
 
-OneUptime registra automáticamente los hosts Docker por `resource.host.name`, que se toma de la variable de entorno `DOCKER_HOST_NAME`. Cambiar `DOCKER_HOST_NAME` después del primer lote de telemetría creará una segunda fila de host en lugar de renombrar la existente.
+Cast Operations registra automáticamente los hosts Docker por `resource.host.name`, que se toma de la variable de entorno `DOCKER_HOST_NAME`. Cambiar `DOCKER_HOST_NAME` después del primer lote de telemetría creará una segunda fila de host en lugar de renombrar la existente.
 
 ### Los incidentes no se activan para "CPU alta"
 

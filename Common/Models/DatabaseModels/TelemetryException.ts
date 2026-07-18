@@ -66,7 +66,7 @@ import RumApplication from "./RumApplication";
   pluralName: "Exceptions",
   icon: IconProp.Error,
   tableDescription:
-    "List of all Telemetry Exceptions created for the telemetry service for this OneUptime project and it's status.",
+    "List of all Telemetry Exceptions created for the telemetry service for this Cast Operations project and it's status.",
 })
 /*
  * primaryEntityId is polymorphic (see the column below) — it may reference a
@@ -170,7 +170,7 @@ export default class TelemetryException extends DatabaseBaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({

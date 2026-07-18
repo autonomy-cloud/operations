@@ -66,7 +66,7 @@ case $ARCH in
 esac
 
 # Fetch the latest release tag from GitHub
-REPO="oneuptime/oneuptime"
+REPO="autonomy-cloud/operations"
 API_URL="https://api.github.com/repos/${REPO}/releases/latest"
 TAG=$(curl -s ${API_URL} | grep '"tag_name":' | sed -E 's/.*"tag_name": "([^"]+)".*/\1/')
 

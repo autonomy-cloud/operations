@@ -1,10 +1,10 @@
 # Deling & offentlige dashbord
 
-Som standard er dashbord private for prosjektet ditt — bare innloggede teammedlemmer kan se dem. Men OneUptime lar deg også dele et dashbord offentlig, beskytte det med et passord, begrense det til visse IP-er og hoste det på ditt eget domene. Denne siden dekker alle fire.
+Som standard er dashbord private for prosjektet ditt — bare innloggede teammedlemmer kan se dem. Men Cast Operations lar deg også dele et dashbord offentlig, beskytte det med et passord, begrense det til visse IP-er og hoste det på ditt eget domene. Denne siden dekker alle fire.
 
 ## Private dashbord (standarden)
 
-Et dashbord er bare tilgjengelig for innloggede medlemmer av prosjektet ditt. URL-en ser ut som `https://oneuptime.com/dashboards/<id>/view` og krever innlogging.
+Et dashbord er bare tilgjengelig for innloggede medlemmer av prosjektet ditt. URL-en ser ut som `https://visca.ai/dashboards/<id>/view` og krever innlogging.
 
 Innenfor prosjektet kontrollerer eiere og etiketter hvem som ser hva — se [Konfigurasjon & tillatelser](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Forespørsler fra andre IP-er avvises.
 
 ## Egendefinerte domener
 
-Standard serveres et offentlig dashbord på `oneuptime.com`. For å hoste det på ditt eget subdomene som `dashboard.acme.com`:
+Standard serveres et offentlig dashbord på `visca.ai`. For å hoste det på ditt eget subdomene som `dashboard.acme.com`:
 
-1. Legg til en CNAME-oppføring i DNS-en din som peker subdomenet til OneUptimes mål.
+1. Legg til en CNAME-oppføring i DNS-en din som peker subdomenet til Cast Operations mål.
 2. Under **Dashbord → Innstillinger → Egendefinerte domener**, legg til domenet.
-3. Verifiser det. OneUptime sjekker DNS-oppføringen for deg.
+3. Verifiser det. Cast Operations sjekker DNS-oppføringen for deg.
 4. Når det er verifisert, er dashbordet tilgjengelig både på det egendefinerte domenet ditt og den opprinnelige URL-en.
 
 Egendefinerte domener er nyttige for:
@@ -75,7 +75,7 @@ Under **Dashbord → Innstillinger** kan du konfigurere:
 - **Logo** — last opp en PNG eller SVG som skal vises i headeren.
 - **Favicon** — det lille ikonet i nettleserfanen.
 
-Merkevarebygging gjelder bare når dashbordet vises offentlig. Interne seere ser alltid OneUptimes merkevarebygging.
+Merkevarebygging gjelder bare når dashbordet vises offentlig. Interne seere ser alltid Cast Operations merkevarebygging.
 
 ## Innbygging
 

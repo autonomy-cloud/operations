@@ -64,7 +64,7 @@ const READ_PERMISSIONS: Array<Permission> = [
   pluralName: "Podman Resources",
   icon: IconProp.Cube,
   tableDescription:
-    "Snapshot of a Podman object (container, image, network, volume) as last reported by the OneUptime Podman Agent. Populated by the telemetry ingest pipeline; not user-editable.",
+    "Snapshot of a Podman object (container, image, network, volume) as last reported by the Cast Operations Podman Agent. Populated by the telemetry ingest pipeline; not user-editable.",
 })
 @Index(["projectId", "podmanHostId", "kind", "name"], {
   unique: true,

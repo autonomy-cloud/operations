@@ -125,7 +125,7 @@ export default class Profiling {
 
   private static getAuthToken(): string | undefined {
     /*
-     * Extract the OneUptime token from OTLP headers
+     * Extract the Cast Operations token from OTLP headers
      * Format: "x-oneuptime-token=<value>;other-header=value"
      */
     const headersStr: string | undefined =

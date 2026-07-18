@@ -2,23 +2,23 @@
 
 ### Code of Conduct
 
-As contributors, maintainers, and participants in the OneUptime community, and in the interest of fostering
+As contributors, maintainers, and participants in the Cast Operations community, and in the interest of fostering
 an open and welcoming community, we pledge to respect all people who participate or contribute
 through reporting issues, posting feature requests, updating documentation,
 submitting pull requests or patches, attending conferences or events, or engaging in other community or project activities.
 
-We are committed to making participation in the OneUptime community a harassment-free experience for everyone, regardless of age, body size, caste, disability, ethnicity, level of experience, family status, gender, gender identity and expression, marital status, military or veteran status, nationality, personal appearance, race, religion, sexual orientation, socioeconomic status, tribe, or any other dimension of diversity.
+We are committed to making participation in the Cast Operations community a harassment-free experience for everyone, regardless of age, body size, caste, disability, ethnicity, level of experience, family status, gender, gender identity and expression, marital status, military or veteran status, nationality, personal appearance, race, religion, sexual orientation, socioeconomic status, tribe, or any other dimension of diversity.
 
 ## Scope
 
 This code of conduct applies:
 
 - within project and community spaces,
-- in other spaces when an individual OneUptime community participant's words or actions are directed at or are about a OneUptime project, the OneUptime community, or another OneUptime community participant.
+- in other spaces when an individual Cast Operations community participant's words or actions are directed at or are about a Cast Operations project, the Cast Operations community, or another Cast Operations community participant.
 
 ## Our Standards
 
-The OneUptime Community is open, inclusive and respectful. Every member of our community has the right to have their identity respected.
+The Cast Operations Community is open, inclusive and respectful. Every member of our community has the right to have their identity respected.
 
 Examples of behavior that contributes to a positive environment include but are not limited to:
 
@@ -52,12 +52,12 @@ The following behaviors are also prohibited:
 
 Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct.
 By adopting this Code of Conduct, project maintainers commit themselves to fairly and consistently applying these principles to every aspect
-of managing a OneUptime project.
+of managing a Cast Operations project.
 Project maintainers who do not follow or enforce the Code of Conduct may be temporarily or permanently removed from the project team.
 
 ## Reporting
 
-For incidents occurring in the OneUptime community, contact <conduct@oneuptime.com>. You can expect a response within five business days.
+For incidents occurring in the Cast Operations community, contact <conduct@visca.ai>. You can expect a response within five business days.
 
 ## Enforcement
 

@@ -1,8 +1,8 @@
 # Global SSO (인스턴스 전체 싱글 사인온)
 
-Global SSO를 사용하면 OneUptime **인스턴스 관리자**(마스터 관리자)가 단일 SAML 2.0 또는 OpenID Connect(OIDC) ID 공급자를 **인스턴스 수준에서 한 번만** 구성하고 이를 서버의 모든 프로젝트에 연결할 수 있습니다. 이는 프로젝트별 SSO에 대응하는 인스턴스 전체 기능입니다. 모든 프로젝트 소유자가 각자의 ID 공급자를 구성하는 대신, 마스터 관리자가 전체 인스턴스에 사용할 수 있는 하나를 설정합니다.
+Global SSO를 사용하면 Cast Operations **인스턴스 관리자**(마스터 관리자)가 단일 SAML 2.0 또는 OpenID Connect(OIDC) ID 공급자를 **인스턴스 수준에서 한 번만** 구성하고 이를 서버의 모든 프로젝트에 연결할 수 있습니다. 이는 프로젝트별 SSO에 대응하는 인스턴스 전체 기능입니다. 모든 프로젝트 소유자가 각자의 ID 공급자를 구성하는 대신, 마스터 관리자가 전체 인스턴스에 사용할 수 있는 하나를 설정합니다.
 
-Global SSO는 **OneUptime Enterprise Edition** 기능이며 Enterprise Edition 빌드를 실행하는 인스턴스에서만 사용할 수 있습니다.
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO와 Project SSO 비교
 
@@ -24,7 +24,7 @@ Global SSO는 **OneUptime Enterprise Edition** 기능이며 Enterprise Edition �
    - SAML의 경우: **Name**, ID 공급자의 **Sign On URL** 및 **Issuer**를 입력하고 **Public Certificate**를 붙여 넣습니다. **Signature** 및 **Digest** 방법을 선택합니다(확실하지 않은 경우 기본값 — `RSA-SHA256` / `SHA256` — 을 그대로 둡니다).
    - OIDC의 경우: **Discovery URL**, **Issuer**, **Client ID**, **Client Secret**, **Scopes**(반드시 `openid`을 포함해야 함), 그리고 **email** / **name** 클레임 이름을 입력합니다.
 
-3. **OneUptime URL을 ID 공급자에 복사**
+3. **Cast Operations URL을 ID 공급자에 복사**
 
    - 공급자를 열어(목록에서 해당 행을 클릭) **Identity Provider URLs** 카드를 표시합니다.
    - SAML의 경우, **ACS URL (Reply URL)**과 **Issuer (Entity ID)**를 IdP(Okta, Azure AD, OneLogin, JumpCloud 등)에 복사합니다.

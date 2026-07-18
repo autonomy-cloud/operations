@@ -35,7 +35,7 @@ test.describe("navigation bar", () => {
       name: "Products",
     });
     await expect(
-      productModal.getByText("Explore the OneUptime platform"),
+      productModal.getByText("Explore the Cast Operations platform"),
     ).toBeVisible();
     await expect(
       productModal.getByRole("link", { name: /Monitoring/ }).first(),

@@ -1,6 +1,6 @@
 # Kubernetes-monitor
 
-Met Kubernetes-monitoring kunt u de gezondheid en prestaties van uw Kubernetes-clusters monitoren, inclusief nodes, pods, workloads en control plane-componenten. OneUptime verzamelt metrics uit uw cluster en evalueert deze aan de hand van uw geconfigureerde criteria.
+Met Kubernetes-monitoring kunt u de gezondheid en prestaties van uw Kubernetes-clusters monitoren, inclusief nodes, pods, workloads en control plane-componenten. Cast Operations verzamelt metrics uit uw cluster en evalueert deze aan de hand van uw geconfigureerde criteria.
 
 ## Overzicht
 
@@ -15,7 +15,7 @@ Kubernetes-monitors gebruiken metrics uit uw cluster om diepgaande zichtbaarheid
 
 ## Een Kubernetes-monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Create Monitor**
 3. Selecteer **Kubernetes** als het monitortype
 4. Selecteer het cluster en de resource-scope om te monitoren
@@ -26,7 +26,7 @@ Kubernetes-monitors gebruiken metrics uit uw cluster om diepgaande zichtbaarheid
 
 ### Cluster
 
-Selecteer het Kubernetes-cluster om te monitoren. Clusters moeten via OpenTelemetry zijn geïntegreerd met OneUptime.
+Selecteer het Kubernetes-cluster om te monitoren. Clusters moeten via OpenTelemetry zijn geïntegreerd met Cast Operations.
 
 ### Resource-scope
 
@@ -138,7 +138,7 @@ Selecteer het tijdvenster voor metric-evaluatie:
 
 ## Vooraf gebouwde alert-templates
 
-OneUptime biedt templates voor veelvoorkomende Kubernetes-monitoring-scenario's:
+Cast Operations biedt templates voor veelvoorkomende Kubernetes-monitoring-scenario's:
 
 | Template                    | Beschrijving                    | Drempel           |
 | --------------------------- | ------------------------------- | ----------------- |
@@ -157,6 +157,6 @@ OneUptime biedt templates voor veelvoorkomende Kubernetes-monitoring-scenario's:
 
 ## Installatievereisten
 
-Om Kubernetes-monitoring te gebruiken, moet u de OneUptime Kubernetes-agent installeren in uw cluster. De agent stuurt cluster-metrics, events, pod-logboeken en — standaard — **applicatie-traces en HTTP RED-metrics vastgelegd via eBPF** naar OneUptime via OTLP. Geen codewijzigingen of per-app SDKs zijn vereist om service-niveau verkeer te zien.
+Om Kubernetes-monitoring te gebruiken, moet u de Cast Operations Kubernetes-agent installeren in uw cluster. De agent stuurt cluster-metrics, events, pod-logboeken en — standaard — **applicatie-traces en HTTP RED-metrics vastgelegd via eBPF** naar Cast Operations via OTLP. Geen codewijzigingen of per-app SDKs zijn vereist om service-niveau verkeer te zien.
 
 Zie de [De Kubernetes-agent installeren](/docs/monitor/kubernetes-agent)-handleiding — deze behandelt de Helm-installatie met één commando, de `preset`-optie voor het kiezen van de juiste configuratie voor uw cluster (standard, GKE Autopilot, EKS Fargate) en de `ebpf.features.*`-schakelaars voor de individuele signaal-families (HTTP RED-metrics, service-graph, netwerk-flows, TCP-statistieken).

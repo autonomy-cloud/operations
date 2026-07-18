@@ -9,7 +9,7 @@ const CephDocumentation: FunctionComponent<
     <Fragment>
       <CephDocumentationCard
         title="Agent Installation Guide"
-        description="Install the OneUptime Ceph Agent to connect your Ceph cluster. Once installed, the cluster will appear automatically."
+        description="Install the Cast Operations Ceph Agent to connect your Ceph cluster. Once installed, the cluster will appear automatically."
       />
     </Fragment>
   );

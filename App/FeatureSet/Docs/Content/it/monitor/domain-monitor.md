@@ -1,6 +1,6 @@
 # Monitor di Dominio
 
-Il monitoraggio di dominio ti consente di monitorare lo stato di registrazione e la scadenza dei tuoi nomi di dominio. OneUptime esegue periodicamente ricerche WHOIS per tracciare lo stato del tuo dominio e avvisarti prima che scada.
+Il monitoraggio di dominio ti consente di monitorare lo stato di registrazione e la scadenza dei tuoi nomi di dominio. Cast Operations esegue periodicamente ricerche WHOIS per tracciare lo stato del tuo dominio e avvisarti prima che scada.
 
 ## Panoramica
 
@@ -14,7 +14,7 @@ I monitor di dominio interrogano i dati WHOIS per i tuoi domini per tracciare i 
 
 ## Creazione di un Monitor di Dominio
 
-1. Vai su **Monitor** nella Dashboard di OneUptime
+1. Vai su **Monitor** nella Dashboard di Cast Operations
 2. Clicca su **Crea Monitor**
 3. Seleziona **Domain** come tipo di monitor
 4. Inserisci il nome del dominio che vuoi monitorare

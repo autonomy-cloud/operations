@@ -1,18 +1,18 @@
 # Opsgenie-Integration
 
-Erstellen Sie einen [Opsgenie](https://www.atlassian.com/software/opsgenie)-Alarm, sobald ein OneUptime-Vorfall erstellt wird, und schließen Sie ihn, wenn OneUptime auflöst.
+Erstellen Sie einen [Opsgenie](https://www.atlassian.com/software/opsgenie)-Alarm, sobald ein Cast Operations-Vorfall erstellt wird, und schließen Sie ihn, wenn Cast Operations auflöst.
 
-Diese Integration ist **ausgehend**: OneUptime ruft die [Opsgenie Alert API](https://docs.opsgenie.com/docs/alert-api) auf. Sie verwendet einen OneUptime-**[Workflow](/docs/workflows/index)** mit einem **Incident → On Create**-Auslöser und einer **API-Komponente**.
+Diese Integration ist **ausgehend**: Cast Operations ruft die [Opsgenie Alert API](https://docs.opsgenie.com/docs/alert-api) auf. Sie verwendet einen Cast Operations-**[Workflow](/docs/workflows/index)** mit einem **Incident → On Create**-Auslöser und einer **API-Komponente**.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
+Cast Operations Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
 ```
 
 ## Voraussetzungen
 
 - Ein Opsgenie-**API-Key** aus einer API-Integration: **Settings → Integrations → Add → API**. Kopieren Sie den Key.
 - Kennen Sie Ihre Region. Der Standard-API-Host ist `https://api.opsgenie.com`; EU-Konten verwenden `https://api.eu.opsgenie.com`.
-- Ein OneUptime-Projekt, in dem Sie Workflows erstellen können.
+- Ein Cast Operations-Projekt, in dem Sie Workflows erstellen können.
 
 ## Schritt 1 — Den API-Key speichern
 
@@ -39,32 +39,32 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  �
      ```json
      {
        "message": "{{Incident.title}}",
-       "alias": "oneuptime-{{Incident._id}}",
+       "alias": "cast-operations-{{Incident._id}}",
        "description": "{{Incident.description}}",
        "priority": "P1",
-       "source": "OneUptime"
+       "source": "Cast Operations"
      }
      ```
 
-   Der **`alias`** verknüpft diesen Opsgenie-Alarm mit dem OneUptime-Vorfall, sodass Sie ihn später per Alias schließen können. Beachten Sie, dass das Opsgenie-Auth-Schema das wörtliche Wort `GenieKey` gefolgt von einem Leerzeichen und Ihrem Key ist.
+   Der **`alias`** verknüpft diesen Opsgenie-Alarm mit dem Cast Operations-Vorfall, sodass Sie ihn später per Alias schließen können. Beachten Sie, dass das Opsgenie-Auth-Schema das wörtliche Wort `GenieKey` gefolgt von einem Leerzeichen und Ihrem Key ist.
 
 4. **Speichern**, aktivieren und einen Test-Vorfall erstellen. Eine `202 Accepted`-Antwort in den Workflow-Logs bedeutet, dass Opsgenie den Alarm in die Warteschlange gestellt hat.
 
-## Schritt 3 — Bei OneUptime-Auflösung schließen (empfohlen)
+## Schritt 3 — Bei Cast Operations-Auflösung schließen (empfohlen)
 
 1. Erstellen Sie einen **zweiten** Workflow namens `Close Opsgenie` mit einem **Incident → On Update**-Auslöser.
 2. Fügen Sie einen **Conditions**-Block hinzu, der prüft, ob der Vorfall nun aufgelöst ist (verzweigen Sie auf `{{Incident.currentIncidentState.name}}`).
 3. Fügen Sie von **Yes** aus einen **API**-Block hinzu:
    - **Method**: `POST`
-   - **URL**: `https://api.opsgenie.com/v2/alerts/oneuptime-{{Incident._id}}/close?identifierType=alias`
+   - **URL**: `https://api.opsgenie.com/v2/alerts/cast-operations-{{Incident._id}}/close?identifierType=alias`
    - **Headers**: dasselbe `Authorization: GenieKey {{variable.OPSGENIE_KEY}}`
-   - **Body**: `{ "source": "OneUptime", "note": "Resolved in OneUptime" }`
+   - **Body**: `{ "source": "Cast Operations", "note": "Resolved in Cast Operations" }`
 
 Opsgenie sucht den Alarm per Alias und schließt ihn.
 
 ## Prioritätszuordnung (optional)
 
-Opsgenie-Prioritäten reichen von `P1` bis `P5`. Ordnen Sie aus OneUptime-Schweregraden mit **Conditions**-Zweigen auf `{{Incident.incidentSeverity.name}}` vor dem API-Block zu.
+Opsgenie-Prioritäten reichen von `P1` bis `P5`. Ordnen Sie aus Cast Operations-Schweregraden mit **Conditions**-Zweigen auf `{{Incident.incidentSeverity.name}}` vor dem API-Block zu.
 
 ## Fehlerbehebung
 
@@ -76,4 +76,4 @@ Opsgenie-Prioritäten reichen von `P1` bis `P5`. Ordnen Sie aus OneUptime-Schwer
 
 - [Integrationen – Überblick](/docs/integrations/index) — Muster und der Authentifizierungs-Spickzettel.
 - [PagerDuty](/docs/integrations/pagerduty) — dasselbe Prinzip für PagerDuty.
-- [On Call](/docs/on-call/incoming-call-policy) — die integrierte Eskalation von OneUptime.
+- [On Call](/docs/on-call/incoming-call-policy) — die integrierte Eskalation von Cast Operations.

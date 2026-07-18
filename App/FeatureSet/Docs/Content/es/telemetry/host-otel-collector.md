@@ -2,7 +2,7 @@
 
 ## Resumen
 
-Puedes ejecutar el **OpenTelemetry Collector** como un servicio directamente en tus hosts Linux, macOS o Windows para enviar telemetría del host a OneUptime a través de OTLP. Esta página te guía por la instalación del recolector, su configuración para cada sistema operativo y la elección de los receptores adecuados según lo que quieras recopilar:
+Puedes ejecutar el **OpenTelemetry Collector** como un servicio directamente en tus hosts Linux, macOS o Windows para enviar telemetría del host a Cast Operations a través de OTLP. Esta página te guía por la instalación del recolector, su configuración para cada sistema operativo y la elección de los receptores adecuados según lo que quieras recopilar:
 
 - **Métricas del host** (CPU, memoria, disco, sistema de archivos, red, carga, procesos) en todos los sistemas operativos
 - **Logs basados en archivos** bajo `/var/log/**` (Linux, macOS) mediante el [`filelogreceiver`](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/filelogreceiver)
@@ -11,11 +11,11 @@ Puedes ejecutar el **OpenTelemetry Collector** como un servicio directamente en 
 - **Windows Event Logs** mediante el [`windowseventlogreceiver`](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/windowseventlogreceiver)
 - **Estado de los servicios de Windows** (que alimenta la pestaña **Services** del host) mediante el [`windowsservicereceiver`](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/windowsservicereceiver) — incluido en la compilación oficial de `otelcol-contrib` a partir de la **v0.155.0** (consulta "Windows Services (métricas)" más abajo)
 
-> **¿Y el OneUptime Infrastructure Agent?** Ese agente es un demonio Go separado y ligero, centrado en métricas básicas y en la función _Server / VM Monitor_ (estado, procesos, alertas). El OpenTelemetry Collector descrito aquí es independiente y es la herramienta adecuada cuando quieres logs (logs de archivos, journald, Windows Event Logs) o métricas del host más completas ingeridas como OTLP estándar. Ambos pueden ejecutarse en el mismo host sin interferir entre sí.
+> **¿Y el Cast Operations Infrastructure Agent?** Ese agente es un demonio Go separado y ligero, centrado en métricas básicas y en la función _Server / VM Monitor_ (estado, procesos, alertas). El OpenTelemetry Collector descrito aquí es independiente y es la herramienta adecuada cuando quieres logs (logs de archivos, journald, Windows Event Logs) o métricas del host más completas ingeridas como OTLP estándar. Ambos pueden ejecutarse en el mismo host sin interferir entre sí.
 
 ## Requisitos previos
 
-- Un **OneUptime Telemetry Ingestion Token** — crea uno desde _Project Settings → Telemetry Ingestion Keys_ y copia el valor de `x-oneuptime-token`.
+- Un **Cast Operations Telemetry Ingestion Token** — crea uno desde _Project Settings → Telemetry Ingestion Keys_ y copia el valor de `x-oneuptime-token`.
 - La distribución **OpenTelemetry Collector Contrib** (`otelcol-contrib`). La compilación predeterminada `otelcol` **no** incluye receptores como `windowseventlogreceiver`, `journaldreceiver` ni los extras de `hostmetrics` — asegúrate de usar la distribución `contrib`. El `windowsservicereceiver` en alpha que alimenta la pestaña **Services** de Windows viene incluido en `otelcol-contrib` a partir de la **v0.155.0**, así que instala una versión actual; consulta "Windows Services (métricas)" más abajo.
 - Root / Administrador en el host para instalar el recolector como servicio y (donde corresponda) leer fuentes de logs privilegiadas.
 
@@ -94,7 +94,7 @@ El archivo de configuración se encuentra en:
 | macOS             | `/etc/otelcol-contrib/config.yaml`                    |
 | Windows           | `C:\Program Files\otelcol-contrib\config.yaml` |
 
-Cada configuración sigue la misma estructura — elige los receptores que quieras, añade un procesador `batch` y `resource`, y exporta a OneUptime a través de OTLP HTTP. Los ejemplos a continuación muestran una configuración completa y lista para copiar y pegar por sistema operativo, y luego recorren cada bloque de receptor para que puedas combinarlos a tu gusto.
+Cada configuración sigue la misma estructura — elige los receptores que quieras, añade un procesador `batch` y `resource`, y exporta a Cast Operations a través de OTLP HTTP. Los ejemplos a continuación muestran una configuración completa y lista para copiar y pegar por sistema operativo, y luego recorren cada bloque de receptor para que puedas combinarlos a tu gusto.
 
 Reemplaza `YOUR_TELEMETRY_INGESTION_TOKEN` y el valor de `service.name` para adaptarlos a tu entorno.
 
@@ -114,14 +114,14 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 - **`batch`** agrupa los registros antes de exportarlos para que no pagues un viaje HTTP de ida y vuelta por cada registro.
-- **`resource`** marca cada registro con `service.name`. Usa un valor diferente por host (por ejemplo, `prod-web-01`) si quieres que cada máquina aparezca como su propio servicio de telemetría en OneUptime.
-- **`otlphttp`** envía a OneUptime a través de HTTPS con el token de ingestión adjunto.
+- **`resource`** marca cada registro con `service.name`. Usa un valor diferente por host (por ejemplo, `prod-web-01`) si quieres que cada máquina aparezca como su propio servicio de telemetría en Cast Operations.
+- **`otlphttp`** envía a Cast Operations a través de HTTPS con el token de ingestión adjunto.
 
 ### Métricas del host (Linux, macOS, Windows)
 
@@ -167,7 +167,7 @@ receivers:
 
 `start_at: end` significa que se capturan las líneas nuevas desde el momento en que el recolector arranca; cambia a `beginning` para rellenar datos anteriores en la primera ejecución. El recolector rastrea los desplazamientos de los archivos, por lo que reanuda correctamente tras los reinicios.
 
-**Convertir los rastros de pila de los logs del host en Exceptions.** OneUptime escanea automáticamente las líneas de log de error y fatales en busca de rastros de pila y los agrupa en la vista de **Exceptions** (Issues), atribuidos a este host — sin necesidad de configuración adicional. Para que esto se agrupe bien, un rastro de pila de varias líneas (Java, Python, .NET, Ruby) debe llegar como **un solo** registro de log, no como un registro por línea. Habilita la recombinación de varias líneas en el receptor `filelog` para que un rastro y sus fotogramas se mantengan juntos:
+**Convertir los rastros de pila de los logs del host en Exceptions.** Cast Operations escanea automáticamente las líneas de log de error y fatales en busca de rastros de pila y los agrupa en la vista de **Exceptions** (Issues), atribuidos a este host — sin necesidad de configuración adicional. Para que esto se agrupe bien, un rastro de pila de varias líneas (Java, Python, .NET, Ruby) debe llegar como **un solo** registro de log, no como un registro por línea. Habilita la recombinación de varias líneas en el receptor `filelog` para que un rastro y sus fotogramas se mantengan juntos:
 
 ```yaml
 receivers:
@@ -333,7 +333,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -385,7 +385,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -448,7 +448,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -522,9 +522,9 @@ Desde un símbolo del sistema de PowerShell **elevado**:
 sc.exe create "otelcol-contrib" `
   binPath= "\"C:\Program Files\otelcol-contrib\otelcol-contrib.exe\" --config=\"C:\Program Files\otelcol-contrib\config.yaml\"" `
   start= auto `
-  DisplayName= "OpenTelemetry Collector (OneUptime)"
+  DisplayName= "OpenTelemetry Collector (Cast Operations)"
 
-sc.exe description "otelcol-contrib" "Collects host telemetry and forwards it to OneUptime over OTLP."
+sc.exe description "otelcol-contrib" "Collects host telemetry and forwards it to Cast Operations over OTLP."
 
 sc.exe start "otelcol-contrib"
 sc.exe query "otelcol-contrib"
@@ -532,18 +532,18 @@ sc.exe query "otelcol-contrib"
 
 El servicio se ejecuta bajo `LocalSystem` de forma predeterminada, que tiene los privilegios necesarios para leer el canal `Security` de Windows Event Log.
 
-## Paso 4 — Verificar en OneUptime
+## Paso 4 — Verificar en Cast Operations
 
 1. Genera alguna señal en el host:
    - **Linux / macOS:** `logger "hello from oneuptime"` (escribe en syslog / journald).
-   - **Windows:** `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO OneUptimeTest /D "hello from oneuptime"` desde un símbolo del sistema elevado.
-2. En el panel de OneUptime, abre **Telemetry → Services** y elige el `service.name` que configuraste.
+   - **Windows:** `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from oneuptime"` desde un símbolo del sistema elevado.
+2. En el panel de Cast Operations, abre **Telemetry → Services** y elige el `service.name` que configuraste.
 3. Abre **Metrics** — las métricas del host (CPU, memoria, sistema de archivos, etc.) deberían aparecer en un minuto.
 4. Abre **Logs** — tus logs de archivos / entradas de journald / Windows Event Logs deberían estar transmitiéndose. Entre los atributos útiles para búsquedas se incluyen `log.file.name`, `systemd.unit`, `winlog.channel`, `winlog.event_id` y `winlog.provider.name`.
 
 ## Reducir el volumen de datos recopilados
 
-Como tú controlas la configuración del recolector, tú decides exactamente qué sale del host — no se recopila nada a menos que un receptor que hayas añadido lo solicite. Si un host envía más de lo que quieres (lo que se traduce en un mayor volumen de ingestión y, en OneUptime Cloud, en un mayor coste), ajústalo aquí. Las dos palancas más importantes son **qué fuentes de logs capturas** y **con qué frecuencia haces scrape de las métricas**; un procesador `filter` se encarga del resto.
+Como tú controlas la configuración del recolector, tú decides exactamente qué sale del host — no se recopila nada a menos que un receptor que hayas añadido lo solicite. Si un host envía más de lo que quieres (lo que se traduce en un mayor volumen de ingestión y, en Cast Operations Cloud, en un mayor coste), ajústalo aquí. Las dos palancas más importantes son **qué fuentes de logs capturas** y **con qué frecuencia haces scrape de las métricas**; un procesador `filter` se encarga del resto.
 
 El principio es el mismo que el de la propia configuración: **añade solo los receptores cuyos datos vayas a mirar** y luego recórtalos por dentro. Cada cambio de los siguientes es una edición de `config.yaml` — aplícalo y reinicia el recolector (Paso 3).
 
@@ -627,7 +627,7 @@ processors:
         - "severity_number != SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_WARN"
 ```
 
-> **No elimines la guarda `UNSPECIFIED`.** `SEVERITY_NUMBER_UNSPECIFIED` es `0` y `SEVERITY_NUMBER_WARN` es `13`, así que un `severity_number < SEVERITY_NUMBER_WARN` a secas es `0 < 13` — **cierto para todos los registros cuya gravedad nunca se analizó**. Un receptor `filelog` simple no analiza la gravedad de la línea de log: ninguno de los ejemplos de `filelog` de esta página establece `operators:`, por lo que esos registros llegan al filtro con `severity_number: 0`. Sin la guarda, esa condición elimina silenciosamente **el 100 % de** `/var/log/syslog`, `/var/log/messages` y `/var/log/auth.log` — sin ningún error por ninguna parte. Con la guarda, los registros sin clasificar se conservan y los verás llegar a OneUptime con la gravedad `Unspecified`, lo que te indica que lo que realmente necesitas es un analizador de gravedad.
+> **No elimines la guarda `UNSPECIFIED`.** `SEVERITY_NUMBER_UNSPECIFIED` es `0` y `SEVERITY_NUMBER_WARN` es `13`, así que un `severity_number < SEVERITY_NUMBER_WARN` a secas es `0 < 13` — **cierto para todos los registros cuya gravedad nunca se analizó**. Un receptor `filelog` simple no analiza la gravedad de la línea de log: ninguno de los ejemplos de `filelog` de esta página establece `operators:`, por lo que esos registros llegan al filtro con `severity_number: 0`. Sin la guarda, esa condición elimina silenciosamente **el 100 % de** `/var/log/syslog`, `/var/log/messages` y `/var/log/auth.log` — sin ningún error por ninguna parte. Con la guarda, los registros sin clasificar se conservan y los verás llegar a Cast Operations con la gravedad `Unspecified`, lo que te indica que lo que realmente necesitas es un analizador de gravedad.
 
 Para filtrar los logs de archivos por gravedad *correctamente*, analiza primero una gravedad con un operador [`severity_parser`](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/pkg/stanza/docs/operators/severity_parser.md) en el receptor, de modo que los registros lleven un nivel real antes de llegar al filtro:
 
@@ -699,7 +699,7 @@ service:
       exporters: [otlphttp]
 ```
 
-> **¿Estás editando la configuración que OneUptime generó para ti?** La canalización de arriba coincide con los ejemplos completos de esta página. La configuración del panel (Hosts → Documentation) nombra las cosas de otra manera: sus procesadores son `resourcedetection` y `batch` (**no** hay procesador `resource`) y su exportador es `otlphttp/oneuptime`. Referenciar un procesador que no está definido detiene el recolector al arrancar con `references processor "resource" which is not configured`. Añade el filtro a lo que ya está ahí en lugar de pegar este bloque encima:
+> **¿Estás editando la configuración que Cast Operations generó para ti?** La canalización de arriba coincide con los ejemplos completos de esta página. La configuración del panel (Hosts → Documentation) nombra las cosas de otra manera: sus procesadores son `resourcedetection` y `batch` (**no** hay procesador `resource`) y su exportador es `otlphttp/oneuptime`. Referenciar un procesador que no está definido detiene el recolector al arrancar con `references processor "resource" which is not configured`. Añade el filtro a lo que ya está ahí en lugar de pegar este bloque encima:
 >
 > ```yaml
 > service:
@@ -710,7 +710,7 @@ service:
 >       exporters: [otlphttp/oneuptime]
 > ```
 >
-> Conserva `resourcedetection` — OneUptime asocia la telemetría a un host usando el `host.name` / `host.id` que este establece. Esa configuración generada es además **solo de métricas**: no tiene ninguna canalización `logs:` hasta que añadas una, así que un `filter/drop-low-severity` no tiene nada que filtrar hasta que añadas junto a él un receptor `filelog` o `journald`.
+> Conserva `resourcedetection` — Cast Operations asocia la telemetría a un host usando el `host.name` / `host.id` que este establece. Esa configuración generada es además **solo de métricas**: no tiene ninguna canalización `logs:` hasta que añadas una, así que un `filter/drop-low-severity` no tiene nada que filtrar hasta que añadas junto a él un receptor `filelog` o `journald`.
 
 > **En macOS, usa el tarball, no Homebrew.** La fórmula de Homebrew incluye el recolector **core**, y `filter` es un procesador exclusivo de contrib — el recolector se negará a arrancar independientemente de si tu YAML es correcto.
 
@@ -744,7 +744,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -760,14 +760,14 @@ Vuelve a añadir una canalización de `logs` con un receptor `filelog` o `journa
 
 > **Ten cuidado con lo que recortas.** Las alertas basadas en logs necesitan que los logs lleguen: si filtras una gravedad o un canal, los monitores que dependen de ello se quedan en silencio. Recorta las fuentes sobre las que no actúas, no las que un monitor está vigilando. Cambia una palanca cada vez y confirma la reducción en **Project Settings → Usage History** (el uso se agrega a diario, así que dale un día o dos) antes de pasar a la siguiente.
 
-## OneUptime autoalojado
+## Cast Operations autoalojado
 
-Si estás autoalojando OneUptime, apunta el exportador a tu propio host:
+Si estás autoalojando Cast Operations, apunta el exportador a tu propio host:
 
 ```yaml
 exporters:
   otlphttp:
-    endpoint: https://your-oneuptime-host.example.com/otlp
+    endpoint: https://your-operations-host.example.com/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
@@ -784,11 +784,11 @@ El OpenTelemetry Collector respeta las variables de entorno estándar `HTTPS_PRO
 
 ## Solución de problemas
 
-- **No aparece telemetría en OneUptime**
+- **No aparece telemetría en Cast Operations**
   - Añade `service.telemetry.logs.level: debug` a la configuración y reinicia el recolector para obtener una salida detallada.
   - **Linux / macOS:** `journalctl -u otelcol-contrib -f` (Linux) o `tail -f /var/log/otelcol-contrib.err.log` (macOS).
   - **Windows:** mira en _Event Viewer → Windows Logs → Application_ la fuente `otelcol-contrib`.
-  - Confirma que el host puede alcanzar `https://oneuptime.com/otlp` (o tu endpoint autoalojado): `curl -v https://oneuptime.com/otlp` desde la misma máquina.
+  - Confirma que el host puede alcanzar `https://visca.ai/otlp` (o tu endpoint autoalojado): `curl -v https://visca.ai/otlp` desde la misma máquina.
 - **HTTP 401 desde el exportador** — el token de ingestión es inválido o ha sido revocado. Genera uno nuevo desde _Project Settings → Telemetry Ingestion Keys_.
 - **El canal `Security` de Windows Event Log devuelve acceso denegado** — el servicio no se ejecuta con privilegios suficientes. Recréalo bajo `LocalSystem` (el valor predeterminado con `sc.exe create`) o concede a la cuenta del servicio el derecho de usuario _Manage auditing and security log_.
 - **El receptor `journald` no arranca** — asegúrate de que `journalctl` esté en el `PATH` del recolector y de que exista `/var/log/journal` (ejecuta `sudo systemd-tmpfiles --create --prefix /var/log/journal` si no es así).
@@ -798,5 +798,5 @@ El OpenTelemetry Collector respeta las variables de entorno estándar `HTTPS_PRO
 
 - Añade **Logs Monitors** para alertar sobre patrones de log específicos (por ejemplo, alertar cuando ocurran más de 5 inicios de sesión fallidos con `winlog.event_id = 4625` en una ventana de 5 minutos).
 - Añade **Metrics Monitors** sobre las métricas del host (saturación de CPU, poco espacio en disco, uso de swap).
-- Combina esto con el [Server / VM Monitor](/docs/monitor/server-monitor) y el [OneUptime Infrastructure Agent](/docs/monitor/server-monitor) para una visibilidad del host de extremo a extremo.
+- Combina esto con el [Server / VM Monitor](/docs/monitor/server-monitor) y el [Cast Operations Infrastructure Agent](/docs/monitor/server-monitor) para una visibilidad del host de extremo a extremo.
 - Envía la misma configuración a cada host mediante Ansible / Chef / Puppet / Group Policy / Intune / tu herramienta de gestión de configuración existente.

@@ -24,7 +24,7 @@ fi
 # Find the "Trusted Publisher" section
 # Click "GitHub Actions"
 # Configure:
-# Organization or user: OneUptime
+# Organization or user: Cast Operations
 # Repository: oneuptime
 # Workflow filename: release.yml
 # Save the configuration

@@ -1,21 +1,21 @@
 # SendGridインバウンドメール統合
 
-OneUptimeの **受信メールモニター** を使用すると、モニター固有のメールアドレスに送信されたメールに基づいてアラートの作成と解決ができます。これはレガシーシステム、アラートツール、またはメールを送信できる任意のサービスとの統合に役立ちます。
+Cast Operationsの **受信メールモニター** を使用すると、モニター固有のメールアドレスに送信されたメールに基づいてアラートの作成と解決ができます。これはレガシーシステム、アラートツール、またはメールを送信できる任意のサービスとの統合に役立ちます。
 
-このガイドでは、受信メールをセルフホストのOneUptimeインスタンスに転送するためのSendGrid Inbound Parseのセットアップ方法を説明します。
+このガイドでは、受信メールをセルフホストのCast Operationsインスタンスに転送するためのSendGrid Inbound Parseのセットアップ方法を説明します。
 
 ## 前提条件
 
 - SendGridアカウント（無料プランで可）
 - 管理権限を持つドメイン（DNSの設定変更可能なもの）
-- OneUptimeインスタンスが公開アクセス可能であること（SendGridがWebhookを送信するため）
+- Cast Operationsインスタンスが公開アクセス可能であること（SendGridがWebhookを送信するため）
 
 ## 仕組み
 
-1. OneUptimeで **受信メールモニター** を作成します
-2. OneUptimeがそのモニター用の一意のメールアドレスを生成します（例：`monitor-abc123@inbound.yourdomain.com`）
-3. そのアドレスにメールが送信されると、SendGridがそれを受信してWebhook経由でOneUptimeに転送します
-4. OneUptimeは設定した条件に基づいてメールを評価してアラートを作成または解決します
+1. Cast Operationsで **受信メールモニター** を作成します
+2. Cast Operationsがそのモニター用の一意のメールアドレスを生成します（例：`monitor-abc123@inbound.yourdomain.com`）
+3. そのアドレスにメールが送信されると、SendGridがそれを受信してWebhook経由でCast Operationsに転送します
+4. Cast Operationsは設定した条件に基づいてメールを評価してアラートを作成または解決します
 
 ## セットアップ手順
 
@@ -27,7 +27,7 @@ OneUptimeの **受信メールモニター** を使用すると、モニター�
 - `email.yourdomain.com`
 - `monitor.yourdomain.com`
 
-このサブドメインはOneUptimeのモニターメール専用として使用されます。
+このサブドメインはCast Operationsのモニターメール専用として使用されます。
 
 ### ステップ2：DNS MXレコードの設定
 
@@ -64,14 +64,14 @@ inbound.example.com.  IN  MX  10  mx.sendgrid.net.
 | フィールド                         | 値                                                                      |
 | ---------------------------------- | ----------------------------------------------------------------------- |
 | **受信ドメイン**                   | インバウンドサブドメイン（例：`inbound.yourdomain.com`）                |
-| **宛先URL**                        | `https://your-oneuptime-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **宛先URL**                        | `https://your-operations-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
 | **受信メールのスパムチェック**     | オプション — 必要に応じて有効にする                                     |
 | **生の完全なMIMEメッセージを送信** | チェック不要                                                            |
 | **生の完全なMIMEメッセージをPOST** | チェック不要                                                            |
 
 5. **「追加」** をクリックします
 
-### ステップ5：OneUptime環境変数の設定
+### ステップ5：Cast Operations環境変数の設定
 
 #### Docker Compose
 
@@ -95,11 +95,11 @@ inboundEmail:
   # webhookSecret: "your-optional-secret"  # オプション
 ```
 
-**重要：** これらの環境変数を追加した後、OneUptimeサーバーを再起動してください。
+**重要：** これらの環境変数を追加した後、Cast Operationsサーバーを再起動してください。
 
 ### ステップ6：受信メールモニターの作成
 
-1. OneUptime ダッシュボードにログインします
+1. Cast Operations ダッシュボードにログインします
 2. **モニター** > **モニターの作成** に移動します
 3. モニタータイプとして **受信メール** を選択します
 4. モニターを設定します：
@@ -115,9 +115,9 @@ inboundEmail:
 
 ### ステップ7：統合のテスト
 
-1. OneUptime ダッシュボードからモニターのメールアドレスをコピーします
+1. Cast Operations ダッシュボードからモニターのメールアドレスをコピーします
 2. アラート条件と一致する件名でそのアドレスにテストメールを送信します
-3. OneUptime ダッシュボードで以下を確認します：
+3. Cast Operations ダッシュボードで以下を確認します：
    - メールが受信されたか（モニターサマリーで確認可能）
    - アラートが作成されたか（条件と一致した場合）
 
@@ -147,7 +147,7 @@ inboundEmail:
 
 多くのレガシーシステムはメールアラートのみ送信できます。受信メールモニターを使用して：
 
-- レガシーシステムが `[CRITICAL]` メールを送信したときにOneUptimeアラートを作成する
+- レガシーシステムが `[CRITICAL]` メールを送信したときにCast Operationsアラートを作成する
 - `[RESOLVED]` メールを受信したときにアラートを解決する
 
 ### サードパーティサービスの統合
@@ -183,16 +183,16 @@ inboundEmail:
    - 設定 > Inbound Parseに移動
    - ドメインとWebhookURLが正しいことを確認
 
-3. **OneUptimeのログを確認：**
+3. **Cast Operationsのログを確認：**
    - ProbeIngestサービスのログでWebhookリクエストを確認
    - エラーメッセージがないか確認
 
 ### Webhookが失敗する場合
 
-1. **OneUptimeが公開アクセス可能であることを確認：**
+1. **Cast Operationsが公開アクセス可能であることを確認：**
 
    - WebhookURLがインターネットから到達可能でなければなりません
-   - テスト：`curl -X POST https://your-oneuptime-domain.com/incoming-email/sendgrid`
+   - テスト：`curl -X POST https://your-operations-domain.com/incoming-email/sendgrid`
 
 2. **ファイアウォールルールを確認：**
 
@@ -223,7 +223,7 @@ inboundEmail:
 SendGridがWebhookを正常に送信しているか確認するには：
 
 1. 残念ながら、SendGridはInbound Parseの詳細なログを提供していません
-2. OneUptimeサーバーのログで受信WebhookリクエストをN確認します
+2. Cast Operationsサーバーのログで受信WebhookリクエストをN確認します
 3. [RequestBin](https://requestbin.com) などのツールを一時的にWebhook配信テストに使用します
 
 ## セキュリティのベストプラクティス
@@ -236,7 +236,7 @@ SendGridがWebhookを正常に送信しているか確認するには：
 
 ## 代替プロバイダー
 
-OneUptimeは複数のインバウンドメールプロバイダーをサポートするよう設計されています。現在サポートされているプロバイダー：
+Cast Operationsは複数のインバウンドメールプロバイダーをサポートするよう設計されています。現在サポートされているプロバイダー：
 
 | プロバイダー           | ステータス   |
 | ---------------------- | ------------ |
@@ -250,7 +250,7 @@ OneUptimeは複数のインバウンドメールプロバイダーをサポー�
 SendGridインバウンドメール統合に問題が発生した場合：
 
 1. 上記のトラブルシューティングセクションを確認する
-2. OneUptimeのログで詳細なエラーメッセージを確認する
-3. [hello@oneuptime.com](mailto:hello@oneuptime.com) に連絡する
+2. Cast Operationsのログで詳細なエラーメッセージを確認する
+3. [hello@visca.ai](mailto:hello@visca.ai) に連絡する
 
 この統合の改善のためのフィードバックをお待ちしています！

@@ -2,7 +2,7 @@
 
 SQL-frågemonitorn kör en skrivskyddad SQL-fråga enligt ett schema från en sond och varnar utifrån resultatet – antalet returnerade rader, ett skalärt värde, hur lång tid frågan tog eller ett frågefel. Den är byggd för användningsfallet "kör en fråga och öppna en incident", till exempel för att varna när antalet annullerade beställningar under de senaste fem minuterna ökar kraftigt, när en kötabell växer sig för stor eller när en kritisk rad försvinner.
 
-Eftersom frågan körs från en sond inuti ditt nätverk behöver OneUptime aldrig en direktanslutning till din databas, och den fullständiga resultatmängden lämnar aldrig sonden – endast en liten, avgränsad projektion av resultatet rapporteras tillbaka.
+Eftersom frågan körs från en sond inuti ditt nätverk behöver Cast Operations aldrig en direktanslutning till din databas, och den fullständiga resultatmängden lämnar aldrig sonden – endast en liten, avgränsad projektion av resultatet rapporteras tillbaka.
 
 ## Databaser som stöds
 
@@ -16,7 +16,7 @@ MySQL-kompatibla och PostgreSQL-kompatibla motorer som talar samma wire-protokol
 
 ## Så fungerar det
 
-Vid varje kontroll ansluter sonden till din databas, kör din fråga i en skrivskyddad kontext, läser tillbaka högst ett avgränsat antal rader och rapporterar en kompakt projektion till OneUptime. Din monitors kriterier utvärderas sedan mot den projektionen.
+Vid varje kontroll ansluter sonden till din databas, kör din fråga i en skrivskyddad kontext, läser tillbaka högst ett avgränsat antal rader och rapporterar en kompakt projektion till Cast Operations. Din monitors kriterier utvärderas sedan mot den projektionen.
 
 Sonden rapporterar endast:
 
@@ -26,7 +26,7 @@ Sonden rapporterar endast:
 - **Körtid** – hur lång tid frågan tog, i millisekunder.
 - **Frågefel** – ett sanerat felmeddelande om frågan misslyckades.
 
-Den fullständiga resultatmängden skickas aldrig till OneUptime, så kunddata replikeras inte till OneUptimes lagring.
+Den fullständiga resultatmängden skickas aldrig till Cast Operations, så kunddata replikeras inte till Cast Operations lagring.
 
 ## Säkerhetsmodell
 
@@ -41,7 +41,7 @@ Att köra en kundtillhandahållen fråga mot en produktionsdatabas är känsligt
 
 ## Förutsättningar
 
-- En **sond** med nätverksåtkomst till din databasvärd och -port. Detta kan vara en sond som hostas av OneUptime (om din databas är nåbar från internet) eller en självhostad sond som körs inuti ditt nätverk. Se sonddokumentationen för hur du installerar en anpassad sond.
+- En **sond** med nätverksåtkomst till din databasvärd och -port. Detta kan vara en sond som hostas av Cast Operations (om din databas är nåbar från internet) eller en självhostad sond som körs inuti ditt nätverk. Se sonddokumentationen för hur du installerar en anpassad sond.
 - En **skrivskyddad databasanvändare** och anslutningsuppgifterna (värd, port, databasnamn, användarnamn, lösenord).
 
 ## Konfiguration
@@ -99,11 +99,11 @@ För en fråga av typen `COUNT(*)` är antalet tillgängligt både som **Radanta
 
 För att databaslösenordet aldrig ska lagras i klartext på monitorn skapar du en [monitorhemlighet](/docs/monitor/monitor-secrets) och refererar till den från lösenordsfältet:
 
-1. Gå till OneUptime-instrumentpanelen → Projektinställningar → Monitorhemligheter → Skapa monitorhemlighet.
+1. Gå till Cast Operations-instrumentpanelen → Projektinställningar → Monitorhemligheter → Skapa monitorhemlighet.
 2. Skapa en hemlighet (till exempel `dbPassword`) och ge den här monitorn åtkomst till den.
 3. I monitorns lösenordsfält anger du `{{monitorSecrets.dbPassword}}`.
 
-OneUptime löser upp hemligheten på serversidan innan konfigurationen lämnas till sonden. OneUptime skapar aldrig dessa hemligheter åt dig – att referera till en är ditt eget val.
+Cast Operations löser upp hemligheten på serversidan innan konfigurationen lämnas till sonden. Cast Operations skapar aldrig dessa hemligheter åt dig – att referera till en är ditt eget val.
 
 ## Ställa in kriterier
 

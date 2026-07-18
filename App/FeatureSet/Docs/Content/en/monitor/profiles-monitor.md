@@ -1,6 +1,6 @@
 # Profiles Monitor
 
-Profiles monitoring allows you to monitor continuous profiling data from your applications and trigger alerts based on profile counts and patterns. OneUptime evaluates profile data from your telemetry services over a time window.
+Profiles monitoring allows you to monitor continuous profiling data from your applications and trigger alerts based on profile counts and patterns. Cast Operations evaluates profile data from your telemetry services over a time window.
 
 ## Overview
 
@@ -14,7 +14,7 @@ Profiles monitors count and filter profiling data matching specific criteria. Th
 
 ## Creating a Profiles Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Profiles** as the monitor type
 4. Select the telemetry services to monitor
@@ -24,7 +24,7 @@ Profiles monitors count and filter profiling data matching specific criteria. Th
 
 ### Telemetry Services
 
-Select one or more services to monitor profiles from. Services must be sending continuous profiling data to OneUptime via Grafana Alloy (eBPF) or a Pyroscope SDK.
+Select one or more services to monitor profiles from. Services must be sending continuous profiling data to Cast Operations via Grafana Alloy (eBPF) or a Pyroscope SDK.
 
 ### Profile Filters
 
@@ -62,4 +62,4 @@ Select one or more services to monitor profiles from. Services must be sending c
 
 ## Setup Requirements
 
-Profiles monitoring requires your applications to send continuous profiling data to OneUptime. See the [Continuous Profiling](/docs/telemetry/profiles) documentation for setup instructions.
+Profiles monitoring requires your applications to send continuous profiling data to Cast Operations. See the [Continuous Profiling](/docs/telemetry/profiles) documentation for setup instructions.

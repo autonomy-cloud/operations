@@ -4,7 +4,7 @@ This page covers the settings and safety limits worth knowing about before you p
 
 ## Turning a workflow on or off
 
-Every workflow has an **Enabled** switch in **Settings**. When it's off, the workflow doesn't run — webhook calls, scheduled times, and OneUptime events are all ignored. New workflows start disabled.
+Every workflow has an **Enabled** switch in **Settings**. When it's off, the workflow doesn't run — webhook calls, scheduled times, and Cast Operations events are all ignored. New workflows start disabled.
 
 Use this switch as your "ready to go" gate:
 
@@ -53,27 +53,27 @@ Webhook triggers give you a unique URL. Anyone who knows the URL can hit it. To 
 
 - Treat the URL like a password. Don't share it publicly or commit it to a public repo.
 - For sensitive workflows, ask the calling system to send a shared token as a header (like `X-Webhook-Token`) and check it with a **Conditions** block before doing anything important. Save the expected token as a secret variable.
-- For very sensitive workflows, prefer a OneUptime event trigger and a manual import step instead of a public webhook.
+- For very sensitive workflows, prefer a Cast Operations event trigger and a manual import step instead of a public webhook.
 
 ## Outbound network access
 
-API and other HTTP blocks make their requests from OneUptime. If you self-host, make sure your installation can reach the services you're calling. If you use OneUptime Cloud, our outbound IP ranges are listed in [IP Addresses](/docs/configuration/ip-addresses) so you can allow them on the other side.
+API and other HTTP blocks make their requests from Cast Operations. If you self-host, make sure your installation can reach the services you're calling. If you use Cast Operations Cloud, our outbound IP ranges are listed in [IP Addresses](/docs/configuration/ip-addresses) so you can allow them on the other side.
 
 ## AI components
 
-**Generate Text with AI** sends one request through OneUptime's configured LLM gateway. It uses the project's default LLM provider, or the installation's global provider when the project does not have one. Configure providers under **Project Settings → AI → LLM Providers**; never put a provider API key or an arbitrary model endpoint in the workflow itself.
+**Generate Text with AI** sends one request through Cast Operations’ configured LLM gateway. It uses the project's default LLM provider, or the installation's global provider when the project does not have one. Configure providers under **Project Settings → AI → LLM Providers**; never put a provider API key or an arbitrary model endpoint in the workflow itself.
 
 The AI component has an explicit egress boundary:
 
-- OneUptime sends a fixed component-safety instruction plus the resolved **System Instructions**, **Prompt**, and serialized **Context** to the configured provider. Context is appended after an explicit marker at the end of the user message; the fixed instruction says everything after that marker remains untrusted data even when it contains tags or instructions.
+- Cast Operations sends a fixed component-safety instruction plus the resolved **System Instructions**, **Prompt**, and serialized **Context** to the configured provider. Context is appended after an explicit marker at the end of the user message; the fixed instruction says everything after that marker remains untrusted data even when it contains tags or instructions.
 - It does not automatically attach the trigger payload, workflow history, other component outputs, project records, telemetry, or secrets. Data leaves only when you reference it in one of those three inputs.
-- It sends no tool definitions or provider-native capability fields. The model cannot query OneUptime, make HTTP requests, or mutate project data through this component. The configured provider/model remains an administrator trust boundary, so installations that require strictly offline generation should select a model without intrinsic provider-managed retrieval.
+- It sends no tool definitions or provider-native capability fields. The model cannot query Cast Operations, make HTTP requests, or mutate project data through this component. The configured provider/model remains an administrator trust boundary, so installations that require strictly offline generation should select a model without intrinsic provider-managed retrieval.
 - Provider-level additional parameters are restricted to an allowlist of generation-only tuning fields. They cannot replace the workflow messages, add tools or provider-native web search/data sources, enable non-text modalities, request multiple choices, enable streaming, retain the request through provider storage flags, or raise this component's output-token cap. Unknown future capability fields are dropped by default.
 - System Instructions, Prompt, Context, and generated Response values are redacted from this AI component's own argument and return-value entries in the automatic workflow execution log. They remain available to downstream components while the run is executing. If you insert one into another component, that component's logging policy applies and may record the resolved value; treat reuse as an explicit disclosure. Provider/model names, token counts, the LLM Log ID, and safe error messages remain visible for operations and billing. Raw provider error bodies are excluded from workflow logs, LLM logs, application logs, and traces because a provider can echo request content.
 
 Treat every referenced variable as data you are intentionally sending to the provider. In particular, do not insert a secret global variable into the prompt or context unless that disclosure is required and the provider is approved to receive it. A self-hosted local provider such as Ollama can keep the request inside your own infrastructure; a hosted provider receives the request under that provider's data-processing terms.
 
-Each call is recorded in **Project Settings → AI → AI Logs**, including provider, model, status, tokens, cost, and billing information. Prompt and response previews and raw provider error details are not stored in the AI log. Calls through a costed global provider consume the project's AI credit balance. Workflow AI also counts toward the project's daily autonomous AI token budget; when the budget is exhausted, the component takes its **Error** path without contacting the model. Project AI must be enabled. On OneUptime Cloud, the subscription must be paid and the Growth plan (or a plan that includes Growth features) is required; self-hosted installations with billing disabled do not have this plan gate.
+Each call is recorded in **Project Settings → AI → AI Logs**, including provider, model, status, tokens, cost, and billing information. Prompt and response previews and raw provider error details are not stored in the AI log. Calls through a costed global provider consume the project's AI credit balance. Workflow AI also counts toward the project's daily autonomous AI token budget; when the budget is exhausted, the component takes its **Error** path without contacting the model. Project AI must be enabled. On Cast Operations Cloud, the subscription must be paid and the Growth plan (or a plan that includes Growth features) is required; self-hosted installations with billing disabled do not have this plan gate.
 
 Built-in bounds keep unattended calls finite: System Instructions, Prompt, and serialized Context are capped at 50,000 combined characters; Temperature must be from `0` through `1`; Maximum Output Tokens must be from `1` through `4096` (default `1024`); and the provider request is attempted once and times out after at most 60 seconds. No more than three workflow AI calls run concurrently per project; additional calls take the **Error** path and can be retried by a later workflow run. Validation, configuration, access, budget, balance, concurrency, provider, and timeout failures all take the **Error** path and populate the **Error** output. Connect that path before enabling a production workflow.
 
@@ -90,7 +90,7 @@ Most engineers should have create/edit/read on workflows but not on variables. S
 
 ## Plan limits
 
-OneUptime Cloud caps the number of runs per month on smaller plans. Your current limit is shown under **Project Settings → Billing**. When you reach it, new triggers are rejected until the next billing cycle. Self-hosted installations don't have this limit.
+Cast Operations Cloud caps the number of runs per month on smaller plans. Your current limit is shown under **Project Settings → Billing**. When you reach it, new triggers are rejected until the next billing cycle. Self-hosted installations don't have this limit.
 
 ## When workflows aren't the right tool
 

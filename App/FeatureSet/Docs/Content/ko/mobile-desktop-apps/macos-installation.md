@@ -1,6 +1,6 @@
 # macOS 설치 가이드
 
-원활한 모니터링 및 인시던트 관리를 위해 macOS에 OneUptime을 네이티브 데스크탑 애플리케이션으로 설치합니다.
+원활한 모니터링 및 인시던트 관리를 위해 macOS에 Cast Operations을 네이티브 데스크탑 애플리케이션으로 설치합니다.
 
 ## 설치 방법
 
@@ -8,11 +8,11 @@
 
 Safari는 네이티브 macOS 기능과 함께 훌륭한 PWA 통합을 제공합니다.
 
-1. **Safari에서 OneUptime 열기**
+1. **Safari에서 Cast Operations 열기**
 
    - Safari 브라우저를 실행합니다
-   - OneUptime 인스턴스 URL로 이동합니다
-   - OneUptime 계정에 로그인합니다
+   - Cast Operations 인스턴스 URL로 이동합니다
+   - Cast Operations 계정에 로그인합니다
    - 페이지가 완전히 로드될 때까지 기다립니다
 
 2. **PWA 설치**
@@ -24,12 +24,12 @@ Safari는 네이티브 macOS 기능과 함께 훌륭한 PWA 통합을 제공합�
 
 3. **설치 커스터마이징**
 
-   - **앱 이름**: 원하는 경우 수정합니다 (기본값: OneUptime)
+   - **앱 이름**: 원하는 경우 수정합니다 (기본값: Cast Operations)
    - **Dock**: Dock에 추가 선택
    - **Launchpad**: 쉬운 액세스를 위해 Launchpad에 추가
 
 4. **앱 실행**
-   - Dock, Launchpad 또는 응용 프로그램 폴더에서 OneUptime을 찾습니다
+   - Dock, Launchpad 또는 응용 프로그램 폴더에서 Cast Operations을 찾습니다
    - 클릭하여 전용 창으로 실행합니다
    - 앱이 Safari 브라우저와 독립적으로 실행됩니다
 
@@ -37,17 +37,17 @@ Safari는 네이티브 macOS 기능과 함께 훌륭한 PWA 통합을 제공합�
 
 Chrome은 훌륭한 데스크탑 통합으로 강력한 PWA 지원을 제공합니다.
 
-1. **Chrome에서 OneUptime 열기**
+1. **Chrome에서 Cast Operations 열기**
 
    - Google Chrome을 실행합니다
-   - OneUptime 인스턴스로 이동합니다
+   - Cast Operations 인스턴스로 이동합니다
    - 로그인되어 있는지 확인합니다
    - 페이지가 완전히 로드될 때까지 기다립니다
 
 2. **메뉴를 통해 설치**
 
    - 주소 표시줄에서 **설치 아이콘** (⊞)을 찾습니다
-   - **"OneUptime 설치"**를 클릭합니다
+   - **"Cast Operations 설치"**를 클릭합니다
    - 또는 **Chrome 메뉴** → **추가 도구** → **바로 가기 만들기**를 사용합니다
 
 3. **설치 옵션**
@@ -57,7 +57,7 @@ Chrome은 훌륭한 데스크탑 통합으로 강력한 PWA 지원을 제공합�
    - **"설치"** 또는 **"만들기"**를 클릭합니다
 
 4. **앱 액세스**
-   - 응용 프로그램 폴더에서 OneUptime을 찾습니다
+   - 응용 프로그램 폴더에서 Cast Operations을 찾습니다
    - 또는 Spotlight 검색으로 액세스합니다
    - 빠른 액세스를 위해 Dock에 고정합니다
 
@@ -65,10 +65,10 @@ Chrome은 훌륭한 데스크탑 통합으로 강력한 PWA 지원을 제공합�
 
 Edge는 좋은 macOS 통합으로 견고한 PWA 지원을 제공합니다.
 
-1. **Edge에서 OneUptime 열기**
+1. **Edge에서 Cast Operations 열기**
 
    - Microsoft Edge를 실행합니다
-   - OneUptime URL로 이동합니다
+   - Cast Operations URL로 이동합니다
    - 로그인 프로세스를 완료합니다
 
 2. **앱 설치**
@@ -81,7 +81,7 @@ Edge는 좋은 macOS 통합으로 견고한 PWA 지원을 제공합니다.
 
 ### Dock 및 Launchpad
 
-1. **Dock 위치**: OneUptime을 원하는 Dock 위치로 드래그합니다
+1. **Dock 위치**: Cast Operations을 원하는 Dock 위치로 드래그합니다
 2. **Dock 크기**: Dock 설정에서 아이콘 크기를 조정합니다
 3. **Launchpad 정리**: 모니터링 앱 폴더 생성
 4. **배지 알림**: Dock 아이콘에 인시던트 수 표시
@@ -90,7 +90,7 @@ Edge는 좋은 macOS 통합으로 견고한 PWA 지원을 제공합니다.
 
 1. **알림 센터**
 
-   - 시스템 환경설정 → 알림 → OneUptime
+   - 시스템 환경설정 → 알림 → Cast Operations
    - 알림 스타일 및 전달 구성
    - 다양한 인시던트 유형에 대한 우선 순위 수준 설정
 
@@ -130,7 +130,7 @@ Edge는 좋은 macOS 통합으로 견고한 PWA 지원을 제공합니다.
 
 ```
 해결책:
-1. OneUptime 아이콘에 대한 Launchpad를 확인합니다
+1. Cast Operations 아이콘에 대한 Launchpad를 확인합니다
 2. Spotlight (⌘+Space)로 검색합니다
 3. 브라우저의 PWA 관리 섹션을 확인합니다
 4. 다른 브라우저로 재설치를 시도합니다
@@ -143,11 +143,11 @@ Edge는 좋은 macOS 통합으로 견고한 PWA 지원을 제공합니다.
 
 ```
 해결책:
-1. 시스템 환경설정 → 알림 → OneUptime
+1. 시스템 환경설정 → 알림 → Cast Operations
 2. "알림 허용" 활성화
 3. 적절한 알림 스타일 설정 (배너/경보)
 4. 방해 금지 설정 확인
-5. OneUptime 알림 설정 확인
+5. Cast Operations 알림 설정 확인
 6. 메시지가 표시될 때 알림 권한 부여
 ```
 
@@ -158,18 +158,18 @@ Edge는 좋은 macOS 통합으로 견고한 PWA 지원을 제공합니다.
 1. **응용 프로그램 폴더 방법**
 
    - 응용 프로그램 폴더 열기
-   - OneUptime 찾기
+   - Cast Operations 찾기
    - 휴지통으로 드래그하거나 오른쪽 클릭 → 휴지통으로 이동
 
 2. **Dock 방법**
 
-   - Dock에서 OneUptime을 오른쪽 클릭합니다
+   - Dock에서 Cast Operations을 오른쪽 클릭합니다
    - "옵션" → "Dock에서 제거"를 선택합니다
    - 그런 다음 응용 프로그램 폴더에서 삭제합니다
 
 3. **브라우저 PWA 관리**
-   - **Chrome**: chrome://apps/ → OneUptime 찾기 → 제거
-   - **Edge**: edge://apps/ → OneUptime 찾기 → 제거
+   - **Chrome**: chrome://apps/ → Cast Operations 찾기 → 제거
+   - **Edge**: edge://apps/ → Cast Operations 찾기 → 제거
    - **Safari**: 전용 관리 페이지 없음
 
 ### 깨끗한 제거
@@ -192,7 +192,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### 자동 업데이트
 
-- OneUptime PWA는 온라인 상태에서 자동으로 업데이트됩니다
+- Cast Operations PWA는 온라인 상태에서 자동으로 업데이트됩니다
 - App Store 업데이트가 필요하지 않습니다
 - 새 기능을 즉시 사용할 수 있습니다
 - 중요한 업데이트가 즉시 적용됩니다
@@ -203,7 +203,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 1. **Safari PWA**: Safari 브라우저 내에서 새로 고침
 2. **Chrome PWA**: 앱 오른쪽 클릭 → 다시 로드 또는 ⌘+R
-3. **완전 새로 고침**: 앱 닫기, 브라우저 다시 열기, OneUptime 방문
+3. **완전 새로 고침**: 앱 닫기, 브라우저 다시 열기, Cast Operations 방문
 
 ### 유지 관리 일정
 
@@ -211,7 +211,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 **주간:**
 
-- OneUptime 앱 재시작
+- Cast Operations 앱 재시작
 - 문제가 있는 경우 브라우저 캐시 지우기
 - macOS 업데이트 확인
 
@@ -225,38 +225,38 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### 단축어 앱 통합
 
-OneUptime에 대한 커스텀 단축어 생성:
+Cast Operations에 대한 커스텀 단축어 생성:
 
 1. **단축어** 앱 열기
 2. **새 단축어** 생성
 3. **"앱 열기"** 작업 추가
-4. **OneUptime** 선택
+4. **Cast Operations** 선택
 5. 음성 활성화를 위해 Siri에 추가
 
 ### Automator 통합
 
-OneUptime 작업 자동화:
+Cast Operations 작업 자동화:
 
 1. **Automator** 실행
 2. **애플리케이션** 또는 **워크플로** 생성
 3. **"애플리케이션 실행"** 작업 추가
-4. OneUptime PWA 선택
+4. Cast Operations PWA 선택
 5. 추가 자동화 단계 추가
 
 ### 터미널 통합
 
-터미널을 통해 OneUptime 관리:
+터미널을 통해 Cast Operations 관리:
 
 ```bash
-# 빠른 OneUptime 실행을 위한 별칭 생성
-echo 'alias oneuptime="open -a \"OneUptime\""' >> ~/.zshrc
+# 빠른 Cast Operations 실행을 위한 별칭 생성
+echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
 
-# OneUptime이 실행 중인지 확인하는 함수
+# Cast Operations이 실행 중인지 확인하는 함수
 oneuptime_status() {
-    if pgrep -f "OneUptime" > /dev/null; then
-        echo "OneUptime is running"
+    if pgrep -f "Cast Operations" > /dev/null; then
+        echo "Cast Operations is running"
     else
-        echo "OneUptime is not running"
+        echo "Cast Operations is not running"
     fi
 }
 ```

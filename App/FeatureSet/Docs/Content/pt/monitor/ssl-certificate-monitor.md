@@ -1,6 +1,6 @@
 # Monitor de Certificado SSL
 
-O monitoramento de certificado SSL permite monitorar a validade e a expiração dos certificados SSL/TLS nos seus sites e serviços. O OneUptime verifica periodicamente seus certificados e o alerta antes que expirem ou se algum problema for detectado.
+O monitoramento de certificado SSL permite monitorar a validade e a expiração dos certificados SSL/TLS nos seus sites e serviços. O Cast Operations verifica periodicamente seus certificados e o alerta antes que expirem ou se algum problema for detectado.
 
 ## Visão Geral
 
@@ -14,7 +14,7 @@ Os monitores de certificado SSL se conectam aos seus endpoints HTTPS e inspecion
 
 ## Criando um Monitor de Certificado SSL
 
-1. Vá para **Monitors** no Painel do OneUptime
+1. Vá para **Monitors** no Painel do Cast Operations
 2. Clique em **Create Monitor**
 3. Selecione **SSL Certificate** como o tipo de monitor
 4. Insira a URL do endpoint HTTPS para verificar

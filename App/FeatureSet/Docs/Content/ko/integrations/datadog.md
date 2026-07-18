@@ -1,19 +1,19 @@
 # Datadog 통합
 
-[Datadog](https://www.datadoghq.com) 모니터 알림을 OneUptime 인시던트로 변환하여 Datadog의 감지가 OneUptime의 인시던트 대응과 상태 페이지로 연결되도록 합니다.
+[Datadog](https://www.datadoghq.com) 모니터 알림을 Cast Operations 인시던트로 변환하여 Datadog의 감지가 Cast Operations의 인시던트 대응과 상태 페이지로 연결되도록 합니다.
 
-이 통합은 **인바운드**: Datadog의 [Webhooks 통합](https://docs.datadoghq.com/integrations/webhooks/)이 **Webhook 트리거** 로 시작하는 OneUptime **[Workflow](/docs/workflows/index)** 로 POST합니다.
+이 통합은 **인바운드**: Datadog의 [Webhooks 통합](https://docs.datadoghq.com/integrations/webhooks/)이 **Webhook 트리거** 로 시작하는 Cast Operations **[Workflow](/docs/workflows/index)** 로 POST합니다.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## 사전 요건
 
 - 통합과 모니터를 설정할 수 있는 Datadog 계정.
-- 워크플로를 만들 수 있는 OneUptime 프로젝트.
+- 워크플로를 만들 수 있는 Cast Operations 프로젝트.
 
-## 1단계 — OneUptime 워크플로 구성
+## 1단계 — Cast Operations 워크플로 구성
 
 1. **Workflows → Create Workflow** 를 열고, 이름을 `Datadog → Incidents` 로 지정하고 **Builder** 를 엽니다.
 2. **Webhook** 트리거를 추가하고 **URL을 복사합니다**. 블록 이름을 `Datadog` 으로 변경합니다.
@@ -60,7 +60,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Web
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-이렇게 하면 알림과 복구 모두 OneUptime으로 전송됩니다. (모든 것을 전달하려면 `@webhook-oneuptime` 을 모니터에 무조건 추가할 수도 있습니다.)
+이렇게 하면 알림과 복구 모두 Cast Operations으로 전송됩니다. (모든 것을 전달하려면 `@webhook-oneuptime` 을 모니터에 무조건 추가할 수도 있습니다.)
 
 ## 4단계 — 테스트
 

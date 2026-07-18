@@ -1,11 +1,11 @@
 # GitHub 整合
 
-若要將 GitHub 與您自架的 OneUptime 執行個體整合，您需要建立一個 GitHub App 並設定所需的環境變數。這可讓 OneUptime 連線到您的 GitHub 儲存庫以進行程式碼儲存庫管理。
+若要將 GitHub 與您自架的 Cast Operations 執行個體整合，您需要建立一個 GitHub App 並設定所需的環境變數。這可讓 Cast Operations 連線到您的 GitHub 儲存庫以進行程式碼儲存庫管理。
 
 ## 先決條件
 
 - 具有組織管理員存取權的 GitHub 帳戶（用於組織儲存庫）或個人帳戶存取權
-- 具有您 OneUptime 伺服器設定的存取權
+- 具有您 Cast Operations 伺服器設定的存取權
 
 ## 設定說明
 
@@ -19,12 +19,12 @@
 2. 點選 **「New GitHub App」**
 
 3. 填寫註冊表單：
-   - **GitHub App name：** OneUptime（或任何唯一的名稱）- **請儲存此名稱，您將需要它來設定 `GITHUB_APP_NAME` 環境變數**
-   - **Homepage URL：** `https://your-oneuptime-domain.com`
-   - **Callback URL：** `https://your-oneuptime-domain.com/api/github/auth/callback`
-   - **Setup URL：** `https://your-oneuptime-domain.com/api/github/auth/callback` - **重要：此 URL 是 GitHub 在使用者安裝 App 後重新導向使用者的位置。必須設定此項，重新導向才能運作。**
+   - **GitHub App name：** Cast Operations（或任何唯一的名稱）- **請儲存此名稱，您將需要它來設定 `GITHUB_APP_NAME` 環境變數**
+   - **Homepage URL：** `https://your-operations-domain.com`
+   - **Callback URL：** `https://your-operations-domain.com/api/github/auth/callback`
+   - **Setup URL：** `https://your-operations-domain.com/api/github/auth/callback` - **重要：此 URL 是 GitHub 在使用者安裝 App 後重新導向使用者的位置。必須設定此項，重新導向才能運作。**
    - **Redirect on update：** 勾選此選項，以在使用者更新 App 安裝後重新導向使用者
-   - **Webhook URL：** `https://your-oneuptime-domain.com/api/github/webhook`
+   - **Webhook URL：** `https://your-operations-domain.com/api/github/webhook`
    - **Webhook secret：** 產生一個安全的隨機字串（請儲存此項以供稍後使用）
 
 ### 步驟 2：設定 App 權限
@@ -56,7 +56,7 @@
 
 ### 步驟 3：訂閱 Webhook 事件
 
-為了讓 OneUptime 接收即時更新，請訂閱下列 Webhook 事件：
+為了讓 Cast Operations 接收即時更新，請訂閱下列 Webhook 事件：
 
 - **Pull request** - 在 PR 開啟、關閉或合併時接收通知
 - **Push** - 在推送程式碼時接收通知
@@ -90,7 +90,7 @@
 3. 系統將自動下載一個 `.pem` 檔案
 4. 妥善保管此檔案 - 它用於以 GitHub App 身分進行驗證
 
-### 步驟 8：設定 OneUptime 環境變數
+### 步驟 8：設定 Cast Operations 環境變數
 
 #### Docker Compose
 
@@ -99,7 +99,7 @@
 ```bash
 # GitHub App Configuration
 GITHUB_APP_ID=YOUR_APP_ID
-GITHUB_APP_NAME=YOUR_APP_NAME  # The exact name of your GitHub App (e.g., "OneUptime")
+GITHUB_APP_NAME=YOUR_APP_NAME  # The exact name of your GitHub App (e.g., "Cast Operations")
 GITHUB_APP_CLIENT_ID=YOUR_CLIENT_ID
 GITHUB_APP_CLIENT_SECRET=YOUR_CLIENT_SECRET
 GITHUB_APP_PRIVATE_KEY="<BASE64_ENCODED_PRIVATE_KEY_CONTENT>"
@@ -122,7 +122,7 @@ gitHubApp:
   webhookSecret: "YOUR_WEBHOOK_SECRET"
 ```
 
-**重要：** 加入這些環境變數後，請重新啟動您的 OneUptime 伺服器，使其生效。
+**重要：** 加入這些環境變數後，請重新啟動您的 Cast Operations 伺服器，使其生效。
 
 ### 步驟 9：安裝 GitHub App
 
@@ -134,14 +134,14 @@ gitHubApp:
    - **Only select repositories** - 選擇特定的儲存庫
 5. 點選 **「Install」**
 
-### 步驟 10：在 OneUptime 中連接儲存庫
+### 步驟 10：在 Cast Operations 中連接儲存庫
 
-1. 登入您的 OneUptime 儀表板
+1. 登入您的 Cast Operations 儀表板
 2. 導覽至 **More** > **Code Repositories**
 3. 點選 **「Create Repository」** 或使用 GitHub App 安裝流程
 4. 若從 GitHub 重新導向而來，系統將自動擷取安裝 ID
 5. 從清單中選取您要連接的儲存庫
-6. 點選 **「Connect」** 以將儲存庫連結至您的 OneUptime 專案
+6. 點選 **「Connect」** 以將儲存庫連結至您的 Cast Operations 專案
 
 ## 環境變數參考
 
@@ -158,9 +158,9 @@ gitHubApp:
 
 ### 常見問題
 
-**安裝 GitHub App 後未重新導向回 OneUptime：**
+**安裝 GitHub App 後未重新導向回 Cast Operations：**
 
-- 請確定您 GitHub App 設定中的 **Setup URL** 設定為：`https://your-oneuptime-domain.com/api/github/auth/callback`
+- 請確定您 GitHub App 設定中的 **Setup URL** 設定為：`https://your-operations-domain.com/api/github/auth/callback`
 - 前往您的 GitHub App 設定 >「Post installation」區段，並確認 Setup URL 設定正確
 - 也應勾選「Redirect on update」選項
 - 注意：Setup URL 與 Callback URL 不同 - 兩者都應指向相同的 `/api/github/auth/callback` 端點
@@ -168,7 +168,7 @@ gitHubApp:
 **「GitHub App is not configured」錯誤：**
 
 - 請確定已設定 `GITHUB_APP_CLIENT_ID` 環境變數
-- 設定環境變數後，請重新啟動您的 OneUptime 伺服器
+- 設定環境變數後，請重新啟動您的 Cast Operations 伺服器
 
 **「Invalid webhook signature」錯誤：**
 
@@ -211,7 +211,7 @@ gitHubApp:
 若您在 GitHub 整合方面遇到問題，請：
 
 1. 查看上方的疑難排解區段
-2. 檢閱 OneUptime 記錄以取得詳細的錯誤訊息
-3. 透過 [hello@oneuptime.com](mailto:hello@oneuptime.com) 與我們聯絡
+2. 檢閱 Cast Operations 記錄以取得詳細的錯誤訊息
+3. 透過 [hello@visca.ai](mailto:hello@visca.ai) 與我們聯絡
 
 我們歡迎您提供意見回饋以改善此整合！

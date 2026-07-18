@@ -1,6 +1,6 @@
 # API 모니터
 
-API 모니터링을 통해 HTTP/REST API의 가용성, 성능 및 정확성을 모니터링할 수 있습니다. OneUptime은 API 엔드포인트에 주기적으로 HTTP 요청을 전송하고 구성된 기준에 따라 응답을 평가합니다.
+API 모니터링을 통해 HTTP/REST API의 가용성, 성능 및 정확성을 모니터링할 수 있습니다. Cast Operations은 API 엔드포인트에 주기적으로 HTTP 요청을 전송하고 구성된 기준에 따라 응답을 평가합니다.
 
 ## 개요
 
@@ -15,7 +15,7 @@ API 모니터는 엔드포인트에 HTTP 요청을 만들고 응답을 확인합
 
 ## API 모니터 생성
 
-1. OneUptime 대시보드의 **모니터**로 이동합니다
+1. Cast Operations 대시보드의 **모니터**로 이동합니다
 2. **모니터 생성**을 클릭합니다
 3. 모니터 유형으로 **API**를 선택합니다
 4. API URL을 입력하고 요청 설정을 구성합니다
@@ -85,7 +85,7 @@ POST, PUT 및 PATCH 요청의 경우 JSON 요청 본문을 지정할 수 있습�
 
 #### 리디렉션 따르지 않기
 
-기본적으로 OneUptime은 HTTP 리디렉션(301, 302 등)을 따릅니다. 최종 목적지가 아닌 리디렉션 응답 자체를 모니터링하려면 이 옵션을 활성화합니다.
+기본적으로 Cast Operations은 HTTP 리디렉션(301, 302 등)을 따릅니다. 최종 목적지가 아닌 리디렉션 응답 자체를 모니터링하려면 이 옵션을 활성화합니다.
 
 #### Allow Self-Signed Certificates
 
@@ -99,7 +99,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

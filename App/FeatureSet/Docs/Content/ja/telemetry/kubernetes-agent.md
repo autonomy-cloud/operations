@@ -1,8 +1,8 @@
-# OneUptime Kubernetes エージェント (Helm)
+# Cast Operations Kubernetes エージェント (Helm)
 
 ## 概要
 
-OneUptime Kubernetes エージェントは、OpenTelemetry ベースのコレクターパイプラインをクラスターにインストールする、事前パッケージ化された Helm チャートです。ノード、Pod、コンテナ、クラスターのメトリクス、Kubernetes イベント、Pod ログを送信し、さらにデフォルトで有効な eBPF により、アプリケーショントレース、HTTP RED メトリクス、サービスグラフのデータ、Pod 間のネットワークフローメトリクスも送信します。コードの変更も SDK も不要で、`helm install` 一回だけで済みます。
+Cast Operations Kubernetes エージェントは、OpenTelemetry ベースのコレクターパイプラインをクラスターにインストールする、事前パッケージ化された Helm チャートです。ノード、Pod、コンテナ、クラスターのメトリクス、Kubernetes イベント、Pod ログを送信し、さらにデフォルトで有効な eBPF により、アプリケーショントレース、HTTP RED メトリクス、サービスグラフのデータ、Pod 間のネットワークフローメトリクスも送信します。コードの変更も SDK も不要で、`helm install` 一回だけで済みます。
 
 このページは **インストールガイド** です。エージェントが収集するデータの上に Kubernetes モニターやアラートを構成する方法については、[Kubernetes エージェント (モニター)](/docs/monitor/kubernetes-agent) を参照してください。
 
@@ -11,12 +11,12 @@ OneUptime Kubernetes エージェントは、OpenTelemetry ベースのコレク
 - 稼働中の Kubernetes クラスター (v1.23 以降)
 - クラスターにアクセスできるように構成された `kubectl`
 - `helm` v3 がインストールされていること
-- **OneUptime API キー** — _Project Settings → API Keys_ から作成します
+- **Cast Operations API キー** — _Project Settings → API Keys_ から作成します
 
-## ステップ 1 — OneUptime Helm リポジトリを追加する
+## ステップ 1 — Cast Operations Helm リポジトリを追加する
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 ```
 
@@ -34,7 +34,7 @@ helm repo update
 
 ## ステップ 3 — Kubernetes エージェントをインストールする
 
-`YOUR_ONEUPTIME_URL`、`YOUR_ONEUPTIME_API_KEY`、およびクラスター名を、お使いの環境の値に置き換えてください。クラスター名は、そのクラスターが OneUptime 上でどのように表示されるかを決めるものです。`prod-us-east-1` のような安定した名前を選んでください。
+`YOUR_ONEUPTIME_URL`、`YOUR_ONEUPTIME_API_KEY`、およびクラスター名を、お使いの環境の値に置き換えてください。クラスター名は、そのクラスターが Cast Operations 上でどのように表示されるかを決めるものです。`prod-us-east-1` のような安定した名前を選んでください。
 
 ### 標準クラスター (セルフマネージド、EKS on EC2、GKE Standard、AKS)
 
@@ -105,7 +105,7 @@ kubernetes-agent-xxxxxxxxxx-xxxxx             1/1     Running   0          1m
 kubernetes-agent-logs-yyyyyyyyyy-yyyyy        1/1     Running   0          1m
 ```
 
-エージェントが接続すると、クラスターは OneUptime ダッシュボードの **Kubernetes** セクションに自動的に表示されます。
+エージェントが接続すると、クラスターは Cast Operations ダッシュボードの **Kubernetes** セクションに自動的に表示されます。
 
 ## 構成オプション
 
@@ -231,7 +231,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 **メトリクスベースのモニターは変わりません。** eBPF の RED メトリクス — リクエストレート、エラーレート、所要時間 — は *メトリクス* のファミリーです。OBI はすべてのリクエストからこれらを計算し、これらはメトリクスのパイプラインを通りますが、サンプラーはそこには存在しません。`percentage: 10` では、トレースは 10 分の 1 になりますが、レート / エラー / レイテンシは 100% 正確なままです。それらのメトリクスの上に構築されたダッシュボードとモニターは影響を受けません。
 
-**スパンベースのモニターは変わります。** OneUptime がスパンそのものから導出しているものは、すべてこのレートに応じて縮小します — 有効にする前に、下記の警告を参照してください。
+**スパンベースのモニターは変わります。** Cast Operations がスパンそのものから導出しているものは、すべてこのレートに応じて縮小します — 有効にする前に、下記の警告を参照してください。
 
 | キー                         | 意味                                                                 |
 | ---------------------------- | -------------------------------------------------------------------- |
@@ -247,7 +247,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 - **マルチクラスターはデフォルトで機能します。** 2 つのエージェントが同じトレースを保持するのは、`hashSeed` と `percentage` の両方が一致している場合だけです。どちらもどこでも同じ値がデフォルトなので、2 つのクラスターをまたぐトレースは追加の設定なしで丸ごと残ります。`hashSeed` を変更するのは、2 つのサンプリング階層を意図的に *相関から切り離す* 場合だけにしてください — 判定は同じハッシュに対するしきい値なので、同じシードでレートだけを変えると入れ子になり、2 番目の階層は独立に抽出するのではなく、1 番目がすでに保持したトレースを選び直すだけになります。
 - **Pod ログはサンプリングされません。** そのため `ebpf.logToTraceCorrelation: true` では、すべてのログレコードが引き続きトレース ID を保持する一方で、それらのトレースのうち保持されるのは `percentage`% だけです。ログレコードのおおよそ (100 − `percentage`)% は、行き止まりになるトレースリンクを表示することになります。トレース → ログのナビゲーションは影響を受けません。取りこぼしが起きうるのは、ログ → トレースの方向だけです。
 
-> **これを設定したら、スパンベースのモニターを調整し直してください。** サンプリングは OneUptime に届くスパンを減らすため、それを数えているものはすべて数え落とします。`Span Count` を条件とする **Traces** モニターと、`Exception Count` を条件とする **Exceptions** モニターは、昨日までのおおよそ `percentage`% の量しか見なくなります。サンプリングなしのトラフィックに合わせて調整されたしきい値は、静かに超えられなくなります — モニターはエラーにはならず、ただ沈黙します。レートを設定するときは、それらのしきい値を同じ割合で割ってください。このレートはクラスター全体に適用されるため、個々のサービスだけを対象外にする方法はありません。エラーの **グルーピング** は、線形よりも悪く劣化します。よくある例外は引き続き浮かび上がりますが、稀な単発の例外は、出現頻度が 10 分の 1 になるというより、まるごと消えてしまう可能性のほうが高くなります。
+> **これを設定したら、スパンベースのモニターを調整し直してください。** サンプリングは Cast Operations に届くスパンを減らすため、それを数えているものはすべて数え落とします。`Span Count` を条件とする **Traces** モニターと、`Exception Count` を条件とする **Exceptions** モニターは、昨日までのおおよそ `percentage`% の量しか見なくなります。サンプリングなしのトラフィックに合わせて調整されたしきい値は、静かに超えられなくなります — モニターはエラーにはならず、ただ沈黙します。レートを設定するときは、それらのしきい値を同じ割合で割ってください。このレートはクラスター全体に適用されるため、個々のサービスだけを対象外にする方法はありません。エラーの **グルーピング** は、線形よりも悪く劣化します。よくある例外は引き続き浮かび上がりますが、稀な単発の例外は、出現頻度が 10 分の 1 になるというより、まるごと消えてしまう可能性のほうが高くなります。
 
 > **ここにログやメトリクスのサンプリングがない理由。** コレクターのサンプラーは、メトリクスをまったくサンプリングできません。ログはサンプリングできますが、そのランダム性をトレース ID から引き出しています — そして Pod ログにはトレース ID がありません。トレース ID を持たないレコードはすべて同じバケットにハッシュされるため、ログにレートを設定してもフィードは間引かれません。シードに応じて、すべてを保持するか、すべてを削除するかのどちらかになってしまいます。ログを黙って削除してしまうつまみを提供するくらいならと、このチャートはそれを用意していません。ログを間引くには、削除する対象が正確な [ログの重大度によるフィルタリング](#ログの重大度によるフィルタリング) と [名前空間のフィルタリング](#名前空間のフィルタリング) を使用してください。
 
@@ -329,7 +329,7 @@ oneuptime:
 clusterName: prod
 ```
 
-ラベルは大文字小文字を区別せずに照合されるため、手動で作成済みの既存の `Production` ラベルは複製されずに再利用されます。OneUptime UI で手動追加されたラベルが、エージェントによって削除されることはありません。
+ラベルは大文字小文字を区別せずに照合されるため、手動で作成済みの既存の `Production` ラベルは複製されずに再利用されます。Cast Operations UI で手動追加されたラベルが、エージェントによって削除されることはありません。
 
 ## エージェントのアップグレード
 
@@ -367,7 +367,7 @@ kubectl delete namespace oneuptime-agent
 
 ## eBPF によるアプリケーショントレースと HTTP メトリクス (デフォルトで有効)
 
-このチャートは、すべてのノードで [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) を実行する DaemonSet を稼働させます。eBPF プログラムをカーネルにロードし、サポートされているすべてのランタイム (Go、.NET、Java、Node.js、Python、Ruby、Rust) からの HTTP/HTTPS、gRPC、SQL/Redis トラフィックを自動キャプチャします — SDK もサイドカーも不要です。トレースとリクエストメトリクスは、その後クラスター内のコレクターを通じて OneUptime に流れます。
+このチャートは、すべてのノードで [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) を実行する DaemonSet を稼働させます。eBPF プログラムをカーネルにロードし、サポートされているすべてのランタイム (Go、.NET、Java、Node.js、Python、Ruby、Rust) からの HTTP/HTTPS、gRPC、SQL/Redis トラフィックを自動キャプチャします — SDK もサイドカーも不要です。トレースとリクエストメトリクスは、その後クラスター内のコレクターを通じて Cast Operations に流れます。
 
 **要件:** BTF を備えた Linux カーネル **5.8 以降** (Debian 11 以降、Ubuntu 20.10 以降、Fedora 34 以降、RHEL/Stream 9 以降ではデフォルト)。eBPF DaemonSet は、eBPF プログラムをロードするために必要なため、**特権モード** で実行されます。
 
@@ -407,7 +407,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
 ## 収集されるデータ量を削減する
 
-エージェントはデフォルトで **カバレッジ** を重視して調整されています — クラスター全体からメトリクス、Pod ログ、eBPF トレースを送信するため、すべてのダッシュボードとモニターが初日から機能します。大規模またはビジー状態のクラスターでは、それが必要以上のテレメトリになる場合があり、取り込み量の増加 (そして OneUptime Cloud ではコストの増加) として現れます。ここに書かれていることは何も必須ではありませんが、クラスターが望む以上に送信している場合は、これらが調整すべきつまみです — おおよそ影響の大きい順に並べています。
+エージェントはデフォルトで **カバレッジ** を重視して調整されています — クラスター全体からメトリクス、Pod ログ、eBPF トレースを送信するため、すべてのダッシュボードとモニターが初日から機能します。大規模またはビジー状態のクラスターでは、それが必要以上のテレメトリになる場合があり、取り込み量の増加 (そして Cast Operations Cloud ではコストの増加) として現れます。ここに書かれていることは何も必須ではありませんが、クラスターが望む以上に送信している場合は、これらが調整すべきつまみです — おおよそ影響の大きい順に並べています。
 
 コツは、すべてを収集して保存料を支払うのではなく、**見ないものは収集しないようにする** ことです。以下のすべてのレバーは Helm の値なので、`helm upgrade --reuse-values` に対して `--set` で適用でき、同じ方法でロールバックできます。
 
@@ -427,7 +427,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 - **filter プロセッサ側** — データは収集された後、エクスポートの前に破棄されます。`filters.logs.minSeverity`、`filters.metrics.*`、`namespaceFilters.rules` (`metrics`/`traces`) などです。コレクターの CPU をわずかに多く使いますが、複数のレシーバーを横断して機能し、レシーバーでは表現できないことも表現できます。
 - **サンプラー側** — データは収集された後、代表的な一部が保持されます。`sampling.traces.percentage` です。これだけ性質が異なります。上記の 2 つはテレメトリの *カテゴリ* を丸ごと削除するため、それらが破棄したものはどのトレースからも失われます。サンプリングはすべてのカテゴリを維持したまま母集団を間引くため、残ったものは依然として完全であり、かつ代表性を保っています。
 
-3 つとも **元に戻せません**。ここで破棄したものが OneUptime に届くことはなく、3 つともモニターを沈黙させうるものです。最初の 2 つは、モニターが監視しているシグナルそのものを取り除くことでモニターを沈黙させます。サンプリングはもっと限定的です。eBPF の RED メトリクスはサンプラーが動作する前に計算されるため、メトリクスベースのモニターは正確なまま保たれます — ただし、*スパン* を数えるモニター (`Span Count` を条件とする **Traces** モニター、`Exception Count` を条件とする **Exceptions** モニター) は比例して少ない数しか見なくなるため、しきい値を同じ割合で調整し直す必要があります。後から判断したい場合は、代わりに OneUptime のサーバー側でデータを破棄できます (**Logs → Settings → Drop Filters**、**Metrics → Settings → Pipeline Rules**) — こちらは送信 (egress) のコストはかかりますが、再デプロイなしで変更できる設定です。
+3 つとも **元に戻せません**。ここで破棄したものが Cast Operations に届くことはなく、3 つともモニターを沈黙させうるものです。最初の 2 つは、モニターが監視しているシグナルそのものを取り除くことでモニターを沈黙させます。サンプリングはもっと限定的です。eBPF の RED メトリクスはサンプラーが動作する前に計算されるため、メトリクスベースのモニターは正確なまま保たれます — ただし、*スパン* を数えるモニター (`Span Count` を条件とする **Traces** モニター、`Exception Count` を条件とする **Exceptions** モニター) は比例して少ない数しか見なくなるため、しきい値を同じ割合で調整し直す必要があります。後から判断したい場合は、代わりに Cast Operations のサーバー側でデータを破棄できます (**Logs → Settings → Drop Filters**、**Metrics → Settings → Pipeline Rules**) — こちらは送信 (egress) のコストはかかりますが、再デプロイなしで変更できる設定です。
 
 ### レバー 1 — 通常、Pod ログが単独で最大の発生源
 
@@ -453,7 +453,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
   重大度がどのように判定されるか、また分類できなかったログがどうなるかについては、[ログの重大度によるフィルタリング](#ログの重大度によるフィルタリング) を参照してください。
 
-- **OneUptime で Pod ログがまったく必要ない場合は?** 無効にします。
+- **Cast Operations で Pod ログがまったく必要ない場合は?** 無効にします。
 
   ```bash
   helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
@@ -643,10 +643,10 @@ helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
 
 ## トラブルシューティング
 
-> **最速の方法 — 診断スクリプトを実行する。** これは Pod のヘルスを検査し、取り込みキーをデコードして検証し、クラスターが OneUptime に到達できるか確認し、さらにトークンが実際に受け入れられるかどうかを OneUptime に問い合わせます — そして単一の根本原因の判定結果を出力します。
+> **最速の方法 — 診断スクリプトを実行する。** これは Pod のヘルスを検査し、取り込みキーをデコードして検証し、クラスターが Cast Operations に到達できるか確認し、さらにトークンが実際に受け入れられるかどうかを Cast Operations に問い合わせます — そして単一の根本原因の判定結果を出力します。
 >
 > ```bash
-> curl -fsSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
+> curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
 >   | bash -s -- -n oneuptime-agent
 > ```
 >
@@ -671,10 +671,10 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 1. エージェントの Pod が実行中であることを確認します: `kubectl get pods -n oneuptime-agent`
 2. メトリクスコレクターのログを確認します: `kubectl logs -n oneuptime-agent -l component=metrics-collector -c otel-collector` (ここにエラーがないことは、データが届いていることを **意味しません** — 上記を参照)
-3. **取り込みキーを検証します。** トークンが受け入れられるかどうかを OneUptime に直接問い合わせます (`200` = 有効、`401` = 不明/失効):
+3. **取り込みキーを検証します。** トークンが受け入れられるかどうかを Cast Operations に直接問い合わせます (`200` = 有効、`401` = 不明/失効):
 
    ```bash
-   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://oneuptime.com/otlp/v1/validate
+   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
    ```
 
    `401` が返される場合、リリース内のキーが誤っているか失効しています。_Project Settings → Telemetry Ingestion Keys_ から有効なキーをコピーして再デプロイしてください。
@@ -685,7 +685,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
      --set oneuptime.apiKey=<LIVE_KEY>
    ```
 
-4. OneUptime URL が正しく、クラスターがネットワーク経由でそこに到達できることを確認します。
+4. Cast Operations URL が正しく、クラスターがネットワーク経由でそこに到達できることを確認します。
 5. 再インストール時に `clusterName` を変更した場合、エージェントは **新しい** クラスターとして表示されます — 古いエントリは "Disconnected" のままになります (これは想定どおりで、古くなったものです)。
 
 ### ログが表示されない (API モードのみ)
@@ -718,7 +718,7 @@ kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
 
 1. eBPF DaemonSet が正常であることを確認します: `kubectl get pods -n oneuptime-agent -l component=ebpf-instrument`
 2. デバッグ用トレースプリンターを有効にして、OBI がトラフィックをキャプチャしていることを確認します: `--set ebpf.printTraces=true --set ebpf.logLevel=debug`、その後 `kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200` を確認します
-3. OBI の stdout にスパンが表示されるのにダッシュボードに表示されない場合、問題はコレクター → OneUptime のエクスポートにあります — メトリクスコレクター Pod のログを確認してください。
+3. OBI の stdout にスパンが表示されるのにダッシュボードに表示されない場合、問題はコレクター → Cast Operations のエクスポートにあります — メトリクスコレクター Pod のログを確認してください。
 
 ## 次のステップ
 

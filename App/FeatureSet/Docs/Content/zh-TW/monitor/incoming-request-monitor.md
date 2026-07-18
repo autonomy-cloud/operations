@@ -1,6 +1,6 @@
 # 傳入請求監控器
 
-傳入請求監控（也稱為心跳監控）讓您可以透過讓服務定期傳送 HTTP 請求至 OneUptime 來監控服務。OneUptime 不會主動連線至您的服務，而是由您的服務向 OneUptime 發送 ping 以確認其正在運行。
+傳入請求監控（也稱為心跳監控）讓您可以透過讓服務定期傳送 HTTP 請求至 Cast Operations 來監控服務。Cast Operations 不會主動連線至您的服務，而是由您的服務向 Cast Operations 發送 ping 以確認其正在運行。
 
 ## 概觀
 
@@ -14,7 +14,7 @@
 
 ## 建立傳入請求監控器
 
-1. 前往 OneUptime 儀表板中的 **Monitors**
+1. 前往 Cast Operations 儀表板中的 **Monitors**
 2. 點擊 **Create Monitor**
 3. 選擇 **Incoming Request** 作為監控器類型
 4. 系統會為此監控器產生一組 **Secret Key** 與心跳 URL
@@ -26,7 +26,7 @@
 建立後，您的監控器會擁有一個格式如下的獨特心跳 URL：
 
 ```
-https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+https://visca.ai/heartbeat/YOUR_SECRET_KEY
 ```
 
 您的服務應定期傳送 HTTP **GET** 或 **POST** 請求至此 URL。
@@ -37,10 +37,10 @@ https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
 
 ```bash
 # Simple GET request
-curl https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 # POST request with custom body
-curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Add to crontab to send heartbeat every 5 minutes
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### 從應用程式碼
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js example
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/YOUR_SECRET_KEY");
+https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python example
 import requests
-requests.get('https://oneuptime.com/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
 ```
 
-若為自架部署，請將 `https://oneuptime.com` 替換為您的 OneUptime 執行個體 URL。
+若為自架部署，請將 `https://visca.ai` 替換為您的 Cast Operations 執行個體 URL。
 
 ## 監控條件
 

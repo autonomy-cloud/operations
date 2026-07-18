@@ -1,12 +1,12 @@
-# Use FluentBit to send telemetry data to OneUptime
+# Use FluentBit to send telemetry data to Cast Operations
 
 ## Overview
 
-You can use the [FluentBit](https://docs.fluentbit.io/manual) plugin to collect logs & telemetry data from your applications and services. The plugin sends the telemetry data to the OneUptime OpenTelemetry HTTP Collector. You can use the opentelemetry output plugin of fluentbit to send the telemetry data to the OneUptime OpenTelemetry HTTP Collector. This plugin can be found here: https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
+You can use the [FluentBit](https://docs.fluentbit.io/manual) plugin to collect logs & telemetry data from your applications and services. The plugin sends the telemetry data to the Cast Operations OpenTelemetry HTTP Collector. You can use the opentelemetry output plugin of fluentbit to send the telemetry data to the Cast Operations OpenTelemetry HTTP Collector. This plugin can be found here: https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
 
 ## Getting Started
 
-FluentBit supports hundreds of data sources and you can ingest logs and telemetry from any of these sources into OneUptime. Some of the popular sources include:
+FluentBit supports hundreds of data sources and you can ingest logs and telemetry from any of these sources into Cast Operations. Some of the popular sources include:
 
 - Docker
 - Syslog
@@ -30,11 +30,11 @@ You can find the full list of supported sources [here](https://docs.fluentbit.io
 ## Prerequisites
 
 - **Step 1: Install FluentBit on your system** - You can install FluentBit using the instructions provided [here](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)
-- **Step 2: Sign up for OneUptime account** - You can sign up for a free account [here](https://oneuptime.com). Please note while the account is free, log ingestion is a paid feature. You can find more details about the pricing [here](https://oneuptime.com/pricing).
-- **Step 3: Create OneUptime Project** - Once you have the account, you can create a project from the OneUptime dashboard. If you need any help with creating a project or have any questions, please reach out to us at support@oneuptime.com
-- **Step 4: Create Telemetry Ingestion Token** - Once you have created a OneUptime account, you can create a telemetry ingestion token to ingest logs, metrics and traces from your application.
+- **Step 2: Sign up for Cast Operations account** - You can sign up for a free account [here](https://visca.ai). Please note while the account is free, log ingestion is a paid feature. You can find more details about the pricing [here](https://visca.ai/pricing).
+- **Step 3: Create Cast Operations Project** - Once you have the account, you can create a project from the Cast Operations dashboard. If you need any help with creating a project or have any questions, please reach out to us at support@visca.ai
+- **Step 4: Create Telemetry Ingestion Token** - Once you have created a Cast Operations account, you can create a telemetry ingestion token to ingest logs, metrics and traces from your application.
 
-After you sign up to OneUptime and create a project. Click on "More" in the Navigation bar and click on "Project Settings".
+After you sign up to Cast Operations and create a project. Click on "More" in the Navigation bar and click on "Project Settings".
 
 On the Telemetry Ingestion Key page, click on "Create Ingestion Key" to create a token.
 
@@ -46,7 +46,7 @@ Once you created a token, click on "View" to view the token.
 
 ## Configuration
 
-You can use the following configuration to send the telemetry data to the OneUptime OpenTelemetry HTTP Collector. You can add this configuration to the fluentbit configuration file. The configuration file is usually located at `/etc/fluent-bit/fluent-bit.yaml`. Here's how an outputs section of the configuration file would look like:
+You can use the following configuration to send the telemetry data to the Cast Operations OpenTelemetry HTTP Collector. You can add this configuration to the fluentbit configuration file. The configuration file is usually located at `/etc/fluent-bit/fluent-bit.yaml`. Here's how an outputs section of the configuration file would look like:
 
 ```yaml
 outputs:
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "oneuptime.com"
+    host: "visca.ai"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "oneuptime.com"
+      host: "visca.ai"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -121,7 +121,7 @@ pipeline:
         - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
-**If you're self hosting OneUptime**: If you're self hosting OneUptime you can replace the `host` with the host of your OneUptime instance. If you're hosting on http server and not https, you can replace the `port` with the port of your OneUptime instance (likely port 80).
+**If you're self hosting Cast Operations**: If you're self hosting Cast Operations you can replace the `host` with the host of your Cast Operations instance. If you're hosting on http server and not https, you can replace the `port` with the port of your Cast Operations instance (likely port 80).
 
 In this case the configuration would look like:
 
@@ -131,7 +131,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "your-oneuptime-instance.com"
+    host: "your-operations-instance.com"
     port: 80
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## Usage
 
-Once you have added the configuration to the fluentbit configuration file, you can restart the fluentbit service. Once the service is restarted, the telemetry data will be sent to the OneUptime HTTP Source. You can now start seeing the telemetry data in the OneUptime dashboard. If you have any questions or need help with the configuration, please reach out to us at support@oneuptime.com
+Once you have added the configuration to the fluentbit configuration file, you can restart the fluentbit service. Once the service is restarted, the telemetry data will be sent to the Cast Operations HTTP Source. You can now start seeing the telemetry data in the Cast Operations dashboard. If you have any questions or need help with the configuration, please reach out to us at support@visca.ai

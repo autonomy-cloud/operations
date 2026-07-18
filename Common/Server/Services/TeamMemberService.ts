@@ -82,7 +82,7 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
       ))
     ) {
       throw new BadDataException(
-        "Cannot invite team members while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from OneUptime.",
+        "Cannot invite team members while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from Cast Operations.",
       );
     }
 
@@ -387,7 +387,7 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
       (await this.isSCIMPushGroupsEnabled(members[0].projectId))
     ) {
       throw new BadDataException(
-        "Cannot delete team members while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from OneUptime.",
+        "Cannot delete team members while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from Cast Operations.",
       );
     }
 

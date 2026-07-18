@@ -2,16 +2,16 @@
 
 ## 概述
 
-当传入的遥测数据携带客户端属性时（Web 端的 `browser.*` 或移动端的 `device.*`），OneUptime 会将其归类为 **RUM**。每个应用都由其 `service.name` 标识，并完全归属于其 RUM 应用（客户端遥测数据绝不会被重复创建为后端 Service）。
+当传入的遥测数据携带客户端属性时（Web 端的 `browser.*` 或移动端的 `device.*`），Cast Operations 会将其归类为 **RUM**。每个应用都由其 `service.name` 标识，并完全归属于其 RUM 应用（客户端遥测数据绝不会被重复创建为后端 Service）。
 
 借助它，你可以了解用户的实际体验：页面浏览量、错误、延迟、所使用的平台 / 设备，以及——当你的 SDK 上报时——核心 Web 指标（Core Web Vitals）。
 
 ## 前置条件
 
-- 一个 **OneUptime Telemetry Ingestion Token**——从 _Project Settings → Telemetry Ingestion Keys_ 创建。
+- 一个 **Cast Operations Telemetry Ingestion Token**——从 _Project Settings → Telemetry Ingestion Keys_ 创建。
 - OpenTelemetry 浏览器或移动端 SDK。
 
-## OneUptime 如何识别 RUM 应用
+## Cast Operations 如何识别 RUM 应用
 
 | 属性                     | 是否必需   | 用途                                |
 | ------------------------ | ---------- | ----------------------------------- |
@@ -22,14 +22,14 @@
 
 ## 浏览器（OpenTelemetry Web）
 
-将 OTLP/HTTP 导出器指向 OneUptime，并将 `service.name` 设置为你的应用名称：
+将 OTLP/HTTP 导出器指向 Cast Operations，并将 `service.name` 设置为你的应用名称：
 
 ```js
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 
-// OneUptime OTLP/HTTP exporter:
+// Cast Operations OTLP/HTTP exporter:
 const exporter = new OTLPTraceExporter({
-  url: "https://oneuptime.com/otlp/v1/traces",
+  url: "https://visca.ai/otlp/v1/traces",
   headers: { "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
 });
 
@@ -41,18 +41,18 @@ const exporter = new OTLPTraceExporter({
 
 ## 移动端（Swift / Android）
 
-使用 OpenTelemetry Swift 或 Android SDK，设置 `service.name`，并将 OTLP 导出到 OneUptime：
+使用 OpenTelemetry Swift 或 Android SDK，设置 `service.name`，并将 OTLP 导出到 Cast Operations：
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://oneuptime.com/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
-SDK 的 `device.*` 属性会将遥测数据路由到 RUM。如果你自托管 OneUptime，请使用 `https://YOUR-ONEUPTIME-HOST/otlp`。
+SDK 的 `device.*` 属性会将遥测数据路由到 RUM。如果你自托管 Cast Operations，请使用 `https://YOUR-OPERATIONS-HOST/otlp`。
 
 ## 核心 Web 指标（Core Web Vitals）
 
-如果你的浏览器插桩将 Web 指标（LCP、INP、CLS、FCP、TTFB）作为 OpenTelemetry 指标上报，OneUptime 会在应用概览中以 良好 / 需要改进 / 较差 的评级展示它们。如果没有上报任何 Web 指标，该面板会说明如何开始发送这些指标。
+如果你的浏览器插桩将 Web 指标（LCP、INP、CLS、FCP、TTFB）作为 OpenTelemetry 指标上报，Cast Operations 会在应用概览中以 良好 / 需要改进 / 较差 的评级展示它们。如果没有上报任何 Web 指标，该面板会说明如何开始发送这些指标。
 
 ## 你能获得什么
 

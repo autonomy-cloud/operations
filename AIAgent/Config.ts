@@ -9,7 +9,7 @@ if (!process.env["ONEUPTIME_URL"]) {
 }
 
 export const ONEUPTIME_URL: URL = URL.fromString(
-  process.env["ONEUPTIME_URL"] || "https://oneuptime.com",
+  process.env["ONEUPTIME_URL"] || "https://visca.ai",
 );
 
 export const AI_AGENT_ID: ObjectID | null = process.env["AI_AGENT_ID"]

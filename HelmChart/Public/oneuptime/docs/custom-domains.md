@@ -11,24 +11,24 @@ To provision certificates for custom status page domains, add these values:
 | `letsEncrypt.accountKey` | A private key generated via `openssl`, then base64-encoded.        | `` | 🚨 |
 | `letsEncrypt.email`      | Email address registered with Let's Encrypt for notifications.     | `` | 🚨 |
 
-> OneUptime must be hosted on a server that is publicly accessible for
+> Cast Operations must be hosted on a server that is publicly accessible for
 > certificate provisioning and custom domains to work.
 
 ## Add a custom domain
 
 ### Step 1 — Add a CNAME record
 
-Point your subdomain at your OneUptime host in your DNS provider:
+Point your subdomain at your Cast Operations host in your DNS provider:
 
 ```
 DNS Record Type: CNAME
 Host: status.yourcompany.com
-Value: <your-oneuptime-host>
+Value: <your-operations-host>
 ```
 
 ### Step 2 — Add the domain to your project
 
-In the OneUptime dashboard, click **More** in the nav bar, then **Project
+In the Cast Operations dashboard, click **More** in the nav bar, then **Project
 Settings**, then **Custom Domain**. Add your custom domain and verify it — the
 verification code is shown on that page.
 

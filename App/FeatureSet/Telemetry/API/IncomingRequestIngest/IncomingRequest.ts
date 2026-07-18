@@ -33,7 +33,7 @@ const processIncomingRequest: RequestHandler = async (
 
     const probeIdHeader: string | undefined = (
       requestHeaders["oneuptime-probe-id"] ||
-      requestHeaders["OneUptime-Probe-Id"]
+      requestHeaders["Cast Operations-Probe-Id"]
     )?.toString();
 
     // Return response immediately

@@ -1,6 +1,6 @@
 # IoT Device Monitor
 
-IoT Device monitors alert on the telemetry your fleets push to OneUptime — device offline, low battery, weak signal, high temperature, high CPU, or any custom condition over the `iot_*` metrics. They evaluate the ingested data directly (no probe involved), so they work identically whether your devices report over OpenTelemetry or MQTT.
+IoT Device monitors alert on the telemetry your fleets push to Cast Operations — device offline, low battery, weak signal, high temperature, high CPU, or any custom condition over the `iot_*` metrics. They evaluate the ingested data directly (no probe involved), so they work identically whether your devices report over OpenTelemetry or MQTT.
 
 Before creating one, get your devices reporting — see [IoT Devices ingestion guide](/docs/telemetry/iot-devices).
 
@@ -10,7 +10,7 @@ An IoT Device monitor targets one **fleet** and evaluates a metric query over a 
 
 ## Creating an IoT Device Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **IoT Device** as the monitor type
 4. Pick the fleet, then configure via one of the three tabs below
@@ -48,7 +48,7 @@ A full metric query builder over anything the fleet reports — including your o
 The Device Offline template fires when a device reports `iot_device_up = 0`. Three ways a silent or dead device trips it:
 
 - **Gateway-reported**: the gateway or collector publishes `iot_device_up = 0` for devices it can no longer reach.
-- **MQTT Last Will**: devices connecting over OneUptime's MQTT endpoint can register a Last Will on their `status` topic. If the device dies, the broker publishes `iot_device_up = 0` on its behalf the moment the session drops — no polling, no missed-scrape delay. See [Sending Metrics via MQTT](/docs/telemetry/iot-devices).
+- **MQTT Last Will**: devices connecting over Cast Operations’ MQTT endpoint can register a Last Will on their `status` topic. If the device dies, the broker publishes `iot_device_up = 0` on its behalf the moment the session drops — no polling, no missed-scrape delay. See [Sending Metrics via MQTT](/docs/telemetry/iot-devices).
 - **Registered devices** (silent-death detection): devices registered under the fleet's **Device Registry** tab are treated as *expected*. When a registered device produces no data at all in the evaluation window, the monitor synthesizes an empty series for it and the Device Offline template's treat-no-data-as-zero policy folds it to `iot_device_up = 0` — one incident per silent device, which auto-resolves when the device reports again. Registered devices also stay in the fleet inventory as Offline instead of being pruned after 15 minutes of silence. This needs a Device Offline monitor whose `iot_device_up` criteria carries the **Treat as Zero** no-data policy — monitors created from the Quick Setup template now include it, but a Device Offline monitor created before device registration shipped must be recreated from the template (or have Treat as Zero enabled on its criteria) to pick it up.
 
 An *unregistered* device that goes silent without a Last Will or gateway report simply stops producing series data and cannot be singled out by a per-device grouped monitor — the no-data policy only fires when the whole query returns no data (for example, the entire fleet goes dark). Register your devices to close that gap, or for an individual critical device, create a monitor scoped to just that device (Custom Metric tab → Device ID filter) with the no-data policy set to Trigger.

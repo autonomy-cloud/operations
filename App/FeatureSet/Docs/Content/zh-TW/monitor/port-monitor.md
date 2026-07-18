@@ -1,6 +1,6 @@
 # 連接埠監控
 
-連接埠監控可讓您監控主機上特定 TCP 或 UDP 連接埠的可用性。OneUptime 會定期嘗試連線至指定的連接埠，並檢查其是否處於開啟且可回應的狀態。
+連接埠監控可讓您監控主機上特定 TCP 或 UDP 連接埠的可用性。Cast Operations 會定期嘗試連線至指定的連接埠，並檢查其是否處於開啟且可回應的狀態。
 
 ## 總覽
 
@@ -13,7 +13,7 @@
 
 ## 建立連接埠監控
 
-1. 在 OneUptime Dashboard 中前往 **Monitors**
+1. 在 Cast Operations Dashboard 中前往 **Monitors**
 2. 點擊 **Create Monitor**
 3. 選擇 **Port** 作為監控類型
 4. 輸入主機名稱或 IP 位址以及連接埠號碼

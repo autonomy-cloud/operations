@@ -1,5 +1,5 @@
 {{- if and $.Values.worker.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime worker Deployment
+# Cast Operations worker Deployment
 #
 # Runs the SAME image as `app` (App/Index.ts) but as the "worker" role: it
 # registers the BullMQ queue consumers (telemetry ingestion processing, the
@@ -152,7 +152,7 @@ spec:
 
 ---
 
-# OneUptime worker autoscaler (skip HPA when KEDA is managing scaling)
+# Cast Operations worker autoscaler (skip HPA when KEDA is managing scaling)
 {{- if and (not $.Values.worker.disableAutoscaler) (not (and $.Values.keda.enabled $.Values.worker.keda.enabled)) }}
 {{- $workerAutoScalerArgs := dict "ServiceName" "worker" "Release" $.Release "Values" $.Values "Override" $.Values.worker.autoscaling -}}
 {{- include "oneuptime.autoscaler" $workerAutoScalerArgs }}
@@ -161,7 +161,7 @@ spec:
 {{- end }}
 
 {{- if and $.Values.worker.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime worker Service (ClusterIP, http only — for health probes and the
+# Cast Operations worker Service (ClusterIP, http only — for health probes and the
 # KEDA /metrics/queue-size endpoint; no gRPC and no external ingress).
 {{- $workerPorts := dict "http" $.Values.worker.ports.http -}}
 {{- $workerServiceArgs := dict "ServiceName" "worker" "Ports" $workerPorts "Release" $.Release "Values" $.Values -}}
@@ -170,6 +170,6 @@ spec:
 {{- end }}
 
 {{- if and $.Values.worker.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime worker PodDisruptionBudget
+# Cast Operations worker PodDisruptionBudget
 {{- include "oneuptime.pdb" (dict "ServiceName" "worker" "Override" $.Values.worker.podDisruptionBudget "Release" $.Release "Values" $.Values) }}
 {{- end }}

@@ -1,21 +1,21 @@
 # Discord 整合
 
-將事件更新發佈到 [Discord](https://discord.com) 頻道。OneUptime 內建了 **Discord** 工作流程元件，因此這是最容易設定的整合之一。
+將事件更新發佈到 [Discord](https://discord.com) 頻道。Cast Operations 內建了 **Discord** 工作流程元件，因此這是最容易設定的整合之一。
 
-此整合為**對外（outbound）**：OneUptime 透過傳入 webhook URL 發佈訊息到 Discord 頻道。
+此整合為**對外（outbound）**：Cast Operations 透過傳入 webhook URL 發佈訊息到 Discord 頻道。
 
 ```text
-OneUptime Incident → On Create  ──►  Discord component  ──►  message in your channel
+Cast Operations Incident → On Create  ──►  Discord component  ──►  message in your channel
 ```
 
 ## 步驟 1 — 建立 Discord webhook
 
 1. 在 Discord 中，開啟目標頻道的 **Edit Channel → Integrations → Webhooks**。
-2. 點選 **New Webhook**，為它命名（例如 `OneUptime`），選擇頻道，然後點選 **Copy Webhook URL**。
+2. 點選 **New Webhook**，為它命名（例如 `Cast Operations`），選擇頻道，然後點選 **Copy Webhook URL**。
 
 ## 步驟 2 — 儲存 webhook URL（選用但建議）
 
-1. 在 OneUptime 中，前往 **Workflows → Global Variables → Create**。
+1. 在 Cast Operations 中，前往 **Workflows → Global Variables → Create**。
 2. 將它命名為 `DISCORD_WEBHOOK_URL`，貼上 URL，並開啟 **Is Secret**。
 
 將它保存在變數中，意味著您可以在多個工作流程中重複使用它，並在同一個地方輪替它。

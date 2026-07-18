@@ -1,27 +1,27 @@
 # LLM Providers
 
-OneUptime supports integrating with various Large Language Model (LLM) providers to enable AI-powered features throughout the platform. This guide will help you configure your own LLM provider.
+Cast Operations supports integrating with various Large Language Model (LLM) providers to enable AI-powered features throughout the platform. This guide will help you configure your own LLM provider.
 
 ## What Can LLM Providers Do?
 
-LLM Providers in OneUptime help you automate and enhance your incident management workflow:
+LLM Providers in Cast Operations help you automate and enhance your incident management workflow:
 
 - **Autonomous Investigations**: Automatically investigate new incidents and alerts and post a cited root cause analysis to the timeline — see [AI SRE](/docs/ai/ai-sre)
 - **Incident Notes**: Automatically generate detailed incident notes and updates
 - **Alert Notes**: Create meaningful alert descriptions and context
 - **Scheduled Maintenance Notes**: Generate maintenance event notes automatically
 - **Incident Postmortems**: Automatically draft comprehensive incident postmortem reports
-- **Code Improvements**: If you connect your code repository to OneUptime, we will use your LLM Provider to analyze telemetry data (logs, traces, metrics, exceptions) and suggest code improvements
+- **Code Improvements**: If you connect your code repository to Cast Operations, we will use your LLM Provider to analyze telemetry data (logs, traces, metrics, exceptions) and suggest code improvements
 
-## OneUptime SaaS Users
+## Cast Operations SaaS Users
 
-If you are using **OneUptime SaaS** (cloud-hosted version), you can use the **Global LLM Provider** by default without any additional configuration. The Global LLM Provider is pre-configured and ready to use for all AI features.
+If you are using **Cast Operations SaaS** (cloud-hosted version), you can use the **Global LLM Provider** by default without any additional configuration. The Global LLM Provider is pre-configured and ready to use for all AI features.
 
 If you prefer to use your own API keys or a specific provider, you can still configure a custom LLM Provider following the instructions below.
 
 ## Self-Hosted: Zero-Config via Environment Variables
 
-On a self-hosted instance, the fastest way to enable AI features for **every project at once** is to set the `GLOBAL_LLM_PROVIDER_*` environment variables on your OneUptime server — in `config.env` for Docker Compose, or through Helm values. At startup, OneUptime registers (and keeps in sync) a Global LLM Provider from them; no per-project dashboard setup is needed, and AI fix tasks use it too when a project has no provider of its own.
+On a self-hosted instance, the fastest way to enable AI features for **every project at once** is to set the `GLOBAL_LLM_PROVIDER_*` environment variables on your Cast Operations server — in `config.env` for Docker Compose, or through Helm values. At startup, Cast Operations registers (and keeps in sync) a Global LLM Provider from them; no per-project dashboard setup is needed, and AI fix tasks use it too when a project has no provider of its own.
 
 | Variable                         | Description                                                                                                       |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -52,7 +52,7 @@ The sync is declarative: changing the variables updates the provider on the next
 
 ## Supported Providers
 
-OneUptime currently supports the following LLM providers:
+Cast Operations currently supports the following LLM providers:
 
 | Provider              | Description                                                             | API Key Required | Base URL Required |
 | --------------------- | ----------------------------------------------------------------------- | ---------------- | ----------------- |
@@ -68,7 +68,7 @@ OneUptime currently supports the following LLM providers:
 
 ### Step 1: Navigate to LLM Providers Settings
 
-1. Log in to your OneUptime dashboard
+1. Log in to your Cast Operations dashboard
 2. Go to **Project Settings** > **AI** > **LLM Providers**
 3. Click **Create LLM Provider** to add a new provider
 
@@ -177,7 +177,7 @@ API Key: (leave blank)
 
 ### Self-Hosted vLLM on Kubernetes (Helm)
 
-If you self-host OneUptime with the Helm chart, you can run [vLLM](https://docs.vllm.ai) — an OpenAI-compatible inference server — inside your cluster and serve local models on your own GPUs. No data leaves your infrastructure.
+If you self-host Cast Operations with the Helm chart, you can run [vLLM](https://docs.vllm.ai) — an OpenAI-compatible inference server — inside your cluster and serve local models on your own GPUs. No data leaves your infrastructure.
 
 1. Enable it in your Helm values (requires NVIDIA GPU nodes):
 
@@ -207,7 +207,7 @@ Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-See the [Helm chart README](https://github.com/OneUptime/oneuptime/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) for GPU scheduling, gated models and tuning options.
+See the [Helm chart README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) for GPU scheduling, gated models and tuning options.
 
 ## Using Custom Base URLs
 
@@ -243,5 +243,5 @@ For enterprise deployments or when using proxy services, you can specify a custo
 
 If you encounter issues setting up your LLM provider, please:
 
-1. Check the [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) for known problems
+1. Check the [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) for known problems
 2. Contact support if you're on an enterprise plan

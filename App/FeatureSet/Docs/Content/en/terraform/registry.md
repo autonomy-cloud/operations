@@ -2,15 +2,15 @@
 
 ## Installation from Terraform Registry
 
-The OneUptime Terraform Provider is available on the official [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime).
+The Cast Operations Terraform Provider is available on the official [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations).
 
-### For OneUptime Cloud Users
+### For Cast Operations Cloud Users
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use latest compatible version
     }
   }
@@ -18,60 +18,60 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
 
-### For Self-Hosted OneUptime Users
+### For Self-Hosted Cast Operations Users
 
-⚠️ **Critical**: Self-hosted customers must pin the provider version to match their OneUptime installation exactly.
+⚠️ **Critical**: Self-hosted customers must pin the provider version to match their Cast Operations installation exactly.
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Replace with your exact OneUptime version
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Replace with your exact Cast Operations version
     }
   }
   required_version = ">= 1.0"
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # Your self-hosted URL
+  oneuptime_url = "https://operations.yourcompany.com"  # Your self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Why Version Pinning for Self-Hosted?
 
-The OneUptime Terraform provider is automatically generated from the OneUptime API specification. Each OneUptime version may have:
+The Cast Operations Terraform provider is automatically generated from the Cast Operations API specification. Each Cast Operations version may have:
 
 - Different API endpoints
 - Updated resource schemas
 - New or removed features
 - Changed validation rules
 
-Using a provider version that doesn't match your OneUptime installation can result in:
+Using a provider version that doesn't match your Cast Operations installation can result in:
 
 - API compatibility errors
 - Failed resource creation/updates
 - Unexpected behavior
 - Resource state drift
 
-## Finding Your OneUptime Version
+## Finding Your Cast Operations Version
 
 ### Method 1: Dashboard
 
-1. Log into your OneUptime dashboard
+1. Log into your Cast Operations dashboard
 2. Go to **Settings** → **About**
 3. Note the version number (e.g., "7.0.123")
 
 ### Method 2: API
 
 ```bash
-curl https://your-oneuptime-instance.com/api/version | jq '.version'
+curl https://your-operations-instance.com/api/version | jq '.version'
 ```
 
 ### Method 3: Docker
@@ -83,14 +83,14 @@ docker images | grep oneuptime
 
 ## Provider Registry Information
 
-- **Registry URL**: https://registry.terraform.io/providers/oneuptime/oneuptime
-- **Source Repository**: https://github.com/OneUptime/terraform-provider-oneuptime
-- **Documentation**: https://registry.terraform.io/providers/oneuptime/oneuptime/latest/docs
-- **Releases**: https://github.com/OneUptime/terraform-provider-oneuptime/releases
+- **Registry URL**: https://registry.terraform.io/providers/autonomy-cloud/operations
+- **Source Repository**: https://github.com/autonomy-cloud/operations
+- **Documentation**: https://registry.terraform.io/providers/autonomy-cloud/operations/latest/docs
+- **Releases**: https://github.com/autonomy-cloud/operations
 
 ## Version Compatibility Matrix
 
-| OneUptime Version | Provider Version | Terraform Config       |
+| Cast Operations Version | Provider Version | Terraform Config       |
 | ----------------- | ---------------- | ---------------------- |
 | 7.0.x             | 7.0.x            | `version = "~> 7.0.0"` |
 | 7.1.x             | 7.1.x            | `version = "~> 7.1.0"` |
@@ -103,14 +103,14 @@ docker images | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Adjust for self-hosted
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # Adjust for self-hosted
+  oneuptime_url = "https://visca.ai"  # Adjust for self-hosted
   api_key       = var.oneuptime_api_key
 }
 
@@ -152,4 +152,4 @@ resource "oneuptime_monitor" "website" {
 
 ## Registry Updates
 
-The provider is automatically published to the Terraform Registry when new OneUptime versions are released. Cloud users can use semantic versioning (`~> 7.0`) to automatically get compatible updates, while self-hosted users should pin to exact versions.
+The provider is automatically published to the Terraform Registry when new Cast Operations versions are released. Cloud users can use semantic versioning (`~> 7.0`) to automatically get compatible updates, while self-hosted users should pin to exact versions.

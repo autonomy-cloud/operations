@@ -26,7 +26,7 @@ Bruk det for noe bare et menneske kan verifisere: "Trafikken er flyttet til seku
 
 ### JavaScript
 
-En JavaScript-snutt som kjøres i en `isolated-vm`-sandkasse. Sandkassen lever på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur — ikke på OneUptime-Worker'en.
+En JavaScript-snutt som kjøres i en `isolated-vm`-sandkasse. Sandkassen lever på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur — ikke på Cast Operations-Worker'en.
 
 Konfigurer to ting på et JavaScript-trinn:
 
@@ -45,11 +45,11 @@ Returverdien lagres på trinn-kjøringen. `console.log`-output fanges som loglin
 
 Et utgående HTTP-kall. Konfigurer metode (GET/POST/PUT/PATCH/DELETE/HEAD), URL, valgfrie JSON-headere og valgfri body. Status, headere og body på svaret lagres (totalt opp til 50 KB).
 
-Nyttig for: åpne en PagerDuty-hendelse, poste på Slack, kalle din egen admin-API osv. HTTP-trinn kjører direkte på OneUptime-Worker'en; ingen agent påkrevd.
+Nyttig for: åpne en PagerDuty-hendelse, poste på Slack, kalle din egen admin-API osv. HTTP-trinn kjører direkte på Cast Operations-Worker'en; ingen agent påkrevd.
 
 ### Bash
 
-Et bash-skript (`bash -c <skript>`) som kjøres på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur. Bash kjøres aldri på OneUptime-Worker'en.
+Et bash-skript (`bash -c <skript>`) som kjøres på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur. Bash kjøres aldri på Cast Operations-Worker'en.
 
 Konfigurer to ting på et Bash-trinn:
 
@@ -60,7 +60,7 @@ Hvis den valgte agenten er offline når runbook'et når dette trinnet, venter tr
 
 ### AI
 
-Be AI om å analysere, oppsummere eller avgjøre noe midt i kjøringen. Prompten sendes til prosjektets LLM-leverandør (**Innstillinger → AI → LLM Providers**), og modellens svar blir trinnets output på kjøringstidslinjen. AI-trinn kjører på OneUptime-Worker'en; ingen agent påkrevd.
+Be AI om å analysere, oppsummere eller avgjøre noe midt i kjøringen. Prompten sendes til prosjektets LLM-leverandør (**Innstillinger → AI → LLM Providers**), og modellens svar blir trinnets output på kjøringstidslinjen. AI-trinn kjører på Cast Operations-Worker'en; ingen agent påkrevd.
 
 Konfigurer på et AI-trinn:
 

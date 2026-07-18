@@ -2,7 +2,7 @@
 <!--
   Cluster + embedded-Keeper drop-in for the bundled single-node ClickHouse.
 
-  OneUptime's analytics schema is ALWAYS sharded + replicated (Distributed tables
+  Cast Operations’ analytics schema is ALWAYS sharded + replicated (Distributed tables
   over local ReplicatedMergeTree). A single node is a "cluster of one": one shard,
   one replica, with ClickHouse Keeper running EMBEDDED in this same server process
   (no extra container). This drop-in is merged into the server config from

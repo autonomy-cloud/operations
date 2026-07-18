@@ -4,7 +4,7 @@ Runbooks zijn herbruikbare responsprocedures — geordende lijsten van handmatig
 
 ## In één oogopslag
 
-- **Top-level feature** in het OneUptime-dashboard onder **Analytics & Automation → Runbooks**.
+- **Top-level feature** in het Cast Operations-dashboard onder **Analytics & Automation → Runbooks**.
 - **Vijf staptypes**: Handmatige checklist, JavaScript (in sandbox) en Bash (beide draaien op een [Runbook-agent](/docs/runbooks/agents) in je eigen infrastructuur), HTTP-verzoek, en AI (analyseert incident- en stapcontext met de LLM-provider van je project).
 - **Drie triggerpaden**: regels die matchen op incidenten/alerts/gepland onderhoud, of een handmatige "Runbook uitvoeren"-knop op elk event.
 - **Snapshot-semantiek**: zodra een runbook start, worden zijn stappen naar de uitvoering gekopieerd. Het later bewerken van de template wijzigt nooit een lopende run.
@@ -35,7 +35,7 @@ Een paar termen komen telkens terug in de rest van de runbook-docs. Krijg deze e
 ## De levenscyclus van een runbook
 
 1. **Schrijven** — Maak een runbook aan en zet er een mix van Handmatige, JavaScript-, HTTP-, Bash- en AI-stappen in. Opslaan.
-2. **(Optioneel) Een regel toevoegen** — Vertel OneUptime in de instellingen van Incidenten, Alerts of Gepland Onderhoud om dit runbook te starten zodra de titel of beschrijving van een event matcht met een regex.
+2. **(Optioneel) Een regel toevoegen** — Vertel Cast Operations in de instellingen van Incidenten, Alerts of Gepland Onderhoud om dit runbook te starten zodra de titel of beschrijving van een event matcht met een regex.
 3. **Triggeren** — Of de regel gaat automatisch af bij het aanmaken van een passend event, of een responder klikt handmatig op **Runbook uitvoeren** op het event.
 4. **Uitvoeren** — Er wordt een nieuwe uitvoering aangemaakt met een snapshot van de stappen. Geautomatiseerde stappen draaien inline op de Runbook-worker; de uitvoering pauzeert bij elke handmatige stap totdat iemand hem afvinkt.
 5. **Auditeren** — De uitvoering blijft voor altijd op het **Runbooks**-tabblad van het event en op de **Executions**-lijst van het runbook staan. Output, fouten en timings per stap worden bewaard voor de post-mortem.
@@ -46,7 +46,7 @@ Een snelle beslissingsgids. De langere uitleg staat in [Een runbook schrijven](/
 
 | Staptype         | Grijp hiernaar wanneer…                                                                                                                                                                                                                          | Voorbeeld                                                                                 |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| **Handmatig**    | Een mens moet iets verifiëren, een afweging maken of een actie uitvoeren die OneUptime niet kan observeren.                                                                                                                                      | "Bevestig secundaire-regioverkeer op het load-balancer-dashboard."                        |
+| **Handmatig**    | Een mens moet iets verifiëren, een afweging maken of een actie uitvoeren die Cast Operations niet kan observeren.                                                                                                                                      | "Bevestig secundaire-regioverkeer op het load-balancer-dashboard."                        |
 | **JavaScript**   | Je hebt een kleine, afgesloten berekening nodig — een configuratieservice bevragen, een payload transformeren, logica draaien vóór de volgende stap. Draait in sandbox op een [Runbook-agent](/docs/runbooks/agents) in je eigen infrastructuur. | Huidige replica-lag berekenen en beslissen of doorgegaan wordt.                           |
 | **HTTP-verzoek** | Je roept een bestaande API aan — je eigen admin-endpoint, een cloudprovider, PagerDuty, Slack.                                                                                                                                                   | `POST` naar je failover-orchestrator.                                                     |
 | **Bash**         | Je moet shell-commando's draaien op je eigen infrastructuur — een service herstarten, `kubectl` aanroepen, een deploy-script aanroepen. Vereist een [Runbook-agent](/docs/runbooks/agents) die in je omgeving is geïnstalleerd.                  | Een service herstarten, `kubectl rollout restart` draaien, een recovery-script aanroepen. |
@@ -106,7 +106,7 @@ Runbooks:       [DB primary failover]
 
 **4. Auditeren.** De uitvoering blijft op het **Runbooks**-tabblad van het incident. De output van elke stap is één klik weg. Wanneer je volgende week de post-mortem schrijft, hoef je niet te vragen "wat gaf dat script terug?" — het staat er gewoon.
 
-## Hoe runbooks samen werken met de rest van OneUptime
+## Hoe runbooks samen werken met de rest van Cast Operations
 
 - **Monitors** openen incidenten en alerts; **runbook-regels** zetten die events om in runbook-uitvoeringen. Samen vormen ze een gesloten lus: detecteren → triggeren → reageren → vastleggen.
 - **Workspace-verbindingen** (Slack, Microsoft Teams) zijn een natuurlijk doel voor runbook-HTTP-stappen — status-updates posten, kanalen informeren.

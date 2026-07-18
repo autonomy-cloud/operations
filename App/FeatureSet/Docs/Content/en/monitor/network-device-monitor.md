@@ -6,7 +6,7 @@ Network Device monitoring lets you monitor switches, routers, firewalls, access 
 
 The Network Devices product is made up of:
 
-- **Device inventory** — register each device once with its hostname and SNMP credentials. OneUptime enriches the record with the device's system identity (name, description, location, vendor, model, serial number) from the first poll.
+- **Device inventory** — register each device once with its hostname and SNMP credentials. Cast Operations enriches the record with the device's system identity (name, description, location, vendor, model, serial number) from the first poll.
 - **Subnet discovery** — sweep a subnet (CIDR) for SNMP devices from a probe and import the responders in bulk.
 - **Network Device monitors** — poll a registered device on a schedule: availability, response time, custom OIDs, and per-interface status, bandwidth, utilization, and errors.
 - **SNMP traps** — probes run a trap receiver, so link-down events raise incidents in seconds instead of waiting for the next poll.
@@ -14,7 +14,7 @@ The Network Devices product is made up of:
 
 ## Registering a Network Device
 
-1. Go to **Network Devices** in the OneUptime Dashboard
+1. Go to **Network Devices** in the Cast Operations Dashboard
 2. Click **Create Network Device**
 3. Configure the device as described below
 
@@ -53,7 +53,7 @@ SNMPv3 provides authentication and encryption:
 
 ### Device Identity
 
-After the first successful poll, OneUptime reads the SNMPv2 system group and (where supported) the ENTITY-MIB, and fills in the device record automatically: system name, description, location, contact, uptime, vendor, model, serial number, and firmware version. The vendor's registered enterprise OID (`sysObjectId`) is used as the device fingerprint to derive the vendor name and suggest a matching vendor OID template.
+After the first successful poll, Cast Operations reads the SNMPv2 system group and (where supported) the ENTITY-MIB, and fills in the device record automatically: system name, description, location, contact, uptime, vendor, model, serial number, and firmware version. The vendor's registered enterprise OID (`sysObjectId`) is used as the device fingerprint to derive the vendor name and suggest a matching vendor OID template.
 
 ## Discovering Devices with a Subnet Scan
 
@@ -76,7 +76,7 @@ Imported devices are created with the responding IP as the hostname, the device'
 
 ## Creating a Network Device Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Network Device** as the monitor type
 4. Pick the registered **Network Device** to monitor — connection details (hostname, credentials, polling probe) come from the device, the monitor only chooses what to watch
@@ -146,7 +146,7 @@ After applying the pack, pick severities and on-call policies for each criteria 
 
 ## SNMP Traps
 
-Polling catches problems on the next check; traps catch them in seconds. Every probe runs an SNMP trap receiver that listens for v1 and v2c traps/informs and forwards them to your OneUptime instance.
+Polling catches problems on the next check; traps catch them in seconds. Every probe runs an SNMP trap receiver that listens for v1 and v2c traps/informs and forwards them to your Cast Operations instance.
 
 ### Enabling the Trap Receiver
 
@@ -176,8 +176,8 @@ snmp-server host <probe-ip> traps version 2c <community>
 
 Traps are matched through the device inventory:
 
-1. A trap arrives at a probe's receiver and is forwarded to OneUptime
-2. OneUptime looks up registered Network Devices polled by that probe whose **hostname equals the trap's source IP address**
+1. A trap arrives at a probe's receiver and is forwarded to Cast Operations
+2. Cast Operations looks up registered Network Devices polled by that probe whose **hostname equals the trap's source IP address**
 3. Every Network Device monitor that references a matching device evaluates the trap against its criteria — typically an **SNMP Trap Received (Trap OID)** filter
 
 For matching to work, register the device with the IP address it sends traps from. SNMPv1 generic traps (coldStart, linkDown, linkUp, ...) are normalized to their standard SNMPv2 notification OIDs — for example, linkDown matches trap OID `1.3.6.1.6.3.1.1.5.3` regardless of SNMP version.

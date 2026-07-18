@@ -1,6 +1,6 @@
 # Local AI with vLLM
 
-OneUptime's AI features (AI Agent, incident/exception AI) talk to LLM providers
+Cast Operations’ AI features (AI Agent, incident/exception AI) talk to LLM providers
 configured in the dashboard. Any OpenAI-compatible endpoint works via a custom
 Base URL. This chart can optionally run [vLLM](https://docs.vllm.ai) — a
 production-grade, OpenAI-compatible inference server — **inside your cluster**, so
@@ -41,7 +41,7 @@ fit your GPU's memory at its full context window, cap it with
 When enabled, vLLM is **registered automatically as a Global LLM Provider** at
 startup (`vllm.globalProvider.enabled`, default `true`), so AI features work for
 all projects with no dashboard setup. It appears under **AI Agents > LLM
-Providers** as "OneUptime AI" (configurable via `vllm.globalProvider.name` and
+Providers** as "Cast Operations AI" (configurable via `vllm.globalProvider.name` and
 `vllm.globalProvider.description`).
 
 The registration is declarative:

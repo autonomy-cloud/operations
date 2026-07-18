@@ -1,10 +1,10 @@
 # 分享與公開儀表板
 
-預設情況下，儀表板僅供您專案私下使用 — 只有登入的團隊成員才能查看。但 OneUptime 也讓您可以公開分享儀表板、用密碼保護它、限制特定 IP 存取，以及將它託管於您自己的網域。本頁涵蓋這四種方式。
+預設情況下，儀表板僅供您專案私下使用 — 只有登入的團隊成員才能查看。但 Cast Operations 也讓您可以公開分享儀表板、用密碼保護它、限制特定 IP 存取，以及將它託管於您自己的網域。本頁涵蓋這四種方式。
 
 ## 私有儀表板（預設）
 
-儀表板僅供您專案已登入的成員存取。其 URL 看起來像 `https://oneuptime.com/dashboards/<id>/view`，且需要登入。
+儀表板僅供您專案已登入的成員存取。其 URL 看起來像 `https://visca.ai/dashboards/<id>/view`，且需要登入。
 
 在專案內，由擁有者與標籤控制誰可以看到什麼 — 請參閱[組態與權限](/docs/dashboards/configuration)。
 
@@ -51,11 +51,11 @@
 
 ## 自訂網域
 
-開箱即用時，公開儀表板會在 `oneuptime.com` 上提供。要將它託管於您自己的子網域，例如 `dashboard.acme.com`：
+開箱即用時，公開儀表板會在 `visca.ai` 上提供。要將它託管於您自己的子網域，例如 `dashboard.acme.com`：
 
-1. 在您的 DNS 上新增一筆 CNAME 記錄，將子網域指向 OneUptime 的目標。
+1. 在您的 DNS 上新增一筆 CNAME 記錄，將子網域指向 Cast Operations 的目標。
 2. 在 **Dashboard → Settings → Custom Domains** 下，新增該網域。
-3. 驗證它。OneUptime 會替您檢查 DNS 記錄。
+3. 驗證它。Cast Operations 會替您檢查 DNS 記錄。
 4. 一旦驗證完成，儀表板便可在您的自訂網域和原始 URL 兩者上存取。
 
 自訂網域適用於：
@@ -75,7 +75,7 @@
 - **Logo** — 上傳 PNG 或 SVG 以顯示在頁首。
 - **Favicon** — 瀏覽器分頁中的小圖示。
 
-品牌識別僅在公開檢視儀表板時套用。內部檢視者一律看到 OneUptime 的品牌識別。
+品牌識別僅在公開檢視儀表板時套用。內部檢視者一律看到 Cast Operations 的品牌識別。
 
 ## 嵌入
 

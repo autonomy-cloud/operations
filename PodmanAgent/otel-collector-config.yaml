@@ -8,7 +8,7 @@ receivers:
     # receiver in otel-contrib).
     api_version: "1.44"
     collection_interval: 30s
-    # Enable optional metrics that the OneUptime Podman monitor alert
+    # Enable optional metrics that the Cast Operations Podman monitor alert
     # templates depend on (container restarts, uptime, pid count,
     # CPU throttling). These are OFF by default in the contrib
     # docker_stats receiver and must be explicitly turned on.
@@ -80,7 +80,7 @@ receivers:
       # "    at ..." frames) arrives as many separate log records.
       # Recombine consecutive entries from the same container log file
       # into a single record so exceptions show up as one log line in the
-      # OneUptime UI. We treat any line that begins with whitespace or a
+      # Cast Operations UI. We treat any line that begins with whitespace or a
       # closing bracket/brace/paren as a continuation of the previous
       # entry, which covers stack frames, pretty-printed JSON, and
       # multi-line error details. source_identifier keeps records from
@@ -121,7 +121,7 @@ receivers:
   #   {"oneuptime.podman.kind":"Container","data":{...}}
   # The json_parser promotes both fields to attributes, then we move
   # `data` into the body and surface the kind on a dedicated log
-  # record attribute the OneUptime backend reads.
+  # record attribute the Cast Operations backend reads.
   filelog/inventory:
     include:
       - /var/log/oneuptime-podman-inventory.log

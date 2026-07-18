@@ -12,17 +12,17 @@ const SlackIntegrationDocumentation: FunctionComponent<ComponentProps> = (
 ): ReactElement => {
   const markdwonText: string = `
 
-##### Step 1: Since this is a self hosted install, you need to create a Slack App with this manifest. 
+##### Step 1: Since this is a self hosted install, you need to create a Slack App with this manifest.
 
-Please create a Slack App with the following manifest. You can do this by going to https://api.slack.com/apps and creating a new app. 
+Please create a Slack App with the following manifest. You can do this by going to https://api.slack.com/apps and creating a new app.
 
 \`\`\`json
 ${JSON.stringify(props.manifest, null, 2)}
 \`\`\`
 
-##### Step 2: Add these env variables to your OneUptime server
+##### Step 2: Add these env variables to your Cast Operations server
 
-If you are using Docker Compose then, 
+If you are using Docker Compose then,
 
 \`\`\`bash
 SLACK_APP_CLIENT_ID=YOUR_SLACK_APP_CLIENT_ID
@@ -34,25 +34,25 @@ SLACK_APP_SIGNING_SECRET=YOUR_SLACK_APP_SIGNING_SECRET
 If you are using Kubernetes with Helm then, add these to your \`values.yaml\` file
 
 \`\`\`text
-slackApp: 
+slackApp:
   clientId:
   clientSecret:
   signingSecret:
 \`\`\`
 
-##### Step 3: Restart your OneUptime server
+##### Step 3: Restart your Cast Operations server
 
-You need to restart your OneUptime server to apply these changes. Once you have restarted the server, you should see the "Connect to Slack" button on this page. 
+You need to restart your Cast Operations server to apply these changes. Once you have restarted the server, you should see the "Connect to Slack" button on this page.
 
-We would like to improve this integration, so feedback is more than welcome. Please send us any at hello@oneuptime.com
+We would like to improve this integration, so feedback is more than welcome. Please send us any at hello@visca.ai
 
 
     `;
 
   return (
     <Card
-      title={`Integrating Slack with your OneUptime Project`}
-      description={`Slack is not connected to OneUptime. Here are some of the steps you need to do to integrate Slack with your OneUptime Project`}
+      title={`Integrating Slack with your Cast Operations Project`}
+      description={`Slack is not connected to Cast Operations. Here are some of the steps you need to do to integrate Slack with your Cast Operations Project`}
     >
       <MarkdownViewer text={markdwonText} />
     </Card>

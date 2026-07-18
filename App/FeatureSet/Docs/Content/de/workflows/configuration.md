@@ -4,7 +4,7 @@ Diese Seite behandelt die Einstellungen und Sicherheitsgrenzen, die Sie kennen s
 
 ## Einen Workflow ein- oder ausschalten
 
-Jeder Workflow hat einen Schalter **Aktiviert** in den **Einstellungen**. Solange er aus ist, läuft der Workflow nicht – Webhook-Aufrufe, geplante Zeiten und OneUptime-Ereignisse werden ignoriert. Neue Workflows starten deaktiviert.
+Jeder Workflow hat einen Schalter **Aktiviert** in den **Einstellungen**. Solange er aus ist, läuft der Workflow nicht – Webhook-Aufrufe, geplante Zeiten und Cast Operations-Ereignisse werden ignoriert. Neue Workflows starten deaktiviert.
 
 Nutzen Sie diesen Schalter als „startbereit"-Schranke:
 
@@ -53,11 +53,11 @@ Webhook-Auslöser stellen Ihnen eine eindeutige URL bereit. Jeder, der diese URL
 
 - Behandeln Sie die URL wie ein Passwort. Veröffentlichen Sie sie nicht und legen Sie sie nicht in ein öffentliches Repository.
 - Bitten Sie bei sensiblen Workflows das aufrufende System, ein gemeinsames Token als Header (zum Beispiel `X-Webhook-Token`) mitzusenden, und prüfen Sie es vor jeder wichtigen Aktion mit einem **Bedingungen**-Baustein. Speichern Sie das erwartete Token als geheime Variable.
-- Bei besonders sensiblen Workflows greifen Sie lieber zu einem OneUptime-Ereignis-Auslöser und einem manuellen Importschritt statt zu einem öffentlichen Webhook.
+- Bei besonders sensiblen Workflows greifen Sie lieber zu einem Cast Operations-Ereignis-Auslöser und einem manuellen Importschritt statt zu einem öffentlichen Webhook.
 
 ## Ausgehender Netzwerkzugriff
 
-API- und andere HTTP-Bausteine stellen ihre Anfragen aus OneUptime heraus. Wenn Sie selbst hosten, stellen Sie sicher, dass Ihre Installation die gewünschten Dienste erreichen kann. Bei OneUptime Cloud finden Sie unsere ausgehenden IP-Bereiche unter [IP-Adressen](/docs/configuration/ip-addresses), damit Sie sie auf der Gegenseite freigeben können.
+API- und andere HTTP-Bausteine stellen ihre Anfragen aus Cast Operations heraus. Wenn Sie selbst hosten, stellen Sie sicher, dass Ihre Installation die gewünschten Dienste erreichen kann. Bei Cast Operations Cloud finden Sie unsere ausgehenden IP-Bereiche unter [IP-Adressen](/docs/configuration/ip-addresses), damit Sie sie auf der Gegenseite freigeben können.
 
 ## Berechtigungen
 
@@ -72,14 +72,14 @@ Die meisten Engineers sollten Workflows erstellen/bearbeiten/lesen dürfen, aber
 
 ## Tariflimits
 
-OneUptime Cloud begrenzt die monatliche Anzahl der Ausführungen in kleineren Tarifen. Ihr aktuelles Limit finden Sie unter **Projekteinstellungen → Abrechnung**. Sobald es erreicht ist, werden neue Auslöser bis zum nächsten Abrechnungszyklus abgelehnt. Selbst gehostete Installationen unterliegen diesem Limit nicht.
+Cast Operations Cloud begrenzt die monatliche Anzahl der Ausführungen in kleineren Tarifen. Ihr aktuelles Limit finden Sie unter **Projekteinstellungen → Abrechnung**. Sobald es erreicht ist, werden neue Auslöser bis zum nächsten Abrechnungszyklus abgelehnt. Selbst gehostete Installationen unterliegen diesem Limit nicht.
 
 ## Wann Workflows nicht das richtige Werkzeug sind
 
 Ein paar Fälle, in denen Sie zu etwas anderem greifen sollten:
 
 - **Schwere Berechnungen oder große Datensätze** – Workflows sind als leichtes Bindeglied gedacht, nicht zum Zahlen-Knacken. Führen Sie schwere Arbeiten in Ihrer eigenen Infrastruktur aus und lassen Sie sie durch einen Workflow anstoßen.
-- **Lang laufende Prozesse über Stunden hinweg** – eine einzelne Ausführung soll zügig enden. Wenn Sie „mache A, warte zwei Stunden, mache B" brauchen, nutzen Sie einen externen Scheduler, der zum richtigen Zeitpunkt einen Webhook an OneUptime schickt.
+- **Lang laufende Prozesse über Stunden hinweg** – eine einzelne Ausführung soll zügig enden. Wenn Sie „mache A, warte zwei Stunden, mache B" brauchen, nutzen Sie einen externen Scheduler, der zum richtigen Zeitpunkt einen Webhook an Cast Operations schickt.
 - **Schritt-für-Schritt-Vorfallreaktion mit menschlicher Beteiligung** – dafür sind [Runbooks](/docs/runbooks/index) gedacht. Workflows sind für unbeaufsichtigte Automatisierung.
 
 ## Weiterführende Themen

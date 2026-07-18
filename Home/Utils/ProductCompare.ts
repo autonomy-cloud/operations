@@ -85,9 +85,9 @@ const products: Dictionary<Product> = {
     productDescription:
       "PagerDuty is the market-leading on-call scheduling and incident response platform, trusted by many enterprises for reliable alerting. It operates as an alerting hub, so teams typically integrate separate monitoring solutions and buy add-ons like status pages, AIOps, and live call routing to build a complete incident response system.",
     oneUptimeDescription:
-      "OneUptime brings together monitoring, status pages, on-call scheduling, incident management, logs, metrics, and traces in a single open-source platform. Everything works together natively, reducing context switching, tool sprawl, and unpredictable add-on costs.",
+      "Cast Operations brings together monitoring, status pages, on-call scheduling, incident management, logs, metrics, and traces in a single open-source platform. Everything works together natively, reducing context switching, tool sprawl, and unpredictable add-on costs.",
     description:
-      "PagerDuty is the market leader in incident management and on-call scheduling, trusted by many enterprises. However, it is primarily an alerting tool priced per user, and a complete setup requires separate monitoring integrations plus paid add-ons for status pages, AIOps, and live call routing. OneUptime provides a complete, unified observability platform where monitoring, status pages, on-call, and incidents all work together natively at flat, predictable pricing.",
+      "PagerDuty is the market leader in incident management and on-call scheduling, trusted by many enterprises. However, it is primarily an alerting tool priced per user, and a complete setup requires separate monitoring integrations plus paid add-ons for status pages, AIOps, and live call routing. Cast Operations provides a complete, unified observability platform where monitoring, status pages, on-call, and incidents all work together natively at flat, predictable pricing.",
     descriptionLine2:
       "Simplify your reliability stack. Get monitoring, status pages, on-call, and incident management working together in one platform, without per-seat pricing or surprise add-ons.",
     migrationBenefits: [
@@ -180,7 +180,7 @@ const products: Dictionary<Product> = {
         scenario: "10-person engineering team with basic on-call",
         competitorSolution: "PagerDuty Professional + external monitoring",
         competitorCost: "$210/month + ~$100/month monitoring = ~$310/month",
-        oneuptimeSolution: "OneUptime with built-in monitoring and on-call",
+        oneuptimeSolution: "Cast Operations with built-in monitoring and on-call",
         oneuptimeCost: "$0/month (Free tier) or $99/month (Growth)",
       },
       {
@@ -190,7 +190,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "$1,025/month + $89/month + ~$200/month = ~$1,314/month",
         oneuptimeSolution:
-          "OneUptime with unlimited status pages and subscribers",
+          "Cast Operations with unlimited status pages and subscribers",
         oneuptimeCost: "$0-299/month",
       },
       {
@@ -198,7 +198,7 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "PagerDuty Enterprise + AIOps + stakeholder licenses",
         competitorCost: "$5,000+/month + $799/month AIOps + add-ons",
-        oneuptimeSolution: "OneUptime Enterprise with unlimited users",
+        oneuptimeSolution: "Cast Operations Enterprise with unlimited users",
         oneuptimeCost: "Contact for enterprise pricing",
       },
     ],
@@ -510,39 +510,39 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to PagerDuty?",
+        question: "How does Cast Operations compare to PagerDuty?",
         answer:
-          "PagerDuty excels at on-call scheduling and incident response, but it is primarily an alerting hub that requires external tools for monitoring and paid add-ons for status pages, AIOps, and live call routing. OneUptime is a complete observability platform with native monitoring, status pages, on-call scheduling, incident management, logs, metrics, and traces, all working together in one unified interface. This means less context switching, simpler workflows, and a single source of truth for your team.",
+          "PagerDuty excels at on-call scheduling and incident response, but it is primarily an alerting hub that requires external tools for monitoring and paid add-ons for status pages, AIOps, and live call routing. Cast Operations is a complete observability platform with native monitoring, status pages, on-call scheduling, incident management, logs, metrics, and traces, all working together in one unified interface. This means less context switching, simpler workflows, and a single source of truth for your team.",
       },
       {
         question: "What about PagerDuty's 750+ integrations?",
         answer:
-          "PagerDuty's integrations primarily connect external monitoring tools to their alerting system. OneUptime has built-in monitoring for websites, APIs, servers, and containers, which means many of those integrations become unnecessary. We still offer extensive connectivity via native Slack and Teams support, webhooks, a full REST API, and 2000+ connections through Zapier. The key difference is our integrations enhance workflows rather than fill functionality gaps.",
+          "PagerDuty's integrations primarily connect external monitoring tools to their alerting system. Cast Operations has built-in monitoring for websites, APIs, servers, and containers, which means many of those integrations become unnecessary. We still offer extensive connectivity via native Slack and Teams support, webhooks, a full REST API, and 2000+ connections through Zapier. The key difference is our integrations enhance workflows rather than fill functionality gaps.",
       },
       {
         question: "What are the benefits of a unified platform?",
         answer:
-          "With a unified platform like OneUptime, your team gets a single dashboard for all observability needs. Alerts automatically link to relevant logs and metrics. Status pages update based on real incident data. On-call engineers have full context without jumping between tools. This reduces mean time to resolution and eliminates the complexity and cost of maintaining multiple tool integrations and add-ons.",
+          "With a unified platform like Cast Operations, your team gets a single dashboard for all observability needs. Alerts automatically link to relevant logs and metrics. Status pages update based on real incident data. On-call engineers have full context without jumping between tools. This reduces mean time to resolution and eliminates the complexity and cost of maintaining multiple tool integrations and add-ons.",
       },
       {
-        question: "Does OneUptime match PagerDuty's on-call features?",
+        question: "Does Cast Operations match PagerDuty's on-call features?",
         answer:
-          "Yes. OneUptime provides comprehensive on-call capabilities: multiple rotation schedules (daily, weekly, custom), multi-level escalation policies, vacation and override management, and follow-the-sun scheduling for global teams, with alerts via SMS, phone call, email, push notifications, Slack, and Microsoft Teams. Plus, you get native monitoring and status pages that work seamlessly with your on-call workflows, with SMS and phone included rather than metered.",
+          "Yes. Cast Operations provides comprehensive on-call capabilities: multiple rotation schedules (daily, weekly, custom), multi-level escalation policies, vacation and override management, and follow-the-sun scheduling for global teams, with alerts via SMS, phone call, email, push notifications, Slack, and Microsoft Teams. Plus, you get native monitoring and status pages that work seamlessly with your on-call workflows, with SMS and phone included rather than metered.",
       },
       {
-        question: "How does OneUptime handle alert noise reduction?",
+        question: "How does Cast Operations handle alert noise reduction?",
         answer:
-          "OneUptime includes alert deduplication and grouping to reduce noise out of the box. Similar alerts are automatically grouped, and you can configure thresholds and conditions to prevent alert fatigue. PagerDuty charges for advanced noise reduction through its AIOps add-on, which starts around $799/month on top of per-user fees. Our approach delivers practical noise reduction without a separate paid module.",
+          "Cast Operations includes alert deduplication and grouping to reduce noise out of the box. Similar alerts are automatically grouped, and you can configure thresholds and conditions to prevent alert fatigue. PagerDuty charges for advanced noise reduction through its AIOps add-on, which starts around $799/month on top of per-user fees. Our approach delivers practical noise reduction without a separate paid module.",
       },
       {
-        question: "Can I migrate from PagerDuty to OneUptime?",
+        question: "Can I migrate from PagerDuty to Cast Operations?",
         answer:
-          "Yes. You can import existing on-call schedules and escalation policies, and OneUptime receives webhooks from any system, enabling gradual migration. Many teams run both platforms in parallel during the transition, moving monitors and integrations to OneUptime incrementally. Our support team provides migration assistance for complex setups.",
+          "Yes. You can import existing on-call schedules and escalation policies, and Cast Operations receives webhooks from any system, enabling gradual migration. Many teams run both platforms in parallel during the transition, moving monitors and integrations to Cast Operations incrementally. Our support team provides migration assistance for complex setups.",
       },
       {
-        question: "Is OneUptime enterprise-ready?",
+        question: "Is Cast Operations enterprise-ready?",
         answer:
-          "Absolutely. OneUptime is built on distributed, high-availability infrastructure across multiple cloud regions. We are SOC 2 Type II certified, ISO 27001 compliant, and GDPR compliant. Enterprise features include SSO/SAML, role-based access control, audit logs, and data residency options. Self-hosting is available under the Apache 2.0 license for organizations requiring complete infrastructure control.",
+          "Absolutely. Cast Operations is built on distributed, high-availability infrastructure across multiple cloud regions. We are SOC 2 Type II certified, ISO 27001 compliant, and GDPR compliant. Enterprise features include SSO/SAML, role-based access control, audit logs, and data residency options. Self-hosting is available under the Apache 2.0 license for organizations requiring complete infrastructure control.",
       },
     ],
   },
@@ -561,9 +561,9 @@ const products: Dictionary<Product> = {
     productDescription:
       "Statuspage provides beautiful, customizable status pages for communicating with customers during incidents. It excels at status communication but relies entirely on external tools to detect issues and manage incident response, and its pricing is tiered around subscriber count with public, private, and audience-specific pages billed separately.",
     oneUptimeDescription:
-      "OneUptime combines status pages with monitoring, on-call scheduling, and incident management in a single open-source platform. Your status pages automatically update based on real system health, and incidents flow seamlessly from detection to on-call alerting to resolution to public communication.",
+      "Cast Operations combines status pages with monitoring, on-call scheduling, and incident management in a single open-source platform. Your status pages automatically update based on real system health, and incidents flow seamlessly from detection to on-call alerting to resolution to public communication.",
     description:
-      "Atlassian Statuspage is a dedicated status page product that excels at customer communication during incidents. However, it operates in isolation - you need separate monitoring tools to detect issues, separate alerting to notify your team, and separate incident management for coordination. Costs also scale with subscriber count, and private and audience-specific pages are billed as additional products on top of your public page. OneUptime provides a unified platform where everything works together natively.",
+      "Atlassian Statuspage is a dedicated status page product that excels at customer communication during incidents. However, it operates in isolation - you need separate monitoring tools to detect issues, separate alerting to notify your team, and separate incident management for coordination. Costs also scale with subscriber count, and private and audience-specific pages are billed as additional products on top of your public page. Cast Operations provides a unified platform where everything works together natively.",
     descriptionLine2:
       "Get status pages that automatically reflect your actual system health, connected to monitoring, alerting, and incident management in one platform, with unlimited subscribers.",
     migrationBenefits: [
@@ -670,7 +670,7 @@ const products: Dictionary<Product> = {
         competitorSolution: "Statuspage Startup + Pingdom + Opsgenie",
         competitorCost: "$99 + $50 + $100 = $249/month",
         oneuptimeSolution:
-          "OneUptime with unlimited subscribers, monitoring, and on-call",
+          "Cast Operations with unlimited subscribers, monitoring, and on-call",
         oneuptimeCost: "$0/month (Free tier)",
       },
       {
@@ -679,7 +679,7 @@ const products: Dictionary<Product> = {
           "Statuspage Enterprise (subscriber tier) + monitoring + on-call",
         competitorCost: "$1,499 + $150 + $300 = $1,949/month",
         oneuptimeSolution:
-          "OneUptime with unlimited subscribers and integrated tooling",
+          "Cast Operations with unlimited subscribers and integrated tooling",
         oneuptimeCost: "$0-99/month + $1 per active monitor",
       },
       {
@@ -689,7 +689,7 @@ const products: Dictionary<Product> = {
           "Statuspage audience-specific pages ($300/mo add-on) + monitoring + on-call",
         competitorCost: "$300 + $150 + $300 = $750/month",
         oneuptimeSolution:
-          "OneUptime with unlimited public and private status pages",
+          "Cast Operations with unlimited public and private status pages",
         oneuptimeCost: "$0-99/month + $1 per active monitor",
       },
     ],
@@ -988,39 +988,39 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to Atlassian Statuspage?",
+        question: "How does Cast Operations compare to Atlassian Statuspage?",
         answer:
-          "Statuspage excels at creating beautiful status pages for customer communication. However, it operates in isolation - you need separate monitoring to detect issues, separate alerting to notify your team, and separate tools for incident management. OneUptime provides status pages as part of a complete platform where monitoring, alerting, incident management, and status communication work together seamlessly, with no subscriber caps.",
+          "Statuspage excels at creating beautiful status pages for customer communication. However, it operates in isolation - you need separate monitoring to detect issues, separate alerting to notify your team, and separate tools for incident management. Cast Operations provides status pages as part of a complete platform where monitoring, alerting, incident management, and status communication work together seamlessly, with no subscriber caps.",
       },
       {
-        question: "Can OneUptime automatically update status pages?",
+        question: "Can Cast Operations automatically update status pages?",
         answer:
-          "Yes, this is a key advantage. OneUptime's integrated monitoring continuously checks your services. When issues are detected, status pages can automatically update to reflect degraded or down status. When issues resolve, the status page updates automatically. This ensures your customers always see accurate information without manual intervention during stressful incident situations.",
+          "Yes, this is a key advantage. Cast Operations’ integrated monitoring continuously checks your services. When issues are detected, status pages can automatically update to reflect degraded or down status. When issues resolve, the status page updates automatically. This ensures your customers always see accurate information without manual intervention during stressful incident situations.",
       },
       {
         question: "How does automatic status page updating work?",
         answer:
-          "OneUptime connects your monitors directly to status page components. When a monitor detects an issue, it automatically updates the corresponding component status. You can configure automatic updates for different severity levels, or require manual approval for public status changes. This eliminates the delay between detecting an issue and communicating it to customers.",
+          "Cast Operations connects your monitors directly to status page components. When a monitor detects an issue, it automatically updates the corresponding component status. You can configure automatic updates for different severity levels, or require manual approval for public status changes. This eliminates the delay between detecting an issue and communicating it to customers.",
       },
       {
-        question: "Can I customize my OneUptime status page like Statuspage?",
+        question: "Can I customize my Cast Operations status page like Statuspage?",
         answer:
-          "Yes, and without gating customization behind higher tiers. OneUptime status pages support custom domains with automatic SSL, custom branding (logos, colors, favicon), and custom HTML/CSS/JavaScript on every plan. You can create component groups, show historical uptime percentages, display real-time metrics, and configure exactly how much detail to share with your audience.",
+          "Yes, and without gating customization behind higher tiers. Cast Operations status pages support custom domains with automatic SSL, custom branding (logos, colors, favicon), and custom HTML/CSS/JavaScript on every plan. You can create component groups, show historical uptime percentages, display real-time metrics, and configure exactly how much detail to share with your audience.",
       },
       {
-        question: "Does OneUptime support private status pages?",
+        question: "Does Cast Operations support private status pages?",
         answer:
-          "Yes. OneUptime supports password-protected private status pages for internal teams and enterprise customers at no extra charge. You can create multiple status pages with different access levels - public pages for customers and private pages for internal teams or specific enterprise clients - without paying a separate per-page fee like Statuspage's private and audience-specific plans.",
+          "Yes. Cast Operations supports password-protected private status pages for internal teams and enterprise customers at no extra charge. You can create multiple status pages with different access levels - public pages for customers and private pages for internal teams or specific enterprise clients - without paying a separate per-page fee like Statuspage's private and audience-specific plans.",
       },
       {
-        question: "What notification channels does OneUptime support?",
+        question: "What notification channels does Cast Operations support?",
         answer:
-          "OneUptime supports comprehensive notification channels: email, SMS, webhooks, RSS feeds, Slack, Microsoft Teams, and push notifications. Subscribers can choose their preferred channels, and you can configure different notification types for different incident severities. SMS is included rather than reserved for a higher-priced tier.",
+          "Cast Operations supports comprehensive notification channels: email, SMS, webhooks, RSS feeds, Slack, Microsoft Teams, and push notifications. Subscribers can choose their preferred channels, and you can configure different notification types for different incident severities. SMS is included rather than reserved for a higher-priced tier.",
       },
       {
-        question: "Is OneUptime cheaper than Statuspage as I grow?",
+        question: "Is Cast Operations cheaper than Statuspage as I grow?",
         answer:
-          "Almost always. Statuspage pricing climbs with subscriber count, from $29/mo up to $1,499/mo, and private and audience-specific pages are billed as separate add-ons. OneUptime gives you unlimited subscribers and unlimited status pages, charges a flat $1/month per active monitor with no per-check tiers, and is completely free to self-host - so your status page costs stay predictable no matter how large your audience gets.",
+          "Almost always. Statuspage pricing climbs with subscriber count, from $29/mo up to $1,499/mo, and private and audience-specific pages are billed as separate add-ons. Cast Operations gives you unlimited subscribers and unlimited status pages, charges a flat $1/month per active monitor with no per-check tiers, and is completely free to self-host - so your status page costs stay predictable no matter how large your audience gets.",
       },
     ],
   },
@@ -1039,7 +1039,7 @@ const products: Dictionary<Product> = {
     productDescription:
       "Pingdom (owned by SolarWinds) is a veteran in the monitoring space with reliable uptime monitoring and 100+ probe locations worldwide. It focuses on synthetic monitoring and real user monitoring, but its plans are tiered by the number of uptime and advanced monitors, and it requires additional tools for incident response, on-call, and status communication.",
     oneUptimeDescription:
-      "OneUptime provides monitoring from global locations at a flat $1/month per active monitor (no per-check tiers and no caps), plus unlimited free manual monitors, integrated status pages, on-call scheduling, and incident management. Monitor everything your infrastructure needs without worrying about check limits or upgrading tiers.",
+      "Cast Operations provides monitoring from global locations at a flat $1/month per active monitor (no per-check tiers and no caps), plus unlimited free manual monitors, integrated status pages, on-call scheduling, and incident management. Monitor everything your infrastructure needs without worrying about check limits or upgrading tiers.",
     description:
       "Pingdom (now owned by SolarWinds) is one of the oldest and most reliable monitoring tools, offering uptime monitoring from 100+ probe locations. It excels at detecting outages but operates in isolation - you need additional tools for on-call scheduling, incident management, and customer-facing status pages. Its synthetic plans are gated by monitor counts, so growing coverage means jumping to a higher tier.",
     descriptionLine2:
@@ -1150,7 +1150,7 @@ const products: Dictionary<Product> = {
           "Pingdom Standard + PagerDuty + Atlassian Statuspage",
         competitorCost: "$50 + $210 + $99 = $359/month",
         oneuptimeSolution:
-          "OneUptime at $1/active monitor, on-call and status included",
+          "Cast Operations at $1/active monitor, on-call and status included",
         oneuptimeCost: "~$20/month (all included)",
       },
       {
@@ -1158,7 +1158,7 @@ const products: Dictionary<Product> = {
         competitorSolution: "Pingdom Advanced + RUM + PagerDuty + Statuspage",
         competitorCost: "$95 + $10 + $400 + $99 = $604+/month",
         oneuptimeSolution:
-          "OneUptime with monitoring, RUM, on-call, and status included",
+          "Cast Operations with monitoring, RUM, on-call, and status included",
         oneuptimeCost: "~$100/month (all included)",
       },
       {
@@ -1167,7 +1167,7 @@ const products: Dictionary<Product> = {
           "Pingdom Professional (transactions) + on-call + status page",
         competitorCost: "$249 + $400 + $99 = $748+/month",
         oneuptimeSolution:
-          "OneUptime with synthetic transaction monitoring included",
+          "Cast Operations with synthetic transaction monitoring included",
         oneuptimeCost: "$99-299/month (Growth tier)",
       },
     ],
@@ -1494,39 +1494,39 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to Pingdom?",
+        question: "How does Cast Operations compare to Pingdom?",
         answer:
-          "Pingdom is a focused uptime monitoring tool with 100+ probe locations and plans tiered by monitor count ($15-$249/month for synthetic). It does basic monitoring well but lacks incident management, on-call scheduling, and robust status pages. OneUptime provides active monitors at a flat $1/month - no per-check tiers and no caps - plus unlimited free manual monitors, status pages with unlimited subscribers, on-call scheduling with escalation policies, and full incident management. You replace Pingdom plus 2-3 other tools with one platform.",
+          "Pingdom is a focused uptime monitoring tool with 100+ probe locations and plans tiered by monitor count ($15-$249/month for synthetic). It does basic monitoring well but lacks incident management, on-call scheduling, and robust status pages. Cast Operations provides active monitors at a flat $1/month - no per-check tiers and no caps - plus unlimited free manual monitors, status pages with unlimited subscribers, on-call scheduling with escalation policies, and full incident management. You replace Pingdom plus 2-3 other tools with one platform.",
       },
       {
-        question: "What types of monitoring does OneUptime support vs Pingdom?",
+        question: "What types of monitoring does Cast Operations support vs Pingdom?",
         answer:
-          "Both support HTTP/HTTPS monitoring, SSL certificate checks, and transaction/synthetic monitoring. OneUptime additionally provides server monitoring (CPU, memory, disk), container monitoring (Docker/Kubernetes), and custom metrics without needing the separate RUM product. All OneUptime monitoring is included at no extra per-check cost, while Pingdom gates advanced monitors and pageviews behind higher tiers.",
+          "Both support HTTP/HTTPS monitoring, SSL certificate checks, and transaction/synthetic monitoring. Cast Operations additionally provides server monitoring (CPU, memory, disk), container monitoring (Docker/Kubernetes), and custom metrics without needing the separate RUM product. All Cast Operations monitoring is included at no extra per-check cost, while Pingdom gates advanced monitors and pageviews behind higher tiers.",
       },
       {
         question: "How do probe locations compare?",
         answer:
-          "Pingdom offers 100+ probe locations worldwide but charges based on plan tier. OneUptime provides 7+ strategically placed global locations and allows checking from all locations on every monitor without additional cost. For most use cases, our locations provide excellent coverage. We also support private probes inside your network for internal monitoring.",
+          "Pingdom offers 100+ probe locations worldwide but charges based on plan tier. Cast Operations provides 7+ strategically placed global locations and allows checking from all locations on every monitor without additional cost. For most use cases, our locations provide excellent coverage. We also support private probes inside your network for internal monitoring.",
       },
       {
         question: "What about Pingdom's Real User Monitoring (RUM)?",
         answer:
-          "Pingdom's RUM is a separate product with per-pageview pricing starting at $10/month for 100,000 pageviews. OneUptime includes real user monitoring capabilities in our platform to track actual user experience metrics like page load time, time to first byte, and core web vitals - without separate per-pageview charges.",
+          "Pingdom's RUM is a separate product with per-pageview pricing starting at $10/month for 100,000 pageviews. Cast Operations includes real user monitoring capabilities in our platform to track actual user experience metrics like page load time, time to first byte, and core web vitals - without separate per-pageview charges.",
       },
       {
-        question: "Does OneUptime have transaction monitoring like Pingdom?",
+        question: "Does Cast Operations have transaction monitoring like Pingdom?",
         answer:
-          "Yes. OneUptime supports multi-step synthetic monitoring to test user flows like login, checkout, or form submissions. Pingdom charges extra for these as advanced monitors, and each tier caps how many you get (1 on Starter, up to 50+ on Professional). OneUptime includes synthetic transaction monitoring without a separate add-on.",
+          "Yes. Cast Operations supports multi-step synthetic monitoring to test user flows like login, checkout, or form submissions. Pingdom charges extra for these as advanced monitors, and each tier caps how many you get (1 on Starter, up to 50+ on Professional). Cast Operations includes synthetic transaction monitoring without a separate add-on.",
       },
       {
         question: "What about Pingdom's status pages?",
         answer:
-          "Pingdom offers a basic public status page as a feature with limited customization. OneUptime provides full-featured public and private status pages with unlimited subscribers, custom branding, custom domains, and automatic updates based on monitor status. This alone can save $100+/month compared to buying a separate status page product like Atlassian Statuspage.",
+          "Pingdom offers a basic public status page as a feature with limited customization. Cast Operations provides full-featured public and private status pages with unlimited subscribers, custom branding, custom domains, and automatic updates based on monitor status. This alone can save $100+/month compared to buying a separate status page product like Atlassian Statuspage.",
       },
       {
         question: "Why is tiered per-monitor pricing problematic?",
         answer:
-          "Tier-based pricing creates perverse incentives to monitor less. With Pingdom, adding services or advanced checks can push you into the next plan tier. With OneUptime's flat $1/month per active monitor - no per-check tiers and no caps - you can monitor everything across every endpoint, region, and environment with simple, predictable costs. This leads to better coverage and faster issue detection.",
+          "Tier-based pricing creates perverse incentives to monitor less. With Pingdom, adding services or advanced checks can push you into the next plan tier. With Cast Operations’ flat $1/month per active monitor - no per-check tiers and no caps - you can monitor everything across every endpoint, region, and environment with simple, predictable costs. This leads to better coverage and faster issue detection.",
       },
     ],
   },
@@ -1540,17 +1540,17 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Datadog is the market leader in cloud monitoring, APM, and logs, but its status pages, on-call, and incident management are separate seat-based products layered on top of per-host and per-GB metering.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, logs, metrics, traces, status pages, on-call, and incident management in one platform at a flat, predictable price.",
+      "Cast Operations unifies monitoring, logs, metrics, traces, status pages, on-call, and incident management in one platform at a flat, predictable price.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Datadog is the industry leader in cloud monitoring, APM, and log management, with a deep observability suite and 800+ integrations. In 2025 it added native On-Call, Incident Management, and Status Pages, but each is a separate seat-based SKU stacked on top of per-host and per-GB metering, so a full deployment means juggling many priced modules.",
     oneUptimeDescription:
-      "OneUptime delivers monitoring, logs, metrics, traces, status pages, on-call, and incident management in one open-source platform with flat pricing. Active monitors are a flat $1/month each, telemetry ingestion is about $0.10/GB, and every reliability feature is included instead of sold as a separate seat.",
+      "Cast Operations delivers monitoring, logs, metrics, traces, status pages, on-call, and incident management in one open-source platform with flat pricing. Active monitors are a flat $1/month each, telemetry ingestion is about $0.10/GB, and every reliability feature is included instead of sold as a separate seat.",
     description:
       "Datadog is the industry leader in cloud monitoring, APM, and log management, offering deep observability with 800+ integrations. It now bundles native On-Call, Incident Management, and Status Pages, but each is metered separately - per host, per GB, and per seat - so bills grow with usage and headcount and are hard to forecast. Standing up a complete reliability stack still means stitching together and paying for several priced modules.",
     descriptionLine2:
-      "OneUptime gives you monitoring, status pages, on-call, and incident management in one open-source platform at a flat, predictable price - no per-host, per-seat, or surprise per-GB bills.",
+      "Cast Operations gives you monitoring, status pages, on-call, and incident management in one open-source platform at a flat, predictable price - no per-host, per-seat, or surprise per-GB bills.",
     migrationBenefits: [
       "Flat $1 per active monitor - no per-host, per-seat, or per-GB surprises",
       "Status pages with unlimited subscribers included, not a seat-based add-on",
@@ -1650,7 +1650,7 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Datadog Infrastructure + APM + logs + 5 Incident Response seats",
         competitorCost: "$150 + $350 + ~$150 logs + $200 = ~$850/month",
-        oneuptimeSolution: "OneUptime with everything included",
+        oneuptimeSolution: "Cast Operations with everything included",
         oneuptimeCost: "$0/month (Free tier) or $99/month (Growth)",
       },
       {
@@ -1660,7 +1660,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "$750 infra + $1,750 APM + $500-1,500 logs + $600 seats = ~$3,600-4,600/month",
         oneuptimeSolution:
-          "OneUptime with monitoring, status, on-call, and incidents included",
+          "Cast Operations with monitoring, status, on-call, and incidents included",
         oneuptimeCost: "$0-299/month",
       },
       {
@@ -1668,7 +1668,7 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Datadog Enterprise + on-call and incident seats across teams",
         competitorCost: "$10,000-50,000+/month",
-        oneuptimeSolution: "OneUptime Enterprise or self-hosted",
+        oneuptimeSolution: "Cast Operations Enterprise or self-hosted",
         oneuptimeCost:
           "Contact for pricing (fraction of Datadog) or free self-hosted",
       },
@@ -1956,39 +1956,39 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to Datadog?",
+        question: "How does Cast Operations compare to Datadog?",
         answer:
-          "Datadog is a comprehensive observability platform with deep APM, log management, and infrastructure monitoring, and it now offers native On-Call, Incident Management, and Status Pages. The catch is that everything is metered separately: Infrastructure starts at $15/host/month, APM adds about $35/host/month, logs run $0.10/GB plus indexing, and each on-call, incident, or status-page user is a $20-40/seat/month add-on on top. A typical startup can spend $700-2,000/month once those modules stack up. OneUptime provides monitoring, status pages, on-call, and incident management in one platform with flat, predictable pricing.",
+          "Datadog is a comprehensive observability platform with deep APM, log management, and infrastructure monitoring, and it now offers native On-Call, Incident Management, and Status Pages. The catch is that everything is metered separately: Infrastructure starts at $15/host/month, APM adds about $35/host/month, logs run $0.10/GB plus indexing, and each on-call, incident, or status-page user is a $20-40/seat/month add-on on top. A typical startup can spend $700-2,000/month once those modules stack up. Cast Operations provides monitoring, status pages, on-call, and incident management in one platform with flat, predictable pricing.",
       },
       {
-        question: "Can OneUptime replace Datadog for monitoring?",
+        question: "Can Cast Operations replace Datadog for monitoring?",
         answer:
-          "For most teams, yes. OneUptime covers website and API monitoring, server and container metrics, SSL and port checks, synthetic transactions, and OpenTelemetry logs, metrics, and traces. If you need Datadog's deepest APM across hundreds of microservices, Datadog may still fit. But many teams pay for Datadog features they could get elsewhere at a fraction of the cost, so we recommend evaluating your actual needs - often core monitoring plus status pages, on-call, and incidents (all in OneUptime) is more than enough.",
+          "For most teams, yes. Cast Operations covers website and API monitoring, server and container metrics, SSL and port checks, synthetic transactions, and OpenTelemetry logs, metrics, and traces. If you need Datadog's deepest APM across hundreds of microservices, Datadog may still fit. But many teams pay for Datadog features they could get elsewhere at a fraction of the cost, so we recommend evaluating your actual needs - often core monitoring plus status pages, on-call, and incidents (all in Cast Operations) is more than enough.",
       },
       {
         question: "What about Datadog's 800+ integrations?",
         answer:
-          "Datadog has an impressive integration library. OneUptime takes a different approach: core monitoring and telemetry are built in and OpenTelemetry-native, plus 2000+ integrations via Zapier and native webhooks. Our monitoring is designed to work out of the box without extensive configuration, and for many teams a smaller set of well-designed integrations beats integration overload and the per-integration data volume that inflates Datadog bills.",
+          "Datadog has an impressive integration library. Cast Operations takes a different approach: core monitoring and telemetry are built in and OpenTelemetry-native, plus 2000+ integrations via Zapier and native webhooks. Our monitoring is designed to work out of the box without extensive configuration, and for many teams a smaller set of well-designed integrations beats integration overload and the per-integration data volume that inflates Datadog bills.",
       },
       {
         question: "How much can I save switching from Datadog?",
         answer:
-          "Savings vary with usage, but they are usually large. A team with 10-20 servers on Infrastructure + APM + logs can spend $500-2,000/month, and adding Datadog On-Call ($20/seat), Incident Management ($30/seat), or the Incident Response bundle ($40/seat) pushes it higher as headcount grows. OneUptime provides monitoring, status pages, on-call, and incident management starting from $0, with active monitors at a flat $1/month each. Even at enterprise scale, teams commonly cut spend by 70-90%.",
+          "Savings vary with usage, but they are usually large. A team with 10-20 servers on Infrastructure + APM + logs can spend $500-2,000/month, and adding Datadog On-Call ($20/seat), Incident Management ($30/seat), or the Incident Response bundle ($40/seat) pushes it higher as headcount grows. Cast Operations provides monitoring, status pages, on-call, and incident management starting from $0, with active monitors at a flat $1/month each. Even at enterprise scale, teams commonly cut spend by 70-90%.",
       },
       {
-        question: "Is OneUptime's monitoring as comprehensive as Datadog?",
+        question: "Is Cast Operations’ monitoring as comprehensive as Datadog?",
         answer:
-          "Datadog offers deeper APM, especially for high-cardinality distributed tracing across large microservice fleets. OneUptime focuses on what most teams actually need: uptime and API monitoring, server and container metrics, synthetic transactions, and OpenTelemetry logs, metrics, and traces with dashboards and error tracking. If you run hundreds of microservices and need sub-millisecond trace analysis, Datadog may be necessary. For monitoring websites, APIs, servers, and keeping customers informed during incidents, OneUptime is fully capable.",
+          "Datadog offers deeper APM, especially for high-cardinality distributed tracing across large microservice fleets. Cast Operations focuses on what most teams actually need: uptime and API monitoring, server and container metrics, synthetic transactions, and OpenTelemetry logs, metrics, and traces with dashboards and error tracking. If you run hundreds of microservices and need sub-millisecond trace analysis, Datadog may be necessary. For monitoring websites, APIs, servers, and keeping customers informed during incidents, Cast Operations is fully capable.",
       },
       {
-        question: "Does OneUptime support logs like Datadog?",
+        question: "Does Cast Operations support logs like Datadog?",
         answer:
-          "Yes. OneUptime ingests logs, metrics, and traces natively via OpenTelemetry, with search, dashboards, and exception tracking. The difference is price predictability: OneUptime telemetry ingestion is about $0.10/GB, whereas Datadog layers indexing charges (up to $3.75/million events on-demand) and 99th-percentile host billing on top, which is where bills routinely land 2-3x over estimate.",
+          "Yes. Cast Operations ingests logs, metrics, and traces natively via OpenTelemetry, with search, dashboards, and exception tracking. The difference is price predictability: Cast Operations telemetry ingestion is about $0.10/GB, whereas Datadog layers indexing charges (up to $3.75/million events on-demand) and 99th-percentile host billing on top, which is where bills routinely land 2-3x over estimate.",
       },
       {
-        question: "Can I self-host OneUptime to control costs?",
+        question: "Can I self-host Cast Operations to control costs?",
         answer:
-          "Yes. OneUptime is open source (Apache 2.0) and can be self-hosted on your own infrastructure at no license cost - you pay only for the compute you run, not per-host, per-seat, or per-GB fees. This is impossible with Datadog, which is SaaS-only. Self-hosting is ideal for teams with strict data-residency requirements or those wanting to eliminate variable cloud observability costs entirely.",
+          "Yes. Cast Operations is open source (Apache 2.0) and can be self-hosted on your own infrastructure at no license cost - you pay only for the compute you run, not per-host, per-seat, or per-GB fees. This is impossible with Datadog, which is SaaS-only. Self-hosting is ideal for teams with strict data-residency requirements or those wanting to eliminate variable cloud observability costs entirely.",
       },
     ],
   },
@@ -2002,15 +2002,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "New Relic delivers powerful full-stack observability with deep APM, logs, and infrastructure monitoring, but leaves status pages, on-call scheduling, and incident response to separate tools.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, logs, metrics, traces, status pages, on-call, and incident management in a single open-source platform that works together out of the box.",
+      "Cast Operations unifies monitoring, logs, metrics, traces, status pages, on-call, and incident management in a single open-source platform that works together out of the box.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "New Relic is a powerful full-stack observability platform with comprehensive APM, distributed tracing, logs, and infrastructure monitoring. It offers deep insight into application performance, but you still need separate products for status pages, on-call scheduling, and end-to-end incident management. Pricing is usage-based, combining per-full-platform-user fees with per-GB data ingestion charges.",
     oneUptimeDescription:
-      "OneUptime provides complete observability and reliability with monitoring, logs, metrics, traces, status pages, on-call scheduling, and incident management in one unified platform. Everything works together without stitching multiple vendors, and it is open source (Apache 2.0) with a free self-hosted option and predictable pricing.",
+      "Cast Operations provides complete observability and reliability with monitoring, logs, metrics, traces, status pages, on-call scheduling, and incident management in one unified platform. Everything works together without stitching multiple vendors, and it is open source (Apache 2.0) with a free self-hosted option and predictable pricing.",
     description:
-      "New Relic is a powerful full-stack observability platform with comprehensive APM, distributed tracing, logs, and infrastructure monitoring. It excels at deep application insight, but it focuses purely on observability, so status pages, on-call scheduling, and full incident workflows require additional paid tools. Its usage-based pricing combines per-user fees ($99-349/full platform user) with per-GB data charges that can grow unpredictably. OneUptime brings all of these capabilities together in one platform with flat, predictable pricing.",
+      "New Relic is a powerful full-stack observability platform with comprehensive APM, distributed tracing, logs, and infrastructure monitoring. It excels at deep application insight, but it focuses purely on observability, so status pages, on-call scheduling, and full incident workflows require additional paid tools. Its usage-based pricing combines per-user fees ($99-349/full platform user) with per-GB data charges that can grow unpredictably. Cast Operations brings all of these capabilities together in one platform with flat, predictable pricing.",
     descriptionLine2:
       "Get monitoring, telemetry, status pages, on-call scheduling, and incident management all working together in one open-source platform with predictable, flat pricing.",
     migrationBenefits: [
@@ -2097,7 +2097,7 @@ const products: Dictionary<Product> = {
           "New Relic Standard (5 users) + Atlassian Statuspage + PagerDuty",
         competitorCost: "$406 + $99 + $105 = ~$610/month",
         oneuptimeSolution:
-          "OneUptime with monitoring, status pages, on-call, and incidents included",
+          "Cast Operations with monitoring, status pages, on-call, and incidents included",
         oneuptimeCost: "$0/month (Free tier)",
       },
       {
@@ -2106,14 +2106,14 @@ const products: Dictionary<Product> = {
           "New Relic Pro + data overages + Statuspage + PagerDuty",
         competitorCost: "$3,490 + $240 + $99 + $290 = ~$4,119/month",
         oneuptimeSolution:
-          "OneUptime with unlimited users and telemetry at $0.10/GB",
+          "Cast Operations with unlimited users and telemetry at $0.10/GB",
         oneuptimeCost: "$0-299/month",
       },
       {
         scenario: "Growing company with 25 engineers",
         competitorSolution: "New Relic Pro ($349/user) + supporting tools",
         competitorCost: "$8,725+/month plus data and add-on tools",
-        oneuptimeSolution: "OneUptime Enterprise with everything unified",
+        oneuptimeSolution: "Cast Operations Enterprise with everything unified",
         oneuptimeCost: "Contact for enterprise pricing",
       },
     ],
@@ -2400,39 +2400,39 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to New Relic?",
+        question: "How does Cast Operations compare to New Relic?",
         answer:
-          "New Relic is a comprehensive observability platform with excellent APM, distributed tracing, logs, and infrastructure monitoring. However, its usage-based pricing (per-user fees of $99-349/full platform user plus per-GB data charges) can make costs unpredictable. A 10-person team on Pro is $3,490/month before data charges. On top of that you need Atlassian Statuspage and PagerDuty for status pages and on-call. OneUptime provides monitoring, telemetry, status pages, on-call, and incident management together with flat, predictable pricing.",
+          "New Relic is a comprehensive observability platform with excellent APM, distributed tracing, logs, and infrastructure monitoring. However, its usage-based pricing (per-user fees of $99-349/full platform user plus per-GB data charges) can make costs unpredictable. A 10-person team on Pro is $3,490/month before data charges. On top of that you need Atlassian Statuspage and PagerDuty for status pages and on-call. Cast Operations provides monitoring, telemetry, status pages, on-call, and incident management together with flat, predictable pricing.",
       },
       {
-        question: "Can OneUptime match New Relic's observability features?",
+        question: "Can Cast Operations match New Relic's observability features?",
         answer:
-          "New Relic offers deeper APM capabilities, especially code-level distributed tracing across complex, high-service-count applications and real user monitoring. OneUptime covers what most teams actually use day to day: uptime and API monitoring, server and container metrics, synthetic tests, and OpenTelemetry logs, metrics, and traces. If you need deep code-level APM across hundreds of services, New Relic may be necessary. For monitoring reliability and coordinating incident response, OneUptime is fully capable.",
+          "New Relic offers deeper APM capabilities, especially code-level distributed tracing across complex, high-service-count applications and real user monitoring. Cast Operations covers what most teams actually use day to day: uptime and API monitoring, server and container metrics, synthetic tests, and OpenTelemetry logs, metrics, and traces. If you need deep code-level APM across hundreds of services, New Relic may be necessary. For monitoring reliability and coordinating incident response, Cast Operations is fully capable.",
       },
       {
         question: "What about New Relic's free tier?",
         answer:
-          "New Relic's free tier is generous: 100GB of data ingest and one full platform user. But once you need more than one power user or exceed 100GB, costs climb quickly through per-user fees and data overages. OneUptime's free tier includes unlimited team members and unlimited free manual monitors, with telemetry at a low $0.10/GB ingested, so it scales more affordably as your team grows.",
+          "New Relic's free tier is generous: 100GB of data ingest and one full platform user. But once you need more than one power user or exceed 100GB, costs climb quickly through per-user fees and data overages. Cast Operations’ free tier includes unlimited team members and unlimited free manual monitors, with telemetry at a low $0.10/GB ingested, so it scales more affordably as your team grows.",
       },
       {
         question: "How does data pricing compare?",
         answer:
-          "New Relic charges $0.40/GB (Original Data) to $0.60/GB (Data Plus) after the 100GB free allotment. A team generating 500GB/month pays roughly $160-240 in overages alone, on top of user fees. OneUptime's telemetry is just $0.10/GB ingested, well below New Relic's overage rates, so the same 500GB/month costs a fraction as much and stays predictable as your infrastructure grows.",
+          "New Relic charges $0.40/GB (Original Data) to $0.60/GB (Data Plus) after the 100GB free allotment. A team generating 500GB/month pays roughly $160-240 in overages alone, on top of user fees. Cast Operations’ telemetry is just $0.10/GB ingested, well below New Relic's overage rates, so the same 500GB/month costs a fraction as much and stays predictable as your infrastructure grows.",
       },
       {
-        question: "Does OneUptime have APM like New Relic?",
+        question: "Does Cast Operations have APM like New Relic?",
         answer:
-          "OneUptime includes application monitoring for response times, errors, exceptions, and throughput, plus OpenTelemetry-native traces. For full code-level distributed tracing and real user monitoring across very large service graphs, New Relic has deeper features. Many teams find they do not need that depth. They need to know when services degrade and be able to respond quickly, which OneUptime handles end to end.",
+          "Cast Operations includes application monitoring for response times, errors, exceptions, and throughput, plus OpenTelemetry-native traces. For full code-level distributed tracing and real user monitoring across very large service graphs, New Relic has deeper features. Many teams find they do not need that depth. They need to know when services degrade and be able to respond quickly, which Cast Operations handles end to end.",
       },
       {
-        question: "Is OneUptime open source and self-hostable?",
+        question: "Is Cast Operations open source and self-hostable?",
         answer:
-          "Yes. OneUptime is fully open source under the Apache 2.0 license and can be self-hosted on your own infrastructure at no license cost, giving you complete control over your data. New Relic is SaaS-only and closed source. You can also use OneUptime's managed cloud if you prefer not to run it yourself.",
+          "Yes. Cast Operations is fully open source under the Apache 2.0 license and can be self-hosted on your own infrastructure at no license cost, giving you complete control over your data. New Relic is SaaS-only and closed source. You can also use Cast Operations’ managed cloud if you prefer not to run it yourself.",
       },
       {
-        question: "Can I migrate my New Relic telemetry to OneUptime?",
+        question: "Can I migrate my New Relic telemetry to Cast Operations?",
         answer:
-          "Yes. OneUptime is OpenTelemetry-native for logs, metrics, and traces, so if you already instrument with OpenTelemetry you can point your collectors at OneUptime with minimal changes. That makes moving off New Relic straightforward without re-instrumenting your applications from scratch.",
+          "Yes. Cast Operations is OpenTelemetry-native for logs, metrics, and traces, so if you already instrument with OpenTelemetry you can point your collectors at Cast Operations with minimal changes. That makes moving off New Relic straightforward without re-instrumenting your applications from scratch.",
       },
     ],
   },
@@ -2452,11 +2452,11 @@ const products: Dictionary<Product> = {
     productDescription:
       "Better Stack (formerly Better Uptime) offers uptime monitoring, status pages, on-call, incident management, and log and metric telemetry in one modern, developer-friendly product. Its pricing is modular: you start free, then pay a per-responder license and layer on packs for extra monitors, status page features, and telemetry volume. The polished UX is a real strength, but costs compound as your on-call team, monitor count, and subscriber list grow.",
     oneUptimeDescription:
-      "OneUptime provides monitoring at a flat $1/month per active monitor, status pages with unlimited subscribers, and full on-call scheduling and incident management included for the whole team at no extra per-person cost. It is OpenTelemetry-native for logs, metrics, and traces, and is fully open source under Apache 2.0 so you can self-host it on your own infrastructure. You get the same unified vision with transparent pricing and no vendor lock-in.",
+      "Cast Operations provides monitoring at a flat $1/month per active monitor, status pages with unlimited subscribers, and full on-call scheduling and incident management included for the whole team at no extra per-person cost. It is OpenTelemetry-native for logs, metrics, and traces, and is fully open source under Apache 2.0 so you can self-host it on your own infrastructure. You get the same unified vision with transparent pricing and no vendor lock-in.",
     description:
-      "Better Stack (formerly Better Uptime) and OneUptime share the same unified vision: monitoring, status pages, on-call, incidents, and telemetry in one place instead of a stack of point tools. The difference is how you pay and how much control you keep. Better Stack layers a $29-34/month per-responder license on top of add-on packs for monitors, status pages, and telemetry, so the bill scales with every engineer, subscriber, and gigabyte. OneUptime charges a flat $1/month per active monitor with on-call, incidents, and unlimited status page subscribers included, and is fully open source and self-hostable.",
+      "Better Stack (formerly Better Uptime) and Cast Operations share the same unified vision: monitoring, status pages, on-call, incidents, and telemetry in one place instead of a stack of point tools. The difference is how you pay and how much control you keep. Better Stack layers a $29-34/month per-responder license on top of add-on packs for monitors, status pages, and telemetry, so the bill scales with every engineer, subscriber, and gigabyte. Cast Operations charges a flat $1/month per active monitor with on-call, incidents, and unlimited status page subscribers included, and is fully open source and self-hostable.",
     descriptionLine2:
-      "Both consolidate your observability tooling into one product. OneUptime adds predictable per-monitor pricing, no per-responder or per-subscriber fees, open-source transparency, and the option to self-host.",
+      "Both consolidate your observability tooling into one product. Cast Operations adds predictable per-monitor pricing, no per-responder or per-subscriber fees, open-source transparency, and the option to self-host.",
     migrationBenefits: [
       "Eliminate per-responder licenses - on-call and incident management for your whole team are included",
       "Predictable $1/month per active monitor with no $21-25 per-50-monitor bundles to stack",
@@ -2550,7 +2550,7 @@ const products: Dictionary<Product> = {
           "Better Stack (Free 10 + 20 extra monitors + 4 responders)",
         competitorCost: "$0 + $21 + $116 = ~$137/month",
         oneuptimeSolution:
-          "OneUptime at $1/active monitor with on-call included for all 4 engineers",
+          "Cast Operations at $1/active monitor with on-call included for all 4 engineers",
         oneuptimeCost: "~$30/month",
       },
       {
@@ -2560,7 +2560,7 @@ const products: Dictionary<Product> = {
           "Better Stack (140 extra monitors + 5 responders + white-label page)",
         competitorCost: "$63 + $145 + $208 = ~$416/month",
         oneuptimeSolution:
-          "OneUptime monitors + custom-domain branded status page + on-call, all included",
+          "Cast Operations monitors + custom-domain branded status page + on-call, all included",
         oneuptimeCost: "~$150/month",
       },
       {
@@ -2570,7 +2570,7 @@ const products: Dictionary<Product> = {
           "Better Stack (490 extra monitors + 10 responders + 10k subscribers)",
         competitorCost: "$210 + $290 + $400 = ~$900/month",
         oneuptimeSolution:
-          "OneUptime with unlimited subscribers and unlimited responders included",
+          "Cast Operations with unlimited subscribers and unlimited responders included",
         oneuptimeCost: "~$500/month",
       },
     ],
@@ -2910,42 +2910,42 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to Better Stack (Better Uptime)?",
+        question: "How does Cast Operations compare to Better Stack (Better Uptime)?",
         answer:
-          "Better Stack (formerly Better Uptime) and OneUptime share a similar vision of unified observability. Both provide monitoring, status pages, incident management, and telemetry in one platform. The key differences are pricing and openness: Better Stack charges a $29-34/month per-responder license plus add-on packs for monitors ($21-25 per 50), status page features, and telemetry, while OneUptime offers simple usage-based pricing at $1/month per active monitor with on-call, incidents, and unlimited status page subscribers included. OneUptime is also fully open source under Apache 2.0 with self-hosting options, giving you complete control over your data and infrastructure.",
+          "Better Stack (formerly Better Uptime) and Cast Operations share a similar vision of unified observability. Both provide monitoring, status pages, incident management, and telemetry in one platform. The key differences are pricing and openness: Better Stack charges a $29-34/month per-responder license plus add-on packs for monitors ($21-25 per 50), status page features, and telemetry, while Cast Operations offers simple usage-based pricing at $1/month per active monitor with on-call, incidents, and unlimited status page subscribers included. Cast Operations is also fully open source under Apache 2.0 with self-hosting options, giving you complete control over your data and infrastructure.",
       },
       {
         question: "What is Better Uptime and why did it become Better Stack?",
         answer:
-          "Better Uptime was a popular monitoring and status page tool that rebranded to Better Stack in 2023 to reflect an expanded suite that now includes logs, metrics, traces, and incident management. The core uptime monitoring product remains strong, but the pricing model is modular: you pay a per-responder license and add packs for monitors, status pages, and telemetry volume. OneUptime offers a simpler, more predictable model of a flat $1/month per active monitor with on-call and incidents included.",
+          "Better Uptime was a popular monitoring and status page tool that rebranded to Better Stack in 2023 to reflect an expanded suite that now includes logs, metrics, traces, and incident management. The core uptime monitoring product remains strong, but the pricing model is modular: you pay a per-responder license and add packs for monitors, status pages, and telemetry volume. Cast Operations offers a simpler, more predictable model of a flat $1/month per active monitor with on-call and incidents included.",
       },
       {
         question:
-          "How does Better Stack's per-responder pricing compare to OneUptime?",
+          "How does Better Stack's per-responder pricing compare to Cast Operations?",
         answer:
-          "Better Stack requires a Responder license, roughly $29/month per person on annual billing or $34/month monthly, for anyone who runs on-call rotations, acknowledges incidents, or receives phone and SMS alerts. That fee multiplies with every engineer you add to the pager. OneUptime includes on-call scheduling, escalation policies, and incident management for your entire team at no per-responder cost, so growing your on-call rotation does not grow your bill.",
+          "Better Stack requires a Responder license, roughly $29/month per person on annual billing or $34/month monthly, for anyone who runs on-call rotations, acknowledges incidents, or receives phone and SMS alerts. That fee multiplies with every engineer you add to the pager. Cast Operations includes on-call scheduling, escalation policies, and incident management for your entire team at no per-responder cost, so growing your on-call rotation does not grow your bill.",
       },
       {
         question:
-          "How do monitoring capabilities compare between Better Stack and OneUptime?",
+          "How do monitoring capabilities compare between Better Stack and Cast Operations?",
         answer:
-          "Both offer HTTP and API checks, SSL certificate monitoring, heartbeats, and status pages. OneUptime provides faster minimum check frequencies (1 second versus 30 seconds on Better Stack) and includes native server and infrastructure monitoring for CPU, memory, and disk. Better Stack meters extra monitors in per-50 bundles and charges separately for heartbeats and Playwright transaction minutes, while OneUptime bills a flat $1/month per active monitor with unlimited free manual and static monitors.",
+          "Both offer HTTP and API checks, SSL certificate monitoring, heartbeats, and status pages. Cast Operations provides faster minimum check frequencies (1 second versus 30 seconds on Better Stack) and includes native server and infrastructure monitoring for CPU, memory, and disk. Better Stack meters extra monitors in per-50 bundles and charges separately for heartbeats and Playwright transaction minutes, while Cast Operations bills a flat $1/month per active monitor with unlimited free manual and static monitors.",
       },
       {
-        question: "What do status pages cost on Better Stack versus OneUptime?",
+        question: "What do status pages cost on Better Stack versus Cast Operations?",
         answer:
-          "Better Stack includes one status page, then charges for extras: about $12 per page per month for additional pages or custom CSS and JavaScript, $208-250 per page per month for white-label branding, password protection, and SSO, and $40/month for each additional 1,000 subscribers. OneUptime includes public and private status pages, custom domains with free SSL, custom branding and HTML/CSS/JS, and unlimited subscribers at no extra cost.",
+          "Better Stack includes one status page, then charges for extras: about $12 per page per month for additional pages or custom CSS and JavaScript, $208-250 per page per month for white-label branding, password protection, and SSO, and $40/month for each additional 1,000 subscribers. Cast Operations includes public and private status pages, custom domains with free SSL, custom branding and HTML/CSS/JS, and unlimited subscribers at no extra cost.",
       },
       {
-        question: "Can I self-host OneUptime like Better Stack?",
+        question: "Can I self-host Cast Operations like Better Stack?",
         answer:
-          "Yes, and this is a major differentiator. OneUptime is fully open source under the Apache 2.0 license and can be self-hosted on your own infrastructure using Docker or Kubernetes. Better Stack is a closed-source SaaS product with no self-hosting option. Self-hosting gives you complete control over your data, helps meet compliance requirements, and eliminates vendor lock-in.",
+          "Yes, and this is a major differentiator. Cast Operations is fully open source under the Apache 2.0 license and can be self-hosted on your own infrastructure using Docker or Kubernetes. Better Stack is a closed-source SaaS product with no self-hosting option. Self-hosting gives you complete control over your data, helps meet compliance requirements, and eliminates vendor lock-in.",
       },
       {
         question:
-          "What features does OneUptime have that Better Stack charges extra for?",
+          "What features does Cast Operations have that Better Stack charges extra for?",
         answer:
-          "OneUptime includes several things Better Stack meters or gates behind add-ons: on-call and incident management for the whole team (no per-responder license), unlimited status page subscribers (no $40 per 1,000), white-label custom-domain status pages (no $208-250 per-page fee), and native server and infrastructure monitoring. On top of that, OneUptime offers 1-second minimum check intervals, an open-source Apache 2.0 codebase you can audit and extend, and self-hosting on your own infrastructure.",
+          "Cast Operations includes several things Better Stack meters or gates behind add-ons: on-call and incident management for the whole team (no per-responder license), unlimited status page subscribers (no $40 per 1,000), white-label custom-domain status pages (no $208-250 per-page fee), and native server and infrastructure monitoring. On top of that, Cast Operations offers 1-second minimum check intervals, an open-source Apache 2.0 codebase you can audit and extend, and self-hosting on your own infrastructure.",
       },
     ],
   },
@@ -2964,11 +2964,11 @@ const products: Dictionary<Product> = {
     productDescription:
       "Uptime Robot is one of the most popular simple monitoring tools, with a genuinely generous free tier and a clean, easy interface. It covers uptime checks, SSL and domain expiry, keyword and DNS monitoring, and status pages, but it stops there - there is no on-call scheduling and only lightweight incident tracking.",
     oneUptimeDescription:
-      "OneUptime delivers the same core monitoring at a flat $1/month per active monitor, then adds the full incident lifecycle - status pages, on-call rotations and escalations, incident management, postmortems, and OpenTelemetry logs, metrics, and traces - in a single open-source platform.",
+      "Cast Operations delivers the same core monitoring at a flat $1/month per active monitor, then adds the full incident lifecycle - status pages, on-call rotations and escalations, incident management, postmortems, and OpenTelemetry logs, metrics, and traces - in a single open-source platform.",
     description:
       "Uptime Robot is one of the most popular simple monitoring tools, with an excellent free tier of 50 monitors. It is great for straightforward uptime checks and basic status pages, but it lacks on-call scheduling, has only lightweight incident tracking, and caps monitors by plan (50 to 1,000+). As needs grow beyond simple monitoring, teams end up bolting on separate tools like PagerDuty and Statuspage.",
     descriptionLine2:
-      "Uptime Robot is great for simple monitoring. When you need on-call scheduling and real incident management, OneUptime gives you the whole platform without stitching tools together.",
+      "Uptime Robot is great for simple monitoring. When you need on-call scheduling and real incident management, Cast Operations gives you the whole platform without stitching tools together.",
     migrationBenefits: [
       "Keep simple uptime monitoring and add real on-call rotations and escalations",
       "Complete incident management workflow with timelines and postmortems",
@@ -3056,7 +3056,7 @@ const products: Dictionary<Product> = {
         competitorSolution: "Uptime Robot Team + PagerDuty",
         competitorCost: "$38 + $210 = $248/month",
         oneuptimeSolution:
-          "OneUptime with monitoring, on-call, and incidents included",
+          "Cast Operations with monitoring, on-call, and incidents included",
         oneuptimeCost: "$0/month (Free tier)",
       },
       {
@@ -3065,14 +3065,14 @@ const products: Dictionary<Product> = {
         competitorSolution: "Uptime Robot Solo + a separate on-call tool",
         competitorCost: "$10 + on-call tooling",
         oneuptimeSolution:
-          "OneUptime: 40 active monitors, status page, and on-call together",
+          "Cast Operations: 40 active monitors, status page, and on-call together",
         oneuptimeCost: "~$40/month ($1 per active monitor)",
       },
       {
         scenario: "Growing company needing complete observability",
         competitorSolution: "Uptime Robot Enterprise + PagerDuty + Statuspage",
         competitorCost: "$82 + $400 + $99 = $581/month",
-        oneuptimeSolution: "OneUptime at a flat $1 per active monitor",
+        oneuptimeSolution: "Cast Operations at a flat $1 per active monitor",
         oneuptimeCost: "$0-99/month",
       },
     ],
@@ -3359,40 +3359,40 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to Uptime Robot?",
+        question: "How does Cast Operations compare to Uptime Robot?",
         answer:
-          "Uptime Robot is excellent for simple, affordable uptime monitoring and basic status pages. OneUptime provides that same monitoring plus on-call scheduling, full incident management, and richer status pages in one platform. If you only need basic monitoring, Uptime Robot's free tier is hard to beat. But once you need to manage incidents and alert an on-call team, you would add PagerDuty ($210+/month) and possibly Statuspage ($99+/month), which is where OneUptime becomes far more cost-effective.",
+          "Uptime Robot is excellent for simple, affordable uptime monitoring and basic status pages. Cast Operations provides that same monitoring plus on-call scheduling, full incident management, and richer status pages in one platform. If you only need basic monitoring, Uptime Robot's free tier is hard to beat. But once you need to manage incidents and alert an on-call team, you would add PagerDuty ($210+/month) and possibly Statuspage ($99+/month), which is where Cast Operations becomes far more cost-effective.",
       },
       {
         question: "What about Uptime Robot's free tier?",
         answer:
-          "Uptime Robot's free tier (50 monitors, 5-minute intervals, 1 status page) is genuinely generous for basic needs. OneUptime also has a free tier, and it includes on-call scheduling, incident management, and better status pages. If monitoring alone is enough, Uptime Robot Free works well; if you need the complete incident lifecycle, OneUptime Free delivers far more.",
+          "Uptime Robot's free tier (50 monitors, 5-minute intervals, 1 status page) is genuinely generous for basic needs. Cast Operations also has a free tier, and it includes on-call scheduling, incident management, and better status pages. If monitoring alone is enough, Uptime Robot Free works well; if you need the complete incident lifecycle, Cast Operations Free delivers far more.",
       },
       {
-        question: "Does OneUptime have the same monitoring types?",
+        question: "Does Cast Operations have the same monitoring types?",
         answer:
-          "Yes. Both support HTTP/HTTPS, TCP port, ping, keyword, SSL, and DNS monitoring. OneUptime adds API monitoring with custom headers and payloads, server monitoring (CPU, memory, disk), container monitoring, and multi-step synthetic transactions - plus faster check frequencies (down to 1 second vs a 30-second minimum on Uptime Robot Enterprise).",
+          "Yes. Both support HTTP/HTTPS, TCP port, ping, keyword, SSL, and DNS monitoring. Cast Operations adds API monitoring with custom headers and payloads, server monitoring (CPU, memory, disk), container monitoring, and multi-step synthetic transactions - plus faster check frequencies (down to 1 second vs a 30-second minimum on Uptime Robot Enterprise).",
       },
       {
         question: "Why switch from Uptime Robot?",
         answer:
-          "Consider switching when you need on-call scheduling (Uptime Robot has none), real incident management workflows (only basic tracking in Uptime Robot), advanced status pages with unlimited subscribers, or you are hitting monitor caps. Rather than bolting PagerDuty and Statuspage onto Uptime Robot, OneUptime gives you everything in one platform at a flat $1 per active monitor.",
+          "Consider switching when you need on-call scheduling (Uptime Robot has none), real incident management workflows (only basic tracking in Uptime Robot), advanced status pages with unlimited subscribers, or you are hitting monitor caps. Rather than bolting PagerDuty and Statuspage onto Uptime Robot, Cast Operations gives you everything in one platform at a flat $1 per active monitor.",
       },
       {
         question: "How does the pricing compare in 2026?",
         answer:
-          "Uptime Robot's paid plans in 2026 run from Solo at $10/month to Team at $38/month and Enterprise starting at $82/month, with monitors capped per tier (50 to 1,000+). OneUptime charges a flat $1/month per active monitor with no caps, keeps manual and static monitors free, and includes on-call and incident management - so as you scale, costs stay predictable instead of jumping between tiers.",
+          "Uptime Robot's paid plans in 2026 run from Solo at $10/month to Team at $38/month and Enterprise starting at $82/month, with monitors capped per tier (50 to 1,000+). Cast Operations charges a flat $1/month per active monitor with no caps, keeps manual and static monitors free, and includes on-call and incident management - so as you scale, costs stay predictable instead of jumping between tiers.",
       },
       {
-        question: "Can I self-host OneUptime?",
+        question: "Can I self-host Cast Operations?",
         answer:
-          "Yes. OneUptime is fully open source under Apache 2.0, so you can self-host it on your own infrastructure for free. Uptime Robot is SaaS-only with no self-hosting option, which matters for teams with data-residency, compliance, or air-gapped requirements.",
+          "Yes. Cast Operations is fully open source under Apache 2.0, so you can self-host it on your own infrastructure for free. Uptime Robot is SaaS-only with no self-hosting option, which matters for teams with data-residency, compliance, or air-gapped requirements.",
       },
       {
         question:
-          "Does OneUptime replace both Uptime Robot and a separate status page tool?",
+          "Does Cast Operations replace both Uptime Robot and a separate status page tool?",
         answer:
-          "Yes. OneUptime includes public and private status pages with unlimited subscribers, custom domains with free SSL, custom branding, scheduled maintenance, and automatic updates from your monitors - so you do not need a separate tool like Statuspage or Instatus on top of your monitoring.",
+          "Yes. Cast Operations includes public and private status pages with unlimited subscribers, custom domains with free SSL, custom branding, scheduled maintenance, and automatic updates from your monitors - so you do not need a separate tool like Statuspage or Instatus on top of your monitoring.",
       },
     ],
   },
@@ -3411,11 +3411,11 @@ const products: Dictionary<Product> = {
     productDescription:
       "Checkly is a developer-focused reliability platform centered on synthetic monitoring, with excellent Playwright and Terraform integration for API and browser testing in CI/CD pipelines. It has expanded into status pages and basic incident communication through its Communicate module and uses Rocky AI for root-cause analysis. Its core strength and pricing model remain monitoring-as-code for engineering teams.",
     oneUptimeDescription:
-      "OneUptime provides unlimited synthetic monitoring plus the complete incident lifecycle in one platform. On-call scheduling, escalation policies, incident management with postmortems, and unlimited-subscriber status pages are all included, with predictable flat per-monitor pricing.",
+      "Cast Operations provides unlimited synthetic monitoring plus the complete incident lifecycle in one platform. On-call scheduling, escalation policies, incident management with postmortems, and unlimited-subscriber status pages are all included, with predictable flat per-monitor pricing.",
     description:
-      "Checkly is a developer-focused synthetic monitoring tool with excellent Playwright and Terraform integration, built for API and browser testing inside CI/CD pipelines. It has recently added status pages and basic status-page incidents through a paid Communicate module, but on-call rotations and a full incident lifecycle still rely on integrations like PagerDuty or Opsgenie. Its check-run quotas and per-run overages also make high-frequency monitoring costs hard to predict. OneUptime folds monitoring, status pages, on-call, and incident management into a single platform with unlimited check runs and flat per-monitor pricing.",
+      "Checkly is a developer-focused synthetic monitoring tool with excellent Playwright and Terraform integration, built for API and browser testing inside CI/CD pipelines. It has recently added status pages and basic status-page incidents through a paid Communicate module, but on-call rotations and a full incident lifecycle still rely on integrations like PagerDuty or Opsgenie. Its check-run quotas and per-run overages also make high-frequency monitoring costs hard to predict. Cast Operations folds monitoring, status pages, on-call, and incident management into a single platform with unlimited check runs and flat per-monitor pricing.",
     descriptionLine2:
-      "Checkly is excellent for synthetic testing as code. For a complete reliability platform with real on-call, full incident management, and unlimited-subscriber status pages, OneUptime does it all in one place.",
+      "Checkly is excellent for synthetic testing as code. For a complete reliability platform with real on-call, full incident management, and unlimited-subscriber status pages, Cast Operations does it all in one place.",
     migrationBenefits: [
       "Unlimited synthetic check runs with no monthly quotas or per-run overages",
       "Native on-call scheduling with rotations, multi-level escalations, and overrides",
@@ -3506,7 +3506,7 @@ const products: Dictionary<Product> = {
           "Checkly Team (Detect) + Communicate add-on + PagerDuty for on-call",
         competitorCost: "$64 + ~$30 + ~$21/user = $115+/month",
         oneuptimeSolution:
-          "OneUptime unified: synthetic monitoring, status page, and on-call included",
+          "Cast Operations unified: synthetic monitoring, status page, and on-call included",
         oneuptimeCost: "$0/month (Free tier) or a few $/monitor",
       },
       {
@@ -3516,7 +3516,7 @@ const products: Dictionary<Product> = {
           "Checkly Enterprise + Communicate + dedicated incident tool",
         competitorCost: "$300+ plus add-ons = $500+/month",
         oneuptimeSolution:
-          "OneUptime with synthetic monitoring, incidents, postmortems, and status page",
+          "Cast Operations with synthetic monitoring, incidents, postmortems, and status page",
         oneuptimeCost: "$1/active monitor + ~$0.10/GB telemetry",
       },
       {
@@ -3526,7 +3526,7 @@ const products: Dictionary<Product> = {
           "Checkly with API check-run overages past the included quota",
         competitorCost: "Base plan + $2.50/10K overages = $1,000+/month",
         oneuptimeSolution:
-          "OneUptime flat per-monitor pricing, no run counting",
+          "Cast Operations flat per-monitor pricing, no run counting",
         oneuptimeCost: "$50/month flat (50 x $1), unlimited runs",
       },
     ],
@@ -3806,40 +3806,40 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to Checkly?",
+        question: "How does Cast Operations compare to Checkly?",
         answer:
-          "Checkly excels at developer-focused synthetic monitoring with great Playwright integration and monitoring-as-code via Terraform. It has added status pages and basic status-page incidents, but on-call rotations and a full incident lifecycle still rely on tools like PagerDuty or Opsgenie. OneUptime provides synthetic monitoring plus native on-call scheduling, complete incident management with postmortems, and unlimited-subscriber status pages in one platform. If you only need synthetic tests in a CI pipeline, Checkly is excellent; if you need to detect, respond, and communicate all in one place, OneUptime is the complete solution.",
+          "Checkly excels at developer-focused synthetic monitoring with great Playwright integration and monitoring-as-code via Terraform. It has added status pages and basic status-page incidents, but on-call rotations and a full incident lifecycle still rely on tools like PagerDuty or Opsgenie. Cast Operations provides synthetic monitoring plus native on-call scheduling, complete incident management with postmortems, and unlimited-subscriber status pages in one platform. If you only need synthetic tests in a CI pipeline, Checkly is excellent; if you need to detect, respond, and communicate all in one place, Cast Operations is the complete solution.",
       },
       {
         question:
           "Doesn't Checkly now have status pages and incident management?",
         answer:
-          "Yes. Checkly launched a Communicate module with public and internal status pages and the ability to open, update, and resolve incidents from a failing check. However, branding, custom CSS, and white labeling sit behind a paid add-on, subscribers are email/RSS only, and incidents are essentially status-page updates without postmortems, action items, runbooks, or MTTR analytics. OneUptime includes unlimited subscribers, free custom domain and SSL, and a full incident lifecycle at no extra tier.",
+          "Yes. Checkly launched a Communicate module with public and internal status pages and the ability to open, update, and resolve incidents from a failing check. However, branding, custom CSS, and white labeling sit behind a paid add-on, subscribers are email/RSS only, and incidents are essentially status-page updates without postmortems, action items, runbooks, or MTTR analytics. Cast Operations includes unlimited subscribers, free custom domain and SSL, and a full incident lifecycle at no extra tier.",
       },
       {
-        question: "Does Checkly have real on-call scheduling like OneUptime?",
+        question: "Does Checkly have real on-call scheduling like Cast Operations?",
         answer:
-          "Not natively. Checkly offers alert escalation policies that control when and how often alerts fire, but managing human on-call rotations, overrides, and follow-the-sun coverage means integrating PagerDuty, Opsgenie, Incident.io, or Rootly as a separate tool. OneUptime includes on-call rotations, multi-level escalation policies, and overrides built in, with alerts via SMS, phone call, email, push, Slack, and Microsoft Teams.",
+          "Not natively. Checkly offers alert escalation policies that control when and how often alerts fire, but managing human on-call rotations, overrides, and follow-the-sun coverage means integrating PagerDuty, Opsgenie, Incident.io, or Rootly as a separate tool. Cast Operations includes on-call rotations, multi-level escalation policies, and overrides built in, with alerts via SMS, phone call, email, push, Slack, and Microsoft Teams.",
       },
       {
-        question: "Does OneUptime have Playwright support like Checkly?",
+        question: "Does Cast Operations have Playwright support like Checkly?",
         answer:
-          "OneUptime supports synthetic browser tests for monitoring user flows. Checkly has deeper Playwright integration specifically designed for test-as-code workflows in your IDE and CI. If Playwright scripting is essential to your team, Checkly has an edge there. OneUptime focuses on reliable monitoring with easier configuration for common use cases and pairs it with the full response and communication stack.",
+          "Cast Operations supports synthetic browser tests for monitoring user flows. Checkly has deeper Playwright integration specifically designed for test-as-code workflows in your IDE and CI. If Playwright scripting is essential to your team, Checkly has an edge there. Cast Operations focuses on reliable monitoring with easier configuration for common use cases and pairs it with the full response and communication stack.",
       },
       {
         question: "What about Checkly's Terraform provider?",
         answer:
-          "Checkly has strong infrastructure-as-code support and a mature Terraform provider covering checks and status pages. OneUptime provides a full REST API and native webhooks for automation, plus 2000+ integrations via Zapier. For teams deeply invested in Terraform-managed monitoring, Checkly integrates well; OneUptime's API-first approach works with any automation toolchain.",
+          "Checkly has strong infrastructure-as-code support and a mature Terraform provider covering checks and status pages. Cast Operations provides a full REST API and native webhooks for automation, plus 2000+ integrations via Zapier. For teams deeply invested in Terraform-managed monitoring, Checkly integrates well; Cast Operations’ API-first approach works with any automation toolchain.",
       },
       {
         question: "How do check-run limits and pricing compare?",
         answer:
-          "Checkly bills by check runs, limiting browser checks (1K-12K/month) and API checks (10K-100K/month), then charging per-run overages of roughly $2.50-$6.50 per batch. High-frequency monitoring gets expensive and hard to predict. OneUptime does not count check runs at all: active monitors are a flat $1/month each with no per-check tiers or caps, so a 30-second monitor costs the same as an hourly one.",
+          "Checkly bills by check runs, limiting browser checks (1K-12K/month) and API checks (10K-100K/month), then charging per-run overages of roughly $2.50-$6.50 per batch. High-frequency monitoring gets expensive and hard to predict. Cast Operations does not count check runs at all: active monitors are a flat $1/month each with no per-check tiers or caps, so a 30-second monitor costs the same as an hourly one.",
       },
       {
         question: "Can I self-host or audit the code?",
         answer:
-          "Checkly is a SaaS-only product with no open-source or self-host option. OneUptime is Apache 2.0 licensed and fully self-hostable for free, so you can run it on your own infrastructure, audit every line, and keep telemetry data in your environment, or use the managed cloud with predictable pricing.",
+          "Checkly is a SaaS-only product with no open-source or self-host option. Cast Operations is Apache 2.0 licensed and fully self-hostable for free, so you can run it on your own infrastructure, audit every line, and keep telemetry data in your environment, or use the managed cloud with predictable pricing.",
       },
     ],
   },
@@ -3859,7 +3859,7 @@ const products: Dictionary<Product> = {
     productDescription:
       "Incident.io is a modern, beautifully designed incident management tool that excels at Slack- and Teams-native incident response. It provides polished coordination features for teams during incidents, plus built-in on-call (as a paid add-on) and basic status pages. It does not monitor anything, so incidents must be detected by separate tools.",
     oneUptimeDescription:
-      "OneUptime provides complete incident management plus integrated monitoring, full-featured status pages, and on-call scheduling in one platform. It covers the entire incident lifecycle from automatic detection to customer communication and post-incident learning, with predictable flat pricing instead of per-user seats.",
+      "Cast Operations provides complete incident management plus integrated monitoring, full-featured status pages, and on-call scheduling in one platform. It covers the entire incident lifecycle from automatic detection to customer communication and post-incident learning, with predictable flat pricing instead of per-user seats.",
     description:
       "Incident.io is a modern, beautifully designed incident management tool that excels at Slack- and Teams-native incident response, and it's excellent for coordinating teams during a live incident. It includes on-call (as a paid per-user add-on) and basic status pages. However, it has no monitoring to detect incidents in the first place, and its pricing scales per user with every hire. Complete reliability needs detection, response, and customer communication working together.",
     descriptionLine2:
@@ -3956,7 +3956,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "$250/mo (Team + on-call) + ~$150 monitoring = ~$400/month",
         oneuptimeSolution:
-          "OneUptime with monitoring, on-call, incidents, and status pages included",
+          "Cast Operations with monitoring, on-call, incidents, and status pages included",
         oneuptimeCost: "$0/month (Free tier) or $99/month (Growth)",
       },
       {
@@ -3966,7 +3966,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "$1,125/mo (Pro + on-call) + ~$200 monitoring = ~$1,325+/month",
         oneuptimeSolution:
-          "OneUptime with unlimited users and monitoring included",
+          "Cast Operations with unlimited users and monitoring included",
         oneuptimeCost: "$0-299/month",
       },
       {
@@ -3975,7 +3975,7 @@ const products: Dictionary<Product> = {
           "Incident.io Team + On-call add-on (6 users) + basic monitoring",
         competitorCost: "$150/mo (Team + on-call) + monitoring",
         oneuptimeSolution:
-          "OneUptime Free tier with Slack and Teams integration",
+          "Cast Operations Free tier with Slack and Teams integration",
         oneuptimeCost: "$0/month (Free tier)",
       },
     ],
@@ -4291,39 +4291,39 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to Incident.io?",
+        question: "How does Cast Operations compare to Incident.io?",
         answer:
-          "Incident.io excels at Slack- and Teams-native incident management - it's beautifully designed for coordinating a live incident. However, it's only one piece of the puzzle. It has no monitoring to detect incidents (incident.io monitors nothing), on-call is a paid per-user add-on (+$10-20/user/month), and its status pages are basic, with multiple pages reserved for Enterprise. OneUptime provides the complete incident lifecycle: monitoring detects issues, on-call alerts the right people, incident management coordinates response, and full-featured status pages keep customers informed - all in one platform.",
+          "Incident.io excels at Slack- and Teams-native incident management - it's beautifully designed for coordinating a live incident. However, it's only one piece of the puzzle. It has no monitoring to detect incidents (incident.io monitors nothing), on-call is a paid per-user add-on (+$10-20/user/month), and its status pages are basic, with multiple pages reserved for Enterprise. Cast Operations provides the complete incident lifecycle: monitoring detects issues, on-call alerts the right people, incident management coordinates response, and full-featured status pages keep customers informed - all in one platform.",
       },
       {
-        question: "Does OneUptime work with Slack and Teams like Incident.io?",
+        question: "Does Cast Operations work with Slack and Teams like Incident.io?",
         answer:
-          "Yes. OneUptime has native Slack and Microsoft Teams integration for incident management. You can create, acknowledge, update, and resolve incidents directly from either tool. Incident.io also supports both, but the difference is OneUptime's chat integration is part of a complete platform that monitors your systems, runs your on-call, and powers your status page - not the entire product.",
+          "Yes. Cast Operations has native Slack and Microsoft Teams integration for incident management. You can create, acknowledge, update, and resolve incidents directly from either tool. Incident.io also supports both, but the difference is Cast Operations’ chat integration is part of a complete platform that monitors your systems, runs your on-call, and powers your status page - not the entire product.",
       },
       {
         question: "What about Incident.io's AI features?",
         answer:
-          "Incident.io has invested heavily in AI for incident response, with an AI Assistant and automation now included on its paid plans. OneUptime focuses on practical automation and intelligent alerting: automatic incident creation from monitors, alert deduplication, and workflow automation. The key difference is that OneUptime's automation spans the entire lifecycle - including detection - because it actually monitors your systems.",
+          "Incident.io has invested heavily in AI for incident response, with an AI Assistant and automation now included on its paid plans. Cast Operations focuses on practical automation and intelligent alerting: automatic incident creation from monitors, alert deduplication, and workflow automation. The key difference is that Cast Operations’ automation spans the entire lifecycle - including detection - because it actually monitors your systems.",
       },
       {
         question: "How do postmortems compare?",
         answer:
-          "Both platforms support structured post-incident reviews with timelines and action items, and incident.io has a polished postmortem experience. OneUptime provides comparable functionality plus the ability to publish postmortems directly to your status page for customer transparency - something incident.io can't do the same way since its status pages are more basic and monitor-driven detection isn't part of the product.",
+          "Both platforms support structured post-incident reviews with timelines and action items, and incident.io has a polished postmortem experience. Cast Operations provides comparable functionality plus the ability to publish postmortems directly to your status page for customer transparency - something incident.io can't do the same way since its status pages are more basic and monitor-driven detection isn't part of the product.",
       },
       {
-        question: "Is on-call included in OneUptime?",
+        question: "Is on-call included in Cast Operations?",
         answer:
-          "Yes. Full on-call scheduling with rotations, multi-level escalation policies, and multi-channel alerts (SMS, phone call, push, email, Slack, Teams) is included in OneUptime on all plans. Incident.io charges on-call as a per-user add-on: +$10/user/month on Team (annual) and +$20/user/month on Pro. For a 10-person team, that's an extra $100-200/month just for on-call, on top of the base per-user seat cost.",
+          "Yes. Full on-call scheduling with rotations, multi-level escalation policies, and multi-channel alerts (SMS, phone call, push, email, Slack, Teams) is included in Cast Operations on all plans. Incident.io charges on-call as a per-user add-on: +$10/user/month on Team (annual) and +$20/user/month on Pro. For a 10-person team, that's an extra $100-200/month just for on-call, on top of the base per-user seat cost.",
       },
       {
         question: "What about private incidents?",
         answer:
-          "OneUptime supports private incidents on all plans. Incident.io restricts private incidents to the Pro plan ($25/user/month). This matters for security incidents or HR-related issues that shouldn't be visible to everyone in the workspace.",
+          "Cast Operations supports private incidents on all plans. Incident.io restricts private incidents to the Pro plan ($25/user/month). This matters for security incidents or HR-related issues that shouldn't be visible to everyone in the workspace.",
       },
       {
-        question: "Why choose OneUptime over Incident.io?",
+        question: "Why choose Cast Operations over Incident.io?",
         answer:
-          "Choose OneUptime if you want a complete reliability platform without assembling and paying for separate tools. With incident.io you still need a dedicated monitoring tool to detect incidents (incident.io monitors nothing), on-call is a paid add-on (+$10-20/user/month), and pricing scales per user with every hire. OneUptime includes monitoring, full-featured status pages, on-call, AND incident management - with predictable flat pricing and no per-seat costs, plus the option to self-host for free.",
+          "Choose Cast Operations if you want a complete reliability platform without assembling and paying for separate tools. With incident.io you still need a dedicated monitoring tool to detect incidents (incident.io monitors nothing), on-call is a paid add-on (+$10-20/user/month), and pricing scales per user with every hire. Cast Operations includes monitoring, full-featured status pages, on-call, AND incident management - with predictable flat pricing and no per-seat costs, plus the option to self-host for free.",
       },
     ],
   },
@@ -4342,11 +4342,11 @@ const products: Dictionary<Product> = {
     productDescription:
       "SigNoz is a strong open-source observability platform focused on logs, metrics, traces, and exceptions, native to OpenTelemetry and built on ClickHouse for high-performance querying. It offers a free self-hosted Community edition and a managed Teams cloud, making it a credible open-source alternative to Datadog and New Relic. Its scope is observability data - on-call, incident response, and customer-facing status pages need separate tools.",
     oneUptimeDescription:
-      "OneUptime is a unified, Apache 2.0 reliability platform that combines OpenTelemetry logs, metrics, and traces with uptime monitoring, on-call scheduling, incident management, and unlimited status pages. It is available as a free self-hosted stack or a managed cloud with predictable, flat pricing. One platform covers detection, response, and customer communication.",
+      "Cast Operations is a unified, Apache 2.0 reliability platform that combines OpenTelemetry logs, metrics, and traces with uptime monitoring, on-call scheduling, incident management, and unlimited status pages. It is available as a free self-hosted stack or a managed cloud with predictable, flat pricing. One platform covers detection, response, and customer communication.",
     description:
       "SigNoz is an excellent open-source observability platform focused on logs, metrics, traces, and exceptions. Built on ClickHouse and native to OpenTelemetry, it is a genuine alternative to proprietary APM tools with a transparent, usage-based cloud. However, SigNoz covers only observability data - synthetic and uptime monitoring, on-call scheduling, incident management, and customer-facing status pages all require additional products. That means stitching together and paying for several tools to cover the full incident lifecycle.",
     descriptionLine2:
-      "SigNoz is great for APM and telemetry. OneUptime adds monitoring, on-call, incidents, and status pages so one platform handles the entire path from signal to customer update.",
+      "SigNoz is great for APM and telemetry. Cast Operations adds monitoring, on-call, incidents, and status pages so one platform handles the entire path from signal to customer update.",
     migrationBenefits: [
       "Add on-call scheduling with rotations, escalations, and follow-the-sun",
       "Add end-to-end incident management with timelines, postmortems, and MTTR analytics",
@@ -4416,14 +4416,14 @@ const products: Dictionary<Product> = {
         competitorSolution: "SigNoz Teams + PagerDuty + Statuspage",
         competitorCost: "$49 + ~$210 + ~$99 = ~$358/month + usage",
         oneuptimeSolution:
-          "OneUptime with telemetry, on-call, and status pages included",
+          "Cast Operations with telemetry, on-call, and status pages included",
         oneuptimeCost: "$0/month on the Free tier",
       },
       {
         scenario: "Growing startup ingesting 500GB/month of logs",
         competitorSolution: "SigNoz Teams with usage overage",
         competitorCost: "$49 + (~337GB x $0.30) = ~$150/month for logs alone",
-        oneuptimeSolution: "OneUptime telemetry at ~$0.10/GB",
+        oneuptimeSolution: "Cast Operations telemetry at ~$0.10/GB",
         oneuptimeCost: "~$50/month for the same volume",
       },
       {
@@ -4432,7 +4432,7 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "SigNoz Enterprise + separate on-call + status page tools",
         competitorCost: "$4,000+ + ~$500 + ~$400 = $4,900+/month",
-        oneuptimeSolution: "OneUptime Enterprise with everything unified",
+        oneuptimeSolution: "Cast Operations Enterprise with everything unified",
         oneuptimeCost: "Contact for enterprise pricing",
       },
     ],
@@ -4689,34 +4689,34 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "How does OneUptime compare to SigNoz?",
+        question: "How does Cast Operations compare to SigNoz?",
         answer:
-          "SigNoz excels at APM with logs, metrics, traces, and exceptions in one OpenTelemetry-native tool, and it is an excellent open-source Datadog alternative with transparent usage-based pricing. OneUptime covers the complete incident lifecycle: monitoring to detect issues, on-call to notify the right people, incident management to coordinate response, and status pages to communicate with customers - plus its own logs, metrics, and traces. If you only need deep APM, SigNoz is a great choice. If you need the full reliability stack in one place, OneUptime unifies telemetry with monitoring, on-call, incidents, and status pages.",
+          "SigNoz excels at APM with logs, metrics, traces, and exceptions in one OpenTelemetry-native tool, and it is an excellent open-source Datadog alternative with transparent usage-based pricing. Cast Operations covers the complete incident lifecycle: monitoring to detect issues, on-call to notify the right people, incident management to coordinate response, and status pages to communicate with customers - plus its own logs, metrics, and traces. If you only need deep APM, SigNoz is a great choice. If you need the full reliability stack in one place, Cast Operations unifies telemetry with monitoring, on-call, incidents, and status pages.",
       },
       {
-        question: "Is SigNoz really open source like OneUptime?",
+        question: "Is SigNoz really open source like Cast Operations?",
         answer:
-          "Both are genuinely open source and self-hostable. SigNoz follows an open-core model - its core is permissively licensed while an enterprise (ee) module is under a separate commercial license - and it focuses on observability data. OneUptime is fully Apache 2.0 across the platform and covers the whole incident lifecycle. They solve related but different problems, and OneUptime's single permissive license keeps self-hosting simple.",
+          "Both are genuinely open source and self-hostable. SigNoz follows an open-core model - its core is permissively licensed while an enterprise (ee) module is under a separate commercial license - and it focuses on observability data. Cast Operations is fully Apache 2.0 across the platform and covers the whole incident lifecycle. They solve related but different problems, and Cast Operations’ single permissive license keeps self-hosting simple.",
       },
       {
         question: "What about SigNoz's usage-based pricing?",
         answer:
-          "SigNoz Teams starts at $49/month, then charges $0.30/GB for logs and traces and $0.10 per million metric samples once you exceed the included quota. That is transparent but can be hard to forecast for high or spiky volumes. OneUptime uses predictable pricing - a flat $1/month per active monitor and roughly $0.10/GB for telemetry - so bills stay easy to plan even as data grows.",
+          "SigNoz Teams starts at $49/month, then charges $0.30/GB for logs and traces and $0.10 per million metric samples once you exceed the included quota. That is transparent but can be hard to forecast for high or spiky volumes. Cast Operations uses predictable pricing - a flat $1/month per active monitor and roughly $0.10/GB for telemetry - so bills stay easy to plan even as data grows.",
       },
       {
         question: "Does SigNoz include uptime monitoring and status pages?",
         answer:
-          "No. SigNoz is focused on observability data - logs, metrics, traces, and exceptions - and does not provide synthetic uptime monitors, SSL/port checks, on-call scheduling, incident management, or customer-facing status pages. OneUptime includes all of those alongside its telemetry, so you do not have to bolt on and pay for separate tools.",
+          "No. SigNoz is focused on observability data - logs, metrics, traces, and exceptions - and does not provide synthetic uptime monitors, SSL/port checks, on-call scheduling, incident management, or customer-facing status pages. Cast Operations includes all of those alongside its telemetry, so you do not have to bolt on and pay for separate tools.",
       },
       {
-        question: "Can I use SigNoz and OneUptime together?",
+        question: "Can I use SigNoz and Cast Operations together?",
         answer:
-          "Yes, they are complementary. Use SigNoz for deep APM, distributed tracing, and log analysis, and use OneUptime for uptime monitoring, on-call, incident management, and status pages. SigNoz can trigger OneUptime via webhooks so alerts flow straight into on-call and incident workflows.",
+          "Yes, they are complementary. Use SigNoz for deep APM, distributed tracing, and log analysis, and use Cast Operations for uptime monitoring, on-call, incident management, and status pages. SigNoz can trigger Cast Operations via webhooks so alerts flow straight into on-call and incident workflows.",
       },
       {
         question: "Which is more cost-effective for a full reliability stack?",
         answer:
-          "If all you need is APM, SigNoz Community (self-hosted, free) or Teams is cost-effective. But once you add on-call, incident response, and status pages, you are paying for and integrating multiple products. OneUptime bundles monitoring, on-call, incidents, status pages, and telemetry under one predictable bill, which is usually cheaper and simpler than assembling SigNoz plus a paging tool plus a status page tool.",
+          "If all you need is APM, SigNoz Community (self-hosted, free) or Teams is cost-effective. But once you add on-call, incident response, and status pages, you are paying for and integrating multiple products. Cast Operations bundles monitoring, on-call, incidents, status pages, and telemetry under one predictable bill, which is usually cheaper and simpler than assembling SigNoz plus a paging tool plus a status page tool.",
       },
     ],
   },
@@ -4729,15 +4729,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Opsgenie is Atlassian's on-call scheduling and alert-routing tool, now being retired and migrated into Jira Service Management and Compass.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, status pages, on-call, incidents, and telemetry in one open-source platform so you never stitch tools together.",
+      "Cast Operations unifies monitoring, status pages, on-call, incidents, and telemetry in one open-source platform so you never stitch tools together.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Opsgenie is Atlassian's on-call management and alert-routing product. It schedules who is on call, deduplicates alerts from external monitoring tools, and escalates via SMS, phone, email, and push. It has no native monitoring or status page and relies on Atlassian Statuspage and third-party monitors bolted on around it.",
     oneUptimeDescription:
-      "OneUptime is an open-source, self-hostable reliability platform that combines uptime and infrastructure monitoring, public and private status pages, on-call and escalations, incident management, and OpenTelemetry logs, metrics, and traces. Everything shares one data model, so an alert, an incident, and a status page update are the same event rather than three integrations. You can self-host for free or use the managed cloud with flat, predictable pricing.",
+      "Cast Operations is an open-source, self-hostable reliability platform that combines uptime and infrastructure monitoring, public and private status pages, on-call and escalations, incident management, and OpenTelemetry logs, metrics, and traces. Everything shares one data model, so an alert, an incident, and a status page update are the same event rather than three integrations. You can self-host for free or use the managed cloud with flat, predictable pricing.",
     description:
-      "Opsgenie only ever solved one slice of reliability: routing alerts to the right on-call responder. To actually run reliability you also paid for monitoring, a status page, and incident tooling, then wired them together. Now Atlassian is sunsetting Opsgenie itself, forcing every customer onto Jira Service Management or Compass on a hard deadline. OneUptime replaces the entire stack with one open-source platform where monitoring, on-call, incidents, and status pages already work together.",
+      "Opsgenie only ever solved one slice of reliability: routing alerts to the right on-call responder. To actually run reliability you also paid for monitoring, a status page, and incident tooling, then wired them together. Now Atlassian is sunsetting Opsgenie itself, forcing every customer onto Jira Service Management or Compass on a hard deadline. Cast Operations replaces the entire stack with one open-source platform where monitoring, on-call, incidents, and status pages already work together.",
     descriptionLine2:
       "Instead of migrating from a dead product into a pricier Atlassian bundle, move to a unified platform that bills a flat $1 per active monitor and can be self-hosted for free.",
     migrationBenefits: [
@@ -4826,7 +4826,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "~$300/mo for Opsgenie seats plus separate monitoring and status page bills",
         oneuptimeSolution:
-          "OneUptime covers on-call, monitoring, and status page in one platform; pay only for active monitors",
+          "Cast Operations covers on-call, monitoring, and status page in one platform; pay only for active monitors",
         oneuptimeCost: "~$50/mo for 50 active monitors, or $0 self-hosted",
       },
       {
@@ -4837,7 +4837,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "Extra monthly cost for monitoring and Statuspage on top of Opsgenie",
         oneuptimeSolution:
-          "OneUptime generous free tier plus $1 per active monitor and unlimited status page subscribers",
+          "Cast Operations generous free tier plus $1 per active monitor and unlimited status page subscribers",
         oneuptimeCost: "~$30/mo, or $0 on the self-hosted or free tier",
       },
       {
@@ -4848,7 +4848,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "~$3,000+/mo in JSM Premium seats, a jump over old Opsgenie pricing",
         oneuptimeSolution:
-          "Migrate to OneUptime and consolidate monitoring, on-call, incidents, and status pages with monitor-based billing",
+          "Migrate to Cast Operations and consolidate monitoring, on-call, incidents, and status pages with monitor-based billing",
         oneuptimeCost:
           "Flat $1 per active monitor, predictable Growth tier ~$99/mo, or free self-hosted",
       },
@@ -4857,37 +4857,37 @@ const products: Dictionary<Product> = {
       {
         title: "Unified platform, not one tool",
         description:
-          "Opsgenie only routes alerts and manages on-call; you still buy monitoring and a status page separately. OneUptime includes monitoring, status pages, on-call, incidents, and telemetry together.",
+          "Opsgenie only routes alerts and manages on-call; you still buy monitoring and a status page separately. Cast Operations includes monitoring, status pages, on-call, incidents, and telemetry together.",
         icon: "unified",
       },
       {
         title: "No forced migration",
         description:
-          "Atlassian stopped new Opsgenie sales in June 2025 and ends support in April 2027, forcing customers into Jira Service Management or Compass. OneUptime is stable and open-source with no shutdown clock.",
+          "Atlassian stopped new Opsgenie sales in June 2025 and ends support in April 2027, forcing customers into Jira Service Management or Compass. Cast Operations is stable and open-source with no shutdown clock.",
         icon: "incident",
       },
       {
         title: "Native monitoring built in",
         description:
-          "Opsgenie has no monitoring of its own and depends on external tools to generate alerts. OneUptime monitors websites, APIs, servers, containers, SSL, and cron jobs from 7+ global probe locations.",
+          "Opsgenie has no monitoring of its own and depends on external tools to generate alerts. Cast Operations monitors websites, APIs, servers, containers, SSL, and cron jobs from 7+ global probe locations.",
         icon: "monitoring",
       },
       {
         title: "Status pages included",
         description:
-          "Opsgenie relies on the separately-priced Atlassian Statuspage. OneUptime ships public and private status pages with unlimited subscribers, custom domains, and free SSL.",
+          "Opsgenie relies on the separately-priced Atlassian Statuspage. Cast Operations ships public and private status pages with unlimited subscribers, custom domains, and free SSL.",
         icon: "status-page",
       },
       {
         title: "Flat, predictable pricing",
         description:
-          "Opsgenie bills per user per month across four tiers, and JSM is pricier still. OneUptime charges a flat $1 per active monitor with unlimited free manual monitors and no per-check tiers.",
+          "Opsgenie bills per user per month across four tiers, and JSM is pricier still. Cast Operations charges a flat $1 per active monitor with unlimited free manual monitors and no per-check tiers.",
         icon: "pricing",
       },
       {
         title: "Open-source and self-hostable",
         description:
-          "Opsgenie is closed-source Atlassian SaaS with vendor lock-in. OneUptime is Apache 2.0, self-hostable for free, and lets you own your data end to end.",
+          "Opsgenie is closed-source Atlassian SaaS with vendor lock-in. Cast Operations is Apache 2.0, self-hostable for free, and lets you own your data end to end.",
         icon: "open-source",
       },
     ],
@@ -5201,34 +5201,34 @@ const products: Dictionary<Product> = {
       },
       {
         question:
-          "Why move to OneUptime instead of Jira Service Management or Compass?",
+          "Why move to Cast Operations instead of Jira Service Management or Compass?",
         answer:
-          "Migrating within Atlassian still leaves you with an alerting tool that needs separate monitoring and status page products, and Jira Service Management incident features sit in the pricier Premium tier at roughly $51 per agent per month. OneUptime replaces the whole stack with one unified, open-source platform and flat per-monitor pricing.",
+          "Migrating within Atlassian still leaves you with an alerting tool that needs separate monitoring and status page products, and Jira Service Management incident features sit in the pricier Premium tier at roughly $51 per agent per month. Cast Operations replaces the whole stack with one unified, open-source platform and flat per-monitor pricing.",
       },
       {
         question: "Does Opsgenie include monitoring?",
         answer:
-          "No. Opsgenie is an alert-routing and on-call tool that ingests alerts from external monitoring systems through integrations. OneUptime has native monitoring for websites, APIs, servers, containers, synthetics, SSL certificates, and cron jobs built in, with 7+ global probe locations.",
+          "No. Opsgenie is an alert-routing and on-call tool that ingests alerts from external monitoring systems through integrations. Cast Operations has native monitoring for websites, APIs, servers, containers, synthetics, SSL certificates, and cron jobs built in, with 7+ global probe locations.",
       },
       {
         question: "Does Opsgenie include a status page?",
         answer:
-          "No. Opsgenie relies on Atlassian Statuspage, a separately-priced product, integrated through a two-way connection. OneUptime includes public and private status pages with unlimited subscribers, custom domains, free SSL, and automatic updates from your monitors at no extra cost.",
+          "No. Opsgenie relies on Atlassian Statuspage, a separately-priced product, integrated through a two-way connection. Cast Operations includes public and private status pages with unlimited subscribers, custom domains, free SSL, and automatic updates from your monitors at no extra cost.",
       },
       {
-        question: "How does OneUptime pricing compare to Opsgenie?",
+        question: "How does Cast Operations pricing compare to Opsgenie?",
         answer:
-          "Opsgenie charges per user per month across Essentials, Standard, and Enterprise tiers, so costs grow with every responder. OneUptime charges a flat $1 per active monitor with unlimited free manual monitors and no per-check caps, plus a generous free tier and free self-hosting, so pricing stays predictable as your team grows.",
+          "Opsgenie charges per user per month across Essentials, Standard, and Enterprise tiers, so costs grow with every responder. Cast Operations charges a flat $1 per active monitor with unlimited free manual monitors and no per-check caps, plus a generous free tier and free self-hosting, so pricing stays predictable as your team grows.",
       },
       {
-        question: "Can I self-host OneUptime?",
+        question: "Can I self-host Cast Operations?",
         answer:
-          "Yes. OneUptime is open-source under the Apache 2.0 license and can be self-hosted on your own infrastructure for free, giving you full control of your data. Opsgenie is closed-source Atlassian SaaS with no self-hosting option.",
+          "Yes. Cast Operations is open-source under the Apache 2.0 license and can be self-hosted on your own infrastructure for free, giving you full control of your data. Opsgenie is closed-source Atlassian SaaS with no self-hosting option.",
       },
       {
         question: "Will I lose on-call features by switching from Opsgenie?",
         answer:
-          "No. OneUptime provides on-call rotations, multi-level escalation policies, overrides and follow-the-sun scheduling, and alerts via SMS, phone call, email, push, Slack, and Microsoft Teams. You keep the on-call capabilities and gain integrated monitoring, incidents, status pages, and telemetry.",
+          "No. Cast Operations provides on-call rotations, multi-level escalation policies, overrides and follow-the-sun scheduling, and alerts via SMS, phone call, email, push, Slack, and Microsoft Teams. You keep the on-call capabilities and gain integrated monitoring, incidents, status pages, and telemetry.",
       },
     ],
   },
@@ -5241,15 +5241,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Squadcast (now part of SolarWinds) specializes in on-call scheduling and incident response but relies on external tools for uptime and infrastructure monitoring, logs, metrics, and traces.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, status pages, on-call, incident management, and OpenTelemetry data in a single open-source platform, so you are not stitching together separate tools.",
+      "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry data in a single open-source platform, so you are not stitching together separate tools.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Squadcast is a per-seat SRE platform focused on on-call alerting, escalation, and incident response, with SRE workflows like SLO tracking, service graphs, and runbooks on higher tiers. It ingests alerts from external monitoring tools rather than generating its own uptime or telemetry signals. Following its acquisition by SolarWinds, it is being folded into a broader incident-response portfolio.",
     oneUptimeDescription:
-      "OneUptime is an open-source, Apache 2.0 platform that combines uptime and infrastructure monitoring, public and private status pages, on-call and escalation, incident management, and OpenTelemetry logs, metrics, and traces. It is billed at a flat $1 per active monitor per month instead of per user, and can be self-hosted for free. That means one bill, one login, and no per-seat tax as your team grows.",
+      "Cast Operations is an open-source, Apache 2.0 platform that combines uptime and infrastructure monitoring, public and private status pages, on-call and escalation, incident management, and OpenTelemetry logs, metrics, and traces. It is billed at a flat $1 per active monitor per month instead of per user, and can be self-hosted for free. That means one bill, one login, and no per-seat tax as your team grows.",
     description:
-      "Squadcast is a capable on-call and incident-response tool, but it does not monitor your systems itself. You still have to buy and connect a separate uptime monitor, an APM or telemetry backend, and often a separate status-page product, then pay Squadcast per user on top. OneUptime brings monitoring, status pages, on-call, incident management, and telemetry into one open-source platform. The result is fewer vendors, one predictable bill, and no tool sprawl.",
+      "Squadcast is a capable on-call and incident-response tool, but it does not monitor your systems itself. You still have to buy and connect a separate uptime monitor, an APM or telemetry backend, and often a separate status-page product, then pay Squadcast per user on top. Cast Operations brings monitoring, status pages, on-call, incident management, and telemetry into one open-source platform. The result is fewer vendors, one predictable bill, and no tool sprawl.",
     descriptionLine2:
       "Instead of paying per seat and wiring up external monitors, you get uptime checks, telemetry, alerting, and status pages in one place for a flat $1 per active monitor, with free self-hosting always available.",
     migrationBenefits: [
@@ -5338,7 +5338,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "$190/mo for Squadcast seats, plus a separate monitoring subscription",
         oneuptimeSolution:
-          "OneUptime for on-call, incident management, status pages, and 50 active monitors, with unlimited team seats",
+          "Cast Operations for on-call, incident management, status pages, and 50 active monitors, with unlimited team seats",
         oneuptimeCost: "About $50/mo for 50 active monitors, seats included",
       },
       {
@@ -5349,7 +5349,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "$475/mo in Squadcast seats, plus a telemetry vendor billed by data volume",
         oneuptimeSolution:
-          "OneUptime for on-call, incidents, status pages, monitors, and OpenTelemetry ingestion, seats included",
+          "Cast Operations for on-call, incidents, status pages, monitors, and OpenTelemetry ingestion, seats included",
         oneuptimeCost:
           "$1 per active monitor plus about $0.10/GB telemetry, no per-seat fees",
       },
@@ -5360,7 +5360,7 @@ const products: Dictionary<Product> = {
           "Squadcast Pro at $12/user, upgrading to Premium for status pages, plus external monitoring",
         competitorCost: "$12-19 per user every month, rising with headcount",
         oneuptimeSolution:
-          "Self-host OneUptime for free, or use the generous free cloud tier and pay only for active monitors",
+          "Self-host Cast Operations for free, or use the generous free cloud tier and pay only for active monitors",
         oneuptimeCost: "$0 self-hosted, or $1 per active monitor on cloud",
       },
     ],
@@ -5368,37 +5368,37 @@ const products: Dictionary<Product> = {
       {
         title: "Built-in monitoring, not just alert routing",
         description:
-          "Squadcast reacts to alerts from external tools; OneUptime natively monitors websites, APIs, servers, containers, SSL, ports, and cron jobs so the signal and the response live in one platform.",
+          "Squadcast reacts to alerts from external tools; Cast Operations natively monitors websites, APIs, servers, containers, SSL, ports, and cron jobs so the signal and the response live in one platform.",
         icon: "monitoring",
       },
       {
         title: "Truly unified platform",
         description:
-          "OneUptime combines monitoring, status pages, on-call, incidents, and telemetry, while Squadcast covers on-call and incidents and leaves monitoring and observability to other vendors.",
+          "Cast Operations combines monitoring, status pages, on-call, incidents, and telemetry, while Squadcast covers on-call and incidents and leaves monitoring and observability to other vendors.",
         icon: "unified",
       },
       {
         title: "Open source and self-hostable",
         description:
-          "OneUptime is Apache 2.0 licensed and can be self-hosted for free with full data ownership, whereas Squadcast is a closed, SaaS-first product now owned by SolarWinds.",
+          "Cast Operations is Apache 2.0 licensed and can be self-hosted for free with full data ownership, whereas Squadcast is a closed, SaaS-first product now owned by SolarWinds.",
         icon: "open-source",
       },
       {
         title: "Per-monitor pricing, not per-seat",
         description:
-          "OneUptime charges a flat $1 per active monitor so responders are free to add, while Squadcast bills $12 to $19 per user every month.",
+          "Cast Operations charges a flat $1 per active monitor so responders are free to add, while Squadcast bills $12 to $19 per user every month.",
         icon: "pricing",
       },
       {
         title: "Unlimited status page subscribers",
         description:
-          "OneUptime status pages allow unlimited subscribers on every plan, versus Squadcast's cap of about 5,000 subscribers per page on Premium.",
+          "Cast Operations status pages allow unlimited subscribers on every plan, versus Squadcast's cap of about 5,000 subscribers per page on Premium.",
         icon: "subscribers",
       },
       {
         title: "Native telemetry with OpenTelemetry",
         description:
-          "OneUptime ingests logs, metrics, and traces to give incidents real root-cause context, something Squadcast does not store or provide.",
+          "Cast Operations ingests logs, metrics, and traces to give incidents real root-cause context, something Squadcast does not store or provide.",
         icon: "transparent",
       },
     ],
@@ -5704,38 +5704,38 @@ const products: Dictionary<Product> = {
         question:
           "Does Squadcast include its own uptime or infrastructure monitoring?",
         answer:
-          "No. Squadcast is an on-call and incident-response platform that ingests alerts from external monitoring tools. It does not run its own website, API, server, container, or SSL checks. OneUptime includes all of that natively, so your monitoring and your response live in one platform.",
+          "No. Squadcast is an on-call and incident-response platform that ingests alerts from external monitoring tools. It does not run its own website, API, server, container, or SSL checks. Cast Operations includes all of that natively, so your monitoring and your response live in one platform.",
       },
       {
-        question: "How does pricing compare between Squadcast and OneUptime?",
+        question: "How does pricing compare between Squadcast and Cast Operations?",
         answer:
-          "Squadcast charges per user, roughly $12 per user on Pro and $19 per user on Premium each month, so costs climb as your team grows. OneUptime charges a flat $1 per active monitor with no per-seat fees, plus about $0.10 per GB for telemetry, and self-hosting is free.",
+          "Squadcast charges per user, roughly $12 per user on Pro and $19 per user on Premium each month, so costs climb as your team grows. Cast Operations charges a flat $1 per active monitor with no per-seat fees, plus about $0.10 per GB for telemetry, and self-hosting is free.",
       },
       {
         question: "Does Squadcast offer status pages?",
         answer:
-          "Status pages are available on Squadcast's Premium tier and above, with a cap of around 5,000 subscribers per page. OneUptime includes public and private status pages with unlimited subscribers, custom domains, free SSL, and full branding on every plan.",
+          "Status pages are available on Squadcast's Premium tier and above, with a cap of around 5,000 subscribers per page. Cast Operations includes public and private status pages with unlimited subscribers, custom domains, free SSL, and full branding on every plan.",
       },
       {
         question: "Can I store logs, metrics, and traces in Squadcast?",
         answer:
-          "No. Squadcast does not store telemetry data; it focuses on alerts, on-call, and incidents. OneUptime is OpenTelemetry-native and ingests logs, metrics, and traces so responders get real root-cause context during an incident.",
+          "No. Squadcast does not store telemetry data; it focuses on alerts, on-call, and incidents. Cast Operations is OpenTelemetry-native and ingests logs, metrics, and traces so responders get real root-cause context during an incident.",
       },
       {
-        question: "Is OneUptime open source and can I self-host it?",
+        question: "Is Cast Operations open source and can I self-host it?",
         answer:
-          "Yes. OneUptime is licensed under Apache 2.0 and can be fully self-hosted for free with complete data ownership, or used as a managed cloud service. Squadcast is a closed-source SaaS product, now part of SolarWinds, with self-hosting reserved for Enterprise.",
+          "Yes. Cast Operations is licensed under Apache 2.0 and can be fully self-hosted for free with complete data ownership, or used as a managed cloud service. Squadcast is a closed-source SaaS product, now part of SolarWinds, with self-hosting reserved for Enterprise.",
       },
       {
         question:
           "What happened to Squadcast after the SolarWinds acquisition?",
         answer:
-          "Squadcast was acquired by SolarWinds and is being folded into its broader incident-response and observability portfolio. If you prefer an independent, open-source platform with predictable pricing, OneUptime offers monitoring, status pages, on-call, incidents, and telemetry in one place.",
+          "Squadcast was acquired by SolarWinds and is being folded into its broader incident-response and observability portfolio. If you prefer an independent, open-source platform with predictable pricing, Cast Operations offers monitoring, status pages, on-call, incidents, and telemetry in one place.",
       },
       {
-        question: "How hard is it to migrate from Squadcast to OneUptime?",
+        question: "How hard is it to migrate from Squadcast to Cast Operations?",
         answer:
-          "Migration is straightforward. You recreate on-call schedules, escalation policies, and services in OneUptime, point your existing alert sources or monitors at it, and add native uptime checks. Because OneUptime is unified, you can also retire separate monitoring, status-page, and telemetry tools during the move.",
+          "Migration is straightforward. You recreate on-call schedules, escalation policies, and services in Cast Operations, point your existing alert sources or monitors at it, and add native uptime checks. Because Cast Operations is unified, you can also retire separate monitoring, status-page, and telemetry tools during the move.",
       },
     ],
   },
@@ -5749,15 +5749,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "FireHydrant specializes in the incident response lifecycle (runbooks, retrospectives, Slack and Teams collaboration, and its newer Signals on-call), but relies on external tools to actually detect problems.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, on-call, incident management, status pages, and telemetry in a single open-source platform, so you detect and respond in one place.",
+      "Cast Operations unifies monitoring, on-call, incident management, status pages, and telemetry in a single open-source platform, so you detect and respond in one place.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "FireHydrant is a dedicated incident management and response platform built around runbooks, retrospectives, and Slack and Teams-driven collaboration, with status pages and a Signals on-call and alerting module. It is strong at organizing the incident lifecycle once an issue is known, but it does not monitor your systems, so it must be paired with a separate monitoring or observability stack to detect outages.",
     oneUptimeDescription:
-      "OneUptime is an open-source, self-hostable reliability platform that combines uptime and infrastructure monitoring, on-call and escalations, incident management, status pages, and OpenTelemetry logs, metrics, and traces. Because detection and response live in the same product, monitors can automatically open, update, and post incidents without stitching multiple vendors together.",
+      "Cast Operations is an open-source, self-hostable reliability platform that combines uptime and infrastructure monitoring, on-call and escalations, incident management, status pages, and OpenTelemetry logs, metrics, and traces. Because detection and response live in the same product, monitors can automatically open, update, and post incidents without stitching multiple vendors together.",
     description:
-      "FireHydrant and OneUptime both help teams run a disciplined incident process, but they start from different places. FireHydrant is an incident-first tool that assumes another product is already watching your systems and telling it when something breaks. OneUptime is a unified platform that watches your systems itself and then drives the full incident lifecycle, so a single tool covers detection through resolution and public communication. That means less integration work, one predictable bill, and no gap between the alert and the response.",
+      "FireHydrant and Cast Operations both help teams run a disciplined incident process, but they start from different places. FireHydrant is an incident-first tool that assumes another product is already watching your systems and telling it when something breaks. Cast Operations is a unified platform that watches your systems itself and then drives the full incident lifecycle, so a single tool covers detection through resolution and public communication. That means less integration work, one predictable bill, and no gap between the alert and the response.",
     descriptionLine2:
       "Instead of buying FireHydrant for incidents and a separate monitoring vendor to feed it, teams get monitoring, on-call, incidents, status pages, and telemetry from one open-source platform at a flat, predictable price.",
     migrationBenefits: [
@@ -5832,7 +5832,7 @@ const products: Dictionary<Product> = {
           "FireHydrant Pro at $25 per responder per month, plus a separate monitoring tool to detect outages, plus the SMS and voice add-on for reliable paging.",
         competitorCost: "~$250/mo + monitoring tool + SMS add-on",
         oneuptimeSolution:
-          "OneUptime unified: monitoring, on-call, incident management, and a branded status page in one platform.",
+          "Cast Operations unified: monitoring, on-call, incident management, and a branded status page in one platform.",
         oneuptimeCost: "~$20-50/mo (monitors at $1 each)",
       },
       {
@@ -5842,7 +5842,7 @@ const products: Dictionary<Product> = {
           "Requires FireHydrant Enterprise on a custom annual contract, and still has no monitoring or telemetry of its own.",
         competitorCost: "Custom Enterprise, roughly $9k-15k+/yr",
         oneuptimeSolution:
-          "OneUptime includes private status pages, MTTR analytics, RBAC, and audit logs on its standard predictable tiers.",
+          "Cast Operations includes private status pages, MTTR analytics, RBAC, and audit logs on its standard predictable tiers.",
         oneuptimeCost: "~$99/mo Growth tier",
       },
       {
@@ -5852,7 +5852,7 @@ const products: Dictionary<Product> = {
           "FireHydrant runs the incident process well, but you must buy and integrate a separate monitoring and observability stack to feed it alerts.",
         competitorCost: "FireHydrant + Datadog-style monitoring bill",
         oneuptimeSolution:
-          "OneUptime detects with built-in monitors and OpenTelemetry, then automatically creates, updates, and communicates the incident.",
+          "Cast Operations detects with built-in monitors and OpenTelemetry, then automatically creates, updates, and communicates the incident.",
         oneuptimeCost: "One bill, telemetry ~$0.10/GB",
       },
     ],
@@ -5860,37 +5860,37 @@ const products: Dictionary<Product> = {
       {
         title: "Detection Is Built In",
         description:
-          "OneUptime monitors websites, APIs, servers, containers, SSL, and cron jobs to detect issues itself; FireHydrant relies on an external monitoring tool to tell it when something is wrong.",
+          "Cast Operations monitors websites, APIs, servers, containers, SSL, and cron jobs to detect issues itself; FireHydrant relies on an external monitoring tool to tell it when something is wrong.",
         icon: "monitoring",
       },
       {
         title: "Unified, Not Incident-Only",
         description:
-          "OneUptime covers monitoring, on-call, incidents, status pages, and telemetry in one product, replacing the multi-vendor stack FireHydrant sits inside.",
+          "Cast Operations covers monitoring, on-call, incidents, status pages, and telemetry in one product, replacing the multi-vendor stack FireHydrant sits inside.",
         icon: "unified",
       },
       {
         title: "Open Source and Self-Hostable",
         description:
-          "OneUptime is Apache 2.0 licensed and can run on your own infrastructure for free; FireHydrant is a closed, hosted SaaS.",
+          "Cast Operations is Apache 2.0 licensed and can run on your own infrastructure for free; FireHydrant is a closed, hosted SaaS.",
         icon: "open-source",
       },
       {
         title: "Predictable Flat Pricing",
         description:
-          "OneUptime bills a flat $1 per active monitor with no per-seat charge, while FireHydrant charges $25 per responder per month plus add-ons.",
+          "Cast Operations bills a flat $1 per active monitor with no per-seat charge, while FireHydrant charges $25 per responder per month plus add-ons.",
         icon: "pricing",
       },
       {
         title: "SMS and Voice Included",
         description:
-          "OneUptime includes SMS and phone-call alerting in the platform; on FireHydrant, SMS and voice notifications are a paid add-on.",
+          "Cast Operations includes SMS and phone-call alerting in the platform; on FireHydrant, SMS and voice notifications are a paid add-on.",
         icon: "sms",
       },
       {
         title: "Unlimited Status Page Subscribers",
         description:
-          "OneUptime status pages support unlimited subscribers with custom domain, free SSL, and full custom branding out of the box.",
+          "Cast Operations status pages support unlimited subscribers with custom domain, free SSL, and full custom branding out of the box.",
         icon: "subscribers",
       },
     ],
@@ -6205,40 +6205,40 @@ const products: Dictionary<Product> = {
       {
         question: "Does FireHydrant include monitoring to detect outages?",
         answer:
-          "No. FireHydrant focuses on the incident response lifecycle and relies on an external monitoring or observability tool to detect problems and trigger alerts. OneUptime includes website, API, server, container, synthetic, SSL, and cron monitoring, so detection and response live in one platform and monitors can open incidents automatically.",
+          "No. FireHydrant focuses on the incident response lifecycle and relies on an external monitoring or observability tool to detect problems and trigger alerts. Cast Operations includes website, API, server, container, synthetic, SSL, and cron monitoring, so detection and response live in one platform and monitors can open incidents automatically.",
       },
       {
         question:
-          "How does OneUptime pricing compare to FireHydrant's per-responder model?",
+          "How does Cast Operations pricing compare to FireHydrant's per-responder model?",
         answer:
-          "FireHydrant Pro is $25 per responder per month billed annually, so costs scale with your team size, and Enterprise features require a custom contract. OneUptime bills a flat $1 per active monitor per month with a generous free tier, unlimited free manual monitors, and no per-seat charge, making spend predictable as your team grows.",
+          "FireHydrant Pro is $25 per responder per month billed annually, so costs scale with your team size, and Enterprise features require a custom contract. Cast Operations bills a flat $1 per active monitor per month with a generous free tier, unlimited free manual monitors, and no per-seat charge, making spend predictable as your team grows.",
       },
       {
         question:
-          "Can OneUptime replace FireHydrant Signals for on-call and alerting?",
+          "Can Cast Operations replace FireHydrant Signals for on-call and alerting?",
         answer:
-          "Yes. OneUptime provides on-call rotations, multi-level escalation policies, overrides, and follow-the-sun scheduling, with alerts by SMS, phone call, email, push, Slack, and Microsoft Teams. Unlike FireHydrant, where SMS and voice are a paid add-on, those channels are included.",
+          "Yes. Cast Operations provides on-call rotations, multi-level escalation policies, overrides, and follow-the-sun scheduling, with alerts by SMS, phone call, email, push, Slack, and Microsoft Teams. Unlike FireHydrant, where SMS and voice are a paid add-on, those channels are included.",
       },
       {
         question: "What about status pages, including private ones?",
         answer:
-          "FireHydrant offers public status pages, but private status pages and incident analytics are gated to its Enterprise tier. OneUptime provides both public and private status pages with unlimited subscribers, custom domains, free SSL, and full custom branding on standard tiers.",
+          "FireHydrant offers public status pages, but private status pages and incident analytics are gated to its Enterprise tier. Cast Operations provides both public and private status pages with unlimited subscribers, custom domains, free SSL, and full custom branding on standard tiers.",
       },
       {
-        question: "Is OneUptime really open source?",
+        question: "Is Cast Operations really open source?",
         answer:
-          "Yes. OneUptime is licensed under Apache 2.0 and can be self-hosted on your own infrastructure for free, so you fully own your incident and monitoring data. FireHydrant is a closed, hosted SaaS product.",
+          "Yes. Cast Operations is licensed under Apache 2.0 and can be self-hosted on your own infrastructure for free, so you fully own your incident and monitoring data. FireHydrant is a closed, hosted SaaS product.",
       },
       {
         question:
-          "Does OneUptime handle runbooks and retrospectives like FireHydrant?",
+          "Does Cast Operations handle runbooks and retrospectives like FireHydrant?",
         answer:
-          "Yes. OneUptime supports runbooks, incident timelines, severities, postmortems, action items, and Slack and Teams incident collaboration, plus MTTR analytics. You get the incident lifecycle FireHydrant is known for, alongside the monitoring and telemetry it lacks.",
+          "Yes. Cast Operations supports runbooks, incident timelines, severities, postmortems, action items, and Slack and Teams incident collaboration, plus MTTR analytics. You get the incident lifecycle FireHydrant is known for, alongside the monitoring and telemetry it lacks.",
       },
       {
-        question: "How hard is it to migrate from FireHydrant to OneUptime?",
+        question: "How hard is it to migrate from FireHydrant to Cast Operations?",
         answer:
-          "Most teams start by pointing their monitors and alert sources at OneUptime and rebuilding on-call schedules, escalation policies, and status pages, which is straightforward given the unified model. Because OneUptime also detects issues, you can retire a separate monitoring vendor at the same time and consolidate onto one bill.",
+          "Most teams start by pointing their monitors and alert sources at Cast Operations and rebuilding on-call schedules, escalation policies, and status pages, which is straightforward given the unified model. Because Cast Operations also detects issues, you can retire a separate monitoring vendor at the same time and consolidate onto one bill.",
       },
     ],
   },
@@ -6251,15 +6251,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Rootly automates incident response inside Slack and offers a paired on-call product, but has no monitoring, telemetry, or detection of its own.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, telemetry, status pages, on-call, and incident management in one open-source platform, so detection and response live together.",
+      "Cast Operations unifies monitoring, telemetry, status pages, on-call, and incident management in one open-source platform, so detection and response live together.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Rootly is an AI-native, Slack-first incident management platform with a separately priced On-Call product. It excels at automating response workflows, retrospectives, and communications once an incident is declared, and connects to external tools like Datadog, Grafana, and Sentry as alert sources. It does not collect monitoring signals or store telemetry itself and depends on those third-party tools to detect problems.",
     oneUptimeDescription:
-      "OneUptime is an open-source, self-hostable reliability platform that combines monitoring, logs, metrics, traces, status pages, on-call, and incident management in one place. Because detection and response share one system, alerts from your own monitors flow straight into incidents and automatic status page updates. Active monitors are billed a flat $1 per month with no per-seat charges, and self-hosting is free.",
+      "Cast Operations is an open-source, self-hostable reliability platform that combines monitoring, logs, metrics, traces, status pages, on-call, and incident management in one place. Because detection and response share one system, alerts from your own monitors flow straight into incidents and automatic status page updates. Active monitors are billed a flat $1 per month with no per-seat charges, and self-hosting is free.",
     description:
-      "Rootly is a capable, Slack-native incident management and on-call tool, but it only starts working after something else has already detected a problem. It has no built-in website, API, or infrastructure monitoring and no telemetry storage, so you still need Datadog, Grafana, or similar tools underneath it, each billed separately and per user. OneUptime takes a different approach: monitoring, telemetry, status pages, on-call, and incident management are one open-source platform, so detection and response are never in separate silos. You get the same incident and on-call capabilities plus the monitors that trigger them, at flat per-monitor pricing with no per-seat fees.",
+      "Rootly is a capable, Slack-native incident management and on-call tool, but it only starts working after something else has already detected a problem. It has no built-in website, API, or infrastructure monitoring and no telemetry storage, so you still need Datadog, Grafana, or similar tools underneath it, each billed separately and per user. Cast Operations takes a different approach: monitoring, telemetry, status pages, on-call, and incident management are one open-source platform, so detection and response are never in separate silos. You get the same incident and on-call capabilities plus the monitors that trigger them, at flat per-monitor pricing with no per-seat fees.",
     descriptionLine2:
       "Consolidate detection and response into one predictable, open-source platform instead of stitching Rootly to a stack of separate monitoring, telemetry, and status page tools.",
     migrationBenefits: [
@@ -6369,7 +6369,7 @@ const products: Dictionary<Product> = {
           "Rootly Incident Response Essentials plus On-Call Essentials at $20 + $20 per user per month.",
         competitorCost: "~$12,000 / year (25 users)",
         oneuptimeSolution:
-          "OneUptime includes incident management and on-call for all users at no per-seat cost; pay only for active monitors.",
+          "Cast Operations includes incident management and on-call for all users at no per-seat cost; pay only for active monitors.",
         oneuptimeCost: "~$600 / year for 50 monitors, $0 per user",
       },
       {
@@ -6379,7 +6379,7 @@ const products: Dictionary<Product> = {
           "Rootly for incidents and on-call, plus a separate monitoring/telemetry vendor (Datadog, Grafana) as the detection layer.",
         competitorCost: "Rootly seats + separate monitoring bill",
         oneuptimeSolution:
-          "OneUptime covers monitoring, telemetry, status pages, on-call, and incidents in a single platform on the free tier and flat monitor pricing.",
+          "Cast Operations covers monitoring, telemetry, status pages, on-call, and incidents in a single platform on the free tier and flat monitor pricing.",
         oneuptimeCost: "Free tier + $1 / active monitor",
       },
       {
@@ -6389,7 +6389,7 @@ const products: Dictionary<Product> = {
           "Rootly Incident Response plus On-Call at ~$40 per user per month, with a separate observability platform for logs, metrics, and traces.",
         competitorCost: "~$48,000 / year, before telemetry costs",
         oneuptimeSolution:
-          "OneUptime Growth tier plus flat per-monitor and per-GB telemetry pricing, with no per-user fees and self-hosting free.",
+          "Cast Operations Growth tier plus flat per-monitor and per-GB telemetry pricing, with no per-user fees and self-hosting free.",
         oneuptimeCost: "~$99 / month + usage",
       },
     ],
@@ -6397,37 +6397,37 @@ const products: Dictionary<Product> = {
       {
         title: "One platform, not three products",
         description:
-          "Rootly splits incident response, on-call, and AI SRE into separately priced products. OneUptime delivers monitoring, telemetry, status pages, on-call, and incidents in a single platform.",
+          "Rootly splits incident response, on-call, and AI SRE into separately priced products. Cast Operations delivers monitoring, telemetry, status pages, on-call, and incidents in a single platform.",
         icon: "unified",
       },
       {
         title: "Native monitoring and detection",
         description:
-          "Rootly has no monitoring of its own and relies on external tools as alert sources. OneUptime monitors websites, APIs, servers, containers, SSL, ports, and cron jobs from 7+ global probe locations.",
+          "Rootly has no monitoring of its own and relies on external tools as alert sources. Cast Operations monitors websites, APIs, servers, containers, SSL, ports, and cron jobs from 7+ global probe locations.",
         icon: "monitoring",
       },
       {
         title: "Status pages driven by your monitors",
         description:
-          "Rootly status pages update from incident workflows and cap at one external page on Essentials. OneUptime status pages update automatically from monitors and support unlimited subscribers and custom domains.",
+          "Rootly status pages update from incident workflows and cap at one external page on Essentials. Cast Operations status pages update automatically from monitors and support unlimited subscribers and custom domains.",
         icon: "status-page",
       },
       {
         title: "Open source and self-hostable",
         description:
-          "Rootly is a closed-source SaaS. OneUptime is Apache 2.0 licensed, free to self-host, and gives you full control of your reliability data.",
+          "Rootly is a closed-source SaaS. Cast Operations is Apache 2.0 licensed, free to self-host, and gives you full control of your reliability data.",
         icon: "open-source",
       },
       {
         title: "Flat, predictable pricing",
         description:
-          "Rootly charges $20+ per user per month for each product, so cost grows with headcount. OneUptime bills a flat $1 per active monitor with unlimited free static monitors and no per-seat fees.",
+          "Rootly charges $20+ per user per month for each product, so cost grows with headcount. Cast Operations bills a flat $1 per active monitor with unlimited free static monitors and no per-seat fees.",
         icon: "transparent",
       },
       {
         title: "On-call and telemetry included",
         description:
-          "Rootly on-call is a separate paid product and it stores no telemetry. OneUptime includes on-call plus logs, metrics, and traces in the same platform.",
+          "Rootly on-call is a separate paid product and it stores no telemetry. Cast Operations includes on-call plus logs, metrics, and traces in the same platform.",
         icon: "on-call",
       },
     ],
@@ -6743,37 +6743,37 @@ const products: Dictionary<Product> = {
       {
         question: "Does Rootly include its own monitoring?",
         answer:
-          "No. Rootly does not collect monitoring signals or store telemetry itself. It connects to external tools such as Datadog, Grafana, and Sentry as alert sources, so you still need a separate monitoring platform underneath it. OneUptime includes native website, API, server, container, synthetic, SSL, and cron monitoring, so detection and response live in one platform.",
+          "No. Rootly does not collect monitoring signals or store telemetry itself. It connects to external tools such as Datadog, Grafana, and Sentry as alert sources, so you still need a separate monitoring platform underneath it. Cast Operations includes native website, API, server, container, synthetic, SSL, and cron monitoring, so detection and response live in one platform.",
       },
       {
         question: "How much does Rootly cost in 2026?",
         answer:
-          "Rootly Incident Response Essentials and On-Call Essentials are each $20 per user per month, so a team using both effectively pays around $40 per user per month. Enterprise tiers and the AI SRE product are quote-based. OneUptime does not charge per user; you pay a flat $1 per active monitor with unlimited free static monitors.",
+          "Rootly Incident Response Essentials and On-Call Essentials are each $20 per user per month, so a team using both effectively pays around $40 per user per month. Enterprise tiers and the AI SRE product are quote-based. Cast Operations does not charge per user; you pay a flat $1 per active monitor with unlimited free static monitors.",
       },
       {
         question: "Is Rootly's on-call included with incident response?",
         answer:
-          "No. Rootly On-Call is a separate product with its own per-user price, and the Essentials tier caps you at 20 schedules and one live-call-routing number. OneUptime includes on-call scheduling and escalation for all users at no additional per-seat cost, with unlimited schedules.",
+          "No. Rootly On-Call is a separate product with its own per-user price, and the Essentials tier caps you at 20 schedules and one live-call-routing number. Cast Operations includes on-call scheduling and escalation for all users at no additional per-seat cost, with unlimited schedules.",
       },
       {
-        question: "Can OneUptime fully replace Rootly?",
+        question: "Can Cast Operations fully replace Rootly?",
         answer:
-          "Yes for most teams. OneUptime provides Slack and Teams incident collaboration, timelines, severities, postmortems, action items, and MTTR analytics, plus on-call rotations and escalation. On top of that it adds the monitoring, telemetry, and status pages that Rootly lacks, so you can consolidate several tools into one.",
+          "Yes for most teams. Cast Operations provides Slack and Teams incident collaboration, timelines, severities, postmortems, action items, and MTTR analytics, plus on-call rotations and escalation. On top of that it adds the monitoring, telemetry, and status pages that Rootly lacks, so you can consolidate several tools into one.",
       },
       {
-        question: "Does OneUptime charge per user like Rootly?",
+        question: "Does Cast Operations charge per user like Rootly?",
         answer:
-          "No. OneUptime pricing is based on usage, not seats. Active monitors are billed a flat $1 per month each, manual and static monitors are free and unlimited, and telemetry ingestion is roughly $0.10 per GB. Self-hosting the open-source platform is free.",
+          "No. Cast Operations pricing is based on usage, not seats. Active monitors are billed a flat $1 per month each, manual and static monitors are free and unlimited, and telemetry ingestion is roughly $0.10 per GB. Self-hosting the open-source platform is free.",
       },
       {
         question: "Does Rootly have status pages?",
         answer:
-          "Yes, but they are driven by incident workflows rather than live monitors, and the Essentials tier is limited to a single external status page. OneUptime status pages update automatically from your monitors and support unlimited subscribers, custom domains with free SSL, and full custom HTML, CSS, and JS.",
+          "Yes, but they are driven by incident workflows rather than live monitors, and the Essentials tier is limited to a single external status page. Cast Operations status pages update automatically from your monitors and support unlimited subscribers, custom domains with free SSL, and full custom HTML, CSS, and JS.",
       },
       {
-        question: "Is OneUptime open source?",
+        question: "Is Cast Operations open source?",
         answer:
-          "Yes. OneUptime is licensed under Apache 2.0 and can be self-hosted for free, giving you full control of your reliability and telemetry data. Rootly is a closed-source SaaS product only.",
+          "Yes. Cast Operations is licensed under Apache 2.0 and can be self-hosted for free, giving you full control of your reliability and telemetry data. Rootly is a closed-source SaaS product only.",
       },
     ],
   },
@@ -6787,15 +6787,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "xMatters specializes in enterprise on-call alerting and no-code toolchain workflow automation, but does not monitor your systems or host public status pages.",
     oneuptimeFocus:
-      "OneUptime combines monitoring, on-call, incident management, status pages, and OpenTelemetry observability in one open-source platform.",
+      "Cast Operations combines monitoring, on-call, incident management, status pages, and OpenTelemetry observability in one open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "xMatters, part of Everbridge, is an enterprise IT alerting and incident response platform built around on-call management and its Flow Designer workflow automation engine. It routes signals from your existing monitoring and DevOps tools to the right responders and coordinates resolution across the toolchain. It is a mature, well-regarded alerting layer, but it depends on other products for monitoring, telemetry, and customer-facing status pages.",
     oneUptimeDescription:
-      "OneUptime is an open-source, Apache 2.0, self-hostable reliability platform that unifies monitoring, on-call, incident management, public status pages, and OpenTelemetry-based observability. It replaces several point tools with one system, so alerts arrive with full context from the same platform that detected the problem. Active monitors are billed at a flat one dollar per month, with a generous free tier and free self-hosting.",
+      "Cast Operations is an open-source, Apache 2.0, self-hostable reliability platform that unifies monitoring, on-call, incident management, public status pages, and OpenTelemetry-based observability. It replaces several point tools with one system, so alerts arrive with full context from the same platform that detected the problem. Active monitors are billed at a flat one dollar per month, with a generous free tier and free self-hosting.",
     description:
-      "xMatters is one of the strongest names in enterprise on-call alerting and workflow automation, and it does that job well. But it is a single layer of the reliability stack: it does not run your monitors, store your logs and traces, or publish a public status page to your customers. That means teams pair xMatters with separate monitoring, observability, and status-page vendors, each with its own per-user or usage bill. OneUptime brings all of those functions into one open-source platform with predictable per-monitor pricing.",
+      "xMatters is one of the strongest names in enterprise on-call alerting and workflow automation, and it does that job well. But it is a single layer of the reliability stack: it does not run your monitors, store your logs and traces, or publish a public status page to your customers. That means teams pair xMatters with separate monitoring, observability, and status-page vendors, each with its own per-user or usage bill. Cast Operations brings all of those functions into one open-source platform with predictable per-monitor pricing.",
     descriptionLine2:
       "Consolidate alerting, monitoring, incidents, status pages, and telemetry into a single tool and pay a flat one dollar per active monitor instead of stacking per-user seats across multiple vendors.",
     migrationBenefits: [
@@ -6888,7 +6888,7 @@ const products: Dictionary<Product> = {
           "xMatters Base at $39 per user for alerting, plus a separate monitoring tool.",
         competitorCost: "$975+/mo (users only)",
         oneuptimeSolution:
-          "OneUptime unifies on-call, monitoring, and status pages in one platform.",
+          "Cast Operations unifies on-call, monitoring, and status pages in one platform.",
         oneuptimeCost: "~$100/mo (100 monitors)",
       },
       {
@@ -6898,7 +6898,7 @@ const products: Dictionary<Product> = {
           "xMatters offers only internal stakeholder pages, so a separate status-page vendor is required.",
         competitorCost: "Extra tool + subscriber fees",
         oneuptimeSolution:
-          "OneUptime includes a public status page with custom domain and unlimited subscribers.",
+          "Cast Operations includes a public status page with custom domain and unlimited subscribers.",
         oneuptimeCost: "$0 add-on",
       },
       {
@@ -6908,7 +6908,7 @@ const products: Dictionary<Product> = {
           "xMatters Advanced (custom-priced) for alerting, plus separate APM and log vendors.",
         competitorCost: "Custom + multiple tools",
         oneuptimeSolution:
-          "OneUptime unifies alerting, incidents, and OpenTelemetry telemetry.",
+          "Cast Operations unifies alerting, incidents, and OpenTelemetry telemetry.",
         oneuptimeCost: "$1/monitor + ~$0.10/GB",
       },
     ],
@@ -6916,37 +6916,37 @@ const products: Dictionary<Product> = {
       {
         title: "Unified reliability platform",
         description:
-          "xMatters is a single alerting and automation layer. OneUptime combines monitoring, on-call, incidents, status pages, and telemetry so you run one tool instead of stitching several together.",
+          "xMatters is a single alerting and automation layer. Cast Operations combines monitoring, on-call, incidents, status pages, and telemetry so you run one tool instead of stitching several together.",
         icon: "unified",
       },
       {
         title: "Built-in monitoring",
         description:
-          "xMatters only reacts to signals from monitoring tools you supply. OneUptime actively monitors websites, APIs, servers, containers, synthetics, SSL, and cron jobs from 7+ global probe locations.",
+          "xMatters only reacts to signals from monitoring tools you supply. Cast Operations actively monitors websites, APIs, servers, containers, synthetics, SSL, and cron jobs from 7+ global probe locations.",
         icon: "monitoring",
       },
       {
         title: "Public status pages included",
         description:
-          "xMatters provides internal stakeholder updates, not customer-facing pages. OneUptime includes public status pages with custom domains, free SSL, custom branding, and unlimited subscribers.",
+          "xMatters provides internal stakeholder updates, not customer-facing pages. Cast Operations includes public status pages with custom domains, free SSL, custom branding, and unlimited subscribers.",
         icon: "status-page",
       },
       {
         title: "Open source and self-hostable",
         description:
-          "xMatters is proprietary SaaS with no self-host option. OneUptime is Apache 2.0 licensed and can be self-hosted for free or run as managed cloud, with no vendor lock-in.",
+          "xMatters is proprietary SaaS with no self-host option. Cast Operations is Apache 2.0 licensed and can be self-hosted for free or run as managed cloud, with no vendor lock-in.",
         icon: "open-source",
       },
       {
         title: "Flat, predictable pricing",
         description:
-          "xMatters charges per user per month with metered SMS and voice allotments. OneUptime charges a flat one dollar per active monitor, with unlimited free manual monitors and no seat-based tiers.",
+          "xMatters charges per user per month with metered SMS and voice allotments. Cast Operations charges a flat one dollar per active monitor, with unlimited free manual monitors and no seat-based tiers.",
         icon: "pricing",
       },
       {
         title: "Enterprise on-call without add-ons",
         description:
-          "OneUptime matches xMatters on rotations, multi-level escalations, overrides, and follow-the-sun, with alerts via SMS, phone, email, push, Slack, and Teams, all in the base platform.",
+          "Cast Operations matches xMatters on rotations, multi-level escalations, overrides, and follow-the-sun, with alerts via SMS, phone, email, push, Slack, and Teams, all in the base platform.",
         icon: "on-call",
       },
     ],
@@ -7258,37 +7258,37 @@ const products: Dictionary<Product> = {
       {
         question: "Is xMatters a monitoring tool?",
         answer:
-          "No. xMatters focuses on on-call alerting and workflow automation. It ingests signals from monitoring tools you provide but does not monitor websites, APIs, servers, or containers itself. OneUptime includes that monitoring built in, so detection and alerting live in one platform.",
+          "No. xMatters focuses on on-call alerting and workflow automation. It ingests signals from monitoring tools you provide but does not monitor websites, APIs, servers, or containers itself. Cast Operations includes that monitoring built in, so detection and alerting live in one platform.",
       },
       {
         question: "Does xMatters offer public customer status pages?",
         answer:
-          "xMatters provides internal stakeholder updates on higher tiers but is not a public customer status-page product. OneUptime includes public status pages with custom domains, free SSL, custom branding, and unlimited subscribers at no extra cost.",
+          "xMatters provides internal stakeholder updates on higher tiers but is not a public customer status-page product. Cast Operations includes public status pages with custom domains, free SSL, custom branding, and unlimited subscribers at no extra cost.",
       },
       {
         question: "How does pricing compare?",
         answer:
-          "xMatters charges per user per month (roughly $9 Starter, $39 Base, and custom Advanced) with metered SMS and voice allotments. OneUptime charges a flat one dollar per active monitor, offers unlimited free manual monitors, and prices telemetry ingestion at about $0.10 per GB, so costs stay predictable as teams grow.",
+          "xMatters charges per user per month (roughly $9 Starter, $39 Base, and custom Advanced) with metered SMS and voice allotments. Cast Operations charges a flat one dollar per active monitor, offers unlimited free manual monitors, and prices telemetry ingestion at about $0.10 per GB, so costs stay predictable as teams grow.",
       },
       {
         question: "Can I self-host instead of using SaaS?",
         answer:
-          "OneUptime is open source under Apache 2.0 and can be self-hosted for free, or run as managed cloud. xMatters is a proprietary SaaS with no self-hosting option, so your alerting data stays in the vendor's environment.",
+          "Cast Operations is open source under Apache 2.0 and can be self-hosted for free, or run as managed cloud. xMatters is a proprietary SaaS with no self-hosting option, so your alerting data stays in the vendor's environment.",
       },
       {
-        question: "Does OneUptime match xMatters on on-call and escalations?",
+        question: "Does Cast Operations match xMatters on on-call and escalations?",
         answer:
-          "Yes. OneUptime supports daily, weekly, and custom rotations, multi-level escalation policies, overrides and vacation, and follow-the-sun coverage, with alerts via SMS, phone call, email, push, Slack, and Microsoft Teams.",
+          "Yes. Cast Operations supports daily, weekly, and custom rotations, multi-level escalation policies, overrides and vacation, and follow-the-sun coverage, with alerts via SMS, phone call, email, push, Slack, and Microsoft Teams.",
       },
       {
-        question: "Can I recreate my xMatters workflows in OneUptime?",
+        question: "Can I recreate my xMatters workflows in Cast Operations?",
         answer:
-          "Yes. OneUptime provides workflows, a REST API, native webhooks, and 2000+ integrations via Zapier to reproduce alert routing and toolchain automation, plus OneUptime's AI assistant to help configure them.",
+          "Yes. Cast Operations provides workflows, a REST API, native webhooks, and 2000+ integrations via Zapier to reproduce alert routing and toolchain automation, plus Cast Operations’ AI assistant to help configure them.",
       },
       {
         question: "Will I still need other tools after switching?",
         answer:
-          "For most teams, no. OneUptime consolidates monitoring, on-call, incident management, public status pages, and observability, removing the need for a separate xMatters subscription plus monitoring and status-page vendors.",
+          "For most teams, no. Cast Operations consolidates monitoring, on-call, incident management, public status pages, and observability, removing the need for a separate xMatters subscription plus monitoring and status-page vendors.",
       },
     ],
   },
@@ -7301,17 +7301,17 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Grafana Cloud specializes in powerful dashboards and observability across metrics, logs, and traces, but leaves you to assemble and tune the pieces yourself.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, status pages, on-call, incidents, and OpenTelemetry telemetry in one turnkey platform with predictable pricing.",
+      "Cast Operations unifies monitoring, status pages, on-call, incidents, and OpenTelemetry telemetry in one turnkey platform with predictable pricing.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Grafana Cloud is Grafana Labs' hosted observability stack, combining Grafana dashboards with Mimir for metrics, Loki for logs, Tempo for traces, Pyroscope for profiling, and k6 for synthetics and load testing. It is highly flexible and best-in-class for visualization, but it is assembled from many independent components with separate usage meters. Setting it up well typically requires significant instrumentation, tuning, and cost management expertise.",
     oneUptimeDescription:
-      "OneUptime is an open-source, unified reliability platform that brings monitoring, status pages, on-call, incident management, and OpenTelemetry-native logs, metrics, and traces together in a single product. Everything is designed to work out of the box with predictable, flat pricing of $1 per active monitor per month and telemetry around $0.10/GB. You can use the generous free cloud tier or self-host the whole platform for free.",
+      "Cast Operations is an open-source, unified reliability platform that brings monitoring, status pages, on-call, incident management, and OpenTelemetry-native logs, metrics, and traces together in a single product. Everything is designed to work out of the box with predictable, flat pricing of $1 per active monitor per month and telemetry around $0.10/GB. You can use the generous free cloud tier or self-host the whole platform for free.",
     description:
-      "Grafana Cloud is a powerful observability toolkit: Grafana dashboards on top of Mimir, Loki, Tempo, and k6, with Grafana Cloud IRM bolted on for on-call and incidents. The power comes with assembly: multiple usage meters, per-active-series metric billing, three-part logs and traces pricing, per-user IRM fees, and a steep setup and tuning curve. OneUptime takes a different approach, delivering monitoring, status pages, on-call, incident management, and OpenTelemetry telemetry as one cohesive product. You get predictable, flat pricing instead of a spreadsheet full of usage meters, and you can self-host the entire stack under Apache 2.0.",
+      "Grafana Cloud is a powerful observability toolkit: Grafana dashboards on top of Mimir, Loki, Tempo, and k6, with Grafana Cloud IRM bolted on for on-call and incidents. The power comes with assembly: multiple usage meters, per-active-series metric billing, three-part logs and traces pricing, per-user IRM fees, and a steep setup and tuning curve. Cast Operations takes a different approach, delivering monitoring, status pages, on-call, incident management, and OpenTelemetry telemetry as one cohesive product. You get predictable, flat pricing instead of a spreadsheet full of usage meters, and you can self-host the entire stack under Apache 2.0.",
     descriptionLine2:
-      "If you want great dashboards without gluing together five products and forecasting a dozen usage meters, OneUptime gives you the whole reliability workflow in one place for a fraction of the operational overhead.",
+      "If you want great dashboards without gluing together five products and forecasting a dozen usage meters, Cast Operations gives you the whole reliability workflow in one place for a fraction of the operational overhead.",
     migrationBenefits: [
       "Replace the Grafana plus Mimir, Loki, Tempo, and IRM assembly with one unified, turnkey platform",
       "Swap unpredictable per-active-series and three-part GB usage meters for flat $1 per active monitor and ~$0.10/GB telemetry",
@@ -7418,7 +7418,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "No license fee but heavy engineering and infrastructure overhead",
         oneuptimeSolution:
-          "Self-host the entire OneUptime platform under Apache 2.0",
+          "Self-host the entire Cast Operations platform under Apache 2.0",
         oneuptimeCost: "Free self-hosted, one unified deployment to operate",
       },
     ],
@@ -7426,37 +7426,37 @@ const products: Dictionary<Product> = {
       {
         title: "Unified vs assembled stack",
         description:
-          "OneUptime delivers monitoring, status pages, on-call, incidents, and telemetry as one product, while Grafana Cloud stitches together Mimir, Loki, Tempo, k6, and IRM.",
+          "Cast Operations delivers monitoring, status pages, on-call, incidents, and telemetry as one product, while Grafana Cloud stitches together Mimir, Loki, Tempo, k6, and IRM.",
         icon: "unified",
       },
       {
         title: "Predictable vs usage-metered pricing",
         description:
-          "OneUptime charges a flat $1 per active monitor and ~$0.10/GB telemetry, versus Grafana's per-active-series and three-part per-GB usage meters that are hard to forecast.",
+          "Cast Operations charges a flat $1 per active monitor and ~$0.10/GB telemetry, versus Grafana's per-active-series and three-part per-GB usage meters that are hard to forecast.",
         icon: "pricing",
       },
       {
         title: "Built-in status pages",
         description:
-          "OneUptime includes public and private status pages with unlimited subscribers and custom domains, a product Grafana Cloud does not offer.",
+          "Cast Operations includes public and private status pages with unlimited subscribers and custom domains, a product Grafana Cloud does not offer.",
         icon: "status-page",
       },
       {
         title: "On-call included, not an add-on",
         description:
-          "OneUptime bundles on-call and escalations, while Grafana bills on-call and incidents separately through per-active-user Grafana Cloud IRM.",
+          "Cast Operations bundles on-call and escalations, while Grafana bills on-call and incidents separately through per-active-user Grafana Cloud IRM.",
         icon: "on-call",
       },
       {
         title: "Open-source and self-hostable",
         description:
-          "OneUptime is Apache 2.0 and the whole platform self-hosts for free, without operating Mimir, Loki, and Tempo as separate systems.",
+          "Cast Operations is Apache 2.0 and the whole platform self-hosts for free, without operating Mimir, Loki, and Tempo as separate systems.",
         icon: "open-source",
       },
       {
         title: "Turnkey vs steep setup",
         description:
-          "OneUptime works out of the box, while Grafana Cloud typically requires significant instrumentation, tuning, and cost-management expertise to run well.",
+          "Cast Operations works out of the box, while Grafana Cloud typically requires significant instrumentation, tuning, and cost-management expertise to run well.",
         icon: "monitoring",
       },
     ],
@@ -7765,40 +7765,40 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "Is OneUptime a full replacement for Grafana Cloud?",
+        question: "Is Cast Operations a full replacement for Grafana Cloud?",
         answer:
-          "For most reliability teams, yes. OneUptime covers monitoring, OpenTelemetry-native logs, metrics, traces, and dashboards, plus status pages, on-call, and incident management in one product. Grafana Cloud offers deeper, more customizable visualization and a larger plugin ecosystem, so teams that need highly specialized dashboards may still value it, but OneUptime replaces the everyday observability and reliability workflow without the assembly.",
+          "For most reliability teams, yes. Cast Operations covers monitoring, OpenTelemetry-native logs, metrics, traces, and dashboards, plus status pages, on-call, and incident management in one product. Grafana Cloud offers deeper, more customizable visualization and a larger plugin ecosystem, so teams that need highly specialized dashboards may still value it, but Cast Operations replaces the everyday observability and reliability workflow without the assembly.",
       },
       {
-        question: "How does OneUptime pricing compare to Grafana Cloud?",
+        question: "How does Cast Operations pricing compare to Grafana Cloud?",
         answer:
-          "OneUptime uses simple, predictable pricing: $1 per active monitor per month, unlimited free manual and static monitors, and telemetry ingestion around $0.10/GB. Grafana Cloud Pro starts at a $19/month platform fee plus multiple usage meters, including $6.50 per 1,000 billable metrics series and a three-part per-GB charge for logs and traces, which makes bills hard to forecast.",
+          "Cast Operations uses simple, predictable pricing: $1 per active monitor per month, unlimited free manual and static monitors, and telemetry ingestion around $0.10/GB. Grafana Cloud Pro starts at a $19/month platform fee plus multiple usage meters, including $6.50 per 1,000 billable metrics series and a three-part per-GB charge for logs and traces, which makes bills hard to forecast.",
       },
       {
         question: "Does Grafana Cloud include a customer-facing status page?",
         answer:
-          "No. Grafana Cloud focuses on dashboards and observability and does not offer a public status page product for your customers. OneUptime includes public and private status pages with unlimited subscribers, custom domains with free SSL, custom branding, and automatic updates from your monitors.",
+          "No. Grafana Cloud focuses on dashboards and observability and does not offer a public status page product for your customers. Cast Operations includes public and private status pages with unlimited subscribers, custom domains with free SSL, custom branding, and automatic updates from your monitors.",
       },
       {
         question:
           "What happened to Grafana OnCall and how does that affect me?",
         answer:
-          "Grafana OnCall OSS entered maintenance mode and was archived in March 2026, with on-call and incident features consolidated into the paid Grafana Cloud IRM app, billed per active user plus a platform fee. OneUptime includes on-call rotations, escalations, and incident management in the platform, with no separate per-active-user fee.",
+          "Grafana OnCall OSS entered maintenance mode and was archived in March 2026, with on-call and incident features consolidated into the paid Grafana Cloud IRM app, billed per active user plus a platform fee. Cast Operations includes on-call rotations, escalations, and incident management in the platform, with no separate per-active-user fee.",
       },
       {
         question: "Can I self-host instead of using the cloud?",
         answer:
-          "Yes. OneUptime is Apache 2.0 licensed and the entire platform self-hosts for free as a single deployment. Self-hosting the Grafana stack means running Grafana plus separate systems like Mimir, Loki, and Tempo yourself, which is powerful but significantly more complex to operate.",
+          "Yes. Cast Operations is Apache 2.0 licensed and the entire platform self-hosts for free as a single deployment. Self-hosting the Grafana stack means running Grafana plus separate systems like Mimir, Loki, and Tempo yourself, which is powerful but significantly more complex to operate.",
       },
       {
-        question: "Is OneUptime OpenTelemetry-native like Grafana?",
+        question: "Is Cast Operations OpenTelemetry-native like Grafana?",
         answer:
-          "Yes. OneUptime ingests logs, metrics, and traces via OpenTelemetry, so you can point existing OTel instrumentation at it. Unlike Grafana Cloud, you do not need to configure and tune separate backends for each signal type.",
+          "Yes. Cast Operations ingests logs, metrics, and traces via OpenTelemetry, so you can point existing OTel instrumentation at it. Unlike Grafana Cloud, you do not need to configure and tune separate backends for each signal type.",
       },
       {
-        question: "How hard is it to migrate from Grafana Cloud to OneUptime?",
+        question: "How hard is it to migrate from Grafana Cloud to Cast Operations?",
         answer:
-          "Because OneUptime is OpenTelemetry-native, you can redirect your existing OTel exporters to OneUptime and start ingesting immediately. You then recreate the workflows you actually rely on, such as monitors, dashboards, status pages, on-call schedules, and incident processes, in one place instead of across several Grafana components and add-ons.",
+          "Because Cast Operations is OpenTelemetry-native, you can redirect your existing OTel exporters to Cast Operations and start ingesting immediately. You then recreate the workflows you actually rely on, such as monitors, dashboards, status pages, on-call schedules, and incident processes, in one place instead of across several Grafana components and add-ons.",
       },
     ],
   },
@@ -7812,17 +7812,17 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Dynatrace specializes in deep, agent-based full-stack APM and observability with Davis AI, but leaves customer status pages, on-call, and incident response to separate tools.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, OpenTelemetry observability, status pages, on-call, and incident management in one open-source, self-hostable platform with predictable pricing.",
+      "Cast Operations unifies monitoring, OpenTelemetry observability, status pages, on-call, and incident management in one open-source, self-hostable platform with predictable pricing.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Dynatrace is an enterprise-grade full-stack observability and APM platform built around its OneAgent and the Davis AI engine for automatic root-cause analysis and topology mapping. It is powerful and deep for large application estates, but it is priced on consumption through the Dynatrace Platform Subscription (DPS) and is widely regarded as expensive and complex to forecast. It focuses on application and infrastructure telemetry rather than customer-facing status pages or built-in on-call and incident workflows.",
     oneUptimeDescription:
-      "OneUptime is an open-source (Apache 2.0), self-hostable platform that combines uptime and infrastructure monitoring, OpenTelemetry-native logs, metrics, and traces, public and private status pages, on-call rotations, and incident management in a single product. It replaces the stack of separate tools most Dynatrace customers still need. Pricing is flat and predictable at one dollar per active monitor per month, with self-hosting completely free.",
+      "Cast Operations is an open-source (Apache 2.0), self-hostable platform that combines uptime and infrastructure monitoring, OpenTelemetry-native logs, metrics, and traces, public and private status pages, on-call rotations, and incident management in a single product. It replaces the stack of separate tools most Dynatrace customers still need. Pricing is flat and predictable at one dollar per active monitor per month, with self-hosting completely free.",
     description:
-      "Dynatrace is an enterprise APM and observability powerhouse: its OneAgent captures deep code-level detail and Davis AI automates root-cause analysis across large estates. That depth comes with consumption-based DPS pricing that is hard to predict and can climb quickly as hosts, logs, and sessions scale. Dynatrace also stops at telemetry, so teams still buy separate products for customer status pages and for on-call and incident response. OneUptime takes the opposite approach, unifying monitoring, observability, status pages, on-call, and incidents in one open-source platform.",
+      "Dynatrace is an enterprise APM and observability powerhouse: its OneAgent captures deep code-level detail and Davis AI automates root-cause analysis across large estates. That depth comes with consumption-based DPS pricing that is hard to predict and can climb quickly as hosts, logs, and sessions scale. Dynatrace also stops at telemetry, so teams still buy separate products for customer status pages and for on-call and incident response. Cast Operations takes the opposite approach, unifying monitoring, observability, status pages, on-call, and incidents in one open-source platform.",
     descriptionLine2:
-      "Instead of a metered enterprise bill plus add-on tools, OneUptime gives you a flat one dollar per active monitor, roughly ten cents per GB of telemetry, and a free self-hosted option, so cost scales in a way you can actually forecast.",
+      "Instead of a metered enterprise bill plus add-on tools, Cast Operations gives you a flat one dollar per active monitor, roughly ten cents per GB of telemetry, and a free self-hosted option, so cost scales in a way you can actually forecast.",
     migrationBenefits: [
       "Replace Dynatrace plus a separate status page tool plus a separate on-call and incident tool with one unified platform",
       "Swap unpredictable DPS consumption billing for a flat one dollar per active monitor per month",
@@ -7954,37 +7954,37 @@ const products: Dictionary<Product> = {
       {
         title: "One unified platform, not just APM",
         description:
-          "Dynatrace is deep observability and APM but stops at telemetry. OneUptime adds status pages, on-call, and incident management in the same product, so you retire multiple tools.",
+          "Dynatrace is deep observability and APM but stops at telemetry. Cast Operations adds status pages, on-call, and incident management in the same product, so you retire multiple tools.",
         icon: "unified",
       },
       {
         title: "Open source and self-hostable",
         description:
-          "OneUptime is Apache 2.0 licensed and free to self-host, so you own your data and avoid proprietary OneAgent lock-in. Dynatrace is a closed, commercial platform.",
+          "Cast Operations is Apache 2.0 licensed and free to self-host, so you own your data and avoid proprietary OneAgent lock-in. Dynatrace is a closed, commercial platform.",
         icon: "open-source",
       },
       {
         title: "Predictable flat pricing",
         description:
-          "OneUptime charges a flat one dollar per active monitor plus about ten cents per GB of telemetry. Dynatrace bills on DPS consumption that is hard to forecast and rises quickly at scale.",
+          "Cast Operations charges a flat one dollar per active monitor plus about ten cents per GB of telemetry. Dynatrace bills on DPS consumption that is hard to forecast and rises quickly at scale.",
         icon: "transparent",
       },
       {
         title: "Built-in customer status pages",
         description:
-          "OneUptime includes public and private status pages with custom domains, branding, and automatic updates from monitors. Dynatrace has no customer-facing status page product.",
+          "Cast Operations includes public and private status pages with custom domains, branding, and automatic updates from monitors. Dynatrace has no customer-facing status page product.",
         icon: "status-page",
       },
       {
         title: "Native on-call and escalation",
         description:
-          "OneUptime ships on-call rotations, multi-level escalation, overrides, and follow-the-sun scheduling. Dynatrace mostly relies on integrations with PagerDuty or Opsgenie.",
+          "Cast Operations ships on-call rotations, multi-level escalation, overrides, and follow-the-sun scheduling. Dynatrace mostly relies on integrations with PagerDuty or Opsgenie.",
         icon: "on-call",
       },
       {
         title: "Unlimited status page subscribers",
         description:
-          "OneUptime status pages support unlimited subscribers via email, SMS, webhook, RSS, Slack, and Teams at no extra charge, with no metered add-on required.",
+          "Cast Operations status pages support unlimited subscribers via email, SMS, webhook, RSS, Slack, and Teams at no extra charge, with no metered add-on required.",
         icon: "subscribers",
       },
     ],
@@ -8301,39 +8301,39 @@ const products: Dictionary<Product> = {
       {
         question: "Does Dynatrace include customer-facing status pages?",
         answer:
-          "No. Dynatrace focuses on internal observability and does not offer a public status page product, so teams typically buy a separate tool. OneUptime includes public and private status pages with custom domains, branding, unlimited subscribers, and automatic updates from your monitors at no extra cost.",
+          "No. Dynatrace focuses on internal observability and does not offer a public status page product, so teams typically buy a separate tool. Cast Operations includes public and private status pages with custom domains, branding, unlimited subscribers, and automatic updates from your monitors at no extra cost.",
       },
       {
         question: "Why is Dynatrace considered expensive?",
         answer:
-          "Dynatrace bills through the Dynatrace Platform Subscription, a consumption model where full-stack hosts, logs, queries, RUM sessions, and synthetics each draw down prepaid capability units. Costs are hard to forecast and rise quickly at scale. OneUptime charges a flat one dollar per active monitor plus about ten cents per GB of telemetry, so your bill is predictable.",
+          "Dynatrace bills through the Dynatrace Platform Subscription, a consumption model where full-stack hosts, logs, queries, RUM sessions, and synthetics each draw down prepaid capability units. Costs are hard to forecast and rise quickly at scale. Cast Operations charges a flat one dollar per active monitor plus about ten cents per GB of telemetry, so your bill is predictable.",
       },
       {
         question:
           "Does Dynatrace have built-in on-call and incident management?",
         answer:
-          "Dynatrace has problem detection and basic alerting but relies mainly on integrations with dedicated tools like PagerDuty and Opsgenie for on-call scheduling and incident response. OneUptime provides native on-call rotations, multi-level escalation, incident timelines, postmortems, and runbooks in the same platform.",
+          "Dynatrace has problem detection and basic alerting but relies mainly on integrations with dedicated tools like PagerDuty and Opsgenie for on-call scheduling and incident response. Cast Operations provides native on-call rotations, multi-level escalation, incident timelines, postmortems, and runbooks in the same platform.",
       },
       {
         question: "Can I self-host instead of paying for a cloud subscription?",
         answer:
-          "Dynatrace offers a self-managed deployment called Dynatrace Managed, but it is still a paid commercial license. OneUptime is open source under Apache 2.0 and completely free to self-host, so you own your data and avoid vendor lock-in, or you can use the managed cloud.",
+          "Dynatrace offers a self-managed deployment called Dynatrace Managed, but it is still a paid commercial license. Cast Operations is open source under Apache 2.0 and completely free to self-host, so you own your data and avoid vendor lock-in, or you can use the managed cloud.",
       },
       {
-        question: "How does OneUptime compare on deep APM?",
+        question: "How does Cast Operations compare on deep APM?",
         answer:
-          "Dynatrace goes deeper on code-level profiling and automatic topology through its proprietary OneAgent and Davis AI. OneUptime is OpenTelemetry-native for logs, metrics, and traces, which avoids agent lock-in and covers the observability needs of most teams while also giving you monitoring, status pages, on-call, and incidents in one place.",
+          "Dynatrace goes deeper on code-level profiling and automatic topology through its proprietary OneAgent and Davis AI. Cast Operations is OpenTelemetry-native for logs, metrics, and traces, which avoids agent lock-in and covers the observability needs of most teams while also giving you monitoring, status pages, on-call, and incidents in one place.",
       },
       {
         question: "Will I actually save money by switching?",
         answer:
-          "Most teams save the most by consolidating tools. Moving off Dynatrace plus a separate status page product plus a separate on-call and incident tool onto OneUptime removes several bills at once, and the flat per-monitor pricing replaces unpredictable consumption charges. Self-hosting can reduce software cost to zero.",
+          "Most teams save the most by consolidating tools. Moving off Dynatrace plus a separate status page product plus a separate on-call and incident tool onto Cast Operations removes several bills at once, and the flat per-monitor pricing replaces unpredictable consumption charges. Self-hosting can reduce software cost to zero.",
       },
       {
         question:
           "Is migration difficult given Dynatrace uses a proprietary agent?",
         answer:
-          "OneUptime is built on OpenTelemetry, the open standard, so you instrument once with vendor-neutral SDKs and collectors instead of a proprietary agent. You can run OneUptime alongside Dynatrace during a transition and cut over gradually as you consolidate monitoring, status pages, and on-call.",
+          "Cast Operations is built on OpenTelemetry, the open standard, so you instrument once with vendor-neutral SDKs and collectors instead of a proprietary agent. You can run Cast Operations alongside Dynatrace during a transition and cut over gradually as you consolidate monitoring, status pages, and on-call.",
       },
     ],
   },
@@ -8347,17 +8347,17 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Splunk is an enterprise powerhouse for log analytics, SIEM, and observability at massive scale, but it is expensive, complex, and split across many separately priced products.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces in a single open-source platform with flat, predictable pricing.",
+      "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces in a single open-source platform with flat, predictable pricing.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Splunk Observability Cloud pairs infrastructure monitoring, APM, RUM, and synthetics with Splunk's industry-leading log analytics and SIEM platform, now owned by Cisco. It is genuinely powerful at enterprise scale, but pricing is per-host plus usage-based ingestion, tiers are billed annually, and capabilities are spread across many add-ons. On-call lives in the legacy VictorOps-based Splunk On-Call product and the newer Incident Intelligence add-on.",
     oneUptimeDescription:
-      "OneUptime is an open-source (Apache 2.0), self-hostable platform that combines monitoring, public and private status pages, on-call rotations, incident management, and OpenTelemetry-native logs, metrics, and traces. Active monitors are billed a flat $1/month each and telemetry ingestion is roughly $0.10/GB, with no per-host tiers, mandatory annual commitments, or add-on sprawl. You get the whole reliability toolchain in one place, or run it free on your own infrastructure.",
+      "Cast Operations is an open-source (Apache 2.0), self-hostable platform that combines monitoring, public and private status pages, on-call rotations, incident management, and OpenTelemetry-native logs, metrics, and traces. Active monitors are billed a flat $1/month each and telemetry ingestion is roughly $0.10/GB, with no per-host tiers, mandatory annual commitments, or add-on sprawl. You get the whole reliability toolchain in one place, or run it free on your own infrastructure.",
     description:
-      "Splunk is a formidable log-analytics and observability platform built for large enterprises with big budgets and dedicated Splunk administrators. Its power comes at a cost: per-host tiers billed annually, usage-based ingestion that can run well over one hundred dollars per GB per day on the core platform, and functionality fragmented across Infrastructure, APM, RUM, Synthetics, Log Observer, and the separate Splunk On-Call product. OneUptime takes the opposite approach, bundling the entire monitoring, status-page, on-call, incident-management, and telemetry workflow into one open-source platform. Pricing is flat and transparent at $1 per active monitor per month, so costs stay predictable as you grow.",
+      "Splunk is a formidable log-analytics and observability platform built for large enterprises with big budgets and dedicated Splunk administrators. Its power comes at a cost: per-host tiers billed annually, usage-based ingestion that can run well over one hundred dollars per GB per day on the core platform, and functionality fragmented across Infrastructure, APM, RUM, Synthetics, Log Observer, and the separate Splunk On-Call product. Cast Operations takes the opposite approach, bundling the entire monitoring, status-page, on-call, incident-management, and telemetry workflow into one open-source platform. Pricing is flat and transparent at $1 per active monitor per month, so costs stay predictable as you grow.",
     descriptionLine2:
-      "For teams that want full-stack reliability without enterprise pricing, annual lock-in, or stitching six Splunk products together, OneUptime delivers the same core workflows in a single, self-hostable tool.",
+      "For teams that want full-stack reliability without enterprise pricing, annual lock-in, or stitching six Splunk products together, Cast Operations delivers the same core workflows in a single, self-hostable tool.",
     migrationBenefits: [
       "Replace Splunk's per-host tiers and per-GB ingestion with a flat $1/active monitor and roughly $0.10/GB telemetry",
       "Consolidate monitoring, status pages, on-call, incidents, and OpenTelemetry data into one platform instead of many Splunk add-ons",
@@ -8485,37 +8485,37 @@ const products: Dictionary<Product> = {
       {
         title: "Open source and self-hostable",
         description:
-          "OneUptime is Apache 2.0 licensed and can be self-hosted for free with full data ownership; Splunk is proprietary and, at scale, requires substantial annual contracts.",
+          "Cast Operations is Apache 2.0 licensed and can be self-hosted for free with full data ownership; Splunk is proprietary and, at scale, requires substantial annual contracts.",
         icon: "open-source",
       },
       {
         title: "One unified platform",
         description:
-          "OneUptime bundles monitoring, status pages, on-call, incidents, and telemetry in one tool, while Splunk spreads these across Observability Cloud tiers, the Splunk platform, and Splunk On-Call.",
+          "Cast Operations bundles monitoring, status pages, on-call, incidents, and telemetry in one tool, while Splunk spreads these across Observability Cloud tiers, the Splunk platform, and Splunk On-Call.",
         icon: "unified",
       },
       {
         title: "Flat, predictable pricing",
         description:
-          "OneUptime charges a flat $1 per active monitor per month with no per-host tiers or annual lock-in; Splunk uses per-host tiers plus usage-based ingestion that can escalate quickly.",
+          "Cast Operations charges a flat $1 per active monitor per month with no per-host tiers or annual lock-in; Splunk uses per-host tiers plus usage-based ingestion that can escalate quickly.",
         icon: "pricing",
       },
       {
         title: "Built-in status pages",
         description:
-          "OneUptime includes public and private status pages with custom domains and free SSL, while Splunk has no native status page product at all.",
+          "Cast Operations includes public and private status pages with custom domains and free SSL, while Splunk has no native status page product at all.",
         icon: "status-page",
       },
       {
         title: "Unlimited status page subscribers",
         description:
-          "OneUptime supports unlimited status page subscribers at no extra charge; Splunk offers no equivalent, so teams must buy a separate status page vendor.",
+          "Cast Operations supports unlimited status page subscribers at no extra charge; Splunk offers no equivalent, so teams must buy a separate status page vendor.",
         icon: "subscribers",
       },
       {
         title: "Integrated on-call and incidents",
         description:
-          "OneUptime includes on-call rotations, escalation policies, and incident management natively, whereas Splunk splits this between the legacy VictorOps-based On-Call and Incident Intelligence add-ons.",
+          "Cast Operations includes on-call rotations, escalation policies, and incident management natively, whereas Splunk splits this between the legacy VictorOps-based On-Call and Incident Intelligence add-ons.",
         icon: "on-call",
       },
     ],
@@ -8823,39 +8823,39 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "Is OneUptime a full replacement for Splunk?",
+        question: "Is Cast Operations a full replacement for Splunk?",
         answer:
-          "For most teams focused on monitoring, observability, status pages, on-call, and incident management, yes. OneUptime covers OpenTelemetry-native logs, metrics, and traces plus the full reliability workflow in one platform. Splunk still leads in heavy-duty SIEM and security analytics at very large enterprise scale, so if your primary need is advanced SIEM you may keep Splunk for that specific use case.",
+          "For most teams focused on monitoring, observability, status pages, on-call, and incident management, yes. Cast Operations covers OpenTelemetry-native logs, metrics, and traces plus the full reliability workflow in one platform. Splunk still leads in heavy-duty SIEM and security analytics at very large enterprise scale, so if your primary need is advanced SIEM you may keep Splunk for that specific use case.",
       },
       {
-        question: "How does OneUptime pricing compare to Splunk?",
+        question: "How does Cast Operations pricing compare to Splunk?",
         answer:
-          "OneUptime bills active monitors at a flat $1 per month each, with unlimited free manual monitors and telemetry ingestion at roughly $0.10 per GB. Splunk Observability Cloud is priced per host, from $15 to $75+ per host per month billed annually, plus usage-based log ingestion that on the core Splunk platform has historically run well over $100 per GB per day. For most teams OneUptime is dramatically cheaper and far more predictable.",
+          "Cast Operations bills active monitors at a flat $1 per month each, with unlimited free manual monitors and telemetry ingestion at roughly $0.10 per GB. Splunk Observability Cloud is priced per host, from $15 to $75+ per host per month billed annually, plus usage-based log ingestion that on the core Splunk platform has historically run well over $100 per GB per day. For most teams Cast Operations is dramatically cheaper and far more predictable.",
       },
       {
         question: "Does Splunk offer status pages?",
         answer:
-          "No. Splunk has no native public or private status page product, so teams using Splunk typically buy a separate status page vendor. OneUptime includes public and private status pages with custom domains, free SSL, custom branding, and unlimited subscribers at no extra cost.",
+          "No. Splunk has no native public or private status page product, so teams using Splunk typically buy a separate status page vendor. Cast Operations includes public and private status pages with custom domains, free SSL, custom branding, and unlimited subscribers at no extra cost.",
       },
       {
         question: "What happened to Splunk On-Call and VictorOps?",
         answer:
-          "Splunk On-Call is the rebranded VictorOps product Splunk acquired. Splunk has since introduced Incident Intelligence within Observability Cloud, leaving the standalone On-Call product with an uncertain roadmap. OneUptime includes on-call rotations, escalation policies, and incident management natively, so there is no separate product to license or migrate.",
+          "Splunk On-Call is the rebranded VictorOps product Splunk acquired. Splunk has since introduced Incident Intelligence within Observability Cloud, leaving the standalone On-Call product with an uncertain roadmap. Cast Operations includes on-call rotations, escalation policies, and incident management natively, so there is no separate product to license or migrate.",
       },
       {
-        question: "Can I self-host OneUptime like I run Splunk on-premises?",
+        question: "Can I self-host Cast Operations like I run Splunk on-premises?",
         answer:
-          "Yes. OneUptime is open source under the Apache 2.0 license and can be fully self-hosted for free with complete data ownership. Unlike Splunk's enterprise licensing, there are no per-host fees or annual contracts when you run it yourself, and you can also use the managed cloud if you prefer.",
+          "Yes. Cast Operations is open source under the Apache 2.0 license and can be fully self-hosted for free with complete data ownership. Unlike Splunk's enterprise licensing, there are no per-host fees or annual contracts when you run it yourself, and you can also use the managed cloud if you prefer.",
       },
       {
         question: "Will migrating from Splunk mean losing observability depth?",
         answer:
-          "OneUptime is OpenTelemetry-native, so it ingests standards-based logs, metrics, and traces with dashboards, exceptions, and error tracking built in. You keep full-stack observability without runaway ingestion bills or managing separate Splunk add-ons for infrastructure, APM, RUM, and synthetics.",
+          "Cast Operations is OpenTelemetry-native, so it ingests standards-based logs, metrics, and traces with dashboards, exceptions, and error tracking built in. You keep full-stack observability without runaway ingestion bills or managing separate Splunk add-ons for infrastructure, APM, RUM, and synthetics.",
       },
       {
-        question: "Is OneUptime enterprise-ready for security and compliance?",
+        question: "Is Cast Operations enterprise-ready for security and compliance?",
         answer:
-          "Yes. OneUptime supports SSO/SAML, role-based access control, and audit logs, and is SOC 2 Type II, ISO 27001, and GDPR compliant. Enterprise support is available, and self-hosting gives security-sensitive teams full control over where their data lives.",
+          "Yes. Cast Operations supports SSO/SAML, role-based access control, and audit logs, and is SOC 2 Type II, ISO 27001, and GDPR compliant. Enterprise support is available, and self-hosting gives security-sensitive teams full control over where their data lives.",
       },
     ],
   },
@@ -8868,15 +8868,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Sentry specializes in code-level error and performance monitoring, but it has no status pages, on-call scheduling, or incident-response product.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, telemetry, status pages, on-call, and incident management in a single open-source platform.",
+      "Cast Operations unifies monitoring, telemetry, status pages, on-call, and incident management in a single open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Sentry is a developer-focused error and performance monitoring tool with session replay, distributed tracing, code profiling, and its Seer AI debugging agent. It excels at catching application exceptions and slow transactions and pinpointing the exact line of code responsible. It has recently added basic URL uptime and cron monitoring, but it is not built for infrastructure monitoring, status pages, or incident response.",
     oneUptimeDescription:
-      "OneUptime is an open-source, unified observability and reliability platform. It combines uptime and infrastructure monitoring, OpenTelemetry logs, metrics and traces, status pages, on-call scheduling, and incident management in one tool. Teams can self-host it for free or use the managed cloud with predictable per-monitor pricing.",
+      "Cast Operations is an open-source, unified observability and reliability platform. It combines uptime and infrastructure monitoring, OpenTelemetry logs, metrics and traces, status pages, on-call scheduling, and incident management in one tool. Teams can self-host it for free or use the managed cloud with predictable per-monitor pricing.",
     description:
-      "Sentry is one of the best tools available for catching code-level errors and diagnosing performance regressions, and developers rely on its stack traces and session replay every day. But it is a single-purpose developer tool: it has no status pages, no on-call or paging, and no incident-management workflow, so teams end up pairing it with separate products like Statuspage and PagerDuty. OneUptime takes a different approach, unifying monitoring, telemetry, status pages, on-call, and incidents in one open-source platform. Instead of stitching several point tools together, you run your entire reliability stack in one place.",
+      "Sentry is one of the best tools available for catching code-level errors and diagnosing performance regressions, and developers rely on its stack traces and session replay every day. But it is a single-purpose developer tool: it has no status pages, no on-call or paging, and no incident-management workflow, so teams end up pairing it with separate products like Statuspage and PagerDuty. Cast Operations takes a different approach, unifying monitoring, telemetry, status pages, on-call, and incidents in one open-source platform. Instead of stitching several point tools together, you run your entire reliability stack in one place.",
     descriptionLine2:
       "Keep an OpenTelemetry-native approach to telemetry while replacing usage-based event billing and tool sprawl with predictable one-dollar-per-monitor pricing on a single, self-hostable platform.",
     migrationBenefits: [
@@ -8966,7 +8966,7 @@ const products: Dictionary<Product> = {
           "Sentry Business for errors and telemetry, plus a separate status page tool and a separate on-call and paging tool",
         competitorCost: "$80/mo Sentry + extra status page and on-call tools",
         oneuptimeSolution:
-          "OneUptime unified: error and telemetry ingestion, 20 monitors, status page, and on-call in one platform",
+          "Cast Operations unified: error and telemetry ingestion, 20 monitors, status page, and on-call in one platform",
         oneuptimeCost: "~$20/mo (20 monitors at $1 each)",
       },
       {
@@ -8976,7 +8976,7 @@ const products: Dictionary<Product> = {
           "Sentry with usage-based overage billing on errors, spans, and replays, plus the Seer AI add-on",
         competitorCost: "$200-500+/mo as event volume grows",
         oneuptimeSolution:
-          "OneUptime OpenTelemetry ingestion billed by data volume with a generous free allowance",
+          "Cast Operations OpenTelemetry ingestion billed by data volume with a generous free allowance",
         oneuptimeCost: "~$0.10 per GB ingested",
       },
       {
@@ -8986,7 +8986,7 @@ const products: Dictionary<Product> = {
           "Sentry covers errors and telemetry only, so uptime, status page, on-call, and incident tools are bought separately",
         competitorCost: "$80/mo Sentry + three or four more tools",
         oneuptimeSolution:
-          "OneUptime delivers the entire stack in one platform, self-hosted free or on a predictable managed tier",
+          "Cast Operations delivers the entire stack in one platform, self-hosted free or on a predictable managed tier",
         oneuptimeCost: "One platform, ~$99/mo Growth",
       },
     ],
@@ -8994,37 +8994,37 @@ const products: Dictionary<Product> = {
       {
         title: "Unified platform, not a point tool",
         description:
-          "Sentry focuses on code-level errors and performance. OneUptime combines monitoring, telemetry, status pages, on-call, and incidents in one place, ending tool sprawl.",
+          "Sentry focuses on code-level errors and performance. Cast Operations combines monitoring, telemetry, status pages, on-call, and incidents in one place, ending tool sprawl.",
         icon: "unified",
       },
       {
         title: "Built-in status pages",
         description:
-          "Sentry has no status page product. OneUptime includes public and private status pages with unlimited subscribers, custom domains, free SSL, and automatic updates from monitors.",
+          "Sentry has no status page product. Cast Operations includes public and private status pages with unlimited subscribers, custom domains, free SSL, and automatic updates from monitors.",
         icon: "status-page",
       },
       {
         title: "Real on-call and incident response",
         description:
-          "Sentry sends alert notifications but has no on-call rotations or paging. OneUptime adds escalation policies, SMS and phone paging, postmortems, and MTTR analytics.",
+          "Sentry sends alert notifications but has no on-call rotations or paging. Cast Operations adds escalation policies, SMS and phone paging, postmortems, and MTTR analytics.",
         icon: "on-call",
       },
       {
         title: "Truly open source",
         description:
-          "Sentry is source-available under the Functional Source License, not OSI open source at release. OneUptime is Apache 2.0 and free to self-host with no strings attached.",
+          "Sentry is source-available under the Functional Source License, not OSI open source at release. Cast Operations is Apache 2.0 and free to self-host with no strings attached.",
         icon: "open-source",
       },
       {
         title: "Full-stack monitoring",
         description:
-          "Beyond code errors, OneUptime monitors websites, APIs, servers, containers, synthetics, SSL, and ports from global and private probes, which Sentry does not offer.",
+          "Beyond code errors, Cast Operations monitors websites, APIs, servers, containers, synthetics, SSL, and ports from global and private probes, which Sentry does not offer.",
         icon: "monitoring",
       },
       {
         title: "Predictable pricing",
         description:
-          "Sentry bills by event volume with overages and per-user AI add-ons. OneUptime charges a flat one dollar per active monitor with telemetry at roughly ten cents per GB.",
+          "Sentry bills by event volume with overages and per-user AI add-ons. Cast Operations charges a flat one dollar per active monitor with telemetry at roughly ten cents per GB.",
         icon: "pricing",
       },
     ],
@@ -9353,37 +9353,37 @@ const products: Dictionary<Product> = {
       {
         question: "Is Sentry open source?",
         answer:
-          "Sentry is source-available and self-hostable under the Functional Source License, which converts to Apache 2.0 two years after each release, so it is not OSI-approved open source at the time of release. OneUptime is fully open source under Apache 2.0 today and free to self-host.",
+          "Sentry is source-available and self-hostable under the Functional Source License, which converts to Apache 2.0 two years after each release, so it is not OSI-approved open source at the time of release. Cast Operations is fully open source under Apache 2.0 today and free to self-host.",
       },
       {
         question: "Does Sentry have status pages?",
         answer:
-          "No. Sentry does not offer a status page product, so you would pair it with a separate tool such as Statuspage. OneUptime includes public and private status pages with unlimited subscribers, custom domains, free SSL, custom branding, and automatic updates from your monitors.",
+          "No. Sentry does not offer a status page product, so you would pair it with a separate tool such as Statuspage. Cast Operations includes public and private status pages with unlimited subscribers, custom domains, free SSL, custom branding, and automatic updates from your monitors.",
       },
       {
         question: "Does Sentry offer on-call and incident management?",
         answer:
-          "Sentry can send alert notifications to Slack, email, and integrations, but it has no on-call scheduling, escalation policies, or incident-management workflow. OneUptime adds on-call rotations, multi-level escalation, SMS and phone paging, postmortems, runbooks, and MTTR analytics.",
+          "Sentry can send alert notifications to Slack, email, and integrations, but it has no on-call scheduling, escalation policies, or incident-management workflow. Cast Operations adds on-call rotations, multi-level escalation, SMS and phone paging, postmortems, runbooks, and MTTR analytics.",
       },
       {
         question: "Can Sentry monitor uptime and infrastructure?",
         answer:
-          "Sentry has added basic URL uptime and cron monitoring, but it does not cover server and infrastructure metrics, container health, synthetic transactions, SSL certificates, or ping and port checks. OneUptime handles all of these from seven-plus global probe locations plus private probes.",
+          "Sentry has added basic URL uptime and cron monitoring, but it does not cover server and infrastructure metrics, container health, synthetic transactions, SSL certificates, or ping and port checks. Cast Operations handles all of these from seven-plus global probe locations plus private probes.",
       },
       {
         question: "How does pricing compare?",
         answer:
-          "Sentry uses usage-based event billing, so costs scale with errors, spans, and replays, and its Seer AI is a $40 per-user add-on. OneUptime bills active monitors at a flat $1 per month each, ingests telemetry at roughly $0.10 per GB, offers unlimited free static monitors, and has a generous free tier.",
+          "Sentry uses usage-based event billing, so costs scale with errors, spans, and replays, and its Seer AI is a $40 per-user add-on. Cast Operations bills active monitors at a flat $1 per month each, ingests telemetry at roughly $0.10 per GB, offers unlimited free static monitors, and has a generous free tier.",
       },
       {
-        question: "Can I keep using OpenTelemetry if I move to OneUptime?",
+        question: "Can I keep using OpenTelemetry if I move to Cast Operations?",
         answer:
-          "Yes. OneUptime is OpenTelemetry-native for logs, metrics, and traces, so you can point your existing instrumentation at it without adopting a proprietary SDK.",
+          "Yes. Cast Operations is OpenTelemetry-native for logs, metrics, and traces, so you can point your existing instrumentation at it without adopting a proprietary SDK.",
       },
       {
         question: "Do I lose error tracking by moving from Sentry?",
         answer:
-          "No. OneUptime includes exception and error tracking alongside logs, metrics, and traces. It does not offer session replay or code profiling, so some teams run OneUptime for full-stack reliability and keep Sentry only where they need deep code-level replay.",
+          "No. Cast Operations includes exception and error tracking alongside logs, metrics, and traces. It does not offer session replay or code profiling, so some teams run Cast Operations for full-stack reliability and keep Sentry only where they need deep code-level replay.",
       },
     ],
   },
@@ -9397,15 +9397,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "AppDynamics specializes in deep, agent-based application performance monitoring for large enterprises, but leaves customer status pages, on-call scheduling, and incident response to separate tools.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, OpenTelemetry, status pages, on-call, and incident management in one open-source platform with flat per-monitor pricing.",
+      "Cast Operations unifies monitoring, OpenTelemetry, status pages, on-call, and incident management in one open-source platform with flat per-monitor pricing.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "AppDynamics, now part of Cisco and Splunk, is an enterprise APM and business performance monitoring suite that instruments applications with proprietary agents for code-level transaction tracing, database visibility, and Business iQ analytics. It excels at deep, agent-based visibility into large Java, .NET, and cloud applications. It is licensed per CPU core, sold through enterprise sales, and does not include customer status pages, on-call rotations, or built-in incident management.",
     oneUptimeDescription:
-      "OneUptime is an open-source (Apache 2.0), self-hostable reliability platform that combines uptime monitoring, OpenTelemetry logs, metrics and traces, public status pages, on-call scheduling, and incident management in one place. It uses open standards instead of proprietary agents, so you keep your existing instrumentation. Active monitors are billed at a flat $1 per month, telemetry ingestion is about $0.10 per GB, and self-hosting is free.",
+      "Cast Operations is an open-source (Apache 2.0), self-hostable reliability platform that combines uptime monitoring, OpenTelemetry logs, metrics and traces, public status pages, on-call scheduling, and incident management in one place. It uses open standards instead of proprietary agents, so you keep your existing instrumentation. Active monitors are billed at a flat $1 per month, telemetry ingestion is about $0.10 per GB, and self-hosting is free.",
     description:
-      "AppDynamics gives you deep, code-level insight into application performance, but it is a single-purpose, agent-based APM tool priced per CPU core and aimed squarely at large enterprises. To cover the rest of reliability you still need a separate status page product, a separate paging tool, and a separate incident workflow. OneUptime takes a different approach: one open-source platform that spans monitoring, telemetry, status pages, on-call, and incident response. Instead of licensing every core across your fleet, you pay a flat $1 per active monitor with no per-check tiers or caps.",
+      "AppDynamics gives you deep, code-level insight into application performance, but it is a single-purpose, agent-based APM tool priced per CPU core and aimed squarely at large enterprises. To cover the rest of reliability you still need a separate status page product, a separate paging tool, and a separate incident workflow. Cast Operations takes a different approach: one open-source platform that spans monitoring, telemetry, status pages, on-call, and incident response. Instead of licensing every core across your fleet, you pay a flat $1 per active monitor with no per-check tiers or caps.",
     descriptionLine2:
       "Keep your OpenTelemetry instrumentation, drop the proprietary agents and per-core bill, and consolidate three or four tools into one predictable platform you can self-host for free.",
     migrationBenefits: [
@@ -9522,37 +9522,37 @@ const products: Dictionary<Product> = {
       {
         title: "Unified platform vs single-purpose APM",
         description:
-          "AppDynamics is APM only, so you bolt on separate tools for status pages, paging, and incidents. OneUptime delivers monitoring, telemetry, status pages, on-call, and incident management in one place.",
+          "AppDynamics is APM only, so you bolt on separate tools for status pages, paging, and incidents. Cast Operations delivers monitoring, telemetry, status pages, on-call, and incident management in one place.",
         icon: "unified",
       },
       {
         title: "Open source vs proprietary agents",
         description:
-          "OneUptime is Apache 2.0 and OpenTelemetry-native, so you keep open instrumentation and can read the code. AppDynamics relies on proprietary, closed-source agents that lock you into Cisco.",
+          "Cast Operations is Apache 2.0 and OpenTelemetry-native, so you keep open instrumentation and can read the code. AppDynamics relies on proprietary, closed-source agents that lock you into Cisco.",
         icon: "open-source",
       },
       {
         title: "Flat per-monitor vs per-CPU-core pricing",
         description:
-          "AppDynamics charges $33 to $50 per CPU core every month, so the bill grows with every host you add. OneUptime charges a flat $1 per active monitor with no per-check tiers or caps.",
+          "AppDynamics charges $33 to $50 per CPU core every month, so the bill grows with every host you add. Cast Operations charges a flat $1 per active monitor with no per-check tiers or caps.",
         icon: "pricing",
       },
       {
         title: "Built-in customer status pages",
         description:
-          "OneUptime includes public and private status pages with unlimited subscribers, custom domains, and free SSL. AppDynamics has no customer-facing status page capability at all.",
+          "Cast Operations includes public and private status pages with unlimited subscribers, custom domains, and free SSL. AppDynamics has no customer-facing status page capability at all.",
         icon: "status-page",
       },
       {
         title: "Native on-call and escalations",
         description:
-          "OneUptime ships on-call rotations, multi-level escalation, and alerts via SMS, phone call, Slack, and Teams. AppDynamics has health-rule alerts but no native on-call scheduling.",
+          "Cast Operations ships on-call rotations, multi-level escalation, and alerts via SMS, phone call, Slack, and Teams. AppDynamics has health-rule alerts but no native on-call scheduling.",
         icon: "on-call",
       },
       {
         title: "Predictable, transparent cost",
         description:
-          "OneUptime publishes a generous free tier and simple tiers with self-hosting free. AppDynamics requires enterprise sales, quotes per core, and adds separate charges for RUM and security.",
+          "Cast Operations publishes a generous free tier and simple tiers with self-hosting free. AppDynamics requires enterprise sales, quotes per core, and adds separate charges for RUM and security.",
         icon: "transparent",
       },
     ],
@@ -9855,39 +9855,39 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "Is OneUptime a full replacement for AppDynamics?",
+        question: "Is Cast Operations a full replacement for AppDynamics?",
         answer:
-          "For most teams, yes. OneUptime is OpenTelemetry-native, so it collects logs, metrics, traces, and exceptions and shows them on dashboards, while also covering uptime monitoring, status pages, on-call, and incidents that AppDynamics does not include. AppDynamics still offers deeper proprietary bytecode-level auto-instrumentation and Business iQ analytics, so evaluate whether that specific depth is essential for your applications.",
+          "For most teams, yes. Cast Operations is OpenTelemetry-native, so it collects logs, metrics, traces, and exceptions and shows them on dashboards, while also covering uptime monitoring, status pages, on-call, and incidents that AppDynamics does not include. AppDynamics still offers deeper proprietary bytecode-level auto-instrumentation and Business iQ analytics, so evaluate whether that specific depth is essential for your applications.",
       },
       {
         question:
-          "How does OneUptime pricing compare to AppDynamics per-CPU-core licensing?",
+          "How does Cast Operations pricing compare to AppDynamics per-CPU-core licensing?",
         answer:
-          "AppDynamics is licensed per CPU core, roughly $33 per core for Premium APM and $50 per core for Enterprise, billed annually, so your cost rises with every host and core you add. OneUptime charges a flat $1 per month per active monitor with no per-check tiers or caps, telemetry ingestion is about $0.10 per GB, and self-hosting is free.",
+          "AppDynamics is licensed per CPU core, roughly $33 per core for Premium APM and $50 per core for Enterprise, billed annually, so your cost rises with every host and core you add. Cast Operations charges a flat $1 per month per active monitor with no per-check tiers or caps, telemetry ingestion is about $0.10 per GB, and self-hosting is free.",
       },
       {
         question: "Does AppDynamics include status pages and on-call?",
         answer:
-          "No. AppDynamics is an APM tool and does not provide customer-facing status pages or native on-call scheduling. Teams typically add separate products such as Statuspage and PagerDuty. OneUptime includes both status pages with unlimited subscribers and on-call rotations with escalation in the same platform.",
+          "No. AppDynamics is an APM tool and does not provide customer-facing status pages or native on-call scheduling. Teams typically add separate products such as Statuspage and PagerDuty. Cast Operations includes both status pages with unlimited subscribers and on-call rotations with escalation in the same platform.",
       },
       {
         question: "Do I have to rip out my existing instrumentation to switch?",
         answer:
-          "No. OneUptime is built on OpenTelemetry, an open standard, so you send telemetry using vendor-neutral SDKs and collectors rather than proprietary agents. That means less lock-in and an easier path off AppDynamics agents over time.",
+          "No. Cast Operations is built on OpenTelemetry, an open standard, so you send telemetry using vendor-neutral SDKs and collectors rather than proprietary agents. That means less lock-in and an easier path off AppDynamics agents over time.",
       },
       {
         question:
-          "Can I self-host OneUptime the way I run AppDynamics on-premises?",
+          "Can I self-host Cast Operations the way I run AppDynamics on-premises?",
         answer:
-          "Yes, and it is free. OneUptime is open source under Apache 2.0 and can be self-hosted on your own infrastructure with the full feature set, so you pay only for the compute you run. AppDynamics on-premises is still a paid, per-core licensed product.",
+          "Yes, and it is free. Cast Operations is open source under Apache 2.0 and can be self-hosted on your own infrastructure with the full feature set, so you pay only for the compute you run. AppDynamics on-premises is still a paid, per-core licensed product.",
       },
       {
-        question: "Is OneUptime enterprise-ready for security and compliance?",
+        question: "Is Cast Operations enterprise-ready for security and compliance?",
         answer:
-          "Yes. OneUptime provides SSO and SAML, role-based access control, and audit logs, and it is SOC 2 Type II, ISO 27001, and GDPR compliant. Enterprise plans and support are available alongside the free and self-hosted options.",
+          "Yes. Cast Operations provides SSO and SAML, role-based access control, and audit logs, and it is SOC 2 Type II, ISO 27001, and GDPR compliant. Enterprise plans and support are available alongside the free and self-hosted options.",
       },
       {
-        question: "What do teams gain by consolidating onto OneUptime?",
+        question: "What do teams gain by consolidating onto Cast Operations?",
         answer:
           "They collapse APM, uptime monitoring, status pages, on-call, and incident management into one platform, which removes tool sprawl, reduces integration overhead, and makes cost predictable. Instead of licensing every core and paying separately for paging and status pages, they pay a flat per-monitor rate and can self-host for free.",
       },
@@ -9903,15 +9903,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Elastic Observability specializes in ELK-based logs, metrics, and APM at scale, but it stops at telemetry and leaves status pages, on-call, and incident workflows to other tools.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, OpenTelemetry logs/metrics/traces, status pages, on-call, and incident management in a single open-source platform.",
+      "Cast Operations unifies monitoring, OpenTelemetry logs/metrics/traces, status pages, on-call, and incident management in a single open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Elastic Observability is built on the Elasticsearch and Kibana stack, offering powerful and flexible log analytics, metrics, APM, and search across large volumes of telemetry. It is highly capable but operationally heavy, requiring cluster sizing, shard and index management, and careful data-volume governance to control cost. Pricing is consumption-based on ingest and retention, so bills scale with the amount of data you send.",
     oneUptimeDescription:
-      "OneUptime is an open-source (Apache 2.0), self-hostable reliability platform that combines uptime and infrastructure monitoring, OpenTelemetry-native logs, metrics, and traces, public and private status pages, on-call scheduling, and incident management in one place. Active monitors are billed a flat 1 dollar per month and telemetry ingestion is roughly 0.10 dollars per GB, so costs stay predictable. Self-hosting is completely free.",
+      "Cast Operations is an open-source (Apache 2.0), self-hostable reliability platform that combines uptime and infrastructure monitoring, OpenTelemetry-native logs, metrics, and traces, public and private status pages, on-call scheduling, and incident management in one place. Active monitors are billed a flat 1 dollar per month and telemetry ingestion is roughly 0.10 dollars per GB, so costs stay predictable. Self-hosting is completely free.",
     description:
-      "Elastic Observability is a strong choice when your primary need is deep, search-driven log and APM analytics, and you have the engineering capacity to run and tune the underlying Elasticsearch clusters. But observability is only half of reliability. Elastic has no built-in status pages, on-call rotations, escalation policies, or incident management, so teams end up bolting on separate tools for the workflows that actually resolve outages. OneUptime brings monitoring, telemetry, status pages, on-call, and incident response together in one open-source platform.",
+      "Elastic Observability is a strong choice when your primary need is deep, search-driven log and APM analytics, and you have the engineering capacity to run and tune the underlying Elasticsearch clusters. But observability is only half of reliability. Elastic has no built-in status pages, on-call rotations, escalation policies, or incident management, so teams end up bolting on separate tools for the workflows that actually resolve outages. Cast Operations brings monitoring, telemetry, status pages, on-call, and incident response together in one open-source platform.",
     descriptionLine2:
       "Instead of paying rising, data-volume-based bills and stitching Elastic to PagerDuty, Statuspage, and an incident tool, you get one predictable platform with flat 1 dollar per month monitors and free self-hosting.",
     migrationBenefits: [
@@ -9997,7 +9997,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "Elastic consumption billing plus extra status page and paging subscriptions",
         oneuptimeSolution:
-          "OneUptime for monitors, status page, on-call, incidents, and telemetry in one platform",
+          "Cast Operations for monitors, status page, on-call, incidents, and telemetry in one platform",
         oneuptimeCost: "Generous free tier, then ~$1/month per active monitor",
       },
       {
@@ -10008,7 +10008,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "Roughly $9+/month in ingest alone plus retention, egress, and add-ons that grow with volume",
         oneuptimeSolution:
-          "OneUptime OpenTelemetry ingestion plus flat-priced monitors and included reliability workflows",
+          "Cast Operations OpenTelemetry ingestion plus flat-priced monitors and included reliability workflows",
         oneuptimeCost:
           "~$0.10/GB ingested plus ~$1/month per monitor, or free self-hosted",
       },
@@ -10020,7 +10020,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "Free license but significant engineering and infrastructure operating cost",
         oneuptimeSolution:
-          "Self-hosted OneUptime under Apache 2.0 with monitoring, status, on-call, and incidents built in",
+          "Self-hosted Cast Operations under Apache 2.0 with monitoring, status, on-call, and incidents built in",
         oneuptimeCost: "$0 in license fees, fully self-hosted",
       },
     ],
@@ -10028,37 +10028,37 @@ const products: Dictionary<Product> = {
       {
         title: "Unified platform, not just telemetry",
         description:
-          "Elastic delivers logs, metrics, and APM, but OneUptime adds monitoring, status pages, on-call, and incidents in the same platform so you are not stitching tools together.",
+          "Elastic delivers logs, metrics, and APM, but Cast Operations adds monitoring, status pages, on-call, and incidents in the same platform so you are not stitching tools together.",
         icon: "unified",
       },
       {
         title: "Truly permissive open source",
         description:
-          "OneUptime is Apache 2.0 and free to self-host, while Elastic's core is AGPL/SSPL with many observability features gated behind paid Elastic tiers.",
+          "Cast Operations is Apache 2.0 and free to self-host, while Elastic's core is AGPL/SSPL with many observability features gated behind paid Elastic tiers.",
         icon: "open-source",
       },
       {
         title: "Built-in status pages",
         description:
-          "OneUptime includes public and private status pages with unlimited subscribers, custom domains, and free SSL. Elastic has no status page capability at all.",
+          "Cast Operations includes public and private status pages with unlimited subscribers, custom domains, and free SSL. Elastic has no status page capability at all.",
         icon: "status-page",
       },
       {
         title: "Native on-call and escalation",
         description:
-          "OneUptime provides on-call rotations, multi-level escalation, and alerts via SMS, phone call, email, push, Slack, and Teams. Elastic offers alerting but no on-call scheduling.",
+          "Cast Operations provides on-call rotations, multi-level escalation, and alerts via SMS, phone call, email, push, Slack, and Teams. Elastic offers alerting but no on-call scheduling.",
         icon: "on-call",
       },
       {
         title: "Incident management included",
         description:
-          "OneUptime has incident timelines, severities, postmortems, action items, and MTTR analytics. Elastic leaves incident response to third-party tools.",
+          "Cast Operations has incident timelines, severities, postmortems, action items, and MTTR analytics. Elastic leaves incident response to third-party tools.",
         icon: "incident",
       },
       {
         title: "Predictable pricing",
         description:
-          "OneUptime charges a flat $1/month per active monitor and ~$0.10/GB telemetry. Elastic bills on ingest, retention, and egress, so costs rise with data volume.",
+          "Cast Operations charges a flat $1/month per active monitor and ~$0.10/GB telemetry. Elastic bills on ingest, retention, and egress, so costs rise with data volume.",
         icon: "pricing",
       },
     ],
@@ -10351,41 +10351,41 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "Is OneUptime a full replacement for Elastic Observability?",
+        question: "Is Cast Operations a full replacement for Elastic Observability?",
         answer:
-          "For most teams, yes. OneUptime provides OpenTelemetry-native logs, metrics, traces, dashboards, and exception tracking, and it adds monitoring, status pages, on-call, and incident management that Elastic does not include. If your primary need is extremely deep, search-heavy log analytics at very large scale, Elastic's search engine is more specialized, but OneUptime covers the full reliability workflow in one platform.",
+          "For most teams, yes. Cast Operations provides OpenTelemetry-native logs, metrics, traces, dashboards, and exception tracking, and it adds monitoring, status pages, on-call, and incident management that Elastic does not include. If your primary need is extremely deep, search-heavy log analytics at very large scale, Elastic's search engine is more specialized, but Cast Operations covers the full reliability workflow in one platform.",
       },
       {
-        question: "How does pricing compare between OneUptime and Elastic?",
+        question: "How does pricing compare between Cast Operations and Elastic?",
         answer:
-          "Elastic Observability bills on consumption, charging separately for ingest, retention, and egress, so your bill grows with data volume. OneUptime charges a flat 1 dollar per month per active monitor and roughly 0.10 dollars per GB for telemetry ingestion, with a generous free tier and free self-hosting, making costs far more predictable.",
+          "Elastic Observability bills on consumption, charging separately for ingest, retention, and egress, so your bill grows with data volume. Cast Operations charges a flat 1 dollar per month per active monitor and roughly 0.10 dollars per GB for telemetry ingestion, with a generous free tier and free self-hosting, making costs far more predictable.",
       },
       {
         question:
           "Does Elastic Observability include status pages and on-call?",
         answer:
-          "No. Elastic focuses on logs, metrics, and APM and does not offer status pages, on-call rotations, escalation policies, or incident management. Teams typically add separate tools like Statuspage and PagerDuty. OneUptime includes all of these in one platform.",
+          "No. Elastic focuses on logs, metrics, and APM and does not offer status pages, on-call rotations, escalation policies, or incident management. Teams typically add separate tools like Statuspage and PagerDuty. Cast Operations includes all of these in one platform.",
       },
       {
-        question: "Is OneUptime really open source?",
+        question: "Is Cast Operations really open source?",
         answer:
-          "Yes. OneUptime is licensed under the permissive Apache 2.0 license and can be fully self-hosted for free. Elastic's core is now available under AGPLv3 and SSPL, but many observability features remain gated behind paid Elastic tiers, and AGPL is a more restrictive copyleft license than Apache 2.0.",
+          "Yes. Cast Operations is licensed under the permissive Apache 2.0 license and can be fully self-hosted for free. Elastic's core is now available under AGPLv3 and SSPL, but many observability features remain gated behind paid Elastic tiers, and AGPL is a more restrictive copyleft license than Apache 2.0.",
       },
       {
         question: "How hard is it to operate compared with Elastic?",
         answer:
-          "Running Elastic yourself means sizing clusters, managing shards and indices, and tuning for performance and cost, which is a meaningful ongoing engineering burden. OneUptime is designed to be simpler to self-host and also offers a fully managed cloud, so you can avoid cluster operations entirely.",
+          "Running Elastic yourself means sizing clusters, managing shards and indices, and tuning for performance and cost, which is a meaningful ongoing engineering burden. Cast Operations is designed to be simpler to self-host and also offers a fully managed cloud, so you can avoid cluster operations entirely.",
       },
       {
-        question: "Can I migrate my OpenTelemetry data to OneUptime?",
+        question: "Can I migrate my OpenTelemetry data to Cast Operations?",
         answer:
-          "Yes. OneUptime is OpenTelemetry-native, so if you already emit logs, metrics, and traces via OpenTelemetry you can point your collectors at OneUptime without adopting proprietary agents, avoiding vendor lock-in.",
+          "Yes. Cast Operations is OpenTelemetry-native, so if you already emit logs, metrics, and traces via OpenTelemetry you can point your collectors at Cast Operations without adopting proprietary agents, avoiding vendor lock-in.",
       },
       {
         question:
-          "Does OneUptime meet enterprise security and compliance needs?",
+          "Does Cast Operations meet enterprise security and compliance needs?",
         answer:
-          "Yes. OneUptime supports SSO/SAML, RBAC, and audit logs, and maintains SOC 2 Type II, ISO 27001, and GDPR compliance, so it fits enterprise requirements while remaining open source and self-hostable.",
+          "Yes. Cast Operations supports SSO/SAML, RBAC, and audit logs, and maintains SOC 2 Type II, ISO 27001, and GDPR compliance, so it fits enterprise requirements while remaining open source and self-hostable.",
       },
     ],
   },
@@ -10399,21 +10399,21 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Site24x7 is a broad Zoho ManageEngine monitoring suite spanning uptime, APM, infrastructure, network, and real user monitoring, but with a dated console and shallow on-call and incident depth.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, status pages, on-call, incident management, and OpenTelemetry observability in one open-source platform with predictable per-monitor pricing.",
+      "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry observability in one open-source platform with predictable per-monitor pricing.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Site24x7 is an all-in-one monitoring product from Zoho's ManageEngine division, covering website uptime, application performance monitoring, server and network infrastructure, and real user monitoring. It is a mature, feature-broad suite, but its console feels dated and its cost is built around a base plan plus many separate add-ons for host monitors, advanced monitors, logs, synthetic runs, and RUM page views. Incident response and on-call scheduling are comparatively shallow, and the platform is closed source with no self-host option.",
     oneUptimeDescription:
-      "OneUptime is an open-source, Apache 2.0 licensed platform that combines monitoring, status pages, on-call rotations, incident management, and OpenTelemetry-native logs, metrics, and traces in a single app. Active monitors are billed at a flat $1 per month with no per-check tiers or caps, and telemetry ingestion runs about $0.10 per GB. Teams can run it fully hosted or self-host the whole platform for free.",
+      "Cast Operations is an open-source, Apache 2.0 licensed platform that combines monitoring, status pages, on-call rotations, incident management, and OpenTelemetry-native logs, metrics, and traces in a single app. Active monitors are billed at a flat $1 per month with no per-check tiers or caps, and telemetry ingestion runs about $0.10 per GB. Teams can run it fully hosted or self-host the whole platform for free.",
     description:
-      "Site24x7 and OneUptime both promise all-in-one monitoring, but they take very different paths. Site24x7 is a broad, closed-source suite from ManageEngine whose real cost climbs as you stack add-ons for host monitors, advanced monitors, logs, synthetic runs, and RUM page views. OneUptime is open source and delivers comparable monitoring breadth alongside far deeper on-call and incident management, plus OpenTelemetry-native observability. Pricing is a predictable flat $1 per active monitor per month, with a generous free tier and free self-hosting.",
+      "Site24x7 and Cast Operations both promise all-in-one monitoring, but they take very different paths. Site24x7 is a broad, closed-source suite from ManageEngine whose real cost climbs as you stack add-ons for host monitors, advanced monitors, logs, synthetic runs, and RUM page views. Cast Operations is open source and delivers comparable monitoring breadth alongside far deeper on-call and incident management, plus OpenTelemetry-native observability. Pricing is a predictable flat $1 per active monitor per month, with a generous free tier and free self-hosting.",
     descriptionLine2:
-      "If you want monitoring plus real incident response and status pages without maintaining an add-on spreadsheet, OneUptime gives you one platform at one predictable price.",
+      "If you want monitoring plus real incident response and status pages without maintaining an add-on spreadsheet, Cast Operations gives you one platform at one predictable price.",
     migrationBenefits: [
       "Replace Site24x7's add-on maze with a flat $1 per month per active monitor, with no separate host, advanced, network, or synthetic add-ons.",
       "Get unlimited status page subscribers with free custom domains and SSL, instead of 250-subscriber caps and per-page add-on packs.",
-      "Own your stack with OneUptime's Apache 2.0 open-source, self-hostable platform and avoid closed-source vendor lock-in.",
+      "Own your stack with Cast Operations’ Apache 2.0 open-source, self-hostable platform and avoid closed-source vendor lock-in.",
       "Gain deeper incident management including postmortems, action items, runbooks, and MTTR analytics that Site24x7 does not match.",
       "Consolidate OpenTelemetry-native logs, metrics, and traces in one place without proprietary agents or per-GB retention tiers.",
       "Work in one modern, unified UI across monitoring, on-call, status pages, and incidents instead of Site24x7's dated, siloed console.",
@@ -10521,37 +10521,37 @@ const products: Dictionary<Product> = {
       {
         title: "Open source and self-hostable",
         description:
-          "OneUptime is Apache 2.0 licensed and can be self-hosted for free, while Site24x7 is fully closed source with no self-host option.",
+          "Cast Operations is Apache 2.0 licensed and can be self-hosted for free, while Site24x7 is fully closed source with no self-host option.",
         icon: "open-source",
       },
       {
         title: "Predictable flat pricing",
         description:
-          "OneUptime charges a flat $1 per active monitor per month, versus Site24x7's base plan plus a stack of host, advanced, log, synthetic, and RUM add-ons.",
+          "Cast Operations charges a flat $1 per active monitor per month, versus Site24x7's base plan plus a stack of host, advanced, log, synthetic, and RUM add-ons.",
         icon: "pricing",
       },
       {
         title: "Truly unified platform",
         description:
-          "Monitoring, status pages, on-call, and incident management live in one OneUptime app, while Site24x7 splits status pages into a separately priced StatusIQ product.",
+          "Monitoring, status pages, on-call, and incident management live in one Cast Operations app, while Site24x7 splits status pages into a separately priced StatusIQ product.",
         icon: "unified",
       },
       {
         title: "Deeper incident management",
         description:
-          "OneUptime adds postmortems, action items, runbooks, and MTTR analytics that Site24x7's lighter incident features do not match.",
+          "Cast Operations adds postmortems, action items, runbooks, and MTTR analytics that Site24x7's lighter incident features do not match.",
         icon: "incident",
       },
       {
         title: "Unlimited status page subscribers",
         description:
-          "OneUptime status pages support unlimited subscribers with free SSL, while Site24x7 caps subscribers at 250 per page and sells more in add-on packs.",
+          "Cast Operations status pages support unlimited subscribers with free SSL, while Site24x7 caps subscribers at 250 per page and sells more in add-on packs.",
         icon: "subscribers",
       },
       {
         title: "Stronger on-call and escalation",
         description:
-          "OneUptime offers multi-level escalation, rotations, overrides, and follow-the-sun scheduling, where Site24x7's on-call scheduling stays basic.",
+          "Cast Operations offers multi-level escalation, rotations, overrides, and follow-the-sun scheduling, where Site24x7's on-call scheduling stays basic.",
         icon: "on-call",
       },
     ],
@@ -10866,40 +10866,40 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "Is OneUptime a good Site24x7 alternative?",
+        question: "Is Cast Operations a good Site24x7 alternative?",
         answer:
-          "Yes. OneUptime covers the monitoring breadth most teams use Site24x7 for, including website, server, container, synthetic, SSL, and cron monitoring, and adds deeper on-call, incident management, status pages, and OpenTelemetry observability in one open-source platform with predictable per-monitor pricing.",
+          "Yes. Cast Operations covers the monitoring breadth most teams use Site24x7 for, including website, server, container, synthetic, SSL, and cron monitoring, and adds deeper on-call, incident management, status pages, and OpenTelemetry observability in one open-source platform with predictable per-monitor pricing.",
       },
       {
-        question: "How does OneUptime pricing compare to Site24x7?",
+        question: "How does Cast Operations pricing compare to Site24x7?",
         answer:
-          "OneUptime charges a flat $1 per active monitor per month with unlimited free static monitors and telemetry at roughly $0.10 per GB. Site24x7 starts low but relies on a base plan plus separate add-ons for host monitors, advanced monitors, logs, synthetic runs, and RUM page views, so the real bill grows as you scale.",
+          "Cast Operations charges a flat $1 per active monitor per month with unlimited free static monitors and telemetry at roughly $0.10 per GB. Site24x7 starts low but relies on a base plan plus separate add-ons for host monitors, advanced monitors, logs, synthetic runs, and RUM page views, so the real bill grows as you scale.",
       },
       {
-        question: "Does Site24x7 have on-call and escalation like OneUptime?",
+        question: "Does Site24x7 have on-call and escalation like Cast Operations?",
         answer:
-          "Site24x7 offers alerting with basic on-call schedules, but its escalation and rotation capabilities are limited. OneUptime provides full multi-level escalation policies, daily, weekly, and custom rotations, overrides for time off, and follow-the-sun coverage built in.",
+          "Site24x7 offers alerting with basic on-call schedules, but its escalation and rotation capabilities are limited. Cast Operations provides full multi-level escalation policies, daily, weekly, and custom rotations, overrides for time off, and follow-the-sun coverage built in.",
       },
       {
         question: "Is Site24x7 open source?",
         answer:
-          "No. Site24x7 is a closed-source SaaS product from Zoho's ManageEngine division with no self-host option. OneUptime is open source under the Apache 2.0 license and can be self-hosted for free or used as a managed cloud service.",
+          "No. Site24x7 is a closed-source SaaS product from Zoho's ManageEngine division with no self-host option. Cast Operations is open source under the Apache 2.0 license and can be self-hosted for free or used as a managed cloud service.",
       },
       {
-        question: "Can OneUptime replace Site24x7's StatusIQ status pages?",
+        question: "Can Cast Operations replace Site24x7's StatusIQ status pages?",
         answer:
-          "Yes. OneUptime includes public and private status pages with custom domains, free SSL, custom branding, scheduled maintenance, and unlimited subscribers at no extra cost. Site24x7 sells status pages as the separate StatusIQ product with a 250-subscriber cap per page and add-on packs for more.",
+          "Yes. Cast Operations includes public and private status pages with custom domains, free SSL, custom branding, scheduled maintenance, and unlimited subscribers at no extra cost. Site24x7 sells status pages as the separate StatusIQ product with a 250-subscriber cap per page and add-on packs for more.",
       },
       {
         question:
-          "Does OneUptime support OpenTelemetry logs, metrics, and traces?",
+          "Does Cast Operations support OpenTelemetry logs, metrics, and traces?",
         answer:
-          "Yes. OneUptime is OpenTelemetry-native, so you can send logs, metrics, and traces directly without proprietary agents, and correlate them with monitors and incidents. Telemetry ingestion is billed at about $0.10 per GB instead of retention-tiered add-ons.",
+          "Yes. Cast Operations is OpenTelemetry-native, so you can send logs, metrics, and traces directly without proprietary agents, and correlate them with monitors and incidents. Telemetry ingestion is billed at about $0.10 per GB instead of retention-tiered add-ons.",
       },
       {
-        question: "What does Site24x7 do better than OneUptime?",
+        question: "What does Site24x7 do better than Cast Operations?",
         answer:
-          "Site24x7 has a longer-established suite with deep SNMP network-device monitoring and real user monitoring (RUM) that OneUptime does not currently offer. If those are core requirements, Site24x7 may fit; if you want unified monitoring, on-call, incidents, and status pages with open-source flexibility and predictable pricing, OneUptime is the stronger choice.",
+          "Site24x7 has a longer-established suite with deep SNMP network-device monitoring and real user monitoring (RUM) that Cast Operations does not currently offer. If those are core requirements, Site24x7 may fit; if you want unified monitoring, on-call, incidents, and status pages with open-source flexibility and predictable pricing, Cast Operations is the stronger choice.",
       },
     ],
   },
@@ -10913,15 +10913,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Cronitor specializes in developer-friendly cron job, heartbeat, and uptime monitoring, but leaves real on-call scheduling and deep incident management to third-party tools.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, status pages, on-call, incident management, and OpenTelemetry observability in one open-source, self-hostable platform.",
+      "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry observability in one open-source, self-hostable platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Cronitor is a developer-focused monitoring service best known for its deep, schedule-aware cron job and heartbeat monitoring, alongside website and API uptime checks and hosted status pages. It offers clean analytics and strong alert-routing integrations, but pricing is per-monitor at $2 per month plus per-user charges, and it relies on tools like PagerDuty or Opsgenie for true on-call scheduling and escalation.",
     oneUptimeDescription:
-      "OneUptime is an open-source, self-hostable reliability platform that combines monitoring, status pages, on-call scheduling, incident management, and OpenTelemetry-based logs, metrics, and traces. Active monitors are a flat $1 per month each with unlimited team members, and you can run it in the managed cloud or on your own infrastructure for free.",
+      "Cast Operations is an open-source, self-hostable reliability platform that combines monitoring, status pages, on-call scheduling, incident management, and OpenTelemetry-based logs, metrics, and traces. Active monitors are a flat $1 per month each with unlimited team members, and you can run it in the managed cloud or on your own infrastructure for free.",
     description:
-      "Cronitor is an excellent, developer-friendly tool for watching cron jobs, background tasks, and uptime, and its status pages are simple to stand up. But as your team grows you hit its edges: alerts route out to a separate on-call tool, incident management stops at the status page, and per-monitor plus per-user pricing climbs quickly. OneUptime covers the same cron and uptime monitoring while adding native on-call rotations, full incident management, and OpenTelemetry observability in a single platform. It is open-source, self-hostable, and bills active monitors at a flat $1 each with no per-user fees.",
+      "Cronitor is an excellent, developer-friendly tool for watching cron jobs, background tasks, and uptime, and its status pages are simple to stand up. But as your team grows you hit its edges: alerts route out to a separate on-call tool, incident management stops at the status page, and per-monitor plus per-user pricing climbs quickly. Cast Operations covers the same cron and uptime monitoring while adding native on-call rotations, full incident management, and OpenTelemetry observability in a single platform. It is open-source, self-hostable, and bills active monitors at a flat $1 each with no per-user fees.",
     descriptionLine2:
       "Instead of stitching Cronitor together with PagerDuty and a separate observability stack, you get one predictable, unified platform you can even host yourself.",
     migrationBenefits: [
@@ -11022,37 +11022,37 @@ const products: Dictionary<Product> = {
       {
         title: "Open source and self-hostable",
         description:
-          "OneUptime is Apache 2.0 licensed and can run on your own infrastructure for free, while Cronitor is a closed-source SaaS only.",
+          "Cast Operations is Apache 2.0 licensed and can run on your own infrastructure for free, while Cronitor is a closed-source SaaS only.",
         icon: "open-source",
       },
       {
         title: "Built-in on-call and escalation",
         description:
-          "OneUptime includes on-call rotations, multi-level escalation, and overrides natively; Cronitor routes alerts out to PagerDuty or Opsgenie for that.",
+          "Cast Operations includes on-call rotations, multi-level escalation, and overrides natively; Cronitor routes alerts out to PagerDuty or Opsgenie for that.",
         icon: "on-call",
       },
       {
         title: "Full incident management",
         description:
-          "OneUptime adds severities, postmortems, action items, runbooks, and MTTR analytics, whereas Cronitor incidents live only on the status page.",
+          "Cast Operations adds severities, postmortems, action items, runbooks, and MTTR analytics, whereas Cronitor incidents live only on the status page.",
         icon: "incident",
       },
       {
         title: "One unified platform",
         description:
-          "OneUptime combines monitoring, status pages, on-call, incidents, and OpenTelemetry observability, replacing several point tools Cronitor leaves separate.",
+          "Cast Operations combines monitoring, status pages, on-call, incidents, and OpenTelemetry observability, replacing several point tools Cronitor leaves separate.",
         icon: "unified",
       },
       {
         title: "Predictable flat pricing",
         description:
-          "OneUptime charges a flat $1 per active monitor with no per-user fees; Cronitor is $2 per monitor plus $5 per user with paid page add-ons.",
+          "Cast Operations charges a flat $1 per active monitor with no per-user fees; Cronitor is $2 per monitor plus $5 per user with paid page add-ons.",
         icon: "pricing",
       },
       {
         title: "Unlimited status page subscribers",
         description:
-          "OneUptime status pages support unlimited subscribers, while Cronitor caps subscribers at 50 (free) or 500 (paid) with charges beyond that.",
+          "Cast Operations status pages support unlimited subscribers, while Cronitor caps subscribers at 50 (free) or 500 (paid) with charges beyond that.",
         icon: "subscribers",
       },
     ],
@@ -11372,40 +11372,40 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "Is OneUptime a good alternative to Cronitor?",
+        question: "Is Cast Operations a good alternative to Cronitor?",
         answer:
-          "Yes. OneUptime covers the cron job, heartbeat, website, and API monitoring Cronitor is known for, and adds native on-call scheduling, full incident management, and OpenTelemetry observability in one platform. It is open-source and self-hostable, with active monitors billed at a flat $1 per month and no per-user fees.",
+          "Yes. Cast Operations covers the cron job, heartbeat, website, and API monitoring Cronitor is known for, and adds native on-call scheduling, full incident management, and OpenTelemetry observability in one platform. It is open-source and self-hostable, with active monitors billed at a flat $1 per month and no per-user fees.",
       },
       {
         question:
-          "Does OneUptime monitor cron jobs and heartbeats like Cronitor?",
+          "Does Cast Operations monitor cron jobs and heartbeats like Cronitor?",
         answer:
-          "Yes. OneUptime supports cron and heartbeat monitoring so you get alerted when a scheduled job fails to check in or runs late. It also adds server, container, synthetic, SSL, and port monitoring so you can consolidate more of your stack in one place.",
+          "Yes. Cast Operations supports cron and heartbeat monitoring so you get alerted when a scheduled job fails to check in or runs late. It also adds server, container, synthetic, SSL, and port monitoring so you can consolidate more of your stack in one place.",
       },
       {
-        question: "How does OneUptime pricing compare to Cronitor?",
+        question: "How does Cast Operations pricing compare to Cronitor?",
         answer:
-          "Cronitor charges $2 per monitor per month plus $5 per user, with paid add-ons for branded and private status pages. OneUptime charges a flat $1 per active monitor per month with unlimited team members and status pages included, which typically cuts the bill roughly in half at the same monitor count.",
+          "Cronitor charges $2 per monitor per month plus $5 per user, with paid add-ons for branded and private status pages. Cast Operations charges a flat $1 per active monitor per month with unlimited team members and status pages included, which typically cuts the bill roughly in half at the same monitor count.",
       },
       {
         question: "Does Cronitor include on-call scheduling and escalation?",
         answer:
-          "No. Cronitor routes alerts to channels like Slack, email, PagerDuty, and Opsgenie, but it does not manage who is on call or escalate unacknowledged alerts, so teams pair it with a separate on-call tool. OneUptime includes on-call rotations, multi-level escalation, and overrides natively.",
+          "No. Cronitor routes alerts to channels like Slack, email, PagerDuty, and Opsgenie, but it does not manage who is on call or escalate unacknowledged alerts, so teams pair it with a separate on-call tool. Cast Operations includes on-call rotations, multi-level escalation, and overrides natively.",
       },
       {
-        question: "What incident management does OneUptime add over Cronitor?",
+        question: "What incident management does Cast Operations add over Cronitor?",
         answer:
-          "Cronitor incidents live on the status page for communication. OneUptime adds severities, timelines, postmortems, action items, runbooks, Slack and Teams collaboration, and MTTR analytics so you can run the full incident lifecycle in one tool.",
+          "Cronitor incidents live on the status page for communication. Cast Operations adds severities, timelines, postmortems, action items, runbooks, Slack and Teams collaboration, and MTTR analytics so you can run the full incident lifecycle in one tool.",
       },
       {
         question: "Are there limits on status page subscribers?",
         answer:
-          "Cronitor caps status page subscribers at 50 on the free plan and 500 on Business, with charges for more. OneUptime status pages support unlimited subscribers, plus a custom domain, free SSL, custom branding, and private pages at no extra add-on cost.",
+          "Cronitor caps status page subscribers at 50 on the free plan and 500 on Business, with charges for more. Cast Operations status pages support unlimited subscribers, plus a custom domain, free SSL, custom branding, and private pages at no extra add-on cost.",
       },
       {
-        question: "Can I self-host OneUptime?",
+        question: "Can I self-host Cast Operations?",
         answer:
-          "Yes. OneUptime is open-source under the Apache 2.0 license and can be self-hosted on your own infrastructure for free, giving you full control of your data. You can also use the managed cloud with the same predictable, transparent pricing. Cronitor is a closed-source SaaS with no self-hosting option.",
+          "Yes. Cast Operations is open-source under the Apache 2.0 license and can be self-hosted on your own infrastructure for free, giving you full control of your data. You can also use the managed cloud with the same predictable, transparent pricing. Cronitor is a closed-source SaaS with no self-hosting option.",
       },
     ],
   },
@@ -11419,15 +11419,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Healthchecks.io specializes in cron-job and scheduled-task monitoring using a dead-man's-switch model, and does nothing beyond it.",
     oneuptimeFocus:
-      "OneUptime covers cron and heartbeat monitoring plus uptime, infrastructure, status pages, on-call, and incident management in one platform.",
+      "Cast Operations covers cron and heartbeat monitoring plus uptime, infrastructure, status pages, on-call, and incident management in one platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Healthchecks.io is an open-source, self-hostable service for monitoring cron jobs and scheduled tasks. Each job sends a periodic HTTP ping, and if a ping is late or missing, Healthchecks.io alerts you through channels like email, Slack, SMS, or PagerDuty. It is purpose-built for backups, batch scripts, and background workers, but does not do uptime, infrastructure, or synthetic monitoring.",
     oneUptimeDescription:
-      "OneUptime is an open-source, Apache 2.0 platform that unifies monitoring, status pages, on-call, incident management, and OpenTelemetry-native telemetry. It includes the same cron and heartbeat monitoring Healthchecks.io offers, plus website, API, server, container, synthetic, and SSL monitoring. Teams replace several point tools with one predictable, self-hostable system.",
+      "Cast Operations is an open-source, Apache 2.0 platform that unifies monitoring, status pages, on-call, incident management, and OpenTelemetry-native telemetry. It includes the same cron and heartbeat monitoring Healthchecks.io offers, plus website, API, server, container, synthetic, and SSL monitoring. Teams replace several point tools with one predictable, self-hostable system.",
     description:
-      "Healthchecks.io is excellent at one narrow job: telling you when a scheduled task fails to run. But cron monitoring is only a slice of reliability, and Healthchecks.io has no uptime monitoring, status pages, on-call scheduling, or incident management. OneUptime includes the same dead-man's-switch heartbeat monitoring and then covers everything Healthchecks.io leaves out. You get one open-source platform instead of stitching together several tools.",
+      "Healthchecks.io is excellent at one narrow job: telling you when a scheduled task fails to run. But cron monitoring is only a slice of reliability, and Healthchecks.io has no uptime monitoring, status pages, on-call scheduling, or incident management. Cast Operations includes the same dead-man's-switch heartbeat monitoring and then covers everything Healthchecks.io leaves out. You get one open-source platform instead of stitching together several tools.",
     descriptionLine2:
       "Keep your cron alerts and gain uptime and infrastructure monitoring, public status pages, escalation policies, and postmortems, all under one predictable price of $1 per active monitor.",
     migrationBenefits: [
@@ -11547,37 +11547,37 @@ const products: Dictionary<Product> = {
       {
         title: "Unified reliability platform",
         description:
-          "OneUptime combines cron monitoring, uptime, status pages, on-call, and incidents in one place, while Healthchecks.io does cron only.",
+          "Cast Operations combines cron monitoring, uptime, status pages, on-call, and incidents in one place, while Healthchecks.io does cron only.",
         icon: "unified",
       },
       {
         title: "Beyond cron monitoring",
         description:
-          "OneUptime adds website, API, server, container, synthetic, and SSL monitoring that Healthchecks.io simply does not have.",
+          "Cast Operations adds website, API, server, container, synthetic, and SSL monitoring that Healthchecks.io simply does not have.",
         icon: "monitoring",
       },
       {
         title: "Built-in status pages",
         description:
-          "OneUptime includes public and private status pages with unlimited subscribers and free SSL; Healthchecks.io has none.",
+          "Cast Operations includes public and private status pages with unlimited subscribers and free SSL; Healthchecks.io has none.",
         icon: "status-page",
       },
       {
         title: "Real on-call and escalation",
         description:
-          "OneUptime provides on-call rotations and multi-level escalation policies, not just one-shot notification fan-out.",
+          "Cast Operations provides on-call rotations and multi-level escalation policies, not just one-shot notification fan-out.",
         icon: "on-call",
       },
       {
         title: "Incident management",
         description:
-          "OneUptime runs incident timelines, severities, postmortems, and MTTR analytics that Healthchecks.io does not offer.",
+          "Cast Operations runs incident timelines, severities, postmortems, and MTTR analytics that Healthchecks.io does not offer.",
         icon: "incident",
       },
       {
         title: "Predictable flat pricing",
         description:
-          "OneUptime charges a flat $1 per active monitor with no per-check tiers or capped SMS and call credits.",
+          "Cast Operations charges a flat $1 per active monitor with no per-check tiers or capped SMS and call credits.",
         icon: "pricing",
       },
     ],
@@ -11889,42 +11889,42 @@ const products: Dictionary<Product> = {
     faq: [
       {
         question:
-          "Does OneUptime support the same cron and heartbeat monitoring as Healthchecks.io?",
+          "Does Cast Operations support the same cron and heartbeat monitoring as Healthchecks.io?",
         answer:
-          "Yes. OneUptime offers dead-man's-switch heartbeat and cron monitoring with ping URLs, cron schedules, grace periods, and late or failure detection, the same core workflow Healthchecks.io provides. You keep your scheduled-task alerts and gain everything else in one platform.",
+          "Yes. Cast Operations offers dead-man's-switch heartbeat and cron monitoring with ping URLs, cron schedules, grace periods, and late or failure detection, the same core workflow Healthchecks.io provides. You keep your scheduled-task alerts and gain everything else in one platform.",
       },
       {
-        question: "What does OneUptime do that Healthchecks.io cannot?",
+        question: "What does Cast Operations do that Healthchecks.io cannot?",
         answer:
-          "OneUptime adds website, API, server, container, synthetic, and SSL monitoring, public and private status pages, on-call rotations with escalation, full incident management, and OpenTelemetry-native logs, metrics, and traces. Healthchecks.io is limited to cron and scheduled-task monitoring.",
+          "Cast Operations adds website, API, server, container, synthetic, and SSL monitoring, public and private status pages, on-call rotations with escalation, full incident management, and OpenTelemetry-native logs, metrics, and traces. Healthchecks.io is limited to cron and scheduled-task monitoring.",
       },
       {
         question:
-          "Is OneUptime open source and self-hostable like Healthchecks.io?",
+          "Is Cast Operations open source and self-hostable like Healthchecks.io?",
         answer:
-          "Yes. OneUptime is Apache 2.0 licensed and fully self-hostable at no cost, just like Healthchecks.io's BSD-licensed code. The difference is scope: OneUptime is a complete reliability platform rather than a single-purpose cron monitor.",
+          "Yes. Cast Operations is Apache 2.0 licensed and fully self-hostable at no cost, just like Healthchecks.io's BSD-licensed code. The difference is scope: Cast Operations is a complete reliability platform rather than a single-purpose cron monitor.",
       },
       {
         question: "How does pricing compare?",
         answer:
-          "Healthchecks.io charges tiered plans by check count, from Free with 20 checks to Business Plus at $80 per month for 1,000 checks, with capped SMS and phone-call credits. OneUptime charges a flat $1 per active monitor, keeps manual monitors free, and bundles status pages, on-call, and incidents at no extra cost.",
+          "Healthchecks.io charges tiered plans by check count, from Free with 20 checks to Business Plus at $80 per month for 1,000 checks, with capped SMS and phone-call credits. Cast Operations charges a flat $1 per active monitor, keeps manual monitors free, and bundles status pages, on-call, and incidents at no extra cost.",
       },
       {
         question: "Can I get SMS and phone-call alerts without credit caps?",
         answer:
-          "OneUptime includes SMS, phone-call, email, push, Slack, and Microsoft Teams alerting as part of its on-call system. Healthchecks.io meters SMS and phone calls with monthly credit limits, such as 50 SMS and 20 calls on the Business plan, so heavy alerting can require upgrades.",
+          "Cast Operations includes SMS, phone-call, email, push, Slack, and Microsoft Teams alerting as part of its on-call system. Healthchecks.io meters SMS and phone calls with monthly credit limits, such as 50 SMS and 20 calls on the Business plan, so heavy alerting can require upgrades.",
       },
       {
         question:
           "Does Healthchecks.io have status pages or on-call scheduling?",
         answer:
-          "No. Healthchecks.io has no status pages, on-call rotations, escalation policies, or incident management; it only sends notifications when a check is late or fails. OneUptime provides all of these natively, so you do not need separate tools like Statuspage or PagerDuty.",
+          "No. Healthchecks.io has no status pages, on-call rotations, escalation policies, or incident management; it only sends notifications when a check is late or fails. Cast Operations provides all of these natively, so you do not need separate tools like Statuspage or PagerDuty.",
       },
       {
         question:
-          "How hard is it to migrate from Healthchecks.io to OneUptime?",
+          "How hard is it to migrate from Healthchecks.io to Cast Operations?",
         answer:
-          "Migration is straightforward because the heartbeat model is the same: point your existing cron pings at OneUptime's monitor URLs and configure schedules and grace periods. From there you can progressively add uptime monitors, status pages, and on-call policies without changing your jobs.",
+          "Migration is straightforward because the heartbeat model is the same: point your existing cron pings at Cast Operations’ monitor URLs and configure schedules and grace periods. From there you can progressively add uptime monitors, status pages, and on-call policies without changing your jobs.",
       },
     ],
   },
@@ -11938,17 +11938,17 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Instatus specializes in fast, inexpensive, beautifully designed hosted status pages, but leaves deep monitoring and full observability to other tools.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces in one open-source platform.",
+      "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces in one open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Instatus is a hosted status page provider known for some of the fastest-loading, cleanest status pages on the market and flat pricing with no per-seat fees. It has since added basic uptime monitoring, on-call, and incident communication, making it a solid choice for teams that mainly need to keep customers informed during outages. However, it stops short of the deep monitoring and observability an engineering team needs to actually detect and diagnose those outages.",
     oneUptimeDescription:
-      "OneUptime is an open-source, Apache 2.0 licensed reliability platform that combines monitoring, status pages, on-call, incident management, and OpenTelemetry-based logs, metrics, and traces. Every status page includes unlimited subscribers, and active monitors are billed a flat $1 per month with unlimited free static monitors. It can be used as a generous free hosted service or self-hosted for free with no seat or subscriber caps.",
+      "Cast Operations is an open-source, Apache 2.0 licensed reliability platform that combines monitoring, status pages, on-call, incident management, and OpenTelemetry-based logs, metrics, and traces. Every status page includes unlimited subscribers, and active monitors are billed a flat $1 per month with unlimited free static monitors. It can be used as a generous free hosted service or self-hosted for free with no seat or subscriber caps.",
     description:
-      "Instatus and OneUptime both help you communicate reliability to customers, but they solve very different scopes. Instatus is purpose-built for polished, high-performance status pages and adds lightweight monitoring and on-call on top. OneUptime is a full reliability platform that detects incidents with deep monitoring, manages on-call and postmortems, ingests OpenTelemetry logs, metrics, and traces, and publishes status pages with unlimited subscribers. If you want one tool instead of a status page plus a separate monitoring stack plus an incident tool, OneUptime consolidates it all.",
+      "Instatus and Cast Operations both help you communicate reliability to customers, but they solve very different scopes. Instatus is purpose-built for polished, high-performance status pages and adds lightweight monitoring and on-call on top. Cast Operations is a full reliability platform that detects incidents with deep monitoring, manages on-call and postmortems, ingests OpenTelemetry logs, metrics, and traces, and publishes status pages with unlimited subscribers. If you want one tool instead of a status page plus a separate monitoring stack plus an incident tool, Cast Operations consolidates it all.",
     descriptionLine2:
-      "With predictable $1-per-monitor pricing, unlimited status page subscribers, and an Apache 2.0 open-source core you can self-host, OneUptime removes both tool sprawl and pricing surprises.",
+      "With predictable $1-per-monitor pricing, unlimited status page subscribers, and an Apache 2.0 open-source core you can self-host, Cast Operations removes both tool sprawl and pricing surprises.",
     migrationBenefits: [
       "Replace Instatus plus your separate monitoring, on-call, and telemetry tools with one unified platform.",
       "Get full OpenTelemetry observability with logs, metrics, and traces that Instatus does not offer at all.",
@@ -12038,7 +12038,7 @@ const products: Dictionary<Product> = {
           "Instatus Pro for a custom-domain status page and 50 uptime monitors.",
         competitorCost: "$20/mo plus a separate tool for logs and metrics",
         oneuptimeSolution:
-          "A OneUptime status page with a handful of active monitors and telemetry included.",
+          "A Cast Operations status page with a handful of active monitors and telemetry included.",
         oneuptimeCost: "Free tier or a few dollars per month",
       },
       {
@@ -12048,7 +12048,7 @@ const products: Dictionary<Product> = {
           "Instatus Business for 25,000 subscribers, SMS and phone alerts, and 50 on-call members.",
         competitorCost: "$300/mo, or $3,600/yr",
         oneuptimeSolution:
-          "OneUptime with unlimited subscribers, full escalation policies, and pay-per-monitor pricing.",
+          "Cast Operations with unlimited subscribers, full escalation policies, and pay-per-monitor pricing.",
         oneuptimeCost: "About $99/mo Growth tier plus $1 per monitor",
       },
       {
@@ -12059,7 +12059,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "$300/mo Instatus plus $500 to $2,000/mo for observability tools",
         oneuptimeSolution:
-          "OneUptime unified: monitoring, status pages, on-call, incidents, and telemetry together.",
+          "Cast Operations unified: monitoring, status pages, on-call, incidents, and telemetry together.",
         oneuptimeCost: "$1 per monitor plus about $0.10/GB telemetry",
       },
     ],
@@ -12067,37 +12067,37 @@ const products: Dictionary<Product> = {
       {
         title: "One platform instead of a stack",
         description:
-          "Instatus covers status pages and light monitoring, so teams bolt on separate tools for observability and incidents. OneUptime unifies monitoring, status pages, on-call, incidents, and telemetry.",
+          "Instatus covers status pages and light monitoring, so teams bolt on separate tools for observability and incidents. Cast Operations unifies monitoring, status pages, on-call, incidents, and telemetry.",
         icon: "unified",
       },
       {
         title: "Open source and self-hostable",
         description:
-          "Instatus is a closed hosted service. OneUptime is Apache 2.0 licensed, so you can self-host for free, audit the code, and avoid vendor lock-in.",
+          "Instatus is a closed hosted service. Cast Operations is Apache 2.0 licensed, so you can self-host for free, audit the code, and avoid vendor lock-in.",
         icon: "open-source",
       },
       {
         title: "Unlimited status page subscribers",
         description:
-          "Instatus caps subscribers at 200 on Free, 5,000 on Pro, and 25,000 on Business. OneUptime includes unlimited subscribers on every status page.",
+          "Instatus caps subscribers at 200 on Free, 5,000 on Pro, and 25,000 on Business. Cast Operations includes unlimited subscribers on every status page.",
         icon: "subscribers",
       },
       {
         title: "Full-stack monitoring",
         description:
-          "Instatus offers basic uptime checks. OneUptime adds server, container, synthetic transaction, and cron heartbeat monitoring with intervals as low as one second.",
+          "Instatus offers basic uptime checks. Cast Operations adds server, container, synthetic transaction, and cron heartbeat monitoring with intervals as low as one second.",
         icon: "monitoring",
       },
       {
         title: "Predictable, transparent pricing",
         description:
-          "Instatus jumps from $20 to $300 per month for more monitors and SSO. OneUptime charges a flat $1 per active monitor with unlimited free static monitors and no subscriber caps.",
+          "Instatus jumps from $20 to $300 per month for more monitors and SSO. Cast Operations charges a flat $1 per active monitor with unlimited free static monitors and no subscriber caps.",
         icon: "transparent",
       },
       {
         title: "Complete incident lifecycle",
         description:
-          "Instatus handles incident communication on the status page. OneUptime adds postmortems, action items, runbooks, MTTR analytics, and Slack and Teams collaboration.",
+          "Instatus handles incident communication on the status page. Cast Operations adds postmortems, action items, runbooks, MTTR analytics, and Slack and Teams collaboration.",
         icon: "incident",
       },
     ],
@@ -12430,38 +12430,38 @@ const products: Dictionary<Product> = {
         question:
           "Does Instatus include monitoring, or do I need a separate tool?",
         answer:
-          "Instatus includes basic uptime monitoring for websites, APIs, SSL, ping, and DNS, which is enough to trigger status page updates. For server, container, synthetic transaction, or heartbeat monitoring, and for any logs, metrics, or traces, you would run a separate tool. OneUptime covers all of these in one platform.",
+          "Instatus includes basic uptime monitoring for websites, APIs, SSL, ping, and DNS, which is enough to trigger status page updates. For server, container, synthetic transaction, or heartbeat monitoring, and for any logs, metrics, or traces, you would run a separate tool. Cast Operations covers all of these in one platform.",
       },
       {
-        question: "How does Instatus pricing compare to OneUptime?",
+        question: "How does Instatus pricing compare to Cast Operations?",
         answer:
-          "Instatus uses flat plans: Free, Pro at $20 per month, and Business at $300 per month, with subscriber and monitor limits per tier. OneUptime charges a flat $1 per active monitor with unlimited free static monitors, telemetry at about $0.10 per GB, and predictable tiers such as Growth around $99 per month. Self-hosting OneUptime is free.",
+          "Instatus uses flat plans: Free, Pro at $20 per month, and Business at $300 per month, with subscriber and monitor limits per tier. Cast Operations charges a flat $1 per active monitor with unlimited free static monitors, telemetry at about $0.10 per GB, and predictable tiers such as Growth around $99 per month. Self-hosting Cast Operations is free.",
       },
       {
         question: "Can Instatus handle logs, metrics, and traces?",
         answer:
-          "No. Instatus focuses on status pages and uptime checks and does not offer log management, metrics, distributed tracing, or APM. OneUptime is OpenTelemetry-native and ingests logs, metrics, and traces alongside monitoring and status pages.",
+          "No. Instatus focuses on status pages and uptime checks and does not offer log management, metrics, distributed tracing, or APM. Cast Operations is OpenTelemetry-native and ingests logs, metrics, and traces alongside monitoring and status pages.",
       },
       {
         question: "How many status page subscribers do I get?",
         answer:
-          "Instatus caps subscribers at 200 on Free, 5,000 on Pro, and 25,000 on Business. OneUptime includes unlimited subscribers on every status page, with notifications via email, SMS, webhook, RSS, Slack, and Teams.",
+          "Instatus caps subscribers at 200 on Free, 5,000 on Pro, and 25,000 on Business. Cast Operations includes unlimited subscribers on every status page, with notifications via email, SMS, webhook, RSS, Slack, and Teams.",
       },
       {
         question:
-          "Does OneUptime have on-call and incident management like Instatus?",
+          "Does Cast Operations have on-call and incident management like Instatus?",
         answer:
-          "Yes, and more depth. OneUptime provides on-call rotations, multi-level escalation policies, overrides, and follow-the-sun coverage, plus incident timelines, severities, postmortems, action items, runbooks, and MTTR analytics with Slack and Teams collaboration.",
+          "Yes, and more depth. Cast Operations provides on-call rotations, multi-level escalation policies, overrides, and follow-the-sun coverage, plus incident timelines, severities, postmortems, action items, runbooks, and MTTR analytics with Slack and Teams collaboration.",
       },
       {
-        question: "Is OneUptime really open source and self-hostable?",
+        question: "Is Cast Operations really open source and self-hostable?",
         answer:
-          "Yes. OneUptime is licensed under Apache 2.0, so you can read the source, contribute, and self-host the full platform for free with no seat or subscriber caps. Instatus is a closed, hosted-only service.",
+          "Yes. Cast Operations is licensed under Apache 2.0, so you can read the source, contribute, and self-host the full platform for free with no seat or subscriber caps. Instatus is a closed, hosted-only service.",
       },
       {
-        question: "How hard is it to migrate from Instatus to OneUptime?",
+        question: "How hard is it to migrate from Instatus to Cast Operations?",
         answer:
-          "Most teams recreate their status page components and monitors in OneUptime, point their custom domain over, and import subscribers. Because OneUptime also replaces your separate monitoring and incident tooling, migration usually consolidates several subscriptions into one platform.",
+          "Most teams recreate their status page components and monitors in Cast Operations, point their custom domain over, and import subscribers. Because Cast Operations also replaces your separate monitoring and incident tooling, migration usually consolidates several subscriptions into one platform.",
       },
     ],
   },
@@ -12474,15 +12474,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Freshping offered simple, low-cost uptime checks and basic status pages, but Freshworks discontinued it in March 2026 with no on-call, incident management, or deep monitoring and no replacement product.",
     oneuptimeFocus:
-      "OneUptime unifies uptime and synthetic monitoring, infrastructure and telemetry, status pages, on-call, and incident management in one open-source platform you can self-host and keep forever.",
+      "Cast Operations unifies uptime and synthetic monitoring, infrastructure and telemetry, status pages, on-call, and incident management in one open-source platform you can self-host and keep forever.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Freshping was Freshworks' entry-level uptime monitoring service, paired with the Freshstatus status page product. It offered HTTP, ping, TCP, and SSL checks at 1-minute intervals from around 10 global locations, with a generous free tier. Freshworks shut Freshping down on March 6, 2026, and has not released a replacement uptime monitoring product.",
     oneUptimeDescription:
-      "OneUptime is an open-source, Apache 2.0 licensed, self-hostable platform that combines uptime and synthetic monitoring, infrastructure metrics, OpenTelemetry logs, metrics and traces, public status pages, on-call scheduling, and incident management. Active monitors are billed at a flat $1 per month each, telemetry ingestion is roughly $0.10/GB, and self-hosting is free. Because it is open source, the platform can never be taken away from you.",
+      "Cast Operations is an open-source, Apache 2.0 licensed, self-hostable platform that combines uptime and synthetic monitoring, infrastructure metrics, OpenTelemetry logs, metrics and traces, public status pages, on-call scheduling, and incident management. Active monitors are billed at a flat $1 per month each, telemetry ingestion is roughly $0.10/GB, and self-hosting is free. Because it is open source, the platform can never be taken away from you.",
     description:
-      "Freshping was a popular choice for teams that wanted cheap, simple uptime checks and a basic status page. But its monitoring stopped at surface-level HTTP and ping checks, it never offered real on-call or incident management, and Freshworks discontinued the product entirely in March 2026. OneUptime covers the same uptime and status-page needs and goes far beyond them, adding synthetic, API, and infrastructure monitoring, full on-call and incident workflows, and OpenTelemetry observability. As an open-source platform, it gives you a permanent home instead of another tool that can be shut down.",
+      "Freshping was a popular choice for teams that wanted cheap, simple uptime checks and a basic status page. But its monitoring stopped at surface-level HTTP and ping checks, it never offered real on-call or incident management, and Freshworks discontinued the product entirely in March 2026. Cast Operations covers the same uptime and status-page needs and goes far beyond them, adding synthetic, API, and infrastructure monitoring, full on-call and incident workflows, and OpenTelemetry observability. As an open-source platform, it gives you a permanent home instead of another tool that can be shut down.",
     descriptionLine2:
       "Migrate off the retired Freshping to a unified platform with predictable $1 per month monitors, unlimited status page subscribers, and no vendor lock-in.",
     migrationBenefits: [
@@ -12554,7 +12554,7 @@ const products: Dictionary<Product> = {
           "Freshping Sprout free tier, which is now discontinued",
         competitorCost: "$0/mo (no longer available)",
         oneuptimeSolution:
-          "50 active monitors on OneUptime plus a branded status page with unlimited subscribers",
+          "50 active monitors on Cast Operations plus a branded status page with unlimited subscribers",
         oneuptimeCost: "About $50/mo, or free when self-hosted",
       },
       {
@@ -12564,7 +12564,7 @@ const products: Dictionary<Product> = {
           "Freshping Garden plus separate on-call and incident tools",
         competitorCost: "$36/mo + extra tools (e.g. PagerDuty ~$21/user/mo)",
         oneuptimeSolution:
-          "OneUptime with monitors, on-call, escalation, and incidents all included",
+          "Cast Operations with monitors, on-call, escalation, and incidents all included",
         oneuptimeCost: "About $99/mo Growth tier, all-in",
       },
       {
@@ -12574,7 +12574,7 @@ const products: Dictionary<Product> = {
           "Not possible on Freshping; would require several separate SaaS products",
         competitorCost: "Multiple subscriptions, hard to predict",
         oneuptimeSolution:
-          "OneUptime self-hosted, unifying monitoring, telemetry, on-call, and status pages",
+          "Cast Operations self-hosted, unifying monitoring, telemetry, on-call, and status pages",
         oneuptimeCost: "$0 software cost (self-hosted)",
       },
     ],
@@ -12582,37 +12582,37 @@ const products: Dictionary<Product> = {
       {
         title: "Actively Developed vs Discontinued",
         description:
-          "Freshworks shut Freshping down in March 2026 with no replacement, while OneUptime is open source and actively developed, so it can never be taken away.",
+          "Freshworks shut Freshping down in March 2026 with no replacement, while Cast Operations is open source and actively developed, so it can never be taken away.",
         icon: "open-source",
       },
       {
         title: "Deep Monitoring Coverage",
         description:
-          "Freshping stopped at HTTP, ping, TCP, and SSL checks; OneUptime adds synthetic, API, server, container, port, and cron/heartbeat monitoring.",
+          "Freshping stopped at HTTP, ping, TCP, and SSL checks; Cast Operations adds synthetic, API, server, container, port, and cron/heartbeat monitoring.",
         icon: "monitoring",
       },
       {
         title: "Real On-Call and Escalation",
         description:
-          "Freshping had no on-call scheduling; OneUptime includes rotations, multi-level escalation, and alerts via SMS, phone call, push, Slack, and Teams.",
+          "Freshping had no on-call scheduling; Cast Operations includes rotations, multi-level escalation, and alerts via SMS, phone call, push, Slack, and Teams.",
         icon: "on-call",
       },
       {
         title: "Full Incident Management",
         description:
-          "Freshping offered no incident workflows; OneUptime provides timelines, severities, postmortems, action items, runbooks, and MTTR analytics.",
+          "Freshping offered no incident workflows; Cast Operations provides timelines, severities, postmortems, action items, runbooks, and MTTR analytics.",
         icon: "incident",
       },
       {
         title: "Unlimited Status Page Subscribers",
         description:
-          "OneUptime status pages support unlimited subscribers with a custom domain and free SSL, while Freshstatus limits status page capabilities by plan.",
+          "Cast Operations status pages support unlimited subscribers with a custom domain and free SSL, while Freshstatus limits status page capabilities by plan.",
         icon: "subscribers",
       },
       {
         title: "One Unified Platform",
         description:
-          "Instead of stitching Freshping, a status page, and separate on-call and APM tools together, OneUptime delivers everything in a single platform.",
+          "Instead of stitching Freshping, a status page, and separate on-call and APM tools together, Cast Operations delivers everything in a single platform.",
         icon: "unified",
       },
     ],
@@ -12930,34 +12930,34 @@ const products: Dictionary<Product> = {
       {
         question: "What is the best Freshping alternative?",
         answer:
-          "OneUptime is a strong replacement because it covers everything Freshping did, uptime monitoring and status pages, and adds synthetic and infrastructure monitoring, on-call, incident management, and observability. It is open source and self-hostable, so you never have to worry about the product being shut down again.",
+          "Cast Operations is a strong replacement because it covers everything Freshping did, uptime monitoring and status pages, and adds synthetic and infrastructure monitoring, on-call, incident management, and observability. It is open source and self-hostable, so you never have to worry about the product being shut down again.",
       },
       {
         question:
-          "How does OneUptime pricing compare to Freshping's old plans?",
+          "How does Cast Operations pricing compare to Freshping's old plans?",
         answer:
-          "Freshping charged $0 to $36 per month by tier with fixed monitor caps. OneUptime bills active monitors at a flat $1 each per month with unlimited free static monitors and no per-check tiers, plus telemetry ingestion at roughly $0.10 per GB. Self-hosting OneUptime is completely free.",
+          "Freshping charged $0 to $36 per month by tier with fixed monitor caps. Cast Operations bills active monitors at a flat $1 each per month with unlimited free static monitors and no per-check tiers, plus telemetry ingestion at roughly $0.10 per GB. Self-hosting Cast Operations is completely free.",
       },
       {
         question: "Did Freshping offer on-call or incident management?",
         answer:
-          "No. Freshping focused only on uptime checks and status pages, with basic email, SMS, and Slack alerts. It had no on-call scheduling, escalation policies, or incident management. OneUptime includes full on-call rotations, multi-level escalation, and incident workflows out of the box.",
+          "No. Freshping focused only on uptime checks and status pages, with basic email, SMS, and Slack alerts. It had no on-call scheduling, escalation policies, or incident management. Cast Operations includes full on-call rotations, multi-level escalation, and incident workflows out of the box.",
       },
       {
-        question: "Can OneUptime replace both Freshping and Freshstatus?",
+        question: "Can Cast Operations replace both Freshping and Freshstatus?",
         answer:
-          "Yes. OneUptime provides monitoring and status pages in one platform, so you do not need a separate status page product. Status pages support unlimited subscribers, custom domains with free SSL, custom branding, and automatic updates from your monitors.",
+          "Yes. Cast Operations provides monitoring and status pages in one platform, so you do not need a separate status page product. Status pages support unlimited subscribers, custom domains with free SSL, custom branding, and automatic updates from your monitors.",
       },
       {
-        question: "Can I self-host OneUptime instead of using a SaaS?",
+        question: "Can I self-host Cast Operations instead of using a SaaS?",
         answer:
-          "Yes. OneUptime is open source under the Apache 2.0 license and can be self-hosted for free on your own infrastructure. This removes vendor lock-in and ensures the platform can never be discontinued out from under you, unlike Freshping.",
+          "Yes. Cast Operations is open source under the Apache 2.0 license and can be self-hosted for free on your own infrastructure. This removes vendor lock-in and ensures the platform can never be discontinued out from under you, unlike Freshping.",
       },
       {
         question:
-          "What monitoring does OneUptime support that Freshping did not?",
+          "What monitoring does Cast Operations support that Freshping did not?",
         answer:
-          "Beyond HTTP, ping, and SSL checks, OneUptime adds API and synthetic transaction monitoring, server and infrastructure metrics such as CPU, memory, and disk, container monitoring for Docker and Kubernetes, port and cron/heartbeat checks, and full OpenTelemetry logs, metrics, and traces.",
+          "Beyond HTTP, ping, and SSL checks, Cast Operations adds API and synthetic transaction monitoring, server and infrastructure metrics such as CPU, memory, and disk, container monitoring for Docker and Kubernetes, port and cron/heartbeat checks, and full OpenTelemetry logs, metrics, and traces.",
       },
     ],
   },
@@ -12970,17 +12970,17 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Prometheus is a best-in-class open-source engine for time-series metrics collection and PromQL-based alerting, but it stops at metrics and expects you to assemble everything else.",
     oneuptimeFocus:
-      "OneUptime is an open-source, unified platform that pairs metrics, logs, and traces with uptime monitoring, status pages, on-call, and incident management out of the box.",
+      "Cast Operations is an open-source, unified platform that pairs metrics, logs, and traces with uptime monitoring, status pages, on-call, and incident management out of the box.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Prometheus is a mature, CNCF-graduated open-source monitoring system built around a pull-based time-series database and the PromQL query language. Alerting is handled by its companion Alertmanager, which offers strong deduplication, silencing, and routing. It is metrics-only by design, so dashboards, long-term storage, logs, traces, and probing all come from separate tools you integrate yourself.",
     oneUptimeDescription:
-      "OneUptime is an Apache 2.0, self-hostable observability and reliability platform that brings OpenTelemetry metrics, logs, and traces together with uptime and synthetic monitoring, status pages, on-call scheduling, and incident management. Instead of stitching together Prometheus, Grafana, Alertmanager, exporters, remote storage, a status page tool, and a paging tool, you run one system. Self-hosting is free and the managed cloud uses flat, predictable pricing.",
+      "Cast Operations is an Apache 2.0, self-hostable observability and reliability platform that brings OpenTelemetry metrics, logs, and traces together with uptime and synthetic monitoring, status pages, on-call scheduling, and incident management. Instead of stitching together Prometheus, Grafana, Alertmanager, exporters, remote storage, a status page tool, and a paging tool, you run one system. Self-hosting is free and the managed cloud uses flat, predictable pricing.",
     description:
-      "Prometheus is the de facto open-source standard for infrastructure and application metrics, and OneUptime does not try to replace PromQL's power for time-series analysis. The difference is scope. Prometheus gives you a metrics engine and Alertmanager, then leaves you to bolt on Grafana for dashboards, Thanos or Mimir for long-term storage, dozens of exporters for coverage, plus separate products for status pages, on-call rotations, and incident response. OneUptime folds all of that into one open-source platform so a single team can go from a metric spike to a paged engineer, a public status update, and a completed postmortem without leaving the tool.",
+      "Prometheus is the de facto open-source standard for infrastructure and application metrics, and Cast Operations does not try to replace PromQL's power for time-series analysis. The difference is scope. Prometheus gives you a metrics engine and Alertmanager, then leaves you to bolt on Grafana for dashboards, Thanos or Mimir for long-term storage, dozens of exporters for coverage, plus separate products for status pages, on-call rotations, and incident response. Cast Operations folds all of that into one open-source platform so a single team can go from a metric spike to a paged engineer, a public status update, and a completed postmortem without leaving the tool.",
     descriptionLine2:
-      "If you love Prometheus for metrics but are tired of maintaining six other systems around it, OneUptime gives you the same open-source freedom with far less assembly and operational overhead.",
+      "If you love Prometheus for metrics but are tired of maintaining six other systems around it, Cast Operations gives you the same open-source freedom with far less assembly and operational overhead.",
     migrationBenefits: [
       "Replace the Prometheus plus Grafana plus Alertmanager plus exporters plus remote-storage stack with one open-source platform you deploy and upgrade once.",
       "Add uptime, synthetic, SSL, and heartbeat monitoring that Prometheus cannot do natively, alongside your existing metrics.",
@@ -13065,7 +13065,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "Free licenses, but real engineering time plus paid status page and paging tools that often run $50 to $150+ per month combined",
         oneuptimeSolution:
-          "Ingest metrics into OneUptime, add URL and SSL monitors, publish a status page, and configure on-call rotations and escalation in the same platform.",
+          "Ingest metrics into Cast Operations, add URL and SSL monitors, publish a status page, and configure on-call rotations and escalation in the same platform.",
         oneuptimeCost:
           "Free self-hosted, or roughly a handful of active monitors at $1 each per month on managed cloud",
       },
@@ -13077,7 +13077,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "Free software plus compute, object storage, and the ongoing operational overhead of running remote-storage clusters",
         oneuptimeSolution:
-          "Keep metrics, logs, and traces with built-in retention in OneUptime and alert across all three signals without extra clusters.",
+          "Keep metrics, logs, and traces with built-in retention in Cast Operations and alert across all three signals without extra clusters.",
         oneuptimeCost:
           "Telemetry ingestion around $0.10 per GB with no separate storage cluster to run",
       },
@@ -13089,7 +13089,7 @@ const products: Dictionary<Product> = {
         competitorCost:
           "Multiple additional subscriptions and constant context switching between disconnected tools",
         oneuptimeSolution:
-          "OneUptime raises the incident, pages the right responder, posts to the status page, and hosts the timeline, action items, and postmortem in one place.",
+          "Cast Operations raises the incident, pages the right responder, posts to the status page, and hosts the timeline, action items, and postmortem in one place.",
         oneuptimeCost:
           "Included in the same platform at no additional per-incident cost",
       },
@@ -13098,37 +13098,37 @@ const products: Dictionary<Product> = {
       {
         title: "Both are truly open source",
         description:
-          "Prometheus is Apache 2.0 and OneUptime is Apache 2.0, so neither locks you in. The difference is that OneUptime ships an integrated platform rather than a single component you build around.",
+          "Prometheus is Apache 2.0 and Cast Operations is Apache 2.0, so neither locks you in. The difference is that Cast Operations ships an integrated platform rather than a single component you build around.",
         icon: "open-source",
       },
       {
         title: "Unified instead of assembled",
         description:
-          "Prometheus is metrics only and expects you to add Grafana, Alertmanager, exporters, remote storage, a status page, and a paging tool. OneUptime delivers all of that as one system.",
+          "Prometheus is metrics only and expects you to add Grafana, Alertmanager, exporters, remote storage, a status page, and a paging tool. Cast Operations delivers all of that as one system.",
         icon: "unified",
       },
       {
         title: "Uptime and synthetic monitoring",
         description:
-          "Prometheus has no native uptime, synthetic, or transaction monitoring beyond basic Blackbox probing. OneUptime includes website, API, SSL, port, ping, and cron monitoring across global probes.",
+          "Prometheus has no native uptime, synthetic, or transaction monitoring beyond basic Blackbox probing. Cast Operations includes website, API, SSL, port, ping, and cron monitoring across global probes.",
         icon: "monitoring",
       },
       {
         title: "Status pages included",
         description:
-          "Prometheus offers nothing for customer communication. OneUptime provides public and private status pages with unlimited subscribers, custom domains, and automatic updates from monitors.",
+          "Prometheus offers nothing for customer communication. Cast Operations provides public and private status pages with unlimited subscribers, custom domains, and automatic updates from monitors.",
         icon: "status-page",
       },
       {
         title: "Real on-call, not just routing",
         description:
-          "Alertmanager can deduplicate and route alerts but has no schedules or escalation. OneUptime adds rotations, multi-level escalation, overrides, and follow-the-sun paging by SMS, call, and push.",
+          "Alertmanager can deduplicate and route alerts but has no schedules or escalation. Cast Operations adds rotations, multi-level escalation, overrides, and follow-the-sun paging by SMS, call, and push.",
         icon: "on-call",
       },
       {
         title: "Full incident management",
         description:
-          "Prometheus stops at raising an alert. OneUptime carries the incident through timelines, severities, Slack and Teams collaboration, postmortems, action items, and MTTR analytics.",
+          "Prometheus stops at raising an alert. Cast Operations carries the incident through timelines, severities, Slack and Teams collaboration, postmortems, action items, and MTTR analytics.",
         icon: "incident",
       },
     ],
@@ -13424,39 +13424,39 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "Is OneUptime trying to replace Prometheus for metrics?",
+        question: "Is Cast Operations trying to replace Prometheus for metrics?",
         answer:
-          "No. Prometheus and PromQL are excellent for time-series metrics, and OneUptime does not compete on that specific engine. OneUptime is OpenTelemetry-native and gives you metrics, logs, and traces plus everything Prometheus does not do, such as uptime monitoring, status pages, on-call, and incident management, in one open-source platform.",
+          "No. Prometheus and PromQL are excellent for time-series metrics, and Cast Operations does not compete on that specific engine. Cast Operations is OpenTelemetry-native and gives you metrics, logs, and traces plus everything Prometheus does not do, such as uptime monitoring, status pages, on-call, and incident management, in one open-source platform.",
       },
       {
-        question: "Prometheus is free, so how is OneUptime cheaper?",
+        question: "Prometheus is free, so how is Cast Operations cheaper?",
         answer:
-          "Prometheus software is free, but a production setup is never just Prometheus. You also run Grafana, Alertmanager, exporters, and remote storage like Thanos or Mimir, and you still buy separate status page and paging tools. OneUptime replaces that whole stack, which lowers engineering time and third-party subscriptions even if you self-host it for free.",
+          "Prometheus software is free, but a production setup is never just Prometheus. You also run Grafana, Alertmanager, exporters, and remote storage like Thanos or Mimir, and you still buy separate status page and paging tools. Cast Operations replaces that whole stack, which lowers engineering time and third-party subscriptions even if you self-host it for free.",
       },
       {
         question: "Can Prometheus do uptime monitoring and status pages?",
         answer:
-          "Not natively. The Blackbox exporter can perform basic endpoint probing, but Prometheus has no synthetic or transaction monitoring and no status page capability at all. OneUptime includes website, API, SSL, port, ping, and cron monitoring plus public and private status pages with unlimited subscribers.",
+          "Not natively. The Blackbox exporter can perform basic endpoint probing, but Prometheus has no synthetic or transaction monitoring and no status page capability at all. Cast Operations includes website, API, SSL, port, ping, and cron monitoring plus public and private status pages with unlimited subscribers.",
       },
       {
         question: "Does Alertmanager handle on-call scheduling?",
         answer:
-          "No. Alertmanager is strong at deduplication, silencing, and routing alerts, but it has no concept of schedules, rotations, or escalation policies. OneUptime provides full on-call with rotations, multi-level escalation, overrides, follow-the-sun, and alerting by SMS, phone call, email, push, Slack, and Teams.",
+          "No. Alertmanager is strong at deduplication, silencing, and routing alerts, but it has no concept of schedules, rotations, or escalation policies. Cast Operations provides full on-call with rotations, multi-level escalation, overrides, follow-the-sun, and alerting by SMS, phone call, email, push, Slack, and Teams.",
       },
       {
         question: "What about long-term metric retention?",
         answer:
-          "Prometheus keeps recent data locally and relies on remote write to systems like Thanos, Mimir, or VictoriaMetrics for long-term storage, which adds another distributed system to operate. OneUptime provides built-in retention for metrics, logs, and traces so you do not run a separate storage cluster.",
+          "Prometheus keeps recent data locally and relies on remote write to systems like Thanos, Mimir, or VictoriaMetrics for long-term storage, which adds another distributed system to operate. Cast Operations provides built-in retention for metrics, logs, and traces so you do not run a separate storage cluster.",
       },
       {
         question: "Can I keep using my existing Prometheus and exporters?",
         answer:
-          "Yes. OneUptime is OpenTelemetry-native and can ingest telemetry from your existing pipelines, so you can adopt it incrementally. Many teams start by adding the capabilities Prometheus lacks, such as status pages and on-call, before consolidating further.",
+          "Yes. Cast Operations is OpenTelemetry-native and can ingest telemetry from your existing pipelines, so you can adopt it incrementally. Many teams start by adding the capabilities Prometheus lacks, such as status pages and on-call, before consolidating further.",
       },
       {
-        question: "Is OneUptime open source like Prometheus?",
+        question: "Is Cast Operations open source like Prometheus?",
         answer:
-          "Yes. OneUptime is licensed under Apache 2.0 and is fully self-hostable at no license cost, just like Prometheus. The difference is that OneUptime is an integrated reliability platform rather than a single component you assemble a larger stack around.",
+          "Yes. Cast Operations is licensed under Apache 2.0 and is fully self-hostable at no license cost, just like Prometheus. The difference is that Cast Operations is an integrated reliability platform rather than a single component you assemble a larger stack around.",
       },
     ],
   },
@@ -13470,15 +13470,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Zabbix specializes in deep, agent-, SNMP-, and IPMI-based infrastructure and network monitoring, but ships no status pages, on-call scheduling, or incident workflow.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces in a single open-source platform.",
+      "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces in a single open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Zabbix is a mature, fully open-source monitoring system built for infrastructure, network, and server metrics using agents, SNMP, IPMI, and web checks. It is free to self-host and highly customizable, with powerful triggers, templates, and auto-discovery. However, it is heavy to deploy and tune, carries a dated interface, and leaves status pages, on-call rotations, and incident response to other tools.",
     oneUptimeDescription:
-      "OneUptime is an Apache 2.0 open-source platform that combines monitoring, status pages, on-call, incident management, and OpenTelemetry telemetry in one place. You can self-host it for free or use the managed cloud with predictable, flat pricing. It removes the tool sprawl and glue work that Zabbix leaves behind.",
+      "Cast Operations is an Apache 2.0 open-source platform that combines monitoring, status pages, on-call, incident management, and OpenTelemetry telemetry in one place. You can self-host it for free or use the managed cloud with predictable, flat pricing. It removes the tool sprawl and glue work that Zabbix leaves behind.",
     description:
-      "Zabbix is one of the most capable open-source infrastructure and network monitoring engines available, trusted for SNMP, agent, and IPMI data collection at scale. But it stops at monitoring: there are no built-in status pages, no on-call rotations, no incident postmortems, and no OpenTelemetry tracing, so teams stitch together three or four extra tools around it. OneUptime is also open source and self-hostable, but delivers monitoring, status pages, on-call, incident management, and full telemetry as one product. That means one login, one data model, and one predictable bill instead of a maintenance-heavy stack.",
+      "Zabbix is one of the most capable open-source infrastructure and network monitoring engines available, trusted for SNMP, agent, and IPMI data collection at scale. But it stops at monitoring: there are no built-in status pages, no on-call rotations, no incident postmortems, and no OpenTelemetry tracing, so teams stitch together three or four extra tools around it. Cast Operations is also open source and self-hostable, but delivers monitoring, status pages, on-call, incident management, and full telemetry as one product. That means one login, one data model, and one predictable bill instead of a maintenance-heavy stack.",
     descriptionLine2:
       "Keep the open-source freedom you want from Zabbix, but replace the tool sprawl and manual glue with a single unified platform that covers alerting, status pages, and incidents out of the box.",
     migrationBenefits: [
@@ -13580,7 +13580,7 @@ const products: Dictionary<Product> = {
           "Self-host Zabbix for infrastructure monitoring, then add a separate status-page tool and an on-call tool, plus the engineering time to run and connect them.",
         competitorCost: "$0 software + infra + eng time + extra tools",
         oneuptimeSolution:
-          "Use OneUptime for monitoring, status pages, and on-call together; roughly 20 active monitors on the cloud plan.",
+          "Use Cast Operations for monitoring, status pages, and on-call together; roughly 20 active monitors on the cloud plan.",
         oneuptimeCost: "~$20/mo all-in (or free tier)",
       },
       {
@@ -13590,7 +13590,7 @@ const products: Dictionary<Product> = {
           "Run Zabbix with proxies and buy Gold support priced per server and per proxy, while continuing to manage the database and servers.",
         competitorCost: "From $825/mo support + self-run infra",
         oneuptimeSolution:
-          "Monitor 60 servers as active monitors on OneUptime, or move to the Growth tier, with alerting and dashboards included.",
+          "Monitor 60 servers as active monitors on Cast Operations, or move to the Growth tier, with alerting and dashboards included.",
         oneuptimeCost: "~$60/mo, or Growth ~$99/mo",
       },
       {
@@ -13600,7 +13600,7 @@ const products: Dictionary<Product> = {
           "Negotiate a Zabbix Enterprise or Global support contract, then license and integrate separate status-page, on-call, and incident-management products.",
         competitorCost: "Custom (thousands/mo) + multiple add-on tools",
         oneuptimeSolution:
-          "Adopt OneUptime Enterprise or self-host it, covering monitoring, status pages, on-call, incidents, and telemetry in one platform.",
+          "Adopt Cast Operations Enterprise or self-host it, covering monitoring, status pages, on-call, incidents, and telemetry in one platform.",
         oneuptimeCost: "Predictable Enterprise, or self-host free",
       },
     ],
@@ -13608,37 +13608,37 @@ const products: Dictionary<Product> = {
       {
         title: "One unified platform, not a monitoring engine plus bolt-ons",
         description:
-          "Zabbix monitors infrastructure well but relies on separate tools for status pages, on-call, and incidents. OneUptime delivers all of it in a single product with one data model.",
+          "Zabbix monitors infrastructure well but relies on separate tools for status pages, on-call, and incidents. Cast Operations delivers all of it in a single product with one data model.",
         icon: "unified",
       },
       {
         title: "Built-in status pages",
         description:
-          "Zabbix has no native status pages. OneUptime includes public and private status pages with custom domains, free SSL, branding, and unlimited subscribers.",
+          "Zabbix has no native status pages. Cast Operations includes public and private status pages with custom domains, free SSL, branding, and unlimited subscribers.",
         icon: "status-page",
       },
       {
         title: "Native on-call scheduling",
         description:
-          "Zabbix sends alerts but has no rotations, escalation calendars, or overrides. OneUptime provides full on-call scheduling with SMS, phone call, push, Slack, and Teams.",
+          "Zabbix sends alerts but has no rotations, escalation calendars, or overrides. Cast Operations provides full on-call scheduling with SMS, phone call, push, Slack, and Teams.",
         icon: "on-call",
       },
       {
         title: "End-to-end incident management",
         description:
-          "Zabbix tracks problems and events but has no postmortems, action items, or runbooks. OneUptime offers timelines, severities, postmortems, and MTTR analytics.",
+          "Zabbix tracks problems and events but has no postmortems, action items, or runbooks. Cast Operations offers timelines, severities, postmortems, and MTTR analytics.",
         icon: "incident",
       },
       {
         title: "Open source on both sides, modern by default",
         description:
-          "Both are open source and self-hostable, but OneUptime pairs that freedom with a modern UI and OpenTelemetry-native logs, metrics, and traces Zabbix does not provide.",
+          "Both are open source and self-hostable, but Cast Operations pairs that freedom with a modern UI and OpenTelemetry-native logs, metrics, and traces Zabbix does not provide.",
         icon: "open-source",
       },
       {
         title: "Predictable, flat pricing",
         description:
-          "Zabbix software is free but real costs come from per-server support contracts and ops time. OneUptime is a flat $1 per active monitor, or free to self-host.",
+          "Zabbix software is free but real costs come from per-server support contracts and ops time. Cast Operations is a flat $1 per active monitor, or free to self-host.",
         icon: "pricing",
       },
     ],
@@ -13950,40 +13950,40 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "Is Zabbix really free, and what does OneUptime cost?",
+        question: "Is Zabbix really free, and what does Cast Operations cost?",
         answer:
-          "Zabbix software is free and open source, but real costs come from the infrastructure and staff time to run it, plus support subscriptions that start around $325 per month and scale per server and proxy. OneUptime is also free to self-host, or on the cloud it is a flat $1 per active monitor with a generous free tier and predictable tiers such as Growth around $99 per month.",
+          "Zabbix software is free and open source, but real costs come from the infrastructure and staff time to run it, plus support subscriptions that start around $325 per month and scale per server and proxy. Cast Operations is also free to self-host, or on the cloud it is a flat $1 per active monitor with a generous free tier and predictable tiers such as Growth around $99 per month.",
       },
       {
         question: "Does Zabbix include status pages?",
         answer:
-          "No. Zabbix has dashboards for operators but no public or private status pages for customers. OneUptime includes both, with custom domains, free SSL, custom branding, component groups, scheduled maintenance, and unlimited subscribers who can be notified by email, SMS, webhook, RSS, Slack, or Teams.",
+          "No. Zabbix has dashboards for operators but no public or private status pages for customers. Cast Operations includes both, with custom domains, free SSL, custom branding, component groups, scheduled maintenance, and unlimited subscribers who can be notified by email, SMS, webhook, RSS, Slack, or Teams.",
       },
       {
         question: "Can Zabbix handle on-call scheduling and escalations?",
         answer:
-          "Zabbix can send notifications and run basic escalation steps inside an action, but it has no on-call rotations, calendars, overrides, or follow-the-sun scheduling. OneUptime provides full on-call management with daily, weekly, and custom rotations, multi-level escalation, vacation overrides, and alerts by SMS, phone call, push, email, Slack, and Teams.",
+          "Zabbix can send notifications and run basic escalation steps inside an action, but it has no on-call rotations, calendars, overrides, or follow-the-sun scheduling. Cast Operations provides full on-call management with daily, weekly, and custom rotations, multi-level escalation, vacation overrides, and alerts by SMS, phone call, push, email, Slack, and Teams.",
       },
       {
         question: "How does incident management compare?",
         answer:
-          "Zabbix models issues as problems and events but has no incident postmortems, action items, runbooks, or MTTR analytics. OneUptime offers end-to-end incident management with timelines, severities, postmortems, action items, runbooks, Slack and Teams collaboration, and MTTR reporting.",
+          "Zabbix models issues as problems and events but has no incident postmortems, action items, runbooks, or MTTR analytics. Cast Operations offers end-to-end incident management with timelines, severities, postmortems, action items, runbooks, Slack and Teams collaboration, and MTTR reporting.",
       },
       {
-        question: "Is OneUptime open source and self-hostable like Zabbix?",
+        question: "Is Cast Operations open source and self-hostable like Zabbix?",
         answer:
-          "Yes. OneUptime is Apache 2.0 licensed and can be self-hosted for free, just like Zabbix. The difference is scope: OneUptime bundles monitoring, status pages, on-call, incidents, and telemetry into one platform instead of leaving those to separate tools.",
+          "Yes. Cast Operations is Apache 2.0 licensed and can be self-hosted for free, just like Zabbix. The difference is scope: Cast Operations bundles monitoring, status pages, on-call, incidents, and telemetry into one platform instead of leaving those to separate tools.",
       },
       {
         question: "What about distributed tracing and OpenTelemetry?",
         answer:
-          "Zabbix focuses on metrics and log monitoring and does not provide OpenTelemetry-native distributed tracing. OneUptime is OpenTelemetry-native, ingesting logs, metrics, and traces with dashboards and exception tracking alongside your monitors.",
+          "Zabbix focuses on metrics and log monitoring and does not provide OpenTelemetry-native distributed tracing. Cast Operations is OpenTelemetry-native, ingesting logs, metrics, and traces with dashboards and exception tracking alongside your monitors.",
       },
       {
         question:
-          "How hard is Zabbix to set up and maintain compared to OneUptime?",
+          "How hard is Zabbix to set up and maintain compared to Cast Operations?",
         answer:
-          "Zabbix is powerful but heavy: you install and tune the server, database, and proxies, manage templates, and maintain the stack over time, and its interface feels dated. OneUptime is designed to be quick to stand up, whether self-hosted or on the managed cloud, with a modern UI and no separate tools to integrate for status pages, on-call, or incidents.",
+          "Zabbix is powerful but heavy: you install and tune the server, database, and proxies, manage templates, and maintain the stack over time, and its interface feels dated. Cast Operations is designed to be quick to stand up, whether self-hosted or on the managed cloud, with a modern UI and no separate tools to integrate for status pages, on-call, or incidents.",
       },
     ],
   },
@@ -13997,15 +13997,15 @@ const products: Dictionary<Product> = {
     competitorFocus:
       "Nagios is a battle-tested, plugin-driven engine for infrastructure and network monitoring, but it stops at up/down checks and leaves status pages, on-call, and incident response to other tools.",
     oneuptimeFocus:
-      "OneUptime unifies monitoring, status pages, on-call, incident management, and OpenTelemetry observability in a single open-source platform.",
+      "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry observability in a single open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Nagios is one of the original open-source monitoring tools, offered as the free Nagios Core engine and the commercial Nagios XI edition with a configuration GUI, dashboards, and reporting. It excels at server, host, and network device monitoring through a vast library of community plugins. However, it depends on config files or paid add-ons, carries a dated interface, and has no native status pages, on-call scheduling, or incident management.",
     oneUptimeDescription:
-      "OneUptime is a modern, Apache 2.0 open-source platform that brings monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces together in one place. It replaces the plugin-and-add-on sprawl of legacy tooling with a unified web app, predictable pricing, and a free self-hosted option.",
+      "Cast Operations is a modern, Apache 2.0 open-source platform that brings monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces together in one place. It replaces the plugin-and-add-on sprawl of legacy tooling with a unified web app, predictable pricing, and a free self-hosted option.",
     description:
-      "Nagios pioneered open-source infrastructure monitoring and remains a dependable up/down checking engine, but it was built for a pre-cloud, config-file era. Standing up modern reliability workflows means bolting on a separate status page tool, PagerDuty for on-call, and a logging product for observability. OneUptime delivers all of that in one open-source platform: monitoring, status pages, on-call, incident management, and full telemetry. You get modern reliability tooling without the plugin wrangling or the stack of separate subscriptions.",
+      "Nagios pioneered open-source infrastructure monitoring and remains a dependable up/down checking engine, but it was built for a pre-cloud, config-file era. Standing up modern reliability workflows means bolting on a separate status page tool, PagerDuty for on-call, and a logging product for observability. Cast Operations delivers all of that in one open-source platform: monitoring, status pages, on-call, incident management, and full telemetry. You get modern reliability tooling without the plugin wrangling or the stack of separate subscriptions.",
     descriptionLine2:
       "Consolidate Nagios plus its add-ons into a single platform billed at a flat $1 per active monitor, with unlimited status page subscribers and a free self-hosted edition.",
     migrationBenefits: [
@@ -14134,37 +14134,37 @@ const products: Dictionary<Product> = {
       {
         title: "Unified platform, not a single tool",
         description:
-          "OneUptime combines monitoring, status pages, on-call, incident management, and telemetry in one app, while Nagios covers only monitoring and hands the rest off to add-ons and third-party services.",
+          "Cast Operations combines monitoring, status pages, on-call, incident management, and telemetry in one app, while Nagios covers only monitoring and hands the rest off to add-ons and third-party services.",
         icon: "unified",
       },
       {
         title: "Built-in modern status pages",
         description:
-          "OneUptime ships public and private status pages with custom domains, branding, and unlimited subscribers. Nagios has no status page product at all.",
+          "Cast Operations ships public and private status pages with custom domains, branding, and unlimited subscribers. Nagios has no status page product at all.",
         icon: "status-page",
       },
       {
         title: "Native on-call and escalation",
         description:
-          "OneUptime provides on-call rotations, multi-level escalation, overrides, and SMS, phone, push, Slack, and Teams alerts. Nagios relies on basic notifications or an external tool like PagerDuty.",
+          "Cast Operations provides on-call rotations, multi-level escalation, overrides, and SMS, phone, push, Slack, and Teams alerts. Nagios relies on basic notifications or an external tool like PagerDuty.",
         icon: "on-call",
       },
       {
         title: "Full incident management",
         description:
-          "OneUptime includes incident timelines, severities, postmortems, action items, runbooks, and MTTR analytics. Nagios only acknowledges problems.",
+          "Cast Operations includes incident timelines, severities, postmortems, action items, runbooks, and MTTR analytics. Nagios only acknowledges problems.",
         icon: "incident",
       },
       {
         title: "Modern OpenTelemetry observability",
         description:
-          "OneUptime is OpenTelemetry-native with logs, metrics, traces, dashboards, and error tracking. Nagios is check-based and sells log management as a separate product.",
+          "Cast Operations is OpenTelemetry-native with logs, metrics, traces, dashboards, and error tracking. Nagios is check-based and sells log management as a separate product.",
         icon: "monitoring",
       },
       {
         title: "Predictable, transparent pricing",
         description:
-          "OneUptime bills a flat $1 per active monitor with no per-check tiers, versus Nagios per-node perpetual licenses plus 20-25% annual maintenance.",
+          "Cast Operations bills a flat $1 per active monitor with no per-check tiers, versus Nagios per-node perpetual licenses plus 20-25% annual maintenance.",
         icon: "pricing",
       },
     ],
@@ -14471,41 +14471,41 @@ const products: Dictionary<Product> = {
     ],
     faq: [
       {
-        question: "Is OneUptime a drop-in replacement for Nagios?",
+        question: "Is Cast Operations a drop-in replacement for Nagios?",
         answer:
-          "OneUptime covers everything most teams use Nagios for, including server, host, website, API, container, SSL, and port monitoring, and adds status pages, on-call, incident management, and OpenTelemetry observability that Nagios lacks. Deeply SNMP-centric network device monitoring is Nagios' historic strength, so evaluate that specific use case, but for cloud and application reliability OneUptime replaces Nagios plus several add-on tools.",
+          "Cast Operations covers everything most teams use Nagios for, including server, host, website, API, container, SSL, and port monitoring, and adds status pages, on-call, incident management, and OpenTelemetry observability that Nagios lacks. Deeply SNMP-centric network device monitoring is Nagios' historic strength, so evaluate that specific use case, but for cloud and application reliability Cast Operations replaces Nagios plus several add-on tools.",
       },
       {
-        question: "Can I self-host OneUptime like Nagios Core?",
+        question: "Can I self-host Cast Operations like Nagios Core?",
         answer:
-          "Yes. OneUptime is Apache 2.0 open source and fully self-hostable at no license cost, just like Nagios Core. The difference is that the self-hosted OneUptime includes status pages, on-call, and incident management out of the box, whereas Nagios would need extra products for the same coverage.",
+          "Yes. Cast Operations is Apache 2.0 open source and fully self-hostable at no license cost, just like Nagios Core. The difference is that the self-hosted Cast Operations includes status pages, on-call, and incident management out of the box, whereas Nagios would need extra products for the same coverage.",
       },
       {
         question: "Does Nagios have built-in status pages?",
         answer:
-          "No. Neither Nagios Core nor Nagios XI ships a customer-facing status page product, so teams typically buy a separate service like Statuspage. OneUptime includes public and private status pages with custom domains, branding, and unlimited subscribers at no additional cost.",
+          "No. Neither Nagios Core nor Nagios XI ships a customer-facing status page product, so teams typically buy a separate service like Statuspage. Cast Operations includes public and private status pages with custom domains, branding, and unlimited subscribers at no additional cost.",
       },
       {
         question: "How does Nagios handle on-call and escalations?",
         answer:
-          "Nagios has basic contact-group notifications and simple escalations, but no real on-call rotations, calendars, overrides, or phone and push alerting, so most teams integrate PagerDuty or similar. OneUptime provides native rotations, multi-level escalation, overrides, and SMS, phone, push, Slack, and Teams alerts.",
+          "Nagios has basic contact-group notifications and simple escalations, but no real on-call rotations, calendars, overrides, or phone and push alerting, so most teams integrate PagerDuty or similar. Cast Operations provides native rotations, multi-level escalation, overrides, and SMS, phone, push, Slack, and Teams alerts.",
       },
       {
         question: "What does Nagios XI actually cost?",
         answer:
-          "Nagios XI is licensed per node. A 100-node Standard license starts around $2,595 and a 100-node Enterprise license around $4,690, both as perpetual licenses with roughly 20-25% annual maintenance for support and updates. OneUptime instead bills a flat $1 per month per active monitor with a generous free tier and free self-hosting.",
+          "Nagios XI is licensed per node. A 100-node Standard license starts around $2,595 and a 100-node Enterprise license around $4,690, both as perpetual licenses with roughly 20-25% annual maintenance for support and updates. Cast Operations instead bills a flat $1 per month per active monitor with a generous free tier and free self-hosting.",
       },
       {
         question:
-          "Does OneUptime support modern observability and OpenTelemetry?",
+          "Does Cast Operations support modern observability and OpenTelemetry?",
         answer:
-          "Yes. OneUptime is OpenTelemetry-native with logs, metrics, traces, dashboards, and exception tracking in the same platform as your monitors and incidents. Nagios is check-based and sells log management as a separate Nagios Log Server product.",
+          "Yes. Cast Operations is OpenTelemetry-native with logs, metrics, traces, dashboards, and exception tracking in the same platform as your monitors and incidents. Nagios is check-based and sells log management as a separate Nagios Log Server product.",
       },
       {
         question:
-          "Can OneUptime monitor internal servers behind a firewall like Nagios?",
+          "Can Cast Operations monitor internal servers behind a firewall like Nagios?",
         answer:
-          "Yes. OneUptime supports private probes and server or infrastructure agents so you can monitor internal hosts, containers, and services that are not exposed to the public internet, while also offering 7-plus global probe locations for external checks.",
+          "Yes. Cast Operations supports private probes and server or infrastructure agents so you can monitor internal hosts, containers, and services that are not exposed to the public internet, while also offering 7-plus global probe locations for external checks.",
       },
     ],
   },

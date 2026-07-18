@@ -1,6 +1,6 @@
 # Agentes de runbook
 
-Un **Agente de Runbook** es un pequeño proceso autohospedado que ejecuta los pasos Bash _y_ JavaScript de tus runbooks **dentro de tu propia infraestructura**. El Worker de OneUptime nunca ejecuta tus scripts — los encola, y el Agente de Runbook que eligió el autor del paso los reclama, los ejecuta y devuelve el resultado.
+Un **Agente de Runbook** es un pequeño proceso autohospedado que ejecuta los pasos Bash _y_ JavaScript de tus runbooks **dentro de tu propia infraestructura**. El Worker de Cast Operations nunca ejecuta tus scripts — los encola, y el Agente de Runbook que eligió el autor del paso los reclama, los ejecuta y devuelve el resultado.
 
 JavaScript sigue corriendo en un sandbox `isolated-vm`; la diferencia es que el sandbox vive en tu host del agente en lugar de en el nuestro.
 
@@ -8,23 +8,23 @@ Esta página explica cómo instalar un agente, apuntar los pasos Bash y JavaScri
 
 ## Por qué existen los agentes
 
-Versiones anteriores de OneUptime corrían los pasos Bash y JavaScript en el Worker. JavaScript estaba en sandbox (vía `isolated-vm`), Bash no. Ambos tenían problemas para cualquier instalación más allá de un autohospedaje monoinquilino:
+Versiones anteriores de Cast Operations corrían los pasos Bash y JavaScript en el Worker. JavaScript estaba en sandbox (vía `isolated-vm`), Bash no. Ambos tenían problemas para cualquier instalación más allá de un autohospedaje monoinquilino:
 
 - **Frontera de confianza.** Cualquiera con permiso para redactar un runbook podía ejecutar código en el Worker, con acceso a las variables de entorno y al sistema de archivos del Worker. El sandbox de JavaScript bloqueaba lo obvio, pero no podía impedir que un usuario decidido sondeara qué era alcanzable desde nuestra red.
-- **Alcance.** La mayoría de los pasos útiles quieren operar sobre la infraestructura _del cliente_ ("reinicia este servicio", "kubectl en nuestro clúster", "busca un registro en nuestra DB interna") — no sobre la de OneUptime.
+- **Alcance.** La mayoría de los pasos útiles quieren operar sobre la infraestructura _del cliente_ ("reinicia este servicio", "kubectl en nuestro clúster", "busca un registro en nuestra DB interna") — no sobre la de Cast Operations.
 
 Los Agentes de Runbook le dan la vuelta a esto. Los pasos Bash y JavaScript no corren en nosotros. Corren en un host que controlas tú, y tú decides qué puede hacer ese host.
 
 ## Cómo funciona
 
-1. Creas un Agente de Runbook en OneUptime. OneUptime genera un ID y una clave secreta.
-2. Ejecutas el contenedor del agente en un host dentro de tu infraestructura con ese ID/clave más tu URL de OneUptime.
-3. El agente sondea OneUptime cada pocos segundos preguntando "¿tienes trabajo para mí?".
+1. Creas un Agente de Runbook en Cast Operations. Cast Operations genera un ID y una clave secreta.
+2. Ejecutas el contenedor del agente en un host dentro de tu infraestructura con ese ID/clave más tu URL de Cast Operations.
+3. El agente sondea Cast Operations cada pocos segundos preguntando "¿tienes trabajo para mí?".
 4. Cuando redactas un paso Bash o JavaScript, eliges el agente desde un desplegable — el paso queda vinculado a ese agente concreto.
 5. Al ejecutarse el paso, el Worker inserta una fila de job con `targetAgentId` apuntando a ese agente. Solo ese agente puede reclamarlo.
 6. El agente ejecuta el script localmente — `bash -c <script>` para Bash, un sandbox `isolated-vm` para JavaScript — captura el resultado y lo publica de vuelta. El Worker reanuda el runbook con el resultado.
 
-El agente solo necesita **HTTPS de salida** hacia tu instancia de OneUptime. No acepta ninguna conexión entrante.
+El agente solo necesita **HTTPS de salida** hacia tu instancia de Cast Operations. No acepta ninguna conexión entrante.
 
 ## Instalar un agente
 
@@ -45,14 +45,14 @@ Tras crear el agente, pulsa **Mostrar instrucciones de configuración** en su fi
 
 Ejecuta el comando Docker en cualquier host de tu entorno que pueda:
 
-- alcanzar tu instancia de OneUptime por HTTPS, y
+- alcanzar tu instancia de Cast Operations por HTTPS, y
 - hacer las cosas que quieres que hagan tus pasos Bash/JavaScript (p. ej. SSH a otros hosts, `kubectl`, hablar con una base de datos).
 
 ```bash
 docker run --name oneuptime-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://oneuptime.yourdomain.com \
+  -e ONEUPTIME_URL=https://operations.yourdomain.com \
   -d oneuptime/runbook-agent:release
 ```
 
@@ -61,7 +61,7 @@ docker run --name oneuptime-runbook-agent --restart unless-stopped \
 Vuelve a **Runbooks → Configuración → Agentes**. En unos 60 segundos la fila del agente debería pasar a `Connected` con un timestamp **Last seen** fresco. Si sigue `Disconnected`:
 
 - Revisa los logs del contenedor (`docker logs oneuptime-runbook-agent`) por errores de autenticación o de red.
-- Verifica que el host alcanza tu URL de OneUptime con `curl`.
+- Verifica que el host alcanza tu URL de Cast Operations con `curl`.
 - Verifica que el ID y la clave se copiaron sin espacios en blanco.
 
 ## Apuntar un paso a un agente
@@ -116,7 +116,7 @@ El agente lee estas al arrancar:
 
 | Variable                                  | Requerida | Por defecto | Notas                                                                             |
 | ----------------------------------------- | --------- | ----------- | --------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | sí        | —           | URL base de tu instancia de OneUptime, p. ej. `https://oneuptime.yourdomain.com`. |
+| `ONEUPTIME_URL`                           | sí        | —           | URL base de tu instancia de Cast Operations, p. ej. `https://operations.yourdomain.com`. |
 | `RUNBOOK_AGENT_ID`                        | sí        | —           | El UUID mostrado en el modal de configuración del agente.                         |
 | `RUNBOOK_AGENT_KEY`                       | sí        | —           | El secreto mostrado en el modal de configuración del agente.                      |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | no        | `5000`      | Cada cuánto sondea el agente buscando jobs nuevos.                                |
@@ -126,7 +126,7 @@ El agente lee estas al arrancar:
 
 ## Rotar la clave de un agente
 
-Si una clave se filtra, abre el agente en OneUptime y regenera su clave. La clave antigua deja de funcionar de inmediato. Actualiza el contenedor del agente con la nueva clave y reinícialo.
+Si una clave se filtra, abre el agente en Cast Operations y regenera su clave. La clave antigua deja de funcionar de inmediato. Actualiza el contenedor del agente con la nueva clave y reinícialo.
 
 ## Permisos
 

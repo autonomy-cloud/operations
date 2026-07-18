@@ -2,18 +2,18 @@
 
 ## Overview
 
-OneUptime automatically recognises a **Serverless Function** the moment it receives OpenTelemetry data tagged with the `faas.name` resource attribute. There is nothing to create by hand — instrument your function with the OpenTelemetry SDK for your runtime, point its OTLP exporter at OneUptime, and the function shows up under **Serverless Functions** with its traces, logs and metrics.
+Cast Operations automatically recognises a **Serverless Function** the moment it receives OpenTelemetry data tagged with the `faas.name` resource attribute. There is nothing to create by hand — instrument your function with the OpenTelemetry SDK for your runtime, point its OTLP exporter at Cast Operations, and the function shows up under **Serverless Functions** with its traces, logs and metrics.
 
 This works for AWS Lambda, Google Cloud Functions, Azure Functions, Cloudflare Workers, or any FaaS runtime that can emit OpenTelemetry.
 
 ## Prerequisites
 
-- A **OneUptime Telemetry Ingestion Token** — create one from _Project Settings → Telemetry Ingestion Keys_ and copy the `x-oneuptime-token` value.
+- A **Cast Operations Telemetry Ingestion Token** — create one from _Project Settings → Telemetry Ingestion Keys_ and copy the `x-oneuptime-token` value.
 - The OpenTelemetry SDK (or an auto-instrumentation layer) for your function's language.
 
-## How OneUptime identifies a function
+## How Cast Operations identifies a function
 
-OneUptime keys each function on the `faas.name` resource attribute:
+Cast Operations keys each function on the `faas.name` resource attribute:
 
 | Attribute                                              | Required | Purpose                                                     |
 | ------------------------------------------------------ | -------- | ----------------------------------------------------------- |
@@ -30,12 +30,12 @@ OneUptime keys each function on the `faas.name` resource attribute:
 Most language auto-instrumentations honour the standard OpenTelemetry environment variables:
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://oneuptime.com/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
-If you self-host OneUptime, replace the endpoint with `https://YOUR-ONEUPTIME-HOST/otlp`.
+If you self-host Cast Operations, replace the endpoint with `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Step 2 — (AWS Lambda) add the OpenTelemetry layer
 
@@ -43,7 +43,7 @@ For AWS Lambda the simplest path is the [OpenTelemetry Lambda layer](https://ope
 
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
-OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 

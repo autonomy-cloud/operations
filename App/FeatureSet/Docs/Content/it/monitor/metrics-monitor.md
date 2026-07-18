@@ -1,6 +1,6 @@
 # Monitor Metriche
 
-Il monitoraggio delle metriche consente di monitorare metriche personalizzate dell'applicazione e dell'infrastruttura raccolte tramite OpenTelemetry. OneUptime valuta i valori delle metriche in una finestra temporale e attiva avvisi in base ai criteri configurati.
+Il monitoraggio delle metriche consente di monitorare metriche personalizzate dell'applicazione e dell'infrastruttura raccolte tramite OpenTelemetry. Cast Operations valuta i valori delle metriche in una finestra temporale e attiva avvisi in base ai criteri configurati.
 
 ## Panoramica
 
@@ -14,7 +14,7 @@ I monitor metriche interrogano e valutano metriche numeriche dai servizi di tele
 
 ## Creazione di un Monitor Metriche
 
-1. Accedere a **Monitor** nel Dashboard di OneUptime
+1. Accedere a **Monitor** nel Dashboard di Cast Operations
 2. Fare clic su **Crea Monitor**
 3. Selezionare **Metriche** come tipo di monitor
 4. Configurare le query metriche e le formule opzionali
@@ -105,4 +105,4 @@ Scegliere come aggregare i valori delle metriche per la valutazione:
 
 ## Requisiti di Configurazione
 
-Il monitoraggio delle metriche richiede che le proprie applicazioni o infrastrutture inviino metriche a OneUptime tramite OpenTelemetry. Vedere la documentazione [OpenTelemetry](/docs/telemetry/open-telemetry) per le istruzioni di configurazione.
+Il monitoraggio delle metriche richiede che le proprie applicazioni o infrastrutture inviino metriche a Cast Operations tramite OpenTelemetry. Vedere la documentazione [OpenTelemetry](/docs/telemetry/open-telemetry) per le istruzioni di configurazione.

@@ -267,7 +267,7 @@ describe("TelemetryExceptionService.getAIFixReadiness — AI balance gate", () =
   function costedGlobalProvider(): LlmProvider {
     return {
       id: ObjectID.generate(),
-      name: "OneUptime Hosted",
+      name: "Cast Operations Hosted",
       isGlobalLlm: true,
       costPerMillionTokensInUSDCents: 300,
     } as unknown as LlmProvider;

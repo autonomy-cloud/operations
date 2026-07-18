@@ -53,7 +53,7 @@ export const clampSqlMaxRows: (value: number) => number = (
  * Connection + query configuration for a SQL Query monitor. Sensitive fields
  * (password, and optionally any other field) may contain a monitor-secret
  * reference like {{monitorSecrets.name}} — the server resolves these before
- * the config is handed to a probe. OneUptime never creates these secrets for
+ * the config is handed to a probe. Cast Operations never creates these secrets for
  * the user; referencing one is the user's choice.
  */
 export default interface MonitorStepSqlMonitor {

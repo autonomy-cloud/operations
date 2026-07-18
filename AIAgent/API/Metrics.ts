@@ -30,7 +30,7 @@ router.get(
   ): Promise<void> => {
     try {
       /*
-       * Get the pending task count from OneUptime API
+       * Get the pending task count from Cast Operations API
        * This is the correct metric - the number of tasks waiting to be processed
        */
       const pendingTaskCountUrl: URL = URL.fromString(
@@ -38,7 +38,7 @@ router.get(
       ).addRoute("/api/ai-agent-task/get-pending-task-count");
 
       logger.debug(
-        "Fetching pending task count from OneUptime API for KEDA scaling",
+        "Fetching pending task count from Cast Operations API for KEDA scaling",
       );
 
       // Use AI Agent authentication (AI Agent key and AI Agent ID)
@@ -53,13 +53,13 @@ router.get(
         });
 
       if (result instanceof HTTPErrorResponse) {
-        logger.error("Error fetching pending task count from OneUptime API");
+        logger.error("Error fetching pending task count from Cast Operations API");
         logger.error(result);
         throw result;
       }
 
       logger.debug(
-        "Pending task count fetched successfully from OneUptime API",
+        "Pending task count fetched successfully from Cast Operations API",
       );
       logger.debug(result.data);
 

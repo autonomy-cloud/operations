@@ -6,7 +6,7 @@ import { ParsedDockerSwarmResource } from "../../Server/Services/DockerSwarmReso
  *                  DockerSwarmInventoryExtractor
  * ------------------------------------------------------------------
  *
- * Parses a single inventory log record emitted by the OneUptime Docker
+ * Parses a single inventory log record emitted by the Cast Operations Docker
  * Swarm Agent's snapshot script. The script runs on a manager node and
  * polls the Swarm API every 5 minutes (`docker node ls`,
  * `docker service ls`, `docker service ps`, `docker stack ls`,

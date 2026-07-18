@@ -44,7 +44,7 @@ const KubernetesDocumentationCard: FunctionComponent<ComponentProps> = (
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [keyError, setKeyError] = useState<string>("");
 
-  // Compute OneUptime URL
+  // Compute Cast Operations URL
   const httpProtocol: string =
     HTTP_PROTOCOL === Protocol.HTTPS ? "https" : "http";
   const oneuptimeUrl: string = HOST
@@ -195,7 +195,7 @@ const KubernetesDocumentationCard: FunctionComponent<ComponentProps> = (
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    OneUptime URL
+                    Cast Operations URL
                   </div>
                   <div className="text-sm text-gray-900 font-mono mt-0.5 break-all select-all">
                     {oneuptimeUrl}

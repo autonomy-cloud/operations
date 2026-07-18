@@ -1,6 +1,6 @@
 # Moniteur DNS
 
-La surveillance DNS vous permet de surveiller la santé et l'exactitude de la résolution DNS pour vos domaines. OneUptime interroge périodiquement les enregistrements DNS et valide les réponses en fonction de vos critères configurés.
+La surveillance DNS vous permet de surveiller la santé et l'exactitude de la résolution DNS pour vos domaines. Cast Operations interroge périodiquement les enregistrements DNS et valide les réponses en fonction de vos critères configurés.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs DNS interrogent les serveurs DNS pour des types d'enregistrements 
 
 ## Création d'un moniteur DNS
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **DNS** comme type de moniteur
 4. Entrez le nom de domaine et le type d'enregistrement à interroger

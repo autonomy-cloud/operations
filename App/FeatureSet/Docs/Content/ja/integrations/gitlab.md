@@ -1,18 +1,18 @@
 # GitLab 連携
 
-OneUptime のインシデントが作成されると自動的に [GitLab](https://gitlab.com) の Issue を開きます — 影響を受けるサービスを管理するプロジェクトで後続のエンジニアリング作業を追跡できます。
+Cast Operations のインシデントが作成されると自動的に [GitLab](https://gitlab.com) の Issue を開きます — 影響を受けるサービスを管理するプロジェクトで後続のエンジニアリング作業を追跡できます。
 
-この連携は**アウトバウンド**です: OneUptime が [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html) を呼び出します。**Incident → On Create** トリガーと **API コンポーネント**を持つ OneUptime の **[ワークフロー](/docs/workflows/index)** を使います。GitLab.com とセルフマネージド GitLab の両方で同じように動作します。
+この連携は**アウトバウンド**です: Cast Operations が [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html) を呼び出します。**Incident → On Create** トリガーと **API コンポーネント**を持つ Cast Operations の **[ワークフロー](/docs/workflows/index)** を使います。GitLab.com とセルフマネージド GitLab の両方で同じように動作します。
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
+Cast Operations Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
 ```
 
 ## 前提条件
 
 - GitLab プロジェクトとその **Project ID** (プロジェクト名の下、プロジェクトの概要ページに表示されています)。
 - Issue を作成できるアクセストークン — `api` スコープを持つ**プロジェクト**、**グループ**、または**個人アクセストークン**: **Settings → Access Tokens**。
-- ワークフローを作成できる OneUptime プロジェクト。
+- ワークフローを作成できる Cast Operations プロジェクト。
 
 ## ステップ 1 — トークンを保存する
 
@@ -38,8 +38,8 @@ OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "description": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "description": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": "incident,oneuptime"
      }
      ```

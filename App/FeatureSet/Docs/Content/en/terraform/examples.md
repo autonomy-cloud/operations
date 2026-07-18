@@ -1,6 +1,6 @@
 # Terraform Provider Examples
 
-This document provides comprehensive examples for common OneUptime Terraform configurations.
+This document provides comprehensive examples for common Cast Operations Terraform configurations.
 
 ## Basic Examples
 
@@ -10,14 +10,14 @@ This document provides comprehensive examples for common OneUptime Terraform con
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use "= 7.0.123" for self-hosted
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # Change for self-hosted
+  oneuptime_url = "https://visca.ai"  # Change for self-hosted
   api_key       = var.oneuptime_api_key
 }
 

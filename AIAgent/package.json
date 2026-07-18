@@ -1,10 +1,10 @@
 {
   "name": "@oneuptime/ai-agent",
   "version": "11.5.9",
-  "description": "OneUptime AI Agent",
+  "description": "Cast Operations AI Agent",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OneUptime/oneuptime"
+    "url": "https://github.com/autonomy-cloud/operations"
   },
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "coverage": "jest --detectOpenHandles --coverage",
     "debug:test": "node --inspect node_modules/.bin/jest --runInBand ./Tests --detectOpenHandles"
   },
-  "author": "OneUptime <hello@oneuptime.com> (https://oneuptime.com/)",
+  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
   "license": "Apache-2.0",
   "dependencies": {
     "Common": "file:../Common",

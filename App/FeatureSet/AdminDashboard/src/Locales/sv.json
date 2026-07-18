@@ -50,8 +50,8 @@
     "logout": "Logga ut"
   },
   "topAlert": {
-    "title": "OneUptime administratörspanel",
-    "description": "Du kan utföra dina OneUptime-serverrelaterade uppgifter på denna panel."
+    "title": "Cast Operations administratörspanel",
+    "description": "Du kan utföra dina Cast Operations-serverrelaterade uppgifter på denna panel."
   },
   "header": {
     "exitAdmin": "Lämna admin",
@@ -74,7 +74,7 @@
     "helpSupport": "Hjälp och support",
     "legal": "Juridik",
     "version": "Version",
-    "versionModalTitle": "OneUptime-version",
+    "versionModalTitle": "Cast Operations-version",
     "versionLabel": "Version",
     "commitLabel": "Commit",
     "versionUnavailable": "Versionsdata är inte tillgängliga"
@@ -115,7 +115,7 @@
     "users": {
       "title": "Användare",
       "cardTitle": "Användare",
-      "cardDescription": "Här är en lista över användare i OneUptime.",
+      "cardDescription": "Här är en lista över användare i Cast Operations.",
       "noItems": "Inga användare hittades."
     },
     "enterpriseLicenses": {
@@ -150,7 +150,7 @@
     "projects": {
       "title": "Projekt",
       "cardTitle": "Projekt",
-      "cardDescription": "Här är en lista över projekt i OneUptime.",
+      "cardDescription": "Här är en lista över projekt i Cast Operations.",
       "noItems": "Inga projekt hittades.",
       "stepBasic": "Grundläggande",
       "stepSelectPlan": "Välj plan",
@@ -244,10 +244,10 @@
       "title": "Admin-inställningar",
       "authentication": {
         "authCardTitle": "Autentiseringsinställningar",
-        "authCardDescription": "Autentiseringsinställningar för denna OneUptime-serverinstans.",
+        "authCardDescription": "Autentiseringsinställningar för denna Cast Operations-serverinstans.",
         "authEditButton": "Redigera inställningar",
         "projectCreationCardTitle": "Projektskapande",
-        "projectCreationCardDescription": "Styr vem som kan skapa nya projekt på denna OneUptime-server.",
+        "projectCreationCardDescription": "Styr vem som kan skapa nya projekt på denna Cast Operations-server.",
         "projectCreationEditButton": "Redigera inställningar"
       },
       "email": {
@@ -275,7 +275,7 @@
       },
       "whatsapp": {
         "metaCardTitle": "Meta WhatsApp-inställningar",
-        "metaCardDescription": "Konfigurera Meta WhatsApp-uppgifter. Dessa värden används för att skicka WhatsApp-notifieringar från OneUptime.",
+        "metaCardDescription": "Konfigurera Meta WhatsApp-uppgifter. Dessa värden används för att skicka WhatsApp-notifieringar från Cast Operations.",
         "metaEditButton": "Redigera Meta WhatsApp-konfig",
         "testCardTitle": "Skicka test-WhatsApp-meddelande",
         "testCardDescription": "Skicka ett test-WhatsApp-mallmeddelande för att bekräfta din Meta-konfiguration.",
@@ -288,7 +288,7 @@
       },
       "telegram": {
         "setupCardTitle": "Telegram-installationsguide",
-        "setupCardDescription": "Läs detta först — det är den snabbaste vägen från noll till en fungerande Telegram-bot ansluten till OneUptime.",
+        "setupCardDescription": "Läs detta först — det är den snabbaste vägen från noll till en fungerande Telegram-bot ansluten till Cast Operations.",
         "configCardTitle": "Telegram-bot-inställningar",
         "configCardDescription": "Klistra in bot-token och användarnamn som @BotFather gav dig. Dessa driver utgående notifieringar; den hemliga token skyddar den inkommande webhooken.",
         "configEditButton": "Redigera Telegram-konfig",
@@ -333,7 +333,7 @@
       },
       "apiKey": {
         "cardTitle": "Master-API-nyckel-inställningar",
-        "cardDescription": "Denna API-nyckel har root-åtkomst till alla resurser i alla projekt på OneUptime.",
+        "cardDescription": "Denna API-nyckel har root-åtkomst till alla resurser i alla projekt på Cast Operations.",
         "editButton": "Redigera API-nyckel-inställningar",
         "apiKeyNotGenerated": "API-nyckel ännu inte genererad."
       },
@@ -443,7 +443,7 @@
   "Acme, Inc.": "Acme, Inc.",
   "Admin Notification Email": "Admin-notifierings-e-post",
   "AI Agent Logo": "AI-agentlogotyp",
-  "Any strong random string. OneUptime rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Valfri stark slumpmässig sträng. OneUptime avvisar webhook-anrop vars X-Telegram-Bot-Api-Secret-Token-rubrik inte matchar detta värde.",
+  "Any strong random string. Cast Operations rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Valfri stark slumpmässig sträng. Cast Operations avvisar webhook-anrop vars X-Telegram-Bot-Api-Secret-Token-rubrik inte matchar detta värde.",
   "App ID": "App-ID",
   "App Secret": "App-hemlighet",
   "Application (Client) ID from your Azure AD app registration (or service account for JWT Bearer).": "Applikations-ID (Client) från din Azure AD-appregistrering (eller tjänstkonto för JWT Bearer).",
@@ -493,7 +493,7 @@
   "Health": "Hälsa",
   "Home": "Hem",
   "Hostname": "Värdnamn",
-  "How OneUptime delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Hur OneUptime levererar e-post med den globala SMTP-konfigurationen. Välj 'SMTP' för de flesta servrar. Välj 'Microsoft Graph' om din Microsoft 365-klientorganisation har SMTP AUTH inaktiverat — Graph använder programbehörigheten Mail.Send och kringgår SMTP helt.",
+  "How Cast Operations delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Hur Cast Operations levererar e-post med den globala SMTP-konfigurationen. Välj 'SMTP' för de flesta servrar. Välj 'Microsoft Graph' om din Microsoft 365-klientorganisation har SMTP AUTH inaktiverat — Graph använder programbehörigheten Mail.Send och kringgår SMTP helt.",
   "If you have a coupon code, enter it here.": "Om du har en kupongkod, ange den här.",
   "If you have bought more phone numbers from Twilio for specific countries, you can add them here.": "Om du har köpt fler telefonnummer från Twilio för specifika länder kan du lägga till dem här.",
   "If you use port 465, please enable this. Do not enable this if you use port 587.": "Om du använder port 465, aktivera detta. Aktivera inte detta om du använder port 587.",
@@ -530,9 +530,9 @@
   "OAuth Scope": "OAuth-omfattning",
   "OAuth Settings": "OAuth-inställningar",
   "OAuth Token URL": "OAuth-token-URL",
-  "OneUptime Health": "OneUptime-hälsa",
+  "Cast Operations Health": "Cast Operations-hälsa",
   "OneUptimeAlertsBot": "OneUptimeAlertsBot",
-  "Operational health of this OneUptime instance.": "Driftstatus för denna OneUptime-instans.",
+  "Operational health of this Cast Operations instance.": "Driftstatus för denna Cast Operations-instans.",
   "Optional Business Account ID that owns the WhatsApp templates.": "Valfritt företagskonto-ID som äger WhatsApp-mallarna.",
   "Optional Facebook App ID tied to your WhatsApp integration.": "Valfritt Facebook-app-ID kopplat till din WhatsApp-integration.",
   "Optional Facebook App Secret used for webhook signature verification.": "Valfri Facebook-apphemlighet som används för verifiering av webhook-signaturer.",
@@ -540,7 +540,7 @@
   "Password": "Lösenord",
   "Phone Number ID": "Telefonnummer-ID",
   "Pick a friendly name.": "Välj ett lättförståeligt namn.",
-  "Please create a new OneUptime project to get started.": "Skapa ett nytt OneUptime-projekt för att komma igång.",
+  "Please create a new Cast Operations project to get started.": "Skapa ett nytt Cast Operations-projekt för att komma igång.",
   "Please select a plan.": "Välj en plan.",
   "Port": "Port",
   "Primary Twilio Phone Number": "Primärt Twilio-telefonnummer",
@@ -573,7 +573,7 @@
   "Select the team you would like to add this user to.": "Välj det team du vill lägga till den här användaren i.",
   "Send a broadcast email to all users.": "Skicka ett massutskick via e-post till alla användare.",
   "Sendgrid API Key": "Sendgrid API-nyckel",
-  "Should we disable sign up of new users to OneUptime?": "Ska vi inaktivera registrering av nya användare till OneUptime?",
+  "Should we disable sign up of new users to Cast Operations?": "Ska vi inaktivera registrering av nya användare till Cast Operations?",
   "SMTP Email": "SMTP-e-post",
   "SMTP From Name": "SMTP Från-namn",
   "SMTP Host": "SMTP-värd",
@@ -583,7 +583,7 @@
   "SMTP server hostname. Examples: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)": "Värdnamn för SMTP-server. Exempel: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)",
   "SMTP Username / Email": "SMTP-användarnamn / e-post",
   "Status": "Status",
-  "Status of the core datastores this OneUptime instance depends on.": "Status för de centrala datalagren som denna OneUptime-instans är beroende av.",
+  "Status of the core datastores this Cast Operations instance depends on.": "Status för de centrala datalagren som denna Cast Operations-instans är beroende av.",
   "Subject": "Ämne",
   "System components": "Systemkomponenter",
   "Team": "Team",
@@ -591,7 +591,7 @@
   "Team ID": "Team-ID",
   "Team Name": "Teamnamn",
   "Test Email Address": "Test-e-postadress",
-  "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.": "Innehållet i meddelande-e-postmeddelandet. Detta visas i en varumärkesanpassad OneUptime-e-postmall. Du kan använda Markdown-formatering.",
+  "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.": "Innehållet i meddelande-e-postmeddelandet. Detta visas i en varumärkesanpassad Cast Operations-e-postmall. Du kan använda Markdown-formatering.",
   "The body of the announcement email. This will be sent to all registered users. You can use Markdown formatting.": "Innehållet i meddelande-e-postmeddelandet. Detta skickas till alla registrerade användare. Du kan använda Markdown-formatering.",
   "The bot token @BotFather sent you — starts with digits, then a colon, then ~35 letters/digits. Not a URL, not a curl command.": "Bot-token som @BotFather skickade till dig — börjar med siffror, sedan ett kolon, sedan ~35 bokstäver/siffror. Inte en URL, inte ett curl-kommando.",
   "The email address where the test email will be sent.": "E-postadressen dit testmeddelandet skickas.",
@@ -600,8 +600,8 @@
   "The subject line of the announcement email.": "Ämnesraden för meddelande-e-postmeddelandet.",
   "The WhatsApp Business phone number ID associated with your sending number.": "WhatsApp Business-telefonnummer-ID:t som är kopplat till ditt avsändarnummer.",
   "This AI agent handles automated incident management.": "Denna AI-agent hanterar automatiserad incidenthantering.",
-  "This API key has root access to all the resources in all the projects on OneUptime.": "Denna API-nyckel har root-åtkomst till alla resurser i alla projekt på OneUptime.",
-  "This is the display name your team and customers see, when they receive emails from OneUptime.": "Detta är visningsnamnet som ditt team och dina kunder ser när de tar emot e-post från OneUptime.",
+  "This API key has root access to all the resources in all the projects on Cast Operations.": "Denna API-nyckel har root-åtkomst till alla resurser i alla projekt på Cast Operations.",
+  "This is the display name your team and customers see, when they receive emails from Cast Operations.": "Detta är visningsnamnet som ditt team och dina kunder ser när de tar emot e-post från Cast Operations.",
   "This plan is free, forever. ": "Denna plan är gratis, för alltid. ",
   "This probe is to monitor all the internal services.": "Denna sond är till för att övervaka alla interna tjänster.",
   "Transport": "Transport",

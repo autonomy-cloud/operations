@@ -4,7 +4,6 @@ import ThemeToggle from "./ThemeToggle";
 import UserProfile from "./UserProfile";
 import Button, { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import Header from "Common/UI/Components/Header/Header";
-import EditionLabel from "Common/UI/Components/EditionLabel/EditionLabel";
 import { DASHBOARD_URL } from "Common/UI/Config";
 import Navigation from "Common/UI/Utils/Navigation";
 import React, { FunctionComponent, ReactElement } from "react";
@@ -32,7 +31,6 @@ const DashboardHeader: FunctionComponent = (): ReactElement => {
         mobileRightComponents={<ThemeToggle />}
         rightComponents={
           <>
-            <EditionLabel className="mr-3 hidden md:inline-flex" />
             <Button
               title={t("header.exitAdmin")}
               buttonStyle={ButtonStyleType.NORMAL}

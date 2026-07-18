@@ -1,6 +1,6 @@
 # Linux 安裝指南
 
-在 Linux 發行版上將 OneUptime 安裝為桌面應用程式，以進行全面的監控與事件管理。
+在 Linux 發行版上將 Cast Operations 安裝為桌面應用程式，以進行全面的監控與事件管理。
 
 ## 安裝方法
 
@@ -10,17 +10,17 @@ Chrome 和 Chromium 提供最佳的 Linux PWA 體驗，並具備原生桌面整�
 
 #### PWA 安裝步驟：
 
-1. **在 Chrome/Chromium 中開啟 OneUptime**
+1. **在 Chrome/Chromium 中開啟 Cast Operations**
 
    - 啟動您的瀏覽器
-   - 前往您的 OneUptime 執行個體 URL
-   - 登入您的 OneUptime 帳戶
+   - 前往您的 Cast Operations 執行個體 URL
+   - 登入您的 Cast Operations 帳戶
    - 等待頁面完整載入
 
 2. **安裝 PWA**
 
    - 在網址列中尋找 **安裝圖示**（⊞）
-   - 點選 **「Install OneUptime」**
+   - 點選 **「Install Cast Operations」**
    - 或使用 **Chrome 選單**（⋮）→ **More tools** → **Create shortcut**
 
 3. **安裝選項**
@@ -31,7 +31,7 @@ Chrome 和 Chromium 提供最佳的 Linux PWA 體驗，並具備原生桌面整�
    - 點選 **「Install」** 或 **「Create」**
 
 4. **啟動應用程式**
-   - 在應用程式啟動器中尋找 OneUptime
+   - 在應用程式啟動器中尋找 Cast Operations
    - 或使用桌面捷徑
    - 應用程式會在專屬視窗中開啟
 
@@ -40,7 +40,7 @@ Chrome 和 Chromium 提供最佳的 Linux PWA 體驗，並具備原生桌面整�
 Firefox 支援在 Linux 上安裝 PWA，並具備基本的桌面整合功能。
 
 1. **PWA 安裝**：
-   - 在 Firefox 中開啟 OneUptime
+   - 在 Firefox 中開啟 Cast Operations
    - 尋找安裝橫幅或提示
    - 出現時點選 **「Install」**
    - 注意：與 Chrome 相比，桌面整合功能有限
@@ -55,7 +55,7 @@ Edge 已可在 Linux 上使用，並提供良好的 PWA 支援。
 
 ### 自動更新
 
-OneUptime PWA 會自動更新：
+Cast Operations PWA 會自動更新：
 
 - 當瀏覽器重新整理應用程式時即套用更新
 - 重大安全性更新會立即部署
@@ -69,7 +69,7 @@ OneUptime PWA 會自動更新：
 # Chrome PWA management
 google-chrome chrome://apps/
 
-# Remove all OneUptime-related browser data
+# Remove all Cast Operations-related browser data
 rm -rf ~/.config/google-chrome/Default/Local\ Storage/leveldb/
 rm -rf ~/.cache/google-chrome/Default/
 ```
@@ -78,7 +78,7 @@ rm -rf ~/.cache/google-chrome/Default/
 
 ### 自動更新
 
-OneUptime PWA 會自動更新：
+Cast Operations PWA 會自動更新：
 
 - 當瀏覽器重新整理應用程式時即套用更新
 - 重大安全性更新會立即部署

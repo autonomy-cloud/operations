@@ -1,6 +1,6 @@
 [Unit]
-Description=OneUptime Podman Agent (OpenTelemetry Collector)
-Documentation=https://oneuptime.com/docs/podman-monitoring
+Description=Cast Operations Podman Agent (OpenTelemetry Collector)
+Documentation=https://visca.ai/docs/podman-monitoring
 After=network-online.target podman.service
 Wants=network-online.target
 Requires=podman.socket

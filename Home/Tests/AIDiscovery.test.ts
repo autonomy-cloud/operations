@@ -13,7 +13,7 @@ import PageSEOConfig from "../Utils/PageSEO";
 import { getProductCompareSlugs } from "../Utils/ProductCompare";
 import { JSONObject } from "Common/Types/JSON";
 
-const homeUrl: string = "https://oneuptime.com";
+const homeUrl: string = "https://visca.ai";
 
 describe("AIDiscovery", () => {
   test("llms.txt lists products, pricing and machine-readable resources", () => {
@@ -26,13 +26,13 @@ describe("AIDiscovery", () => {
     ];
     const txt: string = generateLlmsTxt(homeUrl, posts);
 
-    expect(txt).toContain("# OneUptime");
-    expect(txt).toContain("https://oneuptime.com/product/monitoring.md");
-    expect(txt).toContain("https://oneuptime.com/pricing.md");
-    expect(txt).toContain("https://oneuptime.com/.well-known/mcp.json");
-    expect(txt).toContain("https://oneuptime.com/docs/llms.txt");
-    expect(txt).toContain("https://oneuptime.com/llms-full.txt");
-    expect(txt).toContain("https://oneuptime.com/api/openapi/spec");
+    expect(txt).toContain("# Cast Operations");
+    expect(txt).toContain("https://visca.ai/product/monitoring.md");
+    expect(txt).toContain("https://visca.ai/pricing.md");
+    expect(txt).toContain("https://visca.ai/.well-known/mcp.json");
+    expect(txt).toContain("https://visca.ai/docs/llms.txt");
+    expect(txt).toContain("https://visca.ai/llms-full.txt");
+    expect(txt).toContain("https://visca.ai/api/openapi/spec");
     expect(txt).toContain("/blog/post/2026-01-01-some-post/markdown");
   });
 
@@ -42,18 +42,18 @@ describe("AIDiscovery", () => {
   });
 
   test("llms.txt normalizes a trailing slash on the home url", () => {
-    const txt: string = generateLlmsTxt("https://oneuptime.com/", []);
-    expect(txt).toContain("https://oneuptime.com/pricing.md");
-    expect(txt).not.toContain("https://oneuptime.com//");
+    const txt: string = generateLlmsTxt("https://visca.ai/", []);
+    expect(txt).toContain("https://visca.ai/pricing.md");
+    expect(txt).not.toContain("https://visca.ai//");
   });
 
   test("llms-full.txt includes product features, pricing and comparisons", () => {
     const txt: string = generateLlmsFullTxt(homeUrl, []);
-    expect(txt).toContain("### OneUptime Monitoring");
+    expect(txt).toContain("### Cast Operations Monitoring");
     expect(txt).toContain(
       "| Plan | Price (monthly billing) | Price (yearly billing) |",
     );
-    expect(txt).toContain("### OneUptime vs PagerDuty");
+    expect(txt).toContain("### Cast Operations vs PagerDuty");
   });
 
   test("pricing markdown contains plans and the feature matrix", () => {
@@ -68,17 +68,17 @@ describe("AIDiscovery", () => {
       PageSEOConfig["/product/monitoring"]!,
       homeUrl,
     );
-    expect(md).toContain("# OneUptime Monitoring");
+    expect(md).toContain("# Cast Operations Monitoring");
     expect(md).toContain("## Features");
     expect(md).toContain(
-      "Canonical page: https://oneuptime.com/product/monitoring",
+      "Canonical page: https://visca.ai/product/monitoring",
     );
   });
 
   test("compare markdown renders tables and returns null for unknown slugs", () => {
     const md: string | null = generateCompareMarkdown("pagerduty", homeUrl);
     expect(md).not.toBeNull();
-    expect(md).toContain("# OneUptime vs PagerDuty");
+    expect(md).toContain("# Cast Operations vs PagerDuty");
     expect(md).toContain("## Feature Comparison");
 
     expect(generateCompareMarkdown("not-a-real-product", homeUrl)).toBeNull();
@@ -86,9 +86,9 @@ describe("AIDiscovery", () => {
 
   test("mcp manifest points at the /mcp endpoint", () => {
     const manifest: JSONObject = generateMcpManifest(homeUrl);
-    expect(manifest["endpoint"]).toBe("https://oneuptime.com/mcp");
+    expect(manifest["endpoint"]).toBe("https://visca.ai/mcp");
     expect(manifest["documentation"]).toBe(
-      "https://oneuptime.com/docs/ai/mcp-server",
+      "https://visca.ai/docs/ai/mcp-server",
     );
   });
 

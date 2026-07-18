@@ -59,7 +59,7 @@ export function getHostIntroMarkdown(data: {
 ## Prerequisites
 
 - A Linux, macOS, Windows, or Kubernetes host you want to monitor
-- An ingestion key (selected above) — used to authenticate the collector with OneUptime
+- An ingestion key (selected above) — used to authenticate the collector with Cast Operations
 
 ## What gets reported
 
@@ -69,7 +69,7 @@ Hosts are auto-discovered from the OTel \`host.name\` resource attribute. Once y
 - \`process\` scraper metrics (per-process CPU/memory/threads), OR
 - Logs / traces tagged with \`host.id\`, \`host.arch\`, \`os.type\`, \`container.runtime\`, or \`k8s.cluster.name\`
 
-…OneUptime will register the host automatically and start populating the Overview, Metrics, Processes, and Logs tabs.
+…Cast Operations will register the host automatically and start populating the Overview, Metrics, Processes, and Logs tabs.
 
 ## Step 1 — Save the collector config
 
@@ -84,7 +84,7 @@ receivers:
         metrics:
           system.cpu.utilization:
             enabled: true
-          # Lets OneUptime cache CPU core count on the host record
+          # Lets Cast Operations cache CPU core count on the host record
           # so the Hosts list and host detail page can show it
           # without re-aggregating metrics on every page load.
           system.cpu.logical.count:
@@ -124,7 +124,7 @@ processors:
           enabled: true
         host.arch:
           enabled: true
-        # host.ip is opt-in in the system detector. OneUptime
+        # host.ip is opt-in in the system detector. Cast Operations
         # surfaces it on the Host Network card, so enable it here.
         host.ip:
           enabled: true
@@ -174,7 +174,7 @@ service:
       processors: [resourcedetection, resource/oneuptime-labels, batch]
 \`\`\`
 
-The host above shows up tagged \`team:payments\`, \`env:production\`, and \`region:us-east-1\`. Labels are matched case-insensitively, so an existing manually-created \`Production\` label is reused rather than duplicated. Labels added manually in the OneUptime UI are never removed by the collector.
+The host above shows up tagged \`team:payments\`, \`env:production\`, and \`region:us-east-1\`. Labels are matched case-insensitively, so an existing manually-created \`Production\` label is reused rather than duplicated. Labels added manually in the Cast Operations UI are never removed by the collector.
 `;
 }
 
@@ -357,13 +357,13 @@ tar -xf $tar -C $dest   # tar.exe ships with Windows 10 1803+ / Server 2019+
 Copy-Item config.yaml "$dest\\config.yaml" -Force
 
 # Register and start it as a Windows service (runs as LocalSystem)
-sc.exe create "otelcol-contrib" binPath= "\\"$dest\\otelcol-contrib.exe\\" --config=\\"$dest\\config.yaml\\"" start= auto DisplayName= "OpenTelemetry Collector (OneUptime)"
+sc.exe create "otelcol-contrib" binPath= "\\"$dest\\otelcol-contrib.exe\\" --config=\\"$dest\\config.yaml\\"" start= auto DisplayName= "OpenTelemetry Collector (Cast Operations)"
 sc.exe start "otelcol-contrib"
 \`\`\`
 
 Logs are written to the Windows Application event log; view them in **Event Viewer → Windows Logs → Application**.
 
-> **Note:** The service runs as \`LocalSystem\` so it can read every Windows service. On Windows the \`load\` scraper only emulates a load average from the *Processor Queue Length* counter (it starts at 0); if it can't read the counter it is logged and skipped, so the rest of the \`hostmetrics\` config runs unchanged. See the [Host OpenTelemetry Collector docs](https://oneuptime.com/docs/telemetry/host-otel-collector) for the tarball, MSI, and self-build options.
+> **Note:** The service runs as \`LocalSystem\` so it can read every Windows service. On Windows the \`load\` scraper only emulates a load average from the *Processor Queue Length* counter (it starts at 0); if it can't read the counter it is logged and skipped, so the rest of the \`hostmetrics\` config runs unchanged. See the [Host OpenTelemetry Collector docs](https://visca.ai/docs/telemetry/host-otel-collector) for the tarball, MSI, and self-build options.
 
 ## Step 3 — Enable the Windows Services tab
 
@@ -438,11 +438,11 @@ helm upgrade --install otel-collector \\
   -f values.yaml
 \`\`\`
 
-Each node will appear as a separate host in OneUptime, linked to its Kubernetes cluster.
+Each node will appear as a separate host in Cast Operations, linked to its Kubernetes cluster.
 
 Logs: \`kubectl -n otel logs -l app.kubernetes.io/name=opentelemetry-collector -f\`.
 
-> **Note:** When using the Helm chart, the \`config.yaml\` from Step 1 is merged into the chart's \`values.yaml\` under the \`config:\` key. The chart's \`hostMetrics\` preset enables the receiver and mounts \`/proc\` and \`/sys\` from the host into each pod for you, so you don't need to repeat the receiver config above — only the exporter that points to OneUptime.
+> **Note:** When using the Helm chart, the \`config.yaml\` from Step 1 is merged into the chart's \`values.yaml\` under the \`config:\` key. The chart's \`hostMetrics\` preset enables the receiver and mounts \`/proc\` and \`/sys\` from the host into each pod for you, so you don't need to repeat the receiver config above — only the exporter that points to Cast Operations.
 `;
   }
 }
@@ -451,7 +451,7 @@ export function getHostFooterMarkdown(): string {
   return `
 ## What you can do next
 
-- Open the **Hosts** list in OneUptime — your host appears automatically once the first metric batch lands (usually within 30 seconds).
+- Open the **Hosts** list in Cast Operations — your host appears automatically once the first metric batch lands (usually within 30 seconds).
 - The **Metrics** tab visualizes \`system.*\` time-series.
 - The **Processes** tab lists processes ordered by CPU once the \`process\` scraper is enabled.
 - The **Logs** tab streams any logs whose resource attributes include \`host.name\`.

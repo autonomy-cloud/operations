@@ -1,12 +1,12 @@
 # Terraform Provider-documentatie
 
-De OneUptime Terraform Provider maakt Infrastructure as Code (IaC)-beheer mogelijk van uw OneUptime-monitoring-, meldings- en observabiliteitsresources.
+De Cast Operations Terraform Provider maakt Infrastructure as Code (IaC)-beheer mogelijk van uw Cast Operations-monitoring-, meldings- en observabiliteitsresources.
 
 ## Documentatiesecties
 
 ### [Aan de slag](./quick-start.md)
 
-Snelle installatiegids om u binnen enkele minuten aan de slag te krijgen met de OneUptime Terraform Provider.
+Snelle installatiegids om u binnen enkele minuten aan de slag te krijgen met de Cast Operations Terraform Provider.
 
 ### [Volledige providergids](./README.md)
 
@@ -18,24 +18,24 @@ Uitgebreide documentatie over installatie, configuratie, resources en best pract
 
 ### [Voorbeelden](./examples.md)
 
-Praktijkvoorbeelden en -patronen voor veelgebruikte OneUptime Terraform-configuraties.
+Praktijkvoorbeelden en -patronen voor veelgebruikte Cast Operations Terraform-configuraties.
 
 ## Snelkoppelingen
 
-### Voor OneUptime Cloud-klanten
+### Voor Cast Operations Cloud-klanten
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Moet overeenkomen met uw OneUptime-versie
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Moet overeenkomen met uw Cast Operations-versie
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Belangrijk voor zelf-gehoste gebruikers
 
-**Versiecompatibiliteit is kritiek**: Zet de Terraform-providerversie altijd vast zodat deze exact overeenkomt met uw OneUptime-installatieversie. Niet-overeenkomende versies kunnen API-compatibiliteitsproblemen veroorzaken.
+**Versiecompatibiliteit is kritiek**: Zet de Terraform-providerversie altijd vast zodat deze exact overeenkomt met uw Cast Operations-installatieversie. Niet-overeenkomende versies kunnen API-compatibiliteitsproblemen veroorzaken.
 
 ## Externe resources
 
-- **Terraform Registry**: [OneUptime Provider](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub Repository**: [OneUptime Source Code](https://github.com/OneUptime/oneuptime)
-- **Community-ondersteuning**: [OneUptime Community](https://community.oneuptime.com)
+- **Terraform Registry**: [Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub Repository**: [Cast Operations Source Code](https://github.com/autonomy-cloud/operations)
+- **Community-ondersteuning**: [Cast Operations Community](https://community.visca.ai)
 
 ## Beschikbare resources
 
-De provider ondersteunt uitgebreid OneUptime-resourcebeheer:
+De provider ondersteunt uitgebreid Cast Operations-resourcebeheer:
 
 - **Projecten en teams**: Organiseer uw monitoringstructuur
 - **Monitors**: Website-, API-, poort-, heartbeat- en aangepaste monitors
@@ -83,9 +83,9 @@ De provider ondersteunt uitgebreid OneUptime-resourcebeheer:
 
 Voor problemen, vragen of bijdragen:
 
-1. **Documentatieproblemen**: Maak een issue aan in de [OneUptime-repository](https://github.com/OneUptime/oneuptime/issues)
-2. **Providerfouten**: Meld in de hoofd-OneUptime-repository
-3. **Functieverzoeken**: Bespreek in de OneUptime-community
+1. **Documentatieproblemen**: Maak een issue aan in de [Cast Operations-repository](https://github.com/autonomy-cloud/operations/issues)
+2. **Providerfouten**: Meld in de hoofd-Cast Operations-repository
+3. **Functieverzoeken**: Bespreek in de Cast Operations-community
 4. **Algemene vragen**: Gebruik de communityforums
 
 ## Volgende stappen

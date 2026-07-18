@@ -1,6 +1,6 @@
 # SMTP 配置
 
-OneUptime 支持通过自定义 SMTP 服务器发送电子邮件，提供三种认证方式：
+Cast Operations 支持通过自定义 SMTP 服务器发送电子邮件，提供三种认证方式：
 
 - **用户名和密码** - 传统 SMTP 认证
 - **OAuth 2.0** - 适用于 Microsoft 365 和 Google Workspace 的现代认证
@@ -10,14 +10,14 @@ OneUptime 支持通过自定义 SMTP 服务器发送电子邮件，提供三种�
 
 ## OAuth 2.0 认证
 
-OAuth 2.0 为与邮件服务器进行认证提供了更安全的方式，尤其适用于已禁用基本认证的企业环境。OneUptime 支持两种 OAuth 授权类型：
+OAuth 2.0 为与邮件服务器进行认证提供了更安全的方式，尤其适用于已禁用基本认证的企业环境。Cast Operations 支持两种 OAuth 授权类型：
 
 - **客户端凭据（Client Credentials）** - 适用于 Microsoft 365 和大多数 OAuth 提供商
 - **JWT Bearer** - 适用于 Google Workspace 服务账号
 
 ### OAuth 所需字段
 
-在 OneUptime 中使用 OAuth 认证配置 SMTP 时，您需要填写以下信息：
+在 Cast Operations 中使用 OAuth 认证配置 SMTP 时，您需要填写以下信息：
 
 | 字段                 | 描述                                                                      |
 | -------------------- | ------------------------------------------------------------------------- |
@@ -42,7 +42,7 @@ OAuth 2.0 为与邮件服务器进行认证提供了更安全的方式，尤其�
 1. 登录 [Microsoft Entra 管理中心](https://entra.microsoft.com)
 2. 导航至 **标识** > **应用程序** > **应用注册**
 3. 点击 **新注册**
-4. 为您的应用程序输入名称（例如"OneUptime SMTP"）
+4. 为您的应用程序输入名称（例如"Cast Operations SMTP"）
 5. 对于 **受支持的帐户类型**，选择"仅此组织目录中的帐户"
 6. 将 **重定向 URI** 留空（客户端凭据流程不需要）
 7. 点击 **注册**
@@ -104,9 +104,9 @@ Add-MailboxPermission -Identity "sender@yourdomain.com" -User <service-principal
 
 > **注意：** 使用 `Add-MailboxPermission`（而非 `Add-RecipientPermission`）。`Add-RecipientPermission` 仅在收件人上授予 `SendAs` 权限，对于服务主体通过 OAuth 使用 SMTP 发送邮件来说不够用——发送时会出现认证/权限错误。带 `FullAccess` 的 `Add-MailboxPermission` 才是实际有效的命令。
 
-### 第五步：在 OneUptime 中配置
+### 第五步：在 Cast Operations 中配置
 
-在 OneUptime 中，使用以下设置创建或编辑 SMTP 配置：
+在 Cast Operations 中，使用以下设置创建或编辑 SMTP 配置：
 
 | 字段             | 值                                                                |
 | ---------------- | ----------------------------------------------------------------- |
@@ -186,9 +186,9 @@ Google Workspace 需要一个具有域范围委派权限的**服务账号**，�
 
 注意：委派生效可能需要几分钟到 24 小时。
 
-### 第七步：在 OneUptime 中配置
+### 第七步：在 Cast Operations 中配置
 
-在 OneUptime 中，使用以下设置创建或编辑 SMTP 配置：
+在 Cast Operations 中，使用以下设置创建或编辑 SMTP 配置：
 
 | 字段             | 值                                                                                                               |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -230,16 +230,16 @@ Google Workspace 需要一个具有域范围委派权限的**服务账号**，�
 
 ### 通用
 
-- **测试您的配置**：使用 OneUptime 中的"发送测试邮件"按钮验证您的设置
-- **检查日志**：查看 OneUptime 日志以获取详细错误信息
-- **令牌缓存**：OneUptime 会缓存 OAuth 令牌并在过期前自动刷新
+- **测试您的配置**：使用 Cast Operations 中的"发送测试邮件"按钮验证您的设置
+- **检查日志**：查看 Cast Operations 日志以获取详细错误信息
+- **令牌缓存**：Cast Operations 会缓存 OAuth 令牌并在过期前自动刷新
 
 ---
 
 ## 安全最佳实践
 
 1. **定期轮换密钥**：设置日历提醒，在客户端密钥过期前轮换
-2. **使用专用服务账号**：为 OneUptime 创建独立凭据，而非与其他应用程序共享
+2. **使用专用服务账号**：为 Cast Operations 创建独立凭据，而非与其他应用程序共享
 3. **最小权限原则**：仅授予所需的最低权限（Microsoft 使用 SMTP.SendAsApp，Google 使用 mail.google.com 范围）
 4. **监控使用情况**：检查电子邮件日志和 OAuth 应用程序登录记录，查找异常活动
 5. **安全存储**：切勿将客户端密钥提交到版本控制系统

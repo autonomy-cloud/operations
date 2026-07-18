@@ -1,6 +1,6 @@
 # External Status Page Monitor
 
-External Status Page monitoring allows you to monitor third-party status pages and get alerted when services you depend on experience outages or degraded performance. OneUptime periodically checks external status pages (such as AWS, GCP, Azure, GitHub, OpenAI, Anthropic, and more) and evaluates their status.
+External Status Page monitoring allows you to monitor third-party status pages and get alerted when services you depend on experience outages or degraded performance. Cast Operations periodically checks external status pages (such as AWS, GCP, Azure, GitHub, OpenAI, Anthropic, and more) and evaluates their status.
 
 ## Overview
 
@@ -15,7 +15,7 @@ External Status Page monitors check the health of services you rely on by queryi
 
 ## Supported Providers
 
-OneUptime supports monitoring status pages via the following methods:
+Cast Operations supports monitoring status pages via the following methods:
 
 | Provider Type            | Description                                                        |
 | ------------------------ | ----------------------------------------------------------------- |
@@ -27,7 +27,7 @@ OneUptime supports monitoring status pages via the following methods:
 
 ### Auto-Detection
 
-When set to **Auto**, OneUptime will attempt to detect the status page format automatically, in this order:
+When set to **Auto**, Cast Operations will attempt to detect the status page format automatically, in this order:
 
 1. First, it tries the incident.io status page API (`/proxy/<host>`)
 2. Next, it tries the Atlassian Statuspage JSON API (`/api/v2/status.json`, `/api/v2/components.json`, and `/api/v2/incidents/unresolved.json`)
@@ -38,7 +38,7 @@ When set to **Auto**, OneUptime will attempt to detect the status page format au
 
 ## Creating an External Status Page Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **External Status Page** as the monitor type
 4. Enter the status page URL you want to monitor
@@ -55,7 +55,7 @@ Enter the URL of the external status page you want to monitor. For Atlassian Sta
 
 ### Provider Type
 
-Select the provider type for the status page. Use **Auto** (default) to let OneUptime detect the format automatically, or specify **Atlassian Statuspage**, **incident.io**, **RSS**, or **Atom** if you know it.
+Select the provider type for the status page. Use **Auto** (default) to let Cast Operations detect the format automatically, or specify **Atlassian Statuspage**, **incident.io**, **RSS**, or **Atom** if you know it.
 
 ### Component Group Filter
 
@@ -93,7 +93,7 @@ You can configure criteria to determine when the external service is considered 
 
 ### Default Criteria
 
-By default, OneUptime seeds criteria based on what actually matters for a status page — its active incidents and component health, rather than mere reachability:
+By default, Cast Operations seeds criteria based on what actually matters for a status page — its active incidents and component health, rather than mere reachability:
 
 - The monitor is marked **Operational** when there are no active incidents in scope.
 - The monitor is marked **Down** (and an incident is created) when there is at least one active incident in scope, or when a component in scope reports `degraded_performance`, `partial_outage`, `major_outage`, or `full_outage`.

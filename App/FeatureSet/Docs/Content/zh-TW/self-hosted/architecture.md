@@ -1,6 +1,6 @@
-# OneUptime 自架架構
+# Cast Operations 自架架構
 
-此圖表展示了 OneUptime 在您的環境中自架時（例如在您的 Kubernetes 叢集中）通常的樣貌，包括 Probe 如何監控內部與外部資源。
+此圖表展示了 Cast Operations 在您的環境中自架時（例如在您的 Kubernetes 叢集中）通常的樣貌，包括 Probe 如何監控內部與外部資源。
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["Incoming Request Ingest"]
     end
 
-    subgraph Probes["OneUptime Probes"]
+    subgraph Probes["Cast Operations Probes"]
       direction TB
       P1["Probe Pod(s) in your cluster"]
       P2["Optional Probe VM/Container on your network"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## 此圖表展示的內容
 
-- 終端使用者透過您叢集的 Ingress（NGINX）存取 OneUptime，由其路由至 UI 與 API。
+- 終端使用者透過您叢集的 Ingress（NGINX）存取 Cast Operations，由其路由至 UI 與 API。
 - 核心服務會讀取/寫入狀態至 PostgreSQL、Redis 與 ClickHouse。
 - Probe 可以在您的叢集內執行（建議）以及／或在您網路的其他位置執行。它們可以監控：
   - 您防火牆後方的內部／私有服務。

@@ -2,7 +2,7 @@
 
 Vous pouvez configurer des sondes personnalisées à l'intérieur de votre réseau pour surveiller les ressources de votre réseau privé ou les ressources situées derrière votre pare-feu.
 
-Pour commencer, vous devez créer une sonde personnalisée dans vos Paramètres du projet > Sonde. Une fois que vous avez créé la sonde personnalisée sur votre tableau de bord OneUptime, vous devriez avoir le `PROBE_ID` et le `PROBE_KEY`.
+Pour commencer, vous devez créer une sonde personnalisée dans vos Paramètres du projet > Sonde. Une fois que vous avez créé la sonde personnalisée sur votre tableau de bord Cast Operations, vous devriez avoir le `PROBE_ID` et le `PROBE_KEY`.
 
 ### Déployer la sonde
 
@@ -11,21 +11,21 @@ Pour commencer, vous devez créer une sonde personnalisée dans vos Paramètres 
 Pour exécuter une sonde, veuillez vous assurer que Docker est installé. Vous pouvez exécuter une sonde personnalisée en utilisant :
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://oneuptime.com -d oneuptime/probe:release
+docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
 ```
 
-Si vous auto-hébergez OneUptime, vous pouvez modifier `ONEUPTIME_URL` pour pointer vers votre instance auto-hébergée personnalisée.
+Si vous auto-hébergez Cast Operations, vous pouvez modifier `ONEUPTIME_URL` pour pointer vers votre instance auto-hébergée personnalisée.
 
 ##### Configuration du proxy
 
-Si votre sonde doit passer par un serveur proxy pour atteindre OneUptime ou surveiller des ressources externes, vous pouvez configurer les paramètres de proxy en utilisant ces variables d'environnement :
+Si votre sonde doit passer par un serveur proxy pour atteindre Cast Operations ou surveiller des ressources externes, vous pouvez configurer les paramètres de proxy en utilisant ces variables d'environnement :
 
 ```
 # Pour un proxy HTTP
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -34,7 +34,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -43,7 +43,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       # Configuration du proxy (optionnel)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,7 +102,7 @@ Puis exécutez la commande suivante :
 docker compose up -d
 ```
 
-Si vous auto-hébergez OneUptime, vous pouvez modifier `ONEUPTIME_URL` pour pointer vers votre instance auto-hébergée personnalisée.
+Si vous auto-hébergez Cast Operations, vous pouvez modifier `ONEUPTIME_URL` pour pointer vers votre instance auto-hébergée personnalisée.
 
 #### Kubernetes
 
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 ##### Avec configuration du proxy
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             # Configuration du proxy (optionnel)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -184,7 +184,7 @@ Puis exécutez la commande suivante :
 kubectl apply -f oneuptime-probe.yaml
 ```
 
-Si vous auto-hébergez OneUptime, vous pouvez modifier `ONEUPTIME_URL` pour pointer vers votre instance auto-hébergée personnalisée.
+Si vous auto-hébergez Cast Operations, vous pouvez modifier `ONEUPTIME_URL` pour pointer vers votre instance auto-hébergée personnalisée.
 
 ### Variables d'environnement
 
@@ -192,9 +192,9 @@ La sonde prend en charge les variables d'environnement suivantes :
 
 #### Variables obligatoires
 
-- `PROBE_KEY` - La clé de sonde depuis votre tableau de bord OneUptime
-- `PROBE_ID` - L'ID de sonde depuis votre tableau de bord OneUptime
-- `ONEUPTIME_URL` - L'URL de votre instance OneUptime (par défaut : https://oneuptime.com)
+- `PROBE_KEY` - La clé de sonde depuis votre tableau de bord Cast Operations
+- `PROBE_ID` - L'ID de sonde depuis votre tableau de bord Cast Operations
+- `ONEUPTIME_URL` - L'URL de votre instance Cast Operations (par défaut : https://visca.ai)
 
 #### Variables optionnelles
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Vérification
 
-Si la sonde fonctionne correctement, elle doit apparaître comme `Connectée` sur votre tableau de bord OneUptime. Si elle n'apparaît pas comme connectée, vous devez vérifier les journaux du conteneur. Si vous avez encore des difficultés, veuillez créer un ticket sur [GitHub](https://github.com/oneuptime/oneuptime) ou [contacter le support](https://oneuptime.com/support).
+Si la sonde fonctionne correctement, elle doit apparaître comme `Connectée` sur votre tableau de bord Cast Operations. Si elle n'apparaît pas comme connectée, vous devez vérifier les journaux du conteneur. Si vous avez encore des difficultés, veuillez créer un ticket sur [GitHub](https://github.com/autonomy-cloud/operations) ou [contacter le support](https://visca.ai/support).

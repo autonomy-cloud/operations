@@ -1,13 +1,13 @@
 # GitHub 連携
 
-OneUptime のインシデントが作成されると自動的に [GitHub](https://github.com) の Issue を開きます — 影響を受けるサービスを管理するリポジトリで後続のエンジニアリング作業を追跡できます。
+Cast Operations のインシデントが作成されると自動的に [GitHub](https://github.com) の Issue を開きます — 影響を受けるサービスを管理するリポジトリで後続のエンジニアリング作業を追跡できます。
 
-この連携は**アウトバウンド**です: OneUptime が [GitHub REST API](https://docs.github.com/en/rest/issues/issues) を呼び出します。**Incident → On Create** トリガーと **API コンポーネント**を持つ OneUptime の **[ワークフロー](/docs/workflows/index)** を使います。
+この連携は**アウトバウンド**です: Cast Operations が [GitHub REST API](https://docs.github.com/en/rest/issues/issues) を呼び出します。**Incident → On Create** トリガーと **API コンポーネント**を持つ Cast Operations の **[ワークフロー](/docs/workflows/index)** を使います。
 
-> **より深い GitHub 接続をお探しですか?** OneUptime にはコードリポジトリを接続するためのネイティブ **GitHub App** インテグレーションもあります (AI エージェントとコード機能で使用)。これはワークフローではなく環境変数で設定します — [GitHub 連携 (セルフホスト)](/docs/self-hosted/github-integration) を参照してください。このページはインシデントから *Issue を登録する*ことについてです。
+> **より深い GitHub 接続をお探しですか?** Cast Operations にはコードリポジトリを接続するためのネイティブ **GitHub App** インテグレーションもあります (AI エージェントとコード機能で使用)。これはワークフローではなく環境変数で設定します — [GitHub 連携 (セルフホスト)](/docs/self-hosted/github-integration) を参照してください。このページはインシデントから *Issue を登録する*ことについてです。
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## 前提条件
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   [github.com/settings/tokens](https://github.com/settings/tokens) で作成します。
 
-- ワークフローを作成できる OneUptime プロジェクト。
+- ワークフローを作成できる Cast Operations プロジェクト。
 
 ## ステップ 1 — トークンを保存する
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**:
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

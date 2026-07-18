@@ -1,16 +1,16 @@
-# セルフホストOneUptime Terraform設定ガイド
+# セルフホストCast Operations Terraform設定ガイド
 
-このガイドは、セルフホストのOneUptimeインスタンスを運用しているお客様向けです。Terraformプロバイダーを自社のOneUptimeデプロイメントで使用するためのバージョン管理、設定、ベストプラクティスについて説明します。
+このガイドは、セルフホストのCast Operationsインスタンスを運用しているお客様向けです。Terraformプロバイダーを自社のCast Operationsデプロイメントで使用するためのバージョン管理、設定、ベストプラクティスについて説明します。
 
 ## 重要なお知らせ
 
-⚠️ **TerraformでProjectsは作成できません** — プロジェクトはまずOneUptime ダッシュボードで手動作成する必要があります。Terraform設定ではプロジェクトIDを使用してください。
+⚠️ **TerraformでProjectsは作成できません** — プロジェクトはまずCast Operations ダッシュボードで手動作成する必要があります。Terraform設定ではプロジェクトIDを使用してください。
 
-⚠️ **セルフホストのお客様への最重要ルール**：TerraformプロバイダーのバージョンはOneUptimeのインストールバージョンに完全一致するよう常に固定してください。
+⚠️ **セルフホストのお客様への最重要ルール**：TerraformプロバイダーのバージョンはCast Operationsのインストールバージョンに完全一致するよう常に固定してください。
 
 ## リソース構造
 
-すべてのOneUptime Terraformリソースはシンプルな構造に従います：
+すべてのCast Operations Terraformリソースはシンプルな構造に従います：
 
 - `name`（必須）— リソース名
 - `description`（オプション）— リソースの説明
@@ -18,32 +18,32 @@
 
 ## 重要：バージョン互換性
 
-⚠️ **セルフホストのお客様への最重要ルール**：TerraformプロバイダーのバージョンはOneUptimeのインストールバージョンに完全一致するよう常に固定してください。
+⚠️ **セルフホストのお客様への最重要ルール**：TerraformプロバイダーのバージョンはCast Operationsのインストールバージョンに完全一致するよう常に固定してください。
 
 ### バージョン固定が重要な理由
 
-- TerraformプロバイダーはOneUptime APIから自動生成されます
-- 各OneUptimeバージョンは異なるAPIエンドポイントとスキーマを持つ可能性があります
+- TerraformプロバイダーはCast Operations APIから自動生成されます
+- 各Cast Operationsバージョンは異なるAPIエンドポイントとスキーマを持つ可能性があります
 - バージョンが一致しないプロバイダーはエラーや予期しない動作を引き起こす可能性があります
 - バージョン固定は互換性と予測可能な動作を保証します
 
-## OneUptimeのバージョン確認方法
+## Cast Operationsのバージョン確認方法
 
 ### 方法1：ダッシュボード
 
-1. OneUptime ダッシュボードにログイン
+1. Cast Operations ダッシュボードにログイン
 2. **設定** → **About** に移動
 3. バージョン番号を確認（例：「7.0.123」）
 
 ### 方法2：APIエンドポイント
 
 ```bash
-curl https://your-oneuptime-instance.com/api/status
+curl https://your-operations-instance.com/api/status
 ```
 
 ### 方法3：Dockerイメージ
 
-DockerでOneUptimeを実行している場合：
+DockerでCast Operationsを実行している場合：
 
 ```bash
 docker images | grep oneuptime
@@ -75,7 +75,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 正確なビルド番号に置き換えてください
     }
   }
@@ -83,7 +83,7 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # セルフホストURL
+  oneuptime_url = "https://operations.yourcompany.com"  # セルフホストURL
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -94,7 +94,7 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # 正確なバージョンに置き換えてください
     }
   }
@@ -102,22 +102,22 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## セルフホストの完全な設定例
 
-以下はセルフホストのOneUptimeインスタンスの完全な例です：
+以下はセルフホストのCast Operationsインスタンスの完全な例です：
 
 ```hcl
 # versions.tf
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # OneUptimeのバージョンと一致させる必要あり
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Cast Operationsのバージョンと一致させる必要あり
     }
   }
   required_version = ">= 1.0"
@@ -132,13 +132,13 @@ terraform {
 
 # variables.tf
 variable "oneuptime_url" {
-  description = "OneUptimeインスタンスURL"
+  description = "Cast OperationsインスタンスURL"
   type        = string
-  default     = "https://oneuptime.yourcompany.com"
+  default     = "https://operations.yourcompany.com"
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime APIキー"
+  description = "Cast Operations APIキー"
   type        = string
   sensitive   = true
 }
@@ -157,7 +157,7 @@ provider "oneuptime" {
 
 # variables.tf
 variable "project_id" {
-  description = "OneUptimeプロジェクトID（ダッシュボードで手動作成）"
+  description = "Cast OperationsプロジェクトID（ダッシュボードで手動作成）"
   type        = string
 }
 
@@ -290,7 +290,7 @@ output "status_page_url" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://oneuptime-dev.yourcompany.com"
+oneuptime_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -298,7 +298,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://oneuptime-staging.yourcompany.com"
+oneuptime_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -306,13 +306,13 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://oneuptime.yourcompany.com"
+oneuptime_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
 ## セルフホストのアップグレード手順
 
-OneUptimeインスタンスをアップグレードする場合：
+Cast Operationsインスタンスをアップグレードする場合：
 
 ### 1. アップグレード前チェックリスト
 
@@ -320,16 +320,16 @@ OneUptimeインスタンスをアップグレードする場合：
 # 現在のTerraformステートをバックアップ
 terraform state pull > backup-$(date +%Y%m%d).tfstate
 
-# 現在のOneUptimeバージョンをメモ
-curl https://oneuptime.yourcompany.com/api/status | jq '.version'
+# 現在のCast Operationsバージョンをメモ
+curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # 現在のプロバイダーバージョンをメモ
 terraform providers | grep oneuptime
 ```
 
-### 2. OneUptimeインスタンスのアップグレード
+### 2. Cast Operationsインスタンスのアップグレード
 
-標準のOneUptimeアップグレードプロセスに従ってください（Docker、Helmなど）。
+標準のCast Operationsアップグレードプロセスに従ってください（Docker、Helmなど）。
 
 ### 3. Terraformプロバイダーの更新
 
@@ -338,7 +338,7 @@ terraform providers | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # アップグレード後の新バージョン
     }
   }
@@ -364,12 +364,12 @@ terraform apply
 
 Terraformランナーが以下にアクセスできることを確認：
 
-- OneUptime APIエンドポイント（通常はポート443/HTTPS）
+- Cast Operations APIエンドポイント（通常はポート443/HTTPS）
 - 監視対象の内部リソース
 
 ### VPN/プライベートネットワーク
 
-OneUptimeがプライベートネットワーク上にある場合：
+Cast Operationsがプライベートネットワーク上にある場合：
 
 ```hcl
 provider "oneuptime" {
@@ -403,7 +403,7 @@ export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
 ```hcl
 # TLS検証付きの例
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 
   # サポートされている場合の追加セキュリティオプション
@@ -441,7 +441,7 @@ Error: connection refused
 
 **解決策**：
 
-1. OneUptimeインスタンスが実行中か確認する
+1. Cast Operationsインスタンスが実行中か確認する
 2. APIURL が正しいか確認する
 3. ファイアウォール/ネットワーク接続を確認する
 4. TLS証明書が有効か確認する
@@ -454,7 +454,7 @@ Error: API version incompatible
 
 **解決策**：
 
-1. OneUptimeのバージョンを確認：`curl https://your-instance/api/status`
+1. Cast Operationsのバージョンを確認：`curl https://your-instance/api/status`
 2. プロバイダーバージョンを一致するよう更新する
 3. `terraform init -upgrade` を実行する
 

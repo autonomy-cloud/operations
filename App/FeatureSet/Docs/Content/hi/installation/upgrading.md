@@ -1,6 +1,6 @@
-# OneUptime को Upgrade करना
+# Cast Operations को Upgrade करना
 
-यह मार्गदर्शिका आपके self-hosted OneUptime installation को सुरक्षित रूप से upgrade करने का तरीका बताती है।
+यह मार्गदर्शिका आपके self-hosted Cast Operations installation को सुरक्षित रूप से upgrade करने का तरीका बताती है।
 
 ## सामान्य मार्गदर्शन
 
@@ -8,14 +8,14 @@
 - आप minor/patch versions को leapfrog कर सकते हैं (उदाहरण के लिए, 8.1 → 8.4) जब तक आप release notes का पालन करते हैं।
 - Upgrade से पहले हमेशा backups लें और सत्यापित करें कि आप उन्हें restore कर सकते हैं।
 
-## OneUptime 10 → 11 अपग्रेड
+## Cast Operations 10 → 11 अपग्रेड
 
 <!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
 
 ### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
 
 In v11, the following authentication and access-management features moved to
-the **OneUptime Enterprise Edition** and are no longer part of the free,
+the **Cast Operations Enterprise Edition** and are no longer part of the free,
 open-source (Community) build:
 
 - **SAML SSO** — both project login and status-page login
@@ -34,16 +34,16 @@ Enterprise Edition.
 **Availability:**
 
 - **Self-hosted:** requires the **Enterprise Edition** build.
-- **OneUptime Cloud:** requires the **Scale** plan (or above).
+- **Cast Operations Cloud:** requires the **Scale** plan (or above).
 
 **If you rely on SSO and self-host**, email
-[support@oneuptime.com](mailto:support@oneuptime.com) for an Enterprise Edition
+[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
 license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
 v11 and we'll help you get it back online. If your team is mid-upgrade and this
 is blocking sign-in, contact us before upgrading production so we can plan it
 with you.
 
-OneUptime 11 ClickHouse टेलीमेट्री स्टोरेज को नए सिरे से बनाता है। यह पेज बताता है कि क्या बदलता है, किसे कुछ करना है, और — उन इंस्टॉलेशन के लिए जो ऐतिहासिक टेलीमेट्री आगे ले जाना चाहते हैं — इसके लिए ज़रूरी हर क्वेरी।
+Cast Operations 11 ClickHouse टेलीमेट्री स्टोरेज को नए सिरे से बनाता है। यह पेज बताता है कि क्या बदलता है, किसे कुछ करना है, और — उन इंस्टॉलेशन के लिए जो ऐतिहासिक टेलीमेट्री आगे ले जाना चाहते हैं — इसके लिए ज़रूरी हर क्वेरी।
 
 ### v11 में क्या बदलता है
 
@@ -60,7 +60,7 @@ OneUptime 11 ClickHouse टेलीमेट्री स्टोरेज क
 | `MonitorLogV2`        | `MonitorLogV3`        |
 | `AuditLogV1`          | `AuditLogV2`          |
 
-हर टेलीमेट्री टेबल में दो कॉलम का नाम बदला गया है: `serviceId` → `primaryEntityId` और `serviceType` → `primaryEntityType`। यह एक सख्त नाम-परिवर्तन है — **यदि आप OneUptime analytics API को सीधे `serviceId`/`serviceType` फ़िल्टर के साथ क्वेरी करते हैं, तो उन्हें नए नामों पर अपडेट करें।** OneUptime के अंदर के डैशबोर्ड, मॉनिटर और अलर्ट अपने आप माइग्रेट हो जाते हैं।
+हर टेलीमेट्री टेबल में दो कॉलम का नाम बदला गया है: `serviceId` → `primaryEntityId` और `serviceType` → `primaryEntityType`। यह एक सख्त नाम-परिवर्तन है — **यदि आप Cast Operations analytics API को सीधे `serviceId`/`serviceType` फ़िल्टर के साथ क्वेरी करते हैं, तो उन्हें नए नामों पर अपडेट करें।** Cast Operations के अंदर के डैशबोर्ड, मॉनिटर और अलर्ट अपने आप माइग्रेट हो जाते हैं।
 
 यह बदलाव **केवल आगे की ओर** है: नई टेबलें खाली शुरू होती हैं, अपग्रेड के बाद आने वाली सारी टेलीमेट्री तुरंत उनमें जाती है, और इतिहास समय के साथ स्वाभाविक रूप से भरता जाता है। पुरानी टेबलें अपग्रेड के दौरान डिस्क खाली करने के लिए **अपने आप हटा दी जाती हैं** — यदि आप इतिहास आगे ले जाने का विकल्प खुला रखना चाहते हैं, तो अपग्रेड से **पहले** उनका नाम बदल दें (नीचे Step 0)।
 
@@ -84,14 +84,14 @@ clickhouse-client --database oneuptime
 
 शुरू करने से पहले जानने योग्य बातें:
 
-- OneUptime के लाइव रहते हुए कॉपी चलाना सुरक्षित है। नई टेलीमेट्री स्वतंत्र रूप से नई टेबलों में लिखी जाती है; कॉपी किया इतिहास उसके पीछे भरता जाता है।
+- Cast Operations के लाइव रहते हुए कॉपी चलाना सुरक्षित है। नई टेलीमेट्री स्वतंत्र रूप से नई टेबलों में लिखी जाती है; कॉपी किया इतिहास उसके पीछे भरता जाता है।
 - बड़े पैमाने (सैकड़ों GB) पर घंटों की उम्मीद रखें।
 - नीचे का हर स्टेटमेंट एक `insert_deduplication_token` रखता है, और नई टेबलों में एक deduplication विंडो होती है — इसलिए **बीच में विफल हुए स्टेटमेंट को फिर से चलाना सुरक्षित है** (पहले से डाले गए ब्लॉक छोड़ दिए जाते हैं, मेट्रिक रोलअप में भी), बशर्ते आप उसे उचित समय में फिर से चलाएँ। भारी लाइव इन्जेस्ट के दौरान विंडो (प्रति टेबल अंतिम 10,000 insert ब्लॉक) आख़िरकार पुराने टोकन हटा देती है।
 - मेट्रिक्स कॉपी करने से पहले से एग्रीगेट किए गए डैशबोर्ड रोलअप भी अपने आप फिर से बन जाते हैं (हर कॉपी की गई पंक्ति रोलअप materialized views को फिर से भरती है) — इसलिए मेट्रिक कॉपी बाकियों से धीमी है; इसे सबसे अंत में चलाएँ।
 
 #### Step 0 — अपग्रेड से पहले, पुरानी टेबलों का नाम बदलें
 
-अपग्रेड स्टार्टअप पर पुरानी टेबलें हटा देता है, इसलिए जिनसे आप कॉपी करना चाहते हैं उन्हें पहले उसकी पहुँच से बाहर कर दें। OneUptime रोकें (deployment को शून्य पर स्केल करें) ताकि कोई उनमें न लिखे और न ही उन्हें दोबारा बना सके, फिर नाम बदलें — `RENAME TABLE` एक त्वरित metadata ऑपरेशन है, और `IF EXISTS` से ब्लॉक उन टेबलों को छोड़ देता है जो आपके इंस्टॉलेशन में कभी थीं ही नहीं (10.0.x के मध्य से पुराने deployment में `AuditLogV1` या कुछ `…V2` टेबलें नहीं हो सकतीं — तब उस प्रकार का कोई इतिहास कॉपी करने को नहीं है):
+अपग्रेड स्टार्टअप पर पुरानी टेबलें हटा देता है, इसलिए जिनसे आप कॉपी करना चाहते हैं उन्हें पहले उसकी पहुँच से बाहर कर दें। Cast Operations रोकें (deployment को शून्य पर स्केल करें) ताकि कोई उनमें न लिखे और न ही उन्हें दोबारा बना सके, फिर नाम बदलें — `RENAME TABLE` एक त्वरित metadata ऑपरेशन है, और `IF EXISTS` से ब्लॉक उन टेबलों को छोड़ देता है जो आपके इंस्टॉलेशन में कभी थीं ही नहीं (10.0.x के मध्य से पुराने deployment में `AuditLogV1` या कुछ `…V2` टेबलें नहीं हो सकतीं — तब उस प्रकार का कोई इतिहास कॉपी करने को नहीं है):
 
 ```sql
 RENAME TABLE IF EXISTS LogItemV2 TO LogItemV2_backup;
@@ -105,7 +105,7 @@ RENAME TABLE IF EXISTS AuditLogV1 TO AuditLogV1_backup;
 RENAME TABLE IF EXISTS MetricItemAggMV1mByHost TO MetricItemAggMV1mByHost_backup;
 ```
 
-फिर अपग्रेड करें और आगे बढ़ने से पहले OneUptime को पूरी तरह बूट होने दें।
+फिर अपग्रेड करें और आगे बढ़ने से पहले Cast Operations को पूरी तरह बूट होने दें।
 
 > यदि नाम बदलने के बाद आप v10 पर वापस लौटते हैं (v10 स्टार्टअप पर पुराने नामों वाली खाली टेबलें फिर से बना देता है), तो v10 को दोबारा शुरू करने से पहले `_backup` टेबलों के नाम वापस मूल नामों पर कर दें — वरना रोलबैक के दौरान आई टेलीमेट्री दोबारा बनी टेबलों में जाएगी और बाद के अपग्रेड में हटा दी जाएगी।
 
@@ -206,20 +206,20 @@ DROP TABLE IF EXISTS MetricItemAggMV1mByHost_backup SETTINGS max_table_size_to_d
 
 > सुझाव: हर मेजर अपग्रेड की तरह, पहले staging परिवेश में परीक्षण करें और प्रोडक्शन में कॉपी पर भरोसा करने से पहले पुष्टि करें कि टेलीमेट्री नई टेबलों में आ रही है।
 
-## OneUptime 9 → 10 से Upgrade करना
+## Cast Operations 9 → 10 से Upgrade करना
 
 ऐसा कोई change नहीं जिसके लिए manual कार्रवाई आवश्यक हो। बस standard upgrade process का पालन करें।
 
-## OneUptime 8 → 9 से Upgrade करना
+## Cast Operations 8 → 9 से Upgrade करना
 
-Helm chart अब Kubernetes Ingress resource provision नहीं करता। OneUptime एक ingress gateway container ship करता है जो TLS terminate करता है, status page domains प्रबंधित करता है, और platform के लिए traffic route करता है, इसलिए cluster ingress controller अब आवश्यक नहीं है।
+Helm chart अब Kubernetes Ingress resource provision नहीं करता। Cast Operations एक ingress gateway container ship करता है जो TLS terminate करता है, status page domains प्रबंधित करता है, और platform के लिए traffic route करता है, इसलिए cluster ingress controller अब आवश्यक नहीं है।
 
 - Upgrade से पहले अपनी custom `values.yaml` फ़ाइलों से कोई भी `oneuptimeIngress` overrides हटाएं। वे keys अब ignored हैं और जगह छोड़े जाने पर validation errors उत्पन्न करेंगे।
 - सुनिश्चित करें कि `nginx.service.type` इस बात को reflect करती है कि आप bundled ingress gateway को कैसे expose करना चाहते हैं (उदाहरण के लिए `LoadBalancer`, `NodePort`, या external load balancer के साथ `ClusterIP`)।
-- status pages या primary hosts के लिए किसी भी DNS records को verify करें कि वे अभी भी OneUptime ingress gateway के सामने वाले Service या load balancer की ओर point करते हैं।
+- status pages या primary hosts के लिए किसी भी DNS records को verify करें कि वे अभी भी Cast Operations ingress gateway के सामने वाले Service या load balancer की ओर point करते हैं।
 - Upgrade के बाद, confirm करें कि TLS certificates embedded gateway के माध्यम से renew होते रहते हैं और status page domains सही तरीके से resolve होते हैं।
 
-## OneUptime 7 → 8 से Upgrade करना
+## Cast Operations 7 → 8 से Upgrade करना
 
 यदि आप Kubernetes पर चला रहे हैं, तो महत्वपूर्ण breaking changes हैं:
 

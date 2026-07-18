@@ -17,7 +17,7 @@ spec:
   instances: {{ $cnpg.instances | default 1 }}
   imageName: {{ $cnpg.imageName | default "ghcr.io/cloudnative-pg/postgresql:17" | quote }}
 
-  # The OneUptime app connects as the "postgres" superuser (parity with the
+  # The Cast Operations app connects as the "postgres" superuser (parity with the
   # built-in StatefulSet). CloudNativePG disables superuser access by default;
   # we enable it and manage the password via the secret created in secrets.yaml.
   enableSuperuserAccess: true

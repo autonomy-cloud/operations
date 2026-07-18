@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # This script sets up a lightweight Kubernetes cluster (KinD) on GitHub Actions,
-# installs a default storage class, deploys the OneUptime Helm chart, and waits
+# installs a default storage class, deploys the Cast Operations Helm chart, and waits
 # for all pods to become Ready.
 
 # Always collect diagnostics (pod descriptions and logs for all containers)
@@ -91,10 +91,10 @@ kubectl annotate storageclass standard storageclass.kubernetes.io/is-default-cla
 echo "Cluster Nodes:"
 kubectl get nodes -o wide
 
-echo "Installing OneUptime via Helm"
+echo "Installing Cast Operations via Helm"
 kubectl get pods -A || true
 
-# Install OneUptime. Override storageClass to local-path for KinD
+# Install Cast Operations. Override storageClass to local-path for KinD
 helm install oneuptime ../../HelmChart/Public/oneuptime \
     -f ../../HelmChart/Public/oneuptime/values.yaml \
     -f ./ci-values.yaml 

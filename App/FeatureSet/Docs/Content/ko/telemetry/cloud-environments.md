@@ -2,16 +2,16 @@
 
 ## 개요
 
-OneUptime은 관리형 클라우드 컴퓨트를 **클라우드 환경**으로 그룹화합니다 — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner, Azure App Service. `cloud.platform` + `cloud.account.id` + `cloud.region`의 고유한 조합마다 하나의 환경이 생성되므로, _"AWS ECS · us-east-1 · 123456789012"_ 같은 항목은 그 위에서 실행되는 모든 워크로드를 집계하는 단일 엔터티가 됩니다.
+Cast Operations은 관리형 클라우드 컴퓨트를 **클라우드 환경**으로 그룹화합니다 — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner, Azure App Service. `cloud.platform` + `cloud.account.id` + `cloud.region`의 고유한 조합마다 하나의 환경이 생성되므로, _"AWS ECS · us-east-1 · 123456789012"_ 같은 항목은 그 위에서 실행되는 모든 워크로드를 집계하는 단일 엔터티가 됩니다.
 
 원시 가상 머신(EC2, Compute Engine, Azure VM)은 **호스트**로 유지되며, Kubernetes는 **Kubernetes** 아래에 남습니다. 이 뷰는 특별히 관리형 / PaaS 컴퓨트를 위한 것입니다.
 
 ## 사전 요구 사항
 
-- **OneUptime 텔레메트리 수집 토큰** — *Project Settings → Telemetry Ingestion Keys*에서 생성합니다.
+- **Cast Operations 텔레메트리 수집 토큰** — *Project Settings → Telemetry Ingestion Keys*에서 생성합니다.
 - 워크로드 내부 또는 워크로드와 함께 실행되는 OpenTelemetry Collector 또는 SDK.
 
-## OneUptime이 환경을 식별하는 방법
+## Cast Operations이 환경을 식별하는 방법
 
 | 속성                  | 필수   | 용도                                                                                      |
 | --------------------- | ------ | ----------------------------------------------------------------------------------------- |
@@ -39,12 +39,12 @@ SDK를 사용하는 경우, 대신 `OTEL_RESOURCE_DETECTORS`를 설정합니다.
 OTEL_RESOURCE_DETECTORS=env,ecs
 ```
 
-## 2단계 — OTLP를 OneUptime으로 내보내기
+## 2단계 — OTLP를 Cast Operations으로 내보내기
 
 ```yaml
 exporters:
   otlphttp/oneuptime:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -64,7 +64,7 @@ service:
       exporters: [otlphttp/oneuptime]
 ```
 
-OneUptime을 셀프 호스팅하는 경우 `https://YOUR-ONEUPTIME-HOST/otlp`를 사용합니다.
+Cast Operations을 셀프 호스팅하는 경우 `https://YOUR-OPERATIONS-HOST/otlp`를 사용합니다.
 
 ## 제공되는 기능
 

@@ -1,6 +1,6 @@
 # AI Agents
 
-OneUptime में AI Agents स्वचालित रूप से आपके कोड में त्रुटियों, प्रदर्शन संबंधी समस्याओं और डेटाबेस क्वेरी को ठीक करते हैं। OpenTelemetry observability डेटा द्वारा संचालित, AI Agents केवल अलर्ट नहीं—बल्कि सुधार सहित pull request बनाते हैं।
+Cast Operations में AI Agents स्वचालित रूप से आपके कोड में त्रुटियों, प्रदर्शन संबंधी समस्याओं और डेटाबेस क्वेरी को ठीक करते हैं। OpenTelemetry observability डेटा द्वारा संचालित, AI Agents केवल अलर्ट नहीं—बल्कि सुधार सहित pull request बनाते हैं।
 
 ## AI Agents क्या कर सकते हैं?
 
@@ -25,7 +25,7 @@ AI Agents आपके observability डेटा (traces, logs और metrics) 
 
 ## LLM Provider में लचीलापन
 
-OneUptime किसी भी LLM provider के साथ काम करता है। आप उपयोग कर सकते हैं:
+Cast Operations किसी भी LLM provider के साथ काम करता है। आप उपयोग कर सकते हैं:
 
 - **OpenAI GPT** मॉडल
 - **Anthropic Claude** मॉडल
@@ -36,7 +36,7 @@ OneUptime किसी भी LLM provider के साथ काम करत�
 
 ## गोपनीयता
 
-आपकी योजना चाहे जो भी हो, OneUptime आपका कोड कभी नहीं देखता, संग्रहीत नहीं करता, और उस पर train नहीं करता:
+आपकी योजना चाहे जो भी हो, Cast Operations आपका कोड कभी नहीं देखता, संग्रहीत नहीं करता, और उस पर train नहीं करता:
 
 - **कोई Code Access नहीं**: आपका कोड आपके infrastructure पर ही रहता है
 - **कोई Data Storage नहीं**: शून्य डेटा retention नीति
@@ -46,13 +46,13 @@ OneUptime किसी भी LLM provider के साथ काम करत�
 
 ### Global AI Agents
 
-यदि आप **OneUptime SaaS** (cloud-hosted संस्करण) का उपयोग कर रहे हैं, तो Global AI Agents OneUptime द्वारा प्रदान किए जाते हैं और पहले से configured व उपयोग के लिए तैयार होते हैं। इन agents को OneUptime द्वारा प्रबंधित किया जाता है और किसी अतिरिक्त setup की आवश्यकता नहीं होती।
+यदि आप **Cast Operations SaaS** (cloud-hosted संस्करण) का उपयोग कर रहे हैं, तो Global AI Agents Cast Operations द्वारा प्रदान किए जाते हैं और पहले से configured व उपयोग के लिए तैयार होते हैं। इन agents को Cast Operations द्वारा प्रबंधित किया जाता है और किसी अतिरिक्त setup की आवश्यकता नहीं होती।
 
 Global AI Agents, project settings में अक्षम किए जाने तक सभी projects के लिए स्वचालित रूप से उपलब्ध रहते हैं।
 
 ### Self-Hosted AI Agents
 
-उन organizations के लिए जिन्हें अपने स्वयं के infrastructure के भीतर AI agents चलाने की आवश्यकता है (जैसे सुरक्षा, अनुपालन, या नेटवर्क पहुंच आवश्यकताओं के लिए), OneUptime self-hosted AI agents का समर्थन करता है।
+उन organizations के लिए जिन्हें अपने स्वयं के infrastructure के भीतर AI agents चलाने की आवश्यकता है (जैसे सुरक्षा, अनुपालन, या नेटवर्क पहुंच आवश्यकताओं के लिए), Cast Operations self-hosted AI agents का समर्थन करता है।
 
 Self-hosted AI agents:
 
@@ -63,9 +63,9 @@ Self-hosted AI agents:
 
 ## Self-Hosted AI Agent सेट अप करना
 
-### चरण 1: OneUptime में AI Agent बनाएं
+### चरण 1: Cast Operations में AI Agent बनाएं
 
-1. अपने OneUptime dashboard में लॉग इन करें
+1. अपने Cast Operations dashboard में लॉग इन करें
 2. **Project Settings** > **AI Agents** पर जाएं
 3. नया agent जोड़ने के लिए **Create AI Agent** पर क्लिक करें
 4. आवश्यक fields भरें:
@@ -85,11 +85,11 @@ AI agent चलाने के लिए, सुनिश्चित करे
 docker run --name oneuptime-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -d oneuptime/ai-agent:release
 ```
 
-यदि आप OneUptime को self-host कर रहे हैं, तो `ONEUPTIME_URL` को अपने custom self-hosted instance URL में बदलें।
+यदि आप Cast Operations को self-host कर रहे हैं, तो `ONEUPTIME_URL` को अपने custom self-hosted instance URL में बदलें।
 
 #### Docker Compose
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 configuration लागू करें:
@@ -160,15 +160,15 @@ AI agent निम्नलिखित environment variables का समर�
 
 | Variable        | विवरण                                                            |
 | --------------- | ---------------------------------------------------------------- |
-| `AI_AGENT_KEY`  | आपके OneUptime dashboard से AI agent key                         |
-| `AI_AGENT_ID`   | आपके OneUptime dashboard से AI agent ID                          |
-| `ONEUPTIME_URL` | आपके OneUptime instance का URL (डिफ़ॉल्ट: https://oneuptime.com) |
+| `AI_AGENT_KEY`  | आपके Cast Operations dashboard से AI agent key                         |
+| `AI_AGENT_ID`   | आपके Cast Operations dashboard से AI agent ID                          |
+| `ONEUPTIME_URL` | आपके Cast Operations instance का URL (डिफ़ॉल्ट: https://visca.ai) |
 
 ## अपने AI Agent को सत्यापित करना
 
 अपना AI agent deploy करने के बाद:
 
-1. अपने OneUptime dashboard में **Project Settings** > **AI Agents** पर जाएं
+1. अपने Cast Operations dashboard में **Project Settings** > **AI Agents** पर जाएं
 2. कुछ मिनटों के भीतर आपका agent **Connected** दिखाई देना चाहिए
 3. यदि status **Disconnected** दिखाई दे, तो त्रुटियों के लिए container logs जांचें
 
@@ -187,7 +187,7 @@ kubectl logs deployment/oneuptime-ai-agent
 ### Agent Connect नहीं हो रहा
 
 1. **credentials सत्यापित करें**: सुनिश्चित करें कि `AI_AGENT_KEY` और `AI_AGENT_ID` सही हैं
-2. **नेटवर्क जांचें**: सुनिश्चित करें कि agent आपके OneUptime instance तक पहुंच सकता है
+2. **नेटवर्क जांचें**: सुनिश्चित करें कि agent आपके Cast Operations instance तक पहुंच सकता है
 3. **logs समीक्षा करें**: त्रुटि संदेशों के लिए container logs जांचें
 4. **Firewall rules**: सुनिश्चित करें कि outbound HTTPS (port 443) की अनुमति है
 
@@ -201,6 +201,6 @@ kubectl logs deployment/oneuptime-ai-agent
 
 यदि आपके AI agent में कोई समस्या आती है:
 
-1. ज्ञात समस्याओं के लिए [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) देखें
+1. ज्ञात समस्याओं के लिए [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) देखें
 2. यदि आपकी समस्या पहले से रिपोर्ट नहीं है तो एक नई issue बनाएं
-3. यदि आप enterprise plan पर हैं तो [support](https://oneuptime.com/support) से संपर्क करें
+3. यदि आप enterprise plan पर हैं तो [support](https://visca.ai/support) से संपर्क करें

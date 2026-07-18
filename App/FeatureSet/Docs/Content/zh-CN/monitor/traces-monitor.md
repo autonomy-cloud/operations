@@ -1,6 +1,6 @@
 # 追踪监控器
 
-追踪监控允许您监控来自应用程序的分布式追踪，并根据 Span 模式、数量和状态触发告警。OneUptime 在时间窗口内评估来自遥测服务的追踪数据。
+追踪监控允许您监控来自应用程序的分布式追踪，并根据 Span 模式、数量和状态触发告警。Cast Operations 在时间窗口内评估来自遥测服务的追踪数据。
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 ## 创建追踪监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **追踪** 作为监控器类型
 4. 选择要监控的遥测服务
@@ -24,7 +24,7 @@
 
 ### 遥测服务
 
-选择一个或多个服务来监控其追踪。服务必须通过 OpenTelemetry 向 OneUptime 发送追踪数据。
+选择一个或多个服务来监控其追踪。服务必须通过 OpenTelemetry 向 Cast Operations 发送追踪数据。
 
 ### Span 过滤器
 
@@ -79,4 +79,4 @@
 
 ## 设置要求
 
-追踪监控需要您的应用程序通过 OpenTelemetry 向 OneUptime 发送分布式追踪数据。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。
+追踪监控需要您的应用程序通过 OpenTelemetry 向 Cast Operations 发送分布式追踪数据。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。

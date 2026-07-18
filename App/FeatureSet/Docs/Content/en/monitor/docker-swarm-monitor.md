@@ -1,6 +1,6 @@
 # Docker Swarm Monitor
 
-Docker Swarm monitoring allows you to monitor the health and performance of your Docker Swarm clusters — the containers backing each service task across the cluster's nodes. OneUptime collects metrics via a pre-configured OpenTelemetry Collector (the **OneUptime Docker Swarm Agent**) running on a manager node, and evaluates them against your configured criteria.
+Docker Swarm monitoring allows you to monitor the health and performance of your Docker Swarm clusters — the containers backing each service task across the cluster's nodes. Cast Operations collects metrics via a pre-configured OpenTelemetry Collector (the **Cast Operations Docker Swarm Agent**) running on a manager node, and evaluates them against your configured criteria.
 
 ## Overview
 
@@ -13,7 +13,7 @@ Docker Swarm monitors use per-task container metrics from your cluster to provid
 
 ## Creating a Docker Swarm Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Docker Swarm** as the monitor type
 4. Select the Docker Swarm cluster to monitor
@@ -24,7 +24,7 @@ Docker Swarm monitors use per-task container metrics from your cluster to provid
 
 ### Docker Swarm Cluster
 
-Select the Docker Swarm cluster to monitor. Clusters are auto-registered the first time the OneUptime Docker Swarm Agent ships telemetry from them (keyed by the `docker.swarm.cluster.name` resource attribute) — you do not need to create them manually.
+Select the Docker Swarm cluster to monitor. Clusters are auto-registered the first time the Cast Operations Docker Swarm Agent ships telemetry from them (keyed by the `docker.swarm.cluster.name` resource attribute) — you do not need to create them manually.
 
 ### Metric Queries
 
@@ -39,7 +39,7 @@ You can also create **formulas** that combine multiple metric queries using math
 
 ### Metrics
 
-The OneUptime Docker Swarm Agent runs the OpenTelemetry **docker_stats** receiver against the cluster's containers, so the series that arrive are the standard container-runtime metrics:
+The Cast Operations Docker Swarm Agent runs the OpenTelemetry **docker_stats** receiver against the cluster's containers, so the series that arrive are the standard container-runtime metrics:
 
 | Metric                                | Description                                                      |
 | ------------------------------------- | ---------------------------------------------------------------- |
@@ -96,4 +96,4 @@ Swarm nodes, services, and tasks are tracked as **inventory** (the `DockerSwarmR
 
 ## Criteria and Incidents
 
-Docker Swarm monitors evaluate against per-task metric series. When a criteria threshold is breached, OneUptime creates an incident/alert with a root-cause breakdown listing the affected tasks (container name, service, node, and metric value). Incidents and alerts created by a Docker Swarm monitor are automatically linked to the cluster, so they appear on the cluster's activity pages.
+Docker Swarm monitors evaluate against per-task metric series. When a criteria threshold is breached, Cast Operations creates an incident/alert with a root-cause breakdown listing the affected tasks (container name, service, node, and metric value). Incidents and alerts created by a Docker Swarm monitor are automatically linked to the cluster, so they appear on the cluster's activity pages.

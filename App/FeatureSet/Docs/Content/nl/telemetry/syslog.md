@@ -1,22 +1,22 @@
-# Syslog-gegevens naar OneUptime sturen
+# Syslog-gegevens naar Cast Operations sturen
 
 ## Overzicht
 
-De OpenTelemetry Ingest-dienst accepteert nu native Syslog-payloads. U kunt berichten van elke RFC3164- of RFC5424-compatibele bron rechtstreeks naar OneUptime sturen via HTTPS. OneUptime parseert de syslog-prioriteit, faciliteit, ernst, gestructureerde gegevens en berichtinhoud voordat alles als doorzoekbare logboeken wordt opgeslagen.
+De OpenTelemetry Ingest-dienst accepteert nu native Syslog-payloads. U kunt berichten van elke RFC3164- of RFC5424-compatibele bron rechtstreeks naar Cast Operations sturen via HTTPS. Cast Operations parseert de syslog-prioriteit, faciliteit, ernst, gestructureerde gegevens en berichtinhoud voordat alles als doorzoekbare logboeken wordt opgeslagen.
 
 ## Vereisten
 
 - **Telemetrie-ingestietoken** — maak er een aan via _Projectinstellingen → Telemetrie-ingestiesleutels_ en kopieer de `x-oneuptime-token`-waarde.
 - **Syslog-forwarder** — elk hulpmiddel dat HTTP POST-verzoeken kan sturen (bijvoorbeeld `curl`, `rsyslog` via `omhttp`, of `syslog-ng` met de HTTP-bestemmingsplugin).
-- **Dienstnaam (optioneel)** — stel de `x-oneuptime-service-name`-header in om inkomende logboeken te groeperen onder een specifieke telemetriedienst. Indien weggelaten valt OneUptime terug op de syslog `APP-NAME`, hostnaam of `Syslog`.
+- **Dienstnaam (optioneel)** — stel de `x-oneuptime-service-name`-header in om inkomende logboeken te groeperen onder een specifieke telemetriedienst. Indien weggelaten valt Cast Operations terug op de syslog `APP-NAME`, hostnaam of `Syslog`.
 
 ## Eindpunt
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- Vervang `oneuptime.com` door uw host als u OneUptime zelf host.
+- Vervang `visca.ai` door uw host als u Cast Operations zelf host.
 - Voeg altijd de `x-oneuptime-token`-header toe aan het verzoek.
 
 ## Verzoeklichaam
@@ -42,7 +42,7 @@ Stuur door regeleinden gescheiden Syslog-tekenreeksen of een JSON-payload met ee
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -92,13 +92,13 @@ curl \
 
 ### 1. Netwerk- en beveiligingsapparaten
 
-De meeste netwerkapparatuur stelt configuratiewijzigingen, ACL-treffers en bedreigingsdetecties nog steeds uitsluitend beschikbaar via syslog. Wijs uw bestaande relay (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense en meer) rechtstreeks naar OneUptime, of houd een interne relay aan en stuur door via HTTPS:
+De meeste netwerkapparatuur stelt configuratiewijzigingen, ACL-treffers en bedreigingsdetecties nog steeds uitsluitend beschikbaar via syslog. Wijs uw bestaande relay (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense en meer) rechtstreeks naar Cast Operations, of houd een interne relay aan en stuur door via HTTPS:
 
 ```bash
-# rsyslog-fragment dat berichten batcht in JSON en naar OneUptime post
+# rsyslog-fragment dat berichten batcht in JSON en naar Cast Operations post
 module(load="omhttp")
 
-template(name="OneUptimeJSON" type="list") {
+template(name="Cast OperationsJSON" type="list") {
   constant(value="{\"messages\":[\"")
   property(name="rawmsg")
   constant(value="\"]}")
@@ -106,14 +106,14 @@ template(name="OneUptimeJSON" type="list") {
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: perimeter-firewall"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -128,14 +128,14 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: linux-fleet"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -155,7 +155,7 @@ Als u al FluentBit of Fluentd gebruikt, houd die dan voor containerlogboeken en 
 [OUTPUT]
     Name              http
     Match             *
-    Host              oneuptime.com
+    Host              visca.ai
     Port              443
     URI               /syslog/v1/logs
     Format            json
@@ -170,11 +170,11 @@ Deze instelling stelt u in staat syslog te verwerken van bare-metal workers of h
 
 ### 4. Compliance-archieven zonder het wachten
 
-Moet u firewalllogboeken bewaren voor PCI of SOX? Stuur ze rechtstreeks naar OneUptime, pas een lang bewaarbeleid toe op de telemetriedienst en exporteer naar koude opslag vanuit één plek. Geen exporteren meer vanuit meerdere syslog-relays.
+Moet u firewalllogboeken bewaren voor PCI of SOX? Stuur ze rechtstreeks naar Cast Operations, pas een lang bewaarbeleid toe op de telemetriedienst en exporteer naar koude opslag vanuit één plek. Geen exporteren meer vanuit meerdere syslog-relays.
 
 ## Geparseerde attributen
 
-OneUptime voegt automatisch de volgende attributen toe aan elk logboekvermeldingen:
+Cast Operations voegt automatisch de volgende attributen toe aan elk logboekvermeldingen:
 
 - `syslog.priority`, `syslog.facility.code`, `syslog.facility.name`
 - `syslog.severity.code`, `syslog.severity.name`

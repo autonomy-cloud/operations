@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 #
-# OneUptime Runbook Agent Dockerfile
+# Cast Operations Runbook Agent Dockerfile
 #
 
 # Floating on the 26 major so each rebuild picks up the latest Node security
@@ -25,11 +25,11 @@ RUN npm install -g npm@latest
 # layers stay cacheable across commits.
 ENV NODE_OPTIONS="--use-openssl-ca"
 
-LABEL org.opencontainers.image.title="OneUptime Runbook Agent"
-LABEL org.opencontainers.image.description="Executes Bash runbook steps in your own infrastructure and reports results back to OneUptime."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations Runbook Agent"
+LABEL org.opencontainers.image.description="Executes Bash runbook steps in your own infrastructure and reports results back to Cast Operations."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 # Trust the same intermediate certs as the rest of the platform.

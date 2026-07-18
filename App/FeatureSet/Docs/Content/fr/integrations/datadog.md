@@ -1,19 +1,19 @@
 # Intégration Datadog
 
-Transformez les alertes de monitor [Datadog](https://www.datadoghq.com) en incidents OneUptime, pour que la détection Datadog alimente la réponse aux incidents et les pages de statut de OneUptime.
+Transformez les alertes de monitor [Datadog](https://www.datadoghq.com) en incidents Cast Operations, pour que la détection Datadog alimente la réponse aux incidents et les pages de statut de Cast Operations.
 
-Cette intégration est **entrante** : l'[intégration Webhooks](https://docs.datadoghq.com/integrations/webhooks/) de Datadog publie vers un **[Workflow](/docs/workflows/index)** OneUptime qui commence par un **déclencheur Webhook**.
+Cette intégration est **entrante** : l'[intégration Webhooks](https://docs.datadoghq.com/integrations/webhooks/) de Datadog publie vers un **[Workflow](/docs/workflows/index)** Cast Operations qui commence par un **déclencheur Webhook**.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Prérequis
 
 - Un compte Datadog où vous pouvez configurer des intégrations et des monitors.
-- Un projet OneUptime où vous pouvez créer des workflows.
+- Un projet Cast Operations où vous pouvez créer des workflows.
 
-## Étape 1 — Créer le workflow OneUptime
+## Étape 1 — Créer le workflow Cast Operations
 
 1. Ouvrez **Workflows → Create Workflow**, nommez-le `Datadog → Incidents`, et ouvrez le **Builder**.
 2. Ajoutez un déclencheur **Webhook** et **copiez son URL**. Renommez le bloc `Datadog`.
@@ -60,7 +60,7 @@ Ajoutez le handle du webhook aux monitors que vous souhaitez transmettre. Dans l
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-Cela envoie à la fois l'alerte et la reprise vers OneUptime. (Pour tout transmettre, vous pouvez également ajouter `@webhook-oneuptime` à un monitor de façon inconditionnelle.)
+Cela envoie à la fois l'alerte et la reprise vers Cast Operations. (Pour tout transmettre, vous pouvez également ajouter `@webhook-oneuptime` à un monitor de façon inconditionnelle.)
 
 ## Étape 4 — Tester
 

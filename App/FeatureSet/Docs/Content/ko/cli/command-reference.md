@@ -1,12 +1,12 @@
 # 명령 참조
 
-모든 OneUptime CLI 명령에 대한 전체 참조입니다.
+모든 Cast Operations CLI 명령에 대한 전체 참조입니다.
 
 ## 인증 명령
 
 ### `oneuptime login`
 
-OneUptime 인스턴스에 인증합니다.
+Cast Operations 인스턴스에 인증합니다.
 
 ```bash
 oneuptime login <api-key> <instance-url> [--context-name <name>]
@@ -15,7 +15,7 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 | 매개변수         | 유형 | 필수 여부 | 설명                                |
 | ---------------- | ---- | --------- | ----------------------------------- |
 | `<api-key>`      | 인수 | 예        | 인증을 위한 API 키                  |
-| `<instance-url>` | 인수 | 예        | OneUptime 인스턴스 URL              |
+| `<instance-url>` | 인수 | 예        | Cast Operations 인스턴스 URL              |
 | `--context-name` | 옵션 | 아니요    | 컨텍스트 이름 (기본값: `"default"`) |
 
 ---

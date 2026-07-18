@@ -1,7 +1,7 @@
 import i18n from "./i18n";
 
 /*
- * Maps the default English names that OneUptime seeds for every new project
+ * Maps the default English names that Cast Operations seeds for every new project
  * (incident states/severities, monitor statuses, scheduled maintenance states)
  * to the translation key used to look them up in the locale JSON files.
  *

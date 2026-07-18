@@ -1,6 +1,6 @@
 # Website Monitor
 
-Website monitoring आपको किसी भी website या web page की availability, performance और response monitor करने की अनुमति देता है। OneUptime समय-समय पर आपके website URL पर HTTP requests भेजता है और जांचता है कि यह सही तरीके से respond करता है या नहीं।
+Website monitoring आपको किसी भी website या web page की availability, performance और response monitor करने की अनुमति देता है। Cast Operations समय-समय पर आपके website URL पर HTTP requests भेजता है और जांचता है कि यह सही तरीके से respond करता है या नहीं।
 
 ## Overview
 
@@ -14,7 +14,7 @@ Website monitors HTTP requests करके और responses evaluate करक�
 
 ## Website Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **Website** चुनें
 4. वह website URL दर्ज करें जिसे आप monitor करना चाहते हैं
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### Redirects Follow न करें
 
-डिफ़ॉल्ट रूप से, OneUptime HTTP redirects (301, 302, आदि) follow करता है। यदि आप final destination के बजाय redirect response खुद monitor करना चाहते हैं तो इस option को सक्षम करें।
+डिफ़ॉल्ट रूप से, Cast Operations HTTP redirects (301, 302, आदि) follow करता है। यदि आप final destination के बजाय redirect response खुद monitor करना चाहते हैं तो इस option को सक्षम करें।
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

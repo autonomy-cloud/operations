@@ -26,9 +26,9 @@ Als het systeem kort niet beschikbaar is, wordt de run opgepakt zodra het herste
 
 ## Webhook
 
-OneUptime maakt een unieke URL aan. Alles wat die URL aanroept, start de workflow. De headers, query-parameters en body van het verzoek worden meegegeven.
+Cast Operations maakt een unieke URL aan. Alles wat die URL aanroept, start de workflow. De headers, query-parameters en body van het verzoek worden meegegeven.
 
-Goed voor: data naar OneUptime ontvangen vanuit een andere tool — CI/CD-callbacks, alerts van andere monitoring, signups in je CRM.
+Goed voor: data naar Cast Operations ontvangen vanuit een andere tool — CI/CD-callbacks, alerts van andere monitoring, signups in je CRM.
 
 **Output**:
 
@@ -40,15 +40,15 @@ De URL accepteert zowel `GET` als `POST`. De aanroeper krijgt een snelle bevesti
 
 Behandel de URL als een wachtwoord. Iedereen die hem heeft kan je workflow starten.
 
-## OneUptime event-triggers
+## Cast Operations event-triggers
 
-Bijna alles in OneUptime — monitors, incidenten, alerts, scheduled maintenance, statuspagina's, oncall-policies, teams — kan een workflow triggeren. Elk biedt drie events:
+Bijna alles in Cast Operations — monitors, incidenten, alerts, scheduled maintenance, statuspagina's, oncall-policies, teams — kan een workflow triggeren. Elk biedt drie events:
 
 - **On Create** — gaat af wanneer er een nieuwe wordt toegevoegd.
 - **On Update** — gaat af wanneer er een wordt gewijzigd.
 - **On Delete** — gaat af wanneer er een wordt verwijderd.
 
-Zo bouw je "wanneer X gebeurt in OneUptime, doe Y" zonder dat je in een lus dingen hoeft te controleren.
+Zo bouw je "wanneer X gebeurt in Cast Operations, doe Y" zonder dat je in een lus dingen hoeft te controleren.
 
 De volledige record wordt aan het volgende blok doorgegeven. Bijvoorbeeld: de trigger **Incident → On Create** geeft het nieuwe incident door, zodat het volgende blok de titel, beschrijving, severity en elk ander veld kan lezen.
 
@@ -70,7 +70,7 @@ Zoek in het trigger-palet op naam om de gewenste te vinden.
 | Op een knop drukken om de workflow te draaien | **Manual**          |
 | Op een herhalend schema draaien               | **Schedule**        |
 | Een ander systeem data laten doorgeven        | **Webhook**         |
-| Reageren op iets binnen OneUptime             | **OneUptime event** |
+| Reageren op iets binnen Cast Operations             | **Cast Operations event** |
 
 Een workflow kan maar één trigger hebben. Als je dezelfde automatisering op twee manieren wilt starten, bouw dan de gedeelde logica in één workflow en roep die aan vanuit twee dunne "wrapper"-workflows met de **Execute Workflow**-component.
 

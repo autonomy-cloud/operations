@@ -1,27 +1,27 @@
 # Интеграция с Zabbix
 
-[Zabbix](https://www.zabbix.com) следит за вашими серверами и сетью; OneUptime управляет реагированием на инциденты, дежурствами и страницами статуса. Подключите их, и каждая проблема Zabbix автоматически станет инцидентом OneUptime — нужные люди получат уведомление, а страница статуса будет отражать реальное положение дел.
+[Zabbix](https://www.zabbix.com) следит за вашими серверами и сетью; Cast Operations управляет реагированием на инциденты, дежурствами и страницами статуса. Подключите их, и каждая проблема Zabbix автоматически станет инцидентом Cast Operations — нужные люди получат уведомление, а страница статуса будет отражать реальное положение дел.
 
-Эта интеграция является **входящей**: Zabbix отправляет проблемы в OneUptime. Со стороны Zabbix используется **тип медиа webhook**, со стороны OneUptime — **[Workflow](/docs/workflows/index)**. Никаких плагинов и дополнительных сервисов.
+Эта интеграция является **входящей**: Zabbix отправляет проблемы в Cast Operations. Со стороны Zabbix используется **тип медиа webhook**, со стороны Cast Operations — **[Workflow](/docs/workflows/index)**. Никаких плагинов и дополнительных сервисов.
 
 ```text
-Zabbix trigger fires  ──►  Webhook media type  ──►  OneUptime Workflow (Webhook trigger)  ──►  Create Incident
+Zabbix trigger fires  ──►  Webhook media type  ──►  Cast Operations Workflow (Webhook trigger)  ──►  Create Incident
 ```
 
 ## Как это работает
 
 1. Триггер Zabbix переходит в состояние **PROBLEM**.
-2. **Действие** Zabbix указывает типу медиа **OneUptime** отправить событие.
-3. Скрипт типа медиа отправляет небольшую JSON-нагрузку на URL рабочего процесса OneUptime методом `POST`.
+2. **Действие** Zabbix указывает типу медиа **Cast Operations** отправить событие.
+3. Скрипт типа медиа отправляет небольшую JSON-нагрузку на URL рабочего процесса Cast Operations методом `POST`.
 4. Рабочий процесс читает нагрузку и создаёт инцидент (и, опционально, разрешает его при восстановлении Zabbix).
 
 ## Предварительные требования
 
 - Сервер Zabbix, которым вы администрируете (это руководство написано для **Zabbix 6.0 LTS / 7.0 LTS**; тип медиа webhook работает так же на версиях 5.0+).
-- Сервер Zabbix должен иметь возможность обращаться к вашему экземпляру OneUptime по HTTPS.
-- Проект OneUptime, в котором вы можете создавать рабочие процессы.
+- Сервер Zabbix должен иметь возможность обращаться к вашему экземпляру Cast Operations по HTTPS.
+- Проект Cast Operations, в котором вы можете создавать рабочие процессы.
 
-## Часть 1 — Создайте рабочий процесс в OneUptime
+## Часть 1 — Создайте рабочий процесс в Cast Operations
 
 Сделайте это первым, так как вам понадобится сгенерированный URL webhook.
 
@@ -34,18 +34,18 @@ Zabbix trigger fires  ──►  Webhook media type  ──►  OneUptime Workfl
 4. Перетащите блок **Create Incident** и соедините его с выходом **Yes** блока **Conditions**. Заполните:
    - **Title**: `Zabbix: {{Zabbix.Request Body.name}}`
    - **Description**: `Host: {{Zabbix.Request Body.host}}\nSeverity: {{Zabbix.Request Body.severity}}\nZabbix event: {{Zabbix.Request Body.event_id}}`
-   - **Severity**: выберите нужный уровень серьёзности инцидента OneUptime (позже можно уточнить, добавив ветви **Conditions** для сопоставления уровней серьёзности Zabbix).
+   - **Severity**: выберите нужный уровень серьёзности инцидента Cast Operations (позже можно уточнить, добавив ветви **Conditions** для сопоставления уровней серьёзности Zabbix).
 5. Сохраните. Пока оставьте **Enabled** _выключенным_ — включите после тестирования.
 
 > **Совет:** Добавив `event_id` Zabbix в описание (или метку инцидента), вы сможете найти этот инцидент позже, если захотите автоматически разрешить его при восстановлении. См. [Автоматическое разрешение](#автоматическое-разрешение-опционально).
 
 ## Часть 2 — Настройте Zabbix
 
-### Шаг 1: Создайте тип медиа OneUptime
+### Шаг 1: Создайте тип медиа Cast Operations
 
 1. В Zabbix перейдите в **Alerts → Media types** (в старых версиях: **Administration → Media types**).
 2. Нажмите **Create media type** и установите **Type** на **Webhook**.
-3. **Name**: `OneUptime`.
+3. **Name**: `Cast Operations`.
 4. Добавьте следующие **Parameters** (нажмите _Add_ для каждого). Они сопоставляют [макросы](https://www.zabbix.com/documentation/current/en/manual/appendix/macros/supported_by_location) Zabbix с понятной нагрузкой:
 
    | Name             | Value              |
@@ -72,7 +72,7 @@ Zabbix trigger fires  ──►  Webhook media type  ──►  OneUptime Workfl
      name: params.event_name,
      host: params.host,
      severity: params.event_severity,
-     // "1" = problem, "0" = recovered. OneUptime reads this in a Conditions block.
+     // "1" = problem, "0" = recovered. Cast Operations reads this in a Conditions block.
      status: params.event_value,
      date: params.event_date,
      time: params.event_time,
@@ -82,7 +82,7 @@ Zabbix trigger fires  ──►  Webhook media type  ──►  OneUptime Workfl
 
    if (request.getStatus() < 200 || request.getStatus() >= 300) {
      throw (
-       "OneUptime responded with HTTP " + request.getStatus() + ": " + response
+       "Cast Operations responded with HTTP " + request.getStatus() + ": " + response
      );
    }
 
@@ -96,28 +96,28 @@ Zabbix trigger fires  ──►  Webhook media type  ──►  OneUptime Workfl
 
 Zabbix отправляет уведомления _пользователю_. Создайте выделенного пользователя, чтобы интеграцию было легко найти и отключить.
 
-1. Перейдите в **Users → Users → Create user**. Назовите его `OneUptime Webhook`, дайте роль, позволяющую получать уведомления (например, **User role**), и добавьте в группу пользователей.
+1. Перейдите в **Users → Users → Create user**. Назовите его `Cast Operations Webhook`, дайте роль, позволяющую получать уведомления (например, **User role**), и добавьте в группу пользователей.
 2. На вкладке **Media** нажмите **Add**:
-   - **Type**: `OneUptime`
+   - **Type**: `Cast Operations`
    - **Send to**: вставьте **URL webhook рабочего процесса**, скопированный в Части 1.
    - **When active** / серьёзности: оставьте значения по умолчанию (или ограничьте только нужными уровнями серьёзности).
 3. Нажмите **Add** и **Update**.
 
-### Шаг 3: Отправляйте проблемы в OneUptime через действие
+### Шаг 3: Отправляйте проблемы в Cast Operations через действие
 
 1. Перейдите в **Alerts → Actions → Trigger actions → Create action**.
-2. **Name**: `Notify OneUptime`.
+2. **Name**: `Notify Cast Operations`.
 3. **Conditions** (опционально): сузьте область, например _Trigger severity >= Warning_. Оставьте пустым, чтобы отправлять всё.
-4. На вкладке **Operations** добавьте операцию отправки **User: OneUptime Webhook** через тип медиа **OneUptime**.
+4. На вкладке **Operations** добавьте операцию отправки **User: Cast Operations Webhook** через тип медиа **Cast Operations**.
 5. Чтобы позже разрешать инциденты при восстановлении, заполните также **Recovery operations** с тем же пользователем/медиа.
 6. Нажмите **Add**, чтобы сохранить, и убедитесь, что действие **Enabled**.
 
 ## Часть 3 — Протестируйте
 
-1. Вернитесь в рабочий процесс OneUptime и включите **Enabled**.
+1. Вернитесь в рабочий процесс Cast Operations и включите **Enabled**.
 2. В Zabbix вызовите тестовую проблему — например, временно понизьте порог триггера или используйте тестовый элемент, который переходит в состояние проблемы.
 3. Откройте вкладку **Logs** рабочего процесса. Вы должны увидеть запуск с нагрузкой Zabbix, ветку **Yes** блока **Conditions** и созданный инцидент.
-4. Проверьте раздел **Incidents** в OneUptime — проблема Zabbix теперь является инцидентом.
+4. Проверьте раздел **Incidents** в Cast Operations — проблема Zabbix теперь является инцидентом.
 
 Если ничего не поступает, см. [Устранение неполадок](#устранение-неполадок).
 
@@ -130,11 +130,11 @@ Zabbix отправляет уведомления _пользователю_. �
 3. Из выхода **Yes** добавьте блок **Find Incident**, который находит открытый ранее созданный инцидент — совпадение по `event_id` Zabbix, сохранённому в описании или метке.
 4. Соедините с блоком **Update Incident** и переведите инцидент в состояние _разрешено_.
 
-Поскольку разрешение зависит от того, как вы моделируете состояния инцидентов в проекте, сначала убедитесь, что путь _создания_ работает надёжно, и только потом добавляйте путь разрешения. См. [Компоненты → Компоненты данных OneUptime](/docs/workflows/components#oneuptime-data-components).
+Поскольку разрешение зависит от того, как вы моделируете состояния инцидентов в проекте, сначала убедитесь, что путь _создания_ работает надёжно, и только потом добавляйте путь разрешения. См. [Компоненты → Компоненты данных Cast Operations](/docs/workflows/components#oneuptime-data-components).
 
 ## Сопоставление уровней серьёзности Zabbix (опционально)
 
-Уровни серьёзности Zabbix (`Not classified`, `Information`, `Warning`, `Average`, `High`, `Disaster`) приходят в `{{Zabbix.Request Body.severity}}`. Чтобы сопоставить их с уровнями серьёзности инцидентов OneUptime, добавьте ветви **Conditions** перед **Create Incident** — например, направьте `Disaster` и `High` на «Критический» инцидент, а всё остальное — на «Серьёзный». Для каждой ветви создайте отдельный блок **Create Incident**.
+Уровни серьёзности Zabbix (`Not classified`, `Information`, `Warning`, `Average`, `High`, `Disaster`) приходят в `{{Zabbix.Request Body.severity}}`. Чтобы сопоставить их с уровнями серьёзности инцидентов Cast Operations, добавьте ветви **Conditions** перед **Create Incident** — например, направьте `Disaster` и `High` на «Критический» инцидент, а всё остальное — на «Серьёзный». Для каждой ветви создайте отдельный блок **Create Incident**.
 
 ## Устранение неполадок
 
@@ -147,7 +147,7 @@ Zabbix отправляет уведомления _пользователю_. �
 **Zabbix сообщает об ошибке скрипта.**
 
 - Откройте тип медиа и используйте **Test** для отправки примера нагрузки. Zabbix покажет вывод скрипта или выброшенную ошибку.
-- Ответ с кодом не 2xx от OneUptime отображается через `throw` в скрипте — проверьте, что URL рабочего процесса указан точно.
+- Ответ с кодом не 2xx от Cast Operations отображается через `throw` в скрипте — проверьте, что URL рабочего процесса указан точно.
 
 **Инцидент создан, но поля пустые.**
 
@@ -162,7 +162,7 @@ Zabbix отправляет уведомления _пользователю_. �
 
 - Относитесь к URL webhook рабочего процесса как к паролю. Если он утёк — удалите триггер и создайте новый для ротации URL.
 - Ограничьте условия действия Zabbix, чтобы пересылались только те уровни серьёзности, которые требуют создания инцидента.
-- Если вы используете OneUptime self-hosted за межсетевым экраном, разрешите исходящий IP-адрес вашего сервера Zabbix доступ к нему по HTTPS.
+- Если вы используете Cast Operations self-hosted за межсетевым экраном, разрешите исходящий IP-адрес вашего сервера Zabbix доступ к нему по HTTPS.
 
 ## Что читать дальше
 

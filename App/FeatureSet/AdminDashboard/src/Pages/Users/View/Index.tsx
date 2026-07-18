@@ -138,7 +138,7 @@ const Users: FunctionComponent = (): ReactElement => {
                 },
                 title: "Invited By",
                 description:
-                  "The user who invited this user to OneUptime. Empty if the user signed up on their own.",
+                  "The user who invited this user to Cast Operations. Empty if the user signed up on their own.",
                 fieldType: FieldType.Element,
                 getElement: (item: User): ReactElement => {
                   if (!item.createdByUser) {

@@ -9,7 +9,7 @@ Du måste se till att du har:
 
 ```
 # Klona detta repo och gå in i katalogen.
-git clone https://github.com/OneUptime/oneuptime.git
+git clone https://github.com/autonomy-cloud/operations.git
 cd oneuptime
 
 # Kopiera config.example.env till config.env

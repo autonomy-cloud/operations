@@ -1,6 +1,6 @@
 # Moniteur de métriques
 
-La surveillance des métriques vous permet de surveiller les métriques personnalisées d'application et d'infrastructure collectées via OpenTelemetry. OneUptime évalue les valeurs de métriques sur une fenêtre temporelle et déclenche des alertes basées sur vos critères configurés.
+La surveillance des métriques vous permet de surveiller les métriques personnalisées d'application et d'infrastructure collectées via OpenTelemetry. Cast Operations évalue les valeurs de métriques sur une fenêtre temporelle et déclenche des alertes basées sur vos critères configurés.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs de métriques interrogent et évaluent les métriques numériques 
 
 ## Création d'un moniteur de métriques
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Métriques** comme type de moniteur
 4. Configurez les requêtes de métriques et les formules optionnelles
@@ -105,4 +105,4 @@ Choisissez comment agréger les valeurs de métriques pour l'évaluation :
 
 ## Prérequis d'installation
 
-La surveillance des métriques nécessite que vos applications ou votre infrastructure envoient des métriques à OneUptime via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.
+La surveillance des métriques nécessite que vos applications ou votre infrastructure envoient des métriques à Cast Operations via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.

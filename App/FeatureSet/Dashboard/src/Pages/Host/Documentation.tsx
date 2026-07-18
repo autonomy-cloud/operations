@@ -9,7 +9,7 @@ const HostDocumentation: FunctionComponent<
     <Fragment>
       <HostDocumentationCard
         title="Host Monitoring Setup Guide"
-        description="Configure your OpenTelemetry Collector to forward host metrics, processes, and logs to OneUptime. Once telemetry arrives, the host will appear here automatically."
+        description="Configure your OpenTelemetry Collector to forward host metrics, processes, and logs to Cast Operations. Once telemetry arrives, the host will appear here automatically."
       />
     </Fragment>
   );

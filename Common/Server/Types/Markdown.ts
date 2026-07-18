@@ -507,7 +507,7 @@ export default class Markdown {
       const isTel: boolean = href.startsWith("tel:");
       const isInternal: boolean =
         href.startsWith("/") ||
-        href.includes("oneuptime.com") ||
+        href.includes("visca.ai") ||
         isHash ||
         isMailTo ||
         isTel;

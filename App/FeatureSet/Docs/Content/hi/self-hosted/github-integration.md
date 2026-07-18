@@ -1,11 +1,11 @@
 # GitHub Integration
 
-अपने self-hosted OneUptime instance के साथ GitHub integrate करने के लिए, आपको एक GitHub App बनाना और आवश्यक environment variables configure करने होंगे। यह OneUptime को code repository management के लिए आपके GitHub repositories से connect करने की अनुमति देता है।
+अपने self-hosted Cast Operations instance के साथ GitHub integrate करने के लिए, आपको एक GitHub App बनाना और आवश्यक environment variables configure करने होंगे। यह Cast Operations को code repository management के लिए आपके GitHub repositories से connect करने की अनुमति देता है।
 
 ## पूर्व आवश्यकताएं
 
 - organization admin access के साथ GitHub Account (organization repositories के लिए) या personal account access
-- आपके OneUptime server configuration तक पहुंच
+- आपके Cast Operations server configuration तक पहुंच
 
 ## Setup Instructions
 
@@ -19,12 +19,12 @@
 2. **"New GitHub App"** पर क्लिक करें
 
 3. Registration form भरें:
-   - **GitHub App name:** OneUptime (या कोई unique नाम) - **इस नाम को save करें, आपको इसे `GITHUB_APP_NAME` environment variable के लिए चाहिए होगा**
-   - **Homepage URL:** `https://your-oneuptime-domain.com`
-   - **Callback URL:** `https://your-oneuptime-domain.com/api/github/auth/callback`
-   - **Setup URL:** `https://your-oneuptime-domain.com/api/github/auth/callback` - **महत्वपूर्ण: यह वह URL है जहाँ GitHub users को app install करने के बाद redirect करता है। Redirect काम करने के लिए इसे set होना चाहिए।**
+   - **GitHub App name:** Cast Operations (या कोई unique नाम) - **इस नाम को save करें, आपको इसे `GITHUB_APP_NAME` environment variable के लिए चाहिए होगा**
+   - **Homepage URL:** `https://your-operations-domain.com`
+   - **Callback URL:** `https://your-operations-domain.com/api/github/auth/callback`
+   - **Setup URL:** `https://your-operations-domain.com/api/github/auth/callback` - **महत्वपूर्ण: यह वह URL है जहाँ GitHub users को app install करने के बाद redirect करता है। Redirect काम करने के लिए इसे set होना चाहिए।**
    - **Redirect on update:** app installation update करने के बाद users को redirect करने के लिए इस option को check करें
-   - **Webhook URL:** `https://your-oneuptime-domain.com/api/github/webhook`
+   - **Webhook URL:** `https://your-operations-domain.com/api/github/webhook`
    - **Webhook secret:** एक secure random string generate करें (बाद के लिए save करें)
 
 ### चरण 2: App Permissions Configure करें
@@ -56,7 +56,7 @@
 
 ### चरण 3: Webhook Events Subscribe करें
 
-OneUptime को real-time updates receive करने के लिए, इन webhook events subscribe करें:
+Cast Operations को real-time updates receive करने के लिए, इन webhook events subscribe करें:
 
 - **Pull request** - PRs खुलने, बंद होने या merge होने पर notifications receive करें
 - **Push** - code push होने पर notifications receive करें
@@ -90,7 +90,7 @@ OneUptime को real-time updates receive करने के लिए, इन
 3. एक `.pem` फ़ाइल automatically download होगी
 4. इस फ़ाइल को secure रखें - इसका उपयोग GitHub App के रूप में authenticate करने के लिए होता है
 
-### चरण 8: OneUptime Environment Variables Configure करें
+### चरण 8: Cast Operations Environment Variables Configure करें
 
 #### Docker Compose
 
@@ -99,7 +99,7 @@ OneUptime को real-time updates receive करने के लिए, इन
 ```bash
 # GitHub App Configuration
 GITHUB_APP_ID=YOUR_APP_ID
-GITHUB_APP_NAME=YOUR_APP_NAME  # आपके GitHub App का exact नाम (जैसे "OneUptime")
+GITHUB_APP_NAME=YOUR_APP_NAME  # आपके GitHub App का exact नाम (जैसे "Cast Operations")
 GITHUB_APP_CLIENT_ID=YOUR_CLIENT_ID
 GITHUB_APP_CLIENT_SECRET=YOUR_CLIENT_SECRET
 GITHUB_APP_PRIVATE_KEY="<BASE64_ENCODED_PRIVATE_KEY_CONTENT>"
@@ -122,7 +122,7 @@ gitHubApp:
   webhookSecret: "YOUR_WEBHOOK_SECRET"
 ```
 
-**महत्वपूर्ण:** इन environment variables को add करने के बाद अपना OneUptime server restart करें ताकि वे effect में आएं।
+**महत्वपूर्ण:** इन environment variables को add करने के बाद अपना Cast Operations server restart करें ताकि वे effect में आएं।
 
 ### चरण 9: GitHub App Install करें
 
@@ -134,14 +134,14 @@ gitHubApp:
    - **Only select repositories** - specific repositories चुनें
 5. **"Install"** पर क्लिक करें
 
-### चरण 10: OneUptime में Repositories Connect करें
+### चरण 10: Cast Operations में Repositories Connect करें
 
-1. अपने OneUptime dashboard में login करें
+1. अपने Cast Operations dashboard में login करें
 2. **More** > **Code Repositories** पर जाएं
 3. **"Create Repository"** पर क्लिक करें या GitHub App installation flow उपयोग करें
 4. यदि GitHub से redirect हुए, तो installation ID automatically capture होगी
 5. list से वे repositories चुनें जिन्हें आप connect करना चाहते हैं
-6. repository को अपने OneUptime project से link करने के लिए **"Connect"** पर क्लिक करें
+6. repository को अपने Cast Operations project से link करने के लिए **"Connect"** पर क्लिक करें
 
 ## Environment Variables Reference
 
@@ -156,16 +156,16 @@ gitHubApp:
 
 ## समस्या निवारण
 
-### GitHub App install करने के बाद OneUptime पर redirect नहीं हुआ:
+### GitHub App install करने के बाद Cast Operations पर redirect नहीं हुआ:
 
-- सुनिश्चित करें कि आपके GitHub App settings में **Setup URL** configure है: `https://your-oneuptime-domain.com/api/github/auth/callback`
+- सुनिश्चित करें कि आपके GitHub App settings में **Setup URL** configure है: `https://your-operations-domain.com/api/github/auth/callback`
 - अपने GitHub App settings > "Post installation" section पर जाएं और सत्यापित करें कि Setup URL सेट है
 - "Redirect on update" option भी checked होनी चाहिए
 
 **"GitHub App is not configured" error:**
 
 - सुनिश्चित करें कि `GITHUB_APP_CLIENT_ID` environment variable सेट है
-- environment variables सेट करने के बाद अपना OneUptime server restart करें
+- environment variables सेट करने के बाद अपना Cast Operations server restart करें
 
 **"Invalid webhook signature" error:**
 

@@ -1,6 +1,6 @@
 # Monitor de Servidor / VM
 
-O monitoramento de servidor e VM permite monitorar a saúde e o desempenho dos seus servidores, máquinas virtuais e outras infraestruturas, instalando um agente leve que relata métricas do sistema para o OneUptime.
+O monitoramento de servidor e VM permite monitorar a saúde e o desempenho dos seus servidores, máquinas virtuais e outras infraestruturas, instalando um agente leve que relata métricas do sistema para o Cast Operations.
 
 ## Visão Geral
 
@@ -14,7 +14,7 @@ Os monitores de servidor usam um agente de infraestrutura instalado nos seus ser
 
 ## Criando um Monitor de Servidor
 
-1. Vá para **Monitors** no Painel do OneUptime
+1. Vá para **Monitors** no Painel do Cast Operations
 2. Clique em **Create Monitor**
 3. Selecione **Server / VM** como o tipo de monitor
 4. Uma **Secret Key** será gerada para este monitor — você precisará dela para configurar o agente
@@ -22,26 +22,26 @@ Os monitores de servidor usam um agente de infraestrutura instalado nos seus ser
 
 ## Instalando o Agente de Infraestrutura
 
-O Agente de Infraestrutura do OneUptime é um daemon leve baseado em Go que coleta métricas do sistema e as envia para o OneUptime a cada 30 segundos. Suporta Linux, macOS e Windows.
+O Agente de Infraestrutura do Cast Operations é um daemon leve baseado em Go que coleta métricas do sistema e as envia para o Cast Operations a cada 30 segundos. Suporta Linux, macOS e Windows.
 
 ### Linux / macOS
 
 ```bash
 # Install the agent
-curl -sSL https://oneuptime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Configure the agent
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # Start the agent
 sudo oneuptime-infrastructure-agent start
 ```
 
-Substitua `YOUR_SECRET_KEY` pela chave secreta mostrada nas configurações do seu monitor e `https://oneuptime.com` pela URL da sua instância do OneUptime se for auto-hospedada.
+Substitua `YOUR_SECRET_KEY` pela chave secreta mostrada nas configurações do seu monitor e `https://visca.ai` pela URL da sua instância do Cast Operations se for auto-hospedada.
 
 ### Windows
 
-1. Baixe o agente mais recente em [GitHub Releases](https://github.com/OneUptime/oneuptime/releases/latest)
+1. Baixe o agente mais recente em [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest)
    - `oneuptime-infrastructure-agent_windows_amd64.zip` para sistemas x64
    - `oneuptime-infrastructure-agent_windows_arm64.zip` para sistemas ARM64
 2. Extraia o arquivo zip
@@ -49,7 +49,7 @@ Substitua `YOUR_SECRET_KEY` pela chave secreta mostrada nas configurações do s
 
 ```bash
 # Configure the agent
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # Start the agent
 oneuptime-infrastructure-agent start
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 Se o seu servidor se conecta à internet por meio de um proxy, você pode configurar o agente para usá-lo:
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com --proxy-url=http://proxy.example.com:8080
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Comandos do Agente
@@ -69,7 +69,7 @@ O agente de infraestrutura suporta os seguintes comandos:
 
 | Comando     | Descrição                                                                        |
 | ----------- | -------------------------------------------------------------------------------- |
-| `configure` | Configure o agente com sua chave secreta e URL do OneUptime                      |
+| `configure` | Configure o agente com sua chave secreta e URL do Cast Operations                      |
 | `start`     | Inicie o serviço do agente                                                       |
 | `stop`      | Pare o serviço do agente                                                         |
 | `restart`   | Reinicie o serviço do agente                                                     |
@@ -179,7 +179,7 @@ Para verificações de processo:
 - Verifique se o agente está em execução: `sudo oneuptime-infrastructure-agent status`
 - Verifique os logs do agente: `sudo oneuptime-infrastructure-agent logs -n 50`
 - Confirme que a chave secreta está correta
-- Certifique-se de que o servidor pode alcançar a URL da sua instância do OneUptime
+- Certifique-se de que o servidor pode alcançar a URL da sua instância do Cast Operations
 - Verifique as regras de firewall que permitem conexões HTTPS de saída
 
 ### Alto uso de recursos pelo agente
@@ -192,7 +192,7 @@ O agente é projetado para ser leve. Se você notar alto uso de recursos:
 ### Problemas de proxy
 
 - Verifique se a URL e a porta do proxy estão corretas
-- Certifique-se de que o proxy permite conexões com sua instância do OneUptime
+- Certifique-se de que o proxy permite conexões com sua instância do Cast Operations
 - Reconfigure com: `sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
 
 ## Melhores Práticas

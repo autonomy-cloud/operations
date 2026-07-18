@@ -1,8 +1,8 @@
 # Global SSO（執行個體層級單一登入）
 
-Global SSO 讓 OneUptime 的**執行個體管理員**（master admin）能夠**在執行個體層級設定一次**單一的 SAML 2.0 或 OpenID Connect（OIDC）身分提供者，並將其連接至伺服器上的任何專案。它是各專案 SSO 的執行個體層級對應方案：與其讓每位專案擁有者各自設定自己的身分提供者，master admin 只需設定一個即可服務整個執行個體。
+Global SSO 讓 Cast Operations 的**執行個體管理員**（master admin）能夠**在執行個體層級設定一次**單一的 SAML 2.0 或 OpenID Connect（OIDC）身分提供者，並將其連接至伺服器上的任何專案。它是各專案 SSO 的執行個體層級對應方案：與其讓每位專案擁有者各自設定自己的身分提供者，master admin 只需設定一個即可服務整個執行個體。
 
-Global SSO 是 **OneUptime Enterprise Edition** 功能，僅在執行 Enterprise Edition 組建的執行個體上可用。
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO 與 Project SSO 的差異
 
@@ -24,7 +24,7 @@ Global SSO 是 **OneUptime Enterprise Edition** 功能，僅在執行 Enterprise
    - 若使用 SAML：輸入 **Name**、來自您身分提供者的 **Sign On URL** 與 **Issuer**，並貼上 **Public Certificate**。選擇 **Signature** 與 **Digest** 方法（若不確定，請保留預設值 — `RSA-SHA256` / `SHA256`）。
    - 若使用 OIDC：輸入 **Discovery URL**、**Issuer**、**Client ID**、**Client Secret**、**Scopes**（必須包含 `openid`），以及 **email** / **name** 宣告名稱。
 
-3. **將 OneUptime URL 複製到您的身分提供者**
+3. **將 Cast Operations URL 複製到您的身分提供者**
 
    - 開啟該提供者（點選清單中的該列）以顯示 **Identity Provider URLs** 卡片。
    - 若使用 SAML，請將 **ACS URL (Reply URL)** 與 **Issuer (Entity ID)** 複製到您的 IdP（Okta、Azure AD、OneLogin、JumpCloud 等）。

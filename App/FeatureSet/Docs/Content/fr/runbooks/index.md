@@ -4,7 +4,7 @@ Les runbooks sont des procédures de réponse réutilisables — des listes ordo
 
 ## En un coup d'œil
 
-- **Fonctionnalité de premier niveau** dans le tableau de bord OneUptime, sous **Analyse & Automatisation → Runbooks**.
+- **Fonctionnalité de premier niveau** dans le tableau de bord Cast Operations, sous **Analyse & Automatisation → Runbooks**.
 - **Cinq types d'étapes** : liste manuelle, JavaScript (en bac à sable) et Bash (tous deux tournent sur un [Agent de runbook](/docs/runbooks/agents) dans votre propre infrastructure), requête HTTP, et AI (analyse le contexte de l'incident et des étapes avec le fournisseur LLM de votre projet).
 - **Trois voies de déclenchement** : règles qui correspondent à des incidents/alertes/maintenances planifiées, ou bouton manuel « Exécuter le runbook » sur tout événement.
 - **Sémantique de snapshot** : au démarrage d'un runbook, ses étapes sont copiées dans l'exécution. Modifier le modèle ensuite ne change jamais une exécution en cours.
@@ -35,7 +35,7 @@ Quelques termes reviennent dans toute la documentation runbook. Clarifions-les d
 ## Le cycle de vie d'un runbook
 
 1. **Rédiger** — Créez un runbook, mélangez des étapes Manuelles, JavaScript, HTTP, Bash et AI. Enregistrez.
-2. **(Optionnel) Ajouter une règle** — Depuis les paramètres des Incidents, Alertes ou Maintenances Planifiées, dites à OneUptime de démarrer ce runbook chaque fois que le titre ou la description d'un événement correspond à une regex.
+2. **(Optionnel) Ajouter une règle** — Depuis les paramètres des Incidents, Alertes ou Maintenances Planifiées, dites à Cast Operations de démarrer ce runbook chaque fois que le titre ou la description d'un événement correspond à une regex.
 3. **Déclencher** — Soit la règle se déclenche automatiquement lors de la création d'un événement correspondant, soit un répondeur clique manuellement **Exécuter le runbook** sur l'événement.
 4. **Exécuter** — Une nouvelle exécution est créée avec un snapshot des étapes. Les étapes automatisées s'exécutent en ligne sur le worker Runbook ; l'exécution se met en pause à chaque étape manuelle jusqu'à ce que quelqu'un la valide.
 5. **Auditer** — L'exécution reste à jamais sur l'onglet **Runbooks** de l'événement et sur la liste **Exécutions** du runbook. La sortie, les erreurs et les temps de chaque étape sont préservés pour le postmortem.
@@ -46,7 +46,7 @@ Un guide rapide de décision. La présentation complète se trouve dans [Rédige
 
 | Type d'étape     | À utiliser quand…                                                                                                                                                                                                                                                        | Exemple                                                                                            |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| **Manuelle**     | Un humain doit vérifier quelque chose, porter un jugement ou effectuer une action que OneUptime ne peut pas observer.                                                                                                                                                    | « Confirmer que le trafic est basculé sur la région secondaire dans le tableau du load balancer. » |
+| **Manuelle**     | Un humain doit vérifier quelque chose, porter un jugement ou effectuer une action que Cast Operations ne peut pas observer.                                                                                                                                                    | « Confirmer que le trafic est basculé sur la région secondaire dans le tableau du load balancer. » |
 | **JavaScript**   | Vous avez besoin d'un petit calcul contenu — interroger un service de configuration, transformer une charge utile, exécuter une logique avant l'étape suivante. Tourne en bac à sable sur un [Agent de runbook](/docs/runbooks/agents) dans votre propre infrastructure. | Calculer le retard de réplication actuel et décider si l'on continue.                              |
 | **Requête HTTP** | Vous appelez une API existante — votre endpoint d'administration, un fournisseur cloud, PagerDuty, Slack.                                                                                                                                                                | `POST` vers votre orchestrateur de bascule.                                                        |
 | **Bash**         | Vous devez exécuter des commandes shell sur votre propre infrastructure — redémarrer un service, lancer `kubectl`, appeler un script de déploiement. Nécessite un [Agent de runbook](/docs/runbooks/agents) installé dans votre environnement.                           | Redémarrer un service, `kubectl rollout restart`, exécuter un script de récupération.              |
@@ -106,7 +106,7 @@ Runbooks :      [Bascule DB primary]
 
 **4. Auditer.** L'exécution reste sur l'onglet **Runbooks** de l'incident. La sortie de chaque étape est à un clic. Quand vous écrirez le postmortem la semaine prochaine, vous n'aurez pas à demander « qu'a renvoyé ce script ? » — c'est juste là.
 
-## Comment les runbooks s'intègrent au reste de OneUptime
+## Comment les runbooks s'intègrent au reste de Cast Operations
 
 - **Les monitors** ouvrent des incidents et alertes ; **les règles de runbook** transforment ces événements en exécutions. Ensemble, ils forment une boucle fermée : détecter → déclencher → répondre → enregistrer.
 - **Les connexions d'espace de travail** (Slack, Microsoft Teams) sont une cible naturelle pour les étapes HTTP des runbooks — publier des mises à jour, prévenir des canaux.

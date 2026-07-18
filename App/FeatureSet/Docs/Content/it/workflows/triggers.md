@@ -26,9 +26,9 @@ Se il sistema e brevemente non disponibile, l'esecuzione viene avviata non appen
 
 ## Webhook
 
-OneUptime crea un URL univoco. Qualunque cosa raggiunga quell'URL avvia il workflow. Gli header, i parametri della query e il body della richiesta vengono passati al workflow.
+Cast Operations crea un URL univoco. Qualunque cosa raggiunga quell'URL avvia il workflow. Gli header, i parametri della query e il body della richiesta vengono passati al workflow.
 
-Adatto per: ricevere dati in OneUptime da un altro strumento — callback CI/CD, allarmi da altri sistemi di monitoraggio, registrazioni nel tuo CRM.
+Adatto per: ricevere dati in Cast Operations da un altro strumento — callback CI/CD, allarmi da altri sistemi di monitoraggio, registrazioni nel tuo CRM.
 
 **Output**:
 
@@ -40,15 +40,15 @@ L'URL accetta sia `GET` che `POST`. Il chiamante riceve un riscontro rapido — 
 
 Tratta l'URL come una password. Chiunque lo possieda puo avviare il tuo workflow.
 
-## Trigger sugli eventi di OneUptime
+## Trigger sugli eventi di Cast Operations
 
-Quasi tutti gli elementi di OneUptime — monitor, incidenti, allarmi, manutenzioni programmate, status page, policy on-call, team — possono attivare un workflow. Ognuno offre tre eventi:
+Quasi tutti gli elementi di Cast Operations — monitor, incidenti, allarmi, manutenzioni programmate, status page, policy on-call, team — possono attivare un workflow. Ognuno offre tre eventi:
 
 - **On Create** — scatta quando ne viene aggiunto uno nuovo.
 - **On Update** — scatta quando ne viene modificato uno.
 - **On Delete** — scatta quando ne viene eliminato uno.
 
-Ecco come costruire "quando X accade in OneUptime, fai Y" senza dover controllare le cose in un ciclo.
+Ecco come costruire "quando X accade in Cast Operations, fai Y" senza dover controllare le cose in un ciclo.
 
 Il record completo viene passato al blocco successivo. Per esempio, il trigger **Incident → On Create** passa il nuovo incidente, cosi il blocco successivo puo leggerne titolo, descrizione, severita e qualsiasi altro campo.
 
@@ -70,7 +70,7 @@ Cerca nel pannello dei trigger per nome per trovare quello che ti serve.
 | Cliccare un pulsante per eseguire il workflow | **Manual**          |
 | Eseguire su una pianificazione ricorrente     | **Schedule**        |
 | Far inviare dati a un altro sistema           | **Webhook**         |
-| Reagire a qualcosa all'interno di OneUptime   | **OneUptime event** |
+| Reagire a qualcosa all'interno di Cast Operations   | **Cast Operations event** |
 
 Un workflow puo avere un solo trigger. Se hai bisogno di due modi per avviare la stessa automazione, costruisci la logica condivisa in un workflow e richiamala da due workflow "wrapper" sottili usando il componente **Execute Workflow**.
 

@@ -1,7 +1,7 @@
 /*
  * The relationship taxonomy between OpenTelemetry entities. The upstream
  * OTel spec deliberately leaves entity relationships unstandardized
- * ("refined in future specification work"), so OneUptime infers a small,
+ * ("refined in future specification work"), so Cast Operations infers a small,
  * durable set of directed relationships from resource co-occurrence — the
  * entities that appear together in one resource are, by construction,
  * related. See Internal/Docs/OpenTelemetryEntities.md §4.

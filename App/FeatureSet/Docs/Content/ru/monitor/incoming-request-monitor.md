@@ -1,6 +1,6 @@
 # Монитор входящих запросов
 
-Мониторинг входящих запросов (также известный как мониторинг пульса) позволяет отслеживать сервисы, которые сами периодически отправляют HTTP-запросы в OneUptime. Вместо того чтобы OneUptime обращался к вашему сервису, сам сервис отправляет сигнал в OneUptime, подтверждая свою работоспособность.
+Мониторинг входящих запросов (также известный как мониторинг пульса) позволяет отслеживать сервисы, которые сами периодически отправляют HTTP-запросы в Cast Operations. Вместо того чтобы Cast Operations обращался к вашему сервису, сам сервис отправляет сигнал в Cast Operations, подтверждая свою работоспособность.
 
 ## Обзор
 
@@ -14,7 +14,7 @@
 
 ## Создание монитора входящих запросов
 
-1. Перейдите в раздел **Мониторы** на панели управления OneUptime
+1. Перейдите в раздел **Мониторы** на панели управления Cast Operations
 2. Нажмите **Создать монитор**
 3. Выберите тип монитора **Входящий запрос**
 4. Для данного монитора будет сгенерирован **Секретный ключ** и URL пульса
@@ -26,7 +26,7 @@
 После создания у монитора появится уникальный URL пульса в формате:
 
 ```
-https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+https://visca.ai/heartbeat/YOUR_SECRET_KEY
 ```
 
 Ваш сервис должен отправлять HTTP-запросы **GET** или **POST** на этот URL через регулярные промежутки времени.
@@ -37,10 +37,10 @@ https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
 
 ```bash
 # Простой GET-запрос
-curl https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 # POST-запрос с телом запроса
-curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Добавьте в crontab для отправки пульса каждые 5 минут
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### Из кода приложения
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Пример на Node.js
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/YOUR_SECRET_KEY");
+https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Пример на Python
 import requests
-requests.get('https://oneuptime.com/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
 ```
 
-При использовании самостоятельного хостинга замените `https://oneuptime.com` URL-адресом вашего экземпляра OneUptime.
+При использовании самостоятельного хостинга замените `https://visca.ai` URL-адресом вашего экземпляра Cast Operations.
 
 ## Критерии мониторинга
 

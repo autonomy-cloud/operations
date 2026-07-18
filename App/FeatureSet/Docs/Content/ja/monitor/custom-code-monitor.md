@@ -22,7 +22,7 @@ return {
 
 #### シークレットの追加
 
-シークレットを追加するには、OneUptime Dashboard -> プロジェクト設定 -> モニターシークレット -> モニターシークレットの作成 に移動してください。
+シークレットを追加するには、Cast Operations Dashboard -> プロジェクト設定 -> モニターシークレット -> モニターシークレットの作成 に移動してください。
 
 ![シークレットの作成](/docs/static/images/CreateMonitorSecret.png)
 
@@ -50,7 +50,7 @@ console.log(stringSecret);
 
 ### カスタムメトリクス
 
-`oneuptime.captureMetric()` 関数を使用して、スクリプトからカスタムメトリクスをキャプチャできます。これらのメトリクスはOneUptimeに保存され、メトリクスエクスプローラーを使用してダッシュボードのチャートに表示できます。
+`oneuptime.captureMetric()` 関数を使用して、スクリプトからカスタムメトリクスをキャプチャできます。これらのメトリクスはCast Operationsに保存され、メトリクスエクスプローラーを使用してダッシュボードのチャートに表示できます。
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);

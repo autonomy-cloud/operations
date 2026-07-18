@@ -1,6 +1,6 @@
 # Spårningsmonitor
 
-Spårningsövervakning gör det möjligt att övervaka distribuerade spårningar från dina applikationer och utlösa varningar baserat på span-mönster, antal och statusar. OneUptime utvärderar spårningsdata från dina telemetritjänster under ett tidsfönster.
+Spårningsövervakning gör det möjligt att övervaka distribuerade spårningar från dina applikationer och utlösa varningar baserat på span-mönster, antal och statusar. Cast Operations utvärderar spårningsdata från dina telemetritjänster under ett tidsfönster.
 
 ## Översikt
 
@@ -14,7 +14,7 @@ Spårningsmonitorer söker och räknar spans som matchar specifika filter. Detta
 
 ## Skapa en spårningsmonitor
 
-1. Gå till **Monitorer** i OneUptime-instrumentpanelen
+1. Gå till **Monitorer** i Cast Operations-instrumentpanelen
 2. Klicka på **Skapa monitor**
 3. Välj **Spårningar** som monitortyp
 4. Välj de telemetritjänster att övervaka
@@ -24,7 +24,7 @@ Spårningsmonitorer söker och räknar spans som matchar specifika filter. Detta
 
 ### Telemetritjänster
 
-Välj en eller flera tjänster att övervaka spårningar från. Tjänster måste skicka spårningar till OneUptime via OpenTelemetry.
+Välj en eller flera tjänster att övervaka spårningar från. Tjänster måste skicka spårningar till Cast Operations via OpenTelemetry.
 
 ### Span-filter
 
@@ -79,4 +79,4 @@ Välj en eller flera tjänster att övervaka spårningar från. Tjänster måste
 
 ## Konfigurationskrav
 
-Spårningsövervakning kräver att dina applikationer skickar distribuerade spårningar till OneUptime via OpenTelemetry. Se dokumentationen för [OpenTelemetry](/docs/telemetry/open-telemetry) för konfigurationsinstruktioner.
+Spårningsövervakning kräver att dina applikationer skickar distribuerade spårningar till Cast Operations via OpenTelemetry. Se dokumentationen för [OpenTelemetry](/docs/telemetry/open-telemetry) för konfigurationsinstruktioner.

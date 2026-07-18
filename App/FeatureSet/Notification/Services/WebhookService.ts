@@ -109,8 +109,8 @@ export default class WebhookService {
 
       const headers: Record<string, string> = {
         "Content-Type": "application/json",
-        "User-Agent": "OneUptime-Webhook/1.0",
-        "X-OneUptime-Event": message.eventType,
+        "User-Agent": "Cast Operations-Webhook/1.0",
+        "X-Cast Operations-Event": message.eventType,
       };
 
       if (message.secret) {
@@ -118,7 +118,7 @@ export default class WebhookService {
           .createHmac("sha256", message.secret)
           .update(bodyString)
           .digest("hex");
-        headers["X-OneUptime-Signature"] = `sha256=${signature}`;
+        headers["X-Cast Operations-Signature"] = `sha256=${signature}`;
       }
 
       const targetUrl: URL = URL.fromString(message.url);

@@ -68,7 +68,7 @@ The **Custom Code** block reads variables differently — global variables come 
 
 ### Building a payload from a webhook
 
-A webhook arrives with a body like `{ "service": "checkout", "status": "failed" }`. To turn that into a OneUptime incident:
+A webhook arrives with a body like `{ "service": "checkout", "status": "failed" }`. To turn that into a Cast Operations incident:
 
 1. **Webhook** trigger named `CIWebhook`.
 2. **Conditions** block: select the webhook's Request Body output and use its `status` property, operator `==`, right `failed`.

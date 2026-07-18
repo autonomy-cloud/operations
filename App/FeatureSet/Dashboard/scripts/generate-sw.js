@@ -17,7 +17,7 @@ const templatePath = path.join(__dirname, "..", "sw.js.template");
 const outputPath = path.join(__dirname, "..", "public", "sw.js");
 
 try {
-  generateServiceWorker(templatePath, outputPath, "OneUptime Dashboard");
+  generateServiceWorker(templatePath, outputPath, "Cast Operations Dashboard");
 } catch (error) {
   console.error(
     "❌ Failed to generate Dashboard service worker:",

@@ -4,15 +4,15 @@ Il Monitor Email In Entrata consente di creare e risolvere avvisi in base alle e
 
 ## Come Funziona
 
-1. Quando si crea un Monitor Email In Entrata, OneUptime genera un indirizzo email univoco per quel monitor
+1. Quando si crea un Monitor Email In Entrata, Cast Operations genera un indirizzo email univoco per quel monitor
 2. Qualsiasi email inviata a quell'indirizzo viene ricevuta e valutata in base ai criteri configurati
-3. In base ai criteri, OneUptime può creare nuovi avvisi o risolvere quelli esistenti
+3. In base ai criteri, Cast Operations può creare nuovi avvisi o risolvere quelli esistenti
 
-Questo è un modo efficace per integrare i sistemi di avviso basati su email con il flusso di gestione degli incidenti di OneUptime.
+Questo è un modo efficace per integrare i sistemi di avviso basati su email con il flusso di gestione degli incidenti di Cast Operations.
 
 ## Creazione di un Monitor Email In Entrata
 
-1. Accedere a **Monitor** nel Dashboard di OneUptime
+1. Accedere a **Monitor** nel Dashboard di Cast Operations
 2. Fare clic su **Crea Monitor**
 3. Selezionare **Email In Entrata** come tipo di monitor
 4. Configurare le impostazioni del monitor:
@@ -118,7 +118,7 @@ Questo risolve l'avviso quando viene ricevuta un'email.
 
 Molti sistemi più vecchi supportano solo avvisi basati su email. Usare il Monitor Email In Entrata per:
 
-- Convertire gli avvisi email in incidenti OneUptime
+- Convertire gli avvisi email in incidenti Cast Operations
 - Risolvere automaticamente gli incidenti quando arrivano email di recupero
 - Centralizzare gli avvisi da più sistemi legacy
 
@@ -144,7 +144,7 @@ Monitorare job batch e attività pianificate:
 Consolidare gli avvisi da più strumenti di monitoraggio:
 
 - Ricevere avvisi da Nagios, Zabbix o altri strumenti tramite email
-- Unificare la gestione degli incidenti in OneUptime
+- Unificare la gestione degli incidenti in Cast Operations
 - Mantenere un'unica fonte di verità per tutti gli avvisi
 
 ## Variabili Template
@@ -171,7 +171,7 @@ Il riepilogo del monitor mostra:
 
 ## Configurazione Self-Hosted
 
-Se si ospita OneUptime autonomamente, è necessario configurare un provider di email in entrata. Attualmente supportato:
+Se si ospita Cast Operations autonomamente, è necessario configurare un provider di email in entrata. Attualmente supportato:
 
 - **SendGrid Inbound Parse** - Vedere [Integrazione Email In Entrata SendGrid](/docs/self-hosted/sendgrid-inbound-email) per le istruzioni di configurazione
 
@@ -190,7 +190,7 @@ Se si ospita OneUptime autonomamente, è necessario configurare un provider di e
 1. Verificare che l'indirizzo email sia corretto (controllare errori di battitura)
 2. Verificare che l'email non venga bloccata dai filtri antispam
 3. Verificare che il provider di email in entrata sia configurato correttamente
-4. Controllare i log di OneUptime per eventuali messaggi di errore
+4. Controllare i log di Cast Operations per eventuali messaggi di errore
 
 ### Avvisi Non Creati
 

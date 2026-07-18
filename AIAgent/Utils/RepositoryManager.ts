@@ -75,13 +75,13 @@ export default class RepositoryManager {
     await this.runGitCommand(repoPath, [
       "config",
       "user.name",
-      "OneUptime AI Agent",
+      "Cast Operations AI Agent",
     ]);
 
     await this.runGitCommand(repoPath, [
       "config",
       "user.email",
-      "ai-agent@oneuptime.com",
+      "ai-agent@visca.ai",
     ]);
   }
 

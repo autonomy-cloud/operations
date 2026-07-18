@@ -52,7 +52,7 @@ We use Playwright to simulate user interactions. You can use Playwright `page` o
 
 ### Screenshots
 
-A pre-declared `screenshots` object is available in the script context. Assign screenshots to it at any point in the script — these screenshots are captured **even if the script throws** (including assertion failures, timeouts, or unexpected errors), so you can see exactly what the page looked like when the run failed. Captured screenshots appear in the OneUptime Dashboard for that specific monitor run.
+A pre-declared `screenshots` object is available in the script context. Assign screenshots to it at any point in the script — these screenshots are captured **even if the script throws** (including assertion failures, timeouts, or unexpected errors), so you can see exactly what the page looked like when the run failed. Captured screenshots appear in the Cast Operations Dashboard for that specific monitor run.
 
 ```javascript
 // Capture screenshots via the `screenshots` side-channel — they are preserved on both success and failure.
@@ -93,7 +93,7 @@ return {
 
 #### Adding a secret
 
-To add a secret, please go to OneUptime Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret.
+To add a secret, please go to Cast Operations Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret.
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 
@@ -121,7 +121,7 @@ console.log(stringSecret);
 
 ### Custom Metrics
 
-You can capture custom metrics from your script using the `oneuptime.captureMetric()` function. These metrics are stored in OneUptime and can be charted on dashboards using the Metric Explorer.
+You can capture custom metrics from your script using the `oneuptime.captureMetric()` function. These metrics are stored in Cast Operations and can be charted on dashboards using the Metric Explorer.
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);
@@ -179,5 +179,5 @@ Once captured, these metrics appear in the Metric Explorer under names like `cus
 - You can use `browserType` and `screenSizeType` variables to get the browser type and screen size type in the current run context. Feel free to use them in your script if you like.
 - This is a JavaScript script, so you can use all the JavaScript features in the script.
 - You can use `axios` module to make HTTP requests in the script. You can use it to make API calls from the script.
-- If you are using oneuptime.com, you will always have the latest version of Playwright & browsers available in the context of the script. If you're self-hosting, please make sure you update the probes to have the latest version of Playwright and the browsers.
+- If you are using visca.ai, you will always have the latest version of Playwright & browsers available in the context of the script. If you're self-hosting, please make sure you update the probes to have the latest version of Playwright and the browsers.
 - Timeout for the script is 2 minutes. If the script takes more than 2 mins, it will be terminated.

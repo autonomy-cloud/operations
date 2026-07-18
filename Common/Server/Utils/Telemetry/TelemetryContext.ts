@@ -39,7 +39,7 @@ interface TelemetryContextStore {
  * Ambient, mutable telemetry context backed by AsyncLocalStorage.
  *
  * Why this exists: OpenTelemetry span attributes do NOT propagate from a
- * parent span to its children, and OneUptime sets tenant context (projectId,
+ * parent span to its children, and Cast Operations sets tenant context (projectId,
  * userId, ...) deep in middleware while the spans that matter are created much
  * further down the call stack. Rather than thread attributes through every
  * function or tag ~1958 `@CaptureSpan` call sites by hand, we keep a small

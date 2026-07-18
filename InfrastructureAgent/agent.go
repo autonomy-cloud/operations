@@ -36,17 +36,17 @@ func NewAgent(secretKey string, oneuptimeUrl string, proxyUrl string) *Agent {
 	slog.Info("Starting agent...")
 	slog.Info("Agent configuration:")
 	slog.Info("Secret key: " + ag.SecretKey)
-	slog.Info("OneUptime URL: " + ag.OneUptimeURL)
+	slog.Info("Cast Operations URL: " + ag.OneUptimeURL)
 	slog.Info("Proxy URL: " + ag.ProxyURL)
 	if ag.SecretKey == "" || ag.OneUptimeURL == "" {
-		slog.Error("Secret key and OneUptime URL are required")
+		slog.Error("Secret key and Cast Operations URL are required")
 		os.Exit(1)
 		return ag
 	}
 
 	// check if secret key is valid
 	if !checkIfSecretKeyIsValid(ag.SecretKey, ag.OneUptimeURL, ag.ProxyURL) {
-		slog.Error("Secret key is invalid. If you are sure that the secret key is correct, please check your network connection, OneUptime URL (" + ag.OneUptimeURL + "), Proxy URL (" + ag.ProxyURL + ") and try again.")
+		slog.Error("Secret key is invalid. If you are sure that the secret key is correct, please check your network connection, Cast Operations URL (" + ag.OneUptimeURL + "), Proxy URL (" + ag.ProxyURL + ") and try again.")
 		os.Exit(1)
 		return ag
 	}
@@ -169,7 +169,7 @@ func collectMetricsJob(secretKey string, oneuptimeUrl string, proxyUrl string) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
-		slog.Info("Metrics successfully pushed to OneUptime server", "status", resp.StatusCode, "endpoint", oneuptimeUrl+"/server-monitor/response/ingest/"+secretKey)
+		slog.Info("Metrics successfully pushed to Cast Operations server", "status", resp.StatusCode, "endpoint", oneuptimeUrl+"/server-monitor/response/ingest/"+secretKey)
 	} else {
 		slog.Error("Failed to ingest metrics", "status_code", resp.StatusCode)
 		respBody, err := io.ReadAll(resp.Body)

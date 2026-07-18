@@ -17,7 +17,7 @@ import { AttributeType } from "./Telemetry";
 /*
  * First-class detection of LLM / GenAI / AI-agent spans.
  *
- * OneUptime ingests OpenTelemetry spans generically. To make LLM and agent
+ * Cast Operations ingests OpenTelemetry spans generically. To make LLM and agent
  * telemetry a first-class signal (filterable lists, token/cost/latency
  * rollups) we denormalize a small set of values out of the span attributes at
  * ingest time. The set of recognized attribute keys lives in the shared

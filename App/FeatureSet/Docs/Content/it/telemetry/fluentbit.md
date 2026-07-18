@@ -1,12 +1,12 @@
-# Usare FluentBit per inviare dati di telemetria a OneUptime
+# Usare FluentBit per inviare dati di telemetria a Cast Operations
 
 ## Panoramica
 
-È possibile usare il plugin [FluentBit](https://docs.fluentbit.io/manual) per raccogliere log e dati di telemetria dalle proprie applicazioni e servizi. Il plugin invia i dati di telemetria al Collector HTTP OpenTelemetry di OneUptime. È possibile usare il plugin di output opentelemetry di FluentBit per inviare i dati di telemetria al Collector HTTP OpenTelemetry di OneUptime. Questo plugin è disponibile qui: https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
+È possibile usare il plugin [FluentBit](https://docs.fluentbit.io/manual) per raccogliere log e dati di telemetria dalle proprie applicazioni e servizi. Il plugin invia i dati di telemetria al Collector HTTP OpenTelemetry di Cast Operations. È possibile usare il plugin di output opentelemetry di FluentBit per inviare i dati di telemetria al Collector HTTP OpenTelemetry di Cast Operations. Questo plugin è disponibile qui: https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
 
 ## Per Iniziare
 
-FluentBit supporta centinaia di sorgenti dati ed è possibile acquisire log e telemetria da qualsiasi di queste sorgenti in OneUptime. Alcune delle sorgenti più popolari includono:
+FluentBit supporta centinaia di sorgenti dati ed è possibile acquisire log e telemetria da qualsiasi di queste sorgenti in Cast Operations. Alcune delle sorgenti più popolari includono:
 
 - Docker
 - Syslog
@@ -30,11 +30,11 @@ e molte altre.
 ## Prerequisiti
 
 - **Fase 1: Installare FluentBit sul proprio sistema** - È possibile installare FluentBit seguendo le istruzioni fornite [qui](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)
-- **Fase 2: Registrarsi per un account OneUptime** - È possibile registrarsi per un account gratuito [qui](https://oneuptime.com). Si noti che mentre l'account è gratuito, l'acquisizione dei log è una funzionalità a pagamento. Ulteriori dettagli sui prezzi sono disponibili [qui](https://oneuptime.com/pricing).
-- **Fase 3: Creare un Progetto OneUptime** - Una volta ottenuto l'account, è possibile creare un progetto dal dashboard di OneUptime. Per qualsiasi aiuto nella creazione di un progetto o domande, contattare support@oneuptime.com
-- **Fase 4: Creare un Token di Acquisizione Telemetria** - Una volta creato un account OneUptime, è possibile creare un token di acquisizione telemetria per acquisire log, metriche e tracce dall'applicazione.
+- **Fase 2: Registrarsi per un account Cast Operations** - È possibile registrarsi per un account gratuito [qui](https://visca.ai). Si noti che mentre l'account è gratuito, l'acquisizione dei log è una funzionalità a pagamento. Ulteriori dettagli sui prezzi sono disponibili [qui](https://visca.ai/pricing).
+- **Fase 3: Creare un Progetto Cast Operations** - Una volta ottenuto l'account, è possibile creare un progetto dal dashboard di Cast Operations. Per qualsiasi aiuto nella creazione di un progetto o domande, contattare support@visca.ai
+- **Fase 4: Creare un Token di Acquisizione Telemetria** - Una volta creato un account Cast Operations, è possibile creare un token di acquisizione telemetria per acquisire log, metriche e tracce dall'applicazione.
 
-Dopo aver effettuato la registrazione a OneUptime e creato un progetto, fare clic su "Altro" nella barra di navigazione e fare clic su "Impostazioni Progetto".
+Dopo aver effettuato la registrazione a Cast Operations e creato un progetto, fare clic su "Altro" nella barra di navigazione e fare clic su "Impostazioni Progetto".
 
 Nella pagina Chiave di Acquisizione Telemetria, fare clic su "Crea Chiave di Acquisizione" per creare un token.
 
@@ -46,7 +46,7 @@ Una volta creato il token, fare clic su "Visualizza" per vederlo.
 
 ## Configurazione
 
-È possibile usare la seguente configurazione per inviare i dati di telemetria al Collector HTTP OpenTelemetry di OneUptime. È possibile aggiungere questa configurazione al file di configurazione di FluentBit. Il file di configurazione si trova solitamente in `/etc/fluent-bit/fluent-bit.yaml`. Ecco come apparirebbe una sezione outputs del file di configurazione:
+È possibile usare la seguente configurazione per inviare i dati di telemetria al Collector HTTP OpenTelemetry di Cast Operations. È possibile aggiungere questa configurazione al file di configurazione di FluentBit. Il file di configurazione si trova solitamente in `/etc/fluent-bit/fluent-bit.yaml`. Ecco come apparirebbe una sezione outputs del file di configurazione:
 
 ```yaml
 outputs:
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "oneuptime.com"
+    host: "visca.ai"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "oneuptime.com"
+      host: "visca.ai"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -121,7 +121,7 @@ pipeline:
         - x-oneuptime-token VOSTRO_TOKEN_ACQUISIZIONE_TELEMETRIA
 ```
 
-**Se si ospita autonomamente OneUptime**: Se si ospita autonomamente OneUptime, è possibile sostituire `host` con l'host della propria istanza OneUptime. Se si ospita su un server http e non https, è possibile sostituire `port` con la porta della propria istanza OneUptime (probabilmente la porta 80).
+**Se si ospita autonomamente Cast Operations**: Se si ospita autonomamente Cast Operations, è possibile sostituire `host` con l'host della propria istanza Cast Operations. Se si ospita su un server http e non https, è possibile sostituire `port` con la porta della propria istanza Cast Operations (probabilmente la porta 80).
 
 In tal caso la configurazione apparirebbe così:
 
@@ -131,7 +131,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "vostra-istanza-oneuptime.com"
+    host: "vostra-istanza-visca.ai"
     port: 80
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## Utilizzo
 
-Una volta aggiunta la configurazione al file di configurazione di FluentBit, è possibile riavviare il servizio FluentBit. Una volta riavviato il servizio, i dati di telemetria verranno inviati alla Sorgente HTTP di OneUptime. Ora è possibile iniziare a vedere i dati di telemetria nel dashboard di OneUptime. Per domande o aiuto con la configurazione, contattare support@oneuptime.com
+Una volta aggiunta la configurazione al file di configurazione di FluentBit, è possibile riavviare il servizio FluentBit. Una volta riavviato il servizio, i dati di telemetria verranno inviati alla Sorgente HTTP di Cast Operations. Ora è possibile iniziare a vedere i dati di telemetria nel dashboard di Cast Operations. Per domande o aiuto con la configurazione, contattare support@visca.ai

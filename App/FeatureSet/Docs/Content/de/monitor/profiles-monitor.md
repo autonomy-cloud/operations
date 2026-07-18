@@ -1,6 +1,6 @@
 # Profile-Monitor
 
-Der Profile-Monitor ermöglicht die Überwachung von Continuous-Profiling-Daten aus Ihren Anwendungen und das Auslösen von Benachrichtigungen basierend auf Profilanzahl und -mustern. OneUptime wertet Profildaten aus Ihren Telemetrie-Diensten über ein Zeitfenster aus.
+Der Profile-Monitor ermöglicht die Überwachung von Continuous-Profiling-Daten aus Ihren Anwendungen und das Auslösen von Benachrichtigungen basierend auf Profilanzahl und -mustern. Cast Operations wertet Profildaten aus Ihren Telemetrie-Diensten über ein Zeitfenster aus.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ Profile-Monitore zählen und filtern Profiling-Daten, die bestimmten Kriterien e
 
 ## Einen Profile-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Profile** als Monitortyp
 4. Wählen Sie die zu überwachenden Telemetrie-Dienste aus
@@ -24,7 +24,7 @@ Profile-Monitore zählen und filtern Profiling-Daten, die bestimmten Kriterien e
 
 ### Telemetrie-Dienste
 
-Wählen Sie einen oder mehrere Dienste aus, von denen Profile überwacht werden sollen. Dienste müssen Continuous-Profiling-Daten über OpenTelemetry an OneUptime senden.
+Wählen Sie einen oder mehrere Dienste aus, von denen Profile überwacht werden sollen. Dienste müssen Continuous-Profiling-Daten über OpenTelemetry an Cast Operations senden.
 
 ### Profilfilter
 
@@ -57,4 +57,4 @@ Wählen Sie einen oder mehrere Dienste aus, von denen Profile überwacht werden 
 
 ## Setup-Anforderungen
 
-Der Profile-Monitor erfordert, dass Ihre Anwendungen Continuous-Profiling-Daten über OpenTelemetry an OneUptime senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.
+Der Profile-Monitor erfordert, dass Ihre Anwendungen Continuous-Profiling-Daten über OpenTelemetry an Cast Operations senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.

@@ -1,5 +1,5 @@
 /*
- * The vocabulary of OpenTelemetry-aligned entity types OneUptime can
+ * The vocabulary of OpenTelemetry-aligned entity types Cast Operations can
  * derive from a resource. One OTLP resource is a *composition* of many
  * entities — a span can simultaneously belong to a `service`, a `host`,
  * a `k8s.pod`, a `k8s.node`, a `k8s.cluster`, a `container` and a
@@ -10,7 +10,7 @@
  * column on signals and by the `TelemetryEntity` registry. It is distinct
  * from `ServiceType`, which is the narrower discriminator for a signal's
  * single *primary* entity (`primaryEntityType`) and additionally covers
- * OneUptime-specific primary owners (Monitor, RealUserMonitor, Unknown,
+ * Cast Operations-specific primary owners (Monitor, RealUserMonitor, Unknown,
  * ...) that are not OTel resource entities.
  *
  * The string values are the semconv-style dotted type names so they read
@@ -28,7 +28,7 @@ enum EntityType {
   KubernetesPod = "k8s.pod",
   KubernetesDeployment = "k8s.deployment",
   /*
-   * Proxmox VE / Ceph types are OneUptime-defined (no upstream semconv
+   * Proxmox VE / Ceph types are Cast Operations-defined (no upstream semconv
    * exists for either) but follow the same dotted naming convention. The
    * identifying attributes (`proxmox.cluster.name`, `proxmox.node.name`,
    * `proxmox.guest.vmid`, `ceph.cluster.name`) are stamped by our agent
@@ -39,11 +39,11 @@ enum EntityType {
   ProxmoxGuest = "proxmox.guest",
   CephCluster = "ceph.cluster",
   /*
-   * Docker Swarm types are OneUptime-defined (no upstream semconv
+   * Docker Swarm types are Cast Operations-defined (no upstream semconv
    * exists) but follow the same dotted naming convention. The
    * identifying attributes (`docker.swarm.cluster.name`,
    * `docker.swarm.node.id`, `docker.swarm.service.id`) are stamped by
-   * the OneUptime Docker Swarm agent's collector config / inventory
+   * the Cast Operations Docker Swarm agent's collector config / inventory
    * poller.
    */
   DockerSwarmCluster = "docker.swarm.cluster",

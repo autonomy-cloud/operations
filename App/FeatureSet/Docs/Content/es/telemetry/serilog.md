@@ -1,18 +1,18 @@
-# Enviar registros de Serilog a OneUptime
+# Enviar registros de Serilog a Cast Operations
 
 ## Descripción general
 
-[Serilog](https://serilog.net) es la biblioteca de registro estructurado más popular para .NET. OneUptime ingiere los registros de Serilog a través del OpenTelemetry Protocol (OTLP) mediante el sink oficial [`Serilog.Sinks.OpenTelemetry`](https://github.com/serilog/serilog-sinks-opentelemetry). Una vez configurado, cada evento de registro que tu aplicación escribe a través de Serilog se envía a OneUptime, donde se puede buscar en **Telemetry → Logs**, junto con sus propiedades estructuradas, gravedad y correlación de traza/span.
+[Serilog](https://serilog.net) es la biblioteca de registro estructurado más popular para .NET. Cast Operations ingiere los registros de Serilog a través del OpenTelemetry Protocol (OTLP) mediante el sink oficial [`Serilog.Sinks.OpenTelemetry`](https://github.com/serilog/serilog-sinks-opentelemetry). Una vez configurado, cada evento de registro que tu aplicación escribe a través de Serilog se envía a Cast Operations, donde se puede buscar en **Telemetry → Logs**, junto con sus propiedades estructuradas, gravedad y correlación de traza/span.
 
-No hay ningún paquete específico de OneUptime que instalar: el sink se comunica con el mismo endpoint OTLP que OneUptime expone para todos los datos de OpenTelemetry. Esto funciona para aplicaciones de consola, servicios de worker, aplicaciones ASP.NET Core y cualquier otra cosa que se ejecute en .NET.
+No hay ningún paquete específico de Cast Operations que instalar: el sink se comunica con el mismo endpoint OTLP que Cast Operations expone para todos los datos de OpenTelemetry. Esto funciona para aplicaciones de consola, servicios de worker, aplicaciones ASP.NET Core y cualquier otra cosa que se ejecute en .NET.
 
 ## Requisitos previos
 
-- **Regístrate para obtener una cuenta de OneUptime** – Puedes registrarte para obtener una cuenta gratuita [aquí](https://oneuptime.com). Ten en cuenta que, si bien la cuenta es gratuita, la ingesta de registros es una función de pago. Puedes encontrar más detalles sobre los precios [aquí](https://oneuptime.com/pricing).
-- **Crea un proyecto de OneUptime** – Una vez que tengas una cuenta, crea un proyecto desde el panel de OneUptime. Si necesitas ayuda, contáctanos en support@oneuptime.com.
+- **Regístrate para obtener una cuenta de Cast Operations** – Puedes registrarte para obtener una cuenta gratuita [aquí](https://visca.ai). Ten en cuenta que, si bien la cuenta es gratuita, la ingesta de registros es una función de pago. Puedes encontrar más detalles sobre los precios [aquí](https://visca.ai/pricing).
+- **Crea un proyecto de Cast Operations** – Una vez que tengas una cuenta, crea un proyecto desde el panel de Cast Operations. Si necesitas ayuda, contáctanos en support@visca.ai.
 - **Crea un token de ingesta de telemetría** – Necesitas un token para autenticar tus registros.
 
-Después de registrarte en OneUptime y crear un proyecto, haz clic en "More" en la barra de navegación y luego en "Project Settings".
+Después de registrarte en Cast Operations y crear un proyecto, haz clic en "More" en la barra de navegación y luego en "Project Settings".
 
 En la página Telemetry Ingestion Key, haz clic en "Create Ingestion Key" para crear un token.
 
@@ -22,17 +22,17 @@ Una vez que hayas creado un token, haz clic en "View" para ver el token.
 
 ![View Service](/docs/static/images/TelemetryIngestionKeyView.png)
 
-## Lo que necesitas de OneUptime
+## Lo que necesitas de Cast Operations
 
 | Configuración               | Valor                                                               |
 | --------------------------- | ------------------------------------------------------------------- |
-| Endpoint OTLP               | `https://oneuptime.com/otlp`                                        |
+| Endpoint OTLP               | `https://visca.ai/otlp`                                        |
 | Encabezado de autenticación | `x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN`                 |
 | Nombre del servicio         | El nombre con el que debe aparecer tu servicio, p. ej. `my-service` |
 
-> **¿Alojas OneUptime por tu cuenta?** Reemplaza `https://oneuptime.com/otlp` por `https://YOUR-ONEUPTIME-HOST/otlp` (o `http://...` si no estás terminando TLS). Todo lo demás permanece igual.
+> **¿Alojas Cast Operations por tu cuenta?** Reemplaza `https://visca.ai/otlp` por `https://YOUR-OPERATIONS-HOST/otlp` (o `http://...` si no estás terminando TLS). Todo lo demás permanece igual.
 
-El sink utiliza el protocolo OTLP **HTTP/protobuf** y agrega automáticamente la ruta `/v1/logs` al endpoint, por lo que la URL final a la que realiza el POST es `https://oneuptime.com/otlp/v1/logs`. Solo necesitas proporcionar el endpoint base `/otlp`.
+El sink utiliza el protocolo OTLP **HTTP/protobuf** y agrega automáticamente la ruta `/v1/logs` al endpoint, por lo que la URL final a la que realiza el POST es `https://visca.ai/otlp/v1/logs`. Solo necesitas proporcionar el endpoint base `/otlp`.
 
 ## Paso 1 — Instala los paquetes NuGet
 
@@ -57,7 +57,7 @@ dotnet add package Serilog.AspNetCore
 
 ## Paso 2 — Configura el sink en código
 
-La forma más directa es configurar Serilog al iniciar la aplicación. Apunta el sink a tu endpoint OTLP de OneUptime, establece el protocolo en `HttpProtobuf`, pasa tu token de ingesta como encabezado y etiqueta los registros con un `service.name`.
+La forma más directa es configurar Serilog al iniciar la aplicación. Apunta el sink a tu endpoint OTLP de Cast Operations, establece el protocolo en `HttpProtobuf`, pasa tu token de ingesta como encabezado y etiqueta los registros con un `service.name`.
 
 ```csharp
 using Serilog;
@@ -70,16 +70,16 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.OpenTelemetry(options =>
     {
         // Base OTLP endpoint. The sink appends /v1/logs automatically.
-        options.Endpoint = "https://oneuptime.com/otlp";
+        options.Endpoint = "https://visca.ai/otlp";
         options.Protocol = OtlpProtocol.HttpProtobuf;
 
-        // Authenticate with your OneUptime telemetry ingestion token.
+        // Authenticate with your Cast Operations telemetry ingestion token.
         options.Headers = new Dictionary<string, string>
         {
             ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
         };
 
-        // Identify your service in OneUptime.
+        // Identify your service in Cast Operations.
         options.ResourceAttributes = new Dictionary<string, object>
         {
             ["service.name"] = "my-service",
@@ -115,7 +115,7 @@ Si prefieres la configuración antes que el código, usa `Serilog.Settings.Confi
       {
         "Name": "OpenTelemetry",
         "Args": {
-          "endpoint": "https://oneuptime.com/otlp",
+          "endpoint": "https://visca.ai/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
             "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
@@ -165,7 +165,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.OpenTelemetry(options =>
         {
-            options.Endpoint = "https://oneuptime.com/otlp";
+            options.Endpoint = "https://visca.ai/otlp";
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
@@ -188,7 +188,7 @@ app.Run();
 
 ## Escritura de registros
 
-Una vez configurado, usa Serilog como lo harías normalmente. Las propiedades estructuradas se conservan y se convierten en atributos sobre los que se puede buscar en OneUptime:
+Una vez configurado, usa Serilog como lo harías normalmente. Las propiedades estructuradas se conservan y se convierten en atributos sobre los que se puede buscar en Cast Operations:
 
 ```csharp
 Log.Information("Order {OrderId} placed by {CustomerId} for {Amount:C}",
@@ -214,24 +214,24 @@ catch (Exception ex)
 }
 ```
 
-OneUptime detecta estos atributos y agrupa automáticamente el error en la vista de **Exceptions** (Issues), agrupado por huella digital y atribuido al servicio correcto. Un error reportado tanto por una traza como por un registro se colapsa en un único problema. Consulta [Excepciones desde registros](/docs/telemetry/open-telemetry) para obtener detalles sobre cómo funciona la detección.
+Cast Operations detecta estos atributos y agrupa automáticamente el error en la vista de **Exceptions** (Issues), agrupado por huella digital y atribuido al servicio correcto. Un error reportado tanto por una traza como por un registro se colapsa en un único problema. Consulta [Excepciones desde registros](/docs/telemetry/open-telemetry) para obtener detalles sobre cómo funciona la detección.
 
 ## Correlación de trazas
 
-Si tu aplicación también está instrumentada con el SDK de OpenTelemetry para .NET para trazas, los eventos de registro de Serilog emitidos dentro de un span activo se marcan automáticamente con el `TraceId` y el `SpanId` actuales (esto forma parte del `IncludedData` predeterminado del sink). Eso permite que OneUptime vincule una línea de registro directamente con la traza en la que ocurrió, de modo que puedas saltar de un registro a la solicitud circundante y viceversa.
+Si tu aplicación también está instrumentada con el SDK de OpenTelemetry para .NET para trazas, los eventos de registro de Serilog emitidos dentro de un span activo se marcan automáticamente con el `TraceId` y el `SpanId` actuales (esto forma parte del `IncludedData` predeterminado del sink). Eso permite que Cast Operations vincule una línea de registro directamente con la traza en la que ocurrió, de modo que puedas saltar de un registro a la solicitud circundante y viceversa.
 
 ## Verificación
 
 1. Ejecuta tu aplicación y genera algunos eventos de registro.
-2. Abre OneUptime, ve a **Telemetry**, selecciona tu servicio (`my-service`) y abre **Logs**.
+2. Abre Cast Operations, ve a **Telemetry**, selecciona tu servicio (`my-service`) y abre **Logs**.
 3. Deberías ver tus eventos de Serilog aparecer en unos segundos, con sus propiedades estructuradas disponibles como filtros.
 
 ## Solución de problemas
 
-- **No aparece ningún registro** – Verifica nuevamente el valor de `x-oneuptime-token` y confirma que pertenece al proyecto que estás visualizando. Comprueba que el endpoint sea `https://oneuptime.com/otlp` (solo la ruta base; no agregues `/v1/logs` tú mismo).
+- **No aparece ningún registro** – Verifica nuevamente el valor de `x-oneuptime-token` y confirma que pertenece al proyecto que estás visualizando. Comprueba que el endpoint sea `https://visca.ai/otlp` (solo la ruta base; no agregues `/v1/logs` tú mismo).
 - **Los registros solo aparecen cuando la aplicación finaliza, o faltan los últimos registros** – Asegúrate de que `Log.CloseAndFlush()` se ejecute durante el apagado. El sink agrupa los eventos en lotes, por lo que los registros almacenados en búfer se pierden si el proceso se detiene sin vaciarlos.
 - **`401 Unauthorized` / nada se ingiere** – El token falta o no es válido. Confirma que la clave del encabezado sea exactamente `x-oneuptime-token`.
 - **Nombre de servicio incorrecto** – Establece `service.name` en `ResourceAttributes` (código) o `resourceAttributes` (appsettings.json). Sin él, los registros recurren a un servicio predeterminado/desconocido.
-- **Errores de conexión a una instancia autoalojada** – Asegúrate de que el protocolo coincida con el esquema de tu endpoint (`https://` frente a `http://`) y de que tu host de OneUptime sea accesible desde la aplicación.
+- **Errores de conexión a una instancia autoalojada** – Asegúrate de que el protocolo coincida con el esquema de tu endpoint (`https://` frente a `http://`) y de que tu host de Cast Operations sea accesible desde la aplicación.
 
-Si tienes alguna pregunta o necesitas ayuda, contáctanos en support@oneuptime.com.
+Si tienes alguna pregunta o necesitas ayuda, contáctanos en support@visca.ai.

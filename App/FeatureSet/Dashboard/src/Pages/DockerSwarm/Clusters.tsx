@@ -202,7 +202,7 @@ const DockerSwarmClusters: FunctionComponent<
         cardProps={{
           title: "Docker Swarm Clusters",
           description:
-            "Clusters being monitored in this project. Install the OneUptime Docker Swarm Agent to connect a cluster.",
+            "Clusters being monitored in this project. Install the Cast Operations Docker Swarm Agent to connect a cluster.",
         }}
         showViewIdButton={true}
         formFields={[

@@ -2,7 +2,7 @@
 
 La Surveillance de requêtes SQL exécute une requête SQL en lecture seule selon une planification, depuis une sonde, et déclenche des alertes en fonction du résultat — le nombre de lignes renvoyées, une valeur scalaire, la durée d'exécution de la requête ou une erreur de requête. Elle est conçue pour le cas d'usage « exécuter une requête et ouvrir un incident », par exemple pour alerter lorsque le nombre de commandes annulées au cours des cinq dernières minutes augmente brusquement, lorsqu'une table de file d'attente devient trop volumineuse, ou lorsqu'une ligne critique disparaît.
 
-Comme la requête s'exécute depuis une sonde située à l'intérieur de votre réseau, OneUptime n'a jamais besoin d'une connexion directe à votre base de données, et l'ensemble complet des résultats ne quitte jamais la sonde — seule une petite projection bornée du résultat est renvoyée.
+Comme la requête s'exécute depuis une sonde située à l'intérieur de votre réseau, Cast Operations n'a jamais besoin d'une connexion directe à votre base de données, et l'ensemble complet des résultats ne quitte jamais la sonde — seule une petite projection bornée du résultat est renvoyée.
 
 ## Bases de données prises en charge
 
@@ -16,7 +16,7 @@ Les moteurs compatibles MySQL et compatibles PostgreSQL qui utilisent le même p
 
 ## Fonctionnement
 
-À chaque vérification, la sonde se connecte à votre base de données, exécute votre requête dans un contexte en lecture seule, lit au plus un nombre borné de lignes, et renvoie une projection compacte à OneUptime. Les critères de votre moniteur sont ensuite évalués par rapport à cette projection.
+À chaque vérification, la sonde se connecte à votre base de données, exécute votre requête dans un contexte en lecture seule, lit au plus un nombre borné de lignes, et renvoie une projection compacte à Cast Operations. Les critères de votre moniteur sont ensuite évalués par rapport à cette projection.
 
 La sonde ne renvoie que :
 
@@ -26,7 +26,7 @@ La sonde ne renvoie que :
 - **Temps d'exécution** — la durée d'exécution de la requête, en millisecondes.
 - **Erreur de requête** — un message d'erreur nettoyé si la requête a échoué.
 
-L'ensemble complet des résultats n'est jamais envoyé à OneUptime, de sorte que les données des clients ne sont pas répliquées dans le stockage de OneUptime.
+L'ensemble complet des résultats n'est jamais envoyé à Cast Operations, de sorte que les données des clients ne sont pas répliquées dans le stockage de Cast Operations.
 
 ## Modèle de sécurité
 
@@ -41,7 +41,7 @@ Exécuter une requête fournie par le client sur une base de données de product
 
 ## Prérequis
 
-- Une **sonde** disposant d'un accès réseau à l'hôte et au port de votre base de données. Il peut s'agir d'une sonde hébergée par OneUptime (si votre base de données est accessible depuis Internet) ou d'une sonde auto-hébergée s'exécutant à l'intérieur de votre réseau. Consultez la documentation des sondes pour savoir comment installer une sonde personnalisée.
+- Une **sonde** disposant d'un accès réseau à l'hôte et au port de votre base de données. Il peut s'agir d'une sonde hébergée par Cast Operations (si votre base de données est accessible depuis Internet) ou d'une sonde auto-hébergée s'exécutant à l'intérieur de votre réseau. Consultez la documentation des sondes pour savoir comment installer une sonde personnalisée.
 - Un **utilisateur de base de données en lecture seule** ainsi que les détails de connexion (hôte, port, nom de la base de données, nom d'utilisateur, mot de passe).
 
 ## Configuration
@@ -99,11 +99,11 @@ Pour une requête de type `COUNT(*)`, le décompte est disponible à la fois en 
 
 Pour que le mot de passe de la base de données ne soit jamais stocké en clair sur le moniteur, créez un [Secret de moniteur](/docs/monitor/monitor-secrets) et référencez-le depuis le champ Mot de passe :
 
-1. Accédez au Tableau de bord OneUptime → Paramètres du projet → Secrets de moniteur → Créer un secret de moniteur.
+1. Accédez au Tableau de bord Cast Operations → Paramètres du projet → Secrets de moniteur → Créer un secret de moniteur.
 2. Créez un secret (par exemple `dbPassword`) et accordez à ce moniteur l'accès à celui-ci.
 3. Dans le champ Mot de passe du moniteur, saisissez `{{monitorSecrets.dbPassword}}`.
 
-OneUptime résout le secret côté serveur avant que la configuration ne soit transmise à la sonde. OneUptime ne crée jamais ces secrets à votre place — en référencer un relève de votre choix.
+Cast Operations résout le secret côté serveur avant que la configuration ne soit transmise à la sonde. Cast Operations ne crée jamais ces secrets à votre place — en référencer un relève de votre choix.
 
 ## Configuration des critères
 

@@ -244,7 +244,7 @@ export default function SettingsScreen(): React.JSX.Element {
                 letterSpacing: 0.2,
               }}
             >
-              Personalize your OneUptime experience
+              Personalize your Cast Operations experience
             </Text>
           </View>
         </View>
@@ -314,7 +314,7 @@ export default function SettingsScreen(): React.JSX.Element {
             numberOfLines={1}
             ellipsizeMode="middle"
           >
-            {serverUrl || "oneuptime.com"}
+            {serverUrl || "visca.ai"}
           </Text>
         </View>
       </View>
@@ -486,7 +486,7 @@ export default function SettingsScreen(): React.JSX.Element {
               numberOfLines={1}
               ellipsizeMode="middle"
             >
-              {serverUrl || "oneuptime.com"}
+              {serverUrl || "visca.ai"}
             </Text>
           </View>
         </View>

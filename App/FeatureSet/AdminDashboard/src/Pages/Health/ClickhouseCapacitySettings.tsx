@@ -106,7 +106,7 @@ const ClickhouseCapacitySettings: FunctionComponent = (): ReactElement => {
             <Alert
               type={AlertType.WARNING}
               strongTitle="Automatic pruning permanently deletes telemetry."
-              title="When enabled, OneUptime drops the oldest eligible telemetry partitions across the cluster until capacity reaches the target. Deleted data cannot be recovered unless you have a backup."
+              title="When enabled, Cast Operations drops the oldest eligible telemetry partitions across the cluster until capacity reaches the target. Deleted data cannot be recovered unless you have a backup."
               className="mt-3"
             />
           ),

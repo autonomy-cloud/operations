@@ -1,26 +1,26 @@
 # LLM 공급자
 
-OneUptime은 플랫폼 전반에서 AI 기반 기능을 활성화하기 위해 다양한 대형 언어 모델(LLM) 공급자와의 통합을 지원합니다. 이 가이드는 자체 LLM 공급자를 구성하는 데 도움을 드립니다.
+Cast Operations은 플랫폼 전반에서 AI 기반 기능을 활성화하기 위해 다양한 대형 언어 모델(LLM) 공급자와의 통합을 지원합니다. 이 가이드는 자체 LLM 공급자를 구성하는 데 도움을 드립니다.
 
 ## LLM 공급자가 할 수 있는 일
 
-OneUptime의 LLM 공급자는 인시던트 관리 워크플로를 자동화하고 향상시키는 데 도움을 줍니다:
+Cast Operations의 LLM 공급자는 인시던트 관리 워크플로를 자동화하고 향상시키는 데 도움을 줍니다:
 
 - **인시던트 노트**: 상세한 인시던트 노트 및 업데이트를 자동 생성합니다
 - **알림 노트**: 의미 있는 알림 설명과 컨텍스트를 생성합니다
 - **예정 유지보수 노트**: 유지보수 이벤트 노트를 자동으로 생성합니다
 - **인시던트 포스트모템**: 포괄적인 인시던트 포스트모템 보고서를 자동으로 초안 작성합니다
-- **코드 개선**: 코드 저장소를 OneUptime에 연결하면, LLM 공급자를 사용하여 텔레메트리 데이터(로그, 트레이스, 메트릭, 예외)를 분석하고 코드 개선 사항을 제안합니다
+- **코드 개선**: 코드 저장소를 Cast Operations에 연결하면, LLM 공급자를 사용하여 텔레메트리 데이터(로그, 트레이스, 메트릭, 예외)를 분석하고 코드 개선 사항을 제안합니다
 
-## OneUptime SaaS 사용자
+## Cast Operations SaaS 사용자
 
-**OneUptime SaaS**(클라우드 호스팅 버전)를 사용하는 경우, 추가 구성 없이 기본적으로 **글로벌 LLM 공급자**를 사용할 수 있습니다. 글로벌 LLM 공급자는 사전 구성되어 있으며 모든 AI 기능에 바로 사용할 수 있습니다.
+**Cast Operations SaaS**(클라우드 호스팅 버전)를 사용하는 경우, 추가 구성 없이 기본적으로 **글로벌 LLM 공급자**를 사용할 수 있습니다. 글로벌 LLM 공급자는 사전 구성되어 있으며 모든 AI 기능에 바로 사용할 수 있습니다.
 
 자체 API 키 또는 특정 공급자를 사용하려면 아래 지침에 따라 커스텀 LLM 공급자를 구성할 수 있습니다.
 
 ## 지원되는 공급자
 
-OneUptime은 현재 다음 LLM 공급자를 지원합니다:
+Cast Operations은 현재 다음 LLM 공급자를 지원합니다:
 
 | 공급자                | 설명                                                               | API 키 필요 여부   | 기본 URL 필요 여부   |
 | --------------------- | ------------------------------------------------------------------ | ------------------ | -------------------- |
@@ -36,7 +36,7 @@ OneUptime은 현재 다음 LLM 공급자를 지원합니다:
 
 ### 1단계: LLM 공급자 설정으로 이동
 
-1. OneUptime 대시보드에 로그인합니다
+1. Cast Operations 대시보드에 로그인합니다
 2. **AI 에이전트** > **LLM 공급자**로 이동합니다
 3. **LLM 공급자 생성**을 클릭하여 새 공급자를 추가합니다
 
@@ -145,7 +145,7 @@ API Key: (leave blank)
 
 ### Kubernetes에서 자체 호스팅 vLLM (Helm)
 
-Helm 차트로 OneUptime을 자체 호스팅하는 경우, 클러스터 내부에서 [vLLM](https://docs.vllm.ai) — OpenAI 호환 추론 서버 — 을 실행하고 자체 GPU에서 로컬 모델을 제공할 수 있습니다. 어떤 데이터도 인프라를 벗어나지 않습니다.
+Helm 차트로 Cast Operations을 자체 호스팅하는 경우, 클러스터 내부에서 [vLLM](https://docs.vllm.ai) — OpenAI 호환 추론 서버 — 을 실행하고 자체 GPU에서 로컬 모델을 제공할 수 있습니다. 어떤 데이터도 인프라를 벗어나지 않습니다.
 
 1. Helm 값에서 이를 활성화합니다 (NVIDIA GPU 노드 필요):
 
@@ -175,7 +175,7 @@ Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-GPU 스케줄링, 게이트된 모델 및 튜닝 옵션에 대해서는 [Helm 차트 README](https://github.com/OneUptime/oneuptime/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm)를 참조하세요.
+GPU 스케줄링, 게이트된 모델 및 튜닝 옵션에 대해서는 [Helm 차트 README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm)를 참조하세요.
 
 ## 커스텀 기본 URL 사용
 
@@ -211,5 +211,5 @@ GPU 스케줄링, 게이트된 모델 및 튜닝 옵션에 대해서는 [Helm �
 
 LLM 공급자 설정에 문제가 발생한 경우:
 
-1. 알려진 문제에 대해 [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues)를 확인합니다
+1. 알려진 문제에 대해 [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues)를 확인합니다
 2. 엔터프라이즈 플랜을 사용하는 경우 지원팀에 문의합니다

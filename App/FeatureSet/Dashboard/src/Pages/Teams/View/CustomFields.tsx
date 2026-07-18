@@ -16,7 +16,7 @@ const TeamCustomFields: FunctionComponent<
     <Fragment>
       <CustomFieldsDetail
         title="Team Custom Fields"
-        description="Custom fields help you add new fields to your teams in OneUptime."
+        description="Custom fields help you add new fields to your teams in Cast Operations."
         modelType={Team}
         customFieldType={TeamCustomField}
         name="Team Custom Fields"

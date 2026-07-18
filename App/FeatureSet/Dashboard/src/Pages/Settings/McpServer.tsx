@@ -25,9 +25,9 @@ const McpServerPage: FunctionComponent<PageComponentProps> = (
         description={
           <div className="space-y-4 w-full mt-3">
             <p>
-              OneUptime ships a built-in Model Context Protocol (MCP) server, so
+              Cast Operations ships a built-in Model Context Protocol (MCP) server, so
               AI agents like Claude, Cursor, and GitHub Copilot can operate
-              OneUptime directly: investigate and resolve incidents and alerts,
+              Cast Operations directly: investigate and resolve incidents and alerts,
               query logs, metrics, traces and exceptions, manage monitors and
               status pages, and post public status updates.
             </p>
@@ -46,7 +46,7 @@ const McpServerPage: FunctionComponent<PageComponentProps> = (
         description={
           <div className="space-y-4 w-full mt-3">
             <p>
-              Every request is authenticated with a OneUptime API key sent via
+              Every request is authenticated with a Cast Operations API key sent via
               the <code>x-api-key</code> header (or{" "}
               <code>Authorization: Bearer</code>). The key determines which
               project the agent operates on — project IDs are inferred

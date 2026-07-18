@@ -1,14 +1,14 @@
 # Fluentd
 
-This guide will help you test fluent-bit logs with OneUptime.
+This guide will help you test fluent-bit logs with Cast Operations.
 
 ## Prerequisites
 
 - Filuentd docker container running on your system (essentially this folder should be running).
   You can run the container using the command `npm run dev fluent-bit`
-- OneUptime account
-- OneUptime project
-- Telemetry Ingestion Key (Create one from the OneUptime dashboard, Click on More -> Project Settings -> Telemetry Ingestion Key)
+- Cast Operations account
+- Cast Operations project
+- Telemetry Ingestion Key (Create one from the Cast Operations dashboard, Click on More -> Project Settings -> Telemetry Ingestion Key)
 
 ## Configuration and Testing
 
@@ -21,4 +21,4 @@ This guide will help you test fluent-bit logs with OneUptime.
 curl -X POST -H "Content-Type: application/json" -d '{"log": "This is a test log message"}' http://localhost:8889
 ```
 
-You should be able to see the logs in the OneUptime dashboard.
+You should be able to see the logs in the Cast Operations dashboard.

@@ -1,8 +1,8 @@
 # Global SSO（实例级单点登录）
 
-Global SSO 让 OneUptime **实例管理员**（主管理员，master admin）只需**在实例级别配置一次** SAML 2.0 或 OpenID Connect (OIDC) 身份提供商，即可将其连接到服务器上的任何项目。它是按项目 SSO 的实例级对应方案：无需每个项目所有者各自配置自己的身份提供商，主管理员只需配置一个即可服务整个实例。
+Global SSO 让 Cast Operations **实例管理员**（主管理员，master admin）只需**在实例级别配置一次** SAML 2.0 或 OpenID Connect (OIDC) 身份提供商，即可将其连接到服务器上的任何项目。它是按项目 SSO 的实例级对应方案：无需每个项目所有者各自配置自己的身份提供商，主管理员只需配置一个即可服务整个实例。
 
-Global SSO 是 **OneUptime Enterprise Edition** 功能，仅在运行 Enterprise Edition 构建版本的实例上可用。
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO 与项目 SSO 对比
 
@@ -24,7 +24,7 @@ Global SSO 是 **OneUptime Enterprise Edition** 功能，仅在运行 Enterprise
    - 对于 SAML：输入 **Name**、来自身份提供商的 **Sign On URL** 和 **Issuer**，并粘贴 **Public Certificate**。选择 **Signature** 和 **Digest** 方法（如果不确定，请保留默认值 —— `RSA-SHA256` / `SHA256`）。
    - 对于 OIDC：输入 **Discovery URL**、**Issuer**、**Client ID**、**Client Secret**、**Scopes**（必须包含 `openid`），以及 **email** / **name** 声明名称。
 
-3. **将 OneUptime URL 复制到您的身份提供商**
+3. **将 Cast Operations URL 复制到您的身份提供商**
 
    - 打开该提供商（在列表中点击其所在行）以显示 **Identity Provider URLs** 卡片。
    - 对于 SAML，将 **ACS URL (Reply URL)** 和 **Issuer (Entity ID)** 复制到您的 IdP（Okta、Azure AD、OneLogin、JumpCloud 等）。

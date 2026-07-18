@@ -1,6 +1,6 @@
 # Docker-Monitor
 
-Der Docker-Monitor ermöglicht die Überwachung der Gesundheit und Leistung Ihrer Docker-Hosts und der darauf laufenden Container. OneUptime erfasst Metriken und Container-Logs über einen vorkonfigurierten OpenTelemetry Collector (den **OneUptime Docker Agent**) und wertet sie anhand Ihrer konfigurierten Kriterien aus.
+Der Docker-Monitor ermöglicht die Überwachung der Gesundheit und Leistung Ihrer Docker-Hosts und der darauf laufenden Container. Cast Operations erfasst Metriken und Container-Logs über einen vorkonfigurierten OpenTelemetry Collector (den **Cast Operations Docker Agent**) und wertet sie anhand Ihrer konfigurierten Kriterien aus.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ Docker-Monitore verwenden Metriken und Logs von Ihren Hosts, um Einblick in Ihre
 
 ## Einen Docker-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Docker** als Monitortyp
 4. Wählen Sie den Docker-Host und den Ressourcenbereich zur Überwachung aus
@@ -25,7 +25,7 @@ Docker-Monitore verwenden Metriken und Logs von Ihren Hosts, um Einblick in Ihre
 
 ### Docker-Host
 
-Wählen Sie den zu überwachenden Docker-Host. Hosts werden beim ersten Mal automatisch registriert, wenn der OneUptime Docker Agent Telemetrie von ihnen sendet – Sie müssen sie nicht manuell erstellen.
+Wählen Sie den zu überwachenden Docker-Host. Hosts werden beim ersten Mal automatisch registriert, wenn der Cast Operations Docker Agent Telemetrie von ihnen sendet – Sie müssen sie nicht manuell erstellen.
 
 ### Ressourcenbereich
 
@@ -126,7 +126,7 @@ Der Docker Agent verwendet den OpenTelemetry `docker_stats`-Receiver, der die Do
 
 ## Vorgefertigte Benachrichtigungsvorlagen
 
-OneUptime stellt Vorlagen für häufige Docker-Überwachungsszenarien bereit:
+Cast Operations stellt Vorlagen für häufige Docker-Überwachungsszenarien bereit:
 
 | Vorlage                         | Beschreibung                                      | Schwellenwert | Aggregation         |
 | ------------------------------- | ------------------------------------------------- | ------------- | ------------------- |
@@ -208,7 +208,7 @@ docker run ... <image>
 
 Um Docker-Monitoring zu verwenden, müssen Sie:
 
-1. Den OneUptime Docker Agent auf jedem Docker-Host installieren, den Sie überwachen möchten
+1. Den Cast Operations Docker Agent auf jedem Docker-Host installieren, den Sie überwachen möchten
 2. `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` und `DOCKER_HOST_NAME` als Umgebungsvariablen übergeben
 3. Sicherstellen, dass die zu beobachtenden Container den `json-file`-Log-Treiber verwenden (siehe oben)
 

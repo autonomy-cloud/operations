@@ -1,12 +1,12 @@
 # Host Monitor
 
-Host monitoring lets you monitor the health and performance of your OpenTelemetry-instrumented hosts and servers — the **Hosts** product. OneUptime collects host system metrics via the **OneUptime Infrastructure Agent** (a pre-configured OpenTelemetry Collector running the `hostmetrics` receiver) and evaluates them against your configured criteria.
+Host monitoring lets you monitor the health and performance of your OpenTelemetry-instrumented hosts and servers — the **Hosts** product. Cast Operations collects host system metrics via the **Cast Operations Infrastructure Agent** (a pre-configured OpenTelemetry Collector running the `hostmetrics` receiver) and evaluates them against your configured criteria.
 
 > **Host Monitor vs. Server / VM Monitor**
 >
-> The **Host Monitor** is a _telemetry-metric_ monitor. It evaluates the `system.*` OpenTelemetry metrics that the OneUptime Infrastructure Agent ships to your project's metrics store, and it fires criteria, alerts, and incidents from the telemetry-monitor worker.
+> The **Host Monitor** is a _telemetry-metric_ monitor. It evaluates the `system.*` OpenTelemetry metrics that the Cast Operations Infrastructure Agent ships to your project's metrics store, and it fires criteria, alerts, and incidents from the telemetry-monitor worker.
 >
-> The **Server / VM Monitor** is a separate, _agent-push_ monitor. It uses the OneUptime Server Agent, which pushes a status payload on a fixed interval and is evaluated against built-in checks (CPU %, memory %, disk %, etc.).
+> The **Server / VM Monitor** is a separate, _agent-push_ monitor. It uses the Cast Operations Server Agent, which pushes a status payload on a fixed interval and is evaluated against built-in checks (CPU %, memory %, disk %, etc.).
 >
 > Use the **Host Monitor** when your hosts are already instrumented with OpenTelemetry (the Hosts product). Use the **Server / VM Monitor** for the lightweight agent-push approach. They can coexist on the same machine.
 
@@ -21,7 +21,7 @@ Host monitors use the `system.*` host metrics from your hosts to provide visibil
 
 ## Creating a Host Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Host** as the monitor type
 4. Select the host to monitor
@@ -32,7 +32,7 @@ Host monitors use the `system.*` host metrics from your hosts to provide visibil
 
 ### Host
 
-Select the host to monitor. Hosts are auto-registered the first time the OneUptime Infrastructure Agent ships telemetry from them — the host identifier is sourced from the `host.name` OTel resource attribute. You do not need to create them manually.
+Select the host to monitor. Hosts are auto-registered the first time the Cast Operations Infrastructure Agent ships telemetry from them — the host identifier is sourced from the `host.name` OTel resource attribute. You do not need to create them manually.
 
 ### Metric Queries
 
@@ -58,7 +58,7 @@ Select the time window for metric evaluation:
 
 ## Collected Metrics
 
-The OneUptime Infrastructure Agent uses the OpenTelemetry `hostmetrics` receiver, which scrapes the host's system metrics at a configurable interval (default every 30 seconds). Every metric is stamped with the `resource.host.name` attribute, which is how the Host monitor scopes its queries to a single host.
+The Cast Operations Infrastructure Agent uses the OpenTelemetry `hostmetrics` receiver, which scrapes the host's system metrics at a configurable interval (default every 30 seconds). Every metric is stamped with the `resource.host.name` attribute, which is how the Host monitor scopes its queries to a single host.
 
 ### CPU
 
@@ -128,7 +128,7 @@ The OneUptime Infrastructure Agent uses the OpenTelemetry `hostmetrics` receiver
 
 ## Pre-built Alert Templates
 
-OneUptime provides templates for common host monitoring scenarios:
+Cast Operations provides templates for common host monitoring scenarios:
 
 | Template                | Metric                          | Threshold          | Aggregation |
 | ----------------------- | ------------------------------- | ------------------ | ----------- |
@@ -142,7 +142,7 @@ OneUptime provides templates for common host monitoring scenarios:
 
 To use Host monitoring, you need to:
 
-1. Install the OneUptime Infrastructure Agent on each host you want to monitor
+1. Install the Cast Operations Infrastructure Agent on each host you want to monitor
 2. Configure it with your `ONEUPTIME_URL` and service token so it ships OTel telemetry to your project
 3. Confirm metrics appear on the host's **Metrics** tab in the Hosts product
 
@@ -152,7 +152,7 @@ Once telemetry arrives, the host is auto-registered and becomes selectable in th
 
 ### The host does not appear in the dropdown
 
-Hosts are auto-registered by `resource.host.name` the first time the OneUptime Infrastructure Agent ships telemetry. If the host is missing, confirm the agent is running and that metrics are visible on the host's **Metrics** tab.
+Hosts are auto-registered by `resource.host.name` the first time the Cast Operations Infrastructure Agent ships telemetry. If the host is missing, confirm the agent is running and that metrics are visible on the host's **Metrics** tab.
 
 ### A "High CPU" template never fires
 

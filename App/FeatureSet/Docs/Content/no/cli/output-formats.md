@@ -1,6 +1,6 @@
 # Utdataformater
 
-OneUptime CLI støtter tre utdataformater: **tabell**, **JSON** og **bred**. Du kan angi formatet med flagget `-o` eller `--output` på alle kommandoer.
+Cast Operations CLI støtter tre utdataformater: **tabell**, **JSON** og **bred**. Du kan angi formatet med flagget `-o` eller `--output` på alle kommandoer.
 
 ## Tabell (standard)
 

@@ -1,6 +1,6 @@
 # Databases
 
-OneUptime uses three databases:
+Cast Operations uses three databases:
 
 - **PostgreSQL** — application data, users, and configuration.
 - **Redis** — caching and session management.
@@ -61,7 +61,7 @@ postgresql:
 ### External
 
 To use a PostgreSQL database you manage, disable the built-in one and point
-OneUptime at yours:
+Cast Operations at yours:
 
 ```yaml
 postgresql:
@@ -108,7 +108,7 @@ postgresOperator:
 ```
 
 When `postgresOperator.cnpg.enabled` is `true`, the built-in `postgresql`
-StatefulSet/Service/ConfigMaps are not rendered, and OneUptime connects (as the
+StatefulSet/Service/ConfigMaps are not rendered, and Cast Operations connects (as the
 `postgres` superuser) to the cluster's read-write service
 `<release>-postgresql-cnpg-rw`.
 
@@ -136,7 +136,7 @@ standby is briefly unavailable.
 
 **Read scaling.** The operator also creates `<release>-postgresql-cnpg-ro`
 (load-balanced across replicas) and `<release>-postgresql-cnpg-r` (any instance).
-Point read-heavy/reporting workloads at `-ro`; the OneUptime app itself uses the
+Point read-heavy/reporting workloads at `-ro`; the Cast Operations app itself uses the
 `-rw` (primary) endpoint.
 
 **Backups.** Enable scheduled, online volume-snapshot backups — native, with no
@@ -160,12 +160,12 @@ auto-prune volume snapshots, so prune old snapshots yourself, or use object-stor
 backups (Barman Cloud Plugin) for automatic retention + continuous PITR.
 
 **Sharding is not supported.** Neither CloudNativePG nor this chart shards
-PostgreSQL horizontally, and OneUptime does not need it at typical scale. Scale
+PostgreSQL horizontally, and Cast Operations does not need it at typical scale. Scale
 with a larger node (vertical), read replicas (above), connection pooling, and
 table partitioning for very large tables.
 
 > **Bundled-operator notes.** The CloudNativePG operator is cluster-scoped and
-> owns the CloudNativePG CRDs. Do not enable it in more than one OneUptime
+> owns the CloudNativePG CRDs. Do not enable it in more than one Cast Operations
 > release per cluster, and note that `helm uninstall` can remove the CRDs (and
 > cascade-delete clusters) — back up first. Tune the operator itself under the
 > top-level `cloudnative-pg:` values.
@@ -300,7 +300,7 @@ clickhouseOperator:
 ```
 
 When `clickhouseOperator.altinity.enabled` is `true`, the built-in `clickhouse`
-StatefulSet/Service/ConfigMap are not rendered, and OneUptime connects (as the
+StatefulSet/Service/ConfigMap are not rendered, and Cast Operations connects (as the
 `oneuptime` user) to the operator-managed `ClickHouseInstallation`'s root service
 `<release>-clickhouse-altinity` on port `8123`. A ClickHouse Keeper ensemble
 (`<release>-clickhouse-keeper`) is created to coordinate replication; bring your
@@ -310,7 +310,7 @@ to move your data, and see [Docs/Clickhouse.md](../../../Docs/Clickhouse.md) for
 scaling and backups (via [clickhouse-backup](https://github.com/Altinity/clickhouse-backup)).
 
 > **Bundled-operator notes.** The Altinity operator is cluster-scoped and owns
-> the ClickHouse CRDs. Do not enable it in more than one OneUptime release per
+> the ClickHouse CRDs. Do not enable it in more than one Cast Operations release per
 > cluster. Tune the operator itself (including its management-user credentials)
 > under the top-level `altinity-clickhouse-operator:` values.
 

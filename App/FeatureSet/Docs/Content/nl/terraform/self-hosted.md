@@ -1,16 +1,16 @@
-# Zelf-gehoste OneUptime Terraform-configuratiegids
+# Zelf-gehoste Cast Operations Terraform-configuratiegids
 
-Deze gids is specifiek bedoeld voor klanten die zelf-gehoste OneUptime-instanties uitvoeren. Het behandelt versiebeheer, configuratie en best practices voor het gebruik van de Terraform-provider met uw eigen OneUptime-implementatie.
+Deze gids is specifiek bedoeld voor klanten die zelf-gehoste Cast Operations-instanties uitvoeren. Het behandelt versiebeheer, configuratie en best practices voor het gebruik van de Terraform-provider met uw eigen Cast Operations-implementatie.
 
 ## Belangrijke opmerkingen
 
-⚠️ **Projecten kunnen niet via Terraform worden aangemaakt** — Projecten moeten eerst handmatig worden aangemaakt in het OneUptime-dashboard. Gebruik het project-ID in uw Terraform-configuraties.
+⚠️ **Projecten kunnen niet via Terraform worden aangemaakt** — Projecten moeten eerst handmatig worden aangemaakt in het Cast Operations-dashboard. Gebruik het project-ID in uw Terraform-configuraties.
 
-⚠️ **De belangrijkste regel voor zelf-gehoste klanten**: Zet uw Terraform-providerversie altijd vast zodat deze exact overeenkomt met uw OneUptime-installatieversie.
+⚠️ **De belangrijkste regel voor zelf-gehoste klanten**: Zet uw Terraform-providerversie altijd vast zodat deze exact overeenkomt met uw Cast Operations-installatieversie.
 
 ## Resourcestructuur
 
-Alle OneUptime Terraform-resources volgen een vereenvoudigde structuur:
+Alle Cast Operations Terraform-resources volgen een vereenvoudigde structuur:
 
 - `name` (vereist) - Resourcenaam
 - `description` (optioneel) - Resourcebeschrijving
@@ -18,32 +18,32 @@ Alle OneUptime Terraform-resources volgen een vereenvoudigde structuur:
 
 ## Kritiek: Versiecompatibiliteit
 
-⚠️ **De belangrijkste regel voor zelf-gehoste klanten**: Zet uw Terraform-providerversie altijd vast zodat deze exact overeenkomt met uw OneUptime-installatieversie.
+⚠️ **De belangrijkste regel voor zelf-gehoste klanten**: Zet uw Terraform-providerversie altijd vast zodat deze exact overeenkomt met uw Cast Operations-installatieversie.
 
 ### Waarom versie vastzetten kritiek is
 
-- De Terraform-provider wordt automatisch gegenereerd vanuit de OneUptime API
-- Elke OneUptime-versie kan verschillende API-eindpunten en schema's hebben
+- De Terraform-provider wordt automatisch gegenereerd vanuit de Cast Operations API
+- Elke Cast Operations-versie kan verschillende API-eindpunten en schema's hebben
 - Het gebruik van een niet-overeenkomende providerversie kan fouten of onverwacht gedrag veroorzaken
 - Versie vastzetten garandeert compatibiliteit en voorspelbaar gedrag
 
-## Uw OneUptime-versie vinden
+## Uw Cast Operations-versie vinden
 
 ### Methode 1: Dashboard
 
-1. Log in op uw OneUptime-dashboard
+1. Log in op uw Cast Operations-dashboard
 2. Ga naar **Instellingen** → **Over**
 3. Zoek het versienummer (bijv. "7.0.123")
 
 ### Methode 2: API-eindpunt
 
 ```bash
-curl https://your-oneuptime-instance.com/api/status
+curl https://your-operations-instance.com/api/status
 ```
 
 ### Methode 3: Docker-images
 
-Als u OneUptime met Docker uitvoert:
+Als u Cast Operations met Docker uitvoert:
 
 ```bash
 docker images | grep oneuptime
@@ -75,7 +75,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Vervang 123 door uw exacte buildnummer
     }
   }
@@ -83,7 +83,7 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # Uw zelf-gehoste URL
+  oneuptime_url = "https://operations.yourcompany.com"  # Uw zelf-gehoste URL
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -94,7 +94,7 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # Vervang door uw exacte versie
     }
   }
@@ -102,22 +102,22 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Volledig voorbeeld van zelf-gehoste configuratie
 
-Hier is een volledig voorbeeld voor een zelf-gehoste OneUptime-instantie:
+Hier is een volledig voorbeeld voor een zelf-gehoste Cast Operations-instantie:
 
 ```hcl
 # versions.tf
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Moet overeenkomen met uw OneUptime-versie
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Moet overeenkomen met uw Cast Operations-versie
     }
   }
   required_version = ">= 1.0"
@@ -132,13 +132,13 @@ terraform {
 
 # variables.tf
 variable "oneuptime_url" {
-  description = "OneUptime-instantie-URL"
+  description = "Cast Operations-instantie-URL"
   type        = string
-  default     = "https://oneuptime.yourcompany.com"
+  default     = "https://operations.yourcompany.com"
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API-sleutel"
+  description = "Cast Operations API-sleutel"
   type        = string
   sensitive   = true
 }
@@ -157,7 +157,7 @@ provider "oneuptime" {
 
 # variables.tf
 variable "project_id" {
-  description = "OneUptime project-ID (handmatig aanmaken in dashboard)"
+  description = "Cast Operations project-ID (handmatig aanmaken in dashboard)"
   type        = string
 }
 
@@ -219,7 +219,7 @@ resource "oneuptime_monitor" "application" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://oneuptime-dev.yourcompany.com"
+oneuptime_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -227,7 +227,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://oneuptime-staging.yourcompany.com"
+oneuptime_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -235,13 +235,13 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://oneuptime.yourcompany.com"
+oneuptime_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
 ## Upgradeproces voor zelf-gehost
 
-Bij het upgraden van uw OneUptime-instantie:
+Bij het upgraden van uw Cast Operations-instantie:
 
 ### 1. Controlelijst voor upgrade
 
@@ -249,16 +249,16 @@ Bij het upgraden van uw OneUptime-instantie:
 # Back-up van huidige Terraform-status
 terraform state pull > backup-$(date +%Y%m%d).tfstate
 
-# Huidige OneUptime-versie noteren
-curl https://oneuptime.yourcompany.com/api/status | jq '.version'
+# Huidige Cast Operations-versie noteren
+curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Huidige providerversie noteren
 terraform providers | grep oneuptime
 ```
 
-### 2. OneUptime-instantie upgraden
+### 2. Cast Operations-instantie upgraden
 
-Volg uw standaard OneUptime-upgradeproces (Docker, Helm, enz.)
+Volg uw standaard Cast Operations-upgradeproces (Docker, Helm, enz.)
 
 ### 3. Terraform-provider bijwerken
 
@@ -267,7 +267,7 @@ Volg uw standaard OneUptime-upgradeproces (Docker, Helm, enz.)
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # Nieuwe versie na upgrade
     }
   }
@@ -293,12 +293,12 @@ terraform apply
 
 Zorg dat uw Terraform-runner toegang heeft tot:
 
-- OneUptime API-eindpunt (doorgaans poort 443/HTTPS)
+- Cast Operations API-eindpunt (doorgaans poort 443/HTTPS)
 - Interne resources die worden bewaakt
 
 ### VPN/Privénetwerken
 
-Als OneUptime op een privénetwerk staat:
+Als Cast Operations op een privénetwerk staat:
 
 ```hcl
 provider "oneuptime" {
@@ -390,7 +390,7 @@ Error: connection refused
 
 **Oplossingen**:
 
-1. Controleer of de OneUptime-instantie actief is
+1. Controleer of de Cast Operations-instantie actief is
 2. Verifieer of de API-URL correct is
 3. Controleer firewall-/netwerkconnectiviteit
 4. Verifieer of TLS-certificaten geldig zijn
@@ -403,7 +403,7 @@ Error: API version incompatible
 
 **Oplossingen**:
 
-1. Controleer de OneUptime-versie: `curl https://your-instance/api/status`
+1. Controleer de Cast Operations-versie: `curl https://your-instance/api/status`
 2. Werk de providerversie bij zodat deze overeenkomt
 3. Voer `terraform init -upgrade` uit
 

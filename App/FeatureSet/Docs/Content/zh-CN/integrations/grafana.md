@@ -1,20 +1,20 @@
 # Grafana 集成
 
-将 [Grafana](https://grafana.com) 告警转化为 OneUptime 事件。Grafana 评估仪表盘上的告警规则；OneUptime 记录、升级并追踪它们。
+将 [Grafana](https://grafana.com) 告警转化为 Cast Operations 事件。Grafana 评估仪表盘上的告警规则；Cast Operations 记录、升级并追踪它们。
 
-此集成为**入站**模式：Grafana 的告警通过 Grafana **Webhook 联系人**向以 **Webhook 触发器**开始的 OneUptime **[工作流](/docs/workflows/index)**发送。
+此集成为**入站**模式：Grafana 的告警通过 Grafana **Webhook 联系人**向以 **Webhook 触发器**开始的 Cast Operations **[工作流](/docs/workflows/index)**发送。
 
 ```text
-Grafana alert rule fires  ──►  Webhook contact point  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Grafana alert rule fires  ──►  Webhook contact point  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## 前提条件
 
 - Grafana 9+，并已启用[统一告警](https://grafana.com/docs/grafana/latest/alerting/)（现代 Grafana 的默认设置）。
-- Grafana 必须能通过 HTTPS 访问你的 OneUptime 实例。
-- 一个可以创建工作流的 OneUptime 项目。
+- Grafana 必须能通过 HTTPS 访问你的 Cast Operations 实例。
+- 一个可以创建工作流的 Cast Operations 项目。
 
-## 步骤 1——构建 OneUptime 工作流
+## 步骤 1——构建 Cast Operations 工作流
 
 1. 打开 **Workflows → Create Workflow**，命名为 `Grafana → Incidents`，并打开 **Builder**。
 2. 添加 **Webhook** 触发器并**复制其 URL**。将模块重命名为 `Grafana`。
@@ -33,10 +33,10 @@ Grafana 的 webhook 负载遵循 Alertmanager 的格式——包含 `status`、�
 ## 步骤 2——配置 Grafana 联系人
 
 1. 在 Grafana 中，前往 **Alerting → Contact points → Add contact point**。
-2. **Name**：`OneUptime`。**Integration**：**Webhook**。
+2. **Name**：`Cast Operations`。**Integration**：**Webhook**。
 3. **URL**：粘贴你工作流的 webhook URL。**HTTP Method**：`POST`。
 4. 保存联系人。
-5. 前往 **Alerting → Notification policies**，将你想要的告警（或默认策略）路由到 **OneUptime** 联系人。
+5. 前往 **Alerting → Notification policies**，将你想要的告警（或默认策略）路由到 **Cast Operations** 联系人。
 
 ## 步骤 3——测试
 
@@ -51,7 +51,7 @@ Grafana 的 webhook 负载遵循 Alertmanager 的格式——包含 `status`、�
 ## 注意事项
 
 - **旧版告警（Grafana 8 及更早版本）**发送不同的负载（`ruleName`、`state`、`evalMatches`）。如果你使用旧版告警，请改用 `{{Grafana.Request Body.ruleName}}` 和 `{{Grafana.Request Body.state}}`，并对 `state == alerting` 进行分支。
-- 你也可以完全跳过 Grafana 的告警，让 OneUptime 直接监控相同的指标——参见[指标监控器](/docs/monitor/metrics-monitor)。
+- 你也可以完全跳过 Grafana 的告警，让 Cast Operations 直接监控相同的指标——参见[指标监控器](/docs/monitor/metrics-monitor)。
 
 ## 故障排查
 
@@ -62,4 +62,4 @@ Grafana 的 webhook 负载遵循 Alertmanager 的格式——包含 `status`、�
 
 - [集成概览](/docs/integrations/index)——入站模式。
 - [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager)——密切相关的负载格式。
-- [指标监控器](/docs/monitor/metrics-monitor)——直接在 OneUptime 中监控指标。
+- [指标监控器](/docs/monitor/metrics-monitor)——直接在 Cast Operations 中监控指标。

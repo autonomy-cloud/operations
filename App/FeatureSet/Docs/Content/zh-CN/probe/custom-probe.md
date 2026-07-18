@@ -2,7 +2,7 @@
 
 您可以在您的网络内部设置自定义探针，以监控私有网络中的资源或防火墙后面的资源。
 
-首先，您需要在项目设置 > 探针中创建自定义探针。在 OneUptime 控制台上创建自定义探针后，您应该获得 `PROBE_ID` 和 `PROBE_KEY`。
+首先，您需要在项目设置 > 探针中创建自定义探针。在 Cast Operations 控制台上创建自定义探针后，您应该获得 `PROBE_ID` 和 `PROBE_KEY`。
 
 ### 部署探针
 
@@ -11,21 +11,21 @@
 要运行探针，请确保已安装 Docker。您可以通过以下方式运行自定义探针：
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://oneuptime.com -d oneuptime/probe:release
+docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
 ```
 
-如果您是自托管 OneUptime，可以将 `ONEUPTIME_URL` 更改为您自定义的自托管实例。
+如果您是自托管 Cast Operations，可以将 `ONEUPTIME_URL` 更改为您自定义的自托管实例。
 
 ##### 代理配置
 
-如果您的探针需要通过代理服务器访问 OneUptime 或监控外部资源，可以使用以下环境变量配置代理设置：
+如果您的探针需要通过代理服务器访问 Cast Operations 或监控外部资源，可以使用以下环境变量配置代理设置：
 
 ```
 # HTTP 代理
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -34,7 +34,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -43,7 +43,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       # 代理配置（可选）
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,7 +102,7 @@ services:
 docker compose up -d
 ```
 
-如果您是自托管 OneUptime，可以将 `ONEUPTIME_URL` 更改为您自定义的自托管实例。
+如果您是自托管 Cast Operations，可以将 `ONEUPTIME_URL` 更改为您自定义的自托管实例。
 
 #### Kubernetes
 
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 ##### 带代理配置
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             # 代理配置（可选）
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -184,7 +184,7 @@ spec:
 kubectl apply -f oneuptime-probe.yaml
 ```
 
-如果您是自托管 OneUptime，可以将 `ONEUPTIME_URL` 更改为您自定义的自托管实例。
+如果您是自托管 Cast Operations，可以将 `ONEUPTIME_URL` 更改为您自定义的自托管实例。
 
 ### 环境变量
 
@@ -192,9 +192,9 @@ kubectl apply -f oneuptime-probe.yaml
 
 #### 必填变量
 
-- `PROBE_KEY` - 来自您 OneUptime 控制台的探针密钥
-- `PROBE_ID` - 来自您 OneUptime 控制台的探针 ID
-- `ONEUPTIME_URL` - 您的 OneUptime 实例 URL（默认：https://oneuptime.com）
+- `PROBE_KEY` - 来自您 Cast Operations 控制台的探针密钥
+- `PROBE_ID` - 来自您 Cast Operations 控制台的探针 ID
+- `ONEUPTIME_URL` - 您的 Cast Operations 实例 URL（默认：https://visca.ai）
 
 #### 可选变量
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### 验证
 
-如果探针运行成功，它应该在您的 OneUptime 控制台上显示为 `Connected`（已连接）。如果未显示为已连接，您需要检查容器的日志。如果仍然遇到问题，请在 [GitHub](https://github.com/oneuptime/oneuptime) 上创建 Issue 或[联系支持](https://oneuptime.com/support)。
+如果探针运行成功，它应该在您的 Cast Operations 控制台上显示为 `Connected`（已连接）。如果未显示为已连接，您需要检查容器的日志。如果仍然遇到问题，请在 [GitHub](https://github.com/autonomy-cloud/operations) 上创建 Issue 或[联系支持](https://visca.ai/support)。

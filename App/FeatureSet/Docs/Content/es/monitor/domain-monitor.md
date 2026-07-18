@@ -1,6 +1,6 @@
 # Monitor de dominio
 
-El monitoreo de dominio te permite supervisar el estado de registro y la caducidad de tus nombres de dominio. OneUptime realiza búsquedas WHOIS periódicamente para rastrear el estado de tu dominio y alertarte antes de que caduque.
+El monitoreo de dominio te permite supervisar el estado de registro y la caducidad de tus nombres de dominio. Cast Operations realiza búsquedas WHOIS periódicamente para rastrear el estado de tu dominio y alertarte antes de que caduque.
 
 ## Información general
 
@@ -14,7 +14,7 @@ Los monitores de dominio consultan datos WHOIS para tus dominios con el fin de r
 
 ## Creación de un monitor de dominio
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Dominio** como tipo de monitor
 4. Ingresa el nombre de dominio que deseas monitorear

@@ -1,4 +1,4 @@
-# OneUptime Database Backup/Restore
+# Cast Operations Database Backup/Restore
 
 ## Backing up the database
 

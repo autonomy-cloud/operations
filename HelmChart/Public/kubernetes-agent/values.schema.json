@@ -22,20 +22,20 @@
     },
     "oneuptime": {
       "type": "object",
-      "description": "OneUptime instance connection details",
+      "description": "Cast Operations instance connection details",
       "required": ["url", "apiKey"],
       "properties": {
         "url": {
           "type": "string",
-          "description": "URL of your OneUptime instance (e.g., https://oneuptime.example.com)"
+          "description": "URL of your Cast Operations instance (e.g., https://operations.example.com)"
         },
         "apiKey": {
           "type": "string",
-          "description": "Project API key from OneUptime (Settings > API Keys)"
+          "description": "Project API key from Cast Operations (Settings > API Keys)"
         },
         "labels": {
           "type": "object",
-          "description": "Project Labels auto-attached to every record. Each key/value becomes an `oneuptime.label.<key>=<value>` resource attribute, which the OneUptime ingest pipeline promotes to a project Label.",
+          "description": "Project Labels auto-attached to every record. Each key/value becomes an `oneuptime.label.<key>=<value>` resource attribute, which the Cast Operations ingest pipeline promotes to a project Label.",
           "additionalProperties": {
             "type": ["string", "number", "boolean"]
           }
@@ -677,7 +677,7 @@
     },
     "profiling": {
       "type": "object",
-      "description": "Continuous CPU profiling via OpenTelemetry eBPF Profiler. Runs as a DaemonSet, samples stacks across all languages without SDKs, ships OTLP profiles directly to OneUptime. Default: enabled.",
+      "description": "Continuous CPU profiling via OpenTelemetry eBPF Profiler. Runs as a DaemonSet, samples stacks across all languages without SDKs, ships OTLP profiles directly to Cast Operations. Default: enabled.",
       "properties": {
         "enabled": { "type": "boolean" },
         "image": {

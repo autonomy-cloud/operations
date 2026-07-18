@@ -1,6 +1,6 @@
-# OneUptime-arkitektur för egeninstallation
+# Cast Operations-arkitektur för egeninstallation
 
-Det här diagrammet visar hur OneUptime vanligtvis ser ut när det egeninstalleras i din miljö (till exempel i ditt Kubernetes-kluster), inklusive hur sonder övervakar både interna och externa resurser.
+Det här diagrammet visar hur Cast Operations vanligtvis ser ut när det egeninstalleras i din miljö (till exempel i ditt Kubernetes-kluster), inklusive hur sonder övervakar både interna och externa resurser.
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["Incoming Request Ingest"]
     end
 
-    subgraph Probes["OneUptime Probes"]
+    subgraph Probes["Cast Operations Probes"]
       direction TB
       P1["Probe Pod(s) in your cluster"]
       P2["Optional Probe VM/Container on your network"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## Vad detta visar
 
-- Slutanvändare når OneUptime via klustrets Ingress (NGINX), som dirigerar till UI och API.
+- Slutanvändare når Cast Operations via klustrets Ingress (NGINX), som dirigerar till UI och API.
 - Kärntjänster läser/skriver tillstånd till PostgreSQL, Redis och ClickHouse.
 - Sonder kan köras inuti ditt kluster (rekommenderas) och/eller på annan plats i ditt nätverk. De kan övervaka:
   - Interna/privata tjänster bakom din brandvägg.

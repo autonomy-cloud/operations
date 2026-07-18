@@ -1,6 +1,6 @@
 # Dashboards Overview
 
-Dashboards turn the data OneUptime is already collecting — metrics, logs, traces, incidents, monitors, Kubernetes resources, hosts — into a single page someone can glance at and understand what's going on.
+Dashboards turn the data Cast Operations is already collecting — metrics, logs, traces, incidents, monitors, Kubernetes resources, hosts — into a single page someone can glance at and understand what's going on.
 
 Put a chart for request latency next to a list of open incidents, next to a gauge for CPU, next to a paragraph of context. Save it. Share the link.
 
@@ -67,12 +67,12 @@ Goal: an on-call page for the checkout service with latency, error rate, open in
 7. Add a **Log Stream** widget showing the matching raw logs.
 8. Save. Switch the dropdown to `payments` — the same dashboard now shows the payments service.
 
-## How dashboards fit with the rest of OneUptime
+## How dashboards fit with the rest of Cast Operations
 
 - **Monitors and telemetry** are the sources of data. Every metric, log, and trace you collect is queryable on a widget.
 - **Incidents and alerts** show up in **Incident List** and **Alert List** widgets. Dashboards are read-only for these — create and update them elsewhere.
 - **Status pages** are customer-facing communication ("is the system up?"). Dashboards are for looking at how the system is behaving in detail. The two work together, they don't replace each other.
-- **Workflows** are how OneUptime takes action. Dashboards are how you read what's happening.
+- **Workflows** are how Cast Operations takes action. Dashboards are how you read what's happening.
 
 ## Where to read next
 

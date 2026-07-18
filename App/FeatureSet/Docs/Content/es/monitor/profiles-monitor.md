@@ -1,6 +1,6 @@
 # Monitor de perfiles
 
-El monitoreo de perfiles te permite supervisar los datos de perfilado continuo de tus aplicaciones y activar alertas basadas en recuentos y patrones de perfiles. OneUptime evalúa los datos de perfiles de tus servicios de telemetría en una ventana de tiempo.
+El monitoreo de perfiles te permite supervisar los datos de perfilado continuo de tus aplicaciones y activar alertas basadas en recuentos y patrones de perfiles. Cast Operations evalúa los datos de perfiles de tus servicios de telemetría en una ventana de tiempo.
 
 ## Información general
 
@@ -14,7 +14,7 @@ Los monitores de perfiles cuentan y filtran los datos de perfilado que coinciden
 
 ## Creación de un monitor de perfiles
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Perfiles** como tipo de monitor
 4. Selecciona los servicios de telemetría a monitorear
@@ -24,7 +24,7 @@ Los monitores de perfiles cuentan y filtran los datos de perfilado que coinciden
 
 ### Servicios de telemetría
 
-Selecciona uno o más servicios desde los que monitorear perfiles. Los servicios deben enviar datos de perfilado continuo a OneUptime a través de OpenTelemetry.
+Selecciona uno o más servicios desde los que monitorear perfiles. Los servicios deben enviar datos de perfilado continuo a Cast Operations a través de OpenTelemetry.
 
 ### Filtros de perfiles
 
@@ -62,4 +62,4 @@ Selecciona uno o más servicios desde los que monitorear perfiles. Los servicios
 
 ## Requisitos de configuración
 
-El monitoreo de perfiles requiere que tus aplicaciones envíen datos de perfilado continuo a OneUptime a través de OpenTelemetry. Consulta la documentación de [OpenTelemetry](/docs/telemetry/open-telemetry) para obtener instrucciones de configuración.
+El monitoreo de perfiles requiere que tus aplicaciones envíen datos de perfilado continuo a Cast Operations a través de OpenTelemetry. Consulta la documentación de [OpenTelemetry](/docs/telemetry/open-telemetry) para obtener instrucciones de configuración.

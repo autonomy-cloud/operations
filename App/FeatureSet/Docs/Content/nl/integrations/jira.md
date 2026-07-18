@@ -1,18 +1,18 @@
 # Jira-integratie
 
-Open automatisch een [Jira](https://www.atlassian.com/software/jira)-issue wanneer een OneUptime-incident wordt aangemaakt — zodat engineeringwerk wordt bijgehouden waar je ontwikkelaars al werken, met een link terug naar het incident.
+Open automatisch een [Jira](https://www.atlassian.com/software/jira)-issue wanneer een Cast Operations-incident wordt aangemaakt — zodat engineeringwerk wordt bijgehouden waar je ontwikkelaars al werken, met een link terug naar het incident.
 
-Deze integratie is **outbound**: OneUptime roept de REST API van Jira aan. Ze maakt gebruik van een OneUptime **[Workflow](/docs/workflows/index)** met een **Incident → On Create**-trigger en een **API-component**. Je kunt optioneel een **inbound**-pad toevoegen zodat het sluiten van de Jira-issue het OneUptime-incident oplost.
+Deze integratie is **outbound**: Cast Operations roept de REST API van Jira aan. Ze maakt gebruik van een Cast Operations **[Workflow](/docs/workflows/index)** met een **Incident → On Create**-trigger en een **API-component**. Je kunt optioneel een **inbound**-pad toevoegen zodat het sluiten van de Jira-issue het Cast Operations-incident oplost.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
+Cast Operations Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
 ```
 
 ## Vereisten
 
 - Een Jira Cloud-site (`https://your-domain.atlassian.net`) en een project om issues in te registreren — noteer de **projectsleutel** (bijv. `OPS`).
 - Een Jira-account dat issues kan aanmaken, en een **API-token** ervoor van [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
-- Een OneUptime-project waar je workflows kunt aanmaken.
+- Een Cast Operations-project waar je workflows kunt aanmaken.
 
 > Gebruik je **Jira Data Center / Server** (zelf beheerd)? De aanpak is identiek — gebruik je eigen basis-URL en een [Personal Access Token](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) met een `Bearer`-auth-header in plaats van Basic auth. Het eindpunt `/rest/api/2/issue` accepteert een beschrijving in platte tekst, waardoor templating eenvoudiger is.
 
@@ -26,7 +26,7 @@ Jira Cloud gebruikt **Basic auth** met je e-mail en API-token, base64-gecodeerd.
    printf '%s' 'you@example.com:your_api_token' | base64
    ```
 
-2. Ga in OneUptime naar **Workflows → Global Variables → Create**.
+2. Ga in Cast Operations naar **Workflows → Global Variables → Create**.
 3. Geef het de naam `JIRA_AUTH`, plak de base64-string als waarde, en zet **Is Secret** aan.
 
 Nu kun je `Basic {{variable.JIRA_AUTH}}` gebruiken als auth-header en het token verschijnt nooit in de workflow of de logs.
@@ -53,7 +53,7 @@ Nu kun je `Basic {{variable.JIRA_AUTH}}` gebruiken als auth-header en het token 
        "fields": {
          "project": { "key": "OPS" },
          "issuetype": { "name": "Bug" },
-         "summary": "OneUptime incident: {{Incident.title}}",
+         "summary": "Cast Operations incident: {{Incident.title}}",
          "description": {
            "type": "doc",
            "version": 1,
@@ -77,7 +77,7 @@ Nu kun je `Basic {{variable.JIRA_AUTH}}` gebruiken als auth-header en het token 
 ## Stap 3 — Test het
 
 1. Zet de workflow **Enabled** aan.
-2. Maak een testincident aan in OneUptime (of trigger er één vanuit een monitor).
+2. Maak een testincident aan in Cast Operations (of trigger er één vanuit een monitor).
 3. Open het tabblad **Logs** van de workflow. Het **API**-blok moet een status `201` tonen en een responsebody met de `key` van de nieuwe issue (bijvoorbeeld `OPS-1234`).
 4. Controleer Jira — de issue is aangemaakt.
 
@@ -94,13 +94,13 @@ Dit maakt ook de optionele bidirectionele synchronisatie hieronder mogelijk.
 
 ## Bidirectionele synchronisatie (optioneel)
 
-Om het OneUptime-incident op te lossen wanneer iemand de Jira-issue sluit, voeg je een **inbound**-workflow toe:
+Om het Cast Operations-incident op te lossen wanneer iemand de Jira-issue sluit, voeg je een **inbound**-workflow toe:
 
 1. Maak een tweede workflow aan die start met een **Webhook**-trigger en kopieer de URL ervan.
 2. Ga in Jira naar **Project settings → Automation → Create rule**:
 
    - **Trigger**: _Issue transitioned_ naar **Done** (of _Issue resolved_).
-   - **Action**: _Send web request_ → methode `POST`, URL = je workflow-webhook-URL, body bevat de issuekey en het OneUptime-incident-id, bijv.:
+   - **Action**: _Send web request_ → methode `POST`, URL = je workflow-webhook-URL, body bevat de issuekey en het Cast Operations-incident-id, bijv.:
 
      ```json
      { "issueKey": "{{issue.key}}", "status": "resolved" }
@@ -108,13 +108,13 @@ Om het OneUptime-incident op te lossen wanneer iemand de Jira-issue sluit, voeg 
 
 3. Gebruik in de workflow een **Find Incident**-blok om het incident op de opgeslagen key te vinden, gevolgd door een **Update Incident**-blok om het naar je opgeloste status te verplaatsen.
 
-Als je de Jira-key op het incident hebt opgeslagen in Stap 4, is de koppeling eenvoudig. Zie [Componenten → OneUptime-datacomponenten](/docs/workflows/components#oneuptime-data-components).
+Als je de Jira-key op het incident hebt opgeslagen in Stap 4, is de koppeling eenvoudig. Zie [Componenten → Cast Operations-datacomponenten](/docs/workflows/components#oneuptime-data-components).
 
 ## De issue aanpassen
 
 Een paar veelgebruikte aanpassingen aan de body van het API-blok:
 
-- **Priority** — voeg `"priority": { "name": "High" }` toe binnen `fields`. Je kunt op `{{Incident.incidentSeverity.name}}` vertakken met **Conditions** om OneUptime-severities naar Jira-prioriteiten te mappen.
+- **Priority** — voeg `"priority": { "name": "High" }` toe binnen `fields`. Je kunt op `{{Incident.incidentSeverity.name}}` vertakken met **Conditions** om Cast Operations-severities naar Jira-prioriteiten te mappen.
 - **Labels** — voeg `"labels": ["oneuptime", "incident"]` toe.
 - **Assignee** — voeg `"assignee": { "id": "<accountId>" }` toe (Jira Cloud gebruikt account-ID's, geen gebruikersnamen).
 - **Aangepaste velden** — voeg `"customfield_XXXXX": "..."` toe met het ID van het veld uit je Jira-beheer.

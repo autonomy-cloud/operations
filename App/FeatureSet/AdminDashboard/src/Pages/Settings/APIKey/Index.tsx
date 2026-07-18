@@ -72,7 +72,7 @@ const Settings: FunctionComponent = (): ReactElement => {
               },
               title: "Master API Key",
               description:
-                "This API key has root access to all the resources in all the projects on OneUptime.",
+                "This API key has root access to all the resources in all the projects on Cast Operations.",
               fieldType: FieldType.HiddenText,
               opts: {
                 isCopyable: true,

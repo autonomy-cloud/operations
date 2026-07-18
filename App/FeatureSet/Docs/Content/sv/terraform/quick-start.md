@@ -1,27 +1,27 @@
 # Snabbstartsguide för Terraform-leverantör
 
-Den här guiden hjälper dig att komma igång med OneUptime Terraform-leverantören på bara några minuter.
+Den här guiden hjälper dig att komma igång med Cast Operations Terraform-leverantören på bara några minuter.
 
 ## Förutsättningar
 
 - Terraform >= 1.0 installerat
-- OneUptime-konto (moln eller egeninstallerat)
-- OneUptime API-nyckel
+- Cast Operations-konto (moln eller egeninstallerat)
+- Cast Operations API-nyckel
 
 ## Steg 1: Skapa API-nyckel
 
-### För OneUptime Cloud
+### För Cast Operations Cloud
 
-1. Gå till [OneUptime Cloud](https://oneuptime.com) och logga in
+1. Gå till [Cast Operations Cloud](https://visca.ai) och logga in
 2. Navigera till **Inställningar** → **API-nycklar**
 3. Klicka på **Skapa API-nyckel**
 4. Namnge den "Terraform-leverantör"
 5. Välj obligatoriska behörigheter
 6. Kopiera den genererade API-nyckeln
 
-### För egeninstallerad OneUptime
+### För egeninstallerad Cast Operations
 
-1. Gå till din OneUptime-instans
+1. Gå till din Cast Operations-instans
 2. Navigera till **Inställningar** → **API-nycklar**
 3. Klicka på **Skapa API-nyckel**
 4. Namnge den "Terraform-leverantör"
@@ -36,12 +36,12 @@ Skapa en ny katalog och `main.tf`-fil:
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       # For Cloud customers
       version = "~> 7.0"
 
       # For Self-Hosted customers - pin to your exact version
-      # version = "= 7.0.123"  # Replace with your OneUptime version
+      # version = "= 7.0.123"  # Replace with your Cast Operations version
     }
   }
   required_version = ">= 1.0"
@@ -49,22 +49,22 @@ terraform {
 
 provider "oneuptime" {
   # For Cloud customers
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
 
   # For Self-Hosted customers - use your instance URL
-  # oneuptime_url = "https://oneuptime.yourcompany.com"
+  # oneuptime_url = "https://operations.yourcompany.com"
 
   api_key = var.oneuptime_api_key
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API Key"
+  description = "Cast Operations API Key"
   type        = string
   sensitive   = true
 }
 
 variable "project_id" {
-  description = "OneUptime project ID"
+  description = "Cast Operations project ID"
   type        = string
 }
 
@@ -92,7 +92,7 @@ Skapa `terraform.tfvars`:
 ```hcl
 # terraform.tfvars
 oneuptime_api_key = "your-api-key-here"
-project_id        = "your-project-id-here"  # Get this from OneUptime dashboard
+project_id        = "your-project-id-here"  # Get this from Cast Operations dashboard
 ```
 
 **Viktigt**: Lägg till `terraform.tfvars` i din `.gitignore` för att hålla API-nycklar hemliga!
@@ -112,7 +112,7 @@ terraform apply
 
 ## Steg 5: Verifiera resurser
 
-1. Kontrollera din OneUptime-instrumentpanel
+1. Kontrollera din Cast Operations-instrumentpanel
 2. Gå till ditt befintliga projekt
 3. Verifiera att "Website Monitor" skapats och körs
 
@@ -131,14 +131,14 @@ terraform apply
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Always gets latest compatible 7.x version
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -149,14 +149,14 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Must match your OneUptime version exactly
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Must match your Cast Operations version exactly
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.mycompany.com"  # Your self-hosted URL
+  oneuptime_url = "https://operations.mycompany.com"  # Your self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -179,7 +179,7 @@ Error: Invalid API key
 
 **Lösning**:
 
-1. Verifiera din API-nyckel i OneUptime-instrumentpanelen
+1. Verifiera din API-nyckel i Cast Operations-instrumentpanelen
 2. Kontrollera att API-nyckeln har tillräckliga behörigheter
 3. Se till att `oneuptime_url` är korrekt för din instans
 
@@ -191,7 +191,7 @@ Error: API version incompatible
 
 **Lösning**:
 
-1. Kontrollera din OneUptime-version i instrumentpanelen
+1. Kontrollera din Cast Operations-version i instrumentpanelen
 2. Uppdatera leverantörens version för att matcha exakt
 3. Kör `terraform init -upgrade`
 

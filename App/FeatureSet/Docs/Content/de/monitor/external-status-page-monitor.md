@@ -1,6 +1,6 @@
 # Externer Status-Seiten-Monitor
 
-Der Externe Status-Seiten-Monitor ermöglicht die Überwachung von Status-Seiten Dritter und Benachrichtigungen, wenn von Ihnen abhängige Dienste Ausfälle oder Leistungseinbußen erleiden. OneUptime prüft regelmäßig externe Status-Seiten (wie AWS, GCP, Azure, GitHub, OpenAI, Anthropic und mehr) und wertet deren Status aus.
+Der Externe Status-Seiten-Monitor ermöglicht die Überwachung von Status-Seiten Dritter und Benachrichtigungen, wenn von Ihnen abhängige Dienste Ausfälle oder Leistungseinbußen erleiden. Cast Operations prüft regelmäßig externe Status-Seiten (wie AWS, GCP, Azure, GitHub, OpenAI, Anthropic und mehr) und wertet deren Status aus.
 
 ## Übersicht
 
@@ -15,7 +15,7 @@ Externe Status-Seiten-Monitore prüfen die Gesundheit von Diensten, auf die Sie 
 
 ## Unterstützte Anbieter
 
-OneUptime unterstützt die Überwachung von Status-Seiten über folgende Methoden:
+Cast Operations unterstützt die Überwachung von Status-Seiten über folgende Methoden:
 
 | Anbietertyp              | Beschreibung                                                       |
 | ------------------------ | ----------------------------------------------------------------- |
@@ -27,7 +27,7 @@ OneUptime unterstützt die Überwachung von Status-Seiten über folgende Methode
 
 ### Automatische Erkennung
 
-Bei der Einstellung **Auto** versucht OneUptime, das Status-Seiten-Format automatisch zu erkennen, und zwar in dieser Reihenfolge:
+Bei der Einstellung **Auto** versucht Cast Operations, das Status-Seiten-Format automatisch zu erkennen, und zwar in dieser Reihenfolge:
 
 1. Zuerst wird die incident.io Status-Seiten-API versucht (`/proxy/<host>`)
 2. Als Nächstes wird die Atlassian Statuspage JSON API versucht (`/api/v2/status.json`, `/api/v2/components.json` und `/api/v2/incidents/unresolved.json`)
@@ -38,7 +38,7 @@ Bei der Einstellung **Auto** versucht OneUptime, das Status-Seiten-Format automa
 
 ## Einen Externen Status-Seiten-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Externe Status-Seite** als Monitortyp
 4. Geben Sie die URL der Status-Seite ein, die Sie überwachen möchten
@@ -55,7 +55,7 @@ Geben Sie die URL der externen Status-Seite ein, die Sie überwachen möchten. F
 
 ### Anbietertyp
 
-Wählen Sie den Anbietertyp für die Status-Seite. Verwenden Sie **Auto** (Standard), damit OneUptime das Format automatisch erkennt, oder geben Sie **Atlassian Statuspage**, **incident.io**, **RSS** oder **Atom** an, wenn Sie es kennen.
+Wählen Sie den Anbietertyp für die Status-Seite. Verwenden Sie **Auto** (Standard), damit Cast Operations das Format automatisch erkennt, oder geben Sie **Atlassian Statuspage**, **incident.io**, **RSS** oder **Atom** an, wenn Sie es kennen.
 
 ### Komponentengruppen-Filter
 
@@ -93,7 +93,7 @@ Sie können Kriterien konfigurieren, um basierend auf den folgenden Werten zu be
 
 ### Standardkriterien
 
-Standardmäßig setzt OneUptime Kriterien an, die sich daran orientieren, was bei einer Status-Seite tatsächlich zählt — ihren aktiven Incidents und der Komponentengesundheit, statt der bloßen Erreichbarkeit:
+Standardmäßig setzt Cast Operations Kriterien an, die sich daran orientieren, was bei einer Status-Seite tatsächlich zählt — ihren aktiven Incidents und der Komponentengesundheit, statt der bloßen Erreichbarkeit:
 
 - Der Monitor wird als **Betriebsbereit** markiert, wenn es keine aktiven Incidents im Geltungsbereich gibt.
 - Der Monitor wird als **Ausgefallen** markiert (und ein Incident wird erstellt), wenn es mindestens einen aktiven Incident im Geltungsbereich gibt oder wenn eine Komponente im Geltungsbereich `degraded_performance`, `partial_outage`, `major_outage` oder `full_outage` meldet.

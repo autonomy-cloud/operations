@@ -1,21 +1,21 @@
 # Discord 連携
 
-インシデントの更新を [Discord](https://discord.com) チャンネルに投稿します。OneUptime には **Discord** ワークフローコンポーネントが組み込まれているため、最も素早くセットアップできる連携の 1 つです。
+インシデントの更新を [Discord](https://discord.com) チャンネルに投稿します。Cast Operations には **Discord** ワークフローコンポーネントが組み込まれているため、最も素早くセットアップできる連携の 1 つです。
 
-この連携は**アウトバウンド**です: OneUptime が受信 Webhook URL を通じて Discord チャンネルに投稿します。
+この連携は**アウトバウンド**です: Cast Operations が受信 Webhook URL を通じて Discord チャンネルに投稿します。
 
 ```text
-OneUptime Incident → On Create  ──►  Discord component  ──►  message in your channel
+Cast Operations Incident → On Create  ──►  Discord component  ──►  message in your channel
 ```
 
 ## ステップ 1 — Discord の Webhook を作成する
 
 1. Discord で対象チャンネルの **Edit Channel → Integrations → Webhooks** を開きます。
-2. **New Webhook** をクリックして名前を付け (例: `OneUptime`)、チャンネルを選んで **Copy Webhook URL** をクリックします。
+2. **New Webhook** をクリックして名前を付け (例: `Cast Operations`)、チャンネルを選んで **Copy Webhook URL** をクリックします。
 
 ## ステップ 2 — Webhook URL を保存する (オプションだが推奨)
 
-1. OneUptime で **Workflows → Global Variables → Create** に移動します。
+1. Cast Operations で **Workflows → Global Variables → Create** に移動します。
 2. `DISCORD_WEBHOOK_URL` という名前にして URL を貼り付け、**Is Secret** をオンにします。
 
 変数に保存しておくと、複数のワークフローで再利用でき、1 か所でローテーションできます。

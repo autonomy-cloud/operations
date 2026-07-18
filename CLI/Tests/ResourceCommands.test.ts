@@ -181,7 +181,7 @@ describe("ResourceCommands", () => {
        * race conditions with other test files that share ~/.oneuptime/config.json
        */
       process.env["ONEUPTIME_API_KEY"] = "test-key-12345";
-      process.env["ONEUPTIME_URL"] = "https://test.oneuptime.com";
+      process.env["ONEUPTIME_URL"] = "https://test.visca.ai";
       mockExecuteApiRequest.mockResolvedValue({ data: [] });
     });
 

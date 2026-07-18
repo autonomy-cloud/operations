@@ -1,10 +1,10 @@
-# Docker Compose で OneUptime を完全無料でデプロイする
+# Docker Compose で Cast Operations を完全無料でデプロイする
 
-独自のサーバーで OneUptime をホストしたい場合、Docker Compose を使用して Debian、Ubuntu、または RHEL 上にシングルサーバーインスタンスをデプロイできます。このオプションでは、インスタンスをより細かく制御してカスタマイズできますが、デプロイとメンテナンスにはより高い技術スキルとリソースが必要です。
+独自のサーバーで Cast Operations をホストしたい場合、Docker Compose を使用して Debian、Ubuntu、または RHEL 上にシングルサーバーインスタンスをデプロイできます。このオプションでは、インスタンスをより細かく制御してカスタマイズできますが、デプロイとメンテナンスにはより高い技術スキルとリソースが必要です。
 
 #### システム要件の選択
 
-使用状況と予算に応じて、サーバーに異なるシステム要件を選択できます。最適なパフォーマンスのために、以下での OneUptime の使用をお勧めします。
+使用状況と予算に応じて、サーバーに異なるシステム要件を選択できます。最適なパフォーマンスのために、以下での Cast Operations の使用をお勧めします。
 
 - **推奨システム要件**
   - 16GB RAM
@@ -13,7 +13,7 @@
   - Ubuntu 22.04
   - Docker および Docker Compose インストール済み
 - **ホームラボ / 最小要件**
-  - 個人利用や実験的な使用（一部のユーザーは RaspberryPi にインストールしています）のために OneUptime をホームラボで実行したい場合は、最小要件を使用できます:
+  - 個人利用や実験的な使用（一部のユーザーは RaspberryPi にインストールしています）のために Cast Operations をホームラボで実行したい場合は、最小要件を使用できます:
     - 8 GB RAM
     - 4 コア
     - 20 GB ディスク
@@ -28,11 +28,11 @@
 - Debian、Ubuntu、または RHEL 系を実行しているサーバー
 - サーバーに Docker および Docker Compose がインストールされていること
 
-OneUptime をインストールするには:
+Cast Operations をインストールするには:
 
 ```
 # リリースブランチのみでリポジトリをクローンして cd で移動します。
-git clone --depth 1 --single-branch --branch release https://github.com/OneUptime/oneuptime.git
+git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
 cd oneuptime
 
 # config.example.env を config.env にコピーします
@@ -53,35 +53,35 @@ npm を使用したくない場合またはインストールされていない�
 sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
 ```
 
-### OneUptime へのアクセス
+### Cast Operations へのアクセス
 
-OneUptime は http://localhost で実行されます。使用を開始するには、インスタンスの新しいアカウントを登録する必要があります。
+Cast Operations は http://localhost で実行されます。使用を開始するには、インスタンスの新しいアカウントを登録する必要があります。
 
 ### TLS/SSL 証明書のセットアップ
 
-OneUptime は SSL/TLS 証明書のセットアップを**サポートしていません**。SSL/TLS 証明書は独自に設定する必要があります。
+Cast Operations は SSL/TLS 証明書のセットアップを**サポートしていません**。SSL/TLS 証明書は独自に設定する必要があります。
 
 SSL/TLS 証明書を使用する必要がある場合は、以下の手順に従ってください。
 
 1. Nginx や Caddy などのリバースプロキシを使用します。
 2. Let's Encrypt を使用して証明書をプロビジョニングします。
-3. リバースプロキシを OneUptime サーバーにポイントします。
+3. リバースプロキシを Cast Operations サーバーにポイントします。
 4. 以下の設定を更新します。
    - `HTTP_PROTOCOL` 環境変数を `https` に設定します。
    - `HOST` 環境変数をリバースプロキシがホストされているサーバーのドメイン名に変更します。
 
 ## 本番環境の準備チェックリスト
 
-本番環境での docker-compose による OneUptime のデプロイは推奨しません。Kubernetes の使用を強くお勧めします。OneUptime の Helm チャートは[こちら](https://artifacthub.io/packages/helm/oneuptime/oneuptime)で提供されています。
+本番環境での docker-compose による Cast Operations のデプロイは推奨しません。Kubernetes の使用を強くお勧めします。Cast Operations の Helm チャートは[こちら](https://artifacthub.io/packages/helm/autonomy-cloud/operations)で提供されています。
 
-それでも docker-compose で本番環境に OneUptime をデプロイしたい場合は、以下を考慮してください。
+それでも docker-compose で本番環境に Cast Operations をデプロイしたい場合は、以下を考慮してください。
 
-- **SSL/TLS**: SSL/TLS 証明書を設定してください。OneUptime は SSL/TLS 証明書のセットアップをサポートしていません。独自に設定する必要があります。上記を参照してください。
+- **SSL/TLS**: SSL/TLS 証明書を設定してください。Cast Operations は SSL/TLS 証明書のセットアップをサポートしていません。独自に設定する必要があります。上記を参照してください。
 - **シークレット**: `config.env` ファイルにランダムなシークレットがあることを確認してください。そのファイルにはいくつかのデフォルトシークレットがあります。ランダムな長い文字列に置き換えてください。
 - **バックアップ**: データベース（Clickhouse、Postgres）を定期的にバックアップしてください。Redis はキャッシュとして使用されており、ステートレスなので安全に無視できます。
-- **更新**: OneUptime を定期的に更新してください。毎日アップデートをリリースしています。本番環境で実行している場合は、少なくとも週に 1 回はソフトウェアを更新することをお勧めします。
+- **更新**: Cast Operations を定期的に更新してください。毎日アップデートをリリースしています。本番環境で実行している場合は、少なくとも週に 1 回はソフトウェアを更新することをお勧めします。
 
-### OneUptime の更新
+### Cast Operations の更新
 
 更新するには:
 
@@ -93,14 +93,14 @@ npm run update
 
 ### 注意事項
 
-- Docker のセットアップでは、ローカルロギングドライバーを使用しています。OneUptime、特にプローブとインジェストコンテナは大量のログを生成します。ストレージが満杯になるのを防ぐために、Docker のロギングストレージを制限することが重要です。詳細な手順については、[こちら](https://docs.docker.com/config/containers/logging/local/)の公式 Docker ドキュメントを参照してください。
+- Docker のセットアップでは、ローカルロギングドライバーを使用しています。Cast Operations、特にプローブとインジェストコンテナは大量のログを生成します。ストレージが満杯になるのを防ぐために、Docker のロギングストレージを制限することが重要です。詳細な手順については、[こちら](https://docs.docker.com/config/containers/logging/local/)の公式 Docker ドキュメントを参照してください。
 
-### OneUptime のアンインストール
+### Cast Operations のアンインストール
 
-OneUptime をアンインストールするには、以下のコマンドを実行します。
+Cast Operations をアンインストールするには、以下のコマンドを実行します。
 
 ```
 npm run down
 ```
 
-これにより、OneUptime によって作成されたすべてのコンテナ、ネットワーク、ボリュームが停止され削除されます。`config.env` ファイルやクローンされたリポジトリは削除されません。
+これにより、Cast Operations によって作成されたすべてのコンテナ、ネットワーク、ボリュームが停止され削除されます。`config.env` ファイルやクローンされたリポジトリは削除されません。

@@ -1,10 +1,10 @@
-# AI / LLM Observability with OneUptime
+# AI / LLM Observability with Cast Operations
 
-Observe your LLM and AI-agent applications in OneUptime: per-call traces, token usage, cost, latency, errors, and the actual prompts and completions — all over standard OpenTelemetry. There is no proprietary SDK. If your app emits spans using the OpenTelemetry **GenAI semantic conventions** (`gen_ai.*`), OneUptime turns them into a first-class AI observability experience.
+Observe your LLM and AI-agent applications in Cast Operations: per-call traces, token usage, cost, latency, errors, and the actual prompts and completions — all over standard OpenTelemetry. There is no proprietary SDK. If your app emits spans using the OpenTelemetry **GenAI semantic conventions** (`gen_ai.*`), Cast Operations turns them into a first-class AI observability experience.
 
 ## How it works
 
-OneUptime ingests OpenTelemetry traces at the OTLP endpoint. When a span carries GenAI attributes, OneUptime automatically:
+Cast Operations ingests OpenTelemetry traces at the OTLP endpoint. When a span carries GenAI attributes, Cast Operations automatically:
 
 - Tags it as an **LLM call** and denormalizes the model, operation, provider, token counts and cost for fast querying.
 - Surfaces it in the dedicated **AI / LLM** section (an LLM calls list plus a token / cost / latency overview).
@@ -14,7 +14,7 @@ Because everything is OpenTelemetry, the same data also powers dashboards and me
 
 ## Step 1 — Create a Telemetry Ingestion Token
 
-In OneUptime, open **Project Settings → Telemetry Ingestion Keys** and click **Create Ingestion Key**. Copy the key — you will pass it to your app as an OTLP header. (See the [OpenTelemetry guide](/docs/telemetry/open-telemetry) for screenshots.)
+In Cast Operations, open **Project Settings → Telemetry Ingestion Keys** and click **Create Ingestion Key**. Copy the key — you will pass it to your app as an OTLP header. (See the [OpenTelemetry guide](/docs/telemetry/open-telemetry) for screenshots.)
 
 ## Step 2 — Instrument your app
 
@@ -35,7 +35,7 @@ from traceloop.sdk import Traceloop
 
 Traceloop.init(
     app_name="my-ai-agent",
-    api_endpoint="https://oneuptime.com/otlp",   # or your self-hosted host + /otlp
+    api_endpoint="https://visca.ai/otlp",   # or your self-hosted host + /otlp
     headers={"x-oneuptime-token": "YOUR_INGESTION_TOKEN"},
 )
 
@@ -53,26 +53,26 @@ import * as traceloop from "@traceloop/node-server-sdk";
 
 traceloop.initialize({
   appName: "my-ai-agent",
-  baseUrl: "https://oneuptime.com/otlp", // or your self-hosted host + /otlp
+  baseUrl: "https://visca.ai/otlp", // or your self-hosted host + /otlp
   headers: { "x-oneuptime-token": "YOUR_INGESTION_TOKEN" },
 });
 ```
 
 ### Plain OpenTelemetry environment variables
 
-If you instrument with a native OpenTelemetry SDK, point the OTLP exporter at OneUptime:
+If you instrument with a native OpenTelemetry SDK, point the OTLP exporter at Cast Operations:
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT="https://oneuptime.com/otlp"
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
 export OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_INGESTION_TOKEN"
 export OTEL_SERVICE_NAME="my-ai-agent"
 ```
 
-Self-hosting OneUptime? Replace `https://oneuptime.com/otlp` with `https://YOUR-ONEUPTIME-HOST/otlp`.
+Self-hosting Cast Operations? Replace `https://visca.ai/otlp` with `https://YOUR-OPERATIONS-HOST/otlp`.
 
-## Attributes OneUptime recognizes
+## Attributes Cast Operations recognizes
 
-OneUptime reads the OpenTelemetry GenAI conventions first, and falls back to the OpenLLMetry and OpenInference variants so popular libraries work out of the box.
+Cast Operations reads the OpenTelemetry GenAI conventions first, and falls back to the OpenLLMetry and OpenInference variants so popular libraries work out of the box.
 
 | What | Primary attribute | Also accepted |
 |------|-------------------|---------------|
@@ -89,7 +89,7 @@ OneUptime reads the OpenTelemetry GenAI conventions first, and falls back to the
 
 **Prompt & completion content** is read from the standard content events (`gen_ai.system.message`, `gen_ai.user.message`, `gen_ai.assistant.message`, `gen_ai.choice`) or the indexed attributes (`gen_ai.prompt.N.content`, `gen_ai.completion.N.content`) and rendered in the AI / LLM panel.
 
-> **Cost note:** OneUptime does not maintain a model price list. Cost is shown only when your instrumentation reports it (e.g. OpenLLMetry can emit `gen_ai.usage.cost`).
+> **Cost note:** Cast Operations does not maintain a model price list. Cost is shown only when your instrumentation reports it (e.g. OpenLLMetry can emit `gen_ai.usage.cost`).
 
 ## View your LLM calls
 
@@ -108,4 +108,4 @@ Because GenAI metrics arrive as ordinary OpenTelemetry metrics, you can:
 
 ## Privacy & redaction
 
-Prompt and completion content can contain sensitive data. OneUptime applies your existing telemetry **scrub rules** and **drop filters** to LLM spans just like any other trace, so you can redact or drop attributes before they are stored. Configure these under **Traces → Settings**.
+Prompt and completion content can contain sensitive data. Cast Operations applies your existing telemetry **scrub rules** and **drop filters** to LLM spans just like any other trace, so you can redact or drop attributes before they are stored. Configure these under **Traces → Settings**.

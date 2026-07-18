@@ -28,7 +28,7 @@ const AI_CHAT_DESCRIPTION: string =
   "Investigate telemetry, explain failures, and take approved operational actions.";
 
 /*
- * The full-page AI Copilot: a calm, focused workspace for asking the OneUptime
+ * The full-page AI Copilot: a calm, focused workspace for asking the Cast Operations
  * observability assistant about the project's telemetry. A quiet left rail holds
  * conversation history; the main column is the live thread with a model switcher
  * in the composer. All chat behavior lives in the shared useAiChat hook so this

@@ -1,6 +1,6 @@
 # Scripting और CI/CD
 
-OneUptime CLI automation के लिए डिज़ाइन की गई है। यह environment-variable-based authentication, programmatic parsing के लिए JSON output और pipeline integration के लिए उचित exit codes का समर्थन करती है।
+Cast Operations CLI automation के लिए डिज़ाइन की गई है। यह environment-variable-based authentication, programmatic parsing के लिए JSON output और pipeline integration के लिए उचित exit codes का समर्थन करती है।
 
 ## Environment Variables
 
@@ -8,7 +8,7 @@ Saved contexts के बिना authenticate करने के लिए �
 
 ```bash
 export ONEUPTIME_API_KEY=sk-your-api-key
-export ONEUPTIME_URL=https://oneuptime.com
+export ONEUPTIME_URL=https://visca.ai
 ```
 
 ये saved contexts पर प्राथमिकता लेते हैं लेकिन CLI flags द्वारा override होते हैं।
@@ -86,13 +86,13 @@ jobs:
   health-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Install OneUptime CLI
+      - name: Install Cast Operations CLI
         run: npm install -g @oneuptime/cli
 
       - name: Check for active incidents
         env:
           ONEUPTIME_API_KEY: ${{ secrets.ONEUPTIME_API_KEY }}
-          ONEUPTIME_URL: https://oneuptime.com
+          ONEUPTIME_URL: https://visca.ai
         run: |
           INCIDENT_COUNT=$(oneuptime incident count)
           if [ "$INCIDENT_COUNT" -gt 0 ]; then
@@ -138,7 +138,7 @@ ENTRYPOINT ["oneuptime"]
 ```bash
 docker run --rm \
   -e ONEUPTIME_API_KEY=sk-abc123 \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   oneuptime-cli incident list
 ```
 

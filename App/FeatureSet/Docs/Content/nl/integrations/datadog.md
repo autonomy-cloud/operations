@@ -1,19 +1,19 @@
 # Datadog-integratie
 
-Zet [Datadog](https://www.datadoghq.com)-monitoralerts om in OneUptime-incidenten, zodat de detectie van Datadog de incidentrespons en statuspagina's van OneUptime voedt.
+Zet [Datadog](https://www.datadoghq.com)-monitoralerts om in Cast Operations-incidenten, zodat de detectie van Datadog de incidentrespons en statuspagina's van Cast Operations voedt.
 
-Deze integratie is **inbound**: Datadog's [Webhooks-integratie](https://docs.datadoghq.com/integrations/webhooks/) post naar een OneUptime **[Workflow](/docs/workflows/index)** die start met een **Webhook trigger**.
+Deze integratie is **inbound**: Datadog's [Webhooks-integratie](https://docs.datadoghq.com/integrations/webhooks/) post naar een Cast Operations **[Workflow](/docs/workflows/index)** die start met een **Webhook trigger**.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Vereisten
 
 - Een Datadog-account waar je integraties en monitors kunt configureren.
-- Een OneUptime-project waar je workflows kunt aanmaken.
+- Een Cast Operations-project waar je workflows kunt aanmaken.
 
-## Stap 1 — Bouw de OneUptime-workflow
+## Stap 1 — Bouw de Cast Operations-workflow
 
 1. Open **Workflows → Create Workflow**, geef het de naam `Datadog → Incidents`, en open de **Builder**.
 2. Voeg een **Webhook**-trigger toe en **kopieer de URL**. Hernoem het blok naar `Datadog`.
@@ -60,7 +60,7 @@ Voeg de webhook-handle toe aan de monitors die je wilt doorsturen. Neem in het *
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-Hiermee worden zowel de alert als het herstel naar OneUptime gestuurd. (Om alles door te sturen kun je ook onvoorwaardelijk `@webhook-oneuptime` toevoegen aan een monitor.)
+Hiermee worden zowel de alert als het herstel naar Cast Operations gestuurd. (Om alles door te sturen kun je ook onvoorwaardelijk `@webhook-oneuptime` toevoegen aan een monitor.)
 
 ## Stap 4 — Test het
 

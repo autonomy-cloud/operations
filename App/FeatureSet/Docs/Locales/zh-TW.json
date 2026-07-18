@@ -15,7 +15,7 @@
     "previous": "上一頁",
     "next": "下一頁",
     "helpImproveTitle": "協助我們改善本頁",
-    "helpImproveBody": "OneUptime 是 100% 開放原始碼。發現錯字或想要補充內容?",
+    "helpImproveBody": "Cast Operations 是 100% 開放原始碼。發現錯字或想要補充內容?",
     "editOnGithub": "在 GitHub 上編輯此頁",
     "notFoundBadge": "404 錯誤",
     "notFoundTitle": "找不到頁面",
@@ -26,9 +26,9 @@
     "errorMessage": "我們遇到了一些技術問題。請稍後再試。",
     "tryAgain": "重試",
     "switchLanguage": "切換語言",
-    "metaTitleSuffix": "OneUptime 文件",
-    "metaTitleDefault": "OneUptime 文件",
-    "metaDescription": "OneUptime 的完整文件 —— 開放原始碼可觀測性平台。學習如何監控您的應用程式、設定警示和管理事件。"
+    "metaTitleSuffix": "Cast Operations 文件",
+    "metaTitleDefault": "Cast Operations 文件",
+    "metaDescription": "Cast Operations 的完整文件 —— 開放原始碼可觀測性平台。學習如何監控您的應用程式、設定警示和管理事件。"
   },
   "navGroups": {
     "Introduction": "簡介",
@@ -162,7 +162,7 @@
     "Fix Tasks": "Fix Tasks",
     "LLM Providers": "LLM 提供者",
     "MCP Server": "MCP 伺服器",
-    "OneUptime API Reference": "OneUptime API 參考",
+    "Cast Operations API Reference": "Cast Operations API 參考",
     "Slack Integration": "Slack 整合",
     "Microsoft Teams Integration": "Microsoft Teams 整合",
     "GitHub Integration": "GitHub 整合",

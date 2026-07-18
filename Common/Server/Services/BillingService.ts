@@ -141,7 +141,7 @@ export class BillingService extends BaseService {
     /*
      * financeAccountingEmail may be a comma/semicolon-separated list. Parse the first
      * valid address for Stripe (which stores a single email), and keep the full list
-     * in metadata so OneUptime can fan out invoice emails to every recipient.
+     * in metadata so Cast Operations can fan out invoice emails to every recipient.
      */
     const parsedEmails: Array<Email> = financeAccountingEmail
       ? (() => {
@@ -190,7 +190,7 @@ export class BillingService extends BaseService {
 
     /*
      * Stripe's customer.email only accepts one address. Use the first parsed email;
-     * the rest are delivered by OneUptime's own webhook-driven invoice email path.
+     * the rest are delivered by Cast Operations’ own webhook-driven invoice email path.
      */
     if (parsedEmails.length > 0) {
       updateParams.email = parsedEmails[0]!.toString();
@@ -1097,7 +1097,7 @@ export class BillingService extends BaseService {
                 invoicePdfUrl: invoicePdfUrl || "",
                 dashboardLink: dashboardLink || "",
               },
-              subject: `Invoice #${invoiceNumber} from OneUptime`,
+              subject: `Invoice #${invoiceNumber} from Cast Operations`,
             },
             {
               projectId: projectId,

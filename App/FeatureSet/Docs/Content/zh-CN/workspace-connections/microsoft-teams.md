@@ -1,16 +1,16 @@
-# 将 OneUptime 连接到 Microsoft Teams
+# 将 Cast Operations 连接到 Microsoft Teams
 
-### 连接 OneUptime 到 Microsoft Teams 的步骤
+### 连接 Cast Operations 到 Microsoft Teams 的步骤
 
-1. **在 OneUptime 上创建账号**
+1. **在 Cast Operations 上创建账号**
 
-   - 访问 [OneUptime.com](https://oneuptime.com) 并创建账号。
+   - 访问 [Cast Operations.com](https://visca.ai) 并创建账号。
    - 创建账号后，创建一个新项目。
 
-2. **将 Microsoft Teams 连接到 OneUptime 项目**
+2. **将 Microsoft Teams 连接到 Cast Operations 项目**
 
-   - 在您的 OneUptime 项目中，导航至 **项目设置** > **Microsoft Teams**。
-   - 按照提示将您的 Microsoft Teams 账号与 OneUptime 项目连接。
+   - 在您的 Cast Operations 项目中，导航至 **项目设置** > **Microsoft Teams**。
+   - 按照提示将您的 Microsoft Teams 账号与 Cast Operations 项目连接。
 
 3. **配置事件通知**
 

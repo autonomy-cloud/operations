@@ -1,6 +1,6 @@
 # Metrics Monitor
 
-Metrics monitoring allows you to monitor custom application and infrastructure metrics collected via OpenTelemetry. OneUptime evaluates metric values over a time window and triggers alerts based on your configured criteria.
+Metrics monitoring allows you to monitor custom application and infrastructure metrics collected via OpenTelemetry. Cast Operations evaluates metric values over a time window and triggers alerts based on your configured criteria.
 
 ## Overview
 
@@ -14,7 +14,7 @@ Metrics monitors query and evaluate numeric metrics from your telemetry services
 
 ## Creating a Metrics Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Metrics** as the monitor type
 4. Configure metric queries and optional formulas
@@ -105,4 +105,4 @@ Choose how to aggregate the metric values for evaluation:
 
 ## Setup Requirements
 
-Metrics monitoring requires your applications or infrastructure to send metrics to OneUptime via OpenTelemetry. See the [OpenTelemetry](/docs/telemetry/open-telemetry) documentation for setup instructions.
+Metrics monitoring requires your applications or infrastructure to send metrics to Cast Operations via OpenTelemetry. See the [OpenTelemetry](/docs/telemetry/open-telemetry) documentation for setup instructions.

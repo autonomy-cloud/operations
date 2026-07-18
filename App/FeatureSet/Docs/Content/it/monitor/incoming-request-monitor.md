@@ -1,6 +1,6 @@
 # Monitor Richiesta In Entrata
 
-Il monitoraggio delle richieste in entrata (noto anche come monitoraggio heartbeat) consente di monitorare i servizi facendo sì che inviino periodicamente richieste HTTP a OneUptime. Invece che OneUptime raggiunga il servizio, è il servizio stesso a contattare OneUptime per confermare che è in esecuzione.
+Il monitoraggio delle richieste in entrata (noto anche come monitoraggio heartbeat) consente di monitorare i servizi facendo sì che inviino periodicamente richieste HTTP a Cast Operations. Invece che Cast Operations raggiunga il servizio, è il servizio stesso a contattare Cast Operations per confermare che è in esecuzione.
 
 ## Panoramica
 
@@ -14,7 +14,7 @@ I monitor per richieste in entrata forniscono un URL webhook univoco che i propr
 
 ## Creazione di un Monitor Richiesta In Entrata
 
-1. Accedere a **Monitor** nel Dashboard di OneUptime
+1. Accedere a **Monitor** nel Dashboard di Cast Operations
 2. Fare clic su **Crea Monitor**
 3. Selezionare **Richiesta In Entrata** come tipo di monitor
 4. Verrà generata una **Chiave Segreta** e un URL heartbeat per questo monitor
@@ -26,7 +26,7 @@ I monitor per richieste in entrata forniscono un URL webhook univoco che i propr
 Una volta creato, il monitor avrà un URL heartbeat univoco nel formato:
 
 ```
-https://oneuptime.com/heartbeat/VOSTRA_CHIAVE_SEGRETA
+https://visca.ai/heartbeat/VOSTRA_CHIAVE_SEGRETA
 ```
 
 Il servizio deve inviare richieste HTTP **GET** o **POST** a questo URL a intervalli regolari.
@@ -37,10 +37,10 @@ Il servizio deve inviare richieste HTTP **GET** o **POST** a questo URL a interv
 
 ```bash
 # Semplice richiesta GET
-curl https://oneuptime.com/heartbeat/VOSTRA_CHIAVE_SEGRETA
+curl https://visca.ai/heartbeat/VOSTRA_CHIAVE_SEGRETA
 
 # Richiesta POST con corpo personalizzato
-curl -X POST https://oneuptime.com/heartbeat/VOSTRA_CHIAVE_SEGRETA \
+curl -X POST https://visca.ai/heartbeat/VOSTRA_CHIAVE_SEGRETA \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/VOSTRA_CHIAVE_SEGRETA \
 
 ```bash
 # Aggiungere al crontab per inviare heartbeat ogni 5 minuti
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/VOSTRA_CHIAVE_SEGRETA > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/VOSTRA_CHIAVE_SEGRETA > /dev/null
 ```
 
 #### Dal codice applicativo
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/VOSTRA_CHIAVE_SEGRETA \
 ```javascript
 // Esempio Node.js
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/VOSTRA_CHIAVE_SEGRETA");
+https.get("https://visca.ai/heartbeat/VOSTRA_CHIAVE_SEGRETA");
 ```
 
 ```python
 # Esempio Python
 import requests
-requests.get('https://oneuptime.com/heartbeat/VOSTRA_CHIAVE_SEGRETA')
+requests.get('https://visca.ai/heartbeat/VOSTRA_CHIAVE_SEGRETA')
 ```
 
-Sostituire `https://oneuptime.com` con l'URL della propria istanza OneUptime se self-hosted.
+Sostituire `https://visca.ai` con l'URL della propria istanza Cast Operations se self-hosted.
 
 ## Criteri di Monitoraggio
 

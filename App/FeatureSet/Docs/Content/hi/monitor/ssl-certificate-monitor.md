@@ -1,6 +1,6 @@
 # SSL Certificate Monitor
 
-SSL Certificate monitoring आपको अपनी websites और services पर SSL/TLS certificates की validity और expiration monitor करने की अनुमति देता है। OneUptime समय-समय पर आपके certificates जांचता है और expire होने से पहले या कोई समस्या detect होने पर आपको alert करता है।
+SSL Certificate monitoring आपको अपनी websites और services पर SSL/TLS certificates की validity और expiration monitor करने की अनुमति देता है। Cast Operations समय-समय पर आपके certificates जांचता है और expire होने से पहले या कोई समस्या detect होने पर आपको alert करता है।
 
 ## Overview
 
@@ -14,7 +14,7 @@ SSL Certificate monitors आपके HTTPS endpoints से connect होत�
 
 ## SSL Certificate Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **SSL Certificate** चुनें
 4. जांचने के लिए HTTPS endpoint का URL दर्ज करें

@@ -141,7 +141,7 @@ export const CreateIncidentTool: ObservabilityTool = {
     incident.description = description;
     incident.incidentSeverityId = severity.id!;
     incident.createdByUserId = userId;
-    incident.rootCause = "Incident created via the OneUptime AI copilot.";
+    incident.rootCause = "Incident created via the Cast Operations AI copilot.";
 
     // Created under the user's props so the model-layer RBAC applies too.
     const created: Incident = await IncidentService.create({

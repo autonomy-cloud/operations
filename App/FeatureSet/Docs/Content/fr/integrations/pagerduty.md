@@ -1,19 +1,19 @@
 # Intégration PagerDuty
 
-Déclenchez un incident [PagerDuty](https://www.pagerduty.com) chaque fois qu'un incident OneUptime est créé, et résolvez-le lorsque OneUptime résout. Utile lorsque PagerDuty gère vos escalades et plannings d'astreinte et que vous souhaitez que le monitoring OneUptime l'alimente.
+Déclenchez un incident [PagerDuty](https://www.pagerduty.com) chaque fois qu'un incident Cast Operations est créé, et résolvez-le lorsque Cast Operations résout. Utile lorsque PagerDuty gère vos escalades et plannings d'astreinte et que vous souhaitez que le monitoring Cast Operations l'alimente.
 
-Cette intégration est **sortante** : OneUptime appelle l'[Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/) de PagerDuty. Elle utilise un **[Workflow](/docs/workflows/index)** OneUptime avec un déclencheur **Incident → On Create** et un **composant API**.
+Cette intégration est **sortante** : Cast Operations appelle l'[Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/) de PagerDuty. Elle utilise un **[Workflow](/docs/workflows/index)** Cast Operations avec un déclencheur **Incident → On Create** et un **composant API**.
 
-> OneUptime dispose de sa propre fonctionnalité d'astreinte et d'escalade intégrée — voir [On Call](/docs/on-call/incoming-call-policy). N'utilisez cette intégration que si vous souhaitez spécifiquement que les événements arrivent également dans PagerDuty.
+> Cast Operations dispose de sa propre fonctionnalité d'astreinte et d'escalade intégrée — voir [On Call](/docs/on-call/incoming-call-policy). N'utilisez cette intégration que si vous souhaitez spécifiquement que les événements arrivent également dans PagerDuty.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
+Cast Operations Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
 ```
 
 ## Prérequis
 
 - Un service PagerDuty avec une intégration **Events API v2**. Dans PagerDuty : **Service → Integrations → Add integration → Events API v2**. Copiez la **clé d'intégration** (aussi appelée _routing key_).
-- Un projet OneUptime où vous pouvez créer des workflows.
+- Un projet Cast Operations où vous pouvez créer des workflows.
 
 ## Étape 1 — Stocker la routing key
 
@@ -35,10 +35,10 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      {
        "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
        "event_action": "trigger",
-       "dedup_key": "oneuptime-{{Incident._id}}",
+       "dedup_key": "cast-operations-{{Incident._id}}",
        "payload": {
          "summary": "{{Incident.title}}",
-         "source": "OneUptime",
+         "source": "Cast Operations",
          "severity": "critical",
          "custom_details": {
            "description": "{{Incident.description}}"
@@ -47,11 +47,11 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      }
      ```
 
-   Le **`dedup_key`** lie cet incident PagerDuty à l'incident OneUptime pour pouvoir le résoudre plus tard. Utiliser l'id de l'incident OneUptime le rend unique et prévisible.
+   Le **`dedup_key`** lie cet incident PagerDuty à l'incident Cast Operations pour pouvoir le résoudre plus tard. Utiliser l'id de l'incident Cast Operations le rend unique et prévisible.
 
 4. **Enregistrez**, activez, et créez un incident de test. Une réponse `202` dans les journaux du workflow signifie que PagerDuty a accepté l'événement.
 
-## Étape 3 — Résoudre lors de la résolution OneUptime (recommandé)
+## Étape 3 — Résoudre lors de la résolution Cast Operations (recommandé)
 
 1. Dans le **même** workflow, ajouter un second déclencheur **Incident** ? Non — un workflow n'a qu'un seul déclencheur. Créez plutôt un **second** workflow nommé `Resolve PagerDuty` avec un déclencheur **Incident → On Update**.
 2. Ajoutez un bloc **Conditions** pour vérifier que l'incident est maintenant résolu (branchez sur l'état de l'incident / `{{Incident.currentIncidentState.name}}` égal à votre nom d'état résolu).
@@ -61,7 +61,7 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
    {
      "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
      "event_action": "resolve",
-     "dedup_key": "oneuptime-{{Incident._id}}"
+     "dedup_key": "cast-operations-{{Incident._id}}"
    }
    ```
 
@@ -69,11 +69,11 @@ PagerDuty fait correspondre le `dedup_key` et ferme l'incident original.
 
 ## Association des gravités (optionnel)
 
-Le champ `severity` de PagerDuty accepte `critical`, `error`, `warning` ou `info`. Pour faire correspondre les gravités OneUptime, ajoutez des branches **Conditions** sur `{{Incident.incidentSeverity.name}}` avant le bloc API et envoyez un corps différent depuis chaque branche.
+Le champ `severity` de PagerDuty accepte `critical`, `error`, `warning` ou `info`. Pour faire correspondre les gravités Cast Operations, ajoutez des branches **Conditions** sur `{{Incident.incidentSeverity.name}}` avant le bloc API et envoyez un corps différent depuis chaque branche.
 
 ## Entrant (optionnel)
 
-Pour aller dans l'autre sens — ouvrir un incident OneUptime depuis un événement PagerDuty — ajoutez un workflow avec un déclencheur **Webhook** et pointez un [webhook V3](https://developer.pagerduty.com/docs/webhooks/v3-overview/) PagerDuty (ou une orchestration d'événements) vers son URL, puis utilisez **Create Incident**. Voir le [schéma entrant](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
+Pour aller dans l'autre sens — ouvrir un incident Cast Operations depuis un événement PagerDuty — ajoutez un workflow avec un déclencheur **Webhook** et pointez un [webhook V3](https://developer.pagerduty.com/docs/webhooks/v3-overview/) PagerDuty (ou une orchestration d'événements) vers son URL, puis utilisez **Create Incident**. Voir le [schéma entrant](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
 
 ## Dépannage
 
@@ -84,5 +84,5 @@ Pour aller dans l'autre sens — ouvrir un incident OneUptime depuis un événem
 ## Pour aller plus loin
 
 - [Vue d'ensemble des intégrations](/docs/integrations/index) — les schémas et l'aide-mémoire d'authentification.
-- [On Call](/docs/on-call/incoming-call-policy) — l'escalade intégrée de OneUptime.
+- [On Call](/docs/on-call/incoming-call-policy) — l'escalade intégrée de Cast Operations.
 - [Opsgenie](/docs/integrations/opsgenie) — la même idée pour Opsgenie.

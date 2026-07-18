@@ -1,6 +1,6 @@
 # Monitor delle Eccezioni
 
-Il monitoraggio delle eccezioni ti consente di monitorare le eccezioni e gli errori delle applicazioni, attivando avvisi quando il numero di eccezioni supera le soglie configurate. OneUptime valuta i dati delle eccezioni dai tuoi servizi di telemetria in una finestra temporale.
+Il monitoraggio delle eccezioni ti consente di monitorare le eccezioni e gli errori delle applicazioni, attivando avvisi quando il numero di eccezioni supera le soglie configurate. Cast Operations valuta i dati delle eccezioni dai tuoi servizi di telemetria in una finestra temporale.
 
 ## Panoramica
 
@@ -14,7 +14,7 @@ I monitor delle eccezioni contano e filtrano le eccezioni che corrispondono a cr
 
 ## Creazione di un Monitor delle Eccezioni
 
-1. Vai su **Monitor** nella Dashboard di OneUptime
+1. Vai su **Monitor** nella Dashboard di Cast Operations
 2. Clicca su **Crea Monitor**
 3. Seleziona **Exceptions** come tipo di monitor
 4. Seleziona i servizi di telemetria da monitorare
@@ -24,7 +24,7 @@ I monitor delle eccezioni contano e filtrano le eccezioni che corrispondono a cr
 
 ### Servizi di Telemetria
 
-Seleziona uno o più servizi da cui monitorare le eccezioni. I servizi devono inviare dati delle eccezioni a OneUptime tramite OpenTelemetry.
+Seleziona uno o più servizi da cui monitorare le eccezioni. I servizi devono inviare dati delle eccezioni a Cast Operations tramite OpenTelemetry.
 
 ### Filtri delle Eccezioni
 
@@ -80,4 +80,4 @@ Seleziona uno o più servizi da cui monitorare le eccezioni. I servizi devono in
 
 ## Requisiti di Configurazione
 
-Il monitoraggio delle eccezioni richiede che le tue applicazioni inviino dati delle eccezioni a OneUptime tramite OpenTelemetry. Consulta la documentazione di [OpenTelemetry](/docs/telemetry/open-telemetry) per le istruzioni di configurazione.
+Il monitoraggio delle eccezioni richiede che le tue applicazioni inviino dati delle eccezioni a Cast Operations tramite OpenTelemetry. Consulta la documentazione di [OpenTelemetry](/docs/telemetry/open-telemetry) per le istruzioni di configurazione.

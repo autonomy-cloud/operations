@@ -1,6 +1,6 @@
 # Uitzonderingen Monitor
 
-Uitzonderingenmonitoring stelt u in staat applicatie-uitzonderingen en -fouten te bewaken en meldingen te activeren wanneer het aantal uitzonderingen uw geconfigureerde drempelwaarden overschrijdt. OneUptime evalueert uitzonderingsgegevens van uw telemetriediensten over een tijdvenster.
+Uitzonderingenmonitoring stelt u in staat applicatie-uitzonderingen en -fouten te bewaken en meldingen te activeren wanneer het aantal uitzonderingen uw geconfigureerde drempelwaarden overschrijdt. Cast Operations evalueert uitzonderingsgegevens van uw telemetriediensten over een tijdvenster.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Uitzonderingsmonitors tellen en filteren uitzonderingen die aan specifieke crite
 
 ## Een Uitzonderingen Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Uitzonderingen** als het monitortype
 4. Selecteer de te bewaken telemetriediensten
@@ -24,7 +24,7 @@ Uitzonderingsmonitors tellen en filteren uitzonderingen die aan specifieke crite
 
 ### Telemetriediensten
 
-Selecteer een of meer diensten waarvan uitzonderingen worden bewaakt. Diensten moeten uitzonderingsgegevens via OpenTelemetry naar OneUptime sturen.
+Selecteer een of meer diensten waarvan uitzonderingen worden bewaakt. Diensten moeten uitzonderingsgegevens via OpenTelemetry naar Cast Operations sturen.
 
 ### Uitzonderingsfilters
 
@@ -80,4 +80,4 @@ Selecteer een of meer diensten waarvan uitzonderingen worden bewaakt. Diensten m
 
 ## Installatievereisten
 
-Uitzonderingenmonitoring vereist dat uw applicaties uitzonderingsgegevens via OpenTelemetry naar OneUptime sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.
+Uitzonderingenmonitoring vereist dat uw applicaties uitzonderingsgegevens via OpenTelemetry naar Cast Operations sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.

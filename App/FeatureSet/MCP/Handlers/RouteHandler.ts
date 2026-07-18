@@ -9,12 +9,12 @@
  * consecutive requests from the same client land on different workers.
  *
  * The previous implementation kept sessions in a per-process in-memory Map. With
- * more than one replica running (as on oneuptime.com), `initialize` created the
+ * more than one replica running (as on visca.ai), `initialize` created the
  * session on one worker and every subsequent request was load-balanced to another
  * worker that had no record of it, so the whole MCP handshake failed with
  * "404 MCP session not found" — see GitHub issue #2459.
  *
- * Stateless mode is safe here because the OneUptime tools carry no per-session
+ * Stateless mode is safe here because the Cast Operations tools carry no per-session
  * state: `tools/list` is derived from the tool list bound at route setup and
  * every `tools/call` authenticates with the API key supplied on that same
  * request (x-api-key / Authorization header).

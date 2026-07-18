@@ -1,14 +1,14 @@
-# 向 OneUptime 发送持续性能分析数据
+# 向 Cast Operations 发送持续性能分析数据
 
 ## 概述
 
-持续性能分析是可观测性的第四大支柱，与日志、指标和追踪并列。性能分析数据在函数级别捕获您的应用程序如何消耗 CPU 时间、分配内存以及使用系统资源。OneUptime 通过 OpenTelemetry 协议（OTLP）摄取性能分析数据，并将其与您的其他遥测信号一起存储，以便进行统一分析。
+持续性能分析是可观测性的第四大支柱，与日志、指标和追踪并列。性能分析数据在函数级别捕获您的应用程序如何消耗 CPU 时间、分配内存以及使用系统资源。Cast Operations 通过 OpenTelemetry 协议（OTLP）摄取性能分析数据，并将其与您的其他遥测信号一起存储，以便进行统一分析。
 
-借助 OneUptime 中的性能分析数据，您可以识别消耗大量 CPU 的热点函数、检测内存泄漏、发现竞争瓶颈，以及将性能问题与特定追踪和 Span 关联起来。
+借助 Cast Operations 中的性能分析数据，您可以识别消耗大量 CPU 的热点函数、检测内存泄漏、发现竞争瓶颈，以及将性能问题与特定追踪和 Span 关联起来。
 
 ## 支持的性能分析类型
 
-OneUptime 支持以下性能分析类型：
+Cast Operations 支持以下性能分析类型：
 
 | 分析类型      | 描述                        | 单位 |
 | ------------- | --------------------------- | ---- |
@@ -23,7 +23,7 @@ OneUptime 支持以下性能分析类型：
 
 ### 第一步 - 创建遥测摄取令牌
 
-注册 OneUptime 并创建项目后，点击导航栏中的"更多"，然后点击"项目设置"。
+注册 Cast Operations 并创建项目后，点击导航栏中的"更多"，然后点击"项目设置"。
 
 在遥测摄取密钥页面，点击"创建摄取密钥"以创建令牌。
 
@@ -35,32 +35,32 @@ OneUptime 支持以下性能分析类型：
 
 ### 第二步 - 配置您的性能分析器
 
-OneUptime 通过 OTLP 性能分析协议同时接受 gRPC 和 HTTP 的性能分析数据。
+Cast Operations 通过 OTLP 性能分析协议同时接受 gRPC 和 HTTP 的性能分析数据。
 
 | 协议 | 端点                                              |
 | ---- | ------------------------------------------------- |
-| gRPC | `your-oneuptime-host:4317`（OTLP 标准 gRPC 端口） |
-| HTTP | `https://your-oneuptime-host/otlp/v1/profiles`    |
+| gRPC | `your-operations-host:4317`（OTLP 标准 gRPC 端口） |
+| HTTP | `https://your-operations-host/otlp/v1/profiles`    |
 
 **环境变量**
 
-设置以下环境变量，将您的性能分析器指向 OneUptime：
+设置以下环境变量，将您的性能分析器指向 Cast Operations：
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
-**自托管 OneUptime**
+**自托管 Cast Operations**
 
-如果您是自托管 OneUptime，请将端点替换为您自己的主机（例如 `http(s)://YOUR-ONEUPTIME-HOST/otlp`）。对于 gRPC，直接连接到您的 OneUptime 主机的 4317 端口。
+如果您是自托管 Cast Operations，请将端点替换为您自己的主机（例如 `http(s)://YOUR-OPERATIONS-HOST/otlp`）。对于 gRPC，直接连接到您的 Cast Operations 主机的 4317 端口。
 
 ## 埋点指南
 
 ### 使用 Grafana Alloy（基于 eBPF 的性能分析）
 
-Grafana Alloy（原 Grafana Agent）可以使用 eBPF 从 Linux 主机上的所有进程收集 CPU 性能分析数据，无需任何代码更改。将其配置为通过 OTLP 导出到 OneUptime。
+Grafana Alloy（原 Grafana Agent）可以使用 eBPF 从 Linux 主机上的所有进程收集 CPU 性能分析数据，无需任何代码更改。将其配置为通过 OTLP 导出到 Cast Operations。
 
 Alloy 配置示例：
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "oneuptime" {
   endpoint {
-    url = "https://oneuptime.com/pyroscope"
+    url = "https://visca.ai/pyroscope"
     headers = {
       "x-oneuptime-token" = "YOUR_ONEUPTIME_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ pyroscope.write "oneuptime" {
 ```bash
 # 使用 OpenTelemetry Java Agent 启动您的 Java 应用程序
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://oneuptime.com/otlp \
+  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
   -Dotel.exporter.otlp.headers=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -95,7 +95,7 @@ java -javaagent:opentelemetry-javaagent.jar \
 
 ### 使用 Go pprof 与 OTLP 导出
 
-对于 Go 应用程序，您可以使用标准的 `net/http/pprof` 包配合 OTLP 导出器。通过定期收集 pprof 数据并将其转发到 OneUptime 来配置持续性能分析。
+对于 Go 应用程序，您可以使用标准的 `net/http/pprof` 包配合 OTLP 导出器。通过定期收集 pprof 数据并将其转发到 Cast Operations 来配置持续性能分析。
 
 ```go
 import (
@@ -110,7 +110,7 @@ func collectProfile() {
     pprof.StartCPUProfile(&buf)
     time.Sleep(30 * time.Second)
     pprof.StopCPUProfile()
-    // 将 pprof 输出转换为 OTLP 格式并发送到 OneUptime
+    // 将 pprof 输出转换为 OTLP 格式并发送到 Cast Operations
 }
 ```
 
@@ -125,11 +125,11 @@ func collectProfile() {
 py-spy record --format speedscope --pid $PID -o profile.json
 ```
 
-对于持续性能分析，在应用程序旁边运行 py-spy，并配置 OpenTelemetry Collector 摄取并转发性能分析数据到 OneUptime。
+对于持续性能分析，在应用程序旁边运行 py-spy，并配置 OpenTelemetry Collector 摄取并转发性能分析数据到 Cast Operations。
 
 ## 使用 OpenTelemetry Collector
 
-您可以使用 OpenTelemetry Collector 作为代理，从应用程序接收性能分析数据并将其转发到 OneUptime。
+您可以使用 OpenTelemetry Collector 作为代理，从应用程序接收性能分析数据并将其转发到 Cast Operations。
 
 ```yaml
 receivers:
@@ -142,7 +142,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -159,7 +159,7 @@ service:
 
 ### 火焰图可视化
 
-OneUptime 将性能分析数据渲染为交互式火焰图。每个条形代表调用栈中的一个函数，其宽度与消耗的时间或资源成正比。您可以点击任意函数进行放大，查看其调用者和被调用者。
+Cast Operations 将性能分析数据渲染为交互式火焰图。每个条形代表调用栈中的一个函数，其宽度与消耗的时间或资源成正比。您可以点击任意函数进行放大，查看其调用者和被调用者。
 
 ### 函数列表
 
@@ -167,7 +167,7 @@ OneUptime 将性能分析数据渲染为交互式火焰图。每个条形代表�
 
 ### 追踪关联
 
-OneUptime 中的性能分析数据可以与分布式追踪关联。当性能分析包含追踪和 Span ID（通过 OTLP 链接表）时，您可以从慢速追踪 Span 直接导航到对应的 CPU 或内存性能分析，以了解具体执行的代码。
+Cast Operations 中的性能分析数据可以与分布式追踪关联。当性能分析包含追踪和 Span ID（通过 OTLP 链接表）时，您可以从慢速追踪 Span 直接导航到对应的 CPU 或内存性能分析，以了解具体执行的代码。
 
 ### 按性能分析类型过滤
 
@@ -175,10 +175,10 @@ OneUptime 中的性能分析数据可以与分布式追踪关联。当性能分�
 
 ## 数据保留
 
-性能分析数据保留期限在您的 OneUptime 项目设置中按遥测服务配置。默认保留期为 15 天。数据在保留期到期后自动删除。
+性能分析数据保留期限在您的 Cast Operations 项目设置中按遥测服务配置。默认保留期为 15 天。数据在保留期到期后自动删除。
 
 要更改服务的保留期，请导航至 **遥测 > 服务 > [您的服务] > 设置** 并更新数据保留值。
 
 ## 需要帮助？
 
-如果您在使用 OneUptime 设置性能分析时需要帮助，请联系 support@oneuptime.com。
+如果您在使用 Cast Operations 设置性能分析时需要帮助，请联系 support@visca.ai。

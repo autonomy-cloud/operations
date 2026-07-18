@@ -1,6 +1,6 @@
 # Ressourcenvorgänge
 
-Die OneUptime CLI bietet vollständige CRUD-Vorgänge (Erstellen, Lesen, Aktualisieren, Löschen) für alle unterstützten Ressourcen. Ressourcen werden automatisch aus Ihrer OneUptime-Instanz erkannt.
+Die Cast Operations CLI bietet vollständige CRUD-Vorgänge (Erstellen, Lesen, Aktualisieren, Löschen) für alle unterstützten Ressourcen. Ressourcen werden automatisch aus Ihrer Cast Operations-Instanz erkannt.
 
 ## Verfügbare Ressourcen
 

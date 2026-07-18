@@ -1,22 +1,22 @@
-# OneUptime Infrastructure Agent
+# Cast Operations Infrastructure Agent
 
-The OneUptime Infrastructure Agent is a lightweight, open-source agent that collects system metrics and sends them to the OneUptime platform. It is designed to be easy to install and use, and to be extensible.
+The Cast Operations Infrastructure Agent is a lightweight, open-source agent that collects system metrics and sends them to the Cast Operations platform. It is designed to be easy to install and use, and to be extensible.
 
 ### Installation
 
 ```
-curl -sSL https://oneuptime.com/docs/static/scripts/infrastructure-agent/install.sh | bash
+curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | bash
 ```
 
 ### Configure the agent
 
 Configure the agent as a system service
 
-- You can change the host to your own host if you're self hosting the OneUptime platform.
-- You can find the secret key on OneUptime Dashboard. Click on "View Monitor" and go to "Settings" tab.
+- You can change the host to your own host if you're self hosting the Cast Operations platform.
+- You can find the secret key on Cast Operations Dashboard. Click on "View Monitor" and go to "Settings" tab.
 
 ```bash
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 ```
 
 ### Starting the agent
@@ -25,7 +25,7 @@ oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptim
 oneuptime-infrastructure-agent start
 ```
 
-Once its up and running you should see the metrics on the OneUptime Dashboard.
+Once its up and running you should see the metrics on the Cast Operations Dashboard.
 
 ### Stopping the agent
 

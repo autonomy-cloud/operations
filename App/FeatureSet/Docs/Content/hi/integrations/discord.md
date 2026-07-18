@@ -1,21 +1,21 @@
 # Discord Integration
 
-[Discord](https://discord.com) चैनल पर incident updates पोस्ट करें। OneUptime में एक built-in **Discord** workflow component है, इसलिए यह सेटअप करने में सबसे तेज़ integrations में से एक है।
+[Discord](https://discord.com) चैनल पर incident updates पोस्ट करें। Cast Operations में एक built-in **Discord** workflow component है, इसलिए यह सेटअप करने में सबसे तेज़ integrations में से एक है।
 
-यह इंटीग्रेशन **आउटबाउंड** है: OneUptime एक incoming webhook URL के माध्यम से Discord चैनल पर post करता है।
+यह इंटीग्रेशन **आउटबाउंड** है: Cast Operations एक incoming webhook URL के माध्यम से Discord चैनल पर post करता है।
 
 ```text
-OneUptime Incident → On Create  ──►  Discord component  ──►  message in your channel
+Cast Operations Incident → On Create  ──►  Discord component  ──►  message in your channel
 ```
 
 ## चरण 1 — Discord webhook बनाएँ
 
 1. Discord में, target channel का **Edit Channel → Integrations → Webhooks** खोलें।
-2. **New Webhook** क्लिक करें, उसे एक नाम दें (जैसे `OneUptime`), channel चुनें, और **Copy Webhook URL** करें।
+2. **New Webhook** क्लिक करें, उसे एक नाम दें (जैसे `Cast Operations`), channel चुनें, और **Copy Webhook URL** करें।
 
 ## चरण 2 — webhook URL store करें (वैकल्पिक लेकिन अनुशंसित)
 
-1. OneUptime में, **Workflows → Global Variables → Create** पर जाएँ।
+1. Cast Operations में, **Workflows → Global Variables → Create** पर जाएँ।
 2. इसे `DISCORD_WEBHOOK_URL` नाम दें, URL पेस्ट करें, और **Is Secret** चालू करें।
 
 इसे variable में रखने से आप इसे वर्कफ़्लो के पार reuse कर सकते हैं और एक जगह से rotate कर सकते हैं।

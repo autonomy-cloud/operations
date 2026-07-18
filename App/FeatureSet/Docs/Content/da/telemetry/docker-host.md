@@ -1,8 +1,8 @@
-# OneUptime Docker Agent
+# Cast Operations Docker Agent
 
 ## Oversigt
 
-OneUptime Docker Agent er et færdigbygget container-image, der leveres med en finjusteret OpenTelemetry Collector-konfiguration. Kør den ved siden af dine eksisterende containere, så registrerer den automatisk alle containere på værten, indsamler CPU- / hukommelses- / netværks- / blok-I/O-metrikker plus container-logfiler og videresender alt til OneUptime via OTLP. Ét image, én kommando.
+Cast Operations Docker Agent er et færdigbygget container-image, der leveres med en finjusteret OpenTelemetry Collector-konfiguration. Kør den ved siden af dine eksisterende containere, så registrerer den automatisk alle containere på værten, indsamler CPU- / hukommelses- / netværks- / blok-I/O-metrikker plus container-logfiler og videresender alt til Cast Operations via OTLP. Ét image, én kommando.
 
 Denne side er **installationsvejledningen**. For konfiguration af Docker-monitorer og advarsler oven på de data, agenten indsamler, se [Docker Monitor](/docs/monitor/docker-monitor).
 
@@ -10,11 +10,11 @@ Denne side er **installationsvejledningen**. For konfiguration af Docker-monitor
 
 - Docker Engine 20.10+
 - Adgang til `/var/run/docker.sock` på værten
-- Et **OneUptime Telemetry Ingestion Token** — opret et fra _Project Settings → Telemetry Ingestion Keys_ og kopiér værdien
+- Et **Cast Operations Telemetry Ingestion Token** — opret et fra _Project Settings → Telemetry Ingestion Keys_ og kopiér værdien
 
 ## Hurtig start (én kommando)
 
-Erstat `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` og værtsnavnet med værdier for dit miljø. Værtsnavnet er, hvordan denne Docker-vært vil fremgå i OneUptime — vælg noget i stil med `prod-docker-01`.
+Erstat `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` og værtsnavnet med værdier for dit miljø. Værtsnavnet er, hvordan denne Docker-vært vil fremgå i Cast Operations — vælg noget i stil med `prod-docker-01`.
 
 ```bash
 docker run -d \
@@ -29,7 +29,7 @@ docker run -d \
   oneuptime/docker-agent:release
 ```
 
-Det er alt. Når agenten først har forbindelse, vil din Docker-vært automatisk fremgå i **Docker**-sektionen af OneUptime-dashboardet.
+Det er alt. Når agenten først har forbindelse, vil din Docker-vært automatisk fremgå i **Docker**-sektionen af Cast Operations-dashboardet.
 
 ## Alternativ — Docker Compose
 
@@ -66,7 +66,7 @@ docker compose up -d
 
 | Variabel                  | Påkrævet | Beskrivelse                                                                                                                 |
 | ------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | Ja       | URL'en til din OneUptime-instans (for eksempel `https://oneuptime.com` eller din selvhostede vært)                          |
+| `ONEUPTIME_URL`           | Ja       | URL'en til din Cast Operations-instans (for eksempel `https://visca.ai` eller din selvhostede vært)                          |
 | `ONEUPTIME_SERVICE_TOKEN` | Ja       | Telemetry ingestion-token fra _Project Settings → Telemetry Ingestion Keys_                                                 |
 | `DOCKER_HOST_NAME`        | Nej      | Brugervenligt navn til denne vært. Som standard `docker-host`. Sæt det til noget stabilt pr. vært (f.eks. `prod-docker-01`) |
 
@@ -86,7 +86,7 @@ docker logs -f oneuptime-docker-agent
 
 Hold øje med: `"Everything is ready. Begin running and processing data."`
 
-Inden for cirka et minut bør værten fremgå i OneUptime-dashboardet med metrikker og logfiler, der strømmer ind.
+Inden for cirka et minut bør værten fremgå i Cast Operations-dashboardet med metrikker og logfiler, der strømmer ind.
 
 ## Opgradering af agenten
 
@@ -126,12 +126,12 @@ docker compose down
 | **Container-info**       | Oppetid, antal genstarter, antal processer                     |
 | **Container-logfiler**   | stdout- / stderr-logfiler fra alle containere                  |
 
-## Selvhostet OneUptime
+## Selvhostet Cast Operations
 
-Hvis du selvhoster OneUptime, så sæt `ONEUPTIME_URL` til din egen instans:
+Hvis du selvhoster Cast Operations, så sæt `ONEUPTIME_URL` til din egen instans:
 
 ```bash
--e ONEUPTIME_URL="https://your-oneuptime-host.example.com"
+-e ONEUPTIME_URL="https://your-operations-host.example.com"
 ```
 
 Hvis din instans kun er HTTP, så brug `http://` og den korrekte port.
@@ -146,8 +146,8 @@ Agent-containeren skal køre som root (`--user 0:0`) for at få adgang til `/var
 
 1. Tjek, at agenten kører: `docker ps --filter name=oneuptime-docker-agent`
 2. Tjek agentens logfiler: `docker logs oneuptime-docker-agent | grep -i error`
-3. Verificér, at din OneUptime-URL og service-token er korrekte
-4. Sørg for, at din Docker-vært kan nå OneUptime-instansen over netværket
+3. Verificér, at din Cast Operations-URL og service-token er korrekte
+4. Sørg for, at din Docker-vært kan nå Cast Operations-instansen over netværket
 
 ### Ingen metrikker fremgår
 
@@ -162,5 +162,5 @@ Sæt miljøvariablen `DOCKER_HOST_NAME` til et brugervenligt navn, og genskab co
 ## Næste skridt
 
 - Konfigurér **Docker Monitors** til at advare på betingelser for container-CPU / -hukommelse / -genstart — se [Docker Monitor](/docs/monitor/docker-monitor).
-- For Kubernetes-clustre i stedet for selvstændige Docker-værter, brug [OneUptime Kubernetes Agent](/docs/telemetry/kubernetes-agent).
+- For Kubernetes-clustre i stedet for selvstændige Docker-værter, brug [Cast Operations Kubernetes Agent](/docs/telemetry/kubernetes-agent).
 - For ikke-containeriserede værter (Linux / macOS / Windows VM'er og bare metal), brug [Host OpenTelemetry Collector](/docs/telemetry/host-otel-collector).

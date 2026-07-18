@@ -1,6 +1,6 @@
 # Kubernetes 監視器
 
-Kubernetes 監控可讓您監控 Kubernetes 叢集的健康狀態與效能，包括節點、Pod、工作負載以及控制平面元件。OneUptime 會從您的叢集收集指標，並依據您設定的條件進行評估。
+Kubernetes 監控可讓您監控 Kubernetes 叢集的健康狀態與效能，包括節點、Pod、工作負載以及控制平面元件。Cast Operations 會從您的叢集收集指標，並依據您設定的條件進行評估。
 
 ## 概觀
 
@@ -15,7 +15,7 @@ Kubernetes 監視器使用叢集中的指標，為您的基礎架構提供深入
 
 ## 建立 Kubernetes 監視器
 
-1. 前往 OneUptime 儀表板中的 **Monitors**
+1. 前往 Cast Operations 儀表板中的 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **Kubernetes** 作為監視器類型
 4. 選擇要監控的叢集與資源範圍
@@ -26,7 +26,7 @@ Kubernetes 監視器使用叢集中的指標，為您的基礎架構提供深入
 
 ### 叢集
 
-選擇要監控的 Kubernetes 叢集。叢集必須透過 OpenTelemetry 與 OneUptime 整合。
+選擇要監控的 Kubernetes 叢集。叢集必須透過 OpenTelemetry 與 Cast Operations 整合。
 
 ### 資源範圍
 
@@ -138,7 +138,7 @@ Kubernetes 監視器使用叢集中的指標，為您的基礎架構提供深入
 
 ## 預先建置的警示範本
 
-OneUptime 為常見的 Kubernetes 監控情境提供範本：
+Cast Operations 為常見的 Kubernetes 監控情境提供範本：
 
 | 範本                        | 說明                     | 閾值             |
 | --------------------------- | ------------------------ | ---------------- |
@@ -157,6 +157,6 @@ OneUptime 為常見的 Kubernetes 監控情境提供範本：
 
 ## 設定需求
 
-若要使用 Kubernetes 監控，您需要在叢集中安裝 OneUptime Kubernetes agent。該 agent 會透過 OTLP 將叢集指標、事件、Pod 記錄，以及（預設情況下）**透過 eBPF 擷取的應用程式追蹤與 HTTP RED 指標** 傳送至 OneUptime。無需變更任何程式碼或為每個應用程式安裝 SDK，即可看到服務層級的流量。
+若要使用 Kubernetes 監控，您需要在叢集中安裝 Cast Operations Kubernetes agent。該 agent 會透過 OTLP 將叢集指標、事件、Pod 記錄，以及（預設情況下）**透過 eBPF 擷取的應用程式追蹤與 HTTP RED 指標** 傳送至 Cast Operations。無需變更任何程式碼或為每個應用程式安裝 SDK，即可看到服務層級的流量。
 
 請參閱 [Install the Kubernetes Agent](/docs/monitor/kubernetes-agent) 指南 — 其中涵蓋單一指令的 Helm 安裝、用於為您的叢集挑選正確設定的 `preset` 選項（standard、GKE Autopilot、EKS Fargate），以及用於各個訊號家族（HTTP RED 指標、服務圖、網路流量、TCP 統計）的 `ebpf.features.*` 切換選項。

@@ -1,16 +1,16 @@
-# Руководство по конфигурации Terraform для самостоятельного хостинга OneUptime
+# Руководство по конфигурации Terraform для самостоятельного хостинга Cast Operations
 
-Это руководство предназначено специально для клиентов, использующих самостоятельно размещённые экземпляры OneUptime. В нём рассматривается управление версиями, конфигурация и рекомендации по использованию провайдера Terraform с вашим собственным развёртыванием OneUptime.
+Это руководство предназначено специально для клиентов, использующих самостоятельно размещённые экземпляры Cast Operations. В нём рассматривается управление версиями, конфигурация и рекомендации по использованию провайдера Terraform с вашим собственным развёртыванием Cast Operations.
 
 ## Важные замечания
 
-⚠️ **Проекты нельзя создавать через Terraform** — проекты необходимо сначала создать вручную в панели управления OneUptime. Используйте идентификатор проекта в своих конфигурациях Terraform.
+⚠️ **Проекты нельзя создавать через Terraform** — проекты необходимо сначала создать вручную в панели управления Cast Operations. Используйте идентификатор проекта в своих конфигурациях Terraform.
 
-⚠️ **Важнейшее правило для пользователей с самостоятельным хостингом**: всегда фиксируйте версию провайдера Terraform, точно совпадающую с версией вашей установки OneUptime.
+⚠️ **Важнейшее правило для пользователей с самостоятельным хостингом**: всегда фиксируйте версию провайдера Terraform, точно совпадающую с версией вашей установки Cast Operations.
 
 ## Структура ресурсов
 
-Все ресурсы Terraform для OneUptime следуют упрощённой структуре:
+Все ресурсы Terraform для Cast Operations следуют упрощённой структуре:
 
 - `name` (обязательно) — имя ресурса
 - `description` (необязательно) — описание ресурса
@@ -18,32 +18,32 @@
 
 ## Критически важно: совместимость версий
 
-⚠️ **Важнейшее правило для пользователей с самостоятельным хостингом**: всегда фиксируйте версию провайдера Terraform, точно совпадающую с версией вашей установки OneUptime.
+⚠️ **Важнейшее правило для пользователей с самостоятельным хостингом**: всегда фиксируйте версию провайдера Terraform, точно совпадающую с версией вашей установки Cast Operations.
 
 ### Почему фиксация версий критически важна
 
-- Провайдер Terraform автоматически генерируется из API OneUptime
-- Каждая версия OneUptime может иметь различные конечные точки API и схемы
+- Провайдер Terraform автоматически генерируется из API Cast Operations
+- Каждая версия Cast Operations может иметь различные конечные точки API и схемы
 - Использование несовпадающей версии провайдера может вызвать ошибки или неожиданное поведение
 - Фиксация версии обеспечивает совместимость и предсказуемое поведение
 
-## Определение версии OneUptime
+## Определение версии Cast Operations
 
 ### Метод 1: Панель управления
 
-1. Войдите в панель управления OneUptime
+1. Войдите в панель управления Cast Operations
 2. Перейдите в **Настройки** → **О программе**
 3. Запишите номер версии (например, «7.0.123»)
 
 ### Метод 2: Конечная точка API
 
 ```bash
-curl https://your-oneuptime-instance.com/api/status
+curl https://your-operations-instance.com/api/status
 ```
 
 ### Метод 3: Образы Docker
 
-При запуске OneUptime с Docker:
+При запуске Cast Operations с Docker:
 
 ```bash
 docker images | grep oneuptime
@@ -75,7 +75,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Замените 123 вашим точным номером сборки
     }
   }
@@ -83,7 +83,7 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # URL вашего самостоятельного хостинга
+  oneuptime_url = "https://operations.yourcompany.com"  # URL вашего самостоятельного хостинга
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -94,7 +94,7 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # Замените вашей точной версией
     }
   }
@@ -102,22 +102,22 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Полный пример конфигурации для самостоятельного хостинга
 
-Полный пример для самостоятельно размещённого экземпляра OneUptime:
+Полный пример для самостоятельно размещённого экземпляра Cast Operations:
 
 ```hcl
 # versions.tf
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Должно совпадать с вашей версией OneUptime
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Должно совпадать с вашей версией Cast Operations
     }
   }
   required_version = ">= 1.0"
@@ -132,13 +132,13 @@ terraform {
 
 # variables.tf
 variable "oneuptime_url" {
-  description = "URL экземпляра OneUptime"
+  description = "URL экземпляра Cast Operations"
   type        = string
-  default     = "https://oneuptime.yourcompany.com"
+  default     = "https://operations.yourcompany.com"
 }
 
 variable "oneuptime_api_key" {
-  description = "API-ключ OneUptime"
+  description = "API-ключ Cast Operations"
   type        = string
   sensitive   = true
 }
@@ -157,7 +157,7 @@ provider "oneuptime" {
 
 # variables.tf
 variable "project_id" {
-  description = "Идентификатор проекта OneUptime (создайте вручную в панели управления)"
+  description = "Идентификатор проекта Cast Operations (создайте вручную в панели управления)"
   type        = string
 }
 
@@ -290,7 +290,7 @@ output "status_page_url" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://oneuptime-dev.yourcompany.com"
+oneuptime_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -298,7 +298,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://oneuptime-staging.yourcompany.com"
+oneuptime_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -306,13 +306,13 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://oneuptime.yourcompany.com"
+oneuptime_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
 ## Процесс обновления для самостоятельного хостинга
 
-При обновлении экземпляра OneUptime:
+При обновлении экземпляра Cast Operations:
 
 ### 1. Чек-лист перед обновлением
 
@@ -320,16 +320,16 @@ environment = "production"
 # Резервная копия текущего состояния Terraform
 terraform state pull > backup-$(date +%Y%m%d).tfstate
 
-# Запись текущей версии OneUptime
-curl https://oneuptime.yourcompany.com/api/status | jq '.version'
+# Запись текущей версии Cast Operations
+curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Запись текущей версии провайдера
 terraform providers | grep oneuptime
 ```
 
-### 2. Обновление экземпляра OneUptime
+### 2. Обновление экземпляра Cast Operations
 
-Следуйте стандартному процессу обновления OneUptime (Docker, Helm и др.)
+Следуйте стандартному процессу обновления Cast Operations (Docker, Helm и др.)
 
 ### 3. Обновление провайдера Terraform
 
@@ -338,7 +338,7 @@ terraform providers | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # Новая версия после обновления
     }
   }
@@ -364,12 +364,12 @@ terraform apply
 
 Убедитесь, что ваш исполнитель Terraform имеет доступ к:
 
-- Конечной точке API OneUptime (обычно порт 443/HTTPS)
+- Конечной точке API Cast Operations (обычно порт 443/HTTPS)
 - Любым внутренним ресурсам, находящимся под мониторингом
 
 ### VPN/частные сети
 
-При размещении OneUptime в частной сети:
+При размещении Cast Operations в частной сети:
 
 ```hcl
 provider "oneuptime" {
@@ -403,7 +403,7 @@ export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
 ```hcl
 # Пример с верификацией TLS
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 
   # Дополнительные параметры безопасности при поддержке
@@ -441,7 +441,7 @@ Error: connection refused
 
 **Решения**:
 
-1. Убедитесь, что экземпляр OneUptime запущен
+1. Убедитесь, что экземпляр Cast Operations запущен
 2. Проверьте правильность URL API
 3. Проверьте сетевое подключение и брандмауэр
 4. Убедитесь в действительности TLS-сертификатов
@@ -454,7 +454,7 @@ Error: API version incompatible
 
 **Решения**:
 
-1. Проверьте версию OneUptime: `curl https://your-instance/api/status`
+1. Проверьте версию Cast Operations: `curl https://your-instance/api/status`
 2. Обновите версию провайдера до совпадающей
 3. Выполните `terraform init -upgrade`
 

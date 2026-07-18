@@ -1,6 +1,6 @@
 # 受信リクエストモニター
 
-受信リクエストモニタリング（ハートビートモニタリングとも呼ばれます）を使用すると、サービスが定期的にOneUptimeにHTTPリクエストを送信することで、そのサービスを監視できます。OneUptimeがサービスにアクセスするのではなく、サービスが実行中であることを確認するためにOneUptimeにPingを送信します。
+受信リクエストモニタリング（ハートビートモニタリングとも呼ばれます）を使用すると、サービスが定期的にCast OperationsにHTTPリクエストを送信することで、そのサービスを監視できます。Cast Operationsがサービスにアクセスするのではなく、サービスが実行中であることを確認するためにCast OperationsにPingを送信します。
 
 ## 概要
 
@@ -14,7 +14,7 @@
 
 ## 受信リクエストモニターの作成
 
-1. OneUptime ダッシュボードで **モニター** を開きます
+1. Cast Operations ダッシュボードで **モニター** を開きます
 2. **モニターの作成** をクリックします
 3. モニタータイプとして **受信リクエスト** を選択します
 4. このモニター用の **シークレットキー** とハートビートURLが生成されます
@@ -26,7 +26,7 @@
 作成後、モニターは以下の形式で一意のハートビートURLを持ちます。
 
 ```
-https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+https://visca.ai/heartbeat/YOUR_SECRET_KEY
 ```
 
 サービスはこのURLに定期的にHTTPの **GET** または **POST** リクエストを送信する必要があります。
@@ -37,10 +37,10 @@ https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
 
 ```bash
 # シンプルなGETリクエスト
-curl https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 # カスタムボディを使ったPOSTリクエスト
-curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # cronジョブに追加して5分ごとにハートビートを送信
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### アプリケーションコードから実行する場合
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.jsの例
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/YOUR_SECRET_KEY");
+https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Pythonの例
 import requests
-requests.get('https://oneuptime.com/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
 ```
 
-セルフホストの場合は、`https://oneuptime.com` をOneUptimeインスタンスのURLに置き換えてください。
+セルフホストの場合は、`https://visca.ai` をCast OperationsインスタンスのURLに置き換えてください。
 
 ## 監視条件
 

@@ -1,11 +1,11 @@
 # GitHub 통합
 
-자체 호스팅 OneUptime 인스턴스와 GitHub를 통합하려면 GitHub 앱을 생성하고 필요한 환경 변수를 구성해야 합니다. 이를 통해 OneUptime이 코드 저장소 관리를 위해 GitHub 저장소에 연결할 수 있습니다.
+자체 호스팅 Cast Operations 인스턴스와 GitHub를 통합하려면 GitHub 앱을 생성하고 필요한 환경 변수를 구성해야 합니다. 이를 통해 Cast Operations이 코드 저장소 관리를 위해 GitHub 저장소에 연결할 수 있습니다.
 
 ## 전제 조건
 
 - 조직 저장소의 경우 조직 관리자 액세스 또는 개인 계정 액세스가 있는 GitHub 계정
-- OneUptime 서버 구성에 대한 액세스
+- Cast Operations 서버 구성에 대한 액세스
 
 ## 설정 지침
 
@@ -19,12 +19,12 @@
 2. **"New GitHub App"**을 클릭합니다
 
 3. 등록 양식을 작성합니다:
-   - **GitHub 앱 이름:** OneUptime (또는 고유한 이름) - **이 이름을 저장하십시오. `GITHUB_APP_NAME` 환경 변수에 필요합니다**
-   - **홈페이지 URL:** `https://your-oneuptime-domain.com`
-   - **콜백 URL:** `https://your-oneuptime-domain.com/api/github/auth/callback`
-   - **설정 URL:** `https://your-oneuptime-domain.com/api/github/auth/callback` - **중요: 이것은 앱 설치 후 GitHub가 사용자를 리디렉션하는 URL입니다. 리디렉션이 작동하려면 설정되어야 합니다.**
+   - **GitHub 앱 이름:** Cast Operations (또는 고유한 이름) - **이 이름을 저장하십시오. `GITHUB_APP_NAME` 환경 변수에 필요합니다**
+   - **홈페이지 URL:** `https://your-operations-domain.com`
+   - **콜백 URL:** `https://your-operations-domain.com/api/github/auth/callback`
+   - **설정 URL:** `https://your-operations-domain.com/api/github/auth/callback` - **중요: 이것은 앱 설치 후 GitHub가 사용자를 리디렉션하는 URL입니다. 리디렉션이 작동하려면 설정되어야 합니다.**
    - **업데이트 시 리디렉션:** 사용자가 앱 설치를 업데이트한 후 리디렉션하려면 이 옵션을 체크합니다
-   - **웹훅 URL:** `https://your-oneuptime-domain.com/api/github/webhook`
+   - **웹훅 URL:** `https://your-operations-domain.com/api/github/webhook`
    - **웹훅 시크릿:** 보안 무작위 문자열 생성 (나중을 위해 저장)
 
 ### 2단계: 앱 권한 구성
@@ -56,7 +56,7 @@
 
 ### 3단계: 웹훅 이벤트 구독
 
-OneUptime이 실시간 업데이트를 받으려면 다음 웹훅 이벤트를 구독합니다:
+Cast Operations이 실시간 업데이트를 받으려면 다음 웹훅 이벤트를 구독합니다:
 
 - **풀 리퀘스트** - PR이 열리거나, 닫히거나, 병합될 때 알림 수신
 - **푸시** - 코드가 푸시될 때 알림 수신
@@ -90,7 +90,7 @@ OneUptime이 실시간 업데이트를 받으려면 다음 웹훅 이벤트를 �
 3. `.pem` 파일이 자동으로 다운로드됩니다
 4. 이 파일을 안전하게 보관합니다 - GitHub 앱으로 인증하는 데 사용됩니다
 
-### 8단계: OneUptime 환경 변수 구성
+### 8단계: Cast Operations 환경 변수 구성
 
 #### Docker Compose
 
@@ -99,7 +99,7 @@ Docker Compose를 사용하는 경우 `config.env` 파일에 다음 환경 변�
 ```bash
 # GitHub 앱 구성
 GITHUB_APP_ID=YOUR_APP_ID
-GITHUB_APP_NAME=YOUR_APP_NAME  # GitHub 앱의 정확한 이름 (예: "OneUptime")
+GITHUB_APP_NAME=YOUR_APP_NAME  # GitHub 앱의 정확한 이름 (예: "Cast Operations")
 GITHUB_APP_CLIENT_ID=YOUR_CLIENT_ID
 GITHUB_APP_CLIENT_SECRET=YOUR_CLIENT_SECRET
 GITHUB_APP_PRIVATE_KEY="<BASE64_ENCODED_PRIVATE_KEY_CONTENT>"
@@ -122,7 +122,7 @@ gitHubApp:
   webhookSecret: "YOUR_WEBHOOK_SECRET"
 ```
 
-**중요:** 이러한 환경 변수를 추가한 후 OneUptime 서버를 재시작하여 적용합니다.
+**중요:** 이러한 환경 변수를 추가한 후 Cast Operations 서버를 재시작하여 적용합니다.
 
 ### 9단계: GitHub 앱 설치
 
@@ -134,14 +134,14 @@ gitHubApp:
    - **특정 저장소만** - 특정 저장소 선택
 5. **"설치"**를 클릭합니다
 
-### 10단계: OneUptime에서 저장소 연결
+### 10단계: Cast Operations에서 저장소 연결
 
-1. OneUptime 대시보드에 로그인합니다
+1. Cast Operations 대시보드에 로그인합니다
 2. **더보기** > **코드 저장소**로 이동합니다
 3. **"저장소 생성"**을 클릭하거나 GitHub 앱 설치 흐름을 사용합니다
 4. GitHub에서 리디렉션된 경우 설치 ID가 자동으로 캡처됩니다
 5. 목록에서 연결할 저장소를 선택합니다
-6. **"연결"**을 클릭하여 저장소를 OneUptime 프로젝트에 연결합니다
+6. **"연결"**을 클릭하여 저장소를 Cast Operations 프로젝트에 연결합니다
 
 ## 환경 변수 참조
 
@@ -158,9 +158,9 @@ gitHubApp:
 
 ### 일반적인 문제
 
-**GitHub 앱 설치 후 OneUptime으로 리디렉션되지 않는 경우:**
+**GitHub 앱 설치 후 Cast Operations으로 리디렉션되지 않는 경우:**
 
-- GitHub 앱 설정에서 **설정 URL**이 다음으로 구성되어 있는지 확인합니다: `https://your-oneuptime-domain.com/api/github/auth/callback`
+- GitHub 앱 설정에서 **설정 URL**이 다음으로 구성되어 있는지 확인합니다: `https://your-operations-domain.com/api/github/auth/callback`
 - GitHub 앱 설정 > "포스트 설치" 섹션으로 이동하여 설정 URL이 올바르게 설정되어 있는지 확인합니다
 - "업데이트 시 리디렉션" 옵션도 체크되어 있어야 합니다
 - 참고: 설정 URL은 콜백 URL과 다릅니다 - 두 URL 모두 동일한 `/api/github/auth/callback` 엔드포인트를 가리켜야 합니다
@@ -168,7 +168,7 @@ gitHubApp:
 **"GitHub 앱이 구성되지 않음" 오류:**
 
 - `GITHUB_APP_CLIENT_ID` 환경 변수가 설정되어 있는지 확인합니다
-- 환경 변수를 설정한 후 OneUptime 서버를 재시작합니다
+- 환경 변수를 설정한 후 Cast Operations 서버를 재시작합니다
 
 **"잘못된 웹훅 서명" 오류:**
 
@@ -211,7 +211,7 @@ gitHubApp:
 GitHub 통합에 문제가 발생한 경우:
 
 1. 위의 문제 해결 섹션을 확인합니다
-2. 자세한 오류 메시지에 대한 OneUptime 로그를 검토합니다
-3. [hello@oneuptime.com](mailto:hello@oneuptime.com)으로 문의합니다
+2. 자세한 오류 메시지에 대한 Cast Operations 로그를 검토합니다
+3. [hello@visca.ai](mailto:hello@visca.ai)으로 문의합니다
 
 이 통합을 개선하기 위한 피드백을 환영합니다!

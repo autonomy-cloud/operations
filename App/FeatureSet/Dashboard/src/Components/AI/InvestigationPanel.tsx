@@ -301,7 +301,7 @@ const InvestigationPanel: FunctionComponent<ComponentProps> = (
   return (
     <Card
       title="AI Investigation"
-      description={`OneUptime AI's live root-cause investigation for this ${props.subjectType}.`}
+      description={`Cast Operations AI's live root-cause investigation for this ${props.subjectType}.`}
     >
       <div className="-mt-4">
         <div
@@ -500,7 +500,7 @@ const InvestigationPanel: FunctionComponent<ComponentProps> = (
                 </div>
               )}
               <p className="mt-1.5 text-xs text-gray-400">
-                Verdicts train OneUptime AI&apos;s public accuracy score.
+                Verdicts train Cast Operations AI&apos;s public accuracy score.
               </p>
             </div>
           </div>

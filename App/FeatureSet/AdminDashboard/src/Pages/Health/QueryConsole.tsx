@@ -850,9 +850,6 @@ const QueryConsole: FunctionComponent = (): ReactElement => {
     <HealthPage
       title="Query Console"
       currentRoute={RouteMap[PageMap.HEALTH_QUERY] as Route}
-      enterpriseOnly={true}
-      enterpriseFeatureName="Query console"
-      enterpriseFeatureDescription="Run ad-hoc Postgres, ClickHouse and Redis queries against the datastores backing this instance, with read-only safety and result export."
     >
       <QueryConsoleContent />
     </HealthPage>

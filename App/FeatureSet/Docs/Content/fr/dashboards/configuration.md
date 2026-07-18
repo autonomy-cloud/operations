@@ -68,9 +68,9 @@ Si le tableau de bord est public sur un domaine personnalisé, l'URL cesse de r�
 
 ## Sauvegarde
 
-Si vous hébergez OneUptime vous-même, une sauvegarde régulière de la base de données suffit — la configuration du tableau de bord est stockée avec le reste de votre projet.
+Si vous hébergez Cast Operations vous-même, une sauvegarde régulière de la base de données suffit — la configuration du tableau de bord est stockée avec le reste de votre projet.
 
-Sur OneUptime Cloud, les sauvegardes sont gérées pour vous. Si vous voulez votre propre copie, vous pouvez lire le tableau de bord via l'[API OneUptime](/docs/api-reference/api-reference).
+Sur Cast Operations Cloud, les sauvegardes sont gérées pour vous. Si vous voulez votre propre copie, vous pouvez lire le tableau de bord via l'[API Cast Operations](/docs/api-reference/api-reference).
 
 ## Pour aller plus loin
 

@@ -1,19 +1,19 @@
 # PagerDuty-integration
 
-Utlös en [PagerDuty](https://www.pagerduty.com)-incident när en OneUptime-incident skapas, och lös den när OneUptime löser den. Användbart när PagerDuty äger dina eskalerings- och jourscheman och du vill att OneUptime:s övervakning ska mata det.
+Utlös en [PagerDuty](https://www.pagerduty.com)-incident när en Cast Operations-incident skapas, och lös den när Cast Operations löser den. Användbart när PagerDuty äger dina eskalerings- och jourscheman och du vill att Cast Operations:s övervakning ska mata det.
 
-Den här integrationen är **utgående**: OneUptime anropar PagerDutys [Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/). Den använder ett OneUptime **[Arbetsflöde](/docs/workflows/index)** med en **Incident → On Create**-utlösare och en **API-komponent**.
+Den här integrationen är **utgående**: Cast Operations anropar PagerDutys [Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/). Den använder ett Cast Operations **[Arbetsflöde](/docs/workflows/index)** med en **Incident → On Create**-utlösare och en **API-komponent**.
 
-> OneUptime har sin egen jour- och eskalering inbyggd — se [Jour](/docs/on-call/incoming-call-policy). Använd den här integrationen bara om du specifikt vill att händelser ska hamna i PagerDuty också.
+> Cast Operations har sin egen jour- och eskalering inbyggd — se [Jour](/docs/on-call/incoming-call-policy). Använd den här integrationen bara om du specifikt vill att händelser ska hamna i PagerDuty också.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
+Cast Operations Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
 ```
 
 ## Förutsättningar
 
 - En PagerDuty-tjänst med en **Events API v2**-integration. I PagerDuty: **Service → Integrations → Add integration → Events API v2**. Kopiera **Integration Key** (kallas också _routing key_).
-- Ett OneUptime-projekt där du kan skapa arbetsflöden.
+- Ett Cast Operations-projekt där du kan skapa arbetsflöden.
 
 ## Steg 1 — Spara routing-nyckeln
 
@@ -35,10 +35,10 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      {
        "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
        "event_action": "trigger",
-       "dedup_key": "oneuptime-{{Incident._id}}",
+       "dedup_key": "cast-operations-{{Incident._id}}",
        "payload": {
          "summary": "{{Incident.title}}",
-         "source": "OneUptime",
+         "source": "Cast Operations",
          "severity": "critical",
          "custom_details": {
            "description": "{{Incident.description}}"
@@ -47,11 +47,11 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      }
      ```
 
-   **`dedup_key`** kopplar den här PagerDuty-incidenten till OneUptime-incidenten så att du kan lösa den senare. Att använda OneUptime-incidentens id gör det unikt och förutsägbart.
+   **`dedup_key`** kopplar den här PagerDuty-incidenten till Cast Operations-incidenten så att du kan lösa den senare. Att använda Cast Operations-incidentens id gör det unikt och förutsägbart.
 
 4. **Spara**, aktivera och skapa en testincident. Ett `202`-svar i arbetsflödets loggar betyder att PagerDuty accepterade händelsen.
 
-## Steg 3 — Lös vid OneUptime-lösning (rekommenderas)
+## Steg 3 — Lös vid Cast Operations-lösning (rekommenderas)
 
 1. I **samma** arbetsflöde, lägg till en andra **Incident**-utlösare? Nej — ett arbetsflöde har en utlösare. Skapa i stället ett **andra** arbetsflöde som heter `Resolve PagerDuty` med en **Incident → On Update**-utlösare.
 2. Lägg till ett **Conditions**-block för att kontrollera att incidenten nu är löst (förgrena på incidentens tillstånd/`{{Incident.currentIncidentState.name}}` lika med ditt lösta tillståndsnamn).
@@ -61,7 +61,7 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
    {
      "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
      "event_action": "resolve",
-     "dedup_key": "oneuptime-{{Incident._id}}"
+     "dedup_key": "cast-operations-{{Incident._id}}"
    }
    ```
 
@@ -69,11 +69,11 @@ PagerDuty matchar `dedup_key` och stänger den ursprungliga incidenten.
 
 ## Allvarlighetsgradsmappning (valfritt)
 
-PagerDutys `severity` accepterar `critical`, `error`, `warning` eller `info`. För att mappa från OneUptime-allvarlighetsgrader, lägg till **Conditions**-grenar på `{{Incident.incidentSeverity.name}}` före API-blocket och skicka en annan body från var och en.
+PagerDutys `severity` accepterar `critical`, `error`, `warning` eller `info`. För att mappa från Cast Operations-allvarlighetsgrader, lägg till **Conditions**-grenar på `{{Incident.incidentSeverity.name}}` före API-blocket och skicka en annan body från var och en.
 
 ## Inkommande (valfritt)
 
-För att gå den andra vägen — öppna en OneUptime-incident från en PagerDuty-händelse — lägg till ett arbetsflöde med **Webhook**-utlösare och peka en PagerDuty [V3-webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (eller en Events Orchestration) mot dess URL, använd sedan **Create Incident**. Se det [inkommande mönstret](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
+För att gå den andra vägen — öppna en Cast Operations-incident från en PagerDuty-händelse — lägg till ett arbetsflöde med **Webhook**-utlösare och peka en PagerDuty [V3-webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (eller en Events Orchestration) mot dess URL, använd sedan **Create Incident**. Se det [inkommande mönstret](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
 
 ## Felsökning
 
@@ -84,5 +84,5 @@ För att gå den andra vägen — öppna en OneUptime-incident från en PagerDut
 ## Läs vidare
 
 - [Integrationsöversikt](/docs/integrations/index) — mönster och autentiseringsfuskbladet.
-- [Jour](/docs/on-call/incoming-call-policy) — OneUptime:s inbyggda eskalering.
+- [Jour](/docs/on-call/incoming-call-policy) — Cast Operations:s inbyggda eskalering.
 - [Opsgenie](/docs/integrations/opsgenie) — samma idé för Opsgenie.

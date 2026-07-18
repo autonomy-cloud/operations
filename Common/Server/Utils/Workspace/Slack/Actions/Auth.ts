@@ -44,7 +44,7 @@ const slackActionTypesThatDoNotRequireUserSlackAccountToBeConnectedToOneUptime: 
   [
     /*
      * anyone in the company can create incident.
-     * regardless of whether they are connected to OneUptime or not.
+     * regardless of whether they are connected to Cast Operations or not.
      */
     SlackActionType.NewIncident,
     SlackActionType.SubmitNewIncident,
@@ -255,7 +255,7 @@ export default class SlackAuthAction {
         ) {
           const markdwonPayload: WorkspacePayloadMarkdown = {
             _type: "WorkspacePayloadMarkdown",
-            text: `@${slackUsername}, Unfortunately your slack account is not connected to OneUptime. Please log into your OneUptime account, click on User Settings and then connect your Slack account. `,
+            text: `@${slackUsername}, Unfortunately your slack account is not connected to Cast Operations. Please log into your Cast Operations account, click on User Settings and then connect your Slack account. `,
           };
 
           await SlackUtil.sendDirectMessageToUser({

@@ -1,6 +1,6 @@
 # 指標監測器
 
-指標監測讓您能夠監測透過 OpenTelemetry 收集的自訂應用程式與基礎設施指標。OneUptime 會在一段時間範圍內評估指標值，並根據您設定的條件觸發警示。
+指標監測讓您能夠監測透過 OpenTelemetry 收集的自訂應用程式與基礎設施指標。Cast Operations 會在一段時間範圍內評估指標值，並根據您設定的條件觸發警示。
 
 ## 概觀
 
@@ -14,7 +14,7 @@
 
 ## 建立指標監測器
 
-1. 前往 OneUptime 儀表板中的 **Monitors**
+1. 前往 Cast Operations 儀表板中的 **Monitors**
 2. 點擊 **Create Monitor**
 3. 選擇 **Metrics** 作為監測器類型
 4. 設定指標查詢與選用的公式
@@ -105,4 +105,4 @@
 
 ## 設定需求
 
-指標監測需要您的應用程式或基礎設施透過 OpenTelemetry 將指標傳送至 OneUptime。設定說明請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件。
+指標監測需要您的應用程式或基礎設施透過 OpenTelemetry 將指標傳送至 Cast Operations。設定說明請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件。

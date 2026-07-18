@@ -1,7 +1,7 @@
 /**
  * Workflow Tools
  * Hand-written tools that encapsulate common incident-response workflows so
- * agents do not need insider knowledge of OneUptime's data model (e.g. that
+ * agents do not need insider knowledge of Cast Operations’ data model (e.g. that
  * resolving an incident means creating an IncidentStateTimeline row pointing
  * at the project's "Resolved" state).
  */
@@ -28,7 +28,7 @@ const WORKFLOW_TOOL_DEFINITIONS: WorkflowToolDefinition[] = [
     name: "acknowledge_incident",
     title: "Acknowledge Incident",
     description:
-      "Acknowledge an incident: marks it as being worked on by moving it to the project's 'Acknowledged' state. Equivalent to pressing 'Acknowledge' in the OneUptime dashboard.",
+      "Acknowledge an incident: marks it as being worked on by moving it to the project's 'Acknowledged' state. Equivalent to pressing 'Acknowledge' in the Cast Operations dashboard.",
     inputSchema: {
       type: "object",
       properties: {
@@ -47,7 +47,7 @@ const WORKFLOW_TOOL_DEFINITIONS: WorkflowToolDefinition[] = [
     name: "resolve_incident",
     title: "Resolve Incident",
     description:
-      "Resolve an incident: moves it to the project's 'Resolved' state. Equivalent to pressing 'Resolve' in the OneUptime dashboard.",
+      "Resolve an incident: moves it to the project's 'Resolved' state. Equivalent to pressing 'Resolve' in the Cast Operations dashboard.",
     inputSchema: {
       type: "object",
       properties: {
@@ -318,7 +318,7 @@ async function findStateId(data: {
 
 /**
  * Acknowledge/resolve an incident or alert by creating a state timeline
- * entry — the same thing the OneUptime dashboard does.
+ * entry — the same thing the Cast Operations dashboard does.
  */
 async function changeState(data: {
   kind: "incident" | "alert";

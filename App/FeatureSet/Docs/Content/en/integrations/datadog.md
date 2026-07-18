@@ -1,19 +1,19 @@
 # Datadog Integration
 
-Turn [Datadog](https://www.datadoghq.com) monitor alerts into OneUptime incidents, so Datadog's detection feeds OneUptime's incident response and status pages.
+Turn [Datadog](https://www.datadoghq.com) monitor alerts into Cast Operations incidents, so Datadog's detection feeds Cast Operations’ incident response and status pages.
 
-This integration is **inbound**: Datadog's [Webhooks integration](https://docs.datadoghq.com/integrations/webhooks/) posts to a OneUptime **[Workflow](/docs/workflows/index)** that starts with a **Webhook trigger**.
+This integration is **inbound**: Datadog's [Webhooks integration](https://docs.datadoghq.com/integrations/webhooks/) posts to a Cast Operations **[Workflow](/docs/workflows/index)** that starts with a **Webhook trigger**.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Prerequisites
 
 - A Datadog account where you can configure integrations and monitors.
-- A OneUptime project where you can create workflows.
+- A Cast Operations project where you can create workflows.
 
-## Step 1 — Build the OneUptime workflow
+## Step 1 — Build the Cast Operations workflow
 
 1. Open **Workflows → Create Workflow**, name it `Datadog → Incidents`, and open the **Builder**.
 2. Add a **Webhook** trigger and **copy its URL**. Rename the block to `Datadog`.
@@ -60,7 +60,7 @@ Add the webhook handle to the monitors you want to forward. In each monitor's **
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-This sends both the alert and the recovery to OneUptime. (To forward everything, you can also add `@webhook-oneuptime` to a monitor unconditionally.)
+This sends both the alert and the recovery to Cast Operations. (To forward everything, you can also add `@webhook-oneuptime` to a monitor unconditionally.)
 
 ## Step 4 — Test it
 

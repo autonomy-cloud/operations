@@ -2889,7 +2889,7 @@ const monitorDockerSwarm: MonitorDockerSwarmFunction = async (data: {
 
     /*
      * Always scope to the cluster via the `docker.swarm.cluster.name`
-     * RESOURCE attribute the OneUptime Docker Swarm Agent stamps on every
+     * RESOURCE attribute the Cast Operations Docker Swarm Agent stamps on every
      * batch (stored `resource.`-prefixed in ClickHouse). This is the ONLY
      * resource attribute the agent stamps — there is intentionally no
      * `container.runtime` filter here (the Docker Swarm agent does not

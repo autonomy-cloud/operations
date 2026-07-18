@@ -1,21 +1,21 @@
 # Integración de correo electrónico entrante con SendGrid
 
-El **Monitor de correo electrónico entrante** de OneUptime te permite crear y resolver alertas basadas en correos electrónicos enviados a direcciones de correo únicas específicas del monitor. Esto es útil para integrarse con sistemas heredados, herramientas de alertas o cualquier servicio que pueda enviar correos electrónicos.
+El **Monitor de correo electrónico entrante** de Cast Operations te permite crear y resolver alertas basadas en correos electrónicos enviados a direcciones de correo únicas específicas del monitor. Esto es útil para integrarse con sistemas heredados, herramientas de alertas o cualquier servicio que pueda enviar correos electrónicos.
 
-Esta guía explica cómo configurar SendGrid Inbound Parse para reenviar los correos entrantes a tu instancia auto-alojada de OneUptime.
+Esta guía explica cómo configurar SendGrid Inbound Parse para reenviar los correos entrantes a tu instancia auto-alojada de Cast Operations.
 
 ## Prerrequisitos
 
 - Una cuenta de SendGrid (el nivel gratuito funciona)
 - Un dominio que controles con acceso a la configuración DNS
-- Tu instancia de OneUptime debe ser accesible públicamente (para que SendGrid pueda enviar webhooks)
+- Tu instancia de Cast Operations debe ser accesible públicamente (para que SendGrid pueda enviar webhooks)
 
 ## Cómo funciona
 
-1. Creas un **Monitor de correo electrónico entrante** en OneUptime
-2. OneUptime genera una dirección de correo electrónico única para ese monitor (por ejemplo, `monitor-abc123@inbound.yourdomain.com`)
-3. Cuando se envía un correo electrónico a esa dirección, SendGrid lo recibe y lo reenvía a OneUptime a través de webhook
-4. OneUptime evalúa el correo electrónico según tus criterios configurados para crear o resolver alertas
+1. Creas un **Monitor de correo electrónico entrante** en Cast Operations
+2. Cast Operations genera una dirección de correo electrónico única para ese monitor (por ejemplo, `monitor-abc123@inbound.yourdomain.com`)
+3. Cuando se envía un correo electrónico a esa dirección, SendGrid lo recibe y lo reenvía a Cast Operations a través de webhook
+4. Cast Operations evalúa el correo electrónico según tus criterios configurados para crear o resolver alertas
 
 ## Instrucciones de configuración
 
@@ -27,7 +27,7 @@ Necesitarás un subdominio dedicado para recibir correos electrónicos entrantes
 - `email.yourdomain.com`
 - `monitor.yourdomain.com`
 
-Este subdominio se usará exclusivamente para los correos electrónicos del monitor de OneUptime.
+Este subdominio se usará exclusivamente para los correos electrónicos del monitor de Cast Operations.
 
 ### Paso 2: Configurar el registro MX de DNS
 
@@ -64,14 +64,14 @@ Para una mejor entregabilidad y evitar que los correos se marquen como spam:
 | Campo                                            | Valor                                                                   |
 | ------------------------------------------------ | ----------------------------------------------------------------------- |
 | **Dominio receptor**                             | Tu subdominio entrante (por ejemplo, `inbound.yourdomain.com`)          |
-| **URL de destino**                               | `https://your-oneuptime-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **URL de destino**                               | `https://your-operations-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
 | **Verificar correos entrantes en busca de spam** | Opcional: habilita si lo deseas                                         |
 | **Enviar mensaje MIME completo sin procesar**    | Deja sin marcar (no requerido)                                          |
 | **POST del mensaje MIME completo sin procesar**  | Deja sin marcar (no requerido)                                          |
 
 5. Haz clic en **Agregar**
 
-### Paso 5: Configurar las variables de entorno de OneUptime
+### Paso 5: Configurar las variables de entorno de Cast Operations
 
 #### Docker Compose
 
@@ -95,11 +95,11 @@ inboundEmail:
   # webhookSecret: "your-optional-secret"  # Opcional
 ```
 
-**Importante:** Reinicia tu servidor de OneUptime después de agregar estas variables de entorno.
+**Importante:** Reinicia tu servidor de Cast Operations después de agregar estas variables de entorno.
 
 ### Paso 6: Crear un Monitor de correo electrónico entrante
 
-1. Inicia sesión en tu panel de OneUptime
+1. Inicia sesión en tu panel de Cast Operations
 2. Navega a **Monitores** > **Crear monitor**
 3. Selecciona **Correo electrónico entrante** como tipo de monitor
 4. Configura tu monitor:
@@ -115,9 +115,9 @@ Después de la creación, verás la dirección de correo electrónico única par
 
 ### Paso 7: Probar la integración
 
-1. Copia la dirección de correo electrónico del monitor desde el panel de OneUptime
+1. Copia la dirección de correo electrónico del monitor desde el panel de Cast Operations
 2. Envía un correo electrónico de prueba a esa dirección con un asunto que coincida con tus criterios de alerta
-3. Comprueba el panel de OneUptime para verificar:
+3. Comprueba el panel de Cast Operations para verificar:
    - Que el correo electrónico fue recibido (visible en el Resumen del monitor)
    - Que se creó una alerta (si coincidieron los criterios)
 
@@ -147,7 +147,7 @@ Al configurar tu Monitor de correo electrónico entrante, puedes crear criterios
 
 Muchos sistemas heredados solo pueden enviar alertas por correo electrónico. Crea un Monitor de correo electrónico entrante para:
 
-- Crear alertas de OneUptime cuando el sistema heredado envíe correos `[CRÍTICO]`
+- Crear alertas de Cast Operations cuando el sistema heredado envíe correos `[CRÍTICO]`
 - Resolver alertas cuando se reciban correos `[RESUELTO]`
 
 ### Integración con servicios de terceros
@@ -183,16 +183,16 @@ Usa criterios de "Correo recibido" para asegurarte de recibir correos periódico
    - Ve a Configuración > Inbound Parse
    - Verifica que tu dominio y la URL del webhook sean correctos
 
-3. **Comprueba los registros de OneUptime:**
+3. **Comprueba los registros de Cast Operations:**
    - Busca solicitudes de webhook en los registros del servicio ProbeIngest
    - Comprueba si hay mensajes de error
 
 ### Webhooks fallando
 
-1. **Asegúrate de que OneUptime sea accesible públicamente:**
+1. **Asegúrate de que Cast Operations sea accesible públicamente:**
 
    - La URL del webhook debe ser accesible desde internet
-   - Prueba con: `curl -X POST https://your-oneuptime-domain.com/incoming-email/sendgrid`
+   - Prueba con: `curl -X POST https://your-operations-domain.com/incoming-email/sendgrid`
 
 2. **Comprueba las reglas del firewall:**
 
@@ -223,7 +223,7 @@ Usa criterios de "Correo recibido" para asegurarte de recibir correos periódico
 Para comprobar si SendGrid está enviando webhooks correctamente:
 
 1. Desafortunadamente, SendGrid no proporciona registros detallados para Inbound Parse
-2. Comprueba los registros de tu servidor de OneUptime para detectar solicitudes de webhook entrantes
+2. Comprueba los registros de tu servidor de Cast Operations para detectar solicitudes de webhook entrantes
 3. Usa una herramienta como [RequestBin](https://requestbin.com) para probar temporalmente la entrega del webhook
 
 ## Buenas prácticas de seguridad
@@ -236,7 +236,7 @@ Para comprobar si SendGrid está enviando webhooks correctamente:
 
 ## Proveedores alternativos
 
-OneUptime está diseñado para admitir múltiples proveedores de correo electrónico entrante. Actualmente compatibles:
+Cast Operations está diseñado para admitir múltiples proveedores de correo electrónico entrante. Actualmente compatibles:
 
 | Proveedor             | Estado      |
 | --------------------- | ----------- |
@@ -250,7 +250,7 @@ Si necesitas soporte para un proveedor diferente, contáctanos o envía una soli
 Si encuentras problemas con la integración de correo electrónico entrante de SendGrid:
 
 1. Consulta la sección de solución de problemas anterior
-2. Revisa los registros de OneUptime para ver mensajes de error detallados
-3. Contáctanos en [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Revisa los registros de Cast Operations para ver mensajes de error detallados
+3. Contáctanos en [hello@visca.ai](mailto:hello@visca.ai)
 
 ¡Agradecemos los comentarios para mejorar esta integración!

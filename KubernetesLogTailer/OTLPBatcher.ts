@@ -175,7 +175,7 @@ const groupByResource: (entries: Array<LogEntry>) => Array<OtlpResourceLogs> = (
       }
       /*
        * Project labels from .Values.oneuptime.labels (helm chart). The
-       * OneUptime ingest pipeline promotes `oneuptime.label.*` resource
+       * Cast Operations ingest pipeline promotes `oneuptime.label.*` resource
        * attributes into project Labels on the host/service.
        */
       for (const [labelKey, labelValue] of Object.entries(ONEUPTIME_LABELS)) {

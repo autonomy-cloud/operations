@@ -1,6 +1,6 @@
 # Dashboards – Oversigt
 
-Dashboards forvandler de data, OneUptime allerede indsamler — metrikker, logs, traces, hændelser, monitorer, Kubernetes-ressourcer, hosts — til en enkelt side, som nogen kan kigge på og forstå, hvad der foregår.
+Dashboards forvandler de data, Cast Operations allerede indsamler — metrikker, logs, traces, hændelser, monitorer, Kubernetes-ressourcer, hosts — til en enkelt side, som nogen kan kigge på og forstå, hvad der foregår.
 
 Sæt et diagram for request-latency ved siden af en liste over åbne hændelser, ved siden af en gauge for CPU, ved siden af et stykke kontekstuel tekst. Gem det. Del linket.
 
@@ -66,12 +66,12 @@ Mål: en vagt-side til checkout-servicen med latency, fejlrate, åbne hændelser
 6. Under den en **Log Stream**-widget, der viser logs fra samme service.
 7. Gem. Skift dropdownen til `payments` — det samme dashboard viser nu payments-servicen.
 
-## Hvordan dashboards passer ind i resten af OneUptime
+## Hvordan dashboards passer ind i resten af Cast Operations
 
 - **Monitorer og telemetri** er datakilderne. Hver metrik, log og trace, du indsamler, kan forespørges på en widget.
 - **Hændelser og alarmer** dukker op i **Incident List**- og **Alert List**-widgets. Dashboards er read-only for disse — opret og opdater dem andetsteds.
 - **Statussider** er kundevendt kommunikation ("er systemet oppe?"). Dashboards er til at kigge i detaljer på, hvordan systemet opfører sig. De to arbejder sammen, de erstatter ikke hinanden.
-- **Workflows** er sådan, OneUptime tager handling. Dashboards er sådan, du læser, hvad der sker.
+- **Workflows** er sådan, Cast Operations tager handling. Dashboards er sådan, du læser, hvad der sker.
 
 ## Læs videre
 

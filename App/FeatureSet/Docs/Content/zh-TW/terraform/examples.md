@@ -1,6 +1,6 @@
 # Terraform Provider 範例
 
-本文件提供常見 OneUptime Terraform 設定的完整範例。
+本文件提供常見 Cast Operations Terraform 設定的完整範例。
 
 ## 基本範例
 
@@ -10,14 +10,14 @@
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use "= 7.0.123" for self-hosted
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # Change for self-hosted
+  oneuptime_url = "https://visca.ai"  # Change for self-hosted
   api_key       = var.oneuptime_api_key
 }
 

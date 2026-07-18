@@ -85,7 +85,7 @@ const SupportBundle: FunctionComponent = (): ReactElement => {
   return (
     <Card
       title="Support bundle"
-      description="A diagnostic snapshot of this instance — version, configuration, component health, migrations, queue/database diagnostics, full failed-job detail and recent application & datastore logs — that you can send to the OneUptime team when you need help. Credentials are scrubbed, but it may contain customer data, so review it before sharing."
+      description="A diagnostic snapshot of this instance — version, configuration, component health, migrations, queue/database diagnostics, full failed-job detail and recent application & datastore logs — that you can send to the Cast Operations team when you need help. Credentials are scrubbed, but it may contain customer data, so review it before sharing."
     >
       <div>
         {error ? (

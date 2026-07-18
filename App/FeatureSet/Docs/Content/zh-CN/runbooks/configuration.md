@@ -2,7 +2,7 @@
 
 ## Bash 与 JavaScript 究竟是怎么跑的
 
-Bash 和 JavaScript 步骤**绝不在 OneUptime Worker 上执行**。它们被作为任务派发到某个特定的 [Runbook 代理](/docs/runbooks/agents) — 你在自己基础设施内某台主机上安装的一个小进程。
+Bash 和 JavaScript 步骤**绝不在 Cast Operations Worker 上执行**。它们被作为任务派发到某个特定的 [Runbook 代理](/docs/runbooks/agents) — 你在自己基础设施内某台主机上安装的一个小进程。
 
 派发模型：
 
@@ -37,7 +37,7 @@ Runbook 执行运行在 `Runbook` 这条 BullMQ 队列上。worker 并发为 25 
 
 ## 加固说明
 
-- **JavaScript 和 Bash** 跑在你控制的 Runbook 代理主机上，而不是 OneUptime Worker 上。JavaScript 被包在 `isolated-vm` 沙箱里，加常规前奏（切断原型链、移除 `Function`/`eval`、冻结内置原型）。Bash 在代理上通过 `bash -c` 跑，并在代理侧强制执行超时。
+- **JavaScript 和 Bash** 跑在你控制的 Runbook 代理主机上，而不是 Cast Operations Worker 上。JavaScript 被包在 `isolated-vm` 沙箱里，加常规前奏（切断原型链、移除 `Function`/`eval`、冻结内置原型）。Bash 在代理上通过 `bash -c` 跑，并在代理侧强制执行超时。
 - **HTTP 步骤** 使用宽松的状态验证器，所以 4xx 或 5xx 响应会被记录为失败的步骤而非抛错。这样捕获的输出能反映上游实际返回的内容。
 - **代理认证** 通过设置在代理容器上的 ID + 密钥环境变量完成。服务端权威的代理身份来自由所提交 ID/密钥定位到的数据库行——即便密钥被泄露，客户端也不能冒充别的代理。
 

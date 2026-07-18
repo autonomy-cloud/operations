@@ -85,7 +85,7 @@ export default class CodeFixReadiness {
           ok: false,
           title: "LLM provider",
           detail:
-            "AI fix tasks would use the OneUptime-hosted LLM provider, which is billed against your AI balance — and the project's balance is empty. Recharge it in Project Settings > AI Credits, or add your own LLM provider in Project Settings > AI > LLM Providers.",
+            "AI fix tasks would use the Cast Operations-hosted LLM provider, which is billed against your AI balance — and the project's balance is empty. Recharge it in Project Settings > AI Credits, or add your own LLM provider in Project Settings > AI > LLM Providers.",
         };
       }
     }

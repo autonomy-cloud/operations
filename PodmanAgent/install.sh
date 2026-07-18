@@ -2,7 +2,7 @@
 set -e
 
 echo "=========================================="
-echo "  OneUptime Podman Agent Installer"
+echo "  Cast Operations Podman Agent Installer"
 echo "=========================================="
 echo ""
 
@@ -21,15 +21,15 @@ fi
 
 # Prompt for configuration
 if [ -z "$ONEUPTIME_URL" ]; then
-    read -rp "OneUptime URL (e.g., https://oneuptime.com): " ONEUPTIME_URL
+    read -rp "Cast Operations URL (e.g., https://visca.ai): " ONEUPTIME_URL
 fi
 
 if [ -z "$ONEUPTIME_SERVICE_TOKEN" ]; then
-    read -rp "OneUptime Service Token: " ONEUPTIME_SERVICE_TOKEN
+    read -rp "Cast Operations Service Token: " ONEUPTIME_SERVICE_TOKEN
 fi
 
 if [ -z "$PODMAN_HOST_NAME" ]; then
-    read -rp "Podman host name (friendly label shown in OneUptime) [podman-host]: " PODMAN_HOST_NAME
+    read -rp "Podman host name (friendly label shown in Cast Operations) [podman-host]: " PODMAN_HOST_NAME
     PODMAN_HOST_NAME="${PODMAN_HOST_NAME:-podman-host}"
 fi
 
@@ -46,7 +46,7 @@ if podman ps -a --format '{{.Names}}' | grep -q '^oneuptime-podman-agent$'; then
 fi
 
 echo ""
-echo "Starting OneUptime Podman Agent..."
+echo "Starting Cast Operations Podman Agent..."
 podman run -d \
     --name oneuptime-podman-agent \
     --user 0:0 \
@@ -63,7 +63,7 @@ podman run -d \
 
 echo ""
 echo "=========================================="
-echo "  OneUptime Podman Agent is running!"
+echo "  Cast Operations Podman Agent is running!"
 echo "=========================================="
 echo ""
 echo "To check status:  podman ps --filter name=oneuptime-podman-agent"

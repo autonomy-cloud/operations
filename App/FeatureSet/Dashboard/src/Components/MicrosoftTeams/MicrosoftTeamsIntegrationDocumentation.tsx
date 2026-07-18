@@ -80,7 +80,7 @@ Please note: Do not copy the secret ID, you need the secret VALUE which is typic
 3. Review the settings (enable for Teams, keep default messaging options unless you have specific needs)
 4. Click "Save" (and "Done"/"Publish" if prompted) to enable the Teams channel
 
-##### Step 7: Add these environment variables to your OneUptime server
+##### Step 7: Add these environment variables to your Cast Operations server
 
 If you are using Docker Compose then,
 
@@ -100,7 +100,7 @@ microsoftTeamsApp:
 \`\`\`
 
 
-Restart your OneUptime server after adding these environment variables so they take effect.
+Restart your Cast Operations server after adding these environment variables so they take effect.
 
 ##### Step 8: Upload Teams App Manifest
 
@@ -121,14 +121,14 @@ If you encounter issues:
 - Verify your environment variables are set correctly
 - Make sure the bot is added to the channels you want to post to
 
-We would like to improve this integration, so feedback is more than welcome. Please send us any at hello@oneuptime.com
+We would like to improve this integration, so feedback is more than welcome. Please send us any at hello@visca.ai
 
     `;
 
     return (
       <Card
-        title={`Integrating Microsoft Teams with your OneUptime Project`}
-        description={`Microsoft Teams is not connected to OneUptime. Here are some of the steps you need to do to integrate Microsoft Teams with your OneUptime Project`}
+        title={`Integrating Microsoft Teams with your Cast Operations Project`}
+        description={`Microsoft Teams is not connected to Cast Operations. Here are some of the steps you need to do to integrate Microsoft Teams with your Cast Operations Project`}
       >
         <MarkdownViewer text={markdownText} />
       </Card>

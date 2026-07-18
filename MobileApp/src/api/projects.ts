@@ -3,7 +3,7 @@ import type { AxiosResponse } from "axios";
 import type { ListResponse, ProjectItem } from "./types";
 
 /*
- * OneUptime API serializes ObjectID fields as { _type: "ObjectID", value: "uuid" }.
+ * Cast Operations API serializes ObjectID fields as { _type: "ObjectID", value: "uuid" }.
  * This helper extracts the plain string value.
  */
 function resolveId(

@@ -1,8 +1,8 @@
-# Syslog-Daten an OneUptime senden
+# Syslog-Daten an Cast Operations senden
 
 ## Übersicht
 
-Der OpenTelemetry Ingest-Dienst akzeptiert jetzt native Syslog-Payloads. Sie können Nachrichten von jeder RFC3164- oder RFC5424-kompatiblen Quelle direkt über HTTPS an OneUptime weiterleiten. OneUptime parst Syslog-Priorität, Facility, Schweregrad, strukturierte Daten und Nachrichtentext, bevor alles als durchsuchbare Logs gespeichert wird.
+Der OpenTelemetry Ingest-Dienst akzeptiert jetzt native Syslog-Payloads. Sie können Nachrichten von jeder RFC3164- oder RFC5424-kompatiblen Quelle direkt über HTTPS an Cast Operations weiterleiten. Cast Operations parst Syslog-Priorität, Facility, Schweregrad, strukturierte Daten und Nachrichtentext, bevor alles als durchsuchbare Logs gespeichert wird.
 
 ## Voraussetzungen
 
@@ -13,10 +13,10 @@ Der OpenTelemetry Ingest-Dienst akzeptiert jetzt native Syslog-Payloads. Sie kö
 ## Endpunkt
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- Ersetzen Sie `oneuptime.com` durch Ihren Host, wenn Sie OneUptime selbst hosten.
+- Ersetzen Sie `visca.ai` durch Ihren Host, wenn Sie Cast Operations selbst hosten.
 - Schließen Sie immer den `x-oneuptime-token`-Header in die Anfrage ein.
 
 ## Anfragekörper
@@ -42,7 +42,7 @@ Senden Sie zeilengetrennte Syslog-Zeichenketten oder eine JSON-Payload mit einem
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -90,7 +90,7 @@ curl \
 
 ## Geparste Attribute
 
-OneUptime fügt jedem Log-Eintrag automatisch die folgenden Attribute hinzu:
+Cast Operations fügt jedem Log-Eintrag automatisch die folgenden Attribute hinzu:
 
 - `syslog.priority`, `syslog.facility.code`, `syslog.facility.name`
 - `syslog.severity.code`, `syslog.severity.name`

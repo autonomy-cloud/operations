@@ -1,11 +1,11 @@
 # Интеграция с GitHub
 
-Для интеграции GitHub с вашим самостоятельно размещённым экземпляром OneUptime необходимо создать GitHub App и настроить необходимые переменные среды. Это позволяет OneUptime подключаться к вашим репозиториям GitHub для управления кодовой базой.
+Для интеграции GitHub с вашим самостоятельно размещённым экземпляром Cast Operations необходимо создать GitHub App и настроить необходимые переменные среды. Это позволяет Cast Operations подключаться к вашим репозиториям GitHub для управления кодовой базой.
 
 ## Предварительные требования
 
 - Учётная запись GitHub с правами администратора организации (для репозиториев организации) или доступом к личной учётной записи
-- Доступ к конфигурации вашего сервера OneUptime
+- Доступ к конфигурации вашего сервера Cast Operations
 
 ## Инструкции по настройке
 
@@ -19,12 +19,12 @@
 2. Нажмите **«New GitHub App»**
 
 3. Заполните форму регистрации:
-   - **GitHub App name:** OneUptime (или любое уникальное имя) — **Запомните это имя, оно понадобится для переменной среды `GITHUB_APP_NAME`**
-   - **Homepage URL:** `https://your-oneuptime-domain.com`
-   - **Callback URL:** `https://your-oneuptime-domain.com/api/github/auth/callback`
-   - **Setup URL:** `https://your-oneuptime-domain.com/api/github/auth/callback` — **Важно: на этот URL GitHub перенаправляет пользователей после установки приложения. Он должен быть задан для работы перенаправления.**
+   - **GitHub App name:** Cast Operations (или любое уникальное имя) — **Запомните это имя, оно понадобится для переменной среды `GITHUB_APP_NAME`**
+   - **Homepage URL:** `https://your-operations-domain.com`
+   - **Callback URL:** `https://your-operations-domain.com/api/github/auth/callback`
+   - **Setup URL:** `https://your-operations-domain.com/api/github/auth/callback` — **Важно: на этот URL GitHub перенаправляет пользователей после установки приложения. Он должен быть задан для работы перенаправления.**
    - **Redirect on update:** установите этот флажок для перенаправления пользователей после обновления установки приложения
-   - **Webhook URL:** `https://your-oneuptime-domain.com/api/github/webhook`
+   - **Webhook URL:** `https://your-operations-domain.com/api/github/webhook`
    - **Webhook secret:** сгенерируйте случайную строку (сохраните на потом)
 
 ### Шаг 2: Настройка разрешений приложения
@@ -56,7 +56,7 @@
 
 ### Шаг 3: Подписка на события вебхука
 
-События для получения OneUptime обновлений в реальном времени — подпишитесь на следующие события вебхука:
+События для получения Cast Operations обновлений в реальном времени — подпишитесь на следующие события вебхука:
 
 - **Pull request** — получение уведомлений при открытии, закрытии или слиянии PR
 - **Push** — получение уведомлений при отправке кода
@@ -90,7 +90,7 @@
 3. Файл `.pem` будет загружен автоматически
 4. Храните этот файл в безопасном месте — он используется для аутентификации как GitHub App
 
-### Шаг 8: Настройка переменных среды OneUptime
+### Шаг 8: Настройка переменных среды Cast Operations
 
 #### Docker Compose
 
@@ -99,7 +99,7 @@
 ```bash
 # Конфигурация GitHub App
 GITHUB_APP_ID=YOUR_APP_ID
-GITHUB_APP_NAME=YOUR_APP_NAME  # Точное имя вашего GitHub App (например, «OneUptime»)
+GITHUB_APP_NAME=YOUR_APP_NAME  # Точное имя вашего GitHub App (например, «Cast Operations»)
 GITHUB_APP_CLIENT_ID=YOUR_CLIENT_ID
 GITHUB_APP_CLIENT_SECRET=YOUR_CLIENT_SECRET
 GITHUB_APP_PRIVATE_KEY="<BASE64_ENCODED_PRIVATE_KEY_CONTENT>"
@@ -122,7 +122,7 @@ gitHubApp:
   webhookSecret: "YOUR_WEBHOOK_SECRET"
 ```
 
-**Важно:** Перезапустите сервер OneUptime после добавления переменных среды, чтобы изменения вступили в силу.
+**Важно:** Перезапустите сервер Cast Operations после добавления переменных среды, чтобы изменения вступили в силу.
 
 ### Шаг 9: Установка GitHub App
 
@@ -134,14 +134,14 @@ gitHubApp:
    - **Only select repositories** — выбор конкретных репозиториев
 5. Нажмите **«Install»**
 
-### Шаг 10: Подключение репозиториев в OneUptime
+### Шаг 10: Подключение репозиториев в Cast Operations
 
-1. Войдите на панель управления OneUptime
+1. Войдите на панель управления Cast Operations
 2. Перейдите в **Ещё** > **Репозитории кода**
 3. Нажмите **«Создать репозиторий»** или воспользуйтесь потоком установки GitHub App
 4. Если перенаправлены с GitHub, идентификатор установки будет захвачен автоматически
 5. Выберите репозитории для подключения из списка
-6. Нажмите **«Подключить»** для привязки репозитория к вашему проекту OneUptime
+6. Нажмите **«Подключить»** для привязки репозитория к вашему проекту Cast Operations
 
 ## Справочник переменных среды
 
@@ -158,9 +158,9 @@ gitHubApp:
 
 ### Распространённые проблемы
 
-**После установки GitHub App нет перенаправления обратно в OneUptime:**
+**После установки GitHub App нет перенаправления обратно в Cast Operations:**
 
-- Убедитесь, что **Setup URL** настроен в настройках GitHub App: `https://your-oneuptime-domain.com/api/github/auth/callback`
+- Убедитесь, что **Setup URL** настроен в настройках GitHub App: `https://your-operations-domain.com/api/github/auth/callback`
 - Перейдите в настройки GitHub App > раздел «Post installation» и проверьте правильность Setup URL
 - Параметр «Redirect on update» также должен быть включён
 - Примечание: Setup URL отличается от Callback URL — оба должны указывать на конечную точку `/api/github/auth/callback`
@@ -168,7 +168,7 @@ gitHubApp:
 **Ошибка «GitHub App is not configured»:**
 
 - Убедитесь, что переменная среды `GITHUB_APP_CLIENT_ID` задана
-- Перезапустите сервер OneUptime после установки переменных среды
+- Перезапустите сервер Cast Operations после установки переменных среды
 
 **Ошибка «Invalid webhook signature»:**
 
@@ -211,7 +211,7 @@ gitHubApp:
 При возникновении проблем с интеграцией GitHub:
 
 1. Изучите раздел устранения неполадок выше
-2. Просмотрите журналы OneUptime для получения подробных сообщений об ошибках
-3. Напишите нам по адресу [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Просмотрите журналы Cast Operations для получения подробных сообщений об ошибках
+3. Напишите нам по адресу [hello@visca.ai](mailto:hello@visca.ai)
 
 Мы приветствуем обратную связь для улучшения интеграции!

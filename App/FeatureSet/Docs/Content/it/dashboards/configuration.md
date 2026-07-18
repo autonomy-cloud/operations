@@ -68,9 +68,9 @@ Se la dashboard e pubblica su un dominio personalizzato, l'URL smette di risolve
 
 ## Backup
 
-Se utilizzi un'installazione self-hosted di OneUptime, un backup regolare del database e sufficiente — la configurazione della dashboard e memorizzata insieme al resto del tuo progetto.
+Se utilizzi un'installazione self-hosted di Cast Operations, un backup regolare del database e sufficiente — la configurazione della dashboard e memorizzata insieme al resto del tuo progetto.
 
-Su OneUptime Cloud, i backup sono gestiti per te. Se vuoi una tua copia, puoi leggere la dashboard tramite l'[API di OneUptime](/docs/api-reference/api-reference).
+Su Cast Operations Cloud, i backup sono gestiti per te. Se vuoi una tua copia, puoi leggere la dashboard tramite l'[API di Cast Operations](/docs/api-reference/api-reference).
 
 ## Letture successive
 

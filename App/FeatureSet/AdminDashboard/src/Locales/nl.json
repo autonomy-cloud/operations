@@ -50,8 +50,8 @@
     "logout": "Uitloggen"
   },
   "topAlert": {
-    "title": "OneUptime admin-dashboard",
-    "description": "U kunt uw OneUptime-servergerelateerde taken op dit dashboard uitvoeren."
+    "title": "Cast Operations admin-dashboard",
+    "description": "U kunt uw Cast Operations-servergerelateerde taken op dit dashboard uitvoeren."
   },
   "header": {
     "exitAdmin": "Admin verlaten",
@@ -74,7 +74,7 @@
     "helpSupport": "Help en ondersteuning",
     "legal": "Juridisch",
     "version": "Versie",
-    "versionModalTitle": "OneUptime-versie",
+    "versionModalTitle": "Cast Operations-versie",
     "versionLabel": "Versie",
     "commitLabel": "Commit",
     "versionUnavailable": "Versiegegevens zijn niet beschikbaar"
@@ -115,7 +115,7 @@
     "users": {
       "title": "Gebruikers",
       "cardTitle": "Gebruikers",
-      "cardDescription": "Hier is een lijst met gebruikers in OneUptime.",
+      "cardDescription": "Hier is een lijst met gebruikers in Cast Operations.",
       "noItems": "Geen gebruikers gevonden."
     },
     "enterpriseLicenses": {
@@ -150,7 +150,7 @@
     "projects": {
       "title": "Projecten",
       "cardTitle": "Projecten",
-      "cardDescription": "Hier is een lijst met projecten in OneUptime.",
+      "cardDescription": "Hier is een lijst met projecten in Cast Operations.",
       "noItems": "Geen projecten gevonden.",
       "stepBasic": "Basis",
       "stepSelectPlan": "Abonnement selecteren",
@@ -244,10 +244,10 @@
       "title": "Admin-instellingen",
       "authentication": {
         "authCardTitle": "Authenticatie-instellingen",
-        "authCardDescription": "Authenticatie-instellingen voor deze OneUptime-serverinstantie.",
+        "authCardDescription": "Authenticatie-instellingen voor deze Cast Operations-serverinstantie.",
         "authEditButton": "Instellingen bewerken",
         "projectCreationCardTitle": "Project aanmaken",
-        "projectCreationCardDescription": "Bepaal wie nieuwe projecten op deze OneUptime-server kan aanmaken.",
+        "projectCreationCardDescription": "Bepaal wie nieuwe projecten op deze Cast Operations-server kan aanmaken.",
         "projectCreationEditButton": "Instellingen bewerken"
       },
       "email": {
@@ -275,7 +275,7 @@
       },
       "whatsapp": {
         "metaCardTitle": "Meta WhatsApp-instellingen",
-        "metaCardDescription": "Configureer Meta WhatsApp-referenties. Deze waarden worden gebruikt om WhatsApp-meldingen vanuit OneUptime te verzenden.",
+        "metaCardDescription": "Configureer Meta WhatsApp-referenties. Deze waarden worden gebruikt om WhatsApp-meldingen vanuit Cast Operations te verzenden.",
         "metaEditButton": "Meta WhatsApp-config bewerken",
         "testCardTitle": "Test-WhatsApp-bericht verzenden",
         "testCardDescription": "Verzend een test-WhatsApp-sjabloonbericht om uw Meta-configuratie te bevestigen.",
@@ -288,7 +288,7 @@
       },
       "telegram": {
         "setupCardTitle": "Telegram-installatiehandleiding",
-        "setupCardDescription": "Lees dit eerst — het is de snelste weg van nul naar een werkende Telegram-bot verbonden met OneUptime.",
+        "setupCardDescription": "Lees dit eerst — het is de snelste weg van nul naar een werkende Telegram-bot verbonden met Cast Operations.",
         "configCardTitle": "Telegram-botinstellingen",
         "configCardDescription": "Plak het bot-token en de gebruikersnaam die @BotFather u heeft gegeven. Deze voeden uitgaande meldingen; het geheime token beschermt de inkomende webhook.",
         "configEditButton": "Telegram-config bewerken",
@@ -333,7 +333,7 @@
       },
       "apiKey": {
         "cardTitle": "Master-API-sleutelinstellingen",
-        "cardDescription": "Deze API-sleutel heeft root-toegang tot alle bronnen in alle projecten op OneUptime.",
+        "cardDescription": "Deze API-sleutel heeft root-toegang tot alle bronnen in alle projecten op Cast Operations.",
         "editButton": "API-sleutelinstellingen bewerken",
         "apiKeyNotGenerated": "API-sleutel nog niet gegenereerd."
       },
@@ -443,7 +443,7 @@
   "Acme, Inc.": "Acme, Inc.",
   "Admin Notification Email": "Admin-meldings-e-mail",
   "AI Agent Logo": "AI-agentlogo",
-  "Any strong random string. OneUptime rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Een sterke willekeurige tekenreeks. OneUptime weigert webhook-aanroepen waarvan de X-Telegram-Bot-Api-Secret-Token-header niet overeenkomt met deze waarde.",
+  "Any strong random string. Cast Operations rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Een sterke willekeurige tekenreeks. Cast Operations weigert webhook-aanroepen waarvan de X-Telegram-Bot-Api-Secret-Token-header niet overeenkomt met deze waarde.",
   "App ID": "App-ID",
   "App Secret": "App-secret",
   "Application (Client) ID from your Azure AD app registration (or service account for JWT Bearer).": "Application (Client) ID van uw Azure AD-app-registratie (of serviceaccount voor JWT Bearer).",
@@ -493,7 +493,7 @@
   "Health": "Gezondheid",
   "Home": "Start",
   "Hostname": "Hostnaam",
-  "How OneUptime delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Hoe OneUptime e-mail aflevert met de globale SMTP-configuratie. Kies 'SMTP' voor de meeste servers. Kies 'Microsoft Graph' als bij uw Microsoft 365-tenant SMTP AUTH is uitgeschakeld — Graph gebruikt de Mail.Send-toepassingsmachtiging en omzeilt SMTP volledig.",
+  "How Cast Operations delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Hoe Cast Operations e-mail aflevert met de globale SMTP-configuratie. Kies 'SMTP' voor de meeste servers. Kies 'Microsoft Graph' als bij uw Microsoft 365-tenant SMTP AUTH is uitgeschakeld — Graph gebruikt de Mail.Send-toepassingsmachtiging en omzeilt SMTP volledig.",
   "If you have a coupon code, enter it here.": "Als u een kortingscode heeft, voer deze hier in.",
   "If you have bought more phone numbers from Twilio for specific countries, you can add them here.": "Als u meer telefoonnummers van Twilio heeft gekocht voor specifieke landen, kunt u deze hier toevoegen.",
   "If you use port 465, please enable this. Do not enable this if you use port 587.": "Als u poort 465 gebruikt, schakel dit dan in. Schakel dit niet in als u poort 587 gebruikt.",
@@ -530,9 +530,9 @@
   "OAuth Scope": "OAuth-scope",
   "OAuth Settings": "OAuth-instellingen",
   "OAuth Token URL": "OAuth-token-URL",
-  "OneUptime Health": "OneUptime-gezondheid",
+  "Cast Operations Health": "Cast Operations-gezondheid",
   "OneUptimeAlertsBot": "OneUptimeAlertsBot",
-  "Operational health of this OneUptime instance.": "Operationele gezondheid van deze OneUptime-instantie.",
+  "Operational health of this Cast Operations instance.": "Operationele gezondheid van deze Cast Operations-instantie.",
   "Optional Business Account ID that owns the WhatsApp templates.": "Optionele Business Account-ID die eigenaar is van de WhatsApp-sjablonen.",
   "Optional Facebook App ID tied to your WhatsApp integration.": "Optionele Facebook App-ID gekoppeld aan uw WhatsApp-integratie.",
   "Optional Facebook App Secret used for webhook signature verification.": "Optioneel Facebook App Secret gebruikt voor verificatie van webhook-handtekeningen.",
@@ -540,7 +540,7 @@
   "Password": "Wachtwoord",
   "Phone Number ID": "Telefoonnummer-ID",
   "Pick a friendly name.": "Kies een herkenbare naam.",
-  "Please create a new OneUptime project to get started.": "Maak een nieuw OneUptime-project aan om te beginnen.",
+  "Please create a new Cast Operations project to get started.": "Maak een nieuw Cast Operations-project aan om te beginnen.",
   "Please select a plan.": "Selecteer een plan.",
   "Port": "Poort",
   "Primary Twilio Phone Number": "Primair Twilio-telefoonnummer",
@@ -573,7 +573,7 @@
   "Select the team you would like to add this user to.": "Selecteer het team waaraan u deze gebruiker wilt toevoegen.",
   "Send a broadcast email to all users.": "Stuur een broadcast-e-mail naar alle gebruikers.",
   "Sendgrid API Key": "Sendgrid API-sleutel",
-  "Should we disable sign up of new users to OneUptime?": "Moeten we de registratie van nieuwe gebruikers bij OneUptime uitschakelen?",
+  "Should we disable sign up of new users to Cast Operations?": "Moeten we de registratie van nieuwe gebruikers bij Cast Operations uitschakelen?",
   "SMTP Email": "SMTP-e-mail",
   "SMTP From Name": "SMTP Van-naam",
   "SMTP Host": "SMTP-host",
@@ -583,7 +583,7 @@
   "SMTP server hostname. Examples: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)": "SMTP-serverhostnaam. Voorbeelden: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)",
   "SMTP Username / Email": "SMTP-gebruikersnaam / e-mail",
   "Status": "Status",
-  "Status of the core datastores this OneUptime instance depends on.": "Status van de kerngegevensopslagplaatsen waarvan deze OneUptime-instantie afhankelijk is.",
+  "Status of the core datastores this Cast Operations instance depends on.": "Status van de kerngegevensopslagplaatsen waarvan deze Cast Operations-instantie afhankelijk is.",
   "Subject": "Onderwerp",
   "System components": "Systeemcomponenten",
   "Team": "Team",
@@ -591,7 +591,7 @@
   "Team ID": "Team-ID",
   "Team Name": "Teamnaam",
   "Test Email Address": "Test-e-mailadres",
-  "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.": "De inhoud van de aankondigings-e-mail. Deze wordt weergegeven in een OneUptime-e-mailsjabloon met huisstijl. U kunt Markdown-opmaak gebruiken.",
+  "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.": "De inhoud van de aankondigings-e-mail. Deze wordt weergegeven in een Cast Operations-e-mailsjabloon met huisstijl. U kunt Markdown-opmaak gebruiken.",
   "The body of the announcement email. This will be sent to all registered users. You can use Markdown formatting.": "De inhoud van de aankondigings-e-mail. Deze wordt naar alle geregistreerde gebruikers verzonden. U kunt Markdown-opmaak gebruiken.",
   "The bot token @BotFather sent you — starts with digits, then a colon, then ~35 letters/digits. Not a URL, not a curl command.": "Het bot-token dat @BotFather u heeft gestuurd — begint met cijfers, dan een dubbele punt, dan ~35 letters/cijfers. Geen URL, geen curl-opdracht.",
   "The email address where the test email will be sent.": "Het e-mailadres waarnaar de test-e-mail wordt verzonden.",
@@ -600,8 +600,8 @@
   "The subject line of the announcement email.": "De onderwerpregel van de aankondigings-e-mail.",
   "The WhatsApp Business phone number ID associated with your sending number.": "De WhatsApp Business-telefoonnummer-ID die is gekoppeld aan uw verzendnummer.",
   "This AI agent handles automated incident management.": "Deze AI-agent verzorgt het geautomatiseerde incidentbeheer.",
-  "This API key has root access to all the resources in all the projects on OneUptime.": "Deze API-sleutel heeft root-toegang tot alle bronnen in alle projecten op OneUptime.",
-  "This is the display name your team and customers see, when they receive emails from OneUptime.": "Dit is de weergavenaam die uw team en klanten zien wanneer ze e-mails van OneUptime ontvangen.",
+  "This API key has root access to all the resources in all the projects on Cast Operations.": "Deze API-sleutel heeft root-toegang tot alle bronnen in alle projecten op Cast Operations.",
+  "This is the display name your team and customers see, when they receive emails from Cast Operations.": "Dit is de weergavenaam die uw team en klanten zien wanneer ze e-mails van Cast Operations ontvangen.",
   "This plan is free, forever. ": "Dit plan is voor altijd gratis. ",
   "This probe is to monitor all the internal services.": "Deze sonde dient om alle interne services te monitoren.",
   "Transport": "Transport",

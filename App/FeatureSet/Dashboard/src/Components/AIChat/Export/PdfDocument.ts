@@ -287,7 +287,7 @@ export default class PdfDocument {
       );
 
       this.doc.text(
-        "Exported from OneUptime",
+        "Exported from Cast Operations",
         PAGE_MARGIN.left,
         this.pageHeight - PAGE_MARGIN.bottom + 24,
         { baseline: "top" },

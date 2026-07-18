@@ -50,8 +50,8 @@
     "logout": "Disconnetti"
   },
   "topAlert": {
-    "title": "Pannello amministratore OneUptime",
-    "description": "Puoi eseguire le tue attività relative al server OneUptime su questo pannello."
+    "title": "Pannello amministratore Cast Operations",
+    "description": "Puoi eseguire le tue attività relative al server Cast Operations su questo pannello."
   },
   "header": {
     "exitAdmin": "Esci dall'admin",
@@ -74,7 +74,7 @@
     "helpSupport": "Aiuto e supporto",
     "legal": "Legale",
     "version": "Versione",
-    "versionModalTitle": "Versione di OneUptime",
+    "versionModalTitle": "Versione di Cast Operations",
     "versionLabel": "Versione",
     "commitLabel": "Commit",
     "versionUnavailable": "Dati di versione non disponibili"
@@ -115,7 +115,7 @@
     "users": {
       "title": "Utenti",
       "cardTitle": "Utenti",
-      "cardDescription": "Ecco un elenco di utenti in OneUptime.",
+      "cardDescription": "Ecco un elenco di utenti in Cast Operations.",
       "noItems": "Nessun utente trovato."
     },
     "enterpriseLicenses": {
@@ -150,7 +150,7 @@
     "projects": {
       "title": "Progetti",
       "cardTitle": "Progetti",
-      "cardDescription": "Ecco un elenco di progetti in OneUptime.",
+      "cardDescription": "Ecco un elenco di progetti in Cast Operations.",
       "noItems": "Nessun progetto trovato.",
       "stepBasic": "Base",
       "stepSelectPlan": "Seleziona piano",
@@ -244,10 +244,10 @@
       "title": "Impostazioni admin",
       "authentication": {
         "authCardTitle": "Impostazioni di autenticazione",
-        "authCardDescription": "Impostazioni di autenticazione per questa istanza del server OneUptime.",
+        "authCardDescription": "Impostazioni di autenticazione per questa istanza del server Cast Operations.",
         "authEditButton": "Modifica impostazioni",
         "projectCreationCardTitle": "Creazione progetto",
-        "projectCreationCardDescription": "Controlla chi può creare nuovi progetti su questo server OneUptime.",
+        "projectCreationCardDescription": "Controlla chi può creare nuovi progetti su questo server Cast Operations.",
         "projectCreationEditButton": "Modifica impostazioni"
       },
       "email": {
@@ -275,7 +275,7 @@
       },
       "whatsapp": {
         "metaCardTitle": "Impostazioni Meta WhatsApp",
-        "metaCardDescription": "Configura le credenziali Meta WhatsApp. Questi valori vengono utilizzati per inviare notifiche WhatsApp da OneUptime.",
+        "metaCardDescription": "Configura le credenziali Meta WhatsApp. Questi valori vengono utilizzati per inviare notifiche WhatsApp da Cast Operations.",
         "metaEditButton": "Modifica config Meta WhatsApp",
         "testCardTitle": "Invia messaggio WhatsApp di prova",
         "testCardDescription": "Invia un messaggio modello WhatsApp di prova per confermare la tua configurazione Meta.",
@@ -288,7 +288,7 @@
       },
       "telegram": {
         "setupCardTitle": "Guida di configurazione Telegram",
-        "setupCardDescription": "Leggi prima questo — è il percorso più veloce da zero a un bot Telegram funzionante collegato a OneUptime.",
+        "setupCardDescription": "Leggi prima questo — è il percorso più veloce da zero a un bot Telegram funzionante collegato a Cast Operations.",
         "configCardTitle": "Impostazioni del bot Telegram",
         "configCardDescription": "Incolla il token del bot e il nome utente che ti ha dato @BotFather. Questi alimentano le notifiche in uscita; il token segreto protegge il webhook in entrata.",
         "configEditButton": "Modifica config Telegram",
@@ -333,7 +333,7 @@
       },
       "apiKey": {
         "cardTitle": "Impostazioni della chiave API master",
-        "cardDescription": "Questa chiave API ha accesso root a tutte le risorse in tutti i progetti su OneUptime.",
+        "cardDescription": "Questa chiave API ha accesso root a tutte le risorse in tutti i progetti su Cast Operations.",
         "editButton": "Modifica impostazioni chiave API",
         "apiKeyNotGenerated": "Chiave API non ancora generata."
       },
@@ -443,7 +443,7 @@
   "Acme, Inc.": "Acme, Inc.",
   "Admin Notification Email": "E-mail di notifica admin",
   "AI Agent Logo": "Logo agente AI",
-  "Any strong random string. OneUptime rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Una stringa casuale robusta. OneUptime rifiuta le chiamate webhook il cui header X-Telegram-Bot-Api-Secret-Token non corrisponde a questo valore.",
+  "Any strong random string. Cast Operations rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Una stringa casuale robusta. Cast Operations rifiuta le chiamate webhook il cui header X-Telegram-Bot-Api-Secret-Token non corrisponde a questo valore.",
   "App ID": "ID app",
   "App Secret": "Secret app",
   "Application (Client) ID from your Azure AD app registration (or service account for JWT Bearer).": "ID applicazione (client) dalla registrazione dell'app Azure AD (o account di servizio per JWT Bearer).",
@@ -493,7 +493,7 @@
   "Health": "Stato di salute",
   "Home": "Home",
   "Hostname": "Hostname",
-  "How OneUptime delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Come OneUptime invia le email utilizzando la configurazione SMTP globale. Scegli 'SMTP' per la maggior parte dei server. Scegli 'Microsoft Graph' se il tuo tenant Microsoft 365 ha SMTP AUTH disabilitato — Graph utilizza l'autorizzazione applicativa Mail.Send e ignora completamente SMTP.",
+  "How Cast Operations delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Come Cast Operations invia le email utilizzando la configurazione SMTP globale. Scegli 'SMTP' per la maggior parte dei server. Scegli 'Microsoft Graph' se il tuo tenant Microsoft 365 ha SMTP AUTH disabilitato — Graph utilizza l'autorizzazione applicativa Mail.Send e ignora completamente SMTP.",
   "If you have a coupon code, enter it here.": "Se hai un codice coupon, inseriscilo qui.",
   "If you have bought more phone numbers from Twilio for specific countries, you can add them here.": "Se hai acquistato più numeri di telefono da Twilio per paesi specifici, puoi aggiungerli qui.",
   "If you use port 465, please enable this. Do not enable this if you use port 587.": "Se utilizzi la porta 465, abilita questa opzione. Non abilitarla se utilizzi la porta 587.",
@@ -530,9 +530,9 @@
   "OAuth Scope": "Scope OAuth",
   "OAuth Settings": "Impostazioni OAuth",
   "OAuth Token URL": "URL del token OAuth",
-  "OneUptime Health": "Integrità di OneUptime",
+  "Cast Operations Health": "Integrità di Cast Operations",
   "OneUptimeAlertsBot": "OneUptimeAlertsBot",
-  "Operational health of this OneUptime instance.": "Stato operativo di questa istanza di OneUptime.",
+  "Operational health of this Cast Operations instance.": "Stato operativo di questa istanza di Cast Operations.",
   "Optional Business Account ID that owns the WhatsApp templates.": "ID account aziendale facoltativo proprietario dei modelli WhatsApp.",
   "Optional Facebook App ID tied to your WhatsApp integration.": "ID app Facebook facoltativo collegato alla tua integrazione WhatsApp.",
   "Optional Facebook App Secret used for webhook signature verification.": "Segreto app Facebook facoltativo utilizzato per la verifica della firma del webhook.",
@@ -540,7 +540,7 @@
   "Password": "Password",
   "Phone Number ID": "ID del numero di telefono",
   "Pick a friendly name.": "Scegli un nome descrittivo.",
-  "Please create a new OneUptime project to get started.": "Crea un nuovo progetto OneUptime per iniziare.",
+  "Please create a new Cast Operations project to get started.": "Crea un nuovo progetto Cast Operations per iniziare.",
   "Please select a plan.": "Seleziona un piano.",
   "Port": "Porta",
   "Primary Twilio Phone Number": "Numero di telefono Twilio principale",
@@ -573,7 +573,7 @@
   "Select the team you would like to add this user to.": "Seleziona il team a cui vuoi aggiungere questo utente.",
   "Send a broadcast email to all users.": "Invia un'email broadcast a tutti gli utenti.",
   "Sendgrid API Key": "Chiave API Sendgrid",
-  "Should we disable sign up of new users to OneUptime?": "Dobbiamo disabilitare la registrazione di nuovi utenti a OneUptime?",
+  "Should we disable sign up of new users to Cast Operations?": "Dobbiamo disabilitare la registrazione di nuovi utenti a Cast Operations?",
   "SMTP Email": "Email SMTP",
   "SMTP From Name": "Nome mittente SMTP",
   "SMTP Host": "Host SMTP",
@@ -583,7 +583,7 @@
   "SMTP server hostname. Examples: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)": "Hostname del server SMTP. Esempi: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)",
   "SMTP Username / Email": "Nome utente SMTP / Email",
   "Status": "Stato",
-  "Status of the core datastores this OneUptime instance depends on.": "Stato dei datastore principali da cui dipende questa istanza OneUptime.",
+  "Status of the core datastores this Cast Operations instance depends on.": "Stato dei datastore principali da cui dipende questa istanza Cast Operations.",
   "Subject": "Oggetto",
   "System components": "Componenti di sistema",
   "Team": "Team",
@@ -591,7 +591,7 @@
   "Team ID": "ID team",
   "Team Name": "Nome del team",
   "Test Email Address": "Indirizzo e-mail di prova",
-  "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.": "Il corpo dell'email di annuncio. Verrà visualizzato in un modello email con marchio OneUptime. Puoi usare la formattazione Markdown.",
+  "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.": "Il corpo dell'email di annuncio. Verrà visualizzato in un modello email con marchio Cast Operations. Puoi usare la formattazione Markdown.",
   "The body of the announcement email. This will be sent to all registered users. You can use Markdown formatting.": "Il corpo dell'email di annuncio. Verrà inviato a tutti gli utenti registrati. Puoi usare la formattazione Markdown.",
   "The bot token @BotFather sent you — starts with digits, then a colon, then ~35 letters/digits. Not a URL, not a curl command.": "Il token del bot che @BotFather ti ha inviato — inizia con cifre, poi due punti, quindi ~35 lettere/cifre. Non è un URL, non è un comando curl.",
   "The email address where the test email will be sent.": "L'indirizzo email a cui verrà inviata l'email di test.",
@@ -600,8 +600,8 @@
   "The subject line of the announcement email.": "L'oggetto dell'email di annuncio.",
   "The WhatsApp Business phone number ID associated with your sending number.": "L'ID del numero di telefono WhatsApp Business associato al tuo numero di invio.",
   "This AI agent handles automated incident management.": "Questo agente AI gestisce la gestione automatizzata degli incidenti.",
-  "This API key has root access to all the resources in all the projects on OneUptime.": "Questa chiave API ha accesso root a tutte le risorse in tutti i progetti su OneUptime.",
-  "This is the display name your team and customers see, when they receive emails from OneUptime.": "Questo è il nome visualizzato che il tuo team e i clienti vedono quando ricevono email da OneUptime.",
+  "This API key has root access to all the resources in all the projects on Cast Operations.": "Questa chiave API ha accesso root a tutte le risorse in tutti i progetti su Cast Operations.",
+  "This is the display name your team and customers see, when they receive emails from Cast Operations.": "Questo è il nome visualizzato che il tuo team e i clienti vedono quando ricevono email da Cast Operations.",
   "This plan is free, forever. ": "Questo piano è gratuito, per sempre. ",
   "This probe is to monitor all the internal services.": "Questa sonda serve a monitorare tutti i servizi interni.",
   "Transport": "Trasporto",

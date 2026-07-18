@@ -353,11 +353,11 @@ const StatusPageDelete: FunctionComponent<PageComponentProps> = (
               ) : (
                 <div>
                   <span>
-                    Custom Domains not enabled for this OneUptime installation.
+                    Custom Domains not enabled for this Cast Operations installation.
                     Please contact your server admin to enable this feature. To
                     enable this feature, if you are using Docker compose, the
                     <b>STATUS_PAGE_CNAME_RECORD</b> environment variable must be
-                    set when starting the OneUptime cluster. If you are using
+                    set when starting the Cast Operations cluster. If you are using
                     Helm and Kubernetes then set statusPage.cnameRecord in the
                     values.yaml file.
                   </span>
@@ -418,7 +418,7 @@ const StatusPageDelete: FunctionComponent<PageComponentProps> = (
               ) : (
                 <div>
                   <span>
-                    Custom Domains not enabled for this OneUptime installation.
+                    Custom Domains not enabled for this Cast Operations installation.
                     Please contact your server admin to enable this feature.
                   </span>
                 </div>

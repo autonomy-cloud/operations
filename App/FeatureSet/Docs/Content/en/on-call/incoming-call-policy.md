@@ -1,14 +1,14 @@
 # Incoming Call Policy (Twilio Integration)
 
-Incoming Call Policies allow external callers to reach your on-call engineers by dialing a dedicated phone number. When someone calls, OneUptime routes the call through your configured escalation rules until an engineer answers.
+Incoming Call Policies allow external callers to reach your on-call engineers by dialing a dedicated phone number. When someone calls, Cast Operations routes the call through your configured escalation rules until an engineer answers.
 
 ## How It Works
 
 ```mermaid
 flowchart TD
     A[Caller dials<br/>Incoming Call Number] --> B[Twilio receives call]
-    B --> C[Twilio sends webhook<br/>to OneUptime]
-    C --> D[OneUptime plays<br/>greeting message]
+    B --> C[Twilio sends webhook<br/>to Cast Operations]
+    C --> D[Cast Operations plays<br/>greeting message]
     D --> E[Load Escalation Rules]
     E --> F{Rule 1:<br/>Try On-Call User}
     F -->|No Answer| G{Rule 2:<br/>Try Backup Team}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant Caller
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant OnCallEngineer
 
     Caller->>Twilio: Dials incoming call number
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML: Play greeting
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML: Play greeting
     Twilio->>Caller: "Please wait while we connect you..."
 
     loop Escalation Rules
-        OneUptime->>OneUptime: Get next escalation rule
-        OneUptime->>Twilio: TwiML: Dial on-call user
+        Cast Operations->>Cast Operations: Get next escalation rule
+        Cast Operations->>Twilio: TwiML: Dial on-call user
         Twilio->>OnCallEngineer: Ring phone
         alt Engineer Answers
             OnCallEngineer->>Twilio: Picks up
-            Twilio->>OneUptime: Dial status: completed
+            Twilio->>Cast Operations: Dial status: completed
             Twilio->>Caller: Connect to engineer
             Note over Caller,OnCallEngineer: Call in progress
         else No Answer (timeout)
-            Twilio->>OneUptime: Dial status: no-answer
-            OneUptime->>OneUptime: Try next rule
+            Twilio->>Cast Operations: Dial status: no-answer
+            Cast Operations->>Cast Operations: Try next rule
         end
     end
 
     alt All Rules Exhausted
-        OneUptime->>Twilio: TwiML: Play no-answer message
+        Cast Operations->>Twilio: TwiML: Play no-answer message
         Twilio->>Caller: "No one is available..."
         Twilio->>Caller: Hangup
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - A Twilio account - Create one at [https://www.twilio.com](https://www.twilio.com)
 - Your Twilio Account SID and Auth Token
-- Access to your OneUptime self-hosted instance
+- Access to your Cast Operations self-hosted instance
 
 ## Overview
 
@@ -74,7 +74,7 @@ The Incoming Call Policy feature works by:
 4. Connecting the caller to the first available on-call engineer
 5. Escalating to the next rule if no one answers
 
-Since you're self-hosting OneUptime, you'll need to configure your own Twilio account. This gives you full control over your phone numbers and billing.
+Since you're self-hosting Cast Operations, you'll need to configure your own Twilio account. This gives you full control over your phone numbers and billing.
 
 ## Step 1: Create a Twilio Account
 
@@ -82,9 +82,9 @@ Since you're self-hosting OneUptime, you'll need to configure your own Twilio ac
 2. Complete the verification process
 3. Note down your **Account SID** and **Auth Token** from the Twilio Console dashboard
 
-## Step 2: Configure Call/SMS Config in OneUptime
+## Step 2: Configure Call/SMS Config in Cast Operations
 
-1. Log in to your OneUptime Dashboard
+1. Log in to your Cast Operations Dashboard
 2. Go to **Project Settings** > **Call & SMS** > **Custom Call/SMS Config**
 3. Click **Create Custom Call/SMS Config**
 4. Fill in the following fields:
@@ -120,15 +120,15 @@ You have two options for setting up a phone number:
 If you already have phone numbers in your Twilio account:
 
 1. In the **Phone Number** card, click **Use Existing Number**
-2. OneUptime will fetch all phone numbers from your Twilio account
+2. Cast Operations will fetch all phone numbers from your Twilio account
 3. Select the phone number you want to use
 4. Click **Use This** to assign it to the policy
 
-> **Note**: If the phone number already has a webhook configured, it will be updated to point to OneUptime.
+> **Note**: If the phone number already has a webhook configured, it will be updated to point to Cast Operations.
 
 ### Option B: Purchase a New Phone Number
 
-To buy a new phone number directly from OneUptime:
+To buy a new phone number directly from Cast Operations:
 
 1. In the **Phone Number** card, click **Buy New Number**
 2. Select a **Country** from the dropdown
@@ -258,7 +258,7 @@ If you no longer need a phone number:
 ### Calls not being received
 
 - Verify the Twilio configuration is correctly linked to the policy
-- Check that your OneUptime instance is accessible from the internet
+- Check that your Cast Operations instance is accessible from the internet
 - Verify the Twilio Account SID and Auth Token are correct
 - Check the Twilio Console for error logs
 
@@ -278,8 +278,8 @@ If you no longer need a phone number:
 ## Security Considerations
 
 - Keep your Twilio Auth Token secure and never expose it publicly
-- Use HTTPS for your OneUptime instance
-- OneUptime validates webhook signatures to ensure requests come from Twilio
+- Use HTTPS for your Cast Operations instance
+- Cast Operations validates webhook signatures to ensure requests come from Twilio
 - Consider restricting which phone numbers can call your incoming call policies
 
 ## Architecture Overview
@@ -291,7 +291,7 @@ graph TB
         B[Twilio Cloud]
     end
 
-    subgraph "OneUptime"
+    subgraph "Cast Operations"
         C[Incoming Call API]
         D[Call Router]
         E[Escalation Engine]
@@ -320,5 +320,5 @@ graph TB
 For issues with the Incoming Call Policy feature, please:
 
 1. Check the Twilio Console for error logs
-2. Review the OneUptime server logs
-3. Contact support at [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Review the Cast Operations server logs
+3. Contact support at [hello@visca.ai](mailto:hello@visca.ai)

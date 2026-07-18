@@ -1,6 +1,6 @@
 # Website Monitor
 
-Website-monitoring stelt u in staat de beschikbaarheid, prestaties en response van elke website of webpagina te bewaken. OneUptime verstuurt periodiek HTTP-verzoeken naar de URL van uw website en controleert of deze correct reageert.
+Website-monitoring stelt u in staat de beschikbaarheid, prestaties en response van elke website of webpagina te bewaken. Cast Operations verstuurt periodiek HTTP-verzoeken naar de URL van uw website en controleert of deze correct reageert.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Website-monitors controleren uw webpagina's door HTTP-verzoeken te doen en de re
 
 ## Een Website Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Website** als het monitortype
 4. Voer de website-URL in die u wilt bewaken
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### Omleidingen niet volgen
 
-Standaard volgt OneUptime HTTP-omleidingen (301, 302, enz.). Schakel deze optie in als u de omleidingsresponse zelf wilt bewaken in plaats van de uiteindelijke bestemming.
+Standaard volgt Cast Operations HTTP-omleidingen (301, 302, enz.). Schakel deze optie in als u de omleidingsresponse zelf wilt bewaken in plaats van de uiteindelijke bestemming.
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

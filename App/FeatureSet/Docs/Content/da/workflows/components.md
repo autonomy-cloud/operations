@@ -60,7 +60,7 @@ Send en besked til en Telegram-chat ved hjælp af et bot-token og chat-ID.
 
 ## Email
 
-Send en e-mail gennem OneUptime.
+Send en e-mail gennem Cast Operations.
 
 **Indstillinger**:
 
@@ -118,9 +118,9 @@ Brug dette til at dele almindelig logik. Byg ét "post til hændelseskanal"-work
 
 Der er en sikkerhedsgrænse, så workflows ikke kan blive ved med at kalde hinanden i en løkke. Se [Konfiguration & sikkerhed](/docs/workflows/configuration).
 
-## OneUptime data-komponenter
+## Cast Operations data-komponenter
 
-For hver slags post i OneUptime (monitorer, hændelser, alarmer, statussider, vagtpolitikker og mange flere) har paletten disse komponenter — søg på typens navn:
+For hver slags post i Cast Operations (monitorer, hændelser, alarmer, statussider, vagtpolitikker og mange flere) har paletten disse komponenter — søg på typens navn:
 
 - **Find One** — hent én post efter ID eller filter.
 - **Find** — hent en liste af poster.
@@ -129,13 +129,13 @@ For hver slags post i OneUptime (monitorer, hændelser, alarmer, statussider, va
 - **Delete** — fjern én post.
 - **Count** — tæl poster, der matcher et filter.
 
-Sådan kan et workflow læse og ændre OneUptime-data. For eksempel: en webhook fra dit CI-værktøj kan bruge **Create Incident** til at åbne en hændelse med fejldetaljerne.
+Sådan kan et workflow læse og ændre Cast Operations-data. For eksempel: en webhook fra dit CI-værktøj kan bruge **Create Incident** til at åbne en hændelse med fejldetaljerne.
 
 ## Hvilken komponent skal jeg bruge?
 
 Et par hurtige regler:
 
-- Hvis der findes en dedikeret blok til det, du vil have (Slack, Email, en OneUptime-post), så brug den — du får pænere fejlhåndtering og klarere logfiler.
+- Hvis der findes en dedikeret blok til det, du vil have (Slack, Email, en Cast Operations-post), så brug den — du får pænere fejlhåndtering og klarere logfiler.
 - Til ethvert andet eksternt API: brug **API**.
 - Til at omforme data mellem blokke: brug **Custom Code** eller **JSON**.
 - Til at tage forskellige handlinger baseret på en værdi: brug **Conditions**.

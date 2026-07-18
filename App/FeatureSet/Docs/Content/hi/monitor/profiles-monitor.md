@@ -1,6 +1,6 @@
 # Profiles Monitor
 
-Profiles monitoring आपको अपने applications से continuous profiling data monitor करने और profile counts और patterns के आधार पर alerts trigger करने की अनुमति देता है। OneUptime एक time window पर आपकी telemetry services से profile data evaluate करता है।
+Profiles monitoring आपको अपने applications से continuous profiling data monitor करने और profile counts और patterns के आधार पर alerts trigger करने की अनुमति देता है। Cast Operations एक time window पर आपकी telemetry services से profile data evaluate करता है।
 
 ## Overview
 
@@ -14,7 +14,7 @@ Profiles monitors specific criteria से match करने वाले profi
 
 ## Profiles Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **Profiles** चुनें
 4. monitor करने के लिए telemetry services चुनें
@@ -24,7 +24,7 @@ Profiles monitors specific criteria से match करने वाले profi
 
 ### Telemetry Services
 
-profiles monitor करने के लिए एक या अधिक services चुनें। Services को OpenTelemetry के माध्यम से OneUptime को continuous profiling data भेजना चाहिए।
+profiles monitor करने के लिए एक या अधिक services चुनें। Services को OpenTelemetry के माध्यम से Cast Operations को continuous profiling data भेजना चाहिए।
 
 ### Profile Filters
 
@@ -62,4 +62,4 @@ profiles monitor करने के लिए एक या अधिक servic
 
 ## Setup Requirements
 
-Profiles monitoring के लिए आपके applications को OpenTelemetry के माध्यम से OneUptime को continuous profiling data भेजने की आवश्यकता है। Setup निर्देशों के लिए [OpenTelemetry](/docs/telemetry/open-telemetry) documentation देखें।
+Profiles monitoring के लिए आपके applications को OpenTelemetry के माध्यम से Cast Operations को continuous profiling data भेजने की आवश्यकता है। Setup निर्देशों के लिए [OpenTelemetry](/docs/telemetry/open-telemetry) documentation देखें।

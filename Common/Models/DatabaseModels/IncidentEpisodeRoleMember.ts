@@ -147,7 +147,7 @@ export default class IncidentEpisodeRoleMember extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -225,7 +225,7 @@ export default class IncidentEpisodeRoleMember extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "User ID",
-    description: "ID of your OneUptime User assigned to this episode",
+    description: "ID of your Cast Operations User assigned to this episode",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -305,7 +305,7 @@ export default class IncidentEpisodeRoleMember extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Incident Episode ID",
     description:
-      "ID of your OneUptime Incident Episode in which this object belongs",
+      "ID of your Cast Operations Incident Episode in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

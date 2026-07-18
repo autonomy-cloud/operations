@@ -68,9 +68,9 @@ If the dashboard is public on a custom domain, the URL stops resolving as soon a
 
 ## Backup
 
-If you self-host OneUptime, a regular database backup is enough — the dashboard's configuration is stored alongside the rest of your project.
+If you self-host Cast Operations, a regular database backup is enough — the dashboard's configuration is stored alongside the rest of your project.
 
-On OneUptime Cloud, backups are handled for you. If you want your own copy, you can read the dashboard via the [OneUptime API](/docs/api-reference/api-reference).
+On Cast Operations Cloud, backups are handled for you. If you want your own copy, you can read the dashboard via the [Cast Operations API](/docs/api-reference/api-reference).
 
 ## Where to read next
 

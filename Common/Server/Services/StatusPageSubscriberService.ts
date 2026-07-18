@@ -784,7 +784,7 @@ Stay informed about service availability! 🚀`;
         /*
          * Use custom template only when custom SMTP is configured (matches the
          * pattern used elsewhere — without custom SMTP we keep the styled
-         * OneUptime default so emails still look right out-of-the-box).
+         * Cast Operations default so emails still look right out-of-the-box).
          */
         const compiledBody: string =
           StatusPageSubscriberNotificationTemplateServiceClass.compileTemplate(
@@ -1434,7 +1434,7 @@ Stay informed about service availability! 🚀`;
           unsubscribeUrl: "",
           data: {
             message:
-              "This is a test notification from OneUptime. Your webhook is configured correctly.",
+              "This is a test notification from Cast Operations. Your webhook is configured correctly.",
           },
         },
       });
@@ -1487,7 +1487,7 @@ Stay informed about service availability! 🚀`;
     // Create markdown message for Slack
     const markdownMessage: string = `## Test Notification - ${statusPageName}
 
-**This is a test notification from OneUptime.**
+**This is a test notification from Cast Operations.**
 
 You have successfully configured Slack notifications for this status page.
 

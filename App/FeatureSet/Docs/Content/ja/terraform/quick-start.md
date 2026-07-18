@@ -1,27 +1,27 @@
 # Terraformプロバイダー クイックスタートガイド
 
-このガイドでは、OneUptime Terraformプロバイダーを数分で使い始める方法を説明します。
+このガイドでは、Cast Operations Terraformプロバイダーを数分で使い始める方法を説明します。
 
 ## 前提条件
 
 - Terraform >= 1.0 がインストール済み
-- OneUptimeアカウント（クラウドまたはセルフホスト）
-- OneUptime APIキー
+- Cast Operationsアカウント（クラウドまたはセルフホスト）
+- Cast Operations APIキー
 
 ## ステップ1：APIキーの作成
 
-### OneUptime Cloudの場合
+### Cast Operations Cloudの場合
 
-1. [OneUptime Cloud](https://oneuptime.com) にアクセスしてログイン
+1. [Cast Operations Cloud](https://visca.ai) にアクセスしてログイン
 2. **設定** → **APIキー** に移動
 3. **APIキーの作成** をクリック
 4. 「Terraform Provider」と名前を付ける
 5. 必要な権限を選択
 6. 生成されたAPIキーをコピー
 
-### セルフホストOneUptimeの場合
+### セルフホストCast Operationsの場合
 
-1. OneUptimeインスタンスにアクセス
+1. Cast Operationsインスタンスにアクセス
 2. **設定** → **APIキー** に移動
 3. **APIキーの作成** をクリック
 4. 「Terraform Provider」と名前を付ける
@@ -36,12 +36,12 @@
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       # Cloudのお客様の場合
       version = "~> 7.0"
 
       # セルフホストのお客様の場合 — 正確なバージョンに固定
-      # version = "= 7.0.123"  # OneUptimeのバージョンに置き換えてください
+      # version = "= 7.0.123"  # Cast Operationsのバージョンに置き換えてください
     }
   }
   required_version = ">= 1.0"
@@ -49,24 +49,24 @@ terraform {
 
 provider "oneuptime" {
   # Cloudのお客様の場合
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
 
   # セルフホストのお客様の場合 — インスタンスURLを使用
-  # oneuptime_url = "https://oneuptime.yourcompany.com"
+  # oneuptime_url = "https://operations.yourcompany.com"
 
   api_key = var.oneuptime_api_key
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime APIキー"
+  description = "Cast Operations APIキー"
   type        = string
   sensitive   = true
 }
 
-# 注意：プロジェクトはOneUptime ダッシュボードで手動作成する必要があります
+# 注意：プロジェクトはCast Operations ダッシュボードで手動作成する必要があります
 # 既存のプロジェクトIDをここに使用してください
 variable "project_id" {
-  description = "OneUptimeプロジェクトID"
+  description = "Cast OperationsプロジェクトID"
   type        = string
 }
 
@@ -94,7 +94,7 @@ output "monitor_id" {
 ```hcl
 # terraform.tfvars
 oneuptime_api_key = "your-api-key-here"
-project_id        = "your-project-id-here"  # OneUptime ダッシュボードから取得
+project_id        = "your-project-id-here"  # Cast Operations ダッシュボードから取得
 ```
 
 **重要**：APIキーを秘密にするために `terraform.tfvars` を `.gitignore` に追加してください！
@@ -114,7 +114,7 @@ terraform apply
 
 ## ステップ5：リソースの確認
 
-1. OneUptime ダッシュボードを確認
+1. Cast Operations ダッシュボードを確認
 2. 既存のプロジェクトに移動
 3. 「ウェブサイトモニター」が作成されて実行されていることを確認
 
@@ -133,14 +133,14 @@ terraform apply
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 常に最新の互換7.xバージョンを取得
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -151,14 +151,14 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # OneUptimeのバージョンと完全一致させる必要あり
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Cast Operationsのバージョンと完全一致させる必要あり
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.mycompany.com"  # セルフホストURL
+  oneuptime_url = "https://operations.mycompany.com"  # セルフホストURL
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -181,7 +181,7 @@ Error: Invalid API key
 
 **解決策**：
 
-1. OneUptime ダッシュボードでAPIキーを確認する
+1. Cast Operations ダッシュボードでAPIキーを確認する
 2. APIキーに十分な権限があるか確認する
 3. インスタンスの `oneuptime_url` が正しいか確認する
 
@@ -193,7 +193,7 @@ Error: API version incompatible
 
 **解決策**：
 
-1. ダッシュボードでOneUptimeのバージョンを確認する
+1. ダッシュボードでCast Operationsのバージョンを確認する
 2. プロバイダーのバージョンを完全一致に更新する
 3. `terraform init -upgrade` を実行する
 

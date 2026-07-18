@@ -1,16 +1,16 @@
-# Conectar OneUptime a Slack
+# Conectar Cast Operations a Slack
 
-### Pasos para conectar OneUptime a Slack
+### Pasos para conectar Cast Operations a Slack
 
-1. **Crea una cuenta en OneUptime**
+1. **Crea una cuenta en Cast Operations**
 
-   - Visita [OneUptime.com](https://oneuptime.com) y crea una cuenta.
+   - Visita [Cast Operations.com](https://visca.ai) y crea una cuenta.
    - Una vez creada la cuenta, crea un nuevo proyecto.
 
-2. **Conecta Slack al proyecto de OneUptime**
+2. **Conecta Slack al proyecto de Cast Operations**
 
-   - Navega a **Configuración del proyecto** > **Slack** dentro de tu proyecto de OneUptime.
-   - Sigue las instrucciones para conectar tu cuenta de Slack con el proyecto de OneUptime.
+   - Navega a **Configuración del proyecto** > **Slack** dentro de tu proyecto de Cast Operations.
+   - Sigue las instrucciones para conectar tu cuenta de Slack con el proyecto de Cast Operations.
 
 3. **Configura las notificaciones de incidentes**
 

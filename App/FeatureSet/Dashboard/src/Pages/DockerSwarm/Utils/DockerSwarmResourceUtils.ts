@@ -10,7 +10,7 @@ import { InfrastructureResource } from "../../../Components/Infrastructure/Resou
 /*
  * Shared helpers for the Docker Swarm list/detail pages. The pages read
  * the DockerSwarmResource Postgres inventory table (populated by the OTel
- * ingest path from the OneUptime Docker Swarm agent's inventory poller +
+ * ingest path from the Cast Operations Docker Swarm agent's inventory poller +
  * docker_stats receiver) instead of grouping over ClickHouse telemetry —
  * same architecture as the Proxmox pages
  * (Pages/Proxmox/Utils/ProxmoxResourceUtils.ts).

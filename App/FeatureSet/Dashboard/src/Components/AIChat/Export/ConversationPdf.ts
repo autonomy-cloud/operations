@@ -88,7 +88,7 @@ class ConversationPdfBuilder {
     });
 
     this.pdf.paragraph(
-      `Exported from OneUptime on ${OneUptimeDate.getDateAsLocalFormattedString(
+      `Exported from Cast Operations on ${OneUptimeDate.getDateAsLocalFormattedString(
         options.exportedAt,
       )}`,
       { size: 8, color: PDF_COLORS.faint },
@@ -409,7 +409,7 @@ export default async function buildConversationPdf(
 
   doc.setProperties({
     title: options.title || "AI conversation",
-    creator: "OneUptime",
+    creator: "Cast Operations",
   });
 
   const pdf: PdfDocument = new PdfDocument(doc);

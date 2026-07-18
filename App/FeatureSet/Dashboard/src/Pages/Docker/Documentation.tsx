@@ -9,7 +9,7 @@ const DockerDocumentation: FunctionComponent<
     <Fragment>
       <DockerDocumentationCard
         title="Agent Installation Guide"
-        description="Install the OneUptime Docker Agent to connect your Docker host. Once installed, the host will appear automatically."
+        description="Install the Cast Operations Docker Agent to connect your Docker host. Once installed, the host will appear automatically."
       />
     </Fragment>
   );

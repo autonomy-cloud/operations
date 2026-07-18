@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 #
-# OneUptime-AIAgent Dockerfile
+# Cast Operations-AIAgent Dockerfile
 #
 
 # Pull base image nodejs image.
@@ -23,17 +23,16 @@ RUN npm config set foreground-scripts true
 RUN npm install -g npm@latest
 
 
-# Per-build args (GIT_SHA / APP_VERSION / IS_ENTERPRISE_EDITION) are declared at
 # the bottom so the npm ci / compile layers stay cacheable across commits and
 # across the community + enterprise build passes.
 ENV NODE_OPTIONS="--use-openssl-ca"
 
-LABEL org.opencontainers.image.title="OneUptime AI Agent"
-LABEL org.opencontainers.image.description="OneUptime AI agent service that powers incident triage, summarization, and autonomous workflows."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.documentation="https://oneuptime.com/docs"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations AI Agent"
+LABEL org.opencontainers.image.description="Cast Operations AI agent service that powers incident triage, summarization, and autonomous workflows."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 # Upgrade OS packages (Debian security fixes published since the base image
@@ -71,7 +70,7 @@ COPY ./AIAgent/package*.json /usr/src/app/
 RUN --mount=type=cache,target=/tmp/npm npm ci --prefer-offline
 
 # Expose ports.
-#   - 3875: OneUptime-AIAgent
+#   - 3875: Cast Operations-AIAgent
 EXPOSE 3875
 
 {{ if eq .Env.ENVIRONMENT "development" }}
@@ -89,10 +88,8 @@ USER node
 # cached layer above — only this final metadata layer differs between them.
 ARG GIT_SHA
 ARG APP_VERSION
-ARG IS_ENTERPRISE_EDITION=false
 ENV GIT_SHA=${GIT_SHA}
 ENV APP_VERSION=${APP_VERSION}
-ENV IS_ENTERPRISE_EDITION=${IS_ENTERPRISE_EDITION}
 LABEL org.opencontainers.image.revision="${GIT_SHA}"
 LABEL org.opencontainers.image.version="${APP_VERSION}"
 #Run the app

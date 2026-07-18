@@ -1,22 +1,22 @@
-# Send Syslog Data to OneUptime
+# Send Syslog Data to Cast Operations
 
 ## Overview
 
-The OpenTelemetry Ingest service now accepts native Syslog payloads. You can forward messages from any RFC3164 or RFC5424 compatible source directly to OneUptime over HTTPS. OneUptime parses the syslog priority, facility, severity, structured data, and message body before storing everything as searchable logs.
+The OpenTelemetry Ingest service now accepts native Syslog payloads. You can forward messages from any RFC3164 or RFC5424 compatible source directly to Cast Operations over HTTPS. Cast Operations parses the syslog priority, facility, severity, structured data, and message body before storing everything as searchable logs.
 
 ## Prerequisites
 
 - **Telemetry Ingestion Token** – create one from _Project Settings → Telemetry Ingestion Keys_ and copy the `x-oneuptime-token` value.
 - **Syslog forwarder** – any tool capable of sending HTTP POST requests (for example `curl`, `rsyslog` via `omhttp`, or `syslog-ng` with the HTTP destination plugin).
-- **Service name (optional)** – set the `x-oneuptime-service-name` header to group incoming logs under a specific telemetry service. When omitted, OneUptime falls back to the syslog `APP-NAME`, hostname, or `Syslog`.
+- **Service name (optional)** – set the `x-oneuptime-service-name` header to group incoming logs under a specific telemetry service. When omitted, Cast Operations falls back to the syslog `APP-NAME`, hostname, or `Syslog`.
 
 ## Endpoint
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- Replace `oneuptime.com` with your host if you are self hosting OneUptime.
+- Replace `visca.ai` with your host if you are self hosting Cast Operations.
 - Always include the `x-oneuptime-token` header in the request.
 
 ## Request Body
@@ -42,7 +42,7 @@ Send newline-delimited Syslog strings or a JSON payload with a `messages` array.
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -92,13 +92,13 @@ curl \
 
 ### 1. Network and security appliances
 
-Most network gear still exposes configuration changes, ACL hits, and threat detections exclusively over syslog. Point your existing relay (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense, and more) directly to OneUptime, or keep an internal relay and forward over HTTPS:
+Most network gear still exposes configuration changes, ACL hits, and threat detections exclusively over syslog. Point your existing relay (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense, and more) directly to Cast Operations, or keep an internal relay and forward over HTTPS:
 
 ```bash
-# rsyslog snippet that batches messages into JSON and posts to OneUptime
+# rsyslog snippet that batches messages into JSON and posts to Cast Operations
 module(load="omhttp")
 
-template(name="OneUptimeJSON" type="list") {
+template(name="Cast OperationsJSON" type="list") {
   constant(value="{\"messages\":[\"")
   property(name="rawmsg")
   constant(value="\"]}")
@@ -106,14 +106,14 @@ template(name="OneUptimeJSON" type="list") {
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: perimeter-firewall"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -128,14 +128,14 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: linux-fleet"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -155,7 +155,7 @@ If you already run Fluent Bit or Fluentd, keep them for container logs and add a
 [OUTPUT]
     Name              http
     Match             *
-    Host              oneuptime.com
+    Host              visca.ai
     Port              443
     URI               /syslog/v1/logs
     Format            json
@@ -170,11 +170,11 @@ This setup lets you ingest syslog from bare-metal workers or hardware load balan
 
 ### 4. Compliance archives without the wait
 
-Need to retain firewall logs for PCI or SOX? Send them straight to OneUptime, apply a long retention policy to the telemetry service, and export to cold storage from a single place. No more exporting from multiple syslog relays.
+Need to retain firewall logs for PCI or SOX? Send them straight to Cast Operations, apply a long retention policy to the telemetry service, and export to cold storage from a single place. No more exporting from multiple syslog relays.
 
 ## Parsed Attributes
 
-OneUptime automatically adds the following attributes to each log entry:
+Cast Operations automatically adds the following attributes to each log entry:
 
 - `syslog.priority`, `syslog.facility.code`, `syslog.facility.name`
 - `syslog.severity.code`, `syslog.severity.name`

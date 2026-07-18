@@ -1,6 +1,6 @@
 # 传入请求监控器
 
-传入请求监控（也称为心跳监控）允许您通过让服务定期向 OneUptime 发送 HTTP 请求来监控服务。不是由 OneUptime 主动访问您的服务，而是您的服务向 OneUptime 发送 Ping 以确认其正在运行。
+传入请求监控（也称为心跳监控）允许您通过让服务定期向 Cast Operations 发送 HTTP 请求来监控服务。不是由 Cast Operations 主动访问您的服务，而是您的服务向 Cast Operations 发送 Ping 以确认其正在运行。
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 ## 创建传入请求监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **传入请求** 作为监控器类型
 4. 将为此监控器生成一个 **密钥** 和心跳 URL
@@ -26,7 +26,7 @@
 创建后，您的监控器将有一个格式如下的唯一心跳 URL：
 
 ```
-https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+https://visca.ai/heartbeat/YOUR_SECRET_KEY
 ```
 
 您的服务应定期向此 URL 发送 HTTP **GET** 或 **POST** 请求。
@@ -37,10 +37,10 @@ https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
 
 ```bash
 # 简单 GET 请求
-curl https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 # 带自定义正文的 POST 请求
-curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # 添加到 crontab 以每 5 分钟发送一次心跳
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### 从应用程序代码
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js 示例
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/YOUR_SECRET_KEY");
+https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python 示例
 import requests
-requests.get('https://oneuptime.com/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
 ```
 
-如果是自托管，请将 `https://oneuptime.com` 替换为您的 OneUptime 实例 URL。
+如果是自托管，请将 `https://visca.ai` 替换为您的 Cast Operations 实例 URL。
 
 ## 监控标准
 

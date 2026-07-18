@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
 <head>
-  <title>OneUptime | IoT Device Monitoring - Fleets, Sensors, Battery & Signal</title>
+  <title>Cast Operations | IoT Device Monitoring - Fleets, Sensors, Battery & Signal</title>
   <meta name="description"
     content="Monitor your entire IoT fleet from one dashboard: per-device health, battery, signal strength, temperature, and connectivity alerting. Standard OpenTelemetry, no proprietary agent, usage-based pricing. Open source.">
   <%- include('head', {
@@ -394,7 +394,7 @@
             From first reading to a monitored fleet in minutes
           </h2>
           <p class="mt-4 text-lg text-gray-600">
-            No proprietary agent to flash. Point any OpenTelemetry exporter at OneUptime and your devices show up on their own.
+            No proprietary agent to flash. Point any OpenTelemetry exporter at Cast Operations and your devices show up on their own.
           </p>
         </div>
 
@@ -414,7 +414,7 @@
                 <span class="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-semibold text-teal-600 ring-2 ring-teal-600">1</span>
               </div>
               <h3 class="text-base font-semibold text-gray-900 mb-2">Mint an ingest token</h3>
-              <p class="text-sm text-gray-600 leading-relaxed">Create a OneUptime telemetry token in a click. Use it as the <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">x-oneuptime-token</code> header on the OTLP endpoint &mdash; same one used for logs, metrics, and traces.</p>
+              <p class="text-sm text-gray-600 leading-relaxed">Create a Cast Operations telemetry token in a click. Use it as the <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">x-oneuptime-token</code> header on the OTLP endpoint &mdash; same one used for logs, metrics, and traces.</p>
             </div>
 
             <!-- Step 2 -->
@@ -457,7 +457,7 @@
       </div>
     </div>
 
-    <!-- Why OneUptime Section -->
+    <!-- Why Cast Operations Section -->
     <div class="relative bg-white py-24 sm:py-32 overflow-hidden">
 
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -467,13 +467,13 @@
             <svg class="h-4 w-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span class="text-sm font-medium text-teal-700">Why OneUptime for IoT</span>
+            <span class="text-sm font-medium text-teal-700">Why Cast Operations for IoT</span>
           </div>
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
             The monitoring a device fleet deserves, beyond a ping
           </h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">
-            Most tools stop at "did the device check in". OneUptime also answers the questions that cost you a truck roll: which batteries die this week, which units are drifting off the network, and which sensor is overheating right now.
+            Most tools stop at "did the device check in". Cast Operations also answers the questions that cost you a truck roll: which batteries die this week, which units are drifting off the network, and which sensor is overheating right now.
           </p>
         </div>
 
@@ -662,7 +662,7 @@
                 <span class="text-sm font-semibold text-teal-600 uppercase tracking-wide">Battery &amp; Power</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Know which devices die before they do</h3>
-              <p class="mt-4 text-lg text-gray-600">A dead battery in the field is a truck roll nobody scheduled. OneUptime tracks <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">iot_battery_percent</code> on every device, ranks the fleet by remaining charge, and fires the low-battery alert template before a unit drops &mdash; so you swap on your schedule, not the device's.</p>
+              <p class="mt-4 text-lg text-gray-600">A dead battery in the field is a truck roll nobody scheduled. Cast Operations tracks <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">iot_battery_percent</code> on every device, ranks the fleet by remaining charge, and fires the low-battery alert template before a unit drops &mdash; so you swap on your schedule, not the device's.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -704,7 +704,7 @@
                 <span class="text-sm font-semibold text-teal-600 uppercase tracking-wide">Connectivity &amp; Signal</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Catch devices drifting off the network</h3>
-              <p class="mt-4 text-lg text-gray-600">A unit that stops reporting at 3am is a unit you find out about at 9am &mdash; unless something is watching. OneUptime treats a missed check-in as <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">iot_device_up = 0</code> and trends <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">iot_signal_strength_dbm</code> so weakening links page on-call before they go silent for good.</p>
+              <p class="mt-4 text-lg text-gray-600">A unit that stops reporting at 3am is a unit you find out about at 9am &mdash; unless something is watching. Cast Operations treats a missed check-in as <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">iot_device_up = 0</code> and trends <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">iot_signal_strength_dbm</code> so weakening links page on-call before they go silent for good.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -919,7 +919,7 @@
                   </svg>
                 </div>
                 <h3 class="mt-6 text-xl font-semibold text-gray-900">No Per-Device Pricing</h3>
-                <p class="mt-4 text-gray-600 leading-relaxed">Most IoT platforms charge per device per month &mdash; a tax that punishes you for scaling. OneUptime charges only for the telemetry you ingest ($0.10/GB), never per device. Constrained sensors send tiny payloads, so a fleet of thousands stays remarkably cheap.</p>
+                <p class="mt-4 text-gray-600 leading-relaxed">Most IoT platforms charge per device per month &mdash; a tax that punishes you for scaling. Cast Operations charges only for the telemetry you ingest ($0.10/GB), never per device. Constrained sensors send tiny payloads, so a fleet of thousands stays remarkably cheap.</p>
               </div>
             </div>
 
@@ -972,7 +972,7 @@
                   </svg>
                 </div>
                 <h3 class="mt-6 text-xl font-semibold text-gray-900">Gateway-Friendly</h3>
-                <p class="mt-4 text-gray-600 leading-relaxed">Devices that speak MQTT publish straight to OneUptime's built-in MQTT endpoint &mdash; with Last Will support for instant offline alerts. For everything else, one Collector on a gateway stamps the fleet attributes and forwards readings for hundreds of sensors behind it. Perfect for LoRa, Zigbee, and BLE meshes.</p>
+                <p class="mt-4 text-gray-600 leading-relaxed">Devices that speak MQTT publish straight to Cast Operations’ built-in MQTT endpoint &mdash; with Last Will support for instant offline alerts. For everything else, one Collector on a gateway stamps the fleet attributes and forwards readings for hundreds of sensors behind it. Perfect for LoRa, Zigbee, and BLE meshes.</p>
               </div>
             </div>
 
@@ -1108,7 +1108,7 @@
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-baseline gap-2">
-                      <span class="font-bold text-white text-sm">OneUptime IoT</span>
+                      <span class="font-bold text-white text-sm">Cast Operations IoT</span>
                       <span class="text-xs text-white/40">3:12 PM</span>
                     </div>
                     <!-- Alert Card -->

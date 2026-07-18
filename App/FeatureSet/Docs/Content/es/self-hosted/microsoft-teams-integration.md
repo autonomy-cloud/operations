@@ -1,11 +1,11 @@
 # Integración con Microsoft Teams
 
-Para integrar Microsoft Teams con tu instancia auto-alojada de OneUptime, necesitas configurar el registro de aplicaciones de Azure y establecer las variables de entorno requeridas.
+Para integrar Microsoft Teams con tu instancia auto-alojada de Cast Operations, necesitas configurar el registro de aplicaciones de Azure y establecer las variables de entorno requeridas.
 
 ## Prerrequisitos
 
 - Cuenta de Azure: puedes crear una en [https://azure.com](https://azure.com)
-- Acceso a la configuración de tu servidor de OneUptime
+- Acceso a la configuración de tu servidor de Cast Operations
 
 ## Instrucciones de configuración
 
@@ -16,8 +16,8 @@ Para integrar Microsoft Teams con tu instancia auto-alojada de OneUptime, necesi
 3. Completa el formulario de registro:
    - **Nombre:** oneuptime
    - **Tipos de cuenta admitidos:** Cuentas en cualquier directorio organizacional (Cualquier inquilino de Microsoft Entra ID: multiinquilino)
-   - **URI de redirección:** Web - `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - Por favor, también agrega: `https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **URI de redirección:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - Por favor, también agrega: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. Haz clic en "Registrar"
 5. Anota el "ID de aplicación (cliente)": lo necesitarás más adelante
 
@@ -71,7 +71,7 @@ Para integrar Microsoft Teams con tu instancia auto-alojada de OneUptime, necesi
 3. Haz clic en "Revisar + crear" y luego en "Crear"
 
 4. Una vez implementado, ve a tu recurso de bot y navega a "Configuración"
-5. Establece el "Punto de conexión de mensajería" en `https://your-oneuptime-domain.com/api/microsoft-bot/messages`
+5. Establece el "Punto de conexión de mensajería" en `https://your-operations-domain.com/api/microsoft-bot/messages`
 6. Guarda la configuración
 
 ### Paso 5: Agregar el canal de Microsoft Teams al bot
@@ -81,7 +81,7 @@ Para integrar Microsoft Teams con tu instancia auto-alojada de OneUptime, necesi
 3. Revisa la configuración (habilita para Teams, mantén las opciones de mensajería predeterminadas a menos que tengas necesidades específicas)
 4. Haz clic en "Guardar" (y "Listo"/"Publicar" si se solicita) para habilitar el canal de Teams
 
-### Paso 6: Configurar las variables de entorno de OneUptime
+### Paso 6: Configurar las variables de entorno de Cast Operations
 
 #### Docker Compose
 
@@ -104,7 +104,7 @@ microsoftTeamsApp:
    tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**Importante:** Reinicia tu servidor de OneUptime después de agregar estas variables de entorno para que surtan efecto.
+**Importante:** Reinicia tu servidor de Cast Operations después de agregar estas variables de entorno para que surtan efecto.
 
 ### Paso 7: Cargar el manifiesto de la aplicación de Teams
 
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 Si encuentras problemas:
 
 - Asegúrate de que tu aplicación tenga los permisos correctos concedidos
-- Verifica que el URI de redirección coincida exactamente (reemplaza `your-oneuptime-domain.com` con tu dominio real)
+- Verifica que el URI de redirección coincida exactamente (reemplaza `your-operations-domain.com` con tu dominio real)
 - Verifica que tus variables de entorno estén establecidas correctamente
 - Asegúrate de que el punto de conexión de mensajería del bot sea accesible desde internet
 - Verifica que el bot esté correctamente configurado con el canal de Teams
@@ -129,4 +129,4 @@ Si encuentras problemas:
 
 ## Soporte
 
-Nos gustaría mejorar esta integración, por lo que los comentarios son bienvenidos. Por favor, envíalos a [hello@oneuptime.com](mailto:hello@oneuptime.com).
+Nos gustaría mejorar esta integración, por lo que los comentarios son bienvenidos. Por favor, envíalos a [hello@visca.ai](mailto:hello@visca.ai).

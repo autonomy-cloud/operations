@@ -1,46 +1,46 @@
 # 連携 概要
 
-OneUptime はチームがすでに使っているツール — Zabbix、Jira、PagerDuty、Slack など多数 — を **[ワークフロー](/docs/workflows/index)** という組み込みの自動化エンジンで接続します。別のプラグインをインストールする必要はありません。ドラッグ＆ドロップのキャンバス上で連携を組み立てれば、何か起きるたびに自動で動きます。
+Cast Operations はチームがすでに使っているツール — Zabbix、Jira、PagerDuty、Slack など多数 — を **[ワークフロー](/docs/workflows/index)** という組み込みの自動化エンジンで接続します。別のプラグインをインストールする必要はありません。ドラッグ＆ドロップのキャンバス上で連携を組み立てれば、何か起きるたびに自動で動きます。
 
-このページでは、すべての連携が使う 2 つのパターンを説明します。この 2 つを理解すれば、専用ページのないツールも含め、ほぼあらゆるものと OneUptime を接続できます。
+このページでは、すべての連携が使う 2 つのパターンを説明します。この 2 つを理解すれば、専用ページのないツールも含め、ほぼあらゆるものと Cast Operations を接続できます。
 
 ## 2 つのパターン
 
 すべての連携はデータを 2 つの方向のどちらかに動かします (多くは両方を使います)。
 
-### インバウンド — 別のツールが OneUptime にデータを送る
+### インバウンド — 別のツールが Cast Operations にデータを送る
 
-外部システムが OneUptime に何かを*作成または更新*する必要がある場合 — 通常は問題を検知したときにインシデントやアラートを開く場合 — に使います。
+外部システムが Cast Operations に何かを*作成または更新*する必要がある場合 — 通常は問題を検知したときにインシデントやアラートを開く場合 — に使います。
 
-1. **[Webhook トリガー](/docs/workflows/triggers#webhook)** で始まるワークフローを作ります。OneUptime が固有の URL を発行します。
+1. **[Webhook トリガー](/docs/workflows/triggers#webhook)** で始まるワークフローを作ります。Cast Operations が固有の URL を発行します。
 2. 別のツール側で、何かが起きたときにその URL に POST するよう Webhook / 通知アクションを設定します。
 3. ワークフロー内で受信ペイロードを読み取り、**Create Incident** (または Create Alert) コンポーネントで記録します。
 
 ```text
-Zabbix / Prometheus / Grafana / Datadog  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Zabbix / Prometheus / Grafana / Datadog  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
-### アウトバウンド — OneUptime が別のツールにデータを送る
+### アウトバウンド — Cast Operations が別のツールにデータを送る
 
-OneUptime で起きたことを*別のツールに反映*させる場合 — Jira チケットを開く、PagerDuty で誰かに連絡する、Slack に投稿する — に使います。
+Cast Operations で起きたことを*別のツールに反映*させる場合 — Jira チケットを開く、PagerDuty で誰かに連絡する、Slack に投稿する — に使います。
 
-1. **[OneUptime イベントトリガー](/docs/workflows/triggers#oneuptime-event-triggers)** で始まるワークフローを作ります。たとえば **Incident → On Create**。
+1. **[Cast Operations イベントトリガー](/docs/workflows/triggers#oneuptime-event-triggers)** で始まるワークフローを作ります。たとえば **Incident → On Create**。
 2. **[API コンポーネント](/docs/workflows/components#api)** を追加して、インシデントの詳細を持つ別のツールの REST API を呼び出します。
 3. API キーはすべて**シークレット [グローバル変数](/docs/workflows/variables#global-variables)** として保存し、ワークフローやそのログに絶対に表示されないようにします。
 
 ```text
-OneUptime Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
+Cast Operations Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
 ```
 
 ## カタログ
 
 | ツール                                                                | 方向                            | 内容                                                                    |
 | --------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------------------------- |
-| [Zabbix](/docs/integrations/zabbix)                                   | インバウンド                    | Zabbix の問題を OneUptime のインシデントに変換 (回復時に解決)。         |
+| [Zabbix](/docs/integrations/zabbix)                                   | インバウンド                    | Zabbix の問題を Cast Operations のインシデントに変換 (回復時に解決)。         |
 | [Jira](/docs/integrations/jira)                                       | アウトバウンド (+ インバウンド) | インシデントごとに Jira の課題を開く。ステータスを同期する。            |
-| [PagerDuty](/docs/integrations/pagerduty)                             | アウトバウンド (+ インバウンド) | OneUptime のインシデントから PagerDuty のイベントをトリガー・解決する。 |
+| [PagerDuty](/docs/integrations/pagerduty)                             | アウトバウンド (+ インバウンド) | Cast Operations のインシデントから PagerDuty のイベントをトリガー・解決する。 |
 | [Opsgenie](/docs/integrations/opsgenie)                               | アウトバウンド (+ インバウンド) | Opsgenie のアラートを作成・クローズする。                               |
-| [ServiceNow](/docs/integrations/servicenow)                           | アウトバウンド (+ インバウンド) | OneUptime から ServiceNow のインシデントを開く。                        |
+| [ServiceNow](/docs/integrations/servicenow)                           | アウトバウンド (+ インバウンド) | Cast Operations から ServiceNow のインシデントを開く。                        |
 | [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager) | インバウンド                    | Alertmanager の通知をインシデントに変換する。                           |
 | [Grafana](/docs/integrations/grafana)                                 | インバウンド                    | Grafana のアラートをインシデントに変換する。                            |
 | [Datadog](/docs/integrations/datadog)                                 | インバウンド                    | Datadog のモニターアラートをインシデントに変換する。                    |
@@ -85,7 +85,7 @@ printf '%s' 'you@example.com:your_api_token' | base64
 
 ほぼすべてのツールは上記 2 つのパターンのどちらかに当てはまります:
 
-- ツールが何かが起きたとき**Webhook を送信**できるなら、**インバウンド**パターンを使います — そのツールの Webhook を OneUptime の Webhook トリガーに向けます。
+- ツールが何かが起きたとき**Webhook を送信**できるなら、**インバウンド**パターンを使います — そのツールの Webhook を Cast Operations の Webhook トリガーに向けます。
 - ツールが **REST API** を持つなら、**アウトバウンド**パターンを使います — **API コンポーネント**から呼び出します。
 - 2 つの間でデータを加工する必要がある場合は **[Custom Code](/docs/workflows/components#custom-code)** ブロックを追加します。
 
@@ -94,7 +94,7 @@ printf '%s' 'you@example.com:your_api_token' | base64
 ## 次に読むべきページ
 
 - [ワークフロー 概要](/docs/workflows/index) — 自動化エンジンの仕組み。
-- [トリガー](/docs/workflows/triggers) — Webhook と OneUptime イベントトリガーの詳細。
+- [トリガー](/docs/workflows/triggers) — Webhook と Cast Operations イベントトリガーの詳細。
 - [コンポーネント](/docs/workflows/components) — API、Webhook、データコンポーネント。
 - [変数](/docs/workflows/variables) — シークレットとブロック間のデータの受け渡し。
 - [Zabbix](/docs/integrations/zabbix) と [Jira](/docs/integrations/jira) — 完全なハンズオン例。

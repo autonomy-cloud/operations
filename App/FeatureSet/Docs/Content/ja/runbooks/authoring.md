@@ -26,7 +26,7 @@
 
 ### JavaScript
 
-サンドボックス化された `isolated-vm` 内で実行される JavaScript スニペット。サンドボックスはお客様自身のインフラ内の [Runbook エージェント](/docs/runbooks/agents) 上にあります — OneUptime ワーカー上ではありません。
+サンドボックス化された `isolated-vm` 内で実行される JavaScript スニペット。サンドボックスはお客様自身のインフラ内の [Runbook エージェント](/docs/runbooks/agents) 上にあります — Cast Operations ワーカー上ではありません。
 
 JavaScript ステップでは 2 つを設定します:
 
@@ -45,11 +45,11 @@ return { durationMs: Date.now() - start };
 
 アウトバウンド HTTP 呼び出しを行います。メソッド (GET/POST/PUT/PATCH/DELETE/HEAD)、URL、任意の JSON ヘッダー、任意のボディを設定します。レスポンスのステータス、ヘッダー、ボディが記録されます (合計 50KB で打ち切り)。
 
-便利な使い道: PagerDuty のインシデント起動、Slack への投稿、自社の管理 API 呼び出しなど。HTTP ステップは OneUptime ワーカー上で直接動きます。エージェントは不要です。
+便利な使い道: PagerDuty のインシデント起動、Slack への投稿、自社の管理 API 呼び出しなど。HTTP ステップは Cast Operations ワーカー上で直接動きます。エージェントは不要です。
 
 ### Bash
 
-bash スクリプト (`bash -c <script>`) で、お客様自身のインフラ内の [Runbook エージェント](/docs/runbooks/agents) 上で実行されます。Bash が OneUptime ワーカー上で実行されることはありません。
+bash スクリプト (`bash -c <script>`) で、お客様自身のインフラ内の [Runbook エージェント](/docs/runbooks/agents) 上で実行されます。Bash が Cast Operations ワーカー上で実行されることはありません。
 
 Bash ステップでは 2 つを設定します:
 
@@ -60,7 +60,7 @@ Runbook がこのステップに達したときに選択されたエージェン
 
 ### AI
 
-実行の途中で AI に分析、要約、判断を依頼します。プロンプトはプロジェクトの LLM プロバイダー (**設定 → AI → LLM プロバイダー**) に送られ、モデルの応答が実行タイムライン上のステップ出力になります。AI ステップは OneUptime ワーカー上で動きます。エージェントは不要です。
+実行の途中で AI に分析、要約、判断を依頼します。プロンプトはプロジェクトの LLM プロバイダー (**設定 → AI → LLM プロバイダー**) に送られ、モデルの応答が実行タイムライン上のステップ出力になります。AI ステップは Cast Operations ワーカー上で動きます。エージェントは不要です。
 
 AI ステップでは次を設定します:
 

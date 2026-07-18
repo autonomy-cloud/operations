@@ -4,7 +4,7 @@
 
 ### एक secret जोड़ना
 
-secret जोड़ने के लिए, कृपया OneUptime Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret पर जाएं।
+secret जोड़ने के लिए, कृपया Cast Operations Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret पर जाएं।
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 

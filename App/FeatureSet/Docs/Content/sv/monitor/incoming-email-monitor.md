@@ -4,15 +4,15 @@ Monitor för inkommande e-post gör det möjligt att skapa och lösa varningar b
 
 ## Hur det fungerar
 
-1. När du skapar en monitor för inkommande e-post genererar OneUptime en unik e-postadress för den monitorn
+1. När du skapar en monitor för inkommande e-post genererar Cast Operations en unik e-postadress för den monitorn
 2. Alla e-postmeddelanden som skickas till den adressen tas emot och utvärderas mot dina konfigurerade kriterier
-3. Baserat på kriterierna kan OneUptime skapa nya varningar eller lösa befintliga
+3. Baserat på kriterierna kan Cast Operations skapa nya varningar eller lösa befintliga
 
-Detta är ett kraftfullt sätt att integrera e-postbaserade varningssystem med OneUptimes incidenthanteringsarbetsflöde.
+Detta är ett kraftfullt sätt att integrera e-postbaserade varningssystem med Cast Operations incidenthanteringsarbetsflöde.
 
 ## Skapa en monitor för inkommande e-post
 
-1. Navigera till **Monitorer** i din OneUptime-instrumentpanel
+1. Navigera till **Monitorer** i din Cast Operations-instrumentpanel
 2. Klicka på **Skapa monitor**
 3. Välj **Inkommande e-post** som monitortyp
 4. Konfigurera monitorinställningarna:
@@ -118,7 +118,7 @@ Detta löser varningen när ett e-postmeddelande tas emot.
 
 Många äldre system stöder bara e-postbaserade varningar. Använd monitor för inkommande e-post för att:
 
-- Konvertera e-postmeddelanden till OneUptime-incidenter
+- Konvertera e-postmeddelanden till Cast Operations-incidenter
 - Automatiskt lösa incidenter när återhämtningsmeddelanden anländer
 - Centralisera varningar från flera äldre system
 
@@ -144,7 +144,7 @@ Integrera med tjänster som skickar e-postmeddelanden:
 Konsolidera varningar från flera övervakningsverktyg:
 
 - Ta emot varningar från Nagios, Zabbix eller andra verktyg via e-post
-- Förena incidenthantering i OneUptime
+- Förena incidenthantering i Cast Operations
 - Bibehåll en enda källa för alla varningar
 
 ## Mallvariabler
@@ -171,7 +171,7 @@ Monitoröversikten visar:
 
 ## Konfiguration för egeninstallation
 
-Om du egeninstallerar OneUptime behöver du konfigurera en inkommande e-postleverantör. För närvarande stöds:
+Om du egeninstallerar Cast Operations behöver du konfigurera en inkommande e-postleverantör. För närvarande stöds:
 
 - **SendGrid Inbound Parse** – Se [SendGrid Integration för inkommande e-post](/docs/self-hosted/sendgrid-inbound-email) för konfigurationsinstruktioner
 
@@ -190,7 +190,7 @@ Om du egeninstallerar OneUptime behöver du konfigurera en inkommande e-postleve
 1. Verifiera att e-postadressen är korrekt (kontrollera om det finns stavfel)
 2. Kontrollera om e-postmeddelandet blockeras av skräppostfilter
 3. Verifiera att din inkommande e-postleverantör är korrekt konfigurerad
-4. Kontrollera OneUptime-loggarna efter eventuella felmeddelanden
+4. Kontrollera Cast Operations-loggarna efter eventuella felmeddelanden
 
 ### Varningar skapas inte
 

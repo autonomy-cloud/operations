@@ -1434,7 +1434,7 @@ const HostOverview: FunctionComponent<
     return (
       <Card
         title="Linked Resources"
-        description="Other OneUptime resources that describe this same host."
+        description="Other Cast Operations resources that describe this same host."
       >
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {dockerRoute && (

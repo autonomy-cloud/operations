@@ -1,19 +1,19 @@
 # Интеграция с PagerDuty
 
-Вызывайте инцидент [PagerDuty](https://www.pagerduty.com) при каждом создании инцидента OneUptime и разрешайте его при разрешении в OneUptime. Удобно, когда PagerDuty управляет вашими расписаниями эскалации и дежурств, а мониторинг OneUptime должен их питать.
+Вызывайте инцидент [PagerDuty](https://www.pagerduty.com) при каждом создании инцидента Cast Operations и разрешайте его при разрешении в Cast Operations. Удобно, когда PagerDuty управляет вашими расписаниями эскалации и дежурств, а мониторинг Cast Operations должен их питать.
 
-Эта интеграция является **исходящей**: OneUptime вызывает [Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/) PagerDuty. Используется OneUptime **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**.
+Эта интеграция является **исходящей**: Cast Operations вызывает [Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/) PagerDuty. Используется Cast Operations **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**.
 
-> У OneUptime есть собственные встроенные дежурства и эскалация — см. [On Call](/docs/on-call/incoming-call-policy). Используйте эту интеграцию только если хотите, чтобы события также поступали в PagerDuty.
+> У Cast Operations есть собственные встроенные дежурства и эскалация — см. [On Call](/docs/on-call/incoming-call-policy). Используйте эту интеграцию только если хотите, чтобы события также поступали в PagerDuty.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
+Cast Operations Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
 ```
 
 ## Предварительные требования
 
 - Сервис PagerDuty с интеграцией **Events API v2**. В PagerDuty: **Service → Integrations → Add integration → Events API v2**. Скопируйте **Integration Key** (также называемый _routing key_).
-- Проект OneUptime, в котором вы можете создавать рабочие процессы.
+- Проект Cast Operations, в котором вы можете создавать рабочие процессы.
 
 ## Шаг 1 — Сохраните ключ маршрутизации
 
@@ -35,10 +35,10 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      {
        "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
        "event_action": "trigger",
-       "dedup_key": "oneuptime-{{Incident._id}}",
+       "dedup_key": "cast-operations-{{Incident._id}}",
        "payload": {
          "summary": "{{Incident.title}}",
-         "source": "OneUptime",
+         "source": "Cast Operations",
          "severity": "critical",
          "custom_details": {
            "description": "{{Incident.description}}"
@@ -47,11 +47,11 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      }
      ```
 
-   **`dedup_key`** связывает этот инцидент PagerDuty с инцидентом OneUptime, чтобы его можно было разрешить позже. Использование ID инцидента OneUptime делает ключ уникальным и предсказуемым.
+   **`dedup_key`** связывает этот инцидент PagerDuty с инцидентом Cast Operations, чтобы его можно было разрешить позже. Использование ID инцидента Cast Operations делает ключ уникальным и предсказуемым.
 
 4. **Сохраните**, включите и создайте тестовый инцидент. Ответ `202` в журналах рабочего процесса означает, что PagerDuty принял событие.
 
-## Шаг 3 — Разрешение при разрешении в OneUptime (рекомендуется)
+## Шаг 3 — Разрешение при разрешении в Cast Operations (рекомендуется)
 
 1. Добавить второй триггер **Incident** в **тот же** рабочий процесс? Нет — у рабочего процесса один триггер. Вместо этого создайте **второй** рабочий процесс с именем `Resolve PagerDuty` с триггером **Incident → On Update**.
 2. Добавьте блок **Conditions**, чтобы проверить, что инцидент теперь разрешён (ветвление по состоянию инцидента / `{{Incident.currentIncidentState.name}}` равно имени вашего состояния разрешения).
@@ -61,7 +61,7 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
    {
      "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
      "event_action": "resolve",
-     "dedup_key": "oneuptime-{{Incident._id}}"
+     "dedup_key": "cast-operations-{{Incident._id}}"
    }
    ```
 
@@ -69,11 +69,11 @@ PagerDuty находит инцидент по `dedup_key` и закрывает
 
 ## Сопоставление уровней серьёзности (опционально)
 
-Параметр `severity` PagerDuty принимает значения `critical`, `error`, `warning` или `info`. Чтобы сопоставить с уровнями серьёзности OneUptime, добавьте ветви **Conditions** по `{{Incident.incidentSeverity.name}}` перед блоком API и отправляйте разное тело из каждой.
+Параметр `severity` PagerDuty принимает значения `critical`, `error`, `warning` или `info`. Чтобы сопоставить с уровнями серьёзности Cast Operations, добавьте ветви **Conditions** по `{{Incident.incidentSeverity.name}}` перед блоком API и отправляйте разное тело из каждой.
 
 ## Входящий путь (опционально)
 
-Чтобы сделать наоборот — открыть инцидент OneUptime из события PagerDuty — добавьте рабочий процесс с триггером **Webhook** и укажите его URL в [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) PagerDuty (или в Events Orchestration), затем используйте **Create Incident**. См. [входящий паттерн](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
+Чтобы сделать наоборот — открыть инцидент Cast Operations из события PagerDuty — добавьте рабочий процесс с триггером **Webhook** и укажите его URL в [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) PagerDuty (или в Events Orchestration), затем используйте **Create Incident**. См. [входящий паттерн](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
 
 ## Устранение неполадок
 
@@ -84,5 +84,5 @@ PagerDuty находит инцидент по `dedup_key` и закрывает
 ## Что читать дальше
 
 - [Обзор интеграций](/docs/integrations/index) — паттерны и шпаргалка по аутентификации.
-- [On Call](/docs/on-call/incoming-call-policy) — встроенная эскалация OneUptime.
+- [On Call](/docs/on-call/incoming-call-policy) — встроенная эскалация Cast Operations.
 - [Opsgenie](/docs/integrations/opsgenie) — та же идея для Opsgenie.

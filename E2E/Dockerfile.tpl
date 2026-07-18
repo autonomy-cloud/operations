@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 #
-# OneUptime-E2E Dockerfile
+# Cast Operations-E2E Dockerfile
 # This file is used to build the E2E docker image which is used to run the E2E tests.
 #
 
@@ -29,16 +29,15 @@ RUN npm config set foreground-scripts true
 RUN npm install -g npm@latest
 
 
-# Per-build args (GIT_SHA / APP_VERSION / IS_ENTERPRISE_EDITION) are declared at
 # the bottom so the npm ci / compile layers stay cacheable across commits and
 # across the community + enterprise build passes.
 
-LABEL org.opencontainers.image.title="OneUptime E2E"
-LABEL org.opencontainers.image.description="OneUptime end-to-end test runner (Playwright-based) for verifying releases."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.documentation="https://oneuptime.com/docs"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations E2E"
+LABEL org.opencontainers.image.description="Cast Operations end-to-end test runner (Playwright-based) for verifying releases."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 
@@ -114,10 +113,8 @@ RUN apt-get purge -y --auto-remove python3 make g++ \
 # across commits and across the community + enterprise build passes.
 ARG GIT_SHA
 ARG APP_VERSION
-ARG IS_ENTERPRISE_EDITION=false
 ENV GIT_SHA=${GIT_SHA}
 ENV APP_VERSION=${APP_VERSION}
-ENV IS_ENTERPRISE_EDITION=${IS_ENTERPRISE_EDITION}
 LABEL org.opencontainers.image.revision="${GIT_SHA}"
 LABEL org.opencontainers.image.version="${APP_VERSION}"
 #Run the app

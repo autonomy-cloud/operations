@@ -1,8 +1,9 @@
-const IsBillingEnabled: boolean = process.env["BILLING_ENABLED"] === "true";
-const BillingPublicKey: string = process.env["BILLING_PUBLIC_KEY"] || "";
-const BillingPrivateKey: string = process.env["BILLING_PRIVATE_KEY"] || "";
-const BillingWebhookSecret: string =
-  process.env["BILLING_WEBHOOK_SECRET"] || "";
+// Cast Operations has no paid tiers. These compatibility exports remain so
+// existing services can compile while all billing behavior stays disabled.
+const IsBillingEnabled: boolean = false;
+const BillingPublicKey: string = "";
+const BillingPrivateKey: string = "";
+const BillingWebhookSecret: string = "";
 
 export default {
   IsBillingEnabled,

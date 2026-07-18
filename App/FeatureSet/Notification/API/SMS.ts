@@ -340,7 +340,7 @@ router.post(
 
         await SmsService.sendSms(
           toPhone,
-          "This is a test SMS from OneUptime.",
+          "This is a test SMS from Cast Operations.",
           {
             projectId: config.projectId,
             customTwilioConfig: twilioConfig,

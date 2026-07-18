@@ -1,11 +1,11 @@
 # Microsoft Teams 集成
 
-要将 Microsoft Teams 与您的自托管 OneUptime 实例集成，您需要配置 Azure 应用注册并设置所需的环境变量。
+要将 Microsoft Teams 与您的自托管 Cast Operations 实例集成，您需要配置 Azure 应用注册并设置所需的环境变量。
 
 ## 前提条件
 
 - Azure 账号 - 您可以在 [https://azure.com](https://azure.com) 创建
-- 访问您的 OneUptime 服务器配置
+- 访问您的 Cast Operations 服务器配置
 
 ## 设置说明
 
@@ -16,8 +16,8 @@
 3. 填写注册表单：
    - **名称：** oneuptime
    - **支持的账号类型：** 任何组织目录中的账号（任何 Microsoft Entra ID 租户 - 多租户）
-   - **重定向 URI：** Web - `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - 还请添加：`https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **重定向 URI：** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - 还请添加：`https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. 点击"注册"
 5. 记录"应用程序（客户端）ID" - 稍后您将需要它
 
@@ -71,7 +71,7 @@
 3. 点击"审阅 + 创建"，然后点击"创建"
 
 4. 部署完成后，前往您的机器人资源并导航至"配置"
-5. 将"消息传送端点"设置为 `https://your-oneuptime-domain.com/api/microsoft-bot/messages`
+5. 将"消息传送端点"设置为 `https://your-operations-domain.com/api/microsoft-bot/messages`
 6. 保存配置
 
 ### 第五步：向机器人添加 Microsoft Teams 频道
@@ -81,7 +81,7 @@
 3. 查看设置（为 Teams 启用，除非有特定需求，否则保留默认消息选项）
 4. 点击"保存"（如果提示，点击"完成"/"发布"）以启用 Teams 频道
 
-### 第六步：配置 OneUptime 环境变量
+### 第六步：配置 Cast Operations 环境变量
 
 #### Docker Compose
 
@@ -104,7 +104,7 @@ microsoftTeamsApp:
    tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**重要提示：** 添加这些环境变量后重启您的 OneUptime 服务器以使其生效。
+**重要提示：** 添加这些环境变量后重启您的 Cast Operations 服务器以使其生效。
 
 ### 第七步：上传 Teams 应用清单
 
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 如果您遇到问题：
 
 - 确保您的应用具有正确的已授权权限
-- 检查重定向 URI 是否完全匹配（将 `your-oneuptime-domain.com` 替换为您的实际域名）
+- 检查重定向 URI 是否完全匹配（将 `your-operations-domain.com` 替换为您的实际域名）
 - 验证您的环境变量是否正确设置
 - 确保机器人消息传送端点可从互联网访问
 - 验证机器人是否已正确配置 Teams 频道
@@ -129,4 +129,4 @@ microsoftTeamsApp:
 
 ## 支持
 
-我们希望改进此集成，因此非常欢迎您的反馈。请发送至 [hello@oneuptime.com](mailto:hello@oneuptime.com)
+我们希望改进此集成，因此非常欢迎您的反馈。请发送至 [hello@visca.ai](mailto:hello@visca.ai)

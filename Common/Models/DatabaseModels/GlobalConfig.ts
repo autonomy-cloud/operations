@@ -30,7 +30,7 @@ export enum EmailServerType {
   singularName: "Global Config",
   pluralName: "Global Configs",
   icon: IconProp.Settings,
-  tableDescription: "Settings for OneUptime Server",
+  tableDescription: "Settings for Cast Operations Server",
 })
 @Entity({
   name: "GlobalConfig",
@@ -53,7 +53,7 @@ export default class GlobalConfig extends GlobalConfigModel {
     computed: true,
     title: "Instance ID",
     description:
-      "Unique identifier for this OneUptime instance. Auto-generated when the instance is installed.",
+      "Unique identifier for this Cast Operations instance. Auto-generated when the instance is installed.",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -265,7 +265,7 @@ export default class GlobalConfig extends GlobalConfigModel {
     type: TableColumnType.ShortText,
     title: "SMTP Transport",
     description:
-      "How OneUptime delivers mail using the global SMTP config. 'SMTP' uses the host/port. 'Microsoft Graph' sends via the Microsoft Graph REST API.",
+      "How Cast Operations delivers mail using the global SMTP config. 'SMTP' uses the host/port. 'Microsoft Graph' sends via the Microsoft Graph REST API.",
     defaultValue: MailTransportType.SMTP,
   })
   @Column({
@@ -597,7 +597,7 @@ export default class GlobalConfig extends GlobalConfigModel {
     type: TableColumnType.ShortText,
     title: "Telegram Bot Username",
     description:
-      "Username of your OneUptime Telegram bot (without the leading @). Used to build verification deep links.",
+      "Username of your Cast Operations Telegram bot (without the leading @). Used to build verification deep links.",
   })
   @Column({
     type: ColumnType.ShortText,
@@ -723,7 +723,7 @@ export default class GlobalConfig extends GlobalConfigModel {
     computed: true,
     title: "Master API Key",
     description:
-      "This API key has root access to all the resources in all the projects on OneUptime.",
+      "This API key has root access to all the resources in all the projects on Cast Operations.",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -850,7 +850,7 @@ export default class GlobalConfig extends GlobalConfigModel {
     type: TableColumnType.Number,
     title: "Enterprise License Current User Count",
     description:
-      "User count last reported to OneUptime for the validated enterprise license.",
+      "User count last reported to Cast Operations for the validated enterprise license.",
   })
   @Column({
     type: ColumnType.Number,
@@ -867,7 +867,7 @@ export default class GlobalConfig extends GlobalConfigModel {
     type: TableColumnType.Date,
     title: "Enterprise License User Count Updated At",
     description:
-      "Timestamp of the most recent user count report sent to OneUptime for the validated enterprise license.",
+      "Timestamp of the most recent user count report sent to Cast Operations for the validated enterprise license.",
   })
   @Column({
     type: ColumnType.Date,
@@ -884,7 +884,7 @@ export default class GlobalConfig extends GlobalConfigModel {
     type: TableColumnType.JSON,
     title: "Enterprise License Instances",
     description:
-      "Instances (staging, production, etc.) that share the validated enterprise license, as last reported by OneUptime. Users are counted uniquely across all of them.",
+      "Instances (staging, production, etc.) that share the validated enterprise license, as last reported by Cast Operations. Users are counted uniquely across all of them.",
   })
   @Column({
     type: ColumnType.JSON,
@@ -902,7 +902,7 @@ export default class GlobalConfig extends GlobalConfigModel {
     type: TableColumnType.Email,
     title: "Enterprise License Notification Email",
     description:
-      "OneUptime email address CC'd on enterprise license notifications sent to customers (expiry reminders, seat-limit breaches). Only used on the hosted oneuptime.com (billing enabled).",
+      "Cast Operations email address CC'd on enterprise license notifications sent to customers (expiry reminders, seat-limit breaches). Only used on the hosted visca.ai (billing enabled).",
   })
   @Column({
     type: ColumnType.Email,
@@ -921,7 +921,7 @@ export default class GlobalConfig extends GlobalConfigModel {
     type: TableColumnType.Number,
     title: "Enterprise License Expiry Reminder Days",
     description:
-      "How many days before an enterprise license expires that expiry reminder emails start going out to the customer's master admins. Defaults to 45. Only used on the hosted oneuptime.com (billing enabled).",
+      "How many days before an enterprise license expires that expiry reminder emails start going out to the customer's master admins. Defaults to 45. Only used on the hosted visca.ai (billing enabled).",
   })
   @Column({
     type: ColumnType.Number,

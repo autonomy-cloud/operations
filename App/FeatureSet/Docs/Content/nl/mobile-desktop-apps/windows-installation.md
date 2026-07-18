@@ -1,6 +1,6 @@
 # Installatiegids voor Windows
 
-Installeer OneUptime als desktopapplicatie op Windows voor uitgebreide monitoring en incidentbeheer.
+Installeer Cast Operations als desktopapplicatie op Windows voor uitgebreide monitoring en incidentbeheer.
 
 ## Installatiemethoden
 
@@ -8,46 +8,46 @@ Installeer OneUptime als desktopapplicatie op Windows voor uitgebreide monitorin
 
 Edge biedt de beste Windows PWA-integratie met native functies.
 
-1. **OneUptime openen in Edge**
+1. **Cast Operations openen in Edge**
 
    - Start de Microsoft Edge-browser
-   - Navigeer naar de URL van uw OneUptime-instantie
-   - Meld u aan bij uw OneUptime-account
+   - Navigeer naar de URL van uw Cast Operations-instantie
+   - Meld u aan bij uw Cast Operations-account
    - Wacht tot de pagina volledig is geladen
 
 2. **App installeren**
 
    - Zoek het **installatiepictogram** (⊞) in de adresbalk
-   - Klik op de knop **"OneUptime installeren"**
+   - Klik op de knop **"Cast Operations installeren"**
    - Of klik op het **menu met drie puntjes** → **Apps** → **Deze site installeren als app**
 
 3. **Installatie aanpassen**
 
-   - **App-naam**: Pas aan indien gewenst (standaard: OneUptime)
+   - **App-naam**: Pas aan indien gewenst (standaard: Cast Operations)
    - **Startmenu**: Kies of u wilt toevoegen aan Startmenu
    - **Taakbalk**: Optie om vast te zetten aan taakbalk
    - **Bureaublad**: Bureaubladsnelkoppeling aanmaken
 
 4. **Installatie voltooien**
    - Klik op **"Installeren"** om te voltooien
-   - OneUptime opent in een eigen venster
+   - Cast Operations opent in een eigen venster
    - Terug te vinden in het Startmenu onder geïnstalleerde apps
 
 ### Methode 2: Google Chrome
 
 Chrome biedt uitstekende PWA-ondersteuning met uitgebreide desktopintegratie.
 
-1. **OneUptime openen in Chrome**
+1. **Cast Operations openen in Chrome**
 
    - Start Google Chrome
-   - Ga naar uw OneUptime-instantie
+   - Ga naar uw Cast Operations-instantie
    - Zorg dat u bent aangemeld
    - Laat de pagina volledig laden
 
 2. **Installeren via adresbalk**
 
    - Zoek het **installatiepictogram** (⊞) in de adresbalk
-   - Klik op **"OneUptime installeren"**
+   - Klik op **"Cast Operations installeren"**
    - Of gebruik het menu: **drie puntjes** → **Meer hulpmiddelen** → **Snelkoppeling maken**
 
 3. **Installatieopties**
@@ -57,7 +57,7 @@ Chrome biedt uitstekende PWA-ondersteuning met uitgebreide desktopintegratie.
    - Klik op **"Installeren"** of **"Maken"**
 
 4. **App starten**
-   - Zoek OneUptime in het Windows Startmenu
+   - Zoek Cast Operations in het Windows Startmenu
    - Of start via bureaubladsnelkoppeling
    - App opent in een eigen venster
 
@@ -65,10 +65,10 @@ Chrome biedt uitstekende PWA-ondersteuning met uitgebreide desktopintegratie.
 
 Firefox ondersteunt PWA-installatie met basisdesktopintegratie.
 
-1. **OneUptime openen in Firefox**
+1. **Cast Operations openen in Firefox**
 
    - Start de Firefox-browser
-   - Navigeer naar de OneUptime-URL
+   - Navigeer naar de Cast Operations-URL
    - Voltooi het aanmeldproces
 
 2. **PWA installeren**
@@ -78,9 +78,9 @@ Firefox ondersteunt PWA-installatie met basisdesktopintegratie.
 
 ### Opstarticonfiguratie
 
-1. **Automatisch starten**: Configureer OneUptime om te starten met Windows
+1. **Automatisch starten**: Configureer Cast Operations om te starten met Windows
    - Klik met rechtermuisknop op taakbalk → Taakbeheer → Opstarten
-   - Schakel OneUptime in indien gewenst
+   - Schakel Cast Operations in indien gewenst
 2. **Standaardgrootte**: Stel de gewenste venstergrootte en -positie in
 
 ### Meldingsinstellingen
@@ -88,12 +88,12 @@ Firefox ondersteunt PWA-installatie met basisdesktopintegratie.
 1. **Windows-meldingen**
 
    - Instellingen → Systeem → Meldingen en acties
-   - Zoek OneUptime en configureer meldingsvoorkeuren
+   - Zoek Cast Operations en configureer meldingsvoorkeuren
    - Schakel bannermeldingen in voor incidenten
 
 2. **Focus-assistent**
    - Configureer de instellingen voor Niet storen
-   - Sta kritieke meldingen van OneUptime toe
+   - Sta kritieke meldingen van Cast Operations toe
    - Stel prioriteitsniveaus in voor verschillende meldingstypes
 
 ## Probleemoplossing
@@ -105,7 +105,7 @@ Firefox ondersteunt PWA-installatie met basisdesktopintegratie.
 ```
 Oplossingen:
 1. Zorg dat u Edge of Chrome gebruikt (aanbevolen browsers)
-2. Verifieer HTTPS-verbinding naar OneUptime-instantie
+2. Verifieer HTTPS-verbinding naar Cast Operations-instantie
 3. Browsercache en cookies wissen
 4. Browser bijwerken naar de nieuwste versie
 5. Controleer of aan de PWA-vereisten op de server is voldaan
@@ -128,7 +128,7 @@ Oplossingen:
 
 ```
 Oplossingen:
-1. Zoek naar "OneUptime" in Windows-zoekfunctie
+1. Zoek naar "Cast Operations" in Windows-zoekfunctie
 2. Controleer of er onder een andere naam is geïnstalleerd
 3. Zoek in de sectie "Onlangs toegevoegd" apps
 4. Herinstalleer en zorg dat "Toevoegen aan Startmenu" is aangevinkt
@@ -142,9 +142,9 @@ Oplossingen:
 ```
 Oplossingen:
 1. Windows Instellingen → Systeem → Meldingen en acties
-2. Schakel meldingen in voor OneUptime
+2. Schakel meldingen in voor Cast Operations
 3. Controleer de instellingen voor Focus-assistent
-4. Zorg voor meldingsmachtigingen in OneUptime
+4. Zorg voor meldingsmachtigingen in Cast Operations
 5. Test eerst met een eenvoudige melding
 ```
 
@@ -155,18 +155,18 @@ Oplossingen:
 1. **Via Windows Instellingen**
 
    - Instellingen → Apps → Apps en functies
-   - Zoek naar "OneUptime"
+   - Zoek naar "Cast Operations"
    - Klik en selecteer "Verwijderen"
 
 2. **Via browser**
 
    - Open Edge/Chrome
    - Ga naar edge://apps/ of chrome://apps/
-   - Zoek OneUptime
+   - Zoek Cast Operations
    - Klik op opties → Verwijderen
 
 3. **Via Startmenu**
-   - Klik met rechtermuisknop op OneUptime in Startmenu
+   - Klik met rechtermuisknop op Cast Operations in Startmenu
    - Selecteer "Verwijderen"
    - Bevestig verwijdering
 
@@ -174,7 +174,7 @@ Oplossingen:
 
 ### Automatische updates
 
-- OneUptime PWA wordt automatisch bijgewerkt wanneer online
+- Cast Operations PWA wordt automatisch bijgewerkt wanneer online
 - Geen handmatige tussenkomst vereist
 - Updates worden direct toegepast na herstart
 - Kritieke patches worden onmiddellijk geïmplementeerd

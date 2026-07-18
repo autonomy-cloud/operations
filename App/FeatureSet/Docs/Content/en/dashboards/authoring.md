@@ -28,7 +28,7 @@ It's the same dashboard in both modes. There's no separate "publish" step — ev
 
 Most widgets read from one of three places:
 
-- **Metrics** — pick a metric and an aggregation (average, max, count, percentile). Add filters. Choose how to group the result. This is the same query builder you see elsewhere in OneUptime.
+- **Metrics** — pick a metric and an aggregation (average, max, count, percentile). Add filters. Choose how to group the result. This is the same query builder you see elsewhere in Cast Operations.
 - **Logs and traces** — chart log volume or trace performance over time, or show recent matching telemetry in a list. Telemetry widgets can be narrowed by service, severity, body text, and attributes.
 - **Live lists** — incidents, alerts, monitors, Kubernetes pods, Docker containers, hosts. Each list widget takes a filter and shows the matching items, updated live.
 - **Static content** — the **Text** widget takes a block of Markdown. Use it for headings, context, links to runbooks, or temporary notes during an incident.

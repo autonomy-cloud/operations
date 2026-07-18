@@ -1,11 +1,11 @@
 apiVersion: v2
 name: kubernetes-agent
-description: OneUptime Kubernetes Monitoring Agent — collects cluster metrics, events, and logs via OpenTelemetry and sends them to your OneUptime instance.
-icon: https://raw.githubusercontent.com/OneUptime/oneuptime/master/Home/Static/img/OneUptimePNG/1.png
-home: https://oneuptime.com
+description: Cast Operations Kubernetes Monitoring Agent — collects cluster metrics, events, and logs via OpenTelemetry and sends them to your Cast Operations instance.
+icon: https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg
+home: https://visca.ai
 sources:
-  - https://github.com/OneUptime/oneuptime
-  - https://github.com/OneUptime/helm-chart
+  - https://github.com/autonomy-cloud/operations
+  - https://github.com/autonomy-cloud/operations/tree/master/HelmChart
 keywords:
   - monitoring
   - observability
@@ -16,9 +16,9 @@ keywords:
   - events
   - apm
 maintainers:
-  - name: OneUptime
-    email: hello@oneuptime.com
-    url: https://oneuptime.com
+  - name: Cast Operations
+    email: hello@visca.ai
+    url: https://visca.ai
 
 type: application
 
@@ -32,8 +32,8 @@ annotations:
   artifacthub.io/prerelease: "false"
   artifacthub.io/links: |
     - name: documentation
-      url: https://oneuptime.com/docs
+      url: https://visca.ai/docs
     - name: source
-      url: https://github.com/OneUptime/oneuptime
+      url: https://github.com/autonomy-cloud/operations
     - name: support
-      url: https://github.com/OneUptime/oneuptime/issues
+      url: https://github.com/autonomy-cloud/operations/issues

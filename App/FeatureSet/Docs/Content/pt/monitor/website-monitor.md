@@ -1,6 +1,6 @@
 # Monitor de Site
 
-O monitoramento de site permite monitorar a disponibilidade, o desempenho e a resposta de qualquer site ou página web. O OneUptime periodicamente envia requisições HTTP para a URL do seu site e verifica se ele responde corretamente.
+O monitoramento de site permite monitorar a disponibilidade, o desempenho e a resposta de qualquer site ou página web. O Cast Operations periodicamente envia requisições HTTP para a URL do seu site e verifica se ele responde corretamente.
 
 ## Visão Geral
 
@@ -14,7 +14,7 @@ Os monitores de site verificam suas páginas web fazendo requisições HTTP e av
 
 ## Criando um Monitor de Site
 
-1. Vá para **Monitors** no Painel do OneUptime
+1. Vá para **Monitors** no Painel do Cast Operations
 2. Clique em **Create Monitor**
 3. Selecione **Website** como o tipo de monitor
 4. Insira a URL do site que deseja monitorar
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### Não Seguir Redirecionamentos
 
-Por padrão, o OneUptime segue redirecionamentos HTTP (301, 302, etc.). Habilite esta opção se quiser monitorar a própria resposta de redirecionamento em vez do destino final.
+Por padrão, o Cast Operations segue redirecionamentos HTTP (301, 302, etc.). Habilite esta opção se quiser monitorar a própria resposta de redirecionamento em vez do destino final.
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

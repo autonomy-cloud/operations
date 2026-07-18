@@ -1,8 +1,8 @@
 # Global SSO (Instansdækkende Single Sign-On)
 
-Global SSO giver en OneUptime **instansadministrator** (master-administrator) mulighed for at konfigurere en enkelt SAML 2.0- eller OpenID Connect (OIDC)-identitetsudbyder **én gang på instansniveau** og forbinde den til ethvert projekt på serveren. Det er instansdækkende sidestykke til SSO pr. projekt: i stedet for at hver projektejer konfigurerer sin egen identitetsudbyder, opsætter en master-administrator én, der kan betjene hele instansen.
+Global SSO giver en Cast Operations **instansadministrator** (master-administrator) mulighed for at konfigurere en enkelt SAML 2.0- eller OpenID Connect (OIDC)-identitetsudbyder **én gang på instansniveau** og forbinde den til ethvert projekt på serveren. Det er instansdækkende sidestykke til SSO pr. projekt: i stedet for at hver projektejer konfigurerer sin egen identitetsudbyder, opsætter en master-administrator én, der kan betjene hele instansen.
 
-Global SSO er en **OneUptime Enterprise Edition**-funktion og er kun tilgængelig på instanser, der kører Enterprise Edition-builden.
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO vs. Projekt-SSO
 
@@ -24,7 +24,7 @@ Global SSO er en **OneUptime Enterprise Edition**-funktion og er kun tilgængeli
    - For SAML: indtast et **Navn**, **Sign On URL** og **Udsteder** (Issuer) fra din identitetsudbyder, og indsæt det **Offentlige certifikat**. Vælg metoderne for **Signatur** og **Digest** (behold standardværdierne — `RSA-SHA256` / `SHA256` — hvis du er i tvivl).
    - For OIDC: indtast **Discovery URL**, **Issuer**, **Client ID**, **Client Secret**, **Scopes** (skal indeholde `openid`) og claim-navnene for **email** / **name**.
 
-3. **Kopiér OneUptime-URL'erne ind i din identitetsudbyder**
+3. **Kopiér Cast Operations-URL'erne ind i din identitetsudbyder**
 
    - Åbn udbyderen (klik på dens række i listen) for at vise kortet **Identity Provider URLs**.
    - For SAML skal du kopiere **ACS URL (Reply URL)** og **Issuer (Entity ID)** ind i din IdP (Okta, Azure AD, OneLogin, JumpCloud med flere).

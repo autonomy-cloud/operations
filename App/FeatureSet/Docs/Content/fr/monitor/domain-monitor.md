@@ -1,6 +1,6 @@
 # Moniteur de domaine
 
-La surveillance des domaines vous permet de surveiller le statut d'enregistrement et l'expiration de vos noms de domaine. OneUptime effectue périodiquement des recherches WHOIS pour suivre la santé de vos domaines et vous alerter avant leur expiration.
+La surveillance des domaines vous permet de surveiller le statut d'enregistrement et l'expiration de vos noms de domaine. Cast Operations effectue périodiquement des recherches WHOIS pour suivre la santé de vos domaines et vous alerter avant leur expiration.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs de domaine interrogent les données WHOIS de vos domaines pour sui
 
 ## Création d'un moniteur de domaine
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Domaine** comme type de moniteur
 4. Entrez le nom de domaine que vous souhaitez surveiller

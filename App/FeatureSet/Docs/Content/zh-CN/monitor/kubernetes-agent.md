@@ -1,22 +1,22 @@
 # 安装 Kubernetes Agent
 
-OneUptime Kubernetes 代理从您的 Kubernetes 集群中收集集群指标、事件、Pod 日志、**应用追踪（通过 eBPF 采集 HTTP/gRPC）**以及**操作系统级节点指标**，并将这些数据发送到 OneUptime。它以 Helm chart 的形式分发，只需一条命令即可安装 —— eBPF 自动埋点默认已启用，因此您无需修改任何代码即可看到服务级别的追踪和 RED 指标。**持续的 CPU 火焰图（eBPF profiler）**也可用 —— 当您需要更多遥测数据时，可通过 `--set profiling.enabled=true` 选择启用。
+Cast Operations Kubernetes 代理从您的 Kubernetes 集群中收集集群指标、事件、Pod 日志、**应用追踪（通过 eBPF 采集 HTTP/gRPC）**以及**操作系统级节点指标**，并将这些数据发送到 Cast Operations。它以 Helm chart 的形式分发，只需一条命令即可安装 —— eBPF 自动埋点默认已启用，因此您无需修改任何代码即可看到服务级别的追踪和 RED 指标。**持续的 CPU 火焰图（eBPF profiler）**也可用 —— 当您需要更多遥测数据时，可通过 `--set profiling.enabled=true` 选择启用。
 
 ## 快速开始
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
-几分钟内您的集群就会出现在 OneUptime 中。
+几分钟内您的集群就会出现在 Cast Operations 中。
 
 ## 为您的集群选择合适的预设
 
@@ -37,7 +37,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
@@ -47,7 +47,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
@@ -58,7 +58,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
@@ -90,7 +90,7 @@ DaemonSet 在每个节点上运行一个 OpenTelemetry Collector pod。它通过
 
 ## 通过 eBPF 采集应用追踪和 HTTP 请求（默认启用）
 
-chart 在每个节点上部署一个运行 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) 的 DaemonSet。OBI 将 eBPF 程序加载到 Linux 内核中，监视套接字级流量，从节点上的每个 Pod 重建 HTTP/HTTPS、gRPC 和 SQL/Redis 调用 —— 无需修改代码、无需 SDK、无需 sidecar。捕获到的流量以 OTLP 追踪和请求/延迟指标的形式直接导出到 OneUptime。
+chart 在每个节点上部署一个运行 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) 的 DaemonSet。OBI 将 eBPF 程序加载到 Linux 内核中，监视套接字级流量，从节点上的每个 Pod 重建 HTTP/HTTPS、gRPC 和 SQL/Redis 调用 —— 无需修改代码、无需 SDK、无需 sidecar。捕获到的流量以 OTLP 追踪和请求/延迟指标的形式直接导出到 Cast Operations。
 
 安装完成后一两分钟内，您的服务就会出现在 **Telemetry → Traces** 和服务图谱中，并将 `k8s.cluster.name` 设置为您的 `clusterName`，便于按集群过滤。
 
@@ -127,7 +127,7 @@ OBI 默认还会跨服务边界传播追踪上下文。当 pod A 向 pod B 发�
 
 默认也启用。OBI 的日志增强器拦截被埋点进程的 Pod stdout 写入，并：
 
-- 对于 **JSON 格式日志**：向日志行中注入 `trace_id` 和 `span_id` 字段（日志中任何已有的值都会被保留）。然后 filelog DaemonSet 将这些字段提升到 LogRecord 的原生 trace_id/span_id 槽位，因此在追踪视图中点击某个 span 即可跳转到 OneUptime 中的对应日志 —— 反之，点击某条日志行就可以跳到其父 trace。
+- 对于 **JSON 格式日志**：向日志行中注入 `trace_id` 和 `span_id` 字段（日志中任何已有的值都会被保留）。然后 filelog DaemonSet 将这些字段提升到 LogRecord 的原生 trace_id/span_id 槽位，因此在追踪视图中点击某个 span 即可跳转到 Cast Operations 中的对应日志 —— 反之，点击某条日志行就可以跳到其父 trace。
 - 对于 **非 JSON 日志**：日志行保持原样 —— 仍然会被采集，但不会自动关联。
 
 | 选项                         | 默认 | 描述                                                                            |
@@ -163,11 +163,11 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 ## 持续 CPU 性能分析（默认禁用）
 
-另一个独立的 DaemonSet 运行 [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) —— 以 `otel/opentelemetry-collector-ebpf-profiler` 镜像形式打包。它以 19Hz 在所有支持的运行时（Go、Java、.NET、Python、Ruby、Node.js、PHP、Perl、C/C++、Rust）上采样 on-CPU 调用栈，并将 OTLP profile 发送到 OneUptime，您可以在 **Telemetry → Performance Profiles** 中以及从单个 trace span 链接的火焰图中看到这些数据。
+另一个独立的 DaemonSet 运行 [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) —— 以 `otel/opentelemetry-collector-ebpf-profiler` 镜像形式打包。它以 19Hz 在所有支持的运行时（Go、Java、.NET、Python、Ruby、Node.js、PHP、Perl、C/C++、Rust）上采样 on-CPU 调用栈，并将 OTLP profile 发送到 Cast Operations，您可以在 **Telemetry → Performance Profiles** 中以及从单个 trace span 链接的火焰图中看到这些数据。
 
 性能分析**默认禁用** —— 它比 OBI 自动埋点更耗资源（每个节点的 CPU 占用更多，内存占用更大），并非每个集群都希望始终开启火焰图。当您需要更丰富的遥测数据时再启用它：`--set profiling.enabled=true`。
 
-当 eBPF 自动埋点也启用时（`ebpf.enabled: true`，即默认值），每个 CPU 采样都会通过共享的 bpffs map 与 OBI 的追踪上下文相关联 —— 因此火焰图会携带 trace_id/span_id，OneUptime UI 可以为您展示每个 span 的火焰图。
+当 eBPF 自动埋点也启用时（`ebpf.enabled: true`，即默认值），每个 CPU 采样都会通过共享的 bpffs map 与 OBI 的追踪上下文相关联 —— 因此火焰图会携带 trace_id/span_id，Cast Operations UI 可以为您展示每个 span 的火焰图。
 
 要求：
 
@@ -205,7 +205,7 @@ chart 还可以采集：
 | 选项                                      | 默认                      | 描述                                                                                                                                                                              |
 | ----------------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | （空 —— 视为 `standard`） | 见上表。                                                                                                                                                                          |
-| `oneuptime.url`                           | _(必填)_                  | OneUptime 实例的 URL。                                                                                                                                                            |
+| `oneuptime.url`                           | _(必填)_                  | Cast Operations 实例的 URL。                                                                                                                                                            |
 | `oneuptime.apiKey`                        | _(必填)_                  | 项目 API 密钥（Settings → API Keys）。                                                                                                                                            |
 | `clusterName`                             | _(必填)_                  | 此集群的唯一名称。会作为 `k8s.cluster.name` 打到每条记录上。                                                                                                                      |
 | `namespaceFilters.rules`                  | 从 `podLogs` 和 `ebpfDiscovery` 中排除 `kube-system` | 针对 `podLogs`、`ebpfDiscovery`、`metrics` 和 `traces` 的作用域 `include`/`exclude` 规则。模式支持 `*`，且 `exclude` 始终优先。                              |
@@ -224,7 +224,7 @@ chart 还可以采集：
 | `coreDns.enabled`                         | `false`                   | CoreDNS 的 Prometheus 指标。                                                                                                                                                      |
 | `controlPlane.enabled`                    | `false`                   | 抓取 etcd / api-server / scheduler / controller-manager。仅适用于自管集群 —— 托管产品（EKS/GKE/AKS）通常不暴露这些端点。                                                          |
 
-查看 [chart 的 `values.yaml`](https://github.com/OneUptime/oneuptime/blob/master/HelmChart/Public/kubernetes-agent/values.yaml) 获取完整列表。
+查看 [chart 的 `values.yaml`](https://github.com/autonomy-cloud/operations/blob/master/HelmChart/Public/kubernetes-agent/values.yaml) 获取完整列表。
 
 ## 升级
 
@@ -271,7 +271,7 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
   --set preset=gke-autopilot   # or eks-fargate
 ```
 
-### OneUptime 中看不到日志
+### Cast Operations 中看不到日志
 
 检查代理 Pod：
 
@@ -294,7 +294,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 - **内核太旧或缺少 BTF。** OBI 需要带有 BTF 的 Linux 5.8+。在节点上用 `uname -r` 检查。如果无法升级，请禁用 eBPF：`--set ebpf.enabled=false`。
 - **特权 Pod 被阻止。** 某些集群即使不是 Autopilot/Fargate 也会拒绝特权 Pod。请禁用 eBPF。
-- **OBI 正在运行但仪表板中没有追踪。** 设置 `--set ebpf.printTraces=true` 并查看 OBI 的 stdout —— 如果您在那里看到了 span，那么问题在于 OTLP 投递（请检查 `OTEL_EXPORTER_OTLP_ENDPOINT` 以及您的 OneUptime URL/API key）。如果看不到 span，则 OBI 监视的流量可能全部被 OBI 无法拦截的 TLS 库加密（例如它无法识别的静态链接 TLS 实现）。
+- **OBI 正在运行但仪表板中没有追踪。** 设置 `--set ebpf.printTraces=true` 并查看 OBI 的 stdout —— 如果您在那里看到了 span，那么问题在于 OTLP 投递（请检查 `OTEL_EXPORTER_OTLP_ENDPOINT` 以及您的 Cast Operations URL/API key）。如果看不到 span，则 OBI 监视的流量可能全部被 OBI 无法拦截的 TLS 库加密（例如它无法识别的静态链接 TLS 实现）。
 
 ### 我的集群对一个日志收集器副本来说 Pod 太多了（仅 API 模式）
 

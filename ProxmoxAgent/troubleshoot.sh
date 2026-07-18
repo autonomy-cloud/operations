@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# OneUptime Proxmox Agent — Diagnostic ("doctor")
+# Cast Operations Proxmox Agent — Diagnostic ("doctor")
 # ------------------------------------------------
 # Run this on the machine where the agent is installed (docker compose,
 # optionally wrapped by the systemd unit). It explains the #1 confusing
-# failure mode: the cluster shows "Disconnected" in OneUptime and no metrics
+# failure mode: the cluster shows "Disconnected" in Cast Operations and no metrics
 # are ingested, yet the containers look healthy and the collector logs show
 # no errors.
 #
@@ -249,11 +249,11 @@ section "3. Cluster-name stamping"
 CLUSTER_NAME=$(agent_env PROXMOX_CLUSTER_NAME)
 CLUSTER_NAME_OK=0
 if [ -n "$CLUSTER_NAME" ]; then
-  info "Reporting as cluster name: '${C_BOLD}${CLUSTER_NAME}${C_OFF}'  (this is the proxmox.cluster.name OneUptime keys on)"
-  detail "If this differs from a previous install, OneUptime shows a NEW cluster entry; the old one stays 'Disconnected'."
+  info "Reporting as cluster name: '${C_BOLD}${CLUSTER_NAME}${C_OFF}'  (this is the proxmox.cluster.name Cast Operations keys on)"
+  detail "If this differs from a previous install, Cast Operations shows a NEW cluster entry; the old one stays 'Disconnected'."
   CLUSTER_NAME_OK=1
 else
-  fail "PROXMOX_CLUSTER_NAME is empty — without it no Proxmox cluster registers in OneUptime."
+  fail "PROXMOX_CLUSTER_NAME is empty — without it no Proxmox cluster registers in Cast Operations."
   add_finding "Set PROXMOX_CLUSTER_NAME in $ENV_FILE and restart the agent. Discovery keys on the proxmox.cluster.name resource attribute it feeds."
 fi
 if [ -f "$CONFIG_FILE" ]; then
@@ -280,7 +280,7 @@ else
   TRIMMED=$(printf '%s' "$TOKEN" | tr -d '[:space:]')
   MASK="${TRIMMED:0:8}…${TRIMMED: -4}"
   if [ "$TOKEN" != "$TRIMMED" ]; then
-    fail "Token contains whitespace — the collector sends it literally, so OneUptime can't match it."
+    fail "Token contains whitespace — the collector sends it literally, so Cast Operations can't match it."
     add_finding "ONEUPTIME_TELEMETRY_INGESTION_KEY has stray whitespace in $ENV_FILE. Re-paste it cleanly and restart the agent."
     TOKEN_HAS_WS=1
   fi
@@ -295,7 +295,7 @@ else
     fi
   else
     fail "Token is not a valid UUID: '${MASK}' (len=${#TRIMMED})"
-    add_finding "The ingestion key is not a UUID, so OneUptime can never resolve it (telemetry is silently dropped). Set a real Telemetry Ingestion Key."
+    add_finding "The ingestion key is not a UUID, so Cast Operations can never resolve it (telemetry is silently dropped). Set a real Telemetry Ingestion Key."
   fi
 fi
 
@@ -314,7 +314,7 @@ if [ "$AGENT_RUNNING" = 1 ]; then
     info "Collector self-metrics: accepted=$ACCEPTED  sent=$SENT  send_failed=$FAILED"
     if [ "${FAILED:-0}" -gt 0 ] 2>/dev/null; then
       fail "Collector reports send_failed > 0 → exports are erroring (network/URL/TLS)."
-      add_finding "Collector send_failed=$FAILED. The collector cannot deliver to OneUptime — investigate egress/DNS/TLS/firewall (next section)."
+      add_finding "Collector send_failed=$FAILED. The collector cannot deliver to Cast Operations — investigate egress/DNS/TLS/firewall (next section)."
     elif [ "${ACCEPTED:-0}" -eq 0 ] 2>/dev/null; then
       warn "No datapoints accepted yet — the scrape is failing (see Section 2) or the collector started <30s ago."
     elif [ "${SENT:-0}" -gt 0 ] 2>/dev/null; then
@@ -332,7 +332,7 @@ fi
 section "6. Egress + DEFINITIVE token check"
 # ----------------------------------------------------------------------------
 # This is the part you can't see from the agent side. From the agent's own
-# network namespace we ask OneUptime's validation endpoint for a real verdict:
+# network namespace we ask Cast Operations’ validation endpoint for a real verdict:
 #   GET /otlp/v1/validate  → 200 {valid:true} | 401 {valid:false}
 # Older servers without that endpoint (404) fall back to:
 #   POST /otlp/v1/metrics → reachability only (returns 200 even on a bad token)
@@ -350,7 +350,7 @@ egress_fail_finding() {
   EGRESS="FAIL"
   case "$RESP_BODY" in
     *"Could not resolve host"*|*"Name or service not known"*)
-      add_finding "DNS resolution of the OneUptime host fails from the agent container. Check ONEUPTIME_URL and the machine's DNS/egress." ;;
+      add_finding "DNS resolution of the Cast Operations host fails from the agent container. Check ONEUPTIME_URL and the machine's DNS/egress." ;;
     *"certificate"*|*"SSL"*|*"TLS"*|*"self-signed"*|*"self signed"*)
       add_finding "TLS verification to $BASE_URL fails (cert/CA). The collector image's trust store must accept the cert." ;;
     *"refused"*|*"timed out"*|*"Connection timed out"*|*"Failed to connect"*)
@@ -361,7 +361,7 @@ egress_fail_finding() {
 }
 
 token_invalid_finding() {
-  add_finding "DEFINITIVE: the ingestion key is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: create or copy a live Telemetry Ingestion Key in OneUptime, update ONEUPTIME_TELEMETRY_INGESTION_KEY in $ENV_FILE, then: cd $DIR && docker compose up -d"
+  add_finding "DEFINITIVE: the ingestion key is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: create or copy a live Telemetry Ingestion Key in Cast Operations, update ONEUPTIME_TELEMETRY_INGESTION_KEY in $ENV_FILE, then: cd $DIR && docker compose up -d"
 }
 
 # Fallback token oracle for servers without /otlp/v1/validate.
@@ -369,18 +369,18 @@ fluentd_token_probe() {
   agent_netns_req POST "$BASE_URL/fluentd/v1/logs" "$TOKEN"
   case "$RESP_BODY" in
     *"Invalid service token"*)
-      fail "OneUptime REJECTED this token: \"Invalid service token\" (HTTP $RESP_CODE)."
+      fail "Cast Operations REJECTED this token: \"Invalid service token\" (HTTP $RESP_CODE)."
       TOKEN_VERDICT="INVALID"; token_invalid_finding ;;
     *"Missing header"*)
       fail "Server says the token header is missing (HTTP $RESP_CODE) — a proxy may be stripping it."
       TOKEN_VERDICT="INVALID"
-      add_finding "The x-oneuptime-token header isn't arriving at OneUptime — check any egress proxy that might strip headers." ;;
+      add_finding "The x-oneuptime-token header isn't arriving at Cast Operations — check any egress proxy that might strip headers." ;;
     *)
       if [ "$RESP_CODE" = "404" ]; then
         warn "/fluentd/v1/logs returned 404 — token check inconclusive."
         TOKEN_VERDICT="INCONCLUSIVE"
       else
-        pass "Token ACCEPTED by OneUptime (auth passed; /fluentd returned HTTP $RESP_CODE)."
+        pass "Token ACCEPTED by Cast Operations (auth passed; /fluentd returned HTTP $RESP_CODE)."
         TOKEN_VERDICT="VALID"
       fi ;;
   esac
@@ -390,16 +390,16 @@ if [ "$SKIP_EGRESS" = 1 ]; then
   warn "Egress test skipped (--skip-egress)."; EGRESS="SKIPPED"
 elif [ -z "$BASE_URL" ]; then
   warn "ONEUPTIME_URL is not set; cannot run the egress/token probe."; EGRESS="SKIPPED"
-  add_finding "Set ONEUPTIME_URL in $ENV_FILE (e.g. https://oneuptime.com) and restart the agent."
+  add_finding "Set ONEUPTIME_URL in $ENV_FILE (e.g. https://visca.ai) and restart the agent."
 elif ! [[ "$TOKEN" =~ ^[A-Za-z0-9-]+$ ]]; then
   warn "Token unusable/missing; cannot run the authenticated probe (fix Section 4 first)."; EGRESS="SKIPPED"
 else
   agent_netns_req GET "$BASE_URL/otlp/v1/validate" "$TOKEN"
   if [ "$RESP_CODE" = "200" ]; then
-    pass "Reached OneUptime and the ingestion token is VALID (/otlp/v1/validate → 200)."
+    pass "Reached Cast Operations and the ingestion token is VALID (/otlp/v1/validate → 200)."
     EGRESS="OK"; TOKEN_VERDICT="VALID"
   elif [ "$RESP_CODE" = "401" ] || [ "$RESP_CODE" = "403" ]; then
-    fail "Reached OneUptime, but it REJECTED the token (/otlp/v1/validate → $RESP_CODE)."
+    fail "Reached Cast Operations, but it REJECTED the token (/otlp/v1/validate → $RESP_CODE)."
     EGRESS="OK"; TOKEN_VERDICT="INVALID"; token_invalid_finding
   elif [ "$RESP_CODE" = "404" ]; then
     info "Validation endpoint not on this server version (404) — falling back to legacy probes."
@@ -440,11 +440,11 @@ if [ "$AGENT_RUNNING" != 1 ]; then
   printf "%s%sROOT CAUSE: the agent container isn't running.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
   printf "Fix the container (see Section 1) — until it runs, nothing is scraped or shipped.\n"
 elif [ "$TOKEN_VERDICT" = "INVALID" ]; then
-  printf "%s%sROOT CAUSE: the ingestion token is rejected by OneUptime.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
+  printf "%s%sROOT CAUSE: the ingestion token is rejected by Cast Operations.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
   printf "This is the classic trap: /otlp returns 200 and drops the data, so the agent\n"
   printf "looks healthy while the cluster stays Disconnected with no metrics.\n"
 elif [ "$EGRESS" = "FAIL" ]; then
-  printf "%s%sROOT CAUSE: the agent can't deliver telemetry to OneUptime (network/URL/TLS).%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
+  printf "%s%sROOT CAUSE: the agent can't deliver telemetry to Cast Operations (network/URL/TLS).%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
 elif [ "$EXPORTER_OK" != 1 ]; then
   printf "%s%sROOT CAUSE: the collector has no pve metrics to ship (exporter scrape failing).%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
   printf "Fix the exporter (see Section 2) — usually the PVE API token or PVE_EXPORTER_URL.\n"
@@ -452,12 +452,12 @@ elif [ "$CLUSTER_NAME_OK" != 1 ]; then
   printf "%s%sROOT CAUSE: PROXMOX_CLUSTER_NAME is missing — no cluster can register.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
 elif [ "$TOKEN_HAS_WS" = 1 ]; then
   printf "%s%sROOT CAUSE: the ingestion key has stray whitespace.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
-  printf "The collector sends the key with that whitespace, so OneUptime can't match it and\n"
+  printf "The collector sends the key with that whitespace, so Cast Operations can't match it and\n"
   printf "drops the data behind /otlp's silent 200. Fix %s and restart.\n" "$ENV_FILE"
 elif [ "$TOKEN_SHAPE_OK" != 1 ]; then
   printf "%s%sROOT CAUSE: the ingestion key is empty/malformed.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
 elif [ "$TOKEN_VERDICT" = "VALID" ]; then
-  printf "%s%sThe agent looks healthy and OneUptime accepts the token.%s\n" "$C_BOLD" "$C_GRN" "$C_OFF"
+  printf "%s%sThe agent looks healthy and Cast Operations accepts the token.%s\n" "$C_BOLD" "$C_GRN" "$C_OFF"
   printf "If the dashboard still says Disconnected:\n"
   printf "  1. Give it ~2-5 min — status flips to Connected on the next telemetry batch,\n"
   printf "     and the disconnect cron runs on a 5-minute cycle.\n"
@@ -465,7 +465,7 @@ elif [ "$TOKEN_VERDICT" = "VALID" ]; then
   printf "     the OLD entry stays Disconnected (that's expected; it's stale).\n"
 else
   printf "%sInconclusive from this machine.%s Next steps:\n" "$C_BOLD" "$C_OFF"
-  printf "  • On the OneUptime server, search ingest logs for: \"Invalid service token\".\n"
+  printf "  • On the Cast Operations server, search ingest logs for: \"Invalid service token\".\n"
   printf "  • Confirm the key under Project Settings → Telemetry Ingestion Keys still exists.\n"
   if [ -n "$BASE_URL" ]; then
     printf "  • Run the definitive token check by hand (200 = valid, 401 = bad/revoked key):\n"

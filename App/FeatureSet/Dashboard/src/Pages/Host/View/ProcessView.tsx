@@ -61,7 +61,7 @@ import React, {
 
 /*
  * The OTel hostmetrics `process` scraper attaches per-process identity
- * (pid, executable name, command, owner) to the *resource*. OneUptime's
+ * (pid, executable name, command, owner) to the *resource*. Cast Operations’
  * ingest prefixes resource attributes with `resource.`, so they land in
  * ClickHouse as `resource.process.*` — same convention the Processes
  * list and Docker container pages already use.

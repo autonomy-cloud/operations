@@ -4,15 +4,15 @@
 
 ## 運作方式
 
-1. 當您建立接收電子郵件監測器時，OneUptime 會為該監測器產生一個專屬的電子郵件地址
+1. 當您建立接收電子郵件監測器時，Cast Operations 會為該監測器產生一個專屬的電子郵件地址
 2. 任何傳送至該地址的郵件都會被接收，並依照您所設定的條件進行評估
-3. 根據條件，OneUptime 可以建立新警示或解決現有警示
+3. 根據條件，Cast Operations 可以建立新警示或解決現有警示
 
-這是一種將以電子郵件為基礎的警示系統整合至 OneUptime 事件管理工作流程的強大方式。
+這是一種將以電子郵件為基礎的警示系統整合至 Cast Operations 事件管理工作流程的強大方式。
 
 ## 建立接收電子郵件監測器
 
-1. 在您的 OneUptime 儀表板中前往 **Monitors**
+1. 在您的 Cast Operations 儀表板中前往 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **Incoming Email** 作為監測器類型
 4. 設定監測器選項：
@@ -118,7 +118,7 @@ monitor-{secret-key}@{inbound-domain}
 
 許多較舊的系統僅支援以電子郵件為基礎的警示。使用接收電子郵件監測器來：
 
-- 將電子郵件警示轉換為 OneUptime 事件
+- 將電子郵件警示轉換為 Cast Operations 事件
 - 在收到復原郵件時自動解決事件
 - 集中管理來自多個舊有系統的警示
 
@@ -144,7 +144,7 @@ monitor-{secret-key}@{inbound-domain}
 整合來自多個監測工具的警示：
 
 - 透過電子郵件接收來自 Nagios、Zabbix 或其他工具的警示
-- 在 OneUptime 中統一事件管理
+- 在 Cast Operations 中統一事件管理
 - 為所有警示維護單一真實來源
 
 ## 範本變數
@@ -171,7 +171,7 @@ monitor-{secret-key}@{inbound-domain}
 
 ## 自行託管設定
 
-如果您自行託管 OneUptime，則需要設定接收電子郵件供應商。目前支援：
+如果您自行託管 Cast Operations，則需要設定接收電子郵件供應商。目前支援：
 
 - **SendGrid Inbound Parse** - 設定說明請參閱 [SendGrid Inbound Email Integration](/docs/self-hosted/sendgrid-inbound-email)
 
@@ -190,7 +190,7 @@ monitor-{secret-key}@{inbound-domain}
 1. 確認電子郵件地址正確（檢查是否有拼字錯誤）
 2. 檢查郵件是否被垃圾郵件篩選器封鎖
 3. 確認您的接收電子郵件供應商已正確設定
-4. 檢查 OneUptime 記錄中是否有任何錯誤訊息
+4. 檢查 Cast Operations 記錄中是否有任何錯誤訊息
 
 ### 未建立警示
 

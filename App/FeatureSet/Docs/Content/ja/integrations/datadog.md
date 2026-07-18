@@ -1,19 +1,19 @@
 # Datadog 連携
 
-[Datadog](https://www.datadoghq.com) のモニターアラートを OneUptime のインシデントに変換します。Datadog の検知が OneUptime のインシデント対応とステータスページに連携されます。
+[Datadog](https://www.datadoghq.com) のモニターアラートを Cast Operations のインシデントに変換します。Datadog の検知が Cast Operations のインシデント対応とステータスページに連携されます。
 
-この連携は**インバウンド**です: Datadog の [Webhooks インテグレーション](https://docs.datadoghq.com/integrations/webhooks/)が **Webhook トリガー**で始まる OneUptime の **[ワークフロー](/docs/workflows/index)** に POST します。
+この連携は**インバウンド**です: Datadog の [Webhooks インテグレーション](https://docs.datadoghq.com/integrations/webhooks/)が **Webhook トリガー**で始まる Cast Operations の **[ワークフロー](/docs/workflows/index)** に POST します。
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## 前提条件
 
 - インテグレーションとモニターを設定できる Datadog アカウント。
-- ワークフローを作成できる OneUptime プロジェクト。
+- ワークフローを作成できる Cast Operations プロジェクト。
 
-## ステップ 1 — OneUptime ワークフローを作成する
+## ステップ 1 — Cast Operations ワークフローを作成する
 
 1. **Workflows → Create Workflow** を開き、`Datadog → Incidents` という名前にして **Builder** を開きます。
 2. **Webhook** トリガーを追加して **URL をコピー**します。ブロックを `Datadog` にリネームします。
@@ -60,7 +60,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Web
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-これによりアラートと回復の両方が OneUptime に送られます。(すべてを転送する場合は条件なしで `@webhook-oneuptime` を追加することもできます。)
+これによりアラートと回復の両方が Cast Operations に送られます。(すべてを転送する場合は条件なしで `@webhook-oneuptime` を追加することもできます。)
 
 ## ステップ 4 — テストする
 

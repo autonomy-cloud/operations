@@ -1,6 +1,6 @@
 # Guía de instalación en Linux
 
-Instala OneUptime como una aplicación de escritorio en distribuciones Linux para un monitoreo y gestión de incidentes completos.
+Instala Cast Operations como una aplicación de escritorio en distribuciones Linux para un monitoreo y gestión de incidentes completos.
 
 ## Métodos de instalación
 
@@ -10,17 +10,17 @@ Chrome y Chromium proporcionan la mejor experiencia de PWA en Linux con integrac
 
 #### Pasos de instalación de PWA:
 
-1. **Abre OneUptime en Chrome/Chromium**
+1. **Abre Cast Operations en Chrome/Chromium**
 
    - Inicia tu navegador
-   - Navega a la URL de tu instancia de OneUptime
-   - Inicia sesión en tu cuenta de OneUptime
+   - Navega a la URL de tu instancia de Cast Operations
+   - Inicia sesión en tu cuenta de Cast Operations
    - Espera a que la página cargue completamente
 
 2. **Instala la PWA**
 
    - Busca el **ícono de instalación** (⊞) en la barra de direcciones
-   - Haz clic en **"Instalar OneUptime"**
+   - Haz clic en **"Instalar Cast Operations"**
    - O usa el **menú de Chrome** (⋮) → **Más herramientas** → **Crear acceso directo**
 
 3. **Opciones de instalación**
@@ -31,7 +31,7 @@ Chrome y Chromium proporcionan la mejor experiencia de PWA en Linux con integrac
    - Haz clic en **"Instalar"** o **"Crear"**
 
 4. **Inicia la aplicación**
-   - Encuentra OneUptime en el lanzador de aplicaciones
+   - Encuentra Cast Operations en el lanzador de aplicaciones
    - O usa el acceso directo del escritorio
    - La aplicación se abre en una ventana dedicada
 
@@ -40,7 +40,7 @@ Chrome y Chromium proporcionan la mejor experiencia de PWA en Linux con integrac
 Firefox admite la instalación de PWA en Linux con integración básica en el escritorio.
 
 1. **Instalación de PWA**:
-   - Abre OneUptime en Firefox
+   - Abre Cast Operations en Firefox
    - Busca el banner o solicitud de instalación
    - Haz clic en **"Instalar"** cuando esté disponible
    - Nota: Integración de escritorio limitada en comparación con Chrome
@@ -55,7 +55,7 @@ Edge está disponible en Linux y proporciona buen soporte para PWA.
 
 ### Actualizaciones automáticas
 
-La PWA de OneUptime se actualiza automáticamente:
+La PWA de Cast Operations se actualiza automáticamente:
 
 - Las actualizaciones se aplican cuando el navegador actualiza la aplicación
 - Las actualizaciones de seguridad críticas se implementan de inmediato
@@ -69,7 +69,7 @@ La PWA de OneUptime se actualiza automáticamente:
 # Gestión de PWA en Chrome
 google-chrome chrome://apps/
 
-# Eliminar todos los datos del navegador relacionados con OneUptime
+# Eliminar todos los datos del navegador relacionados con Cast Operations
 rm -rf ~/.config/google-chrome/Default/Local\ Storage/leveldb/
 rm -rf ~/.cache/google-chrome/Default/
 ```
@@ -78,7 +78,7 @@ rm -rf ~/.cache/google-chrome/Default/
 
 ### Actualizaciones automáticas
 
-La PWA de OneUptime se actualiza automáticamente:
+La PWA de Cast Operations se actualiza automáticamente:
 
 - Las actualizaciones se aplican cuando el navegador actualiza la aplicación
 - Las actualizaciones de seguridad críticas se implementan de inmediato

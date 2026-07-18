@@ -20,13 +20,13 @@ const MCPFeatureSet: FeatureSet = {
   init: async (): Promise<void> => {
     const app: ExpressApplication = Express.getExpressApp();
 
-    // Initialize OneUptime API Service
+    // Initialize Cast Operations API Service
     const apiUrl: string = getApiUrl();
     const config: OneUptimeApiConfig = {
       url: apiUrl,
     };
     OneUptimeApiService.initialize(config);
-    logger.info(`MCP: OneUptime API Service initialized with: ${apiUrl}`, {
+    logger.info(`MCP: Cast Operations API Service initialized with: ${apiUrl}`, {
       featureSet: "MCP",
     } as LogAttributes);
 

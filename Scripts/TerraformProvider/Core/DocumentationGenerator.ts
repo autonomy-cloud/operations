@@ -48,7 +48,7 @@ terraform {
 }
 
 provider "${this.config.providerName}" {
-  oneuptime_url = "oneuptime.com"  # Optional, defaults to oneuptime.com (internally becomes oneuptime.com/api)
+  oneuptime_url = "visca.ai"  # Optional, defaults to visca.ai (internally becomes visca.ai/api)
   api_key       = var.${this.config.providerName}_api_key
 }
 \`\`\`
@@ -61,7 +61,7 @@ provider "${this.config.providerName}" {
 
 ### Optional
 
-- \`oneuptime_url\` (String) The ${this.config.providerName} URL (without /api path). Defaults to 'oneuptime.com' if not specified. The provider automatically appends '/api' to the URL. Can also be set via the \`${StringUtils.toConstantCase(this.config.providerName)}_URL\` environment variable.
+- \`oneuptime_url\` (String) The ${this.config.providerName} URL (without /api path). Defaults to 'visca.ai' if not specified. The provider automatically appends '/api' to the URL. Can also be set via the \`${StringUtils.toConstantCase(this.config.providerName)}_URL\` environment variable.
 `;
 
     await this.fileGenerator.writeFileInDir("docs", "index.md", providerDoc);
@@ -307,7 +307,7 @@ ${schemaItems.join("\n")}
 }
 
 provider "${this.config.providerName}" {
-  host    = "oneuptime.com"  # Optional, defaults to oneuptime.com (provider appends /api automatically)
+  host    = "visca.ai"  # Optional, defaults to visca.ai (provider appends /api automatically)
   api_key = var.${this.config.providerName}_api_key
 }
 
@@ -395,7 +395,7 @@ ${this.spec.info.description || `Terraform provider for ${StringUtils.capitalize
 
 1. Clone the repository
 \`\`\`sh
-git clone https://github.com/oneuptime/terraform-provider-${this.config.providerName}
+git clone https://github.com/autonomy-cloud/terraform-provider-${this.config.providerName}
 cd terraform-provider-${this.config.providerName}
 \`\`\`
 
@@ -472,7 +472,7 @@ go generate
 
 ## Contributing
 
-1. This is a read-only repository. The source code is generated from the OneUptime OpenAPI specification. You can check the main repository at [OneUptime](https://github.com/oneuptime/oneuptime). Please fork the main repository and make changes there.
+1. This is a read-only repository. The source code is generated from the Cast Operations OpenAPI specification. You can check the main repository at [Cast Operations](https://github.com/autonomy-cloud/operations). Please fork the main repository and make changes there.
 2. Create your feature branch (\`git checkout -b feature/amazing-feature\`)
 3. Commit your changes (\`git commit -am 'Add some amazing feature'\`)
 4. Push to the branch (\`git push origin feature/amazing-feature\`)
@@ -516,7 +516,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
     }
 
     if (typeof example === "object") {
-      // Handle special OneUptime object types
+      // Handle special Cast Operations object types
       if (example._type && example.value !== undefined) {
         switch (example._type) {
           case "DateTime":

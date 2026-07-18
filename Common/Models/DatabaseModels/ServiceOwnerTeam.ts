@@ -149,7 +149,7 @@ export default class ServiceOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -230,7 +230,7 @@ export default class ServiceOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Team ID",
-    description: "ID of your OneUptime Team in which this object belongs",
+    description: "ID of your Cast Operations Team in which this object belongs",
     example: "a1b2c3d4-e5f6-7890-ab12-cd34ef567890",
   })
   @Column({
@@ -310,7 +310,7 @@ export default class ServiceOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Service ID",
-    description: "ID of your OneUptime Service in which this object belongs",
+    description: "ID of your Cast Operations Service in which this object belongs",
     example: "f6a7b8c9-d0e1-2345-fa67-bc89de012345",
   })
   @Column({

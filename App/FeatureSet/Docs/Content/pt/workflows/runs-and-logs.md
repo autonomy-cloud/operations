@@ -1,6 +1,6 @@
 # Execuções e Registros
 
-Toda vez que um workflow roda, o OneUptime salva um registro do que aconteceu — quando rodou, se funcionou e o que cada bloco fez. Esse registro é chamado de **execução**. Execuções são como você confirma que um workflow funcionou, depura um que não funcionou e revisa a atividade passada.
+Toda vez que um workflow roda, o Cast Operations salva um registro do que aconteceu — quando rodou, se funcionou e o que cada bloco fez. Esse registro é chamado de **execução**. Execuções são como você confirma que um workflow funcionou, depura um que não funcionou e revisa a atividade passada.
 
 ## Onde encontrá-las
 
@@ -35,7 +35,7 @@ Os valores mostrados são exatamente o que o bloco viu — depois que todas as v
 ### "Meu workflow não rodou."
 
 1. Confirme se o workflow está **ativado** nas Configurações. Workflows novos começam desativados.
-2. Para um gatilho de evento do OneUptime: confirme se o evento de fato aconteceu. Abra o registro e verifique seu histórico.
+2. Para um gatilho de evento do Cast Operations: confirme se o evento de fato aconteceu. Abra o registro e verifique seu histórico.
 3. Para um gatilho de webhook: confirme se o outro sistema está enviando para a URL correta. A maioria das ferramentas registra quando envia um webhook — verifique lá.
 4. Para um gatilho agendado: confirme se a expressão cron corresponde ao horário esperado.
 

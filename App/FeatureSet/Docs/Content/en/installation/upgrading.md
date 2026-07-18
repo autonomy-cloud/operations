@@ -1,6 +1,6 @@
-# Upgrading OneUptime
+# Upgrading Cast Operations
 
-This guide covers how to safely upgrade your self-hosted OneUptime installation.
+This guide covers how to safely upgrade your self-hosted Cast Operations installation.
 
 ## General Guidance
 
@@ -8,48 +8,11 @@ This guide covers how to safely upgrade your self-hosted OneUptime installation.
 - You can leapfrog minor/patch versions (for example, 8.1 → 8.4) as long as you follow the release notes.
 - Always take backups before upgrading, and validate you can restore them.
 
-## Upgrading from OneUptime 10 → 11
+## Upgrading from Cast Operations 10 → 11
 
-OneUptime 11 has two changes that need your attention before you upgrade:
-
-1. **Identity features (SSO, OIDC, SCIM) moved to the Enterprise Edition** —
-   if you sign in with SSO on a self-hosted Community build, read this first.
-2. **The ClickHouse telemetry storage was rebuilt** — relevant if you want to
-   carry historical telemetry forward.
-
-This page explains both — what changes, who needs to act, and (for the
-telemetry rebuild) every query needed to migrate history.
-
-### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
-
-In v11, the following authentication and access-management features moved to
-the **OneUptime Enterprise Edition** and are no longer part of the free,
-open-source (Community) build:
-
-- **SAML SSO** — both project login and status-page login
-- **OpenID Connect (OIDC)** — both project login and status-page login
-- **SCIM user provisioning** — project and status page
-- **Global (instance-wide) SSO / OIDC**
-- **Team compliance settings**
-
-**What you'll see after upgrading:** if you configured any of these on a
-Community Edition build, sign-in through them is disabled after the upgrade,
-and the settings pages show an upgrade prompt instead of the configuration
-form. Your existing provider records are **preserved in the database** —
-nothing is deleted — they simply become inactive until the instance runs the
-Enterprise Edition.
-
-**Availability:**
-
-- **Self-hosted:** requires the **Enterprise Edition** build.
-- **OneUptime Cloud:** requires the **Scale** plan (or above).
-
-**If you rely on SSO and self-host**, email
-[support@oneuptime.com](mailto:support@oneuptime.com) for an Enterprise Edition
-license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
-v11 and we'll help you get it back online. If your team is mid-upgrade and this
-is blocking sign-in, contact us before upgrading production so we can plan it
-with you.
+Cast Operations 11 rebuilt the ClickHouse telemetry store. Identity features,
+including SSO, OIDC, SCIM, global identity providers, and team compliance, are
+included in every Cast Operations installation and require no license or plan.
 
 ### What changes in v11 (telemetry storage)
 
@@ -70,9 +33,9 @@ per-column compression codecs, and the new entity-model columns:
 
 Two columns are renamed on every telemetry table: `serviceId` →
 `primaryEntityId` and `serviceType` → `primaryEntityType`. This is a hard
-rename — **if you query the OneUptime analytics API directly with
+rename — **if you query the Cast Operations analytics API directly with
 `serviceId`/`serviceType` filters, update them to the new names.**
-Dashboards, monitors, and alerts inside OneUptime are migrated
+Dashboards, monitors, and alerts inside Cast Operations are migrated
 automatically.
 
 The cut is **forward-only**: the new tables start empty, all telemetry
@@ -115,7 +78,7 @@ clickhouse-client --database oneuptime
 
 Good to know before starting:
 
-- The copy is safe to run while OneUptime is live. New telemetry writes
+- The copy is safe to run while Cast Operations is live. New telemetry writes
   to the new tables independently; copied history fills in behind it.
 - Expect hours at large scale (hundreds of GB).
 - Every statement below carries an `insert_deduplication_token`, and the
@@ -131,7 +94,7 @@ Good to know before starting:
 #### Step 0 — before upgrading, rename the old tables
 
 The upgrade drops the old tables at boot, so move the ones you want to
-copy from out of its reach first. Stop OneUptime (scale the deployment
+copy from out of its reach first. Stop Cast Operations (scale the deployment
 down) so nothing is writing to or able to recreate them, then rename —
 `RENAME TABLE` is an instant metadata operation, and `IF EXISTS` lets
 the batch skip tables your installation never had (deployments older
@@ -150,7 +113,7 @@ RENAME TABLE IF EXISTS AuditLogV1 TO AuditLogV1_backup;
 RENAME TABLE IF EXISTS MetricItemAggMV1mByHost TO MetricItemAggMV1mByHost_backup;
 ```
 
-Then upgrade and let OneUptime boot fully before continuing.
+Then upgrade and let Cast Operations boot fully before continuing.
 
 > If you roll back to v10 after renaming (v10 recreates empty old-name
 > tables at boot), rename the `_backup` tables back to their original
@@ -284,20 +247,20 @@ for that one statement.)
 > and confirm telemetry is flowing into the new tables before relying on
 > the copy in production.
 
-## Upgrading from OneUptime 9 → 10
+## Upgrading from Cast Operations 9 → 10
 
 No changes that require manual action. Just follow the standard upgrade process.
 
-## Upgrading from OneUptime 8 → 9
+## Upgrading from Cast Operations 8 → 9
 
-The Helm chart no longer provisions a Kubernetes Ingress resource. OneUptime ships an ingress gateway container that already terminates TLS, manages status page domains, and routes traffic for the platform, so a cluster ingress controller is no longer necessary.
+The Helm chart no longer provisions a Kubernetes Ingress resource. Cast Operations ships an ingress gateway container that already terminates TLS, manages status page domains, and routes traffic for the platform, so a cluster ingress controller is no longer necessary.
 
 - Remove any `oneuptimeIngress` overrides from your custom `values.yaml` files before upgrading. Those keys are now ignored and will cause validation errors if left in place.
 - Ensure `nginx.service.type` reflects how you want to expose the bundled ingress gateway (for example `LoadBalancer`, `NodePort`, or `ClusterIP` with an external load balancer).
-- Verify any DNS records for status pages or primary hosts still point to the Service or load balancer that fronts the OneUptime ingress gateway.
+- Verify any DNS records for status pages or primary hosts still point to the Service or load balancer that fronts the Cast Operations ingress gateway.
 - After the upgrade, confirm TLS certificates continue to renew via the embedded gateway and that status page domains resolve correctly.
 
-## Upgrading from OneUptime 7 → 8
+## Upgrading from Cast Operations 7 → 8
 
 If you're running on Kubernetes, there are important breaking changes:
 

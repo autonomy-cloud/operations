@@ -1,6 +1,6 @@
 # Traces Monitor
 
-Traces-monitoring stelt u in staat gedistribueerde traces van uw applicaties te bewaken en meldingen te activeren op basis van span-patronen, tellingen en statussen. OneUptime evalueert trace-gegevens van uw telemetriediensten over een tijdvenster.
+Traces-monitoring stelt u in staat gedistribueerde traces van uw applicaties te bewaken en meldingen te activeren op basis van span-patronen, tellingen en statussen. Cast Operations evalueert trace-gegevens van uw telemetriediensten over een tijdvenster.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Traces-monitors zoeken en tellen spans die aan specifieke filters voldoen. Hierm
 
 ## Een Traces Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Traces** als het monitortype
 4. Selecteer de te bewaken telemetriediensten
@@ -24,7 +24,7 @@ Traces-monitors zoeken en tellen spans die aan specifieke filters voldoen. Hierm
 
 ### Telemetriediensten
 
-Selecteer een of meer diensten waarvan traces worden bewaakt. Diensten moeten traces via OpenTelemetry naar OneUptime sturen.
+Selecteer een of meer diensten waarvan traces worden bewaakt. Diensten moeten traces via OpenTelemetry naar Cast Operations sturen.
 
 ### Span-filters
 
@@ -79,4 +79,4 @@ Selecteer een of meer diensten waarvan traces worden bewaakt. Diensten moeten tr
 
 ## Installatievereisten
 
-Traces-monitoring vereist dat uw applicaties gedistribueerde traces via OpenTelemetry naar OneUptime sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.
+Traces-monitoring vereist dat uw applicaties gedistribueerde traces via OpenTelemetry naar Cast Operations sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.

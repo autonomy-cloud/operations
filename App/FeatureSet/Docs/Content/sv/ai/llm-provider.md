@@ -1,26 +1,26 @@
 # LLM-leverantörer
 
-OneUptime stöder integration med olika leverantörer av stora språkmodeller (LLM) för att möjliggöra AI-drivna funktioner på plattformen. Den här guiden hjälper dig att konfigurera din egen LLM-leverantör.
+Cast Operations stöder integration med olika leverantörer av stora språkmodeller (LLM) för att möjliggöra AI-drivna funktioner på plattformen. Den här guiden hjälper dig att konfigurera din egen LLM-leverantör.
 
 ## Vad kan LLM-leverantörer göra?
 
-LLM-leverantörer i OneUptime hjälper dig att automatisera och förbättra ditt arbetsflöde för incidenthantering:
+LLM-leverantörer i Cast Operations hjälper dig att automatisera och förbättra ditt arbetsflöde för incidenthantering:
 
 - **Incidentanteckningar**: Generera automatiskt detaljerade incidentanteckningar och uppdateringar
 - **Varningsanteckningar**: Skapa meningsfulla varningsbeskrivningar och sammanhang
 - **Anteckningar för planerat underhåll**: Generera anteckningar för underhållshändelser automatiskt
 - **Incidentpostmortem**: Skriv automatiskt ut omfattande incidentpostmortem-rapporter
-- **Kodförbättringar**: Om du ansluter ditt kodrepositorie till OneUptime, använder vi din LLM-leverantör för att analysera telemetridata (loggar, spårningar, mätvärden, undantag) och föreslå kodförbättringar
+- **Kodförbättringar**: Om du ansluter ditt kodrepositorie till Cast Operations, använder vi din LLM-leverantör för att analysera telemetridata (loggar, spårningar, mätvärden, undantag) och föreslå kodförbättringar
 
-## OneUptime SaaS-användare
+## Cast Operations SaaS-användare
 
-Om du använder **OneUptime SaaS** (molnhanterad version) kan du använda den **globala LLM-leverantören** som standard utan någon ytterligare konfiguration. Den globala LLM-leverantören är förkonfigurerad och redo att använda för alla AI-funktioner.
+Om du använder **Cast Operations SaaS** (molnhanterad version) kan du använda den **globala LLM-leverantören** som standard utan någon ytterligare konfiguration. Den globala LLM-leverantören är förkonfigurerad och redo att använda för alla AI-funktioner.
 
 Om du föredrar att använda dina egna API-nycklar eller en specifik leverantör, kan du fortfarande konfigurera en anpassad LLM-leverantör enligt instruktionerna nedan.
 
 ## Leverantörer som stöds
 
-OneUptime stöder för närvarande följande LLM-leverantörer:
+Cast Operations stöder för närvarande följande LLM-leverantörer:
 
 | Leverantör            | Beskrivning                                                                   | API-nyckel krävs | Bas-URL krävs           |
 | --------------------- | ----------------------------------------------------------------------------- | ---------------- | ----------------------- |
@@ -36,7 +36,7 @@ OneUptime stöder för närvarande följande LLM-leverantörer:
 
 ### Steg 1: Navigera till inställningar för LLM-leverantörer
 
-1. Logga in på din OneUptime-instrumentpanel
+1. Logga in på din Cast Operations-instrumentpanel
 2. Gå till **AI-agenter** > **LLM-leverantörer**
 3. Klicka på **Skapa LLM-leverantör** för att lägga till en ny leverantör
 
@@ -145,7 +145,7 @@ API Key: (leave blank)
 
 ### Egeninstallerad vLLM på Kubernetes (Helm)
 
-Om du kör OneUptime själv med Helm-chartet kan du köra [vLLM](https://docs.vllm.ai) — en OpenAI-kompatibel inferensserver — i ditt kluster och betjäna lokala modeller på dina egna GPU:er. Ingen data lämnar din infrastruktur.
+Om du kör Cast Operations själv med Helm-chartet kan du köra [vLLM](https://docs.vllm.ai) — en OpenAI-kompatibel inferensserver — i ditt kluster och betjäna lokala modeller på dina egna GPU:er. Ingen data lämnar din infrastruktur.
 
 1. Aktivera det i dina Helm-värden (kräver NVIDIA GPU-noder):
 
@@ -175,7 +175,7 @@ Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-Se [Helm chart-README:n](https://github.com/OneUptime/oneuptime/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) för GPU-schemaläggning, spärrade modeller och inställningsalternativ.
+Se [Helm chart-README:n](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) för GPU-schemaläggning, spärrade modeller och inställningsalternativ.
 
 ## Använda anpassade Bas-URL:er
 
@@ -211,5 +211,5 @@ För företagsdistributioner eller när du använder proxytjänster kan du ange 
 
 Om du stöter på problem med att konfigurera din LLM-leverantör:
 
-1. Kontrollera [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) för kända problem
+1. Kontrollera [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) för kända problem
 2. Kontakta supporten om du har en företagsplan

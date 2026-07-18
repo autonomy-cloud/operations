@@ -1,27 +1,27 @@
 <!-- markdownlint-disable MD033 -->
-<h1 align="center"><img alt="oneuptime logo" width=50% src="https://raw.githubusercontent.com/OneUptime/oneuptime/master/Home/Static/img/OneUptimePNG/7.png"/></h1>
+<h1 align="center"><img alt="oneuptime logo" width=50% src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/></h1>
 <!-- markdownlint-enable MD033 -->
 
-# OneUptime Kubernetes Agent
+# Cast Operations Kubernetes Agent
 
-Collects cluster metrics, events, pod logs, **application traces (HTTP/gRPC via eBPF)**, and **OS-level node metrics** from your Kubernetes cluster and ships them to OneUptime via OpenTelemetry. Install with one `helm install` command — no code changes or per-app SDK setup needed to see service traffic. **Continuous CPU profiles (eBPF flame graphs)** are also available — opt in with `--set profiling.enabled=true`.
+Collects cluster metrics, events, pod logs, **application traces (HTTP/gRPC via eBPF)**, and **OS-level node metrics** from your Kubernetes cluster and ships them to Cast Operations via OpenTelemetry. Install with one `helm install` command — no code changes or per-app SDK setup needed to see service traffic. **Continuous CPU profiles (eBPF flame graphs)** are also available — opt in with `--set profiling.enabled=true`.
 
-Full docs: [Install the Kubernetes Agent](https://oneuptime.com/docs/monitor/kubernetes-agent).
+Full docs: [Install the Kubernetes Agent](https://visca.ai/docs/monitor/kubernetes-agent).
 
 ## Quick start
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
-Your cluster appears in OneUptime within a few minutes.
+Your cluster appears in Cast Operations within a few minutes.
 
 ## Pick a preset
 
@@ -38,7 +38,7 @@ The `preset` option picks compatible defaults for your Kubernetes distribution �
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod \
   --set preset=gke-autopilot
@@ -49,7 +49,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod \
   --set preset=eks-fargate
@@ -81,7 +81,7 @@ For one or two changes at install or upgrade time:
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   --set deployment.resources.requests.cpu=500m \
@@ -127,7 +127,7 @@ Apply it with `-f`:
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   -f my-values.yaml
@@ -294,7 +294,7 @@ Apply any of these with `-f`:
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   -f large.yaml
@@ -318,7 +318,7 @@ After installing or upgrading, run `kubectl top pod -n oneuptime-kubernetes-agen
 
 | Key | Description |
 | --- | --- |
-| `oneuptime.url` | URL of your OneUptime instance (e.g. `https://oneuptime.com`). |
+| `oneuptime.url` | URL of your Cast Operations instance (e.g. `https://visca.ai`). |
 | `oneuptime.apiKey` | Project API key. Create one at **Project Settings → API Keys**. |
 | `clusterName` | Unique name for this cluster. Stamped as `k8s.cluster.name` on every record. |
 
@@ -368,14 +368,14 @@ namespaceFilters:
 
 ### Continuous profiling (`profiling.*`) — off by default
 
-A separate DaemonSet runs the [`otelcol-ebpf-profiler`](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) distribution — the same OTel project that produces the OBI auto-instrumentation, with a different build of the collector that bundles the [OpenTelemetry eBPF Profiler receiver](https://github.com/open-telemetry/opentelemetry-ebpf-profiler). It samples stacks at 19Hz across every supported runtime (Go, Java, .NET, Python, Ruby, Node, PHP, Perl, C/C++, Rust) and ships OTLP profiles directly to OneUptime (the existing in-cluster collector is on v0.96.0 which predates the OTLP profiles signal — that's why this is a separate DaemonSet).
+A separate DaemonSet runs the [`otelcol-ebpf-profiler`](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) distribution — the same OTel project that produces the OBI auto-instrumentation, with a different build of the collector that bundles the [OpenTelemetry eBPF Profiler receiver](https://github.com/open-telemetry/opentelemetry-ebpf-profiler). It samples stacks at 19Hz across every supported runtime (Go, Java, .NET, Python, Ruby, Node, PHP, Perl, C/C++, Rust) and ships OTLP profiles directly to Cast Operations (the existing in-cluster collector is on v0.96.0 which predates the OTLP profiles signal — that's why this is a separate DaemonSet).
 
 Profiling is **off by default** — it's heavier than the OBI auto-instrumentation (more CPU per node, larger memory footprint) and not every cluster wants always-on flame graphs. Enable it when you want richer telemetry:
 
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   --set profiling.enabled=true
@@ -404,7 +404,7 @@ When `ebpf.enabled` is also true (the default), the profiler correlates samples 
 
 ### eBPF auto-instrumentation (`ebpf.*`) — on by default
 
-The agent ships a DaemonSet running [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) on every node. OBI loads eBPF programs into the kernel to capture HTTP/HTTPS, gRPC, and SQL/Redis calls from any process — Go, .NET, Java, Node.js, Python, Ruby, or Rust — with no code changes, no SDK, and no sidecar. Captured traffic is exported as OTLP traces (and request/latency metrics) directly to OneUptime, where it appears under **Telemetry → Traces** and the service map.
+The agent ships a DaemonSet running [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) on every node. OBI loads eBPF programs into the kernel to capture HTTP/HTTPS, gRPC, and SQL/Redis calls from any process — Go, .NET, Java, Node.js, Python, Ruby, or Rust — with no code changes, no SDK, and no sidecar. Captured traffic is exported as OTLP traces (and request/latency metrics) directly to Cast Operations, where it appears under **Telemetry → Traces** and the service map.
 
 Requirements:
 
@@ -416,7 +416,7 @@ Turn it off if you don't want it:
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   --set ebpf.enabled=false
@@ -461,7 +461,7 @@ Useful knobs:
 | Key | Default | Description |
 | --- | --- | --- |
 | `logs.api.image.repository` | `oneuptime/kubernetes-log-tailer` | Image for the log tailer Deployment. |
-| `logs.api.image.tag` | `""` (tracks chart `appVersion` — the OneUptime product version at release time) | Override to pin to a specific tag. |
+| `logs.api.image.tag` | `""` (tracks chart `appVersion` — the Cast Operations product version at release time) | Override to pin to a specific tag. |
 | `logs.api.replicas` | `1` | Number of log-tailer replicas. One replica handles a few thousand containers; shard by namespace for larger clusters. |
 | `logs.api.batchMaxRecords` | `500` | Flush after this many log records. |
 | `logs.api.batchMaxMs` | `5000` | Flush after this many milliseconds. |
@@ -511,16 +511,16 @@ kubectl delete namespace oneuptime-kubernetes-agent
 
 ## Troubleshooting
 
-See the [Install the Kubernetes Agent](https://oneuptime.com/docs/monitor/kubernetes-agent) guide — it covers the "hostPath blocked" error, missing logs, and horizontal sharding for large clusters.
+See the [Install the Kubernetes Agent](https://visca.ai/docs/monitor/kubernetes-agent) guide — it covers the "hostPath blocked" error, missing logs, and horizontal sharding for large clusters.
 
 ### The cluster shows "Disconnected" and/or no data appears — run the diagnostic script
 
 This is usually one problem, not two: telemetry isn't being accepted, so the cluster never connects and nothing ingests. The most common cause — especially after a reinstall — is a **wrong or revoked ingestion key**, which is hard to spot because the OTLP endpoints answer `200` even for a bad token (to avoid making a misconfigured collector retry-storm the server). The collector therefore logs no errors while every byte is dropped.
 
-The bundled script checks pod health, decodes/validates the key, tests cluster egress, and asks OneUptime whether the token is actually accepted — then prints a single root-cause verdict:
+The bundled script checks pod health, decodes/validates the key, tests cluster egress, and asks Cast Operations whether the token is actually accepted — then prints a single root-cause verdict:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
+curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
   | bash -s -- -n oneuptime-agent
 ```
 
@@ -606,7 +606,7 @@ If a ClickHouse pod refuses to start and its logs show:
 (CORRUPTED_DATA)
 ```
 
-the binary is fine — this is OBI attaching a **uprobe** to `/usr/bin/clickhouse` and patching its in-memory text. ClickHouse hashes its own executable at startup and aborts when the hash changes. Because OneUptime's own telemetry store is ClickHouse, an un-excluded agent will crash-loop the platform's database.
+the binary is fine — this is OBI attaching a **uprobe** to `/usr/bin/clickhouse` and patching its in-memory text. ClickHouse hashes its own executable at startup and aborts when the hash changes. Because Cast Operations’ own telemetry store is ClickHouse, an un-excluded agent will crash-loop the platform's database.
 
 The default `ebpf.excludeExePaths` now ships `*/clickhouse`, so a fresh install is protected. If you're on an older release or maintain a custom exclude list, add it and roll the agent:
 
@@ -633,7 +633,7 @@ Three things to check, in order:
     kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
     ```
 
-    No spans there means OBI isn't capturing traffic on that node. Spans there but nothing in OneUptime means the OTLP export path is broken — check the metrics-collector Deployment logs.
+    No spans there means OBI isn't capturing traffic on that node. Spans there but nothing in Cast Operations means the OTLP export path is broken — check the metrics-collector Deployment logs.
 
 ### `kubectl exec` into an agent pod fails — no shell, curl, or bash
 
@@ -648,7 +648,7 @@ log-collector DaemonSet run the upstream OpenTelemetry Collector image, which is
 CA certs — no `/bin/sh`, no `bash`, no `curl`. There's nothing to exec into.
 
 You usually hit this when verifying connectivity from inside the cluster to your
-OneUptime instance (DNS, NetworkPolicy, egress proxy, TLS). Two ways to get a
+Cast Operations instance (DNS, NetworkPolicy, egress proxy, TLS). Two ways to get a
 shell that shares the agent pod's network:
 
 **Option A — ephemeral debug container (recommended, no install change).**
@@ -662,7 +662,7 @@ POD=$(kubectl get pod -n oneuptime-kubernetes-agent \
 kubectl debug -it "$POD" -n oneuptime-kubernetes-agent \
   --image=nicolaka/netshoot --target=otel-collector -- bash
 # then, from the shell:
-curl -v https://oneuptime.example.com/otlp/v1/metrics
+curl -v https://operations.example.com/otlp/v1/metrics
 ```
 
 The ephemeral container shares the pod's network namespace, so this tests the
@@ -699,5 +699,5 @@ keys in [`values.yaml`](values.yaml) for all options.
 
 ## Source
 
-- Chart: [`HelmChart/Public/kubernetes-agent/`](https://github.com/OneUptime/oneuptime/tree/master/HelmChart/Public/kubernetes-agent)
-- Log-tailer image: [`KubernetesLogTailer/`](https://github.com/OneUptime/oneuptime/tree/master/KubernetesLogTailer)
+- Chart: [`HelmChart/Public/kubernetes-agent/`](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/kubernetes-agent)
+- Log-tailer image: [`KubernetesLogTailer/`](https://github.com/autonomy-cloud/operations/tree/master/KubernetesLogTailer)

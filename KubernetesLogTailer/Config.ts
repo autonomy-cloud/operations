@@ -36,7 +36,7 @@ export const CLUSTER_NAME: string = required("CLUSTER_NAME");
 /*
  * Comma-separated key=value pairs from .Values.oneuptime.labels. Each pair
  * becomes an `oneuptime.label.<key>=<value>` resource attribute on every
- * outgoing OTLP log batch; the OneUptime ingest pipeline promotes those
+ * outgoing OTLP log batch; the Cast Operations ingest pipeline promotes those
  * into project Labels.
  */
 const parseLabels: (value: string) => Record<string, string> = (
@@ -95,7 +95,7 @@ export const SINCE_SECONDS_ON_START: number = parseInt(
 /*
  * Multi-line recombination. The Kubernetes API streams one log line per
  * newline, so a stack trace or pretty-printed JSON arrives as many lines and
- * would otherwise become many separate logs in OneUptime. When enabled
+ * would otherwise become many separate logs in Cast Operations. When enabled
  * (default), continuation lines — those that do not start a new entry — are
  * merged into the preceding record so each event is a single log, matching the
  * recombine operator the DaemonSet collector and Docker agent already use.
@@ -123,7 +123,7 @@ export const LOG_RECOMBINE_MAX_BYTES: number = parseInt(
  *
  * In daemonset log mode that value renders into the collector's `filter`
  * processor. This mode never goes through a collector — the tailer posts OTLP
- * straight to OneUptime — so the same value is passed down here instead, and
+ * straight to Cast Operations — so the same value is passed down here instead, and
  * the two modes stay behaviourally identical. The presets pick the mode for
  * you (GKE Autopilot / EKS Fargate force this one), so a threshold that only
  * worked in one mode would silently do nothing on those clusters.

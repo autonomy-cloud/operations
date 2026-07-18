@@ -1,6 +1,6 @@
 # 资源操作
 
-OneUptime CLI 为所有支持的资源提供完整的 CRUD（创建、读取、更新、删除）操作。资源从您的 OneUptime 实例自动发现。
+Cast Operations CLI 为所有支持的资源提供完整的 CRUD（创建、读取、更新、删除）操作。资源从您的 Cast Operations 实例自动发现。
 
 ## 可用资源
 

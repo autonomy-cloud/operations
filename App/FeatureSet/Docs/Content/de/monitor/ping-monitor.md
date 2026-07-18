@@ -1,6 +1,6 @@
 # Ping-Monitor
 
-Der Ping-Monitor ermöglicht die Überwachung der Verfügbarkeit und Reaktionsfähigkeit jedes Hosts oder jeder IP-Adresse. OneUptime sendet periodisch Ping-Anfragen an Ihr Ziel und prüft, ob es korrekt antwortet.
+Der Ping-Monitor ermöglicht die Überwachung der Verfügbarkeit und Reaktionsfähigkeit jedes Hosts oder jeder IP-Adresse. Cast Operations sendet periodisch Ping-Anfragen an Ihr Ziel und prüft, ob es korrekt antwortet.
 
 ## Übersicht
 
@@ -13,7 +13,7 @@ Ping-Monitore testen die grundlegende Netzwerkkonnektivität durch das Senden vo
 
 ## Einen Ping-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Ping** als Monitortyp
 4. Geben Sie den Hostnamen oder die IP-Adresse ein, die Sie überwachen möchten

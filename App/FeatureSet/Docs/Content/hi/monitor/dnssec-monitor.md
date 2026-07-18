@@ -1,6 +1,6 @@
 # DNSSEC Monitor
 
-DNSSEC monitoring आपको अपने zones के लिए DNS responses की cryptographic integrity validate करने की अनुमति देता है। OneUptime समय-समय पर पूर्ण DNSSEC validation करता है — DNSKEY records, parent zone पर DS delegation, RRSIG signature की वैधता, AD flag पर resolver consensus, और authoritative nameservers के बीच consistency की जांच करता है।
+DNSSEC monitoring आपको अपने zones के लिए DNS responses की cryptographic integrity validate करने की अनुमति देता है। Cast Operations समय-समय पर पूर्ण DNSSEC validation करता है — DNSKEY records, parent zone पर DS delegation, RRSIG signature की वैधता, AD flag पर resolver consensus, और authoritative nameservers के बीच consistency की जांच करता है।
 
 ## Overview
 
@@ -14,7 +14,7 @@ DNSSEC monitors root zone से आपके domain तक के पूरे 
 
 ## DNSSEC Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **DNSSEC** चुनें
 4. वह zone (domain) दर्ज करें जिसे आप validate करना चाहते हैं

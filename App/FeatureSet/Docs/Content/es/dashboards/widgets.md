@@ -129,7 +129,7 @@ Para proyectos con monitorización de Docker configurada.
 
 ### Lista de Hosts
 
-Hosts monitorizados por el monitor de servidor de OneUptime, con estado, CPU, memoria y tiempo activo.
+Hosts monitorizados por el monitor de servidor de Cast Operations, con estado, CPU, memoria y tiempo activo.
 
 **Configuración**: filtros por etiquetas o estado actual.
 

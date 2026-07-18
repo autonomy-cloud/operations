@@ -1,8 +1,8 @@
-# Vitlista för IP-adresser för OneUptime.com
+# Vitlista för IP-adresser för Cast Operations.com
 
-Om du använder OneUptime.com och vill vitlista våra IP-adresser av säkerhetsskäl kan du göra det genom att följa instruktionerna nedan.
+Om du använder Cast Operations.com och vill vitlista våra IP-adresser av säkerhetsskäl kan du göra det genom att följa instruktionerna nedan.
 
-Vänligen vitlista följande IP-adresser i din brandvägg för att tillåta oneuptime.com att nå dina resurser.
+Vänligen vitlista följande IP-adresser i din brandvägg för att tillåta visca.ai att nå dina resurser.
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ Dessa IP-adresser kan ändras; vi meddelar dig i förväg om detta sker.
 Du kan också hämta listan över utgångs-IP-adresser för sonder programmatiskt via följande API-slutpunkt:
 
 ```
-GET https://oneuptime.com/ip-whitelist
+GET https://visca.ai/ip-whitelist
 ```
 
 Detta returnerar ett JSON-svar:

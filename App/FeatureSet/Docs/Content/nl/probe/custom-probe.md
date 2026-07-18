@@ -2,7 +2,7 @@
 
 U kunt aangepaste probes instellen binnen uw netwerk om resources in uw privénetwerk of resources achter uw firewall te bewaken.
 
-Om te beginnen moet u een aangepaste probe aanmaken in uw Projectinstellingen > Probe. Zodra u de aangepaste probe hebt aangemaakt op uw OneUptime-dashboard, beschikt u over de `PROBE_ID` en `PROBE_KEY`.
+Om te beginnen moet u een aangepaste probe aanmaken in uw Projectinstellingen > Probe. Zodra u de aangepaste probe hebt aangemaakt op uw Cast Operations-dashboard, beschikt u over de `PROBE_ID` en `PROBE_KEY`.
 
 ### Probe implementeren
 
@@ -11,21 +11,21 @@ Om te beginnen moet u een aangepaste probe aanmaken in uw Projectinstellingen > 
 Om een probe uit te voeren, zorg ervoor dat docker is geïnstalleerd. U kunt de aangepaste probe uitvoeren met:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://oneuptime.com -d oneuptime/probe:release
+docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
 ```
 
-Als u OneUptime zelf host, kunt u `ONEUPTIME_URL` wijzigen naar uw aangepaste zelf-gehoste instantie.
+Als u Cast Operations zelf host, kunt u `ONEUPTIME_URL` wijzigen naar uw aangepaste zelf-gehoste instantie.
 
 ##### Proxyconfiguratie
 
-Als uw probe via een proxyserver moet gaan om OneUptime te bereiken of externe resources te bewaken, kunt u proxyinstellingen configureren met deze omgevingsvariabelen:
+Als uw probe via een proxyserver moet gaan om Cast Operations te bereiken of externe resources te bewaken, kunt u proxyinstellingen configureren met deze omgevingsvariabelen:
 
 ```
 # Voor HTTP-proxy
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -34,7 +34,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -43,7 +43,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       # Proxyconfiguratie (optioneel)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,7 +102,7 @@ Voer vervolgens de volgende opdracht uit:
 docker compose up -d
 ```
 
-Als u OneUptime zelf host, kunt u `ONEUPTIME_URL` wijzigen naar uw aangepaste zelf-gehoste instantie.
+Als u Cast Operations zelf host, kunt u `ONEUPTIME_URL` wijzigen naar uw aangepaste zelf-gehoste instantie.
 
 #### Kubernetes
 
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 ##### Met proxyconfiguratie
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             # Proxyconfiguratie (optioneel)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -184,7 +184,7 @@ Voer vervolgens de volgende opdracht uit:
 kubectl apply -f oneuptime-probe.yaml
 ```
 
-Als u OneUptime zelf host, kunt u `ONEUPTIME_URL` wijzigen naar uw aangepaste zelf-gehoste instantie.
+Als u Cast Operations zelf host, kunt u `ONEUPTIME_URL` wijzigen naar uw aangepaste zelf-gehoste instantie.
 
 ### Omgevingsvariabelen
 
@@ -192,9 +192,9 @@ De probe ondersteunt de volgende omgevingsvariabelen:
 
 #### Verplichte variabelen
 
-- `PROBE_KEY` - De probesleutel van uw OneUptime-dashboard
-- `PROBE_ID` - Het probe-ID van uw OneUptime-dashboard
-- `ONEUPTIME_URL` - De URL van uw OneUptime-instantie (standaard: https://oneuptime.com)
+- `PROBE_KEY` - De probesleutel van uw Cast Operations-dashboard
+- `PROBE_ID` - Het probe-ID van uw Cast Operations-dashboard
+- `ONEUPTIME_URL` - De URL van uw Cast Operations-instantie (standaard: https://visca.ai)
 
 #### Optionele variabelen
 
@@ -236,4 +236,4 @@ http://[gebruikersnaam:wachtwoord@]proxy.server.com:poort
 
 ### Verifiëren
 
-Als de probe succesvol wordt uitgevoerd, dient deze op uw OneUptime-dashboard de status `Verbonden` te tonen. Als deze niet als verbonden wordt weergegeven, moet u de logboeken van de container controleren. Als u nog steeds problemen ondervindt, maak dan een issue aan op [GitHub](https://github.com/oneuptime/oneuptime) of [neem contact op met ondersteuning](https://oneuptime.com/support).
+Als de probe succesvol wordt uitgevoerd, dient deze op uw Cast Operations-dashboard de status `Verbonden` te tonen. Als deze niet als verbonden wordt weergegeven, moet u de logboeken van de container controleren. Als u nog steeds problemen ondervindt, maak dan een issue aan op [GitHub](https://github.com/autonomy-cloud/operations) of [neem contact op met ondersteuning](https://visca.ai/support).

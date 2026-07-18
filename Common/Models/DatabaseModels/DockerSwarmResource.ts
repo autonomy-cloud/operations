@@ -35,7 +35,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
  *   Config  — a swarm-managed config (metadata only)
  *   Volume  — a volume reported by a node
  *
- * Populated by the telemetry ingest path from the OneUptime Docker
+ * Populated by the telemetry ingest path from the Cast Operations Docker
  * Swarm agent's inventory poller (`docker node/service/task/stack/
  * network/secret/config/volume ls`, shipped as JSON-line log records)
  * plus the docker_stats receiver for the per-task latest CPU/memory

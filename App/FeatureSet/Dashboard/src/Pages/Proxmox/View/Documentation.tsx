@@ -64,7 +64,7 @@ const ProxmoxClusterDocumentation: FunctionComponent<
     <Fragment>
       <ProxmoxDocumentationCard
         title="Proxmox Agent Installation Guide"
-        description="Follow these steps to install the OneUptime Proxmox Agent for this cluster."
+        description="Follow these steps to install the Cast Operations Proxmox Agent for this cluster."
       />
     </Fragment>
   );

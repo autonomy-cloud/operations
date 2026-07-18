@@ -1,6 +1,6 @@
 # Panoramica delle dashboard
 
-Le dashboard trasformano i dati che OneUptime sta gia raccogliendo — metriche, log, trace, incidenti, monitor, risorse Kubernetes, host — in una singola pagina su cui qualcuno puo dare un'occhiata e capire cosa sta succedendo.
+Le dashboard trasformano i dati che Cast Operations sta gia raccogliendo — metriche, log, trace, incidenti, monitor, risorse Kubernetes, host — in una singola pagina su cui qualcuno puo dare un'occhiata e capire cosa sta succedendo.
 
 Posiziona un grafico della latenza delle richieste accanto a un elenco di incidenti aperti, accanto a un indicatore della CPU, accanto a un paragrafo di contesto. Salva. Condividi il link.
 
@@ -66,12 +66,12 @@ Obiettivo: una pagina on-call per il servizio checkout con latenza, tasso di err
 6. Sotto ancora, un widget **Log Stream** che mostra i log dello stesso servizio.
 7. Salva. Cambia il menu a tendina su `payments` — la stessa dashboard ora mostra il servizio payments.
 
-## Come si integrano le dashboard con il resto di OneUptime
+## Come si integrano le dashboard con il resto di Cast Operations
 
 - **Monitor e telemetria** sono le fonti dei dati. Ogni metrica, log e trace che raccogli e interrogabile su un widget.
 - **Incidenti e allarmi** appaiono nei widget **Incident List** e **Alert List**. Le dashboard sono in sola lettura per questi — creali e aggiornali altrove.
 - Le **status page** sono comunicazione rivolta ai clienti ("il sistema e su?"). Le dashboard servono a guardare come si sta comportando il sistema nel dettaglio. Le due cose lavorano insieme, non si sostituiscono a vicenda.
-- I **workflow** sono il modo in cui OneUptime agisce. Le dashboard sono il modo in cui leggi cio che sta accadendo.
+- I **workflow** sono il modo in cui Cast Operations agisce. Le dashboard sono il modo in cui leggi cio che sta accadendo.
 
 ## Letture successive
 

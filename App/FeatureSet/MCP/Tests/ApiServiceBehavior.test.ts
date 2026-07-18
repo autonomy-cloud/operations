@@ -49,7 +49,7 @@ describe("OneUptimeApiService behavior", () => {
   let makeApiRequestSpy: jest.SpyInstance;
 
   beforeAll(() => {
-    OneUptimeApiService.initialize({ url: "https://test.oneuptime.com" });
+    OneUptimeApiService.initialize({ url: "https://test.visca.ai" });
   });
 
   beforeEach(() => {

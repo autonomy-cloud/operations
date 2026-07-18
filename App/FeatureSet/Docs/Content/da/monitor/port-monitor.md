@@ -1,6 +1,6 @@
 # Port Monitor
 
-Port-overvågning giver dig mulighed for at overvåge tilgængelighed af specifikke TCP- eller UDP-porte på en host. OneUptime forsøger periodisk at oprette forbindelse til den angivne port og kontrollerer, om den er åben og responsiv.
+Port-overvågning giver dig mulighed for at overvåge tilgængelighed af specifikke TCP- eller UDP-porte på en host. Cast Operations forsøger periodisk at oprette forbindelse til den angivne port og kontrollerer, om den er åben og responsiv.
 
 ## Oversigt
 
@@ -13,7 +13,7 @@ Port-monitorer tester, om en specifik netværksport accepterer forbindelser. Det
 
 ## Oprettelse af en Port Monitor
 
-1. Gå til **Monitorer** i OneUptime-dashboardet
+1. Gå til **Monitorer** i Cast Operations-dashboardet
 2. Klik på **Opret monitor**
 3. Vælg **Port** som monitortype
 4. Indtast hostnavnet eller IP-adressen og portnummeret

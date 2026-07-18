@@ -52,7 +52,7 @@ interface ProcessRow {
 /*
  * The OTel hostmetrics `process` scraper attaches per-process identity
  * (pid, executable name, command, owner) to the *resource*, not the
- * datapoint. OneUptime's metric ingest prefixes resource attributes with
+ * datapoint. Cast Operations’ metric ingest prefixes resource attributes with
  * `resource.`, so they land in ClickHouse as `resource.process.*` —
  * matching the convention Docker container pages already use for their
  * resource attributes (`resource.container.name`, etc).

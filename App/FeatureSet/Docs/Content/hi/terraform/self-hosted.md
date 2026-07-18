@@ -1,16 +1,16 @@
-# Self-Hosted OneUptime Terraform Configuration Guide
+# Self-Hosted Cast Operations Terraform Configuration Guide
 
-यह guide specifically उन customers के लिए है जो self-hosted OneUptime instances चला रहे हैं। यह अपने OneUptime deployment के साथ Terraform provider उपयोग करने के लिए version management, configuration और best practices cover करता है।
+यह guide specifically उन customers के लिए है जो self-hosted Cast Operations instances चला रहे हैं। यह अपने Cast Operations deployment के साथ Terraform provider उपयोग करने के लिए version management, configuration और best practices cover करता है।
 
 ## महत्वपूर्ण नोट्स
 
-⚠️ **Projects को Terraform के माध्यम से नहीं बनाया जा सकता** - Projects पहले OneUptime dashboard में manually बनाने होंगे। अपनी Terraform configurations में project ID उपयोग करें।
+⚠️ **Projects को Terraform के माध्यम से नहीं बनाया जा सकता** - Projects पहले Cast Operations dashboard में manually बनाने होंगे। अपनी Terraform configurations में project ID उपयोग करें।
 
-⚠️ **Self-hosted customers के लिए सबसे महत्वपूर्ण नियम**: अपने Terraform provider version को हमेशा exactly अपने OneUptime installation version से match करने के लिए pin करें।
+⚠️ **Self-hosted customers के लिए सबसे महत्वपूर्ण नियम**: अपने Terraform provider version को हमेशा exactly अपने Cast Operations installation version से match करने के लिए pin करें।
 
 ## Resource Structure
 
-सभी OneUptime Terraform resources एक simplified structure follow करते हैं:
+सभी Cast Operations Terraform resources एक simplified structure follow करते हैं:
 
 - `name` (आवश्यक) - Resource नाम
 - `description` (वैकल्पिक) - Resource विवरण
@@ -18,32 +18,32 @@
 
 ## Critical: Version Compatibility
 
-⚠️ **Self-hosted customers के लिए सबसे महत्वपूर्ण नियम**: अपने Terraform provider version को हमेशा exactly अपने OneUptime installation version से match करने के लिए pin करें।
+⚠️ **Self-hosted customers के लिए सबसे महत्वपूर्ण नियम**: अपने Terraform provider version को हमेशा exactly अपने Cast Operations installation version से match करने के लिए pin करें।
 
 ### Version Pinning Critical क्यों है
 
-- Terraform provider OneUptime API से auto-generate होता है
-- प्रत्येक OneUptime version में अलग API endpoints और schemas हो सकते हैं
+- Terraform provider Cast Operations API से auto-generate होता है
+- प्रत्येक Cast Operations version में अलग API endpoints और schemas हो सकते हैं
 - Mismatched provider version उपयोग करने से errors या unexpected behavior हो सकता है
 - Version pinning compatibility और predictable behavior सुनिश्चित करता है
 
-## अपना OneUptime Version खोजना
+## अपना Cast Operations Version खोजना
 
 ### Method 1: Dashboard
 
-1. अपने OneUptime dashboard में login करें
+1. अपने Cast Operations dashboard में login करें
 2. **Settings** → **About** पर जाएं
 3. version number देखें (जैसे "7.0.123")
 
 ### Method 2: API Endpoint
 
 ```bash
-curl https://your-oneuptime-instance.com/api/status
+curl https://your-operations-instance.com/api/status
 ```
 
 ### Method 3: Docker Images
 
-यदि आप Docker के साथ OneUptime चला रहे हैं:
+यदि आप Docker के साथ Cast Operations चला रहे हैं:
 
 ```bash
 docker images | grep oneuptime
@@ -67,7 +67,7 @@ helm list -n oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 123 को अपने exact build number से बदलें
     }
   }
@@ -75,22 +75,22 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # आपका self-hosted URL
+  oneuptime_url = "https://operations.yourcompany.com"  # आपका self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Complete Self-Hosted Configuration Example
 
-यहाँ एक self-hosted OneUptime instance के लिए complete उदाहरण है:
+यहाँ एक self-hosted Cast Operations instance के लिए complete उदाहरण है:
 
 ```hcl
 # versions.tf
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # आपके OneUptime version से match होना चाहिए
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # आपके Cast Operations version से match होना चाहिए
     }
   }
   required_version = ">= 1.0"
@@ -105,13 +105,13 @@ terraform {
 
 # variables.tf
 variable "oneuptime_url" {
-  description = "OneUptime instance URL"
+  description = "Cast Operations instance URL"
   type        = string
-  default     = "https://oneuptime.yourcompany.com"
+  default     = "https://operations.yourcompany.com"
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API Key"
+  description = "Cast Operations API Key"
   type        = string
   sensitive   = true
 }
@@ -162,7 +162,7 @@ resource "oneuptime_status_page" "internal" {
 
 ## Self-Hosted के लिए Upgrade Process
 
-अपना OneUptime instance upgrade करते समय:
+अपना Cast Operations instance upgrade करते समय:
 
 ### 1. Pre-Upgrade Checklist
 
@@ -170,16 +170,16 @@ resource "oneuptime_status_page" "internal" {
 # current Terraform state backup करें
 terraform state pull > backup-$(date +%Y%m%d).tfstate
 
-# current OneUptime version नोट करें
-curl https://oneuptime.yourcompany.com/api/status | jq '.version'
+# current Cast Operations version नोट करें
+curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # current provider version नोट करें
 terraform providers | grep oneuptime
 ```
 
-### 2. OneUptime Instance Upgrade करें
+### 2. Cast Operations Instance Upgrade करें
 
-अपना standard OneUptime upgrade process follow करें (Docker, Helm, आदि)
+अपना standard Cast Operations upgrade process follow करें (Docker, Helm, आदि)
 
 ### 3. Terraform Provider Update करें
 
@@ -188,7 +188,7 @@ terraform providers | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # upgrade के बाद नया version
     }
   }
@@ -238,7 +238,7 @@ Error: connection refused
 
 **Solutions**:
 
-1. जांचें कि OneUptime instance चल रहा है
+1. जांचें कि Cast Operations instance चल रहा है
 2. API URL correct है verify करें
 3. firewall/network connectivity जांचें
 4. TLS certificates valid हैं verify करें
@@ -251,6 +251,6 @@ Error: API version incompatible
 
 **Solutions**:
 
-1. OneUptime version जांचें: `curl https://your-instance/api/status`
+1. Cast Operations version जांचें: `curl https://your-instance/api/status`
 2. provider version को match करने के लिए update करें
 3. `terraform init -upgrade` चलाएं

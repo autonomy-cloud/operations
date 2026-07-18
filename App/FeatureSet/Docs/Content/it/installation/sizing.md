@@ -1,6 +1,6 @@
 # Dimensionamento e pianificazione della capacità
 
-Questa guida ti aiuta a dimensionare un'installazione self-hosted di OneUptime su Kubernetes (Helm). Copre i tre datastore da cui OneUptime dipende — **PostgreSQL**, **Redis** e **ClickHouse** — più il calcolo applicativo, e fornisce livelli iniziali che puoi regolare una volta ottenuti i numeri reali.
+Questa guida ti aiuta a dimensionare un'installazione self-hosted di Cast Operations su Kubernetes (Helm). Copre i tre datastore da cui Cast Operations dipende — **PostgreSQL**, **Redis** e **ClickHouse** — più il calcolo applicativo, e fornisce livelli iniziali che puoi regolare una volta ottenuti i numeri reali.
 
 > **Leggi prima questo:** la chart Helm viene fornita con **nessuna richiesta o limite di CPU/memoria impostati** e piccoli volumi predefiniti da **25 Gi** per PostgreSQL e ClickHouse. Quei valori predefiniti esistono affinché la chart si installi e funzioni su qualsiasi cluster — **non** rappresentano un dimensionamento di produzione. Per qualsiasi cosa oltre una prova rapida, imposta esplicitamente le risorse e lo storage usando i numeri qui sotto.
 
@@ -8,7 +8,7 @@ Se invece stai eseguendo l'installazione su server singolo con Docker Compose, i
 
 ## Cosa determina ciascun datastore
 
-OneUptime richiede tre datastore in produzione. Scalano in base a input completamente diversi, quindi dimensionali in modo indipendente.
+Cast Operations richiede tre datastore in produzione. Scalano in base a input completamente diversi, quindi dimensionali in modo indipendente.
 
 | Datastore      | Cosa memorizza                                                                                                    | Cosa ne determina la dimensione                                                                                     |
 | -------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -16,7 +16,7 @@ OneUptime richiede tre datastore in produzione. Scalano in base a input completa
 | **PostgreSQL** | Configurazione e stato — monitor, incidenti, avvisi, utenti, team, progetti, workflow, pagine di stato, dashboard | **Numero di entità e cronologia**, non il volume di telemetria. Cresce lentamente.                                  |
 | **Redis**      | Cache, code di lavoro e sessioni                                                                                  | **Profondità delle code e sessioni attive**. Vincolato alla memoria e modesto. Non è una fonte di verità.           |
 
-L'object storage (S3/MinIO) **non** è richiesto per il funzionamento di OneUptime. Viene usato solo facoltativamente per i **backup** dei database (tramite il plugin CloudNativePG Barman per PostgreSQL, o `clickhouse-backup` per ClickHouse). OneUptime non sposta la telemetria su livelli di object storage — vedi la sezione "La retention e come influisce sullo storage" più sotto.
+L'object storage (S3/MinIO) **non** è richiesto per il funzionamento di Cast Operations. Viene usato solo facoltativamente per i **backup** dei database (tramite il plugin CloudNativePG Barman per PostgreSQL, o `clickhouse-backup` per ClickHouse). Cast Operations non sposta la telemetria su livelli di object storage — vedi la sezione "La retention e come influisce sullo storage" più sotto.
 
 ## ClickHouse — il fattore dominante
 
@@ -55,7 +55,7 @@ Lo storage scala **linearmente con la retention** — una finestra di 90 giorni 
 
 PostgreSQL memorizza la tua configurazione e lo stato operativo, non la telemetria, quindi cresce lentamente e rimane piccolo rispetto a ClickHouse. Anche le installazioni di grandi dimensioni sono tipicamente nell'ordine di decine di GB. Il volume predefinito da **25 Gi** va bene per le installazioni piccole; pianifica 50–100 GB per quelle più grandi con headroom per la cronologia di incidenti/avvisi.
 
-Se esegui molte repliche di applicazione, worker e probe, il numero di connessioni al database può diventare il collo di bottiglia prima dello storage. La chart Helm di OneUptime include un connection pooler **PgBouncer** facoltativo (`pgbouncer.enabled`) proprio per questo — abilitalo per le installazioni con un numero elevato di repliche.
+Se esegui molte repliche di applicazione, worker e probe, il numero di connessioni al database può diventare il collo di bottiglia prima dello storage. La chart Helm di Cast Operations include un connection pooler **PgBouncer** facoltativo (`pgbouncer.enabled`) proprio per questo — abilitalo per le installazioni con un numero elevato di repliche.
 
 ## Redis — cache, code e sessioni
 
@@ -80,7 +80,7 @@ Scegli il livello più vicino al tuo ambiente come punto di partenza, poi osserv
 | **Redis**             | 1 vCPU / 2 GB                | 2 vCPU / 4 GB                | 4 vCPU / 8–16 GB                                 |
 | **Retention assunta** | 30 days                      | 30–90 days                   | 90 days                                          |
 
-Questi dimensionano il **backend** di OneUptime. I collector di OneUptime che girano su ogni cluster monitorato sono dimensionati separatamente — vedi i livelli di dimensionamento dell'[Agente Kubernetes](/docs/telemetry/kubernetes-agent).
+Questi dimensionano il **backend** di Cast Operations. I collector di Cast Operations che girano su ogni cluster monitorato sono dimensionati separatamente — vedi i livelli di dimensionamento dell'[Agente Kubernetes](/docs/telemetry/kubernetes-agent).
 
 ## Alta disponibilità
 
@@ -88,13 +88,13 @@ I datastore integrati nella chart girano come **istanze singole** per impostazio
 
 - **PostgreSQL** — abilita l'operatore [CloudNativePG](https://cloudnative-pg.io) incluso (`postgresOperator.cnpg.enabled`) con **3 istanze** (1 primaria + 2 hot standby) per il failover automatico.
 - **ClickHouse** — abilita l'operatore [Altinity](https://github.com/Altinity/clickhouse-operator) incluso (`clickhouseOperator.altinity.enabled`) con **≥2 repliche per shard** e **3 nodi ClickHouse Keeper** per il quorum. Aggiungi shard una volta che il disco o la RAM di un singolo nodo diventano il limite.
-- **Redis** — la chart non ha replica interna. Per l'HA, punta OneUptime a un **Redis gestito esterno** (o a un'installazione AI/cluster).
+- **Redis** — la chart non ha replica interna. Per l'HA, punta Cast Operations a un **Redis gestito esterno** (o a un'installazione AI/cluster).
 
 ## La retention e come influisce sullo storage
 
 La retention della telemetria è applicata come un **TTL di ClickHouse configurato in giorni**, impostato **per progetto** e affinabile **per segnale** (log, metriche, tracce, profili) e per bucket (ad esempio per gravità del log). Il valore predefinito hardcoded è 15 giorni.
 
-Poiché la retention moltiplica direttamente lo storage di ClickHouse, decidila prima di dimensionare il disco. OneUptime **non** archivia né sposta automaticamente la vecchia telemetria su livelli di object storage — per la retention di conformità pluriennale, estendi la finestra di retention e dimensiona lo storage di ClickHouse di conseguenza (oppure esporta verso un archivio esterno a tua scelta).
+Poiché la retention moltiplica direttamente lo storage di ClickHouse, decidila prima di dimensionare il disco. Cast Operations **non** archivia né sposta automaticamente la vecchia telemetria su livelli di object storage — per la retention di conformità pluriennale, estendi la finestra di retention e dimensiona lo storage di ClickHouse di conseguenza (oppure esporta verso un archivio esterno a tua scelta).
 
 ## Misura prima di impegnarti
 
@@ -105,4 +105,4 @@ Il volume di telemetria varia enormemente in base alla verbosità dei log dell'a
 - [Docker Compose](/docs/installation/docker-compose) — dimensionamento su server singolo
 - [Architettura Self-Hosted](/docs/self-hosted/architecture) — come si incastrano i componenti
 - [Agente Kubernetes](/docs/telemetry/kubernetes-agent) — dimensionamento del collector (data-plane)
-- [Chart Helm su Artifact Hub](https://artifacthub.io/packages/helm/oneuptime/oneuptime)
+- [Chart Helm su Artifact Hub](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

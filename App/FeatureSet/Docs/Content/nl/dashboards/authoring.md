@@ -28,7 +28,7 @@ Het is in beide modi hetzelfde dashboard. Er is geen aparte "publish"-stap — e
 
 De meeste widgets lezen uit één van drie bronnen:
 
-- **Metrics** — kies een metric en een aggregatie (gemiddelde, max, count, percentiel). Voeg filters toe. Kies hoe je het resultaat groepeert. Dit is dezelfde query-builder die je elders in OneUptime ziet.
+- **Metrics** — kies een metric en een aggregatie (gemiddelde, max, count, percentiel). Voeg filters toe. Kies hoe je het resultaat groepeert. Dit is dezelfde query-builder die je elders in Cast Operations ziet.
 - **Live lijsten** — incidenten, alerts, monitors, Kubernetes-pods, Docker-containers, hosts. Elke lijst-widget neemt een filter en toont de overeenkomende items, live bijgewerkt.
 - **Statische content** — de **Text**-widget neemt een blok Markdown. Gebruik hem voor koppen, context, links naar runbooks of tijdelijke notities tijdens een incident.
 

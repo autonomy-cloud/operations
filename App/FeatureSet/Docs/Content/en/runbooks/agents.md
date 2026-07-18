@@ -1,6 +1,6 @@
 # Runbook Agents
 
-A **Runbook Agent** is a small self-hosted process that executes the Bash _and_ JavaScript steps of your runbooks **inside your own infrastructure**. The OneUptime Worker never runs your scripts — it queues them, and the Runbook Agent that the step author picked claims them, runs them, and posts the result back.
+A **Runbook Agent** is a small self-hosted process that executes the Bash _and_ JavaScript steps of your runbooks **inside your own infrastructure**. The Cast Operations Worker never runs your scripts — it queues them, and the Runbook Agent that the step author picked claims them, runs them, and posts the result back.
 
 JavaScript still runs in an `isolated-vm` sandbox; the difference is that the sandbox lives on your agent host instead of on ours.
 
@@ -8,23 +8,23 @@ This page explains how to install an agent, point Bash and JavaScript steps at i
 
 ## Why agents exist
 
-Earlier versions of OneUptime ran Bash and JavaScript steps on the Worker. JavaScript was sandboxed (via `isolated-vm`), Bash was not. Both had problems for anything beyond a single-tenant self-hosted setup:
+Earlier versions of Cast Operations ran Bash and JavaScript steps on the Worker. JavaScript was sandboxed (via `isolated-vm`), Bash was not. Both had problems for anything beyond a single-tenant self-hosted setup:
 
 - **Trust boundary.** Anyone who can author a runbook could execute code on the Worker, with access to whatever env vars and filesystem the Worker had. The JavaScript sandbox blocked obvious things but couldn't stop a determined user from probing what was reachable from our network.
-- **Reach.** Most useful steps want to operate on the _customer's_ infrastructure ("restart this service", "kubectl on our cluster", "look up a record in our internal DB") — not on OneUptime's.
+- **Reach.** Most useful steps want to operate on the _customer's_ infrastructure ("restart this service", "kubectl on our cluster", "look up a record in our internal DB") — not on Cast Operations’.
 
 Runbook Agents flip that around. Bash and JavaScript steps don't run on us. They run on a host you control, and you decide what that host can do.
 
 ## How it works
 
-1. You create a Runbook Agent in OneUptime. OneUptime generates an ID and a secret key.
-2. You run the agent container on a host inside your infrastructure with that ID/key plus your OneUptime URL.
-3. The agent polls OneUptime every few seconds asking "any work for me?"
+1. You create a Runbook Agent in Cast Operations. Cast Operations generates an ID and a secret key.
+2. You run the agent container on a host inside your infrastructure with that ID/key plus your Cast Operations URL.
+3. The agent polls Cast Operations every few seconds asking "any work for me?"
 4. When you author a Bash or JavaScript step, you pick the agent from a dropdown — the step is bound to that specific agent.
 5. When the step runs, the Worker inserts a job row with `targetAgentId` set to that agent. Only that agent can claim it.
 6. The agent runs the script locally — `bash -c <script>` for Bash, an `isolated-vm` sandbox for JavaScript — captures the result, and posts it back. The Worker resumes the runbook with the result.
 
-The agent only needs **outbound HTTPS** to your OneUptime instance. It does not accept any inbound connections.
+The agent only needs **outbound HTTPS** to your Cast Operations instance. It does not accept any inbound connections.
 
 ## Install an agent
 
@@ -45,14 +45,14 @@ After creating the agent, click **Show setup instructions** on its row. You will
 
 Run the Docker command on any host in your environment that can:
 
-- reach your OneUptime instance over HTTPS, and
+- reach your Cast Operations instance over HTTPS, and
 - do the things you want your Bash/JavaScript steps to do (e.g. SSH to other hosts, `kubectl`, talk to a database).
 
 ```bash
 docker run --name oneuptime-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://oneuptime.yourdomain.com \
+  -e ONEUPTIME_URL=https://operations.yourdomain.com \
   -d oneuptime/runbook-agent:release
 ```
 
@@ -61,7 +61,7 @@ docker run --name oneuptime-runbook-agent --restart unless-stopped \
 Go back to **Runbooks → Settings → Agents**. Within ~60 seconds the agent's row should switch to `Connected` with a fresh **Last seen** timestamp. If it stays `Disconnected`:
 
 - Check the container logs (`docker logs oneuptime-runbook-agent`) for auth errors or network failures.
-- Verify the host can reach your OneUptime URL with `curl`.
+- Verify the host can reach your Cast Operations URL with `curl`.
 - Verify the ID and key were copied without whitespace.
 
 ## Pointing a step at an agent
@@ -116,7 +116,7 @@ The agent reads these on startup:
 
 | Variable                                  | Required | Default | Notes                                                                         |
 | ----------------------------------------- | -------- | ------- | ----------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | yes      | —       | Base URL of your OneUptime instance, e.g. `https://oneuptime.yourdomain.com`. |
+| `ONEUPTIME_URL`                           | yes      | —       | Base URL of your Cast Operations instance, e.g. `https://operations.yourdomain.com`. |
 | `RUNBOOK_AGENT_ID`                        | yes      | —       | The UUID shown in the agent's setup modal.                                    |
 | `RUNBOOK_AGENT_KEY`                       | yes      | —       | The secret shown in the agent's setup modal.                                  |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | no       | `5000`  | How often the agent polls for new jobs.                                       |
@@ -126,7 +126,7 @@ The agent reads these on startup:
 
 ## Rotating an agent key
 
-If a key leaks, open the agent in OneUptime and reset its key. The old key stops working immediately. Update the agent container with the new key and restart it.
+If a key leaks, open the agent in Cast Operations and reset its key. The old key stops working immediately. Update the agent container with the new key and restart it.
 
 ## Permissions
 

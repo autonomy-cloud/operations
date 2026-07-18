@@ -1,11 +1,11 @@
 # GitHub統合
 
-セルフホストのOneUptimeインスタンスとGitHubを統合するには、GitHub Appを作成して必要な環境変数を設定する必要があります。これにより、OneUptimeがコードリポジトリ管理のためにGitHubリポジトリに接続できるようになります。
+セルフホストのCast OperationsインスタンスとGitHubを統合するには、GitHub Appを作成して必要な環境変数を設定する必要があります。これにより、Cast Operationsがコードリポジトリ管理のためにGitHubリポジトリに接続できるようになります。
 
 ## 前提条件
 
 - GitHub アカウント（組織リポジトリの場合は組織管理者権限、個人アカウントリポジトリの場合は個人アカウントアクセス権）
-- OneUptimeサーバー設定へのアクセス
+- Cast Operationsサーバー設定へのアクセス
 
 ## セットアップ手順
 
@@ -19,12 +19,12 @@
 2. **「New GitHub App」** をクリックします
 
 3. 登録フォームを入力します：
-   - **GitHub App名：** OneUptime（または任意の一意の名前）- **この名前を保存してください。`GITHUB_APP_NAME` 環境変数に必要です**
-   - **ホームページURL：** `https://your-oneuptime-domain.com`
-   - **コールバックURL：** `https://your-oneuptime-domain.com/api/github/auth/callback`
-   - **セットアップURL：** `https://your-oneuptime-domain.com/api/github/auth/callback` - **重要：これはGitHubがAppインストール後にユーザーをリダイレクトするURLです。リダイレクトを機能させるには設定が必要です。**
+   - **GitHub App名：** Cast Operations（または任意の一意の名前）- **この名前を保存してください。`GITHUB_APP_NAME` 環境変数に必要です**
+   - **ホームページURL：** `https://your-operations-domain.com`
+   - **コールバックURL：** `https://your-operations-domain.com/api/github/auth/callback`
+   - **セットアップURL：** `https://your-operations-domain.com/api/github/auth/callback` - **重要：これはGitHubがAppインストール後にユーザーをリダイレクトするURLです。リダイレクトを機能させるには設定が必要です。**
    - **更新時にリダイレクト：** ユーザーがAppインストールを更新した後にリダイレクトするにはこのオプションにチェックを入れます
-   - **WebhookURL：** `https://your-oneuptime-domain.com/api/github/webhook`
+   - **WebhookURL：** `https://your-operations-domain.com/api/github/webhook`
    - **Webhookシークレット：** セキュアなランダム文字列を生成します（後で必要になります）
 
 ### ステップ2：Appの権限設定
@@ -56,7 +56,7 @@
 
 ### ステップ3：Webhookイベントの購読
 
-OneUptimeがリアルタイム更新を受け取るための以下のWebhookイベントを購読します：
+Cast Operationsがリアルタイム更新を受け取るための以下のWebhookイベントを購読します：
 
 - **Pull request** — PRが開かれたとき、閉じられたとき、マージされたときの通知を受け取る
 - **Push** — コードがプッシュされたときの通知を受け取る
@@ -90,7 +90,7 @@ OneUptimeがリアルタイム更新を受け取るための以下のWebhookイ�
 3. `.pem` ファイルが自動的にダウンロードされます
 4. このファイルを安全に保管してください。GitHub Appとして認証するために使用されます
 
-### ステップ8：OneUptime環境変数の設定
+### ステップ8：Cast Operations環境変数の設定
 
 #### Docker Compose
 
@@ -99,7 +99,7 @@ Docker Composeを使用している場合、`config.env` ファイルにこれ�
 ```bash
 # GitHub App設定
 GITHUB_APP_ID=YOUR_APP_ID
-GITHUB_APP_NAME=YOUR_APP_NAME  # GitHub Appの正確な名前（例：「OneUptime」）
+GITHUB_APP_NAME=YOUR_APP_NAME  # GitHub Appの正確な名前（例：「Cast Operations」）
 GITHUB_APP_CLIENT_ID=YOUR_CLIENT_ID
 GITHUB_APP_CLIENT_SECRET=YOUR_CLIENT_SECRET
 GITHUB_APP_PRIVATE_KEY="<BASE64_ENCODED_PRIVATE_KEY_CONTENT>"
@@ -122,7 +122,7 @@ gitHubApp:
   webhookSecret: "YOUR_WEBHOOK_SECRET"
 ```
 
-**重要：** これらの環境変数を追加した後、OneUptimeサーバーを再起動して反映させてください。
+**重要：** これらの環境変数を追加した後、Cast Operationsサーバーを再起動して反映させてください。
 
 ### ステップ9：GitHub Appのインストール
 
@@ -134,14 +134,14 @@ gitHubApp:
    - **Only select repositories** — 特定のリポジトリを選択
 5. **「Install」** をクリックします
 
-### ステップ10：OneUptimeでリポジトリを接続
+### ステップ10：Cast Operationsでリポジトリを接続
 
-1. OneUptime ダッシュボードにログインします
+1. Cast Operations ダッシュボードにログインします
 2. **More** > **コードリポジトリ** に移動します
 3. **「リポジトリの作成」** をクリックするか、GitHub Appのインストールフローを使用します
 4. GitHubからリダイレクトされた場合、インストールIDが自動的にキャプチャされます
 5. 接続したいリポジトリをリストから選択します
-6. **「Connect」** をクリックしてリポジトリをOneUptimeプロジェクトにリンクします
+6. **「Connect」** をクリックしてリポジトリをCast Operationsプロジェクトにリンクします
 
 ## 環境変数リファレンス
 
@@ -158,9 +158,9 @@ gitHubApp:
 
 ### 一般的な問題
 
-**GitHub Appのインストール後にOneUptimeにリダイレクトされない：**
+**GitHub Appのインストール後にCast Operationsにリダイレクトされない：**
 
-- GitHub Appの設定で **セットアップURL** が `https://your-oneuptime-domain.com/api/github/auth/callback` に設定されていることを確認します
+- GitHub Appの設定で **セットアップURL** が `https://your-operations-domain.com/api/github/auth/callback` に設定されていることを確認します
 - GitHub Appの設定 > 「Post installation」セクションに移動し、セットアップURLが正しく設定されていることを確認します
 - 「Redirect on update」オプションもチェックされていることを確認します
 - 注意：セットアップURLはコールバックURLとは異なります。両方が同じ `/api/github/auth/callback` エンドポイントを指す必要があります
@@ -168,7 +168,7 @@ gitHubApp:
 **「GitHub App is not configured」エラー：**
 
 - `GITHUB_APP_CLIENT_ID` 環境変数が設定されていることを確認します
-- 環境変数を設定した後にOneUptimeサーバーを再起動します
+- 環境変数を設定した後にCast Operationsサーバーを再起動します
 
 **「Invalid webhook signature」エラー：**
 
@@ -211,7 +211,7 @@ gitHubApp:
 GitHub統合に関する問題は、以下の手順で対応してください：
 
 1. 上記のトラブルシューティングセクションを確認する
-2. OneUptimeのログで詳細なエラーメッセージを確認する
-3. [hello@oneuptime.com](mailto:hello@oneuptime.com) に連絡する
+2. Cast Operationsのログで詳細なエラーメッセージを確認する
+3. [hello@visca.ai](mailto:hello@visca.ai) に連絡する
 
 この統合の改善のためのフィードバックをお待ちしています！

@@ -28,7 +28,7 @@ E la stessa dashboard in entrambe le modalita. Non c'e un passaggio separato di 
 
 La maggior parte dei widget legge da una di tre fonti:
 
-- **Metriche** — scegli una metrica e un'aggregazione (media, max, conteggio, percentile). Aggiungi filtri. Scegli come raggruppare il risultato. E lo stesso query builder che vedi altrove in OneUptime.
+- **Metriche** — scegli una metrica e un'aggregazione (media, max, conteggio, percentile). Aggiungi filtri. Scegli come raggruppare il risultato. E lo stesso query builder che vedi altrove in Cast Operations.
 - **Elenchi live** — incidenti, allarmi, monitor, pod Kubernetes, container Docker, host. Ogni widget elenco prende un filtro e mostra gli elementi corrispondenti, aggiornati in tempo reale.
 - **Contenuto statico** — il widget **Text** accetta un blocco Markdown. Usalo per intestazioni, contesto, link ai runbook o note temporanee durante un incidente.
 

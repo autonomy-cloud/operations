@@ -1,19 +1,19 @@
 # Datadog-Integration
 
-Wandeln Sie [Datadog](https://www.datadoghq.com)-Monitor-Alarme in OneUptime-Vorfälle um, damit Datadogs Erkennung in OneUptime's Incident-Response und Statusseiten einfließt.
+Wandeln Sie [Datadog](https://www.datadoghq.com)-Monitor-Alarme in Cast Operations-Vorfälle um, damit Datadogs Erkennung in Cast Operations’ Incident-Response und Statusseiten einfließt.
 
-Diese Integration ist **eingehend**: Datadogs [Webhooks-Integration](https://docs.datadoghq.com/integrations/webhooks/) sendet per POST an einen OneUptime-**[Workflow](/docs/workflows/index)**, der mit einem **Webhook-Auslöser** beginnt.
+Diese Integration ist **eingehend**: Datadogs [Webhooks-Integration](https://docs.datadoghq.com/integrations/webhooks/) sendet per POST an einen Cast Operations-**[Workflow](/docs/workflows/index)**, der mit einem **Webhook-Auslöser** beginnt.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Voraussetzungen
 
 - Ein Datadog-Konto, in dem Sie Integrationen und Monitore konfigurieren können.
-- Ein OneUptime-Projekt, in dem Sie Workflows erstellen können.
+- Ein Cast Operations-Projekt, in dem Sie Workflows erstellen können.
 
-## Schritt 1 — Den OneUptime-Workflow erstellen
+## Schritt 1 — Den Cast Operations-Workflow erstellen
 
 1. Öffnen Sie **Workflows → Create Workflow**, benennen Sie ihn `Datadog → Incidents`, und öffnen Sie den **Builder**.
 2. Fügen Sie einen **Webhook**-Auslöser hinzu und **kopieren Sie seine URL**. Benennen Sie den Block in `Datadog` um.
@@ -60,7 +60,7 @@ Fügen Sie den Webhook-Handle zu den Monitoren hinzu, die Sie weiterleiten möch
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-Damit werden sowohl der Alarm als auch die Wiederherstellung an OneUptime gesendet. (Um alles weiterzuleiten, können Sie `@webhook-oneuptime` auch bedingungslos zu einem Monitor hinzufügen.)
+Damit werden sowohl der Alarm als auch die Wiederherstellung an Cast Operations gesendet. (Um alles weiterzuleiten, können Sie `@webhook-oneuptime` auch bedingungslos zu einem Monitor hinzufügen.)
 
 ## Schritt 4 — Testen
 

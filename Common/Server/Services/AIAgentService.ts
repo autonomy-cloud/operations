@@ -437,13 +437,13 @@ export class Service extends DatabaseService<Model> {
         };
 
         const sms: SMSMessage = {
-          message: `This is a message from OneUptime. AI Agent ${aiAgent.name} is ${connectionStatus}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.`,
+          message: `This is a message from Cast Operations. AI Agent ${aiAgent.name} is ${connectionStatus}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.`,
         };
 
         const callMessage: CallRequestMessage = {
           data: [
             {
-              sayMessage: `This is a message from OneUptime. AI Agent ${aiAgent.name} is ${connectionStatus}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard. Good bye.`,
+              sayMessage: `This is a message from Cast Operations. AI Agent ${aiAgent.name} is ${connectionStatus}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard. Good bye.`,
             },
           ],
         };

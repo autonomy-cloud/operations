@@ -129,7 +129,7 @@ Pour les projets disposant d'une surveillance Docker configurée.
 
 ### Host List
 
-Les hôtes surveillés par le moniteur de serveur de OneUptime, avec statut, CPU, mémoire et temps de fonctionnement.
+Les hôtes surveillés par le moniteur de serveur de Cast Operations, avec statut, CPU, mémoire et temps de fonctionnement.
 
 **Paramètres** : filtres par étiquettes ou état actuel.
 

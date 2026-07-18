@@ -60,7 +60,7 @@
 
 ### 从 webhook 构建一个负载
 
-一个 webhook 到达,请求体类似 `{ "service": "checkout", "status": "failed" }`。要把它转换成 OneUptime 事件:
+一个 webhook 到达,请求体类似 `{ "service": "checkout", "status": "failed" }`。要把它转换成 Cast Operations 事件:
 
 1. 名为 `CIWebhook` 的 **Webhook** 触发器。
 2. **条件** 模块:左侧 `{{CIWebhook.Request Body.status}}`、运算符 `==`、右侧 `failed`。

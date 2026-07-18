@@ -15,7 +15,7 @@
     "previous": "이전",
     "next": "다음",
     "helpImproveTitle": "이 페이지 개선에 도움을 주세요",
-    "helpImproveBody": "OneUptime은 100% 오픈 소스입니다. 오타를 발견하셨거나 추가하고 싶은 내용이 있으신가요?",
+    "helpImproveBody": "Cast Operations은 100% 오픈 소스입니다. 오타를 발견하셨거나 추가하고 싶은 내용이 있으신가요?",
     "editOnGithub": "GitHub에서 이 페이지 편집",
     "notFoundBadge": "404 오류",
     "notFoundTitle": "페이지를 찾을 수 없음",
@@ -26,9 +26,9 @@
     "errorMessage": "기술적인 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.",
     "tryAgain": "다시 시도",
     "switchLanguage": "언어 변경",
-    "metaTitleSuffix": "OneUptime 문서",
-    "metaTitleDefault": "OneUptime 문서",
-    "metaDescription": "OneUptime — 오픈 소스 옵저버빌리티 플랫폼 — 의 전체 문서입니다. 애플리케이션 모니터링, 알림 설정, 인시던트 관리 방법을 배우세요."
+    "metaTitleSuffix": "Cast Operations 문서",
+    "metaTitleDefault": "Cast Operations 문서",
+    "metaDescription": "Cast Operations — 오픈 소스 옵저버빌리티 플랫폼 — 의 전체 문서입니다. 애플리케이션 모니터링, 알림 설정, 인시던트 관리 방법을 배우세요."
   },
   "navGroups": {
     "Introduction": "소개",
@@ -162,7 +162,7 @@
     "Fix Tasks": "Fix Tasks",
     "LLM Providers": "LLM 공급자",
     "MCP Server": "MCP 서버",
-    "OneUptime API Reference": "OneUptime API 참조",
+    "Cast Operations API Reference": "Cast Operations API 참조",
     "Slack Integration": "Slack 통합",
     "Microsoft Teams Integration": "Microsoft Teams 통합",
     "GitHub Integration": "GitHub 통합",

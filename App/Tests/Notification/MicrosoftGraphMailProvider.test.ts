@@ -75,7 +75,7 @@ function makeEmailServer(
     username: fromEmail,
     password: undefined,
     fromEmail: new Email(fromEmail),
-    fromName: "OneUptime Alerts",
+    fromName: "Cast Operations Alerts",
     authType: SMTPAuthenticationType.OAuth,
     clientId: "client-id",
     clientSecret: "client-secret",

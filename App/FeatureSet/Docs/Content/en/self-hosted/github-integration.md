@@ -1,11 +1,11 @@
 # GitHub Integration
 
-To integrate GitHub with your self-hosted OneUptime instance, you need to create a GitHub App and configure the required environment variables. This allows OneUptime to connect to your GitHub repositories for code repository management.
+To integrate GitHub with your self-hosted Cast Operations instance, you need to create a GitHub App and configure the required environment variables. This allows Cast Operations to connect to your GitHub repositories for code repository management.
 
 ## Prerequisites
 
 - GitHub Account with organization admin access (for organization repositories) or personal account access
-- Access to your OneUptime server configuration
+- Access to your Cast Operations server configuration
 
 ## Setup Instructions
 
@@ -19,12 +19,12 @@ To integrate GitHub with your self-hosted OneUptime instance, you need to create
 2. Click **"New GitHub App"**
 
 3. Fill out the registration form:
-   - **GitHub App name:** OneUptime (or any unique name) - **Save this name, you'll need it for the `GITHUB_APP_NAME` environment variable**
-   - **Homepage URL:** `https://your-oneuptime-domain.com`
-   - **Callback URL:** `https://your-oneuptime-domain.com/api/github/auth/callback`
-   - **Setup URL:** `https://your-oneuptime-domain.com/api/github/auth/callback` - **Important: This URL is where GitHub redirects users after they install the app. It must be set for the redirect to work.**
+   - **GitHub App name:** Cast Operations (or any unique name) - **Save this name, you'll need it for the `GITHUB_APP_NAME` environment variable**
+   - **Homepage URL:** `https://your-operations-domain.com`
+   - **Callback URL:** `https://your-operations-domain.com/api/github/auth/callback`
+   - **Setup URL:** `https://your-operations-domain.com/api/github/auth/callback` - **Important: This URL is where GitHub redirects users after they install the app. It must be set for the redirect to work.**
    - **Redirect on update:** Check this option to redirect users after they update the app installation
-   - **Webhook URL:** `https://your-oneuptime-domain.com/api/github/webhook`
+   - **Webhook URL:** `https://your-operations-domain.com/api/github/webhook`
    - **Webhook secret:** Generate a secure random string (save this for later)
 
 ### Step 2: Configure App Permissions
@@ -56,7 +56,7 @@ In the "Permissions & events" section, configure the following permissions:
 
 ### Step 3: Subscribe to Webhook Events
 
-Events for OneUptime to receive real-time updates, subscribe to these webhook events:
+Events for Cast Operations to receive real-time updates, subscribe to these webhook events:
 
 - **Pull request** - Receive notifications when PRs are opened, closed, or merged
 - **Push** - Receive notifications when code is pushed
@@ -90,7 +90,7 @@ Under "Where can this GitHub App be installed?", choose:
 3. A `.pem` file will be downloaded automatically
 4. Keep this file secure - it's used for authenticating as the GitHub App
 
-### Step 8: Configure OneUptime Environment Variables
+### Step 8: Configure Cast Operations Environment Variables
 
 #### Docker Compose
 
@@ -99,7 +99,7 @@ If you are using Docker Compose, add these environment variables to your `config
 ```bash
 # GitHub App Configuration
 GITHUB_APP_ID=YOUR_APP_ID
-GITHUB_APP_NAME=YOUR_APP_NAME  # The exact name of your GitHub App (e.g., "OneUptime")
+GITHUB_APP_NAME=YOUR_APP_NAME  # The exact name of your GitHub App (e.g., "Cast Operations")
 GITHUB_APP_CLIENT_ID=YOUR_CLIENT_ID
 GITHUB_APP_CLIENT_SECRET=YOUR_CLIENT_SECRET
 GITHUB_APP_PRIVATE_KEY="<BASE64_ENCODED_PRIVATE_KEY_CONTENT>"
@@ -122,7 +122,7 @@ gitHubApp:
   webhookSecret: "YOUR_WEBHOOK_SECRET"
 ```
 
-**Important:** Restart your OneUptime server after adding these environment variables so they take effect.
+**Important:** Restart your Cast Operations server after adding these environment variables so they take effect.
 
 ### Step 9: Install the GitHub App
 
@@ -134,14 +134,14 @@ gitHubApp:
    - **Only select repositories** - Choose specific repositories
 5. Click **"Install"**
 
-### Step 10: Connect Repositories in OneUptime
+### Step 10: Connect Repositories in Cast Operations
 
-1. Log into your OneUptime dashboard
+1. Log into your Cast Operations dashboard
 2. Navigate to **More** > **Code Repositories**
 3. Click **"Create Repository"** or use the GitHub App installation flow
 4. If redirected from GitHub, the installation ID will be automatically captured
 5. Select the repositories you want to connect from the list
-6. Click **"Connect"** to link the repository to your OneUptime project
+6. Click **"Connect"** to link the repository to your Cast Operations project
 
 ## Environment Variables Reference
 
@@ -158,9 +158,9 @@ gitHubApp:
 
 ### Common Issues
 
-**Not redirected back to OneUptime after installing the GitHub App:**
+**Not redirected back to Cast Operations after installing the GitHub App:**
 
-- Ensure the **Setup URL** is configured in your GitHub App settings to: `https://your-oneuptime-domain.com/api/github/auth/callback`
+- Ensure the **Setup URL** is configured in your GitHub App settings to: `https://your-operations-domain.com/api/github/auth/callback`
 - Go to your GitHub App settings > "Post installation" section and verify the Setup URL is set correctly
 - The "Redirect on update" option should also be checked
 - Note: The Setup URL is different from the Callback URL - both should point to the same `/api/github/auth/callback` endpoint
@@ -168,7 +168,7 @@ gitHubApp:
 **"GitHub App is not configured" error:**
 
 - Ensure `GITHUB_APP_CLIENT_ID` environment variable is set
-- Restart your OneUptime server after setting environment variables
+- Restart your Cast Operations server after setting environment variables
 
 **"Invalid webhook signature" error:**
 
@@ -211,7 +211,7 @@ gitHubApp:
 If you encounter issues with the GitHub integration, please:
 
 1. Check the troubleshooting section above
-2. Review the OneUptime logs for detailed error messages
-3. Contact us at [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Review the Cast Operations logs for detailed error messages
+3. Contact us at [hello@visca.ai](mailto:hello@visca.ai)
 
 We welcome feedback to improve this integration!

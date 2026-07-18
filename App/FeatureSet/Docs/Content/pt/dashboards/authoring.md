@@ -28,7 +28,7 @@ O alternador no cabeçalho troca entre dois modos:
 
 A maioria dos widgets lê de um destes três lugares:
 
-- **Métricas** — escolha uma métrica e uma agregação (média, máximo, contagem, percentil). Adicione filtros. Escolha como agrupar o resultado. É o mesmo construtor de consultas que você vê em outros lugares do OneUptime.
+- **Métricas** — escolha uma métrica e uma agregação (média, máximo, contagem, percentil). Adicione filtros. Escolha como agrupar o resultado. É o mesmo construtor de consultas que você vê em outros lugares do Cast Operations.
 - **Listas ao vivo** — incidentes, alertas, monitores, pods do Kubernetes, contêineres Docker, hosts. Cada widget de lista recebe um filtro e mostra os itens correspondentes, atualizados ao vivo.
 - **Conteúdo estático** — o widget **Texto** recebe um bloco de Markdown. Use-o para títulos, contexto, links para runbooks ou notas temporárias durante um incidente.
 

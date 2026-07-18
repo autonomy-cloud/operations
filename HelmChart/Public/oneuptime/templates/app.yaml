@@ -1,5 +1,5 @@
 {{- if and $.Values.app.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime app Deployment
+# Cast Operations app Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -154,7 +154,7 @@ spec:
 
 ---
 
-# OneUptime app autoscaler (skip HPA when KEDA is managing scaling)
+# Cast Operations app autoscaler (skip HPA when KEDA is managing scaling)
 {{- if and (not $.Values.app.disableAutoscaler) (not (and $.Values.keda.enabled $.Values.app.keda.enabled)) }}
 {{- $appAutoScalerArgs := dict "ServiceName" "app" "Release" $.Release "Values" $.Values "Override" $.Values.app.autoscaling -}}
 {{- include "oneuptime.autoscaler" $appAutoScalerArgs }}
@@ -163,7 +163,7 @@ spec:
 {{- end }}
 
 {{- if and $.Values.app.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime app Service
+# Cast Operations app Service
 {{- $appPorts := dict "http" $.Values.app.ports.http "grpc" ($.Values.app.ports.grpc | default 4317) "mqtt" ($.Values.app.ports.mqtt | default 1883) -}}
 {{- $appServiceArgs := dict "ServiceName" "app" "Ports" $appPorts "Release" $.Release "Values" $.Values -}}
 {{- include "oneuptime.service" $appServiceArgs }}
@@ -171,6 +171,6 @@ spec:
 {{- end }}
 
 {{- if and $.Values.app.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime app PodDisruptionBudget
+# Cast Operations app PodDisruptionBudget
 {{- include "oneuptime.pdb" (dict "ServiceName" "app" "Override" $.Values.app.podDisruptionBudget "Release" $.Release "Values" $.Values) }}
 {{- end }}

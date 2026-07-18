@@ -87,7 +87,7 @@ import {
   pluralName: "Proxmox Clusters",
   icon: IconProp.ServerStack,
   tableDescription:
-    "Proxmox VE clusters that are being monitored in this project. Each cluster is auto-discovered when the OneUptime Proxmox Agent sends metrics, or can be manually registered.",
+    "Proxmox VE clusters that are being monitored in this project. Each cluster is auto-discovered when the Cast Operations Proxmox Agent sends metrics, or can be manually registered.",
 })
 @Entity({
   name: "ProxmoxCluster",
@@ -162,7 +162,7 @@ export default class ProxmoxCluster extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -206,7 +206,7 @@ export default class ProxmoxCluster extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Name",
     description:
-      "Name of this Proxmox cluster. This is the join key — it must match the proxmox.cluster.name OTel resource attribute stamped by the OneUptime Proxmox Agent.",
+      "Name of this Proxmox cluster. This is the join key — it must match the proxmox.cluster.name OTel resource attribute stamped by the Cast Operations Proxmox Agent.",
     example: "pve-production",
   })
   @Column({
@@ -348,7 +348,7 @@ export default class ProxmoxCluster extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Agent Version",
     description:
-      "Version of the OneUptime Proxmox agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
+      "Version of the Cast Operations Proxmox agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
     example: "1.0.0",
   })
   @Column({

@@ -237,7 +237,7 @@ export class OpenAPIParser {
         }
 
         if (hasIdParam) {
-          // POST to /{resource}/{id} is usually a read operation in OneUptime API
+          // POST to /{resource}/{id} is usually a read operation in Cast Operations API
           return "read";
         }
         // POST to /{resource} is create

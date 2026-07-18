@@ -1,18 +1,18 @@
 # Integrazione con Jira
 
-Apri automaticamente un ticket [Jira](https://www.atlassian.com/software/jira) ogni volta che viene creato un incidente OneUptime — in modo che il lavoro di engineering sia tracciato dove i tuoi sviluppatori già lavorano, con un link all'incidente.
+Apri automaticamente un ticket [Jira](https://www.atlassian.com/software/jira) ogni volta che viene creato un incidente Cast Operations — in modo che il lavoro di engineering sia tracciato dove i tuoi sviluppatori già lavorano, con un link all'incidente.
 
-Questa integrazione è **in uscita**: OneUptime chiama la REST API di Jira. Utilizza un **[Workflow](/docs/workflows/index)** di OneUptime con un trigger **Incident → On Create** e un **componente API**. Puoi facoltativamente aggiungere un percorso **in entrata** in modo che la chiusura del ticket Jira risolva l'incidente OneUptime.
+Questa integrazione è **in uscita**: Cast Operations chiama la REST API di Jira. Utilizza un **[Workflow](/docs/workflows/index)** di Cast Operations con un trigger **Incident → On Create** e un **componente API**. Puoi facoltativamente aggiungere un percorso **in entrata** in modo che la chiusura del ticket Jira risolva l'incidente Cast Operations.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
+Cast Operations Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
 ```
 
 ## Prerequisiti
 
 - Un sito Jira Cloud (`https://your-domain.atlassian.net`) e un progetto in cui archiviare i ticket — nota la sua **project key** (es. `OPS`).
 - Un account Jira che può creare ticket e un **API token** da [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
-- Un progetto OneUptime in cui puoi creare workflow.
+- Un progetto Cast Operations in cui puoi creare workflow.
 
 > Usi **Jira Data Center / Server** (self-managed)? Il flusso è identico — usa il tuo URL di base e un [Personal Access Token](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) con un header di autenticazione `Bearer` al posto della Basic auth. L'endpoint `/rest/api/2/issue` accetta una descrizione in testo semplice, il che semplifica i template.
 
@@ -26,7 +26,7 @@ Jira Cloud usa la **Basic auth** con la tua email e il token API, codificati in 
    printf '%s' 'you@example.com:your_api_token' | base64
    ```
 
-2. In OneUptime, vai su **Workflows → Global Variables → Create**.
+2. In Cast Operations, vai su **Workflows → Global Variables → Create**.
 3. Chiamala `JIRA_AUTH`, incolla la stringa base64 come valore e attiva **Is Secret**.
 
 Ora puoi usare `Basic {{variable.JIRA_AUTH}}` come header di autenticazione e il token non apparirà mai nel workflow o nei suoi log.
@@ -53,7 +53,7 @@ Ora puoi usare `Basic {{variable.JIRA_AUTH}}` come header di autenticazione e il
        "fields": {
          "project": { "key": "OPS" },
          "issuetype": { "name": "Bug" },
-         "summary": "OneUptime incident: {{Incident.title}}",
+         "summary": "Cast Operations incident: {{Incident.title}}",
          "description": {
            "type": "doc",
            "version": 1,
@@ -77,7 +77,7 @@ Ora puoi usare `Basic {{variable.JIRA_AUTH}}` come header di autenticazione e il
 ## Passaggio 3 — Testalo
 
 1. Attiva **Enabled** nel workflow.
-2. Crea un incidente di test in OneUptime (o attivane uno da un monitor).
+2. Crea un incidente di test in Cast Operations (o attivane uno da un monitor).
 3. Apri la scheda **Logs** del workflow. Il blocco **API** dovrebbe mostrare uno stato `201` e un corpo della risposta contenente la `key` del nuovo ticket (ad esempio `OPS-1234`).
 4. Controlla Jira — il ticket è lì.
 
@@ -94,13 +94,13 @@ Questo rende possibile anche la sincronizzazione bidirezionale opzionale descrit
 
 ## Sincronizzazione bidirezionale (opzionale)
 
-Per risolvere l'incidente OneUptime quando qualcuno chiude il ticket Jira, aggiungi un workflow **in entrata**:
+Per risolvere l'incidente Cast Operations quando qualcuno chiude il ticket Jira, aggiungi un workflow **in entrata**:
 
 1. Crea un secondo workflow che inizia con un trigger **Webhook** e copia il suo URL.
 2. In Jira, vai su **Project settings → Automation → Create rule**:
 
    - **Trigger**: _Issue transitioned_ a **Done** (o _Issue resolved_).
-   - **Action**: _Send web request_ → metodo `POST`, URL = l'URL webhook del tuo workflow, il corpo include la chiave del ticket e l'id dell'incidente OneUptime, es.:
+   - **Action**: _Send web request_ → metodo `POST`, URL = l'URL webhook del tuo workflow, il corpo include la chiave del ticket e l'id dell'incidente Cast Operations, es.:
 
      ```json
      { "issueKey": "{{issue.key}}", "status": "resolved" }
@@ -108,13 +108,13 @@ Per risolvere l'incidente OneUptime quando qualcuno chiude il ticket Jira, aggiu
 
 3. Nel workflow, usa un blocco **Find Incident** per localizzare l'incidente tramite la chiave salvata, poi un blocco **Update Incident** per spostarlo nel tuo stato risolto.
 
-Se hai salvato la chiave Jira sull'incidente nel Passaggio 4, la corrispondenza è immediata. Vedi [Componenti → Componenti per i dati di OneUptime](/docs/workflows/components#oneuptime-data-components).
+Se hai salvato la chiave Jira sull'incidente nel Passaggio 4, la corrispondenza è immediata. Vedi [Componenti → Componenti per i dati di Cast Operations](/docs/workflows/components#oneuptime-data-components).
 
 ## Personalizzare il ticket
 
 Alcune modifiche comuni al corpo del blocco API:
 
-- **Priorità** — aggiungi `"priority": { "name": "High" }` dentro `fields`. Puoi ramificare su `{{Incident.incidentSeverity.name}}` con **Conditions** per mappare le severità OneUptime alle priorità Jira.
+- **Priorità** — aggiungi `"priority": { "name": "High" }` dentro `fields`. Puoi ramificare su `{{Incident.incidentSeverity.name}}` con **Conditions** per mappare le severità Cast Operations alle priorità Jira.
 - **Etichette** — aggiungi `"labels": ["oneuptime", "incident"]`.
 - **Assegnatario** — aggiungi `"assignee": { "id": "<accountId>" }` (Jira Cloud usa gli ID account, non i nomi utente).
 - **Campi personalizzati** — aggiungi `"customfield_XXXXX": "..."` usando l'ID del campo dal tuo admin Jira.

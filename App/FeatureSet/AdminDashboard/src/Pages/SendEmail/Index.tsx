@@ -120,7 +120,7 @@ const SendEmail: FunctionComponent = (): ReactElement => {
               },
               title: "Message",
               description:
-                "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.",
+                "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.",
               placeholder: "Enter your announcement message here...",
               required: true,
               fieldType: FormFieldSchemaType.Markdown,

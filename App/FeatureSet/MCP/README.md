@@ -1,11 +1,11 @@
-# OneUptime MCP Server
+# Cast Operations MCP Server
 
-A Model Context Protocol (MCP) server that exposes OneUptime to AI agents. It lets MCP-compatible clients (Claude, VS Code with Copilot, Cursor, and others) manage incidents, alerts, monitors, status pages, on-call, and telemetry through ~155 tools.
+A Model Context Protocol (MCP) server that exposes Cast Operations to AI agents. It lets MCP-compatible clients (Claude, VS Code with Copilot, Cursor, and others) manage incidents, alerts, monitors, status pages, on-call, and telemetry through ~155 tools.
 
 ## How it works
 
 - **Transport**: Streamable HTTP at `/mcp`. The server is **stateless** — no session IDs are issued or required, so it is safe behind load balancers and multi-replica deployments.
-- **Hosted endpoint**: `https://oneuptime.com/mcp`
+- **Hosted endpoint**: `https://visca.ai/mcp`
 - **Self-hosted endpoint**: `https://<your-host>/mcp` (served by the App container behind Nginx)
 - **Auth**: per-request API key via the `x-api-key` header or `Authorization: Bearer <key>` (scheme is case-insensitive). There is no environment-variable API key — every request carries its own key.
 
@@ -20,7 +20,7 @@ Add to `claude_desktop_config.json`:
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -32,7 +32,7 @@ Add to `claude_desktop_config.json`:
 ### Claude Code
 
 ```bash
-claude mcp add --transport http oneuptime https://oneuptime.com/mcp \
+claude mcp add --transport http oneuptime https://visca.ai/mcp \
   --header "x-api-key: your-api-key-here"
 ```
 
@@ -45,7 +45,7 @@ claude mcp add --transport http oneuptime https://oneuptime.com/mcp \
   "servers": {
     "oneuptime": {
       "type": "http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "${input:oneuptime-api-key}"
       }
@@ -55,7 +55,7 @@ claude mcp add --transport http oneuptime https://oneuptime.com/mcp \
     {
       "type": "promptString",
       "id": "oneuptime-api-key",
-      "description": "OneUptime API Key",
+      "description": "Cast Operations API Key",
       "password": true
     }
   ]
@@ -70,7 +70,7 @@ claude mcp add --transport http oneuptime https://oneuptime.com/mcp \
 {
   "mcpServers": {
     "oneuptime": {
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -79,13 +79,13 @@ claude mcp add --transport http oneuptime https://oneuptime.com/mcp \
 }
 ```
 
-For self-hosted instances, replace `oneuptime.com` with your OneUptime host in any of the above.
+For self-hosted instances, replace `visca.ai` with your Cast Operations host in any of the above.
 
 ## Authentication
 
-Create a **project API key** in OneUptime under **Project Settings → API Keys** and grant it the least privilege the agent needs (read-only keys work for all `get_`/`list_`/`count_` tools). The project is inferred from the key — create tools never need a `projectId` argument.
+Create a **project API key** in Cast Operations under **Project Settings → API Keys** and grant it the least privilege the agent needs (read-only keys work for all `get_`/`list_`/`count_` tools). The project is inferred from the key — create tools never need a `projectId` argument.
 
-> **Warning — never give an AI agent a master key.** A OneUptime *master* API key is also accepted on this header and grants instance-wide admin access. Always use a project-scoped API key with least privilege for AI agents.
+> **Warning — never give an AI agent a master key.** A Cast Operations *master* API key is also accepted on this header and grants instance-wide admin access. Always use a project-scoped API key with least privilege for AI agents.
 
 Public status page tools and `oneuptime_help` / `oneuptime_list_resources` work without any API key.
 
@@ -187,7 +187,7 @@ A typical incident-response loop an agent can run:
 
 ## Self-hosting
 
-The MCP server ships as part of the App container and is served at `/mcp` behind Nginx — no separate deployment is needed. The OneUptime API URL it talks to is derived from the `HOST` and `HTTP_PROTOCOL` environment variables via `Common/Server/EnvironmentConfig` (inherited from the App service's environment). API keys are never configured on the server; clients supply them per request.
+The MCP server ships as part of the App container and is served at `/mcp` behind Nginx — no separate deployment is needed. The Cast Operations API URL it talks to is derived from the `HOST` and `HTTP_PROTOCOL` environment variables via `Common/Server/EnvironmentConfig` (inherited from the App service's environment). API keys are never configured on the server; clients supply them per request.
 
 ## Development
 

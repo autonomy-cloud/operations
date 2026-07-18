@@ -22,7 +22,7 @@ return {
 
 #### Legge til en hemmelighet
 
-For å legge til en hemmelighet, gå til OneUptime Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret.
+For å legge til en hemmelighet, gå til Cast Operations Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret.
 
 ![Opprett hemmelighet](/docs/static/images/CreateMonitorSecret.png)
 
@@ -50,7 +50,7 @@ console.log(stringSecret);
 
 ### Egendefinerte metrikker
 
-Du kan fange opp egendefinerte metrikker fra skriptet ditt ved hjelp av funksjonen `oneuptime.captureMetric()`. Disse metrikkene lagres i OneUptime og kan vises som grafer på dashbord ved hjelp av Metric Explorer.
+Du kan fange opp egendefinerte metrikker fra skriptet ditt ved hjelp av funksjonen `oneuptime.captureMetric()`. Disse metrikkene lagres i Cast Operations og kan vises som grafer på dashbord ved hjelp av Metric Explorer.
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);

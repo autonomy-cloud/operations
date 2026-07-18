@@ -1,6 +1,6 @@
 # E2E Tests
 
-End-to-end tests for OneUptime using [Playwright](https://playwright.dev/).
+End-to-end tests for Cast Operations using [Playwright](https://playwright.dev/).
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ The tests use environment variables for configuration. Set the following variabl
 ### Example
 
 ```bash
-export HOST=staging.oneuptime.com
+export HOST=staging.visca.ai
 export HTTP_PROTOCOL=https
 export BILLING_ENABLED=true
 ```

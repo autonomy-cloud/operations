@@ -1,13 +1,13 @@
 # GitHub 통합
 
-OneUptime 인시던트가 생성될 때 자동으로 [GitHub](https://github.com) 이슈를 열어 — 영향받은 서비스를 소유하는 저장소에서 엔지니어링 후속 작업을 추적합니다.
+Cast Operations 인시던트가 생성될 때 자동으로 [GitHub](https://github.com) 이슈를 열어 — 영향받은 서비스를 소유하는 저장소에서 엔지니어링 후속 작업을 추적합니다.
 
-이 통합은 **아웃바운드**: OneUptime이 [GitHub REST API](https://docs.github.com/en/rest/issues/issues)를 호출합니다. **Incident → On Create** 트리거와 **API 컴포넌트** 를 갖춘 OneUptime **[Workflow](/docs/workflows/index)** 를 사용합니다.
+이 통합은 **아웃바운드**: Cast Operations이 [GitHub REST API](https://docs.github.com/en/rest/issues/issues)를 호출합니다. **Incident → On Create** 트리거와 **API 컴포넌트** 를 갖춘 Cast Operations **[Workflow](/docs/workflows/index)** 를 사용합니다.
 
-> **더 깊은 GitHub 연결을 원하시나요?** OneUptime에는 코드 저장소 연결을 위한 네이티브 **GitHub App** 통합도 있습니다(AI 에이전트 및 코드 기능에 사용됨). 이것은 워크플로가 아닌 환경 변수로 설정합니다 — [GitHub 통합 (자체 호스팅)](/docs/self-hosted/github-integration)을 참조하세요. 이 페이지는 _인시던트에서 이슈 제출_ 에 관한 것입니다.
+> **더 깊은 GitHub 연결을 원하시나요?** Cast Operations에는 코드 저장소 연결을 위한 네이티브 **GitHub App** 통합도 있습니다(AI 에이전트 및 코드 기능에 사용됨). 이것은 워크플로가 아닌 환경 변수로 설정합니다 — [GitHub 통합 (자체 호스팅)](/docs/self-hosted/github-integration)을 참조하세요. 이 페이지는 _인시던트에서 이슈 제출_ 에 관한 것입니다.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## 사전 요건
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   [github.com/settings/tokens](https://github.com/settings/tokens)에서 만드세요.
 
-- 워크플로를 만들 수 있는 OneUptime 프로젝트.
+- 워크플로를 만들 수 있는 Cast Operations 프로젝트.
 
 ## 1단계 — 토큰 저장
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**:
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

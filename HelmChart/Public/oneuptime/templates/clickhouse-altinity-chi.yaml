@@ -20,7 +20,7 @@ spec:
       dataVolumeClaimTemplate: data-volume-template
       serviceTemplate: clickhouse-service-template
   configuration:
-    # The OneUptime app connects as this user (parity with the built-in StatefulSet,
+    # The Cast Operations app connects as this user (parity with the built-in StatefulSet,
     # whose config.xml created the same user with access_management). The password is
     # injected from the secret created in secrets.yaml. The operator additionally
     # manages its own "clickhouse_operator" user for health checks — do not remove it.
@@ -46,7 +46,7 @@ spec:
     {{- with $altinity.profiles }}
     # User/profile-level settings (rendered into users.d, under <profiles>). Slash-separated
     # keys become nested XML, e.g. default/max_threads -> <profiles><default><max_threads>…>.
-    # The OneUptime app user and ClickHouse's background Distributed-insert sender both run
+    # The Cast Operations app user and ClickHouse's background Distributed-insert sender both run
     # under the `default` profile, so tuning that sender belongs here (not in `settings`,
     # which is server-level config.d).
     profiles:
@@ -127,7 +127,7 @@ spec:
     serviceTemplates:
       # generateName has no operator macro ({chi}, {shard}, …), so the single root
       # CHI service is created with this exact, stable name — the drop-in target the
-      # OneUptime app connects to (see CLICKHOUSE_HOST in _helpers.tpl).
+      # Cast Operations app connects to (see CLICKHOUSE_HOST in _helpers.tpl).
       - name: clickhouse-service-template
         generateName: "{{ .Release.Name }}-clickhouse-altinity"
         spec:

@@ -145,7 +145,7 @@ const forwardToOneUptime: RequestHandler = (
     let probeIdHeaderValue: string | undefined = undefined;
     try {
       probeIdHeaderValue = ProbeUtil.getProbeId().toString();
-      headers["OneUptime-Probe-Id"] = probeIdHeaderValue;
+      headers["Cast Operations-Probe-Id"] = probeIdHeaderValue;
     } catch {
       logger.warn(
         "Probe ingress: probe ID not available, forwarding without it",

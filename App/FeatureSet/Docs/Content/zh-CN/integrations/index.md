@@ -1,46 +1,46 @@
 # 集成概览
 
-OneUptime 通过内置的自动化引擎 **[工作流](/docs/workflows/index)** 与你的团队已在使用的工具相连——Zabbix、Jira、PagerDuty、Slack 等等。无需安装额外插件。你只需在拖放式画布上将集成连接起来，它就会在事件发生时自动运行。
+Cast Operations 通过内置的自动化引擎 **[工作流](/docs/workflows/index)** 与你的团队已在使用的工具相连——Zabbix、Jira、PagerDuty、Slack 等等。无需安装额外插件。你只需在拖放式画布上将集成连接起来，它就会在事件发生时自动运行。
 
-本页介绍每种集成所使用的两种模式。一旦理解它们，你几乎可以将 OneUptime 连接到任何工具，即使该工具在这里没有独立页面。
+本页介绍每种集成所使用的两种模式。一旦理解它们，你几乎可以将 Cast Operations 连接到任何工具，即使该工具在这里没有独立页面。
 
 ## 两种模式
 
 每种集成都以两个方向之一传递数据（许多集成同时使用两者）。
 
-### 入站——另一个工具向 OneUptime 发送数据
+### 入站——另一个工具向 Cast Operations 发送数据
 
-当外部系统需要*在 OneUptime 中创建或更新某些内容*时使用此模式——通常是在检测到问题时创建一个事件或告警。
+当外部系统需要*在 Cast Operations 中创建或更新某些内容*时使用此模式——通常是在检测到问题时创建一个事件或告警。
 
-1. 构建一个以 **[Webhook 触发器](/docs/workflows/triggers#webhook)** 开始的工作流。OneUptime 会给你一个唯一的 URL。
+1. 构建一个以 **[Webhook 触发器](/docs/workflows/triggers#webhook)** 开始的工作流。Cast Operations 会给你一个唯一的 URL。
 2. 在另一个工具中，配置一个 webhook / 通知动作，在发生某些事情时 POST 到该 URL。
 3. 在工作流中，读取传入的负载，并使用 **Create Incident**（或 Create Alert）组件将其记录下来。
 
 ```text
-Zabbix / Prometheus / Grafana / Datadog  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Zabbix / Prometheus / Grafana / Datadog  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
-### 出站——OneUptime 向另一个工具发送数据
+### 出站——Cast Operations 向另一个工具发送数据
 
-当 *OneUptime 中发生的事情需要呈现在另一个工具中*时使用此模式——在 Jira 中创建工单、在 PagerDuty 中呼叫某人、发布到 Slack。
+当 *Cast Operations 中发生的事情需要呈现在另一个工具中*时使用此模式——在 Jira 中创建工单、在 PagerDuty 中呼叫某人、发布到 Slack。
 
-1. 构建一个以 **[OneUptime 事件触发器](/docs/workflows/triggers#oneuptime-event-triggers)** 开始的工作流——例如 **Incident → On Create**。
+1. 构建一个以 **[Cast Operations 事件触发器](/docs/workflows/triggers#oneuptime-event-triggers)** 开始的工作流——例如 **Incident → On Create**。
 2. 添加一个 **[API 组件](/docs/workflows/components#api)**，用事件详情调用另一个工具的 REST API。
 3. 将所有 API 密钥作为**机密[全局变量](/docs/workflows/variables#global-variables)**存储，使其不会出现在工作流或日志中。
 
 ```text
-OneUptime Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
+Cast Operations Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
 ```
 
 ## 目录
 
 | 工具                                                                  | 方向           | 功能说明                                                |
 | --------------------------------------------------------------------- | -------------- | ------------------------------------------------------- |
-| [Zabbix](/docs/integrations/zabbix)                                   | 入站           | 将 Zabbix 问题转化为 OneUptime 事件（并在恢复时解决）。 |
+| [Zabbix](/docs/integrations/zabbix)                                   | 入站           | 将 Zabbix 问题转化为 Cast Operations 事件（并在恢复时解决）。 |
 | [Jira](/docs/integrations/jira)                                       | 出站（+ 入站） | 为每个事件创建 Jira 工单；同步状态回来。                |
-| [PagerDuty](/docs/integrations/pagerduty)                             | 出站（+ 入站） | 从 OneUptime 事件触发和解决 PagerDuty 事件。            |
+| [PagerDuty](/docs/integrations/pagerduty)                             | 出站（+ 入站） | 从 Cast Operations 事件触发和解决 PagerDuty 事件。            |
 | [Opsgenie](/docs/integrations/opsgenie)                               | 出站（+ 入站） | 创建和关闭 Opsgenie 告警。                              |
-| [ServiceNow](/docs/integrations/servicenow)                           | 出站（+ 入站） | 从 OneUptime 创建 ServiceNow 事件。                     |
+| [ServiceNow](/docs/integrations/servicenow)                           | 出站（+ 入站） | 从 Cast Operations 创建 ServiceNow 事件。                     |
 | [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager) | 入站           | 将 Alertmanager 通知转化为事件。                        |
 | [Grafana](/docs/integrations/grafana)                                 | 入站           | 将 Grafana 告警转化为事件。                             |
 | [Datadog](/docs/integrations/datadog)                                 | 入站           | 将 Datadog 监控告警转化为事件。                         |
@@ -85,7 +85,7 @@ printf '%s' 'you@example.com:your_api_token' | base64
 
 几乎所有工具都符合上面两种模式之一：
 
-- 如果该工具能**发送 webhook**，使用**入站**模式——将其 webhook 指向 OneUptime Webhook 触发器。
+- 如果该工具能**发送 webhook**，使用**入站**模式——将其 webhook 指向 Cast Operations Webhook 触发器。
 - 如果该工具有 **REST API**，使用**出站**模式——从 **API 组件**中调用它。
 - 如果你需要在两者之间重塑数据，添加一个 **[Custom Code](/docs/workflows/components#custom-code)** 模块。
 
@@ -94,7 +94,7 @@ printf '%s' 'you@example.com:your_api_token' | base64
 ## 接下来读什么
 
 - [工作流概览](/docs/workflows/index)——自动化引擎的工作原理。
-- [触发器](/docs/workflows/triggers)——Webhook 和 OneUptime 事件触发器详解。
+- [触发器](/docs/workflows/triggers)——Webhook 和 Cast Operations 事件触发器详解。
 - [组件](/docs/workflows/components)——API、Webhook 和数据组件。
 - [变量](/docs/workflows/variables)——机密和在模块间传递数据。
 - [Zabbix](/docs/integrations/zabbix) 和 [Jira](/docs/integrations/jira)——完整的实操示例。

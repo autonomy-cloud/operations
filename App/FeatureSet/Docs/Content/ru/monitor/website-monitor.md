@@ -1,6 +1,6 @@
 # Монитор сайтов
 
-Мониторинг сайтов позволяет отслеживать доступность, производительность и ответы любого сайта или веб-страницы. OneUptime периодически отправляет HTTP-запросы на указанный URL сайта и проверяет корректность ответов.
+Мониторинг сайтов позволяет отслеживать доступность, производительность и ответы любого сайта или веб-страницы. Cast Operations периодически отправляет HTTP-запросы на указанный URL сайта и проверяет корректность ответов.
 
 ## Обзор
 
@@ -14,7 +14,7 @@
 
 ## Создание монитора сайтов
 
-1. Перейдите в раздел **Мониторы** на панели управления OneUptime
+1. Перейдите в раздел **Мониторы** на панели управления Cast Operations
 2. Нажмите **Создать монитор**
 3. Выберите тип монитора **Сайт**
 4. Введите URL сайта для мониторинга
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### Не следовать перенаправлениям
 
-По умолчанию OneUptime следует HTTP-перенаправлениям (301, 302 и др.). Включите этот параметр, если хотите отслеживать сам ответ перенаправления, а не конечный адрес.
+По умолчанию Cast Operations следует HTTP-перенаправлениям (301, 302 и др.). Включите этот параметр, если хотите отслеживать сам ответ перенаправления, а не конечный адрес.
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

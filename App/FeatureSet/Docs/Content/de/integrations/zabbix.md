@@ -1,27 +1,27 @@
 # Zabbix-Integration
 
-[Zabbix](https://www.zabbix.com) überwacht Ihre Server und Ihr Netzwerk; OneUptime steuert Ihre Incident-Response, Rufbereitschaft und Statusseiten. Verbinden Sie beides, und jedes Zabbix-Problem wird automatisch zum OneUptime-Vorfall – damit die richtigen Personen benachrichtigt werden und Ihre Statusseite stets aktuell bleibt.
+[Zabbix](https://www.zabbix.com) überwacht Ihre Server und Ihr Netzwerk; Cast Operations steuert Ihre Incident-Response, Rufbereitschaft und Statusseiten. Verbinden Sie beides, und jedes Zabbix-Problem wird automatisch zum Cast Operations-Vorfall – damit die richtigen Personen benachrichtigt werden und Ihre Statusseite stets aktuell bleibt.
 
-Diese Integration ist **eingehend**: Zabbix sendet Probleme an OneUptime. Sie nutzt auf der einen Seite einen Zabbix-**Webhook-Medientyp** und auf der anderen einen OneUptime-**[Workflow](/docs/workflows/index)**. Keine Plugins, keine zusätzlichen Dienste.
+Diese Integration ist **eingehend**: Zabbix sendet Probleme an Cast Operations. Sie nutzt auf der einen Seite einen Zabbix-**Webhook-Medientyp** und auf der anderen einen Cast Operations-**[Workflow](/docs/workflows/index)**. Keine Plugins, keine zusätzlichen Dienste.
 
 ```text
-Zabbix trigger fires  ──►  Webhook media type  ──►  OneUptime Workflow (Webhook trigger)  ──►  Create Incident
+Zabbix trigger fires  ──►  Webhook media type  ──►  Cast Operations Workflow (Webhook trigger)  ──►  Create Incident
 ```
 
 ## So funktioniert es
 
 1. Ein Zabbix-Trigger wechselt zu **PROBLEM**.
-2. Eine Zabbix-**Aktion** weist den **OneUptime**-Medientyp an, das Ereignis zu senden.
-3. Das Skript des Medientyps sendet einen kleinen JSON-Payload per POST an eine OneUptime-Workflow-URL.
+2. Eine Zabbix-**Aktion** weist den **Cast Operations**-Medientyp an, das Ereignis zu senden.
+3. Das Skript des Medientyps sendet einen kleinen JSON-Payload per POST an eine Cast Operations-Workflow-URL.
 4. Der Workflow liest die Payload und erstellt einen Vorfall (und löst ihn bei Bedarf auf, wenn Zabbix sich erholt).
 
 ## Voraussetzungen
 
 - Ein Zabbix-Server, den Sie administrieren (diese Anleitung ist für **Zabbix 6.0 LTS / 7.0 LTS** geschrieben; der Webhook-Medientyp funktioniert ab 5.0+ gleich).
-- Ihr Zabbix-Server muss Ihre OneUptime-Instanz über HTTPS erreichen können.
-- Ein OneUptime-Projekt, in dem Sie Workflows erstellen können.
+- Ihr Zabbix-Server muss Ihre Cast Operations-Instanz über HTTPS erreichen können.
+- Ein Cast Operations-Projekt, in dem Sie Workflows erstellen können.
 
-## Teil 1 — Den OneUptime-Workflow erstellen
+## Teil 1 — Den Cast Operations-Workflow erstellen
 
 Tun Sie dies zuerst, da Sie die dabei generierte Webhook-URL benötigen.
 
@@ -34,18 +34,18 @@ Tun Sie dies zuerst, da Sie die dabei generierte Webhook-URL benötigen.
 4. Ziehen Sie einen **Create Incident**-Block und verbinden Sie ihn mit dem **Yes**-Ausgang des Conditions-Blocks. Füllen Sie aus:
    - **Title**: `Zabbix: {{Zabbix.Request Body.name}}`
    - **Description**: `Host: {{Zabbix.Request Body.host}}\nSeverity: {{Zabbix.Request Body.severity}}\nZabbix event: {{Zabbix.Request Body.event_id}}`
-   - **Severity**: Wählen Sie den gewünschten OneUptime-Vorfallsschweregrad (Sie können dies später mit weiteren Conditions-Zweigen verfeinern, die Zabbix-Schweregrade abbilden).
+   - **Severity**: Wählen Sie den gewünschten Cast Operations-Vorfallsschweregrad (Sie können dies später mit weiteren Conditions-Zweigen verfeinern, die Zabbix-Schweregrade abbilden).
 5. Speichern. Lassen Sie **Enabled** vorerst _aus_ – Sie aktivieren es nach einem Test.
 
 > **Tipp:** Wenn Sie die Zabbix-`event_id` in die Beschreibung (oder ein Vorfall-Label) einfügen, können Sie diesen Vorfall später wiederfinden, wenn Sie ihn bei einer Wiederherstellung automatisch auflösen möchten. Siehe [Automatisch auflösen](#automatisch-auflösen-optional).
 
 ## Teil 2 — Zabbix konfigurieren
 
-### Schritt 1: Den OneUptime-Medientyp erstellen
+### Schritt 1: Den Cast Operations-Medientyp erstellen
 
 1. Gehen Sie in Zabbix zu **Alerts → Media types** (in älteren Versionen: **Administration → Media types**).
 2. Klicken Sie auf **Create media type** und setzen Sie **Type** auf **Webhook**.
-3. **Name**: `OneUptime`.
+3. **Name**: `Cast Operations`.
 4. Fügen Sie diese **Parameter** hinzu (klicken Sie für jeden auf _Add_). Diese bilden Zabbix-[Makros](https://www.zabbix.com/documentation/current/en/manual/appendix/macros/supported_by_location) in eine übersichtliche Payload um:
 
    | Name             | Wert               |
@@ -72,7 +72,7 @@ Tun Sie dies zuerst, da Sie die dabei generierte Webhook-URL benötigen.
      name: params.event_name,
      host: params.host,
      severity: params.event_severity,
-     // "1" = problem, "0" = recovered. OneUptime reads this in a Conditions block.
+     // "1" = problem, "0" = recovered. Cast Operations reads this in a Conditions block.
      status: params.event_value,
      date: params.event_date,
      time: params.event_time,
@@ -82,7 +82,7 @@ Tun Sie dies zuerst, da Sie die dabei generierte Webhook-URL benötigen.
 
    if (request.getStatus() < 200 || request.getStatus() >= 300) {
      throw (
-       "OneUptime responded with HTTP " + request.getStatus() + ": " + response
+       "Cast Operations responded with HTTP " + request.getStatus() + ": " + response
      );
    }
 
@@ -96,28 +96,28 @@ Tun Sie dies zuerst, da Sie die dabei generierte Webhook-URL benötigen.
 
 Zabbix sendet Benachrichtigungen _an einen Benutzer_. Erstellen Sie einen dedizierten Benutzer, damit die Integration leicht auffindbar und deaktivierbar ist.
 
-1. Gehen Sie zu **Users → Users → Create user**. Benennen Sie ihn `OneUptime Webhook`, geben Sie ihm eine Rolle, die Benachrichtigungen empfangen darf (z. B. **User role**), und fügen Sie ihn einer Benutzergruppe hinzu.
+1. Gehen Sie zu **Users → Users → Create user**. Benennen Sie ihn `Cast Operations Webhook`, geben Sie ihm eine Rolle, die Benachrichtigungen empfangen darf (z. B. **User role**), und fügen Sie ihn einer Benutzergruppe hinzu.
 2. Klicken Sie im Tab **Media** auf **Add**:
-   - **Type**: `OneUptime`
+   - **Type**: `Cast Operations`
    - **Send to**: Fügen Sie die **Workflow-Webhook-URL** ein, die Sie in Teil 1 kopiert haben.
    - **When active** / Schweregrade: Lassen Sie die Standardwerte (oder schränken Sie auf die gewünschten Schweregrade ein).
 3. Klicken Sie auf **Add** und **Update**.
 
-### Schritt 3: Probleme mit einer Aktion an OneUptime senden
+### Schritt 3: Probleme mit einer Aktion an Cast Operations senden
 
 1. Gehen Sie zu **Alerts → Actions → Trigger actions → Create action**.
-2. **Name**: `Notify OneUptime`.
+2. **Name**: `Notify Cast Operations`.
 3. **Conditions** (optional): Schränken Sie ein – zum Beispiel _Trigger severity >= Warning_. Lassen Sie es leer, um alles zu senden.
-4. Fügen Sie im Tab **Operations** eine Operation hinzu, die an **User: OneUptime Webhook** über den **OneUptime**-Medientyp sendet.
+4. Fügen Sie im Tab **Operations** eine Operation hinzu, die an **User: Cast Operations Webhook** über den **Cast Operations**-Medientyp sendet.
 5. Um Vorfälle bei einer Wiederherstellung später aufzulösen, füllen Sie auch die **Recovery operations** mit demselben Benutzer/Medientyp aus.
 6. Klicken Sie auf **Add** zum Speichern und stellen Sie sicher, dass die Aktion **Enabled** ist.
 
 ## Teil 3 — Testen
 
-1. Aktivieren Sie im OneUptime-Workflow den Schalter **Enabled**.
+1. Aktivieren Sie im Cast Operations-Workflow den Schalter **Enabled**.
 2. Lösen Sie in Zabbix ein Testproblem aus – zum Beispiel durch vorübergehendes Absenken eines Trigger-Schwellenwerts oder ein Testelement, das in den Problem-Zustand kippt.
 3. Öffnen Sie den Tab **Logs** Ihres Workflows. Sie sollten einen Lauf mit der Zabbix-Payload sehen, den Conditions-Block, der den **Yes**-Pfad nimmt, und den erstellten Vorfall.
-4. Prüfen Sie **Incidents** in OneUptime – Ihr Zabbix-Problem ist nun ein Vorfall.
+4. Prüfen Sie **Incidents** in Cast Operations – Ihr Zabbix-Problem ist nun ein Vorfall.
 
 Falls nichts eintrifft, lesen Sie [Fehlerbehebung](#fehlerbehebung).
 
@@ -130,11 +130,11 @@ Der obige Kern-Workflow _öffnet_ Vorfälle. Um sie auch zu _schließen_, wenn Z
 3. Fügen Sie an dessen **Yes**-Ausgang einen **Find Incident**-Block hinzu, der den zuvor erstellten offenen Vorfall sucht – gleichen Sie auf der Zabbix-`event_id` ab, die Sie in der Beschreibung oder einem Label gespeichert haben.
 4. Verbinden Sie diesen mit einem **Update Incident**-Block und bewegen Sie den Vorfall in Ihren _aufgelösten_ Zustand.
 
-Da die Auflösung davon abhängt, wie Sie Vorfallszustände in Ihrem Projekt modellieren, halten Sie den **Erstell**-Pfad als zuverlässigen Kern und ergänzen Sie den Auflöse-Pfad, sobald Sie bestätigt haben, dass die Ereignisse korrekt fließen. Siehe [Komponenten → OneUptime-Datenkomponenten](/docs/workflows/components#oneuptime-data-components).
+Da die Auflösung davon abhängt, wie Sie Vorfallszustände in Ihrem Projekt modellieren, halten Sie den **Erstell**-Pfad als zuverlässigen Kern und ergänzen Sie den Auflöse-Pfad, sobald Sie bestätigt haben, dass die Ereignisse korrekt fließen. Siehe [Komponenten → Cast Operations-Datenkomponenten](/docs/workflows/components#oneuptime-data-components).
 
 ## Zabbix-Schweregrade abbilden (optional)
 
-Zabbix-Schweregrade (`Not classified`, `Information`, `Warning`, `Average`, `High`, `Disaster`) kommen als `{{Zabbix.Request Body.severity}}` an. Um sie auf OneUptime-Vorfallsschweregrade abzubilden, fügen Sie **Conditions**-Zweige vor **Create Incident** hinzu – leiten Sie beispielsweise `Disaster` und `High` zu einem „Kritisch"-Vorfall und alles andere zu „Schwerwiegend". Bauen Sie für jeden Zweig einen eigenen **Create Incident**-Block.
+Zabbix-Schweregrade (`Not classified`, `Information`, `Warning`, `Average`, `High`, `Disaster`) kommen als `{{Zabbix.Request Body.severity}}` an. Um sie auf Cast Operations-Vorfallsschweregrade abzubilden, fügen Sie **Conditions**-Zweige vor **Create Incident** hinzu – leiten Sie beispielsweise `Disaster` und `High` zu einem „Kritisch"-Vorfall und alles andere zu „Schwerwiegend". Bauen Sie für jeden Zweig einen eigenen **Create Incident**-Block.
 
 ## Fehlerbehebung
 
@@ -147,7 +147,7 @@ Zabbix-Schweregrade (`Not classified`, `Information`, `Warning`, `Average`, `Hig
 **Zabbix meldet einen Skriptfehler.**
 
 - Öffnen Sie den Medientyp und verwenden Sie **Test**, um eine Beispiel-Payload zu senden. Zabbix zeigt die Ausgabe des Skripts oder den ausgelösten Fehler.
-- Eine Nicht-2xx-Antwort von OneUptime wird durch den `throw` im Skript angezeigt – überprüfen Sie, ob die Workflow-URL exakt korrekt ist.
+- Eine Nicht-2xx-Antwort von Cast Operations wird durch den `throw` im Skript angezeigt – überprüfen Sie, ob die Workflow-URL exakt korrekt ist.
 
 **Der Vorfall wird erstellt, aber Felder sind leer.**
 
@@ -162,7 +162,7 @@ Zabbix-Schweregrade (`Not classified`, `Information`, `Warning`, `Average`, `Hig
 
 - Behandeln Sie die Workflow-Webhook-URL wie ein Passwort. Falls sie durchsickert, löschen Sie den Auslöser und erstellen Sie einen neuen, um die URL zu rotieren.
 - Schränken Sie die Bedingungen der Zabbix-Aktion ein, sodass Sie nur die Schweregrade weiterleiten, die einen Vorfall rechtfertigen.
-- Wenn Sie OneUptime selbst hinter einer Firewall betreiben, erlauben Sie der Ausgangs-IP Ihres Zabbix-Servers, ihn über HTTPS zu erreichen.
+- Wenn Sie Cast Operations selbst hinter einer Firewall betreiben, erlauben Sie der Ausgangs-IP Ihres Zabbix-Servers, ihn über HTTPS zu erreichen.
 
 ## Weiterführende Themen
 

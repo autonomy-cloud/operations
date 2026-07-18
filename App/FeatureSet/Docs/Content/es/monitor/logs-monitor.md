@@ -1,6 +1,6 @@
 # Monitor de registros
 
-El monitoreo de registros te permite supervisar los registros de tu aplicación y activar alertas basadas en patrones de registro, recuentos y niveles de gravedad. OneUptime evalúa los registros de tus servicios de telemetría y los verifica según tus criterios configurados.
+El monitoreo de registros te permite supervisar los registros de tu aplicación y activar alertas basadas en patrones de registro, recuentos y niveles de gravedad. Cast Operations evalúa los registros de tus servicios de telemetría y los verifica según tus criterios configurados.
 
 ## Información general
 
@@ -14,7 +14,7 @@ Los monitores de registros buscan y cuentan los registros que coinciden con filt
 
 ## Creación de un monitor de registros
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Registros** como tipo de monitor
 4. Selecciona los servicios de telemetría a monitorear
@@ -24,7 +24,7 @@ Los monitores de registros buscan y cuentan los registros que coinciden con filt
 
 ### Servicios de telemetría
 
-Selecciona uno o más servicios desde los que monitorear registros. Los servicios deben enviar registros a OneUptime a través de OpenTelemetry.
+Selecciona uno o más servicios desde los que monitorear registros. Los servicios deben enviar registros a Cast Operations a través de OpenTelemetry.
 
 ### Filtros de registros
 
@@ -92,4 +92,4 @@ Filtra los registros por uno o más niveles de gravedad:
 
 ## Requisitos de configuración
 
-El monitoreo de registros requiere que tus aplicaciones envíen registros a OneUptime a través de OpenTelemetry. Consulta la documentación de [OpenTelemetry](/docs/telemetry/open-telemetry) para obtener instrucciones de configuración.
+El monitoreo de registros requiere que tus aplicaciones envíen registros a Cast Operations a través de OpenTelemetry. Consulta la documentación de [OpenTelemetry](/docs/telemetry/open-telemetry) para obtener instrucciones de configuración.

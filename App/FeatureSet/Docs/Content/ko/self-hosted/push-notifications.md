@@ -4,7 +4,7 @@
 
 ## 작동 방식
 
-OneUptime 모바일 앱은 Expo 푸시 토큰을 백엔드에 등록합니다. 백엔드가 알림을 전송해야 할 때 앱을 대신하여 메시지를 Apple APNs 또는 Google FCM으로 라우팅하는 공개 Expo Push API에 POST합니다.
+Cast Operations 모바일 앱은 Expo 푸시 토큰을 백엔드에 등록합니다. 백엔드가 알림을 전송해야 할 때 앱을 대신하여 메시지를 Apple APNs 또는 Google FCM으로 라우팅하는 공개 Expo Push API에 POST합니다.
 
 웹 푸시 알림은 VAPID 키와 Web Push 프로토콜을 계속 사용합니다.
 
@@ -18,7 +18,7 @@ OneUptime 모바일 앱은 Expo 푸시 토큰을 백엔드에 등록합니다. �
 
 - 모바일 앱이 EAS Build로 빌드되었는지 확인합니다 (Expo Go는 푸시 알림을 지원하지 않음)
 - 기기가 데이터베이스의 `UserPush` 테이블에 등록되어 있는지 확인합니다
-- Expo Push API 오류에 대한 OneUptime 서버 로그를 확인합니다
+- Expo Push API 오류에 대한 Cast Operations 서버 로그를 확인합니다
 - 기기에 활성 인터넷 연결과 알림 권한이 활성화되어 있는지 확인합니다
 
 ### 로그에서 "DeviceNotRegistered" 오류
@@ -30,5 +30,5 @@ Expo 푸시 토큰이 더 이상 유효하지 않습니다. 일반적으로 앱�
 푸시 알림에 문제가 발생한 경우:
 
 1. 위의 문제 해결 섹션을 확인합니다
-2. 자세한 오류 메시지에 대한 OneUptime 로그를 검토합니다
-3. [hello@oneuptime.com](mailto:hello@oneuptime.com)으로 문의합니다
+2. 자세한 오류 메시지에 대한 Cast Operations 로그를 검토합니다
+3. [hello@visca.ai](mailto:hello@visca.ai)으로 문의합니다

@@ -4,7 +4,7 @@ Cette page couvre les paramètres et les limites de sécurité qu'il convient de
 
 ## Activer ou désactiver un workflow
 
-Chaque workflow possède un interrupteur **Enabled** dans **Settings**. Lorsqu'il est désactivé, le workflow ne s'exécute pas — les appels webhook, les heures planifiées et les événements OneUptime sont tous ignorés. Les nouveaux workflows démarrent désactivés.
+Chaque workflow possède un interrupteur **Enabled** dans **Settings**. Lorsqu'il est désactivé, le workflow ne s'exécute pas — les appels webhook, les heures planifiées et les événements Cast Operations sont tous ignorés. Les nouveaux workflows démarrent désactivés.
 
 Utilisez cet interrupteur comme votre porte « prêt à partir » :
 
@@ -53,11 +53,11 @@ Les déclencheurs webhook vous fournissent une URL unique. Toute personne qui co
 
 - Traitez l'URL comme un mot de passe. Ne la partagez pas publiquement et ne la versionnez pas dans un dépôt public.
 - Pour les workflows sensibles, demandez au système appelant d'envoyer un jeton partagé dans un en-tête (comme `X-Webhook-Token`) et vérifiez-le avec un bloc **Conditions** avant de faire quoi que ce soit d'important. Enregistrez le jeton attendu comme variable secrète.
-- Pour les workflows très sensibles, préférez un déclencheur d'événement OneUptime et une étape d'importation manuelle plutôt qu'un webhook public.
+- Pour les workflows très sensibles, préférez un déclencheur d'événement Cast Operations et une étape d'importation manuelle plutôt qu'un webhook public.
 
 ## Accès réseau sortant
 
-Les blocs API et autres blocs HTTP effectuent leurs requêtes depuis OneUptime. Si vous hébergez OneUptime vous-même, assurez-vous que votre installation peut atteindre les services que vous appelez. Si vous utilisez OneUptime Cloud, nos plages d'IP sortantes sont listées dans [Adresses IP](/docs/configuration/ip-addresses) pour que vous puissiez les autoriser de l'autre côté.
+Les blocs API et autres blocs HTTP effectuent leurs requêtes depuis Cast Operations. Si vous hébergez Cast Operations vous-même, assurez-vous que votre installation peut atteindre les services que vous appelez. Si vous utilisez Cast Operations Cloud, nos plages d'IP sortantes sont listées dans [Adresses IP](/docs/configuration/ip-addresses) pour que vous puissiez les autoriser de l'autre côté.
 
 ## Permissions
 
@@ -72,14 +72,14 @@ La plupart des ingénieurs devraient avoir create/edit/read sur les workflows ma
 
 ## Limites de plan
 
-OneUptime Cloud limite le nombre d'exécutions par mois sur les plans inférieurs. Votre limite actuelle est affichée sous **Project Settings → Billing**. Lorsque vous l'atteignez, les nouveaux déclencheurs sont rejetés jusqu'au cycle de facturation suivant. Les installations auto-hébergées n'ont pas cette limite.
+Cast Operations Cloud limite le nombre d'exécutions par mois sur les plans inférieurs. Votre limite actuelle est affichée sous **Project Settings → Billing**. Lorsque vous l'atteignez, les nouveaux déclencheurs sont rejetés jusqu'au cycle de facturation suivant. Les installations auto-hébergées n'ont pas cette limite.
 
 ## Quand les workflows ne sont pas le bon outil
 
 Quelques cas où vous devriez vous tourner vers autre chose :
 
 - **Calculs lourds ou grands ensembles de données** — les workflows sont conçus pour du travail de liaison léger, pas pour des calculs intensifs. Exécutez le travail lourd dans votre propre infrastructure et laissez un workflow le déclencher.
-- **Processus longs qui s'étalent sur des heures** — une exécution unique est censée se terminer rapidement. Si vous avez besoin de « faire A, attendre deux heures, faire B », utilisez un planificateur externe qui renvoie un webhook à OneUptime au bon moment.
+- **Processus longs qui s'étalent sur des heures** — une exécution unique est censée se terminer rapidement. Si vous avez besoin de « faire A, attendre deux heures, faire B », utilisez un planificateur externe qui renvoie un webhook à Cast Operations au bon moment.
 - **Réponse à incident pas à pas avec des humains dans la boucle** — c'est à cela que servent les [Runbooks](/docs/runbooks/index). Les workflows sont pour l'automatisation sans surveillance.
 
 ## Pour aller plus loin

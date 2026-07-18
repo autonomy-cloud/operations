@@ -1,6 +1,6 @@
 # Guia de Instalação para Windows
 
-Instale o OneUptime como um aplicativo de desktop no Windows para monitoramento abrangente e gerenciamento de incidentes.
+Instale o Cast Operations como um aplicativo de desktop no Windows para monitoramento abrangente e gerenciamento de incidentes.
 
 ## Métodos de Instalação
 
@@ -8,46 +8,46 @@ Instale o OneUptime como um aplicativo de desktop no Windows para monitoramento 
 
 O Edge fornece a melhor integração de PWA no Windows com recursos nativos.
 
-1. **Abrir o OneUptime no Edge**
+1. **Abrir o Cast Operations no Edge**
 
    - Inicie o navegador Microsoft Edge
-   - Navegue para a URL da sua instância do OneUptime
-   - Faça login na sua conta do OneUptime
+   - Navegue para a URL da sua instância do Cast Operations
+   - Faça login na sua conta do Cast Operations
    - Aguarde o carregamento completo da página
 
 2. **Instalar Aplicativo**
 
    - Procure o **ícone de instalação** (⊞) na barra de endereços
-   - Clique no botão **"Instalar OneUptime"**
+   - Clique no botão **"Instalar Cast Operations"**
    - Ou clique no **menu de três pontos** → **Aplicativos** → **Instalar este site como aplicativo**
 
 3. **Personalizar Instalação**
 
-   - **Nome do Aplicativo**: Modifique se desejar (padrão: OneUptime)
+   - **Nome do Aplicativo**: Modifique se desejar (padrão: Cast Operations)
    - **Menu Iniciar**: Escolha se deseja adicionar ao Menu Iniciar
    - **Barra de Tarefas**: Opção de fixar na barra de tarefas
    - **Área de Trabalho**: Criar atalho na área de trabalho
 
 4. **Concluir Instalação**
    - Clique em **"Instalar"** para finalizar
-   - O OneUptime abrirá em sua própria janela
+   - O Cast Operations abrirá em sua própria janela
    - Encontre-o no Menu Iniciar sob aplicativos instalados
 
 ### Método 2: Google Chrome
 
 O Chrome oferece excelente suporte a PWA com rica integração de área de trabalho.
 
-1. **Abrir o OneUptime no Chrome**
+1. **Abrir o Cast Operations no Chrome**
 
    - Inicie o Google Chrome
-   - Vá para a sua instância do OneUptime
+   - Vá para a sua instância do Cast Operations
    - Certifique-se de estar conectado
    - Permita o carregamento completo da página
 
 2. **Instalar via Barra de Endereços**
 
    - Procure o **ícone de instalação** (⊞) na barra de endereços
-   - Clique em **"Instalar OneUptime"**
+   - Clique em **"Instalar Cast Operations"**
    - Ou use o menu: **três pontos** → **Mais ferramentas** → **Criar atalho**
 
 3. **Opções de Instalação**
@@ -57,7 +57,7 @@ O Chrome oferece excelente suporte a PWA com rica integração de área de traba
    - Clique em **"Instalar"** ou **"Criar"**
 
 4. **Iniciar Aplicativo**
-   - Encontre o OneUptime no Menu Iniciar do Windows
+   - Encontre o Cast Operations no Menu Iniciar do Windows
    - Ou inicie pelo atalho na área de trabalho
    - O aplicativo abre em uma janela dedicada
 
@@ -65,10 +65,10 @@ O Chrome oferece excelente suporte a PWA com rica integração de área de traba
 
 O Firefox suporta instalação de PWA com integração básica de área de trabalho.
 
-1. **Abrir o OneUptime no Firefox**
+1. **Abrir o Cast Operations no Firefox**
 
    - Inicie o navegador Firefox
-   - Navegue para a URL do OneUptime
+   - Navegue para a URL do Cast Operations
    - Conclua o processo de login
 
 2. **Instalar PWA**
@@ -78,9 +78,9 @@ O Firefox suporta instalação de PWA com integração básica de área de traba
 
 ### Configuração de Inicialização
 
-1. **Inicialização Automática**: Configure o OneUptime para iniciar com o Windows
+1. **Inicialização Automática**: Configure o Cast Operations para iniciar com o Windows
    - Clique com o botão direito na barra de tarefas → Gerenciador de Tarefas → Inicialização
-   - Habilite o OneUptime se desejar
+   - Habilite o Cast Operations se desejar
 2. **Tamanho Padrão**: Defina o tamanho e posição preferidos da janela
 
 ### Configurações de Notificação
@@ -88,12 +88,12 @@ O Firefox suporta instalação de PWA com integração básica de área de traba
 1. **Notificações do Windows**
 
    - Configurações → Sistema → Notificações e ações
-   - Encontre o OneUptime e configure as preferências de alerta
+   - Encontre o Cast Operations e configure as preferências de alerta
    - Habilite notificações em banner para incidentes
 
 2. **Assistência de Foco**
    - Configure as definições de Não Perturbe
-   - Permita notificações críticas do OneUptime
+   - Permita notificações críticas do Cast Operations
    - Defina níveis de prioridade para diferentes tipos de alerta
 
 ## Solução de Problemas
@@ -105,7 +105,7 @@ O Firefox suporta instalação de PWA com integração básica de área de traba
 ```
 Soluções:
 1. Certifique-se de estar usando Edge ou Chrome (navegadores recomendados)
-2. Verifique a conexão HTTPS para a instância do OneUptime
+2. Verifique a conexão HTTPS para a instância do Cast Operations
 3. Limpe o cache e os cookies do navegador
 4. Atualize o navegador para a versão mais recente
 5. Verifique se os requisitos de PWA são atendidos no servidor
@@ -128,7 +128,7 @@ Soluções:
 
 ```
 Soluções:
-1. Pesquise por "OneUptime" na pesquisa do Windows
+1. Pesquise por "Cast Operations" na pesquisa do Windows
 2. Verifique se foi instalado com um nome diferente
 3. Procure na seção de aplicativos "Adicionados recentemente"
 4. Reinstale e certifique-se de que "Adicionar ao Menu Iniciar" está marcado
@@ -142,9 +142,9 @@ Soluções:
 ```
 Soluções:
 1. Configurações do Windows → Sistema → Notificações e ações
-2. Habilite as notificações para o OneUptime
+2. Habilite as notificações para o Cast Operations
 3. Verifique as configurações de Assistência de Foco
-4. Certifique-se de ter permissões de notificação no OneUptime
+4. Certifique-se de ter permissões de notificação no Cast Operations
 5. Teste primeiro com uma notificação simples
 ```
 
@@ -155,18 +155,18 @@ Soluções:
 1. **Método de Configurações do Windows**
 
    - Configurações → Aplicativos → Aplicativos e recursos
-   - Pesquise por "OneUptime"
+   - Pesquise por "Cast Operations"
    - Clique e selecione "Desinstalar"
 
 2. **Método do Navegador**
 
    - Abra o Edge/Chrome
    - Vá para edge://apps/ ou chrome://apps/
-   - Encontre o OneUptime
+   - Encontre o Cast Operations
    - Clique em opções → Desinstalar
 
 3. **Método do Menu Iniciar**
-   - Clique com o botão direito no OneUptime no Menu Iniciar
+   - Clique com o botão direito no Cast Operations no Menu Iniciar
    - Selecione "Desinstalar"
    - Confirme a remoção
 
@@ -174,7 +174,7 @@ Soluções:
 
 ### Atualizações Automáticas
 
-- O PWA do OneUptime é atualizado automaticamente quando online
+- O PWA do Cast Operations é atualizado automaticamente quando online
 - Nenhuma intervenção manual necessária
 - As atualizações são aplicadas imediatamente após reinicialização
 - Patches críticos implantados instantaneamente

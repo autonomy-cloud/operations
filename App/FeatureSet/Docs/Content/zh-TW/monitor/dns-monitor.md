@@ -1,6 +1,6 @@
 # DNS 監控
 
-DNS 監控可讓您監控網域 DNS 解析的健康狀態與正確性。OneUptime 會定期查詢 DNS 記錄，並依據您設定的條件驗證回應結果。
+DNS 監控可讓您監控網域 DNS 解析的健康狀態與正確性。Cast Operations 會定期查詢 DNS 記錄，並依據您設定的條件驗證回應結果。
 
 ## 概觀
 
@@ -14,7 +14,7 @@ DNS 監控會向 DNS 伺服器查詢特定的記錄類型並評估結果。這�
 
 ## 建立 DNS 監控
 
-1. 前往 OneUptime 儀表板中的 **Monitors**
+1. 前往 Cast Operations 儀表板中的 **Monitors**
 2. 點擊 **Create Monitor**
 3. 選擇 **DNS** 作為監控類型
 4. 輸入要查詢的網域名稱與記錄類型

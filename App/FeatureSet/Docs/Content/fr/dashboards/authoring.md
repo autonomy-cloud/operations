@@ -28,7 +28,7 @@ C'est le même tableau de bord dans les deux modes. Il n'y a pas d'étape « pub
 
 La plupart des widgets lisent à partir de l'une de trois sources :
 
-- **Métriques** — choisissez une métrique et une agrégation (moyenne, max, comptage, percentile). Ajoutez des filtres. Choisissez comment regrouper le résultat. C'est le même constructeur de requêtes que vous retrouvez ailleurs dans OneUptime.
+- **Métriques** — choisissez une métrique et une agrégation (moyenne, max, comptage, percentile). Ajoutez des filtres. Choisissez comment regrouper le résultat. C'est le même constructeur de requêtes que vous retrouvez ailleurs dans Cast Operations.
 - **Listes en direct** — incidents, alertes, monitors, pods Kubernetes, conteneurs Docker, hôtes. Chaque widget de liste prend un filtre et affiche les éléments correspondants, mis à jour en direct.
 - **Contenu statique** — le widget **Text** accepte un bloc de Markdown. Utilisez-le pour des titres, du contexte, des liens vers des runbooks ou des notes temporaires lors d'un incident.
 

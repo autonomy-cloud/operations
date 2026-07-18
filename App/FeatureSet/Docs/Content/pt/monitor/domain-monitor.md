@@ -1,6 +1,6 @@
 # Monitor de Domínio
 
-O monitoramento de domínio permite monitorar o status de registro e a expiração dos seus nomes de domínio. O OneUptime periodicamente realiza pesquisas WHOIS para rastrear a saúde do seu domínio e alertá-lo antes que ele expire.
+O monitoramento de domínio permite monitorar o status de registro e a expiração dos seus nomes de domínio. O Cast Operations periodicamente realiza pesquisas WHOIS para rastrear a saúde do seu domínio e alertá-lo antes que ele expire.
 
 ## Visão Geral
 
@@ -14,7 +14,7 @@ Os monitores de domínio consultam dados WHOIS para seus domínios para rastrear
 
 ## Criando um Monitor de Domínio
 
-1. Vá para **Monitors** no Painel do OneUptime
+1. Vá para **Monitors** no Painel do Cast Operations
 2. Clique em **Create Monitor**
 3. Selecione **Domain** como o tipo de monitor
 4. Insira o nome do domínio que deseja monitorar

@@ -91,7 +91,7 @@ export class Service extends DatabaseService<Model> {
     }
 
     /*
-     * If the project has its own default Twilio config, OneUptime does not
+     * If the project has its own default Twilio config, Cast Operations does not
      * charge the project's SMS balance, so the low-balance check does not apply.
      */
     const projectTwilioConfig: TwilioConfig | undefined =
@@ -172,7 +172,7 @@ export class Service extends DatabaseService<Model> {
     }
 
     /*
-     * If the project has its own default Twilio config, OneUptime does not
+     * If the project has its own default Twilio config, Cast Operations does not
      * charge the project's SMS balance, so the low-balance check does not apply.
      */
     const projectTwilioConfig: TwilioConfig | undefined =
@@ -217,7 +217,7 @@ export class Service extends DatabaseService<Model> {
         {
           to: item.phone!,
           message:
-            "This message is from OneUptime. Your verification code is " +
+            "This message is from Cast Operations. Your verification code is " +
             item.verificationCode,
         },
         {

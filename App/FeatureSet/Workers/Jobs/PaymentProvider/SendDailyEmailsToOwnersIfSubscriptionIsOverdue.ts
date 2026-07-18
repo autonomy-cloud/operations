@@ -93,7 +93,7 @@ RunCron(
                   await ProjectService.getProjectLinkInDashboard(project.id!)
                 ).toString(),
               },
-              subject: "[Action Required] OneUptime subscription is past due.",
+              subject: "[Action Required] Cast Operations subscription is past due.",
             },
             {
               projectId: project.id!,

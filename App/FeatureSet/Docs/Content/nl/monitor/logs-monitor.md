@@ -1,6 +1,6 @@
 # Logboeken Monitor
 
-Logboekenmonitoring stelt u in staat uw applicatielogboeken te bewaken en meldingen te activeren op basis van logpatronen, tellingen en ernstniveaus. OneUptime evalueert logboeken van uw telemetriediensten en controleert deze aan de hand van uw geconfigureerde criteria.
+Logboekenmonitoring stelt u in staat uw applicatielogboeken te bewaken en meldingen te activeren op basis van logpatronen, tellingen en ernstniveaus. Cast Operations evalueert logboeken van uw telemetriediensten en controleert deze aan de hand van uw geconfigureerde criteria.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Logboekenmonitors zoeken en tellen logboeken die aan specifieke filters voldoen 
 
 ## Een Logboeken Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Logboeken** als het monitortype
 4. Selecteer de te bewaken telemetriediensten
@@ -24,7 +24,7 @@ Logboekenmonitors zoeken en tellen logboeken die aan specifieke filters voldoen 
 
 ### Telemetriediensten
 
-Selecteer een of meer diensten waarvan logboeken worden bewaakt. Diensten moeten logboeken via OpenTelemetry naar OneUptime sturen.
+Selecteer een of meer diensten waarvan logboeken worden bewaakt. Diensten moeten logboeken via OpenTelemetry naar Cast Operations sturen.
 
 ### Logboekfilters
 
@@ -92,4 +92,4 @@ Filter logboeken op een of meer ernstniveaus:
 
 ## Installatievereisten
 
-Logboekenmonitoring vereist dat uw applicaties logboeken via OpenTelemetry naar OneUptime sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.
+Logboekenmonitoring vereist dat uw applicaties logboeken via OpenTelemetry naar Cast Operations sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.

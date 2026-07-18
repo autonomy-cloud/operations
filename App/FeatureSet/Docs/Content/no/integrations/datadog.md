@@ -1,19 +1,19 @@
 # Datadog-integrasjon
 
-Gjør [Datadog](https://www.datadoghq.com)-monitorvarsler om til OneUptime-hendelser, slik at Datadogs deteksjon mater inn i OneUptime-s hendelsesrespons og statussider.
+Gjør [Datadog](https://www.datadoghq.com)-monitorvarsler om til Cast Operations-hendelser, slik at Datadogs deteksjon mater inn i Cast Operations-s hendelsesrespons og statussider.
 
-Denne integrasjonen er **innkommende**: Datadogs [Webhooks-integrasjon](https://docs.datadoghq.com/integrations/webhooks/) poster til en OneUptime **[Arbeidsflyt](/docs/workflows/index)** som starter med en **Webhook-trigger**.
+Denne integrasjonen er **innkommende**: Datadogs [Webhooks-integrasjon](https://docs.datadoghq.com/integrations/webhooks/) poster til en Cast Operations **[Arbeidsflyt](/docs/workflows/index)** som starter med en **Webhook-trigger**.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Forutsetninger
 
 - En Datadog-konto der du kan konfigurere integrasjoner og monitorer.
-- Et OneUptime-prosjekt der du kan opprette arbeidsflyter.
+- Et Cast Operations-prosjekt der du kan opprette arbeidsflyter.
 
-## Steg 1 — Bygg OneUptime-arbeidsflyten
+## Steg 1 — Bygg Cast Operations-arbeidsflyten
 
 1. Åpne **Workflows → Create Workflow**, gi den navnet `Datadog → Incidents`, og åpne **Builder**.
 2. Legg til en **Webhook**-trigger og **kopier URL-en**. Gi blokken nytt navn til `Datadog`.
@@ -60,7 +60,7 @@ Legg til webhook-håndtaket til monitorene du vil videresende. I hver monitors *
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-Dette sender både varselet og gjenopprettingen til OneUptime. (For å videresende alt kan du også legge til `@webhook-oneuptime` i en monitor ubetinget.)
+Dette sender både varselet og gjenopprettingen til Cast Operations. (For å videresende alt kan du også legge til `@webhook-oneuptime` i en monitor ubetinget.)
 
 ## Steg 4 — Test det
 

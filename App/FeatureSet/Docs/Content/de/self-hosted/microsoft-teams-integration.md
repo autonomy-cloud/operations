@@ -1,11 +1,11 @@
 # Microsoft Teams-Integration
 
-Um Microsoft Teams mit Ihrer selbst gehosteten OneUptime-Instanz zu integrieren, müssen Sie eine Azure App-Registrierung konfigurieren und die erforderlichen Umgebungsvariablen einrichten.
+Um Microsoft Teams mit Ihrer selbst gehosteten Cast Operations-Instanz zu integrieren, müssen Sie eine Azure App-Registrierung konfigurieren und die erforderlichen Umgebungsvariablen einrichten.
 
 ## Voraussetzungen
 
 - Azure-Konto — Sie können eines erstellen unter [https://azure.com](https://azure.com)
-- Zugriff auf Ihre OneUptime-Serverkonfiguration
+- Zugriff auf Ihre Cast Operations-Serverkonfiguration
 
 ## Einrichtungsanweisungen
 
@@ -16,8 +16,8 @@ Um Microsoft Teams mit Ihrer selbst gehosteten OneUptime-Instanz zu integrieren,
 3. Füllen Sie das Registrierungsformular aus:
    - **Name:** oneuptime
    - **Unterstützte Kontotypen:** Konten in einem beliebigen Organisationsverzeichnis (Mehrinstanzenfähig)
-   - **Umleitungs-URI:** Web - `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - Fügen Sie auch hinzu: `https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **Umleitungs-URI:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - Fügen Sie auch hinzu: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. Klicken Sie auf „Registrieren"
 5. Notieren Sie die „Anwendungs-(Client-)ID" — Sie benötigen diese später
 
@@ -57,7 +57,7 @@ Um Microsoft Teams mit Ihrer selbst gehosteten OneUptime-Instanz zu integrieren,
    - Verwenden Sie die App-(Client-)ID und Mandanten-ID aus Ihrer App-Registrierung
 
 3. Nach der Bereitstellung gehen Sie zu Ihrer Bot-Ressource und navigieren Sie zu „Konfiguration"
-4. Setzen Sie den „Messaging-Endpunkt" auf `https://your-oneuptime-domain.com/api/microsoft-bot/messages`
+4. Setzen Sie den „Messaging-Endpunkt" auf `https://your-operations-domain.com/api/microsoft-bot/messages`
 5. Speichern Sie die Konfiguration
 
 ### Schritt 5: Microsoft Teams-Kanal zum Bot hinzufügen
@@ -66,7 +66,7 @@ Um Microsoft Teams mit Ihrer selbst gehosteten OneUptime-Instanz zu integrieren,
 2. Suchen Sie und wählen Sie „Microsoft Teams" und klicken Sie auf „Öffnen" oder „Hinzufügen"
 3. Klicken Sie auf „Speichern"
 
-### Schritt 6: OneUptime-Umgebungsvariablen konfigurieren
+### Schritt 6: Cast Operations-Umgebungsvariablen konfigurieren
 
 #### Docker Compose
 
@@ -85,7 +85,7 @@ microsoftTeamsApp:
   tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**Wichtig:** Starten Sie Ihren OneUptime-Server nach dem Hinzufügen dieser Umgebungsvariablen neu.
+**Wichtig:** Starten Sie Ihren Cast Operations-Server nach dem Hinzufügen dieser Umgebungsvariablen neu.
 
 ### Schritt 7: Teams-App-Manifest hochladen
 
@@ -108,4 +108,4 @@ Bei Problemen:
 
 ## Support
 
-Wir möchten diese Integration verbessern, daher ist Feedback sehr willkommen. Bitte senden Sie uns Feedback an [hello@oneuptime.com](mailto:hello@oneuptime.com)
+Wir möchten diese Integration verbessern, daher ist Feedback sehr willkommen. Bitte senden Sie uns Feedback an [hello@visca.ai](mailto:hello@visca.ai)

@@ -26,7 +26,7 @@ Una casilla que la persona de guardia marca. La ejecución pausa al llegar a un 
 
 ### JavaScript
 
-Un fragmento de JavaScript ejecutado en un sandbox `isolated-vm`. El sandbox vive en un [Agente de Runbook](/docs/runbooks/agents) dentro de tu propia infraestructura — no en el Worker de OneUptime.
+Un fragmento de JavaScript ejecutado en un sandbox `isolated-vm`. El sandbox vive en un [Agente de Runbook](/docs/runbooks/agents) dentro de tu propia infraestructura — no en el Worker de Cast Operations.
 
 Configura dos cosas en un paso JavaScript:
 
@@ -45,11 +45,11 @@ El valor devuelto se captura en la ejecución del paso. La salida de `console.lo
 
 Hace una llamada HTTP saliente. Configura método (GET/POST/PUT/PATCH/DELETE/HEAD), URL, cabeceras JSON opcionales y cuerpo opcional. Se capturan estado, cabeceras y cuerpo de la respuesta (con un tope de 50KB en total).
 
-Útil para: abrir un incidente en PagerDuty, publicar en Slack, llamar a tu propia API admin, etc. Los pasos HTTP corren directamente en el Worker de OneUptime; no se necesita agente.
+Útil para: abrir un incidente en PagerDuty, publicar en Slack, llamar a tu propia API admin, etc. Los pasos HTTP corren directamente en el Worker de Cast Operations; no se necesita agente.
 
 ### Bash
 
-Un script bash (`bash -c <script>`) ejecutado en un [Agente de Runbook](/docs/runbooks/agents) dentro de tu propia infraestructura. Bash nunca se ejecuta en el Worker de OneUptime.
+Un script bash (`bash -c <script>`) ejecutado en un [Agente de Runbook](/docs/runbooks/agents) dentro de tu propia infraestructura. Bash nunca se ejecuta en el Worker de Cast Operations.
 
 Configura dos cosas en un paso Bash:
 
@@ -60,7 +60,7 @@ Si el agente seleccionado está offline cuando el runbook llega a este paso, el 
 
 ### AI
 
-Pide a la IA que analice, resuma o decida algo a mitad de la ejecución. El prompt se envía al proveedor LLM de tu proyecto (**Settings → AI → LLM Providers**) y la respuesta del modelo se convierte en la salida del paso en la línea de tiempo de la ejecución. Los pasos AI corren en el Worker de OneUptime; no se necesita agente.
+Pide a la IA que analice, resuma o decida algo a mitad de la ejecución. El prompt se envía al proveedor LLM de tu proyecto (**Settings → AI → LLM Providers**) y la respuesta del modelo se convierte en la salida del paso en la línea de tiempo de la ejecución. Los pasos AI corren en el Worker de Cast Operations; no se necesita agente.
 
 Configura en un paso AI:
 

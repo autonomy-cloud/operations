@@ -1,16 +1,16 @@
-# OneUptimeをMicrosoft Teamsに接続する
+# Cast OperationsをMicrosoft Teamsに接続する
 
-### OneUptimeをMicrosoft Teamsに接続する手順
+### Cast OperationsをMicrosoft Teamsに接続する手順
 
-1. **OneUptimeでアカウントを作成する**
+1. **Cast Operationsでアカウントを作成する**
 
-   - [OneUptime.com](https://oneuptime.com) にアクセスしてアカウントを作成します。
+   - [Cast Operations.com](https://visca.ai) にアクセスしてアカウントを作成します。
    - アカウントを作成したら、新しいプロジェクトを作成します。
 
-2. **Microsoft TeamsをOneUptimeプロジェクトに接続する**
+2. **Microsoft TeamsをCast Operationsプロジェクトに接続する**
 
-   - OneUptimeプロジェクト内で **プロジェクト設定** > **Microsoft Teams** に移動します。
-   - プロンプトに従って、Microsoft TeamsアカウントとOneUptimeプロジェクトを接続します。
+   - Cast Operationsプロジェクト内で **プロジェクト設定** > **Microsoft Teams** に移動します。
+   - プロンプトに従って、Microsoft TeamsアカウントとCast Operationsプロジェクトを接続します。
 
 3. **インシデント通知の設定**
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# OneUptime Self-Hosted Performance Diagnostic
+# Cast Operations Self-Hosted Performance Diagnostic
 #
-# Read-only script that inspects an OneUptime deployment on Kubernetes,
+# Read-only script that inspects an Cast Operations deployment on Kubernetes,
 # flags performance issues, and prints a ranked summary of action steps.
 #
 # Usage:
@@ -147,7 +147,7 @@ discover() {
     NAMESPACE=$(kubectl get pods -A -l appname=oneuptime \
       -o jsonpath='{.items[0].metadata.namespace}' 2>/dev/null)
     if [ -z "$NAMESPACE" ]; then
-      echo "ERROR: could not auto-detect OneUptime namespace." >&2
+      echo "ERROR: could not auto-detect Cast Operations namespace." >&2
       echo "Pass --namespace <name>." >&2
       exit 1
     fi
@@ -181,7 +181,7 @@ check_pod_health() {
   local all_pods
   all_pods=$(kc get pods -l appname=oneuptime -o wide 2>/dev/null)
   if [ -z "$all_pods" ]; then
-    crit "No OneUptime pods found in namespace $NAMESPACE."
+    crit "No Cast Operations pods found in namespace $NAMESPACE."
     add_finding "CRIT" "cluster" \
       "No pods found with label appname=oneuptime in namespace $NAMESPACE" \
       "Verify the helm release is installed: helm -n $NAMESPACE list"
@@ -513,7 +513,7 @@ check_clickhouse() {
       crit "Clickhouse disk at ${used_pct}% full"
       add_finding "CRIT" "clickhouse" \
         "Clickhouse data disk at ${used_pct}% full" \
-        "Resize the PVC (clickhouse.persistence.size in values.yaml), or shorten retention. Telemetry retention per project is set in the OneUptime UI under Project Settings → Telemetry."
+        "Resize the PVC (clickhouse.persistence.size in values.yaml), or shorten retention. Telemetry retention per project is set in the Cast Operations UI under Project Settings → Telemetry."
     elif [ -n "$used_pct" ] && [ "$used_pct" -ge 70 ] 2>/dev/null; then
       warn "Clickhouse disk at ${used_pct}%"
       add_finding "WARN" "clickhouse" \
@@ -865,11 +865,11 @@ print_summary() {
   echo
   echo "1. Address ${C_RED}CRITICAL${C_RST} findings first — they cause data loss or outages."
   echo "2. Most changes are made in your helm values.yaml, then:"
-  echo "     helm upgrade ${RELEASE} oneuptime/oneuptime -n ${NAMESPACE} -f values.yaml"
+  echo "     helm upgrade ${RELEASE} autonomy-cloud/operations -n ${NAMESPACE} -f values.yaml"
   echo "3. After each change, re-run this script to confirm the issue is gone:"
   echo "     ./diagnose.sh -n ${NAMESPACE} -r ${RELEASE}"
   echo "4. If issues persist, attach ${REPORT_FILE}"
-  echo "   to a support ticket at https://oneuptime.com/support"
+  echo "   to a support ticket at https://visca.ai/support"
 }
 
 # ---------------------------------------------------------------------------

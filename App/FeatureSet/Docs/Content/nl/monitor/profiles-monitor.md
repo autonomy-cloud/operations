@@ -1,6 +1,6 @@
 # Profielen Monitor
 
-Profilenmonitoring stelt u in staat continu profileergegevens van uw applicaties te bewaken en meldingen te activeren op basis van profieltellingen en -patronen. OneUptime evalueert profielgegevens van uw telemetriediensten over een tijdvenster.
+Profilenmonitoring stelt u in staat continu profileergegevens van uw applicaties te bewaken en meldingen te activeren op basis van profieltellingen en -patronen. Cast Operations evalueert profielgegevens van uw telemetriediensten over een tijdvenster.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Profielenmonitors tellen en filteren profileergegevens die aan specifieke criter
 
 ## Een Profielen Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Profielen** als het monitortype
 4. Selecteer de te bewaken telemetriediensten
@@ -24,7 +24,7 @@ Profielenmonitors tellen en filteren profileergegevens die aan specifieke criter
 
 ### Telemetriediensten
 
-Selecteer een of meer diensten waarvan profielen worden bewaakt. Diensten moeten continu profileergegevens via OpenTelemetry naar OneUptime sturen.
+Selecteer een of meer diensten waarvan profielen worden bewaakt. Diensten moeten continu profileergegevens via OpenTelemetry naar Cast Operations sturen.
 
 ### Profielfilters
 
@@ -62,4 +62,4 @@ Selecteer een of meer diensten waarvan profielen worden bewaakt. Diensten moeten
 
 ## Installatievereisten
 
-Profilenmonitoring vereist dat uw applicaties continu profileergegevens via OpenTelemetry naar OneUptime sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.
+Profilenmonitoring vereist dat uw applicaties continu profileergegevens via OpenTelemetry naar Cast Operations sturen. Zie de [OpenTelemetry](/docs/telemetry/open-telemetry)-documentatie voor installatie-instructies.

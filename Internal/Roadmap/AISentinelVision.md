@@ -1,6 +1,6 @@
-# OneUptime AI — The Reliability Brain (codename: **Sentinel**)
+# Cast Operations AI — The Reliability Brain (codename: **Sentinel**)
 
-> The product vision for OneUptime's AI agents. This is the **strategy** document — it says where we are going and why we win.
+> The product vision for Cast Operations’ AI agents. This is the **strategy** document — it says where we are going and why we win.
 > Build status, phase checklists, safety gates, and sequencing live in [AISentinelExecution.md](./AISentinelExecution.md) — this doc deliberately contains **no** point-in-time status claims.
 > Competitive claims last reviewed: **July 2026**. Review quarterly (see Changelog in the execution doc).
 
@@ -8,13 +8,13 @@
 
 ## 1. The North Star
 
-> **OneUptime becomes the open-source AI SRE that watches everything you own, tells you the root cause before you're paged — with a receipt for every claim — fixes the code, proves the fix held, and makes your software measurably more reliable every single week.**
+> **Cast Operations becomes the open-source AI SRE that watches everything you own, tells you the root cause before you're paged — with a receipt for every claim — fixes the code, proves the fix held, and makes your software measurably more reliable every single week.**
 
-**The manifesto.** Monitoring told you *something is wrong*. Observability told you *where to look*. The Reliability Brain tells you *why it broke, what to do, and does it* — then closes the loop by turning every incident into a permanent improvement to your software. It never sleeps, it shows its work, it asks before it touches production, and it gets smarter every time it's corrected. It is not a chatbot bolted onto a dashboard. It is a senior on-call engineer that lives inside the one platform that already holds your monitors, logs, metrics, traces, exceptions, incidents, on-call schedules, status page, service catalog, and code repos — and because it's open-source and self-hostable, you can read its mind and run it air-gapped in your own cluster. We are not adding an AI feature. We are flipping OneUptime from *answers when asked* to *watches, decides, and improves on its own*.
+**The manifesto.** Monitoring told you *something is wrong*. Observability told you *where to look*. The Reliability Brain tells you *why it broke, what to do, and does it* — then closes the loop by turning every incident into a permanent improvement to your software. It never sleeps, it shows its work, it asks before it touches production, and it gets smarter every time it's corrected. It is not a chatbot bolted onto a dashboard. It is a senior on-call engineer that lives inside the one platform that already holds your monitors, logs, metrics, traces, exceptions, incidents, on-call schedules, status page, service catalog, and code repos — and because it's open-source and self-hostable, you can read its mind and run it air-gapped in your own cluster. We are not adding an AI feature. We are flipping Cast Operations from *answers when asked* to *watches, decides, and improves on its own*.
 
 ---
 
-## 2. Why now / why OneUptime wins
+## 2. Why now / why Cast Operations wins
 
 The entire AI-SRE market has converged on one promise — **"root cause before you're paged"** — and as of mid-2026 every serious competitor ships some version of it. The honest read of the field:
 
@@ -25,7 +25,7 @@ The entire AI-SRE market has converged on one promise — **"root cause before y
 - **Sentry Seer** owns errors and closes into PRs beautifully — today it is genuinely ahead of us on code-fix. But it sees only errors, not full telemetry, on-call, incidents, or customer comms.
 - **Atlassian JSM (Rovo Incident Command Center)** is courting the Opsgenie migration cohort with an AI incident hub — incident data and on-call, but no owned observability and no open source.
 
-**OneUptime's advantage is structural, not incremental:**
+**Cast Operations’ advantage is structural, not incremental:**
 
 1. **It owns the entire data plane in ONE tenant-scoped model** — monitors, logs, metrics, traces, exceptions, incidents, alerts, on-call, runbooks, status pages, service catalog, *and linked GitHub/GitLab repos*. No connector cold-start. No correlation-across-vendors tax. Citations are **live deep-links to data we own**, not dead federated pointers. We can follow one unbroken causal chain: *metric spike → anomalous baseline → new exception fingerprint → the trace that threw it → the release that shipped it → the commit → the fix PR → the status-page post → the postmortem → the memory that short-circuits the next recurrence.* No competitor owns every link.
 
@@ -39,7 +39,7 @@ The window is now: incumbents gate AI behind Enterprise paywalls or metered add-
 
 ## 3. The core concept: the Reliability Brain
 
-The Reliability Brain is a single **always-on agent runtime** that runs one loop over the data OneUptime already owns:
+The Reliability Brain is a single **always-on agent runtime** that runs one loop over the data Cast Operations already owns:
 
 ```
    ┌─────────── WATCH ───────────┐
@@ -77,13 +77,13 @@ Across the full lifecycle: **Detect → Correlate → Investigate → Remediate 
 
 5. **Alert-storm collapse.** The on-call opens their phone to **ONE card: "47 alerts, 1 root cause."** Rule-based grouping plus AI root-cause grouping.
 
-6. **Confidence-gated escalation — "nobody gets woken at 3am."** Because OneUptime **owns on-call schedules**, when RCA confidence is high and blast-radius low, the Brain can **delay the 3am page**, page the specific **service owner**, or hand a warm, diagnosed incident to the morning shift. This is the riskiest capability in the roadmap and ships only under the page-suppression safety contract in §6 — suppression is a *delay with a dead-man's switch*, never a cancel.
+6. **Confidence-gated escalation — "nobody gets woken at 3am."** Because Cast Operations **owns on-call schedules**, when RCA confidence is high and blast-radius low, the Brain can **delay the 3am page**, page the specific **service owner**, or hand a warm, diagnosed incident to the morning shift. This is the riskiest capability in the roadmap and ships only under the page-suppression safety contract in §6 — suppression is a *delay with a dead-man's switch*, never a cancel.
 
 7. **Full incident-command action belt.** ~10 mutating tools that are **thin wrappers over already-RBAC-tested service methods** — paging, runbooks, incident state/severity, monitor status, status-page updates, postmortem drafting — gated by permission modes and (before any broad autonomy) the policy gateway.
 
 8. **Auto code-fix PR.** After RCA pins root cause, an **in-house `LLMService` coding sub-agent** reads surrounding logs/traces/spans, writes the fix *plus a regression test built from the real production error*, runs a **build/test/lint verify loop until green**, and opens a reviewable PR on GitHub *or* GitLab. **The biggest genuine engineering lift** — the per-repo CI sandbox is the hidden cost, and it gets its own design spike before any code. (Sentry Seer is ahead of us here today; our differentiation is fixes grounded in *full* telemetry, not error-only context.)
 
-9. **Auto customer-comms.** Because OneUptime **owns the status page + subscribers**, the same run drafts the customer-facing announcement, queued for one-click human-approved publish. incident.io can draft comms too — but not from the same owned telemetry that produced the cited RCA. *Telemetry-grounded comms* is the defensible claim.
+9. **Auto customer-comms.** Because Cast Operations **owns the status page + subscribers**, the same run drafts the customer-facing announcement, queued for one-click human-approved publish. incident.io can draft comms too — but not from the same owned telemetry that produced the cited RCA. *Telemetry-grounded comms* is the defensible claim.
 
 10. **Active verification — using our own probes as hands.** The Brain **re-runs the exact synthetic monitor/probe that failed** to confirm recovery in seconds, then watches SLO/error-budget + recurrence. No passive competitor can do this.
 
@@ -110,7 +110,7 @@ Across the full lifecycle: **Detect → Correlate → Investigate → Remediate 
 7. **Go to bed red, wake up to a merge-ready PR** with a regression test built from the real failure.
 8. **The honesty receipt** — a public **Agent Accuracy scorecard**.
 9. **The Friday digest.**
-10. **Sentinel watching Sentinel** — a public live dashboard of OneUptime's own production agent's accuracy/cost/traces.
+10. **Sentinel watching Sentinel** — a public live dashboard of Cast Operations’ own production agent's accuracy/cost/traces.
 11. **The incident that never happened** — Monday standup opens on a PR merged last Thursday: Sentinel caught a week-over-week latency drift, filed a quiet finding, opened the fix, a human reviewed and merged it. The chart shows the creep bending back into the band. No alert ever fired.
 
 ---
@@ -146,7 +146,7 @@ Trust is the entire game — hallucinated overconfidence is the **#1 documented 
 
 *As of July 2026 — reviewed quarterly; competitive claims in this table must carry a review date to be trusted.*
 
-| Capability | **OneUptime Sentinel** | Datadog Bits AI SRE | Grafana Assistant | Cleric / Resolve / Traversal | incident.io AI | Sentry Seer |
+| Capability | **Cast Operations Sentinel** | Datadog Bits AI SRE | Grafana Assistant | Cleric / Resolve / Traversal | incident.io AI | Sentry Seer |
 |---|---|---|---|---|---|---|
 | Owns full data plane (logs+metrics+traces+incidents+on-call+status+repos, one model) | ✅ **Wins** | ⚠️ Telemetry, no status page | ⚠️ Telemetry, partial IRM | ❌ Federate read-only | ❌ Incident data only | ❌ Errors only |
 | Wake-on-alert RCA | ✅ (ours on owned data) | ✅ GA | ✅ | ✅ | ✅ | ⚠️ Error-triggered |
@@ -167,7 +167,7 @@ Trust is the entire game — hallucinated overconfidence is the **#1 documented 
 
 ## 8. The bumper-sticker
 
-> ## **OneUptime: the open-source AI SRE that finds the root cause before you're paged, fixes the code, proves the fix held — and makes your software more reliable every week. Self-hosted. Auditable. Yours.**
+> ## **Cast Operations: the open-source AI SRE that finds the root cause before you're paged, fixes the code, proves the fix held — and makes your software more reliable every week. Self-hosted. Auditable. Yours.**
 
 **The three metrics that prove it's working** (instrumentation for all three is scheduled work — the execution doc tracks it; no public number ships before its plumbing exists):
 

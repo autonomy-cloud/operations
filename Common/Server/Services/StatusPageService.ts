@@ -782,7 +782,7 @@ export class Service extends DatabaseService<StatusPage> {
    * subscriber notifications (email/SMS/Slack/Teams/webhooks) and SSO
    * redirects. A domain is usable when any of these holds, in order of
    * preference:
-   * 1. `isSslProvisioned` — OneUptime ordered the certificate and confirmed
+   * 1. `isSslProvisioned` — Cast Operations ordered the certificate and confirmed
    *    the domain serves HTTPS.
    * 2. `isCustomCertificate` + `isCnameVerified` — the user uploaded their
    *    own certificate (the SSL provisioning jobs skip these domains, so
@@ -797,7 +797,7 @@ export class Service extends DatabaseService<StatusPage> {
    *    is just mid-provisioning and will be picked up by rule 1 shortly.)
    * Without rules 2 and 3, such status pages fall back to the installation
    * URL in every subscriber notification
-   * (https://github.com/OneUptime/oneuptime/issues/1951).
+   * (https://github.com/autonomy-cloud/operations/issues/1951).
    */
   @CaptureSpan()
   public async getUsableCustomDomain(
@@ -884,7 +884,7 @@ export class Service extends DatabaseService<StatusPage> {
 
       const httpProtocol: Protocol = await DatabaseConfig.getHttpProtocol();
 
-      // 'https://local.oneuptime.com/status-page/40092fb5-cc33-4995-b532-b4e49c441c98'
+      // 'https://local.visca.ai/status-page/40092fb5-cc33-4995-b532-b4e49c441c98'
       statusPageURL = new URL(httpProtocol, host)
         .addRoute("/status-page/" + statusPageId.toString())
         .toString();
@@ -909,7 +909,7 @@ export class Service extends DatabaseService<StatusPage> {
 
     const httpProtocol: Protocol = await DatabaseConfig.getHttpProtocol();
 
-    // 'https://local.oneuptime.com/status-page/40092fb5-cc33-4995-b532-b4e49c441c98'
+    // 'https://local.visca.ai/status-page/40092fb5-cc33-4995-b532-b4e49c441c98'
     return new URL(httpProtocol, host)
       .addRoute("/status-page/" + statusPageId.toString())
       .toString();

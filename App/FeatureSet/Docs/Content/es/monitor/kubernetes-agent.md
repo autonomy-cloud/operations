@@ -1,22 +1,22 @@
 # Instalar el agente de Kubernetes
 
-El agente de Kubernetes de OneUptime recopila métricas del clúster, eventos, registros de Pod, **trazas de aplicación (HTTP/gRPC mediante eBPF)** y **métricas de nodos a nivel de sistema operativo** desde su clúster de Kubernetes y los envía a OneUptime. Se distribuye como un chart de Helm y se instala con un solo comando — la auto-instrumentación eBPF está activada por defecto, por lo que verá trazas a nivel de servicio y métricas RED sin cambios de código. Los **gráficos de llamas continuos de CPU (perfilador eBPF)** también están disponibles — actívelos con `--set profiling.enabled=true` cuando desee más telemetría.
+El agente de Kubernetes de Cast Operations recopila métricas del clúster, eventos, registros de Pod, **trazas de aplicación (HTTP/gRPC mediante eBPF)** y **métricas de nodos a nivel de sistema operativo** desde su clúster de Kubernetes y los envía a Cast Operations. Se distribuye como un chart de Helm y se instala con un solo comando — la auto-instrumentación eBPF está activada por defecto, por lo que verá trazas a nivel de servicio y métricas RED sin cambios de código. Los **gráficos de llamas continuos de CPU (perfilador eBPF)** también están disponibles — actívelos con `--set profiling.enabled=true` cuando desee más telemetría.
 
 ## Inicio rápido
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
-Su clúster aparecerá en OneUptime en pocos minutos.
+Su clúster aparecerá en Cast Operations en pocos minutos.
 
 ## Elija el preset adecuado para su clúster
 
@@ -37,7 +37,7 @@ Si no está seguro, deje `preset` sin establecer — obtendrá los valores por d
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
@@ -47,7 +47,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
@@ -58,7 +58,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
@@ -90,7 +90,7 @@ También puede desactivar por completo la recopilación de registros con `--set 
 
 ## Trazas de aplicación y peticiones HTTP mediante eBPF (activado por defecto)
 
-El chart incluye un DaemonSet que ejecuta [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) en cada nodo. OBI carga programas eBPF en el kernel de Linux y observa el tráfico a nivel de socket para reconstruir llamadas HTTP/HTTPS, gRPC y SQL/Redis desde cada pod del nodo — sin cambios de código, sin SDK, sin sidecar. El tráfico capturado se exporta como trazas OTLP y métricas de petición/latencia directamente a OneUptime.
+El chart incluye un DaemonSet que ejecuta [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) en cada nodo. OBI carga programas eBPF en el kernel de Linux y observa el tráfico a nivel de socket para reconstruir llamadas HTTP/HTTPS, gRPC y SQL/Redis desde cada pod del nodo — sin cambios de código, sin SDK, sin sidecar. El tráfico capturado se exporta como trazas OTLP y métricas de petición/latencia directamente a Cast Operations.
 
 Después de instalar, sus servicios empiezan a aparecer bajo **Telemetry → Traces** y en el mapa de servicios en uno o dos minutos, con `k8s.cluster.name` establecido a su `clusterName` para que pueda filtrar por clúster.
 
@@ -127,7 +127,7 @@ OBI también propaga el contexto de traza a través de los límites de servicio 
 
 También activado por defecto. El enriquecedor de registros de OBI intercepta las escrituras a stdout del pod desde los procesos instrumentados y:
 
-- Para **registros en formato JSON**: inyecta los campos `trace_id` y `span_id` en la línea (cualquier valor existente en el registro se preserva). El DaemonSet filelog luego eleva esos campos a los slots nativos de trace_id/span_id del LogRecord, de modo que al hacer clic en un span en la vista de trazas se salta a sus registros en OneUptime — y al hacer clic en una línea de registro se salta a su traza padre.
+- Para **registros en formato JSON**: inyecta los campos `trace_id` y `span_id` en la línea (cualquier valor existente en el registro se preserva). El DaemonSet filelog luego eleva esos campos a los slots nativos de trace_id/span_id del LogRecord, de modo que al hacer clic en un span en la vista de trazas se salta a sus registros en Cast Operations — y al hacer clic en una línea de registro se salta a su traza padre.
 - Para **registros que no son JSON**: la línea se preserva sin cambios — todavía se recopila, simplemente no se enlaza automáticamente.
 
 | Opción                       | Por defecto | Descripción                                                                                                                                   |
@@ -163,11 +163,11 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 ## Perfilado continuo de CPU (desactivado por defecto)
 
-Un DaemonSet separado ejecuta el [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) — empaquetado como la imagen `otel/opentelemetry-collector-ebpf-profiler`. Muestrea pilas en-CPU a 19Hz a través de cada runtime soportado (Go, Java, .NET, Python, Ruby, Node.js, PHP, Perl, C/C++, Rust) y envía perfiles OTLP a OneUptime, donde aparecen bajo **Telemetry → Performance Profiles** y como gráficos de llamas enlazados desde spans de traza individuales.
+Un DaemonSet separado ejecuta el [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) — empaquetado como la imagen `otel/opentelemetry-collector-ebpf-profiler`. Muestrea pilas en-CPU a 19Hz a través de cada runtime soportado (Go, Java, .NET, Python, Ruby, Node.js, PHP, Perl, C/C++, Rust) y envía perfiles OTLP a Cast Operations, donde aparecen bajo **Telemetry → Performance Profiles** y como gráficos de llamas enlazados desde spans de traza individuales.
 
 El perfilado está **desactivado por defecto** — es más pesado que la auto-instrumentación de OBI (más CPU por nodo, mayor huella de memoria) y no todos los clústeres quieren gráficos de llamas siempre activos. Actívelo cuando desee una telemetría más rica: `--set profiling.enabled=true`.
 
-Cuando la auto-instrumentación eBPF también está activada (`ebpf.enabled: true`, el valor por defecto), cada muestra de CPU se correlaciona con el contexto de traza de OBI a través de un mapa bpffs compartido — de modo que los gráficos de llamas llevan trace_id/span_id y la interfaz de OneUptime puede mostrarle un gráfico de llamas por span.
+Cuando la auto-instrumentación eBPF también está activada (`ebpf.enabled: true`, el valor por defecto), cada muestra de CPU se correlaciona con el contexto de traza de OBI a través de un mapa bpffs compartido — de modo que los gráficos de llamas llevan trace_id/span_id y la interfaz de Cast Operations puede mostrarle un gráfico de llamas por span.
 
 Requisitos:
 
@@ -205,7 +205,7 @@ El chart también puede recopilar:
 | Opción                                    | Por defecto                       | Descripción                                                                                                                                                                                        |
 | ----------------------------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | (vacío — tratado como `standard`) | Vea la tabla anterior.                                                                                                                                                                             |
-| `oneuptime.url`                           | _(requerido)_                     | URL de su instancia de OneUptime.                                                                                                                                                                  |
+| `oneuptime.url`                           | _(requerido)_                     | URL de su instancia de Cast Operations.                                                                                                                                                                  |
 | `oneuptime.apiKey`                        | _(requerido)_                     | Clave de API del proyecto (Settings → API Keys).                                                                                                                                                   |
 | `clusterName`                             | _(requerido)_                     | Nombre único para este clúster. Estampado como `k8s.cluster.name` en cada registro.                                                                                                                |
 | `namespaceFilters.rules`                  | Excluir kube-system de podLogs y ebpfDiscovery | Reglas include/exclude por ámbito para podLogs, ebpfDiscovery, metrics y traces. Los patrones admiten * y exclude siempre prevalece. |
@@ -224,7 +224,7 @@ El chart también puede recopilar:
 | `coreDns.enabled`                         | `false`                           | Métricas Prometheus de CoreDNS.                                                                                                                                                                    |
 | `controlPlane.enabled`                    | `false`                           | Recoge etcd / api-server / scheduler / controller-manager. Sólo clústeres autogestionados — las ofertas gestionadas (EKS/GKE/AKS) normalmente no exponen estos endpoints.                          |
 
-Vea el [`values.yaml` del chart](https://github.com/OneUptime/oneuptime/blob/master/HelmChart/Public/kubernetes-agent/values.yaml) para la lista completa.
+Vea el [`values.yaml` del chart](https://github.com/autonomy-cloud/operations/blob/master/HelmChart/Public/kubernetes-agent/values.yaml) para la lista completa.
 
 ## Actualización
 
@@ -271,7 +271,7 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
   --set preset=gke-autopilot   # or eks-fargate
 ```
 
-### No aparecen registros en OneUptime
+### No aparecen registros en Cast Operations
 
 Compruebe los pods del agente:
 
@@ -294,7 +294,7 @@ Causas comunes:
 
 - **Kernel demasiado antiguo o sin BTF.** OBI necesita Linux 5.8+ con BTF. Compruebe con `uname -r` en un nodo. Si no puede actualizar, desactive eBPF: `--set ebpf.enabled=false`.
 - **Los pods privilegiados están bloqueados.** Algunos clústeres rechazan los pods privilegiados incluso fuera de Autopilot/Fargate. Desactive eBPF.
-- **No hay trazas en el panel pero OBI está ejecutándose.** Establezca `--set ebpf.printTraces=true` y compruebe el stdout de OBI — si ve spans allí, el problema es la entrega OTLP (compruebe el `OTEL_EXPORTER_OTLP_ENDPOINT` y su URL/clave de API de OneUptime). Si no ve spans, el tráfico que OBI está observando puede estar todo cifrado por una librería TLS que OBI no puede interceptar (p. ej. una implementación TLS enlazada estáticamente que no reconoce).
+- **No hay trazas en el panel pero OBI está ejecutándose.** Establezca `--set ebpf.printTraces=true` y compruebe el stdout de OBI — si ve spans allí, el problema es la entrega OTLP (compruebe el `OTEL_EXPORTER_OTLP_ENDPOINT` y su URL/clave de API de Cast Operations). Si no ve spans, el tráfico que OBI está observando puede estar todo cifrado por una librería TLS que OBI no puede interceptar (p. ej. una implementación TLS enlazada estáticamente que no reconoce).
 
 ### Mi clúster tiene demasiados pods para una réplica del tailer de registros (sólo modo API)
 

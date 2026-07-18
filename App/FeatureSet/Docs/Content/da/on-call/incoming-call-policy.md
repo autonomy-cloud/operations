@@ -1,14 +1,14 @@
 # Indgående opkaldspolitik (Twilio-integration)
 
-Indgående opkaldspolitikker giver eksterne opkaldere mulighed for at nå dine vagtingeniører ved at ringe til et dedikeret telefonnummer. Når nogen ringer, dirigerer OneUptime opkaldet gennem dine konfigurerede eskaleringsregler, indtil en ingeniør svarer.
+Indgående opkaldspolitikker giver eksterne opkaldere mulighed for at nå dine vagtingeniører ved at ringe til et dedikeret telefonnummer. Når nogen ringer, dirigerer Cast Operations opkaldet gennem dine konfigurerede eskaleringsregler, indtil en ingeniør svarer.
 
 ## Sådan fungerer det
 
 ```mermaid
 flowchart TD
     A[Opkalder ringer<br/>Indgående opkaldsnummer] --> B[Twilio modtager opkald]
-    B --> C[Twilio sender webhook<br/>til OneUptime]
-    C --> D[OneUptime afspiller<br/>hilsenbesked]
+    B --> C[Twilio sender webhook<br/>til Cast Operations]
+    C --> D[Cast Operations afspiller<br/>hilsenbesked]
     D --> E[Indlæs eskaleringsregler]
     E --> F{Regel 1:<br/>Prøv vagthavende bruger}
     F -->|Intet svar| G{Regel 2:<br/>Prøv reserveteam}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant Opkalder
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant VagtIngeniør
 
     Opkalder->>Twilio: Ringer til indgående opkaldsnummer
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML: Afspil hilsen
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML: Afspil hilsen
     Twilio->>Opkalder: "Vent venligst mens vi forbinder dig..."
 
     loop Eskaleringsregler
-        OneUptime->>OneUptime: Hent næste eskaleringsregel
-        OneUptime->>Twilio: TwiML: Ring til vagthavende bruger
+        Cast Operations->>Cast Operations: Hent næste eskaleringsregel
+        Cast Operations->>Twilio: TwiML: Ring til vagthavende bruger
         Twilio->>VagtIngeniør: Telefonen ringer
         alt Ingeniør svarer
             VagtIngeniør->>Twilio: Tager telefonen
-            Twilio->>OneUptime: Opkaldsstatus: gennemført
+            Twilio->>Cast Operations: Opkaldsstatus: gennemført
             Twilio->>Opkalder: Forbind til ingeniør
             Note over Opkalder,VagtIngeniør: Opkald i gang
         else Intet svar (timeout)
-            Twilio->>OneUptime: Opkaldsstatus: intet svar
-            OneUptime->>OneUptime: Prøv næste regel
+            Twilio->>Cast Operations: Opkaldsstatus: intet svar
+            Cast Operations->>Cast Operations: Prøv næste regel
         end
     end
 
     alt Alle regler udtømt
-        OneUptime->>Twilio: TwiML: Afspil besked om intet svar
+        Cast Operations->>Twilio: TwiML: Afspil besked om intet svar
         Twilio->>Opkalder: "Ingen er tilgængelig..."
         Twilio->>Opkalder: Læg på
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - En Twilio-konto – Opret en på [https://www.twilio.com](https://www.twilio.com)
 - Dit Twilio-konto-SID og Auth Token
-- Adgang til din OneUptime selvhostede instans
+- Adgang til din Cast Operations selvhostede instans
 
 ## Oversigt
 
@@ -74,7 +74,7 @@ Funktionen Indgående opkaldspolitik fungerer ved at:
 4. Forbinde opkalderen til den første tilgængelige vagthavende ingeniør
 5. Eskalere til den næste regel, hvis ingen svarer
 
-Da du selvhoster OneUptime, skal du konfigurere din egen Twilio-konto. Dette giver dig fuld kontrol over dine telefonnumre og fakturering.
+Da du selvhoster Cast Operations, skal du konfigurere din egen Twilio-konto. Dette giver dig fuld kontrol over dine telefonnumre og fakturering.
 
 ## Trin 1: Opret en Twilio-konto
 
@@ -82,9 +82,9 @@ Da du selvhoster OneUptime, skal du konfigurere din egen Twilio-konto. Dette giv
 2. Fuldfør verifikationsprocessen
 3. Notér dit **Konto-SID** og **Auth Token** fra Twilio Console-dashboardet
 
-## Trin 2: Konfigurer opkalds-/SMS-konfiguration i OneUptime
+## Trin 2: Konfigurer opkalds-/SMS-konfiguration i Cast Operations
 
-1. Log ind på dit OneUptime-dashboard
+1. Log ind på dit Cast Operations-dashboard
 2. Gå til **Projektindstillinger** > **Opkald og SMS** > **Brugerdefineret opkalds-/SMS-konfiguration**
 3. Klik på **Opret brugerdefineret opkalds-/SMS-konfiguration**
 4. Udfyld følgende felter:
@@ -120,15 +120,15 @@ Du har to muligheder for at opsætte et telefonnummer:
 Hvis du allerede har telefonnumre i din Twilio-konto:
 
 1. Klik på **Brug eksisterende nummer** i kortet **Telefonnummer**
-2. OneUptime henter alle telefonnumre fra din Twilio-konto
+2. Cast Operations henter alle telefonnumre fra din Twilio-konto
 3. Vælg det telefonnummer, du vil bruge
 4. Klik på **Brug dette** for at tildele det til politikken
 
-> **Bemærk**: Hvis telefonnummeret allerede har en webhook konfigureret, opdateres den til at pege på OneUptime.
+> **Bemærk**: Hvis telefonnummeret allerede har en webhook konfigureret, opdateres den til at pege på Cast Operations.
 
 ### Mulighed B: Køb et nyt telefonnummer
 
-For at købe et nyt telefonnummer direkte fra OneUptime:
+For at købe et nyt telefonnummer direkte fra Cast Operations:
 
 1. Klik på **Køb nyt nummer** i kortet **Telefonnummer**
 2. Vælg et **Land** fra rullelisten
@@ -258,7 +258,7 @@ Hvis du ikke længere har brug for et telefonnummer:
 ### Opkald modtages ikke
 
 - Bekræft, at Twilio-konfigurationen er korrekt tilknyttet politikken
-- Kontroller, at din OneUptime-instans er tilgængelig fra internettet
+- Kontroller, at din Cast Operations-instans er tilgængelig fra internettet
 - Bekræft, at Twilio-konto-SID og Auth Token er korrekte
 - Kontroller Twilio Console for fejllogge
 
@@ -278,8 +278,8 @@ Hvis du ikke længere har brug for et telefonnummer:
 ## Sikkerhedsovervejelser
 
 - Hold dit Twilio Auth Token sikkert og eksponér det aldrig offentligt
-- Brug HTTPS til din OneUptime-instans
-- OneUptime validerer webhook-signaturer for at sikre, at anmodninger kommer fra Twilio
+- Brug HTTPS til din Cast Operations-instans
+- Cast Operations validerer webhook-signaturer for at sikre, at anmodninger kommer fra Twilio
 - Overvej at begrænse, hvilke telefonnumre der kan ringe til dine indgående opkaldspolitikker
 
 ## Arkitekturoversigt
@@ -291,7 +291,7 @@ graph TB
         B[Twilio Cloud]
     end
 
-    subgraph "OneUptime"
+    subgraph "Cast Operations"
         C[Indgående opkalds-API]
         D[Opkaldsrouter]
         E[Eskaleringsmotor]
@@ -320,5 +320,5 @@ graph TB
 For problemer med funktionen Indgående opkaldspolitik:
 
 1. Kontroller Twilio Console for fejllogge
-2. Gennemgå OneUptime-serverlogge
-3. Kontakt support på [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Gennemgå Cast Operations-serverlogge
+3. Kontakt support på [hello@visca.ai](mailto:hello@visca.ai)

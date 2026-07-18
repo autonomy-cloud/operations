@@ -1,11 +1,11 @@
 # Telegram 整合
 
-將事件更新傳送到 [Telegram](https://telegram.org) 聊天或群組。OneUptime 內建 **Telegram** 工作流程元件，因此設定相當快速。
+將事件更新傳送到 [Telegram](https://telegram.org) 聊天或群組。Cast Operations 內建 **Telegram** 工作流程元件，因此設定相當快速。
 
-此整合屬於**對外（outbound）**：OneUptime 透過 Telegram 機器人傳送訊息。
+此整合屬於**對外（outbound）**：Cast Operations 透過 Telegram 機器人傳送訊息。
 
 ```text
-OneUptime Incident → On Create  ──►  Telegram component  ──►  message in your chat
+Cast Operations Incident → On Create  ──►  Telegram component  ──►  message in your chat
 ```
 
 ## 步驟 1 — 建立機器人並取得其權杖
@@ -21,7 +21,7 @@ OneUptime Incident → On Create  ──►  Telegram component  ──►  mess
 
 ## 步驟 3 — 儲存密鑰
 
-1. 在 OneUptime 中，前往 **Workflows → Global Variables → Create**。
+1. 在 Cast Operations 中，前往 **Workflows → Global Variables → Create**。
 2. 建立 `TELEGRAM_BOT_TOKEN`（secret）與 `TELEGRAM_CHAT_ID`。
 
 ## 步驟 4 — 建構工作流程

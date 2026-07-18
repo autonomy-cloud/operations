@@ -1,6 +1,6 @@
 # ウェブサイトモニター
 
-ウェブサイトモニタリングを使用すると、任意のウェブサイトやウェブページの可用性、パフォーマンス、レスポンスを監視できます。OneUptimeは定期的にウェブサイトのURLにHTTPリクエストを送信し、正しく応答するかを確認します。
+ウェブサイトモニタリングを使用すると、任意のウェブサイトやウェブページの可用性、パフォーマンス、レスポンスを監視できます。Cast Operationsは定期的にウェブサイトのURLにHTTPリクエストを送信し、正しく応答するかを確認します。
 
 ## 概要
 
@@ -14,7 +14,7 @@
 
 ## ウェブサイトモニターの作成
 
-1. OneUptime ダッシュボードで **モニター** を開きます
+1. Cast Operations ダッシュボードで **モニター** を開きます
 2. **モニターの作成** をクリックします
 3. モニタータイプとして **ウェブサイト** を選択します
 4. 監視するウェブサイトのURLを入力します
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### リダイレクトに従わない
 
-デフォルトでは、OneUptimeはHTTPリダイレクト（301、302など）に従います。リダイレクト後の最終的な宛先ではなく、リダイレクトレスポンス自体を監視したい場合は、このオプションを有効にします。
+デフォルトでは、Cast OperationsはHTTPリダイレクト（301、302など）に従います。リダイレクト後の最終的な宛先ではなく、リダイレクトレスポンス自体を監視したい場合は、このオプションを有効にします。
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

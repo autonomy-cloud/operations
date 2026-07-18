@@ -248,7 +248,7 @@ export default class UserPushAPI extends BaseAPI<
             // Send test notification
             const testMessage: PushNotificationMessage =
               PushNotificationUtil.createGenericNotification({
-                title: "Test Notification from OneUptime",
+                title: "Test Notification from Cast Operations",
                 body: "This is a test notification to verify your device is working correctly.",
                 clickAction: "/dashboard",
                 tag: "test-notification",

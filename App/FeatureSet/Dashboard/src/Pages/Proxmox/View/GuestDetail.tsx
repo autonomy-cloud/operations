@@ -348,7 +348,7 @@ const ProxmoxClusterGuestDetail: FunctionComponent<
       return (
         <Card
           title="Linked Host"
-          description="A OneUptime host agent is running inside this guest."
+          description="A Cast Operations host agent is running inside this guest."
         >
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Link
@@ -377,7 +377,7 @@ const ProxmoxClusterGuestDetail: FunctionComponent<
         description="pve-exporter reports CPU, memory, and I/O for this guest — but not what's running inside it."
       >
         <div className="text-sm text-gray-600">
-          Install the OneUptime host agent inside this VM for process-level
+          Install the Cast Operations host agent inside this VM for process-level
           visibility (processes, per-core CPU, mounts, host logs). Once the
           agent reports with a host identifier matching this guest&apos;s name,
           the host is linked here automatically.{" "}

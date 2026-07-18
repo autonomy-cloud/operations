@@ -161,7 +161,7 @@ const DockerHosts: FunctionComponent<PageComponentProps> = (): ReactElement => {
         cardProps={{
           title: "Docker Hosts",
           description:
-            "Hosts being monitored in this project. Install the OneUptime Docker Agent to connect a host.",
+            "Hosts being monitored in this project. Install the Cast Operations Docker Agent to connect a host.",
         }}
         showViewIdButton={true}
         formFields={[

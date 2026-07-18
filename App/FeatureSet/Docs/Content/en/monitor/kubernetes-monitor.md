@@ -1,6 +1,6 @@
 # Kubernetes Monitor
 
-Kubernetes monitoring allows you to monitor the health and performance of your Kubernetes clusters, including nodes, pods, workloads, and control plane components. OneUptime collects metrics from your cluster and evaluates them against your configured criteria.
+Kubernetes monitoring allows you to monitor the health and performance of your Kubernetes clusters, including nodes, pods, workloads, and control plane components. Cast Operations collects metrics from your cluster and evaluates them against your configured criteria.
 
 ## Overview
 
@@ -15,7 +15,7 @@ Kubernetes monitors use metrics from your cluster to provide deep visibility int
 
 ## Creating a Kubernetes Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Kubernetes** as the monitor type
 4. Select the cluster and resource scope to monitor
@@ -26,7 +26,7 @@ Kubernetes monitors use metrics from your cluster to provide deep visibility int
 
 ### Cluster
 
-Select the Kubernetes cluster to monitor. Clusters must be integrated with OneUptime via OpenTelemetry.
+Select the Kubernetes cluster to monitor. Clusters must be integrated with Cast Operations via OpenTelemetry.
 
 ### Resource Scope
 
@@ -138,7 +138,7 @@ Select the time window for metric evaluation:
 
 ## Pre-built Alert Templates
 
-OneUptime provides templates for common Kubernetes monitoring scenarios:
+Cast Operations provides templates for common Kubernetes monitoring scenarios:
 
 | Template                    | Description                 | Threshold       |
 | --------------------------- | --------------------------- | --------------- |
@@ -157,6 +157,6 @@ OneUptime provides templates for common Kubernetes monitoring scenarios:
 
 ## Setup Requirements
 
-To use Kubernetes monitoring, you need to install the OneUptime Kubernetes agent in your cluster. The agent ships cluster metrics, events, pod logs, and — by default — **application traces and HTTP RED metrics captured via eBPF** to OneUptime over OTLP. No code changes or per-app SDKs are required to see service-level traffic.
+To use Kubernetes monitoring, you need to install the Cast Operations Kubernetes agent in your cluster. The agent ships cluster metrics, events, pod logs, and — by default — **application traces and HTTP RED metrics captured via eBPF** to Cast Operations over OTLP. No code changes or per-app SDKs are required to see service-level traffic.
 
 See the [Install the Kubernetes Agent](/docs/monitor/kubernetes-agent) guide — it covers the one-command Helm install, the `preset` option for picking the right configuration for your cluster (standard, GKE Autopilot, EKS Fargate), and the `ebpf.features.*` toggles for the individual signal families (HTTP RED metrics, service graph, network flows, TCP stats).

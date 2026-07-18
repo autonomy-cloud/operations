@@ -1,6 +1,6 @@
 # DNS Monitor
 
-DNS-monitoring stelt u in staat de gezondheid en correctheid van DNS-omzetting voor uw domeinen te bewaken. OneUptime vraagt periodiek DNS-records op en valideert de antwoorden aan de hand van uw geconfigureerde criteria.
+DNS-monitoring stelt u in staat de gezondheid en correctheid van DNS-omzetting voor uw domeinen te bewaken. Cast Operations vraagt periodiek DNS-records op en valideert de antwoorden aan de hand van uw geconfigureerde criteria.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ DNS-monitors sturen opvragen naar DNS-servers voor specifieke recordtypen en eva
 
 ## Een DNS Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **DNS** als het monitortype
 4. Voer de domeinnaam en het te bevragen recordtype in

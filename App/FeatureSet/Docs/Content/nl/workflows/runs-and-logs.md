@@ -1,6 +1,6 @@
 # Uitvoeringen en logboeken
 
-Elke keer dat een workflow draait, slaat OneUptime een record op van wat er is gebeurd — wanneer hij draaide, of het werkte en wat elk blok deed. Dat record heet een **run**. Runs zijn hoe je bevestigt dat een workflow werkte, een falende workflow debugt en terugkijkt op vroegere activiteit.
+Elke keer dat een workflow draait, slaat Cast Operations een record op van wat er is gebeurd — wanneer hij draaide, of het werkte en wat elk blok deed. Dat record heet een **run**. Runs zijn hoe je bevestigt dat een workflow werkte, een falende workflow debugt en terugkijkt op vroegere activiteit.
 
 ## Waar je ze vindt
 
@@ -35,7 +35,7 @@ De waarden die je ziet zijn precies wat het blok zag — nadat alle variabelen z
 ### "Mijn workflow draaide niet."
 
 1. Zorg dat de workflow **ingeschakeld** is in Settings. Nieuwe workflows starten uitgeschakeld.
-2. Voor een OneUptime event-trigger: controleer dat het event ook echt is gebeurd. Open het record en check de geschiedenis.
+2. Voor een Cast Operations event-trigger: controleer dat het event ook echt is gebeurd. Open het record en check de geschiedenis.
 3. Voor een webhook-trigger: controleer dat het andere systeem naar de juiste URL stuurt. De meeste tools loggen wanneer ze een webhook versturen — kijk daar.
 4. Voor een schedule-trigger: controleer dat de cron-expressie overeenkomt met de tijd die je verwacht.
 

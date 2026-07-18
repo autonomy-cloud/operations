@@ -1,6 +1,6 @@
 # Monitor de solicitudes entrantes
 
-El monitoreo de solicitudes entrantes (también conocido como monitoreo de latido) te permite monitorear servicios haciendo que envíen solicitudes HTTP periódicas a OneUptime. En lugar de que OneUptime se conecte a tu servicio, tu servicio hace ping a OneUptime para confirmar que está en ejecución.
+El monitoreo de solicitudes entrantes (también conocido como monitoreo de latido) te permite monitorear servicios haciendo que envíen solicitudes HTTP periódicas a Cast Operations. En lugar de que Cast Operations se conecte a tu servicio, tu servicio hace ping a Cast Operations para confirmar que está en ejecución.
 
 ## Información general
 
@@ -14,7 +14,7 @@ Los monitores de solicitudes entrantes proporcionan una URL de webhook única qu
 
 ## Creación de un monitor de solicitudes entrantes
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Solicitud entrante** como tipo de monitor
 4. Se generará una **Clave secreta** y una URL de latido para este monitor
@@ -26,7 +26,7 @@ Los monitores de solicitudes entrantes proporcionan una URL de webhook única qu
 Una vez creado, tu monitor tendrá una URL de latido única en el formato:
 
 ```
-https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+https://visca.ai/heartbeat/YOUR_SECRET_KEY
 ```
 
 Tu servicio debe enviar solicitudes HTTP **GET** o **POST** a esta URL a intervalos regulares.
@@ -37,10 +37,10 @@ Tu servicio debe enviar solicitudes HTTP **GET** o **POST** a esta URL a interva
 
 ```bash
 # Solicitud GET simple
-curl https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 # Solicitud POST con cuerpo personalizado
-curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Agregar al crontab para enviar un latido cada 5 minutos
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### Desde el código de la aplicación
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Ejemplo en Node.js
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/YOUR_SECRET_KEY");
+https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Ejemplo en Python
 import requests
-requests.get('https://oneuptime.com/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
 ```
 
-Reemplaza `https://oneuptime.com` con la URL de tu instancia de OneUptime si es auto-alojada.
+Reemplaza `https://visca.ai` con la URL de tu instancia de Cast Operations si es auto-alojada.
 
 ## Criterios de monitoreo
 

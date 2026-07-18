@@ -1,6 +1,6 @@
 # DNSSEC-monitor
 
-DNSSEC-overvåking lar deg validere den kryptografiske integriteten til DNS-svar for sonene dine. OneUptime utfører periodisk fullstendig DNSSEC-validering — kontroll av DNSKEY-poster, DS-delegering ved den overordnede sonen, gyldigheten av RRSIG-signaturer, resolverkonsensus om AD-flagget og konsistens mellom autoritative navneservere.
+DNSSEC-overvåking lar deg validere den kryptografiske integriteten til DNS-svar for sonene dine. Cast Operations utfører periodisk fullstendig DNSSEC-validering — kontroll av DNSKEY-poster, DS-delegering ved den overordnede sonen, gyldigheten av RRSIG-signaturer, resolverkonsensus om AD-flagget og konsistens mellom autoritative navneservere.
 
 ## Oversikt
 
@@ -14,7 +14,7 @@ DNSSEC-monitorer validerer hele tillitskjeden fra rotsonen og ned til ditt domen
 
 ## Opprette en DNSSEC-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **DNSSEC** som monitortype
 4. Skriv inn sonen (domenet) du vil validere

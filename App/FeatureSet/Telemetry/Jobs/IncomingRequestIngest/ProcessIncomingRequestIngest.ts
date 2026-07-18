@@ -65,7 +65,7 @@ export async function processIncomingRequestFromQueue(
   /*
    * Skip disabled monitors here, before doing any further work. Incoming Request
    * monitors are driven by an external sender that keeps calling the ingest
-   * endpoint regardless of the monitor being disabled in OneUptime, so these
+   * endpoint regardless of the monitor being disabled in Cast Operations, so these
    * requests arrive continuously. Without this short-circuit, every one would
    * still invoke monitorResource() — a second monitor fetch, a per-monitor Redis
    * lock, and a thrown MonitorDisabled — only for the result to be discarded.

@@ -1,12 +1,12 @@
 # Kommandonreferens
 
-Fullständig referens för alla OneUptime CLI-kommandon.
+Fullständig referens för alla Cast Operations CLI-kommandon.
 
 ## Autentiseringskommandon
 
 ### `oneuptime login`
 
-Autentisera mot en OneUptime-instans.
+Autentisera mot en Cast Operations-instans.
 
 ```bash
 oneuptime login <api-key> <instance-url> [--context-name <name>]
@@ -15,7 +15,7 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 | Parameter        | Typ        | Obligatorisk | Beskrivning                         |
 | ---------------- | ---------- | ------------ | ----------------------------------- |
 | `<api-key>`      | argument   | Ja           | API-nyckel för autentisering        |
-| `<instance-url>` | argument   | Ja           | OneUptime instans-URL               |
+| `<instance-url>` | argument   | Ja           | Cast Operations instans-URL               |
 | `--context-name` | alternativ | Nej          | Kontextnamn (standard: `"default"`) |
 
 ---

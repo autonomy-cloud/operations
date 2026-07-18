@@ -22,7 +22,7 @@ return {
 
 #### 新增密鑰
 
-若要新增密鑰，請前往 OneUptime Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret。
+若要新增密鑰，請前往 Cast Operations Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret。
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 
@@ -50,7 +50,7 @@ console.log(stringSecret);
 
 ### 自訂指標
 
-您可以使用 `oneuptime.captureMetric()` 函式從您的指令碼中擷取自訂指標。這些指標會儲存在 OneUptime 中，並可使用 Metric Explorer 在儀表板上繪製圖表。
+您可以使用 `oneuptime.captureMetric()` 函式從您的指令碼中擷取自訂指標。這些指標會儲存在 Cast Operations 中，並可使用 Metric Explorer 在儀表板上繪製圖表。
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);

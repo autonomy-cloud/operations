@@ -1,20 +1,20 @@
 # Prometheus Alertmanager-integratie
 
-Zet [Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)-notificaties om in OneUptime-incidenten. Prometheus evalueert je alertingregels, Alertmanager routeert ze, en OneUptime registreert en escaleert ze.
+Zet [Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)-notificaties om in Cast Operations-incidenten. Prometheus evalueert je alertingregels, Alertmanager routeert ze, en Cast Operations registreert en escaleert ze.
 
-Deze integratie is **inbound**: Alertmanager POST naar een OneUptime **[Workflow](/docs/workflows/index)** die start met een **Webhook trigger**.
+Deze integratie is **inbound**: Alertmanager POST naar een Cast Operations **[Workflow](/docs/workflows/index)** die start met een **Webhook trigger**.
 
 ```text
-Prometheus rule fires  ──►  Alertmanager webhook receiver  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Prometheus rule fires  ──►  Alertmanager webhook receiver  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Vereisten
 
 - Een Prometheus + Alertmanager-setup waarbij je `alertmanager.yml` kunt bewerken.
-- Alertmanager moet je OneUptime-instantie via HTTPS kunnen bereiken.
-- Een OneUptime-project waar je workflows kunt aanmaken.
+- Alertmanager moet je Cast Operations-instantie via HTTPS kunnen bereiken.
+- Een Cast Operations-project waar je workflows kunt aanmaken.
 
-## Stap 1 — Bouw de OneUptime-workflow
+## Stap 1 — Bouw de Cast Operations-workflow
 
 1. Open **Workflows → Create Workflow**, geef het de naam `Alertmanager → Incidents`, en open de **Builder**.
 2. Voeg een **Webhook**-trigger toe en **kopieer de URL**. Hernoem het blok naar `Alertmanager`.

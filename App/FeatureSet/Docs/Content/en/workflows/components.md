@@ -46,7 +46,7 @@ The combined System Instructions, Prompt, and serialized Context are limited to 
 - **LLM Log ID** — the metered AI log entry for the call.
 - **Error** — the validation, access, provider, budget, billing, or timeout error, when present.
 
-Connect **Success** to components that should use the response. Connect **Error** to an explicit fallback, alert, or log path. The component makes one model request without tool definitions or provider-native capability fields: it cannot query OneUptime, call APIs, or change project data by itself. Besides OneUptime's fixed component-safety instructions, only the System Instructions, Prompt, and Context you configure are sent to the provider, after workflow variables in those fields are resolved. The configured provider/model remains a trust boundary because a model can have intrinsic provider-managed capabilities.
+Connect **Success** to components that should use the response. Connect **Error** to an explicit fallback, alert, or log path. The component makes one model request without tool definitions or provider-native capability fields: it cannot query Cast Operations, call APIs, or change project data by itself. Besides Cast Operations’ fixed component-safety instructions, only the System Instructions, Prompt, and Context you configure are sent to the provider, after workflow variables in those fields are resolved. The configured provider/model remains a trust boundary because a model can have intrinsic provider-managed capabilities.
 
 Model output is untrusted text. Review it before sending customer-facing communications, and do not use free-form AI text alone to authorize destructive workflow actions. See [Configuration & Safety](/docs/workflows/configuration) for provider, egress, logging, and cost details.
 
@@ -88,7 +88,7 @@ Send a message to a Telegram chat using a bot token and chat ID.
 
 ## Email
 
-Send an email through OneUptime.
+Send an email through Cast Operations.
 
 **Settings**:
 
@@ -146,9 +146,9 @@ Use this to share common logic. Build a "post to incident channel" workflow once
 
 There's a safety limit so workflows can't keep calling each other in a loop. See [Configuration & Safety](/docs/workflows/configuration).
 
-## OneUptime data components
+## Cast Operations data components
 
-For every kind of record in OneUptime (monitors, incidents, alerts, status pages, on-call policies, and many more), the palette has these components — search by the type's name:
+For every kind of record in Cast Operations (monitors, incidents, alerts, status pages, on-call policies, and many more), the palette has these components — search by the type's name:
 
 - **Find One** — get one record by ID or filter.
 - **Find** — get a list of records.
@@ -157,13 +157,13 @@ For every kind of record in OneUptime (monitors, incidents, alerts, status pages
 - **Delete** — remove one record.
 - **Count** — count records matching a filter.
 
-This is how a workflow can read and change OneUptime data. For example: a webhook from your CI tool can use **Create Incident** to open an incident with the failure details.
+This is how a workflow can read and change Cast Operations data. For example: a webhook from your CI tool can use **Create Incident** to open an incident with the failure details.
 
 ## Which component should I use?
 
 A few quick rules:
 
-- If there's a dedicated block for what you want (Slack, Email, a OneUptime record), use it — you get nicer error handling and clearer logs.
+- If there's a dedicated block for what you want (Slack, Email, a Cast Operations record), use it — you get nicer error handling and clearer logs.
 - For any other external API, use **API**.
 - To summarize, classify, or draft text from explicitly selected workflow data, use **Generate Text with AI**.
 - To reshape data between blocks, use **Custom Code** or **JSON**.

@@ -1,6 +1,6 @@
 # Monitor Porta
 
-Il monitoraggio delle porte consente di monitorare la disponibilità di porte TCP o UDP specifiche su un host. OneUptime tenta periodicamente di connettersi alla porta specificata e verifica che sia aperta e reattiva.
+Il monitoraggio delle porte consente di monitorare la disponibilità di porte TCP o UDP specifiche su un host. Cast Operations tenta periodicamente di connettersi alla porta specificata e verifica che sia aperta e reattiva.
 
 ## Panoramica
 
@@ -13,7 +13,7 @@ I monitor porta verificano se una porta di rete specifica accetta connessioni. Q
 
 ## Creazione di un Monitor Porta
 
-1. Accedere a **Monitor** nel Dashboard di OneUptime
+1. Accedere a **Monitor** nel Dashboard di Cast Operations
 2. Fare clic su **Crea Monitor**
 3. Selezionare **Porta** come tipo di monitor
 4. Inserire l'hostname o l'indirizzo IP e il numero di porta

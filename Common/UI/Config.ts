@@ -47,13 +47,13 @@ export const HTTP_PROTOCOL: Protocol =
 
 export const HOST: string = env("HOST") || "";
 
-export const BILLING_ENABLED: boolean = env("BILLING_ENABLED") === "true";
+// Cast Operations is distributed as a single, complete edition. Billing is
+// permanently disabled; this compatibility value keeps legacy cloud-only UI
+// branches inactive while they are removed incrementally.
+export const BILLING_ENABLED: boolean = false;
 export const CAST_OPERATIONS_EMBEDDED_MODE: boolean =
   env("CAST_OPERATIONS_EMBEDDED_MODE") === "true";
-export const IS_ENTERPRISE_EDITION: boolean =
-  env("IS_ENTERPRISE_EDITION") === "true" ||
-  CAST_OPERATIONS_EMBEDDED_MODE;
-export const BILLING_PUBLIC_KEY: string = env("BILLING_PUBLIC_KEY") || "";
+export const BILLING_PUBLIC_KEY: string = "";
 
 export const CAPTCHA_ENABLED: boolean = env("CAPTCHA_ENABLED") === "true";
 export const CAPTCHA_SITE_KEY: string = env("CAPTCHA_SITE_KEY") || "";

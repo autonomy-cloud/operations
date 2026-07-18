@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 
 /*
  * Status page owners can now stop AI agents from reading their status page over
- * the public OneUptime MCP server. MCP access stays on unless it is turned off,
+ * the public Cast Operations MCP server. MCP access stays on unless it is turned off,
  * so the column defaults to true.
  *
  * ADD COLUMN ... NOT NULL DEFAULT true populates every existing row with true in

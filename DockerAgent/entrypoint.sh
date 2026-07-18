@@ -1,5 +1,5 @@
 #!/bin/sh
-# OneUptime Docker Agent entrypoint.
+# Cast Operations Docker Agent entrypoint.
 #
 # Runs the inventory snapshot poller in the background and execs the
 # OTel collector in the foreground. The collector is the supervised

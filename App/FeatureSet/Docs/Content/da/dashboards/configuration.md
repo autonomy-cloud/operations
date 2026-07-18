@@ -68,9 +68,9 @@ Hvis dashboardet er offentligt på et brugerdefineret domæne, holder URL'en op 
 
 ## Backup
 
-Hvis du selv-hoster OneUptime, er en regelmæssig database-backup nok — dashboardets konfiguration gemmes ved siden af resten af dit projekt.
+Hvis du selv-hoster Cast Operations, er en regelmæssig database-backup nok — dashboardets konfiguration gemmes ved siden af resten af dit projekt.
 
-På OneUptime Cloud håndteres backups for dig. Hvis du vil have din egen kopi, kan du læse dashboardet via [OneUptime API'et](/docs/api-reference/api-reference).
+På Cast Operations Cloud håndteres backups for dig. Hvis du vil have din egen kopi, kan du læse dashboardet via [Cast Operations API'et](/docs/api-reference/api-reference).
 
 ## Læs videre
 

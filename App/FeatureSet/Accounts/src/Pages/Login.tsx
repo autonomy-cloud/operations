@@ -21,8 +21,7 @@ import {
   CAPTCHA_ENABLED,
   CAPTCHA_SITE_KEY,
 } from "Common/UI/Config";
-import OneUptimeLogo from "Common/UI/Images/logos/OneUptimeSVG/3-transparent.svg";
-import EditionLabel from "Common/UI/Components/EditionLabel/EditionLabel";
+import CastOperationsLogo from "Common/UI/Images/logos/CastOperationsSVG/logo.svg";
 import UiAnalytics from "Common/UI/Utils/Analytics";
 import LoginUtil from "Common/UI/Utils/Login";
 import UserTotpAuth from "Common/Models/DatabaseModels/UserTotpAuth";
@@ -278,12 +277,9 @@ const LoginPage: () => JSX.Element = () => {
       <div className="w-full max-w-md mx-auto">
         <img
           className="mx-auto h-10 w-auto sm:h-12"
-          src={OneUptimeLogo}
-          alt="OneUptime"
+          src={CastOperationsLogo}
+          alt="Cast Operations"
         />
-        <div className="mt-4 flex justify-center">
-          <EditionLabel />
-        </div>
         {!showTwoFactorAuth && (
           <>
             <h2 className="mt-4 sm:mt-6 text-center text-xl sm:text-2xl tracking-tight text-gray-900">

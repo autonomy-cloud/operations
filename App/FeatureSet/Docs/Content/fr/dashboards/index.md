@@ -1,6 +1,6 @@
 # Présentation des tableaux de bord
 
-Les tableaux de bord transforment les données que OneUptime collecte déjà — métriques, journaux, traces, incidents, monitors, ressources Kubernetes, hôtes — en une page unique sur laquelle on peut jeter un coup d'œil pour comprendre ce qui se passe.
+Les tableaux de bord transforment les données que Cast Operations collecte déjà — métriques, journaux, traces, incidents, monitors, ressources Kubernetes, hôtes — en une page unique sur laquelle on peut jeter un coup d'œil pour comprendre ce qui se passe.
 
 Placez un graphique de latence des requêtes à côté d'une liste d'incidents ouverts, à côté d'une jauge de CPU, à côté d'un paragraphe de contexte. Enregistrez. Partagez le lien.
 
@@ -66,12 +66,12 @@ Objectif : une page d'astreinte pour le service checkout avec latence, taux d'er
 6. En dessous, un widget **Log Stream** affichant les journaux du même service.
 7. Enregistrez. Passez la liste déroulante à `payments` — le même tableau de bord affiche désormais le service payments.
 
-## Comment les tableaux de bord s'intègrent au reste de OneUptime
+## Comment les tableaux de bord s'intègrent au reste de Cast Operations
 
 - Les **monitors et la télémétrie** sont les sources de données. Chaque métrique, journal et trace que vous collectez peut être interrogé par un widget.
 - Les **incidents et alertes** apparaissent dans les widgets **Incident List** et **Alert List**. Les tableaux de bord sont en lecture seule pour ces données — créez-les et mettez-les à jour ailleurs.
 - Les **status pages** sont la communication tournée vers le client (« est-ce que le système fonctionne ? »). Les tableaux de bord servent à examiner en détail le comportement du système. Les deux sont complémentaires, ils ne se remplacent pas.
-- Les **workflows** sont la façon dont OneUptime agit. Les tableaux de bord sont la façon dont vous lisez ce qui se passe.
+- Les **workflows** sont la façon dont Cast Operations agit. Les tableaux de bord sont la façon dont vous lisez ce qui se passe.
 
 ## Pour aller plus loin
 

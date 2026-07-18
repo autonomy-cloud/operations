@@ -313,7 +313,7 @@ export default class SlackIncidentEpisodeActions {
           messageBlocks: [
             {
               _type: "WorkspacePayloadMarkdown",
-              text: "No on-call policies have been configured for this project yet. Please add an on-call policy in the OneUptime Dashboard under On-Call Duty > Policies to use this feature.",
+              text: "No on-call policies have been configured for this project yet. Please add an on-call policy in the Cast Operations Dashboard under On-Call Duty > Policies to use this feature.",
             } as WorkspacePayloadMarkdown,
           ],
           authToken: data.slackRequest.projectAuthToken!,
@@ -874,7 +874,7 @@ export default class SlackIncidentEpisodeActions {
 
     const episodeId: ObjectID = workspaceLog.incidentEpisodeId;
 
-    // Get the user ID in OneUptime based on Slack user ID
+    // Get the user ID in Cast Operations based on Slack user ID
     const userAuth: WorkspaceUserAuthToken | null =
       await WorkspaceUserAuthTokenService.findOneBy({
         query: {
@@ -892,7 +892,7 @@ export default class SlackIncidentEpisodeActions {
 
     if (!userAuth || !userAuth.userId) {
       logger.debug(
-        "No OneUptime user found for Slack user. Ignoring emoji reaction.",
+        "No Cast Operations user found for Slack user. Ignoring emoji reaction.",
       );
       return;
     }

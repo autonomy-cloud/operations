@@ -1,6 +1,6 @@
 # Sizing & capaciteitsplanning
 
-Deze gids helpt je bij het dimensioneren van een zelf-gehoste OneUptime-deployment op Kubernetes (Helm). Het behandelt de drie datastores waarvan OneUptime afhankelijk is — **PostgreSQL**, **Redis** en **ClickHouse** — plus de applicatiecompute, en geeft startniveaus die je kunt aanpassen zodra je echte cijfers hebt.
+Deze gids helpt je bij het dimensioneren van een zelf-gehoste Cast Operations-deployment op Kubernetes (Helm). Het behandelt de drie datastores waarvan Cast Operations afhankelijk is — **PostgreSQL**, **Redis** en **ClickHouse** — plus de applicatiecompute, en geeft startniveaus die je kunt aanpassen zodra je echte cijfers hebt.
 
 > **Lees dit eerst:** de Helm-chart wordt geleverd met **geen ingestelde CPU/geheugen-requests of -limits** en kleine **25 Gi** standaardvolumes voor PostgreSQL en ClickHouse. Die standaardwaarden bestaan zodat de chart op elke cluster installeert en draait — het is **geen** productie-sizing. Voor alles wat verder gaat dan een snelle proef, stel je resources en opslag expliciet in met de onderstaande cijfers.
 
@@ -8,7 +8,7 @@ Als je in plaats daarvan de single-server Docker Compose-installatie draait, is 
 
 ## Wat de omvang van elke datastore bepaalt
 
-OneUptime vereist drie datastores in productie. Ze schalen op volledig verschillende inputs, dus dimensioneer ze onafhankelijk.
+Cast Operations vereist drie datastores in productie. Ze schalen op volledig verschillende inputs, dus dimensioneer ze onafhankelijk.
 
 | Datastore      | Wat het opslaat                                                                                                           | Wat de omvang bepaalt                                                                          |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -16,7 +16,7 @@ OneUptime vereist drie datastores in productie. Ze schalen op volledig verschill
 | **PostgreSQL** | Configuratie en status — monitors, incidents, alerts, gebruikers, teams, projecten, workflows, statuspagina's, dashboards | **Aantal entiteiten en geschiedenis**, niet het telemetrievolume. Groeit langzaam.             |
 | **Redis**      | Cache, werkwachtrijen en sessies                                                                                          | **Wachtrijdiepte en actieve sessies**. Geheugengebonden en bescheiden. Geen bron van waarheid. |
 
-Objectopslag (S3/MinIO) is **niet** vereist om OneUptime te laten draaien. Het wordt alleen optioneel gebruikt voor database-**backups** (via de CloudNativePG Barman-plugin voor PostgreSQL, of `clickhouse-backup` voor ClickHouse). OneUptime tiert telemetrie niet naar objectopslag — zie de sectie "Retentie en hoe het de opslag beïnvloedt" hieronder.
+Objectopslag (S3/MinIO) is **niet** vereist om Cast Operations te laten draaien. Het wordt alleen optioneel gebruikt voor database-**backups** (via de CloudNativePG Barman-plugin voor PostgreSQL, of `clickhouse-backup` voor ClickHouse). Cast Operations tiert telemetrie niet naar objectopslag — zie de sectie "Retentie en hoe het de opslag beïnvloedt" hieronder.
 
 ## ClickHouse — de dominante factor
 
@@ -55,7 +55,7 @@ Opslag schaalt **lineair met de retentie** — een venster van 90 dagen kost ~3�
 
 PostgreSQL slaat je configuratie en operationele status op, geen telemetrie, dus het groeit langzaam en blijft klein ten opzichte van ClickHouse. Zelfs grote deployments zitten doorgaans in de tientallen GB. Het standaardvolume van **25 Gi** is prima voor kleine installaties; reken op 50–100 GB voor grotere met headroom voor incident-/alert-geschiedenis.
 
-Als je veel applicatie-, worker- en probe-replicas draait, kan het aantal databaseverbindingen het knelpunt worden voordat de opslag dat doet. De Helm-chart van OneUptime bevat een optionele **PgBouncer** connection pooler (`pgbouncer.enabled`) precies hiervoor — schakel het in voor deployments met veel replicas.
+Als je veel applicatie-, worker- en probe-replicas draait, kan het aantal databaseverbindingen het knelpunt worden voordat de opslag dat doet. De Helm-chart van Cast Operations bevat een optionele **PgBouncer** connection pooler (`pgbouncer.enabled`) precies hiervoor — schakel het in voor deployments met veel replicas.
 
 ## Redis — cache, wachtrijen en sessies
 
@@ -80,7 +80,7 @@ Kies het niveau dat het dichtst bij jouw omgeving ligt als startpunt, houd vervo
 | **Redis**               | 1 vCPU / 2 GB                | 2 vCPU / 4 GB                | 4 vCPU / 8–16 GB                                 |
 | **Retentie aangenomen** | 30 dagen                     | 30–90 dagen                  | 90 dagen                                         |
 
-Deze dimensioneren de OneUptime-**backend**. De OneUptime-collectors die op elke gemonitorde cluster draaien, worden apart gedimensioneerd — zie de sizing-niveaus van de [Kubernetes Agent](/docs/telemetry/kubernetes-agent).
+Deze dimensioneren de Cast Operations-**backend**. De Cast Operations-collectors die op elke gemonitorde cluster draaien, worden apart gedimensioneerd — zie de sizing-niveaus van de [Kubernetes Agent](/docs/telemetry/kubernetes-agent).
 
 ## Hoge beschikbaarheid
 
@@ -88,13 +88,13 @@ De in de chart ingebouwde datastores draaien standaard als **enkele instanties**
 
 - **PostgreSQL** — schakel de meegeleverde [CloudNativePG](https://cloudnative-pg.io)-operator in (`postgresOperator.cnpg.enabled`) met **3 instanties** (1 primary + 2 hot standbys) voor automatische failover.
 - **ClickHouse** — schakel de meegeleverde [Altinity](https://github.com/Altinity/clickhouse-operator)-operator in (`clickhouseOperator.altinity.enabled`) met **≥2 replicas per shard** en **3 ClickHouse Keeper**-nodes voor quorum. Voeg shards toe zodra de schijf of het RAM van een enkele node de beperking wordt.
-- **Redis** — de chart heeft geen replicatie binnen de chart. Wijs OneUptime voor HA naar een **extern beheerd Redis** (of een AI-/cluster-deployment).
+- **Redis** — de chart heeft geen replicatie binnen de chart. Wijs Cast Operations voor HA naar een **extern beheerd Redis** (of een AI-/cluster-deployment).
 
 ## Retentie en hoe het de opslag beïnvloedt
 
 Telemetrie-retentie wordt afgedwongen als een **ClickHouse TTL geconfigureerd in dagen**, ingesteld **per project** en verfijnbaar **per signaal** (logs, metrics, traces, profiles) en per bucket (bijvoorbeeld op log-ernst). De hardcoded standaard is 15 dagen.
 
-Omdat retentie de ClickHouse-opslag direct vermenigvuldigt, beslis je dit voordat je de schijf dimensioneert. OneUptime archiveert of tiert oude telemetrie **niet** automatisch naar objectopslag — voor meerjarige compliance-retentie verleng je het retentievenster en dimensioneer je de ClickHouse-opslag dienovereenkomstig (of exporteer je naar een extern archief naar keuze).
+Omdat retentie de ClickHouse-opslag direct vermenigvuldigt, beslis je dit voordat je de schijf dimensioneert. Cast Operations archiveert of tiert oude telemetrie **niet** automatisch naar objectopslag — voor meerjarige compliance-retentie verleng je het retentievenster en dimensioneer je de ClickHouse-opslag dienovereenkomstig (of exporteer je naar een extern archief naar keuze).
 
 ## Meet voordat je je vastlegt
 
@@ -105,4 +105,4 @@ Telemetrievolume varieert enorm met de log-uitgebreidheid van de applicatie, het
 - [Docker Compose](/docs/installation/docker-compose) — single-server sizing
 - [Self-Hosted Architecture](/docs/self-hosted/architecture) — hoe de componenten in elkaar passen
 - [Kubernetes Agent](/docs/telemetry/kubernetes-agent) — collector (data-plane) sizing
-- [Helm chart on Artifact Hub](https://artifacthub.io/packages/helm/oneuptime/oneuptime)
+- [Helm chart on Artifact Hub](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

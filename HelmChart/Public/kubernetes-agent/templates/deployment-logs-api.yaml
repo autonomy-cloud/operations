@@ -49,10 +49,10 @@ spec:
                   key: api-key
             - name: CLUSTER_NAME
               value: {{ .Values.clusterName | quote }}
-            # OneUptime project labels — comma-separated key=value pairs.
+            # Cast Operations project labels — comma-separated key=value pairs.
             # The tailer stamps each as an `oneuptime.label.<key>=<value>`
             # resource attribute on outgoing OTLP log records; the
-            # OneUptime ingest pipeline promotes them into project Labels.
+            # Cast Operations ingest pipeline promotes them into project Labels.
             - name: ONEUPTIME_LABELS
               value: {{- $pairs := list -}}
                 {{- range $key, $value := .Values.oneuptime.labels -}}
@@ -64,7 +64,7 @@ spec:
               value: {{ join "," $podLogInclude | quote }}
             - name: NAMESPACE_EXCLUDE
               value: {{ join "," $podLogExclude | quote }}
-            # This mode posts OTLP straight to OneUptime, so it never passes
+            # This mode posts OTLP straight to Cast Operations, so it never passes
             # through the collector's filter/telemetry processor. The tailer
             # applies the same threshold itself — see KubernetesLogTailer/Config.ts.
             - name: MIN_SEVERITY

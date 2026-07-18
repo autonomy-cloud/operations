@@ -1,10 +1,10 @@
 # Compartir y Paneles Públicos
 
-Por defecto, los paneles son privados para tu proyecto: solo los miembros del equipo que han iniciado sesión pueden verlos. Pero OneUptime también te permite compartir un panel públicamente, protegerlo con una contraseña, restringirlo a ciertas IPs y alojarlo en tu propio dominio. Esta página cubre los cuatro casos.
+Por defecto, los paneles son privados para tu proyecto: solo los miembros del equipo que han iniciado sesión pueden verlos. Pero Cast Operations también te permite compartir un panel públicamente, protegerlo con una contraseña, restringirlo a ciertas IPs y alojarlo en tu propio dominio. Esta página cubre los cuatro casos.
 
 ## Paneles privados (el valor predeterminado)
 
-Un panel es accesible solo para los miembros del proyecto que han iniciado sesión. La URL se ve como `https://oneuptime.com/dashboards/<id>/view` y requiere inicio de sesión.
+Un panel es accesible solo para los miembros del proyecto que han iniciado sesión. La URL se ve como `https://visca.ai/dashboards/<id>/view` y requiere inicio de sesión.
 
 Dentro del proyecto, los propietarios y las etiquetas controlan quién ve qué; consulta [Configuración y Permisos](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Las solicitudes desde cualquier otra IP se rechazan.
 
 ## Dominios personalizados
 
-De forma predeterminada, un panel público se sirve en `oneuptime.com`. Para alojarlo en tu propio subdominio como `dashboard.acme.com`:
+De forma predeterminada, un panel público se sirve en `visca.ai`. Para alojarlo en tu propio subdominio como `dashboard.acme.com`:
 
-1. Añade un registro CNAME en tu DNS apuntando el subdominio al destino de OneUptime.
+1. Añade un registro CNAME en tu DNS apuntando el subdominio al destino de Cast Operations.
 2. En **Panel → Configuración → Dominios Personalizados**, añade el dominio.
-3. Verifícalo. OneUptime comprueba el registro DNS por ti.
+3. Verifícalo. Cast Operations comprueba el registro DNS por ti.
 4. Una vez verificado, el panel es accesible tanto en tu dominio personalizado como en la URL original.
 
 Los dominios personalizados son útiles para:
@@ -75,7 +75,7 @@ En **Panel → Configuración**, puedes configurar:
 - **Logo** — sube un PNG o SVG para mostrarlo en el encabezado.
 - **Favicon** — el pequeño icono en la pestaña del navegador.
 
-La marca se aplica solo cuando el panel se ve públicamente. Los espectadores internos siempre ven la marca de OneUptime.
+La marca se aplica solo cuando el panel se ve públicamente. Los espectadores internos siempre ven la marca de Cast Operations.
 
 ## Incrustar
 

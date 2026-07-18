@@ -1,6 +1,6 @@
 # Runbook 代理程式
 
-**Runbook 代理程式（Runbook Agent）** 是一個小型的自我託管程序，會 **在您自己的基礎架構內** 執行 runbook 的 Bash _與_ JavaScript 步驟。OneUptime Worker 永遠不會執行您的指令碼，它只會將指令碼排入佇列，而由步驟作者所選定的 Runbook 代理程式來認領、執行，並將結果回傳。
+**Runbook 代理程式（Runbook Agent）** 是一個小型的自我託管程序，會 **在您自己的基礎架構內** 執行 runbook 的 Bash _與_ JavaScript 步驟。Cast Operations Worker 永遠不會執行您的指令碼，它只會將指令碼排入佇列，而由步驟作者所選定的 Runbook 代理程式來認領、執行，並將結果回傳。
 
 JavaScript 仍然在 `isolated-vm` 沙箱中執行，差別在於該沙箱位於您的代理程式主機上，而不是我們的主機上。
 
@@ -8,23 +8,23 @@ JavaScript 仍然在 `isolated-vm` 沙箱中執行，差別在於該沙箱位於
 
 ## 為什麼需要代理程式
 
-OneUptime 較早的版本會在 Worker 上執行 Bash 與 JavaScript 步驟。JavaScript 有沙箱保護（透過 `isolated-vm`），Bash 則沒有。對於單一租戶自我託管以外的任何情境，兩者都有問題：
+Cast Operations 較早的版本會在 Worker 上執行 Bash 與 JavaScript 步驟。JavaScript 有沙箱保護（透過 `isolated-vm`），Bash 則沒有。對於單一租戶自我託管以外的任何情境，兩者都有問題：
 
 - **信任邊界。** 任何能夠撰寫 runbook 的人，都可以在 Worker 上執行程式碼，並能存取 Worker 所擁有的任何環境變數與檔案系統。JavaScript 沙箱能夠阻擋顯而易見的行為，但無法阻止有心人士探測從我們的網路所能觸及的範圍。
-- **觸及範圍。** 大多數有用的步驟想要操作的是 _客戶的_ 基礎架構（「重新啟動這個服務」、「在我們的叢集上執行 kubectl」、「查詢我們內部資料庫中的某筆記錄」），而不是 OneUptime 的。
+- **觸及範圍。** 大多數有用的步驟想要操作的是 _客戶的_ 基礎架構（「重新啟動這個服務」、「在我們的叢集上執行 kubectl」、「查詢我們內部資料庫中的某筆記錄」），而不是 Cast Operations 的。
 
 Runbook 代理程式將這一點反轉過來。Bash 與 JavaScript 步驟不會在我們這邊執行，而是在您所控制的主機上執行，並且由您決定該主機能做什麼。
 
 ## 運作方式
 
-1. 您在 OneUptime 中建立一個 Runbook 代理程式。OneUptime 會產生一個 ID 與一把祕密金鑰。
-2. 您在基礎架構內的某台主機上，使用該 ID/金鑰加上您的 OneUptime URL 來執行代理程式容器。
-3. 代理程式每隔幾秒就會向 OneUptime 輪詢，詢問「有沒有我的工作？」
+1. 您在 Cast Operations 中建立一個 Runbook 代理程式。Cast Operations 會產生一個 ID 與一把祕密金鑰。
+2. 您在基礎架構內的某台主機上，使用該 ID/金鑰加上您的 Cast Operations URL 來執行代理程式容器。
+3. 代理程式每隔幾秒就會向 Cast Operations 輪詢，詢問「有沒有我的工作？」
 4. 當您撰寫 Bash 或 JavaScript 步驟時，您會從下拉選單中挑選代理程式，該步驟就會被綁定到那個特定的代理程式。
 5. 當步驟執行時，Worker 會插入一筆作業列，並將 `targetAgentId` 設為該代理程式。只有那個代理程式才能認領它。
 6. 代理程式會在本機執行該指令碼（Bash 使用 `bash -c <script>`，JavaScript 使用 `isolated-vm` 沙箱），擷取結果，並將其回傳。Worker 接著會帶著該結果繼續執行 runbook。
 
-代理程式只需要對您的 OneUptime 執行個體進行 **對外的 HTTPS** 連線。它不接受任何對內的連線。
+代理程式只需要對您的 Cast Operations 執行個體進行 **對外的 HTTPS** 連線。它不接受任何對內的連線。
 
 ## 安裝代理程式
 
@@ -45,14 +45,14 @@ Runbook 代理程式將這一點反轉過來。Bash 與 JavaScript 步驟不會�
 
 在您環境中任何能符合下列條件的主機上執行此 Docker 指令：
 
-- 能透過 HTTPS 連到您的 OneUptime 執行個體，並且
+- 能透過 HTTPS 連到您的 Cast Operations 執行個體，並且
 - 能執行您希望 Bash/JavaScript 步驟所執行的事情（例如 SSH 連到其他主機、`kubectl`、與資料庫溝通）。
 
 ```bash
 docker run --name oneuptime-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://oneuptime.yourdomain.com \
+  -e ONEUPTIME_URL=https://operations.yourdomain.com \
   -d oneuptime/runbook-agent:release
 ```
 
@@ -61,7 +61,7 @@ docker run --name oneuptime-runbook-agent --restart unless-stopped \
 回到 **Runbooks → Settings → Agents**。約在 60 秒內，該代理程式所在列應會切換為 `Connected`，並顯示一個最新的 **Last seen** 時間戳記。如果它仍維持在 `Disconnected`：
 
 - 檢查容器記錄（`docker logs oneuptime-runbook-agent`），看看是否有驗證錯誤或網路失敗。
-- 以 `curl` 確認該主機能連到您的 OneUptime URL。
+- 以 `curl` 確認該主機能連到您的 Cast Operations URL。
 - 確認 ID 與金鑰在複製時沒有夾帶空白字元。
 
 ## 將步驟指向代理程式
@@ -116,7 +116,7 @@ Worker 的整體等待時間區間為 `claim timeout + execution timeout + a few
 
 | 變數                                      | 是否必填 | 預設值  | 說明                                                                       |
 | ----------------------------------------- | -------- | ------- | -------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | 是       | —       | 您 OneUptime 執行個體的基底 URL，例如 `https://oneuptime.yourdomain.com`。 |
+| `ONEUPTIME_URL`                           | 是       | —       | 您 Cast Operations 執行個體的基底 URL，例如 `https://operations.yourdomain.com`。 |
 | `RUNBOOK_AGENT_ID`                        | 是       | —       | 代理程式設定對話框中所顯示的 UUID。                                        |
 | `RUNBOOK_AGENT_KEY`                       | 是       | —       | 代理程式設定對話框中所顯示的祕密金鑰。                                     |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | 否       | `5000`  | 代理程式輪詢新作業的頻率。                                                 |
@@ -126,7 +126,7 @@ Worker 的整體等待時間區間為 `claim timeout + execution timeout + a few
 
 ## 輪替代理程式金鑰
 
-如果金鑰外洩，請在 OneUptime 中開啟該代理程式並重設其金鑰。舊金鑰會立即失效。請以新金鑰更新代理程式容器並重新啟動它。
+如果金鑰外洩，請在 Cast Operations 中開啟該代理程式並重設其金鑰。舊金鑰會立即失效。請以新金鑰更新代理程式容器並重新啟動它。
 
 ## 權限
 

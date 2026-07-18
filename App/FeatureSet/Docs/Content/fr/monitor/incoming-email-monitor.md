@@ -4,15 +4,15 @@ Le moniteur d'e-mails entrants vous permet de créer et de résoudre des alertes
 
 ## Fonctionnement
 
-1. Lorsque vous créez un moniteur d'e-mails entrants, OneUptime génère une adresse e-mail unique pour ce moniteur
+1. Lorsque vous créez un moniteur d'e-mails entrants, Cast Operations génère une adresse e-mail unique pour ce moniteur
 2. Tout e-mail envoyé à cette adresse est reçu et évalué en fonction de vos critères configurés
-3. En fonction des critères, OneUptime peut créer de nouvelles alertes ou résoudre des alertes existantes
+3. En fonction des critères, Cast Operations peut créer de nouvelles alertes ou résoudre des alertes existantes
 
-C'est un moyen puissant d'intégrer des systèmes d'alerte par e-mail dans le flux de gestion des incidents de OneUptime.
+C'est un moyen puissant d'intégrer des systèmes d'alerte par e-mail dans le flux de gestion des incidents de Cast Operations.
 
 ## Création d'un moniteur d'e-mails entrants
 
-1. Accédez à **Moniteurs** dans votre tableau de bord OneUptime
+1. Accédez à **Moniteurs** dans votre tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **E-mail entrant** comme type de moniteur
 4. Configurez les paramètres du moniteur :
@@ -118,7 +118,7 @@ Cela résout l'alerte lorsqu'un e-mail est reçu.
 
 De nombreux anciens systèmes ne prennent en charge que les alertes par e-mail. Utilisez le moniteur d'e-mails entrants pour :
 
-- Convertir les alertes par e-mail en incidents OneUptime
+- Convertir les alertes par e-mail en incidents Cast Operations
 - Résoudre automatiquement les incidents lorsque des e-mails de récupération arrivent
 - Centraliser les alertes de plusieurs systèmes hérités
 
@@ -144,7 +144,7 @@ Surveillez les traitements par lots et les tâches planifiées :
 Consolidez les alertes de plusieurs outils de surveillance :
 
 - Recevez des alertes de Nagios, Zabbix ou d'autres outils par e-mail
-- Unifiez la gestion des incidents dans OneUptime
+- Unifiez la gestion des incidents dans Cast Operations
 - Maintenez une source unique de vérité pour toutes les alertes
 
 ## Variables de modèle
@@ -171,7 +171,7 @@ Le récapitulatif du moniteur affiche :
 
 ## Configuration auto-hébergée
 
-Si vous auto-hébergez OneUptime, vous devez configurer un fournisseur d'e-mail entrant. Actuellement pris en charge :
+Si vous auto-hébergez Cast Operations, vous devez configurer un fournisseur d'e-mail entrant. Actuellement pris en charge :
 
 - **SendGrid Inbound Parse** — Voir [Intégration des e-mails entrants SendGrid](/docs/self-hosted/sendgrid-inbound-email) pour les instructions de configuration
 
@@ -190,7 +190,7 @@ Si vous auto-hébergez OneUptime, vous devez configurer un fournisseur d'e-mail 
 1. Vérifiez que l'adresse e-mail est correcte (vérifiez les fautes de frappe)
 2. Vérifiez si l'e-mail est bloqué par des filtres anti-spam
 3. Vérifiez que votre fournisseur d'e-mail entrant est correctement configuré
-4. Consultez les journaux de OneUptime pour tout message d'erreur
+4. Consultez les journaux de Cast Operations pour tout message d'erreur
 
 ### Les alertes ne sont pas créées
 

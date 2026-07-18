@@ -1,11 +1,11 @@
 # Perguntas Frequentes e Solução de Problemas
 
-Perguntas frequentes e soluções para os aplicativos mobile e desktop do OneUptime.
+Perguntas frequentes e soluções para os aplicativos mobile e desktop do Cast Operations.
 
-## Como o OneUptime distribui seus aplicativos?
+## Como o Cast Operations distribui seus aplicativos?
 
-- **Mobile (iOS e Android):** O OneUptime disponibiliza um aplicativo nativo chamado **OneUptime On-Call**. Ele é publicado na [Apple App Store](https://apps.apple.com/us/app/oneuptime-on-call/id6759615391) e no [Google Play](https://play.google.com/store/apps/details?id=com.oneuptime.oncall). Um [download de APK](https://github.com/OneUptime/oneuptime/releases/latest/download/oneuptime-on-call-android-app.apk) assinado também está disponível para dispositivos Android sem Google Play.
-- **Desktop (Windows, macOS, Linux):** O painel web do OneUptime é um Progressive Web App (PWA). Você pode instalá-lo como um aplicativo desktop diretamente a partir de um navegador baseado em Chromium ou do Safari — sem necessidade de conta em loja.
+- **Mobile (iOS e Android):** O Cast Operations disponibiliza um aplicativo nativo chamado **Cast Operations On-Call**. Ele é publicado na [Apple App Store](https://github.com/autonomy-cloud/operations/releases) e no [Google Play](https://github.com/autonomy-cloud/operations/releases). Um [download de APK](https://github.com/autonomy-cloud/operations/releases/latest/download/cast-operations-on-call-android-app.apk) assinado também está disponível para dispositivos Android sem Google Play.
+- **Desktop (Windows, macOS, Linux):** O painel web do Cast Operations é um Progressive Web App (PWA). Você pode instalá-lo como um aplicativo desktop diretamente a partir de um navegador baseado em Chromium ou do Safari — sem necessidade de conta em loja.
 
 ## Perguntas Frequentes sobre o Aplicativo Mobile
 
@@ -16,11 +16,11 @@ Perguntas frequentes e soluções para os aplicativos mobile e desktop do OneUpt
 
 ### O aplicativo é gratuito?
 
-Sim. O aplicativo OneUptime On-Call é gratuito para instalar. Você faz login com sua conta OneUptime existente.
+Sim. O aplicativo Cast Operations On-Call é gratuito para instalar. Você faz login com sua conta Cast Operations existente.
 
-### Posso usar o aplicativo com uma instância auto-hospedada do OneUptime?
+### Posso usar o aplicativo com uma instância auto-hospedada do Cast Operations?
 
-Sim. Na primeira execução, o aplicativo pede um **URL do Servidor**. Insira o URL da sua instância auto-hospedada (por exemplo, `https://oneuptime.example.com`). O aplicativo valida que o servidor está acessível antes de permitir que você faça login.
+Sim. Na primeira execução, o aplicativo pede um **URL do Servidor**. Insira o URL da sua instância auto-hospedada (por exemplo, `https://operations.example.com`). O aplicativo valida que o servidor está acessível antes de permitir que você faça login.
 
 Para notificações push em instâncias auto-hospedadas, siga o guia de [Notificações Push](/docs/self-hosted/push-notifications).
 
@@ -34,11 +34,11 @@ Para notificações push em instâncias auto-hospedadas, siga o guia de [Notific
 
 O push mobile usa APNs (iOS) e FCM (Android) via Expo Push. Verifique o seguinte:
 
-1. As notificações estão habilitadas no nível do sistema operacional para o **OneUptime On-Call**.
+1. As notificações estão habilitadas no nível do sistema operacional para o **Cast Operations On-Call**.
 2. A otimização de bateria está desativada e a atividade em segundo plano é permitida (Android).
 3. Os modos Do Not Disturb ou Foco estão desativados, ou o aplicativo está na lista de exceções.
 4. Você está logado — o token de push é registrado no servidor somente após você fazer login.
-5. **Apenas para auto-hospedados:** As notificações push estão configuradas na sua instância do OneUptime. Consulte o guia de [Notificações Push](/docs/self-hosted/push-notifications).
+5. **Apenas para auto-hospedados:** As notificações push estão configuradas na sua instância do Cast Operations. Consulte o guia de [Notificações Push](/docs/self-hosted/push-notifications).
 
 ### Os dados no meu celular estão seguros?
 
@@ -48,14 +48,14 @@ O push mobile usa APNs (iOS) e FCM (Android) via Expo Push. Verifique o seguinte
 
 ### Posso instalar o aplicativo em vários dispositivos?
 
-Sim. Faça login com a mesma conta OneUptime em quantos dispositivos precisar. Cada dispositivo recebe suas próprias notificações push.
+Sim. Faça login com a mesma conta Cast Operations em quantos dispositivos precisar. Cada dispositivo recebe suas próprias notificações push.
 
 ### Como faço para desinstalar?
 
 - **iOS:** Mantenha o ícone pressionado → **Remover App** → **Apagar App**.
-- **Android:** Mantenha o ícone pressionado → **Desinstalar**, ou **Configurações → Apps → OneUptime On-Call → Desinstalar**.
+- **Android:** Mantenha o ícone pressionado → **Desinstalar**, ou **Configurações → Apps → Cast Operations On-Call → Desinstalar**.
 
-Sua conta e dados do OneUptime são armazenados no servidor e não são removidos ao desinstalar o aplicativo.
+Sua conta e dados do Cast Operations são armazenados no servidor e não são removidos ao desinstalar o aplicativo.
 
 ## Perguntas Frequentes sobre o Aplicativo Desktop (PWA)
 
@@ -65,14 +65,14 @@ Um Progressive Web App é uma aplicação web que pode ser instalada como um apl
 
 ### Por que o aplicativo desktop usa tecnologia PWA?
 
-- **Atualizações instantâneas** — o aplicativo permanece sincronizado com sua instância do OneUptime no momento em que você faz o deploy.
+- **Atualizações instantâneas** — o aplicativo permanece sincronizado com sua instância do Cast Operations no momento em que você faz o deploy.
 - **Sem necessidade de conta em loja** — instale diretamente a partir de qualquer navegador moderno.
 - **Base de código única** — o mesmo painel é executado no Windows, macOS e Linux.
 
 ### Por que o botão "Instalar" não aparece?
 
 1. Use um navegador baseado em Chromium (Chrome, Edge, Brave, Arc) ou o Safari (macOS Sonoma+).
-2. Confirme que sua instância do OneUptime é servida via HTTPS com um certificado válido.
+2. Confirme que sua instância do Cast Operations é servida via HTTPS com um certificado válido.
 3. Limpe o cache do navegador e recarregue.
 4. O aplicativo pode já estar instalado — verifique em Aplicativos / Menu Iniciar.
 
@@ -82,7 +82,7 @@ O PWA é atualizado automaticamente sempre que você o abre estando online. Para
 
 ### Como faço para desinstalar o PWA desktop?
 
-- **Windows:** **Configurações → Aplicativos → OneUptime → Desinstalar**, ou clique com o botão direito na entrada do Menu Iniciar.
+- **Windows:** **Configurações → Aplicativos → Cast Operations → Desinstalar**, ou clique com o botão direito na entrada do Menu Iniciar.
 - **macOS:** Arraste o aplicativo de **Aplicativos** para o Lixo, ou clique com o botão direito no ícone do Dock e escolha **Remover**.
 - **Linux:** Use a opção de desinstalação do iniciador de aplicativos, ou remova o arquivo `.desktop` correspondente.
 
@@ -98,27 +98,27 @@ O PWA é atualizado automaticamente sempre que você o abre estando online. Para
 
 **Notificações push atrasadas ou ausentes (Android):**
 
-- Desative a otimização de bateria: **Configurações → Apps → OneUptime On-Call → Bateria → Sem restrições**.
+- Desative a otimização de bateria: **Configurações → Apps → Cast Operations On-Call → Bateria → Sem restrições**.
 - Desative o Economia de Dados para o aplicativo.
-- Em dispositivos Samsung, desative **Cuidado com o dispositivo → Bateria → Limites de uso em segundo plano** para o OneUptime On-Call.
+- Em dispositivos Samsung, desative **Cuidado com o dispositivo → Bateria → Limites de uso em segundo plano** para o Cast Operations On-Call.
 
 **Notificações push atrasadas ou ausentes (iOS):**
 
 - Evite encerrar o aplicativo forçadamente — o iOS pode pausar a entrega em segundo plano.
 - Desative o Modo de Pouca Energia enquanto estiver de plantão.
-- Adicione o OneUptime On-Call à lista de permissões de qualquer modo de Foco ativo.
+- Adicione o Cast Operations On-Call à lista de permissões de qualquer modo de Foco ativo.
 
 **Face ID / Touch ID / impressão digital não funcionam:**
 
 - Certifique-se de que a biometria está cadastrada nas configurações do seu sistema operacional.
-- Reabilite o desbloqueio biométrico pela tela de **Configurações** dentro do aplicativo OneUptime On-Call.
+- Reabilite o desbloqueio biométrico pela tela de **Configurações** dentro do aplicativo Cast Operations On-Call.
 
 ### Problemas no Aplicativo Desktop (PWA)
 
 **Botão de instalar ausente:**
 
 - Use um navegador compatível (baseado em Chromium ou Safari no macOS Sonoma+).
-- Garanta que a instância do OneUptime é servida via HTTPS.
+- Garanta que a instância do Cast Operations é servida via HTTPS.
 - Aguarde a página terminar de carregar e verifique a barra de endereço pelo ícone de instalação.
 
 **Notificações desktop não aparecem:**
@@ -139,5 +139,5 @@ Se você ainda precisar de ajuda:
 
 - Mobile: consulte os guias de instalação do [iOS](./ios-installation.md) ou do [Android](./android-installation.md).
 - Desktop: consulte os guias de instalação do [Windows](./windows-installation.md), [macOS](./macos-installation.md) ou [Linux](./linux-installation.md).
-- Abra uma issue no [repositório do OneUptime no GitHub](https://github.com/OneUptime/oneuptime).
-- Entre em contato com o suporte através do seu painel do OneUptime.
+- Abra uma issue no [repositório do Cast Operations no GitHub](https://github.com/autonomy-cloud/operations).
+- Entre em contato com o suporte através do seu painel do Cast Operations.

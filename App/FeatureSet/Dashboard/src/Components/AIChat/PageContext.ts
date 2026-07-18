@@ -39,7 +39,7 @@ export interface SuggestedQuestion {
   question: string;
 }
 
-// OpenTelemetry trace ids are hex (not OneUptime UUIDs).
+// OpenTelemetry trace ids are hex (not Cast Operations UUIDs).
 const TRACE_ID_REGEX: RegExp = /^[0-9a-fA-F]{8,64}$/;
 
 interface EntityPageRule {

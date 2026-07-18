@@ -1,6 +1,6 @@
 # @oneuptime/cli
 
-Command-line interface for managing OneUptime resources. Supports all MCP-enabled resources with full CRUD operations, named contexts for multiple environments, and flexible output formats.
+Command-line interface for managing Cast Operations resources. Supports all MCP-enabled resources with full CRUD operations, named contexts for multiple environments, and flexible output formats.
 
 ## Installation
 
@@ -19,9 +19,9 @@ npm start -- --help
 ## Quick Start
 
 ```bash
-# Authenticate with your OneUptime instance
+# Authenticate with your Cast Operations instance
 oneuptime login <api-key> <instance-url>
-oneuptime login sk-your-api-key https://oneuptime.com
+oneuptime login sk-your-api-key https://visca.ai
 
 # List incidents
 oneuptime incident list --limit 10
@@ -44,10 +44,10 @@ The CLI supports multiple authentication contexts, making it easy to switch betw
 
 ```bash
 # Create a production context
-oneuptime login sk-prod-key https://oneuptime.com --context-name production
+oneuptime login sk-prod-key https://visca.ai --context-name production
 
 # Create a staging context
-oneuptime login sk-staging-key https://staging.oneuptime.com --context-name staging
+oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ### Switching Contexts
@@ -147,7 +147,7 @@ oneuptime incident count --query '{"currentIncidentStateId":"..."}'
 oneuptime monitor create --file monitor.json
 
 # Use environment variables in CI/CD
-ONEUPTIME_API_KEY=sk-xxx ONEUPTIME_URL=https://oneuptime.com oneuptime incident list
+ONEUPTIME_API_KEY=sk-xxx ONEUPTIME_URL=https://visca.ai oneuptime incident list
 ```
 
 ## Environment Variables
@@ -155,7 +155,7 @@ ONEUPTIME_API_KEY=sk-xxx ONEUPTIME_URL=https://oneuptime.com oneuptime incident 
 | Variable            | Description                |
 | ------------------- | -------------------------- |
 | `ONEUPTIME_API_KEY` | API key for authentication |
-| `ONEUPTIME_URL`     | OneUptime instance URL     |
+| `ONEUPTIME_URL`     | Cast Operations instance URL     |
 | `NO_COLOR`          | Disable colored output     |
 
 ## Configuration File
@@ -168,7 +168,7 @@ The CLI stores configuration at `~/.oneuptime/config.json` with `0600` permissio
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://oneuptime.com",
+      "apiUrl": "https://visca.ai",
       "apiKey": "sk-..."
     }
   },
@@ -191,7 +191,7 @@ The CLI stores configuration at `~/.oneuptime/config.json` with `0600` permissio
 
 ## Supported Resources
 
-Run `oneuptime resources` to see all available resource types. Resources are auto-discovered from OneUptime models that have MCP enabled. Currently supported:
+Run `oneuptime resources` to see all available resource types. Resources are auto-discovered from Cast Operations models that have MCP enabled. Currently supported:
 
 - **Incident** - Manage incidents
 - **Alert** - Manage alerts
@@ -203,7 +203,7 @@ Run `oneuptime resources` to see all available resource types. Resources are aut
 - **Team** - Manage teams
 - **Scheduled Maintenance Event** - Manage scheduled maintenance
 
-As more models are MCP-enabled in OneUptime, they automatically become available in the CLI.
+As more models are MCP-enabled in Cast Operations, they automatically become available in the CLI.
 
 ## Development
 

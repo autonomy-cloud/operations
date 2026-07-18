@@ -215,7 +215,7 @@ const valueToKeys: (v: EntityDropdownValue) => Array<string> = (
 
 /*
  * Best-effort runtime detection of a `labels` ManyToMany. The convention
- * across OneUptime models is a property literally named `labels` typed
+ * across Cast Operations models is a property literally named `labels` typed
  * `Array<Label>` (44 such models at last count), so a property-existence
  * probe is the cheapest reliable check we can do without yanking column
  * metadata. Callers can override via `enableLabelsTab` if heuristics fail.
@@ -229,7 +229,7 @@ const detectLabelsField: (
   try {
     const instance: BaseModel = new ModelType();
     /*
-     * OneUptime models declare `public labels?: Array<Label> = undefined;`
+     * Cast Operations models declare `public labels?: Array<Label> = undefined;`
      * so the property is present on the instance (initialized to undefined)
      * and the `in` check is reliable. We add the column-metadata probe
      * underneath as a belt-and-suspenders fallback in case a future model

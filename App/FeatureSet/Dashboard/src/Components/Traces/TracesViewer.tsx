@@ -357,7 +357,7 @@ interface Props {
   attributeFilters?: Record<string, string> | undefined;
   attributeFilterDisplayKeys?: Record<string, string> | undefined;
   /*
-   * Scope to a OneUptime entity by its stable entityKeys (membership).
+   * Scope to a Cast Operations entity by its stable entityKeys (membership).
    * Compiles to `hasAny(entityKeys, [...])` server-side — the entity
    * model's cross-cutting read (e.g. all spans touching a k8s pod), even
    * for service-owned spans.

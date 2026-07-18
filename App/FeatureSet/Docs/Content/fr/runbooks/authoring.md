@@ -26,7 +26,7 @@ Une case à cocher que le répondeur valide. L'exécution se met en pause à une
 
 ### JavaScript
 
-Un extrait JavaScript exécuté dans un bac à sable `isolated-vm`. Le bac à sable vit sur un [Agent de runbook](/docs/runbooks/agents) dans votre propre infrastructure — pas sur le Worker OneUptime.
+Un extrait JavaScript exécuté dans un bac à sable `isolated-vm`. Le bac à sable vit sur un [Agent de runbook](/docs/runbooks/agents) dans votre propre infrastructure — pas sur le Worker Cast Operations.
 
 Configurez deux choses sur une étape JavaScript :
 
@@ -45,11 +45,11 @@ La valeur retournée est enregistrée dans l'exécution de l'étape. Les sorties
 
 Appel HTTP sortant. Configurez la méthode (GET/POST/PUT/PATCH/DELETE/HEAD), l'URL, les en-têtes JSON optionnels et un corps optionnel. Le statut, les en-têtes et le corps de la réponse sont enregistrés (plafonnés à 50 Ko au total).
 
-Utile pour : ouvrir un incident PagerDuty, poster dans Slack, appeler votre propre API admin, etc. Les étapes HTTP tournent directement sur le Worker OneUptime ; aucun agent requis.
+Utile pour : ouvrir un incident PagerDuty, poster dans Slack, appeler votre propre API admin, etc. Les étapes HTTP tournent directement sur le Worker Cast Operations ; aucun agent requis.
 
 ### Bash
 
-Un script bash (`bash -c <script>`) qui tourne sur un [Agent de runbook](/docs/runbooks/agents) dans votre propre infrastructure. Bash ne s'exécute jamais sur le Worker OneUptime.
+Un script bash (`bash -c <script>`) qui tourne sur un [Agent de runbook](/docs/runbooks/agents) dans votre propre infrastructure. Bash ne s'exécute jamais sur le Worker Cast Operations.
 
 Configurez deux choses sur une étape Bash :
 
@@ -60,7 +60,7 @@ Si l'agent sélectionné est hors ligne lorsque le runbook atteint cette étape,
 
 ### AI
 
-Demandez à l'IA d'analyser, de résumer ou de décider quelque chose en cours d'exécution. Le prompt est envoyé au fournisseur LLM de votre projet (**Paramètres → AI → LLM Providers**) et la réponse du modèle devient la sortie de l'étape sur la chronologie d'exécution. Les étapes AI tournent sur le Worker OneUptime ; aucun agent requis.
+Demandez à l'IA d'analyser, de résumer ou de décider quelque chose en cours d'exécution. Le prompt est envoyé au fournisseur LLM de votre projet (**Paramètres → AI → LLM Providers**) et la réponse du modèle devient la sortie de l'étape sur la chronologie d'exécution. Les étapes AI tournent sur le Worker Cast Operations ; aucun agent requis.
 
 Configurez sur une étape AI :
 

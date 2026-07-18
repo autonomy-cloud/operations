@@ -2,18 +2,18 @@
 
 ## 概述
 
-当 OneUptime 收到带有 `faas.name` 资源属性标记的 OpenTelemetry 数据时，会立即自动识别出一个 **无服务器函数（Serverless Function）**。无需手动创建任何内容 —— 使用适合你运行时的 OpenTelemetry SDK 为函数添加监测埋点，将其 OTLP 导出器指向 OneUptime，该函数便会连同其追踪、日志和指标一起出现在 **无服务器函数（Serverless Functions）** 之下。
+当 Cast Operations 收到带有 `faas.name` 资源属性标记的 OpenTelemetry 数据时，会立即自动识别出一个 **无服务器函数（Serverless Function）**。无需手动创建任何内容 —— 使用适合你运行时的 OpenTelemetry SDK 为函数添加监测埋点，将其 OTLP 导出器指向 Cast Operations，该函数便会连同其追踪、日志和指标一起出现在 **无服务器函数（Serverless Functions）** 之下。
 
 这适用于 AWS Lambda、Google Cloud Functions、Azure Functions、Cloudflare Workers，或任何能够发出 OpenTelemetry 数据的 FaaS 运行时。
 
 ## 前置条件
 
-- 一个 **OneUptime 遥测采集令牌（Telemetry Ingestion Token）** —— 从 _Project Settings → Telemetry Ingestion Keys_ 创建一个，并复制其中的 `x-oneuptime-token` 值。
+- 一个 **Cast Operations 遥测采集令牌（Telemetry Ingestion Token）** —— 从 _Project Settings → Telemetry Ingestion Keys_ 创建一个，并复制其中的 `x-oneuptime-token` 值。
 - 适合你的函数所用语言的 OpenTelemetry SDK（或自动监测埋点层）。
 
-## OneUptime 如何识别一个函数
+## Cast Operations 如何识别一个函数
 
-OneUptime 以 `faas.name` 资源属性作为每个函数的键：
+Cast Operations 以 `faas.name` 资源属性作为每个函数的键：
 
 | 属性                                                   | 是否必需 | 用途                                                       |
 | ------------------------------------------------------ | -------- | ---------------------------------------------------------- |
@@ -30,12 +30,12 @@ OneUptime 以 `faas.name` 资源属性作为每个函数的键：
 大多数语言的自动监测埋点都遵循标准的 OpenTelemetry 环境变量：
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://oneuptime.com/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
-如果你自托管 OneUptime，请将端点替换为 `https://YOUR-ONEUPTIME-HOST/otlp`。
+如果你自托管 Cast Operations，请将端点替换为 `https://YOUR-OPERATIONS-HOST/otlp`。
 
 ## 步骤 2 —— （AWS Lambda）添加 OpenTelemetry 层
 
@@ -43,7 +43,7 @@ OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
-OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 

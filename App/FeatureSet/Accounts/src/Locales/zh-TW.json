@@ -20,7 +20,7 @@
     "switchLanguage": "切換語言"
   },
   "footer": {
-    "copyright": "OneUptime",
+    "copyright": "Cast Operations",
     "contact": "聯絡方式",
     "privacyAndTerms": "隱私與條款"
   },
@@ -32,7 +32,7 @@
   },
   "login": {
     "title": "登入您的帳號",
-    "subtitle": "加入數千家使用 OneUptime 保持隨時在線的企業。",
+    "subtitle": "加入數千家使用 Cast Operations 保持隨時在線的企業。",
     "submitButton": "登入",
     "forgotPassword": "忘記密碼？",
     "useSso": "改用單一登入（SSO）",
@@ -50,8 +50,8 @@
     }
   },
   "register": {
-    "title": "建立您的 OneUptime 帳號",
-    "subtitle": "加入數千家使用 OneUptime 保持隨時在線的企業。",
+    "title": "建立您的 Cast Operations 帳號",
+    "subtitle": "加入數千家使用 Cast Operations 保持隨時在線的企業。",
     "noCreditCard": "無需信用卡。",
     "submitButton": "註冊",
     "haveAccountPrompt": "已經有帳號？",
@@ -92,7 +92,7 @@
   },
   "verifyEmail": {
     "successTitle": "您的電子郵件已驗證。",
-    "successDescription": "感謝您驗證您的電子郵件。您現在可以登入 OneUptime。",
+    "successDescription": "感謝您驗證您的電子郵件。您現在可以登入 Cast Operations。",
     "errorTitle": "抱歉，發生錯誤！",
     "returnToSignIn": "返回登入？",
     "loginLink": "登入。"

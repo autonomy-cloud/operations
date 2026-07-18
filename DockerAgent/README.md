@@ -1,6 +1,6 @@
-# OneUptime Docker Agent
+# Cast Operations Docker Agent
 
-Monitor Docker hosts, containers, and container logs with OneUptime using a pre-configured OpenTelemetry Collector.
+Monitor Docker hosts, containers, and container logs with Cast Operations using a pre-configured OpenTelemetry Collector.
 
 The agent is published as a Docker image — `oneuptime/docker-agent` — that bundles a tuned collector config. Just pass a few environment variables and run it.
 
@@ -19,20 +19,20 @@ docker run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="https://oneuptime.com" \
+  -e ONEUPTIME_URL="https://visca.ai" \
   -e ONEUPTIME_SERVICE_TOKEN="your-service-token" \
   -e DOCKER_HOST_NAME="my-docker-host" \
   oneuptime/docker-agent:release
 ```
 
-That's it. The host will appear automatically in the Docker section of OneUptime.
+That's it. The host will appear automatically in the Docker section of Cast Operations.
 
 ## Quick Start — Docker Compose
 
 Create a `.env` file:
 
 ```bash
-ONEUPTIME_URL=https://oneuptime.com
+ONEUPTIME_URL=https://visca.ai
 ONEUPTIME_SERVICE_TOKEN=your-service-token
 DOCKER_HOST_NAME=my-docker-host
 ```
@@ -47,7 +47,7 @@ docker compose up -d
 
 | Variable                  | Required | Description                                             |
 | ------------------------- | -------- | ------------------------------------------------------- |
-| `ONEUPTIME_URL`           | Yes      | Your OneUptime instance URL                             |
+| `ONEUPTIME_URL`           | Yes      | Your Cast Operations instance URL                             |
 | `ONEUPTIME_SERVICE_TOKEN` | Yes      | Telemetry ingestion service token (Settings → API Keys) |
 | `DOCKER_HOST_NAME`        | No       | Friendly name for this host (default: `docker-host`)    |
 
@@ -184,7 +184,7 @@ docker run ... <image>
 
 ### Logs Are Ingested but Don't Appear on a Specific Docker Host Page
 
-The Docker host page filters by `resource.host.name` equal to the host's `hostIdentifier`. This value is taken from the `DOCKER_HOST_NAME` environment variable passed to the agent. If you change `DOCKER_HOST_NAME` after the host is auto-registered, OneUptime will create a second host row with the new name and logs will appear under that one.
+The Docker host page filters by `resource.host.name` equal to the host's `hostIdentifier`. This value is taken from the `DOCKER_HOST_NAME` environment variable passed to the agent. If you change `DOCKER_HOST_NAME` after the host is auto-registered, Cast Operations will create a second host row with the new name and logs will appear under that one.
 
 ```bash
 # Confirm the agent is stamping the expected host name

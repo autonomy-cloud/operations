@@ -2,16 +2,16 @@
 
 ## Oversikt
 
-OneUptime grupperer administrert skybasert databehandling i **skymiljoer** (Cloud Environments) — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner og Azure App Service. Det opprettes ett miljo per unik kombinasjon av `cloud.platform` + `cloud.account.id` + `cloud.region`, slik at noe som _"AWS ECS · us-east-1 · 123456789012"_ er en enkelt enhet som aggregerer alle arbeidsbelastninger som kjorer pa den.
+Cast Operations grupperer administrert skybasert databehandling i **skymiljoer** (Cloud Environments) — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner og Azure App Service. Det opprettes ett miljo per unik kombinasjon av `cloud.platform` + `cloud.account.id` + `cloud.region`, slik at noe som _"AWS ECS · us-east-1 · 123456789012"_ er en enkelt enhet som aggregerer alle arbeidsbelastninger som kjorer pa den.
 
 Rene virtuelle maskiner (EC2, Compute Engine, Azure VM) forblir **verter** (Hosts), og Kubernetes ligger fortsatt under **Kubernetes**. Denne visningen er spesifikt for administrert / PaaS-databehandling.
 
 ## Forutsetninger
 
-- En **OneUptime Telemetry Ingestion Token** — opprett en fra _Project Settings → Telemetry Ingestion Keys_.
+- En **Cast Operations Telemetry Ingestion Token** — opprett en fra _Project Settings → Telemetry Ingestion Keys_.
 - En OpenTelemetry Collector eller SDK som kjorer i eller ved siden av arbeidsbelastningene dine.
 
-## Hvordan OneUptime identifiserer et miljo
+## Hvordan Cast Operations identifiserer et miljo
 
 | Attributt             | Pakrevd | Formal                                                                                                            |
 | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -39,12 +39,12 @@ Med en SDK setter du `OTEL_RESOURCE_DETECTORS` i stedet:
 OTEL_RESOURCE_DETECTORS=env,ecs
 ```
 
-## Trinn 2 — Eksporter OTLP til OneUptime
+## Trinn 2 — Eksporter OTLP til Cast Operations
 
 ```yaml
 exporters:
   otlphttp/oneuptime:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -64,7 +64,7 @@ service:
       exporters: [otlphttp/oneuptime]
 ```
 
-Hvis du selv hoster OneUptime, bruker du `https://YOUR-ONEUPTIME-HOST/otlp`.
+Hvis du selv hoster Cast Operations, bruker du `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Hva du far
 

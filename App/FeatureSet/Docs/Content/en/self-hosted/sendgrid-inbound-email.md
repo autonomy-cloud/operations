@@ -1,21 +1,21 @@
 # SendGrid Inbound Email Integration
 
-OneUptime's **Incoming Email Monitor** allows you to create and resolve alerts based on emails sent to unique monitor-specific email addresses. This is useful for integrating with legacy systems, alerting tools, or any service that can send emails.
+Cast Operations’ **Incoming Email Monitor** allows you to create and resolve alerts based on emails sent to unique monitor-specific email addresses. This is useful for integrating with legacy systems, alerting tools, or any service that can send emails.
 
-This guide explains how to set up SendGrid Inbound Parse to forward incoming emails to your self-hosted OneUptime instance.
+This guide explains how to set up SendGrid Inbound Parse to forward incoming emails to your self-hosted Cast Operations instance.
 
 ## Prerequisites
 
 - A SendGrid account (free tier works)
 - A domain you control with access to DNS settings
-- Your OneUptime instance must be publicly accessible (for SendGrid to send webhooks)
+- Your Cast Operations instance must be publicly accessible (for SendGrid to send webhooks)
 
 ## How It Works
 
-1. You create an **Incoming Email Monitor** in OneUptime
-2. OneUptime generates a unique email address for that monitor (e.g., `monitor-abc123@inbound.yourdomain.com`)
-3. When an email is sent to that address, SendGrid receives it and forwards it to OneUptime via webhook
-4. OneUptime evaluates the email against your configured criteria to create or resolve alerts
+1. You create an **Incoming Email Monitor** in Cast Operations
+2. Cast Operations generates a unique email address for that monitor (e.g., `monitor-abc123@inbound.yourdomain.com`)
+3. When an email is sent to that address, SendGrid receives it and forwards it to Cast Operations via webhook
+4. Cast Operations evaluates the email against your configured criteria to create or resolve alerts
 
 ## Setup Instructions
 
@@ -27,7 +27,7 @@ You'll need a subdomain dedicated to receiving inbound emails. We recommend usin
 - `email.yourdomain.com`
 - `monitor.yourdomain.com`
 
-This subdomain will be used exclusively for OneUptime monitor emails.
+This subdomain will be used exclusively for Cast Operations monitor emails.
 
 ### Step 2: Configure DNS MX Record
 
@@ -64,14 +64,14 @@ For better deliverability and to avoid emails being marked as spam:
 | Field                               | Value                                                                   |
 | ----------------------------------- | ----------------------------------------------------------------------- |
 | **Receiving Domain**                | Your inbound subdomain (e.g., `inbound.yourdomain.com`)                 |
-| **Destination URL**                 | `https://your-oneuptime-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **Destination URL**                 | `https://your-operations-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
 | **Check incoming emails for spam**  | Optional - enable if desired                                            |
 | **Send raw, full MIME message**     | Leave unchecked (not required)                                          |
 | **POST the raw, full MIME message** | Leave unchecked (not required)                                          |
 
 5. Click **Add**
 
-### Step 5: Configure OneUptime Environment Variables
+### Step 5: Configure Cast Operations Environment Variables
 
 #### Docker Compose
 
@@ -95,11 +95,11 @@ inboundEmail:
   # webhookSecret: "your-optional-secret"  # Optional
 ```
 
-**Important:** Restart your OneUptime server after adding these environment variables.
+**Important:** Restart your Cast Operations server after adding these environment variables.
 
 ### Step 6: Create an Incoming Email Monitor
 
-1. Log into your OneUptime Dashboard
+1. Log into your Cast Operations Dashboard
 2. Navigate to **Monitors** > **Create Monitor**
 3. Select **Incoming Email** as the monitor type
 4. Configure your monitor:
@@ -115,9 +115,9 @@ After creation, you'll see the unique email address for this monitor (e.g., `mon
 
 ### Step 7: Test the Integration
 
-1. Copy the monitor's email address from the OneUptime Dashboard
+1. Copy the monitor's email address from the Cast Operations Dashboard
 2. Send a test email to that address with a subject that matches your alert criteria
-3. Check the OneUptime Dashboard to verify:
+3. Check the Cast Operations Dashboard to verify:
    - The email was received (visible in Monitor Summary)
    - An alert was created (if criteria matched)
 
@@ -147,7 +147,7 @@ When configuring your Incoming Email Monitor, you can create criteria based on:
 
 Many legacy systems can only send email alerts. Create an Incoming Email Monitor to:
 
-- Create OneUptime alerts when the legacy system sends `[CRITICAL]` emails
+- Create Cast Operations alerts when the legacy system sends `[CRITICAL]` emails
 - Resolve alerts when `[RESOLVED]` emails are received
 
 ### Third-Party Service Integration
@@ -183,16 +183,16 @@ Use "Email Received" criteria to ensure you receive periodic emails:
    - Go to Settings > Inbound Parse
    - Verify your domain and webhook URL are correct
 
-3. **Check OneUptime logs:**
+3. **Check Cast Operations logs:**
    - Look for webhook requests in the ProbeIngest service logs
    - Check for any error messages
 
 ### Webhooks Failing
 
-1. **Ensure OneUptime is publicly accessible:**
+1. **Ensure Cast Operations is publicly accessible:**
 
    - The webhook URL must be reachable from the internet
-   - Test with: `curl -X POST https://your-oneuptime-domain.com/incoming-email/sendgrid`
+   - Test with: `curl -X POST https://your-operations-domain.com/incoming-email/sendgrid`
 
 2. **Check firewall rules:**
 
@@ -223,7 +223,7 @@ Use "Email Received" criteria to ensure you receive periodic emails:
 To check if SendGrid is successfully sending webhooks:
 
 1. Unfortunately, SendGrid doesn't provide detailed logs for Inbound Parse
-2. Check your OneUptime server logs for incoming webhook requests
+2. Check your Cast Operations server logs for incoming webhook requests
 3. Use a tool like [RequestBin](https://requestbin.com) to test webhook delivery temporarily
 
 ## Security Best Practices
@@ -236,7 +236,7 @@ To check if SendGrid is successfully sending webhooks:
 
 ## Alternative Providers
 
-OneUptime is designed to support multiple inbound email providers. Currently supported:
+Cast Operations is designed to support multiple inbound email providers. Currently supported:
 
 | Provider             | Status    |
 | -------------------- | --------- |
@@ -250,7 +250,7 @@ If you need support for a different provider, please contact us or submit a feat
 If you encounter issues with the SendGrid Inbound Email integration:
 
 1. Check the troubleshooting section above
-2. Review the OneUptime logs for detailed error messages
-3. Contact us at [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Review the Cast Operations logs for detailed error messages
+3. Contact us at [hello@visca.ai](mailto:hello@visca.ai)
 
 We welcome feedback to improve this integration!

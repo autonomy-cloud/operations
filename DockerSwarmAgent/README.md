@@ -1,6 +1,6 @@
-# OneUptime Docker Swarm Agent
+# Cast Operations Docker Swarm Agent
 
-Monitor a Docker Swarm cluster — nodes, services, tasks, stacks, overlay networks, secrets, configs, volumes, plus per-container metrics and logs — with OneUptime using a pre-configured OpenTelemetry Collector and a lightweight inventory poller.
+Monitor a Docker Swarm cluster — nodes, services, tasks, stacks, overlay networks, secrets, configs, volumes, plus per-container metrics and logs — with Cast Operations using a pre-configured OpenTelemetry Collector and a lightweight inventory poller.
 
 The agent is two cooperating containers:
 
@@ -10,7 +10,7 @@ The agent is two cooperating containers:
 ## Prerequisites
 
 - Docker Engine 20.10+ with the Compose v2 plugin, **on a swarm manager node**. The inventory poller calls manager-only API endpoints, so it must run where the Docker socket belongs to a manager.
-- A **OneUptime Telemetry Ingestion Key** — create one from _Project Settings → Telemetry Ingestion Keys_.
+- A **Cast Operations Telemetry Ingestion Key** — create one from _Project Settings → Telemetry Ingestion Keys_.
 
 ### Where to run the agent
 
@@ -19,18 +19,18 @@ Run it on a **manager node**. For full per-node container metrics, run the colle
 ## Quick Start — install script
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/DockerSwarmAgent/install.sh -o install.sh
+curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/DockerSwarmAgent/install.sh -o install.sh
 sh install.sh
 ```
 
-The script prompts for your OneUptime URL, ingestion key, and cluster name, installs to `/opt/oneuptime-docker-swarm-agent`, and starts the agent.
+The script prompts for your Cast Operations URL, ingestion key, and cluster name, installs to `/opt/oneuptime-docker-swarm-agent`, and starts the agent.
 
 ## Quick Start — Docker Compose
 
 Download `docker-compose.yml`, `otel-collector-config.yaml`, and `inventory-snapshot.sh` into a folder on a manager node, then create a `.env`:
 
 ```bash
-ONEUPTIME_URL=https://oneuptime.com
+ONEUPTIME_URL=https://visca.ai
 ONEUPTIME_SERVICE_TOKEN=your-telemetry-ingestion-key
 DOCKER_SWARM_CLUSTER_NAME=my-swarm
 ```
@@ -42,7 +42,7 @@ chmod +x inventory-snapshot.sh
 docker compose up -d
 ```
 
-The cluster auto-registers in OneUptime on first telemetry (keyed by `DOCKER_SWARM_CLUSTER_NAME`), and the inventory list pages populate after the first snapshot (≤ 5 min).
+The cluster auto-registers in Cast Operations on first telemetry (keyed by `DOCKER_SWARM_CLUSTER_NAME`), and the inventory list pages populate after the first snapshot (≤ 5 min).
 
 ## What gets collected
 
@@ -57,23 +57,23 @@ The cluster auto-registers in OneUptime on first telemetry (keyed by `DOCKER_SWA
 
 | Variable                            | Required | Default                 | Notes                                                          |
 | ----------------------------------- | -------- | ----------------------- | -------------------------------------------------------------- |
-| `ONEUPTIME_URL`                     | yes      | `https://oneuptime.com` | Your OneUptime instance                                        |
+| `ONEUPTIME_URL`                     | yes      | `https://visca.ai` | Your Cast Operations instance                                        |
 | `ONEUPTIME_SERVICE_TOKEN`           | yes      | —                       | Telemetry ingestion key                                        |
-| `DOCKER_SWARM_CLUSTER_NAME`         | yes      | `docker-swarm`          | The cluster join key (matches the cluster's Name in OneUptime) |
+| `DOCKER_SWARM_CLUSTER_NAME`         | yes      | `docker-swarm`          | The cluster join key (matches the cluster's Name in Cast Operations) |
 | `DOCKER_INVENTORY_INTERVAL_SECONDS` | no       | `300`                   | How often the poller refreshes the inventory snapshot          |
 
 ## How it differs from the Docker Host agent
 
-The Docker Host agent models a single host and stamps `host.name` + `container.runtime=docker`. The Swarm agent deliberately stamps **only** `docker.swarm.cluster.name` (not `host.name`/`container.runtime`) so OneUptime attributes the telemetry to the swarm cluster instead of auto-registering each node as a standalone Host or Docker Host.
+The Docker Host agent models a single host and stamps `host.name` + `container.runtime=docker`. The Swarm agent deliberately stamps **only** `docker.swarm.cluster.name` (not `host.name`/`container.runtime`) so Cast Operations attributes the telemetry to the swarm cluster instead of auto-registering each node as a standalone Host or Docker Host.
 
 ## Troubleshooting
 
 ### Run the diagnostic script first
 
-`troubleshoot.sh` checks the whole chain — both containers, that the inventory poller is on a manager (`docker node ls`), the snapshot file, cluster-name stamping, token shape, collector self-metrics, and a **definitive server-side token validation** (OneUptime's OTLP endpoints return a silent `200` on a bad ingestion key, so log inspection alone cannot tell you the key is wrong; the script asks `GET /otlp/v1/validate` for a real 200/401 verdict):
+`troubleshoot.sh` checks the whole chain — both containers, that the inventory poller is on a manager (`docker node ls`), the snapshot file, cluster-name stamping, token shape, collector self-metrics, and a **definitive server-side token validation** (Cast Operations’ OTLP endpoints return a silent `200` on a bad ingestion key, so log inspection alone cannot tell you the key is wrong; the script asks `GET /otlp/v1/validate` for a real 200/401 verdict):
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/DockerSwarmAgent/troubleshoot.sh -o troubleshoot.sh
+curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/DockerSwarmAgent/troubleshoot.sh -o troubleshoot.sh
 bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/oneuptime-docker-swarm-agent
 ```
 

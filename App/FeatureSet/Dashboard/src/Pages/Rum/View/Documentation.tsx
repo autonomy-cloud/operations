@@ -73,7 +73,7 @@ const RumApplicationDocumentation: FunctionComponent<
     <Fragment>
       <ResourceDocumentationCard
         title="Instrument your app for RUM"
-        description={`Send browser / mobile telemetry so ${label} reports real-user monitoring to OneUptime.`}
+        description={`Send browser / mobile telemetry so ${label} reports real-user monitoring to Cast Operations.`}
         buildMarkdown={getRumDocMarkdown}
       />
     </Fragment>

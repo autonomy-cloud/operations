@@ -4,15 +4,15 @@ Incoming Email Monitor आपको unique monitor-specific email addresses प�
 
 ## यह कैसे काम करता है
 
-1. जब आप Incoming Email Monitor बनाते हैं, तो OneUptime उस monitor के लिए एक unique email address generate करता है
+1. जब आप Incoming Email Monitor बनाते हैं, तो Cast Operations उस monitor के लिए एक unique email address generate करता है
 2. उस address पर भेजा गया कोई भी email received होता है और आपके configured criteria के विरुद्ध evaluate होता है
-3. criteria के आधार पर, OneUptime नए alerts बना सकता है या मौजूदा alerts resolve कर सकता है
+3. criteria के आधार पर, Cast Operations नए alerts बना सकता है या मौजूदा alerts resolve कर सकता है
 
-यह email-based alerting systems को OneUptime के incident management workflow के साथ integrate करने का एक शक्तिशाली तरीका है।
+यह email-based alerting systems को Cast Operations के incident management workflow के साथ integrate करने का एक शक्तिशाली तरीका है।
 
 ## Incoming Email Monitor बनाना
 
-1. अपने OneUptime Dashboard में **Monitors** पर जाएं
+1. अपने Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **Incoming Email** चुनें
 4. monitor settings configure करें:
@@ -118,7 +118,7 @@ monitor-{secret-key}@{inbound-domain}
 
 कई पुराने systems केवल email-based alerting का समर्थन करते हैं। Incoming Email Monitor का उपयोग करें:
 
-- email alerts को OneUptime incidents में convert करें
+- email alerts को Cast Operations incidents में convert करें
 - recovery emails arrive होने पर incidents automatically resolve करें
 - कई legacy systems से alerting centralize करें
 
@@ -153,7 +153,7 @@ incident templates configure करते समय, आप incoming emails स�
 
 ## Self-Hosted Setup
 
-यदि आप OneUptime self-host कर रहे हैं, तो आपको एक inbound email provider configure करना होगा। वर्तमान में supported:
+यदि आप Cast Operations self-host कर रहे हैं, तो आपको एक inbound email provider configure करना होगा। वर्तमान में supported:
 
 - **SendGrid Inbound Parse** - Setup निर्देशों के लिए [SendGrid Inbound Email Integration](/docs/self-hosted/sendgrid-inbound-email) देखें
 
@@ -172,7 +172,7 @@ incident templates configure करते समय, आप incoming emails स�
 1. सत्यापित करें कि email address सही है (typos जांचें)
 2. जांचें कि email spam filters द्वारा block तो नहीं हो रहा
 3. सत्यापित करें कि आपका inbound email provider सही तरीके से configured है
-4. किसी भी error messages के लिए OneUptime logs जांचें
+4. किसी भी error messages के लिए Cast Operations logs जांचें
 
 ### Alerts नहीं बन रहे
 

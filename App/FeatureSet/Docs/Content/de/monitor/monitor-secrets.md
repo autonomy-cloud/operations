@@ -4,7 +4,7 @@ Sie können Geheimnisse verwenden, um sensible Informationen zu speichern, die S
 
 ### Ein Geheimnis hinzufügen
 
-Um ein Geheimnis hinzuzufügen, gehen Sie bitte zum OneUptime-Dashboard -> Projekteinstellungen -> Monitor-Geheimnisse -> Monitor-Geheimnis erstellen.
+Um ein Geheimnis hinzuzufügen, gehen Sie bitte zum Cast Operations-Dashboard -> Projekteinstellungen -> Monitor-Geheimnisse -> Monitor-Geheimnis erstellen.
 
 ![Geheimnis erstellen](/docs/static/images/CreateMonitorSecret.png)
 

@@ -1,6 +1,6 @@
 # Dashboards – Überblick
 
-Dashboards verwandeln die Daten, die OneUptime bereits sammelt – Metriken, Logs, Traces, Vorfälle, Monitore, Kubernetes-Ressourcen, Hosts – in eine einzige Seite, auf der man mit einem Blick erkennt, was los ist.
+Dashboards verwandeln die Daten, die Cast Operations bereits sammelt – Metriken, Logs, Traces, Vorfälle, Monitore, Kubernetes-Ressourcen, Hosts – in eine einzige Seite, auf der man mit einem Blick erkennt, was los ist.
 
 Platzieren Sie ein Diagramm zur Anfrage-Latenz neben einer Liste offener Vorfälle, daneben eine Anzeige für die CPU und einen Textabschnitt mit Kontext. Speichern. Link teilen.
 
@@ -66,12 +66,12 @@ Ziel: eine Rufbereitschafts-Seite für den Checkout-Service mit Latenz, Fehlerqu
 6. Darunter ein **Log-Stream**-Widget, das Logs desselben Service zeigt.
 7. Speichern. Wechseln Sie das Dropdown auf `payments` – dasselbe Dashboard zeigt nun den Payments-Service.
 
-## Wie Dashboards in OneUptime hineinpassen
+## Wie Dashboards in Cast Operations hineinpassen
 
 - **Monitore und Telemetrie** sind die Datenquellen. Jede Metrik, jedes Log und jeder Trace, den Sie sammeln, ist in einem Widget abfragbar.
 - **Vorfälle und Benachrichtigungen** tauchen in Widgets vom Typ **Vorfall-Liste** und **Benachrichtigungs-Liste** auf. Dashboards sind dafür nur lesend – erstellen und aktualisieren Sie diese an anderer Stelle.
 - **Statusseiten** sind die kundenseitige Kommunikation („Funktioniert das System?"). Dashboards dienen dazu, im Detail zu sehen, wie sich das System verhält. Beide ergänzen sich, sie ersetzen einander nicht.
-- **Workflows** sind das Mittel, mit dem OneUptime handelt. Dashboards sind das Mittel, mit dem Sie sehen, was passiert.
+- **Workflows** sind das Mittel, mit dem Cast Operations handelt. Dashboards sind das Mittel, mit dem Sie sehen, was passiert.
 
 ## Weiterführende Themen
 

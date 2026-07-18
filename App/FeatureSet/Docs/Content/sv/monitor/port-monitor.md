@@ -1,6 +1,6 @@
 # Portmonitor
 
-Portövervakning gör det möjligt att övervaka tillgängligheten för specifika TCP- eller UDP-portar på en värd. OneUptime försöker periodiskt ansluta till den angivna porten och kontrollerar om den är öppen och svarar.
+Portövervakning gör det möjligt att övervaka tillgängligheten för specifika TCP- eller UDP-portar på en värd. Cast Operations försöker periodiskt ansluta till den angivna porten och kontrollerar om den är öppen och svarar.
 
 ## Översikt
 
@@ -13,7 +13,7 @@ Portmonitorer testar om en specifik nätverksport accepterar anslutningar. Detta
 
 ## Skapa en portmonitor
 
-1. Gå till **Monitorer** i OneUptime-instrumentpanelen
+1. Gå till **Monitorer** i Cast Operations-instrumentpanelen
 2. Klicka på **Skapa monitor**
 3. Välj **Port** som monitortyp
 4. Ange värdnamnet eller IP-adressen och portnumret

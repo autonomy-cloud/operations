@@ -60,7 +60,7 @@ Der Baustein **Benutzerdefinierter Code** liest Variablen anders – globale Var
 
 ### Eine Payload aus einem Webhook zusammenbauen
 
-Ein Webhook kommt mit einem Body wie `{ "service": "checkout", "status": "failed" }` an. So machen Sie daraus einen OneUptime-Vorfall:
+Ein Webhook kommt mit einem Body wie `{ "service": "checkout", "status": "failed" }` an. So machen Sie daraus einen Cast Operations-Vorfall:
 
 1. **Webhook**-Auslöser namens `CIWebhook`.
 2. **Bedingungen**-Baustein: links `{{CIWebhook.Request Body.status}}`, Operator `==`, rechts `failed`.

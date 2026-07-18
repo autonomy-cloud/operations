@@ -1,6 +1,6 @@
 # API リファレンス
 
-OneUptime は包括的な REST API を提供しており、監視、インシデント管理、ステータスページ機能をアプリケーションやワークフローに統合することができます。**OneUptime ダッシュボードで実行できるすべての操作は API を通じても実行でき、自動化やカスタム統合が可能です。**
+Cast Operations は包括的な REST API を提供しており、監視、インシデント管理、ステータスページ機能をアプリケーションやワークフローに統合することができます。**Cast Operations ダッシュボードで実行できるすべての操作は API を通じても実行でき、自動化やカスタム統合が可能です。**
 
 ### はじめに
 
@@ -8,8 +8,8 @@ OneUptime は包括的な REST API を提供しており、監視、インシデ
 
 ### 認証
 
-すべての API リクエストには API キーによる認証が必要です。API キーは OneUptime ダッシュボードの設定 > API キーから生成できます。
+すべての API リクエストには API キーによる認証が必要です。API キーは Cast Operations ダッシュボードの設定 > API キーから生成できます。
 
 ### API リファレンス
 
-OneUptime の API リファレンスは、こちらをクリックしてご確認ください ➡️ [OneUptime API リファレンス](/reference)
+Cast Operations の API リファレンスは、こちらをクリックしてご確認ください ➡️ [Cast Operations API リファレンス](/reference)

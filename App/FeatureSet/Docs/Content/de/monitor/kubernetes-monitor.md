@@ -1,6 +1,6 @@
 # Kubernetes-Monitor
 
-Die Kubernetes-Überwachung ermöglicht Ihnen, die Gesundheit und Performance Ihrer Kubernetes-Cluster zu überwachen, einschließlich Nodes, Pods, Workloads und Komponenten der Control Plane. OneUptime erfasst Metriken aus Ihrem Cluster und wertet sie anhand Ihrer konfigurierten Kriterien aus.
+Die Kubernetes-Überwachung ermöglicht Ihnen, die Gesundheit und Performance Ihrer Kubernetes-Cluster zu überwachen, einschließlich Nodes, Pods, Workloads und Komponenten der Control Plane. Cast Operations erfasst Metriken aus Ihrem Cluster und wertet sie anhand Ihrer konfigurierten Kriterien aus.
 
 ## Überblick
 
@@ -15,7 +15,7 @@ Kubernetes-Monitore verwenden Metriken aus Ihrem Cluster, um tiefe Einblicke in 
 
 ## Einen Kubernetes-Monitor erstellen
 
-1. Gehen Sie zu **Monitors** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitors** im Cast Operations-Dashboard
 2. Klicken Sie auf **Create Monitor**
 3. Wählen Sie **Kubernetes** als Monitortyp aus
 4. Wählen Sie den Cluster und den zu überwachenden Ressourcen-Scope aus
@@ -26,7 +26,7 @@ Kubernetes-Monitore verwenden Metriken aus Ihrem Cluster, um tiefe Einblicke in 
 
 ### Cluster
 
-Wählen Sie den zu überwachenden Kubernetes-Cluster aus. Cluster müssen über OpenTelemetry mit OneUptime integriert sein.
+Wählen Sie den zu überwachenden Kubernetes-Cluster aus. Cluster müssen über OpenTelemetry mit Cast Operations integriert sein.
 
 ### Ressourcen-Scope
 
@@ -138,7 +138,7 @@ Wählen Sie das Zeitfenster für die Metrik-Auswertung:
 
 ## Vorgefertigte Alarm-Templates
 
-OneUptime stellt Templates für gängige Kubernetes-Überwachungsszenarien bereit:
+Cast Operations stellt Templates für gängige Kubernetes-Überwachungsszenarien bereit:
 
 | Template                    | Beschreibung                      | Schwellenwert      |
 | --------------------------- | --------------------------------- | ------------------ |
@@ -157,6 +157,6 @@ OneUptime stellt Templates für gängige Kubernetes-Überwachungsszenarien berei
 
 ## Einrichtungsvoraussetzungen
 
-Um die Kubernetes-Überwachung zu nutzen, müssen Sie den OneUptime-Kubernetes-Agent in Ihrem Cluster installieren. Der Agent sendet Cluster-Metriken, Events, Pod-Logs und — standardmäßig — **Anwendungs-Traces und HTTP-RED-Metriken, erfasst via eBPF** an OneUptime über OTLP. Es sind keine Codeänderungen oder App-spezifischen SDKs erforderlich, um Service-Level-Datenverkehr zu sehen.
+Um die Kubernetes-Überwachung zu nutzen, müssen Sie den Cast Operations-Kubernetes-Agent in Ihrem Cluster installieren. Der Agent sendet Cluster-Metriken, Events, Pod-Logs und — standardmäßig — **Anwendungs-Traces und HTTP-RED-Metriken, erfasst via eBPF** an Cast Operations über OTLP. Es sind keine Codeänderungen oder App-spezifischen SDKs erforderlich, um Service-Level-Datenverkehr zu sehen.
 
 Siehe die Anleitung [Kubernetes-Agent installieren](/docs/monitor/kubernetes-agent) — sie behandelt die Ein-Befehl-Helm-Installation, die `preset`-Option für die Auswahl der richtigen Konfiguration für Ihren Cluster (standard, GKE Autopilot, EKS Fargate) und die `ebpf.features.*`-Schalter für die einzelnen Signalfamilien (HTTP-RED-Metriken, Service-Graph, Netzwerk-Flows, TCP-Statistiken).

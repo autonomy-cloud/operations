@@ -1,14 +1,14 @@
-OneUptime is now installed. Please wait for all the services to spin up. 
+Cast Operations is now installed. Please wait for all the services to spin up.
 
-You can check pod status by using this command: 
+You can check pod status by using this command:
 
 kubectl get pods --namespace={{ $.Release.Namespace }}
 
-One all the pods are running. You can check the service status to see if the IP is assigned to the nginx service. 
+One all the pods are running. You can check the service status to see if the IP is assigned to the nginx service.
 
-kubectl get svc --namespace={{ $.Release.Namespace }} {{ $.Release.Name }}-nginx 
+kubectl get svc --namespace={{ $.Release.Namespace }} {{ $.Release.Name }}-nginx
 
-You should then be able to access OneUptime cluster with that IP. Please make sure your host matches the host set in values.yaml which currently is {{ .Values.host }}. If you would like to change this host to another value, please do a helm upgrade.
+You should then be able to access Cast Operations cluster with that IP. Please make sure your host matches the host set in values.yaml which currently is {{ .Values.host }}. If you would like to change this host to another value, please do a helm upgrade.
 {{- if .Values.vllm.enabled }}
 
 vLLM (local LLM server) is enabled. Its OpenAI-compatible endpoint inside the cluster is:
@@ -19,7 +19,7 @@ http://{{ .Release.Name }}-vllm.{{ .Release.Namespace }}.svc.{{ .Values.global.c
 It is registered automatically as a Global LLM Provider ("{{ .Values.vllm.globalProvider.name }}") at startup, so AI features work for all projects with no further setup. You can see it under AI Agents > LLM Providers in the dashboard. Note: project-scoped AI Agents cannot use global providers - create a project-specific LLM Provider for those. Disabling vllm.globalProvider.enabled (or vllm.enabled) removes the auto-registered provider on the next deploy.
 {{- else }}
 
-To use it with OneUptime AI features, go to AI Agents > LLM Providers > Create LLM Provider and set:
+To use it with Cast Operations AI features, go to AI Agents > LLM Providers > Create LLM Provider and set:
 - LLM Provider: OpenAI
 - Base URL: the endpoint above
 - Model Name: {{ if .Values.vllm.servedModelName }}{{ .Values.vllm.servedModelName }}{{ else }}{{ .Values.vllm.model }}{{ end }}
@@ -27,11 +27,11 @@ To use it with OneUptime AI features, go to AI Agents > LLM Providers > Create L
 {{- end }}
 {{- end }}
 
-🚀 OneUptime is deployed! 🚀
+🚀 Cast Operations is deployed! 🚀
 
 
-We would like to hear your feedback to make this product better for you and for other users, please email us at hello@oneuptime.com.
+We would like to hear your feedback to make this product better for you and for other users, please email us at hello@visca.ai.
 - If you notice a bug, we will fix it for you.
 - If you need a feature, we will add that to the roadmap and let you know the estimated time to ship.
-- If you are an enterprise customer, we offer dedicated engineering support to build oneuptime features you need to integrate OneUptime for your organization. Please contact us at sales@oneuptime.com
-We would love to hear your feedback. Email: hello@oneuptime.com
+- If you are an enterprise customer, we offer dedicated engineering support to build oneuptime features you need to integrate Cast Operations for your organization. Please contact us at sales@visca.ai
+We would love to hear your feedback. Email: hello@visca.ai

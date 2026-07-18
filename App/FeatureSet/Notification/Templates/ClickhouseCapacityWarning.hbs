@@ -6,11 +6,11 @@
 
 {{> StatusBadge badgeType=badgeType badgeText=badgeText }}
 
-{{> InfoBlock info="ClickHouse storage on your OneUptime instance has crossed the capacity threshold you configured. Once the disk is full, ingestion of logs, metrics, traces and other telemetry will start to fail." }}
+{{> InfoBlock info="ClickHouse storage on your Cast Operations instance has crossed the capacity threshold you configured. Once the disk is full, ingestion of logs, metrics, traces and other telemetry will start to fail." }}
 
 {{> DetailBoxStart this }}
 {{#if oneuptimeHost}}
-{{> DetailBoxField title="OneUptime Host: " text=oneuptimeHost }}
+{{> DetailBoxField title="Cast Operations Host: " text=oneuptimeHost }}
 {{/if}}
 {{> DetailBoxField title="Capacity Used: " text=capacityUsed }}
 {{> DetailBoxField title="Notification Threshold: " text=notificationThreshold }}
@@ -21,13 +21,13 @@
 {{> DetailBoxField title="Free Space: " text=freeSpace }}
 {{> DetailBoxEnd this }}
 
-{{> InfoBlock info="To recover capacity you can add more disk to this ClickHouse node, lower your telemetry retention, or turn on automatic pruning so OneUptime drops the oldest telemetry partitions for you." }}
+{{> InfoBlock info="To recover capacity you can add more disk to this ClickHouse node, lower your telemetry retention, or turn on automatic pruning so Cast Operations drops the oldest telemetry partitions for you." }}
 
 {{#if capacityPageLink}}
 {{> ButtonBlock buttonUrl=capacityPageLink buttonText="View ClickHouse Capacity" }}
 {{/if}}
 
-{{> InfoBlock info="You are receiving this email because you are a master admin on this OneUptime instance and ClickHouse capacity notifications are enabled." }}
+{{> InfoBlock info="You are receiving this email because you are a master admin on this Cast Operations instance and ClickHouse capacity notifications are enabled." }}
 
 {{> Footer this}}
 

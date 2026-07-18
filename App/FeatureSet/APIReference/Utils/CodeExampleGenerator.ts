@@ -29,7 +29,7 @@ export interface ApiRequestParams {
 
 export default class CodeExampleGenerator {
   private static readonly API_KEY_PLACEHOLDER: string = "YOUR_API_KEY";
-  private static readonly BASE_URL: string = "https://oneuptime.com";
+  private static readonly BASE_URL: string = "https://visca.ai";
 
   public static generate(params: ApiRequestParams): CodeExamples {
     return {

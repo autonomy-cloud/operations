@@ -1,6 +1,6 @@
 # Podman Monitor
 
-Podman monitoring allows you to monitor the health and performance of your Podman hosts and the containers running on them. OneUptime collects metrics and container logs via a pre-configured OpenTelemetry Collector (the **OneUptime Podman Agent**) and evaluates them against your configured criteria.
+Podman monitoring allows you to monitor the health and performance of your Podman hosts and the containers running on them. Cast Operations collects metrics and container logs via a pre-configured OpenTelemetry Collector (the **Cast Operations Podman Agent**) and evaluates them against your configured criteria.
 
 ## Overview
 
@@ -14,7 +14,7 @@ Podman monitors use metrics and logs from your hosts to provide visibility into 
 
 ## Creating a Podman Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Podman** as the monitor type
 4. Select the Podman host and resource scope to monitor
@@ -25,7 +25,7 @@ Podman monitors use metrics and logs from your hosts to provide visibility into 
 
 ### Podman Host
 
-Select the Podman host to monitor. Hosts are auto-registered the first time the OneUptime Podman Agent ships telemetry from them — you do not need to create them manually.
+Select the Podman host to monitor. Hosts are auto-registered the first time the Cast Operations Podman Agent ships telemetry from them — you do not need to create them manually.
 
 ### Resource Scope
 
@@ -126,7 +126,7 @@ The Podman Agent uses the OpenTelemetry `docker_stats` receiver pointed at Podma
 
 ## Pre-built Alert Templates
 
-OneUptime provides templates for common Podman monitoring scenarios:
+Cast Operations provides templates for common Podman monitoring scenarios:
 
 | Template               | Description                      | Threshold | Aggregation         |
 | ---------------------- | -------------------------------- | --------- | ------------------- |
@@ -155,7 +155,7 @@ Logs appear on the Podman host's **Logs** tab and on each container's detail pag
 
 ### Log Driver Requirement
 
-**Podman defaults to the `journald` log driver, which writes to the systemd journal rather than to a file the agent can tail.** The Podman Agent's filelog receiver tails the **`k8s-file`** path `/var/lib/containers/storage/overlay-containers/*/userdata/ctr.log`. To ship container logs to OneUptime, run your containers with the `k8s-file` (or `json-file`) log driver:
+**Podman defaults to the `journald` log driver, which writes to the systemd journal rather than to a file the agent can tail.** The Podman Agent's filelog receiver tails the **`k8s-file`** path `/var/lib/containers/storage/overlay-containers/*/userdata/ctr.log`. To ship container logs to Cast Operations, run your containers with the `k8s-file` (or `json-file`) log driver:
 
 - **`journald`** (Podman default) — sends logs to the systemd journal; no file to tail. The **Logs** tab will be empty.
 - **`k8s-file`** — writes a per-container `ctr.log` file the filelog receiver can parse. **Recommended.**
@@ -180,11 +180,11 @@ Then **recreate** the affected containers. Podman binds the log driver at contai
 
 To use Podman monitoring, you need to:
 
-1. Install the OneUptime Podman Agent on each Podman host you want to monitor
+1. Install the Cast Operations Podman Agent on each Podman host you want to monitor
 2. Pass `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN`, and `PODMAN_HOST_NAME` as environment variables
 3. Ensure the containers you want to observe use the `k8s-file` log driver (see above)
 
-The agent is published as `oneuptime/podman-agent:release` on Docker Hub. See the [Podman Host installation guide](https://github.com/OneUptime/oneuptime/tree/master/PodmanAgent) for the full `podman run` and Compose examples.
+The agent is published as `oneuptime/podman-agent:release` on Docker Hub. See the [Podman Host installation guide](https://github.com/autonomy-cloud/operations/tree/master/PodmanAgent) for the full `podman run` and Compose examples.
 
 ## Troubleshooting
 
@@ -202,7 +202,7 @@ This means the include glob `/var/lib/containers/storage/overlay-containers/*/us
 
 ### Logs arrive but are grouped under the wrong host name
 
-OneUptime auto-registers Podman hosts by `resource.host.name`, which is taken from the `PODMAN_HOST_NAME` environment variable. Changing `PODMAN_HOST_NAME` after the first telemetry batch will create a second host row rather than rename the existing one.
+Cast Operations auto-registers Podman hosts by `resource.host.name`, which is taken from the `PODMAN_HOST_NAME` environment variable. Changing `PODMAN_HOST_NAME` after the first telemetry batch will create a second host row rather than rename the existing one.
 
 ### Incidents are not firing for "High CPU"
 

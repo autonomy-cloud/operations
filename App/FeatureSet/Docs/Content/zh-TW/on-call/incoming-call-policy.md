@@ -1,14 +1,14 @@
 # 來電政策（Twilio 整合）
 
-來電政策（Incoming Call Policy）讓外部來電者可以透過撥打專屬電話號碼聯繫到您的待命工程師。當有人來電時，OneUptime 會依據您所設定的升級規則路由該通電話，直到有工程師接聽為止。
+來電政策（Incoming Call Policy）讓外部來電者可以透過撥打專屬電話號碼聯繫到您的待命工程師。當有人來電時，Cast Operations 會依據您所設定的升級規則路由該通電話，直到有工程師接聽為止。
 
 ## 運作方式
 
 ```mermaid
 flowchart TD
     A[Caller dials<br/>Incoming Call Number] --> B[Twilio receives call]
-    B --> C[Twilio sends webhook<br/>to OneUptime]
-    C --> D[OneUptime plays<br/>greeting message]
+    B --> C[Twilio sends webhook<br/>to Cast Operations]
+    C --> D[Cast Operations plays<br/>greeting message]
     D --> E[Load Escalation Rules]
     E --> F{Rule 1:<br/>Try On-Call User}
     F -->|No Answer| G{Rule 2:<br/>Try Backup Team}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant Caller
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant OnCallEngineer
 
     Caller->>Twilio: Dials incoming call number
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML: Play greeting
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML: Play greeting
     Twilio->>Caller: "Please wait while we connect you..."
 
     loop Escalation Rules
-        OneUptime->>OneUptime: Get next escalation rule
-        OneUptime->>Twilio: TwiML: Dial on-call user
+        Cast Operations->>Cast Operations: Get next escalation rule
+        Cast Operations->>Twilio: TwiML: Dial on-call user
         Twilio->>OnCallEngineer: Ring phone
         alt Engineer Answers
             OnCallEngineer->>Twilio: Picks up
-            Twilio->>OneUptime: Dial status: completed
+            Twilio->>Cast Operations: Dial status: completed
             Twilio->>Caller: Connect to engineer
             Note over Caller,OnCallEngineer: Call in progress
         else No Answer (timeout)
-            Twilio->>OneUptime: Dial status: no-answer
-            OneUptime->>OneUptime: Try next rule
+            Twilio->>Cast Operations: Dial status: no-answer
+            Cast Operations->>Cast Operations: Try next rule
         end
     end
 
     alt All Rules Exhausted
-        OneUptime->>Twilio: TwiML: Play no-answer message
+        Cast Operations->>Twilio: TwiML: Play no-answer message
         Twilio->>Caller: "No one is available..."
         Twilio->>Caller: Hangup
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - 一個 Twilio 帳戶 - 請於 [https://www.twilio.com](https://www.twilio.com) 建立帳戶
 - 您的 Twilio Account SID 與 Auth Token
-- 可存取您自架的 OneUptime 執行個體
+- 可存取您自架的 Cast Operations 執行個體
 
 ## 概覽
 
@@ -74,7 +74,7 @@ sequenceDiagram
 4. 將來電者連接到第一位有空的待命工程師
 5. 若無人接聽，則升級到下一條規則
 
-由於您是自架 OneUptime，您需要設定自己的 Twilio 帳戶。如此一來您即可完全掌控自己的電話號碼與帳單。
+由於您是自架 Cast Operations，您需要設定自己的 Twilio 帳戶。如此一來您即可完全掌控自己的電話號碼與帳單。
 
 ## 步驟 1：建立 Twilio 帳戶
 
@@ -82,9 +82,9 @@ sequenceDiagram
 2. 完成驗證流程
 3. 在 Twilio Console 儀表板上記下您的 **Account SID** 與 **Auth Token**
 
-## 步驟 2：在 OneUptime 中設定 Call/SMS Config
+## 步驟 2：在 Cast Operations 中設定 Call/SMS Config
 
-1. 登入您的 OneUptime 儀表板
+1. 登入您的 Cast Operations 儀表板
 2. 前往 **Project Settings** > **Call & SMS** > **Custom Call/SMS Config**
 3. 點選 **Create Custom Call/SMS Config**
 4. 填寫以下欄位：
@@ -120,15 +120,15 @@ sequenceDiagram
 如果您的 Twilio 帳戶中已有電話號碼：
 
 1. 在 **Phone Number** 卡片中，點選 **Use Existing Number**
-2. OneUptime 會從您的 Twilio 帳戶擷取所有電話號碼
+2. Cast Operations 會從您的 Twilio 帳戶擷取所有電話號碼
 3. 選擇您要使用的電話號碼
 4. 點選 **Use This** 將其指派給該政策
 
-> **注意**：如果該電話號碼已設定 webhook，則該設定會被更新為指向 OneUptime。
+> **注意**：如果該電話號碼已設定 webhook，則該設定會被更新為指向 Cast Operations。
 
 ### 選項 B：購買新的電話號碼
 
-若要直接從 OneUptime 購買新的電話號碼：
+若要直接從 Cast Operations 購買新的電話號碼：
 
 1. 在 **Phone Number** 卡片中，點選 **Buy New Number**
 2. 從下拉選單中選擇一個 **Country**
@@ -258,7 +258,7 @@ flowchart TD
 ### 未接收到來電
 
 - 確認 Twilio 設定已正確連結至該政策
-- 檢查您的 OneUptime 執行個體可從網際網路存取
+- 檢查您的 Cast Operations 執行個體可從網際網路存取
 - 確認 Twilio Account SID 與 Auth Token 正確無誤
 - 檢查 Twilio Console 中的錯誤記錄
 
@@ -278,8 +278,8 @@ flowchart TD
 ## 安全性考量
 
 - 妥善保管您的 Twilio Auth Token，切勿公開洩漏
-- 為您的 OneUptime 執行個體使用 HTTPS
-- OneUptime 會驗證 webhook 簽章，以確保請求確實來自 Twilio
+- 為您的 Cast Operations 執行個體使用 HTTPS
+- Cast Operations 會驗證 webhook 簽章，以確保請求確實來自 Twilio
 - 請考慮限制哪些電話號碼可以撥打您的來電政策
 
 ## 架構概覽
@@ -291,7 +291,7 @@ graph TB
         B[Twilio Cloud]
     end
 
-    subgraph "OneUptime"
+    subgraph "Cast Operations"
         C[Incoming Call API]
         D[Call Router]
         E[Escalation Engine]
@@ -320,5 +320,5 @@ graph TB
 如有來電政策功能的相關問題，請：
 
 1. 檢查 Twilio Console 中的錯誤記錄
-2. 檢視 OneUptime 伺服器記錄
-3. 透過 [hello@oneuptime.com](mailto:hello@oneuptime.com) 聯繫支援團隊
+2. 檢視 Cast Operations 伺服器記錄
+3. 透過 [hello@visca.ai](mailto:hello@visca.ai) 聯繫支援團隊

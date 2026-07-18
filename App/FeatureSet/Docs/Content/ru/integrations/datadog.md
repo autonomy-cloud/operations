@@ -1,19 +1,19 @@
 # Интеграция с Datadog
 
-Преобразуйте оповещения мониторов [Datadog](https://www.datadoghq.com) в инциденты OneUptime, чтобы обнаружение Datadog питало реагирование на инциденты и страницы статуса OneUptime.
+Преобразуйте оповещения мониторов [Datadog](https://www.datadoghq.com) в инциденты Cast Operations, чтобы обнаружение Datadog питало реагирование на инциденты и страницы статуса Cast Operations.
 
-Эта интеграция является **входящей**: [интеграция Webhooks](https://docs.datadoghq.com/integrations/webhooks/) Datadog отправляет данные в OneUptime **[Workflow](/docs/workflows/index)**, начинающийся с **триггера Webhook**.
+Эта интеграция является **входящей**: [интеграция Webhooks](https://docs.datadoghq.com/integrations/webhooks/) Datadog отправляет данные в Cast Operations **[Workflow](/docs/workflows/index)**, начинающийся с **триггера Webhook**.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Предварительные требования
 
 - Аккаунт Datadog, в котором вы можете настраивать интеграции и мониторы.
-- Проект OneUptime, в котором вы можете создавать рабочие процессы.
+- Проект Cast Operations, в котором вы можете создавать рабочие процессы.
 
-## Шаг 1 — Создайте рабочий процесс в OneUptime
+## Шаг 1 — Создайте рабочий процесс в Cast Operations
 
 1. Откройте **Workflows → Create Workflow**, назовите его `Datadog → Incidents` и откройте **Builder**.
 2. Добавьте триггер **Webhook** и **скопируйте его URL**. Переименуйте блок в `Datadog`.
@@ -60,7 +60,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Web
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-Это отправляет в OneUptime как оповещение, так и восстановление. (Чтобы пересылать всё, можно также добавить `@webhook-oneuptime` в монитор без условий.)
+Это отправляет в Cast Operations как оповещение, так и восстановление. (Чтобы пересылать всё, можно также добавить `@webhook-oneuptime` в монитор без условий.)
 
 ## Шаг 4 — Протестируйте
 

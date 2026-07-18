@@ -178,10 +178,10 @@ export default class OpenAPIUtil {
     const spec: JSONObject = generator.generateDocument({
       openapi: "3.0.0",
       info: {
-        title: "OneUptime OpenAPI Specification",
+        title: "Cast Operations OpenAPI Specification",
         version: "1.0.0",
         description:
-          "OpenAPI specification for OneUptime. This document describes the API endpoints, request and response formats, and other details necessary for developers to interact with the OneUptime API.",
+          "OpenAPI specification for Cast Operations. This document describes the API endpoints, request and response formats, and other details necessary for developers to interact with the Cast Operations API.",
       },
       servers: [
         {

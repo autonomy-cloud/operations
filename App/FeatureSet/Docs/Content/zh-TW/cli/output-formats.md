@@ -1,6 +1,6 @@
 # 輸出格式
 
-OneUptime CLI 支援三種輸出格式：**table**、**JSON** 與 **wide**。您可以在任何指令上使用 `-o` 或 `--output` 旗標來設定格式。
+Cast Operations CLI 支援三種輸出格式：**table**、**JSON** 與 **wide**。您可以在任何指令上使用 `-o` 或 `--output` 旗標來設定格式。
 
 ## Table（預設）
 

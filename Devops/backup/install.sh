@@ -12,7 +12,7 @@ reset=$(tput sgr 0)
 
 function HELP() {
   echo ""
-  echo "OneUptime DB backup command line documentation."
+  echo "Cast Operations DB backup command line documentation."
   echo ""
   echo "optional arguments have a default value when not set"
   echo ""
@@ -60,7 +60,7 @@ done
 # STEP 1 : create service file for backup
 echo '
 [Unit]
-Description=OneUptime database backup
+Description=Cast Operations database backup
         
 [Service]
 ExecStart=bash '"$HOME"'/backup.sh -u '${ONEUPTIME_DB_USERNAME}' -p '${ONEUPTIME_DB_PASSWORD}' -n '${ONEUPTIME_DB_NAME}' -l '${BACKUP_PATH}' -t '${BACKUP_RETAIN_DAYS}'
@@ -70,7 +70,7 @@ ExecStart=bash '"$HOME"'/backup.sh -u '${ONEUPTIME_DB_USERNAME}' -p '${ONEUPTIME
 # Step 2: Set up timer to run service every 24 hours
 echo '
 [Unit]
-Description= 24 hours OneUptime backup (Runs once per day)
+Description= 24 hours Cast Operations backup (Runs once per day)
 Requires=backup.service
 
 [Timer]

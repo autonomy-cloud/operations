@@ -19,7 +19,7 @@ export interface HostMetricDefinition {
 }
 
 /*
- * These are the real OpenTelemetry host metrics emitted by the OneUptime
+ * These are the real OpenTelemetry host metrics emitted by the Cast Operations
  * Infrastructure Agent's hostmetrics receiver (the Hosts product). The
  * utilization metrics (system.cpu.utilization, system.memory.utilization,
  * system.filesystem.utilization) are reported as a [0, 1] ratio by the OTel

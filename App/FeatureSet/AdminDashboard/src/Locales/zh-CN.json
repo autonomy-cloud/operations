@@ -50,8 +50,8 @@
     "logout": "注销"
   },
   "topAlert": {
-    "title": "OneUptime 管理员仪表板",
-    "description": "您可以在此仪表板上执行与 OneUptime 服务器相关的任务。"
+    "title": "Cast Operations 管理员仪表板",
+    "description": "您可以在此仪表板上执行与 Cast Operations 服务器相关的任务。"
   },
   "header": {
     "exitAdmin": "退出管理员",
@@ -74,7 +74,7 @@
     "helpSupport": "帮助与支持",
     "legal": "法律",
     "version": "版本",
-    "versionModalTitle": "OneUptime 版本",
+    "versionModalTitle": "Cast Operations 版本",
     "versionLabel": "版本",
     "commitLabel": "提交",
     "versionUnavailable": "版本数据不可用"
@@ -115,7 +115,7 @@
     "users": {
       "title": "用户",
       "cardTitle": "用户",
-      "cardDescription": "这是 OneUptime 中的用户列表。",
+      "cardDescription": "这是 Cast Operations 中的用户列表。",
       "noItems": "未找到用户。"
     },
     "enterpriseLicenses": {
@@ -150,7 +150,7 @@
     "projects": {
       "title": "项目",
       "cardTitle": "项目",
-      "cardDescription": "这是 OneUptime 中的项目列表。",
+      "cardDescription": "这是 Cast Operations 中的项目列表。",
       "noItems": "未找到项目。",
       "stepBasic": "基本",
       "stepSelectPlan": "选择计划",
@@ -244,10 +244,10 @@
       "title": "管理员设置",
       "authentication": {
         "authCardTitle": "认证设置",
-        "authCardDescription": "此 OneUptime 服务器实例的认证设置。",
+        "authCardDescription": "此 Cast Operations 服务器实例的认证设置。",
         "authEditButton": "编辑设置",
         "projectCreationCardTitle": "项目创建",
-        "projectCreationCardDescription": "控制谁可以在此 OneUptime 服务器上创建新项目。",
+        "projectCreationCardDescription": "控制谁可以在此 Cast Operations 服务器上创建新项目。",
         "projectCreationEditButton": "编辑设置"
       },
       "email": {
@@ -275,7 +275,7 @@
       },
       "whatsapp": {
         "metaCardTitle": "Meta WhatsApp 设置",
-        "metaCardDescription": "配置 Meta WhatsApp 凭证。这些值用于从 OneUptime 发送 WhatsApp 通知。",
+        "metaCardDescription": "配置 Meta WhatsApp 凭证。这些值用于从 Cast Operations 发送 WhatsApp 通知。",
         "metaEditButton": "编辑 Meta WhatsApp 配置",
         "testCardTitle": "发送测试 WhatsApp 消息",
         "testCardDescription": "发送测试 WhatsApp 模板消息以确认您的 Meta 配置。",
@@ -288,7 +288,7 @@
       },
       "telegram": {
         "setupCardTitle": "Telegram 设置指南",
-        "setupCardDescription": "请先阅读此内容 — 这是从零到连接到 OneUptime 的可用 Telegram 机器人的最快路径。",
+        "setupCardDescription": "请先阅读此内容 — 这是从零到连接到 Cast Operations 的可用 Telegram 机器人的最快路径。",
         "configCardTitle": "Telegram 机器人设置",
         "configCardDescription": "粘贴 @BotFather 给您的机器人令牌和用户名。这些驱动出站通知;秘密令牌保护入站 webhook。",
         "configEditButton": "编辑 Telegram 配置",
@@ -333,7 +333,7 @@
       },
       "apiKey": {
         "cardTitle": "主 API 密钥设置",
-        "cardDescription": "此 API 密钥对 OneUptime 上所有项目中的所有资源具有根访问权限。",
+        "cardDescription": "此 API 密钥对 Cast Operations 上所有项目中的所有资源具有根访问权限。",
         "editButton": "编辑 API 密钥设置",
         "apiKeyNotGenerated": "API 密钥尚未生成。"
       },
@@ -443,7 +443,7 @@
   "Acme, Inc.": "Acme, Inc.",
   "Admin Notification Email": "管理员通知电子邮件",
   "AI Agent Logo": "AI 代理徽标",
-  "Any strong random string. OneUptime rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "任意强随机字符串。OneUptime 会拒绝 X-Telegram-Bot-Api-Secret-Token 标头与此值不匹配的 webhook 调用。",
+  "Any strong random string. Cast Operations rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "任意强随机字符串。Cast Operations 会拒绝 X-Telegram-Bot-Api-Secret-Token 标头与此值不匹配的 webhook 调用。",
   "App ID": "应用 ID",
   "App Secret": "应用密钥",
   "Application (Client) ID from your Azure AD app registration (or service account for JWT Bearer).": "来自您的 Azure AD 应用注册的应用（客户端）ID（或 JWT Bearer 的服务账户）。",
@@ -493,7 +493,7 @@
   "Health": "健康状况",
   "Home": "首页",
   "Hostname": "主机名",
-  "How OneUptime delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "OneUptime 如何使用全局 SMTP 配置投递邮件。大多数服务器请选择 'SMTP'。如果您的 Microsoft 365 租户已禁用 SMTP AUTH，请选择 'Microsoft Graph' — Graph 使用 Mail.Send 应用程序权限并完全绕过 SMTP。",
+  "How Cast Operations delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Cast Operations 如何使用全局 SMTP 配置投递邮件。大多数服务器请选择 'SMTP'。如果您的 Microsoft 365 租户已禁用 SMTP AUTH，请选择 'Microsoft Graph' — Graph 使用 Mail.Send 应用程序权限并完全绕过 SMTP。",
   "If you have a coupon code, enter it here.": "如果您有优惠码，请在此处输入。",
   "If you have bought more phone numbers from Twilio for specific countries, you can add them here.": "如果您已从 Twilio 为特定国家/地区购买了更多电话号码，可以在此处添加它们。",
   "If you use port 465, please enable this. Do not enable this if you use port 587.": "如果您使用端口 465，请启用此项。如果您使用端口 587，请勿启用此项。",
@@ -530,9 +530,9 @@
   "OAuth Scope": "OAuth 范围",
   "OAuth Settings": "OAuth 设置",
   "OAuth Token URL": "OAuth 令牌 URL",
-  "OneUptime Health": "OneUptime 健康状况",
+  "Cast Operations Health": "Cast Operations 健康状况",
   "OneUptimeAlertsBot": "OneUptimeAlertsBot",
-  "Operational health of this OneUptime instance.": "此 OneUptime 实例的运行健康状况。",
+  "Operational health of this Cast Operations instance.": "此 Cast Operations 实例的运行健康状况。",
   "Optional Business Account ID that owns the WhatsApp templates.": "拥有 WhatsApp 模板的可选企业账户 ID。",
   "Optional Facebook App ID tied to your WhatsApp integration.": "与您的 WhatsApp 集成关联的可选 Facebook 应用 ID。",
   "Optional Facebook App Secret used for webhook signature verification.": "用于 webhook 签名验证的可选 Facebook 应用密钥。",
@@ -540,7 +540,7 @@
   "Password": "密码",
   "Phone Number ID": "电话号码 ID",
   "Pick a friendly name.": "选择一个友好的名称。",
-  "Please create a new OneUptime project to get started.": "请创建一个新的 OneUptime 项目以开始使用。",
+  "Please create a new Cast Operations project to get started.": "请创建一个新的 Cast Operations 项目以开始使用。",
   "Please select a plan.": "请选择一个计划。",
   "Port": "端口",
   "Primary Twilio Phone Number": "主 Twilio 电话号码",
@@ -573,7 +573,7 @@
   "Select the team you would like to add this user to.": "选择要将此用户添加到的团队。",
   "Send a broadcast email to all users.": "向所有用户发送广播电子邮件。",
   "Sendgrid API Key": "Sendgrid API 密钥",
-  "Should we disable sign up of new users to OneUptime?": "是否应禁止新用户注册 OneUptime？",
+  "Should we disable sign up of new users to Cast Operations?": "是否应禁止新用户注册 Cast Operations？",
   "SMTP Email": "SMTP 电子邮件",
   "SMTP From Name": "SMTP 发件人名称",
   "SMTP Host": "SMTP 主机",
@@ -583,7 +583,7 @@
   "SMTP server hostname. Examples: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)": "SMTP 服务器主机名。示例：smtp.office365.com（Microsoft 365）、smtp.gmail.com（Google）",
   "SMTP Username / Email": "SMTP 用户名 / 电子邮件",
   "Status": "状态",
-  "Status of the core datastores this OneUptime instance depends on.": "此 OneUptime 实例所依赖的核心数据存储的状态。",
+  "Status of the core datastores this Cast Operations instance depends on.": "此 Cast Operations 实例所依赖的核心数据存储的状态。",
   "Subject": "主题",
   "System components": "系统组件",
   "Team": "团队",
@@ -591,7 +591,7 @@
   "Team ID": "团队 ID",
   "Team Name": "团队名称",
   "Test Email Address": "测试电子邮件地址",
-  "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.": "公告电子邮件的正文。它将显示在带品牌标识的 OneUptime 电子邮件模板中。您可以使用 Markdown 格式。",
+  "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.": "公告电子邮件的正文。它将显示在带品牌标识的 Cast Operations 电子邮件模板中。您可以使用 Markdown 格式。",
   "The body of the announcement email. This will be sent to all registered users. You can use Markdown formatting.": "公告电子邮件的正文。它将发送给所有已注册用户。您可以使用 Markdown 格式。",
   "The bot token @BotFather sent you — starts with digits, then a colon, then ~35 letters/digits. Not a URL, not a curl command.": "@BotFather 发给您的机器人令牌 — 以数字开头，然后是冒号，再接约 35 个字母/数字。不是 URL，也不是 curl 命令。",
   "The email address where the test email will be sent.": "测试电子邮件将发送到的电子邮件地址。",
@@ -600,8 +600,8 @@
   "The subject line of the announcement email.": "公告电子邮件的主题行。",
   "The WhatsApp Business phone number ID associated with your sending number.": "与您的发送号码关联的 WhatsApp Business 电话号码 ID。",
   "This AI agent handles automated incident management.": "此 AI 代理负责自动化的事件管理。",
-  "This API key has root access to all the resources in all the projects on OneUptime.": "此 API 密钥对 OneUptime 上所有项目中的所有资源具有根访问权限。",
-  "This is the display name your team and customers see, when they receive emails from OneUptime.": "这是您的团队和客户在收到来自 OneUptime 的邮件时看到的显示名称。",
+  "This API key has root access to all the resources in all the projects on Cast Operations.": "此 API 密钥对 Cast Operations 上所有项目中的所有资源具有根访问权限。",
+  "This is the display name your team and customers see, when they receive emails from Cast Operations.": "这是您的团队和客户在收到来自 Cast Operations 的邮件时看到的显示名称。",
   "This plan is free, forever. ": "此计划永久免费。 ",
   "This probe is to monitor all the internal services.": "此探测器用于监控所有内部服务。",
   "Transport": "传输",

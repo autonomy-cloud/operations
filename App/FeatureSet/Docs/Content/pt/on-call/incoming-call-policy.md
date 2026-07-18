@@ -1,14 +1,14 @@
 # Política de Chamadas de Entrada (Integração com Twilio)
 
-As Políticas de Chamadas de Entrada permitem que chamadores externos alcancem seus engenheiros de plantão discando um número de telefone dedicado. Quando alguém liga, o OneUptime roteia a chamada através das suas regras de escalonamento configuradas até que um engenheiro atenda.
+As Políticas de Chamadas de Entrada permitem que chamadores externos alcancem seus engenheiros de plantão discando um número de telefone dedicado. Quando alguém liga, o Cast Operations roteia a chamada através das suas regras de escalonamento configuradas até que um engenheiro atenda.
 
 ## Como Funciona
 
 ```mermaid
 flowchart TD
     A[Chamador disca<br/>Número de Chamada de Entrada] --> B[Twilio recebe a chamada]
-    B --> C[Twilio envia webhook<br/>para o OneUptime]
-    C --> D[OneUptime reproduz<br/>mensagem de saudação]
+    B --> C[Twilio envia webhook<br/>para o Cast Operations]
+    C --> D[Cast Operations reproduz<br/>mensagem de saudação]
     D --> E[Carregar Regras de Escalonamento]
     E --> F{Regra 1:<br/>Tentar Usuário de Plantão}
     F -->|Sem Resposta| G{Regra 2:<br/>Tentar Equipe de Backup}
@@ -26,7 +26,7 @@ flowchart TD
 
 - Uma conta Twilio - Crie uma em [https://www.twilio.com](https://www.twilio.com)
 - Seu Account SID e Auth Token do Twilio
-- Acesso à sua instância auto-hospedada do OneUptime
+- Acesso à sua instância auto-hospedada do Cast Operations
 
 ## Visão Geral
 
@@ -38,7 +38,7 @@ O recurso de Política de Chamadas de Entrada funciona:
 4. Conectando o chamador ao primeiro engenheiro de plantão disponível
 5. Escalonando para a próxima regra se ninguém atender
 
-Como você está auto-hospedando o OneUptime, precisará configurar sua própria conta Twilio. Isso lhe dá controle total sobre seus números de telefone e cobrança.
+Como você está auto-hospedando o Cast Operations, precisará configurar sua própria conta Twilio. Isso lhe dá controle total sobre seus números de telefone e cobrança.
 
 ## Passo 1: Criar uma Conta Twilio
 
@@ -46,9 +46,9 @@ Como você está auto-hospedando o OneUptime, precisará configurar sua própria
 2. Conclua o processo de verificação
 3. Anote seu **Account SID** e **Auth Token** no painel do Console do Twilio
 
-## Passo 2: Configurar Call/SMS Config no OneUptime
+## Passo 2: Configurar Call/SMS Config no Cast Operations
 
-1. Faça login no seu Painel do OneUptime
+1. Faça login no seu Painel do Cast Operations
 2. Vá para **Project Settings** > **Call & SMS** > **Custom Call/SMS Config**
 3. Clique em **Create Custom Call/SMS Config**
 4. Preencha os seguintes campos:
@@ -84,15 +84,15 @@ Você tem duas opções para configurar um número de telefone:
 Se você já tem números de telefone na sua conta Twilio:
 
 1. No cartão **Phone Number**, clique em **Use Existing Number**
-2. O OneUptime buscará todos os números de telefone da sua conta Twilio
+2. O Cast Operations buscará todos os números de telefone da sua conta Twilio
 3. Selecione o número de telefone que deseja usar
 4. Clique em **Use This** para atribuí-lo à política
 
-> **Nota**: Se o número de telefone já tiver um webhook configurado, ele será atualizado para apontar para o OneUptime.
+> **Nota**: Se o número de telefone já tiver um webhook configurado, ele será atualizado para apontar para o Cast Operations.
 
 ### Opção B: Comprar um Novo Número de Telefone
 
-Para comprar um novo número de telefone diretamente do OneUptime:
+Para comprar um novo número de telefone diretamente do Cast Operations:
 
 1. No cartão **Phone Number**, clique em **Buy New Number**
 2. Selecione um **Country** no menu suspenso
@@ -201,7 +201,7 @@ Se você não precisar mais de um número de telefone:
 ### Chamadas não estão sendo recebidas
 
 - Verifique se a configuração do Twilio está corretamente vinculada à política
-- Verifique se sua instância do OneUptime está acessível pela internet
+- Verifique se sua instância do Cast Operations está acessível pela internet
 - Verifique se o Account SID e Auth Token do Twilio estão corretos
 - Verifique o Console do Twilio para logs de erro
 
@@ -221,6 +221,6 @@ Se você não precisar mais de um número de telefone:
 ## Considerações de Segurança
 
 - Mantenha seu Auth Token do Twilio seguro e nunca o exponha publicamente
-- Use HTTPS para sua instância do OneUptime
-- O OneUptime valida assinaturas de webhook para garantir que as requisições vêm do Twilio
+- Use HTTPS para sua instância do Cast Operations
+- O Cast Operations valida assinaturas de webhook para garantir que as requisições vêm do Twilio
 - Considere restringir quais números de telefone podem ligar para suas políticas de chamadas de entrada

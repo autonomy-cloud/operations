@@ -4,15 +4,15 @@ Indgående e-mailmonitor giver dig mulighed for at oprette og løse advarsler ba
 
 ## Sådan fungerer det
 
-1. Når du opretter en Indgående e-mailmonitor, genererer OneUptime en unik e-mailadresse til den pågældende monitor
+1. Når du opretter en Indgående e-mailmonitor, genererer Cast Operations en unik e-mailadresse til den pågældende monitor
 2. Enhver e-mail sendt til den adresse modtages og evalueres mod dine konfigurerede kriterier
-3. Baseret på kriterierne kan OneUptime oprette nye advarsler eller løse eksisterende
+3. Baseret på kriterierne kan Cast Operations oprette nye advarsler eller løse eksisterende
 
-Dette er en kraftfuld måde at integrere e-mailbaserede advarslingssystemer med OneUptimes incident management-arbejdsgang på.
+Dette er en kraftfuld måde at integrere e-mailbaserede advarslingssystemer med Cast Operations incident management-arbejdsgang på.
 
 ## Oprettelse af en Indgående e-mailmonitor
 
-1. Naviger til **Monitorer** i dit OneUptime-dashboard
+1. Naviger til **Monitorer** i dit Cast Operations-dashboard
 2. Klik på **Opret monitor**
 3. Vælg **Indgående e-mail** som monitortype
 4. Konfigurer monitorindstillingerne:
@@ -118,7 +118,7 @@ Dette løser advarslen, når en e-mail modtages.
 
 Mange ældre systemer understøtter kun e-mailbaseret advarsling. Brug Indgående e-mailmonitor til at:
 
-- Konvertere e-mailadvarsler til OneUptime-incidents
+- Konvertere e-mailadvarsler til Cast Operations-incidents
 - Automatisk løse incidents, når gendannelses-e-mails ankommer
 - Centralisere advarsling fra flere ældre systemer
 
@@ -144,7 +144,7 @@ Overvåg batchjobs og planlagte opgaver:
 Konsolider advarsler fra flere overvågningsværktøjer:
 
 - Modtag advarsler fra Nagios, Zabbix eller andre værktøjer via e-mail
-- Forener incident management i OneUptime
+- Forener incident management i Cast Operations
 - Oprethold en enkelt kilde til sandhed for alle advarsler
 
 ## Skabelonvariabler
@@ -171,7 +171,7 @@ Monitoroversigten viser:
 
 ## Selvhostet opsætning
 
-Hvis du selvhoster OneUptime, skal du konfigurere en indgående e-mailudbyder. Understøttede i øjeblikket:
+Hvis du selvhoster Cast Operations, skal du konfigurere en indgående e-mailudbyder. Understøttede i øjeblikket:
 
 - **SendGrid Inbound Parse** – Se [SendGrid indgående e-mail-integration](/docs/self-hosted/sendgrid-inbound-email) for opsætningsinstruktioner
 
@@ -190,7 +190,7 @@ Hvis du selvhoster OneUptime, skal du konfigurere en indgående e-mailudbyder. U
 1. Bekræft, at e-mailadressen er korrekt (kontroller for stavefejl)
 2. Kontroller, om e-mailen blokeres af spamfiltre
 3. Bekræft, at din indgående e-mailudbyder er korrekt konfigureret
-4. Kontroller OneUptime-logs for eventuelle fejlmeddelelser
+4. Kontroller Cast Operations-logs for eventuelle fejlmeddelelser
 
 ### Advarsler oprettes ikke
 

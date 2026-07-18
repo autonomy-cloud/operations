@@ -1,18 +1,18 @@
 # Jira-integration
 
-Åbn automatisk en [Jira](https://www.atlassian.com/software/jira)-sag, når en OneUptime-hændelse oprettes — så ingeniørarbejdet spores, der hvor dine udviklere allerede er, med et link tilbage til hændelsen.
+Åbn automatisk en [Jira](https://www.atlassian.com/software/jira)-sag, når en Cast Operations-hændelse oprettes — så ingeniørarbejdet spores, der hvor dine udviklere allerede er, med et link tilbage til hændelsen.
 
-Denne integration er **udgående**: OneUptime kalder Jiras REST API. Den bruger et OneUptime **[Workflow](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**. Du kan valgfrit tilføje en **indgående** sti, så lukning af Jira-sagen løser OneUptime-hændelsen.
+Denne integration er **udgående**: Cast Operations kalder Jiras REST API. Den bruger et Cast Operations **[Workflow](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**. Du kan valgfrit tilføje en **indgående** sti, så lukning af Jira-sagen løser Cast Operations-hændelsen.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
+Cast Operations Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
 ```
 
 ## Forudsætninger
 
 - Et Jira Cloud-websted (`https://dit-domæne.atlassian.net`) og et projekt at oprette sager i — notér dets **projektnøgle** (f.eks. `OPS`).
 - En Jira-konto, der kan oprette sager, og et **API-token** til den fra [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
-- Et OneUptime-projekt, hvor du kan oprette workflows.
+- Et Cast Operations-projekt, hvor du kan oprette workflows.
 
 > Bruger du **Jira Data Center / Server** (selvadministreret)? Flowet er identisk — brug din egen basis-URL og et [Personal Access Token](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) med en `Bearer`-auth-header i stedet for Basic auth. Slutpunktet `/rest/api/2/issue` accepterer en almindelig tekstbeskrivelse, hvilket gør skabeloner enklere.
 
@@ -26,7 +26,7 @@ Jira Cloud bruger **Basic auth** med din email og API-token, base64-enkodede.
    printf '%s' 'you@example.com:your_api_token' | base64
    ```
 
-2. I OneUptime, gå til **Workflows → Global Variables → Create**.
+2. I Cast Operations, gå til **Workflows → Global Variables → Create**.
 3. Navngiv den `JIRA_AUTH`, indsæt base64-strengen som værdien, og slå **Is Secret** til.
 
 Nu kan du bruge `Basic {{variable.JIRA_AUTH}}` som en auth-header, og tokenet vises aldrig i workflowet eller dets logfiler.
@@ -53,7 +53,7 @@ Nu kan du bruge `Basic {{variable.JIRA_AUTH}}` som en auth-header, og tokenet vi
        "fields": {
          "project": { "key": "OPS" },
          "issuetype": { "name": "Bug" },
-         "summary": "OneUptime incident: {{Incident.title}}",
+         "summary": "Cast Operations incident: {{Incident.title}}",
          "description": {
            "type": "doc",
            "version": 1,
@@ -77,7 +77,7 @@ Nu kan du bruge `Basic {{variable.JIRA_AUTH}}` som en auth-header, og tokenet vi
 ## Trin 3 — Test det
 
 1. Slå workflowet **Enabled** til.
-2. Opret en testhændelse i OneUptime (eller udløs en fra en monitor).
+2. Opret en testhændelse i Cast Operations (eller udløs en fra en monitor).
 3. Åbn workflowets **Logs**-fane. **API**-blokken bør vise en `201`-status og en responsebody, der indeholder den nye sags `key` (for eksempel `OPS-1234`).
 4. Tjek Jira — sagen er der.
 
@@ -94,13 +94,13 @@ Dette muliggør også den valgfrie tovejssynkronisering nedenfor.
 
 ## Tovejssynkronisering (valgfrit)
 
-For at løse OneUptime-hændelsen, når nogen lukker Jira-sagen, tilføj et **indgående** workflow:
+For at løse Cast Operations-hændelsen, når nogen lukker Jira-sagen, tilføj et **indgående** workflow:
 
 1. Opret et andet workflow, der starter med en **Webhook**-trigger, og kopiér dens URL.
 2. I Jira, gå til **Project settings → Automation → Create rule**:
 
    - **Trigger**: _Issue transitioned_ til **Done** (eller _Issue resolved_).
-   - **Action**: _Send web request_ → metode `POST`, URL = din workflow webhook-URL, body inkluderer sagsnøglen og OneUptime-hændelsens id, f.eks.:
+   - **Action**: _Send web request_ → metode `POST`, URL = din workflow webhook-URL, body inkluderer sagsnøglen og Cast Operations-hændelsens id, f.eks.:
 
      ```json
      { "issueKey": "{{issue.key}}", "status": "resolved" }
@@ -108,13 +108,13 @@ For at løse OneUptime-hændelsen, når nogen lukker Jira-sagen, tilføj et **in
 
 3. I workflowet bruger du en **Find Incident**-blok til at finde hændelsen med den gemte nøgle og derefter en **Update Incident**-blok til at flytte den til din løste tilstand.
 
-Hvis du gemte Jira-nøglen på hændelsen i Trin 4, er matching ligetil. Se [Komponenter → OneUptime data-komponenter](/docs/workflows/components#oneuptime-data-components).
+Hvis du gemte Jira-nøglen på hændelsen i Trin 4, er matching ligetil. Se [Komponenter → Cast Operations data-komponenter](/docs/workflows/components#oneuptime-data-components).
 
 ## Tilpasning af sagen
 
 Nogle almindelige justeringer af API-blokkens body:
 
-- **Prioritet** — tilføj `"priority": { "name": "High" }` inde i `fields`. Du kan forgrene på `{{Incident.incidentSeverity.name}}` med **Conditions** for at afbilde OneUptime-alvorligheder til Jira-prioriteter.
+- **Prioritet** — tilføj `"priority": { "name": "High" }` inde i `fields`. Du kan forgrene på `{{Incident.incidentSeverity.name}}` med **Conditions** for at afbilde Cast Operations-alvorligheder til Jira-prioriteter.
 - **Labels** — tilføj `"labels": ["oneuptime", "incident"]`.
 - **Ansvarlig** — tilføj `"assignee": { "id": "<accountId>" }` (Jira Cloud bruger konto-ID'er, ikke brugernavne).
 - **Brugerdefinerede felter** — tilføj `"customfield_XXXXX": "..."` med feltets ID fra din Jira-administration.

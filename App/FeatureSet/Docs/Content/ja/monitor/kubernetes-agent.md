@@ -1,22 +1,22 @@
 # Kubernetes エージェントのインストール
 
-OneUptime Kubernetes エージェントは、クラスターメトリクス、イベント、Pod ログ、**アプリケーショントレース(eBPF による HTTP/gRPC)**、および **OS レベルのノードメトリクス**を Kubernetes クラスターから収集し、OneUptime へ送信します。Helm chart として配布されており、ワンコマンドでインストールできます。eBPF 自動計装はデフォルトで有効化されているため、コード変更なしでサービスレベルのトレースと RED メトリクスを確認できます。**連続的な CPU フレームグラフ(eBPF プロファイラー)**も利用可能です。より多くのテレメトリーが必要な場合は `--set profiling.enabled=true` でオプトインしてください。
+Cast Operations Kubernetes エージェントは、クラスターメトリクス、イベント、Pod ログ、**アプリケーショントレース(eBPF による HTTP/gRPC)**、および **OS レベルのノードメトリクス**を Kubernetes クラスターから収集し、Cast Operations へ送信します。Helm chart として配布されており、ワンコマンドでインストールできます。eBPF 自動計装はデフォルトで有効化されているため、コード変更なしでサービスレベルのトレースと RED メトリクスを確認できます。**連続的な CPU フレームグラフ(eBPF プロファイラー)**も利用可能です。より多くのテレメトリーが必要な場合は `--set profiling.enabled=true` でオプトインしてください。
 
 ## クイックスタート
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
-数分以内にクラスターが OneUptime に表示されます。
+数分以内にクラスターが Cast Operations に表示されます。
 
 ## クラスターに適したプリセットの選択
 
@@ -37,7 +37,7 @@ Kubernetes のディストリビューションごとに制約が異なります
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
@@ -47,7 +47,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
@@ -58,7 +58,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
@@ -90,7 +90,7 @@ hostPath が利用可能であれば、DaemonSet を使用してください。�
 
 ## eBPF によるアプリケーショントレースおよび HTTP リクエスト(デフォルトで有効)
 
-chart には、すべてのノードで [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) を実行する DaemonSet が含まれています。OBI は eBPF プログラムを Linux カーネルにロードし、ソケットレベルのトラフィックを監視して、ノード上のすべての pod から HTTP/HTTPS、gRPC、SQL/Redis 呼び出しを再構築します。コード変更、SDK、サイドカーは一切不要です。キャプチャされたトラフィックは、OTLP トレースおよびリクエスト/レイテンシメトリクスとして OneUptime に直接エクスポートされます。
+chart には、すべてのノードで [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) を実行する DaemonSet が含まれています。OBI は eBPF プログラムを Linux カーネルにロードし、ソケットレベルのトラフィックを監視して、ノード上のすべての pod から HTTP/HTTPS、gRPC、SQL/Redis 呼び出しを再構築します。コード変更、SDK、サイドカーは一切不要です。キャプチャされたトラフィックは、OTLP トレースおよびリクエスト/レイテンシメトリクスとして Cast Operations に直接エクスポートされます。
 
 インストール後、数分以内にサービスが **Telemetry → Traces** とサービスマップに表示され始めます。`k8s.cluster.name` が `clusterName` に設定されるため、クラスター単位でフィルタリングできます。
 
@@ -127,7 +127,7 @@ OBI はデフォルトで、サービス境界をまたいでトレースコン�
 
 これもデフォルトで有効です。OBI のログエンリッチャーは、計装されたプロセスからの pod 標準出力への書き込みをインターセプトし、以下を行います:
 
-- **JSON 形式のログの場合:** 行に `trace_id` と `span_id` フィールドを挿入します(ログ内の既存の値は保持されます)。次に filelog DaemonSet がそれらのフィールドを LogRecord のネイティブな trace_id/span_id スロットに引き上げます。これにより、トレースビューでスパンをクリックすると OneUptime 内のログにジャンプし、ログ行をクリックすると親トレースにジャンプできます。
+- **JSON 形式のログの場合:** 行に `trace_id` と `span_id` フィールドを挿入します(ログ内の既存の値は保持されます)。次に filelog DaemonSet がそれらのフィールドを LogRecord のネイティブな trace_id/span_id スロットに引き上げます。これにより、トレースビューでスパンをクリックすると Cast Operations 内のログにジャンプし、ログ行をクリックすると親トレースにジャンプできます。
 - **JSON 以外のログの場合:** 行はそのまま保持されます。収集はされますが、自動リンクは行われません。
 
 | オプション                   | デフォルト | 説明                                                                                                                                   |
@@ -163,11 +163,11 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 ## 連続的な CPU プロファイリング(デフォルトで無効)
 
-別の DaemonSet が [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler)(`otel/opentelemetry-collector-ebpf-profiler` イメージとしてパッケージ化されたもの)を実行します。サポートされるすべてのランタイム(Go、Java、.NET、Python、Ruby、Node.js、PHP、Perl、C/C++、Rust)で、オン CPU スタックを 19Hz でサンプリングし、OTLP プロファイルを OneUptime に送信します。これらは **Telemetry → Performance Profiles** に表示され、また個々のトレーススパンからリンクされたフレームグラフとしても確認できます。
+別の DaemonSet が [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler)(`otel/opentelemetry-collector-ebpf-profiler` イメージとしてパッケージ化されたもの)を実行します。サポートされるすべてのランタイム(Go、Java、.NET、Python、Ruby、Node.js、PHP、Perl、C/C++、Rust)で、オン CPU スタックを 19Hz でサンプリングし、OTLP プロファイルを Cast Operations に送信します。これらは **Telemetry → Performance Profiles** に表示され、また個々のトレーススパンからリンクされたフレームグラフとしても確認できます。
 
 プロファイリングは**デフォルトで無効**です。OBI 自動計装よりも負荷が大きく(ノードあたりの CPU 使用量がより多く、メモリフットプリントもより大きくなります)、すべてのクラスターで常時フレームグラフを取得したいわけではないためです。より豊富なテレメトリーが必要な場合は有効化してください: `--set profiling.enabled=true`。
 
-eBPF 自動計装も有効化されている場合(`ebpf.enabled: true`、デフォルト)、各 CPU サンプルは共有 bpffs マップを介して OBI のトレースコンテキストと相関付けされます。これにより、フレームグラフは trace_id/span_id を保持し、OneUptime UI でスパンごとのフレームグラフを表示できます。
+eBPF 自動計装も有効化されている場合(`ebpf.enabled: true`、デフォルト)、各 CPU サンプルは共有 bpffs マップを介して OBI のトレースコンテキストと相関付けされます。これにより、フレームグラフは trace_id/span_id を保持し、Cast Operations UI でスパンごとのフレームグラフを表示できます。
 
 要件:
 
@@ -205,7 +205,7 @@ chart は以下のデータも収集できます:
 | オプション                                | デフォルト                         | 説明                                                                                                                                                                                                                    |
 | ----------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | (空 — `standard` として扱われます) | 上記のテーブルを参照してください。                                                                                                                                                                                      |
-| `oneuptime.url`                           | _(必須)_                           | OneUptime インスタンスの URL。                                                                                                                                                                                          |
+| `oneuptime.url`                           | _(必須)_                           | Cast Operations インスタンスの URL。                                                                                                                                                                                          |
 | `oneuptime.apiKey`                        | _(必須)_                           | プロジェクトの API キー(Settings → API Keys)。                                                                                                                                                                          |
 | `clusterName`                             | _(必須)_                           | このクラスターの一意の名前。すべてのレコードに `k8s.cluster.name` として刻印されます。                                                                                                                                  |
 | `namespaceFilters.rules`                  | kube-systemをpodLogsとebpfDiscoveryから除外 | podLogs、ebpfDiscovery、metrics、traces向けのスコープ別include/excludeルール。パターンは*をサポートし、excludeが常に優先されます。 |
@@ -224,7 +224,7 @@ chart は以下のデータも収集できます:
 | `coreDns.enabled`                         | `false`                            | CoreDNS の Prometheus メトリクス。                                                                                                                                                                                      |
 | `controlPlane.enabled`                    | `false`                            | etcd / api-server / scheduler / controller-manager をスクレイプします。セルフマネージドクラスターのみ対応 — マネージド版(EKS/GKE/AKS)は通常これらのエンドポイントを公開していません。                                   |
 
-完全なリストについては、[chart の `values.yaml`](https://github.com/OneUptime/oneuptime/blob/master/HelmChart/Public/kubernetes-agent/values.yaml) を参照してください。
+完全なリストについては、[chart の `values.yaml`](https://github.com/autonomy-cloud/operations/blob/master/HelmChart/Public/kubernetes-agent/values.yaml) を参照してください。
 
 ## アップグレード
 
@@ -271,7 +271,7 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
   --set preset=gke-autopilot   # または eks-fargate
 ```
 
-### OneUptime にログが表示されない
+### Cast Operations にログが表示されない
 
 エージェント pod を確認してください:
 
@@ -294,7 +294,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 - **カーネルが古すぎる、または BTF がない。** OBI は BTF を備えた Linux 5.8+ を必要とします。ノードで `uname -r` を実行して確認してください。アップグレードできない場合は、eBPF を無効化してください: `--set ebpf.enabled=false`。
 - **特権 pod がブロックされている。** 一部のクラスターでは、Autopilot/Fargate 以外でも特権 pod が拒否されます。eBPF を無効化してください。
-- **ダッシュボードにトレースが表示されないが OBI は動作している。** `--set ebpf.printTraces=true` を設定して OBI の標準出力を確認してください。そこにスパンが表示される場合、問題は OTLP の配信です(`OTEL_EXPORTER_OTLP_ENDPOINT` と OneUptime の URL/API キーを確認してください)。スパンが表示されない場合、OBI が監視しているトラフィックがすべて、OBI が傍受できない TLS ライブラリ(例: 認識できない静的リンクされた TLS 実装)で暗号化されている可能性があります。
+- **ダッシュボードにトレースが表示されないが OBI は動作している。** `--set ebpf.printTraces=true` を設定して OBI の標準出力を確認してください。そこにスパンが表示される場合、問題は OTLP の配信です(`OTEL_EXPORTER_OTLP_ENDPOINT` と Cast Operations の URL/API キーを確認してください)。スパンが表示されない場合、OBI が監視しているトラフィックがすべて、OBI が傍受できない TLS ライブラリ(例: 認識できない静的リンクされた TLS 実装)で暗号化されている可能性があります。
 
 ### クラスターの pod 数が 1 つのログテイラーレプリカに対して多すぎる(API モードのみ)
 

@@ -8,7 +8,6 @@ import {
   AdminDashboardClientURL,
   HomeClientUrl,
   Host,
-  IsEnterpriseEdition,
 } from "Common/Server/EnvironmentConfig";
 import PostgresDatabase, {
   DatabaseQueryRunner,
@@ -1168,10 +1167,6 @@ function advisoryLockWasAcquired(rows: unknown): boolean {
 }
 
 export async function runEvaluateClickhouseCapacityWithLock(): Promise<void> {
-  if (!IsEnterpriseEdition) {
-    return;
-  }
-
   const dataSource: DatabaseSource | null = PostgresDatabase.getDataSource();
 
   if (!dataSource) {

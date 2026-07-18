@@ -22,7 +22,7 @@ return {
 
 #### Lägga till en hemlighet
 
-För att lägga till en hemlighet, gå till OneUptime-instrumentpanelen -> Projektinställningar -> Monitorhemligheter -> Skapa monitorhemlighet.
+För att lägga till en hemlighet, gå till Cast Operations-instrumentpanelen -> Projektinställningar -> Monitorhemligheter -> Skapa monitorhemlighet.
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 
@@ -50,7 +50,7 @@ console.log(stringSecret);
 
 ### Anpassade mätvärden
 
-Du kan registrera anpassade mätvärden från ditt skript med funktionen `oneuptime.captureMetric()`. Dessa mätvärden lagras i OneUptime och kan visas i diagram på instrumentpaneler med hjälp av Metric Explorer.
+Du kan registrera anpassade mätvärden från ditt skript med funktionen `oneuptime.captureMetric()`. Dessa mätvärden lagras i Cast Operations och kan visas i diagram på instrumentpaneler med hjälp av Metric Explorer.
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);

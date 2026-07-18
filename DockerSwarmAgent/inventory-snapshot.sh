@@ -1,16 +1,16 @@
 #!/bin/sh
-# OneUptime Docker Swarm Agent — inventory snapshot poller.
+# Cast Operations Docker Swarm Agent — inventory snapshot poller.
 #
 # MUST run on (or against) a swarm MANAGER node — the /nodes, /services,
 # /tasks, /secrets, /configs endpoints are manager-only.
 #
 # Periodically walks the Swarm API and writes one JSON line per resource
-# to a log file the OTel filelog receiver forwards to OneUptime. Each
+# to a log file the OTel filelog receiver forwards to Cast Operations. Each
 # line is the envelope the backend inventory ingest expects:
 #   {"oneuptime.dockerswarm.kind":"Node","data":{...flat fields...}}
 #
 # The raw Docker Engine API JSON is reshaped with jq into the flat field
-# names the OneUptime DockerSwarmInventoryExtractor reads (Hostname,
+# names the Cast Operations DockerSwarmInventoryExtractor reads (Hostname,
 # Status, Mode, Replicas "X/Y", etc.) so the wire format matches.
 #
 # Output is truncated each run (fresh snapshot, not a growing tail). We

@@ -1,22 +1,22 @@
-# Отправка данных Syslog в OneUptime
+# Отправка данных Syslog в Cast Operations
 
 ## Обзор
 
-Сервис приёма OpenTelemetry теперь принимает нативные нагрузки Syslog. Вы можете пересылать сообщения из любого RFC3164 или RFC5424 совместимого источника напрямую в OneUptime по HTTPS. OneUptime разбирает приоритет syslog, объект, серьёзность, структурированные данные и тело сообщения, сохраняя всё это как доступные для поиска журналы.
+Сервис приёма OpenTelemetry теперь принимает нативные нагрузки Syslog. Вы можете пересылать сообщения из любого RFC3164 или RFC5424 совместимого источника напрямую в Cast Operations по HTTPS. Cast Operations разбирает приоритет syslog, объект, серьёзность, структурированные данные и тело сообщения, сохраняя всё это как доступные для поиска журналы.
 
 ## Предварительные требования
 
 - **Токен приёма телеметрии** — создайте его в _Настройки проекта → Ключи приёма телеметрии_ и скопируйте значение `x-oneuptime-token`.
 - **Форвардер Syslog** — любой инструмент, способный отправлять HTTP POST-запросы (например, `curl`, `rsyslog` через `omhttp` или `syslog-ng` с плагином HTTP-назначения).
-- **Имя сервиса (необязательно)** — установите заголовок `x-oneuptime-service-name` для группировки входящих журналов под определённым телеметрическим сервисом. При отсутствии OneUptime использует `APP-NAME` syslog, имя хоста или `Syslog`.
+- **Имя сервиса (необязательно)** — установите заголовок `x-oneuptime-service-name` для группировки входящих журналов под определённым телеметрическим сервисом. При отсутствии Cast Operations использует `APP-NAME` syslog, имя хоста или `Syslog`.
 
 ## Конечная точка
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- Замените `oneuptime.com` на ваш хост при самостоятельном хостинге OneUptime.
+- Замените `visca.ai` на ваш хост при самостоятельном хостинге Cast Operations.
 - Всегда включайте заголовок `x-oneuptime-token` в запрос.
 
 ## Тело запроса
@@ -42,7 +42,7 @@ POST https://oneuptime.com/syslog/v1/logs
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -92,13 +92,13 @@ curl \
 
 ### 1. Сетевые устройства и устройства безопасности
 
-Большинство сетевого оборудования по-прежнему передаёт изменения конфигурации, срабатывания ACL и обнаружение угроз исключительно через syslog. Направьте ваш существующий ретранслятор (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense и другие) напрямую в OneUptime, или сохраните внутренний ретранслятор и пересылайте по HTTPS:
+Большинство сетевого оборудования по-прежнему передаёт изменения конфигурации, срабатывания ACL и обнаружение угроз исключительно через syslog. Направьте ваш существующий ретранслятор (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense и другие) напрямую в Cast Operations, или сохраните внутренний ретранслятор и пересылайте по HTTPS:
 
 ```bash
-# Фрагмент rsyslog, пакетирующий сообщения в JSON и отправляющий в OneUptime
+# Фрагмент rsyslog, пакетирующий сообщения в JSON и отправляющий в Cast Operations
 module(load="omhttp")
 
-template(name="OneUptimeJSON" type="list") {
+template(name="Cast OperationsJSON" type="list") {
   constant(value="{\"messages\":[\"")
   property(name="rawmsg")
   constant(value="\"]}")
@@ -106,14 +106,14 @@ template(name="OneUptimeJSON" type="list") {
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: perimeter-firewall"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -128,14 +128,14 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: linux-fleet"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -155,7 +155,7 @@ action(
 [OUTPUT]
     Name              http
     Match             *
-    Host              oneuptime.com
+    Host              visca.ai
     Port              443
     URI               /syslog/v1/logs
     Format            json
@@ -170,11 +170,11 @@ action(
 
 ### 4. Архивирование для соответствия требованиям без задержек
 
-Нужно хранить журналы брандмауэра для PCI или SOX? Отправляйте их напрямую в OneUptime, применяйте длительную политику хранения к телеметрическому сервису и экспортируйте в холодное хранилище из одного места. Больше никакого экспорта из нескольких ретрансляторов syslog.
+Нужно хранить журналы брандмауэра для PCI или SOX? Отправляйте их напрямую в Cast Operations, применяйте длительную политику хранения к телеметрическому сервису и экспортируйте в холодное хранилище из одного места. Больше никакого экспорта из нескольких ретрансляторов syslog.
 
 ## Разобранные атрибуты
 
-OneUptime автоматически добавляет следующие атрибуты к каждой записи журнала:
+Cast Operations автоматически добавляет следующие атрибуты к каждой записи журнала:
 
 - `syslog.priority`, `syslog.facility.code`, `syslog.facility.name`
 - `syslog.severity.code`, `syslog.severity.name`

@@ -1,19 +1,19 @@
 # PagerDuty Integration
 
-Trigger a [PagerDuty](https://www.pagerduty.com) incident whenever a OneUptime incident is created, and resolve it when OneUptime resolves. Useful when PagerDuty owns your escalation and on-call schedules and you want OneUptime's monitoring to feed it.
+Trigger a [PagerDuty](https://www.pagerduty.com) incident whenever a Cast Operations incident is created, and resolve it when Cast Operations resolves. Useful when PagerDuty owns your escalation and on-call schedules and you want Cast Operations’ monitoring to feed it.
 
-This integration is **outbound**: OneUptime calls PagerDuty's [Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/). It uses a OneUptime **[Workflow](/docs/workflows/index)** with an **Incident → On Create** trigger and an **API component**.
+This integration is **outbound**: Cast Operations calls PagerDuty's [Events API v2](https://developer.pagerduty.com/docs/events-api-v2/overview/). It uses a Cast Operations **[Workflow](/docs/workflows/index)** with an **Incident → On Create** trigger and an **API component**.
 
-> OneUptime has its own on-call and escalation built in — see [On Call](/docs/on-call/incoming-call-policy). Use this integration only if you specifically want events to land in PagerDuty as well.
+> Cast Operations has its own on-call and escalation built in — see [On Call](/docs/on-call/incoming-call-policy). Use this integration only if you specifically want events to land in PagerDuty as well.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
+Cast Operations Incident → On Create  ──►  API component (POST /v2/enqueue)  ──►  PagerDuty incident
 ```
 
 ## Prerequisites
 
 - A PagerDuty service with an **Events API v2** integration. In PagerDuty: **Service → Integrations → Add integration → Events API v2**. Copy the **Integration Key** (also called the _routing key_).
-- A OneUptime project where you can create workflows.
+- A Cast Operations project where you can create workflows.
 
 ## Step 1 — Store the routing key
 
@@ -35,10 +35,10 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      {
        "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
        "event_action": "trigger",
-       "dedup_key": "oneuptime-{{Incident._id}}",
+       "dedup_key": "cast-operations-{{Incident._id}}",
        "payload": {
          "summary": "{{Incident.title}}",
-         "source": "OneUptime",
+         "source": "Cast Operations",
          "severity": "critical",
          "custom_details": {
            "description": "{{Incident.description}}"
@@ -47,11 +47,11 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
      }
      ```
 
-   The **`dedup_key`** ties this PagerDuty incident to the OneUptime incident so you can resolve it later. Using the OneUptime incident id keeps it unique and predictable.
+   The **`dedup_key`** ties this PagerDuty incident to the Cast Operations incident so you can resolve it later. Using the Cast Operations incident id keeps it unique and predictable.
 
 4. **Save**, enable, and create a test incident. A `202` response in the workflow logs means PagerDuty accepted the event.
 
-## Step 3 — Resolve on OneUptime resolve (recommended)
+## Step 3 — Resolve on Cast Operations resolve (recommended)
 
 1. In the **same** workflow, add a second **Incident** trigger? No — a workflow has one trigger. Instead create a **second** workflow named `Resolve PagerDuty` with an **Incident → On Update** trigger.
 2. Add a **Conditions** block to check the incident is now resolved (branch on the incident's state/`{{Incident.currentIncidentState.name}}` equal to your resolved state name).
@@ -61,7 +61,7 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/enqueue)  �
    {
      "routing_key": "{{variable.PAGERDUTY_ROUTING_KEY}}",
      "event_action": "resolve",
-     "dedup_key": "oneuptime-{{Incident._id}}"
+     "dedup_key": "cast-operations-{{Incident._id}}"
    }
    ```
 
@@ -69,11 +69,11 @@ PagerDuty matches the `dedup_key` and closes the original incident.
 
 ## Severity mapping (optional)
 
-PagerDuty's `severity` accepts `critical`, `error`, `warning`, or `info`. To map from OneUptime severities, add **Conditions** branches on `{{Incident.incidentSeverity.name}}` before the API block and send a different body from each.
+PagerDuty's `severity` accepts `critical`, `error`, `warning`, or `info`. To map from Cast Operations severities, add **Conditions** branches on `{{Incident.incidentSeverity.name}}` before the API block and send a different body from each.
 
 ## Inbound (optional)
 
-To go the other way — open a OneUptime incident from a PagerDuty event — add a **Webhook** trigger workflow and point a PagerDuty [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (or an Events Orchestration) at its URL, then use **Create Incident**. See the [inbound pattern](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
+To go the other way — open a Cast Operations incident from a PagerDuty event — add a **Webhook** trigger workflow and point a PagerDuty [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (or an Events Orchestration) at its URL, then use **Create Incident**. See the [inbound pattern](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
 
 ## Troubleshooting
 
@@ -84,5 +84,5 @@ To go the other way — open a OneUptime incident from a PagerDuty event — add
 ## Where to read next
 
 - [Integrations Overview](/docs/integrations/index) — patterns and the auth cheat sheet.
-- [On Call](/docs/on-call/incoming-call-policy) — OneUptime's built-in escalation.
+- [On Call](/docs/on-call/incoming-call-policy) — Cast Operations’ built-in escalation.
 - [Opsgenie](/docs/integrations/opsgenie) — the same idea for Opsgenie.

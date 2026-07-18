@@ -1,4 +1,4 @@
-// Microsoft Teams Action Types for OneUptime Integration
+// Microsoft Teams Action Types for Cast Operations Integration
 
 // Incident Actions
 export enum MicrosoftTeamsIncidentActionType {

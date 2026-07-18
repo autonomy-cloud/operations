@@ -26,7 +26,7 @@ Använd detta för saker bara en människa kan verifiera: "Bekräftade att trafi
 
 ### JavaScript
 
-En snutt JavaScript som körs i en `isolated-vm`-sandlåda. Sandlådan lever på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur — inte på OneUptime-Worker'n.
+En snutt JavaScript som körs i en `isolated-vm`-sandlåda. Sandlådan lever på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur — inte på Cast Operations-Worker'n.
 
 Konfigurera två saker på ett JavaScript-steg:
 
@@ -45,11 +45,11 @@ Returvärdet fångas på stegkörningen. `console.log`-utdata fångas som loggra
 
 Gör ett utgående HTTP-anrop. Konfigurera metod (GET/POST/PUT/PATCH/DELETE/HEAD), URL, valfria JSON-headers och valfri body. Svarsstatus, headers och body fångas (begränsat till 50KB totalt).
 
-Användbart för: att sparka igång en PagerDuty-incident, posta till Slack, anropa din egen admin-API, osv. HTTP-steg körs direkt på OneUptime-Worker'n; ingen agent krävs.
+Användbart för: att sparka igång en PagerDuty-incident, posta till Slack, anropa din egen admin-API, osv. HTTP-steg körs direkt på Cast Operations-Worker'n; ingen agent krävs.
 
 ### Bash
 
-Ett bash-skript (`bash -c <skript>`) som körs på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur. Bash körs aldrig på OneUptime-Worker'n.
+Ett bash-skript (`bash -c <skript>`) som körs på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur. Bash körs aldrig på Cast Operations-Worker'n.
 
 Konfigurera två saker på ett Bash-steg:
 
@@ -60,7 +60,7 @@ Om den valda agenten är offline när runbooket når detta steg väntar steget u
 
 ### AI
 
-Be AI analysera, sammanfatta eller avgöra något mitt i körningen. Prompten skickas till ditt projekts LLM-leverantör (**Settings → AI → LLM Providers**) och modellens svar blir stegets utdata på körningstidslinjen. AI-steg körs direkt på OneUptime-Worker'n; ingen agent krävs.
+Be AI analysera, sammanfatta eller avgöra något mitt i körningen. Prompten skickas till ditt projekts LLM-leverantör (**Settings → AI → LLM Providers**) och modellens svar blir stegets utdata på körningstidslinjen. AI-steg körs direkt på Cast Operations-Worker'n; ingen agent krävs.
 
 Konfigurera på ett AI-steg:
 

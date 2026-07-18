@@ -1,10 +1,10 @@
 # Partage et tableaux de bord publics
 
-Par défaut, les tableaux de bord sont privés à votre projet — seuls les membres connectés à l'équipe peuvent les voir. Mais OneUptime vous permet aussi de partager un tableau de bord publiquement, de le protéger par un mot de passe, de le restreindre à certaines IP et de l'héberger sur votre propre domaine. Cette page couvre les quatre.
+Par défaut, les tableaux de bord sont privés à votre projet — seuls les membres connectés à l'équipe peuvent les voir. Mais Cast Operations vous permet aussi de partager un tableau de bord publiquement, de le protéger par un mot de passe, de le restreindre à certaines IP et de l'héberger sur votre propre domaine. Cette page couvre les quatre.
 
 ## Tableaux de bord privés (par défaut)
 
-Un tableau de bord n'est accessible qu'aux membres connectés de votre projet. L'URL ressemble à `https://oneuptime.com/dashboards/<id>/view` et nécessite une connexion.
+Un tableau de bord n'est accessible qu'aux membres connectés de votre projet. L'URL ressemble à `https://visca.ai/dashboards/<id>/view` et nécessite une connexion.
 
 À l'intérieur du projet, les propriétaires et les étiquettes contrôlent qui voit quoi — voir [Configuration et permissions](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Les requêtes provenant d'une autre IP sont rejetées.
 
 ## Domaines personnalisés
 
-Par défaut, un tableau de bord public est servi sur `oneuptime.com`. Pour l'héberger sur votre propre sous-domaine comme `dashboard.acme.com` :
+Par défaut, un tableau de bord public est servi sur `visca.ai`. Pour l'héberger sur votre propre sous-domaine comme `dashboard.acme.com` :
 
-1. Ajoutez un enregistrement CNAME sur votre DNS pointant le sous-domaine vers la cible OneUptime.
+1. Ajoutez un enregistrement CNAME sur votre DNS pointant le sous-domaine vers la cible Cast Operations.
 2. Sous **Dashboard → Settings → Custom Domains**, ajoutez le domaine.
-3. Vérifiez-le. OneUptime contrôle l'enregistrement DNS pour vous.
+3. Vérifiez-le. Cast Operations contrôle l'enregistrement DNS pour vous.
 4. Une fois vérifié, le tableau de bord est accessible à la fois sur votre domaine personnalisé et sur l'URL d'origine.
 
 Les domaines personnalisés sont utiles pour :
@@ -75,7 +75,7 @@ Sous **Dashboard → Settings**, vous pouvez configurer :
 - **Logo** — chargez un PNG ou un SVG à afficher dans l'en-tête.
 - **Favicon** — la petite icône dans l'onglet du navigateur.
 
-L'identité visuelle ne s'applique que lorsque le tableau de bord est consulté publiquement. Les visiteurs internes voient toujours l'identité visuelle de OneUptime.
+L'identité visuelle ne s'applique que lorsque le tableau de bord est consulté publiquement. Les visiteurs internes voient toujours l'identité visuelle de Cast Operations.
 
 ## Intégration
 

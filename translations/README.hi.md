@@ -19,48 +19,48 @@
 </p>
 
 <div align="center">
-  <a href="https://oneuptime.com">
-    <img alt="OneUptime लोगो" width="55%" src="https://raw.githubusercontent.com/OneUptime/oneuptime/master/Home/Static/img/OneUptimePNG/7.png"/>
+  <a href="https://visca.ai">
+    <img alt="Cast Operations लोगो" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
   <h3>एजेंटिक ऑब्ज़र्वेबिलिटी — अपटाइम, इंसिडेंट, ऑन-कॉल, स्टेटस पेज, लॉग्स, ट्रेस, मेट्रिक्स और APM के लिए एक ओपन-सोर्स प्लेटफ़ॉर्म।</h3>
 
   <p><b>जब कुछ गड़बड़ हो, तो सबसे पहले जानने वाले बनें — और सबसे तेज़ ठीक करने वाले।</b></p>
 
-  <p>OneUptime SaaS टूल्स की एक पूरी शेल्फ़ को एक ऐसे प्लेटफ़ॉर्म से बदल देता है जिसे आप मुफ़्त में सेल्फ़-होस्ट कर सकते हैं। यह आउटेज को पकड़ता है, सही व्यक्ति को पेज करता है, आपके स्टेटस पेज को अपडेट करता है, मूल कारण ढूँढता है, और यहाँ तक कि फ़िक्स PR भी खोल देता है।</p>
+  <p>Cast Operations SaaS टूल्स की एक पूरी शेल्फ़ को एक ऐसे प्लेटफ़ॉर्म से बदल देता है जिसे आप मुफ़्त में सेल्फ़-होस्ट कर सकते हैं। यह आउटेज को पकड़ता है, सही व्यक्ति को पेज करता है, आपके स्टेटस पेज को अपडेट करता है, मूल कारण ढूँढता है, और यहाँ तक कि फ़िक्स PR भी खोल देता है।</p>
 
   <p>
-    <a href="https://github.com/OneUptime/oneuptime/blob/master/LICENSE"><img src="https://img.shields.io/github/license/OneUptime/oneuptime?color=1a73e8" alt="License"></a>
-    <a href="https://github.com/OneUptime/oneuptime/releases"><img src="https://img.shields.io/github/v/release/OneUptime/oneuptime" alt="Release"></a>
-    <a href="https://github.com/OneUptime/oneuptime/stargazers"><img src="https://img.shields.io/github/stars/OneUptime/oneuptime?style=flat" alt="Stars"></a>
-    <a href="https://artifacthub.io/packages/helm/oneuptime/oneuptime"><img src="https://img.shields.io/badge/Helm-Chart-0f1689" alt="Helm Chart"></a>
-    <a href="https://join.slack.com/t/oneuptimesupport/shared_invite/zt-2pz5p1uhe-Fpmc7bv5ZE5xRMe7qJnwmA"><img src="https://img.shields.io/badge/Slack-Community-4A154B" alt="Slack"></a>
+    <a href="https://github.com/autonomy-cloud/operations/blob/master/LICENSE"><img src="https://img.shields.io/github/license/autonomy-cloud/operations?color=1a73e8" alt="License"></a>
+    <a href="https://github.com/autonomy-cloud/operations/releases"><img src="https://img.shields.io/github/v/release/autonomy-cloud/operations" alt="Release"></a>
+    <a href="https://github.com/autonomy-cloud/operations/stargazers"><img src="https://img.shields.io/github/stars/autonomy-cloud/operations?style=flat" alt="Stars"></a>
+    <a href="https://artifacthub.io/packages/helm/autonomy-cloud/operations"><img src="https://img.shields.io/badge/Helm-Chart-0f1689" alt="Helm Chart"></a>
+    <a href="https://github.com/autonomy-cloud/operations/discussions"><img src="https://img.shields.io/badge/Slack-Community-4A154B" alt="Slack"></a>
   </p>
 
   <p>
-    <a href="https://oneuptime.com"><b>वेबसाइट</b></a> &nbsp;•&nbsp;
-    <a href="https://oneuptime.com/docs"><b>दस्तावेज़</b></a> &nbsp;•&nbsp;
+    <a href="https://visca.ai"><b>वेबसाइट</b></a> &nbsp;•&nbsp;
+    <a href="https://visca.ai/docs"><b>दस्तावेज़</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>क्विक स्टार्ट</b></a> &nbsp;•&nbsp;
-    <a href="https://oneuptime.com/pricing"><b>मूल्य निर्धारण</b></a> &nbsp;•&nbsp;
+    <a href="https://visca.ai/pricing"><b>मूल्य निर्धारण</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>योगदान करें</b></a>
   </p>
 
-  <a href="https://oneuptime.com"><b>🚀 OneUptime Cloud आज़माएँ — हमेशा के लिए मुफ़्त प्लान, कोई क्रेडिट कार्ड नहीं →</b></a>
+  <a href="https://visca.ai"><b>🚀 Cast Operations Cloud आज़माएँ — हमेशा के लिए मुफ़्त प्लान, कोई क्रेडिट कार्ड नहीं →</b></a>
 </div>
 
 <br/>
 
 <div align="center">
-  <img alt="लाइव इंसिडेंट के दौरान OneUptime कमांड सेंटर" width="92%" src="https://raw.githubusercontent.com/OneUptime/oneuptime/master/Home/Static/img/readme/hero-command-center.png"/>
+  <img alt="लाइव इंसिडेंट के दौरान Cast Operations कमांड सेंटर" width="92%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Home/Static/img/readme/hero-command-center.png"/>
 </div>
 
 ---
 
 ## अपने पूरे ऑब्ज़र्वेबिलिटी स्टैक को बदलें
 
-OneUptime मॉनिटरिंग, अलर्टिंग, इंसिडेंट रिस्पॉन्स और ऑब्ज़र्वेबिलिटी को एक ही ओपन-सोर्स ऐप में लाता है — ताकि आप एक दर्जन अलग-अलग टूल्स के लिए भुगतान करना (और उन्हें आपस में जोड़ना) बंद कर दें।
+Cast Operations मॉनिटरिंग, अलर्टिंग, इंसिडेंट रिस्पॉन्स और ऑब्ज़र्वेबिलिटी को एक ही ओपन-सोर्स ऐप में लाता है — ताकि आप एक दर्जन अलग-अलग टूल्स के लिए भुगतान करना (और उन्हें आपस में जोड़ना) बंद कर दें।
 
-| इसके बजाय… | OneUptime का उपयोग करें… |
+| इसके बजाय… | Cast Operations का उपयोग करें… |
 |---|---|
 | Pingdom / UptimeRobot | **अपटाइम मॉनिटरिंग** — दुनिया भर से वेबसाइट, API, पिंग, पोर्ट, SSL, DNS और सिंथेटिक चेक |
 | StatusPage.io | **स्टेटस पेज** — सब्सक्राइबर्स के साथ ब्रांडेड सार्वजनिक और निजी स्टेटस पेज |
@@ -79,7 +79,7 @@ OneUptime मॉनिटरिंग, अलर्टिंग, इंसिड
 
 <br/>
 
-रात के 2:47 बज रहे हैं। चेकआउट टाइम-आउट होने लगता है। यहाँ बताया गया है कि OneUptime क्या करता है, इससे पहले कि अधिकांश टूल्स पहला अलर्ट भी दागें — और नीचे दिए गए स्क्रीनशॉट असल में क्या दिखाते हैं।
+रात के 2:47 बज रहे हैं। चेकआउट टाइम-आउट होने लगता है। यहाँ बताया गया है कि Cast Operations क्या करता है, इससे पहले कि अधिकांश टूल्स पहला अलर्ट भी दागें — और नीचे दिए गए स्क्रीनशॉट असल में क्या दिखाते हैं।
 
 ### 1 · पता लगाएँ — *सेकंडों में जानें*
 
@@ -119,11 +119,11 @@ AI एजेंट फ़िक्स के साथ एक पुल रि�
 
 ## ⚡ क्विक स्टार्ट
 
-### ☁️ OneUptime Cloud — आसान तरीका
+### ☁️ Cast Operations Cloud — आसान तरीका
 
 कोई सेटअप नहीं, हमेशा अप-टू-डेट, और यह ओपन-सोर्स प्रोजेक्ट को फ़ंड करता है।
 
-**→ [oneuptime.com पर मुफ़्त साइन अप करें](https://oneuptime.com)**
+**→ [visca.ai पर मुफ़्त साइन अप करें](https://visca.ai)**
 
 ### 🐳 Docker Compose के साथ सेल्फ़-होस्ट करें
 
@@ -131,7 +131,7 @@ AI एजेंट फ़िक्स के साथ एक पुल रि�
 
 ```bash
 # 1. Clone the release branch
-git clone --depth 1 --single-branch --branch release https://github.com/OneUptime/oneuptime.git
+git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
 cd oneuptime
 
 # 2. Create your config (then edit it — set strong, random secrets!)
@@ -141,18 +141,18 @@ cp config.example.env config.env
 npm start
 ```
 
-OneUptime अब **http://localhost** पर चल रहा है — इसे खोलें और अपना पहला खाता बनाएँ।
+Cast Operations अब **http://localhost** पर चल रहा है — इसे खोलें और अपना पहला खाता बनाएँ।
 
 📖 पूरी गाइड: [Docker Compose इंस्टॉल](/App/FeatureSet/Docs/Content/en/installation/docker-compose.md) · [साइज़िंग और आवश्यकताएँ](/App/FeatureSet/Docs/Content/en/installation/sizing.md)
 
 ### ☸️ Helm के साथ Kubernetes — प्रोडक्शन के लिए
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
-helm install oneuptime oneuptime/oneuptime
+helm repo add oneuptime https://helm-chart.visca.ai
+helm install oneuptime autonomy-cloud/operations
 ```
 
-📖 पूरी इंस्टॉल निर्देश और वैल्यूज़ [Artifact Hub पर →](https://artifacthub.io/packages/helm/oneuptime/oneuptime)
+📖 पूरी इंस्टॉल निर्देश और वैल्यूज़ [Artifact Hub पर →](https://artifacthub.io/packages/helm/autonomy-cloud/operations)
 
 > **मौजूदा इंस्टॉल को अपग्रेड कर रहे हैं?** [अपग्रेड गाइड](/App/FeatureSet/Docs/Content/en/installation/upgrading.md) देखें।
 
@@ -202,12 +202,12 @@ helm install oneuptime oneuptime/oneuptime
 | | **कम्युनिटी** | **एंटरप्राइज़** |
 |---|---|---|
 | **किसके लिए सर्वश्रेष्ठ** | सेल्फ़-होस्टर और छोटी टीमें | प्रीमियम समर्थन की ज़रूरत वाली विनियमित टीमें |
-| **लागत** | मुफ़्त और ओपन सोर्स | [सेल्स से संपर्क करें](mailto:sales@oneuptime.com) |
+| **लागत** | मुफ़्त और ओपन सोर्स | [सेल्स से संपर्क करें](mailto:sales@visca.ai) |
 | **फ़ीचर** | पूर्ण फ़ीचर सेट | पूर्ण फ़ीचर सेट + हार्डेंड इमेज, प्राथमिकता समर्थन, कस्टम फ़ीचर और डेटा रेज़िडेंसी |
 
 ---
 
-## 💡 OneUptime क्यों?
+## 💡 Cast Operations क्यों?
 
 हमारा मिशन सरल है: **डाउनटाइम कम करें और अधिक प्रोडक्ट्स को सफल होने में मदद करें।** सात वेंडरों को आपस में जोड़ने के बजाय, आपको एक ऐसा प्लेटफ़ॉर्म मिलता है जो आपको यह समझने में मदद करता है कि चीज़ें *क्यों* टूटती हैं, इंसिडेंट्स पर तेज़ी से प्रतिक्रिया दें, और परिचालन श्रम को कम करें — पूरी तरह ओपन सोर्स, ताकि आपका डेटा और आपका स्टैक आपका अपना हो।
 
@@ -219,26 +219,26 @@ helm install oneuptime oneuptime/oneuptime
 
 हम हर आकार के योगदान का स्वागत करते हैं। यहाँ से शुरू करें:
 
-- 🐛 **[खुले मुद्दे](https://github.com/OneUptime/oneuptime/issues)** — कोई एक चुनें, या [एक नया दर्ज करें](https://github.com/OneUptime/oneuptime/issues/new)
-- ✅ **[टेस्ट लिखने में मदद करें](https://github.com/OneUptime/oneuptime/issues?q=is%3Aopen+is%3Aissue+label%3A%22write+tests%22)** कोडबेस के लिए
+- 🐛 **[खुले मुद्दे](https://github.com/autonomy-cloud/operations/issues)** — कोई एक चुनें, या [एक नया दर्ज करें](https://github.com/autonomy-cloud/operations/issues/new)
+- ✅ **[टेस्ट लिखने में मदद करें](https://github.com/autonomy-cloud/operations/issues?q=is%3Aopen+is%3Aissue+label%3A%22write+tests%22)** कोडबेस के लिए
 - 🧑‍💻 **[लोकल डेवलपमेंट गाइड](/App/FeatureSet/Docs/Content/en/installation/local-development.md)** सेट अप करने के लिए
 - 📖 **[योगदान दिशानिर्देश](/CONTRIBUTING.md)** पढ़ें
-- 💬 हमसे **[डेवलपर Slack](https://join.slack.com/t/oneuptimedev/shared_invite/zt-17r8o7gkz-nITGan_PS9JYJV6WMm_TsQ)** या **[कम्युनिटी Slack](https://join.slack.com/t/oneuptimesupport/shared_invite/zt-2pz5p1uhe-Fpmc7bv5ZE5xRMe7qJnwmA)** में बात करें
+- 💬 हमसे **[डेवलपर Slack](https://github.com/autonomy-cloud/operations/discussions)** या **[कम्युनिटी Slack](https://github.com/autonomy-cloud/operations/discussions)** में बात करें
 
 ## ❤️ प्रोजेक्ट का समर्थन करें
 
-अगर OneUptime आपके लिए उपयोगी है:
+अगर Cast Operations आपके लिए उपयोगी है:
 
 - ⭐ **इस रेपो को स्टार करें** — यह वाकई दूसरों को हमें खोजने में मदद करता है
-- 💵 **[हमें प्रायोजित करें](https://github.com/sponsors/OneUptime)** — हर डॉलर नए फ़ीचर लाता है
-- 🛍️ **[कुछ मर्च लें](https://shop.oneuptime.com)** — सारी आय ओपन-सोर्स विकास को फ़ंड करती है
+- 💵 **[हमें प्रायोजित करें](https://github.com/autonomy-cloud/operations)** — हर डॉलर नए फ़ीचर लाता है
+- 🛍️ **[कुछ मर्च लें](https://shop.visca.ai)** — सारी आय ओपन-सोर्स विकास को फ़ंड करती है
 
 ---
 
 ## 📄 लाइसेंस
 
-OneUptime [Apache License 2.0](/LICENSE) के तहत लाइसेंस प्राप्त है।
+Cast Operations [Apache License 2.0](/LICENSE) के तहत लाइसेंस प्राप्त है।
 
 <div align="center">
-  <sub><a href="https://oneuptime.com">OneUptime</a> टीम और <a href="https://github.com/OneUptime/oneuptime/graphs/contributors">योगदानकर्ताओं</a> द्वारा ❤️ के साथ बनाया गया।</sub>
+  <sub><a href="https://visca.ai">Cast Operations</a> टीम और <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">योगदानकर्ताओं</a> द्वारा ❤️ के साथ बनाया गया।</sub>
 </div>

@@ -18,7 +18,7 @@ import {
 } from "../storage/ssoTokens";
 
 /**
- * Recursively normalizes OneUptime API serialized types in response data.
+ * Recursively normalizes Cast Operations API serialized types in response data.
  * Converts { _type: "ObjectID", value: "uuid" } → "uuid"
  * Converts { _type: "DateTime", value: "iso-string" } → "iso-string"
  */
@@ -34,7 +34,7 @@ function normalizeResponseData(data: unknown): unknown {
   if (typeof data === "object") {
     const obj: Record<string, unknown> = data as Record<string, unknown>;
 
-    // Check for serialized OneUptime types
+    // Check for serialized Cast Operations types
     if (
       typeof obj["_type"] === "string" &&
       Object.prototype.hasOwnProperty.call(obj, "value") &&
@@ -107,7 +107,7 @@ apiClient.interceptors.request.use(
   },
 );
 
-// Response interceptor: normalize OneUptime serialized types then handle 401
+// Response interceptor: normalize Cast Operations serialized types then handle 401
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
     response.data = normalizeResponseData(response.data);

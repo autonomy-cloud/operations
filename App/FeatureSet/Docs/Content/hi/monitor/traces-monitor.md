@@ -1,6 +1,6 @@
 # Traces Monitor
 
-Traces monitoring आपको अपने applications से distributed traces monitor करने और span patterns, counts और statuses के आधार पर alerts trigger करने की अनुमति देता है। OneUptime एक time window पर आपकी telemetry services से trace data evaluate करता है।
+Traces monitoring आपको अपने applications से distributed traces monitor करने और span patterns, counts और statuses के आधार पर alerts trigger करने की अनुमति देता है। Cast Operations एक time window पर आपकी telemetry services से trace data evaluate करता है।
 
 ## Overview
 
@@ -14,7 +14,7 @@ Traces monitors specific filters से match करने वाले spans �
 
 ## Traces Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **Traces** चुनें
 4. monitor करने के लिए telemetry services चुनें
@@ -24,7 +24,7 @@ Traces monitors specific filters से match करने वाले spans �
 
 ### Telemetry Services
 
-traces monitor करने के लिए एक या अधिक services चुनें। Services को OpenTelemetry के माध्यम से OneUptime को traces भेजनी चाहिए।
+traces monitor करने के लिए एक या अधिक services चुनें। Services को OpenTelemetry के माध्यम से Cast Operations को traces भेजनी चाहिए।
 
 ### Span Filters
 
@@ -79,4 +79,4 @@ traces monitor करने के लिए एक या अधिक services
 
 ## Setup Requirements
 
-Traces monitoring के लिए आपके applications को OpenTelemetry के माध्यम से OneUptime को distributed traces भेजने की आवश्यकता है। Setup निर्देशों के लिए [OpenTelemetry](/docs/telemetry/open-telemetry) documentation देखें।
+Traces monitoring के लिए आपके applications को OpenTelemetry के माध्यम से Cast Operations को distributed traces भेजने की आवश्यकता है। Setup निर्देशों के लिए [OpenTelemetry](/docs/telemetry/open-telemetry) documentation देखें।

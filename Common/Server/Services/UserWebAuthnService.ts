@@ -67,7 +67,7 @@ export class Service extends DatabaseService<Model> {
     });
 
     const options: any = await generateRegistrationOptions({
-      rpName: "OneUptime",
+      rpName: "Cast Operations",
       rpID: Host.toString(),
       userID: new Uint8Array(Buffer.from(data.userId.toString())),
       userName: user.email.toString(),

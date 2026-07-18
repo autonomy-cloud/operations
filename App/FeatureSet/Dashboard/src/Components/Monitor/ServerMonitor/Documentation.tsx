@@ -55,7 +55,7 @@ sudo oneuptime-infrastructure-agent uninstall
             <CodeBlock
               language="bash"
               code={`
-# Step 1: Download the agent from GitHub https://github.com/OneUptime/oneuptime/releases/latest
+# Step 1: Download the agent from GitHub https://github.com/autonomy-cloud/operations/releases/latest
 # You should see a file named oneuptime-infrastructure-agent_windows_amd64.zip (if you're using x64) or oneuptime-infrastructure-agent_windows_arm64.zip (if you're using arm64)
 # Extract the zip file, and you should see a file named oneuptime-infrastructure-agent.exe 
 

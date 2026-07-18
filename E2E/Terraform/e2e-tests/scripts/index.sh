@@ -13,7 +13,7 @@ echo ""
 # Step 1: Install dependencies
 #
 # Dependencies are installed and the Terraform provider is generated BEFORE the
-# OneUptime services stack is started. Generating the provider loads the entire
+# Cast Operations services stack is started. Generating the provider loads the entire
 # codebase through ts-node (to build the OpenAPI spec) and then shells out to the
 # Go toolchain to compile the provider, both of which are very memory hungry. If
 # the full docker compose stack is already running at that point, the combined
@@ -37,9 +37,9 @@ echo "=== Step 2: Generating Terraform Provider ==="
 cd "$ROOT_DIR"
 npm run generate-terraform-provider
 
-# Step 3: Start OneUptime services
+# Step 3: Start Cast Operations services
 echo ""
-echo "=== Step 3: Starting OneUptime Services ==="
+echo "=== Step 3: Starting Cast Operations Services ==="
 cd "$ROOT_DIR"
 npm run dev
 

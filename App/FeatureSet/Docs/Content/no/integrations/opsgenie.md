@@ -1,18 +1,18 @@
 # Opsgenie-integrasjon
 
-Opprett et [Opsgenie](https://www.atlassian.com/software/opsgenie)-varsel hver gang en OneUptime-hendelse opprettes, og lukk det når OneUptime løser.
+Opprett et [Opsgenie](https://www.atlassian.com/software/opsgenie)-varsel hver gang en Cast Operations-hendelse opprettes, og lukk det når Cast Operations løser.
 
-Denne integrasjonen er **utgående**: OneUptime kaller [Opsgenie Alert API](https://docs.opsgenie.com/docs/alert-api). Den bruker en OneUptime **[Arbeidsflyt](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**.
+Denne integrasjonen er **utgående**: Cast Operations kaller [Opsgenie Alert API](https://docs.opsgenie.com/docs/alert-api). Den bruker en Cast Operations **[Arbeidsflyt](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
+Cast Operations Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
 ```
 
 ## Forutsetninger
 
 - En Opsgenie **API-nøkkel** fra en API-integrasjon: **Settings → Integrations → Add → API**. Kopier nøkkelen.
 - Kjenn din region. Standard API-vert er `https://api.opsgenie.com`; EU-kontoer bruker `https://api.eu.opsgenie.com`.
-- Et OneUptime-prosjekt der du kan opprette arbeidsflyter.
+- Et Cast Operations-prosjekt der du kan opprette arbeidsflyter.
 
 ## Steg 1 — Lagre API-nøkkelen
 
@@ -39,32 +39,32 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  �
      ```json
      {
        "message": "{{Incident.title}}",
-       "alias": "oneuptime-{{Incident._id}}",
+       "alias": "cast-operations-{{Incident._id}}",
        "description": "{{Incident.description}}",
        "priority": "P1",
-       "source": "OneUptime"
+       "source": "Cast Operations"
      }
      ```
 
-   **`alias`** knytter dette Opsgenie-varselet til OneUptime-hendelsen slik at du kan lukke det senere via alias. Merk at Opsgenie-autentiseringsmetoden er det bokstavelige ordet `GenieKey` etterfulgt av et mellomrom og nøkkelen din.
+   **`alias`** knytter dette Opsgenie-varselet til Cast Operations-hendelsen slik at du kan lukke det senere via alias. Merk at Opsgenie-autentiseringsmetoden er det bokstavelige ordet `GenieKey` etterfulgt av et mellomrom og nøkkelen din.
 
 4. **Lagre**, aktiver, og opprett en testhendelse. Et `202 Accepted`-svar i arbeidsflytloggene betyr at Opsgenie satte varselet i kø.
 
-## Steg 3 — Lukk ved OneUptime-løsning (anbefalt)
+## Steg 3 — Lukk ved Cast Operations-løsning (anbefalt)
 
 1. Opprett en **andre** arbeidsflyt kalt `Close Opsgenie` med en **Incident → On Update**-trigger.
 2. Legg til en **Conditions**-blokk som sjekker at hendelsen nå er løst (forgren på `{{Incident.currentIncidentState.name}}`).
 3. Fra **Yes**, legg til en **API**-blokk:
    - **Method**: `POST`
-   - **URL**: `https://api.opsgenie.com/v2/alerts/oneuptime-{{Incident._id}}/close?identifierType=alias`
+   - **URL**: `https://api.opsgenie.com/v2/alerts/cast-operations-{{Incident._id}}/close?identifierType=alias`
    - **Headers**: samme `Authorization: GenieKey {{variable.OPSGENIE_KEY}}`
-   - **Body**: `{ "source": "OneUptime", "note": "Resolved in OneUptime" }`
+   - **Body**: `{ "source": "Cast Operations", "note": "Resolved in Cast Operations" }`
 
 Opsgenie slår opp varselet via alias og lukker det.
 
 ## Prioritets-mapping (valgfritt)
 
-Opsgenie-prioriteter går fra `P1`–`P5`. Map fra OneUptime-alvorlighetsgrader med **Conditions**-grener på `{{Incident.incidentSeverity.name}}` før API-blokken.
+Opsgenie-prioriteter går fra `P1`–`P5`. Map fra Cast Operations-alvorlighetsgrader med **Conditions**-grener på `{{Incident.incidentSeverity.name}}` før API-blokken.
 
 ## Feilsøking
 
@@ -76,4 +76,4 @@ Opsgenie-prioriteter går fra `P1`–`P5`. Map fra OneUptime-alvorlighetsgrader 
 
 - [Oversikt over integrasjoner](/docs/integrations/index) — mønstre og autentiserings-juksearket.
 - [PagerDuty](/docs/integrations/pagerduty) — det samme for PagerDuty.
-- [On Call](/docs/on-call/incoming-call-policy) — OneUptime-s innebygde eskalering.
+- [On Call](/docs/on-call/incoming-call-policy) — Cast Operations-s innebygde eskalering.

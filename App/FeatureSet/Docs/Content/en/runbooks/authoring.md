@@ -26,7 +26,7 @@ Use this for things only a human can verify: "Confirmed traffic has moved to the
 
 ### JavaScript
 
-A snippet of JavaScript run in a sandboxed `isolated-vm`. The sandbox lives on a [Runbook Agent](/docs/runbooks/agents) inside your own infrastructure — not on the OneUptime Worker.
+A snippet of JavaScript run in a sandboxed `isolated-vm`. The sandbox lives on a [Runbook Agent](/docs/runbooks/agents) inside your own infrastructure — not on the Cast Operations Worker.
 
 Configure two things on a JavaScript step:
 
@@ -45,11 +45,11 @@ The returned value is captured on the step execution. `console.log` output is ca
 
 Make an outbound HTTP call. Configure method (GET/POST/PUT/PATCH/DELETE/HEAD), URL, optional JSON headers, and optional body. Response status, headers, and body are captured (capped at 50KB total).
 
-Useful for: kicking off a PagerDuty incident, posting to Slack, calling your own admin API, etc. HTTP steps run on the OneUptime Worker directly; no agent required.
+Useful for: kicking off a PagerDuty incident, posting to Slack, calling your own admin API, etc. HTTP steps run on the Cast Operations Worker directly; no agent required.
 
 ### Bash
 
-A bash script (`bash -c <script>`) run on a [Runbook Agent](/docs/runbooks/agents) in your own infrastructure. Bash never executes on the OneUptime Worker.
+A bash script (`bash -c <script>`) run on a [Runbook Agent](/docs/runbooks/agents) in your own infrastructure. Bash never executes on the Cast Operations Worker.
 
 Configure two things on a Bash step:
 
@@ -60,7 +60,7 @@ If the selected agent is offline when the runbook reaches this step, the step wa
 
 ### AI
 
-Ask AI to analyze, summarize or decide something mid-run. The prompt is sent to your project's LLM provider (**Settings → AI → LLM Providers**) and the model's response becomes the step output on the execution timeline. AI steps run on the OneUptime Worker; no agent is required.
+Ask AI to analyze, summarize or decide something mid-run. The prompt is sent to your project's LLM provider (**Settings → AI → LLM Providers**) and the model's response becomes the step output on the execution timeline. AI steps run on the Cast Operations Worker; no agent is required.
 
 Configure on an AI step:
 

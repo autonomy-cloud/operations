@@ -1,6 +1,6 @@
 # Moniteur Kubernetes
 
-La surveillance Kubernetes vous permet de surveiller la santé et les performances de vos clusters Kubernetes, y compris les nœuds, les pods, les charges de travail et les composants du plan de contrôle. OneUptime collecte les métriques de votre cluster et les évalue par rapport aux critères que vous avez configurés.
+La surveillance Kubernetes vous permet de surveiller la santé et les performances de vos clusters Kubernetes, y compris les nœuds, les pods, les charges de travail et les composants du plan de contrôle. Cast Operations collecte les métriques de votre cluster et les évalue par rapport aux critères que vous avez configurés.
 
 ## Vue d'ensemble
 
@@ -15,7 +15,7 @@ Les moniteurs Kubernetes utilisent les métriques de votre cluster pour fournir 
 
 ## Créer un moniteur Kubernetes
 
-1. Allez dans **Monitors** dans le tableau de bord OneUptime
+1. Allez dans **Monitors** dans le tableau de bord Cast Operations
 2. Cliquez sur **Create Monitor**
 3. Sélectionnez **Kubernetes** comme type de moniteur
 4. Sélectionnez le cluster et la portée des ressources à surveiller
@@ -26,7 +26,7 @@ Les moniteurs Kubernetes utilisent les métriques de votre cluster pour fournir 
 
 ### Cluster
 
-Sélectionnez le cluster Kubernetes à surveiller. Les clusters doivent être intégrés à OneUptime via OpenTelemetry.
+Sélectionnez le cluster Kubernetes à surveiller. Les clusters doivent être intégrés à Cast Operations via OpenTelemetry.
 
 ### Portée des ressources
 
@@ -138,7 +138,7 @@ Sélectionnez la fenêtre temporelle pour l'évaluation des métriques :
 
 ## Modèles d'alertes préconfigurés
 
-OneUptime fournit des modèles pour les scénarios de surveillance Kubernetes courants :
+Cast Operations fournit des modèles pour les scénarios de surveillance Kubernetes courants :
 
 | Modèle                      | Description                                | Seuil               |
 | --------------------------- | ------------------------------------------ | ------------------- |
@@ -157,6 +157,6 @@ OneUptime fournit des modèles pour les scénarios de surveillance Kubernetes co
 
 ## Prérequis d'installation
 
-Pour utiliser la surveillance Kubernetes, vous devez installer l'agent Kubernetes OneUptime dans votre cluster. L'agent expédie les métriques du cluster, les événements, les journaux de pods et — par défaut — les **traces d'applications et les métriques RED HTTP capturées via eBPF** à OneUptime via OTLP. Aucune modification de code ni SDK par application n'est requis pour voir le trafic au niveau du service.
+Pour utiliser la surveillance Kubernetes, vous devez installer l'agent Kubernetes Cast Operations dans votre cluster. L'agent expédie les métriques du cluster, les événements, les journaux de pods et — par défaut — les **traces d'applications et les métriques RED HTTP capturées via eBPF** à Cast Operations via OTLP. Aucune modification de code ni SDK par application n'est requis pour voir le trafic au niveau du service.
 
 Consultez le guide [Installer l'agent Kubernetes](/docs/monitor/kubernetes-agent) — il couvre l'installation Helm en une commande, l'option `preset` pour choisir la bonne configuration pour votre cluster (standard, GKE Autopilot, EKS Fargate) et les bascules `ebpf.features.*` pour les familles de signaux individuelles (métriques RED HTTP, graphe de services, flux réseau, statistiques TCP).

@@ -1,20 +1,20 @@
 # Grafana-integration
 
-Omvandla [Grafana](https://grafana.com)-larm till OneUptime-incidenter. Grafana utvärderar larmreglerna på dina instrumentpaneler; OneUptime registrerar, eskalerar och spårar dem.
+Omvandla [Grafana](https://grafana.com)-larm till Cast Operations-incidenter. Grafana utvärderar larmreglerna på dina instrumentpaneler; Cast Operations registrerar, eskalerar och spårar dem.
 
-Den här integrationen är **inkommande**: Grafanas larmhantering postar till ett OneUptime **[Arbetsflöde](/docs/workflows/index)** som börjar med en **Webhook-utlösare**, med hjälp av en Grafana **Webhook contact point**.
+Den här integrationen är **inkommande**: Grafanas larmhantering postar till ett Cast Operations **[Arbetsflöde](/docs/workflows/index)** som börjar med en **Webhook-utlösare**, med hjälp av en Grafana **Webhook contact point**.
 
 ```text
-Grafana alert rule fires  ──►  Webhook contact point  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Grafana alert rule fires  ──►  Webhook contact point  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Förutsättningar
 
 - Grafana 9+ med [unified alerting](https://grafana.com/docs/grafana/latest/alerting/) aktiverat (standardinställningen på modern Grafana).
-- Grafana måste kunna nå din OneUptime-instans via HTTPS.
-- Ett OneUptime-projekt där du kan skapa arbetsflöden.
+- Grafana måste kunna nå din Cast Operations-instans via HTTPS.
+- Ett Cast Operations-projekt där du kan skapa arbetsflöden.
 
-## Steg 1 — Bygg OneUptime-arbetsflödet
+## Steg 1 — Bygg Cast Operations-arbetsflödet
 
 1. Öppna **Workflows → Create Workflow**, namnge det `Grafana → Incidents` och öppna **Builder**.
 2. Lägg till en **Webhook**-utlösare och **kopiera dess URL**. Byt namn på blocket till `Grafana`.
@@ -33,10 +33,10 @@ Grafanas webhook-payload följer Alertmanager-formen — den innehåller `status
 ## Steg 2 — Konfigurera Grafana contact point
 
 1. Gå i Grafana till **Alerting → Contact points → Add contact point**.
-2. **Name**: `OneUptime`. **Integration**: **Webhook**.
+2. **Name**: `Cast Operations`. **Integration**: **Webhook**.
 3. **URL**: klistra in ditt arbetsflödes webhook-URL. **HTTP Method**: `POST`.
 4. Spara contact point.
-5. Gå till **Alerting → Notification policies** och dirigera de larm du vill ha (eller standardpolicyn) till **OneUptime** contact point.
+5. Gå till **Alerting → Notification policies** och dirigera de larm du vill ha (eller standardpolicyn) till **Cast Operations** contact point.
 
 ## Steg 3 — Testa det
 
@@ -51,7 +51,7 @@ När larmet rensas skickar Grafana en annan notifiering med `status: resolved`. 
 ## Noteringar
 
 - **Äldre larmhantering (Grafana 8 och tidigare)** skickar en annan payload (`ruleName`, `state`, `evalMatches`). Om du använder äldre larmhantering, referera till `{{Grafana.Request Body.ruleName}}` och `{{Grafana.Request Body.state}}` i stället, och förgrena på `state == alerting`.
-- Du kan också hoppa över Grafanas larmhantering helt och låta OneUptime övervaka samma mätvärden direkt — se [Metrics Monitor](/docs/monitor/metrics-monitor).
+- Du kan också hoppa över Grafanas larmhantering helt och låta Cast Operations övervaka samma mätvärden direkt — se [Metrics Monitor](/docs/monitor/metrics-monitor).
 
 ## Felsökning
 
@@ -62,4 +62,4 @@ När larmet rensas skickar Grafana en annan notifiering med `status: resolved`. 
 
 - [Integrationsöversikt](/docs/integrations/index) — det inkommande mönstret.
 - [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager) — nära besläktad payload.
-- [Metrics Monitor](/docs/monitor/metrics-monitor) — övervaka mätvärden i OneUptime direkt.
+- [Metrics Monitor](/docs/monitor/metrics-monitor) — övervaka mätvärden i Cast Operations direkt.

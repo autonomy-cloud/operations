@@ -1,13 +1,13 @@
 # GitHub Integration
 
-जब OneUptime incident बनाया जाए तो स्वचालित रूप से एक [GitHub](https://github.com) issue खोलें — ताकि engineering follow-up उस repo में track हो जो affected service की मालिक है।
+जब Cast Operations incident बनाया जाए तो स्वचालित रूप से एक [GitHub](https://github.com) issue खोलें — ताकि engineering follow-up उस repo में track हो जो affected service की मालिक है।
 
-यह इंटीग्रेशन **आउटबाउंड** है: OneUptime [GitHub REST API](https://docs.github.com/en/rest/issues/issues) को कॉल करता है। यह **Incident → On Create** trigger और **API component** के साथ OneUptime **[वर्कफ़्लो](/docs/workflows/index)** का उपयोग करता है।
+यह इंटीग्रेशन **आउटबाउंड** है: Cast Operations [GitHub REST API](https://docs.github.com/en/rest/issues/issues) को कॉल करता है। यह **Incident → On Create** trigger और **API component** के साथ Cast Operations **[वर्कफ़्लो](/docs/workflows/index)** का उपयोग करता है।
 
-> **गहरा GitHub connection ढूंढ रहे हैं?** OneUptime के पास code repositories जोड़ने के लिए एक native **GitHub App** integration भी है (AI agent और code features द्वारा इस्तेमाल)। यह environment variables से configure होता है, workflows से नहीं — [GitHub Integration (self-hosted)](/docs/self-hosted/github-integration) देखें। यह पेज विशेष रूप से _incidents से issues file करने_ के बारे में है।
+> **गहरा GitHub connection ढूंढ रहे हैं?** Cast Operations के पास code repositories जोड़ने के लिए एक native **GitHub App** integration भी है (AI agent और code features द्वारा इस्तेमाल)। यह environment variables से configure होता है, workflows से नहीं — [GitHub Integration (self-hosted)](/docs/self-hosted/github-integration) देखें। यह पेज विशेष रूप से _incidents से issues file करने_ के बारे में है।
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## पूर्वापेक्षाएँ
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   [github.com/settings/tokens](https://github.com/settings/tokens) पर एक बनाएँ।
 
-- एक OneUptime project जहाँ आप वर्कफ़्लो बना सकते हैं।
+- एक Cast Operations project जहाँ आप वर्कफ़्लो बना सकते हैं।
 
 ## चरण 1 — token store करें
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**:
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

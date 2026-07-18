@@ -1,6 +1,6 @@
 /*
- * Summary of a self-hosted OneUptime instance that uses an enterprise
- * license. Returned by the license server (oneuptime.com) on validate and
+ * Summary of a self-hosted Cast Operations instance that uses an enterprise
+ * license. Returned by the license server (visca.ai) on validate and
  * report-user-count calls, stored in GlobalConfig on the customer's
  * instances, and shown in the license modal.
  *

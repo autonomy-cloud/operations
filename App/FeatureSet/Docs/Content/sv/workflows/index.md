@@ -1,22 +1,22 @@
 # Översikt över arbetsflöden
 
-Arbetsflöden låter dig automatisera uppgifter i OneUptime utan att skriva kod. Dra och släpp några block på en arbetsyta, koppla ihop dem, och du har en automation som körs så snart något händer — en incident öppnas, ett schema utlöses eller ett annat verktyg skickar data till OneUptime.
+Arbetsflöden låter dig automatisera uppgifter i Cast Operations utan att skriva kod. Dra och släpp några block på en arbetsyta, koppla ihop dem, och du har en automation som körs så snart något händer — en incident öppnas, ett schema utlöses eller ett annat verktyg skickar data till Cast Operations.
 
 Tänk på arbetsflöden som hjälpredor i bakgrunden för ditt projekt: de reagerar på händelser, pratar med andra verktyg och håller saker synkroniserade i tysthet medan du fokuserar på ditt arbete.
 
 ## Vad du kan göra med arbetsflöden
 
-- **Koppla OneUptime till dina andra verktyg** — skicka incidenter till Slack, skapa Jira-ärenden, posta till en webhook i din stack.
-- **Reagera på vad som händer i OneUptime** — när en kritisk incident skapas, meddela jourteamet och öppna ett ärende automatiskt.
+- **Koppla Cast Operations till dina andra verktyg** — skicka incidenter till Slack, skapa Jira-ärenden, posta till en webhook i din stack.
+- **Reagera på vad som händer i Cast Operations** — när en kritisk incident skapas, meddela jourteamet och öppna ett ärende automatiskt.
 - **Kör jobb enligt ett schema** — var femte minut, varje natt, varje måndag morgon.
-- **Ta emot data utifrån** — låt andra system skicka in data till OneUptime via en unik URL.
+- **Ta emot data utifrån** — låt andra system skicka in data till Cast Operations via en unik URL.
 - **Återanvänd vanlig automation** — bygg den en gång, anropa den från vilket annat arbetsflöde som helst.
 
 ## Hur ett arbetsflöde fungerar
 
 Varje arbetsflöde har tre delar:
 
-1. **En utlösare** — vad som startar arbetsflödet. Det kan vara en manuell knapp, ett schema, en inkommande webhook eller en händelse i OneUptime (som en ny incident).
+1. **En utlösare** — vad som startar arbetsflödet. Det kan vara en manuell knapp, ett schema, en inkommande webhook eller en händelse i Cast Operations (som en ny incident).
 2. **En eller flera komponenter** — vad arbetsflödet gör. Skicka ett meddelande, gör ett HTTP-anrop, kör en snabb kontroll, förgrena dig baserat på ett villkor.
 3. **Kopplingar mellan dem** — du drar linjer från ett block till nästa för att bestämma ordningen.
 
@@ -32,7 +32,7 @@ Du bygger allt detta visuellt på en arbetsyta. Ingen kodning krävs för de fle
 | **Körning**         | En exekvering av arbetsflödet. Sparas med tidsstämplar och utdata från varje block.                  |
 | **Global variabel** | Ett värde (som en API-nyckel) som du sparar en gång och återanvänder i vilket arbetsflöde som helst. |
 
-## Var du hittar arbetsflöden i OneUptime
+## Var du hittar arbetsflöden i Cast Operations
 
 Öppna **Workflows** i den vänstra navigeringen. Därifrån:
 
@@ -46,7 +46,7 @@ Du bygger allt detta visuellt på en arbetsyta. Ingen kodning krävs för de fle
 ## Bygga ditt första arbetsflöde
 
 1. **Skapa** — ge ditt arbetsflöde ett namn och en kort beskrivning.
-2. **Välj en utlösare** — manuell, schemalagd, webhook eller en händelse från OneUptime.
+2. **Välj en utlösare** — manuell, schemalagd, webhook eller en händelse från Cast Operations.
 3. **Lägg till komponenter** — dra åtgärder till arbetsytan och koppla ihop dem.
 4. **Testa** — klicka på **Run Manually** och se vad som händer i loggarna.
 5. **Slå på det** — slå på **Enabled**-växeln i Settings när du är redo.
@@ -63,7 +63,7 @@ Säg att du vill posta i Slack varje gång en kritisk incident skapas:
 
 Nästa gång någon öppnar en incident med "Sev 1" i titeln, lyser Slack upp.
 
-## Hur arbetsflöden passar in med resten av OneUptime
+## Hur arbetsflöden passar in med resten av Cast Operations
 
 - **Monitorer** upptäcker problemet. **Incidenter** registrerar det. **Arbetsflöden** reagerar på det.
 - **Runbooks** är steg-för-steg-guider för människor. Arbetsflöden är obevakad automation. Använd en runbook när en människa behöver fatta beslut; använd ett arbetsflöde när stegen är automatiska.

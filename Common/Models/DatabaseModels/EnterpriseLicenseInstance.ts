@@ -26,7 +26,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
   pluralName: "Enterprise License Instances",
   icon: IconProp.Lock,
   tableDescription:
-    "Self-hosted OneUptime instances that report usage against an enterprise license. One license can be used across multiple instances (staging, production, etc.) and users are counted uniquely across all of them.",
+    "Self-hosted Cast Operations instances that report usage against an enterprise license. One license can be used across multiple instances (staging, production, etc.) and users are counted uniquely across all of them.",
 })
 @Entity({
   name: "EnterpriseLicenseInstance",
@@ -91,7 +91,7 @@ export default class EnterpriseLicenseInstance extends BaseModel {
     type: TableColumnType.ShortText,
     title: "Instance ID",
     description:
-      "Unique identifier of the self-hosted OneUptime instance (auto-generated on the instance when it is installed).",
+      "Unique identifier of the self-hosted Cast Operations instance (auto-generated on the instance when it is installed).",
   })
   @Column({
     nullable: false,

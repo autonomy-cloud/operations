@@ -1,11 +1,11 @@
 apiVersion: v2
 name: oneuptime
 description: The Complete Open-Source Observability Platform
-icon: https://raw.githubusercontent.com/OneUptime/oneuptime/master/Home/Static/img/OneUptimePNG/1.png
-home: https://oneuptime.com
+icon: https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg
+home: https://visca.ai
 sources:
-  - https://github.com/OneUptime/oneuptime
-  - https://github.com/OneUptime/helm-chart
+  - https://github.com/autonomy-cloud/operations
+  - https://github.com/autonomy-cloud/operations/tree/master/HelmChart
 keywords:
   - monitoring
   - observability
@@ -20,9 +20,9 @@ keywords:
   - sre
   - opentelemetry
 maintainers:
-  - name: OneUptime
-    email: hello@oneuptime.com
-    url: https://oneuptime.com
+  - name: Cast Operations
+    email: hello@visca.ai
+    url: https://visca.ai
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -51,16 +51,11 @@ annotations:
   artifacthub.io/prerelease: "false"
   artifacthub.io/links: |
     - name: documentation
-      url: https://oneuptime.com/docs
+      url: https://visca.ai/docs
     - name: source
-      url: https://github.com/OneUptime/oneuptime
+      url: https://github.com/autonomy-cloud/operations
     - name: support
-      url: https://github.com/OneUptime/oneuptime/issues
-  artifacthub.io/signKey: |
-    fingerprint: 83F2C1DDF58A052464C4A1729D87E494AC016697
-    url: https://keybase.io/oneuptime/pgp_keys.asc
-
-
+      url: https://github.com/autonomy-cloud/operations/issues
 dependencies:
 - name: keda
   version: "2.20.1"
@@ -74,4 +69,3 @@ dependencies:
   version: "0.27.1"
   repository: "https://helm.altinity.com/"
   condition: clickhouseOperator.altinity.enabled
-

@@ -1,14 +1,14 @@
-# Enviar Dados de Criação de Perfil Contínuos para o OneUptime
+# Enviar Dados de Criação de Perfil Contínuos para o Cast Operations
 
 ## Visão Geral
 
-A criação de perfil contínua é o quarto pilar da observabilidade ao lado de logs, métricas e rastreamentos. Os perfis capturam como seu aplicativo gasta tempo de CPU, aloca memória e usa recursos do sistema no nível de função. O OneUptime ingere dados de criação de perfil via OpenTelemetry Protocol (OTLP) e os armazena ao lado de seus outros sinais de telemetria para análise unificada.
+A criação de perfil contínua é o quarto pilar da observabilidade ao lado de logs, métricas e rastreamentos. Os perfis capturam como seu aplicativo gasta tempo de CPU, aloca memória e usa recursos do sistema no nível de função. O Cast Operations ingere dados de criação de perfil via OpenTelemetry Protocol (OTLP) e os armazena ao lado de seus outros sinais de telemetria para análise unificada.
 
-Com dados de criação de perfil no OneUptime, você pode identificar funções hot consumindo CPU, detectar vazamentos de memória, encontrar gargalos de contenção e correlacionar problemas de desempenho com rastreamentos e spans específicos.
+Com dados de criação de perfil no Cast Operations, você pode identificar funções hot consumindo CPU, detectar vazamentos de memória, encontrar gargalos de contenção e correlacionar problemas de desempenho com rastreamentos e spans específicos.
 
 ## Tipos de Perfil Suportados
 
-O OneUptime suporta os seguintes tipos de perfil:
+O Cast Operations suporta os seguintes tipos de perfil:
 
 | Tipo de Perfil | Descrição                                            | Unidade      |
 | -------------- | ---------------------------------------------------- | ------------ |
@@ -23,7 +23,7 @@ O OneUptime suporta os seguintes tipos de perfil:
 
 ### Passo 1 - Criar um Token de Ingestão de Telemetria
 
-Depois de se registrar no OneUptime e criar um projeto, clique em "More" na barra de navegação e clique em "Project Settings".
+Depois de se registrar no Cast Operations e criar um projeto, clique em "More" na barra de navegação e clique em "Project Settings".
 
 Na página de Chaves de Ingestão de Telemetria, clique em "Create Ingestion Key" para criar um token.
 
@@ -35,32 +35,32 @@ Depois de criar um token, clique em "View" para visualizá-lo.
 
 ### Passo 2 - Configurar Seu Profiler
 
-O OneUptime aceita dados de criação de perfil via gRPC e HTTP usando o protocolo OTLP profiles.
+O Cast Operations aceita dados de criação de perfil via gRPC e HTTP usando o protocolo OTLP profiles.
 
 | Protocolo | Endpoint                                           |
 | --------- | -------------------------------------------------- |
-| gRPC      | `seu-host-oneuptime:4317` (porta gRPC padrão OTLP) |
-| HTTP      | `https://seu-host-oneuptime/otlp/v1/profiles`      |
+| gRPC      | `seu-host-operations:4317` (porta gRPC padrão OTLP) |
+| HTTP      | `https://seu-host-operations/otlp/v1/profiles`      |
 
 **Variáveis de Ambiente**
 
-Defina as seguintes variáveis de ambiente para apontar seu profiler para o OneUptime:
+Defina as seguintes variáveis de ambiente para apontar seu profiler para o Cast Operations:
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
-**OneUptime Auto-Hospedado**
+**Cast Operations Auto-Hospedado**
 
-Se você estiver auto-hospedando o OneUptime, substitua o endpoint pelo seu próprio host (ex.: `http(s)://SEU-HOST-ONEUPTIME/otlp`). Para gRPC, conecte-se diretamente à porta 4317 no seu host do OneUptime.
+Se você estiver auto-hospedando o Cast Operations, substitua o endpoint pelo seu próprio host (ex.: `http(s)://SEU-HOST-ONEUPTIME/otlp`). Para gRPC, conecte-se diretamente à porta 4317 no seu host do Cast Operations.
 
 ## Guia de Instrumentação
 
 ### Usando o Grafana Alloy (criação de perfil baseada em eBPF)
 
-O Grafana Alloy (anteriormente Grafana Agent) pode coletar perfis de CPU de todos os processos em um host Linux usando eBPF, sem mudanças de código necessárias. Configure-o para exportar via OTLP para o OneUptime.
+O Grafana Alloy (anteriormente Grafana Agent) pode coletar perfis de CPU de todos os processos em um host Linux usando eBPF, sem mudanças de código necessárias. Configure-o para exportar via OTLP para o Cast Operations.
 
 Exemplo de configuração do Alloy:
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "oneuptime" {
   endpoint {
-    url = "https://oneuptime.com/pyroscope"
+    url = "https://visca.ai/pyroscope"
     headers = {
       "x-oneuptime-token" = "YOUR_ONEUPTIME_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ Para aplicativos Java, use o [async-profiler](https://github.com/async-profiler/
 ```bash
 # Start your Java application with the OpenTelemetry Java agent
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://oneuptime.com/otlp \
+  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
   -Dotel.exporter.otlp.headers=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -95,7 +95,7 @@ java -javaagent:opentelemetry-javaagent.jar \
 
 ### Usando Go pprof com Exportação OTLP
 
-Para aplicativos Go, você pode usar o pacote padrão `net/http/pprof` junto com um exportador OTLP. Configure a criação de perfil contínua coletando periodicamente dados pprof e encaminhando-os para o OneUptime.
+Para aplicativos Go, você pode usar o pacote padrão `net/http/pprof` junto com um exportador OTLP. Configure a criação de perfil contínua coletando periodicamente dados pprof e encaminhando-os para o Cast Operations.
 
 ```go
 import (
@@ -110,7 +110,7 @@ func collectProfile() {
     pprof.StartCPUProfile(&buf)
     time.Sleep(30 * time.Second)
     pprof.StopCPUProfile()
-    // Convert pprof output to OTLP format and send to OneUptime
+    // Convert pprof output to OTLP format and send to Cast Operations
 }
 ```
 
@@ -125,11 +125,11 @@ Para aplicativos Python, o [py-spy](https://github.com/benfred/py-spy) pode capt
 py-spy record --format speedscope --pid $PID -o profile.json
 ```
 
-Para criação de perfil contínua, execute o py-spy junto com seu aplicativo e configure o Coletor OpenTelemetry para ingerir e encaminhar os perfis para o OneUptime.
+Para criação de perfil contínua, execute o py-spy junto com seu aplicativo e configure o Coletor OpenTelemetry para ingerir e encaminhar os perfis para o Cast Operations.
 
 ## Usando o Coletor OpenTelemetry
 
-Você pode usar o Coletor OpenTelemetry como proxy para receber perfis dos seus aplicativos e encaminhá-los para o OneUptime.
+Você pode usar o Coletor OpenTelemetry como proxy para receber perfis dos seus aplicativos e encaminhá-los para o Cast Operations.
 
 ```yaml
 receivers:
@@ -142,7 +142,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -159,7 +159,7 @@ service:
 
 ### Visualização de Flamegraph
 
-O OneUptime renderiza dados de perfil como flamegraphs interativos. Cada barra representa uma função na pilha de chamadas, e sua largura é proporcional ao tempo ou recursos consumidos. Você pode clicar em qualquer função para aproximar e ver seus chamadores e chamados.
+O Cast Operations renderiza dados de perfil como flamegraphs interativos. Cada barra representa uma função na pilha de chamadas, e sua largura é proporcional ao tempo ou recursos consumidos. Você pode clicar em qualquer função para aproximar e ver seus chamadores e chamados.
 
 ### Lista de Funções
 
@@ -167,7 +167,7 @@ Visualize uma tabela classificável de todas as funções capturadas em um perfi
 
 ### Correlação de Rastreamentos
 
-Os perfis no OneUptime podem ser correlacionados com rastreamentos distribuídos. Quando um perfil inclui IDs de rastreamento e span (via tabela de links OTLP), você pode navegar diretamente de um span de rastreamento lento para o perfil de CPU ou memória correspondente para entender exatamente qual código estava sendo executado.
+Os perfis no Cast Operations podem ser correlacionados com rastreamentos distribuídos. Quando um perfil inclui IDs de rastreamento e span (via tabela de links OTLP), você pode navegar diretamente de um span de rastreamento lento para o perfil de CPU ou memória correspondente para entender exatamente qual código estava sendo executado.
 
 ### Filtragem por Tipo de Perfil
 
@@ -175,10 +175,10 @@ Filtre perfis por tipo (cpu, wall, alloc_objects, alloc_space, goroutine, conten
 
 ## Retenção de Dados
 
-A retenção de dados de perfil é configurada por serviço de telemetria nas configurações do seu projeto do OneUptime. O período de retenção padrão é de 15 dias. Os dados são automaticamente excluídos após o período de retenção expirar.
+A retenção de dados de perfil é configurada por serviço de telemetria nas configurações do seu projeto do Cast Operations. O período de retenção padrão é de 15 dias. Os dados são automaticamente excluídos após o período de retenção expirar.
 
 Para alterar o período de retenção de um serviço, navegue para **Telemetry > Services > [Seu Serviço] > Settings** e atualize o valor de retenção de dados.
 
 ## Precisa de Ajuda?
 
-Entre em contato com support@oneuptime.com se precisar de ajuda para configurar a criação de perfil com o OneUptime.
+Entre em contato com support@visca.ai se precisar de ajuda para configurar a criação de perfil com o Cast Operations.

@@ -55,7 +55,7 @@ const DocsNav: NavGroup[] = [
       },
       {
         title: "Kubernetes and Helm",
-        url: "https://artifacthub.io/packages/helm/oneuptime/oneuptime",
+        url: "https://artifacthub.io/packages/helm/autonomy-cloud/operations",
       },
       {
         title: "Sizing & Capacity Planning",
@@ -602,7 +602,7 @@ const DocsNav: NavGroup[] = [
     title: "API Reference",
     links: [
       {
-        title: "OneUptime API Reference",
+        title: "Cast Operations API Reference",
         url: "/docs/api-reference/api-reference",
       },
     ],

@@ -1,6 +1,6 @@
 # Oversikt over dashbord
 
-Dashbord gjør dataene OneUptime allerede samler inn — metrikker, logger, sporinger, hendelser, monitorer, Kubernetes-ressurser, hoster — om til én enkelt side noen kan kaste et blikk på og forstå hva som foregår.
+Dashbord gjør dataene Cast Operations allerede samler inn — metrikker, logger, sporinger, hendelser, monitorer, Kubernetes-ressurser, hoster — om til én enkelt side noen kan kaste et blikk på og forstå hva som foregår.
 
 Plasser et diagram for forespørselslatens ved siden av en liste over åpne hendelser, ved siden av en måler for CPU, ved siden av et avsnitt med kontekst. Lagre det. Del lenken.
 
@@ -66,12 +66,12 @@ Mål: en vakthavende-side for checkout-tjenesten med latens, feilrate, åpne hen
 6. Under det, en **Loggstrøm**-widget som viser logger fra samme tjeneste.
 7. Lagre. Bytt nedtrekkslisten til `payments` — det samme dashbordet viser nå payments-tjenesten.
 
-## Hvordan dashbord passer sammen med resten av OneUptime
+## Hvordan dashbord passer sammen med resten av Cast Operations
 
 - **Monitorer og telemetri** er kildene til data. Hver metrikk, logg og sporing du samler inn kan spørres på en widget.
 - **Hendelser og varsler** dukker opp i widgetene **Hendelsesliste** og **Varselliste**. Dashbord er skrivebeskyttet for disse — opprett og oppdater dem andre steder.
 - **Statussider** er kundevendt kommunikasjon ("er systemet oppe?"). Dashbord er for å se på hvordan systemet oppfører seg i detalj. De to fungerer sammen, de erstatter ikke hverandre.
-- **Arbeidsflyter** er hvordan OneUptime tar handling. Dashbord er hvordan du leser hva som skjer.
+- **Arbeidsflyter** er hvordan Cast Operations tar handling. Dashbord er hvordan du leser hva som skjer.
 
 ## Hvor du leser videre
 

@@ -1,6 +1,6 @@
 # Installationsguide för macOS
 
-Installera OneUptime som en inbyggd skrivbordsapplikation på macOS för sömlös övervakning och incidenthantering.
+Installera Cast Operations som en inbyggd skrivbordsapplikation på macOS för sömlös övervakning och incidenthantering.
 
 ## Installationsmetoder
 
@@ -8,11 +8,11 @@ Installera OneUptime som en inbyggd skrivbordsapplikation på macOS för sömlö
 
 Safari ger utmärkt PWA-integration med inbyggda macOS-funktioner.
 
-1. **Öppna OneUptime i Safari**
+1. **Öppna Cast Operations i Safari**
 
    - Starta Safari-webbläsaren
-   - Navigera till URL:en för din OneUptime-instans
-   - Logga in på ditt OneUptime-konto
+   - Navigera till URL:en för din Cast Operations-instans
+   - Logga in på ditt Cast Operations-konto
    - Vänta tills sidan laddas helt
 
 2. **Installera PWA**
@@ -24,12 +24,12 @@ Safari ger utmärkt PWA-integration med inbyggda macOS-funktioner.
 
 3. **Anpassa installationen**
 
-   - **Appnamn**: Ändra om du vill (standard: OneUptime)
+   - **Appnamn**: Ändra om du vill (standard: Cast Operations)
    - **Dock**: Välj att lägga till i Dock
    - **Launchpad**: Lägg till i Launchpad för enkel åtkomst
 
 4. **Starta appen**
-   - Hitta OneUptime i Dock, Launchpad eller Program-mappen
+   - Hitta Cast Operations i Dock, Launchpad eller Program-mappen
    - Klicka för att starta i dedikerat fönster
    - Appen körs oberoende av Safari
 
@@ -37,17 +37,17 @@ Safari ger utmärkt PWA-integration med inbyggda macOS-funktioner.
 
 Chrome erbjuder robusttt PWA-stöd med utmärkt skrivbordsintegration.
 
-1. **Öppna OneUptime i Chrome**
+1. **Öppna Cast Operations i Chrome**
 
    - Starta Google Chrome
-   - Gå till din OneUptime-instans
+   - Gå till din Cast Operations-instans
    - Se till att du är inloggad
    - Låt sidan laddas helt
 
 2. **Installera via menyn**
 
    - Leta efter **installationsikonen** (⊞) i adressfältet
-   - Klicka på **"Installera OneUptime"**
+   - Klicka på **"Installera Cast Operations"**
    - Eller använd **Chrome-menyn** → **Fler verktyg** → **Skapa genväg**
 
 3. **Installationsalternativ**
@@ -57,7 +57,7 @@ Chrome erbjuder robusttt PWA-stöd med utmärkt skrivbordsintegration.
    - Klicka på **"Installera"** eller **"Skapa"**
 
 4. **Komma åt appen**
-   - Hitta OneUptime i Program-mappen
+   - Hitta Cast Operations i Program-mappen
    - Eller via Spotlight-sökning
    - Fäst i Dock för snabb åtkomst
 
@@ -65,10 +65,10 @@ Chrome erbjuder robusttt PWA-stöd med utmärkt skrivbordsintegration.
 
 Edge ger solitt PWA-stöd med bra macOS-integration.
 
-1. **Öppna OneUptime i Edge**
+1. **Öppna Cast Operations i Edge**
 
    - Starta Microsoft Edge
-   - Navigera till OneUptime-URL:en
+   - Navigera till Cast Operations-URL:en
    - Slutför inloggningsprocessen
 
 2. **Installera app**
@@ -81,7 +81,7 @@ Edge ger solitt PWA-stöd med bra macOS-integration.
 
 ### Dock och Launchpad
 
-1. **Dock-position**: Dra OneUptime till önskad Dock-position
+1. **Dock-position**: Dra Cast Operations till önskad Dock-position
 2. **Dock-storlek**: Ändra storlek på ikonen i Dock-inställningar
 3. **Launchpad-organisation**: Skapa en övervakningsappmapp
 4. **Märkaviseringar**: Visa incidentantal på Dock-ikonen
@@ -90,7 +90,7 @@ Edge ger solitt PWA-stöd med bra macOS-integration.
 
 1. **Aviseringscenter**
 
-   - Systeminställningar → Aviseringar → OneUptime
+   - Systeminställningar → Aviseringar → Cast Operations
    - Konfigurera varningsstilar och leverans
    - Ange prioritetsnivåer för olika incidenttyper
 
@@ -130,7 +130,7 @@ Lösningar:
 
 ```
 Lösningar:
-1. Kontrollera Launchpad för OneUptime-ikonen
+1. Kontrollera Launchpad för Cast Operations-ikonen
 2. Sök med Spotlight (⌘+Space)
 3. Titta i webbläsarens PWA-hanteringsavsnitt
 4. Prova att installera om med en annan webbläsare
@@ -143,11 +143,11 @@ Lösningar:
 
 ```
 Lösningar:
-1. Systeminställningar → Aviseringar → OneUptime
+1. Systeminställningar → Aviseringar → Cast Operations
 2. Aktivera "Tillåt aviseringar"
 3. Ange lämplig varningsstil (banners/varningar)
 4. Kontrollera inställningar för Stör ej
-5. Verifiera OneUptime-aviseringsinställningar
+5. Verifiera Cast Operations-aviseringsinställningar
 6. Bevilja aviserings behörigheter när du uppmanas
 ```
 
@@ -158,18 +158,18 @@ Lösningar:
 1. **Program-mapp-metod**
 
    - Öppna Program-mappen
-   - Hitta OneUptime
+   - Hitta Cast Operations
    - Dra till papperskorgen eller högerklicka → Flytta till papperskorgen
 
 2. **Dock-metod**
 
-   - Högerklicka på OneUptime i Dock
+   - Högerklicka på Cast Operations i Dock
    - Välj "Alternativ" → "Ta bort från Dock"
    - Ta sedan bort från Program-mappen
 
 3. **Webbläsarens PWA-hantering**
-   - **Chrome**: chrome://apps/ → Hitta OneUptime → Ta bort
-   - **Edge**: edge://apps/ → Hitta OneUptime → Avinstallera
+   - **Chrome**: chrome://apps/ → Hitta Cast Operations → Ta bort
+   - **Edge**: edge://apps/ → Hitta Cast Operations → Avinstallera
    - **Safari**: Ingen dedikerad hanteringssida
 
 ### Ren avinstallation
@@ -192,7 +192,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### Automatiska uppdateringar
 
-- OneUptime PWA uppdateras automatiskt när du är online
+- Cast Operations PWA uppdateras automatiskt när du är online
 - Inga App Store-uppdateringar krävs
 - Nya funktioner tillgängliga omedelbart
 - Kritiska uppdateringar tillämpas direkt
@@ -203,7 +203,7 @@ Regelbundet underhåll för optimal prestanda:
 
 **Veckovis:**
 
-- Starta om OneUptime-appen
+- Starta om Cast Operations-appen
 - Rensa webbläsarcache om du upplever problem
 - Kontrollera om det finns macOS-uppdateringar
 
@@ -217,28 +217,28 @@ Regelbundet underhåll för optimal prestanda:
 
 ### Integration med Genvägar-appen
 
-Skapa anpassade genvägar för OneUptime:
+Skapa anpassade genvägar för Cast Operations:
 
 1. Öppna **Genvägar**-appen
 2. Skapa **Ny genväg**
 3. Lägg till åtgärden **"Öppna app"**
-4. Välj **OneUptime**
+4. Välj **Cast Operations**
 5. Lägg till i Siri för röstaktivering
 
 ### Terminal-integration
 
-Hantera OneUptime via Terminal:
+Hantera Cast Operations via Terminal:
 
 ```bash
-# Skapa alias för snabb OneUptime-start
-echo 'alias oneuptime="open -a \"OneUptime\""' >> ~/.zshrc
+# Skapa alias för snabb Cast Operations-start
+echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
 
-# Funktion för att kontrollera om OneUptime körs
+# Funktion för att kontrollera om Cast Operations körs
 oneuptime_status() {
-    if pgrep -f "OneUptime" > /dev/null; then
-        echo "OneUptime is running"
+    if pgrep -f "Cast Operations" > /dev/null; then
+        echo "Cast Operations is running"
     else
-        echo "OneUptime is not running"
+        echo "Cast Operations is not running"
     fi
 }
 ```

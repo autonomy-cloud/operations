@@ -1,6 +1,6 @@
 # Domænemonitor
 
-Domæneovervågning giver dig mulighed for at overvåge registreringsstatus og udløb af dine domænenavne. OneUptime udfører periodisk WHOIS-opslag for at spore dit domænes sundhed og advare dig inden det udløber.
+Domæneovervågning giver dig mulighed for at overvåge registreringsstatus og udløb af dine domænenavne. Cast Operations udfører periodisk WHOIS-opslag for at spore dit domænes sundhed og advare dig inden det udløber.
 
 ## Oversigt
 
@@ -14,7 +14,7 @@ Domænemonitoer forespørger WHOIS-data for dine domæner for at spore registrer
 
 ## Oprettelse af en Domænemonitor
 
-1. Gå til **Monitorer** i OneUptime-dashboardet
+1. Gå til **Monitorer** i Cast Operations-dashboardet
 2. Klik på **Opret monitor**
 3. Vælg **Domæne** som monitortype
 4. Indtast det domænenavn, du vil overvåge

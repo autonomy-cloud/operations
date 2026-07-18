@@ -1,7 +1,7 @@
 # Scaling ClickHouse: Adding Replicas (Operator)
 
 A runbook for **increasing the replica count** on an operator-managed (Altinity)
-ClickHouse in OneUptime — the high-availability knob that keeps N copies of each
+ClickHouse in Cast Operations — the high-availability knob that keeps N copies of each
 shard's data.
 
 > **Applies to the operator path only.** Replication requires the
@@ -34,7 +34,7 @@ command in the release's namespace (add `-n <namespace>` if it isn't `default`).
 `shardsCount: 3` and `replicasCount: 2` you get **6** ClickHouse pods (3 shards ×
 2 replicas), and each shard's full dataset is stored **twice**.
 
-OneUptime always runs the analytics schema as a **sharded + replicated cluster**:
+Cast Operations always runs the analytics schema as a **sharded + replicated cluster**:
 each model's app-facing table is a `Distributed` table over a local
 `ReplicatedMergeTree` table (`<T>Local`). The operator sets `internal_replication:
 true` on the cluster, so the `Distributed` table writes each row to **one** replica
@@ -128,7 +128,7 @@ replicas keep serving reads and writes throughout.
 
 There is nothing to backfill. As each new replica pod comes up:
 
-- the operator (schema policy `replica: All`) plus OneUptime's `ON CLUSTER`
+- the operator (schema policy `replica: All`) plus Cast Operations’ `ON CLUSTER`
   schema-sync ensure the `<T>Local` tables exist on it; and
 - because those tables are `ReplicatedMergeTree`, the new replica registers its
   path in Keeper and **automatically fetches every existing part** from the
@@ -210,5 +210,5 @@ helm upgrade <release> ./HelmChart/Public/oneuptime -f values.yaml
 - [Migrate ClickHouse Standalone → Operator](./MigrateClickhouseStandaloneToOperator.md)
   — get onto the operator path first if you're still on the standalone
   `StatefulSet`.
-- OneUptime Helm chart [values reference](../Public/oneuptime/README.md) —
+- Cast Operations Helm chart [values reference](../Public/oneuptime/README.md) —
   `clickhouseOperator` configuration.

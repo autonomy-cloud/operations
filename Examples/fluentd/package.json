@@ -4,13 +4,13 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OneUptime/oneuptime"
+    "url": "https://github.com/autonomy-cloud/operations"
   },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "OneUptime <hello@oneuptime.com> (https://oneuptime.com/)",
+  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
   "license": "Apache-2.0",
   "dependencies": {
     "@fluent-org/logger": "^1.0.10",

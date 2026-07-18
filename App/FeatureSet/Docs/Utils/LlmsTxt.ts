@@ -59,7 +59,7 @@ async function readEnglishMarkdown(pagePath: string): Promise<string | null> {
   return null;
 }
 
-// Base URL of this instance (e.g. https://oneuptime.com), no trailing slash.
+// Base URL of this instance (e.g. https://visca.ai), no trailing slash.
 async function getBaseUrl(): Promise<string> {
   const baseUrl: URL = await DatabaseConfig.getHomeUrl();
   return baseUrl.toString().replace(/\/$/, "");
@@ -81,10 +81,10 @@ export default class LlmsTxtUtil {
 
     const lines: Array<string> = [];
 
-    lines.push("# OneUptime Documentation");
+    lines.push("# Cast Operations Documentation");
     lines.push("");
     lines.push(
-      "> OneUptime is an open-source observability platform: uptime monitoring, status pages, incident management, on-call, logs, metrics, traces, and dashboards.",
+      "> Cast Operations is an open-source observability platform: uptime monitoring, status pages, incident management, on-call, logs, metrics, traces, and dashboards.",
     );
     lines.push("");
     lines.push(
@@ -141,10 +141,10 @@ export default class LlmsTxtUtil {
 
     const parts: Array<string> = [];
 
-    parts.push("# OneUptime Documentation");
+    parts.push("# Cast Operations Documentation");
     parts.push("");
     parts.push(
-      "> Complete OneUptime documentation as a single file. A per-page index is available at " +
+      "> Complete Cast Operations documentation as a single file. A per-page index is available at " +
         `${baseUrl}/docs/llms.txt`,
     );
     parts.push("");

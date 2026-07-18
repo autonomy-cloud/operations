@@ -1,19 +1,19 @@
 # SendGrid Inbound Email-Integration
 
-Der **Eingehende E-Mail-Monitor** von OneUptime ermöglicht das Erstellen und Auflösen von Benachrichtigungen basierend auf E-Mails, die an eindeutige monitor-spezifische E-Mail-Adressen gesendet werden. Diese Anleitung erklärt, wie Sie SendGrid Inbound Parse einrichten, um eingehende E-Mails an Ihre selbst gehostete OneUptime-Instanz weiterzuleiten.
+Der **Eingehende E-Mail-Monitor** von Cast Operations ermöglicht das Erstellen und Auflösen von Benachrichtigungen basierend auf E-Mails, die an eindeutige monitor-spezifische E-Mail-Adressen gesendet werden. Diese Anleitung erklärt, wie Sie SendGrid Inbound Parse einrichten, um eingehende E-Mails an Ihre selbst gehostete Cast Operations-Instanz weiterzuleiten.
 
 ## Voraussetzungen
 
 - Ein SendGrid-Konto (kostenloser Tarif funktioniert)
 - Eine Domain, die Sie kontrollieren, mit Zugriff auf DNS-Einstellungen
-- Ihre OneUptime-Instanz muss öffentlich erreichbar sein (damit SendGrid Webhooks senden kann)
+- Ihre Cast Operations-Instanz muss öffentlich erreichbar sein (damit SendGrid Webhooks senden kann)
 
 ## Funktionsweise
 
-1. Sie erstellen einen **Eingehenden E-Mail-Monitor** in OneUptime
-2. OneUptime generiert eine eindeutige E-Mail-Adresse für diesen Monitor (z. B. `monitor-abc123@inbound.yourdomain.com`)
-3. Wenn eine E-Mail an diese Adresse gesendet wird, empfängt SendGrid sie und leitet sie über Webhook an OneUptime weiter
-4. OneUptime wertet die E-Mail anhand Ihrer konfigurierten Kriterien aus, um Benachrichtigungen zu erstellen oder aufzulösen
+1. Sie erstellen einen **Eingehenden E-Mail-Monitor** in Cast Operations
+2. Cast Operations generiert eine eindeutige E-Mail-Adresse für diesen Monitor (z. B. `monitor-abc123@inbound.yourdomain.com`)
+3. Wenn eine E-Mail an diese Adresse gesendet wird, empfängt SendGrid sie und leitet sie über Webhook an Cast Operations weiter
+4. Cast Operations wertet die E-Mail anhand Ihrer konfigurierten Kriterien aus, um Benachrichtigungen zu erstellen oder aufzulösen
 
 ## Einrichtungsanweisungen
 
@@ -45,11 +45,11 @@ Fügen Sie einen MX-Eintrag zu Ihrer DNS-Konfiguration hinzu, um E-Mails für Ih
 | Feld               | Wert                                                                    |
 | ------------------ | ----------------------------------------------------------------------- |
 | **Empfangsdomain** | Ihre eingehende Subdomain (z. B. `inbound.yourdomain.com`)              |
-| **Ziel-URL**       | `https://your-oneuptime-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **Ziel-URL**       | `https://your-operations-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
 
 5. Klicken Sie auf **Hinzufügen**
 
-### Schritt 4: OneUptime-Umgebungsvariablen konfigurieren
+### Schritt 4: Cast Operations-Umgebungsvariablen konfigurieren
 
 #### Docker Compose
 
@@ -71,11 +71,11 @@ inboundEmail:
   # webhookSecret: "your-optional-secret"  # Optional
 ```
 
-**Wichtig:** Starten Sie Ihren OneUptime-Server nach dem Hinzufügen dieser Umgebungsvariablen neu.
+**Wichtig:** Starten Sie Ihren Cast Operations-Server nach dem Hinzufügen dieser Umgebungsvariablen neu.
 
 ### Schritt 5: Eingehenden E-Mail-Monitor erstellen
 
-1. Melden Sie sich bei Ihrem OneUptime-Dashboard an
+1. Melden Sie sich bei Ihrem Cast Operations-Dashboard an
 2. Navigieren Sie zu **Monitore** > **Monitor erstellen**
 3. Wählen Sie **Eingehende E-Mail** als Monitortyp
 4. Konfigurieren Sie Ihren Monitor und Ihre Kriterien
@@ -113,5 +113,5 @@ Nach der Erstellung sehen Sie die eindeutige E-Mail-Adresse für diesen Monitor.
 Bei Problemen mit der SendGrid Inbound Email-Integration:
 
 1. Prüfen Sie den Abschnitt zur Fehlerbehebung oben
-2. Überprüfen Sie die OneUptime-Logs auf detaillierte Fehlermeldungen
-3. Kontaktieren Sie uns unter [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Überprüfen Sie die Cast Operations-Logs auf detaillierte Fehlermeldungen
+3. Kontaktieren Sie uns unter [hello@visca.ai](mailto:hello@visca.ai)

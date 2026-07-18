@@ -68,9 +68,9 @@
 
 ## バックアップ
 
-OneUptime をセルフホストしている場合は、通常のデータベースバックアップで十分です — ダッシュボードの設定はプロジェクトの他のデータと一緒に保存されます。
+Cast Operations をセルフホストしている場合は、通常のデータベースバックアップで十分です — ダッシュボードの設定はプロジェクトの他のデータと一緒に保存されます。
 
-OneUptime Cloud では、バックアップは自動で行われます。自分のコピーが欲しい場合は、[OneUptime API](/docs/api-reference/api-reference) からダッシュボードを読み取れます。
+Cast Operations Cloud では、バックアップは自動で行われます。自分のコピーが欲しい場合は、[Cast Operations API](/docs/api-reference/api-reference) からダッシュボードを読み取れます。
 
 ## 次に読むべきページ
 

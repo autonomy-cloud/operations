@@ -2,18 +2,18 @@
 
 ## Обзор
 
-OneUptime автоматически распознаёт **бессерверную функцию** в тот момент, когда получает данные OpenTelemetry, помеченные ресурсным атрибутом `faas.name`. Создавать ничего вручную не нужно — инструментируйте свою функцию с помощью OpenTelemetry SDK для вашей среды выполнения, направьте её экспортёр OTLP на OneUptime, и функция появится в разделе **Serverless Functions** вместе со своими трассировками, логами и метриками.
+Cast Operations автоматически распознаёт **бессерверную функцию** в тот момент, когда получает данные OpenTelemetry, помеченные ресурсным атрибутом `faas.name`. Создавать ничего вручную не нужно — инструментируйте свою функцию с помощью OpenTelemetry SDK для вашей среды выполнения, направьте её экспортёр OTLP на Cast Operations, и функция появится в разделе **Serverless Functions** вместе со своими трассировками, логами и метриками.
 
 Это работает для AWS Lambda, Google Cloud Functions, Azure Functions, Cloudflare Workers или любой среды выполнения FaaS, способной отправлять OpenTelemetry.
 
 ## Предварительные требования
 
-- **Токен приёма телеметрии OneUptime** — создайте его в разделе _Project Settings → Telemetry Ingestion Keys_ и скопируйте значение `x-oneuptime-token`.
+- **Токен приёма телеметрии Cast Operations** — создайте его в разделе _Project Settings → Telemetry Ingestion Keys_ и скопируйте значение `x-oneuptime-token`.
 - OpenTelemetry SDK (или слой автоматической инструментации) для языка вашей функции.
 
-## Как OneUptime идентифицирует функцию
+## Как Cast Operations идентифицирует функцию
 
-OneUptime определяет каждую функцию по ресурсному атрибуту `faas.name`:
+Cast Operations определяет каждую функцию по ресурсному атрибуту `faas.name`:
 
 | Атрибут                                                | Обязательный | Назначение                                                  |
 | ------------------------------------------------------ | ------------ | ----------------------------------------------------------- |
@@ -30,12 +30,12 @@ OneUptime определяет каждую функцию по ресурсно
 Большинство автоматических инструментаций для разных языков учитывают стандартные переменные окружения OpenTelemetry:
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://oneuptime.com/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
-Если вы используете самостоятельно размещённый OneUptime, замените конечную точку на `https://YOUR-ONEUPTIME-HOST/otlp`.
+Если вы используете самостоятельно размещённый Cast Operations, замените конечную точку на `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Шаг 2 — (AWS Lambda) добавьте слой OpenTelemetry
 
@@ -43,7 +43,7 @@ OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
-OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 

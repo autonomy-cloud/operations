@@ -26,7 +26,7 @@
 
 ### JavaScript
 
-샌드박스화된 `isolated-vm` 안에서 실행되는 JavaScript 스니펫. 샌드박스는 OneUptime 워커가 아니라 자체 인프라 내 [Runbook 에이전트](/docs/runbooks/agents) 위에 있습니다.
+샌드박스화된 `isolated-vm` 안에서 실행되는 JavaScript 스니펫. 샌드박스는 Cast Operations 워커가 아니라 자체 인프라 내 [Runbook 에이전트](/docs/runbooks/agents) 위에 있습니다.
 
 JavaScript 단계에서 두 가지를 설정합니다:
 
@@ -45,11 +45,11 @@ return { durationMs: Date.now() - start };
 
 아웃바운드 HTTP 호출을 합니다. 메서드(GET/POST/PUT/PATCH/DELETE/HEAD), URL, 선택적 JSON 헤더, 선택적 본문을 설정합니다. 응답 상태, 헤더, 본문이 캡처됩니다(총 50KB 상한).
 
-쓸 만한 곳: PagerDuty 인시던트 트리거, Slack 게시, 자체 관리 API 호출 등. HTTP 단계는 OneUptime 워커에서 직접 실행됩니다. 에이전트는 필요 없습니다.
+쓸 만한 곳: PagerDuty 인시던트 트리거, Slack 게시, 자체 관리 API 호출 등. HTTP 단계는 Cast Operations 워커에서 직접 실행됩니다. 에이전트는 필요 없습니다.
 
 ### Bash
 
-bash 스크립트(`bash -c <script>`)가 자체 인프라의 [Runbook 에이전트](/docs/runbooks/agents) 위에서 실행됩니다. Bash가 OneUptime 워커에서 실행되는 일은 절대 없습니다.
+bash 스크립트(`bash -c <script>`)가 자체 인프라의 [Runbook 에이전트](/docs/runbooks/agents) 위에서 실행됩니다. Bash가 Cast Operations 워커에서 실행되는 일은 절대 없습니다.
 
 Bash 단계에서 두 가지를 설정합니다:
 
@@ -60,7 +60,7 @@ Runbook이 이 단계에 닿을 때 선택된 에이전트가 오프라인이면
 
 ### AI
 
-실행 도중 AI에게 분석, 요약 또는 판단을 맡깁니다. 프롬프트는 프로젝트의 LLM 공급자(**설정 → AI → LLM Providers**)로 전송되고, 모델의 응답이 실행 타임라인에서 단계 출력이 됩니다. AI 단계는 OneUptime 워커에서 실행됩니다. 에이전트는 필요 없습니다.
+실행 도중 AI에게 분석, 요약 또는 판단을 맡깁니다. 프롬프트는 프로젝트의 LLM 공급자(**설정 → AI → LLM Providers**)로 전송되고, 모델의 응답이 실행 타임라인에서 단계 출력이 됩니다. AI 단계는 Cast Operations 워커에서 실행됩니다. 에이전트는 필요 없습니다.
 
 AI 단계에서 설정할 것:
 

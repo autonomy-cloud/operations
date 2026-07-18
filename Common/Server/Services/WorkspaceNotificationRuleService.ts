@@ -243,7 +243,7 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
 
           if (!channelExists) {
             throw new BadDataException(
-              `Channel ${channel.name} does not exist. If this channel is private, you need to invite OneUptime bot to the channel and try again.`,
+              `Channel ${channel.name} does not exist. If this channel is private, you need to invite Cast Operations bot to the channel and try again.`,
             );
           }
         } catch (err) {
@@ -1224,7 +1224,7 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
                     text: `${await UserService.getUserMarkdownString({
                       userId: userId,
                       projectId: data.projectId,
-                    })} cannot be invited to the channel because the account is not connected to ${data.workspaceType}. Please go to User Settings > ${data.workspaceType} on OneUptime Dashboard and connect the account.`,
+                    })} cannot be invited to the channel because the account is not connected to ${data.workspaceType}. Please go to User Settings > ${data.workspaceType} on Cast Operations Dashboard and connect the account.`,
                   } as WorkspacePayloadMarkdown,
                 ],
               } as WorkspaceMessagePayload,
@@ -1433,7 +1433,7 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
                     text: `${await UserService.getUserMarkdownString({
                       userId: userId,
                       projectId: data.projectId,
-                    })} cannot be invited to the channel because the account is not connected to ${workspaceType}. Please go to User Settings > ${workspaceType} on OneUptime Dashboard and connect the account.`,
+                    })} cannot be invited to the channel because the account is not connected to ${workspaceType}. Please go to User Settings > ${workspaceType} on Cast Operations Dashboard and connect the account.`,
                   } as WorkspacePayloadMarkdown,
                 ],
               } as WorkspaceMessagePayload,

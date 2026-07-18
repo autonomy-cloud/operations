@@ -68,9 +68,9 @@ Hvis dashbordet er offentlig på et egendefinert domene, slutter URL-en å løse
 
 ## Sikkerhetskopi
 
-Hvis du kjører OneUptime selvvertet, er en regelmessig databasekopi nok — dashbordets konfigurasjon lagres sammen med resten av prosjektet ditt.
+Hvis du kjører Cast Operations selvvertet, er en regelmessig databasekopi nok — dashbordets konfigurasjon lagres sammen med resten av prosjektet ditt.
 
-På OneUptime Cloud håndteres sikkerhetskopier for deg. Hvis du vil ha din egen kopi, kan du lese dashbordet via [OneUptime API](/docs/api-reference/api-reference).
+På Cast Operations Cloud håndteres sikkerhetskopier for deg. Hvis du vil ha din egen kopi, kan du lese dashbordet via [Cast Operations API](/docs/api-reference/api-reference).
 
 ## Hvor du leser videre
 

@@ -3,7 +3,7 @@ import Route from "Common/Types/API/Route";
 import IconProp from "Common/Types/Icon/IconProp";
 import Icon, { SizeProp } from "Common/UI/Components/Icon/Icon";
 import Image from "Common/UI/Components/Image/Image";
-import OneUptimeLogo from "Common/UI/Images/logos/OneUptimeSVG/3-transparent.svg";
+import CastOperationsLogo from "Common/UI/Images/logos/CastOperationsSVG/logo.svg";
 import React, { Fragment, FunctionComponent, ReactElement } from "react";
 
 interface Feature {
@@ -92,11 +92,11 @@ const features: Array<Feature> = [
 ];
 
 const IOS_URL: string =
-  "https://apps.apple.com/us/app/oneuptime-on-call/id6759615391";
+  "https://github.com/autonomy-cloud/operations/releases";
 const ANDROID_URL: string =
-  "https://play.google.com/store/apps/details?id=com.oneuptime.oncall";
+  "https://github.com/autonomy-cloud/operations/releases";
 const APK_URL: string =
-  "https://github.com/OneUptime/oneuptime/releases/latest/download/oneuptime-on-call-android-app.apk";
+  "https://github.com/autonomy-cloud/operations/releases/latest/download/cast-operations-on-call-android-app.apk";
 
 const openLink: (url: string) => void = (url: string): void => {
   window.open(url, "_blank", "noopener,noreferrer");
@@ -177,8 +177,8 @@ const MobileApps: FunctionComponent<PageComponentProps> = (): ReactElement => {
           <div className="min-w-0">
             <div className="flex items-center gap-3">
               <Image
-                imageUrl={Route.fromString(`${OneUptimeLogo}`)}
-                alt="OneUptime"
+                imageUrl={Route.fromString(`${CastOperationsLogo}`)}
+                alt="Cast Operations"
                 className="h-6 w-auto"
               />
               <span className="h-5 w-px bg-gray-200" />
@@ -191,7 +191,7 @@ const MobileApps: FunctionComponent<PageComponentProps> = (): ReactElement => {
             </h1>
             <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-gray-500">
               Get paged on critical incidents, manage your rotation, and respond
-              — all from your phone. Install the OneUptime On-Call app on your
+              — all from your phone. Install the Cast Operations On-Call app on your
               device.
             </p>
           </div>

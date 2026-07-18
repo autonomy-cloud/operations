@@ -4,15 +4,15 @@
 
 ## 工作原理
 
-1. 当您创建传入邮件监控器时，OneUptime 会为该监控器生成唯一的邮件地址
+1. 当您创建传入邮件监控器时，Cast Operations 会为该监控器生成唯一的邮件地址
 2. 发送到该地址的任何邮件都会被接收，并根据您配置的标准进行评估
-3. 根据标准，OneUptime 可以创建新告警或解决现有告警
+3. 根据标准，Cast Operations 可以创建新告警或解决现有告警
 
-这是将基于邮件的告警系统与 OneUptime 事件管理工作流集成的强大方式。
+这是将基于邮件的告警系统与 Cast Operations 事件管理工作流集成的强大方式。
 
 ## 创建传入邮件监控器
 
-1. 在 OneUptime 控制台中导航至 **监控器**
+1. 在 Cast Operations 控制台中导航至 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **传入邮件** 作为监控器类型
 4. 配置监控器设置：
@@ -118,7 +118,7 @@ monitor-{secret-key}@{inbound-domain}
 
 许多旧系统只支持基于邮件的告警。使用传入邮件监控器可以：
 
-- 将邮件告警转换为 OneUptime 事件
+- 将邮件告警转换为 Cast Operations 事件
 - 当收到恢复邮件时自动解决事件
 - 集中管理来自多个旧系统的告警
 
@@ -144,7 +144,7 @@ monitor-{secret-key}@{inbound-domain}
 整合来自多个监控工具的告警：
 
 - 通过邮件接收来自 Nagios、Zabbix 或其他工具的告警
-- 在 OneUptime 中统一事件管理
+- 在 Cast Operations 中统一事件管理
 - 为所有告警维护单一的事实来源
 
 ## 模板变量
@@ -171,7 +171,7 @@ monitor-{secret-key}@{inbound-domain}
 
 ## 自托管设置
 
-如果您是自托管 OneUptime，需要配置入站邮件提供商。目前支持：
+如果您是自托管 Cast Operations，需要配置入站邮件提供商。目前支持：
 
 - **SendGrid Inbound Parse** — 设置说明请参见 [SendGrid 入站邮件集成](/docs/self-hosted/sendgrid-inbound-email)
 
@@ -190,7 +190,7 @@ monitor-{secret-key}@{inbound-domain}
 1. 验证邮件地址是否正确（检查是否有拼写错误）
 2. 检查邮件是否被垃圾邮件过滤器拦截
 3. 验证您的入站邮件提供商是否正确配置
-4. 检查 OneUptime 日志中的任何错误消息
+4. 检查 Cast Operations 日志中的任何错误消息
 
 ### 未创建告警
 

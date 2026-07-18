@@ -1,6 +1,6 @@
 # Esecuzioni e log
 
-Ogni volta che un workflow viene eseguito, OneUptime salva un record di cio che e accaduto — quando e stato eseguito, se ha funzionato e cosa ha fatto ciascun blocco. Quel record si chiama **esecuzione**. Le esecuzioni sono il modo in cui confermi che un workflow ha funzionato, fai debug di uno che non ha funzionato e ripercorri l'attivita passata.
+Ogni volta che un workflow viene eseguito, Cast Operations salva un record di cio che e accaduto — quando e stato eseguito, se ha funzionato e cosa ha fatto ciascun blocco. Quel record si chiama **esecuzione**. Le esecuzioni sono il modo in cui confermi che un workflow ha funzionato, fai debug di uno che non ha funzionato e ripercorri l'attivita passata.
 
 ## Dove trovarle
 
@@ -35,7 +35,7 @@ I valori mostrati sono esattamente quelli che il blocco ha visto — dopo che tu
 ### "Il mio workflow non e stato eseguito."
 
 1. Assicurati che il workflow sia **abilitato** in Settings. I nuovi workflow partono disabilitati.
-2. Per un trigger su evento di OneUptime: conferma che l'evento sia effettivamente accaduto. Apri il record e controllane la cronologia.
+2. Per un trigger su evento di Cast Operations: conferma che l'evento sia effettivamente accaduto. Apri il record e controllane la cronologia.
 3. Per un trigger webhook: conferma che l'altro sistema stia inviando all'URL corretto. La maggior parte degli strumenti registra quando invia un webhook — controlla li.
 4. Per un trigger pianificato: verifica che l'espressione cron corrisponda all'orario previsto.
 

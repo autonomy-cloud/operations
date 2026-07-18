@@ -1,6 +1,6 @@
 # Domain-Monitor
 
-Der Domain-Monitor ermöglicht die Überwachung des Registrierungsstatus und des Ablaufs Ihrer Domainnamen. OneUptime führt regelmäßig WHOIS-Abfragen durch, um die Gesundheit Ihrer Domain zu verfolgen und Sie vor dem Ablauf zu benachrichtigen.
+Der Domain-Monitor ermöglicht die Überwachung des Registrierungsstatus und des Ablaufs Ihrer Domainnamen. Cast Operations führt regelmäßig WHOIS-Abfragen durch, um die Gesundheit Ihrer Domain zu verfolgen und Sie vor dem Ablauf zu benachrichtigen.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ Domain-Monitore fragen WHOIS-Daten für Ihre Domains ab, um Registrierungsdetail
 
 ## Einen Domain-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Domain** als Monitortyp
 4. Geben Sie den zu überwachenden Domainnamen ein

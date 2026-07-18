@@ -48,7 +48,7 @@ export default abstract class InboundEmailProvider {
 
   /**
    * Extract monitor secret key from email address
-   * e.g., monitor-abc123@inbound.oneuptime.com -> abc123
+   * e.g., monitor-abc123@inbound.visca.ai -> abc123
    */
   public abstract extractSecretKeyFromEmail(email: string): string | null;
 

@@ -1,27 +1,27 @@
 # Terraform Provider 快速入門指南
 
-本指南將協助您在短短幾分鐘內開始使用 OneUptime Terraform Provider。
+本指南將協助您在短短幾分鐘內開始使用 Cast Operations Terraform Provider。
 
 ## 先決條件
 
 - 已安裝 Terraform >= 1.0
-- OneUptime 帳號（雲端或自架）
-- OneUptime API 金鑰
+- Cast Operations 帳號（雲端或自架）
+- Cast Operations API 金鑰
 
 ## 步驟 1：建立 API 金鑰
 
-### 適用於 OneUptime 雲端
+### 適用於 Cast Operations 雲端
 
-1. 前往 [OneUptime Cloud](https://oneuptime.com) 並登入
+1. 前往 [Cast Operations Cloud](https://visca.ai) 並登入
 2. 導覽至 **Settings** → **API Keys**
 3. 點選 **Create API Key**
 4. 將其命名為「Terraform Provider」
 5. 選取所需的權限
 6. 複製產生的 API 金鑰
 
-### 適用於自架 OneUptime
+### 適用於自架 Cast Operations
 
-1. 存取您的 OneUptime 執行個體
+1. 存取您的 Cast Operations 執行個體
 2. 導覽至 **Settings** → **API Keys**
 3. 點選 **Create API Key**
 4. 將其命名為「Terraform Provider」
@@ -36,12 +36,12 @@
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       # For Cloud customers
       version = "~> 7.0"
 
       # For Self-Hosted customers - pin to your exact version
-      # version = "= 7.0.123"  # Replace with your OneUptime version
+      # version = "= 7.0.123"  # Replace with your Cast Operations version
     }
   }
   required_version = ">= 1.0"
@@ -49,24 +49,24 @@ terraform {
 
 provider "oneuptime" {
   # For Cloud customers
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
 
   # For Self-Hosted customers - use your instance URL
-  # oneuptime_url = "https://oneuptime.yourcompany.com"
+  # oneuptime_url = "https://operations.yourcompany.com"
 
   api_key = var.oneuptime_api_key
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API Key"
+  description = "Cast Operations API Key"
   type        = string
   sensitive   = true
 }
 
-# Note: Projects must be created manually in the OneUptime dashboard
+# Note: Projects must be created manually in the Cast Operations dashboard
 # Use your existing project ID here
 variable "project_id" {
-  description = "OneUptime project ID"
+  description = "Cast Operations project ID"
   type        = string
 }
 
@@ -94,7 +94,7 @@ output "monitor_id" {
 ```hcl
 # terraform.tfvars
 oneuptime_api_key = "your-api-key-here"
-project_id        = "your-project-id-here"  # Get this from OneUptime dashboard
+project_id        = "your-project-id-here"  # Get this from Cast Operations dashboard
 ```
 
 **重要**：將 `terraform.tfvars` 加入您的 `.gitignore`，以保持 API 金鑰的機密性！
@@ -114,7 +114,7 @@ terraform apply
 
 ## 步驟 5：驗證資源
 
-1. 檢查您的 OneUptime 儀表板
+1. 檢查您的 Cast Operations 儀表板
 2. 前往您現有的專案
 3. 確認「Website Monitor」已建立並正在執行
 
@@ -133,14 +133,14 @@ terraform apply
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Always gets latest compatible 7.x version
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -151,14 +151,14 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Must match your OneUptime version exactly
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Must match your Cast Operations version exactly
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.mycompany.com"  # Your self-hosted URL
+  oneuptime_url = "https://operations.mycompany.com"  # Your self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -181,7 +181,7 @@ Error: Invalid API key
 
 **解決方案**：
 
-1. 在 OneUptime 儀表板中驗證您的 API 金鑰
+1. 在 Cast Operations 儀表板中驗證您的 API 金鑰
 2. 檢查 API 金鑰是否具有足夠的權限
 3. 確認 `oneuptime_url` 對於您的執行個體是正確的
 
@@ -193,7 +193,7 @@ Error: API version incompatible
 
 **解決方案**：
 
-1. 在儀表板中檢查您的 OneUptime 版本
+1. 在儀表板中檢查您的 Cast Operations 版本
 2. 將 provider 版本更新為完全相符
 3. 執行 `terraform init -upgrade`
 

@@ -65,7 +65,7 @@ const DockerHostDocumentation: FunctionComponent<
     <Fragment>
       <DockerDocumentationCard
         title="Docker Agent Installation Guide"
-        description="Follow these steps to install the OneUptime Docker Agent on this host."
+        description="Follow these steps to install the Cast Operations Docker Agent on this host."
       />
     </Fragment>
   );

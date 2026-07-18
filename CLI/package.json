@@ -1,10 +1,10 @@
 {
   "name": "@oneuptime/cli",
   "version": "11.5.9",
-  "description": "OneUptime CLI - Command-line interface for managing OneUptime resources",
+  "description": "Cast Operations CLI - Command-line interface for managing Cast Operations resources",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OneUptime/oneuptime"
+    "url": "https://github.com/autonomy-cloud/operations"
   },
   "main": "./build/dist/Index.js",
   "bin": {
@@ -24,7 +24,7 @@
     "test": "jest --passWithNoTests --runInBand",
     "link": "npm link"
   },
-  "author": "OneUptime <hello@oneuptime.com> (https://oneuptime.com/)",
+  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
   "license": "Apache-2.0",
   "dependencies": {
     "Common": "npm:@oneuptime/common@latest",

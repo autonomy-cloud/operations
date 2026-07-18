@@ -1,21 +1,21 @@
-# Send Continuous Profiling Data to OneUptime
+# Send Continuous Profiling Data to Cast Operations
 
 ## Overview
 
-Continuous profiling is the fourth pillar of observability alongside logs, metrics, and traces. Profiles capture how your application spends CPU time and allocates memory at the function level, and OneUptime renders them as interactive flamegraphs alongside your other telemetry.
+Continuous profiling is the fourth pillar of observability alongside logs, metrics, and traces. Profiles capture how your application spends CPU time and allocates memory at the function level, and Cast Operations renders them as interactive flamegraphs alongside your other telemetry.
 
-OneUptime exposes a **Pyroscope-compatible ingest API**. Anything that can push to a Pyroscope server — the Grafana Alloy eBPF profiler or a Pyroscope language SDK — can push to OneUptime.
+Cast Operations exposes a **Pyroscope-compatible ingest API**. Anything that can push to a Pyroscope server — the Grafana Alloy eBPF profiler or a Pyroscope language SDK — can push to Cast Operations.
 
 ## Ingest Endpoint
 
 | Setting                             | Value                                               |
 | ----------------------------------- | --------------------------------------------------- |
-| Base URL (Pyroscope server address) | `https://oneuptime.com/pyroscope`                   |
+| Base URL (Pyroscope server address) | `https://visca.ai/pyroscope`                   |
 | Authentication header               | `x-oneuptime-token: YOUR_ONEUPTIME_INGESTION_TOKEN` |
 
-Pyroscope SDKs append `/ingest` to the base URL and Grafana Alloy appends `/push.v1.PusherService/Push` — you always configure just the base URL. SDKs that take an `authToken` / `auth_token` option send it as `Authorization: Bearer <token>`, which OneUptime accepts as an alias for the `x-oneuptime-token` header.
+Pyroscope SDKs append `/ingest` to the base URL and Grafana Alloy appends `/push.v1.PusherService/Push` — you always configure just the base URL. SDKs that take an `authToken` / `auth_token` option send it as `Authorization: Bearer <token>`, which Cast Operations accepts as an alias for the `x-oneuptime-token` header.
 
-**Self Hosted OneUptime:** replace `https://oneuptime.com` with your own host, e.g. `http(s)://YOUR-ONEUPTIME-HOST/pyroscope`.
+**Self Hosted Cast Operations:** replace `https://visca.ai` with your own host, e.g. `http(s)://YOUR-OPERATIONS-HOST/pyroscope`.
 
 ## Supported Profile Formats
 
@@ -27,7 +27,7 @@ Pyroscope SDKs append `/ingest` to the base URL and Grafana Alloy appends `/push
 
 ## Step 1 - Create a Telemetry Ingestion Token
 
-After you sign up to OneUptime and create a project, click on "More" in the Navigation bar and click on "Project Settings".
+After you sign up to Cast Operations and create a project, click on "More" in the Navigation bar and click on "Project Settings".
 
 On the Telemetry Ingestion Key page, click on "Create Ingestion Key" to create a token.
 
@@ -70,7 +70,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "oneuptime" {
   endpoint {
-    url = "https://oneuptime.com/pyroscope"
+    url = "https://visca.ai/pyroscope"
     headers = {
       "x-oneuptime-token" = "YOUR_ONEUPTIME_INGESTION_TOKEN",
     }
@@ -104,7 +104,7 @@ alloy run alloy-config.alloy
 
 ### Option B: Pyroscope language SDKs (in-process profiling)
 
-Pyroscope SDKs run inside your application and continuously upload profiles. Point the SDK's server address at the OneUptime base URL and pass your ingestion token as the auth token.
+Pyroscope SDKs run inside your application and continuously upload profiles. Point the SDK's server address at the Cast Operations base URL and pass your ingestion token as the auth token.
 
 **Go** (uploads pprof):
 
@@ -113,7 +113,7 @@ import "github.com/grafana/pyroscope-go"
 
 pyroscope.Start(pyroscope.Config{
     ApplicationName: "my-service",
-    ServerAddress:   "https://oneuptime.com/pyroscope",
+    ServerAddress:   "https://visca.ai/pyroscope",
     AuthToken:       "YOUR_ONEUPTIME_INGESTION_TOKEN",
     ProfileTypes: []pyroscope.ProfileType{
         pyroscope.ProfileCPU,
@@ -132,7 +132,7 @@ pyroscope.Start(pyroscope.Config{
 const Pyroscope = require("@pyroscope/nodejs");
 
 Pyroscope.init({
-  serverAddress: "https://oneuptime.com/pyroscope",
+  serverAddress: "https://visca.ai/pyroscope",
   appName: "my-service",
   authToken: "YOUR_ONEUPTIME_INGESTION_TOKEN",
 });
@@ -147,20 +147,20 @@ import pyroscope
 
 pyroscope.configure(
     application_name="my-service",
-    server_address="https://oneuptime.com/pyroscope",
+    server_address="https://visca.ai/pyroscope",
     auth_token="YOUR_ONEUPTIME_INGESTION_TOKEN",
 )
 ```
 
-**.NET** (uploads pprof), **Ruby** and **Rust** (upload folded text) work the same way: install the [Pyroscope SDK for your language](https://grafana.com/docs/pyroscope/latest/configure-client/) and set the server address to `https://oneuptime.com/pyroscope` with your ingestion token as the auth token.
+**.NET** (uploads pprof), **Ruby** and **Rust** (upload folded text) work the same way: install the [Pyroscope SDK for your language](https://grafana.com/docs/pyroscope/latest/configure-client/) and set the server address to `https://visca.ai/pyroscope` with your ingestion token as the auth token.
 
 ### Java
 
-The Pyroscope Java agent uploads profiles in JFR format, which OneUptime does not ingest yet. Profile Java services with the Grafana Alloy eBPF integration (Option A above) instead — it captures JVM CPU profiles with no agent or code changes.
+The Pyroscope Java agent uploads profiles in JFR format, which Cast Operations does not ingest yet. Profile Java services with the Grafana Alloy eBPF integration (Option A above) instead — it captures JVM CPU profiles with no agent or code changes.
 
 ## Supported Profile Types
 
-Each uploaded profile is classified by the first sample type it declares (the standard pprof / Pyroscope convention). Any type is stored and viewable; the types below get first-class grouping, units, and labels in the OneUptime UI:
+Each uploaded profile is classified by the first sample type it declares (the standard pprof / Pyroscope convention). Any type is stored and viewable; the types below get first-class grouping, units, and labels in the Cast Operations UI:
 
 | Profile type                         | Shown as               | Unit        |
 | ------------------------------------ | ---------------------- | ----------- |
@@ -179,12 +179,12 @@ Anything else (for example a custom sample type) appears under "Other" with its 
 
    ```bash
    curl -i -H "x-oneuptime-token: YOUR_ONEUPTIME_INGESTION_TOKEN" \
-     https://oneuptime.com/otlp/v1/validate
+     https://visca.ai/otlp/v1/validate
    ```
 
    A valid token returns `200` with `{"valid": true, ...}`; an unknown or revoked token returns `401`.
 
-2. **Open the Profiles page.** In the OneUptime Dashboard go to **Telemetry > Profiles**. With Alloy's default 15-second collect interval (or the SDKs' ~10-second upload interval), the first profiles and their flamegraphs appear within a minute or two of the agent starting.
+2. **Open the Profiles page.** In the Cast Operations Dashboard go to **Telemetry > Profiles**. With Alloy's default 15-second collect interval (or the SDKs' ~10-second upload interval), the first profiles and their flamegraphs appear within a minute or two of the agent starting.
 
 3. **Check the service.** Profiles are attached to the telemetry service named by the SDK's `application_name` / `appName` (or the process executable name under Alloy's default relabel rule above).
 
@@ -192,7 +192,7 @@ Anything else (for example a custom sample type) appears under "Other" with its 
 
 ### Flamegraph Visualization
 
-OneUptime renders profile data as interactive flamegraphs. Each bar represents a function in the call stack, and its width is proportional to the time or resources consumed. You can click on any function to zoom in and see its callers and callees.
+Cast Operations renders profile data as interactive flamegraphs. Each bar represents a function in the call stack, and its width is proportional to the time or resources consumed. You can click on any function to zoom in and see its callers and callees.
 
 ### Function List
 
@@ -208,10 +208,10 @@ Filter profiles by category (CPU, Memory, Locks, Wall time, Goroutines) to focus
 
 ## Data Retention
 
-Profile data retention is configured per telemetry service in your OneUptime project settings. The default retention period is 15 days. Data is automatically deleted after the retention period expires.
+Profile data retention is configured per telemetry service in your Cast Operations project settings. The default retention period is 15 days. Data is automatically deleted after the retention period expires.
 
 To change the retention period for a service, navigate to **Telemetry > Services > [Your Service] > Settings** and update the data retention value.
 
 ## Need Help?
 
-Please contact support@oneuptime.com if you need any help setting up profiling with OneUptime.
+Please contact support@visca.ai if you need any help setting up profiling with Cast Operations.

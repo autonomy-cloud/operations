@@ -129,7 +129,7 @@ Voor projecten met Docker-monitoring opgezet.
 
 ### Host List
 
-Hosts gemonitord door OneUptime's server-monitor, met status, CPU, geheugen en uptime.
+Hosts gemonitord door Cast Operations’ server-monitor, met status, CPU, geheugen en uptime.
 
 **Settings**: filters op labels of huidige state.
 

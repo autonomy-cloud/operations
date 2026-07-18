@@ -26,7 +26,7 @@ Usalo per cose che solo un umano può verificare: "Confermato che il traffico è
 
 ### JavaScript
 
-Uno snippet di JavaScript eseguito in un sandbox `isolated-vm`. Il sandbox vive su un [Agente Runbook](/docs/runbooks/agents) nella tua infrastruttura — non sul Worker OneUptime.
+Uno snippet di JavaScript eseguito in un sandbox `isolated-vm`. Il sandbox vive su un [Agente Runbook](/docs/runbooks/agents) nella tua infrastruttura — non sul Worker Cast Operations.
 
 Configura due cose in un passo JavaScript:
 
@@ -45,11 +45,11 @@ Il valore restituito viene catturato sull'esecuzione del passo. L'output di `con
 
 Effettua una chiamata HTTP in uscita. Configura metodo (GET/POST/PUT/PATCH/DELETE/HEAD), URL, header JSON opzionali e body opzionale. Status, header e body della risposta sono catturati (fino a 50KB complessivi).
 
-Utile per: aprire un incidente PagerDuty, pubblicare su Slack, chiamare la tua API admin, ecc. I passi HTTP girano direttamente sul Worker OneUptime; non serve alcun agente.
+Utile per: aprire un incidente PagerDuty, pubblicare su Slack, chiamare la tua API admin, ecc. I passi HTTP girano direttamente sul Worker Cast Operations; non serve alcun agente.
 
 ### Bash
 
-Uno script bash (`bash -c <script>`) eseguito su un [Agente Runbook](/docs/runbooks/agents) nella tua infrastruttura. Bash non viene mai eseguito sul Worker OneUptime.
+Uno script bash (`bash -c <script>`) eseguito su un [Agente Runbook](/docs/runbooks/agents) nella tua infrastruttura. Bash non viene mai eseguito sul Worker Cast Operations.
 
 Configura due cose in un passo Bash:
 
@@ -60,7 +60,7 @@ Se l'agente selezionato è offline quando il runbook arriva a questo passo, il p
 
 ### AI
 
-Chiedi all'AI di analizzare, riassumere o decidere qualcosa durante l'esecuzione. Il prompt viene inviato al provider LLM del tuo progetto (**Impostazioni → AI → LLM Providers**) e la risposta del modello diventa l'output del passo nella timeline dell'esecuzione. I passi AI girano direttamente sul Worker OneUptime; non serve alcun agente.
+Chiedi all'AI di analizzare, riassumere o decidere qualcosa durante l'esecuzione. Il prompt viene inviato al provider LLM del tuo progetto (**Impostazioni → AI → LLM Providers**) e la risposta del modello diventa l'output del passo nella timeline dell'esecuzione. I passi AI girano direttamente sul Worker Cast Operations; non serve alcun agente.
 
 Configura in un passo AI:
 

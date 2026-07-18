@@ -60,7 +60,7 @@
 
 ### Сборка нагрузки из webhook-а
 
-Webhook приходит с телом вида `{ "service": "checkout", "status": "failed" }`. Чтобы превратить это в инцидент OneUptime:
+Webhook приходит с телом вида `{ "service": "checkout", "status": "failed" }`. Чтобы превратить это в инцидент Cast Operations:
 
 1. Триггер **Webhook** с именем `CIWebhook`.
 2. Блок **Conditions**: слева `{{CIWebhook.Request Body.status}}`, оператор `==`, справа `failed`.

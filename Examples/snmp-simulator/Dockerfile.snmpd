@@ -1,7 +1,7 @@
 FROM alpine:3.22
 
 # A real net-snmp agent (unlike snmpsim, it answers SNMPv3 requests that use
-# the default empty context - which is what the OneUptime probe sends).
+# the default empty context - which is what the Cast Operations probe sends).
 # Serves real IF-MIB data for the container's own interfaces. No LLDP.
 RUN apk add --no-cache net-snmp net-snmp-tools
 

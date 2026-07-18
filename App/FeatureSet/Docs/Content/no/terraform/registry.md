@@ -2,15 +2,15 @@
 
 ## Installasjon fra Terraform Registry
 
-OneUptime Terraform-leverandøren er tilgjengelig på det offisielle [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime).
+Cast Operations Terraform-leverandøren er tilgjengelig på det offisielle [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations).
 
-### For OneUptime Cloud-brukere
+### For Cast Operations Cloud-brukere
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Bruk siste kompatible versjon
     }
   }
@@ -18,60 +18,60 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
 
-### For selvhostede OneUptime-brukere
+### For selvhostede Cast Operations-brukere
 
-**Kritisk**: Selvhostede kunder må feste leverandørversjonen til å samsvare nøyaktig med OneUptime-installasjonen.
+**Kritisk**: Selvhostede kunder må feste leverandørversjonen til å samsvare nøyaktig med Cast Operations-installasjonen.
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Erstatt med din eksakte OneUptime-versjon
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Erstatt med din eksakte Cast Operations-versjon
     }
   }
   required_version = ">= 1.0"
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # Din selvhostede URL
+  oneuptime_url = "https://operations.yourcompany.com"  # Din selvhostede URL
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Hvorfor versjonsfesting for selvhostede?
 
-OneUptime Terraform-leverandøren genereres automatisk fra OneUptime API-spesifikasjonen. Hver OneUptime-versjon kan ha:
+Cast Operations Terraform-leverandøren genereres automatisk fra Cast Operations API-spesifikasjonen. Hver Cast Operations-versjon kan ha:
 
 - Ulike API-endepunkter
 - Oppdaterte ressursskjemaer
 - Nye eller fjernede funksjoner
 - Endrede valideringsregler
 
-Bruk av en leverandørversjon som ikke samsvarer med OneUptime-installasjonen kan resultere i:
+Bruk av en leverandørversjon som ikke samsvarer med Cast Operations-installasjonen kan resultere i:
 
 - API-kompatibilitetsfeil
 - Mislykkede ressursoppretting/-oppdateringer
 - Uventet atferd
 - Ressursstatusavvik
 
-## Finne din OneUptime-versjon
+## Finne din Cast Operations-versjon
 
 ### Metode 1: Dashbord
 
-1. Logg inn på OneUptime-dashbordet ditt
+1. Logg inn på Cast Operations-dashbordet ditt
 2. Gå til **Settings** → **About**
 3. Noter versjonsnummeret (f.eks. "7.0.123")
 
 ### Metode 2: API
 
 ```bash
-curl https://your-oneuptime-instance.com/api/version | jq '.version'
+curl https://your-operations-instance.com/api/version | jq '.version'
 ```
 
 ### Metode 3: Docker
@@ -83,14 +83,14 @@ docker images | grep oneuptime
 
 ## Leverandørregistreringsinformasjon
 
-- **Registry-URL**: https://registry.terraform.io/providers/oneuptime/oneuptime
-- **Kilderepositorium**: https://github.com/OneUptime/terraform-provider-oneuptime
-- **Dokumentasjon**: https://registry.terraform.io/providers/oneuptime/oneuptime/latest/docs
-- **Utgivelser**: https://github.com/OneUptime/terraform-provider-oneuptime/releases
+- **Registry-URL**: https://registry.terraform.io/providers/autonomy-cloud/operations
+- **Kilderepositorium**: https://github.com/autonomy-cloud/operations
+- **Dokumentasjon**: https://registry.terraform.io/providers/autonomy-cloud/operations/latest/docs
+- **Utgivelser**: https://github.com/autonomy-cloud/operations
 
 ## Versjonkompatibilitetsmatrise
 
-| OneUptime-versjon | Leverandørversjon | Terraform-konfigurasjon |
+| Cast Operations-versjon | Leverandørversjon | Terraform-konfigurasjon |
 | ----------------- | ----------------- | ----------------------- |
 | 7.0.x             | 7.0.x             | `version = "~> 7.0.0"`  |
 | 7.1.x             | 7.1.x             | `version = "~> 7.1.0"`  |
@@ -103,14 +103,14 @@ docker images | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Juster for selvhostet
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # Juster for selvhostet
+  oneuptime_url = "https://visca.ai"  # Juster for selvhostet
   api_key       = var.oneuptime_api_key
 }
 
@@ -152,4 +152,4 @@ resource "oneuptime_monitor" "website" {
 
 ## Registry-oppdateringer
 
-Leverandøren publiseres automatisk til Terraform Registry når nye OneUptime-versjoner slippes. Sky-brukere kan bruke semantisk versjonering (`~> 7.0`) for automatisk å få kompatible oppdateringer, mens selvhostede brukere bør feste til eksakte versjoner.
+Leverandøren publiseres automatisk til Terraform Registry når nye Cast Operations-versjoner slippes. Sky-brukere kan bruke semantisk versjonering (`~> 7.0`) for automatisk å få kompatible oppdateringer, mens selvhostede brukere bør feste til eksakte versjoner.

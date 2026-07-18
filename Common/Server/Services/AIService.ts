@@ -128,7 +128,7 @@ export const AI_INSIGHT_TRIAGE_FEATURE: string = "AI Insight Triage";
  *
  * SAFE TO DELETE once no LlmLog row carries an old label. Retention is the
  * clock: LlmLogService hard-deletes rows older than 3 days by createdAt — but
- * ONLY when billing is enabled. So on OneUptime cloud these entries are dead
+ * ONLY when billing is enabled. So on Cast Operations cloud these entries are dead
  * weight 3 days after the deploy; on a self-hosted instance (no billing, no
  * retention sweep) LlmLog rows live forever, so they must stay until the
  * backfill migration has demonstrably rewritten every row.
@@ -428,7 +428,7 @@ export class Service extends BaseService {
     }
 
     /*
-     * Check if billing should apply. Only bill for the global (OneUptime-hosted)
+     * Check if billing should apply. Only bill for the global (Cast Operations-hosted)
      * provider, and only when it actually has a per-token cost. A free global
      * provider (costPerMillionTokensInUSDCents = 0, the default) consumes no
      * balance, so it must not require or block on one either — otherwise a $0
@@ -580,7 +580,7 @@ export class Service extends BaseService {
 
       /*
        * Emit gen_ai.* semantic-convention attributes on the active span so
-       * OneUptime's own AI usage is a first-class LLM span in OneUptime's own
+       * Cast Operations’ own AI usage is a first-class LLM span in Cast Operations’ own
        * telemetry (dogfooding — LlmSpanUtil detects these). Never fails the call.
        */
       this.setGenAiSpanAttributes({

@@ -1,6 +1,6 @@
 # Dimensionering og kapacitetsplanlægning
 
-Denne vejledning hjælper dig med at dimensionere en selvhostet OneUptime-installation på Kubernetes (Helm). Den dækker de tre datalagre, som OneUptime afhænger af — **PostgreSQL**, **Redis** og **ClickHouse** — plus applikationscomputerkraften, og giver dig udgangsniveauer, du kan justere, når du har rigtige tal.
+Denne vejledning hjælper dig med at dimensionere en selvhostet Cast Operations-installation på Kubernetes (Helm). Den dækker de tre datalagre, som Cast Operations afhænger af — **PostgreSQL**, **Redis** og **ClickHouse** — plus applikationscomputerkraften, og giver dig udgangsniveauer, du kan justere, når du har rigtige tal.
 
 > **Læs dette først:** Helm-charten leveres med **ingen CPU/hukommelses-requests eller -limits sat** og små **25 Gi** standardvolumener til PostgreSQL og ClickHouse. Disse standarder findes, så charten kan installeres og køre på enhver klynge — de er **ikke** produktionsdimensionering. Til alt ud over en hurtig prøve bør du sætte ressourcer og lagring eksplicit ved hjælp af tallene nedenfor.
 
@@ -8,7 +8,7 @@ Hvis du i stedet kører enkelt-server Docker Compose-installationen, er dimensio
 
 ## Hvad driver hvert datalager
 
-OneUptime kræver tre datalagre i produktion. De skalerer på helt forskellige input, så dimensionér dem uafhængigt af hinanden.
+Cast Operations kræver tre datalagre i produktion. De skalerer på helt forskellige input, så dimensionér dem uafhængigt af hinanden.
 
 | Datalager      | Hvad det lagrer                                                                                                          | Hvad der driver dets størrelse                                                                          |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
@@ -16,7 +16,7 @@ OneUptime kræver tre datalagre i produktion. De skalerer på helt forskellige i
 | **PostgreSQL** | Konfiguration og tilstand — monitorer, hændelser, alarmer, brugere, teams, projekter, workflows, statussider, dashboards | **Antal entiteter og historik**, ikke telemetri-volumen. Vokser langsomt.                               |
 | **Redis**      | Cache, arbejdskøer og sessioner                                                                                          | **Kødybde og aktive sessioner**. Hukommelsesbundet og beskeden. Ikke en kilde til sandhed.              |
 
-Objektlagring (S3/MinIO) er **ikke** påkrævet for, at OneUptime kan køre. Det bruges kun valgfrit til database**sikkerhedskopier** (via CloudNativePG Barman-plugin'et til PostgreSQL eller `clickhouse-backup` til ClickHouse). OneUptime flytter ikke telemetri i lag til objektlagring — se afsnittet "Opbevaring og hvordan den påvirker lagring" nedenfor.
+Objektlagring (S3/MinIO) er **ikke** påkrævet for, at Cast Operations kan køre. Det bruges kun valgfrit til database**sikkerhedskopier** (via CloudNativePG Barman-plugin'et til PostgreSQL eller `clickhouse-backup` til ClickHouse). Cast Operations flytter ikke telemetri i lag til objektlagring — se afsnittet "Opbevaring og hvordan den påvirker lagring" nedenfor.
 
 ## ClickHouse — den dominerende driver
 
@@ -55,7 +55,7 @@ Lagring skalerer **lineært med opbevaring** — et 90-dages vindue koster ~3× 
 
 PostgreSQL lagrer din konfiguration og driftstilstand, ikke telemetri, så det vokser langsomt og forbliver lille i forhold til ClickHouse. Selv store installationer er typisk i størrelsesordenen tiere af GB. Standardvolumen på **25 Gi** er fin til små installationer; planlæg 50–100 GB til større med headroom til hændelses-/alarmhistorik.
 
-Hvis du kører mange applikations-, worker- og probe-replikaer, kan antallet af databaseforbindelser blive flaskehalsen, før lagring gør det. OneUptimes Helm-chart inkluderer en valgfri **PgBouncer** forbindelses-pooler (`pgbouncer.enabled`) til netop dette — aktivér den til installationer med mange replikaer.
+Hvis du kører mange applikations-, worker- og probe-replikaer, kan antallet af databaseforbindelser blive flaskehalsen, før lagring gør det. Cast Operations Helm-chart inkluderer en valgfri **PgBouncer** forbindelses-pooler (`pgbouncer.enabled`) til netop dette — aktivér den til installationer med mange replikaer.
 
 ## Redis — cache, køer og sessioner
 
@@ -80,7 +80,7 @@ Vælg det niveau, der er tættest på dit miljø, som udgangspunkt, og hold dere
 | **Redis**             | 1 vCPU / 2 GB                | 2 vCPU / 4 GB                | 4 vCPU / 8–16 GB                                 |
 | **Retention assumed** | 30 dage                      | 30–90 dage                   | 90 dage                                          |
 
-Disse dimensionerer OneUptime-**backend'en**. OneUptime-collectorerne, der kører på hver overvåget klynge, dimensioneres separat — se dimensioneringsniveauerne for [Kubernetes Agent](/docs/telemetry/kubernetes-agent).
+Disse dimensionerer Cast Operations-**backend'en**. Cast Operations-collectorerne, der kører på hver overvåget klynge, dimensioneres separat — se dimensioneringsniveauerne for [Kubernetes Agent](/docs/telemetry/kubernetes-agent).
 
 ## Høj tilgængelighed
 
@@ -88,13 +88,13 @@ Chartens indbyggede datalagre kører som **enkeltinstanser** som standard. For p
 
 - **PostgreSQL** — aktivér den medfølgende [CloudNativePG](https://cloudnative-pg.io)-operator (`postgresOperator.cnpg.enabled`) med **3 instanser** (1 primær + 2 varme standbys) for automatisk failover.
 - **ClickHouse** — aktivér den medfølgende [Altinity](https://github.com/Altinity/clickhouse-operator)-operator (`clickhouseOperator.altinity.enabled`) med **≥2 replikaer pr. shard** og **3 ClickHouse Keeper**-noder for quorum. Tilføj shards, når en enkelt nodes disk eller RAM bliver begrænsningen.
-- **Redis** — charten har ingen replikering i charten. For HA skal du pege OneUptime mod en **ekstern administreret Redis** (eller en AI/cluster-installation).
+- **Redis** — charten har ingen replikering i charten. For HA skal du pege Cast Operations mod en **ekstern administreret Redis** (eller en AI/cluster-installation).
 
 ## Opbevaring og hvordan den påvirker lagring
 
 Telemetri-opbevaring håndhæves som en **ClickHouse TTL konfigureret i dage**, sat **pr. projekt** og forfinelig **pr. signal** (logs, metrics, traces, profiler) og pr. bucket (for eksempel efter log-sværhedsgrad). Den hardkodede standard er 15 dage.
 
-Fordi opbevaring direkte multiplicerer ClickHouse-lagring, bør du beslutte den, før du dimensionerer disk. OneUptime arkiverer eller lagdeler **ikke** automatisk gammel telemetri til objektlagring — for flerårig compliance-opbevaring skal du udvide opbevaringsvinduet og dimensionere ClickHouse-lagring til at matche (eller eksportere til et eksternt arkiv efter eget valg).
+Fordi opbevaring direkte multiplicerer ClickHouse-lagring, bør du beslutte den, før du dimensionerer disk. Cast Operations arkiverer eller lagdeler **ikke** automatisk gammel telemetri til objektlagring — for flerårig compliance-opbevaring skal du udvide opbevaringsvinduet og dimensionere ClickHouse-lagring til at matche (eller eksportere til et eksternt arkiv efter eget valg).
 
 ## Mål, før du forpligter dig
 
@@ -105,4 +105,4 @@ Telemetri-volumen varierer enormt med applikationens log-verbositet, antal names
 - [Docker Compose](/docs/installation/docker-compose) — enkelt-server dimensionering
 - [Selvhostet arkitektur](/docs/self-hosted/architecture) — hvordan komponenterne passer sammen
 - [Kubernetes Agent](/docs/telemetry/kubernetes-agent) — collector (data-plane) dimensionering
-- [Helm-chart på Artifact Hub](https://artifacthub.io/packages/helm/oneuptime/oneuptime)
+- [Helm-chart på Artifact Hub](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

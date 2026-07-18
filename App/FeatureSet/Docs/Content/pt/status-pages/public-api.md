@@ -9,7 +9,7 @@ Esta API buscará todos os recursos que estão na página de status, incluindo o
 Para obter o status geral dos recursos na página de status, você pode fazer uma requisição POST para o seguinte endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/overview/:statusPageId
+curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
 ```
 
 Esta é a resposta da API:
@@ -20,11 +20,11 @@ Esta é a resposta da API:
     // Monitor Status Object
     // O Status Geral é o pior status de todos os monitores e grupos na página de status.
     // Você pode encontrar mais detalhes sobre o status do monitor aqui.
-    // https://oneuptime.com/reference/monitor-status
+    // https://visca.ai/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // Você pode encontrar mais detalhes sobre a nota pública de manutenção programada aqui.
-    // https://oneuptime.com/reference/scheduled-maintenance-public-note
+    // https://visca.ai/reference/scheduled-maintenance-public-note
     {
       // Scheduled Maintenance Public Note Object
     },
@@ -34,7 +34,7 @@ Esta é a resposta da API:
   ],
   "statusPageHistoryChartBarColorRules": [
     // Você pode encontrar mais detalhes sobre a regra de cor da barra do gráfico de histórico da página de status aqui.
-    // https://oneuptime.com/reference/status-page-history-chart-bar-color-rule
+    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
     {
       // Status Page History Chart Bar Color Rule Object
     },
@@ -44,7 +44,7 @@ Esta é a resposta da API:
   ],
   "scheduledMaintenanceEvents": [
     // Você pode encontrar mais detalhes sobre o evento de manutenção programada aqui.
-    // https://oneuptime.com/reference/scheduled-maintenance
+    // https://visca.ai/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -54,7 +54,7 @@ Esta é a resposta da API:
   ],
   "activeAnnouncements": [
     // Você pode encontrar mais detalhes sobre o anúncio ativo aqui.
-    // https://oneuptime.com/reference/status-page-announcement
+    // https://visca.ai/reference/status-page-announcement
     {
       // Status Page Announcement Object
     },
@@ -64,7 +64,7 @@ Esta é a resposta da API:
   ],
   "incidentPublicNotes": [
     // Você pode encontrar mais detalhes sobre a nota pública de incidente aqui.
-    // https://oneuptime.com/reference/incident-public-note
+    // https://visca.ai/reference/incident-public-note
     {
       // Incident Public Note Object
     },
@@ -74,7 +74,7 @@ Esta é a resposta da API:
   ],
   "activeIncidents": [
     // Você pode encontrar mais detalhes sobre o incidente ativo aqui.
-    // https://oneuptime.com/reference/incident
+    // https://visca.ai/reference/incident
     {
       // Incident Object
     },
@@ -84,7 +84,7 @@ Esta é a resposta da API:
   ],
   "monitorStatusTimelines": [
     // Você pode encontrar mais detalhes sobre a linha do tempo do status do monitor aqui.
-    // https://oneuptime.com/reference/monitor-status-timeline
+    // https://visca.ai/reference/monitor-status-timeline
     {
       // Monitor Status Timeline Object
     },
@@ -94,7 +94,7 @@ Esta é a resposta da API:
   ],
   "resourceGroups": [
     // Você pode encontrar mais detalhes sobre o grupo de recursos aqui.
-    // https://oneuptime.com/reference/resource-group
+    // https://visca.ai/reference/resource-group
     {
       // Resource Group Object
     },
@@ -104,7 +104,7 @@ Esta é a resposta da API:
   ],
   "monitorStatuses": [
     // Você pode encontrar mais detalhes sobre o status do monitor aqui.
-    // https://oneuptime.com/reference/monitor-status
+    // https://visca.ai/reference/monitor-status
     {
       // Monitor Status Object
     },
@@ -114,7 +114,7 @@ Esta é a resposta da API:
   ],
   "statusPageResources": [
     // Você pode encontrar mais detalhes sobre o recurso da página de status aqui.
-    // https://oneuptime.com/reference/status-page-resource
+    // https://visca.ai/reference/status-page-resource
     {
       // Status Page Resource Object
     },
@@ -124,7 +124,7 @@ Esta é a resposta da API:
   ],
   "incidentStateTimelines": [
     // Você pode encontrar mais detalhes sobre a linha do tempo do estado do incidente aqui.
-    // https://oneuptime.com/reference/incident-state-timeline
+    // https://visca.ai/reference/incident-state-timeline
     {
       // Incident State Timeline Object
     },
@@ -134,11 +134,11 @@ Esta é a resposta da API:
   ],
   "statusPage": {
     // Você pode encontrar mais detalhes sobre a página de status aqui.
-    // https://oneuptime.com/reference/status-page
+    // https://visca.ai/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // Você pode encontrar mais detalhes sobre a linha do tempo do estado de manutenção programada aqui.
-    // https://oneuptime.com/reference/scheduled-maintenance-state-timeline
+    // https://visca.ai/reference/scheduled-maintenance-state-timeline
     {
       // Scheduled Maintenance State Timeline Object
     },
@@ -162,7 +162,7 @@ Esta API buscará todo o uptime de todos os recursos na página de status.
 Para obter o uptime geral de todos os recursos, você pode fazer uma requisição POST para o seguinte endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/uptime/:statusPageId
+curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
 ```
 
 **Corpo da Requisição (opcional):**
@@ -257,7 +257,7 @@ Este é o exemplo de resposta da API:
 Esta API buscará todos os incidentes que estão na página de status. Para obter todos os incidentes na página de status, você pode fazer uma requisição POST para o seguinte endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/incidents/:statusPageId
+curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 ```
 
 Esta é a resposta da API:
@@ -266,7 +266,7 @@ Esta é a resposta da API:
 {
   "incidents": [
     // Você pode encontrar mais detalhes sobre o incidente aqui.
-    // https://oneuptime.com/reference/incident
+    // https://visca.ai/reference/incident
     {
       // Incident Object
     },
@@ -282,7 +282,7 @@ Esta é a resposta da API:
 Esta API buscará todas as manutenções programadas que estão na página de status. Para obter todas as manutenções programadas na página de status, você pode fazer uma requisição POST para o seguinte endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 Esta é a resposta da API:
@@ -291,7 +291,7 @@ Esta é a resposta da API:
 {
   "scheduledMaintenanceEvents": [
     // Você pode encontrar mais detalhes sobre o evento de manutenção programada aqui.
-    // https://oneuptime.com/reference/scheduled-maintenance
+    // https://visca.ai/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -307,7 +307,7 @@ Esta é a resposta da API:
 Esta API buscará todos os anúncios que estão na página de status. Para obter todos os anúncios na página de status, você pode fazer uma requisição POST para o seguinte endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/announcements/:statusPageId
+curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
 ```
 
 Esta é a resposta da API:
@@ -316,7 +316,7 @@ Esta é a resposta da API:
 {
   "announcements": [
     // Você pode encontrar mais detalhes sobre o anúncio aqui.
-    // https://oneuptime.com/reference/status-page-announcement
+    // https://visca.ai/reference/status-page-announcement
     {
       // Announcement Object
     },

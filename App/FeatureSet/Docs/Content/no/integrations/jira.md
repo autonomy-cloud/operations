@@ -1,18 +1,18 @@
 # Jira-integrasjon
 
-Åpne en [Jira](https://www.atlassian.com/software/jira)-sak automatisk hver gang en OneUptime-hendelse opprettes — slik at ingeniørarbeid spores der utviklerne dine allerede jobber, med en lenke tilbake til hendelsen.
+Åpne en [Jira](https://www.atlassian.com/software/jira)-sak automatisk hver gang en Cast Operations-hendelse opprettes — slik at ingeniørarbeid spores der utviklerne dine allerede jobber, med en lenke tilbake til hendelsen.
 
-Denne integrasjonen er **utgående**: OneUptime kaller Jiras REST API. Den bruker en OneUptime **[Arbeidsflyt](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**. Du kan eventuelt legge til en **innkommende** sti slik at lukking av Jira-saken løser OneUptime-hendelsen.
+Denne integrasjonen er **utgående**: Cast Operations kaller Jiras REST API. Den bruker en Cast Operations **[Arbeidsflyt](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**. Du kan eventuelt legge til en **innkommende** sti slik at lukking av Jira-saken løser Cast Operations-hendelsen.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
+Cast Operations Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
 ```
 
 ## Forutsetninger
 
 - Et Jira Cloud-nettsted (`https://your-domain.atlassian.net`) og et prosjekt å registrere saker i — noter **prosjektnøkkelen** (f.eks. `OPS`).
 - En Jira-konto som kan opprette saker, og et **API-token** for den fra [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
-- Et OneUptime-prosjekt der du kan opprette arbeidsflyter.
+- Et Cast Operations-prosjekt der du kan opprette arbeidsflyter.
 
 > Bruker du **Jira Data Center / Server** (selvadministrert)? Flyten er identisk — bruk din egen basis-URL og et [Personal Access Token](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) med en `Bearer`-auth-header i stedet for Basic auth. `/rest/api/2/issue`-endepunktet godtar en klartekstbeskrivelse, noe som gjør maling enklere.
 
@@ -26,7 +26,7 @@ Jira Cloud bruker **Basic auth** med e-post og API-token, base64-kodet.
    printf '%s' 'you@example.com:your_api_token' | base64
    ```
 
-2. I OneUptime, gå til **Workflows → Global Variables → Create**.
+2. I Cast Operations, gå til **Workflows → Global Variables → Create**.
 3. Gi den navnet `JIRA_AUTH`, lim inn base64-strengen som verdi, og slå på **Is Secret**.
 
 Nå kan du bruke `Basic {{variable.JIRA_AUTH}}` som en auth-header, og tokenet vises aldri i arbeidsflyten eller dens logger.
@@ -53,7 +53,7 @@ Nå kan du bruke `Basic {{variable.JIRA_AUTH}}` som en auth-header, og tokenet v
        "fields": {
          "project": { "key": "OPS" },
          "issuetype": { "name": "Bug" },
-         "summary": "OneUptime incident: {{Incident.title}}",
+         "summary": "Cast Operations incident: {{Incident.title}}",
          "description": {
            "type": "doc",
            "version": 1,
@@ -77,7 +77,7 @@ Nå kan du bruke `Basic {{variable.JIRA_AUTH}}` som en auth-header, og tokenet v
 ## Steg 3 — Test det
 
 1. Slå på **Enabled** for arbeidsflyten.
-2. Opprett en testhendelse i OneUptime (eller utløs en fra en monitor).
+2. Opprett en testhendelse i Cast Operations (eller utløs en fra en monitor).
 3. Åpne arbeidsflytens **Logs**-fane. **API**-blokken bør vise en `201`-status og en respons-body som inneholder den nye sakens `key` (for eksempel `OPS-1234`).
 4. Sjekk Jira — saken er der.
 
@@ -94,13 +94,13 @@ Dette gjør også den valgfrie toveissynkroniseringen nedenfor mulig.
 
 ## Toveissynkronisering (valgfritt)
 
-For å løse OneUptime-hendelsen når noen lukker Jira-saken, legg til en **innkommende** arbeidsflyt:
+For å løse Cast Operations-hendelsen når noen lukker Jira-saken, legg til en **innkommende** arbeidsflyt:
 
 1. Opprett en ny arbeidsflyt som starter med en **Webhook**-trigger og kopier URL-en.
 2. I Jira, gå til **Project settings → Automation → Create rule**:
 
    - **Trigger**: _Issue transitioned_ til **Done** (eller _Issue resolved_).
-   - **Action**: _Send web request_ → metode `POST`, URL = arbeidsflyt-webhook-URL-en din, body inkluderer saksnøkkelen og OneUptime-hendelse-ID-en, f.eks.:
+   - **Action**: _Send web request_ → metode `POST`, URL = arbeidsflyt-webhook-URL-en din, body inkluderer saksnøkkelen og Cast Operations-hendelse-ID-en, f.eks.:
 
      ```json
      { "issueKey": "{{issue.key}}", "status": "resolved" }
@@ -108,13 +108,13 @@ For å løse OneUptime-hendelsen når noen lukker Jira-saken, legg til en **innk
 
 3. I arbeidsflyten, bruk en **Find Incident**-blokk til å finne hendelsen via den lagrede nøkkelen, deretter en **Update Incident**-blokk for å flytte den til din løste tilstand.
 
-Hvis du lagret Jira-nøkkelen på hendelsen i Steg 4, er matching enkelt. Se [Komponenter → OneUptime-datakomponenter](/docs/workflows/components#oneuptime-data-components).
+Hvis du lagret Jira-nøkkelen på hendelsen i Steg 4, er matching enkelt. Se [Komponenter → Cast Operations-datakomponenter](/docs/workflows/components#oneuptime-data-components).
 
 ## Tilpasse saken
 
 Noen vanlige justeringer i API-blokkens body:
 
-- **Prioritet** — legg til `"priority": { "name": "High" }` inne i `fields`. Du kan forgrene på `{{Incident.incidentSeverity.name}}` med **Conditions** for å mappe OneUptime-alvorlighetsgrader til Jira-prioriteter.
+- **Prioritet** — legg til `"priority": { "name": "High" }` inne i `fields`. Du kan forgrene på `{{Incident.incidentSeverity.name}}` med **Conditions** for å mappe Cast Operations-alvorlighetsgrader til Jira-prioriteter.
 - **Koder** — legg til `"labels": ["oneuptime", "incident"]`.
 - **Ansvarlig** — legg til `"assignee": { "id": "<accountId>" }` (Jira Cloud bruker konto-ID-er, ikke brukernavn).
 - **Egendefinerte felt** — legg til `"customfield_XXXXX": "..."` ved å bruke feltets ID fra Jira-admin.

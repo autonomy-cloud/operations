@@ -1,18 +1,18 @@
 # Jira 整合
 
-每當 OneUptime 建立事件時，自動開啟一張 [Jira](https://www.atlassian.com/software/jira) issue — 讓工程工作得以在您的開發人員已習慣使用的地方被追蹤，並附帶一個連回該事件的連結。
+每當 Cast Operations 建立事件時，自動開啟一張 [Jira](https://www.atlassian.com/software/jira) issue — 讓工程工作得以在您的開發人員已習慣使用的地方被追蹤，並附帶一個連回該事件的連結。
 
-此整合屬於**對外（outbound）**：由 OneUptime 呼叫 Jira 的 REST API。它使用一個 OneUptime **[Workflow](/docs/workflows/index)**，搭配 **Incident → On Create** 觸發器與一個 **API component**。您也可以選擇性地加入一條**對內（inbound）**路徑，讓關閉 Jira issue 時一併解決 OneUptime 事件。
+此整合屬於**對外（outbound）**：由 Cast Operations 呼叫 Jira 的 REST API。它使用一個 Cast Operations **[Workflow](/docs/workflows/index)**，搭配 **Incident → On Create** 觸發器與一個 **API component**。您也可以選擇性地加入一條**對內（inbound）**路徑，讓關閉 Jira issue 時一併解決 Cast Operations 事件。
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
+Cast Operations Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
 ```
 
 ## 先決條件
 
 - 一個 Jira Cloud 站台（`https://your-domain.atlassian.net`）以及一個用來建立 issue 的專案 — 記下它的**專案金鑰（project key）**（例如 `OPS`）。
 - 一個能夠建立 issue 的 Jira 帳號，以及該帳號於 [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens) 取得的 **API token**。
-- 一個您可以在其中建立 workflow 的 OneUptime 專案。
+- 一個您可以在其中建立 workflow 的 Cast Operations 專案。
 
 > 使用 **Jira Data Center / Server**（自行管理）嗎？流程完全相同 — 改用您自己的基底 URL，並以 `Bearer` 認證標頭搭配 [Personal Access Token](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) 來取代 Basic auth。`/rest/api/2/issue` 端點接受純文字描述，使得樣板化更為簡單。
 
@@ -26,7 +26,7 @@ Jira Cloud 使用 **Basic auth**，以您的電子郵件與 API token 進行 bas
    printf '%s' 'you@example.com:your_api_token' | base64
    ```
 
-2. 在 OneUptime 中，前往 **Workflows → Global Variables → Create**。
+2. 在 Cast Operations 中，前往 **Workflows → Global Variables → Create**。
 3. 將它命名為 `JIRA_AUTH`，把 base64 字串貼上作為其值，並開啟 **Is Secret**。
 
 現在您可以將 `Basic {{variable.JIRA_AUTH}}` 用作認證標頭，而 token 永遠不會出現在 workflow 或其日誌中。
@@ -53,7 +53,7 @@ Jira Cloud 使用 **Basic auth**，以您的電子郵件與 API token 進行 bas
        "fields": {
          "project": { "key": "OPS" },
          "issuetype": { "name": "Bug" },
-         "summary": "OneUptime incident: {{Incident.title}}",
+         "summary": "Cast Operations incident: {{Incident.title}}",
          "description": {
            "type": "doc",
            "version": 1,
@@ -77,7 +77,7 @@ Jira Cloud 使用 **Basic auth**，以您的電子郵件與 API token 進行 bas
 ## 步驟 3 — 測試
 
 1. 將 workflow 開啟為 **Enabled**。
-2. 在 OneUptime 中建立一個測試事件（或從某個 monitor 觸發一個）。
+2. 在 Cast Operations 中建立一個測試事件（或從某個 monitor 觸發一個）。
 3. 開啟 workflow 的 **Logs** 分頁。**API** 區塊應顯示 `201` 狀態，以及一個包含新 issue 之 `key`（例如 `OPS-1234`）的回應主體。
 4. 檢查 Jira — issue 就在那裡。
 
@@ -94,13 +94,13 @@ Jira Cloud 使用 **Basic auth**，以您的電子郵件與 API token 進行 bas
 
 ## 雙向同步（選用）
 
-若要在有人關閉 Jira issue 時解決 OneUptime 事件，請加入一條**對內（inbound）** workflow：
+若要在有人關閉 Jira issue 時解決 Cast Operations 事件，請加入一條**對內（inbound）** workflow：
 
 1. 建立第二個 workflow，以 **Webhook** 觸發器開始，並複製其 URL。
 2. 在 Jira 中，前往 **Project settings → Automation → Create rule**：
 
    - **Trigger**：_Issue transitioned_ 至 **Done**（或 _Issue resolved_）。
-   - **Action**：_Send web request_ → method `POST`、URL = 您的 workflow webhook URL、主體包含 issue key 與 OneUptime 事件 id，例如：
+   - **Action**：_Send web request_ → method `POST`、URL = 您的 workflow webhook URL、主體包含 issue key 與 Cast Operations 事件 id，例如：
 
      ```json
      { "issueKey": "{{issue.key}}", "status": "resolved" }
@@ -108,13 +108,13 @@ Jira Cloud 使用 **Basic auth**，以您的電子郵件與 API token 進行 bas
 
 3. 在 workflow 中，使用一個 **Find Incident** 區塊以儲存的 key 找出該事件，接著使用一個 **Update Incident** 區塊將它移至您的已解決狀態。
 
-如果您在步驟 4 中已將 Jira key 儲存在事件上，比對就很直接。請參閱 [Components → OneUptime data components](/docs/workflows/components#oneuptime-data-components)。
+如果您在步驟 4 中已將 Jira key 儲存在事件上，比對就很直接。請參閱 [Components → Cast Operations data components](/docs/workflows/components#oneuptime-data-components)。
 
 ## 自訂 issue
 
 針對 API 區塊主體的幾項常見調整：
 
-- **Priority** — 在 `fields` 內加入 `"priority": { "name": "High" }`。您可以使用 **Conditions** 針對 `{{Incident.incidentSeverity.name}}` 進行分支，以將 OneUptime 的嚴重程度對應到 Jira 的優先順序。
+- **Priority** — 在 `fields` 內加入 `"priority": { "name": "High" }`。您可以使用 **Conditions** 針對 `{{Incident.incidentSeverity.name}}` 進行分支，以將 Cast Operations 的嚴重程度對應到 Jira 的優先順序。
 - **Labels** — 加入 `"labels": ["oneuptime", "incident"]`。
 - **Assignee** — 加入 `"assignee": { "id": "<accountId>" }`（Jira Cloud 使用 account ID，而非使用者名稱）。
 - **自訂欄位（Custom fields）** — 使用來自您 Jira 管理員的欄位 ID，加入 `"customfield_XXXXX": "..."`。

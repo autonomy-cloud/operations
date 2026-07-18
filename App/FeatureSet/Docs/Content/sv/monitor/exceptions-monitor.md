@@ -1,6 +1,6 @@
 # Undantagsmonitor
 
-Undantagsövervakning gör det möjligt att övervaka applikationsundantag och fel, och utlösa varningar när antalet undantag överstiger dina konfigurerade trösklar. OneUptime utvärderar undantagsdata från dina telemetritjänster under ett tidsfönster.
+Undantagsövervakning gör det möjligt att övervaka applikationsundantag och fel, och utlösa varningar när antalet undantag överstiger dina konfigurerade trösklar. Cast Operations utvärderar undantagsdata från dina telemetritjänster under ett tidsfönster.
 
 ## Översikt
 
@@ -14,7 +14,7 @@ Undantagsmonitorer räknar och filtrerar undantag som matchar specifika kriterie
 
 ## Skapa en undantagsmonitor
 
-1. Gå till **Monitorer** i OneUptime-instrumentpanelen
+1. Gå till **Monitorer** i Cast Operations-instrumentpanelen
 2. Klicka på **Skapa monitor**
 3. Välj **Undantag** som monitortyp
 4. Välj de telemetritjänster att övervaka
@@ -24,7 +24,7 @@ Undantagsmonitorer räknar och filtrerar undantag som matchar specifika kriterie
 
 ### Telemetritjänster
 
-Välj en eller flera tjänster att övervaka undantag från. Tjänster måste skicka undantagsdata till OneUptime via OpenTelemetry.
+Välj en eller flera tjänster att övervaka undantag från. Tjänster måste skicka undantagsdata till Cast Operations via OpenTelemetry.
 
 ### Undantagsfilter
 
@@ -80,4 +80,4 @@ Välj en eller flera tjänster att övervaka undantag från. Tjänster måste sk
 
 ## Konfigurationskrav
 
-Undantagsövervakning kräver att dina applikationer skickar undantagsdata till OneUptime via OpenTelemetry. Se dokumentationen för [OpenTelemetry](/docs/telemetry/open-telemetry) för konfigurationsinstruktioner.
+Undantagsövervakning kräver att dina applikationer skickar undantagsdata till Cast Operations via OpenTelemetry. Se dokumentationen för [OpenTelemetry](/docs/telemetry/open-telemetry) för konfigurationsinstruktioner.

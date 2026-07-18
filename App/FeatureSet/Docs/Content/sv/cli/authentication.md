@@ -1,10 +1,10 @@
 # Autentisering
 
-OneUptime CLI stöder flera sätt att autentisera mot din OneUptime-instans. Du kan använda namngivna kontexter, miljövariabler eller skicka autentiseringsuppgifter direkt som flaggor.
+Cast Operations CLI stöder flera sätt att autentisera mot din Cast Operations-instans. Du kan använda namngivna kontexter, miljövariabler eller skicka autentiseringsuppgifter direkt som flaggor.
 
 ## Inloggning
 
-Autentisera mot din OneUptime-instans med en API-nyckel:
+Autentisera mot din Cast Operations-instans med en API-nyckel:
 
 ```bash
 oneuptime login <api-key> <instance-url>
@@ -14,8 +14,8 @@ oneuptime login <api-key> <instance-url>
 
 | Argument         | Beskrivning                                                       |
 | ---------------- | ----------------------------------------------------------------- |
-| `<api-key>`      | Din OneUptime API-nyckel (t.ex. `sk-your-api-key`)                |
-| `<instance-url>` | URL:en till din OneUptime-instans (t.ex. `https://oneuptime.com`) |
+| `<api-key>`      | Din Cast Operations API-nyckel (t.ex. `sk-your-api-key`)                |
+| `<instance-url>` | URL:en till din Cast Operations-instans (t.ex. `https://visca.ai`) |
 
 **Alternativ:**
 
@@ -27,19 +27,19 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Logga in med standardkontext
-oneuptime login sk-abc123 https://oneuptime.com
+oneuptime login sk-abc123 https://visca.ai
 
 # Logga in med en namngiven kontext
-oneuptime login sk-abc123 https://oneuptime.com --context-name production
+oneuptime login sk-abc123 https://visca.ai --context-name production
 
 # Konfigurera flera miljöer
-oneuptime login sk-prod-key https://oneuptime.com --context-name production
-oneuptime login sk-staging-key https://staging.oneuptime.com --context-name staging
+oneuptime login sk-prod-key https://visca.ai --context-name production
+oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Kontexter
 
-Kontexter gör det möjligt att spara och växla mellan flera OneUptime-miljöer (t.ex. produktion, staging, utveckling).
+Kontexter gör det möjligt att spara och växla mellan flera Cast Operations-miljöer (t.ex. produktion, staging, utveckling).
 
 ### Lista kontexter
 
@@ -95,14 +95,14 @@ Du kan blanda källor – till exempel använda en miljövariabel för API-nycke
 ### Använda CLI-flaggor
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://oneuptime.com incident list
+oneuptime --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Använda miljövariabler
 
 ```bash
 export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://oneuptime.com
+export ONEUPTIME_URL=https://visca.ai
 
 oneuptime incident list
 ```
@@ -139,12 +139,12 @@ Autentiseringsuppgifter lagras i `~/.oneuptime/config.json` med begränsade beh�
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://oneuptime.com",
+      "apiUrl": "https://visca.ai",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.oneuptime.com",
+      "apiUrl": "https://staging.visca.ai",
       "apiKey": "sk-..."
     }
   },

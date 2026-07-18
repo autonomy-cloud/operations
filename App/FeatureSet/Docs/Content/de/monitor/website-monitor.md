@@ -1,6 +1,6 @@
 # Website-Monitor
 
-Der Website-Monitor ermöglicht die Überwachung der Verfügbarkeit, Leistung und Reaktion jeder Website oder Webseite. OneUptime sendet periodisch HTTP-Anfragen an Ihre Website-URL und prüft, ob sie korrekt antwortet.
+Der Website-Monitor ermöglicht die Überwachung der Verfügbarkeit, Leistung und Reaktion jeder Website oder Webseite. Cast Operations sendet periodisch HTTP-Anfragen an Ihre Website-URL und prüft, ob sie korrekt antwortet.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ Website-Monitore prüfen Ihre Webseiten durch HTTP-Anfragen und Auswertung der A
 
 ## Einen Website-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Website** als Monitortyp
 4. Geben Sie die Website-URL ein, die Sie überwachen möchten
@@ -49,7 +49,7 @@ https://example.com/health?cb={{timestamp}}
 
 #### Weiterleitungen nicht folgen
 
-Standardmäßig folgt OneUptime HTTP-Weiterleitungen (301, 302 usw.). Aktivieren Sie diese Option, wenn Sie die Weiterleitungsantwort selbst überwachen möchten.
+Standardmäßig folgt Cast Operations HTTP-Weiterleitungen (301, 302 usw.). Aktivieren Sie diese Option, wenn Sie die Weiterleitungsantwort selbst überwachen möchten.
 
 #### Allow Self-Signed Certificates
 
@@ -63,7 +63,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

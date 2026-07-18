@@ -2,7 +2,7 @@
 
 SQL-forespørgselsmonitoren kører en skrivebeskyttet SQL-forespørgsel efter en tidsplan fra en probe og advarer på baggrund af resultatet — antallet af returnerede rækker, en skalarværdi, hvor lang tid forespørgslen tog, eller en forespørgselsfejl. Den er bygget til brugsscenariet "kør en forespørgsel og åbn en hændelse", for eksempel til at advare, når antallet af annullerede ordrer i de sidste fem minutter stiger kraftigt, når en kø-tabel vokser sig for stor, eller når en kritisk række forsvinder.
 
-Fordi forespørgslen kører fra en probe inde i dit netværk, behøver OneUptime aldrig en direkte forbindelse til din database, og det fulde resultatsæt forlader aldrig proben — kun en lille, afgrænset projektion af resultatet rapporteres tilbage.
+Fordi forespørgslen kører fra en probe inde i dit netværk, behøver Cast Operations aldrig en direkte forbindelse til din database, og det fulde resultatsæt forlader aldrig proben — kun en lille, afgrænset projektion af resultatet rapporteres tilbage.
 
 ## Understøttede databaser
 
@@ -16,7 +16,7 @@ MySQL-kompatible og PostgreSQL-kompatible motorer, der taler den samme wire-prot
 
 ## Sådan fungerer det
 
-Ved hvert tjek forbinder proben til din database, kører din forespørgsel i en skrivebeskyttet kontekst, læser højst et afgrænset antal rækker tilbage og rapporterer en kompakt projektion til OneUptime. Din monitors kriterier evalueres derefter mod denne projektion.
+Ved hvert tjek forbinder proben til din database, kører din forespørgsel i en skrivebeskyttet kontekst, læser højst et afgrænset antal rækker tilbage og rapporterer en kompakt projektion til Cast Operations. Din monitors kriterier evalueres derefter mod denne projektion.
 
 Proben rapporterer kun:
 
@@ -26,7 +26,7 @@ Proben rapporterer kun:
 - **Eksekveringstid** — hvor lang tid forespørgslen tog, i millisekunder.
 - **Forespørgselsfejl** — en saneret fejlmeddelelse, hvis forespørgslen mislykkedes.
 
-Det fulde resultatsæt sendes aldrig til OneUptime, så kundedata replikeres ikke ind i OneUptimes lager.
+Det fulde resultatsæt sendes aldrig til Cast Operations, så kundedata replikeres ikke ind i Cast Operations lager.
 
 ## Sikkerhedsmodel
 
@@ -41,7 +41,7 @@ At køre en kundeleveret forespørgsel mod en produktionsdatabase er følsomt, s
 
 ## Forudsætninger
 
-- En **probe** med netværksadgang til din databases host og port. Dette kan være en OneUptime-hostet probe (hvis din database er tilgængelig fra internettet) eller en selv-hostet probe, der kører inde i dit netværk. Se probe-dokumentationen for, hvordan du installerer en brugerdefineret probe.
+- En **probe** med netværksadgang til din databases host og port. Dette kan være en Cast Operations-hostet probe (hvis din database er tilgængelig fra internettet) eller en selv-hostet probe, der kører inde i dit netværk. Se probe-dokumentationen for, hvordan du installerer en brugerdefineret probe.
 - En **skrivebeskyttet databasebruger** og forbindelsesoplysningerne (host, port, databasenavn, brugernavn, adgangskode).
 
 ## Konfiguration
@@ -99,11 +99,11 @@ For en forespørgsel af typen `COUNT(*)` er tællingen tilgængelig både som **
 
 For at databasens adgangskode aldrig gemmes i klartekst på monitoren, skal du oprette en [Monitor Secret](/docs/monitor/monitor-secrets) og referere til den fra feltet Adgangskode:
 
-1. Gå til OneUptime Dashboard → Projektindstillinger → Monitor Secrets → Opret Monitor Secret.
+1. Gå til Cast Operations Dashboard → Projektindstillinger → Monitor Secrets → Opret Monitor Secret.
 2. Opret en hemmelighed (for eksempel `dbPassword`) og giv denne monitor adgang til den.
 3. I monitorens felt Adgangskode skal du indtaste `{{monitorSecrets.dbPassword}}`.
 
-OneUptime opløser hemmeligheden på serversiden, før konfigurationen overdrages til proben. OneUptime opretter aldrig disse hemmeligheder for dig — det er dit eget valg at referere til en.
+Cast Operations opløser hemmeligheden på serversiden, før konfigurationen overdrages til proben. Cast Operations opretter aldrig disse hemmeligheder for dig — det er dit eget valg at referere til en.
 
 ## Opsætning af kriterier
 

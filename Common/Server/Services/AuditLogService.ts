@@ -1,7 +1,6 @@
 import ClickhouseDatabase from "../Infrastructure/ClickhouseDatabase";
 import AnalyticsDatabaseService from "./AnalyticsDatabaseService";
 import ProjectService from "./ProjectService";
-import { IsBillingEnabled, IsEnterpriseEdition } from "../EnvironmentConfig";
 import logger from "../Utils/Logger";
 import AuditLog from "../../Models/AnalyticsModels/AuditLog";
 import BaseModel from "../../Models/DatabaseModels/DatabaseBaseModel/DatabaseBaseModel";
@@ -9,7 +8,6 @@ import Project from "../../Models/DatabaseModels/Project";
 import User from "../../Models/DatabaseModels/User";
 import AuditLogAction from "../../Types/AuditLog/AuditLogAction";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import { getColumnAccessControlForAllColumns } from "../../Types/Database/AccessControl/ColumnAccessControl";
 import { JSONArray, JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
@@ -40,7 +38,6 @@ interface CachedProjectSettings {
   enableAuditLogs: boolean;
   retentionInDays: number;
   storeSystemEventsInAuditLogs: boolean;
-  planName: PlanType | undefined;
   expiresAt: number;
 }
 
@@ -278,19 +275,7 @@ export class AuditLogService extends AnalyticsDatabaseService<AuditLog> {
       return false;
     }
 
-    if (IsEnterpriseEdition) {
-      return true;
-    }
-
-    if (IsBillingEnabled) {
-      return settings.planName === PlanType.Enterprise;
-    }
-
-    /*
-     * Neither enterprise edition nor billing is enabled — audit logs are not
-     * available on the free self-hosted build.
-     */
-    return false;
+    return true;
   }
 
   private isSystemEvent(props: DatabaseCommonInteractionProps): boolean {
@@ -321,7 +306,6 @@ export class AuditLogService extends AnalyticsDatabaseService<AuditLog> {
         enableAuditLogs: true,
         auditLogsRetentionInDays: true,
         storeSystemEventsInAuditLogs: true,
-        planName: true,
       },
       props: { isRoot: true },
     });
@@ -336,7 +320,6 @@ export class AuditLogService extends AnalyticsDatabaseService<AuditLog> {
       storeSystemEventsInAuditLogs: Boolean(
         project.storeSystemEventsInAuditLogs,
       ),
-      planName: project.planName,
       expiresAt: now + PROJECT_SETTINGS_CACHE_TTL_MS,
     };
 

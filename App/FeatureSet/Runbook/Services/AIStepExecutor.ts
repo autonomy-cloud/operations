@@ -325,7 +325,7 @@ export function buildAiStepMessages(data: {
   previousStepsContext?: string | undefined;
 }): Array<LLMMessage> {
   const systemPrompt: string = [
-    `You are an AI assistant executing one step of an operations runbook in OneUptime.`,
+    `You are an AI assistant executing one step of an operations runbook in Cast Operations.`,
     `Your response becomes this step's output on the execution timeline, where on-call responders read it to decide what to do next.`,
     ``,
     `Guidelines:`,

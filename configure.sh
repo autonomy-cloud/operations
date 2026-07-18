@@ -147,8 +147,8 @@ clone_oneuptime() {
         GIT_REPO_URL=$(git config --get remote.origin.url || echo "")
         
         if [[ $GIT_REPO_URL != *oneuptime* ]]; then
-            print_info "Cloning OneUptime repository..."
-            git clone https://github.com/OneUptime/oneuptime.git || true
+            print_info "Cloning Cast Operations repository..."
+            git clone https://github.com/autonomy-cloud/operations.git || true
             cd oneuptime
         fi
 
@@ -168,7 +168,7 @@ setup_tsnode() {
 
 # Main installation process
 main() {
-    print_info "Welcome to the OneUptime 🟢 Runner"
+    print_info "Welcome to the Cast Operations 🟢 Runner"
     echo ""
     
     # Request sudo access upfront
@@ -202,7 +202,7 @@ set +a
         cat "$dockerfile_template" | gomplate > "${dockerfile_template%.tpl}"
     done < <(find . -type f -name "Dockerfile.tpl" -not -path "*/node_modules/*")
     
-    print_success "OneUptime installation completed successfully! 🚀"
+    print_success "Cast Operations installation completed successfully! 🚀"
 }
 
 # Run main function

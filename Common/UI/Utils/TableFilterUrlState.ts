@@ -10,7 +10,7 @@ export type TableFilterUrlStateKind = "facets" | "filter";
  *    (the list page remounts with the params still on the URL), and
  *  - are shareable/bookmarkable (the URL fully describes the filtered view).
  *
- * The snapshot is run through {@link JSONFunctions} so OneUptime's typed query
+ * The snapshot is run through {@link JSONFunctions} so Cast Operations’ typed query
  * values (Search, Includes, InBetween, ...) round-trip as real class instances
  * rather than plain objects. Params are namespaced by `tableId` so two tables on
  * the same route don't clobber each other.

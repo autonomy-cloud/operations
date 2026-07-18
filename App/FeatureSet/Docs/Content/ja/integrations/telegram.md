@@ -1,11 +1,11 @@
 # Telegram 連携
 
-インシデントの更新を [Telegram](https://telegram.org) のチャットまたはグループに送信します。OneUptime には **Telegram** ワークフローコンポーネントが組み込まれているため、セットアップはすぐに完了します。
+インシデントの更新を [Telegram](https://telegram.org) のチャットまたはグループに送信します。Cast Operations には **Telegram** ワークフローコンポーネントが組み込まれているため、セットアップはすぐに完了します。
 
-この連携は**アウトバウンド**です: OneUptime が Telegram ボットを通じてメッセージを送信します。
+この連携は**アウトバウンド**です: Cast Operations が Telegram ボットを通じてメッセージを送信します。
 
 ```text
-OneUptime Incident → On Create  ──►  Telegram component  ──►  message in your chat
+Cast Operations Incident → On Create  ──►  Telegram component  ──►  message in your chat
 ```
 
 ## ステップ 1 — ボットを作成してトークンを取得する
@@ -21,7 +21,7 @@ OneUptime Incident → On Create  ──►  Telegram component  ──►  mess
 
 ## ステップ 3 — シークレットを保存する
 
-1. OneUptime で **Workflows → Global Variables → Create** に移動します。
+1. Cast Operations で **Workflows → Global Variables → Create** に移動します。
 2. `TELEGRAM_BOT_TOKEN` (シークレット) と `TELEGRAM_CHAT_ID` を作成します。
 
 ## ステップ 4 — ワークフローを作成する

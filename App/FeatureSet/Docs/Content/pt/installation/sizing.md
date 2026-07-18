@@ -1,6 +1,6 @@
 # Dimensionamento e Planejamento de Capacidade
 
-Este guia ajuda você a dimensionar uma implantação OneUptime auto-hospedada no Kubernetes (Helm). Ele cobre os três armazenamentos de dados dos quais o OneUptime depende — **PostgreSQL**, **Redis** e **ClickHouse** — além da computação da aplicação, e fornece níveis iniciais que você pode ajustar assim que tiver números reais.
+Este guia ajuda você a dimensionar uma implantação Cast Operations auto-hospedada no Kubernetes (Helm). Ele cobre os três armazenamentos de dados dos quais o Cast Operations depende — **PostgreSQL**, **Redis** e **ClickHouse** — além da computação da aplicação, e fornece níveis iniciais que você pode ajustar assim que tiver números reais.
 
 > **Leia isto primeiro:** o chart do Helm vem **sem nenhuma requisição ou limite de CPU/memória definidos** e com volumes padrão pequenos de **25 Gi** para PostgreSQL e ClickHouse. Esses padrões existem para que o chart instale e funcione em qualquer cluster — eles **não** representam um dimensionamento de produção. Para qualquer coisa além de um teste rápido, defina recursos e armazenamento explicitamente usando os números abaixo.
 
@@ -8,7 +8,7 @@ Se em vez disso você estiver executando a instalação de servidor único com D
 
 ## O que determina cada armazenamento de dados
 
-O OneUptime requer três armazenamentos de dados em produção. Eles escalam com base em entradas completamente diferentes, então dimensione-os de forma independente.
+O Cast Operations requer três armazenamentos de dados em produção. Eles escalam com base em entradas completamente diferentes, então dimensione-os de forma independente.
 
 | Armazenamento de dados | O que ele armazena                                                                                                            | O que determina seu tamanho                                                                                   |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -16,7 +16,7 @@ O OneUptime requer três armazenamentos de dados em produção. Eles escalam com
 | **PostgreSQL**         | Configuração e estado — monitores, incidentes, alertas, usuários, equipes, projetos, workflows, páginas de status, dashboards | **Quantidade de entidades e histórico**, não o volume de telemetria. Cresce lentamente.                       |
 | **Redis**              | Cache, filas de trabalho e sessões                                                                                            | **Profundidade das filas e sessões ativas**. Limitado por memória e modesto. Não é uma fonte de verdade.      |
 
-O armazenamento de objetos (S3/MinIO) **não** é necessário para o OneUptime funcionar. Ele é usado apenas opcionalmente para **backups** do banco de dados (via o plugin Barman do CloudNativePG para PostgreSQL, ou `clickhouse-backup` para ClickHouse). O OneUptime não move a telemetria em camadas para o armazenamento de objetos — veja a seção "Retenção e como ela afeta o armazenamento" abaixo.
+O armazenamento de objetos (S3/MinIO) **não** é necessário para o Cast Operations funcionar. Ele é usado apenas opcionalmente para **backups** do banco de dados (via o plugin Barman do CloudNativePG para PostgreSQL, ou `clickhouse-backup` para ClickHouse). O Cast Operations não move a telemetria em camadas para o armazenamento de objetos — veja a seção "Retenção e como ela afeta o armazenamento" abaixo.
 
 ## ClickHouse — o fator dominante
 
@@ -55,7 +55,7 @@ O armazenamento escala **linearmente com a retenção** — uma janela de 90 dia
 
 O PostgreSQL armazena sua configuração e estado operacional, não a telemetria, então ele cresce lentamente e permanece pequeno em relação ao ClickHouse. Mesmo implantações grandes geralmente ficam na casa das dezenas de GB. O volume padrão de **25 Gi** é suficiente para instalações pequenas; planeje 50–100 GB para as maiores, com folga para o histórico de incidentes/alertas.
 
-Se você executar muitas réplicas de aplicação, worker e probe, o número de conexões com o banco de dados pode se tornar o gargalo antes do armazenamento. O chart do Helm do OneUptime inclui um pooler de conexões **PgBouncer** opcional (`pgbouncer.enabled`) exatamente para isso — habilite-o para implantações com muitas réplicas.
+Se você executar muitas réplicas de aplicação, worker e probe, o número de conexões com o banco de dados pode se tornar o gargalo antes do armazenamento. O chart do Helm do Cast Operations inclui um pooler de conexões **PgBouncer** opcional (`pgbouncer.enabled`) exatamente para isso — habilite-o para implantações com muitas réplicas.
 
 ## Redis — cache, filas e sessões
 
@@ -80,7 +80,7 @@ Escolha o nível mais próximo do seu ambiente como ponto de partida, depois obs
 | **Redis**             | 1 vCPU / 2 GB                | 2 vCPU / 4 GB                | 4 vCPU / 8–16 GB                                     |
 | **Retention assumed** | 30 days                      | 30–90 days                   | 90 days                                              |
 
-Esses valores dimensionam o **backend** do OneUptime. Os coletores do OneUptime que rodam em cada cluster monitorado são dimensionados separadamente — veja os níveis de dimensionamento do [Agente Kubernetes](/docs/telemetry/kubernetes-agent).
+Esses valores dimensionam o **backend** do Cast Operations. Os coletores do Cast Operations que rodam em cada cluster monitorado são dimensionados separadamente — veja os níveis de dimensionamento do [Agente Kubernetes](/docs/telemetry/kubernetes-agent).
 
 ## Alta disponibilidade
 
@@ -88,13 +88,13 @@ Os armazenamentos de dados integrados ao chart rodam como **instâncias únicas*
 
 - **PostgreSQL** — habilite o operador [CloudNativePG](https://cloudnative-pg.io) incluído (`postgresOperator.cnpg.enabled`) com **3 instâncias** (1 primária + 2 hot standbys) para failover automático.
 - **ClickHouse** — habilite o operador [Altinity](https://github.com/Altinity/clickhouse-operator) incluído (`clickhouseOperator.altinity.enabled`) com **≥2 réplicas por shard** e **3 nós ClickHouse Keeper** para quórum. Adicione shards assim que o disco ou a RAM de um único nó se tornar o limite.
-- **Redis** — o chart não possui replicação interna. Para HA, aponte o OneUptime para um **Redis gerenciado externo** (ou uma implantação AI/cluster).
+- **Redis** — o chart não possui replicação interna. Para HA, aponte o Cast Operations para um **Redis gerenciado externo** (ou uma implantação AI/cluster).
 
 ## Retenção e como ela afeta o armazenamento
 
 A retenção da telemetria é imposta como um **TTL do ClickHouse configurado em dias**, definido **por projeto** e refinável **por sinal** (logs, métricas, traces, profiles) e por bucket (por exemplo, por severidade de log). O padrão fixo no código é de 15 dias.
 
-Como a retenção multiplica diretamente o armazenamento do ClickHouse, decida-a antes de dimensionar o disco. O OneUptime **não** arquiva nem move automaticamente a telemetria antiga em camadas para o armazenamento de objetos — para retenção de conformidade de vários anos, estenda a janela de retenção e dimensione o armazenamento do ClickHouse para corresponder (ou exporte para um arquivo externo de sua escolha).
+Como a retenção multiplica diretamente o armazenamento do ClickHouse, decida-a antes de dimensionar o disco. O Cast Operations **não** arquiva nem move automaticamente a telemetria antiga em camadas para o armazenamento de objetos — para retenção de conformidade de vários anos, estenda a janela de retenção e dimensione o armazenamento do ClickHouse para corresponder (ou exporte para um arquivo externo de sua escolha).
 
 ## Meça antes de se comprometer
 
@@ -105,4 +105,4 @@ O volume de telemetria varia enormemente conforme a verbosidade dos logs da apli
 - [Docker Compose](/docs/installation/docker-compose) — dimensionamento de servidor único
 - [Arquitetura Auto-Hospedada](/docs/self-hosted/architecture) — como os componentes se encaixam
 - [Agente Kubernetes](/docs/telemetry/kubernetes-agent) — dimensionamento do coletor (plano de dados)
-- [Chart do Helm no Artifact Hub](https://artifacthub.io/packages/helm/oneuptime/oneuptime)
+- [Chart do Helm no Artifact Hub](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

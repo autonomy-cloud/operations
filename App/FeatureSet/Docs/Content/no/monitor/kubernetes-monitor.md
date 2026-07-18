@@ -1,6 +1,6 @@
 # Kubernetes-monitor
 
-Kubernetes-overvåking lar deg overvåke helsen og ytelsen til Kubernetes-klyngene dine, inkludert noder, pods, arbeidsmengder og kontrollplankomponenter. OneUptime samler inn metrikker fra klyngen din og evaluerer dem mot dine konfigurerte kriterier.
+Kubernetes-overvåking lar deg overvåke helsen og ytelsen til Kubernetes-klyngene dine, inkludert noder, pods, arbeidsmengder og kontrollplankomponenter. Cast Operations samler inn metrikker fra klyngen din og evaluerer dem mot dine konfigurerte kriterier.
 
 ## Oversikt
 
@@ -15,7 +15,7 @@ Kubernetes-monitorer bruker metrikker fra klyngen din for å gi dyp innsikt i in
 
 ## Opprette en Kubernetes-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **Kubernetes** som monitortype
 4. Velg klyngen og ressursomfanget som skal overvåkes
@@ -26,7 +26,7 @@ Kubernetes-monitorer bruker metrikker fra klyngen din for å gi dyp innsikt i in
 
 ### Klynge
 
-Velg Kubernetes-klyngen som skal overvåkes. Klynger må være integrert med OneUptime via OpenTelemetry.
+Velg Kubernetes-klyngen som skal overvåkes. Klynger må være integrert med Cast Operations via OpenTelemetry.
 
 ### Ressursomfang
 
@@ -138,7 +138,7 @@ Velg tidsvinduet for metrikkevaluering:
 
 ## Forhåndsbygde varselmaler
 
-OneUptime tilbyr maler for vanlige Kubernetes-overvåkingsscenarier:
+Cast Operations tilbyr maler for vanlige Kubernetes-overvåkingsscenarier:
 
 | Mal                         | Beskrivelse                 | Terskel           |
 | --------------------------- | --------------------------- | ----------------- |
@@ -157,6 +157,6 @@ OneUptime tilbyr maler for vanlige Kubernetes-overvåkingsscenarier:
 
 ## Oppsettskrav
 
-For å bruke Kubernetes-overvåking må du installere OneUptime Kubernetes-agenten i klyngen din. Agenten sender klyngemetrikker, hendelser, pod-logger og — som standard — **applikasjonssporinger og HTTP RED-metrikker fanget via eBPF** til OneUptime over OTLP. Ingen kodeendringer eller per-app SDK-er er nødvendig for å se trafikk på tjenestenivå.
+For å bruke Kubernetes-overvåking må du installere Cast Operations Kubernetes-agenten i klyngen din. Agenten sender klyngemetrikker, hendelser, pod-logger og — som standard — **applikasjonssporinger og HTTP RED-metrikker fanget via eBPF** til Cast Operations over OTLP. Ingen kodeendringer eller per-app SDK-er er nødvendig for å se trafikk på tjenestenivå.
 
 Se veiledningen [Installere Kubernetes-agenten](/docs/monitor/kubernetes-agent) — den dekker Helm-installasjonen med én kommando, `preset`-valget for å velge riktig konfigurasjon for klyngen din (standard, GKE Autopilot, EKS Fargate), og bryterne `ebpf.features.*` for de individuelle signalfamiliene (HTTP RED-metrikker, tjenestegraf, nettverksflyt, TCP-statistikk).

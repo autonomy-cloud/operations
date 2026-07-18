@@ -1,11 +1,11 @@
 # Microsoft Teams Integration
 
-To integrate Microsoft Teams with your self-hosted OneUptime instance, you need to configure Azure App Registration and set up the required environment variables.
+To integrate Microsoft Teams with your self-hosted Cast Operations instance, you need to configure Azure App Registration and set up the required environment variables.
 
 ## Prerequisites
 
 - Azure Account - You can create one by going to [https://azure.com](https://azure.com)
-- Access to your OneUptime server configuration
+- Access to your Cast Operations server configuration
 
 ## Setup Instructions
 
@@ -16,8 +16,8 @@ To integrate Microsoft Teams with your self-hosted OneUptime instance, you need 
 3. Fill out the registration form:
    - **Name:** oneuptime
    - **Supported account types:** Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)
-   - **Redirect URI:** Web - `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - Please also add: `https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **Redirect URI:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - Please also add: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. Click "Register"
 5. Note down the "Application (client) ID" - you'll need this later
 
@@ -71,7 +71,7 @@ To integrate Microsoft Teams with your self-hosted OneUptime instance, you need 
 3. Click "Review + create" and then "Create"
 
 4. Once deployed, go to your bot resource and navigate to "Configuration"
-5. Set the "Messaging endpoint" to `https://your-oneuptime-domain.com/api/microsoft-bot/messages`
+5. Set the "Messaging endpoint" to `https://your-operations-domain.com/api/microsoft-bot/messages`
 6. Save the configuration
 
 ### Step 5: Add Microsoft Teams Channel to the Bot
@@ -81,7 +81,7 @@ To integrate Microsoft Teams with your self-hosted OneUptime instance, you need 
 3. Review the settings (enable for Teams, keep default messaging options unless you have specific needs)
 4. Click "Save" (and "Done"/"Publish" if prompted) to enable the Teams channel
 
-### Step 6: Configure OneUptime Environment Variables
+### Step 6: Configure Cast Operations Environment Variables
 
 #### Docker Compose
 
@@ -104,7 +104,7 @@ microsoftTeamsApp:
    tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**Important:** Restart your OneUptime server after adding these environment variables so they take effect.
+**Important:** Restart your Cast Operations server after adding these environment variables so they take effect.
 
 ### Step 7: Upload Teams App Manifest
 
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 If you encounter issues:
 
 - Ensure your app has the correct permissions granted
-- Check that the redirect URI matches exactly (replace `your-oneuptime-domain.com` with your actual domain)
+- Check that the redirect URI matches exactly (replace `your-operations-domain.com` with your actual domain)
 - Verify your environment variables are set correctly
 - Make sure the bot messaging endpoint is accessible from the internet
 - Verify that the bot is properly configured with the Teams channel
@@ -129,4 +129,4 @@ If you encounter issues:
 
 ## Support
 
-We would like to improve this integration, so feedback is more than welcome. Please send us any at [hello@oneuptime.com](mailto:hello@oneuptime.com)
+We would like to improve this integration, so feedback is more than welcome. Please send us any at [hello@visca.ai](mailto:hello@visca.ai)

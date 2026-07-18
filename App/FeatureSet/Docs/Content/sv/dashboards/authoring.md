@@ -28,7 +28,7 @@ Det är samma instrumentpanel i båda lägena. Det finns inget separat "publicer
 
 De flesta widgetar läser från en av tre platser:
 
-- **Mätvärden** — välj ett mätvärde och en aggregering (medel, max, antal, percentil). Lägg till filter. Välj hur resultatet ska grupperas. Det är samma frågebyggare som du ser på andra ställen i OneUptime.
+- **Mätvärden** — välj ett mätvärde och en aggregering (medel, max, antal, percentil). Lägg till filter. Välj hur resultatet ska grupperas. Det är samma frågebyggare som du ser på andra ställen i Cast Operations.
 - **Liveslistor** — incidenter, larm, monitorer, Kubernetes-poddar, Docker-containers, värdar. Varje listwidget tar ett filter och visar matchande objekt, uppdaterade live.
 - **Statiskt innehåll** — **Text**-widgeten tar ett block med Markdown. Använd det för rubriker, sammanhang, länkar till runbooks eller tillfälliga anteckningar under en incident.
 

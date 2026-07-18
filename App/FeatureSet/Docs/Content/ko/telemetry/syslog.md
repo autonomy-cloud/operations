@@ -1,22 +1,22 @@
-# OneUptime에 Syslog 데이터 전송
+# Cast Operations에 Syslog 데이터 전송
 
 ## 개요
 
-OpenTelemetry 수집 서비스는 이제 네이티브 Syslog 페이로드를 허용합니다. RFC3164 또는 RFC5424 호환 소스에서 직접 HTTPS를 통해 OneUptime으로 메시지를 전달할 수 있습니다. OneUptime은 syslog 우선순위, 시설, 심각도, 구조화된 데이터 및 메시지 본문을 파싱한 후 모든 것을 검색 가능한 로그로 저장합니다.
+OpenTelemetry 수집 서비스는 이제 네이티브 Syslog 페이로드를 허용합니다. RFC3164 또는 RFC5424 호환 소스에서 직접 HTTPS를 통해 Cast Operations으로 메시지를 전달할 수 있습니다. Cast Operations은 syslog 우선순위, 시설, 심각도, 구조화된 데이터 및 메시지 본문을 파싱한 후 모든 것을 검색 가능한 로그로 저장합니다.
 
 ## 전제 조건
 
 - **텔레메트리 수집 토큰** – *프로젝트 설정 → 텔레메트리 수집 키*에서 생성하고 `x-oneuptime-token` 값을 복사합니다.
 - **Syslog 전달자** – HTTP POST 요청을 보낼 수 있는 모든 도구 (예: `curl`, `omhttp`를 통한 `rsyslog` 또는 HTTP 대상 플러그인이 있는 `syslog-ng`).
-- **서비스 이름 (선택 사항)** – 특정 텔레메트리 서비스 아래에 수신 로그를 그룹화하려면 `x-oneuptime-service-name` 헤더를 설정합니다. 생략하면 OneUptime은 syslog `APP-NAME`, 호스트 이름 또는 `Syslog`로 폴백합니다.
+- **서비스 이름 (선택 사항)** – 특정 텔레메트리 서비스 아래에 수신 로그를 그룹화하려면 `x-oneuptime-service-name` 헤더를 설정합니다. 생략하면 Cast Operations은 syslog `APP-NAME`, 호스트 이름 또는 `Syslog`로 폴백합니다.
 
 ## 엔드포인트
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- OneUptime을 자체 호스팅하는 경우 `oneuptime.com`을 호스트로 교체합니다.
+- Cast Operations을 자체 호스팅하는 경우 `visca.ai`을 호스트로 교체합니다.
 - 항상 요청에 `x-oneuptime-token` 헤더를 포함합니다.
 
 ## 요청 본문
@@ -42,7 +42,7 @@ POST https://oneuptime.com/syslog/v1/logs
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -92,13 +92,13 @@ curl \
 
 ### 1. 네트워크 및 보안 어플라이언스
 
-대부분의 네트워크 장비는 여전히 syslog만을 통해 구성 변경, ACL 히트 및 위협 탐지를 노출합니다. 기존 릴레이 (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense 등)를 OneUptime으로 직접 지정하거나 내부 릴레이를 유지하고 HTTPS를 통해 전달합니다:
+대부분의 네트워크 장비는 여전히 syslog만을 통해 구성 변경, ACL 히트 및 위협 탐지를 노출합니다. 기존 릴레이 (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense 등)를 Cast Operations으로 직접 지정하거나 내부 릴레이를 유지하고 HTTPS를 통해 전달합니다:
 
 ```bash
-# 메시지를 JSON으로 일괄 처리하고 OneUptime에 게시하는 rsyslog 스니펫
+# 메시지를 JSON으로 일괄 처리하고 Cast Operations에 게시하는 rsyslog 스니펫
 module(load="omhttp")
 
-template(name="OneUptimeJSON" type="list") {
+template(name="Cast OperationsJSON" type="list") {
   constant(value="{\"messages\":[\"")
   property(name="rawmsg")
   constant(value="\"]}")
@@ -106,14 +106,14 @@ template(name="OneUptimeJSON" type="list") {
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: perimeter-firewall"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -128,14 +128,14 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: linux-fleet"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -155,7 +155,7 @@ action(
 [OUTPUT]
     Name              http
     Match             *
-    Host              oneuptime.com
+    Host              visca.ai
     Port              443
     URI               /syslog/v1/logs
     Format            json
@@ -170,11 +170,11 @@ action(
 
 ### 4. 기다림 없는 컴플라이언스 아카이브
 
-PCI 또는 SOX를 위해 방화벽 로그를 보존해야 하나요? OneUptime으로 직접 전송하고 텔레메트리 서비스에 긴 보존 정책을 적용하고 단일 장소에서 콜드 스토리지로 내보냅니다. 더 이상 여러 syslog 릴레이에서 내보낼 필요가 없습니다.
+PCI 또는 SOX를 위해 방화벽 로그를 보존해야 하나요? Cast Operations으로 직접 전송하고 텔레메트리 서비스에 긴 보존 정책을 적용하고 단일 장소에서 콜드 스토리지로 내보냅니다. 더 이상 여러 syslog 릴레이에서 내보낼 필요가 없습니다.
 
 ## 파싱된 속성
 
-OneUptime은 각 로그 항목에 다음 속성을 자동으로 추가합니다:
+Cast Operations은 각 로그 항목에 다음 속성을 자동으로 추가합니다:
 
 - `syslog.priority`, `syslog.facility.code`, `syslog.facility.name`
 - `syslog.severity.code`, `syslog.severity.name`

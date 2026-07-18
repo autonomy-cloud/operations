@@ -9,17 +9,16 @@ FROM public.ecr.aws/docker/library/node:26-alpine3.23 AS node26
 FROM nginx:1.30.2-alpine
 
 
-# Per-build args (GIT_SHA / APP_VERSION / IS_ENTERPRISE_EDITION) are declared at
 # the bottom so the npm install / compile layers stay cacheable across commits
 # and across the community + enterprise build passes.
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 
-LABEL org.opencontainers.image.title="OneUptime Nginx"
-LABEL org.opencontainers.image.description="OneUptime Nginx ingress — TLS termination, routing, and Let's Encrypt automation."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.documentation="https://oneuptime.com/docs"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations Nginx"
+LABEL org.opencontainers.image.description="Cast Operations Nginx ingress — TLS termination, routing, and Let's Encrypt automation."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 
@@ -90,10 +89,8 @@ RUN chmod +x ./run.sh
 # cacheable across commits and across the community + enterprise build passes.
 ARG GIT_SHA
 ARG APP_VERSION
-ARG IS_ENTERPRISE_EDITION=false
 ENV GIT_SHA=${GIT_SHA}
 ENV APP_VERSION=${APP_VERSION}
-ENV IS_ENTERPRISE_EDITION=${IS_ENTERPRISE_EDITION}
 LABEL org.opencontainers.image.revision="${GIT_SHA}"
 LABEL org.opencontainers.image.version="${APP_VERSION}"
 

@@ -82,7 +82,7 @@ ORDER BY avg_uncompressed_row_size_bytes DESC;
 
 ### Operator-managed ClickHouse with the Altinity operator (optional)
 
-By default OneUptime runs ClickHouse as a single-replica `StatefulSet` (no
+By default Cast Operations runs ClickHouse as a single-replica `StatefulSet` (no
 replication or declarative lifecycle management). You can instead run ClickHouse
 under the [Altinity ClickHouse operator](https://github.com/Altinity/clickhouse-operator),
 which adds declarative management, rolling upgrades, sharding, and replication
@@ -127,7 +127,7 @@ echo $(kubectl get secret --namespace "default" oneuptime-clickhouse-altinity -o
 
 > **Bundled-operator caveats.** The Altinity operator is cluster-scoped and owns
 > the ClickHouse CRDs (`ClickHouseInstallation`, etc.), installed via Helm hooks.
-> Do **not** enable the bundled operator in more than one OneUptime release in the
+> Do **not** enable the bundled operator in more than one Cast Operations release in the
 > same cluster (they would fight over the CRDs/RBAC). If you already run the
 > Altinity operator cluster-wide, do not use the bundled mode. Tune the operator
 > itself (including its `clickhouse_operator` management-user credentials) under the
@@ -165,12 +165,12 @@ kubectl get pods -l app.kubernetes.io/component=clickhouse-keeper
 #### Cluster-aware analytics schema
 
 A multi-node ClickHouse only stays consistent if the application's tables are
-actually replicated/distributed. OneUptime's analytics tables default to plain
+actually replicated/distributed. Cast Operations’ analytics tables default to plain
 `MergeTree` (no replication); pointing reads at several un-synced nodes makes a
 span/trace visible only on the fraction of reads that hit the node holding it
 (the "Span not found" / "No spans found" symptom).
 
-OneUptime therefore ALWAYS runs the analytics schema as a sharded + replicated
+Cast Operations therefore ALWAYS runs the analytics schema as a sharded + replicated
 cluster — there is no single-node code path. A single node is a "cluster of one"
 (1 shard, 1 replica) backed by an **embedded** ClickHouse Keeper: the built-in
 StatefulSet ships the embedded Keeper + a 1-node `oneuptime` cluster in

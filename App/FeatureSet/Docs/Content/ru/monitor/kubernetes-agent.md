@@ -1,22 +1,22 @@
 # Установка агента Kubernetes
 
-Агент OneUptime Kubernetes собирает метрики кластера, события, логи Pod, **трассировки приложений (HTTP/gRPC через eBPF)** и **метрики уровня ОС узлов** из вашего кластера Kubernetes и отправляет их в OneUptime. Он распространяется в виде Helm chart и устанавливается одной командой — eBPF auto-instrumentation включено по умолчанию, поэтому вы получаете трассировки уровня сервисов и RED-метрики без каких-либо изменений в коде. Также доступны **непрерывные flame graph CPU (eBPF profiler)** — подключите их с помощью `--set profiling.enabled=true`, когда вам нужно больше телеметрии.
+Агент Cast Operations Kubernetes собирает метрики кластера, события, логи Pod, **трассировки приложений (HTTP/gRPC через eBPF)** и **метрики уровня ОС узлов** из вашего кластера Kubernetes и отправляет их в Cast Operations. Он распространяется в виде Helm chart и устанавливается одной командой — eBPF auto-instrumentation включено по умолчанию, поэтому вы получаете трассировки уровня сервисов и RED-метрики без каких-либо изменений в коде. Также доступны **непрерывные flame graph CPU (eBPF profiler)** — подключите их с помощью `--set profiling.enabled=true`, когда вам нужно больше телеметрии.
 
 ## Быстрый старт
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
-Ваш кластер появится в OneUptime в течение нескольких минут.
+Ваш кластер появится в Cast Operations в течение нескольких минут.
 
 ## Выбор подходящего пресета для вашего кластера
 
@@ -37,7 +37,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
@@ -47,7 +47,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
@@ -58,7 +58,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
@@ -90,7 +90,7 @@ $1 Каждый поток контейнера — это долговреме�
 
 ## Трассировки приложений и HTTP-запросы через eBPF (включено по умолчанию)
 
-Chart поставляется с DaemonSet, который запускает [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) на каждом узле. OBI загружает eBPF-программы в ядро Linux и отслеживает трафик уровня сокетов, чтобы реконструировать вызовы HTTP/HTTPS, gRPC и SQL/Redis из каждого Pod на узле — без изменений в коде, без SDK, без sidecar. Перехваченный трафик экспортируется как OTLP-трассировки и метрики запросов/задержки напрямую в OneUptime.
+Chart поставляется с DaemonSet, который запускает [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) на каждом узле. OBI загружает eBPF-программы в ядро Linux и отслеживает трафик уровня сокетов, чтобы реконструировать вызовы HTTP/HTTPS, gRPC и SQL/Redis из каждого Pod на узле — без изменений в коде, без SDK, без sidecar. Перехваченный трафик экспортируется как OTLP-трассировки и метрики запросов/задержки напрямую в Cast Operations.
 
 После установки ваши сервисы начинают появляться в разделе **Telemetry → Traces** и на карте сервисов в течение пары минут, причём `k8s.cluster.name` устанавливается равным вашему `clusterName`, что позволяет фильтровать по кластеру.
 
@@ -127,7 +127,7 @@ OBI также по умолчанию распространяет контек
 
 Также включено по умолчанию. Энричер логов OBI перехватывает запись в stdout от инструментированных процессов Pod и:
 
-- Для **логов в формате JSON**: вставляет поля `trace_id` и `span_id` в строку (любые существующие значения в логе сохраняются). Затем DaemonSet filelog поднимает эти поля в нативные слоты trace_id/span_id LogRecord, поэтому при клике по span в представлении трассировок происходит переход к его логам в OneUptime — а клик по строке лога переходит к родительской трассировке.
+- Для **логов в формате JSON**: вставляет поля `trace_id` и `span_id` в строку (любые существующие значения в логе сохраняются). Затем DaemonSet filelog поднимает эти поля в нативные слоты trace_id/span_id LogRecord, поэтому при клике по span в представлении трассировок происходит переход к его логам в Cast Operations — а клик по строке лога переходит к родительской трассировке.
 - Для **логов не в формате JSON**: строка сохраняется без изменений — всё равно собирается, просто без автосвязи.
 
 | Опция                        | По умолчанию | Описание                                                                                                              |
@@ -163,11 +163,11 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 ## Непрерывное профилирование CPU (выключено по умолчанию)
 
-Отдельный DaemonSet запускает [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) — упакованный как образ `otel/opentelemetry-collector-ebpf-profiler`. Он сэмплирует on-CPU стеки на частоте 19Hz во всех поддерживаемых runtime (Go, Java, .NET, Python, Ruby, Node.js, PHP, Perl, C/C++, Rust) и отправляет OTLP-профили в OneUptime, где они появляются в разделе **Telemetry → Performance Profiles** и в виде flame graph, связанных с отдельными span трассировок.
+Отдельный DaemonSet запускает [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) — упакованный как образ `otel/opentelemetry-collector-ebpf-profiler`. Он сэмплирует on-CPU стеки на частоте 19Hz во всех поддерживаемых runtime (Go, Java, .NET, Python, Ruby, Node.js, PHP, Perl, C/C++, Rust) и отправляет OTLP-профили в Cast Operations, где они появляются в разделе **Telemetry → Performance Profiles** и в виде flame graph, связанных с отдельными span трассировок.
 
 Профилирование **выключено по умолчанию** — оно тяжелее, чем auto-instrumentation OBI (больше CPU на узел, больший объём памяти), и не каждый кластер хочет получать flame graph постоянно. Включите его, когда вам нужно больше телеметрии: `--set profiling.enabled=true`.
 
-Когда eBPF auto-instrumentation также включена (`ebpf.enabled: true`, по умолчанию), каждый сэмпл CPU коррелируется с контекстом трассировки OBI через общую карту bpffs — поэтому flame graph несут trace_id/span_id, и UI OneUptime может показать вам flame graph для каждого span.
+Когда eBPF auto-instrumentation также включена (`ebpf.enabled: true`, по умолчанию), каждый сэмпл CPU коррелируется с контекстом трассировки OBI через общую карту bpffs — поэтому flame graph несут trace_id/span_id, и UI Cast Operations может показать вам flame graph для каждого span.
 
 Требования:
 
@@ -205,7 +205,7 @@ Chart также может собирать:
 | Опция                                     | По умолчанию                            | Описание                                                                                                                                                                                        |
 | ----------------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | (пусто — обрабатывается как `standard`) | См. таблицу выше.                                                                                                                                                                               |
-| `oneuptime.url`                           | _(обязательно)_                         | URL вашего инстанса OneUptime.                                                                                                                                                                  |
+| `oneuptime.url`                           | _(обязательно)_                         | URL вашего инстанса Cast Operations.                                                                                                                                                                  |
 | `oneuptime.apiKey`                        | _(обязательно)_                         | API-ключ проекта (Settings → API Keys).                                                                                                                                                         |
 | `clusterName`                             | _(обязательно)_                         | Уникальное имя для этого кластера. Записывается как `k8s.cluster.name` в каждой записи.                                                                                                         |
 | `namespaceFilters.rules`                  | Исключить kube-system из podLogs и ebpfDiscovery | Правила include/exclude по областям для podLogs, ebpfDiscovery, metrics и traces. Шаблоны поддерживают *, а exclude всегда имеет приоритет. |
@@ -224,7 +224,7 @@ Chart также может собирать:
 | `coreDns.enabled`                         | `false`                                 | Prometheus-метрики CoreDNS.                                                                                                                                                                     |
 | `controlPlane.enabled`                    | `false`                                 | Сбор метрик etcd / api-server / scheduler / controller-manager. Только самоуправляемые кластеры — управляемые предложения (EKS/GKE/AKS) обычно не предоставляют эти endpoint.                   |
 
-Полный список см. в [`values.yaml` chart](https://github.com/OneUptime/oneuptime/blob/master/HelmChart/Public/kubernetes-agent/values.yaml).
+Полный список см. в [`values.yaml` chart](https://github.com/autonomy-cloud/operations/blob/master/HelmChart/Public/kubernetes-agent/values.yaml).
 
 ## Обновление
 
@@ -271,7 +271,7 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
   --set preset=gke-autopilot   # or eks-fargate
 ```
 
-### В OneUptime не отображаются логи
+### В Cast Operations не отображаются логи
 
 Проверьте Pod агента:
 
@@ -294,7 +294,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 - **Слишком старое ядро или отсутствие BTF.** OBI требует Linux 5.8+ с BTF. Проверьте с помощью `uname -r` на узле. Если обновление невозможно, отключите eBPF: `--set ebpf.enabled=false`.
 - **Привилегированные Pod заблокированы.** Некоторые кластеры отклоняют привилегированные Pod даже вне Autopilot/Fargate. Отключите eBPF.
-- **На дашборде нет трассировок, но OBI работает.** Установите `--set ebpf.printTraces=true` и проверьте stdout OBI — если вы видите там span, проблема в доставке OTLP (проверьте `OTEL_EXPORTER_OTLP_ENDPOINT` и URL/API-ключ OneUptime). Если span не видно, трафик, который наблюдает OBI, может быть полностью зашифрован TLS-библиотекой, которую OBI не может перехватить (например, статически связанной реализацией TLS, которую он не распознаёт).
+- **На дашборде нет трассировок, но OBI работает.** Установите `--set ebpf.printTraces=true` и проверьте stdout OBI — если вы видите там span, проблема в доставке OTLP (проверьте `OTEL_EXPORTER_OTLP_ENDPOINT` и URL/API-ключ Cast Operations). Если span не видно, трафик, который наблюдает OBI, может быть полностью зашифрован TLS-библиотекой, которую OBI не может перехватить (например, статически связанной реализацией TLS, которую он не распознаёт).
 
 ### В моём кластере слишком много Pod для одной реплики log-tailer (только режим API)
 

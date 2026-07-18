@@ -1,17 +1,17 @@
 # MCP 服务器
 
-OneUptime 模型上下文协议（MCP）服务器为 LLM 提供对您 OneUptime 实例的直接访问，从而实现 AI 驱动的监控、事件管理和可观测性操作。
+Cast Operations 模型上下文协议（MCP）服务器为 LLM 提供对您 Cast Operations 实例的直接访问，从而实现 AI 驱动的监控、事件管理和可观测性操作。
 
-## 什么是 OneUptime MCP 服务器？
+## 什么是 Cast Operations MCP 服务器？
 
-OneUptime MCP 服务器是大型语言模型（LLM）与您的 OneUptime 实例之间的桥梁。它实现了模型上下文协议（MCP），使 Claude 等 AI 助手能够直接与您的监控基础设施进行交互。
+Cast Operations MCP 服务器是大型语言模型（LLM）与您的 Cast Operations 实例之间的桥梁。它实现了模型上下文协议（MCP），使 Claude 等 AI 助手能够直接与您的监控基础设施进行交互。
 
 ## 工作原理
 
-MCP 服务器与您的 OneUptime 实例一起托管，可通过 Streamable HTTP 传输协议访问。无需本地安装。
+MCP 服务器与您的 Cast Operations 实例一起托管，可通过 Streamable HTTP 传输协议访问。无需本地安装。
 
-**云端用户**：`https://oneuptime.com/mcp`
-**自托管用户**：`https://your-oneuptime-domain.com/mcp`
+**云端用户**：`https://visca.ai/mcp`
+**自托管用户**：`https://your-operations-domain.com/mcp`
 
 ## 主要功能
 
@@ -25,7 +25,7 @@ MCP 服务器与您的 OneUptime 实例一起托管，可通过 Streamable HTTP 
 
 ## 您可以做什么
 
-借助 OneUptime MCP 服务器，AI 助手可以帮助您：
+借助 Cast Operations MCP 服务器，AI 助手可以帮助您：
 
 - **监控器管理**：创建和配置监控器，检查其状态，查看状态历史
 - **事件响应**：创建、确认和解决事件，添加内部或公开备注，跟踪解决进度
@@ -37,13 +37,13 @@ MCP 服务器与您的 OneUptime 实例一起托管，可通过 Streamable HTTP 
 
 ## 要求
 
-- OneUptime 实例（云端或自托管）
+- Cast Operations 实例（云端或自托管）
 - 兼容 MCP 的客户端（Claude Desktop、VS Code with GitHub Copilot 等）
-- 有效的 OneUptime API 密钥（仅认证操作需要 - 公共工具无需认证）
+- 有效的 Cast Operations API 密钥（仅认证操作需要 - 公共工具无需认证）
 
 ## 获取您的 API 密钥
 
-1. 登录您的 OneUptime 实例
+1. 登录您的 Cast Operations 实例
 2. 导航至 **设置** → **API 密钥**
 3. 点击 **创建 API 密钥**
 4. 提供名称（例如"MCP Server"）
@@ -52,7 +52,7 @@ MCP 服务器与您的 OneUptime 实例一起托管，可通过 Streamable HTTP 
 
 API 密钥以项目为作用域：MCP 服务器会从密钥中推断出您的项目，因此创建类工具永远不需要 `projectId` 参数。
 
-> **警告——切勿将主密钥交给 AI 代理。** OneUptime 的*主* API 密钥同样可以在该请求头中使用，并授予实例级的管理员访问权限。请始终使用具有代理所需最小权限的项目 API 密钥（只读密钥即可满足所有 `get_`/`list_`/`count_` 工具的需要）。
+> **警告——切勿将主密钥交给 AI 代理。** Cast Operations 的*主* API 密钥同样可以在该请求头中使用，并授予实例级的管理员访问权限。请始终使用具有代理所需最小权限的项目 API 密钥（只读密钥即可满足所有 `get_`/`list_`/`count_` 工具的需要）。
 
 ## 配置
 
@@ -64,7 +64,7 @@ API 密钥以项目为作用域：MCP 服务器会从密钥中推断出您的项
 **Windows**：`%APPDATA%\Claude\claude_desktop_config.json`
 **Linux**：`~/.config/Claude/claude_desktop_config.json`
 
-### 适用于 OneUptime 云端
+### 适用于 Cast Operations 云端
 
 添加以下配置：
 
@@ -73,7 +73,7 @@ API 密钥以项目为作用域：MCP 服务器会从密钥中推断出您的项
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -82,16 +82,16 @@ API 密钥以项目为作用域：MCP 服务器会从密钥中推断出您的项
 }
 ```
 
-### 适用于自托管 OneUptime
+### 适用于自托管 Cast Operations
 
-将 `oneuptime.com` 替换为您的 OneUptime 域名：
+将 `visca.ai` 替换为您的 Cast Operations 域名：
 
 ```json
 {
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://your-oneuptime-domain.com/mcp",
+      "url": "https://your-operations-domain.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -109,7 +109,7 @@ API 密钥以项目为作用域：MCP 服务器会从密钥中推断出您的项
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://oneuptime.com/mcp"
+      "url": "https://visca.ai/mcp"
     }
   }
 }
@@ -119,7 +119,7 @@ API 密钥以项目为作用域：MCP 服务器会从密钥中推断出您的项
 
 ### VS Code with GitHub Copilot
 
-VS Code 原生支持 MCP 服务器与 GitHub Copilot（1.99+ 版本）配合使用。这允许 Copilot 直接访问 OneUptime 数据。
+VS Code 原生支持 MCP 服务器与 GitHub Copilot（1.99+ 版本）配合使用。这允许 Copilot 直接访问 Cast Operations 数据。
 
 #### 第一步：要求
 
@@ -135,14 +135,14 @@ VS Code 原生支持 MCP 服务器与 GitHub Copilot（1.99+ 版本）配合使�
 
 或者，在您的工作区中创建 `.vscode/mcp.json` 以进行项目特定配置。
 
-#### 适用于 OneUptime 云端
+#### 适用于 Cast Operations 云端
 
 ```json
 {
   "servers": {
     "oneuptime": {
       "type": "http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "${input:oneuptime-api-key}"
       }
@@ -152,21 +152,21 @@ VS Code 原生支持 MCP 服务器与 GitHub Copilot（1.99+ 版本）配合使�
     {
       "type": "promptString",
       "id": "oneuptime-api-key",
-      "description": "OneUptime API Key",
+      "description": "Cast Operations API Key",
       "password": true
     }
   ]
 }
 ```
 
-#### 适用于自托管 OneUptime
+#### 适用于自托管 Cast Operations
 
 ```json
 {
   "servers": {
     "oneuptime": {
       "type": "http",
-      "url": "https://your-oneuptime-domain.com/mcp",
+      "url": "https://your-operations-domain.com/mcp",
       "headers": {
         "x-api-key": "${input:oneuptime-api-key}"
       }
@@ -176,7 +176,7 @@ VS Code 原生支持 MCP 服务器与 GitHub Copilot（1.99+ 版本）配合使�
     {
       "type": "promptString",
       "id": "oneuptime-api-key",
-      "description": "OneUptime API Key",
+      "description": "Cast Operations API Key",
       "password": true
     }
   ]
@@ -188,14 +188,14 @@ VS Code 原生支持 MCP 服务器与 GitHub Copilot（1.99+ 版本）配合使�
 1. 按 `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. 输入"MCP: List Servers"以查看可用服务器
 3. 点击"oneuptime"以启动服务器
-4. 在提示时输入您的 OneUptime API 密钥
+4. 在提示时输入您的 Cast Operations API 密钥
 
 #### 第四步：与 Copilot Chat 配合使用
 
 打开 GitHub Copilot Chat 并使用 Agent 模式（`@workspace` 或直接提问）：
 
 ```
-"What monitors do I have in OneUptime?"
+"What monitors do I have in Cast Operations?"
 "Show me recent incidents"
 "Create a new monitor for https://example.com"
 ```
@@ -222,7 +222,7 @@ MCP 服务器支持两种操作模式：
 
 您可以无需 API 密钥连接到 MCP 服务器来访问公共工具：
 
-- **`oneuptime_help`**：获取有关 OneUptime MCP 功能的帮助和指导
+- **`oneuptime_help`**：获取有关 Cast Operations MCP 功能的帮助和指导
 - **`oneuptime_list_resources`**：列出可用资源及其操作
 - **`get_public_status_page_overview`**：获取公共状态页面的概览
 - **`get_public_status_page_incidents`**：获取公共状态页面的事件
@@ -235,7 +235,7 @@ MCP 服务器支持两种操作模式：
 
 对于所有其他操作（管理监控器、事件、团队等），需要通过以下请求头之一进行认证：
 
-- `x-api-key`：您的 OneUptime API 密钥
+- `x-api-key`：您的 Cast Operations API 密钥
 - `Authorization`：携带您的 API 密钥的 Bearer 令牌（例如 `Bearer your-api-key-here`）
 
 `Bearer` 方案不区分大小写。工具错误以带内工具结果的形式返回（`isError: true`），其中包含 `statusCode`、详细信息和建议——而不是作为 MCP 协议错误返回——因此代理可以读取失败原因并自行纠正。
@@ -295,21 +295,21 @@ MCP 服务器支持两种操作模式：
 验证 MCP 服务器是否正在运行：
 
 ```bash
-# For OneUptime Cloud
-curl https://oneuptime.com/mcp/health
+# For Cast Operations Cloud
+curl https://visca.ai/mcp/health
 
 # For Self-Hosted
-curl https://your-oneuptime-domain.com/mcp/health
+curl https://your-operations-domain.com/mcp/health
 ```
 
 列出可用工具：
 
 ```bash
-# For OneUptime Cloud
-curl https://oneuptime.com/mcp/tools
+# For Cast Operations Cloud
+curl https://visca.ai/mcp/tools
 
 # For Self-Hosted
-curl https://your-oneuptime-domain.com/mcp/tools
+curl https://your-operations-domain.com/mcp/tools
 ```
 
 ## 使用示例
@@ -359,7 +359,7 @@ curl https://your-oneuptime-domain.com/mcp/tools
 
 ```
 "What's the current status of status.example.com?"
-"Show me recent incidents from the OneUptime status page"
+"Show me recent incidents from the Cast Operations status page"
 "Are there any scheduled maintenance events on status.acme.com?"
 "Get the latest announcements from my public status page with ID abc123-..."
 ```
@@ -385,7 +385,7 @@ curl https://your-oneuptime-domain.com/mcp/tools
 
 - 使用特定权限：仅授予所需的最低权限
 - 轮换 API 密钥：定期轮换您的 API 密钥
-- 监控使用情况：在 OneUptime 中跟踪 API 密钥使用情况
+- 监控使用情况：在 Cast Operations 中跟踪 API 密钥使用情况
 - 分离密钥：对不同环境使用不同的 API 密钥
 
 ## 故障排查
@@ -400,14 +400,14 @@ curl https://your-oneuptime-domain.com/mcp/tools
 
 ### 连接问题
 
-1. 验证您的 OneUptime URL 是否正确
+1. 验证您的 Cast Operations URL 是否正确
 2. 检查您的 API 密钥是否有效
-3. 确保您的 OneUptime 实例可访问
+3. 确保您的 Cast Operations 实例可访问
 4. 测试健康端点
 
 ### API 密钥无效
 
-- 在您的 OneUptime 设置中验证 API 密钥
+- 在您的 Cast Operations 设置中验证 API 密钥
 - 检查是否有多余的空格或字符
 - 确保密钥尚未过期
 

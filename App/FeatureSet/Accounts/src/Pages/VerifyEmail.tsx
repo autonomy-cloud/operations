@@ -8,7 +8,7 @@ import { FormType } from "Common/UI/Components/Forms/ModelForm";
 import Icon, { IconType, ThickProp } from "Common/UI/Components/Icon/Icon";
 import Link from "Common/UI/Components/Link/Link";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
-import OneUptimeLogo from "Common/UI/Images/logos/OneUptimeSVG/3-transparent.svg";
+import CastOperationsLogo from "Common/UI/Images/logos/CastOperationsSVG/logo.svg";
 import API from "Common/UI/Utils/API/API";
 import ModelAPI from "Common/UI/Utils/ModelAPI/ModelAPI";
 import Navigation from "Common/UI/Utils/Navigation";
@@ -67,8 +67,8 @@ const VerifyEmail: () => JSX.Element = () => {
         <div className="mb-8 text-center sm:mb-10">
           <img
             className="mx-auto h-10 w-auto sm:h-12"
-            src={OneUptimeLogo}
-            alt="OneUptime"
+            src={CastOperationsLogo}
+            alt="Cast Operations"
           />
         </div>
 

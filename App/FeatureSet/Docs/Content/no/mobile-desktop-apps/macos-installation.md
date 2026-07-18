@@ -1,6 +1,6 @@
 # Installasjonsveiledning for macOS
 
-Installer OneUptime som en innebygd skrivebordsapplikasjon på macOS for sømløs overvåking og hendelseshåndtering.
+Installer Cast Operations som en innebygd skrivebordsapplikasjon på macOS for sømløs overvåking og hendelseshåndtering.
 
 ## Installasjonsmetoder
 
@@ -8,11 +8,11 @@ Installer OneUptime som en innebygd skrivebordsapplikasjon på macOS for sømlø
 
 Safari gir utmerket PWA-integrasjon med innebygde macOS-funksjoner.
 
-1. **Åpne OneUptime i Safari**
+1. **Åpne Cast Operations i Safari**
 
    - Start Safari-nettleseren
-   - Naviger til URL-en for OneUptime-instansen din
-   - Logg inn på OneUptime-kontoen din
+   - Naviger til URL-en for Cast Operations-instansen din
+   - Logg inn på Cast Operations-kontoen din
    - Vent til siden er fullstendig lastet
 
 2. **Installer PWA**
@@ -24,12 +24,12 @@ Safari gir utmerket PWA-integrasjon med innebygde macOS-funksjoner.
 
 3. **Tilpass installasjonen**
 
-   - **Appnavn**: Endre om ønskelig (standard: OneUptime)
+   - **Appnavn**: Endre om ønskelig (standard: Cast Operations)
    - **Dock**: Velg å legge til i Dock
    - **Launchpad**: Legg til i Launchpad for enkel tilgang
 
 4. **Start appen**
-   - Finn OneUptime i Dock, Launchpad eller Programmer-mappen
+   - Finn Cast Operations i Dock, Launchpad eller Programmer-mappen
    - Klikk for å starte i dedikert vindu
    - Appen kjører uavhengig av Safari-nettleseren
 
@@ -37,17 +37,17 @@ Safari gir utmerket PWA-integrasjon med innebygde macOS-funksjoner.
 
 Chrome tilbyr robust PWA-støtte med utmerket skrivebordsintegrasjon.
 
-1. **Åpne OneUptime i Chrome**
+1. **Åpne Cast Operations i Chrome**
 
    - Start Google Chrome
-   - Gå til OneUptime-instansen din
+   - Gå til Cast Operations-instansen din
    - Sørg for at du er logget inn
    - Vent til siden er fullstendig lastet
 
 2. **Installer via meny**
 
    - Se etter **installikone** (⊞) i adressefeltet
-   - Klikk **"Installer OneUptime"**
+   - Klikk **"Installer Cast Operations"**
    - Eller bruk **Chrome-menyen** → **Flere verktøy** → **Opprett snarvei**
 
 3. **Installasjonsalternativer**
@@ -57,7 +57,7 @@ Chrome tilbyr robust PWA-støtte med utmerket skrivebordsintegrasjon.
    - Klikk **"Installer"** eller **"Opprett"**
 
 4. **Tilgang til appen**
-   - Finn OneUptime i Programmer-mappen
+   - Finn Cast Operations i Programmer-mappen
    - Eller tilgang via Spotlight-søk
    - Fest til Dock for rask tilgang
 
@@ -65,10 +65,10 @@ Chrome tilbyr robust PWA-støtte med utmerket skrivebordsintegrasjon.
 
 Edge gir solid PWA-støtte med god macOS-integrasjon.
 
-1. **Åpne OneUptime i Edge**
+1. **Åpne Cast Operations i Edge**
 
    - Start Microsoft Edge
-   - Naviger til OneUptime-URL-en
+   - Naviger til Cast Operations-URL-en
    - Fullfør innloggingsprosessen
 
 2. **Installer appen**
@@ -81,7 +81,7 @@ Edge gir solid PWA-støtte med god macOS-integrasjon.
 
 ### Dock og Launchpad
 
-1. **Dock-posisjon**: Dra OneUptime til foretrukket Dock-posisjon
+1. **Dock-posisjon**: Dra Cast Operations til foretrukket Dock-posisjon
 2. **Dock-størrelse**: Endre størrelse på ikonet i Dock-preferanser
 3. **Launchpad-organisering**: Opprett mappe for overvåkingsapper
 4. **Badge-varsler**: Vis hendelsestellingen på Dock-ikonet
@@ -90,7 +90,7 @@ Edge gir solid PWA-støtte med god macOS-integrasjon.
 
 1. **Varselsenter**
 
-   - Systemvalg → Varsler → OneUptime
+   - Systemvalg → Varsler → Cast Operations
    - Konfigurer varselstiler og levering
    - Sett prioritetsnivåer for ulike hendelsestyper
 
@@ -130,7 +130,7 @@ Løsninger:
 
 ```
 Løsninger:
-1. Sjekk Launchpad for OneUptime-ikonet
+1. Sjekk Launchpad for Cast Operations-ikonet
 2. Søk med Spotlight (⌘+Mellomrom)
 3. Se i nettleserens PWA-administrasjonsseksjon
 4. Prøv reinstallasjon med en annen nettleser
@@ -143,11 +143,11 @@ Løsninger:
 
 ```
 Løsninger:
-1. Systemvalg → Varsler → OneUptime
+1. Systemvalg → Varsler → Cast Operations
 2. Aktiver "Tillat varsler"
 3. Sett passende varselstil (bannere/varsler)
 4. Sjekk innstillinger for Ikke forstyrr
-5. Bekreft OneUptime-varselinnstillinger
+5. Bekreft Cast Operations-varselinnstillinger
 6. Gi varselstillatelser når du blir bedt om det
 ```
 
@@ -158,25 +158,25 @@ Løsninger:
 1. **Programmer-mappemetode**
 
    - Åpne Programmer-mappen
-   - Finn OneUptime
+   - Finn Cast Operations
    - Dra til papirkurv eller høyreklikk → Flytt til papirkurv
 
 2. **Dock-metode**
 
-   - Høyreklikk OneUptime i Dock
+   - Høyreklikk Cast Operations i Dock
    - Velg "Alternativer" → "Fjern fra Dock"
    - Slett deretter fra Programmer-mappen
 
 3. **Nettleser PWA-administrasjon**
-   - **Chrome**: chrome://apps/ → Finn OneUptime → Fjern
-   - **Edge**: edge://apps/ → Finn OneUptime → Avinstaller
+   - **Chrome**: chrome://apps/ → Finn Cast Operations → Fjern
+   - **Edge**: edge://apps/ → Finn Cast Operations → Avinstaller
    - **Safari**: Ingen dedikert administrasjonsside
 
 ## Oppdateringer og vedlikehold
 
 ### Automatiske oppdateringer
 
-- OneUptime PWA oppdateres automatisk når den er tilkoblet
+- Cast Operations PWA oppdateres automatisk når den er tilkoblet
 - Ingen App Store-oppdateringer påkrevd
 - Nye funksjoner er tilgjengelige umiddelbart
 - Kritiske oppdateringer brukes umiddelbart
@@ -212,7 +212,7 @@ Løsninger:
 
 ```
 Løsninger:
-1. Sjekk Launchpad for OneUptime-ikonet
+1. Sjekk Launchpad for Cast Operations-ikonet
 2. Søk med Spotlight (⌘+Mellomrom)
 3. Se i nettleserens PWA-administrasjonsseksjon
 4. Prøv reinstallasjon med en annen nettleser
@@ -230,7 +230,7 @@ Løsninger:
 3. Sørg for tilstrekkelig RAM (8 GB+ anbefalt)
 4. Oppdater macOS og nettleser
 5. Tøm nettleserens hurtigbuffer og appdata
-6. Start OneUptime-appen på nytt
+6. Start Cast Operations-appen på nytt
 ```
 
 **Minnelekkasjer eller krasj:**
@@ -238,7 +238,7 @@ Løsninger:
 ```
 Løsninger:
 1. Overvåk minnebruk i Aktivitetsovervåker
-2. Start OneUptime-appen regelmessig på nytt
+2. Start Cast Operations-appen regelmessig på nytt
 3. Oppdater til nyeste nettleserversjon
 4. Tøm nettleserens hurtigbuffer fullstendig
 5. Sjekk Konsoll-appen for feillogger
@@ -262,7 +262,7 @@ Løsninger:
 
 ```
 Løsninger:
-1. Tving-avslutt: ⌘+Alternativ+Esc → Velg OneUptime
+1. Tving-avslutt: ⌘+Alternativ+Esc → Velg Cast Operations
 2. Eller høyreklikk Dock-ikonet → Tving avslutt
 3. Start applikasjonen på nytt
 4. Sjekk for macOS- og nettleseroppdateringer
@@ -275,11 +275,11 @@ Løsninger:
 
 ```
 Løsninger:
-1. Systemvalg → Varsler → OneUptime
+1. Systemvalg → Varsler → Cast Operations
 2. Aktiver "Tillat varsler"
 3. Sett passende varselstil (bannere/varsler)
 4. Sjekk innstillinger for Ikke forstyrr
-5. Bekreft OneUptime-varselinnstillinger
+5. Bekreft Cast Operations-varselinnstillinger
 6. Gi varselstillatelser når du blir bedt om det
 ```
 
@@ -290,18 +290,18 @@ Løsninger:
 1. **Programmer-mappemetode**
 
    - Åpne Programmer-mappen
-   - Finn OneUptime
+   - Finn Cast Operations
    - Dra til papirkurv eller høyreklikk → Flytt til papirkurv
 
 2. **Dock-metode**
 
-   - Høyreklikk OneUptime i Dock
+   - Høyreklikk Cast Operations i Dock
    - Velg "Alternativer" → "Fjern fra Dock"
    - Slett deretter fra Programmer-mappen
 
 3. **Nettleser PWA-administrasjon**
-   - **Chrome**: chrome://apps/ → Finn OneUptime → Fjern
-   - **Edge**: edge://apps/ → Finn OneUptime → Avinstaller
+   - **Chrome**: chrome://apps/ → Finn Cast Operations → Fjern
+   - **Edge**: edge://apps/ → Finn Cast Operations → Avinstaller
    - **Safari**: Ingen dedikert administrasjonsside
 
 ### Ren avinstallasjon
@@ -324,7 +324,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### Automatiske oppdateringer
 
-- OneUptime PWA oppdateres automatisk når den er tilkoblet
+- Cast Operations PWA oppdateres automatisk når den er tilkoblet
 - Ingen App Store-oppdateringer påkrevd
 - Nye funksjoner er tilgjengelige umiddelbart
 - Kritiske oppdateringer brukes umiddelbart
@@ -335,7 +335,7 @@ Tving oppdatering av applikasjonen:
 
 1. **Safari-PWA-er**: Oppdater innenfor Safari-nettleseren
 2. **Chrome-PWA-er**: Høyreklikk på appen → Last inn på nytt eller ⌘+R
-3. **Fullstendig oppdatering**: Lukk appen, åpne nettleseren på nytt, besøk OneUptime
+3. **Fullstendig oppdatering**: Lukk appen, åpne nettleseren på nytt, besøk Cast Operations
 
 ### Vedlikeholdsplan
 
@@ -343,7 +343,7 @@ Regelmessig vedlikehold for optimal ytelse:
 
 **Ukentlig:**
 
-- Start OneUptime-appen på nytt
+- Start Cast Operations-appen på nytt
 - Tøm nettleserens hurtigbuffer hvis du opplever problemer
 - Sjekk for macOS-oppdateringer
 
@@ -357,38 +357,38 @@ Regelmessig vedlikehold for optimal ytelse:
 
 ### Snarveier-appintegrasjon
 
-Opprett egendefinerte snarveier for OneUptime:
+Opprett egendefinerte snarveier for Cast Operations:
 
 1. Åpne **Snarveier**-appen
 2. Opprett **Ny snarvei**
 3. Legg til **"Åpne app"**-handlingen
-4. Velg **OneUptime**
+4. Velg **Cast Operations**
 5. Legg til Siri for stemmeaktivering
 
 ### Automator-integrasjon
 
-Automatiser OneUptime-oppgaver:
+Automatiser Cast Operations-oppgaver:
 
 1. Start **Automator**
 2. Opprett **Applikasjon** eller **Arbeidsflyt**
 3. Legg til **"Start applikasjon"**-handlingen
-4. Velg OneUptime PWA
+4. Velg Cast Operations PWA
 5. Legg til ytterligere automatiseringstrinn
 
 ### Terminal-integrasjon
 
-Administrer OneUptime gjennom Terminal:
+Administrer Cast Operations gjennom Terminal:
 
 ```bash
-# Opprett alias for rask OneUptime-oppstart
-echo 'alias oneuptime="open -a \"OneUptime\""' >> ~/.zshrc
+# Opprett alias for rask Cast Operations-oppstart
+echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
 
-# Funksjon for å sjekke om OneUptime kjører
+# Funksjon for å sjekke om Cast Operations kjører
 oneuptime_status() {
-    if pgrep -f "OneUptime" > /dev/null; then
-        echo "OneUptime is running"
+    if pgrep -f "Cast Operations" > /dev/null; then
+        echo "Cast Operations is running"
     else
-        echo "OneUptime is not running"
+        echo "Cast Operations is not running"
     fi
 }
 ```

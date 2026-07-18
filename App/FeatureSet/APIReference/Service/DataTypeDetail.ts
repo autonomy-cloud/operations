@@ -1524,7 +1524,7 @@ const dataTypeDetails: Dictionary<DataTypePageData> = {
   permission: {
     title: "Permission",
     description:
-      "A string identifier representing an access control permission in OneUptime. Permissions are assigned to API keys and team members to control what actions they can perform.",
+      "A string identifier representing an access control permission in Cast Operations. Permissions are assigned to API keys and team members to control what actions they can perform.",
     isEnum: false,
     properties: [
       {

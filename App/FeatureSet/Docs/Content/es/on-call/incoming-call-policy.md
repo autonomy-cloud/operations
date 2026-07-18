@@ -1,14 +1,14 @@
 # Política de llamadas entrantes (Integración con Twilio)
 
-Las Políticas de llamadas entrantes permiten que los llamantes externos lleguen a tus ingenieros de guardia marcando un número de teléfono dedicado. Cuando alguien llama, OneUptime enruta la llamada a través de tus reglas de escalada configuradas hasta que un ingeniero responde.
+Las Políticas de llamadas entrantes permiten que los llamantes externos lleguen a tus ingenieros de guardia marcando un número de teléfono dedicado. Cuando alguien llama, Cast Operations enruta la llamada a través de tus reglas de escalada configuradas hasta que un ingeniero responde.
 
 ## Cómo funciona
 
 ```mermaid
 flowchart TD
     A[El llamante marca<br/>el número entrante] --> B[Twilio recibe la llamada]
-    B --> C[Twilio envía webhook<br/>a OneUptime]
-    C --> D[OneUptime reproduce<br/>el mensaje de bienvenida]
+    B --> C[Twilio envía webhook<br/>a Cast Operations]
+    C --> D[Cast Operations reproduce<br/>el mensaje de bienvenida]
     D --> E[Carga reglas de escalada]
     E --> F{Regla 1:<br/>Intenta usuario de guardia}
     F -->|Sin respuesta| G{Regla 2:<br/>Intenta equipo de respaldo}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant Llamante
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant IngenieroDeGuardia
 
     Llamante->>Twilio: Marca el número entrante
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML: Reproduce saludo
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML: Reproduce saludo
     Twilio->>Llamante: "Por favor espere mientras le conectamos..."
 
     loop Reglas de escalada
-        OneUptime->>OneUptime: Obtiene la siguiente regla de escalada
-        OneUptime->>Twilio: TwiML: Llama al usuario de guardia
+        Cast Operations->>Cast Operations: Obtiene la siguiente regla de escalada
+        Cast Operations->>Twilio: TwiML: Llama al usuario de guardia
         Twilio->>IngenieroDeGuardia: Suena el teléfono
         alt El ingeniero responde
             IngenieroDeGuardia->>Twilio: Contesta
-            Twilio->>OneUptime: Estado de marcación: completado
+            Twilio->>Cast Operations: Estado de marcación: completado
             Twilio->>Llamante: Conecta con el ingeniero
             Note over Llamante,IngenieroDeGuardia: Llamada en curso
         else Sin respuesta (tiempo de espera agotado)
-            Twilio->>OneUptime: Estado de marcación: sin-respuesta
-            OneUptime->>OneUptime: Intenta la siguiente regla
+            Twilio->>Cast Operations: Estado de marcación: sin-respuesta
+            Cast Operations->>Cast Operations: Intenta la siguiente regla
         end
     end
 
     alt Todas las reglas agotadas
-        OneUptime->>Twilio: TwiML: Reproduce mensaje sin respuesta
+        Cast Operations->>Twilio: TwiML: Reproduce mensaje sin respuesta
         Twilio->>Llamante: "Nadie está disponible..."
         Twilio->>Llamante: Cuelga
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - Una cuenta de Twilio: créala en [https://www.twilio.com](https://www.twilio.com)
 - Tu SID de cuenta y token de autenticación de Twilio
-- Acceso a tu instancia auto-alojada de OneUptime
+- Acceso a tu instancia auto-alojada de Cast Operations
 
 ## Información general
 
@@ -74,7 +74,7 @@ La función de Política de llamadas entrantes funciona mediante:
 4. Conectar al llamante con el primer ingeniero de guardia disponible
 5. Escalar a la siguiente regla si nadie responde
 
-Dado que estás auto-alojando OneUptime, necesitarás configurar tu propia cuenta de Twilio. Esto te da control total sobre tus números de teléfono y facturación.
+Dado que estás auto-alojando Cast Operations, necesitarás configurar tu propia cuenta de Twilio. Esto te da control total sobre tus números de teléfono y facturación.
 
 ## Paso 1: Crear una cuenta de Twilio
 
@@ -82,9 +82,9 @@ Dado que estás auto-alojando OneUptime, necesitarás configurar tu propia cuent
 2. Completa el proceso de verificación
 3. Anota tu **SID de cuenta** y **Token de autenticación** desde el panel de Twilio
 
-## Paso 2: Configurar la configuración de llamadas/SMS en OneUptime
+## Paso 2: Configurar la configuración de llamadas/SMS en Cast Operations
 
-1. Inicia sesión en tu panel de OneUptime
+1. Inicia sesión en tu panel de Cast Operations
 2. Ve a **Configuración del proyecto** > **Llamadas y SMS** > **Configuración personalizada de llamadas/SMS**
 3. Haz clic en **Crear configuración personalizada de llamadas/SMS**
 4. Completa los siguientes campos:
@@ -120,15 +120,15 @@ Tienes dos opciones para configurar un número de teléfono:
 Si ya tienes números de teléfono en tu cuenta de Twilio:
 
 1. En la tarjeta **Número de teléfono**, haz clic en **Usar número existente**
-2. OneUptime obtendrá todos los números de teléfono de tu cuenta de Twilio
+2. Cast Operations obtendrá todos los números de teléfono de tu cuenta de Twilio
 3. Selecciona el número de teléfono que deseas usar
 4. Haz clic en **Usar este** para asignarlo a la política
 
-> **Nota**: Si el número de teléfono ya tiene un webhook configurado, se actualizará para apuntar a OneUptime.
+> **Nota**: Si el número de teléfono ya tiene un webhook configurado, se actualizará para apuntar a Cast Operations.
 
 ### Opción B: Comprar un nuevo número de teléfono
 
-Para comprar un nuevo número de teléfono directamente desde OneUptime:
+Para comprar un nuevo número de teléfono directamente desde Cast Operations:
 
 1. En la tarjeta **Número de teléfono**, haz clic en **Comprar nuevo número**
 2. Selecciona un **País** del menú desplegable
@@ -258,7 +258,7 @@ Si ya no necesitas un número de teléfono:
 ### Las llamadas no se reciben
 
 - Verifica que la configuración de Twilio esté correctamente vinculada a la política
-- Comprueba que tu instancia de OneUptime sea accesible desde internet
+- Comprueba que tu instancia de Cast Operations sea accesible desde internet
 - Verifica que el SID de cuenta y el token de autenticación de Twilio sean correctos
 - Revisa los registros de errores en la consola de Twilio
 
@@ -278,8 +278,8 @@ Si ya no necesitas un número de teléfono:
 ## Consideraciones de seguridad
 
 - Mantén tu token de autenticación de Twilio seguro y nunca lo expongas públicamente
-- Usa HTTPS para tu instancia de OneUptime
-- OneUptime valida las firmas de los webhooks para asegurarse de que las solicitudes vengan de Twilio
+- Usa HTTPS para tu instancia de Cast Operations
+- Cast Operations valida las firmas de los webhooks para asegurarse de que las solicitudes vengan de Twilio
 - Considera restringir qué números de teléfono pueden llamar a tus políticas de llamadas entrantes
 
 ## Soporte
@@ -287,5 +287,5 @@ Si ya no necesitas un número de teléfono:
 Para problemas con la función de Política de llamadas entrantes, por favor:
 
 1. Revisa los registros de errores en la consola de Twilio
-2. Revisa los registros del servidor de OneUptime
-3. Contacta con soporte en [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Revisa los registros del servidor de Cast Operations
+3. Contacta con soporte en [hello@visca.ai](mailto:hello@visca.ai)

@@ -1,6 +1,6 @@
 /*
  * Per-resource-type "how to send telemetry" markdown for the in-app
- * Documentation tab. Each builder receives the project's OneUptime URL and
+ * Documentation tab. Each builder receives the project's Cast Operations URL and
  * the selected ingestion key so the snippets are copy-paste ready.
  */
 export interface DocVars {
@@ -14,10 +14,10 @@ export const getServerlessDocMarkdown: (vars: DocVars) => string = (
   return [
     "## Send telemetry from your serverless functions",
     "",
-    "OneUptime auto-discovers a **Serverless Function** as soon as it receives",
+    "Cast Operations auto-discovers a **Serverless Function** as soon as it receives",
     "telemetry tagged with the `faas.name` resource attribute. Instrument your",
     "function with the OpenTelemetry SDK for your runtime and export OTLP to",
-    "OneUptime.",
+    "Cast Operations.",
     "",
     "### 1. Set resource attributes",
     "",
@@ -29,7 +29,7 @@ export const getServerlessDocMarkdown: (vars: DocVars) => string = (
     "| `cloud.platform` | no | `aws_lambda`, `gcp_cloud_functions`, `azure_functions` |",
     "| `cloud.region` | no | `us-east-1` |",
     "",
-    "### 2. Point the OTLP exporter at OneUptime",
+    "### 2. Point the OTLP exporter at Cast Operations",
     "",
     "Most language auto-instrumentations read these environment variables:",
     "",
@@ -53,7 +53,7 @@ export const getCloudDocMarkdown: (vars: DocVars) => string = (
   return [
     "## Connect a managed cloud environment",
     "",
-    "OneUptime groups managed compute (AWS ECS / Fargate, Google Cloud Run,",
+    "Cast Operations groups managed compute (AWS ECS / Fargate, Google Cloud Run,",
     "Azure Container Apps, Elastic Beanstalk, App Runner, ...) into a **Cloud",
     "Environment** — one per `cloud.platform` + `cloud.account.id` +",
     "`cloud.region`.",
@@ -68,7 +68,7 @@ export const getCloudDocMarkdown: (vars: DocVars) => string = (
     "- Google Cloud Run: `detectors: [gcp]`",
     "- Azure Container Apps: `detectors: [azure]`",
     "",
-    "### 2. Export OTLP to OneUptime",
+    "### 2. Export OTLP to Cast Operations",
     "",
     "```yaml",
     "exporters:",
@@ -92,14 +92,14 @@ export const getRumDocMarkdown: (vars: DocVars) => string = (
   return [
     "## Instrument a browser or mobile app",
     "",
-    "OneUptime classifies telemetry as **RUM** when it carries client",
+    "Cast Operations classifies telemetry as **RUM** when it carries client",
     "attributes (`browser.*` or `device.*`). The application is identified by",
     "`service.name`, and its telemetry is owned by this RUM application (it is",
     "never duplicated as a backend Service).",
     "",
     "### Browser (OpenTelemetry Web)",
     "",
-    "Configure the OTLP/HTTP exporter to send to OneUptime:",
+    "Configure the OTLP/HTTP exporter to send to Cast Operations:",
     "",
     "```js",
     "// Resource attributes identify the app:",
@@ -113,7 +113,7 @@ export const getRumDocMarkdown: (vars: DocVars) => string = (
     "### Mobile (Swift / Android)",
     "",
     "Use the OpenTelemetry Swift or Android SDK, set `service.name`, and export",
-    "OTLP to OneUptime:",
+    "OTLP to Cast Operations:",
     "",
     "```bash",
     `OTEL_EXPORTER_OTLP_ENDPOINT="${vars.oneuptimeUrl}/otlp"`,

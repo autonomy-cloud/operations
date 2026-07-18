@@ -326,7 +326,7 @@ export async function processIncomingEmailFromQueue(
   /*
    * Skip disabled monitors before invoking monitorResource(). Incoming Email
    * monitors keep receiving mail from an external sender regardless of being
-   * disabled in OneUptime, and monitorResource() would only re-fetch the
+   * disabled in Cast Operations, and monitorResource() would only re-fetch the
    * monitor, take a per-monitor Redis lock, and throw MonitorDisabled — pure
    * waste. The last-email-received update above is intentionally left in place
    * so heartbeat tracking stays accurate across maintenance/incident windows:

@@ -27,10 +27,6 @@ const FRONTEND_ENV_ALLOW_LIST: Array<string> = [
   "NODE_ENV",
   "HTTP_PROTOCOL",
   "HOST",
-  "BILLING_ENABLED",
-  "BILLING_PUBLIC_KEY",
-  "IS_ENTERPRISE_EDITION",
-  "STRIPE_PUBLIC_KEY",
   "VAPID_PUBLIC_KEY",
   "VAPID_SUBJECT",
   "VERSION",
@@ -53,10 +49,7 @@ const FRONTEND_ENV_ALLOW_LIST: Array<string> = [
   "INBOUND_EMAIL_DOMAIN",
 ];
 
-const FRONTEND_ENV_ALLOW_PREFIXES: Array<string> = [
-  "SUBSCRIPTION_PLAN_",
-  "PUBLIC_",
-];
+const FRONTEND_ENV_ALLOW_PREFIXES: Array<string> = ["PUBLIC_"];
 
 export const getFrontendEnvVars: () => JSONObject = (): JSONObject => {
   const frontendEnv: JSONObject = {};
@@ -151,7 +144,7 @@ export const ShouldDatabaseSslEnable: boolean = Boolean(
  * starves the API under any meaningful load — pick a number that, when
  * multiplied by the number of running Node processes, stays under the
  * Postgres server's `max_connections` (100 on a stock PostgreSQL cluster; the
- * OneUptime Helm chart ships 500, or front the DB with the chart's pgbouncer).
+ * Cast Operations Helm chart ships 500, or front the DB with the chart's pgbouncer).
  */
 export const MaxPostgresConnections: number = parseInt(
   process.env["DATABASE_MAX_OPEN_CONNECTIONS"] || "50",
@@ -585,10 +578,6 @@ export const DisableTelemetry: boolean =
 export const EnableProfiling: boolean =
   process.env["ENABLE_PROFILING"] === "true";
 
-export const IsEnterpriseEdition: boolean =
-  process.env["IS_ENTERPRISE_EDITION"] === "true" ||
-  process.env["CAST_OPERATIONS_EMBEDDED_MODE"] === "true";
-
 export const AverageSpanRowSizeInBytes: number = parsePositiveNumberFromEnv(
   "AVERAGE_SPAN_ROW_SIZE_IN_BYTES",
   1024,
@@ -683,22 +672,14 @@ export const VapidPrivateKey: string | undefined =
   process.env["VAPID_PRIVATE_KEY"] || undefined;
 
 export const VapidSubject: string =
-  process.env["VAPID_SUBJECT"] || "mailto:support@oneuptime.com";
+  process.env["VAPID_SUBJECT"] || "mailto:support@visca.ai";
 
 export const ExpoAccessToken: string | undefined =
   process.env["EXPO_ACCESS_TOKEN"] || undefined;
 
 export const PushNotificationRelayUrl: string =
   process.env["PUSH_NOTIFICATION_RELAY_URL"] ||
-  "https://oneuptime.com/api/notification/push-relay/send";
-
-export const EnterpriseLicenseValidationUrl: URL = URL.fromString(
-  "https://oneuptime.com/api/enterprise-license/validate",
-);
-
-export const EnterpriseLicenseUserCountReportUrl: URL = URL.fromString(
-  "https://oneuptime.com/api/enterprise-license/report-user-count",
-);
+  "https://visca.ai/api/notification/push-relay/send";
 
 // Inbound Email Configuration for Incoming Email Monitor
 export enum InboundEmailProviderType {

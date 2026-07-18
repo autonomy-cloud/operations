@@ -23,7 +23,7 @@ import { Column, Entity, Index } from "typeorm";
   singularName: "Enterprise License",
   pluralName: "Enterprise Licenses",
   icon: IconProp.Lock,
-  tableDescription: "Enterprise license keys issued by OneUptime.",
+  tableDescription: "Enterprise license keys issued by Cast Operations.",
 })
 @Entity({
   name: "EnterpriseLicense",

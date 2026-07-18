@@ -1,18 +1,18 @@
 # Opsgenie 集成
 
-每当创建 OneUptime 事件时，创建一个 [Opsgenie](https://www.atlassian.com/software/opsgenie) 告警，并在 OneUptime 解决时关闭它。
+每当创建 Cast Operations 事件时，创建一个 [Opsgenie](https://www.atlassian.com/software/opsgenie) 告警，并在 Cast Operations 解决时关闭它。
 
-此集成为**出站**模式：OneUptime 调用 [Opsgenie Alert API](https://docs.opsgenie.com/docs/alert-api)。它使用带有 **Incident → On Create** 触发器和 **API 组件**的 OneUptime **[工作流](/docs/workflows/index)**。
+此集成为**出站**模式：Cast Operations 调用 [Opsgenie Alert API](https://docs.opsgenie.com/docs/alert-api)。它使用带有 **Incident → On Create** 触发器和 **API 组件**的 Cast Operations **[工作流](/docs/workflows/index)**。
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
+Cast Operations Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
 ```
 
 ## 前提条件
 
 - 来自 API 集成的 Opsgenie **API 密钥**：**Settings → Integrations → Add → API**。复制该密钥。
 - 了解你的区域。默认 API 主机为 `https://api.opsgenie.com`；欧盟账户使用 `https://api.eu.opsgenie.com`。
-- 一个可以创建工作流的 OneUptime 项目。
+- 一个可以创建工作流的 Cast Operations 项目。
 
 ## 步骤 1——存储 API 密钥
 
@@ -39,32 +39,32 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  �
      ```json
      {
        "message": "{{Incident.title}}",
-       "alias": "oneuptime-{{Incident._id}}",
+       "alias": "cast-operations-{{Incident._id}}",
        "description": "{{Incident.description}}",
        "priority": "P1",
-       "source": "OneUptime"
+       "source": "Cast Operations"
      }
      ```
 
-   **`alias`** 将此 Opsgenie 告警与 OneUptime 事件关联，以便之后通过别名关闭。注意 Opsgenie 认证方案是字面词 `GenieKey` 后跟一个空格和你的密钥。
+   **`alias`** 将此 Opsgenie 告警与 Cast Operations 事件关联，以便之后通过别名关闭。注意 Opsgenie 认证方案是字面词 `GenieKey` 后跟一个空格和你的密钥。
 
 4. **保存**，启用，并创建一个测试事件。工作流日志中出现 `202 Accepted` 响应表示 Opsgenie 已将告警加入队列。
 
-## 步骤 3——在 OneUptime 解决时关闭（推荐）
+## 步骤 3——在 Cast Operations 解决时关闭（推荐）
 
 1. 创建一个名为 `Close Opsgenie` 的**第二个**工作流，使用 **Incident → On Update** 触发器。
 2. 添加 **Conditions** 模块，检查事件是否已解决（分支判断 `{{Incident.currentIncidentState.name}}`）。
 3. 从 **Yes** 出发，添加 **API** 模块：
    - **Method**：`POST`
-   - **URL**：`https://api.opsgenie.com/v2/alerts/oneuptime-{{Incident._id}}/close?identifierType=alias`
+   - **URL**：`https://api.opsgenie.com/v2/alerts/cast-operations-{{Incident._id}}/close?identifierType=alias`
    - **Headers**：同 `Authorization: GenieKey {{variable.OPSGENIE_KEY}}`
-   - **Body**：`{ "source": "OneUptime", "note": "Resolved in OneUptime" }`
+   - **Body**：`{ "source": "Cast Operations", "note": "Resolved in Cast Operations" }`
 
 Opsgenie 通过别名查找告警并关闭它。
 
 ## 优先级映射（可选）
 
-Opsgenie 优先级从 `P1` 到 `P5`。通过在 API 模块之前对 `{{Incident.incidentSeverity.name}}` 添加 **Conditions** 分支来映射 OneUptime 严重程度。
+Opsgenie 优先级从 `P1` 到 `P5`。通过在 API 模块之前对 `{{Incident.incidentSeverity.name}}` 添加 **Conditions** 分支来映射 Cast Operations 严重程度。
 
 ## 故障排查
 
@@ -76,4 +76,4 @@ Opsgenie 优先级从 `P1` 到 `P5`。通过在 API 模块之前对 `{{Incident.
 
 - [集成概览](/docs/integrations/index)——模式和认证速查表。
 - [PagerDuty](/docs/integrations/pagerduty)——适用于 PagerDuty 的相同思路。
-- [值班](/docs/on-call/incoming-call-policy)——OneUptime 内置的升级功能。
+- [值班](/docs/on-call/incoming-call-policy)——Cast Operations 内置的升级功能。

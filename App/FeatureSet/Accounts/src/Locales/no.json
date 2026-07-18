@@ -20,7 +20,7 @@
     "switchLanguage": "Bytt språk"
   },
   "footer": {
-    "copyright": "OneUptime",
+    "copyright": "Cast Operations",
     "contact": "Kontakt",
     "privacyAndTerms": "Personvern og vilkår"
   },
@@ -32,7 +32,7 @@
   },
   "login": {
     "title": "Logg inn på kontoen din",
-    "subtitle": "Bli med tusenvis av bedrifter som bruker OneUptime for å holde dem online hele tiden.",
+    "subtitle": "Bli med tusenvis av bedrifter som bruker Cast Operations for å holde dem online hele tiden.",
     "submitButton": "Logg inn",
     "forgotPassword": "Glemt passord?",
     "useSso": "Bruk enkeltpålogging (SSO) i stedet",
@@ -50,8 +50,8 @@
     }
   },
   "register": {
-    "title": "Opprett OneUptime-kontoen din",
-    "subtitle": "Bli med tusenvis av bedrifter som bruker OneUptime for å holde dem online hele tiden.",
+    "title": "Opprett Cast Operations-kontoen din",
+    "subtitle": "Bli med tusenvis av bedrifter som bruker Cast Operations for å holde dem online hele tiden.",
     "noCreditCard": "Ingen kredittkort nødvendig.",
     "submitButton": "Registrer deg",
     "haveAccountPrompt": "Har du allerede en konto?",
@@ -92,7 +92,7 @@
   },
   "verifyEmail": {
     "successTitle": "E-posten din er bekreftet.",
-    "successDescription": "Takk for at du bekreftet e-posten din. Du kan nå logge inn på OneUptime.",
+    "successDescription": "Takk for at du bekreftet e-posten din. Du kan nå logge inn på Cast Operations.",
     "errorTitle": "Beklager, noe gikk galt!",
     "returnToSignIn": "Tilbake til pålogging?",
     "loginLink": "Logg inn."

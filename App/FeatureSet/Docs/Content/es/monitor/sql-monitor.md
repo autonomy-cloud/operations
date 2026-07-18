@@ -2,7 +2,7 @@
 
 El Monitor de consultas SQL ejecuta una consulta SQL de solo lectura de forma programada desde una sonda y genera alertas según el resultado: el número de filas devueltas, un valor escalar, cuánto tardó la consulta o un error de consulta. Está diseñado para el caso de uso de «ejecutar una consulta y abrir un incidente», por ejemplo, para alertar cuando el número de pedidos cancelados en los últimos cinco minutos se dispara, cuando una tabla de cola crece demasiado o cuando desaparece una fila crítica.
 
-Como la consulta se ejecuta desde una sonda dentro de tu red, OneUptime nunca necesita una conexión directa a tu base de datos y el conjunto de resultados completo nunca sale de la sonda: solo se reporta una proyección pequeña y acotada del resultado.
+Como la consulta se ejecuta desde una sonda dentro de tu red, Cast Operations nunca necesita una conexión directa a tu base de datos y el conjunto de resultados completo nunca sale de la sonda: solo se reporta una proyección pequeña y acotada del resultado.
 
 ## Bases de datos compatibles
 
@@ -16,7 +16,7 @@ Los motores compatibles con MySQL y con PostgreSQL que utilizan el mismo protoco
 
 ## Cómo funciona
 
-En cada verificación, la sonda se conecta a tu base de datos, ejecuta tu consulta en un contexto de solo lectura, lee como máximo un número acotado de filas y reporta una proyección compacta a OneUptime. Luego, los criterios de tu monitor se evalúan con esa proyección.
+En cada verificación, la sonda se conecta a tu base de datos, ejecuta tu consulta en un contexto de solo lectura, lee como máximo un número acotado de filas y reporta una proyección compacta a Cast Operations. Luego, los criterios de tu monitor se evalúan con esa proyección.
 
 La sonda solo reporta:
 
@@ -26,7 +26,7 @@ La sonda solo reporta:
 - **Tiempo de ejecución**: cuánto tardó la consulta, en milisegundos.
 - **Error de consulta**: un mensaje de error saneado si la consulta falló.
 
-El conjunto de resultados completo nunca se envía a OneUptime, por lo que los datos del cliente no se replican en el almacenamiento de OneUptime.
+El conjunto de resultados completo nunca se envía a Cast Operations, por lo que los datos del cliente no se replican en el almacenamiento de Cast Operations.
 
 ## Modelo de seguridad
 
@@ -41,7 +41,7 @@ Ejecutar una consulta proporcionada por el cliente contra una base de datos de p
 
 ## Requisitos previos
 
-- Una **sonda** con acceso de red al host y puerto de tu base de datos. Puede ser una sonda alojada por OneUptime (si tu base de datos es accesible desde internet) o una sonda autoalojada que se ejecute dentro de tu red. Consulta la documentación de sondas para saber cómo instalar una sonda personalizada.
+- Una **sonda** con acceso de red al host y puerto de tu base de datos. Puede ser una sonda alojada por Cast Operations (si tu base de datos es accesible desde internet) o una sonda autoalojada que se ejecute dentro de tu red. Consulta la documentación de sondas para saber cómo instalar una sonda personalizada.
 - Un **usuario de base de datos de solo lectura** y los datos de conexión (host, puerto, nombre de la base de datos, nombre de usuario, contraseña).
 
 ## Configuración
@@ -99,11 +99,11 @@ Para una consulta del estilo `COUNT(*)`, el recuento está disponible como **Rec
 
 Para que la contraseña de la base de datos nunca se almacene en texto plano en el monitor, crea un [Secreto de monitor](/docs/monitor/monitor-secrets) y haz referencia a él desde el campo Contraseña:
 
-1. Ve al Panel de OneUptime → Configuración del proyecto → Secretos de monitor → Crear secreto de monitor.
+1. Ve al Panel de Cast Operations → Configuración del proyecto → Secretos de monitor → Crear secreto de monitor.
 2. Crea un secreto (por ejemplo, `dbPassword`) y concede acceso a él a este monitor.
 3. En el campo Contraseña del monitor, introduce `{{monitorSecrets.dbPassword}}`.
 
-OneUptime resuelve el secreto en el servidor antes de entregar la configuración a la sonda. OneUptime nunca crea estos secretos por ti: hacer referencia a uno es tu decisión.
+Cast Operations resuelve el secreto en el servidor antes de entregar la configuración a la sonda. Cast Operations nunca crea estos secretos por ti: hacer referencia a uno es tu decisión.
 
 ## Configurar criterios
 

@@ -1,6 +1,6 @@
 # Profiler-monitor
 
-Profileringsovervåking lar deg overvåke kontinuerlige profileringsdata fra applikasjonene dine og utløse varsler basert på profilerantall og mønstre. OneUptime evaluerer profileringsdata fra telemetritjenestene dine over et tidsvindu.
+Profileringsovervåking lar deg overvåke kontinuerlige profileringsdata fra applikasjonene dine og utløse varsler basert på profilerantall og mønstre. Cast Operations evaluerer profileringsdata fra telemetritjenestene dine over et tidsvindu.
 
 ## Oversikt
 
@@ -14,7 +14,7 @@ Profiler-monitorer teller og filtrerer profileringsdata som samsvarer med spesif
 
 ## Opprette en profiler-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **Profiles** som monitortype
 4. Velg telemetritjenestene som skal overvåkes
@@ -24,7 +24,7 @@ Profiler-monitorer teller og filtrerer profileringsdata som samsvarer med spesif
 
 ### Telemetritjenester
 
-Velg én eller flere tjenester det skal overvåkes profiler fra. Tjenester må sende kontinuerlige profileringsdata til OneUptime via OpenTelemetry.
+Velg én eller flere tjenester det skal overvåkes profiler fra. Tjenester må sende kontinuerlige profileringsdata til Cast Operations via OpenTelemetry.
 
 ### Profilfiltre
 
@@ -62,4 +62,4 @@ Velg én eller flere tjenester det skal overvåkes profiler fra. Tjenester må s
 
 ## Krav til oppsett
 
-Profileringsovervåking krever at applikasjonene dine sender kontinuerlige profileringsdata til OneUptime via OpenTelemetry. Se dokumentasjonen for [OpenTelemetry](/docs/telemetry/open-telemetry) for instruksjoner om oppsett.
+Profileringsovervåking krever at applikasjonene dine sender kontinuerlige profileringsdata til Cast Operations via OpenTelemetry. Se dokumentasjonen for [OpenTelemetry](/docs/telemetry/open-telemetry) for instruksjoner om oppsett.

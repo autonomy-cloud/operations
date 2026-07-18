@@ -1,6 +1,6 @@
 # 日誌監控器
 
-日誌監控可讓您監控應用程式的日誌，並根據日誌模式、計數及嚴重性等級觸發警示。OneUptime 會評估來自您遙測服務的日誌，並依照您所設定的條件進行檢查。
+日誌監控可讓您監控應用程式的日誌，並根據日誌模式、計數及嚴重性等級觸發警示。Cast Operations 會評估來自您遙測服務的日誌，並依照您所設定的條件進行檢查。
 
 ## 概觀
 
@@ -14,7 +14,7 @@
 
 ## 建立日誌監控器
 
-1. 前往 OneUptime Dashboard 中的 **Monitors**
+1. 前往 Cast Operations Dashboard 中的 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **Logs** 作為監控器類型
 4. 選取要監控的遙測服務
@@ -24,7 +24,7 @@
 
 ### 遙測服務
 
-選取一個或多個要監控其日誌的服務。服務必須透過 OpenTelemetry 將日誌傳送至 OneUptime。
+選取一個或多個要監控其日誌的服務。服務必須透過 OpenTelemetry 將日誌傳送至 Cast Operations。
 
 ### 日誌篩選條件
 
@@ -92,4 +92,4 @@
 
 ## 設定需求
 
-日誌監控需要您的應用程式透過 OpenTelemetry 將日誌傳送至 OneUptime。如需設定說明，請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件。
+日誌監控需要您的應用程式透過 OpenTelemetry 將日誌傳送至 Cast Operations。如需設定說明，請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件。

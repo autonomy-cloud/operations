@@ -18,7 +18,7 @@ export interface DockerSwarmMetricDefinition {
 
 /*
  * Metric names follow the OpenTelemetry docker_stats receiver naming
- * scheme. The OneUptime Docker Swarm Agent runs the docker_stats receiver
+ * scheme. The Cast Operations Docker Swarm Agent runs the docker_stats receiver
  * against the Swarm manager node, so the series that actually arrive are
  * the standard `container.*` container-runtime metrics — there are NO
  * `docker_swarm_*` or `pve_*` metrics. Each datapoint carries the owning

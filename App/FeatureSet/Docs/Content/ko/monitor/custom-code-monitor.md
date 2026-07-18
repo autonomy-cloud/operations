@@ -22,7 +22,7 @@ return {
 
 #### 시크릿 추가
 
-시크릿을 추가하려면 OneUptime 대시보드 -> 프로젝트 설정 -> 모니터 시크릿 -> 모니터 시크릿 생성으로 이동하십시오.
+시크릿을 추가하려면 Cast Operations 대시보드 -> 프로젝트 설정 -> 모니터 시크릿 -> 모니터 시크릿 생성으로 이동하십시오.
 
 ![시크릿 생성](/docs/static/images/CreateMonitorSecret.png)
 
@@ -50,7 +50,7 @@ console.log(stringSecret);
 
 ### 커스텀 메트릭
 
-`oneuptime.captureMetric()` 함수를 사용하여 스크립트에서 커스텀 메트릭을 캡처할 수 있습니다. 이러한 메트릭은 OneUptime에 저장되며 메트릭 탐색기를 사용하여 대시보드에 차트화할 수 있습니다.
+`oneuptime.captureMetric()` 함수를 사용하여 스크립트에서 커스텀 메트릭을 캡처할 수 있습니다. 이러한 메트릭은 Cast Operations에 저장되며 메트릭 탐색기를 사용하여 대시보드에 차트화할 수 있습니다.
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);

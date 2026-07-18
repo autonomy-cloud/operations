@@ -1,11 +1,11 @@
 # Microsoft Teams 整合
 
-若要將 Microsoft Teams 與您自架的 OneUptime 執行個體整合，您需要設定 Azure App Registration 並設定所需的環境變數。
+若要將 Microsoft Teams 與您自架的 Cast Operations 執行個體整合，您需要設定 Azure App Registration 並設定所需的環境變數。
 
 ## 先決條件
 
 - Azure 帳戶 - 您可以前往 [https://azure.com](https://azure.com) 建立一個
-- 具有您 OneUptime 伺服器設定的存取權限
+- 具有您 Cast Operations 伺服器設定的存取權限
 
 ## 設定說明
 
@@ -16,8 +16,8 @@
 3. 填寫註冊表單：
    - **名稱：** oneuptime
    - **支援的帳戶類型：** 任何組織目錄中的帳戶（任何 Microsoft Entra ID 租用戶 - 多租用戶）
-   - **重新導向 URI：** Web - `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - 也請新增：`https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **重新導向 URI：** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - 也請新增：`https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. 點選「Register」
 5. 記下「Application (client) ID」- 您稍後會需要它
 
@@ -71,7 +71,7 @@
 3. 點選「Review + create」，然後點選「Create」
 
 4. 部署完成後，前往您的機器人資源並導覽至「Configuration」
-5. 將「Messaging endpoint」設定為 `https://your-oneuptime-domain.com/api/microsoft-bot/messages`
+5. 將「Messaging endpoint」設定為 `https://your-operations-domain.com/api/microsoft-bot/messages`
 6. 儲存設定
 
 ### 步驟 5：將 Microsoft Teams 頻道新增到機器人
@@ -81,7 +81,7 @@
 3. 檢閱設定（為 Teams 啟用，除非您有特定需求，否則保留預設的訊息傳遞選項）
 4. 點選「Save」（如果系統提示，則點選「Done」/「Publish」）以啟用 Teams 頻道
 
-### 步驟 6：設定 OneUptime 環境變數
+### 步驟 6：設定 Cast Operations 環境變數
 
 #### Docker Compose
 
@@ -104,7 +104,7 @@ microsoftTeamsApp:
    tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**重要：** 在新增這些環境變數後，請重新啟動您的 OneUptime 伺服器，使其生效。
+**重要：** 在新增這些環境變數後，請重新啟動您的 Cast Operations 伺服器，使其生效。
 
 ### 步驟 7：上傳 Teams 應用程式資訊清單
 
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 如果您遇到問題：
 
 - 確保您的應用程式已授予正確的權限
-- 檢查重新導向 URI 是否完全相符（將 `your-oneuptime-domain.com` 替換為您實際的網域）
+- 檢查重新導向 URI 是否完全相符（將 `your-operations-domain.com` 替換為您實際的網域）
 - 確認您的環境變數已正確設定
 - 確保機器人訊息傳遞端點可從網際網路存取
 - 確認機器人已正確設定 Teams 頻道
@@ -129,4 +129,4 @@ microsoftTeamsApp:
 
 ## 支援
 
-我們希望改善此整合，因此非常歡迎您提供意見回饋。請將任何意見傳送給我們：[hello@oneuptime.com](mailto:hello@oneuptime.com)
+我們希望改善此整合，因此非常歡迎您提供意見回饋。請將任何意見傳送給我們：[hello@visca.ai](mailto:hello@visca.ai)

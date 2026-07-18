@@ -1,6 +1,6 @@
 # Exécutions et journaux
 
-Chaque fois qu'un workflow s'exécute, OneUptime enregistre un compte rendu de ce qui s'est passé — quand il s'est exécuté, s'il a fonctionné et ce qu'a fait chaque bloc. Ce compte rendu s'appelle une **exécution**. Les exécutions vous permettent de confirmer qu'un workflow a bien fonctionné, de déboguer celui qui a échoué et de revenir sur l'activité passée.
+Chaque fois qu'un workflow s'exécute, Cast Operations enregistre un compte rendu de ce qui s'est passé — quand il s'est exécuté, s'il a fonctionné et ce qu'a fait chaque bloc. Ce compte rendu s'appelle une **exécution**. Les exécutions vous permettent de confirmer qu'un workflow a bien fonctionné, de déboguer celui qui a échoué et de revenir sur l'activité passée.
 
 ## Où les trouver
 
@@ -35,7 +35,7 @@ Les valeurs affichées sont exactement ce que le bloc a vu — après que toutes
 ### « Mon workflow ne s'est pas exécuté. »
 
 1. Vérifiez que le workflow est **activé** dans Settings. Les nouveaux workflows démarrent désactivés.
-2. Pour un déclencheur d'événement OneUptime : confirmez que l'événement a réellement eu lieu. Ouvrez l'enregistrement et consultez son historique.
+2. Pour un déclencheur d'événement Cast Operations : confirmez que l'événement a réellement eu lieu. Ouvrez l'enregistrement et consultez son historique.
 3. Pour un déclencheur webhook : confirmez que l'autre système envoie bien à la bonne URL. La plupart des outils consignent l'envoi d'un webhook — vérifiez de leur côté.
 4. Pour un déclencheur planifié : confirmez que l'expression cron correspond à l'heure attendue.
 

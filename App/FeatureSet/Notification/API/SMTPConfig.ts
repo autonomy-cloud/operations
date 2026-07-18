@@ -86,7 +86,7 @@ router.post(
       const mail: EmailMessage = {
         templateType: EmailTemplateType.SMTPTest,
         toEmail: new Email(body["toEmail"] as string),
-        subject: "Test Email from OneUptime",
+        subject: "Test Email from Cast Operations",
         vars: {},
         body: "",
       };

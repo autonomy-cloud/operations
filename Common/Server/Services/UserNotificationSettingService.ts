@@ -317,7 +317,7 @@ export class Service extends DatabaseService<UserNotificationSetting> {
             if (subject) {
               lines.push(`🔔 <b>${escapeHtml(subject)}</b>`);
             } else {
-              lines.push("🔔 <b>OneUptime notification</b>");
+              lines.push("🔔 <b>Cast Operations notification</b>");
             }
             if (smsBody) {
               lines.push("");

@@ -1,6 +1,6 @@
 # Moniteur Ping
 
-La surveillance par ping vous permet de surveiller la disponibilité et la réactivité de tout hôte ou adresse IP. OneUptime envoie périodiquement des requêtes ping à votre cible et vérifie si elle répond correctement.
+La surveillance par ping vous permet de surveiller la disponibilité et la réactivité de tout hôte ou adresse IP. Cast Operations envoie périodiquement des requêtes ping à votre cible et vérifie si elle répond correctement.
 
 ## Vue d'ensemble
 
@@ -13,7 +13,7 @@ Les moniteurs ping testent la connectivité réseau de base en envoyant des requ
 
 ## Création d'un moniteur Ping
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Ping** comme type de moniteur
 4. Entrez le nom d'hôte ou l'adresse IP que vous souhaitez surveiller

@@ -1,19 +1,19 @@
 # Manueller Monitor
 
-Der Manuelle Monitor ermöglicht das Erstellen von Monitoren, deren Status vollständig manuell oder über die API verwaltet wird. OneUptime führt keine automatisierten Prüfungen durch — Sie steuern den Monitorstatus direkt.
+Der Manuelle Monitor ermöglicht das Erstellen von Monitoren, deren Status vollständig manuell oder über die API verwaltet wird. Cast Operations führt keine automatisierten Prüfungen durch — Sie steuern den Monitorstatus direkt.
 
 ## Übersicht
 
 Manuelle Monitore sind Platzhalter, die Sie selbst aktualisieren. Dies ist nützlich für:
 
-- Integration mit externen Überwachungstools, die den Status über die OneUptime API aktualisieren
+- Integration mit externen Überwachungstools, die den Status über die Cast Operations API aktualisieren
 - Verfolgen von Diensten oder Systemen, die nicht automatisch überwacht werden können
 - Verwalten von Incidents für Komponenten ohne automatisierte Gesundheitsprüfungen
 - Darstellen von Drittanbieter-Abhängigkeiten, deren Status Sie manuell verfolgen
 
 ## Einen Manuellen Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Manuell** als Monitortyp
 4. Geben Sie einen Namen und eine Beschreibung für den Monitor ein
@@ -26,8 +26,8 @@ Manuelle Monitore haben keine Überwachungsintervalle, Probes oder automatisiert
 
 Sie können den Status eines manuellen Monitors auf zwei Arten aktualisieren:
 
-- **Dashboard** — Den Monitorstatus direkt im OneUptime-Dashboard ändern
-- **API** — Den Monitorstatus programmgesteuert über die OneUptime API aktualisieren
+- **Dashboard** — Den Monitorstatus direkt im Cast Operations-Dashboard ändern
+- **API** — Den Monitorstatus programmgesteuert über die Cast Operations API aktualisieren
 
 ### Incidents und Benachrichtigungen
 
@@ -44,5 +44,5 @@ Sie können Incidents und Benachrichtigungen für manuelle Monitore genauso erst
 | Drittanbieter-Dienste     | Status externer Dienste verfolgen, von denen Sie abhängen, die Sie aber nicht direkt überwachen können |
 | Physische Infrastruktur   | Hardware oder physische Systeme ohne Netzwerküberwachung darstellen                                    |
 | Geschäftsprozesse         | Nicht-technische Prozesse verfolgen, die den Dienststatus beeinflussen                                 |
-| API-gesteuerter Status    | Externen Tools erlauben, den Monitorstatus über die OneUptime API zu aktualisieren                     |
-| Status-Seiten-Platzhalter | Komponenten auf Ihrer Status-Seite anzeigen, die außerhalb von OneUptime verwaltet werden              |
+| API-gesteuerter Status    | Externen Tools erlauben, den Monitorstatus über die Cast Operations API zu aktualisieren                     |
+| Status-Seiten-Platzhalter | Komponenten auf Ihrer Status-Seite anzeigen, die außerhalb von Cast Operations verwaltet werden              |

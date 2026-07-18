@@ -1,18 +1,18 @@
-# OneUptime Terraform Provider
+# Cast Operations Terraform Provider
 
-OneUptime Terraform Provider आपको Infrastructure as Code (IaC) का उपयोग करके OneUptime resources प्रबंधित करने की अनुमति देता है। यह provider आपको Terraform के माध्यम से monitoring, incident management, status pages और अन्य OneUptime features configure करने में सक्षम बनाता है।
+Cast Operations Terraform Provider आपको Infrastructure as Code (IaC) का उपयोग करके Cast Operations resources प्रबंधित करने की अनुमति देता है। यह provider आपको Terraform के माध्यम से monitoring, incident management, status pages और अन्य Cast Operations features configure करने में सक्षम बनाता है।
 
 ## Installation
 
 ### Terraform Registry से (अनुशंसित)
 
-OneUptime Terraform provider [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime) पर उपलब्ध है।
+Cast Operations Terraform provider [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations) पर उपलब्ध है।
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # नवीनतम 7.x version उपयोग करें
     }
   }
@@ -22,25 +22,25 @@ terraform {
 
 ### Self-Hosted Installations के लिए Version Pinning
 
-⚠️ **Self-Hosted Customers के लिए महत्वपूर्ण**: API compatibility सुनिश्चित करने के लिए Terraform provider version को हमेशा अपने OneUptime installation version से match करने के लिए pin करें।
+⚠️ **Self-Hosted Customers के लिए महत्वपूर्ण**: API compatibility सुनिश्चित करने के लिए Terraform provider version को हमेशा अपने Cast Operations installation version से match करने के लिए pin करें।
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # अपने OneUptime installation से match करने वाले exact version पर pin करें
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # अपने Cast Operations installation से match करने वाले exact version पर pin करें
     }
   }
   required_version = ">= 1.0"
 }
 ```
 
-#### अपना OneUptime Version खोजना
+#### अपना Cast Operations Version खोजना
 
-आप कई तरीकों से अपना OneUptime version पा सकते हैं:
+आप कई तरीकों से अपना Cast Operations version पा सकते हैं:
 
-1. **Dashboard**: अपने OneUptime dashboard में Settings → About पर जाएं
+1. **Dashboard**: अपने Cast Operations dashboard में Settings → About पर जाएं
 2. **API**: `GET /api/status` endpoint call करें
 3. **Docker**: आप जो image tag उपयोग कर रहे हैं वह जांचें
 4. **Helm**: अपना Helm chart version जांचें
@@ -51,7 +51,7 @@ terraform {
 
 ```hcl
 provider "oneuptime" {
-  oneuptime_url = "https://your-oneuptime-instance.com"  # या cloud के लिए https://oneuptime.com
+  oneuptime_url = "https://your-operations-instance.com"  # या cloud के लिए https://visca.ai
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -61,7 +61,7 @@ provider "oneuptime" {
 आप environment variables का उपयोग करके provider configure कर सकते हैं:
 
 ```bash
-export ONEUPTIME_URL="https://your-oneuptime-instance.com"
+export ONEUPTIME_URL="https://your-operations-instance.com"
 export ONEUPTIME_API_KEY="your-api-key-here"
 ```
 
@@ -69,14 +69,14 @@ export ONEUPTIME_API_KEY="your-api-key-here"
 
 | Argument        | Environment Variable | विवरण             | आवश्यक |
 | --------------- | -------------------- | ----------------- | ------ |
-| `oneuptime_url` | `ONEUPTIME_URL`      | OneUptime URL     | हाँ    |
-| `api_key`       | `ONEUPTIME_API_KEY`  | OneUptime API Key | हाँ    |
+| `oneuptime_url` | `ONEUPTIME_URL`      | Cast Operations URL     | हाँ    |
+| `api_key`       | `ONEUPTIME_API_KEY`  | Cast Operations API Key | हाँ    |
 
 ## Quick Start
 
 ### 1. API Key बनाएं
 
-पहले, अपने OneUptime dashboard में एक API key बनाएं:
+पहले, अपने Cast Operations dashboard में एक API key बनाएं:
 
 1. **Settings** → **API Keys** पर जाएं
 2. **Create API Key** पर क्लिक करें
@@ -92,20 +92,20 @@ export ONEUPTIME_API_KEY="your-api-key-here"
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # अपना instance URL उपयोग करें
+  oneuptime_url = "https://visca.ai"  # अपना instance URL उपयोग करें
   api_key       = var.oneuptime_api_key
 }
 
-# नोट: Projects OneUptime dashboard में manually बनाने होंगे
+# नोट: Projects Cast Operations dashboard में manually बनाने होंगे
 variable "project_id" {
-  description = "OneUptime project ID"
+  description = "Cast Operations project ID"
   type        = string
 }
 
@@ -144,13 +144,13 @@ terraform apply
 
 ### Cloud Customers
 
-OneUptime Cloud customers के लिए, latest provider version उपयोग करें:
+Cast Operations Cloud customers के लिए, latest provider version उपयोग करें:
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # हमेशा latest compatible version प्राप्त करें
     }
   }
@@ -159,9 +159,9 @@ terraform {
 
 ### Self-Hosted Customers
 
-**Critical**: Self-hosted customers को provider version को अपने OneUptime installation से match करने के लिए pin करना होगा।
+**Critical**: Self-hosted customers को provider version को अपने Cast Operations installation से match करने के लिए pin करना होगा।
 
-| OneUptime Version | Provider Version | Configuration          |
+| Cast Operations Version | Provider Version | Configuration          |
 | ----------------- | ---------------- | ---------------------- |
 | 7.0.x             | 7.0.x            | `version = "~> 7.0.0"` |
 | 7.1.x             | 7.1.x            | `version = "~> 7.1.0"` |
@@ -169,7 +169,7 @@ terraform {
 
 ## उपलब्ध Resources
 
-OneUptime Terraform provider निम्नलिखित resources का समर्थन करता है:
+Cast Operations Terraform provider निम्नलिखित resources का समर्थन करता है:
 
 ### Core Resources
 
@@ -206,7 +206,7 @@ OneUptime Terraform provider निम्नलिखित resources का स
 **Self-Hosted Customers के लिए:**
 
 - हमेशा अपने installation से match करने वाले exact version पर pin करें
-- OneUptime upgrade करने पर provider version update करें
+- Cast Operations upgrade करने पर provider version update करें
 - पहले non-production environment में test करें
 
 ### 2. State Management
@@ -231,7 +231,7 @@ terraform {
    Error: API version incompatible
    ```
 
-   **Solution**: सुनिश्चित करें कि provider version OneUptime installation से match करती है
+   **Solution**: सुनिश्चित करें कि provider version Cast Operations installation से match करती है
 
 2. **Authentication Issues**
 

@@ -1,17 +1,17 @@
 # MCP Server
 
-De OneUptime Model Context Protocol (MCP) Server biedt LLM's directe toegang tot uw OneUptime-instantie, waardoor door AI aangedreven monitoring-, incidentbeheer- en observabiliteitsbewerkingen mogelijk worden.
+De Cast Operations Model Context Protocol (MCP) Server biedt LLM's directe toegang tot uw Cast Operations-instantie, waardoor door AI aangedreven monitoring-, incidentbeheer- en observabiliteitsbewerkingen mogelijk worden.
 
-## Wat is de OneUptime MCP Server?
+## Wat is de Cast Operations MCP Server?
 
-De OneUptime MCP Server is een brug tussen Large Language Models (LLM's) en uw OneUptime-instantie. Hij implementeert het Model Context Protocol (MCP), waardoor AI-assistenten zoals Claude direct kunnen communiceren met uw monitoringinfrastructuur.
+De Cast Operations MCP Server is een brug tussen Large Language Models (LLM's) en uw Cast Operations-instantie. Hij implementeert het Model Context Protocol (MCP), waardoor AI-assistenten zoals Claude direct kunnen communiceren met uw monitoringinfrastructuur.
 
 ## Hoe het werkt
 
-De MCP-server wordt gehost naast uw OneUptime-instantie en is toegankelijk via het Streamable HTTP-transport. Er is geen lokale installatie vereist.
+De MCP-server wordt gehost naast uw Cast Operations-instantie en is toegankelijk via het Streamable HTTP-transport. Er is geen lokale installatie vereist.
 
-**Cloudgebruikers**: `https://oneuptime.com/mcp`
-**Zelf-gehoste gebruikers**: `https://your-oneuptime-domain.com/mcp`
+**Cloudgebruikers**: `https://visca.ai/mcp`
+**Zelf-gehoste gebruikers**: `https://your-operations-domain.com/mcp`
 
 ## Belangrijkste functies
 
@@ -25,7 +25,7 @@ De MCP-server wordt gehost naast uw OneUptime-instantie en is toegankelijk via h
 
 ## Wat u kunt doen
 
-Met de OneUptime MCP Server kunnen AI-assistenten u helpen bij:
+Met de Cast Operations MCP Server kunnen AI-assistenten u helpen bij:
 
 - **Monitorbeheer**: Monitors aanmaken en configureren, hun status controleren en de statushistorie bekijken
 - **Incidentrespons**: Incidenten aanmaken, bevestigen en oplossen, interne of publieke notities toevoegen en de oplossing bijhouden
@@ -37,13 +37,13 @@ Met de OneUptime MCP Server kunnen AI-assistenten u helpen bij:
 
 ## Vereisten
 
-- OneUptime-instantie (cloud of zelf-gehost)
+- Cast Operations-instantie (cloud of zelf-gehost)
 - MCP-compatibele client (Claude Desktop, VS Code met GitHub Copilot, enz.)
-- Geldige OneUptime API-sleutel (alleen vereist voor geauthenticeerde bewerkingen — publieke tools werken zonder)
+- Geldige Cast Operations API-sleutel (alleen vereist voor geauthenticeerde bewerkingen — publieke tools werken zonder)
 
 ## Uw API-sleutel ophalen
 
-1. Log in op uw OneUptime-instantie
+1. Log in op uw Cast Operations-instantie
 2. Navigeer naar **Instellingen** → **API-sleutels**
 3. Klik op **API-sleutel aanmaken**
 4. Geef een naam op (bijv. "MCP Server")
@@ -52,7 +52,7 @@ Met de OneUptime MCP Server kunnen AI-assistenten u helpen bij:
 
 API-sleutels zijn projectgebonden: de MCP-server leidt uw project af uit de sleutel, zodat aanmaaktools nooit een `projectId`-argument nodig hebben.
 
-> **Waarschuwing — geef een AI-agent nooit een master-sleutel.** Een OneUptime *master*-API-sleutel wordt ook op deze header geaccepteerd en verleent beheerderstoegang tot de hele instantie. Gebruik altijd een project-API-sleutel met de minste rechten die de agent nodig heeft (een alleen-lezen sleutel volstaat voor alle `get_`/`list_`/`count_`-tools).
+> **Waarschuwing — geef een AI-agent nooit een master-sleutel.** Een Cast Operations *master*-API-sleutel wordt ook op deze header geaccepteerd en verleent beheerderstoegang tot de hele instantie. Gebruik altijd een project-API-sleutel met de minste rechten die de agent nodig heeft (een alleen-lezen sleutel volstaat voor alle `get_`/`list_`/`count_`-tools).
 
 ## Configuratie
 
@@ -64,7 +64,7 @@ Zoek uw Claude Desktop-configuratiebestand:
 **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 **Linux**: `~/.config/Claude/claude_desktop_config.json`
 
-### Voor OneUptime Cloud
+### Voor Cast Operations Cloud
 
 Voeg de volgende configuratie toe:
 
@@ -73,7 +73,7 @@ Voeg de volgende configuratie toe:
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -82,16 +82,16 @@ Voeg de volgende configuratie toe:
 }
 ```
 
-### Voor zelf-gehoste OneUptime
+### Voor zelf-gehoste Cast Operations
 
-Vervang `oneuptime.com` door uw OneUptime-domein:
+Vervang `visca.ai` door uw Cast Operations-domein:
 
 ```json
 {
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://your-oneuptime-domain.com/mcp",
+      "url": "https://your-operations-domain.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -109,7 +109,7 @@ Om alleen publieke tools te gebruiken (statuspagina-informatie, hulp), kunt u ve
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://oneuptime.com/mcp"
+      "url": "https://visca.ai/mcp"
     }
   }
 }
@@ -119,7 +119,7 @@ Deze configuratie biedt toegang tot publieke statuspagina-tools en hulpbronnen z
 
 ### VS Code met GitHub Copilot
 
-VS Code ondersteunt MCP-servers native met GitHub Copilot (versie 1.99+). Hierdoor kan Copilot rechtstreeks toegang krijgen tot OneUptime-gegevens.
+VS Code ondersteunt MCP-servers native met GitHub Copilot (versie 1.99+). Hierdoor kan Copilot rechtstreeks toegang krijgen tot Cast Operations-gegevens.
 
 #### Stap 1: Vereisten
 
@@ -135,14 +135,14 @@ VS Code ondersteunt MCP-servers native met GitHub Copilot (versie 1.99+). Hierdo
 
 U kunt ook `.vscode/mcp.json` aanmaken in uw werkruimte voor projectspecifieke configuratie.
 
-#### Voor OneUptime Cloud
+#### Voor Cast Operations Cloud
 
 ```json
 {
   "servers": {
     "oneuptime": {
       "type": "http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "${input:oneuptime-api-key}"
       }
@@ -152,21 +152,21 @@ U kunt ook `.vscode/mcp.json` aanmaken in uw werkruimte voor projectspecifieke c
     {
       "type": "promptString",
       "id": "oneuptime-api-key",
-      "description": "OneUptime API Key",
+      "description": "Cast Operations API Key",
       "password": true
     }
   ]
 }
 ```
 
-#### Voor zelf-gehoste OneUptime
+#### Voor zelf-gehoste Cast Operations
 
 ```json
 {
   "servers": {
     "oneuptime": {
       "type": "http",
-      "url": "https://your-oneuptime-domain.com/mcp",
+      "url": "https://your-operations-domain.com/mcp",
       "headers": {
         "x-api-key": "${input:oneuptime-api-key}"
       }
@@ -176,7 +176,7 @@ U kunt ook `.vscode/mcp.json` aanmaken in uw werkruimte voor projectspecifieke c
     {
       "type": "promptString",
       "id": "oneuptime-api-key",
-      "description": "OneUptime API Key",
+      "description": "Cast Operations API Key",
       "password": true
     }
   ]
@@ -188,14 +188,14 @@ U kunt ook `.vscode/mcp.json` aanmaken in uw werkruimte voor projectspecifieke c
 1. Druk op `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. Typ "MCP: List Servers" om beschikbare servers te bekijken
 3. Klik op "oneuptime" om de server te starten
-4. Voer uw OneUptime API-sleutel in wanneer daarom wordt gevraagd
+4. Voer uw Cast Operations API-sleutel in wanneer daarom wordt gevraagd
 
 #### Stap 4: Gebruiken met Copilot Chat
 
 Open GitHub Copilot Chat en gebruik de Agent-modus (`@workspace` of stel direct vragen):
 
 ```
-"What monitors do I have in OneUptime?"
+"What monitors do I have in Cast Operations?"
 "Show me recent incidents"
 "Create a new monitor for https://example.com"
 ```
@@ -222,7 +222,7 @@ De MCP-server ondersteunt twee bedrijfsmodi:
 
 U kunt verbinding maken met de MCP-server zonder API-sleutel om toegang te krijgen tot publieke tools:
 
-- **`oneuptime_help`**: Hulp en begeleiding over OneUptime MCP-mogelijkheden ophalen
+- **`oneuptime_help`**: Hulp en begeleiding over Cast Operations MCP-mogelijkheden ophalen
 - **`oneuptime_list_resources`**: Beschikbare resources en hun bewerkingen weergeven
 - **`get_public_status_page_overview`**: Overzicht van een publieke statuspagina ophalen
 - **`get_public_status_page_incidents`**: Incidenten van een publieke statuspagina ophalen
@@ -235,7 +235,7 @@ Publieke statuspagina-tools accepteren een statuspagina-ID (UUID) of de domeinna
 
 Voor alle andere bewerkingen (monitors, incidenten, teams beheren, enz.) is authenticatie vereist via een van de volgende headers:
 
-- `x-api-key`: Uw OneUptime API-sleutel
+- `x-api-key`: Uw Cast Operations API-sleutel
 - `Authorization`: Bearer-token met uw API-sleutel (bijv. `Bearer your-api-key-here`)
 
 Het `Bearer`-schema is hoofdletterongevoelig. Toolfouten worden geretourneerd als in-band toolresultaten (`isError: true`) met een `statusCode`, details en een suggestie — niet als MCP-protocolfouten — zodat agenten de fout kunnen lezen en zichzelf kunnen corrigeren.
@@ -295,21 +295,21 @@ Lijsttools pagineren met `limit` (standaard 10, maximaal 100) en `skip`, en elke
 Controleer of de MCP-server actief is:
 
 ```bash
-# For OneUptime Cloud
-curl https://oneuptime.com/mcp/health
+# For Cast Operations Cloud
+curl https://visca.ai/mcp/health
 
 # For Self-Hosted
-curl https://your-oneuptime-domain.com/mcp/health
+curl https://your-operations-domain.com/mcp/health
 ```
 
 Beschikbare tools weergeven:
 
 ```bash
-# For OneUptime Cloud
-curl https://oneuptime.com/mcp/tools
+# For Cast Operations Cloud
+curl https://visca.ai/mcp/tools
 
 # For Self-Hosted
-curl https://your-oneuptime-domain.com/mcp/tools
+curl https://your-operations-domain.com/mcp/tools
 ```
 
 ## Gebruiksvoorbeelden
@@ -359,7 +359,7 @@ Deze query's werken zonder authenticatie, met alleen de publieke statuspagina-to
 
 ```
 "What's the current status of status.example.com?"
-"Show me recent incidents from the OneUptime status page"
+"Show me recent incidents from the Cast Operations status page"
 "Are there any scheduled maintenance events on status.acme.com?"
 "Get the latest announcements from my public status page with ID abc123-..."
 ```
@@ -385,7 +385,7 @@ Voor volledige toegang om resources aan te maken, bij te werken en te verwijdere
 
 - Gebruik specifieke machtigingen: Verleen alleen de minimale vereiste machtigingen
 - Roteer API-sleutels: Roteer uw API-sleutels regelmatig
-- Houd gebruik bij: Volg het gebruik van API-sleutels in OneUptime
+- Houd gebruik bij: Volg het gebruik van API-sleutels in Cast Operations
 - Aparte sleutels: Gebruik verschillende API-sleutels voor verschillende omgevingen
 
 ## Probleemoplossing
@@ -400,14 +400,14 @@ Zorg dat uw API-sleutel de benodigde machtigingen heeft:
 
 ### Verbindingsproblemen
 
-1. Controleer of uw OneUptime-URL correct is
+1. Controleer of uw Cast Operations-URL correct is
 2. Controleer of uw API-sleutel geldig is
-3. Zorg dat uw OneUptime-instantie bereikbaar is
+3. Zorg dat uw Cast Operations-instantie bereikbaar is
 4. Test het gezondheidscontrolepunt
 
 ### Ongeldige API-sleutel
 
-- Controleer de API-sleutel in uw OneUptime-instellingen
+- Controleer de API-sleutel in uw Cast Operations-instellingen
 - Controleer op extra spaties of tekens
 - Zorg dat de sleutel niet is verlopen
 

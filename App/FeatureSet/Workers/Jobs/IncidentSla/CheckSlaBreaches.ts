@@ -271,13 +271,13 @@ async function sendBreachNotification(data: {
       };
 
       const sms: SMSMessage = {
-        message: `SLA ${breachTypeStr} Breached for incident ${incident.title} ${incidentNumberStr}. Deadline was ${deadlineStr}. View incident in OneUptime Dashboard.`,
+        message: `SLA ${breachTypeStr} Breached for incident ${incident.title} ${incidentNumberStr}. Deadline was ${deadlineStr}. View incident in Cast Operations Dashboard.`,
       };
 
       const callMessage: CallRequestMessage = {
         data: [
           {
-            sayMessage: `This is an alert from OneUptime. SLA ${breachTypeStr} has been breached for incident ${incident.title}. The deadline was ${deadlineStr}. Please check the incident in OneUptime Dashboard immediately.`,
+            sayMessage: `This is an alert from Cast Operations. SLA ${breachTypeStr} has been breached for incident ${incident.title}. The deadline was ${deadlineStr}. Please check the incident in Cast Operations Dashboard immediately.`,
           },
         ],
       };

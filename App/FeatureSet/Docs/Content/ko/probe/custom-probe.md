@@ -2,7 +2,7 @@
 
 프라이빗 네트워크 내의 리소스 또는 방화벽 뒤에 있는 리소스를 모니터링하기 위해 네트워크 내에 커스텀 프로브를 설정할 수 있습니다.
 
-시작하려면 프로젝트 설정 > 프로브에서 커스텀 프로브를 생성해야 합니다. OneUptime 대시보드에서 커스텀 프로브를 생성하면 `PROBE_ID`와 `PROBE_KEY`를 받게 됩니다.
+시작하려면 프로젝트 설정 > 프로브에서 커스텀 프로브를 생성해야 합니다. Cast Operations 대시보드에서 커스텀 프로브를 생성하면 `PROBE_ID`와 `PROBE_KEY`를 받게 됩니다.
 
 ### 프로브 배포
 
@@ -11,21 +11,21 @@
 프로브를 실행하려면 Docker가 설치되어 있는지 확인하십시오. 다음 명령으로 커스텀 프로브를 실행할 수 있습니다:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://oneuptime.com -d oneuptime/probe:release
+docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
 ```
 
-OneUptime을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
+Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
 
 ##### 프록시 구성
 
-프로브가 OneUptime 또는 외부 리소스에 도달하기 위해 프록시 서버를 통과해야 하는 경우 다음 환경 변수를 사용하여 프록시 설정을 구성할 수 있습니다:
+프로브가 Cast Operations 또는 외부 리소스에 도달하기 위해 프록시 서버를 통과해야 하는 경우 다음 환경 변수를 사용하여 프록시 설정을 구성할 수 있습니다:
 
 ```
 # HTTP 프록시의 경우
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -34,7 +34,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -43,7 +43,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       # 프록시 구성 (선택 사항)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,7 +102,7 @@ services:
 docker compose up -d
 ```
 
-OneUptime을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
+Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
 
 #### Kubernetes
 
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 ##### 프록시 구성과 함께
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             # 프록시 구성 (선택 사항)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -184,7 +184,7 @@ spec:
 kubectl apply -f oneuptime-probe.yaml
 ```
 
-OneUptime을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
+Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
 
 ### 환경 변수
 
@@ -192,9 +192,9 @@ OneUptime을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 �
 
 #### 필수 변수
 
-- `PROBE_KEY` - OneUptime 대시보드의 프로브 키
-- `PROBE_ID` - OneUptime 대시보드의 프로브 ID
-- `ONEUPTIME_URL` - OneUptime 인스턴스의 URL (기본값: https://oneuptime.com)
+- `PROBE_KEY` - Cast Operations 대시보드의 프로브 키
+- `PROBE_ID` - Cast Operations 대시보드의 프로브 ID
+- `ONEUPTIME_URL` - Cast Operations 인스턴스의 URL (기본값: https://visca.ai)
 
 #### 선택적 변수
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### 확인
 
-프로브가 성공적으로 실행되고 있다면 OneUptime 대시보드에서 `연결됨`으로 표시되어야 합니다. 연결됨으로 표시되지 않으면 컨테이너 로그를 확인해야 합니다. 여전히 문제가 있다면 [GitHub](https://github.com/oneuptime/oneuptime)에 이슈를 생성하거나 [지원팀에 문의](https://oneuptime.com/support)하십시오.
+프로브가 성공적으로 실행되고 있다면 Cast Operations 대시보드에서 `연결됨`으로 표시되어야 합니다. 연결됨으로 표시되지 않으면 컨테이너 로그를 확인해야 합니다. 여전히 문제가 있다면 [GitHub](https://github.com/autonomy-cloud/operations)에 이슈를 생성하거나 [지원팀에 문의](https://visca.ai/support)하십시오.

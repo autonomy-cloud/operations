@@ -52,7 +52,7 @@ Vi bruger Playwright til at simulere brugerinteraktioner. Du kan bruge Playwrigh
 
 ### Skærmbilleder
 
-Et foruddeklareret `screenshots`-objekt er tilgængeligt i scriptkonteksten. Tildel skærmbilleder til det på ethvert tidspunkt i scriptet – disse skærmbilleder optages **selv hvis scriptet kaster en fejl** (inklusive assertion-fejl, timeouts eller uventede fejl), så du kan se præcis, hvad siden lignede, da kørslen mislykkedes. Optagede skærmbilleder vises i OneUptime-dashboardet for den specifikke monitorkørsel.
+Et foruddeklareret `screenshots`-objekt er tilgængeligt i scriptkonteksten. Tildel skærmbilleder til det på ethvert tidspunkt i scriptet – disse skærmbilleder optages **selv hvis scriptet kaster en fejl** (inklusive assertion-fejl, timeouts eller uventede fejl), så du kan se præcis, hvad siden lignede, da kørslen mislykkedes. Optagede skærmbilleder vises i Cast Operations-dashboardet for den specifikke monitorkørsel.
 
 ```javascript
 // Optag skærmbilleder via `screenshots` sidekanalen — de bevares ved både succes og fejl.
@@ -93,7 +93,7 @@ return {
 
 #### Tilføjelse af en hemmelighed
 
-For at tilføje en hemmelighed skal du gå til OneUptime Dashboard -> Projektindstillinger -> Monitor Secrets -> Opret Monitor Secret.
+For at tilføje en hemmelighed skal du gå til Cast Operations Dashboard -> Projektindstillinger -> Monitor Secrets -> Opret Monitor Secret.
 
 ![Opret hemmelighed](/docs/static/images/CreateMonitorSecret.png)
 
@@ -121,7 +121,7 @@ console.log(stringSecret);
 
 ### Brugerdefinerede metrikker
 
-Du kan optage brugerdefinerede metrikker fra dit script ved hjælp af funktionen `oneuptime.captureMetric()`. Disse metrikker gemmes i OneUptime og kan vises på dashboards ved hjælp af Metrisk Stifinder.
+Du kan optage brugerdefinerede metrikker fra dit script ved hjælp af funktionen `oneuptime.captureMetric()`. Disse metrikker gemmes i Cast Operations og kan vises på dashboards ved hjælp af Metrisk Stifinder.
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);
@@ -179,5 +179,5 @@ Når de er optaget, vises disse metrikker i Metrisk Stifinder under navne som `c
 - Du kan bruge variablerne `browserType` og `screenSizeType` til at få browser-typen og skærmstørrelsestypen i den aktuelle kørselskontekst. Brug dem gerne i dit script, hvis du ønsker det.
 - Dette er et JavaScript-script, så du kan bruge alle JavaScript-funktioner i scriptet.
 - Du kan bruge `axios`-modulet til at sende HTTP-anmodninger i scriptet. Du kan bruge det til at sende API-kald fra scriptet.
-- Hvis du bruger oneuptime.com, vil du altid have den seneste version af Playwright og browsers tilgængelig i scriptets kontekst. Hvis du selvhoster, skal du sørge for, at du opdaterer proberne for at have den seneste version af Playwright og browsers.
+- Hvis du bruger visca.ai, vil du altid have den seneste version af Playwright og browsers tilgængelig i scriptets kontekst. Hvis du selvhoster, skal du sørge for, at du opdaterer proberne for at have den seneste version af Playwright og browsers.
 - Timeout for scriptet er 2 minutter. Hvis scriptet tager mere end 2 minutter, afsluttes det.

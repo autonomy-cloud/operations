@@ -1,8 +1,8 @@
-# OneUptime Docker Agent
+# Cast Operations Docker Agent
 
 ## अवलोकन
 
-OneUptime Docker Agent एक पूर्व-निर्मित कंटेनर इमेज है जो एक ट्यून किए गए OpenTelemetry Collector कॉन्फ़िगरेशन के साथ आती है। इसे अपने मौजूदा कंटेनरों के साथ चलाएं और यह होस्ट पर हर कंटेनर को स्वतः खोज लेता है, CPU / memory / network / block I/O मेट्रिक्स के साथ-साथ कंटेनर लॉग्स एकत्र करता है, और सब कुछ OTLP के माध्यम से OneUptime को अग्रेषित करता है। एकल इमेज, एकल कमांड।
+Cast Operations Docker Agent एक पूर्व-निर्मित कंटेनर इमेज है जो एक ट्यून किए गए OpenTelemetry Collector कॉन्फ़िगरेशन के साथ आती है। इसे अपने मौजूदा कंटेनरों के साथ चलाएं और यह होस्ट पर हर कंटेनर को स्वतः खोज लेता है, CPU / memory / network / block I/O मेट्रिक्स के साथ-साथ कंटेनर लॉग्स एकत्र करता है, और सब कुछ OTLP के माध्यम से Cast Operations को अग्रेषित करता है। एकल इमेज, एकल कमांड।
 
 यह पृष्ठ **इंस्टॉलेशन गाइड** है। एजेंट द्वारा एकत्र किए गए डेटा के ऊपर Docker मॉनिटर और अलर्ट कॉन्फ़िगर करने के लिए, देखें [Docker Monitor](/docs/monitor/docker-monitor)।
 
@@ -10,11 +10,11 @@ OneUptime Docker Agent एक पूर्व-निर्मित कंटे
 
 - Docker Engine 20.10+
 - होस्ट पर `/var/run/docker.sock` तक पहुँच
-- एक **OneUptime Telemetry Ingestion Token** — इसे _Project Settings → Telemetry Ingestion Keys_ से बनाएं और मान कॉपी करें
+- एक **Cast Operations Telemetry Ingestion Token** — इसे _Project Settings → Telemetry Ingestion Keys_ से बनाएं और मान कॉपी करें
 
 ## त्वरित प्रारंभ (एक कमांड)
 
-`YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, और होस्ट नाम को अपने परिवेश के मानों से बदलें। होस्ट नाम वह है जिससे यह Docker होस्ट OneUptime में दिखाई देगा — कुछ ऐसा चुनें जैसे `prod-docker-01`।
+`YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, और होस्ट नाम को अपने परिवेश के मानों से बदलें। होस्ट नाम वह है जिससे यह Docker होस्ट Cast Operations में दिखाई देगा — कुछ ऐसा चुनें जैसे `prod-docker-01`।
 
 ```bash
 docker run -d \
@@ -29,7 +29,7 @@ docker run -d \
   oneuptime/docker-agent:release
 ```
 
-बस इतना ही। एक बार एजेंट कनेक्ट हो जाने पर, आपका Docker होस्ट OneUptime डैशबोर्ड के **Docker** अनुभाग में स्वतः दिखाई देगा।
+बस इतना ही। एक बार एजेंट कनेक्ट हो जाने पर, आपका Docker होस्ट Cast Operations डैशबोर्ड के **Docker** अनुभाग में स्वतः दिखाई देगा।
 
 ## विकल्प — Docker Compose
 
@@ -66,7 +66,7 @@ docker compose up -d
 
 | वेरिएबल                   | आवश्यक | विवरण                                                                                                                       |
 | ------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | हाँ    | आपका OneUptime इंस्टेंस URL (उदाहरण के लिए `https://oneuptime.com` या आपका स्वयं-होस्ट किया गया होस्ट)                      |
+| `ONEUPTIME_URL`           | हाँ    | आपका Cast Operations इंस्टेंस URL (उदाहरण के लिए `https://visca.ai` या आपका स्वयं-होस्ट किया गया होस्ट)                      |
 | `ONEUPTIME_SERVICE_TOKEN` | हाँ    | _Project Settings → Telemetry Ingestion Keys_ से Telemetry ingestion token                                                  |
 | `DOCKER_HOST_NAME`        | नहीं   | इस होस्ट के लिए सुलभ नाम। डिफ़ॉल्ट रूप से `docker-host`। इसे प्रति होस्ट किसी स्थिर मान पर सेट करें (उदा. `prod-docker-01`) |
 
@@ -86,7 +86,7 @@ docker logs -f oneuptime-docker-agent
 
 इसे खोजें: `"Everything is ready. Begin running and processing data."`
 
-लगभग एक मिनट के भीतर होस्ट मेट्रिक्स और लॉग्स के प्रवाह के साथ OneUptime डैशबोर्ड में दिखाई देना चाहिए।
+लगभग एक मिनट के भीतर होस्ट मेट्रिक्स और लॉग्स के प्रवाह के साथ Cast Operations डैशबोर्ड में दिखाई देना चाहिए।
 
 ## एजेंट को अपग्रेड करना
 
@@ -126,12 +126,12 @@ docker compose down
 | **Container Info**    | अपटाइम, रीस्टार्ट गणना, प्रक्रिया गणना                 |
 | **Container Logs**    | सभी कंटेनरों से stdout / stderr लॉग्स                  |
 
-## स्वयं-होस्ट किया गया OneUptime
+## स्वयं-होस्ट किया गया Cast Operations
 
-यदि आप OneUptime को स्वयं-होस्ट कर रहे हैं, तो `ONEUPTIME_URL` को अपने स्वयं के इंस्टेंस पर सेट करें:
+यदि आप Cast Operations को स्वयं-होस्ट कर रहे हैं, तो `ONEUPTIME_URL` को अपने स्वयं के इंस्टेंस पर सेट करें:
 
 ```bash
--e ONEUPTIME_URL="https://your-oneuptime-host.example.com"
+-e ONEUPTIME_URL="https://your-operations-host.example.com"
 ```
 
 यदि आपका इंस्टेंस केवल HTTP है, तो `http://` और उपयुक्त पोर्ट का उपयोग करें।
@@ -146,8 +146,8 @@ docker compose down
 
 1. जाँचें कि एजेंट चल रहा है: `docker ps --filter name=oneuptime-docker-agent`
 2. एजेंट लॉग्स जाँचें: `docker logs oneuptime-docker-agent | grep -i error`
-3. सत्यापित करें कि आपका OneUptime URL और service token सही हैं
-4. सुनिश्चित करें कि आपका Docker होस्ट नेटवर्क पर OneUptime इंस्टेंस तक पहुँच सकता है
+3. सत्यापित करें कि आपका Cast Operations URL और service token सही हैं
+4. सुनिश्चित करें कि आपका Docker होस्ट नेटवर्क पर Cast Operations इंस्टेंस तक पहुँच सकता है
 
 ### कोई मेट्रिक्स दिखाई नहीं दे रहे
 
@@ -162,5 +162,5 @@ docker compose down
 ## अगले चरण
 
 - कंटेनर CPU / memory / restart स्थितियों पर अलर्ट करने के लिए **Docker Monitors** कॉन्फ़िगर करें — देखें [Docker Monitor](/docs/monitor/docker-monitor)।
-- स्टैंडअलोन Docker होस्ट के बजाय Kubernetes क्लस्टर के लिए, [OneUptime Kubernetes Agent](/docs/telemetry/kubernetes-agent) का उपयोग करें।
+- स्टैंडअलोन Docker होस्ट के बजाय Kubernetes क्लस्टर के लिए, [Cast Operations Kubernetes Agent](/docs/telemetry/kubernetes-agent) का उपयोग करें।
 - गैर-कंटेनरीकृत होस्ट (Linux / macOS / Windows VMs और बेयर मेटल) के लिए, [Host OpenTelemetry Collector](/docs/telemetry/host-otel-collector) का उपयोग करें।

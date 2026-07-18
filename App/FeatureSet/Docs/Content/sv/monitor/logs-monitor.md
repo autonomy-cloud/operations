@@ -1,6 +1,6 @@
 # Loggmonitor
 
-Loggövervakning gör det möjligt att övervaka dina applikationsloggar och utlösa varningar baserat på loggmönster, antal och allvarlighetsgrader. OneUptime utvärderar loggar från dina telemetritjänster och kontrollerar dem mot dina konfigurerade kriterier.
+Loggövervakning gör det möjligt att övervaka dina applikationsloggar och utlösa varningar baserat på loggmönster, antal och allvarlighetsgrader. Cast Operations utvärderar loggar från dina telemetritjänster och kontrollerar dem mot dina konfigurerade kriterier.
 
 ## Översikt
 
@@ -14,7 +14,7 @@ Loggmonitorer söker och räknar loggar som matchar specifika filter under ett t
 
 ## Skapa en loggmonitor
 
-1. Gå till **Monitorer** i OneUptime-instrumentpanelen
+1. Gå till **Monitorer** i Cast Operations-instrumentpanelen
 2. Klicka på **Skapa monitor**
 3. Välj **Loggar** som monitortyp
 4. Välj de telemetritjänster att övervaka
@@ -24,7 +24,7 @@ Loggmonitorer söker och räknar loggar som matchar specifika filter under ett t
 
 ### Telemetritjänster
 
-Välj en eller flera tjänster att övervaka loggar från. Tjänster måste skicka loggar till OneUptime via OpenTelemetry.
+Välj en eller flera tjänster att övervaka loggar från. Tjänster måste skicka loggar till Cast Operations via OpenTelemetry.
 
 ### Loggfilter
 
@@ -92,4 +92,4 @@ Filtrera loggar efter en eller flera allvarlighetsgrader:
 
 ## Konfigurationskrav
 
-Loggövervakning kräver att dina applikationer skickar loggar till OneUptime via OpenTelemetry. Se dokumentationen för [OpenTelemetry](/docs/telemetry/open-telemetry) för konfigurationsinstruktioner.
+Loggövervakning kräver att dina applikationer skickar loggar till Cast Operations via OpenTelemetry. Se dokumentationen för [OpenTelemetry](/docs/telemetry/open-telemetry) för konfigurationsinstruktioner.

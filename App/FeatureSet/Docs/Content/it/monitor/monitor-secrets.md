@@ -4,7 +4,7 @@
 
 ### Aggiunta di un Segreto
 
-Per aggiungere un segreto, accedere a Dashboard OneUptime -> Impostazioni Progetto -> Segreti Monitor -> Crea Segreto Monitor.
+Per aggiungere un segreto, accedere a Dashboard Cast Operations -> Impostazioni Progetto -> Segreti Monitor -> Crea Segreto Monitor.
 
 ![Crea Segreto](/docs/static/images/CreateMonitorSecret.png)
 

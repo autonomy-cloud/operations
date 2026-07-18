@@ -1,19 +1,19 @@
 # Datadog Integration
 
-[Datadog](https://www.datadoghq.com) monitor alerts को OneUptime incidents में बदलें, ताकि Datadog की detection OneUptime की incident response और status pages को feed करे।
+[Datadog](https://www.datadoghq.com) monitor alerts को Cast Operations incidents में बदलें, ताकि Datadog की detection Cast Operations की incident response और status pages को feed करे।
 
-यह इंटीग्रेशन **इनबाउंड** है: Datadog का [Webhooks integration](https://docs.datadoghq.com/integrations/webhooks/) एक OneUptime **[वर्कफ़्लो](/docs/workflows/index)** में post करता है जो **Webhook trigger** से शुरू होता है।
+यह इंटीग्रेशन **इनबाउंड** है: Datadog का [Webhooks integration](https://docs.datadoghq.com/integrations/webhooks/) एक Cast Operations **[वर्कफ़्लो](/docs/workflows/index)** में post करता है जो **Webhook trigger** से शुरू होता है।
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## पूर्वापेक्षाएँ
 
 - एक Datadog account जहाँ आप integrations और monitors configure कर सकते हैं।
-- एक OneUptime project जहाँ आप वर्कफ़्लो बना सकते हैं।
+- एक Cast Operations project जहाँ आप वर्कफ़्लो बना सकते हैं।
 
-## चरण 1 — OneUptime वर्कफ़्लो बनाएँ
+## चरण 1 — Cast Operations वर्कफ़्लो बनाएँ
 
 1. **Workflows → Create Workflow** खोलें, इसे `Datadog → Incidents` नाम दें, और **Builder** खोलें।
 2. एक **Webhook** trigger जोड़ें और **उसका URL कॉपी करें**। ब्लॉक का नाम `Datadog` रखें।
@@ -60,7 +60,7 @@ Webhook handle उन monitors में जोड़ें जिन्हे�
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-यह alert और recovery दोनों OneUptime को भेजता है। (सब कुछ forward करने के लिए, आप unconditionally `@webhook-oneuptime` भी monitor में जोड़ सकते हैं।)
+यह alert और recovery दोनों Cast Operations को भेजता है। (सब कुछ forward करने के लिए, आप unconditionally `@webhook-oneuptime` भी monitor में जोड़ सकते हैं।)
 
 ## चरण 4 — परीक्षण करें
 

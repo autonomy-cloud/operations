@@ -38,7 +38,7 @@ const components: Array<ComponentMetadata> = [
         description: "Message to send to Telegram.",
         type: ComponentInputType.LongText,
         required: true,
-        placeholder: "Test Telegram message from OneUptime",
+        placeholder: "Test Telegram message from Cast Operations",
       },
     ],
     returnValues: [

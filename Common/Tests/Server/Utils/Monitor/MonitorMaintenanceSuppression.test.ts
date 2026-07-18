@@ -143,7 +143,7 @@ describe("MonitorMaintenanceSuppression.getSuppressedFingerprintsForMaintainedRe
     expect(Array.from(result)).toEqual(["fpA"]);
   });
 
-  it("matches a host by its OneUptime id stamp as well as by name", () => {
+  it("matches a host by its Cast Operations id stamp as well as by name", () => {
     const maintained: MaintainedResourceKeys = emptyMaintained();
     maintained.hosts.ids.add("host-uuid-1");
 

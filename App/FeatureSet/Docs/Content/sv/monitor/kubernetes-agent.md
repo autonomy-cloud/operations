@@ -1,22 +1,22 @@
 # Installera Kubernetes-agenten
 
-OneUptime Kubernetes-agenten samlar in klustermätvärden, händelser, pod-loggar, **applikationsspårningar (HTTP/gRPC via eBPF)** och **OS-nivå nodmätvärden** från ditt Kubernetes-kluster och skickar dem till OneUptime. Den distribueras som ett Helm-diagram och installeras med ett enda kommando — eBPF-autoinstrumentering är aktiverat som standard, så du ser spårningar på tjänstenivå och RED-mätvärden utan kodändringar. **Kontinuerliga CPU-flame graphs (eBPF-profilerare)** är också tillgängliga — välj till med `--set profiling.enabled=true` när du vill ha mer telemetri.
+Cast Operations Kubernetes-agenten samlar in klustermätvärden, händelser, pod-loggar, **applikationsspårningar (HTTP/gRPC via eBPF)** och **OS-nivå nodmätvärden** från ditt Kubernetes-kluster och skickar dem till Cast Operations. Den distribueras som ett Helm-diagram och installeras med ett enda kommando — eBPF-autoinstrumentering är aktiverat som standard, så du ser spårningar på tjänstenivå och RED-mätvärden utan kodändringar. **Kontinuerliga CPU-flame graphs (eBPF-profilerare)** är också tillgängliga — välj till med `--set profiling.enabled=true` när du vill ha mer telemetri.
 
 ## Snabbstart
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
-Ditt kluster visas i OneUptime inom några minuter.
+Ditt kluster visas i Cast Operations inom några minuter.
 
 ## Välj rätt förinställning för ditt kluster
 
@@ -37,7 +37,7 @@ Om du är osäker, lämna `preset` osatt — du får `standard`-standardvärden.
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
@@ -47,7 +47,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
@@ -58,7 +58,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
@@ -90,7 +90,7 @@ Du kan också inaktivera logginsamling helt med `--set logs.enabled=false` och s
 
 ## Applikationsspårningar och HTTP-förfrågningar via eBPF (på som standard)
 
-Diagrammet levererar en DaemonSet som kör [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) på varje nod. OBI laddar eBPF-program i Linux-kärnan och bevakar trafik på socketnivå för att rekonstruera HTTP/HTTPS-, gRPC- och SQL/Redis-anrop från varje pod på noden — inga kodändringar, ingen SDK, ingen sidecar. Insamlad trafik exporteras som OTLP-spårningar och förfrågnings-/latensmätvärden direkt till OneUptime.
+Diagrammet levererar en DaemonSet som kör [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) på varje nod. OBI laddar eBPF-program i Linux-kärnan och bevakar trafik på socketnivå för att rekonstruera HTTP/HTTPS-, gRPC- och SQL/Redis-anrop från varje pod på noden — inga kodändringar, ingen SDK, ingen sidecar. Insamlad trafik exporteras som OTLP-spårningar och förfrågnings-/latensmätvärden direkt till Cast Operations.
 
 Efter installationen börjar dina tjänster visas under **Telemetry → Traces** och tjänstekartan inom en minut eller två, med `k8s.cluster.name` satt till ditt `clusterName` så att du kan filtrera per kluster.
 
@@ -127,7 +127,7 @@ OBI propagerar också spårningskontext över tjänstegränser som standard. Nä
 
 Också på som standard. OBI:s logganrikare avlyssnar pod-stdout-skrivningar från instrumenterade processer och:
 
-- För **JSON-formaterade loggar**: injicerar fälten `trace_id` och `span_id` i raden (eventuella befintliga värden i loggen bevaras). filelog-DaemonSet:en lyfter sedan dessa fält till LogRecord:ens nativa trace_id/span_id-platser, så att klick på en span i spårningsvyn hoppar till dess loggar i OneUptime — och klick på en loggrad hoppar till dess överordnade spår.
+- För **JSON-formaterade loggar**: injicerar fälten `trace_id` och `span_id` i raden (eventuella befintliga värden i loggen bevaras). filelog-DaemonSet:en lyfter sedan dessa fält till LogRecord:ens nativa trace_id/span_id-platser, så att klick på en span i spårningsvyn hoppar till dess loggar i Cast Operations — och klick på en loggrad hoppar till dess överordnade spår.
 - För **icke-JSON-loggar**: raden bevaras oförändrad — fortfarande insamlad, bara inte automatiskt länkad.
 
 | Alternativ                   | Standard | Beskrivning                                                                                                  |
@@ -163,11 +163,11 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 ## Kontinuerlig CPU-profilering (av som standard)
 
-En separat DaemonSet kör [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) — paketerad som avbildningen `otel/opentelemetry-collector-ebpf-profiler`. Den samplar stackar på CPU vid 19 Hz för varje stödd runtime (Go, Java, .NET, Python, Ruby, Node.js, PHP, Perl, C/C++, Rust) och skickar OTLP-profiler till OneUptime, där de visas under **Telemetry → Performance Profiles** och som flame graphs länkade från enskilda spår-spans.
+En separat DaemonSet kör [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) — paketerad som avbildningen `otel/opentelemetry-collector-ebpf-profiler`. Den samplar stackar på CPU vid 19 Hz för varje stödd runtime (Go, Java, .NET, Python, Ruby, Node.js, PHP, Perl, C/C++, Rust) och skickar OTLP-profiler till Cast Operations, där de visas under **Telemetry → Performance Profiles** och som flame graphs länkade från enskilda spår-spans.
 
 Profilering är **av som standard** — den är tyngre än OBI-autoinstrumenteringen (mer CPU per nod, större minnesavtryck) och alla kluster vill inte ha alltid-på flame graphs. Aktivera den när du vill ha rikare telemetri: `--set profiling.enabled=true`.
 
-När eBPF-autoinstrumentering också är på (`ebpf.enabled: true`, standard) korreleras varje CPU-sampel med OBI:s spårningskontext via en delad bpffs-map — så flame graphs bär trace_id/span_id och OneUptime-gränssnittet kan visa dig en flame graph per span.
+När eBPF-autoinstrumentering också är på (`ebpf.enabled: true`, standard) korreleras varje CPU-sampel med OBI:s spårningskontext via en delad bpffs-map — så flame graphs bär trace_id/span_id och Cast Operations-gränssnittet kan visa dig en flame graph per span.
 
 Krav:
 
@@ -205,7 +205,7 @@ Diagrammet kan också samla in:
 | Alternativ                                | Standard                         | Beskrivning                                                                                                                                                                              |
 | ----------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | (tom — behandlas som `standard`) | Se tabellen ovan.                                                                                                                                                                        |
-| `oneuptime.url`                           | _(krävs)_                        | URL till din OneUptime-instans.                                                                                                                                                          |
+| `oneuptime.url`                           | _(krävs)_                        | URL till din Cast Operations-instans.                                                                                                                                                          |
 | `oneuptime.apiKey`                        | _(krävs)_                        | Projekt-API-nyckel (Settings → API Keys).                                                                                                                                                |
 | `clusterName`                             | _(krävs)_                        | Unikt namn för detta kluster. Stämplas som `k8s.cluster.name` på varje post.                                                                                                             |
 | `namespaceFilters.rules`                  | Uteslut kube-system från podLogs och ebpfDiscovery | Scopade include/exclude-regler för podLogs, ebpfDiscovery, metrics och traces. Namespace-mönster stöder * och exclude vinner alltid. |
@@ -224,7 +224,7 @@ Diagrammet kan också samla in:
 | `coreDns.enabled`                         | `false`                          | Prometheus-mätvärden från CoreDNS.                                                                                                                                                       |
 | `controlPlane.enabled`                    | `false`                          | Skrapa etcd / api-server / scheduler / controller-manager. Enbart självhanterade kluster — hanterade erbjudanden (EKS/GKE/AKS) exponerar vanligtvis inte dessa endpoints.                |
 
-Se [diagrammets `values.yaml`](https://github.com/OneUptime/oneuptime/blob/master/HelmChart/Public/kubernetes-agent/values.yaml) för den fullständiga listan.
+Se [diagrammets `values.yaml`](https://github.com/autonomy-cloud/operations/blob/master/HelmChart/Public/kubernetes-agent/values.yaml) för den fullständiga listan.
 
 ## Uppgradering
 
@@ -271,7 +271,7 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
   --set preset=gke-autopilot   # or eks-fargate
 ```
 
-### Inga loggar visas i OneUptime
+### Inga loggar visas i Cast Operations
 
 Kontrollera agentpoddarna:
 
@@ -294,7 +294,7 @@ Vanliga orsaker:
 
 - **För gammal kärna eller saknad BTF.** OBI behöver Linux 5.8+ med BTF. Kontrollera med `uname -r` på en nod. Om du inte kan uppgradera, inaktivera eBPF: `--set ebpf.enabled=false`.
 - **Privilegierade poddar är blockerade.** Vissa kluster avvisar privilegierade poddar även utanför Autopilot/Fargate. Inaktivera eBPF.
-- **Inga spårningar i dashboarden men OBI kör.** Sätt `--set ebpf.printTraces=true` och kontrollera OBI:s stdout — om du ser spans där är problemet OTLP-leverans (kontrollera `OTEL_EXPORTER_OTLP_ENDPOINT` och din OneUptime URL/API-nyckel). Om du inte ser spans kan trafiken OBI bevakar vara helt krypterad av ett TLS-bibliotek som OBI inte kan avlyssna (t.ex. en statiskt länkad TLS-implementation som det inte känner igen).
+- **Inga spårningar i dashboarden men OBI kör.** Sätt `--set ebpf.printTraces=true` och kontrollera OBI:s stdout — om du ser spans där är problemet OTLP-leverans (kontrollera `OTEL_EXPORTER_OTLP_ENDPOINT` och din Cast Operations URL/API-nyckel). Om du inte ser spans kan trafiken OBI bevakar vara helt krypterad av ett TLS-bibliotek som OBI inte kan avlyssna (t.ex. en statiskt länkad TLS-implementation som det inte känner igen).
 
 ### Mitt kluster har för många poddar för en log-tailer-replika (endast API-läge)
 

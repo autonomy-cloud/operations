@@ -1,6 +1,6 @@
 # Port-monitor
 
-Port-overvåking lar deg overvåke tilgjengeligheten til spesifikke TCP- eller UDP-porter på en vert. OneUptime forsøker periodisk å koble til den angitte porten og sjekker om den er åpen og responsiv.
+Port-overvåking lar deg overvåke tilgjengeligheten til spesifikke TCP- eller UDP-porter på en vert. Cast Operations forsøker periodisk å koble til den angitte porten og sjekker om den er åpen og responsiv.
 
 ## Oversikt
 
@@ -13,7 +13,7 @@ Port-monitorer tester om en spesifikk nettverksport aksepterer tilkoblinger. Det
 
 ## Opprette en port-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **Port** som monitortype
 4. Skriv inn vertsnavnet eller IP-adressen og portnummeret

@@ -1,6 +1,6 @@
-# Actualización de OneUptime
+# Actualización de Cast Operations
 
-Esta guía explica cómo actualizar de forma segura tu instalación auto-alojada de OneUptime.
+Esta guía explica cómo actualizar de forma segura tu instalación auto-alojada de Cast Operations.
 
 ## Orientación general
 
@@ -8,14 +8,14 @@ Esta guía explica cómo actualizar de forma segura tu instalación auto-alojada
 - Puedes saltar versiones menores/de parche (por ejemplo, 8.1 → 8.4) siempre que sigas las notas de la versión.
 - Siempre realiza copias de seguridad antes de actualizar y valida que puedas restaurarlas.
 
-## Actualización de OneUptime 10 → 11
+## Actualización de Cast Operations 10 → 11
 
 <!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
 
 ### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
 
 In v11, the following authentication and access-management features moved to
-the **OneUptime Enterprise Edition** and are no longer part of the free,
+the **Cast Operations Enterprise Edition** and are no longer part of the free,
 open-source (Community) build:
 
 - **SAML SSO** — both project login and status-page login
@@ -34,16 +34,16 @@ Enterprise Edition.
 **Availability:**
 
 - **Self-hosted:** requires the **Enterprise Edition** build.
-- **OneUptime Cloud:** requires the **Scale** plan (or above).
+- **Cast Operations Cloud:** requires the **Scale** plan (or above).
 
 **If you rely on SSO and self-host**, email
-[support@oneuptime.com](mailto:support@oneuptime.com) for an Enterprise Edition
+[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
 license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
 v11 and we'll help you get it back online. If your team is mid-upgrade and this
 is blocking sign-in, contact us before upgrading production so we can plan it
 with you.
 
-OneUptime 11 reconstruye el almacenamiento de telemetría de ClickHouse. Esta página explica qué cambia, quién debe actuar y — para las instalaciones que quieran conservar la telemetría histórica — cada consulta necesaria para hacerlo.
+Cast Operations 11 reconstruye el almacenamiento de telemetría de ClickHouse. Esta página explica qué cambia, quién debe actuar y — para las instalaciones que quieran conservar la telemetría histórica — cada consulta necesaria para hacerlo.
 
 ### Qué cambia en la v11
 
@@ -60,7 +60,7 @@ La telemetría (logs, trazas, métricas, excepciones, perfiles, logs de monitore
 | `MonitorLogV2`        | `MonitorLogV3`        |
 | `AuditLogV1`          | `AuditLogV2`          |
 
-Se renombran dos columnas en todas las tablas de telemetría: `serviceId` → `primaryEntityId` y `serviceType` → `primaryEntityType`. Es un renombrado estricto — **si consulta directamente la API de analytics de OneUptime con filtros `serviceId`/`serviceType`, actualícelos a los nuevos nombres.** Los dashboards, monitores y alertas dentro de OneUptime se migran automáticamente.
+Se renombran dos columnas en todas las tablas de telemetría: `serviceId` → `primaryEntityId` y `serviceType` → `primaryEntityType`. Es un renombrado estricto — **si consulta directamente la API de analytics de Cast Operations con filtros `serviceId`/`serviceType`, actualícelos a los nuevos nombres.** Los dashboards, monitores y alertas dentro de Cast Operations se migran automáticamente.
 
 El corte es **solo hacia adelante**: las tablas nuevas empiezan vacías, toda la telemetría ingerida tras la actualización aterriza en ellas de inmediato y el histórico se va rellenando de forma natural con el tiempo. Las tablas antiguas se **eliminan automáticamente** durante la actualización para recuperar su espacio en disco — si quiere conservar la opción de trasladar el histórico, renómbrelas **antes** de actualizar (Paso 0 más abajo).
 
@@ -84,14 +84,14 @@ clickhouse-client --database oneuptime
 
 Conviene saber antes de empezar:
 
-- La copia puede ejecutarse con seguridad mientras OneUptime está en producción. La telemetría nueva se escribe de forma independiente en las tablas nuevas; el histórico copiado se rellena por detrás.
+- La copia puede ejecutarse con seguridad mientras Cast Operations está en producción. La telemetría nueva se escribe de forma independiente en las tablas nuevas; el histórico copiado se rellena por detrás.
 - Cuente con varias horas a gran escala (cientos de GB).
 - Cada sentencia de abajo lleva un `insert_deduplication_token`, y las tablas nuevas incluyen una ventana de deduplicación — por lo que **volver a ejecutar una sentencia que falló a medias es seguro** (los bloques ya insertados se omiten, también en los rollups de métricas), siempre que la reejecute pronto. Con mucha ingesta en vivo, la ventana (los últimos 10 000 bloques de inserción por tabla) acaba desalojando los tokens antiguos.
 - Copiar las métricas también reconstruye automáticamente los rollups preagregados de los dashboards (cada fila copiada realimenta las vistas materializadas de rollup) — esto hace que la copia de métricas sea más lenta que las demás; ejecútela en último lugar.
 
 #### Paso 0 — antes de actualizar, renombre las tablas antiguas
 
-La actualización elimina las tablas antiguas al arrancar, así que ponga primero fuera de su alcance las que quiera usar como origen de la copia. Detenga OneUptime (escale el despliegue a cero) para que nada escriba en ellas ni pueda recrearlas, y luego renómbrelas — `RENAME TABLE` es una operación de metadatos instantánea, e `IF EXISTS` permite que el bloque omita las tablas que su instalación nunca tuvo (los despliegues anteriores a mediados de 10.0.x pueden carecer de `AuditLogV1` o de algunas tablas `…V2` — en ese caso no hay histórico de ese tipo que copiar):
+La actualización elimina las tablas antiguas al arrancar, así que ponga primero fuera de su alcance las que quiera usar como origen de la copia. Detenga Cast Operations (escale el despliegue a cero) para que nada escriba en ellas ni pueda recrearlas, y luego renómbrelas — `RENAME TABLE` es una operación de metadatos instantánea, e `IF EXISTS` permite que el bloque omita las tablas que su instalación nunca tuvo (los despliegues anteriores a mediados de 10.0.x pueden carecer de `AuditLogV1` o de algunas tablas `…V2` — en ese caso no hay histórico de ese tipo que copiar):
 
 ```sql
 RENAME TABLE IF EXISTS LogItemV2 TO LogItemV2_backup;
@@ -105,7 +105,7 @@ RENAME TABLE IF EXISTS AuditLogV1 TO AuditLogV1_backup;
 RENAME TABLE IF EXISTS MetricItemAggMV1mByHost TO MetricItemAggMV1mByHost_backup;
 ```
 
-Después actualice y deje que OneUptime arranque por completo antes de continuar.
+Después actualice y deje que Cast Operations arranque por completo antes de continuar.
 
 > Si vuelve a la v10 después de renombrar (la v10 recrea al arrancar tablas vacías con los nombres antiguos), renombre las tablas `_backup` de vuelta a sus nombres originales antes de reiniciar la v10 — de lo contrario, la telemetría ingerida durante la marcha atrás aterriza en las tablas recreadas y se eliminará en la futura actualización.
 
@@ -206,20 +206,20 @@ DROP TABLE IF EXISTS MetricItemAggMV1mByHost_backup SETTINGS max_table_size_to_d
 
 > Consejo: como en toda actualización mayor, pruebe primero en un entorno de staging y confirme que la telemetría fluye hacia las tablas nuevas antes de confiar en la copia en producción.
 
-## Actualización de OneUptime 9 → 10
+## Actualización de Cast Operations 9 → 10
 
 No hay cambios que requieran acción manual. Simplemente sigue el proceso de actualización estándar.
 
-## Actualización de OneUptime 8 → 9
+## Actualización de Cast Operations 8 → 9
 
-El gráfico Helm ya no aprovisiona un recurso Kubernetes Ingress. OneUptime incluye un contenedor de puerta de enlace de ingreso que ya termina TLS, gestiona los dominios de las páginas de estado y enruta el tráfico para la plataforma, por lo que ya no es necesario un controlador de ingreso del clúster.
+El gráfico Helm ya no aprovisiona un recurso Kubernetes Ingress. Cast Operations incluye un contenedor de puerta de enlace de ingreso que ya termina TLS, gestiona los dominios de las páginas de estado y enruta el tráfico para la plataforma, por lo que ya no es necesario un controlador de ingreso del clúster.
 
 - Elimina cualquier anulación de `oneuptimeIngress` de tus archivos `values.yaml` personalizados antes de actualizar. Esas claves ahora se ignoran y causarán errores de validación si se dejan en su lugar.
 - Asegúrate de que `nginx.service.type` refleje cómo deseas exponer la puerta de enlace de ingreso incluida (por ejemplo, `LoadBalancer`, `NodePort` o `ClusterIP` con un balanceador de carga externo).
-- Verifica que cualquier registro DNS para páginas de estado o hosts principales aún apunte al Servicio o balanceador de carga que está frente a la puerta de enlace de ingreso de OneUptime.
+- Verifica que cualquier registro DNS para páginas de estado o hosts principales aún apunte al Servicio o balanceador de carga que está frente a la puerta de enlace de ingreso de Cast Operations.
 - Después de la actualización, confirma que los certificados TLS continúen renovándose a través de la puerta de enlace integrada y que los dominios de las páginas de estado se resuelvan correctamente.
 
-## Actualización de OneUptime 7 → 8
+## Actualización de Cast Operations 7 → 8
 
 Si estás ejecutando en Kubernetes, hay cambios importantes que rompen la compatibilidad:
 

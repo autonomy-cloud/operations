@@ -1,8 +1,8 @@
 # Global SSO (Instance-brede Single Sign-On)
 
-Global SSO stelt een OneUptime **instantiebeheerder** (master admin) in staat om één enkele SAML 2.0- of OpenID Connect (OIDC)-identiteitsprovider **eenmalig op instantieniveau** te configureren en deze te verbinden met elk project op de server. Het is de instantie-brede tegenhanger van SSO per project: in plaats van dat elke projecteigenaar zijn eigen identiteitsprovider configureert, stelt een master admin er één in die de hele instantie kan bedienen.
+Global SSO stelt een Cast Operations **instantiebeheerder** (master admin) in staat om één enkele SAML 2.0- of OpenID Connect (OIDC)-identiteitsprovider **eenmalig op instantieniveau** te configureren en deze te verbinden met elk project op de server. Het is de instantie-brede tegenhanger van SSO per project: in plaats van dat elke projecteigenaar zijn eigen identiteitsprovider configureert, stelt een master admin er één in die de hele instantie kan bedienen.
 
-Global SSO is een functie van **OneUptime Enterprise Edition** en is alleen beschikbaar op instanties die de Enterprise Edition-build draaien.
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO versus Project-SSO
 
@@ -24,7 +24,7 @@ Global SSO is een functie van **OneUptime Enterprise Edition** en is alleen besc
    - Voor SAML: voer een **Name** in, de **Sign On URL** en **Issuer** van uw identiteitsprovider, en plak het **Public Certificate**. Kies de **Signature**- en **Digest**-methoden (laat de standaardwaarden — `RSA-SHA256` / `SHA256` — staan als u twijfelt).
    - Voor OIDC: voer de **Discovery URL**, **Issuer**, **Client ID**, **Client Secret**, **Scopes** (moet `openid` bevatten) en de claimnamen voor **email** / **name** in.
 
-3. **Kopieer de OneUptime-URL's naar uw identiteitsprovider**
+3. **Kopieer de Cast Operations-URL's naar uw identiteitsprovider**
 
    - Open de provider (klik op de betreffende rij in de lijst) om de kaart **Identity Provider URLs** weer te geven.
    - Voor SAML kopieert u de **ACS URL (Reply URL)** en **Issuer (Entity ID)** naar uw IdP (Okta, Azure AD, OneLogin, JumpCloud en meer).

@@ -206,7 +206,7 @@ const Telegram: () => JSX.Element = (): ReactElement => {
         cardProps={{
           title: "Telegram Accounts for Notifications",
           description:
-            "Link your Telegram account to receive OneUptime notifications via our bot.",
+            "Link your Telegram account to receive Cast Operations notifications via our bot.",
         }}
         noItemsMessage={
           "No Telegram accounts linked. Add one and scan the QR or open the deep link to connect."
@@ -375,7 +375,7 @@ const Telegram: () => JSX.Element = (): ReactElement => {
         <ConfirmModal
           title={`Telegram account verified`}
           description={
-            "You'll now receive OneUptime notifications in Telegram. You can manage event-level toggles under User Settings → Notification Settings."
+            "You'll now receive Cast Operations notifications in Telegram. You can manage event-level toggles under User Settings → Notification Settings."
           }
           submitButtonText={"Great"}
           onSubmit={async () => {

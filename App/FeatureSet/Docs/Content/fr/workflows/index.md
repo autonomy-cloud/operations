@@ -1,22 +1,22 @@
 # Présentation des workflows
 
-Les workflows vous permettent d'automatiser des tâches dans OneUptime sans écrire de code. Glissez et déposez quelques blocs sur un canevas, reliez-les entre eux, et vous obtenez une automatisation qui s'exécute dès qu'un événement se produit — un incident s'ouvre, une planification se déclenche ou un autre outil envoie des données à OneUptime.
+Les workflows vous permettent d'automatiser des tâches dans Cast Operations sans écrire de code. Glissez et déposez quelques blocs sur un canevas, reliez-les entre eux, et vous obtenez une automatisation qui s'exécute dès qu'un événement se produit — un incident s'ouvre, une planification se déclenche ou un autre outil envoie des données à Cast Operations.
 
 Considérez les workflows comme des assistants d'arrière-plan pour votre projet : ils réagissent aux événements, dialoguent avec d'autres outils et maintiennent les choses synchronisées en toute discrétion pendant que vous vous concentrez sur votre travail.
 
 ## Ce que vous pouvez faire avec les workflows
 
-- **Connecter OneUptime à vos autres outils** — envoyer des incidents vers Slack, créer des tickets Jira, publier vers un webhook dans votre stack.
-- **Réagir à ce qui se passe dans OneUptime** — quand un incident critique est créé, prévenir l'équipe d'astreinte et ouvrir un ticket automatiquement.
+- **Connecter Cast Operations à vos autres outils** — envoyer des incidents vers Slack, créer des tickets Jira, publier vers un webhook dans votre stack.
+- **Réagir à ce qui se passe dans Cast Operations** — quand un incident critique est créé, prévenir l'équipe d'astreinte et ouvrir un ticket automatiquement.
 - **Exécuter des tâches selon une planification** — toutes les cinq minutes, chaque nuit, tous les lundis matin.
-- **Recevoir des données depuis l'extérieur** — laisser d'autres systèmes pousser des données vers OneUptime via une URL unique.
+- **Recevoir des données depuis l'extérieur** — laisser d'autres systèmes pousser des données vers Cast Operations via une URL unique.
 - **Réutiliser des automatisations courantes** — construisez-les une seule fois, appelez-les depuis n'importe quel autre workflow.
 
 ## Comment fonctionne un workflow
 
 Chaque workflow comporte trois parties :
 
-1. **Un déclencheur** — ce qui démarre le workflow. Cela peut être un bouton manuel, une planification, un webhook entrant ou un événement dans OneUptime (comme un nouvel incident).
+1. **Un déclencheur** — ce qui démarre le workflow. Cela peut être un bouton manuel, une planification, un webhook entrant ou un événement dans Cast Operations (comme un nouvel incident).
 2. **Un ou plusieurs composants** — ce que fait le workflow. Envoyer un message, effectuer un appel HTTP, lancer une vérification rapide, créer un embranchement selon une condition.
 3. **Des connexions entre eux** — vous tracez des lignes d'un bloc au suivant pour décider de l'ordre.
 
@@ -32,7 +32,7 @@ Vous construisez tout cela visuellement sur un canevas. Aucune programmation n'e
 | **Exécution**        | Une exécution du workflow. Enregistrée avec les horodatages et la sortie de chaque bloc.                         |
 | **Variable globale** | Une valeur (comme une clé d'API) que vous enregistrez une seule fois et réutilisez dans n'importe quel workflow. |
 
-## Où trouver les workflows dans OneUptime
+## Où trouver les workflows dans Cast Operations
 
 Ouvrez **Workflows** dans la navigation de gauche. À partir de là :
 
@@ -46,7 +46,7 @@ Ouvrez **Workflows** dans la navigation de gauche. À partir de là :
 ## Construire votre premier workflow
 
 1. **Créez** — donnez un nom et une brève description à votre workflow.
-2. **Choisissez un déclencheur** — manuel, planifié, webhook ou un événement OneUptime.
+2. **Choisissez un déclencheur** — manuel, planifié, webhook ou un événement Cast Operations.
 3. **Ajoutez des composants** — glissez les actions sur le canevas et reliez-les.
 4. **Testez** — cliquez sur **Run Manually** et observez ce qui se passe dans les journaux.
 5. **Activez-le** — basculez l'interrupteur **Enabled** dans Settings lorsque vous êtes prêt.
@@ -63,7 +63,7 @@ Supposons que vous vouliez publier dans Slack chaque fois qu'un incident critiqu
 
 La prochaine fois que quelqu'un ouvrira un incident avec « Sev 1 » dans le titre, Slack s'illumine.
 
-## Comment les workflows s'intègrent au reste de OneUptime
+## Comment les workflows s'intègrent au reste de Cast Operations
 
 - Les **monitors** détectent le problème. Les **incidents** l'enregistrent. Les **workflows** y réagissent.
 - Les **runbooks** sont des guides pas à pas pour les humains. Les workflows sont des automatisations sans surveillance. Utilisez un runbook lorsqu'une personne doit prendre des décisions ; utilisez un workflow lorsque les étapes sont automatiques.

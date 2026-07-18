@@ -1,14 +1,14 @@
-# Continuous-Profiling-Daten an OneUptime senden
+# Continuous-Profiling-Daten an Cast Operations senden
 
 ## Übersicht
 
-Continuous Profiling ist die vierte Säule der Observability neben Logs, Metriken und Traces. Profile erfassen, wie Ihre Anwendung CPU-Zeit verbraucht, Arbeitsspeicher alloziert und Systemressourcen auf Funktionsebene nutzt. OneUptime importiert Profiling-Daten über das OpenTelemetry Protocol (OTLP) und speichert sie zusammen mit Ihren anderen Telemetriesignalen für eine einheitliche Analyse.
+Continuous Profiling ist die vierte Säule der Observability neben Logs, Metriken und Traces. Profile erfassen, wie Ihre Anwendung CPU-Zeit verbraucht, Arbeitsspeicher alloziert und Systemressourcen auf Funktionsebene nutzt. Cast Operations importiert Profiling-Daten über das OpenTelemetry Protocol (OTLP) und speichert sie zusammen mit Ihren anderen Telemetriesignalen für eine einheitliche Analyse.
 
-Mit Profiling-Daten in OneUptime können Sie heiße Funktionen identifizieren, die CPU verbrauchen, Speicherlecks erkennen, Konkurrenzbottlenecks finden und Leistungsprobleme mit bestimmten Traces und Spans korrelieren.
+Mit Profiling-Daten in Cast Operations können Sie heiße Funktionen identifizieren, die CPU verbrauchen, Speicherlecks erkennen, Konkurrenzbottlenecks finden und Leistungsprobleme mit bestimmten Traces und Spans korrelieren.
 
 ## Unterstützte Profiltypen
 
-OneUptime unterstützt die folgenden Profiltypen:
+Cast Operations unterstützt die folgenden Profiltypen:
 
 | Profiltyp     | Beschreibung                                 | Einheit      |
 | ------------- | -------------------------------------------- | ------------ |
@@ -23,26 +23,26 @@ OneUptime unterstützt die folgenden Profiltypen:
 
 ### Schritt 1 - Telemetrie-Ingestion-Token erstellen
 
-Klicken Sie nach der Anmeldung bei OneUptime und dem Erstellen eines Projekts auf „Mehr" in der Navigationsleiste und dann auf „Projekteinstellungen".
+Klicken Sie nach der Anmeldung bei Cast Operations und dem Erstellen eines Projekts auf „Mehr" in der Navigationsleiste und dann auf „Projekteinstellungen".
 
 Klicken Sie auf der Seite Telemetrie-Ingestion-Schlüssel auf „Ingestion-Schlüssel erstellen", um ein Token zu erstellen.
 
 ### Schritt 2 - Ihren Profiler konfigurieren
 
-OneUptime akzeptiert Profiling-Daten über gRPC und HTTP mit dem OTLP Profiles-Protokoll.
+Cast Operations akzeptiert Profiling-Daten über gRPC und HTTP mit dem OTLP Profiles-Protokoll.
 
 | Protokoll | Endpunkt                                             |
 | --------- | ---------------------------------------------------- |
-| gRPC      | `your-oneuptime-host:4317` (OTLP Standard-gRPC-Port) |
-| HTTP      | `https://your-oneuptime-host/otlp/v1/profiles`       |
+| gRPC      | `your-operations-host:4317` (OTLP Standard-gRPC-Port) |
+| HTTP      | `https://your-operations-host/otlp/v1/profiles`       |
 
 **Umgebungsvariablen**
 
-Setzen Sie die folgenden Umgebungsvariablen, um Ihren Profiler auf OneUptime zu zeigen:
+Setzen Sie die folgenden Umgebungsvariablen, um Ihren Profiler auf Cast Operations zu zeigen:
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -50,7 +50,7 @@ export OTEL_SERVICE_NAME=my-service
 
 ### Grafana Alloy verwenden (eBPF-basiertes Profiling)
 
-Grafana Alloy kann CPU-Profile von allen Prozessen auf einem Linux-Host mit eBPF sammeln, ohne Code-Änderungen. Konfigurieren Sie es für den Export über OTLP zu OneUptime.
+Grafana Alloy kann CPU-Profile von allen Prozessen auf einem Linux-Host mit eBPF sammeln, ohne Code-Änderungen. Konfigurieren Sie es für den Export über OTLP zu Cast Operations.
 
 Beispiel-Alloy-Konfiguration:
 
@@ -62,7 +62,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "oneuptime" {
   endpoint {
-    url = "https://oneuptime.com/pyroscope"
+    url = "https://visca.ai/pyroscope"
     headers = {
       "x-oneuptime-token" = "YOUR_ONEUPTIME_SERVICE_TOKEN",
     }
@@ -76,7 +76,7 @@ Für Java-Anwendungen verwenden Sie [async-profiler](https://github.com/async-pr
 
 ```bash
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://oneuptime.com/otlp \
+  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
   -Dotel.exporter.otlp.headers=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -86,7 +86,7 @@ java -javaagent:opentelemetry-javaagent.jar \
 
 ### Flamegraph-Visualisierung
 
-OneUptime rendert Profildaten als interaktive Flamegraphen. Jeder Balken stellt eine Funktion im Call-Stack dar, und seine Breite ist proportional zur verbrauchten Zeit oder den verbrauchten Ressourcen.
+Cast Operations rendert Profildaten als interaktive Flamegraphen. Jeder Balken stellt eine Funktion im Call-Stack dar, und seine Breite ist proportional zur verbrauchten Zeit oder den verbrauchten Ressourcen.
 
 ### Funktionsliste
 
@@ -94,12 +94,12 @@ Zeigen Sie eine sortierbare Tabelle aller in einem Profil erfassten Funktionen a
 
 ### Trace-Korrelation
 
-Profile in OneUptime können mit verteilten Traces korreliert werden. Wenn ein Profil Trace- und Span-IDs enthält, können Sie direkt von einem langsamen Trace-Span zum entsprechenden CPU- oder Arbeitsspeicherprofil navigieren.
+Profile in Cast Operations können mit verteilten Traces korreliert werden. Wenn ein Profil Trace- und Span-IDs enthält, können Sie direkt von einem langsamen Trace-Span zum entsprechenden CPU- oder Arbeitsspeicherprofil navigieren.
 
 ## Datenspeicherung
 
-Die Profildaten-Aufbewahrung wird pro Telemetrie-Dienst in Ihren OneUptime-Projekteinstellungen konfiguriert. Der Standard-Aufbewahrungszeitraum beträgt 15 Tage.
+Die Profildaten-Aufbewahrung wird pro Telemetrie-Dienst in Ihren Cast Operations-Projekteinstellungen konfiguriert. Der Standard-Aufbewahrungszeitraum beträgt 15 Tage.
 
 ## Hilfe benötigt?
 
-Wenden Sie sich bitte an support@oneuptime.com, wenn Sie Hilfe bei der Einrichtung von Profiling mit OneUptime benötigen.
+Wenden Sie sich bitte an support@visca.ai, wenn Sie Hilfe bei der Einrichtung von Profiling mit Cast Operations benötigen.

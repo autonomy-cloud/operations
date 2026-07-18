@@ -4,7 +4,7 @@ Runbooks er genbrugelige svarprocedurer — ordnede lister af manuelle eller aut
 
 ## I et hurtigt overblik
 
-- **Top-niveau funktion** i OneUptime-dashboardet under **Analyse & Automatisering → Runbooks**.
+- **Top-niveau funktion** i Cast Operations-dashboardet under **Analyse & Automatisering → Runbooks**.
 - **Fem trintyper**: manuel tjekliste, JavaScript (sandkasse) og Bash (begge kører på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur), HTTP-anmodning og AI (analysér hændelses- og trin-kontekst med dit projekts LLM-udbyder).
 - **Tre udløsningsveje**: regler der matcher hændelser/alarmer/planlagt vedligehold, eller den manuelle knap "Kør runbook" på et hvilket som helst event.
 - **Snapshot-semantik**: når et runbook starter, kopieres dets trin ind på kørslen. At redigere skabelonen senere ændrer aldrig en igangværende kørsel.
@@ -35,7 +35,7 @@ Et par begreber går igen i resten af runbook-dokumentationen. Få styr på dem 
 ## Et runbook'ets livscyklus
 
 1. **Skriv** — Opret et runbook, bland manuelle, JavaScript-, HTTP-, Bash- og AI-trin. Gem.
-2. **(Valgfrit) Tilføj en regel** — Under indstillinger for Hændelser, Alarmer eller Planlagt vedligehold beder du OneUptime om at starte dette runbook, hver gang en hændelses titel eller beskrivelse matcher et regex.
+2. **(Valgfrit) Tilføj en regel** — Under indstillinger for Hændelser, Alarmer eller Planlagt vedligehold beder du Cast Operations om at starte dette runbook, hver gang en hændelses titel eller beskrivelse matcher et regex.
 3. **Udløs** — Enten udløses reglen automatisk, når en passende hændelse oprettes, eller en responder klikker manuelt **Kør runbook** på hændelsen.
 4. **Kør** — En ny kørsel oprettes med et snapshot af trinene. Automatiserede trin kører på Runbook-workeren; kørslen sættes på pause ved hvert manuelt trin, indtil nogen tikker det af.
 5. **Revider** — Kørslen bliver for altid på hændelsens **Runbooks**-fane og på runbook'ets kørselsliste. Output, fejl og tider per trin bevares til postmortem.
@@ -46,7 +46,7 @@ En hurtig beslutningsguide. Detaljerne findes i [Skriv et runbook](/docs/runbook
 
 | Trintype           | Brug det når…                                                                                                                                                                                                                      | Eksempel                                                                |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| **Manuel**         | Et menneske skal verificere noget, foretage en vurdering eller udføre en handling, OneUptime ikke kan observere.                                                                                                                   | "Bekræft trafik til sekundær region i load balancer-dashboardet."       |
+| **Manuel**         | Et menneske skal verificere noget, foretage en vurdering eller udføre en handling, Cast Operations ikke kan observere.                                                                                                                   | "Bekræft trafik til sekundær region i load balancer-dashboardet."       |
 | **JavaScript**     | Du har brug for en lille, afgrænset beregning — forespørge en konfigurationstjeneste, transformere en payload, køre logik før næste trin. Kører i sandkasse på en [Runbook-agent](/docs/runbooks/agents) i din egen infrastruktur. | Beregn nuværende replikalag og afgør, om du skal fortsætte.             |
 | **HTTP-anmodning** | Du kalder en eksisterende API — dit eget admin-endpoint, en cloud-udbyder, PagerDuty, Slack.                                                                                                                                       | `POST` til din failover-orchestrator.                                   |
 | **Bash**           | Du skal køre shell-kommandoer på din egen infrastruktur — genstarte en service, køre `kubectl`, kalde et deploy-script. Kræver en [Runbook-agent](/docs/runbooks/agents) installeret i dit miljø.                                  | Genstart en service, `kubectl rollout restart`, kør et recovery-script. |
@@ -106,7 +106,7 @@ Runbooks:      [DB primary failover]
 
 **4. Revider.** Kørslen forbliver på hændelsens **Runbooks**-fane. Output for hvert trin er ét klik væk. Når du skriver postmortem næste uge, skal du ikke spørge "hvad returnerede det script?" — det står der.
 
-## Hvordan runbooks passer ind i resten af OneUptime
+## Hvordan runbooks passer ind i resten af Cast Operations
 
 - **Monitorer** åbner hændelser og alarmer; **runbook-regler** omsætter de events til runbook-kørsler. Tilsammen danner de en lukket sløjfe: opdag → udløs → reagér → registrer.
 - **Workspace-forbindelser** (Slack, Microsoft Teams) er et naturligt mål for HTTP-trin — slå statusopdateringer op, underret kanaler.

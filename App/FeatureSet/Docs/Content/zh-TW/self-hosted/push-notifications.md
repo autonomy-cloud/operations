@@ -4,7 +4,7 @@
 
 ## 運作方式
 
-OneUptime 行動應用程式會向後端註冊一個 Expo Push Token。當後端需要傳送通知時，它會向公開的 Expo Push API 發出 POST 請求，由該 API 代表應用程式將訊息路由至 Apple APNs 或 Google FCM。
+Cast Operations 行動應用程式會向後端註冊一個 Expo Push Token。當後端需要傳送通知時，它會向公開的 Expo Push API 發出 POST 請求，由該 API 代表應用程式將訊息路由至 Apple APNs 或 Google FCM。
 
 網頁推播通知則繼續使用 VAPID 金鑰與 Web Push 協定。
 
@@ -18,7 +18,7 @@ OneUptime 行動應用程式會向後端註冊一個 Expo Push Token。當後端
 
 - 確認行動應用程式是使用 EAS Build 建置的（Expo Go 不支援推播通知）
 - 驗證該裝置已註冊於您資料庫中的 `UserPush` 資料表
-- 檢查 OneUptime 伺服器記錄中是否有 Expo Push API 錯誤
+- 檢查 Cast Operations 伺服器記錄中是否有 Expo Push API 錯誤
 - 確認裝置具有可用的網際網路連線且已啟用通知權限
 
 ### 記錄中出現「DeviceNotRegistered」錯誤
@@ -30,5 +30,5 @@ OneUptime 行動應用程式會向後端註冊一個 Expo Push Token。當後端
 如果您在使用推播通知時遇到問題，請：
 
 1. 查看上方的疑難排解章節
-2. 檢視 OneUptime 記錄以取得詳細的錯誤訊息
-3. 透過 [hello@oneuptime.com](mailto:hello@oneuptime.com) 與我們聯絡
+2. 檢視 Cast Operations 記錄以取得詳細的錯誤訊息
+3. 透過 [hello@visca.ai](mailto:hello@visca.ai) 與我們聯絡

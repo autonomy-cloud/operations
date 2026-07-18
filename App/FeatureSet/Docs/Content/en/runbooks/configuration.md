@@ -2,7 +2,7 @@
 
 ## How Bash and JavaScript actually run
 
-Bash and JavaScript steps **never execute on the OneUptime Worker**. They are dispatched as jobs to a specific [Runbook Agent](/docs/runbooks/agents) — a small process you install on a host inside your own infrastructure.
+Bash and JavaScript steps **never execute on the Cast Operations Worker**. They are dispatched as jobs to a specific [Runbook Agent](/docs/runbooks/agents) — a small process you install on a host inside your own infrastructure.
 
 The dispatch model:
 
@@ -37,7 +37,7 @@ When a manual step is ticked off via the API, the execution is re-enqueued to co
 
 ## Hardening notes
 
-- **JavaScript and Bash** run on a Runbook Agent host you control, not on the OneUptime Worker. JavaScript is wrapped in an `isolated-vm` sandbox with the usual prelude (severs prototype chains, removes `Function`/`eval`, freezes built-in prototypes). Bash runs via `bash -c` with timeout enforcement on the agent.
+- **JavaScript and Bash** run on a Runbook Agent host you control, not on the Cast Operations Worker. JavaScript is wrapped in an `isolated-vm` sandbox with the usual prelude (severs prototype chains, removes `Function`/`eval`, freezes built-in prototypes). Bash runs via `bash -c` with timeout enforcement on the agent.
 - **HTTP steps** use a permissive status validator, so a 4xx or 5xx response is recorded as a failed step rather than thrown. This makes the captured output reflect what the upstream actually returned.
 - **Agent auth** is by ID + secret key, set on the agent container as env vars. Server-side, the authoritative agent identity comes from the DB row keyed by the presented ID/key — clients cannot impersonate a different agent even with a compromised key.
 

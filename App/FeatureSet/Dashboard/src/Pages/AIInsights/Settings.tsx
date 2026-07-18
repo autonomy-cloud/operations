@@ -23,7 +23,7 @@ const AIInsightsSettings: FunctionComponent<ComponentProps> = (
         cardProps={{
           title: "AI Insights",
           description:
-            "OneUptime AI's proactive telemetry watch: deterministic statistical sensors file quiet insights — they never page and never open incidents. Requires an LLM provider only for the optional AI triage analysis, not for detection.",
+            "Cast Operations AI's proactive telemetry watch: deterministic statistical sensors file quiet insights — they never page and never open incidents. Requires an LLM provider only for the optional AI triage analysis, not for detection.",
         }}
         isEditable={true}
         editButtonText={"Update"}
@@ -34,7 +34,7 @@ const AIInsightsSettings: FunctionComponent<ComponentProps> = (
             },
             title: "Enable AI Insights (proactive telemetry watch)",
             description:
-              "When enabled, OneUptime AI continuously watches this project's telemetry with deterministic statistical sensors (error-log spikes, exception novelty and spikes, trace-latency regressions, week-over-week metric drift) and files quiet Insights — never pages, never opens incidents. Each new insight also gets a budgeted, read-only AI triage analysis when an LLM provider is configured.",
+              "When enabled, Cast Operations AI continuously watches this project's telemetry with deterministic statistical sensors (error-log spikes, exception novelty and spikes, trace-latency regressions, week-over-week metric drift) and files quiet Insights — never pages, never opens incidents. Each new insight also gets a budgeted, read-only AI triage analysis when an LLM provider is configured.",
             required: false,
             fieldType: FormFieldSchemaType.Toggle,
           },

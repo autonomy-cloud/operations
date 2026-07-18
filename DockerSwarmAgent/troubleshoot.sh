@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# OneUptime Docker Swarm Agent — Diagnostic ("doctor")
+# Cast Operations Docker Swarm Agent — Diagnostic ("doctor")
 # ----------------------------------------------------
 # Run this on the swarm MANAGER node where the agent is installed. It
 # explains the #1 confusing failure mode: the cluster shows "Disconnected"
-# in OneUptime and no telemetry is ingested, yet the containers look
+# in Cast Operations and no telemetry is ingested, yet the containers look
 # healthy and the collector logs show no errors.
 #
 # Why that happens: the agent ships telemetry to `<url>/otlp/v1/*` with the
@@ -101,7 +101,7 @@ agent_netns_req() {
 }
 is_conn_fail() { [ "$RESP_CODE" = "000" ] || [ "${RESP_EXIT:-1}" != "0" ]; }
 
-printf "%s%sOneUptime Docker Swarm Agent — Diagnostic%s\n" "$C_BOLD" "$C_BLU" "$C_OFF"
+printf "%s%sCast Operations Docker Swarm Agent — Diagnostic%s\n" "$C_BOLD" "$C_BLU" "$C_OFF"
 printf "%sInstall dir:%s %s\n" "$C_DIM" "$C_OFF" "$DIR"
 
 # ----------------------------------------------------------------------------
@@ -178,11 +178,11 @@ section "3. Cluster-name stamping"
 CLUSTER_NAME=$(agent_env DOCKER_SWARM_CLUSTER_NAME)
 CLUSTER_NAME_OK=0
 if [ -n "$CLUSTER_NAME" ]; then
-  info "Reporting as cluster name: '${C_BOLD}${CLUSTER_NAME}${C_OFF}' (the docker.swarm.cluster.name OneUptime keys on)"
-  detail "If this differs from a previous install, OneUptime shows a NEW cluster entry; the old one stays 'Disconnected'."
+  info "Reporting as cluster name: '${C_BOLD}${CLUSTER_NAME}${C_OFF}' (the docker.swarm.cluster.name Cast Operations keys on)"
+  detail "If this differs from a previous install, Cast Operations shows a NEW cluster entry; the old one stays 'Disconnected'."
   CLUSTER_NAME_OK=1
 else
-  fail "DOCKER_SWARM_CLUSTER_NAME is empty — without it no Docker Swarm cluster registers in OneUptime."
+  fail "DOCKER_SWARM_CLUSTER_NAME is empty — without it no Docker Swarm cluster registers in Cast Operations."
   add_finding "Set DOCKER_SWARM_CLUSTER_NAME in $ENV_FILE and restart the agent. Discovery keys on the docker.swarm.cluster.name resource attribute it feeds."
 fi
 if [ -f "$CONFIG_FILE" ]; then
@@ -209,7 +209,7 @@ else
   TRIMMED=$(printf '%s' "$TOKEN" | tr -d '[:space:]')
   MASK="${TRIMMED:0:8}…${TRIMMED: -4}"
   if [ "$TOKEN" != "$TRIMMED" ]; then
-    fail "Token contains whitespace — the collector sends it literally, so OneUptime can't match it."
+    fail "Token contains whitespace — the collector sends it literally, so Cast Operations can't match it."
     add_finding "ONEUPTIME_SERVICE_TOKEN has stray whitespace in $ENV_FILE. Re-paste it cleanly and restart the agent."
     TOKEN_HAS_WS=1
   fi
@@ -223,7 +223,7 @@ else
     fi
   else
     fail "Token is not a valid UUID: '${MASK}' (len=${#TRIMMED})"
-    add_finding "The ingestion key is not a UUID, so OneUptime can never resolve it (telemetry is silently dropped). Set a real Telemetry Ingestion Key."
+    add_finding "The ingestion key is not a UUID, so Cast Operations can never resolve it (telemetry is silently dropped). Set a real Telemetry Ingestion Key."
   fi
 fi
 
@@ -240,7 +240,7 @@ if [ "$AGENT_RUNNING" = 1 ]; then
     info "Collector self-metrics: accepted=$ACCEPTED sent=$SENT send_failed=$FAILED"
     if [ "${FAILED:-0}" -gt 0 ] 2>/dev/null; then
       fail "Collector reports send_failed > 0 → exports are erroring (network/URL/TLS)."
-      add_finding "Collector send_failed=$FAILED. The collector cannot deliver to OneUptime — investigate egress/DNS/TLS/firewall (next section)."
+      add_finding "Collector send_failed=$FAILED. The collector cannot deliver to Cast Operations — investigate egress/DNS/TLS/firewall (next section)."
     elif [ "${SENT:-0}" -gt 0 ] 2>/dev/null; then
       pass "Bytes are leaving the collector and the server is returning 2xx."
       detail "NOTE: a bad token ALSO returns 2xx (silent drop). The token probe below settles it."
@@ -261,23 +261,23 @@ BASE_URL=$(agent_env ONEUPTIME_URL)
 BASE_URL="${BASE_URL%/}"
 
 token_invalid_finding() {
-  add_finding "DEFINITIVE: the ingestion key is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: copy a live Telemetry Ingestion Key in OneUptime, update ONEUPTIME_SERVICE_TOKEN in $ENV_FILE, then: cd $DIR && docker compose up -d"
+  add_finding "DEFINITIVE: the ingestion key is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: copy a live Telemetry Ingestion Key in Cast Operations, update ONEUPTIME_SERVICE_TOKEN in $ENV_FILE, then: cd $DIR && docker compose up -d"
 }
 
 if [ "$SKIP_EGRESS" = 1 ]; then
   warn "Egress test skipped (--skip-egress)."; EGRESS="SKIPPED"
 elif [ -z "$BASE_URL" ]; then
   warn "ONEUPTIME_URL is not set; cannot run the egress/token probe."; EGRESS="SKIPPED"
-  add_finding "Set ONEUPTIME_URL in $ENV_FILE (e.g. https://oneuptime.com) and restart the agent."
+  add_finding "Set ONEUPTIME_URL in $ENV_FILE (e.g. https://visca.ai) and restart the agent."
 elif ! [[ "$TOKEN" =~ ^[A-Za-z0-9-]+$ ]]; then
   warn "Token unusable/missing; cannot run the authenticated probe (fix Section 4 first)."; EGRESS="SKIPPED"
 else
   agent_netns_req GET "$BASE_URL/otlp/v1/validate" "$TOKEN"
   if [ "$RESP_CODE" = "200" ]; then
-    pass "Reached OneUptime and the ingestion token is VALID (/otlp/v1/validate → 200)."
+    pass "Reached Cast Operations and the ingestion token is VALID (/otlp/v1/validate → 200)."
     EGRESS="OK"; TOKEN_VERDICT="VALID"
   elif [ "$RESP_CODE" = "401" ] || [ "$RESP_CODE" = "403" ]; then
-    fail "Reached OneUptime, but it REJECTED the token (/otlp/v1/validate → $RESP_CODE)."
+    fail "Reached Cast Operations, but it REJECTED the token (/otlp/v1/validate → $RESP_CODE)."
     EGRESS="OK"; TOKEN_VERDICT="INVALID"; token_invalid_finding
   elif [ "$RESP_CODE" = "404" ]; then
     info "Validation endpoint not on this server version (404) — confirming reachability only."
@@ -322,11 +322,11 @@ if [ "$AGENT_RUNNING" != 1 ]; then
   printf "%s%sROOT CAUSE: the collector container isn't running.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
   printf "Fix the container (see Section 1) — until it runs, nothing is shipped.\n"
 elif [ "$TOKEN_VERDICT" = "INVALID" ]; then
-  printf "%s%sROOT CAUSE: the ingestion token is rejected by OneUptime.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
+  printf "%s%sROOT CAUSE: the ingestion token is rejected by Cast Operations.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
   printf "The classic trap: /otlp returns 200 and drops the data, so the agent looks\n"
   printf "healthy while the cluster stays Disconnected with no telemetry.\n"
 elif [ "$EGRESS" = "FAIL" ]; then
-  printf "%s%sROOT CAUSE: the agent can't deliver telemetry to OneUptime (network/URL/TLS).%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
+  printf "%s%sROOT CAUSE: the agent can't deliver telemetry to Cast Operations (network/URL/TLS).%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
 elif [ "$CLUSTER_NAME_OK" != 1 ]; then
   printf "%s%sROOT CAUSE: DOCKER_SWARM_CLUSTER_NAME is missing — no cluster can register.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
 elif [ "$TOKEN_HAS_WS" = 1 ]; then
@@ -334,12 +334,12 @@ elif [ "$TOKEN_HAS_WS" = 1 ]; then
 elif [ "$TOKEN_SHAPE_OK" != 1 ]; then
   printf "%s%sROOT CAUSE: the ingestion key is empty/malformed.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
 elif [ "$TOKEN_VERDICT" = "VALID" ]; then
-  printf "%s%sThe agent looks healthy and OneUptime accepts the token.%s\n" "$C_BOLD" "$C_GRN" "$C_OFF"
+  printf "%s%sThe agent looks healthy and Cast Operations accepts the token.%s\n" "$C_BOLD" "$C_GRN" "$C_OFF"
   printf "If the dashboard still says Disconnected, give it ~2-5 min (status flips on the\n"
   printf "next telemetry batch; the disconnect cron runs on a 5-minute cycle). If the\n"
   printf "resource lists are empty, confirm the inventory poller runs on a MANAGER (Section 2).\n"
 else
-  printf "%sInconclusive from this machine.%s On the OneUptime server, search ingest logs for\n" "$C_BOLD" "$C_OFF"
+  printf "%sInconclusive from this machine.%s On the Cast Operations server, search ingest logs for\n" "$C_BOLD" "$C_OFF"
   printf "\"Invalid service token\", and confirm the key under Project Settings → Telemetry Ingestion Keys.\n"
 fi
 

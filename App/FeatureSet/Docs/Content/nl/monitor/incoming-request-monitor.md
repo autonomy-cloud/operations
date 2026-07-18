@@ -1,6 +1,6 @@
 # Inkomend verzoek-monitor
 
-Inkomend verzoek-monitoring (ook bekend als heartbeat-monitoring) stelt u in staat diensten te bewaken door ze periodiek HTTP-verzoeken naar OneUptime te laten sturen. In plaats dat OneUptime uw dienst benadert, pingt uw dienst OneUptime om te bevestigen dat hij actief is.
+Inkomend verzoek-monitoring (ook bekend als heartbeat-monitoring) stelt u in staat diensten te bewaken door ze periodiek HTTP-verzoeken naar Cast Operations te laten sturen. In plaats dat Cast Operations uw dienst benadert, pingt uw dienst Cast Operations om te bevestigen dat hij actief is.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Inkomend verzoek-monitors bieden een unieke webhook-URL die uw diensten op een s
 
 ## Een Inkomend verzoek-monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Inkomend verzoek** als het monitortype
 4. Er wordt een **Geheime sleutel** en heartbeat-URL gegenereerd voor deze monitor
@@ -26,7 +26,7 @@ Inkomend verzoek-monitors bieden een unieke webhook-URL die uw diensten op een s
 Na aanmaak heeft uw monitor een unieke heartbeat-URL in het formaat:
 
 ```
-https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+https://visca.ai/heartbeat/YOUR_SECRET_KEY
 ```
 
 Uw dienst moet met regelmatige tussenpozen HTTP **GET**- of **POST**-verzoeken naar deze URL sturen.
@@ -37,10 +37,10 @@ Uw dienst moet met regelmatige tussenpozen HTTP **GET**- of **POST**-verzoeken n
 
 ```bash
 # Eenvoudig GET-verzoek
-curl https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 # POST-verzoek met aangepast lichaam
-curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Voeg toe aan crontab om elke 5 minuten een heartbeat te versturen
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### Via applicatiecode
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js voorbeeld
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/YOUR_SECRET_KEY");
+https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python voorbeeld
 import requests
-requests.get('https://oneuptime.com/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
 ```
 
-Vervang `https://oneuptime.com` door de URL van uw OneUptime-instantie als u zelf host.
+Vervang `https://visca.ai` door de URL van uw Cast Operations-instantie als u zelf host.
 
 ## Monitoringcriteria
 

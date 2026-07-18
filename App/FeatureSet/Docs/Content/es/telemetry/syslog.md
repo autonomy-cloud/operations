@@ -1,22 +1,22 @@
-# Enviar datos Syslog a OneUptime
+# Enviar datos Syslog a Cast Operations
 
 ## Información general
 
-El servicio de Ingesta OpenTelemetry ahora acepta cargas útiles nativas de Syslog. Puedes reenviar mensajes desde cualquier fuente compatible con RFC3164 o RFC5424 directamente a OneUptime a través de HTTPS. OneUptime analiza la prioridad syslog, la instalación, la gravedad, los datos estructurados y el cuerpo del mensaje antes de almacenar todo como registros buscables.
+El servicio de Ingesta OpenTelemetry ahora acepta cargas útiles nativas de Syslog. Puedes reenviar mensajes desde cualquier fuente compatible con RFC3164 o RFC5424 directamente a Cast Operations a través de HTTPS. Cast Operations analiza la prioridad syslog, la instalación, la gravedad, los datos estructurados y el cuerpo del mensaje antes de almacenar todo como registros buscables.
 
 ## Prerrequisitos
 
 - **Token de ingesta de telemetría**: crea uno desde _Configuración del proyecto → Claves de ingesta de telemetría_ y copia el valor de `x-oneuptime-token`.
 - **Reenviador Syslog**: cualquier herramienta capaz de enviar solicitudes HTTP POST (por ejemplo, `curl`, `rsyslog` a través de `omhttp`, o `syslog-ng` con el complemento de destino HTTP).
-- **Nombre del servicio (opcional)**: establece el encabezado `x-oneuptime-service-name` para agrupar los registros entrantes en un servicio de telemetría específico. Cuando se omite, OneUptime recurre al `APP-NAME` de syslog, al nombre de host o a `Syslog`.
+- **Nombre del servicio (opcional)**: establece el encabezado `x-oneuptime-service-name` para agrupar los registros entrantes en un servicio de telemetría específico. Cuando se omite, Cast Operations recurre al `APP-NAME` de syslog, al nombre de host o a `Syslog`.
 
 ## Punto de conexión
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- Reemplaza `oneuptime.com` con tu host si te auto-alojas en OneUptime.
+- Reemplaza `visca.ai` con tu host si te auto-alojas en Cast Operations.
 - Incluye siempre el encabezado `x-oneuptime-token` en la solicitud.
 
 ## Cuerpo de la solicitud
@@ -42,7 +42,7 @@ Envía cadenas Syslog delimitadas por saltos de línea o una carga útil JSON co
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -92,13 +92,13 @@ curl \
 
 ### 1. Dispositivos de red y seguridad
 
-La mayoría de los equipos de red aún exponen cambios de configuración, accesos a listas de control de acceso y detecciones de amenazas exclusivamente a través de syslog. Apunta tu relevo existente (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense y más) directamente a OneUptime, o mantén un relevo interno y reenvía a través de HTTPS:
+La mayoría de los equipos de red aún exponen cambios de configuración, accesos a listas de control de acceso y detecciones de amenazas exclusivamente a través de syslog. Apunta tu relevo existente (Palo Alto, Fortinet, Cisco ASA, Juniper, pfSense y más) directamente a Cast Operations, o mantén un relevo interno y reenvía a través de HTTPS:
 
 ```bash
-# Fragmento de rsyslog que agrupa mensajes en JSON y los publica en OneUptime
+# Fragmento de rsyslog que agrupa mensajes en JSON y los publica en Cast Operations
 module(load="omhttp")
 
-template(name="OneUptimeJSON" type="list") {
+template(name="Cast OperationsJSON" type="list") {
   constant(value="{\"messages\":[\"")
   property(name="rawmsg")
   constant(value="\"]}")
@@ -106,14 +106,14 @@ template(name="OneUptimeJSON" type="list") {
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: perimeter-firewall"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -128,14 +128,14 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: linux-fleet"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -155,7 +155,7 @@ Si ya ejecutas Fluent Bit o Fluentd, mantenlos para los registros de contenedore
 [OUTPUT]
     Name              http
     Match             *
-    Host              oneuptime.com
+    Host              visca.ai
     Port              443
     URI               /syslog/v1/logs
     Format            json
@@ -170,11 +170,11 @@ Esta configuración te permite ingestar syslog desde trabajadores de metal desnu
 
 ### 4. Archivos de cumplimiento sin la espera
 
-¿Necesitas retener registros de firewall para PCI o SOX? Envíalos directamente a OneUptime, aplica una política de retención larga al servicio de telemetría y exporta al almacenamiento en frío desde un solo lugar. No más exportaciones desde múltiples relevos syslog.
+¿Necesitas retener registros de firewall para PCI o SOX? Envíalos directamente a Cast Operations, aplica una política de retención larga al servicio de telemetría y exporta al almacenamiento en frío desde un solo lugar. No más exportaciones desde múltiples relevos syslog.
 
 ## Atributos analizados
 
-OneUptime agrega automáticamente los siguientes atributos a cada entrada de registro:
+Cast Operations agrega automáticamente los siguientes atributos a cada entrada de registro:
 
 - `syslog.priority`, `syslog.facility.code`, `syslog.facility.name`
 - `syslog.severity.code`, `syslog.severity.name`

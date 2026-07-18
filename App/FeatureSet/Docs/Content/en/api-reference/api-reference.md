@@ -1,6 +1,6 @@
 # API Reference
 
-OneUptime provides a comprehensive REST API that allows you to integrate monitoring, incident management, and status page functionality into your applications and workflows. **Anything you an do on the OneUptime dashboard can also be done through the API, enabling automation and custom integrations.**
+Cast Operations provides a comprehensive REST API that allows you to integrate monitoring, incident management, and status page functionality into your applications and workflows. **Anything you an do on the Cast Operations dashboard can also be done through the API, enabling automation and custom integrations.**
 
 ### Getting Started
 
@@ -8,8 +8,8 @@ Our API is organized around REST principles and uses standard HTTP response code
 
 ### Authentication
 
-All API requests require authentication using API keys. You can generate API keys from your OneUptime dashboard under Settings > API Keys.
+All API requests require authentication using API keys. You can generate API keys from your Cast Operations dashboard under Settings > API Keys.
 
 ### API Reference
 
-Please click here to check out OneUptime's API reference ➡️ [OneUptime API Reference](/reference). The API reference is available in multiple languages — your preferred language is auto-detected from your browser, and you can switch languages at any time using the selector in the top navigation.
+Please click here to check out Cast Operations’ API reference ➡️ [Cast Operations API Reference](/reference). The API reference is available in multiple languages — your preferred language is auto-detected from your browser, and you can switch languages at any time using the selector in the top navigation.

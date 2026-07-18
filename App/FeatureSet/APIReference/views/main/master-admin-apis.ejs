@@ -80,13 +80,6 @@
                   <dt class="sr-only"><%= t('ui.srEndpoint') %></dt>
                   <dd><code class="inline-flex items-center rounded-md bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">GET</code></dd>
                   <dd><code class="text-sm font-mono text-slate-900 break-all"><%= pageData.basePath %><%= endpoint.path %></code></dd>
-                  <dd>
-                     <% if(endpoint.isEnterpriseEdition){ %>
-                     <span class="inline-flex items-center rounded-md bg-violet-50 px-2 py-1 text-xs font-medium text-violet-700 ring-1 ring-inset ring-violet-600/20"><%= t('pages.masterAdminApis.enterpriseOnly') %></span>
-                     <% } else { %>
-                     <span class="inline-flex items-center rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/20"><%= t('pages.masterAdminApis.allEditions') %></span>
-                     <% } %>
-                  </dd>
                   <dd class="w-full flex-none text-sm text-slate-600 mt-1"><%= t('pages.masterAdminApis.' + endpoint.key + 'Desc') %></dd>
                </dl>
             </li>

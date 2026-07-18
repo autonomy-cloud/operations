@@ -85,7 +85,7 @@ import {
   pluralName: "Kubernetes Clusters",
   icon: IconProp.Cube,
   tableDescription:
-    "Kubernetes Clusters that are being monitored in this project. Each cluster is auto-discovered when the OneUptime kubernetes-agent sends metrics, or can be manually registered.",
+    "Kubernetes Clusters that are being monitored in this project. Each cluster is auto-discovered when the Cast Operations kubernetes-agent sends metrics, or can be manually registered.",
 })
 @Entity({
   name: "KubernetesCluster",
@@ -160,7 +160,7 @@ export default class KubernetesCluster extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -435,7 +435,7 @@ export default class KubernetesCluster extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Agent Version",
     description:
-      "Version of the OneUptime Kubernetes agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
+      "Version of the Cast Operations Kubernetes agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
     example: "1.0.0",
   })
   @Column({

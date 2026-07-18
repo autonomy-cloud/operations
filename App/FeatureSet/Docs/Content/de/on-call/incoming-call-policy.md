@@ -1,12 +1,12 @@
 # Eingehende Anrufrichtlinie (Twilio-Integration)
 
-Eingehende Anrufrichtlinien ermöglichen externen Anrufern, Ihre Bereitschaftsingenieure zu erreichen, indem sie eine dedizierte Telefonnummer wählen. Wenn jemand anruft, leitet OneUptime den Anruf durch Ihre konfigurierten Eskalationsregeln weiter, bis ein Ingenieur antwortet.
+Eingehende Anrufrichtlinien ermöglichen externen Anrufern, Ihre Bereitschaftsingenieure zu erreichen, indem sie eine dedizierte Telefonnummer wählen. Wenn jemand anruft, leitet Cast Operations den Anruf durch Ihre konfigurierten Eskalationsregeln weiter, bis ein Ingenieur antwortet.
 
 ## Voraussetzungen
 
 - Ein Twilio-Konto — Erstellen Sie eines unter [https://www.twilio.com](https://www.twilio.com)
 - Ihre Twilio Account-SID und Auth-Token
-- Zugriff auf Ihre selbst gehostete OneUptime-Instanz
+- Zugriff auf Ihre selbst gehostete Cast Operations-Instanz
 
 ## Übersicht
 
@@ -18,7 +18,7 @@ Die Funktion Eingehende Anrufrichtlinie funktioniert so:
 4. Den Anrufer mit dem ersten verfügbaren Bereitschaftsingenieur verbinden
 5. Zur nächsten Regel eskalieren, wenn niemand antwortet
 
-Da Sie OneUptime selbst hosten, müssen Sie Ihr eigenes Twilio-Konto konfigurieren. Dies gibt Ihnen volle Kontrolle über Ihre Telefonnummern und Abrechnung.
+Da Sie Cast Operations selbst hosten, müssen Sie Ihr eigenes Twilio-Konto konfigurieren. Dies gibt Ihnen volle Kontrolle über Ihre Telefonnummern und Abrechnung.
 
 ## Schritt 1: Twilio-Konto erstellen
 
@@ -26,9 +26,9 @@ Da Sie OneUptime selbst hosten, müssen Sie Ihr eigenes Twilio-Konto konfigurier
 2. Schließen Sie den Verifizierungsprozess ab
 3. Notieren Sie Ihre **Account-SID** und Ihr **Auth-Token** aus dem Twilio-Console-Dashboard
 
-## Schritt 2: Anruf-/SMS-Konfiguration in OneUptime einrichten
+## Schritt 2: Anruf-/SMS-Konfiguration in Cast Operations einrichten
 
-1. Melden Sie sich bei Ihrem OneUptime-Dashboard an
+1. Melden Sie sich bei Ihrem Cast Operations-Dashboard an
 2. Gehen Sie zu **Projekteinstellungen** > **Anruf & SMS** > **Benutzerdefinierte Anruf-/SMS-Konfiguration**
 3. Klicken Sie auf **Benutzerdefinierte Anruf-/SMS-Konfiguration erstellen**
 4. Füllen Sie die folgenden Felder aus:
@@ -61,7 +61,7 @@ Sie haben zwei Optionen:
 ### Option A: Vorhandene Twilio-Telefonnummer verwenden
 
 1. Klicken Sie auf **Vorhandene Nummer verwenden**
-2. OneUptime ruft alle Telefonnummern aus Ihrem Twilio-Konto ab
+2. Cast Operations ruft alle Telefonnummern aus Ihrem Twilio-Konto ab
 3. Wählen Sie die gewünschte Telefonnummer
 4. Klicken Sie auf **Diese verwenden**
 
@@ -110,7 +110,7 @@ Passen Sie die Nachrichten an, die Anrufer hören:
 ### Anrufe werden nicht empfangen
 
 - Überprüfen Sie, ob die Twilio-Konfiguration korrekt mit der Richtlinie verknüpft ist
-- Stellen Sie sicher, dass Ihre OneUptime-Instanz vom Internet erreichbar ist
+- Stellen Sie sicher, dass Ihre Cast Operations-Instanz vom Internet erreichbar ist
 - Überprüfen Sie die Twilio Account-SID und das Auth-Token
 
 ### Anrufe verbinden sich nicht mit Ingenieuren
@@ -124,5 +124,5 @@ Passen Sie die Nachrichten an, die Anrufer hören:
 Bei Problemen:
 
 1. Überprüfen Sie die Twilio-Konsole auf Fehlerprotokolle
-2. Überprüfen Sie die OneUptime-Server-Logs
-3. Kontaktieren Sie den Support unter [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Überprüfen Sie die Cast Operations-Server-Logs
+3. Kontaktieren Sie den Support unter [hello@visca.ai](mailto:hello@visca.ai)

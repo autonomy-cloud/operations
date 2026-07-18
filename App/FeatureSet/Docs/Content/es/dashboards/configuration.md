@@ -68,9 +68,9 @@ Si el panel es público en un dominio personalizado, la URL deja de resolverse e
 
 ## Copias de seguridad
 
-Si te auto-alojas en OneUptime, una copia de seguridad regular de la base de datos es suficiente: la configuración del panel se almacena junto al resto de tu proyecto.
+Si te auto-alojas en Cast Operations, una copia de seguridad regular de la base de datos es suficiente: la configuración del panel se almacena junto al resto de tu proyecto.
 
-En OneUptime Cloud, las copias de seguridad se gestionan por ti. Si quieres tu propia copia, puedes leer el panel mediante la [API de OneUptime](/docs/api-reference/api-reference).
+En Cast Operations Cloud, las copias de seguridad se gestionan por ti. Si quieres tu propia copia, puedes leer el panel mediante la [API de Cast Operations](/docs/api-reference/api-reference).
 
 ## Dónde seguir leyendo
 

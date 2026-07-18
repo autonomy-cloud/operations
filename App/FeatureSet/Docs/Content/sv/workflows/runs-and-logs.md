@@ -1,6 +1,6 @@
 # Körningar & loggar
 
-Varje gång ett arbetsflöde körs sparar OneUptime en post över vad som hände — när det kördes, om det fungerade, och vad varje block gjorde. Den posten kallas en **körning**. Körningar är hur du bekräftar att ett arbetsflöde fungerade, felsöker ett som inte gjorde det och tittar tillbaka på tidigare aktivitet.
+Varje gång ett arbetsflöde körs sparar Cast Operations en post över vad som hände — när det kördes, om det fungerade, och vad varje block gjorde. Den posten kallas en **körning**. Körningar är hur du bekräftar att ett arbetsflöde fungerade, felsöker ett som inte gjorde det och tittar tillbaka på tidigare aktivitet.
 
 ## Var hittar du dem
 
@@ -35,7 +35,7 @@ Värdena som visas är exakt vad blocket såg — efter att alla variabler fyllt
 ### "Mitt arbetsflöde kördes inte."
 
 1. Kontrollera att arbetsflödet är **enabled** i Settings. Nya arbetsflöden börjar inaktiverade.
-2. För en OneUptime-händelseutlösare: bekräfta att händelsen faktiskt inträffade. Öppna posten och kontrollera dess historik.
+2. För en Cast Operations-händelseutlösare: bekräfta att händelsen faktiskt inträffade. Öppna posten och kontrollera dess historik.
 3. För en webhook-utlösare: bekräfta att det andra systemet skickar till rätt URL. De flesta verktyg loggar när de skickar en webhook — kolla där.
 4. För en schemaläggningsutlösare: bekräfta att cron-uttrycket matchar den tid du förväntar dig.
 

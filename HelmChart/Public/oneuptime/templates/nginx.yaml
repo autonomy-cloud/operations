@@ -1,6 +1,6 @@
 {{- if and $.Values.nginx.enabled (not $.Values.deployment.disableDeployments) }}
 
-# OneUptime nginx Deployment
+# Cast Operations nginx Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -170,7 +170,7 @@ spec:
 
 ---
 
-# OneUptime nginx autoscaler
+# Cast Operations nginx autoscaler
 {{- if not $.Values.nginx.disableAutoscaler }}
 {{- $nginxAutoScalerArgs := dict "ServiceName" "nginx" "Release" $.Release "Values" $.Values "Override" $.Values.nginx.autoscaling -}}
 {{- include "oneuptime.autoscaler" $nginxAutoScalerArgs }}
@@ -226,6 +226,6 @@ spec:
 ---
 
 {{- if and $.Values.nginx.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime nginx PodDisruptionBudget
+# Cast Operations nginx PodDisruptionBudget
 {{- include "oneuptime.pdb" (dict "ServiceName" "nginx" "Override" $.Values.nginx.podDisruptionBudget "Release" $.Release "Values" $.Values) }}
 {{- end }}

@@ -61,7 +61,7 @@ const CloudResources: FunctionComponent<
       <Fragment>
         <ResourceDocumentationCard
           title="Getting Started with Cloud Environments"
-          description="No cloud environments connected yet. Point your OpenTelemetry Collector at OneUptime with a cloud resource detector using the guide below — managed compute appears here automatically once the first telemetry arrives."
+          description="No cloud environments connected yet. Point your OpenTelemetry Collector at Cast Operations with a cloud resource detector using the guide below — managed compute appears here automatically once the first telemetry arrives."
           buildMarkdown={getCloudDocMarkdown}
         />
       </Fragment>

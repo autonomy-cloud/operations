@@ -1,6 +1,6 @@
 # SMTP-konfigurasjon
 
-OneUptime støtter sending av e-post via egendefinerte SMTP-servere med tre autentiseringsmetoder:
+Cast Operations støtter sending av e-post via egendefinerte SMTP-servere med tre autentiseringsmetoder:
 
 - **Brukernavn og passord** – Tradisjonell SMTP-autentisering
 - **OAuth 2.0** – Moderne autentisering for Microsoft 365 og Google Workspace
@@ -10,14 +10,14 @@ Denne veiledningen dekker hvordan du konfigurerer OAuth 2.0-autentisering for Mi
 
 ## OAuth 2.0-autentisering
 
-OAuth 2.0 gir en sikrere måte å autentisere med e-postservere, spesielt for bedriftsmiljøer som har deaktivert grunnleggende autentisering. OneUptime støtter to OAuth-tildelingstyper:
+OAuth 2.0 gir en sikrere måte å autentisere med e-postservere, spesielt for bedriftsmiljøer som har deaktivert grunnleggende autentisering. Cast Operations støtter to OAuth-tildelingstyper:
 
 - **Klientlegitimasjon** – Brukes av Microsoft 365 og de fleste OAuth-leverandører
 - **JWT Bearer** – Brukes av Google Workspace-tjenestekontoer
 
 ### Påkrevde felt for OAuth
 
-Når du konfigurerer SMTP med OAuth-autentisering i OneUptime, trenger du:
+Når du konfigurerer SMTP med OAuth-autentisering i Cast Operations, trenger du:
 
 | Felt                     | Beskrivelse                                                                          |
 | ------------------------ | ------------------------------------------------------------------------------------ |
@@ -42,7 +42,7 @@ For å bruke OAuth med Microsoft 365/Exchange Online må du registrere en applik
 1. Logg inn på [Microsoft Entra-administrasjonssenteret](https://entra.microsoft.com)
 2. Naviger til **Identitet** > **Applikasjoner** > **Appregistreringer**
 3. Klikk **Ny registrering**
-4. Skriv inn et navn for applikasjonen (f.eks. "OneUptime SMTP")
+4. Skriv inn et navn for applikasjonen (f.eks. "Cast Operations SMTP")
 5. For **Støttede kontotyper**, velg "Kontoer kun i denne organisasjonskatalogen"
 6. La **Omdirigerings-URI** stå tom (ikke nødvendig for klientlegitimasjonsflyt)
 7. Klikk **Registrer**
@@ -104,9 +104,9 @@ Add-MailboxPermission -Identity "sender@yourdomain.com" -User <service-principal
 
 > **Merk:** Bruk `Add-MailboxPermission` (ikke `Add-RecipientPermission`). `Add-RecipientPermission` gir kun `SendAs` på mottakeren og er ikke tilstrekkelig for at tjenesteprinsipalen skal sende e-post via SMTP med OAuth – du vil få en autentiserings-/tillatelsefeil ved sending. `Add-MailboxPermission` med `FullAccess` er kommandoen som faktisk fungerer.
 
-### Trinn 5: Konfigurer i OneUptime
+### Trinn 5: Konfigurer i Cast Operations
 
-I OneUptime, opprett eller rediger en SMTP-konfigurasjon med disse innstillingene:
+I Cast Operations, opprett eller rediger en SMTP-konfigurasjon med disse innstillingene:
 
 | Felt                 | Verdi                                                                 |
 | -------------------- | --------------------------------------------------------------------- |
@@ -186,9 +186,9 @@ Google Workspace krever en **tjenestekonto** med domenomfattende delegering for 
 
 Merk: Det kan ta noen minutter til 24 timer for delegeringen å propagere.
 
-### Trinn 7: Konfigurer i OneUptime
+### Trinn 7: Konfigurer i Cast Operations
 
-I OneUptime, opprett eller rediger en SMTP-konfigurasjon med disse innstillingene:
+I Cast Operations, opprett eller rediger en SMTP-konfigurasjon med disse innstillingene:
 
 | Felt                 | Verdi                                                                                                                                        |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -230,16 +230,16 @@ I OneUptime, opprett eller rediger en SMTP-konfigurasjon med disse innstillingen
 
 ### Generelt
 
-- **Test konfigurasjonen**: Bruk knappen "Send testmelding" i OneUptime for å bekrefte oppsettet ditt
-- **Sjekk logger**: Gjennomgå OneUptime-logger for detaljerte feilmeldinger
-- **Token-caching**: OneUptime cacher OAuth-tokens og oppdaterer dem automatisk før utløp
+- **Test konfigurasjonen**: Bruk knappen "Send testmelding" i Cast Operations for å bekrefte oppsettet ditt
+- **Sjekk logger**: Gjennomgå Cast Operations-logger for detaljerte feilmeldinger
+- **Token-caching**: Cast Operations cacher OAuth-tokens og oppdaterer dem automatisk før utløp
 
 ---
 
 ## Beste praksiser for sikkerhet
 
 1. **Rullér hemmeligheter regelmessig**: Sett påminnelser i kalenderen om å rulle klienthemmeligheter før de utløper
-2. **Bruk dedikerte tjenestekontoer**: Opprett separate legitimasjonsverdier for OneUptime fremfor å dele med andre applikasjoner
+2. **Bruk dedikerte tjenestekontoer**: Opprett separate legitimasjonsverdier for Cast Operations fremfor å dele med andre applikasjoner
 3. **Minste privilegiumsprinsippet**: Gi kun de minimumstillatelsene som er nødvendige (SMTP.SendAsApp for Microsoft, mail.google.com-omfang for Google)
 4. **Overvåk bruk**: Gjennomgå e-postlogger og OAuth-applikasjonsinnlogginger for uvanlig aktivitet
 5. **Sikker lagring**: Aldri forplikt klienthemmeligheter til versjonskontroll

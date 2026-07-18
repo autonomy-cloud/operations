@@ -1,6 +1,6 @@
-# OneUptime 자체 호스팅 아키텍처
+# Cast Operations 자체 호스팅 아키텍처
 
-이 다이어그램은 자체 호스팅 환경에서 OneUptime이 일반적으로 어떻게 보이는지를 보여줍니다 (예: Kubernetes 클러스터), 프로브가 내부 및 외부 리소스를 모니터링하는 방법을 포함합니다.
+이 다이어그램은 자체 호스팅 환경에서 Cast Operations이 일반적으로 어떻게 보이는지를 보여줍니다 (예: Kubernetes 클러스터), 프로브가 내부 및 외부 리소스를 모니터링하는 방법을 포함합니다.
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["수신 요청 수집"]
     end
 
-    subgraph Probes["OneUptime 프로브"]
+    subgraph Probes["Cast Operations 프로브"]
       direction TB
       P1["클러스터 내 프로브 파드"]
       P2["네트워크의 선택적 프로브 VM/컨테이너"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## 이 다이어그램이 보여주는 것
 
-- 최종 사용자는 클러스터의 인그레스 (NGINX)를 통해 OneUptime에 액세스하며, UI와 API로 라우팅됩니다.
+- 최종 사용자는 클러스터의 인그레스 (NGINX)를 통해 Cast Operations에 액세스하며, UI와 API로 라우팅됩니다.
 - 핵심 서비스는 PostgreSQL, Redis 및 ClickHouse에 상태를 읽고 씁니다.
 - 프로브는 클러스터 내부 (권장) 및/또는 네트워크의 다른 곳에서 실행될 수 있습니다. 다음을 모니터링할 수 있습니다:
   - 방화벽 뒤의 내부/프라이빗 서비스.

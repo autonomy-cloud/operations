@@ -1,5 +1,5 @@
 /**
- * Shared esbuild configuration factory for OneUptime frontend services
+ * Shared esbuild configuration factory for Cast Operations frontend services
  * This creates consistent build configurations across all services
  */
 

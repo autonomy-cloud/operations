@@ -290,13 +290,13 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
           };
 
           const sms: SMSMessage = {
-            message: `This is a message from OneUptime. You are no longer on-call for ${onCallPolicy.name!} because your on-call roster on schedule ${onCallSchedule.name} just ended. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.`,
+            message: `This is a message from Cast Operations. You are no longer on-call for ${onCallPolicy.name!} because your on-call roster on schedule ${onCallSchedule.name} just ended. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.`,
           };
 
           const callMessage: CallRequestMessage = {
             data: [
               {
-                sayMessage: `This is a message from OneUptime. You are no longer on-call for ${onCallPolicy.name!} because your on-call roster on schedule ${onCallSchedule.name} just ended. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.  Good bye.`,
+                sayMessage: `This is a message from Cast Operations. You are no longer on-call for ${onCallPolicy.name!} because your on-call roster on schedule ${onCallSchedule.name} just ended. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.  Good bye.`,
               },
             ],
           };
@@ -442,13 +442,13 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
           };
 
           const sms: SMSMessage = {
-            message: `This is a message from OneUptime. You are now on-call for ${onCallPolicy.name!} because you are now on the roster for schedule ${onCallSchedule.name}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.`,
+            message: `This is a message from Cast Operations. You are now on-call for ${onCallPolicy.name!} because you are now on the roster for schedule ${onCallSchedule.name}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.`,
           };
 
           const callMessage: CallRequestMessage = {
             data: [
               {
-                sayMessage: `This is a message from OneUptime. You are now on-call for ${onCallPolicy.name!} because you are now on the roster for schedule ${onCallSchedule.name}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.  Good bye.`,
+                sayMessage: `This is a message from Cast Operations. You are now on-call for ${onCallPolicy.name!} because you are now on the roster for schedule ${onCallSchedule.name}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.  Good bye.`,
               },
             ],
           };
@@ -615,13 +615,13 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
           };
 
           const sms: SMSMessage = {
-            message: `This is a message from OneUptime. You are next on-call for ${onCallPolicy.name!} because your on-call roster on schedule ${onCallSchedule.name} will start when the next handoff happens. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.`,
+            message: `This is a message from Cast Operations. You are next on-call for ${onCallPolicy.name!} because your on-call roster on schedule ${onCallSchedule.name} will start when the next handoff happens. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.`,
           };
 
           const callMessage: CallRequestMessage = {
             data: [
               {
-                sayMessage: `This is a message from OneUptime. You are next on-call for ${onCallPolicy.name!} because your on-call roster on schedule ${onCallSchedule.name} will start when the next handoff happens. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.  Good bye.`,
+                sayMessage: `This is a message from Cast Operations. You are next on-call for ${onCallPolicy.name!} because your on-call roster on schedule ${onCallSchedule.name} will start when the next handoff happens. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.  Good bye.`,
               },
             ],
           };

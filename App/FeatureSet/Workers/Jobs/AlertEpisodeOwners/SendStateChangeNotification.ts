@@ -237,17 +237,17 @@ RunCron(
         };
 
         const sms: SMSMessage = {
-          message: `This is a message from OneUptime. Alert Episode ${episodeIdentifier} - state changed${previousState ? ` from ${previousState.name}` : ""} to ${alertState!
-            .name!}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.`,
+          message: `This is a message from Cast Operations. Alert Episode ${episodeIdentifier} - state changed${previousState ? ` from ${previousState.name}` : ""} to ${alertState!
+            .name!}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.`,
         };
 
         const callMessage: CallRequestMessage = {
           data: [
             {
-              sayMessage: `This is a message from OneUptime. Alert Episode ${
+              sayMessage: `This is a message from Cast Operations. Alert Episode ${
                 episodeIdentifier
               } state changed${previousState ? ` from ${previousState.name}` : ""} to ${alertState!
-                .name!}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard. Good bye.`,
+                .name!}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard. Good bye.`,
             },
           ],
         };

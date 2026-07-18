@@ -4,7 +4,7 @@
 
 ## 仕組み
 
-OneUptimeモバイルアプリはバックエンドにExpo Push Tokenを登録します。バックエンドが通知を送信する必要がある場合、公開Expo Push APIにPOSTリクエストを送信し、APIがAppを代わりにApple APNsまたはGoogle FCMにメッセージをルーティングします。
+Cast OperationsモバイルアプリはバックエンドにExpo Push Tokenを登録します。バックエンドが通知を送信する必要がある場合、公開Expo Push APIにPOSTリクエストを送信し、APIがAppを代わりにApple APNsまたはGoogle FCMにメッセージをルーティングします。
 
 ウェブプッシュ通知はVAPIDキーとウェブプッシュプロトコルを使用し続けます。
 
@@ -18,7 +18,7 @@ OneUptimeモバイルアプリはバックエンドにExpo Push Tokenを登録�
 
 - モバイルアプリがEAS Build（Expo Go）でビルドされていることを確認してください（Expo GoはプッシュBENachrichtigungen通知をサポートしていません）
 - デバイスがデータベースの `UserPush` テーブルに登録されているか確認してください
-- Expo Push APIのエラーについてOneUptimeサーバーログを確認してください
+- Expo Push APIのエラーについてCast Operationsサーバーログを確認してください
 - デバイスがアクティブなインターネット接続を持ち、通知権限が有効になっていることを確認してください
 
 ### ログに「DeviceNotRegistered」エラーが表示される場合
@@ -30,5 +30,5 @@ Expo Push Tokenが無効になっています。通常、Appがアンインス�
 プッシュ通知に関する問題は、以下の手順で対応してください：
 
 1. 上記のトラブルシューティングセクションを確認する
-2. OneUptimeのログで詳細なエラーメッセージを確認する
-3. [hello@oneuptime.com](mailto:hello@oneuptime.com) に連絡する
+2. Cast Operationsのログで詳細なエラーメッセージを確認する
+3. [hello@visca.ai](mailto:hello@visca.ai) に連絡する

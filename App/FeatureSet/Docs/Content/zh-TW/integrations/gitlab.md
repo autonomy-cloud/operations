@@ -1,18 +1,18 @@
 # GitLab 整合
 
-當 OneUptime 建立事件時，自動開立一個 [GitLab](https://gitlab.com) 議題（issue）——讓工程後續處理落在擁有受影響服務的專案中。
+當 Cast Operations 建立事件時，自動開立一個 [GitLab](https://gitlab.com) 議題（issue）——讓工程後續處理落在擁有受影響服務的專案中。
 
-此整合為**對外（outbound）**：OneUptime 呼叫 [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html)。它使用一個 OneUptime **[Workflow](/docs/workflows/index)**，搭配 **Incident → On Create** 觸發器與一個 **API 元件**。在 GitLab.com 與自行託管（self-managed）的 GitLab 上運作方式相同。
+此整合為**對外（outbound）**：Cast Operations 呼叫 [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html)。它使用一個 Cast Operations **[Workflow](/docs/workflows/index)**，搭配 **Incident → On Create** 觸發器與一個 **API 元件**。在 GitLab.com 與自行託管（self-managed）的 GitLab 上運作方式相同。
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
+Cast Operations Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
 ```
 
 ## 先決條件
 
 - 一個 GitLab 專案及其 **Project ID**（顯示於專案總覽頁面、專案名稱下方）。
 - 一個可建立議題的存取權杖——具備 `api` 範圍（scope）的 **Project**、**Group** 或 **Personal Access Token**：**Settings → Access Tokens**。
-- 一個你可以建立工作流程的 OneUptime 專案。
+- 一個你可以建立工作流程的 Cast Operations 專案。
 
 ## 步驟 1 — 儲存權杖
 
@@ -38,8 +38,8 @@ OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "description": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "description": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": "incident,oneuptime"
      }
      ```

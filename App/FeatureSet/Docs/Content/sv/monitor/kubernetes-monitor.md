@@ -1,6 +1,6 @@
 # Kubernetes-monitor
 
-Kubernetes-övervakning gör det möjligt att övervaka hälsan och prestandan hos dina Kubernetes-kluster, inklusive noder, poddar, arbetsbelastningar och kontrollplanekomponenter. OneUptime samlar in mätvärden från ditt kluster och utvärderar dem mot dina konfigurerade kriterier.
+Kubernetes-övervakning gör det möjligt att övervaka hälsan och prestandan hos dina Kubernetes-kluster, inklusive noder, poddar, arbetsbelastningar och kontrollplanekomponenter. Cast Operations samlar in mätvärden från ditt kluster och utvärderar dem mot dina konfigurerade kriterier.
 
 ## Översikt
 
@@ -15,7 +15,7 @@ Kubernetes-monitorer använder mätvärden från ditt kluster för att ge djup i
 
 ## Skapa en Kubernetes-monitor
 
-1. Gå till **Monitors** i OneUptime-dashboarden
+1. Gå till **Monitors** i Cast Operations-dashboarden
 2. Klicka på **Create Monitor**
 3. Välj **Kubernetes** som monitortyp
 4. Välj klustret och resursomfånget att övervaka
@@ -26,7 +26,7 @@ Kubernetes-monitorer använder mätvärden från ditt kluster för att ge djup i
 
 ### Kluster
 
-Välj det Kubernetes-kluster som ska övervakas. Kluster måste vara integrerade med OneUptime via OpenTelemetry.
+Välj det Kubernetes-kluster som ska övervakas. Kluster måste vara integrerade med Cast Operations via OpenTelemetry.
 
 ### Resursomfång
 
@@ -138,7 +138,7 @@ Välj tidsfönster för metric-utvärdering:
 
 ## Förbyggda larmmallar
 
-OneUptime tillhandahåller mallar för vanliga Kubernetes-övervakningsscenarier:
+Cast Operations tillhandahåller mallar för vanliga Kubernetes-övervakningsscenarier:
 
 | Mall                        | Beskrivning                   | Tröskel            |
 | --------------------------- | ----------------------------- | ------------------ |
@@ -157,6 +157,6 @@ OneUptime tillhandahåller mallar för vanliga Kubernetes-övervakningsscenarier
 
 ## Installationskrav
 
-För att använda Kubernetes-övervakning behöver du installera OneUptime Kubernetes-agenten i ditt kluster. Agenten skickar klustermätvärden, händelser, pod-loggar och — som standard — **applikationsspårningar och HTTP RED-mätvärden insamlade via eBPF** till OneUptime över OTLP. Inga kodändringar eller per-app-SDK:er behövs för att se trafik på tjänstenivå.
+För att använda Kubernetes-övervakning behöver du installera Cast Operations Kubernetes-agenten i ditt kluster. Agenten skickar klustermätvärden, händelser, pod-loggar och — som standard — **applikationsspårningar och HTTP RED-mätvärden insamlade via eBPF** till Cast Operations över OTLP. Inga kodändringar eller per-app-SDK:er behövs för att se trafik på tjänstenivå.
 
 Se guiden [Installera Kubernetes-agenten](/docs/monitor/kubernetes-agent) — den täcker Helm-installation med ett enda kommando, alternativet `preset` för att välja rätt konfiguration för ditt kluster (standard, GKE Autopilot, EKS Fargate) och växlarna `ebpf.features.*` för de enskilda signalfamiljerna (HTTP RED-mätvärden, tjänstegraf, nätverksflöden, TCP-statistik).

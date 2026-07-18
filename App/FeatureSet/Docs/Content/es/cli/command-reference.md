@@ -1,12 +1,12 @@
 # Referencia de comandos
 
-Referencia completa de todos los comandos de la CLI de OneUptime.
+Referencia completa de todos los comandos de la CLI de Cast Operations.
 
 ## Comandos de autenticación
 
 ### `oneuptime login`
 
-Autenticarse con una instancia de OneUptime.
+Autenticarse con una instancia de Cast Operations.
 
 ```bash
 oneuptime login <api-key> <instance-url> [--context-name <name>]
@@ -15,7 +15,7 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 | Parámetro        | Tipo      | Requerido | Descripción                                       |
 | ---------------- | --------- | --------- | ------------------------------------------------- |
 | `<api-key>`      | argumento | Sí        | Clave de API para la autenticación                |
-| `<instance-url>` | argumento | Sí        | URL de la instancia de OneUptime                  |
+| `<instance-url>` | argumento | Sí        | URL de la instancia de Cast Operations                  |
 | `--context-name` | opción    | No        | Nombre del contexto (predeterminado: `"default"`) |
 
 ---

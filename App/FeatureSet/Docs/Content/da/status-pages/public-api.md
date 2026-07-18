@@ -9,7 +9,7 @@ Denne API henter alle ressourcer, der er på statussiden, herunder den overordne
 For at hente den overordnede status for ressourcerne på statussiden kan du sende en POST-anmodning til følgende endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/overview/:statusPageId
+curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
 ```
 
 Dette er svaret fra API'en:
@@ -20,11 +20,11 @@ Dette er svaret fra API'en:
     // Monitor Status-objekt
     // Overordnet status er den værste status for alle monitorer og grupper på statussiden.
     // Du kan finde flere detaljer om monitorstatus her.
-    // https://oneuptime.com/reference/monitor-status
+    // https://visca.ai/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // Du kan finde flere detaljer om den planlagte vedligeholdelses offentlige note her.
-    // https://oneuptime.com/reference/scheduled-maintenance-public-note
+    // https://visca.ai/reference/scheduled-maintenance-public-note
     {
       // Planlagt vedligeholdelses offentlig note-objekt
     },
@@ -34,7 +34,7 @@ Dette er svaret fra API'en:
   ],
   "statusPageHistoryChartBarColorRules": [
     // Du kan finde flere detaljer om statussidernes historikdiagram-stavsfarveregel her.
-    // https://oneuptime.com/reference/status-page-history-chart-bar-color-rule
+    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
     {
       // Statussidernes historikdiagram-stavsfarveregel-objekt
     },
@@ -44,7 +44,7 @@ Dette er svaret fra API'en:
   ],
   "scheduledMaintenanceEvents": [
     // Du kan finde flere detaljer om den planlagte vedligeholdelsesbegivenhed her.
-    // https://oneuptime.com/reference/scheduled-maintenance
+    // https://visca.ai/reference/scheduled-maintenance
     {
       // Planlagt vedligeholdelsesbegivenhed-objekt
     },
@@ -54,7 +54,7 @@ Dette er svaret fra API'en:
   ],
   "activeAnnouncements": [
     // Du kan finde flere detaljer om den aktive meddelelse her.
-    // https://oneuptime.com/reference/status-page-announcement
+    // https://visca.ai/reference/status-page-announcement
     {
       // Statussidernes meddelelse-objekt
     },
@@ -64,7 +64,7 @@ Dette er svaret fra API'en:
   ],
   "incidentPublicNotes": [
     // Du kan finde flere detaljer om den offentlige incidentnote her.
-    // https://oneuptime.com/reference/incident-public-note
+    // https://visca.ai/reference/incident-public-note
     {
       // Incident offentlig note-objekt
     },
@@ -74,7 +74,7 @@ Dette er svaret fra API'en:
   ],
   "activeIncidents": [
     // Du kan finde flere detaljer om det aktive incident her.
-    // https://oneuptime.com/reference/incident
+    // https://visca.ai/reference/incident
     {
       // Incident-objekt
     },
@@ -84,7 +84,7 @@ Dette er svaret fra API'en:
   ],
   "monitorStatusTimelines": [
     // Du kan finde flere detaljer om monitorstatustidslinjen her.
-    // https://oneuptime.com/reference/monitor-status-timeline
+    // https://visca.ai/reference/monitor-status-timeline
     {
       // Monitorstatustidslinje-objekt
     },
@@ -94,7 +94,7 @@ Dette er svaret fra API'en:
   ],
   "resourceGroups": [
     // Du kan finde flere detaljer om ressourcegruppen her.
-    // https://oneuptime.com/reference/resource-group
+    // https://visca.ai/reference/resource-group
     {
       // Ressourcegruppe-objekt
     },
@@ -104,7 +104,7 @@ Dette er svaret fra API'en:
   ],
   "monitorStatuses": [
     // Du kan finde flere detaljer om monitorstatus her.
-    // https://oneuptime.com/reference/monitor-status
+    // https://visca.ai/reference/monitor-status
     {
       // Monitorstatus-objekt
     },
@@ -114,7 +114,7 @@ Dette er svaret fra API'en:
   ],
   "statusPageResources": [
     // Du kan finde flere detaljer om statussideressourcen her.
-    // https://oneuptime.com/reference/status-page-resource
+    // https://visca.ai/reference/status-page-resource
     {
       // Statussideressource-objekt
     },
@@ -124,7 +124,7 @@ Dette er svaret fra API'en:
   ],
   "incidentStateTimelines": [
     // Du kan finde flere detaljer om incidenttilstandstidslinjen her.
-    // https://oneuptime.com/reference/incident-state-timeline
+    // https://visca.ai/reference/incident-state-timeline
     {
       // Incidenttilstandstidslinje-objekt
     },
@@ -134,11 +134,11 @@ Dette er svaret fra API'en:
   ],
   "statusPage": {
     // Du kan finde flere detaljer om statussiden her.
-    // https://oneuptime.com/reference/status-page
+    // https://visca.ai/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // Du kan finde flere detaljer om den planlagte vedligeholdelses tilstandstidslinje her.
-    // https://oneuptime.com/reference/scheduled-maintenance-state-timeline
+    // https://visca.ai/reference/scheduled-maintenance-state-timeline
     {
       // Planlagt vedligeholdelses tilstandstidslinje-objekt
     },
@@ -162,7 +162,7 @@ Denne API henter al oppetid for alle ressourcer på statussiden.
 For at hente den samlede oppetid for alle ressourcer kan du sende en POST-anmodning til følgende endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/uptime/:statusPageId
+curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
 ```
 
 **Anmodningsindhold (valgfrit):**
@@ -257,7 +257,7 @@ Dette er eksempelsvaret fra API'en:
 Denne API henter alle incidents, der er på statussiden. For at hente alle incidents på statussiden kan du sende en POST-anmodning til følgende endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/incidents/:statusPageId
+curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 ```
 
 Dette er svaret fra API'en:
@@ -266,7 +266,7 @@ Dette er svaret fra API'en:
 {
   "incidents": [
     // Du kan finde flere detaljer om incidentet her.
-    // https://oneuptime.com/reference/incident
+    // https://visca.ai/reference/incident
     {
       // Incident-objekt
     },
@@ -282,7 +282,7 @@ Dette er svaret fra API'en:
 Denne API henter al planlagt vedligeholdelse, der er på statussiden. For at hente al planlagt vedligeholdelse på statussiden kan du sende en POST-anmodning til følgende endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 Dette er svaret fra API'en:
@@ -291,7 +291,7 @@ Dette er svaret fra API'en:
 {
   "scheduledMaintenanceEvents": [
     // Du kan finde flere detaljer om den planlagte vedligeholdelsesbegivenhed her.
-    // https://oneuptime.com/reference/scheduled-maintenance
+    // https://visca.ai/reference/scheduled-maintenance
     {
       // Planlagt vedligeholdelsesbegivenhed-objekt
     },
@@ -307,7 +307,7 @@ Dette er svaret fra API'en:
 Denne API henter alle meddelelser, der er på statussiden. For at hente alle meddelelser på statussiden kan du sende en POST-anmodning til følgende endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/announcements/:statusPageId
+curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
 ```
 
 Dette er svaret fra API'en:
@@ -316,7 +316,7 @@ Dette er svaret fra API'en:
 {
   "announcements": [
     // Du kan finde flere detaljer om meddelelsen her.
-    // https://oneuptime.com/reference/status-page-announcement
+    // https://visca.ai/reference/status-page-announcement
     {
       // Meddelelse-objekt
     },

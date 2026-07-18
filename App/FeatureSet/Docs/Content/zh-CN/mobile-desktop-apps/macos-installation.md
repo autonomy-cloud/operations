@@ -1,6 +1,6 @@
 # macOS 安装指南
 
-在 macOS 上将 OneUptime 安装为原生桌面应用程序，实现无缝监控和事件管理。
+在 macOS 上将 Cast Operations 安装为原生桌面应用程序，实现无缝监控和事件管理。
 
 ## 安装方法
 
@@ -8,11 +8,11 @@
 
 Safari 与 macOS 原生功能具有出色的 PWA 集成。
 
-1. **在 Safari 中打开 OneUptime**
+1. **在 Safari 中打开 Cast Operations**
 
    - 启动 Safari 浏览器
-   - 导航至您的 OneUptime 实例 URL
-   - 登录您的 OneUptime 账号
+   - 导航至您的 Cast Operations 实例 URL
+   - 登录您的 Cast Operations 账号
    - 等待页面完全加载
 
 2. **安装 PWA**
@@ -24,12 +24,12 @@ Safari 与 macOS 原生功能具有出色的 PWA 集成。
 
 3. **自定义安装**
 
-   - **应用名称**：根据需要修改（默认：OneUptime）
+   - **应用名称**：根据需要修改（默认：Cast Operations）
    - **Dock**：选择是否添加到 Dock
    - **Launchpad**：添加到 Launchpad 以便快速访问
 
 4. **启动应用**
-   - 在 Dock、Launchpad 或应用程序文件夹中找到 OneUptime
+   - 在 Dock、Launchpad 或应用程序文件夹中找到 Cast Operations
    - 点击以在专用窗口中启动
    - 应用独立于 Safari 浏览器运行
 
@@ -37,17 +37,17 @@ Safari 与 macOS 原生功能具有出色的 PWA 集成。
 
 Chrome 提供强大的 PWA 支持，具有出色的桌面集成。
 
-1. **在 Chrome 中打开 OneUptime**
+1. **在 Chrome 中打开 Cast Operations**
 
    - 启动 Google Chrome
-   - 前往您的 OneUptime 实例
+   - 前往您的 Cast Operations 实例
    - 确保已登录
    - 允许页面完全加载
 
 2. **通过菜单安装**
 
    - 查找地址栏中的 **安装图标**（⊞）
-   - 点击 **"安装 OneUptime"**
+   - 点击 **"安装 Cast Operations"**
    - 或使用 **Chrome 菜单** → **更多工具** → **创建快捷方式**
 
 3. **安装选项**
@@ -57,7 +57,7 @@ Chrome 提供强大的 PWA 支持，具有出色的桌面集成。
    - 点击 **"安装"** 或 **"创建"**
 
 4. **访问应用**
-   - 在应用程序文件夹中找到 OneUptime
+   - 在应用程序文件夹中找到 Cast Operations
    - 或通过 Spotlight 搜索访问
    - 将其固定到 Dock 以便快速访问
 
@@ -65,10 +65,10 @@ Chrome 提供强大的 PWA 支持，具有出色的桌面集成。
 
 Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 
-1. **在 Edge 中打开 OneUptime**
+1. **在 Edge 中打开 Cast Operations**
 
    - 启动 Microsoft Edge
-   - 导航至 OneUptime URL
+   - 导航至 Cast Operations URL
    - 完成登录流程
 
 2. **安装应用**
@@ -81,7 +81,7 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 
 ### Dock 和 Launchpad
 
-1. **Dock 位置**：将 OneUptime 拖到首选 Dock 位置
+1. **Dock 位置**：将 Cast Operations 拖到首选 Dock 位置
 2. **Dock 大小**：在 Dock 偏好设置中调整图标大小
 3. **Launchpad 整理**：创建监控应用文件夹
 4. **角标通知**：在 Dock 图标上显示事件数量
@@ -90,7 +90,7 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 
 1. **通知中心**
 
-   - 系统偏好设置 → 通知 → OneUptime
+   - 系统偏好设置 → 通知 → Cast Operations
    - 配置告警样式和传送方式
    - 为不同事件类型设置优先级
 
@@ -130,7 +130,7 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 
 ```
 解决方案：
-1. 在 Launchpad 中查找 OneUptime 图标
+1. 在 Launchpad 中查找 Cast Operations 图标
 2. 使用 Spotlight 搜索（⌘+空格）
 3. 在浏览器的 PWA 管理部分查找
 4. 尝试使用不同浏览器重新安装
@@ -143,11 +143,11 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 
 ```
 解决方案：
-1. 系统偏好设置 → 通知 → OneUptime
+1. 系统偏好设置 → 通知 → Cast Operations
 2. 启用"允许通知"
 3. 设置适当的告警样式（横幅/提醒）
 4. 检查勿扰模式设置
-5. 验证 OneUptime 通知设置
+5. 验证 Cast Operations 通知设置
 6. 出现提示时授予通知权限
 ```
 
@@ -158,25 +158,25 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 1. **应用程序文件夹方法**
 
    - 打开应用程序文件夹
-   - 找到 OneUptime
+   - 找到 Cast Operations
    - 拖到废纸篓或右键单击 → 移到废纸篓
 
 2. **Dock 方法**
 
-   - 右键单击 Dock 中的 OneUptime
+   - 右键单击 Dock 中的 Cast Operations
    - 选择"选项" → "从 Dock 中移除"
    - 然后从应用程序文件夹中删除
 
 3. **浏览器 PWA 管理**
-   - **Chrome**：chrome://apps/ → 找到 OneUptime → 移除
-   - **Edge**：edge://apps/ → 找到 OneUptime → 卸载
+   - **Chrome**：chrome://apps/ → 找到 Cast Operations → 移除
+   - **Edge**：edge://apps/ → 找到 Cast Operations → 卸载
    - **Safari**：没有专用管理页面
 
 ## 更新和维护
 
 ### 自动更新
 
-- OneUptime PWA 在在线状态下自动更新
+- Cast Operations PWA 在在线状态下自动更新
 - 无需 App Store 更新
 - 新功能立即可用
 - 紧急更新即时应用
@@ -212,7 +212,7 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 
 ```
 解决方案：
-1. 在 Launchpad 中查找 OneUptime 图标
+1. 在 Launchpad 中查找 Cast Operations 图标
 2. 使用 Spotlight 搜索（⌘+空格）
 3. 在浏览器的 PWA 管理部分查找
 4. 尝试使用不同浏览器重新安装
@@ -230,7 +230,7 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 3. 确保足够的内存（建议 8GB 以上）
 4. 更新 macOS 和浏览器
 5. 清除浏览器缓存和应用数据
-6. 重启 OneUptime 应用
+6. 重启 Cast Operations 应用
 ```
 
 **内存泄漏或崩溃：**
@@ -238,7 +238,7 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 ```
 解决方案：
 1. 在活动监视器中监控内存使用情况
-2. 定期重启 OneUptime 应用
+2. 定期重启 Cast Operations 应用
 3. 更新到最新浏览器版本
 4. 完全清除浏览器缓存
 5. 在控制台应用中查看错误日志
@@ -262,7 +262,7 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 
 ```
 解决方案：
-1. 强制退出：⌘+Option+Esc → 选择 OneUptime
+1. 强制退出：⌘+Option+Esc → 选择 Cast Operations
 2. 或右键单击 Dock 图标 → 强制退出
 3. 重启应用程序
 4. 检查 macOS 和浏览器更新
@@ -275,11 +275,11 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 
 ```
 解决方案：
-1. 系统偏好设置 → 通知 → OneUptime
+1. 系统偏好设置 → 通知 → Cast Operations
 2. 启用"允许通知"
 3. 设置适当的告警样式（横幅/提醒）
 4. 检查勿扰模式设置
-5. 验证 OneUptime 通知设置
+5. 验证 Cast Operations 通知设置
 6. 出现提示时授予通知权限
 ```
 
@@ -290,18 +290,18 @@ Edge 提供良好的 PWA 支持，具有不错的 macOS 集成。
 1. **应用程序文件夹方法**
 
    - 打开应用程序文件夹
-   - 找到 OneUptime
+   - 找到 Cast Operations
    - 拖到废纸篓或右键单击 → 移到废纸篓
 
 2. **Dock 方法**
 
-   - 右键单击 Dock 中的 OneUptime
+   - 右键单击 Dock 中的 Cast Operations
    - 选择"选项" → "从 Dock 中移除"
    - 然后从应用程序文件夹中删除
 
 3. **浏览器 PWA 管理**
-   - **Chrome**：chrome://apps/ → 找到 OneUptime → 移除
-   - **Edge**：edge://apps/ → 找到 OneUptime → 卸载
+   - **Chrome**：chrome://apps/ → 找到 Cast Operations → 移除
+   - **Edge**：edge://apps/ → 找到 Cast Operations → 卸载
    - **Safari**：没有专用管理页面
 
 ### 完全清除安装
@@ -324,7 +324,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### 自动更新
 
-- OneUptime PWA 在在线状态下自动更新
+- Cast Operations PWA 在在线状态下自动更新
 - 无需 App Store 更新
 - 新功能立即可用
 - 紧急更新即时应用
@@ -335,7 +335,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 1. **Safari PWA**：在 Safari 浏览器中刷新
 2. **Chrome PWA**：右键单击应用 → 重新加载，或按 ⌘+R
-3. **完全刷新**：关闭应用，重新打开浏览器，访问 OneUptime
+3. **完全刷新**：关闭应用，重新打开浏览器，访问 Cast Operations
 
 ### 维护计划
 
@@ -343,7 +343,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 **每周：**
 
-- 重启 OneUptime 应用
+- 重启 Cast Operations 应用
 - 如遇到问题，清除浏览器缓存
 - 检查 macOS 更新
 
@@ -357,38 +357,38 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### 快捷指令应用集成
 
-为 OneUptime 创建自定义快捷指令：
+为 Cast Operations 创建自定义快捷指令：
 
 1. 打开 **快捷指令** 应用
 2. 创建 **新快捷指令**
 3. 添加 **"打开应用"** 操作
-4. 选择 **OneUptime**
+4. 选择 **Cast Operations**
 5. 添加到 Siri 以实现语音激活
 
 ### Automator 集成
 
-自动化 OneUptime 任务：
+自动化 Cast Operations 任务：
 
 1. 启动 **Automator**
 2. 创建 **应用程序** 或 **工作流程**
 3. 添加 **"启动应用程序"** 操作
-4. 选择 OneUptime PWA
+4. 选择 Cast Operations PWA
 5. 添加其他自动化步骤
 
 ### 终端集成
 
-通过终端管理 OneUptime：
+通过终端管理 Cast Operations：
 
 ```bash
-# 为快速启动 OneUptime 创建别名
-echo 'alias oneuptime="open -a \"OneUptime\""' >> ~/.zshrc
+# 为快速启动 Cast Operations 创建别名
+echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
 
-# 检查 OneUptime 是否正在运行的函数
+# 检查 Cast Operations 是否正在运行的函数
 oneuptime_status() {
-    if pgrep -f "OneUptime" > /dev/null; then
-        echo "OneUptime is running"
+    if pgrep -f "Cast Operations" > /dev/null; then
+        echo "Cast Operations is running"
     else
-        echo "OneUptime is not running"
+        echo "Cast Operations is not running"
     fi
 }
 ```

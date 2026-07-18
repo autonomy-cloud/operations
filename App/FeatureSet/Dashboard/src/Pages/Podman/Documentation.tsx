@@ -9,7 +9,7 @@ const PodmanDocumentation: FunctionComponent<
     <Fragment>
       <PodmanDocumentationCard
         title="Agent Installation Guide"
-        description="Install the OneUptime Podman Agent to connect your Podman host. Once installed, the host will appear automatically."
+        description="Install the Cast Operations Podman Agent to connect your Podman host. Once installed, the host will appear automatically."
       />
     </Fragment>
   );

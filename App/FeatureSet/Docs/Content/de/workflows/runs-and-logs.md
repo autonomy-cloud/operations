@@ -1,6 +1,6 @@
 # Ausführungen & Logs
 
-Bei jeder Ausführung eines Workflows speichert OneUptime einen Datensatz darüber, was passiert ist – wann der Workflow lief, ob er erfolgreich war und was jeder Baustein getan hat. Dieser Datensatz heißt **Ausführung**. Ausführungen sind Ihr Weg, eine erfolgreiche Ausführung zu bestätigen, eine fehlgeschlagene zu debuggen und vergangene Aktivitäten nachzuschlagen.
+Bei jeder Ausführung eines Workflows speichert Cast Operations einen Datensatz darüber, was passiert ist – wann der Workflow lief, ob er erfolgreich war und was jeder Baustein getan hat. Dieser Datensatz heißt **Ausführung**. Ausführungen sind Ihr Weg, eine erfolgreiche Ausführung zu bestätigen, eine fehlgeschlagene zu debuggen und vergangene Aktivitäten nachzuschlagen.
 
 ## Wo Sie sie finden
 
@@ -35,7 +35,7 @@ Die angezeigten Werte sind genau das, was der Baustein gesehen hat – nachdem a
 ### „Mein Workflow ist nicht gelaufen."
 
 1. Stellen Sie sicher, dass der Workflow in den Einstellungen **aktiviert** ist. Neue Workflows starten deaktiviert.
-2. Bei einem OneUptime-Ereignis-Auslöser: prüfen Sie, ob das Ereignis tatsächlich stattgefunden hat. Öffnen Sie den Datensatz und schauen Sie in seinen Verlauf.
+2. Bei einem Cast Operations-Ereignis-Auslöser: prüfen Sie, ob das Ereignis tatsächlich stattgefunden hat. Öffnen Sie den Datensatz und schauen Sie in seinen Verlauf.
 3. Bei einem Webhook-Auslöser: prüfen Sie, ob das andere System wirklich an die richtige URL sendet. Die meisten Tools protokollieren, wann sie einen Webhook abgesendet haben – schauen Sie dort.
 4. Bei einem Zeitplan-Auslöser: prüfen Sie, ob der cron-Ausdruck mit der erwarteten Zeit übereinstimmt.
 

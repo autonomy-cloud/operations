@@ -1,6 +1,6 @@
 # 容量规划与配置选型
 
-本指南帮助你在 Kubernetes（Helm）上为自托管的 OneUptime 部署进行容量规划。它涵盖 OneUptime 依赖的三个数据存储——**PostgreSQL**、**Redis** 和 **ClickHouse**——以及应用计算资源，并给出可在掌握真实数据后再调整的起始档位。
+本指南帮助你在 Kubernetes（Helm）上为自托管的 Cast Operations 部署进行容量规划。它涵盖 Cast Operations 依赖的三个数据存储——**PostgreSQL**、**Redis** 和 **ClickHouse**——以及应用计算资源，并给出可在掌握真实数据后再调整的起始档位。
 
 > **请先阅读：** Helm chart 发布时**未设置任何 CPU/内存的 requests 或 limits**，并为 PostgreSQL 和 ClickHouse 配置了较小的 **25 Gi** 默认卷。这些默认值的存在是为了让 chart 能在任何集群上安装并运行——它们**并非**生产环境的容量配置。对于超出快速试用范围的任何场景，请使用下面的数字显式设置资源和存储。
 
@@ -8,7 +8,7 @@
 
 ## 各数据存储的规模驱动因素
 
-OneUptime 在生产环境中需要三个数据存储。它们的规模取决于完全不同的输入，因此应独立进行配置选型。
+Cast Operations 在生产环境中需要三个数据存储。它们的规模取决于完全不同的输入，因此应独立进行配置选型。
 
 | 数据存储       | 存储内容                                                                 | 规模驱动因素                                                       |
 | -------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------ |
@@ -16,7 +16,7 @@ OneUptime 在生产环境中需要三个数据存储。它们的规模取决于�
 | **PostgreSQL** | 配置与状态——监控器、事件、告警、用户、团队、项目、工作流、状态页、仪表盘 | **实体数量与历史记录**，而非遥测量。增长缓慢。                     |
 | **Redis**      | 缓存、工作队列和会话                                                     | **队列深度与活跃会话数**。受内存约束且规模适中。不是数据真实来源。 |
 
-对象存储（S3/MinIO）**不是** OneUptime 运行的必需项。它仅可选地用于数据库**备份**（PostgreSQL 通过 CloudNativePG Barman 插件，ClickHouse 通过 `clickhouse-backup`）。OneUptime 不会将遥测数据分层存储到对象存储——参见下文的“保留期及其对存储的影响”一节。
+对象存储（S3/MinIO）**不是** Cast Operations 运行的必需项。它仅可选地用于数据库**备份**（PostgreSQL 通过 CloudNativePG Barman 插件，ClickHouse 通过 `clickhouse-backup`）。Cast Operations 不会将遥测数据分层存储到对象存储——参见下文的“保留期及其对存储的影响”一节。
 
 ## ClickHouse——主要驱动因素
 
@@ -55,7 +55,7 @@ ClickHouse disk ≈ (daily raw telemetry GB ÷ compression) × retention days ×
 
 PostgreSQL 存储你的配置和运行状态，而非遥测数据，因此它增长缓慢，相对于 ClickHouse 保持较小规模。即使是大型部署通常也只在数十 GB 量级。默认的 **25 Gi** 卷对于小型安装没有问题；对于较大型的部署，规划 50–100 GB 并为事件/告警历史预留余量。
 
-如果你运行了许多应用、worker 和探针副本，数据库连接数可能在存储之前就成为瓶颈。OneUptime 的 Helm chart 包含一个可选的 **PgBouncer** 连接池（`pgbouncer.enabled`），正是为此而设——为高副本数部署启用它。
+如果你运行了许多应用、worker 和探针副本，数据库连接数可能在存储之前就成为瓶颈。Cast Operations 的 Helm chart 包含一个可选的 **PgBouncer** 连接池（`pgbouncer.enabled`），正是为此而设——为高副本数部署启用它。
 
 ## Redis——缓存、队列与会话
 
@@ -80,7 +80,7 @@ Redis 用作缓存、工作队列和会话存储。它**受内存约束**，并�
 | **Redis**      | 1 vCPU / 2 GB                | 2 vCPU / 4 GB                | 4 vCPU / 8–16 GB                              |
 | **假定保留期** | 30 天                        | 30–90 天                     | 90 天                                         |
 
-这些是为 OneUptime **后端**进行的配置选型。在每个被监控集群上运行的 OneUptime 采集器需要单独进行配置选型——参见 [Kubernetes Agent](/docs/telemetry/kubernetes-agent) 的配置档位。
+这些是为 Cast Operations **后端**进行的配置选型。在每个被监控集群上运行的 Cast Operations 采集器需要单独进行配置选型——参见 [Kubernetes Agent](/docs/telemetry/kubernetes-agent) 的配置档位。
 
 ## 高可用
 
@@ -88,13 +88,13 @@ chart 内置的数据存储默认以**单实例**运行。对于生产环境的�
 
 - **PostgreSQL** —— 启用捆绑的 [CloudNativePG](https://cloudnative-pg.io) operator（`postgresOperator.cnpg.enabled`），配置 **3 个实例**（1 个主节点 + 2 个热备）以实现自动故障转移。
 - **ClickHouse** —— 启用捆绑的 [Altinity](https://github.com/Altinity/clickhouse-operator) operator（`clickhouseOperator.altinity.enabled`），配置**每个分片 ≥2 个副本**以及 **3 个 ClickHouse Keeper** 节点以形成法定人数。一旦单个节点的磁盘或 RAM 成为限制，就增加分片。
-- **Redis** —— chart 内不提供副本机制。要实现高可用，请将 OneUptime 指向**外部托管的 Redis**（或 AI/集群部署）。
+- **Redis** —— chart 内不提供副本机制。要实现高可用，请将 Cast Operations 指向**外部托管的 Redis**（或 AI/集群部署）。
 
 ## 保留期及其对存储的影响
 
 遥测保留期作为**以天为单位配置的 ClickHouse TTL** 强制执行，**按项目**设置，并可**按信号**（日志、指标、追踪、性能剖析）以及按桶（例如按日志严重程度）进行细化。硬编码的默认值为 15 天。
 
-由于保留期直接成倍影响 ClickHouse 存储，请在配置磁盘之前先确定它。OneUptime **不会**自动将旧遥测数据归档或分层到对象存储——对于多年期的合规保留，请延长保留窗口并相应地配置 ClickHouse 存储（或导出到你选择的外部归档）。
+由于保留期直接成倍影响 ClickHouse 存储，请在配置磁盘之前先确定它。Cast Operations **不会**自动将旧遥测数据归档或分层到对象存储——对于多年期的合规保留，请延长保留窗口并相应地配置 ClickHouse 存储（或导出到你选择的外部归档）。
 
 ## 在投入之前先度量
 
@@ -105,4 +105,4 @@ chart 内置的数据存储默认以**单实例**运行。对于生产环境的�
 - [Docker Compose](/docs/installation/docker-compose) —— 单服务器配置选型
 - [Self-Hosted Architecture](/docs/self-hosted/architecture) —— 各组件如何协同工作
 - [Kubernetes Agent](/docs/telemetry/kubernetes-agent) —— 采集器（数据平面）配置选型
-- [Helm chart on Artifact Hub](https://artifacthub.io/packages/helm/oneuptime/oneuptime)
+- [Helm chart on Artifact Hub](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

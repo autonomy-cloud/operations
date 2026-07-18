@@ -1,11 +1,11 @@
-# OneUptime CLI
+# Cast Operations CLI
 
-OneUptime CLI 是一個命令列介面，可讓您直接從終端機管理您的 OneUptime 資源。它支援對監控器、事件、警報、狀態頁面等進行完整的 CRUD 操作。
+Cast Operations CLI 是一個命令列介面，可讓您直接從終端機管理您的 Cast Operations 資源。它支援對監控器、事件、警報、狀態頁面等進行完整的 CRUD 操作。
 
 ## 功能特色
 
 - **多環境支援**，透過具名情境（context）管理正式環境、預備環境與開發環境
-- 從您的 OneUptime 執行個體**自動探索**可用資源
+- 從您的 Cast Operations 執行個體**自動探索**可用資源
 - **彈性驗證**，可透過 CLI 旗標、環境變數或已儲存的情境進行驗證
 - **智慧輸出格式**，支援 JSON、表格與寬版顯示模式
 - **可指令碼化**，適用於 CI/CD 管線與自動化工作流程
@@ -19,8 +19,8 @@ npm install -g @oneuptime/cli
 ## 快速開始
 
 ```bash
-# Authenticate with your OneUptime instance
-oneuptime login <your-api-key> https://oneuptime.com
+# Authenticate with your Cast Operations instance
+oneuptime login <your-api-key> https://visca.ai
 
 # List your monitors
 oneuptime monitor list

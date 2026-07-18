@@ -1,6 +1,6 @@
 # Externe statuspagina-monitor
 
-Externe statuspagina-monitoring stelt u in staat statuspagina's van derden te bewaken en gewaarschuwd te worden wanneer diensten waarvan u afhankelijk bent uitval of verminderde prestaties ervaren. OneUptime controleert periodiek externe statuspagina's (zoals AWS, GCP, Azure, GitHub, OpenAI, Anthropic en meer) en evalueert hun status.
+Externe statuspagina-monitoring stelt u in staat statuspagina's van derden te bewaken en gewaarschuwd te worden wanneer diensten waarvan u afhankelijk bent uitval of verminderde prestaties ervaren. Cast Operations controleert periodiek externe statuspagina's (zoals AWS, GCP, Azure, GitHub, OpenAI, Anthropic en meer) en evalueert hun status.
 
 ## Overzicht
 
@@ -15,7 +15,7 @@ Externe statuspagina-monitors controleren de gezondheid van diensten waarop u ve
 
 ## Ondersteunde providers
 
-OneUptime ondersteunt het bewaken van statuspagina's via de volgende methoden:
+Cast Operations ondersteunt het bewaken van statuspagina's via de volgende methoden:
 
 | Providertype                | Beschrijving                                                              |
 | --------------------------- | ------------------------------------------------------------------------ |
@@ -27,7 +27,7 @@ OneUptime ondersteunt het bewaken van statuspagina's via de volgende methoden:
 
 ### Automatische detectie
 
-Bij instelling op **Automatisch** probeert OneUptime het formaat van de statuspagina automatisch te detecteren, in deze volgorde:
+Bij instelling op **Automatisch** probeert Cast Operations het formaat van de statuspagina automatisch te detecteren, in deze volgorde:
 
 1. Eerst probeert het de incident.io-statuspagina-API (`/proxy/<host>`)
 2. Vervolgens probeert het de Atlassian Statuspage JSON API (`/api/v2/status.json`, `/api/v2/components.json` en `/api/v2/incidents/unresolved.json`)
@@ -38,7 +38,7 @@ Bij instelling op **Automatisch** probeert OneUptime het formaat van de statuspa
 
 ## Een Externe statuspagina-monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Externe statuspagina** als het monitortype
 4. Voer de URL in van de statuspagina die u wilt bewaken
@@ -55,7 +55,7 @@ Voer de URL in van de externe statuspagina die u wilt bewaken. Voor sites aanged
 
 ### Providertype
 
-Selecteer het providertype voor de statuspagina. Gebruik **Automatisch** (standaard) om OneUptime het formaat automatisch te laten detecteren, of specificeer **Atlassian Statuspage**, **incident.io**, **RSS** of **Atom** als u het kent.
+Selecteer het providertype voor de statuspagina. Gebruik **Automatisch** (standaard) om Cast Operations het formaat automatisch te laten detecteren, of specificeer **Atlassian Statuspage**, **incident.io**, **RSS** of **Atom** als u het kent.
 
 ### Filter op componentgroep
 
@@ -93,7 +93,7 @@ U kunt criteria configureren om te bepalen wanneer de externe dienst als operati
 
 ### Standaardcriteria
 
-Standaard stelt OneUptime criteria in op basis van wat er werkelijk toe doet voor een statuspagina — de actieve incidenten en componentgezondheid, in plaats van louter bereikbaarheid:
+Standaard stelt Cast Operations criteria in op basis van wat er werkelijk toe doet voor een statuspagina — de actieve incidenten en componentgezondheid, in plaats van louter bereikbaarheid:
 
 - De monitor wordt gemarkeerd als **Operationeel** wanneer er geen actieve incidenten binnen het bereik zijn.
 - De monitor wordt gemarkeerd als **Offline** (en er wordt een incident aangemaakt) wanneer er ten minste één actief incident binnen het bereik is, of wanneer een component binnen het bereik `degraded_performance`, `partial_outage`, `major_outage` of `full_outage` rapporteert.

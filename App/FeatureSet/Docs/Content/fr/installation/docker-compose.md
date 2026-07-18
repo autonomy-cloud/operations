@@ -1,10 +1,10 @@
-# Déployer OneUptime gratuitement avec Docker Compose
+# Déployer Cast Operations gratuitement avec Docker Compose
 
-Si vous préférez héberger OneUptime sur votre propre serveur, vous pouvez utiliser Docker Compose pour déployer une instance mono-serveur de OneUptime sur Debian, Ubuntu ou RHEL. Cette option vous donne plus de contrôle et de personnalisation sur votre instance, mais elle nécessite également plus de compétences techniques et de ressources pour le déploiement et la maintenance.
+Si vous préférez héberger Cast Operations sur votre propre serveur, vous pouvez utiliser Docker Compose pour déployer une instance mono-serveur de Cast Operations sur Debian, Ubuntu ou RHEL. Cette option vous donne plus de contrôle et de personnalisation sur votre instance, mais elle nécessite également plus de compétences techniques et de ressources pour le déploiement et la maintenance.
 
 #### Choisir la configuration système requise
 
-Selon votre utilisation et votre budget, vous pouvez choisir parmi différentes configurations système pour votre serveur. Pour des performances optimales, nous suggérons d'utiliser OneUptime avec :
+Selon votre utilisation et votre budget, vous pouvez choisir parmi différentes configurations système pour votre serveur. Pour des performances optimales, nous suggérons d'utiliser Cast Operations avec :
 
 - **Configuration système recommandée**
   - 16 Go de RAM
@@ -13,7 +13,7 @@ Selon votre utilisation et votre budget, vous pouvez choisir parmi différentes 
   - Ubuntu 22.04
   - Docker et Docker Compose installés
 - **Configuration minimale / Homelab**
-  - Si vous souhaitez exécuter OneUptime pour un usage personnel ou expérimental dans un environnement domestique (certains de nos utilisateurs l'ont même installé sur RaspberryPi), vous pouvez utiliser la configuration homelab :
+  - Si vous souhaitez exécuter Cast Operations pour un usage personnel ou expérimental dans un environnement domestique (certains de nos utilisateurs l'ont même installé sur RaspberryPi), vous pouvez utiliser la configuration homelab :
     - 8 Go de RAM
     - 4 cœurs
     - 20 Go de disque
@@ -28,11 +28,11 @@ Avant de commencer le processus de déploiement, assurez-vous d'avoir :
 - Un serveur exécutant Debian, Ubuntu ou un dérivé RHEL
 - Docker et Docker Compose installés sur votre serveur
 
-Pour installer OneUptime :
+Pour installer Cast Operations :
 
 ```
 # Cloner ce dépôt uniquement avec la branche release et accéder au répertoire.
-git clone --depth 1 --single-branch --branch release https://github.com/OneUptime/oneuptime.git
+git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
 cd oneuptime
 
 # Copier config.example.env vers config.env
@@ -53,35 +53,35 @@ Si vous n'aimez pas utiliser npm ou ne l'avez pas installé, exécutez plutôt c
 sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
 ```
 
-### Accès à OneUptime
+### Accès à Cast Operations
 
-OneUptime devrait fonctionner à l'adresse : http://localhost. Vous devez créer un nouveau compte pour votre instance pour commencer à l'utiliser.
+Cast Operations devrait fonctionner à l'adresse : http://localhost. Vous devez créer un nouveau compte pour votre instance pour commencer à l'utiliser.
 
 ### Configuration des certificats TLS/SSL
 
-OneUptime **ne prend pas en charge** la configuration des certificats SSL/TLS. Vous devez configurer les certificats SSL/TLS vous-même.
+Cast Operations **ne prend pas en charge** la configuration des certificats SSL/TLS. Vous devez configurer les certificats SSL/TLS vous-même.
 
 Si vous avez besoin d'utiliser des certificats SSL/TLS, suivez ces étapes :
 
 1. Utilisez un proxy inverse comme Nginx ou Caddy.
 2. Utilisez Let's Encrypt pour provisionner les certificats.
-3. Pointez le proxy inverse vers le serveur OneUptime.
+3. Pointez le proxy inverse vers le serveur Cast Operations.
 4. Mettez à jour les paramètres suivants :
    - Définissez la variable d'environnement `HTTP_PROTOCOL` sur `https`.
    - Changez la variable d'environnement `HOST` vers le nom de domaine du serveur où le proxy inverse est hébergé.
 
 ## Liste de contrôle pour la mise en production
 
-Idéalement, ne déployez pas OneUptime en production avec docker-compose. Nous recommandons fortement d'utiliser Kubernetes. Il existe un chart Helm disponible pour OneUptime [ici](https://artifacthub.io/packages/helm/oneuptime/oneuptime).
+Idéalement, ne déployez pas Cast Operations en production avec docker-compose. Nous recommandons fortement d'utiliser Kubernetes. Il existe un chart Helm disponible pour Cast Operations [ici](https://artifacthub.io/packages/helm/autonomy-cloud/operations).
 
-Si vous souhaitez tout de même déployer OneUptime en production avec docker-compose, veuillez considérer les points suivants :
+Si vous souhaitez tout de même déployer Cast Operations en production avec docker-compose, veuillez considérer les points suivants :
 
-- **SSL/TLS** : Configurez des certificats SSL/TLS. OneUptime ne prend pas en charge la configuration des certificats SSL/TLS. Vous devez les configurer vous-même. Veuillez consulter ci-dessus.
+- **SSL/TLS** : Configurez des certificats SSL/TLS. Cast Operations ne prend pas en charge la configuration des certificats SSL/TLS. Vous devez les configurer vous-même. Veuillez consulter ci-dessus.
 - **Secrets** : Assurez-vous d'avoir des secrets aléatoires dans votre fichier `config.env`. Il y a des secrets par défaut dans ce fichier. Veuillez les remplacer par des chaînes longues et aléatoires.
 - **Sauvegardes** : Sauvegardez régulièrement vos bases de données (Clickhouse, Postgres). Redis est utilisé comme cache, est sans état et peut être ignoré en toute sécurité.
-- **Mises à jour** : Veuillez mettre à jour régulièrement OneUptime. Nous publions des mises à jour chaque jour. Nous vous recommandons de mettre à jour le logiciel au moins une fois par semaine si vous l'exécutez en production.
+- **Mises à jour** : Veuillez mettre à jour régulièrement Cast Operations. Nous publions des mises à jour chaque jour. Nous vous recommandons de mettre à jour le logiciel au moins une fois par semaine si vous l'exécutez en production.
 
-### Mise à jour de OneUptime
+### Mise à jour de Cast Operations
 
 Pour mettre à jour :
 
@@ -93,14 +93,14 @@ npm run update
 
 ### Points à considérer
 
-- Dans notre configuration Docker, nous utilisons un pilote de journalisation local. OneUptime, en particulier dans les conteneurs de sonde et d'ingestion, génère une quantité substantielle de journaux. Pour éviter que votre stockage ne soit plein, il est crucial de limiter le stockage de journalisation dans Docker. Pour des instructions détaillées sur la façon de procéder, veuillez consulter la documentation officielle de Docker [ici](https://docs.docker.com/config/containers/logging/local/).
+- Dans notre configuration Docker, nous utilisons un pilote de journalisation local. Cast Operations, en particulier dans les conteneurs de sonde et d'ingestion, génère une quantité substantielle de journaux. Pour éviter que votre stockage ne soit plein, il est crucial de limiter le stockage de journalisation dans Docker. Pour des instructions détaillées sur la façon de procéder, veuillez consulter la documentation officielle de Docker [ici](https://docs.docker.com/config/containers/logging/local/).
 
-### Désinstallation de OneUptime
+### Désinstallation de Cast Operations
 
-Pour désinstaller OneUptime, exécutez la commande suivante :
+Pour désinstaller Cast Operations, exécutez la commande suivante :
 
 ```
 npm run down
 ```
 
-Cela arrêtera et supprimera tous les conteneurs, réseaux et volumes créés par OneUptime. Cela ne supprimera pas le fichier `config.env` ni le dépôt cloné.
+Cela arrêtera et supprimera tous les conteneurs, réseaux et volumes créés par Cast Operations. Cela ne supprimera pas le fichier `config.env` ni le dépôt cloné.

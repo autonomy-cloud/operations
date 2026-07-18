@@ -1069,7 +1069,7 @@ export default class Span extends AnalyticsBaseModel {
       key: "llmCost",
       title: "LLM Cost (USD)",
       description:
-        "Cost of this LLM call in USD. Only populated when the instrumentation reports it (gen_ai.usage.cost); OneUptime does not compute pricing.",
+        "Cost of this LLM call in USD. Only populated when the instrumentation reports it (gen_ai.usage.cost); Cast Operations does not compute pricing.",
       required: true,
       defaultValue: 0,
       /*

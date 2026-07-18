@@ -4,7 +4,7 @@ Du kan bruke hemmeligheter til å lagre sensitiv informasjon som du ønsker å b
 
 ### Legge til en hemmelighet
 
-For å legge til en hemmelighet, gå til OneUptime Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret.
+For å legge til en hemmelighet, gå til Cast Operations Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret.
 
 ![Opprett hemmelighet](/docs/static/images/CreateMonitorSecret.png)
 

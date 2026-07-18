@@ -14,12 +14,12 @@ const AccountsFooter: FunctionComponent = (): ReactElement => {
       links={[
         {
           title: t("footer.contact"),
-          to: URL.fromString("https://oneuptime.com/support"),
+          to: URL.fromString("https://visca.ai/support"),
           openInNewTab: true,
         },
         {
           title: t("footer.privacyAndTerms"),
-          to: URL.fromString("https://oneuptime.com/legal"),
+          to: URL.fromString("https://visca.ai/legal"),
           openInNewTab: true,
         },
         {

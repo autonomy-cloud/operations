@@ -152,7 +152,7 @@ export default class UserOnCallLogTimeline extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -200,7 +200,7 @@ export default class UserOnCallLogTimeline extends BaseModel {
     canReadOnRelationQuery: true,
     title: "User Notification Log ID",
     description:
-      "ID of your OneUptime User Notification Log in which this object belongs",
+      "ID of your Cast Operations User Notification Log in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -248,7 +248,7 @@ export default class UserOnCallLogTimeline extends BaseModel {
     canReadOnRelationQuery: true,
     title: "User Notification Rule ID",
     description:
-      "ID of your OneUptime User Notification Rule in which this object belongs",
+      "ID of your Cast Operations User Notification Rule in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -296,7 +296,7 @@ export default class UserOnCallLogTimeline extends BaseModel {
     canReadOnRelationQuery: true,
     title: "OnCallDutyPolicy ID",
     description:
-      "ID of your OneUptime on-call duty policy in which this object belongs",
+      "ID of your Cast Operations on-call duty policy in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -342,7 +342,7 @@ export default class UserOnCallLogTimeline extends BaseModel {
     required: false,
     canReadOnRelationQuery: true,
     title: "Incident ID",
-    description: "ID of your OneUptime Incident in which this object belongs",
+    description: "ID of your Cast Operations Incident in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -388,7 +388,7 @@ export default class UserOnCallLogTimeline extends BaseModel {
     required: false,
     canReadOnRelationQuery: true,
     title: "Alert ID",
-    description: "ID of your OneUptime Alert in which this object belongs",
+    description: "ID of your Cast Operations Alert in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -436,7 +436,7 @@ export default class UserOnCallLogTimeline extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Alert Episode ID",
     description:
-      "ID of your OneUptime Alert Episode in which this object belongs",
+      "ID of your Cast Operations Alert Episode in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -484,7 +484,7 @@ export default class UserOnCallLogTimeline extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Incident Episode ID",
     description:
-      "ID of your OneUptime Incident Episode in which this object belongs",
+      "ID of your Cast Operations Incident Episode in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

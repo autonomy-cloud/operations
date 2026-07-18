@@ -86,7 +86,7 @@ export function computeEntityKey(data: {
 /*
  * ---- Read-side helpers ---------------------------------------------------
  *
- * Given a OneUptime resource's identifying value, compute the entity key
+ * Given a Cast Operations resource's identifying value, compute the entity key
  * to query `has(entityKeys, :key)`. Each MUST mirror the corresponding
  * ingest-side resolver in `TelemetryEntity.extractEntities` exactly.
  */

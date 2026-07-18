@@ -1,17 +1,17 @@
 # Servidor MCP
 
-O Servidor MCP (Model Context Protocol) do OneUptime fornece aos LLMs acesso direto à sua instância do OneUptime, habilitando operações de monitoramento, gerenciamento de incidentes e observabilidade alimentadas por IA.
+O Servidor MCP (Model Context Protocol) do Cast Operations fornece aos LLMs acesso direto à sua instância do Cast Operations, habilitando operações de monitoramento, gerenciamento de incidentes e observabilidade alimentadas por IA.
 
-## O que é o Servidor MCP do OneUptime?
+## O que é o Servidor MCP do Cast Operations?
 
-O Servidor MCP do OneUptime é uma ponte entre Modelos de Linguagem de Grande Escala (LLMs) e sua instância do OneUptime. Ele implementa o Model Context Protocol (MCP), permitindo que assistentes de IA como o Claude interajam diretamente com sua infraestrutura de monitoramento.
+O Servidor MCP do Cast Operations é uma ponte entre Modelos de Linguagem de Grande Escala (LLMs) e sua instância do Cast Operations. Ele implementa o Model Context Protocol (MCP), permitindo que assistentes de IA como o Claude interajam diretamente com sua infraestrutura de monitoramento.
 
 ## Como Funciona
 
-O servidor MCP é hospedado junto com sua instância do OneUptime e acessível via transporte Streamable HTTP. Nenhuma instalação local é necessária.
+O servidor MCP é hospedado junto com sua instância do Cast Operations e acessível via transporte Streamable HTTP. Nenhuma instalação local é necessária.
 
-**Usuários na Nuvem**: `https://oneuptime.com/mcp`
-**Usuários Auto-Hospedados**: `https://seu-dominio-oneuptime.com/mcp`
+**Usuários na Nuvem**: `https://visca.ai/mcp`
+**Usuários Auto-Hospedados**: `https://seu-dominio-visca.ai/mcp`
 
 ## Principais Recursos
 
@@ -25,7 +25,7 @@ O servidor MCP é hospedado junto com sua instância do OneUptime e acessível v
 
 ## O que Você Pode Fazer
 
-Com o Servidor MCP do OneUptime, os assistentes de IA podem ajudá-lo a:
+Com o Servidor MCP do Cast Operations, os assistentes de IA podem ajudá-lo a:
 
 - **Gerenciamento de Monitores**: Criar e configurar monitores, verificar seu status e revisar o histórico de status
 - **Resposta a Incidentes**: Criar, reconhecer e resolver incidentes, adicionar notas internas ou públicas e rastrear a resolução
@@ -37,13 +37,13 @@ Com o Servidor MCP do OneUptime, os assistentes de IA podem ajudá-lo a:
 
 ## Requisitos
 
-- Instância do OneUptime (nuvem ou auto-hospedada)
+- Instância do Cast Operations (nuvem ou auto-hospedada)
 - Cliente compatível com MCP (Claude Desktop, VS Code com GitHub Copilot, etc.)
-- Chave de API válida do OneUptime (necessária apenas para operações autenticadas — ferramentas públicas funcionam sem ela)
+- Chave de API válida do Cast Operations (necessária apenas para operações autenticadas — ferramentas públicas funcionam sem ela)
 
 ## Obtendo Sua Chave de API
 
-1. Faça login na sua instância do OneUptime
+1. Faça login na sua instância do Cast Operations
 2. Navegue para **Configurações** → **Chaves de API**
 3. Clique em **Criar Chave de API**
 4. Forneça um nome (ex.: "Servidor MCP")
@@ -52,7 +52,7 @@ Com o Servidor MCP do OneUptime, os assistentes de IA podem ajudá-lo a:
 
 As chaves de API têm escopo de projeto: o servidor MCP infere seu projeto a partir da chave, então as ferramentas de criação nunca precisam de um argumento `projectId`.
 
-> **Aviso — nunca dê uma chave mestra a um agente de IA.** Uma chave de API *mestra* do OneUptime também é aceita neste cabeçalho e concede acesso de administrador a toda a instância. Sempre use uma chave de API de projeto com o menor privilégio de que o agente precisa (uma chave somente leitura é suficiente para todas as ferramentas `get_`/`list_`/`count_`).
+> **Aviso — nunca dê uma chave mestra a um agente de IA.** Uma chave de API *mestra* do Cast Operations também é aceita neste cabeçalho e concede acesso de administrador a toda a instância. Sempre use uma chave de API de projeto com o menor privilégio de que o agente precisa (uma chave somente leitura é suficiente para todas as ferramentas `get_`/`list_`/`count_`).
 
 ## Configuração
 
@@ -64,7 +64,7 @@ Encontre seu arquivo de configuração do Claude Desktop:
 **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 **Linux**: `~/.config/Claude/claude_desktop_config.json`
 
-### Para OneUptime na Nuvem
+### Para Cast Operations na Nuvem
 
 Adicione a seguinte configuração:
 
@@ -73,7 +73,7 @@ Adicione a seguinte configuração:
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -82,16 +82,16 @@ Adicione a seguinte configuração:
 }
 ```
 
-### Para OneUptime Auto-Hospedado
+### Para Cast Operations Auto-Hospedado
 
-Substitua `oneuptime.com` pelo seu domínio do OneUptime:
+Substitua `visca.ai` pelo seu domínio do Cast Operations:
 
 ```json
 {
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://your-oneuptime-domain.com/mcp",
+      "url": "https://your-operations-domain.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -109,7 +109,7 @@ Para usar apenas ferramentas públicas (informações de página de status, ajud
   "mcpServers": {
     "oneuptime": {
       "transport": "streamable-http",
-      "url": "https://oneuptime.com/mcp"
+      "url": "https://visca.ai/mcp"
     }
   }
 }
@@ -119,7 +119,7 @@ Esta configuração permite acesso a ferramentas públicas de página de status 
 
 ### VS Code com GitHub Copilot
 
-O VS Code suporta servidores MCP nativamente com GitHub Copilot (versão 1.99+). Isso permite que o Copilot acesse dados do OneUptime diretamente.
+O VS Code suporta servidores MCP nativamente com GitHub Copilot (versão 1.99+). Isso permite que o Copilot acesse dados do Cast Operations diretamente.
 
 #### Passo 1: Requisitos
 
@@ -135,14 +135,14 @@ O VS Code suporta servidores MCP nativamente com GitHub Copilot (versão 1.99+).
 
 Como alternativa, crie `.vscode/mcp.json` no seu espaço de trabalho para configuração específica do projeto.
 
-#### Para OneUptime na Nuvem
+#### Para Cast Operations na Nuvem
 
 ```json
 {
   "servers": {
     "oneuptime": {
       "type": "http",
-      "url": "https://oneuptime.com/mcp",
+      "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "${input:oneuptime-api-key}"
       }
@@ -152,21 +152,21 @@ Como alternativa, crie `.vscode/mcp.json` no seu espaço de trabalho para config
     {
       "type": "promptString",
       "id": "oneuptime-api-key",
-      "description": "OneUptime API Key",
+      "description": "Cast Operations API Key",
       "password": true
     }
   ]
 }
 ```
 
-#### Para OneUptime Auto-Hospedado
+#### Para Cast Operations Auto-Hospedado
 
 ```json
 {
   "servers": {
     "oneuptime": {
       "type": "http",
-      "url": "https://your-oneuptime-domain.com/mcp",
+      "url": "https://your-operations-domain.com/mcp",
       "headers": {
         "x-api-key": "${input:oneuptime-api-key}"
       }
@@ -176,7 +176,7 @@ Como alternativa, crie `.vscode/mcp.json` no seu espaço de trabalho para config
     {
       "type": "promptString",
       "id": "oneuptime-api-key",
-      "description": "OneUptime API Key",
+      "description": "Cast Operations API Key",
       "password": true
     }
   ]
@@ -188,14 +188,14 @@ Como alternativa, crie `.vscode/mcp.json` no seu espaço de trabalho para config
 1. Pressione `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. Digite "MCP: List Servers" para ver os servidores disponíveis
 3. Clique em "oneuptime" para iniciar o servidor
-4. Quando solicitado, insira sua chave de API do OneUptime
+4. Quando solicitado, insira sua chave de API do Cast Operations
 
 #### Passo 4: Usar com o Copilot Chat
 
 Abra o GitHub Copilot Chat e use o modo Agente (`@workspace` ou pergunte diretamente):
 
 ```
-"What monitors do I have in OneUptime?"
+"What monitors do I have in Cast Operations?"
 "Show me recent incidents"
 "Create a new monitor for https://example.com"
 ```
@@ -222,7 +222,7 @@ O servidor MCP suporta dois modos de operação:
 
 Você pode conectar ao servidor MCP sem uma chave de API para acessar ferramentas públicas:
 
-- **`oneuptime_help`**: Obter ajuda e orientação sobre as capacidades do MCP do OneUptime
+- **`oneuptime_help`**: Obter ajuda e orientação sobre as capacidades do MCP do Cast Operations
 - **`oneuptime_list_resources`**: Listar recursos disponíveis e suas operações
 - **`get_public_status_page_overview`**: Obter visão geral de uma página de status pública
 - **`get_public_status_page_incidents`**: Obter incidentes de uma página de status pública
@@ -235,7 +235,7 @@ As ferramentas de página de status pública aceitam um ID de página de status 
 
 Para todas as outras operações (gerenciar monitores, incidentes, equipes, etc.), a autenticação é necessária via um dos seguintes cabeçalhos:
 
-- `x-api-key`: Sua chave de API do OneUptime
+- `x-api-key`: Sua chave de API do Cast Operations
 - `Authorization`: Token Bearer com sua chave de API (ex.: `Bearer your-api-key-here`)
 
 O esquema `Bearer` não diferencia maiúsculas de minúsculas. Erros de ferramenta são retornados como resultados de ferramenta dentro da resposta (`isError: true`) com um `statusCode`, detalhes e uma sugestão — não como erros do protocolo MCP — para que os agentes possam ler a falha e se autocorrigir.
@@ -295,21 +295,21 @@ As ferramentas de listagem paginam com `limit` (padrão 10, máximo 100) e `skip
 Verifique se o servidor MCP está em execução:
 
 ```bash
-# For OneUptime Cloud
-curl https://oneuptime.com/mcp/health
+# For Cast Operations Cloud
+curl https://visca.ai/mcp/health
 
 # For Self-Hosted
-curl https://your-oneuptime-domain.com/mcp/health
+curl https://your-operations-domain.com/mcp/health
 ```
 
 Liste as ferramentas disponíveis:
 
 ```bash
-# For OneUptime Cloud
-curl https://oneuptime.com/mcp/tools
+# For Cast Operations Cloud
+curl https://visca.ai/mcp/tools
 
 # For Self-Hosted
-curl https://your-oneuptime-domain.com/mcp/tools
+curl https://your-operations-domain.com/mcp/tools
 ```
 
 ## Exemplos de Uso
@@ -359,7 +359,7 @@ Estas consultas funcionam sem autenticação, usando apenas as ferramentas públ
 
 ```
 "What's the current status of status.example.com?"
-"Show me recent incidents from the OneUptime status page"
+"Show me recent incidents from the Cast Operations status page"
 "Are there any scheduled maintenance events on status.acme.com?"
 "Get the latest announcements from my public status page with ID abc123-..."
 ```
@@ -385,7 +385,7 @@ Para acesso total para criar, atualizar e excluir recursos, certifique-se de que
 
 - Use Permissões Específicas: Conceda apenas as permissões mínimas necessárias
 - Rotacione Chaves de API: Rotacione regularmente suas chaves de API
-- Monitore o Uso: Acompanhe o uso da chave de API no OneUptime
+- Monitore o Uso: Acompanhe o uso da chave de API no Cast Operations
 - Chaves Separadas: Use diferentes chaves de API para diferentes ambientes
 
 ## Solução de Problemas
@@ -400,14 +400,14 @@ Certifique-se de que sua chave de API tem as permissões necessárias:
 
 ### Problemas de Conexão
 
-1. Verifique se a URL do OneUptime está correta
+1. Verifique se a URL do Cast Operations está correta
 2. Verifique se sua chave de API é válida
-3. Certifique-se de que sua instância do OneUptime está acessível
+3. Certifique-se de que sua instância do Cast Operations está acessível
 4. Teste o endpoint de saúde
 
 ### Chave de API Inválida
 
-- Verifique a chave de API nas configurações do seu OneUptime
+- Verifique a chave de API nas configurações do seu Cast Operations
 - Verifique se há espaços extras ou caracteres
 - Certifique-se de que a chave não expirou
 

@@ -2,7 +2,7 @@
 
 De SQL-query-monitor voert volgens een schema een alleen-lezen SQL-query uit vanaf een probe en waarschuwt op basis van het resultaat — het aantal geretourneerde rijen, een scalaire waarde, hoe lang de query duurde, of een queryfout. Hij is gebouwd voor het gebruiksscenario "voer een query uit en open een incident", bijvoorbeeld waarschuwen wanneer het aantal geannuleerde bestellingen in de afgelopen vijf minuten piekt, wanneer een wachtrijtabel te groot wordt, of wanneer een cruciale rij verdwijnt.
 
-Omdat de query wordt uitgevoerd vanaf een probe binnen uw netwerk, heeft OneUptime nooit een directe verbinding met uw database nodig, en verlaat de volledige resultaatset de probe nooit — alleen een kleine, begrensde projectie van het resultaat wordt teruggerapporteerd.
+Omdat de query wordt uitgevoerd vanaf een probe binnen uw netwerk, heeft Cast Operations nooit een directe verbinding met uw database nodig, en verlaat de volledige resultaatset de probe nooit — alleen een kleine, begrensde projectie van het resultaat wordt teruggerapporteerd.
 
 ## Ondersteunde databases
 
@@ -16,7 +16,7 @@ MySQL-compatibele en PostgreSQL-compatibele engines die hetzelfde wire-protocol 
 
 ## Hoe het werkt
 
-Bij elke controle maakt de probe verbinding met uw database, voert uw query uit in een alleen-lezen context, leest hooguit een begrensd aantal rijen terug en rapporteert een compacte projectie aan OneUptime. De criteria van uw monitor worden vervolgens geëvalueerd aan de hand van die projectie.
+Bij elke controle maakt de probe verbinding met uw database, voert uw query uit in een alleen-lezen context, leest hooguit een begrensd aantal rijen terug en rapporteert een compacte projectie aan Cast Operations. De criteria van uw monitor worden vervolgens geëvalueerd aan de hand van die projectie.
 
 De probe rapporteert alleen:
 
@@ -26,7 +26,7 @@ De probe rapporteert alleen:
 - **Uitvoeringstijd** — hoe lang de query duurde, in milliseconden.
 - **Queryfout** — een opgeschoond foutbericht als de query is mislukt.
 
-De volledige resultaatset wordt nooit naar OneUptime verzonden, dus klantgegevens worden niet gerepliceerd naar de OneUptime-opslag.
+De volledige resultaatset wordt nooit naar Cast Operations verzonden, dus klantgegevens worden niet gerepliceerd naar de Cast Operations-opslag.
 
 ## Beveiligingsmodel
 
@@ -41,7 +41,7 @@ Het uitvoeren van een door de klant aangeleverde query op een productiedatabase 
 
 ## Vereisten
 
-- Een **probe** met netwerktoegang tot uw databasehost en -poort. Dit kan een door OneUptime gehoste probe zijn (als uw database bereikbaar is vanaf het internet) of een zelf-gehoste probe die binnen uw netwerk draait. Zie de probe-documentatie voor het installeren van een aangepaste probe.
+- Een **probe** met netwerktoegang tot uw databasehost en -poort. Dit kan een door Cast Operations gehoste probe zijn (als uw database bereikbaar is vanaf het internet) of een zelf-gehoste probe die binnen uw netwerk draait. Zie de probe-documentatie voor het installeren van een aangepaste probe.
 - Een **alleen-lezen database-gebruiker** en de verbindingsgegevens (host, poort, databasenaam, gebruikersnaam, wachtwoord).
 
 ## Configuratie
@@ -99,11 +99,11 @@ Voor een query in `COUNT(*)`-stijl is de telling beschikbaar zowel als **Aantal 
 
 Zodat het databasewachtwoord nooit in platte tekst op de monitor wordt opgeslagen, maakt u een [Monitor Secret](/docs/monitor/monitor-secrets) aan en verwijst u ernaar vanuit het veld Wachtwoord:
 
-1. Ga naar OneUptime Dashboard → Projectinstellingen → Monitor Secrets → Monitor Secret aanmaken.
+1. Ga naar Cast Operations Dashboard → Projectinstellingen → Monitor Secrets → Monitor Secret aanmaken.
 2. Maak een secret aan (bijvoorbeeld `dbPassword`) en verleen deze monitor er toegang toe.
 3. Voer in het veld Wachtwoord van de monitor `{{monitorSecrets.dbPassword}}` in.
 
-OneUptime lost het secret server-side op voordat de configuratie aan de probe wordt doorgegeven. OneUptime maakt deze secrets nooit voor u aan — ernaar verwijzen is uw eigen keuze.
+Cast Operations lost het secret server-side op voordat de configuratie aan de probe wordt doorgegeven. Cast Operations maakt deze secrets nooit voor u aan — ernaar verwijzen is uw eigen keuze.
 
 ## Criteria instellen
 

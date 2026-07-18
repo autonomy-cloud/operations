@@ -374,7 +374,7 @@ export default class SqlMonitor {
   }
 
   /**
-   * Turn the fetched rows into the compact projection reported to OneUptime:
+   * Turn the fetched rows into the compact projection reported to Cast Operations:
    * a bounded row count, the first cell (scalar), and the first row. Never
    * returns the full result set.
    */

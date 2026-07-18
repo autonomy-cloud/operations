@@ -45,7 +45,7 @@ export interface ComponentProps {
     | ((data: Array<TelemetryException>, totalCount: number) => void)
     | undefined;
   /*
-   * Scope to a OneUptime entity by its stable entityKeys (membership).
+   * Scope to a Cast Operations entity by its stable entityKeys (membership).
    * TelemetryException is a Postgres grouping row with no entityKeys column,
    * so the scope is resolved via the ExceptionInstance analytics table
    * (hasAny(entityKeys, [...]) GROUP BY fingerprint) and injected as a

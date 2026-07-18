@@ -77,7 +77,7 @@ ORDER BY pg_database_size(datname) DESC;
 
 ### Operator-managed Postgres with CloudNativePG (optional)
 
-By default OneUptime runs Postgres as a single-replica `StatefulSet` (no
+By default Cast Operations runs Postgres as a single-replica `StatefulSet` (no
 replication, failover, or built-in backups). You can instead run Postgres under
 the [CloudNativePG](https://cloudnative-pg.io) operator, which adds HA
 (primary + hot standbys), automated failover, rolling minor upgrades, and
@@ -121,7 +121,7 @@ echo $(kubectl get secret --namespace "default" oneuptime-postgresql-cnpg-superu
 
 > **Bundled-operator caveats.** The operator is cluster-scoped and owns the
 > CloudNativePG CRDs. Do **not** enable the bundled operator in more than one
-> OneUptime release in the same cluster (they would fight over the CRDs/RBAC).
+> Cast Operations release in the same cluster (they would fight over the CRDs/RBAC).
 > Because the CRDs are installed by the chart, `helm uninstall` can remove them
 > and cascade-delete every CloudNativePG `Cluster` in the cluster — back up
 > first. If you already run CloudNativePG cluster-wide, do not use the bundled
@@ -189,7 +189,7 @@ by the operator:
   `instances >= synchronousReplicas + 2` so a single standby outage does not block
   writes.
 - **Read scaling** — send read-only/reporting traffic to the
-  `<release>-postgresql-cnpg-ro` service (replicas only). The OneUptime app uses
+  `<release>-postgresql-cnpg-ro` service (replicas only). The Cast Operations app uses
   the `-rw` (primary) service.
 
 Inspect cluster and replication status:
@@ -260,7 +260,7 @@ lives in its own doc:
 
 ### Connection pooling with PgBouncer (optional)
 
-Every OneUptime process that talks to Postgres (the `app`, the `worker`, and the
+Every Cast Operations process that talks to Postgres (the `app`, the `worker`, and the
 `nginx`/ingress gateway) keeps its own node-postgres pool — up to
 `DATABASE_MAX_OPEN_CONNECTIONS` (default **50**) server connections per pod. With
 HPA/KEDA autoscaling, the fleet can open far more connections than Postgres's
@@ -324,7 +324,7 @@ _ignores_ them (does not forward them to the backend), so set
 `statement_timeout` on the backend if you need server-side enforcement — the
 app's client-side `query_timeout` still aborts slow queries.
 
-**The migration constraint (why transaction mode needs the Job).** OneUptime
+**The migration constraint (why transaction mode needs the Job).** Cast Operations
 runs both its schema migrations (`migrationsRun`) **and** a data-migration runner
 on boot. The data-migration runner serializes across pods with a **session-level
 `pg_advisory_lock`** held across the whole run. Transaction pooling would route

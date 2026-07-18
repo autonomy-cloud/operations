@@ -1,20 +1,20 @@
 # Grafana Integration
 
-[Grafana](https://grafana.com) alerts को OneUptime incidents में बदलें। Grafana आपके dashboards पर alert rules evaluate करता है; OneUptime उन्हें record, escalate, और track करता है।
+[Grafana](https://grafana.com) alerts को Cast Operations incidents में बदलें। Grafana आपके dashboards पर alert rules evaluate करता है; Cast Operations उन्हें record, escalate, और track करता है।
 
-यह इंटीग्रेशन **इनबाउंड** है: Grafana की alerting एक OneUptime **[वर्कफ़्लो](/docs/workflows/index)** में post करती है जो **Webhook trigger** से शुरू होता है, Grafana **Webhook contact point** का उपयोग करके।
+यह इंटीग्रेशन **इनबाउंड** है: Grafana की alerting एक Cast Operations **[वर्कफ़्लो](/docs/workflows/index)** में post करती है जो **Webhook trigger** से शुरू होता है, Grafana **Webhook contact point** का उपयोग करके।
 
 ```text
-Grafana alert rule fires  ──►  Webhook contact point  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Grafana alert rule fires  ──►  Webhook contact point  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## पूर्वापेक्षाएँ
 
 - [unified alerting](https://grafana.com/docs/grafana/latest/alerting/) enabled के साथ Grafana 9+ (आधुनिक Grafana पर default)।
-- Grafana HTTPS के माध्यम से आपके OneUptime instance तक पहुँचने में सक्षम होना चाहिए।
-- एक OneUptime project जहाँ आप वर्कफ़्लो बना सकते हैं।
+- Grafana HTTPS के माध्यम से आपके Cast Operations instance तक पहुँचने में सक्षम होना चाहिए।
+- एक Cast Operations project जहाँ आप वर्कफ़्लो बना सकते हैं।
 
-## चरण 1 — OneUptime वर्कफ़्लो बनाएँ
+## चरण 1 — Cast Operations वर्कफ़्लो बनाएँ
 
 1. **Workflows → Create Workflow** खोलें, इसे `Grafana → Incidents` नाम दें, और **Builder** खोलें।
 2. एक **Webhook** trigger जोड़ें और **उसका URL कॉपी करें**। ब्लॉक का नाम `Grafana` रखें।
@@ -33,10 +33,10 @@ Grafana का webhook payload Alertmanager shape follow करता है —
 ## चरण 2 — Grafana contact point कॉन्फ़िगर करें
 
 1. Grafana में, **Alerting → Contact points → Add contact point** पर जाएँ।
-2. **Name**: `OneUptime`। **Integration**: **Webhook**।
+2. **Name**: `Cast Operations`। **Integration**: **Webhook**।
 3. **URL**: अपने वर्कफ़्लो का webhook URL पेस्ट करें। **HTTP Method**: `POST`।
 4. Contact point सहेजें।
-5. **Alerting → Notification policies** पर जाएँ और जो alerts आप चाहते हैं (या default policy) उन्हें **OneUptime** contact point पर route करें।
+5. **Alerting → Notification policies** पर जाएँ और जो alerts आप चाहते हैं (या default policy) उन्हें **Cast Operations** contact point पर route करें।
 
 ## चरण 3 — परीक्षण करें
 
@@ -51,7 +51,7 @@ Grafana का webhook payload Alertmanager shape follow करता है —
 ## नोट्स
 
 - **Legacy alerting (Grafana 8 और पहले)** एक अलग payload (`ruleName`, `state`, `evalMatches`) भेजता है। यदि आप legacy alerting पर हैं, तो `{{Grafana.Request Body.ruleName}}` और `{{Grafana.Request Body.state}}` reference करें, और `state == alerting` पर branch करें।
-- आप Grafana की alerting को पूरी तरह skip भी कर सकते हैं और OneUptime को सीधे वही metrics monitor करने दे सकते हैं — [Metrics Monitor](/docs/monitor/metrics-monitor) देखें।
+- आप Grafana की alerting को पूरी तरह skip भी कर सकते हैं और Cast Operations को सीधे वही metrics monitor करने दे सकते हैं — [Metrics Monitor](/docs/monitor/metrics-monitor) देखें।
 
 ## समस्या निवारण
 
@@ -62,4 +62,4 @@ Grafana का webhook payload Alertmanager shape follow करता है —
 
 - [इंटीग्रेशन अवलोकन](/docs/integrations/index) — inbound pattern।
 - [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager) — closely related payload।
-- [Metrics Monitor](/docs/monitor/metrics-monitor) — OneUptime में directly metrics monitor करें।
+- [Metrics Monitor](/docs/monitor/metrics-monitor) — Cast Operations में directly metrics monitor करें।

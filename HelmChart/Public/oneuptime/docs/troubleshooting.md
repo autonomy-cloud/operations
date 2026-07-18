@@ -1,6 +1,6 @@
 # Troubleshooting Performance Issues
 
-If your OneUptime deployment is slow or unhealthy, run the bundled diagnostic
+If your Cast Operations deployment is slow or unhealthy, run the bundled diagnostic
 script. It inspects pods, databases (PostgreSQL, ClickHouse, Redis), storage,
 logs, autoscaling, and the ingress, then prints a ranked list of findings with
 concrete action steps.
@@ -11,7 +11,7 @@ The script is **read-only** — it only runs `SELECT` queries and
 ## Run it
 
 ```console
-curl -sLO https://raw.githubusercontent.com/OneUptime/oneuptime/master/HelmChart/Public/diagnose.sh
+curl -sLO https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/diagnose.sh
 chmod +x diagnose.sh
 
 # Auto-detects namespace and helm release name
@@ -30,7 +30,7 @@ change and the `helm upgrade` command to apply it.
 
 A full report is saved to `oneuptime-diagnostic-<timestamp>.txt` in your current
 directory. Attach this file to support tickets at
-[oneuptime.com/support](https://oneuptime.com/support) so we can help diagnose
+[visca.ai/support](https://visca.ai/support) so we can help diagnose
 faster.
 
 ## Options
@@ -38,5 +38,5 @@ faster.
 ```console
 ./diagnose.sh --help              # show all flags
 ./diagnose.sh --no-color          # plain text (for piping/logging)
-./diagnose.sh --output report.txt # custom report file path to send to OneUptime support
+./diagnose.sh --output report.txt # custom report file path to send to Cast Operations support
 ```

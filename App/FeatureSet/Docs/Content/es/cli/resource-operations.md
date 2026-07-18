@@ -1,6 +1,6 @@
 # Operaciones de recursos
 
-La CLI de OneUptime proporciona operaciones CRUD (Crear, Leer, Actualizar, Eliminar) completas para todos los recursos admitidos. Los recursos se detectan automáticamente desde tu instancia de OneUptime.
+La CLI de Cast Operations proporciona operaciones CRUD (Crear, Leer, Actualizar, Eliminar) completas para todos los recursos admitidos. Los recursos se detectan automáticamente desde tu instancia de Cast Operations.
 
 ## Recursos disponibles
 

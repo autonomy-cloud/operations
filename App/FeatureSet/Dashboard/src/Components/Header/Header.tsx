@@ -10,12 +10,9 @@ import AskAI from "./AskAI";
 import Help from "./Help";
 import Logo from "./Logo";
 import ProjectPicker from "./ProjectPicker";
-import Upgrade from "./Upgrade";
 import UserProfile from "./UserProfile";
 import ThemeToggle from "./ThemeToggle";
 import Includes from "Common/Types/BaseDatabase/Includes";
-import SubscriptionPlan from "Common/Types/Billing/SubscriptionPlan";
-import OneUptimeDate from "Common/Types/Date";
 import { PromiseVoidFunction, VoidFunction } from "Common/Types/FunctionTypes";
 import IconProp from "Common/Types/Icon/IconProp";
 import { ButtonStyleType } from "Common/UI/Components/Button/Button";
@@ -25,7 +22,7 @@ import {
   NotificationBell,
   NotificationItem,
 } from "Common/UI/Components/HeaderAlert/NotificationBell";
-import { APP_API_URL, BILLING_ENABLED, getAllEnvVars } from "Common/UI/Config";
+import { APP_API_URL } from "Common/UI/Config";
 import Navigation from "Common/UI/Utils/Navigation";
 import User from "Common/UI/Utils/User";
 import AlertEpisode from "Common/Models/DatabaseModels/AlertEpisode";
@@ -623,41 +620,6 @@ const DashboardHeader: FunctionComponent<ComponentProps> = (
     });
   }, [props.selectedProject]);
 
-  const showAddCardButton: boolean = Boolean(
-    BILLING_ENABLED &&
-      props.selectedProject?.id &&
-      props.selectedProject.paymentProviderPlanId &&
-      !SubscriptionPlan.isFreePlan(
-        props.selectedProject.paymentProviderPlanId,
-        getAllEnvVars(),
-      ) &&
-      !SubscriptionPlan.isCustomPricingPlan(
-        props.selectedProject.paymentProviderPlanId,
-        getAllEnvVars(),
-      ) &&
-      props.paymentMethodsCount !== undefined &&
-      props.paymentMethodsCount === 0 &&
-      !props.selectedProject.resellerId,
-  );
-
-  const showTrialButton: boolean = Boolean(
-    props.selectedProject?.trialEndsAt &&
-      BILLING_ENABLED &&
-      showAddCardButton &&
-      OneUptimeDate.getNumberOfDaysBetweenDatesInclusive(
-        OneUptimeDate.getCurrentDate(),
-        props.selectedProject?.trialEndsAt,
-      ) > 0 &&
-      !props.selectedProject.resellerId,
-  );
-
-  const trialDaysRemaining: number = props.selectedProject?.trialEndsAt
-    ? OneUptimeDate.getNumberOfDaysBetweenDatesInclusive(
-        OneUptimeDate.getCurrentDate(),
-        props.selectedProject.trialEndsAt,
-      )
-    : 0;
-
   const buildNotificationItems: () => Array<NotificationItem> =
     (): Array<NotificationItem> => {
       const items: Array<NotificationItem> = [];
@@ -754,35 +716,6 @@ const DashboardHeader: FunctionComponent<ComponentProps> = (
         tooltip: t("header.invitationsTooltip"),
       });
 
-      // Trial Days - INFO type (only if showTrialButton is true)
-      if (showTrialButton && trialDaysRemaining > 0) {
-        items.push({
-          id: "trial",
-          icon: IconProp.Clock,
-          title: t(
-            trialDaysRemaining === 1
-              ? "header.trialEndsOne"
-              : "header.trialEndsOther",
-            { count: trialDaysRemaining },
-          ),
-          count: trialDaysRemaining,
-          alertType: HeaderAlertType.INFO,
-          tooltip: t("header.trialTooltip"),
-        });
-      }
-
-      // Add Card Details - INFO type (only if showAddCardButton is true)
-      if (showAddCardButton) {
-        items.push({
-          id: "addcard",
-          icon: IconProp.Billing,
-          title: t("header.addCardDetails"),
-          count: 1,
-          alertType: HeaderAlertType.INFO,
-          tooltip: t("header.addCardTooltip"),
-        });
-      }
-
       return items;
     };
 
@@ -817,16 +750,6 @@ const DashboardHeader: FunctionComponent<ComponentProps> = (
       case "invitations":
         Navigation.navigate(
           RouteUtil.populateRouteParams(RouteMap[PageMap.PROJECT_INVITATIONS]!),
-        );
-        break;
-      case "trial":
-        Navigation.navigate(
-          RouteUtil.populateRouteParams(RouteMap[PageMap.SETTINGS_BILLING]!),
-        );
-        break;
-      case "addcard":
-        Navigation.navigate(
-          RouteUtil.populateRouteParams(RouteMap[PageMap.SETTINGS_BILLING]!),
         );
         break;
       case "oncall":
@@ -878,17 +801,6 @@ const DashboardHeader: FunctionComponent<ComponentProps> = (
         mobileRightComponents={<ThemeToggle />}
         rightComponents={
           <>
-            {BILLING_ENABLED &&
-            props.selectedProject?.id &&
-            props.selectedProject.paymentProviderPlanId &&
-            SubscriptionPlan.isFreePlan(
-              props.selectedProject.paymentProviderPlanId,
-              getAllEnvVars(),
-            ) ? (
-              <Upgrade />
-            ) : (
-              <></>
-            )}
             <AskAI />
             <NotificationBell
               items={buildNotificationItems()}

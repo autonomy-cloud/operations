@@ -1,21 +1,21 @@
 # Intégration des e-mails entrants SendGrid
 
-Le **Moniteur d'e-mails entrants** de OneUptime vous permet de créer et de résoudre des alertes basées sur des e-mails envoyés à des adresses e-mail uniques spécifiques au moniteur. Cela est utile pour l'intégration avec des systèmes hérités, des outils d'alerte ou tout service capable d'envoyer des e-mails.
+Le **Moniteur d'e-mails entrants** de Cast Operations vous permet de créer et de résoudre des alertes basées sur des e-mails envoyés à des adresses e-mail uniques spécifiques au moniteur. Cela est utile pour l'intégration avec des systèmes hérités, des outils d'alerte ou tout service capable d'envoyer des e-mails.
 
-Ce guide explique comment configurer SendGrid Inbound Parse pour transférer les e-mails entrants vers votre instance auto-hébergée OneUptime.
+Ce guide explique comment configurer SendGrid Inbound Parse pour transférer les e-mails entrants vers votre instance auto-hébergée Cast Operations.
 
 ## Prérequis
 
 - Un compte SendGrid (le niveau gratuit fonctionne)
 - Un domaine que vous contrôlez avec accès aux paramètres DNS
-- Votre instance OneUptime doit être publiquement accessible (pour que SendGrid puisse envoyer des webhooks)
+- Votre instance Cast Operations doit être publiquement accessible (pour que SendGrid puisse envoyer des webhooks)
 
 ## Fonctionnement
 
-1. Vous créez un **Moniteur d'e-mails entrants** dans OneUptime
-2. OneUptime génère une adresse e-mail unique pour ce moniteur (ex. : `monitor-abc123@inbound.votredomaine.com`)
-3. Lorsqu'un e-mail est envoyé à cette adresse, SendGrid le reçoit et le transmet à OneUptime via webhook
-4. OneUptime évalue l'e-mail en fonction de vos critères configurés pour créer ou résoudre des alertes
+1. Vous créez un **Moniteur d'e-mails entrants** dans Cast Operations
+2. Cast Operations génère une adresse e-mail unique pour ce moniteur (ex. : `monitor-abc123@inbound.votredomaine.com`)
+3. Lorsqu'un e-mail est envoyé à cette adresse, SendGrid le reçoit et le transmet à Cast Operations via webhook
+4. Cast Operations évalue l'e-mail en fonction de vos critères configurés pour créer ou résoudre des alertes
 
 ## Instructions de configuration
 
@@ -27,7 +27,7 @@ Vous aurez besoin d'un sous-domaine dédié à la réception des e-mails entrant
 - `email.votredomaine.com`
 - `monitor.votredomaine.com`
 
-Ce sous-domaine sera utilisé exclusivement pour les e-mails du moniteur OneUptime.
+Ce sous-domaine sera utilisé exclusivement pour les e-mails du moniteur Cast Operations.
 
 ### Étape 2 : Configurer l'enregistrement MX DNS
 
@@ -64,14 +64,14 @@ Pour une meilleure délivrabilité et éviter que les e-mails soient marqués co
 | Champ                                          | Valeur                                                                     |
 | ---------------------------------------------- | -------------------------------------------------------------------------- |
 | **Domaine récepteur**                          | Votre sous-domaine entrant (ex. : `inbound.votredomaine.com`)              |
-| **URL de destination**                         | `https://votre-domaine-oneuptime.com/incoming-email/sendgrid/VOTRE_SECRET` |
+| **URL de destination**                         | `https://votre-domaine-visca.ai/incoming-email/sendgrid/VOTRE_SECRET` |
 | **Vérifier les e-mails entrants pour le spam** | Optionnel — activez si souhaité                                            |
 | **Envoyer le message MIME complet brut**       | Laisser décoché (non requis)                                               |
 | **Poster le message MIME complet brut**        | Laisser décoché (non requis)                                               |
 
 5. Cliquez sur **Ajouter**
 
-### Étape 5 : Configurer les variables d'environnement OneUptime
+### Étape 5 : Configurer les variables d'environnement Cast Operations
 
 #### Docker Compose
 
@@ -95,11 +95,11 @@ inboundEmail:
   # webhookSecret: "votre-secret-optionnel"  # Optionnel
 ```
 
-**Important :** Redémarrez votre serveur OneUptime après avoir ajouté ces variables d'environnement.
+**Important :** Redémarrez votre serveur Cast Operations après avoir ajouté ces variables d'environnement.
 
 ### Étape 6 : Créer un moniteur d'e-mails entrants
 
-1. Connectez-vous à votre tableau de bord OneUptime
+1. Connectez-vous à votre tableau de bord Cast Operations
 2. Accédez à **Moniteurs** > **Créer un moniteur**
 3. Sélectionnez **E-mail entrant** comme type de moniteur
 4. Configurez votre moniteur :
@@ -115,9 +115,9 @@ Après la création, vous verrez l'adresse e-mail unique pour ce moniteur (ex. :
 
 ### Étape 7 : Tester l'intégration
 
-1. Copiez l'adresse e-mail du moniteur depuis le tableau de bord OneUptime
+1. Copiez l'adresse e-mail du moniteur depuis le tableau de bord Cast Operations
 2. Envoyez un e-mail de test à cette adresse avec un objet qui correspond à vos critères d'alerte
-3. Vérifiez dans le tableau de bord OneUptime :
+3. Vérifiez dans le tableau de bord Cast Operations :
    - L'e-mail a été reçu (visible dans le récapitulatif du moniteur)
    - Une alerte a été créée (si les critères correspondaient)
 
@@ -147,7 +147,7 @@ Lors de la configuration de votre moniteur d'e-mails entrants, vous pouvez crée
 
 De nombreux systèmes hérités ne peuvent envoyer que des alertes par e-mail. Créez un moniteur d'e-mails entrants pour :
 
-- Créer des alertes OneUptime lorsque le système hérité envoie des e-mails `[CRITIQUE]`
+- Créer des alertes Cast Operations lorsque le système hérité envoie des e-mails `[CRITIQUE]`
 - Résoudre les alertes lorsque des e-mails `[RÉSOLU]` sont reçus
 
 ### Intégration de services tiers
@@ -183,16 +183,16 @@ Utilisez les critères « E-mail reçu » pour vous assurer de recevoir des e-ma
    - Allez dans Paramètres > Inbound Parse
    - Vérifiez que votre domaine et l'URL du webhook sont corrects
 
-3. **Vérifier les journaux OneUptime :**
+3. **Vérifier les journaux Cast Operations :**
    - Recherchez les requêtes de webhook dans les journaux du service ProbeIngest
    - Vérifiez les messages d'erreur éventuels
 
 ### Les webhooks échouent
 
-1. **Assurez-vous que OneUptime est publiquement accessible :**
+1. **Assurez-vous que Cast Operations est publiquement accessible :**
 
    - L'URL du webhook doit être accessible depuis Internet
-   - Testez avec : `curl -X POST https://votre-domaine-oneuptime.com/incoming-email/sendgrid`
+   - Testez avec : `curl -X POST https://votre-domaine-visca.ai/incoming-email/sendgrid`
 
 2. **Vérifier les règles de pare-feu :**
 
@@ -223,7 +223,7 @@ Utilisez les critères « E-mail reçu » pour vous assurer de recevoir des e-ma
 Pour vérifier si SendGrid envoie correctement les webhooks :
 
 1. Malheureusement, SendGrid ne fournit pas de journaux détaillés pour Inbound Parse
-2. Consultez les journaux de votre serveur OneUptime pour les requêtes de webhook entrantes
+2. Consultez les journaux de votre serveur Cast Operations pour les requêtes de webhook entrantes
 3. Utilisez un outil comme [RequestBin](https://requestbin.com) pour tester temporairement la livraison des webhooks
 
 ## Meilleures pratiques de sécurité
@@ -236,7 +236,7 @@ Pour vérifier si SendGrid envoie correctement les webhooks :
 
 ## Fournisseurs alternatifs
 
-OneUptime est conçu pour prendre en charge plusieurs fournisseurs d'e-mail entrant. Actuellement pris en charge :
+Cast Operations est conçu pour prendre en charge plusieurs fournisseurs d'e-mail entrant. Actuellement pris en charge :
 
 | Fournisseur           | Statut         |
 | --------------------- | -------------- |
@@ -250,7 +250,7 @@ Si vous avez besoin de la prise en charge d'un autre fournisseur, veuillez nous 
 Si vous rencontrez des problèmes avec l'intégration des e-mails entrants SendGrid :
 
 1. Consultez la section de dépannage ci-dessus
-2. Examinez les journaux de OneUptime pour les messages d'erreur détaillés
-3. Nous contacter à [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Examinez les journaux de Cast Operations pour les messages d'erreur détaillés
+3. Nous contacter à [hello@visca.ai](mailto:hello@visca.ai)
 
 Nous accueillons favorablement les retours pour améliorer cette intégration !

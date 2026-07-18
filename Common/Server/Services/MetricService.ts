@@ -845,7 +845,7 @@ export class MetricService extends AnalyticsDatabaseService<Metric> {
    * tables. Without a matching DELETE on each MV, dashboard widgets that
    * read from `MetricItemAggMV1m` keep counting and averaging metrics
    * belonging to entities (incidents, alerts) the user has just deleted.
-   * See https://github.com/OneUptime/oneuptime/issues/2419.
+   * See https://github.com/autonomy-cloud/operations/issues/2419.
    *
    * The cascade only runs when the caller scoped the delete by
    * `primaryEntityId`. Global time-based purges (TTL cleanup) are handled

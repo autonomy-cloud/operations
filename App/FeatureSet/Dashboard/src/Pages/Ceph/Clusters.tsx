@@ -276,7 +276,7 @@ const CephClusters: FunctionComponent<
         cardProps={{
           title: "Ceph Clusters",
           description:
-            "Clusters being monitored in this project. Install the OneUptime Ceph Agent to connect a cluster.",
+            "Clusters being monitored in this project. Install the Cast Operations Ceph Agent to connect a cluster.",
         }}
         showViewIdButton={true}
         formFields={[

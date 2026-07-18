@@ -1,13 +1,13 @@
 # GitHub-integration
 
-Åbn automatisk en [GitHub](https://github.com)-sag, når en OneUptime-hændelse oprettes — så ingeniørernes opfølgning spores i det repo, der ejer den berørte tjeneste.
+Åbn automatisk en [GitHub](https://github.com)-sag, når en Cast Operations-hændelse oprettes — så ingeniørernes opfølgning spores i det repo, der ejer den berørte tjeneste.
 
-Denne integration er **udgående**: OneUptime kalder [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Den bruger et OneUptime **[Workflow](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**.
+Denne integration er **udgående**: Cast Operations kalder [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Den bruger et Cast Operations **[Workflow](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**.
 
-> **Leder du efter den dybere GitHub-forbindelse?** OneUptime har også en native **GitHub App**-integration til at forbinde kode-repositories (brugt af AI-agenten og kodefunktioner). Den konfigureres med miljøvariabler, ikke workflows — se [GitHub-integration (selvhostet)](/docs/self-hosted/github-integration). Denne side handler specifikt om _oprettelse af sager fra hændelser_.
+> **Leder du efter den dybere GitHub-forbindelse?** Cast Operations har også en native **GitHub App**-integration til at forbinde kode-repositories (brugt af AI-agenten og kodefunktioner). Den konfigureres med miljøvariabler, ikke workflows — se [GitHub-integration (selvhostet)](/docs/self-hosted/github-integration). Denne side handler specifikt om _oprettelse af sager fra hændelser_.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## Forudsætninger
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   Opret et på [github.com/settings/tokens](https://github.com/settings/tokens).
 
-- Et OneUptime-projekt, hvor du kan oprette workflows.
+- Et Cast Operations-projekt, hvor du kan oprette workflows.
 
 ## Trin 1 — Gem tokenet
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**:
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

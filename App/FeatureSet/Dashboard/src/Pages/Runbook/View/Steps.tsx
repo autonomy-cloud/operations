@@ -256,7 +256,7 @@ fi`,
 ];
 
 /*
- * AI prompts run on the OneUptime Worker via the project's LLM provider.
+ * AI prompts run on the Cast Operations Worker via the project's LLM provider.
  * The response becomes the step output on the execution timeline.
  */
 const AI_PROMPT_EXAMPLES: Array<ScriptExample> = [

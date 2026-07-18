@@ -1,12 +1,12 @@
 # Terraform Provider-dokumentation
 
-OneUptime Terraform Provider muliggør Infrastructure as Code (IaC)-administration af dine OneUptime overvågnings-, advarsels- og observabilitetsressourcer.
+Cast Operations Terraform Provider muliggør Infrastructure as Code (IaC)-administration af dine Cast Operations overvågnings-, advarsels- og observabilitetsressourcer.
 
 ## Dokumentationsafsnit
 
 ### [Kom i gang](./quick-start.md)
 
-Hurtig opsætningsvejledning til at komme i gang med OneUptime Terraform Provider på få minutter.
+Hurtig opsætningsvejledning til at komme i gang med Cast Operations Terraform Provider på få minutter.
 
 ### [Komplet providervejledning](./README.md)
 
@@ -18,24 +18,24 @@ Omfattende dokumentation, der dækker installation, konfiguration, ressourcer og
 
 ### [Eksempler](./examples.md)
 
-Eksempler fra virkeligheden og mønstre til almindelige OneUptime Terraform-konfigurationer.
+Eksempler fra virkeligheden og mønstre til almindelige Cast Operations Terraform-konfigurationer.
 
 ## Hurtige links
 
-### Til OneUptime Cloud-kunder
+### Til Cast Operations Cloud-kunder
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Skal matche din OneUptime-version
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Skal matche din Cast Operations-version
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Vigtigt for selvhostede brugere
 
-**Versionskompatibilitet er kritisk**: Fastlås altid Terraform-providerversionen til nøjagtigt at matche din OneUptime-installationsversion. Uoverensstemmende versioner kan forårsage API-kompatibilitetsproblemer.
+**Versionskompatibilitet er kritisk**: Fastlås altid Terraform-providerversionen til nøjagtigt at matche din Cast Operations-installationsversion. Uoverensstemmende versioner kan forårsage API-kompatibilitetsproblemer.
 
 ## Eksterne ressourcer
 
-- **Terraform Registry**: [OneUptime Provider](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub Repository**: [OneUptime Source Code](https://github.com/OneUptime/oneuptime)
-- **Fællesskabssupport**: [OneUptime Community](https://community.oneuptime.com)
+- **Terraform Registry**: [Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub Repository**: [Cast Operations Source Code](https://github.com/autonomy-cloud/operations)
+- **Fællesskabssupport**: [Cast Operations Community](https://community.visca.ai)
 
 ## Tilgængelige ressourcer
 
-Provideren understøtter omfattende OneUptime-ressourceadministration:
+Provideren understøtter omfattende Cast Operations-ressourceadministration:
 
 - **Projekter og teams**: Organiser din overvågningsstruktur
 - **Monitorer**: Website-, API-, port-, hjerteslag- og brugerdefinerede monitorer
@@ -83,9 +83,9 @@ Provideren understøtter omfattende OneUptime-ressourceadministration:
 
 Til problemer, spørgsmål eller bidrag:
 
-1. **Dokumentationsproblemer**: Opret et issue i [OneUptime-repositoryet](https://github.com/OneUptime/oneuptime/issues)
-2. **Providerfejl**: Rapportér i det primære OneUptime-repository
-3. **Funktionsanmodninger**: Diskuter i OneUptime-fællesskabet
+1. **Dokumentationsproblemer**: Opret et issue i [Cast Operations-repositoryet](https://github.com/autonomy-cloud/operations/issues)
+2. **Providerfejl**: Rapportér i det primære Cast Operations-repository
+3. **Funktionsanmodninger**: Diskuter i Cast Operations-fællesskabet
 4. **Generelle spørgsmål**: Brug fællesskabsforummet
 
 ## Næste trin

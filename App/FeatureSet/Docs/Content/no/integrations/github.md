@@ -1,13 +1,13 @@
 # GitHub-integrasjon
 
-Åpne en [GitHub](https://github.com)-sak automatisk når en OneUptime-hendelse opprettes — slik at ingeniøroppfølging spores i repoet som eier den berørte tjenesten.
+Åpne en [GitHub](https://github.com)-sak automatisk når en Cast Operations-hendelse opprettes — slik at ingeniøroppfølging spores i repoet som eier den berørte tjenesten.
 
-Denne integrasjonen er **utgående**: OneUptime kaller [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Den bruker en OneUptime **[Arbeidsflyt](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**.
+Denne integrasjonen er **utgående**: Cast Operations kaller [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Den bruker en Cast Operations **[Arbeidsflyt](/docs/workflows/index)** med en **Incident → On Create**-trigger og en **API-komponent**.
 
-> **Ser du etter den dypere GitHub-tilkoblingen?** OneUptime har også en innebygd **GitHub App**-integrasjon for tilkobling av kodelagre (brukt av AI-agenten og kodefunksjoner). Den konfigureres med miljøvariabler, ikke arbeidsflyter — se [GitHub-integrasjon (selvhostet)](/docs/self-hosted/github-integration). Denne siden handler spesifikt om _å opprette saker fra hendelser_.
+> **Ser du etter den dypere GitHub-tilkoblingen?** Cast Operations har også en innebygd **GitHub App**-integrasjon for tilkobling av kodelagre (brukt av AI-agenten og kodefunksjoner). Den konfigureres med miljøvariabler, ikke arbeidsflyter — se [GitHub-integrasjon (selvhostet)](/docs/self-hosted/github-integration). Denne siden handler spesifikt om _å opprette saker fra hendelser_.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## Forutsetninger
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   Opprett ett på [github.com/settings/tokens](https://github.com/settings/tokens).
 
-- Et OneUptime-prosjekt der du kan opprette arbeidsflyter.
+- Et Cast Operations-prosjekt der du kan opprette arbeidsflyter.
 
 ## Steg 1 — Lagre tokenet
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**:
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

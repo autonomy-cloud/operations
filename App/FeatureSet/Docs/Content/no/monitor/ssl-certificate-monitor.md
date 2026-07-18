@@ -1,6 +1,6 @@
 # SSL-sertifikatmonitor
 
-SSL-sertifikatovervåking lar deg overvåke gyldigheten og utløpet for SSL/TLS-sertifikater på nettsteder og tjenester. OneUptime sjekker sertifikatene dine periodisk og varsler deg før de utløper eller hvis det oppdages problemer.
+SSL-sertifikatovervåking lar deg overvåke gyldigheten og utløpet for SSL/TLS-sertifikater på nettsteder og tjenester. Cast Operations sjekker sertifikatene dine periodisk og varsler deg før de utløper eller hvis det oppdages problemer.
 
 ## Oversikt
 
@@ -14,7 +14,7 @@ SSL-sertifikatmonitorer kobler til HTTPS-endepunktene dine og inspiserer SSL/TLS
 
 ## Opprette en SSL-sertifikatmonitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **SSL Certificate** som monitortype
 4. Skriv inn URL-en til HTTPS-endepunktet som skal sjekkes

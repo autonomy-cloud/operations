@@ -129,7 +129,7 @@ För projekt med Docker-övervakning konfigurerad.
 
 ### Host List
 
-Värdar som övervakas av OneUptimes servermonitor, med status, CPU, minne och drifttid.
+Värdar som övervakas av Cast Operations servermonitor, med status, CPU, minne och drifttid.
 
 **Inställningar**: filter efter etiketter eller aktuellt tillstånd.
 

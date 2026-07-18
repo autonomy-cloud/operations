@@ -434,7 +434,7 @@ export default class TelemetryEntity {
 
     /*
      * host — keyed on host.name only (canonicalized via computeEntityKey),
-     * matching OneUptime's `hostIdentifier` (= canonicalized host.name; see
+     * matching Cast Operations’ `hostIdentifier` (= canonicalized host.name; see
      * OtelIngestBaseService.autoDiscoverHost / canonicalizeHostName). host.id
      * is deliberately NOT part of host identity: existing Host rows and the
      * host rollup MV (MetricItemAggMV1mByHost) key on host.name, so keying

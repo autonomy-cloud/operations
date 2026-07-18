@@ -1,6 +1,6 @@
 # 性能分析监控器
 
-性能分析监控允许您监控来自应用程序的持续分析数据，并根据分析数量和模式触发告警。OneUptime 在时间窗口内评估来自遥测服务的分析数据。
+性能分析监控允许您监控来自应用程序的持续分析数据，并根据分析数量和模式触发告警。Cast Operations 在时间窗口内评估来自遥测服务的分析数据。
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 ## 创建性能分析监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **性能分析** 作为监控器类型
 4. 选择要监控的遥测服务
@@ -24,7 +24,7 @@
 
 ### 遥测服务
 
-选择一个或多个服务来监控其分析数据。服务必须通过 OpenTelemetry 向 OneUptime 发送持续分析数据。
+选择一个或多个服务来监控其分析数据。服务必须通过 OpenTelemetry 向 Cast Operations 发送持续分析数据。
 
 ### 分析过滤器
 
@@ -62,4 +62,4 @@
 
 ## 设置要求
 
-性能分析监控需要您的应用程序通过 OpenTelemetry 向 OneUptime 发送持续分析数据。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。
+性能分析监控需要您的应用程序通过 OpenTelemetry 向 Cast Operations 发送持续分析数据。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。

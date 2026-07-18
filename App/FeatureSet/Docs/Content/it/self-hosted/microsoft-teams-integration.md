@@ -1,11 +1,11 @@
 # Integrazione Microsoft Teams
 
-Per integrare Microsoft Teams con la propria istanza self-hosted di OneUptime, è necessario configurare la Registrazione App Azure e impostare le variabili d'ambiente richieste.
+Per integrare Microsoft Teams con la propria istanza self-hosted di Cast Operations, è necessario configurare la Registrazione App Azure e impostare le variabili d'ambiente richieste.
 
 ## Prerequisiti
 
 - Account Azure - È possibile crearne uno su [https://azure.com](https://azure.com)
-- Accesso alla configurazione del server OneUptime
+- Accesso alla configurazione del server Cast Operations
 
 ## Istruzioni di Configurazione
 
@@ -16,8 +16,8 @@ Per integrare Microsoft Teams con la propria istanza self-hosted di OneUptime, �
 3. Compilare il modulo di registrazione:
    - **Nome:** oneuptime
    - **Tipi di account supportati:** Account in qualsiasi directory organizzativa (Qualsiasi tenant Microsoft Entra ID - Multitenant)
-   - **URI di reindirizzamento:** Web - `https://vostro-dominio-oneuptime.com/api/microsoft-teams/auth`
-   - Aggiungere anche: `https://vostro-dominio-oneuptime.com/api/microsoft-teams/admin-consent/callback`
+   - **URI di reindirizzamento:** Web - `https://vostro-dominio-visca.ai/api/microsoft-teams/auth`
+   - Aggiungere anche: `https://vostro-dominio-visca.ai/api/microsoft-teams/admin-consent/callback`
 4. Fare clic su "Registra"
 5. Annotare l'"ID applicazione (client)" — sarà necessario in seguito
 
@@ -71,7 +71,7 @@ Per integrare Microsoft Teams con la propria istanza self-hosted di OneUptime, �
 3. Fare clic su "Rivedi + crea" e poi su "Crea"
 
 4. Una volta distribuito, accedere alla propria risorsa bot e navigare a "Configurazione"
-5. Impostare l'"Endpoint di messaggistica" a `https://vostro-dominio-oneuptime.com/api/microsoft-bot/messages`
+5. Impostare l'"Endpoint di messaggistica" a `https://vostro-dominio-visca.ai/api/microsoft-bot/messages`
 6. Salvare la configurazione
 
 ### Fase 5: Aggiungere il Canale Microsoft Teams al Bot
@@ -81,7 +81,7 @@ Per integrare Microsoft Teams con la propria istanza self-hosted di OneUptime, �
 3. Esaminare le impostazioni (abilitare per Teams, mantenere le opzioni di messaggistica predefinite a meno che non si abbiano esigenze specifiche)
 4. Fare clic su "Salva" (e "Fatto"/"Pubblica" se richiesto) per abilitare il canale Teams
 
-### Fase 6: Configurare le Variabili d'Ambiente di OneUptime
+### Fase 6: Configurare le Variabili d'Ambiente di Cast Operations
 
 #### Docker Compose
 
@@ -104,7 +104,7 @@ microsoftTeamsApp:
    tenantId: VOSTRO_MICROSOFT_TENANT_ID
 ```
 
-**Importante:** Riavviare il server OneUptime dopo aver aggiunto queste variabili d'ambiente affinché abbiano effetto.
+**Importante:** Riavviare il server Cast Operations dopo aver aggiunto queste variabili d'ambiente affinché abbiano effetto.
 
 ### Fase 7: Caricare il Manifesto App Teams
 
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 In caso di problemi:
 
 - Assicurarsi che l'app abbia i permessi corretti concessi
-- Verificare che l'URI di reindirizzamento corrisponda esattamente (sostituire `vostro-dominio-oneuptime.com` con il proprio dominio effettivo)
+- Verificare che l'URI di reindirizzamento corrisponda esattamente (sostituire `vostro-dominio-visca.ai` con il proprio dominio effettivo)
 - Verificare che le variabili d'ambiente siano impostate correttamente
 - Assicurarsi che l'endpoint di messaggistica del bot sia accessibile da Internet
 - Verificare che il bot sia configurato correttamente con il canale Teams
@@ -129,4 +129,4 @@ In caso di problemi:
 
 ## Supporto
 
-Vogliamo migliorare questa integrazione, quindi i feedback sono più che benvenuti. Inviare qualsiasi commento a [hello@oneuptime.com](mailto:hello@oneuptime.com)
+Vogliamo migliorare questa integrazione, quindi i feedback sono più che benvenuti. Inviare qualsiasi commento a [hello@visca.ai](mailto:hello@visca.ai)

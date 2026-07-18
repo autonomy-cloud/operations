@@ -52,7 +52,7 @@ const Settings: FunctionComponent = (): ReactElement => {
             title: "Disable Sign Up",
             fieldType: FormFieldSchemaType.Toggle,
             required: false,
-            description: "Should we disable sign up of new users to OneUptime?",
+            description: "Should we disable sign up of new users to Cast Operations?",
           },
         ]}
         modelDetailProps={{
@@ -67,7 +67,7 @@ const Settings: FunctionComponent = (): ReactElement => {
               title: "Disable Sign Up",
               placeholder: t("common.no"),
               description:
-                "Should we disable sign up of new users to OneUptime?",
+                "Should we disable sign up of new users to Cast Operations?",
             },
           ],
           modelId: ObjectID.getZeroObjectID(),

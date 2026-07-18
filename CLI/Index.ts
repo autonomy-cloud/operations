@@ -10,11 +10,11 @@ const program: Command = new Command();
 program
   .name("oneuptime")
   .description(
-    "OneUptime CLI - Manage your OneUptime resources from the command line",
+    "Cast Operations CLI - Manage your Cast Operations resources from the command line",
   )
   .version("1.0.0")
   .option("--api-key <key>", "API key (overrides config)")
-  .option("--url <url>", "OneUptime instance URL (overrides config)")
+  .option("--url <url>", "Cast Operations instance URL (overrides config)")
   .option("--context <name>", "Use a specific context")
   .option("-o, --output <format>", "Output format: json, table, wide")
   .option("--no-color", "Disable colored output");

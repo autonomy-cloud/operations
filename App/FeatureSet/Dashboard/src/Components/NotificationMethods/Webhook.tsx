@@ -111,7 +111,7 @@ const Webhook: () => JSX.Element = (): ReactElement => {
         cardProps={{
           title: "Webhooks for Notifications",
           description:
-            "Send incoming OneUptime notifications to your own HTTPS endpoints as JSON POST requests.",
+            "Send incoming Cast Operations notifications to your own HTTPS endpoints as JSON POST requests.",
         }}
         noItemsMessage={
           "No webhooks added yet. Add one to receive notifications as HTTP POST requests."
@@ -137,7 +137,7 @@ const Webhook: () => JSX.Element = (): ReactElement => {
             title: "Webhook URL",
             fieldType: FormFieldSchemaType.URL,
             required: true,
-            placeholder: "https://example.com/oneuptime/hook",
+            placeholder: "https://example.com/operations/hook",
             description:
               "HTTPS endpoint that will receive POST requests with a JSON payload. Private, loopback, and link-local addresses are not allowed.",
           },
@@ -150,7 +150,7 @@ const Webhook: () => JSX.Element = (): ReactElement => {
             required: false,
             placeholder: "shared secret",
             description:
-              "If set, each request will include an HMAC-SHA256 signature in the X-OneUptime-Signature header (sha256=<hex>) computed over the raw JSON body.",
+              "If set, each request will include an HMAC-SHA256 signature in the X-Cast Operations-Signature header (sha256=<hex>) computed over the raw JSON body.",
           },
         ]}
         showRefreshButton={true}

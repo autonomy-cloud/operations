@@ -1,18 +1,18 @@
 # Интеграция с Jira
 
-Автоматически открывайте задачу [Jira](https://www.atlassian.com/software/jira) при каждом создании инцидента в OneUptime — чтобы инженерная работа отслеживалась там, где уже работают ваши разработчики, со ссылкой обратно на инцидент.
+Автоматически открывайте задачу [Jira](https://www.atlassian.com/software/jira) при каждом создании инцидента в Cast Operations — чтобы инженерная работа отслеживалась там, где уже работают ваши разработчики, со ссылкой обратно на инцидент.
 
-Эта интеграция является **исходящей**: OneUptime вызывает REST API Jira. Используется OneUptime **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**. Опционально можно добавить **входящий** путь, чтобы закрытие задачи Jira разрешало инцидент в OneUptime.
+Эта интеграция является **исходящей**: Cast Operations вызывает REST API Jira. Используется Cast Operations **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**. Опционально можно добавить **входящий** путь, чтобы закрытие задачи Jira разрешало инцидент в Cast Operations.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
+Cast Operations Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
 ```
 
 ## Предварительные требования
 
 - Сайт Jira Cloud (`https://your-domain.atlassian.net`) и проект для создания задач — запомните его **ключ проекта** (например, `OPS`).
 - Учётная запись Jira с правом создавать задачи и **API-токен** для неё из [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
-- Проект OneUptime, в котором вы можете создавать рабочие процессы.
+- Проект Cast Operations, в котором вы можете создавать рабочие процессы.
 
 > Используете **Jira Data Center / Server** (self-managed)? Процесс идентичен — используйте свой собственный базовый URL и [Personal Access Token](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) с заголовком авторизации `Bearer` вместо Basic auth. Конечная точка `/rest/api/2/issue` принимает описание в виде простого текста, что упрощает шаблонизацию.
 
@@ -26,7 +26,7 @@ Jira Cloud использует **Basic auth** с адресом электро�
    printf '%s' 'you@example.com:your_api_token' | base64
    ```
 
-2. В OneUptime перейдите в **Workflows → Global Variables → Create**.
+2. В Cast Operations перейдите в **Workflows → Global Variables → Create**.
 3. Назовите переменную `JIRA_AUTH`, вставьте строку base64 в качестве значения и включите **Is Secret**.
 
 Теперь вы можете использовать `Basic {{variable.JIRA_AUTH}}` как заголовок авторизации, и токен никогда не появится в рабочем процессе или его журналах.
@@ -53,7 +53,7 @@ Jira Cloud использует **Basic auth** с адресом электро�
        "fields": {
          "project": { "key": "OPS" },
          "issuetype": { "name": "Bug" },
-         "summary": "OneUptime incident: {{Incident.title}}",
+         "summary": "Cast Operations incident: {{Incident.title}}",
          "description": {
            "type": "doc",
            "version": 1,
@@ -77,7 +77,7 @@ Jira Cloud использует **Basic auth** с адресом электро�
 ## Шаг 3 — Протестируйте
 
 1. Включите рабочий процесс (**Enabled**).
-2. Создайте тестовый инцидент в OneUptime (или вызовите его через монитор).
+2. Создайте тестовый инцидент в Cast Operations (или вызовите его через монитор).
 3. Откройте вкладку **Logs** рабочего процесса. Блок **API** должен показать статус `201` и тело ответа, содержащее `key` новой задачи (например, `OPS-1234`).
 4. Проверьте Jira — задача там.
 
@@ -94,13 +94,13 @@ Jira Cloud использует **Basic auth** с адресом электро�
 
 ## Двусторонняя синхронизация (опционально)
 
-Чтобы разрешать инцидент в OneUptime при закрытии задачи Jira, добавьте **входящий** рабочий процесс:
+Чтобы разрешать инцидент в Cast Operations при закрытии задачи Jira, добавьте **входящий** рабочий процесс:
 
 1. Создайте второй рабочий процесс с триггером **Webhook** и скопируйте его URL.
 2. В Jira перейдите в **Project settings → Automation → Create rule**:
 
    - **Trigger**: _Issue transitioned_ в **Done** (или _Issue resolved_).
-   - **Action**: _Send web request_ → метод `POST`, URL = URL webhook вашего рабочего процесса, тело содержит ключ задачи и ID инцидента OneUptime, например:
+   - **Action**: _Send web request_ → метод `POST`, URL = URL webhook вашего рабочего процесса, тело содержит ключ задачи и ID инцидента Cast Operations, например:
 
      ```json
      { "issueKey": "{{issue.key}}", "status": "resolved" }
@@ -108,13 +108,13 @@ Jira Cloud использует **Basic auth** с адресом электро�
 
 3. В рабочем процессе используйте блок **Find Incident** для поиска инцидента по сохранённому ключу, затем блок **Update Incident**, чтобы перевести его в состояние разрешено.
 
-Если вы сохранили ключ Jira в инциденте на Шаге 4, совпадение выполняется легко. См. [Компоненты → Компоненты данных OneUptime](/docs/workflows/components#oneuptime-data-components).
+Если вы сохранили ключ Jira в инциденте на Шаге 4, совпадение выполняется легко. См. [Компоненты → Компоненты данных Cast Operations](/docs/workflows/components#oneuptime-data-components).
 
 ## Настройка задачи
 
 Несколько распространённых изменений в теле блока API:
 
-- **Приоритет** — добавьте `"priority": { "name": "High" }` в `fields`. Ветвясь по `{{Incident.incidentSeverity.name}}` с помощью **Conditions**, можно сопоставлять уровни серьёзности OneUptime с приоритетами Jira.
+- **Приоритет** — добавьте `"priority": { "name": "High" }` в `fields`. Ветвясь по `{{Incident.incidentSeverity.name}}` с помощью **Conditions**, можно сопоставлять уровни серьёзности Cast Operations с приоритетами Jira.
 - **Метки** — добавьте `"labels": ["oneuptime", "incident"]`.
 - **Исполнитель** — добавьте `"assignee": { "id": "<accountId>" }` (Jira Cloud использует ID учётных записей, а не имена пользователей).
 - **Пользовательские поля** — добавьте `"customfield_XXXXX": "..."`, используя ID поля из администрирования Jira.

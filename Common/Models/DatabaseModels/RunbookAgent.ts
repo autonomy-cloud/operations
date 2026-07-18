@@ -50,7 +50,7 @@ export enum RunbookAgentConnectionStatus {
   pluralName: "Runbook Agents",
   icon: IconProp.Terminal,
   tableDescription:
-    "A self-hosted agent that executes Bash and JavaScript runbook steps in your own infrastructure and reports results back to OneUptime. Each step picks the agent that should run it.",
+    "A self-hosted agent that executes Bash and JavaScript runbook steps in your own infrastructure and reports results back to Cast Operations. Each step picks the agent that should run it.",
 })
 @TableAccessControl({
   create: [
@@ -154,7 +154,7 @@ export default class RunbookAgent extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

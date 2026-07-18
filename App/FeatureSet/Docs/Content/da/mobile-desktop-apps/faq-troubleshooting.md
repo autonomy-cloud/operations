@@ -1,11 +1,11 @@
 # FAQ og fejlfinding
 
-Ofte stillede spørgsmål og løsninger til OneUptimes mobil- og desktop-apps.
+Ofte stillede spørgsmål og løsninger til Cast Operations mobil- og desktop-apps.
 
-## Hvordan distribuerer OneUptime sine apps?
+## Hvordan distribuerer Cast Operations sine apps?
 
-- **Mobil (iOS og Android):** OneUptime leverer en native app kaldet **OneUptime On-Call**. Den er udgivet i [Apple App Store](https://apps.apple.com/us/app/oneuptime-on-call/id6759615391) og [Google Play](https://play.google.com/store/apps/details?id=com.oneuptime.oncall). En signeret [APK-download](https://github.com/OneUptime/oneuptime/releases/latest/download/oneuptime-on-call-android-app.apk) er også tilgængelig for Android-enheder uden Google Play.
-- **Desktop (Windows, macOS, Linux):** OneUptimes webdashboard er en Progressive Web App (PWA). Du kan installere det som en desktop-applikation direkte fra en Chromium-baseret browser eller Safari — ingen butikskonto kræves.
+- **Mobil (iOS og Android):** Cast Operations leverer en native app kaldet **Cast Operations On-Call**. Den er udgivet i [Apple App Store](https://github.com/autonomy-cloud/operations/releases) og [Google Play](https://github.com/autonomy-cloud/operations/releases). En signeret [APK-download](https://github.com/autonomy-cloud/operations/releases/latest/download/cast-operations-on-call-android-app.apk) er også tilgængelig for Android-enheder uden Google Play.
+- **Desktop (Windows, macOS, Linux):** Cast Operations webdashboard er en Progressive Web App (PWA). Du kan installere det som en desktop-applikation direkte fra en Chromium-baseret browser eller Safari — ingen butikskonto kræves.
 
 ## FAQ om mobilappen
 
@@ -16,11 +16,11 @@ Ofte stillede spørgsmål og løsninger til OneUptimes mobil- og desktop-apps.
 
 ### Er appen gratis?
 
-Ja. OneUptime On-Call-appen er gratis at installere. Du logger ind med din eksisterende OneUptime-konto.
+Ja. Cast Operations On-Call-appen er gratis at installere. Du logger ind med din eksisterende Cast Operations-konto.
 
-### Kan jeg bruge appen med en selvhostet OneUptime-instans?
+### Kan jeg bruge appen med en selvhostet Cast Operations-instans?
 
-Ja. Ved første start beder appen om en **Server-URL**. Indtast URL'en til din selvhostede instans (f.eks. `https://oneuptime.example.com`). Appen validerer, at serveren kan nås, før den lader dig logge ind.
+Ja. Ved første start beder appen om en **Server-URL**. Indtast URL'en til din selvhostede instans (f.eks. `https://operations.example.com`). Appen validerer, at serveren kan nås, før den lader dig logge ind.
 
 For push-notifikationer på selvhostede instanser skal du følge vejledningen [Push-notifikationer](/docs/self-hosted/push-notifications).
 
@@ -34,11 +34,11 @@ For push-notifikationer på selvhostede instanser skal du følge vejledningen [P
 
 Mobil push bruger APNs (iOS) og FCM (Android) gennem Expo Push. Tjek følgende:
 
-1. Notifikationer er aktiveret på OS-niveau for **OneUptime On-Call**.
+1. Notifikationer er aktiveret på OS-niveau for **Cast Operations On-Call**.
 2. Batterioptimering er deaktiveret, og baggrundsaktivitet er tilladt (Android).
 3. Do Not Disturb eller Fokus-tilstande er slået fra, eller appen er på undtagelseslisten.
 4. Du er logget ind — push-tokenet registreres først hos serveren, efter du er logget ind.
-5. **Kun selvhostet:** Push-notifikationer er konfigureret på din OneUptime-instans. Se vejledningen [Push-notifikationer](/docs/self-hosted/push-notifications).
+5. **Kun selvhostet:** Push-notifikationer er konfigureret på din Cast Operations-instans. Se vejledningen [Push-notifikationer](/docs/self-hosted/push-notifications).
 
 ### Er dataene på min telefon sikre?
 
@@ -48,14 +48,14 @@ Mobil push bruger APNs (iOS) og FCM (Android) gennem Expo Push. Tjek følgende:
 
 ### Kan jeg installere appen på flere enheder?
 
-Ja. Log ind med den samme OneUptime-konto på så mange enheder, du har brug for. Hver enhed modtager sine egne push-notifikationer.
+Ja. Log ind med den samme Cast Operations-konto på så mange enheder, du har brug for. Hver enhed modtager sine egne push-notifikationer.
 
 ### Hvordan afinstallerer jeg?
 
 - **iOS:** Tryk længe på ikonet → **Fjern app** → **Slet app**.
-- **Android:** Tryk længe på ikonet → **Afinstaller**, eller **Indstillinger → Apps → OneUptime On-Call → Afinstaller**.
+- **Android:** Tryk længe på ikonet → **Afinstaller**, eller **Indstillinger → Apps → Cast Operations On-Call → Afinstaller**.
 
-Din OneUptime-konto og dine data er lagret på serveren og fjernes ikke, når du afinstallerer appen.
+Din Cast Operations-konto og dine data er lagret på serveren og fjernes ikke, når du afinstallerer appen.
 
 ## FAQ om desktop-appen (PWA)
 
@@ -65,14 +65,14 @@ En Progressive Web App er en webapplikation, der kan installeres ligesom en nati
 
 ### Hvorfor bruger desktop-appen PWA-teknologi?
 
-- **Øjeblikkelige opdateringer** — appen forbliver synkroniseret med din OneUptime-instans i det øjeblik, du deployer.
+- **Øjeblikkelige opdateringer** — appen forbliver synkroniseret med din Cast Operations-instans i det øjeblik, du deployer.
 - **Ingen butikskonto kræves** — installer direkte fra enhver moderne browser.
 - **Samme kodebase** — det samme dashboard kører på Windows, macOS og Linux.
 
 ### Hvorfor vises "Installer"-knappen ikke?
 
 1. Brug en Chromium-baseret browser (Chrome, Edge, Brave, Arc) eller Safari (macOS Sonoma+).
-2. Bekræft, at din OneUptime-instans serveres over HTTPS med et gyldigt certifikat.
+2. Bekræft, at din Cast Operations-instans serveres over HTTPS med et gyldigt certifikat.
 3. Ryd din browsers cache, og genindlæs.
 4. Appen er måske allerede installeret — tjek Programmer / Startmenu.
 
@@ -82,7 +82,7 @@ PWA'en opdateres automatisk, hver gang du åbner den, mens du er online. For at 
 
 ### Hvordan afinstallerer jeg desktop-PWA'en?
 
-- **Windows:** **Indstillinger → Apps → OneUptime → Afinstaller**, eller højreklik på posten i startmenuen.
+- **Windows:** **Indstillinger → Apps → Cast Operations → Afinstaller**, eller højreklik på posten i startmenuen.
 - **macOS:** Træk appen fra **Programmer** til papirkurven, eller højreklik på Dock-ikonet og vælg **Fjern**.
 - **Linux:** Brug din applikationsstarters afinstalleringsmulighed, eller fjern den relevante `.desktop`-fil.
 
@@ -98,27 +98,27 @@ PWA'en opdateres automatisk, hver gang du åbner den, mens du er online. For at 
 
 **Push-notifikationer forsinkes eller mangler (Android):**
 
-- Deaktiver batterioptimering: **Indstillinger → Apps → OneUptime On-Call → Batteri → Ubegrænset**.
+- Deaktiver batterioptimering: **Indstillinger → Apps → Cast Operations On-Call → Batteri → Ubegrænset**.
 - Deaktiver Datasparer for appen.
-- På Samsung-enheder skal du slå **Enhedspleje → Batteri → Grænser for baggrundsforbrug** fra for OneUptime On-Call.
+- På Samsung-enheder skal du slå **Enhedspleje → Batteri → Grænser for baggrundsforbrug** fra for Cast Operations On-Call.
 
 **Push-notifikationer forsinkes eller mangler (iOS):**
 
 - Undgå at tvangslukke appen — iOS kan sætte baggrundslevering på pause.
 - Slå Strømsparetilstand fra, mens du har on-call-vagt.
-- Føj OneUptime On-Call til alle aktive Fokus-tilstandes tilladelseslister.
+- Føj Cast Operations On-Call til alle aktive Fokus-tilstandes tilladelseslister.
 
 **Face ID / Touch ID / fingeraftryk virker ikke:**
 
 - Sørg for, at biometri er registreret i dine OS-indstillinger.
-- Genaktivér biometrisk oplåsning fra **Indstillinger**-skærmen i OneUptime On-Call-appen.
+- Genaktivér biometrisk oplåsning fra **Indstillinger**-skærmen i Cast Operations On-Call-appen.
 
 ### Problemer med desktop-appen (PWA)
 
 **Installer-knappen mangler:**
 
 - Brug en understøttet browser (Chromium-baseret eller Safari på macOS Sonoma+).
-- Sørg for, at OneUptime-instansen serveres over HTTPS.
+- Sørg for, at Cast Operations-instansen serveres over HTTPS.
 - Vent på, at siden er færdig med at indlæse, og tjek derefter adresselinjen for installer-ikonet.
 
 **Desktop-notifikationer vises ikke:**
@@ -139,5 +139,5 @@ Hvis du stadig har brug for hjælp:
 
 - Mobil: se installationsvejledningerne til [iOS](./ios-installation.md) eller [Android](./android-installation.md).
 - Desktop: se installationsvejledningerne til [Windows](./windows-installation.md), [macOS](./macos-installation.md) eller [Linux](./linux-installation.md).
-- Åbn et issue på [OneUptime GitHub-repositoryet](https://github.com/OneUptime/oneuptime).
-- Kontakt support via dit OneUptime-dashboard.
+- Åbn et issue på [Cast Operations GitHub-repositoryet](https://github.com/autonomy-cloud/operations).
+- Kontakt support via dit Cast Operations-dashboard.

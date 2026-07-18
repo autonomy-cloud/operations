@@ -1,6 +1,6 @@
 /*
  * Single source of truth for the OpenTelemetry GenAI (gen_ai.*) semantic
- * convention attribute keys OneUptime recognizes when it detects and
+ * convention attribute keys Cast Operations recognizes when it detects and
  * denormalizes LLM / GenAI / agent telemetry, plus cheap fallbacks for the two
  * dominant instrumentation libraries:
  *   - OpenLLMetry / Traceloop  (gen_ai.* + traceloop.*)

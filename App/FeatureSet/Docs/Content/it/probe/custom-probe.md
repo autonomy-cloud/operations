@@ -2,7 +2,7 @@
 
 È possibile configurare probe personalizzati all'interno della propria rete per monitorare le risorse nella rete privata o le risorse protette da firewall.
 
-Per iniziare è necessario creare un probe personalizzato nelle Impostazioni Progetto > Probe. Una volta creato il probe personalizzato nel Dashboard di OneUptime, si avrà il `PROBE_ID` e il `PROBE_KEY`.
+Per iniziare è necessario creare un probe personalizzato nelle Impostazioni Progetto > Probe. Una volta creato il probe personalizzato nel Dashboard di Cast Operations, si avrà il `PROBE_ID` e il `PROBE_KEY`.
 
 ### Distribuzione del Probe
 
@@ -11,21 +11,21 @@ Per iniziare è necessario creare un probe personalizzato nelle Impostazioni Pro
 Per eseguire un probe, assicurarsi di avere Docker installato. È possibile eseguire un probe personalizzato con:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://oneuptime.com -d oneuptime/probe:release
+docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
 ```
 
-Se si ospita autonomamente OneUptime, è possibile cambiare `ONEUPTIME_URL` con la propria istanza self-hosted personalizzata.
+Se si ospita autonomamente Cast Operations, è possibile cambiare `ONEUPTIME_URL` con la propria istanza self-hosted personalizzata.
 
 ##### Configurazione Proxy
 
-Se il probe deve passare attraverso un server proxy per raggiungere OneUptime o monitorare risorse esterne, è possibile configurare le impostazioni proxy usando queste variabili d'ambiente:
+Se il probe deve passare attraverso un server proxy per raggiungere Cast Operations o monitorare risorse esterne, è possibile configurare le impostazioni proxy usando queste variabili d'ambiente:
 
 ```
 # Per proxy HTTP
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -34,7 +34,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -43,7 +43,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       # Configurazione proxy (opzionale)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,7 +102,7 @@ Quindi eseguire il comando seguente:
 docker compose up -d
 ```
 
-Se si ospita autonomamente OneUptime, è possibile cambiare `ONEUPTIME_URL` con la propria istanza self-hosted personalizzata.
+Se si ospita autonomamente Cast Operations, è possibile cambiare `ONEUPTIME_URL` con la propria istanza self-hosted personalizzata.
 
 #### Kubernetes
 
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 ##### Con Configurazione Proxy
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             # Configurazione proxy (opzionale)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -184,7 +184,7 @@ Quindi eseguire il comando seguente:
 kubectl apply -f oneuptime-probe.yaml
 ```
 
-Se si ospita autonomamente OneUptime, è possibile cambiare `ONEUPTIME_URL` con la propria istanza self-hosted personalizzata.
+Se si ospita autonomamente Cast Operations, è possibile cambiare `ONEUPTIME_URL` con la propria istanza self-hosted personalizzata.
 
 ### Variabili d'Ambiente
 
@@ -192,9 +192,9 @@ Il probe supporta le seguenti variabili d'ambiente:
 
 #### Variabili Obbligatorie
 
-- `PROBE_KEY` - La chiave del probe dal proprio dashboard OneUptime
-- `PROBE_ID` - L'ID del probe dal proprio dashboard OneUptime
-- `ONEUPTIME_URL` - L'URL della propria istanza OneUptime (predefinito: https://oneuptime.com)
+- `PROBE_KEY` - La chiave del probe dal proprio dashboard Cast Operations
+- `PROBE_ID` - L'ID del probe dal proprio dashboard Cast Operations
+- `ONEUPTIME_URL` - L'URL della propria istanza Cast Operations (predefinito: https://visca.ai)
 
 #### Variabili Opzionali
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Verifica
 
-Se il probe è in esecuzione correttamente, dovrebbe mostrare `Connesso` nel dashboard di OneUptime. Se non appare come connesso, controllare i log del container. Se si hanno ancora problemi, creare un issue su [GitHub](https://github.com/oneuptime/oneuptime) o [contattare il supporto](https://oneuptime.com/support).
+Se il probe è in esecuzione correttamente, dovrebbe mostrare `Connesso` nel dashboard di Cast Operations. Se non appare come connesso, controllare i log del container. Se si hanno ancora problemi, creare un issue su [GitHub](https://github.com/autonomy-cloud/operations) o [contattare il supporto](https://visca.ai/support).

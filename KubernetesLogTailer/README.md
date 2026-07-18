@@ -1,12 +1,12 @@
-# OneUptime Kubernetes Log Tailer
+# Cast Operations Kubernetes Log Tailer
 
 A small Node.js service that collects pod logs from a Kubernetes cluster via
 the **Kubernetes API** (`GET /api/v1/namespaces/{ns}/pods/{pod}/log?follow=true`)
-and forwards them to OneUptime via OTLP-HTTP.
+and forwards them to Cast Operations via OTLP-HTTP.
 
 ## Why this exists
 
-The default OneUptime Kubernetes agent collects logs via a DaemonSet that
+The default Cast Operations Kubernetes agent collects logs via a DaemonSet that
 mounts `/var/log/pods` using a hostPath volume. That approach doesn't work on
 managed Kubernetes offerings that block hostPath — most notably **GKE
 Autopilot**.
@@ -38,7 +38,7 @@ All configuration is via environment variables:
 
 | Variable                 | Required | Default                               | Description                                                                                                      |
 | ------------------------ | -------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`          | yes      | —                                     | Base URL of your OneUptime instance (e.g. `https://oneuptime.example.com`).                                      |
+| `ONEUPTIME_URL`          | yes      | —                                     | Base URL of your Cast Operations instance (e.g. `https://operations.example.com`).                                      |
 | `ONEUPTIME_API_KEY`      | yes      | —                                     | Project API key.                                                                                                 |
 | `CLUSTER_NAME`           | yes      | —                                     | Stamped as `k8s.cluster.name` on every log record.                                                               |
 | `NAMESPACE_INCLUDE`      | no       | (empty)                               | Comma-separated namespace-pattern allowlist. `*` is a wildcard; if set, only matching namespaces are tailed.     |

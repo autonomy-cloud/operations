@@ -1,6 +1,6 @@
 # IP 監控
 
-IP 監控可讓您監控任何 IPv4 或 IPv6 位址的可用性與回應能力。OneUptime 會定期測試與目標 IP 位址的連線狀況，並回報其狀態。
+IP 監控可讓您監控任何 IPv4 或 IPv6 位址的可用性與回應能力。Cast Operations 會定期測試與目標 IP 位址的連線狀況，並回報其狀態。
 
 ## 概觀
 
@@ -13,7 +13,7 @@ IP 監控會驗證特定 IP 位址是否可連線且能夠回應。這可讓您�
 
 ## 建立 IP 監控
 
-1. 前往 OneUptime Dashboard 中的 **Monitors**
+1. 前往 Cast Operations Dashboard 中的 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **IP** 作為監控類型
 4. 輸入您想要監控的 IP 位址

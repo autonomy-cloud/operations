@@ -16,7 +16,7 @@ function toDisplayString(val: unknown): string {
     return String(val);
   }
   if (typeof val === "object") {
-    // Handle OneUptime typed objects like URL { _type, value }
+    // Handle Cast Operations typed objects like URL { _type, value }
     const obj: Record<string, unknown> = val as Record<string, unknown>;
     if (typeof obj.value === "string") {
       return obj.value;

@@ -60,7 +60,7 @@ Sendet eine Nachricht in einen Telegram-Chat mithilfe eines Bot-Tokens und einer
 
 ## E-Mail
 
-Sendet eine E-Mail über OneUptime.
+Sendet eine E-Mail über Cast Operations.
 
 **Einstellungen**:
 
@@ -118,9 +118,9 @@ So lassen sich gemeinsame Abläufe wiederverwenden. Bauen Sie zum Beispiel einen
 
 Es gibt ein Sicherheitslimit, damit Workflows einander nicht in einer Endlosschleife aufrufen können. Siehe [Konfiguration & Sicherheit](/docs/workflows/configuration).
 
-## OneUptime-Datenkomponenten
+## Cast Operations-Datenkomponenten
 
-Für jede Art von Datensatz in OneUptime (Monitore, Vorfälle, Benachrichtigungen, Statusseiten, Rufbereitschafts-Richtlinien und viele weitere) bietet die Palette diese Komponenten – einfach nach dem Typnamen suchen:
+Für jede Art von Datensatz in Cast Operations (Monitore, Vorfälle, Benachrichtigungen, Statusseiten, Rufbereitschafts-Richtlinien und viele weitere) bietet die Palette diese Komponenten – einfach nach dem Typnamen suchen:
 
 - **Einen finden** – einen Datensatz per ID oder Filter holen.
 - **Finden** – eine Liste von Datensätzen holen.
@@ -129,13 +129,13 @@ Für jede Art von Datensatz in OneUptime (Monitore, Vorfälle, Benachrichtigunge
 - **Löschen** – einen Datensatz entfernen.
 - **Zählen** – Datensätze zählen, die einem Filter entsprechen.
 
-So kann ein Workflow OneUptime-Daten lesen und ändern. Beispiel: Ein Webhook aus Ihrem CI-Tool kann **Vorfall erstellen** nutzen, um einen Vorfall mit den Fehlerdetails zu öffnen.
+So kann ein Workflow Cast Operations-Daten lesen und ändern. Beispiel: Ein Webhook aus Ihrem CI-Tool kann **Vorfall erstellen** nutzen, um einen Vorfall mit den Fehlerdetails zu öffnen.
 
 ## Welche Komponente soll ich verwenden?
 
 Ein paar Faustregeln:
 
-- Wenn es für Ihr Vorhaben einen speziellen Baustein gibt (Slack, E-Mail, einen OneUptime-Datensatz), verwenden Sie ihn – die Fehlerbehandlung wird sauberer und die Logs werden klarer.
+- Wenn es für Ihr Vorhaben einen speziellen Baustein gibt (Slack, E-Mail, einen Cast Operations-Datensatz), verwenden Sie ihn – die Fehlerbehandlung wird sauberer und die Logs werden klarer.
 - Für jede andere externe API verwenden Sie **API**.
 - Um Daten zwischen Bausteinen umzuformen, nutzen Sie **Benutzerdefinierter Code** oder **JSON**.
 - Um abhängig von einem Wert unterschiedlich zu reagieren, nutzen Sie **Bedingungen**.

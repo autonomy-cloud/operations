@@ -29,7 +29,7 @@ describe("UserMiddleware.doesSsoTokenForProjectExist - requiredSsoProviderId", (
   const buildUser: () => User = (): User => {
     const u: User = new User();
     u.id = userId;
-    u.email = new Email("sso-user@oneuptime.com");
+    u.email = new Email("sso-user@visca.ai");
     return u;
   };
 
@@ -180,7 +180,7 @@ describe("UserMiddleware.doesSsoTokenForProjectExist - global SSO token", () => 
   const buildUser: () => User = (): User => {
     const u: User = new User();
     u.id = userId;
-    u.email = new Email("global-sso-user@oneuptime.com");
+    u.email = new Email("global-sso-user@visca.ai");
     return u;
   };
 

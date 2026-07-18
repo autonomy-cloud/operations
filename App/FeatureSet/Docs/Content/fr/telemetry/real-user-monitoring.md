@@ -2,16 +2,16 @@
 
 ## Vue d'ensemble
 
-OneUptime classe la télémétrie entrante comme **RUM** lorsqu'elle transporte des attributs client — `browser.*` pour le web ou `device.*` pour le mobile. Chaque application est identifiée par son `service.name` et appartient entièrement à son application RUM (la télémétrie client n'est jamais dupliquée en tant que Service back-end).
+Cast Operations classe la télémétrie entrante comme **RUM** lorsqu'elle transporte des attributs client — `browser.*` pour le web ou `device.*` pour le mobile. Chaque application est identifiée par son `service.name` et appartient entièrement à son application RUM (la télémétrie client n'est jamais dupliquée en tant que Service back-end).
 
 Utilisez-la pour voir ce que vos utilisateurs vivent réellement : pages vues, erreurs, latence, plateformes / appareils utilisés et — lorsque votre SDK les émet — les Core Web Vitals.
 
 ## Prérequis
 
-- Un **jeton d'ingestion de télémétrie OneUptime** — créez-en un depuis _Paramètres du projet → Clés d'ingestion de télémétrie_.
+- Un **jeton d'ingestion de télémétrie Cast Operations** — créez-en un depuis _Paramètres du projet → Clés d'ingestion de télémétrie_.
 - Le SDK OpenTelemetry pour navigateur ou mobile.
 
-## Comment OneUptime identifie une application RUM
+## Comment Cast Operations identifie une application RUM
 
 | Attribut                 | Requis         | Objectif                                                    |
 | ------------------------ | -------------- | ----------------------------------------------------------- |
@@ -22,14 +22,14 @@ Utilisez-la pour voir ce que vos utilisateurs vivent réellement : pages vues, e
 
 ## Navigateur (OpenTelemetry Web)
 
-Pointez l'exportateur OTLP/HTTP vers OneUptime et définissez `service.name` sur le nom de votre application :
+Pointez l'exportateur OTLP/HTTP vers Cast Operations et définissez `service.name` sur le nom de votre application :
 
 ```js
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 
-// OneUptime OTLP/HTTP exporter:
+// Cast Operations OTLP/HTTP exporter:
 const exporter = new OTLPTraceExporter({
-  url: "https://oneuptime.com/otlp/v1/traces",
+  url: "https://visca.ai/otlp/v1/traces",
   headers: { "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
 });
 
@@ -41,18 +41,18 @@ L'instrumentation du navigateur ajoute automatiquement les attributs de ressourc
 
 ## Mobile (Swift / Android)
 
-Utilisez le SDK OpenTelemetry Swift ou Android, définissez `service.name` et exportez OTLP vers OneUptime :
+Utilisez le SDK OpenTelemetry Swift ou Android, définissez `service.name` et exportez OTLP vers Cast Operations :
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://oneuptime.com/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
-Les attributs `device.*` du SDK acheminent la télémétrie vers le RUM. Si vous hébergez OneUptime vous-même, utilisez `https://YOUR-ONEUPTIME-HOST/otlp`.
+Les attributs `device.*` du SDK acheminent la télémétrie vers le RUM. Si vous hébergez Cast Operations vous-même, utilisez `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Core Web Vitals
 
-Si l'instrumentation de votre navigateur émet des web vitals (LCP, INP, CLS, FCP, TTFB) sous forme de métriques OpenTelemetry, OneUptime les fait apparaître sur la vue d'ensemble de l'application avec des évaluations bon / à améliorer / médiocre. Si aucune métrique de web vital n'est rapportée, le panneau explique comment commencer à les envoyer.
+Si l'instrumentation de votre navigateur émet des web vitals (LCP, INP, CLS, FCP, TTFB) sous forme de métriques OpenTelemetry, Cast Operations les fait apparaître sur la vue d'ensemble de l'application avec des évaluations bon / à améliorer / médiocre. Si aucune métrique de web vital n'est rapportée, le panneau explique comment commencer à les envoyer.
 
 ## Ce que vous obtenez
 

@@ -344,7 +344,7 @@ export default class MonitorUtil {
 
         /*
          * Sensitive SQL connection fields may reference a monitor secret via
-         * {{monitorSecrets.name}}. The user opts into this — OneUptime never
+         * {{monitorSecrets.name}}. The user opts into this — Cast Operations never
          * creates or populates a secret on their behalf; we only resolve a
          * reference they chose to write here.
          */

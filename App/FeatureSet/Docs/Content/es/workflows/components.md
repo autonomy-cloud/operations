@@ -60,7 +60,7 @@ Envía un mensaje a un chat de Telegram usando un token de bot y un ID de chat.
 
 ## Correo electrónico
 
-Envía un correo electrónico a través de OneUptime.
+Envía un correo electrónico a través de Cast Operations.
 
 **Configuración**:
 
@@ -118,9 +118,9 @@ Usa esto para compartir lógica común. Construye una vez un workflow "publicar 
 
 Hay un límite de seguridad para que los workflows no se llamen unos a otros en bucle. Consulta [Configuración y Seguridad](/docs/workflows/configuration).
 
-## Componentes de datos de OneUptime
+## Componentes de datos de Cast Operations
 
-Para cada tipo de registro en OneUptime (monitores, incidentes, alertas, páginas de estado, políticas de guardia y muchos más), la paleta tiene estos componentes: búscalos por el nombre del tipo:
+Para cada tipo de registro en Cast Operations (monitores, incidentes, alertas, páginas de estado, políticas de guardia y muchos más), la paleta tiene estos componentes: búscalos por el nombre del tipo:
 
 - **Buscar Uno** — obtener un registro por ID o filtro.
 - **Buscar** — obtener una lista de registros.
@@ -129,13 +129,13 @@ Para cada tipo de registro en OneUptime (monitores, incidentes, alertas, página
 - **Eliminar** — quitar un registro.
 - **Contar** — contar registros que coinciden con un filtro.
 
-Así es como un workflow puede leer y cambiar datos de OneUptime. Por ejemplo: un webhook de tu herramienta de CI puede usar **Crear Incidente** para abrir un incidente con los detalles del fallo.
+Así es como un workflow puede leer y cambiar datos de Cast Operations. Por ejemplo: un webhook de tu herramienta de CI puede usar **Crear Incidente** para abrir un incidente con los detalles del fallo.
 
 ## ¿Qué componente debo usar?
 
 Algunas reglas rápidas:
 
-- Si hay un bloque dedicado para lo que quieres (Slack, Email, un registro de OneUptime), úsalo: obtienes un mejor manejo de errores y registros más claros.
+- Si hay un bloque dedicado para lo que quieres (Slack, Email, un registro de Cast Operations), úsalo: obtienes un mejor manejo de errores y registros más claros.
 - Para cualquier otra API externa, usa **API**.
 - Para reformatear datos entre bloques, usa **Código personalizado** o **JSON**.
 - Para tomar diferentes acciones según un valor, usa **Condiciones**.

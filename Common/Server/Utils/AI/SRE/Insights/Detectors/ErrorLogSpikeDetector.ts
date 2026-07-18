@@ -98,7 +98,7 @@ export default class ErrorLogSpikeDetector implements InsightDetector {
 
   /*
    * ClickHouse serves DateTime columns as a zone-less wall clock in the
-   * column's own zone — UTC in every OneUptime deployment. `new Date()` reads
+   * column's own zone — UTC in every Cast Operations deployment. `new Date()` reads
    * that shape as the PROCESS's LOCAL time, so on a worker whose TZ is not UTC
    * every bucket silently slides by the UTC offset and the recent/prior
    * boundary below lands in the wrong place: positive offsets push the spike's

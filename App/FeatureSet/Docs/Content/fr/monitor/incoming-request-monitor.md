@@ -1,6 +1,6 @@
 # Moniteur de requêtes entrantes
 
-La surveillance des requêtes entrantes (également connue sous le nom de surveillance de signal de vie) vous permet de surveiller les services en leur demandant d'envoyer des requêtes HTTP périodiques à OneUptime. Au lieu que OneUptime contacte votre service, votre service envoie un signal à OneUptime pour confirmer qu'il fonctionne.
+La surveillance des requêtes entrantes (également connue sous le nom de surveillance de signal de vie) vous permet de surveiller les services en leur demandant d'envoyer des requêtes HTTP périodiques à Cast Operations. Au lieu que Cast Operations contacte votre service, votre service envoie un signal à Cast Operations pour confirmer qu'il fonctionne.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs de requêtes entrantes fournissent une URL webhook unique que vos 
 
 ## Création d'un moniteur de requêtes entrantes
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Requête entrante** comme type de moniteur
 4. Une **Clé secrète** et une URL de signal de vie seront générées pour ce moniteur
@@ -26,7 +26,7 @@ Les moniteurs de requêtes entrantes fournissent une URL webhook unique que vos 
 Une fois créé, votre moniteur aura une URL de signal de vie unique au format :
 
 ```
-https://oneuptime.com/heartbeat/VOTRE_CLÉ_SECRÈTE
+https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE
 ```
 
 Votre service doit envoyer des requêtes HTTP **GET** ou **POST** à cette URL à intervalles réguliers.
@@ -37,10 +37,10 @@ Votre service doit envoyer des requêtes HTTP **GET** ou **POST** à cette URL �
 
 ```bash
 # Requête GET simple
-curl https://oneuptime.com/heartbeat/VOTRE_CLÉ_SECRÈTE
+curl https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE
 
 # Requête POST avec corps personnalisé
-curl -X POST https://oneuptime.com/heartbeat/VOTRE_CLÉ_SECRÈTE \
+curl -X POST https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/VOTRE_CLÉ_SECRÈTE \
 
 ```bash
 # Ajouter au crontab pour envoyer un signal de vie toutes les 5 minutes
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/VOTRE_CLÉ_SECRÈTE > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE > /dev/null
 ```
 
 #### Depuis le code d'application
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/VOTRE_CLÉ_SECRÈTE \
 ```javascript
 // Exemple Node.js
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/VOTRE_CLÉ_SECRÈTE");
+https.get("https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE");
 ```
 
 ```python
 # Exemple Python
 import requests
-requests.get('https://oneuptime.com/heartbeat/VOTRE_CLÉ_SECRÈTE')
+requests.get('https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE')
 ```
 
-Remplacez `https://oneuptime.com` par l'URL de votre instance OneUptime si elle est auto-hébergée.
+Remplacez `https://visca.ai` par l'URL de votre instance Cast Operations si elle est auto-hébergée.
 
 ## Critères de surveillance
 

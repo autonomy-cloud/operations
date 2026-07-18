@@ -1,6 +1,6 @@
 # 메트릭 모니터
 
-메트릭 모니터링을 통해 OpenTelemetry를 통해 수집된 커스텀 애플리케이션 및 인프라 메트릭을 모니터링할 수 있습니다. OneUptime은 시간 창에 걸쳐 메트릭 값을 평가하고 구성된 기준에 따라 알림을 트리거합니다.
+메트릭 모니터링을 통해 OpenTelemetry를 통해 수집된 커스텀 애플리케이션 및 인프라 메트릭을 모니터링할 수 있습니다. Cast Operations은 시간 창에 걸쳐 메트릭 값을 평가하고 구성된 기준에 따라 알림을 트리거합니다.
 
 ## 개요
 
@@ -14,7 +14,7 @@
 
 ## 메트릭 모니터 생성
 
-1. OneUptime 대시보드의 **모니터**로 이동합니다
+1. Cast Operations 대시보드의 **모니터**로 이동합니다
 2. **모니터 생성**을 클릭합니다
 3. 모니터 유형으로 **메트릭**을 선택합니다
 4. 메트릭 쿼리 및 선택적 수식을 구성합니다
@@ -105,4 +105,4 @@
 
 ## 설정 요구 사항
 
-메트릭 모니터링을 위해서는 애플리케이션이나 인프라가 OpenTelemetry를 통해 OneUptime으로 메트릭을 전송해야 합니다. 설정 지침은 [OpenTelemetry](/docs/telemetry/open-telemetry) 문서를 참조하십시오.
+메트릭 모니터링을 위해서는 애플리케이션이나 인프라가 OpenTelemetry를 통해 Cast Operations으로 메트릭을 전송해야 합니다. 설정 지침은 [OpenTelemetry](/docs/telemetry/open-telemetry) 문서를 참조하십시오.

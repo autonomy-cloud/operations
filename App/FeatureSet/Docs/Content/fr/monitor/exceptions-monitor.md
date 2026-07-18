@@ -1,6 +1,6 @@
 # Moniteur d'exceptions
 
-La surveillance des exceptions vous permet de surveiller les exceptions et les erreurs d'application, en déclenchant des alertes lorsque le nombre d'exceptions dépasse vos seuils configurés. OneUptime évalue les données d'exception de vos services de télémétrie sur une fenêtre temporelle.
+La surveillance des exceptions vous permet de surveiller les exceptions et les erreurs d'application, en déclenchant des alertes lorsque le nombre d'exceptions dépasse vos seuils configurés. Cast Operations évalue les données d'exception de vos services de télémétrie sur une fenêtre temporelle.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs d'exceptions comptent et filtrent les exceptions correspondant à 
 
 ## Création d'un moniteur d'exceptions
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Exceptions** comme type de moniteur
 4. Sélectionnez les services de télémétrie à surveiller
@@ -24,7 +24,7 @@ Les moniteurs d'exceptions comptent et filtrent les exceptions correspondant à 
 
 ### Services de télémétrie
 
-Sélectionnez un ou plusieurs services depuis lesquels surveiller les exceptions. Les services doivent envoyer des données d'exception à OneUptime via OpenTelemetry.
+Sélectionnez un ou plusieurs services depuis lesquels surveiller les exceptions. Les services doivent envoyer des données d'exception à Cast Operations via OpenTelemetry.
 
 ### Filtres d'exceptions
 
@@ -80,4 +80,4 @@ Sélectionnez un ou plusieurs services depuis lesquels surveiller les exceptions
 
 ## Prérequis d'installation
 
-La surveillance des exceptions nécessite que vos applications envoient des données d'exception à OneUptime via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.
+La surveillance des exceptions nécessite que vos applications envoient des données d'exception à Cast Operations via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.

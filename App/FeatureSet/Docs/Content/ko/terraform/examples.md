@@ -1,6 +1,6 @@
 # Terraform 공급자 예시
 
-이 문서는 일반적인 OneUptime Terraform 구성에 대한 포괄적인 예시를 제공합니다.
+이 문서는 일반적인 Cast Operations Terraform 구성에 대한 포괄적인 예시를 제공합니다.
 
 ## 기본 예시
 
@@ -10,14 +10,14 @@
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 자체 호스팅의 경우 "= 7.0.123" 사용
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # 자체 호스팅의 경우 변경
+  oneuptime_url = "https://visca.ai"  # 자체 호스팅의 경우 변경
   api_key       = var.oneuptime_api_key
 }
 

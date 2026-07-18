@@ -1,27 +1,27 @@
 # Terraform 공급자 빠른 시작 가이드
 
-이 가이드는 몇 분 안에 OneUptime Terraform 공급자를 시작하는 데 도움을 드립니다.
+이 가이드는 몇 분 안에 Cast Operations Terraform 공급자를 시작하는 데 도움을 드립니다.
 
 ## 전제 조건
 
 - Terraform >= 1.0 설치됨
-- OneUptime 계정 (클라우드 또는 자체 호스팅)
-- OneUptime API 키
+- Cast Operations 계정 (클라우드 또는 자체 호스팅)
+- Cast Operations API 키
 
 ## 1단계: API 키 생성
 
-### OneUptime 클라우드의 경우
+### Cast Operations 클라우드의 경우
 
-1. [OneUptime 클라우드](https://oneuptime.com)로 이동하여 로그인합니다
+1. [Cast Operations 클라우드](https://visca.ai)로 이동하여 로그인합니다
 2. **설정** → **API 키**로 이동합니다
 3. **API 키 생성**을 클릭합니다
 4. 이름을 "Terraform 공급자"로 지정합니다
 5. 필요한 권한을 선택합니다
 6. 생성된 API 키를 복사합니다
 
-### 자체 호스팅 OneUptime의 경우
+### 자체 호스팅 Cast Operations의 경우
 
-1. OneUptime 인스턴스에 액세스합니다
+1. Cast Operations 인스턴스에 액세스합니다
 2. **설정** → **API 키**로 이동합니다
 3. **API 키 생성**을 클릭합니다
 4. 이름을 "Terraform 공급자"로 지정합니다
@@ -36,12 +36,12 @@
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       # 클라우드 고객의 경우
       version = "~> 7.0"
 
       # 자체 호스팅 고객의 경우 - 정확한 버전으로 고정
-      # version = "= 7.0.123"  # OneUptime 버전으로 교체
+      # version = "= 7.0.123"  # Cast Operations 버전으로 교체
     }
   }
   required_version = ">= 1.0"
@@ -49,24 +49,24 @@ terraform {
 
 provider "oneuptime" {
   # 클라우드 고객의 경우
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
 
   # 자체 호스팅 고객의 경우 - 인스턴스 URL 사용
-  # oneuptime_url = "https://oneuptime.yourcompany.com"
+  # oneuptime_url = "https://operations.yourcompany.com"
 
   api_key = var.oneuptime_api_key
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API 키"
+  description = "Cast Operations API 키"
   type        = string
   sensitive   = true
 }
 
-# 참고: 프로젝트는 OneUptime 대시보드에서 수동으로 생성해야 합니다
+# 참고: 프로젝트는 Cast Operations 대시보드에서 수동으로 생성해야 합니다
 # 여기서 기존 프로젝트 ID를 사용합니다
 variable "project_id" {
-  description = "OneUptime 프로젝트 ID"
+  description = "Cast Operations 프로젝트 ID"
   type        = string
 }
 
@@ -94,7 +94,7 @@ output "monitor_id" {
 ```hcl
 # terraform.tfvars
 oneuptime_api_key = "your-api-key-here"
-project_id        = "your-project-id-here"  # OneUptime 대시보드에서 가져옵니다
+project_id        = "your-project-id-here"  # Cast Operations 대시보드에서 가져옵니다
 ```
 
 **중요**: API 키를 비밀로 유지하려면 `terraform.tfvars`를 `.gitignore`에 추가합니다!
@@ -114,7 +114,7 @@ terraform apply
 
 ## 5단계: 리소스 확인
 
-1. OneUptime 대시보드를 확인합니다
+1. Cast Operations 대시보드를 확인합니다
 2. 기존 프로젝트로 이동합니다
 3. "웹사이트 모니터"가 생성되어 실행 중인지 확인합니다
 
@@ -133,14 +133,14 @@ terraform apply
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 항상 최신 호환 7.x 버전 가져오기
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -151,14 +151,14 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # OneUptime 버전과 정확히 일치해야 함
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Cast Operations 버전과 정확히 일치해야 함
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.mycompany.com"  # 자체 호스팅 URL
+  oneuptime_url = "https://operations.mycompany.com"  # 자체 호스팅 URL
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -181,7 +181,7 @@ provider "oneuptime" {
 
 **해결책**:
 
-1. OneUptime 대시보드에서 API 키를 확인합니다
+1. Cast Operations 대시보드에서 API 키를 확인합니다
 2. API 키에 충분한 권한이 있는지 확인합니다
 3. `oneuptime_url`이 인스턴스에 대해 올바른지 확인합니다
 
@@ -193,7 +193,7 @@ provider "oneuptime" {
 
 **해결책**:
 
-1. 대시보드에서 OneUptime 버전을 확인합니다
+1. 대시보드에서 Cast Operations 버전을 확인합니다
 2. 정확히 일치하도록 공급자 버전을 업데이트합니다
 3. `terraform init -upgrade`를 실행합니다
 

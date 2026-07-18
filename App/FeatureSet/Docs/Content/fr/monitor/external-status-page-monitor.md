@@ -1,6 +1,6 @@
 # Moniteur de page de statut externe
 
-La surveillance des pages de statut externes vous permet de surveiller les pages de statut de tiers et d'être alerté lorsque les services dont vous dépendez subissent des pannes ou des dégradations de performances. OneUptime vérifie périodiquement les pages de statut externes (telles que AWS, GCP, Azure, GitHub, OpenAI, Anthropic, et plus encore) et évalue leur statut.
+La surveillance des pages de statut externes vous permet de surveiller les pages de statut de tiers et d'être alerté lorsque les services dont vous dépendez subissent des pannes ou des dégradations de performances. Cast Operations vérifie périodiquement les pages de statut externes (telles que AWS, GCP, Azure, GitHub, OpenAI, Anthropic, et plus encore) et évalue leur statut.
 
 ## Vue d'ensemble
 
@@ -15,7 +15,7 @@ Les moniteurs de pages de statut externes vérifient la santé des services dont
 
 ## Fournisseurs pris en charge
 
-OneUptime prend en charge la surveillance des pages de statut via les méthodes suivantes :
+Cast Operations prend en charge la surveillance des pages de statut via les méthodes suivantes :
 
 | Type de fournisseur      | Description                                                            |
 | ------------------------ | --------------------------------------------------------------------- |
@@ -27,7 +27,7 @@ OneUptime prend en charge la surveillance des pages de statut via les méthodes 
 
 ### Détection automatique
 
-Lorsque défini sur **Auto**, OneUptime tente de détecter automatiquement le format de la page de statut, dans cet ordre :
+Lorsque défini sur **Auto**, Cast Operations tente de détecter automatiquement le format de la page de statut, dans cet ordre :
 
 1. D'abord, il essaie l'API de page de statut incident.io (`/proxy/<host>`)
 2. Ensuite, il essaie l'API JSON Atlassian Statuspage (`/api/v2/status.json`, `/api/v2/components.json` et `/api/v2/incidents/unresolved.json`)
@@ -38,7 +38,7 @@ Lorsque défini sur **Auto**, OneUptime tente de détecter automatiquement le fo
 
 ## Création d'un moniteur de page de statut externe
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Page de statut externe** comme type de moniteur
 4. Entrez l'URL de la page de statut que vous souhaitez surveiller
@@ -55,7 +55,7 @@ Entrez l'URL de la page de statut externe que vous souhaitez surveiller. Pour le
 
 ### Type de fournisseur
 
-Sélectionnez le type de fournisseur pour la page de statut. Utilisez **Auto** (par défaut) pour laisser OneUptime détecter le format automatiquement, ou spécifiez **Atlassian Statuspage**, **incident.io**, **RSS** ou **Atom** si vous le connaissez.
+Sélectionnez le type de fournisseur pour la page de statut. Utilisez **Auto** (par défaut) pour laisser Cast Operations détecter le format automatiquement, ou spécifiez **Atlassian Statuspage**, **incident.io**, **RSS** ou **Atom** si vous le connaissez.
 
 ### Filtre de groupe de composants
 
@@ -93,7 +93,7 @@ Vous pouvez configurer des critères pour déterminer quand le service externe e
 
 ### Critères par défaut
 
-Par défaut, OneUptime initialise les critères en fonction de ce qui importe réellement pour une page de statut — ses incidents actifs et la santé de ses composants, plutôt que sa simple accessibilité :
+Par défaut, Cast Operations initialise les critères en fonction de ce qui importe réellement pour une page de statut — ses incidents actifs et la santé de ses composants, plutôt que sa simple accessibilité :
 
 - Le moniteur est marqué **Opérationnel** lorsqu'il n'y a aucun incident actif dans le périmètre concerné.
 - Le moniteur est marqué **Hors ligne** (et un incident est créé) lorsqu'il y a au moins un incident actif dans le périmètre concerné, ou lorsqu'un composant concerné signale `degraded_performance`, `partial_outage`, `major_outage` ou `full_outage`.

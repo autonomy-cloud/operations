@@ -1,34 +1,34 @@
-# Terraform-Konfigurationsleitfaden für selbst gehostetes OneUptime
+# Terraform-Konfigurationsleitfaden für selbst gehostetes Cast Operations
 
-Dieser Leitfaden richtet sich speziell an Kunden, die selbst gehostete OneUptime-Instanzen betreiben. Er behandelt Versionsverwaltung, Konfiguration und Best Practices für die Verwendung des Terraform-Providers mit Ihrer eigenen OneUptime-Bereitstellung.
+Dieser Leitfaden richtet sich speziell an Kunden, die selbst gehostete Cast Operations-Instanzen betreiben. Er behandelt Versionsverwaltung, Konfiguration und Best Practices für die Verwendung des Terraform-Providers mit Ihrer eigenen Cast Operations-Bereitstellung.
 
 ## Wichtige Hinweise
 
-⚠️ **Projekte können nicht über Terraform erstellt werden** – Projekte müssen zuerst manuell im OneUptime-Dashboard erstellt werden. Verwenden Sie die Projekt-ID in Ihren Terraform-Konfigurationen.
+⚠️ **Projekte können nicht über Terraform erstellt werden** – Projekte müssen zuerst manuell im Cast Operations-Dashboard erstellt werden. Verwenden Sie die Projekt-ID in Ihren Terraform-Konfigurationen.
 
-⚠️ **Die wichtigste Regel für selbst gehostete Kunden**: Pinnen Sie Ihre Terraform-Provider-Version immer exakt auf Ihre OneUptime-Installationsversion.
+⚠️ **Die wichtigste Regel für selbst gehostete Kunden**: Pinnen Sie Ihre Terraform-Provider-Version immer exakt auf Ihre Cast Operations-Installationsversion.
 
 ## Kritisch: Versionskompatibilität
 
 ### Warum Versions-Pinning kritisch ist
 
-- Der Terraform-Provider wird automatisch aus der OneUptime-API generiert
-- Jede OneUptime-Version kann unterschiedliche API-Endpunkte und Schemata haben
+- Der Terraform-Provider wird automatisch aus der Cast Operations-API generiert
+- Jede Cast Operations-Version kann unterschiedliche API-Endpunkte und Schemata haben
 - Die Verwendung einer nicht übereinstimmenden Provider-Version kann Fehler oder unerwartetes Verhalten verursachen
 - Versions-Pinning stellt Kompatibilität und vorhersehbares Verhalten sicher
 
-## Ihre OneUptime-Version finden
+## Ihre Cast Operations-Version finden
 
 ### Methode 1: Dashboard
 
-1. Melden Sie sich bei Ihrem OneUptime-Dashboard an
+1. Melden Sie sich bei Ihrem Cast Operations-Dashboard an
 2. Gehen Sie zu **Einstellungen** → **Über**
 3. Notieren Sie die Versionsnummer (z. B. "7.0.123")
 
 ### Methode 2: API-Endpunkt
 
 ```bash
-curl https://your-oneuptime-instance.com/api/status
+curl https://your-operations-instance.com/api/status
 ```
 
 ### Methode 3: Docker-Images
@@ -53,7 +53,7 @@ helm list -n oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 123 durch Ihre genaue Build-Nummer ersetzen
     }
   }
@@ -61,14 +61,14 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # Ihre selbst gehostete URL
+  oneuptime_url = "https://operations.yourcompany.com"  # Ihre selbst gehostete URL
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Upgrade-Prozess für selbst gehostete Instanzen
 
-Beim Upgrade Ihrer OneUptime-Instanz:
+Beim Upgrade Ihrer Cast Operations-Instanz:
 
 ### 1. Vor-Upgrade-Checkliste
 
@@ -76,16 +76,16 @@ Beim Upgrade Ihrer OneUptime-Instanz:
 # Aktuellen Terraform-Zustand sichern
 terraform state pull > backup-$(date +%Y%m%d).tfstate
 
-# Aktuelle OneUptime-Version notieren
-curl https://oneuptime.yourcompany.com/api/status | jq '.version'
+# Aktuelle Cast Operations-Version notieren
+curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Aktuelle Provider-Version notieren
 terraform providers | grep oneuptime
 ```
 
-### 2. OneUptime-Instanz upgraden
+### 2. Cast Operations-Instanz upgraden
 
-Folgen Sie Ihrem Standard-OneUptime-Upgrade-Prozess (Docker, Helm usw.)
+Folgen Sie Ihrem Standard-Cast Operations-Upgrade-Prozess (Docker, Helm usw.)
 
 ### 3. Terraform-Provider aktualisieren
 
@@ -94,7 +94,7 @@ Folgen Sie Ihrem Standard-OneUptime-Upgrade-Prozess (Docker, Helm usw.)
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # Neue Version nach dem Upgrade
     }
   }

@@ -254,7 +254,7 @@ export default class TemplateVariablesCatalog {
       case MonitorType.Server:
         return {
           title: "Server Metrics",
-          description: "Basic host metrics reported by the OneUptime agent.",
+          description: "Basic host metrics reported by the Cast Operations agent.",
           variables: [
             {
               key: "hostname",

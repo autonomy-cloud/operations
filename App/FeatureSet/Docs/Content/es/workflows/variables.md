@@ -60,7 +60,7 @@ El bloque **Código personalizado** lee las variables de manera diferente: las v
 
 ### Construir una carga útil desde un webhook
 
-Llega un webhook con un cuerpo como `{ "service": "checkout", "status": "failed" }`. Para convertir eso en un incidente de OneUptime:
+Llega un webhook con un cuerpo como `{ "service": "checkout", "status": "failed" }`. Para convertir eso en un incidente de Cast Operations:
 
 1. Disparador **Webhook** llamado `CIWebhook`.
 2. Bloque **Condiciones**: izquierdo `{{CIWebhook.Request Body.status}}`, operador `==`, derecho `failed`.

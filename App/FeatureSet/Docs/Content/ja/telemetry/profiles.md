@@ -1,14 +1,14 @@
-# OneUptimeに継続的プロファイリングデータを送信する
+# Cast Operationsに継続的プロファイリングデータを送信する
 
 ## 概要
 
-継続的プロファイリングは、ログ、メトリクス、トレースに並ぶ可観測性の第4の柱です。プロファイリングはアプリケーションがCPU時間をどのように使用し、メモリを割り当て、システムリソースを関数レベルで使用しているかをキャプチャします。OneUptimeはOpenTelemetryプロトコル（OTLP）を介してプロファイリングデータを取り込み、統合的な分析のために他のテレメトリーシグナルと並べて保存します。
+継続的プロファイリングは、ログ、メトリクス、トレースに並ぶ可観測性の第4の柱です。プロファイリングはアプリケーションがCPU時間をどのように使用し、メモリを割り当て、システムリソースを関数レベルで使用しているかをキャプチャします。Cast OperationsはOpenTelemetryプロトコル（OTLP）を介してプロファイリングデータを取り込み、統合的な分析のために他のテレメトリーシグナルと並べて保存します。
 
-OneUptimeのプロファイリングデータを使用すると、CPU時間を消費するホットな関数を特定し、メモリリークを検出し、競合のボトルネックを見つけ、特定のトレースやスパンとパフォーマンス問題を相関させることができます。
+Cast Operationsのプロファイリングデータを使用すると、CPU時間を消費するホットな関数を特定し、メモリリークを検出し、競合のボトルネックを見つけ、特定のトレースやスパンとパフォーマンス問題を相関させることができます。
 
 ## サポートされるプロファイルタイプ
 
-OneUptimeは以下のプロファイルタイプをサポートしています：
+Cast Operationsは以下のプロファイルタイプをサポートしています：
 
 | プロファイルタイプ | 説明                                        | 単位   |
 | ------------------ | ------------------------------------------- | ------ |
@@ -23,7 +23,7 @@ OneUptimeは以下のプロファイルタイプをサポートしています�
 
 ### ステップ1 — テレメトリー取り込みトークンの作成
 
-OneUptimeに登録してプロジェクトを作成した後、ナビゲーションバーの「More」をクリックし、「プロジェクト設定」をクリックします。
+Cast Operationsに登録してプロジェクトを作成した後、ナビゲーションバーの「More」をクリックし、「プロジェクト設定」をクリックします。
 
 テレメトリー取り込みキーページで、「取り込みキーの作成」をクリックしてトークンを作成します。
 
@@ -35,32 +35,32 @@ OneUptimeに登録してプロジェクトを作成した後、ナビゲーシ�
 
 ### ステップ2 — プロファイラーの設定
 
-OneUptimeはOTLPプロファイルプロトコルを使用して、gRPCとHTTPの両方でプロファイリングデータを受け付けます。
+Cast OperationsはOTLPプロファイルプロトコルを使用して、gRPCとHTTPの両方でプロファイリングデータを受け付けます。
 
 | プロトコル | エンドポイント                                   |
 | ---------- | ------------------------------------------------ |
-| gRPC       | `your-oneuptime-host:4317`（OTLP標準gRPCポート） |
-| HTTP       | `https://your-oneuptime-host/otlp/v1/profiles`   |
+| gRPC       | `your-operations-host:4317`（OTLP標準gRPCポート） |
+| HTTP       | `https://your-operations-host/otlp/v1/profiles`   |
 
 **環境変数**
 
-プロファイラーをOneUptimeに向けるために以下の環境変数を設定します：
+プロファイラーをCast Operationsに向けるために以下の環境変数を設定します：
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
-**セルフホストのOneUptime**
+**セルフホストのCast Operations**
 
-OneUptimeをセルフホストしている場合は、エンドポイントを自分のホストに変更してください（例：`http(s)://YOUR-ONEUPTIME-HOST/otlp`）。gRPCの場合は、OneUptimeホストのポート4317に直接接続します。
+Cast Operationsをセルフホストしている場合は、エンドポイントを自分のホストに変更してください（例：`http(s)://YOUR-OPERATIONS-HOST/otlp`）。gRPCの場合は、Cast Operationsホストのポート4317に直接接続します。
 
 ## インストルメンテーションガイド
 
 ### Grafana Alloyを使用する（eBPFベースのプロファイリング）
 
-Grafana Alloy（旧Grafana Agent）はeBPFを使用してコードの変更なしにLinuxホスト上のすべてのプロセスのCPUプロファイルを収集できます。OTLPを介してOneUptimeにエクスポートするように設定します。
+Grafana Alloy（旧Grafana Agent）はeBPFを使用してコードの変更なしにLinuxホスト上のすべてのプロセスのCPUプロファイルを収集できます。OTLPを介してCast Operationsにエクスポートするように設定します。
 
 Alloyの設定例：
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "oneuptime" {
   endpoint {
-    url = "https://oneuptime.com/pyroscope"
+    url = "https://visca.ai/pyroscope"
     headers = {
       "x-oneuptime-token" = "YOUR_ONEUPTIME_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ Javaアプリケーションの場合、[async-profiler](https://github.com/asyn
 ```bash
 # OpenTelemetry Javaエージェント付きでJavaアプリケーションを起動
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://oneuptime.com/otlp \
+  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
   -Dotel.exporter.otlp.headers=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -95,7 +95,7 @@ java -javaagent:opentelemetry-javaagent.jar \
 
 ### GoのpprofとOTLPエクスポートを使用する
 
-Goアプリケーションの場合、標準の `net/http/pprof` パッケージとOTLPエクスポーターを組み合わせて使用できます。pprofデータを定期的に収集してOneUptimeに転送することで継続的プロファイリングを設定します。
+Goアプリケーションの場合、標準の `net/http/pprof` パッケージとOTLPエクスポーターを組み合わせて使用できます。pprofデータを定期的に収集してCast Operationsに転送することで継続的プロファイリングを設定します。
 
 ```go
 import (
@@ -110,7 +110,7 @@ func collectProfile() {
     pprof.StartCPUProfile(&buf)
     time.Sleep(30 * time.Second)
     pprof.StopCPUProfile()
-    // pprofの出力をOTLP形式に変換してOneUptimeに送信
+    // pprofの出力をOTLP形式に変換してCast Operationsに送信
 }
 ```
 
@@ -125,11 +125,11 @@ Pythonアプリケーションの場合、[py-spy](https://github.com/benfred/py
 py-spy record --format speedscope --pid $PID -o profile.json
 ```
 
-継続的プロファイリングの場合、アプリケーションと並行してpy-spyを実行し、OpenTelemetryコレクターを設定してプロファイルをOneUptimeに取り込み・転送します。
+継続的プロファイリングの場合、アプリケーションと並行してpy-spyを実行し、OpenTelemetryコレクターを設定してプロファイルをCast Operationsに取り込み・転送します。
 
 ## OpenTelemetryコレクターを使用する
 
-OpenTelemetryコレクターをプロキシとして使用して、アプリケーションからプロファイルを受信し、OneUptimeに転送できます。
+OpenTelemetryコレクターをプロキシとして使用して、アプリケーションからプロファイルを受信し、Cast Operationsに転送できます。
 
 ```yaml
 receivers:
@@ -142,7 +142,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -159,7 +159,7 @@ service:
 
 ### フレームグラフの可視化
 
-OneUptimeはプロファイルデータをインタラクティブなフレームグラフとして描画します。各バーはコールスタック内の関数を表し、その幅は消費された時間やリソースに比例します。任意の関数をクリックしてズームインし、呼び出し元と呼び出し先を確認できます。
+Cast Operationsはプロファイルデータをインタラクティブなフレームグラフとして描画します。各バーはコールスタック内の関数を表し、その幅は消費された時間やリソースに比例します。任意の関数をクリックしてズームインし、呼び出し元と呼び出し先を確認できます。
 
 ### 関数リスト
 
@@ -167,7 +167,7 @@ OneUptimeはプロファイルデータをインタラクティブなフレー�
 
 ### トレースとの相関
 
-OneUptimeのプロファイリングデータは分散トレースと相関させることができます。プロファイルにトレースとスパンIDが含まれている場合（OTLPリンクテーブル経由）、遅いトレーススパンから対応するCPUまたはメモリプロファイルに直接移動して、どのコードが実行されていたかを正確に把握できます。
+Cast Operationsのプロファイリングデータは分散トレースと相関させることができます。プロファイルにトレースとスパンIDが含まれている場合（OTLPリンクテーブル経由）、遅いトレーススパンから対応するCPUまたはメモリプロファイルに直接移動して、どのコードが実行されていたかを正確に把握できます。
 
 ### プロファイルタイプによるフィルタリング
 
@@ -175,10 +175,10 @@ OneUptimeのプロファイリングデータは分散トレースと相関さ�
 
 ## データ保持
 
-プロファイルデータの保持期間はOneUptimeプロジェクト設定でテレメトリーサービスごとに設定できます。デフォルトの保持期間は15日間です。保持期間が過ぎるとデータは自動的に削除されます。
+プロファイルデータの保持期間はCast Operationsプロジェクト設定でテレメトリーサービスごとに設定できます。デフォルトの保持期間は15日間です。保持期間が過ぎるとデータは自動的に削除されます。
 
 サービスの保持期間を変更するには、**テレメトリー > サービス > [対象サービス] > 設定** に移動して、データ保持値を更新します。
 
 ## サポート
 
-OneUptimeでのプロファイリング設定に関してご不明な点がある場合は、support@oneuptime.com にお問い合わせください。
+Cast Operationsでのプロファイリング設定に関してご不明な点がある場合は、support@visca.ai にお問い合わせください。

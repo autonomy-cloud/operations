@@ -2,7 +2,7 @@
 
 ## 概述
 
-您可以直接在 Linux、macOS 或 Windows 主機上將 **OpenTelemetry Collector** 作為服務執行，透過 OTLP 將主機遙測資料傳送至 OneUptime。本頁將逐步說明如何安裝 collector、為每種作業系統進行設定，以及根據您想要收集的內容選擇合適的 receiver：
+您可以直接在 Linux、macOS 或 Windows 主機上將 **OpenTelemetry Collector** 作為服務執行，透過 OTLP 將主機遙測資料傳送至 Cast Operations。本頁將逐步說明如何安裝 collector、為每種作業系統進行設定，以及根據您想要收集的內容選擇合適的 receiver：
 
 - 在所有作業系統上收集**主機指標**（CPU、記憶體、磁碟、檔案系統、網路、負載、行程）
 - 透過 [`filelogreceiver`](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/filelogreceiver) 收集 `/var/log/**` 下的**檔案型日誌**（Linux、macOS）
@@ -11,11 +11,11 @@
 - 透過 [`windowseventlogreceiver`](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/windowseventlogreceiver) 收集 **Windows 事件記錄**
 - 透過 [`windowsservicereceiver`](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/windowsservicereceiver) 收集 **Windows 服務狀態**（用於驅動主機的 **Services** 分頁）— 自 **v0.155.0** 起已內建於上游的 `otelcol-contrib` 建置中（請參閱下方「Windows 服務（指標）」）
 
-> **那 OneUptime Infrastructure Agent 呢？** 該 agent 是一個獨立、輕量的 Go daemon，專注於基本指標與 _Server / VM Monitor_ 功能（狀態、行程、警示）。此處描述的 OpenTelemetry Collector 是獨立的，當您想要將日誌（檔案日誌、journald、Windows 事件記錄）或更豐富的主機指標作為標準 OTLP 擷取時，它是合適的工具。兩者可以在同一台主機上執行而互不干擾。
+> **那 Cast Operations Infrastructure Agent 呢？** 該 agent 是一個獨立、輕量的 Go daemon，專注於基本指標與 _Server / VM Monitor_ 功能（狀態、行程、警示）。此處描述的 OpenTelemetry Collector 是獨立的，當您想要將日誌（檔案日誌、journald、Windows 事件記錄）或更豐富的主機指標作為標準 OTLP 擷取時，它是合適的工具。兩者可以在同一台主機上執行而互不干擾。
 
 ## 先決條件
 
-- 一個 **OneUptime Telemetry Ingestion Token** — 從 _Project Settings → Telemetry Ingestion Keys_ 建立一個並複製 `x-oneuptime-token` 值。
+- 一個 **Cast Operations Telemetry Ingestion Token** — 從 _Project Settings → Telemetry Ingestion Keys_ 建立一個並複製 `x-oneuptime-token` 值。
 - **OpenTelemetry Collector Contrib** 發行版（`otelcol-contrib`）。預設的 `otelcol` 建置**不**包含像 `windowseventlogreceiver`、`journaldreceiver` 或 `hostmetrics` 額外功能的 receiver — 請務必使用 `contrib` 發行版。驅動 Windows **Services** 分頁的 alpha 階段 `windowsservicereceiver` 自 **v0.155.0** 起已內建於 `otelcol-contrib` 中，因此請安裝目前的版本；請參閱下方「Windows 服務（指標）」。
 - 主機上的 Root / Administrator 權限，以將 collector 安裝為服務並（在適用時）讀取具有權限限制的日誌來源。
 
@@ -94,7 +94,7 @@ tar -xf $tar -C $dest                          # tar.exe ships with Windows 10 1
 | macOS    | `/etc/otelcol-contrib/config.yaml`                    |
 | Windows  | `C:\Program Files\otelcol-contrib\config.yaml` |
 
-每個設定都遵循相同的結構 — 選擇您想要的 receiver、新增一個 `batch` 和 `resource` processor，並透過 OTLP HTTP 匯出至 OneUptime。下方範例為每種作業系統顯示一份完整、可複製貼上的設定，然後逐一說明每個 receiver 區塊，讓您可以自由搭配組合。
+每個設定都遵循相同的結構 — 選擇您想要的 receiver、新增一個 `batch` 和 `resource` processor，並透過 OTLP HTTP 匯出至 Cast Operations。下方範例為每種作業系統顯示一份完整、可複製貼上的設定，然後逐一說明每個 receiver 區塊，讓您可以自由搭配組合。
 
 替換 `YOUR_TELEMETRY_INGESTION_TOKEN` 和 `service.name` 值以符合您的環境。
 
@@ -114,14 +114,14 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 - **`batch`** 在匯出前將記錄分組，這樣您就不必為每筆記錄付出一次 HTTP 往返。
-- **`resource`** 為每筆記錄標記 `service.name`。如果您希望每台機器在 OneUptime 中以其各自的遙測服務出現，請為每台主機使用不同的值（例如 `prod-web-01`）。
-- **`otlphttp`** 透過 HTTPS 傳送至 OneUptime，並附上擷取權杖。
+- **`resource`** 為每筆記錄標記 `service.name`。如果您希望每台機器在 Cast Operations 中以其各自的遙測服務出現，請為每台主機使用不同的值（例如 `prod-web-01`）。
+- **`otlphttp`** 透過 HTTPS 傳送至 Cast Operations，並附上擷取權杖。
 
 ### 主機指標（Linux、macOS、Windows）
 
@@ -167,7 +167,7 @@ receivers:
 
 `start_at: end` 表示從 collector 啟動的那一刻起的新行；改為 `beginning` 可在首次執行時回填。collector 會追蹤檔案偏移量，因此會在重新啟動之間正確地恢復。
 
-**將主機日誌堆疊追蹤轉換為 Exceptions。** OneUptime 會自動掃描 error 和 fatal 日誌行中的堆疊追蹤，並將其彙整到 **Exceptions**（Issues）檢視中，歸屬於此主機 — 不需要額外設定。為了讓分組效果良好，多行堆疊追蹤（Java、Python、.NET、Ruby）必須以**一筆**日誌記錄的形式抵達，而非每行一筆記錄。在 `filelog` receiver 上啟用多行重組，讓追蹤及其框架保持在一起：
+**將主機日誌堆疊追蹤轉換為 Exceptions。** Cast Operations 會自動掃描 error 和 fatal 日誌行中的堆疊追蹤，並將其彙整到 **Exceptions**（Issues）檢視中，歸屬於此主機 — 不需要額外設定。為了讓分組效果良好，多行堆疊追蹤（Java、Python、.NET、Ruby）必須以**一筆**日誌記錄的形式抵達，而非每行一筆記錄。在 `filelog` receiver 上啟用多行重組，讓追蹤及其框架保持在一起：
 
 ```yaml
 receivers:
@@ -333,7 +333,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -385,7 +385,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -448,7 +448,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -522,9 +522,9 @@ sudo launchctl list | grep otelcol-contrib
 sc.exe create "otelcol-contrib" `
   binPath= "\"C:\Program Files\otelcol-contrib\otelcol-contrib.exe\" --config=\"C:\Program Files\otelcol-contrib\config.yaml\"" `
   start= auto `
-  DisplayName= "OpenTelemetry Collector (OneUptime)"
+  DisplayName= "OpenTelemetry Collector (Cast Operations)"
 
-sc.exe description "otelcol-contrib" "Collects host telemetry and forwards it to OneUptime over OTLP."
+sc.exe description "otelcol-contrib" "Collects host telemetry and forwards it to Cast Operations over OTLP."
 
 sc.exe start "otelcol-contrib"
 sc.exe query "otelcol-contrib"
@@ -532,18 +532,18 @@ sc.exe query "otelcol-contrib"
 
 該服務預設在 `LocalSystem` 下執行，它具有讀取 `Security` Windows 事件記錄頻道與每個 Windows 服務所需的權限。
 
-## 步驟 4 — 在 OneUptime 中驗證
+## 步驟 4 — 在 Cast Operations 中驗證
 
 1. 在主機上產生一些訊號：
    - **Linux / macOS：** `logger "hello from oneuptime"`（寫入 syslog / journald）。
-   - **Windows：** 從提升權限的提示字元執行 `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO OneUptimeTest /D "hello from oneuptime"`。
-2. 在 OneUptime 儀表板中，開啟 **Telemetry → Services** 並選擇您設定的 `service.name`。
+   - **Windows：** 從提升權限的提示字元執行 `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from oneuptime"`。
+2. 在 Cast Operations 儀表板中，開啟 **Telemetry → Services** 並選擇您設定的 `service.name`。
 3. 開啟 **Metrics** — 主機指標（CPU、記憶體、檔案系統等）應在一分鐘內出現。
 4. 開啟 **Logs** — 您的檔案日誌 / journald 項目 / Windows 事件記錄應正在串流進來。實用的可搜尋屬性包括 `log.file.name`、`systemd.unit`、`winlog.channel`、`winlog.event_id` 與 `winlog.provider.name`。
 
 ## 減少收集的資料量
 
-由於 collector 設定由您掌控，因此離開主機的內容完全由您決定 — 除非您新增的某個 receiver 要求，否則不會收集任何內容。如果某台主機傳送的資料量超過您的需求（這會呈現為較高的擷取量，且在 OneUptime Cloud 上會導致較高的成本），請在此進行調整。兩個最大的槓桿是**您 tail 哪些日誌來源**與**您多久抓取一次指標**；其餘的則由 `filter` processor 處理。
+由於 collector 設定由您掌控，因此離開主機的內容完全由您決定 — 除非您新增的某個 receiver 要求，否則不會收集任何內容。如果某台主機傳送的資料量超過您的需求（這會呈現為較高的擷取量，且在 Cast Operations Cloud 上會導致較高的成本），請在此進行調整。兩個最大的槓桿是**您 tail 哪些日誌來源**與**您多久抓取一次指標**；其餘的則由 `filter` processor 處理。
 
 原則與設定本身相同：**只新增您會查看其資料的 receiver**，然後在其中進行精簡。下方的每項變更都是對 `config.yaml` 的編輯 — 套用後請重新啟動 collector（步驟 3）。
 
@@ -627,7 +627,7 @@ processors:
         - "severity_number != SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_WARN"
 ```
 
-> **請勿移除 `UNSPECIFIED` 防護條件。** `SEVERITY_NUMBER_UNSPECIFIED` 是 `0`，而 `SEVERITY_NUMBER_WARN` 是 `13`，因此單純的 `severity_number < SEVERITY_NUMBER_WARN` 就是 `0 < 13` — **對於每一筆嚴重性從未被解析過的記錄都成立**。單純的 `filelog` receiver 並不會從日誌行解析嚴重性：本頁面的 `filelog` 範例中沒有任何一個設定了 `operators:`，因此那些記錄抵達 filter 時帶著 `severity_number: 0`。若沒有該防護條件，那個條件會默默刪除 **100% 的** `/var/log/syslog`、`/var/log/messages` 與 `/var/log/auth.log` — 而且任何地方都不會出現錯誤。有了該防護條件，未被分類的記錄會被保留，而您會看到它們以嚴重性 `Unspecified` 抵達 OneUptime，這會告訴您：您真正需要的其實是一個 severity parser。
+> **請勿移除 `UNSPECIFIED` 防護條件。** `SEVERITY_NUMBER_UNSPECIFIED` 是 `0`，而 `SEVERITY_NUMBER_WARN` 是 `13`，因此單純的 `severity_number < SEVERITY_NUMBER_WARN` 就是 `0 < 13` — **對於每一筆嚴重性從未被解析過的記錄都成立**。單純的 `filelog` receiver 並不會從日誌行解析嚴重性：本頁面的 `filelog` 範例中沒有任何一個設定了 `operators:`，因此那些記錄抵達 filter 時帶著 `severity_number: 0`。若沒有該防護條件，那個條件會默默刪除 **100% 的** `/var/log/syslog`、`/var/log/messages` 與 `/var/log/auth.log` — 而且任何地方都不會出現錯誤。有了該防護條件，未被分類的記錄會被保留，而您會看到它們以嚴重性 `Unspecified` 抵達 Cast Operations，這會告訴您：您真正需要的其實是一個 severity parser。
 
 若要*正確地*依嚴重性篩選檔案日誌，請先在 receiver 上使用 [`severity_parser`](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/pkg/stanza/docs/operators/severity_parser.md) operator 解析出嚴重性，讓記錄在抵達 filter 之前就帶有真正的層級：
 
@@ -699,7 +699,7 @@ service:
       exporters: [otlphttp]
 ```
 
-> **正在編輯 OneUptime 為您產生的設定？** 上方的管線對應的是本頁面上的完整範例。來自儀表板（Hosts → Documentation）的設定，其命名方式並不相同：它的 processor 是 `resourcedetection` 與 `batch`（**沒有** `resource` processor），而它的 exporter 是 `otlphttp/oneuptime`。參照一個未被定義的 processor 會讓 collector 在啟動時停止，並出現 `references processor "resource" which is not configured`。請將 filter 加入既有的內容之中，而不是把這個區塊貼上去覆蓋它：
+> **正在編輯 Cast Operations 為您產生的設定？** 上方的管線對應的是本頁面上的完整範例。來自儀表板（Hosts → Documentation）的設定，其命名方式並不相同：它的 processor 是 `resourcedetection` 與 `batch`（**沒有** `resource` processor），而它的 exporter 是 `otlphttp/oneuptime`。參照一個未被定義的 processor 會讓 collector 在啟動時停止，並出現 `references processor "resource" which is not configured`。請將 filter 加入既有的內容之中，而不是把這個區塊貼上去覆蓋它：
 >
 > ```yaml
 > service:
@@ -710,7 +710,7 @@ service:
 >       exporters: [otlphttp/oneuptime]
 > ```
 >
-> 請保留 `resourcedetection` — OneUptime 是使用它所設定的 `host.name` / `host.id` 來將遙測資料對應到某台主機。該產生的設定也是**僅指標**的：在您加入之前，它並沒有 `logs:` 管線，因此在您於其旁加入一個 `filelog` 或 `journald` receiver 之前，`filter/drop-low-severity` 沒有任何東西可以篩選。
+> 請保留 `resourcedetection` — Cast Operations 是使用它所設定的 `host.name` / `host.id` 來將遙測資料對應到某台主機。該產生的設定也是**僅指標**的：在您加入之前，它並沒有 `logs:` 管線，因此在您於其旁加入一個 `filelog` 或 `journald` receiver 之前，`filter/drop-low-severity` 沒有任何東西可以篩選。
 
 > **在 macOS 上，請使用 tarball，而非 Homebrew。** Homebrew formula 隨附的是**核心（core）** collector，而 `filter` 是 contrib 專屬的 processor — 無論您的 YAML 是否正確，collector 都會拒絕啟動。
 
@@ -744,7 +744,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -760,14 +760,14 @@ service:
 
 > **留意您所刪減的內容。** 基於日誌的警示需要日誌抵達：如果您篩選掉某個嚴重性或某個頻道，以其為依據的 monitor 就會靜默。請精簡您不會採取行動的來源，而非某個 monitor 正在監看的來源。一次變更一個槓桿，並在 **Project Settings → Usage History** 下確認資料量下降（使用量以每日彙總，因此請給它一兩天的時間）後，再進行下一項。
 
-## 自架 OneUptime
+## 自架 Cast Operations
 
-如果您自架 OneUptime，請將 exporter 指向您自己的主機：
+如果您自架 Cast Operations，請將 exporter 指向您自己的主機：
 
 ```yaml
 exporters:
   otlphttp:
-    endpoint: https://your-oneuptime-host.example.com/otlp
+    endpoint: https://your-operations-host.example.com/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
@@ -784,11 +784,11 @@ OpenTelemetry Collector 遵循標準的 `HTTPS_PROXY` / `HTTP_PROXY` / `NO_PROXY
 
 ## 疑難排解
 
-- **OneUptime 中沒有出現任何遙測資料**
+- **Cast Operations 中沒有出現任何遙測資料**
   - 在設定中新增 `service.telemetry.logs.level: debug` 並重新啟動 collector 以取得詳細輸出。
   - **Linux / macOS：** `journalctl -u otelcol-contrib -f`（Linux）或 `tail -f /var/log/otelcol-contrib.err.log`（macOS）。
   - **Windows：** 在 _Event Viewer → Windows Logs → Application_ 下尋找來源 `otelcol-contrib`。
-  - 確認主機可以連線到 `https://oneuptime.com/otlp`（或您自架的端點）：從同一台機器執行 `curl -v https://oneuptime.com/otlp`。
+  - 確認主機可以連線到 `https://visca.ai/otlp`（或您自架的端點）：從同一台機器執行 `curl -v https://visca.ai/otlp`。
 - **exporter 傳回 HTTP 401** — 擷取權杖無效或已撤銷。從 _Project Settings → Telemetry Ingestion Keys_ 產生一個新的。
 - **`Security` Windows 事件記錄傳回 access denied** — 該服務未以足夠的權限執行。在 `LocalSystem` 下重新建立它（`sc.exe create` 的預設值），或授予服務帳戶 _Manage auditing and security log_ 使用者權限。
 - **`journald` receiver 無法啟動** — 確保 `journalctl` 在 collector 的 `PATH` 上，且 `/var/log/journal` 存在（若不存在，請執行 `sudo systemd-tmpfiles --create --prefix /var/log/journal`）。
@@ -798,5 +798,5 @@ OpenTelemetry Collector 遵循標準的 `HTTPS_PROXY` / `HTTP_PROXY` / `NO_PROXY
 
 - 新增 **Logs Monitors** 以針對特定日誌模式發出警示（例如，當 5 分鐘視窗內發生超過 5 次 `winlog.event_id = 4625` 登入失敗時發出警示）。
 - 在主機指標上新增 **Metrics Monitors**（CPU 飽和、磁碟空間不足、swap 使用量）。
-- 將此與 [Server / VM Monitor](/docs/monitor/server-monitor) 和 [OneUptime Infrastructure Agent](/docs/monitor/server-monitor) 結合，以實現端對端的主機可見性。
+- 將此與 [Server / VM Monitor](/docs/monitor/server-monitor) 和 [Cast Operations Infrastructure Agent](/docs/monitor/server-monitor) 結合，以實現端對端的主機可見性。
 - 透過 Ansible / Chef / Puppet / Group Policy / Intune / 您現有的設定管理工具，將相同的設定傳送至每台主機。

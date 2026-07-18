@@ -1,14 +1,14 @@
 # Policy för inkommande samtal (Twilio-integration)
 
-Policyer för inkommande samtal gör det möjligt för externa uppringare att nå dina jour-ingenjörer genom att ringa ett dedikerat telefonnummer. När någon ringer dirigerar OneUptime samtalet genom dina konfigurerade eskaleringsregler tills en ingenjör svarar.
+Policyer för inkommande samtal gör det möjligt för externa uppringare att nå dina jour-ingenjörer genom att ringa ett dedikerat telefonnummer. När någon ringer dirigerar Cast Operations samtalet genom dina konfigurerade eskaleringsregler tills en ingenjör svarar.
 
 ## Hur det fungerar
 
 ```mermaid
 flowchart TD
     A[Uppringare ringer<br/>Inkommande samtalsnummer] --> B[Twilio tar emot samtal]
-    B --> C[Twilio skickar webhook<br/>till OneUptime]
-    C --> D[OneUptime spelar upp<br/>hälsningsmeddelande]
+    B --> C[Twilio skickar webhook<br/>till Cast Operations]
+    C --> D[Cast Operations spelar upp<br/>hälsningsmeddelande]
     D --> E[Ladda eskaleringsregler]
     E --> F{Regel 1:<br/>Försök jour-användare}
     F -->|Inget svar| G{Regel 2:<br/>Försök backup-team}
@@ -26,7 +26,7 @@ flowchart TD
 
 - Ett Twilio-konto – Skapa ett på [https://www.twilio.com](https://www.twilio.com)
 - Ditt Twilio Account SID och Auth Token
-- Åtkomst till din egeninstallerade OneUptime-instans
+- Åtkomst till din egeninstallerade Cast Operations-instans
 
 ## Översikt
 
@@ -38,7 +38,7 @@ Funktionen för inkommande samtalspolicy fungerar genom att:
 4. Ansluta uppringaren till den första tillgängliga jouringenjören
 5. Eskalera till nästa regel om ingen svarar
 
-Eftersom du egeninstallerar OneUptime behöver du konfigurera ditt eget Twilio-konto. Det ger dig full kontroll över dina telefonnummer och fakturering.
+Eftersom du egeninstallerar Cast Operations behöver du konfigurera ditt eget Twilio-konto. Det ger dig full kontroll över dina telefonnummer och fakturering.
 
 ## Steg 1: Skapa ett Twilio-konto
 
@@ -46,9 +46,9 @@ Eftersom du egeninstallerar OneUptime behöver du konfigurera ditt eget Twilio-k
 2. Slutför verifieringsprocessen
 3. Anteckna ditt **Account SID** och **Auth Token** från Twilio-konsolens instrumentpanel
 
-## Steg 2: Konfigurera Samtal/SMS-konfiguration i OneUptime
+## Steg 2: Konfigurera Samtal/SMS-konfiguration i Cast Operations
 
-1. Logga in på din OneUptime-instrumentpanel
+1. Logga in på din Cast Operations-instrumentpanel
 2. Gå till **Projektinställningar** > **Samtal och SMS** > **Anpassad Samtal/SMS-konfiguration**
 3. Klicka på **Skapa anpassad Samtal/SMS-konfiguration**
 4. Fyll i följande fält:
@@ -84,15 +84,15 @@ Du har två alternativ för att konfigurera ett telefonnummer:
 Om du redan har telefonnummer i ditt Twilio-konto:
 
 1. I kortet **Telefonnummer**, klicka på **Använd befintligt nummer**
-2. OneUptime hämtar alla telefonnummer från ditt Twilio-konto
+2. Cast Operations hämtar alla telefonnummer från ditt Twilio-konto
 3. Välj det telefonnummer du vill använda
 4. Klicka på **Använd detta** för att tilldela det till policyn
 
-> **Observera**: Om telefonnumret redan har en webhook konfigurerad uppdateras den för att peka på OneUptime.
+> **Observera**: Om telefonnumret redan har en webhook konfigurerad uppdateras den för att peka på Cast Operations.
 
 ### Alternativ B: Köp ett nytt telefonnummer
 
-För att köpa ett nytt telefonnummer direkt från OneUptime:
+För att köpa ett nytt telefonnummer direkt från Cast Operations:
 
 1. I kortet **Telefonnummer**, klicka på **Köp nytt nummer**
 2. Välj ett **Land** från rullgardinsmenyn
@@ -183,7 +183,7 @@ Bara användare med verifierade telefonnummer kan ringas via eskaleringsregler.
 ### Samtal tas inte emot
 
 - Verifiera att Twilio-konfigurationen är korrekt länkad till policyn
-- Kontrollera att din OneUptime-instans är tillgänglig från internet
+- Kontrollera att din Cast Operations-instans är tillgänglig från internet
 - Verifiera att Twilio Account SID och Auth Token är korrekta
 - Kontrollera Twilio-konsolen för felloggar
 
@@ -197,6 +197,6 @@ Bara användare med verifierade telefonnummer kan ringas via eskaleringsregler.
 ## Säkerhetsöverväganden
 
 - Håll ditt Twilio Auth Token säkert och exponera det aldrig offentligt
-- Använd HTTPS för din OneUptime-instans
-- OneUptime validerar webhook-signaturer för att säkerställa att förfrågningar kommer från Twilio
+- Använd HTTPS för din Cast Operations-instans
+- Cast Operations validerar webhook-signaturer för att säkerställa att förfrågningar kommer från Twilio
 - Överväg att begränsa vilka telefonnummer som kan ringa dina policyer för inkommande samtal

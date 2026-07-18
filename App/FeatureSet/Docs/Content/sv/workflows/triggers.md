@@ -26,9 +26,9 @@ Om systemet är kortvarigt otillgängligt plockas körningen upp så fort det ä
 
 ## Webhook
 
-OneUptime skapar en unik URL. Allt som anropar den URL:en startar arbetsflödet. Headers, query-parametrar och body i förfrågan skickas vidare.
+Cast Operations skapar en unik URL. Allt som anropar den URL:en startar arbetsflödet. Headers, query-parametrar och body i förfrågan skickas vidare.
 
-Bra för: att ta emot data till OneUptime från ett annat verktyg — CI/CD-callbacks, larm från annan övervakning, registreringar i ditt CRM.
+Bra för: att ta emot data till Cast Operations från ett annat verktyg — CI/CD-callbacks, larm från annan övervakning, registreringar i ditt CRM.
 
 **Utdata**:
 
@@ -40,15 +40,15 @@ URL:en accepterar både `GET` och `POST`. Anroparen får en snabb bekräftelse �
 
 Behandla URL:en som ett lösenord. Den som har den kan starta ditt arbetsflöde.
 
-## OneUptime-händelseutlösare
+## Cast Operations-händelseutlösare
 
-Nästan allt i OneUptime — monitorer, incidenter, larm, schemalagt underhåll, statussidor, jourpolicyer, team — kan utlösa ett arbetsflöde. Var och en erbjuder tre händelser:
+Nästan allt i Cast Operations — monitorer, incidenter, larm, schemalagt underhåll, statussidor, jourpolicyer, team — kan utlösa ett arbetsflöde. Var och en erbjuder tre händelser:
 
 - **On Create** — utlöses när en ny läggs till.
 - **On Update** — utlöses när en ändras.
 - **On Delete** — utlöses när en raderas.
 
-Det är så du bygger "när X händer i OneUptime, gör Y" utan att behöva polla saker i en loop.
+Det är så du bygger "när X händer i Cast Operations, gör Y" utan att behöva polla saker i en loop.
 
 Hela posten skickas vidare till nästa block. Till exempel skickar utlösaren **Incident → On Create** vidare den nya incidenten, så att nästa block kan läsa dess titel, beskrivning, allvarlighetsgrad och alla andra fält.
 
@@ -70,7 +70,7 @@ Sök i utlösarpaletten på namn för att hitta den du vill ha.
 | Klicka på en knapp för att köra arbetsflödet | **Manuell**            |
 | Köra på ett återkommande schema              | **Schemalagd**         |
 | Låta ett annat system skicka in data         | **Webhook**            |
-| Reagera på något inuti OneUptime             | **OneUptime-händelse** |
+| Reagera på något inuti Cast Operations             | **Cast Operations-händelse** |
 
 Ett arbetsflöde kan bara ha en utlösare. Om du behöver två sätt att starta samma automation, bygg den delade logiken i ett arbetsflöde och anropa det från två tunna "wrapper"-arbetsflöden med komponenten **Execute Workflow**.
 

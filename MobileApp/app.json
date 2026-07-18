@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "OneUptime On-Call",
+    "name": "Cast Operations On-Call",
     "slug": "oneuptime-on-call",
     "version": "1.0.0",
     "orientation": "default",
@@ -24,7 +24,7 @@
       },
       "infoPlist": {
         "UIBackgroundModes": ["remote-notification"],
-        "NSFaceIDUsageDescription": "Authenticate to access OneUptime On-Call",
+        "NSFaceIDUsageDescription": "Authenticate to access Cast Operations On-Call",
         "ITSAppUsesNonExemptEncryption": false
       }
     },

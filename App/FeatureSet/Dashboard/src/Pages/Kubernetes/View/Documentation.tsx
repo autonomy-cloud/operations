@@ -69,7 +69,7 @@ const KubernetesClusterDocumentation: FunctionComponent<
       <KubernetesDocumentationCard
         clusterName={clusterName}
         title="Agent Installation Guide"
-        description="Follow these steps to install the OneUptime Kubernetes Agent on your cluster."
+        description="Follow these steps to install the Cast Operations Kubernetes Agent on your cluster."
       />
     </Fragment>
   );

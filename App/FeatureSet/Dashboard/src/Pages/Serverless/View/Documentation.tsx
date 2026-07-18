@@ -72,7 +72,7 @@ const ServerlessFunctionDocumentation: FunctionComponent<
     <Fragment>
       <ResourceDocumentationCard
         title="Send telemetry to this serverless function"
-        description={`Instrument your function with OpenTelemetry so ${label} reports to OneUptime.`}
+        description={`Instrument your function with OpenTelemetry so ${label} reports to Cast Operations.`}
         buildMarkdown={getServerlessDocMarkdown}
       />
     </Fragment>

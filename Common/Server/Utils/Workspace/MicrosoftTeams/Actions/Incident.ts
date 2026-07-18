@@ -467,7 +467,7 @@ export default class MicrosoftTeamsIncidentActions {
       );
       if (!card) {
         await turnContext.sendActivity(
-          "No on-call policies have been configured for this project yet. Please add an on-call policy in the OneUptime Dashboard under On-Call Duty > Policies to use this feature.",
+          "No on-call policies have been configured for this project yet. Please add an on-call policy in the Cast Operations Dashboard under On-Call Duty > Policies to use this feature.",
         );
         return;
       }
@@ -1022,7 +1022,7 @@ export default class MicrosoftTeamsIncidentActions {
     }
 
     try {
-      // Get OneUptime user ID
+      // Get Cast Operations user ID
       const oneUptimeUserId: ObjectID =
         await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
           teamsUserId: userId,

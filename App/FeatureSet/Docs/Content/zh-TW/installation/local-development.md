@@ -9,7 +9,7 @@
 
 ```
 # Clone this repo and cd into it.
-git clone https://github.com/OneUptime/oneuptime.git
+git clone https://github.com/autonomy-cloud/operations.git
 cd oneuptime
 
 # Copy config.example.env to config.env

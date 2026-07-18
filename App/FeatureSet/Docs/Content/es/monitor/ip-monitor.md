@@ -1,6 +1,6 @@
 # Monitor de IP
 
-El monitoreo de IP te permite supervisar la disponibilidad y capacidad de respuesta de cualquier dirección IPv4 o IPv6. OneUptime prueba periódicamente la conectividad con la dirección IP objetivo e informa su estado.
+El monitoreo de IP te permite supervisar la disponibilidad y capacidad de respuesta de cualquier dirección IPv4 o IPv6. Cast Operations prueba periódicamente la conectividad con la dirección IP objetivo e informa su estado.
 
 ## Información general
 
@@ -13,7 +13,7 @@ Los monitores de IP verifican que una dirección IP específica sea accesible y 
 
 ## Creación de un monitor de IP
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **IP** como tipo de monitor
 4. Ingresa la dirección IP que deseas monitorear

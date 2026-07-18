@@ -11,7 +11,7 @@ const reviews: Review[] = [
     name: "Marcus Thompson",
     role: "CTO",
     company: "Cloudwave Technologies",
-    text: "OneUptime replaced our fragmented monitoring stack. We consolidated Datadog, PagerDuty, and Statuspage into one platform. The cost savings alone justified the switch, but the unified experience is what keeps us here.",
+    text: "Cast Operations replaced our fragmented monitoring stack. We consolidated Datadog, PagerDuty, and Statuspage into one platform. The cost savings alone justified the switch, but the unified experience is what keeps us here.",
     title: "Replaced 3 tools with one platform",
   },
   {
@@ -25,7 +25,7 @@ const reviews: Review[] = [
     name: "Sarah Mitchell",
     role: "VP of Engineering",
     company: "Nexus Labs",
-    text: "Switching from PagerDuty saved us over $40k annually. OneUptime's on-call scheduling is just as powerful, and the incident timeline feature is something PagerDuty never offered.",
+    text: "Switching from PagerDuty saved us over $40k annually. Cast Operations’ on-call scheduling is just as powerful, and the incident timeline feature is something PagerDuty never offered.",
     title: "Cut costs without compromise",
   },
   {
@@ -39,7 +39,7 @@ const reviews: Review[] = [
     name: "Emily Chen",
     role: "DevOps Lead",
     company: "CloudFirst Inc",
-    text: "We monitor 400+ microservices across three cloud providers. OneUptime handles the complexity without slowing down. The service map visualization alone is worth it.",
+    text: "We monitor 400+ microservices across three cloud providers. Cast Operations handles the complexity without slowing down. The service map visualization alone is worth it.",
     title: "Multi-cloud visibility achieved",
   },
   {
@@ -60,14 +60,14 @@ const reviews: Review[] = [
     name: "Arjun Mehta",
     role: "SRE Team Lead",
     company: "SecureStack",
-    text: "Alert fatigue was killing our team's productivity. OneUptime's intelligent grouping and customizable thresholds cut our noise by 80%. Now every alert actually matters.",
+    text: "Alert fatigue was killing our team's productivity. Cast Operations’ intelligent grouping and customizable thresholds cut our noise by 80%. Now every alert actually matters.",
     title: "Finally, alerts that matter",
   },
   {
     name: "Rachel Foster",
     role: "Head of Infrastructure",
     company: "MedTech Solutions",
-    text: "HIPAA compliance requires strict data handling. Self-hosting OneUptime in our private cloud gives us the audit trail and access controls we need for healthcare.",
+    text: "HIPAA compliance requires strict data handling. Self-hosting Cast Operations in our private cloud gives us the audit trail and access controls we need for healthcare.",
     title: "Healthcare-ready monitoring",
   },
   {
@@ -81,7 +81,7 @@ const reviews: Review[] = [
     name: "Michelle Park",
     role: "Director of SRE",
     company: "GameForge Studios",
-    text: "During our last game launch, we had 2 million concurrent users. OneUptime's real-time dashboards helped us scale our infrastructure on the fly without a single dropped connection.",
+    text: "During our last game launch, we had 2 million concurrent users. Cast Operations’ real-time dashboards helped us scale our infrastructure on the fly without a single dropped connection.",
     title: "Battle-tested at scale",
   },
   {
@@ -95,7 +95,7 @@ const reviews: Review[] = [
     name: "Jennifer Walsh",
     role: "VP of Operations",
     company: "SaaS Metrics",
-    text: "Our on-call engineers used to dread their shifts. OneUptime's fair rotation scheduling and clear escalation paths have genuinely improved team morale and retention.",
+    text: "Our on-call engineers used to dread their shifts. Cast Operations’ fair rotation scheduling and clear escalation paths have genuinely improved team morale and retention.",
     title: "On-call that doesn't burn out",
   },
   {
@@ -116,7 +116,7 @@ const reviews: Review[] = [
     name: "Michael Torres",
     role: "Infrastructure Lead",
     company: "AI Dynamics",
-    text: "We evaluated Grafana Cloud, Splunk, and OneUptime. OneUptime won on total cost of ownership and ease of use. Our junior engineers were productive on day one.",
+    text: "We evaluated Grafana Cloud, Splunk, and Cast Operations. Cast Operations won on total cost of ownership and ease of use. Our junior engineers were productive on day one.",
     title: "Easy to learn, powerful to use",
   },
   {
@@ -130,7 +130,7 @@ const reviews: Review[] = [
     name: "Daniel Kim",
     role: "SRE Manager",
     company: "StreamVision Media",
-    text: "We're contractually obligated to maintain 99.95% uptime. OneUptime's SLA tracking and automated reports give our enterprise clients the transparency they demand.",
+    text: "We're contractually obligated to maintain 99.95% uptime. Cast Operations’ SLA tracking and automated reports give our enterprise clients the transparency they demand.",
     title: "SLA reporting simplified",
   },
   {
@@ -151,14 +151,14 @@ const reviews: Review[] = [
     name: "Natalie Scott",
     role: "VP of Technology",
     company: "InsureTech Global",
-    text: "Distributed tracing across our 60+ microservices used to be a nightmare. OneUptime's service map shows us exactly where requests slow down or fail.",
+    text: "Distributed tracing across our 60+ microservices used to be a nightmare. Cast Operations’ service map shows us exactly where requests slow down or fail.",
     title: "Microservices made visible",
   },
   {
     name: "Jason Liu",
     role: "Lead SRE",
     company: "PayFlow Systems",
-    text: "PCI-DSS requires us to control our monitoring data. Self-hosted OneUptime lets us run everything in our compliant environment without compromising on features.",
+    text: "PCI-DSS requires us to control our monitoring data. Self-hosted Cast Operations lets us run everything in our compliant environment without compromising on features.",
     title: "PCI compliance maintained",
   },
   {
@@ -172,7 +172,7 @@ const reviews: Review[] = [
     name: "Brian McCarthy",
     role: "DevOps Lead",
     company: "ChainLink Logistics",
-    text: "We consolidated five separate monitoring tools into OneUptime. The unified dashboard means our NOC team finally has a single pane of glass for everything.",
+    text: "We consolidated five separate monitoring tools into Cast Operations. The unified dashboard means our NOC team finally has a single pane of glass for everything.",
     title: "True single pane of glass",
   },
   {
@@ -186,14 +186,14 @@ const reviews: Review[] = [
     name: "Thomas Anderson",
     role: "Platform Engineer",
     company: "IoT Networks Inc",
-    text: "We monitor 15,000 IoT devices reporting every 30 seconds. OneUptime handles the ingestion volume without breaking a sweat. The data retention policies keep costs manageable.",
+    text: "We monitor 15,000 IoT devices reporting every 30 seconds. Cast Operations handles the ingestion volume without breaking a sweat. The data retention policies keep costs manageable.",
     title: "IoT scale no problem",
   },
   {
     name: "Maria Santos",
     role: "SRE Lead",
     company: "NewsWire Digital",
-    text: "Breaking news means unpredictable traffic spikes. OneUptime's monitoring stays responsive even when our servers are under 20x normal load.",
+    text: "Breaking news means unpredictable traffic spikes. Cast Operations’ monitoring stays responsive even when our servers are under 20x normal load.",
     title: "Reliable when it matters most",
   },
   {
@@ -207,7 +207,7 @@ const reviews: Review[] = [
     name: "Emma Richardson",
     role: "DevOps Manager",
     company: "AdTech Solutions",
-    text: "We white-label OneUptime's status pages for our clients. They see our branding, we see a unified dashboard. It's a key part of our managed services offering.",
+    text: "We white-label Cast Operations’ status pages for our clients. They see our branding, we see a unified dashboard. It's a key part of our managed services offering.",
     title: "White-label for agencies",
   },
   {

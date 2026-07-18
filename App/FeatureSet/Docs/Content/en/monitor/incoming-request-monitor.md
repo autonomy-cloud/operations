@@ -1,6 +1,6 @@
 # Incoming Request Monitor
 
-Incoming Request monitoring (also known as heartbeat monitoring) allows you to monitor services by having them send periodic HTTP requests to OneUptime. Instead of OneUptime reaching out to your service, your service pings OneUptime to confirm it is running.
+Incoming Request monitoring (also known as heartbeat monitoring) allows you to monitor services by having them send periodic HTTP requests to Cast Operations. Instead of Cast Operations reaching out to your service, your service pings Cast Operations to confirm it is running.
 
 ## Overview
 
@@ -14,7 +14,7 @@ Incoming Request monitors provide a unique webhook URL that your services call o
 
 ## Creating an Incoming Request Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Incoming Request** as the monitor type
 4. A **Secret Key** and heartbeat URL will be generated for this monitor
@@ -26,7 +26,7 @@ Incoming Request monitors provide a unique webhook URL that your services call o
 Once created, your monitor will have a unique heartbeat URL in the format:
 
 ```
-https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+https://visca.ai/heartbeat/YOUR_SECRET_KEY
 ```
 
 Your service should send HTTP **GET** or **POST** requests to this URL at regular intervals.
@@ -37,10 +37,10 @@ Your service should send HTTP **GET** or **POST** requests to this URL at regula
 
 ```bash
 # Simple GET request
-curl https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 # POST request with custom body
-curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Add to crontab to send heartbeat every 5 minutes
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### From application code
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js example
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/YOUR_SECRET_KEY");
+https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python example
 import requests
-requests.get('https://oneuptime.com/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
 ```
 
-Replace `https://oneuptime.com` with your OneUptime instance URL if self-hosted.
+Replace `https://visca.ai` with your Cast Operations instance URL if self-hosted.
 
 ## Monitoring Criteria
 

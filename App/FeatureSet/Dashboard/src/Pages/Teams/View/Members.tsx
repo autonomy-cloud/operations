@@ -108,7 +108,7 @@ const TeamViewMembers: FunctionComponent<PageComponentProps> = (
         onBeforeCreate={(item: TeamMember): Promise<TeamMember> => {
           if (isPushGroupsManaged) {
             throw new BadDataException(
-              "Cannot invite users while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from OneUptime.",
+              "Cannot invite users while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from Cast Operations.",
             );
           }
           if (!props.currentProject || !props.currentProject._id) {
@@ -121,7 +121,7 @@ const TeamViewMembers: FunctionComponent<PageComponentProps> = (
         onBeforeDelete={async (item: TeamMember): Promise<TeamMember> => {
           if (isPushGroupsManaged) {
             throw new BadDataException(
-              "Cannot remove team members while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from OneUptime.",
+              "Cannot remove team members while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from Cast Operations.",
             );
           }
           return item;
@@ -153,7 +153,7 @@ const TeamViewMembers: FunctionComponent<PageComponentProps> = (
             },
             title: "Name",
             description:
-              "This email is not registered on OneUptime yet. Enter the name of the user you would like to invite — we will use it to set up their new account.",
+              "This email is not registered on Cast Operations yet. Enter the name of the user you would like to invite — we will use it to set up their new account.",
             fieldType: FormFieldSchemaType.Text,
             required: false,
             placeholder: "John Smith",

@@ -1,10 +1,10 @@
 # Delning & offentliga instrumentpaneler
 
-Som standard är instrumentpaneler privata för ditt projekt — endast inloggade teammedlemmar kan se dem. Men OneUptime låter dig också dela en instrumentpanel offentligt, skydda den med ett lösenord, begränsa den till vissa IP:er och hosta den på din egen domän. Den här sidan täcker alla fyra.
+Som standard är instrumentpaneler privata för ditt projekt — endast inloggade teammedlemmar kan se dem. Men Cast Operations låter dig också dela en instrumentpanel offentligt, skydda den med ett lösenord, begränsa den till vissa IP:er och hosta den på din egen domän. Den här sidan täcker alla fyra.
 
 ## Privata instrumentpaneler (standard)
 
-En instrumentpanel är endast nåbar för inloggade medlemmar i ditt projekt. URL:en ser ut som `https://oneuptime.com/dashboards/<id>/view` och kräver inloggning.
+En instrumentpanel är endast nåbar för inloggade medlemmar i ditt projekt. URL:en ser ut som `https://visca.ai/dashboards/<id>/view` och kräver inloggning.
 
 Inom projektet styr ägare och etiketter vem som ser vad — se [Konfiguration & behörigheter](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Förfrågningar från andra IP:er avvisas.
 
 ## Anpassade domäner
 
-Som standard serveras en offentlig instrumentpanel på `oneuptime.com`. För att hosta den på din egen subdomän som `dashboard.acme.com`:
+Som standard serveras en offentlig instrumentpanel på `visca.ai`. För att hosta den på din egen subdomän som `dashboard.acme.com`:
 
-1. Lägg till en CNAME-post på din DNS som pekar subdomänen till OneUptimes mål.
+1. Lägg till en CNAME-post på din DNS som pekar subdomänen till Cast Operations mål.
 2. Under **Dashboard → Settings → Custom Domains**, lägg till domänen.
-3. Verifiera den. OneUptime kontrollerar DNS-posten åt dig.
+3. Verifiera den. Cast Operations kontrollerar DNS-posten åt dig.
 4. När den är verifierad är instrumentpanelen nåbar på både din anpassade domän och den ursprungliga URL:en.
 
 Anpassade domäner är användbara för:
@@ -75,7 +75,7 @@ Under **Dashboard → Settings** kan du konfigurera:
 - **Logotyp** — ladda upp en PNG eller SVG som visas i sidhuvudet.
 - **Favicon** — den lilla ikonen i webbläsarfliken.
 
-Varumärket gäller endast när instrumentpanelen visas offentligt. Interna tittare ser alltid OneUptimes varumärke.
+Varumärket gäller endast när instrumentpanelen visas offentligt. Interna tittare ser alltid Cast Operations varumärke.
 
 ## Inbäddning
 

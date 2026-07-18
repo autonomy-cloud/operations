@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 #
-# OneUptime-Probe Dockerfile
+# Cast Operations-Probe Dockerfile
 #
 
 # Pull base image nodejs image.
@@ -29,18 +29,17 @@ ARG APP_VERSION
 
 ENV GIT_SHA=${GIT_SHA}
 ENV APP_VERSION=${APP_VERSION}
-# IS_ENTERPRISE_EDITION is declared in the prod branch below (it is read by no
 # build step, so keeping it out of scope here lets the community + enterprise
 # passes share the npm ci / compile layers). GIT_SHA/APP_VERSION stay here
 # because APP_VERSION is consumed at build time (sed into Common/package.json).
 ENV NODE_OPTIONS="--use-openssl-ca"
 
-LABEL org.opencontainers.image.title="OneUptime Probe"
-LABEL org.opencontainers.image.description="OneUptime monitoring probe — runs HTTP, TCP, ping, SSL, and synthetic monitors from any location."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.documentation="https://oneuptime.com/docs/probe/custom-probe"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations Probe"
+LABEL org.opencontainers.image.description="Cast Operations monitoring probe — runs HTTP, TCP, ping, SSL, and synthetic monitors from any location."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.documentation="https://visca.ai/docs/probe/custom-probe"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 LABEL org.opencontainers.image.revision="${GIT_SHA}"
 LABEL org.opencontainers.image.version="${APP_VERSION}"
@@ -140,12 +139,9 @@ CMD [ "bash", "/usr/src/app/Start.dev.sh" ]
 COPY ./Probe /usr/src/app
 # Bundle app source
 RUN npm run compile
-# IS_ENTERPRISE_EDITION only changes ENV metadata and is read by no build step,
 # so declaring it last lets the community + enterprise passes share the heavy
 # cached layers above. (/tmp/npm is already world-writable from the base setup,
 # so no extra chown is needed for non-root runtimes.)
-ARG IS_ENTERPRISE_EDITION=false
-ENV IS_ENTERPRISE_EDITION=${IS_ENTERPRISE_EDITION}
 #Run the app
 CMD [ "npm", "start" ]
 {{ end }}

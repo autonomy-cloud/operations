@@ -1,10 +1,10 @@
 # SNMP Network Device Simulator
 
-Test OneUptime's Network Device monitoring (device pages, interface stats,
+Test Cast Operations’ Network Device monitoring (device pages, interface stats,
 bandwidth/utilization charts, LLDP topology, discovery scans, traps, and
 SNMPv3) without owning any managed switches or routers.
 
-The OneUptime probe polls devices over plain SNMP (UDP/161), so anything that
+The Cast Operations probe polls devices over plain SNMP (UDP/161), so anything that
 answers SNMP works as a "device". This compose file starts three:
 
 | Container   | IP              | What it is                                                        | Credentials                                             |
@@ -48,7 +48,7 @@ plain Node process on macOS instead of in Docker, the bridge IPs are not
 reachable from the host; publish each container's `161/udp` on distinct host
 ports and use `127.0.0.1` + that port as the device address instead.)
 
-## Wire it into OneUptime
+## Wire it into Cast Operations
 
 1. **Register devices** - Dashboard -> Network Devices -> add:
    - `switch-a`: hostname `172.30.99.11`, SNMP v2c, community `public`, port 161, pick your probe.
@@ -104,7 +104,7 @@ recording.
 
 ## Note on SNMPv3 and snmpsim
 
-snmpsim selects the recording by SNMPv3 *context name*, but the OneUptime
+snmpsim selects the recording by SNMPv3 *context name*, but the Cast Operations
 probe (like most pollers) sends an empty context - so v3 against the snmpsim
 switches times out. That is why `router-v3` exists: it is a real net-snmp
 agent and answers v3 with the default context. Use v2c for the snmpsim
@@ -121,5 +121,5 @@ vendor MIBs, config changes propagating):
 - **GNS3 / EVE-NG** - full network emulators; needed if you specifically want
   Cisco IOS images (bring your own licensed images).
 
-For testing OneUptime's pipeline (walks, rates, topology, traps, discovery),
+For testing Cast Operations’ pipeline (walks, rates, topology, traps, discovery),
 the snmpsim setup above covers everything the probe actually reads.

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to install the OneUptime Terraform Provider locally
+# Script to install the Cast Operations Terraform Provider locally
 
 set -e
 
@@ -10,7 +10,7 @@ PROVIDER_NAME="oneuptime"
 PROVIDER_VERSION="1.0.0"
 PROVIDER_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/oneuptime/$PROVIDER_NAME/$PROVIDER_VERSION"
 
-echo "🚀 Installing OneUptime Terraform Provider locally..."
+echo "🚀 Installing Cast Operations Terraform Provider locally..."
 
 # Navigate to the terraform provider directory
 cd "$(dirname "$0")/../../Terraform/terraform-provider-oneuptime"
@@ -76,7 +76,7 @@ cp "terraform-provider-$PROVIDER_NAME" "$PLUGIN_PATH/"
 # Make it executable
 chmod +x "$PLUGIN_PATH/terraform-provider-$PROVIDER_NAME"
 
-echo "✅ OneUptime Terraform Provider installed successfully!"
+echo "✅ Cast Operations Terraform Provider installed successfully!"
 echo ""
 echo "📝 You can now use it in your Terraform configuration:"
 echo ""
@@ -90,7 +90,7 @@ echo "  }"
 echo "}"
 echo ""
 echo "provider \"$PROVIDER_NAME\" {"
-echo "  host    = \"https://oneuptime.com\""
+echo "  host    = \"https://visca.ai\""
 echo "  api_key = var.oneuptime_api_key"
 echo "}"
 echo ""

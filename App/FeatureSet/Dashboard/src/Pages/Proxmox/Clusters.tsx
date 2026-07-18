@@ -202,7 +202,7 @@ const ProxmoxClusters: FunctionComponent<
         cardProps={{
           title: "Proxmox Clusters",
           description:
-            "Clusters being monitored in this project. Install the OneUptime Proxmox Agent to connect a cluster.",
+            "Clusters being monitored in this project. Install the Cast Operations Proxmox Agent to connect a cluster.",
         }}
         showViewIdButton={true}
         formFields={[

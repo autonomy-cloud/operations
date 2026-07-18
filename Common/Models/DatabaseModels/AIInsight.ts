@@ -60,7 +60,7 @@ import AIInsightEvidence from "../../Types/AI/AIInsightEvidence";
   pluralName: "AI Insights",
   icon: IconProp.LightBulb,
   tableDescription:
-    "A preventive finding from OneUptime AI's deterministic telemetry sensors — new or spiking exceptions, error-log spikes, trace-latency regressions and metric drift — surfaced in a quiet insights inbox that never pages and never opens incidents.",
+    "A preventive finding from Cast Operations AI's deterministic telemetry sensors — new or spiking exceptions, error-log spikes, trace-latency regressions and metric drift — surfaced in a quiet insights inbox that never pages and never opens incidents.",
   enableRealtimeEventsOn: {
     create: true,
     update: true,

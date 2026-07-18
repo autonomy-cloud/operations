@@ -16,7 +16,7 @@ data:
       # Accept OTLP traffic from the eBPF DaemonSet (and any other in-cluster
       # OTLP senders). The eBPF DaemonSet ships its captured HTTP/gRPC/SQL
       # spans here so the collector's k8sattributes processor can enrich them
-      # before they're forwarded to OneUptime.
+      # before they're forwarded to Cast Operations.
       otlp:
         protocols:
           http:
@@ -329,7 +329,7 @@ data:
       # dashboard.
       #
       # Any keys under .Values.oneuptime.labels are also stamped here as
-      # `oneuptime.label.<key>=<value>` resource attributes. The OneUptime
+      # `oneuptime.label.<key>=<value>` resource attributes. The Cast Operations
       # ingest pipeline promotes those into project Labels.
       resource:
         attributes:
@@ -345,7 +345,7 @@ data:
           {{- include "kubernetes-agent.oneuptimeLabels" (dict "labels" .Values.oneuptime.labels "action" "insert") | nindent 10 }}
 
       # The k8sobjects receiver emits LogRecords without a severity, so
-      # Kubernetes events and resource snapshots arrive at OneUptime with
+      # Kubernetes events and resource snapshots arrive at Cast Operations with
       # severity_number=0 and render as "Unspecified" on the Logs page.
       # Default to INFO and upgrade Warning-type events to WARN so severity
       # filters work out of the box.
@@ -379,7 +379,7 @@ data:
       {{- if eq (include "kubernetes-agent.traceSamplingEnabled" .) "true" }}
       # Keep .Values.sampling.traces.percentage% of traces, drop the rest.
       # The decision is a hash of the trace ID, so every span of a trace is
-      # kept or dropped together and what reaches OneUptime is whole traces
+      # kept or dropped together and what reaches Cast Operations is whole traces
       # rather than fragments. Only in the traces pipeline: the eBPF RED
       # metrics run through `metrics` and stay complete.
       probabilistic_sampler:
@@ -432,7 +432,7 @@ data:
             # OBI emits application/network/stats metrics on the same OTLP
             # receiver that handles its traces — pull them into the same
             # metrics pipeline so they ride the existing batch/retry/auth
-            # path to OneUptime.
+            # path to Cast Operations.
             - otlp
             {{- end }}
             {{- if or .Values.controlPlane.enabled .Values.serviceMesh.enabled .Values.csi.enabled .Values.coreDns.enabled .Values.kubeStateMetrics.enabled }}
@@ -464,7 +464,7 @@ data:
             - otlphttp
         {{- if .Values.ebpf.enabled }}
         # Traces pipeline: accept OTLP spans from the eBPF DaemonSet, enrich
-        # with k8s attributes, stamp cluster name, and forward to OneUptime.
+        # with k8s attributes, stamp cluster name, and forward to Cast Operations.
         # We deliberately omit the `resource` processor's service.name
         # override here — OBI sets a per-process service.name from k8s
         # workload metadata, and we want to preserve it so each app shows up

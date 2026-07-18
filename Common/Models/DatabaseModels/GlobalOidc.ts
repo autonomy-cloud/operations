@@ -36,7 +36,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
   pluralName: "Global OIDC",
   icon: IconProp.Lock,
   tableDescription:
-    "Instance-wide OpenID Connect (OIDC) SSO that can be connected to any project on this OneUptime server",
+    "Instance-wide OpenID Connect (OIDC) SSO that can be connected to any project on this Cast Operations server",
 })
 @Entity({
   name: "GlobalOIDC",

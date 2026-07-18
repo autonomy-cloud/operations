@@ -133,15 +133,15 @@ func main() {
 	// Initialize logging
 	utils.SetDefaultLogger()
 
-	slog.Info("OneUptime Infrastructure Agent")
+	slog.Info("Cast Operations Infrastructure Agent")
 
 	config.WithOptions(config.WithTagName("json"))
 	cfgFile := newConfigFile()
 
 	svcConfig := &service.Config{
 		Name:        "oneuptime-infrastructure-agent",
-		DisplayName: "OneUptime Infrastructure Agent",
-		Description: "The OneUptime Infrastructure Agent is a lightweight, open-source agent that collects system metrics and sends them to the OneUptime platform. It is designed to be easy to configure and use, and to be extensible.",
+		DisplayName: "Cast Operations Infrastructure Agent",
+		Description: "The Cast Operations Infrastructure Agent is a lightweight, open-source agent that collects system metrics and sends them to the Cast Operations platform. It is designed to be easy to configure and use, and to be extensible.",
 		Arguments:   []string{"run"},
 	}
 
@@ -160,8 +160,8 @@ func main() {
 		switch cmd {
 		case "configure":
 			installFlags := flag.NewFlagSet("configure", flag.ExitOnError)
-			secretKey := installFlags.String("secret-key", "", "Secret key of this monitor, you can find this on OneUptime dashboard (required)")
-			oneuptimeURL := installFlags.String("oneuptime-url", "", "OneUptime endpoint root URL (required)")
+			secretKey := installFlags.String("secret-key", "", "Secret key of this monitor, you can find this on Cast Operations dashboard (required)")
+			oneuptimeURL := installFlags.String("oneuptime-url", "", "Cast Operations endpoint root URL (required)")
 			proxyURL := installFlags.String("proxy-url", "", "Proxy URL (optional)")
 			err := installFlags.Parse(os.Args[2:])
 			if err != nil {
@@ -177,7 +177,7 @@ func main() {
 			}
 			slog.Info("Configuring service...")
 			slog.Info("Secret key: " + *secretKey)
-			slog.Info("OneUptime URL: " + *oneuptimeURL)
+			slog.Info("Cast Operations URL: " + *oneuptimeURL)
 			slog.Info("Proxy URL: " + *proxyURL)
 			err = agentSvc.config.save(agentSvc.config.SecretKey, agentSvc.config.OneUptimeURL, agentSvc.config.ProxyURL)
 			if err != nil {
@@ -208,7 +208,7 @@ func main() {
 				slog.Error(err.Error())
 				os.Exit(1)
 			}
-			slog.Info("OneUptime Infrastructure Agent Started")
+			slog.Info("Cast Operations Infrastructure Agent Started")
 		case "run":
 			err := agentSvc.config.loadConfig()
 			if os.IsNotExist(err) {
@@ -252,7 +252,7 @@ func main() {
 			fmt.Println("Usage: oneuptime-infrastructure-agent configure | uninstall | start | stop | restart | status | logs")
 			fmt.Println()
 			fmt.Println("Commands:")
-			fmt.Println("  configure    Configure the agent with secret key and OneUptime URL")
+			fmt.Println("  configure    Configure the agent with secret key and Cast Operations URL")
 			fmt.Println("  start        Start the agent service")
 			fmt.Println("  stop         Stop the agent service")
 			fmt.Println("  restart      Restart the agent service")

@@ -89,7 +89,7 @@ processors:
   # IMPORTANT: we stamp ONLY docker.swarm.cluster.name (the join key)
   # and the agent version. We deliberately do NOT stamp host.name or
   # container.runtime, and do NOT run resourcedetection — that would
-  # make OneUptime auto-discover this node as a generic Host / Docker
+  # make Cast Operations auto-discover this node as a generic Host / Docker
   # Host in addition to the swarm cluster.
   resource:
     attributes:

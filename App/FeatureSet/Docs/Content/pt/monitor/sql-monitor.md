@@ -2,7 +2,7 @@
 
 O Monitor de Consultas SQL executa uma consulta SQL somente leitura de forma agendada a partir de uma probe e alerta com base no resultado — o número de linhas retornadas, um valor escalar, quanto tempo a consulta levou ou um erro de consulta. Ele foi criado para o caso de uso "executar uma consulta e abrir um incidente", por exemplo, alertar quando o número de pedidos cancelados nos últimos cinco minutos dispara, quando uma tabela de fila cresce demais ou quando uma linha crítica desaparece.
 
-Como a consulta é executada a partir de uma probe dentro da sua rede, o OneUptime nunca precisa de uma conexão direta com o seu banco de dados, e o conjunto completo de resultados nunca sai da probe — apenas uma projeção pequena e limitada do resultado é reportada de volta.
+Como a consulta é executada a partir de uma probe dentro da sua rede, o Cast Operations nunca precisa de uma conexão direta com o seu banco de dados, e o conjunto completo de resultados nunca sai da probe — apenas uma projeção pequena e limitada do resultado é reportada de volta.
 
 ## Bancos de dados suportados
 
@@ -16,7 +16,7 @@ Mecanismos compatíveis com MySQL e compatíveis com PostgreSQL que usam o mesmo
 
 ## Como funciona
 
-A cada verificação, a probe conecta ao seu banco de dados, executa a sua consulta em um contexto somente leitura, lê de volta no máximo um número limitado de linhas e reporta uma projeção compacta ao OneUptime. Os critérios do seu monitor são então avaliados em relação a essa projeção.
+A cada verificação, a probe conecta ao seu banco de dados, executa a sua consulta em um contexto somente leitura, lê de volta no máximo um número limitado de linhas e reporta uma projeção compacta ao Cast Operations. Os critérios do seu monitor são então avaliados em relação a essa projeção.
 
 A probe reporta apenas:
 
@@ -26,7 +26,7 @@ A probe reporta apenas:
 - **Tempo de Execução** — quanto tempo a consulta levou, em milissegundos.
 - **Erro de Consulta** — uma mensagem de erro higienizada caso a consulta falhe.
 
-O conjunto completo de resultados nunca é enviado ao OneUptime, então os dados do cliente não são replicados no armazenamento do OneUptime.
+O conjunto completo de resultados nunca é enviado ao Cast Operations, então os dados do cliente não são replicados no armazenamento do Cast Operations.
 
 ## Modelo de segurança
 
@@ -41,7 +41,7 @@ Executar uma consulta fornecida pelo cliente contra um banco de dados de produç
 
 ## Pré-requisitos
 
-- Uma **probe** com acesso de rede ao host e à porta do seu banco de dados. Pode ser uma probe hospedada pelo OneUptime (se o seu banco de dados for acessível pela internet) ou uma probe auto-hospedada em execução dentro da sua rede. Consulte a documentação da probe para saber como instalar uma probe personalizada.
+- Uma **probe** com acesso de rede ao host e à porta do seu banco de dados. Pode ser uma probe hospedada pelo Cast Operations (se o seu banco de dados for acessível pela internet) ou uma probe auto-hospedada em execução dentro da sua rede. Consulte a documentação da probe para saber como instalar uma probe personalizada.
 - Um **usuário de banco de dados somente leitura** e os detalhes de conexão (host, porta, nome do banco de dados, nome de usuário, senha).
 
 ## Configuração
@@ -99,11 +99,11 @@ Para uma consulta do tipo `COUNT(*)`, a contagem está disponível tanto como **
 
 Para que a senha do banco de dados nunca seja armazenada em texto simples no monitor, crie um [Segredo de Monitor](/docs/monitor/monitor-secrets) e referencie-o a partir do campo Senha:
 
-1. Vá para Painel do OneUptime → Configurações do Projeto → Segredos de Monitor → Criar Segredo de Monitor.
+1. Vá para Painel do Cast Operations → Configurações do Projeto → Segredos de Monitor → Criar Segredo de Monitor.
 2. Crie um segredo (por exemplo `dbPassword`) e conceda a este monitor acesso a ele.
 3. No campo Senha do monitor, insira `{{monitorSecrets.dbPassword}}`.
 
-O OneUptime resolve o segredo no lado do servidor antes que a configuração seja entregue à probe. O OneUptime nunca cria esses segredos para você — referenciar um é uma escolha sua.
+O Cast Operations resolve o segredo no lado do servidor antes que a configuração seja entregue à probe. O Cast Operations nunca cria esses segredos para você — referenciar um é uma escolha sua.
 
 ## Configurando critérios
 

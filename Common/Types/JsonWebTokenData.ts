@@ -11,7 +11,7 @@ export default interface JSONWebTokenData extends JSONObject {
   isMasterAdmin: boolean;
   statusPageId?: ObjectID | undefined; // for status page logins.
   projectId?: ObjectID | undefined; // for SSO logins.
-  isGlobalLogin: boolean; // If this is OneUptime username and password login. This is true, if this is SSO login. Then, this is false.
+  isGlobalLogin: boolean; // If this is Cast Operations username and password login. This is true, if this is SSO login. Then, this is false.
   sessionId?: ObjectID | undefined;
   ssoProviderId?: ObjectID | undefined; // which SSO provider (Project or Global SSO/OIDC) issued this per-project SSO token.
   ssoProviderType?: SsoProviderType | undefined;

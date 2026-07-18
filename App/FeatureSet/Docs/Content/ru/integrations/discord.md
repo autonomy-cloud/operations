@@ -1,21 +1,21 @@
 # Интеграция с Discord
 
-Публикуйте обновления инцидентов в канал [Discord](https://discord.com). В OneUptime есть встроенный компонент рабочего процесса **Discord**, поэтому это одна из самых быстрых интеграций для настройки.
+Публикуйте обновления инцидентов в канал [Discord](https://discord.com). В Cast Operations есть встроенный компонент рабочего процесса **Discord**, поэтому это одна из самых быстрых интеграций для настройки.
 
-Эта интеграция является **исходящей**: OneUptime публикует сообщения в канал Discord через URL входящего webhook.
+Эта интеграция является **исходящей**: Cast Operations публикует сообщения в канал Discord через URL входящего webhook.
 
 ```text
-OneUptime Incident → On Create  ──►  Discord component  ──►  message in your channel
+Cast Operations Incident → On Create  ──►  Discord component  ──►  message in your channel
 ```
 
 ## Шаг 1 — Создайте webhook в Discord
 
 1. В Discord откройте **Edit Channel → Integrations → Webhooks** для целевого канала.
-2. Нажмите **New Webhook**, задайте ему имя (например, `OneUptime`), выберите канал и **Copy Webhook URL**.
+2. Нажмите **New Webhook**, задайте ему имя (например, `Cast Operations`), выберите канал и **Copy Webhook URL**.
 
 ## Шаг 2 — Сохраните URL webhook (опционально, но рекомендуется)
 
-1. В OneUptime перейдите в **Workflows → Global Variables → Create**.
+1. В Cast Operations перейдите в **Workflows → Global Variables → Create**.
 2. Назовите переменную `DISCORD_WEBHOOK_URL`, вставьте URL и включите **Is Secret**.
 
 Хранение в переменной позволяет переиспользовать её в разных рабочих процессах и менять в одном месте.

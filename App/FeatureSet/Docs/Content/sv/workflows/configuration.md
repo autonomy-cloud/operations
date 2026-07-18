@@ -4,7 +4,7 @@ Den här sidan täcker de inställningar och säkerhetsgränser som är värda a
 
 ## Slå på eller av ett arbetsflöde
 
-Varje arbetsflöde har en **Enabled**-växel i **Settings**. När den är av körs inte arbetsflödet — webhook-anrop, schemalagda tider och OneUptime-händelser ignoreras alla. Nya arbetsflöden börjar inaktiverade.
+Varje arbetsflöde har en **Enabled**-växel i **Settings**. När den är av körs inte arbetsflödet — webhook-anrop, schemalagda tider och Cast Operations-händelser ignoreras alla. Nya arbetsflöden börjar inaktiverade.
 
 Använd den här växeln som din "redo att köra"-grind:
 
@@ -53,11 +53,11 @@ Webhook-utlösare ger dig en unik URL. Vem som helst som känner till URL:en kan
 
 - Behandla URL:en som ett lösenord. Dela inte den offentligt eller committa den till ett offentligt repo.
 - För känsliga arbetsflöden, be det anropande systemet att skicka en delad token som en header (som `X-Webhook-Token`) och kontrollera den med ett **Conditions**-block innan du gör något viktigt. Spara den förväntade tokenen som en hemlig variabel.
-- För mycket känsliga arbetsflöden, föredra en OneUptime-händelseutlösare och ett manuellt importsteg istället för en offentlig webhook.
+- För mycket känsliga arbetsflöden, föredra en Cast Operations-händelseutlösare och ett manuellt importsteg istället för en offentlig webhook.
 
 ## Utgående nätverksåtkomst
 
-API- och andra HTTP-block gör sina förfrågningar från OneUptime. Om du kör självhostat, se till att din installation kan nå tjänsterna du anropar. Om du använder OneUptime Cloud listas våra utgående IP-intervall i [IP-adresser](/docs/configuration/ip-addresses) så att du kan tillåta dem på den andra sidan.
+API- och andra HTTP-block gör sina förfrågningar från Cast Operations. Om du kör självhostat, se till att din installation kan nå tjänsterna du anropar. Om du använder Cast Operations Cloud listas våra utgående IP-intervall i [IP-adresser](/docs/configuration/ip-addresses) så att du kan tillåta dem på den andra sidan.
 
 ## Behörigheter
 
@@ -72,14 +72,14 @@ De flesta utvecklare bör ha skapa/redigera/läsa på arbetsflöden men inte på
 
 ## Plangränser
 
-OneUptime Cloud begränsar antalet körningar per månad på mindre planer. Din aktuella gräns visas under **Project Settings → Billing**. När du når den avvisas nya utlösare till nästa faktureringscykel. Självhostade installationer har inte denna gräns.
+Cast Operations Cloud begränsar antalet körningar per månad på mindre planer. Din aktuella gräns visas under **Project Settings → Billing**. När du når den avvisas nya utlösare till nästa faktureringscykel. Självhostade installationer har inte denna gräns.
 
 ## När arbetsflöden inte är rätt verktyg
 
 Några fall där du bör välja något annat:
 
 - **Tung beräkning eller stora datamängder** — arbetsflöden är designade för lätt limarbete, inte sifferknäckning. Kör tungt arbete i din egen infrastruktur och låt ett arbetsflöde sparka igång det.
-- **Långkörande processer som sträcker sig över timmar** — en enskild körning är menad att avslutas snabbt. Om du behöver "gör A, vänta två timmar, gör B", använd en extern schemaläggare som skickar en webhook tillbaka till OneUptime när det är dags.
+- **Långkörande processer som sträcker sig över timmar** — en enskild körning är menad att avslutas snabbt. Om du behöver "gör A, vänta två timmar, gör B", använd en extern schemaläggare som skickar en webhook tillbaka till Cast Operations när det är dags.
 - **Steg-för-steg-incidenthantering med människor i loopen** — det är vad [Runbooks](/docs/runbooks/index) är till för. Arbetsflöden är för obevakad automation.
 
 ## Läs vidare

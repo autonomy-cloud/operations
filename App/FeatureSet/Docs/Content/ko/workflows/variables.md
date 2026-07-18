@@ -60,7 +60,7 @@
 
 ### Webhook에서 페이로드 빌드하기
 
-webhook이 `{ "service": "checkout", "status": "failed" }`와 같은 본문으로 도착합니다. 이를 OneUptime 인시던트로 변환하려면 다음과 같이 합니다.
+webhook이 `{ "service": "checkout", "status": "failed" }`와 같은 본문으로 도착합니다. 이를 Cast Operations 인시던트로 변환하려면 다음과 같이 합니다.
 
 1. `CIWebhook`이라는 이름의 **Webhook** 트리거.
 2. **Conditions** 블록: left `{{CIWebhook.Request Body.status}}`, operator `==`, right `failed`.

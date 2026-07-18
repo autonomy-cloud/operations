@@ -1,21 +1,21 @@
 # SendGrid 入站邮件集成
 
-OneUptime 的**传入邮件监控器**允许您根据发送到唯一监控器特定邮件地址的邮件来创建和解决告警。这对于与旧系统、告警工具或任何可以发送邮件的服务集成非常有用。
+Cast Operations 的**传入邮件监控器**允许您根据发送到唯一监控器特定邮件地址的邮件来创建和解决告警。这对于与旧系统、告警工具或任何可以发送邮件的服务集成非常有用。
 
-本指南介绍如何设置 SendGrid Inbound Parse 将传入邮件转发到您的自托管 OneUptime 实例。
+本指南介绍如何设置 SendGrid Inbound Parse 将传入邮件转发到您的自托管 Cast Operations 实例。
 
 ## 前提条件
 
 - SendGrid 账号（免费套餐可用）
 - 您控制的域名，可以访问 DNS 设置
-- 您的 OneUptime 实例必须可公开访问（供 SendGrid 发送 Webhook）
+- 您的 Cast Operations 实例必须可公开访问（供 SendGrid 发送 Webhook）
 
 ## 工作原理
 
-1. 您在 OneUptime 中创建一个**传入邮件监控器**
-2. OneUptime 为该监控器生成唯一的邮件地址（例如 `monitor-abc123@inbound.yourdomain.com`）
-3. 当邮件发送到该地址时，SendGrid 接收并通过 Webhook 将其转发到 OneUptime
-4. OneUptime 根据您配置的标准评估邮件，以创建或解决告警
+1. 您在 Cast Operations 中创建一个**传入邮件监控器**
+2. Cast Operations 为该监控器生成唯一的邮件地址（例如 `monitor-abc123@inbound.yourdomain.com`）
+3. 当邮件发送到该地址时，SendGrid 接收并通过 Webhook 将其转发到 Cast Operations
+4. Cast Operations 根据您配置的标准评估邮件，以创建或解决告警
 
 ## 设置说明
 
@@ -27,7 +27,7 @@ OneUptime 的**传入邮件监控器**允许您根据发送到唯一监控器特
 - `email.yourdomain.com`
 - `monitor.yourdomain.com`
 
-此子域名将专门用于 OneUptime 监控器邮件。
+此子域名将专门用于 Cast Operations 监控器邮件。
 
 ### 第二步：配置 DNS MX 记录
 
@@ -64,14 +64,14 @@ inbound.example.com.  IN  MX  10  mx.sendgrid.net.
 | 字段                           | 值                                                                      |
 | ------------------------------ | ----------------------------------------------------------------------- |
 | **接收域名**                   | 您的入站子域名（例如 `inbound.yourdomain.com`）                         |
-| **目标 URL**                   | `https://your-oneuptime-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **目标 URL**                   | `https://your-operations-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
 | **检查传入邮件是否为垃圾邮件** | 可选 - 如需要可启用                                                     |
 | **发送原始的完整 MIME 消息**   | 保持未选中（不需要）                                                    |
 | **POST 原始的完整 MIME 消息**  | 保持未选中（不需要）                                                    |
 
 5. 点击 **添加**
 
-### 第五步：配置 OneUptime 环境变量
+### 第五步：配置 Cast Operations 环境变量
 
 #### Docker Compose
 
@@ -95,11 +95,11 @@ inboundEmail:
   # webhookSecret: "your-optional-secret"  # 可选
 ```
 
-**重要提示：** 添加这些环境变量后重启您的 OneUptime 服务器。
+**重要提示：** 添加这些环境变量后重启您的 Cast Operations 服务器。
 
 ### 第六步：创建传入邮件监控器
 
-1. 登录您的 OneUptime 控制台
+1. 登录您的 Cast Operations 控制台
 2. 导航至 **监控器** > **创建监控器**
 3. 选择 **传入邮件** 作为监控器类型
 4. 配置您的监控器：
@@ -115,9 +115,9 @@ inboundEmail:
 
 ### 第七步：测试集成
 
-1. 从 OneUptime 控制台复制监控器的邮件地址
+1. 从 Cast Operations 控制台复制监控器的邮件地址
 2. 向该地址发送一封主题符合您告警标准的测试邮件
-3. 检查 OneUptime 控制台以验证：
+3. 检查 Cast Operations 控制台以验证：
    - 邮件已收到（在监控器摘要中可见）
    - 创建了告警（如果标准匹配）
 
@@ -147,7 +147,7 @@ inboundEmail:
 
 许多旧系统只能发送邮件告警。创建传入邮件监控器以：
 
-- 当旧系统发送 `[CRITICAL]` 邮件时创建 OneUptime 告警
+- 当旧系统发送 `[CRITICAL]` 邮件时创建 Cast Operations 告警
 - 收到 `[RESOLVED]` 邮件时解决告警
 
 ### 第三方服务集成
@@ -183,16 +183,16 @@ inboundEmail:
    - 前往 设置 > Inbound Parse
    - 验证您的域名和 Webhook URL 是否正确
 
-3. **检查 OneUptime 日志：**
+3. **检查 Cast Operations 日志：**
    - 在 ProbeIngest 服务日志中查找 Webhook 请求
    - 检查是否有任何错误消息
 
 ### Webhook 失败
 
-1. **确保 OneUptime 可公开访问：**
+1. **确保 Cast Operations 可公开访问：**
 
    - Webhook URL 必须可从互联网访问
-   - 测试：`curl -X POST https://your-oneuptime-domain.com/incoming-email/sendgrid`
+   - 测试：`curl -X POST https://your-operations-domain.com/incoming-email/sendgrid`
 
 2. **检查防火墙规则：**
 
@@ -223,7 +223,7 @@ inboundEmail:
 检查 SendGrid 是否成功发送 Webhook：
 
 1. 遗憾的是，SendGrid 不为 Inbound Parse 提供详细日志
-2. 检查您的 OneUptime 服务器日志中的入站 Webhook 请求
+2. 检查您的 Cast Operations 服务器日志中的入站 Webhook 请求
 3. 临时使用 [RequestBin](https://requestbin.com) 等工具测试 Webhook 传送
 
 ## 安全最佳实践
@@ -236,7 +236,7 @@ inboundEmail:
 
 ## 替代提供商
 
-OneUptime 设计为支持多个入站邮件提供商。目前支持：
+Cast Operations 设计为支持多个入站邮件提供商。目前支持：
 
 | 提供商           | 状态   |
 | ---------------- | ------ |
@@ -250,7 +250,7 @@ OneUptime 设计为支持多个入站邮件提供商。目前支持：
 如果您在 SendGrid 入站邮件集成方面遇到问题：
 
 1. 查看上方的故障排查部分
-2. 查看 OneUptime 日志以获取详细错误消息
-3. 通过 [hello@oneuptime.com](mailto:hello@oneuptime.com) 联系我们
+2. 查看 Cast Operations 日志以获取详细错误消息
+3. 通过 [hello@visca.ai](mailto:hello@visca.ai) 联系我们
 
 我们欢迎您的反馈以改进此集成！

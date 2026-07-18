@@ -1,6 +1,6 @@
 # SMTP 구성
 
-OneUptime은 세 가지 인증 방법을 통해 커스텀 SMTP 서버로 이메일 전송을 지원합니다:
+Cast Operations은 세 가지 인증 방법을 통해 커스텀 SMTP 서버로 이메일 전송을 지원합니다:
 
 - **사용자 이름 및 비밀번호** - 전통적인 SMTP 인증
 - **OAuth 2.0** - Microsoft 365 및 Google Workspace를 위한 현대적 인증
@@ -10,14 +10,14 @@ OneUptime은 세 가지 인증 방법을 통해 커스텀 SMTP 서버로 이메�
 
 ## OAuth 2.0 인증
 
-OAuth 2.0은 특히 기본 인증을 비활성화한 엔터프라이즈 환경에서 이메일 서버에 인증하는 더 안전한 방법을 제공합니다. OneUptime은 두 가지 OAuth 부여 유형을 지원합니다:
+OAuth 2.0은 특히 기본 인증을 비활성화한 엔터프라이즈 환경에서 이메일 서버에 인증하는 더 안전한 방법을 제공합니다. Cast Operations은 두 가지 OAuth 부여 유형을 지원합니다:
 
 - **클라이언트 자격 증명** - Microsoft 365 및 대부분의 OAuth 공급자에서 사용
 - **JWT Bearer** - Google Workspace 서비스 계정에서 사용
 
 ### OAuth에 필요한 필드
 
-OneUptime에서 OAuth 인증으로 SMTP를 구성할 때 다음이 필요합니다:
+Cast Operations에서 OAuth 인증으로 SMTP를 구성할 때 다음이 필요합니다:
 
 | 필드                  | 설명                                                                                 |
 | --------------------- | ------------------------------------------------------------------------------------ |
@@ -42,7 +42,7 @@ Microsoft 365/Exchange Online에서 OAuth를 사용하려면 Microsoft Entra(Azu
 1. [Microsoft Entra 관리 센터](https://entra.microsoft.com)에 로그인합니다
 2. **ID** > **애플리케이션** > **앱 등록**으로 이동합니다
 3. **새 등록**을 클릭합니다
-4. 애플리케이션 이름을 입력합니다 (예: "OneUptime SMTP")
+4. 애플리케이션 이름을 입력합니다 (예: "Cast Operations SMTP")
 5. **지원되는 계정 유형**에서 "이 조직 디렉토리의 계정만"을 선택합니다
 6. **리디렉션 URI**는 비워 둡니다 (클라이언트 자격 증명 흐름에는 필요하지 않음)
 7. **등록**을 클릭합니다
@@ -104,9 +104,9 @@ Add-MailboxPermission -Identity "sender@yourdomain.com" -User <service-principal
 
 > **참고:** `Add-RecipientPermission`이 아닌 `Add-MailboxPermission`을 사용하십시오. `Add-RecipientPermission`은 수신자에 대한 `SendAs`만 부여하며 서비스 주체가 OAuth로 SMTP를 통해 메일을 보내기에는 충분하지 않습니다 — 전송 시 인증/권한 오류가 발생합니다. 실제로 작동하는 명령은 `FullAccess`가 있는 `Add-MailboxPermission`입니다.
 
-### 5단계: OneUptime에서 구성
+### 5단계: Cast Operations에서 구성
 
-OneUptime에서 다음 설정으로 SMTP 구성을 생성하거나 편집합니다:
+Cast Operations에서 다음 설정으로 SMTP 구성을 생성하거나 편집합니다:
 
 | 필드              | 값                                                                |
 | ----------------- | ----------------------------------------------------------------- |
@@ -186,9 +186,9 @@ Google Workspace는 사용자를 대신하여 이메일을 전송하기 위해 �
 
 참고: 위임이 전파되는 데 몇 분에서 24시간이 걸릴 수 있습니다.
 
-### 7단계: OneUptime에서 구성
+### 7단계: Cast Operations에서 구성
 
-OneUptime에서 다음 설정으로 SMTP 구성을 생성하거나 편집합니다:
+Cast Operations에서 다음 설정으로 SMTP 구성을 생성하거나 편집합니다:
 
 | 필드              | 값                                                                                                                          |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -230,16 +230,16 @@ OneUptime에서 다음 설정으로 SMTP 구성을 생성하거나 편집합니�
 
 ### 일반
 
-- **구성 테스트**: OneUptime의 "테스트 이메일 전송" 버튼을 사용하여 설정을 확인합니다
-- **로그 확인**: 자세한 오류 메시지에 대한 OneUptime 로그를 검토합니다
-- **토큰 캐싱**: OneUptime은 OAuth 토큰을 캐시하고 만료 전에 자동으로 갱신합니다
+- **구성 테스트**: Cast Operations의 "테스트 이메일 전송" 버튼을 사용하여 설정을 확인합니다
+- **로그 확인**: 자세한 오류 메시지에 대한 Cast Operations 로그를 검토합니다
+- **토큰 캐싱**: Cast Operations은 OAuth 토큰을 캐시하고 만료 전에 자동으로 갱신합니다
 
 ---
 
 ## 보안 모범 사례
 
 1. **정기적으로 시크릿 교체**: 만료 전에 클라이언트 시크릿을 교체하기 위한 캘린더 알림을 설정합니다
-2. **전용 서비스 계정 사용**: 다른 애플리케이션과 공유하지 않고 OneUptime 전용 자격 증명을 생성합니다
+2. **전용 서비스 계정 사용**: 다른 애플리케이션과 공유하지 않고 Cast Operations 전용 자격 증명을 생성합니다
 3. **최소 권한 원칙**: 필요한 최소한의 권한만 부여합니다 (Microsoft의 경우 SMTP.SendAsApp, Google의 경우 mail.google.com 범위)
 4. **사용량 모니터링**: 비정상적인 활동에 대한 이메일 로그 및 OAuth 애플리케이션 로그인을 검토합니다
 5. **안전한 보관**: 클라이언트 시크릿을 버전 제어에 절대 커밋하지 마십시오

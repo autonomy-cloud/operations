@@ -1,6 +1,6 @@
 # macOS Installation Guide
 
-Install OneUptime as a native desktop application on macOS for seamless monitoring and incident management.
+Install Cast Operations as a native desktop application on macOS for seamless monitoring and incident management.
 
 ## Installation Methods
 
@@ -8,11 +8,11 @@ Install OneUptime as a native desktop application on macOS for seamless monitori
 
 Safari provides excellent PWA integration with native macOS features.
 
-1. **Open OneUptime in Safari**
+1. **Open Cast Operations in Safari**
 
    - Launch Safari browser
-   - Navigate to your OneUptime instance URL
-   - Sign in to your OneUptime account
+   - Navigate to your Cast Operations instance URL
+   - Sign in to your Cast Operations account
    - Wait for the page to completely load
 
 2. **Install PWA**
@@ -24,12 +24,12 @@ Safari provides excellent PWA integration with native macOS features.
 
 3. **Customize Installation**
 
-   - **App Name**: Modify if desired (default: OneUptime)
+   - **App Name**: Modify if desired (default: Cast Operations)
    - **Dock**: Choose to add to Dock
    - **Launchpad**: Add to Launchpad for easy access
 
 4. **Launch App**
-   - Find OneUptime in Dock, Launchpad, or Applications folder
+   - Find Cast Operations in Dock, Launchpad, or Applications folder
    - Click to launch in dedicated window
    - App runs independently of Safari browser
 
@@ -37,17 +37,17 @@ Safari provides excellent PWA integration with native macOS features.
 
 Chrome offers robust PWA support with excellent desktop integration.
 
-1. **Open OneUptime in Chrome**
+1. **Open Cast Operations in Chrome**
 
    - Launch Google Chrome
-   - Go to your OneUptime instance
+   - Go to your Cast Operations instance
    - Ensure you're signed in
    - Allow complete page loading
 
 2. **Install via Menu**
 
    - Look for **install icon** (⊞) in address bar
-   - Click **"Install OneUptime"**
+   - Click **"Install Cast Operations"**
    - Or use **Chrome menu** → **More tools** → **Create shortcut**
 
 3. **Installation Options**
@@ -57,7 +57,7 @@ Chrome offers robust PWA support with excellent desktop integration.
    - Click **"Install"** or **"Create"**
 
 4. **Access App**
-   - Find OneUptime in Applications folder
+   - Find Cast Operations in Applications folder
    - Or access via Spotlight search
    - Pin to Dock for quick access
 
@@ -65,10 +65,10 @@ Chrome offers robust PWA support with excellent desktop integration.
 
 Edge provides solid PWA support with good macOS integration.
 
-1. **Open OneUptime in Edge**
+1. **Open Cast Operations in Edge**
 
    - Launch Microsoft Edge
-   - Navigate to OneUptime URL
+   - Navigate to Cast Operations URL
    - Complete sign-in process
 
 2. **Install App**
@@ -81,7 +81,7 @@ Edge provides solid PWA support with good macOS integration.
 
 ### Dock and Launchpad
 
-1. **Dock Position**: Drag OneUptime to preferred Dock position
+1. **Dock Position**: Drag Cast Operations to preferred Dock position
 2. **Dock Size**: Resize icon in Dock preferences
 3. **Launchpad Organization**: Create monitoring app folder
 4. **Badge Notifications**: Show incident count on Dock icon
@@ -90,7 +90,7 @@ Edge provides solid PWA support with good macOS integration.
 
 1. **Notification Center**
 
-   - System Preferences → Notifications → OneUptime
+   - System Preferences → Notifications → Cast Operations
    - Configure alert styles and delivery
    - Set priority levels for different incident types
 
@@ -130,7 +130,7 @@ Solutions:
 
 ```
 Solutions:
-1. Check Launchpad for OneUptime icon
+1. Check Launchpad for Cast Operations icon
 2. Search with Spotlight (⌘+Space)
 3. Look in browser's PWA management section
 4. Try reinstalling with different browser
@@ -143,11 +143,11 @@ Solutions:
 
 ```
 Solutions:
-1. System Preferences → Notifications → OneUptime
+1. System Preferences → Notifications → Cast Operations
 2. Enable "Allow notifications"
 3. Set appropriate alert style (banners/alerts)
 4. Check Do Not Disturb settings
-5. Verify OneUptime notification settings
+5. Verify Cast Operations notification settings
 6. Grant notification permissions when prompted
 ```
 
@@ -158,25 +158,25 @@ Solutions:
 1. **Applications Folder Method**
 
    - Open Applications folder
-   - Find OneUptime
+   - Find Cast Operations
    - Drag to Trash or right-click → Move to Trash
 
 2. **Dock Method**
 
-   - Right-click OneUptime in Dock
+   - Right-click Cast Operations in Dock
    - Select "Options" → "Remove from Dock"
    - Then delete from Applications folder
 
 3. **Browser PWA Management**
-   - **Chrome**: chrome://apps/ → Find OneUptime → Remove
-   - **Edge**: edge://apps/ → Find OneUptime → Uninstall
+   - **Chrome**: chrome://apps/ → Find Cast Operations → Remove
+   - **Edge**: edge://apps/ → Find Cast Operations → Uninstall
    - **Safari**: No dedicated management page
 
 ## Updates and Maintenance
 
 ### Automatic Updates
 
-- OneUptime PWA updates automatically when online
+- Cast Operations PWA updates automatically when online
 - No App Store updates required
 - New features available immediately
 - Critical updates applied instantly
@@ -212,7 +212,7 @@ Solutions:
 
 ```
 Solutions:
-1. Check Launchpad for OneUptime icon
+1. Check Launchpad for Cast Operations icon
 2. Search with Spotlight (⌘+Space)
 3. Look in browser's PWA management section
 4. Try reinstalling with different browser
@@ -230,7 +230,7 @@ Solutions:
 3. Ensure adequate RAM (8GB+ recommended)
 4. Update macOS and browser
 5. Clear browser cache and app data
-6. Restart OneUptime app
+6. Restart Cast Operations app
 ```
 
 **Memory leaks or crashes:**
@@ -238,7 +238,7 @@ Solutions:
 ```
 Solutions:
 1. Monitor memory usage in Activity Monitor
-2. Restart OneUptime app regularly
+2. Restart Cast Operations app regularly
 3. Update to latest browser version
 4. Clear browser cache completely
 5. Check Console app for error logs
@@ -262,7 +262,7 @@ Solutions:
 
 ```
 Solutions:
-1. Force quit: ⌘+Option+Esc → Select OneUptime
+1. Force quit: ⌘+Option+Esc → Select Cast Operations
 2. Or right-click Dock icon → Force Quit
 3. Restart the application
 4. Check for macOS and browser updates
@@ -275,11 +275,11 @@ Solutions:
 
 ```
 Solutions:
-1. System Preferences → Notifications → OneUptime
+1. System Preferences → Notifications → Cast Operations
 2. Enable "Allow notifications"
 3. Set appropriate alert style (banners/alerts)
 4. Check Do Not Disturb settings
-5. Verify OneUptime notification settings
+5. Verify Cast Operations notification settings
 6. Grant notification permissions when prompted
 ```
 
@@ -290,18 +290,18 @@ Solutions:
 1. **Applications Folder Method**
 
    - Open Applications folder
-   - Find OneUptime
+   - Find Cast Operations
    - Drag to Trash or right-click → Move to Trash
 
 2. **Dock Method**
 
-   - Right-click OneUptime in Dock
+   - Right-click Cast Operations in Dock
    - Select "Options" → "Remove from Dock"
    - Then delete from Applications folder
 
 3. **Browser PWA Management**
-   - **Chrome**: chrome://apps/ → Find OneUptime → Remove
-   - **Edge**: edge://apps/ → Find OneUptime → Uninstall
+   - **Chrome**: chrome://apps/ → Find Cast Operations → Remove
+   - **Edge**: edge://apps/ → Find Cast Operations → Uninstall
    - **Safari**: No dedicated management page
 
 ### Clean Uninstallation
@@ -324,7 +324,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### Automatic Updates
 
-- OneUptime PWA updates automatically when online
+- Cast Operations PWA updates automatically when online
 - No App Store updates required
 - New features available immediately
 - Critical updates applied instantly
@@ -335,7 +335,7 @@ Force update the application:
 
 1. **Safari PWAs**: Refresh within Safari browser
 2. **Chrome PWAs**: Right-click app → Reload or ⌘+R
-3. **Complete Refresh**: Close app, reopen browser, visit OneUptime
+3. **Complete Refresh**: Close app, reopen browser, visit Cast Operations
 
 ### Maintenance Schedule
 
@@ -343,7 +343,7 @@ Regular maintenance for optimal performance:
 
 **Weekly:**
 
-- Restart OneUptime app
+- Restart Cast Operations app
 - Clear browser cache if experiencing issues
 - Check for macOS updates
 
@@ -357,38 +357,38 @@ Regular maintenance for optimal performance:
 
 ### Shortcuts App Integration
 
-Create custom shortcuts for OneUptime:
+Create custom shortcuts for Cast Operations:
 
 1. Open **Shortcuts** app
 2. Create **New Shortcut**
 3. Add **"Open App"** action
-4. Select **OneUptime**
+4. Select **Cast Operations**
 5. Add to Siri for voice activation
 
 ### Automator Integration
 
-Automate OneUptime tasks:
+Automate Cast Operations tasks:
 
 1. Launch **Automator**
 2. Create **Application** or **Workflow**
 3. Add **"Launch Application"** action
-4. Select OneUptime PWA
+4. Select Cast Operations PWA
 5. Add additional automation steps
 
 ### Terminal Integration
 
-Manage OneUptime through Terminal:
+Manage Cast Operations through Terminal:
 
 ```bash
-# Create alias for quick OneUptime launch
-echo 'alias oneuptime="open -a \"OneUptime\""' >> ~/.zshrc
+# Create alias for quick Cast Operations launch
+echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
 
-# Function to check if OneUptime is running
+# Function to check if Cast Operations is running
 oneuptime_status() {
-    if pgrep -f "OneUptime" > /dev/null; then
-        echo "OneUptime is running"
+    if pgrep -f "Cast Operations" > /dev/null; then
+        echo "Cast Operations is running"
     else
-        echo "OneUptime is not running"
+        echo "Cast Operations is not running"
     fi
 }
 ```

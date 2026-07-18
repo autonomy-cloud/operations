@@ -10,7 +10,7 @@ export function getDockerInstallationMarkdown(data: {
 
 ## Quick Start (One Command)
 
-The OneUptime Docker Agent is a pre-built image that ships with a tuned OpenTelemetry Collector configuration. You only need to pass a few environment variables.
+The Cast Operations Docker Agent is a pre-built image that ships with a tuned OpenTelemetry Collector configuration. You only need to pass a few environment variables.
 
 \`\`\`bash
 docker run -d \\
@@ -25,7 +25,7 @@ docker run -d \\
   oneuptime/docker-agent:release
 \`\`\`
 
-Replace \`my-docker-host\` with a friendly name for this host — it is how the host will appear in OneUptime.
+Replace \`my-docker-host\` with a friendly name for this host — it is how the host will appear in Cast Operations.
 
 That's it. Once the agent connects, your Docker host will appear automatically in the Docker section.
 
@@ -64,7 +64,7 @@ docker compose up -d
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| \`ONEUPTIME_URL\` | Yes | Your OneUptime instance URL (e.g. \`${data.oneuptimeUrl}\`) |
+| \`ONEUPTIME_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.oneuptimeUrl}\`) |
 | \`ONEUPTIME_SERVICE_TOKEN\` | Yes | Telemetry ingestion service token |
 | \`DOCKER_HOST_NAME\` | No | Friendly name for this host. Defaults to \`docker-host\` |
 
@@ -126,8 +126,8 @@ The agent container must run as root (\`--user 0:0\`) to access \`/var/run/docke
 
 1. Check that the agent is running: \`docker ps --filter name=oneuptime-docker-agent\`
 2. Check the agent logs: \`docker logs oneuptime-docker-agent | grep -i error\`
-3. Verify your OneUptime URL and service token are correct
-4. Ensure your Docker host can reach the OneUptime instance over the network
+3. Verify your Cast Operations URL and service token are correct
+4. Ensure your Docker host can reach the Cast Operations instance over the network
 
 ### No Metrics Appearing
 

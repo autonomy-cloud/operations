@@ -1,6 +1,6 @@
 # Configuración SMTP
 
-OneUptime admite el envío de correos electrónicos a través de servidores SMTP personalizados con tres métodos de autenticación:
+Cast Operations admite el envío de correos electrónicos a través de servidores SMTP personalizados con tres métodos de autenticación:
 
 - **Nombre de usuario y contraseña** - Autenticación SMTP tradicional
 - **OAuth 2.0** - Autenticación moderna para Microsoft 365 y Google Workspace
@@ -10,14 +10,14 @@ Esta guía cubre cómo configurar la autenticación OAuth 2.0 para Microsoft 365
 
 ## Autenticación OAuth 2.0
 
-OAuth 2.0 proporciona una forma más segura de autenticarse con servidores de correo electrónico, especialmente para entornos empresariales que han deshabilitado la autenticación básica. OneUptime admite dos tipos de concesión OAuth:
+OAuth 2.0 proporciona una forma más segura de autenticarse con servidores de correo electrónico, especialmente para entornos empresariales que han deshabilitado la autenticación básica. Cast Operations admite dos tipos de concesión OAuth:
 
 - **Credenciales de cliente** - Utilizadas por Microsoft 365 y la mayoría de los proveedores OAuth
 - **Portador JWT** - Utilizado por las cuentas de servicio de Google Workspace
 
 ### Campos requeridos para OAuth
 
-Al configurar SMTP con autenticación OAuth en OneUptime, necesitarás:
+Al configurar SMTP con autenticación OAuth en Cast Operations, necesitarás:
 
 | Campo                       | Descripción                                                                                               |
 | --------------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -42,7 +42,7 @@ Para usar OAuth con Microsoft 365/Exchange Online, debes registrar una aplicaci�
 1. Inicia sesión en el [centro de administración de Microsoft Entra](https://entra.microsoft.com)
 2. Navega a **Identidad** > **Aplicaciones** > **Registros de aplicaciones**
 3. Haz clic en **Nuevo registro**
-4. Ingresa un nombre para tu aplicación (por ejemplo, "OneUptime SMTP")
+4. Ingresa un nombre para tu aplicación (por ejemplo, "Cast Operations SMTP")
 5. Para **Tipos de cuenta admitidos**, selecciona "Cuentas solo en este directorio organizacional"
 6. Deja **URI de redirección** en blanco (no es necesario para el flujo de credenciales de cliente)
 7. Haz clic en **Registrar**
@@ -104,9 +104,9 @@ Add-MailboxPermission -Identity "sender@yourdomain.com" -User <service-principal
 
 > **Nota:** Usa `Add-MailboxPermission` (no `Add-RecipientPermission`). `Add-RecipientPermission` solo concede `SendAs` al destinatario y no es suficiente para que el principal de servicio envíe correo a través de SMTP con OAuth: obtendrás un error de autenticación/permiso al enviar. `Add-MailboxPermission` con `FullAccess` es el comando que realmente funciona.
 
-### Paso 5: Configurar en OneUptime
+### Paso 5: Configurar en Cast Operations
 
-En OneUptime, crea o edita una configuración SMTP con estos valores:
+En Cast Operations, crea o edita una configuración SMTP con estos valores:
 
 | Campo                   | Valor                                                                                      |
 | ----------------------- | ------------------------------------------------------------------------------------------ |
@@ -186,9 +186,9 @@ Google Workspace requiere una **cuenta de servicio** con delegación de todo el 
 
 Nota: La delegación puede tardar desde unos minutos hasta 24 horas en propagarse.
 
-### Paso 7: Configurar en OneUptime
+### Paso 7: Configurar en Cast Operations
 
-En OneUptime, crea o edita una configuración SMTP con estos valores:
+En Cast Operations, crea o edita una configuración SMTP con estos valores:
 
 | Campo                   | Valor                                                                                                                                                                 |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -230,16 +230,16 @@ En OneUptime, crea o edita una configuración SMTP con estos valores:
 
 ### General
 
-- **Prueba tu configuración**: Usa el botón "Enviar correo de prueba" en OneUptime para verificar tu configuración
-- **Revisa los registros**: Examina los registros de OneUptime para ver mensajes de error detallados
-- **Almacenamiento en caché de tokens**: OneUptime almacena en caché los tokens OAuth y los renueva automáticamente antes de que expiren
+- **Prueba tu configuración**: Usa el botón "Enviar correo de prueba" en Cast Operations para verificar tu configuración
+- **Revisa los registros**: Examina los registros de Cast Operations para ver mensajes de error detallados
+- **Almacenamiento en caché de tokens**: Cast Operations almacena en caché los tokens OAuth y los renueva automáticamente antes de que expiren
 
 ---
 
 ## Buenas prácticas de seguridad
 
 1. **Rota los secretos regularmente**: Configura recordatorios en el calendario para rotar los secretos de cliente antes de que expiren
-2. **Usa cuentas de servicio dedicadas**: Crea credenciales separadas para OneUptime en lugar de compartirlas con otras aplicaciones
+2. **Usa cuentas de servicio dedicadas**: Crea credenciales separadas para Cast Operations en lugar de compartirlas con otras aplicaciones
 3. **Principio de mínimo privilegio**: Solo concede los permisos mínimos necesarios (SMTP.SendAsApp para Microsoft, ámbito mail.google.com para Google)
 4. **Monitorea el uso**: Revisa los registros de correo y los inicios de sesión de la aplicación OAuth para detectar actividad inusual
 5. **Almacenamiento seguro**: Nunca confirmes secretos de cliente en el control de versiones

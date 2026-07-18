@@ -1,6 +1,6 @@
 # 异常监控器
 
-异常监控允许您监控应用程序异常和错误，当异常数量超过配置的阈值时触发告警。OneUptime 在一个时间窗口内评估来自您遥测服务的异常数据。
+异常监控允许您监控应用程序异常和错误，当异常数量超过配置的阈值时触发告警。Cast Operations 在一个时间窗口内评估来自您遥测服务的异常数据。
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 ## 创建异常监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **异常** 作为监控器类型
 4. 选择要监控的遥测服务
@@ -24,7 +24,7 @@
 
 ### 遥测服务
 
-选择一个或多个服务来监控其异常。服务必须通过 OpenTelemetry 向 OneUptime 发送异常数据。
+选择一个或多个服务来监控其异常。服务必须通过 OpenTelemetry 向 Cast Operations 发送异常数据。
 
 ### 异常过滤器
 
@@ -80,4 +80,4 @@
 
 ## 设置要求
 
-异常监控需要您的应用程序通过 OpenTelemetry 向 OneUptime 发送异常数据。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。
+异常监控需要您的应用程序通过 OpenTelemetry 向 Cast Operations 发送异常数据。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。

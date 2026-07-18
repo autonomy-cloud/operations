@@ -1,5 +1,5 @@
 {{- if and $.Values.home.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime Home Deployment
+# Cast Operations Home Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -128,7 +128,7 @@ spec:
 
 ---
 
-# OneUptime home autoscaler
+# Cast Operations home autoscaler
 {{- if not $.Values.home.disableAutoscaler }}
 {{- $homeAutoScalerArgs := dict "ServiceName" "home" "Release" $.Release "Values" $.Values "Override" $.Values.home.autoscaling -}}
 {{- include "oneuptime.autoscaler" $homeAutoScalerArgs }}
@@ -138,7 +138,7 @@ spec:
 {{- end }}
 
 {{- if and $.Values.home.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime home Service
+# Cast Operations home Service
 {{- $homePorts := $.Values.home.ports -}}
 {{- $homeServiceArgs := dict "ServiceName" "home" "Ports" $homePorts "Release" $.Release "Values" $.Values -}}
 {{- include "oneuptime.service" $homeServiceArgs }}
@@ -146,6 +146,6 @@ spec:
 {{- end }}
 
 {{- if and $.Values.home.enabled (not $.Values.deployment.disableDeployments) }}
-# OneUptime home PodDisruptionBudget
+# Cast Operations home PodDisruptionBudget
 {{- include "oneuptime.pdb" (dict "ServiceName" "home" "Override" $.Values.home.podDisruptionBudget "Release" $.Release "Values" $.Values) }}
 {{- end }}

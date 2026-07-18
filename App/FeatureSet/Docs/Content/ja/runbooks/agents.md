@@ -1,30 +1,30 @@
 # Runbook エージェント
 
-**Runbook エージェント** は、Runbook の Bash _と_ JavaScript ステップを**お客様自身のインフラ内で**実行する、小さなセルフホスト型のプロセスです。OneUptime ワーカーがお客様のスクリプトを実行することはありません — ワーカーはキューに入れるだけで、ステップの作成者が選んだ Runbook エージェントがそれを取得し、実行し、結果を投稿します。
+**Runbook エージェント** は、Runbook の Bash _と_ JavaScript ステップを**お客様自身のインフラ内で**実行する、小さなセルフホスト型のプロセスです。Cast Operations ワーカーがお客様のスクリプトを実行することはありません — ワーカーはキューに入れるだけで、ステップの作成者が選んだ Runbook エージェントがそれを取得し、実行し、結果を投稿します。
 
-JavaScript は依然として `isolated-vm` サンドボックス内で動きますが、サンドボックスが置かれる場所が OneUptime 側ではなくお客様のエージェントホストになります。
+JavaScript は依然として `isolated-vm` サンドボックス内で動きますが、サンドボックスが置かれる場所が Cast Operations 側ではなくお客様のエージェントホストになります。
 
 このページではエージェントのインストール方法、Bash と JavaScript ステップをエージェントに向ける方法、そして日々の運用について説明します。
 
 ## エージェントが存在する理由
 
-旧バージョンの OneUptime では Bash と JavaScript ステップをワーカー上で動かしていました。JavaScript は (`isolated-vm` で) サンドボックス化されていましたが、Bash は違いました。どちらもシングルテナント・セルフホスト構成を超えると問題がありました:
+旧バージョンの Cast Operations では Bash と JavaScript ステップをワーカー上で動かしていました。JavaScript は (`isolated-vm` で) サンドボックス化されていましたが、Bash は違いました。どちらもシングルテナント・セルフホスト構成を超えると問題がありました:
 
-- **信頼境界。** Runbook を書ける人は誰でもワーカー上でコードを実行でき、ワーカーが持つ環境変数とファイルシステムにアクセスできました。JavaScript のサンドボックスは明らかなものは止めても、決意あるユーザーが OneUptime のネットワークから何に届くかを探るのは止められませんでした。
-- **届く範囲。** 有用なステップの多くは*お客様の*インフラに対して動かしたい (「このサービスを再起動」「うちのクラスタで kubectl」「内部 DB のレコードを参照」) — OneUptime 上ではなく。
+- **信頼境界。** Runbook を書ける人は誰でもワーカー上でコードを実行でき、ワーカーが持つ環境変数とファイルシステムにアクセスできました。JavaScript のサンドボックスは明らかなものは止めても、決意あるユーザーが Cast Operations のネットワークから何に届くかを探るのは止められませんでした。
+- **届く範囲。** 有用なステップの多くは*お客様の*インフラに対して動かしたい (「このサービスを再起動」「うちのクラスタで kubectl」「内部 DB のレコードを参照」) — Cast Operations 上ではなく。
 
 Runbook エージェントはこれを逆転させます。Bash と JavaScript のステップは私たちの上では動きません。お客様が制御するホスト上で動き、そのホストが何をできるかはお客様が決めます。
 
 ## 仕組み
 
-1. OneUptime で Runbook エージェントを作成します。OneUptime が ID とシークレットキーを生成します。
-2. その ID/キーと OneUptime URL を使って、お客様のインフラ内のホストでエージェントのコンテナを動かします。
-3. エージェントは数秒ごとに OneUptime をポーリングして「私の仕事ある?」と尋ねます。
+1. Cast Operations で Runbook エージェントを作成します。Cast Operations が ID とシークレットキーを生成します。
+2. その ID/キーと Cast Operations URL を使って、お客様のインフラ内のホストでエージェントのコンテナを動かします。
+3. エージェントは数秒ごとに Cast Operations をポーリングして「私の仕事ある?」と尋ねます。
 4. Bash または JavaScript ステップを書くときに、ドロップダウンからエージェントを選びます — ステップはその特定のエージェントに紐付けられます。
 5. ステップが動くとき、ワーカーは `targetAgentId` をそのエージェントに設定したジョブ行を挿入します。そのエージェントだけがジョブを取得できます。
 6. エージェントはスクリプトをローカルで実行 — Bash は `bash -c <script>`、JavaScript は `isolated-vm` サンドボックス — 結果を取得して投稿し返します。ワーカーは結果を持って Runbook を再開します。
 
-エージェントが必要なのは OneUptime インスタンスへの**アウトバウンド HTTPS** だけです。インバウンド接続は一切受け付けません。
+エージェントが必要なのは Cast Operations インスタンスへの**アウトバウンド HTTPS** だけです。インバウンド接続は一切受け付けません。
 
 ## エージェントをインストールする
 
@@ -45,14 +45,14 @@ Runbook エージェントはこれを逆転させます。Bash と JavaScript �
 
 次のことができる、お客様の環境内の任意のホストで Docker コマンドを実行します:
 
-- HTTPS で OneUptime インスタンスに到達でき、
+- HTTPS で Cast Operations インスタンスに到達でき、
 - Bash/JavaScript ステップで行いたいこと (他のホストへの SSH、`kubectl`、データベースとの通信など) ができる。
 
 ```bash
 docker run --name oneuptime-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://oneuptime.yourdomain.com \
+  -e ONEUPTIME_URL=https://operations.yourdomain.com \
   -d oneuptime/runbook-agent:release
 ```
 
@@ -61,7 +61,7 @@ docker run --name oneuptime-runbook-agent --restart unless-stopped \
 **Runbooks → 設定 → エージェント** に戻ります。約 60 秒以内に、エージェントの行が `Connected` に切り替わり、**最終確認時刻** が更新されているはずです。`Disconnected` のままなら:
 
 - コンテナログ (`docker logs oneuptime-runbook-agent`) を確認して認証エラーやネットワーク障害を探す。
-- ホストから `curl` で OneUptime URL に到達できるか確認。
+- ホストから `curl` で Cast Operations URL に到達できるか確認。
 - ID とキーが空白なしでコピーされているか確認。
 
 ## ステップをエージェントに向ける
@@ -116,7 +116,7 @@ Runbook 実行をキャンセル (実行ビューまたは API から) すると
 
 | 変数                                      | 必須   | デフォルト | 注意                                                                         |
 | ----------------------------------------- | ------ | ---------- | ---------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | はい   | —          | OneUptime インスタンスのベース URL、例: `https://oneuptime.yourdomain.com`。 |
+| `ONEUPTIME_URL`                           | はい   | —          | Cast Operations インスタンスのベース URL、例: `https://operations.yourdomain.com`。 |
 | `RUNBOOK_AGENT_ID`                        | はい   | —          | エージェントのセットアップモーダルに表示される UUID。                        |
 | `RUNBOOK_AGENT_KEY`                       | はい   | —          | エージェントのセットアップモーダルに表示されるシークレット。                 |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | いいえ | `5000`     | 新規ジョブのポーリング間隔。                                                 |
@@ -126,7 +126,7 @@ Runbook 実行をキャンセル (実行ビューまたは API から) すると
 
 ## エージェントのキーをローテーションする
 
-キーが漏れた場合は、OneUptime でエージェントを開いてキーをリセットします。古いキーは即座に使えなくなります。エージェントコンテナを新しいキーで更新して再起動してください。
+キーが漏れた場合は、Cast Operations でエージェントを開いてキーをリセットします。古いキーは即座に使えなくなります。エージェントコンテナを新しいキーで更新して再起動してください。
 
 ## 権限
 

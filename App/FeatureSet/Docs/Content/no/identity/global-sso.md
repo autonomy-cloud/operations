@@ -1,8 +1,8 @@
 # Global SSO (Instansomfattende Single Sign-On)
 
-Global SSO lar en OneUptime **instansadministrator** (master-admin) konfigurere én enkelt SAML 2.0- eller OpenID Connect (OIDC)-identitetsleverandør **én gang på instansnivå** og koble den til hvilket som helst prosjekt på serveren. Det er den instansomfattende motparten til SSO per prosjekt: i stedet for at hver prosjekteier konfigurerer sin egen identitetsleverandør, setter en master-admin opp én som kan betjene hele instansen.
+Global SSO lar en Cast Operations **instansadministrator** (master-admin) konfigurere én enkelt SAML 2.0- eller OpenID Connect (OIDC)-identitetsleverandør **én gang på instansnivå** og koble den til hvilket som helst prosjekt på serveren. Det er den instansomfattende motparten til SSO per prosjekt: i stedet for at hver prosjekteier konfigurerer sin egen identitetsleverandør, setter en master-admin opp én som kan betjene hele instansen.
 
-Global SSO er en funksjon i **OneUptime Enterprise Edition** og er kun tilgjengelig på instanser som kjører Enterprise Edition-bygget.
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO vs. prosjekt-SSO
 
@@ -24,7 +24,7 @@ Global SSO er en funksjon i **OneUptime Enterprise Edition** og er kun tilgjenge
    - For SAML: skriv inn et **Navn**, **Sign On URL** og **Issuer** fra identitetsleverandøren din, og lim inn **Offentlig sertifikat**. Velg metodene for **Signatur** og **Sammendrag** (la standardverdiene stå — `RSA-SHA256` / `SHA256` — hvis du er usikker).
    - For OIDC: skriv inn **Discovery URL**, **Issuer**, **Client ID**, **Client Secret**, **Scopes** (må inkludere `openid`) og kravnavnene for **email** / **name**.
 
-3. **Kopier OneUptime-URL-ene inn i identitetsleverandøren din**
+3. **Kopier Cast Operations-URL-ene inn i identitetsleverandøren din**
 
    - Åpne leverandøren (klikk på raden dens i listen) for å vise kortet **Identity Provider URLs**.
    - For SAML, kopier **ACS URL (Reply URL)** og **Issuer (Entity ID)** inn i IdP-en din (Okta, Azure AD, OneLogin, JumpCloud med flere).

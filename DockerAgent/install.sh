@@ -2,7 +2,7 @@
 set -e
 
 echo "=========================================="
-echo "  OneUptime Docker Agent Installer"
+echo "  Cast Operations Docker Agent Installer"
 echo "=========================================="
 echo ""
 
@@ -20,15 +20,15 @@ fi
 
 # Prompt for configuration
 if [ -z "$ONEUPTIME_URL" ]; then
-    read -rp "OneUptime URL (e.g., https://oneuptime.com): " ONEUPTIME_URL
+    read -rp "Cast Operations URL (e.g., https://visca.ai): " ONEUPTIME_URL
 fi
 
 if [ -z "$ONEUPTIME_SERVICE_TOKEN" ]; then
-    read -rp "OneUptime Service Token: " ONEUPTIME_SERVICE_TOKEN
+    read -rp "Cast Operations Service Token: " ONEUPTIME_SERVICE_TOKEN
 fi
 
 if [ -z "$DOCKER_HOST_NAME" ]; then
-    read -rp "Docker host name (friendly label shown in OneUptime) [docker-host]: " DOCKER_HOST_NAME
+    read -rp "Docker host name (friendly label shown in Cast Operations) [docker-host]: " DOCKER_HOST_NAME
     DOCKER_HOST_NAME="${DOCKER_HOST_NAME:-docker-host}"
 fi
 
@@ -45,7 +45,7 @@ if docker ps -a --format '{{.Names}}' | grep -q '^oneuptime-docker-agent$'; then
 fi
 
 echo ""
-echo "Starting OneUptime Docker Agent..."
+echo "Starting Cast Operations Docker Agent..."
 docker run -d \
     --name oneuptime-docker-agent \
     --user 0:0 \
@@ -62,7 +62,7 @@ docker run -d \
 
 echo ""
 echo "=========================================="
-echo "  OneUptime Docker Agent is running!"
+echo "  Cast Operations Docker Agent is running!"
 echo "=========================================="
 echo ""
 echo "To check status:  docker ps --filter name=oneuptime-docker-agent"

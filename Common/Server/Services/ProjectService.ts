@@ -188,7 +188,7 @@ export class ProjectService extends DatabaseService<Model> {
       await DatabaseConfig.shouldDisableUserProjectCreation();
     if (shouldDisableProjectCreation && !user.isMasterAdmin) {
       throw new NotAuthorizedException(
-        "Project creation is restricted to admin users only on this OneUptime Server. Please contact your server admin.",
+        "Project creation is restricted to admin users only on this Cast Operations Server. Please contact your server admin.",
       );
     }
 

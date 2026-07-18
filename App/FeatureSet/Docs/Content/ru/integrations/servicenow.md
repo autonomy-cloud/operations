@@ -1,18 +1,18 @@
 # Интеграция с ServiceNow
 
-Автоматически открывайте инцидент [ServiceNow](https://www.servicenow.com) при каждом создании инцидента OneUptime — чтобы ITSM и мониторинг оставались синхронизированными.
+Автоматически открывайте инцидент [ServiceNow](https://www.servicenow.com) при каждом создании инцидента Cast Operations — чтобы ITSM и мониторинг оставались синхронизированными.
 
-Эта интеграция является **исходящей**: OneUptime вызывает [Table API](https://docs.servicenow.com/bundle/utah-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html) ServiceNow. Используется OneUptime **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**.
+Эта интеграция является **исходящей**: Cast Operations вызывает [Table API](https://docs.servicenow.com/bundle/utah-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html) ServiceNow. Используется Cast Operations **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /api/now/table/incident)  ──►  ServiceNow incident
+Cast Operations Incident → On Create  ──►  API component (POST /api/now/table/incident)  ──►  ServiceNow incident
 ```
 
 ## Предварительные требования
 
 - Экземпляр ServiceNow (`https://your-instance.service-now.com`).
 - Пользователь ServiceNow с ролями `rest_api_explorer` / `itil` (или достаточными правами для создания записей `incident`). Basic auth с учётными данными этого пользователя — простейший старт; для продакшена рекомендуется OAuth.
-- Проект OneUptime, в котором вы можете создавать рабочие процессы.
+- Проект Cast Operations, в котором вы можете создавать рабочие процессы.
 
 ## Шаг 1 — Сохраните учётные данные как секрет
 
@@ -24,7 +24,7 @@ Table API ServiceNow принимает **Basic auth**.
    printf '%s' 'integration_user:password' | base64
    ```
 
-2. В OneUptime перейдите в **Workflows → Global Variables → Create**, назовите переменную `SERVICENOW_AUTH`, вставьте строку base64 и включите **Is Secret**.
+2. В Cast Operations перейдите в **Workflows → Global Variables → Create**, назовите переменную `SERVICENOW_AUTH`, вставьте строку base64 и включите **Is Secret**.
 
 ## Шаг 2 — Создайте рабочий процесс
 
@@ -46,7 +46,7 @@ Table API ServiceNow принимает **Basic auth**.
 
      ```json
      {
-       "short_description": "OneUptime: {{Incident.title}}",
+       "short_description": "Cast Operations: {{Incident.title}}",
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
@@ -54,15 +54,15 @@ Table API ServiceNow принимает **Basic auth**.
      }
      ```
 
-   `correlation_id` сохраняет связь с инцидентом OneUptime — пригодится, если позже добавите шаг разрешения. `urgency`/`impact` в ServiceNow: `1` (высокий), `2` (средний), `3` (низкий).
+   `correlation_id` сохраняет связь с инцидентом Cast Operations — пригодится, если позже добавите шаг разрешения. `urgency`/`impact` в ServiceNow: `1` (высокий), `2` (средний), `3` (низкий).
 
 4. **Сохраните**, включите и создайте тестовый инцидент. Ответ `201 Created` в журналах рабочего процесса вернёт `sys_id` и `number` новой записи (например, `INC0012345`).
 
-## Шаг 3 — Разрешение при разрешении в OneUptime (опционально)
+## Шаг 3 — Разрешение при разрешении в Cast Operations (опционально)
 
 1. Создайте **второй** рабочий процесс с триггером **Incident → On Update** и блоком **Conditions**, проверяющим, что инцидент разрешён.
-2. Чтобы обновить нужную запись ServiceNow, вам потребуется её `sys_id`. Либо сохраните его в инциденте OneUptime на Шаге 2 (прочитайте `{{CreateRecord.response-body.result.sys_id}}` и запишите в метку через **Update Incident**), либо найдите запись через `GET` на `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}`.
-3. Добавьте блок **API**: **Method** `PATCH`, **URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`, тело `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in OneUptime" }` (`state` `6` = Resolved в стандартном ITIL-процессе).
+2. Чтобы обновить нужную запись ServiceNow, вам потребуется её `sys_id`. Либо сохраните его в инциденте Cast Operations на Шаге 2 (прочитайте `{{CreateRecord.response-body.result.sys_id}}` и запишите в метку через **Update Incident**), либо найдите запись через `GET` на `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}`.
+3. Добавьте блок **API**: **Method** `PATCH`, **URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`, тело `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }` (`state` `6` = Resolved в стандартном ITIL-процессе).
 
 ## Устранение неполадок
 

@@ -28,7 +28,7 @@ Det er samme dashboard i begge tilstande. Der er ikke noget separat "publicer"-s
 
 De fleste widgets læser fra ét af tre steder:
 
-- **Metrikker** — vælg en metrik og en aggregering (gennemsnit, max, antal, percentil). Tilføj filtre. Vælg, hvordan resultatet skal grupperes. Det er den samme query-builder, du ser andre steder i OneUptime.
+- **Metrikker** — vælg en metrik og en aggregering (gennemsnit, max, antal, percentil). Tilføj filtre. Vælg, hvordan resultatet skal grupperes. Det er den samme query-builder, du ser andre steder i Cast Operations.
 - **Live-lister** — hændelser, alarmer, monitorer, Kubernetes-pods, Docker-containere, hosts. Hver liste-widget tager et filter og viser de matchende elementer, opdateret live.
 - **Statisk indhold** — **Text**-widget'en tager en blok Markdown. Brug den til overskrifter, kontekst, links til runbooks eller midlertidige noter under en hændelse.
 

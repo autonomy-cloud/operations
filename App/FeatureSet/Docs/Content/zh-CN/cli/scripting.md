@@ -1,6 +1,6 @@
 # 脚本与 CI/CD
 
-OneUptime CLI 专为自动化而设计。它支持基于环境变量的认证、用于程序化解析的 JSON 输出，以及适合流水线集成的退出码。
+Cast Operations CLI 专为自动化而设计。它支持基于环境变量的认证、用于程序化解析的 JSON 输出，以及适合流水线集成的退出码。
 
 ## 环境变量
 
@@ -8,7 +8,7 @@ OneUptime CLI 专为自动化而设计。它支持基于环境变量的认证、
 
 ```bash
 export ONEUPTIME_API_KEY=sk-your-api-key
-export ONEUPTIME_URL=https://oneuptime.com
+export ONEUPTIME_URL=https://visca.ai
 ```
 
 这些变量优先于已保存的上下文，但会被 CLI 标志覆盖。
@@ -86,13 +86,13 @@ jobs:
   health-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Install OneUptime CLI
+      - name: Install Cast Operations CLI
         run: npm install -g @oneuptime/cli
 
       - name: Check for active incidents
         env:
           ONEUPTIME_API_KEY: ${{ secrets.ONEUPTIME_API_KEY }}
-          ONEUPTIME_URL: https://oneuptime.com
+          ONEUPTIME_URL: https://visca.ai
         run: |
           INCIDENT_COUNT=$(oneuptime incident count)
           if [ "$INCIDENT_COUNT" -gt 0 ]; then
@@ -138,7 +138,7 @@ ENTRYPOINT ["oneuptime"]
 ```bash
 docker run --rm \
   -e ONEUPTIME_API_KEY=sk-abc123 \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   oneuptime-cli incident list
 ```
 

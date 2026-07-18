@@ -1,12 +1,12 @@
 # Документация по провайдеру Terraform
 
-Провайдер Terraform для OneUptime обеспечивает управление ресурсами мониторинга, оповещения и наблюдаемости OneUptime в формате Infrastructure as Code (IaC).
+Провайдер Terraform для Cast Operations обеспечивает управление ресурсами мониторинга, оповещения и наблюдаемости Cast Operations в формате Infrastructure as Code (IaC).
 
 ## Разделы документации
 
 ### [Начало работы](./quick-start.md)
 
-Краткое руководство по началу работы с провайдером Terraform для OneUptime за несколько минут.
+Краткое руководство по началу работы с провайдером Terraform для Cast Operations за несколько минут.
 
 ### [Полное руководство по провайдеру](./README.md)
 
@@ -18,24 +18,24 @@
 
 ### [Примеры](./examples.md)
 
-Реальные примеры и шаблоны для типичных конфигураций Terraform OneUptime.
+Реальные примеры и шаблоны для типичных конфигураций Terraform Cast Operations.
 
 ## Быстрые ссылки
 
-### Для облачных пользователей OneUptime
+### Для облачных пользователей Cast Operations
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Должно точно совпадать с вашей версией OneUptime
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Должно точно совпадать с вашей версией Cast Operations
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Важно для пользователей с самостоятельным хостингом
 
-**Совместимость версий критически важна**: всегда фиксируйте версию провайдера Terraform, точно совпадающую с версией вашей установки OneUptime. Несовпадение версий может привести к проблемам совместимости API.
+**Совместимость версий критически важна**: всегда фиксируйте версию провайдера Terraform, точно совпадающую с версией вашей установки Cast Operations. Несовпадение версий может привести к проблемам совместимости API.
 
 ## Внешние ресурсы
 
-- **Terraform Registry**: [Провайдер OneUptime](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **Репозиторий GitHub**: [Исходный код OneUptime](https://github.com/OneUptime/oneuptime)
-- **Поддержка сообщества**: [Сообщество OneUptime](https://community.oneuptime.com)
+- **Terraform Registry**: [Провайдер Cast Operations](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **Репозиторий GitHub**: [Исходный код Cast Operations](https://github.com/autonomy-cloud/operations)
+- **Поддержка сообщества**: [Сообщество Cast Operations](https://community.visca.ai)
 
 ## Доступные ресурсы
 
-Провайдер поддерживает комплексное управление ресурсами OneUptime:
+Провайдер поддерживает комплексное управление ресурсами Cast Operations:
 
 - **Проекты и команды**: организация структуры мониторинга
 - **Мониторы**: мониторы сайтов, API, портов, пульсов и пользовательские
@@ -83,9 +83,9 @@ provider "oneuptime" {
 
 По вопросам, проблемам или для участия в разработке:
 
-1. **Проблемы с документацией**: создайте запрос в [репозитории OneUptime](https://github.com/OneUptime/oneuptime/issues)
-2. **Ошибки провайдера**: сообщайте в основном репозитории OneUptime
-3. **Запросы функций**: обсуждайте в сообществе OneUptime
+1. **Проблемы с документацией**: создайте запрос в [репозитории Cast Operations](https://github.com/autonomy-cloud/operations/issues)
+2. **Ошибки провайдера**: сообщайте в основном репозитории Cast Operations
+3. **Запросы функций**: обсуждайте в сообществе Cast Operations
 4. **Общие вопросы**: используйте форумы сообщества
 
 ## Следующие шаги

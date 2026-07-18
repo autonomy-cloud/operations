@@ -1,18 +1,18 @@
 # Jira Integration
 
-Open a [Jira](https://www.atlassian.com/software/jira) issue automatically whenever a OneUptime incident is created — so engineering work is tracked where your developers already live, with a link back to the incident.
+Open a [Jira](https://www.atlassian.com/software/jira) issue automatically whenever a Cast Operations incident is created — so engineering work is tracked where your developers already live, with a link back to the incident.
 
-This integration is **outbound**: OneUptime calls Jira's REST API. It uses a OneUptime **[Workflow](/docs/workflows/index)** with an **Incident → On Create** trigger and an **API component**. You can optionally add an **inbound** path so closing the Jira issue resolves the OneUptime incident.
+This integration is **outbound**: Cast Operations calls Jira's REST API. It uses a Cast Operations **[Workflow](/docs/workflows/index)** with an **Incident → On Create** trigger and an **API component**. You can optionally add an **inbound** path so closing the Jira issue resolves the Cast Operations incident.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
+Cast Operations Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
 ```
 
 ## Prerequisites
 
 - A Jira Cloud site (`https://your-domain.atlassian.net`) and a project to file issues in — note its **project key** (e.g. `OPS`).
 - A Jira account that can create issues, and an **API token** for it from [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
-- A OneUptime project where you can create workflows.
+- A Cast Operations project where you can create workflows.
 
 > Using **Jira Data Center / Server** (self-managed)? The flow is identical — use your own base URL and a [Personal Access Token](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) with a `Bearer` auth header instead of Basic auth. The `/rest/api/2/issue` endpoint accepts a plain-text description, which makes templating simpler.
 
@@ -26,7 +26,7 @@ Jira Cloud uses **Basic auth** with your email and API token, base64-encoded.
    printf '%s' 'you@example.com:your_api_token' | base64
    ```
 
-2. In OneUptime, go to **Workflows → Global Variables → Create**.
+2. In Cast Operations, go to **Workflows → Global Variables → Create**.
 3. Name it `JIRA_AUTH`, paste the base64 string as the value, and turn on **Is Secret**.
 
 Now you can use `Basic {{variable.JIRA_AUTH}}` as an auth header and the token never appears in the workflow or its logs.
@@ -53,7 +53,7 @@ Now you can use `Basic {{variable.JIRA_AUTH}}` as an auth header and the token n
        "fields": {
          "project": { "key": "OPS" },
          "issuetype": { "name": "Bug" },
-         "summary": "OneUptime incident: {{Incident.title}}",
+         "summary": "Cast Operations incident: {{Incident.title}}",
          "description": {
            "type": "doc",
            "version": 1,
@@ -77,7 +77,7 @@ Now you can use `Basic {{variable.JIRA_AUTH}}` as an auth header and the token n
 ## Step 3 — Test it
 
 1. Turn the workflow **Enabled** on.
-2. Create a test incident in OneUptime (or trigger one from a monitor).
+2. Create a test incident in Cast Operations (or trigger one from a monitor).
 3. Open the workflow's **Logs** tab. The **API** block should show a `201` status and a response body containing the new issue's `key` (for example `OPS-1234`).
 4. Check Jira — the issue is there.
 
@@ -94,13 +94,13 @@ This also makes the optional two-way sync below possible.
 
 ## Two-way sync (optional)
 
-To resolve the OneUptime incident when someone closes the Jira issue, add an **inbound** workflow:
+To resolve the Cast Operations incident when someone closes the Jira issue, add an **inbound** workflow:
 
 1. Create a second workflow that starts with a **Webhook** trigger and copy its URL.
 2. In Jira, go to **Project settings → Automation → Create rule**:
 
    - **Trigger**: _Issue transitioned_ to **Done** (or _Issue resolved_).
-   - **Action**: _Send web request_ → method `POST`, URL = your workflow webhook URL, body includes the issue key and OneUptime incident id, e.g.:
+   - **Action**: _Send web request_ → method `POST`, URL = your workflow webhook URL, body includes the issue key and Cast Operations incident id, e.g.:
 
      ```json
      { "issueKey": "{{issue.key}}", "status": "resolved" }
@@ -108,13 +108,13 @@ To resolve the OneUptime incident when someone closes the Jira issue, add an **i
 
 3. In the workflow, use a **Find Incident** block to locate the incident by the stored key, then an **Update Incident** block to move it to your resolved state.
 
-If you stored the Jira key on the incident in Step 4, matching is straightforward. See [Components → OneUptime data components](/docs/workflows/components#oneuptime-data-components).
+If you stored the Jira key on the incident in Step 4, matching is straightforward. See [Components → Cast Operations data components](/docs/workflows/components#oneuptime-data-components).
 
 ## Customizing the issue
 
 A few common tweaks to the API block's body:
 
-- **Priority** — add `"priority": { "name": "High" }` inside `fields`. You can branch on `{{Incident.incidentSeverity.name}}` with **Conditions** to map OneUptime severities to Jira priorities.
+- **Priority** — add `"priority": { "name": "High" }` inside `fields`. You can branch on `{{Incident.incidentSeverity.name}}` with **Conditions** to map Cast Operations severities to Jira priorities.
 - **Labels** — add `"labels": ["oneuptime", "incident"]`.
 - **Assignee** — add `"assignee": { "id": "<accountId>" }` (Jira Cloud uses account IDs, not usernames).
 - **Custom fields** — add `"customfield_XXXXX": "..."` using the field's ID from your Jira admin.

@@ -22,13 +22,6 @@ export interface MasterAdminApiDocumentation {
    * describes this endpoint.
    */
   key: string;
-  /*
-   * True when the handler throws PaymentRequiredException unless
-   * IS_ENTERPRISE_EDITION is set. /migrations and /support-bundle are
-   * deliberately available on every edition so Community operators can debug an
-   * upgrade and raise a support request.
-   */
-  isEnterpriseEdition: boolean;
 }
 
 /*
@@ -41,42 +34,36 @@ export interface MasterAdminApiDocumentation {
  * a leaked static key cannot execute arbitrary queries headlessly.
  */
 const MasterAdminApis: Array<MasterAdminApiDocumentation> = [
-  { path: "/overview", key: "overview", isEnterpriseEdition: true },
-  { path: "/queues", key: "queues", isEnterpriseEdition: true },
+  { path: "/overview", key: "overview" },
+  { path: "/queues", key: "queues" },
   {
     path: "/queues/{queueName}/failed-jobs",
     key: "failedJobs",
-    isEnterpriseEdition: true,
   },
   {
     path: "/clickhouse-capacity",
     key: "clickhouseCapacity",
-    isEnterpriseEdition: true,
   },
   {
     path: "/clickhouse-cluster",
     key: "clickhouseCluster",
-    isEnterpriseEdition: true,
   },
   {
     path: "/clickhouse-telemetry-ingestion",
     key: "clickhouseTelemetryIngestion",
-    isEnterpriseEdition: true,
   },
   {
     path: "/postgres-cluster",
     key: "postgresCluster",
-    isEnterpriseEdition: true,
   },
-  { path: "/redis", key: "redis", isEnterpriseEdition: true },
+  { path: "/redis", key: "redis" },
   {
     path: "/instance-health-logs",
     key: "instanceHealthLogs",
-    isEnterpriseEdition: true,
   },
-  { path: "/logs", key: "logs", isEnterpriseEdition: true },
-  { path: "/migrations", key: "migrations", isEnterpriseEdition: false },
-  { path: "/support-bundle", key: "supportBundle", isEnterpriseEdition: false },
+  { path: "/logs", key: "logs" },
+  { path: "/migrations", key: "migrations" },
+  { path: "/support-bundle", key: "supportBundle" },
 ];
 
 export default class ServiceHandler {

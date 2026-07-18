@@ -3,7 +3,7 @@ import AnalyticsTableEngine from "../../../Types/AnalyticsDatabase/AnalyticsTabl
 /*
  * ClickHouse cluster helpers.
  *
- * OneUptime's analytics schema runs as a sharded + replicated cluster on EVERY
+ * Cast Operations’ analytics schema runs as a sharded + replicated cluster on EVERY
  * deployment — there is no separate single-node code path. A single node is just
  * a "cluster of one": a 1-shard / 1-replica cluster backed by an (embedded)
  * Keeper. For each model:
@@ -115,7 +115,7 @@ export function getDistributedEngine(
 /*
  * ReplicatedMergeTree deduplicates inserts via `replicated_deduplication_window`
  * (coordinated through Keeper), whereas plain MergeTree uses
- * `non_replicated_deduplication_window`. OneUptime's models declare the latter
+ * `non_replicated_deduplication_window`. Cast Operations’ models declare the latter
  * in their tableSettings; rewrite it for the replicated local tables so insert
  * idempotency (retried telemetry batches keyed by a dedup token) is preserved.
  */
@@ -148,7 +148,7 @@ export function adaptTableSettingsForStorage(
  * The replacements are deliberately precise: only the FIRST `TO`/`FROM` clause
  * (the view's target/source) is rewritten, matched on the uppercase keyword our
  * canonical definitions use — so `toStartOfMinute(...)` and aggregate columns
- * are never touched. OneUptime MV definitions are single-source with no JOINs or
+ * are never touched. Cast Operations MV definitions are single-source with no JOINs or
  * subqueries, which this relies on.
  */
 export function applyClusterToMaterializedViewQuery(query: string): string {

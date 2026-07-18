@@ -1,28 +1,27 @@
 #
-# OneUptime Podman Agent
+# Cast Operations Podman Agent
 #
 # A pre-configured OpenTelemetry Collector image that monitors Podman
-# hosts, containers, and container logs and ships them to OneUptime.
+# hosts, containers, and container logs and ships them to Cast Operations.
 #
 # Users only need to supply a few environment variables:
-#   - ONEUPTIME_URL               (e.g. https://oneuptime.com)
+#   - ONEUPTIME_URL               (e.g. https://visca.ai)
 #   - ONEUPTIME_SERVICE_TOKEN     (telemetry ingestion token)
-#   - ONEUPTIME_PROJECT_ID        (OneUptime project ID)
+#   - ONEUPTIME_PROJECT_ID        (Cast Operations project ID)
 #   - PODMAN_HOST_NAME (optional) (friendly host name, defaults to podman-host)
 #
 
 FROM otel/opentelemetry-collector-contrib:0.154.0
 
-# Per-build args (GIT_SHA / APP_VERSION / IS_ENTERPRISE_EDITION) are declared at
 # the bottom so the COPY layer stays cacheable across the community + enterprise
 # build passes.
 
-LABEL org.opencontainers.image.title="OneUptime Podman Agent"
-LABEL org.opencontainers.image.description="Pre-configured OpenTelemetry Collector for monitoring Podman hosts and containers with OneUptime."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.documentation="https://oneuptime.com/docs"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations Podman Agent"
+LABEL org.opencontainers.image.description="Pre-configured OpenTelemetry Collector for monitoring Podman hosts and containers with Cast Operations."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 # Bake the pre-tuned collector config into the image. The config uses
@@ -45,10 +44,8 @@ USER 0:0
 # community + enterprise build passes.
 ARG GIT_SHA
 ARG APP_VERSION
-ARG IS_ENTERPRISE_EDITION=false
 ENV GIT_SHA=${GIT_SHA}
 ENV APP_VERSION=${APP_VERSION}
-ENV IS_ENTERPRISE_EDITION=${IS_ENTERPRISE_EDITION}
 LABEL org.opencontainers.image.revision="${GIT_SHA}"
 LABEL org.opencontainers.image.version="${APP_VERSION}"
 

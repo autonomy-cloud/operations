@@ -22,7 +22,7 @@ return {
 
 #### एक secret जोड़ना
 
-secret जोड़ने के लिए, कृपया OneUptime Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret पर जाएं।
+secret जोड़ने के लिए, कृपया Cast Operations Dashboard -> Project Settings -> Monitor Secrets -> Create Monitor Secret पर जाएं।
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 
@@ -50,7 +50,7 @@ console.log(stringSecret);
 
 ### Custom Metrics
 
-आप `oneuptime.captureMetric()` function का उपयोग करके अपने script से custom metrics capture कर सकते हैं। ये metrics OneUptime में संग्रहीत होती हैं और Metric Explorer का उपयोग करके dashboards पर chart की जा सकती हैं।
+आप `oneuptime.captureMetric()` function का उपयोग करके अपने script से custom metrics capture कर सकते हैं। ये metrics Cast Operations में संग्रहीत होती हैं और Metric Explorer का उपयोग करके dashboards पर chart की जा सकती हैं।
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);

@@ -1,13 +1,13 @@
 # Integrazione con GitHub
 
-Apri automaticamente un ticket [GitHub](https://github.com) quando viene creato un incidente OneUptime — in modo che il follow-up di engineering sia tracciato nel repository che gestisce il servizio interessato.
+Apri automaticamente un ticket [GitHub](https://github.com) quando viene creato un incidente Cast Operations — in modo che il follow-up di engineering sia tracciato nel repository che gestisce il servizio interessato.
 
-Questa integrazione è **in uscita**: OneUptime chiama la [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Utilizza un **[Workflow](/docs/workflows/index)** di OneUptime con un trigger **Incident → On Create** e un **componente API**.
+Questa integrazione è **in uscita**: Cast Operations chiama la [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Utilizza un **[Workflow](/docs/workflows/index)** di Cast Operations con un trigger **Incident → On Create** e un **componente API**.
 
-> **Stai cercando la connessione GitHub più approfondita?** OneUptime dispone anche di un'integrazione nativa **GitHub App** per collegare repository di codice (usata dall'agente AI e dalle funzionalità di codice). Questa viene configurata tramite variabili d'ambiente, non workflow — vedi [Integrazione GitHub (self-hosted)](/docs/self-hosted/github-integration). Questa pagina riguarda specificamente la _creazione di ticket dagli incidenti_.
+> **Stai cercando la connessione GitHub più approfondita?** Cast Operations dispone anche di un'integrazione nativa **GitHub App** per collegare repository di codice (usata dall'agente AI e dalle funzionalità di codice). Questa viene configurata tramite variabili d'ambiente, non workflow — vedi [Integrazione GitHub (self-hosted)](/docs/self-hosted/github-integration). Questa pagina riguarda specificamente la _creazione di ticket dagli incidenti_.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## Prerequisiti
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   Creane uno su [github.com/settings/tokens](https://github.com/settings/tokens).
 
-- Un progetto OneUptime in cui puoi creare workflow.
+- Un progetto Cast Operations in cui puoi creare workflow.
 
 ## Passaggio 1 — Salva il token
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**:
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

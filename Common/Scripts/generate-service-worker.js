@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Universal Service Worker Generator for OneUptime Services
+ * Universal Service Worker Generator for Cast Operations Services
  *
- * This script can be used by any OneUptime service to generate
+ * This script can be used by any Cast Operations service to generate
  * a service worker from a template with dynamic versioning.
  *
  * Usage:
@@ -70,7 +70,7 @@ function getGitSha() {
 function generateServiceWorker(
   templatePath,
   outputPath,
-  serviceName = "OneUptime",
+  serviceName = "Cast Operations",
 ) {
   // Check if template exists
   if (!fs.existsSync(templatePath)) {

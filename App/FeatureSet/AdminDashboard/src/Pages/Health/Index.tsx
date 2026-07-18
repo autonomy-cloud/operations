@@ -355,9 +355,6 @@ const Health: FunctionComponent = (): ReactElement => {
     <HealthPage
       title="Overview"
       currentRoute={RouteMap[PageMap.HEALTH] as Route}
-      enterpriseOnly={true}
-      enterpriseFeatureName="OneUptime Health Dashboard"
-      enterpriseFeatureDescription="A cluster-health summary of every datastore and the background-queue workers, with shortcuts into the full diagnostics for this OneUptime deployment."
     >
       <HealthOverview />
     </HealthPage>

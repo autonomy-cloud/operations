@@ -1,6 +1,6 @@
-# 升级 OneUptime
+# 升级 Cast Operations
 
-本指南介绍如何安全地升级您的自托管 OneUptime 安装。
+本指南介绍如何安全地升级您的自托管 Cast Operations 安装。
 
 ## 通用指南
 
@@ -8,14 +8,14 @@
 - 只要遵循发布说明，您可以跨越次要/补丁版本（例如 8.1 → 8.4）。
 - 升级前务必做好备份，并验证可以从备份中恢复。
 
-## 从 OneUptime 10 升级到 11
+## 从 Cast Operations 10 升级到 11
 
 <!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
 
 ### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
 
 In v11, the following authentication and access-management features moved to
-the **OneUptime Enterprise Edition** and are no longer part of the free,
+the **Cast Operations Enterprise Edition** and are no longer part of the free,
 open-source (Community) build:
 
 - **SAML SSO** — both project login and status-page login
@@ -34,16 +34,16 @@ Enterprise Edition.
 **Availability:**
 
 - **Self-hosted:** requires the **Enterprise Edition** build.
-- **OneUptime Cloud:** requires the **Scale** plan (or above).
+- **Cast Operations Cloud:** requires the **Scale** plan (or above).
 
 **If you rely on SSO and self-host**, email
-[support@oneuptime.com](mailto:support@oneuptime.com) for an Enterprise Edition
+[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
 license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
 v11 and we'll help you get it back online. If your team is mid-upgrade and this
 is blocking sign-in, contact us before upgrading production so we can plan it
 with you.
 
-OneUptime 11 重建了 ClickHouse 遥测存储。本页说明发生了哪些变化、谁需要采取行动,以及——对于想保留历史遥测数据的安装环境——完成迁移所需的每一条查询。
+Cast Operations 11 重建了 ClickHouse 遥测存储。本页说明发生了哪些变化、谁需要采取行动,以及——对于想保留历史遥测数据的安装环境——完成迁移所需的每一条查询。
 
 ### v11 中的变化
 
@@ -60,7 +60,7 @@ OneUptime 11 重建了 ClickHouse 遥测存储。本页说明发生了哪些变�
 | `MonitorLogV2`        | `MonitorLogV3`        |
 | `AuditLogV1`          | `AuditLogV2`          |
 
-所有遥测表中有两列被重命名:`serviceId` → `primaryEntityId`,`serviceType` → `primaryEntityType`。这是硬性重命名——**如果你直接使用 `serviceId`/`serviceType` 过滤条件查询 OneUptime analytics API,请更新为新名称。** OneUptime 内部的仪表盘、监控器和告警会自动迁移。
+所有遥测表中有两列被重命名:`serviceId` → `primaryEntityId`,`serviceType` → `primaryEntityType`。这是硬性重命名——**如果你直接使用 `serviceId`/`serviceType` 过滤条件查询 Cast Operations analytics API,请更新为新名称。** Cast Operations 内部的仪表盘、监控器和告警会自动迁移。
 
 此次切换**只向前进行**:新表从空开始,升级后摄入的所有遥测数据会立即写入新表,历史数据随时间自然回填。旧表会在升级过程中**自动删除**以回收磁盘空间——如果你想保留迁移历史数据的选项,请在升级**之前**重命名它们(见下方第 0 步)。
 
@@ -84,14 +84,14 @@ clickhouse-client --database oneuptime
 
 开始之前需要了解:
 
-- 复制可以在 OneUptime 在线运行时安全执行。新的遥测数据独立写入新表;复制的历史数据在其后填充。
+- 复制可以在 Cast Operations 在线运行时安全执行。新的遥测数据独立写入新表;复制的历史数据在其后填充。
 - 大规模数据(数百 GB)预计需要数小时。
 - 下面每条语句都带有 `insert_deduplication_token`,且新表自带去重窗口——因此**重新运行中途失败的语句是安全的**(已插入的块会被跳过,包括指标汇总中的块),前提是尽快重试。在高强度实时摄入下,窗口(每表最近 10,000 个插入块)最终会淘汰旧令牌。
 - 复制指标还会自动重建预聚合的仪表盘汇总(每条复制的行都会重新馈入汇总物化视图)——这使得指标复制比其他复制更慢;请最后执行。
 
 #### 第 0 步——升级前重命名旧表
 
-升级会在启动时删除旧表,所以请先把你要作为复制来源的表移出它的作用范围。停止 OneUptime(将部署缩容到零),确保没有任何进程写入或能重建这些表,然后重命名——`RENAME TABLE` 是瞬时的元数据操作,`IF EXISTS` 让整个语句块跳过你的安装环境从未有过的表(早于 10.0.x 中期的部署可能没有 `AuditLogV1` 或某些 `…V2` 表——那就没有该类型的历史数据可复制):
+升级会在启动时删除旧表,所以请先把你要作为复制来源的表移出它的作用范围。停止 Cast Operations(将部署缩容到零),确保没有任何进程写入或能重建这些表,然后重命名——`RENAME TABLE` 是瞬时的元数据操作,`IF EXISTS` 让整个语句块跳过你的安装环境从未有过的表(早于 10.0.x 中期的部署可能没有 `AuditLogV1` 或某些 `…V2` 表——那就没有该类型的历史数据可复制):
 
 ```sql
 RENAME TABLE IF EXISTS LogItemV2 TO LogItemV2_backup;
@@ -105,7 +105,7 @@ RENAME TABLE IF EXISTS AuditLogV1 TO AuditLogV1_backup;
 RENAME TABLE IF EXISTS MetricItemAggMV1mByHost TO MetricItemAggMV1mByHost_backup;
 ```
 
-然后执行升级,等 OneUptime 完全启动后再继续。
+然后执行升级,等 Cast Operations 完全启动后再继续。
 
 > 如果在重命名后回滚到 v10(v10 启动时会用旧名称重建空表),请在重启 v10 之前把 `_backup` 表改回原名——否则回滚期间摄入的遥测数据会进入重建的表,并在之后的升级中被删除。
 
@@ -206,20 +206,20 @@ DROP TABLE IF EXISTS MetricItemAggMV1mByHost_backup SETTINGS max_table_size_to_d
 
 > 提示:与所有主版本升级一样,请先在预发布环境中测试,并确认遥测数据正流入新表,再在生产环境中依赖复制结果。
 
-## 从 OneUptime 9 升级到 10
+## 从 Cast Operations 9 升级到 10
 
 没有需要手动操作的变更。按照标准升级流程操作即可。
 
-## 从 OneUptime 8 升级到 9
+## 从 Cast Operations 8 升级到 9
 
-Helm 图表不再配置 Kubernetes Ingress 资源。OneUptime 内置了一个 ingress 网关容器，该容器已经负责终止 TLS、管理状态页面域名并路由平台流量，因此不再需要集群 ingress 控制器。
+Helm 图表不再配置 Kubernetes Ingress 资源。Cast Operations 内置了一个 ingress 网关容器，该容器已经负责终止 TLS、管理状态页面域名并路由平台流量，因此不再需要集群 ingress 控制器。
 
 - 在升级前，从您的自定义 `values.yaml` 文件中删除所有 `oneuptimeIngress` 覆盖项。这些键现在已被忽略，如果保留会导致验证错误。
 - 确保 `nginx.service.type` 反映您希望暴露捆绑的 ingress 网关的方式（例如 `LoadBalancer`、`NodePort`，或带有外部负载均衡器的 `ClusterIP`）。
-- 验证状态页面或主机的所有 DNS 记录是否仍指向 OneUptime ingress 网关前端的 Service 或负载均衡器。
+- 验证状态页面或主机的所有 DNS 记录是否仍指向 Cast Operations ingress 网关前端的 Service 或负载均衡器。
 - 升级后，确认 TLS 证书通过嵌入式网关继续续期，并且状态页面域名可正常解析。
 
-## 从 OneUptime 7 升级到 8
+## 从 Cast Operations 7 升级到 8
 
 如果您在 Kubernetes 上运行，存在重要的破坏性变更：
 

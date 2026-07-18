@@ -1,6 +1,6 @@
 # Webbplatsmonitor
 
-Webbplatsövervakning gör det möjligt att övervaka tillgängligheten, prestandan och svaret från valfri webbplats eller webbsida. OneUptime skickar periodiska HTTP-förfrågningar till din webbplats-URL och kontrollerar om den svarar korrekt.
+Webbplatsövervakning gör det möjligt att övervaka tillgängligheten, prestandan och svaret från valfri webbplats eller webbsida. Cast Operations skickar periodiska HTTP-förfrågningar till din webbplats-URL och kontrollerar om den svarar korrekt.
 
 ## Översikt
 
@@ -14,7 +14,7 @@ Webbplatsmonitorer kontrollerar dina webbsidor genom att göra HTTP-förfrågnin
 
 ## Skapa en webbplatsmonitor
 
-1. Gå till **Monitorer** i OneUptime-instrumentpanelen
+1. Gå till **Monitorer** i Cast Operations-instrumentpanelen
 2. Klicka på **Skapa monitor**
 3. Välj **Webbplats** som monitortyp
 4. Ange webbplatsens URL du vill övervaka
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### Följ inte omdirigeringar
 
-Som standard följer OneUptime HTTP-omdirigeringar (301, 302 etc.). Aktivera det här alternativet om du vill övervaka omdirigeringssvaret i sig snarare än den slutliga destinationen.
+Som standard följer Cast Operations HTTP-omdirigeringar (301, 302 etc.). Aktivera det här alternativet om du vill övervaka omdirigeringssvaret i sig snarare än den slutliga destinationen.
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

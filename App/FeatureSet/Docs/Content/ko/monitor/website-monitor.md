@@ -1,6 +1,6 @@
 # 웹사이트 모니터
 
-웹사이트 모니터링을 통해 웹사이트 또는 웹 페이지의 가용성, 성능 및 응답을 모니터링할 수 있습니다. OneUptime은 주기적으로 웹사이트 URL에 HTTP 요청을 전송하고 올바르게 응답하는지 확인합니다.
+웹사이트 모니터링을 통해 웹사이트 또는 웹 페이지의 가용성, 성능 및 응답을 모니터링할 수 있습니다. Cast Operations은 주기적으로 웹사이트 URL에 HTTP 요청을 전송하고 올바르게 응답하는지 확인합니다.
 
 ## 개요
 
@@ -14,7 +14,7 @@
 
 ## 웹사이트 모니터 생성
 
-1. OneUptime 대시보드의 **모니터**로 이동합니다
+1. Cast Operations 대시보드의 **모니터**로 이동합니다
 2. **모니터 생성**을 클릭합니다
 3. 모니터 유형으로 **웹사이트**를 선택합니다
 4. 모니터링할 웹사이트 URL을 입력합니다
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### 리디렉션 따르지 않기
 
-기본적으로 OneUptime은 HTTP 리디렉션(301, 302 등)을 따릅니다. 최종 목적지가 아닌 리디렉션 응답 자체를 모니터링하려면 이 옵션을 활성화합니다.
+기본적으로 Cast Operations은 HTTP 리디렉션(301, 302 등)을 따릅니다. 최종 목적지가 아닌 리디렉션 응답 자체를 모니터링하려면 이 옵션을 활성화합니다.
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

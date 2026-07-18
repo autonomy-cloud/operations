@@ -1,6 +1,6 @@
 # SSL-certificaat Monitor
 
-SSL-certificaatmonitoring stelt u in staat de geldigheid en vervaldatum van SSL/TLS-certificaten op uw websites en diensten te bewaken. OneUptime controleert uw certificaten periodiek en waarschuwt u voordat ze verlopen of als er problemen worden gedetecteerd.
+SSL-certificaatmonitoring stelt u in staat de geldigheid en vervaldatum van SSL/TLS-certificaten op uw websites en diensten te bewaken. Cast Operations controleert uw certificaten periodiek en waarschuwt u voordat ze verlopen of als er problemen worden gedetecteerd.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ SSL-certificaatmonitors verbinden met uw HTTPS-eindpunten en inspecteren het SSL
 
 ## Een SSL-certificaat Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **SSL-certificaat** als het monitortype
 4. Voer de URL in van het HTTPS-eindpunt om te controleren

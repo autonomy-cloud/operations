@@ -1,16 +1,16 @@
-# Konfigurationsguide för egeninstallerad OneUptime Terraform
+# Konfigurationsguide för egeninstallerad Cast Operations Terraform
 
-Den här guiden är specifikt för kunder som kör egeninstallerade OneUptime-instanser. Den täcker versionshantering, konfiguration och bästa praxis för att använda Terraform-leverantören med din egen OneUptime-driftsättning.
+Den här guiden är specifikt för kunder som kör egeninstallerade Cast Operations-instanser. Den täcker versionshantering, konfiguration och bästa praxis för att använda Terraform-leverantören med din egen Cast Operations-driftsättning.
 
 ## Viktiga noteringar
 
-⚠️ **Projekt kan inte skapas via Terraform** – Projekt måste skapas manuellt i OneUptime-instrumentpanelen först. Använd projekt-ID:t i dina Terraform-konfigurationer.
+⚠️ **Projekt kan inte skapas via Terraform** – Projekt måste skapas manuellt i Cast Operations-instrumentpanelen först. Använd projekt-ID:t i dina Terraform-konfigurationer.
 
-⚠️ **Den viktigaste regeln för egeninstallerade kunder**: Lås alltid din Terraform-leverantörs version till att exakt matcha din OneUptime-installationsversion.
+⚠️ **Den viktigaste regeln för egeninstallerade kunder**: Lås alltid din Terraform-leverantörs version till att exakt matcha din Cast Operations-installationsversion.
 
 ## Resursstruktur
 
-Alla OneUptime Terraform-resurser följer en förenklad struktur:
+Alla Cast Operations Terraform-resurser följer en förenklad struktur:
 
 - `name` (obligatorisk) – Resursnamn
 - `description` (valfritt) – Resursbeskrivning
@@ -18,32 +18,32 @@ Alla OneUptime Terraform-resurser följer en förenklad struktur:
 
 ## Kritiskt: Versionskompatibilitet
 
-⚠️ **Den viktigaste regeln för egeninstallerade kunder**: Lås alltid din Terraform-leverantörs version till att exakt matcha din OneUptime-installationsversion.
+⚠️ **Den viktigaste regeln för egeninstallerade kunder**: Lås alltid din Terraform-leverantörs version till att exakt matcha din Cast Operations-installationsversion.
 
 ### Varför versionsinlåsning är kritisk
 
-- Terraform-leverantören genereras automatiskt från OneUptime API:et
-- Varje OneUptime-version kan ha olika API-slutpunkter och scheman
+- Terraform-leverantören genereras automatiskt från Cast Operations API:et
+- Varje Cast Operations-version kan ha olika API-slutpunkter och scheman
 - Att använda en felmatchad leverantörsversion kan orsaka fel eller oväntat beteende
 - Versionsinlåsning säkerställer kompatibilitet och förutsägbart beteende
 
-## Hitta din OneUptime-version
+## Hitta din Cast Operations-version
 
 ### Metod 1: Instrumentpanel
 
-1. Logga in på din OneUptime-instrumentpanel
+1. Logga in på din Cast Operations-instrumentpanel
 2. Gå till **Inställningar** → **Om**
 3. Leta efter versionsnumret (t.ex. "7.0.123")
 
 ### Metod 2: API-slutpunkt
 
 ```bash
-curl https://your-oneuptime-instance.com/api/status
+curl https://your-operations-instance.com/api/status
 ```
 
 ### Metod 3: Docker-bilder
 
-Om du kör OneUptime med Docker:
+Om du kör Cast Operations med Docker:
 
 ```bash
 docker images | grep oneuptime
@@ -67,7 +67,7 @@ helm list -n oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Replace 123 with your exact build number
     }
   }
@@ -75,14 +75,14 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # Your self-hosted URL
+  oneuptime_url = "https://operations.yourcompany.com"  # Your self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Uppgraderingsprocess för egeninstallerade
 
-När du uppgraderar din OneUptime-instans:
+När du uppgraderar din Cast Operations-instans:
 
 ### 1. Checklista före uppgradering
 
@@ -90,16 +90,16 @@ När du uppgraderar din OneUptime-instans:
 # Backup current Terraform state
 terraform state pull > backup-$(date +%Y%m%d).tfstate
 
-# Note current OneUptime version
-curl https://oneuptime.yourcompany.com/api/status | jq '.version'
+# Note current Cast Operations version
+curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Note current provider version
 terraform providers | grep oneuptime
 ```
 
-### 2. Uppgradera OneUptime-instansen
+### 2. Uppgradera Cast Operations-instansen
 
-Följ din standardmässiga OneUptime-uppgraderingsprocess (Docker, Helm etc.)
+Följ din standardmässiga Cast Operations-uppgraderingsprocess (Docker, Helm etc.)
 
 ### 3. Uppdatera Terraform-leverantör
 
@@ -108,7 +108,7 @@ Följ din standardmässiga OneUptime-uppgraderingsprocess (Docker, Helm etc.)
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # New version after upgrade
     }
   }

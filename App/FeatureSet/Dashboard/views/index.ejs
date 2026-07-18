@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
   <meta name="theme-color" content="#f9fafb" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="OneUptime - the complete open-source observability platform.">
+  <meta name="description" content="Cast Operations - the complete open-source observability platform.">
   <meta name="keywords" content="monitoring, observability, uptime, dashboard, PWA, progressive web app">
-  <meta name="author" content="OneUptime">
+  <meta name="author" content="Cast Operations">
   <meta name="slack-app-id" content="ACVBMTPJQ">
 
   <!-- Apply the opt-in preference before CSS/React to avoid a theme flash. -->
@@ -38,11 +38,11 @@
   <!-- PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="OneUptime">
+  <meta name="apple-mobile-web-app-title" content="Cast Operations">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="OneUptime">
+  <meta name="application-name" content="Cast Operations">
   
-  <!-- iOS Splash Screens (black background with centered OneUptime logo) -->
+  <!-- iOS Splash Screens (black background with centered Cast Operations logo) -->
   <link rel="apple-touch-startup-image"
     href="/dashboard/assets/img/splash/apple-splash-2048-2732.png"
     media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
@@ -227,7 +227,7 @@
   <script src="/dashboard/env.js"></script>
 
 
-  <title>OneUptime Dashboard</title>
+  <title>Cast Operations Dashboard</title>
 
 
   <!--
@@ -279,7 +279,7 @@
         navigator.serviceWorker.register('/dashboard/sw.js', {
           scope: '/'
         }).then(function(registration) {
-          console.log('OneUptime PWA: Service Worker registered successfully', registration.scope);
+          console.log('Cast Operations PWA: Service Worker registered successfully', registration.scope);
           
           // Handle updates
           registration.addEventListener('updatefound', function() {
@@ -288,7 +288,7 @@
               newWorker.addEventListener('statechange', function() {
                 if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                   // New version available
-                  console.log('OneUptime PWA: New version available');
+                  console.log('Cast Operations PWA: New version available');
                   
                   // Show a non-intrusive update notification
                   showUpdateNotification(newWorker);
@@ -303,7 +303,7 @@
           }, 60000); // Check every minute
           
         }).catch(function(error) {
-          console.log('OneUptime PWA: Service Worker registration failed', error);
+          console.log('Cast Operations PWA: Service Worker registration failed', error);
         });
 
         // Handle service worker messages
@@ -315,7 +315,7 @@
 
         // Listen for controlled change (when SW takes control)
         navigator.serviceWorker.addEventListener('controllerchange', function() {
-          console.log('OneUptime PWA: New service worker took control');
+          console.log('Cast Operations PWA: New service worker took control');
           window.location.reload();
         });
       });
@@ -344,7 +344,7 @@
       
       banner.innerHTML = `
         <div style="max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-          <span>🚀 A new version of OneUptime is available!</span>
+          <span>🚀 A new version of Cast Operations is available!</span>
           <div style="display: flex; gap: 12px;">
             <button onclick="updateApp()" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 13px;">Update Now</button>
             <button onclick="dismissUpdate()" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 13px;">Later</button>
@@ -395,7 +395,7 @@
         loadingDiv.innerHTML = `
           <div style="text-align: center;">
             <div style="margin-bottom: 16px;">🔄</div>
-            <div>Updating OneUptime...</div>
+            <div>Updating Cast Operations...</div>
           </div>
         `;
         document.body.appendChild(loadingDiv);
@@ -421,7 +421,7 @@
         const entries = entryList.getEntries();
         if (entries.length > 0) {
           const lcp = entries[entries.length - 1];
-          console.log('OneUptime PWA: LCP', lcp.startTime);
+          console.log('Cast Operations PWA: LCP', lcp.startTime);
         }
       });
       lcpObserver.observe({entryTypes: ['largest-contentful-paint']});
@@ -430,7 +430,7 @@
       const fidObserver = new PerformanceObserver((entryList) => {
         const entries = entryList.getEntries();
         entries.forEach((entry) => {
-          console.log('OneUptime PWA: FID', entry.processingStart - entry.startTime);
+          console.log('Cast Operations PWA: FID', entry.processingStart - entry.startTime);
         });
       });
       fidObserver.observe({entryTypes: ['first-input']});

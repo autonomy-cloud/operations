@@ -1,12 +1,12 @@
 # Terraform Provider Documentation
 
-The OneUptime Terraform Provider enables Infrastructure as Code (IaC) management of your OneUptime monitoring, alerting, and observability resources.
+The Cast Operations Terraform Provider enables Infrastructure as Code (IaC) management of your Cast Operations monitoring, alerting, and observability resources.
 
 ## 📚 Documentation Sections
 
 ### [Getting Started](./quick-start.md)
 
-Quick setup guide to get you started with the OneUptime Terraform Provider in minutes.
+Quick setup guide to get you started with the Cast Operations Terraform Provider in minutes.
 
 ### [Complete Provider Guide](./README.md)
 
@@ -18,24 +18,24 @@ Comprehensive documentation covering installation, configuration, resources, and
 
 ### [Examples](./examples.md)
 
-Real-world examples and patterns for common OneUptime Terraform configurations.
+Real-world examples and patterns for common Cast Operations Terraform configurations.
 
 ## 🚀 Quick Links
 
-### For OneUptime Cloud Customers
+### For Cast Operations Cloud Customers
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Must match your OneUptime version
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Must match your Cast Operations version
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## ⚠️ Important for Self-Hosted Users
 
-**Version Compatibility is Critical**: Always pin the Terraform provider version to exactly match your OneUptime installation version. Mismatched versions can cause API compatibility issues.
+**Version Compatibility is Critical**: Always pin the Terraform provider version to exactly match your Cast Operations installation version. Mismatched versions can cause API compatibility issues.
 
 ## 🔗 External Resources
 
-- **Terraform Registry**: [OneUptime Provider](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub Repository**: [OneUptime Source Code](https://github.com/OneUptime/oneuptime)
-- **Community Support**: [OneUptime Community](https://community.oneuptime.com)
+- **Terraform Registry**: [Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub Repository**: [Cast Operations Source Code](https://github.com/autonomy-cloud/operations)
+- **Community Support**: [Cast Operations Community](https://community.visca.ai)
 
 ## 📋 Available Resources
 
-The provider supports comprehensive OneUptime resource management:
+The provider supports comprehensive Cast Operations resource management:
 
 - **Projects & Teams**: Organize your monitoring structure
 - **Monitors**: Website, API, port, heartbeat, and custom monitors
@@ -83,9 +83,9 @@ The provider supports comprehensive OneUptime resource management:
 
 For issues, questions, or contributions:
 
-1. **Documentation Issues**: Create an issue in the [OneUptime repository](https://github.com/OneUptime/oneuptime/issues)
-2. **Provider Bugs**: Report in the main OneUptime repository
-3. **Feature Requests**: Discuss in the OneUptime community
+1. **Documentation Issues**: Create an issue in the [Cast Operations repository](https://github.com/autonomy-cloud/operations/issues)
+2. **Provider Bugs**: Report in the main Cast Operations repository
+3. **Feature Requests**: Discuss in the Cast Operations community
 4. **General Questions**: Use the community forums
 
 ## 🎯 Next Steps

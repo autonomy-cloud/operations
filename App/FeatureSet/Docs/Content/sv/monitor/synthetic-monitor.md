@@ -52,7 +52,7 @@ Vi använder Playwright för att simulera användarinteraktioner. Du kan använd
 
 ### Skärmdumpar
 
-Ett fördeklarerat `screenshots`-objekt är tillgängligt i skriptkontexten. Tilldela skärmdumpar till det vid valfri punkt i skriptet – dessa skärmdumpar tas **även om skriptet kastar ett undantag** (inklusive assertion-fel, timeouts eller oväntade fel), så du kan se exakt hur sidan såg ut när körningen misslyckades. Tagna skärmdumpar visas i OneUptime-instrumentpanelen för den specifika monitorkörningen.
+Ett fördeklarerat `screenshots`-objekt är tillgängligt i skriptkontexten. Tilldela skärmdumpar till det vid valfri punkt i skriptet – dessa skärmdumpar tas **även om skriptet kastar ett undantag** (inklusive assertion-fel, timeouts eller oväntade fel), så du kan se exakt hur sidan såg ut när körningen misslyckades. Tagna skärmdumpar visas i Cast Operations-instrumentpanelen för den specifika monitorkörningen.
 
 ```javascript
 // Capture screenshots via the `screenshots` side-channel — they are preserved on both success and failure.
@@ -93,7 +93,7 @@ return {
 
 #### Lägga till en hemlighet
 
-För att lägga till en hemlighet, gå till OneUptime-instrumentpanelen -> Projektinställningar -> Monitorhemligheter -> Skapa monitorhemlighet.
+För att lägga till en hemlighet, gå till Cast Operations-instrumentpanelen -> Projektinställningar -> Monitorhemligheter -> Skapa monitorhemlighet.
 
 ![Create Secret](/docs/static/images/CreateMonitorSecret.png)
 
@@ -121,7 +121,7 @@ console.log(stringSecret);
 
 ### Anpassade mätvärden
 
-Du kan registrera anpassade mätvärden från ditt skript med funktionen `oneuptime.captureMetric()`. Dessa mätvärden lagras i OneUptime och kan visas i diagram på instrumentpaneler med hjälp av Metric Explorer.
+Du kan registrera anpassade mätvärden från ditt skript med funktionen `oneuptime.captureMetric()`. Dessa mätvärden lagras i Cast Operations och kan visas i diagram på instrumentpaneler med hjälp av Metric Explorer.
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);
@@ -176,5 +176,5 @@ return {
 - Du kan returnera data från skriptet med `return`-uttrycket. Tilldela skärmdumpar till det tillhandahållna `screenshots`-objektet så att de bevaras även om skriptet kastar ett undantag.
 - Du kan använda variablerna `browserType` och `screenSizeType` för att få webbläsartyp och skärmstorlek i den aktuella körningskontexten.
 - Detta är ett JavaScript-skript, så du kan använda alla JavaScript-funktioner i skriptet.
-- Om du använder oneuptime.com har du alltid den senaste versionen av Playwright och webbläsare tillgängliga i skriptets kontext. Om du egeninstallerar, se till att du uppdaterar sonderna för att ha den senaste versionen av Playwright och webbläsarna.
+- Om du använder visca.ai har du alltid den senaste versionen av Playwright och webbläsare tillgängliga i skriptets kontext. Om du egeninstallerar, se till att du uppdaterar sonderna för att ha den senaste versionen av Playwright och webbläsarna.
 - Timeout för skriptet är 2 minuter. Om skriptet tar mer än 2 minuter avslutas det.

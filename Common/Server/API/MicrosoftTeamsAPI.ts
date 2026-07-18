@@ -63,25 +63,25 @@ export default class MicrosoftTeamsAPI {
       id: MicrosoftTeamsAppClientId,
       developer: {
         name: "HackerBay Inc",
-        websiteUrl: "https://oneuptime.com",
-        privacyUrl: "https://oneuptime.com/legal/privacy",
-        termsOfUseUrl: "https://oneuptime.com/legal/terms",
+        websiteUrl: "https://visca.ai",
+        privacyUrl: "https://visca.ai/legal/privacy",
+        termsOfUseUrl: "https://visca.ai/legal/terms",
       },
       publisherDocsUrl:
-        "https://oneuptime.com/docs/workspace-connections/microsoft-teams",
+        "https://visca.ai/docs/workspace-connections/microsoft-teams",
       name: {
-        short: "OneUptime",
-        full: "OneUptime - Complete Observability Platform",
+        short: "Cast Operations",
+        full: "Cast Operations - Complete Observability Platform",
       },
       description: {
         short: "Complete open-source monitoring and observability platform. ",
-        full: `<p>OneUptime is a comprehensive solution for monitoring and managing your online services. Whether you need to check the availability of your website, dashboard, API, or any other online resource, OneUptime can alert your team when downtime happens and keep your customers informed with a status page. OneUptime also helps you handle incidents, set up on-call rotations, run tests, secure your services, analyze logs, track performance, and debug errors.</p>
+        full: `<p>Cast Operations is a comprehensive solution for monitoring and managing your online services. Whether you need to check the availability of your website, dashboard, API, or any other online resource, Cast Operations can alert your team when downtime happens and keep your customers informed with a status page. Cast Operations also helps you handle incidents, set up on-call rotations, run tests, secure your services, analyze logs, track performance, and debug errors.</p>
 
-<p>In order to use the app, you need to have an active account with <a href="https://oneuptime.com" target="_blank">OneUptime</a>. Please send an email to <a href="mailto:support@oneuptime.com">support@oneuptime.com</a> if you need more details.</p>
+<p>In order to use the app, you need to have an active account with <a href="https://visca.ai" target="_blank">Cast Operations</a>. Please send an email to <a href="mailto:support@visca.ai">support@visca.ai</a> if you need more details.</p>
 
-<p><strong>Create a new OneUptime Account:</strong> If you wish to sign up for a new account, you can do so by visiting <a href="https://oneuptime.com" target="_blank">OneUptime Sign Up</a>.</p>
+<p><strong>Create a new Cast Operations Account:</strong> If you wish to sign up for a new account, you can do so by visiting <a href="https://visca.ai" target="_blank">Cast Operations Sign Up</a>.</p>
 
-<p><strong>Help and Support:</strong> You can reach out to help and support via <a href="https://oneuptime.com/support" target="_blank">Support Page</a> or contact <a href="mailto:support@oneuptime.com">support@oneuptime.com</a>.</p>
+<p><strong>Help and Support:</strong> You can reach out to help and support via <a href="https://visca.ai/support" target="_blank">Support Page</a> or contact <a href="mailto:support@visca.ai">support@visca.ai</a>.</p>
 `,
       },
       // Default to size-specific names; route will adjust if fallbacks are used
@@ -108,17 +108,17 @@ export default class MicrosoftTeamsAPI {
                 {
                   title: "help",
                   description:
-                    "Show instructions for interacting with the OneUptime bot.",
+                    "Show instructions for interacting with the Cast Operations bot.",
                 },
                 {
                   title: "ask",
                   description:
-                    "Ask OneUptime AI about your logs, traces, metrics, incidents and monitors",
+                    "Ask Cast Operations AI about your logs, traces, metrics, incidents and monitors",
                 },
                 {
                   title: "create incident",
                   description:
-                    "Launch the adaptive card to declare a new incident in OneUptime.",
+                    "Launch the adaptive card to declare a new incident in Cast Operations.",
                 },
                 {
                   title: "create maintenance",
@@ -993,12 +993,12 @@ export default class MicrosoftTeamsAPI {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>OneUptime Teams Connector</title>
+    <title>Cast Operations Teams Connector</title>
     <script src="https://statics.teams.cdn.office.net/sdk/v1.11.0/js/MicrosoftTeams.min.js"></script>
 </head>
 <body>
-    <h1>OneUptime Teams Connector Setup</h1>
-    <p>Configure OneUptime notifications for your team.</p>
+    <h1>Cast Operations Teams Connector Setup</h1>
+    <p>Configure Cast Operations notifications for your team.</p>
     <button onclick="saveConfiguration()">Save Configuration</button>
 
     <script>
@@ -1007,8 +1007,8 @@ export default class MicrosoftTeamsAPI {
         function saveConfiguration() {
             microsoftTeams.settings.setSettings({
                 entityId: "oneuptime-connector",
-                contentUrl: "https://oneuptime.com",
-                suggestedDisplayName: "OneUptime Notifications"
+                contentUrl: "https://visca.ai",
+                suggestedDisplayName: "Cast Operations Notifications"
             });
             microsoftTeams.settings.setValidityState(true);
         }
@@ -1111,7 +1111,7 @@ export default class MicrosoftTeamsAPI {
       // Send help message
       const helpMessage: any = {
         _type: "WorkspacePayloadText",
-        text: "Hello! I'm the OneUptime bot. I can help you:\n\n• Get notifications about incidents\n• Acknowledge alerts\n• View system status\n\nType 'status' to see current system status.",
+        text: "Hello! I'm the Cast Operations bot. I can help you:\n\n• Get notifications about incidents\n• Acknowledge alerts\n• View system status\n\nType 'status' to see current system status.",
       };
 
       await MicrosoftTeamsUtil.sendDirectMessageToUser({

@@ -1,12 +1,12 @@
 # Terraformプロバイダードキュメント
 
-OneUptime Terraformプロバイダーを使用すると、OneUptimeのモニタリング、アラート、可観測性リソースをInfrastructure as Code（IaC）で管理できます。
+Cast Operations Terraformプロバイダーを使用すると、Cast Operationsのモニタリング、アラート、可観測性リソースをInfrastructure as Code（IaC）で管理できます。
 
 ## ドキュメントのセクション
 
 ### [はじめに](./quick-start.md)
 
-OneUptime Terraformプロバイダーを数分で使い始めるためのクイックセットアップガイド。
+Cast Operations Terraformプロバイダーを数分で使い始めるためのクイックセットアップガイド。
 
 ### [完全なプロバイダーガイド](./README.md)
 
@@ -18,24 +18,24 @@ OneUptime Terraformプロバイダーを数分で使い始めるためのクイ�
 
 ### [使用例](./examples.md)
 
-一般的なOneUptime Terraform設定の実際の使用例とパターン。
+一般的なCast Operations Terraform設定の実際の使用例とパターン。
 
 ## クイックリンク
 
-### OneUptime Cloudのお客様
+### Cast Operations Cloudのお客様
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # OneUptimeのバージョンと完全一致させる必要があります
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Cast Operationsのバージョンと完全一致させる必要があります
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## セルフホストユーザーへの重要なお知らせ
 
-**バージョン互換性が重要です**：Terraformプロバイダーのバージョンを常にOneUptimeのインストールバージョンに完全一致するよう固定してください。バージョンの不一致はAPIの互換性問題を引き起こす可能性があります。
+**バージョン互換性が重要です**：Terraformプロバイダーのバージョンを常にCast Operationsのインストールバージョンに完全一致するよう固定してください。バージョンの不一致はAPIの互換性問題を引き起こす可能性があります。
 
 ## 外部リソース
 
-- **Terraform Registry**：[OneUptimeプロバイダー](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHubリポジトリ**：[OneUptimeソースコード](https://github.com/OneUptime/oneuptime)
-- **コミュニティサポート**：[OneUptimeコミュニティ](https://community.oneuptime.com)
+- **Terraform Registry**：[Cast Operationsプロバイダー](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHubリポジトリ**：[Cast Operationsソースコード](https://github.com/autonomy-cloud/operations)
+- **コミュニティサポート**：[Cast Operationsコミュニティ](https://community.visca.ai)
 
 ## 利用可能なリソース
 
-プロバイダーはOneUptimeリソースの包括的な管理をサポートしています：
+プロバイダーはCast Operationsリソースの包括的な管理をサポートしています：
 
 - **プロジェクト & チーム**：モニタリング構造の整理
 - **モニター**：ウェブサイト、API、ポート、ハートビート、カスタムモニター
@@ -83,9 +83,9 @@ provider "oneuptime" {
 
 issueや質問、貢献に関しては：
 
-1. **ドキュメントの問題**：[OneUptimeリポジトリ](https://github.com/OneUptime/oneuptime/issues)でissueを作成
-2. **プロバイダーのバグ**：メインのOneUptimeリポジトリに報告
-3. **機能リクエスト**：OneUptimeコミュニティで議論
+1. **ドキュメントの問題**：[Cast Operationsリポジトリ](https://github.com/autonomy-cloud/operations/issues)でissueを作成
+2. **プロバイダーのバグ**：メインのCast Operationsリポジトリに報告
+3. **機能リクエスト**：Cast Operationsコミュニティで議論
 4. **一般的な質問**：コミュニティフォーラムを使用
 
 ## 次のステップ

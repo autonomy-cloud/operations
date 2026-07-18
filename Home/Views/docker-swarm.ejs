@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
 <head>
-  <title>OneUptime | Docker Swarm Monitoring - Nodes, Services, Tasks & Stacks</title>
+  <title>Cast Operations | Docker Swarm Monitoring - Nodes, Services, Tasks & Stacks</title>
   <meta name="description"
     content="Monitor Docker Swarm clusters end to end: manager and worker node health, services and their task replicas, running-vs-desired convergence, stacks, overlay networks, secrets, configs, and volumes. One agent per cluster, usage-based pricing, 10-minute setup. Open source.">
   <%- include('head', {
@@ -457,7 +457,7 @@
       </div>
     </div>
 
-    <!-- Why OneUptime Section -->
+    <!-- Why Cast Operations Section -->
     <div class="relative bg-white py-24 sm:py-32 overflow-hidden">
 
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -467,13 +467,13 @@
             <svg class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span class="text-sm font-medium text-blue-700">Why OneUptime for Docker Swarm</span>
+            <span class="text-sm font-medium text-blue-700">Why Cast Operations for Docker Swarm</span>
           </div>
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
             The monitoring Docker Swarm deserves, beyond uptime checks
           </h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">
-            Most tools stop at "is the node up". OneUptime also answers the questions that actually page you at 2 AM: which services are running fewer replicas than they should, which tasks are crash-looping on restart, and which manager is about to break quorum.
+            Most tools stop at "is the node up". Cast Operations also answers the questions that actually page you at 2 AM: which services are running fewer replicas than they should, which tasks are crash-looping on restart, and which manager is about to break quorum.
           </p>
         </div>
 
@@ -662,7 +662,7 @@
                 <span class="text-sm font-semibold text-blue-600 uppercase tracking-wide">Replica Convergence</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Know when a service is quietly running short</h3>
-              <p class="mt-4 text-lg text-gray-600">A Swarm service can report "running" while only half its task replicas are actually up — the rest stuck restarting or rejected for lack of capacity. OneUptime continuously compares running vs desired replicas for every service and alerts the moment one falls behind, a gap Datadog, Portainer, and Zabbix surface only if you go looking.</p>
+              <p class="mt-4 text-lg text-gray-600">A Swarm service can report "running" while only half its task replicas are actually up — the rest stuck restarting or rejected for lack of capacity. Cast Operations continuously compares running vs desired replicas for every service and alerts the moment one falls behind, a gap Datadog, Portainer, and Zabbix surface only if you go looking.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-blue-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -704,7 +704,7 @@
                 <span class="text-sm font-semibold text-blue-600 uppercase tracking-wide">Task & Container Health</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Crash loops that page you, not bury you in logs</h3>
-              <p class="mt-4 text-lg text-gray-600">Each task is one container instance, and a flapping task can silently churn through restarts for hours. OneUptime tracks per-task state, restart counts, and per-container CPU and memory out of the box, then pages whoever is on call the moment a task starts crash-looping — with the container's logs one click away.</p>
+              <p class="mt-4 text-lg text-gray-600">Each task is one container instance, and a flapping task can silently churn through restarts for hours. Cast Operations tracks per-task state, restart counts, and per-container CPU and memory out of the box, then pages whoever is on call the moment a task starts crash-looping — with the container's logs one click away.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-blue-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -919,7 +919,7 @@
                   </svg>
                 </div>
                 <h3 class="mt-6 text-xl font-semibold text-gray-900">No Per-Host Pricing</h3>
-                <p class="mt-4 text-gray-600 leading-relaxed">Per-host SaaS pricing runs $15&ndash;23 per host per month — and every node you monitor can count as a host. OneUptime charges only for the telemetry you ingest ($0.10/GB), never per node. Scale services and tasks freely and pay only for the data they send — no calling sales.</p>
+                <p class="mt-4 text-gray-600 leading-relaxed">Per-host SaaS pricing runs $15&ndash;23 per host per month — and every node you monitor can count as a host. Cast Operations charges only for the telemetry you ingest ($0.10/GB), never per node. Scale services and tasks freely and pay only for the data they send — no calling sales.</p>
               </div>
             </div>
 
@@ -969,7 +969,7 @@
                   <%- include('./Partials/icons/docker', {iconClass: 'h-6 w-6'}) %>
                 </div>
                 <h3 class="mt-6 text-xl font-semibold text-gray-900">Full Docker Host Product Included</h3>
-                <p class="mt-4 text-gray-600 leading-relaxed">Running standalone Docker hosts alongside your Swarm? OneUptime ships a complete Docker host monitoring product too — host metrics, per-container CPU, memory, and logs — so the boxes outside the cluster are covered just as well.</p>
+                <p class="mt-4 text-gray-600 leading-relaxed">Running standalone Docker hosts alongside your Swarm? Cast Operations ships a complete Docker host monitoring product too — host metrics, per-container CPU, memory, and logs — so the boxes outside the cluster are covered just as well.</p>
               </a>
             </div>
 
@@ -1105,7 +1105,7 @@
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-baseline gap-2">
-                      <span class="font-bold text-white text-sm">OneUptime Swarm</span>
+                      <span class="font-bold text-white text-sm">Cast Operations Swarm</span>
                       <span class="text-xs text-white/40">3:12 PM</span>
                     </div>
                     <!-- Alert Card -->

@@ -64,9 +64,9 @@ export default class EnterpriseLicenseAPI extends BaseAPI<
           //const serverHost: string = Host.toString();
 
           /*
-           * if (!serverHost.includes("oneuptime.com")) {
+           * if (!serverHost.includes("visca.ai")) {
            *   throw new BadDataException(
-           *     "Enterprise license validation is only available on oneuptime.com",
+           *     "Enterprise license validation is only available on visca.ai",
            *   );
            * }
            */
@@ -357,7 +357,7 @@ export default class EnterpriseLicenseAPI extends BaseAPI<
 
     if (instanceCount.toNumber() >= MAX_INSTANCES_PER_LICENSE) {
       throw new BadDataException(
-        "Too many instances are registered for this license. Please contact support@oneuptime.com.",
+        "Too many instances are registered for this license. Please contact support@visca.ai.",
       );
     }
 

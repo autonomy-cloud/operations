@@ -68,9 +68,9 @@ Om instrumentpanelen är offentlig på en anpassad domän slutar URL:en svara s�
 
 ## Säkerhetskopiering
 
-Om du kör OneUptime självhostat är en vanlig databassäkerhetskopiering tillräcklig — instrumentpanelens konfiguration sparas tillsammans med resten av ditt projekt.
+Om du kör Cast Operations självhostat är en vanlig databassäkerhetskopiering tillräcklig — instrumentpanelens konfiguration sparas tillsammans med resten av ditt projekt.
 
-På OneUptime Cloud hanteras säkerhetskopiering åt dig. Om du vill ha din egen kopia kan du läsa instrumentpanelen via [OneUptime API](/docs/api-reference/api-reference).
+På Cast Operations Cloud hanteras säkerhetskopiering åt dig. Om du vill ha din egen kopia kan du läsa instrumentpanelen via [Cast Operations API](/docs/api-reference/api-reference).
 
 ## Läs vidare
 

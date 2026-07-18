@@ -1,14 +1,14 @@
 # 传入呼叫策略（Twilio 集成）
 
-传入呼叫策略允许外部呼叫者通过拨打专用电话号码联系到值班工程师。当有人致电时，OneUptime 会通过配置的升级规则路由呼叫，直到工程师接听。
+传入呼叫策略允许外部呼叫者通过拨打专用电话号码联系到值班工程师。当有人致电时，Cast Operations 会通过配置的升级规则路由呼叫，直到工程师接听。
 
 ## 工作原理
 
 ```mermaid
 flowchart TD
     A[呼叫者拨打<br/>传入呼叫号码] --> B[Twilio 接收呼叫]
-    B --> C[Twilio 发送 Webhook<br/>到 OneUptime]
-    C --> D[OneUptime 播放<br/>问候语]
+    B --> C[Twilio 发送 Webhook<br/>到 Cast Operations]
+    C --> D[Cast Operations 播放<br/>问候语]
     D --> E[加载升级规则]
     E --> F{规则 1：<br/>尝试值班用户}
     F -->|无应答| G{规则 2：<br/>尝试备用团队}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant Caller as 呼叫者
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant OnCallEngineer as 值班工程师
 
     Caller->>Twilio: 拨打传入呼叫号码
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML：播放问候语
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML：播放问候语
     Twilio->>Caller: "请稍候，正在为您接通值班工程师..."
 
     loop 升级规则
-        OneUptime->>OneUptime: 获取下一个升级规则
-        OneUptime->>Twilio: TwiML：拨打值班用户
+        Cast Operations->>Cast Operations: 获取下一个升级规则
+        Cast Operations->>Twilio: TwiML：拨打值班用户
         Twilio->>OnCallEngineer: 响铃
         alt 工程师接听
             OnCallEngineer->>Twilio: 接听
-            Twilio->>OneUptime: 拨号状态：已完成
+            Twilio->>Cast Operations: 拨号状态：已完成
             Twilio->>Caller: 接通工程师
             Note over Caller,OnCallEngineer: 通话中
         else 无应答（超时）
-            Twilio->>OneUptime: 拨号状态：无应答
-            OneUptime->>OneUptime: 尝试下一个规则
+            Twilio->>Cast Operations: 拨号状态：无应答
+            Cast Operations->>Cast Operations: 尝试下一个规则
         end
     end
 
     alt 所有规则已耗尽
-        OneUptime->>Twilio: TwiML：播放无应答消息
+        Cast Operations->>Twilio: TwiML：播放无应答消息
         Twilio->>Caller: "当前没有人可接听..."
         Twilio->>Caller: 挂断
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - Twilio 账号 - 在 [https://www.twilio.com](https://www.twilio.com) 创建
 - 您的 Twilio Account SID 和 Auth Token
-- 访问您的 OneUptime 自托管实例
+- 访问您的 Cast Operations 自托管实例
 
 ## 概述
 
@@ -74,7 +74,7 @@ sequenceDiagram
 4. 将呼叫者连接到第一个可用的值班工程师
 5. 如果无人接听，升级到下一个规则
 
-由于您是自托管 OneUptime，您需要配置自己的 Twilio 账号。这让您完全控制您的电话号码和账单。
+由于您是自托管 Cast Operations，您需要配置自己的 Twilio 账号。这让您完全控制您的电话号码和账单。
 
 ## 第一步：创建 Twilio 账号
 
@@ -82,9 +82,9 @@ sequenceDiagram
 2. 完成验证流程
 3. 从 Twilio 控制台仪表板记录您的 **Account SID** 和 **Auth Token**
 
-## 第二步：在 OneUptime 中配置呼叫/SMS 配置
+## 第二步：在 Cast Operations 中配置呼叫/SMS 配置
 
-1. 登录您的 OneUptime 控制台
+1. 登录您的 Cast Operations 控制台
 2. 前往 **项目设置** > **通话和短信** > **自定义通话/短信配置**
 3. 点击 **创建自定义通话/短信配置**
 4. 填写以下字段：
@@ -120,15 +120,15 @@ sequenceDiagram
 如果您的 Twilio 账号中已有电话号码：
 
 1. 在 **电话号码** 卡片中，点击 **使用现有号码**
-2. OneUptime 将从您的 Twilio 账号中获取所有电话号码
+2. Cast Operations 将从您的 Twilio 账号中获取所有电话号码
 3. 选择您要使用的电话号码
 4. 点击 **使用此号码** 将其分配给策略
 
-> **注意**：如果电话号码已配置 Webhook，它将被更新以指向 OneUptime。
+> **注意**：如果电话号码已配置 Webhook，它将被更新以指向 Cast Operations。
 
 ### 选项 B：购买新电话号码
 
-直接从 OneUptime 购买新电话号码：
+直接从 Cast Operations 购买新电话号码：
 
 1. 在 **电话号码** 卡片中，点击 **购买新号码**
 2. 从下拉菜单中选择 **国家/地区**
@@ -258,7 +258,7 @@ flowchart TD
 ### 未收到呼叫
 
 - 验证 Twilio 配置是否正确链接到策略
-- 检查您的 OneUptime 实例是否可以从互联网访问
+- 检查您的 Cast Operations 实例是否可以从互联网访问
 - 验证 Twilio Account SID 和 Auth Token 是否正确
 - 检查 Twilio 控制台的错误日志
 
@@ -278,8 +278,8 @@ flowchart TD
 ## 安全注意事项
 
 - 保护您的 Twilio Auth Token 安全，切勿公开暴露
-- 为您的 OneUptime 实例使用 HTTPS
-- OneUptime 验证 Webhook 签名以确保请求来自 Twilio
+- 为您的 Cast Operations 实例使用 HTTPS
+- Cast Operations 验证 Webhook 签名以确保请求来自 Twilio
 - 考虑限制哪些电话号码可以拨打您的传入呼叫策略
 
 ## 架构概览
@@ -291,7 +291,7 @@ graph TB
         B[Twilio 云]
     end
 
-    subgraph "OneUptime"
+    subgraph "Cast Operations"
         C[传入呼叫 API]
         D[呼叫路由器]
         E[升级引擎]
@@ -320,5 +320,5 @@ graph TB
 如果遇到传入呼叫策略功能的问题，请：
 
 1. 检查 Twilio 控制台的错误日志
-2. 查看 OneUptime 服务器日志
-3. 发送邮件至 [hello@oneuptime.com](mailto:hello@oneuptime.com) 联系支持
+2. 查看 Cast Operations 服务器日志
+3. 发送邮件至 [hello@visca.ai](mailto:hello@visca.ai) 联系支持

@@ -1,5 +1,5 @@
 #!/bin/sh
-# OneUptime Podman Agent entrypoint.
+# Cast Operations Podman Agent entrypoint.
 #
 # Runs the inventory snapshot poller in the background and execs the
 # OTel collector in the foreground. The collector is the supervised

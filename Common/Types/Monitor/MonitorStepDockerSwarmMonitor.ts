@@ -4,7 +4,7 @@ import RollingTime from "../RollingTime/RollingTime";
 
 /*
  * Docker Swarm telemetry contract (the trap these filters avoid): the
- * OneUptime Docker Swarm Agent stamps ONLY the resource attribute
+ * Cast Operations Docker Swarm Agent stamps ONLY the resource attribute
  * `docker.swarm.cluster.name` on every batch — it does NOT stamp
  * `container.runtime` or `host.name`. The metrics that actually arrive
  * come from the docker_stats receiver and are the standard `container.*`

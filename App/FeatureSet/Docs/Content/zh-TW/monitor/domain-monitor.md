@@ -1,6 +1,6 @@
 # 網域監測
 
-網域監測讓您能夠監測網域名稱的註冊狀態與到期時間。OneUptime 會定期執行 WHOIS 查詢，以追蹤您網域的健康狀態，並在網域到期前向您發出警示。
+網域監測讓您能夠監測網域名稱的註冊狀態與到期時間。Cast Operations 會定期執行 WHOIS 查詢，以追蹤您網域的健康狀態，並在網域到期前向您發出警示。
 
 ## 概觀
 
@@ -14,7 +14,7 @@
 
 ## 建立網域監測
 
-1. 前往 OneUptime Dashboard 中的 **Monitors**
+1. 前往 Cast Operations Dashboard 中的 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **Domain** 作為監測類型
 4. 輸入您想要監測的網域名稱

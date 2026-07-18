@@ -29,13 +29,7 @@ limit so the two never drift apart. Unsuffixed input is treated as bytes.
 
 {{- define "oneuptime.image.tag" -}}
   {{- $values := .Values -}}
-  {{- $tag := default "release" $values.image.tag -}}
-  {{- $imageType := default "community-edition" $values.image.type -}}
-  {{- if and (eq $imageType "enterprise-edition") (not (contains "enterprise" $tag)) }}
-    {{- printf "enterprise-%s" $tag -}}
-  {{- else -}}
-    {{- $tag -}}
-  {{- end -}}
+  {{- default "release" $values.image.tag -}}
 {{- end -}}
 
 {{- define "oneuptime.image" -}}
@@ -110,14 +104,11 @@ its userlist at startup.
 {{- end -}}
 
 {{- define "oneuptime.env.common" }}
-{{- $isEnterpriseEdition := eq (default "community-edition" $.Values.image.type) "enterprise-edition" }}
 {{- $provisionSSL := false -}}
 {{- if kindIs "map" $.Values.ssl }}
   {{- $provisionSSL = default false $.Values.ssl.provision -}}
 {{- end }}
 
-- name: IS_ENTERPRISE_EDITION
-  value: {{ (ternary "true" "false" $isEnterpriseEdition) | squote }}
 - name: MICROSOFT_TEAMS_APP_CLIENT_ID
   value: {{ $.Values.microsoftTeamsApp.clientId }}
 - name: MICROSOFT_TEAMS_APP_TENANT_ID
@@ -154,8 +145,6 @@ its userlist at startup.
   value: {{ $.Values.statusPage.cnameRecord }}
 - name: DASHBOARD_CNAME_RECORD
   value: {{ $.Values.dashboard.cnameRecord | default "" }}
-- name: ALLOWED_ACTIVE_MONITOR_COUNT_IN_FREE_PLAN
-  value: {{ $.Values.billing.allowedActiveMonitorCountInFreePlan | quote }}
 - name: LOG_LEVEL
   value: {{ $.Values.logLevel }}
 - name: HTTP_PROTOCOL
@@ -166,18 +155,6 @@ its userlist at startup.
 - name: NODE_TLS_REJECT_UNAUTHORIZED
   value: "0"
 {{- end }}
-- name: BILLING_ENABLED
-  value: {{ $.Values.billing.enabled | squote }}
-- name: BILLING_PUBLIC_KEY
-  value: {{ $.Values.billing.publicKey }}
-- name: SUBSCRIPTION_PLAN_BASIC
-  value: {{ $.Values.subscriptionPlan.basic }}
-- name: SUBSCRIPTION_PLAN_GROWTH
-  value: {{ $.Values.subscriptionPlan.growth }}
-- name: SUBSCRIPTION_PLAN_SCALE
-  value: {{ $.Values.subscriptionPlan.scale }}
-- name: SUBSCRIPTION_PLAN_ENTERPRISE
-  value: {{ $.Values.subscriptionPlan.enterprise }}
 - name: ANALYTICS_KEY
   value: {{ $.Values.analytics.key }}
 - name: ANALYTICS_HOST
@@ -224,7 +201,7 @@ GLOBAL_LLM_PROVIDER_API_KEY is rendered only when an API key is configured.
 - name: GLOBAL_LLM_PROVIDER_NAME
   value: {{ $.Values.vllm.globalProvider.name | quote }}
 - name: GLOBAL_LLM_PROVIDER_DESCRIPTION
-  value: {{ default "Automatically registered by the OneUptime Helm chart (vllm.globalProvider)." $.Values.vllm.globalProvider.description | quote }}
+  value: {{ default "Automatically registered by the Cast Operations Helm chart (vllm.globalProvider)." $.Values.vllm.globalProvider.description | quote }}
 - name: GLOBAL_LLM_PROVIDER_TYPE
   value: "OpenAICompatible"
 - name: GLOBAL_LLM_PROVIDER_BASE_URL
@@ -302,7 +279,7 @@ GLOBAL_LLM_PROVIDER_API_KEY is rendered only when an API key is configured.
   value: {{ default "" $.Values.expo.accessToken | quote }}
 
 - name: PUSH_NOTIFICATION_RELAY_URL
-  value: {{ default "https://oneuptime.com/api/notification/push-relay/send" $.Values.pushNotification.relayUrl | quote }}
+  value: {{ default "https://visca.ai/api/notification/push-relay/send" $.Values.pushNotification.relayUrl | quote }}
 
 - name: SLACK_APP_CLIENT_SECRET
   {{- if $.Values.slackApp.existingSecret }}
@@ -447,7 +424,7 @@ GLOBAL_LLM_PROVIDER_API_KEY is rendered only when an API key is configured.
   {{- else }}
   value: {{ $.Values.externalClickhouse.database }}
   {{- end }}
-# Cluster name. OneUptime's analytics schema ALWAYS runs as a sharded +
+# Cluster name. Cast Operations’ analytics schema ALWAYS runs as a sharded +
 # replicated cluster (Distributed over local ReplicatedMergeTree, ON CLUSTER).
 # The name must match the cluster defined in the ClickHouse config:
 #   - operator path: the CHI cluster (clickhouseOperator.altinity.cluster.name);
@@ -717,12 +694,6 @@ GLOBAL_LLM_PROVIDER_API_KEY is rendered only when an API key is configured.
 {{- end }}
 
 ## DATABASE SSL ENDS HERE
-
-- name: BILLING_PRIVATE_KEY
-  value: {{ $.Values.billing.privateKey }}
-
-- name: BILLING_WEBHOOK_SECRET
-  value: {{ $.Values.billing.webhookSecret }}
 
 - name: DISABLE_AUTOMATIC_INCIDENT_CREATION
   value: {{ $.Values.incidents.disableAutomaticCreation | squote }}

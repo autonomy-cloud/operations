@@ -50,8 +50,8 @@
     "logout": "Log ud"
   },
   "topAlert": {
-    "title": "OneUptime admin-dashboard",
-    "description": "Du kan udføre dine OneUptime-serverrelaterede opgaver på dette dashboard."
+    "title": "Cast Operations admin-dashboard",
+    "description": "Du kan udføre dine Cast Operations-serverrelaterede opgaver på dette dashboard."
   },
   "header": {
     "exitAdmin": "Forlad admin",
@@ -74,7 +74,7 @@
     "helpSupport": "Hjælp og support",
     "legal": "Juridisk",
     "version": "Version",
-    "versionModalTitle": "OneUptime-version",
+    "versionModalTitle": "Cast Operations-version",
     "versionLabel": "Version",
     "commitLabel": "Commit",
     "versionUnavailable": "Versionsdata er ikke tilgængelige"
@@ -115,7 +115,7 @@
     "users": {
       "title": "Brugere",
       "cardTitle": "Brugere",
-      "cardDescription": "Her er en liste over brugere i OneUptime.",
+      "cardDescription": "Her er en liste over brugere i Cast Operations.",
       "noItems": "Ingen brugere fundet."
     },
     "enterpriseLicenses": {
@@ -150,7 +150,7 @@
     "projects": {
       "title": "Projekter",
       "cardTitle": "Projekter",
-      "cardDescription": "Her er en liste over projekter i OneUptime.",
+      "cardDescription": "Her er en liste over projekter i Cast Operations.",
       "noItems": "Ingen projekter fundet.",
       "stepBasic": "Grundlæggende",
       "stepSelectPlan": "Vælg plan",
@@ -244,10 +244,10 @@
       "title": "Admin-indstillinger",
       "authentication": {
         "authCardTitle": "Godkendelsesindstillinger",
-        "authCardDescription": "Godkendelsesindstillinger for denne OneUptime-serverinstans.",
+        "authCardDescription": "Godkendelsesindstillinger for denne Cast Operations-serverinstans.",
         "authEditButton": "Rediger indstillinger",
         "projectCreationCardTitle": "Projektoprettelse",
-        "projectCreationCardDescription": "Styr, hvem der kan oprette nye projekter på denne OneUptime-server.",
+        "projectCreationCardDescription": "Styr, hvem der kan oprette nye projekter på denne Cast Operations-server.",
         "projectCreationEditButton": "Rediger indstillinger"
       },
       "email": {
@@ -275,7 +275,7 @@
       },
       "whatsapp": {
         "metaCardTitle": "Meta WhatsApp-indstillinger",
-        "metaCardDescription": "Konfigurer Meta WhatsApp-legitimationsoplysninger. Disse værdier bruges til at sende WhatsApp-notifikationer fra OneUptime.",
+        "metaCardDescription": "Konfigurer Meta WhatsApp-legitimationsoplysninger. Disse værdier bruges til at sende WhatsApp-notifikationer fra Cast Operations.",
         "metaEditButton": "Rediger Meta WhatsApp-konfig",
         "testCardTitle": "Send test-WhatsApp-meddelelse",
         "testCardDescription": "Send en test-WhatsApp-skabelonmeddelelse for at bekræfte din Meta-konfiguration.",
@@ -288,7 +288,7 @@
       },
       "telegram": {
         "setupCardTitle": "Telegram-opsætningsguide",
-        "setupCardDescription": "Læs dette først — det er den hurtigste vej fra nul til en fungerende Telegram-bot forbundet til OneUptime.",
+        "setupCardDescription": "Læs dette først — det er den hurtigste vej fra nul til en fungerende Telegram-bot forbundet til Cast Operations.",
         "configCardTitle": "Telegram-bot-indstillinger",
         "configCardDescription": "Indsæt bot-tokenet og brugernavnet, som @BotFather gav dig. Disse driver udgående notifikationer; det hemmelige token beskytter den indgående webhook.",
         "configEditButton": "Rediger Telegram-konfig",
@@ -333,7 +333,7 @@
       },
       "apiKey": {
         "cardTitle": "Master-API-nøgle-indstillinger",
-        "cardDescription": "Denne API-nøgle har rod-adgang til alle ressourcer i alle projekter på OneUptime.",
+        "cardDescription": "Denne API-nøgle har rod-adgang til alle ressourcer i alle projekter på Cast Operations.",
         "editButton": "Rediger API-nøgle-indstillinger",
         "apiKeyNotGenerated": "API-nøgle ikke genereret endnu."
       },
@@ -443,7 +443,7 @@
   "Acme, Inc.": "Acme, Inc.",
   "Admin Notification Email": "Admin-notifikations-e-mail",
   "AI Agent Logo": "AI-agentlogo",
-  "Any strong random string. OneUptime rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Enhver stærk tilfældig streng. OneUptime afviser webhook-kald, hvis X-Telegram-Bot-Api-Secret-Token-header ikke matcher denne værdi.",
+  "Any strong random string. Cast Operations rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "Enhver stærk tilfældig streng. Cast Operations afviser webhook-kald, hvis X-Telegram-Bot-Api-Secret-Token-header ikke matcher denne værdi.",
   "App ID": "App-ID",
   "App Secret": "App-hemmelighed",
   "Application (Client) ID from your Azure AD app registration (or service account for JWT Bearer).": "Applikations-(klient-)ID fra din Azure AD-appregistrering (eller tjenestekonto for JWT Bearer).",
@@ -493,7 +493,7 @@
   "Health": "Tilstand",
   "Home": "Hjem",
   "Hostname": "Værtsnavn",
-  "How OneUptime delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Hvordan OneUptime leverer mail ved hjælp af den globale SMTP-konfiguration. Vælg 'SMTP' for de fleste servere. Vælg 'Microsoft Graph', hvis din Microsoft 365-tenant har SMTP AUTH deaktiveret — Graph bruger Mail.Send-applikationstilladelsen og omgår SMTP fuldstændigt.",
+  "How Cast Operations delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Hvordan Cast Operations leverer mail ved hjælp af den globale SMTP-konfiguration. Vælg 'SMTP' for de fleste servere. Vælg 'Microsoft Graph', hvis din Microsoft 365-tenant har SMTP AUTH deaktiveret — Graph bruger Mail.Send-applikationstilladelsen og omgår SMTP fuldstændigt.",
   "If you have a coupon code, enter it here.": "Hvis du har en rabatkode, så indtast den her.",
   "If you have bought more phone numbers from Twilio for specific countries, you can add them here.": "Hvis du har købt flere telefonnumre fra Twilio til specifikke lande, kan du tilføje dem her.",
   "If you use port 465, please enable this. Do not enable this if you use port 587.": "Hvis du bruger port 465, så aktivér dette. Aktivér ikke dette, hvis du bruger port 587.",
@@ -530,9 +530,9 @@
   "OAuth Scope": "OAuth-omfang",
   "OAuth Settings": "OAuth-indstillinger",
   "OAuth Token URL": "OAuth-token-URL",
-  "OneUptime Health": "OneUptime-tilstand",
+  "Cast Operations Health": "Cast Operations-tilstand",
   "OneUptimeAlertsBot": "OneUptimeAlertsBot",
-  "Operational health of this OneUptime instance.": "Driftstilstand for denne OneUptime-instans.",
+  "Operational health of this Cast Operations instance.": "Driftstilstand for denne Cast Operations-instans.",
   "Optional Business Account ID that owns the WhatsApp templates.": "Valgfrit Business Account ID, der ejer WhatsApp-skabelonerne.",
   "Optional Facebook App ID tied to your WhatsApp integration.": "Valgfrit Facebook App ID knyttet til din WhatsApp-integration.",
   "Optional Facebook App Secret used for webhook signature verification.": "Valgfri Facebook App Secret, der bruges til verifikation af webhook-signaturer.",
@@ -540,7 +540,7 @@
   "Password": "Adgangskode",
   "Phone Number ID": "Telefonnummer-ID",
   "Pick a friendly name.": "Vælg et brugervenligt navn.",
-  "Please create a new OneUptime project to get started.": "Opret venligst et nyt OneUptime-projekt for at komme i gang.",
+  "Please create a new Cast Operations project to get started.": "Opret venligst et nyt Cast Operations-projekt for at komme i gang.",
   "Please select a plan.": "Vælg venligst en plan.",
   "Port": "Port",
   "Primary Twilio Phone Number": "Primært Twilio-telefonnummer",
@@ -573,7 +573,7 @@
   "Select the team you would like to add this user to.": "Vælg det team, du gerne vil tilføje denne bruger til.",
   "Send a broadcast email to all users.": "Send en rundsendt e-mail til alle brugere.",
   "Sendgrid API Key": "Sendgrid API-nøgle",
-  "Should we disable sign up of new users to OneUptime?": "Skal vi deaktivere tilmelding af nye brugere til OneUptime?",
+  "Should we disable sign up of new users to Cast Operations?": "Skal vi deaktivere tilmelding af nye brugere til Cast Operations?",
   "SMTP Email": "SMTP-e-mail",
   "SMTP From Name": "SMTP-afsendernavn",
   "SMTP Host": "SMTP-vært",
@@ -583,7 +583,7 @@
   "SMTP server hostname. Examples: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)": "SMTP-serverens værtsnavn. Eksempler: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)",
   "SMTP Username / Email": "SMTP-brugernavn / e-mail",
   "Status": "Status",
-  "Status of the core datastores this OneUptime instance depends on.": "Status for de centrale datalagre, som denne OneUptime-instans afhænger af.",
+  "Status of the core datastores this Cast Operations instance depends on.": "Status for de centrale datalagre, som denne Cast Operations-instans afhænger af.",
   "Subject": "Emne",
   "System components": "Systemkomponenter",
   "Team": "Team",
@@ -591,7 +591,7 @@
   "Team ID": "Team-ID",
   "Team Name": "Teamnavn",
   "Test Email Address": "Test-e-mailadresse",
-  "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.": "Teksten i meddelelsesmailen. Denne vil blive vist i en OneUptime-brandet e-mailskabelon. Du kan bruge Markdown-formatering.",
+  "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.": "Teksten i meddelelsesmailen. Denne vil blive vist i en Cast Operations-brandet e-mailskabelon. Du kan bruge Markdown-formatering.",
   "The body of the announcement email. This will be sent to all registered users. You can use Markdown formatting.": "Teksten i meddelelsesmailen. Denne vil blive sendt til alle registrerede brugere. Du kan bruge Markdown-formatering.",
   "The bot token @BotFather sent you — starts with digits, then a colon, then ~35 letters/digits. Not a URL, not a curl command.": "Bot-tokenet, som @BotFather sendte dig — starter med cifre, derefter et kolon, derefter ~35 bogstaver/cifre. Ikke en URL, ikke en curl-kommando.",
   "The email address where the test email will be sent.": "E-mailadressen, hvortil test-e-mailen vil blive sendt.",
@@ -600,8 +600,8 @@
   "The subject line of the announcement email.": "Emnelinjen i meddelelsesmailen.",
   "The WhatsApp Business phone number ID associated with your sending number.": "WhatsApp Business-telefonnummer-ID'et, der er knyttet til dit afsendernummer.",
   "This AI agent handles automated incident management.": "Denne AI-agent håndterer automatiseret hændelseshåndtering.",
-  "This API key has root access to all the resources in all the projects on OneUptime.": "Denne API-nøgle har rod-adgang til alle ressourcer i alle projekter på OneUptime.",
-  "This is the display name your team and customers see, when they receive emails from OneUptime.": "Dette er det visningsnavn, dit team og dine kunder ser, når de modtager e-mails fra OneUptime.",
+  "This API key has root access to all the resources in all the projects on Cast Operations.": "Denne API-nøgle har rod-adgang til alle ressourcer i alle projekter på Cast Operations.",
+  "This is the display name your team and customers see, when they receive emails from Cast Operations.": "Dette er det visningsnavn, dit team og dine kunder ser, når de modtager e-mails fra Cast Operations.",
   "This plan is free, forever. ": "Denne plan er gratis, for evigt. ",
   "This probe is to monitor all the internal services.": "Denne sonde er til at overvåge alle de interne tjenester.",
   "Transport": "Transport",

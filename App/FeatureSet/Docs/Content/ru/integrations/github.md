@@ -1,13 +1,13 @@
 # Интеграция с GitHub
 
-Автоматически открывайте задачу [GitHub](https://github.com) при создании инцидента OneUptime — чтобы инженерные задачи отслеживались в репозитории, ответственном за затронутый сервис.
+Автоматически открывайте задачу [GitHub](https://github.com) при создании инцидента Cast Operations — чтобы инженерные задачи отслеживались в репозитории, ответственном за затронутый сервис.
 
-Эта интеграция является **исходящей**: OneUptime вызывает [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Используется OneUptime **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**.
+Эта интеграция является **исходящей**: Cast Operations вызывает [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Используется Cast Operations **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**.
 
-> **Ищете более глубокую интеграцию с GitHub?** У OneUptime также есть нативная интеграция **GitHub App** для подключения репозиториев кода (используется ИИ-агентом и функциями работы с кодом). Она настраивается через переменные окружения, а не через рабочие процессы — см. [Интеграция с GitHub (self-hosted)](/docs/self-hosted/github-integration). Эта страница посвящена исключительно _созданию задач на основе инцидентов_.
+> **Ищете более глубокую интеграцию с GitHub?** У Cast Operations также есть нативная интеграция **GitHub App** для подключения репозиториев кода (используется ИИ-агентом и функциями работы с кодом). Она настраивается через переменные окружения, а не через рабочие процессы — см. [Интеграция с GitHub (self-hosted)](/docs/self-hosted/github-integration). Эта страница посвящена исключительно _созданию задач на основе инцидентов_.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## Предварительные требования
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   Создайте токен на [github.com/settings/tokens](https://github.com/settings/tokens).
 
-- Проект OneUptime, в котором вы можете создавать рабочие процессы.
+- Проект Cast Operations, в котором вы можете создавать рабочие процессы.
 
 ## Шаг 1 — Сохраните токен
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**:
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

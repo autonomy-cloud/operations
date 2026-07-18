@@ -1,6 +1,6 @@
 # Ejecuciones y Registros
 
-Cada vez que se ejecuta un workflow, OneUptime guarda un registro de lo que ocurrió: cuándo se ejecutó, si funcionó y qué hizo cada bloque. Ese registro se llama **ejecución**. Las ejecuciones son la forma de confirmar que un workflow funcionó, depurar uno que no lo hizo y revisar la actividad pasada.
+Cada vez que se ejecuta un workflow, Cast Operations guarda un registro de lo que ocurrió: cuándo se ejecutó, si funcionó y qué hizo cada bloque. Ese registro se llama **ejecución**. Las ejecuciones son la forma de confirmar que un workflow funcionó, depurar uno que no lo hizo y revisar la actividad pasada.
 
 ## Dónde encontrarlas
 
@@ -35,7 +35,7 @@ Los valores mostrados son exactamente lo que vio el bloque, después de que toda
 ### "Mi workflow no se ejecutó."
 
 1. Asegúrate de que el workflow esté **activado** en Configuración. Los workflows nuevos comienzan desactivados.
-2. Para un disparador de evento de OneUptime: confirma que el evento realmente ocurrió. Abre el registro y revisa su historial.
+2. Para un disparador de evento de Cast Operations: confirma que el evento realmente ocurrió. Abre el registro y revisa su historial.
 3. Para un disparador de webhook: confirma que el otro sistema está enviando a la URL correcta. La mayoría de las herramientas registran cuándo envían un webhook; comprueba allí.
 4. Para un disparador de programación: confirma que la expresión cron coincide con la hora que esperas.
 

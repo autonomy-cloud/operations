@@ -1,10 +1,10 @@
 # Condivisione e dashboard pubbliche
 
-Per impostazione predefinita, le dashboard sono private al tuo progetto — solo i membri del team autenticati possono vederle. Ma OneUptime ti permette anche di condividere una dashboard pubblicamente, proteggerla con una password, limitarla a determinati IP e ospitarla sul tuo dominio. Questa pagina copre tutti e quattro gli aspetti.
+Per impostazione predefinita, le dashboard sono private al tuo progetto — solo i membri del team autenticati possono vederle. Ma Cast Operations ti permette anche di condividere una dashboard pubblicamente, proteggerla con una password, limitarla a determinati IP e ospitarla sul tuo dominio. Questa pagina copre tutti e quattro gli aspetti.
 
 ## Dashboard private (il default)
 
-Una dashboard e raggiungibile solo dai membri autenticati del tuo progetto. L'URL e simile a `https://oneuptime.com/dashboards/<id>/view` e richiede l'accesso.
+Una dashboard e raggiungibile solo dai membri autenticati del tuo progetto. L'URL e simile a `https://visca.ai/dashboards/<id>/view` e richiede l'accesso.
 
 All'interno del progetto, proprietari ed etichette controllano chi vede cosa — vedi [Configurazione e permessi](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Le richieste da qualsiasi altro IP vengono rifiutate.
 
 ## Domini personalizzati
 
-Out of the box, una dashboard pubblica viene servita su `oneuptime.com`. Per ospitarla sul tuo sottodominio come `dashboard.acme.com`:
+Out of the box, una dashboard pubblica viene servita su `visca.ai`. Per ospitarla sul tuo sottodominio come `dashboard.acme.com`:
 
-1. Aggiungi un record CNAME sul tuo DNS che punti il sottodominio al target di OneUptime.
+1. Aggiungi un record CNAME sul tuo DNS che punti il sottodominio al target di Cast Operations.
 2. Sotto **Dashboard → Settings → Custom Domains**, aggiungi il dominio.
-3. Verificalo. OneUptime controlla il record DNS per te.
+3. Verificalo. Cast Operations controlla il record DNS per te.
 4. Una volta verificata, la dashboard e raggiungibile sia sul tuo dominio personalizzato sia sull'URL originale.
 
 I domini personalizzati sono utili per:
@@ -75,7 +75,7 @@ Sotto **Dashboard → Settings**, puoi configurare:
 - **Logo** — carica un PNG o SVG da mostrare nell'intestazione.
 - **Favicon** — la piccola icona nella scheda del browser.
 
-Il branding si applica solo quando la dashboard viene visualizzata pubblicamente. I visitatori interni vedono sempre il branding di OneUptime.
+Il branding si applica solo quando la dashboard viene visualizzata pubblicamente. I visitatori interni vedono sempre il branding di Cast Operations.
 
 ## Embedding
 

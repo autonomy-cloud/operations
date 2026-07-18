@@ -1,20 +1,20 @@
 # Интеграция с Grafana
 
-Преобразуйте оповещения [Grafana](https://grafana.com) в инциденты OneUptime. Grafana оценивает правила оповещений на ваших дашбордах; OneUptime фиксирует, эскалирует и отслеживает их.
+Преобразуйте оповещения [Grafana](https://grafana.com) в инциденты Cast Operations. Grafana оценивает правила оповещений на ваших дашбордах; Cast Operations фиксирует, эскалирует и отслеживает их.
 
-Эта интеграция является **входящей**: система оповещений Grafana отправляет данные в OneUptime **[Workflow](/docs/workflows/index)**, начинающийся с **триггера Webhook**, через **контактную точку Webhook** Grafana.
+Эта интеграция является **входящей**: система оповещений Grafana отправляет данные в Cast Operations **[Workflow](/docs/workflows/index)**, начинающийся с **триггера Webhook**, через **контактную точку Webhook** Grafana.
 
 ```text
-Grafana alert rule fires  ──►  Webhook contact point  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Grafana alert rule fires  ──►  Webhook contact point  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Предварительные требования
 
 - Grafana 9+ с включёнными [унифицированными оповещениями](https://grafana.com/docs/grafana/latest/alerting/) (по умолчанию в современной Grafana).
-- Grafana должна иметь возможность обращаться к вашему экземпляру OneUptime по HTTPS.
-- Проект OneUptime, в котором вы можете создавать рабочие процессы.
+- Grafana должна иметь возможность обращаться к вашему экземпляру Cast Operations по HTTPS.
+- Проект Cast Operations, в котором вы можете создавать рабочие процессы.
 
-## Шаг 1 — Создайте рабочий процесс в OneUptime
+## Шаг 1 — Создайте рабочий процесс в Cast Operations
 
 1. Откройте **Workflows → Create Workflow**, назовите его `Grafana → Incidents` и откройте **Builder**.
 2. Добавьте триггер **Webhook** и **скопируйте его URL**. Переименуйте блок в `Grafana`.
@@ -33,10 +33,10 @@ Grafana alert rule fires  ──►  Webhook contact point  ──►  OneUptime
 ## Шаг 2 — Настройте контактную точку Grafana
 
 1. В Grafana перейдите в **Alerting → Contact points → Add contact point**.
-2. **Name**: `OneUptime`. **Integration**: **Webhook**.
+2. **Name**: `Cast Operations`. **Integration**: **Webhook**.
 3. **URL**: вставьте URL webhook вашего рабочего процесса. **HTTP Method**: `POST`.
 4. Сохраните контактную точку.
-5. Перейдите в **Alerting → Notification policies** и направьте нужные оповещения (или политику по умолчанию) на контактную точку **OneUptime**.
+5. Перейдите в **Alerting → Notification policies** и направьте нужные оповещения (или политику по умолчанию) на контактную точку **Cast Operations**.
 
 ## Шаг 3 — Протестируйте
 
@@ -51,7 +51,7 @@ Grafana alert rule fires  ──►  Webhook contact point  ──►  OneUptime
 ## Примечания
 
 - **Устаревшие оповещения (Grafana 8 и ниже)** отправляют другую нагрузку (`ruleName`, `state`, `evalMatches`). Если вы используете устаревшие оповещения, ссылайтесь на `{{Grafana.Request Body.ruleName}}` и `{{Grafana.Request Body.state}}` и ветвитесь по `state == alerting`.
-- Можно вообще не использовать систему оповещений Grafana и настроить мониторинг тех же метрик прямо в OneUptime — см. [Монитор метрик](/docs/monitor/metrics-monitor).
+- Можно вообще не использовать систему оповещений Grafana и настроить мониторинг тех же метрик прямо в Cast Operations — см. [Монитор метрик](/docs/monitor/metrics-monitor).
 
 ## Устранение неполадок
 
@@ -62,4 +62,4 @@ Grafana alert rule fires  ──►  Webhook contact point  ──►  OneUptime
 
 - [Обзор интеграций](/docs/integrations/index) — входящий паттерн.
 - [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager) — схожий формат нагрузки.
-- [Монитор метрик](/docs/monitor/metrics-monitor) — мониторинг метрик в OneUptime напрямую.
+- [Монитор метрик](/docs/monitor/metrics-monitor) — мониторинг метрик в Cast Operations напрямую.

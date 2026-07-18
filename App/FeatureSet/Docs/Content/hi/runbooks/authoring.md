@@ -26,7 +26,7 @@
 
 ### JavaScript
 
-`isolated-vm` सैंडबॉक्स में चलने वाला JavaScript स्निपेट। sandbox आपकी अपनी इन्फ्रास्ट्रक्चर के [Runbook एजेंट](/docs/runbooks/agents) पर रहता है — OneUptime Worker पर नहीं।
+`isolated-vm` सैंडबॉक्स में चलने वाला JavaScript स्निपेट। sandbox आपकी अपनी इन्फ्रास्ट्रक्चर के [Runbook एजेंट](/docs/runbooks/agents) पर रहता है — Cast Operations Worker पर नहीं।
 
 JavaScript चरण पर दो चीज़ें कॉन्फ़िगर करें:
 
@@ -45,11 +45,11 @@ return { durationMs: Date.now() - start };
 
 एक आउटबाउंड HTTP कॉल। विधि (GET/POST/PUT/PATCH/DELETE/HEAD), URL, वैकल्पिक JSON हेडर और वैकल्पिक body कॉन्फ़िगर करें। रिस्पॉन्स स्थिति, हेडर और body कैप्चर होते हैं (कुल 50KB तक)।
 
-उपयोगी: PagerDuty incident खोलना, Slack पर पोस्ट करना, अपनी एडमिन API बुलाना आदि। HTTP चरण सीधे OneUptime Worker पर चलते हैं; किसी एजेंट की आवश्यकता नहीं।
+उपयोगी: PagerDuty incident खोलना, Slack पर पोस्ट करना, अपनी एडमिन API बुलाना आदि। HTTP चरण सीधे Cast Operations Worker पर चलते हैं; किसी एजेंट की आवश्यकता नहीं।
 
 ### Bash
 
-एक bash स्क्रिप्ट (`bash -c <script>`) जो आपकी अपनी इन्फ्रास्ट्रक्चर के [Runbook एजेंट](/docs/runbooks/agents) पर चलती है। Bash कभी भी OneUptime Worker पर नहीं चलता।
+एक bash स्क्रिप्ट (`bash -c <script>`) जो आपकी अपनी इन्फ्रास्ट्रक्चर के [Runbook एजेंट](/docs/runbooks/agents) पर चलती है। Bash कभी भी Cast Operations Worker पर नहीं चलता।
 
 Bash चरण पर दो चीज़ें कॉन्फ़िगर करें:
 
@@ -60,7 +60,7 @@ Bash चरण पर दो चीज़ें कॉन्फ़िगर क�
 
 ### AI
 
-रन के बीच में AI से विश्लेषण, सारांश या निर्णय करवाएँ। प्रॉम्प्ट आपके प्रोजेक्ट के LLM प्रोवाइडर (**Settings → AI → LLM Providers**) को भेजा जाता है और मॉडल का जवाब execution टाइमलाइन पर चरण के आउटपुट के रूप में दर्ज होता है। AI चरण OneUptime Worker पर चलते हैं; किसी एजेंट की आवश्यकता नहीं।
+रन के बीच में AI से विश्लेषण, सारांश या निर्णय करवाएँ। प्रॉम्प्ट आपके प्रोजेक्ट के LLM प्रोवाइडर (**Settings → AI → LLM Providers**) को भेजा जाता है और मॉडल का जवाब execution टाइमलाइन पर चरण के आउटपुट के रूप में दर्ज होता है। AI चरण Cast Operations Worker पर चलते हैं; किसी एजेंट की आवश्यकता नहीं।
 
 AI चरण पर कॉन्फ़िगर करें:
 

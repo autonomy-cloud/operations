@@ -102,7 +102,7 @@ const WIDGET_CATALOG: ReadonlyArray<CatalogCategory> = [
   },
   {
     name: "Alerts & Status",
-    description: "OneUptime incidents, alerts, and monitor status.",
+    description: "Cast Operations incidents, alerts, and monitor status.",
     items: [
       {
         type: DashboardComponentType.IncidentList,
@@ -141,7 +141,7 @@ const WIDGET_CATALOG: ReadonlyArray<CatalogCategory> = [
   {
     name: "Kubernetes",
     description:
-      "Live inventory from any connected Kubernetes cluster — populated by the OneUptime Kubernetes Agent.",
+      "Live inventory from any connected Kubernetes cluster — populated by the Cast Operations Kubernetes Agent.",
     items: [
       {
         type: DashboardComponentType.KubernetesPodList,
@@ -196,7 +196,7 @@ const WIDGET_CATALOG: ReadonlyArray<CatalogCategory> = [
   {
     name: "Docker",
     description:
-      "Live inventory from any connected Docker host — populated by the OneUptime Docker Agent.",
+      "Live inventory from any connected Docker host — populated by the Cast Operations Docker Agent.",
     items: [
       {
         type: DashboardComponentType.DockerHostList,
@@ -234,7 +234,7 @@ const WIDGET_CATALOG: ReadonlyArray<CatalogCategory> = [
   {
     name: "Podman",
     description:
-      "Live inventory from any connected Podman host — populated by the OneUptime Podman Agent.",
+      "Live inventory from any connected Podman host — populated by the Cast Operations Podman Agent.",
     items: [
       {
         type: DashboardComponentType.PodmanHostList,
@@ -272,7 +272,7 @@ const WIDGET_CATALOG: ReadonlyArray<CatalogCategory> = [
   {
     name: "Proxmox",
     description:
-      "Live inventory from any connected Proxmox VE cluster — populated by the OneUptime Proxmox Agent.",
+      "Live inventory from any connected Proxmox VE cluster — populated by the Cast Operations Proxmox Agent.",
     items: [
       {
         type: DashboardComponentType.ProxmoxNodeList,
@@ -292,7 +292,7 @@ const WIDGET_CATALOG: ReadonlyArray<CatalogCategory> = [
   {
     name: "Docker Swarm",
     description:
-      "Live inventory from any connected Docker Swarm cluster — populated by the OneUptime Docker Swarm Agent.",
+      "Live inventory from any connected Docker Swarm cluster — populated by the Cast Operations Docker Swarm Agent.",
     items: [
       {
         type: DashboardComponentType.DockerSwarmNodeList,
@@ -313,7 +313,7 @@ const WIDGET_CATALOG: ReadonlyArray<CatalogCategory> = [
   {
     name: "Ceph",
     description:
-      "Live inventory from any connected Ceph cluster — populated by the OneUptime Ceph Agent.",
+      "Live inventory from any connected Ceph cluster — populated by the Cast Operations Ceph Agent.",
     items: [
       {
         type: DashboardComponentType.CephOsdList,

@@ -20,7 +20,7 @@
     "switchLanguage": "言語を切り替える"
   },
   "footer": {
-    "copyright": "OneUptime",
+    "copyright": "Cast Operations",
     "contact": "お問い合わせ",
     "privacyAndTerms": "プライバシーと利用規約"
   },
@@ -32,7 +32,7 @@
   },
   "login": {
     "title": "アカウントにサインインする",
-    "subtitle": "OneUptimeを使って常時オンラインを維持している何千ものビジネスに参加しましょう。",
+    "subtitle": "Cast Operationsを使って常時オンラインを維持している何千ものビジネスに参加しましょう。",
     "submitButton": "ログイン",
     "forgotPassword": "パスワードをお忘れですか？",
     "useSso": "代わりにシングルサインオン（SSO）を使用する",
@@ -50,8 +50,8 @@
     }
   },
   "register": {
-    "title": "OneUptimeアカウントを作成する",
-    "subtitle": "OneUptimeを使って常時オンラインを維持している何千ものビジネスに参加しましょう。",
+    "title": "Cast Operationsアカウントを作成する",
+    "subtitle": "Cast Operationsを使って常時オンラインを維持している何千ものビジネスに参加しましょう。",
     "noCreditCard": "クレジットカードは不要です。",
     "submitButton": "サインアップ",
     "haveAccountPrompt": "すでにアカウントをお持ちですか？",
@@ -92,7 +92,7 @@
   },
   "verifyEmail": {
     "successTitle": "メールが確認されました。",
-    "successDescription": "メールを確認していただきありがとうございます。OneUptimeにログインできるようになりました。",
+    "successDescription": "メールを確認していただきありがとうございます。Cast Operationsにログインできるようになりました。",
     "errorTitle": "申し訳ございませんが、エラーが発生しました！",
     "returnToSignIn": "サインインに戻りますか？",
     "loginLink": "ログイン。"

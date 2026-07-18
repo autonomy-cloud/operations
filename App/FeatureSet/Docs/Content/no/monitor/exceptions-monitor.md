@@ -1,6 +1,6 @@
 # Unntak-monitor
 
-Unntaksovervåking lar deg overvåke applikasjonsunntak og feil, og utløser varsler når antallet unntak overskrider de konfigurerte tersklene. OneUptime evaluerer unntaksdata fra telemetritjenestene dine over et tidsvindu.
+Unntaksovervåking lar deg overvåke applikasjonsunntak og feil, og utløser varsler når antallet unntak overskrider de konfigurerte tersklene. Cast Operations evaluerer unntaksdata fra telemetritjenestene dine over et tidsvindu.
 
 ## Oversikt
 
@@ -14,7 +14,7 @@ Unntak-monitorer teller og filtrerer unntak som samsvarer med spesifikke kriteri
 
 ## Opprette en unntak-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **Exceptions** som monitortype
 4. Velg telemetritjenestene som skal overvåkes
@@ -24,7 +24,7 @@ Unntak-monitorer teller og filtrerer unntak som samsvarer med spesifikke kriteri
 
 ### Telemetritjenester
 
-Velg én eller flere tjenester det skal overvåkes unntak fra. Tjenester må sende unntaksdata til OneUptime via OpenTelemetry.
+Velg én eller flere tjenester det skal overvåkes unntak fra. Tjenester må sende unntaksdata til Cast Operations via OpenTelemetry.
 
 ### Unntaksfiltre
 
@@ -80,4 +80,4 @@ Velg én eller flere tjenester det skal overvåkes unntak fra. Tjenester må sen
 
 ## Krav til oppsett
 
-Unntaksovervåking krever at applikasjonene dine sender unntaksdata til OneUptime via OpenTelemetry. Se dokumentasjonen for [OpenTelemetry](/docs/telemetry/open-telemetry) for instruksjoner om oppsett.
+Unntaksovervåking krever at applikasjonene dine sender unntaksdata til Cast Operations via OpenTelemetry. Se dokumentasjonen for [OpenTelemetry](/docs/telemetry/open-telemetry) for instruksjoner om oppsett.

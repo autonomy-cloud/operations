@@ -1,34 +1,34 @@
-# OneUptime IoT Devices
+# Cast Operations IoT Devices
 
 ## Overview
 
-OneUptime monitors fleets of IoT devices — sensors, gateways, controllers, and edge boxes — by ingesting a small set of `iot_*` metrics, tagged with which **fleet** each reading belongs to and its own **device id**. OneUptime groups those metrics into a fleet, builds a live device inventory, and tracks per-device battery, connectivity, temperature, CPU, memory, and availability.
+Cast Operations monitors fleets of IoT devices — sensors, gateways, controllers, and edge boxes — by ingesting a small set of `iot_*` metrics, tagged with which **fleet** each reading belongs to and its own **device id**. Cast Operations groups those metrics into a fleet, builds a live device inventory, and tracks per-device battery, connectivity, temperature, CPU, memory, and availability.
 
 Devices can push readings two ways, and both feed the exact same fleet inventory, dashboards, and monitors:
 
 - **OpenTelemetry (OTLP)** — an OTel SDK on the device, or an OpenTelemetry Collector on a gateway that fans out to many devices.
-- **MQTT** — connect straight to OneUptime's built-in MQTT endpoint (MQTT-over-WebSocket at `wss://<your-host>/mqtt`, or raw MQTT TCP on self-hosted deployments) and publish JSON readings. No collector required, and Last Will support gives you instant offline detection.
+- **MQTT** — connect straight to Cast Operations’ built-in MQTT endpoint (MQTT-over-WebSocket at `wss://<your-host>/mqtt`, or raw MQTT TCP on self-hosted deployments) and publish JSON readings. No collector required, and Last Will support gives you instant offline detection.
 
 There is no proprietary agent to install on the device side. This page is the **ingestion guide**. For configuring IoT monitors and alerts on top of the data you push, see [IoT Device Monitor](/docs/monitor/iot-device-monitor).
 
 ## Prerequisites
 
-- A device, gateway, or collector that can send OTLP/HTTP to OneUptime
-- Network reachability from the device/gateway to your OneUptime instance
-- A **OneUptime Telemetry Ingestion Token** — create one from _Project Settings → Telemetry Ingestion Keys_ and copy the `x-oneuptime-token` value
+- A device, gateway, or collector that can send OTLP/HTTP to Cast Operations
+- Network reachability from the device/gateway to your Cast Operations instance
+- A **Cast Operations Telemetry Ingestion Token** — create one from _Project Settings → Telemetry Ingestion Keys_ and copy the `x-oneuptime-token` value
 
-## How OneUptime Models IoT
+## How Cast Operations Models IoT
 
-OneUptime maps your devices onto two concepts using OpenTelemetry resource attributes:
+Cast Operations maps your devices onto two concepts using OpenTelemetry resource attributes:
 
-- **Fleet** — a logical group of devices (for example `building-a-sensors` or `field-gateways`). The fleet is derived from the `iot.fleet.name` resource attribute and appears in OneUptime as the telemetry service `iot/<fleet>`. Set `service.name=iot/<fleet>` so logs and metrics line up under the same service.
-- **Device** — an individual device within a fleet, identified by the `device.id` attribute. OneUptime builds and maintains a per-fleet device inventory keyed on `device.id`.
+- **Fleet** — a logical group of devices (for example `building-a-sensors` or `field-gateways`). The fleet is derived from the `iot.fleet.name` resource attribute and appears in Cast Operations as the telemetry service `iot/<fleet>`. Set `service.name=iot/<fleet>` so logs and metrics line up under the same service.
+- **Device** — an individual device within a fleet, identified by the `device.id` attribute. Cast Operations builds and maintains a per-fleet device inventory keyed on `device.id`.
 
 Optional attributes refine how each device is classified and scoped in monitors:
 
 | Attribute            | Required | Description                                                                      |
 | -------------------- | -------- | -------------------------------------------------------------------------------- |
-| `iot.fleet.name`     | Yes      | The fleet this device belongs to. Becomes the OneUptime service `iot/<fleet>`    |
+| `iot.fleet.name`     | Yes      | The fleet this device belongs to. Becomes the Cast Operations service `iot/<fleet>`    |
 | `device.id`          | Yes      | Stable, unique id for the device within the fleet                                |
 | `iot.device.kind`    | No       | The device class — for example `Device`, `Sensor`, or `Gateway`. Defaults to `Device` |
 | `iot.device.type`    | No       | A finer device type/model used for filtering monitors (for example `temp-sensor`) |
@@ -36,25 +36,25 @@ Optional attributes refine how each device is classified and scoped in monitors:
 
 ## Sending Metrics via the OpenTelemetry SDK
 
-If your device runs an OpenTelemetry SDK directly, point it at OneUptime and stamp the IoT resource attributes via the standard `OTEL_*` environment variables. Replace the token, endpoint, fleet name, and device id with values for your environment.
+If your device runs an OpenTelemetry SDK directly, point it at Cast Operations and stamp the IoT resource attributes via the standard `OTEL_*` environment variables. Replace the token, endpoint, fleet name, and device id with values for your environment.
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | Environment Variable          | Required | Description                                                                                          |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | Yes      | OneUptime OTLP endpoint (`https://oneuptime.com/otlp`, or `http(s)://YOUR-ONEUPTIME-HOST/otlp` self-hosted) |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | Yes      | Cast Operations OTLP endpoint (`https://visca.ai/otlp`, or `http(s)://YOUR-OPERATIONS-HOST/otlp` self-hosted) |
 | `OTEL_EXPORTER_OTLP_HEADERS`  | Yes      | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | Yes      | Comma-separated resource attributes. Must include `iot.fleet.name`, `device.id`, and `service.name=iot/<fleet>` |
 
-Emit your readings as metrics using the `iot_*` names below (see [Metric Conventions](#metric-conventions)). Within a minute or so the device appears under the **IoT** section of the OneUptime dashboard.
+Emit your readings as metrics using the `iot_*` names below (see [Metric Conventions](#metric-conventions)). Within a minute or so the device appears under the **IoT** section of the Cast Operations dashboard.
 
 ## Sending Metrics via an OpenTelemetry Collector
 
-When many devices report through a gateway, run an OpenTelemetry Collector on the gateway and export to OneUptime. The `resource` processor stamps the fleet attributes; receive readings from your devices (OTLP, MQTT bridge, file logs, etc.) and forward them on:
+When many devices report through a gateway, run an OpenTelemetry Collector on the gateway and export to Cast Operations. The `resource` processor stamps the fleet attributes; receive readings from your devices (OTLP, MQTT bridge, file logs, etc.) and forward them on:
 
 ```yaml
 receivers:
@@ -80,7 +80,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     headers:
       "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
@@ -93,18 +93,18 @@ service:
 ```
 
 - **`resource`** stamps every record with the fleet attributes. Set `iot.fleet.name` (and the matching `service.name=iot/<fleet>`) per gateway so each gateway's devices land in the right fleet.
-- Keep `device.id` (and optionally `iot.device.kind` / `iot.device.type` / `iot.device.firmware`) on each datapoint so OneUptime can resolve the individual device inside the fleet.
-- **`otlphttp`** sends to OneUptime over HTTPS with the ingestion token attached. Both the default protobuf encoding and `encoding: json` are accepted.
+- Keep `device.id` (and optionally `iot.device.kind` / `iot.device.type` / `iot.device.firmware`) on each datapoint so Cast Operations can resolve the individual device inside the fleet.
+- **`otlphttp`** sends to Cast Operations over HTTPS with the ingestion token attached. Both the default protobuf encoding and `encoding: json` are accepted.
 
 ## Sending Metrics via MQTT
 
-OneUptime ships a built-in MQTT endpoint, so devices that already speak MQTT can push readings directly — no OpenTelemetry SDK, collector, or bridge required. Everything published over MQTT lands in the same pipeline as OTLP: fleets are auto-created, the device inventory updates, and every IoT monitor and alert template works unchanged.
+Cast Operations ships a built-in MQTT endpoint, so devices that already speak MQTT can push readings directly — no OpenTelemetry SDK, collector, or bridge required. Everything published over MQTT lands in the same pipeline as OTLP: fleets are auto-created, the device inventory updates, and every IoT monitor and alert template works unchanged.
 
 **Endpoints**
 
 | Transport             | Address                                | Notes                                                                                     |
 | --------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------- |
-| MQTT over WebSocket   | `wss://<your-host>/mqtt`               | Works on every deployment — rides the normal HTTPS port through the OneUptime ingress     |
+| MQTT over WebSocket   | `wss://<your-host>/mqtt`               | Works on every deployment — rides the normal HTTPS port through the Cast Operations ingress     |
 | MQTT over TCP         | `<app-host>:1883` (`MQTT_INGEST_PORT`) | Self-hosted: internal to the cluster/compose network by default; expose it if you need it |
 
 **Authentication** — two options:
@@ -135,12 +135,12 @@ mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
-Example with Node.js `mqtt` over WebSocket (works against oneuptime.com and any self-hosted instance):
+Example with Node.js `mqtt` over WebSocket (works against visca.ai and any self-hosted instance):
 
 ```javascript
 const mqtt = require("mqtt");
 
-const client = mqtt.connect("wss://oneuptime.com/mqtt", {
+const client = mqtt.connect("wss://visca.ai/mqtt", {
   username: "oneuptime", // ignored — the token below is what authenticates
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
@@ -177,7 +177,7 @@ client.username_pw_set("oneuptime", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
 client.will_set("oneuptime/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
-client.connect("oneuptime.com", 443)
+client.connect("visca.ai", 443)
 
 client.publish("oneuptime/building-a-sensors/sensor-001/status", "online")
 client.publish(
@@ -189,13 +189,13 @@ client.publish(
 Notes:
 
 - The endpoint is **ingestion-only**: subscriptions are denied (SUBACK failure). Use QoS 1 if you want the broker to acknowledge receipt. Ingestion is **at-least-once** — a QoS 1/2 retransmission after a lost acknowledgment can produce duplicate datapoints.
-- Publishes outside the topic contract or with malformed payloads are accepted and **dropped** (MQTT 3.1.1 has no per-message error reply) — the server logs a warning with the reason, so check the OneUptime app logs if data is not arriving.
-- On the WebSocket endpoint, keep the MQTT keepalive **under 5 minutes** — the OneUptime ingress closes idle WebSocket connections after 300 seconds, which would fire your Last Will and a false Device Offline alert. Client-library defaults (60 s for `mqtt` and `paho-mqtt`) are fine. The raw TCP endpoint has no such ceiling.
+- Publishes outside the topic contract or with malformed payloads are accepted and **dropped** (MQTT 3.1.1 has no per-message error reply) — the server logs a warning with the reason, so check the Cast Operations app logs if data is not arriving.
+- On the WebSocket endpoint, keep the MQTT keepalive **under 5 minutes** — the Cast Operations ingress closes idle WebSocket connections after 300 seconds, which would fire your Last Will and a false Device Offline alert. Client-library defaults (60 s for `mqtt` and `paho-mqtt`) are fine. The raw TCP endpoint has no such ceiling.
 - Payloads are capped at 128 KB and 100 metrics per publish; oversized packets drop the connection.
 
 ## Metric Conventions
 
-OneUptime recognizes the following `iot_*` metric names. Each datapoint should carry the `device.id` label so the reading is attributed to the right device. You only need to send the metrics that make sense for your device — missing ones are simply not charted.
+Cast Operations recognizes the following `iot_*` metric names. Each datapoint should carry the `device.id` label so the reading is attributed to the right device. You only need to send the metrics that make sense for your device — missing ones are simply not charted.
 
 | Metric Name                 | Meaning                                                                        |
 | --------------------------- | ------------------------------------------------------------------------------ |
@@ -204,7 +204,7 @@ OneUptime recognizes the following `iot_*` metric names. Each datapoint should c
 | `iot_battery_percent`       | Battery charge level, `0`–`100` (%)                                            |
 | `iot_signal_strength_dbm`   | Wireless signal strength in dBm (for example Wi-Fi / LoRa / cellular RSSI)      |
 | `iot_temperature_celsius`   | Device or sensor temperature in °C                                             |
-| `iot_cpu_usage_ratio`       | CPU utilization as a ratio `0`–`1` (OneUptime stores it as a percentage)        |
+| `iot_cpu_usage_ratio`       | CPU utilization as a ratio `0`–`1` (Cast Operations stores it as a percentage)        |
 | `iot_memory_usage_bytes`    | Memory currently used, in bytes                                                |
 | `iot_memory_size_bytes`     | Total memory available on the device, in bytes                                 |
 | `iot_uptime_seconds`        | Seconds since the device last booted                                           |
@@ -212,7 +212,7 @@ OneUptime recognizes the following `iot_*` metric names. Each datapoint should c
 ## Verify the Installation
 
 1. Confirm your device or gateway is exporting without errors (check the SDK/collector logs for export failures and HTTP `401`/`403` responses).
-2. In the OneUptime dashboard, open the **IoT** section — your fleet should appear as `iot/<fleet>` within a minute or so.
+2. In the Cast Operations dashboard, open the **IoT** section — your fleet should appear as `iot/<fleet>` within a minute or so.
 3. Open the fleet's **Devices** tab — each `device.id` you sent should be listed with its latest battery, signal, temperature, CPU, memory, and up/down status.
 4. Open **Metrics** under the fleet to chart any of the `iot_*` series above.
 
@@ -221,7 +221,7 @@ OneUptime recognizes the following `iot_*` metric names. Each datapoint should c
 ### Fleet Does Not Appear
 
 1. Verify `iot.fleet.name` is set as a **resource** attribute (not a datapoint label), and that `service.name` is `iot/<fleet>`.
-2. Confirm the exporter endpoint is `https://oneuptime.com/otlp` (or your self-hosted `…/otlp`) and the `x-oneuptime-token` header carries a valid token.
+2. Confirm the exporter endpoint is `https://visca.ai/otlp` (or your self-hosted `…/otlp`) and the `x-oneuptime-token` header carries a valid token.
 3. If using MQTT, confirm the topic follows `oneuptime/<fleet>/<device>/…` exactly — the fleet segment of the topic is what creates the fleet.
 
 ### Devices Missing from the Inventory
@@ -237,15 +237,15 @@ The ingestion token is invalid, revoked, or missing. Generate a new one from _Pr
 ### Metrics Not Charting
 
 1. Confirm you are using the exact `iot_*` metric names from the [Metric Conventions](#metric-conventions) table — unrecognized names are stored as generic metrics and will not populate IoT charts.
-2. Remember `iot_cpu_usage_ratio` is a `0`–`1` ratio; send the raw ratio and OneUptime renders it as a percentage.
+2. Remember `iot_cpu_usage_ratio` is a `0`–`1` ratio; send the raw ratio and Cast Operations renders it as a percentage.
 3. Allow up to a minute for the first datapoints to surface after a device starts reporting.
 
-## Self-hosted OneUptime
+## Self-hosted Cast Operations
 
-If you are self-hosting OneUptime, point the endpoint at your own instance:
+If you are self-hosting Cast Operations, point the endpoint at your own instance:
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://your-oneuptime-host.example.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://your-operations-host.example.com/otlp
 ```
 
 Or, in a collector:
@@ -253,12 +253,12 @@ Or, in a collector:
 ```yaml
 exporters:
   otlphttp:
-    endpoint: https://your-oneuptime-host.example.com/otlp
+    endpoint: https://your-operations-host.example.com/otlp
     headers:
       "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
-For MQTT, connect to `wss://your-oneuptime-host.example.com/mqtt`, or expose the app service's raw MQTT TCP port (`MQTT_INGEST_PORT`, default `1883`) if your devices cannot speak WebSocket. Set `MQTT_INGEST_ENABLED=false` on the app service to turn the MQTT listeners off entirely.
+For MQTT, connect to `wss://your-operations-host.example.com/mqtt`, or expose the app service's raw MQTT TCP port (`MQTT_INGEST_PORT`, default `1883`) if your devices cannot speak WebSocket. Set `MQTT_INGEST_ENABLED=false` on the app service to turn the MQTT listeners off entirely.
 
 If your instance is HTTP-only, change the scheme to `http://` (and `ws://` for MQTT) and use the appropriate port.
 
@@ -266,4 +266,4 @@ If your instance is HTTP-only, change the scheme to `http://` (and `ws://` for M
 
 - Configure an **IoT Device Monitor** to alert on device offline, low battery, weak signal, high temperature, and high CPU conditions — see [IoT Device Monitor](/docs/monitor/iot-device-monitor).
 - For non-containerized hosts (Linux / macOS / Windows VMs and bare metal), use the [Host OpenTelemetry Collector](/docs/telemetry/host-otel-collector).
-- To learn the underlying OTLP integration in depth, see [Integrate OpenTelemetry with OneUptime](/docs/telemetry/open-telemetry).
+- To learn the underlying OTLP integration in depth, see [Integrate OpenTelemetry with Cast Operations](/docs/telemetry/open-telemetry).

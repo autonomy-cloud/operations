@@ -4,7 +4,7 @@ Denne side dækker de indstillinger og sikkerhedsgrænser, der er værd at kende
 
 ## Tænd eller sluk for et workflow
 
-Hvert workflow har en **Enabled**-kontakt i **Settings**. Når den er slået fra, kører workflowet ikke — webhook-kald, planlagte tidspunkter og OneUptime-events bliver alle ignoreret. Nye workflows starter deaktiverede.
+Hvert workflow har en **Enabled**-kontakt i **Settings**. Når den er slået fra, kører workflowet ikke — webhook-kald, planlagte tidspunkter og Cast Operations-events bliver alle ignoreret. Nye workflows starter deaktiverede.
 
 Brug denne kontakt som din "klar til drift"-port:
 
@@ -53,11 +53,11 @@ Webhook-triggere giver dig en unik URL. Enhver, der kender URL'en, kan ramme den
 
 - Behandl URL'en som en adgangskode. Del den ikke offentligt, og commit den ikke til et offentligt repo.
 - Til følsomme workflows: bed det kaldende system om at sende et delt token som en header (såsom `X-Webhook-Token`), og tjek det med en **Conditions**-blok, før du gør noget vigtigt. Gem det forventede token som en hemmelig variabel.
-- Til meget følsomme workflows: foretræk en OneUptime event-trigger og et manuelt import-skridt frem for en offentlig webhook.
+- Til meget følsomme workflows: foretræk en Cast Operations event-trigger og et manuelt import-skridt frem for en offentlig webhook.
 
 ## Udgående netværksadgang
 
-API- og andre HTTP-blokke laver deres anmodninger fra OneUptime. Hvis du selv-hoster, så sørg for, at din installation kan nå de tjenester, du kalder. Hvis du bruger OneUptime Cloud, er vores udgående IP-områder angivet i [IP-adresser](/docs/configuration/ip-addresses), så du kan tillade dem på den anden side.
+API- og andre HTTP-blokke laver deres anmodninger fra Cast Operations. Hvis du selv-hoster, så sørg for, at din installation kan nå de tjenester, du kalder. Hvis du bruger Cast Operations Cloud, er vores udgående IP-områder angivet i [IP-adresser](/docs/configuration/ip-addresses), så du kan tillade dem på den anden side.
 
 ## Tilladelser
 
@@ -72,14 +72,14 @@ De fleste ingeniører bør have create/edit/read på workflows, men ikke på var
 
 ## Plan-grænser
 
-OneUptime Cloud begrænser antallet af kørsler pr. måned på mindre planer. Din aktuelle grænse vises under **Project Settings → Billing**. Når du når den, afvises nye triggere indtil næste faktureringscyklus. Selv-hostede installationer har ikke denne grænse.
+Cast Operations Cloud begrænser antallet af kørsler pr. måned på mindre planer. Din aktuelle grænse vises under **Project Settings → Billing**. Når du når den, afvises nye triggere indtil næste faktureringscyklus. Selv-hostede installationer har ikke denne grænse.
 
 ## Når workflows ikke er det rette værktøj
 
 Et par tilfælde, hvor du bør gribe til noget andet:
 
 - **Tung beregning eller store datasæt** — workflows er designet til let limarbejde, ikke talknusning. Kør tungt arbejde i din egen infrastruktur, og lad et workflow sætte det i gang.
-- **Langvarige processer, der spænder over timer** — en enkelt kørsel er ment til at afsluttes hurtigt. Hvis du har brug for at "gøre A, vente to timer, gøre B", så brug en ekstern scheduler, der sender en webhook tilbage til OneUptime, når det er tid.
+- **Langvarige processer, der spænder over timer** — en enkelt kørsel er ment til at afsluttes hurtigt. Hvis du har brug for at "gøre A, vente to timer, gøre B", så brug en ekstern scheduler, der sender en webhook tilbage til Cast Operations, når det er tid.
 - **Trin-for-trin hændelsesrespons med mennesker i loopet** — det er, hvad [Runbooks](/docs/runbooks/index) er til. Workflows er til ubemandet automatisering.
 
 ## Læs videre

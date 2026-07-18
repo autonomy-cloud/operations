@@ -1,12 +1,12 @@
 # コマンドリファレンス
 
-OneUptime CLI の全コマンドの完全なリファレンスです。
+Cast Operations CLI の全コマンドの完全なリファレンスです。
 
 ## 認証コマンド
 
 ### `oneuptime login`
 
-OneUptime インスタンスに認証します。
+Cast Operations インスタンスに認証します。
 
 ```bash
 oneuptime login <api-key> <instance-url> [--context-name <name>]
@@ -15,7 +15,7 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 | パラメータ       | タイプ     | 必須   | 説明                                      |
 | ---------------- | ---------- | ------ | ----------------------------------------- |
 | `<api-key>`      | 引数       | はい   | 認証用 API キー                           |
-| `<instance-url>` | 引数       | はい   | OneUptime インスタンス URL                |
+| `<instance-url>` | 引数       | はい   | Cast Operations インスタンス URL                |
 | `--context-name` | オプション | いいえ | コンテキスト名（デフォルト: `"default"`） |
 
 ---

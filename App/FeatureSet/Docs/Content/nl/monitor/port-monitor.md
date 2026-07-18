@@ -1,6 +1,6 @@
 # Poort Monitor
 
-Poortmonitoring stelt u in staat de beschikbaarheid van specifieke TCP- of UDP-poorten op een host te bewaken. OneUptime probeert periodiek verbinding te maken met de opgegeven poort en controleert of deze open en responsief is.
+Poortmonitoring stelt u in staat de beschikbaarheid van specifieke TCP- of UDP-poorten op een host te bewaken. Cast Operations probeert periodiek verbinding te maken met de opgegeven poort en controleert of deze open en responsief is.
 
 ## Overzicht
 
@@ -13,7 +13,7 @@ Poortmonitors testen of een specifieke netwerkpoort verbindingen accepteert. Hie
 
 ## Een Poort Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Poort** als het monitortype
 4. Voer de hostnaam of het IP-adres en het poortnummer in

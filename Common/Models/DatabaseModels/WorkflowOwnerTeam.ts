@@ -145,7 +145,7 @@ export default class WorkflowOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -224,7 +224,7 @@ export default class WorkflowOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Team ID",
-    description: "ID of your OneUptime Team in which this object belongs",
+    description: "ID of your Cast Operations Team in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -302,7 +302,7 @@ export default class WorkflowOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Workflow ID",
-    description: "ID of your OneUptime Workflow in which this object belongs",
+    description: "ID of your Cast Operations Workflow in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

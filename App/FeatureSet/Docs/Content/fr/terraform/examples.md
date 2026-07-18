@@ -1,6 +1,6 @@
 # Exemples du fournisseur Terraform
 
-Ce document fournit des exemples complets pour les configurations Terraform OneUptime courantes.
+Ce document fournit des exemples complets pour les configurations Terraform Cast Operations courantes.
 
 ## Exemples de base
 
@@ -10,14 +10,14 @@ Ce document fournit des exemples complets pour les configurations Terraform OneU
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Utilisez "= 7.0.123" pour l'auto-hébergé
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # Modifiez pour l'auto-hébergé
+  oneuptime_url = "https://visca.ai"  # Modifiez pour l'auto-hébergé
   api_key       = var.oneuptime_api_key
 }
 

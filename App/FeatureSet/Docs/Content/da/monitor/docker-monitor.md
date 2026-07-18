@@ -1,6 +1,6 @@
 # Docker Monitor
 
-Docker-overvågning giver dig mulighed for at overvåge sundheden og ydeevnen for dine Docker-hosts og de containere, der kører på dem. OneUptime indsamler metrikker og containerlogs via en forudkonfigureret OpenTelemetry Collector (**OneUptime Docker Agent**) og evaluerer dem mod dine konfigurerede kriterier.
+Docker-overvågning giver dig mulighed for at overvåge sundheden og ydeevnen for dine Docker-hosts og de containere, der kører på dem. Cast Operations indsamler metrikker og containerlogs via en forudkonfigureret OpenTelemetry Collector (**Cast Operations Docker Agent**) og evaluerer dem mod dine konfigurerede kriterier.
 
 ## Oversigt
 
@@ -14,7 +14,7 @@ Docker-monitorer bruger metrikker og logs fra dine hosts til at give indsigt i d
 
 ## Oprettelse af en Docker Monitor
 
-1. Gå til **Monitorer** i OneUptime-dashboardet
+1. Gå til **Monitorer** i Cast Operations-dashboardet
 2. Klik på **Opret monitor**
 3. Vælg **Docker** som monitortype
 4. Vælg Docker-host og ressourceomfang der skal overvåges
@@ -25,7 +25,7 @@ Docker-monitorer bruger metrikker og logs fra dine hosts til at give indsigt i d
 
 ### Docker-host
 
-Vælg den Docker-host, der skal overvåges. Hosts registreres automatisk første gang OneUptime Docker Agent sender telemetri fra dem – du behøver ikke oprette dem manuelt.
+Vælg den Docker-host, der skal overvåges. Hosts registreres automatisk første gang Cast Operations Docker Agent sender telemetri fra dem – du behøver ikke oprette dem manuelt.
 
 ### Ressourceomfang
 
@@ -126,7 +126,7 @@ Docker Agent bruger OpenTelemetry `docker_stats`-modtageren, som skraber Docker 
 
 ## Færdigbyggede advarsels-skabeloner
 
-OneUptime leverer skabeloner til almindelige Docker-overvågningsscenarier:
+Cast Operations leverer skabeloner til almindelige Docker-overvågningsscenarier:
 
 | Skabelon                  | Beskrivelse                                  | Grænseværdi | Aggregering           |
 | ------------------------- | -------------------------------------------- | ----------- | --------------------- |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 For at bruge Docker-overvågning skal du:
 
-1. Installere OneUptime Docker Agent på hver Docker-host, du vil overvåge
+1. Installere Cast Operations Docker Agent på hver Docker-host, du vil overvåge
 2. Sende `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` og `DOCKER_HOST_NAME` som miljøvariabler
 3. Sørge for, at de containere, du vil observere, bruger `json-file`-logdriveren (se ovenfor)
 
-Agenten publiceres som `oneuptime/docker-agent:release` på Docker Hub. Se [Docker Agent-installationsvejledningen](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent) for de fulde `docker run`- og `docker compose`-eksempler.
+Agenten publiceres som `oneuptime/docker-agent:release` på Docker Hub. Se [Docker Agent-installationsvejledningen](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) for de fulde `docker run`- og `docker compose`-eksempler.
 
 ## Fejlfinding
 
@@ -236,7 +236,7 @@ Det betyder, at include-glob'en `/var/lib/docker/containers/*/*-json.log` ikke m
 
 ### Logs ankommer men er grupperet under det forkerte hostnavn
 
-OneUptime registrerer automatisk Docker-hosts via `resource.host.name`, som hentes fra `DOCKER_HOST_NAME`-miljøvariablen. Ændring af `DOCKER_HOST_NAME` efter den første telemetribatch vil oprette en anden host-række frem for at omdøbe den eksisterende.
+Cast Operations registrerer automatisk Docker-hosts via `resource.host.name`, som hentes fra `DOCKER_HOST_NAME`-miljøvariablen. Ændring af `DOCKER_HOST_NAME` efter den første telemetribatch vil oprette en anden host-række frem for at omdøbe den eksisterende.
 
 ### Incidents udløses ikke for "Høj CPU"
 

@@ -4,7 +4,7 @@ Questa pagina raccoglie le impostazioni e i limiti di sicurezza che vale la pena
 
 ## Attivare o disattivare un workflow
 
-Ogni workflow ha un interruttore **Enabled** in **Settings**. Quando e disattivato, il workflow non viene eseguito — le chiamate webhook, gli orari pianificati e gli eventi OneUptime vengono tutti ignorati. I nuovi workflow partono disabilitati.
+Ogni workflow ha un interruttore **Enabled** in **Settings**. Quando e disattivato, il workflow non viene eseguito — le chiamate webhook, gli orari pianificati e gli eventi Cast Operations vengono tutti ignorati. I nuovi workflow partono disabilitati.
 
 Usa questo interruttore come tuo punto di "pronto per partire":
 
@@ -53,11 +53,11 @@ I trigger webhook ti forniscono un URL univoco. Chiunque lo conosca puo invocarl
 
 - Tratta l'URL come una password. Non condividerlo pubblicamente e non commitarlo in un repository pubblico.
 - Per workflow sensibili, chiedi al sistema chiamante di inviare un token condiviso come header (per esempio `X-Webhook-Token`) e verificalo con un blocco **Conditions** prima di fare qualcosa di importante. Salva il token atteso come variabile segreta.
-- Per workflow molto sensibili, preferisci un trigger su evento di OneUptime con un passaggio di import manuale invece di un webhook pubblico.
+- Per workflow molto sensibili, preferisci un trigger su evento di Cast Operations con un passaggio di import manuale invece di un webhook pubblico.
 
 ## Accesso di rete in uscita
 
-I blocchi API e gli altri blocchi HTTP effettuano le proprie richieste da OneUptime. Se utilizzi un'installazione self-hosted, assicurati che la tua installazione possa raggiungere i servizi che chiami. Se utilizzi OneUptime Cloud, gli intervalli IP in uscita sono elencati in [Indirizzi IP](/docs/configuration/ip-addresses) in modo che tu possa autorizzarli dall'altro lato.
+I blocchi API e gli altri blocchi HTTP effettuano le proprie richieste da Cast Operations. Se utilizzi un'installazione self-hosted, assicurati che la tua installazione possa raggiungere i servizi che chiami. Se utilizzi Cast Operations Cloud, gli intervalli IP in uscita sono elencati in [Indirizzi IP](/docs/configuration/ip-addresses) in modo che tu possa autorizzarli dall'altro lato.
 
 ## Permessi
 
@@ -72,14 +72,14 @@ La maggior parte degli ingegneri dovrebbe avere create/edit/read sui workflow ma
 
 ## Limiti di piano
 
-OneUptime Cloud limita il numero di esecuzioni mensili sui piani piu piccoli. Il tuo limite attuale e mostrato sotto **Project Settings → Billing**. Quando lo raggiungi, i nuovi trigger vengono rifiutati fino al ciclo di fatturazione successivo. Le installazioni self-hosted non hanno questo limite.
+Cast Operations Cloud limita il numero di esecuzioni mensili sui piani piu piccoli. Il tuo limite attuale e mostrato sotto **Project Settings → Billing**. Quando lo raggiungi, i nuovi trigger vengono rifiutati fino al ciclo di fatturazione successivo. Le installazioni self-hosted non hanno questo limite.
 
 ## Quando i workflow non sono lo strumento giusto
 
 Alcuni casi in cui dovresti scegliere qualcos'altro:
 
 - **Calcoli pesanti o dataset grandi** — i workflow sono pensati per lavori di collegamento leggeri, non per elaborazioni intensive. Esegui il lavoro pesante nella tua infrastruttura e lascia che un workflow lo avvii.
-- **Processi di lunga durata che si estendono per ore** — una singola esecuzione e pensata per concludersi rapidamente. Se devi "fare A, attendere due ore, fare B," usa uno scheduler esterno che invii un webhook a OneUptime quando e il momento.
+- **Processi di lunga durata che si estendono per ore** — una singola esecuzione e pensata per concludersi rapidamente. Se devi "fare A, attendere due ore, fare B," usa uno scheduler esterno che invii un webhook a Cast Operations quando e il momento.
 - **Risposta agli incidenti passo passo con persone coinvolte** — per quello esistono i [Runbook](/docs/runbooks/index). I workflow sono per automazione non presidiata.
 
 ## Letture successive

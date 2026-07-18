@@ -1,22 +1,22 @@
-# 將 Syslog 資料傳送至 OneUptime
+# 將 Syslog 資料傳送至 Cast Operations
 
 ## 概觀
 
-OpenTelemetry Ingest 服務現在可接受原生 Syslog 酬載。您可以將任何相容於 RFC3164 或 RFC5424 的來源所產生的訊息，透過 HTTPS 直接轉送至 OneUptime。OneUptime 會先解析 syslog 的優先順序（priority）、設施（facility）、嚴重性（severity）、結構化資料以及訊息主體，然後將所有內容儲存為可搜尋的日誌。
+OpenTelemetry Ingest 服務現在可接受原生 Syslog 酬載。您可以將任何相容於 RFC3164 或 RFC5424 的來源所產生的訊息，透過 HTTPS 直接轉送至 Cast Operations。Cast Operations 會先解析 syslog 的優先順序（priority）、設施（facility）、嚴重性（severity）、結構化資料以及訊息主體，然後將所有內容儲存為可搜尋的日誌。
 
 ## 先決條件
 
 - **遙測擷取權杖（Telemetry Ingestion Token）** – 從 _Project Settings → Telemetry Ingestion Keys_ 建立一個，並複製 `x-oneuptime-token` 的值。
 - **Syslog 轉送器** – 任何能夠傳送 HTTP POST 請求的工具（例如 `curl`、透過 `omhttp` 的 `rsyslog`，或搭配 HTTP 目的地外掛的 `syslog-ng`）。
-- **服務名稱（選填）** – 設定 `x-oneuptime-service-name` 標頭，可將傳入的日誌歸入特定的遙測服務。若省略此項，OneUptime 會改用 syslog 的 `APP-NAME`、主機名稱，或 `Syslog`。
+- **服務名稱（選填）** – 設定 `x-oneuptime-service-name` 標頭，可將傳入的日誌歸入特定的遙測服務。若省略此項，Cast Operations 會改用 syslog 的 `APP-NAME`、主機名稱，或 `Syslog`。
 
 ## 端點
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- 如果您是自行託管 OneUptime，請將 `oneuptime.com` 替換為您的主機。
+- 如果您是自行託管 Cast Operations，請將 `visca.ai` 替換為您的主機。
 - 請務必在請求中加入 `x-oneuptime-token` 標頭。
 
 ## 請求主體
@@ -42,7 +42,7 @@ POST https://oneuptime.com/syslog/v1/logs
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -92,13 +92,13 @@ curl \
 
 ### 1. 網路與安全設備
 
-大多數網路設備仍然只透過 syslog 公開組態變更、ACL 命中與威脅偵測。將您現有的轉送器（Palo Alto、Fortinet、Cisco ASA、Juniper、pfSense 等）直接指向 OneUptime，或保留一個內部轉送器並透過 HTTPS 轉送：
+大多數網路設備仍然只透過 syslog 公開組態變更、ACL 命中與威脅偵測。將您現有的轉送器（Palo Alto、Fortinet、Cisco ASA、Juniper、pfSense 等）直接指向 Cast Operations，或保留一個內部轉送器並透過 HTTPS 轉送：
 
 ```bash
-# rsyslog snippet that batches messages into JSON and posts to OneUptime
+# rsyslog snippet that batches messages into JSON and posts to Cast Operations
 module(load="omhttp")
 
-template(name="OneUptimeJSON" type="list") {
+template(name="Cast OperationsJSON" type="list") {
   constant(value="{\"messages\":[\"")
   property(name="rawmsg")
   constant(value="\"]}")
@@ -106,14 +106,14 @@ template(name="OneUptimeJSON" type="list") {
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: perimeter-firewall"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -128,14 +128,14 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: linux-fleet"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -155,7 +155,7 @@ action(
 [OUTPUT]
     Name              http
     Match             *
-    Host              oneuptime.com
+    Host              visca.ai
     Port              443
     URI               /syslog/v1/logs
     Format            json
@@ -170,11 +170,11 @@ action(
 
 ### 4. 無需等待的合規封存
 
-需要為 PCI 或 SOX 保留防火牆日誌嗎？將它們直接傳送至 OneUptime，對該遙測服務套用長期保留政策，並從單一處匯出至冷儲存。不必再從多個 syslog 轉送器分別匯出。
+需要為 PCI 或 SOX 保留防火牆日誌嗎？將它們直接傳送至 Cast Operations，對該遙測服務套用長期保留政策，並從單一處匯出至冷儲存。不必再從多個 syslog 轉送器分別匯出。
 
 ## 已解析的屬性
 
-OneUptime 會自動為每一筆日誌項目加入下列屬性：
+Cast Operations 會自動為每一筆日誌項目加入下列屬性：
 
 - `syslog.priority`、`syslog.facility.code`、`syslog.facility.name`
 - `syslog.severity.code`、`syslog.severity.name`

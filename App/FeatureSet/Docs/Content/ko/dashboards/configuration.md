@@ -68,9 +68,9 @@
 
 ## 백업
 
-OneUptime을 자체 호스팅한다면 정기적인 데이터베이스 백업으로 충분합니다. 대시보드의 구성은 프로젝트의 나머지 부분과 함께 저장됩니다.
+Cast Operations을 자체 호스팅한다면 정기적인 데이터베이스 백업으로 충분합니다. 대시보드의 구성은 프로젝트의 나머지 부분과 함께 저장됩니다.
 
-OneUptime Cloud에서는 백업이 자동으로 처리됩니다. 자체 사본을 원한다면 [OneUptime API](/docs/api-reference/api-reference)를 통해 대시보드를 읽을 수 있습니다.
+Cast Operations Cloud에서는 백업이 자동으로 처리됩니다. 자체 사본을 원한다면 [Cast Operations API](/docs/api-reference/api-reference)를 통해 대시보드를 읽을 수 있습니다.
 
 ## 다음에 읽어 볼 내용
 

@@ -5,7 +5,7 @@
 {{> EmailTitle title=(concat "👋 You're Invited to " projectName) }}
 
 {{#ifCond isNewUser "true"}}
-{{> InfoBlock info="You've been invited to join a project on OneUptime. Create your account to get started."}}
+{{> InfoBlock info="You've been invited to join a project on Cast Operations. Create your account to get started."}}
 
 {{> ButtonBlock buttonUrl=registerLink buttonText="Create Your Account"}}
 
@@ -16,9 +16,9 @@
 {{/ifCond}}
 
 {{#ifCond isNewUser "false"}}
-{{> InfoBlock info="You've been invited to join a project on OneUptime. Sign in to view and manage your invitations."}}
+{{> InfoBlock info="You've been invited to join a project on Cast Operations. Sign in to view and manage your invitations."}}
 
-{{> ButtonBlock buttonUrl=signInLink buttonText="Sign In to OneUptime"}}
+{{> ButtonBlock buttonUrl=signInLink buttonText="Sign In to Cast Operations"}}
 
 {{> VerticalSpace this}}
 

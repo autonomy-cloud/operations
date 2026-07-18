@@ -1,9 +1,9 @@
 /* eslint-disable no-restricted-globals */
 
-// OneUptime Progressive Web App Service Worker
+// Cast Operations Progressive Web App Service Worker
 // Handles push notifications and caching for PWA functionality
 
-console.log('[ServiceWorker] OneUptime PWA Service Worker Loaded');
+console.log('[ServiceWorker] Cast Operations PWA Service Worker Loaded');
 
 // Cache configuration - Updated dynamically during build
 // Version format: oneuptime-v{APP_VERSION}-{GIT_SHA}
@@ -277,8 +277,8 @@ self.addEventListener('push', function(event) {
       
       // Show fallback notification
       event.waitUntil(
-        self.registration.showNotification('OneUptime Notification', {
-          body: 'You have a new notification from OneUptime',
+        self.registration.showNotification('Cast Operations Notification', {
+          body: 'You have a new notification from Cast Operations',
           icon: '/dashboard/assets/img/favicons/android-chrome-192x192.png',
           tag: 'oneuptime-fallback',
           data: { url: '/dashboard' }
@@ -290,7 +290,7 @@ self.addEventListener('push', function(event) {
     
     // Show default notification
     event.waitUntil(
-      self.registration.showNotification('OneUptime', {
+      self.registration.showNotification('Cast Operations', {
         body: 'You have a new notification',
         icon: '/dashboard/assets/img/favicons/android-chrome-192x192.png',
         tag: 'oneuptime-default',
@@ -324,7 +324,7 @@ self.addEventListener('notificationclick', function(event) {
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true })
       .then(function(clientList) {
-        // Check if there's already a OneUptime window open
+        // Check if there's already a Cast Operations window open
         for (let i = 0; i < clientList.length; i++) {
           const client = clientList[i];
           const clientUrl = new URL(client.url);
@@ -336,7 +336,7 @@ self.addEventListener('notificationclick', function(event) {
           }
         }
         
-        // If no OneUptime window is open, open a new one
+        // If no Cast Operations window is open, open a new one
         if (clients.openWindow) {
           return clients.openWindow(targetUrl);
         }
@@ -383,4 +383,4 @@ function updatePushSubscription(subscription) {
   });
 }
 
-console.log('[ServiceWorker] OneUptime PWA Service Worker Ready');
+console.log('[ServiceWorker] Cast Operations PWA Service Worker Ready');

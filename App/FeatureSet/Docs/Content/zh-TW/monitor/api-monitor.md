@@ -1,6 +1,6 @@
 # API 監控器
 
-API 監控可讓您監控 HTTP/REST API 的可用性、效能與正確性。OneUptime 會定期向您的 API 端點傳送 HTTP 請求，並根據您所設定的條件來評估回應。
+API 監控可讓您監控 HTTP/REST API 的可用性、效能與正確性。Cast Operations 會定期向您的 API 端點傳送 HTTP 請求，並根據您所設定的條件來評估回應。
 
 ## 概觀
 
@@ -15,7 +15,7 @@ API 監控器會向您的端點發出 HTTP 請求並檢查回應。這讓您能�
 
 ## 建立 API 監控器
 
-1. 在 OneUptime 儀表板中前往 **Monitors**
+1. 在 Cast Operations 儀表板中前往 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **API** 作為監控器類型
 4. 輸入 API URL 並設定請求設定
@@ -85,7 +85,7 @@ https://api.example.com/health?nocache={{random}}
 
 #### 不要追蹤重新導向
 
-OneUptime 預設會追蹤 HTTP 重新導向（301、302 等）。如果您想監控重新導向回應本身，而非最終目的地，請啟用此選項。
+Cast Operations 預設會追蹤 HTTP 重新導向（301、302 等）。如果您想監控重新導向回應本身，而非最終目的地，請啟用此選項。
 
 #### 允許自我簽署憑證
 
@@ -99,7 +99,7 @@ OneUptime 預設會追蹤 HTTP 重新導向（301、302 等）。如果您想監
 - **Client Private Key (PEM)** — 相符的 PEM 編碼私密金鑰。
 - **Client Private Key Passphrase** _（選填）_ — 僅在私密金鑰已加密時才需要。
 
-這相當於 curl 中 `--cert` 與 `--key` 旗標的 OneUptime 對應功能：
+這相當於 curl 中 `--cert` 與 `--key` 旗標的 Cast Operations 對應功能：
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

@@ -20,7 +20,7 @@
     "switchLanguage": "Taal wijzigen"
   },
   "footer": {
-    "copyright": "OneUptime",
+    "copyright": "Cast Operations",
     "contact": "Contact",
     "privacyAndTerms": "Privacy & voorwaarden"
   },
@@ -32,7 +32,7 @@
   },
   "login": {
     "title": "Meld u aan bij uw account",
-    "subtitle": "Sluit u aan bij duizenden bedrijven die OneUptime gebruiken om de hele tijd online te blijven.",
+    "subtitle": "Sluit u aan bij duizenden bedrijven die Cast Operations gebruiken om de hele tijd online te blijven.",
     "submitButton": "Inloggen",
     "forgotPassword": "Wachtwoord vergeten?",
     "useSso": "Gebruik in plaats daarvan single sign-on (SSO)",
@@ -50,8 +50,8 @@
     }
   },
   "register": {
-    "title": "Maak uw OneUptime-account aan",
-    "subtitle": "Sluit u aan bij duizenden bedrijven die OneUptime gebruiken om de hele tijd online te blijven.",
+    "title": "Maak uw Cast Operations-account aan",
+    "subtitle": "Sluit u aan bij duizenden bedrijven die Cast Operations gebruiken om de hele tijd online te blijven.",
     "noCreditCard": "Geen creditcard vereist.",
     "submitButton": "Aanmelden",
     "haveAccountPrompt": "Hebt u al een account?",
@@ -92,7 +92,7 @@
   },
   "verifyEmail": {
     "successTitle": "Uw e-mail is geverifieerd.",
-    "successDescription": "Bedankt voor het verifiëren van uw e-mail. U kunt nu inloggen bij OneUptime.",
+    "successDescription": "Bedankt voor het verifiëren van uw e-mail. U kunt nu inloggen bij Cast Operations.",
     "errorTitle": "Sorry, er is iets misgegaan!",
     "returnToSignIn": "Terug naar aanmelden?",
     "loginLink": "Inloggen."

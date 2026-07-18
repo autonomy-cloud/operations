@@ -86,7 +86,7 @@ import {
   pluralName: "Ceph Clusters",
   icon: IconProp.Database,
   tableDescription:
-    "Ceph clusters that are being monitored in this project. Each cluster is auto-discovered when the OneUptime Ceph Agent sends metrics, or can be manually registered.",
+    "Ceph clusters that are being monitored in this project. Each cluster is auto-discovered when the Cast Operations Ceph Agent sends metrics, or can be manually registered.",
 })
 @Entity({
   name: "CephCluster",
@@ -161,7 +161,7 @@ export default class CephCluster extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -205,7 +205,7 @@ export default class CephCluster extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Name",
     description:
-      "Name of this Ceph cluster. This is the join key — it must match the ceph.cluster.name OTel resource attribute stamped by the OneUptime Ceph Agent.",
+      "Name of this Ceph cluster. This is the join key — it must match the ceph.cluster.name OTel resource attribute stamped by the Cast Operations Ceph Agent.",
     example: "ceph-production",
   })
   @Column({
@@ -381,7 +381,7 @@ export default class CephCluster extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Agent Version",
     description:
-      "Version of the OneUptime Ceph agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
+      "Version of the Cast Operations Ceph agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
     example: "1.0.0",
   })
   @Column({

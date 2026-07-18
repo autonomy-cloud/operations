@@ -204,13 +204,13 @@ RunCron(
         };
 
         const sms: SMSMessage = {
-          message: `This is a message from OneUptime. New note posted on incident ${incidentIdentifier}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.`,
+          message: `This is a message from Cast Operations. New note posted on incident ${incidentIdentifier}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.`,
         };
 
         const callMessage: CallRequestMessage = {
           data: [
             {
-              sayMessage: `This is a message from OneUptime. New note posted on incident ${incidentIdentifier}. To see the note, go to OneUptime Dashboard. To unsubscribe from this notification go to User Settings in OneUptime Dashboard. Good bye.`,
+              sayMessage: `This is a message from Cast Operations. New note posted on incident ${incidentIdentifier}. To see the note, go to Cast Operations Dashboard. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard. Good bye.`,
             },
           ],
         };

@@ -60,7 +60,7 @@ Local वेरिएबल केवल वर्तमान run के दौ
 
 ### एक webhook से पेलोड बनाना
 
-एक webhook `{ "service": "checkout", "status": "failed" }` जैसी बॉडी के साथ आता है। उसे एक OneUptime incident में बदलने के लिए:
+एक webhook `{ "service": "checkout", "status": "failed" }` जैसी बॉडी के साथ आता है। उसे एक Cast Operations incident में बदलने के लिए:
 
 1. `CIWebhook` नामक **Webhook** ट्रिगर।
 2. **Conditions** ब्लॉक: बायाँ `{{CIWebhook.Request Body.status}}`, ऑपरेटर `==`, दायाँ `failed`।

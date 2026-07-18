@@ -61,7 +61,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
   singularName: "Project",
   pluralName: "Projects",
   icon: IconProp.Folder,
-  tableDescription: "OneUptime Project, and everything happens inside it",
+  tableDescription: "Cast Operations Project, and everything happens inside it",
 })
 @CrudApiEndpoint(new Route("/project"))
 @SlugifyColumn("name", "slug")
@@ -1468,7 +1468,7 @@ export default class Project extends TenantModel {
     type: TableColumnType.Boolean,
     title: "Enable Automatic Incident Investigation",
     description:
-      "When enabled, OneUptime's AI SRE automatically investigates every new incident and posts a cited root cause analysis to the incident timeline. Requires AI to be enabled and an LLM provider to be configured.",
+      "When enabled, Cast Operations’ AI SRE automatically investigates every new incident and posts a cited root cause analysis to the incident timeline. Requires AI to be enabled and an LLM provider to be configured.",
     defaultValue: false,
     example: true,
   })
@@ -1498,7 +1498,7 @@ export default class Project extends TenantModel {
     type: TableColumnType.Boolean,
     title: "Enable Automatic Alert Investigation",
     description:
-      "When enabled, OneUptime's AI SRE automatically investigates every new alert and posts a cited root cause analysis to the alert timeline. Requires AI to be enabled and an LLM provider to be configured.",
+      "When enabled, Cast Operations’ AI SRE automatically investigates every new alert and posts a cited root cause analysis to the alert timeline. Requires AI to be enabled and an LLM provider to be configured.",
     defaultValue: false,
     example: true,
   })
@@ -1558,7 +1558,7 @@ export default class Project extends TenantModel {
     type: TableColumnType.Boolean,
     title: "Enable AI Insights",
     description:
-      "When enabled, OneUptime AI continuously watches this project's telemetry with deterministic statistical sensors (error-log spikes, exception novelty and spikes, trace-latency regressions, week-over-week metric drift) and files quiet Insights — never pages, never opens incidents. Each new insight also gets a budgeted, read-only AI triage analysis when an LLM provider is configured.",
+      "When enabled, Cast Operations AI continuously watches this project's telemetry with deterministic statistical sensors (error-log spikes, exception novelty and spikes, trace-latency regressions, week-over-week metric drift) and files quiet Insights — never pages, never opens incidents. Each new insight also gets a budgeted, read-only AI triage analysis when an LLM provider is configured.",
     defaultValue: false,
     example: true,
   })
@@ -2180,7 +2180,8 @@ export default class Project extends TenantModel {
     canReadOnRelationQuery: true,
     hideColumnInDocumentation: true,
     title: "Reseller ID",
-    description: "ID of your OneUptime Reseller in which this object belongs",
+    description:
+      "ID of your Cast Operations Reseller in which this object belongs",
     example: "d4e5f6a7-b8c9-0123-def0-123456789abc",
   })
   @Column({
@@ -2231,7 +2232,7 @@ export default class Project extends TenantModel {
     hideColumnInDocumentation: true,
     title: "Reseller Plan ID",
     description:
-      "ID of your OneUptime Reseller Plan in which this object belongs",
+      "ID of your Cast Operations Reseller Plan in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -2250,7 +2251,7 @@ export default class Project extends TenantModel {
     type: TableColumnType.ShortText,
     title: "License ID",
     hideColumnInDocumentation: true,
-    description: "License ID from a OneUptime Reseller",
+    description: "License ID from a Cast Operations Reseller",
     canReadOnRelationQuery: true,
   })
   @Column({
@@ -2297,7 +2298,7 @@ export default class Project extends TenantModel {
     title: "Let Customer Support Access Project",
     hideColumnInDocumentation: true,
     description:
-      "OneUptime customer support can access this project. This is used for debugging purposes.",
+      "Cast Operations customer support can access this project. This is used for debugging purposes.",
     defaultValue: false,
   })
   @Column({
@@ -2527,7 +2528,7 @@ export default class Project extends TenantModel {
   })
   @ColumnBillingAccessControl({
     read: PlanType.Free,
-    update: PlanType.Enterprise,
+    update: PlanType.Free,
     create: PlanType.Free,
   })
   public enableAuditLogs?: boolean = undefined;
@@ -2566,7 +2567,7 @@ export default class Project extends TenantModel {
   })
   @ColumnBillingAccessControl({
     read: PlanType.Free,
-    update: PlanType.Enterprise,
+    update: PlanType.Free,
     create: PlanType.Free,
   })
   public auditLogsRetentionInDays?: number = undefined;
@@ -2605,7 +2606,7 @@ export default class Project extends TenantModel {
   })
   @ColumnBillingAccessControl({
     read: PlanType.Free,
-    update: PlanType.Enterprise,
+    update: PlanType.Free,
     create: PlanType.Free,
   })
   public storeSystemEventsInAuditLogs?: boolean = undefined;

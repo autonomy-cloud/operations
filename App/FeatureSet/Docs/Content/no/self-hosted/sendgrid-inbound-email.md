@@ -1,21 +1,21 @@
 # SendGrid innkommende e-postintegrasjon
 
-OneUptime sin **innkommende e-postmonitor** lar deg opprette og løse varsler basert på e-poster sendt til unike monitor-spesifikke e-postadresser. Dette er nyttig for integrering med eldre systemer, varslingsverktøy eller enhver tjeneste som kan sende e-poster.
+Cast Operations sin **innkommende e-postmonitor** lar deg opprette og løse varsler basert på e-poster sendt til unike monitor-spesifikke e-postadresser. Dette er nyttig for integrering med eldre systemer, varslingsverktøy eller enhver tjeneste som kan sende e-poster.
 
-Denne guiden forklarer hvordan du setter opp SendGrid Inbound Parse for å videresende innkommende e-poster til den selvhostede OneUptime-instansen din.
+Denne guiden forklarer hvordan du setter opp SendGrid Inbound Parse for å videresende innkommende e-poster til den selvhostede Cast Operations-instansen din.
 
 ## Forutsetninger
 
 - En SendGrid-konto (gratisversjon fungerer)
 - Et domene du kontrollerer med tilgang til DNS-innstillinger
-- OneUptime-instansen din må være offentlig tilgjengelig (for at SendGrid skal sende webhooks)
+- Cast Operations-instansen din må være offentlig tilgjengelig (for at SendGrid skal sende webhooks)
 
 ## Slik fungerer det
 
-1. Du oppretter en **innkommende e-postmonitor** i OneUptime
-2. OneUptime genererer en unik e-postadresse for den monitoren (f.eks. `monitor-abc123@inbound.yourdomain.com`)
-3. Når en e-post sendes til den adressen, mottar SendGrid den og videresender den til OneUptime via webhook
-4. OneUptime evaluerer e-posten mot dine konfigurerte kriterier for å opprette eller løse varsler
+1. Du oppretter en **innkommende e-postmonitor** i Cast Operations
+2. Cast Operations genererer en unik e-postadresse for den monitoren (f.eks. `monitor-abc123@inbound.yourdomain.com`)
+3. Når en e-post sendes til den adressen, mottar SendGrid den og videresender den til Cast Operations via webhook
+4. Cast Operations evaluerer e-posten mot dine konfigurerte kriterier for å opprette eller løse varsler
 
 ## Installasjonsinstruksjoner
 
@@ -27,7 +27,7 @@ Du trenger et underdomene dedikert til å motta innkommende e-poster. Vi anbefal
 - `email.yourdomain.com`
 - `monitor.yourdomain.com`
 
-Dette underdomenet vil brukes eksklusivt for OneUptime-monitor-e-poster.
+Dette underdomenet vil brukes eksklusivt for Cast Operations-monitor-e-poster.
 
 ### Trinn 2: Konfigurer DNS MX-post
 
@@ -64,14 +64,14 @@ For bedre leveringsevne og for å unngå at e-poster merkes som spam:
 | Felt                                | Verdi                                                                   |
 | ----------------------------------- | ----------------------------------------------------------------------- |
 | **Receiving Domain**                | Innkommende underdomenet ditt (f.eks. `inbound.yourdomain.com`)         |
-| **Destination URL**                 | `https://your-oneuptime-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **Destination URL**                 | `https://your-operations-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
 | **Check incoming emails for spam**  | Valgfritt – aktiver hvis ønskelig                                       |
 | **Send raw, full MIME message**     | La stå avkrysset (ikke nødvendig)                                       |
 | **POST the raw, full MIME message** | La stå avkrysset (ikke nødvendig)                                       |
 
 5. Klikk **Add**
 
-### Trinn 5: Konfigurer OneUptime-miljøvariabler
+### Trinn 5: Konfigurer Cast Operations-miljøvariabler
 
 #### Docker Compose
 
@@ -95,11 +95,11 @@ inboundEmail:
   # webhookSecret: "your-optional-secret"  # Valgfritt
 ```
 
-**Viktig:** Start OneUptime-serveren på nytt etter å ha lagt til disse miljøvariablene.
+**Viktig:** Start Cast Operations-serveren på nytt etter å ha lagt til disse miljøvariablene.
 
 ### Trinn 6: Opprett en innkommende e-postmonitor
 
-1. Logg inn på OneUptime-dashbordet ditt
+1. Logg inn på Cast Operations-dashbordet ditt
 2. Naviger til **Monitors** > **Create Monitor**
 3. Velg **Incoming Email** som monitortype
 4. Konfigurer monitoren:
@@ -115,9 +115,9 @@ Etter opprettelse vil du se den unike e-postadressen for denne monitoren (f.eks.
 
 ### Trinn 7: Test integrasjonen
 
-1. Kopier monitorens e-postadresse fra OneUptime-dashbordet
+1. Kopier monitorens e-postadresse fra Cast Operations-dashbordet
 2. Send en test-e-post til den adressen med et emne som samsvarer med varselkriteriene
-3. Sjekk OneUptime-dashbordet for å verifisere:
+3. Sjekk Cast Operations-dashbordet for å verifisere:
    - E-posten ble mottatt (synlig i Monitor Summary)
    - Et varsel ble opprettet (hvis kriterier matchet)
 
@@ -147,7 +147,7 @@ Når du konfigurerer innkommende e-postmonitoren, kan du opprette kriterier base
 
 Mange eldre systemer kan bare sende e-postvarsler. Opprett en innkommende e-postmonitor for å:
 
-- Opprette OneUptime-varsler når det eldre systemet sender `[CRITICAL]`-e-poster
+- Opprette Cast Operations-varsler når det eldre systemet sender `[CRITICAL]`-e-poster
 - Løse varsler når `[RESOLVED]`-e-poster mottas
 
 ### Tredjeparts tjeneste-integrasjon
@@ -183,16 +183,16 @@ Bruk "Email Received"-kriterier for å sikre at du mottar periodiske e-poster:
    - Gå til Settings > Inbound Parse
    - Verifiser at domene og webhook-URL er korrekte
 
-3. **Sjekk OneUptime-logger:**
+3. **Sjekk Cast Operations-logger:**
    - Se etter webhook-forespørsler i ProbeIngest-tjenesteloggene
    - Sjekk for eventuelle feilmeldinger
 
 ### Webhooks feiler
 
-1. **Sørg for at OneUptime er offentlig tilgjengelig:**
+1. **Sørg for at Cast Operations er offentlig tilgjengelig:**
 
    - Webhook-URL-en må være tilgjengelig fra internett
-   - Test med: `curl -X POST https://your-oneuptime-domain.com/incoming-email/sendgrid`
+   - Test med: `curl -X POST https://your-operations-domain.com/incoming-email/sendgrid`
 
 2. **Sjekk brannmurregler:**
 
@@ -223,7 +223,7 @@ Bruk "Email Received"-kriterier for å sikre at du mottar periodiske e-poster:
 For å sjekke om SendGrid sender webhooks vellykket:
 
 1. Dessverre tilbyr ikke SendGrid detaljerte logger for Inbound Parse
-2. Sjekk OneUptime-serverloggene for innkommende webhook-forespørsler
+2. Sjekk Cast Operations-serverloggene for innkommende webhook-forespørsler
 3. Bruk et verktøy som [RequestBin](https://requestbin.com) for midlertidig testing av webhook-levering
 
 ## Beste sikkerhetspraksis
@@ -236,7 +236,7 @@ For å sjekke om SendGrid sender webhooks vellykket:
 
 ## Alternative leverandører
 
-OneUptime er designet for å støtte flere innkommende e-postleverandører. For øyeblikket støttes:
+Cast Operations er designet for å støtte flere innkommende e-postleverandører. For øyeblikket støttes:
 
 | Leverandør          | Status   |
 | ------------------- | -------- |
@@ -250,7 +250,7 @@ Hvis du trenger støtte for en annen leverandør, vennligst kontakt oss eller se
 Hvis du støter på problemer med SendGrid innkommende e-postintegrasjonen:
 
 1. Sjekk feilsøkingsseksjonen ovenfor
-2. Se gjennom OneUptime-loggene for detaljerte feilmeldinger
-3. Kontakt oss på [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Se gjennom Cast Operations-loggene for detaljerte feilmeldinger
+3. Kontakt oss på [hello@visca.ai](mailto:hello@visca.ai)
 
 Vi setter pris på tilbakemeldinger for å forbedre denne integrasjonen!

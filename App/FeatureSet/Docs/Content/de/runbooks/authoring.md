@@ -26,7 +26,7 @@ Verwenden Sie dies für Dinge, die nur ein Mensch verifizieren kann: „Bestäti
 
 ### JavaScript
 
-Ein JavaScript-Snippet, das in einer `isolated-vm`-Sandbox läuft. Die Sandbox lebt auf einem [Runbook-Agent](/docs/runbooks/agents) in Ihrer eigenen Infrastruktur — nicht auf dem OneUptime-Worker.
+Ein JavaScript-Snippet, das in einer `isolated-vm`-Sandbox läuft. Die Sandbox lebt auf einem [Runbook-Agent](/docs/runbooks/agents) in Ihrer eigenen Infrastruktur — nicht auf dem Cast Operations-Worker.
 
 Konfigurieren Sie zwei Dinge an einem JavaScript-Schritt:
 
@@ -45,11 +45,11 @@ Der Rückgabewert wird auf der Schrittausführung festgehalten. `console.log`-Au
 
 Einen ausgehenden HTTP-Aufruf machen. Konfigurieren Sie Methode (GET/POST/PUT/PATCH/DELETE/HEAD), URL, optionale JSON-Header und optionalen Body. Response-Status, -Header und -Body werden festgehalten (insgesamt auf 50 KB begrenzt).
 
-Nützlich für: einen PagerDuty-Vorfall anstoßen, in Slack posten, Ihr eigenes Admin-API aufrufen usw. HTTP-Schritte laufen direkt auf dem OneUptime-Worker; kein Agent nötig.
+Nützlich für: einen PagerDuty-Vorfall anstoßen, in Slack posten, Ihr eigenes Admin-API aufrufen usw. HTTP-Schritte laufen direkt auf dem Cast Operations-Worker; kein Agent nötig.
 
 ### Bash
 
-Ein Bash-Skript (`bash -c <Skript>`), das auf einem [Runbook-Agent](/docs/runbooks/agents) in Ihrer eigenen Infrastruktur läuft. Bash wird niemals auf dem OneUptime-Worker ausgeführt.
+Ein Bash-Skript (`bash -c <Skript>`), das auf einem [Runbook-Agent](/docs/runbooks/agents) in Ihrer eigenen Infrastruktur läuft. Bash wird niemals auf dem Cast Operations-Worker ausgeführt.
 
 Konfigurieren Sie zwei Dinge an einem Bash-Schritt:
 
@@ -60,7 +60,7 @@ Wenn der ausgewählte Agent offline ist, wenn das Runbook diesen Schritt erreich
 
 ### AI
 
-Bitten Sie eine KI, mitten im Lauf etwas zu analysieren, zusammenzufassen oder zu entscheiden. Der Prompt wird an den LLM-Provider Ihres Projekts gesendet (**Settings → AI → LLM Providers**), und die Antwort des Modells wird zur Schrittausgabe auf der Ausführungs-Timeline. AI-Schritte laufen auf dem OneUptime-Worker; kein Agent nötig.
+Bitten Sie eine KI, mitten im Lauf etwas zu analysieren, zusammenzufassen oder zu entscheiden. Der Prompt wird an den LLM-Provider Ihres Projekts gesendet (**Settings → AI → LLM Providers**), und die Antwort des Modells wird zur Schrittausgabe auf der Ausführungs-Timeline. AI-Schritte laufen auf dem Cast Operations-Worker; kein Agent nötig.
 
 Konfigurieren Sie an einem AI-Schritt:
 

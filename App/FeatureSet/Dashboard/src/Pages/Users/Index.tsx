@@ -230,7 +230,7 @@ const Users: FunctionComponent<PageComponentProps> = (
         onBeforeDelete={async (item: TeamMember): Promise<TeamMember> => {
           if (isPushGroupsManaged) {
             throw new BadDataException(
-              "Cannot remove team members while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from OneUptime.",
+              "Cannot remove team members while SCIM Push Groups is enabled for this project. Disable Push Groups to manage members from Cast Operations.",
             );
           }
           return item;
@@ -370,7 +370,7 @@ const Users: FunctionComponent<PageComponentProps> = (
                 },
                 title: "Name",
                 description:
-                  "This email is not registered on OneUptime yet. Enter the name of the user you would like to invite — we will use it to set up their new account.",
+                  "This email is not registered on Cast Operations yet. Enter the name of the user you would like to invite — we will use it to set up their new account.",
                 fieldType: FormFieldSchemaType.Text,
                 required: false,
                 placeholder: "John Smith",
@@ -406,7 +406,7 @@ const Users: FunctionComponent<PageComponentProps> = (
       {showScimErrorModal && (
         <ConfirmModal
           title="Users are managed by SCIM Push Groups"
-          description="Team membership is being managed by your identity provider. Disable Push Groups in Settings > SCIM if you need to invite or promote users from OneUptime."
+          description="Team membership is being managed by your identity provider. Disable Push Groups in Settings > SCIM if you need to invite or promote users from Cast Operations."
           onSubmit={() => {
             setShowScimErrorModal(false);
           }}

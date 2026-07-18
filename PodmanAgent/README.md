@@ -1,6 +1,6 @@
-# OneUptime Podman Agent
+# Cast Operations Podman Agent
 
-Monitor Podman hosts, containers, and container logs with OneUptime using a pre-configured OpenTelemetry Collector.
+Monitor Podman hosts, containers, and container logs with Cast Operations using a pre-configured OpenTelemetry Collector.
 
 The agent is published as a container image — `oneuptime/podman-agent` — that bundles a tuned collector config. Just pass a few environment variables and run it.
 
@@ -19,20 +19,20 @@ podman run -d \
   --restart unless-stopped \
   -v /run/podman/podman.sock:/run/podman/podman.sock:ro \
   -v /var/lib/containers/storage:/var/lib/containers/storage:ro \
-  -e ONEUPTIME_URL="https://oneuptime.com" \
+  -e ONEUPTIME_URL="https://visca.ai" \
   -e ONEUPTIME_SERVICE_TOKEN="your-service-token" \
   -e PODMAN_HOST_NAME="my-podman-host" \
   oneuptime/podman-agent:release
 ```
 
-That's it. The host will appear automatically in the Podman section of OneUptime.
+That's it. The host will appear automatically in the Podman section of Cast Operations.
 
 ## Quick Start — Compose
 
 Create a `.env` file:
 
 ```bash
-ONEUPTIME_URL=https://oneuptime.com
+ONEUPTIME_URL=https://visca.ai
 ONEUPTIME_SERVICE_TOKEN=your-service-token
 PODMAN_HOST_NAME=my-podman-host
 ```
@@ -47,7 +47,7 @@ podman compose up -d
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `ONEUPTIME_URL` | Yes | Your OneUptime instance URL |
+| `ONEUPTIME_URL` | Yes | Your Cast Operations instance URL |
 | `ONEUPTIME_SERVICE_TOKEN` | Yes | Telemetry ingestion service token (Settings → API Keys) |
 | `PODMAN_HOST_NAME` | No | Friendly name for this host (default: `podman-host`) |
 
@@ -191,7 +191,7 @@ podman run --log-driver k8s-file ... <image>
 
 ### Logs Are Ingested but Don't Appear on a Specific Podman Host Page
 
-The Podman host page filters by `resource.host.name` equal to the host's `hostIdentifier`. This value is taken from the `PODMAN_HOST_NAME` environment variable passed to the agent. If you change `PODMAN_HOST_NAME` after the host is auto-registered, OneUptime will create a second host row with the new name and logs will appear under that one.
+The Podman host page filters by `resource.host.name` equal to the host's `hostIdentifier`. This value is taken from the `PODMAN_HOST_NAME` environment variable passed to the agent. If you change `PODMAN_HOST_NAME` after the host is auto-registered, Cast Operations will create a second host row with the new name and logs will appear under that one.
 
 ```bash
 # Confirm the agent is stamping the expected host name

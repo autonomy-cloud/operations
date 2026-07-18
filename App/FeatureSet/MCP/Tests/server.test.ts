@@ -10,11 +10,11 @@ jest.mock("../Services/OneUptimeApiService");
 jest.mock("../Tools/ToolGenerator");
 jest.mock("../Utils/MCPLogger");
 
-describe("OneUptime MCP Server", () => {
+describe("Cast Operations MCP Server", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     process.env["ONEUPTIME_API_KEY"] = "test-api-key";
-    process.env["ONEUPTIME_URL"] = "https://test.oneuptime.com";
+    process.env["ONEUPTIME_URL"] = "https://test.visca.ai";
   });
 
   describe("Server Initialization", () => {
@@ -42,14 +42,14 @@ describe("OneUptime MCP Server", () => {
       // Call the mocked functions to simulate server initialization
       ToolGenerator.generateAllTools();
       OneUptimeApiService.initialize({
-        url: "https://test.oneuptime.com",
+        url: "https://test.visca.ai",
         apiKey: "test-api-key",
       });
 
       // Test that the functions were called
       expect(ToolGenerator.generateAllTools).toHaveBeenCalled();
       expect(OneUptimeApiService.initialize).toHaveBeenCalledWith({
-        url: "https://test.oneuptime.com",
+        url: "https://test.visca.ai",
         apiKey: "test-api-key",
       });
     });
@@ -63,17 +63,17 @@ describe("OneUptime MCP Server", () => {
             apiKey: string;
           };
           if (!typedConfig.apiKey) {
-            throw new Error("OneUptime API key is required");
+            throw new Error("Cast Operations API key is required");
           }
         },
       );
 
       expect(() => {
         OneUptimeApiService.initialize({
-          url: "https://test.oneuptime.com",
+          url: "https://test.visca.ai",
           apiKey: "",
         });
-      }).toThrow("OneUptime API key is required");
+      }).toThrow("Cast Operations API key is required");
     });
   });
 

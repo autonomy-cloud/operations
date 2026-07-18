@@ -1,13 +1,13 @@
 # GitHub Integration
 
-Open a [GitHub](https://github.com) issue automatically when a OneUptime incident is created — so engineering follow-up is tracked in the repo that owns the affected service.
+Open a [GitHub](https://github.com) issue automatically when a Cast Operations incident is created — so engineering follow-up is tracked in the repo that owns the affected service.
 
-This integration is **outbound**: OneUptime calls the [GitHub REST API](https://docs.github.com/en/rest/issues/issues). It uses a OneUptime **[Workflow](/docs/workflows/index)** with an **Incident → On Create** trigger and an **API component**.
+This integration is **outbound**: Cast Operations calls the [GitHub REST API](https://docs.github.com/en/rest/issues/issues). It uses a Cast Operations **[Workflow](/docs/workflows/index)** with an **Incident → On Create** trigger and an **API component**.
 
-> **Looking for the deeper GitHub connection?** OneUptime also has a native **GitHub App** integration for connecting code repositories (used by the AI agent and code features). That's configured with environment variables, not workflows — see [GitHub Integration (self-hosted)](/docs/self-hosted/github-integration). This page is specifically about _filing issues from incidents_.
+> **Looking for the deeper GitHub connection?** Cast Operations also has a native **GitHub App** integration for connecting code repositories (used by the AI agent and code features). That's configured with environment variables, not workflows — see [GitHub Integration (self-hosted)](/docs/self-hosted/github-integration). This page is specifically about _filing issues from incidents_.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## Prerequisites
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   Create one at [github.com/settings/tokens](https://github.com/settings/tokens).
 
-- A OneUptime project where you can create workflows.
+- A Cast Operations project where you can create workflows.
 
 ## Step 1 — Store the token
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**:
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

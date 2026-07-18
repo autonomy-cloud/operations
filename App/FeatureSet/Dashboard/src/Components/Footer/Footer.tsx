@@ -8,7 +8,6 @@ import API from "Common/Utils/API";
 import Footer from "Common/UI/Components/Footer/Footer";
 import Icon from "Common/UI/Components/Icon/Icon";
 import ConfirmModal from "Common/UI/Components/Modal/ConfirmModal";
-import EditionLabel from "Common/UI/Components/EditionLabel/EditionLabel";
 import { HOST, HTTP_PROTOCOL } from "Common/UI/Config";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -65,16 +64,13 @@ const DashboardFooter: () => JSX.Element = () => {
         copyright={t("footer.copyright")}
         links={[
           {
-            content: <EditionLabel />,
-          },
-          {
             title: (
               <span className="inline-flex items-center gap-1.5 text-gray-400 hover:text-gray-500">
                 <Icon icon={IconProp.Help} className="h-3.5 w-3.5" />
                 {t("footer.helpSupport")}
               </span>
             ),
-            to: URL.fromString("https://oneuptime.com/support"),
+            to: URL.fromString("https://visca.ai/support"),
             openInNewTab: true,
           },
           {
@@ -84,7 +80,7 @@ const DashboardFooter: () => JSX.Element = () => {
                 {t("footer.legal")}
               </span>
             ),
-            to: URL.fromString("https://oneuptime.com/legal"),
+            to: URL.fromString("https://visca.ai/legal"),
             openInNewTab: true,
           },
           {

@@ -28,7 +28,7 @@ export default class TeamMemberAPI extends BaseAPI<
 
     /*
      * Used by the invite-user forms to decide whether to ask for the
-     * invitee's name (only needed when the email has no OneUptime account
+     * invitee's name (only needed when the email has no Cast Operations account
      * yet). Returns just a boolean — no user details — and requires an
      * authenticated user.
      */

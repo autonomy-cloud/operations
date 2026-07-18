@@ -1,34 +1,34 @@
-# OneUptime IoT デバイス
+# Cast Operations IoT デバイス
 
 ## 概要
 
-OneUptime は、少数の `iot_*` メトリクスを取り込むことで、IoT デバイス群 — センサー、ゲートウェイ、コントローラー、エッジボックス — のフリートを監視します。各測定値には、所属する **フリート** と自身の **デバイス id** がタグ付けされます。OneUptime はそれらのメトリクスをフリートにグループ化し、ライブのデバイスインベントリを構築して、デバイスごとのバッテリー、接続状態、温度、CPU、メモリ、可用性を追跡します。
+Cast Operations は、少数の `iot_*` メトリクスを取り込むことで、IoT デバイス群 — センサー、ゲートウェイ、コントローラー、エッジボックス — のフリートを監視します。各測定値には、所属する **フリート** と自身の **デバイス id** がタグ付けされます。Cast Operations はそれらのメトリクスをフリートにグループ化し、ライブのデバイスインベントリを構築して、デバイスごとのバッテリー、接続状態、温度、CPU、メモリ、可用性を追跡します。
 
 デバイスが測定値をプッシュする方法は 2 つあり、どちらもまったく同じフリートインベントリ、ダッシュボード、モニターに反映されます。
 
 - **OpenTelemetry (OTLP)** — デバイス上の OTel SDK、または多数のデバイスへファンアウトするゲートウェイ上の OpenTelemetry Collector。
-- **MQTT** — OneUptime の組み込み MQTT エンドポイント (WebSocket 経由の MQTT は `wss://<your-host>/mqtt`、セルフホストのデプロイでは生の MQTT TCP) に直接接続し、JSON の測定値を発行します。コレクターは不要で、Last Will のサポートにより即座にオフラインを検知できます。
+- **MQTT** — Cast Operations の組み込み MQTT エンドポイント (WebSocket 経由の MQTT は `wss://<your-host>/mqtt`、セルフホストのデプロイでは生の MQTT TCP) に直接接続し、JSON の測定値を発行します。コレクターは不要で、Last Will のサポートにより即座にオフラインを検知できます。
 
 デバイス側にインストールする独自のエージェントはありません。このページは **取り込みガイド** です。プッシュしたデータの上に IoT モニターとアラートを設定する方法については、[IoT デバイスモニター](/docs/monitor/iot-device-monitor) を参照してください。
 
 ## 前提条件
 
-- OneUptime へ OTLP/HTTP を送信できるデバイス、ゲートウェイ、またはコレクター
-- デバイス/ゲートウェイから OneUptime インスタンスへのネットワーク到達性
-- **OneUptime テレメトリ取り込みトークン** — _Project Settings → Telemetry Ingestion Keys_ から作成し、`x-oneuptime-token` の値をコピーします
+- Cast Operations へ OTLP/HTTP を送信できるデバイス、ゲートウェイ、またはコレクター
+- デバイス/ゲートウェイから Cast Operations インスタンスへのネットワーク到達性
+- **Cast Operations テレメトリ取り込みトークン** — _Project Settings → Telemetry Ingestion Keys_ から作成し、`x-oneuptime-token` の値をコピーします
 
-## OneUptime が IoT をどのようにモデル化するか
+## Cast Operations が IoT をどのようにモデル化するか
 
-OneUptime は、OpenTelemetry のリソース属性を使用して、デバイスを 2 つの概念にマッピングします。
+Cast Operations は、OpenTelemetry のリソース属性を使用して、デバイスを 2 つの概念にマッピングします。
 
-- **フリート** — デバイスの論理的なグループ (例: `building-a-sensors` や `field-gateways`)。フリートは `iot.fleet.name` リソース属性から導出され、OneUptime ではテレメトリサービス `iot/<fleet>` として表示されます。`service.name=iot/<fleet>` を設定して、ログとメトリクスが同じサービスの下に揃うようにします。
-- **デバイス** — フリート内の個々のデバイスで、`device.id` 属性によって識別されます。OneUptime は `device.id` をキーとして、フリートごとのデバイスインベントリを構築・維持します。
+- **フリート** — デバイスの論理的なグループ (例: `building-a-sensors` や `field-gateways`)。フリートは `iot.fleet.name` リソース属性から導出され、Cast Operations ではテレメトリサービス `iot/<fleet>` として表示されます。`service.name=iot/<fleet>` を設定して、ログとメトリクスが同じサービスの下に揃うようにします。
+- **デバイス** — フリート内の個々のデバイスで、`device.id` 属性によって識別されます。Cast Operations は `device.id` をキーとして、フリートごとのデバイスインベントリを構築・維持します。
 
 オプションの属性により、各デバイスがモニター内でどのように分類・スコープされるかをさらに細かく指定できます。
 
 | 属性                  | 必須   | 説明                                                                              |
 | -------------------- | -------- | -------------------------------------------------------------------------------- |
-| `iot.fleet.name`     | はい     | このデバイスが所属するフリート。OneUptime サービス `iot/<fleet>` になります        |
+| `iot.fleet.name`     | はい     | このデバイスが所属するフリート。Cast Operations サービス `iot/<fleet>` になります        |
 | `device.id`          | はい     | フリート内でデバイスを識別する安定した一意の id                                     |
 | `iot.device.kind`    | いいえ   | デバイスのクラス — 例: `Device`、`Sensor`、`Gateway`。デフォルトは `Device`        |
 | `iot.device.type`    | いいえ   | モニターのフィルタリングに使用される、より細かいデバイスのタイプ/モデル (例: `temp-sensor`) |
@@ -36,25 +36,25 @@ OneUptime は、OpenTelemetry のリソース属性を使用して、デバイ�
 
 ## OpenTelemetry SDK 経由でのメトリクス送信
 
-デバイスが OpenTelemetry SDK を直接実行している場合は、それを OneUptime に向け、標準の `OTEL_*` 環境変数を介して IoT リソース属性をスタンプします。トークン、エンドポイント、フリート名、デバイス id を、ご利用の環境の値に置き換えてください。
+デバイスが OpenTelemetry SDK を直接実行している場合は、それを Cast Operations に向け、標準の `OTEL_*` 環境変数を介して IoT リソース属性をスタンプします。トークン、エンドポイント、フリート名、デバイス id を、ご利用の環境の値に置き換えてください。
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | 環境変数                       | 必須   | 説明                                                                                                 |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | はい     | OneUptime OTLP エンドポイント (`https://oneuptime.com/otlp`、またはセルフホストの `http(s)://YOUR-ONEUPTIME-HOST/otlp`) |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | はい     | Cast Operations OTLP エンドポイント (`https://visca.ai/otlp`、またはセルフホストの `http(s)://YOUR-OPERATIONS-HOST/otlp`) |
 | `OTEL_EXPORTER_OTLP_HEADERS`  | はい     | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | はい     | カンマ区切りのリソース属性。`iot.fleet.name`、`device.id`、`service.name=iot/<fleet>` を含める必要があります |
 
-以下の `iot_*` 名を使用して測定値をメトリクスとして送出します ([メトリクスの規約](#メトリクスの規約) を参照)。1 分ほどすると、デバイスが OneUptime ダッシュボードの **IoT** セクションに表示されます。
+以下の `iot_*` 名を使用して測定値をメトリクスとして送出します ([メトリクスの規約](#メトリクスの規約) を参照)。1 分ほどすると、デバイスが Cast Operations ダッシュボードの **IoT** セクションに表示されます。
 
 ## OpenTelemetry Collector 経由でのメトリクス送信
 
-多数のデバイスがゲートウェイを通じて報告する場合は、ゲートウェイ上で OpenTelemetry Collector を実行し、OneUptime にエクスポートします。`resource` プロセッサーがフリート属性をスタンプします。デバイスから測定値 (OTLP、MQTT ブリッジ、ファイルログなど) を受信し、転送します。
+多数のデバイスがゲートウェイを通じて報告する場合は、ゲートウェイ上で OpenTelemetry Collector を実行し、Cast Operations にエクスポートします。`resource` プロセッサーがフリート属性をスタンプします。デバイスから測定値 (OTLP、MQTT ブリッジ、ファイルログなど) を受信し、転送します。
 
 ```yaml
 receivers:
@@ -80,7 +80,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     headers:
       "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
@@ -93,18 +93,18 @@ service:
 ```
 
 - **`resource`** は、すべてのレコードにフリート属性をスタンプします。各ゲートウェイのデバイスが正しいフリートに入るように、ゲートウェイごとに `iot.fleet.name` (および対応する `service.name=iot/<fleet>`) を設定します。
-- OneUptime がフリート内の個々のデバイスを解決できるように、各データポイントに `device.id` (およびオプションで `iot.device.kind` / `iot.device.type` / `iot.device.firmware`) を保持します。
-- **`otlphttp`** は、取り込みトークンを付加して HTTPS 経由で OneUptime に送信します。デフォルトの protobuf エンコーディングと `encoding: json` のどちらも受け付けられます。
+- Cast Operations がフリート内の個々のデバイスを解決できるように、各データポイントに `device.id` (およびオプションで `iot.device.kind` / `iot.device.type` / `iot.device.firmware`) を保持します。
+- **`otlphttp`** は、取り込みトークンを付加して HTTPS 経由で Cast Operations に送信します。デフォルトの protobuf エンコーディングと `encoding: json` のどちらも受け付けられます。
 
 ## MQTT 経由でのメトリクス送信
 
-OneUptime には MQTT エンドポイントが組み込まれているため、すでに MQTT を話せるデバイスは測定値を直接プッシュできます — OpenTelemetry SDK、コレクター、ブリッジは不要です。MQTT 経由で発行されたものはすべて OTLP と同じパイプラインに入ります。フリートは自動的に作成され、デバイスインベントリが更新され、すべての IoT モニターとアラートテンプレートがそのまま動作します。
+Cast Operations には MQTT エンドポイントが組み込まれているため、すでに MQTT を話せるデバイスは測定値を直接プッシュできます — OpenTelemetry SDK、コレクター、ブリッジは不要です。MQTT 経由で発行されたものはすべて OTLP と同じパイプラインに入ります。フリートは自動的に作成され、デバイスインベントリが更新され、すべての IoT モニターとアラートテンプレートがそのまま動作します。
 
 **エンドポイント**
 
 | トランスポート          | アドレス                                | 備考                                                                                      |
 | --------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------- |
-| WebSocket 経由の MQTT | `wss://<your-host>/mqtt`               | すべてのデプロイで動作します — OneUptime のイングレスを通じて通常の HTTPS ポートを使用します |
+| WebSocket 経由の MQTT | `wss://<your-host>/mqtt`               | すべてのデプロイで動作します — Cast Operations のイングレスを通じて通常の HTTPS ポートを使用します |
 | TCP 経由の MQTT       | `<app-host>:1883` (`MQTT_INGEST_PORT`) | セルフホスト: デフォルトではクラスター/compose ネットワークの内部に閉じています。必要であれば公開してください |
 
 **認証** — 2 つの選択肢があります。
@@ -135,12 +135,12 @@ mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
-WebSocket 経由の Node.js `mqtt` の例 (oneuptime.com および任意のセルフホストインスタンスで動作します):
+WebSocket 経由の Node.js `mqtt` の例 (visca.ai および任意のセルフホストインスタンスで動作します):
 
 ```javascript
 const mqtt = require("mqtt");
 
-const client = mqtt.connect("wss://oneuptime.com/mqtt", {
+const client = mqtt.connect("wss://visca.ai/mqtt", {
   username: "oneuptime", // ignored — the token below is what authenticates
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
@@ -177,7 +177,7 @@ client.username_pw_set("oneuptime", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
 client.will_set("oneuptime/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
-client.connect("oneuptime.com", 443)
+client.connect("visca.ai", 443)
 
 client.publish("oneuptime/building-a-sensors/sensor-001/status", "online")
 client.publish(
@@ -189,13 +189,13 @@ client.publish(
 注意点:
 
 - このエンドポイントは **取り込み専用** です。サブスクリプションは拒否されます (SUBACK は失敗)。ブローカーに受信を確認させたい場合は QoS 1 を使用してください。取り込みは **at-least-once** です — 確認応答が失われた後の QoS 1/2 の再送により、データポイントが重複する可能性があります。
-- トピックの取り決めから外れた発行や、不正な形式のペイロードは受理された上で **破棄** されます (MQTT 3.1.1 にはメッセージごとのエラー応答がありません) — サーバーは理由とともに警告をログに記録するので、データが届かない場合は OneUptime アプリのログを確認してください。
-- WebSocket エンドポイントでは、MQTT の keepalive を **5 分未満** に保ってください — OneUptime のイングレスはアイドル状態の WebSocket 接続を 300 秒後に切断するため、Last Will が発火して誤った Device Offline アラートが発生します。クライアントライブラリのデフォルト (`mqtt` と `paho-mqtt` はいずれも 60 秒) であれば問題ありません。生の TCP エンドポイントにはこのような上限はありません。
+- トピックの取り決めから外れた発行や、不正な形式のペイロードは受理された上で **破棄** されます (MQTT 3.1.1 にはメッセージごとのエラー応答がありません) — サーバーは理由とともに警告をログに記録するので、データが届かない場合は Cast Operations アプリのログを確認してください。
+- WebSocket エンドポイントでは、MQTT の keepalive を **5 分未満** に保ってください — Cast Operations のイングレスはアイドル状態の WebSocket 接続を 300 秒後に切断するため、Last Will が発火して誤った Device Offline アラートが発生します。クライアントライブラリのデフォルト (`mqtt` と `paho-mqtt` はいずれも 60 秒) であれば問題ありません。生の TCP エンドポイントにはこのような上限はありません。
 - ペイロードは 1 回の発行あたり 128 KB およびメトリクス 100 個までに制限されます。サイズを超えたパケットは接続を切断します。
 
 ## メトリクスの規約
 
-OneUptime は、以下の `iot_*` メトリクス名を認識します。各データポイントには `device.id` ラベルを付けて、測定値が正しいデバイスに帰属するようにしてください。デバイスにとって意味のあるメトリクスのみを送信すればよく、欠けているものは単にチャート化されないだけです。
+Cast Operations は、以下の `iot_*` メトリクス名を認識します。各データポイントには `device.id` ラベルを付けて、測定値が正しいデバイスに帰属するようにしてください。デバイスにとって意味のあるメトリクスのみを送信すればよく、欠けているものは単にチャート化されないだけです。
 
 | メトリクス名                 | 意味                                                                            |
 | --------------------------- | ------------------------------------------------------------------------------ |
@@ -204,7 +204,7 @@ OneUptime は、以下の `iot_*` メトリクス名を認識します。各デ�
 | `iot_battery_percent`       | バッテリーの充電レベル、`0`–`100` (%)                                            |
 | `iot_signal_strength_dbm`   | dBm 単位の無線信号強度 (例: Wi-Fi / LoRa / セルラーの RSSI)                       |
 | `iot_temperature_celsius`   | °C 単位のデバイスまたはセンサーの温度                                            |
-| `iot_cpu_usage_ratio`       | `0`–`1` の比率としての CPU 使用率 (OneUptime はパーセンテージとして保存します)    |
+| `iot_cpu_usage_ratio`       | `0`–`1` の比率としての CPU 使用率 (Cast Operations はパーセンテージとして保存します)    |
 | `iot_memory_usage_bytes`    | 現在使用中のメモリ (bytes 単位)                                                  |
 | `iot_memory_size_bytes`     | デバイスで利用可能な合計メモリ (bytes 単位)                                       |
 | `iot_uptime_seconds`        | デバイスが最後に起動してからの秒数                                                |
@@ -212,7 +212,7 @@ OneUptime は、以下の `iot_*` メトリクス名を認識します。各デ�
 ## インストールの確認
 
 1. デバイスまたはゲートウェイがエラーなくエクスポートしていることを確認します (SDK/コレクターのログでエクスポートの失敗や HTTP `401`/`403` 応答を確認してください)。
-2. OneUptime ダッシュボードで **IoT** セクションを開きます — フリートが 1 分ほどで `iot/<fleet>` として表示されるはずです。
+2. Cast Operations ダッシュボードで **IoT** セクションを開きます — フリートが 1 分ほどで `iot/<fleet>` として表示されるはずです。
 3. フリートの **Devices** タブを開きます — 送信した各 `device.id` が、最新のバッテリー、信号、温度、CPU、メモリ、稼働/ダウンの状態とともに一覧表示されるはずです。
 4. フリートの下の **Metrics** を開いて、上記の任意の `iot_*` 系列をチャート化します。
 
@@ -221,7 +221,7 @@ OneUptime は、以下の `iot_*` メトリクス名を認識します。各デ�
 ### フリートが表示されない
 
 1. `iot.fleet.name` が **リソース** 属性として設定されていること (データポイントのラベルではないこと)、および `service.name` が `iot/<fleet>` であることを確認します。
-2. エクスポーターのエンドポイントが `https://oneuptime.com/otlp` (またはセルフホストの `…/otlp`) であり、`x-oneuptime-token` ヘッダーが有効なトークンを保持していることを確認します。
+2. エクスポーターのエンドポイントが `https://visca.ai/otlp` (またはセルフホストの `…/otlp`) であり、`x-oneuptime-token` ヘッダーが有効なトークンを保持していることを確認します。
 3. MQTT を使用している場合は、トピックが `oneuptime/<fleet>/<device>/…` に正確に従っていることを確認します — フリートを作成するのはトピックのフリートセグメントです。
 
 ### デバイスがインベントリに表示されない
@@ -237,15 +237,15 @@ OneUptime は、以下の `iot_*` メトリクス名を認識します。各デ�
 ### メトリクスがチャート化されない
 
 1. [メトリクスの規約](#メトリクスの規約) テーブルの正確な `iot_*` メトリクス名を使用していることを確認します — 認識されない名前は汎用メトリクスとして保存され、IoT チャートには反映されません。
-2. `iot_cpu_usage_ratio` は `0`–`1` の比率であることを覚えておいてください。生の比率を送信すれば、OneUptime がそれをパーセンテージとして表示します。
+2. `iot_cpu_usage_ratio` は `0`–`1` の比率であることを覚えておいてください。生の比率を送信すれば、Cast Operations がそれをパーセンテージとして表示します。
 3. デバイスが報告を開始してから最初のデータポイントが表示されるまで、最大 1 分ほどかかることがあります。
 
-## セルフホストの OneUptime
+## セルフホストの Cast Operations
 
-OneUptime をセルフホストしている場合は、エンドポイントを自分のインスタンスに向けます。
+Cast Operations をセルフホストしている場合は、エンドポイントを自分のインスタンスに向けます。
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://your-oneuptime-host.example.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://your-operations-host.example.com/otlp
 ```
 
 または、コレクターでは次のようにします。
@@ -253,12 +253,12 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=https://your-oneuptime-host.example.com/otlp
 ```yaml
 exporters:
   otlphttp:
-    endpoint: https://your-oneuptime-host.example.com/otlp
+    endpoint: https://your-operations-host.example.com/otlp
     headers:
       "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
-MQTT の場合は `wss://your-oneuptime-host.example.com/mqtt` に接続します。デバイスが WebSocket を話せない場合は、app サービスの生の MQTT TCP ポート (`MQTT_INGEST_PORT`、デフォルトは `1883`) を公開してください。app サービスで `MQTT_INGEST_ENABLED=false` を設定すると、MQTT のリスナーを完全に無効化できます。
+MQTT の場合は `wss://your-operations-host.example.com/mqtt` に接続します。デバイスが WebSocket を話せない場合は、app サービスの生の MQTT TCP ポート (`MQTT_INGEST_PORT`、デフォルトは `1883`) を公開してください。app サービスで `MQTT_INGEST_ENABLED=false` を設定すると、MQTT のリスナーを完全に無効化できます。
 
 インスタンスが HTTP 専用の場合は、スキームを `http://` (MQTT の場合は `ws://`) に変更し、適切なポートを使用してください。
 
@@ -266,4 +266,4 @@ MQTT の場合は `wss://your-oneuptime-host.example.com/mqtt` に接続しま�
 
 - **IoT デバイスモニター** を設定して、デバイスのオフライン、低バッテリー、弱い信号、高温、高 CPU の状態についてアラートを発生させます — [IoT デバイスモニター](/docs/monitor/iot-device-monitor) を参照してください。
 - コンテナ化されていないホスト (Linux / macOS / Windows の VM やベアメタル) には、[ホスト OpenTelemetry Collector](/docs/telemetry/host-otel-collector) を使用してください。
-- 基盤となる OTLP 統合を詳しく学ぶには、[OpenTelemetry を OneUptime と統合する](/docs/telemetry/open-telemetry) を参照してください。
+- 基盤となる OTLP 統合を詳しく学ぶには、[OpenTelemetry を Cast Operations と統合する](/docs/telemetry/open-telemetry) を参照してください。

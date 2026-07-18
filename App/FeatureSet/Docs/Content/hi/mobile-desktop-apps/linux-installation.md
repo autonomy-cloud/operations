@@ -1,6 +1,6 @@
 # Linux Installation Guide
 
-व्यापक monitoring और incident management के लिए OneUptime को Linux distributions पर desktop application के रूप में install करें।
+व्यापक monitoring और incident management के लिए Cast Operations को Linux distributions पर desktop application के रूप में install करें।
 
 ## Installation Methods
 
@@ -10,17 +10,17 @@ Chrome और Chromium native desktop integration के साथ सबसे 
 
 #### PWA Installation Steps:
 
-1. **OneUptime को Chrome/Chromium में खोलें**
+1. **Cast Operations को Chrome/Chromium में खोलें**
 
    - अपना browser launch करें
-   - अपने OneUptime instance URL पर जाएं
-   - अपने OneUptime account में sign in करें
+   - अपने Cast Operations instance URL पर जाएं
+   - अपने Cast Operations account में sign in करें
    - page पूरी तरह load होने का इंतज़ार करें
 
 2. **PWA Install करें**
 
    - address bar में **install icon** (⊞) देखें
-   - **"Install OneUptime"** पर क्लिक करें
+   - **"Install Cast Operations"** पर क्लिक करें
    - या **Chrome menu** (⋮) → **More tools** → **Create shortcut** उपयोग करें
 
 3. **Installation Options**
@@ -31,7 +31,7 @@ Chrome और Chromium native desktop integration के साथ सबसे 
    - **"Install"** या **"Create"** पर क्लिक करें
 
 4. **App Launch करें**
-   - application launcher में OneUptime खोजें
+   - application launcher में Cast Operations खोजें
    - या desktop shortcut उपयोग करें
    - App dedicated window में खुलता है
 
@@ -40,7 +40,7 @@ Chrome और Chromium native desktop integration के साथ सबसे 
 Firefox basic desktop integration के साथ Linux पर PWA installation का समर्थन करता है।
 
 1. **PWA Installation**:
-   - Firefox में OneUptime खोलें
+   - Firefox में Cast Operations खोलें
    - installation banner या prompt देखें
    - उपलब्ध होने पर **"Install"** पर क्लिक करें
    - नोट: Chrome की तुलना में limited desktop integration
@@ -55,7 +55,7 @@ Edge Linux पर उपलब्ध है और अच्छा PWA support �
 
 ### Automatic Updates
 
-OneUptime PWA स्वचालित रूप से update होता है:
+Cast Operations PWA स्वचालित रूप से update होता है:
 
 - जब browser app refresh करता है तो Updates लागू होते हैं
 - Critical security updates तुरंत deployed
@@ -69,7 +69,7 @@ OneUptime PWA स्वचालित रूप से update होता ह�
 # Chrome PWA management
 google-chrome chrome://apps/
 
-# OneUptime-related सभी browser data हटाएं
+# Cast Operations-related सभी browser data हटाएं
 rm -rf ~/.config/google-chrome/Default/Local\ Storage/leveldb/
 rm -rf ~/.cache/google-chrome/Default/
 ```

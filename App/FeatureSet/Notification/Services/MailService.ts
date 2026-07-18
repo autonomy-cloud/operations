@@ -822,7 +822,7 @@ export default class MailService {
         const msg: MailDataRequired = {
           to: mail.toEmail.toString(),
           from: `${
-            sendgridConfig.fromName || "OneUptime"
+            sendgridConfig.fromName || "Cast Operations"
           } <${sendgridConfig.fromEmail.toString()}>`,
           subject: mail.subject,
           html: mail.body,

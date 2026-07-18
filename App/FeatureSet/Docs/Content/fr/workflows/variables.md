@@ -60,7 +60,7 @@ Le bloc **Custom Code** lit les variables différemment — les variables global
 
 ### Construire une charge utile à partir d'un webhook
 
-Un webhook arrive avec un corps comme `{ "service": "checkout", "status": "failed" }`. Pour en faire un incident OneUptime :
+Un webhook arrive avec un corps comme `{ "service": "checkout", "status": "failed" }`. Pour en faire un incident Cast Operations :
 
 1. Déclencheur **Webhook** nommé `CIWebhook`.
 2. Bloc **Conditions** : gauche `{{CIWebhook.Request Body.status}}`, opérateur `==`, droite `failed`.

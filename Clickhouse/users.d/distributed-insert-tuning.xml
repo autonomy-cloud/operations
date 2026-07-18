@@ -2,7 +2,7 @@
 <!--
   Tunes ClickHouse's background Distributed-insert sender — the step that forwards
   rows from the app-facing Distributed tables (MetricItemV3 / LogItemV3 / SpanItemV3)
-  into the local ReplicatedMergeTree tables. OneUptime's analytics schema is ALWAYS a
+  into the local ReplicatedMergeTree tables. Cast Operations’ analytics schema is ALWAYS a
   Distributed table over a local table, even on a single node ("cluster of one"), so
   every insert flows through this sender. Without batching it ships one spooled file
   per insert and cannot keep up with high telemetry volume, so files pile into
@@ -10,7 +10,7 @@
   late once the queue drains.
 
   This lives in users.d (not config.d) because these are profile-level settings, read
-  from the `default` profile the OneUptime user and the background sender both use.
+  from the `default` profile the Cast Operations user and the background sender both use.
   Mirrors the Altinity-operator defaults in HelmChart values.yaml
   (clickhouseOperator.altinity.profiles) so behaviour matches across deployment modes.
 -->

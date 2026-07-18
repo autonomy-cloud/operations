@@ -1,6 +1,6 @@
 # IP Monitor
 
-IP-monitoring stelt u in staat de beschikbaarheid en reactiesnelheid van elk IPv4- of IPv6-adres te bewaken. OneUptime test periodiek de connectiviteit naar het doel-IP-adres en rapporteert de status ervan.
+IP-monitoring stelt u in staat de beschikbaarheid en reactiesnelheid van elk IPv4- of IPv6-adres te bewaken. Cast Operations test periodiek de connectiviteit naar het doel-IP-adres en rapporteert de status ervan.
 
 ## Overzicht
 
@@ -13,7 +13,7 @@ IP-monitors verifiëren dat een specifiek IP-adres bereikbaar en responsief is. 
 
 ## Een IP Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **IP** als het monitortype
 4. Voer het IP-adres in dat u wilt bewaken

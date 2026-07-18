@@ -1,6 +1,6 @@
 # Runbook 代理
 
-**Runbook 代理** 是一个小型的自托管进程，**在你自己的基础设施内**执行 Runbook 的 Bash _和_ JavaScript 步骤。OneUptime Worker 永远不会自己执行你的脚本——它只把任务放入队列，由步骤作者所挑选的 Runbook 代理把它们取走、执行，并将结果回报。
+**Runbook 代理** 是一个小型的自托管进程，**在你自己的基础设施内**执行 Runbook 的 Bash _和_ JavaScript 步骤。Cast Operations Worker 永远不会自己执行你的脚本——它只把任务放入队列，由步骤作者所挑选的 Runbook 代理把它们取走、执行，并将结果回报。
 
 JavaScript 仍然在 `isolated-vm` 沙箱中运行；区别在于沙箱住在你的代理主机上，而不是我们这边。
 
@@ -8,23 +8,23 @@ JavaScript 仍然在 `isolated-vm` 沙箱中运行；区别在于沙箱住在你
 
 ## 为什么需要代理
 
-更早版本的 OneUptime 把 Bash 和 JavaScript 步骤跑在 Worker 上。JavaScript 被沙箱化（通过 `isolated-vm`），Bash 则不是。两者对单租户自托管之外的任何场景都有问题：
+更早版本的 Cast Operations 把 Bash 和 JavaScript 步骤跑在 Worker 上。JavaScript 被沙箱化（通过 `isolated-vm`），Bash 则不是。两者对单租户自托管之外的任何场景都有问题：
 
 - **信任边界。** 任何能写 Runbook 的人都能在 Worker 上执行代码，并访问 Worker 自己的环境变量与文件系统。JavaScript 沙箱挡住了明显的攻击，但挡不住一个有决心的用户去探测从我们网络可达的范围。
-- **触达范围。** 大多数有用的步骤想操作的是*客户的*基础设施（"重启这个服务"、"在我们集群上跑 kubectl"、"在我们内部数据库里查一条记录"），而不是 OneUptime 的。
+- **触达范围。** 大多数有用的步骤想操作的是*客户的*基础设施（"重启这个服务"、"在我们集群上跑 kubectl"、"在我们内部数据库里查一条记录"），而不是 Cast Operations 的。
 
 Runbook 代理把这件事翻转过来。Bash 和 JavaScript 步骤不再跑在我们这里。它们跑在你控制的主机上，而那台主机能做什么由你决定。
 
 ## 工作方式
 
-1. 你在 OneUptime 中创建一个 Runbook 代理。OneUptime 会生成一个 ID 和密钥。
-2. 你在基础设施内的主机上运行代理容器，传入该 ID/密钥以及你的 OneUptime URL。
-3. 代理每隔几秒钟轮询 OneUptime，问"我有活干吗？"
+1. 你在 Cast Operations 中创建一个 Runbook 代理。Cast Operations 会生成一个 ID 和密钥。
+2. 你在基础设施内的主机上运行代理容器，传入该 ID/密钥以及你的 Cast Operations URL。
+3. 代理每隔几秒钟轮询 Cast Operations，问"我有活干吗？"
 4. 当你编写一个 Bash 或 JavaScript 步骤时，从下拉列表里选定代理——这个步骤被绑定到那个特定的代理。
 5. 步骤运行时，Worker 会插入一行任务，把 `targetAgentId` 设成那个代理。只有那个代理能领取它。
 6. 代理在本地执行脚本——Bash 走 `bash -c <script>`，JavaScript 进 `isolated-vm` 沙箱——捕获结果并回报。Worker 收到结果后继续推进 Runbook。
 
-代理只需要 **对外 HTTPS** 即可连到你的 OneUptime 实例。它不接受任何入站连接。
+代理只需要 **对外 HTTPS** 即可连到你的 Cast Operations 实例。它不接受任何入站连接。
 
 ## 安装代理
 
@@ -45,14 +45,14 @@ Runbook 代理把这件事翻转过来。Bash 和 JavaScript 步骤不再跑在�
 
 在你环境中能做到以下两件事的任意一台主机上运行 Docker 命令：
 
-- 通过 HTTPS 触达你的 OneUptime 实例，并且
+- 通过 HTTPS 触达你的 Cast Operations 实例，并且
 - 做你希望 Bash/JavaScript 步骤做的事（例如 SSH 到其他主机、`kubectl`、与数据库通信）。
 
 ```bash
 docker run --name oneuptime-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://oneuptime.yourdomain.com \
+  -e ONEUPTIME_URL=https://operations.yourdomain.com \
   -d oneuptime/runbook-agent:release
 ```
 
@@ -61,7 +61,7 @@ docker run --name oneuptime-runbook-agent --restart unless-stopped \
 回到 **Runbooks → 设置 → 代理**。约 60 秒之内，这个代理的那一行应该切换到 `Connected`，并显示新的 **最近活跃** 时间戳。如果它一直 `Disconnected`：
 
 - 查看容器日志（`docker logs oneuptime-runbook-agent`）寻找认证错误或网络失败。
-- 用 `curl` 验证主机能否触达你的 OneUptime URL。
+- 用 `curl` 验证主机能否触达你的 Cast Operations URL。
 - 验证 ID 与密钥拷贝时没有夹带空白字符。
 
 ## 把步骤指向某个代理
@@ -116,7 +116,7 @@ Worker 的整体等待窗口是 `领取超时 + 执行超时 + 几秒`。挑能�
 
 | 变量                                      | 必填 | 默认值  | 说明                                                                   |
 | ----------------------------------------- | ---- | ------- | ---------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | 是   | —       | 你的 OneUptime 实例基础 URL，例如 `https://oneuptime.yourdomain.com`。 |
+| `ONEUPTIME_URL`                           | 是   | —       | 你的 Cast Operations 实例基础 URL，例如 `https://operations.yourdomain.com`。 |
 | `RUNBOOK_AGENT_ID`                        | 是   | —       | 代理设置对话框中显示的 UUID。                                          |
 | `RUNBOOK_AGENT_KEY`                       | 是   | —       | 代理设置对话框中显示的密钥。                                           |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | 否   | `5000`  | 代理轮询新任务的频率。                                                 |
@@ -126,7 +126,7 @@ Worker 的整体等待窗口是 `领取超时 + 执行超时 + 几秒`。挑能�
 
 ## 轮换代理密钥
 
-如果密钥泄漏，到 OneUptime 中打开该代理并重置其密钥。旧密钥会立即失效。用新密钥更新代理容器并重启。
+如果密钥泄漏，到 Cast Operations 中打开该代理并重置其密钥。旧密钥会立即失效。用新密钥更新代理容器并重启。
 
 ## 权限
 

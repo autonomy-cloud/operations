@@ -1,8 +1,8 @@
-# OneUptime Kubernetes 에이전트 (Helm)
+# Cast Operations Kubernetes 에이전트 (Helm)
 
 ## 개요
 
-OneUptime Kubernetes 에이전트는 클러스터에 OpenTelemetry 기반 컬렉터 파이프라인을 설치하는 사전 패키지화된 Helm 차트입니다. 노드, 파드, 컨테이너 및 클러스터 메트릭, Kubernetes 이벤트, 파드 로그를 제공하며, 기본적으로 활성화된 eBPF를 통해 애플리케이션 트레이스, HTTP RED 메트릭, 서비스 그래프 데이터 및 파드 간 네트워크 흐름 메트릭도 제공합니다. 코드 변경이나 SDK 없이 단 한 번의 `helm install`로 끝납니다.
+Cast Operations Kubernetes 에이전트는 클러스터에 OpenTelemetry 기반 컬렉터 파이프라인을 설치하는 사전 패키지화된 Helm 차트입니다. 노드, 파드, 컨테이너 및 클러스터 메트릭, Kubernetes 이벤트, 파드 로그를 제공하며, 기본적으로 활성화된 eBPF를 통해 애플리케이션 트레이스, HTTP RED 메트릭, 서비스 그래프 데이터 및 파드 간 네트워크 흐름 메트릭도 제공합니다. 코드 변경이나 SDK 없이 단 한 번의 `helm install`로 끝납니다.
 
 이 페이지는 **설치 가이드**입니다. 에이전트가 수집한 데이터를 기반으로 Kubernetes 모니터와 알림을 구성하려면 [Kubernetes 에이전트 (모니터)](/docs/monitor/kubernetes-agent)를 참조하세요.
 
@@ -11,12 +11,12 @@ OneUptime Kubernetes 에이전트는 클러스터에 OpenTelemetry 기반 컬렉
 - 실행 중인 Kubernetes 클러스터 (v1.23 이상)
 - 클러스터에 접근하도록 구성된 `kubectl`
 - 설치된 `helm` v3
-- **OneUptime API 키** — *Project Settings → API Keys*에서 생성하세요
+- **Cast Operations API 키** — *Project Settings → API Keys*에서 생성하세요
 
-## 1단계 — OneUptime Helm 저장소 추가
+## 1단계 — Cast Operations Helm 저장소 추가
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 ```
 
@@ -34,7 +34,7 @@ helm repo update
 
 ## 3단계 — Kubernetes 에이전트 설치
 
-`YOUR_ONEUPTIME_URL`, `YOUR_ONEUPTIME_API_KEY` 및 클러스터 이름을 사용자 환경에 맞는 값으로 교체하세요. 클러스터 이름은 클러스터가 OneUptime에 표시되는 방식이므로 `prod-us-east-1`처럼 안정적인 이름을 선택하세요.
+`YOUR_ONEUPTIME_URL`, `YOUR_ONEUPTIME_API_KEY` 및 클러스터 이름을 사용자 환경에 맞는 값으로 교체하세요. 클러스터 이름은 클러스터가 Cast Operations에 표시되는 방식이므로 `prod-us-east-1`처럼 안정적인 이름을 선택하세요.
 
 ### 표준 클러스터 (자체 관리형, EKS on EC2, GKE Standard, AKS)
 
@@ -105,7 +105,7 @@ kubernetes-agent-xxxxxxxxxx-xxxxx             1/1     Running   0          1m
 kubernetes-agent-logs-yyyyyyyyyy-yyyyy        1/1     Running   0          1m
 ```
 
-에이전트가 연결되면 클러스터가 OneUptime 대시보드의 **Kubernetes** 섹션에 자동으로 나타납니다.
+에이전트가 연결되면 클러스터가 Cast Operations 대시보드의 **Kubernetes** 섹션에 자동으로 나타납니다.
 
 ## 구성 옵션
 
@@ -231,7 +231,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 **메트릭 기반 모니터는 달라지지 않습니다.** eBPF RED 메트릭 — 요청 속도, 오류율, 지속 시간 — 은 *메트릭* 패밀리입니다. OBI가 모든 요청에서 이를 계산하며 이들은 메트릭 파이프라인을 따라 흐르는데, 샘플러는 그 파이프라인에 없습니다. `percentage: 10`에서는 트레이스는 10분의 1이 되지만 속도/오류/지연 시간은 100% 정확합니다. 이러한 메트릭을 기반으로 만든 대시보드와 모니터는 영향을 받지 않습니다.
 
-**스팬 기반 모니터는 달라집니다.** OneUptime이 스팬 자체에서 도출하는 것은 무엇이든 비율에 따라 함께 줄어듭니다 — 이것을 켜기 전에 아래 경고를 읽어 보세요.
+**스팬 기반 모니터는 달라집니다.** Cast Operations이 스팬 자체에서 도출하는 것은 무엇이든 비율에 따라 함께 줄어듭니다 — 이것을 켜기 전에 아래 경고를 읽어 보세요.
 
 | 키 | 의미 |
 | --- | ------- |
@@ -247,7 +247,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 - **멀티 클러스터는 기본적으로 작동합니다.** 두 에이전트는 `hashSeed`와 `percentage` 둘 다에 대해 의견이 일치할 때만 같은 트레이스를 유지합니다. 둘 다 어디에서나 같은 기본값을 가지므로, 두 클러스터를 넘나드는 트레이스는 추가 구성 없이도 온전히 살아남습니다. `hashSeed`는 두 샘플링 계층을 의도적으로 *비상관화*할 때만 변경하세요 — 판정이 동일한 해시에 대한 임계값이기 때문에, 같은 시드에서 서로 다른 비율은 서로 포개어지며, 두 번째 계층은 독립적으로 추첨하는 대신 첫 번째 계층이 이미 유지한 트레이스를 다시 고르게 됩니다.
 - **파드 로그는 절대 샘플링되지 않으므로**, `ebpf.logToTraceCorrelation: true`에서는 모든 로그 레코드가 여전히 트레이스 ID를 지니는 반면 그 트레이스 중 `percentage`%만 유지됩니다. 대략 (100 − `percentage`)%의 로그 레코드는 막다른 길로 이어지는 트레이스 링크를 표시하게 됩니다. 트레이스 → 로그 이동은 영향을 받지 않으며, 로그 → 트레이스만 실패할 수 있습니다.
 
-> **이 값을 설정할 때는 스팬 기반 모니터를 다시 튜닝하세요.** 샘플링은 OneUptime에 도달하는 스팬을 줄이므로, 그것을 세는 것은 무엇이든 더 적게 세게 됩니다: `Span Count`를 사용하는 **Traces** 모니터와 `Exception Count`를 사용하는 **Exceptions** 모니터는 어제 볼륨의 대략 `percentage`%만 보게 됩니다. 샘플링하지 않은 트래픽에 맞춰 튜닝한 임계값은 조용히 더 이상 넘지 않게 됩니다 — 모니터가 오류를 내는 것이 아니라 그저 침묵합니다. 비율을 설정할 때 해당 임계값을 같은 배수로 나누세요. 이 비율은 클러스터 전체에 적용되므로 개별 서비스만 예외로 두는 방법은 없습니다. 오류 **그룹화**는 선형보다 더 나쁘게 저하됩니다: 흔한 예외는 여전히 드러나지만, 드물게 한 번 발생하는 예외는 10분의 1의 빈도로 나타나기보다 아예 사라져 버릴 가능성이 더 큽니다.
+> **이 값을 설정할 때는 스팬 기반 모니터를 다시 튜닝하세요.** 샘플링은 Cast Operations에 도달하는 스팬을 줄이므로, 그것을 세는 것은 무엇이든 더 적게 세게 됩니다: `Span Count`를 사용하는 **Traces** 모니터와 `Exception Count`를 사용하는 **Exceptions** 모니터는 어제 볼륨의 대략 `percentage`%만 보게 됩니다. 샘플링하지 않은 트래픽에 맞춰 튜닝한 임계값은 조용히 더 이상 넘지 않게 됩니다 — 모니터가 오류를 내는 것이 아니라 그저 침묵합니다. 비율을 설정할 때 해당 임계값을 같은 배수로 나누세요. 이 비율은 클러스터 전체에 적용되므로 개별 서비스만 예외로 두는 방법은 없습니다. 오류 **그룹화**는 선형보다 더 나쁘게 저하됩니다: 흔한 예외는 여전히 드러나지만, 드물게 한 번 발생하는 예외는 10분의 1의 빈도로 나타나기보다 아예 사라져 버릴 가능성이 더 큽니다.
 
 > **여기에 로그나 메트릭 샘플링이 없는 이유.** 컬렉터의 샘플러는 메트릭을 아예 샘플링할 수 없습니다. 로그는 샘플링할 수 있지만 무작위성을 트레이스 ID에서 끌어옵니다 — 그리고 파드 로그에는 트레이스 ID가 없습니다. 그러면 트레이스 ID가 없는 모든 레코드가 같은 버킷으로 해싱되므로 로그 비율은 피드를 솎아 내지 못합니다: 시드에 따라 전부 유지하거나 전부 삭제하게 됩니다. 사용자의 로그를 조용히 삭제하는 조정 항목을 제공하느니, 차트는 아예 제공하지 않습니다. 로그는 무엇을 제거하는지가 정확한 [로그 심각도로 필터링](#로그-심각도로-필터링)과 [네임스페이스 필터링](#네임스페이스-필터링)으로 솎아 내세요.
 
@@ -329,7 +329,7 @@ oneuptime:
 clusterName: prod
 ```
 
-레이블은 대소문자를 구분하지 않고 매칭되므로, 기존에 수동으로 생성한 `Production` 레이블은 중복 생성되지 않고 재사용됩니다. OneUptime UI에서 수동으로 추가한 레이블은 에이전트에 의해 절대 제거되지 않습니다.
+레이블은 대소문자를 구분하지 않고 매칭되므로, 기존에 수동으로 생성한 `Production` 레이블은 중복 생성되지 않고 재사용됩니다. Cast Operations UI에서 수동으로 추가한 레이블은 에이전트에 의해 절대 제거되지 않습니다.
 
 ## 에이전트 업그레이드
 
@@ -367,7 +367,7 @@ kubectl delete namespace oneuptime-agent
 
 ## eBPF를 통한 애플리케이션 트레이스 및 HTTP 메트릭 (기본 활성화)
 
-차트는 모든 노드에서 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/)와 함께 DaemonSet을 실행합니다. eBPF 프로그램을 커널에 로드하고 지원되는 모든 런타임(Go, .NET, Java, Node.js, Python, Ruby, Rust)에서 HTTP/HTTPS, gRPC 및 SQL/Redis 트래픽을 자동으로 캡처합니다 — SDK나 사이드카가 필요 없습니다. 그런 다음 트레이스와 요청 메트릭이 클러스터 내 컬렉터를 통해 OneUptime으로 흐릅니다.
+차트는 모든 노드에서 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/)와 함께 DaemonSet을 실행합니다. eBPF 프로그램을 커널에 로드하고 지원되는 모든 런타임(Go, .NET, Java, Node.js, Python, Ruby, Rust)에서 HTTP/HTTPS, gRPC 및 SQL/Redis 트래픽을 자동으로 캡처합니다 — SDK나 사이드카가 필요 없습니다. 그런 다음 트레이스와 요청 메트릭이 클러스터 내 컬렉터를 통해 Cast Operations으로 흐릅니다.
 
 **요구 사항:** BTF가 있는 Linux 커널 **5.8 이상** (Debian 11 이상, Ubuntu 20.10 이상, Fedora 34 이상, RHEL/Stream 9 이상에서 기본 제공). eBPF DaemonSet은 eBPF 프로그램을 로드해야 하므로 어쩔 수 없이 **privileged 모드**로 실행됩니다.
 
@@ -407,7 +407,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
 ## 수집되는 데이터 볼륨 줄이기
 
-기본 설정에서 에이전트는 **커버리지**에 맞춰 튜닝되어 있습니다 — 전체 클러스터에서 메트릭, 파드 로그 및 eBPF 트레이스를 전송하므로 모든 대시보드와 모니터가 첫날부터 작동합니다. 크거나 바쁜 클러스터에서는 이것이 필요 이상의 텔레메트리일 수 있으며, 이는 더 높은 수집 볼륨(그리고 OneUptime Cloud에서는 더 높은 비용)으로 나타납니다. 여기에 있는 어떤 것도 필수는 아니지만, 클러스터가 원하는 것보다 많이 전송하고 있다면 이것들이 조정할 항목입니다 — 대략 영향도 순으로 정리되어 있습니다.
+기본 설정에서 에이전트는 **커버리지**에 맞춰 튜닝되어 있습니다 — 전체 클러스터에서 메트릭, 파드 로그 및 eBPF 트레이스를 전송하므로 모든 대시보드와 모니터가 첫날부터 작동합니다. 크거나 바쁜 클러스터에서는 이것이 필요 이상의 텔레메트리일 수 있으며, 이는 더 높은 수집 볼륨(그리고 Cast Operations Cloud에서는 더 높은 비용)으로 나타납니다. 여기에 있는 어떤 것도 필수는 아니지만, 클러스터가 원하는 것보다 많이 전송하고 있다면 이것들이 조정할 항목입니다 — 대략 영향도 순으로 정리되어 있습니다.
 
 핵심은 모든 것을 수집하고 저장 비용을 지불하는 대신 **보지 않을 것은 수집을 중단하는** 것입니다. 아래의 모든 레버는 Helm 값이므로 `helm upgrade --reuse-values`에서 `--set`으로 적용하고 같은 방식으로 롤백할 수 있습니다.
 
@@ -427,7 +427,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 - **필터 프로세서에서** — 데이터가 수집된 다음, 내보내기 전에 삭제됩니다. `filters.logs.minSeverity`, `filters.metrics.*`, `namespaceFilters.rules` (`metrics`/`traces`). 컬렉터 CPU를 조금 더 쓰지만, 리시버 전반에 걸쳐 작동하며 리시버가 표현할 수 없는 것을 표현할 수 있습니다.
 - **샘플러에서** — 데이터가 수집된 다음, 대표성 있는 일부만 유지됩니다. `sampling.traces.percentage`. 이것만 성격이 다릅니다: 위의 두 가지는 텔레메트리의 *범주* 하나를 통째로 제거하므로 이들이 삭제한 것은 모든 트레이스에서 사라집니다. 샘플링은 모든 범주를 유지한 채 모집단을 솎아 내므로, 살아남은 것은 여전히 완전하고 대표성이 있습니다.
 
-세 가지 모두 **되돌릴 수 없습니다**: 여기에서 삭제한 것은 절대 OneUptime에 도달하지 않으며, 세 가지 모두 모니터를 조용하게 만들 수 있습니다. 앞의 두 가지는 모니터가 감시하는 시그널 자체를 제거해 모니터를 침묵시킵니다. 샘플링은 그보다 범위가 좁습니다: eBPF RED 메트릭은 샘플러가 실행되기 전에 계산되므로 메트릭 기반 모니터는 정확한 상태로 유지됩니다 — 하지만 *스팬*을 세는 모니터(`Span Count`를 사용하는 **Traces** 모니터, `Exception Count`를 사용하는 **Exceptions** 모니터)는 그에 비례해 더 적게 세므로 임계값을 같은 배수로 다시 튜닝해야 합니다. 나중에 결정하고 싶다면 OneUptime이 서버 측에서 데이터를 삭제할 수도 있습니다(**Logs → Settings → Drop Filters**, **Metrics → Settings → Pipeline Rules**) — 이는 여전히 이그레스 비용이 들지만, 재배포 없이 변경할 수 있는 설정입니다.
+세 가지 모두 **되돌릴 수 없습니다**: 여기에서 삭제한 것은 절대 Cast Operations에 도달하지 않으며, 세 가지 모두 모니터를 조용하게 만들 수 있습니다. 앞의 두 가지는 모니터가 감시하는 시그널 자체를 제거해 모니터를 침묵시킵니다. 샘플링은 그보다 범위가 좁습니다: eBPF RED 메트릭은 샘플러가 실행되기 전에 계산되므로 메트릭 기반 모니터는 정확한 상태로 유지됩니다 — 하지만 *스팬*을 세는 모니터(`Span Count`를 사용하는 **Traces** 모니터, `Exception Count`를 사용하는 **Exceptions** 모니터)는 그에 비례해 더 적게 세므로 임계값을 같은 배수로 다시 튜닝해야 합니다. 나중에 결정하고 싶다면 Cast Operations이 서버 측에서 데이터를 삭제할 수도 있습니다(**Logs → Settings → Drop Filters**, **Metrics → Settings → Pipeline Rules**) — 이는 여전히 이그레스 비용이 들지만, 재배포 없이 변경할 수 있는 설정입니다.
 
 ### 레버 1 — 파드 로그는 보통 가장 큰 단일 소스입니다
 
@@ -453,7 +453,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
   심각도가 어떻게 판별되는지, 그리고 분류할 수 없는 로그는 어떻게 되는지는 [로그 심각도로 필터링](#로그-심각도로-필터링)을 참조하세요.
 
-- **OneUptime에서 파드 로그가 전혀 필요 없나요?** 끄세요:
+- **Cast Operations에서 파드 로그가 전혀 필요 없나요?** 끄세요:
 
   ```bash
   helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
@@ -643,10 +643,10 @@ helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
 
 ## 문제 해결
 
-> **가장 빠른 방법 — 진단 스크립트를 실행하세요.** 이 스크립트는 파드 상태를 검사하고, 수집 키를 디코딩 및 검증하며, 클러스터가 OneUptime에 도달할 수 있는지 확인하고, OneUptime에 토큰이 실제로 수락되는지 문의한 다음 — 단일 근본 원인 판정을 출력합니다:
+> **가장 빠른 방법 — 진단 스크립트를 실행하세요.** 이 스크립트는 파드 상태를 검사하고, 수집 키를 디코딩 및 검증하며, 클러스터가 Cast Operations에 도달할 수 있는지 확인하고, Cast Operations에 토큰이 실제로 수락되는지 문의한 다음 — 단일 근본 원인 판정을 출력합니다:
 >
 > ```bash
-> curl -fsSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
+> curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
 >   | bash -s -- -n oneuptime-agent
 > ```
 >
@@ -671,10 +671,10 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 1. 에이전트 파드가 실행 중인지 확인하세요: `kubectl get pods -n oneuptime-agent`
 2. metrics-collector 로그를 확인하세요: `kubectl logs -n oneuptime-agent -l component=metrics-collector -c otel-collector` (여기에 오류가 없다고 해서 데이터가 도착하고 있다는 의미는 **아닙니다** — 위 내용 참조)
-3. **수집 키를 검증하세요.** OneUptime에 토큰이 수락되는지 직접 문의하세요(`200` = 유효, `401` = 알 수 없음/취소됨):
+3. **수집 키를 검증하세요.** Cast Operations에 토큰이 수락되는지 직접 문의하세요(`200` = 유효, `401` = 알 수 없음/취소됨):
 
    ```bash
-   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://oneuptime.com/otlp/v1/validate
+   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
    ```
 
    `401`을 반환하면 릴리스의 키가 잘못되었거나 취소된 것입니다. *Project Settings → Telemetry Ingestion Keys*에서 유효한 키를 복사하여 다시 배포하세요:
@@ -685,7 +685,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
      --set oneuptime.apiKey=<LIVE_KEY>
    ```
 
-4. OneUptime URL이 올바른지, 그리고 클러스터가 네트워크를 통해 도달할 수 있는지 확인하세요.
+4. Cast Operations URL이 올바른지, 그리고 클러스터가 네트워크를 통해 도달할 수 있는지 확인하세요.
 5. 재설치 시 `clusterName`을 변경했다면 에이전트가 **새로운** 클러스터로 나타나며, 이전 항목은 "Disconnected" 상태로 남습니다(이는 예상된 동작이며 오래된 항목입니다).
 
 ### 로그가 나타나지 않음 (API 모드 전용)
@@ -718,7 +718,7 @@ kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
 
 1. eBPF DaemonSet이 정상인지 확인하세요: `kubectl get pods -n oneuptime-agent -l component=ebpf-instrument`
 2. OBI가 트래픽을 캡처하고 있는지 확인하기 위해 디버그 트레이스 프린터를 켜세요: `--set ebpf.printTraces=true --set ebpf.logLevel=debug`, 그런 다음 `kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200`을 확인하세요
-3. OBI의 stdout에서는 스팬이 보이지만 대시보드에는 보이지 않는다면, 문제는 컬렉터 → OneUptime 내보내기입니다 — metrics-collector 파드의 로그를 확인하세요.
+3. OBI의 stdout에서는 스팬이 보이지만 대시보드에는 보이지 않는다면, 문제는 컬렉터 → Cast Operations 내보내기입니다 — metrics-collector 파드의 로그를 확인하세요.
 
 ## 다음 단계
 

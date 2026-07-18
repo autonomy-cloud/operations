@@ -1,6 +1,6 @@
 # Exceptions Monitor
 
-Exceptions monitoring allows you to monitor application exceptions and errors, triggering alerts when exception counts exceed your configured thresholds. OneUptime evaluates exception data from your telemetry services over a time window.
+Exceptions monitoring allows you to monitor application exceptions and errors, triggering alerts when exception counts exceed your configured thresholds. Cast Operations evaluates exception data from your telemetry services over a time window.
 
 ## Overview
 
@@ -14,7 +14,7 @@ Exceptions monitors count and filter exceptions matching specific criteria. This
 
 ## Creating an Exceptions Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Exceptions** as the monitor type
 4. Select the telemetry services to monitor
@@ -24,7 +24,7 @@ Exceptions monitors count and filter exceptions matching specific criteria. This
 
 ### Telemetry Services
 
-Select one or more services to monitor exceptions from. Services must be sending exception data to OneUptime via OpenTelemetry.
+Select one or more services to monitor exceptions from. Services must be sending exception data to Cast Operations via OpenTelemetry.
 
 ### Exception Filters
 
@@ -80,4 +80,4 @@ Select one or more services to monitor exceptions from. Services must be sending
 
 ## Setup Requirements
 
-Exceptions monitoring requires your applications to send exception data to OneUptime via OpenTelemetry. See the [OpenTelemetry](/docs/telemetry/open-telemetry) documentation for setup instructions.
+Exceptions monitoring requires your applications to send exception data to Cast Operations via OpenTelemetry. See the [OpenTelemetry](/docs/telemetry/open-telemetry) documentation for setup instructions.

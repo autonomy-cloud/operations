@@ -1,8 +1,8 @@
-### OneUptime: Den kompletta open source-observability-plattformen
+### Cast Operations: Den kompletta open source-observability-plattformen
 
-OneUptime är en omfattande lösning för övervakning och hantering av dina onlinetjänster. Oavsett om du behöver kontrollera tillgängligheten för din webbplats, instrumentpanel, API eller någon annan onlineresurs, kan OneUptime varna ditt team när driftstopp inträffar och hålla dina kunder informerade med en statussida. OneUptime hjälper dig också att hantera incidenter, ställa in jourrotationer, köra tester, säkra dina tjänster, analysera loggar, spåra prestanda och felsöka fel.
+Cast Operations är en omfattande lösning för övervakning och hantering av dina onlinetjänster. Oavsett om du behöver kontrollera tillgängligheten för din webbplats, instrumentpanel, API eller någon annan onlineresurs, kan Cast Operations varna ditt team när driftstopp inträffar och hålla dina kunder informerade med en statussida. Cast Operations hjälper dig också att hantera incidenter, ställa in jourrotationer, köra tester, säkra dina tjänster, analysera loggar, spåra prestanda och felsöka fel.
 
-OneUptime ersätter flera verktyg med en integrerad plattform:
+Cast Operations ersätter flera verktyg med en integrerad plattform:
 
 ##### Tillgänglighetsövervakning
 
@@ -26,7 +26,7 @@ Samla in, lagra och analysera loggar från dina onlinetjänster. Sök, filtrera 
 
 ##### Arbetsflöden
 
-Integrera OneUptime med dina befintliga verktyg och automatisera dina arbetsflöden. Integrera med verktyg som Slack, Jira, GitHub och 5000+ andra.
+Integrera Cast Operations med dina befintliga verktyg och automatisera dina arbetsflöden. Integrera med verktyg som Slack, Jira, GitHub och 5000+ andra.
 
 ##### Application Performance Monitoring
 

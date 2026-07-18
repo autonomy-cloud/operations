@@ -1,22 +1,22 @@
 # Oversikt over arbeidsflyter
 
-Arbeidsflyter lar deg automatisere oppgaver i OneUptime uten å skrive kode. Dra og slipp noen blokker på et lerret, koble dem sammen, og du har automatisering som kjører hver gang noe skjer — en hendelse åpnes, en tidsplan utløses, eller et annet verktøy sender data til OneUptime.
+Arbeidsflyter lar deg automatisere oppgaver i Cast Operations uten å skrive kode. Dra og slipp noen blokker på et lerret, koble dem sammen, og du har automatisering som kjører hver gang noe skjer — en hendelse åpnes, en tidsplan utløses, eller et annet verktøy sender data til Cast Operations.
 
 Tenk på arbeidsflyter som bakgrunnshjelpere for prosjektet ditt: de reagerer på hendelser, snakker med andre verktøy og holder ting stille i synk mens du fokuserer på arbeidet ditt.
 
 ## Hva du kan gjøre med arbeidsflyter
 
-- **Koble OneUptime til de andre verktøyene dine** — send hendelser til Slack, opprett Jira-saker, post til en webhook i stacken din.
-- **Reager på det som skjer i OneUptime** — når en kritisk hendelse opprettes, varsle vakthavende team og opprett en sak automatisk.
+- **Koble Cast Operations til de andre verktøyene dine** — send hendelser til Slack, opprett Jira-saker, post til en webhook i stacken din.
+- **Reager på det som skjer i Cast Operations** — når en kritisk hendelse opprettes, varsle vakthavende team og opprett en sak automatisk.
 - **Kjør jobber etter en tidsplan** — hvert femte minutt, hver natt, hver mandag morgen.
-- **Motta data utenfra** — la andre systemer pushe data inn i OneUptime via en unik URL.
+- **Motta data utenfra** — la andre systemer pushe data inn i Cast Operations via en unik URL.
 - **Gjenbruk vanlig automatisering** — bygg det én gang, kall det fra en hvilken som helst annen arbeidsflyt.
 
 ## Hvordan en arbeidsflyt fungerer
 
 Hver arbeidsflyt har tre deler:
 
-1. **En trigger** — hva som starter arbeidsflyten. Dette kan være en manuell knapp, en tidsplan, en innkommende webhook, eller en hendelse i OneUptime (som en ny hendelse).
+1. **En trigger** — hva som starter arbeidsflyten. Dette kan være en manuell knapp, en tidsplan, en innkommende webhook, eller en hendelse i Cast Operations (som en ny hendelse).
 2. **Én eller flere komponenter** — hva arbeidsflyten gjør. Send en melding, gjør et HTTP-kall, kjør en rask sjekk, forgren basert på en betingelse.
 3. **Koblinger mellom dem** — du tegner linjer fra én blokk til den neste for å bestemme rekkefølgen.
 
@@ -32,7 +32,7 @@ Du bygger alt dette visuelt på et lerret. Ingen koding kreves for de fleste arb
 | **Kjøring**         | Én eksekvering av arbeidsflyten. Lagres med tidsstempler og utdata fra hver blokk.                    |
 | **Global variabel** | En verdi (som en API-nøkkel) du lagrer én gang og gjenbruker i en hvilken som helst arbeidsflyt.      |
 
-## Hvor du finner arbeidsflyter i OneUptime
+## Hvor du finner arbeidsflyter i Cast Operations
 
 Åpne **Arbeidsflyter** i venstre navigasjon. Derfra:
 
@@ -46,7 +46,7 @@ Du bygger alt dette visuelt på et lerret. Ingen koding kreves for de fleste arb
 ## Bygge din første arbeidsflyt
 
 1. **Opprett** — gi arbeidsflyten din et navn og en kort beskrivelse.
-2. **Velg en trigger** — manuell, planlagt, webhook eller en hendelse fra OneUptime.
+2. **Velg en trigger** — manuell, planlagt, webhook eller en hendelse fra Cast Operations.
 3. **Legg til komponenter** — dra handlinger inn på lerretet og koble dem sammen.
 4. **Test** — klikk **Kjør manuelt** og se hva som skjer i loggene.
 5. **Slå den på** — vri på **Aktivert**-bryteren i Innstillinger når du er klar.
@@ -63,7 +63,7 @@ Si at du vil poste i Slack hver gang en kritisk hendelse opprettes:
 
 Neste gang noen åpner en hendelse med "Sev 1" i tittelen, lyser Slack opp.
 
-## Hvordan arbeidsflyter passer sammen med resten av OneUptime
+## Hvordan arbeidsflyter passer sammen med resten av Cast Operations
 
 - **Monitorer** oppdager problemet. **Hendelser** registrerer det. **Arbeidsflyter** reagerer på det.
 - **Runbooks** er trinn-for-trinn-veiledninger for mennesker. Arbeidsflyter er automatisering uten oppsyn. Bruk en runbook når et menneske må ta beslutninger; bruk en arbeidsflyt når trinnene er automatiske.

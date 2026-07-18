@@ -1,18 +1,18 @@
 # Jira-Integration
 
-Öffnen Sie automatisch ein [Jira](https://www.atlassian.com/software/jira)-Issue, sobald ein OneUptime-Vorfall erstellt wird – damit die technische Arbeit dort nachverfolgt wird, wo Ihre Entwickler bereits arbeiten, mit einem Link zurück zum Vorfall.
+Öffnen Sie automatisch ein [Jira](https://www.atlassian.com/software/jira)-Issue, sobald ein Cast Operations-Vorfall erstellt wird – damit die technische Arbeit dort nachverfolgt wird, wo Ihre Entwickler bereits arbeiten, mit einem Link zurück zum Vorfall.
 
-Diese Integration ist **ausgehend**: OneUptime ruft die REST-API von Jira auf. Sie verwendet einen OneUptime-**[Workflow](/docs/workflows/index)** mit einem **Incident → On Create**-Auslöser und einer **API-Komponente**. Optional können Sie einen **eingehenden** Pfad hinzufügen, sodass das Schließen des Jira-Issues den OneUptime-Vorfall auflöst.
+Diese Integration ist **ausgehend**: Cast Operations ruft die REST-API von Jira auf. Sie verwendet einen Cast Operations-**[Workflow](/docs/workflows/index)** mit einem **Incident → On Create**-Auslöser und einer **API-Komponente**. Optional können Sie einen **eingehenden** Pfad hinzufügen, sodass das Schließen des Jira-Issues den Cast Operations-Vorfall auflöst.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
+Cast Operations Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
 ```
 
 ## Voraussetzungen
 
 - Eine Jira-Cloud-Site (`https://your-domain.atlassian.net`) und ein Projekt, in dem Issues angelegt werden sollen – notieren Sie sich den **Projektschlüssel** (z. B. `OPS`).
 - Ein Jira-Konto, das Issues erstellen kann, sowie ein **API-Token** dafür von [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
-- Ein OneUptime-Projekt, in dem Sie Workflows erstellen können.
+- Ein Cast Operations-Projekt, in dem Sie Workflows erstellen können.
 
 > Verwenden Sie **Jira Data Center / Server** (selbstverwaltet)? Der Ablauf ist identisch – verwenden Sie Ihre eigene Basis-URL und ein [Personal Access Token](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) mit einem `Bearer`-Auth-Header statt Basic-Auth. Der Endpunkt `/rest/api/2/issue` akzeptiert eine Klartextbeschreibung, was die Vorlagengestaltung einfacher macht.
 
@@ -26,7 +26,7 @@ Jira Cloud verwendet **Basic-Auth** mit Ihrer E-Mail und Ihrem API-Token, Base64
    printf '%s' 'you@example.com:your_api_token' | base64
    ```
 
-2. Gehen Sie in OneUptime zu **Workflows → Global Variables → Create**.
+2. Gehen Sie in Cast Operations zu **Workflows → Global Variables → Create**.
 3. Benennen Sie die Variable `JIRA_AUTH`, fügen Sie die Base64-Zeichenkette als Wert ein und aktivieren Sie **Is Secret**.
 
 Jetzt können Sie `Basic {{variable.JIRA_AUTH}}` als Auth-Header verwenden, und der Token erscheint nie im Workflow oder dessen Logs.
@@ -53,7 +53,7 @@ Jetzt können Sie `Basic {{variable.JIRA_AUTH}}` als Auth-Header verwenden, und 
        "fields": {
          "project": { "key": "OPS" },
          "issuetype": { "name": "Bug" },
-         "summary": "OneUptime incident: {{Incident.title}}",
+         "summary": "Cast Operations incident: {{Incident.title}}",
          "description": {
            "type": "doc",
            "version": 1,
@@ -77,7 +77,7 @@ Jetzt können Sie `Basic {{variable.JIRA_AUTH}}` als Auth-Header verwenden, und 
 ## Schritt 3 — Testen
 
 1. Aktivieren Sie den Workflow mit **Enabled**.
-2. Erstellen Sie einen Test-Vorfall in OneUptime (oder lösen Sie einen aus einem Monitor heraus aus).
+2. Erstellen Sie einen Test-Vorfall in Cast Operations (oder lösen Sie einen aus einem Monitor heraus aus).
 3. Öffnen Sie den Tab **Logs** des Workflows. Der **API**-Block sollte einen `201`-Status und einen Response-Body anzeigen, der den `key` des neuen Issues enthält (zum Beispiel `OPS-1234`).
 4. Prüfen Sie Jira – das Issue ist vorhanden.
 
@@ -94,13 +94,13 @@ Dies ermöglicht auch die unten beschriebene optionale bidirektionale Synchronis
 
 ## Bidirektionale Synchronisierung (optional)
 
-Um den OneUptime-Vorfall aufzulösen, wenn jemand das Jira-Issue schließt, fügen Sie einen **eingehenden** Workflow hinzu:
+Um den Cast Operations-Vorfall aufzulösen, wenn jemand das Jira-Issue schließt, fügen Sie einen **eingehenden** Workflow hinzu:
 
 1. Erstellen Sie einen zweiten Workflow, der mit einem **Webhook**-Auslöser beginnt, und kopieren Sie dessen URL.
 2. Gehen Sie in Jira zu **Project settings → Automation → Create rule**:
 
    - **Trigger**: _Issue transitioned_ zu **Done** (oder _Issue resolved_).
-   - **Action**: _Send web request_ → Methode `POST`, URL = Ihre Workflow-Webhook-URL, Body enthält den Issue-Key und die OneUptime-Vorfall-ID, z. B.:
+   - **Action**: _Send web request_ → Methode `POST`, URL = Ihre Workflow-Webhook-URL, Body enthält den Issue-Key und die Cast Operations-Vorfall-ID, z. B.:
 
      ```json
      { "issueKey": "{{issue.key}}", "status": "resolved" }
@@ -108,13 +108,13 @@ Um den OneUptime-Vorfall aufzulösen, wenn jemand das Jira-Issue schließt, füg
 
 3. Verwenden Sie im Workflow einen **Find Incident**-Block, um den Vorfall anhand des gespeicherten Keys zu finden, dann einen **Update Incident**-Block, um ihn in Ihren aufgelösten Zustand zu bewegen.
 
-Wenn Sie den Jira-Key in Schritt 4 am Vorfall gespeichert haben, ist die Zuordnung unkompliziert. Siehe [Komponenten → OneUptime-Datenkomponenten](/docs/workflows/components#oneuptime-data-components).
+Wenn Sie den Jira-Key in Schritt 4 am Vorfall gespeichert haben, ist die Zuordnung unkompliziert. Siehe [Komponenten → Cast Operations-Datenkomponenten](/docs/workflows/components#oneuptime-data-components).
 
 ## Das Issue anpassen
 
 Einige häufige Anpassungen am Body des API-Blocks:
 
-- **Priorität** — fügen Sie `"priority": { "name": "High" }` in `fields` ein. Sie können auf `{{Incident.incidentSeverity.name}}` mit **Conditions** verzweigen, um OneUptime-Schweregrade auf Jira-Prioritäten abzubilden.
+- **Priorität** — fügen Sie `"priority": { "name": "High" }` in `fields` ein. Sie können auf `{{Incident.incidentSeverity.name}}` mit **Conditions** verzweigen, um Cast Operations-Schweregrade auf Jira-Prioritäten abzubilden.
 - **Labels** — fügen Sie `"labels": ["oneuptime", "incident"]` hinzu.
 - **Verantwortlicher** — fügen Sie `"assignee": { "id": "<accountId>" }` hinzu (Jira Cloud verwendet Account-IDs, keine Benutzernamen).
 - **Benutzerdefinierte Felder** — fügen Sie `"customfield_XXXXX": "..."` mit der Feld-ID aus Ihrer Jira-Administration hinzu.

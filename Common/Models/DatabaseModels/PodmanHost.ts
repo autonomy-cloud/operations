@@ -78,7 +78,7 @@ import {
   pluralName: "Podman Hosts",
   icon: IconProp.Cube,
   tableDescription:
-    "Podman Hosts that are being monitored in this project. Each host is auto-discovered when the OneUptime Podman Agent sends metrics, or can be manually registered.",
+    "Podman Hosts that are being monitored in this project. Each host is auto-discovered when the Cast Operations Podman Agent sends metrics, or can be manually registered.",
 })
 @Entity({
   name: "PodmanHost",
@@ -153,7 +153,7 @@ export default class PodmanHost extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -383,7 +383,7 @@ export default class PodmanHost extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Agent Version",
     description:
-      "Version of the OneUptime Podman agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
+      "Version of the Cast Operations Podman agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
     example: "1.0.0",
   })
   @Column({

@@ -111,7 +111,7 @@ export default class OpenSourceDeployment extends BaseModel {
     required: true,
     type: TableColumnType.ShortText,
     title: "Version",
-    description: "OneUptime version of the self-hosted instance.",
+    description: "Cast Operations version of the self-hosted instance.",
   })
   @Column({
     nullable: false,

@@ -1,6 +1,6 @@
 # DNS-monitor
 
-DNS-overvåking lar deg overvåke helse og korrekthet for DNS-oppslag for dine domener. OneUptime spør periodisk DNS-poster og validerer svarene mot dine konfigurerte kriterier.
+DNS-overvåking lar deg overvåke helse og korrekthet for DNS-oppslag for dine domener. Cast Operations spør periodisk DNS-poster og validerer svarene mot dine konfigurerte kriterier.
 
 ## Oversikt
 
@@ -14,7 +14,7 @@ DNS-monitorer spør DNS-servere om spesifikke posttyper og evaluerer resultatene
 
 ## Opprette en DNS-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **DNS** som monitortype
 4. Skriv inn domenenavnet og posttypen som skal spørres

@@ -1,6 +1,6 @@
 # Monitor API
 
-Il monitoraggio API ti consente di monitorare la disponibilità, le prestazioni e la correttezza delle tue API HTTP/REST. OneUptime invia periodicamente richieste HTTP agli endpoint della tua API e valuta le risposte in base ai criteri configurati.
+Il monitoraggio API ti consente di monitorare la disponibilità, le prestazioni e la correttezza delle tue API HTTP/REST. Cast Operations invia periodicamente richieste HTTP agli endpoint della tua API e valuta le risposte in base ai criteri configurati.
 
 ## Panoramica
 
@@ -15,7 +15,7 @@ I monitor API effettuano richieste HTTP ai tuoi endpoint e controllano le rispos
 
 ## Creazione di un Monitor API
 
-1. Vai su **Monitor** nella Dashboard di OneUptime
+1. Vai su **Monitor** nella Dashboard di Cast Operations
 2. Clicca su **Crea Monitor**
 3. Seleziona **API** come tipo di monitor
 4. Inserisci l'URL dell'API e configura le impostazioni della richiesta
@@ -85,7 +85,7 @@ Per le richieste POST, PUT e PATCH, puoi specificare un body della richiesta JSO
 
 #### Non Seguire i Reindirizzamenti
 
-Per impostazione predefinita, OneUptime segue i reindirizzamenti HTTP (301, 302, ecc.). Abilita questa opzione se vuoi monitorare la risposta di reindirizzamento stessa piuttosto che la destinazione finale.
+Per impostazione predefinita, Cast Operations segue i reindirizzamenti HTTP (301, 302, ecc.). Abilita questa opzione se vuoi monitorare la risposta di reindirizzamento stessa piuttosto che la destinazione finale.
 
 #### Allow Self-Signed Certificates
 
@@ -99,7 +99,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

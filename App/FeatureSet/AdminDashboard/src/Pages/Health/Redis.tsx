@@ -10,9 +10,6 @@ const HealthRedis: FunctionComponent = (): ReactElement => {
     <HealthPage
       title="Redis"
       currentRoute={RouteMap[PageMap.HEALTH_REDIS] as Route}
-      enterpriseOnly={true}
-      enterpriseFeatureName="Redis health"
-      enterpriseFeatureDescription="Connectivity and memory capacity for the Redis backing this instance."
     >
       <RedisHealth />
     </HealthPage>

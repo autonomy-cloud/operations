@@ -1,21 +1,21 @@
 # Discord 통합
 
-인시던트 업데이트를 [Discord](https://discord.com) 채널에 게시합니다. OneUptime에는 내장 **Discord** 워크플로 컴포넌트가 있어 가장 빠르게 설정할 수 있는 통합 중 하나입니다.
+인시던트 업데이트를 [Discord](https://discord.com) 채널에 게시합니다. Cast Operations에는 내장 **Discord** 워크플로 컴포넌트가 있어 가장 빠르게 설정할 수 있는 통합 중 하나입니다.
 
-이 통합은 **아웃바운드**: OneUptime이 수신 webhook URL을 통해 Discord 채널에 게시합니다.
+이 통합은 **아웃바운드**: Cast Operations이 수신 webhook URL을 통해 Discord 채널에 게시합니다.
 
 ```text
-OneUptime Incident → On Create  ──►  Discord component  ──►  message in your channel
+Cast Operations Incident → On Create  ──►  Discord component  ──►  message in your channel
 ```
 
 ## 1단계 — Discord webhook 만들기
 
 1. Discord에서 대상 채널의 **Edit Channel → Integrations → Webhooks** 를 엽니다.
-2. **New Webhook** 을 클릭하고 이름(예: `OneUptime`)을 지정하고, 채널을 선택하고 **Copy Webhook URL** 을 클릭합니다.
+2. **New Webhook** 을 클릭하고 이름(예: `Cast Operations`)을 지정하고, 채널을 선택하고 **Copy Webhook URL** 을 클릭합니다.
 
 ## 2단계 — webhook URL 저장 (선택 사항이지만 권장)
 
-1. OneUptime에서 **Workflows → Global Variables → Create** 로 이동합니다.
+1. Cast Operations에서 **Workflows → Global Variables → Create** 로 이동합니다.
 2. 이름을 `DISCORD_WEBHOOK_URL` 로 지정하고 URL을 붙여넣고 **Is Secret** 를 켭니다.
 
 변수에 저장하면 여러 워크플로에서 재사용하고 한 곳에서 교체할 수 있습니다.

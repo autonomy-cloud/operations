@@ -186,7 +186,7 @@ const GettingStarted: FunctionComponent<ComponentProps> = (
 
   return (
     <Card
-      title="Welcome to OneUptime 👋"
+      title="Welcome to Cast Operations 👋"
       description="A few quick steps and your project will be up and running. Pick up where you left off anytime."
       rightElement={
         <Button

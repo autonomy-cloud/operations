@@ -2,15 +2,15 @@
 
 ## Installation från Terraform Registry
 
-OneUptime Terraform-leverantören finns tillgänglig på det officiella [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime).
+Cast Operations Terraform-leverantören finns tillgänglig på det officiella [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations).
 
-### För OneUptime Cloud-användare
+### För Cast Operations Cloud-användare
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use latest compatible version
     }
   }
@@ -18,60 +18,60 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
 
-### För egeninstallerade OneUptime-användare
+### För egeninstallerade Cast Operations-användare
 
-⚠️ **Kritiskt**: Egeninstallerade kunder måste låsa leverantörens version till att exakt matcha sin OneUptime-installation.
+⚠️ **Kritiskt**: Egeninstallerade kunder måste låsa leverantörens version till att exakt matcha sin Cast Operations-installation.
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Replace with your exact OneUptime version
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Replace with your exact Cast Operations version
     }
   }
   required_version = ">= 1.0"
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # Your self-hosted URL
+  oneuptime_url = "https://operations.yourcompany.com"  # Your self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Varför versionsinlåsning för egeninstallerade?
 
-OneUptime Terraform-leverantören genereras automatiskt från OneUptime API-specifikationen. Varje OneUptime-version kan ha:
+Cast Operations Terraform-leverantören genereras automatiskt från Cast Operations API-specifikationen. Varje Cast Operations-version kan ha:
 
 - Olika API-slutpunkter
 - Uppdaterade resursscheman
 - Nya eller borttagna funktioner
 - Ändrade valideringsregler
 
-Att använda en leverantörsversion som inte matchar din OneUptime-installation kan resultera i:
+Att använda en leverantörsversion som inte matchar din Cast Operations-installation kan resultera i:
 
 - API-kompatibilitetsfel
 - Misslyckad resursskapande/uppdatering
 - Oväntat beteende
 - Resursstatusdrift
 
-## Hitta din OneUptime-version
+## Hitta din Cast Operations-version
 
 ### Metod 1: Instrumentpanel
 
-1. Logga in på din OneUptime-instrumentpanel
+1. Logga in på din Cast Operations-instrumentpanel
 2. Gå till **Inställningar** → **Om**
 3. Notera versionsnumret (t.ex. "7.0.123")
 
 ### Metod 2: API
 
 ```bash
-curl https://your-oneuptime-instance.com/api/version | jq '.version'
+curl https://your-operations-instance.com/api/version | jq '.version'
 ```
 
 ### Metod 3: Docker
@@ -83,14 +83,14 @@ docker images | grep oneuptime
 
 ## Leverantörsregistreringsinformation
 
-- **Registry-URL**: https://registry.terraform.io/providers/oneuptime/oneuptime
-- **Källrepositorie**: https://github.com/OneUptime/terraform-provider-oneuptime
-- **Dokumentation**: https://registry.terraform.io/providers/oneuptime/oneuptime/latest/docs
-- **Versioner**: https://github.com/OneUptime/terraform-provider-oneuptime/releases
+- **Registry-URL**: https://registry.terraform.io/providers/autonomy-cloud/operations
+- **Källrepositorie**: https://github.com/autonomy-cloud/operations
+- **Dokumentation**: https://registry.terraform.io/providers/autonomy-cloud/operations/latest/docs
+- **Versioner**: https://github.com/autonomy-cloud/operations
 
 ## Versionskompatibilitetsmatris
 
-| OneUptime-version | Leverantörsversion | Terraform-konfiguration |
+| Cast Operations-version | Leverantörsversion | Terraform-konfiguration |
 | ----------------- | ------------------ | ----------------------- |
 | 7.0.x             | 7.0.x              | `version = "~> 7.0.0"`  |
 | 7.1.x             | 7.1.x              | `version = "~> 7.1.0"`  |
@@ -106,4 +106,4 @@ docker images | grep oneuptime
 
 ## Registreruppdateringar
 
-Leverantören publiceras automatiskt till Terraform Registry när nya OneUptime-versioner lanseras. Molnanvändare kan använda semantisk versionshantering (`~> 7.0`) för att automatiskt få kompatibla uppdateringar, medan egeninstallerade användare bör låsa till exakta versioner.
+Leverantören publiceras automatiskt till Terraform Registry när nya Cast Operations-versioner lanseras. Molnanvändare kan använda semantisk versionshantering (`~> 7.0`) för att automatiskt få kompatibla uppdateringar, medan egeninstallerade användare bör låsa till exakta versioner.

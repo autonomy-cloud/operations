@@ -1,14 +1,14 @@
 # Incoming Call Policy (Twilio Integration)
 
-Incoming Call Policies बाहरी callers को एक dedicated phone number dial करके आपके on-call engineers तक पहुंचने की अनुमति देती हैं। जब कोई call करता है, OneUptime आपके configured escalation rules के माध्यम से call route करता है जब तक कोई engineer answer नहीं करता।
+Incoming Call Policies बाहरी callers को एक dedicated phone number dial करके आपके on-call engineers तक पहुंचने की अनुमति देती हैं। जब कोई call करता है, Cast Operations आपके configured escalation rules के माध्यम से call route करता है जब तक कोई engineer answer नहीं करता।
 
 ## यह कैसे काम करता है
 
 ```mermaid
 flowchart TD
     A[Caller dials<br/>Incoming Call Number] --> B[Twilio receives call]
-    B --> C[Twilio sends webhook<br/>to OneUptime]
-    C --> D[OneUptime plays<br/>greeting message]
+    B --> C[Twilio sends webhook<br/>to Cast Operations]
+    C --> D[Cast Operations plays<br/>greeting message]
     D --> E[Load Escalation Rules]
     E --> F{Rule 1:<br/>Try On-Call User}
     F -->|No Answer| G{Rule 2:<br/>Try Backup Team}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant Caller
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant OnCallEngineer
 
     Caller->>Twilio: Dials incoming call number
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML: Play greeting
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML: Play greeting
     Twilio->>Caller: "Please wait while we connect you..."
 
     loop Escalation Rules
-        OneUptime->>OneUptime: Get next escalation rule
-        OneUptime->>Twilio: TwiML: Dial on-call user
+        Cast Operations->>Cast Operations: Get next escalation rule
+        Cast Operations->>Twilio: TwiML: Dial on-call user
         Twilio->>OnCallEngineer: Ring phone
         alt Engineer Answers
             OnCallEngineer->>Twilio: Picks up
-            Twilio->>OneUptime: Dial status: completed
+            Twilio->>Cast Operations: Dial status: completed
             Twilio->>Caller: Connect to engineer
             Note over Caller,OnCallEngineer: Call in progress
         else No Answer (timeout)
-            Twilio->>OneUptime: Dial status: no-answer
-            OneUptime->>OneUptime: Try next rule
+            Twilio->>Cast Operations: Dial status: no-answer
+            Cast Operations->>Cast Operations: Try next rule
         end
     end
 
     alt All Rules Exhausted
-        OneUptime->>Twilio: TwiML: Play no-answer message
+        Cast Operations->>Twilio: TwiML: Play no-answer message
         Twilio->>Caller: "No one is available..."
         Twilio->>Caller: Hangup
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - एक Twilio account - [https://www.twilio.com](https://www.twilio.com) पर बनाएं
 - आपका Twilio Account SID और Auth Token
-- आपके OneUptime self-hosted instance तक पहुंच
+- आपके Cast Operations self-hosted instance तक पहुंच
 
 ## Overview
 
@@ -74,7 +74,7 @@ Incoming Call Policy feature इस तरह काम करता है:
 4. caller को पहले available on-call engineer से connect करना
 5. कोई answer नहीं होने पर अगले rule पर escalate करना
 
-चूंकि आप OneUptime self-host कर रहे हैं, आपको अपना खुद का Twilio account configure करना होगा। यह आपको अपने phone numbers और billing पर पूर्ण नियंत्रण देता है।
+चूंकि आप Cast Operations self-host कर रहे हैं, आपको अपना खुद का Twilio account configure करना होगा। यह आपको अपने phone numbers और billing पर पूर्ण नियंत्रण देता है।
 
 ## चरण 1: Twilio Account बनाएं
 
@@ -82,9 +82,9 @@ Incoming Call Policy feature इस तरह काम करता है:
 2. verification process पूरी करें
 3. Twilio Console dashboard से अपना **Account SID** और **Auth Token** नोट करें
 
-## चरण 2: OneUptime में Call/SMS Config Configure करें
+## चरण 2: Cast Operations में Call/SMS Config Configure करें
 
-1. अपने OneUptime Dashboard में log in करें
+1. अपने Cast Operations Dashboard में log in करें
 2. **Project Settings** > **Call & SMS** > **Custom Call/SMS Config** पर जाएं
 3. **Create Custom Call/SMS Config** पर क्लिक करें
 4. निम्नलिखित fields भरें:
@@ -120,15 +120,15 @@ Phone number सेट अप करने के लिए आपके पा�
 यदि आपके Twilio account में पहले से phone numbers हैं:
 
 1. **Phone Number** card में, **Use Existing Number** पर क्लिक करें
-2. OneUptime आपके Twilio account से सभी phone numbers fetch करेगा
+2. Cast Operations आपके Twilio account से सभी phone numbers fetch करेगा
 3. वह phone number चुनें जिसे आप उपयोग करना चाहते हैं
 4. इसे policy assign करने के लिए **Use This** पर क्लिक करें
 
-> **नोट**: यदि phone number में पहले से webhook configured है, तो इसे OneUptime की ओर point करने के लिए update किया जाएगा।
+> **नोट**: यदि phone number में पहले से webhook configured है, तो इसे Cast Operations की ओर point करने के लिए update किया जाएगा।
 
 ### Option B: एक नया Phone Number खरीदें
 
-OneUptime से directly नया phone number खरीदने के लिए:
+Cast Operations से directly नया phone number खरीदने के लिए:
 
 1. **Phone Number** card में, **Buy New Number** पर क्लिक करें
 2. dropdown से एक **Country** चुनें
@@ -235,7 +235,7 @@ Users को incoming calls receive करने के लिए, उनके 
 ### Calls receive नहीं हो रहीं
 
 - सत्यापित करें कि Twilio configuration policy से सही तरीके से linked है
-- जांचें कि आपका OneUptime instance internet से accessible है
+- जांचें कि आपका Cast Operations instance internet से accessible है
 - सत्यापित करें कि Twilio Account SID और Auth Token सही हैं
 - Twilio Console में error logs जांचें
 
@@ -255,8 +255,8 @@ Users को incoming calls receive करने के लिए, उनके 
 ## Security Considerations
 
 - अपना Twilio Auth Token secure रखें और इसे publicly कभी expose न करें
-- अपने OneUptime instance के लिए HTTPS उपयोग करें
-- OneUptime webhook signatures validate करता है ताकि requests Twilio से आती हैं
+- अपने Cast Operations instance के लिए HTTPS उपयोग करें
+- Cast Operations webhook signatures validate करता है ताकि requests Twilio से आती हैं
 - Consider करें कि कौन से phone numbers आपकी incoming call policies को call कर सकते हैं
 
 ## Support
@@ -264,5 +264,5 @@ Users को incoming calls receive करने के लिए, उनके 
 Incoming Call Policy feature में issues के लिए, कृपया:
 
 1. Twilio Console में error logs जांचें
-2. OneUptime server logs review करें
-3. [hello@oneuptime.com](mailto:hello@oneuptime.com) पर support से संपर्क करें
+2. Cast Operations server logs review करें
+3. [hello@visca.ai](mailto:hello@visca.ai) पर support से संपर्क करें

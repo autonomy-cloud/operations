@@ -707,7 +707,6 @@ export const SettingsRoutePath: Dictionary<string> = {
   [PageMap.SETTINGS_AI_LLM_PROVIDER_VIEW]: `llm-providers/${RouteParams.ModelID}`,
   [PageMap.SETTINGS_AI_AGENTS]: "ai-agents",
   [PageMap.SETTINGS_AI_AGENT_VIEW]: `ai-agents/${RouteParams.ModelID}`,
-  [PageMap.SETTINGS_AI_CREDITS]: "ai-credits",
   [PageMap.SETTINGS_AI_LOGS]: "ai-logs",
   [PageMap.SETTINGS_MCP_SERVER]: "mcp-server",
   [PageMap.SETTINGS_APIKEYS]: `api-keys`,
@@ -723,9 +722,6 @@ export const SettingsRoutePath: Dictionary<string> = {
   [PageMap.SETTINGS_SSO]: "sso",
   [PageMap.SETTINGS_OIDC]: "oidc",
   [PageMap.SETTINGS_SCIM]: "scim",
-  [PageMap.SETTINGS_BILLING]: "billing",
-  [PageMap.SETTINGS_BILLING_INVOICES]: "invoices",
-  [PageMap.SETTINGS_USAGE_HISTORY]: "usage-history",
   [PageMap.SETTINGS_LABELS]: "labels",
 };
 
@@ -4654,12 +4650,6 @@ const RouteMap: Dictionary<Route> = {
     }`,
   ),
 
-  [PageMap.SETTINGS_AI_CREDITS]: new Route(
-    `/dashboard/${RouteParams.ProjectID}/settings/${
-      SettingsRoutePath[PageMap.SETTINGS_AI_CREDITS]
-    }`,
-  ),
-
   [PageMap.SETTINGS_AI_LOGS]: new Route(
     `/dashboard/${RouteParams.ProjectID}/settings/${
       SettingsRoutePath[PageMap.SETTINGS_AI_LOGS]
@@ -4741,24 +4731,6 @@ const RouteMap: Dictionary<Route> = {
   [PageMap.SETTINGS_SCIM]: new Route(
     `/dashboard/${RouteParams.ProjectID}/settings/${
       SettingsRoutePath[PageMap.SETTINGS_SCIM]
-    }`,
-  ),
-
-  [PageMap.SETTINGS_BILLING]: new Route(
-    `/dashboard/${RouteParams.ProjectID}/settings/${
-      SettingsRoutePath[PageMap.SETTINGS_BILLING]
-    }`,
-  ),
-
-  [PageMap.SETTINGS_BILLING_INVOICES]: new Route(
-    `/dashboard/${RouteParams.ProjectID}/settings/${
-      SettingsRoutePath[PageMap.SETTINGS_BILLING_INVOICES]
-    }`,
-  ),
-
-  [PageMap.SETTINGS_USAGE_HISTORY]: new Route(
-    `/dashboard/${RouteParams.ProjectID}/settings/${
-      SettingsRoutePath[PageMap.SETTINGS_USAGE_HISTORY]
     }`,
   ),
 

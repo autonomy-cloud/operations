@@ -1,18 +1,18 @@
-# OneUptime Terraform-leverantör
+# Cast Operations Terraform-leverantör
 
-OneUptime Terraform-leverantören gör det möjligt att hantera OneUptime-resurser med Infrastructure as Code (IaC). Denna leverantör gör det möjligt att konfigurera övervakning, incidenthantering, statussidor och andra OneUptime-funktioner via Terraform.
+Cast Operations Terraform-leverantören gör det möjligt att hantera Cast Operations-resurser med Infrastructure as Code (IaC). Denna leverantör gör det möjligt att konfigurera övervakning, incidenthantering, statussidor och andra Cast Operations-funktioner via Terraform.
 
 ## Installation
 
 ### Från Terraform Registry (rekommenderas)
 
-OneUptime Terraform-leverantören finns tillgänglig på [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime).
+Cast Operations Terraform-leverantören finns tillgänglig på [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations).
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use latest 7.x version
     }
   }
@@ -22,14 +22,14 @@ terraform {
 
 ### Versionsinlåsning för egeninstallerade installationer
 
-⚠️ **Viktigt för egeninstallerade kunder**: Lås alltid Terraform-leverantörens version till att matcha din OneUptime-installationsversion för att säkerställa API-kompatibilitet.
+⚠️ **Viktigt för egeninstallerade kunder**: Lås alltid Terraform-leverantörens version till att matcha din Cast Operations-installationsversion för att säkerställa API-kompatibilitet.
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Pin to exact version matching your OneUptime installation
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Pin to exact version matching your Cast Operations installation
     }
   }
   required_version = ">= 1.0"
@@ -42,7 +42,7 @@ terraform {
 
 ```hcl
 provider "oneuptime" {
-  oneuptime_url = "https://your-oneuptime-instance.com"  # Or https://oneuptime.com for cloud
+  oneuptime_url = "https://your-operations-instance.com"  # Or https://visca.ai for cloud
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -52,7 +52,7 @@ provider "oneuptime" {
 Du kan konfigurera leverantören med miljövariabler:
 
 ```bash
-export ONEUPTIME_URL="https://your-oneuptime-instance.com"
+export ONEUPTIME_URL="https://your-operations-instance.com"
 export ONEUPTIME_API_KEY="your-api-key-here"
 ```
 
@@ -60,14 +60,14 @@ export ONEUPTIME_API_KEY="your-api-key-here"
 
 | Argument        | Miljövariabel       | Beskrivning          | Obligatorisk |
 | --------------- | ------------------- | -------------------- | ------------ |
-| `oneuptime_url` | `ONEUPTIME_URL`     | OneUptime URL        | Ja           |
-| `api_key`       | `ONEUPTIME_API_KEY` | OneUptime API-nyckel | Ja           |
+| `oneuptime_url` | `ONEUPTIME_URL`     | Cast Operations URL        | Ja           |
+| `api_key`       | `ONEUPTIME_API_KEY` | Cast Operations API-nyckel | Ja           |
 
 ## Snabbstart
 
 ### 1. Skapa API-nyckel
 
-Skapa först en API-nyckel i din OneUptime-instrumentpanel:
+Skapa först en API-nyckel i din Cast Operations-instrumentpanel:
 
 1. Gå till **Inställningar** → **API-nycklar**
 2. Klicka på **Skapa API-nyckel**
@@ -83,19 +83,19 @@ Skapa en `main.tf`-fil:
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # Use your instance URL
+  oneuptime_url = "https://visca.ai"  # Use your instance URL
   api_key       = var.oneuptime_api_key
 }
 
 variable "project_id" {
-  description = "OneUptime project ID"
+  description = "Cast Operations project ID"
   type        = string
 }
 
@@ -126,7 +126,7 @@ terraform apply
 
 ## Tillgängliga resurser
 
-OneUptime Terraform-leverantören stöder följande resurser:
+Cast Operations Terraform-leverantören stöder följande resurser:
 
 ### Kärnresurser
 
@@ -160,7 +160,7 @@ OneUptime Terraform-leverantören stöder följande resurser:
 **För egeninstallerade kunder:**
 
 - Lås alltid till exakt version som matchar din installation
-- Uppdatera leverantörens version när du uppgraderar OneUptime
+- Uppdatera leverantörens version när du uppgraderar Cast Operations
 - Testa i icke-produktionsmiljö först
 
 ### 2. Tillståndshantering
@@ -195,7 +195,7 @@ terraform workspace new staging
    Error: API version incompatible
    ```
 
-   **Lösning**: Se till att leverantörens version matchar OneUptime-installationen
+   **Lösning**: Se till att leverantörens version matchar Cast Operations-installationen
 
 2. **Autentiseringsproblem**
 

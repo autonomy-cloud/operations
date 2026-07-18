@@ -68,9 +68,9 @@
 
 ## 備份
 
-如果你自行託管 OneUptime，定期的資料庫備份就已足夠——儀表板的設定會與專案的其餘部分一同儲存。
+如果你自行託管 Cast Operations，定期的資料庫備份就已足夠——儀表板的設定會與專案的其餘部分一同儲存。
 
-在 OneUptime Cloud 上，備份由我們為你處理。如果你想要自己的副本，可以透過 [OneUptime API](/docs/api-reference/api-reference) 讀取儀表板。
+在 Cast Operations Cloud 上，備份由我們為你處理。如果你想要自己的副本，可以透過 [Cast Operations API](/docs/api-reference/api-reference) 讀取儀表板。
 
 ## 接下來該閱讀什麼
 

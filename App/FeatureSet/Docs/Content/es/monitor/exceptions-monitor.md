@@ -1,6 +1,6 @@
 # Monitor de excepciones
 
-El monitoreo de excepciones te permite supervisar las excepciones y errores de la aplicación, activando alertas cuando los recuentos de excepciones superan tus umbrales configurados. OneUptime evalúa los datos de excepciones de tus servicios de telemetría en una ventana de tiempo.
+El monitoreo de excepciones te permite supervisar las excepciones y errores de la aplicación, activando alertas cuando los recuentos de excepciones superan tus umbrales configurados. Cast Operations evalúa los datos de excepciones de tus servicios de telemetría en una ventana de tiempo.
 
 ## Información general
 
@@ -14,7 +14,7 @@ Los monitores de excepciones cuentan y filtran las excepciones que coinciden con
 
 ## Creación de un monitor de excepciones
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Excepciones** como tipo de monitor
 4. Selecciona los servicios de telemetría a monitorear
@@ -24,7 +24,7 @@ Los monitores de excepciones cuentan y filtran las excepciones que coinciden con
 
 ### Servicios de telemetría
 
-Selecciona uno o más servicios desde los que monitorear excepciones. Los servicios deben enviar datos de excepciones a OneUptime a través de OpenTelemetry.
+Selecciona uno o más servicios desde los que monitorear excepciones. Los servicios deben enviar datos de excepciones a Cast Operations a través de OpenTelemetry.
 
 ### Filtros de excepciones
 
@@ -80,4 +80,4 @@ Selecciona uno o más servicios desde los que monitorear excepciones. Los servic
 
 ## Requisitos de configuración
 
-El monitoreo de excepciones requiere que tus aplicaciones envíen datos de excepciones a OneUptime a través de OpenTelemetry. Consulta la documentación de [OpenTelemetry](/docs/telemetry/open-telemetry) para instrucciones de configuración.
+El monitoreo de excepciones requiere que tus aplicaciones envíen datos de excepciones a Cast Operations a través de OpenTelemetry. Consulta la documentación de [OpenTelemetry](/docs/telemetry/open-telemetry) para instrucciones de configuración.

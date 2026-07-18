@@ -2,15 +2,15 @@
 
 ## 從 Terraform Registry 安裝
 
-OneUptime Terraform Provider 已發佈於官方的 [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime)。
+Cast Operations Terraform Provider 已發佈於官方的 [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations)。
 
-### 給 OneUptime Cloud 使用者
+### 給 Cast Operations Cloud 使用者
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use latest compatible version
     }
   }
@@ -18,60 +18,60 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
 
-### 給自架 OneUptime 使用者
+### 給自架 Cast Operations 使用者
 
-⚠️ **重要**：自架客戶必須將 provider 版本精確鎖定為與其 OneUptime 安裝版本完全相符。
+⚠️ **重要**：自架客戶必須將 provider 版本精確鎖定為與其 Cast Operations 安裝版本完全相符。
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Replace with your exact OneUptime version
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Replace with your exact Cast Operations version
     }
   }
   required_version = ">= 1.0"
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # Your self-hosted URL
+  oneuptime_url = "https://operations.yourcompany.com"  # Your self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## 為何自架需要鎖定版本？
 
-OneUptime Terraform provider 是根據 OneUptime API 規格自動產生的。每個 OneUptime 版本可能有：
+Cast Operations Terraform provider 是根據 Cast Operations API 規格自動產生的。每個 Cast Operations 版本可能有：
 
 - 不同的 API 端點
 - 更新過的資源結構描述
 - 新增或移除的功能
 - 變更過的驗證規則
 
-使用與您的 OneUptime 安裝版本不符的 provider 版本，可能會導致：
+使用與您的 Cast Operations 安裝版本不符的 provider 版本，可能會導致：
 
 - API 相容性錯誤
 - 資源建立／更新失敗
 - 非預期的行為
 - 資源狀態漂移
 
-## 找出您的 OneUptime 版本
+## 找出您的 Cast Operations 版本
 
 ### 方法 1：儀表板
 
-1. 登入您的 OneUptime 儀表板
+1. 登入您的 Cast Operations 儀表板
 2. 前往 **Settings** → **About**
 3. 記下版本號（例如「7.0.123」）
 
 ### 方法 2：API
 
 ```bash
-curl https://your-oneuptime-instance.com/api/version | jq '.version'
+curl https://your-operations-instance.com/api/version | jq '.version'
 ```
 
 ### 方法 3：Docker
@@ -83,14 +83,14 @@ docker images | grep oneuptime
 
 ## Provider Registry 資訊
 
-- **Registry URL**：https://registry.terraform.io/providers/oneuptime/oneuptime
-- **原始碼儲存庫**：https://github.com/OneUptime/terraform-provider-oneuptime
-- **文件**：https://registry.terraform.io/providers/oneuptime/oneuptime/latest/docs
-- **發行版本**：https://github.com/OneUptime/terraform-provider-oneuptime/releases
+- **Registry URL**：https://registry.terraform.io/providers/autonomy-cloud/operations
+- **原始碼儲存庫**：https://github.com/autonomy-cloud/operations
+- **文件**：https://registry.terraform.io/providers/autonomy-cloud/operations/latest/docs
+- **發行版本**：https://github.com/autonomy-cloud/operations
 
 ## 版本相容性對照表
 
-| OneUptime 版本 | Provider 版本 | Terraform 設定         |
+| Cast Operations 版本 | Provider 版本 | Terraform 設定         |
 | -------------- | ------------- | ---------------------- |
 | 7.0.x          | 7.0.x         | `version = "~> 7.0.0"` |
 | 7.1.x          | 7.1.x         | `version = "~> 7.1.0"` |
@@ -103,14 +103,14 @@ docker images | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Adjust for self-hosted
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # Adjust for self-hosted
+  oneuptime_url = "https://visca.ai"  # Adjust for self-hosted
   api_key       = var.oneuptime_api_key
 }
 
@@ -152,4 +152,4 @@ resource "oneuptime_monitor" "website" {
 
 ## Registry 更新
 
-當新的 OneUptime 版本發行時，provider 會自動發佈至 Terraform Registry。Cloud 使用者可以使用語意化版本（`~> 7.0`）來自動取得相容的更新，而自架使用者則應鎖定至確切版本。
+當新的 Cast Operations 版本發行時，provider 會自動發佈至 Terraform Registry。Cloud 使用者可以使用語意化版本（`~> 7.0`）來自動取得相容的更新，而自架使用者則應鎖定至確切版本。

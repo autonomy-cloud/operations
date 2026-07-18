@@ -40,7 +40,7 @@ export interface AIChatPageContext {
 }
 
 /*
- * Ids are OneUptime ObjectIDs (UUIDs) — except traces, whose ids are
+ * Ids are Cast Operations ObjectIDs (UUIDs) — except traces, whose ids are
  * OpenTelemetry hex strings. Anything else is rejected: the id is echoed into
  * the LLM prompt and into tool suggestions, so it must never carry free-form
  * text (e.g. a static route segment like "overview" that a :id URL wildcard

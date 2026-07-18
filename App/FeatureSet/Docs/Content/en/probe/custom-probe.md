@@ -2,7 +2,7 @@
 
 You can set up custom probes inside your network to monitor resources in your private network or resources that are behind your firewall.
 
-To begin with you need to create a custom probe in your Project Settings > Probe. Once you have created the custom probe on your OneUptime Dashboard. You should have the `PROBE_ID` and `PROBE_KEY`
+To begin with you need to create a custom probe in your Project Settings > Probe. Once you have created the custom probe on your Cast Operations Dashboard. You should have the `PROBE_ID` and `PROBE_KEY`
 
 ### Deploy Probe
 
@@ -11,21 +11,21 @@ To begin with you need to create a custom probe in your Project Settings > Probe
 To run a probe, please make sure you have docker installed. You can run custom probe by:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://oneuptime.com -d oneuptime/probe:release
+docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
 ```
 
-If you are self hosting OneUptime, you can change `ONEUPTIME_URL` to your custom self hosted instance.
+If you are self hosting Cast Operations, you can change `ONEUPTIME_URL` to your custom self hosted instance.
 
 ##### Proxy Configuration
 
-If your probe needs to go through a proxy server to reach OneUptime or monitor external resources, you can configure proxy settings using these environment variables:
+If your probe needs to go through a proxy server to reach Cast Operations or monitor external resources, you can configure proxy settings using these environment variables:
 
 ```
 # For HTTP proxy
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -34,7 +34,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -43,7 +43,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       # Proxy configuration (optional)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,7 +102,7 @@ Then run the following command:
 docker compose up -d
 ```
 
-If you are self hosting OneUptime, you can change `ONEUPTIME_URL` to your custom self hosted instance.
+If you are self hosting Cast Operations, you can change `ONEUPTIME_URL` to your custom self hosted instance.
 
 #### Kubernetes
 
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 ##### With Proxy Configuration
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             # Proxy configuration (optional)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -184,7 +184,7 @@ Then run the following command:
 kubectl apply -f oneuptime-probe.yaml
 ```
 
-If you are self hosting OneUptime, you can change `ONEUPTIME_URL` to your custom self hosted instance.
+If you are self hosting Cast Operations, you can change `ONEUPTIME_URL` to your custom self hosted instance.
 
 ### Environment Variables
 
@@ -192,9 +192,9 @@ The probe supports the following environment variables:
 
 #### Required Variables
 
-- `PROBE_KEY` - The probe key from your OneUptime dashboard
-- `PROBE_ID` - The probe ID from your OneUptime dashboard
-- `ONEUPTIME_URL` - The URL of your OneUptime instance (default: https://oneuptime.com)
+- `PROBE_KEY` - The probe key from your Cast Operations dashboard
+- `PROBE_ID` - The probe ID from your Cast Operations dashboard
+- `ONEUPTIME_URL` - The URL of your Cast Operations instance (default: https://visca.ai)
 
 #### Optional Variables
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Verify
 
-If the probe is running successfully. It should show as `Connected` on your OneUptime dashboard. If it does not show as connected. You need to check logs of the container. If you're still having trouble. Please create an issue on [GitHub](https://github.com/oneuptime/oneuptime) or [contact support](https://oneuptime.com/support)
+If the probe is running successfully. It should show as `Connected` on your Cast Operations dashboard. If it does not show as connected. You need to check logs of the container. If you're still having trouble. Please create an issue on [GitHub](https://github.com/autonomy-cloud/operations) or [contact support](https://visca.ai/support)

@@ -1,6 +1,6 @@
 # Configuration Reference
 
-Every configurable value in the OneUptime chart, grouped by topic. Set these in
+Every configurable value in the Cast Operations chart, grouped by topic. Set these in
 your `values.yaml` (see [Installation](installation.md)). For the full, always
 up-to-date list see [`values.yaml`](../values.yaml).
 
@@ -11,7 +11,7 @@ up-to-date list see [`values.yaml`](../values.yaml).
 | Parameter          | Description                                                                                     | Default         | Change |
 |--------------------|-------------------------------------------------------------------------------------------------|-----------------|:------:|
 | `global.storageClass` | Storage class used for all persistent volumes.                                               | `nil`           | 🚨 |
-| `host`             | Primary hostname served by OneUptime (used for routing and certificates).                       | `localhost`     | 🚨 |
+| `host`             | Primary hostname served by Cast Operations (used for routing and certificates).                       | `localhost`     | 🚨 |
 | `httpProtocol`     | Set to `https` when the server has an SSL/TLS certificate, otherwise `http`.                     | `http`          | 🚨 |
 | `ssl.provision`    | Auto-provision a Let's Encrypt certificate for the primary host (needs public ports 80 & 443).  | `false`         |    |
 | `oneuptimeSecret`  | Value used for `ONEUPTIME_SECRET`. Set to a long random string in production.                    | `nil`           |    |
@@ -24,7 +24,7 @@ up-to-date list see [`values.yaml`](../values.yaml).
 
 | Parameter                    | Description                                                          | Default        |
 |------------------------------|----------------------------------------------------------------------|----------------|
-| `nginx.service.type`         | Service type for the bundled OneUptime ingress gateway.              | `LoadBalancer` |
+| `nginx.service.type`         | Service type for the bundled Cast Operations ingress gateway.              | `LoadBalancer` |
 | `nginx.service.loadBalancerIP` | Load balancer IP for the nginx service.                            | `nil`          |
 | `statusPage.cnameRecord`     | CNAME record for the status page. See [Custom domains](custom-domains.md). | `nil`    |
 
@@ -75,7 +75,7 @@ Configured per probe under `probes.<key>`.
 | `probes.<key>.dnsConfig`                          | Per-probe [`dnsConfig`](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config) override. Unset by default — the probe inherits the chart-wide `dnsConfig` (see below). A per-probe value fully replaces the chart-wide default (not merged). | `nil` (inherits chart-wide) |
 | `probes.<key>.dnsPolicy`                          | Per-probe `dnsPolicy` override. Unset by default — inherits the chart-wide `dnsPolicy`. | `nil` (inherits chart-wide) |
 
-> **Why probes have custom DNS settings.** Probes resolve mostly *external* hostnames. The Kubernetes default (`ndots:5` plus a multi-entry search list) turns every external lookup into ~7 DNS queries funneled through a single upstream resolver, which under load causes intermittent `getaddrinfo EAI_AGAIN` failures and false monitor-down alerts. The chart ships a **chart-wide `dnsConfig` default** (`ndots:1`, which removes the search-domain fan-out, plus public fallback nameservers `8.8.8.8`/`1.1.1.1`); `dnsPolicy` stays `ClusterFirst` so `*.svc.cluster.local` (the OneUptime API the probe calls) still resolves. Each probe inherits this fallback unless it sets its own `probes.<key>.dnsConfig`. On **air-gapped clusters** with no egress to public DNS, drop the chart-wide `nameservers` list (keep the `options` block) or set `dnsConfig: {}`.
+> **Why probes have custom DNS settings.** Probes resolve mostly *external* hostnames. The Kubernetes default (`ndots:5` plus a multi-entry search list) turns every external lookup into ~7 DNS queries funneled through a single upstream resolver, which under load causes intermittent `getaddrinfo EAI_AGAIN` failures and false monitor-down alerts. The chart ships a **chart-wide `dnsConfig` default** (`ndots:1`, which removes the search-domain fan-out, plus public fallback nameservers `8.8.8.8`/`1.1.1.1`); `dnsPolicy` stays `ClusterFirst` so `*.svc.cluster.local` (the Cast Operations API the probe calls) still resolves. Each probe inherits this fallback unless it sets its own `probes.<key>.dnsConfig`. On **air-gapped clusters** with no egress to public DNS, drop the chart-wide `nameservers` list (keep the `options` block) or set `dnsConfig: {}`.
 
 ## Incidents & alerts
 
@@ -106,7 +106,7 @@ Bitnami charts — you will need to set the security context for those as well.
 
 ## Local AI (vLLM)
 
-Run a local, OpenAI-compatible LLM server in-cluster for OneUptime's AI
+Run a local, OpenAI-compatible LLM server in-cluster for Cast Operations’ AI
 features. See the full [Local AI with vLLM](ai-vllm.md) guide.
 
 | Parameter                                              | Description                                                                                     | Default |

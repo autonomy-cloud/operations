@@ -1,12 +1,12 @@
-# Bruk FluentBit til å sende telemetridata til OneUptime
+# Bruk FluentBit til å sende telemetridata til Cast Operations
 
 ## Oversikt
 
-Du kan bruke [FluentBit](https://docs.fluentbit.io/manual)-pluginen til å samle logger og telemetridata fra applikasjonene og tjenestene dine. Pluginen sender telemetridataene til OneUptime OpenTelemetry HTTP Collector. Du kan bruke opentelemetry-utdatapluginen til FluentBit for å sende telemetridataene til OneUptime OpenTelemetry HTTP Collector. Denne pluginen finner du her: https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
+Du kan bruke [FluentBit](https://docs.fluentbit.io/manual)-pluginen til å samle logger og telemetridata fra applikasjonene og tjenestene dine. Pluginen sender telemetridataene til Cast Operations OpenTelemetry HTTP Collector. Du kan bruke opentelemetry-utdatapluginen til FluentBit for å sende telemetridataene til Cast Operations OpenTelemetry HTTP Collector. Denne pluginen finner du her: https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
 
 ## Kom i gang
 
-FluentBit støtter hundrevis av datakilder, og du kan hente inn logger og telemetri fra hvilken som helst av disse kildene til OneUptime. Noen av de populære kildene inkluderer:
+FluentBit støtter hundrevis av datakilder, og du kan hente inn logger og telemetri fra hvilken som helst av disse kildene til Cast Operations. Noen av de populære kildene inkluderer:
 
 - Docker
 - Syslog
@@ -30,11 +30,11 @@ Du finner den fullstendige listen over støttede kilder [her](https://docs.fluen
 ## Forutsetninger
 
 - **Trinn 1: Installer FluentBit på systemet ditt** – Du kan installere FluentBit ved hjelp av instruksjonene gitt [her](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)
-- **Trinn 2: Registrer deg for OneUptime-konto** – Du kan registrere deg for en gratis konto [her](https://oneuptime.com). Merk at selv om kontoen er gratis, er logginnhenting en betalt funksjon. Du finner mer detaljer om prissetting [her](https://oneuptime.com/pricing).
-- **Trinn 3: Opprett OneUptime-prosjekt** – Når du har kontoen, kan du opprette et prosjekt fra OneUptime-dashbordet. Hvis du trenger hjelp med å opprette et prosjekt eller har spørsmål, ta kontakt med oss på support@oneuptime.com
-- **Trinn 4: Opprett telemetriinnhentingstoken** – Når du har opprettet en OneUptime-konto, kan du opprette et telemetriinnhentingstoken for å hente inn logger, metrikker og spor fra applikasjonen din.
+- **Trinn 2: Registrer deg for Cast Operations-konto** – Du kan registrere deg for en gratis konto [her](https://visca.ai). Merk at selv om kontoen er gratis, er logginnhenting en betalt funksjon. Du finner mer detaljer om prissetting [her](https://visca.ai/pricing).
+- **Trinn 3: Opprett Cast Operations-prosjekt** – Når du har kontoen, kan du opprette et prosjekt fra Cast Operations-dashbordet. Hvis du trenger hjelp med å opprette et prosjekt eller har spørsmål, ta kontakt med oss på support@visca.ai
+- **Trinn 4: Opprett telemetriinnhentingstoken** – Når du har opprettet en Cast Operations-konto, kan du opprette et telemetriinnhentingstoken for å hente inn logger, metrikker og spor fra applikasjonen din.
 
-Etter at du har registrert deg for OneUptime og opprettet et prosjekt, klikker du på "More" i navigasjonslinjen og klikker på "Project Settings".
+Etter at du har registrert deg for Cast Operations og opprettet et prosjekt, klikker du på "More" i navigasjonslinjen og klikker på "Project Settings".
 
 På siden for Telemetry Ingestion Key, klikk på "Create Ingestion Key" for å opprette et token.
 
@@ -46,7 +46,7 @@ Når du har opprettet et token, klikker du på "View" for å se tokenet.
 
 ## Konfigurasjon
 
-Du kan bruke følgende konfigurasjon for å sende telemetridata til OneUptime OpenTelemetry HTTP Collector. Du kan legge til denne konfigurasjonen i FluentBit-konfigurasjonsfilen. Konfigurasjonsfilen befinner seg vanligvis på `/etc/fluent-bit/fluent-bit.yaml`. Her er hvordan en outputs-seksjon i konfigurasjonsfilen ville sett ut:
+Du kan bruke følgende konfigurasjon for å sende telemetridata til Cast Operations OpenTelemetry HTTP Collector. Du kan legge til denne konfigurasjonen i FluentBit-konfigurasjonsfilen. Konfigurasjonsfilen befinner seg vanligvis på `/etc/fluent-bit/fluent-bit.yaml`. Her er hvordan en outputs-seksjon i konfigurasjonsfilen ville sett ut:
 
 ```yaml
 outputs:
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "oneuptime.com"
+    host: "visca.ai"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "oneuptime.com"
+      host: "visca.ai"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -121,7 +121,7 @@ pipeline:
         - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
-**Hvis du selvhoster OneUptime**: Hvis du selvhoster OneUptime kan du erstatte `host` med verten til OneUptime-instansen din. Hvis du hostes på en HTTP-server og ikke HTTPS, kan du erstatte `port` med porten til OneUptime-instansen din (sannsynligvis port 80).
+**Hvis du selvhoster Cast Operations**: Hvis du selvhoster Cast Operations kan du erstatte `host` med verten til Cast Operations-instansen din. Hvis du hostes på en HTTP-server og ikke HTTPS, kan du erstatte `port` med porten til Cast Operations-instansen din (sannsynligvis port 80).
 
 I så fall ville konfigurasjonen sett slik ut:
 
@@ -131,7 +131,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "your-oneuptime-instance.com"
+    host: "your-operations-instance.com"
     port: 80
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## Bruk
 
-Når du har lagt til konfigurasjonen i FluentBit-konfigurasjonsfilen, kan du starte FluentBit-tjenesten på nytt. Når tjenesten er startet på nytt, vil telemetridataene sendes til OneUptime HTTP Source. Du kan nå begynne å se telemetridataene i OneUptime-dashbordet. Hvis du har spørsmål eller trenger hjelp med konfigurasjonen, ta kontakt med oss på support@oneuptime.com
+Når du har lagt til konfigurasjonen i FluentBit-konfigurasjonsfilen, kan du starte FluentBit-tjenesten på nytt. Når tjenesten er startet på nytt, vil telemetridataene sendes til Cast Operations HTTP Source. Du kan nå begynne å se telemetridataene i Cast Operations-dashbordet. Hvis du har spørsmål eller trenger hjelp med konfigurasjonen, ta kontakt med oss på support@visca.ai

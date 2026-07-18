@@ -1,7 +1,7 @@
 import { create } from "xmlbuilder2";
 import { XMLBuilder } from "xmlbuilder2/lib/interfaces";
 import BlogPostUtil, { BlogPostHeader } from "./BlogPost";
-import OneUptimeDate from "Common/Types/Date";
+import Cast OperationsDate from "Common/Types/Date";
 import URL from "Common/Types/API/URL";
 import { getProductCompareSlugs } from "./ProductCompare";
 import Express, { ExpressApplication } from "Common/Server/Utils/Express";
@@ -145,7 +145,7 @@ function isCacheValid<T>(cache: CachedData<T> | null | undefined): boolean {
   if (!cache) {
     return false;
   }
-  const now: number = OneUptimeDate.getCurrentDate().getTime();
+  const now: number = Cast OperationsDate.getCurrentDate().getTime();
   return now - cache.generatedAt < TTL_MS;
 }
 
@@ -219,7 +219,7 @@ async function getBlogPostCount(): Promise<number> {
 
   blogPostCountCache = {
     data: count,
-    generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
   };
 
   return count;
@@ -242,7 +242,7 @@ async function getTagsCount(): Promise<number> {
 
   tagsCountCache = {
     data: count,
-    generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
   };
 
   return count;
@@ -352,7 +352,7 @@ export async function generateSitemapIndexXml(): Promise<string> {
 
   const baseUrl: URL = await BlogPostUtil.getHomeUrl();
   const baseUrlString: string = baseUrl.toString().replace(/\/$/, "");
-  const timestamp: string = OneUptimeDate.getCurrentDate().toISOString();
+  const timestamp: string = Cast OperationsDate.getCurrentDate().toISOString();
 
   const sitemaps: SitemapIndexEntry[] = [];
 
@@ -386,7 +386,7 @@ export async function generateSitemapIndexXml(): Promise<string> {
 
   indexCache = {
     data: xml,
-    generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
   };
 
   return xml;
@@ -400,7 +400,7 @@ export async function generatePagesSitemapXml(): Promise<string> {
 
   const baseUrl: URL = await BlogPostUtil.getHomeUrl();
   const baseUrlString: string = baseUrl.toString().replace(/\/$/, "");
-  const timestamp: string = OneUptimeDate.getCurrentDate().toISOString();
+  const timestamp: string = Cast OperationsDate.getCurrentDate().toISOString();
 
   const staticPaths: string[] = discoverStaticPaths();
 
@@ -433,7 +433,7 @@ export async function generatePagesSitemapXml(): Promise<string> {
 
   pagesCache = {
     data: xml,
-    generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
   };
 
   return xml;
@@ -447,7 +447,7 @@ export async function generateCompareSitemapXml(): Promise<string> {
 
   const baseUrl: URL = await BlogPostUtil.getHomeUrl();
   const baseUrlString: string = baseUrl.toString().replace(/\/$/, "");
-  const timestamp: string = OneUptimeDate.getCurrentDate().toISOString();
+  const timestamp: string = Cast OperationsDate.getCurrentDate().toISOString();
 
   const productCompareSlugs: string[] = getProductCompareSlugs();
 
@@ -464,7 +464,7 @@ export async function generateCompareSitemapXml(): Promise<string> {
 
   compareCache = {
     data: xml,
-    generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
   };
 
   return xml;
@@ -479,7 +479,7 @@ export async function generateTagsSitemapXml(page: number): Promise<string> {
 
   const baseUrl: URL = await BlogPostUtil.getHomeUrl();
   const baseUrlString: string = baseUrl.toString().replace(/\/$/, "");
-  const timestamp: string = OneUptimeDate.getCurrentDate().toISOString();
+  const timestamp: string = Cast OperationsDate.getCurrentDate().toISOString();
 
   const allTags: string[] = await BlogPostUtil.getTags();
 
@@ -504,7 +504,7 @@ export async function generateTagsSitemapXml(page: number): Promise<string> {
 
   tagsCaches.set(page, {
     data: xml,
-    generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
   });
 
   return xml;
@@ -548,7 +548,7 @@ export async function generateBlogSitemapXml(page: number): Promise<string> {
 
   blogCaches.set(page, {
     data: xml,
-    generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
   });
 
   return xml;

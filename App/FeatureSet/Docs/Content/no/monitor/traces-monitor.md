@@ -1,6 +1,6 @@
 # Spor-monitor
 
-Sporingsovervåking lar deg overvåke distribuerte spor fra applikasjonene dine og utløse varsler basert på span-mønstre, antall og statuser. OneUptime evaluerer sporingsdata fra telemetritjenestene dine over et tidsvindu.
+Sporingsovervåking lar deg overvåke distribuerte spor fra applikasjonene dine og utløse varsler basert på span-mønstre, antall og statuser. Cast Operations evaluerer sporingsdata fra telemetritjenestene dine over et tidsvindu.
 
 ## Oversikt
 
@@ -14,7 +14,7 @@ Spor-monitorer søker etter og teller spans som samsvarer med spesifikke filtre.
 
 ## Opprette en spor-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **Traces** som monitortype
 4. Velg telemetritjenestene som skal overvåkes
@@ -24,7 +24,7 @@ Spor-monitorer søker etter og teller spans som samsvarer med spesifikke filtre.
 
 ### Telemetritjenester
 
-Velg én eller flere tjenester det skal overvåkes spor fra. Tjenester må sende spor til OneUptime via OpenTelemetry.
+Velg én eller flere tjenester det skal overvåkes spor fra. Tjenester må sende spor til Cast Operations via OpenTelemetry.
 
 ### Span-filtre
 
@@ -79,4 +79,4 @@ Velg én eller flere tjenester det skal overvåkes spor fra. Tjenester må sende
 
 ## Krav til oppsett
 
-Sporingsovervåking krever at applikasjonene dine sender distribuerte spor til OneUptime via OpenTelemetry. Se dokumentasjonen for [OpenTelemetry](/docs/telemetry/open-telemetry) for instruksjoner om oppsett.
+Sporingsovervåking krever at applikasjonene dine sender distribuerte spor til Cast Operations via OpenTelemetry. Se dokumentasjonen for [OpenTelemetry](/docs/telemetry/open-telemetry) for instruksjoner om oppsett.

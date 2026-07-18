@@ -2,18 +2,18 @@
 
 ## Översikt
 
-OneUptime känner automatiskt igen en **serverlös funktion** i samma ögonblick som den tar emot OpenTelemetry-data märkt med resursattributet `faas.name`. Det finns ingenting att skapa för hand — instrumentera din funktion med OpenTelemetry SDK för din runtime, peka dess OTLP-exportör mot OneUptime, så dyker funktionen upp under **Serverless Functions** med sina spårningar, loggar och mätvärden.
+Cast Operations känner automatiskt igen en **serverlös funktion** i samma ögonblick som den tar emot OpenTelemetry-data märkt med resursattributet `faas.name`. Det finns ingenting att skapa för hand — instrumentera din funktion med OpenTelemetry SDK för din runtime, peka dess OTLP-exportör mot Cast Operations, så dyker funktionen upp under **Serverless Functions** med sina spårningar, loggar och mätvärden.
 
 Detta fungerar för AWS Lambda, Google Cloud Functions, Azure Functions, Cloudflare Workers eller vilken FaaS-runtime som helst som kan sända OpenTelemetry.
 
 ## Förutsättningar
 
-- En **OneUptime Telemetry Ingestion Token** — skapa en från _Project Settings → Telemetry Ingestion Keys_ och kopiera värdet för `x-oneuptime-token`.
+- En **Cast Operations Telemetry Ingestion Token** — skapa en från _Project Settings → Telemetry Ingestion Keys_ och kopiera värdet för `x-oneuptime-token`.
 - OpenTelemetry SDK (eller ett lager för automatisk instrumentering) för din funktions språk.
 
-## Hur OneUptime identifierar en funktion
+## Hur Cast Operations identifierar en funktion
 
-OneUptime nycklar varje funktion på resursattributet `faas.name`:
+Cast Operations nycklar varje funktion på resursattributet `faas.name`:
 
 | Attribut                                               | Obligatoriskt | Syfte                                                       |
 | ------------------------------------------------------ | ------------- | ----------------------------------------------------------- |
@@ -30,12 +30,12 @@ OneUptime nycklar varje funktion på resursattributet `faas.name`:
 De flesta automatiska instrumenteringar per språk respekterar standardmiljövariablerna för OpenTelemetry:
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://oneuptime.com/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
-Om du själv är värd för OneUptime, ersätt slutpunkten med `https://YOUR-ONEUPTIME-HOST/otlp`.
+Om du själv är värd för Cast Operations, ersätt slutpunkten med `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Steg 2 — (AWS Lambda) lägg till OpenTelemetry-lagret
 
@@ -43,7 +43,7 @@ För AWS Lambda är den enklaste vägen [OpenTelemetry Lambda-lagret](https://op
 
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
-OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 

@@ -9,7 +9,7 @@ This API will fetch all the resources that are on the status page including the 
 To get overall status of the resources on the status page, you can make a POST request to the following endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/overview/:statusPageId
+curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
 ```
 
 This is the response from the API:
@@ -20,11 +20,11 @@ This is the response from the API:
     // Monitor Status Object
     // Overall Status is the worst status of all the monitors and groups on the status page.
     // You can find more details on the monitor status here.
-    // https://oneuptime.com/reference/monitor-status
+    // https://visca.ai/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // You can find more details on the scheduled maintenance public note here.
-    // https://oneuptime.com/reference/scheduled-maintenance-public-note
+    // https://visca.ai/reference/scheduled-maintenance-public-note
     {
       // Scheduled Maintenance Public Note Object
     },
@@ -34,7 +34,7 @@ This is the response from the API:
   ],
   "statusPageHistoryChartBarColorRules": [
     // You can find more details on the status page history chart bar color rule here.
-    // https://oneuptime.com/reference/status-page-history-chart-bar-color-rule
+    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
     {
       // Status Page History Chart Bar Color Rule Object
     },
@@ -44,7 +44,7 @@ This is the response from the API:
   ],
   "scheduledMaintenanceEvents": [
     // You can find more details on the scheduled maintenance event here.
-    // https://oneuptime.com/reference/scheduled-maintenance
+    // https://visca.ai/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -54,7 +54,7 @@ This is the response from the API:
   ],
   "activeAnnouncements": [
     // You can find more details on the active announcement here.
-    // https://oneuptime.com/reference/status-page-announcement
+    // https://visca.ai/reference/status-page-announcement
     {
       // Status Page Announcement Object
     },
@@ -64,7 +64,7 @@ This is the response from the API:
   ],
   "incidentPublicNotes": [
     // You can find more details on the incident public note here.
-    // https://oneuptime.com/reference/incident-public-note
+    // https://visca.ai/reference/incident-public-note
     {
       // Incident Public Note Object
     },
@@ -74,7 +74,7 @@ This is the response from the API:
   ],
   "activeIncidents": [
     // You can find more details on the active incident here.
-    // https://oneuptime.com/reference/incident
+    // https://visca.ai/reference/incident
     {
       // Incident Object
     },
@@ -84,7 +84,7 @@ This is the response from the API:
   ],
   "monitorStatusTimelines": [
     // You can find more details on the monitor status timeline here.
-    // https://oneuptime.com/reference/monitor-status-timeline
+    // https://visca.ai/reference/monitor-status-timeline
     {
       // Monitor Status Timeline Object
     },
@@ -94,7 +94,7 @@ This is the response from the API:
   ],
   "resourceGroups": [
     // You can find more details on the resource group here.
-    // https://oneuptime.com/reference/resource-group
+    // https://visca.ai/reference/resource-group
     {
       // Resource Group Object
     },
@@ -104,7 +104,7 @@ This is the response from the API:
   ],
   "monitorStatuses": [
     // You can find more details on the monitor status here.
-    // https://oneuptime.com/reference/monitor-status
+    // https://visca.ai/reference/monitor-status
     {
       // Monitor Status Object
     },
@@ -114,7 +114,7 @@ This is the response from the API:
   ],
   "statusPageResources": [
     // You can find more details on the status page resource here.
-    // https://oneuptime.com/reference/status-page-resource
+    // https://visca.ai/reference/status-page-resource
     {
       // Status Page Resource Object
     },
@@ -124,7 +124,7 @@ This is the response from the API:
   ],
   "incidentStateTimelines": [
     // You can find more details on the incident state timeline here.
-    // https://oneuptime.com/reference/incident-state-timeline
+    // https://visca.ai/reference/incident-state-timeline
     {
       // Incident State Timeline Object
     },
@@ -134,11 +134,11 @@ This is the response from the API:
   ],
   "statusPage": {
     // You can find more details on the status page here.
-    // https://oneuptime.com/reference/status-page
+    // https://visca.ai/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // You can find more details on the scheduled maintenance state timeline here.
-    // https://oneuptime.com/reference/scheduled-maintenance-state-timeline
+    // https://visca.ai/reference/scheduled-maintenance-state-timeline
     {
       // Scheduled Maintenance State Timeline Object
     },
@@ -162,7 +162,7 @@ This API will fetch all the uptime of all the resources on status page.
 To get overall uptime of all the resources, you can make a POST request to the following endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/uptime/:statusPageId
+curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
 ```
 
 **Request Body (optional):**
@@ -257,7 +257,7 @@ This is the example response from the API:
 This API will fetch all the incidents that are on the status page. To get all the incidents on the status page, you can make a POST request to the following endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/incidents/:statusPageId
+curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 ```
 
 This is the response from the API:
@@ -266,7 +266,7 @@ This is the response from the API:
 {
   "incidents": [
     // You can find more details on the incident here.
-    // https://oneuptime.com/reference/incident
+    // https://visca.ai/reference/incident
     {
       // Incident Object
     },
@@ -282,7 +282,7 @@ This is the response from the API:
 This API will fetch all the scheduled maintenance that are on the status page. To get all the scheduled maintenance on the status page, you can make a POST request to the following endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 This is the response from the API:
@@ -291,7 +291,7 @@ This is the response from the API:
 {
   "scheduledMaintenanceEvents": [
     // You can find more details on the scheduled maintenance event here.
-    // https://oneuptime.com/reference/scheduled-maintenance
+    // https://visca.ai/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -307,7 +307,7 @@ This is the response from the API:
 This API will fetch all the announcements that are on the status page. To get all the announcements on the status page, you can make a POST request to the following endpoint:
 
 ```bash
-curl -X POST https://oneuptime.com/status-page-api/announcements/:statusPageId
+curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
 ```
 
 This is the response from the API:
@@ -316,7 +316,7 @@ This is the response from the API:
 {
   "announcements": [
     // You can find more details on the announcement here.
-    // https://oneuptime.com/reference/status-page-announcement
+    // https://visca.ai/reference/status-page-announcement
     {
       // Announcement Object
     },

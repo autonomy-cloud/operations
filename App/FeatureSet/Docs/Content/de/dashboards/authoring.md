@@ -28,7 +28,7 @@ Es handelt sich um dasselbe Dashboard in beiden Modi. Es gibt keinen separaten S
 
 Die meisten Widgets lesen aus einer von drei Quellen:
 
-- **Metriken** – wählen Sie eine Metrik und eine Aggregation (Durchschnitt, Maximum, Anzahl, Perzentil). Fügen Sie Filter hinzu. Wählen Sie, wie das Ergebnis gruppiert werden soll. Dies ist derselbe Abfrage-Builder, den Sie auch an anderen Stellen in OneUptime sehen.
+- **Metriken** – wählen Sie eine Metrik und eine Aggregation (Durchschnitt, Maximum, Anzahl, Perzentil). Fügen Sie Filter hinzu. Wählen Sie, wie das Ergebnis gruppiert werden soll. Dies ist derselbe Abfrage-Builder, den Sie auch an anderen Stellen in Cast Operations sehen.
 - **Live-Listen** – Vorfälle, Benachrichtigungen, Monitore, Kubernetes-Pods, Docker-Container, Hosts. Jedes Listen-Widget nimmt einen Filter und zeigt die passenden Einträge live aktualisiert an.
 - **Statische Inhalte** – das **Text**-Widget nimmt einen Markdown-Block. Nutzen Sie es für Überschriften, Kontext, Links zu Runbooks oder temporäre Notizen während eines Vorfalls.
 

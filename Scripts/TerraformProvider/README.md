@@ -1,8 +1,8 @@
-# OneUptime Terraform Provider Generator
+# Cast Operations Terraform Provider Generator
 
 ## Overview
 
-This project provides a **dynamic Terraform provider generator** that automatically creates a complete, production-ready Terraform provider from OneUptime's OpenAPI specification. The generator is written in TypeScript and produces Go code that follows Terraform provider best practices.
+This project provides a **dynamic Terraform provider generator** that automatically creates a complete, production-ready Terraform provider from Cast Operations’ OpenAPI specification. The generator is written in TypeScript and produces Go code that follows Terraform provider best practices.
 
 ## 🚀 Features
 
@@ -88,14 +88,14 @@ go build
 terraform {
   required_providers {
     oneuptime = {
-      source = "oneuptime/oneuptime"
+      source = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url    = "https://oneuptime.com"
+  oneuptime_url    = "https://visca.ai"
   api_key = var.oneuptime_api_key
 }
 
@@ -134,7 +134,7 @@ JSON Schema → Operations → Resources/DataSources → Go Files → Terraform 
 
 ## 📋 Generated Resources
 
-The generator automatically creates Terraform resources for all OneUptime API endpoints, including:
+The generator automatically creates Terraform resources for all Cast Operations API endpoints, including:
 
 - **Projects** - Project management
 - **Monitors** - Service monitoring
@@ -154,11 +154,11 @@ The provider supports multiple authentication methods:
 ```hcl
 provider "oneuptime" {
   # Method 1: API Key
-  host    = "https://oneuptime.com"
+  host    = "https://visca.ai"
   api_key = var.api_key
 
   # Method 2: Username/Password
-  host     = "https://oneuptime.com"
+  host     = "https://visca.ai"
   username = var.username
   password = var.password
 }

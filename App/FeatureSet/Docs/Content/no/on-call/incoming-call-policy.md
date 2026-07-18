@@ -1,14 +1,14 @@
 # Innkommende samtalepolicy (Twilio-integrasjon)
 
-Innkommende samtalepolicyer lar eksterne innringere nå vakthavende ingeniører ved å ringe et dedikert telefonnummer. Når noen ringer, ruter OneUptime samtalen gjennom de konfigurerte eskaleringssreglene til en ingeniør svarer.
+Innkommende samtalepolicyer lar eksterne innringere nå vakthavende ingeniører ved å ringe et dedikert telefonnummer. Når noen ringer, ruter Cast Operations samtalen gjennom de konfigurerte eskaleringssreglene til en ingeniør svarer.
 
 ## Slik fungerer det
 
 ```mermaid
 flowchart TD
     A[Innringer ringer<br/>innkommende samtalenummer] --> B[Twilio mottar samtale]
-    B --> C[Twilio sender webhook<br/>til OneUptime]
-    C --> D[OneUptime spiller av<br/>velkomstmelding]
+    B --> C[Twilio sender webhook<br/>til Cast Operations]
+    C --> D[Cast Operations spiller av<br/>velkomstmelding]
     D --> E[Last eskaleringsregler]
     E --> F{Regel 1:<br/>Prøv vaktperson}
     F -->|Ikke svart| G{Regel 2:<br/>Prøv backup-team}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant Innringer
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant VaktIngeniør
 
     Innringer->>Twilio: Ringer innkommende samtalenummer
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML: Spill av velkomst
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML: Spill av velkomst
     Twilio->>Innringer: "Vennligst vent mens vi kobler deg til..."
 
     loop Eskaleringsregler
-        OneUptime->>OneUptime: Hent neste eskaleringsregel
-        OneUptime->>Twilio: TwiML: Ring vaktperson
+        Cast Operations->>Cast Operations: Hent neste eskaleringsregel
+        Cast Operations->>Twilio: TwiML: Ring vaktperson
         Twilio->>VaktIngeniør: Ring telefon
         alt Ingeniør svarer
             VaktIngeniør->>Twilio: Svarer
-            Twilio->>OneUptime: Samtalestatus: completed
+            Twilio->>Cast Operations: Samtalestatus: completed
             Twilio->>Innringer: Koble til ingeniør
             Note over Innringer,VaktIngeniør: Samtale pågår
         else Ikke svart (tidsavbrudd)
-            Twilio->>OneUptime: Samtalestatus: no-answer
-            OneUptime->>OneUptime: Prøv neste regel
+            Twilio->>Cast Operations: Samtalestatus: no-answer
+            Cast Operations->>Cast Operations: Prøv neste regel
         end
     end
 
     alt Alle regler uttømt
-        OneUptime->>Twilio: TwiML: Spill av melding om ingen svar
+        Cast Operations->>Twilio: TwiML: Spill av melding om ingen svar
         Twilio->>Innringer: "Ingen er tilgjengelig..."
         Twilio->>Innringer: Legg på
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - En Twilio-konto – Opprett en på [https://www.twilio.com](https://www.twilio.com)
 - Din Twilio Account SID og Auth Token
-- Tilgang til din selvhostede OneUptime-instans
+- Tilgang til din selvhostede Cast Operations-instans
 
 ## Oversikt
 
@@ -74,7 +74,7 @@ Funksjonen for innkommende samtalepolicy fungerer ved å:
 4. Koble innringeren til den første tilgjengelige vakthavende ingeniøren
 5. Eskalere til neste regel hvis ingen svarer
 
-Siden du selvhoster OneUptime, må du konfigurere din egen Twilio-konto. Dette gir deg full kontroll over telefonnummerne dine og faktureringen.
+Siden du selvhoster Cast Operations, må du konfigurere din egen Twilio-konto. Dette gir deg full kontroll over telefonnummerne dine og faktureringen.
 
 ## Trinn 1: Opprett en Twilio-konto
 
@@ -82,9 +82,9 @@ Siden du selvhoster OneUptime, må du konfigurere din egen Twilio-konto. Dette g
 2. Fullfør verifiseringsprosessen
 3. Noter ned **Account SID** og **Auth Token** fra Twilio Console-dashbordet
 
-## Trinn 2: Konfigurer anrop/SMS-konfigurasjon i OneUptime
+## Trinn 2: Konfigurer anrop/SMS-konfigurasjon i Cast Operations
 
-1. Logg inn på OneUptime-dashbordet ditt
+1. Logg inn på Cast Operations-dashbordet ditt
 2. Gå til **Project Settings** > **Call & SMS** > **Custom Call/SMS Config**
 3. Klikk **Create Custom Call/SMS Config**
 4. Fyll inn følgende felt:
@@ -120,15 +120,15 @@ Du har to alternativer for å sette opp et telefonnummer:
 Hvis du allerede har telefonnumre i Twilio-kontoen din:
 
 1. I kortet **Phone Number**, klikk **Use Existing Number**
-2. OneUptime vil hente alle telefonnumre fra Twilio-kontoen din
+2. Cast Operations vil hente alle telefonnumre fra Twilio-kontoen din
 3. Velg telefonnummeret du ønsker å bruke
 4. Klikk **Use This** for å tilordne det til policyen
 
-> **Merk**: Hvis telefonnummeret allerede har en webhook konfigurert, vil den bli oppdatert til å peke til OneUptime.
+> **Merk**: Hvis telefonnummeret allerede har en webhook konfigurert, vil den bli oppdatert til å peke til Cast Operations.
 
 ### Alternativ B: Kjøp et nytt telefonnummer
 
-For å kjøpe et nytt telefonnummer direkte fra OneUptime:
+For å kjøpe et nytt telefonnummer direkte fra Cast Operations:
 
 1. I kortet **Phone Number**, klikk **Buy New Number**
 2. Velg et **Land** fra rullegardinmenyen
@@ -258,7 +258,7 @@ Hvis du ikke lenger trenger et telefonnummer:
 ### Samtaler mottas ikke
 
 - Verifiser at Twilio-konfigurasjonen er korrekt koblet til policyen
-- Sjekk at OneUptime-instansen er tilgjengelig fra internett
+- Sjekk at Cast Operations-instansen er tilgjengelig fra internett
 - Verifiser at Twilio Account SID og Auth Token er korrekte
 - Sjekk Twilio Console for feillogger
 
@@ -278,8 +278,8 @@ Hvis du ikke lenger trenger et telefonnummer:
 ## Sikkerhetshensyn
 
 - Hold Twilio Auth Token sikker og eksponer den aldri offentlig
-- Bruk HTTPS for OneUptime-instansen din
-- OneUptime validerer webhook-signaturer for å sikre at forespørsler kommer fra Twilio
+- Bruk HTTPS for Cast Operations-instansen din
+- Cast Operations validerer webhook-signaturer for å sikre at forespørsler kommer fra Twilio
 - Vurder å begrense hvilke telefonnumre som kan ringe innkommende samtalepolicyer
 
 ## Arkitekturoversikt
@@ -291,7 +291,7 @@ graph TB
         B[Twilio Cloud]
     end
 
-    subgraph "OneUptime"
+    subgraph "Cast Operations"
         C[Innkommende anrops-API]
         D[Samtaleruter]
         E[Eskaleringsmotor]
@@ -320,5 +320,5 @@ graph TB
 For problemer med innkommende samtalepolicy-funksjonen, vennligst:
 
 1. Sjekk Twilio Console for feillogger
-2. Se gjennom OneUptime-serverloggene
-3. Kontakt støtte på [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Se gjennom Cast Operations-serverloggene
+3. Kontakt støtte på [hello@visca.ai](mailto:hello@visca.ai)

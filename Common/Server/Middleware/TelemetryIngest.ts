@@ -62,7 +62,7 @@ export default class TelemetryIngest {
           req,
           res,
           new NotAuthenticatedException(
-            "Missing ingestion token. Send your OneUptime telemetry ingestion key in the x-oneuptime-token header.",
+            "Missing ingestion token. Send your Cast Operations telemetry ingestion key in the x-oneuptime-token header.",
           ),
         );
       }
@@ -88,7 +88,7 @@ export default class TelemetryIngest {
           req,
           res,
           new NotAuthenticatedException(
-            "Invalid ingestion token. Send a valid OneUptime telemetry ingestion key in the x-oneuptime-token header.",
+            "Invalid ingestion token. Send a valid Cast Operations telemetry ingestion key in the x-oneuptime-token header.",
           ),
         );
       }

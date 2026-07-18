@@ -2,7 +2,7 @@
 
 Puedes configurar sondas personalizadas dentro de tu red para monitorear recursos en tu red privada o recursos que están detrás de tu firewall.
 
-Para comenzar, necesitas crear una sonda personalizada en Configuración del proyecto > Sonda. Una vez que hayas creado la sonda personalizada en tu panel de OneUptime, deberías tener el `PROBE_ID` y la `PROBE_KEY`.
+Para comenzar, necesitas crear una sonda personalizada en Configuración del proyecto > Sonda. Una vez que hayas creado la sonda personalizada en tu panel de Cast Operations, deberías tener el `PROBE_ID` y la `PROBE_KEY`.
 
 ### Implementar la sonda
 
@@ -11,21 +11,21 @@ Para comenzar, necesitas crear una sonda personalizada en Configuración del pro
 Para ejecutar una sonda, asegúrate de tener Docker instalado. Puedes ejecutar la sonda personalizada con:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://oneuptime.com -d oneuptime/probe:release
+docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
 ```
 
-Si te auto-alojas en OneUptime, puedes cambiar `ONEUPTIME_URL` a tu instancia personalizada auto-alojada.
+Si te auto-alojas en Cast Operations, puedes cambiar `ONEUPTIME_URL` a tu instancia personalizada auto-alojada.
 
 ##### Configuración de proxy
 
-Si tu sonda necesita pasar por un servidor proxy para llegar a OneUptime o monitorear recursos externos, puedes configurar los ajustes de proxy usando estas variables de entorno:
+Si tu sonda necesita pasar por un servidor proxy para llegar a Cast Operations o monitorear recursos externos, puedes configurar los ajustes de proxy usando estas variables de entorno:
 
 ```
 # Para proxy HTTP
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -34,7 +34,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -43,7 +43,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       # Configuración de proxy (opcional)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,7 +102,7 @@ Luego ejecuta el siguiente comando:
 docker compose up -d
 ```
 
-Si te auto-alojas en OneUptime, puedes cambiar `ONEUPTIME_URL` a tu instancia personalizada auto-alojada.
+Si te auto-alojas en Cast Operations, puedes cambiar `ONEUPTIME_URL` a tu instancia personalizada auto-alojada.
 
 #### Kubernetes
 
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 ##### Con configuración de proxy
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             # Configuración de proxy (opcional)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -184,7 +184,7 @@ Luego ejecuta el siguiente comando:
 kubectl apply -f oneuptime-probe.yaml
 ```
 
-Si te auto-alojas en OneUptime, puedes cambiar `ONEUPTIME_URL` a tu instancia personalizada auto-alojada.
+Si te auto-alojas en Cast Operations, puedes cambiar `ONEUPTIME_URL` a tu instancia personalizada auto-alojada.
 
 ### Variables de entorno
 
@@ -192,9 +192,9 @@ La sonda admite las siguientes variables de entorno:
 
 #### Variables requeridas
 
-- `PROBE_KEY`: La clave de la sonda de tu panel de OneUptime
-- `PROBE_ID`: El ID de la sonda de tu panel de OneUptime
-- `ONEUPTIME_URL`: La URL de tu instancia de OneUptime (predeterminado: https://oneuptime.com)
+- `PROBE_KEY`: La clave de la sonda de tu panel de Cast Operations
+- `PROBE_ID`: El ID de la sonda de tu panel de Cast Operations
+- `ONEUPTIME_URL`: La URL de tu instancia de Cast Operations (predeterminado: https://visca.ai)
 
 #### Variables opcionales
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Verificar
 
-Si la sonda se está ejecutando correctamente, debería aparecer como `Conectada` en tu panel de OneUptime. Si no aparece como conectada, necesitas revisar los registros del contenedor. Si aún tienes problemas, por favor crea un problema en [GitHub](https://github.com/oneuptime/oneuptime) o [contacta con soporte](https://oneuptime.com/support).
+Si la sonda se está ejecutando correctamente, debería aparecer como `Conectada` en tu panel de Cast Operations. Si no aparece como conectada, necesitas revisar los registros del contenedor. Si aún tienes problemas, por favor crea un problema en [GitHub](https://github.com/autonomy-cloud/operations) o [contacta con soporte](https://visca.ai/support).

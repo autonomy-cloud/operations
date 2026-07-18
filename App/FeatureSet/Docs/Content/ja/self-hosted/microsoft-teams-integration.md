@@ -1,11 +1,11 @@
 # Microsoft Teams統合
 
-セルフホストのOneUptimeインスタンスとMicrosoft Teamsを統合するには、AzureアプリのregistrationN（アプリ登録）を設定して必要な環境変数を構成する必要があります。
+セルフホストのCast OperationsインスタンスとMicrosoft Teamsを統合するには、AzureアプリのregistrationN（アプリ登録）を設定して必要な環境変数を構成する必要があります。
 
 ## 前提条件
 
 - Azureアカウント — [https://azure.com](https://azure.com) でアカウントを作成できます
-- OneUptimeサーバー設定へのアクセス
+- Cast Operationsサーバー設定へのアクセス
 
 ## セットアップ手順
 
@@ -16,8 +16,8 @@
 3. 登録フォームを入力します：
    - **名前：** oneuptime
    - **サポートされるアカウントタイプ：** 任意の組織ディレクトリのアカウント（任意のMicrosoft Entra IDテナント - マルチテナント）
-   - **リダイレクトURI：** Web - `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - 以下も追加してください：`https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **リダイレクトURI：** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - 以下も追加してください：`https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. 「登録」をクリックします
 5. 「アプリケーション（クライアント）ID」をメモしてください。後で必要になります
 
@@ -71,7 +71,7 @@
 3. 「確認と作成」をクリックし、「作成」をクリックします
 
 4. デプロイ後、ボットリソースに移動し、「設定」に移動します
-5. 「メッセージングエンドポイント」を `https://your-oneuptime-domain.com/api/microsoft-bot/messages` に設定します
+5. 「メッセージングエンドポイント」を `https://your-operations-domain.com/api/microsoft-bot/messages` に設定します
 6. 設定を保存します
 
 ### ステップ5：ボットにMicrosoft Teamsチャンネルを追加
@@ -81,7 +81,7 @@
 3. 設定を確認します（Teamsを有効にし、特定のニーズがない場合はデフォルトのメッセージングオプションを維持する）
 4. 「保存」をクリックします（プロンプトが表示された場合は「完了」/「発行」もクリックする）
 
-### ステップ6：OneUptime環境変数の設定
+### ステップ6：Cast Operations環境変数の設定
 
 #### Docker Compose
 
@@ -104,7 +104,7 @@ microsoftTeamsApp:
    tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**重要：** これらの環境変数を追加した後、OneUptimeサーバーを再起動して反映させてください。
+**重要：** これらの環境変数を追加した後、Cast Operationsサーバーを再起動して反映させてください。
 
 ### ステップ7：TeamsアプリのマニフェストをアップロードN
 
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 問題が発生した場合：
 
 - Appに正しい権限が付与されていることを確認します
-- リダイレクトURIが完全一致していることを確認します（`your-oneuptime-domain.com` を実際のドメインに置き換える）
+- リダイレクトURIが完全一致していることを確認します（`your-operations-domain.com` を実際のドメインに置き換える）
 - 環境変数が正しく設定されていることを確認します
 - ボットのメッセージングエンドポイントがインターネットからアクセス可能であることを確認します
 - ボットがTeamsチャンネルで正しく設定されていることを確認します
@@ -129,4 +129,4 @@ microsoftTeamsApp:
 
 ## サポート
 
-この統合の改善のためのフィードバックをお待ちしています。[hello@oneuptime.com](mailto:hello@oneuptime.com) までお送りください。
+この統合の改善のためのフィードバックをお待ちしています。[hello@visca.ai](mailto:hello@visca.ai) までお送りください。

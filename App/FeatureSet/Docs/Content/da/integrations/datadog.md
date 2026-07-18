@@ -1,19 +1,19 @@
 # Datadog-integration
 
-Gør [Datadog](https://www.datadoghq.com)-monitoralarmer til OneUptime-hændelser, så Datadogs detektion føder OneUptimes hændelsesrespons og statussider.
+Gør [Datadog](https://www.datadoghq.com)-monitoralarmer til Cast Operations-hændelser, så Datadogs detektion føder Cast Operations hændelsesrespons og statussider.
 
-Denne integration er **indgående**: Datadogs [Webhooks-integration](https://docs.datadoghq.com/integrations/webhooks/) poster til et OneUptime **[Workflow](/docs/workflows/index)**, der starter med en **Webhook-trigger**.
+Denne integration er **indgående**: Datadogs [Webhooks-integration](https://docs.datadoghq.com/integrations/webhooks/) poster til et Cast Operations **[Workflow](/docs/workflows/index)**, der starter med en **Webhook-trigger**.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Forudsætninger
 
 - En Datadog-konto, hvor du kan konfigurere integrationer og monitorer.
-- Et OneUptime-projekt, hvor du kan oprette workflows.
+- Et Cast Operations-projekt, hvor du kan oprette workflows.
 
-## Trin 1 — Byg OneUptime-workflowet
+## Trin 1 — Byg Cast Operations-workflowet
 
 1. Åbn **Workflows → Create Workflow**, navngiv det `Datadog → Incidents`, og åbn **Builder**.
 2. Tilføj en **Webhook**-trigger og **kopiér dens URL**. Omdøb blokken til `Datadog`.
@@ -60,7 +60,7 @@ Tilføj webhook-håndtaget til de monitorer, du ønsker at videresende. I hver m
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-Dette sender både alarmen og genopretningen til OneUptime. (For at videresende alt kan du også tilføje `@webhook-oneuptime` til en monitor ubetinget.)
+Dette sender både alarmen og genopretningen til Cast Operations. (For at videresende alt kan du også tilføje `@webhook-oneuptime` til en monitor ubetinget.)
 
 ## Trin 4 — Test det
 

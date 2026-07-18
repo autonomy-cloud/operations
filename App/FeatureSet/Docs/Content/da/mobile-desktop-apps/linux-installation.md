@@ -1,6 +1,6 @@
 # Linux-installationsvejledning
 
-Installer OneUptime som en desktop-applikation på Linux-distributioner til omfattende overvågning og incident management.
+Installer Cast Operations som en desktop-applikation på Linux-distributioner til omfattende overvågning og incident management.
 
 ## Installationsmetoder
 
@@ -10,17 +10,17 @@ Chrome og Chromium leverer den bedste Linux PWA-oplevelse med native desktop-int
 
 #### PWA-installationstrin:
 
-1. **Åbn OneUptime i Chrome/Chromium**
+1. **Åbn Cast Operations i Chrome/Chromium**
 
    - Start din browser
-   - Naviger til din OneUptime-instans-URL
-   - Log ind på din OneUptime-konto
+   - Naviger til din Cast Operations-instans-URL
+   - Log ind på din Cast Operations-konto
    - Vent på fuldstændig sideindlæsning
 
 2. **Installer PWA**
 
    - Se efter **installer-ikonet** (⊞) i adresselinjen
-   - Klik på **"Installer OneUptime"**
+   - Klik på **"Installer Cast Operations"**
    - Eller brug **Chrome-menuen** (⋮) → **Flere værktøjer** → **Opret genvej**
 
 3. **Installationsindstillinger**
@@ -31,7 +31,7 @@ Chrome og Chromium leverer den bedste Linux PWA-oplevelse med native desktop-int
    - Klik på **"Installer"** eller **"Opret"**
 
 4. **Start app**
-   - Find OneUptime i applikationsstarter
+   - Find Cast Operations i applikationsstarter
    - Eller brug skrivebordsgenvej
    - App åbnes i dedikeret vindue
 
@@ -40,7 +40,7 @@ Chrome og Chromium leverer den bedste Linux PWA-oplevelse med native desktop-int
 Firefox understøtter PWA-installation på Linux med grundlæggende desktop-integration.
 
 1. **PWA-installation**:
-   - Åbn OneUptime i Firefox
+   - Åbn Cast Operations i Firefox
    - Se efter installationsbanner eller -prompt
    - Klik på **"Installer"**, når det er tilgængeligt
    - Bemærk: Begrænset desktop-integration sammenlignet med Chrome
@@ -55,7 +55,7 @@ Edge er tilgængeligt på Linux og leverer god PWA-understøttelse.
 
 ### Automatiske opdateringer
 
-OneUptime PWA opdateres automatisk:
+Cast Operations PWA opdateres automatisk:
 
 - Opdateringer anventes, når browseren opdaterer appen
 - Kritiske sikkerhedsopdateringer deployeres øjeblikkeligt
@@ -69,7 +69,7 @@ OneUptime PWA opdateres automatisk:
 # Chrome PWA-administration
 google-chrome chrome://apps/
 
-# Fjern alle OneUptime-relaterede browserdata
+# Fjern alle Cast Operations-relaterede browserdata
 rm -rf ~/.config/google-chrome/Default/Local\ Storage/leveldb/
 rm -rf ~/.cache/google-chrome/Default/
 ```
@@ -78,7 +78,7 @@ rm -rf ~/.cache/google-chrome/Default/
 
 ### Automatiske opdateringer
 
-OneUptime PWA opdateres automatisk:
+Cast Operations PWA opdateres automatisk:
 
 - Opdateringer anventes, når browseren opdaterer appen
 - Kritiske sikkerhedsopdateringer deployeres øjeblikkeligt

@@ -93,7 +93,7 @@ import MicrosoftTeamsOnCallDutyActions from "./Actions/OnCallDutyPolicy";
 
 /*
  * AI Ops - observability assistant imports. These power the natural-language
- * "ask" experience where a Teams user can question the OneUptime AI about
+ * "ask" experience where a Teams user can question the Cast Operations AI about
  * their logs, traces, metrics, incidents and monitors.
  */
 import type { ObservabilityAssistantResult } from "../../AI/Chat/ObservabilityAssistant";
@@ -882,7 +882,7 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
 
     const channelPayload: JSONObject = {
       displayName: data.channelName,
-      description: `OneUptime notifications for ${data.channelName}`,
+      description: `Cast Operations notifications for ${data.channelName}`,
       membershipType: data.isPrivate ? "private" : "standard",
     };
 
@@ -1327,7 +1327,7 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
       const conversationReference: ConversationReference = {
         bot: {
           id: MicrosoftTeamsAppClientId,
-          name: "OneUptime Bot",
+          name: "Cast Operations Bot",
         },
         conversation: {
           id: data.workspaceChannel.id,
@@ -2385,7 +2385,7 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
   }
 
   /*
-   * AI Ops: resolve the OneUptime user for the Teams sender, build their real
+   * AI Ops: resolve the Cast Operations user for the Teams sender, build their real
    * permission props, ask the observability assistant, and reply in the same
    * conversation with the markdown answer plus a compact "Sources" footer.
    */
@@ -2421,7 +2421,7 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
       return;
     }
 
-    // Resolve the OneUptime user linked to this Teams user.
+    // Resolve the Cast Operations user linked to this Teams user.
     let oneUptimeUserId: ObjectID;
     try {
       oneUptimeUserId =
@@ -2431,7 +2431,7 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
         });
     } catch (error) {
       logger.debug(
-        "No OneUptime user linked to Teams user; prompting to connect account",
+        "No Cast Operations user linked to Teams user; prompting to connect account",
         {
           projectId: projectId.toString(),
           workspaceUserId: teamsUserId,
@@ -2439,7 +2439,7 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
       );
       logger.debug(error);
       await turnContext.sendActivity(
-        "I couldn't find your OneUptime account. Please connect your Microsoft Teams account in OneUptime User Settings before asking me questions.",
+        "I couldn't find your Cast Operations account. Please connect your Microsoft Teams account in Cast Operations User Settings before asking me questions.",
       );
       return;
     }
@@ -2548,11 +2548,11 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
 
   // Helper methods for bot commands
   private static getHelpMessage(): string {
-    return `Hello! I'm the OneUptime bot. I can help you with the following commands:
+    return `Hello! I'm the Cast Operations bot. I can help you with the following commands:
 
 **Available Commands:**
 - **help** - Show this help message
-- **ask <question>** - Ask OneUptime AI about your logs, traces, metrics, incidents and monitors
+- **ask <question>** - Ask Cast Operations AI about your logs, traces, metrics, incidents and monitors
 - **create incident** - Create a new incident
 - **create maintenance** - Create a new scheduled maintenance event
 - **show active incidents** - Display all currently active incidents
@@ -2624,7 +2624,7 @@ You can also just ask me a question in plain language - for example, "which moni
 
 Currently, there are no active incidents in the system. All services are operating normally.
 
-If you need to report an incident or check historical incidents, please visit the OneUptime dashboard.`;
+If you need to report an incident or check historical incidents, please visit the Cast Operations dashboard.`;
       }
 
       let message: string = `**Active Incidents** (${activeIncidents.length})
@@ -3240,7 +3240,7 @@ All monitoring checks are passing normally.`;
     });
 
     if (botWasAdded) {
-      logger.debug("OneUptime bot was added to a Teams conversation");
+      logger.debug("Cast Operations bot was added to a Teams conversation");
       await this.sendWelcomeAdaptiveCard(data.turnContext);
     }
   }
@@ -3259,9 +3259,9 @@ All monitoring checks are passing normally.`;
     logger.debug(`Conversation: ${JSON.stringify(conversation)}`);
 
     if (action === "add") {
-      logger.debug("OneUptime bot was installed");
+      logger.debug("Cast Operations bot was installed");
     } else if (action === "remove") {
-      logger.debug("OneUptime bot was uninstalled");
+      logger.debug("Cast Operations bot was uninstalled");
     }
   }
 
@@ -3398,14 +3398,14 @@ All monitoring checks are passing normally.`;
       body: [
         {
           type: "TextBlock",
-          text: "Welcome to OneUptime for Microsoft Teams",
+          text: "Welcome to Cast Operations for Microsoft Teams",
           weight: "Bolder",
           size: "Large",
           wrap: true,
         },
         {
           type: "TextBlock",
-          text: "OneUptime keeps your team ahead of incidents by streaming alerts, maintenance updates, and on-call context directly into Microsoft Teams.",
+          text: "Cast Operations keeps your team ahead of incidents by streaming alerts, maintenance updates, and on-call context directly into Microsoft Teams.",
           wrap: true,
           spacing: "Small",
         },
@@ -3419,7 +3419,7 @@ All monitoring checks are passing normally.`;
         },
         {
           type: "TextBlock",
-          text: "1. Connect this Teams workspace to your OneUptime project from **Settings → Integrations → Microsoft Teams**.\n2. Choose which incidents, alerts, and maintenance events should sync into Teams.\n3. Try the commands below or automate workflows from the OneUptime dashboard.",
+          text: "1. Connect this Teams workspace to your Cast Operations project from **Settings → Integrations → Microsoft Teams**.\n2. Choose which incidents, alerts, and maintenance events should sync into Teams.\n3. Try the commands below or automate workflows from the Cast Operations dashboard.",
           wrap: true,
         },
         {
@@ -3440,7 +3440,7 @@ All monitoring checks are passing normally.`;
             {
               title: "ask",
               value:
-                "Ask OneUptime AI about your logs, traces, metrics, incidents and monitors",
+                "Ask Cast Operations AI about your logs, traces, metrics, incidents and monitors",
             },
             {
               title: "create incident",
@@ -3466,7 +3466,7 @@ All monitoring checks are passing normally.`;
         },
         {
           type: "TextBlock",
-          text: "To use this app, each user must have an active OneUptime account. Please contact our support team for more details.",
+          text: "To use this app, each user must have an active Cast Operations account. Please contact our support team for more details.",
           wrap: true,
           spacing: "Large",
         },
@@ -3488,17 +3488,17 @@ All monitoring checks are passing normally.`;
         {
           type: "Action.OpenUrl",
           title: "View Setup Guide",
-          url: "https://oneuptime.com/docs/workspace-connections/microsoft-teams",
+          url: "https://visca.ai/docs/workspace-connections/microsoft-teams",
         },
         {
           type: "Action.OpenUrl",
           title: "Contact Support",
-          url: "mailto:support@oneuptime.com?subject=OneUptime%20Microsoft%20Teams%20Bot",
+          url: "mailto:support@visca.ai?subject=Cast Operations%20Microsoft%20Teams%20Bot",
         },
         {
           type: "Action.OpenUrl",
-          title: "Open OneUptime Dashboard",
-          url: "https://oneuptime.com/dashboard",
+          title: "Open Cast Operations Dashboard",
+          url: "https://visca.ai/dashboard",
         },
       ],
     } as JSONObject;

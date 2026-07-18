@@ -1,10 +1,10 @@
 #!/bin/sh
-# OneUptime Docker Agent — inventory snapshot poller.
+# Cast Operations Docker Agent — inventory snapshot poller.
 #
 # Periodically queries the local Docker daemon for the full set of
 # containers (all states), images, networks, and volumes and writes
 # one JSON line per resource to a log file that the OTel filelog
-# receiver picks up and forwards to OneUptime.
+# receiver picks up and forwards to Cast Operations.
 #
 # Each line is a JSON envelope:
 #   {"oneuptime.docker.kind":"Container","data":{...native docker payload...}}
@@ -34,7 +34,7 @@ emit_array_endpoint() {
 
     # The endpoints return a JSON array. We pipe through jq to:
     #   1. unwrap the array (.[]),
-    #   2. wrap each element in the OneUptime envelope ({kind, data}),
+    #   2. wrap each element in the Cast Operations envelope ({kind, data}),
     #   3. -c gives one compact JSON object per line, which is what
     #      the filelog json_parser operator expects.
     if ! curl --silent --fail --unix-socket "${SOCKET}" \

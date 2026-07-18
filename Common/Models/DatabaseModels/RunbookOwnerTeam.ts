@@ -145,7 +145,7 @@ export default class RunbookOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -224,7 +224,7 @@ export default class RunbookOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Team ID",
-    description: "ID of your OneUptime Team in which this object belongs",
+    description: "ID of your Cast Operations Team in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -302,7 +302,7 @@ export default class RunbookOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Runbook ID",
-    description: "ID of your OneUptime Runbook in which this object belongs",
+    description: "ID of your Cast Operations Runbook in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

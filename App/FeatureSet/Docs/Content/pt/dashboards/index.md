@@ -1,6 +1,6 @@
 # Visão geral dos painéis
 
-Painéis transformam os dados que o OneUptime já está coletando — métricas, logs, traces, incidentes, monitores, recursos do Kubernetes, hosts — em uma única página que alguém pode olhar e entender o que está acontecendo.
+Painéis transformam os dados que o Cast Operations já está coletando — métricas, logs, traces, incidentes, monitores, recursos do Kubernetes, hosts — em uma única página que alguém pode olhar e entender o que está acontecendo.
 
 Coloque um gráfico de latência de requisição ao lado de uma lista de incidentes abertos, ao lado de um indicador de CPU, ao lado de um parágrafo de contexto. Salve. Compartilhe o link.
 
@@ -66,12 +66,12 @@ Objetivo: uma página de plantão para o serviço de checkout com latência, tax
 6. Embaixo, um widget de **Fluxo de Logs** mostrando logs do mesmo serviço.
 7. Salve. Mude o dropdown para `payments` — o mesmo painel agora mostra o serviço de pagamentos.
 
-## Como os painéis se encaixam no restante do OneUptime
+## Como os painéis se encaixam no restante do Cast Operations
 
 - **Monitores e telemetria** são as fontes de dados. Toda métrica, log e trace que você coleta pode ser consultada em um widget.
 - **Incidentes e alertas** aparecem nos widgets **Lista de Incidentes** e **Lista de Alertas**. Os painéis são somente leitura para esses — crie e atualize-os em outros lugares.
 - **Páginas de status** são para comunicação voltada ao cliente ("o sistema está no ar?"). Os painéis são para olhar como o sistema está se comportando em detalhes. Os dois funcionam juntos, não se substituem.
-- **Workflows** são como o OneUptime age. Painéis são como você lê o que está acontecendo.
+- **Workflows** são como o Cast Operations age. Painéis são como você lê o que está acontecendo.
 
 ## O que ler em seguida
 

@@ -146,7 +146,7 @@ export default class AlertOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -227,7 +227,7 @@ export default class AlertOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Team ID",
-    description: "ID of your OneUptime Team in which this object belongs",
+    description: "ID of your Cast Operations Team in which this object belongs",
     example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   })
   @Column({
@@ -307,7 +307,7 @@ export default class AlertOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Alert ID",
-    description: "ID of your OneUptime Alert in which this object belongs",
+    description: "ID of your Cast Operations Alert in which this object belongs",
     example: "b2c3d4e5-f6a7-8901-bcde-f12345678901",
   })
   @Column({

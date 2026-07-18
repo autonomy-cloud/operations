@@ -1,6 +1,6 @@
 # Logsmonitor
 
-Log-overvågning giver dig mulighed for at overvåge dine applikationslogs og udløse advarsler baseret på logmønstre, antal og alvorlighedsniveauer. OneUptime evaluerer logs fra dine telemetritjenester og kontrollerer dem mod dine konfigurerede kriterier.
+Log-overvågning giver dig mulighed for at overvåge dine applikationslogs og udløse advarsler baseret på logmønstre, antal og alvorlighedsniveauer. Cast Operations evaluerer logs fra dine telemetritjenester og kontrollerer dem mod dine konfigurerede kriterier.
 
 ## Oversigt
 
@@ -14,7 +14,7 @@ Log-monitorer søger og tæller logs, der matcher specifikke filtre over et tids
 
 ## Oprettelse af en Log-monitor
 
-1. Gå til **Monitorer** i OneUptime-dashboardet
+1. Gå til **Monitorer** i Cast Operations-dashboardet
 2. Klik på **Opret monitor**
 3. Vælg **Logs** som monitortype
 4. Vælg de telemetritjenester, der skal overvåges
@@ -24,7 +24,7 @@ Log-monitorer søger og tæller logs, der matcher specifikke filtre over et tids
 
 ### Telemetritjenester
 
-Vælg én eller flere tjenester, der skal overvåges logs fra. Tjenester skal sende logs til OneUptime via OpenTelemetry.
+Vælg én eller flere tjenester, der skal overvåges logs fra. Tjenester skal sende logs til Cast Operations via OpenTelemetry.
 
 ### Log-filtre
 
@@ -92,4 +92,4 @@ Filtrer logs efter et eller flere alvorlighedsniveauer:
 
 ## Opsætningskrav
 
-Log-overvågning kræver, at dine applikationer sender logs til OneUptime via OpenTelemetry. Se dokumentationen til [OpenTelemetry](/docs/telemetry/open-telemetry) for opsætningsinstruktioner.
+Log-overvågning kræver, at dine applikationer sender logs til Cast Operations via OpenTelemetry. Se dokumentationen til [OpenTelemetry](/docs/telemetry/open-telemetry) for opsætningsinstruktioner.

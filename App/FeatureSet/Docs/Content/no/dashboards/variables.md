@@ -54,7 +54,7 @@ service.name = '{{service}}'
 
 Når nedtrekkslisten er satt til `checkout`, filtrerer diagrammet til checkout-tjenesten. Når seeren bytter til `payments`, rendres diagrammet på nytt for payments.
 
-For **Telemetri-attributt**-variabler vet OneUptime hvilket attributt variabelen mapper til og bruker filteret på hver widget som bruker det samme attributtet — du trenger ikke redigere hver widget for hånd.
+For **Telemetri-attributt**-variabler vet Cast Operations hvilket attributt variabelen mapper til og bruker filteret på hver widget som bruker det samme attributtet — du trenger ikke redigere hver widget for hånd.
 
 ## Tidsperiode
 

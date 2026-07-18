@@ -66,7 +66,7 @@ export const QueryMetricsTool: ObservabilityTool = {
       entityId: {
         type: "string",
         description:
-          "Only data points from this service/host/monitor (its OneUptime ID).",
+          "Only data points from this service/host/monitor (its Cast Operations ID).",
       },
     },
     required: ["metricName"],
@@ -205,7 +205,7 @@ export const BaselineAnomalyTool: ObservabilityTool = {
       entityId: {
         type: "string",
         description:
-          "Only data points from this service/host/monitor (its OneUptime ID). When omitted, the baseline spans every entity that ingests the metric.",
+          "Only data points from this service/host/monitor (its Cast Operations ID). When omitted, the baseline spans every entity that ingests the metric.",
       },
       atTime: {
         type: "string",
@@ -308,7 +308,7 @@ export const BaselineAnomalyTool: ObservabilityTool = {
 
       if (!isEntityAccessible) {
         throw new BadDataException(
-          "Your telemetry access is scoped to specific services, so a project-wide baseline is not available. Pass entityId set to the OneUptime ID of a service you can read (discover them via lookup_context).",
+          "Your telemetry access is scoped to specific services, so a project-wide baseline is not available. Pass entityId set to the Cast Operations ID of a service you can read (discover them via lookup_context).",
         );
       }
     }

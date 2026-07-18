@@ -1,6 +1,6 @@
 # API Monitor
 
-API monitoring आपको अपने HTTP/REST APIs की उपलब्धता, प्रदर्शन और सटीकता monitor करने की अनुमति देता है। OneUptime आपके API endpoints पर समय-समय पर HTTP requests भेजता है और आपके configured criteria के आधार पर responses का मूल्यांकन करता है।
+API monitoring आपको अपने HTTP/REST APIs की उपलब्धता, प्रदर्शन और सटीकता monitor करने की अनुमति देता है। Cast Operations आपके API endpoints पर समय-समय पर HTTP requests भेजता है और आपके configured criteria के आधार पर responses का मूल्यांकन करता है।
 
 ## Overview
 
@@ -15,7 +15,7 @@ API monitors आपके endpoints पर HTTP requests करते हैं 
 
 ## API Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **API** चुनें
 4. API URL दर्ज करें और request settings configure करें
@@ -85,7 +85,7 @@ POST, PUT और PATCH requests के लिए, आप एक JSON request bod
 
 #### Redirects Follow न करें
 
-डिफ़ॉल्ट रूप से, OneUptime HTTP redirects (301, 302, आदि) follow करता है। यदि आप final destination के बजाय redirect response खुद monitor करना चाहते हैं तो इस option को सक्षम करें।
+डिफ़ॉल्ट रूप से, Cast Operations HTTP redirects (301, 302, आदि) follow करता है। यदि आप final destination के बजाय redirect response खुद monitor करना चाहते हैं तो इस option को सक्षम करें।
 
 #### Allow Self-Signed Certificates
 
@@ -99,7 +99,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

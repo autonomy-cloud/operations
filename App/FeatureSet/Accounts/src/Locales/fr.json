@@ -20,7 +20,7 @@
     "switchLanguage": "Changer de langue"
   },
   "footer": {
-    "copyright": "OneUptime",
+    "copyright": "Cast Operations",
     "contact": "Contact",
     "privacyAndTerms": "Confidentialité et conditions"
   },
@@ -32,7 +32,7 @@
   },
   "login": {
     "title": "Connectez-vous à votre compte",
-    "subtitle": "Rejoignez des milliers d'entreprises qui utilisent OneUptime pour rester en ligne en permanence.",
+    "subtitle": "Rejoignez des milliers d'entreprises qui utilisent Cast Operations pour rester en ligne en permanence.",
     "submitButton": "Connexion",
     "forgotPassword": "Mot de passe oublié ?",
     "useSso": "Utiliser plutôt l'authentification unique (SSO)",
@@ -50,8 +50,8 @@
     }
   },
   "register": {
-    "title": "Créez votre compte OneUptime",
-    "subtitle": "Rejoignez des milliers d'entreprises qui utilisent OneUptime pour rester en ligne en permanence.",
+    "title": "Créez votre compte Cast Operations",
+    "subtitle": "Rejoignez des milliers d'entreprises qui utilisent Cast Operations pour rester en ligne en permanence.",
     "noCreditCard": "Aucune carte de crédit requise.",
     "submitButton": "S'inscrire",
     "haveAccountPrompt": "Vous avez déjà un compte ?",
@@ -92,7 +92,7 @@
   },
   "verifyEmail": {
     "successTitle": "Votre e-mail est vérifié.",
-    "successDescription": "Merci d'avoir vérifié votre e-mail. Vous pouvez maintenant vous connecter à OneUptime.",
+    "successDescription": "Merci d'avoir vérifié votre e-mail. Vous pouvez maintenant vous connecter à Cast Operations.",
     "errorTitle": "Désolé, quelque chose s'est mal passé !",
     "returnToSignIn": "Retour à la connexion ?",
     "loginLink": "Connexion."

@@ -50,7 +50,7 @@ export const PricingPlans: Array<PricingPlan> = [
     monthlyPricePerUser: "Custom",
     yearlyMonthlyPricePerUser: "Custom",
     description:
-      "Enterprise grade offering. Custom pricing - contact sales at https://oneuptime.com/enterprise/demo.",
+      "Enterprise grade offering. Custom pricing - contact sales at https://visca.ai/enterprise/demo.",
   },
 ];
 

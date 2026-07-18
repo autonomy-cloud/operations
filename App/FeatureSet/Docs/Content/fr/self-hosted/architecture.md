@@ -1,6 +1,6 @@
-# Architecture auto-hébergée de OneUptime
+# Architecture auto-hébergée de Cast Operations
 
-Ce diagramme montre à quoi ressemble généralement OneUptime lorsqu'il est auto-hébergé dans votre environnement (par exemple, dans votre cluster Kubernetes), y compris comment les sondes surveillent les ressources internes et externes.
+Ce diagramme montre à quoi ressemble généralement Cast Operations lorsqu'il est auto-hébergé dans votre environnement (par exemple, dans votre cluster Kubernetes), y compris comment les sondes surveillent les ressources internes et externes.
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["Ingestion des requêtes entrantes"]
     end
 
-    subgraph Probes["Sondes OneUptime"]
+    subgraph Probes["Sondes Cast Operations"]
       direction TB
       P1["Pod(s) de sonde dans votre cluster"]
       P2["VM/Conteneur de sonde optionnel sur votre réseau"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## Ce que cela montre
 
-- Les utilisateurs finaux accèdent à OneUptime via l'Ingress de votre cluster (NGINX), qui achemine vers l'UI et l'API.
+- Les utilisateurs finaux accèdent à Cast Operations via l'Ingress de votre cluster (NGINX), qui achemine vers l'UI et l'API.
 - Les services core lisent/écrivent l'état dans PostgreSQL, Redis et ClickHouse.
 - Les sondes peuvent s'exécuter dans votre cluster (recommandé) et/ou ailleurs sur votre réseau. Elles peuvent surveiller :
   - Les services internes/privés derrière votre pare-feu.

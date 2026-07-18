@@ -1,14 +1,14 @@
-# 將持續效能剖析資料傳送到 OneUptime
+# 將持續效能剖析資料傳送到 Cast Operations
 
 ## 概觀
 
-持續效能剖析（Continuous profiling）是可觀測性的第四大支柱，與日誌、指標和追蹤並列。剖析資料會擷取您的應用程式如何在函式層級消耗 CPU 時間、配置記憶體以及使用系統資源。OneUptime 透過 OpenTelemetry Protocol（OTLP）擷取剖析資料，並將其與您的其他遙測訊號一同儲存，以進行統一分析。
+持續效能剖析（Continuous profiling）是可觀測性的第四大支柱，與日誌、指標和追蹤並列。剖析資料會擷取您的應用程式如何在函式層級消耗 CPU 時間、配置記憶體以及使用系統資源。Cast Operations 透過 OpenTelemetry Protocol（OTLP）擷取剖析資料，並將其與您的其他遙測訊號一同儲存，以進行統一分析。
 
-有了 OneUptime 中的剖析資料，您可以辨識消耗 CPU 的熱點函式、偵測記憶體洩漏、找出競爭瓶頸，並將效能問題與特定的追蹤和 span 建立關聯。
+有了 Cast Operations 中的剖析資料，您可以辨識消耗 CPU 的熱點函式、偵測記憶體洩漏、找出競爭瓶頸，並將效能問題與特定的追蹤和 span 建立關聯。
 
 ## 支援的剖析類型
 
-OneUptime 支援以下剖析類型：
+Cast Operations 支援以下剖析類型：
 
 | 剖析類型      | 說明                          | 單位        |
 | ------------- | ----------------------------- | ----------- |
@@ -23,7 +23,7 @@ OneUptime 支援以下剖析類型：
 
 ### 步驟 1 - 建立遙測擷取權杖
 
-當您註冊 OneUptime 並建立專案後，請點擊導覽列中的「More」，然後點擊「Project Settings」。
+當您註冊 Cast Operations 並建立專案後，請點擊導覽列中的「More」，然後點擊「Project Settings」。
 
 在 Telemetry Ingestion Key 頁面上，點擊「Create Ingestion Key」以建立權杖。
 
@@ -35,32 +35,32 @@ OneUptime 支援以下剖析類型：
 
 ### 步驟 2 - 設定您的剖析器
 
-OneUptime 使用 OTLP profiles 通訊協定，同時透過 gRPC 與 HTTP 接受剖析資料。
+Cast Operations 使用 OTLP profiles 通訊協定，同時透過 gRPC 與 HTTP 接受剖析資料。
 
 | 通訊協定 | 端點                                                |
 | -------- | --------------------------------------------------- |
-| gRPC     | `your-oneuptime-host:4317`（OTLP 標準 gRPC 連接埠） |
-| HTTP     | `https://your-oneuptime-host/otlp/v1/profiles`      |
+| gRPC     | `your-operations-host:4317`（OTLP 標準 gRPC 連接埠） |
+| HTTP     | `https://your-operations-host/otlp/v1/profiles`      |
 
 **環境變數**
 
-設定以下環境變數，讓您的剖析器指向 OneUptime：
+設定以下環境變數，讓您的剖析器指向 Cast Operations：
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
-**自架 OneUptime**
+**自架 Cast Operations**
 
-如果您是自架 OneUptime，請將端點替換為您自己的主機（例如 `http(s)://YOUR-ONEUPTIME-HOST/otlp`）。對於 gRPC，請直接連接到 OneUptime 主機上的連接埠 4317。
+如果您是自架 Cast Operations，請將端點替換為您自己的主機（例如 `http(s)://YOUR-OPERATIONS-HOST/otlp`）。對於 gRPC，請直接連接到 Cast Operations 主機上的連接埠 4317。
 
 ## 檢測指南
 
 ### 使用 Grafana Alloy（以 eBPF 為基礎的剖析）
 
-Grafana Alloy（前身為 Grafana Agent）可以使用 eBPF 從 Linux 主機上的所有處理程序收集 CPU 剖析資料，且無需變更任何程式碼。請將其設定為透過 OTLP 匯出至 OneUptime。
+Grafana Alloy（前身為 Grafana Agent）可以使用 eBPF 從 Linux 主機上的所有處理程序收集 CPU 剖析資料，且無需變更任何程式碼。請將其設定為透過 OTLP 匯出至 Cast Operations。
 
 Alloy 設定範例：
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "oneuptime" {
   endpoint {
-    url = "https://oneuptime.com/pyroscope"
+    url = "https://visca.ai/pyroscope"
     headers = {
       "x-oneuptime-token" = "YOUR_ONEUPTIME_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ pyroscope.write "oneuptime" {
 ```bash
 # Start your Java application with the OpenTelemetry Java agent
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://oneuptime.com/otlp \
+  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
   -Dotel.exporter.otlp.headers=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -95,7 +95,7 @@ java -javaagent:opentelemetry-javaagent.jar \
 
 ### 使用 Go pprof 並透過 OTLP 匯出
 
-對於 Go 應用程式，您可以搭配 OTLP 匯出器使用標準的 `net/http/pprof` 套件。透過定期收集 pprof 資料並將其轉送至 OneUptime，來設定持續效能剖析。
+對於 Go 應用程式，您可以搭配 OTLP 匯出器使用標準的 `net/http/pprof` 套件。透過定期收集 pprof 資料並將其轉送至 Cast Operations，來設定持續效能剖析。
 
 ```go
 import (
@@ -110,7 +110,7 @@ func collectProfile() {
     pprof.StartCPUProfile(&buf)
     time.Sleep(30 * time.Second)
     pprof.StopCPUProfile()
-    // Convert pprof output to OTLP format and send to OneUptime
+    // Convert pprof output to OTLP format and send to Cast Operations
 }
 ```
 
@@ -125,11 +125,11 @@ func collectProfile() {
 py-spy record --format speedscope --pid $PID -o profile.json
 ```
 
-對於持續效能剖析，請將 py-spy 與您的應用程式一同執行，並設定 OpenTelemetry Collector 來擷取剖析資料並將其轉送至 OneUptime。
+對於持續效能剖析，請將 py-spy 與您的應用程式一同執行，並設定 OpenTelemetry Collector 來擷取剖析資料並將其轉送至 Cast Operations。
 
 ## 使用 OpenTelemetry Collector
 
-您可以使用 OpenTelemetry Collector 作為代理，從您的應用程式接收剖析資料並將其轉送至 OneUptime。
+您可以使用 OpenTelemetry Collector 作為代理，從您的應用程式接收剖析資料並將其轉送至 Cast Operations。
 
 ```yaml
 receivers:
@@ -142,7 +142,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -159,7 +159,7 @@ service:
 
 ### 火焰圖視覺化
 
-OneUptime 會將剖析資料呈現為互動式火焰圖（flamegraph）。每個長條代表呼叫堆疊中的一個函式，其寬度與所消耗的時間或資源成正比。您可以點擊任何函式以放大檢視其呼叫者（callers）和被呼叫者（callees）。
+Cast Operations 會將剖析資料呈現為互動式火焰圖（flamegraph）。每個長條代表呼叫堆疊中的一個函式，其寬度與所消耗的時間或資源成正比。您可以點擊任何函式以放大檢視其呼叫者（callers）和被呼叫者（callees）。
 
 ### 函式清單
 
@@ -167,7 +167,7 @@ OneUptime 會將剖析資料呈現為互動式火焰圖（flamegraph）。每個
 
 ### 追蹤關聯
 
-OneUptime 中的剖析資料可以與分散式追蹤建立關聯。當剖析資料包含追蹤與 span ID 時（透過 OTLP 連結表），您可以直接從緩慢的追蹤 span 導覽至對應的 CPU 或記憶體剖析資料，以準確了解當時正在執行哪些程式碼。
+Cast Operations 中的剖析資料可以與分散式追蹤建立關聯。當剖析資料包含追蹤與 span ID 時（透過 OTLP 連結表），您可以直接從緩慢的追蹤 span 導覽至對應的 CPU 或記憶體剖析資料，以準確了解當時正在執行哪些程式碼。
 
 ### 依剖析類型篩選
 
@@ -175,10 +175,10 @@ OneUptime 中的剖析資料可以與分散式追蹤建立關聯。當剖析資�
 
 ## 資料保留
 
-剖析資料的保留期限是在您的 OneUptime 專案設定中針對每個遙測服務進行設定。預設保留期限為 15 天。資料會在保留期限到期後自動刪除。
+剖析資料的保留期限是在您的 Cast Operations 專案設定中針對每個遙測服務進行設定。預設保留期限為 15 天。資料會在保留期限到期後自動刪除。
 
 若要變更某個服務的保留期限，請前往 **Telemetry > Services > [您的服務] > Settings**，並更新資料保留值。
 
 ## 需要協助嗎？
 
-如果您在設定 OneUptime 的剖析功能時需要任何協助，請聯絡 support@oneuptime.com。
+如果您在設定 Cast Operations 的剖析功能時需要任何協助，請聯絡 support@visca.ai。

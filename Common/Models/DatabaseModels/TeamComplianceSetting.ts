@@ -75,7 +75,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
   singularName: "Team Compliance Setting",
   pluralName: "Team Compliance Settings",
   icon: IconProp.CheckCircle,
-  tableDescription: "Compliance settings for your OneUptime team",
+  tableDescription: "Compliance settings for your Cast Operations team",
 })
 export default class TeamComplianceSetting extends BaseModel {
   @ColumnAccessControl({
@@ -135,7 +135,7 @@ export default class TeamComplianceSetting extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

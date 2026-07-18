@@ -1,6 +1,6 @@
 # Scripting y CI/CD
 
-La CLI de OneUptime está diseñada para la automatización. Admite autenticación basada en variables de entorno, salida JSON para análisis programático y códigos de salida apropiados para la integración en pipelines.
+La CLI de Cast Operations está diseñada para la automatización. Admite autenticación basada en variables de entorno, salida JSON para análisis programático y códigos de salida apropiados para la integración en pipelines.
 
 ## Variables de entorno
 
@@ -8,7 +8,7 @@ Establece estas variables de entorno para autenticarte sin contextos guardados:
 
 ```bash
 export ONEUPTIME_API_KEY=sk-your-api-key
-export ONEUPTIME_URL=https://oneuptime.com
+export ONEUPTIME_URL=https://visca.ai
 ```
 
 Estas tienen prioridad sobre los contextos guardados, pero son reemplazadas por los indicadores de CLI.
@@ -86,13 +86,13 @@ jobs:
   health-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Install OneUptime CLI
+      - name: Install Cast Operations CLI
         run: npm install -g @oneuptime/cli
 
       - name: Check for active incidents
         env:
           ONEUPTIME_API_KEY: ${{ secrets.ONEUPTIME_API_KEY }}
-          ONEUPTIME_URL: https://oneuptime.com
+          ONEUPTIME_URL: https://visca.ai
         run: |
           INCIDENT_COUNT=$(oneuptime incident count)
           if [ "$INCIDENT_COUNT" -gt 0 ]; then
@@ -138,7 +138,7 @@ ENTRYPOINT ["oneuptime"]
 ```bash
 docker run --rm \
   -e ONEUPTIME_API_KEY=sk-abc123 \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   oneuptime-cli incident list
 ```
 

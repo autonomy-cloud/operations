@@ -60,7 +60,7 @@ Envoyez un message à un chat Telegram à l'aide d'un jeton de bot et d'un ident
 
 ## Email
 
-Envoyez un e-mail via OneUptime.
+Envoyez un e-mail via Cast Operations.
 
 **Paramètres** :
 
@@ -118,9 +118,9 @@ Utilisez ceci pour partager une logique commune. Construisez un workflow « publ
 
 Une limite de sécurité empêche les workflows de s'appeler entre eux indéfiniment. Voir [Configuration et sécurité](/docs/workflows/configuration).
 
-## Composants de données OneUptime
+## Composants de données Cast Operations
 
-Pour chaque type d'enregistrement dans OneUptime (monitors, incidents, alertes, status pages, politiques d'astreinte et bien d'autres), la palette propose ces composants — recherchez par le nom du type :
+Pour chaque type d'enregistrement dans Cast Operations (monitors, incidents, alertes, status pages, politiques d'astreinte et bien d'autres), la palette propose ces composants — recherchez par le nom du type :
 
 - **Find One** — récupérer un enregistrement par ID ou par filtre.
 - **Find** — récupérer une liste d'enregistrements.
@@ -129,13 +129,13 @@ Pour chaque type d'enregistrement dans OneUptime (monitors, incidents, alertes, 
 - **Delete** — supprimer un enregistrement.
 - **Count** — compter les enregistrements correspondant à un filtre.
 
-C'est ainsi qu'un workflow peut lire et modifier les données OneUptime. Par exemple : un webhook depuis votre outil CI peut utiliser **Create Incident** pour ouvrir un incident avec les détails de l'échec.
+C'est ainsi qu'un workflow peut lire et modifier les données Cast Operations. Par exemple : un webhook depuis votre outil CI peut utiliser **Create Incident** pour ouvrir un incident avec les détails de l'échec.
 
 ## Quel composant choisir ?
 
 Quelques règles rapides :
 
-- S'il existe un bloc dédié à ce que vous voulez (Slack, Email, un enregistrement OneUptime), utilisez-le — vous bénéficiez d'une meilleure gestion des erreurs et de journaux plus clairs.
+- S'il existe un bloc dédié à ce que vous voulez (Slack, Email, un enregistrement Cast Operations), utilisez-le — vous bénéficiez d'une meilleure gestion des erreurs et de journaux plus clairs.
 - Pour toute autre API externe, utilisez **API**.
 - Pour remettre en forme des données entre blocs, utilisez **Custom Code** ou **JSON**.
 - Pour réaliser des actions différentes selon une valeur, utilisez **Conditions**.

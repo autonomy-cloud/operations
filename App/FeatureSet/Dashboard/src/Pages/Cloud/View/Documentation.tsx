@@ -67,7 +67,7 @@ const CloudResourceDocumentation: FunctionComponent<
     <Fragment>
       <ResourceDocumentationCard
         title="Connect a cloud environment"
-        description="Configure your OpenTelemetry Collector or SDK to report managed cloud compute to OneUptime."
+        description="Configure your OpenTelemetry Collector or SDK to report managed cloud compute to Cast Operations."
         buildMarkdown={getCloudDocMarkdown}
       />
     </Fragment>

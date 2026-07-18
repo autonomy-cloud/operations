@@ -19,48 +19,48 @@
 </p>
 
 <div align="center">
-  <a href="https://oneuptime.com">
-    <img alt="OneUptime 徽标" width="55%" src="https://raw.githubusercontent.com/OneUptime/oneuptime/master/Home/Static/img/OneUptimePNG/7.png"/>
+  <a href="https://visca.ai">
+    <img alt="Cast Operations 徽标" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
   <h3>智能体式可观测性 —— 一个开源平台，涵盖可用性、事件、值班、状态页、日志、追踪、指标与 APM。</h3>
 
   <p><b>当出现问题时，第一个知道，也最快修复。</b></p>
 
-  <p>OneUptime 用一个可免费自托管的平台，取代一整排 SaaS 工具。它能捕捉故障、呼叫合适的人、更新你的状态页、定位根因，甚至提交修复的 PR。</p>
+  <p>Cast Operations 用一个可免费自托管的平台，取代一整排 SaaS 工具。它能捕捉故障、呼叫合适的人、更新你的状态页、定位根因，甚至提交修复的 PR。</p>
 
   <p>
-    <a href="https://github.com/OneUptime/oneuptime/blob/master/LICENSE"><img src="https://img.shields.io/github/license/OneUptime/oneuptime?color=1a73e8" alt="License"></a>
-    <a href="https://github.com/OneUptime/oneuptime/releases"><img src="https://img.shields.io/github/v/release/OneUptime/oneuptime" alt="Release"></a>
-    <a href="https://github.com/OneUptime/oneuptime/stargazers"><img src="https://img.shields.io/github/stars/OneUptime/oneuptime?style=flat" alt="Stars"></a>
-    <a href="https://artifacthub.io/packages/helm/oneuptime/oneuptime"><img src="https://img.shields.io/badge/Helm-Chart-0f1689" alt="Helm Chart"></a>
-    <a href="https://join.slack.com/t/oneuptimesupport/shared_invite/zt-2pz5p1uhe-Fpmc7bv5ZE5xRMe7qJnwmA"><img src="https://img.shields.io/badge/Slack-Community-4A154B" alt="Slack"></a>
+    <a href="https://github.com/autonomy-cloud/operations/blob/master/LICENSE"><img src="https://img.shields.io/github/license/autonomy-cloud/operations?color=1a73e8" alt="License"></a>
+    <a href="https://github.com/autonomy-cloud/operations/releases"><img src="https://img.shields.io/github/v/release/autonomy-cloud/operations" alt="Release"></a>
+    <a href="https://github.com/autonomy-cloud/operations/stargazers"><img src="https://img.shields.io/github/stars/autonomy-cloud/operations?style=flat" alt="Stars"></a>
+    <a href="https://artifacthub.io/packages/helm/autonomy-cloud/operations"><img src="https://img.shields.io/badge/Helm-Chart-0f1689" alt="Helm Chart"></a>
+    <a href="https://github.com/autonomy-cloud/operations/discussions"><img src="https://img.shields.io/badge/Slack-Community-4A154B" alt="Slack"></a>
   </p>
 
   <p>
-    <a href="https://oneuptime.com"><b>官网</b></a> &nbsp;•&nbsp;
-    <a href="https://oneuptime.com/docs"><b>文档</b></a> &nbsp;•&nbsp;
+    <a href="https://visca.ai"><b>官网</b></a> &nbsp;•&nbsp;
+    <a href="https://visca.ai/docs"><b>文档</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>快速开始</b></a> &nbsp;•&nbsp;
-    <a href="https://oneuptime.com/pricing"><b>定价</b></a> &nbsp;•&nbsp;
+    <a href="https://visca.ai/pricing"><b>定价</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>参与贡献</b></a>
   </p>
 
-  <a href="https://oneuptime.com"><b>🚀 试用 OneUptime Cloud —— 永久免费套餐，无需信用卡 →</b></a>
+  <a href="https://visca.ai"><b>🚀 试用 Cast Operations Cloud —— 永久免费套餐，无需信用卡 →</b></a>
 </div>
 
 <br/>
 
 <div align="center">
-  <img alt="实时事件处理中的 OneUptime 指挥中心" width="92%" src="https://raw.githubusercontent.com/OneUptime/oneuptime/master/Home/Static/img/readme/hero-command-center.png"/>
+  <img alt="实时事件处理中的 Cast Operations 指挥中心" width="92%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Home/Static/img/readme/hero-command-center.png"/>
 </div>
 
 ---
 
 ## 取代你的整套可观测性技术栈
 
-OneUptime 将监控、告警、事件响应和可观测性整合到一个开源应用中 —— 从此你无需再为十多个各自独立的工具付费（并费力拼接它们）。
+Cast Operations 将监控、告警、事件响应和可观测性整合到一个开源应用中 —— 从此你无需再为十多个各自独立的工具付费（并费力拼接它们）。
 
-| 不再需要… | 改用 OneUptime 实现… |
+| 不再需要… | 改用 Cast Operations 实现… |
 |---|---|
 | Pingdom / UptimeRobot | **可用性监控** —— 面向全球的网站、API、ping、端口、SSL、DNS 及合成检测 |
 | StatusPage.io | **状态页** —— 带订阅者的品牌化公共与私有状态页 |
@@ -79,7 +79,7 @@ OneUptime 将监控、告警、事件响应和可观测性整合到一个开源�
 
 <br/>
 
-现在是凌晨 2:47。结账开始超时。看看在多数工具还没发出第一条告警之前，OneUptime 就已经做了什么 —— 也正是下面这些截图真实呈现的内容。
+现在是凌晨 2:47。结账开始超时。看看在多数工具还没发出第一条告警之前，Cast Operations 就已经做了什么 —— 也正是下面这些截图真实呈现的内容。
 
 ### 1 · 检测 — *几秒内知晓*
 
@@ -119,11 +119,11 @@ AI 智能体提交一个包含修复的拉取请求，关联到该事件，测�
 
 ## ⚡ 快速开始
 
-### ☁️ OneUptime Cloud —— 最省心的方式
+### ☁️ Cast Operations Cloud —— 最省心的方式
 
 零配置、始终保持最新，还能为开源项目提供资金支持。
 
-**→ [在 oneuptime.com 免费注册](https://oneuptime.com)**
+**→ [在 visca.ai 免费注册](https://visca.ai)**
 
 ### 🐳 使用 Docker Compose 自托管
 
@@ -131,7 +131,7 @@ AI 智能体提交一个包含修复的拉取请求，关联到该事件，测�
 
 ```bash
 # 1. Clone the release branch
-git clone --depth 1 --single-branch --branch release https://github.com/OneUptime/oneuptime.git
+git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
 cd oneuptime
 
 # 2. Create your config (then edit it — set strong, random secrets!)
@@ -141,18 +141,18 @@ cp config.example.env config.env
 npm start
 ```
 
-OneUptime 现已运行在 **http://localhost** —— 打开它并创建你的第一个账户。
+Cast Operations 现已运行在 **http://localhost** —— 打开它并创建你的第一个账户。
 
 📖 完整指南：[Docker Compose 安装](/App/FeatureSet/Docs/Content/en/installation/docker-compose.md) · [规格与需求](/App/FeatureSet/Docs/Content/en/installation/sizing.md)
 
 ### ☸️ 使用 Helm 部署到 Kubernetes —— 面向生产环境
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
-helm install oneuptime oneuptime/oneuptime
+helm repo add oneuptime https://helm-chart.visca.ai
+helm install oneuptime autonomy-cloud/operations
 ```
 
-📖 完整安装说明与参数值见 [Artifact Hub →](https://artifacthub.io/packages/helm/oneuptime/oneuptime)
+📖 完整安装说明与参数值见 [Artifact Hub →](https://artifacthub.io/packages/helm/autonomy-cloud/operations)
 
 > **正在升级现有安装？** 请参阅[升级指南](/App/FeatureSet/Docs/Content/en/installation/upgrading.md)。
 
@@ -202,12 +202,12 @@ helm install oneuptime oneuptime/oneuptime
 | | **社区版** | **企业版** |
 |---|---|---|
 | **适合谁** | 自托管用户与小型团队 | 需要高级支持的受监管团队 |
-| **费用** | 免费且开源 | [联系销售](mailto:sales@oneuptime.com) |
+| **费用** | 免费且开源 | [联系销售](mailto:sales@visca.ai) |
 | **功能** | 完整功能集 | 完整功能集 + 加固镜像、优先支持、定制功能与数据驻留 |
 
 ---
 
-## 💡 为什么选择 OneUptime？
+## 💡 为什么选择 Cast Operations？
 
 我们的使命很简单：**减少停机时间，助力更多产品取得成功。** 你不必再用胶带把七家供应商勉强拼在一起，而是获得一个平台，帮你理解事情*为何*出错、快速响应事件并削减运维琐务 —— 完全开源，让你真正拥有自己的数据和技术栈。
 
@@ -219,26 +219,26 @@ helm install oneuptime oneuptime/oneuptime
 
 我们欢迎各种规模的贡献。从这里开始：
 
-- 🐛 **[待处理的 issue](https://github.com/OneUptime/oneuptime/issues)** —— 认领一个，或[提交一个新的](https://github.com/OneUptime/oneuptime/issues/new)
-- ✅ 为代码库 **[帮忙编写测试](https://github.com/OneUptime/oneuptime/issues?q=is%3Aopen+is%3Aissue+label%3A%22write+tests%22)**
+- 🐛 **[待处理的 issue](https://github.com/autonomy-cloud/operations/issues)** —— 认领一个，或[提交一个新的](https://github.com/autonomy-cloud/operations/issues/new)
+- ✅ 为代码库 **[帮忙编写测试](https://github.com/autonomy-cloud/operations/issues?q=is%3Aopen+is%3Aissue+label%3A%22write+tests%22)**
 - 🧑‍💻 **[本地开发指南](/App/FeatureSet/Docs/Content/en/installation/local-development.md)**，帮你完成环境搭建
 - 📖 阅读 **[贡献指南](/CONTRIBUTING.md)**
-- 💬 在 **[开发者 Slack](https://join.slack.com/t/oneuptimedev/shared_invite/zt-17r8o7gkz-nITGan_PS9JYJV6WMm_TsQ)** 或 **[社区 Slack](https://join.slack.com/t/oneuptimesupport/shared_invite/zt-2pz5p1uhe-Fpmc7bv5ZE5xRMe7qJnwmA)** 与我们交流
+- 💬 在 **[开发者 Slack](https://github.com/autonomy-cloud/operations/discussions)** 或 **[社区 Slack](https://github.com/autonomy-cloud/operations/discussions)** 与我们交流
 
 ## ❤️ 支持这个项目
 
-如果 OneUptime 对你有帮助：
+如果 Cast Operations 对你有帮助：
 
 - ⭐ **给这个仓库点个 Star** —— 这真的能帮助更多人找到我们
-- 💵 **[赞助我们](https://github.com/sponsors/OneUptime)** —— 每一分钱都会转化为新功能
-- 🛍️ **[买点周边](https://shop.oneuptime.com)** —— 全部收益用于资助开源开发
+- 💵 **[赞助我们](https://github.com/autonomy-cloud/operations)** —— 每一分钱都会转化为新功能
+- 🛍️ **[买点周边](https://shop.visca.ai)** —— 全部收益用于资助开源开发
 
 ---
 
 ## 📄 许可证
 
-OneUptime 基于 [Apache License 2.0](/LICENSE) 授权。
+Cast Operations 基于 [Apache License 2.0](/LICENSE) 授权。
 
 <div align="center">
-  <sub>由 <a href="https://oneuptime.com">OneUptime</a> 团队与<a href="https://github.com/OneUptime/oneuptime/graphs/contributors">贡献者们</a>用 ❤️ 打造。</sub>
+  <sub>由 <a href="https://visca.ai">Cast Operations</a> 团队与<a href="https://github.com/autonomy-cloud/operations/graphs/contributors">贡献者们</a>用 ❤️ 打造。</sub>
 </div>

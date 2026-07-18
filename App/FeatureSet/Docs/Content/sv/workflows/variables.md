@@ -60,7 +60,7 @@ Rena JSON-fält accepterar variabler inuti strängvärden, men du kan inte anvä
 
 ### Bygga en payload från en webhook
 
-En webhook kommer in med en body som `{ "service": "checkout", "status": "failed" }`. För att förvandla det till en OneUptime-incident:
+En webhook kommer in med en body som `{ "service": "checkout", "status": "failed" }`. För att förvandla det till en Cast Operations-incident:
 
 1. **Webhook**-utlösare med namnet `CIWebhook`.
 2. **Conditions**-block: vänster `{{CIWebhook.Request Body.status}}`, operator `==`, höger `failed`.

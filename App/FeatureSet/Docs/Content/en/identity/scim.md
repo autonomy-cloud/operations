@@ -1,25 +1,25 @@
 # SCIM (System for Cross-domain Identity Management)
 
-OneUptime supports SCIM v2.0 protocol for automated user provisioning and deprovisioning. SCIM enables identity providers (IdPs) like Azure AD, Okta, and other enterprise identity systems to automatically manage user access to OneUptime projects and status pages.
+Cast Operations supports SCIM v2.0 protocol for automated user provisioning and deprovisioning. SCIM enables identity providers (IdPs) like Azure AD, Okta, and other enterprise identity systems to automatically manage user access to Cast Operations projects and status pages.
 
 ## Overview
 
 SCIM integration provides the following benefits:
 
-- **Automated User Provisioning**: Automatically create users in OneUptime when they're assigned in your IdP
-- **Automated User Deprovisioning**: Automatically remove users from OneUptime when they're unassigned in your IdP
-- **User Attribute Synchronization**: Keep user information synchronized between your IdP and OneUptime
-- **Centralized Access Management**: Manage OneUptime access from your existing identity management system
+- **Automated User Provisioning**: Automatically create users in Cast Operations when they're assigned in your IdP
+- **Automated User Deprovisioning**: Automatically remove users from Cast Operations when they're unassigned in your IdP
+- **User Attribute Synchronization**: Keep user information synchronized between your IdP and Cast Operations
+- **Centralized Access Management**: Manage Cast Operations access from your existing identity management system
 
 ## SCIM for Projects
 
-Project SCIM allows identity providers to manage team members within OneUptime projects.
+Project SCIM allows identity providers to manage team members within Cast Operations projects.
 
 ### Setting Up Project SCIM
 
 1. **Navigate to Project Settings**
 
-   - Go to your OneUptime project
+   - Go to your Cast Operations project
    - Navigate to **Project Settings** > **Team** > **SCIM**
 
 2. **Configure SCIM Settings**
@@ -30,7 +30,7 @@ Project SCIM allows identity providers to manage team members within OneUptime p
    - Copy the **SCIM Base URL** and **Bearer Token** for your IdP configuration
 
 3. **Configure Your Identity Provider**
-   - Use the SCIM Base URL: `https://oneuptime.com/scim/v2/{scimId}`
+   - Use the SCIM Base URL: `https://visca.ai/scim/v2/{scimId}`
    - Configure bearer token authentication with the provided token
    - Map user attributes (email is required)
 
@@ -52,12 +52,12 @@ Project SCIM allows identity providers to manage team members within OneUptime p
 
 ### Project SCIM User Lifecycle
 
-1. **User Assignment in IdP**: When a user is assigned to OneUptime in your IdP
-2. **SCIM Provisioning**: IdP calls OneUptime SCIM API to create the user
+1. **User Assignment in IdP**: When a user is assigned to Cast Operations in your IdP
+2. **SCIM Provisioning**: IdP calls Cast Operations SCIM API to create the user
 3. **Team Membership**: User is automatically added to configured default teams
-4. **Access Granted**: User can now access the OneUptime project
+4. **Access Granted**: User can now access the Cast Operations project
 5. **User Unassignment**: When user is unassigned in IdP
-6. **SCIM Deprovisioning**: IdP calls OneUptime SCIM API to remove the user
+6. **SCIM Deprovisioning**: IdP calls Cast Operations SCIM API to remove the user
 7. **Access Revoked**: User loses access to the project
 
 ## SCIM for Status Pages
@@ -68,7 +68,7 @@ Status Page SCIM allows identity providers to manage subscribers to private stat
 
 1. **Navigate to Status Page Settings**
 
-   - Go to your OneUptime status page
+   - Go to your Cast Operations status page
    - Navigate to **Status Page Settings** > **Private Users** > **SCIM**
 
 2. **Configure SCIM Settings**
@@ -78,7 +78,7 @@ Status Page SCIM allows identity providers to manage subscribers to private stat
    - Copy the **SCIM Base URL** and **Bearer Token** for your IdP configuration
 
 3. **Configure Your Identity Provider**
-   - Use the SCIM Base URL: `https://oneuptime.com/status-page-scim/v2/{scimId}`
+   - Use the SCIM Base URL: `https://visca.ai/status-page-scim/v2/{scimId}`
    - Configure bearer token authentication with the provided token
    - Map user attributes (email is required)
 
@@ -95,28 +95,28 @@ Status Page SCIM allows identity providers to manage subscribers to private stat
 
 ### Status Page SCIM User Lifecycle
 
-1. **User Assignment in IdP**: When a user is assigned to OneUptime Status Page in your IdP
-2. **SCIM Provisioning**: IdP calls OneUptime SCIM API to create the subscriber
+1. **User Assignment in IdP**: When a user is assigned to Cast Operations Status Page in your IdP
+2. **SCIM Provisioning**: IdP calls Cast Operations SCIM API to create the subscriber
 3. **Access Granted**: User can now access the private status page
 4. **User Unassignment**: When user is unassigned in IdP
-5. **SCIM Deprovisioning**: IdP calls OneUptime SCIM API to remove the subscriber
+5. **SCIM Deprovisioning**: IdP calls Cast Operations SCIM API to remove the subscriber
 6. **Access Revoked**: User loses access to the status page
 
 ## Identity Provider Configuration
 
 ### Microsoft Entra ID (formerly Azure AD)
 
-Microsoft Entra ID provides enterprise-grade identity management with robust SCIM provisioning capabilities. Follow these detailed steps to configure SCIM provisioning with OneUptime.
+Microsoft Entra ID provides enterprise-grade identity management with robust SCIM provisioning capabilities. Follow these detailed steps to configure SCIM provisioning with Cast Operations.
 
 #### Prerequisites
 
 - Microsoft Entra ID tenant with Premium P1 or P2 license (required for automatic provisioning)
-- OneUptime account with Scale plan or higher
-- Admin access to both Microsoft Entra ID and OneUptime
+- Cast Operations account with Scale plan or higher
+- Admin access to both Microsoft Entra ID and Cast Operations
 
-#### Step 1: Get SCIM Configuration from OneUptime
+#### Step 1: Get SCIM Configuration from Cast Operations
 
-1. Log in to your OneUptime dashboard
+1. Log in to your Cast Operations dashboard
 2. Navigate to **Project Settings** > **Team** > **SCIM**
 3. Click **Create SCIM Configuration**
 4. Enter a friendly name (e.g., "Microsoft Entra ID Provisioning")
@@ -134,18 +134,18 @@ Microsoft Entra ID provides enterprise-grade identity management with robust SCI
 2. Navigate to **Identity** > **Applications** > **Enterprise applications**
 3. Click **+ New application**
 4. Click **+ Create your own application**
-5. Enter a name (e.g., "OneUptime")
+5. Enter a name (e.g., "Cast Operations")
 6. Select **Integrate any other application you don't find in the gallery (Non-gallery)**
 7. Click **Create**
 
 #### Step 3: Configure SCIM Provisioning
 
-1. In your OneUptime enterprise application, go to **Provisioning**
+1. In your Cast Operations enterprise application, go to **Provisioning**
 2. Click **Get started**
 3. Set **Provisioning Mode** to **Automatic**
 4. Under **Admin Credentials**:
-   - **Tenant URL**: Enter the SCIM Base URL from OneUptime (e.g., `https://oneuptime.com/api/identity/scim/v2/{your-scim-id}`)
-   - **Secret Token**: Enter the Bearer Token from OneUptime
+   - **Tenant URL**: Enter the SCIM Base URL from Cast Operations (e.g., `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **Secret Token**: Enter the Bearer Token from Cast Operations
 5. Click **Test Connection** to verify the configuration
 6. Click **Save**
 
@@ -155,7 +155,7 @@ Microsoft Entra ID provides enterprise-grade identity management with robust SCI
 2. Click **Provision Azure Active Directory Users**
 3. Configure the following attribute mappings:
 
-| Azure AD Attribute                                            | OneUptime SCIM Attribute       | Required    |
+| Azure AD Attribute                                            | Cast Operations SCIM Attribute       | Required    |
 | ------------------------------------------------------------- | ------------------------------ | ----------- |
 | `userPrincipalName`                                           | `userName`                     | Yes         |
 | `mail`                                                        | `emails[type eq "work"].value` | Recommended |
@@ -169,14 +169,14 @@ Microsoft Entra ID provides enterprise-grade identity management with robust SCI
 
 #### Step 5: Configure Group Provisioning (Optional)
 
-If you enabled **Push Groups** in OneUptime:
+If you enabled **Push Groups** in Cast Operations:
 
 1. Go back to **Mappings**
 2. Click **Provision Azure Active Directory Groups**
 3. Enable group provisioning by setting **Enabled** to **Yes**
 4. Configure the following attribute mappings:
 
-| Azure AD Attribute | OneUptime SCIM Attribute |
+| Azure AD Attribute | Cast Operations SCIM Attribute |
 | ------------------ | ------------------------ |
 | `displayName`      | `displayName`            |
 | `members`          | `members`                |
@@ -185,9 +185,9 @@ If you enabled **Push Groups** in OneUptime:
 
 #### Step 6: Assign Users and Groups
 
-1. In your OneUptime enterprise application, go to **Users and groups**
+1. In your Cast Operations enterprise application, go to **Users and groups**
 2. Click **+ Add user/group**
-3. Select the users and/or groups you want to provision to OneUptime
+3. Select the users and/or groups you want to provision to Cast Operations
 4. Click **Assign**
 
 #### Step 7: Start Provisioning
@@ -208,17 +208,17 @@ If you enabled **Push Groups** in OneUptime:
 
 ### Okta
 
-Okta provides flexible identity management with excellent SCIM support. Follow these detailed steps to configure SCIM provisioning with OneUptime.
+Okta provides flexible identity management with excellent SCIM support. Follow these detailed steps to configure SCIM provisioning with Cast Operations.
 
 #### Prerequisites
 
 - Okta tenant with provisioning capabilities (Lifecycle Management feature)
-- OneUptime account with Scale plan or higher
-- Admin access to both Okta and OneUptime
+- Cast Operations account with Scale plan or higher
+- Admin access to both Okta and Cast Operations
 
-#### Step 1: Get SCIM Configuration from OneUptime
+#### Step 1: Get SCIM Configuration from Cast Operations
 
-1. Log in to your OneUptime dashboard
+1. Log in to your Cast Operations dashboard
 2. Navigate to **Project Settings** > **Team** > **SCIM**
 3. Click **Create SCIM Configuration**
 4. Enter a friendly name (e.g., "Okta Provisioning")
@@ -236,7 +236,7 @@ Okta provides flexible identity management with excellent SCIM support. Follow t
 
 1. Sign in to your Okta Admin Console
 2. Navigate to **Applications** > **Applications**
-3. Find and select your existing OneUptime application
+3. Find and select your existing Cast Operations application
 
 **If creating a new application:**
 
@@ -244,13 +244,13 @@ Okta provides flexible identity management with excellent SCIM support. Follow t
 2. Navigate to **Applications** > **Applications**
 3. Click **Create App Integration**
 4. Select **SAML 2.0** and click **Next**
-5. Enter "OneUptime" as the App name
+5. Enter "Cast Operations" as the App name
 6. Complete the SAML configuration (refer to SSO documentation)
 7. Click **Finish**
 
 #### Step 3: Enable SCIM Provisioning
 
-1. In your OneUptime application, go to the **General** tab
+1. In your Cast Operations application, go to the **General** tab
 2. In the **App Settings** section, click **Edit**
 3. Under **Provisioning**, select **SCIM**
 4. Click **Save**
@@ -263,7 +263,7 @@ Okta provides flexible identity management with excellent SCIM support. Follow t
 3. Click **Configure API Integration**
 4. Check **Enable API integration**
 5. Configure the following:
-   - **SCIM connector base URL**: Enter the SCIM Base URL from OneUptime (e.g., `https://oneuptime.com/api/identity/scim/v2/{your-scim-id}`)
+   - **SCIM connector base URL**: Enter the SCIM Base URL from Cast Operations (e.g., `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
    - **Unique identifier field for users**: Enter `userName`
    - **Supported provisioning actions**: Select the actions you want to enable:
      - Import New Users and Profile Updates
@@ -290,7 +290,7 @@ Okta provides flexible identity management with excellent SCIM support. Follow t
 1. Scroll down to **Attribute Mappings**
 2. Verify or configure the following mappings:
 
-| Okta Attribute     | OneUptime SCIM Attribute        | Direction   |
+| Okta Attribute     | Cast Operations SCIM Attribute        | Direction   |
 | ------------------ | ------------------------------- | ----------- |
 | `userName`         | `userName`                      | Okta to App |
 | `user.email`       | `emails[primary eq true].value` | Okta to App |
@@ -303,7 +303,7 @@ Okta provides flexible identity management with excellent SCIM support. Follow t
 
 #### Step 7: Configure Push Groups (Optional)
 
-If you enabled **Push Groups** in OneUptime:
+If you enabled **Push Groups** in Cast Operations:
 
 1. Go to the **Push Groups** tab
 2. Click **+ Push Groups**
@@ -322,9 +322,9 @@ If you enabled **Push Groups** in OneUptime:
 #### Step 9: Verify Provisioning
 
 1. Go to **Reports** > **System Log** in the Okta Admin Console
-2. Filter for events related to your OneUptime application
+2. Filter for events related to your Cast Operations application
 3. Verify that provisioning events are successful
-4. Check OneUptime to confirm users have been created
+4. Check Cast Operations to confirm users have been created
 
 #### Troubleshooting Okta
 
@@ -332,15 +332,15 @@ If you enabled **Push Groups** in OneUptime:
 - **Users Not Provisioning**: Ensure users are assigned to the application and provisioning is enabled
 - **Duplicate Users**: Ensure the `userName` attribute is unique and maps correctly to email
 - **Group Push Failures**: Verify groups exist and have the correct membership
-- **Error: 401 Unauthorized**: Regenerate the Bearer Token in OneUptime and update Okta
+- **Error: 401 Unauthorized**: Regenerate the Bearer Token in Cast Operations and update Okta
 
 ---
 
 ### Other Identity Providers
 
-OneUptime's SCIM implementation follows the SCIM v2.0 specification and should work with any compliant identity provider. General configuration steps:
+Cast Operations’ SCIM implementation follows the SCIM v2.0 specification and should work with any compliant identity provider. General configuration steps:
 
-1. **SCIM Base URL**: `https://oneuptime.com/api/identity/scim/v2/{scim-id}` (for projects) or `https://oneuptime.com/api/identity/status-page-scim/v2/{scim-id}` (for status pages)
+1. **SCIM Base URL**: `https://visca.ai/api/identity/scim/v2/{scim-id}` (for projects) or `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}` (for status pages)
 2. **Authentication**: HTTP Bearer Token
 3. **Required User Attribute**: `userName` (must be a valid email address)
 4. **Supported Operations**: GET, POST, PUT, PATCH, DELETE for Users and Groups
@@ -399,15 +399,15 @@ OneUptime's SCIM implementation follows the SCIM v2.0 specification and should w
 
 ### What happens when a user is deprovisioned?
 
-When a user is deprovisioned (either by DELETE request or by setting `active: false`), they are removed from the teams configured in the SCIM settings. The user account itself remains in OneUptime but loses access to the project.
+When a user is deprovisioned (either by DELETE request or by setting `active: false`), they are removed from the teams configured in the SCIM settings. The user account itself remains in Cast Operations but loses access to the project.
 
 ### Can I use SCIM without SSO?
 
-Yes, SCIM and SSO are independent features. You can use SCIM for user provisioning while allowing users to log in with their OneUptime passwords or any other authentication method.
+Yes, SCIM and SSO are independent features. You can use SCIM for user provisioning while allowing users to log in with their Cast Operations passwords or any other authentication method.
 
-### How do I handle users who already exist in OneUptime?
+### How do I handle users who already exist in Cast Operations?
 
-When SCIM tries to create a user who already exists (matching by email), OneUptime will simply add them to the configured default teams rather than creating a duplicate user.
+When SCIM tries to create a user who already exists (matching by email), Cast Operations will simply add them to the configured default teams rather than creating a duplicate user.
 
 ### What is the difference between default teams and push groups?
 

@@ -1,10 +1,10 @@
 # Freigabe & öffentliche Dashboards
 
-Standardmäßig sind Dashboards privat zu Ihrem Projekt – nur eingeloggte Teammitglieder können sie sehen. OneUptime erlaubt es Ihnen aber auch, ein Dashboard öffentlich zu teilen, mit einem Passwort zu schützen, auf bestimmte IPs zu beschränken und auf Ihrer eigenen Domain zu hosten. Diese Seite behandelt alle vier Möglichkeiten.
+Standardmäßig sind Dashboards privat zu Ihrem Projekt – nur eingeloggte Teammitglieder können sie sehen. Cast Operations erlaubt es Ihnen aber auch, ein Dashboard öffentlich zu teilen, mit einem Passwort zu schützen, auf bestimmte IPs zu beschränken und auf Ihrer eigenen Domain zu hosten. Diese Seite behandelt alle vier Möglichkeiten.
 
 ## Private Dashboards (Standard)
 
-Ein Dashboard ist nur für eingeloggte Mitglieder Ihres Projekts erreichbar. Die URL sieht aus wie `https://oneuptime.com/dashboards/<id>/view` und erfordert einen Login.
+Ein Dashboard ist nur für eingeloggte Mitglieder Ihres Projekts erreichbar. Die URL sieht aus wie `https://visca.ai/dashboards/<id>/view` und erfordert einen Login.
 
 Innerhalb des Projekts steuern Eigentümer und Labels, wer was sieht – siehe [Konfiguration & Berechtigungen](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Anfragen von anderen IPs werden abgelehnt.
 
 ## Eigene Domains
 
-Ab Werk wird ein öffentliches Dashboard auf `oneuptime.com` ausgeliefert. Um es auf Ihrer eigenen Subdomain wie `dashboard.acme.com` zu hosten:
+Ab Werk wird ein öffentliches Dashboard auf `visca.ai` ausgeliefert. Um es auf Ihrer eigenen Subdomain wie `dashboard.acme.com` zu hosten:
 
-1. Fügen Sie in Ihrem DNS einen CNAME-Eintrag hinzu, der die Subdomain auf das Ziel von OneUptime zeigt.
+1. Fügen Sie in Ihrem DNS einen CNAME-Eintrag hinzu, der die Subdomain auf das Ziel von Cast Operations zeigt.
 2. Fügen Sie die Domain unter **Dashboard → Einstellungen → Eigene Domains** hinzu.
-3. Verifizieren Sie sie. OneUptime prüft den DNS-Eintrag für Sie.
+3. Verifizieren Sie sie. Cast Operations prüft den DNS-Eintrag für Sie.
 4. Nach der Verifizierung ist das Dashboard sowohl unter Ihrer eigenen Domain als auch unter der ursprünglichen URL erreichbar.
 
 Eigene Domains sind nützlich für:
@@ -75,7 +75,7 @@ Unter **Dashboard → Einstellungen** konfigurieren Sie:
 - **Logo** – laden Sie ein PNG oder SVG hoch, das im Kopfbereich angezeigt wird.
 - **Favicon** – das kleine Symbol im Browser-Tab.
 
-Branding wirkt nur, wenn das Dashboard öffentlich angezeigt wird. Interne Betrachter sehen weiterhin das Branding von OneUptime.
+Branding wirkt nur, wenn das Dashboard öffentlich angezeigt wird. Interne Betrachter sehen weiterhin das Branding von Cast Operations.
 
 ## Einbetten
 

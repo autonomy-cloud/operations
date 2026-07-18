@@ -405,7 +405,7 @@ const handleGlobalOidcCallback: HandleGlobalOidcCallbackFunction = async (
         return Response.render(req, res, MESSAGE_VIEW, {
           title: "You need to be invited.",
           message:
-            "You must be invited to a project on this OneUptime instance before you can sign in with SSO. Please contact your administrator.",
+            "You must be invited to a project on this Cast Operations instance before you can sign in with SSO. Please contact your administrator.",
         });
       }
 
@@ -488,7 +488,7 @@ const handleGlobalOidcCallback: HandleGlobalOidcCallbackFunction = async (
       return Response.render(req, res, MESSAGE_VIEW, {
         title: "No project access.",
         message:
-          "You are not a member of any project on this OneUptime instance. Please contact your administrator to be invited.",
+          "You are not a member of any project on this Cast Operations instance. Please contact your administrator to be invited.",
       });
     }
 

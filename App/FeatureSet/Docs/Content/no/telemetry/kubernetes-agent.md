@@ -1,8 +1,8 @@
-# OneUptime Kubernetes-agent (Helm)
+# Cast Operations Kubernetes-agent (Helm)
 
 ## Oversikt
 
-OneUptime Kubernetes-agenten er et ferdigpakket Helm-chart som installerer en OpenTelemetry-basert collector-pipeline på klyngen din. Den leverer node-, pod-, container- og klyngemetrikker; Kubernetes-hendelser; pod-logger; og — med eBPF slått på som standard — applikasjonssporinger (traces), HTTP RED-metrikker, service-graf-data og nettverksflytmetrikker pod-til-pod. Ingen kodeendringer, ingen SDK-er, én `helm install`.
+Cast Operations Kubernetes-agenten er et ferdigpakket Helm-chart som installerer en OpenTelemetry-basert collector-pipeline på klyngen din. Den leverer node-, pod-, container- og klyngemetrikker; Kubernetes-hendelser; pod-logger; og — med eBPF slått på som standard — applikasjonssporinger (traces), HTTP RED-metrikker, service-graf-data og nettverksflytmetrikker pod-til-pod. Ingen kodeendringer, ingen SDK-er, én `helm install`.
 
 Denne siden er **installasjonsveiledningen**. For å konfigurere Kubernetes-monitorer og varsler oppå dataene agenten samler inn, se [Kubernetes-agent (monitorer)](/docs/monitor/kubernetes-agent).
 
@@ -11,12 +11,12 @@ Denne siden er **installasjonsveiledningen**. For å konfigurere Kubernetes-moni
 - En kjørende Kubernetes-klynge (v1.23+)
 - `kubectl` konfigurert til å få tilgang til klyngen din
 - `helm` v3 installert
-- En **OneUptime API-nøkkel** — opprett en fra _Project Settings → API Keys_
+- En **Cast Operations API-nøkkel** — opprett en fra _Project Settings → API Keys_
 
-## Steg 1 — Legg til OneUptime Helm-repositoriet
+## Steg 1 — Legg til Cast Operations Helm-repositoriet
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 ```
 
@@ -34,7 +34,7 @@ Hvis du er usikker, start med `standard`. Hvis installasjonen mislykkes med en P
 
 ## Steg 3 — Installer Kubernetes-agenten
 
-Erstatt `YOUR_ONEUPTIME_URL`, `YOUR_ONEUPTIME_API_KEY` og klyngenavnet med verdier for ditt miljø. Klyngenavnet er hvordan klyngen vil vises i OneUptime — velg noe stabilt som `prod-us-east-1`.
+Erstatt `YOUR_ONEUPTIME_URL`, `YOUR_ONEUPTIME_API_KEY` og klyngenavnet med verdier for ditt miljø. Klyngenavnet er hvordan klyngen vil vises i Cast Operations — velg noe stabilt som `prod-us-east-1`.
 
 ### Standardklynger (selvadministrert, EKS på EC2, GKE Standard, AKS)
 
@@ -105,7 +105,7 @@ kubernetes-agent-xxxxxxxxxx-xxxxx             1/1     Running   0          1m
 kubernetes-agent-logs-yyyyyyyyyy-yyyyy        1/1     Running   0          1m
 ```
 
-Når agenten kobler til, vil klyngen din vises automatisk i **Kubernetes**-seksjonen i OneUptime-dashbordet.
+Når agenten kobler til, vil klyngen din vises automatisk i **Kubernetes**-seksjonen i Cast Operations-dashbordet.
 
 ## Konfigurasjonsalternativer
 
@@ -231,7 +231,7 @@ Det beholder én sporing av ti og dropper de andre ni på agenten, før de forla
 
 **De metrikkbaserte monitorene dine rikker seg ikke.** eBPF RED-metrikkene — forespørselsrate, feilrate, varighet — er en *metrikk*familie. OBI beregner dem fra hver forespørsel, og de går gjennom metrikk-pipelinen, som sampleren ikke står i. Med `percentage: 10` får du en tidel av sporingene og 100 % nøyaktig rate/feil/latens. Dashbord og monitorer bygget på disse metrikkene påvirkes ikke.
 
-**Det gjør de span-baserte monitorene dine.** Alt OneUptime avleder fra spansene selv, skaleres ned med raten — se advarselen nedenfor før du slår dette på.
+**Det gjør de span-baserte monitorene dine.** Alt Cast Operations avleder fra spansene selv, skaleres ned med raten — se advarselen nedenfor før du slår dette på.
 
 | Nøkkel | Betydning |
 | --- | ------- |
@@ -247,7 +247,7 @@ Notater som vil spare deg for en hendelse:
 - **Flere klynger fungerer som standard.** To agenter beholder den samme sporingen kun hvis de er enige om både `hashSeed` og `percentage`. Begge har den samme standardverdien overalt, så en sporing som krysser to klynger, overlever i sin helhet uten noen ekstra konfigurasjon. Endre `hashSeed` kun for med hensikt å *dekorrelere* to samplingsnivåer — fordi avgjørelsen er en terskel på den samme hashen, nøstes den samme seeden med ulike rater, så et andre nivå bare velger på nytt blant sporingene det første allerede beholdt, i stedet for å trekke uavhengig.
 - **Pod-logger samples aldri**, så med `ebpf.logToTraceCorrelation: true` bærer hver eneste loggpost fortsatt en sporings-ID, mens kun `percentage` % av disse sporingene beholdes. Omtrent (100 − `percentage`) % av loggpostene vil vise en sporingslenke som ender i ingenting. Navigering fra sporing → logger påvirkes ikke; kun logger → sporing kan bomme.
 
-> **Juster tersklene på de span-baserte monitorene dine på nytt når du setter denne.** Sampling reduserer spansene som når OneUptime, så alt som teller dem, teller mindre: en **Traces**-monitor på `Span Count` og en **Exceptions**-monitor på `Exception Count` vil se omtrent `percentage` % av gårsdagens volum. En terskel som er innstilt på usamplet trafikk, slutter i stillhet å bli krysset — monitoren feiler ikke, den blir bare stille. Del disse tersklene på den samme faktoren når du setter raten; raten gjelder hele klyngen, så det finnes ingen måte å unnta en enkelt tjeneste fra den. **Gruppering** av feil degraderes verre enn lineært: et vanlig unntak dukker fortsatt opp, men et sjeldent engangstilfelle forsvinner heller helt enn å dukke opp en tidel så ofte.
+> **Juster tersklene på de span-baserte monitorene dine på nytt når du setter denne.** Sampling reduserer spansene som når Cast Operations, så alt som teller dem, teller mindre: en **Traces**-monitor på `Span Count` og en **Exceptions**-monitor på `Exception Count` vil se omtrent `percentage` % av gårsdagens volum. En terskel som er innstilt på usamplet trafikk, slutter i stillhet å bli krysset — monitoren feiler ikke, den blir bare stille. Del disse tersklene på den samme faktoren når du setter raten; raten gjelder hele klyngen, så det finnes ingen måte å unnta en enkelt tjeneste fra den. **Gruppering** av feil degraderes verre enn lineært: et vanlig unntak dukker fortsatt opp, men et sjeldent engangstilfelle forsvinner heller helt enn å dukke opp en tidel så ofte.
 
 > **Hvorfor det ikke finnes logg- eller metrikk-sampling her.** Collectorens sampler kan ikke sample metrikker i det hele tatt. Den kan sample logger, men den henter tilfeldigheten sin fra sporings-ID-en — og pod-logger har ingen. Hver post uten sporings-ID hasher da til den samme bøtta, så en logg-rate ville ikke tynnet ut strømmen: den ville beholdt alt eller slettet alt, avhengig av seeden. I stedet for å levere en spak som i stillhet sletter loggene dine, tilbyr ikke chartet noen. Tynn ut logger med [Filtrering etter loggalvorlighetsgrad](#filtrering-etter-loggalvorlighetsgrad) og [Namespace-filtrering](#namespace-filtrering), som er presise på hva de fjerner.
 
@@ -329,7 +329,7 @@ oneuptime:
 clusterName: prod
 ```
 
-Etiketter matches uten hensyn til store/små bokstaver, så en eksisterende manuelt opprettet `Production`-etikett gjenbrukes i stedet for å dupliseres. Etiketter som legges til manuelt i OneUptime-grensesnittet, fjernes aldri av agenten.
+Etiketter matches uten hensyn til store/små bokstaver, så en eksisterende manuelt opprettet `Production`-etikett gjenbrukes i stedet for å dupliseres. Etiketter som legges til manuelt i Cast Operations-grensesnittet, fjernes aldri av agenten.
 
 ## Oppgradering av agenten
 
@@ -367,7 +367,7 @@ kubectl delete namespace oneuptime-agent
 
 ## Applikasjonssporinger og HTTP-metrikker via eBPF (på som standard)
 
-Chartet kjører en DaemonSet med [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) på hver node. Den laster eBPF-programmer inn i kjernen og fanger automatisk opp HTTP/HTTPS-, gRPC- og SQL/Redis-trafikk fra hver støttede runtime (Go, .NET, Java, Node.js, Python, Ruby, Rust) — ingen SDK og ingen sidecar nødvendig. Sporinger og forespørselsmetrikker flyter deretter gjennom den klyngeinterne collectoren til OneUptime.
+Chartet kjører en DaemonSet med [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) på hver node. Den laster eBPF-programmer inn i kjernen og fanger automatisk opp HTTP/HTTPS-, gRPC- og SQL/Redis-trafikk fra hver støttede runtime (Go, .NET, Java, Node.js, Python, Ruby, Rust) — ingen SDK og ingen sidecar nødvendig. Sporinger og forespørselsmetrikker flyter deretter gjennom den klyngeinterne collectoren til Cast Operations.
 
 **Krav:** Linux-kjerne **5.8+** med BTF (standard på Debian 11+, Ubuntu 20.10+, Fedora 34+, RHEL/Stream 9+). eBPF DaemonSet kjører i **privilegert modus** fordi den må det, for å laste eBPF-programmer.
 
@@ -407,7 +407,7 @@ Propagering av sporingskontekst på tvers av tjenester er også på som standard
 
 ## Redusere volumet av data som samles inn
 
-Ut av boksen er agenten innstilt for **dekning** — den leverer metrikker, pod-logger og eBPF-sporinger fra hele klyngen slik at hvert dashbord og hver monitor fungerer fra dag én. På store eller travle klynger kan det være mer telemetri enn du trenger, noe som viser seg som høyere ingest-volum (og, på OneUptime Cloud, høyere kostnad). Ingenting her er påkrevd, men hvis en klynge sender mer enn du ønsker, er dette spakene du kan justere — omtrent i rekkefølge etter påvirkning.
+Ut av boksen er agenten innstilt for **dekning** — den leverer metrikker, pod-logger og eBPF-sporinger fra hele klyngen slik at hvert dashbord og hver monitor fungerer fra dag én. På store eller travle klynger kan det være mer telemetri enn du trenger, noe som viser seg som høyere ingest-volum (og, på Cast Operations Cloud, høyere kostnad). Ingenting her er påkrevd, men hvis en klynge sender mer enn du ønsker, er dette spakene du kan justere — omtrent i rekkefølge etter påvirkning.
 
 Trikset er å **slutte å samle inn det du ikke kommer til å se på**, i stedet for å samle inn alt og betale for å lagre det. Hver spak nedenfor er en Helm-verdi, så du kan bruke den med `--set` på `helm upgrade --reuse-values` og rulle den tilbake på samme måte.
 
@@ -427,7 +427,7 @@ Tre måter å kutte volum på, og det er verdt å vite hvilken av dem du bruker:
 - **På filter-prosessoren** — dataene samles inn, og droppes så før eksport. `filters.logs.minSeverity`, `filters.metrics.*`, `namespaceFilters.rules` (`metrics`/`traces`). Litt mer collector-CPU, men det fungerer på tvers av mottakere og kan uttrykke ting en mottaker ikke kan.
 - **På sampleren** — dataene samles inn, og så beholdes en representativ brøkdel. `sampling.traces.percentage`. Den som skiller seg ut: de to ovenfor fjerner en hel *kategori* av telemetri, så det de dropper, er borte fra hver eneste sporing. Sampling beholder hver kategori og tynner ut populasjonen, så det som overlever, er fortsatt komplett og representativt.
 
-Alle tre er **irreversible**: det du dropper her, når aldri OneUptime, og alle tre kan gjøre at en monitor blir stille. De to første gjør en monitor stille ved å fjerne signalet den følger med på. Sampling er smalere: eBPF RED-metrikkene beregnes før sampleren kjører, så metrikkbaserte monitorer forblir eksakte — men monitorer som teller *spans* (Traces på `Span Count`, Exceptions på `Exception Count`) ser proporsjonalt færre og trenger tersklene sine justert på nytt med den samme faktoren. Hvis du heller vil bestemme deg senere, kan OneUptime droppe data på serversiden i stedet (**Logs → Settings → Drop Filters**, **Metrics → Settings → Pipeline Rules**) — det koster fortsatt egress, men det er en innstilling du kan endre uten en ny deploy.
+Alle tre er **irreversible**: det du dropper her, når aldri Cast Operations, og alle tre kan gjøre at en monitor blir stille. De to første gjør en monitor stille ved å fjerne signalet den følger med på. Sampling er smalere: eBPF RED-metrikkene beregnes før sampleren kjører, så metrikkbaserte monitorer forblir eksakte — men monitorer som teller *spans* (Traces på `Span Count`, Exceptions på `Exception Count`) ser proporsjonalt færre og trenger tersklene sine justert på nytt med den samme faktoren. Hvis du heller vil bestemme deg senere, kan Cast Operations droppe data på serversiden i stedet (**Logs → Settings → Drop Filters**, **Metrics → Settings → Pipeline Rules**) — det koster fortsatt egress, men det er en innstilling du kan endre uten en ny deploy.
 
 ### Spak 1 — Pod-logger er vanligvis den enkeltstående største kilden
 
@@ -453,7 +453,7 @@ Container-logger er nesten alltid den største andelen av ingest, fordi det er �
 
   Se [Filtrering etter loggalvorlighetsgrad](#filtrering-etter-loggalvorlighetsgrad) for hvordan alvorlighetsgrad fastslås og hva som skjer med logger den ikke klarer å klassifisere.
 
-- **Trenger du ikke pod-logger fra OneUptime i det hele tatt?** Slå dem av:
+- **Trenger du ikke pod-logger fra Cast Operations i det hele tatt?** Slå dem av:
 
   ```bash
   helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
@@ -643,10 +643,10 @@ Telemetribruk aggregeres per dag, så sjekk trenden over en dag eller to under *
 
 ## Feilsøking
 
-> **Raskeste vei — kjør diagnostikkskriptet.** Det inspiserer pod-helse, dekoder og validerer ingest-nøkkelen, sjekker at klyngen din kan nå OneUptime, og spør OneUptime om token-et ditt faktisk aksepteres — og skriver så ut en enkelt rotårsaksdom:
+> **Raskeste vei — kjør diagnostikkskriptet.** Det inspiserer pod-helse, dekoder og validerer ingest-nøkkelen, sjekker at klyngen din kan nå Cast Operations, og spør Cast Operations om token-et ditt faktisk aksepteres — og skriver så ut en enkelt rotårsaksdom:
 >
 > ```bash
-> curl -fsSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
+> curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
 >   | bash -s -- -n oneuptime-agent
 > ```
 >
@@ -671,10 +671,10 @@ Den vanligste årsaken — spesielt etter en reinstallasjon — er en **feil ell
 
 1. Sjekk at agent-podene kjører: `kubectl get pods -n oneuptime-agent`
 2. Sjekk metrics-collector-loggene: `kubectl logs -n oneuptime-agent -l component=metrics-collector -c otel-collector` (ingen feil her betyr **ikke** at data lander — se ovenfor)
-3. **Valider ingest-nøkkelen.** Spør OneUptime direkte om token-et ditt aksepteres (`200` = gyldig, `401` = ukjent/tilbakekalt):
+3. **Valider ingest-nøkkelen.** Spør Cast Operations direkte om token-et ditt aksepteres (`200` = gyldig, `401` = ukjent/tilbakekalt):
 
    ```bash
-   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://oneuptime.com/otlp/v1/validate
+   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
    ```
 
    Hvis den returnerer `401`, er nøkkelen i releasen din feil eller ble tilbakekalt. Kopier en aktiv nøkkel fra _Project Settings → Telemetry Ingestion Keys_ og deploy på nytt:
@@ -685,7 +685,7 @@ Den vanligste årsaken — spesielt etter en reinstallasjon — er en **feil ell
      --set oneuptime.apiKey=<LIVE_KEY>
    ```
 
-4. Verifiser at OneUptime-URL-en din er korrekt og at klyngen din kan nå den over nettverket.
+4. Verifiser at Cast Operations-URL-en din er korrekt og at klyngen din kan nå den over nettverket.
 5. Hvis du endret `clusterName` ved reinstallasjon, vises agenten som en **ny** klynge — den gamle oppføringen forblir "Disconnected" (det er forventet; den er foreldet).
 
 ### Ingen logger vises (kun API-modus)
@@ -718,7 +718,7 @@ Vanlige årsaker:
 
 1. Bekreft at eBPF DaemonSet er sunn: `kubectl get pods -n oneuptime-agent -l component=ebpf-instrument`
 2. Slå på debug-sporingsutskriveren for å bekrefte at OBI fanger opp trafikk: `--set ebpf.printTraces=true --set ebpf.logLevel=debug`, og sjekk deretter `kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200`
-3. Hvis du ser spans i OBIs stdout, men ikke i dashbordet, er problemet collector → OneUptime-eksporten — sjekk metrics-collector-podens logger.
+3. Hvis du ser spans i OBIs stdout, men ikke i dashbordet, er problemet collector → Cast Operations-eksporten — sjekk metrics-collector-podens logger.
 
 ## Neste steg
 

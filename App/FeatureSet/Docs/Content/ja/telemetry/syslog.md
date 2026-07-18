@@ -1,22 +1,22 @@
-# OneUptimeにSyslogデータを送信する
+# Cast OperationsにSyslogデータを送信する
 
 ## 概要
 
-OpenTelemetry IngestサービスはネイティブのSyslogペイロードを受け付けるようになりました。RFC3164またはRFC5424互換のソースからHTTPS経由で直接OneUptimeにメッセージを転送できます。OneUptimeはsyslogの優先度、ファシリティ、重大度、構造化データ、メッセージ本文を解析してから、すべてを検索可能なログとして保存します。
+OpenTelemetry IngestサービスはネイティブのSyslogペイロードを受け付けるようになりました。RFC3164またはRFC5424互換のソースからHTTPS経由で直接Cast Operationsにメッセージを転送できます。Cast Operationsはsyslogの優先度、ファシリティ、重大度、構造化データ、メッセージ本文を解析してから、すべてを検索可能なログとして保存します。
 
 ## 前提条件
 
 - **テレメトリー取り込みトークン** — _プロジェクト設定 → テレメトリー取り込みキー_ から作成し、`x-oneuptime-token` の値をコピーします。
 - **Syslogフォワーダー** — HTTPのPOSTリクエストを送信できる任意のツール（例：`curl`、`omhttp` 経由の `rsyslog`、HTTP宛先プラグインを使った `syslog-ng`）。
-- **サービス名（オプション）** — `x-oneuptime-service-name` ヘッダーを設定して受信ログを特定のテレメトリーサービスにグループ化します。省略するとOneUptimeはsyslogの `APP-NAME`、ホスト名、または `Syslog` にフォールバックします。
+- **サービス名（オプション）** — `x-oneuptime-service-name` ヘッダーを設定して受信ログを特定のテレメトリーサービスにグループ化します。省略するとCast Operationsはsyslogの `APP-NAME`、ホスト名、または `Syslog` にフォールバックします。
 
 ## エンドポイント
 
 ```
-POST https://oneuptime.com/syslog/v1/logs
+POST https://visca.ai/syslog/v1/logs
 ```
 
-- OneUptimeをセルフホストしている場合は、`oneuptime.com` を自分のホストに置き換えてください。
+- Cast Operationsをセルフホストしている場合は、`visca.ai` を自分のホストに置き換えてください。
 - リクエストには必ず `x-oneuptime-token` ヘッダーを含めてください。
 
 ## リクエストボディ
@@ -42,7 +42,7 @@ POST https://oneuptime.com/syslog/v1/logs
 
 ```bash
 curl \
-  -X POST https://oneuptime.com/syslog/v1/logs \
+  -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
   -H "x-oneuptime-service-name: production-web" \
@@ -64,7 +64,7 @@ curl \
    ```
    module(load="omhttp")
 
-   template(name="OneUptimeJson" type="list") {
+   template(name="Cast OperationsJson" type="list") {
      constant(value="{\"messages\":[\"")
      property(name="rawmsg")
      constant(value="\"]}")
@@ -72,14 +72,14 @@ curl \
 
    action(
      type="omhttp"
-     server="oneuptime.com"
+     server="visca.ai"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
      header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
      header="x-oneuptime-service-name: rsyslog-demo"
-     template="OneUptimeJson"
+     template="Cast OperationsJson"
    )
    ```
 
@@ -92,13 +92,13 @@ curl \
 
 ### 1. ネットワーク・セキュリティ機器
 
-ほとんどのネットワーク機器は、設定の変更、ACLのヒット、脅威の検出を依然としてsyslog経由でのみ公開しています。既存のリレー（Palo Alto、Fortinet、Cisco ASA、Juniper、pfSenseなど）を直接OneUptimeに向けるか、内部リレーを維持してHTTPS経由で転送します：
+ほとんどのネットワーク機器は、設定の変更、ACLのヒット、脅威の検出を依然としてsyslog経由でのみ公開しています。既存のリレー（Palo Alto、Fortinet、Cisco ASA、Juniper、pfSenseなど）を直接Cast Operationsに向けるか、内部リレーを維持してHTTPS経由で転送します：
 
 ```bash
-# メッセージをJSONにバッチ処理してOneUptimeにPOSTするrsyslogスニペット
+# メッセージをJSONにバッチ処理してCast OperationsにPOSTするrsyslogスニペット
 module(load="omhttp")
 
-template(name="OneUptimeJSON" type="list") {
+template(name="Cast OperationsJSON" type="list") {
   constant(value="{\"messages\":[\"")
   property(name="rawmsg")
   constant(value="\"]}")
@@ -106,14 +106,14 @@ template(name="OneUptimeJSON" type="list") {
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: perimeter-firewall"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -128,14 +128,14 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="oneuptime.com"
+  server="visca.ai"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
   header="x-oneuptime-token: <TOKEN>"
   header="x-oneuptime-service-name: linux-fleet"
-  template="OneUptimeJSON"
+  template="Cast OperationsJSON"
 )
 ```
 
@@ -155,7 +155,7 @@ Fluent BitやFluentdを既に実行している場合は、コンテナログは
 [OUTPUT]
     Name              http
     Match             *
-    Host              oneuptime.com
+    Host              visca.ai
     Port              443
     URI               /syslog/v1/logs
     Format            json
@@ -170,11 +170,11 @@ Fluent BitやFluentdを既に実行している場合は、コンテナログは
 
 ### 4. 待ち時間のないコンプライアンスアーカイブ
 
-PCIやSOXのためにファイアウォールのログを保持する必要がありますか？OneUptimeに直接送信し、テレメトリーサービスに長期保持ポリシーを適用し、単一の場所からコールドストレージにエクスポートします。複数のsyslogリレーからエクスポートする必要はありません。
+PCIやSOXのためにファイアウォールのログを保持する必要がありますか？Cast Operationsに直接送信し、テレメトリーサービスに長期保持ポリシーを適用し、単一の場所からコールドストレージにエクスポートします。複数のsyslogリレーからエクスポートする必要はありません。
 
 ## 解析される属性
 
-OneUptimeは各ログエントリに以下の属性を自動的に付加します：
+Cast Operationsは各ログエントリに以下の属性を自動的に付加します：
 
 - `syslog.priority`、`syslog.facility.code`、`syslog.facility.name`
 - `syslog.severity.code`、`syslog.severity.name`

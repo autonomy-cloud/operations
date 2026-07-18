@@ -1,6 +1,6 @@
 # Kørsler & logfiler
 
-Hver gang et workflow kører, gemmer OneUptime en optegnelse over, hvad der skete — hvornår det kørte, om det lykkedes, og hvad hver blok gjorde. Den optegnelse hedder en **kørsel**. Kørsler er sådan, du bekræfter, at et workflow virkede, fejlfinder et der ikke gjorde, og kigger tilbage på tidligere aktivitet.
+Hver gang et workflow kører, gemmer Cast Operations en optegnelse over, hvad der skete — hvornår det kørte, om det lykkedes, og hvad hver blok gjorde. Den optegnelse hedder en **kørsel**. Kørsler er sådan, du bekræfter, at et workflow virkede, fejlfinder et der ikke gjorde, og kigger tilbage på tidligere aktivitet.
 
 ## Hvor du finder dem
 
@@ -35,7 +35,7 @@ De viste værdier er præcis, hvad blokken så — efter alle variabler blev udf
 ### "Mit workflow kørte ikke."
 
 1. Sørg for, at workflowet er **enabled** i Settings. Nye workflows starter deaktiverede.
-2. For en OneUptime event-trigger: bekræft at eventen faktisk skete. Åbn posten og tjek dens historik.
+2. For en Cast Operations event-trigger: bekræft at eventen faktisk skete. Åbn posten og tjek dens historik.
 3. For en webhook-trigger: bekræft at det andet system sender til den rigtige URL. De fleste værktøjer logger, når de sender en webhook — tjek der.
 4. For en tidsplan-trigger: bekræft at cron-udtrykket matcher det tidspunkt, du forventer.
 

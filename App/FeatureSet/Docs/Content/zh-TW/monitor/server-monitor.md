@@ -1,6 +1,6 @@
 # 伺服器 / 虛擬機監控
 
-伺服器與虛擬機監控讓您能夠透過安裝一個輕量級代理程式，將系統指標回報給 OneUptime，藉此監控您的伺服器、虛擬機以及其他基礎設施的健康狀態與效能。
+伺服器與虛擬機監控讓您能夠透過安裝一個輕量級代理程式，將系統指標回報給 Cast Operations，藉此監控您的伺服器、虛擬機以及其他基礎設施的健康狀態與效能。
 
 ## 概觀
 
@@ -14,7 +14,7 @@
 
 ## 建立伺服器監控
 
-1. 前往 OneUptime 儀表板中的 **Monitors**
+1. 前往 Cast Operations 儀表板中的 **Monitors**
 2. 點擊 **Create Monitor**
 3. 選擇 **Server / VM** 作為監控類型
 4. 系統會為此監控產生一組 **Secret Key** — 您將需要它來設定代理程式
@@ -22,26 +22,26 @@
 
 ## 安裝基礎設施代理程式
 
-OneUptime 基礎設施代理程式是一個以 Go 為基礎的輕量級常駐程式，會收集系統指標並每 30 秒傳送給 OneUptime。它支援 Linux、macOS 與 Windows。
+Cast Operations 基礎設施代理程式是一個以 Go 為基礎的輕量級常駐程式，會收集系統指標並每 30 秒傳送給 Cast Operations。它支援 Linux、macOS 與 Windows。
 
 ### Linux / macOS
 
 ```bash
 # Install the agent
-curl -sSL https://oneuptime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Configure the agent
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # Start the agent
 sudo oneuptime-infrastructure-agent start
 ```
 
-將 `YOUR_SECRET_KEY` 替換為您監控設定中顯示的 secret key，若為自我託管（self-hosted），請將 `https://oneuptime.com` 替換為您的 OneUptime 執行個體 URL。
+將 `YOUR_SECRET_KEY` 替換為您監控設定中顯示的 secret key，若為自我託管（self-hosted），請將 `https://visca.ai` 替換為您的 Cast Operations 執行個體 URL。
 
 ### Windows
 
-1. 從 [GitHub Releases](https://github.com/OneUptime/oneuptime/releases/latest) 下載最新的代理程式
+1. 從 [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest) 下載最新的代理程式
    - `oneuptime-infrastructure-agent_windows_amd64.zip` 適用於 x64 系統
    - `oneuptime-infrastructure-agent_windows_arm64.zip` 適用於 ARM64 系統
 2. 解壓縮該 zip 檔案
@@ -49,7 +49,7 @@ sudo oneuptime-infrastructure-agent start
 
 ```bash
 # Configure the agent
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # Start the agent
 oneuptime-infrastructure-agent start
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 如果您的伺服器透過 proxy 連接網際網路，您可以設定代理程式來使用它：
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com --proxy-url=http://proxy.example.com:8080
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## 代理程式指令
@@ -69,7 +69,7 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 
 | 指令        | 說明                                                  |
 | ----------- | ----------------------------------------------------- |
-| `configure` | 使用您的 secret key 與 OneUptime URL 設定代理程式     |
+| `configure` | 使用您的 secret key 與 Cast Operations URL 設定代理程式     |
 | `start`     | 啟動代理程式服務                                      |
 | `stop`      | 停止代理程式服務                                      |
 | `restart`   | 重新啟動代理程式服務                                  |
@@ -179,7 +179,7 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 - 確認代理程式正在執行：`sudo oneuptime-infrastructure-agent status`
 - 檢查代理程式日誌：`sudo oneuptime-infrastructure-agent logs -n 50`
 - 確認 secret key 是否正確
-- 確保伺服器能夠連接到您的 OneUptime 執行個體 URL
+- 確保伺服器能夠連接到您的 Cast Operations 執行個體 URL
 - 檢查防火牆規則是否允許對外的 HTTPS 連線
 
 ### 代理程式占用大量資源
@@ -192,7 +192,7 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 ### Proxy 問題
 
 - 確認 proxy URL 與連接埠是否正確
-- 確保 proxy 允許連接到您的 OneUptime 執行個體
+- 確保 proxy 允許連接到您的 Cast Operations 執行個體
 - 使用以下指令重新設定：`sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
 
 ## 最佳實務

@@ -57,9 +57,9 @@ describe("MCP Server Integration", () => {
 
     it("should handle network errors", () => {
       const networkError: string =
-        "❌ Network error: Unable to connect to OneUptime API";
+        "❌ Network error: Unable to connect to Cast Operations API";
       expect(networkError).toContain("Network error");
-      expect(networkError).toContain("OneUptime API");
+      expect(networkError).toContain("Cast Operations API");
     });
   });
 

@@ -77,7 +77,7 @@ class UserWebhook extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -141,7 +141,7 @@ class UserWebhook extends BaseModel {
     type: TableColumnType.ShortText,
     canReadOnRelationQuery: false,
     description:
-      "Optional shared secret used to compute an HMAC-SHA256 signature for each request (sent in X-OneUptime-Signature).",
+      "Optional shared secret used to compute an HMAC-SHA256 signature for each request (sent in X-Cast Operations-Signature).",
   })
   @Column({
     type: ColumnType.ShortText,

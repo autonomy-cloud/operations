@@ -103,13 +103,13 @@ export class Service extends DatabaseService<Model> {
     };
 
     const sms: SMSMessage = {
-      message: `This is a message from OneUptime. You have been added to the on-call duty policy ${createdModel.onCallDutyPolicy?.name} for escalation rule ${createdModel.onCallDutyPolicyEscalationRule?.name} with order ${createdModel.onCallDutyPolicyEscalationRule?.order}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.`,
+      message: `This is a message from Cast Operations. You have been added to the on-call duty policy ${createdModel.onCallDutyPolicy?.name} for escalation rule ${createdModel.onCallDutyPolicyEscalationRule?.name} with order ${createdModel.onCallDutyPolicyEscalationRule?.order}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.`,
     };
 
     const callMessage: CallRequestMessage = {
       data: [
         {
-          sayMessage: `This is a message from OneUptime. You have been added to the on-call duty policy ${createdModel.onCallDutyPolicy?.name} for escalation rule ${createdModel.onCallDutyPolicyEscalationRule?.name} with order ${createdModel.onCallDutyPolicyEscalationRule?.order}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard. Good Bye`,
+          sayMessage: `This is a message from Cast Operations. You have been added to the on-call duty policy ${createdModel.onCallDutyPolicy?.name} for escalation rule ${createdModel.onCallDutyPolicyEscalationRule?.name} with order ${createdModel.onCallDutyPolicyEscalationRule?.order}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard. Good Bye`,
         },
       ],
     };
@@ -337,13 +337,13 @@ export class Service extends DatabaseService<Model> {
       };
 
       const sms: SMSMessage = {
-        message: `This is a message from OneUptime. You have been removed from the on-call duty policy ${deletedItem.onCallDutyPolicy?.name} for escalation rule ${deletedItem.onCallDutyPolicyEscalationRule?.name} with order ${deletedItem.onCallDutyPolicyEscalationRule?.order}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.`,
+        message: `This is a message from Cast Operations. You have been removed from the on-call duty policy ${deletedItem.onCallDutyPolicy?.name} for escalation rule ${deletedItem.onCallDutyPolicyEscalationRule?.name} with order ${deletedItem.onCallDutyPolicyEscalationRule?.order}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.`,
       };
 
       const callMessage: CallRequestMessage = {
         data: [
           {
-            sayMessage: `This is a message from OneUptime. You have been removed from the on-call duty policy ${deletedItem.onCallDutyPolicy?.name} for escalation rule ${deletedItem.onCallDutyPolicyEscalationRule?.name} with order ${deletedItem.onCallDutyPolicyEscalationRule?.order}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard. Good Bye`,
+            sayMessage: `This is a message from Cast Operations. You have been removed from the on-call duty policy ${deletedItem.onCallDutyPolicy?.name} for escalation rule ${deletedItem.onCallDutyPolicyEscalationRule?.name} with order ${deletedItem.onCallDutyPolicyEscalationRule?.order}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard. Good Bye`,
           },
         ],
       };

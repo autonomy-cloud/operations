@@ -1,12 +1,12 @@
 # Documentação do Provedor Terraform
 
-O Provedor Terraform do OneUptime permite o gerenciamento de Infraestrutura como Código (IaC) dos seus recursos de monitoramento, alertas e observabilidade do OneUptime.
+O Provedor Terraform do Cast Operations permite o gerenciamento de Infraestrutura como Código (IaC) dos seus recursos de monitoramento, alertas e observabilidade do Cast Operations.
 
 ## Seções de Documentação
 
 ### [Primeiros Passos](./quick-start.md)
 
-Guia de configuração rápida para começar a usar o Provedor Terraform do OneUptime em minutos.
+Guia de configuração rápida para começar a usar o Provedor Terraform do Cast Operations em minutos.
 
 ### [Guia Completo do Provedor](./README.md)
 
@@ -18,24 +18,24 @@ Documentação abrangente cobrindo instalação, configuração, recursos e melh
 
 ### [Exemplos](./examples.md)
 
-Exemplos reais e padrões para configurações comuns do OneUptime no Terraform.
+Exemplos reais e padrões para configurações comuns do Cast Operations no Terraform.
 
 ## Links Rápidos
 
-### Para Clientes do OneUptime Cloud
+### Para Clientes do Cast Operations Cloud
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Deve corresponder à sua versão do OneUptime
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Deve corresponder à sua versão do Cast Operations
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.suaempresa.com"
+  oneuptime_url = "https://operations.suaempresa.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Importante para Usuários Auto-Hospedados
 
-**A Compatibilidade de Versões é Crítica**: Sempre fixe a versão do provedor Terraform para corresponder exatamente à versão de instalação do OneUptime. Versões incompatíveis podem causar problemas de compatibilidade de API.
+**A Compatibilidade de Versões é Crítica**: Sempre fixe a versão do provedor Terraform para corresponder exatamente à versão de instalação do Cast Operations. Versões incompatíveis podem causar problemas de compatibilidade de API.
 
 ## Recursos Externos
 
-- **Registro Terraform**: [Provedor OneUptime](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **Repositório GitHub**: [Código-fonte do OneUptime](https://github.com/OneUptime/oneuptime)
-- **Suporte da Comunidade**: [Comunidade OneUptime](https://community.oneuptime.com)
+- **Registro Terraform**: [Provedor Cast Operations](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **Repositório GitHub**: [Código-fonte do Cast Operations](https://github.com/autonomy-cloud/operations)
+- **Suporte da Comunidade**: [Comunidade Cast Operations](https://community.visca.ai)
 
 ## Recursos Disponíveis
 
-O provedor suporta gerenciamento abrangente de recursos do OneUptime:
+O provedor suporta gerenciamento abrangente de recursos do Cast Operations:
 
 - **Projetos e Equipes**: Organize sua estrutura de monitoramento
 - **Monitores**: Site, API, porta, heartbeat e monitores personalizados
@@ -83,9 +83,9 @@ O provedor suporta gerenciamento abrangente de recursos do OneUptime:
 
 Para problemas, perguntas ou contribuições:
 
-1. **Problemas de Documentação**: Crie um problema no [repositório do OneUptime](https://github.com/OneUptime/oneuptime/issues)
-2. **Bugs do Provedor**: Relate no repositório principal do OneUptime
-3. **Solicitações de Recursos**: Discuta na comunidade do OneUptime
+1. **Problemas de Documentação**: Crie um problema no [repositório do Cast Operations](https://github.com/autonomy-cloud/operations/issues)
+2. **Bugs do Provedor**: Relate no repositório principal do Cast Operations
+3. **Solicitações de Recursos**: Discuta na comunidade do Cast Operations
 4. **Perguntas Gerais**: Use os fóruns da comunidade
 
 ## Próximas Etapas

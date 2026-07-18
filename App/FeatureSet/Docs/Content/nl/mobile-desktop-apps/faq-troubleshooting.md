@@ -1,11 +1,11 @@
 # Veelgestelde Vragen en Probleemoplossing
 
-Veelgestelde vragen en oplossingen voor de OneUptime mobiele en desktop apps.
+Veelgestelde vragen en oplossingen voor de Cast Operations mobiele en desktop apps.
 
-## Hoe distribueert OneUptime zijn apps?
+## Hoe distribueert Cast Operations zijn apps?
 
-- **Mobiel (iOS en Android):** OneUptime levert een native app genaamd **OneUptime On-Call**. Deze is gepubliceerd in de [Apple App Store](https://apps.apple.com/us/app/oneuptime-on-call/id6759615391) en [Google Play](https://play.google.com/store/apps/details?id=com.oneuptime.oncall). Een ondertekende [APK-download](https://github.com/OneUptime/oneuptime/releases/latest/download/oneuptime-on-call-android-app.apk) is ook beschikbaar voor Android apparaten zonder Google Play.
-- **Desktop (Windows, macOS, Linux):** Het OneUptime webdashboard is een Progressive Web App (PWA). U kunt het als een desktopapplicatie installeren rechtstreeks vanuit een op Chromium gebaseerde browser of Safari — er is geen storeaccount vereist.
+- **Mobiel (iOS en Android):** Cast Operations levert een native app genaamd **Cast Operations On-Call**. Deze is gepubliceerd in de [Apple App Store](https://github.com/autonomy-cloud/operations/releases) en [Google Play](https://github.com/autonomy-cloud/operations/releases). Een ondertekende [APK-download](https://github.com/autonomy-cloud/operations/releases/latest/download/cast-operations-on-call-android-app.apk) is ook beschikbaar voor Android apparaten zonder Google Play.
+- **Desktop (Windows, macOS, Linux):** Het Cast Operations webdashboard is een Progressive Web App (PWA). U kunt het als een desktopapplicatie installeren rechtstreeks vanuit een op Chromium gebaseerde browser of Safari — er is geen storeaccount vereist.
 
 ## Veelgestelde Vragen Mobiele App
 
@@ -16,11 +16,11 @@ Veelgestelde vragen en oplossingen voor de OneUptime mobiele en desktop apps.
 
 ### Is de app gratis?
 
-Ja. De OneUptime On-Call app is gratis te installeren. U logt in met uw bestaande OneUptime account.
+Ja. De Cast Operations On-Call app is gratis te installeren. U logt in met uw bestaande Cast Operations account.
 
-### Kan ik de app gebruiken met een zelf-gehoste OneUptime instantie?
+### Kan ik de app gebruiken met een zelf-gehoste Cast Operations instantie?
 
-Ja. Bij de eerste start vraagt de app om een **Server URL**. Voer de URL van uw zelf-gehoste instantie in (bijvoorbeeld `https://oneuptime.example.com`). De app valideert of de server bereikbaar is voordat u kunt inloggen.
+Ja. Bij de eerste start vraagt de app om een **Server URL**. Voer de URL van uw zelf-gehoste instantie in (bijvoorbeeld `https://operations.example.com`). De app valideert of de server bereikbaar is voordat u kunt inloggen.
 
 Volg voor pushmeldingen op zelf-gehoste instanties de handleiding [Pushmeldingen](/docs/self-hosted/push-notifications).
 
@@ -34,11 +34,11 @@ Volg voor pushmeldingen op zelf-gehoste instanties de handleiding [Pushmeldingen
 
 Mobiele push maakt gebruik van APNs (iOS) en FCM (Android) via Expo Push. Controleer het volgende:
 
-1. Meldingen zijn op besturingssysteemniveau ingeschakeld voor **OneUptime On-Call**.
+1. Meldingen zijn op besturingssysteemniveau ingeschakeld voor **Cast Operations On-Call**.
 2. Batterijoptimalisatie is uitgeschakeld en achtergrondactiviteit is toegestaan (Android).
 3. Niet storen of Focus modi zijn uitgeschakeld, of de app staat op de uitzonderingslijst.
 4. U bent ingelogd — het push-token wordt pas bij de server geregistreerd nadat u bent ingelogd.
-5. **Alleen zelf-gehost:** Pushmeldingen zijn geconfigureerd op uw OneUptime instantie. Zie de handleiding [Pushmeldingen](/docs/self-hosted/push-notifications).
+5. **Alleen zelf-gehost:** Pushmeldingen zijn geconfigureerd op uw Cast Operations instantie. Zie de handleiding [Pushmeldingen](/docs/self-hosted/push-notifications).
 
 ### Zijn de gegevens op mijn telefoon veilig?
 
@@ -48,14 +48,14 @@ Mobiele push maakt gebruik van APNs (iOS) en FCM (Android) via Expo Push. Contro
 
 ### Kan ik de app op meerdere apparaten installeren?
 
-Ja. Log in met hetzelfde OneUptime account op zoveel apparaten als u nodig hebt. Elk apparaat ontvangt zijn eigen pushmeldingen.
+Ja. Log in met hetzelfde Cast Operations account op zoveel apparaten als u nodig hebt. Elk apparaat ontvangt zijn eigen pushmeldingen.
 
 ### Hoe verwijder ik de app?
 
 - **iOS:** Houd het pictogram ingedrukt → **Verwijder app** → **Verwijder app**.
-- **Android:** Houd het pictogram ingedrukt → **Verwijderen**, of **Instellingen → Apps → OneUptime On-Call → Verwijderen**.
+- **Android:** Houd het pictogram ingedrukt → **Verwijderen**, of **Instellingen → Apps → Cast Operations On-Call → Verwijderen**.
 
-Uw OneUptime account en gegevens worden op de server opgeslagen en worden niet verwijderd wanneer u de app verwijdert.
+Uw Cast Operations account en gegevens worden op de server opgeslagen en worden niet verwijderd wanneer u de app verwijdert.
 
 ## Veelgestelde Vragen Desktop App (PWA)
 
@@ -65,14 +65,14 @@ Een Progressive Web App is een webapplicatie die kan worden geïnstalleerd zoals
 
 ### Waarom gebruikt de desktop app PWA-technologie?
 
-- **Onmiddellijke updates** — de app blijft synchroon met uw OneUptime instantie zodra u implementeert.
+- **Onmiddellijke updates** — de app blijft synchroon met uw Cast Operations instantie zodra u implementeert.
 - **Geen storeaccount vereist** — installeer rechtstreeks vanuit elke moderne browser.
 - **Eén codebase** — hetzelfde dashboard draait op Windows, macOS en Linux.
 
 ### Waarom verschijnt de knop "Install" niet?
 
 1. Gebruik een op Chromium gebaseerde browser (Chrome, Edge, Brave, Arc) of Safari (macOS Sonoma+).
-2. Bevestig dat uw OneUptime instantie via HTTPS met een geldig certificaat wordt aangeboden.
+2. Bevestig dat uw Cast Operations instantie via HTTPS met een geldig certificaat wordt aangeboden.
 3. Wis uw browsercache en herlaad de pagina.
 4. De app is mogelijk al geïnstalleerd — controleer uw Programma's / Startmenu.
 
@@ -82,7 +82,7 @@ De PWA werkt automatisch bij wanneer u deze opent terwijl u online bent. Om een 
 
 ### Hoe verwijder ik de desktop PWA?
 
-- **Windows:** **Instellingen → Apps → OneUptime → Verwijderen**, of klik met de rechtermuisknop op het Startmenu-item.
+- **Windows:** **Instellingen → Apps → Cast Operations → Verwijderen**, of klik met de rechtermuisknop op het Startmenu-item.
 - **macOS:** Sleep de app vanuit **Programma's** naar de Prullenmand, of klik met de rechtermuisknop op het Dock-pictogram en kies **Verwijderen**.
 - **Linux:** Gebruik de verwijderoptie van uw applicatielauncher, of verwijder het relevante `.desktop` bestand.
 
@@ -98,27 +98,27 @@ De PWA werkt automatisch bij wanneer u deze opent terwijl u online bent. Om een 
 
 **Pushmeldingen vertraagd of ontbrekend (Android):**
 
-- Schakel batterijoptimalisatie uit: **Instellingen → Apps → OneUptime On-Call → Batterij → Onbeperkt**.
+- Schakel batterijoptimalisatie uit: **Instellingen → Apps → Cast Operations On-Call → Batterij → Onbeperkt**.
 - Schakel Databesparing uit voor de app.
-- Op Samsung apparaten schakelt u **Apparaatonderhoud → Batterij → Limieten voor achtergrondgebruik** uit voor OneUptime On-Call.
+- Op Samsung apparaten schakelt u **Apparaatonderhoud → Batterij → Limieten voor achtergrondgebruik** uit voor Cast Operations On-Call.
 
 **Pushmeldingen vertraagd of ontbrekend (iOS):**
 
 - Vermijd het geforceerd afsluiten van de app — iOS kan aflevering op de achtergrond pauzeren.
 - Schakel de Energiebesparingsmodus uit terwijl u dienst hebt.
-- Voeg OneUptime On-Call toe aan de lijst met toegestane apps van elke actieve Focus modus.
+- Voeg Cast Operations On-Call toe aan de lijst met toegestane apps van elke actieve Focus modus.
 
 **Face ID / Touch ID / vingerafdruk werkt niet:**
 
 - Zorg ervoor dat biometrische gegevens zijn ingeschreven in uw OS-instellingen.
-- Schakel biometrische ontgrendeling opnieuw in vanuit het scherm **Instellingen** binnen de OneUptime On-Call app.
+- Schakel biometrische ontgrendeling opnieuw in vanuit het scherm **Instellingen** binnen de Cast Operations On-Call app.
 
 ### Problemen met de Desktop App (PWA)
 
 **Installatieknop ontbreekt:**
 
 - Gebruik een ondersteunde browser (op Chromium gebaseerd of Safari op macOS Sonoma+).
-- Zorg ervoor dat de OneUptime instantie via HTTPS wordt aangeboden.
+- Zorg ervoor dat de Cast Operations instantie via HTTPS wordt aangeboden.
 - Wacht tot de pagina volledig is geladen en controleer vervolgens de adresbalk op het installatiepictogram.
 
 **Desktopmeldingen verschijnen niet:**
@@ -139,5 +139,5 @@ Als u nog hulp nodig hebt:
 
 - Mobiel: zie de installatiehandleidingen voor [iOS](./ios-installation.md) of [Android](./android-installation.md).
 - Desktop: zie de installatiehandleidingen voor [Windows](./windows-installation.md), [macOS](./macos-installation.md) of [Linux](./linux-installation.md).
-- Open een issue op de [OneUptime GitHub repository](https://github.com/OneUptime/oneuptime).
-- Neem contact op met ondersteuning via uw OneUptime dashboard.
+- Open een issue op de [Cast Operations GitHub repository](https://github.com/autonomy-cloud/operations).
+- Neem contact op met ondersteuning via uw Cast Operations dashboard.

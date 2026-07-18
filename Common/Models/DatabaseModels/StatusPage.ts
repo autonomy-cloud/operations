@@ -176,7 +176,7 @@ export default class StatusPage extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -1096,7 +1096,7 @@ export default class StatusPage extends BaseModel {
     type: TableColumnType.Boolean,
     title: "Enable MCP Server",
     description:
-      "Can AI agents read this status page over the public OneUptime MCP server? This does not affect the status page website, its RSS feed, or its public JSON API.",
+      "Can AI agents read this status page over the public Cast Operations MCP server? This does not affect the status page website, its RSS feed, or its public JSON API.",
     defaultValue: true,
   })
   @Column({
@@ -2248,8 +2248,8 @@ export default class StatusPage extends BaseModel {
   @TableColumn({
     isDefaultValueColumn: true,
     type: TableColumnType.Boolean,
-    title: "Hide Powered By OneUptime Branding",
-    description: "Hide Powered By OneUptime Branding?",
+    title: "Hide Powered By Cast Operations Branding",
+    description: "Hide Powered By Cast Operations Branding?",
     defaultValue: false,
   })
   @Column({

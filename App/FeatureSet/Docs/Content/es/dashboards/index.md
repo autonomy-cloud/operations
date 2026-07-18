@@ -1,6 +1,6 @@
 # Resumen de Paneles
 
-Los paneles convierten los datos que OneUptime ya está recopilando —métricas, logs, trazas, incidentes, monitores, recursos de Kubernetes, hosts— en una sola página que alguien puede mirar de un vistazo y entender qué está ocurriendo.
+Los paneles convierten los datos que Cast Operations ya está recopilando —métricas, logs, trazas, incidentes, monitores, recursos de Kubernetes, hosts— en una sola página que alguien puede mirar de un vistazo y entender qué está ocurriendo.
 
 Coloca un gráfico de latencia de solicitudes junto a una lista de incidentes abiertos, junto a un indicador de CPU, junto a un párrafo de contexto. Guárdalo. Comparte el enlace.
 
@@ -66,12 +66,12 @@ Objetivo: una página de guardia para el servicio de checkout con latencia, tasa
 6. Debajo de eso, un widget de **Flujo de Logs** mostrando logs del mismo servicio.
 7. Guarda. Cambia el menú desplegable a `payments`: el mismo panel ahora muestra el servicio de pagos.
 
-## Cómo encajan los paneles con el resto de OneUptime
+## Cómo encajan los paneles con el resto de Cast Operations
 
 - Los **monitores y la telemetría** son las fuentes de datos. Cada métrica, log y traza que recopilas se puede consultar en un widget.
 - Los **incidentes y alertas** aparecen en los widgets **Lista de Incidentes** y **Lista de Alertas**. Los paneles son solo de lectura para estos; créalos y actualízalos en otra parte.
 - Las **páginas de estado** son comunicación de cara al cliente ("¿está el sistema activo?"). Los paneles son para ver con detalle cómo se comporta el sistema. Ambos trabajan juntos, no se reemplazan.
-- Los **workflows** son cómo OneUptime actúa. Los paneles son cómo lees lo que ocurre.
+- Los **workflows** son cómo Cast Operations actúa. Los paneles son cómo lees lo que ocurre.
 
 ## Dónde seguir leyendo
 

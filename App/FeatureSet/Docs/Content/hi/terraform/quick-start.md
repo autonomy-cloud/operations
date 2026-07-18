@@ -1,27 +1,27 @@
 # Terraform Provider Quick Start Guide
 
-यह guide आपको कुछ ही मिनटों में OneUptime Terraform Provider के साथ शुरू करने में मदद करेगी।
+यह guide आपको कुछ ही मिनटों में Cast Operations Terraform Provider के साथ शुरू करने में मदद करेगी।
 
 ## पूर्व आवश्यकताएं
 
 - Terraform >= 1.0 installed
-- OneUptime account (Cloud या Self-Hosted)
-- OneUptime API key
+- Cast Operations account (Cloud या Self-Hosted)
+- Cast Operations API key
 
 ## चरण 1: API Key बनाएं
 
-### OneUptime Cloud के लिए
+### Cast Operations Cloud के लिए
 
-1. [OneUptime Cloud](https://oneuptime.com) पर जाएं और log in करें
+1. [Cast Operations Cloud](https://visca.ai) पर जाएं और log in करें
 2. **Settings** → **API Keys** पर जाएं
 3. **Create API Key** पर क्लिक करें
 4. इसे "Terraform Provider" नाम दें
 5. आवश्यक permissions चुनें
 6. generated API key copy करें
 
-### Self-Hosted OneUptime के लिए
+### Self-Hosted Cast Operations के लिए
 
-1. अपने OneUptime instance access करें
+1. अपने Cast Operations instance access करें
 2. **Settings** → **API Keys** पर जाएं
 3. **Create API Key** पर क्लिक करें
 4. इसे "Terraform Provider" नाम दें
@@ -36,12 +36,12 @@
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       # Cloud customers के लिए
       version = "~> 7.0"
 
       # Self-Hosted customers के लिए - अपने exact version पर pin करें
-      # version = "= 7.0.123"  # अपने OneUptime version से बदलें
+      # version = "= 7.0.123"  # अपने Cast Operations version से बदलें
     }
   }
   required_version = ">= 1.0"
@@ -49,24 +49,24 @@ terraform {
 
 provider "oneuptime" {
   # Cloud customers के लिए
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
 
   # Self-Hosted customers के लिए - अपना instance URL उपयोग करें
-  # oneuptime_url = "https://oneuptime.yourcompany.com"
+  # oneuptime_url = "https://operations.yourcompany.com"
 
   api_key = var.oneuptime_api_key
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API Key"
+  description = "Cast Operations API Key"
   type        = string
   sensitive   = true
 }
 
-# नोट: Projects OneUptime dashboard में manually बनाने होंगे
+# नोट: Projects Cast Operations dashboard में manually बनाने होंगे
 # अपना existing project ID यहाँ उपयोग करें
 variable "project_id" {
-  description = "OneUptime project ID"
+  description = "Cast Operations project ID"
   type        = string
 }
 
@@ -94,7 +94,7 @@ output "monitor_id" {
 ```hcl
 # terraform.tfvars
 oneuptime_api_key = "your-api-key-here"
-project_id        = "your-project-id-here"  # OneUptime dashboard से प्राप्त करें
+project_id        = "your-project-id-here"  # Cast Operations dashboard से प्राप्त करें
 ```
 
 **महत्वपूर्ण**: API keys secret रखने के लिए `terraform.tfvars` को अपनी `.gitignore` में जोड़ें!
@@ -114,7 +114,7 @@ terraform apply
 
 ## चरण 5: Resources Verify करें
 
-1. अपना OneUptime dashboard जांचें
+1. अपना Cast Operations dashboard जांचें
 2. अपने existing project पर जाएं
 3. सत्यापित करें कि "Website Monitor" बनाया गया है और चल रहा है
 
@@ -136,7 +136,7 @@ Error: Invalid API key
 
 **Solution**:
 
-1. OneUptime dashboard में अपनी API key verify करें
+1. Cast Operations dashboard में अपनी API key verify करें
 2. जांचें कि API key में पर्याप्त permissions हैं
 3. सुनिश्चित करें कि `oneuptime_url` आपके instance के लिए correct है
 
@@ -148,7 +148,7 @@ Error: API version incompatible
 
 **Solution**:
 
-1. dashboard में अपना OneUptime version जांचें
+1. dashboard में अपना Cast Operations version जांचें
 2. provider version को exactly match करने के लिए update करें
 3. `terraform init -upgrade` चलाएं
 

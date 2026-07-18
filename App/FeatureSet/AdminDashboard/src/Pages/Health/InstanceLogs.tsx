@@ -10,9 +10,6 @@ const HealthInstanceLogs: FunctionComponent = (): ReactElement => {
     <HealthPage
       title="Instance Logs"
       currentRoute={RouteMap[PageMap.HEALTH_INSTANCE_LOGS] as Route}
-      enterpriseOnly={true}
-      enterpriseFeatureName="OneUptime Health log"
-      enterpriseFeatureDescription="An audit trail of the capacity notifications and automatic ClickHouse pruning work this instance has performed."
     >
       <InstanceHealthLogs />
     </HealthPage>

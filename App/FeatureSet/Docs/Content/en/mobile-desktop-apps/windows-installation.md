@@ -1,6 +1,6 @@
 # Windows Installation Guide
 
-Install OneUptime as a desktop application on Windows for comprehensive monitoring and incident management.
+Install Cast Operations as a desktop application on Windows for comprehensive monitoring and incident management.
 
 ## Installation Methods
 
@@ -8,46 +8,46 @@ Install OneUptime as a desktop application on Windows for comprehensive monitori
 
 Edge provides the best Windows PWA integration with native features.
 
-1. **Open OneUptime in Edge**
+1. **Open Cast Operations in Edge**
 
    - Launch Microsoft Edge browser
-   - Navigate to your OneUptime instance URL
-   - Sign in to your OneUptime account
+   - Navigate to your Cast Operations instance URL
+   - Sign in to your Cast Operations account
    - Wait for complete page loading
 
 2. **Install App**
 
    - Look for the **install icon** (⊞) in the address bar
-   - Click the **"Install OneUptime"** button
+   - Click the **"Install Cast Operations"** button
    - Or click the **three-dot menu** → **Apps** → **Install this site as an app**
 
 3. **Customize Installation**
 
-   - **App Name**: Modify if desired (default: OneUptime)
+   - **App Name**: Modify if desired (default: Cast Operations)
    - **Start Menu**: Choose whether to add to Start Menu
    - **Taskbar**: Option to pin to taskbar
    - **Desktop**: Create desktop shortcut
 
 4. **Complete Installation**
    - Click **"Install"** to finish
-   - OneUptime will open in its own window
+   - Cast Operations will open in its own window
    - Find it in Start Menu under installed apps
 
 ### Method 2: Google Chrome
 
 Chrome offers excellent PWA support with rich desktop integration.
 
-1. **Open OneUptime in Chrome**
+1. **Open Cast Operations in Chrome**
 
    - Launch Google Chrome
-   - Go to your OneUptime instance
+   - Go to your Cast Operations instance
    - Ensure you're signed in
    - Allow complete page load
 
 2. **Install via Address Bar**
 
    - Look for **install icon** (⊞) in address bar
-   - Click **"Install OneUptime"**
+   - Click **"Install Cast Operations"**
    - Or use menu: **three dots** → **More tools** → **Create shortcut**
 
 3. **Installation Options**
@@ -57,7 +57,7 @@ Chrome offers excellent PWA support with rich desktop integration.
    - Click **"Install"** or **"Create"**
 
 4. **Launch App**
-   - Find OneUptime in Windows Start Menu
+   - Find Cast Operations in Windows Start Menu
    - Or launch from desktop shortcut
    - App opens in dedicated window
 
@@ -65,10 +65,10 @@ Chrome offers excellent PWA support with rich desktop integration.
 
 Firefox supports PWA installation with basic desktop integration.
 
-1. **Open OneUptime in Firefox**
+1. **Open Cast Operations in Firefox**
 
    - Launch Firefox browser
-   - Navigate to OneUptime URL
+   - Navigate to Cast Operations URL
    - Complete sign-in process
 
 2. **Install PWA**
@@ -78,9 +78,9 @@ Firefox supports PWA installation with basic desktop integration.
 
 ### Startup Configuration
 
-1. **Auto-Start**: Configure OneUptime to start with Windows
+1. **Auto-Start**: Configure Cast Operations to start with Windows
    - Right-click taskbar → Task Manager → Startup
-   - Enable OneUptime if desired
+   - Enable Cast Operations if desired
 2. **Default Size**: Set preferred window size and position
 
 ### Notification Settings
@@ -88,12 +88,12 @@ Firefox supports PWA installation with basic desktop integration.
 1. **Windows Notifications**
 
    - Settings → System → Notifications & actions
-   - Find OneUptime and configure alert preferences
+   - Find Cast Operations and configure alert preferences
    - Enable banner notifications for incidents
 
 2. **Focus Assist**
    - Configure Do Not Disturb settings
-   - Allow OneUptime critical notifications
+   - Allow Cast Operations critical notifications
    - Set priority levels for different alert types
 
 ## Advanced Installation Options
@@ -107,7 +107,7 @@ Firefox supports PWA installation with basic desktop integration.
 ```
 Solutions:
 1. Ensure you're using Edge or Chrome (recommended browsers)
-2. Verify HTTPS connection to OneUptime instance
+2. Verify HTTPS connection to Cast Operations instance
 3. Clear browser cache and cookies
 4. Update browser to latest version
 5. Check if PWA requirements are met on server
@@ -130,7 +130,7 @@ Solutions:
 
 ```
 Solutions:
-1. Search for "OneUptime" in Windows search
+1. Search for "Cast Operations" in Windows search
 2. Check if installed under different name
 3. Look in "Recently added" apps section
 4. Reinstall and ensure "Add to Start Menu" is checked
@@ -144,9 +144,9 @@ Solutions:
 ```
 Solutions:
 1. Windows Settings → System → Notifications & actions
-2. Enable notifications for OneUptime
+2. Enable notifications for Cast Operations
 3. Check Focus Assist settings
-4. Ensure notification permissions in OneUptime
+4. Ensure notification permissions in Cast Operations
 5. Test with simple notification first
 ```
 
@@ -157,18 +157,18 @@ Solutions:
 1. **Windows Settings Method**
 
    - Settings → Apps → Apps & features
-   - Search for "OneUptime"
+   - Search for "Cast Operations"
    - Click and select "Uninstall"
 
 2. **Browser Method**
 
    - Open Edge/Chrome
    - Go to edge://apps/ or chrome://apps/
-   - Find OneUptime
+   - Find Cast Operations
    - Click options → Uninstall
 
 3. **Start Menu Method**
-   - Right-click OneUptime in Start Menu
+   - Right-click Cast Operations in Start Menu
    - Select "Uninstall"
    - Confirm removal
 
@@ -176,7 +176,7 @@ Solutions:
 
 ### Automatic Updates
 
-- OneUptime PWA updates automatically when online
+- Cast Operations PWA updates automatically when online
 - No manual intervention required
 - Updates apply immediately upon restart
 - Critical patches deployed instantly

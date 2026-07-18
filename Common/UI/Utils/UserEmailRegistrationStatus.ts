@@ -13,14 +13,14 @@ export interface UserEmailRegistrationStatus {
   /*
    * null: unknown — email is empty/invalid, the check is still in flight,
    * or the check failed. true/false: the email does / does not belong to an
-   * existing OneUptime account.
+   * existing Cast Operations account.
    */
   isEmailRegistered: boolean | null;
   checkEmail: (email: string) => void;
 }
 
 /*
- * Debounce-checks whether an email already has a OneUptime account, for
+ * Debounce-checks whether an email already has a Cast Operations account, for
  * invite forms that only need to ask for the invitee's name when the
  * account does not exist yet.
  */

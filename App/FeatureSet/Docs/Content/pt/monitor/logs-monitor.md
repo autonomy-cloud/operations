@@ -1,6 +1,6 @@
 # Monitor de Logs
 
-O monitoramento de logs permite monitorar os logs do seu aplicativo e acionar alertas com base em padrões de log, contagens e níveis de severidade. O OneUptime avalia logs dos seus serviços de telemetria e os verifica em relação aos critérios configurados.
+O monitoramento de logs permite monitorar os logs do seu aplicativo e acionar alertas com base em padrões de log, contagens e níveis de severidade. O Cast Operations avalia logs dos seus serviços de telemetria e os verifica em relação aos critérios configurados.
 
 ## Visão Geral
 
@@ -14,7 +14,7 @@ Os monitores de logs pesquisam e contam logs que correspondem a filtros específ
 
 ## Criando um Monitor de Logs
 
-1. Vá para **Monitors** no Painel do OneUptime
+1. Vá para **Monitors** no Painel do Cast Operations
 2. Clique em **Create Monitor**
 3. Selecione **Logs** como o tipo de monitor
 4. Selecione os serviços de telemetria para monitorar
@@ -24,7 +24,7 @@ Os monitores de logs pesquisam e contam logs que correspondem a filtros específ
 
 ### Serviços de Telemetria
 
-Selecione um ou mais serviços para monitorar logs. Os serviços devem estar enviando logs para o OneUptime via OpenTelemetry.
+Selecione um ou mais serviços para monitorar logs. Os serviços devem estar enviando logs para o Cast Operations via OpenTelemetry.
 
 ### Filtros de Log
 
@@ -92,4 +92,4 @@ Filtre logs por um ou mais níveis de severidade:
 
 ## Requisitos de Configuração
 
-O monitoramento de logs requer que seus aplicativos enviem logs para o OneUptime via OpenTelemetry. Consulte a documentação do [OpenTelemetry](/docs/telemetry/open-telemetry) para instruções de configuração.
+O monitoramento de logs requer que seus aplicativos enviem logs para o Cast Operations via OpenTelemetry. Consulte a documentação do [OpenTelemetry](/docs/telemetry/open-telemetry) para instruções de configuração.

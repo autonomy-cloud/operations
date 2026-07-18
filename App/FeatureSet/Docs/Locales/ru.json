@@ -15,7 +15,7 @@
     "previous": "Назад",
     "next": "Далее",
     "helpImproveTitle": "Помогите нам улучшить эту страницу",
-    "helpImproveBody": "OneUptime — это 100% открытый исходный код. Нашли опечатку или хотите что-то добавить?",
+    "helpImproveBody": "Cast Operations — это 100% открытый исходный код. Нашли опечатку или хотите что-то добавить?",
     "editOnGithub": "Редактировать эту страницу на GitHub",
     "notFoundBadge": "Ошибка 404",
     "notFoundTitle": "Страница не найдена",
@@ -26,9 +26,9 @@
     "errorMessage": "У нас возникли технические трудности. Пожалуйста, попробуйте снова через мгновение.",
     "tryAgain": "Попробовать снова",
     "switchLanguage": "Сменить язык",
-    "metaTitleSuffix": "Документация OneUptime",
-    "metaTitleDefault": "Документация OneUptime",
-    "metaDescription": "Полная документация для OneUptime — платформы наблюдаемости с открытым исходным кодом. Узнайте, как отслеживать ваши приложения, настраивать оповещения и управлять инцидентами."
+    "metaTitleSuffix": "Документация Cast Operations",
+    "metaTitleDefault": "Документация Cast Operations",
+    "metaDescription": "Полная документация для Cast Operations — платформы наблюдаемости с открытым исходным кодом. Узнайте, как отслеживать ваши приложения, настраивать оповещения и управлять инцидентами."
   },
   "navGroups": {
     "Introduction": "Введение",
@@ -162,7 +162,7 @@
     "Fix Tasks": "Fix Tasks",
     "LLM Providers": "Провайдеры LLM",
     "MCP Server": "Сервер MCP",
-    "OneUptime API Reference": "Справочник API OneUptime",
+    "Cast Operations API Reference": "Справочник API Cast Operations",
     "Slack Integration": "Интеграция со Slack",
     "Microsoft Teams Integration": "Интеграция с Microsoft Teams",
     "GitHub Integration": "Интеграция с GitHub",

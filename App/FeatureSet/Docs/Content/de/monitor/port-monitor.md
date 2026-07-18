@@ -1,6 +1,6 @@
 # Port-Monitor
 
-Der Port-Monitor ermöglicht die Überwachung der Verfügbarkeit bestimmter TCP- oder UDP-Ports auf einem Host. OneUptime versucht periodisch, eine Verbindung zum angegebenen Port herzustellen, und prüft, ob dieser offen und reaktionsfähig ist.
+Der Port-Monitor ermöglicht die Überwachung der Verfügbarkeit bestimmter TCP- oder UDP-Ports auf einem Host. Cast Operations versucht periodisch, eine Verbindung zum angegebenen Port herzustellen, und prüft, ob dieser offen und reaktionsfähig ist.
 
 ## Übersicht
 
@@ -13,7 +13,7 @@ Port-Monitore testen, ob ein bestimmter Netzwerkport Verbindungen akzeptiert. Di
 
 ## Einen Port-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Port** als Monitortyp
 4. Geben Sie den Hostnamen oder die IP-Adresse und die Portnummer ein

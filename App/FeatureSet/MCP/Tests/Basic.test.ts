@@ -49,7 +49,7 @@ describe("MCP Server Basic Tests", () => {
     it("should support environment variable checking", () => {
       const apiKey: string = process.env["ONEUPTIME_API_KEY"] || "";
       const url: string =
-        process.env["ONEUPTIME_URL"] || "https://oneuptime.com";
+        process.env["ONEUPTIME_URL"] || "https://visca.ai";
 
       expect(typeof apiKey).toBe("string");
       expect(typeof url).toBe("string");
@@ -173,7 +173,7 @@ describe("MCP Server Basic Tests", () => {
   describe("API Configuration", () => {
     it("should validate API configuration structure", () => {
       const config: Record<string, string> = {
-        url: "https://test.oneuptime.com",
+        url: "https://test.visca.ai",
         apiKey: "test-key",
       };
 
@@ -184,7 +184,7 @@ describe("MCP Server Basic Tests", () => {
 
     it("should handle different URL formats", () => {
       const urls: string[] = [
-        "https://oneuptime.com",
+        "https://visca.ai",
         "http://localhost:3000",
         "https://custom.domain.com:8080",
       ];

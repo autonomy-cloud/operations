@@ -60,7 +60,7 @@ Verstuur een bericht naar een Telegram-chat met een bottoken en chat-ID.
 
 ## Email
 
-Verstuur een e-mail via OneUptime.
+Verstuur een e-mail via Cast Operations.
 
 **Settings**:
 
@@ -118,9 +118,9 @@ Gebruik dit om gemeenschappelijke logica te delen. Bouw één keer een "post to 
 
 Er is een veiligheidsgrens zodat workflows elkaar niet in een lus kunnen blijven aanroepen. Zie [Configuratie en veiligheid](/docs/workflows/configuration).
 
-## OneUptime-datacomponenten
+## Cast Operations-datacomponenten
 
-Voor elk soort record in OneUptime (monitors, incidenten, alerts, statuspagina's, oncall-policies en nog veel meer) heeft het palet deze componenten — zoek op de naam van het type:
+Voor elk soort record in Cast Operations (monitors, incidenten, alerts, statuspagina's, oncall-policies en nog veel meer) heeft het palet deze componenten — zoek op de naam van het type:
 
 - **Find One** — haal één record op via ID of filter.
 - **Find** — haal een lijst met records op.
@@ -129,13 +129,13 @@ Voor elk soort record in OneUptime (monitors, incidenten, alerts, statuspagina's
 - **Delete** — verwijder één record.
 - **Count** — tel records die aan een filter voldoen.
 
-Zo kan een workflow OneUptime-data lezen en wijzigen. Bijvoorbeeld: een webhook vanuit je CI-tool kan **Create Incident** gebruiken om een incident te openen met de faaldetails.
+Zo kan een workflow Cast Operations-data lezen en wijzigen. Bijvoorbeeld: een webhook vanuit je CI-tool kan **Create Incident** gebruiken om een incident te openen met de faaldetails.
 
 ## Welke component moet ik gebruiken?
 
 Een paar vuistregels:
 
-- Als er een speciaal blok is voor wat je wilt (Slack, Email, een OneUptime-record), gebruik dat — je krijgt netter foutafhandeling en duidelijkere logs.
+- Als er een speciaal blok is voor wat je wilt (Slack, Email, een Cast Operations-record), gebruik dat — je krijgt netter foutafhandeling en duidelijkere logs.
 - Voor elke andere externe API gebruik je **API**.
 - Voor het omvormen van data tussen blokken gebruik je **Custom Code** of **JSON**.
 - Om verschillende acties op basis van een waarde te nemen, gebruik je **Conditions**.

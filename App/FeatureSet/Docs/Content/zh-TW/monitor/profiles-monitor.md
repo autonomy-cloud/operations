@@ -1,6 +1,6 @@
 # Profiles 監控
 
-Profiles 監控可讓您監控應用程式的持續剖析（continuous profiling）資料，並根據剖析計數與模式觸發警示。OneUptime 會在一段時間範圍內，評估來自您遙測服務的剖析資料。
+Profiles 監控可讓您監控應用程式的持續剖析（continuous profiling）資料，並根據剖析計數與模式觸發警示。Cast Operations 會在一段時間範圍內，評估來自您遙測服務的剖析資料。
 
 ## 概觀
 
@@ -14,7 +14,7 @@ Profiles 監控會計算並篩選符合特定條件的剖析資料。這讓您�
 
 ## 建立 Profiles 監控
 
-1. 在 OneUptime Dashboard 中前往 **Monitors**
+1. 在 Cast Operations Dashboard 中前往 **Monitors**
 2. 點擊 **Create Monitor**
 3. 選擇 **Profiles** 作為監控類型
 4. 選擇要監控的遙測服務
@@ -24,7 +24,7 @@ Profiles 監控會計算並篩選符合特定條件的剖析資料。這讓您�
 
 ### 遙測服務
 
-選擇一個或多個服務以監控其剖析資料。服務必須透過 OpenTelemetry 將持續剖析資料傳送至 OneUptime。
+選擇一個或多個服務以監控其剖析資料。服務必須透過 OpenTelemetry 將持續剖析資料傳送至 Cast Operations。
 
 ### 剖析篩選條件
 
@@ -62,4 +62,4 @@ Profiles 監控會計算並篩選符合特定條件的剖析資料。這讓您�
 
 ## 設定需求
 
-Profiles 監控需要您的應用程式透過 OpenTelemetry 將持續剖析資料傳送至 OneUptime。如需設定指示，請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件。
+Profiles 監控需要您的應用程式透過 OpenTelemetry 將持續剖析資料傳送至 Cast Operations。如需設定指示，請參閱 [OpenTelemetry](/docs/telemetry/open-telemetry) 文件。

@@ -1,6 +1,6 @@
 # 外部狀態頁面監控
 
-外部狀態頁面監控可讓您監控第三方狀態頁面,並在您所依賴的服務發生中斷或效能降級時收到警示。OneUptime 會定期檢查外部狀態頁面(例如 AWS、GCP、Azure、GitHub、OpenAI、Anthropic 等),並評估其狀態。
+外部狀態頁面監控可讓您監控第三方狀態頁面,並在您所依賴的服務發生中斷或效能降級時收到警示。Cast Operations 會定期檢查外部狀態頁面(例如 AWS、GCP、Azure、GitHub、OpenAI、Anthropic 等),並評估其狀態。
 
 ## 概觀
 
@@ -15,7 +15,7 @@
 
 ## 支援的供應商
 
-OneUptime 支援透過下列方法監控狀態頁面:
+Cast Operations 支援透過下列方法監控狀態頁面:
 
 | 供應商類型               | 說明                                                              |
 | ------------------------ | ----------------------------------------------------------------- |
@@ -27,7 +27,7 @@ OneUptime 支援透過下列方法監控狀態頁面:
 
 ### 自動偵測
 
-當設定為 **Auto** 時,OneUptime 會依下列順序嘗試自動偵測狀態頁面格式:
+當設定為 **Auto** 時,Cast Operations 會依下列順序嘗試自動偵測狀態頁面格式:
 
 1. 首先,它會嘗試 incident.io 狀態頁面 API(`/proxy/<host>`)
 2. 接著,它會嘗試 Atlassian Statuspage JSON API(`/api/v2/status.json`、`/api/v2/components.json` 與 `/api/v2/incidents/unresolved.json`)
@@ -38,7 +38,7 @@ OneUptime 支援透過下列方法監控狀態頁面:
 
 ## 建立外部狀態頁面監控
 
-1. 前往 OneUptime 儀表板中的 **Monitors**
+1. 前往 Cast Operations 儀表板中的 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **External Status Page** 作為監控類型
 4. 輸入您想要監控的狀態頁面 URL
@@ -55,7 +55,7 @@ OneUptime 支援透過下列方法監控狀態頁面:
 
 ### 供應商類型
 
-選擇狀態頁面的供應商類型。使用 **Auto**(預設)讓 OneUptime 自動偵測格式,或在您知道格式時指定 **Atlassian Statuspage**、**incident.io**、**RSS** 或 **Atom**。
+選擇狀態頁面的供應商類型。使用 **Auto**(預設)讓 Cast Operations 自動偵測格式,或在您知道格式時指定 **Atlassian Statuspage**、**incident.io**、**RSS** 或 **Atom**。
 
 ### 元件群組篩選
 
@@ -93,7 +93,7 @@ OneUptime 支援透過下列方法監控狀態頁面:
 
 ### 預設條件
 
-依照預設,OneUptime 會根據狀態頁面真正重要的項目來建立條件 — 即其進行中的事件與元件健康狀況,而非僅僅是可達性:
+依照預設,Cast Operations 會根據狀態頁面真正重要的項目來建立條件 — 即其進行中的事件與元件健康狀況,而非僅僅是可達性:
 
 - 當範圍內沒有進行中的事件時,監控會標示為 **Operational**。
 - 當範圍內至少有一個進行中的事件,或範圍內某個元件回報 `degraded_performance`、`partial_outage`、`major_outage` 或 `full_outage` 時,監控會標示為 **Down**(並建立一個事件)。

@@ -129,7 +129,7 @@ Docker मॉनिटरिंग सेटअप वाले प्रोज�
 
 ### Host List
 
-OneUptime के सर्वर monitor द्वारा monitor किए गए होस्ट्स, स्थिति, CPU, मेमोरी, और uptime के साथ।
+Cast Operations के सर्वर monitor द्वारा monitor किए गए होस्ट्स, स्थिति, CPU, मेमोरी, और uptime के साथ।
 
 **Settings**: लेबल या वर्तमान स्थिति के आधार पर फ़िल्टर।
 

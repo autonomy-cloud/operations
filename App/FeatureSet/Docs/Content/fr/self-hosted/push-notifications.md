@@ -4,7 +4,7 @@ Les notifications push natives (iOS/Android) sont alimentées par **Expo Push** 
 
 ## Fonctionnement
 
-L'application mobile OneUptime enregistre un jeton Expo Push auprès du backend. Lorsque le backend doit envoyer une notification, il envoie une requête POST à l'API publique Expo Push, qui achemine le message vers Apple APNs ou Google FCM au nom de l'application.
+L'application mobile Cast Operations enregistre un jeton Expo Push auprès du backend. Lorsque le backend doit envoyer une notification, il envoie une requête POST à l'API publique Expo Push, qui achemine le message vers Apple APNs ou Google FCM au nom de l'application.
 
 Les notifications push Web continuent d'utiliser les clés VAPID et le protocole Web Push.
 
@@ -18,7 +18,7 @@ Aucune configuration de notification push n'est requise. Le binaire de l'applica
 
 - Assurez-vous que l'application mobile a été compilée avec EAS Build (Expo Go ne prend pas en charge les notifications push)
 - Vérifiez que le périphérique est enregistré dans la table `UserPush` de votre base de données
-- Consultez les journaux du serveur OneUptime pour les erreurs de l'API Expo Push
+- Consultez les journaux du serveur Cast Operations pour les erreurs de l'API Expo Push
 - Confirmez que le périphérique dispose d'une connexion Internet active et que les permissions de notification sont activées
 
 ### Erreurs « DeviceNotRegistered » dans les journaux
@@ -30,5 +30,5 @@ Le jeton Expo Push n'est plus valide. Cela signifie généralement que l'applica
 Si vous rencontrez des problèmes avec les notifications push, veuillez :
 
 1. Consulter la section de dépannage ci-dessus
-2. Examiner les journaux de OneUptime pour les messages d'erreur détaillés
-3. Nous contacter à [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Examiner les journaux de Cast Operations pour les messages d'erreur détaillés
+3. Nous contacter à [hello@visca.ai](mailto:hello@visca.ai)

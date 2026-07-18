@@ -54,7 +54,7 @@ service.name = '{{service}}'
 
 Wenn das Dropdown auf `checkout` steht, filtert das Diagramm auf den Checkout-Service. Wechselt der Besucher auf `payments`, wird das Diagramm für Payments neu gerendert.
 
-Bei **Telemetrie-Attribut**-Variablen weiß OneUptime, auf welches Attribut die Variable abbildet, und wendet den Filter automatisch auf jedes Widget an, das dasselbe Attribut nutzt – Sie müssen kein Widget einzeln bearbeiten.
+Bei **Telemetrie-Attribut**-Variablen weiß Cast Operations, auf welches Attribut die Variable abbildet, und wendet den Filter automatisch auf jedes Widget an, das dasselbe Attribut nutzt – Sie müssen kein Widget einzeln bearbeiten.
 
 ## Zeitbereich
 

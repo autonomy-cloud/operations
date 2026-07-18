@@ -1,6 +1,6 @@
 # 外部状态页面监控器
 
-外部状态页面监控允许您监控第三方状态页面，并在您所依赖的服务出现中断或性能下降时收到告警。OneUptime 定期检查外部状态页面（如 AWS、GCP、Azure、GitHub、OpenAI、Anthropic 等）并评估其状态。
+外部状态页面监控允许您监控第三方状态页面，并在您所依赖的服务出现中断或性能下降时收到告警。Cast Operations 定期检查外部状态页面（如 AWS、GCP、Azure、GitHub、OpenAI、Anthropic 等）并评估其状态。
 
 ## 概述
 
@@ -15,7 +15,7 @@
 
 ## 支持的提供商
 
-OneUptime 支持通过以下方式监控状态页面：
+Cast Operations 支持通过以下方式监控状态页面：
 
 | 提供商类型               | 描述                                                              |
 | ------------------------ | --------------------------------------------------------------- |
@@ -27,7 +27,7 @@ OneUptime 支持通过以下方式监控状态页面：
 
 ### 自动检测
 
-设置为 **自动** 时，OneUptime 将尝试按以下顺序自动检测状态页面格式：
+设置为 **自动** 时，Cast Operations 将尝试按以下顺序自动检测状态页面格式：
 
 1. 首先，尝试 incident.io 状态页面 API（`/proxy/<host>`）
 2. 接着，尝试 Atlassian Statuspage JSON API（`/api/v2/status.json`、`/api/v2/components.json` 和 `/api/v2/incidents/unresolved.json`）
@@ -38,7 +38,7 @@ OneUptime 支持通过以下方式监控状态页面：
 
 ## 创建外部状态页面监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **外部状态页面** 作为监控器类型
 4. 输入您要监控的状态页面 URL
@@ -55,7 +55,7 @@ OneUptime 支持通过以下方式监控状态页面：
 
 ### 提供商类型
 
-选择状态页面的提供商类型。使用 **自动**（默认）让 OneUptime 自动检测格式，或者如果您知道具体类型，指定 **Atlassian Statuspage**、**incident.io**、**RSS** 或 **Atom**。
+选择状态页面的提供商类型。使用 **自动**（默认）让 Cast Operations 自动检测格式，或者如果您知道具体类型，指定 **Atlassian Statuspage**、**incident.io**、**RSS** 或 **Atom**。
 
 ### 组件组过滤器
 
@@ -93,7 +93,7 @@ OneUptime 支持通过以下方式监控状态页面：
 
 ### 默认标准
 
-默认情况下，OneUptime 会根据状态页面真正重要的因素来设置标准——即其活跃事件和组件健康状况，而不仅仅是可达性：
+默认情况下，Cast Operations 会根据状态页面真正重要的因素来设置标准——即其活跃事件和组件健康状况，而不仅仅是可达性：
 
 - 当范围内没有活跃事件时，监控器被标记为 **在线**。
 - 当范围内至少有一个活跃事件，或者范围内的某个组件报告 `degraded_performance`、`partial_outage`、`major_outage` 或 `full_outage` 时，监控器被标记为 **离线**（并创建一个事件）。

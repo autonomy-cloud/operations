@@ -54,7 +54,7 @@ service.name = '{{service}}'
 
 Quando il menu a tendina e impostato su `checkout`, il grafico filtra sul servizio checkout. Quando chi guarda passa a `payments`, il grafico viene ridisegnato per payments.
 
-Per le variabili **Telemetry Attribute**, OneUptime sa a quale attributo si riferisce la variabile e applica il filtro a ogni widget che usa lo stesso attributo — non devi modificare ogni widget a mano.
+Per le variabili **Telemetry Attribute**, Cast Operations sa a quale attributo si riferisce la variabile e applica il filtro a ogni widget che usa lo stesso attributo — non devi modificare ogni widget a mano.
 
 ## Intervallo temporale
 

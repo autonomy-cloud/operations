@@ -1,13 +1,13 @@
 # GitHub-integration
 
-Öppna ett [GitHub](https://github.com)-ärende automatiskt när en OneUptime-incident skapas — så att ingenjörernas uppföljning spåras i det repo som äger den berörda tjänsten.
+Öppna ett [GitHub](https://github.com)-ärende automatiskt när en Cast Operations-incident skapas — så att ingenjörernas uppföljning spåras i det repo som äger den berörda tjänsten.
 
-Den här integrationen är **utgående**: OneUptime anropar [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Den använder ett OneUptime **[Arbetsflöde](/docs/workflows/index)** med en **Incident → On Create**-utlösare och en **API-komponent**.
+Den här integrationen är **utgående**: Cast Operations anropar [GitHub REST API](https://docs.github.com/en/rest/issues/issues). Den använder ett Cast Operations **[Arbetsflöde](/docs/workflows/index)** med en **Incident → On Create**-utlösare och en **API-komponent**.
 
-> **Letar du efter den djupare GitHub-anslutningen?** OneUptime har också en inbyggd **GitHub App**-integration för att ansluta kodrepon (används av AI-agenten och kodfunktioner). Den konfigureras med miljövariabler, inte arbetsflöden — se [GitHub Integration (egenhostad)](/docs/self-hosted/github-integration). Den här sidan handlar specifikt om att _lägga ärenden från incidenter_.
+> **Letar du efter den djupare GitHub-anslutningen?** Cast Operations har också en inbyggd **GitHub App**-integration för att ansluta kodrepon (används av AI-agenten och kodfunktioner). Den konfigureras med miljövariabler, inte arbetsflöden — se [GitHub Integration (egenhostad)](/docs/self-hosted/github-integration). Den här sidan handlar specifikt om att _lägga ärenden från incidenter_.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
+Cast Operations Incident → On Create  ──►  API component (POST /repos/{owner}/{repo}/issues)  ──►  GitHub issue
 ```
 
 ## Förutsättningar
@@ -20,7 +20,7 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
 
   Skapa en på [github.com/settings/tokens](https://github.com/settings/tokens).
 
-- Ett OneUptime-projekt där du kan skapa arbetsflöden.
+- Ett Cast Operations-projekt där du kan skapa arbetsflöden.
 
 ## Steg 1 — Spara token
 
@@ -41,15 +41,15 @@ OneUptime Incident → On Create  ──►  API component (POST /repos/{owner}/
      Authorization: Bearer {{variable.GITHUB_TOKEN}}
      Accept: application/vnd.github+json
      X-GitHub-Api-Version: 2022-11-28
-     User-Agent: OneUptime
+     User-Agent: Cast Operations
      ```
 
    - **Body**:
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "body": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": ["incident", "oneuptime"]
      }
      ```

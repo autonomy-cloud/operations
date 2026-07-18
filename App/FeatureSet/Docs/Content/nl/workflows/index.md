@@ -1,22 +1,22 @@
 # Workflows – Overzicht
 
-Met workflows automatiseer je taken in OneUptime zonder code te schrijven. Sleep een paar blokken op een canvas, verbind ze met elkaar en je hebt automatisering die afgaat zodra er iets gebeurt — er wordt een incident geopend, een schedule gaat af, of een andere tool stuurt data naar OneUptime.
+Met workflows automatiseer je taken in Cast Operations zonder code te schrijven. Sleep een paar blokken op een canvas, verbind ze met elkaar en je hebt automatisering die afgaat zodra er iets gebeurt — er wordt een incident geopend, een schedule gaat af, of een andere tool stuurt data naar Cast Operations.
 
 Zie workflows als achtergrondhelpers voor je project: ze reageren op events, praten met andere tools en houden dingen stilletjes synchroon terwijl jij je op je werk concentreert.
 
 ## Wat je met workflows kunt doen
 
-- **Koppel OneUptime aan je andere tools** — stuur incidenten naar Slack, maak Jira-tickets aan, post naar een webhook in je stack.
-- **Reageer op wat er in OneUptime gebeurt** — wanneer er een kritiek incident wordt aangemaakt, breng je het oncall-team automatisch op de hoogte en open je een ticket.
+- **Koppel Cast Operations aan je andere tools** — stuur incidenten naar Slack, maak Jira-tickets aan, post naar een webhook in je stack.
+- **Reageer op wat er in Cast Operations gebeurt** — wanneer er een kritiek incident wordt aangemaakt, breng je het oncall-team automatisch op de hoogte en open je een ticket.
 - **Voer taken uit op een schema** — elke vijf minuten, elke nacht, elke maandagochtend.
-- **Ontvang data van buitenaf** — laat andere systemen data naar OneUptime sturen via een unieke URL.
+- **Ontvang data van buitenaf** — laat andere systemen data naar Cast Operations sturen via een unieke URL.
 - **Hergebruik veelvoorkomende automatisering** — bouw het één keer, roep het aan vanuit elke andere workflow.
 
 ## Hoe een workflow werkt
 
 Elke workflow bestaat uit drie delen:
 
-1. **Een trigger** — wat de workflow start. Dit kan een handmatige knop zijn, een schedule, een inkomende webhook of een event in OneUptime (zoals een nieuw incident).
+1. **Een trigger** — wat de workflow start. Dit kan een handmatige knop zijn, een schedule, een inkomende webhook of een event in Cast Operations (zoals een nieuw incident).
 2. **Eén of meer componenten** — wat de workflow doet. Een bericht versturen, een HTTP-aanroep doen, een snelle check uitvoeren, vertakken op basis van een voorwaarde.
 3. **Verbindingen daartussen** — je trekt lijnen van het ene blok naar het volgende om de volgorde te bepalen.
 
@@ -32,7 +32,7 @@ Dit alles bouw je visueel op een canvas. Voor de meeste workflows is geen code n
 | **Run**               | Eén uitvoering van de workflow. Opgeslagen met tijdstippen en de output van elk blok.             |
 | **Globale variabele** | Een waarde (zoals een API-sleutel) die je één keer opslaat en in elke workflow hergebruikt.       |
 
-## Waar je workflows in OneUptime vindt
+## Waar je workflows in Cast Operations vindt
 
 Open **Workflows** in de linkernavigatie. Vanaf daar:
 
@@ -46,7 +46,7 @@ Open **Workflows** in de linkernavigatie. Vanaf daar:
 ## Je eerste workflow bouwen
 
 1. **Aanmaken** — geef je workflow een naam en een korte beschrijving.
-2. **Trigger kiezen** — handmatig, gepland, webhook of een event uit OneUptime.
+2. **Trigger kiezen** — handmatig, gepland, webhook of een event uit Cast Operations.
 3. **Componenten toevoegen** — sleep acties op het canvas en verbind ze.
 4. **Testen** — klik op **Run Manually** en kijk in de logs wat er gebeurt.
 5. **Inschakelen** — zet de schakelaar **Enabled** om in Settings als je er klaar voor bent.
@@ -63,7 +63,7 @@ Stel dat je in Slack wilt posten zodra er een kritiek incident wordt aangemaakt:
 
 De volgende keer dat iemand een incident opent met "Sev 1" in de titel, licht Slack op.
 
-## Hoe workflows passen bij de rest van OneUptime
+## Hoe workflows passen bij de rest van Cast Operations
 
 - **Monitors** signaleren het probleem. **Incidenten** registreren het. **Workflows** reageren erop.
 - **Runbooks** zijn stap-voor-stap-gidsen voor mensen. Workflows zijn onbeheerde automatisering. Gebruik een runbook wanneer een mens beslissingen moet nemen; gebruik een workflow wanneer de stappen automatisch zijn.

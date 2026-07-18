@@ -1,10 +1,10 @@
 # Аутентификация
 
-CLI OneUptime поддерживает несколько способов аутентификации с вашим экземпляром OneUptime. Вы можете использовать именованные контексты, переменные окружения или передавать учётные данные непосредственно в виде флагов.
+CLI Cast Operations поддерживает несколько способов аутентификации с вашим экземпляром Cast Operations. Вы можете использовать именованные контексты, переменные окружения или передавать учётные данные непосредственно в виде флагов.
 
 ## Вход в систему
 
-Выполните аутентификацию в вашем экземпляре OneUptime с помощью ключа API:
+Выполните аутентификацию в вашем экземпляре Cast Operations с помощью ключа API:
 
 ```bash
 oneuptime login <api-key> <instance-url>
@@ -14,8 +14,8 @@ oneuptime login <api-key> <instance-url>
 
 | Аргумент         | Описание                                                            |
 | ---------------- | ------------------------------------------------------------------- |
-| `<api-key>`      | Ваш ключ API OneUptime (например, `sk-your-api-key`)                |
-| `<instance-url>` | URL вашего экземпляра OneUptime (например, `https://oneuptime.com`) |
+| `<api-key>`      | Ваш ключ API Cast Operations (например, `sk-your-api-key`)                |
+| `<instance-url>` | URL вашего экземпляра Cast Operations (например, `https://visca.ai`) |
 
 **Опции:**
 
@@ -27,19 +27,19 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Вход с контекстом по умолчанию
-oneuptime login sk-abc123 https://oneuptime.com
+oneuptime login sk-abc123 https://visca.ai
 
 # Вход с именованным контекстом
-oneuptime login sk-abc123 https://oneuptime.com --context-name production
+oneuptime login sk-abc123 https://visca.ai --context-name production
 
 # Настройка нескольких сред
-oneuptime login sk-prod-key https://oneuptime.com --context-name production
-oneuptime login sk-staging-key https://staging.oneuptime.com --context-name staging
+oneuptime login sk-prod-key https://visca.ai --context-name production
+oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Контексты
 
-Контексты позволяют сохранять и переключаться между несколькими средами OneUptime (например, production, staging, development).
+Контексты позволяют сохранять и переключаться между несколькими средами Cast Operations (например, production, staging, development).
 
 ### Список контекстов
 
@@ -95,14 +95,14 @@ oneuptime context delete <name>
 ### Использование флагов CLI
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://oneuptime.com incident list
+oneuptime --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Использование переменных окружения
 
 ```bash
 export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://oneuptime.com
+export ONEUPTIME_URL=https://visca.ai
 
 oneuptime incident list
 ```
@@ -139,12 +139,12 @@ oneuptime whoami
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://oneuptime.com",
+      "apiUrl": "https://visca.ai",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.oneuptime.com",
+      "apiUrl": "https://staging.visca.ai",
       "apiKey": "sk-..."
     }
   },

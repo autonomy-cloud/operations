@@ -1,6 +1,6 @@
 # 日志监控器
 
-日志监控允许您监控应用程序日志，并根据日志模式、数量和严重程度触发告警。OneUptime 评估来自遥测服务的日志，并根据您配置的标准进行检查。
+日志监控允许您监控应用程序日志，并根据日志模式、数量和严重程度触发告警。Cast Operations 评估来自遥测服务的日志，并根据您配置的标准进行检查。
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 ## 创建日志监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **日志** 作为监控器类型
 4. 选择要监控的遥测服务
@@ -24,7 +24,7 @@
 
 ### 遥测服务
 
-选择一个或多个服务来监控其日志。服务必须通过 OpenTelemetry 向 OneUptime 发送日志。
+选择一个或多个服务来监控其日志。服务必须通过 OpenTelemetry 向 Cast Operations 发送日志。
 
 ### 日志过滤器
 
@@ -92,4 +92,4 @@
 
 ## 设置要求
 
-日志监控需要您的应用程序通过 OpenTelemetry 向 OneUptime 发送日志。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。
+日志监控需要您的应用程序通过 OpenTelemetry 向 Cast Operations 发送日志。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。

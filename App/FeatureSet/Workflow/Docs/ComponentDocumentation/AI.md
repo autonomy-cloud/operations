@@ -2,13 +2,13 @@
 
 This component sends one prompt to the LLM provider configured for the project and returns generated text. Use it for bounded tasks such as summarizing an incident payload, classifying a message, drafting an internal update, or extracting a short explanation from explicitly selected workflow data.
 
-The request is tool-free: it contains no tool definitions or provider-native capability fields. Through this component, the model cannot look up project records, query telemetry, call an external API, or change anything in OneUptime. Besides OneUptime's fixed component-safety instruction, it receives only the inputs you configure on this component. The fixed instruction tells the model to treat everything after the Context marker through the end of the message as untrusted data and not to claim actions or access it did not have. The configured provider and model remain an administrator trust boundary; if you require strictly offline generation, select a model without intrinsic provider-managed retrieval.
+The request is tool-free: it contains no tool definitions or provider-native capability fields. Through this component, the model cannot look up project records, query telemetry, call an external API, or change anything in Cast Operations. Besides Cast Operations’ fixed component-safety instruction, it receives only the inputs you configure on this component. The fixed instruction tells the model to treat everything after the Context marker through the end of the message as untrusted data and not to claim actions or access it did not have. The configured provider and model remain an administrator trust boundary; if you require strictly offline generation, select a model without intrinsic provider-managed retrieval.
 
 ## Before you use it
 
-- AI must be enabled for the project. On OneUptime Cloud, the subscription must be paid and the Growth plan (or a plan that includes Growth features) is required. Self-hosted installations with billing disabled do not have this plan gate.
+- AI must be enabled for the project. On Cast Operations Cloud, the subscription must be paid and the Growth plan (or a plan that includes Growth features) is required. Self-hosted installations with billing disabled do not have this plan gate.
 - Configure a provider under **Project Settings → AI → LLM Providers**. The project default is used first; an installation-wide global provider is the fallback when available.
-- On OneUptime Cloud, a costed global provider consumes the project's AI credit balance. Project-owned providers use the credentials configured for that provider.
+- On Cast Operations Cloud, a costed global provider consumes the project's AI credit balance. Project-owned providers use the credentials configured for that provider.
 - The call counts toward the project's daily autonomous AI token budget and appears in **Project Settings → AI → AI Logs**.
 
 You do not supply a provider key, model endpoint, or provider choice in the component. Provider configuration stays centralized so credentials never become workflow arguments.

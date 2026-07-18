@@ -135,7 +135,7 @@ export default class MonitorProbe extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -209,7 +209,7 @@ export default class MonitorProbe extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Probe ID",
-    description: "ID of your OneUptime Probe in which this object belongs",
+    description: "ID of your Cast Operations Probe in which this object belongs",
     example: "a1b2c3d4-e5f6-7890-ab12-cd3456ef7890",
   })
   @Column({
@@ -283,7 +283,7 @@ export default class MonitorProbe extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Monitor ID",
-    description: "ID of your OneUptime Monitor in which this object belongs",
+    description: "ID of your Cast Operations Monitor in which this object belongs",
     example: "2c3d4e5f-6a7b-8c9d-0e1f-2a3b4c5d6e7f",
   })
   @Column({

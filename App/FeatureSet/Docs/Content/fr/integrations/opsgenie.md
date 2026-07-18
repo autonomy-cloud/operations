@@ -1,18 +1,18 @@
 # Intégration Opsgenie
 
-Créez une alerte [Opsgenie](https://www.atlassian.com/software/opsgenie) chaque fois qu'un incident OneUptime est créé, et fermez-la lorsque OneUptime résout.
+Créez une alerte [Opsgenie](https://www.atlassian.com/software/opsgenie) chaque fois qu'un incident Cast Operations est créé, et fermez-la lorsque Cast Operations résout.
 
-Cette intégration est **sortante** : OneUptime appelle l'[API d'alertes Opsgenie](https://docs.opsgenie.com/docs/alert-api). Elle utilise un **[Workflow](/docs/workflows/index)** OneUptime avec un déclencheur **Incident → On Create** et un **composant API**.
+Cette intégration est **sortante** : Cast Operations appelle l'[API d'alertes Opsgenie](https://docs.opsgenie.com/docs/alert-api). Elle utilise un **[Workflow](/docs/workflows/index)** Cast Operations avec un déclencheur **Incident → On Create** et un **composant API**.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
+Cast Operations Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
 ```
 
 ## Prérequis
 
 - Une **clé d'API** Opsgenie depuis une intégration API : **Settings → Integrations → Add → API**. Copiez la clé.
 - Connaissez votre région. L'hôte API par défaut est `https://api.opsgenie.com` ; les comptes UE utilisent `https://api.eu.opsgenie.com`.
-- Un projet OneUptime où vous pouvez créer des workflows.
+- Un projet Cast Operations où vous pouvez créer des workflows.
 
 ## Étape 1 — Stocker la clé d'API
 
@@ -39,32 +39,32 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  �
      ```json
      {
        "message": "{{Incident.title}}",
-       "alias": "oneuptime-{{Incident._id}}",
+       "alias": "cast-operations-{{Incident._id}}",
        "description": "{{Incident.description}}",
        "priority": "P1",
-       "source": "OneUptime"
+       "source": "Cast Operations"
      }
      ```
 
-   L'**`alias`** lie cette alerte Opsgenie à l'incident OneUptime pour pouvoir la fermer plus tard par alias. Notez que le schéma d'authentification Opsgenie est le mot littéral `GenieKey` suivi d'un espace et de votre clé.
+   L'**`alias`** lie cette alerte Opsgenie à l'incident Cast Operations pour pouvoir la fermer plus tard par alias. Notez que le schéma d'authentification Opsgenie est le mot littéral `GenieKey` suivi d'un espace et de votre clé.
 
 4. **Enregistrez**, activez, et créez un incident de test. Une réponse `202 Accepted` dans les journaux du workflow signifie qu'Opsgenie a mis l'alerte en file d'attente.
 
-## Étape 3 — Fermer lors de la résolution OneUptime (recommandé)
+## Étape 3 — Fermer lors de la résolution Cast Operations (recommandé)
 
 1. Créez un **second** workflow nommé `Close Opsgenie` avec un déclencheur **Incident → On Update**.
 2. Ajoutez un bloc **Conditions** qui vérifie que l'incident est maintenant résolu (branchez sur `{{Incident.currentIncidentState.name}}`).
 3. Depuis **Yes**, ajoutez un bloc **API** :
    - **Method** : `POST`
-   - **URL** : `https://api.opsgenie.com/v2/alerts/oneuptime-{{Incident._id}}/close?identifierType=alias`
+   - **URL** : `https://api.opsgenie.com/v2/alerts/cast-operations-{{Incident._id}}/close?identifierType=alias`
    - **Headers** : le même `Authorization: GenieKey {{variable.OPSGENIE_KEY}}`
-   - **Body** : `{ "source": "OneUptime", "note": "Resolved in OneUptime" }`
+   - **Body** : `{ "source": "Cast Operations", "note": "Resolved in Cast Operations" }`
 
 Opsgenie recherche l'alerte par alias et la ferme.
 
 ## Association des priorités (optionnel)
 
-Les priorités Opsgenie vont de `P1` à `P5`. Faites correspondre les gravités OneUptime avec des branches **Conditions** sur `{{Incident.incidentSeverity.name}}` avant le bloc API.
+Les priorités Opsgenie vont de `P1` à `P5`. Faites correspondre les gravités Cast Operations avec des branches **Conditions** sur `{{Incident.incidentSeverity.name}}` avant le bloc API.
 
 ## Dépannage
 
@@ -76,4 +76,4 @@ Les priorités Opsgenie vont de `P1` à `P5`. Faites correspondre les gravités 
 
 - [Vue d'ensemble des intégrations](/docs/integrations/index) — les schémas et l'aide-mémoire d'authentification.
 - [PagerDuty](/docs/integrations/pagerduty) — la même idée pour PagerDuty.
-- [On Call](/docs/on-call/incoming-call-policy) — l'escalade intégrée de OneUptime.
+- [On Call](/docs/on-call/incoming-call-policy) — l'escalade intégrée de Cast Operations.

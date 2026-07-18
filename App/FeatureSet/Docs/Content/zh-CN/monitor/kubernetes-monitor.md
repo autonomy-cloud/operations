@@ -1,6 +1,6 @@
 # Kubernetes 监控器
 
-Kubernetes 监控允许您监控 Kubernetes 集群的健康状况和性能，包括节点、Pod、工作负载和控制平面组件。OneUptime 会从您的集群中收集指标，并根据您配置的条件对其进行评估。
+Kubernetes 监控允许您监控 Kubernetes 集群的健康状况和性能，包括节点、Pod、工作负载和控制平面组件。Cast Operations 会从您的集群中收集指标，并根据您配置的条件对其进行评估。
 
 ## 概述
 
@@ -15,7 +15,7 @@ Kubernetes 监控器使用来自您集群的指标，为您的基础设施提供
 
 ## 创建 Kubernetes 监控器
 
-1. 在 OneUptime 仪表板中前往 **Monitors**
+1. 在 Cast Operations 仪表板中前往 **Monitors**
 2. 点击 **Create Monitor**
 3. 选择 **Kubernetes** 作为监控器类型
 4. 选择要监控的集群和资源范围
@@ -26,7 +26,7 @@ Kubernetes 监控器使用来自您集群的指标，为您的基础设施提供
 
 ### 集群
 
-选择要监控的 Kubernetes 集群。集群必须通过 OpenTelemetry 与 OneUptime 集成。
+选择要监控的 Kubernetes 集群。集群必须通过 OpenTelemetry 与 Cast Operations 集成。
 
 ### 资源范围
 
@@ -138,7 +138,7 @@ Kubernetes 监控器使用来自您集群的指标，为您的基础设施提供
 
 ## 预置告警模板
 
-OneUptime 为常见的 Kubernetes 监控场景提供模板：
+Cast Operations 为常见的 Kubernetes 监控场景提供模板：
 
 | 模板                        | 描述                     | 阈值             |
 | --------------------------- | ------------------------ | ---------------- |
@@ -157,6 +157,6 @@ OneUptime 为常见的 Kubernetes 监控场景提供模板：
 
 ## 安装要求
 
-要使用 Kubernetes 监控，您需要在集群中安装 OneUptime Kubernetes 代理。该代理通过 OTLP 将集群指标、事件、Pod 日志，以及 —— 默认情况下 —— **通过 eBPF 捕获的应用追踪和 HTTP RED 指标** 发送到 OneUptime。无需修改代码或为每个应用配置 SDK 即可看到服务级别的流量。
+要使用 Kubernetes 监控，您需要在集群中安装 Cast Operations Kubernetes 代理。该代理通过 OTLP 将集群指标、事件、Pod 日志，以及 —— 默认情况下 —— **通过 eBPF 捕获的应用追踪和 HTTP RED 指标** 发送到 Cast Operations。无需修改代码或为每个应用配置 SDK 即可看到服务级别的流量。
 
 请参阅 [安装 Kubernetes Agent](/docs/monitor/kubernetes-agent) 指南 —— 它涵盖了单条命令的 Helm 安装、用于为您的集群挑选正确配置（standard、GKE Autopilot、EKS Fargate）的 `preset` 选项，以及各信号家族（HTTP RED 指标、服务图谱、网络流、TCP 统计）的 `ebpf.features.*` 开关。

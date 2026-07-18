@@ -1,16 +1,16 @@
 <%
 // SEO Data - use passed seo object or fallback to defaults
-const pageTitle = (typeof seo !== 'undefined' && seo.title) ? seo.title : 'OneUptime - One Complete Observability platform.';
-const pageDescription = (typeof seo !== 'undefined' && seo.description) ? seo.description : "OneUptime monitors websites, APIs, and servers and alerts your team if something goes wrong. It also keeps your customers updated about any downtime.";
-const pageUrl = (typeof seo !== 'undefined' && seo.fullCanonicalUrl) ? seo.fullCanonicalUrl : (typeof homeUrl !== 'undefined' ? homeUrl : 'https://oneuptime.com');
+const pageTitle = (typeof seo !== 'undefined' && seo.title) ? seo.title : 'Cast Operations - One Complete Observability platform.';
+const pageDescription = (typeof seo !== 'undefined' && seo.description) ? seo.description : "Cast Operations monitors websites, APIs, and servers and alerts your team if something goes wrong. It also keeps your customers updated about any downtime.";
+const pageUrl = (typeof seo !== 'undefined' && seo.fullCanonicalUrl) ? seo.fullCanonicalUrl : (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai');
 const pageImage = (typeof seo !== 'undefined' && seo.ogImage) ? seo.ogImage : '/img/og-image.png';
-const pageImageUrl = pageImage.startsWith('http') ? pageImage : ((typeof homeUrl !== 'undefined' ? homeUrl : 'https://oneuptime.com') + pageImage);
+const pageImageUrl = pageImage.startsWith('http') ? pageImage : ((typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai') + pageImage);
 const twitterCard = (typeof seo !== 'undefined' && seo.twitterCard) ? seo.twitterCard : 'summary_large_image';
 const ogType = (typeof seo !== 'undefined' && seo.ogType) ? seo.ogType : 'website';
 const pageType = (typeof seo !== 'undefined' && seo.pageType) ? seo.pageType : 'other';
 const breadcrumbs = (typeof seo !== 'undefined' && seo.breadcrumbs) ? seo.breadcrumbs : [{name: 'Home', url: '/'}];
 const softwareApp = (typeof seo !== 'undefined' && seo.softwareApplication) ? seo.softwareApplication : null;
-const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://oneuptime.com').replace(/\/$/, '');
+const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai').replace(/\/$/, '');
 %>
 
 <!-- Open Graph / Facebook -->
@@ -19,13 +19,12 @@ const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://oneuptime.c
 <meta property="og:type" content="<%= ogType %>" />
 <meta property="og:description" content="<%= pageDescription %>">
 <meta property="og:image" content="<%= pageImageUrl %>">
-<meta property="og:site_name" content="OneUptime">
+<meta property="og:site_name" content="Cast Operations">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="<%= twitterCard %>">
 <meta name="theme-color" content="#000000">
 <meta name="twitter:image" content="<%= pageImageUrl %>">
-<meta name="twitter:site" content="@oneuptimeinc">
 <meta name="twitter:title" content="<%= pageTitle %>">
 <meta name="twitter:description" content="<%= pageDescription %>">
 
@@ -34,20 +33,17 @@ const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://oneuptime.c
 {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "OneUptime",
-    "url": "https://www.oneuptime.com",
-    "logo": "https://oneuptime.com/img/ou-bb.svg",
+    "name": "Cast Operations",
+    "url": "https://visca.ai",
+    "logo": "https://visca.ai/img/CastOperationsSVG/icon.svg",
     "sameAs": [
-        "https://www.facebook.com/oneuptimeinc",
-        "https://twitter.com/OneUptimeInc",
-        "https://www.linkedin.com/company/oneuptime",
-        "https://github.com/oneuptime/oneuptime"
+        "https://github.com/autonomy-cloud/operations"
     ],
-    "description": "OneUptime is an open-source complete observability platform. Monitor websites, APIs, and servers. Get alerts, manage incidents, and keep customers informed with status pages.",
+    "description": "Cast Operations is an open-source complete observability platform. Monitor websites, APIs, and servers. Get alerts, manage incidents, and keep customers informed with status pages.",
     "foundingDate": "2020",
     "contactPoint": {
         "@type": "ContactPoint",
-        "email": "support@oneuptime.com",
+        "email": "support@visca.ai",
         "contactType": "customer service"
     }
 }
@@ -87,8 +83,8 @@ const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://oneuptime.c
     "image": "<%= pageImageUrl %>",
     "author": {
         "@type": "Organization",
-        "name": "OneUptime",
-        "url": "https://oneuptime.com"
+        "name": "Cast Operations",
+        "url": "https://visca.ai"
     },
     "offers": {
         "@type": "Offer",
@@ -123,15 +119,15 @@ const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://oneuptime.c
     "url": "<%= pageUrl %>",
     "isPartOf": {
         "@type": "WebSite",
-        "name": "OneUptime",
-        "url": "https://oneuptime.com"
+        "name": "Cast Operations",
+        "url": "https://visca.ai"
     },
     "publisher": {
         "@type": "Organization",
-        "name": "OneUptime",
+        "name": "Cast Operations",
         "logo": {
             "@type": "ImageObject",
-            "url": "https://oneuptime.com/img/ou-bb.svg"
+            "url": "https://visca.ai/img/ou-bb.svg"
         }
     }
 }

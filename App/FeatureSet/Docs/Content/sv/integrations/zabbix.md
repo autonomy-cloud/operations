@@ -1,27 +1,27 @@
 # Zabbix-integration
 
-[Zabbix](https://www.zabbix.com) övervakar dina servrar och nätverk; OneUptime hanterar din incidenthantering, jour och statussidor. Anslut de två och varje Zabbix-problem blir automatiskt en OneUptime-incident — så att rätt personer larmas och din statussida förblir korrekt.
+[Zabbix](https://www.zabbix.com) övervakar dina servrar och nätverk; Cast Operations hanterar din incidenthantering, jour och statussidor. Anslut de två och varje Zabbix-problem blir automatiskt en Cast Operations-incident — så att rätt personer larmas och din statussida förblir korrekt.
 
-Den här integrationen är **inkommande**: Zabbix skickar problem till OneUptime. Den använder en Zabbix **webhook-mediatyp** på ena sidan och ett OneUptime **[Arbetsflöde](/docs/workflows/index)** på den andra. Inga plugins, inga extra tjänster.
+Den här integrationen är **inkommande**: Zabbix skickar problem till Cast Operations. Den använder en Zabbix **webhook-mediatyp** på ena sidan och ett Cast Operations **[Arbetsflöde](/docs/workflows/index)** på den andra. Inga plugins, inga extra tjänster.
 
 ```text
-Zabbix trigger fires  ──►  Webhook media type  ──►  OneUptime Workflow (Webhook trigger)  ──►  Create Incident
+Zabbix trigger fires  ──►  Webhook media type  ──►  Cast Operations Workflow (Webhook trigger)  ──►  Create Incident
 ```
 
 ## Hur det fungerar
 
 1. En Zabbix-utlösare ändras till **PROBLEM**.
-2. En Zabbix **action** uppmanar **OneUptime**-mediatypen att skicka händelsen.
-3. Mediatypens skript POSTar en liten JSON-payload till en OneUptime-arbetsflödes-URL.
+2. En Zabbix **action** uppmanar **Cast Operations**-mediatypen att skicka händelsen.
+3. Mediatypens skript POSTar en liten JSON-payload till en Cast Operations-arbetsflödes-URL.
 4. Arbetsflödet läser payload:en och skapar en incident (och löser den, valfritt, när Zabbix återhämtar sig).
 
 ## Förutsättningar
 
 - En Zabbix-server du administrerar (den här guiden är skriven för **Zabbix 6.0 LTS / 7.0 LTS**; webhook-mediatypen fungerar likadant på 5.0+).
-- Din Zabbix-server måste kunna nå din OneUptime-instans via HTTPS.
-- Ett OneUptime-projekt där du kan skapa arbetsflöden.
+- Din Zabbix-server måste kunna nå din Cast Operations-instans via HTTPS.
+- Ett Cast Operations-projekt där du kan skapa arbetsflöden.
 
-## Del 1 — Bygg OneUptime-arbetsflödet
+## Del 1 — Bygg Cast Operations-arbetsflödet
 
 Gör detta först, eftersom du behöver webhook-URL:en det genererar.
 
@@ -34,18 +34,18 @@ Gör detta först, eftersom du behöver webhook-URL:en det genererar.
 4. Dra ett **Create Incident**-block och koppla det till **Conditions**-blockets **Yes**-utdata. Fyll i:
    - **Title**: `Zabbix: {{Zabbix.Request Body.name}}`
    - **Description**: `Host: {{Zabbix.Request Body.host}}\nSeverity: {{Zabbix.Request Body.severity}}\nZabbix event: {{Zabbix.Request Body.event_id}}`
-   - **Severity**: välj den OneUptime-incidentallvarlighetsgrad du vill ha (du kan förfina detta senare med fler **Conditions**-grenar som mappar Zabbix-allvarlighetsgrader).
+   - **Severity**: välj den Cast Operations-incidentallvarlighetsgrad du vill ha (du kan förfina detta senare med fler **Conditions**-grenar som mappar Zabbix-allvarlighetsgrader).
 5. Spara. Lämna **Enabled** _av_ tills vidare — du slår på det efter ett test.
 
 > **Tips:** Att lägga Zabbix `event_id` i beskrivningen (eller en incidentetikett) gör att du kan hitta den här incidenten igen senare om du vill lösa den automatiskt vid återhämtning. Se [Automatisk lösning](#automatisk-lösning-valfritt).
 
 ## Del 2 — Konfigurera Zabbix
 
-### Steg 1: Skapa OneUptime-mediatypen
+### Steg 1: Skapa Cast Operations-mediatypen
 
 1. Gå i Zabbix till **Alerts → Media types** (i äldre versioner: **Administration → Media types**).
 2. Klicka på **Create media type** och ange **Type** som **Webhook**.
-3. **Name**: `OneUptime`.
+3. **Name**: `Cast Operations`.
 4. Lägg till dessa **Parameters** (klicka på _Add_ för var och en). Dessa mappar Zabbix [makron](https://www.zabbix.com/documentation/current/en/manual/appendix/macros/supported_by_location) till en ren payload:
 
    | Name             | Value              |
@@ -72,7 +72,7 @@ Gör detta först, eftersom du behöver webhook-URL:en det genererar.
      name: params.event_name,
      host: params.host,
      severity: params.event_severity,
-     // "1" = problem, "0" = recovered. OneUptime reads this in a Conditions block.
+     // "1" = problem, "0" = recovered. Cast Operations reads this in a Conditions block.
      status: params.event_value,
      date: params.event_date,
      time: params.event_time,
@@ -82,7 +82,7 @@ Gör detta först, eftersom du behöver webhook-URL:en det genererar.
 
    if (request.getStatus() < 200 || request.getStatus() >= 300) {
      throw (
-       "OneUptime responded with HTTP " + request.getStatus() + ": " + response
+       "Cast Operations responded with HTTP " + request.getStatus() + ": " + response
      );
    }
 
@@ -96,28 +96,28 @@ Gör detta först, eftersom du behöver webhook-URL:en det genererar.
 
 Zabbix skickar notifieringar _till en användare_. Skapa en dedikerad sådan så att integrationen är lätt att hitta och inaktivera.
 
-1. Gå till **Users → Users → Create user**. Namnge den `OneUptime Webhook`, ge den en roll som kan ta emot notifieringar (t.ex. **User role**) och lägg till den i en användargrupp.
+1. Gå till **Users → Users → Create user**. Namnge den `Cast Operations Webhook`, ge den en roll som kan ta emot notifieringar (t.ex. **User role**) och lägg till den i en användargrupp.
 2. På fliken **Media**, klicka **Add**:
-   - **Type**: `OneUptime`
+   - **Type**: `Cast Operations`
    - **Send to**: klistra in **arbetsflödets webhook-URL** som du kopierade i Del 1.
    - **When active** / allvarlighetsgrader: lämna standardinställningarna (eller begränsa till de allvarlighetsgrader du bryr dig om).
 3. Klicka **Add** och **Update**.
 
-### Steg 3: Skicka problem till OneUptime med en action
+### Steg 3: Skicka problem till Cast Operations med en action
 
 1. Gå till **Alerts → Actions → Trigger actions → Create action**.
-2. **Name**: `Notify OneUptime`.
+2. **Name**: `Notify Cast Operations`.
 3. **Conditions** (valfritt): begränsa det — till exempel _Trigger severity >= Warning_. Lämna tomt för att skicka allt.
-4. På fliken **Operations**, lägg till en åtgärd som skickar till **User: OneUptime Webhook** via mediatypen **OneUptime**.
+4. På fliken **Operations**, lägg till en åtgärd som skickar till **User: Cast Operations Webhook** via mediatypen **Cast Operations**.
 5. Om du vill lösa incidenter vid återhämtning senare, fyll även i **Recovery operations** med samma användare/media.
 6. Klicka **Add** för att spara och kontrollera att åtgärden är **Enabled**.
 
 ## Del 3 — Testa det
 
-1. Tillbaka i OneUptime-arbetsflödet, slå på **Enabled**.
+1. Tillbaka i Cast Operations-arbetsflödet, slå på **Enabled**.
 2. Utlös ett testproblem i Zabbix — till exempel, sänk temporärt ett utlösartröskel, eller använd ett testobjekt som slår om till ett problemtillstånd.
 3. Öppna arbetsflödets flik **Logs**. Du bör se en körning med Zabbix-payload:en, **Conditions**-blocket som tar **Yes**-vägen och incidenten som skapas.
-4. Kontrollera **Incidents** i OneUptime — ditt Zabbix-problem är nu en incident.
+4. Kontrollera **Incidents** i Cast Operations — ditt Zabbix-problem är nu en incident.
 
 Om ingenting anländer, se [Felsökning](#felsökning).
 
@@ -130,11 +130,11 @@ Det grundläggande arbetsflödet ovan _öppnar_ incidenter. För att även _stä
 3. Från dess **Yes**-utdata, lägg till ett **Find Incident**-block som letar upp den öppna incident du skapade tidigare — matcha på Zabbix `event_id` som du lagrade i beskrivningen eller en etikett.
 4. Koppla det till ett **Update Incident**-block och flytta incidenten till ditt _löst_-tillstånd.
 
-Eftersom lösning beror på hur du modellerar incidenttillstånd i ditt projekt, behåll **skapa**-vägen som det pålitliga kärnan och lägg till lösningsvägen när du bekräftat att händelser flödar korrekt. Se [Komponenter → OneUptime-datakomponenter](/docs/workflows/components#oneuptime-data-components).
+Eftersom lösning beror på hur du modellerar incidenttillstånd i ditt projekt, behåll **skapa**-vägen som det pålitliga kärnan och lägg till lösningsvägen när du bekräftat att händelser flödar korrekt. Se [Komponenter → Cast Operations-datakomponenter](/docs/workflows/components#oneuptime-data-components).
 
 ## Mappa Zabbix-allvarlighetsgrader (valfritt)
 
-Zabbix-allvarlighetsgrader (`Not classified`, `Information`, `Warning`, `Average`, `High`, `Disaster`) anländer som `{{Zabbix.Request Body.severity}}`. För att mappa dem till OneUptime-incidentallvarlighetsgrader, lägg till **Conditions**-grenar före **Create Incident** — till exempel, dirigera `Disaster` och `High` till en "Critical"-incident och allt annat till "Major". Bygg ett **Create Incident**-block per gren.
+Zabbix-allvarlighetsgrader (`Not classified`, `Information`, `Warning`, `Average`, `High`, `Disaster`) anländer som `{{Zabbix.Request Body.severity}}`. För att mappa dem till Cast Operations-incidentallvarlighetsgrader, lägg till **Conditions**-grenar före **Create Incident** — till exempel, dirigera `Disaster` och `High` till en "Critical"-incident och allt annat till "Major". Bygg ett **Create Incident**-block per gren.
 
 ## Felsökning
 
@@ -147,7 +147,7 @@ Zabbix-allvarlighetsgrader (`Not classified`, `Information`, `Warning`, `Average
 **Zabbix rapporterar ett skriptfel.**
 
 - Öppna mediatypen och använd **Test** för att skicka en exempelpayload. Zabbix visar skriptets utdata eller det kastade felet.
-- Ett icke-2xx-svar från OneUptime visas av `throw` i skriptet — kontrollera att arbetsflödets URL är exakt rätt.
+- Ett icke-2xx-svar från Cast Operations visas av `throw` i skriptet — kontrollera att arbetsflödets URL är exakt rätt.
 
 **Incidenten skapas men fälten är tomma.**
 
@@ -162,7 +162,7 @@ Zabbix-allvarlighetsgrader (`Not classified`, `Information`, `Warning`, `Average
 
 - Behandla arbetsflödets webhook-URL som ett lösenord. Om den läcker, radera utlösaren och skapa en ny för att rotera URL:en.
 - Begränsa Zabbix-åtgärdens villkor så att du bara vidarebefordrar de allvarlighetsgrader som motiverar en incident.
-- Om du kör OneUptime egenhostat bakom en brandvägg, tillåt din Zabbix-servers utgående IP att nå det via HTTPS.
+- Om du kör Cast Operations egenhostat bakom en brandvägg, tillåt din Zabbix-servers utgående IP att nå det via HTTPS.
 
 ## Läs vidare
 

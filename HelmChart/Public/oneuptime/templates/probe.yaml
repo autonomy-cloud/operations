@@ -98,8 +98,6 @@ spec:
           {{- end }}
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           env:
-            - name: BILLING_ENABLED
-              value: {{ $.Values.billing.enabled | squote }}
             - name: LOG_LEVEL
               value: {{ $.Values.logLevel }}
             - name: PORT
@@ -179,19 +177,19 @@ spec:
 ---
 
 {{- if and (not $val.disableAutoscaler) (not (and $.Values.keda.enabled (and $val.keda $val.keda.enabled))) }}
-# OneUptime probe autoscaler
+# Cast Operations probe autoscaler
 {{- $probeAutoScalerArgs := dict "ServiceName" (printf "probe-%s" $key) "Release" $.Release "Values" $.Values "Override" $val.autoscaling -}}
 {{- include "oneuptime.autoscaler" $probeAutoScalerArgs }}
 {{- end }}
 ---
 
-# OneUptime probe PodDisruptionBudget
+# Cast Operations probe PodDisruptionBudget
 {{- include "oneuptime.pdb" (dict "ServiceName" (printf "probe-%s" $key) "Override" $val.podDisruptionBudget "Release" $.Release "Values" $.Values) }}
 ---
 
 {{- end }}
 
-# OneUptime probe Service
+# Cast Operations probe Service
 {{- $probePort := 3874 }}
 {{- if and $val.ports $val.ports.http }}
 {{- $probePort = $val.ports.http }}

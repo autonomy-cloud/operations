@@ -5,7 +5,7 @@ global:
   storageClass:
   clusterDomain: &global-cluster-domain cluster.local
 
-# Please change this to the domain name / IP where OneUptime server is hosted on.
+# Please change this to the domain name / IP where Cast Operations server is hosted on.
 host: localhost
 httpProtocol: http
 ssl:
@@ -22,17 +22,11 @@ image:
   pullPolicy: Always
   tag: release
 
-  ## Type of OneUptime image to use.
-  ## Possible values: community-edition, enterprise-edition
-  ## Enterprise edition images are hardened for more security and compliance, but you need a valid license to use them.
-  ## Please contact sales@oneuptime.com for more information.
-  type: community-edition
-  
   restartPolicy: Always
 # imagePullSecrets:
 #   - name: MyCustomSecretNameWithDockerCredentials
 
-# Important: You do need to set this to a long random values if you're using OneUptime in production.
+# Important: You do need to set this to a long random values if you're using Cast Operations in production.
 # Please set this to string.
 oneuptimeSecret:
 registerProbeKey:
@@ -61,7 +55,7 @@ externalSecrets:
       passwordKey:
 
 deployment:
-  # When set to true, no OneUptime deployments are provisioned. Only databases (Redis, ClickHouse, Postgres) will be running.
+  # When set to true, no Cast Operations deployments are provisioned. Only databases (Redis, ClickHouse, Postgres) will be running.
   disableDeployments: false
   # Default replica count for all deployments
   replicaCount: 1
@@ -86,7 +80,7 @@ metalLb:
       # - 51.158.55.153/32 # List of IP addresses of all the servers in the cluster.
 
 nginx:
-  # OneUptime ships with its own ingress gateway container, so Kubernetes Ingress resources are not required.
+  # Cast Operations ships with its own ingress gateway container, so Kubernetes Ingress resources are not required.
   enabled: true
   replicaCount: 1
   # Override the per-pod Postgres pool ceiling (DATABASE_MAX_OPEN_CONNECTIONS)
@@ -182,7 +176,7 @@ postgresql:
 #     (gated by this flag — see Chart.yaml; tune the operator itself under the
 #     top-level "cloudnative-pg:" section at the bottom of this file).
 #
-# The OneUptime app connects as the "postgres" superuser (drop-in replacement
+# The Cast Operations app connects as the "postgres" superuser (drop-in replacement
 # for the StatefulSet). This object is self-contained — it does not read any
 # postgresql.* values. "cnpg" is nested so other operators can be added later.
 #
@@ -381,7 +375,7 @@ clickhouse:
             </default>
         </quotas>
         <!--
-          Cluster + embedded-Keeper. OneUptime's analytics schema is always
+          Cluster + embedded-Keeper. Cast Operations’ analytics schema is always
           ReplicatedMergeTree + Distributed, so this single StatefulSet node runs
           an embedded Keeper and a 1-node "oneuptime" cluster. Multi-node HA /
           sharding is the Altinity operator path (clickhouseOperator.altinity),
@@ -439,7 +433,7 @@ clickhouse:
 #     top-level "altinity-clickhouse-operator:" section at the bottom of this file);
 #   * a bundled ClickHouse Keeper ensemble is created (coordination for replication).
 #
-# The OneUptime app connects as the "oneuptime" user (drop-in replacement for the
+# The Cast Operations app connects as the "oneuptime" user (drop-in replacement for the
 # StatefulSet). This object is self-contained — it does not read any clickhouse.*
 # values. "altinity" is nested so other operators can be added later.
 #
@@ -457,7 +451,7 @@ clickhouseOperator:
     # HA. replicasCount > 1 requires a coordinator — keeper.enabled (below) provides
     # one. Scaling is online: change these and `helm upgrade`.
     #
-    # When this operator path is enabled the OneUptime app runs in cluster mode:
+    # When this operator path is enabled the Cast Operations app runs in cluster mode:
     # the analytics schema is created as Distributed tables over local
     # ReplicatedMergeTree tables (CLICKHOUSE_CLUSTER_NAME is set to `name` below).
     # `name` MUST match the cluster created in the ClickHouseInstallation.
@@ -469,7 +463,7 @@ clickhouseOperator:
       # app default cityHash64(projectId), which co-locates a project's rows — and
       # therefore all spans of a trace — on a single shard.
       shardingKey: ""
-    # The application user the OneUptime app authenticates as.
+    # The application user the Cast Operations app authenticates as.
     auth:
       username: oneuptime
       # Auto-generated if empty; preserved on upgrade.
@@ -513,7 +507,7 @@ clickhouseOperator:
     # These tune ClickHouse's background Distributed-insert sender — the step that forwards
     # rows from the app-facing Distributed tables (MetricItemV3 / LogItemV3 / SpanItemV3)
     # into the local ReplicatedMergeTree tables. They are ON BY DEFAULT because EVERY
-    # OneUptime deployment writes through that sender: the analytics schema is always a
+    # Cast Operations deployment writes through that sender: the analytics schema is always a
     # Distributed table over a local table, even on a single-node "cluster of one". Without
     # batching, the sender ships one spooled file per insert and cannot keep up with high
     # telemetry volume, so files pile into system.distribution_queue (multi-GiB backlogs)
@@ -529,7 +523,7 @@ clickhouseOperator:
       default/distributed_background_insert_split_batch_on_failure: "1"
       default/prefer_localhost_replica: "1"
     # Advanced: raw config files dropped into the server config (map of filename -> content).
-    # By default we disable processors_profile_log entirely: OneUptime does not use it and it
+    # By default we disable processors_profile_log entirely: Cast Operations does not use it and it
     # ballooned to 500+ GiB on the standalone deployment. This mirrors the built-in
     # StatefulSet config (<processors_profile_log remove="1"/>). Remove this entry to keep the
     # operator's default (bounded ~30d TTL) instead.
@@ -631,7 +625,7 @@ migrate:
 # small set of backend connections — the real connection reduction. This is safe
 # here because migrate.enabled=true above runs migrations in a dedicated Job, so
 # the data-migration session advisory lock never runs on a pooled connection
-# (OneUptime's runtime traffic uses no other session-level Postgres features).
+# (Cast Operations’ runtime traffic uses no other session-level Postgres features).
 # If you set migrate.enabled=false, you MUST also set poolMode=session — the
 # chart rejects transaction+no-migrate-Job at render time. See HelmChart/Docs/Postgres.md.
 pgbouncer:
@@ -771,7 +765,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
 
-# Pod Disruption Budgets for the stateless OneUptime deployments (app, worker,
+# Pod Disruption Budgets for the stateless Cast Operations deployments (app, worker,
 # nginx, home, ai-agent, probes, pgbouncer). A PDB caps how many pods the
 # cluster may take down at once during *voluntary* disruptions — node drains,
 # rolling node-pool upgrades, and cluster-autoscaler scale-down — so an upgrade
@@ -801,17 +795,11 @@ podDisruptionBudget:
 nodeEnvironment: production
 
 billing:
-  enabled: false
-  publicKey:
-  privateKey:
-  # Stripe webhook secret for automatic invoice emails (get from Stripe Dashboard > Developers > Webhooks)
-  webhookSecret: 
   smsDefaultValueInCents:
   whatsAppTextDefaultValueInCents:
   callDefaultValueInCentsPerMinute:
   smsHighRiskValueInCents:
   callHighRiskValueInCentsPerMinute:
-  allowedActiveMonitorCountInFreePlan: 10
   telemetry:
     averageSpanRowSizeInBytes: 1024
     averageLogRowSizeInBytes: 1024
@@ -819,12 +807,6 @@ billing:
     averageExceptionRowSizeInBytes: 1024
     averageProfileRowSizeInBytes: 1024
     averageProfileSampleRowSizeInBytes: 512
-
-subscriptionPlan:
-  basic:
-  growth:
-  scale:
-  enterprise:
 
 analytics:
   host:
@@ -843,7 +825,7 @@ captcha:
 vapid:
   publicKey:
   privateKey:
-  subject: mailto:support@oneuptime.com
+  subject: mailto:support@visca.ai
 
 # Expo access token for sending mobile push notifications directly via Expo SDK.
 # If not set, notifications are relayed through the push notification relay URL.
@@ -852,7 +834,7 @@ expo:
 
 # Push notification relay URL for self-hosted instances without Expo credentials
 pushNotification:
-  relayUrl: https://oneuptime.com/api/notification/push-relay/send
+  relayUrl: https://visca.ai/api/notification/push-relay/send
 
 incidents:
   disableAutomaticCreation: false
@@ -870,17 +852,17 @@ telemetry:
 
 # If you would like to attach status page to custom domains use this setting.
 # For example, lets say you would like the status page to be hosted on status.yourcompany.com, then
-# 1. Create a A record in your DNS provider with the name "oneuptime.yourcompany.com" and value to Public IP of the server oneuptime is deployed on.
-# 2. Set the statusPage.cnameRecord to "oneuptime.yourcompany.com"
-# 3. Create CNAME record in your DNS provider with the name "status.yourcompany.com" and value "oneuptime.yourcompany.com"
+# 1. Create a A record in your DNS provider with the name "operations.yourcompany.com" and value to Public IP of the server oneuptime is deployed on.
+# 2. Set the statusPage.cnameRecord to "operations.yourcompany.com"
+# 3. Create CNAME record in your DNS provider with the name "status.yourcompany.com" and value "operations.yourcompany.com"
 statusPage:
   cnameRecord:
 
 # If you would like to attach public dashboards to custom domains use this setting.
 # Works the same way as statusPage.cnameRecord but for dashboards.
 # For example, if you want dashboard.yourcompany.com to show a public dashboard:
-# 1. Set the dashboard.cnameRecord to "oneuptime.yourcompany.com"
-# 2. Create CNAME record in your DNS provider with the name "dashboard.yourcompany.com" and value "oneuptime.yourcompany.com"
+# 1. Set the dashboard.cnameRecord to "operations.yourcompany.com"
+# 2. Create CNAME record in your DNS provider with the name "dashboard.yourcompany.com" and value "operations.yourcompany.com"
 dashboard:
   cnameRecord:
 
@@ -1180,7 +1162,7 @@ externalClickhouse:
   port:
   username:
   password:
-  ## OneUptime's analytics schema is always a sharded + replicated cluster. Set
+  ## Cast Operations’ analytics schema is always a sharded + replicated cluster. Set
   ## this to the name of the cluster you defined in your external ClickHouse
   ## (<remote_servers>), with Keeper/ZooKeeper configured for ReplicatedMergeTree.
   ## Defaults to "oneuptime".
@@ -1387,7 +1369,7 @@ worker:
       replicas: 2
 
 # AI Agent Configuration
-# Runs the OneUptime AI Agent within your Kubernetes cluster.
+# Runs the Cast Operations AI Agent within your Kubernetes cluster.
 # Note: This is enabled by default so AI fix tasks work out of the box. The
 # agent registers itself automatically (no credentials needed) and idles
 # cheaply when no LLM provider is configured — tasks fail early with guidance
@@ -1407,7 +1389,7 @@ aiAgent:
   #   maxReplicas: 10
   #   targetCPUUtilizationPercentage: 80
   #   targetMemoryUtilizationPercentage: 80
-  # AI Agent ID from OneUptime dashboard (optional — by default the agent
+  # AI Agent ID from Cast Operations dashboard (optional — by default the agent
   # auto-registers itself using the key below)
   id:
   # AI Agent Key (optional — auto-generated and stored in the release
@@ -1442,7 +1424,7 @@ aiAgent:
 # vLLM: self-hosted, OpenAI-compatible LLM inference server (https://docs.vllm.ai)
 # for running local models in-cluster instead of calling OpenAI/Anthropic/etc.
 # Note: This is disabled by default. Enabling it requires NVIDIA GPU nodes
-# (device plugin or GPU Operator installed). Once running, connect OneUptime to
+# (device plugin or GPU Operator installed). Once running, connect Cast Operations to
 # it from the dashboard: AI Agents > LLM Providers > Create LLM Provider,
 # with LLM Provider "OpenAI" and Base URL:
 #   http://<release>-vllm.<namespace>.svc.<clusterDomain>:8000/v1
@@ -1464,10 +1446,10 @@ vllm:
   # NOT gated (no HuggingFace token required).
   model: Qwen/Qwen2.5-1.5B-Instruct
   # Optional model alias exposed on /v1/models (--served-model-name). If empty,
-  # the "Model Name" in the OneUptime LLM Provider form must be the full
+  # the "Model Name" in the Cast Operations LLM Provider form must be the full
   # HuggingFace model id above.
   servedModelName: ""
-  # Tool / function calling. OneUptime's AI features (Ask AI copilot and AI
+  # Tool / function calling. Cast Operations’ AI features (Ask AI copilot and AI
   # Agents) drive the model with OpenAI-style tool calls, so vLLM MUST be
   # started with tool calling enabled - otherwise every request fails with:
   #   {"error":{"message":"\"auto\" tool choice requires --enable-auto-tool-choice
@@ -1502,7 +1484,7 @@ vllm:
     type: ClusterIP
   # Optional API key. When set, /v1/* requires "Authorization: Bearer <key>"
   # (injected as VLLM_API_KEY via a chart-managed secret) - use the same value
-  # as the API Key in the OneUptime LLM Provider form. When unset, the server is
+  # as the API Key in the Cast Operations LLM Provider form. When unset, the server is
   # unauthenticated (in-cluster ClusterIP only) and any placeholder value
   # satisfies the form.
   apiKey: ""
@@ -1519,21 +1501,20 @@ vllm:
       name: ""
       key: ""
   # Automatically register this vLLM server as a Global LLM Provider in
-  # OneUptime, so AI features work for ALL projects with no dashboard setup.
+  # Cast Operations, so AI features work for ALL projects with no dashboard setup.
   # Managed declaratively at startup: disabling this (or vllm.enabled) removes
   # the auto-registered provider on the next deploy, and manual edits to its
   # env-managed fields (name, description, type, model, base URL, API key) in the
   # Admin Dashboard are overwritten (other fields, e.g. token cost, are kept).
   # Note: project-scoped AI Agents cannot
   # use global providers (product rule) - they still need a project-specific
-  # LLM Provider. Intended for self-hosted installs; with billing.enabled=true
-  # global providers are subject to AI-credit balance checks.
+  # LLM Provider.
   globalProvider:
     enabled: true
     # Display name of the auto-registered provider in the dashboard.
-    name: OneUptime AI
+    name: Cast Operations AI
     # Description of the auto-registered provider shown in the dashboard.
-    description: Investigate, analyze and fix with OneUptime AI.
+    description: Investigate, analyze and fix with Cast Operations AI.
   # Persistent cache for model weights (HF_HOME) and vLLM compile cache
   # (VLLM_CACHE_ROOT). One PVC per replica; size it to ~2-3x the total model
   # weights. When disabled, a node-disk emptyDir capped at `size` is used
@@ -1644,7 +1625,7 @@ gitHubApp:
 
 # Inbound Email Configuration
 # Required for Incoming Email Monitor feature
-# See documentation: https://oneuptime.com/docs/self-hosted/sendgrid-inbound-email
+# See documentation: https://visca.ai/docs/self-hosted/sendgrid-inbound-email
 inboundEmail:
   # Email provider type (currently only SendGrid is supported)
   provider: SendGrid

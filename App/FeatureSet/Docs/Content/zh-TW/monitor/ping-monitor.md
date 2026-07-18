@@ -1,6 +1,6 @@
 # Ping 監測
 
-Ping 監測可讓您監測任何主機或 IP 位址的可用性與回應能力。OneUptime 會定期向您的目標傳送 ping 請求，並檢查它是否正確回應。
+Ping 監測可讓您監測任何主機或 IP 位址的可用性與回應能力。Cast Operations 會定期向您的目標傳送 ping 請求，並檢查它是否正確回應。
 
 ## 概觀
 
@@ -13,7 +13,7 @@ Ping 監測器透過向主機傳送 ICMP ping 請求來測試基本的網路連�
 
 ## 建立 Ping 監測器
 
-1. 前往 OneUptime Dashboard 中的 **Monitors**
+1. 前往 Cast Operations Dashboard 中的 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **Ping** 作為監測器類型
 4. 輸入您想要監測的主機名稱或 IP 位址

@@ -96,7 +96,7 @@ function runBashLocally(data: {
 
 /*
  * JavaScript runs inside the same isolated-vm sandbox the server used to use,
- * but now on the agent's machine rather than on the OneUptime Worker. The
+ * but now on the agent's machine rather than on the Cast Operations Worker. The
  * sandbox blocks fs/network/process access and is killed at the timeout.
  */
 async function runJavaScriptLocally(data: {

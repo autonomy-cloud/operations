@@ -1,6 +1,6 @@
 # Metrikkermonitor
 
-Metrisk overvågning giver dig mulighed for at overvåge brugerdefinerede applikations- og infrastrukturmetrikker indsamlet via OpenTelemetry. OneUptime evaluerer metriske værdier over et tidsvindue og udløser advarsler baseret på dine konfigurerede kriterier.
+Metrisk overvågning giver dig mulighed for at overvåge brugerdefinerede applikations- og infrastrukturmetrikker indsamlet via OpenTelemetry. Cast Operations evaluerer metriske værdier over et tidsvindue og udløser advarsler baseret på dine konfigurerede kriterier.
 
 ## Oversigt
 
@@ -14,7 +14,7 @@ Metrisk monitorer forespørger og evaluerer numeriske metrikker fra dine telemet
 
 ## Oprettelse af en Metrisk Monitor
 
-1. Gå til **Monitorer** i OneUptime-dashboardet
+1. Gå til **Monitorer** i Cast Operations-dashboardet
 2. Klik på **Opret monitor**
 3. Vælg **Metrikker** som monitortype
 4. Konfigurer metriske forespørgsler og valgfrie formler
@@ -105,4 +105,4 @@ Vælg, hvordan de metriske værdier skal aggregeres til evaluering:
 
 ## Opsætningskrav
 
-Metrisk overvågning kræver, at dine applikationer eller infrastruktur sender metrikker til OneUptime via OpenTelemetry. Se dokumentationen til [OpenTelemetry](/docs/telemetry/open-telemetry) for opsætningsinstruktioner.
+Metrisk overvågning kræver, at dine applikationer eller infrastruktur sender metrikker til Cast Operations via OpenTelemetry. Se dokumentationen til [OpenTelemetry](/docs/telemetry/open-telemetry) for opsætningsinstruktioner.

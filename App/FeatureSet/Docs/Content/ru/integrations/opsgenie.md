@@ -1,18 +1,18 @@
 # Интеграция с Opsgenie
 
-Создавайте оповещение [Opsgenie](https://www.atlassian.com/software/opsgenie) при каждом создании инцидента OneUptime и закрывайте его при разрешении в OneUptime.
+Создавайте оповещение [Opsgenie](https://www.atlassian.com/software/opsgenie) при каждом создании инцидента Cast Operations и закрывайте его при разрешении в Cast Operations.
 
-Эта интеграция является **исходящей**: OneUptime вызывает [Opsgenie Alert API](https://docs.opsgenie.com/docs/alert-api). Используется OneUptime **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**.
+Эта интеграция является **исходящей**: Cast Operations вызывает [Opsgenie Alert API](https://docs.opsgenie.com/docs/alert-api). Используется Cast Operations **[Workflow](/docs/workflows/index)** с триггером **Incident → On Create** и компонентом **API**.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
+Cast Operations Incident → On Create  ──►  API component (POST /v2/alerts)  ──►  Opsgenie alert
 ```
 
 ## Предварительные требования
 
 - **API-ключ** Opsgenie из API-интеграции: **Settings → Integrations → Add → API**. Скопируйте ключ.
 - Знайте свой регион. Стандартный хост API — `https://api.opsgenie.com`; для аккаунтов ЕС используется `https://api.eu.opsgenie.com`.
-- Проект OneUptime, в котором вы можете создавать рабочие процессы.
+- Проект Cast Operations, в котором вы можете создавать рабочие процессы.
 
 ## Шаг 1 — Сохраните API-ключ
 
@@ -39,32 +39,32 @@ OneUptime Incident → On Create  ──►  API component (POST /v2/alerts)  �
      ```json
      {
        "message": "{{Incident.title}}",
-       "alias": "oneuptime-{{Incident._id}}",
+       "alias": "cast-operations-{{Incident._id}}",
        "description": "{{Incident.description}}",
        "priority": "P1",
-       "source": "OneUptime"
+       "source": "Cast Operations"
      }
      ```
 
-   **`alias`** связывает это оповещение Opsgenie с инцидентом OneUptime, чтобы его можно было закрыть позже по псевдониму. Обратите внимание: схема аутентификации Opsgenie — это буквальное слово `GenieKey`, за которым следует пробел и ваш ключ.
+   **`alias`** связывает это оповещение Opsgenie с инцидентом Cast Operations, чтобы его можно было закрыть позже по псевдониму. Обратите внимание: схема аутентификации Opsgenie — это буквальное слово `GenieKey`, за которым следует пробел и ваш ключ.
 
 4. **Сохраните**, включите и создайте тестовый инцидент. Ответ `202 Accepted` в журналах рабочего процесса означает, что Opsgenie поставил оповещение в очередь.
 
-## Шаг 3 — Закрытие при разрешении в OneUptime (рекомендуется)
+## Шаг 3 — Закрытие при разрешении в Cast Operations (рекомендуется)
 
 1. Создайте **второй** рабочий процесс с именем `Close Opsgenie` с триггером **Incident → On Update**.
 2. Добавьте блок **Conditions**, проверяющий, что инцидент теперь разрешён (ветвление по `{{Incident.currentIncidentState.name}}`).
 3. Из выхода **Yes** добавьте блок **API**:
    - **Method**: `POST`
-   - **URL**: `https://api.opsgenie.com/v2/alerts/oneuptime-{{Incident._id}}/close?identifierType=alias`
+   - **URL**: `https://api.opsgenie.com/v2/alerts/cast-operations-{{Incident._id}}/close?identifierType=alias`
    - **Headers**: тот же `Authorization: GenieKey {{variable.OPSGENIE_KEY}}`
-   - **Body**: `{ "source": "OneUptime", "note": "Resolved in OneUptime" }`
+   - **Body**: `{ "source": "Cast Operations", "note": "Resolved in Cast Operations" }`
 
 Opsgenie находит оповещение по псевдониму и закрывает его.
 
 ## Сопоставление приоритетов (опционально)
 
-Приоритеты Opsgenie — от `P1` до `P5`. Сопоставьте с уровнями серьёзности OneUptime с помощью ветвей **Conditions** по `{{Incident.incidentSeverity.name}}` перед блоком API.
+Приоритеты Opsgenie — от `P1` до `P5`. Сопоставьте с уровнями серьёзности Cast Operations с помощью ветвей **Conditions** по `{{Incident.incidentSeverity.name}}` перед блоком API.
 
 ## Устранение неполадок
 
@@ -76,4 +76,4 @@ Opsgenie находит оповещение по псевдониму и зак
 
 - [Обзор интеграций](/docs/integrations/index) — паттерны и шпаргалка по аутентификации.
 - [PagerDuty](/docs/integrations/pagerduty) — та же идея для PagerDuty.
-- [On Call](/docs/on-call/incoming-call-policy) — встроенная эскалация OneUptime.
+- [On Call](/docs/on-call/incoming-call-policy) — встроенная эскалация Cast Operations.

@@ -10,13 +10,6 @@ x-common-variables: &common-variables
   LOG_LEVEL: ${LOG_LEVEL}
 
   NODE_ENV: ${ENVIRONMENT}
-  BILLING_ENABLED: ${BILLING_ENABLED}
-  IS_ENTERPRISE_EDITION: ${IS_ENTERPRISE_EDITION}
-  BILLING_PUBLIC_KEY: ${BILLING_PUBLIC_KEY}
-  SUBSCRIPTION_PLAN_BASIC: ${SUBSCRIPTION_PLAN_BASIC}
-  SUBSCRIPTION_PLAN_GROWTH: ${SUBSCRIPTION_PLAN_GROWTH}
-  SUBSCRIPTION_PLAN_SCALE: ${SUBSCRIPTION_PLAN_SCALE}
-  SUBSCRIPTION_PLAN_ENTERPRISE: ${SUBSCRIPTION_PLAN_ENTERPRISE}
   ANALYTICS_KEY: ${ANALYTICS_KEY}
   ANALYTICS_HOST: ${ANALYTICS_HOST}
   CAPTCHA_ENABLED: ${CAPTCHA_ENABLED}
@@ -26,8 +19,6 @@ x-common-variables: &common-variables
   # VAPID keys for Web Push Notifications
   VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY}
   VAPID_SUBJECT: ${VAPID_SUBJECT}
-
-  ALLOWED_ACTIVE_MONITOR_COUNT_IN_FREE_PLAN: ${ALLOWED_ACTIVE_MONITOR_COUNT_IN_FREE_PLAN}
 
   SERVER_APP_HOSTNAME: app
   SERVER_HOME_HOSTNAME: home
@@ -84,11 +75,6 @@ x-common-runtime-variables: &common-runtime-variables
   REDIS_TLS_SENTINEL_MODE: ${REDIS_TLS_SENTINEL_MODE}
 
   ENCRYPTION_SECRET: ${ENCRYPTION_SECRET}
-
-  BILLING_PRIVATE_KEY: ${BILLING_PRIVATE_KEY}
-  BILLING_PUBLIC_KEY: ${BILLING_PUBLIC_KEY}
-  BILLING_ENABLED: ${BILLING_ENABLED}
-  BILLING_WEBHOOK_SECRET: ${BILLING_WEBHOOK_SECRET}
 
   CLICKHOUSE_USER: ${CLICKHOUSE_USER}
   CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
@@ -176,7 +162,7 @@ services:
       - oneuptime
     volumes:
       - clickhouse:/var/lib/clickhouse/
-      # Cluster + embedded-Keeper drop-in: OneUptime's analytics schema is always
+      # Cluster + embedded-Keeper drop-in: Cast Operations’ analytics schema is always
       # ReplicatedMergeTree + Distributed, so a single node runs an embedded
       # Keeper and a 1-node "oneuptime" cluster (config.d is merged into the
       # server config regardless of the main config.xml).

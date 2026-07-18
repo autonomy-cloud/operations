@@ -9,11 +9,11 @@ export function registerConfigCommands(program: Command): void {
   // Login command
   const loginCmd: Command = program
     .command("login")
-    .description("Authenticate with a OneUptime instance")
+    .description("Authenticate with a Cast Operations instance")
     .argument("<api-key>", "API key for authentication")
     .argument(
       "<instance-url>",
-      "OneUptime instance URL (e.g. https://oneuptime.com)",
+      "Cast Operations instance URL (e.g. https://visca.ai)",
     )
     .option("--context-name <name>", "Name for this context", "default")
     .action(

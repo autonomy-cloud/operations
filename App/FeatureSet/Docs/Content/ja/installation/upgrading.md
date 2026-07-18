@@ -1,6 +1,6 @@
-# OneUptime のアップグレード
+# Cast Operations のアップグレード
 
-このガイドでは、セルフホスト版 OneUptime インストールを安全にアップグレードする方法について説明します。
+このガイドでは、セルフホスト版 Cast Operations インストールを安全にアップグレードする方法について説明します。
 
 ## 一般的なガイダンス
 
@@ -8,14 +8,14 @@
 - リリースノートに従う限り、マイナーバージョンやパッチバージョンはスキップできます（例: 8.1 → 8.4）。
 - アップグレード前に必ずバックアップを取り、復元できることを確認してください。
 
-## OneUptime 10 → 11 へのアップグレード
+## Cast Operations 10 → 11 へのアップグレード
 
 <!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
 
 ### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
 
 In v11, the following authentication and access-management features moved to
-the **OneUptime Enterprise Edition** and are no longer part of the free,
+the **Cast Operations Enterprise Edition** and are no longer part of the free,
 open-source (Community) build:
 
 - **SAML SSO** — both project login and status-page login
@@ -34,16 +34,16 @@ Enterprise Edition.
 **Availability:**
 
 - **Self-hosted:** requires the **Enterprise Edition** build.
-- **OneUptime Cloud:** requires the **Scale** plan (or above).
+- **Cast Operations Cloud:** requires the **Scale** plan (or above).
 
 **If you rely on SSO and self-host**, email
-[support@oneuptime.com](mailto:support@oneuptime.com) for an Enterprise Edition
+[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
 license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
 v11 and we'll help you get it back online. If your team is mid-upgrade and this
 is blocking sign-in, contact us before upgrading production so we can plan it
 with you.
 
-OneUptime 11 は ClickHouse のテレメトリーストレージを再構築します。このページでは、何が変わるのか、誰が対応する必要があるのか、そして過去のテレメトリーを引き継ぎたいインストール環境向けに、そのために必要なすべてのクエリを説明します。
+Cast Operations 11 は ClickHouse のテレメトリーストレージを再構築します。このページでは、何が変わるのか、誰が対応する必要があるのか、そして過去のテレメトリーを引き継ぎたいインストール環境向けに、そのために必要なすべてのクエリを説明します。
 
 ### v11 で変わること
 
@@ -60,7 +60,7 @@ OneUptime 11 は ClickHouse のテレメトリーストレージを再構築し�
 | `MonitorLogV2`        | `MonitorLogV3`        |
 | `AuditLogV1`          | `AuditLogV2`          |
 
-すべてのテレメトリーテーブルで 2 つの列名が変更されます: `serviceId` → `primaryEntityId`、`serviceType` → `primaryEntityType`。これは厳格なリネームです — **OneUptime の analytics API を `serviceId`/`serviceType` フィルターで直接クエリしている場合は、新しい名前に更新してください。** OneUptime 内のダッシュボード、モニター、アラートは自動的に移行されます。
+すべてのテレメトリーテーブルで 2 つの列名が変更されます: `serviceId` → `primaryEntityId`、`serviceType` → `primaryEntityType`。これは厳格なリネームです — **Cast Operations の analytics API を `serviceId`/`serviceType` フィルターで直接クエリしている場合は、新しい名前に更新してください。** Cast Operations 内のダッシュボード、モニター、アラートは自動的に移行されます。
 
 この切り替えは**前方専用**です: 新しいテーブルは空の状態で始まり、アップグレード後に取り込まれたテレメトリーはすぐにそこへ入り、履歴は時間の経過とともに自然に埋まっていきます。古いテーブルはディスクを解放するため、アップグレード中に**自動的に削除されます** — 履歴を引き継ぐ選択肢を残したい場合は、アップグレードの**前に**リネームしてください(下記の Step 0)。
 
@@ -84,14 +84,14 @@ clickhouse-client --database oneuptime
 
 始める前に知っておくべきこと:
 
-- コピーは OneUptime が稼働中でも安全に実行できます。新しいテレメトリーは独立して新しいテーブルに書き込まれ、コピーされた履歴はその背後で埋まっていきます。
+- コピーは Cast Operations が稼働中でも安全に実行できます。新しいテレメトリーは独立して新しいテーブルに書き込まれ、コピーされた履歴はその背後で埋まっていきます。
 - 大規模環境(数百 GB)では数時間かかると見込んでください。
 - 以下の各ステートメントは `insert_deduplication_token` を持ち、新しいテーブルには重複排除ウィンドウが備わっています — そのため**途中で失敗したステートメントの再実行は安全です**(挿入済みのブロックはメトリクスのロールアップも含めてスキップされます)。ただし、それなりに早く再実行することが条件です。激しいライブ取り込みの下では、ウィンドウ(テーブルごとの直近 10,000 挿入ブロック)が最終的に古いトークンを追い出します。
 - メトリクスのコピーは、事前集計されたダッシュボードのロールアップも自動的に再構築します(コピーされた各行がロールアップのマテリアライズドビューに再供給されます)— このためメトリクスのコピーは他より遅くなります。最後に実行してください。
 
 #### Step 0 — アップグレード前に古いテーブルをリネームする
 
-アップグレードは起動時に古いテーブルを削除するため、コピー元にしたいテーブルを先にその手の届かない場所へ移します。OneUptime を停止し(デプロイメントをゼロにスケール)、何もテーブルへ書き込んだり再作成したりできない状態にしてからリネームします — `RENAME TABLE` は瞬時のメタデータ操作で、`IF EXISTS` によりお使いの環境に存在しなかったテーブルはスキップされます(10.0.x 中盤より古いデプロイメントには `AuditLogV1` や一部の `…V2` テーブルがない場合があります — その場合、そのタイプのコピーすべき履歴は存在しません):
+アップグレードは起動時に古いテーブルを削除するため、コピー元にしたいテーブルを先にその手の届かない場所へ移します。Cast Operations を停止し(デプロイメントをゼロにスケール)、何もテーブルへ書き込んだり再作成したりできない状態にしてからリネームします — `RENAME TABLE` は瞬時のメタデータ操作で、`IF EXISTS` によりお使いの環境に存在しなかったテーブルはスキップされます(10.0.x 中盤より古いデプロイメントには `AuditLogV1` や一部の `…V2` テーブルがない場合があります — その場合、そのタイプのコピーすべき履歴は存在しません):
 
 ```sql
 RENAME TABLE IF EXISTS LogItemV2 TO LogItemV2_backup;
@@ -105,7 +105,7 @@ RENAME TABLE IF EXISTS AuditLogV1 TO AuditLogV1_backup;
 RENAME TABLE IF EXISTS MetricItemAggMV1mByHost TO MetricItemAggMV1mByHost_backup;
 ```
 
-その後アップグレードし、続行する前に OneUptime が完全に起動するのを待ちます。
+その後アップグレードし、続行する前に Cast Operations が完全に起動するのを待ちます。
 
 > リネーム後に v10 へロールバックする場合(v10 は起動時に旧名の空テーブルを再作成します)、v10 を再起動する前に `_backup` テーブルを元の名前に戻してください — そうしないと、ロールバック中に取り込まれたテレメトリーが再作成されたテーブルに入り、その後のアップグレードで削除されてしまいます。
 
@@ -206,20 +206,20 @@ DROP TABLE IF EXISTS MetricItemAggMV1mByHost_backup SETTINGS max_table_size_to_d
 
 > ヒント: 他のメジャーアップグレードと同様、まずステージング環境でテストし、本番でコピーに依存する前にテレメトリーが新しいテーブルへ流れていることを確認してください。
 
-## OneUptime 9 → 10 へのアップグレード
+## Cast Operations 9 → 10 へのアップグレード
 
 手動の対応が必要な変更はありません。標準のアップグレード手順に従ってください。
 
-## OneUptime 8 → 9 へのアップグレード
+## Cast Operations 8 → 9 へのアップグレード
 
-Helm チャートで Kubernetes Ingress リソースのプロビジョニングが不要になりました。OneUptime は TLS の終端、ステータスページドメインの管理、プラットフォームのトラフィックルーティングをすでに処理する Ingress ゲートウェイコンテナを含んでいるため、クラスター Ingress コントローラーは不要になりました。
+Helm チャートで Kubernetes Ingress リソースのプロビジョニングが不要になりました。Cast Operations は TLS の終端、ステータスページドメインの管理、プラットフォームのトラフィックルーティングをすでに処理する Ingress ゲートウェイコンテナを含んでいるため、クラスター Ingress コントローラーは不要になりました。
 
 - アップグレード前に、カスタムの `values.yaml` ファイルから `oneuptimeIngress` のオーバーライドを削除してください。これらのキーは無視されるようになり、残っている場合は検証エラーが発生します。
 - `nginx.service.type` が、バンドルされた Ingress ゲートウェイを公開する方法を反映していることを確認してください（例: `LoadBalancer`、`NodePort`、または外部ロードバランサーを持つ `ClusterIP`）。
-- ステータスページまたはプライマリホストの DNS レコードが、OneUptime Ingress ゲートウェイの前面にあるサービスまたはロードバランサーを引き続き指していることを確認してください。
+- ステータスページまたはプライマリホストの DNS レコードが、Cast Operations Ingress ゲートウェイの前面にあるサービスまたはロードバランサーを引き続き指していることを確認してください。
 - アップグレード後、TLS 証明書が組み込みゲートウェイ経由で更新され続け、ステータスページのドメインが正しく解決されることを確認してください。
 
-## OneUptime 7 → 8 へのアップグレード
+## Cast Operations 7 → 8 へのアップグレード
 
 Kubernetes で実行している場合、重要な破壊的変更があります。
 

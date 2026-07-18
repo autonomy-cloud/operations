@@ -174,7 +174,7 @@ export const generateServiceProviderConfig: (
   req: ExpressRequest,
   scimId: string,
   scimType: "project" | "status-page",
-  documentationUrl: string = "https://oneuptime.com/docs/identity/scim",
+  documentationUrl: string = "https://visca.ai/docs/identity/scim",
 ): JSONObject => {
   const baseUrl: string = `${req.protocol}://${req.get("host")}`;
   const endpointPath: string =
@@ -450,7 +450,7 @@ export const generateSchemasResponse: (
     schemas.push({
       id: "urn:ietf:params:scim:schemas:core:2.0:Group",
       name: "Group",
-      description: "Group Schema (Teams in OneUptime)",
+      description: "Group Schema (Teams in Cast Operations)",
       attributes: [
         {
           name: "displayName",
@@ -559,7 +559,7 @@ export const generateResourceTypesResponse: (
       id: "Group",
       name: "Group",
       endpoint: "/Groups",
-      description: "Group (Team in OneUptime)",
+      description: "Group (Team in Cast Operations)",
       schema: "urn:ietf:params:scim:schemas:core:2.0:Group",
       schemaExtensions: [],
       meta: {

@@ -4,7 +4,7 @@ Los runbooks son procedimientos de respuesta reutilizables — listas ordenadas 
 
 ## De un vistazo
 
-- **Función de primer nivel** en el panel de OneUptime, en **Análisis y automatización → Runbooks**.
+- **Función de primer nivel** en el panel de Cast Operations, en **Análisis y automatización → Runbooks**.
 - **Cinco tipos de pasos**: lista manual, JavaScript (en sandbox) y Bash (ambos corren en un [Agente de Runbook](/docs/runbooks/agents) dentro de tu propia infraestructura), petición HTTP y AI (analiza el contexto del incidente y de los pasos con el proveedor LLM de tu proyecto).
 - **Tres vías de activación**: reglas que coinciden con incidentes/alertas/mantenimiento programado, o el botón manual "Ejecutar runbook" en cualquier evento.
 - **Semántica de snapshot**: al iniciar un runbook se copian sus pasos en la ejecución. Editar después la plantilla nunca altera una ejecución en curso.
@@ -35,7 +35,7 @@ Algunos términos se repiten en el resto de la documentación de runbooks. Aclar
 ## El ciclo de vida de un runbook
 
 1. **Redactar** — Crea un runbook, mezcla pasos Manuales, JavaScript, HTTP, Bash y AI. Guarda.
-2. **(Opcional) Añadir una regla** — En la configuración de Incidentes, Alertas o Mantenimiento programado, di a OneUptime que inicie este runbook siempre que el título o descripción de un evento coincida con un regex.
+2. **(Opcional) Añadir una regla** — En la configuración de Incidentes, Alertas o Mantenimiento programado, di a Cast Operations que inicie este runbook siempre que el título o descripción de un evento coincida con un regex.
 3. **Disparar** — O la regla se activa automáticamente al crear un evento coincidente, o quien responde pulsa **Ejecutar runbook** manualmente en el evento.
 4. **Ejecutar** — Se crea una nueva ejecución con un snapshot de los pasos. Los pasos automatizados corren en el worker de Runbook; la ejecución pausa en cada paso manual hasta que alguien lo marca.
 5. **Auditar** — La ejecución queda para siempre en la pestaña **Runbooks** del evento y en la lista de ejecuciones del runbook. Salida, errores y tiempos por paso se preservan para el post-mortem.
@@ -46,7 +46,7 @@ Guía rápida de decisión. El desglose completo está en [Crear un runbook](/do
 
 | Tipo de paso      | Úsalo cuando…                                                                                                                                                                                                                                               | Ejemplo                                                                                      |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| **Manual**        | Un humano debe verificar algo, emitir un juicio o realizar una acción que OneUptime no puede observar.                                                                                                                                                      | "Confirmar tráfico de la región secundaria en el panel del balanceador."                     |
+| **Manual**        | Un humano debe verificar algo, emitir un juicio o realizar una acción que Cast Operations no puede observar.                                                                                                                                                      | "Confirmar tráfico de la región secundaria en el panel del balanceador."                     |
 | **JavaScript**    | Necesitas un cálculo pequeño y contenido — consultar un servicio de configuración, transformar un payload, ejecutar lógica antes del siguiente paso. Corre en sandbox en un [Agente de Runbook](/docs/runbooks/agents) dentro de tu propia infraestructura. | Calcular el lag actual de réplica y decidir si seguir.                                       |
 | **Petición HTTP** | Llamas a una API existente — tu propio endpoint admin, un proveedor cloud, PagerDuty, Slack.                                                                                                                                                                | `POST` a tu orquestador de failover.                                                         |
 | **Bash**          | Necesitas ejecutar comandos de shell en tu propia infraestructura — reiniciar un servicio, lanzar `kubectl`, llamar a un script de despliegue. Requiere un [Agente de Runbook](/docs/runbooks/agents) instalado en tu entorno.                              | Reiniciar un servicio, lanzar `kubectl rollout restart`, ejecutar un script de recuperación. |
@@ -106,7 +106,7 @@ Runbooks:       [Failover DB primary]
 
 **4. Audita.** La ejecución queda en la pestaña **Runbooks** del incidente. La salida de cada paso está a un clic. Cuando escribas el post-mortem la semana siguiente, no tienes que preguntarte "¿qué devolvió ese script?" — está ahí.
 
-## Cómo encajan los runbooks con el resto de OneUptime
+## Cómo encajan los runbooks con el resto de Cast Operations
 
 - **Los monitores** abren incidentes y alertas; **las reglas de runbook** convierten esos eventos en ejecuciones. Juntos forman un bucle cerrado: detectar → disparar → responder → registrar.
 - **Las conexiones de espacio de trabajo** (Slack, Microsoft Teams) son destino natural de los pasos HTTP — publicar actualizaciones de estado, notificar canales.

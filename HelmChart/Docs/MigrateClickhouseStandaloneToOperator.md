@@ -1,6 +1,6 @@
 # Migrating ClickHouse: Standalone → Altinity Operator
 
-This is a step-by-step runbook for moving an existing OneUptime install from the
+This is a step-by-step runbook for moving an existing Cast Operations install from the
 built-in **standalone ClickHouse `StatefulSet`** to the **operator-managed**
 ClickHouse provided by the bundled
 [Altinity ClickHouse operator](https://github.com/Altinity/clickhouse-operator).
@@ -14,7 +14,7 @@ ClickHouse provided by the bundled
 
 > **The one fact that drives this whole runbook:** enabling the operator
 > bootstraps a **fresh, empty** ClickHouse. It does **not** adopt the
-> standalone's PersistentVolume in place. The OneUptime app re-creates its
+> standalone's PersistentVolume in place. The Cast Operations app re-creates its
 > ClickHouse **schema** automatically on startup (its built-in migrations own the
 > table definitions), so a migration only has to deal with the **data** — and
 > only if you need to keep history.
@@ -53,7 +53,7 @@ delete it.
 
 ## Decide first: do you actually need the historical data?
 
-ClickHouse in OneUptime holds **telemetry** — logs, metrics, traces, and
+ClickHouse in Cast Operations holds **telemetry** — logs, metrics, traces, and
 exceptions. This is append-only, time-series data, often very large, and most of
 it ages out under retention/TTL policies anyway.
 
@@ -113,7 +113,7 @@ helm upgrade --install <release> ./HelmChart/Public/oneuptime \
   --set deployment.disableDeployments=true
 ```
 
-`disableDeployments=true` scales the OneUptime app/worker Deployments down **and
+`disableDeployments=true` scales the Cast Operations app/worker Deployments down **and
 removes their KEDA `ScaledObject`s** — a plain `kubectl scale` would be reverted
 by KEDA's min-replica floor, so always use this flag. Re-enable by removing it
 (or setting it back to `false`) on the final cutover upgrade.
@@ -173,7 +173,7 @@ clickhouse-backup download    migration-snapshot
 clickhouse-backup restore --data migration-snapshot
 ```
 
-> On a multi-replica operator cluster (`replicasCount > 1`) the OneUptime tables
+> On a multi-replica operator cluster (`replicasCount > 1`) the Cast Operations tables
 > are replicated — restore the data on **one** replica and let ClickHouse
 > replication propagate it to the others. Don't restore the same parts to every
 > replica.
@@ -284,5 +284,5 @@ operator cluster after cutover won't be on the standalone.)
 
 - [Clickhouse.md](./Clickhouse.md) — operator day-2 operations: replication,
   sharding, Keeper sizing / bring-your-own ZooKeeper, and backups.
-- OneUptime Helm chart [README](../Public/oneuptime/README.md) —
+- Cast Operations Helm chart [README](../Public/oneuptime/README.md) —
   `clickhouseOperator` configuration reference.

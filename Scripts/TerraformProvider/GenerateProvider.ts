@@ -67,7 +67,7 @@ async function main(): Promise<void> {
         outputDir: providerDir,
         providerName: "oneuptime",
         providerVersion: "1.0.0",
-        goModuleName: "github.com/oneuptime/terraform-provider-oneuptime",
+        goModuleName: "github.com/autonomy-cloud/terraform-provider-operations",
       });
 
     // Step 5: Generate Go module files
@@ -118,7 +118,7 @@ async function main(): Promise<void> {
       .trim();
     const versionFileContent: string = `${versionContent}
 # This file is auto-generated from the root VERSION file.
-# It ensures the Terraform provider is regenerated for each OneUptime release.
+# It ensures the Terraform provider is regenerated for each Cast Operations release.
 # Generated at: ${new Date().toISOString()}
 `;
     fs.writeFileSync(providerVersionPath, versionFileContent);

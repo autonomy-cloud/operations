@@ -12,7 +12,7 @@ export interface SuggestableService {
 
 export interface SuggestableRepository {
   id: string;
-  // Display name in OneUptime.
+  // Display name in Cast Operations.
   name: string;
   // Actual repository name on the git host (usually the strongest signal).
   repositoryName: string;

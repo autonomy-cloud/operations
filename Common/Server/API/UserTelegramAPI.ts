@@ -91,7 +91,7 @@ export default class UserTelegramAPI extends BaseAPI<
               req,
               res,
               new BadDataException(
-                "Telegram bot is not configured. Please contact your OneUptime administrator.",
+                "Telegram bot is not configured. Please contact your Cast Operations administrator.",
               ),
             );
           }

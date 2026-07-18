@@ -1,6 +1,6 @@
-# OneUptime Terraform Provider
+# Cast Operations Terraform Provider
 
-OneUptime Terraform Provider 讓您能夠使用基礎設施即程式碼（IaC）來管理 OneUptime 資源。此 provider 讓您能透過 Terraform 設定監控、事件管理、狀態頁面以及其他 OneUptime 功能。
+Cast Operations Terraform Provider 讓您能夠使用基礎設施即程式碼（IaC）來管理 Cast Operations 資源。此 provider 讓您能透過 Terraform 設定監控、事件管理、狀態頁面以及其他 Cast Operations 功能。
 
 ## 目錄
 
@@ -17,13 +17,13 @@ OneUptime Terraform Provider 讓您能夠使用基礎設施即程式碼（IaC）
 
 ### 從 Terraform Registry 安裝（建議）
 
-OneUptime Terraform provider 可在 [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime) 取得。
+Cast Operations Terraform provider 可在 [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations) 取得。
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use latest 7.x version
     }
   }
@@ -33,35 +33,35 @@ terraform {
 
 ### 自架安裝的版本鎖定
 
-⚠️ **自架客戶須注意**：請務必將 Terraform provider 版本鎖定為與您的 OneUptime 安裝版本相符，以確保 API 相容性。
+⚠️ **自架客戶須注意**：請務必將 Terraform provider 版本鎖定為與您的 Cast Operations 安裝版本相符，以確保 API 相容性。
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Pin to exact version matching your OneUptime installation
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Pin to exact version matching your Cast Operations installation
     }
   }
   required_version = ">= 1.0"
 }
 ```
 
-#### 尋找您的 OneUptime 版本
+#### 尋找您的 Cast Operations 版本
 
-您可以透過下列幾種方式找到您的 OneUptime 版本：
+您可以透過下列幾種方式找到您的 Cast Operations 版本：
 
-1. **儀表板**：在您的 OneUptime 儀表板中前往 Settings → About
+1. **儀表板**：在您的 Cast Operations 儀表板中前往 Settings → About
 2. **API**：呼叫 `GET /api/status` 端點
 3. **Docker**：檢查您正在使用的映像標籤
 4. **Helm**：檢查您的 Helm chart 版本
 
 ```bash
-# Example: If running OneUptime 7.0.123
+# Example: If running Cast Operations 7.0.123
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"
     }
   }
@@ -74,7 +74,7 @@ terraform {
 
 ```hcl
 provider "oneuptime" {
-  oneuptime_url = "https://your-oneuptime-instance.com"  # Or https://oneuptime.com for cloud
+  oneuptime_url = "https://your-operations-instance.com"  # Or https://visca.ai for cloud
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -84,7 +84,7 @@ provider "oneuptime" {
 您可以使用環境變數來設定 provider：
 
 ```bash
-export ONEUPTIME_URL="https://your-oneuptime-instance.com"
+export ONEUPTIME_URL="https://your-operations-instance.com"
 export ONEUPTIME_API_KEY="your-api-key-here"
 ```
 
@@ -100,14 +100,14 @@ provider "oneuptime" {
 
 | 參數            | 環境變數            | 說明               | 必填 |
 | --------------- | ------------------- | ------------------ | ---- |
-| `oneuptime_url` | `ONEUPTIME_URL`     | OneUptime URL      | 是   |
-| `api_key`       | `ONEUPTIME_API_KEY` | OneUptime API 金鑰 | 是   |
+| `oneuptime_url` | `ONEUPTIME_URL`     | Cast Operations URL      | 是   |
+| `api_key`       | `ONEUPTIME_API_KEY` | Cast Operations API 金鑰 | 是   |
 
 ## 快速開始
 
 ### 1. 建立 API 金鑰
 
-首先，在您的 OneUptime 儀表板中建立一個 API 金鑰：
+首先，在您的 Cast Operations 儀表板中建立一個 API 金鑰：
 
 1. 前往 **Settings** → **API Keys**
 2. 點選 **Create API Key**
@@ -123,20 +123,20 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # Use your instance URL
+  oneuptime_url = "https://visca.ai"  # Use your instance URL
   api_key       = var.oneuptime_api_key
 }
 
-# Note: Projects must be created manually in the OneUptime dashboard
+# Note: Projects must be created manually in the Cast Operations dashboard
 variable "project_id" {
-  description = "OneUptime project ID"
+  description = "Cast Operations project ID"
   type        = string
 }
 
@@ -178,13 +178,13 @@ terraform apply
 
 ### 雲端客戶
 
-對於 OneUptime Cloud 客戶，請使用最新的 provider 版本：
+對於 Cast Operations Cloud 客戶，請使用最新的 provider 版本：
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Always use latest compatible version
     }
   }
@@ -193,21 +193,21 @@ terraform {
 
 ### 自架客戶
 
-**重要**：自架客戶必須將 provider 版本鎖定為與其 OneUptime 安裝版本相符：
+**重要**：自架客戶必須將 provider 版本鎖定為與其 Cast Operations 安裝版本相符：
 
-| OneUptime 版本 | Provider 版本 | 設定                   |
+| Cast Operations 版本 | Provider 版本 | 設定                   |
 | -------------- | ------------- | ---------------------- |
 | 7.0.x          | 7.0.x         | `version = "~> 7.0.0"` |
 | 7.1.x          | 7.1.x         | `version = "~> 7.1.0"` |
 | 7.2.x          | 7.2.x         | `version = "~> 7.2.0"` |
 
-OneUptime 7.0.123 的範例：
+Cast Operations 7.0.123 的範例：
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Exact version match
     }
   }
@@ -216,7 +216,7 @@ terraform {
 
 ## 可用資源
 
-OneUptime Terraform provider 支援下列資源：
+Cast Operations Terraform provider 支援下列資源：
 
 ### 核心資源
 
@@ -255,27 +255,27 @@ OneUptime Terraform provider 支援下列資源：
 ```hcl
 # Variables
 variable "oneuptime_api_key" {
-  description = "OneUptime API Key"
+  description = "Cast Operations API Key"
   type        = string
   sensitive   = true
 }
 
 variable "project_id" {
-  description = "OneUptime project ID (create project manually in dashboard)"
+  description = "Cast Operations project ID (create project manually in dashboard)"
   type        = string
 }
 
 variable "oneuptime_url" {
-  description = "OneUptime URL"
+  description = "Cast Operations URL"
   type        = string
-  default     = "https://oneuptime.com"
+  default     = "https://visca.ai"
 }
 
 # Provider configuration
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
@@ -390,19 +390,19 @@ resource "oneuptime_status_page" "public" {
 ### 自架設定範例
 
 ```hcl
-# For self-hosted OneUptime instance version 7.0.123
+# For self-hosted Cast Operations instance version 7.0.123
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Must match your OneUptime version exactly
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Must match your Cast Operations version exactly
     }
   }
   required_version = ">= 1.0"
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.mycompany.com"  # Your self-hosted URL
+  oneuptime_url = "https://operations.mycompany.com"  # Your self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 
@@ -421,7 +421,7 @@ provider "oneuptime" {
 **自架客戶：**
 
 - 務必鎖定為與您安裝版本完全相符的版本
-- 在升級 OneUptime 時更新 provider 版本
+- 在升級 Cast Operations 時更新 provider 版本
 - 先在非正式環境中測試
 
 ### 2. 狀態管理
@@ -503,7 +503,7 @@ resource "oneuptime_alert_policy" "critical_production" {
 
 ### 從手動設定遷移
 
-1. **稽核既有資源**（在 OneUptime 儀表板中）
+1. **稽核既有資源**（在 Cast Operations 儀表板中）
 2. **為既有資源建立 Terraform 設定**
 3. **將既有資源匯入** Terraform 狀態
 4. **驗證設定**是否與目前狀態相符
@@ -521,7 +521,7 @@ terraform import oneuptime_project.main project-id-here
 
 ### 版本升級
 
-在升級 OneUptime（自架）時：
+在升級 Cast Operations（自架）時：
 
 1. **備份您目前的狀態**
 2. **檢查 provider 相容性**
@@ -544,10 +544,10 @@ terraform apply
 
 ## 支援與資源
 
-- **文件**：[OneUptime Docs](https://docs.oneuptime.com)
-- **Terraform Registry**：[OneUptime Provider](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub Issues**：[OneUptime GitHub](https://github.com/OneUptime/oneuptime/issues)
-- **社群**：[OneUptime Community](https://community.oneuptime.com)
+- **文件**：[Cast Operations Docs](https://docs.visca.ai)
+- **Terraform Registry**：[Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub Issues**：[Cast Operations GitHub](https://github.com/autonomy-cloud/operations/issues)
+- **社群**：[Cast Operations Community](https://community.visca.ai)
 
 ## 疑難排解
 
@@ -559,7 +559,7 @@ terraform apply
    Error: API version incompatible
    ```
 
-   **解決方法**：確保 provider 版本與 OneUptime 安裝版本相符
+   **解決方法**：確保 provider 版本與 Cast Operations 安裝版本相符
 
 2. **驗證問題**
 

@@ -31,17 +31,17 @@ The first command prints the token secret — copy it now, it is shown only once
 ## Quick Start — Install Script
 
 \`\`\`bash
-curl -sSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/ProxmoxAgent/install.sh -o install.sh
+curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/ProxmoxAgent/install.sh -o install.sh
 bash install.sh
 \`\`\`
 
-The script prompts for your OneUptime URL, telemetry ingestion key, cluster name, and Proxmox API details, installs to \`/opt/oneuptime-proxmox-agent\`, and starts the agent with Docker Compose.
+The script prompts for your Cast Operations URL, telemetry ingestion key, cluster name, and Proxmox API details, installs to \`/opt/oneuptime-proxmox-agent\`, and starts the agent with Docker Compose.
 
 ## Quick Start — Docker Compose
 
-The agent is config-only: a stock \`otel/opentelemetry-collector-contrib\` container with a tuned config that scrapes prometheus-pve-exporter, stamps the data with your cluster identity, and ships it to OneUptime over OTLP. The compose file optionally runs the exporter for you.
+The agent is config-only: a stock \`otel/opentelemetry-collector-contrib\` container with a tuned config that scrapes prometheus-pve-exporter, stamps the data with your cluster identity, and ships it to Cast Operations over OTLP. The compose file optionally runs the exporter for you.
 
-Download \`docker-compose.yml\` and \`otel-collector-config.yaml\` from the [ProxmoxAgent directory](https://github.com/OneUptime/oneuptime/tree/master/ProxmoxAgent) into a folder, then create a \`.env\` file next to them:
+Download \`docker-compose.yml\` and \`otel-collector-config.yaml\` from the [ProxmoxAgent directory](https://github.com/autonomy-cloud/operations/tree/master/ProxmoxAgent) into a folder, then create a \`.env\` file next to them:
 
 \`\`\`bash
 ONEUPTIME_URL=${data.oneuptimeUrl}
@@ -59,7 +59,7 @@ Then start the agent (the \`pve-exporter\` profile also starts the bundled expor
 docker compose up -d
 \`\`\`
 
-Replace \`my-proxmox-cluster\` with a friendly name for this cluster — it is how the cluster will appear in OneUptime. Keep it stable: changing it registers a new cluster.
+Replace \`my-proxmox-cluster\` with a friendly name for this cluster — it is how the cluster will appear in Cast Operations. Keep it stable: changing it registers a new cluster.
 
 ### Already running pve-exporter?
 
@@ -73,9 +73,9 @@ PVE_EXPORTER_URL=your-exporter-host:9221
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| \`ONEUPTIME_URL\` | Yes | Your OneUptime instance URL (e.g. \`${data.oneuptimeUrl}\`) |
+| \`ONEUPTIME_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.oneuptimeUrl}\`) |
 | \`ONEUPTIME_TELEMETRY_INGESTION_KEY\` | Yes | Telemetry ingestion key |
-| \`PROXMOX_CLUSTER_NAME\` | Yes | Cluster identifier shown in OneUptime. Stamped on every metric as the \`proxmox.cluster.name\` resource attribute. Defaults to \`proxmox-cluster\` |
+| \`PROXMOX_CLUSTER_NAME\` | Yes | Cluster identifier shown in Cast Operations. Stamped on every metric as the \`proxmox.cluster.name\` resource attribute. Defaults to \`proxmox-cluster\` |
 | \`PVE_HOST\` | Yes | Proxmox VE API host (any node of the cluster) the exporter queries, e.g. \`192.168.1.10\` |
 | \`PVE_EXPORTER_URL\` | No | Address (\`host:port\`, no scheme) of prometheus-pve-exporter. Defaults to the bundled exporter (\`pve-exporter:9221\`) |
 | \`PVE_API_TOKEN_ID\` | Bundled exporter only | Full Proxmox API token id, e.g. \`oneuptime@pve!exporter\` |
@@ -119,7 +119,7 @@ processors:
   # Split the pve-exporter identity label into equality-filterable parts.
   # pve-exporter encodes resource identity in a single datapoint label
   # \`id\` with values like \`node/pve1\`, \`qemu/100\`, \`lxc/101\` or
-  # \`storage/pve1/local\`. OneUptime monitor criteria and attribute
+  # \`storage/pve1/local\`. Cast Operations monitor criteria and attribute
   # filters match on equality (not prefix), so derive three attributes:
   #   pve.scope — node | guest | storage | cluster
   #               (\`qemu\` and \`lxc\` both map to \`guest\`)
@@ -146,7 +146,7 @@ processors:
           - set(attributes["pve.scope"], "cluster") where attributes["id"] != nil and IsMatch(attributes["id"], "^cluster/")
           - set(attributes["pve.id"], attributes["id"]) where attributes["id"] != nil and IsMatch(attributes["id"], "/")
           - replace_pattern(attributes["pve.id"], "^[^/]+/", "") where attributes["pve.id"] != nil
-  # Stamp every metric with the cluster identity. OneUptime auto-registers
+  # Stamp every metric with the cluster identity. Cast Operations auto-registers
   # the Proxmox cluster from \`proxmox.cluster.name\`, and every Proxmox
   # page and monitor scopes on it — this attribute is what makes the data
   # appear under the Proxmox section of the dashboard. Keep it stable:
@@ -158,7 +158,7 @@ processors:
         action: upsert
       # The prometheus receiver synthesizes service.name (= the scrape job
       # name, "oneuptime-proxmox") and service.instance.id on every batch
-      # per the Prometheus->OTLP compatibility spec. Drop them: OneUptime
+      # per the Prometheus->OTLP compatibility spec. Drop them: Cast Operations
       # routes batches by service.name first, so leaving them in would
       # register a phantom "oneuptime-proxmox" Service instead of routing
       # this data to the Proxmox cluster discovered from
@@ -230,15 +230,15 @@ The original \`id\` label is kept untouched.
 
 ## Zero-install Alternative — Proxmox VE 9+ Native OpenTelemetry Push
 
-Proxmox VE 9.0 and later can push metrics directly to OneUptime via the built-in OpenTelemetry metric server (*Datacenter → Metric Server → Add → OpenTelemetry*) — no agent or exporter required:
+Proxmox VE 9.0 and later can push metrics directly to Cast Operations via the built-in OpenTelemetry metric server (*Datacenter → Metric Server → Add → OpenTelemetry*) — no agent or exporter required:
 
-- **Server**: your OneUptime host
+- **Server**: your Cast Operations host
 - **Port**: \`443\`, **Protocol**: \`https\`
 - **Path**: \`/otlp/v1/metrics\`
 - **Headers**: \`{"x-oneuptime-token": "<your-telemetry-ingestion-key>"}\`
-- **Resource Attributes**: \`proxmox.cluster.name=my-proxmox-cluster\` — required for the cluster to register itself in OneUptime
+- **Resource Attributes**: \`proxmox.cluster.name=my-proxmox-cluster\` — required for the cluster to register itself in Cast Operations
 
-Note: the native push emits \`proxmox_*\` metric names, while the agent emits pve-exporter's \`pve_*\` names. OneUptime's built-in Proxmox monitor catalog and alert templates target the \`pve_*\` names, so the agent path is recommended.
+Note: the native push emits \`proxmox_*\` metric names, while the agent emits pve-exporter's \`pve_*\` names. Cast Operations’ built-in Proxmox monitor catalog and alert templates target the \`pve_*\` names, so the agent path is recommended.
 
 ## Upgrading the Agent
 
@@ -259,10 +259,10 @@ docker compose down
 
 ### Run the Diagnostic Script First
 
-\`troubleshoot.sh\` checks the whole chain — container runtime, the exporter scrape, cluster-name stamping, token shape, collector self-metrics, and a **definitive server-side token validation** (OneUptime's OTLP endpoints return a silent \`200\` on a bad ingestion key, so log inspection alone cannot tell you the key is wrong; the script asks \`GET /otlp/v1/validate\` for a real 200/401 verdict):
+\`troubleshoot.sh\` checks the whole chain — container runtime, the exporter scrape, cluster-name stamping, token shape, collector self-metrics, and a **definitive server-side token validation** (Cast Operations’ OTLP endpoints return a silent \`200\` on a bad ingestion key, so log inspection alone cannot tell you the key is wrong; the script asks \`GET /otlp/v1/validate\` for a real 200/401 verdict):
 
 \`\`\`bash
-curl -sSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/ProxmoxAgent/troubleshoot.sh -o troubleshoot.sh
+curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/ProxmoxAgent/troubleshoot.sh -o troubleshoot.sh
 bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/oneuptime-proxmox-agent
 \`\`\`
 
@@ -270,8 +270,8 @@ bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/oneuptime-p
 
 1. Check that the agent is running: \`docker compose ps\`
 2. Check the agent logs: \`docker compose logs oneuptime-proxmox-agent | grep -i error\`
-3. Verify your OneUptime URL and ingestion key are correct
-4. Ensure the agent machine can reach the OneUptime instance over the network
+3. Verify your Cast Operations URL and ingestion key are correct
+4. Ensure the agent machine can reach the Cast Operations instance over the network
 
 ### No Metrics Appearing
 

@@ -1,21 +1,21 @@
 # Discord-integratie
 
-Post incidentupdates naar een [Discord](https://discord.com)-kanaal. OneUptime heeft een ingebouwde **Discord**-workflowcomponent, waardoor dit een van de snelste integraties is om in te stellen.
+Post incidentupdates naar een [Discord](https://discord.com)-kanaal. Cast Operations heeft een ingebouwde **Discord**-workflowcomponent, waardoor dit een van de snelste integraties is om in te stellen.
 
-Deze integratie is **outbound**: OneUptime post naar een Discord-kanaal via een inkomende webhook-URL.
+Deze integratie is **outbound**: Cast Operations post naar een Discord-kanaal via een inkomende webhook-URL.
 
 ```text
-OneUptime Incident → On Create  ──►  Discord component  ──►  message in your channel
+Cast Operations Incident → On Create  ──►  Discord component  ──►  message in your channel
 ```
 
 ## Stap 1 — Maak een Discord-webhook aan
 
 1. Open in Discord het kanaal dat je wilt gebruiken via **Edit Channel → Integrations → Webhooks**.
-2. Klik op **New Webhook**, geef het een naam (bijv. `OneUptime`), kies het kanaal, en **Copy Webhook URL**.
+2. Klik op **New Webhook**, geef het een naam (bijv. `Cast Operations`), kies het kanaal, en **Copy Webhook URL**.
 
 ## Stap 2 — Sla de webhook-URL op (optioneel maar aanbevolen)
 
-1. Ga in OneUptime naar **Workflows → Global Variables → Create**.
+1. Ga in Cast Operations naar **Workflows → Global Variables → Create**.
 2. Geef het de naam `DISCORD_WEBHOOK_URL`, plak de URL, en zet **Is Secret** aan.
 
 Door hem in een variabele te bewaren kun je hem hergebruiken over workflows en op één plek roteren.

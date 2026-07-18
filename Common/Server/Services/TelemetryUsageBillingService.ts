@@ -308,7 +308,7 @@ export class Service extends DatabaseService<Model> {
     for (const [serviceIdStr, usage] of usageByServiceId) {
       /*
        * Monitor telemetry is billed via the Active Monitoring plan, and
-       * Alert/Incident telemetry is OneUptime's own operational data —
+       * Alert/Incident telemetry is Cast Operations’ own operational data —
        * neither is charged as ingested telemetry volume.
        */
       if (

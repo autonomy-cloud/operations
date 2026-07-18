@@ -38,7 +38,7 @@ const StatusPageMcp: FunctionComponent<
         cardProps={{
           title: "MCP Server",
           description:
-            "Control whether AI agents can read this status page over the OneUptime MCP server",
+            "Control whether AI agents can read this status page over the Cast Operations MCP server",
         }}
         editButtonText="Edit Settings"
         isEditable={true}
@@ -51,7 +51,7 @@ const StatusPageMcp: FunctionComponent<
             fieldType: FormFieldSchemaType.Toggle,
             required: false,
             description:
-              "When enabled, AI agents can read this status page over the public OneUptime MCP server. Turning this off does not hide the status page website, its RSS feed, or its public JSON API.",
+              "When enabled, AI agents can read this status page over the public Cast Operations MCP server. Turning this off does not hide the status page website, its RSS feed, or its public JSON API.",
           },
         ]}
         modelDetailProps={{
@@ -66,7 +66,7 @@ const StatusPageMcp: FunctionComponent<
               fieldType: FieldType.Boolean,
               title: "Enable MCP Server",
               description:
-                "When enabled, AI agents can read this status page over the public OneUptime MCP server. Turning this off does not hide the status page website, its RSS feed, or its public JSON API.",
+                "When enabled, AI agents can read this status page over the public Cast Operations MCP server. Turning this off does not hide the status page website, its RSS feed, or its public JSON API.",
             },
           ],
           modelId: modelId,

@@ -26,7 +26,7 @@
 
 ### JavaScript
 
-在沙箱化的 `isolated-vm` 中執行的一段 JavaScript。該沙箱位於你自己基礎設施中的 [Runbook Agent](/docs/runbooks/agents) 上 — 而非 OneUptime Worker 上。
+在沙箱化的 `isolated-vm` 中執行的一段 JavaScript。該沙箱位於你自己基礎設施中的 [Runbook Agent](/docs/runbooks/agents) 上 — 而非 Cast Operations Worker 上。
 
 在 JavaScript 步驟上設定兩項內容：
 
@@ -45,11 +45,11 @@ return { durationMs: Date.now() - start };
 
 發出對外的 HTTP 呼叫。設定方法（GET/POST/PUT/PATCH/DELETE/HEAD）、URL、選用的 JSON 標頭，以及選用的內文。回應的狀態、標頭與內文都會被擷取（總計上限 50KB）。
 
-適用於：觸發 PagerDuty 事件、貼文到 Slack、呼叫你自己的管理 API 等。HTTP 步驟直接在 OneUptime Worker 上執行；不需要 agent。
+適用於：觸發 PagerDuty 事件、貼文到 Slack、呼叫你自己的管理 API 等。HTTP 步驟直接在 Cast Operations Worker 上執行；不需要 agent。
 
 ### Bash
 
-在你自己基礎設施中的 [Runbook Agent](/docs/runbooks/agents) 上執行的 bash 腳本（`bash -c <script>`）。Bash 永遠不會在 OneUptime Worker 上執行。
+在你自己基礎設施中的 [Runbook Agent](/docs/runbooks/agents) 上執行的 bash 腳本（`bash -c <script>`）。Bash 永遠不會在 Cast Operations Worker 上執行。
 
 在 Bash 步驟上設定兩項內容：
 
@@ -60,7 +60,7 @@ return { durationMs: Date.now() - start };
 
 ### AI
 
-在執行過程中請 AI 分析、彙整或做出判斷。提示（prompt）會傳送到你專案的 LLM 供應商（**Settings → AI → LLM Providers**），模型的回應會成為執行時間軸上該步驟的輸出。AI 步驟在 OneUptime Worker 上執行；不需要 agent。
+在執行過程中請 AI 分析、彙整或做出判斷。提示（prompt）會傳送到你專案的 LLM 供應商（**Settings → AI → LLM Providers**），模型的回應會成為執行時間軸上該步驟的輸出。AI 步驟在 Cast Operations Worker 上執行；不需要 agent。
 
 在 AI 步驟上設定：
 

@@ -1,6 +1,6 @@
 # Runbook 에이전트
 
-**Runbook 에이전트**는 Runbook의 Bash _및_ JavaScript 단계를 **자신의 인프라 안에서** 실행하는 작은 자체 호스팅 프로세스입니다. OneUptime 워커는 절대 여러분의 스크립트를 직접 실행하지 않습니다 — 큐에 넣을 뿐이고, 단계 작성자가 선택한 Runbook 에이전트가 그것을 가져가서 실행하고 결과를 회신합니다.
+**Runbook 에이전트**는 Runbook의 Bash _및_ JavaScript 단계를 **자신의 인프라 안에서** 실행하는 작은 자체 호스팅 프로세스입니다. Cast Operations 워커는 절대 여러분의 스크립트를 직접 실행하지 않습니다 — 큐에 넣을 뿐이고, 단계 작성자가 선택한 Runbook 에이전트가 그것을 가져가서 실행하고 결과를 회신합니다.
 
 JavaScript는 여전히 `isolated-vm` 샌드박스에서 실행됩니다. 차이는 그 샌드박스가 우리 쪽이 아니라 여러분의 에이전트 호스트 위에 있다는 점입니다.
 
@@ -8,23 +8,23 @@ JavaScript는 여전히 `isolated-vm` 샌드박스에서 실행됩니다. 차이
 
 ## 에이전트가 존재하는 이유
 
-이전 버전의 OneUptime은 Bash와 JavaScript 단계를 워커에서 실행했습니다. JavaScript는 (`isolated-vm`으로) 샌드박스 되었지만 Bash는 그렇지 않았습니다. 둘 다 단일 테넌트 자체 호스팅을 벗어나는 모든 상황에서 문제가 있었습니다:
+이전 버전의 Cast Operations은 Bash와 JavaScript 단계를 워커에서 실행했습니다. JavaScript는 (`isolated-vm`으로) 샌드박스 되었지만 Bash는 그렇지 않았습니다. 둘 다 단일 테넌트 자체 호스팅을 벗어나는 모든 상황에서 문제가 있었습니다:
 
 - **신뢰 경계.** Runbook을 작성할 수 있는 사람은 누구나 워커에서 코드를 실행할 수 있었고, 워커가 가진 환경 변수와 파일 시스템에 접근할 수 있었습니다. JavaScript 샌드박스는 명백한 것을 막았지만, 결심한 사용자가 우리 네트워크에서 닿을 수 있는 것을 탐색하는 것까지는 막을 수 없었습니다.
-- **도달 범위.** 유용한 단계 대부분은 _고객의_ 인프라에서 동작하길 원합니다("이 서비스 재시작", "우리 클러스터에서 kubectl", "내부 DB에서 레코드 조회") — OneUptime이 아니라.
+- **도달 범위.** 유용한 단계 대부분은 _고객의_ 인프라에서 동작하길 원합니다("이 서비스 재시작", "우리 클러스터에서 kubectl", "내부 DB에서 레코드 조회") — Cast Operations이 아니라.
 
 Runbook 에이전트는 이를 뒤집습니다. Bash와 JavaScript 단계는 우리 쪽이 아니라 여러분이 통제하는 호스트에서 실행되며, 그 호스트가 무엇을 할 수 있는지는 여러분이 결정합니다.
 
 ## 동작 방식
 
-1. OneUptime에서 Runbook 에이전트를 만듭니다. OneUptime이 ID와 시크릿 키를 생성합니다.
-2. 그 ID/키와 OneUptime URL을 사용해 인프라 내부 호스트에서 에이전트 컨테이너를 실행합니다.
-3. 에이전트는 몇 초마다 OneUptime을 폴링하며 "내가 할 일 있어?"라고 묻습니다.
+1. Cast Operations에서 Runbook 에이전트를 만듭니다. Cast Operations이 ID와 시크릿 키를 생성합니다.
+2. 그 ID/키와 Cast Operations URL을 사용해 인프라 내부 호스트에서 에이전트 컨테이너를 실행합니다.
+3. 에이전트는 몇 초마다 Cast Operations을 폴링하며 "내가 할 일 있어?"라고 묻습니다.
 4. Bash 또는 JavaScript 단계를 작성할 때, 드롭다운에서 에이전트를 선택합니다 — 단계는 그 특정 에이전트에 묶입니다.
 5. 단계가 실행될 때, 워커는 `targetAgentId`를 그 에이전트로 설정한 작업 행을 삽입합니다. 그 에이전트만이 작업을 가져갈 수 있습니다.
 6. 에이전트가 스크립트를 로컬에서 실행 — Bash는 `bash -c <script>`, JavaScript는 `isolated-vm` 샌드박스 — 결과를 캡처해 다시 게시합니다. 워커는 그 결과로 Runbook을 이어갑니다.
 
-에이전트는 OneUptime 인스턴스로의 **아웃바운드 HTTPS**만 필요합니다. 인바운드 연결은 일절 받지 않습니다.
+에이전트는 Cast Operations 인스턴스로의 **아웃바운드 HTTPS**만 필요합니다. 인바운드 연결은 일절 받지 않습니다.
 
 ## 에이전트 설치
 
@@ -45,14 +45,14 @@ Runbook 에이전트는 이를 뒤집습니다. Bash와 JavaScript 단계는 우
 
 다음 두 가지가 가능한, 환경 내 임의의 호스트에서 Docker 명령을 실행합니다:
 
-- HTTPS로 OneUptime 인스턴스에 도달할 수 있고,
+- HTTPS로 Cast Operations 인스턴스에 도달할 수 있고,
 - Bash/JavaScript 단계로 하고 싶은 일을 할 수 있어야 합니다 (다른 호스트로 SSH, `kubectl`, 데이터베이스와 통신 등).
 
 ```bash
 docker run --name oneuptime-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://oneuptime.yourdomain.com \
+  -e ONEUPTIME_URL=https://operations.yourdomain.com \
   -d oneuptime/runbook-agent:release
 ```
 
@@ -61,7 +61,7 @@ docker run --name oneuptime-runbook-agent --restart unless-stopped \
 **Runbooks → 설정 → 에이전트**로 돌아갑니다. 약 60초 안에 에이전트의 행이 `Connected`로 바뀌고 **마지막 확인** 시각이 갱신되어야 합니다. 계속 `Disconnected`라면:
 
 - 컨테이너 로그(`docker logs oneuptime-runbook-agent`)에서 인증 오류나 네트워크 실패를 확인.
-- 호스트에서 `curl`로 OneUptime URL에 닿는지 확인.
+- 호스트에서 `curl`로 Cast Operations URL에 닿는지 확인.
 - ID와 키가 공백 없이 복사됐는지 확인.
 
 ## 단계를 에이전트에 향하게 하기
@@ -116,7 +116,7 @@ Runbook 실행을 (실행 뷰나 API에서) 취소하면 `Pending`/`Claimed`/`Ru
 
 | 변수                                      | 필수   | 기본값  | 메모                                                                     |
 | ----------------------------------------- | ------ | ------- | ------------------------------------------------------------------------ |
-| `ONEUPTIME_URL`                           | 예     | —       | OneUptime 인스턴스의 베이스 URL, 예: `https://oneuptime.yourdomain.com`. |
+| `ONEUPTIME_URL`                           | 예     | —       | Cast Operations 인스턴스의 베이스 URL, 예: `https://operations.yourdomain.com`. |
 | `RUNBOOK_AGENT_ID`                        | 예     | —       | 에이전트의 설치 모달에 나오는 UUID.                                      |
 | `RUNBOOK_AGENT_KEY`                       | 예     | —       | 에이전트의 설치 모달에 나오는 시크릿.                                    |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | 아니오 | `5000`  | 새 작업을 폴링하는 주기.                                                 |
@@ -126,7 +126,7 @@ Runbook 실행을 (실행 뷰나 API에서) 취소하면 `Pending`/`Claimed`/`Ru
 
 ## 에이전트 키 교체
 
-키가 유출되면 OneUptime에서 에이전트를 열어 키를 재설정합니다. 이전 키는 즉시 동작을 멈춥니다. 에이전트 컨테이너를 새 키로 갱신하고 재시작하세요.
+키가 유출되면 Cast Operations에서 에이전트를 열어 키를 재설정합니다. 이전 키는 즉시 동작을 멈춥니다. 에이전트 컨테이너를 새 키로 갱신하고 재시작하세요.
 
 ## 권한
 

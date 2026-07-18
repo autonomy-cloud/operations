@@ -1,6 +1,6 @@
 # Windows-installationsvejledning
 
-Installer OneUptime som en desktop-applikation på Windows til omfattende overvågning og incident management.
+Installer Cast Operations som en desktop-applikation på Windows til omfattende overvågning og incident management.
 
 ## Installationsmetoder
 
@@ -8,46 +8,46 @@ Installer OneUptime som en desktop-applikation på Windows til omfattende overv�
 
 Edge leverer den bedste Windows PWA-integration med native funktioner.
 
-1. **Åbn OneUptime i Edge**
+1. **Åbn Cast Operations i Edge**
 
    - Start Microsoft Edge-browseren
-   - Naviger til din OneUptime-instans-URL
-   - Log ind på din OneUptime-konto
+   - Naviger til din Cast Operations-instans-URL
+   - Log ind på din Cast Operations-konto
    - Vent på fuldstændig sideindlæsning
 
 2. **Installer app**
 
    - Se efter **installer-ikonet** (⊞) i adresselinjen
-   - Klik på knappen **"Installer OneUptime"**
+   - Klik på knappen **"Installer Cast Operations"**
    - Eller klik på **tre-punkts-menuen** → **Apps** → **Installer dette websted som en app**
 
 3. **Tilpas installation**
 
-   - **App-navn**: Ændr, hvis ønsket (standard: OneUptime)
+   - **App-navn**: Ændr, hvis ønsket (standard: Cast Operations)
    - **Startmenu**: Vælg, om der skal tilføjes til Startmenu
    - **Proceslinje**: Mulighed for at fastgøre til proceslinjen
    - **Skrivebord**: Opret skrivebordsgenvej
 
 4. **Fuldfør installation**
    - Klik på **"Installer"** for at afslutte
-   - OneUptime åbnes i sit eget vindue
+   - Cast Operations åbnes i sit eget vindue
    - Find det i Startmenu under installerede apps
 
 ### Metode 2: Google Chrome
 
 Chrome tilbyder fremragende PWA-understøttelse med avanceret desktop-integration.
 
-1. **Åbn OneUptime i Chrome**
+1. **Åbn Cast Operations i Chrome**
 
    - Start Google Chrome
-   - Gå til din OneUptime-instans
+   - Gå til din Cast Operations-instans
    - Sørg for, at du er logget ind
    - Tillad fuldstændig sideindlæsning
 
 2. **Installer via adresselinje**
 
    - Se efter **installer-ikon** (⊞) i adresselinjen
-   - Klik på **"Installer OneUptime"**
+   - Klik på **"Installer Cast Operations"**
    - Eller brug menuen: **tre punkter** → **Flere værktøjer** → **Opret genvej**
 
 3. **Installationsindstillinger**
@@ -57,7 +57,7 @@ Chrome tilbyder fremragende PWA-understøttelse med avanceret desktop-integratio
    - Klik på **"Installer"** eller **"Opret"**
 
 4. **Start app**
-   - Find OneUptime i Windows Startmenu
+   - Find Cast Operations i Windows Startmenu
    - Eller start fra skrivebordsgenvej
    - App åbnes i dedikeret vindue
 
@@ -65,10 +65,10 @@ Chrome tilbyder fremragende PWA-understøttelse med avanceret desktop-integratio
 
 Firefox understøtter PWA-installation med grundlæggende desktop-integration.
 
-1. **Åbn OneUptime i Firefox**
+1. **Åbn Cast Operations i Firefox**
 
    - Start Firefox-browseren
-   - Naviger til OneUptime-URL
+   - Naviger til Cast Operations-URL
    - Fuldfør loginprocessen
 
 2. **Installer PWA**
@@ -78,9 +78,9 @@ Firefox understøtter PWA-installation med grundlæggende desktop-integration.
 
 ### Opstartskonfiguration
 
-1. **Autostart**: Konfigurer OneUptime til at starte med Windows
+1. **Autostart**: Konfigurer Cast Operations til at starte med Windows
    - Højreklik på proceslinje → Jobliste → Start
-   - Aktiver OneUptime, hvis ønsket
+   - Aktiver Cast Operations, hvis ønsket
 2. **Standardstørrelse**: Sæt foretrukken vinduesstørrelse og -position
 
 ### Notifikationsindstillinger
@@ -88,12 +88,12 @@ Firefox understøtter PWA-installation med grundlæggende desktop-integration.
 1. **Windows-notifikationer**
 
    - Indstillinger → System → Notifikationer og handlinger
-   - Find OneUptime og konfigurer advarselspræferencer
+   - Find Cast Operations og konfigurer advarselspræferencer
    - Aktiver bannernotifikationer til incidents
 
 2. **Fokusassistent**
    - Konfigurer indstillinger for Forstyr ikke
-   - Tillad OneUptime kritiske notifikationer
+   - Tillad Cast Operations kritiske notifikationer
    - Sæt prioritetsniveauer for forskellige advarselstyper
 
 ## Avancerede installationsindstillinger
@@ -107,7 +107,7 @@ Firefox understøtter PWA-installation med grundlæggende desktop-integration.
 ```
 Løsninger:
 1. Sørg for, at du bruger Edge eller Chrome (anbefalede browsere)
-2. Bekræft HTTPS-forbindelsen til OneUptime-instansen
+2. Bekræft HTTPS-forbindelsen til Cast Operations-instansen
 3. Ryd browsercache og cookies
 4. Opdater browser til nyeste version
 5. Kontroller, om PWA-krav er opfyldt på serveren
@@ -130,7 +130,7 @@ Løsninger:
 
 ```
 Løsninger:
-1. Søg efter "OneUptime" i Windows-søgning
+1. Søg efter "Cast Operations" i Windows-søgning
 2. Kontroller, om det er installeret under et andet navn
 3. Se i afsnittet "Nyligt tilføjede" apps
 4. Geninstaller og sørg for, at "Tilføj til Startmenu" er markeret
@@ -144,9 +144,9 @@ Løsninger:
 ```
 Løsninger:
 1. Windows-indstillinger → System → Notifikationer og handlinger
-2. Aktiver notifikationer for OneUptime
+2. Aktiver notifikationer for Cast Operations
 3. Kontroller Fokusassistent-indstillinger
-4. Sørg for notifikationstilladelser i OneUptime
+4. Sørg for notifikationstilladelser i Cast Operations
 5. Test med simpel notifikation først
 ```
 
@@ -157,18 +157,18 @@ Løsninger:
 1. **Windows Indstillinger-metoden**
 
    - Indstillinger → Apps → Apps og funktioner
-   - Søg efter "OneUptime"
+   - Søg efter "Cast Operations"
    - Klik og vælg "Afinstaller"
 
 2. **Browser-metoden**
 
    - Åbn Edge/Chrome
    - Gå til edge://apps/ eller chrome://apps/
-   - Find OneUptime
+   - Find Cast Operations
    - Klik på indstillinger → Afinstaller
 
 3. **Startmenu-metoden**
-   - Højreklik på OneUptime i Startmenu
+   - Højreklik på Cast Operations i Startmenu
    - Vælg "Afinstaller"
    - Bekræft fjernelse
 
@@ -176,7 +176,7 @@ Løsninger:
 
 ### Automatiske opdateringer
 
-- OneUptime PWA opdateres automatisk, når der er netværksforbindelse
+- Cast Operations PWA opdateres automatisk, når der er netværksforbindelse
 - Ingen manuel indgriben kræves
 - Opdateringer anventes øjeblikkeligt ved genstart
 - Kritiske rettelser deployeres øjeblikkeligt

@@ -192,7 +192,7 @@ const ProjectTeamView: FunctionComponent = (): ReactElement => {
               },
               title: "Name",
               description:
-                "This email is not registered on OneUptime yet. Enter the name of the user you would like to invite — we will use it to set up their new account.",
+                "This email is not registered on Cast Operations yet. Enter the name of the user you would like to invite — we will use it to set up their new account.",
               fieldType: FormFieldSchemaType.Text,
               required: false,
               placeholder: "John Smith",

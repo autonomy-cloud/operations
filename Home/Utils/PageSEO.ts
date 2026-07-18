@@ -1,5 +1,5 @@
 /*
- * Page-specific SEO metadata configuration for OneUptime landing pages
+ * Page-specific SEO metadata configuration for Cast Operations landing pages
  * This provides structured data for search engines and AI agents
  */
 
@@ -65,7 +65,7 @@ export const createDefaultSEO: (
 export const PageSEOConfig: Record<string, PageSEOData> = {
   // Homepage
   "/": {
-    title: "OneUptime | The Open-Source Observability Platform",
+    title: "Cast Operations | The Open-Source Observability Platform",
     description:
       "Catch outages in seconds, page the right engineer, and keep customers in the loop — one open-source platform that replaces your monitoring, incident management, and status page stack.",
     canonicalPath: "/",
@@ -78,9 +78,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   // Compare index
   "/compare": {
     title:
-      "OneUptime vs Alternatives | Compare Monitoring, On-Call & Status Page Tools",
+      "Cast Operations vs Alternatives | Compare Monitoring, On-Call & Status Page Tools",
     description:
-      "Compare OneUptime with PagerDuty, Datadog, Grafana, Opsgenie, Statuspage and 25+ other tools. See features, pricing, and why teams consolidate monitoring, on-call, incidents, and status pages onto one open-source platform.",
+      "Compare Cast Operations with PagerDuty, Datadog, Grafana, Opsgenie, Statuspage and 25+ other tools. See features, pricing, and why teams consolidate monitoring, on-call, incidents, and status pages onto one open-source platform.",
     canonicalPath: "/compare",
     twitterCard: "summary_large_image",
     pageType: "compare",
@@ -92,7 +92,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   // Product Pages
   "/product/status-page": {
-    title: "Status Page | Free Public & Private Status Pages | OneUptime",
+    title: "Status Page | Free Public & Private Status Pages | Cast Operations",
     description:
       "Create unlimited public and private status pages. Keep customers informed about incidents and scheduled maintenance. Custom branding, unlimited subscribers, SSL included. Open source.",
     canonicalPath: "/product/status-page",
@@ -105,7 +105,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Status Page", url: "/product/status-page" },
     ],
     softwareApplication: {
-      name: "OneUptime Status Page",
+      name: "Cast Operations Status Page",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -124,7 +124,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/monitoring": {
-    title: "Uptime Monitoring | Website, API, Server Monitoring | OneUptime",
+    title: "Uptime Monitoring | Website, API, Server Monitoring | Cast Operations",
     description:
       "Monitor websites, APIs, servers, and any resource in real-time. Get instant alerts when things go wrong. Supports HTTP, TCP, UDP, DNS, SSL, ping monitoring. Open source.",
     canonicalPath: "/product/monitoring",
@@ -137,7 +137,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Monitoring", url: "/product/monitoring" },
     ],
     softwareApplication: {
-      name: "OneUptime Monitoring",
+      name: "Cast Operations Monitoring",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -157,9 +157,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/incident-management": {
     title:
-      "Incident Management Software | Resolve Incidents Faster | OneUptime",
+      "Incident Management Software | Resolve Incidents Faster | Cast Operations",
     description:
-      "Streamline incident response with OneUptime. Track incidents, collaborate in real-time, conduct postmortems, and improve MTTR. Integrates with Slack, PagerDuty, and more. Open source.",
+      "Streamline incident response with Cast Operations. Track incidents, collaborate in real-time, conduct postmortems, and improve MTTR. Integrates with Slack, PagerDuty, and more. Open source.",
     canonicalPath: "/product/incident-management",
     ogImage: "/img/incident-report.png",
     twitterCard: "summary_large_image",
@@ -170,7 +170,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Incident Management", url: "/product/incident-management" },
     ],
     softwareApplication: {
-      name: "OneUptime Incident Management",
+      name: "Cast Operations Incident Management",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -190,7 +190,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/on-call": {
     title:
-      "On-Call Management & Alerting | Schedules & Escalations | OneUptime",
+      "On-Call Management & Alerting | Schedules & Escalations | Cast Operations",
     description:
       "On-call scheduling, alerting, and escalation policies. Alert the right people at the right time via SMS, phone, email, Slack. Rotation schedules and override support. Open source.",
     canonicalPath: "/product/on-call",
@@ -203,7 +203,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "On-Call & Alerts", url: "/product/on-call" },
     ],
     softwareApplication: {
-      name: "OneUptime On-Call Management",
+      name: "Cast Operations On-Call Management",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud, iOS, Android",
       description:
@@ -222,7 +222,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/logs-management": {
-    title: "Log Management | Fast Log Search & Analysis | OneUptime",
+    title: "Log Management | Fast Log Search & Analysis | Cast Operations",
     description:
       "Centralized log management with blazing fast search. Ingest logs from any source via OpenTelemetry, Fluentd, or API. Set up alerts on log patterns. Open source.",
     canonicalPath: "/product/logs-management",
@@ -235,7 +235,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Logs Management", url: "/product/logs-management" },
     ],
     softwareApplication: {
-      name: "OneUptime Logs Management",
+      name: "Cast Operations Logs Management",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -254,7 +254,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/workflows": {
-    title: "Workflow Automation | No-Code Integrations | OneUptime",
+    title: "Workflow Automation | No-Code Integrations | Cast Operations",
     description:
       "Build automated workflows without code. Connect 5000+ services, automate incident response, and create custom integrations. Trigger on any event. Open source.",
     canonicalPath: "/product/workflows",
@@ -267,7 +267,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Workflows", url: "/product/workflows" },
     ],
     softwareApplication: {
-      name: "OneUptime Workflows",
+      name: "Cast Operations Workflows",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -286,7 +286,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/runbooks": {
-    title: "Runbooks | Automated Incident Response Procedures | OneUptime",
+    title: "Runbooks | Automated Incident Response Procedures | Cast Operations",
     description:
       "Runbooks that combine manual checklists with sandboxed JavaScript, HTTP, bash, and AI steps. Auto-trigger on incidents, alerts, and scheduled maintenance. Open source incident response automation.",
     canonicalPath: "/product/runbooks",
@@ -298,7 +298,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Runbooks", url: "/product/runbooks" },
     ],
     softwareApplication: {
-      name: "OneUptime Runbooks",
+      name: "Cast Operations Runbooks",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -318,9 +318,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/ai-agent": {
-    title: "AI SRE | Code Fixes as Pull Requests | OneUptime",
+    title: "AI SRE | Code Fixes as Pull Requests | Cast Operations",
     description:
-      "OneUptime AI turns production exceptions, incident investigations, and slow traces into pull requests with code fixes. Supports OpenAI, Anthropic, Ollama, and self-hosted LLMs. Privacy-first: no code stored or trained on.",
+      "Cast Operations AI turns production exceptions, incident investigations, and slow traces into pull requests with code fixes. Supports OpenAI, Anthropic, Ollama, and self-hosted LLMs. Privacy-first: no code stored or trained on.",
     canonicalPath: "/product/ai-agent",
     ogImage: "/img/ai-agent.png",
     twitterCard: "summary_large_image",
@@ -331,7 +331,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "AI", url: "/product/ai-agent" },
     ],
     softwareApplication: {
-      name: "OneUptime AI",
+      name: "Cast Operations AI",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -352,9 +352,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/tool/mcp-server": {
-    title: "MCP Server | Model Context Protocol for AI Agents | OneUptime",
+    title: "MCP Server | Model Context Protocol for AI Agents | Cast Operations",
     description:
-      "Connect AI agents and LLMs to your OneUptime observability data via Model Context Protocol (MCP). Query incidents, monitors, logs, metrics, and traces directly from your AI tools.",
+      "Connect AI agents and LLMs to your Cast Operations observability data via Model Context Protocol (MCP). Query incidents, monitors, logs, metrics, and traces directly from your AI tools.",
     canonicalPath: "/tool/mcp-server",
     twitterCard: "summary_large_image",
     pageType: "product",
@@ -364,11 +364,11 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "MCP Server", url: "/tool/mcp-server" },
     ],
     softwareApplication: {
-      name: "OneUptime MCP Server",
+      name: "Cast Operations MCP Server",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
-        "Model Context Protocol server that connects AI agents and LLMs to OneUptime observability data for querying incidents, monitors, logs, metrics, and traces.",
+        "Model Context Protocol server that connects AI agents and LLMs to Cast Operations observability data for querying incidents, monitors, logs, metrics, and traces.",
       features: [
         "Incident querying and management",
         "Monitor status and health checks",
@@ -385,9 +385,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/tool/cli": {
-    title: "CLI | Command Line Interface for Observability | OneUptime",
+    title: "CLI | Command Line Interface for Observability | Cast Operations",
     description:
-      "OneUptime CLI lets you manage monitors, incidents, status pages, and observability data from your terminal. Deploy, configure, and automate your monitoring infrastructure with simple commands.",
+      "Cast Operations CLI lets you manage monitors, incidents, status pages, and observability data from your terminal. Deploy, configure, and automate your monitoring infrastructure with simple commands.",
     canonicalPath: "/tool/cli",
     twitterCard: "summary_large_image",
     pageType: "product",
@@ -397,11 +397,11 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "CLI", url: "/tool/cli" },
     ],
     softwareApplication: {
-      name: "OneUptime CLI",
+      name: "Cast Operations CLI",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "macOS, Linux, Windows",
       description:
-        "Command line interface for managing OneUptime monitors, incidents, status pages, and observability data from your terminal.",
+        "Command line interface for managing Cast Operations monitors, incidents, status pages, and observability data from your terminal.",
       features: [
         "Monitor creation and management",
         "Incident response from terminal",
@@ -418,7 +418,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/metrics": {
-    title: "Metrics | Application & Infrastructure Metrics | OneUptime",
+    title: "Metrics | Application & Infrastructure Metrics | Cast Operations",
     description:
       "Collect and visualize metrics from applications and infrastructure. OpenTelemetry native. Custom dashboards, alerting, and anomaly detection. Open source.",
     canonicalPath: "/product/metrics",
@@ -431,7 +431,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Metrics", url: "/product/metrics" },
     ],
     softwareApplication: {
-      name: "OneUptime Metrics",
+      name: "Cast Operations Metrics",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -451,7 +451,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/kubernetes": {
     title:
-      "Kubernetes Observability | Monitor Clusters, Pods & Nodes | OneUptime",
+      "Kubernetes Observability | Monitor Clusters, Pods & Nodes | Cast Operations",
     description:
       "Complete Kubernetes observability with real-time cluster monitoring, pod health tracking, node metrics, and automated alerting. OpenTelemetry native. Open source.",
     canonicalPath: "/product/kubernetes",
@@ -463,7 +463,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Kubernetes", url: "/product/kubernetes" },
     ],
     softwareApplication: {
-      name: "OneUptime Kubernetes Observability",
+      name: "Cast Operations Kubernetes Observability",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -486,7 +486,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/docker": {
     title:
-      "Docker Observability | Monitor Hosts, Containers & Images | OneUptime",
+      "Docker Observability | Monitor Hosts, Containers & Images | Cast Operations",
     description:
       "Complete Docker observability with real-time host monitoring, container health tracking, image insights, and automated alerting. OpenTelemetry native. Open source.",
     canonicalPath: "/product/docker",
@@ -498,7 +498,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Docker", url: "/product/docker" },
     ],
     softwareApplication: {
-      name: "OneUptime Docker Observability",
+      name: "Cast Operations Docker Observability",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -521,7 +521,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/podman": {
     title:
-      "Podman Observability | Monitor Hosts, Containers & Images | OneUptime",
+      "Podman Observability | Monitor Hosts, Containers & Images | Cast Operations",
     description:
       "Complete Podman observability with real-time host monitoring, container health tracking, image insights, and automated alerting. Daemonless and rootless-capable. OpenTelemetry native. Open source.",
     canonicalPath: "/product/podman",
@@ -533,7 +533,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Podman", url: "/product/podman" },
     ],
     softwareApplication: {
-      name: "OneUptime Podman Observability",
+      name: "Cast Operations Podman Observability",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -555,7 +555,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/host": {
-    title: "Host Observability | Server Metrics, Processes & Logs | OneUptime",
+    title: "Host Observability | Server Metrics, Processes & Logs | Cast Operations",
     description:
       "Auto-discover hosts from any OpenTelemetry collector. Live CPU, memory, disk, filesystem, network, and per-process telemetry — plus logs and traces correlated to the same host. Open source.",
     canonicalPath: "/product/host",
@@ -567,7 +567,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Hosts", url: "/product/host" },
     ],
     softwareApplication: {
-      name: "OneUptime Host Observability",
+      name: "Cast Operations Host Observability",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -589,7 +589,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/proxmox": {
-    title: "Proxmox Monitoring | Nodes, VMs, Storage & Backups | OneUptime",
+    title: "Proxmox Monitoring | Nodes, VMs, Storage & Backups | Cast Operations",
     description:
       "Monitor Proxmox VE clusters end to end: node and guest health, storage usage, backup coverage, and replication alerting. One agent per cluster, usage-based pricing, 10-minute setup. Open source.",
     canonicalPath: "/product/proxmox",
@@ -601,7 +601,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Proxmox", url: "/product/proxmox" },
     ],
     softwareApplication: {
-      name: "OneUptime Proxmox Monitoring",
+      name: "Cast Operations Proxmox Monitoring",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -624,7 +624,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/ai-observability": {
     title:
-      "AI / LLM Observability | Tokens, Cost, Traces & Prompts | OneUptime",
+      "AI / LLM Observability | Tokens, Cost, Traces & Prompts | Cast Operations",
     description:
       "Observe LLM and AI-agent apps with OpenTelemetry: per-call traces, token usage, cost, latency, errors, and full prompts and completions. Works with OpenLLMetry, OpenInference and native OTel. Open source.",
     canonicalPath: "/product/ai-observability",
@@ -636,7 +636,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "AI / LLM Observability", url: "/product/ai-observability" },
     ],
     softwareApplication: {
-      name: "OneUptime AI / LLM Observability",
+      name: "Cast Operations AI / LLM Observability",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -659,7 +659,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/ceph": {
     title:
-      "Ceph Monitoring | Cluster Health, OSDs, Pools & Capacity | OneUptime",
+      "Ceph Monitoring | Cluster Health, OSDs, Pools & Capacity | Cast Operations",
     description:
       "Monitor Ceph clusters without bolting Grafana onto the dashboard: health drill-downs, OSD and PG state, pool capacity with growth forecasts, and alerting with on-call built in. Open source.",
     canonicalPath: "/product/ceph",
@@ -671,7 +671,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Ceph", url: "/product/ceph" },
     ],
     softwareApplication: {
-      name: "OneUptime Ceph Monitoring",
+      name: "Cast Operations Ceph Monitoring",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -694,7 +694,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/docker-swarm": {
     title:
-      "Docker Swarm Monitoring | Nodes, Services, Tasks & Stacks | OneUptime",
+      "Docker Swarm Monitoring | Nodes, Services, Tasks & Stacks | Cast Operations",
     description:
       "Monitor Docker Swarm clusters end to end: manager and worker node health, services and their task replicas, stacks, overlay networks, secrets, configs, and volumes. One agent on a manager node, usage-based pricing, 10-minute setup. Open source.",
     canonicalPath: "/product/docker-swarm",
@@ -706,7 +706,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Docker Swarm", url: "/product/docker-swarm" },
     ],
     softwareApplication: {
-      name: "OneUptime Docker Swarm Monitoring",
+      name: "Cast Operations Docker Swarm Monitoring",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -730,7 +730,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/iot": {
     title:
-      "IoT Device Monitoring | Fleets, Sensors, Battery & Signal | OneUptime",
+      "IoT Device Monitoring | Fleets, Sensors, Battery & Signal | Cast Operations",
     description:
       "Monitor your entire IoT fleet from one dashboard: per-device health, battery, signal strength, temperature, and connectivity alerting. Standard OpenTelemetry, no proprietary agent, usage-based pricing. Open source.",
     canonicalPath: "/product/iot",
@@ -742,7 +742,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "IoT Devices", url: "/product/iot" },
     ],
     softwareApplication: {
-      name: "OneUptime IoT Device Monitoring",
+      name: "Cast Operations IoT Device Monitoring",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -765,7 +765,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/network-monitoring": {
     title:
-      "Network Device Monitoring | SNMP Switches, Routers & Firewalls | OneUptime",
+      "Network Device Monitoring | SNMP Switches, Routers & Firewalls | Cast Operations",
     description:
       "Agentless SNMP monitoring for switches, routers, and firewalls: device and interface health, LLDP topology maps, probe latency matrix, subnet discovery, and vendor alert packs — wired to on-call. Open source.",
     canonicalPath: "/product/network-monitoring",
@@ -777,11 +777,11 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Network Devices", url: "/product/network-monitoring" },
     ],
     softwareApplication: {
-      name: "OneUptime Network Device Monitoring",
+      name: "Cast Operations Network Device Monitoring",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
-        "Monitor network devices over SNMP from OneUptime probes: reachability, system health, per-interface status, traffic and errors, LLDP topology maps, probe-to-device latency, subnet discovery, vendor health templates, and recommended alert packs with on-call escalation built in.",
+        "Monitor network devices over SNMP from Cast Operations probes: reachability, system health, per-interface status, traffic and errors, LLDP topology maps, probe-to-device latency, subnet discovery, vendor health templates, and recommended alert packs with on-call escalation built in.",
       features: [
         "Agentless SNMP polling from probes",
         "Per-interface status, traffic & error metrics",
@@ -797,7 +797,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/observability": {
-    title: "Observability Platform | Logs, Metrics & Traces | OneUptime",
+    title: "Observability Platform | Logs, Metrics & Traces | Cast Operations",
     description:
       "OpenTelemetry-native observability: logs, metrics, traces, exceptions, profiles, RUM, and dashboards in one open-source platform. Correlate every signal, alert on any query, and pay only for the telemetry you ingest.",
     canonicalPath: "/product/observability",
@@ -809,7 +809,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Observability", url: "/product/observability" },
     ],
     softwareApplication: {
-      name: "OneUptime Observability Platform",
+      name: "Cast Operations Observability Platform",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -830,7 +830,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/topology": {
-    title: "Topology | Service Map, Infrastructure & Network Maps | OneUptime",
+    title: "Topology | Service Map, Infrastructure & Network Maps | Cast Operations",
     description:
       "Automatic topology maps built from your telemetry: a service map drawn from traces with live traffic and latency, a nested infrastructure map, and a live network map. Active incidents overlay on every node. Open source.",
     canonicalPath: "/product/topology",
@@ -842,7 +842,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Topology", url: "/product/topology" },
     ],
     softwareApplication: {
-      name: "OneUptime Topology",
+      name: "Cast Operations Topology",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -864,7 +864,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/services": {
-    title: "Service Catalog | Map, Own & Monitor Every Service | OneUptime",
+    title: "Service Catalog | Map, Own & Monitor Every Service | Cast Operations",
     description:
       "A single catalog of every service you run. Assign owners, group by labels, and connect each service to its logs, traces, metrics, and incidents. Open source.",
     canonicalPath: "/product/services",
@@ -876,7 +876,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Services", url: "/product/services" },
     ],
     softwareApplication: {
-      name: "OneUptime Service Catalog",
+      name: "Cast Operations Service Catalog",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -898,7 +898,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   "/product/profiles": {
     title:
-      "Continuous Profiling | CPU, Memory & Allocation Profiling | OneUptime",
+      "Continuous Profiling | CPU, Memory & Allocation Profiling | Cast Operations",
     description:
       "Continuous profiling for production applications. CPU, memory, and allocation profiling with flamegraphs, function-level analysis, and diff comparison. OpenTelemetry native. Open source.",
     canonicalPath: "/product/profiles",
@@ -910,7 +910,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Profiles", url: "/product/profiles" },
     ],
     softwareApplication: {
-      name: "OneUptime Continuous Profiling",
+      name: "Cast Operations Continuous Profiling",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -932,7 +932,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/scheduled-maintenance": {
-    title: "Scheduled Maintenance | Plan & Communicate Downtime | OneUptime",
+    title: "Scheduled Maintenance | Plan & Communicate Downtime | Cast Operations",
     description:
       "Plan, schedule, and communicate maintenance windows to your users. Notify subscribers automatically, update status pages in real-time. Open source maintenance management.",
     canonicalPath: "/product/scheduled-maintenance",
@@ -947,7 +947,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       },
     ],
     softwareApplication: {
-      name: "OneUptime Scheduled Maintenance",
+      name: "Cast Operations Scheduled Maintenance",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -968,7 +968,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/traces": {
-    title: "Distributed Tracing | End-to-End Request Tracing | OneUptime",
+    title: "Distributed Tracing | End-to-End Request Tracing | Cast Operations",
     description:
       "Trace requests across microservices and distributed systems. OpenTelemetry native. Visualize latency, find bottlenecks, and debug performance issues. Open source.",
     canonicalPath: "/product/traces",
@@ -981,7 +981,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Traces", url: "/product/traces" },
     ],
     softwareApplication: {
-      name: "OneUptime Traces",
+      name: "Cast Operations Traces",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -1000,7 +1000,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/exceptions": {
-    title: "Error Tracking | Exception Monitoring & Alerts | OneUptime",
+    title: "Error Tracking | Exception Monitoring & Alerts | Cast Operations",
     description:
       "Track and monitor exceptions across your applications. Get instant alerts, stack traces, and context to fix bugs faster. OpenTelemetry native. Open source.",
     canonicalPath: "/product/exceptions",
@@ -1013,7 +1013,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Exceptions", url: "/product/exceptions" },
     ],
     softwareApplication: {
-      name: "OneUptime Exceptions",
+      name: "Cast Operations Exceptions",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description: "Exception tracking and error monitoring for applications.",
@@ -1031,7 +1031,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/dashboards": {
-    title: "Dashboards | Custom Observability Dashboards | OneUptime",
+    title: "Dashboards | Custom Observability Dashboards | Cast Operations",
     description:
       "Build custom dashboards to visualize all your observability data. Combine metrics, logs, traces, and status in one view. Share with your team. Open source.",
     canonicalPath: "/product/dashboards",
@@ -1044,7 +1044,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Dashboards", url: "/product/dashboards" },
     ],
     softwareApplication: {
-      name: "OneUptime Dashboards",
+      name: "Cast Operations Dashboards",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -1063,7 +1063,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/serverless": {
-    title: "Serverless Observability | AWS Lambda & Functions | OneUptime",
+    title: "Serverless Observability | AWS Lambda & Functions | Cast Operations",
     description:
       "Monitor AWS Lambda, Google Cloud Functions, Azure Functions, and Cloudflare Workers with OpenTelemetry. Invocations, cold starts, duration, errors, and per-invocation traces. Open source.",
     canonicalPath: "/product/serverless",
@@ -1075,7 +1075,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Serverless", url: "/product/serverless" },
     ],
     softwareApplication: {
-      name: "OneUptime Serverless Observability",
+      name: "Cast Operations Serverless Observability",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -1098,7 +1098,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/cloud": {
-    title: "Cloud Monitoring | AWS, Google Cloud & Azure | OneUptime",
+    title: "Cloud Monitoring | AWS, Google Cloud & Azure | Cast Operations",
     description:
       "Monitor AWS, Google Cloud, and Azure with OpenTelemetry. Auto-discovered cloud environments, real-time resource metrics, logs, traces, and alerting across every region and account. Open source.",
     canonicalPath: "/product/cloud",
@@ -1110,7 +1110,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "Cloud", url: "/product/cloud" },
     ],
     softwareApplication: {
-      name: "OneUptime Cloud Monitoring",
+      name: "Cast Operations Cloud Monitoring",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud",
       description:
@@ -1133,7 +1133,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/rum": {
-    title: "Real User Monitoring (RUM) | Web Vitals & Sessions | OneUptime",
+    title: "Real User Monitoring (RUM) | Web Vitals & Sessions | Cast Operations",
     description:
       "Real User Monitoring for browser and mobile apps with the OpenTelemetry Web SDK. Core Web Vitals, page views, JavaScript errors, and real user sessions correlated with backend traces. Open source.",
     canonicalPath: "/product/rum",
@@ -1145,7 +1145,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
       { name: "RUM", url: "/product/rum" },
     ],
     softwareApplication: {
-      name: "OneUptime Real User Monitoring",
+      name: "Cast Operations Real User Monitoring",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, Cloud, iOS, Android",
       description:
@@ -1169,9 +1169,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   // Pricing
   "/pricing": {
-    title: "Pricing | Free Tier & Paid Plans | OneUptime",
+    title: "Pricing | Free Tier & Paid Plans | Cast Operations",
     description:
-      "OneUptime pricing starts free. Get status pages, monitoring, incident management, and more. Transparent pricing with no hidden fees. Enterprise plans available.",
+      "Cast Operations pricing starts free. Get status pages, monitoring, incident management, and more. Transparent pricing with no hidden fees. Enterprise plans available.",
     canonicalPath: "/pricing",
     twitterCard: "summary_large_image",
     pageType: "pricing",
@@ -1183,9 +1183,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   // Enterprise
   "/enterprise/overview": {
-    title: "Enterprise | Self-Hosted & Cloud | OneUptime",
+    title: "Enterprise | Self-Hosted & Cloud | Cast Operations",
     description:
-      "OneUptime for enterprise. Self-hosted deployment, SSO/SAML, advanced security, SLA guarantees, dedicated support. SOC 2, HIPAA, GDPR compliant.",
+      "Cast Operations for enterprise. Self-hosted deployment, SSO/SAML, advanced security, SLA guarantees, dedicated support. SOC 2, HIPAA, GDPR compliant.",
     canonicalPath: "/enterprise/overview",
     twitterCard: "summary_large_image",
     pageType: "enterprise",
@@ -1196,9 +1196,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/enterprise/demo": {
-    title: "Request Demo | See OneUptime in Action | OneUptime",
+    title: "Request Demo | See Cast Operations in Action | Cast Operations",
     description:
-      "Schedule a personalized demo of OneUptime. See how our observability platform can help your team monitor, respond, and resolve issues faster.",
+      "Schedule a personalized demo of Cast Operations. See how our observability platform can help your team monitor, respond, and resolve issues faster.",
     canonicalPath: "/enterprise/demo",
     twitterCard: "summary",
     pageType: "enterprise",
@@ -1211,9 +1211,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   // About & Support
   "/about": {
-    title: "About Us | Open Source Observability | OneUptime",
+    title: "About Us | Open Source Observability | Cast Operations",
     description:
-      "Learn about OneUptime, the open-source observability platform. Built by engineers, for engineers. Meet our contributors and learn our mission.",
+      "Learn about Cast Operations, the open-source observability platform. Built by engineers, for engineers. Meet our contributors and learn our mission.",
     canonicalPath: "/about",
     twitterCard: "summary",
     pageType: "about",
@@ -1224,9 +1224,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/support": {
-    title: "Support | Help & Documentation | OneUptime",
+    title: "Support | Help & Documentation | Cast Operations",
     description:
-      "Get help with OneUptime. Access documentation, community support, and contact our team. Enterprise customers get priority support.",
+      "Get help with Cast Operations. Access documentation, community support, and contact our team. Enterprise customers get priority support.",
     canonicalPath: "/support",
     twitterCard: "summary",
     pageType: "support",
@@ -1237,9 +1237,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/oss-friends": {
-    title: "OSS Friends | Open Source Partners | OneUptime",
+    title: "OSS Friends | Open Source Partners | Cast Operations",
     description:
-      "Meet our open-source friends and partners. OneUptime is proud to be part of the open-source community.",
+      "Meet our open-source friends and partners. Cast Operations is proud to be part of the open-source community.",
     canonicalPath: "/oss-friends",
     twitterCard: "summary",
     pageType: "other",
@@ -1251,9 +1251,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   // Legal pages
   "/legal": {
-    title: "Legal Center | Terms, Privacy, Compliance | OneUptime",
+    title: "Legal Center | Terms, Privacy, Compliance | Cast Operations",
     description:
-      "OneUptime legal documents including terms of service, privacy policy, GDPR, SOC 2, HIPAA compliance information.",
+      "Cast Operations legal documents including terms of service, privacy policy, GDPR, SOC 2, HIPAA compliance information.",
     canonicalPath: "/legal",
     twitterCard: "summary",
     pageType: "legal",
@@ -1264,8 +1264,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/legal/terms": {
-    title: "Terms of Service | OneUptime",
-    description: "OneUptime terms of service and conditions of use.",
+    title: "Terms of Service | Cast Operations",
+    description: "Cast Operations terms of service and conditions of use.",
     canonicalPath: "/legal/terms",
     twitterCard: "summary",
     pageType: "legal",
@@ -1277,9 +1277,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/legal/privacy": {
-    title: "Privacy Policy | OneUptime",
+    title: "Privacy Policy | Cast Operations",
     description:
-      "OneUptime privacy policy. Learn how we collect, use, and protect your data.",
+      "Cast Operations privacy policy. Learn how we collect, use, and protect your data.",
     canonicalPath: "/legal/privacy",
     twitterCard: "summary",
     pageType: "legal",
@@ -1291,9 +1291,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/legal/cookies": {
-    title: "Cookie Policy | OneUptime",
+    title: "Cookie Policy | Cast Operations",
     description:
-      "OneUptime cookie policy. Learn what cookies we use, why we use them, and how to control them.",
+      "Cast Operations cookie policy. Learn what cookies we use, why we use them, and how to control them.",
     canonicalPath: "/legal/cookies",
     twitterCard: "summary",
     pageType: "legal",
@@ -1305,9 +1305,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/legal/gdpr": {
-    title: "GDPR Compliance | OneUptime",
+    title: "GDPR Compliance | Cast Operations",
     description:
-      "OneUptime GDPR compliance information. We are committed to protecting EU citizen data rights.",
+      "Cast Operations GDPR compliance information. We are committed to protecting EU citizen data rights.",
     canonicalPath: "/legal/gdpr",
     twitterCard: "summary",
     pageType: "legal",
@@ -1319,9 +1319,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/legal/soc-2": {
-    title: "SOC 2 Compliance | OneUptime",
+    title: "SOC 2 Compliance | Cast Operations",
     description:
-      "OneUptime SOC 2 Type II compliance. Our security controls are audited annually.",
+      "Cast Operations SOC 2 Type II compliance. Our security controls are audited annually.",
     canonicalPath: "/legal/soc-2",
     twitterCard: "summary",
     pageType: "legal",
@@ -1333,9 +1333,9 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/legal/hipaa": {
-    title: "HIPAA Compliance | OneUptime",
+    title: "HIPAA Compliance | Cast Operations",
     description:
-      "OneUptime HIPAA compliance for healthcare organizations. We sign BAAs for enterprise customers.",
+      "Cast Operations HIPAA compliance for healthcare organizations. We sign BAAs for enterprise customers.",
     canonicalPath: "/legal/hipaa",
     twitterCard: "summary",
     pageType: "legal",
@@ -1348,7 +1348,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   // Teams (Solutions)
   "/solutions/devops": {
-    title: "DevOps Monitoring & Observability | OneUptime",
+    title: "DevOps Monitoring & Observability | Cast Operations",
     description:
       "Observability platform built for DevOps teams. Monitor infrastructure, track deployments, automate incident response, and improve MTTR. Open source.",
     canonicalPath: "/solutions/devops",
@@ -1362,7 +1362,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/solutions/sre": {
-    title: "SRE Tools & Platform | Site Reliability Engineering | OneUptime",
+    title: "SRE Tools & Platform | Site Reliability Engineering | Cast Operations",
     description:
       "Complete SRE platform with SLOs, error budgets, incident management, and on-call scheduling. Track reliability metrics and reduce toil. Open source.",
     canonicalPath: "/solutions/sre",
@@ -1376,7 +1376,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/solutions/platform": {
-    title: "Platform Engineering Observability | OneUptime",
+    title: "Platform Engineering Observability | Cast Operations",
     description:
       "Observability for platform engineering teams. Provide self-service monitoring, standardized dashboards, and unified alerting for internal developer platforms. Open source.",
     canonicalPath: "/solutions/platform",
@@ -1390,7 +1390,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/solutions/developers": {
-    title: "Developer Observability Tools | OneUptime",
+    title: "Developer Observability Tools | Cast Operations",
     description:
       "Debugging and observability tools for developers. Trace requests, search logs, track errors, and understand application performance. Open source.",
     canonicalPath: "/solutions/developers",
@@ -1405,7 +1405,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
 
   // Industries
   "/industries/fintech": {
-    title: "FinTech Monitoring & Compliance | OneUptime",
+    title: "FinTech Monitoring & Compliance | Cast Operations",
     description:
       "Observability platform for FinTech companies. SOC 2 compliant, PCI-DSS ready. Monitor payment systems, track transactions, and ensure uptime for financial services.",
     canonicalPath: "/industries/fintech",
@@ -1419,7 +1419,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/industries/saas": {
-    title: "SaaS Monitoring & Status Pages | OneUptime",
+    title: "SaaS Monitoring & Status Pages | Cast Operations",
     description:
       "Complete observability for SaaS companies. Monitor your application, communicate status to customers, manage incidents, and improve reliability. Open source.",
     canonicalPath: "/industries/saas",
@@ -1433,7 +1433,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/industries/healthcare": {
-    title: "Healthcare IT Monitoring | HIPAA Compliant | OneUptime",
+    title: "Healthcare IT Monitoring | HIPAA Compliant | Cast Operations",
     description:
       "HIPAA-compliant observability platform for healthcare organizations. Monitor EHR systems, ensure uptime for critical health services, and maintain compliance.",
     canonicalPath: "/industries/healthcare",
@@ -1447,7 +1447,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/industries/ecommerce": {
-    title: "E-Commerce Monitoring & Uptime | OneUptime",
+    title: "E-Commerce Monitoring & Uptime | Cast Operations",
     description:
       "Observability platform for e-commerce. Monitor checkout flows, track page performance, ensure uptime during peak traffic, and reduce cart abandonment.",
     canonicalPath: "/industries/ecommerce",
@@ -1461,7 +1461,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/industries/media": {
-    title: "Media & Streaming Monitoring | OneUptime",
+    title: "Media & Streaming Monitoring | Cast Operations",
     description:
       "Observability for media and streaming platforms. Monitor video delivery, track playback quality, ensure global availability, and optimize viewer experience.",
     canonicalPath: "/industries/media",
@@ -1475,7 +1475,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/industries/government": {
-    title: "Government IT Monitoring | FedRAMP Ready | OneUptime",
+    title: "Government IT Monitoring | FedRAMP Ready | Cast Operations",
     description:
       "Secure observability platform for government agencies. Self-hosted deployment, data residency controls, and compliance-ready. Monitor critical public services.",
     canonicalPath: "/industries/government",
@@ -1508,8 +1508,8 @@ export const getPageSEO: (path: string) => PageSEOData = (
       })
       .join(" ");
     return {
-      title: `OneUptime vs ${productName} | Comparison | OneUptime`,
-      description: `Compare OneUptime with ${productName}. See features, pricing, and why teams choose OneUptime as their observability platform.`,
+      title: `Cast Operations vs ${productName} | Comparison | Cast Operations`,
+      description: `Compare Cast Operations with ${productName}. See features, pricing, and why teams choose Cast Operations as their observability platform.`,
       canonicalPath: path,
       twitterCard: "summary_large_image",
       pageType: "compare",
@@ -1531,8 +1531,8 @@ export const getPageSEO: (path: string) => PageSEOData = (
       })
       .join(" ");
     return {
-      title: `${sectionName} | Legal | OneUptime`,
-      description: `OneUptime ${sectionName.toLowerCase()} legal information and compliance documentation.`,
+      title: `${sectionName} | Legal | Cast Operations`,
+      description: `Cast Operations ${sectionName.toLowerCase()} legal information and compliance documentation.`,
       canonicalPath: path,
       twitterCard: "summary",
       pageType: "legal",
@@ -1546,8 +1546,8 @@ export const getPageSEO: (path: string) => PageSEOData = (
 
   // Default fallback
   return createDefaultSEO(
-    "OneUptime | Complete Observability Platform",
-    "OneUptime monitors websites, APIs, and servers and alerts your team if something goes wrong. It also keeps your customers updated about any downtime.",
+    "Cast Operations | Complete Observability Platform",
+    "Cast Operations monitors websites, APIs, and servers and alerts your team if something goes wrong. It also keeps your customers updated about any downtime.",
     path,
     "other",
   );

@@ -9,7 +9,7 @@
 
 ```
 # Клонируйте репозиторий и перейдите в него.
-git clone https://github.com/OneUptime/oneuptime.git
+git clone https://github.com/autonomy-cloud/operations.git
 cd oneuptime
 
 # Скопируйте config.example.env в config.env

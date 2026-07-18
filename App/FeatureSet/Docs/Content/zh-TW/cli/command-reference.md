@@ -1,12 +1,12 @@
 # 命令參考
 
-OneUptime CLI 所有命令的完整參考。
+Cast Operations CLI 所有命令的完整參考。
 
 ## 驗證命令
 
 ### `oneuptime login`
 
-向 OneUptime 執行個體進行驗證。
+向 Cast Operations 執行個體進行驗證。
 
 ```bash
 oneuptime login <api-key> <instance-url> [--context-name <name>]
@@ -15,7 +15,7 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 | 參數             | 類型     | 是否必填 | 說明                            |
 | ---------------- | -------- | -------- | ------------------------------- |
 | `<api-key>`      | argument | 是       | 用於驗證的 API 金鑰             |
-| `<instance-url>` | argument | 是       | OneUptime 執行個體 URL          |
+| `<instance-url>` | argument | 是       | Cast Operations 執行個體 URL          |
 | `--context-name` | option   | 否       | 內容名稱（預設值：`"default"`） |
 
 ---

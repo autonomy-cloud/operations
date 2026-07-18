@@ -1,6 +1,6 @@
-# OneUptime Self-Hosted Architecture
+# Cast Operations Self-Hosted Architecture
 
-This diagram shows how OneUptime typically looks when self-hosted in your environment (for example, in your Kubernetes cluster), including how Probes monitor both internal and external resources.
+This diagram shows how Cast Operations typically looks when self-hosted in your environment (for example, in your Kubernetes cluster), including how Probes monitor both internal and external resources.
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["Incoming Request Ingest"]
     end
 
-    subgraph Probes["OneUptime Probes"]
+    subgraph Probes["Cast Operations Probes"]
       direction TB
       P1["Probe Pod(s) in your cluster"]
       P2["Optional Probe VM/Container on your network"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## What this shows
 
-- End users access OneUptime through your cluster’s Ingress (NGINX), which routes to the UI and API.
+- End users access Cast Operations through your cluster’s Ingress (NGINX), which routes to the UI and API.
 - Core services read/write state to PostgreSQL, Redis, and ClickHouse.
 - Probes can run inside your cluster (recommended) and/or elsewhere on your network. They can monitor:
   - Internal/private services behind your firewall.

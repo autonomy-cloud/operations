@@ -52,7 +52,7 @@ We gebruiken Playwright om gebruikersinteracties te simuleren. U kunt het Playwr
 
 ### Schermafbeeldingen
 
-Een vooraf gedeclareerd `screenshots`-object is beschikbaar in de scriptcontext. Wijs schermafbeeldingen eraan toe op elk punt in het script — deze schermafbeeldingen worden vastgelegd **zelfs als het script een uitzondering genereert** (inclusief bevestigingsfouten, time-outs of onverwachte fouten), zodat u precies kunt zien hoe de pagina eruitzag toen de uitvoering mislukte. Vastgelegde schermafbeeldingen verschijnen in het OneUptime-dashboard voor die specifieke monitoruitvoering.
+Een vooraf gedeclareerd `screenshots`-object is beschikbaar in de scriptcontext. Wijs schermafbeeldingen eraan toe op elk punt in het script — deze schermafbeeldingen worden vastgelegd **zelfs als het script een uitzondering genereert** (inclusief bevestigingsfouten, time-outs of onverwachte fouten), zodat u precies kunt zien hoe de pagina eruitzag toen de uitvoering mislukte. Vastgelegde schermafbeeldingen verschijnen in het Cast Operations-dashboard voor die specifieke monitoruitvoering.
 
 ```javascript
 // Capture screenshots via the `screenshots` side-channel — they are preserved on both success and failure.
@@ -93,7 +93,7 @@ return {
 
 #### Een secret toevoegen
 
-Om een secret toe te voegen, ga naar OneUptime Dashboard -> Projectinstellingen -> Monitor Secrets -> Monitor Secret aanmaken.
+Om een secret toe te voegen, ga naar Cast Operations Dashboard -> Projectinstellingen -> Monitor Secrets -> Monitor Secret aanmaken.
 
 ![Secret aanmaken](/docs/static/images/CreateMonitorSecret.png)
 
@@ -121,7 +121,7 @@ console.log(stringSecret);
 
 ### Aangepaste metrics
 
-U kunt aangepaste metrics vastleggen vanuit uw script met de functie `oneuptime.captureMetric()`. Deze metrics worden opgeslagen in OneUptime en kunnen worden weergegeven op dashboards via de Metric Explorer.
+U kunt aangepaste metrics vastleggen vanuit uw script met de functie `oneuptime.captureMetric()`. Deze metrics worden opgeslagen in Cast Operations en kunnen worden weergegeven op dashboards via de Metric Explorer.
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);
@@ -179,5 +179,5 @@ Na vastlegging verschijnen deze metrics in de Metric Explorer onder namen zoals 
 - U kunt variabelen `browserType` en `screenSizeType` gebruiken om het browsertype en het schermformaattype in de huidige uitvoeringscontext te krijgen.
 - Dit is een JavaScript-script, dus u kunt alle JavaScript-functies gebruiken.
 - U kunt de `axios`-module gebruiken om HTTP-verzoeken te doen in het script.
-- Als u oneuptime.com gebruikt, heeft u altijd de nieuwste versie van Playwright en browsers beschikbaar. Als u zelf host, zorg er dan voor dat u de probes bijwerkt zodat ze de nieuwste versie van Playwright en de browsers hebben.
+- Als u visca.ai gebruikt, heeft u altijd de nieuwste versie van Playwright en browsers beschikbaar. Als u zelf host, zorg er dan voor dat u de probes bijwerkt zodat ze de nieuwste versie van Playwright en de browsers hebben.
 - De time-out voor het script is 2 minuten. Als het script meer dan 2 minuten duurt, wordt het beëindigd.

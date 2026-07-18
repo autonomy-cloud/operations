@@ -52,7 +52,7 @@ Viene usato Playwright per simulare le interazioni degli utenti. È possibile us
 
 ### Screenshot
 
-Nel contesto dello script è disponibile un oggetto `screenshots` pre-dichiarato. Gli screenshot vengono assegnati in qualsiasi momento durante lo script — questi screenshot vengono acquisiti **anche se lo script genera un errore** (inclusi fallimenti di assertion, timeout o errori imprevisti), così è possibile vedere esattamente com'era la pagina quando l'esecuzione è fallita. Gli screenshot acquisiti appaiono nel Dashboard di OneUptime per quella specifica esecuzione del monitor.
+Nel contesto dello script è disponibile un oggetto `screenshots` pre-dichiarato. Gli screenshot vengono assegnati in qualsiasi momento durante lo script — questi screenshot vengono acquisiti **anche se lo script genera un errore** (inclusi fallimenti di assertion, timeout o errori imprevisti), così è possibile vedere esattamente com'era la pagina quando l'esecuzione è fallita. Gli screenshot acquisiti appaiono nel Dashboard di Cast Operations per quella specifica esecuzione del monitor.
 
 ```javascript
 // Acquisire screenshot tramite il canale laterale `screenshots` — vengono preservati sia in caso di successo che di errore.
@@ -93,7 +93,7 @@ return {
 
 #### Aggiunta di un segreto
 
-Per aggiungere un segreto, accedere a Dashboard OneUptime -> Impostazioni Progetto -> Segreti Monitor -> Crea Segreto Monitor.
+Per aggiungere un segreto, accedere a Dashboard Cast Operations -> Impostazioni Progetto -> Segreti Monitor -> Crea Segreto Monitor.
 
 ![Crea Segreto](/docs/static/images/CreateMonitorSecret.png)
 
@@ -121,7 +121,7 @@ console.log(stringSecret);
 
 ### Metriche Personalizzate
 
-È possibile acquisire metriche personalizzate dallo script usando la funzione `oneuptime.captureMetric()`. Queste metriche vengono archiviate in OneUptime e possono essere visualizzate in grafici sui dashboard usando Metric Explorer.
+È possibile acquisire metriche personalizzate dallo script usando la funzione `oneuptime.captureMetric()`. Queste metriche vengono archiviate in Cast Operations e possono essere visualizzate in grafici sui dashboard usando Metric Explorer.
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);
@@ -179,5 +179,5 @@ Una volta acquisite, queste metriche appaiono in Metric Explorer con nomi come `
 - È possibile usare le variabili `browserType` e `screenSizeType` per ottenere il tipo di browser e la dimensione schermo nel contesto di esecuzione corrente. Sentirsi liberi di usarle nello script.
 - Questo è uno script JavaScript, quindi è possibile usare tutte le funzionalità JavaScript nello script.
 - È possibile usare il modulo `axios` per fare richieste HTTP nello script. Può essere usato per effettuare chiamate API dallo script.
-- Se si usa oneuptime.com, si avrà sempre disponibile la versione più recente di Playwright e dei browser nel contesto dello script. Se si ospita autonomamente, assicurarsi di aggiornare i probe per avere la versione più recente di Playwright e dei browser.
+- Se si usa visca.ai, si avrà sempre disponibile la versione più recente di Playwright e dei browser nel contesto dello script. Se si ospita autonomamente, assicurarsi di aggiornare i probe per avere la versione più recente di Playwright e dei browser.
 - Il timeout per lo script è di 2 minuti. Se lo script impiega più di 2 minuti, verrà terminato.

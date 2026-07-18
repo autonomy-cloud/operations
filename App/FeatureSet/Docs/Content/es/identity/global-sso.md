@@ -1,8 +1,8 @@
 # Global SSO (inicio de sesión único en toda la instancia)
 
-Global SSO permite que un **administrador de la instancia** de OneUptime (administrador maestro) configure un único proveedor de identidad SAML 2.0 u OpenID Connect (OIDC) **una sola vez a nivel de instancia** y lo conecte a cualquier proyecto del servidor. Es la contraparte a nivel de instancia del SSO por proyecto: en lugar de que cada propietario de proyecto configure su propio proveedor de identidad, un administrador maestro configura uno que puede dar servicio a toda la instancia.
+Global SSO permite que un **administrador de la instancia** de Cast Operations (administrador maestro) configure un único proveedor de identidad SAML 2.0 u OpenID Connect (OIDC) **una sola vez a nivel de instancia** y lo conecte a cualquier proyecto del servidor. Es la contraparte a nivel de instancia del SSO por proyecto: en lugar de que cada propietario de proyecto configure su propio proveedor de identidad, un administrador maestro configura uno que puede dar servicio a toda la instancia.
 
-Global SSO es una funcionalidad de **OneUptime Enterprise Edition** y solo está disponible en instancias que ejecutan la compilación de Enterprise Edition.
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO frente a Project SSO
 
@@ -24,7 +24,7 @@ Global SSO es una funcionalidad de **OneUptime Enterprise Edition** y solo está
    - Para SAML: ingresa un **Name**, la **Sign On URL** y el **Issuer** de tu proveedor de identidad, y pega el **Public Certificate**. Elige los métodos de **Signature** y **Digest** (deja los valores predeterminados, `RSA-SHA256` / `SHA256`, si no estás seguro).
    - Para OIDC: ingresa la **Discovery URL**, el **Issuer**, el **Client ID**, el **Client Secret**, los **Scopes** (deben incluir `openid`) y los nombres de los claims de **email** / **name**.
 
-3. **Copia las URL de OneUptime en tu proveedor de identidad**
+3. **Copia las URL de Cast Operations en tu proveedor de identidad**
 
    - Abre el proveedor (haz clic en su fila en la lista) para mostrar la tarjeta **Identity Provider URLs**.
    - Para SAML, copia la **ACS URL (Reply URL)** y el **Issuer (Entity ID)** en tu IdP (Okta, Azure AD, OneLogin, JumpCloud y más).

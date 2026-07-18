@@ -4,7 +4,7 @@ Native push-varsler (iOS/Android) er drevet av **Expo Push** og krever **ingen s
 
 ## Slik fungerer det
 
-OneUptime-mobilappen registrerer et Expo Push-token hos backend. Når backend trenger å sende et varsel, sender den en POST til den offentlige Expo Push API-en, som ruter meldingen til Apple APNs eller Google FCM på vegne av appen.
+Cast Operations-mobilappen registrerer et Expo Push-token hos backend. Når backend trenger å sende et varsel, sender den en POST til den offentlige Expo Push API-en, som ruter meldingen til Apple APNs eller Google FCM på vegne av appen.
 
 Nettleser-push-varsler fortsetter å bruke VAPID-nøkler og Web Push-protokollen.
 
@@ -18,7 +18,7 @@ Ingen push-varselkonfigurasjon er nødvendig. Mobilapp-binærfilen håndterer al
 
 - Sørg for at mobilappen ble bygget med EAS Build (Expo Go støtter ikke push-varsler)
 - Verifiser at enheten er registrert i `UserPush`-tabellen i databasen din
-- Sjekk OneUptime-serverlogger for Expo Push API-feil
+- Sjekk Cast Operations-serverlogger for Expo Push API-feil
 - Bekreft at enheten har en aktiv internettilkobling og varslingstillatelser aktivert
 
 ### "DeviceNotRegistered"-feil i logger
@@ -30,5 +30,5 @@ Expo Push-tokenet er ikke lenger gyldig. Dette betyr vanligvis at appen ble avin
 Hvis du støter på problemer med push-varsler, vennligst:
 
 1. Sjekk feilsøkingsseksjonen ovenfor
-2. Se gjennom OneUptime-loggene for detaljerte feilmeldinger
-3. Kontakt oss på [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Se gjennom Cast Operations-loggene for detaljerte feilmeldinger
+3. Kontakt oss på [hello@visca.ai](mailto:hello@visca.ai)

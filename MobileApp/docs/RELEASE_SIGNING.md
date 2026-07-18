@@ -21,7 +21,7 @@ keytool -genkeypair \
   -keypass <your-key-password> \
   -alias <your-key-alias> \
   -keystore release.keystore \
-  -dname "CN=OneUptime, OU=Mobile, O=OneUptime, L=City, ST=State, C=US"
+  -dname "CN=Cast Operations, OU=Mobile, O=Cast Operations, L=City, ST=State, C=US"
 ```
 
 Replace `<your-store-password>`, `<your-key-password>`, and `<your-key-alias>` with your chosen values. Keep these safe -- you will need them as secrets.
@@ -73,7 +73,7 @@ Go to **Settings > Secrets and variables > Actions** in your GitHub repository a
 3. Select **Apple Distribution** and click Continue
 4. Upload a Certificate Signing Request (CSR):
    - Open **Keychain Access > Certificate Assistant > Request a Certificate From a Certificate Authority**
-   - Fill in your email, set "Common Name" to something like "OneUptime Distribution"
+   - Fill in your email, set "Common Name" to something like "Cast Operations Distribution"
    - Select **Saved to disk**, click Continue, and save the `.certSigningRequest` file
 5. Upload the CSR, download the generated `.cer` file
 6. Double-click the `.cer` file to install it in your Keychain
@@ -112,7 +112,7 @@ If you haven't already:
 3. Select **App Store Connect** (under Distribution) and click Continue
 4. Select the App ID `com.oneuptime.oncall`
 5. Select the distribution certificate you created in step 1
-6. Name the profile **OneUptime Distribution** (this must match the value in `ExportOptions.plist`)
+6. Name the profile **Cast Operations Distribution** (this must match the value in `ExportOptions.plist`)
 7. Click **Generate** and download the `.mobileprovision` file
 
 ### 6. Base64-encode the provisioning profile

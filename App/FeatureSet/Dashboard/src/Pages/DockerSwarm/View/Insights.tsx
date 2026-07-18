@@ -33,7 +33,7 @@ import InBetween from "Common/Types/BaseDatabase/InBetween";
  * Pages/Proxmox/View/Insights.tsx). Every section scopes to this cluster
  * the SAME way Pages/DockerSwarm/View/Metrics.tsx does: by the single
  * `resource.docker.swarm.cluster.name` resource attribute that the
- * OneUptime Docker Swarm agent stamps. There is NO container.runtime
+ * Cast Operations Docker Swarm agent stamps. There is NO container.runtime
  * attribute and there are NO docker_swarm_* / pve_* metrics — the only
  * metrics that arrive are the docker_stats receiver's container.* series
  * (container.cpu.utilization, container.memory.usage.total,

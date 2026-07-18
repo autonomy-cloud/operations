@@ -1,8 +1,8 @@
-# OneUptime Podman Agent
+# Cast Operations Podman Agent
 
 ## Overview
 
-The OneUptime Podman Agent is a pre-built container image that ships with a tuned OpenTelemetry Collector configuration. Run it next to your existing containers and it auto-discovers every container on the host, collects CPU / memory / network / block I/O metrics plus container logs, and forwards everything to OneUptime over OTLP. Single image, single command.
+The Cast Operations Podman Agent is a pre-built container image that ships with a tuned OpenTelemetry Collector configuration. Run it next to your existing containers and it auto-discovers every container on the host, collects CPU / memory / network / block I/O metrics plus container logs, and forwards everything to Cast Operations over OTLP. Single image, single command.
 
 This page is the **installation guide**. For configuring Podman monitors and alerts on top of the data the agent collects, see [Podman Monitor](/docs/monitor/podman-monitor).
 
@@ -10,11 +10,11 @@ This page is the **installation guide**. For configuring Podman monitors and ale
 
 - Podman 4.0+
 - Access to `/run/podman/podman.sock` on the host
-- A **OneUptime Telemetry Ingestion Token** — create one from _Project Settings → Telemetry Ingestion Keys_ and copy the value
+- A **Cast Operations Telemetry Ingestion Token** — create one from _Project Settings → Telemetry Ingestion Keys_ and copy the value
 
 ## Quick Start (One Command)
 
-Replace `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, and the host name with values for your environment. The host name is how this Podman host will appear in OneUptime — pick something like `prod-podman-01`.
+Replace `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, and the host name with values for your environment. The host name is how this Podman host will appear in Cast Operations — pick something like `prod-podman-01`.
 
 ```bash
 podman run -d \
@@ -29,7 +29,7 @@ podman run -d \
   oneuptime/podman-agent:release
 ```
 
-That is it. Once the agent connects, your Podman host will appear automatically in the **Podman** section of the OneUptime dashboard.
+That is it. Once the agent connects, your Podman host will appear automatically in the **Podman** section of the Cast Operations dashboard.
 
 ## Alternative — Podman Compose
 
@@ -66,7 +66,7 @@ podman compose up -d
 
 | Variable                  | Required | Description                                                                                                         |
 | ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | Yes      | Your OneUptime instance URL (for example `https://oneuptime.com` or your self-hosted host)                          |
+| `ONEUPTIME_URL`           | Yes      | Your Cast Operations instance URL (for example `https://visca.ai` or your self-hosted host)                          |
 | `ONEUPTIME_SERVICE_TOKEN` | Yes      | Telemetry ingestion token from _Project Settings → Telemetry Ingestion Keys_                                        |
 | `PODMAN_HOST_NAME`        | No       | Friendly name for this host. Defaults to `podman-host`. Set it to something stable per host (e.g. `prod-podman-01`) |
 
@@ -86,7 +86,7 @@ podman logs -f oneuptime-podman-agent
 
 Look for: `"Everything is ready. Begin running and processing data."`
 
-Within a minute or so the host should appear in the OneUptime dashboard with metrics and logs flowing.
+Within a minute or so the host should appear in the Cast Operations dashboard with metrics and logs flowing.
 
 ## Upgrading the Agent
 
@@ -126,12 +126,12 @@ podman compose down
 | **Container Info**    | Uptime, restart count, process count                           |
 | **Container Logs**    | stdout / stderr logs from all containers                       |
 
-## Self-hosted OneUptime
+## Self-hosted Cast Operations
 
-If you are self-hosting OneUptime, set `ONEUPTIME_URL` to your own instance:
+If you are self-hosting Cast Operations, set `ONEUPTIME_URL` to your own instance:
 
 ```bash
--e ONEUPTIME_URL="https://your-oneuptime-host.example.com"
+-e ONEUPTIME_URL="https://your-operations-host.example.com"
 ```
 
 If your instance is HTTP-only, use `http://` and the appropriate port.
@@ -150,8 +150,8 @@ The Podman API socket must be enabled and reachable at `/run/podman/podman.sock`
 
 1. Check that the agent is running: `podman ps --filter name=oneuptime-podman-agent`
 2. Check the agent logs: `podman logs oneuptime-podman-agent | grep -i error`
-3. Verify your OneUptime URL and service token are correct
-4. Ensure your Podman host can reach the OneUptime instance over the network
+3. Verify your Cast Operations URL and service token are correct
+4. Ensure your Podman host can reach the Cast Operations instance over the network
 
 ### No Metrics Appearing
 
@@ -166,5 +166,5 @@ Set the `PODMAN_HOST_NAME` environment variable to a friendly name and recreate 
 ## Next steps
 
 - Configure **Podman Monitors** to alert on container CPU / memory / restart conditions — see [Podman Monitor](/docs/monitor/podman-monitor).
-- For Kubernetes clusters instead of standalone Podman hosts, use the [OneUptime Kubernetes Agent](/docs/telemetry/kubernetes-agent).
+- For Kubernetes clusters instead of standalone Podman hosts, use the [Cast Operations Kubernetes Agent](/docs/telemetry/kubernetes-agent).
 - For non-containerized hosts (Linux / macOS / Windows VMs and bare metal), use the [Host OpenTelemetry Collector](/docs/telemetry/host-otel-collector).

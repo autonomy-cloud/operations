@@ -44,7 +44,7 @@ import { resolveTargetRepository } from "./CodeTools";
 let cachedUpdatePermissions: Array<Permission> | null = null;
 /*
  * Writing code is gated on CodeRepository UPDATE, not read: whoever may point
- * OneUptime at a repository is the same person trusted to let it write there.
+ * Cast Operations at a repository is the same person trusted to let it write there.
  * There is no finer-grained "may write code" permission, and G1's policy
  * gateway (risk tiers, capability-scoped tokens) does not exist yet — so this
  * deliberately errs narrow.
@@ -453,7 +453,7 @@ export const OpenCodePullRequestTool: ObservabilityTool = {
         baseBranchName: baseBranchName,
         headBranchName: headBranchName,
         title: title,
-        body: `${description}\n\n---\n_Proposed by OneUptime AI from a chat conversation. Review carefully before merging: this change was written by an agent that reads production telemetry._`,
+        body: `${description}\n\n---\n_Proposed by Cast Operations AI from a chat conversation. Review carefully before merging: this change was written by an agent that reads production telemetry._`,
         isDraft: true,
       });
 

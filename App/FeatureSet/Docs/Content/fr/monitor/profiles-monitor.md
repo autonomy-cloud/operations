@@ -1,6 +1,6 @@
 # Moniteur de profils
 
-La surveillance des profils vous permet de surveiller les données de profilage continu de vos applications et de déclencher des alertes basées sur les comptages et les modèles de profils. OneUptime évalue les données de profil de vos services de télémétrie sur une fenêtre temporelle.
+La surveillance des profils vous permet de surveiller les données de profilage continu de vos applications et de déclencher des alertes basées sur les comptages et les modèles de profils. Cast Operations évalue les données de profil de vos services de télémétrie sur une fenêtre temporelle.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs de profils comptent et filtrent les données de profilage correspo
 
 ## Création d'un moniteur de profils
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Profils** comme type de moniteur
 4. Sélectionnez les services de télémétrie à surveiller
@@ -24,7 +24,7 @@ Les moniteurs de profils comptent et filtrent les données de profilage correspo
 
 ### Services de télémétrie
 
-Sélectionnez un ou plusieurs services depuis lesquels surveiller les profils. Les services doivent envoyer des données de profilage continu à OneUptime via OpenTelemetry.
+Sélectionnez un ou plusieurs services depuis lesquels surveiller les profils. Les services doivent envoyer des données de profilage continu à Cast Operations via OpenTelemetry.
 
 ### Filtres de profils
 
@@ -62,4 +62,4 @@ Sélectionnez un ou plusieurs services depuis lesquels surveiller les profils. L
 
 ## Prérequis d'installation
 
-La surveillance des profils nécessite que vos applications envoient des données de profilage continu à OneUptime via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.
+La surveillance des profils nécessite que vos applications envoient des données de profilage continu à Cast Operations via OpenTelemetry. Consultez la documentation [OpenTelemetry](/docs/telemetry/open-telemetry) pour les instructions de configuration.

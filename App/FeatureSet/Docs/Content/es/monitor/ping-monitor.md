@@ -1,6 +1,6 @@
 # Monitor Ping
 
-El monitoreo Ping te permite supervisar la disponibilidad y la capacidad de respuesta de cualquier host o dirección IP. OneUptime envía periódicamente solicitudes de ping a tu objetivo y verifica si responde correctamente.
+El monitoreo Ping te permite supervisar la disponibilidad y la capacidad de respuesta de cualquier host o dirección IP. Cast Operations envía periódicamente solicitudes de ping a tu objetivo y verifica si responde correctamente.
 
 ## Información general
 
@@ -13,7 +13,7 @@ Los monitores Ping prueban la conectividad de red básica enviando solicitudes d
 
 ## Creación de un monitor Ping
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Ping** como tipo de monitor
 4. Ingresa el nombre de host o la dirección IP que deseas monitorear

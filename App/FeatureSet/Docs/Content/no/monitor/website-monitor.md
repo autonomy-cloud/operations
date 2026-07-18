@@ -1,6 +1,6 @@
 # Nettstedmonitor
 
-Nettstedovervåking lar deg overvåke tilgjengelighet, ytelse og svar for ethvert nettsted eller nettside. OneUptime sender periodisk HTTP-forespørsler til nettstedets URL og sjekker om det svarer korrekt.
+Nettstedovervåking lar deg overvåke tilgjengelighet, ytelse og svar for ethvert nettsted eller nettside. Cast Operations sender periodisk HTTP-forespørsler til nettstedets URL og sjekker om det svarer korrekt.
 
 ## Oversikt
 
@@ -14,7 +14,7 @@ Nettstedmonitorer sjekker nettsidene dine ved å sende HTTP-forespørsler og eva
 
 ## Opprette en nettstedmonitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **Website** som monitortype
 4. Skriv inn nettstedets URL du ønsker å overvåke
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### Følg ikke omdirigeringer
 
-Som standard følger OneUptime HTTP-omdirigeringer (301, 302, osv.). Aktiver dette alternativet hvis du ønsker å overvåke selve omdirigeringssvaret i stedet for det endelige målet.
+Som standard følger Cast Operations HTTP-omdirigeringer (301, 302, osv.). Aktiver dette alternativet hvis du ønsker å overvåke selve omdirigeringssvaret i stedet for det endelige målet.
 
 #### Allow Self-Signed Certificates
 
@@ -77,7 +77,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

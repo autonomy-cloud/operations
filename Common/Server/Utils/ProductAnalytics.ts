@@ -12,7 +12,7 @@ import logger from "./Logger";
 /*
  * Server-side product analytics (PostHog).
  *
- * Client-side events are lost to ad blockers — common with OneUptime's
+ * Client-side events are lost to ad blockers — common with Cast Operations’
  * developer audience — so revenue and activation events are also captured
  * here, where they cannot be blocked.
  *

@@ -47,7 +47,7 @@ const Welcome: FunctionComponent<ComponentProps> = (
           description={
             <>
               Creating new projects is restricted to admin users on this
-              OneUptime Server. Please contact your server admin to be added to
+              Cast Operations Server. Please contact your server admin to be added to
               an existing project.
             </>
           }

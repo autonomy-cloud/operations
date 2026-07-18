@@ -1,8 +1,8 @@
-# OneUptime Docker Agent
+# Cast Operations Docker Agent
 
 ## 概覽
 
-OneUptime Docker Agent 是一個預先建置的容器映像檔，內含經過調校的 OpenTelemetry Collector 設定。將它與您現有的容器一起執行，它會自動探索主機上的每個容器，收集 CPU / 記憶體 / 網路 / 區塊 I/O 指標以及容器日誌，並透過 OTLP 將所有資料轉送至 OneUptime。單一映像檔，單一指令。
+Cast Operations Docker Agent 是一個預先建置的容器映像檔，內含經過調校的 OpenTelemetry Collector 設定。將它與您現有的容器一起執行，它會自動探索主機上的每個容器，收集 CPU / 記憶體 / 網路 / 區塊 I/O 指標以及容器日誌，並透過 OTLP 將所有資料轉送至 Cast Operations。單一映像檔，單一指令。
 
 本頁是**安裝指南**。若要在 Agent 所收集的資料之上設定 Docker 監控與警示，請參閱 [Docker Monitor](/docs/monitor/docker-monitor)。
 
@@ -10,11 +10,11 @@ OneUptime Docker Agent 是一個預先建置的容器映像檔，內含經過調
 
 - Docker Engine 20.10+
 - 可存取主機上的 `/var/run/docker.sock`
-- 一組 **OneUptime Telemetry Ingestion Token** — 從 _Project Settings → Telemetry Ingestion Keys_ 建立一組，並複製其值
+- 一組 **Cast Operations Telemetry Ingestion Token** — 從 _Project Settings → Telemetry Ingestion Keys_ 建立一組，並複製其值
 
 ## 快速開始（單一指令）
 
-請將 `YOUR_ONEUPTIME_URL`、`YOUR_TELEMETRY_INGESTION_TOKEN` 以及主機名稱替換為您環境的對應值。主機名稱即為此 Docker 主機在 OneUptime 中顯示的名稱 — 請挑選類似 `prod-docker-01` 的名稱。
+請將 `YOUR_ONEUPTIME_URL`、`YOUR_TELEMETRY_INGESTION_TOKEN` 以及主機名稱替換為您環境的對應值。主機名稱即為此 Docker 主機在 Cast Operations 中顯示的名稱 — 請挑選類似 `prod-docker-01` 的名稱。
 
 ```bash
 docker run -d \
@@ -29,7 +29,7 @@ docker run -d \
   oneuptime/docker-agent:release
 ```
 
-這樣就完成了。一旦 Agent 連線成功，您的 Docker 主機便會自動出現在 OneUptime 儀表板的 **Docker** 區段中。
+這樣就完成了。一旦 Agent 連線成功，您的 Docker 主機便會自動出現在 Cast Operations 儀表板的 **Docker** 區段中。
 
 ## 替代方案 — Docker Compose
 
@@ -66,7 +66,7 @@ docker compose up -d
 
 | 變數                      | 必填 | 說明                                                                                            |
 | ------------------------- | ---- | ----------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | 是   | 您的 OneUptime 執行個體 URL（例如 `https://oneuptime.com` 或您的自架主機）                      |
+| `ONEUPTIME_URL`           | 是   | 您的 Cast Operations 執行個體 URL（例如 `https://visca.ai` 或您的自架主機）                      |
 | `ONEUPTIME_SERVICE_TOKEN` | 是   | 來自 _Project Settings → Telemetry Ingestion Keys_ 的遙測擷取權杖                               |
 | `DOCKER_HOST_NAME`        | 否   | 此主機的易記名稱。預設為 `docker-host`。請為每台主機設定一個穩定的名稱（例如 `prod-docker-01`） |
 
@@ -86,7 +86,7 @@ docker logs -f oneuptime-docker-agent
 
 尋找：`"Everything is ready. Begin running and processing data."`
 
-大約一分鐘內，主機應會出現在 OneUptime 儀表板中，並開始有指標與日誌流入。
+大約一分鐘內，主機應會出現在 Cast Operations 儀表板中，並開始有指標與日誌流入。
 
 ## 升級 Agent
 
@@ -126,12 +126,12 @@ docker compose down
 | **容器資訊**      | 執行時間、重新啟動次數、處理程序數量           |
 | **容器日誌**      | 來自所有容器的 stdout / stderr 日誌            |
 
-## 自架 OneUptime
+## 自架 Cast Operations
 
-如果您是自架 OneUptime，請將 `ONEUPTIME_URL` 設定為您自己的執行個體：
+如果您是自架 Cast Operations，請將 `ONEUPTIME_URL` 設定為您自己的執行個體：
 
 ```bash
--e ONEUPTIME_URL="https://your-oneuptime-host.example.com"
+-e ONEUPTIME_URL="https://your-operations-host.example.com"
 ```
 
 如果您的執行個體僅支援 HTTP，請使用 `http://` 與適當的連接埠。
@@ -146,8 +146,8 @@ Agent 容器必須以 root 身分（`--user 0:0`）執行才能存取 `/var/run/
 
 1. 檢查 Agent 是否正在執行：`docker ps --filter name=oneuptime-docker-agent`
 2. 檢查 Agent 日誌：`docker logs oneuptime-docker-agent | grep -i error`
-3. 確認您的 OneUptime URL 與服務權杖正確無誤
-4. 確認您的 Docker 主機可透過網路連線至 OneUptime 執行個體
+3. 確認您的 Cast Operations URL 與服務權杖正確無誤
+4. 確認您的 Docker 主機可透過網路連線至 Cast Operations 執行個體
 
 ### 沒有出現任何指標
 
@@ -162,5 +162,5 @@ Agent 容器必須以 root 身分（`--user 0:0`）執行才能存取 `/var/run/
 ## 後續步驟
 
 - 設定 **Docker Monitors** 以針對容器 CPU / 記憶體 / 重新啟動條件發出警示 — 請參閱 [Docker Monitor](/docs/monitor/docker-monitor)。
-- 若是 Kubernetes 叢集而非獨立的 Docker 主機，請使用 [OneUptime Kubernetes Agent](/docs/telemetry/kubernetes-agent)。
+- 若是 Kubernetes 叢集而非獨立的 Docker 主機，請使用 [Cast Operations Kubernetes Agent](/docs/telemetry/kubernetes-agent)。
 - 若是非容器化的主機（Linux / macOS / Windows VM 與裸機），請使用 [Host OpenTelemetry Collector](/docs/telemetry/host-otel-collector)。

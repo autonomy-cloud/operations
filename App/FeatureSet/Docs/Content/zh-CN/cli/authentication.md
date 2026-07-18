@@ -1,10 +1,10 @@
 # 认证
 
-OneUptime CLI 支持多种方式与您的 OneUptime 实例进行认证。您可以使用命名上下文、环境变量，或直接通过标志传递凭据。
+Cast Operations CLI 支持多种方式与您的 Cast Operations 实例进行认证。您可以使用命名上下文、环境变量，或直接通过标志传递凭据。
 
 ## 登录
 
-使用 API 密钥向您的 OneUptime 实例进行认证：
+使用 API 密钥向您的 Cast Operations 实例进行认证：
 
 ```bash
 oneuptime login <api-key> <instance-url>
@@ -14,8 +14,8 @@ oneuptime login <api-key> <instance-url>
 
 | 参数             | 描述                                                    |
 | ---------------- | ------------------------------------------------------- |
-| `<api-key>`      | 您的 OneUptime API 密钥（例如 `sk-your-api-key`）       |
-| `<instance-url>` | 您的 OneUptime 实例 URL（例如 `https://oneuptime.com`） |
+| `<api-key>`      | 您的 Cast Operations API 密钥（例如 `sk-your-api-key`）       |
+| `<instance-url>` | 您的 Cast Operations 实例 URL（例如 `https://visca.ai`） |
 
 **选项：**
 
@@ -27,19 +27,19 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # 使用默认上下文登录
-oneuptime login sk-abc123 https://oneuptime.com
+oneuptime login sk-abc123 https://visca.ai
 
 # 使用命名上下文登录
-oneuptime login sk-abc123 https://oneuptime.com --context-name production
+oneuptime login sk-abc123 https://visca.ai --context-name production
 
 # 设置多个环境
-oneuptime login sk-prod-key https://oneuptime.com --context-name production
-oneuptime login sk-staging-key https://staging.oneuptime.com --context-name staging
+oneuptime login sk-prod-key https://visca.ai --context-name production
+oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## 上下文
 
-上下文允许您保存和切换多个 OneUptime 环境（例如生产、预发布、开发）。
+上下文允许您保存和切换多个 Cast Operations 环境（例如生产、预发布、开发）。
 
 ### 列出上下文
 
@@ -95,14 +95,14 @@ oneuptime context delete <name>
 ### 使用 CLI 标志
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://oneuptime.com incident list
+oneuptime --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### 使用环境变量
 
 ```bash
 export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://oneuptime.com
+export ONEUPTIME_URL=https://visca.ai
 
 oneuptime incident list
 ```
@@ -139,12 +139,12 @@ oneuptime whoami
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://oneuptime.com",
+      "apiUrl": "https://visca.ai",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.oneuptime.com",
+      "apiUrl": "https://staging.visca.ai",
       "apiKey": "sk-..."
     }
   },

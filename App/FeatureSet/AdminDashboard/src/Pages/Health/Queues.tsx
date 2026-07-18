@@ -87,9 +87,6 @@ const HealthQueues: FunctionComponent = (): ReactElement => {
     <HealthPage
       title="Background Queues"
       currentRoute={RouteMap[PageMap.HEALTH_QUEUES] as Route}
-      enterpriseOnly={true}
-      enterpriseFeatureName="Background queue health"
-      enterpriseFeatureDescription="Job backlog and failures across the BullMQ workers, with a drill-in to the recent failed-job logs for any queue reporting failures."
     >
       <QueuesContent />
     </HealthPage>

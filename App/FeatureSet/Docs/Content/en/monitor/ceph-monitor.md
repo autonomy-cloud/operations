@@ -1,6 +1,6 @@
 # Ceph Monitor
 
-Ceph monitoring allows you to monitor the health and performance of your Ceph clusters — overall health, active health checks, mon quorum, OSDs, pools, and placement groups. OneUptime collects metrics via a pre-configured OpenTelemetry Collector (the **OneUptime Ceph Agent**) and evaluates them against your configured criteria.
+Ceph monitoring allows you to monitor the health and performance of your Ceph clusters — overall health, active health checks, mon quorum, OSDs, pools, and placement groups. Cast Operations collects metrics via a pre-configured OpenTelemetry Collector (the **Cast Operations Ceph Agent**) and evaluates them against your configured criteria.
 
 ## Overview
 
@@ -15,7 +15,7 @@ Ceph monitors use metrics from the Ceph mgr `prometheus` module to provide visib
 
 ## Creating a Ceph Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **Ceph** as the monitor type
 4. Select the Ceph cluster to monitor
@@ -26,7 +26,7 @@ Ceph monitors use metrics from the Ceph mgr `prometheus` module to provide visib
 
 ### Ceph Cluster
 
-Select the Ceph cluster to monitor. Clusters are auto-registered the first time the OneUptime Ceph Agent ships telemetry from them (keyed by the `ceph.cluster.name` resource attribute) — you do not need to create them manually.
+Select the Ceph cluster to monitor. Clusters are auto-registered the first time the Cast Operations Ceph Agent ships telemetry from them (keyed by the `ceph.cluster.name` resource attribute) — you do not need to create them manually.
 
 ### Metric Queries
 
@@ -138,7 +138,7 @@ All `ceph_pg_*` state metrics are exported **per pool** with a `pool_id` label �
 
 ## Pre-built Alert Templates
 
-OneUptime ships 22 templates covering cluster health, OSDs, placement groups, and capacity. Each builds a complete monitor — metric queries, label filters, group-by, a fire criteria, and an auto-recover criteria — that you can edit after applying. Thresholds are starting points. Templates evaluate over the past 5 minutes unless noted:
+Cast Operations ships 22 templates covering cluster health, OSDs, placement groups, and capacity. Each builds a complete monitor — metric queries, label filters, group-by, a fire criteria, and an auto-recover criteria — that you can edit after applying. Thresholds are starting points. Templates evaluate over the past 5 minutes unless noted:
 
 ### Cluster Health
 
@@ -191,7 +191,7 @@ Not covered by templates, with reasons: PG imbalance needs cross-series stddev m
 To use Ceph monitoring, you need to:
 
 1. Enable the mgr prometheus module on the cluster: `ceph mgr module enable prometheus`
-2. Install the OneUptime Ceph Agent on a machine that can reach every mgr daemon on port 9283 — see the [Ceph Agent installation guide](/docs/telemetry/ceph)
+2. Install the Cast Operations Ceph Agent on a machine that can reach every mgr daemon on port 9283 — see the [Ceph Agent installation guide](/docs/telemetry/ceph)
 3. Pass `ONEUPTIME_URL`, `ONEUPTIME_TELEMETRY_INGESTION_KEY`, `CEPH_CLUSTER_NAME`, and `CEPH_MGR_ENDPOINTS` (all mgrs, comma-separated, wrapped in square brackets) as environment variables
 4. Wait for the cluster to auto-register (about a minute after the first scrape)
 

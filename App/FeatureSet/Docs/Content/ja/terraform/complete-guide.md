@@ -1,6 +1,6 @@
-# OneUptime Terraformプロバイダー
+# Cast Operations Terraformプロバイダー
 
-OneUptime Terraformプロバイダーを使用すると、Infrastructure as Code（IaC）でOneUptimeのリソースを管理できます。このプロバイダーを使用することで、Terraform経由でモニタリング、インシデント管理、ステータスページ、その他のOneUptime機能を設定できます。
+Cast Operations Terraformプロバイダーを使用すると、Infrastructure as Code（IaC）でCast Operationsのリソースを管理できます。このプロバイダーを使用することで、Terraform経由でモニタリング、インシデント管理、ステータスページ、その他のCast Operations機能を設定できます。
 
 ## 目次
 
@@ -17,13 +17,13 @@ OneUptime Terraformプロバイダーを使用すると、Infrastructure as Code
 
 ### Terraform Registryから（推奨）
 
-OneUptime Terraformプロバイダーは [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime) で利用可能です。
+Cast Operations Terraformプロバイダーは [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations) で利用可能です。
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 最新の7.xバージョンを使用
     }
   }
@@ -33,35 +33,35 @@ terraform {
 
 ### セルフホストインストールのバージョン固定
 
-⚠️ **セルフホストのお客様への重要なお知らせ**：APIの互換性を確保するために、TerraformプロバイダーのバージョンはOneUptimeのインストールバージョンに合わせて固定してください。
+⚠️ **セルフホストのお客様への重要なお知らせ**：APIの互換性を確保するために、TerraformプロバイダーのバージョンはCast Operationsのインストールバージョンに合わせて固定してください。
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # OneUptimeのインストールバージョンに完全一致させる
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Cast Operationsのインストールバージョンに完全一致させる
     }
   }
   required_version = ">= 1.0"
 }
 ```
 
-#### OneUptimeのバージョン確認方法
+#### Cast Operationsのバージョン確認方法
 
-OneUptimeのバージョンはいくつかの方法で確認できます：
+Cast Operationsのバージョンはいくつかの方法で確認できます：
 
-1. **ダッシュボード**：OneUptime ダッシュボードの設定 → About に移動
+1. **ダッシュボード**：Cast Operations ダッシュボードの設定 → About に移動
 2. **API**：`GET /api/status` エンドポイントを呼び出す
 3. **Docker**：使用しているイメージタグを確認
 4. **Helm**：Helmチャートのバージョンを確認
 
 ```bash
-# 例：OneUptime 7.0.123を実行している場合
+# 例：Cast Operations 7.0.123を実行している場合
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"
     }
   }
@@ -74,7 +74,7 @@ terraform {
 
 ```hcl
 provider "oneuptime" {
-  oneuptime_url = "https://your-oneuptime-instance.com"  # またはクラウドの場合 https://oneuptime.com
+  oneuptime_url = "https://your-operations-instance.com"  # またはクラウドの場合 https://visca.ai
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -84,7 +84,7 @@ provider "oneuptime" {
 環境変数を使用してプロバイダーを設定できます：
 
 ```bash
-export ONEUPTIME_URL="https://your-oneuptime-instance.com"
+export ONEUPTIME_URL="https://your-operations-instance.com"
 export ONEUPTIME_API_KEY="your-api-key-here"
 ```
 
@@ -100,14 +100,14 @@ provider "oneuptime" {
 
 | 引数            | 環境変数            | 説明              | 必須 |
 | --------------- | ------------------- | ----------------- | ---- |
-| `oneuptime_url` | `ONEUPTIME_URL`     | OneUptime URL     | はい |
-| `api_key`       | `ONEUPTIME_API_KEY` | OneUptime APIキー | はい |
+| `oneuptime_url` | `ONEUPTIME_URL`     | Cast Operations URL     | はい |
+| `api_key`       | `ONEUPTIME_API_KEY` | Cast Operations APIキー | はい |
 
 ## クイックスタート
 
 ### 1. APIキーの作成
 
-まず、OneUptime ダッシュボードでAPIキーを作成します：
+まず、Cast Operations ダッシュボードでAPIキーを作成します：
 
 1. **設定** → **APIキー** に移動
 2. **APIキーの作成** をクリック
@@ -123,20 +123,20 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # インスタンスURLを使用
+  oneuptime_url = "https://visca.ai"  # インスタンスURLを使用
   api_key       = var.oneuptime_api_key
 }
 
-# 注意：プロジェクトはOneUptime ダッシュボードで手動作成する必要があります
+# 注意：プロジェクトはCast Operations ダッシュボードで手動作成する必要があります
 variable "project_id" {
-  description = "OneUptimeのプロジェクトID"
+  description = "Cast OperationsのプロジェクトID"
   type        = string
 }
 
@@ -178,13 +178,13 @@ terraform apply
 
 ### クラウドのお客様
 
-OneUptime Cloudのお客様は最新のプロバイダーバージョンを使用してください：
+Cast Operations Cloudのお客様は最新のプロバイダーバージョンを使用してください：
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 常に最新の互換バージョンを使用
     }
   }
@@ -193,21 +193,21 @@ terraform {
 
 ### セルフホストのお客様
 
-**重要**：セルフホストのお客様はOneUptimeのインストールに合わせてプロバイダーバージョンを固定する必要があります：
+**重要**：セルフホストのお客様はCast Operationsのインストールに合わせてプロバイダーバージョンを固定する必要があります：
 
-| OneUptimeバージョン | プロバイダーバージョン | 設定                   |
+| Cast Operationsバージョン | プロバイダーバージョン | 設定                   |
 | ------------------- | ---------------------- | ---------------------- |
 | 7.0.x               | 7.0.x                  | `version = "~> 7.0.0"` |
 | 7.1.x               | 7.1.x                  | `version = "~> 7.1.0"` |
 | 7.2.x               | 7.2.x                  | `version = "~> 7.2.0"` |
 
-OneUptime 7.0.123の例：
+Cast Operations 7.0.123の例：
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # バージョンを完全一致させる
     }
   }
@@ -216,7 +216,7 @@ terraform {
 
 ## 利用可能なリソース
 
-OneUptime Terraformプロバイダーは以下のリソースをサポートしています：
+Cast Operations Terraformプロバイダーは以下のリソースをサポートしています：
 
 ### コアリソース
 
@@ -255,27 +255,27 @@ OneUptime Terraformプロバイダーは以下のリソースをサポートし�
 ```hcl
 # 変数
 variable "oneuptime_api_key" {
-  description = "OneUptime APIキー"
+  description = "Cast Operations APIキー"
   type        = string
   sensitive   = true
 }
 
 variable "project_id" {
-  description = "OneUptimeプロジェクトID（ダッシュボードで手動作成）"
+  description = "Cast OperationsプロジェクトID（ダッシュボードで手動作成）"
   type        = string
 }
 
 variable "oneuptime_url" {
-  description = "OneUptime URL"
+  description = "Cast Operations URL"
   type        = string
-  default     = "https://oneuptime.com"
+  default     = "https://visca.ai"
 }
 
 # プロバイダー設定
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
@@ -390,19 +390,19 @@ resource "oneuptime_status_page" "public" {
 ### セルフホスト設定例
 
 ```hcl
-# セルフホストOneUptimeインスタンスバージョン7.0.123の場合
+# セルフホストCast Operationsインスタンスバージョン7.0.123の場合
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # OneUptimeバージョンと完全一致させる必要あり
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Cast Operationsバージョンと完全一致させる必要あり
     }
   }
   required_version = ">= 1.0"
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.mycompany.com"  # セルフホストURL
+  oneuptime_url = "https://operations.mycompany.com"  # セルフホストURL
   api_key       = var.oneuptime_api_key
 }
 
@@ -421,7 +421,7 @@ provider "oneuptime" {
 **セルフホストのお客様：**
 
 - インストールに合わせて常に正確なバージョンに固定する
-- OneUptimeのアップグレード時にプロバイダーバージョンを更新する
+- Cast Operationsのアップグレード時にプロバイダーバージョンを更新する
 - まず非本番環境でテストする
 
 ### 2. ステート管理
@@ -503,7 +503,7 @@ resource "oneuptime_alert_policy" "critical_production" {
 
 ### 手動設定からの移行
 
-1. OneUptime ダッシュボードの**既存リソースを監査**する
+1. Cast Operations ダッシュボードの**既存リソースを監査**する
 2. 既存リソースの**Terraform設定を作成**する
 3. Terraformステートに**既存リソースをインポート**する
 4. 設定が現在の状態と**一致することを確認**する
@@ -521,7 +521,7 @@ terraform import oneuptime_project.main project-id-here
 
 ### バージョンアップグレード
 
-OneUptimeをアップグレードする場合（セルフホスト）：
+Cast Operationsをアップグレードする場合（セルフホスト）：
 
 1. **現在のステートをバックアップ**する
 2. **プロバイダーの互換性を確認**する
@@ -544,10 +544,10 @@ terraform apply
 
 ## サポートとリソース
 
-- **ドキュメント**：[OneUptimeドキュメント](https://docs.oneuptime.com)
-- **Terraform Registry**：[OneUptimeプロバイダー](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHubのissue**：[OneUptime GitHub](https://github.com/OneUptime/oneuptime/issues)
-- **コミュニティ**：[OneUptimeコミュニティ](https://community.oneuptime.com)
+- **ドキュメント**：[Cast Operationsドキュメント](https://docs.visca.ai)
+- **Terraform Registry**：[Cast Operationsプロバイダー](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHubのissue**：[Cast Operations GitHub](https://github.com/autonomy-cloud/operations/issues)
+- **コミュニティ**：[Cast Operationsコミュニティ](https://community.visca.ai)
 
 ## トラブルシューティング
 
@@ -559,7 +559,7 @@ terraform apply
    Error: API version incompatible
    ```
 
-   **解決策**：プロバイダーバージョンがOneUptimeのインストールと一致していることを確認する
+   **解決策**：プロバイダーバージョンがCast Operationsのインストールと一致していることを確認する
 
 2. **認証の問題**
 

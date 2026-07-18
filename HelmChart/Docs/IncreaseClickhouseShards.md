@@ -1,7 +1,7 @@
 # Scaling ClickHouse: Adding Shards (Operator)
 
 A runbook for **increasing the number of shards** on an operator-managed
-(Altinity) ClickHouse in OneUptime — the horizontal-scale knob that spreads
+(Altinity) ClickHouse in Cast Operations — the horizontal-scale knob that spreads
 telemetry across more nodes.
 
 > **Applies to the operator path only.** Sharding requires the
@@ -31,7 +31,7 @@ Don't confuse the two knobs — they scale different things:
 | `cluster.shardsCount` **(this guide)**                                      | **Horizontal scale** — splits data across more nodes | **Not** moved; only new inserts split |
 | `cluster.replicasCount` ([replicas guide](./IncreaseClickhouseReplicas.md)) | **HA** — keeps N copies of each shard                | Auto-replicated to the new replica    |
 
-OneUptime always runs the analytics schema as a **sharded + replicated cluster**:
+Cast Operations always runs the analytics schema as a **sharded + replicated cluster**:
 each model's app-facing table is a `Distributed` table over a local
 `ReplicatedMergeTree` table (`<T>Local`). Reads scatter-gather across shards;
 writes route by a per-table sharding key. See
@@ -123,7 +123,7 @@ operation.
 
 ## Step 2 — Let schema-sync create the tables on the new shard
 
-OneUptime's schema-sync issues `CREATE TABLE IF NOT EXISTS <T>Local ON CLUSTER
+Cast Operations’ schema-sync issues `CREATE TABLE IF NOT EXISTS <T>Local ON CLUSTER
 'oneuptime'` on every run. Because it's `ON CLUSTER`, once the new shard is in the
 cluster config the DDL creates the local `ReplicatedMergeTree` tables (and the
 materialized-view triggers) on it automatically; `IF NOT EXISTS` makes it a no-op
@@ -255,5 +255,5 @@ redistribution first.
 - [Migrate ClickHouse Standalone → Operator](./MigrateClickhouseStandaloneToOperator.md)
   — get onto the operator path first if you're still on the standalone
   `StatefulSet`.
-- OneUptime Helm chart [values reference](../Public/oneuptime/README.md) —
+- Cast Operations Helm chart [values reference](../Public/oneuptime/README.md) —
   `clickhouseOperator` configuration.

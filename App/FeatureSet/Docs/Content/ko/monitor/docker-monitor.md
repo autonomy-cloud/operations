@@ -1,6 +1,6 @@
 # Docker 모니터
 
-Docker 모니터링을 통해 Docker 호스트와 그 위에서 실행 중인 컨테이너의 상태 및 성능을 모니터링할 수 있습니다. OneUptime은 사전 구성된 OpenTelemetry 콜렉터(**OneUptime Docker 에이전트**)를 통해 메트릭과 컨테이너 로그를 수집하고 구성된 기준에 따라 평가합니다.
+Docker 모니터링을 통해 Docker 호스트와 그 위에서 실행 중인 컨테이너의 상태 및 성능을 모니터링할 수 있습니다. Cast Operations은 사전 구성된 OpenTelemetry 콜렉터(**Cast Operations Docker 에이전트**)를 통해 메트릭과 컨테이너 로그를 수집하고 구성된 기준에 따라 평가합니다.
 
 ## 개요
 
@@ -14,7 +14,7 @@ Docker 모니터는 호스트의 메트릭과 로그를 사용하여 컨테이�
 
 ## Docker 모니터 생성
 
-1. OneUptime 대시보드의 **모니터**로 이동합니다
+1. Cast Operations 대시보드의 **모니터**로 이동합니다
 2. **모니터 생성**을 클릭합니다
 3. 모니터 유형으로 **Docker**를 선택합니다
 4. 모니터링할 Docker 호스트와 리소스 범위를 선택합니다
@@ -25,7 +25,7 @@ Docker 모니터는 호스트의 메트릭과 로그를 사용하여 컨테이�
 
 ### Docker 호스트
 
-모니터링할 Docker 호스트를 선택합니다. 호스트는 OneUptime Docker 에이전트가 처음으로 텔레메트리를 전송할 때 자동으로 등록됩니다 — 수동으로 생성할 필요가 없습니다.
+모니터링할 Docker 호스트를 선택합니다. 호스트는 Cast Operations Docker 에이전트가 처음으로 텔레메트리를 전송할 때 자동으로 등록됩니다 — 수동으로 생성할 필요가 없습니다.
 
 ### 리소스 범위
 
@@ -126,7 +126,7 @@ Docker 에이전트는 OpenTelemetry `docker_stats` 수신기를 사용하며, �
 
 ## 사전 구축된 알림 템플릿
 
-OneUptime은 일반적인 Docker 모니터링 시나리오에 대한 템플릿을 제공합니다:
+Cast Operations은 일반적인 Docker 모니터링 시나리오에 대한 템플릿을 제공합니다:
 
 | 템플릿               | 설명                                      | 임계값 | 집계              |
 | -------------------- | ----------------------------------------- | ------ | ----------------- |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 Docker 모니터링을 사용하려면 다음이 필요합니다:
 
-1. 모니터링하려는 각 Docker 호스트에 OneUptime Docker 에이전트 설치
+1. 모니터링하려는 각 Docker 호스트에 Cast Operations Docker 에이전트 설치
 2. `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` 및 `DOCKER_HOST_NAME`을 환경 변수로 전달
 3. 관찰하려는 컨테이너가 `json-file` 로그 드라이버를 사용하는지 확인 (위 참조)
 
-에이전트는 Docker Hub에서 `oneuptime/docker-agent:release`로 게시됩니다. 전체 `docker run` 및 `docker compose` 예시에 대한 [Docker 에이전트 설치 가이드](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent)를 참조하십시오.
+에이전트는 Docker Hub에서 `oneuptime/docker-agent:release`로 게시됩니다. 전체 `docker run` 및 `docker compose` 예시에 대한 [Docker 에이전트 설치 가이드](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent)를 참조하십시오.
 
 ## 문제 해결
 
@@ -236,7 +236,7 @@ Docker 모니터링을 사용하려면 다음이 필요합니다:
 
 ### 로그가 도착하지만 잘못된 호스트 이름으로 그룹화되는 경우
 
-OneUptime은 `DOCKER_HOST_NAME` 환경 변수에서 가져온 `resource.host.name`으로 Docker 호스트를 자동으로 등록합니다. 첫 번째 텔레메트리 배치 후 `DOCKER_HOST_NAME`을 변경하면 기존 호스트의 이름을 바꾸지 않고 두 번째 호스트 행이 생성됩니다.
+Cast Operations은 `DOCKER_HOST_NAME` 환경 변수에서 가져온 `resource.host.name`으로 Docker 호스트를 자동으로 등록합니다. 첫 번째 텔레메트리 배치 후 `DOCKER_HOST_NAME`을 변경하면 기존 호스트의 이름을 바꾸지 않고 두 번째 호스트 행이 생성됩니다.
 
 ### "높은 CPU"에 대한 인시던트가 발생하지 않는 경우
 

@@ -103,7 +103,7 @@ spec:
             {{- end }}
             # OTLP HTTP export to the in-cluster collector (the
             # metrics-collector Deployment). The collector adds k8sattributes
-            # enrichment, batches, and forwards over OTLP HTTP to OneUptime.
+            # enrichment, batches, and forwards over OTLP HTTP to Cast Operations.
             # Single egress + retry path for everything the agent collects.
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: "http://{{ include "kubernetes-agent.fullname" . }}-otlp.{{ .Release.Namespace }}.svc.cluster.local:4318"

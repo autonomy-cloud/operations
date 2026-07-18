@@ -1,11 +1,11 @@
 # FAQ およびトラブルシューティング
 
-OneUptime モバイル・デスクトップアプリに関するよくある質問と解決策です。
+Cast Operations モバイル・デスクトップアプリに関するよくある質問と解決策です。
 
-## OneUptime はアプリをどのように配布していますか?
+## Cast Operations はアプリをどのように配布していますか?
 
-- **モバイル(iOS および Android):** OneUptime は **OneUptime On-Call** という名前のネイティブアプリを提供しています。[Apple App Store](https://apps.apple.com/us/app/oneuptime-on-call/id6759615391) および [Google Play](https://play.google.com/store/apps/details?id=com.oneuptime.oncall) で公開されています。Google Play を利用できない Android デバイス向けに、署名済みの [APK ダウンロード](https://github.com/OneUptime/oneuptime/releases/latest/download/oneuptime-on-call-android-app.apk) も提供しています。
-- **デスクトップ(Windows、macOS、Linux):** OneUptime のウェブダッシュボードはプログレッシブ ウェブ アプリ(PWA)です。Chromium ベースのブラウザまたは Safari から、ストアアカウント不要で直接デスクトップアプリケーションとしてインストールできます。
+- **モバイル(iOS および Android):** Cast Operations は **Cast Operations On-Call** という名前のネイティブアプリを提供しています。[Apple App Store](https://github.com/autonomy-cloud/operations/releases) および [Google Play](https://github.com/autonomy-cloud/operations/releases) で公開されています。Google Play を利用できない Android デバイス向けに、署名済みの [APK ダウンロード](https://github.com/autonomy-cloud/operations/releases/latest/download/cast-operations-on-call-android-app.apk) も提供しています。
+- **デスクトップ(Windows、macOS、Linux):** Cast Operations のウェブダッシュボードはプログレッシブ ウェブ アプリ(PWA)です。Chromium ベースのブラウザまたは Safari から、ストアアカウント不要で直接デスクトップアプリケーションとしてインストールできます。
 
 ## モバイルアプリ FAQ
 
@@ -16,11 +16,11 @@ OneUptime モバイル・デスクトップアプリに関するよくある質�
 
 ### このアプリは無料ですか?
 
-はい。OneUptime On-Call アプリは無料でインストールできます。既存の OneUptime アカウントでサインインしてご利用ください。
+はい。Cast Operations On-Call アプリは無料でインストールできます。既存の Cast Operations アカウントでサインインしてご利用ください。
 
-### セルフホスト OneUptime インスタンスでアプリを使用できますか?
+### セルフホスト Cast Operations インスタンスでアプリを使用できますか?
 
-はい。初回起動時に **サーバー URL** が求められます。セルフホストインスタンスの URL を入力してください(例: `https://oneuptime.example.com`)。アプリはサーバーが到達可能か確認した上でサインインを許可します。
+はい。初回起動時に **サーバー URL** が求められます。セルフホストインスタンスの URL を入力してください(例: `https://operations.example.com`)。アプリはサーバーが到達可能か確認した上でサインインを許可します。
 
 セルフホストインスタンスでのプッシュ通知については、[プッシュ通知](/docs/self-hosted/push-notifications)ガイドに従ってください。
 
@@ -34,11 +34,11 @@ OneUptime モバイル・デスクトップアプリに関するよくある質�
 
 モバイルプッシュは Expo Push 経由で APNs(iOS)および FCM(Android)を使用します。以下を確認してください:
 
-1. **OneUptime On-Call** で OS レベルの通知が有効になっていること。
+1. **Cast Operations On-Call** で OS レベルの通知が有効になっていること。
 2. バッテリー最適化が無効化され、バックグラウンドアクティビティが許可されていること(Android)。
 3. おやすみモードや集中モードがオフになっているか、アプリが例外リストに登録されていること。
 4. サインイン済みであること。プッシュトークンはサインイン後にのみサーバーへ登録されます。
-5. **セルフホストのみ:** OneUptime インスタンスでプッシュ通知が設定されていること。[プッシュ通知](/docs/self-hosted/push-notifications)ガイドをご覧ください。
+5. **セルフホストのみ:** Cast Operations インスタンスでプッシュ通知が設定されていること。[プッシュ通知](/docs/self-hosted/push-notifications)ガイドをご覧ください。
 
 ### スマートフォン上のデータは安全ですか?
 
@@ -48,14 +48,14 @@ OneUptime モバイル・デスクトップアプリに関するよくある質�
 
 ### 複数のデバイスにアプリをインストールできますか?
 
-はい。必要な数だけのデバイスで同じ OneUptime アカウントでサインインできます。各デバイスはそれぞれのプッシュ通知を受信します。
+はい。必要な数だけのデバイスで同じ Cast Operations アカウントでサインインできます。各デバイスはそれぞれのプッシュ通知を受信します。
 
 ### アンインストール方法は?
 
 - **iOS:** アイコンを長押し → **App を削除** → **App を削除**。
-- **Android:** アイコンを長押し → **アンインストール**、または **設定 → アプリ → OneUptime On-Call → アンインストール**。
+- **Android:** アイコンを長押し → **アンインストール**、または **設定 → アプリ → Cast Operations On-Call → アンインストール**。
 
-OneUptime アカウントとデータはサーバーに保存されているため、アプリをアンインストールしても削除されません。
+Cast Operations アカウントとデータはサーバーに保存されているため、アプリをアンインストールしても削除されません。
 
 ## デスクトップアプリ(PWA)FAQ
 
@@ -65,14 +65,14 @@ OneUptime アカウントとデータはサーバーに保存されているた�
 
 ### デスクトップアプリで PWA 技術を使用する理由は?
 
-- **即時アップデート** — デプロイした瞬間にアプリが OneUptime インスタンスと同期されます。
+- **即時アップデート** — デプロイした瞬間にアプリが Cast Operations インスタンスと同期されます。
 - **ストアアカウント不要** — 最新のブラウザから直接インストールできます。
 - **単一のコードベース** — Windows、macOS、Linux で同じダッシュボードが動作します。
 
 ### 「インストール」ボタンが表示されないのはなぜですか?
 
 1. Chromium ベースのブラウザ(Chrome、Edge、Brave、Arc)または Safari(macOS Sonoma 以降)を使用してください。
-2. OneUptime インスタンスが有効な証明書付きの HTTPS で配信されていることを確認してください。
+2. Cast Operations インスタンスが有効な証明書付きの HTTPS で配信されていることを確認してください。
 3. ブラウザのキャッシュをクリアして再読み込みしてください。
 4. すでにインストール済みである可能性があります。アプリケーション / スタートメニューを確認してください。
 
@@ -82,7 +82,7 @@ PWA はオンラインで開くたびに自動的にアップデートされま�
 
 ### デスクトップ PWA のアンインストール方法は?
 
-- **Windows:** **設定 → アプリ → OneUptime → アンインストール**、またはスタートメニューのエントリを右クリックします。
+- **Windows:** **設定 → アプリ → Cast Operations → アンインストール**、またはスタートメニューのエントリを右クリックします。
 - **macOS:** **アプリケーション** からアプリをゴミ箱にドラッグするか、Dock アイコンを右クリックして **削除** を選択します。
 - **Linux:** アプリケーションランチャーのアンインストールオプションを使用するか、該当する `.desktop` ファイルを削除します。
 
@@ -98,27 +98,27 @@ PWA はオンラインで開くたびに自動的にアップデートされま�
 
 **プッシュ通知が遅延または届かない(Android):**
 
-- バッテリー最適化を無効にする: **設定 → アプリ → OneUptime On-Call → バッテリー → 制限なし**。
+- バッテリー最適化を無効にする: **設定 → アプリ → Cast Operations On-Call → バッテリー → 制限なし**。
 - アプリのデータセーバーを無効にします。
-- Samsung デバイスでは、**デバイスケア → バッテリー → バックグラウンド使用の制限** で OneUptime On-Call をオフにします。
+- Samsung デバイスでは、**デバイスケア → バッテリー → バックグラウンド使用の制限** で Cast Operations On-Call をオフにします。
 
 **プッシュ通知が遅延または届かない(iOS):**
 
 - アプリの強制終了を避けてください。iOS がバックグラウンド配信を一時停止する場合があります。
 - オンコール中は低電力モードを無効にしてください。
-- 現在有効な集中モードの許可リストに OneUptime On-Call を追加してください。
+- 現在有効な集中モードの許可リストに Cast Operations On-Call を追加してください。
 
 **Face ID / Touch ID / 指紋が機能しない:**
 
 - OS の設定で生体認証が登録されていることを確認してください。
-- OneUptime On-Call アプリ内の **設定** 画面から生体認証によるロック解除を再度有効にしてください。
+- Cast Operations On-Call アプリ内の **設定** 画面から生体認証によるロック解除を再度有効にしてください。
 
 ### デスクトップアプリ(PWA)の問題
 
 **インストールボタンが表示されない:**
 
 - サポートされているブラウザ(Chromium ベース、または macOS Sonoma 以降の Safari)を使用してください。
-- OneUptime インスタンスが HTTPS で配信されていることを確認してください。
+- Cast Operations インスタンスが HTTPS で配信されていることを確認してください。
 - ページが完全に読み込まれるのを待ち、アドレスバーのインストールアイコンを確認してください。
 
 **デスクトップ通知が表示されない:**
@@ -139,5 +139,5 @@ PWA はオンラインで開くたびに自動的にアップデートされま�
 
 - モバイル: [iOS](./ios-installation.md) または [Android](./android-installation.md) のインストールガイドをご覧ください。
 - デスクトップ: [Windows](./windows-installation.md)、[macOS](./macos-installation.md)、または [Linux](./linux-installation.md) のインストールガイドをご覧ください。
-- [OneUptime GitHub リポジトリ](https://github.com/OneUptime/oneuptime)で Issue を作成してください。
-- OneUptime ダッシュボードからサポートにお問い合わせください。
+- [Cast Operations GitHub リポジトリ](https://github.com/autonomy-cloud/operations)で Issue を作成してください。
+- Cast Operations ダッシュボードからサポートにお問い合わせください。

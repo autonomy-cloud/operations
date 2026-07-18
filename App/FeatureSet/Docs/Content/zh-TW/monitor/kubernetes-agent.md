@@ -1,22 +1,22 @@
 # 安裝 Kubernetes Agent
 
-OneUptime Kubernetes agent 會從您的 Kubernetes 叢集收集叢集指標、事件、pod 記錄、**應用程式追蹤（透過 eBPF 的 HTTP/gRPC）**，以及 **OS 層級的節點指標**，並將它們傳送至 OneUptime。它以 Helm chart 形式發佈，並透過單一指令安裝 — eBPF 自動檢測（auto-instrumentation）預設為開啟，因此您無需變更任何程式碼即可看到服務層級的追蹤與 RED 指標。**持續性 CPU 火焰圖（eBPF profiler）**也同樣可用 — 當您需要更多遙測資料時，使用 `--set profiling.enabled=true` 選擇加入。
+Cast Operations Kubernetes agent 會從您的 Kubernetes 叢集收集叢集指標、事件、pod 記錄、**應用程式追蹤（透過 eBPF 的 HTTP/gRPC）**，以及 **OS 層級的節點指標**，並將它們傳送至 Cast Operations。它以 Helm chart 形式發佈，並透過單一指令安裝 — eBPF 自動檢測（auto-instrumentation）預設為開啟，因此您無需變更任何程式碼即可看到服務層級的追蹤與 RED 指標。**持續性 CPU 火焰圖（eBPF profiler）**也同樣可用 — 當您需要更多遙測資料時，使用 `--set profiling.enabled=true` 選擇加入。
 
 ## 快速開始
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
-您的叢集將在幾分鐘內出現在 OneUptime 中。
+您的叢集將在幾分鐘內出現在 Cast Operations 中。
 
 ## 選用 — 使用專案標籤自動為此叢集加上標籤
 
@@ -28,7 +28,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod \
   --set oneuptime.labels.team=payments \
@@ -41,7 +41,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```yaml
 # values.yaml
 oneuptime:
-  url: https://oneuptime.com
+  url: https://visca.ai
   apiKey: <YOUR_API_KEY>
   labels:
     team: payments
@@ -56,7 +56,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
   -f values.yaml
 ```
 
-此 agent 傳送的每一筆記錄 — 記錄、指標、追蹤、eBPF 自動檢測的 span，以及 CPU profile — 都會在 OneUptime UI 中以 `team:payments`、`env:production` 和 `region:us-east-1` 標記顯示。標籤以不分大小寫的方式比對，因此既有的手動建立的 `Production` 標籤會被重複使用，而不是被複製。在 OneUptime UI 中手動新增的標籤永遠不會被 agent 移除。
+此 agent 傳送的每一筆記錄 — 記錄、指標、追蹤、eBPF 自動檢測的 span，以及 CPU profile — 都會在 Cast Operations UI 中以 `team:payments`、`env:production` 和 `region:us-east-1` 標記顯示。標籤以不分大小寫的方式比對，因此既有的手動建立的 `Production` 標籤會被重複使用，而不是被複製。在 Cast Operations UI 中手動新增的標籤永遠不會被 agent 移除。
 
 ## 為您的叢集挑選正確的預設組態（preset）
 
@@ -77,7 +77,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
@@ -87,7 +87,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
@@ -98,7 +98,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
@@ -130,7 +130,7 @@ $1 每個容器串流都是連到 kube-apiserver 的長連線。一個副本通�
 
 ## 透過 eBPF 收集應用程式追蹤與 HTTP 請求（預設開啟）
 
-此 chart 會發佈一個 DaemonSet，在每個節點上執行 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/)。OBI 將 eBPF 程式載入 Linux 核心，並監看 socket 層級的流量，以從節點上的每個 pod 重建 HTTP/HTTPS、gRPC 和 SQL/Redis 呼叫 — 無需變更程式碼、無需 SDK、無需 sidecar。擷取到的流量會以 OTLP 追蹤和請求/延遲指標的形式直接匯出到 OneUptime。
+此 chart 會發佈一個 DaemonSet，在每個節點上執行 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/)。OBI 將 eBPF 程式載入 Linux 核心，並監看 socket 層級的流量，以從節點上的每個 pod 重建 HTTP/HTTPS、gRPC 和 SQL/Redis 呼叫 — 無需變更程式碼、無需 SDK、無需 sidecar。擷取到的流量會以 OTLP 追蹤和請求/延遲指標的形式直接匯出到 Cast Operations。
 
 安裝後，您的服務會在一兩分鐘內開始出現在 **Telemetry → Traces** 和服務地圖（service map）中，並將 `k8s.cluster.name` 設定為您的 `clusterName`，以便您可以依叢集進行篩選。
 
@@ -167,7 +167,7 @@ OBI 也預設會跨服務邊界傳播追蹤內容（trace context）。當 pod A
 
 **預設關閉。** 啟用後，OBI 的記錄增強器（log enricher）會在每個受檢測程序中對 `write()` 系統呼叫附加一個 uprobe，並：
 
-- 對於 **JSON 格式的記錄**：將 `trace_id` 和 `span_id` 欄位注入該行（記錄中任何既有的值都會被保留）。filelog DaemonSet 接著會將這些欄位提升到 LogRecord 的原生 trace_id/span_id 插槽，因此在追蹤檢視中點擊一個 span 便會跳到它在 OneUptime 中的記錄 — 而點擊一行記錄則會跳到它的父追蹤。
+- 對於 **JSON 格式的記錄**：將 `trace_id` 和 `span_id` 欄位注入該行（記錄中任何既有的值都會被保留）。filelog DaemonSet 接著會將這些欄位提升到 LogRecord 的原生 trace_id/span_id 插槽，因此在追蹤檢視中點擊一個 span 便會跳到它在 Cast Operations 中的記錄 — 而點擊一行記錄則會跳到它的父追蹤。
 - 對於 **非 JSON 記錄**：該行會原封不動地保留 — 仍會被收集，只是不會自動連結。
 
 啟用方式：
@@ -250,11 +250,11 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 ## 持續性 CPU 分析（預設關閉）
 
-一個獨立的 DaemonSet 執行 [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) — 封裝為 `otel/opentelemetry-collector-ebpf-profiler` 映像檔。它以 19Hz 在每個受支援的執行階段（Go、Java、.NET、Python、Ruby、Node.js、PHP、Perl、C/C++、Rust）上取樣 on-CPU 堆疊，並將 OTLP profile 傳送至 OneUptime，在那裡它們會出現在 **Telemetry → Performance Profiles** 之下，並以從個別追蹤 span 連結而來的火焰圖呈現。
+一個獨立的 DaemonSet 執行 [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) — 封裝為 `otel/opentelemetry-collector-ebpf-profiler` 映像檔。它以 19Hz 在每個受支援的執行階段（Go、Java、.NET、Python、Ruby、Node.js、PHP、Perl、C/C++、Rust）上取樣 on-CPU 堆疊，並將 OTLP profile 傳送至 Cast Operations，在那裡它們會出現在 **Telemetry → Performance Profiles** 之下，並以從個別追蹤 span 連結而來的火焰圖呈現。
 
 分析（profiling）**預設關閉** — 它比 OBI 自動檢測更重（每個節點更多 CPU、更大的記憶體佔用），而且並非每個叢集都想要永遠開啟的火焰圖。當您想要更豐富的遙測資料時再啟用它：`--set profiling.enabled=true`。
 
-當 eBPF 自動檢測也已開啟時（`ebpf.enabled: true`，預設值），每個 CPU 取樣都會透過共享的 bpffs map 與 OBI 的追蹤內容關聯 — 因此火焰圖會帶有 trace_id/span_id，而 OneUptime UI 可以向您顯示每個 span 的火焰圖。
+當 eBPF 自動檢測也已開啟時（`ebpf.enabled: true`，預設值），每個 CPU 取樣都會透過共享的 bpffs map 與 OBI 的追蹤內容關聯 — 因此火焰圖會帶有 trace_id/span_id，而 Cast Operations UI 可以向您顯示每個 span 的火焰圖。
 
 需求：
 
@@ -292,7 +292,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 | 選項                                      | 預設                       | 描述                                                                                                                                                                                      |
 | ----------------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | （空白 — 視為 `standard`） | 請參閱上方的表格。                                                                                                                                                                        |
-| `oneuptime.url`                           | _(必填)_                   | 您的 OneUptime 實例的 URL。                                                                                                                                                               |
+| `oneuptime.url`                           | _(必填)_                   | 您的 Cast Operations 實例的 URL。                                                                                                                                                               |
 | `oneuptime.apiKey`                        | _(必填)_                   | 專案 API 金鑰（Settings → API Keys）。                                                                                                                                                    |
 | `oneuptime.labels`                        | `{}`                       | 要附加到此 agent 每一筆記錄的專案標籤。每個 `<key>: <value>` 都會成為一個 `oneuptime.label.<key>=<value>` 資源屬性。請參閱上方的自動標記章節。                                            |
 | `clusterName`                             | _(必填)_                   | 此叢集的唯一名稱。會在每一筆記錄上標記為 `k8s.cluster.name`。                                                                                                                             |
@@ -312,7 +312,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 | `coreDns.enabled`                         | `false`                    | CoreDNS Prometheus 指標。                                                                                                                                                                 |
 | `controlPlane.enabled`                    | `false`                    | 抓取 etcd / api-server / scheduler / controller-manager。僅限自我管理叢集 — 受管理的方案（EKS/GKE/AKS）通常不會公開這些端點。                                                             |
 
-如需完整清單，請參閱 [chart 的 `values.yaml`](https://github.com/OneUptime/oneuptime/blob/master/HelmChart/Public/kubernetes-agent/values.yaml)。
+如需完整清單，請參閱 [chart 的 `values.yaml`](https://github.com/autonomy-cloud/operations/blob/master/HelmChart/Public/kubernetes-agent/values.yaml)。
 
 ## 升級
 
@@ -359,7 +359,7 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
   --set preset=gke-autopilot   # or eks-fargate
 ```
 
-### OneUptime 中沒有出現任何記錄
+### Cast Operations 中沒有出現任何記錄
 
 檢查 agent 的 pod：
 
@@ -382,7 +382,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 - **核心太舊或缺少 BTF。** OBI 需要具有 BTF 的 Linux 5.8+。在節點上用 `uname -r` 檢查。如果您無法升級，請停用 eBPF：`--set ebpf.enabled=false`。
 - **特權 pod 被封鎖。** 有些叢集即使在 Autopilot/Fargate 之外也會拒絕特權 pod。請停用 eBPF。
-- **儀表板中沒有追蹤，但 OBI 正在執行。** 設定 `--set ebpf.printTraces=true` 並檢查 OBI 的 stdout — 如果您在那裡看到 span，問題就在於 OTLP 傳遞（請檢查 `OTEL_EXPORTER_OTLP_ENDPOINT` 以及您的 OneUptime URL/API 金鑰）。如果您沒有看到 span，OBI 正在監看的流量可能全都被一個 OBI 無法攔截的 TLS 函式庫加密了（例如它無法辨識的靜態連結 TLS 實作）。
+- **儀表板中沒有追蹤，但 OBI 正在執行。** 設定 `--set ebpf.printTraces=true` 並檢查 OBI 的 stdout — 如果您在那裡看到 span，問題就在於 OTLP 傳遞（請檢查 `OTEL_EXPORTER_OTLP_ENDPOINT` 以及您的 Cast Operations URL/API 金鑰）。如果您沒有看到 span，OBI 正在監看的流量可能全都被一個 OBI 無法攔截的 TLS 函式庫加密了（例如它無法辨識的靜態連結 TLS 實作）。
 
 ### 我的叢集 pod 太多，一個記錄 tailer 複本無法負荷（僅限 API 模式）
 

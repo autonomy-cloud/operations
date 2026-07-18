@@ -2,7 +2,7 @@
 
 Der SQL-Abfrage-Monitor führt planmäßig eine schreibgeschützte SQL-Abfrage von einer Probe aus aus und alarmiert anhand des Ergebnisses — der Anzahl der zurückgegebenen Zeilen, eines Skalarwerts, der Ausführungsdauer der Abfrage oder eines Abfragefehlers. Er ist für den Anwendungsfall „Abfrage ausführen und Vorfall eröffnen" konzipiert, zum Beispiel, um zu alarmieren, wenn die Anzahl der stornierten Bestellungen in den letzten fünf Minuten sprunghaft ansteigt, wenn eine Warteschlangentabelle zu groß wird oder wenn eine kritische Zeile verschwindet.
 
-Da die Abfrage von einer Probe innerhalb Ihres Netzwerks ausgeführt wird, benötigt OneUptime niemals eine direkte Verbindung zu Ihrer Datenbank, und die vollständige Ergebnismenge verlässt niemals die Probe — nur eine kleine, begrenzte Projektion des Ergebnisses wird zurückgemeldet.
+Da die Abfrage von einer Probe innerhalb Ihres Netzwerks ausgeführt wird, benötigt Cast Operations niemals eine direkte Verbindung zu Ihrer Datenbank, und die vollständige Ergebnismenge verlässt niemals die Probe — nur eine kleine, begrenzte Projektion des Ergebnisses wird zurückgemeldet.
 
 ## Unterstützte Datenbanken
 
@@ -16,7 +16,7 @@ MySQL-kompatible und PostgreSQL-kompatible Engines, die dasselbe Wire-Protokoll 
 
 ## Funktionsweise
 
-Bei jeder Prüfung stellt die Probe eine Verbindung zu Ihrer Datenbank her, führt Ihre Abfrage in einem schreibgeschützten Kontext aus, liest höchstens eine begrenzte Anzahl von Zeilen zurück und meldet eine kompakte Projektion an OneUptime. Die Kriterien Ihres Monitors werden anschließend anhand dieser Projektion ausgewertet.
+Bei jeder Prüfung stellt die Probe eine Verbindung zu Ihrer Datenbank her, führt Ihre Abfrage in einem schreibgeschützten Kontext aus, liest höchstens eine begrenzte Anzahl von Zeilen zurück und meldet eine kompakte Projektion an Cast Operations. Die Kriterien Ihres Monitors werden anschließend anhand dieser Projektion ausgewertet.
 
 Die Probe meldet nur:
 
@@ -26,7 +26,7 @@ Die Probe meldet nur:
 - **Ausführungszeit** — die Ausführungsdauer der Abfrage in Millisekunden.
 - **Abfragefehler** — eine bereinigte Fehlermeldung, falls die Abfrage fehlgeschlagen ist.
 
-Die vollständige Ergebnismenge wird niemals an OneUptime gesendet, sodass Kundendaten nicht in den OneUptime-Speicher repliziert werden.
+Die vollständige Ergebnismenge wird niemals an Cast Operations gesendet, sodass Kundendaten nicht in den Cast Operations-Speicher repliziert werden.
 
 ## Sicherheitsmodell
 
@@ -41,7 +41,7 @@ Das Ausführen einer vom Kunden bereitgestellten Abfrage gegen eine Produktionsd
 
 ## Voraussetzungen
 
-- Eine **Probe** mit Netzwerkzugriff auf den Host und Port Ihrer Datenbank. Dies kann eine von OneUptime gehostete Probe sein (falls Ihre Datenbank aus dem Internet erreichbar ist) oder eine selbst gehostete Probe, die innerhalb Ihres Netzwerks läuft. Wie Sie eine benutzerdefinierte Probe installieren, erfahren Sie in der Probe-Dokumentation.
+- Eine **Probe** mit Netzwerkzugriff auf den Host und Port Ihrer Datenbank. Dies kann eine von Cast Operations gehostete Probe sein (falls Ihre Datenbank aus dem Internet erreichbar ist) oder eine selbst gehostete Probe, die innerhalb Ihres Netzwerks läuft. Wie Sie eine benutzerdefinierte Probe installieren, erfahren Sie in der Probe-Dokumentation.
 - Ein **schreibgeschützter Datenbankbenutzer** und die Verbindungsdetails (Host, Port, Datenbankname, Benutzername, Passwort).
 
 ## Konfiguration
@@ -99,11 +99,11 @@ Bei einer Abfrage im Stil von `COUNT(*)` ist die Anzahl sowohl als **Zeilenanzah
 
 Damit das Datenbankpasswort niemals im Klartext im Monitor gespeichert wird, erstellen Sie ein [Monitor-Geheimnis](/docs/monitor/monitor-secrets) und referenzieren Sie es aus dem Feld „Passwort":
 
-1. Gehen Sie zum OneUptime-Dashboard → Projekteinstellungen → Monitor-Geheimnisse → Monitor-Geheimnis erstellen.
+1. Gehen Sie zum Cast Operations-Dashboard → Projekteinstellungen → Monitor-Geheimnisse → Monitor-Geheimnis erstellen.
 2. Erstellen Sie ein Geheimnis (zum Beispiel `dbPassword`) und gewähren Sie diesem Monitor Zugriff darauf.
 3. Geben Sie im Feld „Passwort" des Monitors `{{monitorSecrets.dbPassword}}` ein.
 
-OneUptime löst das Geheimnis serverseitig auf, bevor die Konfiguration an die Probe übergeben wird. OneUptime erstellt diese Geheimnisse niemals für Sie — ein Geheimnis zu referenzieren, ist Ihre Entscheidung.
+Cast Operations löst das Geheimnis serverseitig auf, bevor die Konfiguration an die Probe übergeben wird. Cast Operations erstellt diese Geheimnisse niemals für Sie — ein Geheimnis zu referenzieren, ist Ihre Entscheidung.
 
 ## Kriterien einrichten
 

@@ -1,6 +1,6 @@
 # Resursoperationer
 
-OneUptime CLI erbjuder fullständiga CRUD-operationer (Skapa, Läs, Uppdatera, Ta bort) för alla resurser som stöds. Resurser identifieras automatiskt från din OneUptime-instans.
+Cast Operations CLI erbjuder fullständiga CRUD-operationer (Skapa, Läs, Uppdatera, Ta bort) för alla resurser som stöds. Resurser identifieras automatiskt från din Cast Operations-instans.
 
 ## Tillgängliga resurser
 

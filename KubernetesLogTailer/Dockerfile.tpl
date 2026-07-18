@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1.7
 #
-# OneUptime Kubernetes Log Tailer Dockerfile
+# Cast Operations Kubernetes Log Tailer Dockerfile
 #
 # Streams pod logs via the Kubernetes API (GKE Autopilot compatible — no
-# hostPath volumes, no host access) and forwards them to OneUptime via OTLP.
+# hostPath volumes, no host access) and forwards them to Cast Operations via OTLP.
 #
 
 FROM public.ecr.aws/docker/library/node:26-bookworm-slim
@@ -13,17 +13,16 @@ FROM public.ecr.aws/docker/library/node:26-bookworm-slim
 # that the base image's npm still carries.
 RUN npm install -g npm@latest
 
-# Per-build args (GIT_SHA / APP_VERSION / IS_ENTERPRISE_EDITION) are declared at
 # the bottom so the npm ci / compile layers stay cacheable across commits and
 # across the community + enterprise build passes.
 ENV NODE_OPTIONS="--use-openssl-ca"
 
-LABEL org.opencontainers.image.title="OneUptime Kubernetes Log Tailer"
-LABEL org.opencontainers.image.description="OneUptime Kubernetes log tailer — collects pod logs via the Kubernetes API (GKE Autopilot compatible) and forwards them to OneUptime via OTLP-HTTP."
-LABEL org.opencontainers.image.source="https://github.com/OneUptime/oneuptime"
-LABEL org.opencontainers.image.url="https://oneuptime.com"
-LABEL org.opencontainers.image.documentation="https://oneuptime.com/docs"
-LABEL org.opencontainers.image.vendor="OneUptime"
+LABEL org.opencontainers.image.title="Cast Operations Kubernetes Log Tailer"
+LABEL org.opencontainers.image.description="Cast Operations Kubernetes log tailer — collects pod logs via the Kubernetes API (GKE Autopilot compatible) and forwards them to Cast Operations via OTLP-HTTP."
+LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
+LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 ## Add intermediate CA certs
@@ -61,10 +60,8 @@ USER node
 # across commits and across the community + enterprise build passes.
 ARG GIT_SHA
 ARG APP_VERSION
-ARG IS_ENTERPRISE_EDITION=false
 ENV GIT_SHA=${GIT_SHA}
 ENV APP_VERSION=${APP_VERSION}
-ENV IS_ENTERPRISE_EDITION=${IS_ENTERPRISE_EDITION}
 LABEL org.opencontainers.image.revision="${GIT_SHA}"
 LABEL org.opencontainers.image.version="${APP_VERSION}"
 CMD [ "node", "build/dist/Index.js" ]

@@ -1,6 +1,6 @@
-# OneUptime selvhostet arkitektur
+# Cast Operations selvhostet arkitektur
 
-Dette diagram viser, hvordan OneUptime typisk ser ud, når det selvhostes i dit miljø (f.eks. i din Kubernetes-klynge), herunder hvordan prober overvåger både interne og eksterne ressourcer.
+Dette diagram viser, hvordan Cast Operations typisk ser ud, når det selvhostes i dit miljø (f.eks. i din Kubernetes-klynge), herunder hvordan prober overvåger både interne og eksterne ressourcer.
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["Indgående anmodnings-indtagelse"]
     end
 
-    subgraph Probes["OneUptime-prober"]
+    subgraph Probes["Cast Operations-prober"]
       direction TB
       P1["Probe-pod(s) i din klynge"]
       P2["Valgfri probe-VM/container på dit netværk"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## Hvad dette viser
 
-- Slutbrugere tilgår OneUptime via din klynges indgang (NGINX), som dirigerer til UI'en og API'en.
+- Slutbrugere tilgår Cast Operations via din klynges indgang (NGINX), som dirigerer til UI'en og API'en.
 - Kernetjenester læser/skriver tilstand til PostgreSQL, Redis og ClickHouse.
 - Prober kan køre inde i din klynge (anbefalet) og/eller andre steder på dit netværk. De kan overvåge:
   - Interne/private tjenester bag din firewall.

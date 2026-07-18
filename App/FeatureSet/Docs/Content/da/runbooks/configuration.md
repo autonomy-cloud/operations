@@ -2,7 +2,7 @@
 
 ## Hvordan Bash og JavaScript faktisk kører
 
-Bash- og JavaScript-trin **kører aldrig på OneUptime Worker'en**. De afsendes som jobs til en specifik [Runbook-agent](/docs/runbooks/agents) — en lille proces, du installerer på en host i din egen infrastruktur.
+Bash- og JavaScript-trin **kører aldrig på Cast Operations Worker'en**. De afsendes som jobs til en specifik [Runbook-agent](/docs/runbooks/agents) — en lille proces, du installerer på en host i din egen infrastruktur.
 
 Afsendelsesmodellen:
 
@@ -37,7 +37,7 @@ Når et manuelt trin tikkes af via API'en, lægges kørslen igen i kø for at fo
 
 ## Hærdningsnoter
 
-- **JavaScript og Bash** kører på en Runbook-agent-host, du kontrollerer, ikke på OneUptime Worker'en. JavaScript pakkes ind i en `isolated-vm`-sandkasse med den sædvanlige prelude (kapper prototype-kæder, fjerner `Function`/`eval`, fryser indbyggede prototyper). Bash kører via `bash -c` med timeout-håndhævelse på agenten.
+- **JavaScript og Bash** kører på en Runbook-agent-host, du kontrollerer, ikke på Cast Operations Worker'en. JavaScript pakkes ind i en `isolated-vm`-sandkasse med den sædvanlige prelude (kapper prototype-kæder, fjerner `Function`/`eval`, fryser indbyggede prototyper). Bash kører via `bash -c` med timeout-håndhævelse på agenten.
 - **HTTP-trin** bruger en tilladende status-validator, så et 4xx- eller 5xx-svar registreres som et fejlet trin frem for at blive kastet som exception. Det gør, at det fangede output afspejler, hvad upstream faktisk returnerede.
 - **Agent-auth** sker via ID + hemmelig nøgle, sat på agent-containeren som env vars. Serversidet kommer agentens autoritative identitet fra DB-rækken, hvis nøgle er det fremviste ID/nøgle — klienter kan ikke udgive sig for at være en anden agent, selv med en kompromitteret nøgle.
 

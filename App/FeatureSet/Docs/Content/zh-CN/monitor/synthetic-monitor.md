@@ -51,7 +51,7 @@ return {
 
 ### 截图
 
-脚本上下文中提供了一个预先声明的 `screenshots` 对象。在脚本的任意位置将截图赋值给它——这些截图**即使在脚本抛出错误时（包括断言失败、超时或意外错误）也会被捕获**，因此您可以看到运行失败时页面的确切状态。捕获的截图显示在 OneUptime 控制台中特定监控器运行的页面上。
+脚本上下文中提供了一个预先声明的 `screenshots` 对象。在脚本的任意位置将截图赋值给它——这些截图**即使在脚本抛出错误时（包括断言失败、超时或意外错误）也会被捕获**，因此您可以看到运行失败时页面的确切状态。捕获的截图显示在 Cast Operations 控制台中特定监控器运行的页面上。
 
 ```javascript
 // 通过 `screenshots` 副通道捕获截图——在成功和失败时都会保留。
@@ -92,7 +92,7 @@ return {
 
 #### 添加密钥
 
-要添加密钥，请前往 OneUptime 控制台 -> 项目设置 -> 监控器密钥 -> 创建监控器密钥。
+要添加密钥，请前往 Cast Operations 控制台 -> 项目设置 -> 监控器密钥 -> 创建监控器密钥。
 
 ![创建密钥](/docs/static/images/CreateMonitorSecret.png)
 
@@ -120,7 +120,7 @@ console.log(stringSecret);
 
 ### 自定义指标
 
-您可以使用 `oneuptime.captureMetric()` 函数从脚本中捕获自定义指标。这些指标存储在 OneUptime 中，可以通过指标浏览器在控制台上制图。
+您可以使用 `oneuptime.captureMetric()` 函数从脚本中捕获自定义指标。这些指标存储在 Cast Operations 中，可以通过指标浏览器在控制台上制图。
 
 ```javascript
 oneuptime.captureMetric(name, value, attributes);
@@ -178,5 +178,5 @@ return {
 - 您可以使用 `browserType` 和 `screenSizeType` 变量获取当前运行上下文中的浏览器类型和屏幕尺寸类型。如果您喜欢，可以在脚本中自由使用它们。
 - 这是一个 JavaScript 脚本，因此您可以使用所有 JavaScript 功能。
 - 您可以在脚本中使用 `axios` 模块发出 HTTP 请求。您可以使用它从脚本中进行 API 调用。
-- 如果您使用 oneuptime.com，在脚本上下文中将始终提供最新版本的 Playwright 和浏览器。如果您是自托管，请确保更新探针以获取最新版本的 Playwright 和浏览器。
+- 如果您使用 visca.ai，在脚本上下文中将始终提供最新版本的 Playwright 和浏览器。如果您是自托管，请确保更新探针以获取最新版本的 Playwright 和浏览器。
 - 脚本超时为 2 分钟。如果脚本运行超过 2 分钟，将被终止。

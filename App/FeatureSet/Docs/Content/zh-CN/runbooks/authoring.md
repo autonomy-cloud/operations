@@ -26,7 +26,7 @@
 
 ### JavaScript
 
-在沙箱 `isolated-vm` 中运行的 JavaScript 片段。沙箱住在你自己的基础设施内的 [Runbook 代理](/docs/runbooks/agents) 上——而不在 OneUptime Worker 上。
+在沙箱 `isolated-vm` 中运行的 JavaScript 片段。沙箱住在你自己的基础设施内的 [Runbook 代理](/docs/runbooks/agents) 上——而不在 Cast Operations Worker 上。
 
 JavaScript 步骤上需要配置两件事：
 
@@ -45,11 +45,11 @@ return { durationMs: Date.now() - start };
 
 发起一次出站 HTTP 调用。配置方法（GET/POST/PUT/PATCH/DELETE/HEAD）、URL、可选 JSON 头部以及可选请求体。响应状态、头部和正文都会被捕获（总计上限 50KB）。
 
-适用场景：触发 PagerDuty 事件、向 Slack 发消息、调用自己的管理 API 等。HTTP 步骤直接在 OneUptime Worker 上运行；不需要代理。
+适用场景：触发 PagerDuty 事件、向 Slack 发消息、调用自己的管理 API 等。HTTP 步骤直接在 Cast Operations Worker 上运行；不需要代理。
 
 ### Bash
 
-bash 脚本（`bash -c <script>`）在你自己的基础设施内的 [Runbook 代理](/docs/runbooks/agents) 上运行。Bash 绝不会在 OneUptime Worker 上执行。
+bash 脚本（`bash -c <script>`）在你自己的基础设施内的 [Runbook 代理](/docs/runbooks/agents) 上运行。Bash 绝不会在 Cast Operations Worker 上执行。
 
 Bash 步骤上需要配置两件事：
 
@@ -60,7 +60,7 @@ Bash 步骤上需要配置两件事：
 
 ### AI
 
-让 AI 在运行中途分析、总结或做出判断。提示词会发送给你项目的 LLM 提供商（**设置 → AI → LLM Providers**），模型的回复会成为执行时间线上该步骤的输出。AI 步骤直接在 OneUptime Worker 上运行；不需要代理。
+让 AI 在运行中途分析、总结或做出判断。提示词会发送给你项目的 LLM 提供商（**设置 → AI → LLM Providers**），模型的回复会成为执行时间线上该步骤的输出。AI 步骤直接在 Cast Operations Worker 上运行；不需要代理。
 
 AI 步骤上可配置：
 

@@ -1,6 +1,6 @@
 # Linux インストールガイド
 
-包括的な監視とインシデント管理のために、Linux ディストリビューションにデスクトップアプリケーションとして OneUptime をインストールします。
+包括的な監視とインシデント管理のために、Linux ディストリビューションにデスクトップアプリケーションとして Cast Operations をインストールします。
 
 ## インストール方法
 
@@ -10,17 +10,17 @@ Chrome および Chromium は、ネイティブデスクトップ統合を備え
 
 #### PWA インストール手順:
 
-1. **Chrome/Chromium で OneUptime を開く**
+1. **Chrome/Chromium で Cast Operations を開く**
 
    - ブラウザを起動します
-   - OneUptime インスタンスの URL に移動します
-   - OneUptime アカウントにサインインします
+   - Cast Operations インスタンスの URL に移動します
+   - Cast Operations アカウントにサインインします
    - ページが完全に読み込まれるまで待ちます
 
 2. **PWA をインストールする**
 
    - アドレスバーに**インストールアイコン**（⊞）を探します
-   - **「OneUptime をインストール」**をクリックします
+   - **「Cast Operations をインストール」**をクリックします
    - または**Chrome メニュー**（⋮）→ **その他のツール** → **ショートカットを作成**を使用します
 
 3. **インストールオプション**
@@ -31,7 +31,7 @@ Chrome および Chromium は、ネイティブデスクトップ統合を備え
    - **「インストール」**または**「作成」**をクリックします
 
 4. **アプリを起動する**
-   - アプリケーションランチャーで OneUptime を見つけます
+   - アプリケーションランチャーで Cast Operations を見つけます
    - またはデスクトップショートカットを使用します
    - アプリが専用のウィンドウで開きます
 
@@ -40,7 +40,7 @@ Chrome および Chromium は、ネイティブデスクトップ統合を備え
 Firefox は Linux で基本的なデスクトップ統合を備えた PWA インストールをサポートしています。
 
 1. **PWA インストール**:
-   - Firefox で OneUptime を開きます
+   - Firefox で Cast Operations を開きます
    - インストールバナーまたはプロンプトを探します
    - 利用可能な場合は**「インストール」**をクリックします
    - 注意: Chrome と比較してデスクトップ統合が制限されています
@@ -55,7 +55,7 @@ Edge は Linux でも利用可能で、優れた PWA サポートを提供しま
 
 ### 自動更新
 
-OneUptime PWA は自動的に更新されます:
+Cast Operations PWA は自動的に更新されます:
 
 - ブラウザがアプリを更新すると更新が適用されます
 - 重要なセキュリティ更新が即時にデプロイされます
@@ -69,7 +69,7 @@ OneUptime PWA は自動的に更新されます:
 # Chrome PWA の管理
 google-chrome chrome://apps/
 
-# OneUptime 関連のすべてのブラウザデータを削除
+# Cast Operations 関連のすべてのブラウザデータを削除
 rm -rf ~/.config/google-chrome/Default/Local\ Storage/leveldb/
 rm -rf ~/.cache/google-chrome/Default/
 ```

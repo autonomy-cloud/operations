@@ -1,8 +1,8 @@
 # Global SSO (Instance-wide Single Sign-On)
 
-Global SSO lets a OneUptime **instance administrator** (master admin) configure a single SAML 2.0 or OpenID Connect (OIDC) identity provider **once at the instance level** and connect it to any project on the server. It is the instance-wide counterpart to per-project SSO: instead of every project owner configuring their own identity provider, a master admin sets one up that can serve the whole instance.
+Global SSO lets a Cast Operations **instance administrator** (master admin) configure a single SAML 2.0 or OpenID Connect (OIDC) identity provider **once at the instance level** and connect it to any project on the server. It is the instance-wide counterpart to per-project SSO: instead of every project owner configuring their own identity provider, a master admin sets one up that can serve the whole instance.
 
-Global SSO is a **OneUptime Enterprise Edition** feature and is only available on instances running the Enterprise Edition build.
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO vs. Project SSO
 
@@ -24,7 +24,7 @@ Global SSO is a **OneUptime Enterprise Edition** feature and is only available o
    - For SAML: enter a **Name**, the **Sign On URL** and **Issuer** from your identity provider, and paste the **Public Certificate**. Choose the **Signature** and **Digest** methods (leave the defaults — `RSA-SHA256` / `SHA256` — if you are unsure).
    - For OIDC: enter the **Discovery URL**, **Issuer**, **Client ID**, **Client Secret**, **Scopes** (must include `openid`), and the **email** / **name** claim names.
 
-3. **Copy the OneUptime URLs into your identity provider**
+3. **Copy the Cast Operations URLs into your identity provider**
 
    - Open the provider (click its row in the list) to reveal the **Identity Provider URLs** card.
    - For SAML, copy the **ACS URL (Reply URL)** and **Issuer (Entity ID)** into your IdP (Okta, Azure AD, OneLogin, JumpCloud and more).

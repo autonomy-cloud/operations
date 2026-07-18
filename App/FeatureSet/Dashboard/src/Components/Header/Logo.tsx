@@ -1,7 +1,7 @@
 // Tailwind
 import Route from "Common/Types/API/Route";
 import Image from "Common/UI/Components/Image/Image";
-import OneUptimeLogo from "Common/UI/Images/logos/OneUptimeSVG/3-transparent.svg";
+import CastOperationsLogo from "Common/UI/Images/logos/CastOperationsSVG/logo.svg";
 import { Theme, useTheme } from "Common/UI/Utils/Theme";
 import React, { FunctionComponent, ReactElement } from "react";
 
@@ -34,7 +34,7 @@ const getDarkThemeLogo: (logo: string) => string = (logo: string): string => {
   }
 };
 
-const DarkOneUptimeLogo: string = getDarkThemeLogo(OneUptimeLogo);
+const DarkCastOperationsLogo: string = getDarkThemeLogo(CastOperationsLogo);
 
 const Logo: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
@@ -45,16 +45,16 @@ const Logo: FunctionComponent<ComponentProps> = (
     <div className="relative z-10 flex items-center pr-4 mr-4 -ml-5 border-r border-gray-200">
       <div className="flex flex-shrink-0 items-center">
         <Image
-          className="oneuptime-dashboard-logo block h-8 w-auto cursor-pointer hover:opacity-80 transition-opacity"
+          className="cast-operations-dashboard-logo block h-8 w-auto cursor-pointer hover:opacity-80 transition-opacity"
           onClick={() => {
             if (props.onClick) {
               props.onClick();
             }
           }}
           imageUrl={Route.fromString(
-            theme === Theme.Dark ? DarkOneUptimeLogo : OneUptimeLogo,
+            theme === Theme.Dark ? DarkCastOperationsLogo : CastOperationsLogo,
           )}
-          alt={"OneUptime"}
+          alt={"Cast Operations"}
         />
       </div>
     </div>

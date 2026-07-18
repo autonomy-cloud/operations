@@ -86,7 +86,7 @@ import {
   pluralName: "DockerSwarm Clusters",
   icon: IconProp.ServerStack,
   tableDescription:
-    "Docker Swarm clusters that are being monitored in this project. Each cluster is auto-discovered when the OneUptime DockerSwarm Agent sends metrics, or can be manually registered.",
+    "Docker Swarm clusters that are being monitored in this project. Each cluster is auto-discovered when the Cast Operations DockerSwarm Agent sends metrics, or can be manually registered.",
 })
 @Entity({
   name: "DockerSwarmCluster",
@@ -161,7 +161,7 @@ export default class DockerSwarmCluster extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -205,7 +205,7 @@ export default class DockerSwarmCluster extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Name",
     description:
-      "Name of this DockerSwarm cluster. This is the join key — it must match the docker.swarm.cluster.name OTel resource attribute stamped by the OneUptime DockerSwarm Agent.",
+      "Name of this DockerSwarm cluster. This is the join key — it must match the docker.swarm.cluster.name OTel resource attribute stamped by the Cast Operations DockerSwarm Agent.",
     example: "pve-production",
   })
   @Column({
@@ -347,7 +347,7 @@ export default class DockerSwarmCluster extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Agent Version",
     description:
-      "Version of the OneUptime DockerSwarm agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
+      "Version of the Cast Operations DockerSwarm agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
     example: "1.0.0",
   })
   @Column({

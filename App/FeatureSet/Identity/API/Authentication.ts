@@ -167,7 +167,7 @@ router.post(
             req,
             res,
             new BadRequestException(
-              "Sign up is disabled on this OneUptime Server. Please contact your server admin to enable it.",
+              "Sign up is disabled on this Cast Operations Server. Please contact your server admin to enable it.",
             ),
           );
         }
@@ -287,7 +287,7 @@ router.post(
 
       MailService.sendMail({
         toEmail: partialUser.email as Email,
-        subject: "Welcome to OneUptime. Please verify your email.",
+        subject: "Welcome to Cast Operations. Please verify your email.",
         templateType: EmailTemplateType.SignupWelcomeEmail,
         vars: {
           name: (partialUser.name! as Name).toString(),
@@ -324,7 +324,7 @@ router.post(
 
           API.post({
             url: URL.fromString(
-              "https://oneuptime.com/api/open-source-deployment/register",
+              "https://visca.ai/api/open-source-deployment/register",
             ),
             data: {
               email: savedUser.email?.toString() || "",
@@ -422,7 +422,7 @@ router.post(
 
         MailService.sendMail({
           toEmail: user.email!,
-          subject: "Password Reset Request for OneUptime",
+          subject: "Password Reset Request for Cast Operations",
           templateType: EmailTemplateType.ForgotPassword,
           vars: {
             homeURL: new URL(httpProtocol, host).toString(),
@@ -1052,7 +1052,7 @@ const login: LoginFunction = async (options: {
           (!webAuthnList || webAuthnList.length === 0)
         ) {
           const errorMessage: string = IsBillingEnabled
-            ? "Two Factor Authentication is enabled but no two factor auth is setup. Please contact OneUptime support for help."
+            ? "Two Factor Authentication is enabled but no two factor auth is setup. Please contact Cast Operations support for help."
             : "Two Factor Authentication is enabled but no two factor auth is setup. Please contact your server admin to disable two factor auth for this account.";
 
           return Response.sendErrorResponse(

@@ -1,6 +1,6 @@
 # SSL-Zertifikat-Monitor
 
-Der SSL-Zertifikat-Monitor ermöglicht die Überwachung der Gültigkeit und des Ablaufs von SSL/TLS-Zertifikaten auf Ihren Websites und Diensten. OneUptime prüft Ihre Zertifikate periodisch und warnt Sie, bevor sie ablaufen oder wenn Probleme erkannt werden.
+Der SSL-Zertifikat-Monitor ermöglicht die Überwachung der Gültigkeit und des Ablaufs von SSL/TLS-Zertifikaten auf Ihren Websites und Diensten. Cast Operations prüft Ihre Zertifikate periodisch und warnt Sie, bevor sie ablaufen oder wenn Probleme erkannt werden.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ SSL-Zertifikat-Monitore verbinden sich mit Ihren HTTPS-Endpunkten und inspiziere
 
 ## Einen SSL-Zertifikat-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **SSL-Zertifikat** als Monitortyp
 4. Geben Sie die URL des zu prüfenden HTTPS-Endpunkts ein

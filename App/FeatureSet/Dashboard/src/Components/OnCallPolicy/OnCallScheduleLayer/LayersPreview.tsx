@@ -98,7 +98,7 @@ const LayersPreview: FunctionComponent<ComponentProps> = (
    * uses react-big-calendar's default "week" view, but react-big-calendar does
    * not fire onRangeChange on initial mount (only on navigation / view switch).
    * Initializing to a single day made the calendar show just one occurrence
-   * until a view was toggled. https://github.com/OneUptime/oneuptime/issues/2466
+   * until a view was toggled. https://github.com/autonomy-cloud/operations/issues/2466
    */
   const [startTime, setStartTime] = useState<Date>(
     OneUptimeDate.getStartOfTheWeek(OneUptimeDate.getCurrentDate()),

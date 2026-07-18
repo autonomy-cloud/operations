@@ -26,7 +26,7 @@ const Help: () => JSX.Element = (): ReactElement => {
             title={t("help.supportEmail")}
             icon={IconProp.Email}
             openInNewTab={true}
-            url={URL.fromString("mailto:support@oneuptime.com")}
+            url={URL.fromString("mailto:support@visca.ai")}
             onClick={() => {
               setIsDropdownVisible(false);
             }}
@@ -39,7 +39,7 @@ const Help: () => JSX.Element = (): ReactElement => {
               setIsDropdownVisible(false);
             }}
             url={URL.fromString(
-              "https://join.slack.com/t/oneuptimesupport/shared_invite/zt-2pz5p1uhe-Fpmc7bv5ZE5xRMe7qJnwmA",
+              "https://github.com/autonomy-cloud/operations/discussions",
             )}
           />
           <IconDropdownItem
@@ -49,7 +49,7 @@ const Help: () => JSX.Element = (): ReactElement => {
               setIsDropdownVisible(false);
             }}
             openInNewTab={true}
-            url={URL.fromString("https://oneuptime.com/enterprise/demo")}
+            url={URL.fromString("https://visca.ai/enterprise/demo")}
           />
         </IconDropdownRow>
       </IconDropdownMenu>

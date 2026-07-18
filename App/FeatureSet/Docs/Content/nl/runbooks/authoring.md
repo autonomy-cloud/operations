@@ -26,7 +26,7 @@ Gebruik dit voor dingen die alleen een mens kan verifiëren: "Bevestigd dat het 
 
 ### JavaScript
 
-Een snippet JavaScript dat in een `isolated-vm`-sandbox draait. De sandbox leeft op een [Runbook-agent](/docs/runbooks/agents) in je eigen infrastructuur — niet op de OneUptime Worker.
+Een snippet JavaScript dat in een `isolated-vm`-sandbox draait. De sandbox leeft op een [Runbook-agent](/docs/runbooks/agents) in je eigen infrastructuur — niet op de Cast Operations Worker.
 
 Configureer twee dingen op een JavaScript-stap:
 
@@ -45,11 +45,11 @@ De teruggegeven waarde wordt vastgelegd op de stapuitvoering. `console.log`-outp
 
 Een uitgaande HTTP-aanroep doen. Configureer methode (GET/POST/PUT/PATCH/DELETE/HEAD), URL, optionele JSON-headers en optionele body. Responsstatus, -headers en -body worden vastgelegd (totaal beperkt tot 50KB).
 
-Handig voor: een PagerDuty-incident triggeren, naar Slack posten, je eigen admin-API aanroepen, enz. HTTP-stappen draaien rechtstreeks op de OneUptime Worker; geen agent nodig.
+Handig voor: een PagerDuty-incident triggeren, naar Slack posten, je eigen admin-API aanroepen, enz. HTTP-stappen draaien rechtstreeks op de Cast Operations Worker; geen agent nodig.
 
 ### Bash
 
-Een bash-script (`bash -c <script>`) dat draait op een [Runbook-agent](/docs/runbooks/agents) in je eigen infrastructuur. Bash draait nooit op de OneUptime Worker.
+Een bash-script (`bash -c <script>`) dat draait op een [Runbook-agent](/docs/runbooks/agents) in je eigen infrastructuur. Bash draait nooit op de Cast Operations Worker.
 
 Configureer twee dingen op een Bash-stap:
 
@@ -60,7 +60,7 @@ Als de gekozen agent offline is wanneer het runbook deze stap bereikt, wacht de 
 
 ### AI
 
-Vraag AI om midden in een run iets te analyseren, samen te vatten of te beslissen. De prompt wordt naar de LLM-provider van je project gestuurd (**Settings → AI → LLM Providers**) en het antwoord van het model wordt de stapoutput op de uitvoeringstijdlijn. AI-stappen draaien op de OneUptime Worker; er is geen agent nodig.
+Vraag AI om midden in een run iets te analyseren, samen te vatten of te beslissen. De prompt wordt naar de LLM-provider van je project gestuurd (**Settings → AI → LLM Providers**) en het antwoord van het model wordt de stapoutput op de uitvoeringstijdlijn. AI-stappen draaien op de Cast Operations Worker; er is geen agent nodig.
 
 Configureer op een AI-stap:
 

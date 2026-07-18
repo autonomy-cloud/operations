@@ -1,16 +1,16 @@
-# Ansluta OneUptime till Microsoft Teams
+# Ansluta Cast Operations till Microsoft Teams
 
-### Steg för att ansluta OneUptime till Microsoft Teams
+### Steg för att ansluta Cast Operations till Microsoft Teams
 
-1. **Skapa ett konto på OneUptime**
+1. **Skapa ett konto på Cast Operations**
 
-   - Besök [OneUptime.com](https://oneuptime.com) och skapa ett konto.
+   - Besök [Cast Operations.com](https://visca.ai) och skapa ett konto.
    - När kontot har skapats skapar du ett nytt projekt.
 
-2. **Anslut Microsoft Teams till OneUptime-projektet**
+2. **Anslut Microsoft Teams till Cast Operations-projektet**
 
-   - Navigera till **Projektinställningar** > **Microsoft Teams** i ditt OneUptime-projekt.
-   - Följ anvisningarna för att ansluta ditt Microsoft Teams-konto med OneUptime-projektet.
+   - Navigera till **Projektinställningar** > **Microsoft Teams** i ditt Cast Operations-projekt.
+   - Följ anvisningarna för att ansluta ditt Microsoft Teams-konto med Cast Operations-projektet.
 
 3. **Konfigurera incidentaviseringar**
 

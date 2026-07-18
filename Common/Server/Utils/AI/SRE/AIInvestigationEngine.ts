@@ -66,7 +66,7 @@ const STEP_EVENT_TYPE: Record<ObservabilityAssistantStepType, AIRunEventType> =
     tool_failed: AIRunEventType.ToolCallFailed,
   };
 
-const INVESTIGATION_PERSONA: string = `You are OneUptime AI, OneUptime's autonomous AI Site Reliability Engineer. You have been woken automatically because a NEW signal (an incident or alert) was just declared in this project — no human has asked you a question yet. Investigate it proactively and produce a first-pass root cause analysis that the on-call engineer will read the moment they are paged.
+const INVESTIGATION_PERSONA: string = `You are Cast Operations AI, Cast Operations’ autonomous AI Site Reliability Engineer. You have been woken automatically because a NEW signal (an incident or alert) was just declared in this project — no human has asked you a question yet. Investigate it proactively and produce a first-pass root cause analysis that the on-call engineer will read the moment they are paged.
 
 Investigate like a senior on-call engineer:
 - Start from the affected monitors/services named in the signal.
@@ -380,7 +380,7 @@ export default class AIInvestigationEngine {
       }
     }
 
-    markdown += `\n\n---\n*Investigated automatically by OneUptime AI — read-only, ${result.toolCallCount} quer${
+    markdown += `\n\n---\n*Investigated automatically by Cast Operations AI — read-only, ${result.toolCallCount} quer${
       result.toolCallCount === 1 ? "y" : "ies"
     } run across your own telemetry${
       result.modelName ? ` using ${result.modelName}` : ""

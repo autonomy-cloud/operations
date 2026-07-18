@@ -1,6 +1,6 @@
 # KI-Agenten
 
-KI-Agenten in OneUptime beheben automatisch Fehler, Leistungsprobleme und Datenbankabfragen in Ihrem Code. Auf Basis von OpenTelemetry-Observability-Daten erstellen KI-Agenten Pull Requests mit Korrekturen – nicht nur Benachrichtigungen.
+KI-Agenten in Cast Operations beheben automatisch Fehler, Leistungsprobleme und Datenbankabfragen in Ihrem Code. Auf Basis von OpenTelemetry-Observability-Daten erstellen KI-Agenten Pull Requests mit Korrekturen – nicht nur Benachrichtigungen.
 
 ## Was können KI-Agenten tun?
 
@@ -25,7 +25,7 @@ KI-Agenten analysieren Ihre Observability-Daten (Traces, Logs und Metriken), um 
 
 ## LLM-Anbieter-Flexibilität
 
-OneUptime funktioniert mit jedem LLM-Anbieter. Sie können verwenden:
+Cast Operations funktioniert mit jedem LLM-Anbieter. Sie können verwenden:
 
 - **OpenAI GPT**-Modelle
 - **Anthropic Claude**-Modelle
@@ -36,7 +36,7 @@ Hosten Sie Ihr KI-Modell selbst und halten Sie Ihren Code vollständig privat.
 
 ## Datenschutz
 
-Unabhängig von Ihrem Plan sieht, speichert oder trainiert OneUptime niemals mit Ihrem Code:
+Unabhängig von Ihrem Plan sieht, speichert oder trainiert Cast Operations niemals mit Ihrem Code:
 
 - **Kein Code-Zugriff**: Ihr Code verbleibt in Ihrer Infrastruktur
 - **Keine Datenspeicherung**: Null-Datenspeicherungsrichtlinie
@@ -46,13 +46,13 @@ Unabhängig von Ihrem Plan sieht, speichert oder trainiert OneUptime niemals mit
 
 ### Globale KI-Agenten
 
-Wenn Sie **OneUptime SaaS** (cloud-gehostete Version) verwenden, werden globale KI-Agenten von OneUptime bereitgestellt und sind vorkonfiguriert und einsatzbereit. Diese Agenten werden von OneUptime verwaltet und erfordern keine zusätzliche Einrichtung.
+Wenn Sie **Cast Operations SaaS** (cloud-gehostete Version) verwenden, werden globale KI-Agenten von Cast Operations bereitgestellt und sind vorkonfiguriert und einsatzbereit. Diese Agenten werden von Cast Operations verwaltet und erfordern keine zusätzliche Einrichtung.
 
 Globale KI-Agenten sind automatisch für alle Projekte verfügbar, sofern sie nicht in Ihren Projekteinstellungen deaktiviert wurden.
 
 ### Selbst gehostete KI-Agenten
 
-Für Organisationen, die KI-Agenten innerhalb ihrer eigenen Infrastruktur betreiben müssen (z. B. aus Sicherheits-, Compliance- oder Netzwerkzugangsanforderungen), unterstützt OneUptime selbst gehostete KI-Agenten.
+Für Organisationen, die KI-Agenten innerhalb ihrer eigenen Infrastruktur betreiben müssen (z. B. aus Sicherheits-, Compliance- oder Netzwerkzugangsanforderungen), unterstützt Cast Operations selbst gehostete KI-Agenten.
 
 Selbst gehostete KI-Agenten:
 
@@ -63,9 +63,9 @@ Selbst gehostete KI-Agenten:
 
 ## Einrichten eines selbst gehosteten KI-Agenten
 
-### Schritt 1: KI-Agenten in OneUptime erstellen
+### Schritt 1: KI-Agenten in Cast Operations erstellen
 
-1. Melden Sie sich bei Ihrem OneUptime-Dashboard an
+1. Melden Sie sich bei Ihrem Cast Operations-Dashboard an
 2. Gehen Sie zu **Projekteinstellungen** > **KI-Agenten**
 3. Klicken Sie auf **KI-Agent erstellen**, um einen neuen Agenten hinzuzufügen
 4. Füllen Sie die erforderlichen Felder aus:
@@ -85,11 +85,11 @@ Um einen KI-Agenten auszuführen, stellen Sie sicher, dass Docker installiert is
 docker run --name oneuptime-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -d oneuptime/ai-agent:release
 ```
 
-Wenn Sie OneUptime selbst hosten, ändern Sie `ONEUPTIME_URL` auf die URL Ihrer benutzerdefinierten selbst gehosteten Instanz.
+Wenn Sie Cast Operations selbst hosten, ändern Sie `ONEUPTIME_URL` auf die URL Ihrer benutzerdefinierten selbst gehosteten Instanz.
 
 #### Docker Compose
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 Konfiguration anwenden:
@@ -160,15 +160,15 @@ Der KI-Agent unterstützt die folgenden Umgebungsvariablen:
 
 | Variable        | Beschreibung                                                      |
 | --------------- | ----------------------------------------------------------------- |
-| `AI_AGENT_KEY`  | Der KI-Agentenschlüssel aus Ihrem OneUptime-Dashboard             |
-| `AI_AGENT_ID`   | Die KI-Agenten-ID aus Ihrem OneUptime-Dashboard                   |
-| `ONEUPTIME_URL` | Die URL Ihrer OneUptime-Instanz (Standard: https://oneuptime.com) |
+| `AI_AGENT_KEY`  | Der KI-Agentenschlüssel aus Ihrem Cast Operations-Dashboard             |
+| `AI_AGENT_ID`   | Die KI-Agenten-ID aus Ihrem Cast Operations-Dashboard                   |
+| `ONEUPTIME_URL` | Die URL Ihrer Cast Operations-Instanz (Standard: https://visca.ai) |
 
 ## Ihren KI-Agenten verifizieren
 
 Nach der Bereitstellung Ihres KI-Agenten:
 
-1. Gehen Sie zu **Projekteinstellungen** > **KI-Agenten** in Ihrem OneUptime-Dashboard
+1. Gehen Sie zu **Projekteinstellungen** > **KI-Agenten** in Ihrem Cast Operations-Dashboard
 2. Ihr Agent sollte innerhalb weniger Minuten als **Verbunden** angezeigt werden
 3. Wenn der Status **Getrennt** anzeigt, prüfen Sie die Container-Logs auf Fehler
 
@@ -187,7 +187,7 @@ kubectl logs deployment/oneuptime-ai-agent
 ### Agent stellt keine Verbindung her
 
 1. **Anmeldedaten überprüfen**: Stellen Sie sicher, dass `AI_AGENT_KEY` und `AI_AGENT_ID` korrekt sind
-2. **Netzwerk prüfen**: Stellen Sie sicher, dass der Agent Ihre OneUptime-Instanz erreichen kann
+2. **Netzwerk prüfen**: Stellen Sie sicher, dass der Agent Ihre Cast Operations-Instanz erreichen kann
 3. **Logs überprüfen**: Prüfen Sie Container-Logs auf Fehlermeldungen
 4. **Firewall-Regeln**: Stellen Sie sicher, dass ausgehende HTTPS-Verbindungen (Port 443) erlaubt sind
 
@@ -201,6 +201,6 @@ kubectl logs deployment/oneuptime-ai-agent
 
 Wenn Sie Probleme mit Ihrem KI-Agenten haben:
 
-1. Prüfen Sie die [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) auf bekannte Probleme
+1. Prüfen Sie die [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) auf bekannte Probleme
 2. Erstellen Sie ein neues Issue, wenn Ihr Problem noch nicht gemeldet wurde
-3. Wenden Sie sich an den [Support](https://oneuptime.com/support), wenn Sie einen Enterprise-Plan haben
+3. Wenden Sie sich an den [Support](https://visca.ai/support), wenn Sie einen Enterprise-Plan haben

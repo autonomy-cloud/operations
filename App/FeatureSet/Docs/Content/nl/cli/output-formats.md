@@ -1,6 +1,6 @@
 # Uitvoerformaten
 
-De OneUptime CLI ondersteunt drie uitvoerformaten: **tabel**, **JSON** en **breed**. U kunt het formaat instellen met de `-o`- of `--output`-vlag bij elke opdracht.
+De Cast Operations CLI ondersteunt drie uitvoerformaten: **tabel**, **JSON** en **breed**. U kunt het formaat instellen met de `-o`- of `--output`-vlag bij elke opdracht.
 
 ## Tabel (standaard)
 

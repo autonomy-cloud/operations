@@ -15,7 +15,7 @@
     "previous": "Anterior",
     "next": "Siguiente",
     "helpImproveTitle": "Ayúdanos a mejorar esta página",
-    "helpImproveBody": "OneUptime es 100 % de código abierto. ¿Encontraste un error tipográfico o quieres añadir algo?",
+    "helpImproveBody": "Cast Operations es 100 % de código abierto. ¿Encontraste un error tipográfico o quieres añadir algo?",
     "editOnGithub": "Editar esta página en GitHub",
     "notFoundBadge": "Error 404",
     "notFoundTitle": "Página no encontrada",
@@ -26,9 +26,9 @@
     "errorMessage": "Estamos experimentando dificultades técnicas. Por favor, inténtalo de nuevo en un momento.",
     "tryAgain": "Reintentar",
     "switchLanguage": "Cambiar idioma",
-    "metaTitleSuffix": "Documentación de OneUptime",
-    "metaTitleDefault": "Documentación de OneUptime",
-    "metaDescription": "Documentación completa para OneUptime: la plataforma de observabilidad de código abierto. Aprenda a monitorear sus aplicaciones, configurar alertas y gestionar incidentes."
+    "metaTitleSuffix": "Documentación de Cast Operations",
+    "metaTitleDefault": "Documentación de Cast Operations",
+    "metaDescription": "Documentación completa para Cast Operations: la plataforma de observabilidad de código abierto. Aprenda a monitorear sus aplicaciones, configurar alertas y gestionar incidentes."
   },
   "navGroups": {
     "Introduction": "Introducción",
@@ -162,7 +162,7 @@
     "Fix Tasks": "Fix Tasks",
     "LLM Providers": "Proveedores de LLM",
     "MCP Server": "Servidor MCP",
-    "OneUptime API Reference": "Referencia de la API de OneUptime",
+    "Cast Operations API Reference": "Referencia de la API de Cast Operations",
     "Slack Integration": "Integración con Slack",
     "Microsoft Teams Integration": "Integración con Microsoft Teams",
     "GitHub Integration": "Integración con GitHub",

@@ -1,6 +1,6 @@
 [Unit]
-Description=OneUptime Docker Swarm Agent (OpenTelemetry Collector + inventory poller)
-Documentation=https://oneuptime.com/docs/telemetry/docker-swarm
+Description=Cast Operations Docker Swarm Agent (OpenTelemetry Collector + inventory poller)
+Documentation=https://visca.ai/docs/telemetry/docker-swarm
 After=network-online.target docker.service
 Wants=network-online.target
 Requires=docker.service

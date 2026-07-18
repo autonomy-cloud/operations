@@ -203,7 +203,7 @@ export default class MicrosoftTeamsAuthAction {
     projectId: ObjectID;
   }): Promise<ObjectID> {
     /*
-     * Find a OneUptime user associated with this Teams user ID using WorkspaceUserAuthToken table
+     * Find a Cast Operations user associated with this Teams user ID using WorkspaceUserAuthToken table
      * This table is populated when users authenticate with Microsoft Teams through the OAuth flow
      */
 
@@ -226,7 +226,7 @@ export default class MicrosoftTeamsAuthAction {
 
       if (workspaceUserAuthToken && workspaceUserAuthToken.userId) {
         logger.debug(
-          "Found OneUptime user for Teams user: " + data.teamsUserId,
+          "Found Cast Operations user for Teams user: " + data.teamsUserId,
           {
             projectId: data.projectId.toString(),
             workspaceUserId: data.teamsUserId,
@@ -236,11 +236,11 @@ export default class MicrosoftTeamsAuthAction {
       }
 
       throw new BadDataException(
-        "No OneUptime user linked to this Microsoft Teams user. Please authenticate with Microsoft Teams.",
+        "No Cast Operations user linked to this Microsoft Teams user. Please authenticate with Microsoft Teams.",
       );
     } catch (error) {
       logger.error(
-        "Error finding OneUptime user for Teams user: " + data.teamsUserId,
+        "Error finding Cast Operations user for Teams user: " + data.teamsUserId,
         {
           projectId: data.projectId.toString(),
           workspaceUserId: data.teamsUserId,

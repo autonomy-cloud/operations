@@ -9,7 +9,7 @@ const ProxmoxDocumentation: FunctionComponent<
     <Fragment>
       <ProxmoxDocumentationCard
         title="Agent Installation Guide"
-        description="Install the OneUptime Proxmox Agent to connect your Proxmox cluster. Once installed, the cluster will appear automatically."
+        description="Install the Cast Operations Proxmox Agent to connect your Proxmox cluster. Once installed, the cluster will appear automatically."
       />
     </Fragment>
   );

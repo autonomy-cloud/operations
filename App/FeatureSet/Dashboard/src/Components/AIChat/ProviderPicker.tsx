@@ -28,7 +28,7 @@ function providerLabel(provider: ChatProvider): string {
 
 /*
  * Descriptions are free text and are often just a restatement of the name.
- * Suppress those so the label does not read "OneUptime AI OneUptime AI".
+ * Suppress those so the label does not read "Cast Operations AI Cast Operations AI".
  */
 function providerDescription(provider: ChatProvider): string | null {
   if (!provider.description) {

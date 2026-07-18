@@ -10,7 +10,7 @@ export function getPodmanInstallationMarkdown(data: {
 
 ## Quick Start (One Command)
 
-The OneUptime Podman Agent is a pre-built image that ships with a tuned OpenTelemetry Collector configuration. You only need to pass a few environment variables.
+The Cast Operations Podman Agent is a pre-built image that ships with a tuned OpenTelemetry Collector configuration. You only need to pass a few environment variables.
 
 \`\`\`bash
 podman run -d \\
@@ -25,7 +25,7 @@ podman run -d \\
   oneuptime/podman-agent:release
 \`\`\`
 
-Replace \`my-podman-host\` with a friendly name for this host — it is how the host will appear in OneUptime.
+Replace \`my-podman-host\` with a friendly name for this host — it is how the host will appear in Cast Operations.
 
 That's it. Once the agent connects, your Podman host will appear automatically in the Podman section.
 
@@ -64,7 +64,7 @@ podman compose up -d
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| \`ONEUPTIME_URL\` | Yes | Your OneUptime instance URL (e.g. \`${data.oneuptimeUrl}\`) |
+| \`ONEUPTIME_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.oneuptimeUrl}\`) |
 | \`ONEUPTIME_SERVICE_TOKEN\` | Yes | Telemetry ingestion service token |
 | \`PODMAN_HOST_NAME\` | No | Friendly name for this host. Defaults to \`podman-host\` |
 
@@ -126,8 +126,8 @@ The agent container must run as root (\`--user 0:0\`) to access \`/run/podman/po
 
 1. Check that the agent is running: \`podman ps --filter name=oneuptime-podman-agent\`
 2. Check the agent logs: \`podman logs oneuptime-podman-agent | grep -i error\`
-3. Verify your OneUptime URL and service token are correct
-4. Ensure your Podman host can reach the OneUptime instance over the network
+3. Verify your Cast Operations URL and service token are correct
+4. Ensure your Podman host can reach the Cast Operations instance over the network
 
 ### No Metrics Appearing
 

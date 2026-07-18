@@ -1,6 +1,6 @@
 # SMTP 設定
 
-OneUptime 支援透過自訂 SMTP 伺服器寄送電子郵件，提供三種驗證方式：
+Cast Operations 支援透過自訂 SMTP 伺服器寄送電子郵件，提供三種驗證方式：
 
 - **使用者名稱與密碼** - 傳統的 SMTP 驗證
 - **OAuth 2.0** - 適用於 Microsoft 365 與 Google Workspace 的現代驗證方式
@@ -10,14 +10,14 @@ OneUptime 支援透過自訂 SMTP 伺服器寄送電子郵件，提供三種驗�
 
 ## OAuth 2.0 驗證
 
-OAuth 2.0 提供了一種更安全的方式來向電子郵件伺服器進行驗證，特別適用於已停用基本驗證的企業環境。OneUptime 支援兩種 OAuth 授權類型（grant type）：
+OAuth 2.0 提供了一種更安全的方式來向電子郵件伺服器進行驗證，特別適用於已停用基本驗證的企業環境。Cast Operations 支援兩種 OAuth 授權類型（grant type）：
 
 - **Client Credentials** - 由 Microsoft 365 及大多數 OAuth 供應商使用
 - **JWT Bearer** - 由 Google Workspace 服務帳戶使用
 
 ### OAuth 所需的欄位
 
-在 OneUptime 中設定使用 OAuth 驗證的 SMTP 時，你會需要：
+在 Cast Operations 中設定使用 OAuth 驗證的 SMTP 時，你會需要：
 
 | 欄位                    | 說明                                                                          |
 | ----------------------- | ----------------------------------------------------------------------------- |
@@ -42,7 +42,7 @@ OAuth 2.0 提供了一種更安全的方式來向電子郵件伺服器進行驗�
 1. 登入 [Microsoft Entra 系統管理中心](https://entra.microsoft.com)
 2. 前往 **Identity** > **Applications** > **App registrations**
 3. 點選 **New registration**
-4. 為你的應用程式輸入名稱（例如「OneUptime SMTP」）
+4. 為你的應用程式輸入名稱（例如「Cast Operations SMTP」）
 5. 在 **Supported account types** 中，選擇「Accounts in this organizational directory only」
 6. **Redirect URI** 保持空白（用戶端認證流程不需要）
 7. 點選 **Register**
@@ -104,9 +104,9 @@ Add-MailboxPermission -Identity "sender@yourdomain.com" -User <service-principal
 
 > **注意：** 請使用 `Add-MailboxPermission`（而非 `Add-RecipientPermission`）。`Add-RecipientPermission` 只會授予收件者的 `SendAs` 權限，不足以讓服務主體透過使用 OAuth 的 SMTP 寄送郵件 — 你會在寄送時收到驗證/權限錯誤。`Add-MailboxPermission` 搭配 `FullAccess` 才是真正有效的指令。
 
-### 步驟 5：在 OneUptime 中設定
+### 步驟 5：在 Cast Operations 中設定
 
-在 OneUptime 中，使用以下設定建立或編輯一項 SMTP 設定：
+在 Cast Operations 中，使用以下設定建立或編輯一項 SMTP 設定：
 
 | 欄位                | 值                                                                |
 | ------------------- | ----------------------------------------------------------------- |
@@ -186,9 +186,9 @@ Google Workspace 需要一個具備網域層級委派（domain-wide delegation�
 
 注意：委派的傳播可能需要幾分鐘到 24 小時的時間。
 
-### 步驟 7：在 OneUptime 中設定
+### 步驟 7：在 Cast Operations 中設定
 
-在 OneUptime 中，使用以下設定建立或編輯一項 SMTP 設定：
+在 Cast Operations 中，使用以下設定建立或編輯一項 SMTP 設定：
 
 | 欄位                | 值                                                                                                                             |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -230,16 +230,16 @@ Google Workspace 需要一個具備網域層級委派（domain-wide delegation�
 
 ### 一般
 
-- **測試你的設定**：使用 OneUptime 中的「Send Test Email」按鈕來驗證你的設定
-- **檢查記錄**：查看 OneUptime 記錄以取得詳細的錯誤訊息
-- **權杖快取**：OneUptime 會快取 OAuth 權杖，並在到期前自動重新整理
+- **測試你的設定**：使用 Cast Operations 中的「Send Test Email」按鈕來驗證你的設定
+- **檢查記錄**：查看 Cast Operations 記錄以取得詳細的錯誤訊息
+- **權杖快取**：Cast Operations 會快取 OAuth 權杖，並在到期前自動重新整理
 
 ---
 
 ## 安全性最佳實務
 
 1. **定期輪換密鑰**：設定行事曆提醒，在用戶端密鑰到期前進行輪換
-2. **使用專用的服務帳戶**：為 OneUptime 建立獨立的認證，而非與其他應用程式共用
+2. **使用專用的服務帳戶**：為 Cast Operations 建立獨立的認證，而非與其他應用程式共用
 3. **最小權限原則**：只授予所需的最低權限（Microsoft 為 SMTP.SendAsApp，Google 為 mail.google.com 範圍）
 4. **監控使用情況**：查看電子郵件記錄與 OAuth 應用程式登入，以發現異常活動
 5. **安全儲存**：絕不要將用戶端密鑰提交至版本控制系統

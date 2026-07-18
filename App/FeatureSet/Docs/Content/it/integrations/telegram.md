@@ -1,11 +1,11 @@
 # Integrazione con Telegram
 
-Invia gli aggiornamenti degli incidenti a una chat o a un gruppo [Telegram](https://telegram.org). OneUptime ha un componente workflow **Telegram** integrato, quindi la configurazione è rapida.
+Invia gli aggiornamenti degli incidenti a una chat o a un gruppo [Telegram](https://telegram.org). Cast Operations ha un componente workflow **Telegram** integrato, quindi la configurazione è rapida.
 
-Questa integrazione è **in uscita**: OneUptime invia messaggi tramite un bot Telegram.
+Questa integrazione è **in uscita**: Cast Operations invia messaggi tramite un bot Telegram.
 
 ```text
-OneUptime Incident → On Create  ──►  Telegram component  ──►  message in your chat
+Cast Operations Incident → On Create  ──►  Telegram component  ──►  message in your chat
 ```
 
 ## Passaggio 1 — Crea un bot e ottieni il suo token
@@ -21,7 +21,7 @@ OneUptime Incident → On Create  ──►  Telegram component  ──►  mess
 
 ## Passaggio 3 — Salva i segreti
 
-1. In OneUptime, vai su **Workflows → Global Variables → Create**.
+1. In Cast Operations, vai su **Workflows → Global Variables → Create**.
 2. Crea `TELEGRAM_BOT_TOKEN` (segreto) e `TELEGRAM_CHAT_ID`.
 
 ## Passaggio 4 — Crea il workflow

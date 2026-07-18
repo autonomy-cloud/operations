@@ -1,6 +1,6 @@
 # Moniteur de certificat SSL
 
-La surveillance des certificats SSL vous permet de surveiller la validité et l'expiration des certificats SSL/TLS de vos sites web et services. OneUptime vérifie périodiquement vos certificats et vous alerte avant leur expiration ou si des problèmes sont détectés.
+La surveillance des certificats SSL vous permet de surveiller la validité et l'expiration des certificats SSL/TLS de vos sites web et services. Cast Operations vérifie périodiquement vos certificats et vous alerte avant leur expiration ou si des problèmes sont détectés.
 
 ## Vue d'ensemble
 
@@ -14,7 +14,7 @@ Les moniteurs de certificats SSL se connectent à vos points d'accès HTTPS et i
 
 ## Création d'un moniteur de certificat SSL
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **Certificat SSL** comme type de moniteur
 4. Entrez l'URL du point d'accès HTTPS à vérifier

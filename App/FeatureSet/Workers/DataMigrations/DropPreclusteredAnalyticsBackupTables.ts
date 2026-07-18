@@ -18,10 +18,10 @@ const PRECLUSTERED_TABLE_NAME: RegExp = /^[A-Za-z0-9_]+_preclustered$/;
  * NEW telemetry lands in the cluster tables immediately. The pre-conversion
  * rows stay behind in the `_preclustered` backups.
  *
- * OneUptime's telemetry cuts are forward-only: history is not carried across
+ * Cast Operations’ telemetry cuts are forward-only: history is not carried across
  * them automatically (the same policy as DropUnusedTelemetryTables and the
  * V2 -> V3 cut — see App/FeatureSet/Docs/Content/en/installation/upgrading.md,
- * 'Upgrading from OneUptime 10 -> 11'). Operators who want the pre-conversion
+ * 'Upgrading from Cast Operations 10 -> 11'). Operators who want the pre-conversion
  * history must copy it out by hand BEFORE upgrading, or rename the source aside
  * to a non-`_preclustered` name (e.g. `…_backup`, which this migration does not
  * match). This migration reclaims the disk the abandoned backups hold instead

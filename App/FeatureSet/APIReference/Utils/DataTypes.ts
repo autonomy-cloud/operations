@@ -151,7 +151,7 @@ export default class DataTypeUtil {
         name: "Permission",
         path: "permission",
         description:
-          "A string identifier representing an access control permission in OneUptime.",
+          "A string identifier representing an access control permission in Cast Operations.",
       },
       {
         name: "Search",

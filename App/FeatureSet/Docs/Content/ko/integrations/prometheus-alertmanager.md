@@ -1,20 +1,20 @@
 # Prometheus Alertmanager 통합
 
-[Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) 알림을 OneUptime 인시던트로 변환합니다. Prometheus가 알림 규칙을 평가하고, Alertmanager가 라우팅하면, OneUptime이 기록하고 에스컬레이션합니다.
+[Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) 알림을 Cast Operations 인시던트로 변환합니다. Prometheus가 알림 규칙을 평가하고, Alertmanager가 라우팅하면, Cast Operations이 기록하고 에스컬레이션합니다.
 
-이 통합은 **인바운드**: Alertmanager가 **Webhook 트리거** 로 시작하는 OneUptime **[Workflow](/docs/workflows/index)** 로 POST합니다.
+이 통합은 **인바운드**: Alertmanager가 **Webhook 트리거** 로 시작하는 Cast Operations **[Workflow](/docs/workflows/index)** 로 POST합니다.
 
 ```text
-Prometheus rule fires  ──►  Alertmanager webhook receiver  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Prometheus rule fires  ──►  Alertmanager webhook receiver  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## 사전 요건
 
 - `alertmanager.yml` 을 편집할 수 있는 Prometheus + Alertmanager 설정.
-- Alertmanager가 HTTPS로 OneUptime 인스턴스에 도달할 수 있어야 합니다.
-- 워크플로를 만들 수 있는 OneUptime 프로젝트.
+- Alertmanager가 HTTPS로 Cast Operations 인스턴스에 도달할 수 있어야 합니다.
+- 워크플로를 만들 수 있는 Cast Operations 프로젝트.
 
-## 1단계 — OneUptime 워크플로 구성
+## 1단계 — Cast Operations 워크플로 구성
 
 1. **Workflows → Create Workflow** 를 열고, 이름을 `Alertmanager → Incidents` 로 지정하고 **Builder** 를 엽니다.
 2. **Webhook** 트리거를 추가하고 **URL을 복사합니다**. 블록 이름을 `Alertmanager` 로 변경합니다.

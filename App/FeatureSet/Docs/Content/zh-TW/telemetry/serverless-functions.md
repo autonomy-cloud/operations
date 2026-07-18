@@ -2,18 +2,18 @@
 
 ## 概觀
 
-當 OneUptime 收到以 `faas.name` 資源屬性標記的 OpenTelemetry 資料時，會自動辨識出一個**無伺服器函式（Serverless Function）**。您無需手動建立任何東西——只要使用對應執行階段的 OpenTelemetry SDK 為您的函式進行檢測，將其 OTLP 匯出器指向 OneUptime，該函式就會連同其追蹤（traces）、日誌（logs）與指標（metrics）一起出現在**無伺服器函式（Serverless Functions）**之下。
+當 Cast Operations 收到以 `faas.name` 資源屬性標記的 OpenTelemetry 資料時，會自動辨識出一個**無伺服器函式（Serverless Function）**。您無需手動建立任何東西——只要使用對應執行階段的 OpenTelemetry SDK 為您的函式進行檢測，將其 OTLP 匯出器指向 Cast Operations，該函式就會連同其追蹤（traces）、日誌（logs）與指標（metrics）一起出現在**無伺服器函式（Serverless Functions）**之下。
 
 這適用於 AWS Lambda、Google Cloud Functions、Azure Functions、Cloudflare Workers，或任何能夠發送 OpenTelemetry 的 FaaS 執行階段。
 
 ## 先決條件
 
-- 一個 **OneUptime 遙測擷取權杖（Telemetry Ingestion Token）**——從 _Project Settings → Telemetry Ingestion Keys_ 建立一個，並複製 `x-oneuptime-token` 的值。
+- 一個 **Cast Operations 遙測擷取權杖（Telemetry Ingestion Token）**——從 _Project Settings → Telemetry Ingestion Keys_ 建立一個，並複製 `x-oneuptime-token` 的值。
 - 對應您函式語言的 OpenTelemetry SDK（或自動檢測層）。
 
-## OneUptime 如何識別函式
+## Cast Operations 如何識別函式
 
-OneUptime 以 `faas.name` 資源屬性作為每個函式的鍵：
+Cast Operations 以 `faas.name` 資源屬性作為每個函式的鍵：
 
 | 屬性                                                   | 是否必填 | 用途                                                        |
 | ------------------------------------------------------ | -------- | ----------------------------------------------------------- |
@@ -30,12 +30,12 @@ OneUptime 以 `faas.name` 資源屬性作為每個函式的鍵：
 大多數語言的自動檢測都會遵循標準的 OpenTelemetry 環境變數：
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://oneuptime.com/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
-如果您自行託管 OneUptime，請將端點替換為 `https://YOUR-ONEUPTIME-HOST/otlp`。
+如果您自行託管 Cast Operations，請將端點替換為 `https://YOUR-OPERATIONS-HOST/otlp`。
 
 ## 步驟 2 —（AWS Lambda）加入 OpenTelemetry 層
 
@@ -43,7 +43,7 @@ OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
-OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 

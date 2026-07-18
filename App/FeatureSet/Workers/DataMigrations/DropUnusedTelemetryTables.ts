@@ -16,7 +16,7 @@ import logger from "Common/Server/Utils/Logger";
  * be preserved BEFORE upgrading instead — operators rename the tables to
  * `…_backup` names, which this migration does not touch. See
  * App/FeatureSet/Docs/Content/en/installation/upgrading.md
- * ('Upgrading from OneUptime 10 → 11').
+ * ('Upgrading from Cast Operations 10 → 11').
  *
  * Every statement is `DROP TABLE IF EXISTS`, so this no-ops per table on
  * installs where a generation never existed (e.g. fresh V3 installs).

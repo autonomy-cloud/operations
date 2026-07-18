@@ -117,7 +117,7 @@ describe("CodeFixReadiness.getLlmProviderCheck", () => {
       .spyOn(LlmProviderService, "getLlmProviderForMeteredAgentPath")
       .mockResolvedValue(
         fakeProvider({
-          name: "OneUptime AI",
+          name: "Cast Operations AI",
           isGlobalLlm: true,
           costPerMillionTokensInUSDCents: 500,
         }),
@@ -140,7 +140,7 @@ describe("CodeFixReadiness.getLlmProviderCheck", () => {
       .spyOn(LlmProviderService, "getLlmProviderForMeteredAgentPath")
       .mockResolvedValue(
         fakeProvider({
-          name: "OneUptime AI",
+          name: "Cast Operations AI",
           isGlobalLlm: true,
           costPerMillionTokensInUSDCents: 500,
         }),
@@ -164,7 +164,7 @@ describe("CodeFixReadiness.getLlmProviderCheck", () => {
       .spyOn(LlmProviderService, "getLlmProviderForMeteredAgentPath")
       .mockResolvedValue(
         fakeProvider({
-          name: "OneUptime AI",
+          name: "Cast Operations AI",
           isGlobalLlm: true,
           costPerMillionTokensInUSDCents: 500,
         }),

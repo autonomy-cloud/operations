@@ -1,14 +1,14 @@
-# Skicka kontinuerliga profileringsdata till OneUptime
+# Skicka kontinuerliga profileringsdata till Cast Operations
 
 ## Översikt
 
-Kontinuerlig profilering är den fjärde pelaren i observabilitet tillsammans med loggar, mätvärden och spårningar. Profiler fångar hur din applikation spenderar CPU-tid, allokerar minne och använder systemresurser på funktionsnivå. OneUptime tar emot profileringsdata via OpenTelemetry Protocol (OTLP) och lagrar den tillsammans med dina andra telemetrisignaler för enhetlig analys.
+Kontinuerlig profilering är den fjärde pelaren i observabilitet tillsammans med loggar, mätvärden och spårningar. Profiler fångar hur din applikation spenderar CPU-tid, allokerar minne och använder systemresurser på funktionsnivå. Cast Operations tar emot profileringsdata via OpenTelemetry Protocol (OTLP) och lagrar den tillsammans med dina andra telemetrisignaler för enhetlig analys.
 
-Med profileringsdata i OneUptime kan du identifiera funktioner som konsumerar CPU, identifiera minnesläckor, hitta konkurrensbegränsningar och korrelera prestandaproblem med specifika spårningar och spans.
+Med profileringsdata i Cast Operations kan du identifiera funktioner som konsumerar CPU, identifiera minnesläckor, hitta konkurrensbegränsningar och korrelera prestandaproblem med specifika spårningar och spans.
 
 ## Profiltyper som stöds
 
-OneUptime stöder följande profiltyper:
+Cast Operations stöder följande profiltyper:
 
 | Profiltyp     | Beskrivning                             | Enhet        |
 | ------------- | --------------------------------------- | ------------ |
@@ -23,7 +23,7 @@ OneUptime stöder följande profiltyper:
 
 ### Steg 1 – Skapa en telemetriintagningstoken
 
-Efter att du registrerat dig på OneUptime och skapat ett projekt, klicka på "Mer" i navigeringsfältet och klicka på "Projektinställningar".
+Efter att du registrerat dig på Cast Operations och skapat ett projekt, klicka på "Mer" i navigeringsfältet och klicka på "Projektinställningar".
 
 På sidan Telemetriintagningsnyckel, klicka på "Skapa intagningsnyckel" för att skapa en token.
 
@@ -35,32 +35,32 @@ När du har skapat en token klickar du på "Visa" för att visa token.
 
 ### Steg 2 – Konfigurera din profilerare
 
-OneUptime accepterar profileringsdata via både gRPC och HTTP med OTLP-profilprotokollet.
+Cast Operations accepterar profileringsdata via både gRPC och HTTP med OTLP-profilprotokollet.
 
 | Protokoll | Slutpunkt                                            |
 | --------- | ---------------------------------------------------- |
-| gRPC      | `your-oneuptime-host:4317` (OTLP standard gRPC-port) |
-| HTTP      | `https://your-oneuptime-host/otlp/v1/profiles`       |
+| gRPC      | `your-operations-host:4317` (OTLP standard gRPC-port) |
+| HTTP      | `https://your-operations-host/otlp/v1/profiles`       |
 
 **Miljövariabler**
 
-Ange följande miljövariabler för att peka din profilerare på OneUptime:
+Ange följande miljövariabler för att peka din profilerare på Cast Operations:
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
-**Egeninstallerad OneUptime**
+**Egeninstallerad Cast Operations**
 
-Om du egeninstallerar OneUptime, ersätt slutpunkten med din egen värd (t.ex. `http(s)://YOUR-ONEUPTIME-HOST/otlp`). För gRPC, anslut direkt till port 4317 på din OneUptime-värd.
+Om du egeninstallerar Cast Operations, ersätt slutpunkten med din egen värd (t.ex. `http(s)://YOUR-OPERATIONS-HOST/otlp`). För gRPC, anslut direkt till port 4317 på din Cast Operations-värd.
 
 ## Instrumenteringsguide
 
 ### Använda Grafana Alloy (eBPF-baserad profilering)
 
-Grafana Alloy (tidigare Grafana Agent) kan samla in CPU-profiler från alla processer på en Linux-värd med eBPF, utan några kodändringar. Konfigurera den för att exportera via OTLP till OneUptime.
+Grafana Alloy (tidigare Grafana Agent) kan samla in CPU-profiler från alla processer på en Linux-värd med eBPF, utan några kodändringar. Konfigurera den för att exportera via OTLP till Cast Operations.
 
 Exempel på Alloy-konfiguration:
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "oneuptime" {
   endpoint {
-    url = "https://oneuptime.com/pyroscope"
+    url = "https://visca.ai/pyroscope"
     headers = {
       "x-oneuptime-token" = "YOUR_ONEUPTIME_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ För Java-applikationer, använd [async-profiler](https://github.com/async-profi
 ```bash
 # Start your Java application with the OpenTelemetry Java agent
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://oneuptime.com/otlp \
+  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
   -Dotel.exporter.otlp.headers=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -95,7 +95,7 @@ java -javaagent:opentelemetry-javaagent.jar \
 
 ## Använda OpenTelemetry Collector
 
-Du kan använda OpenTelemetry Collector som proxy för att ta emot profiler från dina applikationer och vidarebefordra dem till OneUptime.
+Du kan använda OpenTelemetry Collector som proxy för att ta emot profiler från dina applikationer och vidarebefordra dem till Cast Operations.
 
 ```yaml
 receivers:
@@ -108,7 +108,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -125,7 +125,7 @@ service:
 
 ### Flamegraf-visualisering
 
-OneUptime renderar profildata som interaktiva flamegrafar. Varje stapel representerar en funktion i anropsstacken och dess bredd är proportionell mot den tid eller de resurser som konsumeras. Du kan klicka på valfri funktion för att zooma in och se dess anropare och anropstagare.
+Cast Operations renderar profildata som interaktiva flamegrafar. Varje stapel representerar en funktion i anropsstacken och dess bredd är proportionell mot den tid eller de resurser som konsumeras. Du kan klicka på valfri funktion för att zooma in och se dess anropare och anropstagare.
 
 ### Funktionslista
 
@@ -133,14 +133,14 @@ Visa en sorterbar tabell med alla funktioner som fångats i en profil, rankade e
 
 ### Spårningskorrelation
 
-Profiler i OneUptime kan korreleras med distribuerade spårningar. När en profil inkluderar spårnings- och span-ID:n (via OTLP-länktabellen) kan du navigera direkt från ett långsamt spårningsspan till motsvarande CPU- eller minnesprofil för att förstå exakt vilken kod som kördes.
+Profiler i Cast Operations kan korreleras med distribuerade spårningar. När en profil inkluderar spårnings- och span-ID:n (via OTLP-länktabellen) kan du navigera direkt från ett långsamt spårningsspan till motsvarande CPU- eller minnesprofil för att förstå exakt vilken kod som kördes.
 
 ## Datalagring
 
-Profildatalagring konfigureras per telemetritjänst i dina OneUptime-projektinställningar. Standardlagringsperioden är 15 dagar. Data tas automatiskt bort efter att lagringsperioden löper ut.
+Profildatalagring konfigureras per telemetritjänst i dina Cast Operations-projektinställningar. Standardlagringsperioden är 15 dagar. Data tas automatiskt bort efter att lagringsperioden löper ut.
 
 För att ändra lagringsperioden för en tjänst, navigera till **Telemetri > Tjänster > [Din tjänst] > Inställningar** och uppdatera datalagringsvärdet.
 
 ## Behöver du hjälp?
 
-Kontakta support@oneuptime.com om du behöver hjälp med att konfigurera profilering med OneUptime.
+Kontakta support@visca.ai om du behöver hjälp med att konfigurera profilering med Cast Operations.

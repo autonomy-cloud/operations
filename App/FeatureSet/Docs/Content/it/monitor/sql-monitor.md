@@ -2,7 +2,7 @@
 
 Il Monitor Query SQL esegue una query SQL di sola lettura in modo pianificato da un probe e genera avvisi in base al risultato: il numero di righe restituite, un valore scalare, la durata di esecuzione della query o un errore della query. È progettato per il caso d'uso «esegui una query e apri un incidente», ad esempio per generare avvisi quando il numero di ordini annullati negli ultimi cinque minuti aumenta improvvisamente, quando una tabella di coda cresce troppo, oppure quando una riga critica scompare.
 
-Poiché la query viene eseguita da un probe all'interno della tua rete, OneUptime non necessita mai di una connessione diretta al tuo database e l'intero set di risultati non lascia mai il probe: viene riportata solo una piccola proiezione limitata del risultato.
+Poiché la query viene eseguita da un probe all'interno della tua rete, Cast Operations non necessita mai di una connessione diretta al tuo database e l'intero set di risultati non lascia mai il probe: viene riportata solo una piccola proiezione limitata del risultato.
 
 ## Database supportati
 
@@ -16,7 +16,7 @@ I motori compatibili con MySQL e con PostgreSQL che utilizzano lo stesso protoco
 
 ## Come funziona
 
-Ad ogni controllo, il probe si connette al tuo database, esegue la query in un contesto di sola lettura, legge al massimo un numero limitato di righe e riporta una proiezione compatta a OneUptime. I criteri del tuo monitor vengono quindi valutati rispetto a tale proiezione.
+Ad ogni controllo, il probe si connette al tuo database, esegue la query in un contesto di sola lettura, legge al massimo un numero limitato di righe e riporta una proiezione compatta a Cast Operations. I criteri del tuo monitor vengono quindi valutati rispetto a tale proiezione.
 
 Il probe riporta solo:
 
@@ -26,7 +26,7 @@ Il probe riporta solo:
 - **Tempo di esecuzione** — la durata di esecuzione della query, in millisecondi.
 - **Errore della query** — un messaggio di errore sanificato se la query non è riuscita.
 
-L'intero set di risultati non viene mai inviato a OneUptime, quindi i dati dei clienti non vengono replicati nello storage di OneUptime.
+L'intero set di risultati non viene mai inviato a Cast Operations, quindi i dati dei clienti non vengono replicati nello storage di Cast Operations.
 
 ## Modello di sicurezza
 
@@ -41,7 +41,7 @@ Eseguire una query fornita dal cliente su un database di produzione è un'operaz
 
 ## Prerequisiti
 
-- Un **probe** con accesso di rete all'host e alla porta del tuo database. Può essere un probe ospitato da OneUptime (se il tuo database è raggiungibile da internet) oppure un probe self-hosted in esecuzione all'interno della tua rete. Consulta la documentazione del probe per sapere come installare un probe personalizzato.
+- Un **probe** con accesso di rete all'host e alla porta del tuo database. Può essere un probe ospitato da Cast Operations (se il tuo database è raggiungibile da internet) oppure un probe self-hosted in esecuzione all'interno della tua rete. Consulta la documentazione del probe per sapere come installare un probe personalizzato.
 - Un **utente del database di sola lettura** e i dettagli di connessione (host, porta, nome del database, nome utente, password).
 
 ## Configurazione
@@ -99,11 +99,11 @@ Per una query in stile `COUNT(*)`, il conteggio è disponibile sia come **Numero
 
 Affinché la password del database non venga mai archiviata in chiaro nel monitor, crea un [Segreto del Monitor](/docs/monitor/monitor-secrets) e fai riferimento ad esso dal campo Password:
 
-1. Vai su Dashboard di OneUptime → Impostazioni Progetto → Segreti del Monitor → Crea Segreto del Monitor.
+1. Vai su Dashboard di Cast Operations → Impostazioni Progetto → Segreti del Monitor → Crea Segreto del Monitor.
 2. Crea un segreto (ad esempio `dbPassword`) e concedi a questo monitor l'accesso ad esso.
 3. Nel campo Password del monitor, inserisci `{{monitorSecrets.dbPassword}}`.
 
-OneUptime risolve il segreto lato server prima che la configurazione venga consegnata al probe. OneUptime non crea mai questi segreti al posto tuo: fare riferimento a uno è una tua scelta.
+Cast Operations risolve il segreto lato server prima che la configurazione venga consegnata al probe. Cast Operations non crea mai questi segreti al posto tuo: fare riferimento a uno è una tua scelta.
 
 ## Impostare i criteri
 

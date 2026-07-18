@@ -1,6 +1,6 @@
 # AI 智能体
 
-OneUptime 中的 AI 智能体可自动修复您代码中的错误、性能问题和数据库查询。基于 OpenTelemetry 可观测性数据，AI 智能体会创建包含修复方案的 Pull Request，而不仅仅是发送告警。
+Cast Operations 中的 AI 智能体可自动修复您代码中的错误、性能问题和数据库查询。基于 OpenTelemetry 可观测性数据，AI 智能体会创建包含修复方案的 Pull Request，而不仅仅是发送告警。
 
 ## AI 智能体能做什么？
 
@@ -25,7 +25,7 @@ AI 智能体分析您的可观测性数据（追踪、日志和指标），以�
 
 ## LLM 提供商灵活性
 
-OneUptime 支持任意 LLM 提供商。您可以使用：
+Cast Operations 支持任意 LLM 提供商。您可以使用：
 
 - **OpenAI GPT** 模型
 - **Anthropic Claude** 模型
@@ -36,7 +36,7 @@ OneUptime 支持任意 LLM 提供商。您可以使用：
 
 ## 隐私
 
-无论您使用哪种方案，OneUptime 都不会查看、存储或用您的代码进行训练：
+无论您使用哪种方案，Cast Operations 都不会查看、存储或用您的代码进行训练：
 
 - **不访问代码**：您的代码保留在您的基础设施上
 - **不存储数据**：零数据保留策略
@@ -46,13 +46,13 @@ OneUptime 支持任意 LLM 提供商。您可以使用：
 
 ### 全局 AI 智能体
 
-如果您使用 **OneUptime SaaS**（云托管版本），全局 AI 智能体由 OneUptime 提供，已预先配置并可直接使用。这些智能体由 OneUptime 管理，无需额外设置。
+如果您使用 **Cast Operations SaaS**（云托管版本），全局 AI 智能体由 Cast Operations 提供，已预先配置并可直接使用。这些智能体由 Cast Operations 管理，无需额外设置。
 
 全局 AI 智能体默认对所有项目可用，除非在项目设置中禁用。
 
 ### 自托管 AI 智能体
 
-对于需要在自己基础设施内运行 AI 智能体的组织（例如出于安全、合规或网络访问要求），OneUptime 支持自托管 AI 智能体。
+对于需要在自己基础设施内运行 AI 智能体的组织（例如出于安全、合规或网络访问要求），Cast Operations 支持自托管 AI 智能体。
 
 自托管 AI 智能体：
 
@@ -63,9 +63,9 @@ OneUptime 支持任意 LLM 提供商。您可以使用：
 
 ## 设置自托管 AI 智能体
 
-### 第一步：在 OneUptime 中创建 AI 智能体
+### 第一步：在 Cast Operations 中创建 AI 智能体
 
-1. 登录您的 OneUptime 控制台
+1. 登录您的 Cast Operations 控制台
 2. 前往 **项目设置** > **AI 智能体**
 3. 点击 **创建 AI 智能体** 以添加新智能体
 4. 填写必填字段：
@@ -85,11 +85,11 @@ OneUptime 支持任意 LLM 提供商。您可以使用：
 docker run --name oneuptime-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -d oneuptime/ai-agent:release
 ```
 
-如果您是自托管 OneUptime，请将 `ONEUPTIME_URL` 更改为您自定义的自托管实例 URL。
+如果您是自托管 Cast Operations，请将 `ONEUPTIME_URL` 更改为您自定义的自托管实例 URL。
 
 #### Docker Compose
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 应用配置：
@@ -160,15 +160,15 @@ AI 智能体支持以下环境变量：
 
 | 变量            | 描述                                                   |
 | --------------- | ------------------------------------------------------ |
-| `AI_AGENT_KEY`  | 来自您 OneUptime 控制台的 AI 智能体密钥                |
-| `AI_AGENT_ID`   | 来自您 OneUptime 控制台的 AI 智能体 ID                 |
-| `ONEUPTIME_URL` | 您的 OneUptime 实例 URL（默认：https://oneuptime.com） |
+| `AI_AGENT_KEY`  | 来自您 Cast Operations 控制台的 AI 智能体密钥                |
+| `AI_AGENT_ID`   | 来自您 Cast Operations 控制台的 AI 智能体 ID                 |
+| `ONEUPTIME_URL` | 您的 Cast Operations 实例 URL（默认：https://visca.ai） |
 
 ## 验证您的 AI 智能体
 
 部署 AI 智能体后：
 
-1. 在您的 OneUptime 控制台中，前往 **项目设置** > **AI 智能体**
+1. 在您的 Cast Operations 控制台中，前往 **项目设置** > **AI 智能体**
 2. 您的智能体应在几分钟内显示为 **已连接**
 3. 如果状态显示为 **已断开连接**，请检查容器日志以获取错误信息
 
@@ -187,7 +187,7 @@ kubectl logs deployment/oneuptime-ai-agent
 ### 智能体无法连接
 
 1. **验证凭据**：确保 `AI_AGENT_KEY` 和 `AI_AGENT_ID` 正确
-2. **检查网络**：确保智能体能够访问您的 OneUptime 实例
+2. **检查网络**：确保智能体能够访问您的 Cast Operations 实例
 3. **查看日志**：检查容器日志中的错误信息
 4. **防火墙规则**：确保允许出站 HTTPS（端口 443）流量
 
@@ -201,6 +201,6 @@ kubectl logs deployment/oneuptime-ai-agent
 
 如果您在使用 AI 智能体时遇到问题：
 
-1. 查看 [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) 了解已知问题
+1. 查看 [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) 了解已知问题
 2. 如果您的问题尚未被报告，请创建新 Issue
-3. 如果您是企业计划用户，请联系[支持团队](https://oneuptime.com/support)
+3. 如果您是企业计划用户，请联系[支持团队](https://visca.ai/support)

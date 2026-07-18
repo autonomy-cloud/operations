@@ -1,26 +1,26 @@
 # Fournisseurs LLM
 
-OneUptime prend en charge l'intégration avec divers fournisseurs de grands modèles de langage (LLM) pour activer les fonctionnalités alimentées par l'IA dans toute la plateforme. Ce guide vous aidera à configurer votre propre fournisseur LLM.
+Cast Operations prend en charge l'intégration avec divers fournisseurs de grands modèles de langage (LLM) pour activer les fonctionnalités alimentées par l'IA dans toute la plateforme. Ce guide vous aidera à configurer votre propre fournisseur LLM.
 
 ## Que peuvent faire les fournisseurs LLM ?
 
-Les fournisseurs LLM dans OneUptime vous aident à automatiser et améliorer votre flux de gestion des incidents :
+Les fournisseurs LLM dans Cast Operations vous aident à automatiser et améliorer votre flux de gestion des incidents :
 
 - **Notes d'incident** : Génération automatique de notes et de mises à jour détaillées sur les incidents
 - **Notes d'alerte** : Création de descriptions d'alertes significatives avec contexte
 - **Notes de maintenance programmée** : Génération automatique de notes sur les événements de maintenance
 - **Post-mortems d'incidents** : Rédaction automatique de rapports complets de post-mortem d'incidents
-- **Améliorations du code** : Si vous connectez votre dépôt de code à OneUptime, nous utiliserons votre fournisseur LLM pour analyser les données de télémétrie (journaux, traces, métriques, exceptions) et suggérer des améliorations de code
+- **Améliorations du code** : Si vous connectez votre dépôt de code à Cast Operations, nous utiliserons votre fournisseur LLM pour analyser les données de télémétrie (journaux, traces, métriques, exceptions) et suggérer des améliorations de code
 
-## Utilisateurs OneUptime SaaS
+## Utilisateurs Cast Operations SaaS
 
-Si vous utilisez **OneUptime SaaS** (version hébergée dans le cloud), vous pouvez utiliser le **Fournisseur LLM global** par défaut sans aucune configuration supplémentaire. Le Fournisseur LLM global est préconfiguré et prêt à l'emploi pour toutes les fonctionnalités IA.
+Si vous utilisez **Cast Operations SaaS** (version hébergée dans le cloud), vous pouvez utiliser le **Fournisseur LLM global** par défaut sans aucune configuration supplémentaire. Le Fournisseur LLM global est préconfiguré et prêt à l'emploi pour toutes les fonctionnalités IA.
 
 Si vous préférez utiliser vos propres clés API ou un fournisseur spécifique, vous pouvez toujours configurer un fournisseur LLM personnalisé en suivant les instructions ci-dessous.
 
 ## Fournisseurs pris en charge
 
-OneUptime prend actuellement en charge les fournisseurs LLM suivants :
+Cast Operations prend actuellement en charge les fournisseurs LLM suivants :
 
 | Fournisseur           | Description                                                                  | Clé API requise  | URL de base requise                |
 | --------------------- | ---------------------------------------------------------------------------- | ---------------- | ---------------------------------- |
@@ -36,7 +36,7 @@ OneUptime prend actuellement en charge les fournisseurs LLM suivants :
 
 ### Étape 1 : Accéder aux paramètres des fournisseurs LLM
 
-1. Connectez-vous à votre tableau de bord OneUptime
+1. Connectez-vous à votre tableau de bord Cast Operations
 2. Accédez à **Agents IA** > **Fournisseurs LLM**
 3. Cliquez sur **Créer un fournisseur LLM** pour ajouter un nouveau fournisseur
 
@@ -145,7 +145,7 @@ API Key: (leave blank)
 
 ### vLLM auto-hébergé sur Kubernetes (Helm)
 
-Si vous auto-hébergez OneUptime avec le chart Helm, vous pouvez exécuter [vLLM](https://docs.vllm.ai) — un serveur d'inférence compatible OpenAI — au sein de votre cluster et servir des modèles locaux sur vos propres GPU. Aucune donnée ne quitte votre infrastructure.
+Si vous auto-hébergez Cast Operations avec le chart Helm, vous pouvez exécuter [vLLM](https://docs.vllm.ai) — un serveur d'inférence compatible OpenAI — au sein de votre cluster et servir des modèles locaux sur vos propres GPU. Aucune donnée ne quitte votre infrastructure.
 
 1. Activez-le dans vos valeurs Helm (nécessite des nœuds GPU NVIDIA) :
 
@@ -175,7 +175,7 @@ Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-Consultez le [README du chart Helm](https://github.com/OneUptime/oneuptime/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) pour la planification GPU, les modèles à accès restreint et les options de réglage.
+Consultez le [README du chart Helm](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) pour la planification GPU, les modèles à accès restreint et les options de réglage.
 
 ## Utilisation d'URL de base personnalisées
 
@@ -211,5 +211,5 @@ Pour les déploiements d'entreprise ou lors de l'utilisation de services proxy, 
 
 Si vous rencontrez des problèmes lors de la configuration de votre fournisseur LLM, veuillez :
 
-1. Consulter les [problèmes GitHub de OneUptime](https://github.com/OneUptime/oneuptime/issues) pour les problèmes connus
+1. Consulter les [problèmes GitHub de Cast Operations](https://github.com/autonomy-cloud/operations/issues) pour les problèmes connus
 2. Contacter le support si vous disposez d'un abonnement entreprise

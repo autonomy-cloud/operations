@@ -1,6 +1,6 @@
 # 網站監測器
 
-網站監測讓您可以監測任何網站或網頁的可用性、效能與回應。OneUptime 會定期向您的網站 URL 發送 HTTP 請求，並檢查它是否正確回應。
+網站監測讓您可以監測任何網站或網頁的可用性、效能與回應。Cast Operations 會定期向您的網站 URL 發送 HTTP 請求，並檢查它是否正確回應。
 
 ## 概觀
 
@@ -14,7 +14,7 @@
 
 ## 建立網站監測器
 
-1. 前往 OneUptime 儀表板中的 **Monitors**
+1. 前往 Cast Operations 儀表板中的 **Monitors**
 2. 點選 **Create Monitor**
 3. 選擇 **Website** 作為監測器類型
 4. 輸入您要監測的網站 URL
@@ -63,7 +63,7 @@ https://example.com/health?nocache={{random}}
 
 #### 不要跟隨重新導向
 
-預設情況下，OneUptime 會跟隨 HTTP 重新導向（301、302 等）。如果您想要監測重新導向回應本身，而非最終目的地，請啟用此選項。
+預設情況下，Cast Operations 會跟隨 HTTP 重新導向（301、302 等）。如果您想要監測重新導向回應本身，而非最終目的地，請啟用此選項。
 
 #### 允許自我簽署的憑證
 
@@ -77,7 +77,7 @@ https://example.com/health?nocache={{random}}
 - **Client Private Key (PEM)** — 相符的 PEM 編碼私密金鑰。
 - **Client Private Key Passphrase** _(選用)_ — 僅在私密金鑰已加密時才需要。
 
-這相當於 curl 中 `--cert` 與 `--key` 旗標的 OneUptime 對應功能：
+這相當於 curl 中 `--cert` 與 `--key` 旗標的 Cast Operations 對應功能：
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

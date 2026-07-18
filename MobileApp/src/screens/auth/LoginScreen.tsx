@@ -106,7 +106,7 @@ export default function LoginScreen(): React.JSX.Element {
                 letterSpacing: -1,
               }}
             >
-              OneUptime
+              Cast Operations
             </Text>
             <Text
               style={{

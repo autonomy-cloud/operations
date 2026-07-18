@@ -59,7 +59,7 @@ export interface ComponentProps {
   isMinimalTable?: boolean | undefined;
   noItemsMessage?: string | undefined;
   /*
-   * Scope to a OneUptime entity by its stable entityKeys (membership) —
+   * Scope to a Cast Operations entity by its stable entityKeys (membership) —
    * compiles to `hasAny(entityKeys, [...])` server-side.
    */
   entityKeys?: Array<string> | undefined;

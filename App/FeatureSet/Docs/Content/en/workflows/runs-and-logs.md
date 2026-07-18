@@ -1,6 +1,6 @@
 # Runs & Logs
 
-Every time a workflow runs, OneUptime saves a record of what happened — when it ran, whether it worked, and what each block did. That record is called a **run**. Runs are how you confirm a workflow worked, debug one that didn't, and look back at past activity.
+Every time a workflow runs, Cast Operations saves a record of what happened — when it ran, whether it worked, and what each block did. That record is called a **run**. Runs are how you confirm a workflow worked, debug one that didn't, and look back at past activity.
 
 ## Where to find them
 
@@ -35,7 +35,7 @@ The values shown are exactly what the block saw — after all variables were fil
 ### "My workflow didn't run."
 
 1. Make sure the workflow is **enabled** in Settings. New workflows start disabled.
-2. For a OneUptime event trigger: confirm the event actually happened. Open the record and check its history.
+2. For a Cast Operations event trigger: confirm the event actually happened. Open the record and check its history.
 3. For a webhook trigger: confirm the other system is sending to the right URL. Most tools log when they send a webhook — check there.
 4. For a schedule trigger: confirm the cron expression matches the time you expect.
 

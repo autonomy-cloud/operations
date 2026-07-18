@@ -1479,7 +1479,7 @@ export class Service extends DatabaseService<Model> {
         const pushMessage: PushNotificationMessage =
           PushNotificationUtil.createAlertCreatedNotification({
             alertTitle: alert.title!,
-            projectName: alert.project?.name || "OneUptime",
+            projectName: alert.project?.name || "Cast Operations",
             alertViewLink: (
               await AlertService.getAlertLinkInDashboard(
                 alert.projectId!,
@@ -1559,7 +1559,7 @@ export class Service extends DatabaseService<Model> {
         const pushMessage: PushNotificationMessage =
           PushNotificationUtil.createIncidentCreatedNotification({
             incidentTitle: incident.title!,
-            projectName: incident.project?.name || "OneUptime",
+            projectName: incident.project?.name || "Cast Operations",
             incidentViewLink: (
               await IncidentService.getIncidentLinkInDashboard(
                 incident.projectId!,
@@ -1638,7 +1638,7 @@ export class Service extends DatabaseService<Model> {
         const pushMessage: PushNotificationMessage =
           PushNotificationUtil.createAlertEpisodeCreatedNotification({
             alertEpisodeTitle: alertEpisode.title!,
-            projectName: alertEpisode.project?.name || "OneUptime",
+            projectName: alertEpisode.project?.name || "Cast Operations",
             alertEpisodeViewLink: (
               await AlertEpisodeService.getEpisodeLinkInDashboard(
                 alertEpisode.projectId!,
@@ -1716,7 +1716,7 @@ export class Service extends DatabaseService<Model> {
         const pushMessage: PushNotificationMessage =
           PushNotificationUtil.createIncidentEpisodeCreatedNotification({
             incidentEpisodeTitle: incidentEpisode.title!,
-            projectName: incidentEpisode.project?.name || "OneUptime",
+            projectName: incidentEpisode.project?.name || "Cast Operations",
             incidentEpisodeViewLink: (
               await IncidentEpisodeService.getEpisodeLinkInDashboard(
                 incidentEpisode.projectId!,
@@ -1986,7 +1986,7 @@ export class Service extends DatabaseService<Model> {
 
     const sms: SMS = {
       to,
-      message: `This is a message from OneUptime. A new alert has been created: ${alertIdentifier}. To acknowledge this alert, please click on the following link ${url.toString()}`,
+      message: `This is a message from Cast Operations. A new alert has been created: ${alertIdentifier}. To acknowledge this alert, please click on the following link ${url.toString()}`,
     };
 
     return sms;
@@ -2019,7 +2019,7 @@ export class Service extends DatabaseService<Model> {
 
     const sms: SMS = {
       to,
-      message: `This is a message from OneUptime. A new incident has been created: ${incidentIdentifier}. To acknowledge this incident, please click on the following link ${url.toString()}`,
+      message: `This is a message from Cast Operations. A new incident has been created: ${incidentIdentifier}. To acknowledge this incident, please click on the following link ${url.toString()}`,
     };
 
     return sms;
@@ -2053,7 +2053,7 @@ export class Service extends DatabaseService<Model> {
 
     const sms: SMS = {
       to,
-      message: `This is a message from OneUptime. A new alert episode has been created: ${episodeIdentifier}. To acknowledge this alert episode, please click on the following link ${url.toString()}`,
+      message: `This is a message from Cast Operations. A new alert episode has been created: ${episodeIdentifier}. To acknowledge this alert episode, please click on the following link ${url.toString()}`,
     };
 
     return sms;
@@ -2117,7 +2117,7 @@ export class Service extends DatabaseService<Model> {
       );
       lines.push(
         "",
-        `🔎 <a href="${this.escapeTelegramHtml(dashboardUrl.toString())}">View alert in OneUptime</a>`,
+        `🔎 <a href="${this.escapeTelegramHtml(dashboardUrl.toString())}">View alert in Cast Operations</a>`,
       );
     }
 
@@ -2159,7 +2159,7 @@ export class Service extends DatabaseService<Model> {
         );
       lines.push(
         "",
-        `🔎 <a href="${this.escapeTelegramHtml(dashboardUrl.toString())}">View incident in OneUptime</a>`,
+        `🔎 <a href="${this.escapeTelegramHtml(dashboardUrl.toString())}">View incident in Cast Operations</a>`,
       );
     }
 
@@ -2202,7 +2202,7 @@ export class Service extends DatabaseService<Model> {
         );
       lines.push(
         "",
-        `🔎 <a href="${this.escapeTelegramHtml(dashboardUrl.toString())}">View alert episode in OneUptime</a>`,
+        `🔎 <a href="${this.escapeTelegramHtml(dashboardUrl.toString())}">View alert episode in Cast Operations</a>`,
       );
     }
 
@@ -2251,7 +2251,7 @@ export class Service extends DatabaseService<Model> {
 
     const templateKey: WhatsAppTemplateId = WhatsAppTemplateIds.AlertCreated;
     const templateVariables: Record<string, string> = {
-      project_name: alert.project?.name || "OneUptime",
+      project_name: alert.project?.name || "Cast Operations",
       alert_title: alert.title || "",
       acknowledge_url: acknowledgeUrl.toString(),
       alert_number:
@@ -2307,7 +2307,7 @@ export class Service extends DatabaseService<Model> {
 
     const templateKey: WhatsAppTemplateId = WhatsAppTemplateIds.IncidentCreated;
     const templateVariables: Record<string, string> = {
-      project_name: incident.project?.name || "OneUptime",
+      project_name: incident.project?.name || "Cast Operations",
       incident_title: incident.title || "",
       acknowledge_url: acknowledgeUrl.toString(),
       incident_number:
@@ -2366,7 +2366,7 @@ export class Service extends DatabaseService<Model> {
     const templateKey: WhatsAppTemplateId =
       WhatsAppTemplateIds.AlertEpisodeCreated;
     const templateVariables: Record<string, string> = {
-      project_name: alertEpisode.project?.name || "OneUptime",
+      project_name: alertEpisode.project?.name || "Cast Operations",
       episode_title: alertEpisode.title || "",
       acknowledge_url: acknowledgeUrl.toString(),
       episode_number:

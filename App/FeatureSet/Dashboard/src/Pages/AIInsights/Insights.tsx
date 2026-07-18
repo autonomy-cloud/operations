@@ -584,7 +584,7 @@ const AIInsightsPage: FunctionComponent<
           title="No insights yet"
           description={
             <span>
-              When AI Insights is enabled, OneUptime AI continuously watches
+              When AI Insights is enabled, Cast Operations AI continuously watches
               this project&apos;s telemetry and files a quiet insight whenever a
               deterministic sensor finds something — without paging anyone or
               opening incidents.
@@ -685,7 +685,7 @@ const AIInsightsPage: FunctionComponent<
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <p className="max-w-2xl text-sm text-gray-500">
-          Proactive findings from OneUptime AI&apos;s deterministic telemetry
+          Proactive findings from Cast Operations AI&apos;s deterministic telemetry
           sensors — new or spiking exceptions, error-log spikes, latency
           regressions and metric drift. Insights never page and never open
           incidents.

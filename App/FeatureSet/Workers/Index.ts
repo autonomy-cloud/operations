@@ -190,7 +190,7 @@ import "./Jobs/TelemetryEntity/ComputeServiceDependencies";
  * copy. The V3 cut is forward-only (decision 2026-06-11): V3 tables start
  * fresh, history ages in over the retention window, and operators who
  * want to carry history forward run the documented clickhouse-client
- * queries instead — see App/FeatureSet/Docs/Content/en/installation/upgrading.md ('Upgrading from OneUptime 10 → 11').
+ * queries instead — see App/FeatureSet/Docs/Content/en/installation/upgrading.md ('Upgrading from Cast Operations 10 → 11').
  */
 
 /*
@@ -207,12 +207,6 @@ import "./Jobs/OnCallDutySchedule/RefreshHandoffTime";
  */
 
 import "./Jobs/OnCallPolicy/DeleteOldTimeLogs";
-
-import "./Jobs/PaymentProvider/SendDailyEmailsToOwnersIfSubscriptionIsOverdue";
-
-// Enterprise License usage reporting (self-hosted only).
-import "./Jobs/EnterpriseLicense/ReportUserCount";
-import "./Jobs/EnterpriseLicense/SendLicenseNotificationEmails";
 
 import AnalyticsTableManagement from "./Utils/AnalyticsDatabase/TableManegement";
 import RunDatabaseMigrations from "./Utils/DataMigration";

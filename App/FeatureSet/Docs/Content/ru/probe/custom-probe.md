@@ -2,7 +2,7 @@
 
 Вы можете настроить пользовательские зонды внутри вашей сети для мониторинга ресурсов в частной сети или ресурсов, защищённых брандмауэром.
 
-Для начала необходимо создать пользовательский зонд в Настройках проекта > Зонд. После создания зонда на панели управления OneUptime у вас будут `PROBE_ID` и `PROBE_KEY`.
+Для начала необходимо создать пользовательский зонд в Настройках проекта > Зонд. После создания зонда на панели управления Cast Operations у вас будут `PROBE_ID` и `PROBE_KEY`.
 
 ### Развёртывание зонда
 
@@ -11,21 +11,21 @@
 Для запуска зонда убедитесь, что Docker установлен. Пользовательский зонд можно запустить следующей командой:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://oneuptime.com -d oneuptime/probe:release
+docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
 ```
 
-При самостоятельном хостинге OneUptime замените `ONEUPTIME_URL` на URL вашего экземпляра.
+При самостоятельном хостинге Cast Operations замените `ONEUPTIME_URL` на URL вашего экземпляра.
 
 ##### Настройка прокси
 
-Если зонду требуется подключение через прокси-сервер для доступа к OneUptime или внешним ресурсам, настройте прокси с помощью следующих переменных среды:
+Если зонду требуется подключение через прокси-сервер для доступа к Cast Operations или внешним ресурсам, настройте прокси с помощью следующих переменных среды:
 
 ```
 # Для HTTP-прокси
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -34,7 +34,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d oneuptime/probe:release
@@ -43,7 +43,7 @@ docker run --name oneuptime-probe --network host \
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       # Настройка прокси (необязательно)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,7 +102,7 @@ services:
 docker compose up -d
 ```
 
-При самостоятельном хостинге OneUptime замените `ONEUPTIME_URL` на URL вашего экземпляра.
+При самостоятельном хостинге Cast Operations замените `ONEUPTIME_URL` на URL вашего экземпляра.
 
 #### Kubernetes
 
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 ##### С настройкой прокси
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             # Настройка прокси (необязательно)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -184,7 +184,7 @@ spec:
 kubectl apply -f oneuptime-probe.yaml
 ```
 
-При самостоятельном хостинге OneUptime замените `ONEUPTIME_URL` на URL вашего экземпляра.
+При самостоятельном хостинге Cast Operations замените `ONEUPTIME_URL` на URL вашего экземпляра.
 
 ### Переменные среды
 
@@ -192,9 +192,9 @@ kubectl apply -f oneuptime-probe.yaml
 
 #### Обязательные переменные
 
-- `PROBE_KEY` — ключ зонда из вашей панели управления OneUptime
-- `PROBE_ID` — идентификатор зонда из вашей панели управления OneUptime
-- `ONEUPTIME_URL` — URL вашего экземпляра OneUptime (по умолчанию: https://oneuptime.com)
+- `PROBE_KEY` — ключ зонда из вашей панели управления Cast Operations
+- `PROBE_ID` — идентификатор зонда из вашей панели управления Cast Operations
+- `ONEUPTIME_URL` — URL вашего экземпляра Cast Operations (по умолчанию: https://visca.ai)
 
 #### Необязательные переменные
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Проверка
 
-Если зонд успешно запущен, он должен отображаться как `Подключён` на вашей панели управления OneUptime. Если статус не изменился — проверьте журналы контейнера. При наличии других проблем создайте запрос на [GitHub](https://github.com/oneuptime/oneuptime) или [обратитесь в поддержку](https://oneuptime.com/support).
+Если зонд успешно запущен, он должен отображаться как `Подключён` на вашей панели управления Cast Operations. Если статус не изменился — проверьте журналы контейнера. При наличии других проблем создайте запрос на [GitHub](https://github.com/autonomy-cloud/operations) или [обратитесь в поддержку](https://visca.ai/support).

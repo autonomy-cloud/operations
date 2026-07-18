@@ -1,10 +1,10 @@
 # 인증
 
-OneUptime CLI는 OneUptime 인스턴스와 인증하는 여러 가지 방법을 지원합니다. 명명된 컨텍스트, 환경 변수를 사용하거나 자격 증명을 플래그로 직접 전달할 수 있습니다.
+Cast Operations CLI는 Cast Operations 인스턴스와 인증하는 여러 가지 방법을 지원합니다. 명명된 컨텍스트, 환경 변수를 사용하거나 자격 증명을 플래그로 직접 전달할 수 있습니다.
 
 ## 로그인
 
-API 키를 사용하여 OneUptime 인스턴스에 인증합니다:
+API 키를 사용하여 Cast Operations 인스턴스에 인증합니다:
 
 ```bash
 oneuptime login <api-key> <instance-url>
@@ -14,8 +14,8 @@ oneuptime login <api-key> <instance-url>
 
 | 인수             | 설명                                                 |
 | ---------------- | ---------------------------------------------------- |
-| `<api-key>`      | OneUptime API 키 (예: `sk-your-api-key`)             |
-| `<instance-url>` | OneUptime 인스턴스 URL (예: `https://oneuptime.com`) |
+| `<api-key>`      | Cast Operations API 키 (예: `sk-your-api-key`)             |
+| `<instance-url>` | Cast Operations 인스턴스 URL (예: `https://visca.ai`) |
 
 **옵션:**
 
@@ -27,19 +27,19 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # 기본 컨텍스트로 로그인
-oneuptime login sk-abc123 https://oneuptime.com
+oneuptime login sk-abc123 https://visca.ai
 
 # 명명된 컨텍스트로 로그인
-oneuptime login sk-abc123 https://oneuptime.com --context-name production
+oneuptime login sk-abc123 https://visca.ai --context-name production
 
 # 여러 환경 설정
-oneuptime login sk-prod-key https://oneuptime.com --context-name production
-oneuptime login sk-staging-key https://staging.oneuptime.com --context-name staging
+oneuptime login sk-prod-key https://visca.ai --context-name production
+oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## 컨텍스트
 
-컨텍스트를 사용하면 여러 OneUptime 환경(예: 프로덕션, 스테이징, 개발) 간에 저장하고 전환할 수 있습니다.
+컨텍스트를 사용하면 여러 Cast Operations 환경(예: 프로덕션, 스테이징, 개발) 간에 저장하고 전환할 수 있습니다.
 
 ### 컨텍스트 목록
 
@@ -95,14 +95,14 @@ oneuptime context delete <name>
 ### CLI 플래그 사용
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://oneuptime.com incident list
+oneuptime --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### 환경 변수 사용
 
 ```bash
 export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://oneuptime.com
+export ONEUPTIME_URL=https://visca.ai
 
 oneuptime incident list
 ```
@@ -139,12 +139,12 @@ oneuptime whoami
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://oneuptime.com",
+      "apiUrl": "https://visca.ai",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.oneuptime.com",
+      "apiUrl": "https://staging.visca.ai",
       "apiKey": "sk-..."
     }
   },

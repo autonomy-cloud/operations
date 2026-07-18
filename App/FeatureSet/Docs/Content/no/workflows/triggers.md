@@ -26,9 +26,9 @@ Hvis systemet er kort utilgjengelig, plukkes kjøringen opp så snart det kommer
 
 ## Webhook
 
-OneUptime oppretter en unik URL. Alt som treffer den URL-en starter arbeidsflyten. Headerne, spørringsparametrene og kroppen til forespørselen sendes inn.
+Cast Operations oppretter en unik URL. Alt som treffer den URL-en starter arbeidsflyten. Headerne, spørringsparametrene og kroppen til forespørselen sendes inn.
 
-Bra for: å motta data inn til OneUptime fra et annet verktøy — CI/CD-tilbakekall, varsler fra annen overvåking, registreringer i CRM-en din.
+Bra for: å motta data inn til Cast Operations fra et annet verktøy — CI/CD-tilbakekall, varsler fra annen overvåking, registreringer i CRM-en din.
 
 **Utdata**:
 
@@ -40,15 +40,15 @@ URL-en aksepterer både `GET` og `POST`. Den som kaller får en rask bekreftelse
 
 Behandle URL-en som et passord. Alle som har den kan starte arbeidsflyten din.
 
-## OneUptime hendelsestriggere
+## Cast Operations hendelsestriggere
 
-Nesten alt i OneUptime — monitorer, hendelser, varsler, planlagt vedlikehold, statussider, vaktordningspolicyer, team — kan trigge en arbeidsflyt. Hver av dem tilbyr tre hendelser:
+Nesten alt i Cast Operations — monitorer, hendelser, varsler, planlagt vedlikehold, statussider, vaktordningspolicyer, team — kan trigge en arbeidsflyt. Hver av dem tilbyr tre hendelser:
 
 - **Ved opprettelse** — utløses når en ny legges til.
 - **Ved oppdatering** — utløses når en endres.
 - **Ved sletting** — utløses når en slettes.
 
-Slik bygger du "når X skjer i OneUptime, gjør Y" uten å måtte sjekke ting i en løkke.
+Slik bygger du "når X skjer i Cast Operations, gjør Y" uten å måtte sjekke ting i en løkke.
 
 Hele oppføringen sendes til neste blokk. For eksempel sender triggeren **Hendelse → Ved opprettelse** den nye hendelsen, slik at neste blokk kan lese tittelen, beskrivelsen, alvorlighetsgraden og ethvert annet felt.
 
@@ -70,7 +70,7 @@ Søk i triggerpaletten etter navn for å finne den du vil ha.
 | Klikke en knapp for å kjøre arbeidsflyten | **Manuell**            |
 | Kjøre på en gjentakende tidsplan          | **Tidsplan**           |
 | La et annet system pushe data inn         | **Webhook**            |
-| Reagere på noe inne i OneUptime           | **OneUptime-hendelse** |
+| Reagere på noe inne i Cast Operations           | **Cast Operations-hendelse** |
 
 En arbeidsflyt kan bare ha én trigger. Hvis du trenger to måter å starte samme automatisering på, bygg den delte logikken i én arbeidsflyt og kall den fra to tynne "wrapper"-arbeidsflyter ved å bruke komponenten **Kjør arbeidsflyt**.
 

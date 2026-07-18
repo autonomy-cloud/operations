@@ -1,22 +1,22 @@
 # Kubernetes 에이전트 설치
 
-OneUptime Kubernetes 에이전트는 Kubernetes 클러스터에서 클러스터 메트릭, 이벤트, 파드 로그, **애플리케이션 트레이스(eBPF를 통한 HTTP/gRPC)**, **OS 레벨 노드 메트릭**을 수집하여 OneUptime으로 전송합니다. Helm 차트로 배포되며 단일 명령으로 설치됩니다 — eBPF 자동 계측이 기본적으로 활성화되어 있으므로 코드 변경 없이 서비스 레벨 트레이스와 RED 메트릭을 확인할 수 있습니다. **연속 CPU 플레임 그래프(eBPF 프로파일러)**도 사용할 수 있으며, 더 많은 텔레메트리를 원할 때 `--set profiling.enabled=true`로 옵트인하십시오.
+Cast Operations Kubernetes 에이전트는 Kubernetes 클러스터에서 클러스터 메트릭, 이벤트, 파드 로그, **애플리케이션 트레이스(eBPF를 통한 HTTP/gRPC)**, **OS 레벨 노드 메트릭**을 수집하여 Cast Operations으로 전송합니다. Helm 차트로 배포되며 단일 명령으로 설치됩니다 — eBPF 자동 계측이 기본적으로 활성화되어 있으므로 코드 변경 없이 서비스 레벨 트레이스와 RED 메트릭을 확인할 수 있습니다. **연속 CPU 플레임 그래프(eBPF 프로파일러)**도 사용할 수 있으며, 더 많은 텔레메트리를 원할 때 `--set profiling.enabled=true`로 옵트인하십시오.
 
 ## 빠른 시작
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
-클러스터는 몇 분 내에 OneUptime에 나타납니다.
+클러스터는 몇 분 내에 Cast Operations에 나타납니다.
 
 ## 클러스터에 맞는 프리셋 선택
 
@@ -37,7 +37,7 @@ Kubernetes 배포판마다 서로 다른 제약 조건이 있습니다 — 가�
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
@@ -47,7 +47,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
@@ -58,7 +58,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 ```bash
 helm install oneuptime-agent oneuptime/kubernetes-agent \
   --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://oneuptime.com \
+  --set oneuptime.url=https://visca.ai \
   --set oneuptime.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
@@ -90,7 +90,7 @@ hostPath가 작동한다면 DaemonSet을 사용하십시오. 그 외의 환경�
 
 ## eBPF를 통한 애플리케이션 트레이스 및 HTTP 요청 (기본 활성화)
 
-차트는 모든 노드에서 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/)를 실행하는 DaemonSet을 포함합니다. OBI는 Linux 커널에 eBPF 프로그램을 로드하고 소켓 레벨 트래픽을 관찰하여 노드의 모든 파드에서 HTTP/HTTPS, gRPC, SQL/Redis 호출을 재구성합니다 — 코드 변경, SDK, 사이드카가 모두 필요 없습니다. 캡처된 트래픽은 OTLP 트레이스와 요청/지연 메트릭으로 OneUptime에 직접 내보내집니다.
+차트는 모든 노드에서 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/)를 실행하는 DaemonSet을 포함합니다. OBI는 Linux 커널에 eBPF 프로그램을 로드하고 소켓 레벨 트래픽을 관찰하여 노드의 모든 파드에서 HTTP/HTTPS, gRPC, SQL/Redis 호출을 재구성합니다 — 코드 변경, SDK, 사이드카가 모두 필요 없습니다. 캡처된 트래픽은 OTLP 트레이스와 요청/지연 메트릭으로 Cast Operations에 직접 내보내집니다.
 
 설치 후 1~2분 이내에 **Telemetry → Traces**와 서비스 맵에서 서비스가 표시되기 시작하며, `k8s.cluster.name`이 `clusterName`으로 설정되어 클러스터별로 필터링할 수 있습니다.
 
@@ -127,7 +127,7 @@ OBI는 또한 기본적으로 서비스 경계 전반에 걸쳐 트레이스 컨
 
 이 기능도 기본적으로 활성화되어 있습니다. OBI의 로그 인리처는 계측된 프로세스의 파드 stdout 쓰기를 가로채어 다음을 수행합니다:
 
-- **JSON 형식 로그**의 경우: 라인에 `trace_id` 및 `span_id` 필드를 삽입합니다(로그의 기존 값은 보존됨). 그러면 filelog DaemonSet이 해당 필드를 LogRecord의 네이티브 trace_id/span_id 슬롯으로 끌어올리므로, 트레이스 뷰에서 스팬을 클릭하면 OneUptime에서 해당 로그로 이동하며 — 반대로 로그 라인을 클릭하면 부모 트레이스로 이동합니다.
+- **JSON 형식 로그**의 경우: 라인에 `trace_id` 및 `span_id` 필드를 삽입합니다(로그의 기존 값은 보존됨). 그러면 filelog DaemonSet이 해당 필드를 LogRecord의 네이티브 trace_id/span_id 슬롯으로 끌어올리므로, 트레이스 뷰에서 스팬을 클릭하면 Cast Operations에서 해당 로그로 이동하며 — 반대로 로그 라인을 클릭하면 부모 트레이스로 이동합니다.
 - **JSON이 아닌 로그**의 경우: 라인은 그대로 보존됩니다 — 여전히 수집되지만 자동으로 연결되지는 않습니다.
 
 | 옵션                         | 기본값 | 설명                                                                                                                |
@@ -163,11 +163,11 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 ## 연속 CPU 프로파일링 (기본 비활성화)
 
-별도의 DaemonSet이 [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler)를 실행합니다 — `otel/opentelemetry-collector-ebpf-profiler` 이미지로 패키징되어 있습니다. 지원되는 모든 런타임(Go, Java, .NET, Python, Ruby, Node.js, PHP, Perl, C/C++, Rust)에서 19Hz로 on-CPU 스택을 샘플링하고 OTLP 프로파일을 OneUptime으로 전송하며, **Telemetry → Performance Profiles** 아래와 개별 트레이스 스팬에서 연결된 플레임 그래프로 표시됩니다.
+별도의 DaemonSet이 [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler)를 실행합니다 — `otel/opentelemetry-collector-ebpf-profiler` 이미지로 패키징되어 있습니다. 지원되는 모든 런타임(Go, Java, .NET, Python, Ruby, Node.js, PHP, Perl, C/C++, Rust)에서 19Hz로 on-CPU 스택을 샘플링하고 OTLP 프로파일을 Cast Operations으로 전송하며, **Telemetry → Performance Profiles** 아래와 개별 트레이스 스팬에서 연결된 플레임 그래프로 표시됩니다.
 
 프로파일링은 **기본적으로 비활성화**되어 있습니다 — OBI 자동 계측보다 무거우며(노드당 CPU 사용량이 더 많고 메모리 사용량이 더 큼), 모든 클러스터가 항상 켜진 플레임 그래프를 원하는 것은 아닙니다. 더 풍부한 텔레메트리를 원할 때 활성화하십시오: `--set profiling.enabled=true`.
 
-eBPF 자동 계측도 활성화되어 있는 경우(`ebpf.enabled: true`, 기본값), 각 CPU 샘플은 공유된 bpffs 맵을 통해 OBI의 트레이스 컨텍스트와 상관 관계가 지정됩니다 — 따라서 플레임 그래프에 trace_id/span_id가 포함되며 OneUptime UI는 스팬별 플레임 그래프를 보여줄 수 있습니다.
+eBPF 자동 계측도 활성화되어 있는 경우(`ebpf.enabled: true`, 기본값), 각 CPU 샘플은 공유된 bpffs 맵을 통해 OBI의 트레이스 컨텍스트와 상관 관계가 지정됩니다 — 따라서 플레임 그래프에 trace_id/span_id가 포함되며 Cast Operations UI는 스팬별 플레임 그래프를 보여줄 수 있습니다.
 
 요구 사항:
 
@@ -205,7 +205,7 @@ eBPF 자동 계측도 활성화되어 있는 경우(`ebpf.enabled: true`, 기본
 | 옵션                                      | 기본값                            | 설명                                                                                                                                                                                          |
 | ----------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | (비어 있음 — `standard`로 처리됨) | 위의 표를 참조하십시오.                                                                                                                                                                       |
-| `oneuptime.url`                           | _(필수)_                          | OneUptime 인스턴스의 URL입니다.                                                                                                                                                               |
+| `oneuptime.url`                           | _(필수)_                          | Cast Operations 인스턴스의 URL입니다.                                                                                                                                                               |
 | `oneuptime.apiKey`                        | _(필수)_                          | 프로젝트 API 키(Settings → API Keys).                                                                                                                                                         |
 | `clusterName`                             | _(필수)_                          | 이 클러스터의 고유한 이름입니다. 모든 레코드에 `k8s.cluster.name`으로 기록됩니다.                                                                                                             |
 | `namespaceFilters.rules`                  | kube-system을 podLogs와 ebpfDiscovery에서 제외 | podLogs, ebpfDiscovery, metrics, traces에 대한 범위별 include/exclude 규칙입니다. 패턴은 *를 지원하며 exclude가 항상 우선합니다. |
@@ -224,7 +224,7 @@ eBPF 자동 계측도 활성화되어 있는 경우(`ebpf.enabled: true`, 기본
 | `coreDns.enabled`                         | `false`                           | CoreDNS Prometheus 메트릭.                                                                                                                                                                    |
 | `controlPlane.enabled`                    | `false`                           | etcd / api-server / scheduler / controller-manager 스크랩. 자체 관리형 클러스터 전용 — 관리형 제공 서비스(EKS/GKE/AKS)는 일반적으로 이러한 엔드포인트를 노출하지 않습니다.                    |
 
-전체 목록은 [차트의 `values.yaml`](https://github.com/OneUptime/oneuptime/blob/master/HelmChart/Public/kubernetes-agent/values.yaml)을 참조하십시오.
+전체 목록은 [차트의 `values.yaml`](https://github.com/autonomy-cloud/operations/blob/master/HelmChart/Public/kubernetes-agent/values.yaml)을 참조하십시오.
 
 ## 업그레이드
 
@@ -271,7 +271,7 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
   --set preset=gke-autopilot   # or eks-fargate
 ```
 
-### OneUptime에 로그가 나타나지 않는 경우
+### Cast Operations에 로그가 나타나지 않는 경우
 
 에이전트 파드를 확인하십시오:
 
@@ -294,7 +294,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 - **커널이 너무 오래되었거나 BTF가 없음.** OBI는 BTF가 포함된 Linux 5.8+를 필요로 합니다. 노드에서 `uname -r`로 확인하십시오. 업그레이드할 수 없다면 eBPF를 비활성화하십시오: `--set ebpf.enabled=false`.
 - **특권 파드가 차단됨.** 일부 클러스터는 Autopilot/Fargate가 아니더라도 특권 파드를 거부합니다. eBPF를 비활성화하십시오.
-- **OBI는 실행 중이지만 대시보드에 트레이스가 없음.** `--set ebpf.printTraces=true`로 설정하고 OBI의 stdout을 확인하십시오 — 그곳에 스팬이 보인다면 문제는 OTLP 전달에 있습니다(`OTEL_EXPORTER_OTLP_ENDPOINT` 및 OneUptime URL/API 키를 확인하십시오). 스팬이 보이지 않는다면, OBI가 관찰 중인 트래픽이 모두 OBI가 가로챌 수 없는 TLS 라이브러리(예: 인식되지 않는 정적 링크된 TLS 구현)로 암호화되어 있을 수 있습니다.
+- **OBI는 실행 중이지만 대시보드에 트레이스가 없음.** `--set ebpf.printTraces=true`로 설정하고 OBI의 stdout을 확인하십시오 — 그곳에 스팬이 보인다면 문제는 OTLP 전달에 있습니다(`OTEL_EXPORTER_OTLP_ENDPOINT` 및 Cast Operations URL/API 키를 확인하십시오). 스팬이 보이지 않는다면, OBI가 관찰 중인 트래픽이 모두 OBI가 가로챌 수 없는 TLS 라이브러리(예: 인식되지 않는 정적 링크된 TLS 구현)로 암호화되어 있을 수 있습니다.
 
 ### 클러스터의 파드가 너무 많아 하나의 로그 테일러 복제본으로 처리할 수 없는 경우 (API 모드 전용)
 

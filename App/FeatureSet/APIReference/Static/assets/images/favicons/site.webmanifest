@@ -1,6 +1,6 @@
 {
-  "name": "OneUptime Dashboard",
-  "short_name": "OneUptime",
+  "name": "Cast Operations Dashboard",
+  "short_name": "Cast Operations",
   "icons": [
     {
       "src": "/dashboard/assets/img/favicons/android-chrome-36x36.png",

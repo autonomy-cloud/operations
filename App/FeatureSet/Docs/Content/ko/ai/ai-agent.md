@@ -1,6 +1,6 @@
 # AI 에이전트
 
-OneUptime의 AI 에이전트는 코드의 오류, 성능 문제, 데이터베이스 쿼리를 자동으로 수정합니다. OpenTelemetry 관측 가능성 데이터를 기반으로 AI 에이전트는 단순한 알림이 아닌, 수정 사항이 포함된 풀 리퀘스트를 생성합니다.
+Cast Operations의 AI 에이전트는 코드의 오류, 성능 문제, 데이터베이스 쿼리를 자동으로 수정합니다. OpenTelemetry 관측 가능성 데이터를 기반으로 AI 에이전트는 단순한 알림이 아닌, 수정 사항이 포함된 풀 리퀘스트를 생성합니다.
 
 ## AI 에이전트가 할 수 있는 일
 
@@ -25,7 +25,7 @@ AI 에이전트는 관측 가능성 데이터(트레이스, 로그, 메트릭)�
 
 ## LLM 공급자 유연성
 
-OneUptime은 모든 LLM 공급자와 함께 작동합니다. 다음을 사용할 수 있습니다:
+Cast Operations은 모든 LLM 공급자와 함께 작동합니다. 다음을 사용할 수 있습니다:
 
 - **OpenAI GPT** 모델
 - **Anthropic Claude** 모델
@@ -36,7 +36,7 @@ AI 모델을 자체 호스팅하여 코드를 완전히 비공개로 유지할 �
 
 ## 개인 정보 보호
 
-플랜에 관계없이 OneUptime은 귀하의 코드를 보거나, 저장하거나, 학습에 사용하지 않습니다:
+플랜에 관계없이 Cast Operations은 귀하의 코드를 보거나, 저장하거나, 학습에 사용하지 않습니다:
 
 - **코드 액세스 없음**: 귀하의 코드는 귀하의 인프라에 유지됩니다
 - **데이터 저장 없음**: 데이터 보관 정책 없음
@@ -46,13 +46,13 @@ AI 모델을 자체 호스팅하여 코드를 완전히 비공개로 유지할 �
 
 ### 글로벌 AI 에이전트
 
-**OneUptime SaaS**(클라우드 호스팅 버전)를 사용하는 경우, 글로벌 AI 에이전트는 OneUptime에서 제공되며 사전 구성되어 바로 사용할 수 있습니다. 이 에이전트들은 OneUptime에서 관리되며 추가 설정이 필요하지 않습니다.
+**Cast Operations SaaS**(클라우드 호스팅 버전)를 사용하는 경우, 글로벌 AI 에이전트는 Cast Operations에서 제공되며 사전 구성되어 바로 사용할 수 있습니다. 이 에이전트들은 Cast Operations에서 관리되며 추가 설정이 필요하지 않습니다.
 
 글로벌 AI 에이전트는 프로젝트 설정에서 비활성화하지 않는 한 모든 프로젝트에서 자동으로 사용할 수 있습니다.
 
 ### 자체 호스팅 AI 에이전트
 
-자체 인프라 내에서 AI 에이전트를 실행해야 하는 조직(예: 보안, 컴플라이언스 또는 네트워크 액세스 요구 사항)의 경우, OneUptime은 자체 호스팅 AI 에이전트를 지원합니다.
+자체 인프라 내에서 AI 에이전트를 실행해야 하는 조직(예: 보안, 컴플라이언스 또는 네트워크 액세스 요구 사항)의 경우, Cast Operations은 자체 호스팅 AI 에이전트를 지원합니다.
 
 자체 호스팅 AI 에이전트의 특징:
 
@@ -63,9 +63,9 @@ AI 모델을 자체 호스팅하여 코드를 완전히 비공개로 유지할 �
 
 ## 자체 호스팅 AI 에이전트 설정
 
-### 1단계: OneUptime에서 AI 에이전트 생성
+### 1단계: Cast Operations에서 AI 에이전트 생성
 
-1. OneUptime 대시보드에 로그인합니다
+1. Cast Operations 대시보드에 로그인합니다
 2. **프로젝트 설정** > **AI 에이전트**로 이동합니다
 3. **AI 에이전트 생성**을 클릭하여 새 에이전트를 추가합니다
 4. 필수 항목을 입력합니다:
@@ -85,11 +85,11 @@ AI 에이전트를 실행하려면 Docker가 설치되어 있는지 확인하십
 docker run --name oneuptime-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -d oneuptime/ai-agent:release
 ```
 
-OneUptime을 자체 호스팅하는 경우, `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스 URL로 변경하십시오.
+Cast Operations을 자체 호스팅하는 경우, `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스 URL로 변경하십시오.
 
 #### Docker Compose
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 구성을 적용합니다:
@@ -160,15 +160,15 @@ AI 에이전트는 다음 환경 변수를 지원합니다:
 
 | 변수            | 설명                                                     |
 | --------------- | -------------------------------------------------------- |
-| `AI_AGENT_KEY`  | OneUptime 대시보드의 AI 에이전트 키                      |
-| `AI_AGENT_ID`   | OneUptime 대시보드의 AI 에이전트 ID                      |
-| `ONEUPTIME_URL` | OneUptime 인스턴스의 URL (기본값: https://oneuptime.com) |
+| `AI_AGENT_KEY`  | Cast Operations 대시보드의 AI 에이전트 키                      |
+| `AI_AGENT_ID`   | Cast Operations 대시보드의 AI 에이전트 ID                      |
+| `ONEUPTIME_URL` | Cast Operations 인스턴스의 URL (기본값: https://visca.ai) |
 
 ## AI 에이전트 확인
 
 AI 에이전트를 배포한 후:
 
-1. OneUptime 대시보드의 **프로젝트 설정** > **AI 에이전트**로 이동합니다
+1. Cast Operations 대시보드의 **프로젝트 설정** > **AI 에이전트**로 이동합니다
 2. 몇 분 내에 에이전트가 **연결됨** 상태로 표시되어야 합니다
 3. 상태가 **연결 끊김**으로 표시되면 컨테이너 로그에서 오류를 확인하십시오
 
@@ -187,7 +187,7 @@ kubectl logs deployment/oneuptime-ai-agent
 ### 에이전트가 연결되지 않는 경우
 
 1. **자격 증명 확인**: `AI_AGENT_KEY`와 `AI_AGENT_ID`가 올바른지 확인합니다
-2. **네트워크 확인**: 에이전트가 OneUptime 인스턴스에 도달할 수 있는지 확인합니다
+2. **네트워크 확인**: 에이전트가 Cast Operations 인스턴스에 도달할 수 있는지 확인합니다
 3. **로그 검토**: 오류 메시지에 대한 컨테이너 로그를 확인합니다
 4. **방화벽 규칙**: 아웃바운드 HTTPS (포트 443)가 허용되는지 확인합니다
 
@@ -201,6 +201,6 @@ kubectl logs deployment/oneuptime-ai-agent
 
 AI 에이전트에 문제가 발생한 경우:
 
-1. 알려진 문제에 대해 [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues)를 확인합니다
+1. 알려진 문제에 대해 [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues)를 확인합니다
 2. 문제가 아직 보고되지 않은 경우 새 이슈를 생성합니다
-3. 엔터프라이즈 플랜을 사용하는 경우 [지원팀](https://oneuptime.com/support)에 문의합니다
+3. 엔터프라이즈 플랜을 사용하는 경우 [지원팀](https://visca.ai/support)에 문의합니다

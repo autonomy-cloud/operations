@@ -60,7 +60,7 @@ Invia un messaggio a una chat Telegram utilizzando un token bot e un ID chat.
 
 ## Email
 
-Invia un'email tramite OneUptime.
+Invia un'email tramite Cast Operations.
 
 **Impostazioni**:
 
@@ -118,9 +118,9 @@ Usalo per condividere logica comune. Costruisci una volta un workflow "pubblica 
 
 C'e un limite di sicurezza in modo che i workflow non si chiamino tra loro in un ciclo. Vedi [Configurazione e sicurezza](/docs/workflows/configuration).
 
-## Componenti per i dati di OneUptime
+## Componenti per i dati di Cast Operations
 
-Per ogni tipo di record di OneUptime (monitor, incidenti, allarmi, status page, policy on-call e molti altri), la palette include questi componenti — cerca per nome del tipo:
+Per ogni tipo di record di Cast Operations (monitor, incidenti, allarmi, status page, policy on-call e molti altri), la palette include questi componenti — cerca per nome del tipo:
 
 - **Find One** — ottieni un record per ID o filtro.
 - **Find** — ottieni un elenco di record.
@@ -129,13 +129,13 @@ Per ogni tipo di record di OneUptime (monitor, incidenti, allarmi, status page, 
 - **Delete** — rimuovi un record.
 - **Count** — conta i record che corrispondono a un filtro.
 
-Ecco come un workflow puo leggere e modificare i dati di OneUptime. Per esempio: un webhook dal tuo strumento CI puo usare **Create Incident** per aprire un incidente con i dettagli del fallimento.
+Ecco come un workflow puo leggere e modificare i dati di Cast Operations. Per esempio: un webhook dal tuo strumento CI puo usare **Create Incident** per aprire un incidente con i dettagli del fallimento.
 
 ## Quale componente usare?
 
 Alcune regole rapide:
 
-- Se esiste un blocco dedicato a cio che ti serve (Slack, Email, un record OneUptime), usalo — avrai una gestione degli errori migliore e log piu chiari.
+- Se esiste un blocco dedicato a cio che ti serve (Slack, Email, un record Cast Operations), usalo — avrai una gestione degli errori migliore e log piu chiari.
 - Per qualsiasi altra API esterna, usa **API**.
 - Per rimodellare i dati tra blocchi, usa **Custom Code** o **JSON**.
 - Per intraprendere azioni diverse in base a un valore, usa **Conditions**.

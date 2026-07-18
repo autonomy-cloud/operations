@@ -152,7 +152,7 @@ export default class IncomingCallPolicyOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -231,7 +231,7 @@ export default class IncomingCallPolicyOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "User ID",
-    description: "ID of your OneUptime User in which this object belongs",
+    description: "ID of your Cast Operations User in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -311,7 +311,7 @@ export default class IncomingCallPolicyOwnerUser extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Incoming Call Policy ID",
     description:
-      "ID of your OneUptime Incoming Call Policy in which this object belongs",
+      "ID of your Cast Operations Incoming Call Policy in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

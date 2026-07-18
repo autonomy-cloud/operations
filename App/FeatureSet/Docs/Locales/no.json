@@ -15,7 +15,7 @@
     "previous": "Forrige",
     "next": "Neste",
     "helpImproveTitle": "Hjelp oss å forbedre denne siden",
-    "helpImproveBody": "OneUptime er 100 % åpen kildekode. Fant du en skrivefeil eller vil legge til noe?",
+    "helpImproveBody": "Cast Operations er 100 % åpen kildekode. Fant du en skrivefeil eller vil legge til noe?",
     "editOnGithub": "Rediger denne siden på GitHub",
     "notFoundBadge": "404-feil",
     "notFoundTitle": "Siden ble ikke funnet",
@@ -26,9 +26,9 @@
     "errorMessage": "Vi opplever tekniske problemer. Vennligst prøv igjen om et øyeblikk.",
     "tryAgain": "Prøv igjen",
     "switchLanguage": "Bytt språk",
-    "metaTitleSuffix": "OneUptime Dokumentasjon",
-    "metaTitleDefault": "OneUptime Dokumentasjon",
-    "metaDescription": "Komplett dokumentasjon for OneUptime - den åpne kildekode-observabilitetsplattformen. Lær hvordan du overvåker applikasjonene dine, setter opp varsler og håndterer hendelser."
+    "metaTitleSuffix": "Cast Operations Dokumentasjon",
+    "metaTitleDefault": "Cast Operations Dokumentasjon",
+    "metaDescription": "Komplett dokumentasjon for Cast Operations - den åpne kildekode-observabilitetsplattformen. Lær hvordan du overvåker applikasjonene dine, setter opp varsler og håndterer hendelser."
   },
   "navGroups": {
     "Introduction": "Introduksjon",
@@ -162,7 +162,7 @@
     "Fix Tasks": "Fix Tasks",
     "LLM Providers": "LLM-leverandører",
     "MCP Server": "MCP-server",
-    "OneUptime API Reference": "OneUptime API-referanse",
+    "Cast Operations API Reference": "Cast Operations API-referanse",
     "Slack Integration": "Slack-integrasjon",
     "Microsoft Teams Integration": "Microsoft Teams-integrasjon",
     "GitHub Integration": "GitHub-integrasjon",

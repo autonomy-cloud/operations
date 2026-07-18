@@ -12,7 +12,7 @@ if (!process.env["PROBE_INGEST_URL"] && !process.env["ONEUPTIME_URL"]) {
 export const ONEUPTIME_BASE_URL: URL = URL.fromString(
   process.env["ONEUPTIME_URL"] ||
     process.env["PROBE_INGEST_URL"] ||
-    "https://oneuptime.com",
+    "https://visca.ai",
 );
 
 export let PROBE_INGEST_URL: URL = URL.fromString(
@@ -94,7 +94,7 @@ export const PORT: Port = new Port(
  * Optional inbound ingress for IncomingRequest (heartbeat) monitors.
  * If set, the probe binds an HTTP listener on this port that accepts
  * /heartbeat/:secretkey and /incoming-request/:secretkey requests and
- * forwards them to the OneUptime instance. Lets services in private
+ * forwards them to the Cast Operations instance. Lets services in private
  * networks send heartbeats to a local probe instead of the public URL.
  * Unset (or 0) disables the listener.
  */
@@ -110,7 +110,7 @@ export const PROBE_INGRESS_PORT: Port | null = process.env["PROBE_INGRESS_PORT"]
 
 /*
  * SNMP trap receiver. The probe listens for SNMP traps/informs (v1 and
- * v2c) on the configured UDP port and forwards them to the OneUptime
+ * v2c) on the configured UDP port and forwards them to the Cast Operations
  * instance, where they are matched against SNMP monitors by source IP and
  * evaluated against trap criteria — link-down incidents in seconds instead
  * of waiting for the next poll. Point your devices' trap destination at
@@ -142,7 +142,7 @@ export const PROBE_SNMP_TRAP_RATE_LIMIT_PER_MINUTE: number =
 /*
  * Syslog receiver. The probe listens for syslog messages (RFC 3164 and
  * RFC 5424) on the configured UDP port, batches them, and forwards them to
- * the OneUptime instance, where they are correlated to Network Devices by
+ * the Cast Operations instance, where they are correlated to Network Devices by
  * source IP and written into the telemetry Logs pipeline. Point your
  * devices' syslog destination at this probe.
  *
@@ -172,7 +172,7 @@ export const PROBE_SYSLOG_RATE_LIMIT_PER_MINUTE: number =
 /*
  * NetFlow receiver. The probe listens for NetFlow v5 export datagrams on
  * the configured UDP port, parses the flow records, batches them, and
- * forwards them to the OneUptime instance, where they are correlated to
+ * forwards them to the Cast Operations instance, where they are correlated to
  * Network Devices by the exporter's source IP and written into the
  * ClickHouse network-flow table. Point your devices' NetFlow v5 export
  * destination at this probe.

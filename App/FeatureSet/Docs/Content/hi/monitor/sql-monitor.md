@@ -2,7 +2,7 @@
 
 SQL Query Monitor एक probe से निर्धारित schedule पर एक read-only SQL query चलाता है और result पर alert करता है — लौटाई गई rows की संख्या, एक scalar value, query में कितना समय लगा, या एक query error। यह "एक query चलाएँ और एक incident खोलें" वाले use case के लिए बनाया गया है, उदाहरण के लिए जब पिछले पाँच minutes में cancelled orders की संख्या अचानक बढ़ जाए, जब एक queue table बहुत बड़ी हो जाए, या जब कोई critical row गायब हो जाए, तब alert करने के लिए।
 
-चूँकि query आपके network के अंदर एक probe से चलती है, इसलिए OneUptime को कभी भी आपके database से सीधे connection की आवश्यकता नहीं होती, और पूरा result set कभी probe से बाहर नहीं जाता — result का केवल एक छोटा, सीमित projection ही वापस report किया जाता है।
+चूँकि query आपके network के अंदर एक probe से चलती है, इसलिए Cast Operations को कभी भी आपके database से सीधे connection की आवश्यकता नहीं होती, और पूरा result set कभी probe से बाहर नहीं जाता — result का केवल एक छोटा, सीमित projection ही वापस report किया जाता है।
 
 ## समर्थित databases
 
@@ -16,7 +16,7 @@ MySQL-compatible और PostgreSQL-compatible engines जो समान wire p
 
 ## यह कैसे काम करता है
 
-प्रत्येक check पर, probe आपके database से connect होता है, आपकी query को एक read-only context में चलाता है, अधिकतम एक सीमित संख्या में rows वापस पढ़ता है, और OneUptime को एक compact projection report करता है। फिर आपके monitor के criteria का मूल्यांकन उस projection के विरुद्ध किया जाता है।
+प्रत्येक check पर, probe आपके database से connect होता है, आपकी query को एक read-only context में चलाता है, अधिकतम एक सीमित संख्या में rows वापस पढ़ता है, और Cast Operations को एक compact projection report करता है। फिर आपके monitor के criteria का मूल्यांकन उस projection के विरुद्ध किया जाता है।
 
 probe केवल इतना report करता है:
 
@@ -26,7 +26,7 @@ probe केवल इतना report करता है:
 - **Execution Time** — query में कितना समय लगा, milliseconds में।
 - **Query Error** — यदि query विफल हुई तो एक sanitized error message।
 
-पूरा result set कभी OneUptime को नहीं भेजा जाता, इसलिए customer data OneUptime storage में replicate नहीं होता।
+पूरा result set कभी Cast Operations को नहीं भेजा जाता, इसलिए customer data Cast Operations storage में replicate नहीं होता।
 
 ## Security model
 
@@ -41,7 +41,7 @@ probe केवल इतना report करता है:
 
 ## पूर्वापेक्षाएँ
 
-- आपके database host और port तक network access वाला एक **probe**। यह एक OneUptime-hosted probe हो सकता है (यदि आपका database internet से पहुँचने योग्य है) या आपके network के अंदर चलने वाला एक self-hosted probe। एक custom probe कैसे install करें, इसके लिए probe documentation देखें।
+- आपके database host और port तक network access वाला एक **probe**। यह एक Cast Operations-hosted probe हो सकता है (यदि आपका database internet से पहुँचने योग्य है) या आपके network के अंदर चलने वाला एक self-hosted probe। एक custom probe कैसे install करें, इसके लिए probe documentation देखें।
 - एक **read-only database user** और connection विवरण (host, port, database name, username, password)।
 
 ## Configuration
@@ -99,11 +99,11 @@ WHERE status = 'CANCELLED'
 
 ताकि database password कभी monitor पर plain text में store न हो, एक [Monitor Secret](/docs/monitor/monitor-secrets) बनाएँ और Password field से इसका reference दें:
 
-1. OneUptime Dashboard → Project Settings → Monitor Secrets → Create Monitor Secret पर जाएँ।
+1. Cast Operations Dashboard → Project Settings → Monitor Secrets → Create Monitor Secret पर जाएँ।
 2. एक secret बनाएँ (उदाहरण के लिए `dbPassword`) और इस monitor को इस तक पहुँच प्रदान करें।
 3. monitor के Password field में `{{monitorSecrets.dbPassword}}` दर्ज करें।
 
-OneUptime config को probe को सौंपने से पहले server-side पर secret को resolve करता है। OneUptime कभी आपके लिए ये secrets नहीं बनाता — किसी एक का reference देना आपकी पसंद है।
+Cast Operations config को probe को सौंपने से पहले server-side पर secret को resolve करता है। Cast Operations कभी आपके लिए ये secrets नहीं बनाता — किसी एक का reference देना आपकी पसंद है।
 
 ## criteria सेट करना
 

@@ -1,12 +1,12 @@
 # Terraform 提供商文档
 
-OneUptime Terraform 提供商支持以基础设施即代码（IaC）的方式管理您的 OneUptime 监控、告警和可观测性资源。
+Cast Operations Terraform 提供商支持以基础设施即代码（IaC）的方式管理您的 Cast Operations 监控、告警和可观测性资源。
 
 ## 文档目录
 
 ### [快速开始](./quick-start.md)
 
-快速设置指南，帮助您在几分钟内开始使用 OneUptime Terraform 提供商。
+快速设置指南，帮助您在几分钟内开始使用 Cast Operations Terraform 提供商。
 
 ### [完整提供商指南](./README.md)
 
@@ -18,24 +18,24 @@ OneUptime Terraform 提供商支持以基础设施即代码（IaC）的方式管
 
 ### [示例](./examples.md)
 
-常见 OneUptime Terraform 配置的实际示例和模式。
+常见 Cast Operations Terraform 配置的实际示例和模式。
 
 ## 快速链接
 
-### 适用于 OneUptime 云端客户
+### 适用于 Cast Operations 云端客户
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # 必须与您的 OneUptime 版本匹配
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # 必须与您的 Cast Operations 版本匹配
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## 自托管用户的重要提示
 
-**版本兼容性至关重要**：始终将 Terraform 提供商版本固定到与您的 OneUptime 安装版本完全匹配的版本。版本不匹配可能导致 API 兼容性问题。
+**版本兼容性至关重要**：始终将 Terraform 提供商版本固定到与您的 Cast Operations 安装版本完全匹配的版本。版本不匹配可能导致 API 兼容性问题。
 
 ## 外部资源
 
-- **Terraform Registry**：[OneUptime 提供商](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub 仓库**：[OneUptime 源代码](https://github.com/OneUptime/oneuptime)
-- **社区支持**：[OneUptime 社区](https://community.oneuptime.com)
+- **Terraform Registry**：[Cast Operations 提供商](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub 仓库**：[Cast Operations 源代码](https://github.com/autonomy-cloud/operations)
+- **社区支持**：[Cast Operations 社区](https://community.visca.ai)
 
 ## 可用资源
 
-提供商支持全面的 OneUptime 资源管理：
+提供商支持全面的 Cast Operations 资源管理：
 
 - **项目和团队**：组织您的监控结构
 - **监控器**：网站、API、端口、心跳和自定义监控器
@@ -83,9 +83,9 @@ provider "oneuptime" {
 
 如有问题、疑问或贡献：
 
-1. **文档问题**：在 [OneUptime 仓库](https://github.com/OneUptime/oneuptime/issues) 中创建 Issue
-2. **提供商错误**：在主 OneUptime 仓库中报告
-3. **功能请求**：在 OneUptime 社区中讨论
+1. **文档问题**：在 [Cast Operations 仓库](https://github.com/autonomy-cloud/operations/issues) 中创建 Issue
+2. **提供商错误**：在主 Cast Operations 仓库中报告
+3. **功能请求**：在 Cast Operations 社区中讨论
 4. **一般问题**：使用社区论坛
 
 ## 下一步

@@ -1,6 +1,6 @@
-# 升級 OneUptime
+# 升級 Cast Operations
 
-本指南說明如何安全地升級您自行託管的 OneUptime 安裝環境。
+本指南說明如何安全地升級您自行託管的 Cast Operations 安裝環境。
 
 ## 一般指引
 
@@ -8,14 +8,14 @@
 - 只要您依循發行說明，便可跨越多個次要／修補版本（例如 8.1 → 8.4）。
 - 升級前請務必進行備份，並驗證您能夠成功還原這些備份。
 
-## 從 OneUptime 10 升級到 11
+## 從 Cast Operations 10 升級到 11
 
 <!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
 
 ### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
 
 In v11, the following authentication and access-management features moved to
-the **OneUptime Enterprise Edition** and are no longer part of the free,
+the **Cast Operations Enterprise Edition** and are no longer part of the free,
 open-source (Community) build:
 
 - **SAML SSO** — both project login and status-page login
@@ -34,16 +34,16 @@ Enterprise Edition.
 **Availability:**
 
 - **Self-hosted:** requires the **Enterprise Edition** build.
-- **OneUptime Cloud:** requires the **Scale** plan (or above).
+- **Cast Operations Cloud:** requires the **Scale** plan (or above).
 
 **If you rely on SSO and self-host**, email
-[support@oneuptime.com](mailto:support@oneuptime.com) for an Enterprise Edition
+[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
 license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
 v11 and we'll help you get it back online. If your team is mid-upgrade and this
 is blocking sign-in, contact us before upgrading production so we can plan it
 with you.
 
-OneUptime 11 重建了 ClickHouse 遙測儲存。本頁說明有哪些變更、誰需要採取行動,以及——對於想保留歷史遙測資料的安裝環境——完成這件事所需的每一條查詢。
+Cast Operations 11 重建了 ClickHouse 遙測儲存。本頁說明有哪些變更、誰需要採取行動,以及——對於想保留歷史遙測資料的安裝環境——完成這件事所需的每一條查詢。
 
 ### v11 的變更
 
@@ -60,7 +60,7 @@ OneUptime 11 重建了 ClickHouse 遙測儲存。本頁說明有哪些變更、�
 | `MonitorLogV2`        | `MonitorLogV3`        |
 | `AuditLogV1`          | `AuditLogV2`          |
 
-所有遙測資料表中有兩個欄位被重新命名:`serviceId` → `primaryEntityId`,`serviceType` → `primaryEntityType`。這是硬性重新命名——**如果你直接以 `serviceId`/`serviceType` 篩選條件查詢 OneUptime analytics API,請更新為新名稱。** OneUptime 內部的儀表板、監控器和警示會自動遷移。
+所有遙測資料表中有兩個欄位被重新命名:`serviceId` → `primaryEntityId`,`serviceType` → `primaryEntityType`。這是硬性重新命名——**如果你直接以 `serviceId`/`serviceType` 篩選條件查詢 Cast Operations analytics API,請更新為新名稱。** Cast Operations 內部的儀表板、監控器和警示會自動遷移。
 
 這次切換**只向前進行**:新表從空白開始,升級後攝入的所有遙測資料會立即寫入新表,歷史資料隨時間自然回填。舊表會在升級過程中**自動刪除**以回收磁碟空間——如果你想保留遷移歷史資料的選項,請在升級**之前**重新命名它們(見下方步驟 0)。
 
@@ -84,14 +84,14 @@ clickhouse-client --database oneuptime
 
 開始之前需要瞭解:
 
-- 複製可以在 OneUptime 上線運行時安全執行。新的遙測資料獨立寫入新表;複製的歷史資料在其後填充。
+- 複製可以在 Cast Operations 上線運行時安全執行。新的遙測資料獨立寫入新表;複製的歷史資料在其後填充。
 - 大規模資料(數百 GB)預計需要數小時。
 - 下面每條陳述式都帶有 `insert_deduplication_token`,且新表內建去重視窗——因此**重新執行中途失敗的陳述式是安全的**(已插入的區塊會被跳過,包括指標彙總中的區塊),前提是盡快重試。在高強度即時攝入下,視窗(每表最近 10,000 個插入區塊)最終會淘汰舊權杖。
 - 複製指標還會自動重建預先彙總的儀表板彙總(每條複製的列都會重新饋入彙總物化檢視)——這使得指標複製比其他複製更慢;請最後執行。
 
 #### 步驟 0——升級前重新命名舊表
 
-升級會在啟動時刪除舊表,所以請先把你要作為複製來源的表移出它的影響範圍。停止 OneUptime(將部署縮減到零),確保沒有任何程序寫入或能重建這些表,然後重新命名——`RENAME TABLE` 是瞬時的中繼資料操作,`IF EXISTS` 讓整個區塊跳過你的安裝環境從未有過的表(早於 10.0.x 中期的部署可能沒有 `AuditLogV1` 或某些 `…V2` 表——那就沒有該類型的歷史資料可複製):
+升級會在啟動時刪除舊表,所以請先把你要作為複製來源的表移出它的影響範圍。停止 Cast Operations(將部署縮減到零),確保沒有任何程序寫入或能重建這些表,然後重新命名——`RENAME TABLE` 是瞬時的中繼資料操作,`IF EXISTS` 讓整個區塊跳過你的安裝環境從未有過的表(早於 10.0.x 中期的部署可能沒有 `AuditLogV1` 或某些 `…V2` 表——那就沒有該類型的歷史資料可複製):
 
 ```sql
 RENAME TABLE IF EXISTS LogItemV2 TO LogItemV2_backup;
@@ -105,7 +105,7 @@ RENAME TABLE IF EXISTS AuditLogV1 TO AuditLogV1_backup;
 RENAME TABLE IF EXISTS MetricItemAggMV1mByHost TO MetricItemAggMV1mByHost_backup;
 ```
 
-然後執行升級,等 OneUptime 完全啟動後再繼續。
+然後執行升級,等 Cast Operations 完全啟動後再繼續。
 
 > 如果在重新命名後回滾到 v10(v10 啟動時會以舊名稱重建空表),請在重新啟動 v10 之前把 `_backup` 表改回原名——否則回滾期間攝入的遙測資料會進入重建的表,並在之後的升級中被刪除。
 
@@ -206,20 +206,20 @@ DROP TABLE IF EXISTS MetricItemAggMV1mByHost_backup SETTINGS max_table_size_to_d
 
 > 提示:與所有主版本升級一樣,請先在預備環境中測試,並確認遙測資料正流入新表,再於正式環境依賴複製結果。
 
-## 從 OneUptime 9 升級至 10
+## 從 Cast Operations 9 升級至 10
 
 沒有需要手動處理的變更。只需依循標準升級程序即可。
 
-## 從 OneUptime 8 升級至 9
+## 從 Cast Operations 8 升級至 9
 
-Helm chart 不再佈建 Kubernetes Ingress 資源。OneUptime 隨附一個 ingress gateway 容器，該容器已負責終止 TLS、管理狀態頁面網域，並為平台路由流量，因此不再需要叢集 ingress controller。
+Helm chart 不再佈建 Kubernetes Ingress 資源。Cast Operations 隨附一個 ingress gateway 容器，該容器已負責終止 TLS、管理狀態頁面網域，並為平台路由流量，因此不再需要叢集 ingress controller。
 
 - 升級前，請從您自訂的 `values.yaml` 檔案中移除任何 `oneuptimeIngress` 覆寫設定。這些鍵值現已被忽略，若保留將會造成驗證錯誤。
 - 確保 `nginx.service.type` 反映您希望如何公開內建的 ingress gateway（例如 `LoadBalancer`、`NodePort`，或搭配外部負載平衡器的 `ClusterIP`）。
-- 確認狀態頁面或主要主機的任何 DNS 記錄仍指向位於 OneUptime ingress gateway 前端的 Service 或負載平衡器。
+- 確認狀態頁面或主要主機的任何 DNS 記錄仍指向位於 Cast Operations ingress gateway 前端的 Service 或負載平衡器。
 - 升級後，請確認 TLS 憑證持續透過內嵌 gateway 進行更新，且狀態頁面網域可正確解析。
 
-## 從 OneUptime 7 升級至 8
+## 從 Cast Operations 7 升級至 8
 
 如果您在 Kubernetes 上執行，將會有重要的破壞性變更：
 

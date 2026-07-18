@@ -1,17 +1,17 @@
 # Ingreso de solicitudes entrantes
 
-Una sonda personalizada puede opcionalmente ejecutar un **receptor HTTP de entrada** que acepta llamadas de `heartbeat` y `incoming-request` desde el interior de tu red privada y las reenvía a OneUptime. Esto permite que los servicios que **no tienen acceso saliente a internet** puedan reportar a un [Monitor de solicitudes entrantes](/docs/monitor/incoming-request-monitor) enviando la solicitud a una sonda en la red local en lugar de hacerlo directamente a `oneuptime.com`.
+Una sonda personalizada puede opcionalmente ejecutar un **receptor HTTP de entrada** que acepta llamadas de `heartbeat` y `incoming-request` desde el interior de tu red privada y las reenvía a Cast Operations. Esto permite que los servicios que **no tienen acceso saliente a internet** puedan reportar a un [Monitor de solicitudes entrantes](/docs/monitor/incoming-request-monitor) enviando la solicitud a una sonda en la red local en lugar de hacerlo directamente a `visca.ai`.
 
 ## Información general
 
-Cuando se establece `PROBE_INGRESS_PORT`, la sonda vincula un receptor HTTP adicional en ese puerto. El receptor acepta las mismas rutas de URL de `secretkey` que los puntos de conexión públicos de OneUptime:
+Cuando se establece `PROBE_INGRESS_PORT`, la sonda vincula un receptor HTTP adicional en ese puerto. El receptor acepta las mismas rutas de URL de `secretkey` que los puntos de conexión públicos de Cast Operations:
 
 - `POST /heartbeat/:secretkey`
 - `GET /heartbeat/:secretkey`
 - `POST /incoming-request/:secretkey`
 - `GET /incoming-request/:secretkey`
 
-La sonda luego redirige la solicitud a tu instancia de OneUptime, preservando el método, el cuerpo y los encabezados de la solicitud (excepto los encabezados de salto a salto como `Host`, `Connection`, `Content-Length`, etc.). La sonda adjunta automáticamente un encabezado `OneUptime-Probe-Id` para que la solicitud se atribuya a la sonda de reenvío.
+La sonda luego redirige la solicitud a tu instancia de Cast Operations, preservando el método, el cuerpo y los encabezados de la solicitud (excepto los encabezados de salto a salto como `Host`, `Connection`, `Content-Length`, etc.). La sonda adjunta automáticamente un encabezado `Cast Operations-Probe-Id` para que la solicitud se atribuya a la sonda de reenvío.
 
 El receptor se ejecuta en un **puerto dedicado**, separado de los puntos de conexión internos de estado/métricas de la sonda, por lo que puedes exponerlo a tu red privada sin exponer nada más.
 
@@ -21,10 +21,10 @@ Usa el receptor de ingreso cuando:
 
 - Tus servicios se ejecutan en un segmento de red aislado sin acceso HTTPS saliente
 - Necesitas mantener todo el tráfico de monitoreo dentro de tu VPC/red on-premise
-- Quieres un único punto de salida (la sonda) que tenga permitido llegar a OneUptime
+- Quieres un único punto de salida (la sonda) que tenga permitido llegar a Cast Operations
 - Ya implementaste una [Sonda personalizada](/docs/probe/custom-probe) y quieres reutilizarla para latidos entrantes
 
-Si tus servicios ya pueden llegar a `https://oneuptime.com` (o tu URL auto-alojada) directamente, **no** necesitas esta función; llama directamente a la URL de latido desde el servicio.
+Si tus servicios ya pueden llegar a `https://visca.ai` (o tu URL auto-alojada) directamente, **no** necesitas esta función; llama directamente a la URL de latido desde el servicio.
 
 ## Habilitar el receptor de ingreso
 
@@ -36,7 +36,7 @@ Establece `PROBE_INGRESS_PORT` en el puerto en el que deseas que el receptor se 
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -d oneuptime/probe:release
 ```
@@ -47,7 +47,7 @@ Si no estás usando `--network host`, publica el puerto de ingreso explícitamen
 docker run --name oneuptime-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d oneuptime/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ Los servicios internos pueden entonces enviar latidos a `http://oneuptime-probe-
 Reemplaza la URL de latido pública:
 
 ```
-https://oneuptime.com/heartbeat/<secret-key>
+https://visca.ai/heartbeat/<secret-key>
 ```
 
 con la URL de ingreso de la sonda:
@@ -153,8 +153,8 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 
 ## Comportamiento de reenvío
 
-- **Respuesta síncrona, reenvío asíncrono.** La sonda reconoce la solicitud entrante inmediatamente con un `200` y reenvía a OneUptime en segundo plano. Tu servicio no tiene que esperar a que se complete el reenvío.
-- **Los encabezados se preservan.** Todos los encabezados excepto los de salto a salto (`Host`, `Connection`, `Content-Length`, `Transfer-Encoding`, `Keep-Alive`, `Proxy-Authenticate`, `Proxy-Authorization`, `TE`, `Trailer`, `Upgrade`) se transmiten. La sonda agrega un encabezado `OneUptime-Probe-Id` que la identifica.
+- **Respuesta síncrona, reenvío asíncrono.** La sonda reconoce la solicitud entrante inmediatamente con un `200` y reenvía a Cast Operations en segundo plano. Tu servicio no tiene que esperar a que se complete el reenvío.
+- **Los encabezados se preservan.** Todos los encabezados excepto los de salto a salto (`Host`, `Connection`, `Content-Length`, `Transfer-Encoding`, `Keep-Alive`, `Proxy-Authenticate`, `Proxy-Authorization`, `TE`, `Trailer`, `Upgrade`) se transmiten. La sonda agrega un encabezado `Cast Operations-Probe-Id` que la identifica.
 - **El cuerpo se preserva.** Se aceptan cargas útiles JSON, con codificación URL y `application/octet-stream` sin procesar de hasta **50 MB**.
 - **Reintentos con retroceso.** Si el reenvío falla, la sonda reintenta hasta `PROBE_INGRESS_FORWARD_RETRY_LIMIT` veces con retroceso exponencial (2s, 4s, 8s, con un máximo de 15s).
 - **Compatible con proxy.** Si la sonda misma está configurada con `HTTP_PROXY_URL` / `HTTPS_PROXY_URL`, las solicitudes reenviadas irán a través del proxy.
@@ -164,24 +164,24 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 | Variable                            | Predeterminado                   | Descripción                                                                                                        |
 | ----------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | `PROBE_INGRESS_PORT`                | _sin establecer_ (deshabilitado) | Puerto al que se vincula el receptor de entrada. Cualquier valor `> 0` habilita el ingreso.                        |
-| `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`                          | Tiempo de espera (ms) para cada intento de reenvío a OneUptime. Mínimo `1000`.                                     |
+| `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`                          | Tiempo de espera (ms) para cada intento de reenvío a Cast Operations. Mínimo `1000`.                                     |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`                              | Número de reintentos antes de que la sonda abandone un reenvío. Establece en `0` para deshabilitar los reintentos. |
 
 Las variables estándar de la sonda (`PROBE_KEY`, `PROBE_ID`, `ONEUPTIME_URL`, variables de proxy) se aplican todas; consulta [Sondas personalizadas](/docs/probe/custom-probe) para ver la lista completa.
 
 ## Consideraciones de seguridad
 
-- **El punto de conexión no tiene autenticación por diseño**: la clave secreta en la ruta de la URL _es_ la autenticación, igual que en el punto de conexión público de `oneuptime.com`. Trata la clave secreta como una credencial.
+- **El punto de conexión no tiene autenticación por diseño**: la clave secreta en la ruta de la URL _es_ la autenticación, igual que en el punto de conexión público de `visca.ai`. Trata la clave secreta como una credencial.
 - **Vincula solo a una interfaz privada.** El receptor de ingreso no debe ser accesible desde internet público. Usa una política de red, una regla de firewall o un servicio `ClusterIP` para restringir el acceso.
-- **Usa la terminación HTTPS si necesitas cifrado en tránsito.** El receptor de la sonda usa HTTP simple. Ponlo detrás de un balanceador de carga interno/controlador de ingreso si necesitas TLS en el salto de entrada. El tramo de reenvío de la sonda → OneUptime siempre usa HTTPS (asumiendo que `ONEUPTIME_URL` es `https://`).
+- **Usa la terminación HTTPS si necesitas cifrado en tránsito.** El receptor de la sonda usa HTTP simple. Ponlo detrás de un balanceador de carga interno/controlador de ingreso si necesitas TLS en el salto de entrada. El tramo de reenvío de la sonda → Cast Operations siempre usa HTTPS (asumiendo que `ONEUPTIME_URL` es `https://`).
 - **Límites de recursos.** El receptor acepta cuerpos de solicitud de hasta 50 MB. Si necesitas un límite más estricto, coloca un proxy inverso al frente.
 
 ## Solución de problemas
 
 - **La sonda registra `Probe ingress listener started on port <port>` al iniciar**: confirma que el receptor está activo. Si no ves esta línea, `PROBE_INGRESS_PORT` no está establecido, es `0` o no es válido.
-- **`Probe ingress: failed to forward to <url> after N attempts`**: la sonda no pudo llegar a OneUptime. Comprueba la conectividad saliente de la sonda, los ajustes del proxy y el valor de `ONEUPTIME_URL`.
+- **`Probe ingress: failed to forward to <url> after N attempts`**: la sonda no pudo llegar a Cast Operations. Comprueba la conectividad saliente de la sonda, los ajustes del proxy y el valor de `ONEUPTIME_URL`.
 - **`Probe ingress: probe ID not available, forwarding without it`**: la sonda aún no se ha registrado. El reenvío sigue teniendo éxito; el latido simplemente no se atribuirá a una sonda.
-- **El latido aparece en OneUptime pero no a través de la sonda**: confirma que tu servicio está llegando a `http://<probe-host>:<port>/...` y no a la URL pública. Una entrada de DNS o `/etc/hosts` mal configurada es la causa habitual.
+- **El latido aparece en Cast Operations pero no a través de la sonda**: confirma que tu servicio está llegando a `http://<probe-host>:<port>/...` y no a la URL pública. Una entrada de DNS o `/etc/hosts` mal configurada es la causa habitual.
 
 ## Relacionado
 

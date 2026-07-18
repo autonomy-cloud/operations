@@ -1,6 +1,6 @@
 # External Status Page Monitor
 
-External Status Page monitoring आपको third-party status pages monitor करने और उन services से alert प्राप्त करने की अनुमति देता है जिन पर आप depend करते हैं जब वे outages या degraded performance का अनुभव करती हैं। OneUptime समय-समय पर external status pages (जैसे AWS, GCP, Azure, GitHub, OpenAI, Anthropic और अधिक) जांचता है और उनकी status evaluate करता है।
+External Status Page monitoring आपको third-party status pages monitor करने और उन services से alert प्राप्त करने की अनुमति देता है जिन पर आप depend करते हैं जब वे outages या degraded performance का अनुभव करती हैं। Cast Operations समय-समय पर external status pages (जैसे AWS, GCP, Azure, GitHub, OpenAI, Anthropic और अधिक) जांचता है और उनकी status evaluate करता है।
 
 ## Overview
 
@@ -15,7 +15,7 @@ External Status Page monitors उन services की health जांचते �
 
 ## समर्थित Providers
 
-OneUptime निम्नलिखित methods के माध्यम से status pages monitoring का समर्थन करता है:
+Cast Operations निम्नलिखित methods के माध्यम से status pages monitoring का समर्थन करता है:
 
 | Provider Type            | विवरण                                                       |
 | ------------------------ | ----------------------------------------------------------- |
@@ -27,7 +27,7 @@ OneUptime निम्नलिखित methods के माध्यम स�
 
 ### Auto-Detection
 
-**Auto** पर सेट होने पर, OneUptime status page format automatically detect करने की कोशिश करेगा, इस क्रम में:
+**Auto** पर सेट होने पर, Cast Operations status page format automatically detect करने की कोशिश करेगा, इस क्रम में:
 
 1. पहले, यह incident.io status page API (`/proxy/<host>`) आज़माता है
 2. इसके बाद, यह Atlassian Statuspage JSON API (`/api/v2/status.json`, `/api/v2/components.json`, और `/api/v2/incidents/unresolved.json`) आज़माता है
@@ -38,7 +38,7 @@ OneUptime निम्नलिखित methods के माध्यम स�
 
 ## External Status Page Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **External Status Page** चुनें
 4. वह status page URL दर्ज करें जिसे आप monitor करना चाहते हैं
@@ -93,7 +93,7 @@ status page से response के लिए प्रतीक्षा कर�
 
 ### Default Criteria
 
-डिफ़ॉल्ट रूप से, OneUptime criteria को उस आधार पर seed करता है जो किसी status page के लिए वास्तव में मायने रखता है — इसके active incidents और component health, न कि केवल reachability:
+डिफ़ॉल्ट रूप से, Cast Operations criteria को उस आधार पर seed करता है जो किसी status page के लिए वास्तव में मायने रखता है — इसके active incidents और component health, न कि केवल reachability:
 
 - monitor को **Operational** चिह्नित किया जाता है जब scope में कोई active incidents नहीं होते।
 - monitor को **Down** चिह्नित किया जाता है (और एक incident बनाया जाता है) जब scope में कम से कम एक active incident होता है, या जब scope में कोई component `degraded_performance`, `partial_outage`, `major_outage`, या `full_outage` report करता है।

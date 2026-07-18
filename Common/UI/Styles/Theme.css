@@ -143,7 +143,7 @@ html.cast-operations-embedded body {
   line-height: 1.5;
 }
 
-/* Cast's UI scale is based on a 13px body. OneUptime's utility classes are
+/* Cast's UI scale is based on a 13px body. Cast Operations’ utility classes are
  * rem-based against a 16px root, so normalize the complete embedded type scale
  * rather than fixing individual pages. */
 html.cast-operations-embedded :is(.text-xs, [class~="text-[10px]"]) {
@@ -295,7 +295,7 @@ html.cast-operations-embedded
   color: var(--ou-text-subtle) !important;
 }
 
-/* OneUptime's segmented page navigation reads like a control card. Cast uses
+/* Cast Operations’ segmented page navigation reads like a control card. Cast uses
  * quiet underline tabs, so flatten the shared pattern in embedded mode. */
 html.cast-operations-embedded
   nav.inline-flex.flex-wrap.items-center.gap-1.rounded-lg.border {

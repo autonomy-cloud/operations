@@ -63,11 +63,11 @@ const DashboardFooter: () => JSX.Element = () => {
         links={[
           {
             title: t("footer.helpSupport"),
-            to: URL.fromString("https://oneuptime.com/support"),
+            to: URL.fromString("https://visca.ai/support"),
           },
           {
             title: t("footer.legal"),
-            to: URL.fromString("https://oneuptime.com/legal"),
+            to: URL.fromString("https://visca.ai/legal"),
           },
           {
             title: t("footer.version"),

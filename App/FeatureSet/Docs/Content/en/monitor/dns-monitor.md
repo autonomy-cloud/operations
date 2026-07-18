@@ -1,6 +1,6 @@
 # DNS Monitor
 
-DNS monitoring allows you to monitor the health and correctness of DNS resolution for your domains. OneUptime periodically queries DNS records and validates the responses against your configured criteria.
+DNS monitoring allows you to monitor the health and correctness of DNS resolution for your domains. Cast Operations periodically queries DNS records and validates the responses against your configured criteria.
 
 ## Overview
 
@@ -14,7 +14,7 @@ DNS monitors query DNS servers for specific record types and evaluate the result
 
 ## Creating a DNS Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **DNS** as the monitor type
 4. Enter the domain name and record type to query

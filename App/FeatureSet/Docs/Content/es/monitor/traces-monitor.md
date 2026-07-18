@@ -1,6 +1,6 @@
 # Monitor de trazas
 
-El monitoreo de trazas te permite supervisar las trazas distribuidas de tus aplicaciones y activar alertas basadas en patrones de spans, recuentos y estados. OneUptime evalúa los datos de trazas de tus servicios de telemetría en una ventana de tiempo.
+El monitoreo de trazas te permite supervisar las trazas distribuidas de tus aplicaciones y activar alertas basadas en patrones de spans, recuentos y estados. Cast Operations evalúa los datos de trazas de tus servicios de telemetría en una ventana de tiempo.
 
 ## Información general
 
@@ -14,7 +14,7 @@ Los monitores de trazas buscan y cuentan los spans que coinciden con filtros esp
 
 ## Creación de un monitor de trazas
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Trazas** como tipo de monitor
 4. Selecciona los servicios de telemetría a monitorear
@@ -24,7 +24,7 @@ Los monitores de trazas buscan y cuentan los spans que coinciden con filtros esp
 
 ### Servicios de telemetría
 
-Selecciona uno o más servicios desde los que monitorear trazas. Los servicios deben enviar trazas a OneUptime a través de OpenTelemetry.
+Selecciona uno o más servicios desde los que monitorear trazas. Los servicios deben enviar trazas a Cast Operations a través de OpenTelemetry.
 
 ### Filtros de spans
 
@@ -79,4 +79,4 @@ Selecciona uno o más servicios desde los que monitorear trazas. Los servicios d
 
 ## Requisitos de configuración
 
-El monitoreo de trazas requiere que tus aplicaciones envíen trazas distribuidas a OneUptime a través de OpenTelemetry. Consulta la documentación de [OpenTelemetry](/docs/telemetry/open-telemetry) para obtener instrucciones de configuración.
+El monitoreo de trazas requiere que tus aplicaciones envíen trazas distribuidas a Cast Operations a través de OpenTelemetry. Consulta la documentación de [OpenTelemetry](/docs/telemetry/open-telemetry) para obtener instrucciones de configuración.

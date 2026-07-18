@@ -1,6 +1,6 @@
-# Mise à niveau de OneUptime
+# Mise à niveau de Cast Operations
 
-Ce guide explique comment mettre à niveau en toute sécurité votre installation auto-hébergée de OneUptime.
+Ce guide explique comment mettre à niveau en toute sécurité votre installation auto-hébergée de Cast Operations.
 
 ## Conseils généraux
 
@@ -8,14 +8,14 @@ Ce guide explique comment mettre à niveau en toute sécurité votre installatio
 - Vous pouvez passer directement d'une version mineure/corrective à une autre (par exemple, 8.1 → 8.4) tant que vous suivez les notes de version.
 - Effectuez toujours des sauvegardes avant la mise à niveau et vérifiez que vous pouvez les restaurer.
 
-## Mise à niveau de OneUptime 10 → 11
+## Mise à niveau de Cast Operations 10 → 11
 
 <!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
 
 ### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
 
 In v11, the following authentication and access-management features moved to
-the **OneUptime Enterprise Edition** and are no longer part of the free,
+the **Cast Operations Enterprise Edition** and are no longer part of the free,
 open-source (Community) build:
 
 - **SAML SSO** — both project login and status-page login
@@ -34,16 +34,16 @@ Enterprise Edition.
 **Availability:**
 
 - **Self-hosted:** requires the **Enterprise Edition** build.
-- **OneUptime Cloud:** requires the **Scale** plan (or above).
+- **Cast Operations Cloud:** requires the **Scale** plan (or above).
 
 **If you rely on SSO and self-host**, email
-[support@oneuptime.com](mailto:support@oneuptime.com) for an Enterprise Edition
+[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
 license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
 v11 and we'll help you get it back online. If your team is mid-upgrade and this
 is blocking sign-in, contact us before upgrading production so we can plan it
 with you.
 
-OneUptime 11 reconstruit le stockage de télémétrie ClickHouse. Cette page explique ce qui change, qui doit agir et — pour les installations qui souhaitent conserver la télémétrie historique — chaque requête nécessaire pour le faire.
+Cast Operations 11 reconstruit le stockage de télémétrie ClickHouse. Cette page explique ce qui change, qui doit agir et — pour les installations qui souhaitent conserver la télémétrie historique — chaque requête nécessaire pour le faire.
 
 ### Ce qui change dans la v11
 
@@ -60,7 +60,7 @@ La télémétrie (logs, traces, métriques, exceptions, profils, logs de monitor
 | `MonitorLogV2`        | `MonitorLogV3`        |
 | `AuditLogV1`          | `AuditLogV2`          |
 
-Deux colonnes sont renommées dans chaque table de télémétrie : `serviceId` → `primaryEntityId` et `serviceType` → `primaryEntityType`. C'est un renommage strict — **si vous interrogez directement l'API analytics de OneUptime avec des filtres `serviceId`/`serviceType`, mettez-les à jour vers les nouveaux noms.** Les tableaux de bord, monitors et alertes au sein de OneUptime sont migrés automatiquement.
+Deux colonnes sont renommées dans chaque table de télémétrie : `serviceId` → `primaryEntityId` et `serviceType` → `primaryEntityType`. C'est un renommage strict — **si vous interrogez directement l'API analytics de Cast Operations avec des filtres `serviceId`/`serviceType`, mettez-les à jour vers les nouveaux noms.** Les tableaux de bord, monitors et alertes au sein de Cast Operations sont migrés automatiquement.
 
 La bascule est **uniquement vers l'avant** : les nouvelles tables démarrent vides, toute la télémétrie ingérée après la mise à niveau y atterrit immédiatement, et l'historique se reconstitue naturellement avec le temps. Les anciennes tables sont **supprimées automatiquement** pendant la mise à niveau afin de récupérer leur espace disque — si vous voulez garder la possibilité de reprendre l'historique, renommez-les **avant** la mise à niveau (étape 0 ci-dessous).
 
@@ -84,14 +84,14 @@ clickhouse-client --database oneuptime
 
 Bon à savoir avant de commencer :
 
-- La copie peut être lancée en toute sécurité pendant que OneUptime est en production. La nouvelle télémétrie s'écrit indépendamment dans les nouvelles tables ; l'historique copié se remplit derrière.
+- La copie peut être lancée en toute sécurité pendant que Cast Operations est en production. La nouvelle télémétrie s'écrit indépendamment dans les nouvelles tables ; l'historique copié se remplit derrière.
 - Comptez plusieurs heures à grande échelle (centaines de Go).
 - Chaque requête ci-dessous porte un `insert_deduplication_token`, et les nouvelles tables sont livrées avec une fenêtre de déduplication — **relancer une requête qui a échoué en cours de route est donc sûr** (les blocs déjà insérés sont ignorés, y compris dans les rollups de métriques), à condition de la relancer rapidement. Sous forte ingestion en continu, la fenêtre (les 10 000 derniers blocs d'insertion par table) finit par évincer les anciens tokens.
 - La copie des métriques reconstruit aussi automatiquement les rollups pré-agrégés des tableaux de bord (chaque ligne copiée réalimente les vues matérialisées de rollup) — la copie des métriques est donc plus lente que les autres ; lancez-la en dernier.
 
 #### Étape 0 — avant la mise à niveau, renommer les anciennes tables
 
-La mise à niveau supprime les anciennes tables au démarrage : mettez d'abord hors de sa portée celles depuis lesquelles vous voulez copier. Arrêtez OneUptime (réduisez le déploiement à zéro) pour que plus rien n'y écrive ni ne puisse les recréer, puis renommez — `RENAME TABLE` est une opération de métadonnées instantanée, et `IF EXISTS` permet au bloc d'ignorer les tables que votre installation n'a jamais eues (les déploiements antérieurs à la mi-10.0.x peuvent ne pas avoir `AuditLogV1` ou certaines tables `…V2` — il n'y a alors pas d'historique de ce type à copier) :
+La mise à niveau supprime les anciennes tables au démarrage : mettez d'abord hors de sa portée celles depuis lesquelles vous voulez copier. Arrêtez Cast Operations (réduisez le déploiement à zéro) pour que plus rien n'y écrive ni ne puisse les recréer, puis renommez — `RENAME TABLE` est une opération de métadonnées instantanée, et `IF EXISTS` permet au bloc d'ignorer les tables que votre installation n'a jamais eues (les déploiements antérieurs à la mi-10.0.x peuvent ne pas avoir `AuditLogV1` ou certaines tables `…V2` — il n'y a alors pas d'historique de ce type à copier) :
 
 ```sql
 RENAME TABLE IF EXISTS LogItemV2 TO LogItemV2_backup;
@@ -105,7 +105,7 @@ RENAME TABLE IF EXISTS AuditLogV1 TO AuditLogV1_backup;
 RENAME TABLE IF EXISTS MetricItemAggMV1mByHost TO MetricItemAggMV1mByHost_backup;
 ```
 
-Effectuez ensuite la mise à niveau et laissez OneUptime démarrer complètement avant de continuer.
+Effectuez ensuite la mise à niveau et laissez Cast Operations démarrer complètement avant de continuer.
 
 > Si vous revenez à la v10 après le renommage (la v10 recrée au démarrage des tables vides avec les anciens noms), renommez les tables `_backup` vers leurs noms d'origine avant de redémarrer la v10 — sinon la télémétrie ingérée pendant le retour arrière atterrit dans les tables recréées et sera supprimée lors de la future mise à niveau.
 
@@ -206,20 +206,20 @@ DROP TABLE IF EXISTS MetricItemAggMV1mByHost_backup SETTINGS max_table_size_to_d
 
 > Astuce : comme pour toute mise à niveau majeure, testez d'abord dans un environnement de staging et confirmez que la télémétrie arrive bien dans les nouvelles tables avant de vous appuyer sur la copie en production.
 
-## Mise à niveau de OneUptime 9 → 10
+## Mise à niveau de Cast Operations 9 → 10
 
 Aucun changement nécessitant une action manuelle. Suivez simplement le processus de mise à niveau standard.
 
-## Mise à niveau de OneUptime 8 → 9
+## Mise à niveau de Cast Operations 8 → 9
 
-Le chart Helm ne provisionne plus de ressource Kubernetes Ingress. OneUptime inclut un conteneur de passerelle d'entrée qui termine déjà le TLS, gère les domaines des pages de statut et achemine le trafic pour la plateforme, de sorte qu'un contrôleur d'entrée de cluster n'est plus nécessaire.
+Le chart Helm ne provisionne plus de ressource Kubernetes Ingress. Cast Operations inclut un conteneur de passerelle d'entrée qui termine déjà le TLS, gère les domaines des pages de statut et achemine le trafic pour la plateforme, de sorte qu'un contrôleur d'entrée de cluster n'est plus nécessaire.
 
 - Supprimez les remplacements `oneuptimeIngress` de vos fichiers `values.yaml` personnalisés avant la mise à niveau. Ces clés sont désormais ignorées et provoqueront des erreurs de validation si elles sont laissées en place.
 - Assurez-vous que `nginx.service.type` reflète la façon dont vous souhaitez exposer la passerelle d'entrée intégrée (par exemple `LoadBalancer`, `NodePort` ou `ClusterIP` avec un équilibreur de charge externe).
-- Vérifiez que les enregistrements DNS pour les pages de statut ou les hôtes primaires pointent toujours vers le Service ou l'équilibreur de charge qui protège la passerelle d'entrée OneUptime.
+- Vérifiez que les enregistrements DNS pour les pages de statut ou les hôtes primaires pointent toujours vers le Service ou l'équilibreur de charge qui protège la passerelle d'entrée Cast Operations.
 - Après la mise à niveau, confirmez que les certificats TLS continuent d'être renouvelés via la passerelle intégrée et que les domaines des pages de statut se résolvent correctement.
 
-## Mise à niveau de OneUptime 7 → 8
+## Mise à niveau de Cast Operations 7 → 8
 
 Si vous exécutez sur Kubernetes, il y a des changements importants avec rupture de compatibilité :
 

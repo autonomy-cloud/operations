@@ -2,15 +2,15 @@
 
 ## Terraform Registryからのインストール
 
-OneUptime Terraformプロバイダーは公式の [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime) で利用可能です。
+Cast Operations Terraformプロバイダーは公式の [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations) で利用可能です。
 
-### OneUptime Cloudユーザーの場合
+### Cast Operations Cloudユーザーの場合
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 最新の互換バージョンを使用
     }
   }
@@ -18,60 +18,60 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
 
-### セルフホストOneUptimeユーザーの場合
+### セルフホストCast Operationsユーザーの場合
 
-⚠️ **重要**：セルフホストのお客様はプロバイダーバージョンをOneUptimeのインストールに完全一致するよう固定する必要があります。
+⚠️ **重要**：セルフホストのお客様はプロバイダーバージョンをCast Operationsのインストールに完全一致するよう固定する必要があります。
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # 正確なOneUptimeバージョンに置き換えてください
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # 正確なCast Operationsバージョンに置き換えてください
     }
   }
   required_version = ">= 1.0"
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # セルフホストURL
+  oneuptime_url = "https://operations.yourcompany.com"  # セルフホストURL
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## セルフホストでバージョン固定が必要な理由
 
-OneUptime TerraformプロバイダーはOneUptime APIの仕様から自動生成されています。各OneUptimeバージョンには以下の変更が含まれる場合があります：
+Cast Operations TerraformプロバイダーはCast Operations APIの仕様から自動生成されています。各Cast Operationsバージョンには以下の変更が含まれる場合があります：
 
 - 異なるAPIエンドポイント
 - 更新されたリソーススキーマ
 - 新機能や削除された機能
 - 変更された検証ルール
 
-OneUptimeのインストールと一致しないプロバイダーバージョンを使用すると、以下の問題が発生する可能性があります：
+Cast Operationsのインストールと一致しないプロバイダーバージョンを使用すると、以下の問題が発生する可能性があります：
 
 - APIの互換性エラー
 - リソースの作成/更新の失敗
 - 予期しない動作
 - リソースステートのドリフト
 
-## OneUptimeのバージョン確認方法
+## Cast Operationsのバージョン確認方法
 
 ### 方法1：ダッシュボード
 
-1. OneUptime ダッシュボードにログイン
+1. Cast Operations ダッシュボードにログイン
 2. **設定** → **About** に移動
 3. バージョン番号をメモ（例：「7.0.123」）
 
 ### 方法2：API
 
 ```bash
-curl https://your-oneuptime-instance.com/api/version | jq '.version'
+curl https://your-operations-instance.com/api/version | jq '.version'
 ```
 
 ### 方法3：Docker
@@ -83,14 +83,14 @@ docker images | grep oneuptime
 
 ## プロバイダーのRegistry情報
 
-- **Registry URL**：https://registry.terraform.io/providers/oneuptime/oneuptime
-- **ソースリポジトリ**：https://github.com/OneUptime/terraform-provider-oneuptime
-- **ドキュメント**：https://registry.terraform.io/providers/oneuptime/oneuptime/latest/docs
-- **リリース**：https://github.com/OneUptime/terraform-provider-oneuptime/releases
+- **Registry URL**：https://registry.terraform.io/providers/autonomy-cloud/operations
+- **ソースリポジトリ**：https://github.com/autonomy-cloud/operations
+- **ドキュメント**：https://registry.terraform.io/providers/autonomy-cloud/operations/latest/docs
+- **リリース**：https://github.com/autonomy-cloud/operations
 
 ## バージョン互換性マトリクス
 
-| OneUptimeバージョン | プロバイダーバージョン | Terraform設定          |
+| Cast Operationsバージョン | プロバイダーバージョン | Terraform設定          |
 | ------------------- | ---------------------- | ---------------------- |
 | 7.0.x               | 7.0.x                  | `version = "~> 7.0.0"` |
 | 7.1.x               | 7.1.x                  | `version = "~> 7.1.0"` |
@@ -103,14 +103,14 @@ docker images | grep oneuptime
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # セルフホストの場合は調整
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # セルフホストの場合は調整
+  oneuptime_url = "https://visca.ai"  # セルフホストの場合は調整
   api_key       = var.oneuptime_api_key
 }
 
@@ -152,4 +152,4 @@ resource "oneuptime_monitor" "website" {
 
 ## Registryの更新
 
-新しいOneUptimeバージョンがリリースされると、プロバイダーはTerraform Registryに自動的に公開されます。Cloudユーザーはセマンティックバージョニング（`~> 7.0`）を使用して互換性のある更新を自動的に取得できます。セルフホストユーザーは正確なバージョンに固定する必要があります。
+新しいCast Operationsバージョンがリリースされると、プロバイダーはTerraform Registryに自動的に公開されます。Cloudユーザーはセマンティックバージョニング（`~> 7.0`）を使用して互換性のある更新を自動的に取得できます。セルフホストユーザーは正確なバージョンに固定する必要があります。

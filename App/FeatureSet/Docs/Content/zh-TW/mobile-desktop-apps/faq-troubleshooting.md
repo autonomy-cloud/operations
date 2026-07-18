@@ -1,11 +1,11 @@
 # 常見問題與疑難排解
 
-OneUptime 行動與桌面應用程式的常見問題與解決方案。
+Cast Operations 行動與桌面應用程式的常見問題與解決方案。
 
-## OneUptime 如何發行其應用程式？
+## Cast Operations 如何發行其應用程式？
 
-- **行動裝置（iOS 與 Android）：** OneUptime 推出一款名為 **OneUptime On-Call** 的原生應用程式。它已發佈於 [Apple App Store](https://apps.apple.com/us/app/oneuptime-on-call/id6759615391) 與 [Google Play](https://play.google.com/store/apps/details?id=com.oneuptime.oncall)。對於沒有 Google Play 的 Android 裝置，亦提供已簽署的 [APK 下載](https://github.com/OneUptime/oneuptime/releases/latest/download/oneuptime-on-call-android-app.apk)。
-- **桌面（Windows、macOS、Linux）：** OneUptime 網頁儀表板是一個漸進式網頁應用程式（PWA）。您可以直接從基於 Chromium 的瀏覽器或 Safari 將它安裝為桌面應用程式——無需任何商店帳號。
+- **行動裝置（iOS 與 Android）：** Cast Operations 推出一款名為 **Cast Operations On-Call** 的原生應用程式。它已發佈於 [Apple App Store](https://github.com/autonomy-cloud/operations/releases) 與 [Google Play](https://github.com/autonomy-cloud/operations/releases)。對於沒有 Google Play 的 Android 裝置，亦提供已簽署的 [APK 下載](https://github.com/autonomy-cloud/operations/releases/latest/download/cast-operations-on-call-android-app.apk)。
+- **桌面（Windows、macOS、Linux）：** Cast Operations 網頁儀表板是一個漸進式網頁應用程式（PWA）。您可以直接從基於 Chromium 的瀏覽器或 Safari 將它安裝為桌面應用程式——無需任何商店帳號。
 
 ## 行動應用程式常見問題
 
@@ -16,11 +16,11 @@ OneUptime 行動與桌面應用程式的常見問題與解決方案。
 
 ### 應用程式是免費的嗎？
 
-是的。OneUptime On-Call 應用程式可免費安裝。您使用既有的 OneUptime 帳號登入。
+是的。Cast Operations On-Call 應用程式可免費安裝。您使用既有的 Cast Operations 帳號登入。
 
-### 我可以將應用程式搭配自架的 OneUptime 執行個體使用嗎？
+### 我可以將應用程式搭配自架的 Cast Operations 執行個體使用嗎？
 
-可以。首次啟動時，應用程式會要求輸入 **Server URL**。請輸入您自架執行個體的 URL（例如 `https://oneuptime.example.com`）。在允許您登入之前，應用程式會驗證該伺服器是否可連線。
+可以。首次啟動時，應用程式會要求輸入 **Server URL**。請輸入您自架執行個體的 URL（例如 `https://operations.example.com`）。在允許您登入之前，應用程式會驗證該伺服器是否可連線。
 
 關於自架執行個體上的推播通知，請參閱[推播通知](/docs/self-hosted/push-notifications)指南。
 
@@ -34,11 +34,11 @@ OneUptime 行動與桌面應用程式的常見問題與解決方案。
 
 行動推播透過 Expo Push 使用 APNs（iOS）與 FCM（Android）。請檢查以下項目：
 
-1. 已在作業系統層級為 **OneUptime On-Call** 啟用通知。
+1. 已在作業系統層級為 **Cast Operations On-Call** 啟用通知。
 2. 已停用電池最佳化並允許背景活動（Android）。
 3. 勿擾或專注模式已關閉，或應用程式位於例外清單中。
 4. 您已登入——推播權杖只有在您登入後才會向伺服器註冊。
-5. **僅限自架：** 推播通知已在您的 OneUptime 執行個體上設定完成。請參閱[推播通知](/docs/self-hosted/push-notifications)指南。
+5. **僅限自架：** 推播通知已在您的 Cast Operations 執行個體上設定完成。請參閱[推播通知](/docs/self-hosted/push-notifications)指南。
 
 ### 我手機上的資料安全嗎？
 
@@ -48,14 +48,14 @@ OneUptime 行動與桌面應用程式的常見問題與解決方案。
 
 ### 我可以在多個裝置上安裝應用程式嗎？
 
-可以。在您需要的多個裝置上以相同的 OneUptime 帳號登入即可。每個裝置都會收到自己的推播通知。
+可以。在您需要的多個裝置上以相同的 Cast Operations 帳號登入即可。每個裝置都會收到自己的推播通知。
 
 ### 我該如何解除安裝？
 
 - **iOS：** 長按圖示 →**Remove App** →**Delete App**。
-- **Android：** 長按圖示 →**Uninstall**，或 **Settings → Apps → OneUptime On-Call → Uninstall**。
+- **Android：** 長按圖示 →**Uninstall**，或 **Settings → Apps → Cast Operations On-Call → Uninstall**。
 
-您的 OneUptime 帳號與資料儲存在伺服器上，解除安裝應用程式時不會被移除。
+您的 Cast Operations 帳號與資料儲存在伺服器上，解除安裝應用程式時不會被移除。
 
 ## 桌面應用程式（PWA）常見問題
 
@@ -65,14 +65,14 @@ OneUptime 行動與桌面應用程式的常見問題與解決方案。
 
 ### 為什麼桌面應用程式採用 PWA 技術？
 
-- **即時更新**——應用程式在您部署的當下即與您的 OneUptime 執行個體保持同步。
+- **即時更新**——應用程式在您部署的當下即與您的 Cast Operations 執行個體保持同步。
 - **無需商店帳號**——直接從任何現代瀏覽器安裝。
 - **單一程式碼庫**——相同的儀表板可在 Windows、macOS 與 Linux 上執行。
 
 ### 為什麼「安裝」按鈕沒有出現？
 
 1. 使用基於 Chromium 的瀏覽器（Chrome、Edge、Brave、Arc）或 Safari（macOS Sonoma 以上）。
-2. 確認您的 OneUptime 執行個體透過具有有效憑證的 HTTPS 提供服務。
+2. 確認您的 Cast Operations 執行個體透過具有有效憑證的 HTTPS 提供服務。
 3. 清除您的瀏覽器快取並重新載入。
 4. 應用程式可能已安裝——請查看您的應用程式／開始功能表。
 
@@ -82,7 +82,7 @@ PWA 會在您於連線狀態下開啟時自動更新。若要強制更新，請�
 
 ### 我該如何解除安裝桌面 PWA？
 
-- **Windows：** **Settings → Apps → OneUptime → Uninstall**，或右鍵點選開始功能表中的項目。
+- **Windows：** **Settings → Apps → Cast Operations → Uninstall**，或右鍵點選開始功能表中的項目。
 - **macOS：** 將應用程式從 **Applications** 拖曳至垃圾桶，或右鍵點選 Dock 圖示並選擇 **Remove**。
 - **Linux：** 使用您的應用程式啟動器的解除安裝選項，或移除相關的 `.desktop` 檔案。
 
@@ -98,27 +98,27 @@ PWA 會在您於連線狀態下開啟時自動更新。若要強制更新，請�
 
 **推播通知延遲或遺失（Android）：**
 
-- 停用電池最佳化：**Settings → Apps → OneUptime On-Call → Battery → Unrestricted**。
+- 停用電池最佳化：**Settings → Apps → Cast Operations On-Call → Battery → Unrestricted**。
 - 為應用程式停用 Data Saver。
-- 在 Samsung 裝置上，為 OneUptime On-Call 關閉 **Device care → Battery → Background usage limits**。
+- 在 Samsung 裝置上，為 Cast Operations On-Call 關閉 **Device care → Battery → Background usage limits**。
 
 **推播通知延遲或遺失（iOS）：**
 
 - 避免強制結束應用程式——iOS 可能會暫停背景傳遞。
 - 在待命期間停用低耗電模式。
-- 將 OneUptime On-Call 加入任何作用中的專注模式的允許清單。
+- 將 Cast Operations On-Call 加入任何作用中的專注模式的允許清單。
 
 **Face ID／Touch ID／指紋無法運作：**
 
 - 確認已在您的作業系統設定中註冊生物辨識。
-- 在 OneUptime On-Call 應用程式內的 **Settings** 畫面重新啟用生物辨識解鎖。
+- 在 Cast Operations On-Call 應用程式內的 **Settings** 畫面重新啟用生物辨識解鎖。
 
 ### 桌面應用程式（PWA）問題
 
 **安裝按鈕遺失：**
 
 - 使用支援的瀏覽器（基於 Chromium 或 macOS Sonoma 以上的 Safari）。
-- 確保 OneUptime 執行個體透過 HTTPS 提供服務。
+- 確保 Cast Operations 執行個體透過 HTTPS 提供服務。
 - 等待頁面載入完成，然後查看網址列中的安裝圖示。
 
 **桌面通知未出現：**
@@ -139,5 +139,5 @@ PWA 會在您於連線狀態下開啟時自動更新。若要強制更新，請�
 
 - 行動裝置：請參閱 [iOS](./ios-installation.md) 或 [Android](./android-installation.md) 安裝指南。
 - 桌面：請參閱 [Windows](./windows-installation.md)、[macOS](./macos-installation.md) 或 [Linux](./linux-installation.md) 安裝指南。
-- 在 [OneUptime GitHub 儲存庫](https://github.com/OneUptime/oneuptime)上提出問題。
-- 透過您的 OneUptime 儀表板聯絡支援。
+- 在 [Cast Operations GitHub 儲存庫](https://github.com/autonomy-cloud/operations)上提出問題。
+- 透過您的 Cast Operations 儀表板聯絡支援。

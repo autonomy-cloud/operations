@@ -1,6 +1,6 @@
 # Domene-monitor
 
-Domeneovervåking lar deg overvåke registreringsstatus og utløp for dine domenenavn. OneUptime utfører periodiske WHOIS-oppslag for å spore domenets helse og varsle deg før det utløper.
+Domeneovervåking lar deg overvåke registreringsstatus og utløp for dine domenenavn. Cast Operations utfører periodiske WHOIS-oppslag for å spore domenets helse og varsle deg før det utløper.
 
 ## Oversikt
 
@@ -14,7 +14,7 @@ Domene-monitorer spør WHOIS-data for domenene dine for å spore registreringsde
 
 ## Opprette en domene-monitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **Domain** som monitortype
 4. Skriv inn domenenavnet du ønsker å overvåke

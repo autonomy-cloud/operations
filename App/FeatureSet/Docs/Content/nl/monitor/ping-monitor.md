@@ -1,6 +1,6 @@
 # Ping Monitor
 
-Ping-monitoring stelt u in staat de beschikbaarheid en reactiesnelheid van elke host of elk IP-adres te bewaken. OneUptime verstuurt periodiek ping-verzoeken naar uw doel en controleert of het correct reageert.
+Ping-monitoring stelt u in staat de beschikbaarheid en reactiesnelheid van elke host of elk IP-adres te bewaken. Cast Operations verstuurt periodiek ping-verzoeken naar uw doel en controleert of het correct reageert.
 
 ## Overzicht
 
@@ -13,7 +13,7 @@ Ping-monitors testen basisnetwerkconnectiviteit door ICMP ping-verzoeken naar ee
 
 ## Een Ping Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Ping** als het monitortype
 4. Voer de hostnaam of het IP-adres in dat u wilt bewaken

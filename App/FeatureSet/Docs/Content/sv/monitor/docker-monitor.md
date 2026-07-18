@@ -1,6 +1,6 @@
 # Docker-monitor
 
-Docker-övervakning gör det möjligt att övervaka hälsan och prestandan hos dina Docker-värdar och de containers som körs på dem. OneUptime samlar in mätvärden och containerloggar via en förkonfigurerad OpenTelemetry Collector (**OneUptime Docker Agent**) och utvärderar dem mot dina konfigurerade kriterier.
+Docker-övervakning gör det möjligt att övervaka hälsan och prestandan hos dina Docker-värdar och de containers som körs på dem. Cast Operations samlar in mätvärden och containerloggar via en förkonfigurerad OpenTelemetry Collector (**Cast Operations Docker Agent**) och utvärderar dem mot dina konfigurerade kriterier.
 
 ## Översikt
 
@@ -14,7 +14,7 @@ Docker-monitorer använder mätvärden och loggar från dina värdar för att ge
 
 ## Skapa en Docker-monitor
 
-1. Gå till **Monitorer** i OneUptime-instrumentpanelen
+1. Gå till **Monitorer** i Cast Operations-instrumentpanelen
 2. Klicka på **Skapa monitor**
 3. Välj **Docker** som monitortyp
 4. Välj Docker-värden och resursomfånget att övervaka
@@ -25,7 +25,7 @@ Docker-monitorer använder mätvärden och loggar från dina värdar för att ge
 
 ### Docker-värd
 
-Välj Docker-värden att övervaka. Värdar registreras automatiskt första gången OneUptime Docker Agent skickar telemetri från dem – du behöver inte skapa dem manuellt.
+Välj Docker-värden att övervaka. Värdar registreras automatiskt första gången Cast Operations Docker Agent skickar telemetri från dem – du behöver inte skapa dem manuellt.
 
 ### Resursomfång
 
@@ -126,7 +126,7 @@ Docker Agent använder OpenTelemetry `docker_stats`-mottagaren som läser Docker
 
 ## Förbyggda varningsmallar
 
-OneUptime tillhandahåller mallar för vanliga Docker-övervakningsscenarier:
+Cast Operations tillhandahåller mallar för vanliga Docker-övervakningsscenarier:
 
 | Mall                  | Beskrivning                                  | Tröskel | Aggregering         |
 | --------------------- | -------------------------------------------- | ------- | ------------------- |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 För att använda Docker-övervakning behöver du:
 
-1. Installera OneUptime Docker Agent på varje Docker-värd du vill övervaka
+1. Installera Cast Operations Docker Agent på varje Docker-värd du vill övervaka
 2. Skicka `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` och `DOCKER_HOST_NAME` som miljövariabler
 3. Se till att de containers du vill observera använder `json-file`-loggdrivrutinen (se ovan)
 
-Agenten publiceras som `oneuptime/docker-agent:release` på Docker Hub. Se [installationsguiden för Docker Agent](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent) för fullständiga `docker run`- och `docker compose`-exempel.
+Agenten publiceras som `oneuptime/docker-agent:release` på Docker Hub. Se [installationsguiden för Docker Agent](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) för fullständiga `docker run`- och `docker compose`-exempel.
 
 ## Felsökning
 
@@ -236,7 +236,7 @@ Detta innebär att include-globen `/var/lib/docker/containers/*/*-json.log` inte
 
 ### Loggar anländer men grupperas under fel värdnamn
 
-OneUptime registrerar automatiskt Docker-värdar efter `resource.host.name`, som tas från `DOCKER_HOST_NAME`-miljövariabeln. Att ändra `DOCKER_HOST_NAME` efter den första telemetribatchen skapar en ny värdrad istället för att byta namn på den befintliga.
+Cast Operations registrerar automatiskt Docker-värdar efter `resource.host.name`, som tas från `DOCKER_HOST_NAME`-miljövariabeln. Att ändra `DOCKER_HOST_NAME` efter den första telemetribatchen skapar en ny värdrad istället för att byta namn på den befintliga.
 
 ### Incidenter utlöses inte för "Hög CPU"
 

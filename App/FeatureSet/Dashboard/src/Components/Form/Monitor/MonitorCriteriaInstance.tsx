@@ -668,7 +668,7 @@ const MonitorCriteriaInstanceElement: FunctionComponent<ComponentProps> = (
                     </div>
                     <p className="mb-3 ml-7 mt-1 text-xs text-gray-500">
                       A webhook only describes what is firing right now, so
-                      OneUptime cannot tell an incident has recovered unless the
+                      Cast Operations cannot tell an incident has recovered unless the
                       payload says so. Set the field and value that signal
                       recovery. Leave blank to resolve these incidents manually.
                     </p>

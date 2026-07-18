@@ -5,7 +5,6 @@ import IconProp from "Common/Types/Icon/IconProp";
 import SideMenu, {
   SideMenuSectionProps,
 } from "Common/UI/Components/SideMenu/SideMenu";
-import { BILLING_ENABLED } from "Common/UI/Config";
 import React, { ReactElement } from "react";
 
 const DashboardSideMenu: () => JSX.Element = (): ReactElement => {
@@ -133,19 +132,6 @@ const DashboardSideMenu: () => JSX.Element = (): ReactElement => {
           },
           icon: IconProp.CPUChip,
         },
-        ...(BILLING_ENABLED
-          ? [
-              {
-                link: {
-                  title: "AI Credits",
-                  to: RouteUtil.populateRouteParams(
-                    RouteMap[PageMap.SETTINGS_AI_CREDITS] as Route,
-                  ),
-                },
-                icon: IconProp.Billing,
-              },
-            ]
-          : []),
         {
           link: {
             title: "AI Logs",
@@ -269,43 +255,6 @@ const DashboardSideMenu: () => JSX.Element = (): ReactElement => {
       ],
     },
   ];
-
-  // Conditionally add Billing section
-  if (BILLING_ENABLED) {
-    // Insert Billing section before Authentication Security (second to last)
-    sections.splice(-2, 0, {
-      title: "Billing and Invoices",
-      items: [
-        {
-          link: {
-            title: "Billing",
-            to: RouteUtil.populateRouteParams(
-              RouteMap[PageMap.SETTINGS_BILLING] as Route,
-            ),
-          },
-          icon: IconProp.Billing,
-        },
-        {
-          link: {
-            title: "Usage History",
-            to: RouteUtil.populateRouteParams(
-              RouteMap[PageMap.SETTINGS_USAGE_HISTORY] as Route,
-            ),
-          },
-          icon: IconProp.ChartBar,
-        },
-        {
-          link: {
-            title: "Invoices",
-            to: RouteUtil.populateRouteParams(
-              RouteMap[PageMap.SETTINGS_BILLING_INVOICES] as Route,
-            ),
-          },
-          icon: IconProp.TextFile,
-        },
-      ],
-    });
-  }
 
   return <SideMenu sections={sections} />;
 };

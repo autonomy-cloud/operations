@@ -1,26 +1,26 @@
 # LLM 提供商
 
-OneUptime 支持与各种大型语言模型（LLM）提供商集成，以在整个平台中启用 AI 功能。本指南将帮助您配置自己的 LLM 提供商。
+Cast Operations 支持与各种大型语言模型（LLM）提供商集成，以在整个平台中启用 AI 功能。本指南将帮助您配置自己的 LLM 提供商。
 
 ## LLM 提供商能做什么？
 
-OneUptime 中的 LLM 提供商可帮助您自动化并增强事件管理工作流：
+Cast Operations 中的 LLM 提供商可帮助您自动化并增强事件管理工作流：
 
 - **事件备注**：自动生成详细的事件备注和更新
 - **告警备注**：创建有意义的告警描述和上下文信息
 - **计划维护备注**：自动生成维护事件备注
 - **事件事后分析**：自动起草全面的事件事后分析报告
-- **代码改进**：如果您将代码仓库连接到 OneUptime，我们将使用您的 LLM 提供商分析遥测数据（日志、追踪、指标、异常）并提出代码改进建议
+- **代码改进**：如果您将代码仓库连接到 Cast Operations，我们将使用您的 LLM 提供商分析遥测数据（日志、追踪、指标、异常）并提出代码改进建议
 
-## OneUptime SaaS 用户
+## Cast Operations SaaS 用户
 
-如果您使用 **OneUptime SaaS**（云托管版本），默认情况下无需任何额外配置即可使用**全局 LLM 提供商**。全局 LLM 提供商已预先配置好，可用于所有 AI 功能。
+如果您使用 **Cast Operations SaaS**（云托管版本），默认情况下无需任何额外配置即可使用**全局 LLM 提供商**。全局 LLM 提供商已预先配置好，可用于所有 AI 功能。
 
 如果您希望使用自己的 API 密钥或特定提供商，仍可按照以下说明配置自定义 LLM 提供商。
 
 ## 支持的提供商
 
-OneUptime 目前支持以下 LLM 提供商：
+Cast Operations 目前支持以下 LLM 提供商：
 
 | 提供商                | 描述                                                              | 是否需要 API 密钥 | 是否需要基础 URL |
 | --------------------- | ----------------------------------------------------------------- | ----------------- | ---------------- |
@@ -36,7 +36,7 @@ OneUptime 目前支持以下 LLM 提供商：
 
 ### 第一步：导航至 LLM 提供商设置
 
-1. 登录您的 OneUptime 控制台
+1. 登录您的 Cast Operations 控制台
 2. 前往 **AI 智能体** > **LLM 提供商**
 3. 点击 **创建 LLM 提供商** 以添加新提供商
 
@@ -145,7 +145,7 @@ API Key: (leave blank)
 
 ### 在 Kubernetes 上自托管 vLLM（Helm）
 
-如果您使用 Helm chart 自托管 OneUptime，可以在集群内运行 [vLLM](https://docs.vllm.ai)——一个兼容 OpenAI 的推理服务器，并在您自己的 GPU 上提供本地模型服务。数据不会离开您的基础设施。
+如果您使用 Helm chart 自托管 Cast Operations，可以在集群内运行 [vLLM](https://docs.vllm.ai)——一个兼容 OpenAI 的推理服务器，并在您自己的 GPU 上提供本地模型服务。数据不会离开您的基础设施。
 
 1. 在 Helm values 中启用它（需要 NVIDIA GPU 节点）：
 
@@ -175,7 +175,7 @@ Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-有关 GPU 调度、受限模型和调优选项，请参阅 [Helm chart README](https://github.com/OneUptime/oneuptime/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm)。
+有关 GPU 调度、受限模型和调优选项，请参阅 [Helm chart README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm)。
 
 ## 使用自定义基础 URL
 
@@ -211,5 +211,5 @@ API Key: (leave blank unless vllm.apiKey is set)
 
 如果您在设置 LLM 提供商时遇到问题，请：
 
-1. 查看 [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) 了解已知问题
+1. 查看 [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) 了解已知问题
 2. 如果您是企业计划用户，请联系支持团队

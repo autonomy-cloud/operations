@@ -1,17 +1,17 @@
 # Eingehender Anfrage-Ingress
 
-Eine Benutzerdefinierte Probe kann optional einen **eingehenden HTTP-Listener** ausführen, der `heartbeat`- und `incoming-request`-Aufrufe aus Ihrem privaten Netzwerk akzeptiert und an OneUptime weiterleitet. Dies ermöglicht Diensten, die **keinen ausgehenden Internetzugang** haben, trotzdem an einen [Eingehenden Anfrage-Monitor](/docs/monitor/incoming-request-monitor) zu berichten, indem sie die Anfrage an eine Probe im lokalen Netzwerk senden statt direkt an `oneuptime.com`.
+Eine Benutzerdefinierte Probe kann optional einen **eingehenden HTTP-Listener** ausführen, der `heartbeat`- und `incoming-request`-Aufrufe aus Ihrem privaten Netzwerk akzeptiert und an Cast Operations weiterleitet. Dies ermöglicht Diensten, die **keinen ausgehenden Internetzugang** haben, trotzdem an einen [Eingehenden Anfrage-Monitor](/docs/monitor/incoming-request-monitor) zu berichten, indem sie die Anfrage an eine Probe im lokalen Netzwerk senden statt direkt an `visca.ai`.
 
 ## Übersicht
 
-Wenn `PROBE_INGRESS_PORT` gesetzt ist, bindet die Probe einen zusätzlichen HTTP-Listener an diesem Port. Der Listener akzeptiert dieselben `secretkey`-URL-Pfade wie die öffentlichen OneUptime-Endpunkte:
+Wenn `PROBE_INGRESS_PORT` gesetzt ist, bindet die Probe einen zusätzlichen HTTP-Listener an diesem Port. Der Listener akzeptiert dieselben `secretkey`-URL-Pfade wie die öffentlichen Cast Operations-Endpunkte:
 
 - `POST /heartbeat/:secretkey`
 - `GET /heartbeat/:secretkey`
 - `POST /incoming-request/:secretkey`
 - `GET /incoming-request/:secretkey`
 
-Die Probe leitet die Anfrage dann an Ihre OneUptime-Instanz weiter und bewahrt dabei Methode, Text und Anfrage-Header (abzüglich Hop-by-Hop-Header wie `Host`, `Connection`, `Content-Length` usw.).
+Die Probe leitet die Anfrage dann an Ihre Cast Operations-Instanz weiter und bewahrt dabei Methode, Text und Anfrage-Header (abzüglich Hop-by-Hop-Header wie `Host`, `Connection`, `Content-Length` usw.).
 
 Der Listener läuft auf einem **dedizierten Port**, getrennt von den internen Status-/Metrik-Endpunkten der Probe.
 
@@ -21,7 +21,7 @@ Verwenden Sie den Ingress-Listener, wenn:
 
 - Ihre Dienste in einem isolierten Netzwerksegment ohne ausgehenden HTTPS-Zugang laufen
 - Sie den gesamten Überwachungsverkehr innerhalb Ihres VPC/On-Prem-Netzwerks halten möchten
-- Sie einen einzelnen Ausgangspunkt wollen — die Probe — die berechtigt ist, OneUptime zu erreichen
+- Sie einen einzelnen Ausgangspunkt wollen — die Probe — die berechtigt ist, Cast Operations zu erreichen
 - Sie bereits eine [Benutzerdefinierte Probe](/docs/probe/custom-probe) bereitgestellt haben und sie für eingehende Heartbeats wiederverwenden möchten
 
 ## Den Ingress-Listener aktivieren
@@ -34,7 +34,7 @@ Setzen Sie `PROBE_INGRESS_PORT` auf den Port, an dem der Listener binden soll. J
 docker run --name oneuptime-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -d oneuptime/probe:release
 ```
@@ -45,7 +45,7 @@ Wenn Sie nicht `--network host` verwenden, veröffentlichen Sie den Ingress-Port
 docker run --name oneuptime-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d oneuptime/probe:release
@@ -63,7 +63,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -95,7 +95,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -123,7 +123,7 @@ Interne Dienste können dann Heartbeats an `http://oneuptime-probe-ingress.<name
 Ersetzen Sie die öffentliche Heartbeat-URL:
 
 ```
-https://oneuptime.com/heartbeat/<secret-key>
+https://visca.ai/heartbeat/<secret-key>
 ```
 
 durch die Ingress-URL der Probe:
@@ -149,7 +149,7 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 
 ## Weiterleitungsverhalten
 
-- **Synchrone Antwort, asynchrone Weiterleitung.** Die Probe bestätigt die eingehende Anfrage sofort mit `200` und leitet an OneUptime im Hintergrund weiter.
+- **Synchrone Antwort, asynchrone Weiterleitung.** Die Probe bestätigt die eingehende Anfrage sofort mit `200` und leitet an Cast Operations im Hintergrund weiter.
 - **Header werden beibehalten.** Alle Header außer Hop-by-Hop-Headern werden weitergeleitet.
 - **Text wird beibehalten.** JSON-, URL-kodierte und rohe `application/octet-stream`-Payloads bis zu **50 MB** werden akzeptiert.
 - **Wiederholungsversuche mit Backoff.** Bei Fehlschlag wiederholt die Probe bis zu `PROBE_INGRESS_FORWARD_RETRY_LIMIT`-mal mit exponentiellem Backoff.
@@ -159,7 +159,7 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 | Variable                            | Standard                      | Beschreibung                                                                         |
 | ----------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------ |
 | `PROBE_INGRESS_PORT`                | _nicht gesetzt_ (deaktiviert) | Port, an dem der eingehende Listener bindet. Jeder Wert `> 0` aktiviert den Ingress. |
-| `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`                       | Timeout (ms) für jeden Weiterleitungsversuch an OneUptime. Minimum `1000`.           |
+| `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`                       | Timeout (ms) für jeden Weiterleitungsversuch an Cast Operations. Minimum `1000`.           |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`                           | Anzahl der Wiederholungsversuche, bevor die Probe eine Weiterleitung aufgibt.        |
 
 ## Sicherheitsüberlegungen

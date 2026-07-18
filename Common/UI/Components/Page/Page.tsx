@@ -60,7 +60,7 @@ const Page: FunctionComponent<ComponentProps> = (
   /*
    * Give each page a unique, descriptive document title (WCAG 2.4.2 Page
    * Titled). Without this, every page keeps the generic title set once at app
-   * startup (e.g. "OneUptime | Dashboard"), which does not describe the page.
+   * startup (e.g. "Cast Operations | Dashboard"), which does not describe the page.
    * Prefer the breadcrumb trail (most specific page last) and fall back to the
    * page title.
    */
@@ -82,7 +82,7 @@ const Page: FunctionComponent<ComponentProps> = (
     if (pageTitle) {
       document.title = CAST_OPERATIONS_EMBEDDED_MODE
         ? `Cast Operations | ${pageTitle}`
-        : `OneUptime | ${pageTitle}`;
+        : `Cast Operations | ${pageTitle}`;
     }
   }, [translatedTitle, props.breadcrumbLinks]);
 

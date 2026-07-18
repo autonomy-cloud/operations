@@ -186,7 +186,7 @@ const DockerDocumentationCard: FunctionComponent<ComponentProps> = (
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    OneUptime URL
+                    Cast Operations URL
                   </div>
                   <div className="text-sm text-gray-900 font-mono mt-0.5 break-all select-all">
                     {oneuptimeUrl}

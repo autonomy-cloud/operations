@@ -1,6 +1,6 @@
 # API 监控器
 
-API 监控允许您监控 HTTP/REST API 的可用性、性能和正确性。OneUptime 定期向您的 API 端点发送 HTTP 请求，并根据您配置的标准评估响应。
+API 监控允许您监控 HTTP/REST API 的可用性、性能和正确性。Cast Operations 定期向您的 API 端点发送 HTTP 请求，并根据您配置的标准评估响应。
 
 ## 概述
 
@@ -15,7 +15,7 @@ API 监控器向您的端点发出 HTTP 请求并检查响应。这使您能够�
 
 ## 创建 API 监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **API** 作为监控器类型
 4. 输入 API URL 并配置请求设置
@@ -85,7 +85,7 @@ https://api.example.com/health?nocache={{random}}
 
 #### 不跟随重定向
 
-默认情况下，OneUptime 跟随 HTTP 重定向（301、302 等）。如果您想监控重定向响应本身而非最终目标，请启用此选项。
+默认情况下，Cast Operations 跟随 HTTP 重定向（301、302 等）。如果您想监控重定向响应本身而非最终目标，请启用此选项。
 
 #### Allow Self-Signed Certificates
 
@@ -99,7 +99,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

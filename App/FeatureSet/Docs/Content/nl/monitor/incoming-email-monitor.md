@@ -4,15 +4,15 @@ Met de Inkomend e-mail-monitor kunt u meldingen aanmaken en oplossen op basis va
 
 ## Hoe het werkt
 
-1. Wanneer u een Inkomend e-mail-monitor aanmaakt, genereert OneUptime een uniek e-mailadres voor die monitor
+1. Wanneer u een Inkomend e-mail-monitor aanmaakt, genereert Cast Operations een uniek e-mailadres voor die monitor
 2. Elke e-mail die naar dat adres wordt verzonden, wordt ontvangen en geëvalueerd aan de hand van uw geconfigureerde criteria
-3. Op basis van de criteria kan OneUptime nieuwe meldingen aanmaken of bestaande oplossen
+3. Op basis van de criteria kan Cast Operations nieuwe meldingen aanmaken of bestaande oplossen
 
-Dit is een krachtige manier om e-mailgebaseerde meldingssystemen te integreren met de incidentbeheerworkflow van OneUptime.
+Dit is een krachtige manier om e-mailgebaseerde meldingssystemen te integreren met de incidentbeheerworkflow van Cast Operations.
 
 ## Een Inkomend e-mail-monitor aanmaken
 
-1. Navigeer naar **Monitors** in uw OneUptime-dashboard
+1. Navigeer naar **Monitors** in uw Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Inkomend e-mail** als het monitortype
 4. Configureer de monitorinstellingen:
@@ -118,7 +118,7 @@ Dit lost de melding op wanneer een e-mail wordt ontvangen.
 
 Veel oudere systemen ondersteunen alleen e-mailgebaseerde meldingen. Gebruik de Inkomend e-mail-monitor om:
 
-- E-mailmeldingen om te zetten in OneUptime-incidenten
+- E-mailmeldingen om te zetten in Cast Operations-incidenten
 - Incidenten automatisch op te lossen wanneer herstel-e-mails binnenkomen
 - Meldingen van meerdere verouderde systemen te centraliseren
 
@@ -144,7 +144,7 @@ Batch-taken en geplande processen bewaken:
 Meldingen van meerdere monitoringtools consolideren:
 
 - Meldingen ontvangen van Nagios, Zabbix of andere tools via e-mail
-- Incidentbeheer in OneUptime centraliseren
+- Incidentbeheer in Cast Operations centraliseren
 - Één bron van waarheid bijhouden voor alle meldingen
 
 ## Sjabloonvariabelen
@@ -171,7 +171,7 @@ De monitorsamenvatting toont:
 
 ## Instelling voor zelf-gehoste omgevingen
 
-Als u OneUptime zelf host, moet u een inbound e-mailprovider configureren. Momenteel ondersteund:
+Als u Cast Operations zelf host, moet u een inbound e-mailprovider configureren. Momenteel ondersteund:
 
 - **SendGrid Inbound Parse** - Zie [SendGrid Inbound E-mail integratie](/docs/self-hosted/sendgrid-inbound-email) voor installatie-instructies
 
@@ -190,7 +190,7 @@ Als u OneUptime zelf host, moet u een inbound e-mailprovider configureren. Momen
 1. Controleer of het e-mailadres correct is (controleer op typefouten)
 2. Controleer of de e-mail wordt geblokkeerd door spamfilters
 3. Controleer of uw inbound e-mailprovider correct is geconfigureerd
-4. Controleer de OneUptime-logboeken op foutmeldingen
+4. Controleer de Cast Operations-logboeken op foutmeldingen
 
 ### Meldingen worden niet aangemaakt
 

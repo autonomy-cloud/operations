@@ -416,7 +416,7 @@ const MonitorStepElement: FunctionComponent<ComponentProps> = (
       {
         key: "externalStatusPageMonitor",
         title: "Provider",
-        description: "How OneUptime reads this status page.",
+        description: "How Cast Operations reads this status page.",
         fieldType: FieldType.Element,
         placeholder: "Auto",
         getElement: (item: MonitorStepType): ReactElement => {

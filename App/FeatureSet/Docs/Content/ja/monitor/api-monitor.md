@@ -1,6 +1,6 @@
 # API モニター
 
-API モニタリングにより、HTTP/REST API の可用性、パフォーマンス、正確性を監視できます。OneUptime は API エンドポイントに定期的に HTTP リクエストを送信し、設定した条件に基づいてレスポンスを評価します。
+API モニタリングにより、HTTP/REST API の可用性、パフォーマンス、正確性を監視できます。Cast Operations は API エンドポイントに定期的に HTTP リクエストを送信し、設定した条件に基づいてレスポンスを評価します。
 
 ## 概要
 
@@ -15,7 +15,7 @@ API モニターはエンドポイントに HTTP リクエストを送信し、�
 
 ## API モニターの作成
 
-1. OneUptime ダッシュボードの**モニター**に移動します
+1. Cast Operations ダッシュボードの**モニター**に移動します
 2. **モニターを作成**をクリックします
 3. モニタータイプとして **API** を選択します
 4. API の URL を入力してリクエスト設定を構成します
@@ -85,7 +85,7 @@ POST、PUT、PATCH リクエストの場合、JSON リクエストボディを�
 
 #### リダイレクトを追わない
 
-デフォルトでは、OneUptime は HTTP リダイレクト（301、302 など）に従います。最終的なリダイレクト先ではなく、リダイレクトレスポンス自体を監視したい場合はこのオプションを有効にします。
+デフォルトでは、Cast Operations は HTTP リダイレクト（301、302 など）に従います。最終的なリダイレクト先ではなく、リダイレクトレスポンス自体を監視したい場合はこのオプションを有効にします。
 
 #### Allow Self-Signed Certificates
 
@@ -99,7 +99,7 @@ If your endpoint requires mutual TLS authentication, enable **Use client certifi
 - **Client Private Key (PEM)** — the matching PEM-encoded private key.
 - **Client Private Key Passphrase** _(optional)_ — required only if the private key is encrypted.
 
-This is the OneUptime equivalent of the `--cert` and `--key` flags in curl:
+This is the Cast Operations equivalent of the `--cert` and `--key` flags in curl:
 
 ```bash
 curl --cert client.crt --key client.key https://api.example.com/health

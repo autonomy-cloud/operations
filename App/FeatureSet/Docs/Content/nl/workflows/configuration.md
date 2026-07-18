@@ -4,7 +4,7 @@ Deze pagina behandelt de instellingen en veiligheidslimieten die de moeite waard
 
 ## Een workflow aan- of uitzetten
 
-Elke workflow heeft een schakelaar **Enabled** in **Settings**. Wanneer die uitstaat draait de workflow niet — webhook-aanroepen, geplande tijden en OneUptime-events worden allemaal genegeerd. Nieuwe workflows starten uitgeschakeld.
+Elke workflow heeft een schakelaar **Enabled** in **Settings**. Wanneer die uitstaat draait de workflow niet — webhook-aanroepen, geplande tijden en Cast Operations-events worden allemaal genegeerd. Nieuwe workflows starten uitgeschakeld.
 
 Gebruik deze schakelaar als je "klaar om te gaan"-poort:
 
@@ -53,11 +53,11 @@ Webhook-triggers geven je een unieke URL. Iedereen die de URL kent kan hem aanro
 
 - Behandel de URL als een wachtwoord. Deel hem niet publiekelijk en commit hem niet naar een publieke repo.
 - Voor gevoelige workflows kun je het aanroepende systeem vragen een gedeeld token als header te sturen (zoals `X-Webhook-Token`) en die controleren met een **Conditions**-blok voordat je iets belangrijks doet. Sla het verwachte token op als secret-variabele.
-- Voor zeer gevoelige workflows geef je de voorkeur aan een OneUptime event-trigger en een handmatige importstap in plaats van een publieke webhook.
+- Voor zeer gevoelige workflows geef je de voorkeur aan een Cast Operations event-trigger en een handmatige importstap in plaats van een publieke webhook.
 
 ## Uitgaande netwerktoegang
 
-API- en andere HTTP-blokken doen hun aanvragen vanuit OneUptime. Bij self-hosting zorg je dat je installatie de services kan bereiken die je aanroept. Bij OneUptime Cloud staan onze uitgaande IP-ranges vermeld in [IP Addresses](/docs/configuration/ip-addresses) zodat je ze aan de andere kant kunt toestaan.
+API- en andere HTTP-blokken doen hun aanvragen vanuit Cast Operations. Bij self-hosting zorg je dat je installatie de services kan bereiken die je aanroept. Bij Cast Operations Cloud staan onze uitgaande IP-ranges vermeld in [IP Addresses](/docs/configuration/ip-addresses) zodat je ze aan de andere kant kunt toestaan.
 
 ## Machtigingen
 
@@ -72,14 +72,14 @@ De meeste engineers zouden create/edit/read op workflows moeten hebben, maar nie
 
 ## Plan-limieten
 
-OneUptime Cloud beperkt het aantal runs per maand op kleinere plannen. Je huidige limiet staat onder **Project Settings → Billing**. Wanneer je hem bereikt, worden nieuwe triggers afgewezen tot de volgende factureringscyclus. Self-hosted installaties hebben deze limiet niet.
+Cast Operations Cloud beperkt het aantal runs per maand op kleinere plannen. Je huidige limiet staat onder **Project Settings → Billing**. Wanneer je hem bereikt, worden nieuwe triggers afgewezen tot de volgende factureringscyclus. Self-hosted installaties hebben deze limiet niet.
 
 ## Wanneer workflows niet de juiste tool zijn
 
 Een paar gevallen waarin je beter naar iets anders kunt grijpen:
 
 - **Zware berekeningen of grote datasets** — workflows zijn bedoeld voor licht lijmwerk, niet voor cijfers kraken. Voer zwaar werk uit op je eigen infrastructuur en laat een workflow het aansturen.
-- **Langlopende processen die uren duren** — één run hoort snel klaar te zijn. Als je "doe A, wacht twee uur, doe B" nodig hebt, gebruik dan een externe scheduler die een webhook terugstuurt naar OneUptime wanneer het tijd is.
+- **Langlopende processen die uren duren** — één run hoort snel klaar te zijn. Als je "doe A, wacht twee uur, doe B" nodig hebt, gebruik dan een externe scheduler die een webhook terugstuurt naar Cast Operations wanneer het tijd is.
 - **Stap-voor-stap incidentrespons met mensen in de loop** — daar zijn [Runbooks](/docs/runbooks/index) voor. Workflows zijn voor onbeheerde automatisering.
 
 ## Waar verder lezen

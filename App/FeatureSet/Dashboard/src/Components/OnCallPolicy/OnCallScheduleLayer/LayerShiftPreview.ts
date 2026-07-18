@@ -119,7 +119,7 @@ export const getLayerPreviewEvents: (params: {
    * daily 9-5 restriction would size the forward window to ~8 hours; asked at
    * 18:00, that whole window is off-hours and the preview would wrongly show
    * "no upcoming shifts" even though coverage resumes at 09:00 tomorrow.
-   * OneUptime restrictions are at most weekly, so a 14-day floor always spans
+   * Cast Operations restrictions are at most weekly, so a 14-day floor always spans
    * the largest possible off-hours gap.
    */
   const cadenceStart: Date = addRotationPeriods(now, rotation, -2);

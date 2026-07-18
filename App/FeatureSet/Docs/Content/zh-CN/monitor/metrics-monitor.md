@@ -1,6 +1,6 @@
 # 指标监控器
 
-指标监控允许您监控通过 OpenTelemetry 收集的自定义应用程序和基础设施指标。OneUptime 在时间窗口内评估指标值，并根据您配置的标准触发告警。
+指标监控允许您监控通过 OpenTelemetry 收集的自定义应用程序和基础设施指标。Cast Operations 在时间窗口内评估指标值，并根据您配置的标准触发告警。
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 ## 创建指标监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **指标** 作为监控器类型
 4. 配置指标查询和可选公式
@@ -105,4 +105,4 @@
 
 ## 设置要求
 
-指标监控需要您的应用程序或基础设施通过 OpenTelemetry 向 OneUptime 发送指标。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。
+指标监控需要您的应用程序或基础设施通过 OpenTelemetry 向 Cast Operations 发送指标。设置说明请参见 [OpenTelemetry](/docs/telemetry/open-telemetry) 文档。

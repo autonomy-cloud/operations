@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# OneUptime Kubernetes Agent — Diagnostic ("doctor")
+# Cast Operations Kubernetes Agent — Diagnostic ("doctor")
 # ---------------------------------------------------
 # Run this from a machine with `kubectl` access to the cluster where the agent
 # is installed. It explains the #1 confusing failure mode: the agent shows
-# "Disconnected" in OneUptime and no metrics are ingested, yet the pods look
+# "Disconnected" in Cast Operations and no metrics are ingested, yet the pods look
 # healthy and the collector logs show no errors.
 #
 # Why that happens: the agent ships telemetry to `<url>/otlp/v1/*` with the
@@ -202,7 +202,7 @@ if [ -z "$WORKLOADS" ]; then
 fi
 
 if [ -z "$WORKLOADS" ]; then
-  fail "No OneUptime agent workloads found in '$NS'."
+  fail "No Cast Operations agent workloads found in '$NS'."
   add_finding "Agent is not installed in namespace '$NS' (no Deployment/DaemonSet found). Re-check the namespace, or (re)install the Helm chart."
   AGENT_FOUND=0
 else
@@ -331,7 +331,7 @@ if [ -n "$SECRET_NAME" ] && kubectl get secret "$SECRET_NAME" -n "$NS" >/dev/nul
     TRIMMED=$(printf '%s' "$TOKEN" | tr -d '[:space:]')
     MASK="${TRIMMED:0:8}…${TRIMMED: -4}"
     if [ "$TOKEN" != "$TRIMMED" ]; then
-      fail "Token in Secret '$SECRET_NAME' contains whitespace/newline — the collector sends it literally, so OneUptime can't match it."
+      fail "Token in Secret '$SECRET_NAME' contains whitespace/newline — the collector sends it literally, so Cast Operations can't match it."
       add_finding "The api-key has stray whitespace/newline (classic 'echo key | base64' bug — echo adds a trailing \\n; use 'printf %s' or --set oneuptime.apiKey=). Recreate it cleanly and re-run."
       TOKEN_HAS_WS=1
     fi
@@ -346,7 +346,7 @@ if [ -n "$SECRET_NAME" ] && kubectl get secret "$SECRET_NAME" -n "$NS" >/dev/nul
       fi
     else
       fail "Token is not a valid UUID: '${MASK}' (len=${#TRIMMED})"
-      add_finding "The api-key is not a UUID, so OneUptime can never resolve it (telemetry is silently dropped). Set a real Telemetry Ingestion Key."
+      add_finding "The api-key is not a UUID, so Cast Operations can never resolve it (telemetry is silently dropped). Set a real Telemetry Ingestion Key."
     fi
   fi
 else
@@ -367,7 +367,7 @@ if [ -n "$CM_NAME" ]; then
         | sed -E 's/endpoint:[[:space:]]*"//; s/"$//')
   if [ -n "$EP" ]; then
     BASE_URL="${EP%/otlp}"
-    pass "OneUptime URL (from exporter config): $BASE_URL"
+    pass "Cast Operations URL (from exporter config): $BASE_URL"
   else
     warn "Couldn't parse the exporter endpoint from ConfigMap '$CM_NAME'."
   fi
@@ -376,8 +376,8 @@ fi
 CLUSTER_NAME=$(kubectl get deploy "$METRICS_DEPLOY" -n "$NS" \
   -o jsonpath='{.spec.template.spec.containers[?(@.name=="otel-collector")].env[?(@.name=="CLUSTER_NAME")].value}' 2>/dev/null)
 if [ -n "$CLUSTER_NAME" ]; then
-  info "Reporting as cluster name: '${C_BOLD}${CLUSTER_NAME}${C_OFF}'  (this is the k8s.cluster.name OneUptime keys on)"
-  detail "If this differs from your previous install, OneUptime shows a NEW cluster entry; the old one stays 'Disconnected'."
+  info "Reporting as cluster name: '${C_BOLD}${CLUSTER_NAME}${C_OFF}'  (this is the k8s.cluster.name Cast Operations keys on)"
+  detail "If this differs from your previous install, Cast Operations shows a NEW cluster entry; the old one stays 'Disconnected'."
 else
   warn "Couldn't read CLUSTER_NAME — if unset, telemetry may not attribute to a cluster."
 fi
@@ -424,7 +424,7 @@ fi
 section "7. Egress + DEFINITIVE token check"
 # ----------------------------------------------------------------------------
 # This is the part you can't see from the agent side. From INSIDE the cluster we
-# ask OneUptime's ingestion-key validation endpoint for a real verdict:
+# ask Cast Operations’ ingestion-key validation endpoint for a real verdict:
 #   GET /otlp/v1/validate  → 200 {valid:true} | 401 {valid:false}
 # Older servers without that endpoint (404) fall back to:
 #   POST /otlp/v1/metrics → reachability only (returns 200 even on a bad token)
@@ -452,7 +452,7 @@ egress_fail_finding() {
   EGRESS="FAIL"
   case "$RESP_BODY" in
     *"Could not resolve host"*|*"Name or service not known"*)
-      add_finding "DNS resolution of the OneUptime host fails from the cluster. Check the URL and in-cluster DNS/egress." ;;
+      add_finding "DNS resolution of the Cast Operations host fails from the cluster. Check the URL and in-cluster DNS/egress." ;;
     *"certificate"*|*"SSL"*|*"TLS"*|*"self-signed"*|*"self signed"*)
       add_finding "TLS verification to $BASE_URL fails (cert/CA). The collector image's trust store must accept the cert." ;;
     *"refused"*|*"timed out"*|*"Connection timed out"*|*"Failed to connect"*)
@@ -463,7 +463,7 @@ egress_fail_finding() {
 }
 
 token_invalid_finding() {
-  add_finding "DEFINITIVE: the ingestion key in the Secret is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: create or copy a live Telemetry Ingestion Key in OneUptime, then: helm upgrade <release> oneuptime/kubernetes-agent -n $NS --reuse-values --set oneuptime.apiKey=<key>"
+  add_finding "DEFINITIVE: the ingestion key in the Secret is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: create or copy a live Telemetry Ingestion Key in Cast Operations, then: helm upgrade <release> oneuptime/kubernetes-agent -n $NS --reuse-values --set oneuptime.apiKey=<key>"
 }
 
 # Fallback token oracle for servers without /otlp/v1/validate.
@@ -471,18 +471,18 @@ fluentd_token_probe() {
   incluster_req POST "$BASE_URL/fluentd/v1/logs" "$TOKEN"
   case "$RESP_BODY" in
     *"Invalid service token"*)
-      fail "OneUptime REJECTED this token: \"Invalid service token\" (HTTP $RESP_CODE)."
+      fail "Cast Operations REJECTED this token: \"Invalid service token\" (HTTP $RESP_CODE)."
       TOKEN_VERDICT="INVALID"; token_invalid_finding ;;
     *"Missing header"*)
       fail "Server says the token header is missing (HTTP $RESP_CODE) — a proxy may be stripping it."
       TOKEN_VERDICT="INVALID"
-      add_finding "The x-oneuptime-token header isn't arriving at OneUptime — check any egress proxy/ingress that might strip headers." ;;
+      add_finding "The x-oneuptime-token header isn't arriving at Cast Operations — check any egress proxy/ingress that might strip headers." ;;
     *)
       if [ "$RESP_CODE" = "404" ]; then
         warn "/fluentd/v1/logs returned 404 — token check inconclusive."
         TOKEN_VERDICT="INCONCLUSIVE"
       else
-        pass "Token ACCEPTED by OneUptime (auth passed; /fluentd returned HTTP $RESP_CODE)."
+        pass "Token ACCEPTED by Cast Operations (auth passed; /fluentd returned HTTP $RESP_CODE)."
         TOKEN_VERDICT="VALID"
       fi ;;
   esac
@@ -491,7 +491,7 @@ fluentd_token_probe() {
 if [ "$SKIP_EGRESS" = 1 ]; then
   warn "Egress test skipped (--skip-egress)."; EGRESS="SKIPPED"
 elif [ -z "$BASE_URL" ]; then
-  warn "No OneUptime URL parsed; cannot run the egress/token probe."; EGRESS="SKIPPED"
+  warn "No Cast Operations URL parsed; cannot run the egress/token probe."; EGRESS="SKIPPED"
 elif ! [[ "$TOKEN" =~ ^[A-Za-z0-9-]+$ ]]; then
   warn "Token unusable/missing; cannot run the authenticated probe (fix Section 4 first)."; EGRESS="SKIPPED"
 else
@@ -513,10 +513,10 @@ else
       warn "Skipping the live token verdict: the Secret has whitespace, so the agent sends a value that differs from the trimmed UUID we'd probe with. Fix the Secret (Section 4) and re-run."
     fi
   elif [ "$RESP_CODE" = "200" ]; then
-    pass "Reached OneUptime and the ingestion token is VALID (/otlp/v1/validate → 200)."
+    pass "Reached Cast Operations and the ingestion token is VALID (/otlp/v1/validate → 200)."
     EGRESS="OK"; TOKEN_VERDICT="VALID"
   elif [ "$RESP_CODE" = "401" ] || [ "$RESP_CODE" = "403" ]; then
-    fail "Reached OneUptime, but it REJECTED the token (/otlp/v1/validate → $RESP_CODE)."
+    fail "Reached Cast Operations, but it REJECTED the token (/otlp/v1/validate → $RESP_CODE)."
     EGRESS="OK"; TOKEN_VERDICT="INVALID"; token_invalid_finding
   elif [ "$RESP_CODE" = "404" ]; then
     info "Validation endpoint not on this server version (404) — falling back to legacy probes."
@@ -560,22 +560,22 @@ section "VERDICT"
 if [ "$AGENT_FOUND" != 1 ]; then
   printf "%s%sThe agent isn't installed in namespace '%s'.%s\n" "$C_BOLD" "$C_RED" "$NS" "$C_OFF"
 elif [ "$TOKEN_VERDICT" = "INVALID" ]; then
-  printf "%s%sROOT CAUSE: the ingestion token is rejected by OneUptime.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
+  printf "%s%sROOT CAUSE: the ingestion token is rejected by Cast Operations.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
   printf "This is the classic reinstall trap: /otlp returns 200 and drops the data, so the\n"
   printf "agent looks healthy while the cluster stays Disconnected with no metrics.\n"
 elif [ "$METRICS_READY" != 1 ] && [ -n "$METRICS_DEPLOY" ]; then
   printf "%s%sROOT CAUSE: the metrics-collector pod isn't Running/Ready.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
   printf "Fix the pod (see Section 3) — until it runs, the cluster can't connect or send metrics.\n"
 elif [ "$EGRESS" = "FAIL" ]; then
-  printf "%s%sROOT CAUSE: the cluster can't deliver telemetry to OneUptime (network/URL/TLS).%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
+  printf "%s%sROOT CAUSE: the cluster can't deliver telemetry to Cast Operations (network/URL/TLS).%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
 elif [ "$TOKEN_HAS_WS" = 1 ]; then
   printf "%s%sROOT CAUSE: the api-key Secret has stray whitespace/newline.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
-  printf "The collector sends the key with that whitespace, so OneUptime can't match it and\n"
+  printf "The collector sends the key with that whitespace, so Cast Operations can't match it and\n"
   printf "drops the data behind /otlp's silent 200. Recreate the Secret cleanly and re-run.\n"
 elif [ "$TOKEN_SHAPE_OK" != 1 ]; then
   printf "%s%sROOT CAUSE: the api-key Secret is empty/malformed.%s\n" "$C_BOLD" "$C_RED" "$C_OFF"
 elif [ "$TOKEN_VERDICT" = "VALID" ] && [ "$METRICS_READY" = 1 ]; then
-  printf "%s%sThe agent looks healthy and OneUptime accepts the token.%s\n" "$C_BOLD" "$C_GRN" "$C_OFF"
+  printf "%s%sThe agent looks healthy and Cast Operations accepts the token.%s\n" "$C_BOLD" "$C_GRN" "$C_OFF"
   printf "If the dashboard still says Disconnected:\n"
   printf "  1. Give it ~2-5 min — status flips to Connected on the next telemetry batch,\n"
   printf "     and the disconnect cron runs on a 5-minute cycle.\n"
@@ -583,7 +583,7 @@ elif [ "$TOKEN_VERDICT" = "VALID" ] && [ "$METRICS_READY" = 1 ]; then
   printf "     reinstall, the OLD entry stays Disconnected (that's expected; it's stale).\n"
 else
   printf "%sInconclusive from inside the cluster.%s Next steps:\n" "$C_BOLD" "$C_OFF"
-  printf "  • On the OneUptime server, search ingest logs for: \"Invalid service token\"\n"
+  printf "  • On the Cast Operations server, search ingest logs for: \"Invalid service token\"\n"
   printf "    (it prints the rejected token, so you can match it to the Secret above).\n"
   printf "  • Confirm the key under Project Settings → Telemetry Ingestion Keys still exists.\n"
   if [ -n "$BASE_URL" ]; then

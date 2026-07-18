@@ -1,18 +1,18 @@
 # GitLab 集成
 
-每当创建 OneUptime 事件时，自动创建一个 [GitLab](https://gitlab.com) issue——让工程跟进工作落在拥有受影响服务的项目中。
+每当创建 Cast Operations 事件时，自动创建一个 [GitLab](https://gitlab.com) issue——让工程跟进工作落在拥有受影响服务的项目中。
 
-此集成为**出站**模式：OneUptime 调用 [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html)。它使用带有 **Incident → On Create** 触发器和 **API 组件**的 OneUptime **[工作流](/docs/workflows/index)**。在 GitLab.com 和自托管 GitLab 上的操作方式完全相同。
+此集成为**出站**模式：Cast Operations 调用 [GitLab REST API](https://docs.gitlab.com/ee/api/issues.html)。它使用带有 **Incident → On Create** 触发器和 **API 组件**的 Cast Operations **[工作流](/docs/workflows/index)**。在 GitLab.com 和自托管 GitLab 上的操作方式完全相同。
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
+Cast Operations Incident → On Create  ──►  API component (POST /projects/{id}/issues)  ──►  GitLab issue
 ```
 
 ## 前提条件
 
 - 一个 GitLab 项目及其**项目 ID**（显示在项目概览页面的项目名称下方）。
 - 一个可以创建 issue 的访问令牌——具有 `api` 范围的**项目**、**群组**或**个人访问令牌**：**Settings → Access Tokens**。
-- 一个可以创建工作流的 OneUptime 项目。
+- 一个可以创建工作流的 Cast Operations 项目。
 
 ## 步骤 1——存储令牌
 
@@ -38,8 +38,8 @@ OneUptime Incident → On Create  ──►  API component (POST /projects/{id}/
 
      ```json
      {
-       "title": "OneUptime incident: {{Incident.title}}",
-       "description": "{{Incident.description}}\n\nFiled automatically from OneUptime.",
+       "title": "Cast Operations incident: {{Incident.title}}",
+       "description": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
        "labels": "incident,oneuptime"
      }
      ```

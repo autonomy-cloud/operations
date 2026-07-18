@@ -1,6 +1,6 @@
 # Agentes de IA
 
-Os Agentes de IA do OneUptime corrigem automaticamente erros, problemas de desempenho e consultas de banco de dados no seu código. Alimentados pelos dados de observabilidade do OpenTelemetry, os Agentes de IA criam pull requests com correções — não apenas alertas.
+Os Agentes de IA do Cast Operations corrigem automaticamente erros, problemas de desempenho e consultas de banco de dados no seu código. Alimentados pelos dados de observabilidade do OpenTelemetry, os Agentes de IA criam pull requests com correções — não apenas alertas.
 
 ## O que os Agentes de IA podem fazer?
 
@@ -25,7 +25,7 @@ Os Agentes de IA analisam seus dados de observabilidade (rastreamentos, logs e m
 
 ## Flexibilidade de Provedor de LLM
 
-O OneUptime funciona com qualquer provedor de LLM. Você pode usar:
+O Cast Operations funciona com qualquer provedor de LLM. Você pode usar:
 
 - Modelos **OpenAI GPT**
 - Modelos **Anthropic Claude**
@@ -36,7 +36,7 @@ Auto-hospede seu modelo de IA e mantenha seu código completamente privado.
 
 ## Privacidade
 
-Independentemente do seu plano, o OneUptime nunca visualiza, armazena ou treina com seu código:
+Independentemente do seu plano, o Cast Operations nunca visualiza, armazena ou treina com seu código:
 
 - **Sem Acesso ao Código**: Seu código permanece na sua infraestrutura
 - **Sem Armazenamento de Dados**: Política de retenção de dados zero
@@ -46,13 +46,13 @@ Independentemente do seu plano, o OneUptime nunca visualiza, armazena ou treina 
 
 ### Agentes de IA Globais
 
-Se você estiver usando o **OneUptime SaaS** (versão hospedada na nuvem), os Agentes de IA Globais são fornecidos pelo OneUptime e estão pré-configurados e prontos para uso. Esses agentes são gerenciados pelo OneUptime e não requerem configuração adicional.
+Se você estiver usando o **Cast Operations SaaS** (versão hospedada na nuvem), os Agentes de IA Globais são fornecidos pelo Cast Operations e estão pré-configurados e prontos para uso. Esses agentes são gerenciados pelo Cast Operations e não requerem configuração adicional.
 
 Os Agentes de IA Globais estão automaticamente disponíveis para todos os projetos, a menos que desativados nas configurações do seu projeto.
 
 ### Agentes de IA Auto-Hospedados
 
-Para organizações que precisam executar agentes de IA dentro de sua própria infraestrutura (por exemplo, por requisitos de segurança, conformidade ou acesso à rede), o OneUptime suporta agentes de IA auto-hospedados.
+Para organizações que precisam executar agentes de IA dentro de sua própria infraestrutura (por exemplo, por requisitos de segurança, conformidade ou acesso à rede), o Cast Operations suporta agentes de IA auto-hospedados.
 
 Agentes de IA auto-hospedados:
 
@@ -63,9 +63,9 @@ Agentes de IA auto-hospedados:
 
 ## Configurando um Agente de IA Auto-Hospedado
 
-### Passo 1: Criar um Agente de IA no OneUptime
+### Passo 1: Criar um Agente de IA no Cast Operations
 
-1. Faça login no seu painel do OneUptime
+1. Faça login no seu painel do Cast Operations
 2. Vá para **Configurações do Projeto** > **Agentes de IA**
 3. Clique em **Criar Agente de IA** para adicionar um novo agente
 4. Preencha os campos obrigatórios:
@@ -85,11 +85,11 @@ Para executar um agente de IA, certifique-se de ter o Docker instalado. Execute 
 docker run --name oneuptime-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -d oneuptime/ai-agent:release
 ```
 
-Se você estiver auto-hospedando o OneUptime, altere `ONEUPTIME_URL` para a URL da sua instância auto-hospedada personalizada.
+Se você estiver auto-hospedando o Cast Operations, altere `ONEUPTIME_URL` para a URL da sua instância auto-hospedada personalizada.
 
 #### Docker Compose
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 Aplique a configuração:
@@ -160,15 +160,15 @@ O agente de IA suporta as seguintes variáveis de ambiente:
 
 | Variável        | Descrição                                                           |
 | --------------- | ------------------------------------------------------------------- |
-| `AI_AGENT_KEY`  | A chave do agente de IA do seu painel do OneUptime                  |
-| `AI_AGENT_ID`   | O ID do agente de IA do seu painel do OneUptime                     |
-| `ONEUPTIME_URL` | A URL da sua instância do OneUptime (padrão: https://oneuptime.com) |
+| `AI_AGENT_KEY`  | A chave do agente de IA do seu painel do Cast Operations                  |
+| `AI_AGENT_ID`   | O ID do agente de IA do seu painel do Cast Operations                     |
+| `ONEUPTIME_URL` | A URL da sua instância do Cast Operations (padrão: https://visca.ai) |
 
 ## Verificando Seu Agente de IA
 
 Após implantar seu agente de IA:
 
-1. Vá para **Configurações do Projeto** > **Agentes de IA** no seu painel do OneUptime
+1. Vá para **Configurações do Projeto** > **Agentes de IA** no seu painel do Cast Operations
 2. Seu agente deve aparecer como **Conectado** em alguns minutos
 3. Se o status mostrar **Desconectado**, verifique os logs do contêiner para erros
 
@@ -187,7 +187,7 @@ kubectl logs deployment/oneuptime-ai-agent
 ### Agente Não Conectando
 
 1. **Verificar credenciais**: Certifique-se de que `AI_AGENT_KEY` e `AI_AGENT_ID` estão corretos
-2. **Verificar rede**: Certifique-se de que o agente pode alcançar sua instância do OneUptime
+2. **Verificar rede**: Certifique-se de que o agente pode alcançar sua instância do Cast Operations
 3. **Revisar logs**: Verifique os logs do contêiner para mensagens de erro
 4. **Regras de firewall**: Certifique-se de que HTTPS de saída (porta 443) seja permitido
 
@@ -201,6 +201,6 @@ kubectl logs deployment/oneuptime-ai-agent
 
 Se você encontrar problemas com seu agente de IA:
 
-1. Verifique os [Problemas do GitHub do OneUptime](https://github.com/OneUptime/oneuptime/issues) para problemas conhecidos
+1. Verifique os [Problemas do GitHub do Cast Operations](https://github.com/autonomy-cloud/operations/issues) para problemas conhecidos
 2. Crie um novo problema se o seu ainda não foi relatado
-3. Entre em contato com o [suporte](https://oneuptime.com/support) se você estiver em um plano empresarial
+3. Entre em contato com o [suporte](https://visca.ai/support) se você estiver em um plano empresarial

@@ -1,12 +1,12 @@
-# OneUptime को telemetry data भेजने के लिए FluentBit उपयोग करें
+# Cast Operations को telemetry data भेजने के लिए FluentBit उपयोग करें
 
 ## Overview
 
-आप अपने applications और services से logs और telemetry data एकत्र करने के लिए [FluentBit](https://docs.fluentbit.io/manual) plugin उपयोग कर सकते हैं। Plugin telemetry data को OneUptime OpenTelemetry HTTP Collector को भेजता है। आप OneUptime OpenTelemetry HTTP Collector को telemetry data भेजने के लिए fluentbit के opentelemetry output plugin का उपयोग कर सकते हैं। यह plugin यहाँ मिल सकता है: https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
+आप अपने applications और services से logs और telemetry data एकत्र करने के लिए [FluentBit](https://docs.fluentbit.io/manual) plugin उपयोग कर सकते हैं। Plugin telemetry data को Cast Operations OpenTelemetry HTTP Collector को भेजता है। आप Cast Operations OpenTelemetry HTTP Collector को telemetry data भेजने के लिए fluentbit के opentelemetry output plugin का उपयोग कर सकते हैं। यह plugin यहाँ मिल सकता है: https://docs.fluentbit.io/manual/pipeline/outputs/opentelemetry
 
 ## शुरू करना
 
-FluentBit सैकड़ों data sources का समर्थन करता है और आप इनमें से किसी भी source से OneUptime में logs और telemetry ingest कर सकते हैं। कुछ लोकप्रिय sources में शामिल हैं:
+FluentBit सैकड़ों data sources का समर्थन करता है और आप इनमें से किसी भी source से Cast Operations में logs और telemetry ingest कर सकते हैं। कुछ लोकप्रिय sources में शामिल हैं:
 
 - Docker
 - Syslog
@@ -30,11 +30,11 @@ FluentBit सैकड़ों data sources का समर्थन करत
 ## पूर्व आवश्यकताएं
 
 - **चरण 1: अपने system पर FluentBit Install करें** - आप [यहाँ](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit) दिए गए निर्देशों का उपयोग करके FluentBit install कर सकते हैं
-- **चरण 2: OneUptime account के लिए sign up करें** - आप [यहाँ](https://oneuptime.com) एक free account के लिए sign up कर सकते हैं। कृपया ध्यान दें कि account free है, log ingestion एक paid feature है। आप pricing के बारे में अधिक details [यहाँ](https://oneuptime.com/pricing) पा सकते हैं।
-- **चरण 3: OneUptime Project बनाएं** - Account होने के बाद, आप OneUptime dashboard से एक project बना सकते हैं।
-- **चरण 4: Telemetry Ingestion Token बनाएं** - OneUptime account बनाने के बाद, आप अपने application से logs, metrics और traces ingest करने के लिए एक telemetry ingestion token बना सकते हैं।
+- **चरण 2: Cast Operations account के लिए sign up करें** - आप [यहाँ](https://visca.ai) एक free account के लिए sign up कर सकते हैं। कृपया ध्यान दें कि account free है, log ingestion एक paid feature है। आप pricing के बारे में अधिक details [यहाँ](https://visca.ai/pricing) पा सकते हैं।
+- **चरण 3: Cast Operations Project बनाएं** - Account होने के बाद, आप Cast Operations dashboard से एक project बना सकते हैं।
+- **चरण 4: Telemetry Ingestion Token बनाएं** - Cast Operations account बनाने के बाद, आप अपने application से logs, metrics और traces ingest करने के लिए एक telemetry ingestion token बना सकते हैं।
 
-OneUptime sign up करने और project बनाने के बाद। Navigation bar में "More" पर क्लिक करें और "Project Settings" पर क्लिक करें।
+Cast Operations sign up करने और project बनाने के बाद। Navigation bar में "More" पर क्लिक करें और "Project Settings" पर क्लिक करें।
 
 Telemetry Ingestion Key page पर, token बनाने के लिए "Create Ingestion Key" पर क्लिक करें।
 
@@ -46,7 +46,7 @@ Token बनाने के बाद, token देखने के लिए "
 
 ## Configuration
 
-आप OneUptime OpenTelemetry HTTP Collector को telemetry data भेजने के लिए निम्नलिखित configuration उपयोग कर सकते हैं। आप इस configuration को fluentbit configuration फ़ाइल में जोड़ सकते हैं। Configuration फ़ाइल आमतौर पर `/etc/fluent-bit/fluent-bit.yaml` पर located होती है। Configuration फ़ाइल का outputs section इस तरह दिखेगा:
+आप Cast Operations OpenTelemetry HTTP Collector को telemetry data भेजने के लिए निम्नलिखित configuration उपयोग कर सकते हैं। आप इस configuration को fluentbit configuration फ़ाइल में जोड़ सकते हैं। Configuration फ़ाइल आमतौर पर `/etc/fluent-bit/fluent-bit.yaml` पर located होती है। Configuration फ़ाइल का outputs section इस तरह दिखेगा:
 
 ```yaml
 outputs:
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "oneuptime.com"
+    host: "visca.ai"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "oneuptime.com"
+      host: "visca.ai"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -121,7 +121,7 @@ pipeline:
         - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
-**यदि आप OneUptime self-host कर रहे हैं**: यदि आप OneUptime self-host कर रहे हैं तो आप `host` को अपने OneUptime instance के host से बदल सकते हैं। यदि आप https के बजाय http server पर host कर रहे हैं, तो आप `port` को अपने OneUptime instance के port से बदल सकते हैं (likely port 80)।
+**यदि आप Cast Operations self-host कर रहे हैं**: यदि आप Cast Operations self-host कर रहे हैं तो आप `host` को अपने Cast Operations instance के host से बदल सकते हैं। यदि आप https के बजाय http server पर host कर रहे हैं, तो आप `port` को अपने Cast Operations instance के port से बदल सकते हैं (likely port 80)।
 
 इस मामले में configuration इस तरह दिखेगी:
 
@@ -131,7 +131,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "your-oneuptime-instance.com"
+    host: "your-operations-instance.com"
     port: 80
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## Usage
 
-एक बार जब आप fluentbit configuration फ़ाइल में configuration जोड़ लें, तो आप fluentbit service restart कर सकते हैं। Service restart होने के बाद, telemetry data OneUptime HTTP Source को भेजा जाएगा। अब आप OneUptime dashboard में telemetry data देखना शुरू कर सकते हैं। यदि आपके कोई प्रश्न हैं या configuration में सहायता की आवश्यकता है, तो कृपया हमसे support@oneuptime.com पर संपर्क करें।
+एक बार जब आप fluentbit configuration फ़ाइल में configuration जोड़ लें, तो आप fluentbit service restart कर सकते हैं। Service restart होने के बाद, telemetry data Cast Operations HTTP Source को भेजा जाएगा। अब आप Cast Operations dashboard में telemetry data देखना शुरू कर सकते हैं। यदि आपके कोई प्रश्न हैं या configuration में सहायता की आवश्यकता है, तो कृपया हमसे support@visca.ai पर संपर्क करें।

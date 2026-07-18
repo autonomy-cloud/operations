@@ -117,7 +117,7 @@ Notification sent to owners because [Incident ${incidentNumberDisplay}](${(await
         continue;
       }
 
-      let declaredBy: string = "OneUptime";
+      let declaredBy: string = "Cast Operations";
 
       if (incident.createdByProbe && incident.createdByProbe.name) {
         declaredBy = incident.createdByProbe.name;
@@ -195,13 +195,13 @@ Notification sent to owners because [Incident ${incidentNumberDisplay}](${(await
           };
 
           const sms: SMSMessage = {
-            message: `This is a message from OneUptime. New incident created: ${incidentIdentifier}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard.`,
+            message: `This is a message from Cast Operations. New incident created: ${incidentIdentifier}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard.`,
           };
 
           const callMessage: CallRequestMessage = {
             data: [
               {
-                sayMessage: `This is a message from OneUptime. New incident created: ${incidentIdentifier}. To unsubscribe from this notification go to User Settings in OneUptime Dashboard. Good bye.`,
+                sayMessage: `This is a message from Cast Operations. New incident created: ${incidentIdentifier}. To unsubscribe from this notification go to User Settings in Cast Operations Dashboard. Good bye.`,
               },
             ],
           };

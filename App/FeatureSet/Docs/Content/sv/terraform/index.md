@@ -1,12 +1,12 @@
 # Terraform-leverantörsdokumentation
 
-OneUptime Terraform-leverantören möjliggör Infrastructure as Code (IaC)-hantering av dina OneUptime-övervaknings-, varnings- och observabilitetsresurser.
+Cast Operations Terraform-leverantören möjliggör Infrastructure as Code (IaC)-hantering av dina Cast Operations-övervaknings-, varnings- och observabilitetsresurser.
 
 ## Dokumentationsavsnitt
 
 ### [Kom igång](./quick-start.md)
 
-Snabbinstallationsguide för att komma igång med OneUptime Terraform-leverantören på några minuter.
+Snabbinstallationsguide för att komma igång med Cast Operations Terraform-leverantören på några minuter.
 
 ### [Fullständig leverantörsguide](./complete-guide.md)
 
@@ -18,24 +18,24 @@ Heltäckande dokumentation om installation, konfiguration, resurser och bästa p
 
 ### [Exempel](./examples.md)
 
-Verkliga exempel och mönster för vanliga OneUptime Terraform-konfigurationer.
+Verkliga exempel och mönster för vanliga Cast Operations Terraform-konfigurationer.
 
 ## Snabblänkar
 
-### För OneUptime Cloud-kunder
+### För Cast Operations Cloud-kunder
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,30 +46,30 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Must match your OneUptime version
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Must match your Cast Operations version
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Viktigt för egeninstallerade användare
 
-**Versionskompatibilitet är kritisk**: Lås alltid Terraform-leverantörens version till att exakt matcha din OneUptime-installationsversion. Felmatchade versioner kan orsaka API-kompatibilitetsproblem.
+**Versionskompatibilitet är kritisk**: Lås alltid Terraform-leverantörens version till att exakt matcha din Cast Operations-installationsversion. Felmatchade versioner kan orsaka API-kompatibilitetsproblem.
 
 ## Externa resurser
 
-- **Terraform Registry**: [OneUptime-leverantör](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub-repositorie**: [OneUptime källkod](https://github.com/OneUptime/oneuptime)
+- **Terraform Registry**: [Cast Operations-leverantör](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub-repositorie**: [Cast Operations källkod](https://github.com/autonomy-cloud/operations)
 
 ## Tillgängliga resurser
 
-Leverantören stöder heltäckande OneUptime-resurshantering:
+Leverantören stöder heltäckande Cast Operations-resurshantering:
 
 - **Projekt och team**: Organisera din övervakningsstruktur
 - **Monitorer**: Webbplats, API, port, hjärtslag och anpassade monitorer
@@ -82,9 +82,9 @@ Leverantören stöder heltäckande OneUptime-resurshantering:
 
 För problem, frågor eller bidrag:
 
-1. **Dokumentationsproblem**: Skapa ett ärende i [OneUptime-repositoriet](https://github.com/OneUptime/oneuptime/issues)
-2. **Leverantörsfel**: Rapportera i OneUptime-repositoriet
-3. **Funktionsförfrågningar**: Diskutera i OneUptime-communityt
+1. **Dokumentationsproblem**: Skapa ett ärende i [Cast Operations-repositoriet](https://github.com/autonomy-cloud/operations/issues)
+2. **Leverantörsfel**: Rapportera i Cast Operations-repositoriet
+3. **Funktionsförfrågningar**: Diskutera i Cast Operations-communityt
 
 ## Nästa steg
 

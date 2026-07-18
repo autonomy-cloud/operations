@@ -50,8 +50,8 @@
     "logout": "ログアウト"
   },
   "topAlert": {
-    "title": "OneUptime管理者ダッシュボード",
-    "description": "このダッシュボードでOneUptimeサーバー関連のタスクを実行できます。"
+    "title": "Cast Operations管理者ダッシュボード",
+    "description": "このダッシュボードでCast Operationsサーバー関連のタスクを実行できます。"
   },
   "header": {
     "exitAdmin": "管理者を終了",
@@ -74,7 +74,7 @@
     "helpSupport": "ヘルプとサポート",
     "legal": "法的情報",
     "version": "バージョン",
-    "versionModalTitle": "OneUptimeバージョン",
+    "versionModalTitle": "Cast Operationsバージョン",
     "versionLabel": "バージョン",
     "commitLabel": "コミット",
     "versionUnavailable": "バージョンデータは利用できません"
@@ -115,7 +115,7 @@
     "users": {
       "title": "ユーザー",
       "cardTitle": "ユーザー",
-      "cardDescription": "OneUptime内のユーザー一覧です。",
+      "cardDescription": "Cast Operations内のユーザー一覧です。",
       "noItems": "ユーザーが見つかりません。"
     },
     "enterpriseLicenses": {
@@ -150,7 +150,7 @@
     "projects": {
       "title": "プロジェクト",
       "cardTitle": "プロジェクト",
-      "cardDescription": "OneUptime内のプロジェクト一覧です。",
+      "cardDescription": "Cast Operations内のプロジェクト一覧です。",
       "noItems": "プロジェクトが見つかりません。",
       "stepBasic": "基本",
       "stepSelectPlan": "プランを選択",
@@ -244,10 +244,10 @@
       "title": "管理者設定",
       "authentication": {
         "authCardTitle": "認証設定",
-        "authCardDescription": "このOneUptimeサーバーインスタンスの認証設定。",
+        "authCardDescription": "このCast Operationsサーバーインスタンスの認証設定。",
         "authEditButton": "設定を編集",
         "projectCreationCardTitle": "プロジェクト作成",
-        "projectCreationCardDescription": "このOneUptimeサーバーで新しいプロジェクトを作成できるユーザーを制御します。",
+        "projectCreationCardDescription": "このCast Operationsサーバーで新しいプロジェクトを作成できるユーザーを制御します。",
         "projectCreationEditButton": "設定を編集"
       },
       "email": {
@@ -275,7 +275,7 @@
       },
       "whatsapp": {
         "metaCardTitle": "Meta WhatsApp設定",
-        "metaCardDescription": "Meta WhatsApp資格情報を設定します。これらの値はOneUptimeからWhatsApp通知を送信するために使用されます。",
+        "metaCardDescription": "Meta WhatsApp資格情報を設定します。これらの値はCast OperationsからWhatsApp通知を送信するために使用されます。",
         "metaEditButton": "Meta WhatsApp設定を編集",
         "testCardTitle": "テストWhatsAppメッセージを送信",
         "testCardDescription": "Meta設定を確認するためにテストWhatsAppテンプレートメッセージを送信します。",
@@ -288,7 +288,7 @@
       },
       "telegram": {
         "setupCardTitle": "Telegramセットアップガイド",
-        "setupCardDescription": "これを最初にお読みください — これはゼロからOneUptimeに接続されたTelegramボットを動作させる最も早い方法です。",
+        "setupCardDescription": "これを最初にお読みください — これはゼロからCast Operationsに接続されたTelegramボットを動作させる最も早い方法です。",
         "configCardTitle": "Telegramボット設定",
         "configCardDescription": "@BotFatherが提供したボットトークンとユーザー名を貼り付けてください。これらは送信通知を動作させます。シークレットトークンは受信Webhookを保護します。",
         "configEditButton": "Telegram設定を編集",
@@ -333,7 +333,7 @@
       },
       "apiKey": {
         "cardTitle": "マスターAPIキー設定",
-        "cardDescription": "このAPIキーはOneUptimeのすべてのプロジェクトのすべてのリソースへのrootアクセス権を持ちます。",
+        "cardDescription": "このAPIキーはCast Operationsのすべてのプロジェクトのすべてのリソースへのrootアクセス権を持ちます。",
         "editButton": "APIキー設定を編集",
         "apiKeyNotGenerated": "APIキーはまだ生成されていません。"
       },
@@ -443,7 +443,7 @@
   "Acme, Inc.": "Acme, Inc.",
   "Admin Notification Email": "管理者通知メール",
   "AI Agent Logo": "AI エージェントのロゴ",
-  "Any strong random string. OneUptime rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "任意の強力なランダム文字列。OneUptime は X-Telegram-Bot-Api-Secret-Token ヘッダーがこの値と一致しない Webhook 呼び出しを拒否します。",
+  "Any strong random string. Cast Operations rejects webhook calls whose X-Telegram-Bot-Api-Secret-Token header does not match this value.": "任意の強力なランダム文字列。Cast Operations は X-Telegram-Bot-Api-Secret-Token ヘッダーがこの値と一致しない Webhook 呼び出しを拒否します。",
   "App ID": "App ID",
   "App Secret": "App シークレット",
   "Application (Client) ID from your Azure AD app registration (or service account for JWT Bearer).": "Azure AD アプリ登録（または JWT Bearer 用のサービスアカウント）のアプリケーション（クライアント）ID。",
@@ -493,7 +493,7 @@
   "Health": "ヘルス",
   "Home": "ホーム",
   "Hostname": "ホスト名",
-  "How OneUptime delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "OneUptime がグローバル SMTP 設定を使用してメールを配信する方法です。ほとんどのサーバーでは「SMTP」を選択してください。Microsoft 365 テナントで SMTP AUTH が無効になっている場合は「Microsoft Graph」を選択してください。Graph は Mail.Send アプリケーション権限を使用し、SMTP を完全にバイパスします。",
+  "How Cast Operations delivers mail using the global SMTP config. Choose 'SMTP' for most servers. Choose 'Microsoft Graph' if your Microsoft 365 tenant has SMTP AUTH disabled — Graph uses the Mail.Send application permission and bypasses SMTP entirely.": "Cast Operations がグローバル SMTP 設定を使用してメールを配信する方法です。ほとんどのサーバーでは「SMTP」を選択してください。Microsoft 365 テナントで SMTP AUTH が無効になっている場合は「Microsoft Graph」を選択してください。Graph は Mail.Send アプリケーション権限を使用し、SMTP を完全にバイパスします。",
   "If you have a coupon code, enter it here.": "クーポンコードをお持ちの場合は、ここに入力してください。",
   "If you have bought more phone numbers from Twilio for specific countries, you can add them here.": "特定の国向けに Twilio から追加の電話番号を購入した場合は、ここに追加できます。",
   "If you use port 465, please enable this. Do not enable this if you use port 587.": "ポート 465 を使用する場合は、これを有効にしてください。ポート 587 を使用する場合は、これを有効にしないでください。",
@@ -530,9 +530,9 @@
   "OAuth Scope": "OAuthスコープ",
   "OAuth Settings": "OAuth設定",
   "OAuth Token URL": "OAuthトークンURL",
-  "OneUptime Health": "OneUptime の正常性",
+  "Cast Operations Health": "Cast Operations の正常性",
   "OneUptimeAlertsBot": "OneUptimeAlertsBot",
-  "Operational health of this OneUptime instance.": "このOneUptimeインスタンスの稼働状態。",
+  "Operational health of this Cast Operations instance.": "このCast Operationsインスタンスの稼働状態。",
   "Optional Business Account ID that owns the WhatsApp templates.": "WhatsAppテンプレートを所有するオプションのビジネスアカウントID。",
   "Optional Facebook App ID tied to your WhatsApp integration.": "WhatsApp連携に紐づくオプションのFacebookアプリID。",
   "Optional Facebook App Secret used for webhook signature verification.": "Webhook署名の検証に使用されるオプションのFacebookアプリシークレット。",
@@ -540,7 +540,7 @@
   "Password": "パスワード",
   "Phone Number ID": "電話番号 ID",
   "Pick a friendly name.": "わかりやすい名前を選んでください。",
-  "Please create a new OneUptime project to get started.": "開始するには、新しい OneUptime プロジェクトを作成してください。",
+  "Please create a new Cast Operations project to get started.": "開始するには、新しい Cast Operations プロジェクトを作成してください。",
   "Please select a plan.": "プランを選択してください。",
   "Port": "ポート",
   "Primary Twilio Phone Number": "プライマリTwilio電話番号",
@@ -573,7 +573,7 @@
   "Select the team you would like to add this user to.": "このユーザーを追加するチームを選択します。",
   "Send a broadcast email to all users.": "すべてのユーザーに一斉メールを送信します。",
   "Sendgrid API Key": "Sendgrid API キー",
-  "Should we disable sign up of new users to OneUptime?": "OneUptimeへの新規ユーザー登録を無効にしますか？",
+  "Should we disable sign up of new users to Cast Operations?": "Cast Operationsへの新規ユーザー登録を無効にしますか？",
   "SMTP Email": "SMTP メール",
   "SMTP From Name": "SMTP 差出人名",
   "SMTP Host": "SMTP ホスト",
@@ -583,7 +583,7 @@
   "SMTP server hostname. Examples: smtp.office365.com (Microsoft 365), smtp.gmail.com (Google)": "SMTP サーバーのホスト名。例: smtp.office365.com (Microsoft 365)、smtp.gmail.com (Google)",
   "SMTP Username / Email": "SMTP ユーザー名 / メール",
   "Status": "ステータス",
-  "Status of the core datastores this OneUptime instance depends on.": "この OneUptime インスタンスが依存するコアデータストアのステータス。",
+  "Status of the core datastores this Cast Operations instance depends on.": "この Cast Operations インスタンスが依存するコアデータストアのステータス。",
   "Subject": "件名",
   "System components": "システムコンポーネント",
   "Team": "チーム",
@@ -591,7 +591,7 @@
   "Team ID": "チーム ID",
   "Team Name": "チーム名",
   "Test Email Address": "テストメールアドレス",
-  "The body of the announcement email. This will be displayed in a branded OneUptime email template. You can use Markdown formatting.": "お知らせメールの本文。これはブランド化された OneUptime のメールテンプレートに表示されます。Markdown 形式を使用できます。",
+  "The body of the announcement email. This will be displayed in a branded Cast Operations email template. You can use Markdown formatting.": "お知らせメールの本文。これはブランド化された Cast Operations のメールテンプレートに表示されます。Markdown 形式を使用できます。",
   "The body of the announcement email. This will be sent to all registered users. You can use Markdown formatting.": "お知らせメールの本文。これは登録済みのすべてのユーザーに送信されます。Markdown 形式を使用できます。",
   "The bot token @BotFather sent you — starts with digits, then a colon, then ~35 letters/digits. Not a URL, not a curl command.": "@BotFather から送信されたボットトークン — 数字で始まり、その後にコロン、さらに約35文字の英数字が続きます。URL でも curl コマンドでもありません。",
   "The email address where the test email will be sent.": "テストメールの送信先メールアドレス。",
@@ -600,8 +600,8 @@
   "The subject line of the announcement email.": "お知らせメールの件名。",
   "The WhatsApp Business phone number ID associated with your sending number.": "送信番号に関連付けられた WhatsApp Business の電話番号ID。",
   "This AI agent handles automated incident management.": "このAIエージェントは、自動化されたインシデント管理を処理します。",
-  "This API key has root access to all the resources in all the projects on OneUptime.": "このAPIキーはOneUptimeのすべてのプロジェクトのすべてのリソースへのrootアクセス権を持ちます。",
-  "This is the display name your team and customers see, when they receive emails from OneUptime.": "これは、チームと顧客がOneUptimeからメールを受信した際に表示される表示名です。",
+  "This API key has root access to all the resources in all the projects on Cast Operations.": "このAPIキーはCast Operationsのすべてのプロジェクトのすべてのリソースへのrootアクセス権を持ちます。",
+  "This is the display name your team and customers see, when they receive emails from Cast Operations.": "これは、チームと顧客がCast Operationsからメールを受信した際に表示される表示名です。",
   "This plan is free, forever. ": "このプランは永久に無料です。 ",
   "This probe is to monitor all the internal services.": "このプローブは、すべての内部サービスを監視するためのものです。",
   "Transport": "トランスポート",

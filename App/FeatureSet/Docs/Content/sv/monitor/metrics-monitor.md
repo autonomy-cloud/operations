@@ -1,6 +1,6 @@
 # Mätvärdesmonitor
 
-Mätvärdesövervakning gör det möjligt att övervaka anpassade applikations- och infrastrukturmätvärden som samlats in via OpenTelemetry. OneUptime utvärderar mätvärdesvärden under ett tidsfönster och utlöser varningar baserat på dina konfigurerade kriterier.
+Mätvärdesövervakning gör det möjligt att övervaka anpassade applikations- och infrastrukturmätvärden som samlats in via OpenTelemetry. Cast Operations utvärderar mätvärdesvärden under ett tidsfönster och utlöser varningar baserat på dina konfigurerade kriterier.
 
 ## Översikt
 
@@ -14,7 +14,7 @@ Mätvärdesmonitorer frågar och utvärderar numeriska mätvärden från dina te
 
 ## Skapa en mätvärdesmonitor
 
-1. Gå till **Monitorer** i OneUptime-instrumentpanelen
+1. Gå till **Monitorer** i Cast Operations-instrumentpanelen
 2. Klicka på **Skapa monitor**
 3. Välj **Mätvärden** som monitortyp
 4. Konfigurera mätvärdesförfrågningar och valfria formler
@@ -105,4 +105,4 @@ Välj hur mätvärdesvärden ska aggregeras för utvärdering:
 
 ## Konfigurationskrav
 
-Mätvärdesövervakning kräver att dina applikationer eller infrastruktur skickar mätvärden till OneUptime via OpenTelemetry. Se dokumentationen för [OpenTelemetry](/docs/telemetry/open-telemetry) för konfigurationsinstruktioner.
+Mätvärdesövervakning kräver att dina applikationer eller infrastruktur skickar mätvärden till Cast Operations via OpenTelemetry. Se dokumentationen för [OpenTelemetry](/docs/telemetry/open-telemetry) för konfigurationsinstruktioner.

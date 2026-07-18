@@ -1,6 +1,6 @@
 # Guida all'Installazione su macOS
 
-Installa OneUptime come applicazione desktop nativa su macOS per un monitoraggio e una gestione degli incidenti fluidi.
+Installa Cast Operations come applicazione desktop nativa su macOS per un monitoraggio e una gestione degli incidenti fluidi.
 
 ## Metodi di Installazione
 
@@ -8,11 +8,11 @@ Installa OneUptime come applicazione desktop nativa su macOS per un monitoraggio
 
 Safari offre un'eccellente integrazione PWA con le funzionalità native di macOS.
 
-1. **Apri OneUptime in Safari**
+1. **Apri Cast Operations in Safari**
 
    - Avvia il browser Safari
-   - Naviga all'URL della tua istanza OneUptime
-   - Accedi al tuo account OneUptime
+   - Naviga all'URL della tua istanza Cast Operations
+   - Accedi al tuo account Cast Operations
    - Attendi il caricamento completo della pagina
 
 2. **Installa la PWA**
@@ -24,12 +24,12 @@ Safari offre un'eccellente integrazione PWA con le funzionalità native di macOS
 
 3. **Personalizza l'Installazione**
 
-   - **Nome App**: Modifica se desiderato (predefinito: OneUptime)
+   - **Nome App**: Modifica se desiderato (predefinito: Cast Operations)
    - **Dock**: Scegli di aggiungere al Dock
    - **Launchpad**: Aggiungi al Launchpad per un accesso facile
 
 4. **Avvia l'App**
-   - Trova OneUptime nel Dock, nel Launchpad o nella cartella Applicazioni
+   - Trova Cast Operations nel Dock, nel Launchpad o nella cartella Applicazioni
    - Clicca per avviare in una finestra dedicata
    - L'app si esegue indipendentemente dal browser Safari
 
@@ -37,17 +37,17 @@ Safari offre un'eccellente integrazione PWA con le funzionalità native di macOS
 
 Chrome offre un robusto supporto PWA con un'eccellente integrazione desktop.
 
-1. **Apri OneUptime in Chrome**
+1. **Apri Cast Operations in Chrome**
 
    - Avvia Google Chrome
-   - Vai alla tua istanza OneUptime
+   - Vai alla tua istanza Cast Operations
    - Assicurati di aver effettuato l'accesso
    - Consenti il caricamento completo della pagina
 
 2. **Installa tramite Menu**
 
    - Cerca l'**icona di installazione** (⊞) nella barra degli indirizzi
-   - Clicca su **"Installa OneUptime"**
+   - Clicca su **"Installa Cast Operations"**
    - Oppure usa il **menu Chrome** → **Altri strumenti** → **Crea scorciatoia**
 
 3. **Opzioni di Installazione**
@@ -57,7 +57,7 @@ Chrome offre un robusto supporto PWA con un'eccellente integrazione desktop.
    - Clicca su **"Installa"** o **"Crea"**
 
 4. **Accedi all'App**
-   - Trova OneUptime nella cartella Applicazioni
+   - Trova Cast Operations nella cartella Applicazioni
    - Oppure accedi tramite la ricerca Spotlight
    - Aggiungi al Dock per un accesso rapido
 
@@ -65,10 +65,10 @@ Chrome offre un robusto supporto PWA con un'eccellente integrazione desktop.
 
 Edge fornisce un solido supporto PWA con una buona integrazione macOS.
 
-1. **Apri OneUptime in Edge**
+1. **Apri Cast Operations in Edge**
 
    - Avvia Microsoft Edge
-   - Naviga all'URL di OneUptime
+   - Naviga all'URL di Cast Operations
    - Completa il processo di accesso
 
 2. **Installa l'App**
@@ -81,7 +81,7 @@ Edge fornisce un solido supporto PWA con una buona integrazione macOS.
 
 ### Dock e Launchpad
 
-1. **Posizione nel Dock**: Trascina OneUptime nella posizione preferita nel Dock
+1. **Posizione nel Dock**: Trascina Cast Operations nella posizione preferita nel Dock
 2. **Dimensione nel Dock**: Ridimensiona l'icona nelle preferenze del Dock
 3. **Organizzazione nel Launchpad**: Crea una cartella per le app di monitoraggio
 4. **Notifiche Badge**: Mostra il conteggio degli incidenti sull'icona nel Dock
@@ -90,7 +90,7 @@ Edge fornisce un solido supporto PWA con una buona integrazione macOS.
 
 1. **Centro Notifiche**
 
-   - Preferenze di Sistema → Notifiche → OneUptime
+   - Preferenze di Sistema → Notifiche → Cast Operations
    - Configura gli stili degli avvisi e la consegna
    - Imposta i livelli di priorità per diversi tipi di incidenti
 
@@ -130,7 +130,7 @@ Soluzioni:
 
 ```
 Soluzioni:
-1. Controlla il Launchpad per l'icona di OneUptime
+1. Controlla il Launchpad per l'icona di Cast Operations
 2. Cerca con Spotlight (⌘+Spazio)
 3. Cerca nella sezione di gestione PWA del browser
 4. Prova a reinstallare con un browser diverso
@@ -143,11 +143,11 @@ Soluzioni:
 
 ```
 Soluzioni:
-1. Preferenze di Sistema → Notifiche → OneUptime
+1. Preferenze di Sistema → Notifiche → Cast Operations
 2. Abilita "Consenti notifiche"
 3. Imposta lo stile degli avvisi appropriato (banner/avvisi)
 4. Controlla le impostazioni Non Disturbare
-5. Verifica le impostazioni di notifica di OneUptime
+5. Verifica le impostazioni di notifica di Cast Operations
 6. Concedi i permessi di notifica quando richiesto
 ```
 
@@ -158,18 +158,18 @@ Soluzioni:
 1. **Metodo Cartella Applicazioni**
 
    - Apri la cartella Applicazioni
-   - Trova OneUptime
+   - Trova Cast Operations
    - Trascina nel Cestino o clic destro → Sposta nel Cestino
 
 2. **Metodo Dock**
 
-   - Clic destro su OneUptime nel Dock
+   - Clic destro su Cast Operations nel Dock
    - Seleziona "Opzioni" → "Rimuovi dal Dock"
    - Poi elimina dalla cartella Applicazioni
 
 3. **Gestione PWA del Browser**
-   - **Chrome**: chrome://apps/ → Trova OneUptime → Rimuovi
-   - **Edge**: edge://apps/ → Trova OneUptime → Disinstalla
+   - **Chrome**: chrome://apps/ → Trova Cast Operations → Rimuovi
+   - **Edge**: edge://apps/ → Trova Cast Operations → Disinstalla
    - **Safari**: Nessuna pagina di gestione dedicata
 
 ### Disinstallazione Completa
@@ -192,7 +192,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### Aggiornamenti Automatici
 
-- La PWA di OneUptime si aggiorna automaticamente quando online
+- La PWA di Cast Operations si aggiorna automaticamente quando online
 - Non sono richiesti aggiornamenti dall'App Store
 - Nuove funzionalità disponibili immediatamente
 - Aggiornamenti critici applicati istantaneamente
@@ -203,7 +203,7 @@ Manutenzione regolare per prestazioni ottimali:
 
 **Settimanale:**
 
-- Riavvia l'app OneUptime
+- Riavvia l'app Cast Operations
 - Svuota la cache del browser in caso di problemi
 - Controlla gli aggiornamenti macOS
 
@@ -217,28 +217,28 @@ Manutenzione regolare per prestazioni ottimali:
 
 ### Integrazione con l'App Shortcuts
 
-Crea scorciatoie personalizzate per OneUptime:
+Crea scorciatoie personalizzate per Cast Operations:
 
 1. Apri l'app **Shortcuts**
 2. Crea **Nuova Scorciatoia**
 3. Aggiungi l'azione **"Apri app"**
-4. Seleziona **OneUptime**
+4. Seleziona **Cast Operations**
 5. Aggiungi a Siri per l'attivazione vocale
 
 ### Integrazione con Terminal
 
-Gestisci OneUptime tramite Terminal:
+Gestisci Cast Operations tramite Terminal:
 
 ```bash
-# Crea un alias per avviare rapidamente OneUptime
-echo 'alias oneuptime="open -a \"OneUptime\""' >> ~/.zshrc
+# Crea un alias per avviare rapidamente Cast Operations
+echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
 
-# Funzione per verificare se OneUptime è in esecuzione
+# Funzione per verificare se Cast Operations è in esecuzione
 oneuptime_status() {
-    if pgrep -f "OneUptime" > /dev/null; then
-        echo "OneUptime is running"
+    if pgrep -f "Cast Operations" > /dev/null; then
+        echo "Cast Operations is running"
     else
-        echo "OneUptime is not running"
+        echo "Cast Operations is not running"
     fi
 }
 ```

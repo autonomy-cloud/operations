@@ -4,7 +4,7 @@ import URL from "Common/Types/API/URL";
 import ModelForm, { FormType } from "Common/UI/Components/Forms/ModelForm";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
 import Link from "Common/UI/Components/Link/Link";
-import OneUptimeLogo from "Common/UI/Images/logos/OneUptimeSVG/3-transparent.svg";
+import CastOperationsLogo from "Common/UI/Images/logos/CastOperationsSVG/logo.svg";
 import Navigation from "Common/UI/Utils/Navigation";
 import User from "Common/Models/DatabaseModels/User";
 import React, { useState } from "react";
@@ -20,7 +20,7 @@ const ResetPasswordPage: () => JSX.Element = () => {
       <div className="w-full max-w-md mx-auto">
         <img
           className="mx-auto h-10 w-auto sm:h-12"
-          src={OneUptimeLogo}
+          src={CastOperationsLogo}
           alt={t("common.yourCompany")}
         />
         <h2 className="mt-4 sm:mt-6 text-center text-xl sm:text-2xl tracking-tight text-gray-900">

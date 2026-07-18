@@ -41,7 +41,7 @@ export default class FileAPI extends BaseAPI<File, FileServiceType> {
      * markdown (post-mortems, internal notes, etc.) where we don't want
      * the file's ObjectID to be enumerable. Anonymous requests are
      * served only when the file is explicitly marked public; otherwise
-     * the request must carry a valid OneUptime session.
+     * the request must carry a valid Cast Operations session.
      *
      * Registered before the id-based route so the longer path matches
      * first.

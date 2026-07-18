@@ -1,6 +1,6 @@
 # Kubernetes 모니터
 
-Kubernetes 모니터링을 통해 노드, 파드, 워크로드, 컨트롤 플레인 구성 요소를 포함한 Kubernetes 클러스터의 상태와 성능을 모니터링할 수 있습니다. OneUptime은 클러스터에서 메트릭을 수집하고 구성된 기준에 따라 평가합니다.
+Kubernetes 모니터링을 통해 노드, 파드, 워크로드, 컨트롤 플레인 구성 요소를 포함한 Kubernetes 클러스터의 상태와 성능을 모니터링할 수 있습니다. Cast Operations은 클러스터에서 메트릭을 수집하고 구성된 기준에 따라 평가합니다.
 
 ## 개요
 
@@ -15,7 +15,7 @@ Kubernetes 모니터는 클러스터의 메트릭을 사용하여 인프라에 �
 
 ## Kubernetes 모니터 생성
 
-1. OneUptime 대시보드에서 **Monitors**로 이동합니다
+1. Cast Operations 대시보드에서 **Monitors**로 이동합니다
 2. **Create Monitor**를 클릭합니다
 3. 모니터 유형으로 **Kubernetes**를 선택합니다
 4. 모니터링할 클러스터와 리소스 범위를 선택합니다
@@ -26,7 +26,7 @@ Kubernetes 모니터는 클러스터의 메트릭을 사용하여 인프라에 �
 
 ### 클러스터
 
-모니터링할 Kubernetes 클러스터를 선택합니다. 클러스터는 OpenTelemetry를 통해 OneUptime과 통합되어야 합니다.
+모니터링할 Kubernetes 클러스터를 선택합니다. 클러스터는 OpenTelemetry를 통해 Cast Operations과 통합되어야 합니다.
 
 ### 리소스 범위
 
@@ -138,7 +138,7 @@ Kubernetes 모니터는 클러스터의 메트릭을 사용하여 인프라에 �
 
 ## 사전 구축된 알림 템플릿
 
-OneUptime은 일반적인 Kubernetes 모니터링 시나리오에 대한 템플릿을 제공합니다:
+Cast Operations은 일반적인 Kubernetes 모니터링 시나리오에 대한 템플릿을 제공합니다:
 
 | 템플릿                   | 설명                    | 임계값          |
 | ------------------------ | ----------------------- | --------------- |
@@ -157,6 +157,6 @@ OneUptime은 일반적인 Kubernetes 모니터링 시나리오에 대한 템플�
 
 ## 설정 요구 사항
 
-Kubernetes 모니터링을 사용하려면 클러스터에 OneUptime Kubernetes 에이전트를 설치해야 합니다. 에이전트는 클러스터 메트릭, 이벤트, 파드 로그와 — 기본적으로 — **eBPF를 통해 캡처된 애플리케이션 트레이스 및 HTTP RED 메트릭**을 OTLP로 OneUptime에 전송합니다. 서비스 레벨 트래픽을 확인하는 데 코드 변경이나 앱별 SDK가 필요하지 않습니다.
+Kubernetes 모니터링을 사용하려면 클러스터에 Cast Operations Kubernetes 에이전트를 설치해야 합니다. 에이전트는 클러스터 메트릭, 이벤트, 파드 로그와 — 기본적으로 — **eBPF를 통해 캡처된 애플리케이션 트레이스 및 HTTP RED 메트릭**을 OTLP로 Cast Operations에 전송합니다. 서비스 레벨 트래픽을 확인하는 데 코드 변경이나 앱별 SDK가 필요하지 않습니다.
 
 [Kubernetes 에이전트 설치](/docs/monitor/kubernetes-agent) 가이드를 참조하십시오 — 단일 명령 Helm 설치, 클러스터에 적합한 구성을 선택하는 `preset` 옵션(standard, GKE Autopilot, EKS Fargate), 그리고 개별 시그널 패밀리(HTTP RED 메트릭, 서비스 그래프, 네트워크 플로우, TCP 통계)를 위한 `ebpf.features.*` 토글을 다룹니다.

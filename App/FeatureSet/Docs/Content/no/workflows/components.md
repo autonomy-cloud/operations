@@ -60,7 +60,7 @@ Send en melding til en Telegram-chat ved å bruke en bot-token og chat-ID.
 
 ## E-post
 
-Send en e-post via OneUptime.
+Send en e-post via Cast Operations.
 
 **Innstillinger**:
 
@@ -118,9 +118,9 @@ Bruk dette for å dele felles logikk. Bygg en "post til hendelseskanal"-arbeidsf
 
 Det er en sikkerhetsgrense slik at arbeidsflyter ikke kan fortsette å kalle hverandre i en løkke. Se [Konfigurasjon & sikkerhet](/docs/workflows/configuration).
 
-## OneUptime datakomponenter
+## Cast Operations datakomponenter
 
-For hver type oppføring i OneUptime (monitorer, hendelser, varsler, statussider, vaktordningspolicyer og mange flere) har paletten disse komponentene — søk etter typens navn:
+For hver type oppføring i Cast Operations (monitorer, hendelser, varsler, statussider, vaktordningspolicyer og mange flere) har paletten disse komponentene — søk etter typens navn:
 
 - **Finn én** — hent én oppføring etter ID eller filter.
 - **Finn** — hent en liste over oppføringer.
@@ -129,13 +129,13 @@ For hver type oppføring i OneUptime (monitorer, hendelser, varsler, statussider
 - **Slett** — fjern én oppføring.
 - **Tell** — tell oppføringer som matcher et filter.
 
-Slik kan en arbeidsflyt lese og endre OneUptime-data. For eksempel: en webhook fra CI-verktøyet ditt kan bruke **Opprett hendelse** for å åpne en hendelse med feildetaljene.
+Slik kan en arbeidsflyt lese og endre Cast Operations-data. For eksempel: en webhook fra CI-verktøyet ditt kan bruke **Opprett hendelse** for å åpne en hendelse med feildetaljene.
 
 ## Hvilken komponent bør jeg bruke?
 
 Noen raske regler:
 
-- Hvis det finnes en dedikert blokk for det du vil (Slack, E-post, en OneUptime-oppføring), bruk den — du får hyggeligere feilhåndtering og klarere logger.
+- Hvis det finnes en dedikert blokk for det du vil (Slack, E-post, en Cast Operations-oppføring), bruk den — du får hyggeligere feilhåndtering og klarere logger.
 - For ethvert annet eksternt API, bruk **API**.
 - For å omforme data mellom blokker, bruk **Egendefinert kode** eller **JSON**.
 - For å ta forskjellige handlinger basert på en verdi, bruk **Betingelser**.

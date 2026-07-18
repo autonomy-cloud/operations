@@ -1,6 +1,6 @@
 # Logs-Monitor
 
-Der Logs-Monitor ermöglicht die Überwachung Ihrer Anwendungslogs und das Auslösen von Benachrichtigungen basierend auf Log-Mustern, -Anzahl und Schweregrad. OneUptime wertet Logs aus Ihren Telemetrie-Diensten aus und vergleicht sie mit Ihren konfigurierten Kriterien.
+Der Logs-Monitor ermöglicht die Überwachung Ihrer Anwendungslogs und das Auslösen von Benachrichtigungen basierend auf Log-Mustern, -Anzahl und Schweregrad. Cast Operations wertet Logs aus Ihren Telemetrie-Diensten aus und vergleicht sie mit Ihren konfigurierten Kriterien.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ Logs-Monitore suchen und zählen Logs, die bestimmten Filtern in einem Zeitfenst
 
 ## Einen Logs-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Logs** als Monitortyp
 4. Wählen Sie die zu überwachenden Telemetrie-Dienste aus
@@ -24,7 +24,7 @@ Logs-Monitore suchen und zählen Logs, die bestimmten Filtern in einem Zeitfenst
 
 ### Telemetrie-Dienste
 
-Wählen Sie einen oder mehrere Dienste aus, von denen Logs überwacht werden sollen. Dienste müssen Logs über OpenTelemetry an OneUptime senden.
+Wählen Sie einen oder mehrere Dienste aus, von denen Logs überwacht werden sollen. Dienste müssen Logs über OpenTelemetry an Cast Operations senden.
 
 ### Log-Filter
 
@@ -84,4 +84,4 @@ Logs nach einem oder mehreren Schweregraden filtern:
 
 ## Setup-Anforderungen
 
-Der Logs-Monitor erfordert, dass Ihre Anwendungen Logs über OpenTelemetry an OneUptime senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.
+Der Logs-Monitor erfordert, dass Ihre Anwendungen Logs über OpenTelemetry an Cast Operations senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.

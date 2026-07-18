@@ -4,7 +4,7 @@ Denne siden dekker innstillingene og sikkerhetsgrensene det er verdt å kjenne t
 
 ## Slå en arbeidsflyt på eller av
 
-Hver arbeidsflyt har en **Aktivert**-bryter i **Innstillinger**. Når den er av, kjører ikke arbeidsflyten — webhook-kall, planlagte tidspunkter og OneUptime-hendelser ignoreres alle. Nye arbeidsflyter starter deaktivert.
+Hver arbeidsflyt har en **Aktivert**-bryter i **Innstillinger**. Når den er av, kjører ikke arbeidsflyten — webhook-kall, planlagte tidspunkter og Cast Operations-hendelser ignoreres alle. Nye arbeidsflyter starter deaktivert.
 
 Bruk denne bryteren som din "klar til å kjøre"-grind:
 
@@ -53,11 +53,11 @@ Webhook-triggere gir deg en unik URL. Alle som kjenner URL-en kan treffe den. Fo
 
 - Behandle URL-en som et passord. Ikke del den offentlig eller commit den til et offentlig repo.
 - For sensitive arbeidsflyter, be det kallende systemet sende en delt token som en header (som `X-Webhook-Token`) og sjekk den med en **Betingelser**-blokk før du gjør noe viktig. Lagre det forventede tokenet som en hemmelig variabel.
-- For svært sensitive arbeidsflyter, foretrekk en OneUptime-hendelsestrigger og et manuelt importsteg i stedet for en offentlig webhook.
+- For svært sensitive arbeidsflyter, foretrekk en Cast Operations-hendelsestrigger og et manuelt importsteg i stedet for en offentlig webhook.
 
 ## Utgående nettverkstilgang
 
-API og andre HTTP-blokker gjør forespørslene sine fra OneUptime. Hvis du kjører selvvertet, sørg for at installasjonen din kan nå tjenestene du kaller. Hvis du bruker OneUptime Cloud, er våre utgående IP-områder listet i [IP-adresser](/docs/configuration/ip-addresses) slik at du kan tillate dem på den andre siden.
+API og andre HTTP-blokker gjør forespørslene sine fra Cast Operations. Hvis du kjører selvvertet, sørg for at installasjonen din kan nå tjenestene du kaller. Hvis du bruker Cast Operations Cloud, er våre utgående IP-områder listet i [IP-adresser](/docs/configuration/ip-addresses) slik at du kan tillate dem på den andre siden.
 
 ## Tillatelser
 
@@ -72,14 +72,14 @@ De fleste utviklere bør ha opprett/rediger/les på arbeidsflyter, men ikke på 
 
 ## Plan-grenser
 
-OneUptime Cloud begrenser antall kjøringer per måned på mindre planer. Din nåværende grense vises under **Prosjektinnstillinger → Fakturering**. Når du når den, avvises nye triggere til neste faktureringsperiode. Selvvertede installasjoner har ikke denne grensen.
+Cast Operations Cloud begrenser antall kjøringer per måned på mindre planer. Din nåværende grense vises under **Prosjektinnstillinger → Fakturering**. Når du når den, avvises nye triggere til neste faktureringsperiode. Selvvertede installasjoner har ikke denne grensen.
 
 ## Når arbeidsflyter ikke er riktig verktøy
 
 Noen tilfeller der du bør gripe til noe annet:
 
 - **Tung beregning eller store datasett** — arbeidsflyter er designet for lett lim-arbeid, ikke tallknusing. Kjør tungt arbeid på din egen infrastruktur og la en arbeidsflyt sparke det i gang.
-- **Langvarige prosesser som strekker seg over timer** — én kjøring er ment å bli ferdig raskt. Hvis du må "gjøre A, vente to timer, gjøre B," bruk en ekstern planlegger som sender en webhook tilbake til OneUptime når det er på tide.
+- **Langvarige prosesser som strekker seg over timer** — én kjøring er ment å bli ferdig raskt. Hvis du må "gjøre A, vente to timer, gjøre B," bruk en ekstern planlegger som sender en webhook tilbake til Cast Operations når det er på tide.
 - **Trinn-for-trinn hendelsesrespons med mennesker i løkken** — det er det [Runbooks](/docs/runbooks/index) er for. Arbeidsflyter er for automatisering uten oppsyn.
 
 ## Hvor du leser videre

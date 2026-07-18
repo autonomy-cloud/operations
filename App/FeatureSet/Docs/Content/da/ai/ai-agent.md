@@ -1,6 +1,6 @@
 # AI Agenter
 
-AI Agenter i OneUptime retter automatisk fejl, ydeevneproblemer og databaseforespørgsler i din kode. Drevet af OpenTelemetry-observabilitetsdata opretter AI Agenter pull requests med rettelser – ikke kun advarsler.
+AI Agenter i Cast Operations retter automatisk fejl, ydeevneproblemer og databaseforespørgsler i din kode. Drevet af OpenTelemetry-observabilitetsdata opretter AI Agenter pull requests med rettelser – ikke kun advarsler.
 
 ## Hvad kan AI Agenter gøre?
 
@@ -25,7 +25,7 @@ AI Agenter analyserer dine observabilitetsdata (traces, logs og metrikker) for a
 
 ## Fleksibilitet med LLM-udbyder
 
-OneUptime fungerer med enhver LLM-udbyder. Du kan bruge:
+Cast Operations fungerer med enhver LLM-udbyder. Du kan bruge:
 
 - **OpenAI GPT**-modeller
 - **Anthropic Claude**-modeller
@@ -36,7 +36,7 @@ Selvhost din AI-model og hold din kode fuldstændig privat.
 
 ## Privatliv
 
-Uanset din plan ser, gemmer eller træner OneUptime aldrig på din kode:
+Uanset din plan ser, gemmer eller træner Cast Operations aldrig på din kode:
 
 - **Ingen kodeadgang**: Din kode forbliver på din infrastruktur
 - **Ingen datalagring**: Politik om nul dataopbevaring
@@ -46,13 +46,13 @@ Uanset din plan ser, gemmer eller træner OneUptime aldrig på din kode:
 
 ### Globale AI Agenter
 
-Hvis du bruger **OneUptime SaaS** (skyhosted version), leveres Globale AI Agenter af OneUptime og er forudkonfigureret og klar til brug. Disse agenter administreres af OneUptime og kræver ingen yderligere opsætning.
+Hvis du bruger **Cast Operations SaaS** (skyhosted version), leveres Globale AI Agenter af Cast Operations og er forudkonfigureret og klar til brug. Disse agenter administreres af Cast Operations og kræver ingen yderligere opsætning.
 
 Globale AI Agenter er automatisk tilgængelige for alle projekter, medmindre de er deaktiveret i dine projektindstillinger.
 
 ### Selvhostede AI Agenter
 
-For organisationer, der har behov for at køre AI-agenter inden for deres egen infrastruktur (f.eks. af sikkerhedsmæssige, compliancemæssige eller netværksrelaterede årsager), understøtter OneUptime selvhostede AI-agenter.
+For organisationer, der har behov for at køre AI-agenter inden for deres egen infrastruktur (f.eks. af sikkerhedsmæssige, compliancemæssige eller netværksrelaterede årsager), understøtter Cast Operations selvhostede AI-agenter.
 
 Selvhostede AI-agenter:
 
@@ -63,9 +63,9 @@ Selvhostede AI-agenter:
 
 ## Opsætning af en selvhostet AI Agent
 
-### Trin 1: Opret en AI Agent i OneUptime
+### Trin 1: Opret en AI Agent i Cast Operations
 
-1. Log ind på dit OneUptime-dashboard
+1. Log ind på dit Cast Operations-dashboard
 2. Gå til **Projektindstillinger** > **AI Agenter**
 3. Klik på **Opret AI Agent** for at tilføje en ny agent
 4. Udfyld de påkrævede felter:
@@ -85,11 +85,11 @@ For at køre en AI-agent skal du sørge for, at Docker er installeret. Kør agen
 docker run --name oneuptime-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   -d oneuptime/ai-agent:release
 ```
 
-Hvis du selvhoster OneUptime, skal du ændre `ONEUPTIME_URL` til din brugerdefinerede selvhostede instans-URL.
+Hvis du selvhoster Cast Operations, skal du ændre `ONEUPTIME_URL` til din brugerdefinerede selvhostede instans-URL.
 
 #### Docker Compose
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://oneuptime.com
+      - ONEUPTIME_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: ONEUPTIME_URL
-              value: "https://oneuptime.com"
+              value: "https://visca.ai"
 ```
 
 Anvend konfigurationen:
@@ -160,15 +160,15 @@ AI-agenten understøtter følgende miljøvariabler:
 
 | Variabel        | Beskrivelse                                                        |
 | --------------- | ------------------------------------------------------------------ |
-| `AI_AGENT_KEY`  | AI-agentens nøgle fra dit OneUptime-dashboard                      |
-| `AI_AGENT_ID`   | AI-agentens ID fra dit OneUptime-dashboard                         |
-| `ONEUPTIME_URL` | URL'en til din OneUptime-instans (standard: https://oneuptime.com) |
+| `AI_AGENT_KEY`  | AI-agentens nøgle fra dit Cast Operations-dashboard                      |
+| `AI_AGENT_ID`   | AI-agentens ID fra dit Cast Operations-dashboard                         |
+| `ONEUPTIME_URL` | URL'en til din Cast Operations-instans (standard: https://visca.ai) |
 
 ## Bekræftelse af din AI Agent
 
 Efter deployment af din AI-agent:
 
-1. Gå til **Projektindstillinger** > **AI Agenter** i dit OneUptime-dashboard
+1. Gå til **Projektindstillinger** > **AI Agenter** i dit Cast Operations-dashboard
 2. Din agent bør vise som **Tilsluttet** inden for få minutter
 3. Hvis status viser **Afbrudt**, skal du kontrollere containerloggene for fejl
 
@@ -187,7 +187,7 @@ kubectl logs deployment/oneuptime-ai-agent
 ### Agent opretter ikke forbindelse
 
 1. **Bekræft legitimationsoplysninger**: Sørg for, at `AI_AGENT_KEY` og `AI_AGENT_ID` er korrekte
-2. **Kontroller netværk**: Sørg for, at agenten kan nå din OneUptime-instans
+2. **Kontroller netværk**: Sørg for, at agenten kan nå din Cast Operations-instans
 3. **Gennemgå logs**: Kontroller containerlogs for fejlmeddelelser
 4. **Firewall-regler**: Sørg for, at udgående HTTPS (port 443) er tilladt
 
@@ -201,6 +201,6 @@ kubectl logs deployment/oneuptime-ai-agent
 
 Hvis du støder på problemer med din AI-agent:
 
-1. Tjek [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) for kendte problemer
+1. Tjek [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) for kendte problemer
 2. Opret et nyt issue, hvis dit problem ikke allerede er rapporteret
-3. Kontakt [support](https://oneuptime.com/support) hvis du er på en enterprise-plan
+3. Kontakt [support](https://visca.ai/support) hvis du er på en enterprise-plan

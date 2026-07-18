@@ -15,7 +15,7 @@
     "previous": "पिछला",
     "next": "अगला",
     "helpImproveTitle": "इस पृष्ठ को बेहतर बनाने में हमारी मदद करें",
-    "helpImproveBody": "OneUptime 100% ओपन-सोर्स है। कोई वर्तनी की गलती मिली या कुछ जोड़ना चाहते हैं?",
+    "helpImproveBody": "Cast Operations 100% ओपन-सोर्स है। कोई वर्तनी की गलती मिली या कुछ जोड़ना चाहते हैं?",
     "editOnGithub": "इस पृष्ठ को GitHub पर संपादित करें",
     "notFoundBadge": "404 त्रुटि",
     "notFoundTitle": "पृष्ठ नहीं मिला",
@@ -26,9 +26,9 @@
     "errorMessage": "हमें कुछ तकनीकी समस्याओं का सामना करना पड़ रहा है। कृपया कुछ देर बाद पुनः प्रयास करें।",
     "tryAgain": "पुनः प्रयास करें",
     "switchLanguage": "भाषा बदलें",
-    "metaTitleSuffix": "OneUptime दस्तावेज़",
-    "metaTitleDefault": "OneUptime दस्तावेज़ीकरण",
-    "metaDescription": "OneUptime के लिए संपूर्ण दस्तावेज़ीकरण — ओपन-सोर्स ऑब्ज़र्वेबिलिटी प्लेटफ़ॉर्म। जानें कि अपने एप्लिकेशन कैसे मॉनिटर करें, अलर्ट सेट करें और घटनाओं को कैसे प्रबंधित करें।"
+    "metaTitleSuffix": "Cast Operations दस्तावेज़",
+    "metaTitleDefault": "Cast Operations दस्तावेज़ीकरण",
+    "metaDescription": "Cast Operations के लिए संपूर्ण दस्तावेज़ीकरण — ओपन-सोर्स ऑब्ज़र्वेबिलिटी प्लेटफ़ॉर्म। जानें कि अपने एप्लिकेशन कैसे मॉनिटर करें, अलर्ट सेट करें और घटनाओं को कैसे प्रबंधित करें।"
   },
   "navGroups": {
     "Introduction": "परिचय",
@@ -162,7 +162,7 @@
     "Fix Tasks": "Fix Tasks",
     "LLM Providers": "LLM प्रदाता",
     "MCP Server": "MCP सर्वर",
-    "OneUptime API Reference": "OneUptime API संदर्भ",
+    "Cast Operations API Reference": "Cast Operations API संदर्भ",
     "Slack Integration": "Slack एकीकरण",
     "Microsoft Teams Integration": "Microsoft Teams एकीकरण",
     "GitHub Integration": "GitHub एकीकरण",

@@ -1,6 +1,6 @@
 # Server / VM Monitor
 
-Server- en VM-monitoring stelt u in staat de gezondheid en prestaties van uw servers, virtuele machines en andere infrastructuur te bewaken door een lichtgewicht agent te installeren die systeemmetrics rapporteert aan OneUptime.
+Server- en VM-monitoring stelt u in staat de gezondheid en prestaties van uw servers, virtuele machines en andere infrastructuur te bewaken door een lichtgewicht agent te installeren die systeemmetrics rapporteert aan Cast Operations.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Servermonitors gebruiken een infrastructuuragent die op uw servers is geïnstall
 
 ## Een Server Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Server / VM** als het monitortype
 4. Er wordt een **Geheime sleutel** gegenereerd voor deze monitor — u heeft deze nodig om de agent te configureren
@@ -22,26 +22,26 @@ Servermonitors gebruiken een infrastructuuragent die op uw servers is geïnstall
 
 ## De infrastructuuragent installeren
 
-De OneUptime Infrastructuuragent is een lichtgewicht, Go-gebaseerde daemon die elke 30 seconden systeemmetrics verzamelt en naar OneUptime stuurt. Hij ondersteunt Linux, macOS en Windows.
+De Cast Operations Infrastructuuragent is een lichtgewicht, Go-gebaseerde daemon die elke 30 seconden systeemmetrics verzamelt en naar Cast Operations stuurt. Hij ondersteunt Linux, macOS en Windows.
 
 ### Linux / macOS
 
 ```bash
 # De agent installeren
-curl -sSL https://oneuptime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # De agent configureren
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # De agent starten
 sudo oneuptime-infrastructure-agent start
 ```
 
-Vervang `YOUR_SECRET_KEY` door de geheime sleutel die wordt weergegeven in de instellingen van uw monitor, en `https://oneuptime.com` door de URL van uw OneUptime-instantie als u zelf host.
+Vervang `YOUR_SECRET_KEY` door de geheime sleutel die wordt weergegeven in de instellingen van uw monitor, en `https://visca.ai` door de URL van uw Cast Operations-instantie als u zelf host.
 
 ### Windows
 
-1. Download de nieuwste agent van [GitHub Releases](https://github.com/OneUptime/oneuptime/releases/latest)
+1. Download de nieuwste agent van [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest)
    - `oneuptime-infrastructure-agent_windows_amd64.zip` voor x64-systemen
    - `oneuptime-infrastructure-agent_windows_arm64.zip` voor ARM64-systemen
 2. Pak het zip-bestand uit
@@ -49,7 +49,7 @@ Vervang `YOUR_SECRET_KEY` door de geheime sleutel die wordt weergegeven in de in
 
 ```bash
 # De agent configureren
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com
+oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
 
 # De agent starten
 oneuptime-infrastructure-agent start
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 Als uw server verbinding maakt met internet via een proxy, kunt u de agent zo configureren dat deze deze gebruikt:
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://oneuptime.com --proxy-url=http://proxy.example.com:8080
+sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Agentopdrachten
@@ -69,7 +69,7 @@ De infrastructuuragent ondersteunt de volgende opdrachten:
 
 | Opdracht    | Beschrijving                                                                 |
 | ----------- | ---------------------------------------------------------------------------- |
-| `configure` | De agent configureren met uw geheime sleutel en OneUptime-URL                |
+| `configure` | De agent configureren met uw geheime sleutel en Cast Operations-URL                |
 | `start`     | De agentdienst starten                                                       |
 | `stop`      | De agentdienst stoppen                                                       |
 | `restart`   | De agentdienst herstarten                                                    |
@@ -179,7 +179,7 @@ Voor procescontroles:
 - Controleer of de agent actief is: `sudo oneuptime-infrastructure-agent status`
 - Bekijk agentlogboeken: `sudo oneuptime-infrastructure-agent logs -n 50`
 - Bevestig dat de geheime sleutel correct is
-- Zorg dat de server de URL van uw OneUptime-instantie kan bereiken
+- Zorg dat de server de URL van uw Cast Operations-instantie kan bereiken
 - Controleer of firewallregels uitgaande HTTPS-verbindingen toestaan
 
 ### Hoog resourcegebruik door agent
@@ -192,7 +192,7 @@ De agent is ontworpen om lichtgewicht te zijn. Als u hoog resourcegebruik opmerk
 ### Proxyproblemen
 
 - Controleer of de proxy-URL en -poort correct zijn
-- Zorg dat de proxy verbindingen met uw OneUptime-instantie toestaat
+- Zorg dat de proxy verbindingen met uw Cast Operations-instantie toestaat
 - Herconfigureer met: `sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
 
 ## Best practices

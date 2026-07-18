@@ -4,7 +4,7 @@ U kunt secrets gebruiken om gevoelige informatie op te slaan die u wilt gebruike
 
 ### Een secret toevoegen
 
-Om een secret toe te voegen, ga naar OneUptime Dashboard -> Projectinstellingen -> Monitor Secrets -> Monitor Secret aanmaken.
+Om een secret toe te voegen, ga naar Cast Operations Dashboard -> Projectinstellingen -> Monitor Secrets -> Monitor Secret aanmaken.
 
 ![Secret aanmaken](/docs/static/images/CreateMonitorSecret.png)
 

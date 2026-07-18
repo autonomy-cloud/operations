@@ -10,7 +10,7 @@ import SeriesResourceLabels, {
 
 /*
  * Ids and names of one resource type that are currently inside an
- * ongoing maintenance window. Ids are OneUptime database ids; names are
+ * ongoing maintenance window. Ids are Cast Operations database ids; names are
  * the resource's identifier column (hostIdentifier / clusterIdentifier /
  * service name). A series matches if it references the resource by
  * either form.

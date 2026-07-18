@@ -1,5 +1,5 @@
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import Cast OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { JSONArray, JSONObject } from "Common/Types/JSON";
 import JSONFunctions from "Common/Types/JSONFunctions";
@@ -793,8 +793,8 @@ export default class BlogPostUtil {
       return null;
     }
     try {
-      const date: Date = OneUptimeDate.getDateFromYYYYMMDD(year, month, day);
-      return OneUptimeDate.getDateAsLocalFormattedString(date, true);
+      const date: Date = Cast OperationsDate.getDateFromYYYYMMDD(year, month, day);
+      return Cast OperationsDate.getDateAsLocalFormattedString(date, true);
     } catch {
       return null;
     }
@@ -849,8 +849,8 @@ export default class BlogPostUtil {
       throw new BadDataException("Invalid file name");
     }
 
-    const date: Date = OneUptimeDate.getDateFromYYYYMMDD(year, month, day);
-    return OneUptimeDate.getDateAsLocalFormattedString(date, true);
+    const date: Date = Cast OperationsDate.getDateFromYYYYMMDD(year, month, day);
+    return Cast OperationsDate.getDateAsLocalFormattedString(date, true);
   }
 
   private static getPostFromMarkdown(markdownContent: string): string {
@@ -912,7 +912,7 @@ export default class BlogPostUtil {
         .find((line: string) => {
           return line.startsWith("#");
         })
-        ?.replace("#", "") || "OneUptime Blog";
+        ?.replace("#", "") || "Cast Operations Blog";
 
     return titleLine;
   }

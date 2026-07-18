@@ -54,7 +54,7 @@ service.name = '{{service}}'
 
 當下拉選單設為 `checkout` 時，圖表會篩選至 checkout 服務。當檢視者切換到 `payments` 時，圖表會針對 payments 重新繪製。
 
-對於 **Telemetry Attribute** 變數，OneUptime 知道該變數對應到哪個屬性，並會將篩選器套用到每個使用相同屬性的小工具——您不必逐一手動編輯每個小工具。
+對於 **Telemetry Attribute** 變數，Cast Operations 知道該變數對應到哪個屬性，並會將篩選器套用到每個使用相同屬性的小工具——您不必逐一手動編輯每個小工具。
 
 ## 時間範圍
 

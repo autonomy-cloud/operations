@@ -1,11 +1,11 @@
 # Microsoft Teams-integration
 
-För att integrera Microsoft Teams med din egeninstallerade OneUptime-instans behöver du konfigurera Azure App Registration och ange de obligatoriska miljövariablerna.
+För att integrera Microsoft Teams med din egeninstallerade Cast Operations-instans behöver du konfigurera Azure App Registration och ange de obligatoriska miljövariablerna.
 
 ## Förutsättningar
 
 - Azure-konto – Du kan skapa ett på [https://azure.com](https://azure.com)
-- Åtkomst till din OneUptime-serverkonfiguration
+- Åtkomst till din Cast Operations-serverkonfiguration
 
 ## Konfigurationsinstruktioner
 
@@ -16,8 +16,8 @@ För att integrera Microsoft Teams med din egeninstallerade OneUptime-instans be
 3. Fyll i registreringsformuläret:
    - **Namn:** oneuptime
    - **Kontotyper som stöds:** Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)
-   - **Redirect URI:** Web – `https://your-oneuptime-domain.com/api/microsoft-teams/auth`
-   - Lägg även till: `https://your-oneuptime-domain.com/api/microsoft-teams/admin-consent/callback`
+   - **Redirect URI:** Web – `https://your-operations-domain.com/api/microsoft-teams/auth`
+   - Lägg även till: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
 4. Klicka på "Register"
 5. Anteckna "Application (client) ID" – du behöver detta senare
 
@@ -65,7 +65,7 @@ För att integrera Microsoft Teams med din egeninstallerade OneUptime-instans be
 3. Klicka på "Review + create" och sedan "Create"
 
 4. När den är distribuerad, gå till din botresurs och navigera till "Configuration"
-5. Ange "Messaging endpoint" till `https://your-oneuptime-domain.com/api/microsoft-bot/messages`
+5. Ange "Messaging endpoint" till `https://your-operations-domain.com/api/microsoft-bot/messages`
 6. Spara konfigurationen
 
 ### Steg 5: Lägg till Microsoft Teams-kanal i boten
@@ -75,7 +75,7 @@ För att integrera Microsoft Teams med din egeninstallerade OneUptime-instans be
 3. Granska inställningarna
 4. Klicka på "Save" för att aktivera Teams-kanalen
 
-### Steg 6: Konfigurera OneUptime-miljövariabler
+### Steg 6: Konfigurera Cast Operations-miljövariabler
 
 #### Docker Compose
 
@@ -98,7 +98,7 @@ microsoftTeamsApp:
    tenantId: YOUR_MICROSOFT_TENANT_ID
 ```
 
-**Viktigt:** Starta om din OneUptime-server efter att du har lagt till dessa miljövariabler för att de ska träda i kraft.
+**Viktigt:** Starta om din Cast Operations-server efter att du har lagt till dessa miljövariabler för att de ska träda i kraft.
 
 ### Steg 7: Ladda upp Teams App Manifest
 
@@ -115,7 +115,7 @@ microsoftTeamsApp:
 Om du stöter på problem:
 
 - Se till att din app har rätt behörigheter beviljade
-- Kontrollera att Redirect URI matchar exakt (ersätt `your-oneuptime-domain.com` med din faktiska domän)
+- Kontrollera att Redirect URI matchar exakt (ersätt `your-operations-domain.com` med din faktiska domän)
 - Verifiera att dina miljövariabler är korrekt angivna
 - Se till att botens meddelandeslutpunkt är tillgänglig från internet
 - Verifiera att boten är korrekt konfigurerad med Teams-kanalen
@@ -123,4 +123,4 @@ Om du stöter på problem:
 
 ## Support
 
-Vi vill förbättra denna integration, så feedback är mer än välkommen. Skicka gärna feedback till [hello@oneuptime.com](mailto:hello@oneuptime.com)
+Vi vill förbättra denna integration, så feedback är mer än välkommen. Skicka gärna feedback till [hello@visca.ai](mailto:hello@visca.ai)

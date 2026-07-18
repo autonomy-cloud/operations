@@ -46,7 +46,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
   singularName: "User",
   pluralName: "Users",
   icon: IconProp.User,
-  tableDescription: "A signed up or invited OneUptime user.",
+  tableDescription: "A signed up or invited Cast Operations user.",
 })
 @CurrentUserCanAccessRecordBy("_id")
 class User extends UserModel {
@@ -695,7 +695,7 @@ class User extends UserModel {
     title: "Created by User",
     modelType: User,
     description:
-      "Relation to the User who created (invited) this user, if this user was invited to OneUptime by another user.",
+      "Relation to the User who created (invited) this user, if this user was invited to Cast Operations by another user.",
   })
   @ManyToOne(
     () => {
@@ -721,7 +721,7 @@ class User extends UserModel {
     type: TableColumnType.ObjectID,
     title: "Created by User ID",
     description:
-      "User ID who created (invited) this user, if this user was invited to OneUptime by another user.",
+      "User ID who created (invited) this user, if this user was invited to Cast Operations by another user.",
     example: "b2c3d4e5-f6a7-8901-bcde-f12345678901",
   })
   @Column({

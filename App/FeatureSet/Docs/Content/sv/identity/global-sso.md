@@ -1,8 +1,8 @@
 # Global SSO (Instansövergripande Single Sign-On)
 
-Global SSO låter en OneUptime **instansadministratör** (master admin) konfigurera en enda SAML 2.0- eller OpenID Connect (OIDC)-identitetsleverantör **en gång på instansnivå** och ansluta den till valfritt projekt på servern. Det är den instansövergripande motsvarigheten till SSO per projekt: istället för att varje projektägare konfigurerar sin egen identitetsleverantör, sätter en master admin upp en som kan betjäna hela instansen.
+Global SSO låter en Cast Operations **instansadministratör** (master admin) konfigurera en enda SAML 2.0- eller OpenID Connect (OIDC)-identitetsleverantör **en gång på instansnivå** och ansluta den till valfritt projekt på servern. Det är den instansövergripande motsvarigheten till SSO per projekt: istället för att varje projektägare konfigurerar sin egen identitetsleverantör, sätter en master admin upp en som kan betjäna hela instansen.
 
-Global SSO är en funktion i **OneUptime Enterprise Edition** och är endast tillgänglig på instanser som kör Enterprise Edition-bygget.
+Global SSO is included in every Cast Operations installation; no license or plan is required.
 
 ## Global SSO jämfört med Project SSO
 
@@ -24,7 +24,7 @@ Global SSO är en funktion i **OneUptime Enterprise Edition** och är endast til
    - För SAML: ange ett **Name**, **Sign On URL** och **Issuer** från din identitetsleverantör, och klistra in **Public Certificate**. Välj **Signature**- och **Digest**-metoderna (behåll standardvärdena — `RSA-SHA256` / `SHA256` — om du är osäker).
    - För OIDC: ange **Discovery URL**, **Issuer**, **Client ID**, **Client Secret**, **Scopes** (måste inkludera `openid`), och claim-namnen för **email** / **name**.
 
-3. **Kopiera OneUptime-URL:erna till din identitetsleverantör**
+3. **Kopiera Cast Operations-URL:erna till din identitetsleverantör**
 
    - Öppna leverantören (klicka på dess rad i listan) för att visa kortet **Identity Provider URLs**.
    - För SAML, kopiera **ACS URL (Reply URL)** och **Issuer (Entity ID)** till din IdP (Okta, Azure AD, OneLogin, JumpCloud med flera).

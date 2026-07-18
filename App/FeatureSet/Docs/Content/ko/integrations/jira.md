@@ -1,18 +1,18 @@
 # Jira 통합
 
-OneUptime 인시던트가 생성될 때마다 자동으로 [Jira](https://www.atlassian.com/software/jira) 이슈를 열어 — 개발자들이 이미 사용하는 곳에서 엔지니어링 작업을 추적하고, 인시던트로 돌아오는 링크도 유지합니다.
+Cast Operations 인시던트가 생성될 때마다 자동으로 [Jira](https://www.atlassian.com/software/jira) 이슈를 열어 — 개발자들이 이미 사용하는 곳에서 엔지니어링 작업을 추적하고, 인시던트로 돌아오는 링크도 유지합니다.
 
-이 통합은 **아웃바운드**: OneUptime이 Jira의 REST API를 호출합니다. **Incident → On Create** 트리거와 **API 컴포넌트** 를 갖춘 OneUptime **[Workflow](/docs/workflows/index)** 를 사용합니다. 선택적으로 Jira 이슈를 닫으면 OneUptime 인시던트도 해결되는 **인바운드** 경로를 추가할 수 있습니다.
+이 통합은 **아웃바운드**: Cast Operations이 Jira의 REST API를 호출합니다. **Incident → On Create** 트리거와 **API 컴포넌트** 를 갖춘 Cast Operations **[Workflow](/docs/workflows/index)** 를 사용합니다. 선택적으로 Jira 이슈를 닫으면 Cast Operations 인시던트도 해결되는 **인바운드** 경로를 추가할 수 있습니다.
 
 ```text
-OneUptime Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
+Cast Operations Incident → On Create  ──►  API component (POST /rest/api/3/issue)  ──►  Jira issue
 ```
 
 ## 사전 요건
 
 - Jira Cloud 사이트(`https://your-domain.atlassian.net`)와 이슈를 제출할 프로젝트 — **프로젝트 키** 를 확인해 두세요(예: `OPS`).
 - 이슈를 만들 수 있는 Jira 계정과 [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens)에서 발급한 **API 토큰**.
-- 워크플로를 만들 수 있는 OneUptime 프로젝트.
+- 워크플로를 만들 수 있는 Cast Operations 프로젝트.
 
 > **Jira Data Center / Server (자체 관리형)** 를 사용하고 있나요? 흐름은 동일합니다 — 자체 기본 URL을 사용하고 Basic 인증 대신 `Bearer` 인증 헤더와 함께 [개인 액세스 토큰](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html)을 사용하세요. `/rest/api/2/issue` 엔드포인트는 일반 텍스트 설명을 허용하므로 템플릿 작성이 더 간단합니다.
 
@@ -26,7 +26,7 @@ Jira Cloud는 이메일과 API 토큰을 base64 인코딩한 **Basic 인증** �
    printf '%s' 'you@example.com:your_api_token' | base64
    ```
 
-2. OneUptime에서 **Workflows → Global Variables → Create** 로 이동합니다.
+2. Cast Operations에서 **Workflows → Global Variables → Create** 로 이동합니다.
 3. 이름을 `JIRA_AUTH` 로 지정하고 base64 문자열을 값으로 붙여넣고 **Is Secret** 를 켭니다.
 
 이제 `Basic {{variable.JIRA_AUTH}}` 를 인증 헤더로 사용할 수 있으며, 토큰은 워크플로나 로그에 절대 노출되지 않습니다.
@@ -53,7 +53,7 @@ Jira Cloud는 이메일과 API 토큰을 base64 인코딩한 **Basic 인증** �
        "fields": {
          "project": { "key": "OPS" },
          "issuetype": { "name": "Bug" },
-         "summary": "OneUptime incident: {{Incident.title}}",
+         "summary": "Cast Operations incident: {{Incident.title}}",
          "description": {
            "type": "doc",
            "version": 1,
@@ -77,7 +77,7 @@ Jira Cloud는 이메일과 API 토큰을 base64 인코딩한 **Basic 인증** �
 ## 3단계 — 테스트
 
 1. 워크플로 **Enabled** 를 켭니다.
-2. OneUptime에서 테스트 인시던트를 만듭니다(또는 모니터에서 하나 트리거합니다).
+2. Cast Operations에서 테스트 인시던트를 만듭니다(또는 모니터에서 하나 트리거합니다).
 3. 워크플로의 **Logs** 탭을 엽니다. **API** 블록에서 `201` 상태와 새 이슈의 `key` 가 포함된 응답 본문(예: `OPS-1234`)을 확인합니다.
 4. Jira를 확인합니다 — 이슈가 생성되어 있습니다.
 
@@ -94,13 +94,13 @@ API 블록에서 오류가 반환되면 로그에서 확장합니다 — Jira의
 
 ## 양방향 동기화 (선택 사항)
 
-누군가 Jira 이슈를 닫으면 OneUptime 인시던트도 해결되도록 하려면 **인바운드** 워크플로를 추가합니다:
+누군가 Jira 이슈를 닫으면 Cast Operations 인시던트도 해결되도록 하려면 **인바운드** 워크플로를 추가합니다:
 
 1. **Webhook** 트리거로 시작하는 두 번째 워크플로를 만들고 URL을 복사합니다.
 2. Jira에서 **Project settings → Automation → Create rule** 로 이동합니다:
 
    - **트리거**: _Issue transitioned_ to **Done** (또는 _Issue resolved_).
-   - **액션**: _Send web request_ → 방식 `POST`, URL = 워크플로 webhook URL, 본문에 이슈 키와 OneUptime 인시던트 id 포함, 예:
+   - **액션**: _Send web request_ → 방식 `POST`, URL = 워크플로 webhook URL, 본문에 이슈 키와 Cast Operations 인시던트 id 포함, 예:
 
      ```json
      { "issueKey": "{{issue.key}}", "status": "resolved" }
@@ -108,13 +108,13 @@ API 블록에서 오류가 반환되면 로그에서 확장합니다 — Jira의
 
 3. 워크플로에서 **Find Incident** 블록을 사용해 저장된 키로 인시던트를 찾고, **Update Incident** 블록으로 해결 상태로 이동합니다.
 
-4단계에서 인시던트에 Jira 키를 저장했다면 매칭이 간단합니다. [컴포넌트 → OneUptime 데이터 컴포넌트](/docs/workflows/components#oneuptime-data-components)를 참조하시기 바랍니다.
+4단계에서 인시던트에 Jira 키를 저장했다면 매칭이 간단합니다. [컴포넌트 → Cast Operations 데이터 컴포넌트](/docs/workflows/components#oneuptime-data-components)를 참조하시기 바랍니다.
 
 ## 이슈 커스터마이징
 
 API 블록 본문에 대한 몇 가지 일반적인 조정:
 
-- **Priority** — `fields` 안에 `"priority": { "name": "High" }` 를 추가합니다. **Conditions** 를 사용해 `{{Incident.incidentSeverity.name}}` 으로 분기하여 OneUptime 심각도를 Jira 우선순위로 매핑할 수 있습니다.
+- **Priority** — `fields` 안에 `"priority": { "name": "High" }` 를 추가합니다. **Conditions** 를 사용해 `{{Incident.incidentSeverity.name}}` 으로 분기하여 Cast Operations 심각도를 Jira 우선순위로 매핑할 수 있습니다.
 - **Labels** — `"labels": ["oneuptime", "incident"]` 를 추가합니다.
 - **Assignee** — `"assignee": { "id": "<accountId>" }` 를 추가합니다(Jira Cloud는 사용자 이름 대신 계정 ID를 사용합니다).
 - **커스텀 필드** — Jira 관리자에서 필드 ID를 사용해 `"customfield_XXXXX": "..."` 를 추가합니다.

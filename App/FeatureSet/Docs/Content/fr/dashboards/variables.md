@@ -54,7 +54,7 @@ service.name = '{{service}}'
 
 Lorsque la liste déroulante est réglée sur `checkout`, le graphique est filtré sur le service checkout. Quand le visiteur passe à `payments`, le graphique se réaffiche pour payments.
 
-Pour les variables **Telemetry Attribute**, OneUptime sait quel attribut la variable cible et applique le filtre à chaque widget qui utilise le même attribut — vous n'avez pas à modifier chaque widget à la main.
+Pour les variables **Telemetry Attribute**, Cast Operations sait quel attribut la variable cible et applique le filtre à chaque widget qui utilise le même attribut — vous n'avez pas à modifier chaque widget à la main.
 
 ## Plage temporelle
 

@@ -1,6 +1,6 @@
 # IP Monitor
 
-IP monitoring allows you to monitor the availability and responsiveness of any IPv4 or IPv6 address. OneUptime periodically tests connectivity to the target IP address and reports its status.
+IP monitoring allows you to monitor the availability and responsiveness of any IPv4 or IPv6 address. Cast Operations periodically tests connectivity to the target IP address and reports its status.
 
 ## Overview
 
@@ -13,7 +13,7 @@ IP monitors verify that a specific IP address is reachable and responsive. This 
 
 ## Creating an IP Monitor
 
-1. Go to **Monitors** in the OneUptime Dashboard
+1. Go to **Monitors** in the Cast Operations Dashboard
 2. Click **Create Monitor**
 3. Select **IP** as the monitor type
 4. Enter the IP address you want to monitor

@@ -1,6 +1,6 @@
 # Ekstern statussidemonitor
 
-Overvåking av eksterne statussider lar deg overvåke tredjeparts statussider og bli varslet når tjenester du er avhengig av opplever nedetid eller degradert ytelse. OneUptime sjekker periodisk eksterne statussider (som AWS, GCP, Azure, GitHub, OpenAI, Anthropic og mer) og evaluerer statusen deres.
+Overvåking av eksterne statussider lar deg overvåke tredjeparts statussider og bli varslet når tjenester du er avhengig av opplever nedetid eller degradert ytelse. Cast Operations sjekker periodisk eksterne statussider (som AWS, GCP, Azure, GitHub, OpenAI, Anthropic og mer) og evaluerer statusen deres.
 
 ## Oversikt
 
@@ -15,7 +15,7 @@ Monitorer for eksterne statussider sjekker helsen til tjenester du er avhengig a
 
 ## Støttede leverandører
 
-OneUptime støtter overvåking av statussider via følgende metoder:
+Cast Operations støtter overvåking av statussider via følgende metoder:
 
 | Leverandørtype           | Beskrivelse                                                        |
 | ------------------------ | ----------------------------------------------------------------- |
@@ -27,7 +27,7 @@ OneUptime støtter overvåking av statussider via følgende metoder:
 
 ### Automatisk oppdagelse
 
-Når det er satt til **Auto**, vil OneUptime forsøke å oppdage formatet til statussiden automatisk, i denne rekkefølgen:
+Når det er satt til **Auto**, vil Cast Operations forsøke å oppdage formatet til statussiden automatisk, i denne rekkefølgen:
 
 1. Først prøver den incident.io-statussidens API (`/proxy/<host>`)
 2. Deretter prøver den Atlassian Statuspage JSON API (`/api/v2/status.json`, `/api/v2/components.json` og `/api/v2/incidents/unresolved.json`)
@@ -38,7 +38,7 @@ Når det er satt til **Auto**, vil OneUptime forsøke å oppdage formatet til st
 
 ## Opprette en ekstern statussidemonitor
 
-1. Gå til **Monitors** i OneUptime-dashbordet
+1. Gå til **Monitors** i Cast Operations-dashbordet
 2. Klikk **Create Monitor**
 3. Velg **External Status Page** som monitortype
 4. Skriv inn URL-en til statussiden du ønsker å overvåke
@@ -55,7 +55,7 @@ Skriv inn URL-en til den eksterne statussiden du ønsker å overvåke. For Atlas
 
 ### Leverandørtype
 
-Velg leverandørtype for statussiden. Bruk **Auto** (standard) for å la OneUptime oppdage formatet automatisk, eller spesifiser **Atlassian Statuspage**, **incident.io**, **RSS** eller **Atom** hvis du kjenner den.
+Velg leverandørtype for statussiden. Bruk **Auto** (standard) for å la Cast Operations oppdage formatet automatisk, eller spesifiser **Atlassian Statuspage**, **incident.io**, **RSS** eller **Atom** hvis du kjenner den.
 
 ### Komponentgruppefilter
 
@@ -93,7 +93,7 @@ Du kan konfigurere kriterier for å bestemme når den eksterne tjenesten anses s
 
 ### Standardkriterier
 
-Som standard oppretter OneUptime kriterier basert på det som faktisk betyr noe for en statusside — dens aktive hendelser og komponenthelse, snarere enn ren tilgjengelighet:
+Som standard oppretter Cast Operations kriterier basert på det som faktisk betyr noe for en statusside — dens aktive hendelser og komponenthelse, snarere enn ren tilgjengelighet:
 
 - Monitoren merkes som **Operational** når det ikke finnes noen aktive hendelser innenfor omfanget.
 - Monitoren merkes som **Down** (og en hendelse opprettes) når det finnes minst én aktiv hendelse innenfor omfanget, eller når en komponent innenfor omfanget rapporterer `degraded_performance`, `partial_outage`, `major_outage` eller `full_outage`.

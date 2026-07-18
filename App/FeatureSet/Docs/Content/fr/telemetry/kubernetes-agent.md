@@ -1,8 +1,8 @@
-# Agent Kubernetes OneUptime (Helm)
+# Agent Kubernetes Cast Operations (Helm)
 
 ## Aperçu
 
-L'agent Kubernetes OneUptime est un chart Helm préconçu qui installe un pipeline de collecte basé sur OpenTelemetry sur votre cluster. Il fournit les métriques de nœuds, de pods, de conteneurs et de cluster ; les événements Kubernetes ; les journaux de pods ; et — avec eBPF activé par défaut — les traces d'applications, les métriques HTTP RED, les données de graphe de services et les métriques de flux réseau de pod à pod. Aucune modification de code, aucun SDK, un seul `helm install`.
+L'agent Kubernetes Cast Operations est un chart Helm préconçu qui installe un pipeline de collecte basé sur OpenTelemetry sur votre cluster. Il fournit les métriques de nœuds, de pods, de conteneurs et de cluster ; les événements Kubernetes ; les journaux de pods ; et — avec eBPF activé par défaut — les traces d'applications, les métriques HTTP RED, les données de graphe de services et les métriques de flux réseau de pod à pod. Aucune modification de code, aucun SDK, un seul `helm install`.
 
 Cette page est le **guide d'installation**. Pour configurer des moniteurs et des alertes Kubernetes par-dessus les données collectées par l'agent, consultez [Agent Kubernetes (moniteurs)](/docs/monitor/kubernetes-agent).
 
@@ -11,12 +11,12 @@ Cette page est le **guide d'installation**. Pour configurer des moniteurs et des
 - Un cluster Kubernetes en cours d'exécution (v1.23+)
 - `kubectl` configuré pour accéder à votre cluster
 - `helm` v3 installé
-- Une **clé d'API OneUptime** — créez-en une depuis _Project Settings → API Keys_
+- Une **clé d'API Cast Operations** — créez-en une depuis _Project Settings → API Keys_
 
-## Étape 1 — Ajouter le dépôt Helm OneUptime
+## Étape 1 — Ajouter le dépôt Helm Cast Operations
 
 ```bash
-helm repo add oneuptime https://helm-chart.oneuptime.com
+helm repo add oneuptime https://helm-chart.visca.ai
 helm repo update
 ```
 
@@ -34,7 +34,7 @@ Si vous n'êtes pas sûr, commencez avec `standard`. Si l'installation échoue a
 
 ## Étape 3 — Installer l'agent Kubernetes
 
-Remplacez `YOUR_ONEUPTIME_URL`, `YOUR_ONEUPTIME_API_KEY` et le nom du cluster par les valeurs propres à votre environnement. Le nom du cluster est la façon dont le cluster apparaîtra dans OneUptime — choisissez quelque chose de stable comme `prod-us-east-1`.
+Remplacez `YOUR_ONEUPTIME_URL`, `YOUR_ONEUPTIME_API_KEY` et le nom du cluster par les valeurs propres à votre environnement. Le nom du cluster est la façon dont le cluster apparaîtra dans Cast Operations — choisissez quelque chose de stable comme `prod-us-east-1`.
 
 ### Clusters standard (auto-gérés, EKS sur EC2, GKE Standard, AKS)
 
@@ -105,7 +105,7 @@ kubernetes-agent-xxxxxxxxxx-xxxxx             1/1     Running   0          1m
 kubernetes-agent-logs-yyyyyyyyyy-yyyyy        1/1     Running   0          1m
 ```
 
-Une fois que l'agent se connecte, votre cluster apparaîtra automatiquement dans la section **Kubernetes** du tableau de bord OneUptime.
+Une fois que l'agent se connecte, votre cluster apparaîtra automatiquement dans la section **Kubernetes** du tableau de bord Cast Operations.
 
 ## Options de configuration
 
@@ -231,7 +231,7 @@ Cela conserve une trace sur dix et supprime les neuf autres au niveau de l'agent
 
 **Vos moniteurs basés sur les métriques ne bougent pas.** Les métriques RED d'eBPF — taux de requêtes, taux d'erreurs, durée — constituent une famille de *métriques*. OBI les calcule à partir de chaque requête et elles transitent par le pipeline des métriques, dans lequel l'échantillonneur ne se trouve pas. À `percentage: 10`, vous obtenez un dixième des traces, et un taux de requêtes, un taux d'erreurs et une latence exacts à 100 %. Les tableaux de bord et les moniteurs construits sur ces métriques ne sont pas affectés.
 
-**Vos moniteurs basés sur les spans, eux, bougent.** Tout ce qu'OneUptime dérive des spans eux-mêmes diminue proportionnellement au taux — consultez l'avertissement ci-dessous avant d'activer ceci.
+**Vos moniteurs basés sur les spans, eux, bougent.** Tout ce qu'Cast Operations dérive des spans eux-mêmes diminue proportionnellement au taux — consultez l'avertissement ci-dessous avant d'activer ceci.
 
 | Clé                          | Signification                                                                         |
 | ---------------------------- | ------------------------------------------------------------------------------------- |
@@ -247,7 +247,7 @@ Des remarques qui vous éviteront un incident :
 - **Le multi-cluster fonctionne par défaut.** Deux agents ne conservent la même trace que s'ils s'accordent à la fois sur `hashSeed` et sur `percentage`. Les deux ont partout la même valeur par défaut, de sorte qu'une trace traversant deux clusters survit entière sans aucune configuration supplémentaire. Ne modifiez `hashSeed` que pour *décorréler* délibérément deux niveaux d'échantillonnage — parce que la décision est un seuil sur le même hachage, la même graine à des taux différents s'imbrique : un second niveau se contente donc de re-sélectionner les traces que le premier avait déjà conservées au lieu de tirer indépendamment.
 - **Les journaux de pods ne sont jamais échantillonnés**, de sorte qu'avec `ebpf.logToTraceCorrelation: true`, chaque enregistrement de journal porte toujours un identifiant de trace alors que seulement `percentage` % de ces traces sont conservées. Environ (100 − `percentage`) % des enregistrements de journaux afficheront un lien de trace qui ne mène nulle part. La navigation trace → journaux n'est pas affectée ; seule la navigation journaux → trace peut échouer.
 
-> **Réajustez vos moniteurs basés sur les spans lorsque vous définissez ceci.** L'échantillonnage réduit le nombre de spans qui parviennent à OneUptime, donc tout ce qui les compte en compte moins : un moniteur **Traces** sur `Span Count` et un moniteur **Exceptions** sur `Exception Count` verront environ `percentage` % du volume d'hier. Un seuil réglé sur du trafic non échantillonné cesse silencieusement d'être franchi — le moniteur ne renvoie pas d'erreur, il devient simplement muet. Divisez ces seuils par le même facteur lorsque vous définissez le taux ; le taux s'applique à l'échelle du cluster, il n'existe donc aucun moyen d'en exempter un service en particulier. Le **regroupement** des erreurs se dégrade de façon pire que linéaire : une exception fréquente ressort toujours, mais une exception rare et isolée risque davantage de disparaître entièrement que d'apparaître dix fois moins souvent.
+> **Réajustez vos moniteurs basés sur les spans lorsque vous définissez ceci.** L'échantillonnage réduit le nombre de spans qui parviennent à Cast Operations, donc tout ce qui les compte en compte moins : un moniteur **Traces** sur `Span Count` et un moniteur **Exceptions** sur `Exception Count` verront environ `percentage` % du volume d'hier. Un seuil réglé sur du trafic non échantillonné cesse silencieusement d'être franchi — le moniteur ne renvoie pas d'erreur, il devient simplement muet. Divisez ces seuils par le même facteur lorsque vous définissez le taux ; le taux s'applique à l'échelle du cluster, il n'existe donc aucun moyen d'en exempter un service en particulier. Le **regroupement** des erreurs se dégrade de façon pire que linéaire : une exception fréquente ressort toujours, mais une exception rare et isolée risque davantage de disparaître entièrement que d'apparaître dix fois moins souvent.
 
 > **Pourquoi il n'y a ici aucun échantillonnage des journaux ou des métriques.** L'échantillonneur du collecteur ne sait pas du tout échantillonner les métriques. Il sait échantillonner les journaux, mais il tire son aléa de l'identifiant de trace — et les journaux de pods n'en ont pas. Chaque enregistrement dépourvu d'identifiant de trace est alors haché vers le même compartiment : un taux appliqué aux journaux n'allégerait donc pas le flux, il le conserverait intégralement ou le supprimerait intégralement selon la graine. Plutôt que de livrer un réglage qui supprime silencieusement vos journaux, le chart n'en propose pas. Allégez les journaux avec le [Filtrage par gravité des journaux](#filtrage-par-gravité-des-journaux) et le [Filtrage des espaces de noms](#filtrage-des-espaces-de-noms), qui sont précis sur ce qu'ils suppriment.
 
@@ -330,7 +330,7 @@ oneuptime:
 clusterName: prod
 ```
 
-Les labels sont mis en correspondance sans tenir compte de la casse, de sorte qu'un label `Production` existant créé manuellement est réutilisé plutôt que dupliqué. Les labels ajoutés manuellement dans l'interface OneUptime ne sont jamais supprimés par l'agent.
+Les labels sont mis en correspondance sans tenir compte de la casse, de sorte qu'un label `Production` existant créé manuellement est réutilisé plutôt que dupliqué. Les labels ajoutés manuellement dans l'interface Cast Operations ne sont jamais supprimés par l'agent.
 
 ## Mise à niveau de l'agent
 
@@ -368,7 +368,7 @@ kubectl delete namespace oneuptime-agent
 
 ## Traces d'applications et métriques HTTP via eBPF (activé par défaut)
 
-Le chart exécute un DaemonSet avec [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) sur chaque nœud. Il charge des programmes eBPF dans le noyau et capture automatiquement le trafic HTTP/HTTPS, gRPC et SQL/Redis de chaque runtime pris en charge (Go, .NET, Java, Node.js, Python, Ruby, Rust) — aucun SDK ni sidecar requis. Les traces et les métriques de requêtes transitent ensuite par le collecteur intra-cluster vers OneUptime.
+Le chart exécute un DaemonSet avec [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) sur chaque nœud. Il charge des programmes eBPF dans le noyau et capture automatiquement le trafic HTTP/HTTPS, gRPC et SQL/Redis de chaque runtime pris en charge (Go, .NET, Java, Node.js, Python, Ruby, Rust) — aucun SDK ni sidecar requis. Les traces et les métriques de requêtes transitent ensuite par le collecteur intra-cluster vers Cast Operations.
 
 **Exigences :** noyau Linux **5.8+** avec BTF (par défaut sur Debian 11+, Ubuntu 20.10+, Fedora 34+, RHEL/Stream 9+). Le DaemonSet eBPF s'exécute en **mode privilégié** parce qu'il le doit, pour charger les programmes eBPF.
 
@@ -408,7 +408,7 @@ La propagation du contexte de trace entre services est également activée par d
 
 ## Réduction du volume de données collectées
 
-Par défaut, l'agent est réglé pour la **couverture** — il fournit les métriques, les journaux de pods et les traces eBPF de l'ensemble du cluster afin que chaque tableau de bord et chaque moniteur fonctionne dès le premier jour. Sur les clusters volumineux ou très sollicités, cela peut représenter plus de télémétrie que nécessaire, ce qui se traduit par un volume d'ingestion plus élevé (et, sur OneUptime Cloud, un coût plus élevé). Rien ici n'est obligatoire, mais si un cluster envoie plus que ce que vous souhaitez, voici les leviers à actionner — approximativement par ordre d'impact.
+Par défaut, l'agent est réglé pour la **couverture** — il fournit les métriques, les journaux de pods et les traces eBPF de l'ensemble du cluster afin que chaque tableau de bord et chaque moniteur fonctionne dès le premier jour. Sur les clusters volumineux ou très sollicités, cela peut représenter plus de télémétrie que nécessaire, ce qui se traduit par un volume d'ingestion plus élevé (et, sur Cast Operations Cloud, un coût plus élevé). Rien ici n'est obligatoire, mais si un cluster envoie plus que ce que vous souhaitez, voici les leviers à actionner — approximativement par ordre d'impact.
 
 L'astuce consiste à **cesser de collecter ce que vous ne consulterez pas**, plutôt que de tout collecter et de payer pour le stocker. Chaque levier ci-dessous est une valeur Helm, vous pouvez donc l'appliquer avec `--set` sur `helm upgrade --reuse-values` et l'annuler de la même manière.
 
@@ -428,7 +428,7 @@ Il existe trois façons de réduire le volume, et il vaut la peine de savoir laq
 - **Au niveau du processeur de filtrage** — les données sont collectées, puis supprimées avant l'export. `filters.logs.minSeverity`, `filters.metrics.*`, `namespaceFilters.rules` (`metrics`/`traces`). Un peu plus de CPU pour le collecteur, mais cela fonctionne à travers les récepteurs et permet d'exprimer des choses qu'un récepteur ne peut pas.
 - **Au niveau de l'échantillonneur** — les données sont collectées, puis une fraction représentative est conservée. `sampling.traces.percentage`. C'est l'exception : les deux options ci-dessus suppriment toute une *catégorie* de télémétrie, de sorte que ce qu'elles suppriment disparaît de chaque trace. L'échantillonnage conserve chaque catégorie et allège la population, de sorte que ce qui survit reste complet et représentatif.
 
-Les trois sont **irréversibles** : ce que vous supprimez ici n'atteint jamais OneUptime, et les trois peuvent rendre un moniteur muet. Les deux premières font taire un moniteur en supprimant le signal qu'il surveille. L'échantillonnage est plus restreint : les métriques RED d'eBPF sont calculées avant que l'échantillonneur ne s'exécute, les moniteurs basés sur les métriques restent donc exacts — mais les moniteurs qui comptent des *spans* (Traces sur `Span Count`, Exceptions sur `Exception Count`) en voient proportionnellement moins et nécessitent un réajustement de leurs seuils selon le même facteur. Si vous préférez décider plus tard, OneUptime peut à la place supprimer les données côté serveur (**Logs → Settings → Drop Filters**, **Metrics → Settings → Pipeline Rules**) — cela coûte toujours du trafic sortant, mais c'est un réglage que vous pouvez modifier sans redéploiement.
+Les trois sont **irréversibles** : ce que vous supprimez ici n'atteint jamais Cast Operations, et les trois peuvent rendre un moniteur muet. Les deux premières font taire un moniteur en supprimant le signal qu'il surveille. L'échantillonnage est plus restreint : les métriques RED d'eBPF sont calculées avant que l'échantillonneur ne s'exécute, les moniteurs basés sur les métriques restent donc exacts — mais les moniteurs qui comptent des *spans* (Traces sur `Span Count`, Exceptions sur `Exception Count`) en voient proportionnellement moins et nécessitent un réajustement de leurs seuils selon le même facteur. Si vous préférez décider plus tard, Cast Operations peut à la place supprimer les données côté serveur (**Logs → Settings → Drop Filters**, **Metrics → Settings → Pipeline Rules**) — cela coûte toujours du trafic sortant, mais c'est un réglage que vous pouvez modifier sans redéploiement.
 
 ### Levier 1 — Les journaux de pods sont généralement la plus grande source
 
@@ -454,7 +454,7 @@ Les journaux de conteneurs constituent presque toujours la plus grande part de l
 
   Consultez [Filtrage par gravité des journaux](#filtrage-par-gravité-des-journaux) pour savoir comment la gravité est déterminée et ce qu'il advient des journaux qu'elle ne parvient pas à classifier.
 
-- **Vous n'avez pas du tout besoin des journaux de pods dans OneUptime ?** Désactivez-les :
+- **Vous n'avez pas du tout besoin des journaux de pods dans Cast Operations ?** Désactivez-les :
 
   ```bash
   helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
@@ -644,10 +644,10 @@ L'utilisation de la télémétrie est agrégée par jour, alors observez la tend
 
 ## Dépannage
 
-> **Chemin le plus rapide — exécutez le script de diagnostic.** Il inspecte la santé des pods, décode et valide la clé d'ingestion, vérifie que votre cluster peut atteindre OneUptime, et demande à OneUptime si votre jeton est réellement accepté — puis affiche un seul verdict de cause racine :
+> **Chemin le plus rapide — exécutez le script de diagnostic.** Il inspecte la santé des pods, décode et valide la clé d'ingestion, vérifie que votre cluster peut atteindre Cast Operations, et demande à Cast Operations si votre jeton est réellement accepté — puis affiche un seul verdict de cause racine :
 >
 > ```bash
-> curl -fsSL https://raw.githubusercontent.com/OneUptime/oneuptime/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
+> curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
 >   | bash -s -- -n oneuptime-agent
 > ```
 >
@@ -672,10 +672,10 @@ La raison la plus courante — en particulier après une réinstallation — est
 
 1. Vérifiez que les pods de l'agent sont en cours d'exécution : `kubectl get pods -n oneuptime-agent`
 2. Vérifiez les journaux du metrics-collector : `kubectl logs -n oneuptime-agent -l component=metrics-collector -c otel-collector` (l'absence d'erreurs ici ne signifie **pas** que les données arrivent — voir ci-dessus)
-3. **Validez la clé d'ingestion.** Demandez directement à OneUptime si votre jeton est accepté (`200` = valide, `401` = inconnu/révoqué) :
+3. **Validez la clé d'ingestion.** Demandez directement à Cast Operations si votre jeton est accepté (`200` = valide, `401` = inconnu/révoqué) :
 
    ```bash
-   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://oneuptime.com/otlp/v1/validate
+   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
    ```
 
    S'il renvoie `401`, la clé de votre version est incorrecte ou a été révoquée. Copiez une clé active depuis _Project Settings → Telemetry Ingestion Keys_ et redéployez :
@@ -686,7 +686,7 @@ La raison la plus courante — en particulier après une réinstallation — est
      --set oneuptime.apiKey=<LIVE_KEY>
    ```
 
-4. Vérifiez que votre URL OneUptime est correcte et que votre cluster peut l'atteindre sur le réseau.
+4. Vérifiez que votre URL Cast Operations est correcte et que votre cluster peut l'atteindre sur le réseau.
 5. Si vous avez modifié `clusterName` lors de la réinstallation, l'agent apparaît comme un **nouveau** cluster — l'ancienne entrée reste « Disconnected » (c'est attendu ; elle est obsolète).
 
 ### Aucun journal n'apparaît (mode API uniquement)
@@ -719,7 +719,7 @@ Causes courantes :
 
 1. Confirmez que le DaemonSet eBPF est sain : `kubectl get pods -n oneuptime-agent -l component=ebpf-instrument`
 2. Activez l'imprimeur de traces de débogage pour confirmer qu'OBI capture le trafic : `--set ebpf.printTraces=true --set ebpf.logLevel=debug`, puis vérifiez `kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200`
-3. Si vous voyez des spans dans la sortie standard d'OBI mais pas dans le tableau de bord, le problème vient de l'export collecteur → OneUptime — vérifiez les journaux du pod metrics-collector.
+3. Si vous voyez des spans dans la sortie standard d'OBI mais pas dans le tableau de bord, le problème vient de l'export collecteur → Cast Operations — vérifiez les journaux du pod metrics-collector.
 
 ## Étapes suivantes
 

@@ -1,6 +1,6 @@
 # Monitor de páginas de estado externas
 
-El monitoreo de páginas de estado externas te permite supervisar las páginas de estado de terceros y recibir alertas cuando los servicios de los que dependes sufren interrupciones o rendimiento degradado. OneUptime verifica periódicamente las páginas de estado externas (como AWS, GCP, Azure, GitHub, OpenAI, Anthropic y más) y evalúa su estado.
+El monitoreo de páginas de estado externas te permite supervisar las páginas de estado de terceros y recibir alertas cuando los servicios de los que dependes sufren interrupciones o rendimiento degradado. Cast Operations verifica periódicamente las páginas de estado externas (como AWS, GCP, Azure, GitHub, OpenAI, Anthropic y más) y evalúa su estado.
 
 ## Información general
 
@@ -15,7 +15,7 @@ Los monitores de páginas de estado externas verifican el estado de los servicio
 
 ## Proveedores admitidos
 
-OneUptime admite el monitoreo de páginas de estado a través de los siguientes métodos:
+Cast Operations admite el monitoreo de páginas de estado a través de los siguientes métodos:
 
 | Tipo de proveedor               | Descripción                                                       |
 | ------------------------------- | ----------------------------------------------------------------- |
@@ -27,7 +27,7 @@ OneUptime admite el monitoreo de páginas de estado a través de los siguientes 
 
 ### Detección automática
 
-Cuando se establece en **Automático**, OneUptime intentará detectar el formato de la página de estado automáticamente, en este orden:
+Cuando se establece en **Automático**, Cast Operations intentará detectar el formato de la página de estado automáticamente, en este orden:
 
 1. Primero, prueba la API de página de estado de incident.io (`/proxy/<host>`)
 2. A continuación, prueba la API JSON de Atlassian Statuspage (`/api/v2/status.json`, `/api/v2/components.json` y `/api/v2/incidents/unresolved.json`)
@@ -38,7 +38,7 @@ Cuando se establece en **Automático**, OneUptime intentará detectar el formato
 
 ## Creación de un monitor de páginas de estado externas
 
-1. Ve a **Monitores** en el panel de OneUptime
+1. Ve a **Monitores** en el panel de Cast Operations
 2. Haz clic en **Crear monitor**
 3. Selecciona **Página de estado externa** como tipo de monitor
 4. Ingresa la URL de la página de estado que deseas monitorear
@@ -55,7 +55,7 @@ Ingresa la URL de la página de estado externa que deseas monitorear. Para sitio
 
 ### Tipo de proveedor
 
-Selecciona el tipo de proveedor para la página de estado. Usa **Automático** (predeterminado) para que OneUptime detecte el formato automáticamente, o especifica **Atlassian Statuspage**, **incident.io**, **RSS** o **Atom** si ya lo conoces.
+Selecciona el tipo de proveedor para la página de estado. Usa **Automático** (predeterminado) para que Cast Operations detecte el formato automáticamente, o especifica **Atlassian Statuspage**, **incident.io**, **RSS** o **Atom** si ya lo conoces.
 
 ### Filtro de grupo de componentes
 
@@ -93,7 +93,7 @@ Puedes configurar criterios para determinar cuándo el servicio externo se consi
 
 ### Criterios predeterminados
 
-De forma predeterminada, OneUptime genera criterios basados en lo que realmente importa para una página de estado: sus incidentes activos y el estado de sus componentes, en lugar de la mera accesibilidad:
+De forma predeterminada, Cast Operations genera criterios basados en lo que realmente importa para una página de estado: sus incidentes activos y el estado de sus componentes, en lugar de la mera accesibilidad:
 
 - El monitor se marca como **Operativo** cuando no hay incidentes activos en el alcance.
 - El monitor se marca como **Fuera de línea** (y se crea un incidente) cuando hay al menos un incidente activo en el alcance, o cuando un componente en el alcance informa `degraded_performance`, `partial_outage`, `major_outage` o `full_outage`.

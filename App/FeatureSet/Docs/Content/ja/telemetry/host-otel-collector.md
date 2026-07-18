@@ -2,7 +2,7 @@
 
 ## 概要
 
-**OpenTelemetry Collector** を Linux、macOS、Windows の各ホスト上でサービスとして直接実行し、ホストのテレメトリを OTLP 経由で OneUptime へ送信できます。このページでは、コレクターのインストール、OS ごとの設定、そして収集したい内容に応じた適切なレシーバーの選択について順を追って説明します。
+**OpenTelemetry Collector** を Linux、macOS、Windows の各ホスト上でサービスとして直接実行し、ホストのテレメトリを OTLP 経由で Cast Operations へ送信できます。このページでは、コレクターのインストール、OS ごとの設定、そして収集したい内容に応じた適切なレシーバーの選択について順を追って説明します。
 
 - すべての OS での**ホストメトリクス**（CPU、メモリ、ディスク、ファイルシステム、ネットワーク、ロード、プロセス）
 - [`filelogreceiver`](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/filelogreceiver) による `/var/log/**` 配下の**ファイルベースのログ**（Linux、macOS）
@@ -11,11 +11,11 @@
 - [`windowseventlogreceiver`](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/windowseventlogreceiver) による **Windows イベントログ**
 - [`windowsservicereceiver`](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/windowsservicereceiver) による **Windows サービスのステータス**（ホストの **Services** タブを支えます） — アップストリームの `otelcol-contrib` ビルドに **v0.155.0** 以降で同梱されています（下記の「Windows サービス（メトリクス）」を参照）
 
-> **OneUptime Infrastructure Agent はどうなのか？** そのエージェントは、基本的なメトリクスと _Server / VM Monitor_ 機能（ステータス、プロセス、アラート）に特化した、独立した軽量の Go デーモンです。ここで説明している OpenTelemetry Collector はそれとは独立しており、ログ（ファイルログ、journald、Windows イベントログ）やより充実したホストメトリクスを標準的な OTLP として取り込みたい場合に適したツールです。両者は同じホスト上で互いに干渉することなく実行できます。
+> **Cast Operations Infrastructure Agent はどうなのか？** そのエージェントは、基本的なメトリクスと _Server / VM Monitor_ 機能（ステータス、プロセス、アラート）に特化した、独立した軽量の Go デーモンです。ここで説明している OpenTelemetry Collector はそれとは独立しており、ログ（ファイルログ、journald、Windows イベントログ）やより充実したホストメトリクスを標準的な OTLP として取り込みたい場合に適したツールです。両者は同じホスト上で互いに干渉することなく実行できます。
 
 ## 前提条件
 
-- **OneUptime Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ から作成し、`x-oneuptime-token` の値をコピーします。
+- **Cast Operations Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ から作成し、`x-oneuptime-token` の値をコピーします。
 - **OpenTelemetry Collector Contrib** ディストリビューション（`otelcol-contrib`）。デフォルトの `otelcol` ビルドには `windowseventlogreceiver`、`journaldreceiver`、`hostmetrics` の追加機能などのレシーバーは**含まれていません** — 必ず `contrib` ディストリビューションを使用してください。Windows の **Services** タブを支える alpha の `windowsservicereceiver` は、**v0.155.0** 以降の `otelcol-contrib` に同梱されているため、最新のリリースをインストールしてください。下記の「Windows サービス（メトリクス）」を参照してください。
 - コレクターをサービスとしてインストールし、（該当する場合は）権限が必要なログソースを読み取るための、ホスト上の Root / Administrator 権限。
 
@@ -94,7 +94,7 @@ tar -xf $tar -C $dest                          # tar.exe ships with Windows 10 1
 | macOS   | `/etc/otelcol-contrib/config.yaml`                    |
 | Windows | `C:\Program Files\otelcol-contrib\config.yaml` |
 
-どの設定も同じ形をしています — 必要なレシーバーを選び、`batch` プロセッサと `resource` プロセッサを追加し、OTLP HTTP 経由で OneUptime にエクスポートします。以下の例では、OS ごとに完全でコピー＆ペースト可能な設定を示し、その後に各レシーバーブロックを順に説明するので、自由に組み合わせられます。
+どの設定も同じ形をしています — 必要なレシーバーを選び、`batch` プロセッサと `resource` プロセッサを追加し、OTLP HTTP 経由で Cast Operations にエクスポートします。以下の例では、OS ごとに完全でコピー＆ペースト可能な設定を示し、その後に各レシーバーブロックを順に説明するので、自由に組み合わせられます。
 
 `YOUR_TELEMETRY_INGESTION_TOKEN` と `service.name` の値は、ご自身の環境に合わせて置き換えてください。
 
@@ -114,14 +114,14 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 - **`batch`** はエクスポート前にレコードをまとめるので、レコードごとに 1 回の HTTP ラウンドトリップを発生させずに済みます。
-- **`resource`** はすべてのレコードに `service.name` を付与します。各マシンを OneUptime 上で独自のテレメトリサービスとして表示したい場合は、ホストごとに異なる値（例: `prod-web-01`）を使用してください。
-- **`otlphttp`** は、取り込みトークンを付与して HTTPS 経由で OneUptime に送信します。
+- **`resource`** はすべてのレコードに `service.name` を付与します。各マシンを Cast Operations 上で独自のテレメトリサービスとして表示したい場合は、ホストごとに異なる値（例: `prod-web-01`）を使用してください。
+- **`otlphttp`** は、取り込みトークンを付与して HTTPS 経由で Cast Operations に送信します。
 
 ### ホストメトリクス（Linux、macOS、Windows）
 
@@ -167,7 +167,7 @@ receivers:
 
 `start_at: end` は、コレクターが起動した時点からの新しい行を意味します。初回実行時に過去分を取り込むには `beginning` に変更してください。コレクターはファイルオフセットを追跡するため、再起動をまたいでも正しく再開します。
 
-**ホストログのスタックトレースを Exceptions に変換する。** OneUptime はエラーおよび致命的（fatal）なログ行を自動的にスキャンしてスタックトレースを検出し、このホストに紐づけて **Exceptions**（Issues）ビューにまとめます — 追加の設定は不要です。これがうまくグループ化されるためには、複数行のスタックトレース（Java、Python、.NET、Ruby）が 1 行ごとに 1 レコードではなく、**1 つの**ログレコードとして到達する必要があります。トレースとそのフレームがまとまったままになるよう、`filelog` レシーバーで複数行の再結合を有効にしてください。
+**ホストログのスタックトレースを Exceptions に変換する。** Cast Operations はエラーおよび致命的（fatal）なログ行を自動的にスキャンしてスタックトレースを検出し、このホストに紐づけて **Exceptions**（Issues）ビューにまとめます — 追加の設定は不要です。これがうまくグループ化されるためには、複数行のスタックトレース（Java、Python、.NET、Ruby）が 1 行ごとに 1 レコードではなく、**1 つの**ログレコードとして到達する必要があります。トレースとそのフレームがまとまったままになるよう、`filelog` レシーバーで複数行の再結合を有効にしてください。
 
 ```yaml
 receivers:
@@ -333,7 +333,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -385,7 +385,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -448,7 +448,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -522,9 +522,9 @@ sudo launchctl list | grep otelcol-contrib
 sc.exe create "otelcol-contrib" `
   binPath= "\"C:\Program Files\otelcol-contrib\otelcol-contrib.exe\" --config=\"C:\Program Files\otelcol-contrib\config.yaml\"" `
   start= auto `
-  DisplayName= "OpenTelemetry Collector (OneUptime)"
+  DisplayName= "OpenTelemetry Collector (Cast Operations)"
 
-sc.exe description "otelcol-contrib" "Collects host telemetry and forwards it to OneUptime over OTLP."
+sc.exe description "otelcol-contrib" "Collects host telemetry and forwards it to Cast Operations over OTLP."
 
 sc.exe start "otelcol-contrib"
 sc.exe query "otelcol-contrib"
@@ -532,18 +532,18 @@ sc.exe query "otelcol-contrib"
 
 サービスはデフォルトで `LocalSystem` の下で実行され、これは `Security` の Windows イベントログチャンネルを読み取るために必要な権限を持っています。
 
-## ステップ 4 — OneUptime で確認する
+## ステップ 4 — Cast Operations で確認する
 
 1. ホスト上で何らかのシグナルを生成します。
    - **Linux / macOS:** `logger "hello from oneuptime"`（syslog / journald に書き込みます）。
-   - **Windows:** 管理者権限のプロンプトから `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO OneUptimeTest /D "hello from oneuptime"`。
-2. OneUptime ダッシュボードで **Telemetry → Services** を開き、設定した `service.name` を選択します。
+   - **Windows:** 管理者権限のプロンプトから `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from oneuptime"`。
+2. Cast Operations ダッシュボードで **Telemetry → Services** を開き、設定した `service.name` を選択します。
 3. **Metrics** を開きます — ホストメトリクス（CPU、メモリ、ファイルシステムなど）が 1 分以内に表示されるはずです。
 4. **Logs** を開きます — ファイルログ / journald のエントリ / Windows イベントログがストリーミングされてくるはずです。検索に役立つ属性には、`log.file.name`、`systemd.unit`、`winlog.channel`、`winlog.event_id`、`winlog.provider.name` などがあります。
 
 ## 収集するデータ量を削減する
 
-コレクターの設定はあなたが所有しているため、ホストから何が送信されるかを正確に決められます — あなたが追加したレシーバーが要求しない限り、何も収集されません。ホストが望む以上のデータを送信している場合（これは取り込み量の増加として、そして OneUptime Cloud ではコストの増加として現れます）、ここで調整します。最も大きな 2 つのレバーは、**どのログソースを tail するか**と、**どのくらいの頻度でメトリクスをスクレイプするか**です。残りは `filter` プロセッサが処理します。
+コレクターの設定はあなたが所有しているため、ホストから何が送信されるかを正確に決められます — あなたが追加したレシーバーが要求しない限り、何も収集されません。ホストが望む以上のデータを送信している場合（これは取り込み量の増加として、そして Cast Operations Cloud ではコストの増加として現れます）、ここで調整します。最も大きな 2 つのレバーは、**どのログソースを tail するか**と、**どのくらいの頻度でメトリクスをスクレイプするか**です。残りは `filter` プロセッサが処理します。
 
 原則は設定そのものと同じです。**実際に見るデータのレシーバーだけを追加し**、その中で削っていきます。以下の各変更は `config.yaml` の編集です — 適用したらコレクターを再起動してください（ステップ 3）。
 
@@ -627,7 +627,7 @@ processors:
         - "severity_number != SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_WARN"
 ```
 
-> **`UNSPECIFIED` のガードを外さないでください。** `SEVERITY_NUMBER_UNSPECIFIED` は `0`、`SEVERITY_NUMBER_WARN` は `13` なので、ガードなしの `severity_number < SEVERITY_NUMBER_WARN` は `0 < 13` となり — **重要度が一度も解析されなかったすべてのレコードに対して真** になります。素の `filelog` レシーバーはログ行から重要度を解析しません。このページの `filelog` の例はいずれも `operators:` を設定していないため、それらのレコードは `severity_number: 0` のままフィルターに到達します。ガードがないと、この条件は `/var/log/syslog`、`/var/log/messages`、`/var/log/auth.log` の **100% を** 黙って削除します — どこにもエラーは出ません。ガードがあれば、分類されていないレコードは保持され、OneUptime に重要度 `Unspecified` として到着するのが見えるので、本当に必要なのは severity パーサーだということが分かります。
+> **`UNSPECIFIED` のガードを外さないでください。** `SEVERITY_NUMBER_UNSPECIFIED` は `0`、`SEVERITY_NUMBER_WARN` は `13` なので、ガードなしの `severity_number < SEVERITY_NUMBER_WARN` は `0 < 13` となり — **重要度が一度も解析されなかったすべてのレコードに対して真** になります。素の `filelog` レシーバーはログ行から重要度を解析しません。このページの `filelog` の例はいずれも `operators:` を設定していないため、それらのレコードは `severity_number: 0` のままフィルターに到達します。ガードがないと、この条件は `/var/log/syslog`、`/var/log/messages`、`/var/log/auth.log` の **100% を** 黙って削除します — どこにもエラーは出ません。ガードがあれば、分類されていないレコードは保持され、Cast Operations に重要度 `Unspecified` として到着するのが見えるので、本当に必要なのは severity パーサーだということが分かります。
 
 ファイルログを重要度で*適切に*フィルターするには、まずレシーバー側で [`severity_parser`](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/pkg/stanza/docs/operators/severity_parser.md) オペレーターを使って重要度を解析し、レコードがフィルターに到達する前に実際のレベルを持つようにします。
 
@@ -699,7 +699,7 @@ service:
       exporters: [otlphttp]
 ```
 
-> **OneUptime が生成した設定を編集していますか?** 上記のパイプラインは、このページの完全な例と対応しています。ダッシュボード（Hosts → Documentation）から取得できる設定は、名前の付け方が異なります。プロセッサは `resourcedetection` と `batch` であり（`resource` プロセッサは **ありません**）、エクスポーターは `otlphttp/oneuptime` です。定義されていないプロセッサを参照すると、コレクターは起動時に `references processor "resource" which is not configured` で停止します。このブロックを上書きで貼り付けるのではなく、すでにあるものにフィルターを追加してください。
+> **Cast Operations が生成した設定を編集していますか?** 上記のパイプラインは、このページの完全な例と対応しています。ダッシュボード（Hosts → Documentation）から取得できる設定は、名前の付け方が異なります。プロセッサは `resourcedetection` と `batch` であり（`resource` プロセッサは **ありません**）、エクスポーターは `otlphttp/oneuptime` です。定義されていないプロセッサを参照すると、コレクターは起動時に `references processor "resource" which is not configured` で停止します。このブロックを上書きで貼り付けるのではなく、すでにあるものにフィルターを追加してください。
 >
 > ```yaml
 > service:
@@ -710,7 +710,7 @@ service:
 >       exporters: [otlphttp/oneuptime]
 > ```
 >
-> `resourcedetection` は残してください — OneUptime は、それが設定する `host.name` / `host.id` を使ってテレメトリをホストに対応付けます。その生成された設定はまた **メトリクス専用** です。自分で追加するまで `logs:` パイプラインを持たないため、`filelog` または `journald` レシーバーを併せて追加するまで、`filter/drop-low-severity` にはフィルターする対象がありません。
+> `resourcedetection` は残してください — Cast Operations は、それが設定する `host.name` / `host.id` を使ってテレメトリをホストに対応付けます。その生成された設定はまた **メトリクス専用** です。自分で追加するまで `logs:` パイプラインを持たないため、`filelog` または `journald` レシーバーを併せて追加するまで、`filter/drop-low-severity` にはフィルターする対象がありません。
 
 > **macOS では、Homebrew ではなくアーカイブ（tarball）を使用してください。** Homebrew の formula は **core** コレクターを同梱していますが、`filter` は contrib 専用のプロセッサです — YAML が正しいかどうかに関わらず、コレクターは起動を拒否します。
 
@@ -744,7 +744,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -760,14 +760,14 @@ service:
 
 > **何を削るかに注意してください。** ログベースのアラートには、ログが到達する必要があります。重要度やチャンネルをフィルターで除外すると、それをキーにしているモニターは沈黙します。モニターが監視しているソースではなく、あなたが対応しないソースを削ってください。一度に 1 つのレバーだけを変更し、次に進む前に **Project Settings → Usage History** で減少を確認してください（使用量は日次で集計されるため、1〜2 日の余裕を見てください）。
 
-## セルフホストの OneUptime
+## セルフホストの Cast Operations
 
-OneUptime をセルフホストしている場合は、エクスポーターを自分のホストに向けます。
+Cast Operations をセルフホストしている場合は、エクスポーターを自分のホストに向けます。
 
 ```yaml
 exporters:
   otlphttp:
-    endpoint: https://your-oneuptime-host.example.com/otlp
+    endpoint: https://your-operations-host.example.com/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
@@ -784,11 +784,11 @@ OpenTelemetry Collector は、標準の `HTTPS_PROXY` / `HTTP_PROXY` / `NO_PROXY
 
 ## トラブルシューティング
 
-- **OneUptime にテレメトリが表示されない**
+- **Cast Operations にテレメトリが表示されない**
   - 詳細な出力を得るために、設定に `service.telemetry.logs.level: debug` を追加してコレクターを再起動します。
   - **Linux / macOS:** `journalctl -u otelcol-contrib -f`（Linux）または `tail -f /var/log/otelcol-contrib.err.log`（macOS）。
   - **Windows:** _Event Viewer → Windows Logs → Application_ でソース `otelcol-contrib` を確認します。
-  - ホストが `https://oneuptime.com/otlp`（またはセルフホストのエンドポイント）に到達できることを確認します。同じマシンから `curl -v https://oneuptime.com/otlp` を実行します。
+  - ホストが `https://visca.ai/otlp`（またはセルフホストのエンドポイント）に到達できることを確認します。同じマシンから `curl -v https://visca.ai/otlp` を実行します。
 - **エクスポーターから HTTP 401 が返る** — 取り込みトークンが無効か失効しています。_Project Settings → Telemetry Ingestion Keys_ から新しいものを生成してください。
 - **`Security` の Windows イベントログでアクセス拒否が返る** — サービスが十分な権限で実行されていません。`LocalSystem`（`sc.exe create` のデフォルト）の下で再作成するか、サービスアカウントに _Manage auditing and security log_（監査とセキュリティログの管理）ユーザー権利を付与してください。
 - **`journald` レシーバーが起動に失敗する** — `journalctl` がコレクターの `PATH` 上にあること、および `/var/log/journal` が存在することを確認してください（存在しない場合は `sudo systemd-tmpfiles --create --prefix /var/log/journal` を実行）。
@@ -798,5 +798,5 @@ OpenTelemetry Collector は、標準の `HTTPS_PROXY` / `HTTP_PROXY` / `NO_PROXY
 
 - 特定のログパターンでアラートを出すために **Logs Monitors** を追加します（例: 5 分間に 5 件を超える `winlog.event_id = 4625` のログオン失敗が発生したらアラートを出す）。
 - ホストメトリクスに対する **Metrics Monitors** を追加します（CPU の飽和、ディスク空き容量の不足、スワップ使用量）。
-- これを [Server / VM Monitor](/docs/monitor/server-monitor) および [OneUptime Infrastructure Agent](/docs/monitor/server-monitor) と組み合わせて、エンドツーエンドのホスト可視性を実現します。
+- これを [Server / VM Monitor](/docs/monitor/server-monitor) および [Cast Operations Infrastructure Agent](/docs/monitor/server-monitor) と組み合わせて、エンドツーエンドのホスト可視性を実現します。
 - 同じ設定を Ansible / Chef / Puppet / Group Policy / Intune / 既存の構成管理ツールを介して、すべてのホストに展開します。

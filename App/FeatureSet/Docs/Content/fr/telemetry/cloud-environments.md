@@ -2,16 +2,16 @@
 
 ## Vue d'ensemble
 
-OneUptime regroupe les ressources de calcul cloud managées dans des **environnements cloud** — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner et Azure App Service. Un environnement est créé par combinaison unique de `cloud.platform` + `cloud.account.id` + `cloud.region`, de sorte qu'un élément comme _« AWS ECS · us-east-1 · 123456789012 »_ constitue une entité unique qui agrège chaque charge de travail qui s'y exécute.
+Cast Operations regroupe les ressources de calcul cloud managées dans des **environnements cloud** — AWS ECS / Fargate, Google Cloud Run, Azure Container Apps / Container Instances, AWS Elastic Beanstalk, AWS App Runner et Azure App Service. Un environnement est créé par combinaison unique de `cloud.platform` + `cloud.account.id` + `cloud.region`, de sorte qu'un élément comme _« AWS ECS · us-east-1 · 123456789012 »_ constitue une entité unique qui agrège chaque charge de travail qui s'y exécute.
 
 Les machines virtuelles brutes (EC2, Compute Engine, Azure VM) restent des **hôtes**, et Kubernetes reste sous **Kubernetes**. Cette vue est spécifiquement dédiée au calcul managé / PaaS.
 
 ## Prérequis
 
-- Un **jeton d'ingestion de télémétrie OneUptime** — créez-en un depuis _Paramètres du projet → Clés d'ingestion de télémétrie_.
+- Un **jeton d'ingestion de télémétrie Cast Operations** — créez-en un depuis _Paramètres du projet → Clés d'ingestion de télémétrie_.
 - Un OpenTelemetry Collector ou un SDK s'exécutant dans ou aux côtés de vos charges de travail.
 
-## Comment OneUptime identifie un environnement
+## Comment Cast Operations identifie un environnement
 
 | Attribut              | Requis  | Objectif                                                                                               |
 | --------------------- | ------- | ------------------------------------------------------------------------------------------------------ |
@@ -39,12 +39,12 @@ Avec un SDK, définissez plutôt `OTEL_RESOURCE_DETECTORS` :
 OTEL_RESOURCE_DETECTORS=env,ecs
 ```
 
-## Étape 2 — Exporter OTLP vers OneUptime
+## Étape 2 — Exporter OTLP vers Cast Operations
 
 ```yaml
 exporters:
   otlphttp/oneuptime:
-    endpoint: https://oneuptime.com/otlp
+    endpoint: https://visca.ai/otlp
     headers:
       x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -64,7 +64,7 @@ service:
       exporters: [otlphttp/oneuptime]
 ```
 
-Si vous hébergez OneUptime vous-même, utilisez `https://YOUR-ONEUPTIME-HOST/otlp`.
+Si vous hébergez Cast Operations vous-même, utilisez `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Ce que vous obtenez
 

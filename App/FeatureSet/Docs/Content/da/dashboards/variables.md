@@ -54,7 +54,7 @@ service.name = '{{service}}'
 
 Når dropdownen er sat til `checkout`, filtrerer diagrammet til checkout-servicen. Når den besøgende skifter til `payments`, rendres diagrammet igen for payments.
 
-For **Telemetry Attribute**-variabler ved OneUptime, hvilken attribut variablen er knyttet til, og anvender filteret på hver widget, der bruger samme attribut — du behøver ikke at redigere hver widget i hånden.
+For **Telemetry Attribute**-variabler ved Cast Operations, hvilken attribut variablen er knyttet til, og anvender filteret på hver widget, der bruger samme attribut — du behøver ikke at redigere hver widget i hånden.
 
 ## Tidsinterval
 

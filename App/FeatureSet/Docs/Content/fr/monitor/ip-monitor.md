@@ -1,6 +1,6 @@
 # Moniteur IP
 
-La surveillance IP vous permet de surveiller la disponibilité et la réactivité de toute adresse IPv4 ou IPv6. OneUptime teste périodiquement la connectivité vers l'adresse IP cible et signale son statut.
+La surveillance IP vous permet de surveiller la disponibilité et la réactivité de toute adresse IPv4 ou IPv6. Cast Operations teste périodiquement la connectivité vers l'adresse IP cible et signale son statut.
 
 ## Vue d'ensemble
 
@@ -13,7 +13,7 @@ Les moniteurs IP vérifient qu'une adresse IP spécifique est accessible et réa
 
 ## Création d'un moniteur IP
 
-1. Allez dans **Moniteurs** dans le tableau de bord OneUptime
+1. Allez dans **Moniteurs** dans le tableau de bord Cast Operations
 2. Cliquez sur **Créer un moniteur**
 3. Sélectionnez **IP** comme type de moniteur
 4. Entrez l'adresse IP que vous souhaitez surveiller

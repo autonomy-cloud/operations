@@ -2,7 +2,7 @@
 
 ## Bash 與 JavaScript 實際如何執行
 
-Bash 與 JavaScript 步驟**絕不會在 OneUptime Worker 上執行**。它們會被分派為工作，交給特定的 [Runbook Agent](/docs/runbooks/agents)——一個你安裝在自有基礎架構主機上的小型程序。
+Bash 與 JavaScript 步驟**絕不會在 Cast Operations Worker 上執行**。它們會被分派為工作，交給特定的 [Runbook Agent](/docs/runbooks/agents)——一個你安裝在自有基礎架構主機上的小型程序。
 
 分派模型：
 
@@ -37,7 +37,7 @@ Runbook 執行會在 `Runbook` BullMQ 佇列上執行。Worker 並行數為 25�
 
 ## 強化注意事項
 
-- **JavaScript 與 Bash** 在你控管的 Runbook Agent 主機上執行，而非在 OneUptime Worker 上。JavaScript 會被包覆在 `isolated-vm` 沙箱中，並搭配一般的前置處理（切斷原型鏈、移除 `Function`/`eval`、凍結內建原型）。Bash 則在 agent 上透過 `bash -c` 執行並施加逾時限制。
+- **JavaScript 與 Bash** 在你控管的 Runbook Agent 主機上執行，而非在 Cast Operations Worker 上。JavaScript 會被包覆在 `isolated-vm` 沙箱中，並搭配一般的前置處理（切斷原型鏈、移除 `Function`/`eval`、凍結內建原型）。Bash 則在 agent 上透過 `bash -c` 執行並施加逾時限制。
 - **HTTP 步驟** 使用寬鬆的狀態驗證器，因此 4xx 或 5xx 回應會被記錄為失敗步驟，而非拋出例外。如此一來，所擷取的輸出能反映上游實際回傳的內容。
 - **Agent 驗證** 是以 ID + 密鑰進行，在 agent 容器上設定為環境變數。在伺服器端，權威的 agent 身分來自以所提供之 ID/key 為鍵的 DB 列——即使金鑰外洩，用戶端也無法冒充其他 agent。
 

@@ -1,6 +1,6 @@
 # IP-Monitor
 
-Der IP-Monitor ermöglicht die Überwachung der Verfügbarkeit und Reaktionsfähigkeit jeder IPv4- oder IPv6-Adresse. OneUptime testet regelmäßig die Konnektivität zur Ziel-IP-Adresse und meldet deren Status.
+Der IP-Monitor ermöglicht die Überwachung der Verfügbarkeit und Reaktionsfähigkeit jeder IPv4- oder IPv6-Adresse. Cast Operations testet regelmäßig die Konnektivität zur Ziel-IP-Adresse und meldet deren Status.
 
 ## Übersicht
 
@@ -13,7 +13,7 @@ IP-Monitore überprüfen, ob eine bestimmte IP-Adresse erreichbar und reaktionsf
 
 ## Einen IP-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **IP** als Monitortyp
 4. Geben Sie die zu überwachende IP-Adresse ein

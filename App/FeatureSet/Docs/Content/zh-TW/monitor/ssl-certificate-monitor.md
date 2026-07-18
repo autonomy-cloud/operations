@@ -1,6 +1,6 @@
 # SSL 憑證監控器
 
-SSL 憑證監控可讓您監控網站與服務上 SSL/TLS 憑證的有效性與到期狀況。OneUptime 會定期檢查您的憑證，並在憑證到期之前或偵測到任何問題時向您發出警示。
+SSL 憑證監控可讓您監控網站與服務上 SSL/TLS 憑證的有效性與到期狀況。Cast Operations 會定期檢查您的憑證，並在憑證到期之前或偵測到任何問題時向您發出警示。
 
 ## 概觀
 
@@ -14,7 +14,7 @@ SSL 憑證監控器會連接到您的 HTTPS 端點並檢查 SSL/TLS 憑證。這
 
 ## 建立 SSL 憑證監控器
 
-1. 在 OneUptime 儀表板中前往 **Monitors**
+1. 在 Cast Operations 儀表板中前往 **Monitors**
 2. 點選 **Create Monitor**
 3. 選取 **SSL Certificate** 作為監控器類型
 4. 輸入要檢查的 HTTPS 端點 URL

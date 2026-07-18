@@ -1,6 +1,6 @@
 # IP Monitor
 
-IP-overvågning giver dig mulighed for at overvåge tilgængelighed og responsivitet af enhver IPv4- eller IPv6-adresse. OneUptime tester periodisk forbindelsen til mål-IP-adressen og rapporterer dens status.
+IP-overvågning giver dig mulighed for at overvåge tilgængelighed og responsivitet af enhver IPv4- eller IPv6-adresse. Cast Operations tester periodisk forbindelsen til mål-IP-adressen og rapporterer dens status.
 
 ## Oversigt
 
@@ -13,7 +13,7 @@ IP-monitorer bekræfter, at en specifik IP-adresse er tilgængelig og responsiv.
 
 ## Oprettelse af en IP Monitor
 
-1. Gå til **Monitorer** i OneUptime-dashboardet
+1. Gå til **Monitorer** i Cast Operations-dashboardet
 2. Klik på **Opret monitor**
 3. Vælg **IP** som monitortype
 4. Indtast den IP-adresse, du vil overvåge

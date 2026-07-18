@@ -21,7 +21,7 @@
         },
         "host": {
             "type": "string",
-            "description": "Domain name or IP where OneUptime server is hosted"
+            "description": "Domain name or IP where Cast Operations server is hosted"
         },
         "httpProtocol": {
             "type": "string",
@@ -152,7 +152,7 @@
             "properties": {
                 "disableDeployments": {
                     "type": "boolean",
-                    "description": "When set to true, no OneUptime deployments are provisioned. Only databases (Redis, ClickHouse, Postgres) will be running.",
+                    "description": "When set to true, no Cast Operations deployments are provisioned. Only databases (Redis, ClickHouse, Postgres) will be running.",
                     "default": false
                 },
                 "includeTimestampLabel": {
@@ -1136,13 +1136,6 @@
                 "tag": {
                     "type": "string"
                 },
-                "type": {
-                    "type": "string",
-                    "enum": [
-                        "community-edition",
-                        "enterprise-edition"
-                    ]
-                },
                 "restartPolicy": {
                     "type": "string"
                 }
@@ -1205,28 +1198,6 @@
         "billing": {
             "type": "object",
             "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "publicKey": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "privateKey": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "webhookSecret": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "Stripe webhook secret for automatic invoice emails"
-                },
                 "smsDefaultValueInCents": {
                     "type": [
                         "integer",
@@ -1257,9 +1228,6 @@
                         "null"
                     ]
                 },
-                "allowedActiveMonitorCountInFreePlan": {
-                    "type": "integer"
-                },
                 "telemetry": {
                     "type": "object",
                     "properties": {
@@ -1289,36 +1257,6 @@
                         }
                     },
                     "additionalProperties": false
-                }
-            },
-            "additionalProperties": false
-        },
-        "subscriptionPlan": {
-            "type": "object",
-            "properties": {
-                "basic": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "growth": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "scale": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "enterprise": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
                 }
             },
             "additionalProperties": false

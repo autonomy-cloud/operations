@@ -1,6 +1,6 @@
 # Metriken-Monitor
 
-Der Metriken-Monitor ermöglicht die Überwachung benutzerdefinierter Anwendungs- und Infrastrukturmetriken, die über OpenTelemetry erfasst wurden. OneUptime wertet Metrikwerte über ein Zeitfenster aus und löst Benachrichtigungen basierend auf Ihren konfigurierten Kriterien aus.
+Der Metriken-Monitor ermöglicht die Überwachung benutzerdefinierter Anwendungs- und Infrastrukturmetriken, die über OpenTelemetry erfasst wurden. Cast Operations wertet Metrikwerte über ein Zeitfenster aus und löst Benachrichtigungen basierend auf Ihren konfigurierten Kriterien aus.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ Metriken-Monitore fragen numerische Metriken aus Ihren Telemetrie-Diensten ab un
 
 ## Einen Metriken-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **Metriken** als Monitortyp
 4. Konfigurieren Sie Metrikabfragen und optionale Formeln
@@ -93,4 +93,4 @@ Wählen Sie, wie die Metrikwerte zur Auswertung aggregiert werden:
 
 ## Setup-Anforderungen
 
-Der Metriken-Monitor erfordert, dass Ihre Anwendungen oder Infrastruktur Metriken über OpenTelemetry an OneUptime senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.
+Der Metriken-Monitor erfordert, dass Ihre Anwendungen oder Infrastruktur Metriken über OpenTelemetry an Cast Operations senden. Informationen zur Einrichtung finden Sie in der [OpenTelemetry](/docs/telemetry/open-telemetry)-Dokumentation.

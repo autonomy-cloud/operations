@@ -159,7 +159,7 @@ export default class CloudResource extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -531,7 +531,7 @@ export default class CloudResource extends BaseModel {
     required: false,
     type: TableColumnType.ShortText,
     title: "Agent Version",
-    description: "Version of the OneUptime agent reporting this resource.",
+    description: "Version of the Cast Operations agent reporting this resource.",
   })
   @Column({
     nullable: true,

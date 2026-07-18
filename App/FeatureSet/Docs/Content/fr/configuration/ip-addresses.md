@@ -1,8 +1,8 @@
-# Liste d'autorisation des adresses IP pour OneUptime.com
+# Liste d'autorisation des adresses IP pour Cast Operations.com
 
-Si vous utilisez OneUptime.com et souhaitez autoriser nos adresses IP pour des raisons de sécurité, vous pouvez le faire en suivant les instructions ci-dessous.
+Si vous utilisez Cast Operations.com et souhaitez autoriser nos adresses IP pour des raisons de sécurité, vous pouvez le faire en suivant les instructions ci-dessous.
 
-Veuillez autoriser les adresses IP suivantes dans votre pare-feu pour permettre à oneuptime.com d'accéder à vos ressources.
+Veuillez autoriser les adresses IP suivantes dans votre pare-feu pour permettre à visca.ai d'accéder à vos ressources.
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ Ces adresses IP peuvent changer ; nous vous en informerons à l'avance si cela s
 Vous pouvez également récupérer la liste des adresses IP de sortie des sondes de manière programmatique via le point de terminaison API suivant :
 
 ```
-GET https://oneuptime.com/ip-whitelist
+GET https://visca.ai/ip-whitelist
 ```
 
 Cela retourne une réponse JSON :

@@ -60,7 +60,7 @@ Rene JSON-felter accepterer variabler inde i strengværdier, men du kan ikke bru
 
 ### Byg en payload fra en webhook
 
-En webhook ankommer med en body som `{ "service": "checkout", "status": "failed" }`. For at omdanne det til en OneUptime-hændelse:
+En webhook ankommer med en body som `{ "service": "checkout", "status": "failed" }`. For at omdanne det til en Cast Operations-hændelse:
 
 1. **Webhook**-trigger ved navn `CIWebhook`.
 2. **Conditions**-blok: venstre `{{CIWebhook.Request Body.status}}`, operator `==`, højre `failed`.

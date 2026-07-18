@@ -1,6 +1,6 @@
 # Monitor Tracce
 
-Il monitoraggio delle tracce consente di monitorare le tracce distribuite delle proprie applicazioni e attivare avvisi basati su pattern, conteggi e stati degli span. OneUptime valuta i dati di traccia dei propri servizi di telemetria in una finestra temporale.
+Il monitoraggio delle tracce consente di monitorare le tracce distribuite delle proprie applicazioni e attivare avvisi basati su pattern, conteggi e stati degli span. Cast Operations valuta i dati di traccia dei propri servizi di telemetria in una finestra temporale.
 
 ## Panoramica
 
@@ -14,7 +14,7 @@ I monitor tracce ricercano e contano gli span corrispondenti a filtri specifici.
 
 ## Creazione di un Monitor Tracce
 
-1. Accedere a **Monitor** nel Dashboard di OneUptime
+1. Accedere a **Monitor** nel Dashboard di Cast Operations
 2. Fare clic su **Crea Monitor**
 3. Selezionare **Tracce** come tipo di monitor
 4. Selezionare i servizi di telemetria da monitorare
@@ -24,7 +24,7 @@ I monitor tracce ricercano e contano gli span corrispondenti a filtri specifici.
 
 ### Servizi di Telemetria
 
-Selezionare uno o più servizi da cui monitorare le tracce. I servizi devono inviare tracce a OneUptime tramite OpenTelemetry.
+Selezionare uno o più servizi da cui monitorare le tracce. I servizi devono inviare tracce a Cast Operations tramite OpenTelemetry.
 
 ### Filtri Span
 
@@ -79,4 +79,4 @@ Selezionare uno o più servizi da cui monitorare le tracce. I servizi devono inv
 
 ## Requisiti di Configurazione
 
-Il monitoraggio delle tracce richiede che le proprie applicazioni inviino tracce distribuite a OneUptime tramite OpenTelemetry. Vedere la documentazione [OpenTelemetry](/docs/telemetry/open-telemetry) per le istruzioni di configurazione.
+Il monitoraggio delle tracce richiede che le proprie applicazioni inviino tracce distribuite a Cast Operations tramite OpenTelemetry. Vedere la documentazione [OpenTelemetry](/docs/telemetry/open-telemetry) per le istruzioni di configurazione.

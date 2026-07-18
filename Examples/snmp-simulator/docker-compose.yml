@@ -1,7 +1,7 @@
 name: oneuptime-snmp-simulator
 
 # Two simulated switches on a dedicated bridge network with fixed IPs.
-# The OneUptime probe runs with network_mode: host, so it can reach these
+# The Cast Operations probe runs with network_mode: host, so it can reach these
 # container IPs directly on UDP/161 - no port publishing needed.
 services:
   switch-a:

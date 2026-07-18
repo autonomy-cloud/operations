@@ -54,7 +54,7 @@ service.name = '{{service}}'
 
 När rullgardinsmenyn är inställd på `checkout` filtrerar diagrammet till checkout-tjänsten. När tittaren byter till `payments` renderas diagrammet om för payments.
 
-För **Telemetry Attribute**-variabler vet OneUptime vilket attribut variabeln mappar till och tillämpar filtret på varje widget som använder samma attribut — du behöver inte redigera varje widget för hand.
+För **Telemetry Attribute**-variabler vet Cast Operations vilket attribut variabeln mappar till och tillämpar filtret på varje widget som använder samma attribut — du behöver inte redigera varje widget för hand.
 
 ## Tidsintervall
 

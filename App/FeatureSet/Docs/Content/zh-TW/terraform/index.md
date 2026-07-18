@@ -1,12 +1,12 @@
 # Terraform Provider 文件
 
-OneUptime Terraform Provider 讓您能以基礎設施即程式碼（Infrastructure as Code，IaC）的方式管理 OneUptime 的監控、警示與可觀測性資源。
+Cast Operations Terraform Provider 讓您能以基礎設施即程式碼（Infrastructure as Code，IaC）的方式管理 Cast Operations 的監控、警示與可觀測性資源。
 
 ## 📚 文件章節
 
 ### [快速入門](./quick-start.md)
 
-快速設定指南，讓您在幾分鐘內開始使用 OneUptime Terraform Provider。
+快速設定指南，讓您在幾分鐘內開始使用 Cast Operations Terraform Provider。
 
 ### [完整 Provider 指南](./README.md)
 
@@ -18,24 +18,24 @@ OneUptime Terraform Provider 讓您能以基礎設施即程式碼（Infrastructu
 
 ### [範例](./examples.md)
 
-常見 OneUptime Terraform 設定的真實範例與模式。
+常見 Cast Operations Terraform 設定的真實範例與模式。
 
 ## 🚀 快速連結
 
-### 適用於 OneUptime Cloud 客戶
+### 適用於 Cast Operations Cloud 客戶
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"
+  oneuptime_url = "https://visca.ai"
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -46,31 +46,31 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Must match your OneUptime version
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Must match your Cast Operations version
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## ⚠️ 自架使用者的重要事項
 
-**版本相容性至關重要**：請務必將 Terraform provider 版本鎖定為與您的 OneUptime 安裝版本完全相符。版本不一致可能導致 API 相容性問題。
+**版本相容性至關重要**：請務必將 Terraform provider 版本鎖定為與您的 Cast Operations 安裝版本完全相符。版本不一致可能導致 API 相容性問題。
 
 ## 🔗 外部資源
 
-- **Terraform Registry**: [OneUptime Provider](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub Repository**: [OneUptime Source Code](https://github.com/OneUptime/oneuptime)
-- **社群支援**: [OneUptime Community](https://community.oneuptime.com)
+- **Terraform Registry**: [Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub Repository**: [Cast Operations Source Code](https://github.com/autonomy-cloud/operations)
+- **社群支援**: [Cast Operations Community](https://community.visca.ai)
 
 ## 📋 可用資源
 
-此 provider 支援完整的 OneUptime 資源管理：
+此 provider 支援完整的 Cast Operations 資源管理：
 
 - **專案與團隊**：組織您的監控結構
 - **監控器**：網站、API、連接埠、心跳與自訂監控器
@@ -83,9 +83,9 @@ provider "oneuptime" {
 
 如有問題、疑問或想貢獻：
 
-1. **文件問題**：在 [OneUptime repository](https://github.com/OneUptime/oneuptime/issues) 建立 issue
-2. **Provider 錯誤**：回報至 OneUptime 主 repository
-3. **功能請求**：於 OneUptime 社群討論
+1. **文件問題**：在 [Cast Operations repository](https://github.com/autonomy-cloud/operations/issues) 建立 issue
+2. **Provider 錯誤**：回報至 Cast Operations 主 repository
+3. **功能請求**：於 Cast Operations 社群討論
 4. **一般問題**：使用社群論壇
 
 ## 🎯 後續步驟

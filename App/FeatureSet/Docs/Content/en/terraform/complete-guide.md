@@ -1,6 +1,6 @@
-# OneUptime Terraform Provider
+# Cast Operations Terraform Provider
 
-The OneUptime Terraform Provider allows you to manage OneUptime resources using Infrastructure as Code (IaC). This provider enables you to configure monitoring, incident management, status pages, and other OneUptime features through Terraform.
+The Cast Operations Terraform Provider allows you to manage Cast Operations resources using Infrastructure as Code (IaC). This provider enables you to configure monitoring, incident management, status pages, and other Cast Operations features through Terraform.
 
 ## Table of Contents
 
@@ -17,13 +17,13 @@ The OneUptime Terraform Provider allows you to manage OneUptime resources using 
 
 ### From Terraform Registry (Recommended)
 
-The OneUptime Terraform provider is available on the [Terraform Registry](https://registry.terraform.io/providers/oneuptime/oneuptime).
+The Cast Operations Terraform provider is available on the [Terraform Registry](https://registry.terraform.io/providers/autonomy-cloud/operations).
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use latest 7.x version
     }
   }
@@ -33,35 +33,35 @@ terraform {
 
 ### Version Pinning for Self-Hosted Installations
 
-⚠️ **Important for Self-Hosted Customers**: Always pin the Terraform provider version to match your OneUptime installation version to ensure API compatibility.
+⚠️ **Important for Self-Hosted Customers**: Always pin the Terraform provider version to match your Cast Operations installation version to ensure API compatibility.
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Pin to exact version matching your OneUptime installation
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Pin to exact version matching your Cast Operations installation
     }
   }
   required_version = ">= 1.0"
 }
 ```
 
-#### Finding Your OneUptime Version
+#### Finding Your Cast Operations Version
 
-You can find your OneUptime version in several ways:
+You can find your Cast Operations version in several ways:
 
-1. **Dashboard**: Go to Settings → About in your OneUptime dashboard
+1. **Dashboard**: Go to Settings → About in your Cast Operations dashboard
 2. **API**: Call `GET /api/status` endpoint
 3. **Docker**: Check the image tag you're using
 4. **Helm**: Check your Helm chart version
 
 ```bash
-# Example: If running OneUptime 7.0.123
+# Example: If running Cast Operations 7.0.123
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"
     }
   }
@@ -74,7 +74,7 @@ terraform {
 
 ```hcl
 provider "oneuptime" {
-  oneuptime_url = "https://your-oneuptime-instance.com"  # Or https://oneuptime.com for cloud
+  oneuptime_url = "https://your-operations-instance.com"  # Or https://visca.ai for cloud
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -84,7 +84,7 @@ provider "oneuptime" {
 You can configure the provider using environment variables:
 
 ```bash
-export ONEUPTIME_URL="https://your-oneuptime-instance.com"
+export ONEUPTIME_URL="https://your-operations-instance.com"
 export ONEUPTIME_API_KEY="your-api-key-here"
 ```
 
@@ -100,14 +100,14 @@ provider "oneuptime" {
 
 | Argument        | Environment Variable | Description       | Required |
 | --------------- | -------------------- | ----------------- | -------- |
-| `oneuptime_url` | `ONEUPTIME_URL`      | OneUptime URL     | Yes      |
-| `api_key`       | `ONEUPTIME_API_KEY`  | OneUptime API Key | Yes      |
+| `oneuptime_url` | `ONEUPTIME_URL`      | Cast Operations URL     | Yes      |
+| `api_key`       | `ONEUPTIME_API_KEY`  | Cast Operations API Key | Yes      |
 
 ## Quick Start
 
 ### 1. Create API Key
 
-First, create an API key in your OneUptime dashboard:
+First, create an API key in your Cast Operations dashboard:
 
 1. Go to **Settings** → **API Keys**
 2. Click **Create API Key**
@@ -123,20 +123,20 @@ Create a `main.tf` file:
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.com"  # Use your instance URL
+  oneuptime_url = "https://visca.ai"  # Use your instance URL
   api_key       = var.oneuptime_api_key
 }
 
-# Note: Projects must be created manually in the OneUptime dashboard
+# Note: Projects must be created manually in the Cast Operations dashboard
 variable "project_id" {
-  description = "OneUptime project ID"
+  description = "Cast Operations project ID"
   type        = string
 }
 
@@ -178,13 +178,13 @@ terraform apply
 
 ### Cloud Customers
 
-For OneUptime Cloud customers, use the latest provider version:
+For Cast Operations Cloud customers, use the latest provider version:
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Always use latest compatible version
     }
   }
@@ -193,21 +193,21 @@ terraform {
 
 ### Self-Hosted Customers
 
-**Critical**: Self-hosted customers must pin the provider version to match their OneUptime installation:
+**Critical**: Self-hosted customers must pin the provider version to match their Cast Operations installation:
 
-| OneUptime Version | Provider Version | Configuration          |
+| Cast Operations Version | Provider Version | Configuration          |
 | ----------------- | ---------------- | ---------------------- |
 | 7.0.x             | 7.0.x            | `version = "~> 7.0.0"` |
 | 7.1.x             | 7.1.x            | `version = "~> 7.1.0"` |
 | 7.2.x             | 7.2.x            | `version = "~> 7.2.0"` |
 
-Example for OneUptime 7.0.123:
+Example for Cast Operations 7.0.123:
 
 ```hcl
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Exact version match
     }
   }
@@ -216,7 +216,7 @@ terraform {
 
 ## Available Resources
 
-The OneUptime Terraform provider supports the following resources:
+The Cast Operations Terraform provider supports the following resources:
 
 ### Core Resources
 
@@ -255,27 +255,27 @@ Note: Data sources are not currently available in the provider as no datasources
 ```hcl
 # Variables
 variable "oneuptime_api_key" {
-  description = "OneUptime API Key"
+  description = "Cast Operations API Key"
   type        = string
   sensitive   = true
 }
 
 variable "project_id" {
-  description = "OneUptime project ID (create project manually in dashboard)"
+  description = "Cast Operations project ID (create project manually in dashboard)"
   type        = string
 }
 
 variable "oneuptime_url" {
-  description = "OneUptime URL"
+  description = "Cast Operations URL"
   type        = string
-  default     = "https://oneuptime.com"
+  default     = "https://visca.ai"
 }
 
 # Provider configuration
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
@@ -390,19 +390,19 @@ resource "oneuptime_status_page" "public" {
 ### Self-Hosted Configuration Example
 
 ```hcl
-# For self-hosted OneUptime instance version 7.0.123
+# For self-hosted Cast Operations instance version 7.0.123
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Must match your OneUptime version exactly
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Must match your Cast Operations version exactly
     }
   }
   required_version = ">= 1.0"
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.mycompany.com"  # Your self-hosted URL
+  oneuptime_url = "https://operations.mycompany.com"  # Your self-hosted URL
   api_key       = var.oneuptime_api_key
 }
 
@@ -421,7 +421,7 @@ provider "oneuptime" {
 **For Self-Hosted Customers:**
 
 - Always pin to exact version matching your installation
-- Update provider version when you upgrade OneUptime
+- Update provider version when you upgrade Cast Operations
 - Test in non-production environment first
 
 ### 2. State Management
@@ -503,7 +503,7 @@ resource "oneuptime_alert_policy" "critical_production" {
 
 ### From Manual Configuration
 
-1. **Audit existing resources** in OneUptime dashboard
+1. **Audit existing resources** in Cast Operations dashboard
 2. **Create Terraform configuration** for existing resources
 3. **Import existing resources** to Terraform state
 4. **Validate configuration** matches current state
@@ -521,7 +521,7 @@ terraform import oneuptime_project.main project-id-here
 
 ### Version Upgrades
 
-When upgrading OneUptime (self-hosted):
+When upgrading Cast Operations (self-hosted):
 
 1. **Backup your current state**
 2. **Check provider compatibility**
@@ -544,10 +544,10 @@ terraform apply
 
 ## Support and Resources
 
-- **Documentation**: [OneUptime Docs](https://docs.oneuptime.com)
-- **Terraform Registry**: [OneUptime Provider](https://registry.terraform.io/providers/oneuptime/oneuptime)
-- **GitHub Issues**: [OneUptime GitHub](https://github.com/OneUptime/oneuptime/issues)
-- **Community**: [OneUptime Community](https://community.oneuptime.com)
+- **Documentation**: [Cast Operations Docs](https://docs.visca.ai)
+- **Terraform Registry**: [Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
+- **GitHub Issues**: [Cast Operations GitHub](https://github.com/autonomy-cloud/operations/issues)
+- **Community**: [Cast Operations Community](https://community.visca.ai)
 
 ## Troubleshooting
 
@@ -559,7 +559,7 @@ terraform apply
    Error: API version incompatible
    ```
 
-   **Solution**: Ensure provider version matches OneUptime installation
+   **Solution**: Ensure provider version matches Cast Operations installation
 
 2. **Authentication Issues**
 

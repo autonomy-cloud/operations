@@ -186,10 +186,10 @@ export default abstract class OtelIngestBaseService {
     }
 
     /*
-     * Docker-aware fallback: when telemetry arrives from a OneUptime Docker
+     * Docker-aware fallback: when telemetry arrives from a Cast Operations Docker
      * Agent (container.runtime == "docker"), there is no explicit
      * service.name. Synthesize a per-container service name so each
-     * container shows up as its own service in the OneUptime UI instead of
+     * container shows up as its own service in the Cast Operations UI instead of
      * every Docker log collapsing into "Unknown Service". A container
      * name is a meaningful logical service (e.g. "oneuptime-postgres")
      * and is intentionally still backed by a Service row. Batches that
@@ -207,10 +207,10 @@ export default abstract class OtelIngestBaseService {
     }
 
     /*
-     * Podman-aware fallback: when telemetry arrives from a OneUptime Podman
+     * Podman-aware fallback: when telemetry arrives from a Cast Operations Podman
      * Agent (container.runtime == "podman"), there is no explicit
      * service.name. Synthesize a per-container service name so each
-     * container shows up as its own service in the OneUptime UI instead of
+     * container shows up as its own service in the Cast Operations UI instead of
      * every Podman log collapsing into "Unknown Service". A container
      * name is a meaningful logical service (e.g. "oneuptime-postgres")
      * and is intentionally still backed by a Service row. Batches that
@@ -766,7 +766,7 @@ export default abstract class OtelIngestBaseService {
    * Strip Docker Compose's replica index suffix (e.g. "-1", "-2") from a
    * container name so that multiple replicas of the same service — and the
    * same service running on different hosts — roll up into a single
-   * OneUptime telemetry service.
+   * Cast Operations telemetry service.
    *
    * Docker Compose names containers as "{project}-{service}-{index}" (or
    * "{project}_{service}_{index}" with the legacy separator), so the
@@ -808,7 +808,7 @@ export default abstract class OtelIngestBaseService {
    * Strip Compose's replica index suffix (e.g. "-1", "-2") from a Podman
    * container name so that multiple replicas of the same service — and the
    * same service running on different hosts — roll up into a single
-   * OneUptime telemetry service.
+   * Cast Operations telemetry service.
    *
    * Podman Compose names containers as "{project}-{service}-{index}" (or
    * "{project}_{service}_{index}" with the legacy separator), so the
@@ -998,7 +998,7 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * `proxmox.cluster.name` is the Proxmox join key — a OneUptime-defined
+   * `proxmox.cluster.name` is the Proxmox join key — a Cast Operations-defined
    * resource attribute (no upstream semconv exists) stamped by the
    * Proxmox Agent collector config from the PROXMOX_CLUSTER_NAME env.
    */
@@ -1126,7 +1126,7 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * `iot.fleet.name` is the IoT Fleet join key — a OneUptime-defined
+   * `iot.fleet.name` is the IoT Fleet join key — a Cast Operations-defined
    * resource attribute (no upstream semconv exists) stamped by the IoT
    * device / gateway SDK from the IOT_FLEET_NAME env (via
    * OTEL_RESOURCE_ATTRIBUTES). Some flattened forms prefix resource
@@ -1260,7 +1260,7 @@ export default abstract class OtelIngestBaseService {
 
   /*
    * `docker.swarm.cluster.name` is the Docker Swarm join key — a
-   * OneUptime-defined resource attribute (no upstream semconv exists)
+   * Cast Operations-defined resource attribute (no upstream semconv exists)
    * stamped by the Docker Swarm Agent collector config from the
    * DOCKER_SWARM_CLUSTER_NAME env.
    */
@@ -1387,7 +1387,7 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * `ceph.cluster.name` is the Ceph join key — a OneUptime-defined
+   * `ceph.cluster.name` is the Ceph join key — a Cast Operations-defined
    * resource attribute (no upstream semconv exists) stamped by the
    * Ceph Agent collector config from the CEPH_CLUSTER_NAME env.
    */

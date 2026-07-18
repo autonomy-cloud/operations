@@ -1,5 +1,5 @@
 // Set required env vars before importing modules that pull in Config.ts.
-process.env["ONEUPTIME_URL"] = "https://oneuptime.com";
+process.env["ONEUPTIME_URL"] = "https://visca.ai";
 process.env["PROBE_KEY"] = "test-probe-key";
 
 import { afterEach, describe, expect, jest, test } from "@jest/globals";

@@ -1,6 +1,6 @@
 # Sizing & Capacity Planning
 
-This guide helps you size a self-hosted OneUptime deployment on Kubernetes (Helm). It covers the three datastores OneUptime depends on — **PostgreSQL**, **Redis**, and **ClickHouse** — plus the application compute, and gives starting tiers you can adjust once you have real numbers.
+This guide helps you size a self-hosted Cast Operations deployment on Kubernetes (Helm). It covers the three datastores Cast Operations depends on — **PostgreSQL**, **Redis**, and **ClickHouse** — plus the application compute, and gives starting tiers you can adjust once you have real numbers.
 
 > **Read this first:** the Helm chart ships with **no CPU/memory requests or limits set** and small **25 Gi** default volumes for PostgreSQL and ClickHouse. Those defaults exist so the chart installs and runs on any cluster — they are **not** production sizing. For anything beyond a quick trial, set resources and storage explicitly using the numbers below.
 
@@ -8,7 +8,7 @@ If you are running the single-server Docker Compose install instead, sizing is s
 
 ## What drives each datastore
 
-OneUptime requires three datastores in production. They scale on completely different inputs, so size them independently.
+Cast Operations requires three datastores in production. They scale on completely different inputs, so size them independently.
 
 | Datastore      | What it stores                                                                                                     | What drives its size                                                                       |
 | -------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
@@ -16,7 +16,7 @@ OneUptime requires three datastores in production. They scale on completely diff
 | **PostgreSQL** | Configuration and state — monitors, incidents, alerts, users, teams, projects, workflows, status pages, dashboards | **Entity count and history**, not telemetry volume. Grows slowly.                          |
 | **Redis**      | Cache, work queues, and sessions                                                                                   | **Queue depth and active sessions**. Memory-bound and modest. Not a source of truth.       |
 
-Object storage (S3/MinIO) is **not** required for OneUptime to run. It is only used optionally for database **backups** (via the CloudNativePG Barman plugin for PostgreSQL, or `clickhouse-backup` for ClickHouse). OneUptime does not tier telemetry to object storage — see the "Retention and how it affects storage" section below.
+Object storage (S3/MinIO) is **not** required for Cast Operations to run. It is only used optionally for database **backups** (via the CloudNativePG Barman plugin for PostgreSQL, or `clickhouse-backup` for ClickHouse). Cast Operations does not tier telemetry to object storage — see the "Retention and how it affects storage" section below.
 
 ## ClickHouse — the dominant driver
 
@@ -55,7 +55,7 @@ Storage scales **linearly with retention** — a 90-day window costs ~3× a 30-d
 
 PostgreSQL stores your configuration and operational state, not telemetry, so it grows slowly and stays small relative to ClickHouse. Even large deployments are typically in the tens of GB. The default **25 Gi** volume is fine for small installs; plan 50–100 GB for larger ones with headroom for incident/alert history.
 
-If you run many application, worker, and probe replicas, the number of database connections can become the bottleneck before storage does. OneUptime's Helm chart includes an optional **PgBouncer** connection pooler (`pgbouncer.enabled`) for exactly this — enable it for high-replica deployments.
+If you run many application, worker, and probe replicas, the number of database connections can become the bottleneck before storage does. Cast Operations’ Helm chart includes an optional **PgBouncer** connection pooler (`pgbouncer.enabled`) for exactly this — enable it for high-replica deployments.
 
 ## Redis — cache, queues, and sessions
 
@@ -80,7 +80,7 @@ Pick the tier closest to your environment as a starting point, then watch actual
 | **Redis**             | 1 vCPU / 2 GB                | 2 vCPU / 4 GB                | 4 vCPU / 8–16 GB                                 |
 | **Retention assumed** | 30 days                      | 30–90 days                   | 90 days                                          |
 
-These size the OneUptime **backend**. The OneUptime collectors that run on each monitored cluster are sized separately — see the [Kubernetes Agent](/docs/telemetry/kubernetes-agent) sizing tiers.
+These size the Cast Operations **backend**. The Cast Operations collectors that run on each monitored cluster are sized separately — see the [Kubernetes Agent](/docs/telemetry/kubernetes-agent) sizing tiers.
 
 ## High availability
 
@@ -88,13 +88,13 @@ The chart's built-in datastores run as **single instances** by default. For prod
 
 - **PostgreSQL** — enable the bundled [CloudNativePG](https://cloudnative-pg.io) operator (`postgresOperator.cnpg.enabled`) with **3 instances** (1 primary + 2 hot standbys) for automatic failover.
 - **ClickHouse** — enable the bundled [Altinity](https://github.com/Altinity/clickhouse-operator) operator (`clickhouseOperator.altinity.enabled`) with **≥2 replicas per shard** and **3 ClickHouse Keeper** nodes for quorum. Add shards once a single node's disk or RAM becomes the limit.
-- **Redis** — the chart has no in-chart replication. For HA, point OneUptime at an **external managed Redis** (or a AI/cluster deployment).
+- **Redis** — the chart has no in-chart replication. For HA, point Cast Operations at an **external managed Redis** (or a AI/cluster deployment).
 
 ## Retention and how it affects storage
 
 Telemetry retention is enforced as a **ClickHouse TTL configured in days**, set **per project** and refinable **per signal** (logs, metrics, traces, profiles) and per bucket (for example by log severity). The hardcoded default is 15 days.
 
-Because retention directly multiplies ClickHouse storage, decide it before you size disk. OneUptime does **not** automatically archive or tier old telemetry to object storage — for multi-year compliance retention, extend the retention window and size ClickHouse storage to match (or export to an external archive of your choosing).
+Because retention directly multiplies ClickHouse storage, decide it before you size disk. Cast Operations does **not** automatically archive or tier old telemetry to object storage — for multi-year compliance retention, extend the retention window and size ClickHouse storage to match (or export to an external archive of your choosing).
 
 ## Measure before you commit
 
@@ -105,4 +105,4 @@ Telemetry volume varies enormously with application log verbosity, namespace cou
 - [Docker Compose](/docs/installation/docker-compose) — single-server sizing
 - [Self-Hosted Architecture](/docs/self-hosted/architecture) — how the components fit together
 - [Kubernetes Agent](/docs/telemetry/kubernetes-agent) — collector (data-plane) sizing
-- [Helm chart on Artifact Hub](https://artifacthub.io/packages/helm/oneuptime/oneuptime)
+- [Helm chart on Artifact Hub](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

@@ -1,6 +1,6 @@
 # Migrating PostgreSQL: Standalone → CloudNativePG Operator
 
-This is a step-by-step runbook for moving an existing OneUptime install from the
+This is a step-by-step runbook for moving an existing Cast Operations install from the
 built-in **standalone PostgreSQL `StatefulSet`** to the **operator-managed**
 PostgreSQL provided by the bundled [CloudNativePG](https://cloudnative-pg.io)
 (CNPG) operator.
@@ -67,7 +67,7 @@ survives the cutover and rollback stays possible until you delete it.
    on both ends. Pin it with `postgresOperator.cnpg.imageName`
    (e.g. `ghcr.io/cloudnative-pg/postgresql:17.4`).
 
-4. **Plan for a short write outage.** OneUptime keeps running on the standalone
+4. **Plan for a short write outage.** Cast Operations keeps running on the standalone
    during the copy; the cutover itself is a brief window where the app is
    quiesced so no writes are lost. Use a maintenance window for production.
 
@@ -84,7 +84,7 @@ helm upgrade --install <release> ./HelmChart/Public/oneuptime \
   --set deployment.disableDeployments=true
 ```
 
-`disableDeployments=true` scales the OneUptime app/worker Deployments down **and
+`disableDeployments=true` scales the Cast Operations app/worker Deployments down **and
 removes their KEDA `ScaledObject`s** — a plain `kubectl scale` would be reverted
 by KEDA's min-replica floor, so always use this flag. Re-enable by removing it
 (or setting it back to `false`) on the final cutover upgrade.
@@ -364,5 +364,5 @@ production writes if you can.)
 - [Postgres.md](./Postgres.md) — operator day-2 operations: CRD bootstrap,
   replication/failover, synchronous commits, read scaling, and volume-snapshot
   backups.
-- OneUptime Helm chart [README](../Public/oneuptime/README.md) — `postgresOperator`
+- Cast Operations Helm chart [README](../Public/oneuptime/README.md) — `postgresOperator`
   configuration reference.

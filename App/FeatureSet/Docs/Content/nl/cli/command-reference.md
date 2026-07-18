@@ -1,12 +1,12 @@
 # Opdrachtenoverzicht
 
-Volledig overzicht van alle OneUptime CLI-opdrachten.
+Volledig overzicht van alle Cast Operations CLI-opdrachten.
 
 ## Authenticatieopdrachten
 
 ### `oneuptime login`
 
-Authenticeer bij een OneUptime-instantie.
+Authenticeer bij een Cast Operations-instantie.
 
 ```bash
 oneuptime login <api-key> <instance-url> [--context-name <name>]
@@ -15,7 +15,7 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 | Parameter        | Type     | Vereist | Beschrijving                         |
 | ---------------- | -------- | ------- | ------------------------------------ |
 | `<api-key>`      | argument | Ja      | API-sleutel voor authenticatie       |
-| `<instance-url>` | argument | Ja      | OneUptime instantie-URL              |
+| `<instance-url>` | argument | Ja      | Cast Operations instantie-URL              |
 | `--context-name` | optie    | Nee     | Contextnaam (standaard: `"default"`) |
 
 ---

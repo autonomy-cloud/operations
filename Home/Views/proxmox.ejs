@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
 <head>
-  <title>OneUptime | Proxmox Monitoring - Nodes, VMs, Storage & Backups</title>
+  <title>Cast Operations | Proxmox Monitoring - Nodes, VMs, Storage & Backups</title>
   <meta name="description"
     content="Monitor Proxmox VE clusters end to end: node and guest health, storage usage, backup coverage, and replication alerting. One agent per cluster, usage-based pricing, 10-minute setup. Open source.">
   <%- include('head', {
@@ -469,7 +469,7 @@
       </div>
     </div>
 
-    <!-- Why OneUptime Section -->
+    <!-- Why Cast Operations Section -->
     <div class="relative bg-white py-24 sm:py-32 overflow-hidden">
 
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -479,13 +479,13 @@
             <svg class="h-4 w-4 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span class="text-sm font-medium text-orange-700">Why OneUptime for Proxmox</span>
+            <span class="text-sm font-medium text-orange-700">Why Cast Operations for Proxmox</span>
           </div>
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
             The monitoring Proxmox deserves, beyond uptime checks
           </h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">
-            Most tools stop at "is the node up". OneUptime also answers the questions that actually cost you weekends: which guests have no backup, which replication jobs are silently failing, and which storage fills up next.
+            Most tools stop at "is the node up". Cast Operations also answers the questions that actually cost you weekends: which guests have no backup, which replication jobs are silently failing, and which storage fills up next.
           </p>
         </div>
 
@@ -674,7 +674,7 @@
                 <span class="text-sm font-semibold text-orange-600 uppercase tracking-wide">Backup Coverage</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Know which guests would not survive a restore</h3>
-              <p class="mt-4 text-lg text-gray-600">The worst time to learn a VM was never in a backup job is after it dies. OneUptime continuously lists every guest not covered by any vzdump backup job and alerts when the unprotected count rises — a coverage view Datadog, PRTG, and Zabbix do not offer at all.</p>
+              <p class="mt-4 text-lg text-gray-600">The worst time to learn a VM was never in a backup job is after it dies. Cast Operations continuously lists every guest not covered by any vzdump backup job and alerts when the unprotected count rises — a coverage view Datadog, PRTG, and Zabbix do not offer at all.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-orange-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -716,7 +716,7 @@
                 <span class="text-sm font-semibold text-orange-600 uppercase tracking-wide">Replication Health</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Replication that fails loudly, not silently</h3>
-              <p class="mt-4 text-lg text-gray-600">ZFS storage replication is the backbone of many Proxmox HA setups — and it fails quietly. OneUptime tracks every replication job's failure state and duration out of the box, and pages whoever is on call the moment a job starts failing. Datadog's Proxmox integration has no replication metrics at all.</p>
+              <p class="mt-4 text-lg text-gray-600">ZFS storage replication is the backbone of many Proxmox HA setups — and it fails quietly. Cast Operations tracks every replication job's failure state and duration out of the box, and pages whoever is on call the moment a job starts failing. Datadog's Proxmox integration has no replication metrics at all.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-orange-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -931,7 +931,7 @@
                   </svg>
                 </div>
                 <h3 class="mt-6 text-xl font-semibold text-gray-900">No Per-Host Pricing</h3>
-                <p class="mt-4 text-gray-600 leading-relaxed">Per-host SaaS pricing runs $15&ndash;23 per host per month — and every VM you monitor can count as a host. OneUptime charges only for the telemetry you ingest ($0.10/GB), never per VM or hypervisor. Spin up fifty guests and pay only for the data they send — no calling sales.</p>
+                <p class="mt-4 text-gray-600 leading-relaxed">Per-host SaaS pricing runs $15&ndash;23 per host per month — and every VM you monitor can count as a host. Cast Operations charges only for the telemetry you ingest ($0.10/GB), never per VM or hypervisor. Spin up fifty guests and pay only for the data they send — no calling sales.</p>
               </div>
             </div>
 
@@ -970,7 +970,7 @@
                   </svg>
                 </div>
                 <h3 class="mt-6 text-xl font-semibold text-gray-900">Guest-to-Host Linking</h3>
-                <p class="mt-4 text-gray-600 leading-relaxed">Run an in-guest agent on important VMs and OneUptime cross-links it to the Proxmox guest — hypervisor view and OS-level processes, logs, and metrics one click apart.</p>
+                <p class="mt-4 text-gray-600 leading-relaxed">Run an in-guest agent on important VMs and Cast Operations cross-links it to the Proxmox guest — hypervisor view and OS-level processes, logs, and metrics one click apart.</p>
               </div>
             </div>
 
@@ -981,7 +981,7 @@
                   <%- include('./Partials/icons/ceph', {iconClass: 'h-6 w-6'}) %>
                 </div>
                 <h3 class="mt-6 text-xl font-semibold text-gray-900">Full Ceph Product Included</h3>
-                <p class="mt-4 text-gray-600 leading-relaxed">Running hyper-converged Ceph under Proxmox? OneUptime ships a complete Ceph monitoring product — health, OSDs, pools, capacity forecasts — not a single status light. Datadog ships zero Ceph metrics.</p>
+                <p class="mt-4 text-gray-600 leading-relaxed">Running hyper-converged Ceph under Proxmox? Cast Operations ships a complete Ceph monitoring product — health, OSDs, pools, capacity forecasts — not a single status light. Datadog ships zero Ceph metrics.</p>
               </a>
             </div>
 
@@ -1117,7 +1117,7 @@
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-baseline gap-2">
-                      <span class="font-bold text-white text-sm">OneUptime Proxmox</span>
+                      <span class="font-bold text-white text-sm">Cast Operations Proxmox</span>
                       <span class="text-xs text-white/40">3:12 PM</span>
                     </div>
                     <!-- Alert Card -->

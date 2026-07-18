@@ -1,6 +1,6 @@
 # Runbook-agenter
 
-En **Runbook-agent** er en lille selv-hostet proces, der eksekverer Bash- _og_ JavaScript-trinene i dine runbooks **inde i din egen infrastruktur**. OneUptime Worker'en kører aldrig dine scripts — den lægger dem i kø, og den Runbook-agent, som trin-forfatteren har valgt, claimer dem, kører dem og sender resultatet tilbage.
+En **Runbook-agent** er en lille selv-hostet proces, der eksekverer Bash- _og_ JavaScript-trinene i dine runbooks **inde i din egen infrastruktur**. Cast Operations Worker'en kører aldrig dine scripts — den lægger dem i kø, og den Runbook-agent, som trin-forfatteren har valgt, claimer dem, kører dem og sender resultatet tilbage.
 
 JavaScript kører stadig i en `isolated-vm`-sandkasse; forskellen er, at den sandkasse lever på din agent-host i stedet for hos os.
 
@@ -8,23 +8,23 @@ Denne side forklarer, hvordan du installerer en agent, ruter Bash- og JavaScript
 
 ## Hvorfor agenter findes
 
-Tidligere versioner af OneUptime kørte Bash- og JavaScript-trin på Worker'en. JavaScript var i sandkasse (`isolated-vm`), Bash var ikke. Begge var problematiske for alt ud over en single-tenant self-hosted opsætning:
+Tidligere versioner af Cast Operations kørte Bash- og JavaScript-trin på Worker'en. JavaScript var i sandkasse (`isolated-vm`), Bash var ikke. Begge var problematiske for alt ud over en single-tenant self-hosted opsætning:
 
 - **Tillidsgrænse.** Enhver, der kunne forfatte et runbook, kunne eksekvere kode på Worker'en, med adgang til alle environment variables og hele det filsystem, som Worker'en havde. JavaScript-sandkassen blokerede de oplagte ting, men kunne ikke forhindre en målrettet bruger i at undersøge, hvad der var nåeligt fra vores netværk.
-- **Rækkevidde.** De fleste nyttige trin vil operere på _kundens_ infrastruktur ("genstart denne tjeneste", "kubectl på vores cluster", "slå et record op i vores interne DB") — ikke på OneUptimes.
+- **Rækkevidde.** De fleste nyttige trin vil operere på _kundens_ infrastruktur ("genstart denne tjeneste", "kubectl på vores cluster", "slå et record op i vores interne DB") — ikke på Cast Operations.
 
 Runbook-agenter vender det om. Bash- og JavaScript-trin kører ikke hos os. De kører på en host, du kontrollerer, og du bestemmer, hvad den host må.
 
 ## Sådan fungerer det
 
-1. Du opretter en Runbook-agent i OneUptime. OneUptime genererer et ID og en hemmelig nøgle.
-2. Du kører agentens container på en host i din infrastruktur med det ID/nøgle plus din OneUptime-URL.
-3. Agenten spørger OneUptime hver par sekunder: "noget arbejde til mig?"
+1. Du opretter en Runbook-agent i Cast Operations. Cast Operations genererer et ID og en hemmelig nøgle.
+2. Du kører agentens container på en host i din infrastruktur med det ID/nøgle plus din Cast Operations-URL.
+3. Agenten spørger Cast Operations hver par sekunder: "noget arbejde til mig?"
 4. Når du forfatter et Bash- eller JavaScript-trin, vælger du agenten fra en dropdown — trinnet er bundet til den specifikke agent.
 5. Når trinnet kører, indsætter Worker'en en jobrække med `targetAgentId` sat til den agent. Kun den agent kan claime det.
 6. Agenten kører scriptet lokalt — `bash -c <script>` for Bash, en `isolated-vm`-sandkasse for JavaScript — fanger resultatet og sender det retur. Worker'en fortsætter runbook'et med resultatet.
 
-Agenten har kun brug for **udgående HTTPS** til din OneUptime-instans. Den accepterer ingen indgående forbindelser.
+Agenten har kun brug for **udgående HTTPS** til din Cast Operations-instans. Den accepterer ingen indgående forbindelser.
 
 ## Installer en agent
 
@@ -45,14 +45,14 @@ Klik efter oprettelse på **Vis opsætningsinstruktioner** på agentens række. 
 
 Kør Docker-kommandoen på en hvilken som helst host i dit miljø, der kan:
 
-- nå din OneUptime-instans over HTTPS, og
+- nå din Cast Operations-instans over HTTPS, og
 - gøre de ting, du vil have dine Bash/JavaScript-trin til at gøre (fx SSH til andre hosts, `kubectl`, snakke med en database).
 
 ```bash
 docker run --name oneuptime-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://oneuptime.dit-domæne.com \
+  -e ONEUPTIME_URL=https://operations.dit-domæne.com \
   -d oneuptime/runbook-agent:release
 ```
 
@@ -61,7 +61,7 @@ docker run --name oneuptime-runbook-agent --restart unless-stopped \
 Gå tilbage til **Runbooks → Indstillinger → Agents**. Inden for ca. 60 sekunder skal agentens række skifte til `Connected` med et frisk **Last seen**-tidsstempel. Hvis den bliver `Disconnected`:
 
 - Tjek container-logs (`docker logs oneuptime-runbook-agent`) for auth- eller netværksfejl.
-- Verificér at hosten kan nå OneUptime-URL'en med `curl`.
+- Verificér at hosten kan nå Cast Operations-URL'en med `curl`.
 - Verificér at ID og nøgle blev kopieret uden whitespace.
 
 ## Peg et trin mod en agent
@@ -116,7 +116,7 @@ Agenten læser disse ved opstart:
 
 | Variabel                                  | Påkrævet | Standard | Noter                                                                      |
 | ----------------------------------------- | -------- | -------- | -------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | ja       | —        | Base-URL for din OneUptime-instans, fx `https://oneuptime.dit-domæne.com`. |
+| `ONEUPTIME_URL`                           | ja       | —        | Base-URL for din Cast Operations-instans, fx `https://operations.dit-domæne.com`. |
 | `RUNBOOK_AGENT_ID`                        | ja       | —        | UUID'en vist i agentens setup-modal.                                       |
 | `RUNBOOK_AGENT_KEY`                       | ja       | —        | Hemmeligheden vist i agentens setup-modal.                                 |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | nej      | `5000`   | Hvor ofte agenten spørger efter nye jobs.                                  |
@@ -126,7 +126,7 @@ Agenten læser disse ved opstart:
 
 ## Roter en agent-nøgle
 
-Hvis en nøgle lækker, åbn agenten i OneUptime og nulstil nøglen. Den gamle stopper med at virke med det samme. Opdater agent-containeren med den nye nøgle og genstart den.
+Hvis en nøgle lækker, åbn agenten i Cast Operations og nulstil nøglen. Den gamle stopper med at virke med det samme. Opdater agent-containeren med den nye nøgle og genstart den.
 
 ## Rettigheder
 

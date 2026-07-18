@@ -1,6 +1,6 @@
 # 스크립팅 및 CI/CD
 
-OneUptime CLI는 자동화를 위해 설계되었습니다. 환경 변수 기반 인증, 프로그래밍 방식 파싱을 위한 JSON 출력, 파이프라인 통합을 위한 적절한 종료 코드를 지원합니다.
+Cast Operations CLI는 자동화를 위해 설계되었습니다. 환경 변수 기반 인증, 프로그래밍 방식 파싱을 위한 JSON 출력, 파이프라인 통합을 위한 적절한 종료 코드를 지원합니다.
 
 ## 환경 변수
 
@@ -8,7 +8,7 @@ OneUptime CLI는 자동화를 위해 설계되었습니다. 환경 변수 기반
 
 ```bash
 export ONEUPTIME_API_KEY=sk-your-api-key
-export ONEUPTIME_URL=https://oneuptime.com
+export ONEUPTIME_URL=https://visca.ai
 ```
 
 이 변수들은 저장된 컨텍스트보다 우선하지만 CLI 플래그에 의해 재정의됩니다.
@@ -86,13 +86,13 @@ jobs:
   health-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Install OneUptime CLI
+      - name: Install Cast Operations CLI
         run: npm install -g @oneuptime/cli
 
       - name: Check for active incidents
         env:
           ONEUPTIME_API_KEY: ${{ secrets.ONEUPTIME_API_KEY }}
-          ONEUPTIME_URL: https://oneuptime.com
+          ONEUPTIME_URL: https://visca.ai
         run: |
           INCIDENT_COUNT=$(oneuptime incident count)
           if [ "$INCIDENT_COUNT" -gt 0 ]; then
@@ -138,7 +138,7 @@ ENTRYPOINT ["oneuptime"]
 ```bash
 docker run --rm \
   -e ONEUPTIME_API_KEY=sk-abc123 \
-  -e ONEUPTIME_URL=https://oneuptime.com \
+  -e ONEUPTIME_URL=https://visca.ai \
   oneuptime-cli incident list
 ```
 

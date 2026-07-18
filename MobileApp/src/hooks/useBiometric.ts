@@ -51,7 +51,7 @@ export function useBiometric(): BiometricState {
     useCallback(async (): Promise<boolean> => {
       const result: LocalAuthentication.LocalAuthenticationResult =
         await LocalAuthentication.authenticateAsync({
-          promptMessage: "Authenticate to access OneUptime",
+          promptMessage: "Authenticate to access Cast Operations",
           fallbackLabel: "Use passcode",
           disableDeviceFallback: false,
         });

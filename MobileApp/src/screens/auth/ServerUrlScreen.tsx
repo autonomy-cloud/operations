@@ -28,7 +28,7 @@ export default function ServerUrlScreen(): React.JSX.Element {
   const { setNeedsServerUrl } = useAuth();
   const navigation: ServerUrlNavigationProp =
     useNavigation<ServerUrlNavigationProp>();
-  const [url, setUrl] = useState("https://oneuptime.com");
+  const [url, setUrl] = useState("https://visca.ai");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [urlFocused, setUrlFocused] = useState(false);
@@ -96,7 +96,7 @@ export default function ServerUrlScreen(): React.JSX.Element {
                 letterSpacing: -1,
               }}
             >
-              OneUptime
+              Cast Operations
             </Text>
             <Text
               style={{
@@ -107,7 +107,7 @@ export default function ServerUrlScreen(): React.JSX.Element {
                 color: theme.colors.textSecondary,
               }}
             >
-              Connect to your OneUptime instance
+              Connect to your Cast Operations instance
             </Text>
           </View>
 
@@ -165,7 +165,7 @@ export default function ServerUrlScreen(): React.JSX.Element {
                 onBlur={() => {
                   return setUrlFocused(false);
                 }}
-                placeholder="https://oneuptime.com"
+                placeholder="https://visca.ai"
                 placeholderTextColor={theme.colors.textTertiary}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -220,7 +220,7 @@ export default function ServerUrlScreen(): React.JSX.Element {
               color: theme.colors.textTertiary,
             }}
           >
-            Self-hosting? Enter your OneUptime server URL above.
+            Self-hosting? Enter your Cast Operations server URL above.
           </Text>
         </View>
       </ScrollView>

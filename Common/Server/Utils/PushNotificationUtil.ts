@@ -2,9 +2,9 @@ import PushNotificationMessage from "../../Types/PushNotification/PushNotificati
 
 export default class PushNotificationUtil {
   public static readonly DEFAULT_ICON =
-    "/dashboard/assets/img/OneUptimePNG/1.png";
+    "/dashboard/assets/img/CastOperationsSVG/icon.svg";
   public static readonly DEFAULT_BADGE =
-    "/dashboard/assets/img/OneUptimePNG/6.png";
+    "/dashboard/assets/img/CastOperationsSVG/icon.svg";
 
   private static applyDefaults(
     notification: Partial<PushNotificationMessage>,
@@ -385,7 +385,7 @@ export default class PushNotificationUtil {
     const notification: Partial<PushNotificationMessage> = {
       title: title,
       body: body,
-      tag: tag || "OneUptime",
+      tag: tag || "Cast Operations",
       requireInteraction: requireInteraction,
       data: {
         type: "generic",
@@ -428,7 +428,7 @@ export default class PushNotificationUtil {
   }): PushNotificationMessage {
     const { monitorName, monitorId } = params;
     return PushNotificationUtil.applyDefaults({
-      title: "OneUptime: New Monitor Created",
+      title: "Cast Operations: New Monitor Created",
       body: `New monitor was created: ${monitorName}`,
       tag: "monitor-created",
       requireInteraction: false,
@@ -477,7 +477,7 @@ export default class PushNotificationUtil {
   }): PushNotificationMessage {
     const { probeName } = params;
     return PushNotificationUtil.applyDefaults({
-      title: "OneUptime: Probe Disconnected",
+      title: "Cast Operations: Probe Disconnected",
       body: `Your probe ${probeName} is disconnected. It was last seen 5 minutes ago.`,
       tag: "probe-disconnected",
       requireInteraction: false,

@@ -31,7 +31,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
   singularName: "Promo Code",
   pluralName: "Promo Codes",
   icon: IconProp.Billing,
-  tableDescription: "List of Promo Codes that customers can use in OneUptime.",
+  tableDescription: "List of Promo Codes that customers can use in Cast Operations.",
 })
 @Entity({
   name: "PromoCode",
@@ -47,7 +47,7 @@ export default class PromoCode extends BaseModel {
     type: TableColumnType.ShortText,
     canReadOnRelationQuery: true,
     title: "Resller ID",
-    description: "ID that is shared between resller and OneUptime.",
+    description: "ID that is shared between resller and Cast Operations.",
     example: "SUMMER2024",
   })
   @Column({
@@ -277,7 +277,7 @@ export default class PromoCode extends BaseModel {
     required: false,
     canReadOnRelationQuery: true,
     title: "Reseller ID",
-    description: "ID of your OneUptime Reseller in which this object belongs",
+    description: "ID of your Cast Operations Reseller in which this object belongs",
     example: "c3d4e5f6-a7b8-9012-cdef-123456789012",
   })
   @Column({
@@ -327,7 +327,7 @@ export default class PromoCode extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Reseller Plan ID",
     description:
-      "ID of your OneUptime Reseller Plan in which this object belongs",
+      "ID of your Cast Operations Reseller Plan in which this object belongs",
     example: "d4e5f6a7-b8c9-0123-def1-234567890123",
   })
   @Column({
@@ -361,7 +361,7 @@ export default class PromoCode extends BaseModel {
     required: false,
     type: TableColumnType.ShortText,
     title: "License ID",
-    description: "License ID from a OneUptime Reseller",
+    description: "License ID from a Cast Operations Reseller",
     canReadOnRelationQuery: true,
     example: "LIC-2024-ABCD1234",
   })

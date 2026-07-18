@@ -169,7 +169,7 @@ ${commonVariablesRows}`;
 {{/if}}
 \`\`\`
 
-You may also use OneUptime's email partials (e.g. \`{{> Start this}}\`, \`{{> Footer this}}\`, \`{{> End this}}\`) if you want the standard chrome.`;
+You may also use Cast Operations’ email partials (e.g. \`{{> Start this}}\`, \`{{> Footer this}}\`, \`{{> End this}}\`) if you want the standard chrome.`;
 
     default:
       return `**Available Template Variables**

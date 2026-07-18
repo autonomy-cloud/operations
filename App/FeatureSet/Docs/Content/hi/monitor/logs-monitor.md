@@ -1,6 +1,6 @@
 # Logs Monitor
 
-Logs monitoring आपको अपने application logs monitor करने और log patterns, counts और severity levels के आधार पर alerts trigger करने की अनुमति देता है। OneUptime आपकी telemetry services से logs evaluate करता है और उन्हें आपके configured criteria के विरुद्ध जांचता है।
+Logs monitoring आपको अपने application logs monitor करने और log patterns, counts और severity levels के आधार पर alerts trigger करने की अनुमति देता है। Cast Operations आपकी telemetry services से logs evaluate करता है और उन्हें आपके configured criteria के विरुद्ध जांचता है।
 
 ## Overview
 
@@ -14,7 +14,7 @@ Logs monitors एक time window पर specific filters से match करन�
 
 ## Logs Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **Logs** चुनें
 4. monitor करने के लिए telemetry services चुनें
@@ -24,7 +24,7 @@ Logs monitors एक time window पर specific filters से match करन�
 
 ### Telemetry Services
 
-logs monitor करने के लिए एक या अधिक services चुनें। Services को OpenTelemetry के माध्यम से OneUptime को logs भेजने चाहिए।
+logs monitor करने के लिए एक या अधिक services चुनें। Services को OpenTelemetry के माध्यम से Cast Operations को logs भेजने चाहिए।
 
 ### Log Filters
 
@@ -92,4 +92,4 @@ logs monitor करने के लिए एक या अधिक services �
 
 ## Setup Requirements
 
-Logs monitoring के लिए आपके applications को OpenTelemetry के माध्यम से OneUptime को logs भेजने की आवश्यकता है। Setup निर्देशों के लिए [OpenTelemetry](/docs/telemetry/open-telemetry) documentation देखें।
+Logs monitoring के लिए आपके applications को OpenTelemetry के माध्यम से Cast Operations को logs भेजने की आवश्यकता है। Setup निर्देशों के लिए [OpenTelemetry](/docs/telemetry/open-telemetry) documentation देखें।

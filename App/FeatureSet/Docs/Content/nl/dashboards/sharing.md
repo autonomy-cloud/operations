@@ -1,10 +1,10 @@
 # Delen en publieke dashboards
 
-Standaard zijn dashboards privé voor je project — alleen ingelogde teamleden kunnen ze zien. Maar OneUptime laat je een dashboard ook publiek delen, beveiligen met een wachtwoord, beperken tot bepaalde IP's en hosten op je eigen domein. Deze pagina behandelt alle vier.
+Standaard zijn dashboards privé voor je project — alleen ingelogde teamleden kunnen ze zien. Maar Cast Operations laat je een dashboard ook publiek delen, beveiligen met een wachtwoord, beperken tot bepaalde IP's en hosten op je eigen domein. Deze pagina behandelt alle vier.
 
 ## Privé-dashboards (de standaard)
 
-Een dashboard is alleen bereikbaar voor ingelogde leden van je project. De URL ziet eruit als `https://oneuptime.com/dashboards/<id>/view` en vereist een login.
+Een dashboard is alleen bereikbaar voor ingelogde leden van je project. De URL ziet eruit als `https://visca.ai/dashboards/<id>/view` en vereist een login.
 
 Binnen het project regelen eigenaren en labels wie wat ziet — zie [Configuratie en machtigingen](/docs/dashboards/configuration).
 
@@ -51,11 +51,11 @@ Verzoeken vanaf elk ander IP worden afgewezen.
 
 ## Custom domains
 
-Standaard wordt een publiek dashboard geserveerd op `oneuptime.com`. Om hem te hosten op je eigen subdomein zoals `dashboard.acme.com`:
+Standaard wordt een publiek dashboard geserveerd op `visca.ai`. Om hem te hosten op je eigen subdomein zoals `dashboard.acme.com`:
 
-1. Voeg een CNAME-record toe op je DNS dat het subdomein laat verwijzen naar OneUptime's target.
+1. Voeg een CNAME-record toe op je DNS dat het subdomein laat verwijzen naar Cast Operations’ target.
 2. Voeg het domein toe onder **Dashboard → Settings → Custom Domains**.
-3. Verifieer het. OneUptime controleert het DNS-record voor je.
+3. Verifieer het. Cast Operations controleert het DNS-record voor je.
 4. Eenmaal geverifieerd is het dashboard bereikbaar op zowel je custom domain als de originele URL.
 
 Custom domains zijn handig voor:
@@ -75,7 +75,7 @@ Onder **Dashboard → Settings** kun je configureren:
 - **Logo** — upload een PNG of SVG om in de header te tonen.
 - **Favicon** — het kleine icoontje in de browsertab.
 
-Branding geldt alleen wanneer het dashboard publiek wordt bekeken. Interne kijkers zien altijd OneUptime's branding.
+Branding geldt alleen wanneer het dashboard publiek wordt bekeken. Interne kijkers zien altijd Cast Operations’ branding.
 
 ## Embedden
 

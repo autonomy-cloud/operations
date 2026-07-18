@@ -5,8 +5,8 @@ import Telemetry, {
 } from "../Telemetry";
 
 /**
- * Central catalog of metric instruments emitted by OneUptime services about
- * themselves (server-side observability of the OneUptime platform). All
+ * Central catalog of metric instruments emitted by Cast Operations services about
+ * themselves (server-side observability of the Cast Operations platform). All
  * instruments are lazy-created on first access and cached, so importing this
  * module from multiple call sites is safe.
  *

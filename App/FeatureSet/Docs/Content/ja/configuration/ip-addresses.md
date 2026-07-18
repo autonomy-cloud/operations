@@ -1,8 +1,8 @@
-# OneUptime.com の IP アドレスホワイトリスト
+# Cast Operations.com の IP アドレスホワイトリスト
 
-OneUptime.com をご利用で、セキュリティ上の理由から当社の IP をホワイトリストに登録したい場合は、以下の手順に従ってください。
+Cast Operations.com をご利用で、セキュリティ上の理由から当社の IP をホワイトリストに登録したい場合は、以下の手順に従ってください。
 
-oneuptime.com がお客様のリソースに到達できるように、ファイアウォールで以下の IP をホワイトリストに登録してください。
+visca.ai がお客様のリソースに到達できるように、ファイアウォールで以下の IP をホワイトリストに登録してください。
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ oneuptime.com がお客様のリソースに到達できるように、ファイ
 以下の API エンドポイントを使用して、プローブの出口 IP アドレスのリストをプログラムで取得することもできます。
 
 ```
-GET https://oneuptime.com/ip-whitelist
+GET https://visca.ai/ip-whitelist
 ```
 
 これにより、JSON レスポンスが返されます。

@@ -1,6 +1,6 @@
-# Arquitetura Auto-Hospedada do OneUptime
+# Arquitetura Auto-Hospedada do Cast Operations
 
-Este diagrama mostra como o OneUptime normalmente se parece quando auto-hospedado no seu ambiente (por exemplo, no seu cluster Kubernetes), incluindo como as Probes monitoram recursos internos e externos.
+Este diagrama mostra como o Cast Operations normalmente se parece quando auto-hospedado no seu ambiente (por exemplo, no seu cluster Kubernetes), incluindo como as Probes monitoram recursos internos e externos.
 
 ```mermaid
 flowchart TB
@@ -37,7 +37,7 @@ flowchart TB
       INCOMINGREQINGEST["Ingestão de Requisição de Entrada"]
     end
 
-    subgraph Probes["Probes do OneUptime"]
+    subgraph Probes["Probes do Cast Operations"]
       direction TB
       P1["Pod(s) de Probe no seu cluster"]
       P2["VM/Contêiner de Probe opcional na sua rede"]
@@ -114,7 +114,7 @@ flowchart TB
 
 ## O que isso mostra
 
-- Os usuários finais acessam o OneUptime através do Ingress do seu cluster (NGINX), que roteia para a UI e API.
+- Os usuários finais acessam o Cast Operations através do Ingress do seu cluster (NGINX), que roteia para a UI e API.
 - Os serviços principais leem/escrevem estado no PostgreSQL, Redis e ClickHouse.
 - As Probes podem ser executadas dentro do seu cluster (recomendado) e/ou em outros lugares da sua rede. Elas podem monitorar:
   - Serviços internos/privados atrás do seu firewall.

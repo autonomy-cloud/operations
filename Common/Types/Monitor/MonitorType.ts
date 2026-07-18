@@ -181,7 +181,7 @@ export class MonitorTypeHelper {
         monitorType: MonitorType.Manual,
         title: "Manual",
         description:
-          "This monitor is a static monitor and will not actually monitor anything. It will however help you to integrate OneUptime with external monitoring tools and utilities.",
+          "This monitor is a static monitor and will not actually monitor anything. It will however help you to integrate Cast Operations with external monitoring tools and utilities.",
         icon: IconProp.EmptyCircle,
       },
       {
@@ -216,7 +216,7 @@ export class MonitorTypeHelper {
         monitorType: MonitorType.Host,
         title: "Host",
         description:
-          "This monitor type lets you monitor OpenTelemetry-instrumented hosts and servers (the Hosts product) — CPU, memory, disk, network, load average, and process count via the OneUptime Infrastructure Agent. It is the telemetry-metric counterpart to the agent-push Server / VM Monitor.",
+          "This monitor type lets you monitor OpenTelemetry-instrumented hosts and servers (the Hosts product) — CPU, memory, disk, network, load average, and process count via the Cast Operations Infrastructure Agent. It is the telemetry-metric counterpart to the agent-push Server / VM Monitor.",
         icon: IconProp.Server,
       },
       {
@@ -265,7 +265,7 @@ export class MonitorTypeHelper {
         monitorType: MonitorType.IncomingRequest,
         title: "Incoming Request",
         description:
-          "This monitor type lets you ping OneUptime from any external device or service with a custom payload.",
+          "This monitor type lets you ping Cast Operations from any external device or service with a custom payload.",
         icon: IconProp.Webhook,
       },
       {

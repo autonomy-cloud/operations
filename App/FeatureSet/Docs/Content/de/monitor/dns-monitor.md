@@ -1,6 +1,6 @@
 # DNS-Monitor
 
-Der DNS-Monitor ermöglicht die Überwachung der Gesundheit und Korrektheit der DNS-Auflösung für Ihre Domains. OneUptime fragt regelmäßig DNS-Einträge ab und validiert die Antworten anhand Ihrer konfigurierten Kriterien.
+Der DNS-Monitor ermöglicht die Überwachung der Gesundheit und Korrektheit der DNS-Auflösung für Ihre Domains. Cast Operations fragt regelmäßig DNS-Einträge ab und validiert die Antworten anhand Ihrer konfigurierten Kriterien.
 
 ## Übersicht
 
@@ -14,7 +14,7 @@ DNS-Monitore fragen DNS-Server für bestimmte Eintragstypen ab und werten die Er
 
 ## Einen DNS-Monitor erstellen
 
-1. Gehen Sie zu **Monitore** im OneUptime-Dashboard
+1. Gehen Sie zu **Monitore** im Cast Operations-Dashboard
 2. Klicken Sie auf **Monitor erstellen**
 3. Wählen Sie **DNS** als Monitortyp
 4. Geben Sie den Domainnamen und den abzufragenden Eintragstyp ein

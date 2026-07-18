@@ -1,20 +1,20 @@
 # Prometheus Alertmanager 集成
 
-将 [Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) 通知转化为 OneUptime 事件。Prometheus 评估你的告警规则，Alertmanager 路由它们，OneUptime 记录并升级它们。
+将 [Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) 通知转化为 Cast Operations 事件。Prometheus 评估你的告警规则，Alertmanager 路由它们，Cast Operations 记录并升级它们。
 
-此集成为**入站**模式：Alertmanager POST 到以 **Webhook 触发器**开始的 OneUptime **[工作流](/docs/workflows/index)**。
+此集成为**入站**模式：Alertmanager POST 到以 **Webhook 触发器**开始的 Cast Operations **[工作流](/docs/workflows/index)**。
 
 ```text
-Prometheus rule fires  ──►  Alertmanager webhook receiver  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Prometheus rule fires  ──►  Alertmanager webhook receiver  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## 前提条件
 
 - 一个你可以编辑 `alertmanager.yml` 的 Prometheus + Alertmanager 环境。
-- Alertmanager 必须能通过 HTTPS 访问你的 OneUptime 实例。
-- 一个可以创建工作流的 OneUptime 项目。
+- Alertmanager 必须能通过 HTTPS 访问你的 Cast Operations 实例。
+- 一个可以创建工作流的 Cast Operations 项目。
 
-## 步骤 1——构建 OneUptime 工作流
+## 步骤 1——构建 Cast Operations 工作流
 
 1. 打开 **Workflows → Create Workflow**，命名为 `Alertmanager → Incidents`，并打开 **Builder**。
 2. 添加 **Webhook** 触发器并**复制其 URL**。将模块重命名为 `Alertmanager`。

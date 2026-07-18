@@ -41,7 +41,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
   pluralName: "Global SSO",
   icon: IconProp.Lock,
   tableDescription:
-    "Instance-wide SAML SSO that can be connected to any project on this OneUptime server",
+    "Instance-wide SAML SSO that can be connected to any project on this Cast Operations server",
 })
 @Entity({
   name: "GlobalSSO",

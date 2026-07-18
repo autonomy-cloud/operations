@@ -1,6 +1,6 @@
 # Docker Monitor
 
-Docker-monitoring stelt u in staat de gezondheid en prestaties van uw Docker-hosts en de daarop draaiende containers te bewaken. OneUptime verzamelt metrics en containerlogboeken via een vooraf geconfigureerde OpenTelemetry Collector (de **OneUptime Docker Agent**) en evalueert deze aan de hand van uw geconfigureerde criteria.
+Docker-monitoring stelt u in staat de gezondheid en prestaties van uw Docker-hosts en de daarop draaiende containers te bewaken. Cast Operations verzamelt metrics en containerlogboeken via een vooraf geconfigureerde OpenTelemetry Collector (de **Cast Operations Docker Agent**) en evalueert deze aan de hand van uw geconfigureerde criteria.
 
 ## Overzicht
 
@@ -14,7 +14,7 @@ Docker-monitors gebruiken metrics en logboeken van uw hosts om inzicht te bieden
 
 ## Een Docker Monitor aanmaken
 
-1. Ga naar **Monitors** in het OneUptime-dashboard
+1. Ga naar **Monitors** in het Cast Operations-dashboard
 2. Klik op **Monitor aanmaken**
 3. Selecteer **Docker** als het monitortype
 4. Selecteer de te bewaken Docker-host en resourcebereik
@@ -25,7 +25,7 @@ Docker-monitors gebruiken metrics en logboeken van uw hosts om inzicht te bieden
 
 ### Docker-host
 
-Selecteer de te bewaken Docker-host. Hosts worden automatisch geregistreerd de eerste keer dat de OneUptime Docker Agent telemetrie van hen verstuurt — u hoeft ze niet handmatig aan te maken.
+Selecteer de te bewaken Docker-host. Hosts worden automatisch geregistreerd de eerste keer dat de Cast Operations Docker Agent telemetrie van hen verstuurt — u hoeft ze niet handmatig aan te maken.
 
 ### Resourcebereik
 
@@ -126,7 +126,7 @@ De Docker Agent gebruikt de OpenTelemetry `docker_stats`-ontvanger, die de Docke
 
 ## Voorgebouwde meldingssjablonen
 
-OneUptime biedt sjablonen voor veelgebruikte Docker-monitoringscenario's:
+Cast Operations biedt sjablonen voor veelgebruikte Docker-monitoringscenario's:
 
 | Sjabloon               | Beschrijving                              | Drempelwaarde | Aggregatie          |
 | ---------------------- | ----------------------------------------- | ------------- | ------------------- |
@@ -214,11 +214,11 @@ docker run ... <image>
 
 Voor Docker-monitoring moet u:
 
-1. De OneUptime Docker Agent installeren op elke Docker-host die u wilt bewaken
+1. De Cast Operations Docker Agent installeren op elke Docker-host die u wilt bewaken
 2. `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` en `DOCKER_HOST_NAME` doorgeven als omgevingsvariabelen
 3. Ervoor zorgen dat de te observeren containers het `json-file`-logstuurprogramma gebruiken (zie hierboven)
 
-De agent wordt gepubliceerd als `oneuptime/docker-agent:release` op Docker Hub. Zie de [Docker Agent-installatiegids](https://github.com/OneUptime/oneuptime/tree/master/DockerAgent) voor de volledige `docker run`- en `docker compose`-voorbeelden.
+De agent wordt gepubliceerd als `oneuptime/docker-agent:release` op Docker Hub. Zie de [Docker Agent-installatiegids](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) voor de volledige `docker run`- en `docker compose`-voorbeelden.
 
 ## Probleemoplossing
 
@@ -236,7 +236,7 @@ Dit betekent dat de include-glob `/var/lib/docker/containers/*/*-json.log` geen 
 
 ### Logboeken komen aan maar zijn gegroepeerd onder de verkeerde hostnaam
 
-OneUptime registreert Docker-hosts automatisch op `resource.host.name`, afkomstig van de omgevingsvariabele `DOCKER_HOST_NAME`. Als u `DOCKER_HOST_NAME` na de eerste telemetrielevering wijzigt, wordt een tweede hostrij aangemaakt in plaats van de bestaande te hernoemen.
+Cast Operations registreert Docker-hosts automatisch op `resource.host.name`, afkomstig van de omgevingsvariabele `DOCKER_HOST_NAME`. Als u `DOCKER_HOST_NAME` na de eerste telemetrielevering wijzigt, wordt een tweede hostrij aangemaakt in plaats van de bestaande te hernoemen.
 
 ### Er worden geen incidenten geactiveerd voor "Hoog CPU"
 

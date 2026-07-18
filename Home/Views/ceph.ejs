@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
 <head>
-  <title>OneUptime | Ceph Monitoring - Cluster Health, OSDs, Pools & Capacity</title>
+  <title>Cast Operations | Ceph Monitoring - Cluster Health, OSDs, Pools & Capacity</title>
   <meta name="description"
     content="Monitor Ceph clusters without bolting Grafana onto the dashboard: health drill-downs, OSD and PG state, pool capacity with growth forecasts, and alerting with on-call built in. Open source.">
   <%- include('head', {
@@ -402,7 +402,7 @@
                 <span class="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-semibold text-red-600 ring-2 ring-red-600">2</span>
               </div>
               <h3 class="text-base font-semibold text-gray-900 mb-2">Paste one command</h3>
-              <p class="text-sm text-gray-600 leading-relaxed">Start the OneUptime agent with a single copy-paste command pointing at the mgr endpoint. It ships every cluster, OSD, PG, and pool series.</p>
+              <p class="text-sm text-gray-600 leading-relaxed">Start the Cast Operations agent with a single copy-paste command pointing at the mgr endpoint. It ships every cluster, OSD, PG, and pool series.</p>
             </div>
 
             <!-- Step 3 -->
@@ -433,7 +433,7 @@
       </div>
     </div>
 
-    <!-- Why OneUptime Section -->
+    <!-- Why Cast Operations Section -->
     <div class="relative bg-white py-24 sm:py-32 overflow-hidden">
 
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -443,13 +443,13 @@
             <svg class="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span class="text-sm font-medium text-red-700">Why OneUptime for Ceph</span>
+            <span class="text-sm font-medium text-red-700">Why Cast Operations for Ceph</span>
           </div>
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
             The storage layer everything depends on, finally observable
           </h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">
-            The upstream dashboard shows you state; alerting means wiring up Prometheus, Alertmanager, and Grafana yourself. Most SaaS tools — Datadog included — ship no Ceph metrics at all. OneUptime is a complete Ceph product out of the box.
+            The upstream dashboard shows you state; alerting means wiring up Prometheus, Alertmanager, and Grafana yourself. Most SaaS tools — Datadog included — ship no Ceph metrics at all. Cast Operations is a complete Ceph product out of the box.
           </p>
         </div>
 
@@ -468,7 +468,7 @@
                 <span class="text-sm font-semibold text-red-600 uppercase tracking-wide">Health Drill-Down</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Not just HEALTH_WARN — the why behind it</h3>
-              <p class="mt-4 text-lg text-gray-600">A yellow pill is not actionable. OneUptime breaks the cluster health status into its active checks — OSD down, degraded PGs, clock skew, recent daemon crashes, nearfull OSDs — so the first thing you see is the reason, not a status code to go grep for.</p>
+              <p class="mt-4 text-lg text-gray-600">A yellow pill is not actionable. Cast Operations breaks the cluster health status into its active checks — OSD down, degraded PGs, clock skew, recent daemon crashes, nearfull OSDs — so the first thing you see is the reason, not a status code to go grep for.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -628,7 +628,7 @@
                 <span class="text-sm font-semibold text-red-600 uppercase tracking-wide">Capacity Forecasting</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Order disks before nearfull, not after</h3>
-              <p class="mt-4 text-lg text-gray-600">A Ceph cluster hitting <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">full_ratio</code> stops accepting writes — and everything above it stops too. OneUptime fits your actual growth and tells you "85% in ~74 days" for the cluster and for each pool, the long-horizon view operators keep asking the upstream dashboard for.</p>
+              <p class="mt-4 text-lg text-gray-600">A Ceph cluster hitting <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">full_ratio</code> stops accepting writes — and everything above it stops too. Cast Operations fits your actual growth and tells you "85% in ~74 days" for the cluster and for each pool, the long-horizon view operators keep asking the upstream dashboard for.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -670,7 +670,7 @@
                 <span class="text-sm font-semibold text-red-600 uppercase tracking-wide">Alerting Built In</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Built-in alerting, zero Prometheus stack</h3>
-              <p class="mt-4 text-lg text-gray-600">Getting alerts from the upstream dashboard means running Prometheus, Alertmanager, and Grafana on the side — the most common complaint about operating Ceph. OneUptime ships alert templates for the core failure modes the ceph-mixin pack covers, connected directly to escalation policies and incident management.</p>
+              <p class="mt-4 text-lg text-gray-600">Getting alerts from the upstream dashboard means running Prometheus, Alertmanager, and Grafana on the side — the most common complaint about operating Ceph. Cast Operations ships alert templates for the core failure modes the ceph-mixin pack covers, connected directly to escalation policies and incident management.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -808,7 +808,7 @@
                 <span class="text-sm font-semibold text-red-600 uppercase tracking-wide">Fleet View</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Every cluster, one screen</h3>
-              <p class="mt-4 text-lg text-gray-600">The upstream dashboard manages one cluster at a time. OneUptime lists every Ceph cluster you run — production, backup site, lab — with health pills and capacity bars side by side, so the cluster quietly filling up at the DR site does not stay quiet.</p>
+              <p class="mt-4 text-lg text-gray-600">The upstream dashboard manages one cluster at a time. Cast Operations lists every Ceph cluster you run — production, backup site, lab — with health pills and capacity bars side by side, so the cluster quietly filling up at the DR site does not stay quiet.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600">
                   <svg class="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -873,7 +873,7 @@
                   <%- include('./Partials/icons/ceph', {iconClass: 'h-6 w-6'}) %>
                 </div>
                 <h3 class="mt-6 text-xl font-semibold text-gray-900">A Real Ceph Product</h3>
-                <p class="mt-4 text-gray-600 leading-relaxed">Datadog ships zero Ceph metrics in its Proxmox integration; most SaaS tools ignore Ceph entirely. OneUptime treats your storage layer as a first-class product with its own pages, alerts, and docs.</p>
+                <p class="mt-4 text-gray-600 leading-relaxed">Datadog ships zero Ceph metrics in its Proxmox integration; most SaaS tools ignore Ceph entirely. Cast Operations treats your storage layer as a first-class product with its own pages, alerts, and docs.</p>
               </div>
             </div>
 
@@ -936,7 +936,7 @@
                   </svg>
                 </div>
                 <h3 class="mt-6 text-xl font-semibold text-gray-900">Open Source & Self-Hostable</h3>
-                <p class="mt-4 text-gray-600 leading-relaxed">You chose Ceph to own your storage. OneUptime is fully open source and self-hostable, so your monitoring can live next to your cluster — air-gapped if it has to be.</p>
+                <p class="mt-4 text-gray-600 leading-relaxed">You chose Ceph to own your storage. Cast Operations is fully open source and self-hostable, so your monitoring can live next to your cluster — air-gapped if it has to be.</p>
               </div>
             </div>
 
@@ -1059,7 +1059,7 @@
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-baseline gap-2">
-                      <span class="font-bold text-white text-sm">OneUptime Ceph</span>
+                      <span class="font-bold text-white text-sm">Cast Operations Ceph</span>
                       <span class="text-xs text-white/40">4:03 AM</span>
                     </div>
                     <!-- Alert Card -->

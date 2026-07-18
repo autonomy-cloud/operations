@@ -77,7 +77,7 @@ class UserTelegram extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -121,7 +121,7 @@ class UserTelegram extends BaseModel {
     type: TableColumnType.ShortText,
     canReadOnRelationQuery: true,
     description:
-      "Telegram chat ID captured from the OneUptime bot after verification. Populated automatically.",
+      "Telegram chat ID captured from the Cast Operations bot after verification. Populated automatically.",
   })
   @Column({
     type: ColumnType.ShortText,
@@ -292,7 +292,7 @@ class UserTelegram extends BaseModel {
   @TableColumn({
     title: "Verification Code",
     description:
-      "Temporary Verification Code. The user sends /start <code> to the OneUptime bot to verify.",
+      "Temporary Verification Code. The user sends /start <code> to the Cast Operations bot to verify.",
     isDefaultValueColumn: true,
     computed: true,
     required: true,

@@ -1,6 +1,6 @@
 {
-  "short_name": "OneUptime",
-  "name": "OneUptime - Complete Observability Platform",
+  "short_name": "Cast Operations",
+  "name": "Cast Operations - Complete Observability Platform",
   "id": "/dashboard/oneuptime",
   "description": "Monitor, observe, debug, and resolve. Everything you need to build reliable software in one open-source platform.",
   "iarc_rating_id": "60bf3666-0cc5-4ac4-a5c7-726a4d52b7b6",
@@ -103,7 +103,7 @@
   ],
   "start_url": "/dashboard/",
   "scope": "/dashboard/",
-  "scope_extensions": [{ "origin": "*.oneuptime.com" }],
+  "scope_extensions": [{ "origin": "*.visca.ai" }],
   "launch_handler": {
     "client_mode": ["focus-existing"]
   },
@@ -134,9 +134,9 @@
   ],
   "shortcuts": [
     {
-      "name": "OneUptime Dashboard",
-      "short_name": "OneUptime Dashboard",
-      "description": "Open OneUptime Dashboard",
+      "name": "Cast Operations Dashboard",
+      "short_name": "Cast Operations Dashboard",
+      "description": "Open Cast Operations Dashboard",
       "url": "/dashboard",
       "icons": [
         {

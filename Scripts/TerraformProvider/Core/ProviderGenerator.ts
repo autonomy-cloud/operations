@@ -63,7 +63,7 @@ func (p *${StringUtils.toPascalCase(this.config.providerName)}Provider) Schema(c
 
         Attributes: map[string]schema.Attribute{
             "oneuptime_url": schema.StringAttribute{
-                MarkdownDescription: "The ${this.config.providerName} URL (without /api path). Defaults to 'oneuptime.com' if not specified. The provider automatically appends '/api' to the URL.",
+                MarkdownDescription: "The ${this.config.providerName} URL (without /api path). Defaults to 'visca.ai' if not specified. The provider automatically appends '/api' to the URL.",
                 Optional:            true,
             },
             "api_key": schema.StringAttribute{
@@ -100,7 +100,7 @@ func (p *${StringUtils.toPascalCase(this.config.providerName)}Provider) Configur
     if data.OneuptimeUrl.IsNull() {
         oneuptimeUrl = os.Getenv("${StringUtils.toConstantCase(this.config.providerName)}_URL")
         if oneuptimeUrl == "" {
-            oneuptimeUrl = "oneuptime.com"
+            oneuptimeUrl = "visca.ai"
         }
     } else {
         oneuptimeUrl = data.OneuptimeUrl.ValueString()
@@ -354,7 +354,7 @@ func NewConfig(ctx context.Context, model ${StringUtils.toPascalCase(this.config
     if model.OneuptimeUrl.IsNull() {
         config.OneuptimeUrl = os.Getenv("${StringUtils.toConstantCase(this.config.providerName)}_URL")
         if config.OneuptimeUrl == "" {
-            config.OneuptimeUrl = "oneuptime.com"
+            config.OneuptimeUrl = "visca.ai"
         }
     } else {
         config.OneuptimeUrl = model.OneuptimeUrl.ValueString()

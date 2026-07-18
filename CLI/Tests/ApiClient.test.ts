@@ -76,7 +76,7 @@ describe("ApiClient", () => {
   });
 
   const baseOptions: ApiRequestOptions = {
-    apiUrl: "https://oneuptime.com",
+    apiUrl: "https://visca.ai",
     apiKey: "test-api-key",
     apiPath: "/incident",
     operation: "create",

@@ -1,21 +1,21 @@
 # SendGrid Inbound Email Integration
 
-OneUptime का **Incoming Email Monitor** आपको unique monitor-specific email addresses पर भेजे गए emails के आधार पर alerts बनाने और resolve करने की अनुमति देता है। यह legacy systems, alerting tools, या किसी भी service के साथ integrate करने के लिए उपयोगी है जो emails भेज सकती है।
+Cast Operations का **Incoming Email Monitor** आपको unique monitor-specific email addresses पर भेजे गए emails के आधार पर alerts बनाने और resolve करने की अनुमति देता है। यह legacy systems, alerting tools, या किसी भी service के साथ integrate करने के लिए उपयोगी है जो emails भेज सकती है।
 
-यह guide आपको SendGrid Inbound Parse सेट अप करने का तरीका बताती है ताकि incoming emails आपके self-hosted OneUptime instance पर forward हों।
+यह guide आपको SendGrid Inbound Parse सेट अप करने का तरीका बताती है ताकि incoming emails आपके self-hosted Cast Operations instance पर forward हों।
 
 ## पूर्व आवश्यकताएं
 
 - एक SendGrid account (free tier काम करती है)
 - एक domain जिस पर आपका नियंत्रण हो और DNS settings तक पहुंच
-- आपका OneUptime instance publicly accessible होना चाहिए (SendGrid को webhooks भेजने के लिए)
+- आपका Cast Operations instance publicly accessible होना चाहिए (SendGrid को webhooks भेजने के लिए)
 
 ## यह कैसे काम करता है
 
-1. आप OneUptime में एक **Incoming Email Monitor** बनाते हैं
-2. OneUptime उस monitor के लिए एक unique email address generate करता है (जैसे `monitor-abc123@inbound.yourdomain.com`)
-3. जब उस address पर email भेजा जाता है, SendGrid उसे receive करता है और webhook के माध्यम से OneUptime पर forward करता है
-4. OneUptime email को आपके configured criteria के विरुद्ध evaluate करता है ताकि alerts बनाए या resolve किए जा सकें
+1. आप Cast Operations में एक **Incoming Email Monitor** बनाते हैं
+2. Cast Operations उस monitor के लिए एक unique email address generate करता है (जैसे `monitor-abc123@inbound.yourdomain.com`)
+3. जब उस address पर email भेजा जाता है, SendGrid उसे receive करता है और webhook के माध्यम से Cast Operations पर forward करता है
+4. Cast Operations email को आपके configured criteria के विरुद्ध evaluate करता है ताकि alerts बनाए या resolve किए जा सकें
 
 ## Setup Instructions
 
@@ -27,7 +27,7 @@ OneUptime का **Incoming Email Monitor** आपको unique monitor-specific
 - `email.yourdomain.com`
 - `monitor.yourdomain.com`
 
-यह subdomain exclusively OneUptime monitor emails के लिए उपयोग किया जाएगा।
+यह subdomain exclusively Cast Operations monitor emails के लिए उपयोग किया जाएगा।
 
 ### चरण 2: DNS MX Record Configure करें
 
@@ -64,13 +64,13 @@ inbound.example.com.  IN  MX  10  mx.sendgrid.net.
 | Field                              | Value                                                                   |
 | ---------------------------------- | ----------------------------------------------------------------------- |
 | **Receiving Domain**               | आपका inbound subdomain (जैसे `inbound.yourdomain.com`)                  |
-| **Destination URL**                | `https://your-oneuptime-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
+| **Destination URL**                | `https://your-operations-domain.com/incoming-email/sendgrid/YOUR_SECRET` |
 | **Check incoming emails for spam** | वैकल्पिक - यदि चाहें तो सक्षम करें                                      |
 | **Send raw, full MIME message**    | Unchecked छोड़ें (आवश्यक नहीं)                                          |
 
 5. **Add** पर क्लिक करें
 
-### चरण 5: OneUptime Environment Variables Configure करें
+### चरण 5: Cast Operations Environment Variables Configure करें
 
 #### Docker Compose
 
@@ -94,11 +94,11 @@ inboundEmail:
   # webhookSecret: "your-optional-secret"  # वैकल्पिक
 ```
 
-**महत्वपूर्ण:** इन environment variables को add करने के बाद अपना OneUptime server restart करें।
+**महत्वपूर्ण:** इन environment variables को add करने के बाद अपना Cast Operations server restart करें।
 
 ### चरण 6: Incoming Email Monitor बनाएं
 
-1. अपने OneUptime Dashboard में login करें
+1. अपने Cast Operations Dashboard में login करें
 2. **Monitors** > **Create Monitor** पर जाएं
 3. monitor type के रूप में **Incoming Email** चुनें
 4. अपना monitor configure करें
@@ -110,9 +110,9 @@ Creation के बाद, आपको इस monitor के लिए unique e
 
 ### चरण 7: Integration Test करें
 
-1. OneUptime Dashboard से monitor का email address copy करें
+1. Cast Operations Dashboard से monitor का email address copy करें
 2. उस address पर एक test email भेजें जिसका subject आपकी alert criteria से match करता हो
-3. OneUptime Dashboard जांचें:
+3. Cast Operations Dashboard जांचें:
    - Email received हुआ (Monitor Summary में दिखाई देना चाहिए)
    - Alert बना (यदि criteria match करती है)
 
@@ -143,10 +143,10 @@ Creation के बाद, आपको इस monitor के लिए unique e
 
 ### Webhooks Fail हो रहे हैं
 
-1. **सुनिश्चित करें कि OneUptime publicly accessible है:**
+1. **सुनिश्चित करें कि Cast Operations publicly accessible है:**
 
    - Webhook URL internet से reachable होनी चाहिए
-   - इससे test करें: `curl -X POST https://your-oneuptime-domain.com/incoming-email/sendgrid`
+   - इससे test करें: `curl -X POST https://your-operations-domain.com/incoming-email/sendgrid`
 
 2. **SSL certificate सत्यापित करें:**
    - SendGrid के लिए valid SSL certificate आवश्यक है

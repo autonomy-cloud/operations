@@ -62,9 +62,9 @@ const options: ClickHouseClientConfigOptions = {
    * it goes over the wire; `response: true` asks ClickHouse to gzip query
    * results (the wide log / span / metric JSON result sets dashboards
    * read back). Both cut network bytes several-fold for the JSON payloads
-   * OneUptime exchanges, at a small CPU cost that the transfer savings
+   * Cast Operations exchanges, at a small CPU cost that the transfer savings
    * outweigh. Response compression sends `enable_http_compression=1` per
-   * request, which requires a non-readonly user — the OneUptime ClickHouse
+   * request, which requires a non-readonly user — the Cast Operations ClickHouse
    * user runs DDL and inserts, so that condition is satisfied.
    */
   compression: {

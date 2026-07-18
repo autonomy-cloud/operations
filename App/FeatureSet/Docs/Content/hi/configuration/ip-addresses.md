@@ -1,8 +1,8 @@
-# OneUptime.com के लिए IP Address Whitelist
+# Cast Operations.com के लिए IP Address Whitelist
 
-यदि आप OneUptime.com का उपयोग कर रहे हैं और सुरक्षा कारणों से हमारे IPs को whitelist करना चाहते हैं, तो आप नीचे दिए गए निर्देशों का पालन करके ऐसा कर सकते हैं।
+यदि आप Cast Operations.com का उपयोग कर रहे हैं और सुरक्षा कारणों से हमारे IPs को whitelist करना चाहते हैं, तो आप नीचे दिए गए निर्देशों का पालन करके ऐसा कर सकते हैं।
 
-OneUptime.com को आपके resources तक पहुंचने की अनुमति देने के लिए कृपया निम्नलिखित IPs को अपने firewall में whitelist करें।
+Cast Operations.com को आपके resources तक पहुंचने की अनुमति देने के लिए कृपया निम्नलिखित IPs को अपने firewall में whitelist करें।
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ OneUptime.com को आपके resources तक पहुंचने की 
 आप निम्नलिखित API endpoint के माध्यम से probe egress IP addresses की सूची programmatically भी प्राप्त कर सकते हैं:
 
 ```
-GET https://oneuptime.com/ip-whitelist
+GET https://visca.ai/ip-whitelist
 ```
 
 यह एक JSON response लौटाता है:

@@ -1,6 +1,6 @@
 # Monitor de Perfis
 
-O monitoramento de perfis permite monitorar dados de criação de perfil contínuos dos seus aplicativos e acionar alertas com base em contagens e padrões de perfis. O OneUptime avalia dados de perfil dos seus serviços de telemetria em uma janela de tempo.
+O monitoramento de perfis permite monitorar dados de criação de perfil contínuos dos seus aplicativos e acionar alertas com base em contagens e padrões de perfis. O Cast Operations avalia dados de perfil dos seus serviços de telemetria em uma janela de tempo.
 
 ## Visão Geral
 
@@ -14,7 +14,7 @@ Os monitores de perfis contam e filtram dados de criação de perfil que corresp
 
 ## Criando um Monitor de Perfis
 
-1. Vá para **Monitors** no Painel do OneUptime
+1. Vá para **Monitors** no Painel do Cast Operations
 2. Clique em **Create Monitor**
 3. Selecione **Profiles** como o tipo de monitor
 4. Selecione os serviços de telemetria para monitorar
@@ -24,7 +24,7 @@ Os monitores de perfis contam e filtram dados de criação de perfil que corresp
 
 ### Serviços de Telemetria
 
-Selecione um ou mais serviços para monitorar perfis. Os serviços devem estar enviando dados de criação de perfil contínuos para o OneUptime via OpenTelemetry.
+Selecione um ou mais serviços para monitorar perfis. Os serviços devem estar enviando dados de criação de perfil contínuos para o Cast Operations via OpenTelemetry.
 
 ### Filtros de Perfil
 
@@ -62,4 +62,4 @@ Selecione um ou mais serviços para monitorar perfis. Os serviços devem estar e
 
 ## Requisitos de Configuração
 
-O monitoramento de perfis requer que seus aplicativos enviem dados de criação de perfil contínuos para o OneUptime via OpenTelemetry. Consulte a documentação do [OpenTelemetry](/docs/telemetry/open-telemetry) para instruções de configuração.
+O monitoramento de perfis requer que seus aplicativos enviem dados de criação de perfil contínuos para o Cast Operations via OpenTelemetry. Consulte a documentação do [OpenTelemetry](/docs/telemetry/open-telemetry) para instruções de configuração.

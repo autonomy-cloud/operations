@@ -1,16 +1,16 @@
-# Konfigurasjonsguide for selvhostet OneUptime Terraform
+# Konfigurasjonsguide for selvhostet Cast Operations Terraform
 
-Denne guiden er spesifikt for kunder som kjører selvhostede OneUptime-instanser. Den dekker versjonshåndtering, konfigurasjon og beste praksis for bruk av Terraform-leverandøren med ditt eget OneUptime-oppsett.
+Denne guiden er spesifikt for kunder som kjører selvhostede Cast Operations-instanser. Den dekker versjonshåndtering, konfigurasjon og beste praksis for bruk av Terraform-leverandøren med ditt eget Cast Operations-oppsett.
 
 ## Viktige merknader
 
-**Prosjekter kan ikke opprettes via Terraform** – Prosjekter må opprettes manuelt i OneUptime-dashbordet først. Bruk prosjekt-ID-en i Terraform-konfigurasjonene dine.
+**Prosjekter kan ikke opprettes via Terraform** – Prosjekter må opprettes manuelt i Cast Operations-dashbordet først. Bruk prosjekt-ID-en i Terraform-konfigurasjonene dine.
 
-**Den viktigste regelen for selvhostede kunder**: Fest alltid Terraform-leverandørversjonen til å samsvare nøyaktig med OneUptime-installasjonsversjonen.
+**Den viktigste regelen for selvhostede kunder**: Fest alltid Terraform-leverandørversjonen til å samsvare nøyaktig med Cast Operations-installasjonsversjonen.
 
 ## Ressursstruktur
 
-Alle OneUptime Terraform-ressurser følger en forenklet struktur:
+Alle Cast Operations Terraform-ressurser følger en forenklet struktur:
 
 - `name` (påkrevd) – Ressursnavn
 - `description` (valgfritt) – Ressursbeskrivelse
@@ -18,32 +18,32 @@ Alle OneUptime Terraform-ressurser følger en forenklet struktur:
 
 ## Kritisk: Versjonskompatibilitet
 
-**Den viktigste regelen for selvhostede kunder**: Fest alltid Terraform-leverandørversjonen til å samsvare nøyaktig med OneUptime-installasjonsversjonen.
+**Den viktigste regelen for selvhostede kunder**: Fest alltid Terraform-leverandørversjonen til å samsvare nøyaktig med Cast Operations-installasjonsversjonen.
 
 ### Hvorfor versjonsfesting er kritisk
 
-- Terraform-leverandøren genereres automatisk fra OneUptime API
-- Hver OneUptime-versjon kan ha ulike API-endepunkter og skjemaer
+- Terraform-leverandøren genereres automatisk fra Cast Operations API
+- Hver Cast Operations-versjon kan ha ulike API-endepunkter og skjemaer
 - Bruk av en feilaktig leverandørversjon kan forårsake feil eller uventet atferd
 - Versjonsfesting sikrer kompatibilitet og forutsigbar atferd
 
-## Finne din OneUptime-versjon
+## Finne din Cast Operations-versjon
 
 ### Metode 1: Dashbord
 
-1. Logg inn på OneUptime-dashbordet ditt
+1. Logg inn på Cast Operations-dashbordet ditt
 2. Gå til **Settings** → **About**
 3. Se etter versjonsnummeret (f.eks. "7.0.123")
 
 ### Metode 2: API-endepunkt
 
 ```bash
-curl https://your-oneuptime-instance.com/api/status
+curl https://your-operations-instance.com/api/status
 ```
 
 ### Metode 3: Docker-bilder
 
-Hvis du kjører OneUptime med Docker:
+Hvis du kjører Cast Operations med Docker:
 
 ```bash
 docker images | grep oneuptime
@@ -75,7 +75,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Erstatt 123 med ditt eksakte byggnummer
     }
   }
@@ -83,7 +83,7 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"  # Din selvhostede URL
+  oneuptime_url = "https://operations.yourcompany.com"  # Din selvhostede URL
   api_key       = var.oneuptime_api_key
 }
 ```
@@ -94,7 +94,7 @@ provider "oneuptime" {
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # Erstatt med din eksakte versjon
     }
   }
@@ -102,22 +102,22 @@ terraform {
 }
 
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 }
 ```
 
 ## Fullstendig selvhostet konfigurasjonseksempel
 
-Her er et fullstendig eksempel for en selvhostet OneUptime-instans:
+Her er et fullstendig eksempel for en selvhostet Cast Operations-instans:
 
 ```hcl
 # versions.tf
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
-      version = "= 7.0.123"  # Må samsvare med din OneUptime-versjon
+      source  = "autonomy-cloud/operations"
+      version = "= 7.0.123"  # Må samsvare med din Cast Operations-versjon
     }
   }
   required_version = ">= 1.0"
@@ -132,13 +132,13 @@ terraform {
 
 # variables.tf
 variable "oneuptime_url" {
-  description = "OneUptime-instans-URL"
+  description = "Cast Operations-instans-URL"
   type        = string
-  default     = "https://oneuptime.yourcompany.com"
+  default     = "https://operations.yourcompany.com"
 }
 
 variable "oneuptime_api_key" {
-  description = "OneUptime API-nøkkel"
+  description = "Cast Operations API-nøkkel"
   type        = string
   sensitive   = true
 }
@@ -157,7 +157,7 @@ provider "oneuptime" {
 
 # variables.tf
 variable "project_id" {
-  description = "OneUptime prosjekt-ID (opprett manuelt i dashbordet)"
+  description = "Cast Operations prosjekt-ID (opprett manuelt i dashbordet)"
   type        = string
 }
 
@@ -290,7 +290,7 @@ output "status_page_url" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://oneuptime-dev.yourcompany.com"
+oneuptime_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -298,7 +298,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://oneuptime-staging.yourcompany.com"
+oneuptime_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -306,13 +306,13 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://oneuptime.yourcompany.com"
+oneuptime_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
 ## Oppgraderingsprosess for selvhostet
 
-Når du oppgraderer OneUptime-instansen:
+Når du oppgraderer Cast Operations-instansen:
 
 ### 1. Sjekkliste før oppgradering
 
@@ -320,16 +320,16 @@ Når du oppgraderer OneUptime-instansen:
 # Sikkerhetskopier gjeldende Terraform-tilstand
 terraform state pull > backup-$(date +%Y%m%d).tfstate
 
-# Noter gjeldende OneUptime-versjon
-curl https://oneuptime.yourcompany.com/api/status | jq '.version'
+# Noter gjeldende Cast Operations-versjon
+curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Noter gjeldende leverandørversjon
 terraform providers | grep oneuptime
 ```
 
-### 2. Oppgrader OneUptime-instansen
+### 2. Oppgrader Cast Operations-instansen
 
-Følg den standard OneUptime-oppgraderingsprosessen (Docker, Helm, osv.)
+Følg den standard Cast Operations-oppgraderingsprosessen (Docker, Helm, osv.)
 
 ### 3. Oppdater Terraform-leverandøren
 
@@ -338,7 +338,7 @@ Følg den standard OneUptime-oppgraderingsprosessen (Docker, Helm, osv.)
 terraform {
   required_providers {
     oneuptime = {
-      source  = "oneuptime/oneuptime"
+      source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # Ny versjon etter oppgradering
     }
   }
@@ -364,12 +364,12 @@ terraform apply
 
 Sørg for at Terraform-kjøreren kan få tilgang til:
 
-- OneUptime API-endepunkt (vanligvis port 443/HTTPS)
+- Cast Operations API-endepunkt (vanligvis port 443/HTTPS)
 - Eventuelle interne ressurser som overvåkes
 
 ### VPN/private nettverk
 
-Hvis OneUptime er på et privat nettverk:
+Hvis Cast Operations er på et privat nettverk:
 
 ```hcl
 provider "oneuptime" {
@@ -403,7 +403,7 @@ Opprett API-nøkler med minimale nødvendige tillatelser:
 ```hcl
 # Eksempel med TLS-verifisering
 provider "oneuptime" {
-  oneuptime_url = "https://oneuptime.yourcompany.com"
+  oneuptime_url = "https://operations.yourcompany.com"
   api_key       = var.oneuptime_api_key
 
   # Ytterligere sikkerhetsalternativer hvis støttet
@@ -441,7 +441,7 @@ Error: connection refused
 
 **Løsninger**:
 
-1. Sjekk at OneUptime-instansen kjører
+1. Sjekk at Cast Operations-instansen kjører
 2. Verifiser at API-URL-en er korrekt
 3. Sjekk brannmur/nettverkstilkobling
 4. Verifiser at TLS-sertifikater er gyldige
@@ -454,7 +454,7 @@ Error: API version incompatible
 
 **Løsninger**:
 
-1. Sjekk OneUptime-versjon: `curl https://your-instance/api/status`
+1. Sjekk Cast Operations-versjon: `curl https://your-instance/api/status`
 2. Oppdater leverandørversjon til å samsvare
 3. Kjør `terraform init -upgrade`
 

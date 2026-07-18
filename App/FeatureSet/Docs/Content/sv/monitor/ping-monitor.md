@@ -1,6 +1,6 @@
 # Ping-monitor
 
-Ping-övervakning gör det möjligt att övervaka tillgängligheten och svarstiden för vilken värd eller IP-adress som helst. OneUptime skickar periodiska ping-förfrågningar till ditt mål och kontrollerar om det svarar korrekt.
+Ping-övervakning gör det möjligt att övervaka tillgängligheten och svarstiden för vilken värd eller IP-adress som helst. Cast Operations skickar periodiska ping-förfrågningar till ditt mål och kontrollerar om det svarar korrekt.
 
 ## Översikt
 
@@ -13,7 +13,7 @@ Ping-monitorer testar grundläggande nätverksanslutning genom att skicka ICMP-p
 
 ## Skapa en ping-monitor
 
-1. Gå till **Monitorer** i OneUptime-instrumentpanelen
+1. Gå till **Monitorer** i Cast Operations-instrumentpanelen
 2. Klicka på **Skapa monitor**
 3. Välj **Ping** som monitortyp
 4. Ange värdnamnet eller IP-adressen du vill övervaka

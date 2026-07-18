@@ -30,7 +30,7 @@ const components: Array<ComponentMetadata> = [
         description: "Message to send to Discord.",
         type: ComponentInputType.LongText,
         required: true,
-        placeholder: "Test Discord message from OneUptime",
+        placeholder: "Test Discord message from Cast Operations",
       },
     ],
     returnValues: [

@@ -1,6 +1,6 @@
 # Installationsguide för Windows
 
-Installera OneUptime som en skrivbordsapplikation på Windows för heltäckande övervakning och incidenthantering.
+Installera Cast Operations som en skrivbordsapplikation på Windows för heltäckande övervakning och incidenthantering.
 
 ## Installationsmetoder
 
@@ -8,46 +8,46 @@ Installera OneUptime som en skrivbordsapplikation på Windows för heltäckande 
 
 Edge ger den bästa Windows PWA-integrationen med inbyggda funktioner.
 
-1. **Öppna OneUptime i Edge**
+1. **Öppna Cast Operations i Edge**
 
    - Starta Microsoft Edge-webbläsaren
-   - Navigera till URL:en för din OneUptime-instans
-   - Logga in på ditt OneUptime-konto
+   - Navigera till URL:en för din Cast Operations-instans
+   - Logga in på ditt Cast Operations-konto
    - Vänta tills sidan laddas helt
 
 2. **Installera app**
 
    - Leta efter **installationsikonen** (⊞) i adressfältet
-   - Klicka på knappen **"Installera OneUptime"**
+   - Klicka på knappen **"Installera Cast Operations"**
    - Eller klicka på **tredubbelpunktsmenyn** → **Appar** → **Installera den här webbplatsen som en app**
 
 3. **Anpassa installationen**
 
-   - **Appnamn**: Ändra om du vill (standard: OneUptime)
+   - **Appnamn**: Ändra om du vill (standard: Cast Operations)
    - **Start-menyn**: Välj om du vill lägga till i Start-menyn
    - **Aktivitetsfältet**: Alternativ för att fästa i aktivitetsfältet
    - **Skrivbord**: Skapa skrivbordsgenväg
 
 4. **Slutför installationen**
    - Klicka på **"Installera"** för att avsluta
-   - OneUptime öppnas i ett eget fönster
+   - Cast Operations öppnas i ett eget fönster
    - Hitta det i Start-menyn under installerade appar
 
 ### Metod 2: Google Chrome
 
 Chrome erbjuder utmärkt PWA-stöd med rik skrivbordsintegration.
 
-1. **Öppna OneUptime i Chrome**
+1. **Öppna Cast Operations i Chrome**
 
    - Starta Google Chrome
-   - Gå till din OneUptime-instans
+   - Gå till din Cast Operations-instans
    - Se till att du är inloggad
    - Låt sidan laddas helt
 
 2. **Installera via adressfältet**
 
    - Leta efter **installationsikonen** (⊞) i adressfältet
-   - Klicka på **"Installera OneUptime"**
+   - Klicka på **"Installera Cast Operations"**
    - Eller använd menyn: **tre punkter** → **Fler verktyg** → **Skapa genväg**
 
 3. **Installationsalternativ**
@@ -57,7 +57,7 @@ Chrome erbjuder utmärkt PWA-stöd med rik skrivbordsintegration.
    - Klicka på **"Installera"** eller **"Skapa"**
 
 4. **Starta appen**
-   - Hitta OneUptime i Windows Start-meny
+   - Hitta Cast Operations i Windows Start-meny
    - Eller starta från skrivbordsgenvägen
    - Appen öppnas i ett dedikerat fönster
 
@@ -65,10 +65,10 @@ Chrome erbjuder utmärkt PWA-stöd med rik skrivbordsintegration.
 
 Firefox stöder PWA-installation med grundläggande skrivbordsintegration.
 
-1. **Öppna OneUptime i Firefox**
+1. **Öppna Cast Operations i Firefox**
 
    - Starta Firefox-webbläsaren
-   - Navigera till OneUptime-URL:en
+   - Navigera till Cast Operations-URL:en
    - Slutför inloggningsprocessen
 
 2. **Installera PWA**
@@ -78,9 +78,9 @@ Firefox stöder PWA-installation med grundläggande skrivbordsintegration.
 
 ### Startkonfiguration
 
-1. **Automatisk start**: Konfigurera OneUptime att starta med Windows
+1. **Automatisk start**: Konfigurera Cast Operations att starta med Windows
    - Högerklicka på aktivitetsfältet → Aktivitetshanteraren → Start
-   - Aktivera OneUptime om du vill
+   - Aktivera Cast Operations om du vill
 2. **Standardstorlek**: Ange önskad fönsterstorlek och position
 
 ### Aviseringsinställningar
@@ -88,12 +88,12 @@ Firefox stöder PWA-installation med grundläggande skrivbordsintegration.
 1. **Windows-aviseringar**
 
    - Inställningar → System → Aviseringar och åtgärder
-   - Hitta OneUptime och konfigurera varningsinställningar
+   - Hitta Cast Operations och konfigurera varningsinställningar
    - Aktivera banneraviseringar för incidenter
 
 2. **Fokusassistent**
    - Konfigurera inställningar för Stör ej
-   - Tillåt OneUptime kritiska aviseringar
+   - Tillåt Cast Operations kritiska aviseringar
    - Ange prioritetsnivåer för olika varningstyper
 
 ## Avancerade installationsalternativ
@@ -107,7 +107,7 @@ Firefox stöder PWA-installation med grundläggande skrivbordsintegration.
 ```
 Lösningar:
 1. Se till att du använder Edge eller Chrome (rekommenderade webbläsare)
-2. Verifiera HTTPS-anslutning till OneUptime-instansen
+2. Verifiera HTTPS-anslutning till Cast Operations-instansen
 3. Rensa webbläsarens cache och cookies
 4. Uppdatera webbläsaren till den senaste versionen
 5. Kontrollera om PWA-kraven uppfylls på servern
@@ -130,7 +130,7 @@ Lösningar:
 
 ```
 Lösningar:
-1. Sök efter "OneUptime" i Windows-sökning
+1. Sök efter "Cast Operations" i Windows-sökning
 2. Kontrollera om den installerats under ett annat namn
 3. Titta i avsnittet "Nyligen tillagda" appar
 4. Installera om och se till att "Lägg till i Start-menyn" är markerat
@@ -144,9 +144,9 @@ Lösningar:
 ```
 Lösningar:
 1. Windows Inställningar → System → Aviseringar och åtgärder
-2. Aktivera aviseringar för OneUptime
+2. Aktivera aviseringar för Cast Operations
 3. Kontrollera inställningar för Fokusassistent
-4. Se till att aviserings behörigheter finns i OneUptime
+4. Se till att aviserings behörigheter finns i Cast Operations
 5. Testa med enkel avisering först
 ```
 
@@ -157,18 +157,18 @@ Lösningar:
 1. **Windows-inställningsmetod**
 
    - Inställningar → Appar → Appar och funktioner
-   - Sök efter "OneUptime"
+   - Sök efter "Cast Operations"
    - Klicka och välj "Avinstallera"
 
 2. **Webbläsarmetod**
 
    - Öppna Edge/Chrome
    - Gå till edge://apps/ eller chrome://apps/
-   - Hitta OneUptime
+   - Hitta Cast Operations
    - Klicka på alternativ → Avinstallera
 
 3. **Start-menymetod**
-   - Högerklicka på OneUptime i Start-menyn
+   - Högerklicka på Cast Operations i Start-menyn
    - Välj "Avinstallera"
    - Bekräfta borttagningen
 
@@ -176,7 +176,7 @@ Lösningar:
 
 ### Automatiska uppdateringar
 
-- OneUptime PWA uppdateras automatiskt när du är online
+- Cast Operations PWA uppdateras automatiskt när du är online
 - Ingen manuell åtgärd krävs
 - Uppdateringar tillämpas omedelbart vid omstart
 - Kritiska korrigeringar driftsätts direkt

@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const STORAGE_KEY: string = "oneuptime_server_url";
-const DEFAULT_SERVER_URL: string = "https://oneuptime.com";
+const DEFAULT_SERVER_URL: string = "https://visca.ai";
 
 function normalizeUrl(url: string): string {
   return url.replace(/\/+$/, "");

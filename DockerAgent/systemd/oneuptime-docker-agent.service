@@ -1,6 +1,6 @@
 [Unit]
-Description=OneUptime Docker Agent (OpenTelemetry Collector)
-Documentation=https://oneuptime.com/docs/docker-monitoring
+Description=Cast Operations Docker Agent (OpenTelemetry Collector)
+Documentation=https://visca.ai/docs/docker-monitoring
 After=network-online.target docker.service
 Wants=network-online.target
 Requires=docker.service

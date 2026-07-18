@@ -1,6 +1,6 @@
 # 사이징 및 용량 계획
 
-이 가이드는 Kubernetes(Helm)에서 자체 호스팅 OneUptime 배포의 크기를 정하는 데 도움이 됩니다. OneUptime이 의존하는 세 가지 데이터스토어 — **PostgreSQL**, **Redis**, **ClickHouse** — 와 애플리케이션 컴퓨트를 다루며, 실제 수치를 확보한 뒤 조정할 수 있는 시작 티어를 제공합니다.
+이 가이드는 Kubernetes(Helm)에서 자체 호스팅 Cast Operations 배포의 크기를 정하는 데 도움이 됩니다. Cast Operations이 의존하는 세 가지 데이터스토어 — **PostgreSQL**, **Redis**, **ClickHouse** — 와 애플리케이션 컴퓨트를 다루며, 실제 수치를 확보한 뒤 조정할 수 있는 시작 티어를 제공합니다.
 
 > **먼저 읽어 주세요:** Helm 차트는 **CPU/메모리 요청이나 제한이 설정되지 않은 상태**로 제공되며 PostgreSQL과 ClickHouse에 대해 작은 **25 Gi** 기본 볼륨을 사용합니다. 이러한 기본값은 차트가 어떤 클러스터에서든 설치되고 실행되도록 하기 위해 존재하며, 프로덕션 사이징은 **아닙니다**. 빠른 체험 이상의 용도라면 아래 수치를 사용하여 리소스와 스토리지를 명시적으로 설정하세요.
 
@@ -8,7 +8,7 @@
 
 ## 각 데이터스토어를 좌우하는 요소
 
-OneUptime은 프로덕션에서 세 가지 데이터스토어를 필요로 합니다. 이들은 완전히 다른 입력에 따라 확장되므로 독립적으로 크기를 정하세요.
+Cast Operations은 프로덕션에서 세 가지 데이터스토어를 필요로 합니다. 이들은 완전히 다른 입력에 따라 확장되므로 독립적으로 크기를 정하세요.
 
 | 데이터스토어   | 저장하는 것                                                                                  | 크기를 좌우하는 요소                                                                           |
 | -------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -16,7 +16,7 @@ OneUptime은 프로덕션에서 세 가지 데이터스토어를 필요로 합�
 | **PostgreSQL** | 구성 및 상태 — 모니터, 인시던트, 알림, 사용자, 팀, 프로젝트, 워크플로, 상태 페이지, 대시보드 | 텔레메트리 볼륨이 아니라 **엔티티 수와 이력**. 천천히 증가합니다.                              |
 | **Redis**      | 캐시, 작업 큐, 세션                                                                          | **큐 깊이와 활성 세션**. 메모리에 좌우되며 규모가 작습니다. 신뢰할 수 있는 원본이 아닙니다.    |
 
-오브젝트 스토리지(S3/MinIO)는 OneUptime 실행에 **필수가 아닙니다**. 데이터베이스 **백업**(PostgreSQL의 경우 CloudNativePG Barman 플러그인을 통해, ClickHouse의 경우 `clickhouse-backup`을 통해)에 선택적으로만 사용됩니다. OneUptime은 텔레메트리를 오브젝트 스토리지로 계층화하지 않습니다 — 아래의 "보존 기간과 그것이 스토리지에 미치는 영향" 섹션을 참고하세요.
+오브젝트 스토리지(S3/MinIO)는 Cast Operations 실행에 **필수가 아닙니다**. 데이터베이스 **백업**(PostgreSQL의 경우 CloudNativePG Barman 플러그인을 통해, ClickHouse의 경우 `clickhouse-backup`을 통해)에 선택적으로만 사용됩니다. Cast Operations은 텔레메트리를 오브젝트 스토리지로 계층화하지 않습니다 — 아래의 "보존 기간과 그것이 스토리지에 미치는 영향" 섹션을 참고하세요.
 
 ## ClickHouse — 지배적인 요소
 
@@ -55,7 +55,7 @@ ClickHouse disk ≈ (daily raw telemetry GB ÷ compression) × retention days ×
 
 PostgreSQL은 텔레메트리가 아니라 구성 및 운영 상태를 저장하므로 천천히 증가하며 ClickHouse에 비해 작게 유지됩니다. 대규모 배포조차도 일반적으로 수십 GB 수준입니다. 기본 **25 Gi** 볼륨은 소규모 설치에 적합합니다. 더 큰 설치의 경우 인시던트/알림 이력을 위한 여유분을 두고 50–100 GB를 계획하세요.
 
-다수의 애플리케이션, 워커, 프로브 레플리카를 실행하는 경우, 스토리지보다 데이터베이스 연결 수가 먼저 병목이 될 수 있습니다. OneUptime의 Helm 차트는 바로 이를 위한 선택적 **PgBouncer** 연결 풀러(`pgbouncer.enabled`)를 포함합니다 — 고-레플리카 배포에서는 이를 활성화하세요.
+다수의 애플리케이션, 워커, 프로브 레플리카를 실행하는 경우, 스토리지보다 데이터베이스 연결 수가 먼저 병목이 될 수 있습니다. Cast Operations의 Helm 차트는 바로 이를 위한 선택적 **PgBouncer** 연결 풀러(`pgbouncer.enabled`)를 포함합니다 — 고-레플리카 배포에서는 이를 활성화하세요.
 
 ## Redis — 캐시, 큐, 세션
 
@@ -80,7 +80,7 @@ Redis는 캐시, 작업 큐, 세션 저장소로 사용됩니다. 이는 **메�
 | **Redis**             | 1 vCPU / 2 GB                | 2 vCPU / 4 GB                | 4 vCPU / 8–16 GB                                 |
 | **Retention assumed** | 30 days                      | 30–90 days                   | 90 days                                          |
 
-이는 OneUptime **백엔드**의 크기를 정합니다. 각 모니터링 대상 클러스터에서 실행되는 OneUptime 컬렉터는 별도로 크기를 정합니다 — [Kubernetes Agent](/docs/telemetry/kubernetes-agent) 사이징 티어를 참고하세요.
+이는 Cast Operations **백엔드**의 크기를 정합니다. 각 모니터링 대상 클러스터에서 실행되는 Cast Operations 컬렉터는 별도로 크기를 정합니다 — [Kubernetes Agent](/docs/telemetry/kubernetes-agent) 사이징 티어를 참고하세요.
 
 ## 고가용성
 
@@ -88,13 +88,13 @@ Redis는 캐시, 작업 큐, 세션 저장소로 사용됩니다. 이는 **메�
 
 - **PostgreSQL** — 자동 장애 조치를 위해 번들된 [CloudNativePG](https://cloudnative-pg.io) 오퍼레이터(`postgresOperator.cnpg.enabled`)를 **3개 인스턴스**(프라이머리 1개 + 핫 스탠바이 2개)로 활성화하세요.
 - **ClickHouse** — 번들된 [Altinity](https://github.com/Altinity/clickhouse-operator) 오퍼레이터(`clickhouseOperator.altinity.enabled`)를 **샤드당 ≥2 레플리카**와 쿼럼을 위한 **3개 ClickHouse Keeper** 노드로 활성화하세요. 단일 노드의 디스크나 RAM이 한계에 도달하면 샤드를 추가하세요.
-- **Redis** — 차트에는 차트 내 복제 기능이 없습니다. HA를 위해서는 OneUptime이 **외부 관리형 Redis**(또는 AI/클러스터 배포)를 가리키도록 하세요.
+- **Redis** — 차트에는 차트 내 복제 기능이 없습니다. HA를 위해서는 Cast Operations이 **외부 관리형 Redis**(또는 AI/클러스터 배포)를 가리키도록 하세요.
 
 ## 보존 기간과 그것이 스토리지에 미치는 영향
 
 텔레메트리 보존은 **일 단위로 구성된 ClickHouse TTL**로 적용되며, **프로젝트별**로 설정하고 **시그널별**(로그, 메트릭, 트레이스, 프로파일) 및 버킷별(예: 로그 심각도별)로 세분화할 수 있습니다. 하드코딩된 기본값은 15일입니다.
 
-보존 기간은 ClickHouse 스토리지를 직접 곱하므로, 디스크 크기를 정하기 전에 이를 결정하세요. OneUptime은 오래된 텔레메트리를 오브젝트 스토리지로 자동 아카이브하거나 계층화하지 **않습니다** — 다년간의 규정 준수 보존을 위해서는 보존 윈도를 늘리고 그에 맞춰 ClickHouse 스토리지 크기를 정하세요(또는 원하는 외부 아카이브로 내보내세요).
+보존 기간은 ClickHouse 스토리지를 직접 곱하므로, 디스크 크기를 정하기 전에 이를 결정하세요. Cast Operations은 오래된 텔레메트리를 오브젝트 스토리지로 자동 아카이브하거나 계층화하지 **않습니다** — 다년간의 규정 준수 보존을 위해서는 보존 윈도를 늘리고 그에 맞춰 ClickHouse 스토리지 크기를 정하세요(또는 원하는 외부 아카이브로 내보내세요).
 
 ## 확정하기 전에 측정하세요
 
@@ -105,4 +105,4 @@ Redis는 캐시, 작업 큐, 세션 저장소로 사용됩니다. 이는 **메�
 - [Docker Compose](/docs/installation/docker-compose) — 단일 서버 사이징
 - [Self-Hosted Architecture](/docs/self-hosted/architecture) — 구성 요소가 어떻게 맞물리는지
 - [Kubernetes Agent](/docs/telemetry/kubernetes-agent) — 컬렉터(데이터 플레인) 사이징
-- [Helm chart on Artifact Hub](https://artifacthub.io/packages/helm/oneuptime/oneuptime)
+- [Helm chart on Artifact Hub](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

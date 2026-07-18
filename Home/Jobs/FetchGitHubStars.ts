@@ -38,10 +38,10 @@ const fetchGitHubStars: () => Promise<void> = async (): Promise<void> => {
   try {
     const response: HTTPResponse<JSONObject> | HTTPErrorResponse =
       await API.get<JSONObject>({
-        url: URL.fromString("https://api.github.com/repos/oneuptime/oneuptime"),
+        url: URL.fromString("https://api.github.com/repos/autonomy-cloud/operations"),
         headers: {
           Accept: "application/vnd.github.v3+json",
-          "User-Agent": "OneUptime-Home",
+          "User-Agent": "Cast Operations-Home",
         },
       });
 

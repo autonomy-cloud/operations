@@ -1,10 +1,10 @@
 {
   "name": "@oneuptime/kubernetes-log-tailer",
   "version": "11.5.9",
-  "description": "OneUptime Kubernetes log tailer — collects pod logs via the Kubernetes API (GKE Autopilot compatible) and forwards to OneUptime via OTLP-HTTP.",
+  "description": "Cast Operations Kubernetes log tailer — collects pod logs via the Kubernetes API (GKE Autopilot compatible) and forwards to Cast Operations via OTLP-HTTP.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OneUptime/oneuptime"
+    "url": "https://github.com/autonomy-cloud/operations"
   },
   "main": "Index.ts",
   "scripts": {
@@ -13,7 +13,7 @@
     "dev": "npx nodemon",
     "test": "npm run compile && node --test Tests/NamespaceFilter.test.js"
   },
-  "author": "OneUptime <hello@oneuptime.com> (https://oneuptime.com/)",
+  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
   "license": "Apache-2.0",
   "dependencies": {
     "@kubernetes/client-node": "^0.22.0",

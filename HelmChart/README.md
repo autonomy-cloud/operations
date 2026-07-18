@@ -1,4 +1,4 @@
-# Helm Chart for OneUptime
+# Helm Chart for Cast Operations
 
 [Read Docs here](Public/oneuptime/README.md)
 
@@ -18,4 +18,4 @@ Scaling an operator-managed (Altinity) ClickHouse:
 
 ## Local models
 
-- [vLLM: run local models in-cluster for OneUptime AI features](Docs/Vllm.md)
+- [vLLM: run local models in-cluster for Cast Operations AI features](Docs/Vllm.md)

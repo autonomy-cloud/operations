@@ -94,7 +94,7 @@ describe("DynamicToolGenerator", () => {
     it("should create proper tool info structure", () => {
       const expectedToolStructure: McpToolInfo = {
         name: "create_project",
-        description: "Create a new project in OneUptime",
+        description: "Create a new project in Cast Operations",
         inputSchema: {
           type: "object",
           properties: {},
@@ -231,35 +231,35 @@ describe("DynamicToolGenerator", () => {
         {
           operation: OneUptimeOperation.Create,
           modelName: "Project",
-          expectedDescription: "Create a new project in OneUptime",
+          expectedDescription: "Create a new project in Cast Operations",
         },
         {
           operation: OneUptimeOperation.Read,
           modelName: "Monitor",
           expectedDescription:
-            "Retrieve a specific monitor from OneUptime by ID",
+            "Retrieve a specific monitor from Cast Operations by ID",
         },
         {
           operation: OneUptimeOperation.List,
           modelName: "Alert",
           expectedDescription:
-            "List and search alerts in OneUptime with optional filtering, pagination, and sorting",
+            "List and search alerts in Cast Operations with optional filtering, pagination, and sorting",
         },
         {
           operation: OneUptimeOperation.Update,
           modelName: "Team",
-          expectedDescription: "Update an existing team in OneUptime",
+          expectedDescription: "Update an existing team in Cast Operations",
         },
         {
           operation: OneUptimeOperation.Delete,
           modelName: "User",
-          expectedDescription: "Delete a user from OneUptime",
+          expectedDescription: "Delete a user from Cast Operations",
         },
         {
           operation: OneUptimeOperation.Count,
           modelName: "Incident",
           expectedDescription:
-            "Count the total number of incidents in OneUptime with optional filtering",
+            "Count the total number of incidents in Cast Operations with optional filtering",
         },
       ];
 
@@ -278,22 +278,22 @@ describe("DynamicToolGenerator", () => {
 
           switch (operation) {
             case OneUptimeOperation.Create:
-              description = `Create a new ${singularName} in OneUptime`;
+              description = `Create a new ${singularName} in Cast Operations`;
               break;
             case OneUptimeOperation.Read:
-              description = `Retrieve a specific ${singularName} from OneUptime by ID`;
+              description = `Retrieve a specific ${singularName} from Cast Operations by ID`;
               break;
             case OneUptimeOperation.List:
-              description = `List and search ${modelName.toLowerCase()}s in OneUptime with optional filtering, pagination, and sorting`;
+              description = `List and search ${modelName.toLowerCase()}s in Cast Operations with optional filtering, pagination, and sorting`;
               break;
             case OneUptimeOperation.Update:
-              description = `Update an existing ${singularName} in OneUptime`;
+              description = `Update an existing ${singularName} in Cast Operations`;
               break;
             case OneUptimeOperation.Delete:
-              description = `Delete a ${singularName} from OneUptime`;
+              description = `Delete a ${singularName} from Cast Operations`;
               break;
             case OneUptimeOperation.Count:
-              description = `Count the total number of ${modelName.toLowerCase()}s in OneUptime with optional filtering`;
+              description = `Count the total number of ${modelName.toLowerCase()}s in Cast Operations with optional filtering`;
               break;
             default:
               description = `Perform ${operation} operation on ${singularName}`;

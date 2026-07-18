@@ -1,20 +1,20 @@
 # Grafana 連携
 
-[Grafana](https://grafana.com) のアラートを OneUptime のインシデントに変換します。Grafana がダッシュボードのアラートルールを評価し、OneUptime が記録・エスカレーション・追跡します。
+[Grafana](https://grafana.com) のアラートを Cast Operations のインシデントに変換します。Grafana がダッシュボードのアラートルールを評価し、Cast Operations が記録・エスカレーション・追跡します。
 
-この連携は**インバウンド**です: Grafana のアラート機能が Grafana の **Webhook コンタクトポイント**を使って、**Webhook トリガー**で始まる OneUptime の **[ワークフロー](/docs/workflows/index)** に POST します。
+この連携は**インバウンド**です: Grafana のアラート機能が Grafana の **Webhook コンタクトポイント**を使って、**Webhook トリガー**で始まる Cast Operations の **[ワークフロー](/docs/workflows/index)** に POST します。
 
 ```text
-Grafana alert rule fires  ──►  Webhook contact point  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Grafana alert rule fires  ──►  Webhook contact point  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## 前提条件
 
 - [統合アラート](https://grafana.com/docs/grafana/latest/alerting/)が有効になった Grafana 9 以降 (モダンな Grafana ではデフォルトで有効)。
-- Grafana が HTTPS で OneUptime インスタンスに到達できること。
-- ワークフローを作成できる OneUptime プロジェクト。
+- Grafana が HTTPS で Cast Operations インスタンスに到達できること。
+- ワークフローを作成できる Cast Operations プロジェクト。
 
-## ステップ 1 — OneUptime ワークフローを作成する
+## ステップ 1 — Cast Operations ワークフローを作成する
 
 1. **Workflows → Create Workflow** を開き、`Grafana → Incidents` という名前にして **Builder** を開きます。
 2. **Webhook** トリガーを追加して **URL をコピー**します。ブロックを `Grafana` にリネームします。
@@ -33,10 +33,10 @@ Grafana の Webhook ペイロードは Alertmanager の形式に従います —
 ## ステップ 2 — Grafana コンタクトポイントを設定する
 
 1. Grafana で **Alerting → Contact points → Add contact point** に移動します。
-2. **Name**: `OneUptime`。**Integration**: **Webhook**。
+2. **Name**: `Cast Operations`。**Integration**: **Webhook**。
 3. **URL**: ワークフローの Webhook URL を貼り付けます。**HTTP Method**: `POST`。
 4. コンタクトポイントを保存します。
-5. **Alerting → Notification policies** に移動して、送りたいアラート (またはデフォルトポリシー) を **OneUptime** コンタクトポイントにルーティングします。
+5. **Alerting → Notification policies** に移動して、送りたいアラート (またはデフォルトポリシー) を **Cast Operations** コンタクトポイントにルーティングします。
 
 ## ステップ 3 — テストする
 
@@ -51,7 +51,7 @@ Grafana の Webhook ペイロードは Alertmanager の形式に従います —
 ## 補足
 
 - **レガシーアラート (Grafana 8 以前)** は異なるペイロード (`ruleName`、`state`、`evalMatches`) を送ります。レガシーアラートを使用している場合は、`{{Grafana.Request Body.ruleName}}` と `{{Grafana.Request Body.state}}` を参照し、`state == alerting` で分岐してください。
-- Grafana のアラート機能を使わずに、OneUptime が同じメトリクスを直接監視することもできます — [Metrics Monitor](/docs/monitor/metrics-monitor) を参照してください。
+- Grafana のアラート機能を使わずに、Cast Operations が同じメトリクスを直接監視することもできます — [Metrics Monitor](/docs/monitor/metrics-monitor) を参照してください。
 
 ## トラブルシューティング
 
@@ -62,4 +62,4 @@ Grafana の Webhook ペイロードは Alertmanager の形式に従います —
 
 - [連携 概要](/docs/integrations/index) — インバウンドパターン。
 - [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager) — 類似のペイロード。
-- [Metrics Monitor](/docs/monitor/metrics-monitor) — OneUptime でメトリクスを直接監視する。
+- [Metrics Monitor](/docs/monitor/metrics-monitor) — Cast Operations でメトリクスを直接監視する。

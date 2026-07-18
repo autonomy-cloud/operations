@@ -1,7 +1,7 @@
 import { create } from "xmlbuilder2";
 import { XMLBuilder } from "xmlbuilder2/lib/interfaces";
 import BlogPostUtil, { BlogPostHeader } from "./BlogPost";
-import OneUptimeDate from "Common/Types/Date";
+import Cast OperationsDate from "Common/Types/Date";
 import URL from "Common/Types/API/URL";
 import Text from "Common/Types/Text";
 
@@ -21,7 +21,7 @@ function isCacheValid<T>(cache: CachedData<T> | null | undefined): boolean {
   if (!cache) {
     return false;
   }
-  const now: number = OneUptimeDate.getCurrentDate().getTime();
+  const now: number = Cast OperationsDate.getCurrentDate().getTime();
   return now - cache.generatedAt < TTL_MS;
 }
 
@@ -57,8 +57,8 @@ async function buildRssFeed(data: {
   channel.ele("language").txt("en-us");
   channel
     .ele("lastBuildDate")
-    .txt(OneUptimeDate.getCurrentDate().toUTCString());
-  channel.ele("generator").txt("OneUptime Blog");
+    .txt(Cast OperationsDate.getCurrentDate().toUTCString());
+  channel.ele("generator").txt("Cast Operations Blog");
 
   // Atom self-link for feed validators
   const atomLink: XMLBuilder = channel.ele("atom:link");
@@ -68,7 +68,9 @@ async function buildRssFeed(data: {
 
   // Image
   const image: XMLBuilder = channel.ele("image");
-  image.ele("url").txt(`${data.baseUrlString}/img/OneUptimePNG/1.png`);
+  image
+    .ele("url")
+    .txt(`${data.baseUrlString}/img/CastOperationsSVG/icon.svg`);
   image.ele("title").txt(data.title);
   image.ele("link").txt(data.siteUrl);
 
@@ -115,9 +117,9 @@ export async function generateBlogRssFeed(): Promise<string> {
   const blogPosts: Array<BlogPostHeader> = await BlogPostUtil.getBlogPostList();
 
   const xml: string = await buildRssFeed({
-    title: "OneUptime Blog",
+    title: "Cast Operations Blog",
     description:
-      "Latest posts on Observability, Monitoring, Reliability and more from OneUptime.",
+      "Latest posts on Observability, Monitoring, Reliability and more from Cast Operations.",
     feedUrl: `${baseUrlString}/blog/rss.xml`,
     siteUrl: `${baseUrlString}/blog`,
     posts: blogPosts,
@@ -126,7 +128,7 @@ export async function generateBlogRssFeed(): Promise<string> {
 
   mainFeedCache = {
     data: xml,
-    generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
   };
 
   return xml;
@@ -150,8 +152,8 @@ export async function generateTagRssFeed(tagName: string): Promise<string> {
   const displayTagName: string = Text.fromDashesToPascalCase(tagName);
 
   const xml: string = await buildRssFeed({
-    title: `OneUptime Blog - ${displayTagName}`,
-    description: `Latest posts on ${displayTagName} from the OneUptime Blog.`,
+    title: `Cast Operations Blog - ${displayTagName}`,
+    description: `Latest posts on ${displayTagName} from the Cast Operations Blog.`,
     feedUrl: `${baseUrlString}/blog/tag/${encodeURIComponent(tagName)}/rss.xml`,
     siteUrl: `${baseUrlString}/blog/tag/${encodeURIComponent(tagName)}`,
     posts: blogPosts,
@@ -160,7 +162,7 @@ export async function generateTagRssFeed(tagName: string): Promise<string> {
 
   tagFeedCaches.set(cacheKey, {
     data: xml,
-    generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
   });
 
   return xml;

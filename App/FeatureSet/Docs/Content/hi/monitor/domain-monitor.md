@@ -1,6 +1,6 @@
 # Domain Monitor
 
-Domain monitoring आपको अपने domain names की registration status और expiration monitor करने की अनुमति देता है। OneUptime समय-समय पर WHOIS lookups करता है ताकि आपके domain की health track कर सके और expiry से पहले आपको alert करे।
+Domain monitoring आपको अपने domain names की registration status और expiration monitor करने की अनुमति देता है। Cast Operations समय-समय पर WHOIS lookups करता है ताकि आपके domain की health track कर सके और expiry से पहले आपको alert करे।
 
 ## Overview
 
@@ -14,7 +14,7 @@ Domain monitors आपके domains के लिए WHOIS data query करत
 
 ## Domain Monitor बनाना
 
-1. OneUptime Dashboard में **Monitors** पर जाएं
+1. Cast Operations Dashboard में **Monitors** पर जाएं
 2. **Create Monitor** पर क्लिक करें
 3. monitor type के रूप में **Domain** चुनें
 4. वह domain name दर्ज करें जिसे आप monitor करना चाहते हैं

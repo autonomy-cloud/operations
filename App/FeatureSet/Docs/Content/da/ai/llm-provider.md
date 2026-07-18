@@ -1,26 +1,26 @@
 # LLM-udbydere
 
-OneUptime understøtter integration med forskellige Large Language Model (LLM)-udbydere for at muliggøre AI-drevne funktioner på tværs af platformen. Denne guide hjælper dig med at konfigurere din egen LLM-udbyder.
+Cast Operations understøtter integration med forskellige Large Language Model (LLM)-udbydere for at muliggøre AI-drevne funktioner på tværs af platformen. Denne guide hjælper dig med at konfigurere din egen LLM-udbyder.
 
 ## Hvad kan LLM-udbydere gøre?
 
-LLM-udbydere i OneUptime hjælper dig med at automatisere og forbedre din incident management-arbejdsgang:
+LLM-udbydere i Cast Operations hjælper dig med at automatisere og forbedre din incident management-arbejdsgang:
 
 - **Incident-noter**: Generer automatisk detaljerede incident-noter og opdateringer
 - **Alert-noter**: Opret meningsfulde alert-beskrivelser og kontekst
 - **Notater om planlagt vedligeholdelse**: Generer noter til vedligeholdelsesbegivenheder automatisk
 - **Incident-postmortems**: Udkast automatisk til omfattende incident-postmortem-rapporter
-- **Kodeforbedringer**: Hvis du forbinder dit koderepository til OneUptime, bruger vi din LLM-udbyder til at analysere telemetridata (logs, traces, metrikker, undtagelser) og foreslå kodeforbedringer
+- **Kodeforbedringer**: Hvis du forbinder dit koderepository til Cast Operations, bruger vi din LLM-udbyder til at analysere telemetridata (logs, traces, metrikker, undtagelser) og foreslå kodeforbedringer
 
-## OneUptime SaaS-brugere
+## Cast Operations SaaS-brugere
 
-Hvis du bruger **OneUptime SaaS** (skyhosted version), kan du bruge den **Globale LLM-udbyder** som standard uden yderligere konfiguration. Den Globale LLM-udbyder er forudkonfigureret og klar til brug til alle AI-funktioner.
+Hvis du bruger **Cast Operations SaaS** (skyhosted version), kan du bruge den **Globale LLM-udbyder** som standard uden yderligere konfiguration. Den Globale LLM-udbyder er forudkonfigureret og klar til brug til alle AI-funktioner.
 
 Hvis du foretrækker at bruge dine egne API-nøgler eller en bestemt udbyder, kan du stadig konfigurere en brugerdefineret LLM-udbyder ved at følge instruktionerne nedenfor.
 
 ## Understøttede udbydere
 
-OneUptime understøtter i øjeblikket følgende LLM-udbydere:
+Cast Operations understøtter i øjeblikket følgende LLM-udbydere:
 
 | Udbyder               | Beskrivelse                                                             | API-nøgle påkrævet | Base URL påkrævet     |
 | --------------------- | ----------------------------------------------------------------------- | ------------------ | --------------------- |
@@ -36,7 +36,7 @@ OneUptime understøtter i øjeblikket følgende LLM-udbydere:
 
 ### Trin 1: Naviger til LLM-udbyderindstillinger
 
-1. Log ind på dit OneUptime-dashboard
+1. Log ind på dit Cast Operations-dashboard
 2. Gå til **AI Agenter** > **LLM-udbydere**
 3. Klik på **Opret LLM-udbyder** for at tilføje en ny udbyder
 
@@ -145,7 +145,7 @@ API Key: (leave blank)
 
 ### Selvhostet vLLM på Kubernetes (Helm)
 
-Hvis du selv-hoster OneUptime med Helm-charten, kan du køre [vLLM](https://docs.vllm.ai) — en OpenAI-kompatibel inferensserver — inde i din klynge og servere lokale modeller på dine egne GPU'er. Ingen data forlader din infrastruktur.
+Hvis du selv-hoster Cast Operations med Helm-charten, kan du køre [vLLM](https://docs.vllm.ai) — en OpenAI-kompatibel inferensserver — inde i din klynge og servere lokale modeller på dine egne GPU'er. Ingen data forlader din infrastruktur.
 
 1. Aktivér det i dine Helm-værdier (kræver NVIDIA GPU-noder):
 
@@ -175,7 +175,7 @@ Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-Se [Helm chart README](https://github.com/OneUptime/oneuptime/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) for GPU-scheduling, gated modeller og tuning-muligheder.
+Se [Helm chart README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) for GPU-scheduling, gated modeller og tuning-muligheder.
 
 ## Brug af brugerdefinerede Base URLs
 
@@ -211,5 +211,5 @@ Til enterprise-deployments eller ved brug af proxytjenester kan du angive en bru
 
 Hvis du støder på problemer med at opsætte din LLM-udbyder:
 
-1. Tjek [OneUptime GitHub Issues](https://github.com/OneUptime/oneuptime/issues) for kendte problemer
+1. Tjek [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) for kendte problemer
 2. Kontakt support, hvis du er på en enterprise-plan

@@ -1,6 +1,6 @@
 # Resource Operations
 
-The OneUptime CLI provides full CRUD (Create, Read, Update, Delete) operations for all supported resources. Resources are auto-discovered from your OneUptime instance.
+The Cast Operations CLI provides full CRUD (Create, Read, Update, Delete) operations for all supported resources. Resources are auto-discovered from your Cast Operations instance.
 
 ## Available Resources
 

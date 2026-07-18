@@ -1,7 +1,7 @@
 /**
  * Workflow tool tests.
  *
- * These tools compose multiple OneUptime API calls (state lookup + timeline
+ * These tools compose multiple Cast Operations API calls (state lookup + timeline
  * creation) so agents can acknowledge/resolve incidents and alerts without
  * insider knowledge of the data model. The API layer is mocked via a spy on
  * OneUptimeApiService.makeAuthenticatedApiCall — no HTTP is performed.

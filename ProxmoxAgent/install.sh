@@ -2,7 +2,7 @@
 set -e
 
 echo "=========================================="
-echo "  OneUptime Proxmox Agent Installer"
+echo "  Cast Operations Proxmox Agent Installer"
 echo "=========================================="
 echo ""
 
@@ -25,15 +25,15 @@ fi
 
 # Prompt for configuration
 if [ -z "$ONEUPTIME_URL" ]; then
-    read -rp "OneUptime URL (e.g., https://oneuptime.com): " ONEUPTIME_URL
+    read -rp "Cast Operations URL (e.g., https://visca.ai): " ONEUPTIME_URL
 fi
 
 if [ -z "$ONEUPTIME_TELEMETRY_INGESTION_KEY" ]; then
-    read -rp "OneUptime Telemetry Ingestion Key: " ONEUPTIME_TELEMETRY_INGESTION_KEY
+    read -rp "Cast Operations Telemetry Ingestion Key: " ONEUPTIME_TELEMETRY_INGESTION_KEY
 fi
 
 if [ -z "$PROXMOX_CLUSTER_NAME" ]; then
-    read -rp "Proxmox cluster name (shown in OneUptime, keep it stable) [proxmox-cluster]: " PROXMOX_CLUSTER_NAME
+    read -rp "Proxmox cluster name (shown in Cast Operations, keep it stable) [proxmox-cluster]: " PROXMOX_CLUSTER_NAME
     PROXMOX_CLUSTER_NAME="${PROXMOX_CLUSTER_NAME:-proxmox-cluster}"
 fi
 
@@ -76,7 +76,7 @@ echo "Installing to: $INSTALL_DIR"
 mkdir -p "$INSTALL_DIR"
 
 # Download configuration files
-REPO_BASE="https://raw.githubusercontent.com/OneUptime/oneuptime/master/ProxmoxAgent"
+REPO_BASE="https://raw.githubusercontent.com/autonomy-cloud/operations/master/ProxmoxAgent"
 
 echo "Downloading configuration files..."
 curl -sSL "$REPO_BASE/docker-compose.yml" -o "$INSTALL_DIR/docker-compose.yml"
@@ -97,13 +97,13 @@ chmod 600 "$INSTALL_DIR/.env"
 
 # Start the agent
 echo ""
-echo "Starting OneUptime Proxmox Agent..."
+echo "Starting Cast Operations Proxmox Agent..."
 cd "$INSTALL_DIR"
 docker compose up -d
 
 echo ""
 echo "=========================================="
-echo "  OneUptime Proxmox Agent is running!"
+echo "  Cast Operations Proxmox Agent is running!"
 echo "=========================================="
 echo ""
 echo "To check status:  cd $INSTALL_DIR && docker compose ps"

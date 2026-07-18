@@ -1,46 +1,46 @@
 # Интеграции
 
-OneUptime подключается к инструментам, которыми уже пользуется ваша команда, — Zabbix, Jira, PagerDuty, Slack и многим другим, — через **[Workflows](/docs/workflows/index)**, встроенный движок автоматизации. Устанавливать отдельные плагины не нужно. Вы собираете интеграцию на холсте с перетаскиванием, и она запускается всякий раз, когда что-то происходит.
+Cast Operations подключается к инструментам, которыми уже пользуется ваша команда, — Zabbix, Jira, PagerDuty, Slack и многим другим, — через **[Workflows](/docs/workflows/index)**, встроенный движок автоматизации. Устанавливать отдельные плагины не нужно. Вы собираете интеграцию на холсте с перетаскиванием, и она запускается всякий раз, когда что-то происходит.
 
-Эта страница объясняет два паттерна, которые используют все интеграции. Как только вы их поймёте, вы сможете подключить OneUptime практически к чему угодно — даже к инструментам, у которых нет собственной страницы здесь.
+Эта страница объясняет два паттерна, которые используют все интеграции. Как только вы их поймёте, вы сможете подключить Cast Operations практически к чему угодно — даже к инструментам, у которых нет собственной страницы здесь.
 
 ## Два паттерна
 
 Каждая интеграция передаёт данные в одном из двух направлений (многие используют оба).
 
-### Входящий — другой инструмент отправляет данные в OneUptime
+### Входящий — другой инструмент отправляет данные в Cast Operations
 
-Используйте этот паттерн, когда внешняя система должна _создать или обновить что-то в OneUptime_ — обычно открыть инцидент или оповещение, когда обнаруживает проблему.
+Используйте этот паттерн, когда внешняя система должна _создать или обновить что-то в Cast Operations_ — обычно открыть инцидент или оповещение, когда обнаруживает проблему.
 
-1. Создайте рабочий процесс, начинающийся с **[триггера Webhook](/docs/workflows/triggers#webhook)**. OneUptime выдаст вам уникальный URL.
+1. Создайте рабочий процесс, начинающийся с **[триггера Webhook](/docs/workflows/triggers#webhook)**. Cast Operations выдаст вам уникальный URL.
 2. В другом инструменте настройте webhook или действие уведомления, которое отправляет `POST` на этот URL при наступлении события.
 3. В рабочем процессе прочитайте входящую нагрузку и используйте компонент **Create Incident** (или Create Alert), чтобы зафиксировать её.
 
 ```text
-Zabbix / Prometheus / Grafana / Datadog  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Zabbix / Prometheus / Grafana / Datadog  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
-### Исходящий — OneUptime отправляет данные в другой инструмент
+### Исходящий — Cast Operations отправляет данные в другой инструмент
 
-Используйте этот паттерн, когда _что-то в OneUptime должно отобразиться в другом инструменте_ — открыть тикет в Jira, вызвать кого-то через PagerDuty, опубликовать в Slack.
+Используйте этот паттерн, когда _что-то в Cast Operations должно отобразиться в другом инструменте_ — открыть тикет в Jira, вызвать кого-то через PagerDuty, опубликовать в Slack.
 
-1. Создайте рабочий процесс с **[триггером события OneUptime](/docs/workflows/triggers#oneuptime-event-triggers)** — например, **Incident → On Create**.
+1. Создайте рабочий процесс с **[триггером события Cast Operations](/docs/workflows/triggers#oneuptime-event-triggers)** — например, **Incident → On Create**.
 2. Добавьте **[компонент API](/docs/workflows/components#api)**, который вызывает REST API другого инструмента с деталями инцидента.
 3. Храните любые API-ключи как **секретные [глобальные переменные](/docs/workflows/variables#global-variables)**, чтобы они никогда не появлялись в рабочем процессе или его журналах.
 
 ```text
-OneUptime Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
+Cast Operations Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
 ```
 
 ## Каталог
 
 | Инструмент                                                            | Направление            | Что делает                                                                            |
 | --------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------- |
-| [Zabbix](/docs/integrations/zabbix)                                   | Входящий               | Превращает проблемы Zabbix в инциденты OneUptime (и разрешает их при восстановлении). |
+| [Zabbix](/docs/integrations/zabbix)                                   | Входящий               | Превращает проблемы Zabbix в инциденты Cast Operations (и разрешает их при восстановлении). |
 | [Jira](/docs/integrations/jira)                                       | Исходящий (+ входящий) | Открывает задачу Jira для каждого инцидента; синхронизирует статус обратно.           |
-| [PagerDuty](/docs/integrations/pagerduty)                             | Исходящий (+ входящий) | Создаёт и разрешает события PagerDuty из инцидентов OneUptime.                        |
+| [PagerDuty](/docs/integrations/pagerduty)                             | Исходящий (+ входящий) | Создаёт и разрешает события PagerDuty из инцидентов Cast Operations.                        |
 | [Opsgenie](/docs/integrations/opsgenie)                               | Исходящий (+ входящий) | Создаёт и закрывает оповещения Opsgenie.                                              |
-| [ServiceNow](/docs/integrations/servicenow)                           | Исходящий (+ входящий) | Открывает инциденты ServiceNow из OneUptime.                                          |
+| [ServiceNow](/docs/integrations/servicenow)                           | Исходящий (+ входящий) | Открывает инциденты ServiceNow из Cast Operations.                                          |
 | [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager) | Входящий               | Преобразует уведомления Alertmanager в инциденты.                                     |
 | [Grafana](/docs/integrations/grafana)                                 | Входящий               | Преобразует оповещения Grafana в инциденты.                                           |
 | [Datadog](/docs/integrations/datadog)                                 | Входящий               | Преобразует оповещения мониторов Datadog в инциденты.                                 |
@@ -85,7 +85,7 @@ printf '%s' 'you@example.com:your_api_token' | base64
 
 Практически любой инструмент подходит под один из двух паттернов выше:
 
-- Если инструмент умеет **отправлять webhook** при наступлении события — используйте **входящий** паттерн: направьте его webhook на триггер Webhook в OneUptime.
+- Если инструмент умеет **отправлять webhook** при наступлении события — используйте **входящий** паттерн: направьте его webhook на триггер Webhook в Cast Operations.
 - Если у инструмента есть **REST API** — используйте **исходящий** паттерн: вызовите его из **компонента API**.
 - Если нужно преобразовать данные между двумя частями — добавьте блок **[Custom Code](/docs/workflows/components#custom-code)**.
 
@@ -94,7 +94,7 @@ printf '%s' 'you@example.com:your_api_token' | base64
 ## Что читать дальше
 
 - [Обзор рабочих процессов](/docs/workflows/index) — как работает движок автоматизации.
-- [Триггеры](/docs/workflows/triggers) — Webhook и триггеры событий OneUptime подробно.
+- [Триггеры](/docs/workflows/triggers) — Webhook и триггеры событий Cast Operations подробно.
 - [Компоненты](/docs/workflows/components) — компоненты API, Webhook и данных.
 - [Переменные](/docs/workflows/variables) — секреты и передача данных между блоками.
 - [Zabbix](/docs/integrations/zabbix) и [Jira](/docs/integrations/jira) — полные рабочие примеры.

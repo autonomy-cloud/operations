@@ -1,6 +1,6 @@
 # macOS インストールガイド
 
-シームレスな監視とインシデント管理のために、OneUptime を macOS にネイティブデスクトップアプリケーションとしてインストールします。
+シームレスな監視とインシデント管理のために、Cast Operations を macOS にネイティブデスクトップアプリケーションとしてインストールします。
 
 ## インストール方法
 
@@ -8,11 +8,11 @@
 
 Safari は macOS のネイティブ機能との優れた PWA 統合を提供します。
 
-1. **Safari で OneUptime を開く**
+1. **Safari で Cast Operations を開く**
 
    - Safari ブラウザを起動します
-   - OneUptime インスタンスの URL に移動します
-   - OneUptime アカウントにサインインします
+   - Cast Operations インスタンスの URL に移動します
+   - Cast Operations アカウントにサインインします
    - ページが完全に読み込まれるまで待ちます
 
 2. **PWA をインストールする**
@@ -24,12 +24,12 @@ Safari は macOS のネイティブ機能との優れた PWA 統合を提供し�
 
 3. **インストールをカスタマイズする**
 
-   - **アプリ名**: 必要に応じて変更します（デフォルト: OneUptime）
+   - **アプリ名**: 必要に応じて変更します（デフォルト: Cast Operations）
    - **Dock**: Dock に追加するか選択します
    - **Launchpad**: 簡単なアクセスのために Launchpad に追加します
 
 4. **アプリを起動する**
-   - Dock、Launchpad、またはアプリケーションフォルダーで OneUptime を見つけます
+   - Dock、Launchpad、またはアプリケーションフォルダーで Cast Operations を見つけます
    - クリックして専用のウィンドウで起動します
    - アプリは Safari ブラウザとは独立して動作します
 
@@ -37,17 +37,17 @@ Safari は macOS のネイティブ機能との優れた PWA 統合を提供し�
 
 Chrome は優れたデスクトップ統合を備えた堅牢な PWA サポートを提供します。
 
-1. **Chrome で OneUptime を開く**
+1. **Chrome で Cast Operations を開く**
 
    - Google Chrome を起動します
-   - OneUptime インスタンスに移動します
+   - Cast Operations インスタンスに移動します
    - サインインしていることを確認します
    - ページが完全に読み込まれるまで待ちます
 
 2. **メニューからインストールする**
 
    - アドレスバーの**インストールアイコン**（⊞）を探します
-   - **「OneUptime をインストール」**をクリックします
+   - **「Cast Operations をインストール」**をクリックします
    - または**Chrome メニュー** → **その他のツール** → **ショートカットを作成**を使用します
 
 3. **インストールオプション**
@@ -57,7 +57,7 @@ Chrome は優れたデスクトップ統合を備えた堅牢な PWA サポー�
    - **「インストール」**または**「作成」**をクリックします
 
 4. **アプリにアクセスする**
-   - アプリケーションフォルダーで OneUptime を見つけます
+   - アプリケーションフォルダーで Cast Operations を見つけます
    - または Spotlight 検索でアクセスします
    - クイックアクセスのために Dock にピン留めします
 
@@ -65,10 +65,10 @@ Chrome は優れたデスクトップ統合を備えた堅牢な PWA サポー�
 
 Edge は良好な macOS 統合を備えた確実な PWA サポートを提供します。
 
-1. **Edge で OneUptime を開く**
+1. **Edge で Cast Operations を開く**
 
    - Microsoft Edge を起動します
-   - OneUptime の URL に移動します
+   - Cast Operations の URL に移動します
    - サインインプロセスを完了します
 
 2. **アプリをインストールする**
@@ -81,7 +81,7 @@ Edge は良好な macOS 統合を備えた確実な PWA サポートを提供し
 
 ### Dock と Launchpad
 
-1. **Dock の位置**: OneUptime を好みの Dock の位置にドラッグします
+1. **Dock の位置**: Cast Operations を好みの Dock の位置にドラッグします
 2. **Dock サイズ**: Dock 設定でアイコンをリサイズします
 3. **Launchpad の整理**: 監視アプリのフォルダーを作成します
 4. **バッジ通知**: Dock アイコンにインシデント数を表示します
@@ -90,7 +90,7 @@ Edge は良好な macOS 統合を備えた確実な PWA サポートを提供し
 
 1. **通知センター**
 
-   - システム環境設定 → 通知 → OneUptime
+   - システム環境設定 → 通知 → Cast Operations
    - アラートスタイルと配信を設定します
    - 異なるインシデントタイプの優先度レベルを設定します
 
@@ -130,7 +130,7 @@ Edge は良好な macOS 統合を備えた確実な PWA サポートを提供し
 
 ```
 解決策:
-1. Launchpad で OneUptime アイコンを確認します
+1. Launchpad で Cast Operations アイコンを確認します
 2. Spotlight（⌘+Space）で検索します
 3. ブラウザの PWA 管理セクションを確認します
 4. 別のブラウザで再インストールを試みます
@@ -143,11 +143,11 @@ Edge は良好な macOS 統合を備えた確実な PWA サポートを提供し
 
 ```
 解決策:
-1. システム環境設定 → 通知 → OneUptime
+1. システム環境設定 → 通知 → Cast Operations
 2. 「通知を許可」を有効にします
 3. 適切なアラートスタイルを設定します（バナー/アラート）
 4. 「おやすみモード」設定を確認します
-5. OneUptime の通知設定を確認します
+5. Cast Operations の通知設定を確認します
 6. プロンプトが表示されたら通知権限を付与します
 ```
 
@@ -158,18 +158,18 @@ Edge は良好な macOS 統合を備えた確実な PWA サポートを提供し
 1. **アプリケーションフォルダーの方法**
 
    - アプリケーションフォルダーを開きます
-   - OneUptime を見つけます
+   - Cast Operations を見つけます
    - ゴミ箱にドラッグするか右クリック → ゴミ箱に移動
 
 2. **Dock の方法**
 
-   - Dock の OneUptime を右クリックします
+   - Dock の Cast Operations を右クリックします
    - 「オプション」→「Dock から削除」を選択します
    - 次にアプリケーションフォルダーから削除します
 
 3. **ブラウザの PWA 管理**
-   - **Chrome**: chrome://apps/ → OneUptime を見つける → 削除
-   - **Edge**: edge://apps/ → OneUptime を見つける → アンインストール
+   - **Chrome**: chrome://apps/ → Cast Operations を見つける → 削除
+   - **Edge**: edge://apps/ → Cast Operations を見つける → アンインストール
    - **Safari**: 専用の管理ページなし
 
 ### 完全なアンインストール
@@ -192,7 +192,7 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### 自動更新
 
-- OneUptime PWA はオンライン時に自動的に更新されます
+- Cast Operations PWA はオンライン時に自動的に更新されます
 - App Store の更新は不要です
 - 新機能が即時に利用可能になります
 - 重要な更新が即時に適用されます
@@ -201,28 +201,28 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ### Shortcuts アプリの統合
 
-OneUptime のカスタムショートカットを作成します:
+Cast Operations のカスタムショートカットを作成します:
 
 1. **Shortcuts** アプリを開きます
 2. **新しいショートカット**を作成します
 3. **「アプリを開く」**アクションを追加します
-4. **OneUptime** を選択します
+4. **Cast Operations** を選択します
 5. 音声アクティベーション用に Siri に追加します
 
 ### Terminal との統合
 
-Terminal を通じて OneUptime を管理します:
+Terminal を通じて Cast Operations を管理します:
 
 ```bash
-# 素早い OneUptime 起動のためのエイリアスを作成
-echo 'alias oneuptime="open -a \"OneUptime\""' >> ~/.zshrc
+# 素早い Cast Operations 起動のためのエイリアスを作成
+echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
 
-# OneUptime が実行中かどうかを確認する関数
+# Cast Operations が実行中かどうかを確認する関数
 oneuptime_status() {
-    if pgrep -f "OneUptime" > /dev/null; then
-        echo "OneUptime is running"
+    if pgrep -f "Cast Operations" > /dev/null; then
+        echo "Cast Operations is running"
     else
-        echo "OneUptime is not running"
+        echo "Cast Operations is not running"
     fi
 }
 ```

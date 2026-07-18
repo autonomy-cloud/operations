@@ -1,46 +1,46 @@
 # Integrasjoner
 
-OneUptime kobler seg til verktøyene teamet ditt allerede bruker — Zabbix, Jira, PagerDuty, Slack og mange flere — gjennom **[Arbeidsflyter](/docs/workflows/index)**, den innebygde automatiseringsmotoren. Det er ingen separat plugin å installere. Du kobler en integrasjon sammen på et dra-og-slipp-lerret, og den kjører hver gang noe skjer.
+Cast Operations kobler seg til verktøyene teamet ditt allerede bruker — Zabbix, Jira, PagerDuty, Slack og mange flere — gjennom **[Arbeidsflyter](/docs/workflows/index)**, den innebygde automatiseringsmotoren. Det er ingen separat plugin å installere. Du kobler en integrasjon sammen på et dra-og-slipp-lerret, og den kjører hver gang noe skjer.
 
-Denne siden forklarer de to mønstrene enhver integrasjon bruker. Når du forstår dem, kan du koble OneUptime til nesten hva som helst, selv verktøy som ikke har sin egen side her.
+Denne siden forklarer de to mønstrene enhver integrasjon bruker. Når du forstår dem, kan du koble Cast Operations til nesten hva som helst, selv verktøy som ikke har sin egen side her.
 
 ## De to mønstrene
 
 Enhver integrasjon flytter data i én av to retninger (og mange bruker begge).
 
-### Innkommende — et annet verktøy sender data til OneUptime
+### Innkommende — et annet verktøy sender data til Cast Operations
 
-Bruk dette når et eksternt system må _opprette eller oppdatere noe i OneUptime_ — vanligvis åpne en hendelse eller et varsel når det oppdager et problem.
+Bruk dette når et eksternt system må _opprette eller oppdatere noe i Cast Operations_ — vanligvis åpne en hendelse eller et varsel når det oppdager et problem.
 
-1. Bygg en arbeidsflyt som starter med en **[Webhook-trigger](/docs/workflows/triggers#webhook)**. OneUptime gir deg en unik URL.
+1. Bygg en arbeidsflyt som starter med en **[Webhook-trigger](/docs/workflows/triggers#webhook)**. Cast Operations gir deg en unik URL.
 2. I det andre verktøyet, konfigurer en webhook / varslingshendelse som POSTer til den URL-en når noe skjer.
 3. I arbeidsflyten, les den innkommende nyttelasten og bruk en **Create Incident**-komponent (eller Create Alert) for å registrere den.
 
 ```text
-Zabbix / Prometheus / Grafana / Datadog  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Zabbix / Prometheus / Grafana / Datadog  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
-### Utgående — OneUptime sender data til et annet verktøy
+### Utgående — Cast Operations sender data til et annet verktøy
 
-Bruk dette når _noe i OneUptime skal vises i et annet verktøy_ — åpne en Jira-sak, varsle noen i PagerDuty, poste til Slack.
+Bruk dette når _noe i Cast Operations skal vises i et annet verktøy_ — åpne en Jira-sak, varsle noen i PagerDuty, poste til Slack.
 
-1. Bygg en arbeidsflyt som starter med en **[OneUptime-hendelsestrigger](/docs/workflows/triggers#oneuptime-event-triggers)** — for eksempel **Incident → On Create**.
+1. Bygg en arbeidsflyt som starter med en **[Cast Operations-hendelsestrigger](/docs/workflows/triggers#oneuptime-event-triggers)** — for eksempel **Incident → On Create**.
 2. Legg til en **[API-komponent](/docs/workflows/components#api)** som kaller det andre verktøyets REST API med hendelsens detaljer.
 3. Lagre alle API-nøkler som **hemmelige [globale variabler](/docs/workflows/variables#global-variables)** slik at de aldri vises i arbeidsflyten eller dens logger.
 
 ```text
-OneUptime Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
+Cast Operations Incident → On Create  ──►  API component  ──►  Jira / PagerDuty / ServiceNow / GitHub
 ```
 
 ## Katalog
 
 | Verktøy                                                               | Retning                  | Hva det gjør                                                                        |
 | --------------------------------------------------------------------- | ------------------------ | ----------------------------------------------------------------------------------- |
-| [Zabbix](/docs/integrations/zabbix)                                   | Innkommende              | Gjøre Zabbix-problemer om til OneUptime-hendelser (og løse dem ved gjenoppretting). |
+| [Zabbix](/docs/integrations/zabbix)                                   | Innkommende              | Gjøre Zabbix-problemer om til Cast Operations-hendelser (og løse dem ved gjenoppretting). |
 | [Jira](/docs/integrations/jira)                                       | Utgående (+ innkommende) | Åpne en Jira-sak for hver hendelse; synkronisere status tilbake.                    |
-| [PagerDuty](/docs/integrations/pagerduty)                             | Utgående (+ innkommende) | Utløse og løse PagerDuty-hendelser fra OneUptime-hendelser.                         |
+| [PagerDuty](/docs/integrations/pagerduty)                             | Utgående (+ innkommende) | Utløse og løse PagerDuty-hendelser fra Cast Operations-hendelser.                         |
 | [Opsgenie](/docs/integrations/opsgenie)                               | Utgående (+ innkommende) | Opprette og lukke Opsgenie-varsler.                                                 |
-| [ServiceNow](/docs/integrations/servicenow)                           | Utgående (+ innkommende) | Åpne ServiceNow-hendelser fra OneUptime.                                            |
+| [ServiceNow](/docs/integrations/servicenow)                           | Utgående (+ innkommende) | Åpne ServiceNow-hendelser fra Cast Operations.                                            |
 | [Prometheus Alertmanager](/docs/integrations/prometheus-alertmanager) | Innkommende              | Konvertere Alertmanager-varsler til hendelser.                                      |
 | [Grafana](/docs/integrations/grafana)                                 | Innkommende              | Konvertere Grafana-varsler til hendelser.                                           |
 | [Datadog](/docs/integrations/datadog)                                 | Innkommende              | Konvertere Datadog-monitorvarsler til hendelser.                                    |
@@ -85,7 +85,7 @@ printf '%s' 'you@example.com:your_api_token' | base64
 
 Nesten ethvert verktøy passer inn i ett av de to mønstrene ovenfor:
 
-- Hvis verktøyet kan **sende en webhook** når noe skjer, bruk det **innkommende** mønsteret — pek webhoken mot en OneUptime Webhook-trigger.
+- Hvis verktøyet kan **sende en webhook** når noe skjer, bruk det **innkommende** mønsteret — pek webhoken mot en Cast Operations Webhook-trigger.
 - Hvis verktøyet har et **REST API**, bruk det **utgående** mønsteret — kall det fra en **API-komponent**.
 - Hvis du trenger å omforme data mellom de to, legg inn en **[Custom Code](/docs/workflows/components#custom-code)**-blokk.
 
@@ -94,7 +94,7 @@ Det dekker den lange halen — Zendesk, AWS CloudWatch (via SNS), New Relic, Spl
 ## Hvor du leser videre
 
 - [Oversikt over arbeidsflyter](/docs/workflows/index) — hvordan automatiseringsmotoren fungerer.
-- [Triggere](/docs/workflows/triggers) — Webhook- og OneUptime-hendelsestrigger i detalj.
+- [Triggere](/docs/workflows/triggers) — Webhook- og Cast Operations-hendelsestrigger i detalj.
 - [Komponenter](/docs/workflows/components) — API-, Webhook- og datakomponentene.
 - [Variabler](/docs/workflows/variables) — hemmeligheter og å sende data mellom blokker.
 - [Zabbix](/docs/integrations/zabbix) og [Jira](/docs/integrations/jira) — fullstendige utarbeidede eksempler.

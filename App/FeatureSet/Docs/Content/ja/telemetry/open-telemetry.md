@@ -1,10 +1,10 @@
-# OpenTelemetry（ログ、メトリクス、トレース）をOneUptimeに統合する。
+# OpenTelemetry（ログ、メトリクス、トレース）をCast Operationsに統合する。
 
 ### ステップ1 — テレメトリー取り込みトークンの作成
 
-OneUptimeアカウントを作成したら、アプリケーションからログ、メトリクス、トレースを取り込むためのテレメトリー取り込みトークンを作成できます。
+Cast Operationsアカウントを作成したら、アプリケーションからログ、メトリクス、トレースを取り込むためのテレメトリー取り込みトークンを作成できます。
 
-OneUptimeに登録してプロジェクトを作成した後、ナビゲーションバーの「More」をクリックし、「プロジェクト設定」をクリックします。
+Cast Operationsに登録してプロジェクトを作成した後、ナビゲーションバーの「More」をクリックし、「プロジェクト設定」をクリックします。
 
 テレメトリー取り込みキーページで、「取り込みキーの作成」をクリックしてトークンを作成します。
 
@@ -20,7 +20,7 @@ OneUptimeに登録してプロジェクトを作成した後、ナビゲーシ�
 
 #### アプリケーションログ
 
-OpenTelemetryを使用してアプリケーションログを収集します。OneUptimeは現在以下のOpenTelemetry SDKからのログ取り込みをサポートしています。アプリケーションのテレメトリーサービスを設定するには、以下の手順に従ってください。
+OpenTelemetryを使用してアプリケーションログを収集します。Cast Operationsは現在以下のOpenTelemetry SDKからのログ取り込みをサポートしています。アプリケーションのテレメトリーサービスを設定するには、以下の手順に従ってください。
 
 - [C++](https://opentelemetry.io/docs/instrumentation/cpp/)
 - [Go](https://opentelemetry.io/docs/instrumentation/go/)
@@ -34,34 +34,34 @@ OpenTelemetryを使用してアプリケーションログを収集します。O
 - [.NET / C#](https://opentelemetry.io/docs/instrumentation/net/)
 - [Swift](https://opentelemetry.io/docs/instrumentation/swift/)
 
-**OneUptimeとの統合**
+**Cast Operationsとの統合**
 
-アプリケーションのテレメトリーサービスを設定したら、以下の環境変数を設定することでOneUptimeと統合できます。
+アプリケーションのテレメトリーサービスを設定したら、以下の環境変数を設定することでCast Operationsと統合できます。
 
 | 環境変数                    | 値                                             |
 | --------------------------- | ---------------------------------------------- |
 | OTEL_EXPORTER_OTLP_HEADERS  | x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN |
-| OTEL_EXPORTER_OTLP_ENDPOINT | https://oneuptime.com/otlp                     |
+| OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **例**
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=9c8806e0-a4aa-11ee-be95-010d5967b068
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://oneuptime.com/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
-**セルフホストのOneUptime**
+**セルフホストのCast Operations**
 
-OneUptimeをセルフホストしている場合は、セルフホストのOpenTelemetryコレクターエンドポイントに変更できます（例：`http(s)://YOUR-ONEUPTIME-HOST/otlp`）
+Cast Operationsをセルフホストしている場合は、セルフホストのOpenTelemetryコレクターエンドポイントに変更できます（例：`http(s)://YOUR-OPERATIONS-HOST/otlp`）
 
-アプリケーションを実行すると、OneUptimeのテレメトリーサービスページでログを確認できます。ご不明な点がある場合は、support@oneuptime.com にお問い合わせください。
+アプリケーションを実行すると、Cast Operationsのテレメトリーサービスページでログを確認できます。ご不明な点がある場合は、support@visca.ai にお問い合わせください。
 
 #### OpenTelemetryコレクターを使用する
 
 アプリケーションから直接テレメトリーデータを送信する代わりに、OpenTelemetryコレクターを使用することもできます。
-OpenTelemetryコレクターを使用する場合は、コレクターの設定ファイルでOneUptimeエクスポーターを設定できます。
+OpenTelemetryコレクターを使用する場合は、コレクターの設定ファイルでCast Operationsエクスポーターを設定できます。
 
 以下はOpenTelemetryコレクターの設定例です。
 
@@ -77,12 +77,12 @@ receivers:
 exporters:
   # HTTP経由でエクスポート
   otlphttp:
-    endpoint: "https://oneuptime.com/otlp"
+    endpoint: "https://visca.ai/otlp"
     # デフォルトのProto(buf)の代わりにJSONエンコーダーを使用する必要があります
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "ONEUPTIME_TOKEN" # OneUptimeトークン
+      "x-oneuptime-token": "ONEUPTIME_TOKEN" # Cast Operationsトークン
 
 service:
   pipelines:

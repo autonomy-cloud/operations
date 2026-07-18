@@ -77,7 +77,7 @@ data:
       # `metric_relabel_configs` drops everything except the configured
       # allowlist at the receiver — cAdvisor exposes hundreds of metrics
       # by default, so without this the per-container cardinality would
-      # balloon the collector's memory and the OneUptime metric store.
+      # balloon the collector's memory and the Cast Operations metric store.
       prometheus/cadvisor:
         config:
           scrape_configs:
@@ -263,7 +263,7 @@ data:
           # Container runtimes write one log entry per newline, so a multi-line
           # event (a Java/Python/Node/.NET stack trace, a pretty-printed JSON
           # blob) arrives as many separate records and renders as many separate
-          # lines on the OneUptime Logs page. Recombine continuation lines back
+          # lines on the Cast Operations Logs page. Recombine continuation lines back
           # into the record they belong to so each exception is a single log.
           # A line starts a new record unless it begins with whitespace or a
           # closing bracket/brace/paren, which covers stack frames and wrapped
@@ -296,7 +296,7 @@ data:
             from: attributes.uid
             to: resource["k8s.pod.uid"]
           # Container runtimes (Docker, containerd, CRI-O) do not record a
-          # severity on the log line, so OTel LogRecords arrive at OneUptime
+          # severity on the log line, so OTel LogRecords arrive at Cast Operations
           # with severity_number=0 and render as "Unspecified" on the Logs
           # page. Derive a best-effort severity: route to body-based extraction
           # when the body carries a recognizable severity keyword (covers
@@ -376,7 +376,7 @@ data:
 
       # Stamp with cluster name and default service name. Any keys under
       # .Values.oneuptime.labels are also stamped here as
-      # `oneuptime.label.<key>=<value>` resource attributes — the OneUptime
+      # `oneuptime.label.<key>=<value>` resource attributes — the Cast Operations
       # ingest pipeline promotes those into project Labels.
       resource:
         attributes:
@@ -431,7 +431,7 @@ data:
         headers:
           x-oneuptime-token: "${env:ONEUPTIME_API_KEY}"
         # Bound how much un-exported telemetry can buffer in RAM when the
-        # OneUptime backend is slow or unreachable. Without an explicit queue
+        # Cast Operations backend is slow or unreachable. Without an explicit queue
         # and retry window the exporter falls back to the OTel defaults
         # (queue_size 1000, retry for up to 300s), which on this
         # memory-constrained DaemonSet pod can buffer past the container limit

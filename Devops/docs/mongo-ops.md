@@ -13,7 +13,7 @@ db.createUser(
 })
 ```
 
-## Create OneUptime User
+## Create Cast Operations User
 
 ```
 use admin
@@ -196,12 +196,12 @@ db.changeUserPassword("<USER-PASSWORD>", "<NEW-PASSWORD>")
 exit                                            # This is important.
 ```
 
-## Set a member as master admin of OneUptime.
+## Set a member as master admin of Cast Operations.
 
 ```
 kubectl exec -it fi-mongodb-0 mongo
 use oneuptimedb
 db.auth('oneuptime','password')
-db.users.find({email: 'admin@oneuptime.com'}) # Master admin user. Should be already signed up.
-db.users.update({email: 'admin@oneuptime.com'}, {$set:{ role: 'master-admin'}}) # Update the user
+db.users.find({email: 'admin@visca.ai'}) # Master admin user. Should be already signed up.
+db.users.update({email: 'admin@visca.ai'}, {$set:{ role: 'master-admin'}}) # Update the user
 ```

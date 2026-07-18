@@ -1,14 +1,14 @@
 # Inkomend belbeleid (Twilio-integratie)
 
-Inkomend belbeleid stelt externe bellers in staat uw piket-engineers te bereiken door een speciaal telefoonnummer te bellen. Wanneer iemand belt, routeert OneUptime het gesprek via uw geconfigureerde escalatieregels totdat een engineer opneemt.
+Inkomend belbeleid stelt externe bellers in staat uw piket-engineers te bereiken door een speciaal telefoonnummer te bellen. Wanneer iemand belt, routeert Cast Operations het gesprek via uw geconfigureerde escalatieregels totdat een engineer opneemt.
 
 ## Hoe het werkt
 
 ```mermaid
 flowchart TD
     A[Caller dials<br/>Incoming Call Number] --> B[Twilio receives call]
-    B --> C[Twilio sends webhook<br/>to OneUptime]
-    C --> D[OneUptime plays<br/>greeting message]
+    B --> C[Twilio sends webhook<br/>to Cast Operations]
+    C --> D[Cast Operations plays<br/>greeting message]
     D --> E[Load Escalation Rules]
     E --> F{Rule 1:<br/>Try On-Call User}
     F -->|No Answer| G{Rule 2:<br/>Try Backup Team}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant Caller
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant OnCallEngineer
 
     Caller->>Twilio: Dials incoming call number
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML: Play greeting
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML: Play greeting
     Twilio->>Caller: "Please wait while we connect you..."
 
     loop Escalation Rules
-        OneUptime->>OneUptime: Get next escalation rule
-        OneUptime->>Twilio: TwiML: Dial on-call user
+        Cast Operations->>Cast Operations: Get next escalation rule
+        Cast Operations->>Twilio: TwiML: Dial on-call user
         Twilio->>OnCallEngineer: Ring phone
         alt Engineer Answers
             OnCallEngineer->>Twilio: Picks up
-            Twilio->>OneUptime: Dial status: completed
+            Twilio->>Cast Operations: Dial status: completed
             Twilio->>Caller: Connect to engineer
             Note over Caller,OnCallEngineer: Call in progress
         else No Answer (timeout)
-            Twilio->>OneUptime: Dial status: no-answer
-            OneUptime->>OneUptime: Try next rule
+            Twilio->>Cast Operations: Dial status: no-answer
+            Cast Operations->>Cast Operations: Try next rule
         end
     end
 
     alt All Rules Exhausted
-        OneUptime->>Twilio: TwiML: Play no-answer message
+        Cast Operations->>Twilio: TwiML: Play no-answer message
         Twilio->>Caller: "No one is available..."
         Twilio->>Caller: Hangup
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - Een Twilio-account — Maak er een aan op [https://www.twilio.com](https://www.twilio.com)
 - Uw Twilio Account SID en Auth Token
-- Toegang tot uw zelf-gehoste OneUptime-instantie
+- Toegang tot uw zelf-gehoste Cast Operations-instantie
 
 ## Overzicht
 
@@ -74,7 +74,7 @@ De functie Inkomend belbeleid werkt door:
 4. De beller te verbinden met de eerste beschikbare piket-engineer
 5. Te escaleren naar de volgende regel als niemand opneemt
 
-Omdat u OneUptime zelf host, moet u uw eigen Twilio-account configureren. Dit geeft u volledige controle over uw telefoonnummers en facturering.
+Omdat u Cast Operations zelf host, moet u uw eigen Twilio-account configureren. Dit geeft u volledige controle over uw telefoonnummers en facturering.
 
 ## Stap 1: Een Twilio-account aanmaken
 
@@ -82,9 +82,9 @@ Omdat u OneUptime zelf host, moet u uw eigen Twilio-account configureren. Dit ge
 2. Voltooi het verificatieproces
 3. Noteer uw **Account SID** en **Auth Token** van het Twilio Console-dashboard
 
-## Stap 2: Bel/SMS-configuratie instellen in OneUptime
+## Stap 2: Bel/SMS-configuratie instellen in Cast Operations
 
-1. Log in op uw OneUptime-dashboard
+1. Log in op uw Cast Operations-dashboard
 2. Ga naar **Projectinstellingen** > **Bel & SMS** > **Aangepaste bel/SMS-configuratie**
 3. Klik op **Aangepaste bel/SMS-configuratie aanmaken**
 4. Vul de volgende velden in:
@@ -120,15 +120,15 @@ U heeft twee opties voor het instellen van een telefoonnummer:
 Als u al telefoonnummers heeft in uw Twilio-account:
 
 1. Klik in de kaart **Telefoonnummer** op **Bestaand nummer gebruiken**
-2. OneUptime haalt alle telefoonnummers op van uw Twilio-account
+2. Cast Operations haalt alle telefoonnummers op van uw Twilio-account
 3. Selecteer het telefoonnummer dat u wilt gebruiken
 4. Klik op **Dit gebruiken** om het toe te wijzen aan het beleid
 
-> **Opmerking**: Als het telefoonnummer al een webhook heeft geconfigureerd, wordt dit bijgewerkt om naar OneUptime te wijzen.
+> **Opmerking**: Als het telefoonnummer al een webhook heeft geconfigureerd, wordt dit bijgewerkt om naar Cast Operations te wijzen.
 
 ### Optie B: Een nieuw telefoonnummer kopen
 
-Om een nieuw telefoonnummer rechtstreeks via OneUptime te kopen:
+Om een nieuw telefoonnummer rechtstreeks via Cast Operations te kopen:
 
 1. Klik in de kaart **Telefoonnummer** op **Nieuw nummer kopen**
 2. Selecteer een **Land** uit de vervolgkeuzelijst
@@ -258,7 +258,7 @@ Als u een telefoonnummer niet meer nodig heeft:
 ### Gesprekken worden niet ontvangen
 
 - Verifieer dat de Twilio-configuratie correct is gekoppeld aan het beleid
-- Controleer of uw OneUptime-instantie bereikbaar is vanaf het internet
+- Controleer of uw Cast Operations-instantie bereikbaar is vanaf het internet
 - Verifieer dat het Twilio Account SID en Auth Token correct zijn
 - Controleer de Twilio Console op foutlogboeken
 
@@ -278,8 +278,8 @@ Als u een telefoonnummer niet meer nodig heeft:
 ## Beveiligingsoverwegingen
 
 - Houd uw Twilio Auth Token veilig en stel hem nooit openbaar bloot
-- Gebruik HTTPS voor uw OneUptime-instantie
-- OneUptime valideert webhook-handtekeningen om te zorgen dat verzoeken van Twilio komen
+- Gebruik HTTPS voor uw Cast Operations-instantie
+- Cast Operations valideert webhook-handtekeningen om te zorgen dat verzoeken van Twilio komen
 - Overweeg te beperken welke telefoonnummers uw inkomend belbeleid kunnen bellen
 
 ## Architectuuroverzicht
@@ -291,7 +291,7 @@ graph TB
         B[Twilio Cloud]
     end
 
-    subgraph "OneUptime"
+    subgraph "Cast Operations"
         C[Incoming Call API]
         D[Call Router]
         E[Escalation Engine]
@@ -320,5 +320,5 @@ graph TB
 Bij problemen met de functie Inkomend belbeleid:
 
 1. Controleer de Twilio Console op foutlogboeken
-2. Bekijk de OneUptime-serverlogboeken
-3. Neem contact op met ondersteuning via [hello@oneuptime.com](mailto:hello@oneuptime.com)
+2. Bekijk de Cast Operations-serverlogboeken
+3. Neem contact op met ondersteuning via [hello@visca.ai](mailto:hello@visca.ai)

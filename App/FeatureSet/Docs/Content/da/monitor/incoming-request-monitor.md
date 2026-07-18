@@ -1,6 +1,6 @@
 # Indgående anmodningsmonitor
 
-Indgående anmodningsovervågning (også kendt som hjerteslagsovervågning) giver dig mulighed for at overvåge tjenester ved at få dem til at sende periodiske HTTP-anmodninger til OneUptime. I stedet for at OneUptime kontakter din tjeneste pinger din tjeneste OneUptime for at bekræfte, at den kører.
+Indgående anmodningsovervågning (også kendt som hjerteslagsovervågning) giver dig mulighed for at overvåge tjenester ved at få dem til at sende periodiske HTTP-anmodninger til Cast Operations. I stedet for at Cast Operations kontakter din tjeneste pinger din tjeneste Cast Operations for at bekræfte, at den kører.
 
 ## Oversigt
 
@@ -14,7 +14,7 @@ Indgående anmodningsmonitorer leverer en unik webhook-URL, som dine tjenester k
 
 ## Oprettelse af en Indgående Anmodningsmonitor
 
-1. Gå til **Monitorer** i OneUptime-dashboardet
+1. Gå til **Monitorer** i Cast Operations-dashboardet
 2. Klik på **Opret monitor**
 3. Vælg **Indgående anmodning** som monitortype
 4. En **Hemmelig nøgle** og hjerteslag-URL genereres til denne monitor
@@ -26,7 +26,7 @@ Indgående anmodningsmonitorer leverer en unik webhook-URL, som dine tjenester k
 Når den er oprettet, vil din monitor have en unik hjerteslag-URL i formatet:
 
 ```
-https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+https://visca.ai/heartbeat/YOUR_SECRET_KEY
 ```
 
 Din tjeneste skal sende HTTP **GET** eller **POST**-anmodninger til denne URL med jævne mellemrum.
@@ -37,10 +37,10 @@ Din tjeneste skal sende HTTP **GET** eller **POST**-anmodninger til denne URL me
 
 ```bash
 # Simpel GET-anmodning
-curl https://oneuptime.com/heartbeat/YOUR_SECRET_KEY
+curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 # POST-anmodning med brugerdefineret indhold
-curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Tilføj til crontab for at sende hjerteslag hvert 5. minut
-*/5 * * * * curl -s https://oneuptime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### Fra applikationskode
@@ -57,16 +57,16 @@ curl -X POST https://oneuptime.com/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js-eksempel
 const https = require("https");
-https.get("https://oneuptime.com/heartbeat/YOUR_SECRET_KEY");
+https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python-eksempel
 import requests
-requests.get('https://oneuptime.com/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
 ```
 
-Erstat `https://oneuptime.com` med din OneUptime-instans-URL, hvis du selvhoster.
+Erstat `https://visca.ai` med din Cast Operations-instans-URL, hvis du selvhoster.
 
 ## Overvågningskriterier
 

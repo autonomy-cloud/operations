@@ -36,7 +36,7 @@ export interface ObservabilityAssistantPriorTurn {
 /*
  * A single "thinking step" emitted live as the agent loop runs, so callers can
  * narrate the investigation in real time ("Reading trace ✓ 0.4s"). This is the
- * step-level narration the OneUptime UI renders by polling AIRunEvent rows.
+ * step-level narration the Cast Operations UI renders by polling AIRunEvent rows.
  */
 export type ObservabilityAssistantStepType =
   | "llm_started"

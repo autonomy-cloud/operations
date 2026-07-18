@@ -1,11 +1,11 @@
 # Telegram 集成
 
-向 [Telegram](https://telegram.org) 聊天或群组发送事件更新。OneUptime 内置了 **Telegram** 工作流组件，设置非常快捷。
+向 [Telegram](https://telegram.org) 聊天或群组发送事件更新。Cast Operations 内置了 **Telegram** 工作流组件，设置非常快捷。
 
-此集成为**出站**模式：OneUptime 通过 Telegram 机器人发送消息。
+此集成为**出站**模式：Cast Operations 通过 Telegram 机器人发送消息。
 
 ```text
-OneUptime Incident → On Create  ──►  Telegram component  ──►  message in your chat
+Cast Operations Incident → On Create  ──►  Telegram component  ──►  message in your chat
 ```
 
 ## 步骤 1——创建机器人并获取令牌
@@ -21,7 +21,7 @@ OneUptime Incident → On Create  ──►  Telegram component  ──►  mess
 
 ## 步骤 3——存储机密
 
-1. 在 OneUptime 中，前往 **Workflows → Global Variables → Create**。
+1. 在 Cast Operations 中，前往 **Workflows → Global Variables → Create**。
 2. 创建 `TELEGRAM_BOT_TOKEN`（机密）和 `TELEGRAM_CHAT_ID`。
 
 ## 步骤 4——构建工作流

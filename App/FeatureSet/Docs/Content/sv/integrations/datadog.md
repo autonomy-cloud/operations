@@ -1,19 +1,19 @@
 # Datadog-integration
 
-Omvandla [Datadog](https://www.datadoghq.com)-monitorlarm till OneUptime-incidenter, så att Datadogs identifiering matar OneUptime:s incidenthantering och statussidor.
+Omvandla [Datadog](https://www.datadoghq.com)-monitorlarm till Cast Operations-incidenter, så att Datadogs identifiering matar Cast Operations:s incidenthantering och statussidor.
 
-Den här integrationen är **inkommande**: Datadogs [Webhooks-integration](https://docs.datadoghq.com/integrations/webhooks/) postar till ett OneUptime **[Arbetsflöde](/docs/workflows/index)** som börjar med en **Webhook-utlösare**.
+Den här integrationen är **inkommande**: Datadogs [Webhooks-integration](https://docs.datadoghq.com/integrations/webhooks/) postar till ett Cast Operations **[Arbetsflöde](/docs/workflows/index)** som börjar med en **Webhook-utlösare**.
 
 ```text
-Datadog monitor alerts  ──►  Webhook integration  ──►  OneUptime Webhook trigger  ──►  Create Incident
+Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operations Webhook trigger  ──►  Create Incident
 ```
 
 ## Förutsättningar
 
 - Ett Datadog-konto där du kan konfigurera integrationer och monitorer.
-- Ett OneUptime-projekt där du kan skapa arbetsflöden.
+- Ett Cast Operations-projekt där du kan skapa arbetsflöden.
 
-## Steg 1 — Bygg OneUptime-arbetsflödet
+## Steg 1 — Bygg Cast Operations-arbetsflödet
 
 1. Öppna **Workflows → Create Workflow**, namnge det `Datadog → Incidents` och öppna **Builder**.
 2. Lägg till en **Webhook**-utlösare och **kopiera dess URL**. Byt namn på blocket till `Datadog`.
@@ -60,7 +60,7 @@ Lägg till webhook-referensen i de monitorer du vill vidarebefordra. I varje mon
 {{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
 ```
 
-Detta skickar både larmet och återhämtningen till OneUptime. (För att vidarebefordra allt kan du också lägga till `@webhook-oneuptime` i en monitor ovillkorligt.)
+Detta skickar både larmet och återhämtningen till Cast Operations. (För att vidarebefordra allt kan du också lägga till `@webhook-oneuptime` i en monitor ovillkorligt.)
 
 ## Steg 4 — Testa det
 

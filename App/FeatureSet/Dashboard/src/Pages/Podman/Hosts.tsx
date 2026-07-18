@@ -161,7 +161,7 @@ const PodmanHosts: FunctionComponent<PageComponentProps> = (): ReactElement => {
         cardProps={{
           title: "Podman Hosts",
           description:
-            "Hosts being monitored in this project. Install the OneUptime Podman Agent to connect a host.",
+            "Hosts being monitored in this project. Install the Cast Operations Podman Agent to connect a host.",
         }}
         showViewIdButton={true}
         formFields={[

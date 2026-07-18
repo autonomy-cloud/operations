@@ -1,6 +1,6 @@
 # DNSSEC 监控器
 
-DNSSEC 监控允许您验证区域 DNS 响应的加密完整性。OneUptime 定期执行完整的 DNSSEC 验证 — 检查 DNSKEY 记录、父区域的 DS 委派、RRSIG 签名有效性、解析器对 AD flag 的共识，以及权威名称服务器之间的一致性。
+DNSSEC 监控允许您验证区域 DNS 响应的加密完整性。Cast Operations 定期执行完整的 DNSSEC 验证 — 检查 DNSKEY 记录、父区域的 DS 委派、RRSIG 签名有效性、解析器对 AD flag 的共识，以及权威名称服务器之间的一致性。
 
 ## 概述
 
@@ -14,7 +14,7 @@ DNSSEC 监控器验证从根区域到您的域名的整个信任链。这使您�
 
 ## 创建 DNSSEC 监控器
 
-1. 在 OneUptime 控制台中转到 **监控器**
+1. 在 Cast Operations 控制台中转到 **监控器**
 2. 点击 **创建监控器**
 3. 选择 **DNSSEC** 作为监控器类型
 4. 输入要验证的区域（域名）

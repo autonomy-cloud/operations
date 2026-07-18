@@ -4,7 +4,7 @@
 
 ### 添加密钥
 
-要添加密钥，请前往 OneUptime 控制台 -> 项目设置 -> 监控器密钥 -> 创建监控器密钥。
+要添加密钥，请前往 Cast Operations 控制台 -> 项目设置 -> 监控器密钥 -> 创建监控器密钥。
 
 ![创建密钥](/docs/static/images/CreateMonitorSecret.png)
 

@@ -1,22 +1,22 @@
 # Visão geral dos workflows
 
-Workflows permitem automatizar tarefas no OneUptime sem escrever código. Arraste e solte alguns blocos em um canvas, conecte-os, e você terá uma automação que roda sempre que algo acontece — um incidente é aberto, um agendamento dispara ou outra ferramenta envia dados para o OneUptime.
+Workflows permitem automatizar tarefas no Cast Operations sem escrever código. Arraste e solte alguns blocos em um canvas, conecte-os, e você terá uma automação que roda sempre que algo acontece — um incidente é aberto, um agendamento dispara ou outra ferramenta envia dados para o Cast Operations.
 
 Pense nos workflows como ajudantes em segundo plano para o seu projeto: eles reagem a eventos, conversam com outras ferramentas e mantêm tudo em sincronia silenciosamente, enquanto você foca no seu trabalho.
 
 ## O que dá para fazer com workflows
 
-- **Conectar o OneUptime às suas outras ferramentas** — enviar incidentes para o Slack, criar tickets no Jira, postar em um webhook da sua stack.
-- **Reagir ao que acontece no OneUptime** — quando um incidente crítico é criado, notificar o time de plantão e abrir um ticket automaticamente.
+- **Conectar o Cast Operations às suas outras ferramentas** — enviar incidentes para o Slack, criar tickets no Jira, postar em um webhook da sua stack.
+- **Reagir ao que acontece no Cast Operations** — quando um incidente crítico é criado, notificar o time de plantão e abrir um ticket automaticamente.
 - **Executar tarefas em um agendamento** — a cada cinco minutos, toda noite, toda segunda de manhã.
-- **Receber dados externos** — permitir que outros sistemas enviem dados ao OneUptime através de uma URL única.
+- **Receber dados externos** — permitir que outros sistemas enviem dados ao Cast Operations através de uma URL única.
 - **Reutilizar automações comuns** — construa uma vez, chame de qualquer outro workflow.
 
 ## Como um workflow funciona
 
 Todo workflow tem três partes:
 
-1. **Um gatilho** — o que inicia o workflow. Pode ser um botão manual, um agendamento, um webhook de entrada ou um evento no OneUptime (como um novo incidente).
+1. **Um gatilho** — o que inicia o workflow. Pode ser um botão manual, um agendamento, um webhook de entrada ou um evento no Cast Operations (como um novo incidente).
 2. **Um ou mais componentes** — o que o workflow faz. Enviar uma mensagem, fazer uma chamada HTTP, executar uma verificação rápida, ramificar com base em uma condição.
 3. **Conexões entre eles** — você desenha linhas de um bloco para o próximo para definir a ordem.
 
@@ -32,7 +32,7 @@ Você constrói tudo isso visualmente em um canvas. Sem necessidade de código p
 | **Execução**        | Uma execução do workflow. Salva com timestamps e a saída de cada bloco.                       |
 | **Variável global** | Um valor (como uma chave de API) que você salva uma vez e reutiliza em qualquer workflow.     |
 
-## Onde encontrar workflows no OneUptime
+## Onde encontrar workflows no Cast Operations
 
 Abra **Workflows** na navegação à esquerda. A partir daí:
 
@@ -46,7 +46,7 @@ Abra **Workflows** na navegação à esquerda. A partir daí:
 ## Construindo seu primeiro workflow
 
 1. **Crie** — dê um nome e uma descrição curta ao seu workflow.
-2. **Escolha um gatilho** — manual, agendado, webhook ou um evento do OneUptime.
+2. **Escolha um gatilho** — manual, agendado, webhook ou um evento do Cast Operations.
 3. **Adicione componentes** — arraste ações para o canvas e conecte-as.
 4. **Teste** — clique em **Executar Manualmente** e veja o que acontece nos logs.
 5. **Ative** — vire o interruptor **Ativado** nas Configurações quando estiver pronto.
@@ -63,7 +63,7 @@ Suponha que você queira postar no Slack sempre que um incidente crítico é cri
 
 Da próxima vez que alguém abrir um incidente com "Sev 1" no título, o Slack se acende.
 
-## Como os workflows se encaixam no restante do OneUptime
+## Como os workflows se encaixam no restante do Cast Operations
 
 - **Monitores** detectam o problema. **Incidentes** o registram. **Workflows** reagem a ele.
 - **Runbooks** são guias passo a passo para pessoas. Workflows são automação sem supervisão. Use um runbook quando um humano precisa tomar decisões; use um workflow quando os passos são automáticos.

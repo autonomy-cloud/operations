@@ -137,7 +137,7 @@ export default class ProjectSmtpConfig extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your OneUptime Project in which this object belongs",
+    description: "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -591,7 +591,7 @@ export default class ProjectSmtpConfig extends BaseModel {
   @TableColumn({
     required: true,
     type: TableColumnType.ShortText,
-    example: "OneUptime Notifications",
+    example: "Cast Operations Notifications",
   })
   @Column({
     nullable: false,
@@ -672,7 +672,7 @@ export default class ProjectSmtpConfig extends BaseModel {
     type: TableColumnType.ShortText,
     title: "Transport",
     description:
-      "How OneUptime delivers mail for this config. 'SMTP' uses the hostname/port. 'Microsoft Graph' sends via the Microsoft Graph REST API — use this when your Microsoft 365 tenant has SMTP AUTH disabled.",
+      "How Cast Operations delivers mail for this config. 'SMTP' uses the hostname/port. 'Microsoft Graph' sends via the Microsoft Graph REST API — use this when your Microsoft 365 tenant has SMTP AUTH disabled.",
     defaultValue: MailTransportType.SMTP,
     example: "SMTP",
   })

@@ -1,6 +1,6 @@
 # Monitor de Rastreamentos
 
-O monitoramento de rastreamentos permite monitorar rastreamentos distribuídos dos seus aplicativos e acionar alertas com base em padrões, contagens e status de spans. O OneUptime avalia dados de rastreamento dos seus serviços de telemetria em uma janela de tempo.
+O monitoramento de rastreamentos permite monitorar rastreamentos distribuídos dos seus aplicativos e acionar alertas com base em padrões, contagens e status de spans. O Cast Operations avalia dados de rastreamento dos seus serviços de telemetria em uma janela de tempo.
 
 ## Visão Geral
 
@@ -14,7 +14,7 @@ Os monitores de rastreamentos pesquisam e contam spans que correspondem a filtro
 
 ## Criando um Monitor de Rastreamentos
 
-1. Vá para **Monitors** no Painel do OneUptime
+1. Vá para **Monitors** no Painel do Cast Operations
 2. Clique em **Create Monitor**
 3. Selecione **Traces** como o tipo de monitor
 4. Selecione os serviços de telemetria para monitorar
@@ -24,7 +24,7 @@ Os monitores de rastreamentos pesquisam e contam spans que correspondem a filtro
 
 ### Serviços de Telemetria
 
-Selecione um ou mais serviços para monitorar rastreamentos. Os serviços devem estar enviando rastreamentos para o OneUptime via OpenTelemetry.
+Selecione um ou mais serviços para monitorar rastreamentos. Os serviços devem estar enviando rastreamentos para o Cast Operations via OpenTelemetry.
 
 ### Filtros de Span
 
@@ -79,4 +79,4 @@ Selecione um ou mais serviços para monitorar rastreamentos. Os serviços devem 
 
 ## Requisitos de Configuração
 
-O monitoramento de rastreamentos requer que seus aplicativos enviem rastreamentos distribuídos para o OneUptime via OpenTelemetry. Consulte a documentação do [OpenTelemetry](/docs/telemetry/open-telemetry) para instruções de configuração.
+O monitoramento de rastreamentos requer que seus aplicativos enviem rastreamentos distribuídos para o Cast Operations via OpenTelemetry. Consulte a documentação do [OpenTelemetry](/docs/telemetry/open-telemetry) para instruções de configuração.

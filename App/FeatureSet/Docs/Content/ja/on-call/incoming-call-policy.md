@@ -1,14 +1,14 @@
 # 受信通話ポリシー（Twilio統合）
 
-受信通話ポリシーを使用すると、外部の発信者が専用の電話番号に電話することでオンコールのエンジニアに連絡できます。電話がかかると、OneUptimeはエンジニアが応答するまで設定したエスカレーションルールに従って通話をルーティングします。
+受信通話ポリシーを使用すると、外部の発信者が専用の電話番号に電話することでオンコールのエンジニアに連絡できます。電話がかかると、Cast Operationsはエンジニアが応答するまで設定したエスカレーションルールに従って通話をルーティングします。
 
 ## 仕組み
 
 ```mermaid
 flowchart TD
     A[発信者が<br/>受信通話番号に電話] --> B[Twilioが通話を受信]
-    B --> C[TwilioがOneUptimeに<br/>Webhookを送信]
-    C --> D[OneUptimeが<br/>挨拶メッセージを再生]
+    B --> C[TwilioがCast Operationsに<br/>Webhookを送信]
+    C --> D[Cast Operationsが<br/>挨拶メッセージを再生]
     D --> E[エスカレーションルールを読み込む]
     E --> F{ルール1:<br/>オンコールユーザーに接続}
     F -->|応答なし| G{ルール2:<br/>バックアップチームに接続}
@@ -28,31 +28,31 @@ flowchart TD
 sequenceDiagram
     participant 発信者
     participant Twilio
-    participant OneUptime
+    participant Cast Operations
     participant オンコールエンジニア
 
     発信者->>Twilio: 受信通話番号に電話
-    Twilio->>OneUptime: POST /incoming-call/voice
-    OneUptime->>Twilio: TwiML: 挨拶を再生
+    Twilio->>Cast Operations: POST /incoming-call/voice
+    Cast Operations->>Twilio: TwiML: 挨拶を再生
     Twilio->>発信者: 「オンコールエンジニアに接続中です...」
 
     loop エスカレーションルール
-        OneUptime->>OneUptime: 次のエスカレーションルールを取得
-        OneUptime->>Twilio: TwiML: オンコールユーザーに発信
+        Cast Operations->>Cast Operations: 次のエスカレーションルールを取得
+        Cast Operations->>Twilio: TwiML: オンコールユーザーに発信
         Twilio->>オンコールエンジニア: 電話を鳴らす
         alt エンジニアが応答
             オンコールエンジニア->>Twilio: 応答
-            Twilio->>OneUptime: 発信ステータス: completed
+            Twilio->>Cast Operations: 発信ステータス: completed
             Twilio->>発信者: エンジニアに接続
             Note over 発信者,オンコールエンジニア: 通話中
         else 応答なし（タイムアウト）
-            Twilio->>OneUptime: 発信ステータス: no-answer
-            OneUptime->>OneUptime: 次のルールを試みる
+            Twilio->>Cast Operations: 発信ステータス: no-answer
+            Cast Operations->>Cast Operations: 次のルールを試みる
         end
     end
 
     alt すべてのルールが消尽
-        OneUptime->>Twilio: TwiML: 応答なしメッセージを再生
+        Cast Operations->>Twilio: TwiML: 応答なしメッセージを再生
         Twilio->>発信者: 「誰も対応できません...」
         Twilio->>発信者: 通話終了
     end
@@ -62,7 +62,7 @@ sequenceDiagram
 
 - Twilioアカウント — [https://www.twilio.com](https://www.twilio.com) でアカウントを作成
 - TwilioのアカウントSIDと認証トークン
-- OneUptimeのセルフホストインスタンスへのアクセス
+- Cast Operationsのセルフホストインスタンスへのアクセス
 
 ## 概要
 
@@ -74,7 +74,7 @@ sequenceDiagram
 4. 最初に応答可能なオンコールエンジニアに発信者を接続する
 5. 誰も応答しない場合は次のルールにエスカレートする
 
-OneUptimeをセルフホストしているため、独自のTwilioアカウントを設定する必要があります。これにより、電話番号と請求を完全に管理できます。
+Cast Operationsをセルフホストしているため、独自のTwilioアカウントを設定する必要があります。これにより、電話番号と請求を完全に管理できます。
 
 ## ステップ1：Twilioアカウントの作成
 
@@ -82,9 +82,9 @@ OneUptimeをセルフホストしているため、独自のTwilioアカウン�
 2. 認証プロセスを完了します
 3. Twilioコンソールのダッシュボードから **アカウントSID** と **認証トークン** をメモしてください
 
-## ステップ2：OneUptimeでの通話/SMS設定
+## ステップ2：Cast Operationsでの通話/SMS設定
 
-1. OneUptime ダッシュボードにログインします
+1. Cast Operations ダッシュボードにログインします
 2. **プロジェクト設定** > **通話とSMS** > **カスタム通話/SMS設定** に移動します
 3. **カスタム通話/SMS設定の作成** をクリックします
 4. 以下のフィールドを入力します：
@@ -120,15 +120,15 @@ OneUptimeをセルフホストしているため、独自のTwilioアカウン�
 Twilioアカウントに既存の電話番号がある場合：
 
 1. **電話番号** カードで **既存の番号を使用** をクリックします
-2. OneUptimeがTwilioアカウントのすべての電話番号を取得します
+2. Cast OperationsがTwilioアカウントのすべての電話番号を取得します
 3. 使用したい電話番号を選択します
 4. **この番号を使用** をクリックしてポリシーに割り当てます
 
-> **注意**：電話番号にWebhookが既に設定されている場合、OneUptimeを指すように更新されます。
+> **注意**：電話番号にWebhookが既に設定されている場合、Cast Operationsを指すように更新されます。
 
 ### オプションB：新しい電話番号を購入
 
-OneUptimeから直接新しい電話番号を購入するには：
+Cast Operationsから直接新しい電話番号を購入するには：
 
 1. **電話番号** カードで **新しい番号を購入** をクリックします
 2. ドロップダウンから **国** を選択します
@@ -258,7 +258,7 @@ flowchart TD
 ### 通話が受信されない場合
 
 - Twilio設定がポリシーに正しくリンクされているか確認します
-- OneUptimeインスタンスがインターネットからアクセス可能か確認します
+- Cast Operationsインスタンスがインターネットからアクセス可能か確認します
 - TwilioのアカウントSIDと認証トークンが正しいか確認します
 - TwilioコンソールでエラーログをN確認します
 
@@ -278,8 +278,8 @@ flowchart TD
 ## セキュリティに関する考慮事項
 
 - TwilioのAuth Tokenを安全に保管し、公開しないでください
-- OneUptimeインスタンスにHTTPSを使用してください
-- OneUptimeはTwilioからのリクエストを検証するためにWebhook署名を確認します
+- Cast OperationsインスタンスにHTTPSを使用してください
+- Cast OperationsはTwilioからのリクエストを検証するためにWebhook署名を確認します
 - 受信通話ポリシーに電話できる番号を制限することを検討してください
 
 ## アーキテクチャの概要
@@ -291,7 +291,7 @@ graph TB
         B[Twilioクラウド]
     end
 
-    subgraph "OneUptime"
+    subgraph "Cast Operations"
         C[受信通話API]
         D[通話ルーター]
         E[エスカレーションエンジン]
@@ -320,5 +320,5 @@ graph TB
 受信通話ポリシー機能に関する問題は、以下の手順で対応してください：
 
 1. TwilioコンソールでエラーログをN確認する
-2. OneUptimeのサーバーログを確認する
-3. [hello@oneuptime.com](mailto:hello@oneuptime.com) にサポートを依頼する
+2. Cast Operationsのサーバーログを確認する
+3. [hello@visca.ai](mailto:hello@visca.ai) にサポートを依頼する

@@ -2,7 +2,7 @@
 
 ## Hoe Bash en JavaScript écht draaien
 
-Bash- en JavaScript-stappen **draaien nooit op de OneUptime Worker**. Ze worden als jobs gedispatcht naar een specifieke [Runbook-agent](/docs/runbooks/agents) — een klein proces dat je installeert op een host binnen je eigen infrastructuur.
+Bash- en JavaScript-stappen **draaien nooit op de Cast Operations Worker**. Ze worden als jobs gedispatcht naar een specifieke [Runbook-agent](/docs/runbooks/agents) — een klein proces dat je installeert op een host binnen je eigen infrastructuur.
 
 Het dispatch-model:
 
@@ -37,7 +37,7 @@ Wanneer een handmatige stap via de API wordt afgevinkt, wordt de uitvoering opni
 
 ## Hardening-notities
 
-- **JavaScript en Bash** draaien op een Runbook-agent-host die jij beheert, niet op de OneUptime Worker. JavaScript zit verpakt in een `isolated-vm`-sandbox met de gebruikelijke prelude (kapt prototype-ketens af, verwijdert `Function`/`eval`, vriest ingebouwde prototypes in). Bash draait via `bash -c` met timeout-handhaving op de agent.
+- **JavaScript en Bash** draaien op een Runbook-agent-host die jij beheert, niet op de Cast Operations Worker. JavaScript zit verpakt in een `isolated-vm`-sandbox met de gebruikelijke prelude (kapt prototype-ketens af, verwijdert `Function`/`eval`, vriest ingebouwde prototypes in). Bash draait via `bash -c` met timeout-handhaving op de agent.
 - **HTTP-stappen** gebruiken een permissieve status-validator, dus een 4xx- of 5xx-respons wordt vastgelegd als gefaalde stap in plaats van gegooid. Daardoor weerspiegelt de vastgelegde output wat de upstream daadwerkelijk teruggaf.
 - **Agent-auth** verloopt via ID + secret-sleutel, ingesteld op de agent-container als environment variables. Server-side komt de gezaghebbende agent-identiteit uit de DB-rij die wordt opgezocht via de gepresenteerde ID/sleutel — clients kunnen zelfs met een gecompromitteerde sleutel geen andere agent imiteren.
 

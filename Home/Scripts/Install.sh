@@ -17,7 +17,7 @@ echo "| |_| | | | |  __/| |_| | |_) | |_| | | | | | |  __/"
 echo " \___/|_| |_|\___| \___/| .__/ \__|_|_| |_| |_|\___|"
 echo "                        |_|                         "
 echo -e "${NC}"
-echo -e "${GREEN}OneUptime Installation Script${NC}"
+echo -e "${GREEN}Cast Operations Installation Script${NC}"
 echo ""
 
 # Check for required dependencies
@@ -68,14 +68,14 @@ echo -e "${GREEN}All dependencies are installed.${NC}"
 echo ""
 
 # Clone the repository
-echo -e "${YELLOW}Cloning OneUptime repository...${NC}"
+echo -e "${YELLOW}Cloning Cast Operations repository...${NC}"
 
 if [ -d "oneuptime" ]; then
     echo -e "${YELLOW}Directory 'oneuptime' already exists. Pulling latest changes...${NC}"
     cd oneuptime
     git pull
 else
-    git clone https://github.com/OneUptime/oneuptime.git
+    git clone https://github.com/autonomy-cloud/operations.git
     cd oneuptime
 fi
 
@@ -88,8 +88,8 @@ echo -e "${YELLOW}Configuring environment...${NC}"
 echo ""
 
 # Ask for host configuration
-echo -e "${YELLOW}Enter the hostname where OneUptime will be accessible${NC}"
-echo -e "${YELLOW}(e.g., oneuptime.yourdomain.com or an IP address)${NC}"
+echo -e "${YELLOW}Enter the hostname where Cast Operations will be accessible${NC}"
+echo -e "${YELLOW}(e.g., operations.yourdomain.com or an IP address)${NC}"
 read -p "Host [localhost]: " USER_HOST < /dev/tty
 USER_HOST=${USER_HOST:-localhost}
 
@@ -120,14 +120,14 @@ fi
 echo -e "${GREEN}Environment configured successfully.${NC}"
 echo ""
 
-# Start OneUptime
-echo -e "${YELLOW}Starting OneUptime...${NC}"
+# Start Cast Operations
+echo -e "${YELLOW}Starting Cast Operations...${NC}"
 echo ""
 
 npm run start
 
 echo ""
-echo -e "${GREEN}OneUptime is now running!${NC}"
+echo -e "${GREEN}Cast Operations is now running!${NC}"
 echo ""
-echo -e "${BLUE}You can access OneUptime at: http://$USER_HOST${NC}"
+echo -e "${BLUE}You can access Cast Operations at: http://$USER_HOST${NC}"
 echo ""

@@ -163,7 +163,7 @@ export const getGlobalSMTPConfig: GetGlobalSMTPConfig =
       password: globalConfig.smtpPassword || undefined,
       secure: globalConfig.isSMTPSecure || false,
       fromEmail: globalConfig.smtpFromEmail,
-      fromName: globalConfig.smtpFromName || "OneUptime",
+      fromName: globalConfig.smtpFromName || "Cast Operations",
       authType: smtpAuthType,
       clientId: globalConfig.smtpClientId || undefined,
       clientSecret: globalConfig.smtpClientSecret || undefined,

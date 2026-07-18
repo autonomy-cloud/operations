@@ -1,6 +1,6 @@
 # Formati di Output
 
-La CLI di OneUptime supporta tre formati di output: **tabella**, **JSON** e **wide**. Puoi impostare il formato con il flag `-o` o `--output` su qualsiasi comando.
+La CLI di Cast Operations supporta tre formati di output: **tabella**, **JSON** e **wide**. Puoi impostare il formato con il flag `-o` o `--output` su qualsiasi comando.
 
 ## Tabella (Predefinito)
 

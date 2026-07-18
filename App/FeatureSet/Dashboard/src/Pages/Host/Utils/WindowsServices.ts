@@ -3,7 +3,7 @@
  *
  * The OTel `windowsservicereceiver` emits one `windows.service.status`
  * gauge per Windows service, with the service identity attached to the
- * *datapoint* (not the resource). OneUptime's metric ingest prefixes only
+ * *datapoint* (not the resource). Cast Operations’ metric ingest prefixes only
  * resource attributes with `resource.`, so the host identity lands as
  * `resource.host.name` (matching the Processes page) while the datapoint
  * attributes `name` and `startup_mode` are stored unprefixed.
@@ -110,7 +110,7 @@ export const startupModeLabel: (mode: string | null) => string = (
 
 /*
  * Windows service names can contain characters a URL path segment (and
- * OneUptime's Route charset) rejects — spaces most commonly.
+ * Cast Operations’ Route charset) rejects — spaces most commonly.
  * encodeURIComponent covers everything except `~`, which Route's
  * validation also rejects, so encode it explicitly.
  */

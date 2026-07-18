@@ -15,7 +15,7 @@
     "previous": "Vorige",
     "next": "Volgende",
     "helpImproveTitle": "Help ons deze pagina te verbeteren",
-    "helpImproveBody": "OneUptime is 100% open source. Een typfout gevonden of wilt u iets toevoegen?",
+    "helpImproveBody": "Cast Operations is 100% open source. Een typfout gevonden of wilt u iets toevoegen?",
     "editOnGithub": "Deze pagina op GitHub bewerken",
     "notFoundBadge": "404 Fout",
     "notFoundTitle": "Pagina niet gevonden",
@@ -26,9 +26,9 @@
     "errorMessage": "We ondervinden technische problemen. Probeer het over een moment opnieuw.",
     "tryAgain": "Opnieuw proberen",
     "switchLanguage": "Taal wijzigen",
-    "metaTitleSuffix": "OneUptime Documentatie",
-    "metaTitleDefault": "OneUptime Documentatie",
-    "metaDescription": "Volledige documentatie voor OneUptime - het open-source observability-platform. Leer hoe u uw applicaties kunt monitoren, waarschuwingen kunt instellen en incidenten kunt beheren."
+    "metaTitleSuffix": "Cast Operations Documentatie",
+    "metaTitleDefault": "Cast Operations Documentatie",
+    "metaDescription": "Volledige documentatie voor Cast Operations - het open-source observability-platform. Leer hoe u uw applicaties kunt monitoren, waarschuwingen kunt instellen en incidenten kunt beheren."
   },
   "navGroups": {
     "Introduction": "Inleiding",
@@ -162,7 +162,7 @@
     "Fix Tasks": "Fix Tasks",
     "LLM Providers": "LLM-providers",
     "MCP Server": "MCP-server",
-    "OneUptime API Reference": "OneUptime API-referentie",
+    "Cast Operations API Reference": "Cast Operations API-referentie",
     "Slack Integration": "Slack-integratie",
     "Microsoft Teams Integration": "Microsoft Teams-integratie",
     "GitHub Integration": "GitHub-integratie",
