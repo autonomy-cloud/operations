@@ -285,8 +285,9 @@ services:
       file: ./docker-compose.base.yml
       service: ingress
     environment:
-      # Permit the workspace-scoped Cast development shell to host Operations.
-      DASHBOARD_FRAME_ANCESTORS: "'self' http://*.localhost:27281"
+      # Permit any workspace-scoped Cast development shell to host Operations.
+      # Cast assigns a different localhost port to each worktree.
+      DASHBOARD_FRAME_ANCESTORS: "'self' http://*.localhost:*"
     depends_on:
       <<: *common-depends-on
 

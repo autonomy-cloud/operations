@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Navigation from "Common/UI/Utils/Navigation";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
+import { CAST_OPERATIONS_EMBEDDED_MODE } from "Common/UI/Config";
 import Footer from "./Components/Footer/Footer";
 
 // Lazy load page components
@@ -71,7 +72,7 @@ function App(): ReactElement {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
-        <Footer />
+        {!CAST_OPERATIONS_EMBEDDED_MODE && <Footer />}
       </Suspense>
     </div>
   );
