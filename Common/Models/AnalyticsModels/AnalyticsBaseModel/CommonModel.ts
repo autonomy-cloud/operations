@@ -13,7 +13,7 @@ import LessThanOrNull from "../../../Types/BaseDatabase/LessThanOrNull";
 import NotEqual from "../../../Types/BaseDatabase/NotEqual";
 import Search from "../../../Types/BaseDatabase/Search";
 import { CompareType } from "../../../Types/Database/CompareBase";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import { JSONArray, JSONObject, JSONValue } from "../../../Types/JSON";
 import JSONFunctions from "../../../Types/JSONFunctions";
@@ -76,7 +76,7 @@ export default class CommonModel {
           column.type === TableColumnType.DateTime64) &&
         typeof value === "string"
       ) {
-        value = OneUptimeDate.fromString(value);
+        value = OperationsDate.fromString(value);
       }
 
       if (column.type === TableColumnType.JSON && typeof value === "string") {

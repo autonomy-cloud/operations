@@ -82,14 +82,14 @@ Selvhostede AI-agenter:
 For å kjøre en AI-agent, sørg for at Docker er installert. Kjør agenten med:
 
 ```bash
-docker run --name oneuptime-ai-agent --network host \
+docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
-  -d oneuptime/ai-agent:release
+  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -d cast-operations/ai-agent:release
 ```
 
-Hvis du selvhoster Cast Operations, endre `ONEUPTIME_URL` til din egendefinerte selvhostede instans-URL.
+Hvis du selvhoster Cast Operations, endre `CAST_OPERATIONS_URL` til din egendefinerte selvhostede instans-URL.
 
 #### Docker Compose
 
@@ -99,13 +99,13 @@ Du kan også kjøre AI-agenten ved hjelp av docker-compose. Opprett en `docker-c
 version: "3"
 
 services:
-  oneuptime-ai-agent:
-    image: oneuptime/ai-agent:release
-    container_name: oneuptime-ai-agent
+  cast-operations-ai-agent:
+    image: cast-operations/ai-agent:release
+    container_name: cast-operations-ai-agent
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -118,38 +118,38 @@ docker compose up -d
 
 #### Kubernetes
 
-Opprett en `oneuptime-ai-agent.yaml`-fil:
+Opprett en `cast-operations-ai-agent.yaml`-fil:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-ai-agent
+  name: cast-operations-ai-agent
 spec:
   selector:
     matchLabels:
-      app: oneuptime-ai-agent
+      app: cast-operations-ai-agent
   template:
     metadata:
       labels:
-        app: oneuptime-ai-agent
+        app: cast-operations-ai-agent
     spec:
       containers:
-        - name: oneuptime-ai-agent
-          image: oneuptime/ai-agent:release
+        - name: cast-operations-ai-agent
+          image: cast-operations/ai-agent:release
           env:
             - name: AI_AGENT_KEY
               value: "<ai-agent-key>"
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
 Bruk konfigurasjonen:
 
 ```bash
-kubectl apply -f oneuptime-ai-agent.yaml
+kubectl apply -f cast-operations-ai-agent.yaml
 ```
 
 ### Miljøvariabler
@@ -162,7 +162,7 @@ AI-agenten støtter følgende miljøvariabler:
 | --------------- | -------------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | AI-agentnøkkelen fra Cast Operations-dashbordet ditt                       |
 | `AI_AGENT_ID`   | AI-agent-ID-en fra Cast Operations-dashbordet ditt                         |
-| `ONEUPTIME_URL` | URL-en til Cast Operations-instansen din (standard: https://visca.ai) |
+| `CAST_OPERATIONS_URL` | URL-en til Cast Operations-instansen din (standard: https://visca.ai) |
 
 ## Bekreft AI-agenten din
 
@@ -176,10 +176,10 @@ For å se containerlogger:
 
 ```bash
 # Docker
-docker logs oneuptime-ai-agent
+docker logs cast-operations-ai-agent
 
 # Kubernetes
-kubectl logs deployment/oneuptime-ai-agent
+kubectl logs deployment/cast-operations-ai-agent
 ```
 
 ## Feilsøking

@@ -11,10 +11,10 @@
 プローブを実行するには、Dockerがインストールされていることを確認してください。以下のコマンドでカスタムプローブを実行できます。
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
 ```
 
-Cast Operationsをセルフホストしている場合は、`ONEUPTIME_URL` をカスタムセルフホストインスタンスに変更できます。
+Cast Operationsをセルフホストしている場合は、`CAST_OPERATIONS_URL` をカスタムセルフホストインスタンスに変更できます。
 
 ##### プロキシ設定
 
@@ -22,32 +22,32 @@ Cast Operationsをセルフホストしている場合は、`ONEUPTIME_URL` を�
 
 ```
 # HTTPプロキシの場合
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # HTTPSプロキシの場合
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # 認証付きプロキシの場合
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 #### Docker Compose
@@ -58,13 +58,13 @@ docker-composeを使用してプローブを実行することもできます。
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -77,13 +77,13 @@ services:
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       # プロキシ設定（オプション）
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,35 +102,35 @@ services:
 docker compose up -d
 ```
 
-Cast Operationsをセルフホストしている場合は、`ONEUPTIME_URL` をカスタムセルフホストインスタンスに変更できます。
+Cast Operationsをセルフホストしている場合は、`CAST_OPERATIONS_URL` をカスタムセルフホストインスタンスに変更できます。
 
 #### Kubernetes
 
-Kubernetesを使用してプローブを実行することもできます。以下の内容で `oneuptime-probe.yaml` ファイルを作成してください。
+Kubernetesを使用してプローブを実行することもできます。以下の内容で `cast-operations-probe.yaml` ファイルを作成してください。
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
@@ -142,25 +142,25 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             # プロキシ設定（オプション）
             - name: HTTP_PROXY_URL
@@ -181,10 +181,10 @@ spec:
 次に以下のコマンドを実行してください。
 
 ```bash
-kubectl apply -f oneuptime-probe.yaml
+kubectl apply -f cast-operations-probe.yaml
 ```
 
-Cast Operationsをセルフホストしている場合は、`ONEUPTIME_URL` をカスタムセルフホストインスタンスに変更できます。
+Cast Operationsをセルフホストしている場合は、`CAST_OPERATIONS_URL` をカスタムセルフホストインスタンスに変更できます。
 
 ### 環境変数
 
@@ -194,7 +194,7 @@ Cast Operationsをセルフホストしている場合は、`ONEUPTIME_URL` を�
 
 - `PROBE_KEY` - Cast Operations ダッシュボードのプローブキー
 - `PROBE_ID` - Cast Operations ダッシュボードのプローブID
-- `ONEUPTIME_URL` - Cast OperationsインスタンスのURL（デフォルト：https://visca.ai）
+- `CAST_OPERATIONS_URL` - Cast OperationsインスタンスのURL（デフォルト：https://visca.ai）
 
 #### オプション変数
 

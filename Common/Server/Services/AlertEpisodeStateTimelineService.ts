@@ -6,14 +6,14 @@ import DatabaseService from "./DatabaseService";
 import AlertStateService from "./AlertStateService";
 import UserService from "./UserService";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
 import PositiveNumber from "../../Types/PositiveNumber";
 import AlertState from "../../Models/DatabaseModels/AlertState";
 import AlertEpisode from "../../Models/DatabaseModels/AlertEpisode";
 import AlertEpisodeStateTimeline from "../../Models/DatabaseModels/AlertEpisodeStateTimeline";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import logger, { LogAttributes } from "../Utils/Logger";
 import AlertEpisodeFeedService from "./AlertEpisodeFeedService";
@@ -24,9 +24,6 @@ import AlertEpisodeService from "./AlertEpisodeService";
 export class Service extends DatabaseService<AlertEpisodeStateTimeline> {
   public constructor() {
     super(AlertEpisodeStateTimeline);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -41,7 +38,7 @@ export class Service extends DatabaseService<AlertEpisodeStateTimeline> {
 
     try {
       if (!createBy.data.startsAt) {
-        createBy.data.startsAt = OneUptimeDate.getCurrentDate();
+        createBy.data.startsAt = OperationsDate.getCurrentDate();
       }
 
       try {
@@ -322,7 +319,7 @@ export class Service extends DatabaseService<AlertEpisodeStateTimeline> {
 
       if (newAlertState?.isResolvedState) {
         // Set resolvedAt when transitioning to resolved state
-        updateData.resolvedAt = OneUptimeDate.getCurrentDate();
+        updateData.resolvedAt = OperationsDate.getCurrentDate();
       } else {
         // Clear resolvedAt when transitioning away from resolved state
         updateData.resolvedAt = null;

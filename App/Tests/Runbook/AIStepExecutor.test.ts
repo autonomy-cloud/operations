@@ -796,7 +796,7 @@ describe("runAiStep", () => {
     expect(result.errorMessage).toContain("empty response");
   });
 
-  test("surfaces provider/billing/budget errors as the step error", async () => {
+  test("surfaces provider/payments/budget errors as the step error", async () => {
     jest
       .spyOn(AIService, "executeWithLogging")
       .mockRejectedValue(

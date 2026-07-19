@@ -1,7 +1,7 @@
 #!/bin/bash
 # Verify script for 38-file-crud test
 #
-# This test validates the oneuptime_file resource:
+# This test validates the cast_operations_file resource:
 # 1. File resources are created successfully
 # 2. A second terraform plan does NOT fail with "Read Not Implemented"
 # 3. The state is preserved correctly (idempotency)

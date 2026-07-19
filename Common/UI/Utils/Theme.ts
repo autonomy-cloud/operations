@@ -5,8 +5,8 @@ export enum Theme {
   Dark = "dark",
 }
 
-export const THEME_STORAGE_KEY: string = "oneuptime-dashboard-theme";
-export const THEME_CHANGE_EVENT: string = "oneuptime:theme-change";
+export const THEME_STORAGE_KEY: string = "cast-operations-dashboard-theme";
+export const THEME_CHANGE_EVENT: string = "cast-operations:theme-change";
 
 const LIGHT_THEME_COLOR: string = "#f9fafb";
 const DARK_THEME_COLOR: string = "#0f172a";

@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import XAxisType from "Common/UI/Components/Charts/Types/XAxis/XAxisType";
 import ChartGroup, {
   Chart,
@@ -562,7 +562,7 @@ function buildQuerySeries(
 
       if (existingSeries) {
         existingSeries.data.push({
-          x: OneUptimeDate.fromString(item.timestamp),
+          x: OperationsDate.fromString(item.timestamp),
           y: transformPointValue(item),
         });
       } else {
@@ -570,7 +570,7 @@ function buildQuerySeries(
           seriesName: seriesName,
           data: [
             {
-              x: OneUptimeDate.fromString(item.timestamp),
+              x: OperationsDate.fromString(item.timestamp),
               y: transformPointValue(item),
             },
           ],
@@ -587,7 +587,7 @@ function buildQuerySeries(
         "",
       data: result.data.map((item: AggregatedModel) => {
         return {
-          x: OneUptimeDate.fromString(item.timestamp),
+          x: OperationsDate.fromString(item.timestamp),
           y: transformPointValue(item),
         };
       }),
@@ -1358,7 +1358,7 @@ const MetricCharts: FunctionComponent<ComponentProps> = (
       props.metricViewData.startAndEndDate?.startValue &&
       props.metricViewData.startAndEndDate?.endValue
     ) {
-      const hourDifference: number = OneUptimeDate.getHoursBetweenTwoDates(
+      const hourDifference: number = OperationsDate.getHoursBetweenTwoDates(
         props.metricViewData.startAndEndDate.startValue as Date,
         props.metricViewData.startAndEndDate.endValue as Date,
       );
@@ -2030,11 +2030,11 @@ const MetricCharts: FunctionComponent<ComponentProps> = (
               type: getChartXAxisType(),
               max:
                 props.metricViewData.startAndEndDate?.endValue ||
-                OneUptimeDate.getCurrentDate(),
+                OperationsDate.getCurrentDate(),
               min:
                 props.metricViewData.startAndEndDate?.startValue ||
-                OneUptimeDate.addRemoveHours(
-                  OneUptimeDate.getCurrentDate(),
+                OperationsDate.addRemoveHours(
+                  OperationsDate.getCurrentDate(),
                   -1,
                 ),
               aggregateType: xAxisAggregationType,
@@ -2171,7 +2171,7 @@ const MetricCharts: FunctionComponent<ComponentProps> = (
           );
 
           const point: { x: Date; y: number } = {
-            x: OneUptimeDate.fromString(row.timestamp),
+            x: OperationsDate.fromString(row.timestamp),
             y: row.value,
           };
 
@@ -2189,7 +2189,7 @@ const MetricCharts: FunctionComponent<ComponentProps> = (
           seriesName: formulaBaseName,
           data: formulaResult.data.map((point: AggregatedModel) => {
             return {
-              x: OneUptimeDate.fromString(point.timestamp),
+              x: OperationsDate.fromString(point.timestamp),
               y: point.value,
             };
           }),
@@ -2291,11 +2291,11 @@ const MetricCharts: FunctionComponent<ComponentProps> = (
               type: getChartXAxisType(),
               max:
                 props.metricViewData.startAndEndDate?.endValue ||
-                OneUptimeDate.getCurrentDate(),
+                OperationsDate.getCurrentDate(),
               min:
                 props.metricViewData.startAndEndDate?.startValue ||
-                OneUptimeDate.addRemoveHours(
-                  OneUptimeDate.getCurrentDate(),
+                OperationsDate.addRemoveHours(
+                  OperationsDate.getCurrentDate(),
                   -1,
                 ),
               aggregateType: XAxisAggregateType.Average,

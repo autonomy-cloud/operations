@@ -6,9 +6,9 @@ OpenTelemetry Ingest-tjenesten aksepterer nå native Syslog-nyttelaster. Du kan 
 
 ## Forutsetninger
 
-- **Telemetriinnhentingstoken** – opprett ett fra _Project Settings → Telemetry Ingestion Keys_ og kopier `x-oneuptime-token`-verdien.
+- **Telemetriinnhentingstoken** – opprett ett fra _Project Settings → Telemetry Ingestion Keys_ og kopier `x-cast-operations-token`-verdien.
 - **Syslog-videresender** – et hvilket som helst verktøy som kan sende HTTP POST-forespørsler (for eksempel `curl`, `rsyslog` via `omhttp`, eller `syslog-ng` med HTTP-destinasjonspluginen).
-- **Tjenestenavn (valgfritt)** – sett `x-oneuptime-service-name`-hodet for å gruppere innkommende logger under en spesifikk telemetritjeneste. Når utelatt, faller Cast Operations tilbake til syslog `APP-NAME`, vertsnavn eller `Syslog`.
+- **Tjenestenavn (valgfritt)** – sett `x-cast-operations-service-name`-hodet for å gruppere innkommende logger under en spesifikk telemetritjeneste. Når utelatt, faller Cast Operations tilbake til syslog `APP-NAME`, vertsnavn eller `Syslog`.
 
 ## Endepunkt
 
@@ -17,7 +17,7 @@ POST https://visca.ai/syslog/v1/logs
 ```
 
 - Erstatt `visca.ai` med verten din hvis du selvhoster Cast Operations.
-- Inkluder alltid `x-oneuptime-token`-hodet i forespørselen.
+- Inkluder alltid `x-cast-operations-token`-hodet i forespørselen.
 
 ## Forespørselskropp
 
@@ -44,8 +44,8 @@ Send linjeskift-separerte Syslog-strenger eller en JSON-nyttelast med en `messag
 curl \
   -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
-  -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
-  -H "x-oneuptime-service-name: production-web" \
+  -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
+  -H "x-cast-operations-service-name: production-web" \
   -d '{
     "messages": [
       "<34>1 2025-03-02T14:48:05.003Z web-01 nginx 7421 ID47 [env@32473 host=\"web-01\"] 502 on /api/login"
@@ -59,7 +59,7 @@ curl \
    ```bash
    sudo apt-get install rsyslog-omhttp
    ```
-2. Legg til destinasjonen i `/etc/rsyslog.d/oneuptime.conf`:
+2. Legg til destinasjonen i `/etc/rsyslog.d/cast-operations.conf`:
 
    ```
    module(load="omhttp")
@@ -77,8 +77,8 @@ curl \
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
-     header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
-     header="x-oneuptime-service-name: rsyslog-demo"
+     header="x-cast-operations-token: YOUR_TELEMETRY_KEY"
+     header="x-cast-operations-service-name: rsyslog-demo"
      template="Cast OperationsJson"
    )
    ```
@@ -111,8 +111,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: perimeter-firewall"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: perimeter-firewall"
   template="Cast OperationsJSON"
 )
 ```
@@ -122,7 +122,7 @@ action(
 Mange cron-jobber og eldre daemons logger fortsatt utelukkende gjennom kernel/syslog-faciliteten. Videresending av `/var/log/syslog` eller journald-oppføringer holder operasjonelle brødspor på ett sted. Systemd-verter kan bruke journald → syslog-broen:
 
 ```bash
-# /etc/rsyslog.d/oneuptime.conf
+# /etc/rsyslog.d/cast-operations.conf
 module(load="imjournal" StateFile="imjournal.state")
 module(load="omhttp")
 
@@ -133,8 +133,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: linux-fleet"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: linux-fleet"
   template="Cast OperationsJSON"
 )
 ```
@@ -161,8 +161,8 @@ Hvis du allerede kjører Fluent Bit eller Fluentd, behold dem for container-logg
     Format            json
     json_date_key     time
     Header            Content-Type application/json
-    Header            x-oneuptime-token <TOKEN>
-    Header            x-oneuptime-service-name edge-ingress
+    Header            x-cast-operations-token <TOKEN>
+    Header            x-cast-operations-service-name edge-ingress
     tls               On
 ```
 
@@ -186,7 +186,7 @@ Disse attributtene blir søkbare inne i Telemetry → Logs explorer.
 
 ## Feilsøking
 
-- **HTTP 401 eller tomme resultater** – verifiser at `x-oneuptime-token`-hodet tilhører prosjektet som mottar loggene.
+- **HTTP 401 eller tomme resultater** – verifiser at `x-cast-operations-token`-hodet tilhører prosjektet som mottar loggene.
 - **Ingen logger vises** – bekreft at forespørselskroppen faktisk inneholder syslog-linjer. Tomme kropper avvises med HTTP 400.
-- **Uventet tjenestenavn** – sett `x-oneuptime-service-name` for å overstyre standard deteksjonslogikken.
+- **Uventet tjenestenavn** – sett `x-cast-operations-service-name` for å overstyre standard deteksjonslogikken.
 - **Store burster** – batching av opptil 1 000 linjer per forespørsel støttes. Større burster settes i kø og behandles asynkront.

@@ -9,15 +9,12 @@ import Route from "../../Types/API/Route";
 import URL from "../../Types/API/URL";
 import Text from "../../Types/Text";
 import Model from "../../Models/DatabaseModels/ShortLink";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3); //expire links in 3 days.
-    }
   }
 
   @CaptureSpan()

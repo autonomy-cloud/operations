@@ -14,7 +14,7 @@ import CheckboxElement from "Common/UI/Components/Checkbox/Checkbox";
 import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
 import FormValues from "Common/UI/Components/Forms/Types/FormValues";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import Modal, { ModalWidth } from "Common/UI/Components/Modal/Modal";
 import ModelTable from "Common/UI/Components/ModelTable/ModelTable";
@@ -432,7 +432,7 @@ const NetworkDeviceDiscovery: FunctionComponent<
               }
 
               const nextScanAt: Date | null = item.nextScanAt
-                ? OneUptimeDate.fromString(item.nextScanAt)
+                ? OperationsDate.fromString(item.nextScanAt)
                 : null;
 
               return (
@@ -445,12 +445,12 @@ const NetworkDeviceDiscovery: FunctionComponent<
                   {nextScanAt && (
                     <div
                       className="text-xs text-gray-500"
-                      title={OneUptimeDate.getDateAsLocalFormattedString(
+                      title={OperationsDate.getDateAsLocalFormattedString(
                         nextScanAt,
                       )}
                     >
                       {/* fromNow renders e.g. "in 12 minutes". */}
-                      {`Next scan ${OneUptimeDate.fromNow(nextScanAt)}`}
+                      {`Next scan ${OperationsDate.fromNow(nextScanAt)}`}
                     </div>
                   )}
                 </div>

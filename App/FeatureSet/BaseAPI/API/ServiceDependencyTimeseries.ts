@@ -1,7 +1,7 @@
 import BadDataException from "Common/Types/Exception/BadDataException";
 import NotAuthorizedException from "Common/Types/Exception/NotAuthorizedException";
 import { JSONObject } from "Common/Types/JSON";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import Permission, {
   PermissionHelper,
@@ -23,6 +23,14 @@ import SpanService from "Common/Server/Services/SpanService";
 import Service from "Common/Models/DatabaseModels/Service";
 import Span from "Common/Models/AnalyticsModels/Span";
 import ServiceType from "Common/Types/Telemetry/ServiceType";
+import {
+  getClickhouseDatabaseName,
+  quoteClickhouseIdentifier,
+} from "Common/Server/Utils/AnalyticsDatabase/ClusterConfig";
+
+const CLICKHOUSE_DATABASE: string = quoteClickhouseIdentifier(
+  getClickhouseDatabaseName(),
+);
 
 /*
  * On-demand call history for one service-dependency edge: time-bucketed
@@ -67,7 +75,7 @@ function parseDate(value: unknown, field: string): Date {
   if (typeof value !== "string" || !value) {
     throw new BadDataException(`${field} is required`);
   }
-  const parsed: Date = OneUptimeDate.fromString(value);
+  const parsed: Date = OperationsDate.fromString(value);
   if (isNaN(parsed.getTime())) {
     throw new BadDataException(`${field} is not a valid date`);
   }
@@ -218,8 +226,8 @@ export default class ServiceDependencyTimeseriesAPI {
           const serviceTypeSql: string = escapeSql(ServiceType.OpenTelemetry);
           const callerIdSql: string = escapeSql(callerServiceId.toString());
           const calleeIdSql: string = escapeSql(calleeServiceId.toString());
-          const startSql: string = `toDateTime64('${OneUptimeDate.toClickhouseDateTime64(startTime)}', 9)`;
-          const endSql: string = `toDateTime64('${OneUptimeDate.toClickhouseDateTime64(endTime)}', 9)`;
+          const startSql: string = `toDateTime64('${OperationsDate.toClickhouseDateTime64(startTime)}', 9)`;
+          const endSql: string = `toDateTime64('${OperationsDate.toClickhouseDateTime64(endTime)}', 9)`;
 
           /*
            * Truncation guard: a busy service can exceed the per-side span
@@ -232,7 +240,7 @@ export default class ServiceDependencyTimeseriesAPI {
             SELECT
               countIf(primaryEntityId = '${callerIdSql}') AS callerCount,
               countIf(primaryEntityId = '${calleeIdSql}' AND parentSpanId IS NOT NULL AND parentSpanId != '') AS calleeCount
-            FROM oneuptime.SpanItemV3
+            FROM ${CLICKHOUSE_DATABASE}.SpanItemV3
             WHERE projectId = '${projectIdSql}'
               AND startTime >= ${startSql}
               AND startTime < ${endSql}
@@ -273,7 +281,7 @@ export default class ServiceDependencyTimeseriesAPI {
             FROM
             (
               SELECT traceId, spanId
-              FROM oneuptime.SpanItemV3
+              FROM ${CLICKHOUSE_DATABASE}.SpanItemV3
               WHERE projectId = '${projectIdSql}'
                 AND startTime >= ${startSql}
                 AND startTime < ${endSql}
@@ -285,7 +293,7 @@ export default class ServiceDependencyTimeseriesAPI {
             INNER JOIN
             (
               SELECT traceId, parentSpanId, startTime, statusCode, durationUnixNano
-              FROM oneuptime.SpanItemV3
+              FROM ${CLICKHOUSE_DATABASE}.SpanItemV3
               WHERE projectId = '${projectIdSql}'
                 AND startTime >= ${startSql}
                 AND startTime < ${endSql}

@@ -34,7 +34,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -78,8 +78,8 @@ function win(
   const startTime: Date = at(startISO, zone);
   const endTime: Date = at(endISO, zone);
   return {
-    startDay: OneUptimeDate.getDayOfWeek(startTime, zone),
-    endDay: OneUptimeDate.getDayOfWeek(endTime, zone),
+    startDay: OperationsDate.getDayOfWeek(startTime, zone),
+    endDay: OperationsDate.getDayOfWeek(endTime, zone),
     startTime,
     endTime,
   };
@@ -363,7 +363,7 @@ describe("getWeeklyRestrictionTimesForWeek: segment construction", () => {
     expect(moment.tz(head.endTime, UTC).format("ddd HH:mm")).toBe("Mon 08:00");
     // The head start equals getStartOfTheWeek of the event (audit F6 anchoring).
     expect(head.startTime.getTime()).toBe(
-      OneUptimeDate.getStartOfTheWeek(
+      OperationsDate.getStartOfTheWeek(
         at("2025-01-08 12:00", UTC),
         UTC,
       ).getTime(),
@@ -759,14 +759,14 @@ describe("F2 weekly: weekend-gap query resolves the calendar's next-week user", 
       const askAt: Date = at(iso, UTC);
       const nextCovered: CalendarEvent | undefined = full.find(
         (e: CalendarEvent) => {
-          return OneUptimeDate.isAfter(e.start, askAt);
+          return OperationsDate.isAfter(e.start, askAt);
         },
       );
       const windowed: Array<CalendarEvent> = new LayerUtil().getEvents(
         {
           ...layer,
           calendarStartDate: askAt,
-          calendarEndDate: OneUptimeDate.addRemoveDays(askAt, 21),
+          calendarEndDate: OperationsDate.addRemoveDays(askAt, 21),
         },
         { getNumberOfEvents: 1 },
       );
@@ -802,14 +802,14 @@ describe("F2 weekly: weekend-gap query resolves the calendar's next-week user", 
     const askAt: Date = at("2026-03-07 12:00", NY); // Saturday
     const nextCovered: CalendarEvent | undefined = full.find(
       (e: CalendarEvent) => {
-        return OneUptimeDate.isAfter(e.start, askAt);
+        return OperationsDate.isAfter(e.start, askAt);
       },
     );
     const windowed: Array<CalendarEvent> = new LayerUtil().getEvents(
       {
         ...layer,
         calendarStartDate: askAt,
-        calendarEndDate: OneUptimeDate.addRemoveDays(askAt, 21),
+        calendarEndDate: OperationsDate.addRemoveDays(askAt, 21),
       },
       { getNumberOfEvents: 1 },
     );

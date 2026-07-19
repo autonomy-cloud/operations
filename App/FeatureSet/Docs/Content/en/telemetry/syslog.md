@@ -6,9 +6,9 @@ The OpenTelemetry Ingest service now accepts native Syslog payloads. You can for
 
 ## Prerequisites
 
-- **Telemetry Ingestion Token** – create one from _Project Settings → Telemetry Ingestion Keys_ and copy the `x-oneuptime-token` value.
+- **Telemetry Ingestion Token** – create one from _Project Settings → Telemetry Ingestion Keys_ and copy the `x-cast-operations-token` value.
 - **Syslog forwarder** – any tool capable of sending HTTP POST requests (for example `curl`, `rsyslog` via `omhttp`, or `syslog-ng` with the HTTP destination plugin).
-- **Service name (optional)** – set the `x-oneuptime-service-name` header to group incoming logs under a specific telemetry service. When omitted, Cast Operations falls back to the syslog `APP-NAME`, hostname, or `Syslog`.
+- **Service name (optional)** – set the `x-cast-operations-service-name` header to group incoming logs under a specific telemetry service. When omitted, Cast Operations falls back to the syslog `APP-NAME`, hostname, or `Syslog`.
 
 ## Endpoint
 
@@ -17,7 +17,7 @@ POST https://visca.ai/syslog/v1/logs
 ```
 
 - Replace `visca.ai` with your host if you are self hosting Cast Operations.
-- Always include the `x-oneuptime-token` header in the request.
+- Always include the `x-cast-operations-token` header in the request.
 
 ## Request Body
 
@@ -44,8 +44,8 @@ Send newline-delimited Syslog strings or a JSON payload with a `messages` array.
 curl \
   -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
-  -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
-  -H "x-oneuptime-service-name: production-web" \
+  -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
+  -H "x-cast-operations-service-name: production-web" \
   -d '{
     "messages": [
       "<34>1 2025-03-02T14:48:05.003Z web-01 nginx 7421 ID47 [env@32473 host=\"web-01\"] 502 on /api/login"
@@ -59,7 +59,7 @@ curl \
    ```bash
    sudo apt-get install rsyslog-omhttp
    ```
-2. Append the destination to `/etc/rsyslog.d/oneuptime.conf`:
+2. Append the destination to `/etc/rsyslog.d/cast-operations.conf`:
 
    ```
    module(load="omhttp")
@@ -77,8 +77,8 @@ curl \
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
-     header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
-     header="x-oneuptime-service-name: rsyslog-demo"
+     header="x-cast-operations-token: YOUR_TELEMETRY_KEY"
+     header="x-cast-operations-service-name: rsyslog-demo"
      template="Cast OperationsJson"
    )
    ```
@@ -111,8 +111,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: perimeter-firewall"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: perimeter-firewall"
   template="Cast OperationsJSON"
 )
 ```
@@ -122,7 +122,7 @@ action(
 Many cron jobs and legacy daemons still log solely through the kernel/syslog facility. Forwarding `/var/log/syslog` or journald entries keeps operational breadcrumbs in one place. Systemd hosts can rely on the journald → syslog bridge:
 
 ```bash
-# /etc/rsyslog.d/oneuptime.conf
+# /etc/rsyslog.d/cast-operations.conf
 module(load="imjournal" StateFile="imjournal.state")
 module(load="omhttp")
 
@@ -133,8 +133,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: linux-fleet"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: linux-fleet"
   template="Cast OperationsJSON"
 )
 ```
@@ -161,8 +161,8 @@ If you already run Fluent Bit or Fluentd, keep them for container logs and add a
     Format            json
     json_date_key     time
     Header            Content-Type application/json
-    Header            x-oneuptime-token <TOKEN>
-    Header            x-oneuptime-service-name edge-ingress
+    Header            x-cast-operations-token <TOKEN>
+    Header            x-cast-operations-service-name edge-ingress
     tls               On
 ```
 
@@ -186,7 +186,7 @@ These attributes become searchable inside the Telemetry → Logs explorer.
 
 ## Troubleshooting
 
-- **HTTP 401 or empty results** – verify the `x-oneuptime-token` header belongs to the project receiving the logs.
+- **HTTP 401 or empty results** – verify the `x-cast-operations-token` header belongs to the project receiving the logs.
 - **No logs appear** – confirm the request body actually contains syslog lines. Empty bodies are rejected with HTTP 400.
-- **Unexpected service name** – set `x-oneuptime-service-name` to override the default detection logic.
+- **Unexpected service name** – set `x-cast-operations-service-name` to override the default detection logic.
 - **Large bursts** – batching up to 1,000 lines per request is supported. Larger bursts are queued and processed asynchronously.

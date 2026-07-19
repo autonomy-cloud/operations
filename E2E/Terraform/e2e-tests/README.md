@@ -131,7 +131,7 @@ The following environment variables are used:
 
 | Variable            | Default            | Description                |
 | ------------------- | ------------------ | -------------------------- |
-| `ONEUPTIME_URL`     | `http://localhost` | Cast Operations instance URL     |
+| `CAST_OPERATIONS_URL`     | `http://localhost` | Cast Operations instance URL     |
 | `TF_VAR_api_key`    | (generated)        | API key for authentication |
 | `TF_VAR_project_id` | (generated)        | Project ID for resources   |
 

@@ -61,7 +61,7 @@ outputs:
     traces_uri: "/otlp/v1/traces"
     tls: On
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 inputセクションにopentelemetry_envelopeを追加してください。以下はinputセクションの例です：
@@ -118,7 +118,7 @@ pipeline:
       traces_uri: "/otlp/v1/traces"
       tls: On
       header:
-        - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+        - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 **Cast Operationsをセルフホストしている場合：** セルフホストのCast Operationsをご利用の場合は、`host` をCast Operationsインスタンスのホストに変更できます。HTTPSではなくHTTPサーバーでホスティングしている場合は、`port` をCast Operationsインスタンスのポートに変更できます（おそらくポート80）。
@@ -137,7 +137,7 @@ outputs:
     logs_uri: "/otlp/v1/logs"
     traces_uri: "/otlp/v1/traces"
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 ## 使用方法

@@ -130,7 +130,7 @@ Zabbix 是將通知傳送*給某個使用者*。建立一個專用的使用者�
 3. 從它的 **Yes** 輸出，新增一個 **Find Incident** 區塊，用來查找您先前建立的那個開啟中的事件——以您儲存在描述或標籤中的 Zabbix `event_id` 進行比對。
 4. 將它連接至一個 **Update Incident** 區塊，並將該事件移至您的*已解決*狀態。
 
-由於解決方式取決於您在專案中如何建模事件狀態，請將 **create** 路徑保持為可靠的核心，並在您確認事件正確流動後，再疊上解決路徑。請參閱 [Components → Cast Operations data components](/docs/workflows/components#oneuptime-data-components)。
+由於解決方式取決於您在專案中如何建模事件狀態，請將 **create** 路徑保持為可靠的核心，並在您確認事件正確流動後，再疊上解決路徑。請參閱 [Components → Cast Operations data components](/docs/workflows/components#cast-operations-data-components)。
 
 ## 對應 Zabbix 嚴重性（選用）
 

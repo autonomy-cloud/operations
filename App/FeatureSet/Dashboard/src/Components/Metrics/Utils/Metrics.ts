@@ -17,7 +17,7 @@ import AggregatedResult from "Common/Types/BaseDatabase/AggregatedResult";
 import AggregateBy from "Common/Types/BaseDatabase/AggregateBy";
 import MetricViewData from "Common/Types/Metrics/MetricViewData";
 import MetricQueryConfigData from "Common/Types/Metrics/MetricQueryConfigData";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ProjectUtil from "Common/UI/Utils/Project";
 import ObjectID from "Common/Types/ObjectID";
 import MetricType from "Common/Models/DatabaseModels/MetricType";
@@ -463,10 +463,10 @@ export default class MetricUtil {
                 : {}),
               startTimestamp:
                 (metricViewData.startAndEndDate?.startValue as Date) ||
-                OneUptimeDate.getCurrentDate(),
+                OperationsDate.getCurrentDate(),
               endTimestamp:
                 (metricViewData.startAndEndDate?.endValue as Date) ||
-                OneUptimeDate.getCurrentDate(),
+                OperationsDate.getCurrentDate(),
               limit: LIMIT_PER_PROJECT,
               skip: 0,
               groupBy: aggregationGroupBy,

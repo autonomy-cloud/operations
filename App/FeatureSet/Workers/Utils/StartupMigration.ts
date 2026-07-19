@@ -13,7 +13,7 @@ import PostgresDatabase, {
  * (several replicas starting at once); it never skips work.
  */
 const STARTUP_MIGRATION_LOCK_LABEL: string =
-  "oneuptime:startup-migration-runner";
+  "cast-operations:startup-migration-runner";
 
 const RunStartupMigrations: PromiseVoidFunction = async (): Promise<void> => {
   const dataSource: DatabaseSource | null = PostgresDatabase.getDataSource();

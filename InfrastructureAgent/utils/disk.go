@@ -2,7 +2,7 @@ package utils
 
 import (
 	"log/slog"
-	"oneuptime-infrastructure-agent/model"
+	"cast-operations-infrastructure-agent/model"
 	"path/filepath"
 	"strings"
 

@@ -108,14 +108,14 @@ API 블록에서 오류가 반환되면 로그에서 확장합니다 — Jira의
 
 3. 워크플로에서 **Find Incident** 블록을 사용해 저장된 키로 인시던트를 찾고, **Update Incident** 블록으로 해결 상태로 이동합니다.
 
-4단계에서 인시던트에 Jira 키를 저장했다면 매칭이 간단합니다. [컴포넌트 → Cast Operations 데이터 컴포넌트](/docs/workflows/components#oneuptime-data-components)를 참조하시기 바랍니다.
+4단계에서 인시던트에 Jira 키를 저장했다면 매칭이 간단합니다. [컴포넌트 → Cast Operations 데이터 컴포넌트](/docs/workflows/components#cast-operations-data-components)를 참조하시기 바랍니다.
 
 ## 이슈 커스터마이징
 
 API 블록 본문에 대한 몇 가지 일반적인 조정:
 
 - **Priority** — `fields` 안에 `"priority": { "name": "High" }` 를 추가합니다. **Conditions** 를 사용해 `{{Incident.incidentSeverity.name}}` 으로 분기하여 Cast Operations 심각도를 Jira 우선순위로 매핑할 수 있습니다.
-- **Labels** — `"labels": ["oneuptime", "incident"]` 를 추가합니다.
+- **Labels** — `"labels": ["cast-operations", "incident"]` 를 추가합니다.
 - **Assignee** — `"assignee": { "id": "<accountId>" }` 를 추가합니다(Jira Cloud는 사용자 이름 대신 계정 ID를 사용합니다).
 - **커스텀 필드** — Jira 관리자에서 필드 ID를 사용해 `"customfield_XXXXX": "..."` 를 추가합니다.
 

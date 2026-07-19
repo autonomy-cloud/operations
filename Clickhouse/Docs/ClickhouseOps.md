@@ -3,13 +3,13 @@
 ## Show tables in the database
 
 ```sql
-show tables from oneuptime
+show tables from cast-operations
 ```
 
 ## Show table structure
 
 ```sql
-DESCRIBE TABLE oneuptime.Span
+DESCRIBE TABLE cast-operations.Span
 ```
 
 ## Show table data
@@ -27,7 +27,7 @@ truncate table_name
 ## Delete table
 
 ```sql
-drop table oneuptime.table_name
+drop table cast-operations.table_name
 ```
 
 ## Insert for nested data

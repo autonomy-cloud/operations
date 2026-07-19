@@ -4,12 +4,12 @@ Complete reference for all Cast Operations CLI commands.
 
 ## Authentication Commands
 
-### `oneuptime login`
+### `cast-operations login`
 
 Authenticate with a Cast Operations instance.
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | Parameter        | Type     | Required | Description                         |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 List all saved contexts.
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 Switch to a named context.
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | Parameter | Type     | Required | Description              |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 Display the active context with masked API key.
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 Remove a saved context.
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | Parameter | Type     | Required | Description            |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 All resource commands follow the same pattern. Replace `<resource>` with any supported resource name (e.g., `incident`, `monitor`, `alert`, `status-page`).
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 List resources with filtering and pagination.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | Option           | Type   | Default | Description             |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 Get a single resource by ID.
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | Parameter      | Type     | Required | Description        |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 Create a new resource.
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | Option          | Type   | Required                    | Description           |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 Update an existing resource.
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | Parameter       | Type     | Required | Description              |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 Delete a resource.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | Parameter | Type     | Required | Description              |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 Count resources matching a filter.
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | Option           | Type   | Default | Description             |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## Utility Commands
 
-### `oneuptime version`
+### `cast-operations version`
 
 Display the CLI version.
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 Show current authentication details.
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Displays the instance URL and masked API key. If a saved context is active, the context name is also shown.
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 List all available resource types.
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | Option          | Type   | Default | Description                         |

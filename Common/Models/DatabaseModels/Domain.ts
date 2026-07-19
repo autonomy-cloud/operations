@@ -125,7 +125,8 @@ export default class Domain extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -401,7 +402,7 @@ export default class Domain extends BaseModel {
     title: "Domain Verification Text",
     description:
       "Verification text that you need to add to your domains TXT record to veify the domain.",
-    example: "oneuptime-verify=a1b2c3d4e5f67890abcdef1234567890",
+    example: "cast-operations-verify=a1b2c3d4e5f67890abcdef1234567890",
   })
   @Column({
     type: ColumnType.ShortText,

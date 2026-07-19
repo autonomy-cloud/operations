@@ -213,10 +213,10 @@ Terminal के माध्यम से Cast Operations प्रबंधि�
 
 ```bash
 # quick Cast Operations launch के लिए alias बनाएं
-echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
+echo 'alias cast-operations="open -a \"Cast Operations\""' >> ~/.zshrc
 
 # जांचने के लिए function कि Cast Operations चल रहा है
-oneuptime_status() {
+cast_operations_status() {
     if pgrep -f "Cast Operations" > /dev/null; then
         echo "Cast Operations is running"
     else

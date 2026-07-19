@@ -10,7 +10,7 @@ Det finns ingen agent att installera på enhetssidan — allt som kan tala OTLP 
 
 - En enhet, gateway eller collector som kan skicka OTLP/HTTP till Cast Operations
 - Nätverksåtkomst från enheten/gatewayen till din Cast Operations-instans
-- En **Cast Operations Telemetry Ingestion Token** — skapa en från _Project Settings → Telemetry Ingestion Keys_ och kopiera värdet för `x-oneuptime-token`
+- En **Cast Operations Telemetry Ingestion Token** — skapa en från _Project Settings → Telemetry Ingestion Keys_ och kopiera värdet för `x-cast-operations-token`
 
 ## Hur Cast Operations modellerar IoT
 
@@ -35,14 +35,14 @@ Om din enhet kör ett OpenTelemetry-SDK direkt, peka det mot Cast Operations och
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | Miljövariabel          | Obligatoriskt | Beskrivning                                                                                          |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | Ja      | Cast Operations OTLP-slutpunkt (`https://visca.ai/otlp`, eller `http(s)://YOUR-OPERATIONS-HOST/otlp` vid självhosting) |
-| `OTEL_EXPORTER_OTLP_HEADERS`  | Ja      | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | Ja      | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | Ja      | Kommaseparerade resursattribut. Måste innehålla `iot.fleet.name`, `device.id` och `service.name=iot/<fleet>` |
 
 Skicka dina avläsningar som mätvärden med `iot_*`-namnen nedan (se [Metric Conventions](#metric-conventions)). Inom ungefär en minut visas enheten under **IoT**-sektionen i Cast Operations-instrumentpanelen.
@@ -80,7 +80,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
 service:
   pipelines:
@@ -122,7 +122,7 @@ Cast Operations känner igen följande `iot_*`-mätvärdesnamn. Varje datapunkt 
 ### Flottan visas inte
 
 1. Verifiera att `iot.fleet.name` är angivet som ett **resurs**attribut (inte en datapunktsetikett), och att `service.name` är `iot/<fleet>`.
-2. Bekräfta att exportörens slutpunkt är `https://visca.ai/otlp` (eller din självhostade `…/otlp`) och att headern `x-oneuptime-token` bär en giltig token.
+2. Bekräfta att exportörens slutpunkt är `https://visca.ai/otlp` (eller din självhostade `…/otlp`) och att headern `x-cast-operations-token` bär en giltig token.
 3. Om du använder en collector, säkerställ att `encoding: json` och `Content-Type: application/json` är inställda på `otlphttp`-exportören.
 
 ### Enheter saknas i inventariet
@@ -133,7 +133,7 @@ Cast Operations känner igen följande `iot_*`-mätvärdesnamn. Varje datapunkt 
 
 ### HTTP 401 / 403 från exportören
 
-Ingestion-token är ogiltig, återkallad eller saknas. Generera en ny från _Project Settings → Telemetry Ingestion Keys_ och uppdatera headern `x-oneuptime-token`.
+Ingestion-token är ogiltig, återkallad eller saknas. Generera en ny från _Project Settings → Telemetry Ingestion Keys_ och uppdatera headern `x-cast-operations-token`.
 
 ### Mätvärden ritas inte ut i diagram
 
@@ -158,7 +158,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 Om din instans endast använder HTTP, ändra schemat till `http://` och använd lämplig port.

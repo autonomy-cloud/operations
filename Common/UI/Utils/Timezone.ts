@@ -1,6 +1,6 @@
 import Timezone from "../../Types/Timezone";
 import { DropdownOption } from "../Components/Dropdown/Dropdown";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 
 export default class TimezoneUtil {
   public static getTimezoneDropdownOptions(): DropdownOption[] {
@@ -13,8 +13,8 @@ export default class TimezoneUtil {
       const keyOfTimezoneB: keyof typeof Timezone = b as keyof typeof Timezone;
 
       return (
-        OneUptimeDate.getGmtOffsetByTimezone(Timezone[keyOfTimezoneA]) -
-        OneUptimeDate.getGmtOffsetByTimezone(Timezone[keyOfTimezoneB])
+        OperationsDate.getGmtOffsetByTimezone(Timezone[keyOfTimezoneA]) -
+        OperationsDate.getGmtOffsetByTimezone(Timezone[keyOfTimezoneB])
       );
     });
 
@@ -28,7 +28,7 @@ export default class TimezoneUtil {
 
       return {
         value: value,
-        label: OneUptimeDate.getGmtOffsetFriendlyStringByTimezone(
+        label: OperationsDate.getGmtOffsetFriendlyStringByTimezone(
           Timezone[keyOfTimezone],
         ),
       };

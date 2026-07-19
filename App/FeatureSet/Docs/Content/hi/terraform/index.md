@@ -27,16 +27,16 @@ Installation, configuration, resources और best practices को cover कर
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -45,16 +45,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # अपने Cast Operations version से match होना चाहिए
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 }
 ```
 

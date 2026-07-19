@@ -22,7 +22,7 @@ import WorkspaceNotificationLogService from "./WorkspaceNotificationLogService";
 import WorkspaceNotificationStatus from "../../Types/Workspace/WorkspaceNotificationStatus";
 import WorkspaceNotificationActionType from "../../Types/Workspace/WorkspaceNotificationActionType";
 import logger from "../Utils/Logger";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import QueryHelper from "../Types/Database/QueryHelper";
 import WorkspaceMessagePayload, {
   WorkspaceMessageBlock,
@@ -181,7 +181,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
       await this.updateOneById({
         id: data.summaryId,
         data: {
-          lastSentAt: OneUptimeDate.getCurrentDate(),
+          lastSentAt: OperationsDate.getCurrentDate(),
         },
         props: {
           isRoot: true,
@@ -234,7 +234,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
   }
 
   private static formatDate(date: Date): string {
-    return OneUptimeDate.getDateAsLocalFormattedString(date, true);
+    return OperationsDate.getDateAsLocalFormattedString(date, true);
   }
 
   private static has(
@@ -496,14 +496,14 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
     const days: number = summary.numberOfDaysOfData || 7;
     const type: WorkspaceNotificationSummaryType = summary.summaryType!;
 
-    const fromDate: Date = OneUptimeDate.addRemoveDays(
-      OneUptimeDate.getCurrentDate(),
+    const fromDate: Date = OperationsDate.addRemoveDays(
+      OperationsDate.getCurrentDate(),
       -days,
     );
 
     const fromDateStr: string = Service.formatDate(fromDate);
     const toDateStr: string = Service.formatDate(
-      OneUptimeDate.getCurrentDate(),
+      OperationsDate.getCurrentDate(),
     );
 
     // Title
@@ -823,12 +823,12 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
         ) {
           if (td?.ackBy && td?.ackAt) {
             ackResolve.push(
-              `Ack: ${Service.bold(td.ackBy)} in ${Service.formatDuration(OneUptimeDate.getMinutesBetweenTwoDates(td.declaredAt || inc.createdAt!, td.ackAt))}`,
+              `Ack: ${Service.bold(td.ackBy)} in ${Service.formatDuration(OperationsDate.getMinutesBetweenTwoDates(td.declaredAt || inc.createdAt!, td.ackAt))}`,
             );
           } else if (td?.resolvedBy && td?.resolvedAt) {
             // If not explicitly acknowledged but resolved, ack time = resolve time
             ackResolve.push(
-              `Ack: ${Service.bold(td.resolvedBy)} in ${Service.formatDuration(OneUptimeDate.getMinutesBetweenTwoDates(td.declaredAt || inc.createdAt!, td.resolvedAt))}`,
+              `Ack: ${Service.bold(td.resolvedBy)} in ${Service.formatDuration(OperationsDate.getMinutesBetweenTwoDates(td.declaredAt || inc.createdAt!, td.resolvedAt))}`,
             );
           } else {
             ackResolve.push(`_Not yet acknowledged_`);
@@ -837,7 +837,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
         if (Service.has(items, WorkspaceNotificationSummaryItem.WhoResolved)) {
           if (td?.resolvedBy && td?.resolvedAt) {
             ackResolve.push(
-              `Resolved: ${Service.bold(td.resolvedBy)} in ${Service.formatDuration(OneUptimeDate.getMinutesBetweenTwoDates(td.declaredAt || inc.createdAt!, td.resolvedAt))}`,
+              `Resolved: ${Service.bold(td.resolvedBy)} in ${Service.formatDuration(OperationsDate.getMinutesBetweenTwoDates(td.declaredAt || inc.createdAt!, td.resolvedAt))}`,
             );
           } else if (!inc.currentIncidentState?.isResolvedState) {
             ackResolve.push(`_Not yet resolved_`);
@@ -954,7 +954,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
       let count: number = 0;
       for (const e of episodes) {
         if (e.resolvedAt && e.createdAt) {
-          total += OneUptimeDate.getMinutesBetweenTwoDates(
+          total += OperationsDate.getMinutesBetweenTwoDates(
             e.createdAt,
             e.resolvedAt,
           );
@@ -997,7 +997,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
         }
         if (ep.resolvedAt && ep.createdAt) {
           meta.push(
-            `Resolved in ${Service.bold(Service.formatDuration(OneUptimeDate.getMinutesBetweenTwoDates(ep.createdAt, ep.resolvedAt)))}`,
+            `Resolved in ${Service.bold(Service.formatDuration(OperationsDate.getMinutesBetweenTwoDates(ep.createdAt, ep.resolvedAt)))}`,
           );
         }
         if (meta.length > 0) {
@@ -1257,12 +1257,12 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
         ) {
           if (td?.ackBy && td?.ackAt) {
             ackResolve.push(
-              `Ack: ${Service.bold(td.ackBy)} in ${Service.formatDuration(OneUptimeDate.getMinutesBetweenTwoDates(td.declaredAt || a.createdAt!, td.ackAt))}`,
+              `Ack: ${Service.bold(td.ackBy)} in ${Service.formatDuration(OperationsDate.getMinutesBetweenTwoDates(td.declaredAt || a.createdAt!, td.ackAt))}`,
             );
           } else if (td?.resolvedBy && td?.resolvedAt) {
             // If not explicitly acknowledged but resolved, ack time = resolve time
             ackResolve.push(
-              `Ack: ${Service.bold(td.resolvedBy)} in ${Service.formatDuration(OneUptimeDate.getMinutesBetweenTwoDates(td.declaredAt || a.createdAt!, td.resolvedAt))}`,
+              `Ack: ${Service.bold(td.resolvedBy)} in ${Service.formatDuration(OperationsDate.getMinutesBetweenTwoDates(td.declaredAt || a.createdAt!, td.resolvedAt))}`,
             );
           } else {
             ackResolve.push(`_Not yet acknowledged_`);
@@ -1271,7 +1271,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
         if (Service.has(items, WorkspaceNotificationSummaryItem.WhoResolved)) {
           if (td?.resolvedBy && td?.resolvedAt) {
             ackResolve.push(
-              `Resolved: ${Service.bold(td.resolvedBy)} in ${Service.formatDuration(OneUptimeDate.getMinutesBetweenTwoDates(td.declaredAt || a.createdAt!, td.resolvedAt))}`,
+              `Resolved: ${Service.bold(td.resolvedBy)} in ${Service.formatDuration(OperationsDate.getMinutesBetweenTwoDates(td.declaredAt || a.createdAt!, td.resolvedAt))}`,
             );
           } else if (!a.currentAlertState?.isResolvedState) {
             ackResolve.push(`_Not yet resolved_`);
@@ -1383,7 +1383,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
       let count: number = 0;
       for (const e of episodes) {
         if (e.resolvedAt && e.createdAt) {
-          total += OneUptimeDate.getMinutesBetweenTwoDates(
+          total += OperationsDate.getMinutesBetweenTwoDates(
             e.createdAt,
             e.resolvedAt,
           );
@@ -1426,7 +1426,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
         }
         if (ep.resolvedAt && ep.createdAt) {
           meta.push(
-            `Resolved in ${Service.bold(Service.formatDuration(OneUptimeDate.getMinutesBetweenTwoDates(ep.createdAt, ep.resolvedAt)))}`,
+            `Resolved in ${Service.bold(Service.formatDuration(OperationsDate.getMinutesBetweenTwoDates(ep.createdAt, ep.resolvedAt)))}`,
           );
         }
         if (meta.length > 0) {
@@ -1450,7 +1450,7 @@ export class Service extends DatabaseService<WorkspaceNotificationSummary> {
       const eventTime: Date | undefined =
         kind === "ack" ? td.ackAt || td.resolvedAt : td.resolvedAt;
       if (eventTime && td.declaredAt) {
-        total += OneUptimeDate.getMinutesBetweenTwoDates(
+        total += OperationsDate.getMinutesBetweenTwoDates(
           td.declaredAt,
           eventTime,
         );

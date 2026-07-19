@@ -17,7 +17,7 @@ import Recurring from "Common/Types/Events/Recurring";
 import FieldType from "Common/UI/Components/Types/FieldType";
 import RecurringViewElement from "Common/UI/Components/Events/RecurringViewElement";
 import Alert, { AlertType } from "Common/UI/Components/Alerts/Alert";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Card from "Common/UI/Components/Card/Card";
 import { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -91,7 +91,7 @@ const StatusPageDelete: FunctionComponent<
         <Alert
           type={AlertType.INFO}
           strongTitle="Next report will be sent on"
-          title={`${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(statusPage?.sendNextReportBy)}`}
+          title={`${OperationsDate.getDateAsUserFriendlyLocalFormattedString(statusPage?.sendNextReportBy)}`}
         />
       )}
 

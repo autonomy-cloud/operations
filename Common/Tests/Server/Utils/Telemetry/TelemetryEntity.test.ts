@@ -714,21 +714,21 @@ describe("descriptive attributes & labels (never identity-bearing)", () => {
       "node.kubernetes.io/instance-type": "n2-standard-4",
       "container.image.name": "ghcr.io/acme/checkout",
       "container.image.tag": "1.2.3",
-      "oneuptime.label.team": "payments",
+      "cast-operations.label.team": "payments",
     };
     expect(keysFor(decorated)).toEqual(keysFor(identityOnly));
   });
 
-  test("oneuptime.label.* suffixes become labels on every extracted entity", () => {
+  test("cast-operations.label.* suffixes become labels on every extracted entity", () => {
     const entities: Array<ExtractedEntity> = TelemetryEntity.extractEntities({
       projectId: PROJECT,
       attributes: {
         "service.name": "checkout",
         "host.name": "web-1",
-        "oneuptime.label.team": "payments",
-        "oneuptime.label.env": "prod",
+        "cast-operations.label.team": "payments",
+        "cast-operations.label.env": "prod",
         // empty suffix is skipped
-        "oneuptime.label.": "ignored",
+        "cast-operations.label.": "ignored",
       },
     });
     expect(entities.length).toBeGreaterThan(0);
@@ -904,7 +904,7 @@ describe("extractEntities — OTLP entity_refs (authoritative path)", () => {
   test("labels attach on the refs path too", () => {
     const entities: Array<ExtractedEntity> = TelemetryEntity.extractEntities({
       projectId: PROJECT,
-      attributes: { ...attrs, "oneuptime.label.team": "payments" },
+      attributes: { ...attrs, "cast-operations.label.team": "payments" },
       entityRefs: [{ type: "service", idKeys: ["service.name"] }],
     });
     expect(entities).toHaveLength(1);

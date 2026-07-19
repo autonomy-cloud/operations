@@ -130,7 +130,8 @@ export default class DockerHostOwnerRule extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

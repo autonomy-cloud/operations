@@ -18,7 +18,7 @@ import ModelAPI from "Common/UI/Utils/ModelAPI/ModelAPI";
 import API from "Common/UI/Utils/API/API";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import TelemetryTimeRangePicker from "Common/UI/Components/TelemetryViewer/components/TelemetryTimeRangePicker";
 import RangeStartAndEndDateTime, {
   RangeStartAndEndDateTimeUtil,
@@ -110,7 +110,7 @@ const ServerlessFunctionOverview: FunctionComponent<
       }
 
       setServerlessFunction(item);
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
       setIsLoading(false);
       setIsRefreshing(false);
 

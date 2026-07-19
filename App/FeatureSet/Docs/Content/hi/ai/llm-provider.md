@@ -170,12 +170,12 @@ API Key: (leave blank)
 ```
 Name: In-Cluster vLLM
 LLM Provider: OpenAI Compatible
-Base URL: http://oneuptime-vllm.default.svc.cluster.local:8000/v1
+Base URL: http://cast-operations-vllm.default.svc.cluster.local:8000/v1
 Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-GPU scheduling, gated मॉडल और tuning विकल्पों के लिए [Helm chart README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) देखें।
+GPU scheduling, gated मॉडल और tuning विकल्पों के लिए [Helm chart README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/cast-operations#local-models-with-vllm) देखें।
 
 ## Custom Base URLs का उपयोग
 
@@ -212,4 +212,4 @@ Enterprise deployments के लिए या proxy services का उपय�
 यदि आपको अपना LLM provider सेट अप करने में कोई समस्या आती है, तो कृपया:
 
 1. ज्ञात समस्याओं के लिए [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) देखें
-2. यदि आप enterprise plan पर हैं तो support से संपर्क करें
+2. अपने deployment details के साथ support से संपर्क करें

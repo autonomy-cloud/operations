@@ -1,6 +1,6 @@
 import PageComponentProps from "../../PageComponentProps";
 import Color from "Common/Types/Color";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import IconProp from "Common/Types/Icon/IconProp";
 import ObjectID from "Common/Types/ObjectID";
@@ -161,7 +161,7 @@ const IncidentViewStateTimeline: FunctionComponent<PageComponentProps> = (
             required: true,
             placeholder: "Starts At",
             getDefaultValue: () => {
-              return OneUptimeDate.getCurrentDate();
+              return OperationsDate.getCurrentDate();
             },
           },
           {
@@ -259,9 +259,9 @@ const IncidentViewStateTimeline: FunctionComponent<PageComponentProps> = (
             getElement: (item: IncidentStateTimeline): ReactElement => {
               return (
                 <p>
-                  {OneUptimeDate.differenceBetweenTwoDatesAsFromattedString(
+                  {OperationsDate.differenceBetweenTwoDatesAsFromattedString(
                     item["startsAt"] as Date,
-                    (item["endsAt"] as Date) || OneUptimeDate.getCurrentDate(),
+                    (item["endsAt"] as Date) || OperationsDate.getCurrentDate(),
                   )}
                 </p>
               );

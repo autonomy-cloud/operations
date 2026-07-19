@@ -13,23 +13,23 @@ Cast Operations CLI は、ターミナルから Cast Operations リソースを�
 ## インストール
 
 ```bash
-npm install -g @oneuptime/cli
+npm install -g @cast-operations/cli
 ```
 
 ## クイックスタート
 
 ```bash
 # Cast Operations インスタンスに認証する
-oneuptime login <your-api-key> https://visca.ai
+cast-operations login <your-api-key> https://visca.ai
 
 # モニターを一覧表示する
-oneuptime monitor list
+cast-operations monitor list
 
 # 特定のインシデントを表示する
-oneuptime incident get <incident-id>
+cast-operations incident get <incident-id>
 
 # 利用可能なすべてのリソースを確認する
-oneuptime resources
+cast-operations resources
 ```
 
 ## ドキュメント
@@ -60,9 +60,9 @@ oneuptime resources
 
 ```bash
 # 一般的なヘルプ
-oneuptime --help
+cast-operations --help
 
 # 特定のコマンドのヘルプ
-oneuptime monitor --help
-oneuptime monitor list --help
+cast-operations monitor --help
+cast-operations monitor list --help
 ```

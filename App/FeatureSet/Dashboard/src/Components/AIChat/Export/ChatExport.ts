@@ -1,6 +1,6 @@
 import AIConversationMessage from "Common/Models/DatabaseModels/AIConversationMessage";
 import AIRun from "Common/Models/DatabaseModels/AIRun";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import convertConversationToMarkdown from "Common/UI/Utils/AIChatExport/ConversationMarkdown";
 import downloadFile, { getExportFilename } from "Common/UI/Utils/DownloadFile";
 import buildConversationPdf from "./ConversationPdf";
@@ -20,7 +20,7 @@ export interface ChatExportOptions {
 }
 
 export function exportConversationAsMarkdown(options: ChatExportOptions): void {
-  const exportedAt: Date = OneUptimeDate.getCurrentDate();
+  const exportedAt: Date = OperationsDate.getCurrentDate();
 
   const markdown: string = convertConversationToMarkdown({
     title: options.title,
@@ -43,7 +43,7 @@ export function exportConversationAsMarkdown(options: ChatExportOptions): void {
 export async function exportConversationAsPdf(
   options: ChatExportOptions,
 ): Promise<void> {
-  const exportedAt: Date = OneUptimeDate.getCurrentDate();
+  const exportedAt: Date = OperationsDate.getCurrentDate();
 
   const blob: Blob = await buildConversationPdf({
     title: options.title,

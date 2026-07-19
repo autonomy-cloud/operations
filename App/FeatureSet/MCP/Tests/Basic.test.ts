@@ -1,25 +1,25 @@
 import { describe, it, expect } from "@jest/globals";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 
 describe("MCP Server Basic Tests", () => {
-  describe("OneUptimeOperation Enum", () => {
+  describe("OperationsOperation Enum", () => {
     it("should have all required operations", () => {
-      expect(OneUptimeOperation.Create).toBe("create");
-      expect(OneUptimeOperation.Read).toBe("read");
-      expect(OneUptimeOperation.List).toBe("list");
-      expect(OneUptimeOperation.Update).toBe("update");
-      expect(OneUptimeOperation.Delete).toBe("delete");
-      expect(OneUptimeOperation.Count).toBe("count");
+      expect(OperationsOperation.Create).toBe("create");
+      expect(OperationsOperation.Read).toBe("read");
+      expect(OperationsOperation.List).toBe("list");
+      expect(OperationsOperation.Update).toBe("update");
+      expect(OperationsOperation.Delete).toBe("delete");
+      expect(OperationsOperation.Count).toBe("count");
     });
 
     it("should contain exactly 6 operations", () => {
-      const operations: string[] = Object.values(OneUptimeOperation);
+      const operations: string[] = Object.values(OperationsOperation);
       expect(operations).toHaveLength(6);
     });
 
     it("should have string values for all operations", () => {
-      Object.values(OneUptimeOperation).forEach((operation: string) => {
+      Object.values(OperationsOperation).forEach((operation: string) => {
         expect(typeof operation).toBe("string");
       });
     });
@@ -47,9 +47,9 @@ describe("MCP Server Basic Tests", () => {
 
   describe("Basic Functionality", () => {
     it("should support environment variable checking", () => {
-      const apiKey: string = process.env["ONEUPTIME_API_KEY"] || "";
+      const apiKey: string = process.env["CAST_OPERATIONS_API_KEY"] || "";
       const url: string =
-        process.env["ONEUPTIME_URL"] || "https://visca.ai";
+        process.env["CAST_OPERATIONS_URL"] || "https://visca.ai";
 
       expect(typeof apiKey).toBe("string");
       expect(typeof url).toBe("string");
@@ -57,17 +57,17 @@ describe("MCP Server Basic Tests", () => {
     });
 
     it("should validate operation types", () => {
-      const operations: OneUptimeOperation[] = [
-        OneUptimeOperation.Create,
-        OneUptimeOperation.Read,
-        OneUptimeOperation.List,
-        OneUptimeOperation.Update,
-        OneUptimeOperation.Delete,
-        OneUptimeOperation.Count,
+      const operations: OperationsOperation[] = [
+        OperationsOperation.Create,
+        OperationsOperation.Read,
+        OperationsOperation.List,
+        OperationsOperation.Update,
+        OperationsOperation.Delete,
+        OperationsOperation.Count,
       ];
 
-      operations.forEach((op: OneUptimeOperation) => {
-        expect(Object.values(OneUptimeOperation)).toContain(op);
+      operations.forEach((op: OperationsOperation) => {
+        expect(Object.values(OperationsOperation)).toContain(op);
       });
     });
 
@@ -202,7 +202,7 @@ describe("MCP Server Basic Tests", () => {
         description: "Create a new project",
         inputSchema: { type: "object", properties: {} },
         modelName: "Project",
-        operation: OneUptimeOperation.Create,
+        operation: OperationsOperation.Create,
         modelType: ModelType.Database,
         singularName: "project",
         pluralName: "projects",
@@ -210,7 +210,7 @@ describe("MCP Server Basic Tests", () => {
       };
 
       expect(toolInfo["name"]).toBe("create_project");
-      expect(toolInfo["operation"]).toBe(OneUptimeOperation.Create);
+      expect(toolInfo["operation"]).toBe(OperationsOperation.Create);
       expect(toolInfo["modelType"]).toBe(ModelType.Database);
       expect((toolInfo["inputSchema"] as Record<string, unknown>)["type"]).toBe(
         "object",

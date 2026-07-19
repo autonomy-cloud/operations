@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. In Datadog, vai su **Integrations → Webhooks** (installa l'integrazione **Webhooks** se non l'hai già fatto).
 2. **Aggiungi un webhook**:
 
-   - **Name**: `oneuptime` (diventa `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (diventa `@webhook-cast-operations`).
    - **URL**: l'URL webhook del tuo workflow.
    - **Payload** — Datadog ti permette di definire il corpo JSON usando le [variabili template](https://docs.datadoghq.com/integrations/webhooks/#usage):
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Aggiungi l'handle del webhook ai monitor che vuoi inoltrare. Nel **messaggio di notifica** di ciascun monitor, includi:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Questo invia sia l'allarme che il ripristino a Cast Operations. (Per inoltrare tutto, puoi anche aggiungere `@webhook-oneuptime` a un monitor in modo incondizionato.)
+Questo invia sia l'allarme che il ripristino a Cast Operations. (Per inoltrare tutto, puoi anche aggiungere `@webhook-cast-operations` a un monitor in modo incondizionato.)
 
 ## Passaggio 4 — Testalo
 
@@ -74,7 +74,7 @@ Questo invia sia l'allarme che il ripristino a Cast Operations. (Per inoltrare t
 
 ## Risoluzione dei problemi
 
-- **Nessuna esecuzione appare** — conferma che il messaggio del monitor includa `@webhook-oneuptime` e che il workflow sia **Enabled**.
+- **Nessuna esecuzione appare** — conferma che il messaggio del monitor includa `@webhook-cast-operations` e che il workflow sia **Enabled**.
 - **I campi sono vuoti** — Datadog sostituisce solo le variabili template applicabili all'evento. Ispeziona l'output del trigger nella scheda **Logs** e adatta il tuo payload webhook.
 - **Incidenti duplicati** — un monitor che rinotifica invia più eventi `Triggered`; deduplicali con un controllo **Find Incident** sull'`id` prima di creare.
 

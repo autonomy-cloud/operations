@@ -4,7 +4,7 @@ import { DEFAULT_DOCS_LANGUAGE } from "./I18n";
 import DatabaseConfig from "Common/Server/DatabaseConfig";
 import LocalFile from "Common/Server/Utils/LocalFile";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 /*
  * Cache TTL: 10 minutes. Docs content is static on disk per deploy, so a
@@ -24,7 +24,7 @@ function isCacheValid<T>(cache: CachedData<T> | null): boolean {
   if (!cache) {
     return false;
   }
-  const now: number = OneUptimeDate.getCurrentDate().getTime();
+  const now: number = OperationsDate.getCurrentDate().getTime();
   return now - cache.generatedAt < TTL_MS;
 }
 
@@ -121,7 +121,7 @@ export default class LlmsTxtUtil {
 
     llmsTxtCache = {
       data: content,
-      generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+      generatedAt: OperationsDate.getCurrentDate().getTime(),
     };
 
     return content;
@@ -180,7 +180,7 @@ export default class LlmsTxtUtil {
 
     llmsFullTxtCache = {
       data: content,
-      generatedAt: OneUptimeDate.getCurrentDate().getTime(),
+      generatedAt: OperationsDate.getCurrentDate().getTime(),
     };
 
     return content;

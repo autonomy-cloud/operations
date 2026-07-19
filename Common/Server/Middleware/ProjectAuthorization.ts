@@ -5,7 +5,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Dictionary from "../../Types/Dictionary";
 import BadDataException from "../../Types/Exception/BadDataException";
@@ -109,7 +109,7 @@ export default class ProjectMiddleware {
       const apiKey: ObjectID | null = this.getApiKey(req);
 
       if (tenantId) {
-        (req as OneUptimeRequest).tenantId = tenantId;
+        (req as OperationsRequest).tenantId = tenantId;
 
         // Tag the current span with project context for observability
         SpanUtil.addAttributesToCurrentSpan({
@@ -133,13 +133,13 @@ export default class ProjectMiddleware {
       if (apiKeyRow) {
         tenantId = apiKeyRow.projectId;
 
-        (req as OneUptimeRequest).tenantId = tenantId;
-        (req as OneUptimeRequest).userType = UserType.API;
+        (req as OperationsRequest).tenantId = tenantId;
+        (req as OperationsRequest).userType = UserType.API;
 
         /*
          * TODO: Add API key permissions.
          */
-        (req as OneUptimeRequest).userGlobalAccessPermission =
+        (req as OperationsRequest).userGlobalAccessPermission =
           await APIKeyAccessPermission.getDefaultApiGlobalPermission(tenantId);
 
         const userTenantAccessPermission: UserTenantAccessPermission | null =
@@ -149,9 +149,9 @@ export default class ProjectMiddleware {
           );
 
         if (userTenantAccessPermission) {
-          (req as OneUptimeRequest).userTenantAccessPermission = {};
+          (req as OperationsRequest).userTenantAccessPermission = {};
           (
-            (req as OneUptimeRequest)
+            (req as OperationsRequest)
               .userTenantAccessPermission as Dictionary<UserTenantAccessPermission>
           )[tenantId.toString()] = userTenantAccessPermission;
 
@@ -165,7 +165,7 @@ export default class ProjectMiddleware {
           await ProjectMiddleware.isMasterApiKey(apiKey);
 
         if (isMasterApiKey) {
-          (req as OneUptimeRequest).userType = UserType.MasterAdmin;
+          (req as OperationsRequest).userType = UserType.MasterAdmin;
 
           // get master admin user
 
@@ -189,7 +189,7 @@ export default class ProjectMiddleware {
             );
           }
 
-          (req as OneUptimeRequest).userAuthorization = {
+          (req as OperationsRequest).userAuthorization = {
             userId: user.id!,
             isMasterAdmin: true,
             email: user.email!,

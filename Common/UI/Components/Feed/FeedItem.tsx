@@ -6,7 +6,7 @@ import Route from "../../../Types/API/Route";
 import BlankProfilePic from "../../Images/users/blank-profile.svg";
 import UserUtil from "../../Utils/User";
 import ObjectID from "../../../Types/ObjectID";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Tooltip from "../Tooltip/Tooltip";
 import MarkdownViewer from "../Markdown.tsx/MarkdownViewer";
 import Button, { ButtonSize, ButtonStyleType } from "../Button/Button";
@@ -110,12 +110,12 @@ const FeedItem: FunctionComponent<ComponentProps> = (
                 )}
                 <div className="mt-0.5 text-sm text-gray-500 w-fit">
                   <Tooltip
-                    text={OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                    text={OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                       props.itemDateTime,
                     )}
                   >
                     <div className="w-fit">
-                      {OneUptimeDate.fromNow(props.itemDateTime)}
+                      {OperationsDate.fromNow(props.itemDateTime)}
                     </div>
                   </Tooltip>
                 </div>

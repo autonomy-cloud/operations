@@ -1,5 +1,5 @@
 import ObjectID from "../../../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../../../Types/Date";
+import OperationsDate from "../../../../../../Types/Date";
 import SortOrder from "../../../../../../Types/BaseDatabase/SortOrder";
 import InBetween from "../../../../../../Types/BaseDatabase/InBetween";
 import PositiveNumber from "../../../../../../Types/PositiveNumber";
@@ -141,15 +141,15 @@ export default class ExceptionSpikeDetector implements InsightDetector {
   public async detect(
     context: InsightScanContext,
   ): Promise<Array<InsightCandidate>> {
-    const recentWindowStart: Date = OneUptimeDate.addRemoveHours(
+    const recentWindowStart: Date = OperationsDate.addRemoveHours(
       context.now,
       -1 * EXCEPTION_SPIKE_RECENT_WINDOW_HOURS,
     );
-    const priorWindowStart: Date = OneUptimeDate.addRemoveHours(
+    const priorWindowStart: Date = OperationsDate.addRemoveHours(
       recentWindowStart,
       -1 * EXCEPTION_SPIKE_BASELINE_WINDOW_HOURS,
     );
-    const establishedBefore: Date = OneUptimeDate.addRemoveHours(
+    const establishedBefore: Date = OperationsDate.addRemoveHours(
       context.now,
       -1 * EXCEPTION_SPIKE_BASELINE_WINDOW_HOURS,
     );

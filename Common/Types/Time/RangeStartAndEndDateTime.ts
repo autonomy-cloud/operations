@@ -1,6 +1,6 @@
 import InBetween from "../BaseDatabase/InBetween";
 import TimeRange from "./TimeRange";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 
 export default interface RangeStartAndEndDateTime {
   startAndEndDate?: InBetween<Date> | undefined;
@@ -11,12 +11,12 @@ export class RangeStartAndEndDateTimeUtil {
   public static getStartAndEndDate(
     dashboardStartAndEndDate: RangeStartAndEndDateTime,
   ): InBetween<Date> {
-    const currentDate: Date = OneUptimeDate.getCurrentDate();
+    const currentDate: Date = OperationsDate.getCurrentDate();
 
     // 5 mins.
     if (dashboardStartAndEndDate.range === TimeRange.PAST_FIVE_MINS) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveMinutes(currentDate, -5),
+        OperationsDate.addRemoveMinutes(currentDate, -5),
         currentDate,
       );
     }
@@ -24,7 +24,7 @@ export class RangeStartAndEndDateTimeUtil {
     // 15 mins.
     if (dashboardStartAndEndDate.range === TimeRange.PAST_FIFTEEN_MINS) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveMinutes(currentDate, -15),
+        OperationsDate.addRemoveMinutes(currentDate, -15),
         currentDate,
       );
     }
@@ -32,14 +32,14 @@ export class RangeStartAndEndDateTimeUtil {
     // 30 mins.
     if (dashboardStartAndEndDate.range === TimeRange.PAST_THIRTY_MINS) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveMinutes(currentDate, -30),
+        OperationsDate.addRemoveMinutes(currentDate, -30),
         currentDate,
       );
     }
 
     if (dashboardStartAndEndDate.range === TimeRange.PAST_ONE_HOUR) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveHours(currentDate, -1),
+        OperationsDate.addRemoveHours(currentDate, -1),
         currentDate,
       );
     }
@@ -47,7 +47,7 @@ export class RangeStartAndEndDateTimeUtil {
     // two hours.
     if (dashboardStartAndEndDate.range === TimeRange.PAST_TWO_HOURS) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveHours(currentDate, -2),
+        OperationsDate.addRemoveHours(currentDate, -2),
         currentDate,
       );
     }
@@ -55,14 +55,14 @@ export class RangeStartAndEndDateTimeUtil {
     // three hours
     if (dashboardStartAndEndDate.range === TimeRange.PAST_THREE_HOURS) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveHours(currentDate, -3),
+        OperationsDate.addRemoveHours(currentDate, -3),
         currentDate,
       );
     }
 
     if (dashboardStartAndEndDate.range === TimeRange.PAST_ONE_DAY) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveDays(currentDate, -1),
+        OperationsDate.addRemoveDays(currentDate, -1),
         currentDate,
       );
     }
@@ -70,14 +70,14 @@ export class RangeStartAndEndDateTimeUtil {
     // two days .
     if (dashboardStartAndEndDate.range === TimeRange.PAST_TWO_DAYS) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveDays(currentDate, -2),
+        OperationsDate.addRemoveDays(currentDate, -2),
         currentDate,
       );
     }
 
     if (dashboardStartAndEndDate.range === TimeRange.PAST_ONE_WEEK) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveDays(currentDate, -7),
+        OperationsDate.addRemoveDays(currentDate, -7),
         currentDate,
       );
     }
@@ -85,14 +85,14 @@ export class RangeStartAndEndDateTimeUtil {
     // two weeks.
     if (dashboardStartAndEndDate.range === TimeRange.PAST_TWO_WEEKS) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveDays(currentDate, -14),
+        OperationsDate.addRemoveDays(currentDate, -14),
         currentDate,
       );
     }
 
     if (dashboardStartAndEndDate.range === TimeRange.PAST_ONE_MONTH) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveMonths(currentDate, -1),
+        OperationsDate.addRemoveMonths(currentDate, -1),
         currentDate,
       );
     }
@@ -100,7 +100,7 @@ export class RangeStartAndEndDateTimeUtil {
     // three months.
     if (dashboardStartAndEndDate.range === TimeRange.PAST_THREE_MONTHS) {
       return new InBetween<Date>(
-        OneUptimeDate.addRemoveMonths(currentDate, -3),
+        OperationsDate.addRemoveMonths(currentDate, -3),
         currentDate,
       );
     }

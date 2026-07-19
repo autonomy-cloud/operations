@@ -22,7 +22,7 @@
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Используйте последнюю версию 7.x
     }
@@ -38,7 +38,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Зафиксируйте точную версию, совпадающую с вашей установкой Cast Operations
     }
@@ -60,7 +60,7 @@ terraform {
 # Пример: при запуске Cast Operations 7.0.123
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"
     }
@@ -73,9 +73,9 @@ terraform {
 ### Базовая конфигурация
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://your-operations-instance.com"  # Или https://visca.ai для облака
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://your-operations-instance.com"  # Или https://visca.ai для облака
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -84,14 +84,14 @@ provider "oneuptime" {
 Провайдер можно настроить через переменные среды:
 
 ```bash
-export ONEUPTIME_URL="https://your-operations-instance.com"
-export ONEUPTIME_API_KEY="your-api-key-here"
+export CAST_OPERATIONS_URL="https://your-operations-instance.com"
+export CAST_OPERATIONS_API_KEY="your-api-key-here"
 ```
 
 Затем используйте провайдер без явной конфигурации:
 
 ```hcl
-provider "oneuptime" {
+provider "cast-operations" {
   # Конфигурация будет считана из переменных среды
 }
 ```
@@ -100,8 +100,8 @@ provider "oneuptime" {
 
 | Аргумент        | Переменная среды    | Описание           | Обязательно |
 | --------------- | ------------------- | ------------------ | ----------- |
-| `oneuptime_url` | `ONEUPTIME_URL`     | URL Cast Operations      | Да          |
-| `api_key`       | `ONEUPTIME_API_KEY` | API-ключ Cast Operations | Да          |
+| `cast_operations_url` | `CAST_OPERATIONS_URL`     | URL Cast Operations      | Да          |
+| `api_key`       | `CAST_OPERATIONS_API_KEY` | API-ключ Cast Operations | Да          |
 
 ## Быстрый старт
 
@@ -122,16 +122,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # Используйте URL вашего экземпляра
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # Используйте URL вашего экземпляра
+  api_key       = var.cast_operations_api_key
 }
 
 # Примечание: проекты необходимо создавать вручную в панели управления Cast Operations
@@ -141,7 +141,7 @@ variable "project_id" {
 }
 
 # Создание монитора
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Website Monitor"
   description = "Монитор доступности сайта"
   data        = jsonencode({
@@ -152,7 +152,7 @@ resource "oneuptime_monitor" "website" {
 }
 
 # Создание команды
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "Platform Team"
   description = "Команда платформенной инженерии"
 }
@@ -183,7 +183,7 @@ terraform apply
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Всегда используйте последнюю совместимую версию
     }
@@ -206,7 +206,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Точное совпадение версии
     }
@@ -220,29 +220,29 @@ terraform {
 
 ### Базовые ресурсы
 
-- `oneuptime_team` — управление командами
+- `cast_operations_team` — управление командами
 
 ### Мониторинг
 
-- `oneuptime_monitor` — создание и управление мониторами
-- `oneuptime_probe` — управление зондами мониторинга
+- `cast_operations_monitor` — создание и управление мониторами
+- `cast_operations_probe` — управление зондами мониторинга
 
 ### Управление дежурством
 
-- `oneuptime_on_call_duty_policy` — настройка расписаний дежурства
+- `cast_operations_on_call_duty_policy` — настройка расписаний дежурства
 
 ### Страницы статуса
 
-- `oneuptime_status_page` — создание страниц статуса
+- `cast_operations_status_page` — создание страниц статуса
 
 ### Каталог сервисов
 
-- `oneuptime_service_catalog` — управление записями каталога сервисов
+- `cast_operations_service_catalog` — управление записями каталога сервисов
 
 ### Каталог сервисов
 
-- `oneuptime_service` — определение сервисов
-- `oneuptime_service_dependency` — отображение зависимостей сервисов
+- `cast_operations_service` — определение сервисов
+- `cast_operations_service_dependency` — отображение зависимостей сервисов
 
 ### Источники данных
 
@@ -254,7 +254,7 @@ terraform {
 
 ```hcl
 # Переменные
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "API-ключ Cast Operations"
   type        = string
   sensitive   = true
@@ -265,7 +265,7 @@ variable "project_id" {
   type        = string
 }
 
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "URL Cast Operations"
   type        = string
   default     = "https://visca.ai"
@@ -274,26 +274,26 @@ variable "oneuptime_url" {
 # Конфигурация провайдера
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # Команда
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "Platform Team"
   description = "Команда платформенной инженерии"
 }
 
 # Мониторы
-resource "oneuptime_monitor" "api" {
+resource "cast_operations_monitor" "api" {
   name        = "API Health Check"
   description = "Монитор конечной точки работоспособности API"
   data        = jsonencode({
@@ -305,9 +305,9 @@ resource "oneuptime_monitor" "api" {
   }
 }
 
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "Database Connection"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   monitor_type = "port"
   hostname     = "db.mycompany.com"
@@ -322,10 +322,10 @@ resource "oneuptime_monitor" "database" {
 }
 
 # Политика дежурства
-resource "oneuptime_on_call_policy" "platform_oncall" {
+resource "cast_operations_on_call_policy" "platform_oncall" {
   name       = "Platform On-Call"
-  project_id = oneuptime_project.production.id
-  team_id    = oneuptime_team.platform.id
+  project_id = cast_operations_project.production.id
+  team_id    = cast_operations_team.platform.id
 
   schedules {
     name      = "Business Hours"
@@ -343,17 +343,17 @@ resource "oneuptime_on_call_policy" "platform_oncall" {
 }
 
 # Политика оповещений
-resource "oneuptime_alert_policy" "critical_alerts" {
+resource "cast_operations_alert_policy" "critical_alerts" {
   name       = "Critical System Alerts"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   conditions {
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
     threshold  = "down"
   }
 
   conditions {
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
     threshold  = "down"
   }
 
@@ -364,25 +364,25 @@ resource "oneuptime_alert_policy" "critical_alerts" {
 
   actions {
     type           = "oncall_escalation"
-    oncall_policy_id = oneuptime_on_call_policy.platform_oncall.id
+    oncall_policy_id = cast_operations_on_call_policy.platform_oncall.id
   }
 }
 
 # Страница статуса
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name       = "MyCompany Status"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   domain = "status.mycompany.com"
 
   components {
     name       = "API"
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
   }
 
   components {
     name       = "Database"
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
   }
 }
 ```
@@ -393,7 +393,7 @@ resource "oneuptime_status_page" "public" {
 # Для самостоятельного хостинга Cast Operations версии 7.0.123
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Должно точно совпадать с версией Cast Operations
     }
@@ -401,9 +401,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.mycompany.com"  # Ваш URL самостоятельного хостинга
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.mycompany.com"  # Ваш URL самостоятельного хостинга
+  api_key       = var.cast_operations_api_key
 }
 
 # Остальная конфигурация...
@@ -430,7 +430,7 @@ provider "oneuptime" {
 terraform {
   backend "s3" {
     bucket = "my-terraform-state"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
@@ -488,12 +488,12 @@ monitors = [
 Используйте согласованные соглашения об именовании:
 
 ```hcl
-resource "oneuptime_monitor" "website_production" {
+resource "cast_operations_monitor" "website_production" {
   name = "${var.environment}-website-monitor"
   # ...
 }
 
-resource "oneuptime_alert_policy" "critical_production" {
+resource "cast_operations_alert_policy" "critical_production" {
   name = "${var.environment}-critical-alerts"
   # ...
 }
@@ -513,10 +513,10 @@ resource "oneuptime_alert_policy" "critical_production" {
 
 ```bash
 # Импорт существующего монитора
-terraform import oneuptime_monitor.website monitor-id-here
+terraform import cast_operations_monitor.website monitor-id-here
 
 # Импорт существующего проекта
-terraform import oneuptime_project.main project-id-here
+terraform import cast_operations_project.main project-id-here
 ```
 
 ### Обновление версий

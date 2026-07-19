@@ -26,7 +26,7 @@ Erstellen Sie ein neues Verzeichnis und eine `main.tf`-Datei:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       # Für Cloud-Kunden
       version = "~> 7.0"
@@ -38,17 +38,17 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
+provider "cast-operations" {
   # Für Cloud-Kunden
-  oneuptime_url = "https://visca.ai"
+  cast_operations_url = "https://visca.ai"
 
   # Für selbst gehostete Kunden - verwenden Sie Ihre Instanz-URL
-  # oneuptime_url = "https://operations.yourcompany.com"
+  # cast_operations_url = "https://operations.yourcompany.com"
 
-  api_key = var.oneuptime_api_key
+  api_key = var.cast_operations_api_key
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API Key"
   type        = string
   sensitive   = true
@@ -61,7 +61,7 @@ variable "project_id" {
 }
 
 # Einfachen Website-Monitor erstellen
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Website Monitor"
   description = "Monitor für Website-Verfügbarkeit"
   data        = jsonencode({
@@ -73,7 +73,7 @@ resource "oneuptime_monitor" "website" {
 
 # Monitor-ID ausgeben
 output "monitor_id" {
-  value = oneuptime_monitor.website.id
+  value = cast_operations_monitor.website.id
 }
 ```
 
@@ -83,7 +83,7 @@ Erstellen Sie `terraform.tfvars`:
 
 ```hcl
 # terraform.tfvars
-oneuptime_api_key = "your-api-key-here"
+cast_operations_api_key = "your-api-key-here"
 project_id        = "your-project-id-here"  # Aus Cast Operations-Dashboard erhalten
 ```
 
@@ -127,7 +127,7 @@ terraform apply
 
 1. API-Schlüssel im Cast Operations-Dashboard überprüfen
 2. Prüfen ob der API-Schlüssel ausreichende Berechtigungen hat
-3. Sicherstellen, dass `oneuptime_url` korrekt ist
+3. Sicherstellen, dass `cast_operations_url` korrekt ist
 
 ### Problem: Versions-Mismatch (selbst gehostet)
 

@@ -99,7 +99,8 @@ export default class LlmLog extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -350,8 +351,7 @@ export default class LlmLog extends BaseModel {
     required: true,
     type: TableColumnType.Number,
     title: "Cached Input Tokens",
-    description:
-      "Input tokens served from the provider's prompt cache (billed at a discount)",
+    description: "Input tokens served from the provider's prompt cache",
     canReadOnRelationQuery: false,
     isDefaultValueColumn: true,
     defaultValue: 0,
@@ -419,33 +419,6 @@ export default class LlmLog extends BaseModel {
     type: ColumnType.Number,
   })
   public costInUSDCents?: number = undefined;
-
-  @ColumnAccessControl({
-    create: [],
-    read: [
-      Permission.ProjectOwner,
-      Permission.ProjectAdmin,
-      Permission.ProjectMember,
-      Permission.Viewer,
-      Permission.ReadLlmLog,
-    ],
-    update: [],
-  })
-  @TableColumn({
-    required: true,
-    type: TableColumnType.Boolean,
-    title: "Was Billed",
-    description: "Was the project charged for this API call?",
-    canReadOnRelationQuery: false,
-    isDefaultValueColumn: true,
-    defaultValue: false,
-  })
-  @Column({
-    nullable: false,
-    type: ColumnType.Boolean,
-    default: false,
-  })
-  public wasBilled?: boolean = undefined;
 
   // Status
 

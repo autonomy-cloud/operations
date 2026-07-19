@@ -132,7 +132,7 @@ Alt du trenger på én enkelt server (Debian / Ubuntu / RHEL, Docker + Docker Co
 ```bash
 # 1. Clone the release branch
 git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # 2. Create your config (then edit it — set strong, random secrets!)
 cp config.example.env config.env
@@ -148,8 +148,8 @@ Cast Operations kjører nå på **http://localhost** — åpne det og opprett di
 ### ☸️ Kubernetes med Helm — for produksjon
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
-helm install oneuptime autonomy-cloud/operations
+helm repo add cast-operations https://helm-chart.visca.ai
+helm install cast-operations autonomy-cloud/operations
 ```
 
 📖 Fullstendige installasjonsinstruksjoner og verdier på [Artifact Hub →](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

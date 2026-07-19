@@ -1,4 +1,4 @@
-import { BASE_URL, IS_BILLING_ENABLED } from "../../Config";
+import { BASE_URL } from "../../Config";
 import { Page, expect, test, Response } from "@playwright/test";
 import URL from "Common/Types/API/URL";
 
@@ -35,10 +35,6 @@ test.describe("Home: Sitemap", () => {
   }: {
     page: Page;
   }) => {
-    if (!IS_BILLING_ENABLED) {
-      return; // mirror existing pattern
-    }
-
     page.setDefaultNavigationTimeout(120000);
 
     // Test the sitemap index
@@ -60,10 +56,6 @@ test.describe("Home: Sitemap", () => {
   }: {
     page: Page;
   }) => {
-    if (!IS_BILLING_ENABLED) {
-      return; // mirror existing pattern
-    }
-
     page.setDefaultNavigationTimeout(120000);
 
     // Test the pages sitemap

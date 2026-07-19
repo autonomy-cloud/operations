@@ -14,7 +14,7 @@ import RestrictionTimes, {
   RestrictionType,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -73,7 +73,7 @@ function fullExpand(layer: LayerProps, to: Date): Array<CalendarEvent> {
   return events;
 }
 
-const START: Date = OneUptimeDate.fromString("2025-01-06T00:00:00.000Z"); // Monday
+const START: Date = OperationsDate.fromString("2025-01-06T00:00:00.000Z"); // Monday
 
 describe("INVARIANT: 24/7 coverage contiguity (no gap > 2s, no overlap)", () => {
   const configs: Config[] = [];

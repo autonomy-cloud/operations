@@ -186,7 +186,7 @@ function globalNavPopup(t) {
           }),
           $.ajaxPrefilter(function (n, e, i) {
             var o;
-            return (o = t()), i.setRequestHeader("x-oneuptime-csrf-token", o);
+            return (o = t()), i.setRequestHeader("x-cast-operations-csrf-token", o);
           })
         );
       });
@@ -660,25 +660,19 @@ var Strut = {
       });
     }
 
-    function a() {
-      window.siteAnalyticsUtil.emitActionOnce(w);
-    }
-
     function s() {
       (window.siteAnalytics.trackConnectRoutingDiagram = i),
         (window.siteAnalytics.trackHomePageNotebook = e),
         (window.siteAnalytics.trackRadarIcosahedron = t),
         (window.siteAnalytics.trackRadarFraudChart = n),
         (window.siteAnalytics.trackSigmaQueryCategory = o),
-        (window.siteAnalytics.trackSigmaQueryExample = r),
-        (window.siteAnalytics.trackSigmaPricingSlider = a);
+        (window.siteAnalytics.trackSigmaQueryExample = r);
     }
     var c = "radar_icosahedron",
       d = "radar_fraud_chart",
       l = "home_page_notebook",
       u = "connect_routing_diagram",
       p = "query_category",
-      w = "pricing_slider",
       f = {},
       g = {};
     s();

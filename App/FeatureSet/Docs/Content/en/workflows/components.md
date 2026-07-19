@@ -44,7 +44,7 @@ The combined System Instructions, Prompt, and serialized Context are limited to 
 - **Provider** and **Model** — the configuration used for the call.
 - **Total Tokens** and **Completion Tokens** — usage reported by the provider.
 - **LLM Log ID** — the metered AI log entry for the call.
-- **Error** — the validation, access, provider, budget, billing, or timeout error, when present.
+- **Error** — the validation, access, provider, budget, or timeout error, when present.
 
 Connect **Success** to components that should use the response. Connect **Error** to an explicit fallback, alert, or log path. The component makes one model request without tool definitions or provider-native capability fields: it cannot query Cast Operations, call APIs, or change project data by itself. Besides Cast Operations’ fixed component-safety instructions, only the System Instructions, Prompt, and Context you configure are sent to the provider, after workflow variables in those fields are resolved. The configured provider/model remains a trust boundary because a model can have intrinsic provider-managed capabilities.
 

@@ -1,4 +1,4 @@
-import { ONEUPTIME_URL } from "../Config";
+import { CAST_OPERATIONS_URL } from "../Config";
 import AIAgentAPIRequest from "./AIAgentAPIRequest";
 import URL from "Common/Types/API/URL";
 import API from "Common/Utils/API";
@@ -18,9 +18,9 @@ export default class AIAgentTaskLog {
 
   private static getCreateLogUrl(): URL {
     if (!this.createLogUrl) {
-      this.createLogUrl = URL.fromString(ONEUPTIME_URL.toString()).addRoute(
-        "/api/ai-agent-task-log/create-log",
-      );
+      this.createLogUrl = URL.fromString(
+        CAST_OPERATIONS_URL.toString(),
+      ).addRoute("/api/ai-agent-task-log/create-log");
     }
     return this.createLogUrl;
   }

@@ -40,14 +40,14 @@ OpenTelemetry를 사용하여 애플리케이션 로그를 수집합니다. Cast
 
 | 환경 변수                   | 값                                             |
 | --------------------------- | ---------------------------------------------- |
-| OTEL_EXPORTER_OTLP_HEADERS  | x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN |
+| OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
 | OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **예시**
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=9c8806e0-a4aa-11ee-be95-010d5967b068
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
@@ -82,7 +82,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "ONEUPTIME_TOKEN" # Cast Operations 토큰
+      "x-cast-operations-token": "CAST_OPERATIONS_TOKEN" # Cast Operations 토큰
 
 service:
   pipelines:

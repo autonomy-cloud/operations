@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import ScheduledMaintenanceService from "Common/Server/Services/ScheduledMaintenanceService";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
@@ -28,7 +28,7 @@ RunCron(
         query: {
           isRecurringEvent: true,
           scheduleNextEventAt: QueryHelper.lessThanEqualTo(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
         },
         props: {
@@ -143,23 +143,23 @@ RunCron(
         const firstEndTime: Date = recurringTemplate.firstEventEndsAt!;
 
         const minutesBetwenScheduledAndStartTime: number =
-          OneUptimeDate.getMinutesBetweenTwoDates(
+          OperationsDate.getMinutesBetweenTwoDates(
             firstScheduledTime,
             firstStartTime,
           );
         const minutesBetweenScheduledAndEndTime: number =
-          OneUptimeDate.getMinutesBetweenTwoDates(
+          OperationsDate.getMinutesBetweenTwoDates(
             firstScheduledTime,
             firstEndTime,
           );
 
         // set the scheduled time for this event.
         scheduledMaintenanceEvent.createdAt = eventscheduledTime!;
-        scheduledMaintenanceEvent.startsAt = OneUptimeDate.addRemoveMinutes(
+        scheduledMaintenanceEvent.startsAt = OperationsDate.addRemoveMinutes(
           eventscheduledTime,
           minutesBetwenScheduledAndStartTime,
         );
-        scheduledMaintenanceEvent.endsAt = OneUptimeDate.addRemoveMinutes(
+        scheduledMaintenanceEvent.endsAt = OperationsDate.addRemoveMinutes(
           eventscheduledTime,
           minutesBetweenScheduledAndEndTime,
         );

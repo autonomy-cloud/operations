@@ -1,8 +1,8 @@
 import {
   ExpressRequest,
   ExpressResponse,
-  OneUptimeRequest,
-  OneUptimeResponse,
+  OperationsRequest,
+  OperationsResponse,
 } from "./Express";
 import JsonToCsv from "./JsonToCsv";
 import logger, { getLogAttributesFromRequest } from "./Logger";
@@ -31,9 +31,9 @@ export default class Response {
     _req: ExpressRequest,
     res: ExpressResponse,
   ): void {
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
-    oneUptimeResponse.status(200).send({} as EmptyResponse);
+    operationsResponse.status(200).send({} as EmptyResponse);
   }
 
   @CaptureSpan()
@@ -54,16 +54,16 @@ export default class Response {
     body: JSONObject | string,
     headers: Dictionary<string>,
   ): void {
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
     if (headers) {
-      Response.setNoCacheHeaders(oneUptimeResponse);
+      Response.setNoCacheHeaders(operationsResponse);
       for (const key in headers) {
-        oneUptimeResponse.set(key, headers[key]?.toString() || "");
+        operationsResponse.set(key, headers[key]?.toString() || "");
       }
     }
 
-    oneUptimeResponse.status(statusCode).send(body);
+    operationsResponse.status(statusCode).send(body);
   }
 
   @CaptureSpan()
@@ -74,15 +74,15 @@ export default class Response {
   ): Promise<void> {
     /** Create read stream */
 
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
     /** Set the proper content type */
-    oneUptimeResponse.set("Content-Type", file.fileType);
-    oneUptimeResponse.status(200);
+    operationsResponse.set("Content-Type", file.fileType);
+    operationsResponse.status(200);
     /** Return response */
     // readstream.pipe(res);
 
-    oneUptimeResponse.send(file.file);
+    operationsResponse.send(file.file);
   }
 
   @CaptureSpan()
@@ -92,9 +92,9 @@ export default class Response {
     path: string,
     vars: JSONObject,
   ): void {
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
-    oneUptimeResponse.render(path, vars);
+    operationsResponse.render(path, vars);
   }
 
   @CaptureSpan()
@@ -103,15 +103,15 @@ export default class Response {
     res: ExpressResponse,
     error: Exception,
   ): void {
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
-    oneUptimeResponse.logBody = { message: error.message }; // To be used in 'auditLog' middleware to log response data;
+    operationsResponse.logBody = { message: error.message }; // To be used in 'auditLog' middleware to log response data;
     const status: number = error.code || 500;
     const message: string = error.message || "Server Error";
 
     logger.error(error, getLogAttributesFromRequest(_req as any));
 
-    oneUptimeResponse.status(status).send({ message });
+    operationsResponse.status(status).send({ message });
   }
 
   @CaptureSpan()
@@ -197,8 +197,8 @@ export default class Response {
     count: PositiveNumber,
     options?: { hasMore?: boolean | undefined } | undefined,
   ): void {
-    const oneUptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsRequest: OperationsRequest = req as OperationsRequest;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
     const listData: ListData = new ListData({
       data: [],
@@ -220,26 +220,26 @@ export default class Response {
       listData.count = new PositiveNumber(list.length);
     }
 
-    if (oneUptimeRequest.query["skip"]) {
+    if (operationsRequest.query["skip"]) {
       listData.skip = new PositiveNumber(
-        parseInt(oneUptimeRequest.query["skip"].toString()),
+        parseInt(operationsRequest.query["skip"].toString()),
       );
     }
 
-    if (oneUptimeRequest.query["limit"]) {
+    if (operationsRequest.query["limit"]) {
       listData.limit = new PositiveNumber(
-        parseInt(oneUptimeRequest.query["limit"].toString()),
+        parseInt(operationsRequest.query["limit"].toString()),
       );
     } else {
       listData.limit = new PositiveNumber(DEFAULT_LIMIT);
     }
 
-    if (oneUptimeRequest.query["output-type"] === "csv") {
+    if (operationsRequest.query["output-type"] === "csv") {
       const csv: string = JsonToCsv.ToCsv(listData.data);
-      oneUptimeResponse.status(200).send(csv);
+      operationsResponse.status(200).send(csv);
     } else {
-      oneUptimeResponse.status(200).send(listData);
-      oneUptimeResponse.logBody = listData.toJSON(); // To be used in 'auditLog' middleware to log response data;
+      operationsResponse.status(200).send(listData);
+      operationsResponse.logBody = listData.toJSON(); // To be used in 'auditLog' middleware to log response data;
     }
   }
 
@@ -252,18 +252,18 @@ export default class Response {
       statusCode?: StatusCode;
     },
   ): void {
-    const oneUptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsRequest: OperationsRequest = req as OperationsRequest;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
-    if (oneUptimeRequest.query["output-type"] === "csv") {
+    if (operationsRequest.query["output-type"] === "csv") {
       const csv: string = JsonToCsv.ToCsv([item as JSONObject]);
-      oneUptimeResponse.status(200).send(csv);
+      operationsResponse.status(200).send(csv);
 
       return;
     }
 
-    oneUptimeResponse.logBody = item as JSONObject;
-    oneUptimeResponse
+    operationsResponse.logBody = item as JSONObject;
+    operationsResponse
       .status(options?.statusCode ? options?.statusCode.toNumber() : 200)
       .send(item);
   }
@@ -274,10 +274,10 @@ export default class Response {
     res: ExpressResponse,
     text: string,
   ): void {
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
-    oneUptimeResponse.logBody = { text: text as string };
-    oneUptimeResponse.status(200).send(text);
+    operationsResponse.logBody = { text: text as string };
+    operationsResponse.status(200).send(text);
   }
 
   @CaptureSpan()
@@ -286,11 +286,11 @@ export default class Response {
     res: ExpressResponse,
     html: string,
   ): void {
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
-    oneUptimeResponse.logBody = { html: html as string };
-    oneUptimeResponse.writeHead(200, { "Content-Type": "text/html" });
-    oneUptimeResponse.end(html);
+    operationsResponse.logBody = { html: html as string };
+    operationsResponse.writeHead(200, { "Content-Type": "text/html" });
+    operationsResponse.end(html);
   }
 
   @CaptureSpan()
@@ -308,11 +308,11 @@ export default class Response {
     res: ExpressResponse,
     xml: string,
   ): void {
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
-    oneUptimeResponse.logBody = { xml: xml as string };
-    oneUptimeResponse.writeHead(200, { "Content-Type": "text/xml" });
-    oneUptimeResponse.end(xml);
+    operationsResponse.logBody = { xml: xml as string };
+    operationsResponse.writeHead(200, { "Content-Type": "text/xml" });
+    operationsResponse.end(xml);
   }
 
   @CaptureSpan()
@@ -321,21 +321,21 @@ export default class Response {
     res: ExpressResponse,
     javascript: string,
   ): void {
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
-    oneUptimeResponse.logBody = { javascript: javascript as string };
-    oneUptimeResponse.writeHead(200, { "Content-Type": "text/javascript" });
-    oneUptimeResponse.end(javascript);
+    operationsResponse.logBody = { javascript: javascript as string };
+    operationsResponse.writeHead(200, { "Content-Type": "text/javascript" });
+    operationsResponse.end(javascript);
   }
 
   public static setNoCacheHeaders(res: ExpressResponse): void {
-    const oneUptimeResponse: OneUptimeResponse = res as OneUptimeResponse;
+    const operationsResponse: OperationsResponse = res as OperationsResponse;
 
-    oneUptimeResponse.setHeader(
+    operationsResponse.setHeader(
       "Cache-Control",
       "no-store, no-cache, must-revalidate",
     );
-    oneUptimeResponse.setHeader("Pragma", "no-cache");
-    oneUptimeResponse.setHeader("Expires", "0");
+    operationsResponse.setHeader("Pragma", "no-cache");
+    operationsResponse.setHeader("Expires", "0");
   }
 }

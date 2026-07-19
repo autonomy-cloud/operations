@@ -1,6 +1,6 @@
 import Includes from "../../../Types/BaseDatabase/Includes";
 import QueryOperator from "../../../Types/BaseDatabase/QueryOperator";
-import { API_DOCS_URL, BILLING_ENABLED, getAllEnvVars } from "../../Config";
+import { API_DOCS_URL } from "../../Config";
 import { GetReactElementFunction } from "../../Types/FunctionTypes";
 import SelectEntityField from "../../Types/SelectEntityField";
 import API from "../../Utils/API/API";
@@ -14,7 +14,6 @@ import { Logger } from "../../Utils/Logger";
 import Navigation from "../../Utils/Navigation";
 import TableFilterUrlState from "../../Utils/TableFilterUrlState";
 import PermissionUtil from "../../Utils/Permission";
-import ProjectUtil from "../../Utils/Project";
 import User from "../../Utils/User";
 import ActionButtonSchema from "../ActionButton/ActionButtonSchema";
 import {
@@ -47,7 +46,6 @@ import Icon from "../Icon/Icon";
 import Filter from "../ModelFilter/Filter";
 import { DropdownOption, DropdownOptionLabel } from "../Dropdown/Dropdown";
 import OrderedStatesList from "../OrderedStatesList/OrderedStatesList";
-import Pill from "../Pill/Pill";
 import Table from "../Table/Table";
 import TableColumn from "../Table/Types/Column";
 import FieldType from "../Types/FieldType";
@@ -67,10 +65,6 @@ import InBetween from "../../../Types/BaseDatabase/InBetween";
 import Search from "../../../Types/BaseDatabase/Search";
 import MultiSearch from "../../../Types/BaseDatabase/MultiSearch";
 import SortOrder from "../../../Types/BaseDatabase/SortOrder";
-import SubscriptionPlan, {
-  PlanType,
-} from "../../../Types/Billing/SubscriptionPlan";
-import { Yellow } from "../../../Types/BrandColors";
 import { LIMIT_PER_PROJECT } from "../../../Types/Database/LimitMax";
 import Dictionary from "../../../Types/Dictionary";
 import BadDataException from "../../../Types/Exception/BadDataException";
@@ -2347,51 +2341,7 @@ const BaseModelTable: <TBaseModel extends BaseModel | AnalyticsBaseModel>(
       typeof title === "string"
         ? (translateValue(title) as ReactElement | string | undefined) ?? title
         : title;
-    const plan: PlanType | null = ProjectUtil.getCurrentPlan();
-
-    let showPlan: boolean = Boolean(
-      BILLING_ENABLED &&
-        plan &&
-        new props.modelType().getReadBillingPlan() &&
-        !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-          new props.modelType().getReadBillingPlan()!,
-          plan,
-          getAllEnvVars(),
-        ),
-    );
-
-    let planName: string = new props.modelType().getReadBillingPlan()!;
-
-    if (props.isCreateable && !showPlan) {
-      // if createable then read create billing permissions.
-      showPlan = Boolean(
-        BILLING_ENABLED &&
-          plan &&
-          new props.modelType().getCreateBillingPlan() &&
-          !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-            new props.modelType().getCreateBillingPlan()!,
-            plan,
-            getAllEnvVars(),
-          ),
-      );
-
-      planName = new props.modelType().getCreateBillingPlan()!;
-    }
-
-    return (
-      <span>
-        {renderedTitle}
-        {showPlan && (
-          <span
-            style={{
-              marginLeft: "5px",
-            }}
-          >
-            <Pill text={`${planName} Plan`} color={Yellow} />
-          </span>
-        )}
-      </span>
-    );
+    return <span>{renderedTitle}</span>;
   };
 
   type CollapseSearchFunction = () => void;
@@ -3316,8 +3266,8 @@ const BaseModelTable: <TBaseModel extends BaseModel | AnalyticsBaseModel>(
 
               <span>
                 You can use this ID to interact with{" "}
-                {props.singularName || model.singularName || ""} via the
-                Cast Operations API. Click the button below to go to API Reference.
+                {props.singularName || model.singularName || ""} via the Cast
+                Operations API. Click the button below to go to API Reference.
               </span>
             </div>
           }

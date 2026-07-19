@@ -17,7 +17,7 @@ import {
   AIChatWidgetSeries,
   AIChatWidgetType,
 } from "Common/Types/AI/AIChatTypes";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import React, { FunctionComponent, ReactElement } from "react";
 
 export interface ComponentProps {
@@ -48,7 +48,7 @@ const ChartWidget: FunctionComponent<ComponentProps> = (
           })
           .map((point: AIChatWidgetPoint) => {
             return {
-              x: OneUptimeDate.fromString(point.x),
+              x: OperationsDate.fromString(point.x),
               y: point.y as number,
             };
           }),
@@ -69,12 +69,12 @@ const ChartWidget: FunctionComponent<ComponentProps> = (
     ? allDates.reduce((a: Date, b: Date) => {
         return a.getTime() < b.getTime() ? a : b;
       })
-    : OneUptimeDate.getCurrentDate();
+    : OperationsDate.getCurrentDate();
   const maxDate: Date = hasData
     ? allDates.reduce((a: Date, b: Date) => {
         return a.getTime() > b.getTime() ? a : b;
       })
-    : OneUptimeDate.getCurrentDate();
+    : OperationsDate.getCurrentDate();
 
   const isBar: boolean = widget.type === AIChatWidgetType.BarChart;
 

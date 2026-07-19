@@ -126,7 +126,7 @@ export default class Profiling {
   private static getAuthToken(): string | undefined {
     /*
      * Extract the Cast Operations token from OTLP headers
-     * Format: "x-oneuptime-token=<value>;other-header=value"
+     * Format: "x-cast-operations-token=<value>;other-header=value"
      */
     const headersStr: string | undefined =
       process.env["OPENTELEMETRY_EXPORTER_OTLP_HEADERS"];
@@ -140,7 +140,7 @@ export default class Profiling {
       const [key, value]: Array<string | undefined> = part.split("=") as Array<
         string | undefined
       >;
-      if (key === "x-oneuptime-token" && value) {
+      if (key === "x-cast-operations-token" && value) {
         return value;
       }
     }

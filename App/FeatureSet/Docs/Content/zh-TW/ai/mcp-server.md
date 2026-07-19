@@ -71,7 +71,7 @@ API 金鑰以專案為範圍：MCP server 會從金鑰推斷出您的專案，�
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp",
       "headers": {
@@ -89,7 +89,7 @@ API 金鑰以專案為範圍：MCP server 會從金鑰推斷出您的專案，�
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
@@ -107,7 +107,7 @@ API 金鑰以專案為範圍：MCP server 會從金鑰推斷出您的專案，�
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp"
     }
@@ -140,18 +140,18 @@ VS Code 原生支援搭配 GitHub Copilot（版本 1.99 以上）使用 MCP serv
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://visca.ai/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -164,18 +164,18 @@ VS Code 原生支援搭配 GitHub Copilot（版本 1.99 以上）使用 MCP serv
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -187,7 +187,7 @@ VS Code 原生支援搭配 GitHub Copilot（版本 1.99 以上）使用 MCP serv
 
 1. 按下 `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. 輸入「MCP: List Servers」以檢視可用的伺服器
-3. 點選「oneuptime」以啟動伺服器
+3. 點選「cast-operations」以啟動伺服器
 4. 出現提示時，輸入您的 Cast Operations API 金鑰
 
 #### 步驟 4：搭配 Copilot Chat 使用
@@ -222,8 +222,8 @@ MCP server 支援兩種運作模式：
 
 您可以在沒有 API 金鑰的情況下連線至 MCP server，以存取公開工具：
 
-- **`oneuptime_help`**：取得關於 Cast Operations MCP 功能的說明與指引
-- **`oneuptime_list_resources`**：列出可用的資源及其操作
+- **`cast_operations_help`**：取得關於 Cast Operations MCP 功能的說明與指引
+- **`cast_operations_list_resources`**：列出可用的資源及其操作
 - **`get_public_status_page_overview`**：取得某個公開狀態頁面的總覽
 - **`get_public_status_page_incidents`**：取得某個公開狀態頁面的 incident
 - **`get_public_status_page_scheduled_maintenance`**：取得排程維護事件
@@ -253,7 +253,7 @@ MCP server 支援兩種運作模式：
 
 ## 我是誰
 
-**`oneuptime_whoami`** 工具會回傳您的 API 金鑰所屬的專案（ID 與名稱）。這是代理程式用來確認自身環境的實用首次呼叫——而且由於建立類工具會從 API 金鑰推斷 `projectId`，代理程式永遠不需要傳入專案 ID。
+**`cast_operations_whoami`** 工具會回傳您的 API 金鑰所屬的專案（ID 與名稱）。這是代理程式用來確認自身環境的實用首次呼叫——而且由於建立類工具會從 API 金鑰推斷 `projectId`，代理程式永遠不需要傳入專案 ID。
 
 ## 查詢遙測資料
 

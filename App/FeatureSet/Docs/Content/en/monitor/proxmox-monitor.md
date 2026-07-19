@@ -193,7 +193,7 @@ Cast Operations ships 11 templates for common Proxmox monitoring scenarios. Each
 To use Proxmox monitoring, you need to:
 
 1. Install the Cast Operations Proxmox Agent on a machine that can reach your Proxmox VE API — see the [Proxmox Agent installation guide](/docs/telemetry/proxmox). The required read-only API token is a two-command `pveum` snippet (also in the guide)
-2. Pass `ONEUPTIME_URL`, `ONEUPTIME_TELEMETRY_INGESTION_KEY`, `PROXMOX_CLUSTER_NAME`, and the Proxmox API details as environment variables
+2. Pass `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_TELEMETRY_INGESTION_KEY`, `PROXMOX_CLUSTER_NAME`, and the Proxmox API details as environment variables
 3. Wait for the cluster to auto-register (about a minute after the first scrape)
 
 > Proxmox VE 9+ can also push metrics natively via its built-in OpenTelemetry metric server — see the [zero-install alternative](/docs/telemetry/proxmox) in the agent guide. The native push uses different metric names (`proxmox_*` instead of `pve_*`), so the templates and catalog on this page apply to the agent path.

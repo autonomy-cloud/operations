@@ -82,14 +82,14 @@ Cast Operations 可搭配任何 LLM 供應商使用。您可以使用：
 若要執行 AI 代理人，請確認您已安裝 Docker。使用以下指令執行代理人：
 
 ```bash
-docker run --name oneuptime-ai-agent --network host \
+docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
-  -d oneuptime/ai-agent:release
+  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -d cast-operations/ai-agent:release
 ```
 
-如果您是自行託管 Cast Operations，請將 `ONEUPTIME_URL` 變更為您自訂的自架執行個體 URL。
+如果您是自行託管 Cast Operations，請將 `CAST_OPERATIONS_URL` 變更為您自訂的自架執行個體 URL。
 
 #### Docker Compose
 
@@ -99,13 +99,13 @@ docker run --name oneuptime-ai-agent --network host \
 version: "3"
 
 services:
-  oneuptime-ai-agent:
-    image: oneuptime/ai-agent:release
-    container_name: oneuptime-ai-agent
+  cast-operations-ai-agent:
+    image: cast-operations/ai-agent:release
+    container_name: cast-operations-ai-agent
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -118,38 +118,38 @@ docker compose up -d
 
 #### Kubernetes
 
-建立一個 `oneuptime-ai-agent.yaml` 檔案：
+建立一個 `cast-operations-ai-agent.yaml` 檔案：
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-ai-agent
+  name: cast-operations-ai-agent
 spec:
   selector:
     matchLabels:
-      app: oneuptime-ai-agent
+      app: cast-operations-ai-agent
   template:
     metadata:
       labels:
-        app: oneuptime-ai-agent
+        app: cast-operations-ai-agent
     spec:
       containers:
-        - name: oneuptime-ai-agent
-          image: oneuptime/ai-agent:release
+        - name: cast-operations-ai-agent
+          image: cast-operations/ai-agent:release
           env:
             - name: AI_AGENT_KEY
               value: "<ai-agent-key>"
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
 套用此設定：
 
 ```bash
-kubectl apply -f oneuptime-ai-agent.yaml
+kubectl apply -f cast-operations-ai-agent.yaml
 ```
 
 ### 環境變數
@@ -162,7 +162,7 @@ AI 代理人支援以下環境變數：
 | --------------- | ------------------------------------------------------------ |
 | `AI_AGENT_KEY`  | 來自您 Cast Operations 儀表板的 AI 代理人金鑰                      |
 | `AI_AGENT_ID`   | 來自您 Cast Operations 儀表板的 AI 代理人 ID                       |
-| `ONEUPTIME_URL` | 您 Cast Operations 執行個體的 URL（預設值：https://visca.ai） |
+| `CAST_OPERATIONS_URL` | 您 Cast Operations 執行個體的 URL（預設值：https://visca.ai） |
 
 ## 驗證您的 AI 代理人
 
@@ -176,10 +176,10 @@ AI 代理人支援以下環境變數：
 
 ```bash
 # Docker
-docker logs oneuptime-ai-agent
+docker logs cast-operations-ai-agent
 
 # Kubernetes
-kubectl logs deployment/oneuptime-ai-agent
+kubectl logs deployment/cast-operations-ai-agent
 ```
 
 ## 疑難排解

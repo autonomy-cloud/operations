@@ -1,4 +1,4 @@
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import { JSONArray, JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
 import Metric, {
@@ -9,9 +9,9 @@ import Service from "../../Models/DatabaseModels/Service";
 import ProjectService from "../../Server/Services/ProjectService";
 import ServiceService from "../../Server/Services/ServiceService";
 import LabelService from "../../Server/Services/LabelService";
-import { DEFAULT_RETENTION_IN_DAYS } from "../../Models/DatabaseModels/TelemetryUsageBilling";
+const DEFAULT_RETENTION_IN_DAYS: number = 30;
 import TelemetryUtil from "../../Server/Utils/Telemetry/Telemetry";
-import { extractOneuptimeLabelNames } from "../Utils/Telemetry/OneuptimeLabel";
+import { extractOperationsLabelNames } from "../Utils/Telemetry/OperationsLabel";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
 import QueryHelper from "../Types/Database/QueryHelper";
@@ -424,14 +424,14 @@ export default class OTelIngestService {
     }
 
     /*
-     * Promote `oneuptime.label.<dim>=<val>` resource attributes into
+     * Promote `cast-operations.label.<dim>=<val>` resource attributes into
      * project labels and attach them to the discovered service. The
      * attach is throttled per-service so steady-state ingest with
      * unchanged labels costs one in-memory cache lookup.
      */
     if (data.resourceAttributes) {
       try {
-        const labelNames: Array<string> = extractOneuptimeLabelNames(
+        const labelNames: Array<string> = extractOperationsLabelNames(
           data.resourceAttributes,
         );
         if (labelNames.length > 0) {
@@ -863,19 +863,19 @@ export default class OTelIngestService {
         if (typeof datapoint["startTimeUnixNano"] === "string") {
           startTimeUnixNano = parseFloat(datapoint["startTimeUnixNano"]);
           if (isNaN(startTimeUnixNano)) {
-            startTimeUnixNano = OneUptimeDate.getCurrentDateAsUnixNano();
+            startTimeUnixNano = OperationsDate.getCurrentDateAsUnixNano();
           }
         } else {
           startTimeUnixNano =
             (datapoint["startTimeUnixNano"] as number) ||
-            OneUptimeDate.getCurrentDateAsUnixNano();
+            OperationsDate.getCurrentDateAsUnixNano();
         }
         newDbMetric.startTimeUnixNano = startTimeUnixNano;
-        newDbMetric.startTime = OneUptimeDate.fromUnixNano(startTimeUnixNano);
+        newDbMetric.startTime = OperationsDate.fromUnixNano(startTimeUnixNano);
       } catch {
-        const currentNano: number = OneUptimeDate.getCurrentDateAsUnixNano();
+        const currentNano: number = OperationsDate.getCurrentDateAsUnixNano();
         newDbMetric.startTimeUnixNano = currentNano;
-        newDbMetric.startTime = OneUptimeDate.getCurrentDate();
+        newDbMetric.startTime = OperationsDate.getCurrentDate();
       }
     }
 
@@ -886,19 +886,19 @@ export default class OTelIngestService {
         if (typeof datapoint["timeUnixNano"] === "string") {
           timeUnixNano = parseFloat(datapoint["timeUnixNano"]);
           if (isNaN(timeUnixNano)) {
-            timeUnixNano = OneUptimeDate.getCurrentDateAsUnixNano();
+            timeUnixNano = OperationsDate.getCurrentDateAsUnixNano();
           }
         } else {
           timeUnixNano =
             (datapoint["timeUnixNano"] as number) ||
-            OneUptimeDate.getCurrentDateAsUnixNano();
+            OperationsDate.getCurrentDateAsUnixNano();
         }
         newDbMetric.timeUnixNano = timeUnixNano;
-        newDbMetric.time = OneUptimeDate.fromUnixNano(timeUnixNano);
+        newDbMetric.time = OperationsDate.fromUnixNano(timeUnixNano);
       } catch {
-        const currentNano: number = OneUptimeDate.getCurrentDateAsUnixNano();
+        const currentNano: number = OperationsDate.getCurrentDateAsUnixNano();
         newDbMetric.timeUnixNano = currentNano;
-        newDbMetric.time = OneUptimeDate.getCurrentDate();
+        newDbMetric.time = OperationsDate.getCurrentDate();
       }
     }
 

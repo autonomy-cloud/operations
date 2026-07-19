@@ -4,7 +4,7 @@
  * These tools compose multiple Cast Operations API calls (state lookup + timeline
  * creation) so agents can acknowledge/resolve incidents and alerts without
  * insider knowledge of the data model. The API layer is mocked via a spy on
- * OneUptimeApiService.makeAuthenticatedApiCall — no HTTP is performed.
+ * OperationsApiService.makeAuthenticatedApiCall — no HTTP is performed.
  */
 
 import {
@@ -20,7 +20,7 @@ import {
   isWorkflowTool,
   handleWorkflowTool,
 } from "../Tools/WorkflowTools";
-import OneUptimeApiService from "../Services/OneUptimeApiService";
+import OperationsApiService from "../Services/OperationsApiService";
 import { McpToolInfo } from "../Types/McpTypes";
 import { JSONObject, JSONArray } from "Common/Types/JSON";
 
@@ -34,7 +34,7 @@ const WORKFLOW_TOOL_NAMES: string[] = [
   "resolve_alert",
   "add_incident_note",
   "add_alert_note",
-  "oneuptime_whoami",
+  "cast_operations_whoami",
 ];
 
 describe("WorkflowTools", () => {
@@ -43,7 +43,7 @@ describe("WorkflowTools", () => {
 
   beforeEach(() => {
     apiCallSpy = jest
-      .spyOn(OneUptimeApiService, "makeAuthenticatedApiCall")
+      .spyOn(OperationsApiService, "makeAuthenticatedApiCall")
       .mockResolvedValue({} as never) as unknown as jest.SpyInstance;
   });
 
@@ -60,7 +60,7 @@ describe("WorkflowTools", () => {
 
     it("rejects non-workflow tool names", () => {
       expect(isWorkflowTool("list_incidents")).toBe(false);
-      expect(isWorkflowTool("oneuptime_help")).toBe(false);
+      expect(isWorkflowTool("cast_operations_help")).toBe(false);
       expect(isWorkflowTool("create_incident")).toBe(false);
     });
   });
@@ -88,7 +88,7 @@ describe("WorkflowTools", () => {
       const tools: McpToolInfo[] = generateWorkflowTools();
       const whoami: McpToolInfo | undefined = tools.find(
         (tool: McpToolInfo) => {
-          return tool.name === "oneuptime_whoami";
+          return tool.name === "cast_operations_whoami";
         },
       );
       const acknowledge: McpToolInfo | undefined = tools.find(
@@ -279,14 +279,14 @@ describe("WorkflowTools", () => {
     });
   });
 
-  describe("oneuptime_whoami", () => {
+  describe("cast_operations_whoami", () => {
     it("maps the project list into projectId/projectName pairs", async () => {
       apiCallSpy.mockResolvedValueOnce({
         data: [{ _id: "proj-1", name: "Acme" }],
       } as never);
 
       const result: JSONObject = await handleWorkflowTool(
-        "oneuptime_whoami",
+        "cast_operations_whoami",
         {},
         API_KEY,
       );

@@ -525,7 +525,7 @@ func (r *${resourceTypeName}Resource) bigFloatToFloat64(bf *big.Float) interface
 // Helper method to check if a type string is a valid Cast Operations ObjectType
 // Only these types should be marshalled/unmarshalled as typed wrapper objects
 // This list is dynamically generated from Common/Types/JSON.ts ObjectType enum
-func (r *${resourceTypeName}Resource) isValidOneUptimeObjectType(typeStr string) bool {
+func (r *${resourceTypeName}Resource) isValidOperationsObjectType(typeStr string) bool {
     validTypes := map[string]bool{
 ${this.generateValidObjectTypesMap()}
     }
@@ -1588,7 +1588,7 @@ func (r *${resourceTypeName}Resource) Delete(ctx context.Context, req resource.D
         } else if val, ok := obj["value"].(float64); ok {
             // Handle numeric values that might be returned as float64
             ${fieldName} = NewJSONSubsetValue(fmt.Sprintf("%v", val))
-        } else if typeStr, typeOk := obj["_type"].(string); typeOk && r.isValidOneUptimeObjectType(typeStr) && obj["value"] != nil {
+        } else if typeStr, typeOk := obj["_type"].(string); typeOk && r.isValidOperationsObjectType(typeStr) && obj["value"] != nil {
             // For typed wrapper objects (only valid Cast Operations ObjectTypes), preserve the full structure including _type
             normalizedObj := r.normalizeURLWrappers(obj)
             if jsonBytes, err := json.Marshal(normalizedObj); err == nil {
@@ -1632,7 +1632,7 @@ func (r *${resourceTypeName}Resource) Delete(ctx context.Context, req resource.D
         } else if val, ok := obj["value"].(float64); ok {
             // Handle numeric values that might be returned as float64
             ${fieldName} = types.StringValue(fmt.Sprintf("%v", val))
-        } else if typeStr, typeOk := obj["_type"].(string); typeOk && r.isValidOneUptimeObjectType(typeStr) && obj["value"] != nil {
+        } else if typeStr, typeOk := obj["_type"].(string); typeOk && r.isValidOperationsObjectType(typeStr) && obj["value"] != nil {
             // For typed wrapper objects (only valid Cast Operations ObjectTypes), preserve the full structure including _type
             normalizedObj := r.normalizeURLWrappers(obj)
             if jsonBytes, err := json.Marshal(normalizedObj); err == nil {

@@ -11,7 +11,7 @@ import Express, {
   ExpressResponse,
   ExpressRouter,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import CommonAPI from "./CommonAPI";
@@ -232,8 +232,8 @@ export default class BaseAnalyticsAPI<
   }
 
   public getTenantId(req: ExpressRequest): ObjectID | null {
-    if ((req as OneUptimeRequest).tenantId) {
-      return (req as OneUptimeRequest).tenantId as ObjectID;
+    if ((req as OperationsRequest).tenantId) {
+      return (req as OperationsRequest).tenantId as ObjectID;
     }
 
     return null;

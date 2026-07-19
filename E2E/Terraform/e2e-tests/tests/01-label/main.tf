@@ -1,39 +1,39 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
-resource "oneuptime_label" "test" {
+resource "cast_operations_label" "test" {
   name        = "terraform-e2e-label-${formatdate("YYYYMMDDhhmmss", timestamp())}"
   description = "Label created by Terraform E2E tests"
   color       = "#FF5733"
 }
 
 output "label_id" {
-  value       = oneuptime_label.test.id
+  value       = cast_operations_label.test.id
   description = "ID of the created label"
 }
 
 output "label_name" {
-  value       = oneuptime_label.test.name
+  value       = cast_operations_label.test.name
   description = "Name of the created label"
 }
 
 output "label_description" {
-  value       = oneuptime_label.test.description
+  value       = cast_operations_label.test.description
   description = "Description of the created label"
 }
 
 output "label_color" {
-  value       = oneuptime_label.test.color
+  value       = cast_operations_label.test.color
   description = "Color of the created label"
 }

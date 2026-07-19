@@ -40,9 +40,9 @@ spec:
               drop:
                 - ALL
           env:
-            - name: ONEUPTIME_URL
-              value: {{ .Values.oneuptime.url | quote }}
-            - name: ONEUPTIME_API_KEY
+            - name: CAST_OPERATIONS_URL
+              value: {{ .Values.cast-operations.url | quote }}
+            - name: CAST_OPERATIONS_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ include "kubernetes-agent.fullname" . }}
@@ -50,12 +50,12 @@ spec:
             - name: CLUSTER_NAME
               value: {{ .Values.clusterName | quote }}
             # Cast Operations project labels — comma-separated key=value pairs.
-            # The tailer stamps each as an `oneuptime.label.<key>=<value>`
+            # The tailer stamps each as an `cast-operations.label.<key>=<value>`
             # resource attribute on outgoing OTLP log records; the
             # Cast Operations ingest pipeline promotes them into project Labels.
-            - name: ONEUPTIME_LABELS
+            - name: CAST_OPERATIONS_LABELS
               value: {{- $pairs := list -}}
-                {{- range $key, $value := .Values.oneuptime.labels -}}
+                {{- range $key, $value := .Values.cast-operations.labels -}}
                   {{- $pairs = append $pairs (printf "%s=%s" $key (toString $value)) -}}
                 {{- end }} {{ join "," $pairs | quote }}
             {{- $podLogInclude := include "kubernetes-agent.namespaceRulePatterns" (dict "root" . "action" "include" "scope" "podLogs") | fromJsonArray }}

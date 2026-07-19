@@ -14,19 +14,19 @@ Den här sidan är **installationsguiden**. För att konfigurera Docker-monitore
 
 ## Snabbstart (ett kommando)
 
-Ersätt `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` och värdnamnet med värden för din miljö. Värdnamnet är hur den här Docker-värden kommer att visas i Cast Operations — välj något i stil med `prod-docker-01`.
+Ersätt `YOUR_CAST_OPERATIONS_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` och värdnamnet med värden för din miljö. Värdnamnet är hur den här Docker-värden kommer att visas i Cast Operations — välj något i stil med `prod-docker-01`.
 
 ```bash
 docker run -d \
-  --name oneuptime-docker-agent \
+  --name cast-operations-docker-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="YOUR_ONEUPTIME_URL" \
-  -e ONEUPTIME_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 ```
 
 Det är allt. När agenten ansluter kommer din Docker-värd att visas automatiskt i **Docker**-sektionen i Cast Operations-instrumentpanelen.
@@ -37,17 +37,17 @@ Om du föredrar Docker Compose, lägg in följande i en `docker-compose.yml`:
 
 ```yaml
 services:
-  oneuptime-docker-agent:
-    image: oneuptime/docker-agent:release
-    container_name: oneuptime-docker-agent
+  cast-operations-docker-agent:
+    image: cast-operations/docker-agent:release
+    container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
-      - ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-      - ONEUPTIME_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
+      - CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+      - CAST_OPERATIONS_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
       - DOCKER_HOST_NAME=my-docker-host
     logging:
       driver: json-file
@@ -66,8 +66,8 @@ docker compose up -d
 
 | Variabel                  | Obligatorisk | Beskrivning                                                                                                                             |
 | ------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | Ja           | URL till din Cast Operations-instans (till exempel `https://visca.ai` eller din självhostade värd)                                       |
-| `ONEUPTIME_SERVICE_TOKEN` | Ja           | Telemetry ingestion-token från _Project Settings → Telemetry Ingestion Keys_                                                            |
+| `CAST_OPERATIONS_URL`           | Ja           | URL till din Cast Operations-instans (till exempel `https://visca.ai` eller din självhostade värd)                                       |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | Ja           | Telemetry ingestion-token från _Project Settings → Telemetry Ingestion Keys_                                                            |
 | `DOCKER_HOST_NAME`        | Nej          | Användarvänligt namn för den här värden. Standardvärdet är `docker-host`. Ange det till något stabilt per värd (t.ex. `prod-docker-01`) |
 
 ## Verifiera installationen
@@ -75,13 +75,13 @@ docker compose up -d
 Kontrollera att agenten körs:
 
 ```bash
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 ```
 
 Kontrollera agentens loggar:
 
 ```bash
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 ```
 
 Leta efter: `"Everything is ready. Begin running and processing data."`
@@ -91,8 +91,8 @@ Inom ungefär en minut bör värden visas i Cast Operations-instrumentpanelen me
 ## Uppgradera agenten
 
 ```bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # Kör om `docker run`-kommandot ovan
 ```
 
@@ -106,7 +106,7 @@ docker compose up -d
 ## Avinstallera agenten
 
 ```bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 ```
 
 Om du använde Docker Compose:
@@ -128,10 +128,10 @@ docker compose down
 
 ## Självhostad Cast Operations
 
-Om du självhostar Cast Operations, ange `ONEUPTIME_URL` till din egen instans:
+Om du självhostar Cast Operations, ange `CAST_OPERATIONS_URL` till din egen instans:
 
 ```bash
--e ONEUPTIME_URL="https://your-operations-host.example.com"
+-e CAST_OPERATIONS_URL="https://your-operations-host.example.com"
 ```
 
 Om din instans endast är HTTP, använd `http://` och lämplig port.
@@ -144,15 +144,15 @@ Agentcontainern måste köras som root (`--user 0:0`) för att komma åt `/var/r
 
 ### Agenten visas som frånkopplad
 
-1. Kontrollera att agenten körs: `docker ps --filter name=oneuptime-docker-agent`
-2. Kontrollera agentens loggar: `docker logs oneuptime-docker-agent | grep -i error`
+1. Kontrollera att agenten körs: `docker ps --filter name=cast-operations-docker-agent`
+2. Kontrollera agentens loggar: `docker logs cast-operations-docker-agent | grep -i error`
 3. Verifiera att din Cast Operations-URL och service-token är korrekta
 4. Säkerställ att din Docker-värd kan nå Cast Operations-instansen över nätverket
 
 ### Inga mätvärden visas
 
-1. Verifiera att Docker-socketen är åtkomlig inuti agenten: `docker exec oneuptime-docker-agent ls -la /var/run/docker.sock`
-2. Kontrollera collector-loggarna efter exportfel: `docker logs oneuptime-docker-agent | tail -100`
+1. Verifiera att Docker-socketen är åtkomlig inuti agenten: `docker exec cast-operations-docker-agent ls -la /var/run/docker.sock`
+2. Kontrollera collector-loggarna efter exportfel: `docker logs cast-operations-docker-agent | tail -100`
 3. Säkerställ att din service-token är giltig och inte har upphört att gälla
 
 ### Värdnamnet visas som ett container-ID

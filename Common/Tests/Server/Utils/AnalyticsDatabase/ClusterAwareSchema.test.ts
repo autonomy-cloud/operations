@@ -56,10 +56,10 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
   });
 
   describe("ClusterConfig helpers", () => {
-    test("cluster name defaults to 'oneuptime' and is overridable", () => {
+    test("cluster name defaults to 'cast-operations' and is overridable", () => {
       delete process.env[CLUSTER_ENV_KEY];
-      expect(getClickhouseClusterName()).toBe("oneuptime");
-      expect(onClusterClause()).toBe(" ON CLUSTER 'oneuptime'");
+      expect(getClickhouseClusterName()).toBe("cast-operations");
+      expect(onClusterClause()).toBe(" ON CLUSTER 'cast-operations'");
 
       process.env[CLUSTER_ENV_KEY] = "ext_cluster";
       expect(getClickhouseClusterName()).toBe("ext_cluster");
@@ -67,7 +67,7 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
 
       // whitespace-only falls back to the default
       process.env[CLUSTER_ENV_KEY] = "   ";
-      expect(getClickhouseClusterName()).toBe("oneuptime");
+      expect(getClickhouseClusterName()).toBe("cast-operations");
     });
 
     test("storage table name always gets the Local suffix", () => {
@@ -196,7 +196,7 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
     test("CREATE TABLE builds the local Replicated table ON CLUSTER with replicated dedup", () => {
       const stmt: Statement = spanGen.toTableCreateStatement();
       expect(stmt.query).toContain("ENGINE = ReplicatedMergeTree");
-      expect(stmt.query).toContain("ON CLUSTER 'oneuptime'");
+      expect(stmt.query).toContain("ON CLUSTER 'cast-operations'");
       expect(stmt.query).toContain("replicated_deduplication_window = 10000");
       expect(stmt.query).not.toContain("non_replicated_deduplication_window");
       expect(fullText(stmt)).toContain("SpanItemV3Local");
@@ -217,9 +217,9 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
 
     test("Distributed wrapper uses the model sharding key and local table", () => {
       const q: string = spanGen.toDistributedTableCreateStatement().query;
-      expect(q).toContain("ON CLUSTER 'oneuptime'");
+      expect(q).toContain("ON CLUSTER 'cast-operations'");
       expect(q).toContain(
-        "Distributed('oneuptime', oneuptime, SpanItemV3Local, cityHash64(traceId))",
+        "Distributed('cast-operations', cast-operations, SpanItemV3Local, cityHash64(traceId))",
       );
       expect(q).toContain("AS ");
       expect(q).toContain("SpanItemV3 "); // the app-facing distributed name
@@ -244,22 +244,22 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
        */
       const addColumn: string = fullText(spanGen.toAddColumnStatement(column));
       expect(addColumn).toContain("SpanItemV3Local");
-      expect(addColumn).toContain("ON CLUSTER 'oneuptime'");
+      expect(addColumn).toContain("ON CLUSTER 'cast-operations'");
 
       const addIndex: string = fullText(
         spanGen.toAddSkipIndexStatement(column)!,
       );
       expect(addIndex).toContain("SpanItemV3Local");
-      expect(addIndex).toContain("ON CLUSTER 'oneuptime'");
+      expect(addIndex).toContain("ON CLUSTER 'cast-operations'");
 
       const dropColumn: string = spanGen.toDropColumnStatement("traceId");
       expect(dropColumn).toContain("SpanItemV3Local");
-      expect(dropColumn).toContain("ON CLUSTER 'oneuptime'");
+      expect(dropColumn).toContain("ON CLUSTER 'cast-operations'");
 
       const dropIndex: string =
         spanGen.toDropSkipIndexStatement("idx_trace_id");
       expect(dropIndex).toContain("SpanItemV3Local");
-      expect(dropIndex).toContain("ON CLUSTER 'oneuptime'");
+      expect(dropIndex).toContain("ON CLUSTER 'cast-operations'");
     });
 
     test("ALTER UPDATE mutates the local table with ON CLUSTER", () => {
@@ -275,7 +275,7 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
         props: {},
       };
       const stmt: Statement = spanGen.toUpdateStatement(updateBy);
-      expect(stmt.query).toContain("ON CLUSTER 'oneuptime'");
+      expect(stmt.query).toContain("ON CLUSTER 'cast-operations'");
       expect(stmt.query).toContain("UPDATE");
       expect(fullText(stmt)).toContain("SpanItemV3Local");
     });
@@ -296,7 +296,7 @@ GROUP BY projectId, bucketTime`;
       delete process.env[CLUSTER_ENV_KEY];
       const out: string = applyClusterToMaterializedViewQuery(MV_QUERY);
       expect(out).toContain(
-        "CREATE MATERIALIZED VIEW IF NOT EXISTS MetricItemAggMV1m_mv ON CLUSTER 'oneuptime'",
+        "CREATE MATERIALIZED VIEW IF NOT EXISTS MetricItemAggMV1m_mv ON CLUSTER 'cast-operations'",
       );
       expect(out).toContain("TO MetricItemAggMV1mLocal");
       expect(out).toContain("FROM MetricItemV3Local");

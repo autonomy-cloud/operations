@@ -11,7 +11,7 @@ import FixPullRequestCiStatus, {
   FixPullRequestCiCheckRunCounts,
   FixPullRequestCiStatusHelper,
 } from "../../../../Types/AI/FixPullRequestCiStatus";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import { JSONArray, JSONObject } from "../../../../Types/JSON";
 import API from "../../../../Utils/API";
 import CaptureSpan from "../../Telemetry/CaptureSpan";
@@ -106,10 +106,10 @@ export default class GitHubUtil extends HostedCodeRepository {
       body: data.pullRequest["body"] as string,
       url: URL.fromString(data.pullRequest["url"] as string),
       state: pullRequestState,
-      createdAt: OneUptimeDate.fromString(
+      createdAt: OperationsDate.fromString(
         data.pullRequest["created_at"] as string,
       ),
-      updatedAt: OneUptimeDate.fromString(
+      updatedAt: OperationsDate.fromString(
         data.pullRequest["updated_at"] as string,
       ),
       repoOrganizationName: data.organizationName,
@@ -463,7 +463,7 @@ export default class GitHubUtil extends HostedCodeRepository {
 
     return {
       token: result.data["token"] as string,
-      expiresAt: OneUptimeDate.fromString(result.data["expires_at"] as string),
+      expiresAt: OperationsDate.fromString(result.data["expires_at"] as string),
     };
   }
 
@@ -1347,7 +1347,7 @@ export default class GitHubUtil extends HostedCodeRepository {
 
     return new GitHubUtil({
       authToken: tokenData.token,
-      username: "oneuptime",
+      username: "cast-operations",
     }).getPullRequestFromJSONObject({
       pullRequest: result.data,
       organizationName: data.organizationName,

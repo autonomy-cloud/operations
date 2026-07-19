@@ -6,7 +6,7 @@ import {
 import { ResourceEntityRef } from "Common/Server/Utils/Telemetry/TelemetryEntity";
 import EventLoop from "Common/Server/Utils/EventLoop";
 import OtelPayloadDecoder from "../Utils/OtelPayloadDecoder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { resolveTelemetryRetentionInDays } from "Common/Types/Telemetry/TelemetryRetentionConfig";
 import BadRequestException from "Common/Types/Exception/BadRequestException";
 import {
@@ -1136,9 +1136,9 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
     originalPayloadFormat: string;
     serviceMetadata: TelemetryServiceMetadata;
   }): JSONObject {
-    const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+    const ingestionDate: Date = OperationsDate.getCurrentDate();
     const ingestionTimestamp: string =
-      OneUptimeDate.toClickhouseDateTime(ingestionDate);
+      OperationsDate.toClickhouseDateTime(ingestionDate);
     const retentionDays: number = resolveTelemetryRetentionInDays({
       pillar: "profiles",
       serviceConfig: data.serviceMetadata.serviceRetentionConfig,
@@ -1146,7 +1146,7 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
       projectConfig: data.serviceMetadata.projectRetentionConfig,
       projectRetentionInDays: data.serviceMetadata.projectRetentionInDays,
     });
-    const retentionDate: Date = OneUptimeDate.addRemoveDays(
+    const retentionDate: Date = OperationsDate.addRemoveDays(
       ingestionDate,
       retentionDays,
     );
@@ -1162,8 +1162,8 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
       profileId: data.profileId,
       traceId: data.traceId || "",
       spanId: data.spanId || "",
-      startTime: OneUptimeDate.toClickhouseDateTime(data.startTime.date),
-      endTime: OneUptimeDate.toClickhouseDateTime(data.endTime.date),
+      startTime: OperationsDate.toClickhouseDateTime(data.startTime.date),
+      endTime: OperationsDate.toClickhouseDateTime(data.endTime.date),
       startTimeUnixNano: data.startTime.nano,
       endTimeUnixNano: data.endTime.nano,
       durationNano: data.durationNano.toString(),
@@ -1175,7 +1175,7 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
       attributeKeys: data.attributeKeys,
       sampleCount: data.sampleCount,
       originalPayloadFormat: data.originalPayloadFormat || "",
-      retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+      retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
     };
   }
 
@@ -1194,9 +1194,9 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
     labels: Dictionary<string>;
     serviceMetadata: TelemetryServiceMetadata;
   }): JSONObject {
-    const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+    const ingestionDate: Date = OperationsDate.getCurrentDate();
     const ingestionTimestamp: string =
-      OneUptimeDate.toClickhouseDateTime(ingestionDate);
+      OperationsDate.toClickhouseDateTime(ingestionDate);
     const retentionDays: number = resolveTelemetryRetentionInDays({
       pillar: "profiles",
       serviceConfig: data.serviceMetadata.serviceRetentionConfig,
@@ -1204,7 +1204,7 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
       projectConfig: data.serviceMetadata.projectRetentionConfig,
       projectRetentionInDays: data.serviceMetadata.projectRetentionInDays,
     });
-    const retentionDate: Date = OneUptimeDate.addRemoveDays(
+    const retentionDate: Date = OperationsDate.addRemoveDays(
       ingestionDate,
       retentionDays,
     );
@@ -1220,7 +1220,7 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
       profileId: data.profileId,
       traceId: data.traceId || "",
       spanId: data.spanId || "",
-      time: OneUptimeDate.toClickhouseDateTime(data.time.date),
+      time: OperationsDate.toClickhouseDateTime(data.time.date),
       timeUnixNano: data.time.nano,
       stacktrace: data.stacktrace,
       stacktraceHash: data.stacktraceHash,
@@ -1228,7 +1228,7 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
       value: data.value.toString(),
       profileType: data.profileType,
       labels: data.labels,
-      retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+      retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
     };
   }
 
@@ -1489,7 +1489,7 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
     value: string | number | undefined,
     context: string,
   ): ParsedUnixNano {
-    let numericValue: number = OneUptimeDate.getCurrentDateAsUnixNano();
+    let numericValue: number = OperationsDate.getCurrentDateAsUnixNano();
 
     if (value !== undefined && value !== null) {
       try {
@@ -1510,13 +1510,13 @@ export default class OtelProfilesIngestService extends OtelIngestBaseService {
         logger.warn(
           `Error processing ${context}: ${error instanceof Error ? error.message : String(error)}, using current time`,
         );
-        numericValue = OneUptimeDate.getCurrentDateAsUnixNano();
+        numericValue = OperationsDate.getCurrentDateAsUnixNano();
       }
     }
 
     numericValue = Math.trunc(numericValue);
-    const date: Date = OneUptimeDate.fromUnixNano(numericValue);
-    const iso: string = OneUptimeDate.toString(date);
+    const date: Date = OperationsDate.fromUnixNano(numericValue);
+    const iso: string = OperationsDate.toString(date);
 
     return {
       unixNano: numericValue,

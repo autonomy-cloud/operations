@@ -3,13 +3,13 @@ import ObjectID from "Common/Types/ObjectID";
 import logger from "Common/Server/Utils/Logger";
 import Port from "Common/Types/Port";
 
-if (!process.env["ONEUPTIME_URL"]) {
-  logger.error("ONEUPTIME_URL is not set");
+if (!process.env["CAST_OPERATIONS_URL"]) {
+  logger.error("CAST_OPERATIONS_URL is not set");
   process.exit();
 }
 
-export const ONEUPTIME_URL: URL = URL.fromString(
-  process.env["ONEUPTIME_URL"] || "https://visca.ai",
+export const CAST_OPERATIONS_URL: URL = URL.fromString(
+  process.env["CAST_OPERATIONS_URL"] || "https://visca.ai",
 );
 
 export const AI_AGENT_ID: ObjectID | null = process.env["AI_AGENT_ID"]

@@ -2,7 +2,7 @@ import TelemetryIngest, {
   TelemetryRequest,
 } from "Common/Server/Middleware/TelemetryIngest";
 import TelemetryIngestionDisabled from "Common/Server/Middleware/TelemetryIngestionDisabled";
-import ProductType from "Common/Types/MeteredPlan/ProductType";
+import ProductType from "Common/Types/Telemetry/ProductType";
 import Express, {
   ExpressRequest,
   ExpressResponse,

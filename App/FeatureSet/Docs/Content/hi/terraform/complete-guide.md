@@ -11,7 +11,7 @@ Cast Operations Terraform provider [Terraform Registry](https://registry.terrafo
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # नवीनतम 7.x version उपयोग करें
     }
@@ -27,7 +27,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # अपने Cast Operations installation से match करने वाले exact version पर pin करें
     }
@@ -50,9 +50,9 @@ terraform {
 ### Basic Configuration
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://your-operations-instance.com"  # या cloud के लिए https://visca.ai
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://your-operations-instance.com"  # या cloud के लिए https://visca.ai
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -61,16 +61,16 @@ provider "oneuptime" {
 आप environment variables का उपयोग करके provider configure कर सकते हैं:
 
 ```bash
-export ONEUPTIME_URL="https://your-operations-instance.com"
-export ONEUPTIME_API_KEY="your-api-key-here"
+export CAST_OPERATIONS_URL="https://your-operations-instance.com"
+export CAST_OPERATIONS_API_KEY="your-api-key-here"
 ```
 
 ### Configuration Options
 
 | Argument        | Environment Variable | विवरण             | आवश्यक |
 | --------------- | -------------------- | ----------------- | ------ |
-| `oneuptime_url` | `ONEUPTIME_URL`      | Cast Operations URL     | हाँ    |
-| `api_key`       | `ONEUPTIME_API_KEY`  | Cast Operations API Key | हाँ    |
+| `cast_operations_url` | `CAST_OPERATIONS_URL`      | Cast Operations URL     | हाँ    |
+| `api_key`       | `CAST_OPERATIONS_API_KEY`  | Cast Operations API Key | हाँ    |
 
 ## Quick Start
 
@@ -91,16 +91,16 @@ export ONEUPTIME_API_KEY="your-api-key-here"
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # अपना instance URL उपयोग करें
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # अपना instance URL उपयोग करें
+  api_key       = var.cast_operations_api_key
 }
 
 # नोट: Projects Cast Operations dashboard में manually बनाने होंगे
@@ -110,7 +110,7 @@ variable "project_id" {
 }
 
 # एक monitor बनाएं
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Website Monitor"
   description = "website uptime के लिए Monitor"
   data        = jsonencode({
@@ -121,7 +121,7 @@ resource "oneuptime_monitor" "website" {
 }
 
 # एक team बनाएं
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "Platform Team"
   description = "Platform engineering team"
 }
@@ -149,7 +149,7 @@ Cast Operations Cloud customers के लिए, latest provider version उप
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # हमेशा latest compatible version प्राप्त करें
     }
@@ -173,26 +173,26 @@ Cast Operations Terraform provider निम्नलिखित resources क�
 
 ### Core Resources
 
-- `oneuptime_team` - teams प्रबंधित करें
+- `cast_operations_team` - teams प्रबंधित करें
 
 ### Monitoring
 
-- `oneuptime_monitor` - monitors बनाएं और प्रबंधित करें
-- `oneuptime_probe` - monitoring probes प्रबंधित करें
+- `cast_operations_monitor` - monitors बनाएं और प्रबंधित करें
+- `cast_operations_probe` - monitoring probes प्रबंधित करें
 
 ### On-Call Management
 
-- `oneuptime_on_call_duty_policy` - on-call schedules सेट अप करें
+- `cast_operations_on_call_duty_policy` - on-call schedules सेट अप करें
 
 ### Status Pages
 
-- `oneuptime_status_page` - status pages बनाएं
+- `cast_operations_status_page` - status pages बनाएं
 
 ### Service Catalog
 
-- `oneuptime_service_catalog` - service catalog entries प्रबंधित करें
-- `oneuptime_service` - services define करें
-- `oneuptime_service_dependency` - service dependencies map करें
+- `cast_operations_service_catalog` - service catalog entries प्रबंधित करें
+- `cast_operations_service` - services define करें
+- `cast_operations_service_dependency` - service dependencies map करें
 
 ## Best Practices
 
@@ -215,7 +215,7 @@ Cast Operations Terraform provider निम्नलिखित resources क�
 terraform {
   backend "s3" {
     bucket = "my-terraform-state"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }

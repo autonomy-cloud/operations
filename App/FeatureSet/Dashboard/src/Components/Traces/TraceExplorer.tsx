@@ -21,7 +21,7 @@ import CriticalPathUtil, {
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import Color from "Common/Types/Color";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
@@ -370,7 +370,7 @@ const TraceExplorer: FunctionComponent<ComponentProps> = (
             <div>
               <div className="font-medium text-gray-700">Seen</div>
               <div className="text-gray-800">
-                {OneUptimeDate.getDateAsUserFriendlyFormattedString(
+                {OperationsDate.getDateAsUserFriendlyFormattedString(
                   span.startTime!,
                 )}
               </div>

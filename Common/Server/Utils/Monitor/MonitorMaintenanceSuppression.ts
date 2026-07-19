@@ -26,13 +26,13 @@ export interface MaintainedResourceKeys {
   podmanHosts: ResourceKeySet;
   kubernetesClusters: ResourceKeySet;
   /*
-   * Proxmox/Ceph clusters have no `oneuptime.*.id` label stamp, so only
+   * Proxmox/Ceph clusters have no `cast-operations.*.id` label stamp, so only
    * the name set is ever matched; the id set exists for shape parity.
    */
   proxmoxClusters: ResourceKeySet;
   cephClusters: ResourceKeySet;
   /*
-   * IoT fleets, like Proxmox/Ceph clusters, have no `oneuptime.*.id`
+   * IoT fleets, like Proxmox/Ceph clusters, have no `cast-operations.*.id`
    * label stamp, so only the name set is ever matched; the id set
    * exists for shape parity.
    */

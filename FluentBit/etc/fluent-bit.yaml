@@ -20,5 +20,5 @@ pipeline:
       traces_uri: "/otlp/v1/traces"
       tls: On
       header:
-        - x-oneuptime-token ad29ff90-100f-11f0-a779-39a19251c0cf
-        - x-oneuptime-service-name demo-service-1
+        - x-cast-operations-token ad29ff90-100f-11f0-a779-39a19251c0cf
+        - x-cast-operations-service-name demo-service-1

@@ -14,7 +14,7 @@
  * These lock in the CURRENT (fixed) behavior. A couple of residual quirks are
  * asserted as "current behavior" and reported separately.
  */
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import DayOfWeek from "../../../Types/Day/DayOfWeek";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import { JSONObject, ObjectType } from "../../../Types/JSON";
@@ -59,8 +59,8 @@ function weeklyWindow(data: {
   return {
     startDay: data.startDay,
     endDay: data.endDay,
-    startTime: OneUptimeDate.fromString(data.startIso),
-    endTime: OneUptimeDate.fromString(data.endIso),
+    startTime: OperationsDate.fromString(data.startIso),
+    endTime: OperationsDate.fromString(data.endIso),
   };
 }
 
@@ -647,8 +647,8 @@ describe("RestrictionTimes (exhaustive)", () => {
     test("Daily survives the realistic DB round-trip with Date times intact", () => {
       const r: RestrictionTimes = new RestrictionTimes();
       r.dayRestrictionTimes = {
-        startTime: OneUptimeDate.fromString("2025-03-10T09:15:30.000Z"),
-        endTime: OneUptimeDate.fromString("2025-03-10T17:45:00.000Z"),
+        startTime: OperationsDate.fromString("2025-03-10T09:15:30.000Z"),
+        endTime: OperationsDate.fromString("2025-03-10T17:45:00.000Z"),
       };
       r.restictionType = RestrictionType.Daily;
       const startMs: number = (
@@ -797,8 +797,8 @@ describe("RestrictionTimes (exhaustive)", () => {
       const r: RestrictionTimes = new RestrictionTimes();
       r.restictionType = RestrictionType.Daily;
       r.dayRestrictionTimes = {
-        startTime: OneUptimeDate.fromString("2025-06-01T00:00:00.000Z"),
-        endTime: OneUptimeDate.fromString("2025-06-01T08:30:00.000Z"),
+        startTime: OperationsDate.fromString("2025-06-01T00:00:00.000Z"),
+        endTime: OperationsDate.fromString("2025-06-01T08:30:00.000Z"),
       };
       const startMs: number = (
         r.dayRestrictionTimes.startTime as Date

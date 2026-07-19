@@ -357,7 +357,7 @@ header#main-header a:hover {
   color: #000000;
 }
 header#main-header .button a:after {
-  font: normal 16px oneuptimeIcons;
+  font: normal 16px castOperationsIcons;
   content: "\279D";
   padding-left: 5px;
 }
@@ -1730,7 +1730,7 @@ article .card-form .column:not(:first-child):after {
   bottom: 0;
   width: 1px;
 }
-article .card-form .oneuptimeElement,
+article .card-form .castOperationsElement,
 article .card-form input:not(.submit),
 article .card-form label {
   padding: 14px 0;
@@ -1747,7 +1747,7 @@ article .card-form label {
 article .card-form .cvc label {
   width: 60px;
 }
-article .card-form .oneuptimeElement,
+article .card-form .castOperationsElement,
 article .card-form input {
   border: none;
   background: none;

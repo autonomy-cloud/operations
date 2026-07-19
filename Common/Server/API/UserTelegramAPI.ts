@@ -7,7 +7,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import BaseAPI from "./BaseAPI";
@@ -28,7 +28,7 @@ export default class UserTelegramAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           if (!req.body.itemId) {
             return Response.sendErrorResponse(
@@ -61,7 +61,7 @@ export default class UserTelegramAPI extends BaseAPI<
 
           if (
             item.userId?.toString() !==
-            (req as OneUptimeRequest)?.userAuthorization?.userId?.toString()
+            (req as OperationsRequest)?.userAuthorization?.userId?.toString()
           ) {
             return Response.sendErrorResponse(
               req,
@@ -116,7 +116,7 @@ export default class UserTelegramAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           if (!req.body.itemId) {
             return Response.sendErrorResponse(
@@ -146,7 +146,7 @@ export default class UserTelegramAPI extends BaseAPI<
 
           if (
             item.userId?.toString() !==
-            (req as OneUptimeRequest)?.userAuthorization?.userId?.toString()
+            (req as OperationsRequest)?.userAuthorization?.userId?.toString()
           ) {
             return Response.sendErrorResponse(
               req,

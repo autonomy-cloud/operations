@@ -15,7 +15,7 @@
 
 ## पूर्वापेक्षाएँ
 
-- एक **Cast Operations Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ से एक बनाएँ और `x-oneuptime-token` मान कॉपी करें।
+- एक **Cast Operations Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ से एक बनाएँ और `x-cast-operations-token` मान कॉपी करें।
 - **OpenTelemetry Collector Contrib** वितरण (`otelcol-contrib`)। डिफ़ॉल्ट `otelcol` बिल्ड में `windowseventlogreceiver`, `journaldreceiver`, या `hostmetrics` अतिरिक्त जैसे receivers **शामिल नहीं** हैं — सुनिश्चित करें कि आप `contrib` वितरण का उपयोग करें। alpha `windowsservicereceiver` जो Windows **Services** टैब को शक्ति प्रदान करता है, **v0.155.0** से आगे `otelcol-contrib` में बंडल किया गया है, इसलिए एक वर्तमान रिलीज़ इंस्टॉल करें; नीचे "Windows Services (मेट्रिक्स)" देखें।
 - collector को एक सेवा के रूप में इंस्टॉल करने और (जहाँ लागू हो) विशेषाधिकार प्राप्त log स्रोतों को पढ़ने के लिए होस्ट पर Root / Administrator।
 
@@ -116,7 +116,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 - **`batch`** निर्यात से पहले रिकॉर्ड को समूहित करता है ताकि आप प्रति रिकॉर्ड एक HTTP राउंड ट्रिप का भुगतान न करें।
@@ -335,7 +335,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -387,7 +387,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -450,7 +450,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -486,14 +486,14 @@ sudo journalctl -u otelcol-contrib -f
 
 ### macOS (launchd)
 
-`/Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist` बनाएँ:
+`/Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist` बनाएँ:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>com.oneuptime.otelcol-contrib</string>
+  <key>Label</key><string>com.cast-operations.otelcol-contrib</string>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/local/bin/otelcol-contrib</string>
@@ -510,7 +510,7 @@ sudo journalctl -u otelcol-contrib -f
 इसे लोड करें:
 
 ```bash
-sudo launchctl load -w /Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist
+sudo launchctl load -w /Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist
 sudo launchctl list | grep otelcol-contrib
 ```
 
@@ -535,8 +535,8 @@ sc.exe query "otelcol-contrib"
 ## चरण 4 — Cast Operations में सत्यापित करें
 
 1. होस्ट पर कुछ सिग्नल उत्पन्न करें:
-   - **Linux / macOS:** `logger "hello from oneuptime"` (syslog / journald में लिखता है)।
-   - **Windows:** एक elevated प्रॉम्प्ट से `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from oneuptime"`।
+   - **Linux / macOS:** `logger "hello from cast-operations"` (syslog / journald में लिखता है)।
+   - **Windows:** एक elevated प्रॉम्प्ट से `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from cast-operations"`।
 2. Cast Operations डैशबोर्ड में, **Telemetry → Services** खोलें और आपके द्वारा कॉन्फ़िगर किया गया `service.name` चुनें।
 3. **Metrics** खोलें — होस्ट मेट्रिक्स (CPU, memory, filesystem, आदि) एक मिनट के भीतर दिखाई देने चाहिए।
 4. **Logs** खोलें — आपके फ़ाइल logs / journald प्रविष्टियाँ / Windows Event Logs स्ट्रीमिंग होनी चाहिए। उपयोगी खोजने योग्य विशेषताओं में `log.file.name`, `systemd.unit`, `winlog.channel`, `winlog.event_id`, और `winlog.provider.name` शामिल हैं।
@@ -699,7 +699,7 @@ service:
       exporters: [otlphttp]
 ```
 
-> **Cast Operations द्वारा आपके लिए उत्पन्न किए गए कॉन्फ़िग को संपादित कर रहे हैं?** ऊपर दी गई pipeline इस पृष्ठ के पूर्ण उदाहरणों से मेल खाती है। डैशबोर्ड से मिलने वाला कॉन्फ़िग (Hosts → Documentation) चीज़ों को अलग नाम देता है: उसके processors `resourcedetection` और `batch` हैं (वहाँ **कोई** `resource` processor नहीं है) और उसका exporter `otlphttp/oneuptime` है। ऐसे processor का संदर्भ देना जो परिभाषित नहीं है, collector को स्टार्टअप पर `references processor "resource" which is not configured` के साथ रोक देता है। इस ब्लॉक को उसके ऊपर चिपकाने के बजाय filter को उसमें जोड़ें जो पहले से मौजूद है:
+> **Cast Operations द्वारा आपके लिए उत्पन्न किए गए कॉन्फ़िग को संपादित कर रहे हैं?** ऊपर दी गई pipeline इस पृष्ठ के पूर्ण उदाहरणों से मेल खाती है। डैशबोर्ड से मिलने वाला कॉन्फ़िग (Hosts → Documentation) चीज़ों को अलग नाम देता है: उसके processors `resourcedetection` और `batch` हैं (वहाँ **कोई** `resource` processor नहीं है) और उसका exporter `otlphttp/cast-operations` है। ऐसे processor का संदर्भ देना जो परिभाषित नहीं है, collector को स्टार्टअप पर `references processor "resource" which is not configured` के साथ रोक देता है। इस ब्लॉक को उसके ऊपर चिपकाने के बजाय filter को उसमें जोड़ें जो पहले से मौजूद है:
 >
 > ```yaml
 > service:
@@ -707,7 +707,7 @@ service:
 >     metrics:
 >       receivers: [hostmetrics]
 >       processors: [filter/drop-metrics, resourcedetection, batch]
->       exporters: [otlphttp/oneuptime]
+>       exporters: [otlphttp/cast-operations]
 > ```
 >
 > `resourcedetection` को रखें — Cast Operations टेलीमेट्री को किसी होस्ट से उस `host.name` / `host.id` का उपयोग करके मिलाता है जिसे यह सेट करता है। वह उत्पन्न कॉन्फ़िग **केवल-मेट्रिक्स** भी है: जब तक आप एक न जोड़ें तब तक उसमें कोई `logs:` pipeline नहीं है, इसलिए जब तक आप उसके साथ एक `filelog` या `journald` receiver न जोड़ें तब तक `filter/drop-low-severity` के पास फ़िल्टर करने को कुछ नहीं है।
@@ -746,7 +746,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -769,7 +769,7 @@ exporters:
   otlphttp:
     endpoint: https://your-operations-host.example.com/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 यदि आपका इंस्टेंस केवल-HTTP है, तो स्कीम को `http://` में बदलें और उपयुक्त पोर्ट का उपयोग करें।

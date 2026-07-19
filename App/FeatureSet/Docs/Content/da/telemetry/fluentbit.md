@@ -61,7 +61,7 @@ outputs:
     traces_uri: "/otlp/v1/traces"
     tls: On
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 Sørg for, at du har opentelemetry_envelope i dit input-afsnit. Her er et eksempel på, hvordan input-afsnittet ville se ud:
@@ -118,7 +118,7 @@ pipeline:
       traces_uri: "/otlp/v1/traces"
       tls: On
       header:
-        - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+        - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 **Hvis du selvhoster Cast Operations**: Hvis du selvhoster Cast Operations, kan du erstatte `host` med hosten på din Cast Operations-instans. Hvis du hoster på en HTTP-server og ikke HTTPS, kan du erstatte `port` med porten på din Cast Operations-instans (sandsynligvis port 80).
@@ -137,7 +137,7 @@ outputs:
     logs_uri: "/otlp/v1/logs"
     traces_uri: "/otlp/v1/traces"
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 ## Brug

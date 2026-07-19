@@ -709,7 +709,7 @@ const CriteriaFilterElement: FunctionComponent<ComponentProps> = (
               <div className="mt-3">
                 <FieldLabelElement
                   title="Baseline Window"
-                  description="How many days of history to compare against. Longer windows capture monthly seasonality (billing/payroll cycles); shorter windows respond faster to genuine drift in the underlying metric."
+                  description="How many days of history to compare against. Longer windows capture monthly seasonality (monthly/payroll cycles); shorter windows respond faster to genuine drift in the underlying metric."
                 />
                 <Dropdown
                   value={(() => {

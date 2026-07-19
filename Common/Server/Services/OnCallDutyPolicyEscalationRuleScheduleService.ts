@@ -23,7 +23,7 @@ import PushNotificationUtil from "../Utils/PushNotificationUtil";
 import { createWhatsAppMessageFromTemplate } from "../Utils/WhatsAppTemplateUtil";
 import { WhatsAppMessagePayload } from "../../Types/WhatsApp/WhatsAppMessage";
 import OnCallDutyPolicyTimeLogService from "./OnCallDutyPolicyTimeLogService";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import logger, { LogAttributes } from "../Utils/Logger";
 
 export class Service extends DatabaseService<Model> {
@@ -113,7 +113,7 @@ export class Service extends DatabaseService<Model> {
           createdModel.onCallDutyPolicyEscalationRule.id,
         userId: userOnSchedule,
         onCallDutyPolicyScheduleId: createdModel.onCallDutyPolicyScheduleId,
-        startsAt: OneUptimeDate.getCurrentDate(),
+        startsAt: OperationsDate.getCurrentDate(),
       }).catch((error: Error) => {
         logger.error(error, {
           projectId: createdModel.projectId?.toString(),
@@ -345,7 +345,7 @@ export class Service extends DatabaseService<Model> {
             deletedItem.onCallDutyPolicyEscalationRule.id,
           userId: userOnSchedule,
           onCallDutyPolicyScheduleId: deletedItem.onCallDutyPolicyScheduleId!,
-          endsAt: OneUptimeDate.getCurrentDate(),
+          endsAt: OperationsDate.getCurrentDate(),
         }).catch((error: Error) => {
           logger.error(error, {
             projectId: deletedItem.projectId?.toString(),

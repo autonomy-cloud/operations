@@ -40,15 +40,6 @@ import {
   ManyToOne,
 } from "typeorm";
 import Recurring from "../../Types/Events/Recurring";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
-
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Growth,
-  update: PlanType.Growth,
-  delete: PlanType.Growth,
-})
 @EnableDocumentation()
 @AccessControlColumn("labels")
 @MultiTenentQueryAllowed(true)
@@ -177,7 +168,8 @@ export default class ScheduledMaintenanceTemplate extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({

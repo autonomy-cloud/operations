@@ -7,7 +7,7 @@ import { OnCreate } from "../Types/Database/Hooks";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import ObjectID from "../../Types/ObjectID";
 import QueryHelper from "../Types/Database/QueryHelper";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import LIMIT_MAX from "../../Types/Database/LimitMax";
 import GlobalCache from "../Infrastructure/GlobalCache";
 import logger, { LogAttributes } from "../Utils/Logger";
@@ -129,7 +129,7 @@ export class Service extends DatabaseService<Model> {
       newHost.name = hostIdentifier;
       newHost.hostIdentifier = hostIdentifier;
       newHost.otelCollectorStatus = "connected";
-      newHost.lastSeenAt = OneUptimeDate.getCurrentDate();
+      newHost.lastSeenAt = OperationsDate.getCurrentDate();
 
       const createdHost: Model = await this.create({
         data: newHost,
@@ -222,7 +222,7 @@ export class Service extends DatabaseService<Model> {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: any = {
-      lastSeenAt: OneUptimeDate.getCurrentDate(),
+      lastSeenAt: OperationsDate.getCurrentDate(),
       otelCollectorStatus: "connected",
     };
 
@@ -334,8 +334,8 @@ export class Service extends DatabaseService<Model> {
      * equal to the fence TTL flaps healthy resources. 15 minutes
      * gives 3x headroom.
      */
-    const fifteenMinutesAgo: Date = OneUptimeDate.addRemoveMinutes(
-      OneUptimeDate.getCurrentDate(),
+    const fifteenMinutesAgo: Date = OperationsDate.addRemoveMinutes(
+      OperationsDate.getCurrentDate(),
       -15,
     );
 

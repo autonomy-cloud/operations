@@ -3,10 +3,8 @@ import Project from "./Project";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import ColumnType from "../../Types/Database/ColumnType";
 import CrudApiEndpoint from "../../Types/Database/CrudApiEndpoint";
 import EnableDocumentation from "../../Types/Database/EnableDocumentation";
@@ -22,12 +20,6 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 
 @EnableDocumentation()
 @TenantColumn("projectId")
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Free,
-  update: PlanType.Growth,
-  delete: PlanType.Free,
-})
 @TableAccessControl({
   create: [
     Permission.ProjectOwner,
@@ -152,7 +144,8 @@ export default class OnCallDutyPolicyScheduleOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

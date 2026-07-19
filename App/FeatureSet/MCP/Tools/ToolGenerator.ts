@@ -18,7 +18,7 @@ import {
   ToolAnnotations,
   JSONSchemaProperty,
 } from "../Types/McpTypes";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 import {
   zodToJsonSchema,
@@ -49,22 +49,22 @@ const QUERY_OPERATOR_HINT: string =
  * safe calls and destructiveHint to require confirmation.
  */
 function getAnnotationsForOperation(
-  operation: OneUptimeOperation,
+  operation: OperationsOperation,
 ): ToolAnnotations {
   switch (operation) {
-    case OneUptimeOperation.Read:
-    case OneUptimeOperation.List:
-    case OneUptimeOperation.Count:
+    case OperationsOperation.Read:
+    case OperationsOperation.List:
+    case OperationsOperation.Count:
       return { readOnlyHint: true };
-    case OneUptimeOperation.Create:
+    case OperationsOperation.Create:
       return { readOnlyHint: false, destructiveHint: false };
-    case OneUptimeOperation.Update:
+    case OperationsOperation.Update:
       return {
         readOnlyHint: false,
         destructiveHint: false,
         idempotentHint: true,
       };
-    case OneUptimeOperation.Delete:
+    case OperationsOperation.Delete:
       return {
         readOnlyHint: false,
         destructiveHint: true,
@@ -121,10 +121,10 @@ const MCP_ALLOW_DESTRUCTIVE: boolean =
     ? true
     : isEnvFlagTrue(process.env["MCP_ALLOW_DESTRUCTIVE"]);
 
-const WRITE_OPERATIONS: ReadonlySet<OneUptimeOperation> = new Set([
-  OneUptimeOperation.Create,
-  OneUptimeOperation.Update,
-  OneUptimeOperation.Delete,
+const WRITE_OPERATIONS: ReadonlySet<OperationsOperation> = new Set([
+  OperationsOperation.Create,
+  OperationsOperation.Update,
+  OperationsOperation.Delete,
 ]);
 
 function applyWritePolicy(tools: McpToolInfo[]): McpToolInfo[] {
@@ -138,7 +138,7 @@ function applyWritePolicy(tools: McpToolInfo[]): McpToolInfo[] {
       WRITE_OPERATIONS.has(tool.operation) ||
       tool.annotations?.readOnlyHint === false;
     const isDestructive: boolean =
-      tool.operation === OneUptimeOperation.Delete ||
+      tool.operation === OperationsOperation.Delete ||
       tool.annotations?.destructiveHint === true;
 
     if (MCP_READ_ONLY && isWrite) {
@@ -419,9 +419,9 @@ function createCreateTool(
       required: schemaProperties.required || [],
       additionalProperties: false,
     },
-    annotations: getAnnotationsForOperation(OneUptimeOperation.Create),
+    annotations: getAnnotationsForOperation(OperationsOperation.Create),
     modelName,
-    operation: OneUptimeOperation.Create,
+    operation: OperationsOperation.Create,
     modelType: ModelType.Database,
     singularName,
     pluralName,
@@ -453,9 +453,9 @@ function createReadTool(
       required: ["id"],
       additionalProperties: false,
     },
-    annotations: getAnnotationsForOperation(OneUptimeOperation.Read),
+    annotations: getAnnotationsForOperation(OperationsOperation.Read),
     modelName,
-    operation: OneUptimeOperation.Read,
+    operation: OperationsOperation.Read,
     modelType: ModelType.Database,
     singularName,
     pluralName,
@@ -501,9 +501,9 @@ function createListTool(
       },
       additionalProperties: false,
     },
-    annotations: getAnnotationsForOperation(OneUptimeOperation.List),
+    annotations: getAnnotationsForOperation(OperationsOperation.List),
     modelName,
-    operation: OneUptimeOperation.List,
+    operation: OperationsOperation.List,
     modelType: ModelType.Database,
     singularName,
     pluralName,
@@ -537,9 +537,9 @@ function createUpdateTool(
       required: ["id"],
       additionalProperties: false,
     },
-    annotations: getAnnotationsForOperation(OneUptimeOperation.Update),
+    annotations: getAnnotationsForOperation(OperationsOperation.Update),
     modelName,
-    operation: OneUptimeOperation.Update,
+    operation: OperationsOperation.Update,
     modelType: ModelType.Database,
     singularName,
     pluralName,
@@ -569,9 +569,9 @@ function createDeleteTool(
       required: ["id"],
       additionalProperties: false,
     },
-    annotations: getAnnotationsForOperation(OneUptimeOperation.Delete),
+    annotations: getAnnotationsForOperation(OperationsOperation.Delete),
     modelName,
-    operation: OneUptimeOperation.Delete,
+    operation: OperationsOperation.Delete,
     modelType: ModelType.Database,
     singularName,
     pluralName,
@@ -601,9 +601,9 @@ function createCountTool(
       },
       additionalProperties: false,
     },
-    annotations: getAnnotationsForOperation(OneUptimeOperation.Count),
+    annotations: getAnnotationsForOperation(OperationsOperation.Count),
     modelName,
-    operation: OneUptimeOperation.Count,
+    operation: OperationsOperation.Count,
     modelType: ModelType.Database,
     singularName,
     pluralName,
@@ -653,9 +653,9 @@ function createAnalyticsListTool(
       },
       additionalProperties: false,
     },
-    annotations: getAnnotationsForOperation(OneUptimeOperation.List),
+    annotations: getAnnotationsForOperation(OperationsOperation.List),
     modelName,
-    operation: OneUptimeOperation.List,
+    operation: OperationsOperation.List,
     modelType: ModelType.Analytics,
     singularName,
     pluralName,
@@ -685,9 +685,9 @@ function createAnalyticsCountTool(
       },
       additionalProperties: false,
     },
-    annotations: getAnnotationsForOperation(OneUptimeOperation.Count),
+    annotations: getAnnotationsForOperation(OperationsOperation.Count),
     modelName,
-    operation: OneUptimeOperation.Count,
+    operation: OperationsOperation.Count,
     modelType: ModelType.Analytics,
     singularName,
     pluralName,

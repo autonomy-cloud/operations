@@ -6,7 +6,7 @@ import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { Black } from "Common/Types/BrandColors";
 import Color from "Common/Types/Color";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import { JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
@@ -272,13 +272,13 @@ const AlertView: FunctionComponent<PageComponentProps> = (): ReactElement => {
     }
 
     if (!acknowledgeTime && resolveTime) {
-      return OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
-        OneUptimeDate.getDifferenceInMinutes(resolveTime, alertStartTime),
+      return OperationsDate.convertMinutesToDaysHoursAndMinutes(
+        OperationsDate.getDifferenceInMinutes(resolveTime, alertStartTime),
       );
     }
 
-    return OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
-      OneUptimeDate.getDifferenceInMinutes(acknowledgeTime!, alertStartTime),
+    return OperationsDate.convertMinutesToDaysHoursAndMinutes(
+      OperationsDate.getDifferenceInMinutes(acknowledgeTime!, alertStartTime),
     );
   };
 
@@ -295,8 +295,8 @@ const AlertView: FunctionComponent<PageComponentProps> = (): ReactElement => {
       );
     }
 
-    return OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
-      OneUptimeDate.getDifferenceInMinutes(resolveTime, alertStartTime),
+    return OperationsDate.convertMinutesToDaysHoursAndMinutes(
+      OperationsDate.getDifferenceInMinutes(resolveTime, alertStartTime),
     );
   };
 
@@ -368,7 +368,7 @@ const AlertView: FunctionComponent<PageComponentProps> = (): ReactElement => {
                       onClick={() => {
                         // do nothing!
                       }}
-                      title={OneUptimeDate.getInBetweenDatesAsFormattedString(
+                      title={OperationsDate.getInBetweenDatesAsFormattedString(
                         telemetryQuery.metricViewData.startAndEndDate,
                       )}
                       alertType={HeaderAlertType.INFO}

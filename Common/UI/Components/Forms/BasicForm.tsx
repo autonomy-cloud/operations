@@ -20,7 +20,7 @@ import FormFieldSchemaType from "./Types/FormFieldSchemaType";
 import { FormStep } from "./Types/FormStep";
 import FormValues from "./Types/FormValues";
 import Validation from "./Validation";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Dictionary from "../../../Types/Dictionary";
 import { VoidFunction } from "../../../Types/FunctionTypes";
 import GenericObject from "../../../Types/GenericObject";
@@ -486,7 +486,7 @@ const BasicForm: ForwardRefExoticComponent<any> = forwardRef(
           field.fieldType === FormFieldSchemaType.Date &&
           (values as any)[fieldName]
         ) {
-          (values as any)[fieldName] = OneUptimeDate.asDateForDatabaseQuery(
+          (values as any)[fieldName] = OperationsDate.asDateForDatabaseQuery(
             (values as any)[fieldName],
           );
         }

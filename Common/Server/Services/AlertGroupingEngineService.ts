@@ -13,7 +13,7 @@ import AlertSeverity from "../../Models/DatabaseModels/AlertSeverity";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import logger, { LogAttributes } from "../Utils/Logger";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import QueryHelper from "../Types/Database/QueryHelper";
 import AlertGroupingRuleService from "./AlertGroupingRuleService";
 import AlertService from "./AlertService";
@@ -407,7 +407,7 @@ class AlertGroupingEngineServiceClass {
       let timeWindowCutoff: Date | null = null;
       if (rule.enableTimeWindow) {
         const timeWindowMinutes: number = rule.timeWindowMinutes || 60;
-        timeWindowCutoff = OneUptimeDate.getSomeMinutesAgo(timeWindowMinutes);
+        timeWindowCutoff = OperationsDate.getSomeMinutesAgo(timeWindowMinutes);
       }
 
       // Find existing active episode that matches
@@ -449,7 +449,7 @@ class AlertGroupingEngineServiceClass {
         const reopenWindowMinutes: number = rule.reopenWindowMinutes || 0;
         if (reopenWindowMinutes > 0) {
           const reopenCutoff: Date =
-            OneUptimeDate.getSomeMinutesAgo(reopenWindowMinutes);
+            OperationsDate.getSomeMinutesAgo(reopenWindowMinutes);
           const recentlyResolvedEpisode: AlertEpisode | null =
             await this.findRecentlyResolvedEpisode(
               alert.projectId!,
@@ -761,7 +761,7 @@ class AlertGroupingEngineServiceClass {
     newEpisode.alertGroupingRuleId = rule.id!;
     newEpisode.groupingKey = groupingKey;
     newEpisode.isManuallyCreated = false;
-    newEpisode.lastAlertAddedAt = OneUptimeDate.getCurrentDate();
+    newEpisode.lastAlertAddedAt = OperationsDate.getCurrentDate();
 
     // Set severity from alert
     if (alert.alertSeverityId) {

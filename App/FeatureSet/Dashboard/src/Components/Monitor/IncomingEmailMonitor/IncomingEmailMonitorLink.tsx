@@ -23,9 +23,9 @@ const IncomingEmailMonitorLink: FunctionComponent<ComponentProps> = (
             <ErrorMessage
               message={
                 <span>
-                  Inbound email is not configured. Please ask your Cast Operations
-                  administrator to set up the inbound email environment
-                  variables.{" "}
+                  Inbound email is not configured. Please ask your Cast
+                  Operations administrator to set up the inbound email
+                  environment variables.{" "}
                   <Link
                     to={Route.fromString(
                       "/docs/self-hosted/sendgrid-inbound-email",

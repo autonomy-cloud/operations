@@ -1,7 +1,7 @@
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { JSONObject } from "Common/Types/JSON";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import UserMiddleware from "Common/Server/Middleware/UserAuthorization";
 import CommonAPI from "Common/Server/API/CommonAPI";
 import DatabaseCommonInteractionProps from "Common/Types/BaseDatabase/DatabaseCommonInteractionProps";
@@ -150,7 +150,7 @@ export default class NetworkDeviceTopologyAPI {
 
           const topology: NetworkTopology = NetworkTopologyUtil.buildTopology(
             topologyInput,
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
             interfaceInput,
           );
 

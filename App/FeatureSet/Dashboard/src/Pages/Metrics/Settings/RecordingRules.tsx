@@ -35,7 +35,7 @@ If a bucket would produce a non-finite result (division by zero, missing source,
 
 ### Output labeling
 
-Every materialized row carries an attribute \`oneuptime.derived.rule_id\` with this rule's ID, plus the group-by attribute value when set.
+Every materialized row carries an attribute \`cast-operations.derived.rule_id\` with this rule's ID, plus the group-by attribute value when set.
 `;
 
 const MetricRecordingRules: FunctionComponent<

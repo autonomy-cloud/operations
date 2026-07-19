@@ -47,7 +47,9 @@ describe("IncidentInternalNoteService.onCreateSuccess", () => {
     });
     jest
       .spyOn(IncidentService, "getIncidentLinkInDashboard")
-      .mockResolvedValue(URL.fromString("https://oneuptime.example/incident"));
+      .mockResolvedValue(
+        URL.fromString("https://cast-operations.example/incident"),
+      );
     // No attachments on these notes.
     jest
       .spyOn(IncidentInternalNoteService, "findOneById")

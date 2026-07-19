@@ -22,7 +22,7 @@ Cast Operations Terraform-leverandøren er tilgjengelig på [Terraform Registry]
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Bruk siste 7.x-versjon
     }
@@ -38,7 +38,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Fest til eksakt versjon som samsvarer med Cast Operations-installasjonen
     }
@@ -60,7 +60,7 @@ Du kan finne din Cast Operations-versjon på flere måter:
 # Eksempel: Hvis du kjører Cast Operations 7.0.123
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"
     }
@@ -73,9 +73,9 @@ terraform {
 ### Grunnleggende konfigurasjon
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://your-operations-instance.com"  # Eller https://visca.ai for sky
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://your-operations-instance.com"  # Eller https://visca.ai for sky
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -84,14 +84,14 @@ provider "oneuptime" {
 Du kan konfigurere leverandøren ved hjelp av miljøvariabler:
 
 ```bash
-export ONEUPTIME_URL="https://your-operations-instance.com"
-export ONEUPTIME_API_KEY="your-api-key-here"
+export CAST_OPERATIONS_URL="https://your-operations-instance.com"
+export CAST_OPERATIONS_API_KEY="your-api-key-here"
 ```
 
 Bruk deretter leverandøren uten eksplisitt konfigurasjon:
 
 ```hcl
-provider "oneuptime" {
+provider "cast-operations" {
   # Konfigurasjon vil bli lest fra miljøvariabler
 }
 ```
@@ -100,8 +100,8 @@ provider "oneuptime" {
 
 | Argument        | Miljøvariabel       | Beskrivelse          | Påkrevd |
 | --------------- | ------------------- | -------------------- | ------- |
-| `oneuptime_url` | `ONEUPTIME_URL`     | Cast Operations-URL        | Ja      |
-| `api_key`       | `ONEUPTIME_API_KEY` | Cast Operations API-nøkkel | Ja      |
+| `cast_operations_url` | `CAST_OPERATIONS_URL`     | Cast Operations-URL        | Ja      |
+| `api_key`       | `CAST_OPERATIONS_API_KEY` | Cast Operations API-nøkkel | Ja      |
 
 ## Hurtigstart
 
@@ -122,16 +122,16 @@ Opprett en `main.tf`-fil:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # Bruk instans-URL-en din
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # Bruk instans-URL-en din
+  api_key       = var.cast_operations_api_key
 }
 
 # Merk: Prosjekter må opprettes manuelt i Cast Operations-dashbordet
@@ -141,7 +141,7 @@ variable "project_id" {
 }
 
 # Opprett en monitor
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Nettstedmonitor"
   description = "Monitor for nettstedoppetid"
   data        = jsonencode({
@@ -152,7 +152,7 @@ resource "oneuptime_monitor" "website" {
 }
 
 # Opprett et team
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "Plattformteam"
   description = "Plattformingeniørteam"
 }
@@ -183,7 +183,7 @@ For Cast Operations Cloud-kunder, bruk den siste leverandørversjonen:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Bruk alltid siste kompatible versjon
     }
@@ -206,7 +206,7 @@ Eksempel for Cast Operations 7.0.123:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Eksakt versjonssamsvaring
     }
@@ -220,29 +220,29 @@ Cast Operations Terraform-leverandøren støtter følgende ressurser:
 
 ### Kjernressurser
 
-- `oneuptime_team` – Administrer team
+- `cast_operations_team` – Administrer team
 
 ### Overvåking
 
-- `oneuptime_monitor` – Opprett og administrer monitorer
-- `oneuptime_probe` – Administrer overvåkingsprober
+- `cast_operations_monitor` – Opprett og administrer monitorer
+- `cast_operations_probe` – Administrer overvåkingsprober
 
 ### Vakthåndtering
 
-- `oneuptime_on_call_duty_policy` – Sett opp vaktplaner
+- `cast_operations_on_call_duty_policy` – Sett opp vaktplaner
 
 ### Statussider
 
-- `oneuptime_status_page` – Opprett statussider
+- `cast_operations_status_page` – Opprett statussider
 
 ### Tjenestekatalog
 
-- `oneuptime_service_catalog` – Administrer tjenestekatalogoppføringer
+- `cast_operations_service_catalog` – Administrer tjenestekatalogoppføringer
 
 ### Tjenestekatalog
 
-- `oneuptime_service` – Definer tjenester
-- `oneuptime_service_dependency` – Kart tjenesteavhengigheter
+- `cast_operations_service` – Definer tjenester
+- `cast_operations_service_dependency` – Kart tjenesteavhengigheter
 
 ### Datakilder
 
@@ -254,7 +254,7 @@ Merk: Datakilder er for øyeblikket ikke tilgjengelige i leverandøren, da ingen
 
 ```hcl
 # Variabler
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API-nøkkel"
   type        = string
   sensitive   = true
@@ -265,7 +265,7 @@ variable "project_id" {
   type        = string
 }
 
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast Operations-URL"
   type        = string
   default     = "https://visca.ai"
@@ -274,26 +274,26 @@ variable "oneuptime_url" {
 # Leverandørkonfigurasjon
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # Team
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "Plattformteam"
   description = "Plattformingeniørteam"
 }
 
 # Monitorer
-resource "oneuptime_monitor" "api" {
+resource "cast_operations_monitor" "api" {
   name        = "API-helsesjekk"
   description = "Monitor for API-helseendepunkt"
   data        = jsonencode({
@@ -305,9 +305,9 @@ resource "oneuptime_monitor" "api" {
   }
 }
 
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "Databasetilkobling"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   monitor_type = "port"
   hostname     = "db.mycompany.com"
@@ -322,10 +322,10 @@ resource "oneuptime_monitor" "database" {
 }
 
 # Vakttpolicy
-resource "oneuptime_on_call_policy" "platform_oncall" {
+resource "cast_operations_on_call_policy" "platform_oncall" {
   name       = "Plattform vakt"
-  project_id = oneuptime_project.production.id
-  team_id    = oneuptime_team.platform.id
+  project_id = cast_operations_project.production.id
+  team_id    = cast_operations_team.platform.id
 
   schedules {
     name      = "Arbeidstid"
@@ -343,17 +343,17 @@ resource "oneuptime_on_call_policy" "platform_oncall" {
 }
 
 # Varselspolicy
-resource "oneuptime_alert_policy" "critical_alerts" {
+resource "cast_operations_alert_policy" "critical_alerts" {
   name       = "Kritiske systemvarsler"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   conditions {
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
     threshold  = "down"
   }
 
   conditions {
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
     threshold  = "down"
   }
 
@@ -364,25 +364,25 @@ resource "oneuptime_alert_policy" "critical_alerts" {
 
   actions {
     type           = "oncall_escalation"
-    oncall_policy_id = oneuptime_on_call_policy.platform_oncall.id
+    oncall_policy_id = cast_operations_on_call_policy.platform_oncall.id
   }
 }
 
 # Statusside
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name       = "MinBedrift Status"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   domain = "status.mycompany.com"
 
   components {
     name       = "API"
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
   }
 
   components {
     name       = "Database"
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
   }
 }
 ```
@@ -393,7 +393,7 @@ resource "oneuptime_status_page" "public" {
 # For selvhostet Cast Operations-instans versjon 7.0.123
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Må samsvare nøyaktig med din Cast Operations-versjon
     }
@@ -401,9 +401,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.mycompany.com"  # Din selvhostede URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.mycompany.com"  # Din selvhostede URL
+  api_key       = var.cast_operations_api_key
 }
 
 # Resten av konfigurasjonen...
@@ -430,7 +430,7 @@ provider "oneuptime" {
 terraform {
   backend "s3" {
     bucket = "my-terraform-state"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
@@ -488,12 +488,12 @@ monitors = [
 Bruk konsistente navngivingskonvensjoner:
 
 ```hcl
-resource "oneuptime_monitor" "website_production" {
+resource "cast_operations_monitor" "website_production" {
   name = "${var.environment}-website-monitor"
   # ...
 }
 
-resource "oneuptime_alert_policy" "critical_production" {
+resource "cast_operations_alert_policy" "critical_production" {
   name = "${var.environment}-critical-alerts"
   # ...
 }
@@ -513,10 +513,10 @@ Eksempelimport:
 
 ```bash
 # Importer eksisterende monitor
-terraform import oneuptime_monitor.website monitor-id-here
+terraform import cast_operations_monitor.website monitor-id-here
 
 # Importer eksisterende prosjekt
-terraform import oneuptime_project.main project-id-here
+terraform import cast_operations_project.main project-id-here
 ```
 
 ### Versjonsoppgraderinger

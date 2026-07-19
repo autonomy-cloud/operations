@@ -67,7 +67,7 @@ const buildTelegramSetupMarkdown: () => string = (): string => {
     "1. Open Telegram and chat with [@BotFather](https://t.me/BotFather).",
     "2. Send `/newbot` and follow the prompts. BotFather will return two things:",
     "   - A **bot token** that looks like `8012345678:ABCdefGHIjklMNOpqrsTUVwxyz-0987654321` — this goes into the **Bot Token** field above.",
-    "   - A **bot username** ending in `bot` (for example, `OneUptimeAlertsBot`) — this goes into the **Bot Username** field above (without the leading `@`).",
+    "   - A **bot username** ending in `bot` (for example, `OperationsAlertsBot`) — this goes into the **Bot Username** field above (without the leading `@`).",
     "3. Pick a strong random string to use as your **Webhook Secret Token** and paste it into the third field. Cast Operations sends this back to itself via `X-Telegram-Bot-Api-Secret-Token` so spoofed webhook calls get rejected.",
     "4. Save the form.",
     "",
@@ -171,7 +171,7 @@ const SettingsTelegram: FunctionComponent = (): ReactElement => {
             required: true,
             description:
               "Your bot's Telegram username, without the leading @. Telegram usernames end in 'bot'.",
-            placeholder: "OneUptimeAlertsBot",
+            placeholder: "OperationsAlertsBot",
             validation: {
               minLength: 5,
               maxLength: 32,

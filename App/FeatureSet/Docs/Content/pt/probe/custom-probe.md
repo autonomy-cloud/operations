@@ -11,10 +11,10 @@ Para começar, você precisa criar uma probe personalizada nas Configurações d
 Para executar uma probe, certifique-se de ter o Docker instalado. Você pode executar a probe personalizada com:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
 ```
 
-Se você estiver auto-hospedando o Cast Operations, pode alterar `ONEUPTIME_URL` para sua instância auto-hospedada personalizada.
+Se você estiver auto-hospedando o Cast Operations, pode alterar `CAST_OPERATIONS_URL` para sua instância auto-hospedada personalizada.
 
 ##### Configuração de Proxy
 
@@ -22,32 +22,32 @@ Se sua probe precisa passar por um servidor proxy para alcançar o Cast Operatio
 
 ```
 # For HTTP proxy
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # For HTTPS proxy
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # With proxy authentication
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 #### Docker Compose
@@ -58,13 +58,13 @@ Você também pode executar a probe usando docker-compose. Crie um arquivo `dock
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -77,13 +77,13 @@ Se você precisar usar um servidor proxy, pode adicionar variáveis de ambiente 
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       # Proxy configuration (optional)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,35 +102,35 @@ Em seguida, execute o seguinte comando:
 docker compose up -d
 ```
 
-Se você estiver auto-hospedando o Cast Operations, pode alterar `ONEUPTIME_URL` para sua instância auto-hospedada personalizada.
+Se você estiver auto-hospedando o Cast Operations, pode alterar `CAST_OPERATIONS_URL` para sua instância auto-hospedada personalizada.
 
 #### Kubernetes
 
-Você também pode executar a probe usando Kubernetes. Crie um arquivo `oneuptime-probe.yaml` com o seguinte conteúdo:
+Você também pode executar a probe usando Kubernetes. Crie um arquivo `cast-operations-probe.yaml` com o seguinte conteúdo:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
@@ -142,25 +142,25 @@ Se você precisar usar um servidor proxy, pode adicionar variáveis de ambiente 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             # Proxy configuration (optional)
             - name: HTTP_PROXY_URL
@@ -181,10 +181,10 @@ spec:
 Em seguida, execute o seguinte comando:
 
 ```bash
-kubectl apply -f oneuptime-probe.yaml
+kubectl apply -f cast-operations-probe.yaml
 ```
 
-Se você estiver auto-hospedando o Cast Operations, pode alterar `ONEUPTIME_URL` para sua instância auto-hospedada personalizada.
+Se você estiver auto-hospedando o Cast Operations, pode alterar `CAST_OPERATIONS_URL` para sua instância auto-hospedada personalizada.
 
 ### Variáveis de Ambiente
 
@@ -194,7 +194,7 @@ A probe suporta as seguintes variáveis de ambiente:
 
 - `PROBE_KEY` - A chave da probe do seu painel do Cast Operations
 - `PROBE_ID` - O ID da probe do seu painel do Cast Operations
-- `ONEUPTIME_URL` - A URL da sua instância do Cast Operations (padrão: https://visca.ai)
+- `CAST_OPERATIONS_URL` - A URL da sua instância do Cast Operations (padrão: https://visca.ai)
 
 #### Variáveis Opcionais
 

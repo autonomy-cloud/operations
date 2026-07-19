@@ -1,5 +1,4 @@
 import PageComponentProps from "../PageComponentProps";
-import AIPlanGate from "../../Components/AI/AIPlanGate";
 import ChatActivityFeed from "../../Components/AIChat/ChatActivityFeed";
 import ChatDownloadMenu from "../../Components/AIChat/ChatDownloadMenu";
 import ChatHomeView from "../../Components/AIChat/ChatHomeView";
@@ -10,7 +9,7 @@ import ProviderPicker from "../../Components/AIChat/ProviderPicker";
 import PermissionModePicker from "../../Components/AIChat/PermissionModePicker";
 import { useAiChat, UseAiChat } from "../../Components/AIChat/useAiChat";
 import AIConversation from "Common/Models/DatabaseModels/AIConversation";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IconProp from "Common/Types/Icon/IconProp";
 import Icon from "Common/UI/Components/Icon/Icon";
 import Page from "Common/UI/Components/Page/Page";
@@ -86,7 +85,6 @@ const AICopilot: FunctionComponent<PageComponentProps> = (): ReactElement => {
       title={CAST_OPERATIONS_EMBEDDED_MODE ? "Operations AI" : "AI"}
       description={AI_CHAT_DESCRIPTION}
     >
-      <AIPlanGate />
       <div
         className={`flex overflow-hidden border border-gray-200 bg-white ${
           CAST_OPERATIONS_EMBEDDED_MODE ? "rounded-lg" : "rounded-2xl"
@@ -153,7 +151,7 @@ const AICopilot: FunctionComponent<PageComponentProps> = (): ReactElement => {
                         </div>
                         {conversation.lastMessageAt && (
                           <div className="mt-0.5 text-[11px] text-gray-400">
-                            {OneUptimeDate.fromNow(conversation.lastMessageAt)}
+                            {OperationsDate.fromNow(conversation.lastMessageAt)}
                           </div>
                         )}
                       </div>

@@ -14,7 +14,7 @@ import {
  * instead of the <YOUR_API_KEY> placeholder.
  */
 const ingestionKeyEnvLineRegex: RegExp =
-  /ONEUPTIME_TELEMETRY_INGESTION_KEY=([0-9a-fA-F-]{36})/;
+  /CAST_OPERATIONS_TELEMETRY_INGESTION_KEY=([0-9a-fA-F-]{36})/;
 
 /*
  * WI-22: Proxmox product onboarding path.
@@ -81,7 +81,7 @@ test.describe.skip("Proxmox Product Onboarding", () => {
       .toMatch(ingestionKeyEnvLineRegex);
 
     const bodyText: string = await page.locator("body").innerText();
-    expect(bodyText).toMatch(/ONEUPTIME_URL=http/);
+    expect(bodyText).toMatch(/CAST_OPERATIONS_URL=http/);
     expect(bodyText).toContain("PROXMOX_CLUSTER_NAME=my-proxmox-cluster");
     expect(bodyText).toContain("docker compose up -d");
     expect(bodyText).not.toContain("<YOUR_API_KEY>");
@@ -216,7 +216,7 @@ test.describe.skip("Proxmox Product Onboarding", () => {
     const otlpResponse: APIResponse = await page.request.post(otlpMetricsUrl, {
       headers: {
         "content-type": "application/json",
-        "x-oneuptime-token": ingestionKey,
+        "x-cast-operations-token": ingestionKey,
       },
       data: {
         resourceMetrics: [

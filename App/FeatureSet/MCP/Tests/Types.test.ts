@@ -1,59 +1,59 @@
 import { describe, it, expect } from "@jest/globals";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 import {
   McpToolInfo,
   ModelToolsResult,
-  OneUptimeToolCallArgs,
+  OperationsToolCallArgs,
 } from "../Types/McpTypes";
 
 describe("Cast Operations Types", () => {
-  describe("OneUptimeOperation Enum", () => {
+  describe("OperationsOperation Enum", () => {
     it("should have all required operations", () => {
-      expect(OneUptimeOperation.Create).toBe("create");
-      expect(OneUptimeOperation.Read).toBe("read");
-      expect(OneUptimeOperation.List).toBe("list");
-      expect(OneUptimeOperation.Update).toBe("update");
-      expect(OneUptimeOperation.Delete).toBe("delete");
-      expect(OneUptimeOperation.Count).toBe("count");
+      expect(OperationsOperation.Create).toBe("create");
+      expect(OperationsOperation.Read).toBe("read");
+      expect(OperationsOperation.List).toBe("list");
+      expect(OperationsOperation.Update).toBe("update");
+      expect(OperationsOperation.Delete).toBe("delete");
+      expect(OperationsOperation.Count).toBe("count");
     });
 
     it("should contain exactly 6 operations", () => {
-      const operations: string[] = Object.values(OneUptimeOperation);
+      const operations: string[] = Object.values(OperationsOperation);
       expect(operations).toHaveLength(6);
     });
 
     it("should have string values for all operations", () => {
-      Object.values(OneUptimeOperation).forEach((operation: string) => {
+      Object.values(OperationsOperation).forEach((operation: string) => {
         expect(typeof operation).toBe("string");
       });
     });
 
     it("should be usable in switch statements", () => {
-      const getOperationName: (testOperation: OneUptimeOperation) => string = (
-        testOperation: OneUptimeOperation,
+      const getOperationName: (testOperation: OperationsOperation) => string = (
+        testOperation: OperationsOperation,
       ): string => {
         switch (testOperation) {
-          case OneUptimeOperation.Create:
+          case OperationsOperation.Create:
             return "create";
-          case OneUptimeOperation.Read:
+          case OperationsOperation.Read:
             return "read";
-          case OneUptimeOperation.List:
+          case OperationsOperation.List:
             return "list";
-          case OneUptimeOperation.Update:
+          case OperationsOperation.Update:
             return "update";
-          case OneUptimeOperation.Delete:
+          case OperationsOperation.Delete:
             return "delete";
-          case OneUptimeOperation.Count:
+          case OperationsOperation.Count:
             return "count";
           default:
             return "unknown";
         }
       };
 
-      expect(getOperationName(OneUptimeOperation.Create)).toBe("create");
-      expect(getOperationName(OneUptimeOperation.Read)).toBe("read");
-      expect(getOperationName(OneUptimeOperation.Update)).toBe("update");
+      expect(getOperationName(OperationsOperation.Create)).toBe("create");
+      expect(getOperationName(OperationsOperation.Read)).toBe("read");
+      expect(getOperationName(OperationsOperation.Update)).toBe("update");
     });
   });
 
@@ -93,7 +93,7 @@ describe("Cast Operations Types", () => {
           required: ["name"],
         },
         modelName: "Project",
-        operation: OneUptimeOperation.Create,
+        operation: OperationsOperation.Create,
         modelType: ModelType.Database,
         singularName: "project",
         pluralName: "projects",
@@ -102,7 +102,7 @@ describe("Cast Operations Types", () => {
       };
 
       expect(validToolInfo.name).toBe("create_project");
-      expect(validToolInfo.operation).toBe(OneUptimeOperation.Create);
+      expect(validToolInfo.operation).toBe(OperationsOperation.Create);
       expect(validToolInfo.modelType).toBe(ModelType.Database);
       expect(validToolInfo.apiPath).toBe("/api/project");
     });
@@ -113,7 +113,7 @@ describe("Cast Operations Types", () => {
         description: "List all logs",
         inputSchema: { type: "object", properties: {} },
         modelName: "Log",
-        operation: OneUptimeOperation.List,
+        operation: OperationsOperation.List,
         modelType: ModelType.Analytics,
         singularName: "log",
         pluralName: "logs",
@@ -125,10 +125,10 @@ describe("Cast Operations Types", () => {
     });
 
     it("should support all operations", () => {
-      const operations: OneUptimeOperation[] =
-        Object.values(OneUptimeOperation);
+      const operations: OperationsOperation[] =
+        Object.values(OperationsOperation);
 
-      operations.forEach((operation: OneUptimeOperation) => {
+      operations.forEach((operation: OperationsOperation) => {
         const toolInfo: McpToolInfo = {
           name: `${operation}_test`,
           description: `Test ${operation} operation`,
@@ -155,7 +155,7 @@ describe("Cast Operations Types", () => {
             description: "Create a monitor",
             inputSchema: { type: "object", properties: {} },
             modelName: "Monitor",
-            operation: OneUptimeOperation.Create,
+            operation: OperationsOperation.Create,
             modelType: ModelType.Database,
             singularName: "monitor",
             pluralName: "monitors",
@@ -192,20 +192,20 @@ describe("Cast Operations Types", () => {
     });
   });
 
-  describe("OneUptimeToolCallArgs Interface", () => {
+  describe("OperationsToolCallArgs Interface", () => {
     it("should support all argument types", () => {
-      const createArgs: OneUptimeToolCallArgs = {
+      const createArgs: OperationsToolCallArgs = {
         data: {
           name: "New Project",
           description: "A test project",
         },
       };
 
-      const readArgs: OneUptimeToolCallArgs = {
+      const readArgs: OperationsToolCallArgs = {
         id: "project-123",
       };
 
-      const listArgs: OneUptimeToolCallArgs = {
+      const listArgs: OperationsToolCallArgs = {
         query: { status: "active" },
         limit: 10,
         skip: 0,
@@ -213,16 +213,16 @@ describe("Cast Operations Types", () => {
         select: { name: 1, description: 1 },
       };
 
-      const updateArgs: OneUptimeToolCallArgs = {
+      const updateArgs: OperationsToolCallArgs = {
         id: "project-123",
         data: { name: "Updated Project" },
       };
 
-      const deleteArgs: OneUptimeToolCallArgs = {
+      const deleteArgs: OperationsToolCallArgs = {
         id: "project-123",
       };
 
-      const countArgs: OneUptimeToolCallArgs = {
+      const countArgs: OperationsToolCallArgs = {
         query: { status: "active" },
       };
 
@@ -236,7 +236,7 @@ describe("Cast Operations Types", () => {
     });
 
     it("should handle empty args object", () => {
-      const emptyArgs: OneUptimeToolCallArgs = {};
+      const emptyArgs: OperationsToolCallArgs = {};
 
       expect(emptyArgs.id).toBeUndefined();
       expect(emptyArgs.data).toBeUndefined();
@@ -244,7 +244,7 @@ describe("Cast Operations Types", () => {
     });
 
     it("should support complex query objects", () => {
-      const complexArgs: OneUptimeToolCallArgs = {
+      const complexArgs: OperationsToolCallArgs = {
         query: {
           $and: [
             { status: "active" },
@@ -268,7 +268,7 @@ describe("Cast Operations Types", () => {
     });
 
     it("should support pagination parameters", () => {
-      const paginationArgs: OneUptimeToolCallArgs = {
+      const paginationArgs: OperationsToolCallArgs = {
         limit: 25,
         skip: 50,
       };
@@ -280,17 +280,17 @@ describe("Cast Operations Types", () => {
 
   describe("Type Validation", () => {
     it("should ensure type safety for operations", () => {
-      const validOperations: OneUptimeOperation[] = [
-        OneUptimeOperation.Create,
-        OneUptimeOperation.Read,
-        OneUptimeOperation.List,
-        OneUptimeOperation.Update,
-        OneUptimeOperation.Delete,
-        OneUptimeOperation.Count,
+      const validOperations: OperationsOperation[] = [
+        OperationsOperation.Create,
+        OperationsOperation.Read,
+        OperationsOperation.List,
+        OperationsOperation.Update,
+        OperationsOperation.Delete,
+        OperationsOperation.Count,
       ];
 
-      validOperations.forEach((op: OneUptimeOperation) => {
-        expect(Object.values(OneUptimeOperation)).toContain(op);
+      validOperations.forEach((op: OperationsOperation) => {
+        expect(Object.values(OperationsOperation)).toContain(op);
       });
     });
 
@@ -333,7 +333,7 @@ describe("Cast Operations Types", () => {
         description: "Test tool",
         inputSchema: jsonSchema,
         modelName: "Test",
-        operation: OneUptimeOperation.Create,
+        operation: OperationsOperation.Create,
         modelType: ModelType.Database,
         singularName: "test",
         pluralName: "tests",

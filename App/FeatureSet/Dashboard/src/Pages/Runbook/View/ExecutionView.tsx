@@ -2,7 +2,7 @@ import PageComponentProps from "../../PageComponentProps";
 import URL from "Common/Types/API/URL";
 import ObjectID from "Common/Types/ObjectID";
 import IconProp from "Common/Types/Icon/IconProp";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Route from "Common/Types/API/Route";
 import API from "Common/UI/Utils/API/API";
 import ModelAPI, { ListResult } from "Common/UI/Utils/ModelAPI/ModelAPI";
@@ -623,7 +623,7 @@ const ExecutionView: FunctionComponent<
               </div>
               <div className="text-sm text-gray-900">
                 {execution.startedAt
-                  ? OneUptimeDate.getDateAsLocalFormattedString(
+                  ? OperationsDate.getDateAsLocalFormattedString(
                       execution.startedAt,
                     )
                   : "—"}
@@ -635,7 +635,7 @@ const ExecutionView: FunctionComponent<
               </div>
               <div className="text-sm text-gray-900">
                 {execution.completedAt
-                  ? OneUptimeDate.getDateAsLocalFormattedString(
+                  ? OperationsDate.getDateAsLocalFormattedString(
                       execution.completedAt,
                     )
                   : execution.startedAt
@@ -686,7 +686,7 @@ const ExecutionView: FunctionComponent<
               {isRefreshing
                 ? "Refreshing now..."
                 : lastRefreshedAt
-                  ? `Live — last refreshed ${OneUptimeDate.getDateAsLocalFormattedString(
+                  ? `Live — last refreshed ${OperationsDate.getDateAsLocalFormattedString(
                       lastRefreshedAt,
                     )}. Auto-refreshing every ${pollSeconds} seconds.`
                   : `Live — auto-refreshing every ${pollSeconds} seconds.`}
@@ -814,7 +814,7 @@ const ExecutionView: FunctionComponent<
                               {stepExec.startedAt && (
                                 <span>
                                   Started{" "}
-                                  {OneUptimeDate.getDateAsLocalFormattedString(
+                                  {OperationsDate.getDateAsLocalFormattedString(
                                     new Date(stepExec.startedAt),
                                   )}
                                 </span>
@@ -822,7 +822,7 @@ const ExecutionView: FunctionComponent<
                               {stepExec.completedAt && (
                                 <span>
                                   Finished{" "}
-                                  {OneUptimeDate.getDateAsLocalFormattedString(
+                                  {OperationsDate.getDateAsLocalFormattedString(
                                     new Date(stepExec.completedAt),
                                   )}
                                 </span>

@@ -1,14 +1,14 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -22,7 +22,7 @@ provider "oneuptime" {
 # - First apply: CREATE succeeds, probe_version = "1.0.0" in state
 # - Second apply: READ returns wrapped format {"_type":"Version","value":"1.0.0"}
 # - Provider fails with "inconsistent result after apply"
-resource "oneuptime_probe" "test" {
+resource "cast_operations_probe" "test" {
   key           = "tf-probe-idem-${formatdate("YYYYMMDDhhmmss", timestamp())}"
   name          = "tf-probe-idempotency-test-${formatdate("YYYYMMDDhhmmss", timestamp())}"
   probe_version = "1.0.0"
@@ -33,11 +33,11 @@ resource "oneuptime_probe" "test" {
 }
 
 output "probe_id" {
-  value       = oneuptime_probe.test.id
+  value       = cast_operations_probe.test.id
   description = "ID of the created probe"
 }
 
 output "probe_version" {
-  value       = oneuptime_probe.test.probe_version
+  value       = cast_operations_probe.test.probe_version
   description = "Version of the created probe - should always be '1.0.0', never wrapped JSON"
 }

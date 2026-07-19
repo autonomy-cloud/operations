@@ -10,7 +10,7 @@ import TeamMemberService from "Common/Server/Services/TeamMemberService";
 import User from "Common/Models/DatabaseModels/User";
 import OnCallDutyPolicyEscalationRuleSchedule from "Common/Models/DatabaseModels/OnCallDutyPolicyEscalationRuleSchedule";
 import OnCallDutyPolicyEscalationRuleScheduleService from "Common/Server/Services/OnCallDutyPolicyEscalationRuleScheduleService";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 export default class StartOnCallUserTimeLog extends DataMigrationBase {
   public constructor() {
@@ -52,7 +52,7 @@ export default class StartOnCallUserTimeLog extends DataMigrationBase {
             onCallDutyPolicyEscalationRuleId:
               escalationRule.onCallDutyPolicyEscalationRuleId!,
             userId: escalationRule.userId!,
-            startsAt: OneUptimeDate.getCurrentDate(),
+            startsAt: OperationsDate.getCurrentDate(),
           });
         } catch (err) {
           logger.error(
@@ -107,7 +107,7 @@ export default class StartOnCallUserTimeLog extends DataMigrationBase {
                 escalationRule.onCallDutyPolicyEscalationRuleId!,
               userId: user.id!,
               teamId: escalationRule.teamId!,
-              startsAt: OneUptimeDate.getCurrentDate(),
+              startsAt: OperationsDate.getCurrentDate(),
             });
           } catch (err) {
             logger.error(
@@ -160,7 +160,7 @@ export default class StartOnCallUserTimeLog extends DataMigrationBase {
               schedule.onCallDutyPolicyEscalationRuleId!,
             userId: schedule.onCallDutyPolicySchedule!.currentUserIdOnRoster!,
             onCallDutyPolicyScheduleId: schedule.onCallDutyPolicyScheduleId!,
-            startsAt: OneUptimeDate.getCurrentDate(),
+            startsAt: OperationsDate.getCurrentDate(),
           });
         } catch (err) {
           logger.error(

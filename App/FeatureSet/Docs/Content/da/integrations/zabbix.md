@@ -130,7 +130,7 @@ Det grundlæggende workflow ovenfor _åbner_ hændelser. For også at _lukke_ de
 3. Fra dens **Yes**-output tilføjer du en **Find Incident**-blok, der slår den åbne hændelse op, du oprettede tidligere — match på det Zabbix `event_id`, du gemte i beskrivelsen eller en label.
 4. Forbind det til en **Update Incident**-blok og flyt hændelsen til din _løst_-tilstand.
 
-Fordi løsning afhænger af, hvordan du modellerer hændelsestilstande i dit projekt, skal du holde **opret**-stien som den pålidelige kerne og lægge løsningsstien til, når du har bekræftet, at events flyder korrekt. Se [Komponenter → Cast Operations data-komponenter](/docs/workflows/components#oneuptime-data-components).
+Fordi løsning afhænger af, hvordan du modellerer hændelsestilstande i dit projekt, skal du holde **opret**-stien som den pålidelige kerne og lægge løsningsstien til, når du har bekræftet, at events flyder korrekt. Se [Komponenter → Cast Operations data-komponenter](/docs/workflows/components#cast-operations-data-components).
 
 ## Afbildning af Zabbix-alvorligheder (valgfrit)
 

@@ -46,13 +46,13 @@ When you make a dashboard public (see [Sharing & Public Dashboards](/docs/dashbo
 
 1. **Public Dashboard** switch — if off, the public URL returns a 404.
 2. **Master Password** — if set, visitors enter a password before the dashboard appears.
-3. **IP Whitelist** (Scale plan) — if set, requests from other IPs are rejected.
+3. **IP Whitelist** — if set, requests from other IPs are rejected.
 
 You can combine any of these. The most locked-down combination is "Public on, password set, IP allowlist active" — useful for partner portals where you want all three layers.
 
 ## Data retention
 
-Dashboards themselves don't expire. The data they show follows your project's retention settings — metrics, logs, and traces are queryable for as long as your plan keeps them. A widget pointed at "the past 90 days" on a plan that keeps 30 days will show whatever's still stored.
+Dashboards themselves don't expire. The data they show follows your project's retention settings — metrics, logs, and traces are queryable for as long as the configured retention window keeps them. A widget pointed at "the past 90 days" with a 30-day retention window will show whatever is still stored.
 
 ## Duplicating a dashboard
 

@@ -46,8 +46,8 @@ curl https://your-operations-instance.com/api/status
 DockerでCast Operationsを実行している場合：
 
 ```bash
-docker images | grep oneuptime
-# タグを確認、例：oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# タグを確認、例：cast-operations/dashboard:7.0.123
 ```
 
 ### 方法4：Helmチャート
@@ -55,7 +55,7 @@ docker images | grep oneuptime
 Helmを使用している場合：
 
 ```bash
-helm list -n oneuptime
+helm list -n cast-operations
 # チャートのバージョンを確認
 ```
 
@@ -64,7 +64,7 @@ helm list -n oneuptime
 設定ファイルでバージョン変数を確認：
 
 ```bash
-grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
+grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/cast-operations/config
 ```
 
 ## プロバイダー設定テンプレート
@@ -74,7 +74,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 正確なビルド番号に置き換えてください
     }
@@ -82,9 +82,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # セルフホストURL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # セルフホストURL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -93,7 +93,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # 正確なバージョンに置き換えてください
     }
@@ -101,9 +101,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -115,7 +115,7 @@ provider "oneuptime" {
 # versions.tf
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Cast Operationsのバージョンと一致させる必要あり
     }
@@ -125,19 +125,19 @@ terraform {
   # オプション：チームコラボレーション用のリモートステートを使用
   backend "s3" {
     bucket = "your-terraform-state-bucket"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
 
 # variables.tf
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast OperationsインスタンスURL"
   type        = string
   default     = "https://operations.yourcompany.com"
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations APIキー"
   type        = string
   sensitive   = true
@@ -150,9 +150,9 @@ variable "environment" {
 }
 
 # providers.tf
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # variables.tf
@@ -163,21 +163,21 @@ variable "project_id" {
 
 # main.tf
 # チームを作成
-resource "oneuptime_team" "infrastructure" {
+resource "cast_operations_team" "infrastructure" {
   name        = "インフラストラクチャチーム"
   description = "インフラストラクチャ・運用チーム"
 }
 
-resource "oneuptime_team" "development" {
+resource "cast_operations_team" "development" {
   name        = "開発チーム"
   description = "アプリケーション開発チーム"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 }
 
 # インフラストラクチャモニター
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "${var.environment}-database"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "port"
   hostname     = "db.internal.yourcompany.com"
@@ -193,9 +193,9 @@ resource "oneuptime_monitor" "database" {
   }
 }
 
-resource "oneuptime_monitor" "application" {
+resource "cast_operations_monitor" "application" {
   name       = "${var.environment}-application"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "website"
   url          = "https://app.yourcompany.com/health"
@@ -213,10 +213,10 @@ resource "oneuptime_monitor" "application" {
 }
 
 # オンコールポリシー
-resource "oneuptime_on_call_policy" "infrastructure_oncall" {
+resource "cast_operations_on_call_policy" "infrastructure_oncall" {
   name       = "インフラストラクチャオンコール"
-  project_id = oneuptime_project.main.id
-  team_id    = oneuptime_team.infrastructure.id
+  project_id = cast_operations_project.main.id
+  team_id    = cast_operations_team.infrastructure.id
 
   schedules {
     name     = "24x7インフラストラクチャ"
@@ -234,12 +234,12 @@ resource "oneuptime_on_call_policy" "infrastructure_oncall" {
 }
 
 # アラートポリシー
-resource "oneuptime_alert_policy" "critical_infrastructure" {
+resource "cast_operations_alert_policy" "critical_infrastructure" {
   name       = "重要インフラストラクチャアラート"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   conditions {
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
     threshold  = "down"
   }
 
@@ -250,37 +250,37 @@ resource "oneuptime_alert_policy" "critical_infrastructure" {
 
   actions {
     type             = "oncall_escalation"
-    oncall_policy_id = oneuptime_on_call_policy.infrastructure_oncall.id
+    oncall_policy_id = cast_operations_on_call_policy.infrastructure_oncall.id
   }
 }
 
 # 内部ステータスページ
-resource "oneuptime_status_page" "internal" {
+resource "cast_operations_status_page" "internal" {
   name       = "内部サービスステータス"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   domain = "status.internal.yourcompany.com"
 
   components {
     name       = "データベース"
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
   }
 
   components {
     name       = "アプリケーション"
-    monitor_id = oneuptime_monitor.application.id
+    monitor_id = cast_operations_monitor.application.id
   }
 }
 
 # outputs.tf
 output "project_id" {
   description = "プロジェクトID"
-  value       = oneuptime_project.main.id
+  value       = cast_operations_project.main.id
 }
 
 output "status_page_url" {
   description = "ステータスページURL"
-  value       = "https://${oneuptime_status_page.internal.domain}"
+  value       = "https://${cast_operations_status_page.internal.domain}"
 }
 ```
 
@@ -290,7 +290,7 @@ output "status_page_url" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://operations-dev.yourcompany.com"
+cast_operations_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -298,7 +298,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://operations-staging.yourcompany.com"
+cast_operations_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -306,7 +306,7 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://operations.yourcompany.com"
+cast_operations_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
@@ -324,7 +324,7 @@ terraform state pull > backup-$(date +%Y%m%d).tfstate
 curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # 現在のプロバイダーバージョンをメモ
-terraform providers | grep oneuptime
+terraform providers | grep cast-operations
 ```
 
 ### 2. Cast Operationsインスタンスのアップグレード
@@ -337,7 +337,7 @@ terraform providers | grep oneuptime
 # terraformブロックのバージョンを更新
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # アップグレード後の新バージョン
     }
@@ -372,9 +372,9 @@ Terraformランナーが以下にアクセスできることを確認：
 Cast Operationsがプライベートネットワーク上にある場合：
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://10.0.1.100:443"  # 内部IP
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://10.0.1.100:443"  # 内部IP
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -384,10 +384,10 @@ provider "oneuptime" {
 
 ```bash
 # 環境変数を使用
-export ONEUPTIME_API_KEY="your-api-key"
+export CAST_OPERATIONS_API_KEY="your-api-key"
 
 # またはシークレット管理システムを使用
-export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
+export CAST_OPERATIONS_API_KEY=$(vault kv get -field=api_key secret/cast-operations)
 ```
 
 ### 2. 最小権限のAPIキー
@@ -402,9 +402,9 @@ export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
 
 ```hcl
 # TLS検証付きの例
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 
   # サポートされている場合の追加セキュリティオプション
   verify_ssl = true
@@ -417,9 +417,9 @@ provider "oneuptime" {
 Terraform自動化のモニターを作成：
 
 ```hcl
-resource "oneuptime_monitor" "terraform_runner" {
+resource "cast_operations_monitor" "terraform_runner" {
   name       = "Terraformランナーの正常性"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "heartbeat"
   interval     = "15m"
@@ -464,7 +464,7 @@ Error: API version incompatible
 
 ```bash
 # TLS検証を一時的にスキップ（本番環境では非推奨）
-export ONEUPTIME_SKIP_TLS_VERIFY=true
+export CAST_OPERATIONS_SKIP_TLS_VERIFY=true
 ```
 
 より良い解決策：システムの信頼ストアにCA証明書を追加する。
@@ -521,7 +521,7 @@ terraform/
 │       ├── main.tf
 │       └── terraform.tfvars
 └── modules/
-    └── oneuptime/
+    └── cast-operations/
         ├── main.tf
         ├── variables.tf
         └── outputs.tf

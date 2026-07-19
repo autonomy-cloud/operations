@@ -5,7 +5,7 @@ import Hostname from "../../../Types/API/Hostname";
 import Route from "../../../Types/API/Route";
 import URL from "../../../Types/API/URL";
 import Color from "../../../Types/Color";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Dictionary from "../../../Types/Dictionary";
 import Domain from "../../../Types/Domain";
 import Email from "../../../Types/Email";
@@ -130,7 +130,7 @@ export default class Validation {
   ): string | null {
     if (content && field.validation) {
       if (field.validation.dateShouldBeInTheFuture) {
-        if (OneUptimeDate.isInThePast(content.trim())) {
+        if (OperationsDate.isInThePast(content.trim())) {
           return translateValidationMessage(
             "{{field}} should be a future date.",
             { field: field.title || field.name || "" },

@@ -27,7 +27,7 @@ echo "  Verifying incident with server defaults via API..."
 echo "  Verifying incident severity..."
 echo "    Incident Severity ID: $INCIDENT_SEVERITY_ID"
 
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/incident-severity/${INCIDENT_SEVERITY_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/incident-severity/${INCIDENT_SEVERITY_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \
@@ -53,7 +53,7 @@ echo ""
 echo "  Verifying incident resource..."
 echo "    Incident ID: $INCIDENT_ID"
 
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/incident/${INCIDENT_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/incident/${INCIDENT_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \

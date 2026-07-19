@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### 自定义指标
 
-您可以使用 `oneuptime.captureMetric()` 函数从脚本中捕获自定义指标。这些指标存储在 Cast Operations 中，可以通过指标浏览器在控制台上制图。
+您可以使用 `cast-operations.captureMetric()` 函数从脚本中捕获自定义指标。这些指标存储在 Cast Operations 中，可以通过指标浏览器在控制台上制图。
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name`（字符串，必填）：指标名称（例如 `"api.response.time"`）。它将自动以 `custom.monitor.` 前缀存储。
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // 捕获简单指标
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // 捕获带属性的指标
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ return {
 - `axios`：您可以使用此模块发出 HTTP 请求。它是一个基于 Promise 的浏览器和 Node.js HTTP 客户端。
 - `crypto`：您可以使用此模块执行加密操作。它是一个内置的 Node.js 模块，提供加密功能，包括一组 OpenSSL 哈希、HMAC、密码、解密、签名和验证函数的封装。
 - `console.log`：您可以使用此模块将数据记录到控制台。这对调试很有用。
-- `oneuptime.captureMetric`：您可以使用此函数从脚本中捕获自定义指标。参见上方的自定义指标部分。
+- `cast-operations.captureMetric`：您可以使用此函数从脚本中捕获自定义指标。参见上方的自定义指标部分。
 - `http`：您可以使用此模块发出 HTTP 请求。它是内置的 Node.js 模块，提供 HTTP 客户端和服务器。
 - `https`：您可以使用此模块发出 HTTPS 请求。它是内置的 Node.js 模块，提供 HTTPS 客户端和服务器。
 

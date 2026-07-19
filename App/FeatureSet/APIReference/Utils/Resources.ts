@@ -2,7 +2,6 @@ import BaseModel from "Common/Models/DatabaseModels/DatabaseBaseModel/DatabaseBa
 import AnalyticsBaseModel from "Common/Models/AnalyticsModels/AnalyticsBaseModel/AnalyticsBaseModel";
 import ArrayUtil from "Common/Utils/Array";
 import Dictionary from "Common/Types/Dictionary";
-import { IsBillingEnabled } from "Common/Server/EnvironmentConfig";
 import Models from "Common/Models/DatabaseModels/Index";
 import AnalyticsModels from "Common/Models/AnalyticsModels/Index";
 
@@ -24,14 +23,7 @@ export default class ResourceUtil {
     const databaseResources: Array<ModelDocumentation> = Models.filter(
       (model: { new (): BaseModel }) => {
         const modelInstance: BaseModel = new model();
-        let showDocs: boolean = modelInstance.enableDocumentation;
-
-        // If billing is enabled, do not show master admin API docs
-        if (modelInstance.isMasterAdminApiDocs && IsBillingEnabled) {
-          showDocs = false;
-        }
-
-        return showDocs;
+        return modelInstance.enableDocumentation;
       },
     ).map((model: { new (): BaseModel }) => {
       const modelInstance: BaseModel = new model();
@@ -54,13 +46,9 @@ export default class ResourceUtil {
     const analyticsResources: Array<ModelDocumentation> =
       AnalyticsModels.filter((model: { new (): AnalyticsBaseModel }) => {
         const modelInstance: AnalyticsBaseModel = new model();
-        let showDocs: boolean =
+        const showDocs: boolean =
           modelInstance.enableDocumentation &&
           Boolean(modelInstance.crudApiPath);
-
-        if (modelInstance.isMasterAdminApiDocs && IsBillingEnabled) {
-          showDocs = false;
-        }
 
         return showDocs;
       }).map((model: { new (): AnalyticsBaseModel }) => {

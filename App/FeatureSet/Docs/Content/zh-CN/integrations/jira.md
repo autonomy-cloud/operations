@@ -108,14 +108,14 @@ Jira Cloud 使用 **Basic 认证**，需要你的邮箱和 API 令牌（base64 �
 
 3. 在工作流中，使用 **Find Incident** 模块通过存储的密钥定位事件，然后使用 **Update Incident** 模块将其移至已解决状态。
 
-如果你在步骤 4 中将 Jira 密钥存储在事件上，匹配就很简单了。参见[组件 → Cast Operations 数据组件](/docs/workflows/components#oneuptime-data-components)。
+如果你在步骤 4 中将 Jira 密钥存储在事件上，匹配就很简单了。参见[组件 → Cast Operations 数据组件](/docs/workflows/components#cast-operations-data-components)。
 
 ## 自定义工单
 
 API 模块正文的几个常见调整：
 
 - **优先级**——在 `fields` 中添加 `"priority": { "name": "High" }`。你可以通过 **Conditions** 分支 `{{Incident.incidentSeverity.name}}` 将 Cast Operations 严重程度映射到 Jira 优先级。
-- **标签**——添加 `"labels": ["oneuptime", "incident"]`。
+- **标签**——添加 `"labels": ["cast-operations", "incident"]`。
 - **经办人**——添加 `"assignee": { "id": "<accountId>" }`（Jira Cloud 使用账户 ID，不是用户名）。
 - **自定义字段**——使用 Jira 管理中该字段的 ID 添加 `"customfield_XXXXX": "..."`。
 

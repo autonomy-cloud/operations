@@ -40,7 +40,7 @@ const dataSourceOptions: DataSourceOptions = {
    */
   migrationsRun: RunDatabaseMigrationsOnBoot,
   entities: Entities,
-  applicationName: "oneuptime",
+  applicationName: "cast-operations",
   ssl: ShouldDatabaseSslEnable
     ? {
         rejectUnauthorized: DatabaseRejectUnauthorized,

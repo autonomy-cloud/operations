@@ -2,7 +2,7 @@
 
 Monitor Podman hosts, containers, and container logs with Cast Operations using a pre-configured OpenTelemetry Collector.
 
-The agent is published as a container image — `oneuptime/podman-agent` — that bundles a tuned collector config. Just pass a few environment variables and run it.
+The agent is published as a container image — `cast-operations/podman-agent` — that bundles a tuned collector config. Just pass a few environment variables and run it.
 
 ## Prerequisites
 
@@ -14,15 +14,15 @@ The agent is published as a container image — `oneuptime/podman-agent` — tha
 
 ```bash
 podman run -d \
-  --name oneuptime-podman-agent \
+  --name cast-operations-podman-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /run/podman/podman.sock:/run/podman/podman.sock:ro \
   -v /var/lib/containers/storage:/var/lib/containers/storage:ro \
-  -e ONEUPTIME_URL="https://visca.ai" \
-  -e ONEUPTIME_SERVICE_TOKEN="your-service-token" \
+  -e CAST_OPERATIONS_URL="https://visca.ai" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="your-service-token" \
   -e PODMAN_HOST_NAME="my-podman-host" \
-  oneuptime/podman-agent:release
+  cast-operations/podman-agent:release
 ```
 
 That's it. The host will appear automatically in the Podman section of Cast Operations.
@@ -32,8 +32,8 @@ That's it. The host will appear automatically in the Podman section of Cast Oper
 Create a `.env` file:
 
 ```bash
-ONEUPTIME_URL=https://visca.ai
-ONEUPTIME_SERVICE_TOKEN=your-service-token
+CAST_OPERATIONS_URL=https://visca.ai
+CAST_OPERATIONS_SERVICE_TOKEN=your-service-token
 PODMAN_HOST_NAME=my-podman-host
 ```
 
@@ -47,18 +47,18 @@ podman compose up -d
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `ONEUPTIME_URL` | Yes | Your Cast Operations instance URL |
-| `ONEUPTIME_SERVICE_TOKEN` | Yes | Telemetry ingestion service token (Settings → API Keys) |
+| `CAST_OPERATIONS_URL` | Yes | Your Cast Operations instance URL |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | Yes | Telemetry ingestion service token (Settings → API Keys) |
 | `PODMAN_HOST_NAME` | No | Friendly name for this host (default: `podman-host`) |
 
 ## Image Tags
 
 | Tag | Description |
 |-----|-------------|
-| `oneuptime/podman-agent:release` | Latest stable release (community) |
-| `oneuptime/podman-agent:enterprise-release` | Latest stable release (enterprise) |
-| `oneuptime/podman-agent:<version>` | Pinned version, e.g. `10.0.31` |
-| `ghcr.io/oneuptime/podman-agent:release` | Same image mirrored on GHCR |
+| `cast-operations/podman-agent:release` | Latest stable release (community) |
+| `cast-operations/podman-agent:enterprise-release` | Latest stable release (enterprise) |
+| `cast-operations/podman-agent:<version>` | Pinned version, e.g. `10.0.31` |
+| `ghcr.io/cast-operations/podman-agent:release` | Same image mirrored on GHCR |
 
 ## Collected Metrics
 
@@ -125,8 +125,8 @@ Then recreate (not just restart) the affected containers — the log driver is b
 ## Upgrading
 
 ```bash
-podman pull oneuptime/podman-agent:release
-podman rm -f oneuptime-podman-agent
+podman pull cast-operations/podman-agent:release
+podman rm -f cast-operations-podman-agent
 # Re-run the `podman run` command above
 ```
 
@@ -140,7 +140,7 @@ podman compose up -d
 ## Uninstalling
 
 ```bash
-podman rm -f oneuptime-podman-agent
+podman rm -f cast-operations-podman-agent
 ```
 
 ## Building the Image Locally
@@ -149,7 +149,7 @@ If you want to build the image yourself (for development or air-gapped environme
 
 ```bash
 npm run prerun  # generates Dockerfile from Dockerfile.tpl
-podman build -f ./PodmanAgent/Dockerfile -t oneuptime/podman-agent:local .
+podman build -f ./PodmanAgent/Dockerfile -t cast-operations/podman-agent:local .
 ```
 
 ## Troubleshooting
@@ -166,13 +166,13 @@ If metrics show up but the **Logs** tab is empty (or only shows logs from the ag
 
 ```bash
 # 1. Check the agent's filelog receiver — this should list each container log it is watching
-podman logs oneuptime-podman-agent 2>&1 | grep -E "Started watching file|no files match"
+podman logs cast-operations-podman-agent 2>&1 | grep -E "Started watching file|no files match"
 
 # 2. Check which log driver your containers are actually using
 podman inspect <container> --format '{{.HostConfig.LogConfig.Type}}'
 
 # 3. Check whether the log file the receiver expects actually exists
-podman run --rm --volumes-from oneuptime-podman-agent alpine:3.19 \
+podman run --rm --volumes-from cast-operations-podman-agent alpine:3.19 \
   sh -c 'ls /var/lib/containers/storage/overlay-containers/*/userdata/ctr.log 2>&1 | head'
 ```
 
@@ -195,18 +195,18 @@ The Podman host page filters by `resource.host.name` equal to the host's `hostId
 
 ```bash
 # Confirm the agent is stamping the expected host name
-podman inspect oneuptime-podman-agent --format '{{range .Config.Env}}{{println .}}{{end}}' | grep PODMAN_HOST_NAME
+podman inspect cast-operations-podman-agent --format '{{range .Config.Env}}{{println .}}{{end}}' | grep PODMAN_HOST_NAME
 ```
 
 ### Common Commands
 
 ```bash
 # Check agent status
-podman ps --filter name=oneuptime-podman-agent
+podman ps --filter name=cast-operations-podman-agent
 
 # View agent logs
-podman logs -f oneuptime-podman-agent
+podman logs -f cast-operations-podman-agent
 
 # Verify Podman socket access
-podman exec oneuptime-podman-agent ls -la /run/podman/podman.sock
+podman exec cast-operations-podman-agent ls -la /run/podman/podman.sock
 ```

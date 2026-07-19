@@ -49,18 +49,18 @@ Kjør Docker-kommandoen på en hvilken som helst vert i miljøet ditt som kan:
 - gjøre det du vil Bash/JavaScript-stegene skal gjøre (f.eks. SSH til andre verter, `kubectl`, snakke med en database).
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.ditt-domene.no \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.ditt-domene.no \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. Verifiser at agenten er tilkoblet
 
 Gå tilbake til **Runbooks → Innstillinger → Agents**. Innen ca. 60 sekunder skal agentens rad bytte til `Connected` med et ferskt **Last seen**-tidsstempel. Hvis den blir værende `Disconnected`:
 
-- Sjekk container-loggene (`docker logs oneuptime-runbook-agent`) for auth- eller nettverksfeil.
+- Sjekk container-loggene (`docker logs cast-operations-runbook-agent`) for auth- eller nettverksfeil.
 - Verifiser at verten når Cast Operations-URL-en med `curl`.
 - Verifiser at ID og nøkkel ble kopiert uten mellomrom.
 
@@ -116,7 +116,7 @@ Agenten leser disse ved oppstart:
 
 | Variabel                                  | Påkrevd | Standard | Notater                                                                          |
 | ----------------------------------------- | ------- | -------- | -------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | ja      | —        | Base-URL for Cast Operations-instansen din, f.eks. `https://operations.ditt-domene.no`. |
+| `CAST_OPERATIONS_URL`                           | ja      | —        | Base-URL for Cast Operations-instansen din, f.eks. `https://operations.ditt-domene.no`. |
 | `RUNBOOK_AGENT_ID`                        | ja      | —        | UUID'en som vises i agentens oppsetts-modal.                                     |
 | `RUNBOOK_AGENT_KEY`                       | ja      | —        | Hemmeligheten som vises i agentens oppsetts-modal.                               |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | nei     | `5000`   | Hvor ofte agenten spør etter nye jobber.                                         |

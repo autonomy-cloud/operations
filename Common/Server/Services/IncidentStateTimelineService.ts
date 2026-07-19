@@ -12,7 +12,7 @@ import UserService from "./UserService";
 import IncidentMemberService from "./IncidentMemberService";
 import IncidentRoleService from "./IncidentRoleService";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import { JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
@@ -24,7 +24,7 @@ import IncidentState from "../../Models/DatabaseModels/IncidentState";
 import IncidentStateTimeline from "../../Models/DatabaseModels/IncidentStateTimeline";
 import IncidentMember from "../../Models/DatabaseModels/IncidentMember";
 import IncidentRole from "../../Models/DatabaseModels/IncidentRole";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import logger, { LogAttributes } from "../Utils/Logger";
 import IncidentFeedService from "./IncidentFeedService";
 import AIIncidentPostmortemRunner from "../Utils/AI/SRE/IncidentPostmortemRunner";
@@ -38,9 +38,6 @@ import Semaphore, { SemaphoreMutex } from "../Infrastructure/Semaphore";
 export class Service extends DatabaseService<IncidentStateTimeline> {
   public constructor() {
     super(IncidentStateTimeline);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("startsAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -92,7 +89,7 @@ export class Service extends DatabaseService<IncidentStateTimeline> {
       }
 
       if (!createBy.data.startsAt) {
-        createBy.data.startsAt = OneUptimeDate.getCurrentDate();
+        createBy.data.startsAt = OperationsDate.getCurrentDate();
       }
 
       if (
@@ -633,7 +630,7 @@ ${createdItem.rootCause}`,
       projectId: createdItem.projectId!,
       isAcknowledgedState: incidentState?.isAcknowledgedState || false,
       isResolvedState: incidentState?.isResolvedState || false,
-      stateChangedAt: createdItem.startsAt || OneUptimeDate.getCurrentDate(),
+      stateChangedAt: createdItem.startsAt || OperationsDate.getCurrentDate(),
       previousStateWasResolved:
         onCreate.carryForward.statusTimelineBeforeThisStatus?.incidentState
           ?.isResolvedState || false,

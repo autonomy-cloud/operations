@@ -140,15 +140,15 @@ export default class MicrosoftTeamsIncidentEpisodeActions {
         return;
       }
 
-      const oneUptimeUserId: ObjectID =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
+      const operationsUserId: ObjectID =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId({
           teamsUserId: data.teamsRequest.userId || "",
           projectId: data.teamsRequest.projectId,
         });
 
       await IncidentEpisodeService.acknowledgeEpisode(
         new ObjectID(episodeId),
-        oneUptimeUserId,
+        operationsUserId,
       );
 
       logger.debug("Incident episode acknowledged successfully");
@@ -203,15 +203,15 @@ export default class MicrosoftTeamsIncidentEpisodeActions {
         return;
       }
 
-      const oneUptimeUserId: ObjectID =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
+      const operationsUserId: ObjectID =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId({
           teamsUserId: data.teamsRequest.userId || "",
           projectId: data.teamsRequest.projectId,
         });
 
       await IncidentEpisodeService.resolveEpisode(
         new ObjectID(episodeId),
-        oneUptimeUserId,
+        operationsUserId,
       );
 
       logger.debug("Incident episode resolved successfully");
@@ -227,7 +227,7 @@ export default class MicrosoftTeamsIncidentEpisodeActions {
     actionValue: string;
     value: JSONObject;
     projectId: ObjectID;
-    oneUptimeUserId: ObjectID;
+    operationsUserId: ObjectID;
     turnContext: TurnContext;
   }): Promise<void> {
     const {
@@ -235,7 +235,7 @@ export default class MicrosoftTeamsIncidentEpisodeActions {
       actionValue,
       value,
       projectId,
-      oneUptimeUserId,
+      operationsUserId,
       turnContext,
     } = data;
 
@@ -251,7 +251,7 @@ export default class MicrosoftTeamsIncidentEpisodeActions {
 
       await IncidentEpisodeService.acknowledgeEpisode(
         new ObjectID(actionValue),
-        oneUptimeUserId,
+        operationsUserId,
       );
       await turnContext.sendActivity("Incident episode acknowledged.");
       return;
@@ -270,7 +270,7 @@ export default class MicrosoftTeamsIncidentEpisodeActions {
 
       await IncidentEpisodeService.resolveEpisode(
         new ObjectID(actionValue),
-        oneUptimeUserId,
+        operationsUserId,
       );
       await turnContext.sendActivity("Incident episode resolved.");
       return;
@@ -368,7 +368,7 @@ export default class MicrosoftTeamsIncidentEpisodeActions {
           incidentEpisodeId: episodeId,
           note: note.toString(),
           projectId: projectId,
-          userId: oneUptimeUserId,
+          userId: operationsUserId,
         });
 
         await turnContext.sendActivity("Note added successfully.");

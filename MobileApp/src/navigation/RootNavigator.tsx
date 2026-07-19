@@ -20,7 +20,7 @@ import { View, ActivityIndicator } from "react-native";
 const prefix: string = Linking.createURL("/");
 
 const linking: React.ComponentProps<typeof NavigationContainer>["linking"] = {
-  prefixes: [prefix, "oneuptime://"],
+  prefixes: [prefix, "cast-operations://"],
   /*
    * Disable automatic deep link URL resolution via NavigationContainer.
    * On Android with React Native's new architecture (Fabric), the async

@@ -5,7 +5,7 @@ import Icon from "Common/UI/Components/Icon/Icon";
 import Card from "Common/UI/Components/Card/Card";
 import LabelsElement from "Common/UI/Components/Label/Labels";
 import Label from "Common/Models/DatabaseModels/Label";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import AppLink from "../AppLink/AppLink";
 
 export interface ResourceOverviewChip {
@@ -205,7 +205,7 @@ const ResourceOverview: FunctionComponent<ResourceOverviewProps> = (
   const status: string = (props.status || "").toLowerCase();
   const isConnected: boolean = status === "connected" || status === "active";
   const lastSeenText: string = props.lastSeenAt
-    ? OneUptimeDate.fromNow(props.lastSeenAt)
+    ? OperationsDate.fromNow(props.lastSeenAt)
     : "never";
 
   const statusBadgeClass: string = isConnected

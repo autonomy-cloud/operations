@@ -23,14 +23,14 @@ const LlmDocumentationPage: FunctionComponent<PageComponentProps> = (
           Send AI / LLM telemetry to Cast Operations
         </h2>
         <p className="mt-2 text-sm text-gray-600">
-          Cast Operations understands the OpenTelemetry GenAI semantic conventions (
-          <code className="font-mono text-xs">gen_ai.*</code>). Instrument your
-          LLM or agent app with any GenAI OpenTelemetry library — for example{" "}
-          <span className="font-medium">OpenLLMetry</span> (Traceloop),{" "}
-          <span className="font-medium">OpenInference</span> (Arize), or the
-          native OpenTelemetry instrumentations for OpenAI, Anthropic,
-          LangChain, LlamaIndex and CrewAI — then point its OTLP exporter at
-          Cast Operations using the connection settings below.
+          Cast Operations understands the OpenTelemetry GenAI semantic
+          conventions (<code className="font-mono text-xs">gen_ai.*</code>).
+          Instrument your LLM or agent app with any GenAI OpenTelemetry library
+          — for example <span className="font-medium">OpenLLMetry</span>{" "}
+          (Traceloop), <span className="font-medium">OpenInference</span>{" "}
+          (Arize), or the native OpenTelemetry instrumentations for OpenAI,
+          Anthropic, LangChain, LlamaIndex and CrewAI — then point its OTLP
+          exporter at Cast Operations using the connection settings below.
         </p>
         <p className="mt-2 text-sm text-gray-600">
           Once spans arrive, they appear in the{" "}

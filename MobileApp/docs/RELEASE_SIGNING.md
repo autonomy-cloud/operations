@@ -101,7 +101,7 @@ If you haven't already:
 
 1. Go to [Identifiers](https://developer.apple.com/account/resources/identifiers/list) in the Apple Developer portal
 2. Click **+**, select **App IDs**, then **App**
-3. Set the Bundle ID to `com.oneuptime.oncall` (Explicit)
+3. Set the Bundle ID to `com.cast-operations.oncall` (Explicit)
 4. Enable any capabilities your app uses (e.g., Push Notifications)
 5. Click **Register**
 
@@ -110,7 +110,7 @@ If you haven't already:
 1. Go to [Profiles](https://developer.apple.com/account/resources/profiles/list) in the Apple Developer portal
 2. Click **+** to create a new profile
 3. Select **App Store Connect** (under Distribution) and click Continue
-4. Select the App ID `com.oneuptime.oncall`
+4. Select the App ID `com.cast-operations.oncall`
 5. Select the distribution certificate you created in step 1
 6. Name the profile **Cast Operations Distribution** (this must match the value in `ExportOptions.plist`)
 7. Click **Generate** and download the `.mobileprovision` file
@@ -118,7 +118,7 @@ If you haven't already:
 ### 6. Base64-encode the provisioning profile
 
 ```bash
-base64 -i OneUptime_Distribution.mobileprovision -o profile.b64
+base64 -i Operations_Distribution.mobileprovision -o profile.b64
 cat profile.b64
 ```
 

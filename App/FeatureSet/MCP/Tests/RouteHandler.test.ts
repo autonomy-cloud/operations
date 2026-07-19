@@ -21,7 +21,7 @@ import http from "http";
 import { AddressInfo } from "net";
 
 // Avoid real network calls from tool execution and keep logs quiet.
-jest.mock("../Services/OneUptimeApiService");
+jest.mock("../Services/OperationsApiService");
 jest.mock("Common/Server/Utils/Logger", () => {
   return {
     __esModule: true,
@@ -37,9 +37,9 @@ jest.mock("Common/Server/Utils/Logger", () => {
 
 import { createExpressApp } from "Common/Server/Utils/Express";
 import { setupMCPRoutes } from "../Handlers/RouteHandler";
-import OneUptimeApiService from "../Services/OneUptimeApiService";
+import OperationsApiService from "../Services/OperationsApiService";
 import { McpToolInfo } from "../Types/McpTypes";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 
 const TOOLS: McpToolInfo[] = [
@@ -51,7 +51,7 @@ const TOOLS: McpToolInfo[] = [
       properties: { name: { type: "string" } },
     },
     modelName: "Project",
-    operation: OneUptimeOperation.Create,
+    operation: OperationsOperation.Create,
     modelType: ModelType.Database,
     singularName: "Project",
     pluralName: "Projects",
@@ -188,7 +188,7 @@ describe("MCP RouteHandler (stateless mode)", () => {
       expect(res.status).toBe(200);
       // The whole bug class disappears because there is no session id to lose.
       expect(res.sessionId).toBeNull();
-      expect(res.json?.result?.serverInfo?.name).toBe("oneuptime-mcp");
+      expect(res.json?.result?.serverInfo?.name).toBe("cast-operations-mcp");
     });
 
     it("tools/list works with no session id and no prior initialize", async () => {
@@ -269,7 +269,7 @@ describe("MCP RouteHandler (stateless mode)", () => {
       const json: any = await res.json();
 
       expect(res.status).toBe(200);
-      expect(json.name).toBe("oneuptime-mcp");
+      expect(json.name).toBe("cast-operations-mcp");
       expect(json.status).toBe("running");
     });
 
@@ -320,12 +320,12 @@ describe("MCP RouteHandler (stateless mode)", () => {
       expect(result.isError).toBe(true);
       expect(result.content?.[0]?.text).toMatch(/API key is required/i);
       expect(
-        OneUptimeApiService.executeOperation as jest.Mock,
+        OperationsApiService.executeOperation as jest.Mock,
       ).not.toHaveBeenCalled();
     });
 
     it("tools/call passes the request's API key to executeOperation", async () => {
-      (OneUptimeApiService.executeOperation as jest.Mock).mockResolvedValue({
+      (OperationsApiService.executeOperation as jest.Mock).mockResolvedValue({
         _id: "proj_1",
         name: "Acme",
       } as never);
@@ -347,10 +347,10 @@ describe("MCP RouteHandler (stateless mode)", () => {
 
       // Signature: (tableName, operation, modelType, apiPath, args, apiKey)
       expect(
-        OneUptimeApiService.executeOperation as jest.Mock,
+        OperationsApiService.executeOperation as jest.Mock,
       ).toHaveBeenCalledTimes(1);
       expect(
-        OneUptimeApiService.executeOperation as jest.Mock,
+        OperationsApiService.executeOperation as jest.Mock,
       ).toHaveBeenCalledWith(
         expect.anything(),
         expect.anything(),
@@ -362,7 +362,7 @@ describe("MCP RouteHandler (stateless mode)", () => {
     });
 
     it("reads the API key from a Bearer Authorization header too", async () => {
-      (OneUptimeApiService.executeOperation as jest.Mock).mockResolvedValue({
+      (OperationsApiService.executeOperation as jest.Mock).mockResolvedValue({
         _id: "proj_2",
       } as never);
 
@@ -378,7 +378,7 @@ describe("MCP RouteHandler (stateless mode)", () => {
       );
 
       expect(
-        OneUptimeApiService.executeOperation as jest.Mock,
+        OperationsApiService.executeOperation as jest.Mock,
       ).toHaveBeenCalledWith(
         expect.anything(),
         expect.anything(),

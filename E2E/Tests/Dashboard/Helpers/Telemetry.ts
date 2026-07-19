@@ -9,7 +9,7 @@ import { gotoProjectPage } from "./ProductOnboarding";
  * These mirror the OTLP-ingest pattern already used by the product onboarding
  * specs (CephProduct / DockerSwarmProduct): mint a real telemetry ingestion
  * key, POST a minimal OTLP/JSON fixture straight to the /otlp/v1/* endpoints
- * with the "x-oneuptime-token" header, then assert the ingested data surfaces
+ * with the "x-cast-operations-token" header, then assert the ingested data surfaces
  * on the corresponding dashboard page.
  */
 
@@ -141,7 +141,7 @@ export const postOtlpLogs: PostOtlpLogsFunction = async (data: {
   const response: APIResponse = await data.page.request.post(otlpLogsUrl, {
     headers: {
       "content-type": "application/json",
-      "x-oneuptime-token": data.ingestionKey,
+      "x-cast-operations-token": data.ingestionKey,
     },
     data: {
       resourceLogs: [
@@ -205,7 +205,7 @@ export const postOtlpTraces: PostOtlpTracesFunction = async (data: {
   const response: APIResponse = await data.page.request.post(otlpTracesUrl, {
     headers: {
       "content-type": "application/json",
-      "x-oneuptime-token": data.ingestionKey,
+      "x-cast-operations-token": data.ingestionKey,
     },
     data: {
       resourceSpans: [
@@ -268,7 +268,7 @@ export const postOtlpMetrics: PostOtlpMetricsFunction = async (data: {
   const response: APIResponse = await data.page.request.post(otlpMetricsUrl, {
     headers: {
       "content-type": "application/json",
-      "x-oneuptime-token": data.ingestionKey,
+      "x-cast-operations-token": data.ingestionKey,
     },
     data: {
       resourceMetrics: [

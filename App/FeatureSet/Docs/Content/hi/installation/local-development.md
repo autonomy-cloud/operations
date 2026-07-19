@@ -10,7 +10,7 @@ Local development के लिए आपको docker-compose.dev.yml फ़ा
 ```
 # इस repo को clone करें और उसमें cd करें।
 git clone https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # config.example.env को config.env पर Copy करें
 cp config.example.env config.env

@@ -24,7 +24,7 @@ import AnalyticsModelAPI, {
 } from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import Card, { CardButtonSchema } from "Common/UI/Components/Card/Card";
@@ -92,8 +92,8 @@ const PodmanHostContainers: FunctionComponent<
         return;
       }
 
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveMinutes(endDate, -5);
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveMinutes(endDate, -5);
 
       const metricNames: Array<string> = [
         "container.cpu.utilization",

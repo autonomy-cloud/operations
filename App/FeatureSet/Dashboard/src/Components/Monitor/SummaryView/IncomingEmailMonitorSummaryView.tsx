@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IncomingEmailMonitorRequest from "Common/Types/Monitor/IncomingEmailMonitor/IncomingEmailMonitorRequest";
 import Button, { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import Detail from "Common/UI/Components/Detail/Detail";
@@ -54,7 +54,7 @@ const IncomingEmailMonitorSummaryView: FunctionComponent<ComponentProps> = (
           title="Last Email Received At"
           value={
             props.incomingEmailMonitorRequest?.emailReceivedAt
-              ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+              ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   props.incomingEmailMonitorRequest.emailReceivedAt,
                 )
               : "-"
@@ -76,7 +76,7 @@ const IncomingEmailMonitorSummaryView: FunctionComponent<ComponentProps> = (
             title="Monitor Status Check At"
             value={
               props.incomingEmailMonitorHeartbeatCheckedAt
-                ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                     props.incomingEmailMonitorHeartbeatCheckedAt,
                   )
                 : "-"

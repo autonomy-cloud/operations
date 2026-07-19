@@ -104,12 +104,12 @@ build_image() {
 
 	local -a tag_args
 	tag_args=(
-		--tag "oneuptime/${IMAGE}:${SANITIZED_VERSION}${ARCH_SUFFIX}"
-		--tag "ghcr.io/oneuptime/${IMAGE}:${SANITIZED_VERSION}${ARCH_SUFFIX}"
+		--tag "cast-operations/${IMAGE}:${SANITIZED_VERSION}${ARCH_SUFFIX}"
+		--tag "ghcr.io/cast-operations/${IMAGE}:${SANITIZED_VERSION}${ARCH_SUFFIX}"
 	)
 	for tag_suffix in "${extras[@]+"${extras[@]}"}"; do
-		tag_args+=(--tag "oneuptime/${IMAGE}:${tag_suffix}${ARCH_SUFFIX}")
-		tag_args+=(--tag "ghcr.io/oneuptime/${IMAGE}:${tag_suffix}${ARCH_SUFFIX}")
+		tag_args+=(--tag "cast-operations/${IMAGE}:${tag_suffix}${ARCH_SUFFIX}")
+		tag_args+=(--tag "ghcr.io/cast-operations/${IMAGE}:${tag_suffix}${ARCH_SUFFIX}")
 	done
 
 	# No --cache-from/--cache-to: the GHA remote cache was removed because GitHub

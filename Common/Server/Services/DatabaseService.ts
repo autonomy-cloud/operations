@@ -46,7 +46,7 @@ import PartialEntity from "../../Types/Database/PartialEntity";
 import { TableColumnMetadata } from "../../Types/Database/TableColumn";
 import TableColumnType from "../../Types/Database/TableColumnType";
 import { getUniqueColumnsBy } from "../../Types/Database/UniqueColumnBy";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Dictionary from "../../Types/Dictionary";
 import BadDataException from "../../Types/Exception/BadDataException";
 import DatabaseNotConnectedException from "../../Types/Exception/DatabaseNotConnectedException";
@@ -604,7 +604,7 @@ class DatabaseService<TBaseModel extends BaseModel> extends BaseService {
 
       if (this.model.hasColumn("archivedAt")) {
         (data as any)["archivedAt"] = isArchivedValue
-          ? OneUptimeDate.getCurrentDate()
+          ? OperationsDate.getCurrentDate()
           : null;
       }
 

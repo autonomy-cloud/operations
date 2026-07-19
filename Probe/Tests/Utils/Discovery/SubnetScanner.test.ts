@@ -1,5 +1,5 @@
 // Set required env vars before importing modules that pull in Config.ts.
-process.env["ONEUPTIME_URL"] = "https://visca.ai";
+process.env["CAST_OPERATIONS_URL"] = "https://visca.ai";
 process.env["PROBE_KEY"] = "test-probe-key";
 
 import SubnetScanner from "../../../Utils/Discovery/SubnetScanner";

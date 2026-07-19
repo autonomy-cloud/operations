@@ -18,7 +18,7 @@ import { JSONObject } from "../../../Types/JSON";
  *
  *   { "kind": "Node" | "Service" | ..., "data": { ...native payload... } }
  *
- * with the same `kind` set as the `oneuptime.dockerswarm.kind` log-record
+ * with the same `kind` set as the `cast-operations.dockerswarm.kind` log-record
  * attribute. Each kind has a dedicated parser that promotes a subset of
  * fields to first-class columns and stashes the rest in `attributes`.
  *
@@ -63,7 +63,7 @@ function resourceOf(
 
 describe("DockerSwarmInventoryExtractor - kind discriminator", () => {
   test("INVENTORY_KIND_ATTRIBUTE is the agent's log-record attribute key", () => {
-    expect(INVENTORY_KIND_ATTRIBUTE).toBe("oneuptime.dockerswarm.kind");
+    expect(INVENTORY_KIND_ATTRIBUTE).toBe("cast-operations.dockerswarm.kind");
   });
 
   test("INVENTORIED_DOCKER_SWARM_KINDS lists all eight modeled kinds", () => {

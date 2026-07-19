@@ -143,7 +143,7 @@ Cast Operations provides templates for common host monitoring scenarios:
 To use Host monitoring, you need to:
 
 1. Install the Cast Operations Infrastructure Agent on each host you want to monitor
-2. Configure it with your `ONEUPTIME_URL` and service token so it ships OTel telemetry to your project
+2. Configure it with your `CAST_OPERATIONS_URL` and service token so it ships OTel telemetry to your project
 3. Confirm metrics appear on the host's **Metrics** tab in the Hosts product
 
 Once telemetry arrives, the host is auto-registered and becomes selectable in the Host monitor's host dropdown.

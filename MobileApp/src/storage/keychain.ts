@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const STORAGE_KEY: string = "com.oneuptime.oncall.tokens";
+const STORAGE_KEY: string = "com.cast-operations.oncall.tokens";
 
 export interface StoredTokens {
   accessToken: string;

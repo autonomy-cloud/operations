@@ -33,24 +33,24 @@ Sett `PROBE_INGRESS_PORT` til porten du vil at lytteren skal binde til. Enhver v
 ### Docker
 
 ```bash
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 Hvis du ikke bruker `--network host`, publiser inngangs-porten eksplisitt:
 
 ```bash
-docker run --name oneuptime-probe \
+docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 ### Docker Compose
@@ -59,13 +59,13 @@ docker run --name oneuptime-probe \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -78,25 +78,25 @@ services:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
@@ -107,10 +107,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oneuptime-probe-ingress
+  name: cast-operations-probe-ingress
 spec:
   selector:
-    app: oneuptime-probe
+    app: cast-operations-probe
   ports:
     - name: ingress
       port: 3875
@@ -118,7 +118,7 @@ spec:
   type: ClusterIP
 ```
 
-Interne tjenester kan deretter sende hjerteslag til `http://oneuptime-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
+Interne tjenester kan deretter sende hjerteslag til `http://cast-operations-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
 
 ## Sende forespørsler til proben
 
@@ -167,19 +167,19 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 | `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`                  | Tidsavbrudd (ms) for hvert videresendingsforsøk til Cast Operations. Minimum `1000`.                      |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`                      | Antall nye forsøk før proben gir opp på en videresending. Sett til `0` for å deaktivere nye forsøk. |
 
-Standard probe-variabler (`PROBE_KEY`, `PROBE_ID`, `ONEUPTIME_URL`, proxy-variabler) gjelder alle – se [Egendefinerte prober](/docs/probe/custom-probe) for den fullstendige listen.
+Standard probe-variabler (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, proxy-variabler) gjelder alle – se [Egendefinerte prober](/docs/probe/custom-probe) for den fullstendige listen.
 
 ## Sikkerhetshensyn
 
 - **Endepunktet er uautentisert av design** – den hemmelige nøkkelen i URL-stien _er_ autentiseringen, akkurat som den er på det offentlige `visca.ai`-endepunktet. Behandle den hemmelige nøkkelen som en legitimasjon.
 - **Bind bare til et privat grensesnitt.** Inngangs-lytteren skal ikke være tilgjengelig fra det offentlige internett. Bruk en nettverkspolicy, brannmurregel eller `ClusterIP`-tjeneste for å begrense tilgangen.
-- **Bruk HTTPS-terminering hvis du krever kryptering under overføring.** Probens lytter snakker vanlig HTTP. Plasser den bak en intern lastbalanser/inngangs-kontroller hvis du trenger TLS på det innkommende hoppet. Videresendingssegmentet fra probe → Cast Operations bruker alltid HTTPS (forutsatt at `ONEUPTIME_URL` er `https://`).
+- **Bruk HTTPS-terminering hvis du krever kryptering under overføring.** Probens lytter snakker vanlig HTTP. Plasser den bak en intern lastbalanser/inngangs-kontroller hvis du trenger TLS på det innkommende hoppet. Videresendingssegmentet fra probe → Cast Operations bruker alltid HTTPS (forutsatt at `CAST_OPERATIONS_URL` er `https://`).
 - **Ressursgrenser.** Lytteren aksepterer forespørselskropper opptil 50 MB. Hvis du trenger en strammere grense, plasser en omvendt proxy foran.
 
 ## Feilsøking
 
 - **Proben logger `Probe ingress listener started on port <port>` ved oppstart** – bekrefter at lytteren er oppe. Hvis du ikke ser denne linjen, er `PROBE_INGRESS_PORT` ikke satt, `0` eller ugyldig.
-- **`Probe ingress: failed to forward to <url> after N attempts`** – proben kunne ikke nå Cast Operations. Sjekk probens utgående tilkobling, proxy-innstillinger og verdien av `ONEUPTIME_URL`.
+- **`Probe ingress: failed to forward to <url> after N attempts`** – proben kunne ikke nå Cast Operations. Sjekk probens utgående tilkobling, proxy-innstillinger og verdien av `CAST_OPERATIONS_URL`.
 - **`Probe ingress: probe ID not available, forwarding without it`** – proben har ikke registrert seg ennå. Videresendingen lykkes likevel; hjerteslaget vil rett og slett ikke bli tilskrevet en probe.
 - **Hjerteslag vises i Cast Operations, men ikke via proben** – bekreft at tjenesten din treffer `http://<probe-host>:<port>/...` og ikke den offentlige URL-en. En feilkonfigurert DNS eller `/etc/hosts`-oppføring er den vanlige årsaken.
 

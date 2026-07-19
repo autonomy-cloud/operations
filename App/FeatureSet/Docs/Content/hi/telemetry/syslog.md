@@ -6,9 +6,9 @@ OpenTelemetry Ingest service अब native Syslog payloads accept करती �
 
 ## पूर्व आवश्यकताएं
 
-- **Telemetry Ingestion Token** – _Project Settings → Telemetry Ingestion Keys_ से एक बनाएं और `x-oneuptime-token` value copy करें।
+- **Telemetry Ingestion Token** – _Project Settings → Telemetry Ingestion Keys_ से एक बनाएं और `x-cast-operations-token` value copy करें।
 - **Syslog forwarder** – HTTP POST requests भेजने में सक्षम कोई भी tool (उदाहरण के लिए `curl`, `rsyslog` `omhttp` के माध्यम से, या `syslog-ng` HTTP destination plugin के साथ)।
-- **Service name (वैकल्पिक)** – incoming logs को एक specific telemetry service के अंतर्गत group करने के लिए `x-oneuptime-service-name` header सेट करें।
+- **Service name (वैकल्पिक)** – incoming logs को एक specific telemetry service के अंतर्गत group करने के लिए `x-cast-operations-service-name` header सेट करें।
 
 ## Endpoint
 
@@ -17,7 +17,7 @@ POST https://visca.ai/syslog/v1/logs
 ```
 
 - यदि आप Cast Operations self-host कर रहे हैं तो `visca.ai` को अपने host से बदलें।
-- Request में हमेशा `x-oneuptime-token` header शामिल करें।
+- Request में हमेशा `x-cast-operations-token` header शामिल करें।
 
 ## Request Body
 
@@ -44,8 +44,8 @@ Newline-delimited Syslog strings या एक JSON payload `messages` array क
 curl \
   -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
-  -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
-  -H "x-oneuptime-service-name: production-web" \
+  -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
+  -H "x-cast-operations-service-name: production-web" \
   -d '{
     "messages": [
       "<34>1 2025-03-02T14:48:05.003Z web-01 nginx 7421 ID47 [env@32473 host=\"web-01\"] 502 on /api/login"
@@ -59,7 +59,7 @@ curl \
    ```bash
    sudo apt-get install rsyslog-omhttp
    ```
-2. `/etc/rsyslog.d/oneuptime.conf` में destination append करें:
+2. `/etc/rsyslog.d/cast-operations.conf` में destination append करें:
 
    ```
    module(load="omhttp")
@@ -77,8 +77,8 @@ curl \
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
-     header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
-     header="x-oneuptime-service-name: rsyslog-demo"
+     header="x-cast-operations-token: YOUR_TELEMETRY_KEY"
+     header="x-cast-operations-service-name: rsyslog-demo"
      template="Cast OperationsJson"
    )
    ```
@@ -102,7 +102,7 @@ Cast Operations automatically प्रत्येक log entry में न�
 
 ## समस्या निवारण
 
-- **HTTP 401 या खाली results** – सत्यापित करें कि `x-oneuptime-token` header उस project का है जो logs receive कर रहा है।
+- **HTTP 401 या खाली results** – सत्यापित करें कि `x-cast-operations-token` header उस project का है जो logs receive कर रहा है।
 - **कोई logs नहीं दिख रहे** – confirm करें कि request body में actual syslog lines हैं। खाली bodies HTTP 400 के साथ reject होती हैं।
-- **अप्रत्याशित service name** – default detection logic को override करने के लिए `x-oneuptime-service-name` सेट करें।
+- **अप्रत्याशित service name** – default detection logic को override करने के लिए `x-cast-operations-service-name` सेट करें।
 - **Large bursts** – प्रति request 1,000 lines तक batching supported है। बड़े bursts queued और asynchronously processed होते हैं।

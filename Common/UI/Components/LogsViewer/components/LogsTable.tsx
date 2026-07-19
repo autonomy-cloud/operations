@@ -2,7 +2,7 @@ import React, { Fragment, FunctionComponent, ReactElement } from "react";
 import Log from "../../../../Models/AnalyticsModels/Log";
 import Service from "../../../../Models/DatabaseModels/Service";
 import Dictionary from "../../../../Types/Dictionary";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import CopyTextButton from "../../CopyTextButton/CopyTextButton";
 import ComponentLoader from "../../ComponentLoader/ComponentLoader";
 import SeverityBadge from "./SeverityBadge";
@@ -278,7 +278,7 @@ const LogsTable: FunctionComponent<LogsTableProps> = (
                             key={columnId}
                           >
                             {log.time
-                              ? OneUptimeDate.getDateAsUserFriendlyFormattedString(
+                              ? OperationsDate.getDateAsUserFriendlyFormattedString(
                                   log.time,
                                 )
                               : "-"}

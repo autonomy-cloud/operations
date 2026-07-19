@@ -33,7 +33,7 @@ Cast Operations install करने के लिए:
 ```
 # केवल release branch के साथ इस repo clone करें और उसमें cd करें।
 git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # config.example.env को config.env पर Copy करें
 cp config.example.env config.env

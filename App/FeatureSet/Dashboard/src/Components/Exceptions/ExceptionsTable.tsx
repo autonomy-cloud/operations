@@ -33,7 +33,7 @@ import API from "Common/UI/Utils/API/API";
 import ListResult from "Common/Types/BaseDatabase/ListResult";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
 import IconProp from "Common/Types/Icon/IconProp";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import UserUtil from "Common/UI/Utils/User";
 
 export interface ComponentProps {
@@ -226,7 +226,7 @@ const TelemetryExceptionTable: FunctionComponent<ComponentProps> = (
                         modelType: TelemetryException,
                         data: {
                           isResolved: true,
-                          markedAsResolvedAt: OneUptimeDate.getCurrentDate(),
+                          markedAsResolvedAt: OperationsDate.getCurrentDate(),
                           markedAsResolvedByUserId:
                             UserUtil.getUserId() || null,
                         },
@@ -363,7 +363,7 @@ const TelemetryExceptionTable: FunctionComponent<ComponentProps> = (
                         modelType: TelemetryException,
                         data: {
                           isArchived: true,
-                          markedAsArchivedAt: OneUptimeDate.getCurrentDate(),
+                          markedAsArchivedAt: OperationsDate.getCurrentDate(),
                           markedAsArchivedByUserId:
                             UserUtil.getUserId() || null,
                         },

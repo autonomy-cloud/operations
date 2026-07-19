@@ -5,14 +5,14 @@ Cast Operations Kubernetes एजेंट आपके Kubernetes क्लस�
 ## त्वरित प्रारंभ
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
@@ -35,20 +35,20 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **GKE Standard, EKS on EC2, सेल्फ-मैनेज्ड, या AKS:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
 
 **GKE Autopilot:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
 ```
@@ -56,10 +56,10 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **EKS Fargate:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
 ```
@@ -77,7 +77,7 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 
 ### API मोड (`logs.mode: api`)
 
-एकल-रेप्लिका Deployment (`oneuptime/kubernetes-log-tailer` इमेज) कंटेनर लॉग्स को स्ट्रीम करने के लिए Kubernetes API का उपयोग करता है — वही एंडपॉइंट जो `kubectl logs -f` उपयोग करता है। कोई hostPath नहीं, कोई होस्ट एक्सेस नहीं, कोई DaemonSet नहीं।
+एकल-रेप्लिका Deployment (`cast-operations/kubernetes-log-tailer` इमेज) कंटेनर लॉग्स को स्ट्रीम करने के लिए Kubernetes API का उपयोग करता है — वही एंडपॉइंट जो `kubectl logs -f` उपयोग करता है। कोई hostPath नहीं, कोई होस्ट एक्सेस नहीं, कोई DaemonSet नहीं।
 
 - **फ़ायदे:** GKE Autopilot, EKS Fargate, और किसी भी क्लस्टर पर काम करता है जो hostPath को ब्लॉक करता है या `restricted` Pod Security Standard को लागू करता है।
 $1 हर कंटेनर स्ट्रीम kube-apiserver से लंबे समय तक चलने वाला कनेक्शन है। एक रेप्लिका सामान्यतः कुछ हज़ार कंटेनर संभालती है। बहुत बड़े क्लस्टर के लिए namespaceFilters.rules में podLogs स्कोप वाले include नियमों के साथ अलग-अलग रिलीज़ शार्ड करें।
@@ -157,8 +157,8 @@ OBI सर्विस सीमाओं के पार ट्रेस क�
 OBI चल रहा है और ट्रैफ़िक देख रहा है इसकी जाँच करने के लिए:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent -l component=ebpf-instrument
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent -l component=ebpf-instrument
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 ## निरंतर CPU प्रोफाइलिंग (डिफ़ॉल्ट रूप से बंद)
@@ -205,8 +205,8 @@ Chart निम्नलिखित भी एकत्र कर सकता 
 | विकल्प                                    | डिफ़ॉल्ट                                    | विवरण                                                                                                                                                                                |
 | ----------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `preset`                                  | (खाली — `standard` के रूप में माना जाता है) | ऊपर दी गई तालिका देखें।                                                                                                                                                              |
-| `oneuptime.url`                           | _(आवश्यक)_                                  | आपके Cast Operations इंस्टैंस का URL।                                                                                                                                                      |
-| `oneuptime.apiKey`                        | _(आवश्यक)_                                  | प्रोजेक्ट API key (Settings → API Keys)।                                                                                                                                             |
+| `cast-operations.url`                           | _(आवश्यक)_                                  | आपके Cast Operations इंस्टैंस का URL।                                                                                                                                                      |
+| `cast-operations.apiKey`                        | _(आवश्यक)_                                  | प्रोजेक्ट API key (Settings → API Keys)।                                                                                                                                             |
 | `clusterName`                             | _(आवश्यक)_                                  | इस क्लस्टर के लिए अद्वितीय नाम। प्रत्येक रिकॉर्ड पर `k8s.cluster.name` के रूप में स्टैम्प किया जाता है।                                                                              |
 | `namespaceFilters.rules`                  | kube-system को podLogs और ebpfDiscovery से बाहर करें | podLogs, ebpfDiscovery, metrics और traces के लिए स्कोप किए गए include/exclude नियम। पैटर्न * का समर्थन करते हैं और exclude हमेशा प्राथमिकता लेता है। |
 | `logs.enabled`                            | `true`                                      | लॉग संग्रहण को चालू या बंद करें।                                                                                                                                                     |
@@ -230,8 +230,8 @@ Chart निम्नलिखित भी एकत्र कर सकता 
 
 ```bash
 helm repo update
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values
 ```
 
@@ -242,8 +242,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 > **Helm 3.14+** — `--reset-then-reuse-values` पर स्विच करें। यह उन कीज़ के लिए chart डिफ़ॉल्ट को पुनः पढ़ता है जिन्हें आपने ओवरराइड नहीं किया है:
 >
 > ```bash
-> helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
->   --namespace oneuptime-kubernetes-agent \
+> helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+>   --namespace cast-operations-kubernetes-agent \
 >   --reset-then-reuse-values
 > ```
 >
@@ -254,8 +254,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 ## अनइंस्टॉल करना
 
 ```bash
-helm uninstall oneuptime-agent --namespace oneuptime-kubernetes-agent
-kubectl delete namespace oneuptime-kubernetes-agent
+helm uninstall cast-operations-agent --namespace cast-operations-kubernetes-agent
+kubectl delete namespace cast-operations-kubernetes-agent
 ```
 
 ## समस्या निवारण
@@ -265,8 +265,8 @@ kubectl delete namespace oneuptime-kubernetes-agent
 आपका क्लस्टर hostPath को ब्लॉक करता है। API-मोड प्रीसेट पर स्विच करें:
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values \
   --set preset=gke-autopilot   # or eks-fargate
 ```
@@ -276,8 +276,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 एजेंट पॉड्स की जाँच करें:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent
-kubectl logs -n oneuptime-kubernetes-agent -l app.kubernetes.io/part-of=oneuptime --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent
+kubectl logs -n cast-operations-kubernetes-agent -l app.kubernetes.io/part-of=cast-operations --tail=200
 ```
 
 API मोड में, log-tailer पॉड पोर्ट 13133 पर `/healthz` एक्सपोज़ करता है — एक्सपोर्ट स्थिति स्नैपशॉट के लिए इसे `kubectl port-forward` के माध्यम से हिट करें।
@@ -287,7 +287,7 @@ API मोड में, log-tailer पॉड पोर्ट 13133 पर `/hea
 OBI पॉड लॉग्स की जाँच करें:
 
 ```bash
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 सामान्य कारण:
@@ -301,7 +301,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 नेमस्पेस को शार्डिंग करके क्षैतिज रूप से स्केल करें। प्रति नेमस्पेस ग्रुप एक बार डिप्लॉय करें:
 
 ```bash
-helm install oneuptime-agent-ns-a oneuptime/kubernetes-agent \
+helm install cast-operations-agent-ns-a cast-operations/kubernetes-agent \
   --set preset=gke-autopilot \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["app-a","app-b"],"scopes":["podLogs"]}]' \
   ...

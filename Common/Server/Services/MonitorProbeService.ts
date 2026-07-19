@@ -2,7 +2,7 @@ import ObjectID from "../../Types/ObjectID";
 import CreateBy from "../Types/Database/CreateBy";
 import { OnCreate, OnUpdate } from "../Types/Database/Hooks";
 import DatabaseService, { EntityManager } from "./DatabaseService";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import MonitorProbe from "../../Models/DatabaseModels/MonitorProbe";
 import Monitor from "../../Models/DatabaseModels/Monitor";
@@ -100,8 +100,8 @@ export class Service extends DatabaseService<MonitorProbe> {
         continue;
       }
 
-      let nextPing: Date = OneUptimeDate.addRemoveMinutes(
-        OneUptimeDate.getCurrentDate(),
+      let nextPing: Date = OperationsDate.addRemoveMinutes(
+        OperationsDate.getCurrentDate(),
         1,
       );
 
@@ -141,7 +141,7 @@ export class Service extends DatabaseService<MonitorProbe> {
     probeId: ObjectID;
     limit: number;
   }): Promise<Array<ObjectID>> {
-    const currentDate: Date = OneUptimeDate.getCurrentDate();
+    const currentDate: Date = OperationsDate.getCurrentDate();
 
     /*
      * Use a transaction with FOR UPDATE SKIP LOCKED to atomically claim monitors
@@ -171,10 +171,6 @@ export class Service extends DatabaseService<MonitorProbe> {
           AND m."disableActiveMonitoringBecauseOfScheduledMaintenanceEvent" = false
           AND m."deletedAt" IS NULL
           AND p."deletedAt" IS NULL
-          AND (p."paymentProviderSubscriptionStatus" IS NULL
-               OR p."paymentProviderSubscriptionStatus" IN ('active', 'trialing'))
-          AND (p."paymentProviderMeteredSubscriptionStatus" IS NULL
-               OR p."paymentProviderMeteredSubscriptionStatus" IN ('active', 'trialing'))
         ORDER BY mp."nextPingAt" ASC NULLS FIRST
         LIMIT $3
         FOR UPDATE OF mp SKIP LOCKED
@@ -194,7 +190,7 @@ export class Service extends DatabaseService<MonitorProbe> {
         }
 
         // Compute the real nextPingAt per monitor and batch-update in one query
-        const defaultNextPing: Date = OneUptimeDate.addRemoveMinutes(
+        const defaultNextPing: Date = OperationsDate.addRemoveMinutes(
           currentDate,
           1,
         );
@@ -296,11 +292,11 @@ export class Service extends DatabaseService<MonitorProbe> {
     }
 
     if (!createBy.data.nextPingAt) {
-      createBy.data.nextPingAt = OneUptimeDate.getCurrentDate();
+      createBy.data.nextPingAt = OperationsDate.getCurrentDate();
     }
 
     if (!createBy.data.lastPingAt) {
-      createBy.data.lastPingAt = OneUptimeDate.getCurrentDate();
+      createBy.data.lastPingAt = OperationsDate.getCurrentDate();
     }
 
     return { createBy, carryForward: null };

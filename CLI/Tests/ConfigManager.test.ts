@@ -4,7 +4,7 @@ import * as os from "os";
 import * as ConfigManager from "../Core/ConfigManager";
 import { CLIConfig, ResolvedCredentials } from "../Types/CLITypes";
 
-const CONFIG_DIR: string = path.join(os.homedir(), ".oneuptime");
+const CONFIG_DIR: string = path.join(os.homedir(), ".cast-operations");
 const CONFIG_FILE: string = path.join(CONFIG_DIR, "config.json");
 
 describe("ConfigManager", () => {
@@ -28,13 +28,13 @@ describe("ConfigManager", () => {
     if (fs.existsSync(CONFIG_FILE)) {
       fs.unlinkSync(CONFIG_FILE);
     }
-    delete process.env["ONEUPTIME_API_KEY"];
-    delete process.env["ONEUPTIME_URL"];
+    delete process.env["CAST_OPERATIONS_API_KEY"];
+    delete process.env["CAST_OPERATIONS_URL"];
   });
 
   afterEach(() => {
-    delete process.env["ONEUPTIME_API_KEY"];
-    delete process.env["ONEUPTIME_URL"];
+    delete process.env["CAST_OPERATIONS_API_KEY"];
+    delete process.env["CAST_OPERATIONS_URL"];
   });
 
   describe("load", () => {
@@ -83,7 +83,7 @@ describe("ConfigManager", () => {
       // Remove the dir if it exists (we'll restore after)
       const tmpDir: string = path.join(
         os.tmpdir(),
-        ".oneuptime-test-" + Date.now(),
+        ".cast-operations-test-" + Date.now(),
       );
       /*
        * We can't easily test this with the real path, but we verify save works
@@ -341,8 +341,8 @@ describe("ConfigManager", () => {
     });
 
     it("should resolve from env vars when CLI options are missing", () => {
-      process.env["ONEUPTIME_API_KEY"] = "env-key";
-      process.env["ONEUPTIME_URL"] = "https://env.com";
+      process.env["CAST_OPERATIONS_API_KEY"] = "env-key";
+      process.env["CAST_OPERATIONS_URL"] = "https://env.com";
 
       const creds: ResolvedCredentials = ConfigManager.getResolvedCredentials(
         {},
@@ -385,8 +385,8 @@ describe("ConfigManager", () => {
       expect(creds.apiUrl).toBe("https://ctx.com");
     });
 
-    it("should resolve from partial env vars (only ONEUPTIME_API_KEY)", () => {
-      process.env["ONEUPTIME_API_KEY"] = "partial-key";
+    it("should resolve from partial env vars (only CAST_OPERATIONS_API_KEY)", () => {
+      process.env["CAST_OPERATIONS_API_KEY"] = "partial-key";
 
       const creds: ResolvedCredentials = ConfigManager.getResolvedCredentials(
         {},
@@ -395,8 +395,8 @@ describe("ConfigManager", () => {
       expect(creds.apiUrl).toBe("");
     });
 
-    it("should resolve from partial env vars (only ONEUPTIME_URL)", () => {
-      process.env["ONEUPTIME_URL"] = "https://partial.com";
+    it("should resolve from partial env vars (only CAST_OPERATIONS_URL)", () => {
+      process.env["CAST_OPERATIONS_URL"] = "https://partial.com";
 
       const creds: ResolvedCredentials = ConfigManager.getResolvedCredentials(
         {},
@@ -406,7 +406,7 @@ describe("ConfigManager", () => {
     });
 
     it("should combine partial env var with context", () => {
-      process.env["ONEUPTIME_API_KEY"] = "env-key";
+      process.env["CAST_OPERATIONS_API_KEY"] = "env-key";
       ConfigManager.addContext({
         name: "ctx",
         apiUrl: "https://ctx.com",
@@ -418,7 +418,7 @@ describe("ConfigManager", () => {
       );
       /*
        * env vars take priority: both are set so goes through priority 2
-       * Actually, only ONEUPTIME_API_KEY is set, not ONEUPTIME_URL
+       * Actually, only CAST_OPERATIONS_API_KEY is set, not CAST_OPERATIONS_URL
        * So it falls through to priority 4 (current context)
        */
       expect(creds.apiKey).toBe("ctx-key");
@@ -432,8 +432,8 @@ describe("ConfigManager", () => {
     });
 
     it("should prefer CLI flags over env vars", () => {
-      process.env["ONEUPTIME_API_KEY"] = "env-key";
-      process.env["ONEUPTIME_URL"] = "https://env.com";
+      process.env["CAST_OPERATIONS_API_KEY"] = "env-key";
+      process.env["CAST_OPERATIONS_URL"] = "https://env.com";
 
       const creds: ResolvedCredentials = ConfigManager.getResolvedCredentials({
         apiKey: "cli-key",

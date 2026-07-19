@@ -50,7 +50,7 @@ Cast Operations Incident → On Create  ──►  API component (POST /repos/{o
      {
        "title": "Cast Operations incident: {{Incident.title}}",
        "body": "{{Incident.description}}\n\nFiled automatically from Cast Operations.",
-       "labels": ["incident", "oneuptime"]
+       "labels": ["incident", "cast-operations"]
      }
      ```
 

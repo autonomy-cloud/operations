@@ -2,7 +2,7 @@ import DatabaseCommonInteractionProps from "../../../../Types/BaseDatabase/Datab
 import BadDataException from "../../../../Types/Exception/BadDataException";
 import { JSONObject } from "../../../../Types/JSON";
 import ObjectID from "../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import Permission from "../../../../Types/Permission";
 import {
   AIChatCitationTarget,
@@ -196,7 +196,7 @@ export class ToolArgs {
      * one asked. Throwing lets the model see the error and retry with a valid
      * ISO 8601 value.
      */
-    let endTime: Date = OneUptimeDate.getCurrentDate();
+    let endTime: Date = OperationsDate.getCurrentDate();
     if (endTimeString) {
       const parsed: Date = new Date(endTimeString);
       if (isNaN(parsed.getTime())) {
@@ -207,7 +207,7 @@ export class ToolArgs {
       endTime = parsed;
     }
 
-    let startTime: Date = OneUptimeDate.addRemoveHours(
+    let startTime: Date = OperationsDate.addRemoveHours(
       endTime,
       -1 * defaultHours,
     );

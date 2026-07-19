@@ -108,14 +108,14 @@ För att lösa Cast Operations-incidenten när någon stänger Jira-ärendet, l�
 
 3. I arbetsflödet, använd ett **Find Incident**-block för att hitta incidenten via den sparade nyckeln, sedan ett **Update Incident**-block för att flytta den till ditt lösta tillstånd.
 
-Om du sparade Jira-nyckeln på incidenten i Steg 4 är matchningen enkel. Se [Komponenter → Cast Operations-datakomponenter](/docs/workflows/components#oneuptime-data-components).
+Om du sparade Jira-nyckeln på incidenten i Steg 4 är matchningen enkel. Se [Komponenter → Cast Operations-datakomponenter](/docs/workflows/components#cast-operations-data-components).
 
 ## Anpassa ärendet
 
 Några vanliga justeringar av API-blockets body:
 
 - **Prioritet** — lägg till `"priority": { "name": "High" }` inuti `fields`. Du kan förgrena på `{{Incident.incidentSeverity.name}}` med **Conditions** för att mappa Cast Operations-allvarlighetsgrader till Jira-prioriteter.
-- **Etiketter** — lägg till `"labels": ["oneuptime", "incident"]`.
+- **Etiketter** — lägg till `"labels": ["cast-operations", "incident"]`.
 - **Tilldelad** — lägg till `"assignee": { "id": "<accountId>" }` (Jira Cloud använder konto-ID:n, inte användarnamn).
 - **Anpassade fält** — lägg till `"customfield_XXXXX": "..."` med fältets ID från din Jira-administration.
 

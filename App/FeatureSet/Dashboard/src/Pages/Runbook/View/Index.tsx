@@ -10,7 +10,7 @@ import URL from "Common/Types/API/URL";
 import ObjectID from "Common/Types/ObjectID";
 import IconProp from "Common/Types/Icon/IconProp";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import CardModelDetail from "Common/UI/Components/ModelDetail/CardModelDetail";
 import FieldType from "Common/UI/Components/Types/FieldType";
@@ -413,11 +413,13 @@ const Overview: FunctionComponent<PageComponentProps> = (): ReactElement => {
                   {statusPill(lastExec.status as RunbookExecutionStatus)}
                 </div>
                 <div className="text-sm text-gray-700">
-                  {lastStartedAt ? OneUptimeDate.fromNow(lastStartedAt) : "—"}
+                  {lastStartedAt ? OperationsDate.fromNow(lastStartedAt) : "—"}
                 </div>
                 <div className="text-xs text-gray-500">
                   {lastStartedAt
-                    ? OneUptimeDate.getDateAsLocalFormattedString(lastStartedAt)
+                    ? OperationsDate.getDateAsLocalFormattedString(
+                        lastStartedAt,
+                      )
                     : null}
                 </div>
                 <div className="mt-1">{triggerSourceElement(lastExec)}</div>

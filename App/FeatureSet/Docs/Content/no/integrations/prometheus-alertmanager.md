@@ -36,13 +36,13 @@ Legg til en webhook-mottaker som peker mot arbeidsflyt-URL-en, og rut varsler ti
 
 ```yaml
 receivers:
-  - name: oneuptime
+  - name: cast-operations
     webhook_configs:
       - url: "https://<your-workflow-webhook-url>"
         send_resolved: true
 
 route:
-  receiver: oneuptime
+  receiver: cast-operations
   group_by: ["alertname"]
   group_wait: 30s
   group_interval: 5m

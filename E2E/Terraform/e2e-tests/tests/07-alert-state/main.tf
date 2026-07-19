@@ -1,18 +1,18 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
-resource "oneuptime_alert_state" "test" {
+resource "cast_operations_alert_state" "test" {
   name        = "terraform-e2e-alert-state-${formatdate("YYYYMMDDhhmmss", timestamp())}"
   description = "Alert state created by Terraform E2E tests"
   color       = "#800080"
@@ -20,26 +20,26 @@ resource "oneuptime_alert_state" "test" {
 }
 
 output "alert_state_id" {
-  value       = oneuptime_alert_state.test.id
+  value       = cast_operations_alert_state.test.id
   description = "ID of the created alert state"
 }
 
 output "alert_state_name" {
-  value       = oneuptime_alert_state.test.name
+  value       = cast_operations_alert_state.test.name
   description = "Name of the created alert state"
 }
 
 output "alert_state_description" {
-  value       = oneuptime_alert_state.test.description
+  value       = cast_operations_alert_state.test.description
   description = "Description of the created alert state"
 }
 
 output "alert_state_color" {
-  value       = oneuptime_alert_state.test.color
+  value       = cast_operations_alert_state.test.color
   description = "Color of the created alert state"
 }
 
 output "alert_state_order" {
-  value       = oneuptime_alert_state.test.order
+  value       = cast_operations_alert_state.test.order
   description = "Order of the created alert state"
 }

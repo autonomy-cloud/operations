@@ -1,12 +1,7 @@
-import ResellerPlan from "../../Models/DatabaseModels/ResellerPlan";
 import {
-  IsBillingEnabled,
   NotificationSlackWebhookOnCreateProject,
   NotificationSlackWebhookOnDeleteProject,
-  NotificationSlackWebhookOnSubscriptionUpdate,
-  getAllEnvVars,
 } from "../EnvironmentConfig";
-import AllMeteredPlans from "../Types/Billing/MeteredPlan/AllMeteredPlans";
 import CreateBy from "../Types/Database/CreateBy";
 import DeleteBy from "../Types/Database/DeleteBy";
 import FindBy from "../Types/Database/FindBy";
@@ -14,18 +9,14 @@ import { OnCreate, OnDelete, OnFind, OnUpdate } from "../Types/Database/Hooks";
 import QueryHelper from "../Types/Database/QueryHelper";
 import UpdateBy from "../Types/Database/UpdateBy";
 import logger, { LogAttributes } from "../Utils/Logger";
-import Errors from "../Utils/Errors";
 import ProductAnalytics from "../Utils/ProductAnalytics";
 import AccessTokenService from "./AccessTokenService";
-import BillingService from "./BillingService";
 import DatabaseService from "./DatabaseService";
 import IncidentSeverityService from "./IncidentSeverityService";
 import IncidentStateService from "./IncidentStateService";
 import IncidentRoleService from "./IncidentRoleService";
 import MailService from "./MailService";
 import MonitorStatusService from "./MonitorStatusService";
-import NotificationService from "./NotificationService";
-import PromoCodeService from "./PromoCodeService";
 import ScheduledMaintenanceStateService from "./ScheduledMaintenanceStateService";
 import TeamMemberService from "./TeamMemberService";
 import TeamPermissionService from "./TeamPermissionService";
@@ -33,10 +24,6 @@ import TeamService from "./TeamService";
 import UserNotificationRuleService from "./UserNotificationRuleService";
 import UserNotificationSettingService from "./UserNotificationSettingService";
 import UserService from "./UserService";
-import SubscriptionPlan, {
-  PlanType,
-} from "../../Types/Billing/SubscriptionPlan";
-import SubscriptionStatus from "../../Types/Billing/SubscriptionStatus";
 import {
   Black,
   Blue500,
@@ -51,12 +38,11 @@ import {
 } from "../../Types/BrandColors";
 import Color from "../../Types/Color";
 import LIMIT_MAX from "../../Types/Database/LimitMax";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import EmailTemplateType from "../../Types/Email/EmailTemplateType";
 import BadDataException from "../../Types/Exception/BadDataException";
 import NotAuthorizedException from "../../Types/Exception/NotAuthorizedException";
 import IconProp from "../../Types/Icon/IconProp";
-import { JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
 import Permission from "../../Types/Permission";
 import IncidentSeverity from "../../Models/DatabaseModels/IncidentSeverity";
@@ -65,7 +51,6 @@ import IncidentRole from "../../Models/DatabaseModels/IncidentRole";
 import MonitorStatus from "../../Models/DatabaseModels/MonitorStatus";
 import Model from "../../Models/DatabaseModels/Project";
 import BaseModel from "../../Models/DatabaseModels/DatabaseBaseModel/DatabaseBaseModel";
-import PromoCode from "../../Models/DatabaseModels/PromoCode";
 import ScheduledMaintenanceState from "../../Models/DatabaseModels/ScheduledMaintenanceState";
 import Team from "../../Models/DatabaseModels/Team";
 import TeamMember from "../../Models/DatabaseModels/TeamMember";
@@ -86,11 +71,6 @@ import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCom
 import PositiveNumber from "../../Types/PositiveNumber";
 import Semaphore, { SemaphoreMutex } from "../Infrastructure/Semaphore";
 import InMemoryTTLCache from "../Infrastructure/InMemoryTTLCache";
-
-export interface CurrentPlan {
-  plan: PlanType | null;
-  isSubscriptionUnpaid: boolean;
-}
 
 export class ProjectService extends DatabaseService<Model> {
   /*
@@ -114,27 +94,8 @@ export class ProjectService extends DatabaseService<Model> {
    */
   private requireSsoWithSsoProviderIdCache: InMemoryTTLCache<string | null> =
     new InMemoryTTLCache(10_000);
-  /*
-   * Caches the current billing plan per project. `getCurrentPlan` is hit
-   * by `CommonAPI.getDatabaseCommonInteractionProps` on every
-   * authenticated request when billing is enabled — without caching,
-   * that's one Postgres findOneById per API call to a billable project.
-   * Plans change rarely (subscription create / cancel / change), so a
-   * 60s staleness window is acceptable.
-   */
-  private currentPlanCache: InMemoryTTLCache<CurrentPlan> =
-    new InMemoryTTLCache(10_000);
-
   public constructor() {
     super(Model);
-  }
-
-  public getPlanType(planId: string): PlanType {
-    if (!SubscriptionPlan.isValidPlanId(planId, getAllEnvVars())) {
-      throw new BadDataException("Plan is invalid.");
-    }
-
-    return SubscriptionPlan.getPlanType(planId);
   }
 
   @CaptureSpan()
@@ -190,99 +151,6 @@ export class ProjectService extends DatabaseService<Model> {
       throw new NotAuthorizedException(
         "Project creation is restricted to admin users only on this Cast Operations Server. Please contact your server admin.",
       );
-    }
-
-    if (IsBillingEnabled) {
-      if (!data.data.paymentProviderPlanId) {
-        throw new BadDataException("Plan required to create the project.");
-      }
-
-      data.data.planName = this.getPlanType(data.data.paymentProviderPlanId);
-
-      if (data.data.paymentProviderPromoCode) {
-        /*
-         * check if it exists in promcode table. Not all promocodes are in the table, only reseller ones are.
-         * If they are not in the table, allow projetc creation to proceed.
-         * If they are in the project table, then see if anyn restrictions on reseller plan apply and if it does,
-         * apply those restictions to the project.
-         */
-
-        const promoCode: PromoCode | null = await PromoCodeService.findOneBy({
-          query: {
-            promoCodeId: data.data.paymentProviderPromoCode,
-          },
-          select: {
-            isPromoCodeUsed: true,
-            userEmail: true,
-            resellerPlan: {
-              _id: true,
-              planType: true,
-              monitorLimit: true,
-              teamMemberLimit: true,
-            } as Select<ResellerPlan>,
-            resellerId: true,
-            resellerLicenseId: true,
-            planType: true,
-            resellerPlanId: true,
-          },
-          props: {
-            isRoot: true,
-          },
-        });
-
-        if (promoCode) {
-          // check if the same user is creating the project.
-          if (promoCode.userEmail?.toString() !== user.email?.toString()) {
-            throw new BadDataException(
-              "This promocode is assigned to a different user and cannot be used.",
-            );
-          }
-
-          if (promoCode.isPromoCodeUsed) {
-            throw new BadDataException("This promocode has already been used.");
-          }
-
-          if (promoCode.resellerPlan?.monitorLimit) {
-            data.data.activeMonitorsLimit =
-              promoCode.resellerPlan?.monitorLimit;
-          }
-
-          if (promoCode.resellerPlan?.teamMemberLimit) {
-            data.data.seatLimit = promoCode.resellerPlan?.teamMemberLimit;
-          }
-
-          if (promoCode.planType !== data.data.planName) {
-            throw new BadDataException(
-              "Promocode is not valid for this plan. Please select the " +
-                promoCode.planType +
-                " plan.",
-            );
-          }
-
-          if (promoCode.resellerLicenseId) {
-            data.data.resellerLicenseId = promoCode.resellerLicenseId;
-          }
-
-          if (promoCode.resellerId) {
-            data.data.resellerId = promoCode.resellerId;
-          }
-
-          if (promoCode.resellerPlanId) {
-            data.data.resellerPlanId = promoCode.resellerPlanId;
-          }
-        }
-      }
-
-      if (
-        data.data.paymentProviderPromoCode &&
-        !(await BillingService.isPromoCodeValid(
-          data.data.paymentProviderPromoCode,
-        ))
-      ) {
-        throw new BadDataException("Promo code is invalid.");
-      }
-
-      // check if promocode is valid.
     }
 
     // check if the user has the project with the same name. If yes, reject.
@@ -372,391 +240,7 @@ export class ProjectService extends DatabaseService<Model> {
       this.requireSsoWithSsoProviderIdCache.clear();
     }
 
-    if (IsBillingEnabled) {
-      if (
-        updateBy.data.businessDetails ||
-        updateBy.data.businessDetailsCountry ||
-        updateBy.data.financeAccountingEmail ||
-        updateBy.data.sendInvoicesByEmail !== undefined
-      ) {
-        logger.debug(
-          `[Invoice Email] ProjectService.onBeforeUpdate - syncing billing details to Stripe`,
-        );
-        logger.debug(
-          `[Invoice Email] Fields being updated - businessDetails: ${Boolean(updateBy.data.businessDetails)}, businessDetailsCountry: ${Boolean(updateBy.data.businessDetailsCountry)}, financeAccountingEmail: ${Boolean(updateBy.data.financeAccountingEmail)}, sendInvoicesByEmail: ${updateBy.data.sendInvoicesByEmail}`,
-        );
-
-        // Sync to Stripe.
-        const project: Model | null = await this.findOneById({
-          id: new ObjectID(updateBy.query._id! as string),
-          select: {
-            paymentProviderCustomerId: true,
-            financeAccountingEmail: true,
-            sendInvoicesByEmail: true,
-          },
-          props: { isRoot: true },
-        });
-
-        logger.debug(
-          `[Invoice Email] Project found - paymentProviderCustomerId: ${project?.paymentProviderCustomerId}, existing sendInvoicesByEmail: ${(project as any)?.sendInvoicesByEmail}`,
-        );
-
-        if (project?.paymentProviderCustomerId) {
-          try {
-            const sendInvoicesByEmailValue: boolean | null =
-              updateBy.data.sendInvoicesByEmail !== undefined
-                ? (updateBy.data.sendInvoicesByEmail as boolean)
-                : (project as any).sendInvoicesByEmail || null;
-
-            logger.debug(
-              `[Invoice Email] Calling BillingService.updateCustomerBusinessDetails with sendInvoicesByEmail: ${sendInvoicesByEmailValue}`,
-            );
-
-            await BillingService.updateCustomerBusinessDetails(
-              project.paymentProviderCustomerId,
-              (updateBy.data.businessDetails as string) || "",
-              (updateBy.data.businessDetailsCountry as string) || null,
-              (updateBy.data.financeAccountingEmail as string) ||
-                (project as any).financeAccountingEmail ||
-                null,
-              sendInvoicesByEmailValue,
-            );
-
-            logger.debug(
-              `[Invoice Email] Successfully synced billing details to Stripe for customer ${project.paymentProviderCustomerId}`,
-            );
-          } catch (err) {
-            logger.error(
-              `[Invoice Email] Failed to update Stripe customer business details: ${err}`,
-              { projectId: updateBy.query._id?.toString() } as LogAttributes,
-            );
-          }
-        } else {
-          logger.debug(
-            `[Invoice Email] No paymentProviderCustomerId found, skipping Stripe sync`,
-          );
-        }
-      }
-      if (updateBy.data.enableAutoRechargeSmsOrCallBalance) {
-        await NotificationService.rechargeIfBalanceIsLow(
-          new ObjectID(updateBy.query._id! as string),
-          {
-            autoRechargeSmsOrCallByBalanceInUSD: updateBy.data
-              .autoRechargeSmsOrCallByBalanceInUSD as number,
-            autoRechargeSmsOrCallWhenCurrentBalanceFallsInUSD: updateBy.data
-              .autoRechargeSmsOrCallWhenCurrentBalanceFallsInUSD as number,
-            enableAutoRechargeSmsOrCallBalance: updateBy.data
-              .enableAutoRechargeSmsOrCallBalance as boolean,
-          },
-        );
-      }
-
-      if (
-        updateBy.data.paymentProviderPlanId &&
-        !updateBy.props.ignoreHooks &&
-        !updateBy.props.isRoot
-      ) {
-        throw new BadDataException(
-          "Project plan cannot be updated directly. Please use the change plan API.",
-        );
-      }
-    }
-
     return { updateBy, carryForward: [] };
-  }
-
-  @CaptureSpan()
-  public async changePlan(params: {
-    projectId: ObjectID;
-    paymentProviderPlanId: string;
-    endTrialAt?: Date | null;
-  }): Promise<void> {
-    if (!IsBillingEnabled) {
-      throw new BadDataException("Billing is not enabled for this server");
-    }
-
-    const project: Model | null = await this.findOneById({
-      id: params.projectId,
-      select: {
-        _id: true,
-        paymentProviderSubscriptionId: true,
-        paymentProviderMeteredSubscriptionId: true,
-        paymentProviderSubscriptionSeats: true,
-        paymentProviderPlanId: true,
-        trialEndsAt: true,
-        paymentProviderCustomerId: true,
-        createdOwnerEmail: true,
-        utmSource: true,
-        utmMedium: true,
-        utmCampaign: true,
-        clickIds: true,
-      },
-      props: {
-        isRoot: true,
-      },
-    });
-
-    if (!project) {
-      throw new BadDataException("Project not found");
-    }
-
-    if (!project.paymentProviderSubscriptionId) {
-      throw new BadDataException("Payment Provider subscription not found");
-    }
-
-    if (!project.paymentProviderMeteredSubscriptionId) {
-      throw new BadDataException(
-        "Payment Provider metered subscription not found",
-      );
-    }
-
-    // Check if customer has payment methods before attempting to change plan
-    if (!project.paymentProviderCustomerId) {
-      throw new BadDataException("Payment Provider customer not found");
-    }
-
-    const hasPaymentMethods: boolean = await BillingService.hasPaymentMethods(
-      project.paymentProviderCustomerId,
-    );
-
-    if (!hasPaymentMethods) {
-      throw new BadDataException(Errors.BillingService.NO_PAYMENTS_METHODS);
-    }
-
-    const plan: SubscriptionPlan | undefined =
-      SubscriptionPlan.getSubscriptionPlanById(
-        params.paymentProviderPlanId,
-        getAllEnvVars(),
-      );
-
-    if (!plan) {
-      throw new BadDataException("Invalid plan");
-    }
-
-    let seats: number | undefined = project.paymentProviderSubscriptionSeats;
-
-    if (!seats || seats <= 0) {
-      seats = await TeamMemberService.getUniqueTeamMemberCountInProject(
-        project.id!,
-      );
-    }
-
-    logger.debug(
-      `Changing plan for project ${project.id?.toString()} to ${plan.getName()} with seats ${seats}`,
-      { projectId: project.id?.toString() } as LogAttributes,
-    );
-
-    const endTrialAt: Date | undefined =
-      params.endTrialAt !== undefined
-        ? params.endTrialAt || undefined
-        : project.trialEndsAt || undefined;
-
-    const subscription: {
-      subscriptionId: string;
-      meteredSubscriptionId: string;
-      trialEndsAt?: Date | undefined;
-    } = await BillingService.changePlan({
-      projectId: project.id!,
-      subscriptionId: project.paymentProviderSubscriptionId,
-      meteredSubscriptionId: project.paymentProviderMeteredSubscriptionId,
-      serverMeteredPlans: AllMeteredPlans,
-      newPlan: plan,
-      quantity: seats,
-      isYearly: plan.getYearlyPlanId() === params.paymentProviderPlanId,
-      endTrialAt: endTrialAt,
-    });
-
-    const subscriptionState: SubscriptionStatus =
-      await BillingService.getSubscriptionStatus(subscription.subscriptionId);
-
-    const meteredSubscriptionState: SubscriptionStatus =
-      await BillingService.getSubscriptionStatus(
-        subscription.meteredSubscriptionId,
-      );
-
-    await this.updateOneById({
-      id: project.id!,
-      data: {
-        paymentProviderPlanId: params.paymentProviderPlanId,
-        paymentProviderSubscriptionId: subscription.subscriptionId,
-        paymentProviderMeteredSubscriptionId:
-          subscription.meteredSubscriptionId,
-        paymentProviderSubscriptionSeats: seats,
-        trialEndsAt: subscription.trialEndsAt || endTrialAt || new Date(),
-        planName: SubscriptionPlan.getPlanType(
-          params.paymentProviderPlanId,
-          getAllEnvVars(),
-        ),
-        paymentProviderMeteredSubscriptionStatus: meteredSubscriptionState,
-        paymentProviderSubscriptionStatus: subscriptionState,
-      },
-      props: {
-        isRoot: true,
-        ignoreHooks: true,
-      },
-    });
-
-    this.capturePlanChangeAnalytics({
-      project: project,
-      newPlan: plan,
-      newPlanId: params.paymentProviderPlanId,
-      seats: seats,
-    });
-
-    await this.sendSubscriptionChangeWebhookSlackNotification(project.id!);
-  }
-
-  /*
-   * The paid-conversion event for ad platforms: fires server-side (immune to
-   * ad blockers) whenever a project's subscription plan changes, with enough
-   * detail (plan amounts, attribution) for revenue reporting and offline
-   * conversion uploads.
-   *
-   * Upgrade/downgrade is classified by plan tier (getPlanOrder), not price:
-   * monthly<->yearly switches of the same tier and custom-pricing plans
-   * (amount sentinel -1) would misclassify on price comparison.
-   */
-  private capturePlanChangeAnalytics(data: {
-    project: Model;
-    newPlan: SubscriptionPlan;
-    newPlanId: string;
-    seats: number;
-  }): void {
-    if (!data.project.createdOwnerEmail) {
-      return;
-    }
-
-    const oldPlanId: string | undefined =
-      data.project.paymentProviderPlanId || undefined;
-
-    // Re-submitting the currently active plan is a no-op, not a plan change.
-    if (oldPlanId === data.newPlanId) {
-      return;
-    }
-
-    const oldPlan: SubscriptionPlan | undefined = oldPlanId
-      ? SubscriptionPlan.getSubscriptionPlanById(oldPlanId, getAllEnvVars())
-      : undefined;
-
-    // Per-month amount, or null when unknown (custom pricing / unknown plan).
-    const getMonthlyAmountInUSD: (
-      plan: SubscriptionPlan | undefined,
-      planId: string | undefined,
-    ) => number | null = (
-      plan: SubscriptionPlan | undefined,
-      planId: string | undefined,
-    ): number | null => {
-      if (!plan || !planId || plan.isCustomPricing()) {
-        return null;
-      }
-      return plan.getYearlyPlanId() === planId
-        ? plan.getYearlySubscriptionAmountInUSD()
-        : plan.getMonthlySubscriptionAmountInUSD();
-    };
-
-    const oldMonthlyAmountInUSD: number | null = getMonthlyAmountInUSD(
-      oldPlan,
-      oldPlanId,
-    );
-    const newMonthlyAmountInUSD: number | null = getMonthlyAmountInUSD(
-      data.newPlan,
-      data.newPlanId,
-    );
-
-    const oldPlanOrder: number | null = oldPlan ? oldPlan.getPlanOrder() : null;
-    const newPlanOrder: number = data.newPlan.getPlanOrder();
-
-    const newPlanIsPaid: boolean =
-      data.newPlan.isCustomPricing() ||
-      (newMonthlyAmountInUSD !== null && newMonthlyAmountInUSD > 0);
-
-    const properties: JSONObject = {
-      project_id: data.project.id?.toString() || "",
-      old_plan: oldPlan?.getName() || "",
-      new_plan: data.newPlan.getName(),
-      seats: data.seats,
-      is_upgrade: oldPlanOrder !== null && newPlanOrder > oldPlanOrder,
-      is_downgrade: oldPlanOrder !== null && newPlanOrder < oldPlanOrder,
-      // Same tier, different plan id: monthly<->yearly billing switch.
-      is_interval_change:
-        oldPlanOrder !== null && newPlanOrder === oldPlanOrder,
-      is_paid_conversion: oldMonthlyAmountInUSD === 0 && newPlanIsPaid,
-      has_custom_pricing: data.newPlan.isCustomPricing(),
-      utm_source: data.project.utmSource || "",
-      utm_medium: data.project.utmMedium || "",
-      utm_campaign: data.project.utmCampaign || "",
-      click_ids: data.project.clickIds || {},
-    };
-
-    if (oldMonthlyAmountInUSD !== null) {
-      properties["old_monthly_amount_in_usd"] = oldMonthlyAmountInUSD;
-    }
-
-    if (newMonthlyAmountInUSD !== null) {
-      properties["new_monthly_amount_in_usd"] = newMonthlyAmountInUSD;
-      // Value for ROAS reporting: monthly recurring revenue after the change.
-      properties["value"] = newMonthlyAmountInUSD * data.seats;
-      properties["currency"] = "USD";
-    }
-
-    ProductAnalytics.capture({
-      event: "server/subscription_plan_changed",
-      distinctId: data.project.createdOwnerEmail.toString(),
-      properties: properties,
-    });
-  }
-
-  private async sendSubscriptionChangeWebhookSlackNotification(
-    projectId: ObjectID,
-  ): Promise<void> {
-    if (NotificationSlackWebhookOnSubscriptionUpdate) {
-      // fetch project again.
-      const project: Model | null = await this.findOneById({
-        id: new ObjectID(projectId.toString()),
-        select: {
-          name: true,
-          _id: true,
-          createdOwnerName: true,
-          createdOwnerEmail: true,
-          planName: true,
-          createdByUserId: true,
-          paymentProviderSubscriptionStatus: true,
-        },
-        props: {
-          isRoot: true,
-        },
-      });
-
-      if (!project) {
-        throw new BadDataException("Project not found");
-      }
-
-      let slackMessage: string = `*Project Plan Changed:*
-*Project Name:* ${project.name?.toString() || "N/A"}
-*Project ID:* ${project.id?.toString() || "N/A"}
-`;
-
-      if (project.createdOwnerName && project.createdOwnerEmail) {
-        slackMessage += `*Project Created By:* ${project?.createdOwnerName?.toString() + " (" + project.createdOwnerEmail.toString() + ")" || "N/A"}
-`;
-      }
-
-      if (IsBillingEnabled) {
-        // which plan?
-        slackMessage += `*Plan:* ${project.planName?.toString() || "N/A"} 
-*Subscription Status:* ${project.paymentProviderSubscriptionStatus?.toString() || "N/A"}
-`;
-      }
-
-      SlackUtil.sendMessageToChannelViaIncomingWebhook({
-        url: URL.fromString(NotificationSlackWebhookOnSubscriptionUpdate),
-        text: slackMessage,
-      }).catch((error: Exception) => {
-        logger.error("Error sending slack message: " + error, {
-          projectId: project?.id?.toString(),
-        } as LogAttributes);
-      });
-    }
   }
 
   /**
@@ -894,72 +378,6 @@ export class ProjectService extends DatabaseService<Model> {
     _onCreate: OnCreate<Model>,
     createdItem: Model,
   ): Promise<Model> {
-    // Create billing.
-
-    if (IsBillingEnabled) {
-      const customerId: string = await BillingService.createCustomer({
-        name: createdItem.name!,
-        email: createdItem.createdOwnerEmail!,
-        id: createdItem.id!,
-      });
-
-      const plan: SubscriptionPlan | undefined =
-        SubscriptionPlan.getSubscriptionPlanById(
-          createdItem.paymentProviderPlanId!,
-          getAllEnvVars(),
-        );
-
-      if (!plan) {
-        throw new BadDataException("Invalid plan.");
-      }
-      // add subscription to this customer.
-
-      const { subscriptionId, meteredSubscriptionId, trialEndsAt } =
-        await BillingService.subscribeToPlan({
-          projectId: createdItem.id!,
-          customerId,
-          serverMeteredPlans: AllMeteredPlans,
-          plan,
-          quantity: 1,
-          isYearly:
-            plan.getYearlyPlanId() === createdItem.paymentProviderPlanId!,
-          trial: true,
-          promoCode: createdItem.paymentProviderPromoCode,
-        });
-
-      await this.updateOneById({
-        id: createdItem.id!,
-        data: {
-          paymentProviderCustomerId: customerId,
-          paymentProviderSubscriptionId: subscriptionId,
-          paymentProviderMeteredSubscriptionId: meteredSubscriptionId,
-          paymentProviderSubscriptionSeats: 1,
-          trialEndsAt: (trialEndsAt || null) as any,
-        },
-        props: {
-          isRoot: true,
-        },
-      });
-
-      // mark the promo code as used it it exists.
-
-      if (createdItem.paymentProviderPromoCode) {
-        await PromoCodeService.updateOneBy({
-          query: {
-            promoCodeId: createdItem.paymentProviderPromoCode,
-          },
-          data: {
-            isPromoCodeUsed: true,
-            promoCodeUsedAt: OneUptimeDate.getCurrentDate(),
-            projectId: createdItem.id!,
-          },
-          props: {
-            isRoot: true,
-          },
-        });
-      }
-    }
-
     /*
      * Each addDefault* method only reads `createdItem.id` and writes rows to a
      * distinct table; none of them mutate `createdItem`. Running them in
@@ -985,7 +403,6 @@ export class ProjectService extends DatabaseService<Model> {
         properties: {
           project_id: createdItem.id?.toString() || "",
           project_name: createdItem.name?.toString() || "",
-          plan: createdItem.planName?.toString() || "",
           utm_source: createdItem.utmSource || "",
           utm_medium: createdItem.utmMedium || "",
           utm_campaign: createdItem.utmCampaign || "",
@@ -1003,9 +420,7 @@ export class ProjectService extends DatabaseService<Model> {
           _id: true,
           createdOwnerName: true,
           createdOwnerEmail: true,
-          planName: true,
           createdByUserId: true,
-          paymentProviderSubscriptionStatus: true,
         },
         props: {
           isRoot: true,
@@ -1024,13 +439,6 @@ export class ProjectService extends DatabaseService<Model> {
       if (project.createdOwnerName && project.createdOwnerEmail) {
         slackMessage += `*Created By:* ${project?.createdOwnerName?.toString() + " (" + project.createdOwnerEmail.toString() + ")" || "N/A"}
 `;
-
-        if (IsBillingEnabled) {
-          // which plan?
-          slackMessage += `*Plan:* ${project.planName?.toString() || "N/A"}
-*Subscription Status:* ${project.paymentProviderSubscriptionStatus?.toString() || "N/A"}
-`;
-        }
 
         SlackUtil.sendMessageToChannelViaIncomingWebhook({
           url: URL.fromString(NotificationSlackWebhookOnCreateProject),
@@ -1452,7 +860,7 @@ export class ProjectService extends DatabaseService<Model> {
     ownerTeamMember.projectId = createdItem.id!;
     ownerTeamMember.userId = createdItem.createdByUserId!;
     ownerTeamMember.hasAcceptedInvitation = true;
-    ownerTeamMember.invitationAcceptedAt = OneUptimeDate.getCurrentDate();
+    ownerTeamMember.invitationAcceptedAt = OperationsDate.getCurrentDate();
     ownerTeamMember.teamId = ownerTeam.id!;
 
     ownerTeamMember = await TeamMemberService.create({
@@ -1587,7 +995,7 @@ export class ProjectService extends DatabaseService<Model> {
     void this.updateOneById({
       id: projectId,
       data: {
-        lastActive: OneUptimeDate.getCurrentDate(),
+        lastActive: OperationsDate.getCurrentDate(),
       },
       props: {
         isRoot: true,
@@ -1730,11 +1138,8 @@ export class ProjectService extends DatabaseService<Model> {
       skip: 0,
       select: {
         _id: true,
-        paymentProviderSubscriptionId: true,
-        paymentProviderMeteredSubscriptionId: true,
         name: true,
         createdAt: true,
-        planName: true,
         createdByUser: {
           name: true,
           email: true,
@@ -1752,25 +1157,11 @@ export class ProjectService extends DatabaseService<Model> {
   ): Promise<OnDelete<Model>> {
     if (NotificationSlackWebhookOnDeleteProject) {
       for (const project of onDelete.carryForward) {
-        let subscriptionStatus: SubscriptionStatus | null = null;
-
-        if (IsBillingEnabled) {
-          subscriptionStatus = await BillingService.getSubscriptionStatus(
-            project.paymentProviderSubscriptionId!,
-          );
-        }
-
         let slackMessage: string = `*Project Deleted:*
 *Project Name:* ${project.name?.toString() || "N/A"}
 *Project ID:* ${project._id?.toString() || "N/A"}
 *Project Created Date:* ${project.createdAt ? new Date(project.createdAt).toUTCString() : "N/A"}
-*Project Plan Name:* ${project.planName?.toString() || "N/A"}
 `;
-
-        if (subscriptionStatus) {
-          slackMessage += `*Project Subscription Status:* ${subscriptionStatus?.toString() || "N/A"}
-`;
-        }
 
         if (
           project.createdByUser &&
@@ -1794,77 +1185,8 @@ export class ProjectService extends DatabaseService<Model> {
     }
 
     // get project id
-    if (IsBillingEnabled) {
-      for (const project of onDelete.carryForward) {
-        if (project.paymentProviderSubscriptionId) {
-          await BillingService.cancelSubscription(
-            project.paymentProviderSubscriptionId,
-          );
-        }
-
-        if (project.paymentProviderMeteredSubscriptionId) {
-          await BillingService.cancelSubscription(
-            project.paymentProviderMeteredSubscriptionId,
-          );
-        }
-      }
-    }
 
     return onDelete;
-  }
-
-  @CaptureSpan()
-  public async getCurrentPlan(projectId: ObjectID): Promise<CurrentPlan> {
-    if (!IsBillingEnabled) {
-      return { plan: null, isSubscriptionUnpaid: false };
-    }
-
-    const cacheKey: string = projectId.toString();
-    const cached: CurrentPlan | undefined = this.currentPlanCache.get(cacheKey);
-    if (cached !== undefined) {
-      return cached;
-    }
-
-    const project: Model | null = await this.findOneById({
-      id: projectId,
-      select: {
-        paymentProviderPlanId: true,
-        paymentProviderSubscriptionStatus: true,
-        paymentProviderMeteredSubscriptionStatus: true,
-      },
-      props: {
-        isRoot: true,
-        ignoreHooks: true,
-      },
-    });
-
-    if (!project) {
-      // Don't cache "not found" — let the caller surface a fresh error.
-      throw new BadDataException("Project ID is invalid");
-    }
-
-    if (!project.paymentProviderPlanId) {
-      // Don't cache "no plan" — the project may be mid-onboarding.
-      throw new BadDataException("Project does not have any plans");
-    }
-
-    const plan: PlanType = SubscriptionPlan.getPlanType(
-      project.paymentProviderPlanId,
-      getAllEnvVars(),
-    );
-
-    const result: CurrentPlan = {
-      plan: plan,
-      isSubscriptionUnpaid:
-        !BillingService.isSubscriptionActive(
-          project.paymentProviderSubscriptionStatus!,
-        ) ||
-        !BillingService.isSubscriptionActive(
-          project.paymentProviderMeteredSubscriptionStatus!,
-        ),
-    };
-    this.currentPlanCache.set(cacheKey, result, 60_000);
-    return result;
   }
 
   @CaptureSpan()
@@ -1902,122 +1224,8 @@ export class ProjectService extends DatabaseService<Model> {
     }
   }
 
-  @CaptureSpan()
-  public async reactiveSubscription(projectId: ObjectID): Promise<void> {
-    logger.debug("Reactivating subscription for project " + projectId, {
-      projectId: projectId?.toString(),
-    } as LogAttributes);
-
-    const project: Model | null = await this.findOneById({
-      id: projectId!,
-      props: {
-        isRoot: true,
-      },
-      select: {
-        _id: true,
-        paymentProviderCustomerId: true,
-        paymentProviderSubscriptionId: true,
-        paymentProviderMeteredSubscriptionId: true,
-        paymentProviderSubscriptionSeats: true,
-        paymentProviderPlanId: true,
-      },
-    });
-
-    if (!project) {
-      throw new BadDataException("Project not found");
-    }
-
-    if (!project.paymentProviderCustomerId) {
-      throw new BadDataException("Payment Provider customer not found");
-    }
-
-    if (!project.paymentProviderSubscriptionId) {
-      throw new BadDataException("Payment Provider subscription not found");
-    }
-
-    if (!project.paymentProviderMeteredSubscriptionId) {
-      throw new BadDataException(
-        "Payment Provider metered subscription not found",
-      );
-    }
-
-    if (!project.paymentProviderSubscriptionSeats) {
-      throw new BadDataException(
-        "Payment Provider subscription seats not found",
-      );
-    }
-
-    if (!project.paymentProviderPlanId) {
-      throw new BadDataException("Payment Provider plan id not found");
-    }
-
-    const subscriptionPlan: SubscriptionPlan | undefined =
-      SubscriptionPlan.getSubscriptionPlanById(
-        project.paymentProviderPlanId,
-        getAllEnvVars(),
-      );
-
-    if (!subscriptionPlan) {
-      throw new BadDataException("Subscription plan not found");
-    }
-
-    const result: {
-      subscriptionId: string;
-      meteredSubscriptionId: string;
-      trialEndsAt?: Date | undefined;
-    } = await BillingService.changePlan({
-      projectId: project.id as ObjectID,
-      subscriptionId: project.paymentProviderSubscriptionId,
-      meteredSubscriptionId: project.paymentProviderMeteredSubscriptionId,
-      serverMeteredPlans: AllMeteredPlans,
-      newPlan: subscriptionPlan,
-      quantity: project.paymentProviderSubscriptionSeats,
-      isYearly: SubscriptionPlan.isYearlyPlan(project.paymentProviderPlanId),
-      endTrialAt: undefined,
-    });
-
-    // refresh subscription status.
-    const subscriptionState: SubscriptionStatus =
-      await BillingService.getSubscriptionStatus(
-        result.subscriptionId as string,
-      );
-
-    const meteredSubscriptionState: SubscriptionStatus =
-      await BillingService.getSubscriptionStatus(
-        project.paymentProviderMeteredSubscriptionId as string,
-      );
-
-    // now update project with new subscription id.
-
-    await this.updateOneById({
-      id: project.id!,
-      data: {
-        paymentProviderSubscriptionId: result.subscriptionId,
-        paymentProviderMeteredSubscriptionId: result.meteredSubscriptionId,
-        paymentProviderSubscriptionStatus: subscriptionState,
-        paymentProviderMeteredSubscriptionStatus: meteredSubscriptionState,
-      },
-      props: {
-        isRoot: true,
-      },
-    });
-
-    // send slack message on plan change.
-    await this.sendSubscriptionChangeWebhookSlackNotification(projectId);
-  }
-
   public getActiveProjectStatusQuery(): Query<Model> {
-    return {
-      // get only active projects
-      paymentProviderSubscriptionStatus: QueryHelper.equalToOrNull([
-        SubscriptionStatus.Active,
-        SubscriptionStatus.Trialing,
-      ]),
-      paymentProviderMeteredSubscriptionStatus: QueryHelper.equalToOrNull([
-        SubscriptionStatus.Active,
-        SubscriptionStatus.Trialing,
-      ]),
-    };
+    return {};
   }
 
   @CaptureSpan()
@@ -2049,30 +1257,6 @@ export class ProjectService extends DatabaseService<Model> {
     return URL.fromString(dashboardUrl.toString()).addRoute(
       `/${projectId.toString()}`,
     );
-  }
-
-  @CaptureSpan()
-  /*
-   * Atomically deduct AI spend from the project's balance. A single
-   * SET aiCurrentBalanceInUSDCents = aiCurrentBalanceInUSDCents - amount
-   * so concurrent AI runs (many LLM calls per turn, several turns per
-   * project) can't clobber each other's deductions the way a
-   * read-then-write would. No-op for non-positive amounts.
-   */
-  @CaptureSpan()
-  public async deductAiBalanceInUSDCents(data: {
-    projectId: ObjectID;
-    amountInUSDCents: number;
-  }): Promise<void> {
-    if (!data.amountInUSDCents || data.amountInUSDCents <= 0) {
-      return;
-    }
-
-    await this.atomicDecrementColumnValueBy({
-      id: data.projectId,
-      columnName: "aiCurrentBalanceInUSDCents",
-      value: data.amountInUSDCents,
-    });
   }
 
   @CaptureSpan()

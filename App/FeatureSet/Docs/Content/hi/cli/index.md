@@ -13,23 +13,23 @@ Cast Operations CLI एक command-line interface है जो आपको ter
 ## Installation
 
 ```bash
-npm install -g @oneuptime/cli
+npm install -g @cast-operations/cli
 ```
 
 ## Quick Start
 
 ```bash
 # अपने Cast Operations instance के साथ authenticate करें
-oneuptime login <your-api-key> https://visca.ai
+cast-operations login <your-api-key> https://visca.ai
 
 # अपने monitors सूचीबद्ध करें
-oneuptime monitor list
+cast-operations monitor list
 
 # एक specific incident देखें
-oneuptime incident get <incident-id>
+cast-operations incident get <incident-id>
 
 # सभी उपलब्ध resources देखें
-oneuptime resources
+cast-operations resources
 ```
 
 ## Documentation
@@ -60,9 +60,9 @@ oneuptime resources
 
 ```bash
 # सामान्य help
-oneuptime --help
+cast-operations --help
 
 # एक specific command के लिए help
-oneuptime monitor --help
-oneuptime monitor list --help
+cast-operations monitor --help
+cast-operations monitor list --help
 ```

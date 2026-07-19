@@ -6,7 +6,7 @@
 <head>
     <title><%= productConfig.productName %> Alternative - Cast Operations | Open Source | 2026 Comparison</title>
     <meta name="description"
-        content="Compare <%= productConfig.productName %> vs Cast Operations. Free open-source alternative with flexible monitoring, status pages & on-call. Pay only for what you use. See pricing, features & migration guide.">
+        content="Compare <%= productConfig.productName %> vs Cast Operations. Open-source alternative with monitoring, status pages, on-call, every capability included, and a practical migration guide.">
     
     <!-- FAQ Schema for rich snippets -->
     <script type="application/ld+json">
@@ -138,9 +138,9 @@
               <h3 class="text-xl font-semibold">Cast Operations</h3>
             </div>
           </div>
-          <p class="text-gray-300 leading-relaxed"><%= productConfig.oneUptimeDescription %></p>
+          <p class="text-gray-300 leading-relaxed"><%= productConfig.operationsDescription %></p>
           <div class="mt-6 pt-6 border-t border-white/10">
-            <p class="text-sm text-gray-400"><%= productConfig.oneuptimeFocus %></p>
+            <p class="text-sm text-gray-400"><%= productConfig.castOperationsFocus %></p>
           </div>
         </div>
       </div>
@@ -349,16 +349,16 @@
                   <% } %>
                 </td>
                 <td class="px-8 py-4 text-center bg-gray-900/[0.02]">
-                  <% if(productConfig.items[i].data[j].oneuptimeColumn === "tick"){ %>
+                  <% if(productConfig.items[i].data[j].castOperationsColumn === "tick"){ %>
                   <svg class="h-5 w-5 text-emerald-600 mx-auto" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
-                  <% } else if(productConfig.items[i].data[j].oneuptimeColumn === ""){ %>
+                  <% } else if(productConfig.items[i].data[j].castOperationsColumn === ""){ %>
                   <svg class="h-5 w-5 text-gray-300 mx-auto" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
                   </svg>
                   <% } else { %>
-                  <span class="inline-flex items-center rounded-full bg-gray-900 px-2.5 py-0.5 text-xs font-medium text-white"><%= productConfig.items[i].data[j].oneuptimeColumn %></span>
+                  <span class="inline-flex items-center rounded-full bg-gray-900 px-2.5 py-0.5 text-xs font-medium text-white"><%= productConfig.items[i].data[j].castOperationsColumn %></span>
                   <% } %>
                 </td>
               </tr>
@@ -397,16 +397,16 @@
                 </div>
                 <div class="text-center p-3 rounded-lg bg-gray-900">
                   <p class="text-xs text-gray-400 mb-1">Cast Operations</p>
-                  <% if(productConfig.items[i].data[j].oneuptimeColumn === "tick"){ %>
+                  <% if(productConfig.items[i].data[j].castOperationsColumn === "tick"){ %>
                   <svg class="h-5 w-5 text-emerald-400 mx-auto" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
-                  <% } else if(productConfig.items[i].data[j].oneuptimeColumn === ""){ %>
+                  <% } else if(productConfig.items[i].data[j].castOperationsColumn === ""){ %>
                   <svg class="h-5 w-5 text-gray-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
                   </svg>
                   <% } else { %>
-                  <span class="text-xs text-white"><%= productConfig.items[i].data[j].oneuptimeColumn %></span>
+                  <span class="text-xs text-white"><%= productConfig.items[i].data[j].castOperationsColumn %></span>
                   <% } %>
                 </div>
               </div>
@@ -428,7 +428,7 @@
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
           </svg>
-          <span>Pricing</span>
+          <span>Deployment</span>
         </div>
         <h2 class="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
           How <%= productConfig.productName %> pricing compares
@@ -473,26 +473,26 @@
               <div class="h-9 w-9 rounded-lg bg-white overflow-hidden flex-shrink-0">
                 <img src="/img/CastOperationsSVG/logo.svg" alt="Cast Operations" class="h-full w-full object-contain">
               </div>
-              <h3 class="text-xl font-semibold">Cast Operations pricing</h3>
+              <h3 class="text-xl font-semibold">Cast Operations deployment</h3>
             </div>
-            <p class="text-gray-300 leading-relaxed">One platform, one bill. Start free, self-host for nothing, or scale on predictable pricing &mdash; no per-host, per-seat, or per-check surprises.</p>
+            <p class="text-gray-300 leading-relaxed">One platform and one complete feature set, deployable inside your network.</p>
           </div>
           <div class="grid grid-cols-2 gap-4 lg:gap-6 flex-shrink-0">
             <div class="rounded-xl bg-white/[0.06] border border-white/10 px-5 py-4">
-              <div class="text-2xl font-semibold">Free</div>
-              <div class="text-xs text-gray-400 mt-1">Forever tier</div>
+              <div class="text-2xl font-semibold">Complete</div>
+              <div class="text-xs text-gray-400 mt-1">Feature set</div>
             </div>
             <div class="rounded-xl bg-white/[0.06] border border-white/10 px-5 py-4">
-              <div class="text-2xl font-semibold">$1</div>
-              <div class="text-xs text-gray-400 mt-1">Per active monitor</div>
+              <div class="text-2xl font-semibold">Private</div>
+              <div class="text-xs text-gray-400 mt-1">Network deployment</div>
             </div>
             <div class="rounded-xl bg-white/[0.06] border border-white/10 px-5 py-4">
               <div class="text-2xl font-semibold">Unlimited</div>
               <div class="text-xs text-gray-400 mt-1">Users & subscribers</div>
             </div>
             <div class="rounded-xl bg-white/[0.06] border border-white/10 px-5 py-4">
-              <div class="text-2xl font-semibold">$0</div>
-              <div class="text-xs text-gray-400 mt-1">Self-hosted</div>
+              <div class="text-2xl font-semibold">Apache 2.0</div>
+              <div class="text-xs text-gray-400 mt-1">Open source</div>
             </div>
           </div>
         </div>
@@ -528,8 +528,8 @@
             </div>
             <div class="p-6 sm:p-8 bg-emerald-50/40">
               <p class="text-xs font-medium uppercase tracking-wide text-emerald-600 mb-2">Cast Operations</p>
-              <p class="text-sm text-gray-600 leading-relaxed mb-4"><%= productConfig.useCases[u].oneuptimeSolution %></p>
-              <p class="text-lg font-semibold text-emerald-700"><%= productConfig.useCases[u].oneuptimeCost %></p>
+              <p class="text-sm text-gray-600 leading-relaxed mb-4"><%= productConfig.useCases[u].castOperationsSolution %></p>
+              <p class="text-lg font-semibold text-emerald-700"><%= productConfig.useCases[u].castOperationsCost %></p>
             </div>
           </div>
         </div>

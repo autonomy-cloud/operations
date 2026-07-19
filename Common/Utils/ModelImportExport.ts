@@ -5,13 +5,13 @@ import { ColumnAccessControl } from "../Types/BaseDatabase/AccessControl";
 import Select from "../Types/BaseDatabase/Select";
 import { TableColumnMetadata } from "../Types/Database/TableColumn";
 import TableColumnType from "../Types/Database/TableColumnType";
-import OneUptimeDate from "../Types/Date";
+import OperationsDate from "../Types/Date";
 import Dictionary from "../Types/Dictionary";
 import Recurring from "../Types/Events/Recurring";
 import BadDataException from "../Types/Exception/BadDataException";
 import { JSONArray, JSONObject } from "../Types/JSON";
 
-export const MODEL_EXPORT_FILE_TYPE: string = "oneuptime-resource-export";
+export const MODEL_EXPORT_FILE_TYPE: string = "cast-operations-resource-export";
 export const MODEL_EXPORT_SCHEMA_VERSION: number = 1;
 
 /*
@@ -337,7 +337,7 @@ export default class ModelImportExport {
       return a.getTime() <= b.getTime() ? a : b;
     });
 
-    if (OneUptimeDate.isInTheFuture(earliestDate)) {
+    if (OperationsDate.isInTheFuture(earliestDate)) {
       return;
     }
 

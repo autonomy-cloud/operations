@@ -26,7 +26,7 @@ import MetricsAggregationType from "Common/Types/Metrics/MetricsAggregationType"
 import Icon from "Common/UI/Components/Icon/Icon";
 import IconProp from "Common/Types/Icon/IconProp";
 import { RangeStartAndEndDateTimeUtil } from "Common/Types/Time/RangeStartAndEndDateTime";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import DashboardVariableInterpolation from "Common/Utils/Dashboard/VariableInterpolation";
 
 export interface ComponentProps extends DashboardBaseComponentProps {
@@ -502,8 +502,8 @@ const DashboardTableComponentElement: FunctionComponent<ComponentProps> = (
     for (const [iso, perColumn] of timestampToValues) {
       rows.push({
         timestampIso: iso,
-        timestampLabel: OneUptimeDate.getDateAsLocalFormattedString(
-          OneUptimeDate.fromString(iso),
+        timestampLabel: OperationsDate.getDateAsLocalFormattedString(
+          OperationsDate.fromString(iso),
         ),
         valuesByColumnKey: perColumn,
       });
@@ -514,8 +514,8 @@ const DashboardTableComponentElement: FunctionComponent<ComponentProps> = (
       b: TimestampRow,
     ): number => {
       return (
-        OneUptimeDate.fromString(a.timestampIso).getTime() -
-        OneUptimeDate.fromString(b.timestampIso).getTime()
+        OperationsDate.fromString(a.timestampIso).getTime() -
+        OperationsDate.fromString(b.timestampIso).getTime()
       );
     };
 
@@ -1184,8 +1184,8 @@ function reduceRows(rows: Array<AggregatedModel>, reduce: TableReduce): number {
       const sorted: Array<AggregatedModel> = [...rows].sort(
         (a: AggregatedModel, b: AggregatedModel) => {
           return (
-            OneUptimeDate.fromString(b.timestamp).getTime() -
-            OneUptimeDate.fromString(a.timestamp).getTime()
+            OperationsDate.fromString(b.timestamp).getTime() -
+            OperationsDate.fromString(a.timestamp).getTime()
           );
         },
       );

@@ -1,5 +1,5 @@
 import ObjectID from "../../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../../Types/Date";
+import OperationsDate from "../../../../../Types/Date";
 import AIInsight from "../../../../../Models/DatabaseModels/AIInsight";
 import AIInsightEvidence from "../../../../../Types/AI/AIInsightEvidence";
 import AIInsightService from "../../../../Services/AIInsightService";
@@ -129,7 +129,7 @@ export default class InsightTriageRunner {
             id: sentinelInsightId,
             data: {
               triageSummaryMarkdown: postData.analysisMarkdown,
-              triageCompletedAt: OneUptimeDate.getCurrentDate(),
+              triageCompletedAt: OperationsDate.getCurrentDate(),
             },
             props: { isRoot: true },
           });
@@ -164,12 +164,12 @@ export default class InsightTriageRunner {
     }
     if (insight.firstSeenAt) {
       lines.push(
-        `First seen: ${OneUptimeDate.getDateAsFormattedString(insight.firstSeenAt)}`,
+        `First seen: ${OperationsDate.getDateAsFormattedString(insight.firstSeenAt)}`,
       );
     }
     if (insight.lastSeenAt) {
       lines.push(
-        `Last seen: ${OneUptimeDate.getDateAsFormattedString(insight.lastSeenAt)}`,
+        `Last seen: ${OperationsDate.getDateAsFormattedString(insight.lastSeenAt)}`,
       );
     }
     if (insight.occurrenceCount) {

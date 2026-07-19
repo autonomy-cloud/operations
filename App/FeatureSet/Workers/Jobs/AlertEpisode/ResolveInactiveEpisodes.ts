@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { EVERY_FIVE_MINUTE } from "Common/Utils/CronTime";
 import AlertEpisodeService from "Common/Server/Services/AlertEpisodeService";
 import AlertGroupingRuleService from "Common/Server/Services/AlertGroupingRuleService";
@@ -105,9 +105,9 @@ const checkAndResolveInactiveEpisode: CheckAndResolveInactiveEpisodeFunction =
       const lastAlertAddedAt: Date =
         episode.lastAlertAddedAt || episode.createdAt || new Date();
       const minutesSinceLastAlert: number =
-        OneUptimeDate.getDifferenceInMinutes(
+        OperationsDate.getDifferenceInMinutes(
           lastAlertAddedAt,
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         );
 
       if (minutesSinceLastAlert < inactivityTimeoutMinutes) {

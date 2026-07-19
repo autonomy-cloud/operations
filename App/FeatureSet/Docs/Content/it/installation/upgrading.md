@@ -10,38 +10,7 @@ Questa guida descrive come aggiornare in modo sicuro la tua installazione self-h
 
 ## Aggiornamento da Cast Operations 10 → 11
 
-<!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
-
-### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
-
-In v11, the following authentication and access-management features moved to
-the **Cast Operations Enterprise Edition** and are no longer part of the free,
-open-source (Community) build:
-
-- **SAML SSO** — both project login and status-page login
-- **OpenID Connect (OIDC)** — both project login and status-page login
-- **SCIM user provisioning** — project and status page
-- **Global (instance-wide) SSO / OIDC**
-- **Team compliance settings**
-
-**What you'll see after upgrading:** if you configured any of these on a
-Community Edition build, sign-in through them is disabled after the upgrade,
-and the settings pages show an upgrade prompt instead of the configuration
-form. Your existing provider records are **preserved in the database** —
-nothing is deleted — they simply become inactive until the instance runs the
-Enterprise Edition.
-
-**Availability:**
-
-- **Self-hosted:** requires the **Enterprise Edition** build.
-- **Cast Operations Cloud:** requires the **Scale** plan (or above).
-
-**If you rely on SSO and self-host**, email
-[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
-license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
-v11 and we'll help you get it back online. If your team is mid-upgrade and this
-is blocking sign-in, contact us before upgrading production so we can plan it
-with you.
+Identity features, including SSO, OIDC, SCIM, global identity providers, and team compliance, are included in every Cast Operations installation and require no license or plan.
 
 Cast Operations 11 ricostruisce lo storage di telemetria ClickHouse. Questa pagina spiega cosa cambia, chi deve agire e — per le installazioni che vogliono conservare la telemetria storica — ogni query necessaria per farlo.
 
@@ -79,7 +48,7 @@ Come sempre: aggiornate le versioni maggiori una alla volta (10 → 11, senza sa
 Il Passo 0 va eseguito **prima dell'aggiornamento**; tutto il resto, dal Passo 1 in poi, va eseguito **dopo che l'aggiornamento è completamente avviato** (le nuove tabelle e le loro viste materializzate devono esistere). Collegatevi direttamente sul vostro host ClickHouse — il protocollo nativo non ha timeout HTTP, quindi statement di più ore non sono un problema:
 
 ```bash
-clickhouse-client --database oneuptime
+clickhouse-client --database cast-operations
 ```
 
 Da sapere prima di iniziare:
@@ -214,7 +183,7 @@ Nessuna modifica che richieda un intervento manuale. Segui semplicemente la proc
 
 Il chart Helm non provvede più a una risorsa Kubernetes Ingress. Cast Operations include un container ingress gateway che gestisce già la terminazione TLS, i domini delle pagine di stato e il routing del traffico per la piattaforma, quindi un ingress controller del cluster non è più necessario.
 
-- Rimuovi qualsiasi override di `oneuptimeIngress` dai tuoi file `values.yaml` personalizzati prima dell'aggiornamento. Quelle chiavi vengono ora ignorate e causeranno errori di validazione se lasciate.
+- Rimuovi qualsiasi override di `castOperationsIngress` dai tuoi file `values.yaml` personalizzati prima dell'aggiornamento. Quelle chiavi vengono ora ignorate e causeranno errori di validazione se lasciate.
 - Assicurati che `nginx.service.type` rispecchi come vuoi esporre l'ingress gateway incluso (ad esempio `LoadBalancer`, `NodePort`, o `ClusterIP` con un load balancer esterno).
 - Verifica che tutti i record DNS per le pagine di stato o gli host principali puntino ancora al Service o al load balancer che si trova davanti all'ingress gateway di Cast Operations.
 - Dopo l'aggiornamento, conferma che i certificati TLS continuino a rinnovarsi tramite il gateway integrato e che i domini delle pagine di stato si risolvano correttamente.

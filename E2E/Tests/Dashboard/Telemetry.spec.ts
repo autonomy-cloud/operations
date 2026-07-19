@@ -26,14 +26,11 @@ import {
  *   cd E2E && HOST=localhost npx playwright test \
  *     Tests/Dashboard/Telemetry.spec.ts --project=chromium
  *
- * Registers a user + creates a project, so it needs a working billing backend
- * when BILLING_ENABLED=true. Both e2e environments support this: the
- * self-hosted job runs with billing off, and the SaaS job injects test-mode
- * Stripe keys from repo secrets.
+ * Registers a user and creates a project before ingesting telemetry.
  */
 test.describe("Telemetry Ingestion", () => {
   /*
-   * Register + project + billing + ingest-key setup plus the ingest->query
+   * Register + project + ingest-key setup plus the ingest->query
    * poll needs more than the default 240s, so give these tests extra headroom.
    */
   test.beforeEach(() => {

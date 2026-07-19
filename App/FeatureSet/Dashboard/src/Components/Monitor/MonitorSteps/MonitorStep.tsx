@@ -29,7 +29,7 @@ import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import API from "Common/UI/Utils/API/API";
 import Includes from "Common/Types/BaseDatabase/Includes";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ServicesElement from "../../Service/ServiceElements";
 import { SpanStatus } from "Common/Models/AnalyticsModels/Span";
 import ObjectID from "Common/Types/ObjectID";
@@ -484,7 +484,7 @@ const MonitorStepElement: FunctionComponent<ComponentProps> = (
         getElement: (item: LogMonitorStepView): ReactElement => {
           return (
             <p>
-              {OneUptimeDate.convertSecondsToDaysHoursMinutesAndSeconds(
+              {OperationsDate.convertSecondsToDaysHoursMinutesAndSeconds(
                 item.lastXSecondsOfLogs || 0,
               )}
             </p>
@@ -570,7 +570,7 @@ const MonitorStepElement: FunctionComponent<ComponentProps> = (
         getElement: (item: TraceMonitorStepView): ReactElement => {
           return (
             <p>
-              {OneUptimeDate.convertSecondsToDaysHoursMinutesAndSeconds(
+              {OperationsDate.convertSecondsToDaysHoursMinutesAndSeconds(
                 item.lastXSecondsOfSpans || 0,
               )}
             </p>

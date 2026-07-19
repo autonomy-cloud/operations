@@ -3,7 +3,7 @@ import { StatusPageApiRoute } from "Common/ServiceRoute";
 import Hostname from "Common/Types/API/Hostname";
 import Protocol from "Common/Types/API/Protocol";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import NotAuthenticatedException from "Common/Types/Exception/NotAuthenticatedException";
@@ -291,7 +291,7 @@ router.post(
 
       if (
         session.refreshTokenExpiresAt &&
-        OneUptimeDate.hasExpired(session.refreshTokenExpiresAt)
+        OperationsDate.hasExpired(session.refreshTokenExpiresAt)
       ) {
         await StatusPagePrivateUserSessionService.revokeSessionById(
           session.id,
@@ -539,7 +539,7 @@ router.post(
           },
           data: {
             resetPasswordToken: hashedToken,
-            resetPasswordExpires: OneUptimeDate.getOneDayAfter(),
+            resetPasswordExpires: OperationsDate.getOneDayAfter(),
           },
           props: {
             isRoot: true,
@@ -645,7 +645,7 @@ router.post(
 
       if (
         alreadySavedUser &&
-        OneUptimeDate.hasExpired(alreadySavedUser.resetPasswordExpires!)
+        OperationsDate.hasExpired(alreadySavedUser.resetPasswordExpires!)
       ) {
         throw new BadDataException(
           "Expired link. Please go to forgot password page again and request a new link.",

@@ -1,7 +1,7 @@
 import DisabledWarning from "../../../Components/Monitor/DisabledWarning";
 import PageComponentProps from "../../PageComponentProps";
 import { Black } from "Common/Types/BrandColors";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import IconProp from "Common/Types/Icon/IconProp";
 import ObjectID from "Common/Types/ObjectID";
@@ -139,7 +139,7 @@ const StatusTimeline: FunctionComponent<PageComponentProps> = (
             required: true,
             placeholder: "Starts At",
             getDefaultValue: () => {
-              return OneUptimeDate.getCurrentDate();
+              return OperationsDate.getCurrentDate();
             },
           },
         ]}
@@ -226,9 +226,9 @@ const StatusTimeline: FunctionComponent<PageComponentProps> = (
             getElement: (item: MonitorStatusTimeline): ReactElement => {
               return (
                 <p>
-                  {OneUptimeDate.differenceBetweenTwoDatesAsFromattedString(
+                  {OperationsDate.differenceBetweenTwoDatesAsFromattedString(
                     item["startsAt"] as Date,
-                    (item["endsAt"] as Date) || OneUptimeDate.getCurrentDate(),
+                    (item["endsAt"] as Date) || OperationsDate.getCurrentDate(),
                   )}
                 </p>
               );

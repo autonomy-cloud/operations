@@ -31,7 +31,7 @@ This project provides a **dynamic Terraform provider generator** that automatica
 ## 📁 Generated Structure
 
 ```
-Terraform/terraform-provider-oneuptime/
+Terraform/terraform-provider-cast-operations/
 ├── main.go                          # Provider entry point
 ├── go.mod                           # Go module definition
 ├── Makefile                         # Build automation
@@ -72,7 +72,7 @@ npm run generate-terraform-provider
 
 ```bash
 # Navigate to the generated provider
-cd Terraform/terraform-provider-oneuptime
+cd Terraform/terraform-provider-cast-operations
 
 # Install dependencies and build
 go mod tidy
@@ -87,26 +87,26 @@ go build
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url    = "https://visca.ai"
-  api_key = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url    = "https://visca.ai"
+  api_key = var.cast_operations_api_key
 }
 
 # Create a project
-resource "oneuptime_project" "example" {
+resource "cast_operations_project" "example" {
   name        = "my-project"
   description = "Created with Terraform"
 }
 
 # Get project data
-data "oneuptime_project_data" "example" {
+data "cast_operations_project_data" "example" {
   name = "my-project"
 }
 ```
@@ -152,7 +152,7 @@ The generator automatically creates Terraform resources for all Cast Operations 
 The provider supports multiple authentication methods:
 
 ```hcl
-provider "oneuptime" {
+provider "cast-operations" {
   # Method 1: API Key
   host    = "https://visca.ai"
   api_key = var.api_key
@@ -165,10 +165,10 @@ provider "oneuptime" {
 ```
 
 Environment variables are also supported:
-- `ONEUPTIME_HOST`
-- `ONEUPTIME_API_KEY`
-- `ONEUPTIME_USERNAME`
-- `ONEUPTIME_PASSWORD`
+- `CAST_OPERATIONS_HOST`
+- `CAST_OPERATIONS_API_KEY`
+- `CAST_OPERATIONS_USERNAME`
+- `CAST_OPERATIONS_PASSWORD`
 
 ## 🧪 Testing
 
@@ -222,7 +222,7 @@ To modify the generator:
 
 1. Edit TypeScript files in `Scripts/TerraformProvider/Core/`
 2. Run `npm run generate-terraform-provider` to test changes
-3. Check generated Go code in `Terraform/terraform-provider-oneuptime/`
+3. Check generated Go code in `Terraform/terraform-provider-cast-operations/`
 4. Iterate and improve
 
 ## 📚 Documentation

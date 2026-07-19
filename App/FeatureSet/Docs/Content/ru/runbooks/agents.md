@@ -49,18 +49,18 @@ Runbook-агенты переворачивают это. Bash- и JavaScript-ш
 - делать то, что должны делать ваши Bash/JavaScript-шаги (например, SSH к другим хостам, `kubectl`, обращение к базе).
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.yourdomain.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.yourdomain.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. Убедитесь, что агент подключился
 
 Вернитесь в **Runbooks → Настройки → Агенты**. Примерно за 60 секунд строка агента должна переключиться на `Connected` со свежей меткой **Last seen**. Если остаётся `Disconnected`:
 
-- Посмотрите логи контейнера (`docker logs oneuptime-runbook-agent`) на предмет ошибок аутентификации или сети.
+- Посмотрите логи контейнера (`docker logs cast-operations-runbook-agent`) на предмет ошибок аутентификации или сети.
 - Убедитесь, что хост достигает Cast Operations URL через `curl`.
 - Убедитесь, что ID и ключ скопированы без пробелов.
 
@@ -116,7 +116,7 @@ docker run --name oneuptime-runbook-agent --restart unless-stopped \
 
 | Переменная                                | Обязательная | По умолчанию | Заметки                                                                    |
 | ----------------------------------------- | ------------ | ------------ | -------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | да           | —            | Базовый URL вашего Cast Operations, например `https://operations.yourdomain.com`. |
+| `CAST_OPERATIONS_URL`                           | да           | —            | Базовый URL вашего Cast Operations, например `https://operations.yourdomain.com`. |
 | `RUNBOOK_AGENT_ID`                        | да           | —            | UUID из модального окна настройки агента.                                  |
 | `RUNBOOK_AGENT_KEY`                       | да           | —            | Секрет из модального окна настройки агента.                                |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | нет          | `5000`       | Как часто агент опрашивает наличие новых job'ов.                           |

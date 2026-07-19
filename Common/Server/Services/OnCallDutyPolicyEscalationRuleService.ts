@@ -1,4 +1,3 @@
-import { IsBillingEnabled } from "../EnvironmentConfig";
 import CreateBy from "../Types/Database/CreateBy";
 import DeleteBy from "../Types/Database/DeleteBy";
 import { OnCreate, OnDelete, OnUpdate } from "../Types/Database/Hooks";
@@ -17,9 +16,8 @@ import TeamMemberService from "./TeamMemberService";
 import UserNotificationRuleService from "./UserNotificationRuleService";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import LIMIT_MAX, { LIMIT_PER_PROJECT } from "../../Types/Database/LimitMax";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
 import OnCallDutyExecutionLogTimelineStatus from "../../Types/OnCallDutyPolicy/OnCalDutyExecutionLogTimelineStatus";
@@ -51,7 +49,7 @@ export class Service extends DatabaseService<Model> {
       } as LogAttributes,
     );
 
-    const currentDate: Date = OneUptimeDate.getCurrentDate();
+    const currentDate: Date = OperationsDate.getCurrentDate();
 
     const alertRoutedTo: Array<OnCallDutyPolicyUserOverride> =
       await OnCallDutyPolicyUserOverrideService.findBy({
@@ -164,7 +162,7 @@ export class Service extends DatabaseService<Model> {
     await OnCallDutyPolicyExecutionLogService.updateOneById({
       id: options.onCallPolicyExecutionLogId,
       data: {
-        lastEscalationRuleExecutedAt: OneUptimeDate.getCurrentDate(),
+        lastEscalationRuleExecutedAt: OperationsDate.getCurrentDate(),
         lastExecutedEscalationRuleId: ruleId,
         lastExecutedEscalationRuleOrder: rule.order!,
         executeNextEscalationRuleInMinutes: rule.escalateAfterInMinutes || 0,
@@ -831,27 +829,6 @@ export class Service extends DatabaseService<Model> {
   protected override async onBeforeCreate(
     createBy: CreateBy<Model>,
   ): Promise<OnCreate<Model>> {
-    if (IsBillingEnabled && createBy.props.currentPlan === PlanType.Free) {
-      // then check no of policies and if it is more than one, return error
-      const count: PositiveNumber = await this.countBy({
-        query: {
-          projectId: createBy.data.projectId!,
-          onCallDutyPolicyId:
-            createBy.data.onCallDutyPolicyId! ||
-            createBy.data.onCallDutyPolicy?._id,
-        },
-        props: {
-          isRoot: true,
-        },
-      });
-
-      if (count.toNumber() >= 1) {
-        throw new BadDataException(
-          "You can only create one escalation rule in free plan.",
-        );
-      }
-    }
-
     if (!createBy.data.onCallDutyPolicyId) {
       throw new BadDataException(
         "Status Page Resource onCallDutyPolicyId is required",

@@ -7,7 +7,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import logger, { getLogAttributesFromRequest } from "../Utils/Logger";
 import Response from "../Utils/Response";
@@ -222,14 +222,14 @@ export default class DashboardDomainAPI extends BaseAPI<
 
           logger.debug(
             "Ordering SSL",
-            getLogAttributesFromRequest(req as OneUptimeRequest),
+            getLogAttributesFromRequest(req as OperationsRequest),
           );
 
           await DashboardDomainService.orderCert(domain);
 
           logger.debug(
             "SSL Provisioned for domain - " + domain.fullDomain,
-            getLogAttributesFromRequest(req as OneUptimeRequest),
+            getLogAttributesFromRequest(req as OperationsRequest),
           );
 
           return Response.sendEmptySuccessResponse(req, res);

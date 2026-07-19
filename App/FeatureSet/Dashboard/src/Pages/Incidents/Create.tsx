@@ -1,7 +1,7 @@
 import PageMap from "../../Utils/PageMap";
 import RouteMap, { RouteUtil } from "../../Utils/RouteMap";
 import PageComponentProps from "../PageComponentProps";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Route from "Common/Types/API/Route";
 import Incident from "Common/Models/DatabaseModels/Incident";
 import MarkdownUtil from "Common/UI/Utils/Markdown";
@@ -331,7 +331,7 @@ const IncidentCreate: FunctionComponent<
                   required: true,
                   placeholder: "Pick date and time",
                   getDefaultValue: () => {
-                    return OneUptimeDate.getCurrentDate();
+                    return OperationsDate.getCurrentDate();
                   },
                 },
                 {

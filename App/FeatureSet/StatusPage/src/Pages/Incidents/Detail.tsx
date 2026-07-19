@@ -13,7 +13,7 @@ import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
 import { Gray500, Green, Red } from "Common/Types/BrandColors";
 import Color from "Common/Types/Color";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -99,14 +99,16 @@ export const getIncidentEventItem: GetIncidentEventItemFunction = (
   if (isSummary) {
     // If this is summary then reverse the order so we show the latest first
     incidentPublicNotes.sort((a: IncidentPublicNote, b: IncidentPublicNote) => {
-      return OneUptimeDate.isAfter(a.postedAt!, b.postedAt!) === false ? 1 : -1;
+      return OperationsDate.isAfter(a.postedAt!, b.postedAt!) === false
+        ? 1
+        : -1;
     });
 
     incidentStateTimelines.sort(
       (a: IncidentStateTimeline, b: IncidentStateTimeline) => {
         const aDate: Date = a.startsAt || a.createdAt!;
         const bDate: Date = b.startsAt || b.createdAt!;
-        return OneUptimeDate.isAfter(aDate, bDate) === false ? 1 : -1;
+        return OperationsDate.isAfter(aDate, bDate) === false ? 1 : -1;
       },
     );
   }
@@ -278,7 +280,7 @@ export const getIncidentEventItem: GetIncidentEventItemFunction = (
   }
 
   timeline.sort((a: TimelineItem, b: TimelineItem) => {
-    return OneUptimeDate.isAfter(a.date, b.date) === true ? 1 : -1;
+    return OperationsDate.isAfter(a.date, b.date) === true ? 1 : -1;
   });
 
   const monitorIdsInThisIncident: Array<string | undefined> =
@@ -344,7 +346,7 @@ export const getIncidentEventItem: GetIncidentEventItemFunction = (
     anotherStatus: translateStatusName(incident.incidentSeverity?.name),
     eventSecondDescription: incidentDeclaredAt
       ? i18n.t("incidents.declaredAt") +
-        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
           incidentDeclaredAt,
         )
       : "",
@@ -450,7 +452,7 @@ export const getEpisodeEventItem: GetEpisodeEventItemFunction = (
     // If this is summary then reverse the order so we show the latest first
     episodePublicNotes.sort(
       (a: IncidentEpisodePublicNote, b: IncidentEpisodePublicNote) => {
-        return OneUptimeDate.isAfter(a.postedAt!, b.postedAt!) === false
+        return OperationsDate.isAfter(a.postedAt!, b.postedAt!) === false
           ? 1
           : -1;
       },
@@ -460,7 +462,7 @@ export const getEpisodeEventItem: GetEpisodeEventItemFunction = (
       (a: IncidentEpisodeStateTimeline, b: IncidentEpisodeStateTimeline) => {
         const aDate: Date = a.startsAt || a.createdAt!;
         const bDate: Date = b.startsAt || b.createdAt!;
-        return OneUptimeDate.isAfter(aDate, bDate) === false ? 1 : -1;
+        return OperationsDate.isAfter(aDate, bDate) === false ? 1 : -1;
       },
     );
   }
@@ -571,7 +573,7 @@ export const getEpisodeEventItem: GetEpisodeEventItemFunction = (
   }
 
   timeline.sort((a: TimelineItem, b: TimelineItem) => {
-    return OneUptimeDate.isAfter(a.date, b.date) === true ? 1 : -1;
+    return OperationsDate.isAfter(a.date, b.date) === true ? 1 : -1;
   });
 
   const episodeDeclaredAt: Date | undefined =
@@ -600,7 +602,7 @@ export const getEpisodeEventItem: GetEpisodeEventItemFunction = (
     anotherStatus: translateStatusName(episode.incidentSeverity?.name),
     eventSecondDescription: episodeDeclaredAt
       ? i18n.t("incidents.declaredAt") +
-        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
           episodeDeclaredAt,
         )
       : "",

@@ -11,7 +11,7 @@ Der Cast Operations Terraform-Provider ist im [Terraform Registry](https://regis
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Neueste 7.x-Version verwenden
     }
@@ -27,7 +27,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Auf genaue Version pinnen, die Ihrer Cast Operations-Installation entspricht
     }
@@ -41,25 +41,25 @@ terraform {
 ### Grundkonfiguration
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://your-operations-instance.com"  # Oder https://visca.ai für Cloud
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://your-operations-instance.com"  # Oder https://visca.ai für Cloud
+  api_key       = var.cast_operations_api_key
 }
 ```
 
 ### Umgebungsvariablen
 
 ```bash
-export ONEUPTIME_URL="https://your-operations-instance.com"
-export ONEUPTIME_API_KEY="your-api-key-here"
+export CAST_OPERATIONS_URL="https://your-operations-instance.com"
+export CAST_OPERATIONS_API_KEY="your-api-key-here"
 ```
 
 ### Konfigurationsoptionen
 
 | Argument        | Umgebungsvariable   | Beschreibung            | Erforderlich |
 | --------------- | ------------------- | ----------------------- | ------------ |
-| `oneuptime_url` | `ONEUPTIME_URL`     | Cast Operations-URL           | Ja           |
-| `api_key`       | `ONEUPTIME_API_KEY` | Cast Operations-API-Schlüssel | Ja           |
+| `cast_operations_url` | `CAST_OPERATIONS_URL`     | Cast Operations-URL           | Ja           |
+| `api_key`       | `CAST_OPERATIONS_API_KEY` | Cast Operations-API-Schlüssel | Ja           |
 
 ## Schnellstart
 
@@ -93,7 +93,7 @@ Verwenden Sie die neueste Provider-Version:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Immer neueste kompatible Version verwenden
     }
@@ -112,12 +112,12 @@ terraform {
 
 ## Verfügbare Ressourcen
 
-- `oneuptime_team` - Teams verwalten
-- `oneuptime_monitor` - Monitore erstellen und verwalten
-- `oneuptime_probe` - Überwachungs-Probes verwalten
-- `oneuptime_on_call_duty_policy` - Bereitschaftspläne einrichten
-- `oneuptime_status_page` - Status-Seiten erstellen
-- `oneuptime_service_catalog` - Servicekatalogeinträge verwalten
+- `cast_operations_team` - Teams verwalten
+- `cast_operations_monitor` - Monitore erstellen und verwalten
+- `cast_operations_probe` - Überwachungs-Probes verwalten
+- `cast_operations_on_call_duty_policy` - Bereitschaftspläne einrichten
+- `cast_operations_status_page` - Status-Seiten erstellen
+- `cast_operations_service_catalog` - Servicekatalogeinträge verwalten
 
 ## Best Practices
 
@@ -140,7 +140,7 @@ terraform {
 terraform {
   backend "s3" {
     bucket = "my-terraform-state"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }

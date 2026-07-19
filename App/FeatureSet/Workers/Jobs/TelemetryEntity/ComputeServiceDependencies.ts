@@ -6,7 +6,7 @@ import TelemetryEntityRelationshipService from "Common/Server/Services/Telemetry
 import Service from "Common/Models/DatabaseModels/Service";
 import Includes from "Common/Types/BaseDatabase/Includes";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import EntityRelationshipType from "Common/Types/Telemetry/EntityRelationshipType";
 import ServiceType from "Common/Types/Telemetry/ServiceType";
@@ -15,6 +15,10 @@ import {
   EntityRelationshipMetrics,
 } from "Common/Utils/Telemetry/EntityRelationship";
 import { keyForService } from "Common/Utils/Telemetry/EntityKey";
+import {
+  getClickhouseDatabaseName,
+  quoteClickhouseIdentifier,
+} from "Common/Server/Utils/AnalyticsDatabase/ClusterConfig";
 
 /*
  * TelemetryEntity:ComputeServiceDependencies
@@ -53,6 +57,9 @@ const WINDOW_MINUTES: number = 15;
 const MAX_SPANS_PER_SIDE: number = 500000;
 const MAX_EDGES_PER_PROJECT: number = 1000;
 const MAX_PROJECTS_PER_RUN: number = 1000;
+const CLICKHOUSE_DATABASE: string = quoteClickhouseIdentifier(
+  getClickhouseDatabaseName(),
+);
 
 const QUERY_SETTINGS: string =
   "SETTINGS max_execution_time = 60, timeout_overflow_mode = 'break', max_memory_usage = 2000000000, max_bytes_before_external_group_by = 1000000000, max_bytes_before_external_sort = 1000000000";
@@ -82,7 +89,7 @@ async function findProjectsWithRecentSpans(window: {
 }): Promise<Array<string>> {
   const sql: string = `
     SELECT DISTINCT projectId
-    FROM oneuptime.SpanItemV3
+    FROM ${CLICKHOUSE_DATABASE}.SpanItemV3
     WHERE startTime >= ${window.startSql}
       AND startTime < ${window.endSql}
     LIMIT ${MAX_PROJECTS_PER_RUN}
@@ -134,7 +141,7 @@ async function findServiceDependencyPairs(args: {
     FROM
     (
       SELECT traceId, spanId, primaryEntityId
-      FROM oneuptime.SpanItemV3
+      FROM ${CLICKHOUSE_DATABASE}.SpanItemV3
       WHERE projectId = '${projectIdSql}'
         AND startTime >= ${args.startSql}
         AND startTime < ${args.endSql}
@@ -144,7 +151,7 @@ async function findServiceDependencyPairs(args: {
     INNER JOIN
     (
       SELECT traceId, parentSpanId, primaryEntityId, statusCode, durationUnixNano
-      FROM oneuptime.SpanItemV3
+      FROM ${CLICKHOUSE_DATABASE}.SpanItemV3
       WHERE projectId = '${projectIdSql}'
         AND startTime >= ${args.startSql}
         AND startTime < ${args.endSql}
@@ -304,11 +311,11 @@ RunCron(
   { schedule: EVERY_TEN_MINUTES, runOnStartup: false },
   async () => {
     try {
-      const endTime: Date = OneUptimeDate.getCurrentDate();
-      const startTime: Date = OneUptimeDate.getSomeMinutesAgo(WINDOW_MINUTES);
+      const endTime: Date = OperationsDate.getCurrentDate();
+      const startTime: Date = OperationsDate.getSomeMinutesAgo(WINDOW_MINUTES);
 
-      const startSql: string = `toDateTime64('${OneUptimeDate.toClickhouseDateTime64(startTime)}', 9)`;
-      const endSql: string = `toDateTime64('${OneUptimeDate.toClickhouseDateTime64(endTime)}', 9)`;
+      const startSql: string = `toDateTime64('${OperationsDate.toClickhouseDateTime64(startTime)}', 9)`;
+      const endSql: string = `toDateTime64('${OperationsDate.toClickhouseDateTime64(endTime)}', 9)`;
 
       const projectIds: Array<string> = await findProjectsWithRecentSpans({
         startSql,

@@ -61,7 +61,7 @@ outputs:
     traces_uri: "/otlp/v1/traces"
     tls: On
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 Stellen Sie sicher, dass Sie `opentelemetry_envelope` in Ihrem Inputs-Abschnitt haben. Hier ist ein Beispiel für den Inputs-Abschnitt:

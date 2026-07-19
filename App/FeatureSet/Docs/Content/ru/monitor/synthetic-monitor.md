@@ -122,10 +122,10 @@ console.log(stringSecret);
 
 ### Пользовательские метрики
 
-Пользовательские метрики можно записывать из скрипта с помощью функции `oneuptime.captureMetric()`. Метрики сохраняются в Cast Operations и могут быть отображены на панелях управления с помощью обозревателя метрик.
+Пользовательские метрики можно записывать из скрипта с помощью функции `cast-operations.captureMetric()`. Метрики сохраняются в Cast Operations и могут быть отображены на панелях управления с помощью обозревателя метрик.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (строка, обязательно): название метрики (например, `"dashboard.load.time"`). Автоматически сохраняется с префиксом `custom.monitor.`.
@@ -142,7 +142,7 @@ await page.waitForSelector("#dashboard-loaded");
 const loadTime = Date.now() - startTime;
 
 // Запись времени загрузки страницы как пользовательской метрики
-oneuptime.captureMetric("dashboard.load.time", loadTime, {
+cast-operations.captureMetric("dashboard.load.time", loadTime, {
   page: "dashboard",
 });
 
@@ -168,7 +168,7 @@ return {
 - `axios`: модуль для HTTP-запросов. Основанный на промисах HTTP-клиент для браузера и Node.js.
 - `crypto`: модуль для криптографических операций. Встроенный модуль Node.js.
 - `console.log`: модуль для вывода данных в консоль. Полезен для отладки.
-- `oneuptime.captureMetric`: функция записи пользовательских метрик из скрипта. См. раздел «Пользовательские метрики» выше.
+- `cast-operations.captureMetric`: функция записи пользовательских метрик из скрипта. См. раздел «Пользовательские метрики» выше.
 - `http`: модуль для HTTP-запросов. Встроенный модуль Node.js.
 - `https`: модуль для HTTPS-запросов. Встроенный модуль Node.js.
 

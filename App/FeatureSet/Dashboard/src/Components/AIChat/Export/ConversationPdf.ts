@@ -8,7 +8,7 @@ import {
   AIChatToolActionStatus,
   AIChatWidget,
 } from "Common/Types/AI/AIChatTypes";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import parseMarkdownBlocks, {
   MarkdownBlock,
 } from "Common/UI/Utils/AIChatExport/MarkdownBlocks";
@@ -88,7 +88,7 @@ class ConversationPdfBuilder {
     });
 
     this.pdf.paragraph(
-      `Exported from Cast Operations on ${OneUptimeDate.getDateAsLocalFormattedString(
+      `Exported from Cast Operations on ${OperationsDate.getDateAsLocalFormattedString(
         options.exportedAt,
       )}`,
       { size: 8, color: PDF_COLORS.faint },
@@ -154,7 +154,7 @@ class ConversationPdfBuilder {
 
     if (message.createdAt) {
       parts.push(
-        OneUptimeDate.getDateAsLocalFormattedString(message.createdAt),
+        OperationsDate.getDateAsLocalFormattedString(message.createdAt),
       );
     }
     if (extra) {

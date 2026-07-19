@@ -13,7 +13,7 @@ import { JSONArray, JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
 import UserType from "../../Types/UserType";
 import UserService from "./UserService";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 
 const PROJECT_SETTINGS_CACHE_TTL_MS: number = 60 * 1000;
 const USER_CACHE_TTL_MS: number = 5 * 60 * 1000;
@@ -256,7 +256,7 @@ export class AuditLogService extends AnalyticsDatabaseService<AuditLog> {
 
   private computeRetentionDate(retentionInDays: number): Date {
     const days: number = Math.max(1, Math.min(retentionInDays || 7, 180));
-    return OneUptimeDate.addRemoveDays(OneUptimeDate.getCurrentDate(), days);
+    return OperationsDate.addRemoveDays(OperationsDate.getCurrentDate(), days);
   }
 
   private isEligible(

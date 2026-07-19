@@ -53,7 +53,7 @@ import FetchUsers from "../../Components/User/FetchUsers";
 import User from "Common/Models/DatabaseModels/User";
 import FetchLabels from "../../Components/Label/FetchLabels";
 import RecurringArrayViewElement from "Common/UI/Components/Events/RecurringArrayViewElement";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const ScheduledMaintenanceCreate: FunctionComponent<
   PageComponentProps
@@ -319,7 +319,7 @@ const ScheduledMaintenanceCreate: FunctionComponent<
                   stepId: "event-time",
                   description:
                     "Shown in your local timezone (" +
-                    OneUptimeDate.getCurrentTimezoneString() +
+                    OperationsDate.getCurrentTimezoneString() +
                     ").",
                   fieldType: FormFieldSchemaType.DateTime,
                   required: true,
@@ -333,7 +333,7 @@ const ScheduledMaintenanceCreate: FunctionComponent<
                   stepId: "event-time",
                   description:
                     "Shown in your local timezone (" +
-                    OneUptimeDate.getCurrentTimezoneString() +
+                    OperationsDate.getCurrentTimezoneString() +
                     ").",
                   fieldType: FormFieldSchemaType.DateTime,
                   required: true,

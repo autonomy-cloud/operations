@@ -1,7 +1,7 @@
 import BearerTokenAuthorization from "../../../Server/Middleware/BearerTokenAuthorization";
 import {
   ExpressResponse,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../../../Server/Utils/Express";
 import JSONWebToken from "../../../Server/Utils/JsonWebToken";
 import { describe, expect, it } from "@jest/globals";
@@ -12,11 +12,11 @@ describe("BearerTokenAuthorization", () => {
   describe("isAuthorizedBearerToken", () => {
     it("adds decoded token data to request", () => {
       const jsonObj: JSONObject = { test: "test" };
-      const req: OneUptimeRequest = {
+      const req: OperationsRequest = {
         headers: {
           authorization: `Bearer ${JSONWebToken.signJsonPayload(jsonObj, 5)}`,
         },
-      } as OneUptimeRequest;
+      } as OperationsRequest;
       const res: ExpressResponse = {} as ExpressResponse;
       const next: MockFunction = getJestMockFunction();
       void BearerTokenAuthorization.isAuthorizedBearerToken(req, res, next);
@@ -25,22 +25,22 @@ describe("BearerTokenAuthorization", () => {
     });
     it("calls next without arguments if token is valid", () => {
       const jsonObj: JSONObject = { test: "test" };
-      const req: OneUptimeRequest = {
+      const req: OperationsRequest = {
         headers: {
           authorization: `Bearer ${JSONWebToken.signJsonPayload(jsonObj, 5)}`,
         },
-      } as OneUptimeRequest;
+      } as OperationsRequest;
       const res: ExpressResponse = {} as ExpressResponse;
       const next: MockFunction = getJestMockFunction();
       void BearerTokenAuthorization.isAuthorizedBearerToken(req, res, next);
       expect(next.mock.calls[0][0]).toMatchInlineSnapshot(`undefined`);
     });
     it("calls next with exception if token is empty", () => {
-      const req: OneUptimeRequest = {
+      const req: OperationsRequest = {
         headers: {
           authorization: "",
         },
-      } as OneUptimeRequest;
+      } as OperationsRequest;
       const res: ExpressResponse = {} as ExpressResponse;
       const next: MockFunction = getJestMockFunction();
       void BearerTokenAuthorization.isAuthorizedBearerToken(req, res, next);
@@ -49,11 +49,11 @@ describe("BearerTokenAuthorization", () => {
       );
     });
     it("calls next with exception if token is invalid", () => {
-      const req: OneUptimeRequest = {
+      const req: OperationsRequest = {
         headers: {
           authorization: "Bearer ",
         },
-      } as OneUptimeRequest;
+      } as OperationsRequest;
       const res: ExpressResponse = {} as ExpressResponse;
       const next: MockFunction = getJestMockFunction();
       void BearerTokenAuthorization.isAuthorizedBearerToken(req, res, next);
@@ -62,7 +62,7 @@ describe("BearerTokenAuthorization", () => {
       );
     });
     it("calls next with exception if token header is not present", () => {
-      const req: OneUptimeRequest = {} as OneUptimeRequest;
+      const req: OperationsRequest = {} as OperationsRequest;
       const res: ExpressResponse = {} as ExpressResponse;
       const next: MockFunction = getJestMockFunction();
       void BearerTokenAuthorization.isAuthorizedBearerToken(req, res, next);

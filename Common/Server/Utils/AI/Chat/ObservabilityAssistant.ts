@@ -1,5 +1,5 @@
 import DatabaseCommonInteractionProps from "../../../../Types/BaseDatabase/DatabaseCommonInteractionProps";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import ObjectID from "../../../../Types/ObjectID";
 import { JSONObject } from "../../../../Types/JSON";
 import { AIChatCitation } from "../../../../Types/AI/AIChatTypes";
@@ -145,7 +145,7 @@ export default class ObservabilityAssistant {
     };
 
     let systemPromptContent: string = buildObservabilityChatSystemPrompt({
-      currentTime: OneUptimeDate.getCurrentDate(),
+      currentTime: OperationsDate.getCurrentDate(),
       /*
        * Slack/Teams and autonomous investigations have no approval UI, so this
        * surface stays strictly read-only.

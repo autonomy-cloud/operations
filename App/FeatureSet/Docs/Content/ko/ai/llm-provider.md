@@ -170,12 +170,12 @@ Helm 차트로 Cast Operations을 자체 호스팅하는 경우, 클러스터 �
 ```
 Name: In-Cluster vLLM
 LLM Provider: OpenAI Compatible
-Base URL: http://oneuptime-vllm.default.svc.cluster.local:8000/v1
+Base URL: http://cast-operations-vllm.default.svc.cluster.local:8000/v1
 Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-GPU 스케줄링, 게이트된 모델 및 튜닝 옵션에 대해서는 [Helm 차트 README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm)를 참조하세요.
+GPU 스케줄링, 게이트된 모델 및 튜닝 옵션에 대해서는 [Helm 차트 README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/cast-operations#local-models-with-vllm)를 참조하세요.
 
 ## 커스텀 기본 URL 사용
 

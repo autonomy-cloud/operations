@@ -138,7 +138,7 @@ const components: Array<ComponentMetadata> = [
       {
         title: "Error",
         description:
-          "Runs when validation, access, provider, budget, billing, or timeout checks fail.",
+          "Runs when validation, access, provider, budget, or timeout checks fail.",
         id: "error",
       },
     ],

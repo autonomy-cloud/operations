@@ -12,7 +12,7 @@ import LessThanOrNull from "../../../Types/BaseDatabase/LessThanOrNull";
 import GreaterThanOrNull from "../../../Types/BaseDatabase/GreaterThanOrNull";
 import NotEqual from "../../../Types/BaseDatabase/NotEqual";
 import Search from "../../../Types/BaseDatabase/Search";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Dictionary from "../../../Types/Dictionary";
 import ObjectID from "../../../Types/ObjectID";
 import { inspect } from "util";
@@ -122,9 +122,9 @@ export class Statement implements BaseQueryParams {
       }
     } else if (v.value instanceof Date) {
       if (typeof v !== "string" && v.type === TableColumnType.DateTime64) {
-        finalValue = OneUptimeDate.toClickhouseDateTime64(v.value);
+        finalValue = OperationsDate.toClickhouseDateTime64(v.value);
       } else {
-        finalValue = OneUptimeDate.toClickhouseDateTime(v.value);
+        finalValue = OperationsDate.toClickhouseDateTime(v.value);
       }
     } else {
       finalValue = v.value;
@@ -137,8 +137,8 @@ export class Statement implements BaseQueryParams {
       v.type === TableColumnType.Date &&
       !(v.value instanceof Date)
     ) {
-      finalValue = OneUptimeDate.fromString(finalValue as string);
-      finalValue = OneUptimeDate.toClickhouseDateTime(finalValue);
+      finalValue = OperationsDate.fromString(finalValue as string);
+      finalValue = OperationsDate.toClickhouseDateTime(finalValue);
     }
 
     if (
@@ -146,8 +146,8 @@ export class Statement implements BaseQueryParams {
       v.type === TableColumnType.DateTime64 &&
       !(v.value instanceof Date)
     ) {
-      finalValue = OneUptimeDate.fromString(finalValue as string);
-      finalValue = OneUptimeDate.toClickhouseDateTime64(finalValue);
+      finalValue = OperationsDate.fromString(finalValue as string);
+      finalValue = OperationsDate.toClickhouseDateTime64(finalValue);
     }
 
     return finalValue;

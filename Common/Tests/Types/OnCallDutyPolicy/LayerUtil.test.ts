@@ -5,7 +5,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import DayOfWeek, { DayOfWeekUtil } from "../../../Types/Day/DayOfWeek";
@@ -44,12 +44,12 @@ function buildLayerProps(data: {
       data.restriction.end
     ) {
       restrictionTimes.dayRestrictionTimes = {
-        startTime: OneUptimeDate.getDateWithCustomTime({
+        startTime: OperationsDate.getDateWithCustomTime({
           hours: parseInt(data.restriction.start.split(":")[0] || "0"),
           minutes: parseInt(data.restriction.start.split(":")[1] || "0"),
           seconds: 0,
         }),
-        endTime: OneUptimeDate.getDateWithCustomTime({
+        endTime: OperationsDate.getDateWithCustomTime({
           hours: parseInt(data.restriction.end.split(":")[0] || "0"),
           minutes: parseInt(data.restriction.end.split(":")[1] || "0"),
           seconds: 0,
@@ -60,8 +60,8 @@ function buildLayerProps(data: {
     restrictionTimes.restictionType = RestrictionType.Weekly;
     const weekly: Array<WeeklyResctriction> = [];
     // Base week anchor (start of week for provided start date)
-    const baseWeekStart: Date = OneUptimeDate.getStartOfTheWeek(data.start);
-    const baseWeekDay: DayOfWeek = OneUptimeDate.getDayOfWeek(baseWeekStart);
+    const baseWeekStart: Date = OperationsDate.getStartOfTheWeek(data.start);
+    const baseWeekDay: DayOfWeek = OperationsDate.getDayOfWeek(baseWeekStart);
     const baseWeekDayNumber: number =
       DayOfWeekUtil.getNumberOfDayOfWeek(baseWeekDay);
 
@@ -76,17 +76,17 @@ function buildLayerProps(data: {
       const startOffsetDays: number = desiredStartDayNum - baseWeekDayNumber;
       const endOffsetDays: number = desiredEndDayNum - baseWeekDayNumber;
 
-      const startDate: Date = OneUptimeDate.addRemoveDays(
+      const startDate: Date = OperationsDate.addRemoveDays(
         baseWeekStart,
         startOffsetDays,
       );
-      const endDate: Date = OneUptimeDate.addRemoveDays(
+      const endDate: Date = OperationsDate.addRemoveDays(
         baseWeekStart,
         endOffsetDays,
       );
 
-      const startTime: Date = OneUptimeDate.keepTimeButMoveDay(
-        OneUptimeDate.getDateWithCustomTime({
+      const startTime: Date = OperationsDate.keepTimeButMoveDay(
+        OperationsDate.getDateWithCustomTime({
           hours: parseInt(r.start.split(":")[0] || "0"),
           minutes: parseInt(r.start.split(":")[1] || "0"),
           seconds: 0,
@@ -94,8 +94,8 @@ function buildLayerProps(data: {
         startDate,
       );
 
-      const endTime: Date = OneUptimeDate.keepTimeButMoveDay(
-        OneUptimeDate.getDateWithCustomTime({
+      const endTime: Date = OperationsDate.keepTimeButMoveDay(
+        OperationsDate.getDateWithCustomTime({
           hours: parseInt(r.end.split(":")[0] || "0"),
           minutes: parseInt(r.end.split(":")[1] || "0"),
           seconds: 0,
@@ -148,13 +148,13 @@ function buildLayerProps(data: {
 describe("LayerUtil getEvents - Daily Restrictions", () => {
   test("Should return full-day events when no restriction", () => {
     const util: LayerUtil = new LayerUtil();
-    const start: Date = OneUptimeDate.getStartOfDay(new Date());
-    const end: Date = OneUptimeDate.addRemoveDays(start, 1); // one day calendar
+    const start: Date = OperationsDate.getStartOfDay(new Date());
+    const end: Date = OperationsDate.addRemoveDays(start, 1); // one day calendar
 
     const layer: LayerProps = buildLayerProps({
       users: ["u1"],
       start: start,
-      handoff: OneUptimeDate.addRemoveDays(start, 10),
+      handoff: OperationsDate.addRemoveDays(start, 10),
     });
 
     const events: Array<CalendarEvent> = util.getEvents({
@@ -171,13 +171,13 @@ describe("LayerUtil getEvents - Daily Restrictions", () => {
 
   test("Should trim to same-day restriction window (11:00-23:00)", () => {
     const util: LayerUtil = new LayerUtil();
-    const start: Date = OneUptimeDate.getStartOfDay(new Date());
-    const calendarEnd: Date = OneUptimeDate.addRemoveDays(start, 1);
+    const start: Date = OperationsDate.getStartOfDay(new Date());
+    const calendarEnd: Date = OperationsDate.addRemoveDays(start, 1);
 
     const layer: LayerProps = buildLayerProps({
       users: ["u1"],
       start: start,
-      handoff: OneUptimeDate.addRemoveDays(start, 2),
+      handoff: OperationsDate.addRemoveDays(start, 2),
       restriction: {
         type: RestrictionType.Daily,
         start: "11:00",
@@ -193,20 +193,22 @@ describe("LayerUtil getEvents - Daily Restrictions", () => {
 
     expect(events.length).toBe(1);
     const ev: CalendarEvent = events[0]!;
-    expect(OneUptimeDate.getLocalHourAndMinuteFromDate(ev.start)).toBe("11:00");
-    expect(OneUptimeDate.getLocalHourAndMinuteFromDate(ev.end)).toBe("23:00");
+    expect(OperationsDate.getLocalHourAndMinuteFromDate(ev.start)).toBe(
+      "11:00",
+    );
+    expect(OperationsDate.getLocalHourAndMinuteFromDate(ev.end)).toBe("23:00");
   });
 
   test("Should produce two segments for overnight window (23:00-11:00 next day)", () => {
     const util: LayerUtil = new LayerUtil();
-    const todayStart: Date = OneUptimeDate.getStartOfDay(new Date());
+    const todayStart: Date = OperationsDate.getStartOfDay(new Date());
     // Extend calendar to cover next day morning (till at least 12:00) so both segments can appear.
-    const calendarEnd: Date = OneUptimeDate.addRemoveHours(todayStart, 36); // 24h + 12h
+    const calendarEnd: Date = OperationsDate.addRemoveHours(todayStart, 36); // 24h + 12h
 
     const layer: LayerProps = buildLayerProps({
       users: ["u1"],
       start: todayStart,
-      handoff: OneUptimeDate.addRemoveDays(todayStart, 2),
+      handoff: OperationsDate.addRemoveDays(todayStart, 2),
       restriction: {
         type: RestrictionType.Daily,
         start: "23:00",
@@ -226,14 +228,14 @@ describe("LayerUtil getEvents - Daily Restrictions", () => {
      */
     expect(events.length).toBeGreaterThanOrEqual(2); // Expect at least two distinct segments across midnight.
     const has23Window: boolean = events.some((e: CalendarEvent) => {
-      return OneUptimeDate.getLocalHourAndMinuteFromDate(e.start) === "23:00";
+      return OperationsDate.getLocalHourAndMinuteFromDate(e.start) === "23:00";
     });
     // End might be 10:59 or 11:00 depending on second trimming; allow both 10 or 11 hour boundary.
     const hasMorningCoverage: boolean = events.some((e: CalendarEvent) => {
-      const startHM: string = OneUptimeDate.getLocalHourAndMinuteFromDate(
+      const startHM: string = OperationsDate.getLocalHourAndMinuteFromDate(
         e.start,
       );
-      const endHM: string = OneUptimeDate.getLocalHourAndMinuteFromDate(e.end);
+      const endHM: string = OperationsDate.getLocalHourAndMinuteFromDate(e.end);
       // Morning segment should end at or near 11:00 and start at or near 00:00
       return (
         (startHM === "00:00" || startHM === "00:01" || startHM === "23:59") &&
@@ -249,13 +251,13 @@ describe("LayerUtil getEvents - Daily Restrictions", () => {
 describe("LayerUtil getEvents - Multi-day Daily Windows", () => {
   test("Daily restriction (09:00-17:00) over 3 day calendar produces one window per day", () => {
     const util: LayerUtil = new LayerUtil();
-    const day1: Date = OneUptimeDate.getStartOfDay(new Date());
-    const calendarEnd: Date = OneUptimeDate.addRemoveDays(day1, 3); // 3 days window
+    const day1: Date = OperationsDate.getStartOfDay(new Date());
+    const calendarEnd: Date = OperationsDate.addRemoveDays(day1, 3); // 3 days window
 
     const layer: LayerProps = buildLayerProps({
       users: ["u1"],
       start: day1,
-      handoff: OneUptimeDate.addRemoveDays(day1, 1), // initial handoff end of day1
+      handoff: OperationsDate.addRemoveDays(day1, 1), // initial handoff end of day1
       restriction: {
         type: RestrictionType.Daily,
         start: "09:00",
@@ -272,7 +274,9 @@ describe("LayerUtil getEvents - Multi-day Daily Windows", () => {
 
     const windowsStartingAtNine: Array<CalendarEvent> = events.filter(
       (e: CalendarEvent) => {
-        return OneUptimeDate.getLocalHourAndMinuteFromDate(e.start) === "09:00";
+        return (
+          OperationsDate.getLocalHourAndMinuteFromDate(e.start) === "09:00"
+        );
       },
     );
     expect(windowsStartingAtNine.length).toBeGreaterThanOrEqual(2);
@@ -282,13 +286,13 @@ describe("LayerUtil getEvents - Multi-day Daily Windows", () => {
 describe("LayerUtil getEvents - Weekly Restrictions", () => {
   test("Simple weekly window Monday 09:00 to Wednesday 17:00 yields trimmed events", () => {
     const util: LayerUtil = new LayerUtil();
-    const monday: Date = OneUptimeDate.getStartOfTheWeek(new Date());
-    const calendarEnd: Date = OneUptimeDate.addRemoveDays(monday, 7);
+    const monday: Date = OperationsDate.getStartOfTheWeek(new Date());
+    const calendarEnd: Date = OperationsDate.addRemoveDays(monday, 7);
 
     const layer: LayerProps = buildLayerProps({
       users: ["u1"],
       start: monday,
-      handoff: OneUptimeDate.addRemoveWeeks(monday, 1),
+      handoff: OperationsDate.addRemoveWeeks(monday, 1),
       weeklyRestrictions: [
         {
           startDay: DayOfWeek.Monday,
@@ -307,10 +311,10 @@ describe("LayerUtil getEvents - Weekly Restrictions", () => {
     });
 
     const hasStartNine: boolean = events.some((e: CalendarEvent) => {
-      return OneUptimeDate.getLocalHourAndMinuteFromDate(e.start) === "09:00";
+      return OperationsDate.getLocalHourAndMinuteFromDate(e.start) === "09:00";
     });
     const hasEndSeventeen: boolean = events.some((e: CalendarEvent) => {
-      return OneUptimeDate.getLocalHourAndMinuteFromDate(e.end) === "17:00";
+      return OperationsDate.getLocalHourAndMinuteFromDate(e.end) === "17:00";
     });
     expect(hasStartNine).toBeTruthy();
     expect(hasEndSeventeen).toBeTruthy();
@@ -318,13 +322,13 @@ describe("LayerUtil getEvents - Weekly Restrictions", () => {
 
   test("Weekly wrap-around Friday 22:00 to Monday 06:00 produces appropriate segments", () => {
     const util: LayerUtil = new LayerUtil();
-    const monday: Date = OneUptimeDate.getStartOfTheWeek(new Date());
-    const calendarEnd: Date = OneUptimeDate.addRemoveDays(monday, 7);
+    const monday: Date = OperationsDate.getStartOfTheWeek(new Date());
+    const calendarEnd: Date = OperationsDate.addRemoveDays(monday, 7);
 
     const layer: LayerProps = buildLayerProps({
       users: ["u1"],
       start: monday,
-      handoff: OneUptimeDate.addRemoveWeeks(monday, 1),
+      handoff: OperationsDate.addRemoveWeeks(monday, 1),
       weeklyRestrictions: [
         {
           startDay: DayOfWeek.Friday,
@@ -343,10 +347,10 @@ describe("LayerUtil getEvents - Weekly Restrictions", () => {
     });
 
     const has22: boolean = events.some((e: CalendarEvent) => {
-      return OneUptimeDate.getLocalHourAndMinuteFromDate(e.start) === "22:00";
+      return OperationsDate.getLocalHourAndMinuteFromDate(e.start) === "22:00";
     });
     const has06: boolean = events.some((e: CalendarEvent) => {
-      return OneUptimeDate.getLocalHourAndMinuteFromDate(e.end) === "06:00";
+      return OperationsDate.getLocalHourAndMinuteFromDate(e.end) === "06:00";
     });
     expect(has22).toBeTruthy();
     expect(has06).toBeTruthy();
@@ -356,13 +360,13 @@ describe("LayerUtil getEvents - Weekly Restrictions", () => {
 describe("LayerUtil getEvents - Daily Rotation Across Users", () => {
   test("Daily rotation cycles users", () => {
     const util: LayerUtil = new LayerUtil();
-    const day1: Date = OneUptimeDate.getStartOfDay(new Date());
-    const calendarEnd: Date = OneUptimeDate.addRemoveDays(day1, 3); // 3 days
+    const day1: Date = OperationsDate.getStartOfDay(new Date());
+    const calendarEnd: Date = OperationsDate.addRemoveDays(day1, 3); // 3 days
 
     const layer: LayerProps = buildLayerProps({
       users: ["a", "b"],
       start: day1,
-      handoff: OneUptimeDate.addRemoveDays(day1, 1),
+      handoff: OperationsDate.addRemoveDays(day1, 1),
       rotation: { intervalType: EventInterval.Day, intervalCount: 1 },
     });
 
@@ -381,19 +385,19 @@ describe("LayerUtil getEvents - Daily Rotation Across Users", () => {
 describe("LayerUtil getMultiLayerEvents - Partial Overlap Trimming", () => {
   test("Primary layer inside backup trims backup", () => {
     const util: LayerUtil = new LayerUtil();
-    const start: Date = OneUptimeDate.getStartOfDay(new Date());
-    const calendarEnd: Date = OneUptimeDate.addRemoveHours(start, 6);
+    const start: Date = OperationsDate.getStartOfDay(new Date());
+    const calendarEnd: Date = OperationsDate.addRemoveHours(start, 6);
 
     const primary: LayerProps = buildLayerProps({
       users: ["primary"],
-      start: OneUptimeDate.addRemoveHours(start, 2),
-      handoff: OneUptimeDate.addRemoveHours(start, 4),
+      start: OperationsDate.addRemoveHours(start, 2),
+      handoff: OperationsDate.addRemoveHours(start, 4),
     });
 
     const backup: LayerProps = buildLayerProps({
       users: ["backup"],
       start: start,
-      handoff: OneUptimeDate.addRemoveHours(start, 6),
+      handoff: OperationsDate.addRemoveHours(start, 6),
     });
 
     const events: Array<CalendarEvent> = util.getMultiLayerEvents({
@@ -416,13 +420,13 @@ describe("LayerUtil getMultiLayerEvents - Partial Overlap Trimming", () => {
 describe("LayerUtil getEvents - Rotation Handoff", () => {
   test("Hourly rotation changes user after each hour", () => {
     const util: LayerUtil = new LayerUtil();
-    const start: Date = OneUptimeDate.getStartOfDay(new Date());
-    const calendarEnd: Date = OneUptimeDate.addRemoveHours(start, 5); // 5 hours window
+    const start: Date = OperationsDate.getStartOfDay(new Date());
+    const calendarEnd: Date = OperationsDate.addRemoveHours(start, 5); // 5 hours window
 
     const layer: LayerProps = buildLayerProps({
       users: ["u1", "u2", "u3"],
       start: start,
-      handoff: OneUptimeDate.addRemoveHours(start, 1), // first handoff at +1h
+      handoff: OperationsDate.addRemoveHours(start, 1), // first handoff at +1h
       rotation: { intervalType: EventInterval.Hour, intervalCount: 1 },
     });
 
@@ -450,19 +454,19 @@ describe("LayerUtil getEvents - Rotation skips restricted days (issue #2413)", (
   test("Daily rotation Mon-Fri 09-19 should advance to next user after weekend", () => {
     const util: LayerUtil = new LayerUtil();
     // Anchor on a Monday at 09:00. Use start of week then move to Monday 09:00.
-    const startOfWeek: Date = OneUptimeDate.getStartOfTheWeek(new Date());
+    const startOfWeek: Date = OperationsDate.getStartOfTheWeek(new Date());
     // moment.startOf("week") is Sunday; add 1 day to get Monday.
-    const mondayStart: Date = OneUptimeDate.addRemoveDays(startOfWeek, 1);
-    const monday9AM: Date = OneUptimeDate.keepTimeButMoveDay(
-      OneUptimeDate.getDateWithCustomTime({
+    const mondayStart: Date = OperationsDate.addRemoveDays(startOfWeek, 1);
+    const monday9AM: Date = OperationsDate.keepTimeButMoveDay(
+      OperationsDate.getDateWithCustomTime({
         hours: 9,
         minutes: 0,
         seconds: 0,
       }),
       mondayStart,
     );
-    const monday7PM: Date = OneUptimeDate.keepTimeButMoveDay(
-      OneUptimeDate.getDateWithCustomTime({
+    const monday7PM: Date = OperationsDate.keepTimeButMoveDay(
+      OperationsDate.getDateWithCustomTime({
         hours: 19,
         minutes: 0,
         seconds: 0,
@@ -470,7 +474,7 @@ describe("LayerUtil getEvents - Rotation skips restricted days (issue #2413)", (
       mondayStart,
     );
 
-    const calendarEnd: Date = OneUptimeDate.addRemoveDays(monday9AM, 14); // two weeks
+    const calendarEnd: Date = OperationsDate.addRemoveDays(monday9AM, 14); // two weeks
 
     const layer: LayerProps = buildLayerProps({
       users: ["A", "B", "C"],
@@ -520,7 +524,9 @@ describe("LayerUtil getEvents - Rotation skips restricted days (issue #2413)", (
     // Filter the events that begin at 09:00 (i.e. true workday slots).
     const workdayEvents: Array<CalendarEvent> = events.filter(
       (e: CalendarEvent) => {
-        return OneUptimeDate.getLocalHourAndMinuteFromDate(e.start) === "09:00";
+        return (
+          OperationsDate.getLocalHourAndMinuteFromDate(e.start) === "09:00"
+        );
       },
     );
 
@@ -563,18 +569,18 @@ describe("LayerUtil getEvents - Rotation continuous across calendar windows (iss
   test("Week 2 preview should continue rotation from where week 1 ended", () => {
     const util: LayerUtil = new LayerUtil();
     // Anchor on a Monday at 09:00.
-    const startOfWeek: Date = OneUptimeDate.getStartOfTheWeek(new Date());
-    const mondayStart: Date = OneUptimeDate.addRemoveDays(startOfWeek, 1);
-    const monday9AM: Date = OneUptimeDate.keepTimeButMoveDay(
-      OneUptimeDate.getDateWithCustomTime({
+    const startOfWeek: Date = OperationsDate.getStartOfTheWeek(new Date());
+    const mondayStart: Date = OperationsDate.addRemoveDays(startOfWeek, 1);
+    const monday9AM: Date = OperationsDate.keepTimeButMoveDay(
+      OperationsDate.getDateWithCustomTime({
         hours: 9,
         minutes: 0,
         seconds: 0,
       }),
       mondayStart,
     );
-    const monday7PM: Date = OneUptimeDate.keepTimeButMoveDay(
-      OneUptimeDate.getDateWithCustomTime({
+    const monday7PM: Date = OperationsDate.keepTimeButMoveDay(
+      OperationsDate.getDateWithCustomTime({
         hours: 19,
         minutes: 0,
         seconds: 0,
@@ -623,9 +629,9 @@ describe("LayerUtil getEvents - Rotation continuous across calendar windows (iss
 
     // Simulate the dashboard preview: ask for week 1 then week 2 separately.
     const week1Start: Date = monday9AM;
-    const week1End: Date = OneUptimeDate.addRemoveDays(monday9AM, 7);
+    const week1End: Date = OperationsDate.addRemoveDays(monday9AM, 7);
     const week2Start: Date = week1End;
-    const week2End: Date = OneUptimeDate.addRemoveDays(week1End, 7);
+    const week2End: Date = OperationsDate.addRemoveDays(week1End, 7);
 
     const week1: Array<CalendarEvent> = util.getEvents({
       ...layer,
@@ -645,7 +651,7 @@ describe("LayerUtil getEvents - Rotation continuous across calendar windows (iss
       return events
         .filter((e: CalendarEvent) => {
           return (
-            OneUptimeDate.getLocalHourAndMinuteFromDate(e.start) === "09:00"
+            OperationsDate.getLocalHourAndMinuteFromDate(e.start) === "09:00"
           );
         })
         .map((e: CalendarEvent) => {
@@ -671,19 +677,19 @@ describe("LayerUtil getEvents - Rotation continuous across calendar windows (iss
 describe("LayerUtil getMultiLayerEvents - Overlap Priority", () => {
   test("Higher priority (lower index) layer should trim overlapping lower priority events", () => {
     const util: LayerUtil = new LayerUtil();
-    const start: Date = OneUptimeDate.getStartOfDay(new Date());
-    const calendarEnd: Date = OneUptimeDate.addRemoveHours(start, 6);
+    const start: Date = OperationsDate.getStartOfDay(new Date());
+    const calendarEnd: Date = OperationsDate.addRemoveHours(start, 6);
 
     const layer1: LayerProps = buildLayerProps({
       users: ["primary"],
       start: start,
-      handoff: OneUptimeDate.addRemoveHours(start, 6),
+      handoff: OperationsDate.addRemoveHours(start, 6),
     });
 
     const layer2: LayerProps = buildLayerProps({
       users: ["backup"],
       start: start,
-      handoff: OneUptimeDate.addRemoveHours(start, 6),
+      handoff: OperationsDate.addRemoveHours(start, 6),
     });
 
     const events: Array<CalendarEvent> = util.getMultiLayerEvents({

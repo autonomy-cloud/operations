@@ -1,4 +1,4 @@
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import CreateBy from "../Types/Database/CreateBy";
 import DeleteBy from "../Types/Database/DeleteBy";
 import { OnCreate, OnDelete } from "../Types/Database/Hooks";
@@ -74,7 +74,6 @@ export class Service extends DatabaseService<Model> {
       },
       select: {
         enableTelegramNotifications: true,
-        smsOrCallCurrentBalanceInUSDCents: true,
       },
     });
 
@@ -85,15 +84,6 @@ export class Service extends DatabaseService<Model> {
     if (!project.enableTelegramNotifications) {
       throw new BadDataException(
         "Telegram notifications are disabled for this project. Please enable them in Project Settings > Notification Settings.",
-      );
-    }
-
-    if (
-      (project.smsOrCallCurrentBalanceInUSDCents as number) <= 100 &&
-      IsBillingEnabled
-    ) {
-      throw new BadDataException(
-        "Your notification balance is low. Please recharge your balance in Project Settings > Notification Settings.",
       );
     }
 

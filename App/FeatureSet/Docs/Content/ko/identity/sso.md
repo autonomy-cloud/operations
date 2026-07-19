@@ -48,7 +48,7 @@ Keycloak은 널리 사용되는 오픈 소스 ID 및 액세스 관리 솔루션�
 1. Cast Operations 대시보드에 로그인합니다
 2. **프로젝트 설정** > **인증** > **SSO**로 이동합니다
 3. **SSO 생성**을 클릭하고 다음을 입력합니다:
-   - **이름**: 설명적인 이름 (예: `my-project-oneuptime`)
+   - **이름**: 설명적인 이름 (예: `my-project-cast-operations`)
    - **로그온 URL**: `https://<your-keycloak-domain>/auth/realms/<your-realm>/protocol/saml`
    - **발급자**: `https://<your-keycloak-domain>/auth/realms/<your-realm>`
    - **인증서**: 아래 [2단계](#2단계-keycloak-인증서-가져오기)를 참조하십시오
@@ -201,9 +201,9 @@ Okta는 강력한 SAML SSO 기능을 제공하는 널리 사용되는 ID 플랫�
 2. **프로젝트 설정** > **인증** > **SSO**로 이동합니다
 3. **SSO 생성**을 클릭하고 다음을 입력합니다:
    - **이름**: 설명적인 이름 (예: `Okta SAML`)
-   - **로그온 URL**: [3단계](#3단계-okta-saml-메타데이터를-oneuptime에-복사)에서 Okta로부터 가져옵니다
-   - **발급자**: [3단계](#3단계-okta-saml-메타데이터를-oneuptime에-복사)에서 Okta로부터 가져옵니다
-   - **인증서**: [3단계](#3단계-okta-saml-메타데이터를-oneuptime에-복사)에서 Okta로부터 가져옵니다
+   - **로그온 URL**: [3단계](#3단계-okta-saml-메타데이터를-cast-operations에-복사)에서 Okta로부터 가져옵니다
+   - **발급자**: [3단계](#3단계-okta-saml-메타데이터를-cast-operations에-복사)에서 Okta로부터 가져옵니다
+   - **인증서**: [3단계](#3단계-okta-saml-메타데이터를-cast-operations에-복사)에서 Okta로부터 가져옵니다
    - **서명 알고리즘**: `RSA-SHA-256`
    - **다이제스트 알고리즘**: `SHA256`
 4. **SSO 구성 보기**를 클릭하고 **식별자 (엔티티 ID)**와 **회신 URL (어설션 소비자 서비스 URL)**을 복사합니다 — Okta에 필요합니다

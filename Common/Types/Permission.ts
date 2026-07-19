@@ -17,7 +17,6 @@ export enum PermissionGroup {
   Workflow = "Workflow",
   Runbook = "Runbook",
   Team = "Team",
-  Billing = "Billing",
   ServiceCatalog = "Service Catalog",
   Settings = "Settings",
   AIAgent = "AI Agent",
@@ -86,10 +85,6 @@ enum Permission {
   SettingsMember = "SettingsMember",
   SettingsViewer = "SettingsViewer",
 
-  BillingAdmin = "BillingAdmin",
-  BillingMember = "BillingMember",
-  BillingViewer = "BillingViewer",
-
   // Project-wide read-only role
   Viewer = "Viewer",
 
@@ -109,7 +104,6 @@ enum Permission {
 
   Public = "Public", // non-registered user. Everyone has this permission.
 
-  // Billing Permissions (Owner Permission)
   CreateProjectApiKey = "CreateProjectApiKey",
   DeleteProjectApiKey = "DeleteProjectApiKey",
   ReadProjectApiKey = "ReadProjectApiKey",
@@ -230,10 +224,6 @@ enum Permission {
   EditTelemetryServiceProfiles = "EditTelemetryServiceProfiles",
   ReadTelemetryServiceProfiles = "ReadTelemetryServiceProfiles",
 
-  // Billing Permissions (Owner Permission)
-  ManageProjectBilling = "ManageProjectBilling",
-
-  // Billing Permissions (Owner Permission)
   CreateProjectTeam = "CreateProjectTeam",
   DeleteProjectTeam = "DeleteProjectTeam",
   ReadProjectTeam = "ReadProjectTeam",
@@ -993,16 +983,6 @@ enum Permission {
   DeleteIncidentPublicNote = "DeleteIncidentPublicNote",
   ReadIncidentPublicNote = "ReadIncidentPublicNote",
 
-  CreateInvoices = "CreateInvoices",
-  EditInvoices = "EditInvoices",
-  DeleteInvoices = "DeleteInvoices",
-  ReadInvoices = "ReadInvoices",
-
-  CreateBillingPaymentMethod = "CreateBillingPaymentMethod",
-  EditBillingPaymentMethod = "EditBillingPaymentMethod",
-  DeleteBillingPaymentMethod = "DeleteBillingPaymentMethod",
-  ReadBillingPaymentMethod = "ReadBillingPaymentMethod",
-
   CreateProjectMonitor = "CreateProjectMonitor",
   EditProjectMonitor = "EditProjectMonitor",
   DeleteProjectMonitor = "DeleteProjectMonitor",
@@ -1715,9 +1695,7 @@ export class PermissionHelper {
       permission !== Permission.SettingsAdmin &&
       permission !== Permission.SettingsMember &&
       permission !== Permission.SettingsViewer &&
-      permission !== Permission.BillingAdmin &&
-      permission !== Permission.BillingMember &&
-      permission !== Permission.BillingViewer
+      true
     );
   }
 
@@ -1849,7 +1827,7 @@ export class PermissionHelper {
         permission: Permission.ProjectOwner,
         title: "Project Owner",
         description:
-          "Owner of this project. Manages billing, inviting other admins to this project, and can delete this project.",
+          "Owner of this project. Manages administrators and can delete this project.",
         isAssignableToTenant: true,
         isAccessControlPermission: false,
         isRolePermission: true,
@@ -1869,7 +1847,7 @@ export class PermissionHelper {
         permission: Permission.ProjectAdmin,
         title: "Project Admin",
         description:
-          "Admin of this project. Manages team members in this project, however cannot manage billing or delete this project.",
+          "Admin of this project. Manages team members but cannot delete this project.",
         isAssignableToTenant: true,
         isAccessControlPermission: false,
         isRolePermission: true,
@@ -2111,35 +2089,6 @@ export class PermissionHelper {
         group: PermissionGroup.Settings,
       },
       {
-        permission: Permission.BillingAdmin,
-        title: "Billing Admin",
-        description:
-          "Full control over project billing, invoices, and payment methods.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: true,
-        group: PermissionGroup.Billing,
-      },
-      {
-        permission: Permission.BillingMember,
-        title: "Billing Member",
-        description:
-          "Can view and manage payment methods. Cannot change the project plan.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: true,
-        group: PermissionGroup.Billing,
-      },
-      {
-        permission: Permission.BillingViewer,
-        title: "Billing Viewer",
-        description: "Read-only access to billing information and invoices.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: true,
-        group: PermissionGroup.Billing,
-      },
-      {
         permission: Permission.Viewer,
         title: "Viewer",
         description:
@@ -2238,7 +2187,7 @@ export class PermissionHelper {
         permission: Permission.User,
         title: "User",
         description:
-          "Owner of this project, manages billing, inviting other admins to this project, and can delete this project.",
+          "Owner of this project, manages administrators, and can delete this project.",
         isAssignableToTenant: false,
         isAccessControlPermission: false,
         isRolePermission: false,
@@ -2253,16 +2202,6 @@ export class PermissionHelper {
         isAccessControlPermission: false,
         isRolePermission: false,
         group: PermissionGroup.Project,
-      },
-
-      {
-        permission: Permission.ManageProjectBilling,
-        title: "Manage Billing",
-        description: "This permission can update project billing.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: false,
-        group: PermissionGroup.Billing,
       },
       {
         permission: Permission.CreateProjectApiKey,
@@ -5041,81 +4980,6 @@ export class PermissionHelper {
         isAccessControlPermission: false,
         isRolePermission: false,
         group: PermissionGroup.Incident,
-      },
-
-      {
-        permission: Permission.CreateInvoices,
-        title: "Create Invoices",
-        description: "This permission can create Invoices this project.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: false,
-        group: PermissionGroup.Billing,
-      },
-      {
-        permission: Permission.DeleteInvoices,
-        title: "Delete Invoices",
-        description: "This permission can delete Invoices of this project.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: false,
-        group: PermissionGroup.Billing,
-      },
-      {
-        permission: Permission.EditInvoices,
-        title: "Edit Invoices",
-        description: "This permission can edit Invoices of this project.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: false,
-        group: PermissionGroup.Billing,
-      },
-      {
-        permission: Permission.ReadInvoices,
-        title: "Read Invoices",
-        description: "This permission can read Invoices of this project.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: false,
-        group: PermissionGroup.Billing,
-      },
-
-      {
-        permission: Permission.CreateBillingPaymentMethod,
-        title: "Create Payment Method",
-        description: "This permission can create Payment Method this project.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: false,
-        group: PermissionGroup.Billing,
-      },
-      {
-        permission: Permission.DeleteBillingPaymentMethod,
-        title: "Delete Payment Method",
-        description:
-          "This permission can delete Payment Method of this project.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: false,
-        group: PermissionGroup.Billing,
-      },
-      {
-        permission: Permission.EditBillingPaymentMethod,
-        title: "Edit Payment Method",
-        description: "This permission can edit Payment Method of this project.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: false,
-        group: PermissionGroup.Billing,
-      },
-      {
-        permission: Permission.ReadBillingPaymentMethod,
-        title: "Read Payment Method",
-        description: "This permission can read Payment Method of this project.",
-        isAssignableToTenant: true,
-        isAccessControlPermission: false,
-        isRolePermission: false,
-        group: PermissionGroup.Billing,
       },
 
       {

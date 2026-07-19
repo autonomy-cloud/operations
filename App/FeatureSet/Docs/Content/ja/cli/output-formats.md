@@ -7,7 +7,7 @@ Cast Operations CLI は 3 つの出力フォーマットをサポートしてい
 インタラクティブなターミナルで実行する際のデフォルトフォーマットです。インテリジェントに選択されたカラムを持つ ASCII テーブルとして結果を表示します。
 
 ```bash
-oneuptime incident list
+cast-operations incident list
 ```
 
 ```
@@ -30,7 +30,7 @@ oneuptime incident list
 2 スペースインデントで整形された生の JSON 出力です。スクリプティングや他のツールへのパイプに最適なフォーマットです。
 
 ```bash
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ```json
@@ -48,7 +48,7 @@ JSON フォーマットは出力が別のコマンドにパイプされる場合
 
 ```bash
 # パイプ時に JSON が自動的に使用される
-oneuptime incident list | jq '.[].title'
+cast-operations incident list | jq '.[].title'
 ```
 
 ## ワイド
@@ -56,7 +56,7 @@ oneuptime incident list | jq '.[].title'
 切り捨てなしですべてのカラムを表示します。詳細な確認に役立ちますが、非常に広い出力になる場合があります。
 
 ```bash
-oneuptime incident list -o wide
+cast-operations incident list -o wide
 ```
 
 ## カラーの無効化
@@ -65,10 +65,10 @@ oneuptime incident list -o wide
 
 ```bash
 # --no-color フラグを使用
-oneuptime --no-color incident list
+cast-operations --no-color incident list
 
 # NO_COLOR 環境変数を使用
-NO_COLOR=1 oneuptime incident list
+NO_COLOR=1 cast-operations incident list
 ```
 
 ## 特殊な出力ケース

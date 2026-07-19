@@ -10,7 +10,7 @@ import URL from "Common/Types/API/URL";
 import HTTPMethod from "Common/Types/API/HTTPMethod";
 import { JSONObject } from "Common/Types/JSON";
 import SyslogMessage from "Common/Types/Syslog/SyslogMessage";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import API from "Common/Utils/API";
 import logger from "Common/Server/Utils/Logger";
 import dgram from "dgram";
@@ -132,7 +132,7 @@ export default class SyslogReceiver {
     const parsed: SyslogMessage | null = SyslogReceiver.parseMessage(
       datagram.toString("utf8"),
       sourceIpAddress,
-      OneUptimeDate.getCurrentDate(),
+      OperationsDate.getCurrentDate(),
     );
 
     if (!parsed) {
@@ -252,7 +252,7 @@ export default class SyslogReceiver {
 
     const timestamp: Date | undefined =
       timestampToken !== "-"
-        ? OneUptimeDate.parseRfc5424Timestamp(timestampToken)
+        ? OperationsDate.parseRfc5424Timestamp(timestampToken)
         : undefined;
 
     const hostname: string | undefined =
@@ -288,7 +288,7 @@ export default class SyslogReceiver {
       return null;
     }
 
-    const timestamp: Date | undefined = OneUptimeDate.parseRfc3164Timestamp(
+    const timestamp: Date | undefined = OperationsDate.parseRfc3164Timestamp(
       match[1]!,
     );
 

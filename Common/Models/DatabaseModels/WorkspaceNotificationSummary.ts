@@ -18,8 +18,6 @@ import WorkspaceType from "../../Types/Workspace/WorkspaceType";
 import WorkspaceNotificationSummaryType from "../../Types/Workspace/NotificationSummary/WorkspaceNotificationSummaryType";
 import WorkspaceNotificationSummaryItem from "../../Types/Workspace/NotificationSummary/WorkspaceNotificationSummaryItem";
 import Permission from "../../Types/Permission";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import EnableDocumentation from "../../Types/Database/EnableDocumentation";
 import Recurring from "../../Types/Events/Recurring";
 import NotificationRuleCondition from "../../Types/Workspace/NotificationRules/NotificationRuleCondition";
@@ -62,12 +60,6 @@ import FilterCondition from "../../Types/Filter/FilterCondition";
     Permission.SettingsMember,
     Permission.EditWorkspaceNotificationSummary,
   ],
-})
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Growth,
-  update: PlanType.Growth,
-  delete: PlanType.Growth,
 })
 @CrudApiEndpoint(new Route("/workspace-notification-summary"))
 @Entity({
@@ -151,7 +143,8 @@ class WorkspaceNotificationSummary extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

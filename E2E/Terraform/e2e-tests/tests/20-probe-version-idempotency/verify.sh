@@ -52,7 +52,7 @@ echo "    ✓ Terraform plan shows no changes (idempotent)"
 
 # Step 3: Verify via API that probe_version matches
 echo "    Verifying probe_version via API..."
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/probe/${RESOURCE_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/probe/${RESOURCE_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \

@@ -15,7 +15,7 @@ import CopyTextButton from "../../CopyTextButton/CopyTextButton";
 import Icon from "../../Icon/Icon";
 import IconProp from "../../../../Types/Icon/IconProp";
 import Link from "../../Link/Link";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import SeverityBadge from "./SeverityBadge";
 import { JSONObject } from "../../../../Types/JSON";
 import API from "../../../Utils/API/API";
@@ -42,7 +42,7 @@ export interface LogDetailsPanelProps {
   /*
    * Called when the user clicks "filter by" on an attribute row. The key is
    * the flat attribute key as stored in the data (e.g. `requestId`,
-   * `oneuptime.service.id`); the value is the raw value. Wires into the
+   * `cast-operations.service.id`); the value is the raw value. Wires into the
    * same path as picking a value from the search bar autocomplete.
    */
   onFilterByAttribute?: ((key: string, value: string) => void) | undefined;
@@ -233,7 +233,7 @@ const LogDetailsPanel: FunctionComponent<LogDetailsPanelProps> = (
               logId: props.log.getColumnValue("_id")?.toString() || "",
               primaryEntityId: primaryEntityId,
               time: props.log.time
-                ? OneUptimeDate.toString(props.log.time)
+                ? OperationsDate.toString(props.log.time)
                 : "",
               count: 5,
             },
@@ -318,8 +318,8 @@ const LogDetailsPanel: FunctionComponent<LogDetailsPanelProps> = (
       >
         <span className="flex-none whitespace-nowrap font-mono text-[11px] text-gray-400">
           {ctxLog.time
-            ? OneUptimeDate.getDateAsUserFriendlyFormattedString(
-                OneUptimeDate.fromString(ctxLog.time),
+            ? OperationsDate.getDateAsUserFriendlyFormattedString(
+                OperationsDate.fromString(ctxLog.time),
               )
             : "-"}
         </span>
@@ -353,7 +353,7 @@ const LogDetailsPanel: FunctionComponent<LogDetailsPanelProps> = (
               {props.log.time && (
                 <span className={smallBadgeClass}>
                   <Icon icon={IconProp.Clock} className="h-3 w-3" />
-                  {OneUptimeDate.getDateAsUserFriendlyFormattedString(
+                  {OperationsDate.getDateAsUserFriendlyFormattedString(
                     props.log.time,
                   )}
                 </span>

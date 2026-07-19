@@ -39,22 +39,22 @@ Cast Operations accepte les données de profilage via gRPC et HTTP en utilisant 
 
 | Protocole | Point d'accès                                         |
 | --------- | ----------------------------------------------------- |
-| gRPC      | `votre-hôte-oneuptime:4317` (port gRPC standard OTLP) |
-| HTTP      | `https://votre-hôte-oneuptime/otlp/v1/profiles`       |
+| gRPC      | `votre-hôte-cast-operations:4317` (port gRPC standard OTLP) |
+| HTTP      | `https://votre-hôte-cast-operations/otlp/v1/profiles`       |
 
 **Variables d'environnement**
 
 Définissez les variables d'environnement suivantes pour pointer votre profileur vers Cast Operations :
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=VOTRE_JETON_SERVICE_ONEUPTIME
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=VOTRE_JETON_SERVICE_CAST_OPERATIONS
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=mon-service
 ```
 
 **Cast Operations auto-hébergé**
 
-Si vous auto-hébergez Cast Operations, remplacez le point d'accès par votre propre hôte (ex. : `http(s)://VOTRE-HÔTE-ONEUPTIME/otlp`). Pour gRPC, connectez-vous directement au port 4317 de votre hôte Cast Operations.
+Si vous auto-hébergez Cast Operations, remplacez le point d'accès par votre propre hôte (ex. : `http(s)://VOTRE-HÔTE-CAST_OPERATIONS/otlp`). Pour gRPC, connectez-vous directement au port 4317 de votre hôte Cast Operations.
 
 ## Guide d'instrumentation
 
@@ -66,15 +66,15 @@ Exemple de configuration Alloy :
 
 ```hcl
 pyroscope.ebpf "default" {
-  forward_to = [pyroscope.write.oneuptime.receiver]
+  forward_to = [pyroscope.write.cast-operations.receiver]
   targets    = discovery.process.all.targets
 }
 
-pyroscope.write "oneuptime" {
+pyroscope.write "cast-operations" {
   endpoint {
     url = "https://visca.ai/pyroscope"
     headers = {
-      "x-oneuptime-token" = "VOTRE_JETON_SERVICE_ONEUPTIME",
+      "x-cast-operations-token" = "VOTRE_JETON_SERVICE_CAST_OPERATIONS",
     }
   }
 }
@@ -88,7 +88,7 @@ Pour les applications Java, utilisez [async-profiler](https://github.com/async-p
 # Démarrer votre application Java avec l'agent Java OpenTelemetry
 java -javaagent:opentelemetry-javaagent.jar \
   -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
-  -Dotel.exporter.otlp.headers=x-oneuptime-token=VOTRE_JETON_SERVICE_ONEUPTIME \
+  -Dotel.exporter.otlp.headers=x-cast-operations-token=VOTRE_JETON_SERVICE_CAST_OPERATIONS \
   -Dotel.service.name=mon-service-java \
   -jar mon-app.jar
 ```
@@ -146,7 +146,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "VOTRE_JETON_SERVICE_ONEUPTIME"
+      "x-cast-operations-token": "VOTRE_JETON_SERVICE_CAST_OPERATIONS"
 
 service:
   pipelines:

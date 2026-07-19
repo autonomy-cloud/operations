@@ -308,5 +308,5 @@ volumes:
   clickhouse:
 
 networks:
-  oneuptime:
+  cast-operations:
     driver: bridge

@@ -7,7 +7,7 @@ Cast Operations CLI 支援多種方式來與您的 Cast Operations 執行個體�
 使用 API 金鑰來與您的 Cast Operations 執行個體進行驗證：
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **引數：**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Login with default context
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # Login with a named context
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # Set up multiple environments
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## 情境
@@ -44,7 +44,7 @@ oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
 ### 列出情境
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 顯示所有已設定的情境。目前的情境會以 `*` 標示。
@@ -52,23 +52,23 @@ oneuptime context list
 ### 切換情境
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 切換到不同的具名情境，以套用至所有後續的命令。
 
 ```bash
 # Switch to staging
-oneuptime context use staging
+cast-operations context use staging
 
 # Switch to production
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### 檢視目前情境
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 顯示目前作用中的情境，包括執行個體 URL 以及已遮罩的 API 金鑰。
@@ -76,7 +76,7 @@ oneuptime context current
 ### 刪除情境
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 移除具名情境。如果被刪除的情境正是目前的情境，CLI 會自動切換到第一個剩餘的情境。
@@ -86,7 +86,7 @@ oneuptime context delete <name>
 憑證會依照下列優先順序解析：
 
 1. **CLI 旗標**（`--api-key` 與 `--url`）
-2. **環境變數**（`ONEUPTIME_API_KEY` 與 `ONEUPTIME_URL`）
+2. **環境變數**（`CAST_OPERATIONS_API_KEY` 與 `CAST_OPERATIONS_URL`）
 3. **具名情境**（透過 `--context` 旗標）
 4. **目前情境**（來自已儲存的設定）
 
@@ -95,22 +95,22 @@ oneuptime context delete <name>
 ### 使用 CLI 旗標
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### 使用環境變數
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### 使用特定情境
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## 驗證身分
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 檢查您目前的驗證狀態：
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 這會顯示：
@@ -127,11 +127,11 @@ oneuptime whoami
 - 已遮罩的 API 金鑰
 - 目前情境名稱（僅在已儲存的情境作用中時顯示）
 
-如果尚未驗證，命令會顯示一則有用的訊息，建議您執行 `oneuptime login`。
+如果尚未驗證，命令會顯示一則有用的訊息，建議您執行 `cast-operations login`。
 
 ## 設定檔
 
-憑證會儲存在 `~/.oneuptime/config.json`，並具有受限的權限（`0600`）。
+憑證會儲存在 `~/.cast-operations/config.json`，並具有受限的權限（`0600`）。
 
 ```json
 {

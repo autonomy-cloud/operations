@@ -36,7 +36,7 @@ helm.sh/chart: {{ include "kubernetes-agent.chart" . }}
 {{ include "kubernetes-agent.selectorLabels" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.kubernetes.io/part-of: oneuptime
+app.kubernetes.io/part-of: cast-operations
 {{- end }}
 
 {{/*
@@ -76,12 +76,12 @@ currently enabled. Empty list -> empty string (OBI then exports no metrics).
 {{- end }}
 
 {{/*
-Render .Values.oneuptime.labels as OTel resource-processor attribute entries.
+Render .Values.cast-operations.labels as OTel resource-processor attribute entries.
 
 The Cast Operations ingest pipeline promotes any resource attribute prefixed with
-`oneuptime.label.` into a project Label of the form `<key>:<value>` and
+`cast-operations.label.` into a project Label of the form `<key>:<value>` and
 attaches it to the cluster/service/host that emitted the record — see
-Common/Server/Utils/Telemetry/OneuptimeLabel.ts.
+Common/Server/Utils/Telemetry/OperationsLabel.ts.
 
 Pass the action ("insert" or "upsert") so the caller can match the surrounding
 processor's existing semantics:
@@ -91,12 +91,12 @@ processor's existing semantics:
   - "upsert" — always set, overwriting any upstream value.
 
 Usage:
-  {{- include "kubernetes-agent.oneuptimeLabels" (dict "labels" .Values.oneuptime.labels "action" "insert") | nindent 10 }}
+  {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" .Values.cast-operations.labels "action" "insert") | nindent 10 }}
 */}}
-{{- define "kubernetes-agent.oneuptimeLabels" -}}
+{{- define "kubernetes-agent.castOperationsLabels" -}}
 {{- $action := .action | default "insert" -}}
 {{- range $key, $value := .labels }}
-- key: oneuptime.label.{{ $key }}
+- key: cast-operations.label.{{ $key }}
   value: {{ $value | quote }}
   action: {{ $action }}
 {{- end }}
@@ -190,7 +190,7 @@ follows the exact egress path — NetworkPolicy, DNS, proxy, TLS — the collect
 uses. See values.yaml (debug.*) for the rationale and security trade-offs.
 
   kubectl exec -it <agent-pod> -c debug -- bash
-  curl -v "$ONEUPTIME_URL/otlp/v1/metrics"
+  curl -v "$CAST_OPERATIONS_URL/otlp/v1/metrics"
 
 Usage (nindent to the `containers:` list-item column):
   {{- include "kubernetes-agent.debugContainer" . | nindent 8 }}
@@ -211,10 +211,10 @@ Usage (nindent to the `containers:` list-item column):
   {{- end }}
   resources:
     {{- toYaml .Values.debug.resources | nindent 4 }}
-  {{- with .Values.oneuptime.url }}
+  {{- with .Values.cast-operations.url }}
   env:
-    # Convenience for `curl "$ONEUPTIME_URL/otlp/v1/metrics"`.
-    - name: ONEUPTIME_URL
+    # Convenience for `curl "$CAST_OPERATIONS_URL/otlp/v1/metrics"`.
+    - name: CAST_OPERATIONS_URL
       value: {{ . | quote }}
   {{- end }}
 {{- end }}

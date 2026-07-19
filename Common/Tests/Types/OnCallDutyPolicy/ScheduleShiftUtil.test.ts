@@ -1,5 +1,5 @@
 import CalendarEvent from "../../../Types/Calendar/CalendarEvent";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import ScheduleShiftUtil, {
   CoverageGap,
   CurrentAndNextShift,
@@ -29,7 +29,7 @@ const event: (userId: string, start: Date, end: Date) => CalendarEvent = (
 };
 
 const at: (iso: string) => Date = (iso: string): Date => {
-  return OneUptimeDate.fromString(iso);
+  return OperationsDate.fromString(iso);
 };
 
 /*
@@ -45,7 +45,7 @@ const mkShift: (userId: string, start: Date, end: Date) => OnCallShift = (
     userId,
     start,
     end,
-    coverageSeconds: OneUptimeDate.getDifferenceInSeconds(end, start),
+    coverageSeconds: OperationsDate.getDifferenceInSeconds(end, start),
   };
 };
 

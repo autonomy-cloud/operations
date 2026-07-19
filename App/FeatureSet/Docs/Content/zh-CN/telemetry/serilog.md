@@ -27,7 +27,7 @@
 | 设置项     | 值                                                  |
 | ---------- | --------------------------------------------------- |
 | OTLP 端点  | `https://visca.ai/otlp`                        |
-| 认证请求头 | `x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN` |
+| 认证请求头 | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN` |
 | 服务名称   | 你的服务应显示的名称，例如 `my-service`             |
 
 > **自托管 Cast Operations？** 将 `https://visca.ai/otlp` 替换为 `https://YOUR-OPERATIONS-HOST/otlp`（如果你不进行 TLS 终止，则为 `http://...`）。其余所有内容保持不变。
@@ -76,7 +76,7 @@ Log.Logger = new LoggerConfiguration()
         // Authenticate with your Cast Operations telemetry ingestion token.
         options.Headers = new Dictionary<string, string>
         {
-            ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+            ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
         };
 
         // Identify your service in Cast Operations.
@@ -118,7 +118,7 @@ finally
           "endpoint": "https://visca.ai/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
-            "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+            "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
           },
           "resourceAttributes": {
             "service.name": "my-service",
@@ -169,7 +169,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
-                ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+                ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
             };
             options.ResourceAttributes = new Dictionary<string, object>
             {
@@ -228,9 +228,9 @@ Cast Operations 会检测这些属性，并自动将该错误归入 **Exceptions
 
 ## 故障排查
 
-- **没有日志出现** – 仔细检查 `x-oneuptime-token` 的值，并确认它属于你正在查看的项目。验证端点为 `https://visca.ai/otlp`（仅基础路径——不要自行追加 `/v1/logs`）。
+- **没有日志出现** – 仔细检查 `x-cast-operations-token` 的值，并确认它属于你正在查看的项目。验证端点为 `https://visca.ai/otlp`（仅基础路径——不要自行追加 `/v1/logs`）。
 - **仅在应用退出时才出现日志，或最后的日志丢失** – 确保在关闭时运行 `Log.CloseAndFlush()`。该 sink 会对事件进行批处理，因此如果进程在未刷新的情况下被终止，缓冲中的日志会丢失。
-- **`401 Unauthorized` / 没有任何数据被接收** – 令牌缺失或无效。请确认请求头键名正好是 `x-oneuptime-token`。
+- **`401 Unauthorized` / 没有任何数据被接收** – 令牌缺失或无效。请确认请求头键名正好是 `x-cast-operations-token`。
 - **服务名称错误** – 在 `ResourceAttributes`（代码中）或 `resourceAttributes`（appsettings.json 中）设置 `service.name`。如果不设置，日志会回退到默认/未知服务。
 - **连接到自托管实例时出现错误** – 确保协议与你的端点方案（`https://` 与 `http://`）匹配，并且你的 Cast Operations 主机可从应用程序访问。
 

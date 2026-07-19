@@ -188,9 +188,11 @@ router.get(
   ): Promise<void> => {
     try {
       const token: string | undefined =
-        (req.headers["x-oneuptime-token"] as string | undefined) ||
-        (req.headers["x-oneuptime-service-token"] as string | undefined) ||
-        (req.headers["x-oneuptime-ingestion-key"] as string | undefined);
+        (req.headers["x-cast-operations-token"] as string | undefined) ||
+        (req.headers["x-cast-operations-service-token"] as
+          | string
+          | undefined) ||
+        (req.headers["x-cast-operations-ingestion-key"] as string | undefined);
 
       if (!token) {
         return Response.sendJsonObjectResponse(
@@ -200,7 +202,7 @@ router.get(
             tokenProvided: false,
             valid: false,
             message:
-              "No ingestion token provided. Send it in the x-oneuptime-token header.",
+              "No ingestion token provided. Send it in the x-cast-operations-token header.",
           },
           { statusCode: new StatusCode(401) },
         );

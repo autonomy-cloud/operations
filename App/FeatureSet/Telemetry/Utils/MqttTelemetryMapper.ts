@@ -10,22 +10,22 @@ import { JSONArray, JSONObject } from "Common/Types/JSON";
  * this module is pure — no DB, no network — which is what makes the
  * MQTT topic/payload contract unit-testable.
  *
- * Topic contract (all under the fixed "oneuptime/" prefix so the
+ * Topic contract (all under the fixed "cast-operations/" prefix so the
  * broker can reject foreign topics up front; fleet and device segments
  * must not contain "/", "+" or "#"):
  *
- *   oneuptime/<fleet>/<device>/telemetry
+ *   cast-operations/<fleet>/<device>/telemetry
  *     JSON payload. Either { "metrics": { "<name>": <number>, ... } }
  *     or a flat object whose numeric top-level fields are the metrics.
  *     Optional "attributes" (string map, stamped on every datapoint)
  *     and "timestamp" (ISO-8601 string, or unix seconds/milliseconds —
  *     auto-detected by magnitude).
  *
- *   oneuptime/<fleet>/<device>/metrics/<metricName>
+ *   cast-operations/<fleet>/<device>/metrics/<metricName>
  *     Single value. Payload is a bare number ("23.4") or
  *     { "value": <number>, "attributes": {...}, "timestamp": ... }.
  *
- *   oneuptime/<fleet>/<device>/status
+ *   cast-operations/<fleet>/<device>/status
  *     Device liveness — this is the Last Will topic. Payload
  *     "online"/"offline" (also 1/0, true/false, up/down, or
  *     { "status": "..." }) maps to the iot_device_up metric the
@@ -38,7 +38,7 @@ import { JSONArray, JSONObject } from "Common/Types/JSON";
  * dashboard all work unchanged regardless of transport.
  */
 
-export const MQTT_TOPIC_PREFIX: string = "oneuptime";
+export const MQTT_TOPIC_PREFIX: string = "cast-operations";
 
 /*
  * A single publish is one device's scrape — 128 KB of JSON is already
@@ -470,7 +470,7 @@ export function parseMqttPublish(data: {
 
   if (!topic) {
     return {
-      error: `Unsupported topic "${data.topic}". Expected oneuptime/<fleet>/<device>/telemetry, oneuptime/<fleet>/<device>/metrics/<metricName>, or oneuptime/<fleet>/<device>/status.`,
+      error: `Unsupported topic "${data.topic}". Expected cast-operations/<fleet>/<device>/telemetry, cast-operations/<fleet>/<device>/metrics/<metricName>, or cast-operations/<fleet>/<device>/status.`,
     };
   }
 
@@ -562,7 +562,7 @@ export function buildOtlpMetricsBody(payload: MqttIngestPayload): JSONObject {
         },
         scopeMetrics: [
           {
-            scope: { name: "oneuptime-mqtt-ingest" },
+            scope: { name: "cast-operations-mqtt-ingest" },
             metrics,
           },
         ],

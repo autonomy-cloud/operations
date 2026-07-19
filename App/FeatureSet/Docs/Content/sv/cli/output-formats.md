@@ -7,7 +7,7 @@ Cast Operations CLI stöder tre utdataformat: **tabell**, **JSON** och **bred**.
 Standardformatet vid körning i en interaktiv terminal. Visar resultat som en ASCII-tabell med intelligent valda kolumner.
 
 ```bash
-oneuptime incident list
+cast-operations incident list
 ```
 
 ```
@@ -30,7 +30,7 @@ Tabellformatets beteende:
 Rå JSON-utdata, snyggt formaterad med 2 mellanslags indragning. Detta är det bästa formatet för skriptning och vidarebefordran till andra verktyg.
 
 ```bash
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ```json
@@ -48,7 +48,7 @@ JSON-format används automatiskt när utdata skickas till ett annat kommando (ic
 
 ```bash
 # JSON används automatiskt vid vidarebefordran
-oneuptime incident list | jq '.[].title'
+cast-operations incident list | jq '.[].title'
 ```
 
 ## Bred
@@ -56,7 +56,7 @@ oneuptime incident list | jq '.[].title'
 Visar alla kolumner utan trunkering. Användbart för detaljerad granskning men kan producera mycket bred utdata.
 
 ```bash
-oneuptime incident list -o wide
+cast-operations incident list -o wide
 ```
 
 ## Inaktivera färg
@@ -65,10 +65,10 @@ Färgutdata kan inaktiveras på flera sätt:
 
 ```bash
 # Använda --no-color-flaggan
-oneuptime --no-color incident list
+cast-operations --no-color incident list
 
 # Använda NO_COLOR-miljövariabeln
-NO_COLOR=1 oneuptime incident list
+NO_COLOR=1 cast-operations incident list
 ```
 
 ## Särskilda utdatafall

@@ -1,6 +1,6 @@
 import Query from "../../../Types/AnalyticsDatabase/Query";
 import { LIMIT_PER_PROJECT } from "../../../../Types/Database/LimitMax";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import { JSONObject } from "../../../../Types/JSON";
 import {
   CheckOn,
@@ -25,13 +25,13 @@ export default class EvaluateOverTime {
   }): Promise<number | boolean | Array<number | boolean>> {
     // get values over time
 
-    const lastMinutesDate: Date = OneUptimeDate.getSomeMinutesAgo(
+    const lastMinutesDate: Date = OperationsDate.getSomeMinutesAgo(
       data.evaluateOverTimeOptions.timeValueInMinutes!,
     );
 
     // TODO: Query over miscData
 
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     const query: Query<Metric> = {
       projectId: data.projectId,

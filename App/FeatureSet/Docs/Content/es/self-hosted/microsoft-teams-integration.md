@@ -14,7 +14,7 @@ Para integrar Microsoft Teams con tu instancia auto-alojada de Cast Operations, 
 1. Ve al [Portal de Azure](https://portal.azure.com)
 2. Navega a "Registros de aplicaciones" y haz clic en "Nuevo registro"
 3. Completa el formulario de registro:
-   - **Nombre:** oneuptime
+   - **Nombre:** cast-operations
    - **Tipos de cuenta admitidos:** Cuentas en cualquier directorio organizacional (Cualquier inquilino de Microsoft Entra ID: multiinquilino)
    - **URI de redirección:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
    - Por favor, también agrega: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -61,7 +61,7 @@ Para integrar Microsoft Teams con tu instancia auto-alojada de Cast Operations, 
 1. En el Portal de Azure, navega a "Azure Bot" y haz clic en "Crear"
 2. Completa el formulario de creación del bot:
 
-   - **Nombre del bot:** oneuptime-bot
+   - **Nombre del bot:** cast-operations-bot
    - **Suscripción:** Tu suscripción de Azure
    - **Grupo de recursos:** Crea uno nuevo o usa uno existente
    - **Ubicación:** Elige una ubicación cercana a tus usuarios

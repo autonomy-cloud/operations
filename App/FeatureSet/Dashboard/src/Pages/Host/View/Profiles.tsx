@@ -20,7 +20,7 @@ import AggregatedFlamegraph from "../../../Components/Profiles/AggregatedFlamegr
 import ProfileTypeSelector from "../../../Components/Profiles/ProfileTypeSelector";
 import Query from "Common/Types/BaseDatabase/Query";
 import Profile from "Common/Models/AnalyticsModels/Profile";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ProjectUtil from "Common/UI/Utils/Project";
 import { keyForHost } from "Common/Utils/Telemetry/EntityKey";
 
@@ -65,9 +65,9 @@ const HostProfiles: FunctionComponent<
    * look like a new window each time.
    */
   const { startTime, endTime } = useMemo(() => {
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
     return {
-      startTime: OneUptimeDate.addRemoveMinutes(now, -rangeMinutes),
+      startTime: OperationsDate.addRemoveMinutes(now, -rangeMinutes),
       endTime: now,
     };
   }, [rangeMinutes]);

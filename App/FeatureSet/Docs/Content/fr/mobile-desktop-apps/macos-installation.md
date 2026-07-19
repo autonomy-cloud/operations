@@ -229,10 +229,10 @@ Gérez Cast Operations via Terminal :
 
 ```bash
 # Créer un alias pour lancer Cast Operations rapidement
-echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
+echo 'alias cast-operations="open -a \"Cast Operations\""' >> ~/.zshrc
 
 # Fonction pour vérifier si Cast Operations est en cours d'exécution
-oneuptime_status() {
+cast_operations_status() {
     if pgrep -f "Cast Operations" > /dev/null; then
         echo "Cast Operations is running"
     else

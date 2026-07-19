@@ -16,7 +16,7 @@ import TeamMemberService from "./TeamMemberService";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ProjectService from "./ProjectService";
 import Dictionary from "../../Types/Dictionary";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import UserNotificationSettingService from "./UserNotificationSettingService";
 import NotificationSettingEventType from "../../Types/NotificationSetting/NotificationSettingEventType";
 import logger, { LogAttributes } from "../Utils/Logger";
@@ -32,7 +32,7 @@ import PushNotificationUtil from "../Utils/PushNotificationUtil";
 import { createWhatsAppMessageFromTemplate } from "../Utils/WhatsAppTemplateUtil";
 import { WhatsAppMessagePayload } from "../../Types/WhatsApp/WhatsAppMessage";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import GlobalCache from "../Infrastructure/GlobalCache";
 import QueryHelper from "../Types/Database/QueryHelper";
 
@@ -53,7 +53,7 @@ export class Service extends DatabaseService<Model> {
       await GlobalCache.setString(
         "ai-agent-last-alive",
         aiAgentId.toString(),
-        OneUptimeDate.toString(lastAlive),
+        OperationsDate.toString(lastAlive),
       );
     } catch (err) {
       logger.error("Error in saving last alive in cache", {
@@ -64,7 +64,7 @@ export class Service extends DatabaseService<Model> {
   }
 
   public async shouldSaveLastAlive(aiAgentId: ObjectID): Promise<boolean> {
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     try {
       // before we hit the database, we need to check if the lastAlive was updated in Global Cache.
@@ -78,13 +78,13 @@ export class Service extends DatabaseService<Model> {
         return true;
       }
 
-      const previousLastAliveCheckDate: Date | null = OneUptimeDate.fromString(
+      const previousLastAliveCheckDate: Date | null = OperationsDate.fromString(
         previousLastAliveCheck,
       );
 
       // if this date is within 30 seconds of current date, then we will not update the last alive.
       if (previousLastAliveCheckDate) {
-        const diff: number = OneUptimeDate.getDifferenceInSeconds(
+        const diff: number = OperationsDate.getDifferenceInSeconds(
           now,
           previousLastAliveCheckDate,
         );
@@ -118,7 +118,7 @@ export class Service extends DatabaseService<Model> {
       return;
     }
 
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     /*
      * Heartbeat write: a single-statement UPDATE with no hooks and no
@@ -384,10 +384,6 @@ export class Service extends DatabaseService<Model> {
       return; // might be global AI agent. Do not notify.
     }
 
-    if (aiAgent.isGlobalAIAgent && IsBillingEnabled) {
-      return; // do not notify for global AI agents.
-    }
-
     // notify the AI agent owner
     let owners: Array<User> = await this.getOwners(aiAgent.id!);
 
@@ -417,8 +413,8 @@ export class Service extends DatabaseService<Model> {
           aiAgentDescription: aiAgent.description || "No description provided",
           projectName: aiAgent.project?.name || "Project",
           aiAgentStatus: connectionStatus || "Unknown",
-          lastAlive: OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
-            date: aiAgent.lastAlive || OneUptimeDate.getCurrentDate(),
+          lastAlive: OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
+            date: aiAgent.lastAlive || OperationsDate.getCurrentDate(),
             timezones: user.timezone ? [user.timezone] : [],
           }),
           viewAIAgentsLink: (
@@ -600,8 +596,8 @@ export class Service extends DatabaseService<Model> {
       return false;
     }
 
-    const fiveMinutesAgo: Date = OneUptimeDate.getSomeMinutesAgo(5);
-    return OneUptimeDate.isAfter(agent.lastAlive, fiveMinutesAgo);
+    const fiveMinutesAgo: Date = OperationsDate.getSomeMinutesAgo(5);
+    return OperationsDate.isAfter(agent.lastAlive, fiveMinutesAgo);
   }
 }
 

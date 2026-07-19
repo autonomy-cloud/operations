@@ -71,7 +71,7 @@ API 密钥以项目为作用域：MCP 服务器会从密钥中推断出您的项
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp",
       "headers": {
@@ -89,7 +89,7 @@ API 密钥以项目为作用域：MCP 服务器会从密钥中推断出您的项
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
@@ -107,7 +107,7 @@ API 密钥以项目为作用域：MCP 服务器会从密钥中推断出您的项
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp"
     }
@@ -140,18 +140,18 @@ VS Code 原生支持 MCP 服务器与 GitHub Copilot（1.99+ 版本）配合使�
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://visca.ai/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -164,18 +164,18 @@ VS Code 原生支持 MCP 服务器与 GitHub Copilot（1.99+ 版本）配合使�
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -187,7 +187,7 @@ VS Code 原生支持 MCP 服务器与 GitHub Copilot（1.99+ 版本）配合使�
 
 1. 按 `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. 输入"MCP: List Servers"以查看可用服务器
-3. 点击"oneuptime"以启动服务器
+3. 点击"cast-operations"以启动服务器
 4. 在提示时输入您的 Cast Operations API 密钥
 
 #### 第四步：与 Copilot Chat 配合使用
@@ -222,8 +222,8 @@ MCP 服务器支持两种操作模式：
 
 您可以无需 API 密钥连接到 MCP 服务器来访问公共工具：
 
-- **`oneuptime_help`**：获取有关 Cast Operations MCP 功能的帮助和指导
-- **`oneuptime_list_resources`**：列出可用资源及其操作
+- **`cast_operations_help`**：获取有关 Cast Operations MCP 功能的帮助和指导
+- **`cast_operations_list_resources`**：列出可用资源及其操作
 - **`get_public_status_page_overview`**：获取公共状态页面的概览
 - **`get_public_status_page_incidents`**：获取公共状态页面的事件
 - **`get_public_status_page_scheduled_maintenance`**：获取计划维护事件
@@ -253,7 +253,7 @@ MCP 服务器支持两种操作模式：
 
 ## 我是谁
 
-**`oneuptime_whoami`** 工具返回您的 API 密钥所属的项目（ID 和名称）。它是代理用来确定自身环境的一个非常有用的首次调用——而且由于创建类工具会从 API 密钥中推断 `projectId`，代理永远不需要传递项目 ID。
+**`cast_operations_whoami`** 工具返回您的 API 密钥所属的项目（ID 和名称）。它是代理用来确定自身环境的一个非常有用的首次调用——而且由于创建类工具会从 API 密钥中推断 `projectId`，代理永远不需要传递项目 ID。
 
 ## 查询遥测数据
 

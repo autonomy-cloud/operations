@@ -132,7 +132,7 @@ AI 에이전트가 인시던트에 연결된 수정 사항을 담은 풀 리퀘�
 ```bash
 # 1. Clone the release branch
 git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # 2. Create your config (then edit it — set strong, random secrets!)
 cp config.example.env config.env
@@ -148,8 +148,8 @@ npm start
 ### ☸️ Helm을 사용한 Kubernetes — 프로덕션용
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
-helm install oneuptime autonomy-cloud/operations
+helm repo add cast-operations https://helm-chart.visca.ai
+helm install cast-operations autonomy-cloud/operations
 ```
 
 📖 전체 설치 방법 및 값은 [Artifact Hub →](https://artifacthub.io/packages/helm/autonomy-cloud/operations)에서 확인하세요

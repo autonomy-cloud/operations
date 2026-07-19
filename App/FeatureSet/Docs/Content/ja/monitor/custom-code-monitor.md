@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### カスタムメトリクス
 
-`oneuptime.captureMetric()` 関数を使用して、スクリプトからカスタムメトリクスをキャプチャできます。これらのメトリクスはCast Operationsに保存され、メトリクスエクスプローラーを使用してダッシュボードのチャートに表示できます。
+`cast-operations.captureMetric()` 関数を使用して、スクリプトからカスタムメトリクスをキャプチャできます。これらのメトリクスはCast Operationsに保存され、メトリクスエクスプローラーを使用してダッシュボードのチャートに表示できます。
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name`（文字列、必須）：メトリクス名（例：`"api.response.time"`）。自動的に `custom.monitor.` プレフィックスが付加されます。
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // シンプルなメトリクスをキャプチャ
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // 属性付きでメトリクスをキャプチャ
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ return {
 - `axios`：HTTPリクエストを実行するためのモジュール。ブラウザおよびNode.js向けのPromiseベースのHTTPクライアントです。
 - `crypto`：暗号化処理を実行するためのモジュール。OpenSSLのハッシュ、HMAC、暗号化、復号化、署名、検証関数のラッパーセットを提供するNode.js組み込みモジュールです。
 - `console.log`：コンソールにデータを記録するためのモジュール。デバッグ目的で使用します。
-- `oneuptime.captureMetric`：スクリプトからカスタムメトリクスをキャプチャするために使用します。上記のカスタムメトリクスセクションを参照してください。
+- `cast-operations.captureMetric`：スクリプトからカスタムメトリクスをキャプチャするために使用します。上記のカスタムメトリクスセクションを参照してください。
 - `http`：HTTPリクエストを実行するためのモジュール。HTTPクライアントとサーバーを提供するNode.js組み込みモジュールです。
 - `https`：HTTPSリクエストを実行するためのモジュール。HTTPSクライアントとサーバーを提供するNode.js組み込みモジュールです。
 

@@ -26,16 +26,17 @@ const parseList: (value: string) => Array<string> = (
     });
 };
 
-export const ONEUPTIME_URL: string = required("ONEUPTIME_URL").replace(
-  /\/+$/,
-  "",
+export const CAST_OPERATIONS_URL: string = required(
+  "CAST_OPERATIONS_URL",
+).replace(/\/+$/, "");
+export const CAST_OPERATIONS_API_KEY: string = required(
+  "CAST_OPERATIONS_API_KEY",
 );
-export const ONEUPTIME_API_KEY: string = required("ONEUPTIME_API_KEY");
 export const CLUSTER_NAME: string = required("CLUSTER_NAME");
 
 /*
- * Comma-separated key=value pairs from .Values.oneuptime.labels. Each pair
- * becomes an `oneuptime.label.<key>=<value>` resource attribute on every
+ * Comma-separated key=value pairs from .Values.cast-operations.labels. Each pair
+ * becomes an `cast-operations.label.<key>=<value>` resource attribute on every
  * outgoing OTLP log batch; the Cast Operations ingest pipeline promotes those
  * into project Labels.
  */
@@ -57,8 +58,8 @@ const parseLabels: (value: string) => Record<string, string> = (
   return result;
 };
 
-export const ONEUPTIME_LABELS: Record<string, string> = parseLabels(
-  optional("ONEUPTIME_LABELS", ""),
+export const CAST_OPERATIONS_LABELS: Record<string, string> = parseLabels(
+  optional("CAST_OPERATIONS_LABELS", ""),
 );
 
 export const NAMESPACE_INCLUDE: Array<string> = parseList(
@@ -71,7 +72,7 @@ export const NAMESPACE_EXCLUDE: Array<string> = parseList(
 export const AGENT_NAMESPACE: string = optional("AGENT_NAMESPACE", "");
 export const AGENT_LABEL_SELECTOR: string = optional(
   "AGENT_LABEL_SELECTOR",
-  "app.kubernetes.io/part-of=oneuptime",
+  "app.kubernetes.io/part-of=cast-operations",
 );
 
 export const BATCH_MAX_RECORDS: number = parseInt(

@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { JSONObject } from "Common/Types/JSON";
 import { RegisterProbeKey } from "Common/Server/EnvironmentConfig";
@@ -73,7 +73,7 @@ router.post(
           data: {
             name: data["probeName"] as string,
             description: data["probeDescription"] as string,
-            lastAlive: OneUptimeDate.getCurrentDate(),
+            lastAlive: OperationsDate.getCurrentDate(),
             connectionStatus: ProbeConnectionStatus.Connected,
           },
           props: {
@@ -92,7 +92,7 @@ router.post(
       newProbe.key = probeKey;
       newProbe.name = data["probeName"] as string;
       newProbe.description = data["probeDescription"] as string;
-      newProbe.lastAlive = OneUptimeDate.getCurrentDate();
+      newProbe.lastAlive = OperationsDate.getCurrentDate();
       newProbe.connectionStatus = ProbeConnectionStatus.Connected;
       newProbe.shouldAutoEnableProbeOnNewMonitors = true;
 

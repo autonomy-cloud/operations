@@ -148,15 +148,15 @@ export default class MicrosoftTeamsAlertActions {
         return;
       }
 
-      const oneUptimeUserId: ObjectID =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
+      const operationsUserId: ObjectID =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId({
           teamsUserId: data.teamsRequest.userId || "",
           projectId: data.teamsRequest.projectId,
         });
 
       await AlertService.acknowledgeAlert(
         new ObjectID(alertId),
-        oneUptimeUserId,
+        operationsUserId,
       );
 
       logger.debug("Alert acknowledged successfully", {
@@ -227,13 +227,13 @@ export default class MicrosoftTeamsAlertActions {
         return;
       }
 
-      const oneUptimeUserId: ObjectID =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
+      const operationsUserId: ObjectID =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId({
           teamsUserId: data.teamsRequest.userId || "",
           projectId: data.teamsRequest.projectId,
         });
 
-      await AlertService.resolveAlert(new ObjectID(alertId), oneUptimeUserId);
+      await AlertService.resolveAlert(new ObjectID(alertId), operationsUserId);
 
       logger.debug("Alert resolved successfully", {
         projectId: data.teamsRequest.projectId.toString(),
@@ -254,7 +254,7 @@ export default class MicrosoftTeamsAlertActions {
     actionValue: string;
     value: JSONObject;
     projectId: ObjectID;
-    oneUptimeUserId: ObjectID;
+    operationsUserId: ObjectID;
     turnContext: TurnContext;
   }): Promise<void> {
     const {
@@ -262,7 +262,7 @@ export default class MicrosoftTeamsAlertActions {
       actionValue,
       value,
       projectId,
-      oneUptimeUserId,
+      operationsUserId,
       turnContext,
     } = data;
 
@@ -276,7 +276,7 @@ export default class MicrosoftTeamsAlertActions {
 
       await AlertService.acknowledgeAlert(
         new ObjectID(actionValue),
-        oneUptimeUserId,
+        operationsUserId,
       );
       await turnContext.sendActivity("✅ Alert acknowledged.");
       return;
@@ -290,7 +290,7 @@ export default class MicrosoftTeamsAlertActions {
 
       await AlertService.resolveAlert(
         new ObjectID(actionValue),
-        oneUptimeUserId,
+        operationsUserId,
       );
       await turnContext.sendActivity("✅ Alert resolved.");
       return;
@@ -373,7 +373,7 @@ export default class MicrosoftTeamsAlertActions {
           alertId: alertId,
           note: note.toString(),
           projectId: projectId,
-          userId: oneUptimeUserId,
+          userId: operationsUserId,
         });
 
         await turnContext.sendActivity("✅ Note added successfully.");

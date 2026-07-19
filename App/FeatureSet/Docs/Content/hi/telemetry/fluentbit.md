@@ -61,7 +61,7 @@ outputs:
     traces_uri: "/otlp/v1/traces"
     tls: On
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 कृपया सुनिश्चित करें कि आपके input section में opentelemetry_envelope है। Input section का उदाहरण:
@@ -118,7 +118,7 @@ pipeline:
       traces_uri: "/otlp/v1/traces"
       tls: On
       header:
-        - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+        - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 **यदि आप Cast Operations self-host कर रहे हैं**: यदि आप Cast Operations self-host कर रहे हैं तो आप `host` को अपने Cast Operations instance के host से बदल सकते हैं। यदि आप https के बजाय http server पर host कर रहे हैं, तो आप `port` को अपने Cast Operations instance के port से बदल सकते हैं (likely port 80)।
@@ -137,7 +137,7 @@ outputs:
     logs_uri: "/otlp/v1/logs"
     traces_uri: "/otlp/v1/traces"
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 ## Usage

@@ -7,7 +7,7 @@ Cast Operations CLI는 **테이블**, **JSON**, **와이드**의 세 가지 출�
 대화형 터미널에서 실행할 때의 기본 형식입니다. 지능적으로 선택된 열로 결과를 ASCII 테이블로 표시합니다.
 
 ```bash
-oneuptime incident list
+cast-operations incident list
 ```
 
 ```
@@ -30,7 +30,7 @@ oneuptime incident list
 2칸 들여쓰기로 보기 좋게 출력된 원시 JSON입니다. 스크립팅 및 다른 도구로 파이핑하기에 가장 좋은 형식입니다.
 
 ```bash
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ```json
@@ -48,7 +48,7 @@ oneuptime incident list -o json
 
 ```bash
 # 파이핑 시 JSON이 자동으로 사용됨
-oneuptime incident list | jq '.[].title'
+cast-operations incident list | jq '.[].title'
 ```
 
 ## 와이드
@@ -56,7 +56,7 @@ oneuptime incident list | jq '.[].title'
 잘림 없이 모든 열을 표시합니다. 상세한 검사에 유용하지만 매우 넓은 출력이 생성될 수 있습니다.
 
 ```bash
-oneuptime incident list -o wide
+cast-operations incident list -o wide
 ```
 
 ## 색상 비활성화
@@ -65,10 +65,10 @@ oneuptime incident list -o wide
 
 ```bash
 # --no-color 플래그 사용
-oneuptime --no-color incident list
+cast-operations --no-color incident list
 
 # NO_COLOR 환경 변수 사용
-NO_COLOR=1 oneuptime incident list
+NO_COLOR=1 cast-operations incident list
 ```
 
 ## 특수 출력 사례

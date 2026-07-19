@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IncomingMonitorRequest from "Common/Types/Monitor/IncomingMonitor/IncomingMonitorRequest";
 import Button, { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import Detail from "Common/UI/Components/Detail/Detail";
@@ -43,7 +43,7 @@ const IncomingRequestMonitorView: FunctionComponent<ComponentProps> = (
           title="Last Request Received At"
           value={
             props.incomingMonitorRequest?.incomingRequestReceivedAt
-              ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+              ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   props.incomingMonitorRequest.incomingRequestReceivedAt,
                 )
               : "-"
@@ -60,7 +60,7 @@ const IncomingRequestMonitorView: FunctionComponent<ComponentProps> = (
             title="Monitor Status Check At"
             value={
               props.incomingRequestMonitorHeartbeatCheckedAt
-                ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                     props.incomingRequestMonitorHeartbeatCheckedAt,
                   )
                 : "-"

@@ -29,7 +29,7 @@ import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import ComponentLoader from "Common/UI/Components/ComponentLoader/ComponentLoader";
 import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import StatusBadge, {
   StatusBadgeType,
 } from "Common/UI/Components/StatusBadge/StatusBadge";
@@ -506,8 +506,8 @@ const ProxmoxClusterOverview: FunctionComponent<
     clusterName: string,
   ): Promise<void> => {
     try {
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveMinutes(
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveMinutes(
         endDate,
         -REPLICATION_WINDOW_MINUTES,
       );
@@ -669,7 +669,7 @@ const ProxmoxClusterOverview: FunctionComponent<
         RangeStartAndEndDateTimeUtil.getStartAndEndDate(timeRange);
       const startDate: Date = dateRange.startValue;
       const endDate: Date = dateRange.endValue;
-      const tileWindowStart: Date = OneUptimeDate.addRemoveMinutes(
+      const tileWindowStart: Date = OperationsDate.addRemoveMinutes(
         endDate,
         -TILE_WINDOW_MINUTES,
       );
@@ -1029,7 +1029,7 @@ const ProxmoxClusterOverview: FunctionComponent<
       });
 
       setChartWindow({ start: startDate, end: endDate });
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
     } catch (err) {
       setGoldenError(API.getFriendlyMessage(err));
     } finally {
@@ -1321,7 +1321,7 @@ const ProxmoxClusterOverview: FunctionComponent<
     const status: string = (cluster.otelCollectorStatus as string) || "";
     const lastSeenAt: Date | undefined = cluster.lastSeenAt;
     const lastSeenText: string = lastSeenAt
-      ? OneUptimeDate.fromNow(lastSeenAt)
+      ? OperationsDate.fromNow(lastSeenAt)
       : "never";
 
     const isConnected: boolean =

@@ -15,7 +15,7 @@ import RestrictionTimes, {
   RestrictionType,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -44,12 +44,12 @@ function dailyRestriction(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: startHour,
       minutes: 0,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: endHour,
       minutes: 0,
       seconds: 0,
@@ -95,7 +95,7 @@ function windowedUserAt(layer: LayerProps, at: Date): string | null {
     {
       ...layer,
       calendarStartDate: at,
-      calendarEndDate: OneUptimeDate.addRemoveDays(at, 40),
+      calendarEndDate: OperationsDate.addRemoveDays(at, 40),
     },
     { getNumberOfEvents: 1 },
   );
@@ -119,8 +119,8 @@ function coveringEvent(
 ): CalendarEvent | null {
   for (const e of events) {
     if (
-      OneUptimeDate.isOnOrAfter(at, e.start) &&
-      OneUptimeDate.isBefore(at, e.end)
+      OperationsDate.isOnOrAfter(at, e.start) &&
+      OperationsDate.isBefore(at, e.end)
     ) {
       return e;
     }
@@ -135,8 +135,8 @@ function nextEventAfter(
 ): CalendarEvent | null {
   let best: CalendarEvent | null = null;
   for (const e of events) {
-    if (OneUptimeDate.isAfter(e.start, at)) {
-      if (best === null || OneUptimeDate.isBefore(e.start, best.start)) {
+    if (OperationsDate.isAfter(e.start, at)) {
+      if (best === null || OperationsDate.isBefore(e.start, best.start)) {
         best = e;
       }
     }
@@ -156,7 +156,7 @@ function approxPeriodMs(c: Config): number {
   return (base[c.intervalType] || 86400000) * c.intervalCount;
 }
 
-const FIXED_START_JAN: Date = OneUptimeDate.fromString(
+const FIXED_START_JAN: Date = OperationsDate.fromString(
   "2025-01-06T00:00:00.000Z",
 ); // a Monday 00:00 UTC
 

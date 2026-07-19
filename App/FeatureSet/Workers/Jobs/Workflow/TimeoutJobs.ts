@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import WorkflowStatus from "Common/Types/Workflow/WorkflowStatus";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import WorkflowLogService from "Common/Server/Services/WorkflowLogService";
@@ -14,7 +14,7 @@ RunCron(
     const stalledWorkflowLogs: Array<WorkflowLog> =
       await WorkflowLogService.findAllBy({
         query: {
-          createdAt: QueryHelper.lessThan(OneUptimeDate.getSomeMinutesAgo(5)),
+          createdAt: QueryHelper.lessThan(OperationsDate.getSomeMinutesAgo(5)),
           workflowStatus: WorkflowStatus.Scheduled,
         },
         select: {
@@ -34,7 +34,7 @@ RunCron(
           workflowStatus: WorkflowStatus.Error,
           logs: `${
             stalledWorkflowLog.logs
-          } \n ${OneUptimeDate.getCurrentDateAsFormattedString({
+          } \n ${OperationsDate.getCurrentDateAsFormattedString({
             showSeconds: true,
           })}: Workflow was not picked up by the runner and has timed out.`,
         },
@@ -54,7 +54,7 @@ RunCron(
       await WorkflowLogService.findAllBy({
         query: {
           workflowStatus: WorkflowStatus.Waiting,
-          resumeAt: QueryHelper.lessThan(OneUptimeDate.getSomeMinutesAgo(10)),
+          resumeAt: QueryHelper.lessThan(OperationsDate.getSomeMinutesAgo(10)),
         },
         select: {
           logs: true,
@@ -71,12 +71,12 @@ RunCron(
         id: stuckWaitingWorkflowLog.id!,
         data: {
           workflowStatus: WorkflowStatus.Error,
-          completedAt: OneUptimeDate.getCurrentDate(),
+          completedAt: OperationsDate.getCurrentDate(),
           resumeData: null!,
           resumeAt: null!,
           logs: `${
             stuckWaitingWorkflowLog.logs
-          } \n ${OneUptimeDate.getCurrentDateAsFormattedString({
+          } \n ${OperationsDate.getCurrentDateAsFormattedString({
             showSeconds: true,
           })}: Workflow was waiting to resume but the resume job was not picked up in time. Marking as failed.`,
         },

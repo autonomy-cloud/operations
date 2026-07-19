@@ -111,7 +111,7 @@ Microsoft Entra ID robust SCIM provisioning capabilities के साथ enterp
 #### पूर्व आवश्यकताएं
 
 - Microsoft Entra ID tenant Premium P1 या P2 license के साथ (स्वचालित provisioning के लिए आवश्यक)
-- Scale plan या उच्चतर के साथ Cast Operations account
+- Cast Operations project administrator access
 - Microsoft Entra ID और Cast Operations दोनों तक Admin access
 
 #### चरण 1: Cast Operations से SCIM Configuration प्राप्त करें
@@ -213,7 +213,7 @@ Okta उत्कृष्ट SCIM support के साथ flexible identity ma
 #### पूर्व आवश्यकताएं
 
 - provisioning capabilities के साथ Okta tenant (Lifecycle Management feature)
-- Scale plan या उच्चतर के साथ Cast Operations account
+- Cast Operations project administrator access
 - Okta और Cast Operations दोनों तक Admin access
 
 #### चरण 1: Cast Operations से SCIM Configuration प्राप्त करें

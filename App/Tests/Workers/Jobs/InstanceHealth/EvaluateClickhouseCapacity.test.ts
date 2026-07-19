@@ -15,7 +15,7 @@ import {
   getClickhousePartitionReclaimState,
   getClickhousePrunablePartitions,
 } from "Common/Server/Utils/AnalyticsDatabase/ClickhouseCapacity";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Email from "Common/Types/Email";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
 import ObjectID from "Common/Types/ObjectID";
@@ -121,9 +121,9 @@ describe("EvaluateClickhouseCapacity", () => {
       inactivePartCount: 0,
       inactiveBytes: 0,
     });
-    jest.spyOn(OneUptimeDate, "getCurrentDate").mockReturnValue(now);
+    jest.spyOn(OperationsDate, "getCurrentDate").mockReturnValue(now);
     getSomeMinutesAfterSpy = jest
-      .spyOn(OneUptimeDate, "getSomeMinutesAfter")
+      .spyOn(OperationsDate, "getSomeMinutesAfter")
       .mockReturnValue(later);
   });
 

@@ -28,7 +28,7 @@ import { JSONObject } from "Common/Types/JSON";
 import { APP_API_URL } from "Common/UI/Config";
 import ModelAPI from "Common/UI/Utils/ModelAPI/ModelAPI";
 import ComponentLoader from "Common/UI/Components/ComponentLoader/ComponentLoader";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 type AnalyticsChartType = "timeseries" | "toplist" | "table";
 
@@ -174,7 +174,7 @@ function formatCount(value: number): string {
 }
 
 function formatTickTime(time: string): string {
-  const date: Date = OneUptimeDate.fromString(time);
+  const date: Date = OperationsDate.fromString(time);
   if (isNaN(date.getTime())) {
     return time;
   }
@@ -231,7 +231,7 @@ const AnalyticsTooltip: FunctionComponent<AnalyticsTooltipProps> = (
     if (!label) {
       return "";
     }
-    const date: Date = OneUptimeDate.fromString(label);
+    const date: Date = OperationsDate.fromString(label);
     if (isNaN(date.getTime())) {
       return label;
     }
@@ -351,11 +351,11 @@ const TracesAnalyticsView: FunctionComponent<TracesAnalyticsViewProps> = (
         setError("");
 
         const startTime: Date = props.baseFilters["startTime"]
-          ? OneUptimeDate.fromString(props.baseFilters["startTime"] as string)
-          : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+          ? OperationsDate.fromString(props.baseFilters["startTime"] as string)
+          : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
         const endTime: Date = props.baseFilters["endTime"]
-          ? OneUptimeDate.fromString(props.baseFilters["endTime"] as string)
-          : OneUptimeDate.getCurrentDate();
+          ? OperationsDate.fromString(props.baseFilters["endTime"] as string)
+          : OperationsDate.getCurrentDate();
 
         const groupBy: Array<string> = groupByFields.filter((f: string) => {
           return f.length > 0;

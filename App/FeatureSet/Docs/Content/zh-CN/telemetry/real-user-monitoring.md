@@ -30,7 +30,7 @@ import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 // Cast Operations OTLP/HTTP exporter:
 const exporter = new OTLPTraceExporter({
   url: "https://visca.ai/otlp/v1/traces",
-  headers: { "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
+  headers: { "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
 });
 
 // Register `exporter` with your WebTracerProvider, using a resource of:
@@ -45,7 +45,7 @@ const exporter = new OTLPTraceExporter({
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 SDK 的 `device.*` 属性会将遥测数据路由到 RUM。如果你自托管 Cast Operations，请使用 `https://YOUR-OPERATIONS-HOST/otlp`。

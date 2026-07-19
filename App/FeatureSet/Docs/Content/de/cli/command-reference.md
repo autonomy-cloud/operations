@@ -4,12 +4,12 @@ Vollständige Referenz für alle Cast Operations CLI-Befehle.
 
 ## Authentifizierungsbefehle
 
-### `oneuptime login`
+### `cast-operations login`
 
 Mit einer Cast Operations-Instanz authentifizieren.
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | Parameter        | Typ      | Erforderlich | Beschreibung                        |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 Alle gespeicherten Kontexte auflisten.
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 Zu einem benannten Kontext wechseln.
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | Parameter | Typ      | Erforderlich | Beschreibung                 |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 Den aktiven Kontext mit maskiertem API-Schlüssel anzeigen.
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 Einen gespeicherten Kontext entfernen.
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | Parameter | Typ      | Erforderlich | Beschreibung              |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 Alle Ressourcenbefehle folgen demselben Muster. Ersetzen Sie `<resource>` durch einen beliebigen unterstützten Ressourcennamen (z. B. `incident`, `monitor`, `alert`, `status-page`).
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 Ressourcen mit Filterung und Paginierung auflisten.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | Option           | Typ          | Standard | Beschreibung                 |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 Eine einzelne Ressource nach ID abrufen.
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | Parameter      | Typ      | Erforderlich | Beschreibung         |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 Eine neue Ressource erstellen.
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | Option          | Typ          | Erforderlich                     | Beschreibung             |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 Eine vorhandene Ressource aktualisieren.
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | Parameter       | Typ      | Erforderlich | Beschreibung                       |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 Eine Ressource löschen.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | Parameter | Typ      | Erforderlich | Beschreibung                          |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 Ressourcen zählen, die einem Filter entsprechen.
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | Option           | Typ          | Standard | Beschreibung             |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## Hilfsbefehle
 
-### `oneuptime version`
+### `cast-operations version`
 
 Die CLI-Version anzeigen.
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 Aktuelle Authentifizierungsdetails anzeigen.
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Zeigt die Instanz-URL und den maskierten API-Schlüssel an. Wenn ein gespeicherter Kontext aktiv ist, wird auch der Kontextname angezeigt.
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 Alle verfügbaren Ressourcentypen auflisten.
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | Option          | Typ          | Standard | Beschreibung                             |

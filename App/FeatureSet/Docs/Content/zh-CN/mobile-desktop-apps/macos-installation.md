@@ -381,10 +381,10 @@ rm -rf ~/Library/Application\ Support/Microsoft\ Edge/Default/Web\ Applications
 
 ```bash
 # 为快速启动 Cast Operations 创建别名
-echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
+echo 'alias cast-operations="open -a \"Cast Operations\""' >> ~/.zshrc
 
 # 检查 Cast Operations 是否正在运行的函数
-oneuptime_status() {
+cast_operations_status() {
     if pgrep -f "Cast Operations" > /dev/null; then
         echo "Cast Operations is running"
     else

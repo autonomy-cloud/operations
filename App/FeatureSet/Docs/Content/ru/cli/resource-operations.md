@@ -7,39 +7,39 @@ CLI Cast Operations предоставляет полные CRUD-операци�
 Выполните следующую команду, чтобы просмотреть все доступные типы ресурсов:
 
 ```bash
-oneuptime resources
+cast-operations resources
 ```
 
 Вы можете фильтровать по типу:
 
 ```bash
 # Показать только ресурсы базы данных
-oneuptime resources --type database
+cast-operations resources --type database
 
 # Показать только аналитические ресурсы
-oneuptime resources --type analytics
+cast-operations resources --type analytics
 ```
 
 Распространённые ресурсы включают:
 
 | Ресурс                               | Команда                                 |
 | ------------------------------------ | --------------------------------------- |
-| Инцидент                             | `oneuptime incident`                    |
-| Алерт                                | `oneuptime alert`                       |
-| Монитор                              | `oneuptime monitor`                     |
-| Статус монитора                      | `oneuptime monitor-status`              |
-| Состояние инцидента                  | `oneuptime incident-state`              |
-| Страница статуса                     | `oneuptime status-page`                 |
-| Политика дежурства                   | `oneuptime on-call-policy`              |
-| Команда                              | `oneuptime team`                        |
-| Запланированное событие обслуживания | `oneuptime scheduled-maintenance-event` |
+| Инцидент                             | `cast-operations incident`                    |
+| Алерт                                | `cast-operations alert`                       |
+| Монитор                              | `cast-operations monitor`                     |
+| Статус монитора                      | `cast-operations monitor-status`              |
+| Состояние инцидента                  | `cast-operations incident-state`              |
+| Страница статуса                     | `cast-operations status-page`                 |
+| Политика дежурства                   | `cast-operations on-call-policy`              |
+| Команда                              | `cast-operations team`                        |
+| Запланированное событие обслуживания | `cast-operations scheduled-maintenance-event` |
 
 ## Список ресурсов
 
 Получение списка ресурсов с опциональной фильтрацией, пагинацией и сортировкой.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 **Опции:**
@@ -56,19 +56,19 @@ oneuptime <resource> list [options]
 
 ```bash
 # Список 10 последних инцидентов
-oneuptime incident list
+cast-operations incident list
 
 # Фильтрация инцидентов по ID состояния
-oneuptime incident list --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident list --query '{"currentIncidentStateId":"<state-id>"}'
 
 # Список с пагинацией
-oneuptime incident list --limit 20 --skip 40
+cast-operations incident list --limit 20 --skip 40
 
 # Сортировка по дате создания (по убыванию)
-oneuptime incident list --sort '{"createdAt":-1}'
+cast-operations incident list --sort '{"createdAt":-1}'
 
 # Вывод в формате JSON
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ## Получение ресурса
@@ -76,7 +76,7 @@ oneuptime incident list -o json
 Получение одного ресурса по его ID.
 
 ```bash
-oneuptime <resource> get <id>
+cast-operations <resource> get <id>
 ```
 
 **Аргументы:**
@@ -89,10 +89,10 @@ oneuptime <resource> get <id>
 
 ```bash
 # Получение конкретного инцидента
-oneuptime incident get 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident get 550e8400-e29b-41d4-a716-446655440000
 
 # Получение монитора в формате JSON
-oneuptime monitor get abc-123 -o json
+cast-operations monitor get abc-123 -o json
 ```
 
 ## Создание ресурса
@@ -100,7 +100,7 @@ oneuptime monitor get abc-123 -o json
 Создание нового ресурса из встроенного JSON или файла.
 
 ```bash
-oneuptime <resource> create [options]
+cast-operations <resource> create [options]
 ```
 
 **Опции:**
@@ -117,13 +117,13 @@ oneuptime <resource> create [options]
 
 ```bash
 # Создание инцидента с встроенным JSON
-oneuptime incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
+cast-operations incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
 
 # Создание из JSON-файла
-oneuptime incident create --file incident.json
+cast-operations incident create --file incident.json
 
 # Создание и вывод в формате JSON для захвата ID
-oneuptime monitor create --data '{"name":"API Health Check"}' -o json
+cast-operations monitor create --data '{"name":"API Health Check"}' -o json
 ```
 
 ## Обновление ресурса
@@ -131,7 +131,7 @@ oneuptime monitor create --data '{"name":"API Health Check"}' -o json
 Обновление существующего ресурса по ID.
 
 ```bash
-oneuptime <resource> update <id> [options]
+cast-operations <resource> update <id> [options]
 ```
 
 **Аргументы:**
@@ -151,10 +151,10 @@ oneuptime <resource> update <id> [options]
 
 ```bash
 # Изменение состояния инцидента (например, на resolved)
-oneuptime incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
+cast-operations incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
 
 # Переименование монитора
-oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
+cast-operations monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 ```
 
 ## Удаление ресурса
@@ -162,7 +162,7 @@ oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 Удаление ресурса по ID.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 **Аргументы:**
@@ -180,11 +180,11 @@ oneuptime <resource> delete <id> [--force]
 **Примеры:**
 
 ```bash
-oneuptime incident delete abc-123
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident delete abc-123
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000
 
 # Пропуск подтверждения
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 ```
 
 ## Подсчёт ресурсов
@@ -192,7 +192,7 @@ oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 Подсчёт ресурсов, соответствующих опциональным критериям фильтрации.
 
 ```bash
-oneuptime <resource> count [options]
+cast-operations <resource> count [options]
 ```
 
 **Опции:**
@@ -205,13 +205,13 @@ oneuptime <resource> count [options]
 
 ```bash
 # Подсчёт всех инцидентов
-oneuptime incident count
+cast-operations incident count
 
 # Подсчёт инцидентов по состоянию
-oneuptime incident count --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident count --query '{"currentIncidentStateId":"<state-id>"}'
 
 # Подсчёт мониторов
-oneuptime monitor count
+cast-operations monitor count
 ```
 
 ## Аналитические ресурсы
@@ -227,4 +227,4 @@ oneuptime monitor count
 | `update` | Нет            |
 | `delete` | Нет            |
 
-Используйте `oneuptime resources --type analytics`, чтобы узнать, какие аналитические ресурсы доступны в вашем экземпляре.
+Используйте `cast-operations resources --type analytics`, чтобы узнать, какие аналитические ресурсы доступны в вашем экземпляре.

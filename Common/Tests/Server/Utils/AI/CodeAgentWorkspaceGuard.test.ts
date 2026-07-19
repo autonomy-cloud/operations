@@ -11,16 +11,16 @@ import { describe, expect, test } from "@jest/globals";
  * These are the invariants the model itself is not trusted with.
  */
 
-const workspaceRoot: string = path.join(path.sep, "tmp", "oneuptime-ws");
+const workspaceRoot: string = path.join(path.sep, "tmp", "cast-operations-ws");
 
 describe("CodeAgentWorkspaceGuard.resolveWorkspacePath", () => {
   test("resolves a relative path inside the workspace", () => {
     expect(
       CodeAgentWorkspaceGuard.resolveWorkspacePath(
         workspaceRoot,
-        "src/billing/charge.ts",
+        "src/payments/charge.ts",
       ),
-    ).toBe(path.join(workspaceRoot, "src", "billing", "charge.ts"));
+    ).toBe(path.join(workspaceRoot, "src", "payments", "charge.ts"));
   });
 
   test("'.' resolves to the workspace root itself", () => {

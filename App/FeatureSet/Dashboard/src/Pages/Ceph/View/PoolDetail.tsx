@@ -17,7 +17,7 @@ import ModelAPI, { ListResult } from "Common/UI/Utils/ModelAPI/ModelAPI";
 import AnalyticsModelAPI from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import AggregatedResult from "Common/Types/BaseDatabase/AggregatedResult";
 import AggregatedModel from "Common/Types/BaseDatabase/AggregatedModel";
 import Dictionary from "Common/Types/Dictionary";
@@ -131,8 +131,8 @@ const CephClusterPoolDetail: FunctionComponent<
     clusterName: string,
   ): Promise<void> => {
     try {
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveHours(
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveHours(
         endDate,
         -PROJECTION_WINDOW_HOURS,
       );

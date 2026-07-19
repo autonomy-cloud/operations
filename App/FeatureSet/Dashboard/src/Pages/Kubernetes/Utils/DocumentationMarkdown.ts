@@ -1,13 +1,13 @@
 export interface KubernetesInstallationMarkdownOptions {
   clusterName: string;
-  oneuptimeUrl: string;
+  castOperationsUrl: string;
   apiKey: string;
 }
 
 export function getKubernetesInstallationMarkdown(
   options: KubernetesInstallationMarkdownOptions,
 ): string {
-  const { clusterName, oneuptimeUrl, apiKey } = options;
+  const { clusterName, castOperationsUrl, apiKey } = options;
 
   return `
 ## Prerequisites
@@ -19,7 +19,7 @@ export function getKubernetesInstallationMarkdown(
 ## Step 1: Add the Cast Operations Helm Repository
 
 \`\`\`bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 \`\`\`
 
@@ -40,22 +40,22 @@ If you're not sure, start with \`standard\`. If the install fails with a Pod Sec
 ### Standard clusters (self-managed, EKS on EC2, GKE Standard, AKS)
 
 \`\`\`bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \\
-  --namespace oneuptime-agent \\
+helm install kubernetes-agent cast-operations/kubernetes-agent \\
+  --namespace cast-operations-agent \\
   --create-namespace \\
-  --set oneuptime.url="${oneuptimeUrl}" \\
-  --set oneuptime.apiKey="${apiKey}" \\
+  --set cast-operations.url="${castOperationsUrl}" \\
+  --set cast-operations.apiKey="${apiKey}" \\
   --set clusterName="${clusterName}"
 \`\`\`
 
 ### GKE Autopilot
 
 \`\`\`bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \\
-  --namespace oneuptime-agent \\
+helm install kubernetes-agent cast-operations/kubernetes-agent \\
+  --namespace cast-operations-agent \\
   --create-namespace \\
-  --set oneuptime.url="${oneuptimeUrl}" \\
-  --set oneuptime.apiKey="${apiKey}" \\
+  --set cast-operations.url="${castOperationsUrl}" \\
+  --set cast-operations.apiKey="${apiKey}" \\
   --set clusterName="${clusterName}" \\
   --set preset=gke-autopilot
 \`\`\`
@@ -63,11 +63,11 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \\
 ### EKS Fargate
 
 \`\`\`bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \\
-  --namespace oneuptime-agent \\
+helm install kubernetes-agent cast-operations/kubernetes-agent \\
+  --namespace cast-operations-agent \\
   --create-namespace \\
-  --set oneuptime.url="${oneuptimeUrl}" \\
-  --set oneuptime.apiKey="${apiKey}" \\
+  --set cast-operations.url="${castOperationsUrl}" \\
+  --set cast-operations.apiKey="${apiKey}" \\
   --set clusterName="${clusterName}" \\
   --set preset=eks-fargate
 \`\`\`
@@ -77,7 +77,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \\
 Check that the agent pods are running:
 
 \`\`\`bash
-kubectl get pods -n oneuptime-agent
+kubectl get pods -n cast-operations-agent
 \`\`\`
 
 On a **standard** cluster you'll see a metrics-collector Deployment plus one log-collector DaemonSet pod per node:
@@ -106,11 +106,11 @@ Once the agent connects, your cluster will appear automatically in the Kubernete
 By default, \`kube-system\` is excluded. To monitor only specific namespaces:
 
 \`\`\`bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \\
-  --namespace oneuptime-agent \\
+helm install kubernetes-agent cast-operations/kubernetes-agent \\
+  --namespace cast-operations-agent \\
   --create-namespace \\
-  --set oneuptime.url="${oneuptimeUrl}" \\
-  --set oneuptime.apiKey="${apiKey}" \\
+  --set cast-operations.url="${castOperationsUrl}" \\
+  --set cast-operations.apiKey="${apiKey}" \\
   --set clusterName="${clusterName}" \\
   --set "namespaceFilters.include={default,production,staging}"
 \`\`\`
@@ -120,11 +120,11 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \\
 If you only need metrics and events (no pod logs):
 
 \`\`\`bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \\
-  --namespace oneuptime-agent \\
+helm install kubernetes-agent cast-operations/kubernetes-agent \\
+  --namespace cast-operations-agent \\
   --create-namespace \\
-  --set oneuptime.url="${oneuptimeUrl}" \\
-  --set oneuptime.apiKey="${apiKey}" \\
+  --set cast-operations.url="${castOperationsUrl}" \\
+  --set cast-operations.apiKey="${apiKey}" \\
   --set clusterName="${clusterName}" \\
   --set logs.enabled=false
 \`\`\`
@@ -144,11 +144,11 @@ The explicit \`logs.mode\` always wins over the preset default. Use this if you 
 For self-managed clusters (not EKS/GKE/AKS), you can enable control plane metrics:
 
 \`\`\`bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \\
-  --namespace oneuptime-agent \\
+helm install kubernetes-agent cast-operations/kubernetes-agent \\
+  --namespace cast-operations-agent \\
   --create-namespace \\
-  --set oneuptime.url="${oneuptimeUrl}" \\
-  --set oneuptime.apiKey="${apiKey}" \\
+  --set cast-operations.url="${castOperationsUrl}" \\
+  --set cast-operations.apiKey="${apiKey}" \\
   --set clusterName="${clusterName}" \\
   --set controlPlane.enabled=true
 \`\`\`
@@ -159,8 +159,8 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \\
 
 \`\`\`bash
 helm repo update
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \\
-  --namespace oneuptime-agent \\
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \\
+  --namespace cast-operations-agent \\
   --reuse-values
 \`\`\`
 
@@ -169,8 +169,8 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \\
 ## Uninstalling the Agent
 
 \`\`\`bash
-helm uninstall kubernetes-agent --namespace oneuptime-agent
-kubectl delete namespace oneuptime-agent
+helm uninstall kubernetes-agent --namespace cast-operations-agent
+kubectl delete namespace cast-operations-agent
 \`\`\`
 
 ## What Gets Collected
@@ -206,11 +206,11 @@ You should disable it when:
 - You already ship traces via OpenTelemetry SDKs from your apps and don't want duplicates.
 
 \`\`\`bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \\
-  --namespace oneuptime-agent \\
+helm install kubernetes-agent cast-operations/kubernetes-agent \\
+  --namespace cast-operations-agent \\
   --create-namespace \\
-  --set oneuptime.url="${oneuptimeUrl}" \\
-  --set oneuptime.apiKey="${apiKey}" \\
+  --set cast-operations.url="${castOperationsUrl}" \\
+  --set cast-operations.apiKey="${apiKey}" \\
   --set clusterName="${clusterName}" \\
   --set ebpf.enabled=false
 \`\`\`
@@ -238,24 +238,24 @@ Cross-service trace context propagation is also on by default — OBI injects W3
 Your cluster blocks \`hostPath\` — common on **GKE Autopilot** and **EKS Fargate**. Switch to the API-mode preset:
 
 \`\`\`bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \\
-  --namespace oneuptime-agent \\
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \\
+  --namespace cast-operations-agent \\
   --reuse-values \\
   --set preset=gke-autopilot   # or eks-fargate
 \`\`\`
 
 ### Agent shows "Disconnected"
 
-1. Check that the agent pods are running: \`kubectl get pods -n oneuptime-agent\`
-2. Check the agent logs: \`kubectl logs -n oneuptime-agent deployment/kubernetes-agent\`
+1. Check that the agent pods are running: \`kubectl get pods -n cast-operations-agent\`
+2. Check the agent logs: \`kubectl logs -n cast-operations-agent deployment/kubernetes-agent\`
 3. Verify your Cast Operations URL and API key are correct
 4. Ensure your cluster can reach the Cast Operations instance over the network
 
 ### No logs appearing (API mode only)
 
-1. Confirm the log tailer pod is Ready: \`kubectl get pods -n oneuptime-agent -l component=log-collector\`
+1. Confirm the log tailer pod is Ready: \`kubectl get pods -n cast-operations-agent -l component=log-collector\`
 2. Check its \`/healthz\` — it reports active stream count and the last export error
-3. Check logs: \`kubectl logs -n oneuptime-agent deployment/kubernetes-agent-logs\`
+3. Check logs: \`kubectl logs -n cast-operations-agent deployment/kubernetes-agent-logs\`
 4. For very large clusters, a single replica may be a bottleneck — shard by namespace using \`namespaceFilters.include\` on separate releases
 
 ### No metrics appearing
@@ -267,7 +267,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \\
 ### eBPF pods are CrashLoopBackOff or fail to start
 
 \`\`\`bash
-kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-agent -l component=ebpf-instrument --tail=200
 \`\`\`
 
 Common causes:
@@ -278,8 +278,8 @@ Common causes:
 
 ### No application traces showing up
 
-1. Confirm the eBPF DaemonSet is healthy: \`kubectl get pods -n oneuptime-agent -l component=ebpf-instrument\`
-2. Turn on the debug trace printer to confirm OBI is capturing traffic: \`--set ebpf.printTraces=true --set ebpf.logLevel=debug\`, then check \`kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200\`
+1. Confirm the eBPF DaemonSet is healthy: \`kubectl get pods -n cast-operations-agent -l component=ebpf-instrument\`
+2. Turn on the debug trace printer to confirm OBI is capturing traffic: \`--set ebpf.printTraces=true --set ebpf.logLevel=debug\`, then check \`kubectl logs -n cast-operations-agent -l component=ebpf-instrument --tail=200\`
 3. If you see spans in OBI's stdout but not in the dashboard, the issue is the collector → Cast Operations export — check the metrics-collector pod's logs.
 `;
 }

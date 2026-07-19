@@ -47,14 +47,14 @@ Cast Operations accetta dati di profiling sia via gRPC che HTTP usando il protoc
 Impostare le seguenti variabili d'ambiente per puntare il profiler a Cast Operations:
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=VOSTRO_TOKEN_SERVIZIO_ONEUPTIME
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=VOSTRO_TOKEN_SERVIZIO_CAST_OPERATIONS
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=mio-servizio
 ```
 
 **Cast Operations Self-Hosted**
 
-Se si ospita autonomamente Cast Operations, sostituire l'endpoint con il proprio host (ad es., `http(s)://VOSTRO-HOST-ONEUPTIME/otlp`). Per gRPC, connettersi direttamente alla porta 4317 sul proprio host Cast Operations.
+Se si ospita autonomamente Cast Operations, sostituire l'endpoint con il proprio host (ad es., `http(s)://VOSTRO-HOST-CAST_OPERATIONS/otlp`). Per gRPC, connettersi direttamente alla porta 4317 sul proprio host Cast Operations.
 
 ## Guida alla Strumentazione
 
@@ -66,15 +66,15 @@ Esempio di configurazione Alloy:
 
 ```hcl
 pyroscope.ebpf "default" {
-  forward_to = [pyroscope.write.oneuptime.receiver]
+  forward_to = [pyroscope.write.cast-operations.receiver]
   targets    = discovery.process.all.targets
 }
 
-pyroscope.write "oneuptime" {
+pyroscope.write "cast-operations" {
   endpoint {
     url = "https://visca.ai/pyroscope"
     headers = {
-      "x-oneuptime-token" = "VOSTRO_TOKEN_SERVIZIO_ONEUPTIME",
+      "x-cast-operations-token" = "VOSTRO_TOKEN_SERVIZIO_CAST_OPERATIONS",
     }
   }
 }
@@ -88,7 +88,7 @@ Per le applicazioni Java, usare [async-profiler](https://github.com/async-profil
 # Avviare l'applicazione Java con l'agente Java OpenTelemetry
 java -javaagent:opentelemetry-javaagent.jar \
   -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
-  -Dotel.exporter.otlp.headers=x-oneuptime-token=VOSTRO_TOKEN_SERVIZIO_ONEUPTIME \
+  -Dotel.exporter.otlp.headers=x-cast-operations-token=VOSTRO_TOKEN_SERVIZIO_CAST_OPERATIONS \
   -Dotel.service.name=mio-servizio-java \
   -jar mia-app.jar
 ```
@@ -146,7 +146,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "VOSTRO_TOKEN_SERVIZIO_ONEUPTIME"
+      "x-cast-operations-token": "VOSTRO_TOKEN_SERVIZIO_CAST_OPERATIONS"
 
 service:
   pipelines:

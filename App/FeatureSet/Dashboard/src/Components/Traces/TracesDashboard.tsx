@@ -18,7 +18,7 @@ import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
 import Span, { SpanStatus } from "Common/Models/AnalyticsModels/Span";
 import AnalyticsModelAPI from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import ServiceElement from "../Service/ServiceElement";
 import SpanStatusElement from "../Span/SpanStatusElement";
@@ -249,7 +249,7 @@ const TracesDashboard: FunctionComponent = (): ReactElement => {
             }
 
             const spanTime: Date | undefined = span.startTime
-              ? OneUptimeDate.fromString(span.startTime)
+              ? OperationsDate.fromString(span.startTime)
               : undefined;
             if (
               spanTime &&
@@ -266,7 +266,7 @@ const TracesDashboard: FunctionComponent = (): ReactElement => {
               name: span.name?.toString() || "Unknown",
               primaryEntityId,
               startTime: span.startTime
-                ? OneUptimeDate.fromString(span.startTime)
+                ? OperationsDate.fromString(span.startTime)
                 : new Date(),
               statusCode: span.statusCode || SpanStatus.Unset,
               durationNano: duration,
@@ -284,7 +284,7 @@ const TracesDashboard: FunctionComponent = (): ReactElement => {
               name: span.name?.toString() || "Unknown",
               primaryEntityId,
               startTime: span.startTime
-                ? OneUptimeDate.fromString(span.startTime)
+                ? OperationsDate.fromString(span.startTime)
                 : new Date(),
               statusCode: span.statusCode,
               durationNano: duration,
@@ -753,7 +753,7 @@ const TracesDashboard: FunctionComponent = (): ReactElement => {
                             {formatDuration(trace.durationNano)}
                           </p>
                           <p className="text-xs text-gray-400">
-                            {OneUptimeDate.fromNow(trace.startTime)}
+                            {OperationsDate.fromNow(trace.startTime)}
                           </p>
                         </div>
                       </div>

@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### 自訂指標
 
-您可以使用 `oneuptime.captureMetric()` 函式從您的指令碼中擷取自訂指標。這些指標會儲存在 Cast Operations 中，並可使用 Metric Explorer 在儀表板上繪製圖表。
+您可以使用 `cast-operations.captureMetric()` 函式從您的指令碼中擷取自訂指標。這些指標會儲存在 Cast Operations 中，並可使用 Metric Explorer 在儀表板上繪製圖表。
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name`（字串，必填）：指標名稱（例如 `"api.response.time"`）。它會自動以 `custom.monitor.` 前綴儲存。
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // Capture a simple metric
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // Capture a metric with attributes
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ return {
 - `axios`：您可以使用此模組來發出 HTTP 請求。它是一個以 promise 為基礎的 HTTP 用戶端，適用於瀏覽器與 Node.js。
 - `crypto`：您可以使用此模組來執行加密運算。它是 Node.js 的內建模組，提供加密功能，其中包含一組針對 OpenSSL 的 hash、HMAC、cipher、decipher、sign 與 verify 函式的封裝。
 - `console.log`：您可以使用此模組將資料記錄至主控台。這對於除錯目的很有用。
-- `oneuptime.captureMetric`：您可以使用它從您的指令碼中擷取自訂指標。請參閱上方的「自訂指標」章節。
+- `cast-operations.captureMetric`：您可以使用它從您的指令碼中擷取自訂指標。請參閱上方的「自訂指標」章節。
 - `http`：您可以使用此模組來發出 HTTP 請求。它是 Node.js 的內建模組，提供 HTTP 用戶端與伺服器。
 - `https`：您可以使用此模組來發出 HTTPS 請求。它是 Node.js 的內建模組，提供 HTTPS 用戶端與伺服器。
 

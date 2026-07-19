@@ -30,7 +30,7 @@ import RestrictionTimes, {
   RestrictionType,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -63,12 +63,12 @@ function dailyLocal(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: sh,
       minutes: sm,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: eh,
       minutes: em,
       seconds: 0,
@@ -136,7 +136,7 @@ function windowedNext(layer: LayerProps, at: Date): CalendarEvent | undefined {
     {
       layers: [layer],
       calendarStartDate: at,
-      calendarEndDate: OneUptimeDate.addRemoveDays(at, 25),
+      calendarEndDate: OperationsDate.addRemoveDays(at, 25),
     },
     { getNumberOfEvents: 1 },
   )[0];

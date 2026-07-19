@@ -1,5 +1,5 @@
 import InBetween from "../BaseDatabase/InBetween";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 
 export default class DatabaseDate {
   public static asDateStartOfTheDayEndOfTheDayForDatabaseQuery(
@@ -8,21 +8,21 @@ export default class DatabaseDate {
     let startValue: string | Date = date;
 
     if (!(startValue instanceof Date)) {
-      startValue = OneUptimeDate.fromString(startValue);
+      startValue = OperationsDate.fromString(startValue);
     }
 
     let endValue: string | Date = date;
 
     if (!(endValue instanceof Date)) {
-      endValue = OneUptimeDate.fromString(endValue);
+      endValue = OperationsDate.fromString(endValue);
     }
 
-    startValue = OneUptimeDate.getStartOfDay(startValue);
-    endValue = OneUptimeDate.getEndOfDay(endValue);
+    startValue = OperationsDate.getStartOfDay(startValue);
+    endValue = OperationsDate.getEndOfDay(endValue);
 
     return new InBetween(
-      OneUptimeDate.toDatabaseDate(startValue),
-      OneUptimeDate.toDatabaseDate(endValue),
+      OperationsDate.toDatabaseDate(startValue),
+      OperationsDate.toDatabaseDate(endValue),
     );
   }
 }

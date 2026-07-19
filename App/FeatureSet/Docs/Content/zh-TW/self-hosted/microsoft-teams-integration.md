@@ -14,7 +14,7 @@
 1. 前往 [Azure Portal](https://portal.azure.com)
 2. 導覽至「App registrations」並點選「New registration」
 3. 填寫註冊表單：
-   - **名稱：** oneuptime
+   - **名稱：** cast-operations
    - **支援的帳戶類型：** 任何組織目錄中的帳戶（任何 Microsoft Entra ID 租用戶 - 多租用戶）
    - **重新導向 URI：** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
    - 也請新增：`https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -61,7 +61,7 @@
 1. 在 Azure Portal 中，導覽至「Azure Bot」並點選「Create」
 2. 填寫機器人建立表單：
 
-   - **機器人控制代碼 (Bot handle)：** oneuptime-bot
+   - **機器人控制代碼 (Bot handle)：** cast-operations-bot
    - **訂閱：** 您的 Azure 訂閱
    - **資源群組：** 建立一個新的或使用現有的
    - **位置：** 選擇接近您使用者的位置

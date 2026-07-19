@@ -48,7 +48,7 @@ type ${StringUtils.toPascalCase(this.config.providerName)}Provider struct {
 
 // ${StringUtils.toPascalCase(this.config.providerName)}ProviderModel describes the provider data model.
 type ${StringUtils.toPascalCase(this.config.providerName)}ProviderModel struct {
-    OneuptimeUrl types.String \`tfsdk:"oneuptime_url"\`
+    OperationsUrl types.String \`tfsdk:"cast_operations_url"\`
     ApiKey       types.String \`tfsdk:"api_key"\`
 }
 
@@ -62,7 +62,7 @@ func (p *${StringUtils.toPascalCase(this.config.providerName)}Provider) Schema(c
         MarkdownDescription: "${GoCodeGenerator.escapeString(this.spec.info.description || `Terraform provider for ${this.config.providerName}`)}",
 
         Attributes: map[string]schema.Attribute{
-            "oneuptime_url": schema.StringAttribute{
+            "cast_operations_url": schema.StringAttribute{
                 MarkdownDescription: "The ${this.config.providerName} URL (without /api path). Defaults to 'visca.ai' if not specified. The provider automatically appends '/api' to the URL.",
                 Optional:            true,
             },
@@ -85,25 +85,25 @@ func (p *${StringUtils.toPascalCase(this.config.providerName)}Provider) Configur
     }
 
     // Configuration values are now available.
-    var oneuptimeUrl string
+    var castOperationsUrl string
     var apiKey string
 
-    if data.OneuptimeUrl.IsUnknown() {
+    if data.OperationsUrl.IsUnknown() {
         // Cannot connect to client with an unknown value
         resp.Diagnostics.AddWarning(
             "Unable to create client",
-            "Cannot use unknown value as oneuptime_url",
+            "Cannot use unknown value as cast_operations_url",
         )
         return
     }
 
-    if data.OneuptimeUrl.IsNull() {
-        oneuptimeUrl = os.Getenv("${StringUtils.toConstantCase(this.config.providerName)}_URL")
-        if oneuptimeUrl == "" {
-            oneuptimeUrl = "visca.ai"
+    if data.OperationsUrl.IsNull() {
+        castOperationsUrl = os.Getenv("${StringUtils.toConstantCase(this.config.providerName)}_URL")
+        if castOperationsUrl == "" {
+            castOperationsUrl = "visca.ai"
         }
     } else {
-        oneuptimeUrl = data.OneuptimeUrl.ValueString()
+        castOperationsUrl = data.OperationsUrl.ValueString()
     }
 
     if data.ApiKey.IsUnknown() {
@@ -129,7 +129,7 @@ func (p *${StringUtils.toPascalCase(this.config.providerName)}Provider) Configur
         apiKey = data.ApiKey.ValueString()
     }
 
-    client, err := NewClient(oneuptimeUrl, apiKey)
+    client, err := NewClient(castOperationsUrl, apiKey)
     if err != nil {
         resp.Diagnostics.AddError(
             "Unable to Create ${StringUtils.toPascalCase(this.config.providerName)} API Client",
@@ -192,21 +192,21 @@ type Client struct {
 }
 
 // NewClient creates a new API client
-func NewClient(oneuptimeUrl, apiKey string) (*Client, error) {
-    // Ensure the oneuptimeUrl has the correct scheme
-    if !strings.HasPrefix(oneuptimeUrl, "http://") && !strings.HasPrefix(oneuptimeUrl, "https://") {
-        oneuptimeUrl = "https://" + oneuptimeUrl
+func NewClient(castOperationsUrl, apiKey string) (*Client, error) {
+    // Ensure the castOperationsUrl has the correct scheme
+    if !strings.HasPrefix(castOperationsUrl, "http://") && !strings.HasPrefix(castOperationsUrl, "https://") {
+        castOperationsUrl = "https://" + castOperationsUrl
     }
 
-    // Append /api to the oneuptimeUrl
-    if !strings.HasSuffix(oneuptimeUrl, "/api") {
-        oneuptimeUrl = strings.TrimSuffix(oneuptimeUrl, "/") + "/api"
+    // Append /api to the castOperationsUrl
+    if !strings.HasSuffix(castOperationsUrl, "/api") {
+        castOperationsUrl = strings.TrimSuffix(castOperationsUrl, "/") + "/api"
     }
 
     // Parse and validate the URL
-    parsedURL, err := url.Parse(oneuptimeUrl)
+    parsedURL, err := url.Parse(castOperationsUrl)
     if err != nil {
-        return nil, fmt.Errorf("invalid oneuptime_url: %w", err)
+        return nil, fmt.Errorf("invalid cast_operations_url: %w", err)
     }
 
     client := &Client{
@@ -339,7 +339,7 @@ import (
 
 // Config holds the provider configuration
 type Config struct {
-    OneuptimeUrl string
+    OperationsUrl string
     ApiKey       string
     Client       *Client
 }
@@ -350,14 +350,14 @@ func NewConfig(ctx context.Context, model ${StringUtils.toPascalCase(this.config
 
     config := &Config{}
 
-    // Set oneuptime_url
-    if model.OneuptimeUrl.IsNull() {
-        config.OneuptimeUrl = os.Getenv("${StringUtils.toConstantCase(this.config.providerName)}_URL")
-        if config.OneuptimeUrl == "" {
-            config.OneuptimeUrl = "visca.ai"
+    // Set cast_operations_url
+    if model.OperationsUrl.IsNull() {
+        config.OperationsUrl = os.Getenv("${StringUtils.toConstantCase(this.config.providerName)}_URL")
+        if config.OperationsUrl == "" {
+            config.OperationsUrl = "visca.ai"
         }
     } else {
-        config.OneuptimeUrl = model.OneuptimeUrl.ValueString()
+        config.OperationsUrl = model.OperationsUrl.ValueString()
     }
 
     // Set API key
@@ -376,7 +376,7 @@ func NewConfig(ctx context.Context, model ${StringUtils.toPascalCase(this.config
     }
 
     // Create client
-    client, err := NewClient(config.OneuptimeUrl, config.ApiKey)
+    client, err := NewClient(config.OperationsUrl, config.ApiKey)
     if err != nil {
         diags.AddError(
             "Unable to Create API Client",

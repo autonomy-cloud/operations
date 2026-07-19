@@ -1,23 +1,13 @@
-import {
-  CallDefaultCostInCentsPerMinute,
-  CallHighRiskCostInCentsPerMinute,
-  getTwilioConfig,
-} from "../Config";
-import CallRequest, {
-  GatherInput,
-  Say,
-  isHighRiskPhoneNumber,
-} from "Common/Types/Call/CallRequest";
+import { getTwilioConfig } from "../Config";
+import CallRequest, { GatherInput, Say } from "Common/Types/Call/CallRequest";
 import CallStatus from "Common/Types/Call/CallStatus";
 import TwilioConfig from "Common/Types/CallAndSMS/TwilioConfig";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import JSONFunctions from "Common/Types/JSONFunctions";
 import ObjectID from "Common/Types/ObjectID";
 import UserNotificationStatus from "Common/Types/UserNotification/UserNotificationStatus";
-import { IsBillingEnabled } from "Common/Server/EnvironmentConfig";
 import CallLogService from "Common/Server/Services/CallLogService";
-import NotificationService from "Common/Server/Services/NotificationService";
 import ProjectService from "Common/Server/Services/ProjectService";
 import UserOnCallLogTimelineService from "Common/Server/Services/UserOnCallLogTimelineService";
 import JSONWebToken from "Common/Server/Utils/JsonWebToken";
@@ -133,21 +123,6 @@ export default class CallService {
     try {
       logger.debug("Call Request received.");
 
-      let callCost: number = 0;
-
-      // is no custom twilio config is provided, use default twilio config and charge for call.
-      const shouldChargeForCall: boolean =
-        IsBillingEnabled && !options.customTwilioConfig;
-
-      if (shouldChargeForCall) {
-        callCost = CallDefaultCostInCentsPerMinute / 100;
-        if (isHighRiskPhoneNumber(callRequest.to)) {
-          callCost = CallHighRiskCostInCentsPerMinute / 100;
-        }
-      }
-
-      logger.debug("Call Cost: " + callCost);
-
       const twilioConfig: TwilioConfig | null =
         options.customTwilioConfig || (await getTwilioConfig());
 
@@ -229,17 +204,11 @@ export default class CallService {
 
       let project: Project | null = null;
 
-      // make sure project has enough balance.
-
       if (options.projectId) {
         project = await ProjectService.findOneById({
           id: options.projectId,
           select: {
-            smsOrCallCurrentBalanceInUSDCents: true,
             enableCallNotifications: true,
-            lowCallAndSMSBalanceNotificationSentToOwners: true,
-            name: true,
-            notEnabledSmsOrCallNotificationSentToOwners: true,
           },
           props: {
             isRoot: true,
@@ -272,103 +241,7 @@ export default class CallService {
             },
           });
 
-          if (!project.notEnabledSmsOrCallNotificationSentToOwners) {
-            await ProjectService.updateOneById({
-              data: {
-                notEnabledSmsOrCallNotificationSentToOwners: true,
-              },
-              id: project.id!,
-              props: {
-                isRoot: true,
-              },
-            });
-            await ProjectService.sendEmailToProjectOwners(
-              project.id!,
-              "Call notifications not enabled for " + (project.name || ""),
-              `We tried to make a call to ${callRequest.to.toString()}. <br/> <br/> This Call was not sent because call notifications are not enabled for this project. Please enable call notifications in Project Settings.`,
-            );
-          }
           return;
-        }
-
-        if (shouldChargeForCall) {
-          // check if auto recharge is enabled and current balance is low.
-          let updatedBalance: number =
-            project.smsOrCallCurrentBalanceInUSDCents!;
-          try {
-            updatedBalance = await NotificationService.rechargeIfBalanceIsLow(
-              project.id!,
-            );
-          } catch (err) {
-            logger.error(err);
-          }
-
-          project.smsOrCallCurrentBalanceInUSDCents = updatedBalance;
-
-          if (!project.smsOrCallCurrentBalanceInUSDCents) {
-            callLog.status = CallStatus.LowBalance;
-            callLog.statusMessage = `Project ${options.projectId.toString()} does not have enough Call balance.`;
-            logger.error(callLog.statusMessage);
-            await CallLogService.create({
-              data: callLog,
-              props: {
-                isRoot: true,
-              },
-            });
-
-            if (!project.lowCallAndSMSBalanceNotificationSentToOwners) {
-              await ProjectService.updateOneById({
-                data: {
-                  lowCallAndSMSBalanceNotificationSentToOwners: true,
-                },
-                id: project.id!,
-                props: {
-                  isRoot: true,
-                },
-              });
-              await ProjectService.sendEmailToProjectOwners(
-                project.id!,
-                "Low SMS and Call Balance for " + (project.name || ""),
-                `We tried to make a call to ${callRequest.to.toString()}. This call was not made because project does not have enough balance to make calls. Current balance is ${
-                  (project.smsOrCallCurrentBalanceInUSDCents || 0) / 100
-                } USD. Required balance to send this SMS should is ${callCost} USD. Please enable auto recharge or recharge manually.`,
-              );
-            }
-            return;
-          }
-
-          if (project.smsOrCallCurrentBalanceInUSDCents < callCost * 100) {
-            callLog.status = CallStatus.LowBalance;
-            callLog.statusMessage = `Project does not have enough balance to make this call. Current balance is ${
-              project.smsOrCallCurrentBalanceInUSDCents / 100
-            } USD. Required balance is ${callCost} USD to make this call.`;
-            logger.error(callLog.statusMessage);
-            await CallLogService.create({
-              data: callLog,
-              props: {
-                isRoot: true,
-              },
-            });
-            if (!project.lowCallAndSMSBalanceNotificationSentToOwners) {
-              await ProjectService.updateOneById({
-                data: {
-                  lowCallAndSMSBalanceNotificationSentToOwners: true,
-                },
-                id: project.id!,
-                props: {
-                  isRoot: true,
-                },
-              });
-              await ProjectService.sendEmailToProjectOwners(
-                project.id!,
-                "Low SMS and Call Balance for " + (project.name || ""),
-                `We tried to make a call to ${callRequest.to.toString()}. This call was not made because project does not have enough balance to make a call. Current balance is ${
-                  project.smsOrCallCurrentBalanceInUSDCents / 100
-                } USD. Required balance is ${callCost} USD to make this call. Please enable auto recharge or recharge manually.`,
-              );
-            }
-            return;
-          }
         }
       }
 
@@ -387,41 +260,6 @@ export default class CallService {
 
       logger.debug("Call ID: " + twillioCall.sid);
       logger.debug(callLog.statusMessage);
-
-      if (shouldChargeForCall && project) {
-        logger.debug("Updating Project Balance.");
-
-        callLog.callCostInUSDCents = callCost * 100;
-
-        if (twillioCall && parseInt(twillioCall.duration) > 60) {
-          callLog.callCostInUSDCents = Math.ceil(
-            Math.ceil(parseInt(twillioCall.duration) / 60) * (callCost * 100),
-          );
-        }
-
-        logger.debug("Call Cost: " + callLog.callCostInUSDCents);
-
-        project.smsOrCallCurrentBalanceInUSDCents = Math.floor(
-          project.smsOrCallCurrentBalanceInUSDCents! - callCost * 100,
-        );
-
-        await ProjectService.updateOneById({
-          data: {
-            smsOrCallCurrentBalanceInUSDCents:
-              project.smsOrCallCurrentBalanceInUSDCents,
-            notEnabledSmsOrCallNotificationSentToOwners: false, // reset this flag
-          },
-          id: project.id!,
-          props: {
-            isRoot: true,
-          },
-        });
-
-        logger.debug("Project's current balance updated.");
-        logger.debug(
-          "Current Balance: " + project.smsOrCallCurrentBalanceInUSDCents,
-        );
-      }
     } catch (e: any) {
       callLog.callCostInUSDCents = 0;
       callLog.status = CallStatus.Error;
@@ -491,7 +329,7 @@ export default class CallService {
                 JSONFunctions.serialize(
                   (item as GatherInput).onInputCallRequest as any,
                 ),
-                OneUptimeDate.getDayInSeconds(),
+                OperationsDate.getDayInSeconds(),
               ),
             )
             .toString(),

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const STORAGE_KEY: string = "oneuptime_server_url";
+const STORAGE_KEY: string = "cast_operations_server_url";
 const DEFAULT_SERVER_URL: string = "https://visca.ai";
 
 function normalizeUrl(url: string): string {

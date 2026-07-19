@@ -13,7 +13,7 @@ import ObjectID from "../../Types/ObjectID";
 import ServiceType from "../../Types/Telemetry/ServiceType";
 import MutableMetric from "../../Models/AnalyticsModels/MutableMetric";
 import { MetricPointType } from "../../Models/AnalyticsModels/Metric";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Includes from "../../Types/BaseDatabase/Includes";
 
 type MutableMetricPointIdentity = {
@@ -239,7 +239,7 @@ export class MutableMetricService extends AnalyticsDatabaseService<MutableMetric
     version: number;
     retentionDate: Date;
   }): MutableMetric {
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
     const metric: MutableMetric = new MutableMetric();
 
     metric.projectId = data.projectId;
@@ -249,7 +249,7 @@ export class MutableMetricService extends AnalyticsDatabaseService<MutableMetric
     metric.metricPointId = data.metricPointId;
     metric.value = 0;
     metric.time = now;
-    metric.timeUnixNano = OneUptimeDate.toUnixNano(now);
+    metric.timeUnixNano = OperationsDate.toUnixNano(now);
     metric.metricPointType = MetricPointType.Sum;
     metric.attributes = {};
     metric.attributeKeys = [];

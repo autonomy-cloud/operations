@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import OnCallDutyPolicyStatus from "Common/Types/OnCallDutyPolicy/OnCallDutyPolicyStatus";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import { IsDevelopment } from "Common/Server/EnvironmentConfig";
@@ -19,7 +19,7 @@ RunCron(
   },
   async () => {
     // get all pending on-call executions and execute them all at once.
-    const fiveMinsAgo: Date = OneUptimeDate.getSomeMinutesAgo(5);
+    const fiveMinsAgo: Date = OperationsDate.getSomeMinutesAgo(5);
 
     /*
      * A log sits in "Started" only for the brief moment between creation and the

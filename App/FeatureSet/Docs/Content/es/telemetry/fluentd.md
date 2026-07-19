@@ -58,7 +58,7 @@ Necesitas reemplazar `YOUR_SERVICE_TOKEN` con el token que creaste en el paso an
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -93,7 +93,7 @@ bind 0.0.0.0
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -107,7 +107,7 @@ flush_interval 10s
 </match>
 ```
 
-**Si te auto-alojas en Cast Operations**: Si te auto-alojas en Cast Operations, puedes reemplazar el `endpoint_url` con la URL de tu instancia de Cast Operations. `http(s)://YOUR_ONEUPTIME_HOST/fluentd/logs`
+**Si te auto-alojas en Cast Operations**: Si te auto-alojas en Cast Operations, puedes reemplazar el `endpoint_url` con la URL de tu instancia de Cast Operations. `http(s)://YOUR_CAST_OPERATIONS_HOST/fluentd/logs`
 
 ## Uso
 

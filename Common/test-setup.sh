@@ -9,7 +9,6 @@ cp config.env.example config.env
 
 cat <<EOL > config.env
 NODE_ENV=test
-BILLING_ENABLED=true
 DATABASE_HOST=localhost
 DATABASE_PORT=5400
 REDIS_HOST=localhost
@@ -20,8 +19,6 @@ SUBSCRIPTION_PLAN_BASIC=Free,price_1M4niQANuQdJ93r7AVjhnik5,price_1M4niQANuQdJ93
 SUBSCRIPTION_PLAN_GROWTH=Growth,price_1M4nhZANuQdJ93r7yfQ1MePQ,price_1M4r3OANuQdJ93r7g8NyoCBq,22,20,2,14
 SUBSCRIPTION_PLAN_SCALE=Scale,price_1MKidGANuQdJ93r7FoaZ1dOb,price_1MKidRANuQdJ93r7LVOc0BUy,99,84,3,14
 SUBSCRIPTION_PLAN_ENTERPRISE=Enterprise,price_1M4ng9ANuQdJ93r7CP90ezSN,price_1M4ng9ANuQdJ93r72ZYUp4PU,-1,-1,4,14
-BILLING_PUBLIC_KEY=pk_test_51LleTZANuQdJ93r7PvyfOvpm5TZXtUf1T5fjS5cbOmDuCFIiGMoEhvuIrzTRMcZirg7qJwgbjLeCmXmxL1BiUDi100IzcuP3SU
-BILLING_PRIVATE_KEY=$BILLING_PRIVATE_KEY
 EOL
 
 npm run prerun
@@ -31,7 +28,6 @@ npm run prerun
 
 # process.env['NODE_ENV'] = 'test';
 
-# process.env['BILLING_ENABLED'] = 'true';
 
 # process.env['DATABASE_HOST'] = 'localhost';
 # process.env['DATABASE_PORT'] = '5400';

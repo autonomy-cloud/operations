@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. Gå i Datadog till **Integrations → Webhooks** (installera **Webhooks**-integrationen om du inte redan har gjort det).
 2. **Lägg till en webhook**:
 
-   - **Name**: `oneuptime` (detta blir `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (detta blir `@webhook-cast-operations`).
    - **URL**: ditt arbetsflödes webhook-URL.
    - **Payload** — Datadog låter dig definiera JSON-bodyn med hjälp av [mallvariabler](https://docs.datadoghq.com/integrations/webhooks/#usage):
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Lägg till webhook-referensen i de monitorer du vill vidarebefordra. I varje monitors **notifieringsmeddelande**, inkludera:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Detta skickar både larmet och återhämtningen till Cast Operations. (För att vidarebefordra allt kan du också lägga till `@webhook-oneuptime` i en monitor ovillkorligt.)
+Detta skickar både larmet och återhämtningen till Cast Operations. (För att vidarebefordra allt kan du också lägga till `@webhook-cast-operations` i en monitor ovillkorligt.)
 
 ## Steg 4 — Testa det
 
@@ -74,7 +74,7 @@ Detta skickar både larmet och återhämtningen till Cast Operations. (För att 
 
 ## Felsökning
 
-- **Ingen körning visas** — bekräfta att monitorns meddelande innehåller `@webhook-oneuptime` och att arbetsflödet är **Enabled**.
+- **Ingen körning visas** — bekräfta att monitorns meddelande innehåller `@webhook-cast-operations` och att arbetsflödet är **Enabled**.
 - **Fält är tomma** — Datadog ersätter bara mallvariabler som gäller för händelsen. Granska utlösarens utdata på fliken **Logs** och justera din webhook-payload.
 - **Dubblettincidenter** — en monitor som larmar om igen (renotify) skickar flera `Triggered`-händelser; deduplicera med en **Find Incident**-kontroll på `id` innan du skapar.
 

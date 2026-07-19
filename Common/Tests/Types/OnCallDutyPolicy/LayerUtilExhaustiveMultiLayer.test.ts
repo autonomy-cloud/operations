@@ -38,7 +38,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 
@@ -77,12 +77,12 @@ function dailyRestriction(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: startHour,
       minutes: 0,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: endHour,
       minutes: 0,
       seconds: 0,
@@ -105,8 +105,8 @@ function weeklyRestrictionByDates(
   r.weeklyRestrictionTimes = windows.map(
     (w: { start: Date; end: Date }): WeeklyResctriction => {
       return {
-        startDay: OneUptimeDate.getDayOfWeek(w.start),
-        endDay: OneUptimeDate.getDayOfWeek(w.end),
+        startDay: OperationsDate.getDayOfWeek(w.start),
+        endDay: OperationsDate.getDayOfWeek(w.end),
         startTime: w.start,
         endTime: w.end,
       };
@@ -321,7 +321,7 @@ function analyze(
       continue;
     }
     mismatches.push(
-      `${OneUptimeDate.toString(t)} expected=${expected} actual=${actual}`,
+      `${OperationsDate.toString(t)} expected=${expected} actual=${actual}`,
     );
   }
 

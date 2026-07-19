@@ -1,5 +1,5 @@
 /**
- * REGRESSION (audit F9): OneUptimeDate.moveDateToTheDayOfWeek must keep its
+ * REGRESSION (audit F9): OperationsDate.moveDateToTheDayOfWeek must keep its
  * timezone on the final day-shift, so a weekly restriction's day-of-week
  * boundary keeps its authored wall-clock across a DST transition.
  *
@@ -16,7 +16,7 @@ import RestrictionTimes, {
   RestrictionType,
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import DayOfWeek from "../../../Types/Day/DayOfWeek";
 import moment from "moment-timezone";
 
@@ -35,10 +35,10 @@ describe("F9: moveDateToTheDayOfWeek preserves wall-clock across DST", () => {
     const restriction: Date = moment.tz("2026-01-04 01:00", NY).toDate(); // a Sunday 01:00
     const eventStartTime: Date = moment.tz("2026-03-11 12:00", NY).toDate(); // Wednesday of DST week
 
-    const moved: Date = OneUptimeDate.moveDateToTheDayOfWeek(
+    const moved: Date = OperationsDate.moveDateToTheDayOfWeek(
       restriction,
       eventStartTime,
-      OneUptimeDate.getDayOfWeek(restriction, NY), // Sunday
+      OperationsDate.getDayOfWeek(restriction, NY), // Sunday
       NY,
     );
 

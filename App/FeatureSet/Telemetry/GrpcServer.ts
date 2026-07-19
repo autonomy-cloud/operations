@@ -3,7 +3,7 @@ import * as protoLoader from "@grpc/proto-loader";
 import path from "path";
 import logger from "Common/Server/Utils/Logger";
 import ObjectID from "Common/Types/ObjectID";
-import ProductType from "Common/Types/MeteredPlan/ProductType";
+import ProductType from "Common/Types/Telemetry/ProductType";
 import TelemetryIngestionKeyService from "Common/Server/Services/TelemetryIngestionKeyService";
 import TelemetryIngestionKey from "Common/Models/DatabaseModels/TelemetryIngestionKey";
 import { TelemetryRequest } from "Common/Server/Middleware/TelemetryIngest";
@@ -30,26 +30,28 @@ interface GrpcCall {
 async function authenticateRequest(
   metadata: grpc.Metadata,
 ): Promise<ObjectID | null> {
-  const tokenValues: grpc.MetadataValue[] = metadata.get("x-oneuptime-token");
+  const tokenValues: grpc.MetadataValue[] = metadata.get(
+    "x-cast-operations-token",
+  );
 
-  let oneuptimeToken: string | undefined = tokenValues[0]?.toString();
+  let castOperationsToken: string | undefined = tokenValues[0]?.toString();
 
-  if (!oneuptimeToken) {
+  if (!castOperationsToken) {
     const serviceTokenValues: grpc.MetadataValue[] = metadata.get(
-      "x-oneuptime-service-token",
+      "x-cast-operations-service-token",
     );
-    oneuptimeToken = serviceTokenValues[0]?.toString();
+    castOperationsToken = serviceTokenValues[0]?.toString();
   }
 
-  if (!oneuptimeToken) {
+  if (!castOperationsToken) {
     const ingestionKeyValues: grpc.MetadataValue[] = metadata.get(
-      "x-oneuptime-ingestion-key",
+      "x-cast-operations-ingestion-key",
     );
-    oneuptimeToken = ingestionKeyValues[0]?.toString();
+    castOperationsToken = ingestionKeyValues[0]?.toString();
   }
 
-  if (!oneuptimeToken) {
-    logger.error("gRPC: Missing metadata: x-oneuptime-token", {
+  if (!castOperationsToken) {
+    logger.error("gRPC: Missing metadata: x-cast-operations-token", {
       service: "telemetry",
     });
     return null;
@@ -58,7 +60,7 @@ async function authenticateRequest(
   const token: TelemetryIngestionKey | null =
     await TelemetryIngestionKeyService.findOneBy({
       query: {
-        secretKey: new ObjectID(oneuptimeToken),
+        secretKey: new ObjectID(castOperationsToken),
       },
       select: {
         projectId: true,
@@ -69,7 +71,7 @@ async function authenticateRequest(
     });
 
   if (!token || !token.projectId) {
-    logger.error("gRPC: Invalid service token: " + oneuptimeToken, {
+    logger.error("gRPC: Invalid service token: " + castOperationsToken, {
       service: "telemetry",
     });
     return null;

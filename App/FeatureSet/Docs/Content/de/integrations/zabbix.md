@@ -130,7 +130,7 @@ Der obige Kern-Workflow _öffnet_ Vorfälle. Um sie auch zu _schließen_, wenn Z
 3. Fügen Sie an dessen **Yes**-Ausgang einen **Find Incident**-Block hinzu, der den zuvor erstellten offenen Vorfall sucht – gleichen Sie auf der Zabbix-`event_id` ab, die Sie in der Beschreibung oder einem Label gespeichert haben.
 4. Verbinden Sie diesen mit einem **Update Incident**-Block und bewegen Sie den Vorfall in Ihren _aufgelösten_ Zustand.
 
-Da die Auflösung davon abhängt, wie Sie Vorfallszustände in Ihrem Projekt modellieren, halten Sie den **Erstell**-Pfad als zuverlässigen Kern und ergänzen Sie den Auflöse-Pfad, sobald Sie bestätigt haben, dass die Ereignisse korrekt fließen. Siehe [Komponenten → Cast Operations-Datenkomponenten](/docs/workflows/components#oneuptime-data-components).
+Da die Auflösung davon abhängt, wie Sie Vorfallszustände in Ihrem Projekt modellieren, halten Sie den **Erstell**-Pfad als zuverlässigen Kern und ergänzen Sie den Auflöse-Pfad, sobald Sie bestätigt haben, dass die Ereignisse korrekt fließen. Siehe [Komponenten → Cast Operations-Datenkomponenten](/docs/workflows/components#cast-operations-data-components).
 
 ## Zabbix-Schweregrade abbilden (optional)
 

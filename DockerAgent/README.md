@@ -2,7 +2,7 @@
 
 Monitor Docker hosts, containers, and container logs with Cast Operations using a pre-configured OpenTelemetry Collector.
 
-The agent is published as a Docker image — `oneuptime/docker-agent` — that bundles a tuned collector config. Just pass a few environment variables and run it.
+The agent is published as a Docker image — `cast-operations/docker-agent` — that bundles a tuned collector config. Just pass a few environment variables and run it.
 
 ## Prerequisites
 
@@ -14,15 +14,15 @@ The agent is published as a Docker image — `oneuptime/docker-agent` — that b
 
 ```bash
 docker run -d \
-  --name oneuptime-docker-agent \
+  --name cast-operations-docker-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="https://visca.ai" \
-  -e ONEUPTIME_SERVICE_TOKEN="your-service-token" \
+  -e CAST_OPERATIONS_URL="https://visca.ai" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="your-service-token" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 ```
 
 That's it. The host will appear automatically in the Docker section of Cast Operations.
@@ -32,8 +32,8 @@ That's it. The host will appear automatically in the Docker section of Cast Oper
 Create a `.env` file:
 
 ```bash
-ONEUPTIME_URL=https://visca.ai
-ONEUPTIME_SERVICE_TOKEN=your-service-token
+CAST_OPERATIONS_URL=https://visca.ai
+CAST_OPERATIONS_SERVICE_TOKEN=your-service-token
 DOCKER_HOST_NAME=my-docker-host
 ```
 
@@ -47,18 +47,18 @@ docker compose up -d
 
 | Variable                  | Required | Description                                             |
 | ------------------------- | -------- | ------------------------------------------------------- |
-| `ONEUPTIME_URL`           | Yes      | Your Cast Operations instance URL                             |
-| `ONEUPTIME_SERVICE_TOKEN` | Yes      | Telemetry ingestion service token (Settings → API Keys) |
+| `CAST_OPERATIONS_URL`           | Yes      | Your Cast Operations instance URL                             |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | Yes      | Telemetry ingestion service token (Settings → API Keys) |
 | `DOCKER_HOST_NAME`        | No       | Friendly name for this host (default: `docker-host`)    |
 
 ## Image Tags
 
 | Tag                                         | Description                        |
 | ------------------------------------------- | ---------------------------------- |
-| `oneuptime/docker-agent:release`            | Latest stable release (community)  |
-| `oneuptime/docker-agent:enterprise-release` | Latest stable release (enterprise) |
-| `oneuptime/docker-agent:<version>`          | Pinned version, e.g. `10.0.31`     |
-| `ghcr.io/oneuptime/docker-agent:release`    | Same image mirrored on GHCR        |
+| `cast-operations/docker-agent:release`            | Latest stable release (community)  |
+| `cast-operations/docker-agent:enterprise-release` | Latest stable release (enterprise) |
+| `cast-operations/docker-agent:<version>`          | Pinned version, e.g. `10.0.31`     |
+| `ghcr.io/cast-operations/docker-agent:release`    | Same image mirrored on GHCR        |
 
 ## Collected Metrics
 
@@ -118,8 +118,8 @@ Then restart Docker and recreate (not just restart) the affected containers — 
 ## Upgrading
 
 ```bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # Re-run the `docker run` command above
 ```
 
@@ -133,7 +133,7 @@ docker compose up -d
 ## Uninstalling
 
 ```bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 ```
 
 ## Building the Image Locally
@@ -142,7 +142,7 @@ If you want to build the image yourself (for development or air-gapped environme
 
 ```bash
 npm run prerun  # generates Dockerfile from Dockerfile.tpl
-docker build -f ./DockerAgent/Dockerfile -t oneuptime/docker-agent:local .
+docker build -f ./DockerAgent/Dockerfile -t cast-operations/docker-agent:local .
 ```
 
 ## Troubleshooting
@@ -159,13 +159,13 @@ If metrics show up but the **Logs** tab is empty (or only shows logs from the ag
 
 ```bash
 # 1. Check the agent's filelog receiver — this should list each container log it is watching
-docker logs oneuptime-docker-agent 2>&1 | grep -E "Started watching file|no files match"
+docker logs cast-operations-docker-agent 2>&1 | grep -E "Started watching file|no files match"
 
 # 2. Check which log driver your containers are actually using
 docker inspect <container> --format '{{.HostConfig.LogConfig.Type}}'
 
 # 3. Check whether the log file the receiver expects actually exists
-docker run --rm --volumes-from oneuptime-docker-agent alpine:3.19 \
+docker run --rm --volumes-from cast-operations-docker-agent alpine:3.19 \
   sh -c 'ls /var/lib/docker/containers/*/*-json.log 2>&1 | head'
 ```
 
@@ -188,18 +188,18 @@ The Docker host page filters by `resource.host.name` equal to the host's `hostId
 
 ```bash
 # Confirm the agent is stamping the expected host name
-docker inspect oneuptime-docker-agent --format '{{range .Config.Env}}{{println .}}{{end}}' | grep DOCKER_HOST_NAME
+docker inspect cast-operations-docker-agent --format '{{range .Config.Env}}{{println .}}{{end}}' | grep DOCKER_HOST_NAME
 ```
 
 ### Common Commands
 
 ```bash
 # Check agent status
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 
 # View agent logs
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 
 # Verify Docker socket access
-docker exec oneuptime-docker-agent ls -la /var/run/docker.sock
+docker exec cast-operations-docker-agent ls -la /var/run/docker.sock
 ```

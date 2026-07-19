@@ -18,17 +18,9 @@ import IconProp from "../../Types/Icon/IconProp";
 import ObjectID from "../../Types/ObjectID";
 import Permission from "../../Types/Permission";
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 
 @EnableDocumentation()
 @CanAccessIfCanReadOn("onCallDutyPolicy")
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Growth,
-  update: PlanType.Growth,
-  delete: PlanType.Growth,
-})
 @TenantColumn("projectId")
 @TableAccessControl({
   create: [
@@ -149,7 +141,8 @@ export default class OnCallDutyPolicyUserOverride extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

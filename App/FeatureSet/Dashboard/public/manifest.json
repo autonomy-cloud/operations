@@ -1,7 +1,7 @@
 {
   "short_name": "Cast Operations",
   "name": "Cast Operations - Complete Observability Platform",
-  "id": "/dashboard/oneuptime",
+  "id": "/dashboard/cast-operations",
   "description": "Monitor, observe, debug, and resolve. Everything you need to build reliable software in one open-source platform.",
   "iarc_rating_id": "60bf3666-0cc5-4ac4-a5c7-726a4d52b7b6",
   "widgets": [],
@@ -128,7 +128,7 @@
   },
   "protocol_handlers": [
     {
-      "protocol": "web+oneuptime",
+      "protocol": "web+cast-operations",
       "url": "/dashboard?url=%s"
     }
   ],

@@ -34,7 +34,7 @@ function expectPayload(result: MqttPublishParseResult): MqttIngestPayload {
 describe("parseMqttPublish — telemetry topic", () => {
   test("parses the metrics-wrapper form and stamps fleet/device from the topic", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/building-a/sensor-001/telemetry",
+      "cast-operations/building-a/sensor-001/telemetry",
       JSON.stringify({
         metrics: { iot_device_up: 1, iot_temperature_celsius: 21.5 },
       }),
@@ -58,7 +58,7 @@ describe("parseMqttPublish — telemetry topic", () => {
 
   test("parses the flat form, skipping reserved keys and non-numeric fields", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/fleet/dev/telemetry",
+      "cast-operations/fleet/dev/telemetry",
       JSON.stringify({
         iot_battery_percent: 87,
         door_open: true,
@@ -85,7 +85,7 @@ describe("parseMqttPublish — telemetry topic", () => {
 
   test("unix-seconds timestamps are auto-detected and scaled to ms", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/telemetry",
+      "cast-operations/f/d/telemetry",
       JSON.stringify({ metrics: { m: 1 }, timestamp: 1750000123 }),
     );
     expect(expectPayload(result).timestampMs).toBe(1750000123000);
@@ -93,13 +93,13 @@ describe("parseMqttPublish — telemetry topic", () => {
 
   test("unix-milliseconds and ISO-8601 timestamps are accepted", () => {
     const ms: MqttPublishParseResult = parse(
-      "oneuptime/f/d/telemetry",
+      "cast-operations/f/d/telemetry",
       JSON.stringify({ metrics: { m: 1 }, timestamp: 1750000123456 }),
     );
     expect(expectPayload(ms).timestampMs).toBe(1750000123456);
 
     const iso: MqttPublishParseResult = parse(
-      "oneuptime/f/d/telemetry",
+      "cast-operations/f/d/telemetry",
       JSON.stringify({ metrics: { m: 1 }, timestamp: "2025-06-15T00:00:00Z" }),
     );
     expect(expectPayload(iso).timestampMs).toBe(
@@ -109,7 +109,7 @@ describe("parseMqttPublish — telemetry topic", () => {
 
   test("invalid timestamps fall back to ingest time", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/telemetry",
+      "cast-operations/f/d/telemetry",
       JSON.stringify({ metrics: { m: 1 }, timestamp: "not-a-date" }),
     );
     expect(expectPayload(result).timestampMs).toBe(NOW_MS);
@@ -117,7 +117,7 @@ describe("parseMqttPublish — telemetry topic", () => {
 
   test("device.id cannot be overridden through payload attributes", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/real-device/telemetry",
+      "cast-operations/f/real-device/telemetry",
       JSON.stringify({
         metrics: { m: 1 },
         attributes: { "device.id": "spoofed-device", ok: "yes" },
@@ -131,7 +131,7 @@ describe("parseMqttPublish — telemetry topic", () => {
 
   test("non-scalar attribute values are dropped", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/telemetry",
+      "cast-operations/f/d/telemetry",
       JSON.stringify({
         metrics: { m: 1 },
         attributes: { nested: { a: 1 }, list: [1], fine: 42 },
@@ -144,7 +144,7 @@ describe("parseMqttPublish — telemetry topic", () => {
 
   test("rejects non-JSON payloads", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/telemetry",
+      "cast-operations/f/d/telemetry",
       "not json",
     );
     expect(result.error).toBeDefined();
@@ -152,7 +152,7 @@ describe("parseMqttPublish — telemetry topic", () => {
 
   test("rejects payloads with no numeric metric values", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/telemetry",
+      "cast-operations/f/d/telemetry",
       JSON.stringify({ metrics: { m: "NaN-ish" } }),
     );
     expect(result.error).toBeDefined();
@@ -164,7 +164,7 @@ describe("parseMqttPublish — telemetry topic", () => {
       metrics[`metric_${i}`] = i;
     }
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/telemetry",
+      "cast-operations/f/d/telemetry",
       JSON.stringify({ metrics }),
     );
     expect(result.error).toBeDefined();
@@ -172,7 +172,7 @@ describe("parseMqttPublish — telemetry topic", () => {
 
   test("rejects oversized payloads", () => {
     const result: MqttPublishParseResult = parseMqttPublish({
-      topic: "oneuptime/f/d/telemetry",
+      topic: "cast-operations/f/d/telemetry",
       payload: Buffer.alloc(MQTT_MAX_PAYLOAD_BYTES + 1),
       nowMs: NOW_MS,
     });
@@ -183,7 +183,7 @@ describe("parseMqttPublish — telemetry topic", () => {
 describe("parseMqttPublish — single-metric topic", () => {
   test("accepts a bare-number payload", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/metrics/iot_temperature_celsius",
+      "cast-operations/f/d/metrics/iot_temperature_celsius",
       "23.4",
     );
 
@@ -195,7 +195,7 @@ describe("parseMqttPublish — single-metric topic", () => {
 
   test("accepts the { value } JSON form with attributes and timestamp", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/metrics/iot_battery_percent",
+      "cast-operations/f/d/metrics/iot_battery_percent",
       JSON.stringify({
         value: 55,
         timestamp: 1750000123,
@@ -216,7 +216,7 @@ describe("parseMqttPublish — single-metric topic", () => {
 
   test("rejects non-numeric payloads", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/metrics/iot_battery_percent",
+      "cast-operations/f/d/metrics/iot_battery_percent",
       "full",
     );
     expect(result.error).toBeDefined();
@@ -235,7 +235,10 @@ describe("parseMqttPublish — status topic (Last Will)", () => {
     ["down", 0],
     ["  Online  ", 1],
   ])('maps "%s" to iot_device_up=%d', (text: string, expected: number) => {
-    const result: MqttPublishParseResult = parse("oneuptime/f/d/status", text);
+    const result: MqttPublishParseResult = parse(
+      "cast-operations/f/d/status",
+      text,
+    );
 
     const payload: MqttIngestPayload = expectPayload(result);
     expect(payload.points).toEqual([
@@ -245,7 +248,7 @@ describe("parseMqttPublish — status topic (Last Will)", () => {
 
   test('accepts the { "status": ... } JSON form', () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/status",
+      "cast-operations/f/d/status",
       JSON.stringify({ status: "offline" }),
     );
     expect(expectPayload(result).points[0]?.value).toBe(0);
@@ -253,7 +256,7 @@ describe("parseMqttPublish — status topic (Last Will)", () => {
 
   test("rejects unknown status text", () => {
     const result: MqttPublishParseResult = parse(
-      "oneuptime/f/d/status",
+      "cast-operations/f/d/status",
       "sleepy",
     );
     expect(result.error).toBeDefined();
@@ -262,17 +265,20 @@ describe("parseMqttPublish — status topic (Last Will)", () => {
 
 describe("parseMqttPublish — topic validation", () => {
   test.each([
-    ["outside the oneuptime/ prefix", "other/f/d/telemetry"],
-    ["missing suffix", "oneuptime/f/d"],
-    ["unknown suffix", "oneuptime/f/d/other"],
-    ["empty fleet segment", "oneuptime//d/telemetry"],
-    ["empty device segment", "oneuptime/f//telemetry"],
-    ["wildcard in fleet", "oneuptime/+/d/telemetry"],
-    ["wildcard in device", "oneuptime/f/#/telemetry"],
-    ["$-prefixed fleet", "oneuptime/$sys/d/telemetry"],
-    ["over-long fleet segment", `oneuptime/${"f".repeat(101)}/d/telemetry`],
-    ["metrics suffix without a metric name", "oneuptime/f/d/metrics/"],
-    ["too many segments", "oneuptime/f/d/telemetry/extra"],
+    ["outside the cast-operations/ prefix", "other/f/d/telemetry"],
+    ["missing suffix", "cast-operations/f/d"],
+    ["unknown suffix", "cast-operations/f/d/other"],
+    ["empty fleet segment", "cast-operations//d/telemetry"],
+    ["empty device segment", "cast-operations/f//telemetry"],
+    ["wildcard in fleet", "cast-operations/+/d/telemetry"],
+    ["wildcard in device", "cast-operations/f/#/telemetry"],
+    ["$-prefixed fleet", "cast-operations/$sys/d/telemetry"],
+    [
+      "over-long fleet segment",
+      `cast-operations/${"f".repeat(101)}/d/telemetry`,
+    ],
+    ["metrics suffix without a metric name", "cast-operations/f/d/metrics/"],
+    ["too many segments", "cast-operations/f/d/telemetry/extra"],
   ])("rejects %s", (_label: string, topic: string) => {
     const result: MqttPublishParseResult = parse(
       topic,

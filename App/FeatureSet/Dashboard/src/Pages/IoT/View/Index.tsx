@@ -20,7 +20,7 @@ import API from "Common/UI/Utils/API/API";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Icon from "Common/UI/Components/Icon/Icon";
 import IconProp from "Common/Types/Icon/IconProp";
 import AnalyticsModelAPI from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
@@ -373,7 +373,7 @@ const IoTFleetOverview: FunctionComponent<
         avgSignalDbm: mean(signalByDevice.values()),
       });
 
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
     } catch (err) {
       setGoldenError(API.getFriendlyMessage(err));
     } finally {
@@ -531,7 +531,7 @@ const IoTFleetOverview: FunctionComponent<
     const status: string = (fleet.otelCollectorStatus as string) || "";
     const lastSeenAt: Date | undefined = fleet.lastSeenAt;
     const lastSeenText: string = lastSeenAt
-      ? OneUptimeDate.fromNow(lastSeenAt)
+      ? OperationsDate.fromNow(lastSeenAt)
       : "never";
 
     const isConnected: boolean =

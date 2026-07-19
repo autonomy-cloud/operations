@@ -1,5 +1,5 @@
 import DatabaseProperty from "../Database/DatabaseProperty";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 import BadDataException from "../Exception/BadDataException";
 import { JSONArray, JSONObject, ObjectType } from "../JSON";
 import JSONFunctions from "../JSONFunctions";
@@ -31,35 +31,35 @@ export default class Recurring extends DatabaseProperty {
     // past or present date.
     const multiplier: number = getDateInThePast ? -1 : 1;
 
-    let nextDate: Date = OneUptimeDate.fromString(startDate);
+    let nextDate: Date = OperationsDate.fromString(startDate);
 
     switch (intervalType) {
       case EventInterval.Hour:
-        nextDate = OneUptimeDate.addRemoveHours(
+        nextDate = OperationsDate.addRemoveHours(
           nextDate,
           intervalCount.toNumber() * multiplier,
         );
         break;
       case EventInterval.Day:
-        nextDate = OneUptimeDate.addRemoveDays(
+        nextDate = OperationsDate.addRemoveDays(
           nextDate,
           intervalCount.toNumber() * multiplier,
         );
         break;
       case EventInterval.Week:
-        nextDate = OneUptimeDate.addRemoveDays(
+        nextDate = OperationsDate.addRemoveDays(
           nextDate,
           intervalCount.toNumber() * 7 * multiplier,
         );
         break;
       case EventInterval.Month:
-        nextDate = OneUptimeDate.addRemoveMonths(
+        nextDate = OperationsDate.addRemoveMonths(
           nextDate,
           intervalCount.toNumber() * multiplier,
         );
         break;
       case EventInterval.Year:
-        nextDate = OneUptimeDate.addRemoveYears(
+        nextDate = OperationsDate.addRemoveYears(
           nextDate,
           intervalCount.toNumber() * multiplier,
         );
@@ -72,8 +72,8 @@ export default class Recurring extends DatabaseProperty {
   }
 
   public static getNextDate(startDate: Date, rotation: Recurring): Date {
-    let nextDate: Date = OneUptimeDate.fromString(startDate);
-    const dateNow: Date = OneUptimeDate.getCurrentDate();
+    let nextDate: Date = OperationsDate.fromString(startDate);
+    const dateNow: Date = OperationsDate.getCurrentDate();
 
     if (nextDate.getTime() <= dateNow.getTime()) {
       const intervalType: EventInterval = rotation.intervalType;

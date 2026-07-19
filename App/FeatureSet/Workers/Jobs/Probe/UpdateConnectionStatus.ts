@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import RunCron from "../../Utils/Cron";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import ProbeService from "Common/Server/Services/ProbeService";
@@ -49,8 +49,8 @@ RunCron(
 
         if (
           probe.lastAlive &&
-          OneUptimeDate.getDifferenceInMinutes(
-            OneUptimeDate.getCurrentDate(),
+          OperationsDate.getDifferenceInMinutes(
+            OperationsDate.getCurrentDate(),
             probe.lastAlive,
           ) > 2
         ) {

@@ -82,14 +82,14 @@ Self-hosted AI agents:
 AI agent चलाने के लिए, सुनिश्चित करें कि Docker इंस्टॉल है। agent को निम्नानुसार चलाएं:
 
 ```bash
-docker run --name oneuptime-ai-agent --network host \
+docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
-  -d oneuptime/ai-agent:release
+  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -d cast-operations/ai-agent:release
 ```
 
-यदि आप Cast Operations को self-host कर रहे हैं, तो `ONEUPTIME_URL` को अपने custom self-hosted instance URL में बदलें।
+यदि आप Cast Operations को self-host कर रहे हैं, तो `CAST_OPERATIONS_URL` को अपने custom self-hosted instance URL में बदलें।
 
 #### Docker Compose
 
@@ -99,13 +99,13 @@ docker run --name oneuptime-ai-agent --network host \
 version: "3"
 
 services:
-  oneuptime-ai-agent:
-    image: oneuptime/ai-agent:release
-    container_name: oneuptime-ai-agent
+  cast-operations-ai-agent:
+    image: cast-operations/ai-agent:release
+    container_name: cast-operations-ai-agent
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -118,38 +118,38 @@ docker compose up -d
 
 #### Kubernetes
 
-एक `oneuptime-ai-agent.yaml` फ़ाइल बनाएं:
+एक `cast-operations-ai-agent.yaml` फ़ाइल बनाएं:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-ai-agent
+  name: cast-operations-ai-agent
 spec:
   selector:
     matchLabels:
-      app: oneuptime-ai-agent
+      app: cast-operations-ai-agent
   template:
     metadata:
       labels:
-        app: oneuptime-ai-agent
+        app: cast-operations-ai-agent
     spec:
       containers:
-        - name: oneuptime-ai-agent
-          image: oneuptime/ai-agent:release
+        - name: cast-operations-ai-agent
+          image: cast-operations/ai-agent:release
           env:
             - name: AI_AGENT_KEY
               value: "<ai-agent-key>"
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
 configuration लागू करें:
 
 ```bash
-kubectl apply -f oneuptime-ai-agent.yaml
+kubectl apply -f cast-operations-ai-agent.yaml
 ```
 
 ### Environment Variables
@@ -162,7 +162,7 @@ AI agent निम्नलिखित environment variables का समर�
 | --------------- | ---------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | आपके Cast Operations dashboard से AI agent key                         |
 | `AI_AGENT_ID`   | आपके Cast Operations dashboard से AI agent ID                          |
-| `ONEUPTIME_URL` | आपके Cast Operations instance का URL (डिफ़ॉल्ट: https://visca.ai) |
+| `CAST_OPERATIONS_URL` | आपके Cast Operations instance का URL (डिफ़ॉल्ट: https://visca.ai) |
 
 ## अपने AI Agent को सत्यापित करना
 
@@ -176,10 +176,10 @@ container logs देखने के लिए:
 
 ```bash
 # Docker
-docker logs oneuptime-ai-agent
+docker logs cast-operations-ai-agent
 
 # Kubernetes
-kubectl logs deployment/oneuptime-ai-agent
+kubectl logs deployment/cast-operations-ai-agent
 ```
 
 ## समस्या निवारण
@@ -203,4 +203,4 @@ kubectl logs deployment/oneuptime-ai-agent
 
 1. ज्ञात समस्याओं के लिए [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) देखें
 2. यदि आपकी समस्या पहले से रिपोर्ट नहीं है तो एक नई issue बनाएं
-3. यदि आप enterprise plan पर हैं तो [support](https://visca.ai/support) से संपर्क करें
+3. अपने deployment details के साथ [support](https://visca.ai/support) से संपर्क करें

@@ -2,8 +2,8 @@ import UserSmsAPI from "../../../Server/API/UserSmsAPI";
 import UserSmsService from "../../../Server/Services/UserSmsService";
 import {
   NextFunction,
-  OneUptimeRequest,
-  OneUptimeResponse,
+  OperationsRequest,
+  OperationsResponse,
 } from "../../../Server/Utils/Express";
 import Response from "../../../Server/Utils/Response";
 import { mockRouter } from "./Helpers";
@@ -42,18 +42,18 @@ jest.mock("../../../Server/Utils/Response", () => {
 jest.mock("../../../Server/Services/UserSmsService");
 
 describe("UserSmsAPI", () => {
-  let mockRequest: OneUptimeRequest;
-  let mockResponse: OneUptimeResponse;
+  let mockRequest: OperationsRequest;
+  let mockResponse: OperationsResponse;
   let nextFunction: NextFunction;
 
   beforeEach(() => {
     new UserSmsAPI();
-    mockRequest = {} as OneUptimeRequest;
+    mockRequest = {} as OperationsRequest;
     mockResponse = {
       send: jest.fn(),
       json: jest.fn(),
       status: jest.fn().mockReturnThis(),
-    } as unknown as OneUptimeResponse;
+    } as unknown as OperationsResponse;
     nextFunction = jest.fn();
   });
 

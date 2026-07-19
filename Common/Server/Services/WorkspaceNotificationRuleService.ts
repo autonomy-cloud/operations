@@ -537,7 +537,7 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
     notificationFor: NotificationFor;
     feedInfoInMarkdown: string;
     workspaceNotification: {
-      notifyUserId?: ObjectID | undefined; // this is oneuptime user id.
+      notifyUserId?: ObjectID | undefined; // this is cast-operations user id.
       sendWorkspaceNotification: boolean;
       appendMessageBlocks?: Array<MessageBlocksByWorkspaceType> | undefined;
     };
@@ -1172,10 +1172,10 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
 
       for (const userId of userIds) {
         const workspaceUserId: string | null =
-          await this.getWorkspaceUserIdFromOneUptimeUserId({
+          await this.getWorkspaceUserIdFromOperationsUserId({
             projectId: data.projectId,
             workspaceType: data.workspaceType,
-            oneuptimeUserId: userId,
+            castOperationsUserId: userId,
           });
 
         if (workspaceUserId) {
@@ -1387,10 +1387,10 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
 
       for (const userId of userIds) {
         const workspaceUserId: string | null =
-          await this.getWorkspaceUserIdFromOneUptimeUserId({
+          await this.getWorkspaceUserIdFromOperationsUserId({
             projectId: data.projectId,
             workspaceType: workspaceType,
-            oneuptimeUserId: userId,
+            castOperationsUserId: userId,
           });
 
         if (workspaceUserId) {
@@ -1569,12 +1569,12 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
   }
 
   @CaptureSpan()
-  public async getWorkspaceUserIdFromOneUptimeUserId(data: {
+  public async getWorkspaceUserIdFromOperationsUserId(data: {
     projectId: ObjectID;
     workspaceType: WorkspaceType;
-    oneuptimeUserId: ObjectID;
+    castOperationsUserId: ObjectID;
   }): Promise<string | null> {
-    logger.debug("getWorkspaceUserIdFromOneUptimeUserId called with data:", {
+    logger.debug("getWorkspaceUserIdFromOperationsUserId called with data:", {
       projectId: data.projectId?.toString(),
     } as LogAttributes);
     logger.debug(data, {
@@ -1586,7 +1586,7 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
         query: {
           projectId: data.projectId,
           workspaceType: data.workspaceType,
-          userId: data.oneuptimeUserId,
+          userId: data.castOperationsUserId,
         },
         select: {
           workspaceUserId: true,
@@ -1982,7 +1982,7 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
       if (workspaceRules.shouldCreateNewChannel) {
         const notificationChannels: string =
           workspaceRules.newChannelTemplateName ||
-          `oneuptime-${data.notificationEventType.toLowerCase()}-`;
+          `cast-operations-${data.notificationEventType.toLowerCase()}-`;
 
         logger.debug("New channel template name:", {} as LogAttributes);
         logger.debug(notificationChannels, {} as LogAttributes);
@@ -1990,7 +1990,7 @@ export class Service extends DatabaseService<WorkspaceNotificationRule> {
         /*
          * Sanitize the suffix for workspace channel names.
          * When no custom prefix is set, the default "#" prefix (e.g. "#42") produces
-         * invalid Slack channel names (e.g. "oneuptime-alert-#42"). Strip characters
+         * invalid Slack channel names (e.g. "cast-operations-alert-#42"). Strip characters
          * that are not valid in Slack/Teams channel names.
          */
         const sanitizedSuffix: string = data.channelNameSiffix

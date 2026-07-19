@@ -66,7 +66,7 @@ describe("SeriesResourceLabels", () => {
       const refs: SeriesResourceRefs = SeriesResourceLabels.extractResourceRefs(
         {
           "resource.host.name": "h1",
-          "oneuptime.host.id": "host-id-1",
+          "cast-operations.host.id": "host-id-1",
         },
       );
       expect(refs.hostNames).toEqual(["h1"]);
@@ -86,7 +86,7 @@ describe("SeriesResourceLabels", () => {
     it("maps docker host, kubernetes cluster, and service keys", () => {
       const refs: SeriesResourceRefs = SeriesResourceLabels.extractResourceRefs(
         {
-          "oneuptime.docker.host.name": "d1",
+          "cast-operations.docker.host.name": "d1",
           "k8s.cluster.name": "c1",
           "service.name": "s1",
         },
@@ -151,8 +151,8 @@ describe("MonitorMaintenanceSuppression.getSuppressedFingerprintsForMaintainedRe
       MonitorMaintenanceSuppression.getSuppressedFingerprintsForMaintainedResources(
         {
           matchesPerSeries: [
-            series("fpA", { "oneuptime.host.id": "host-uuid-1" }),
-            series("fpB", { "oneuptime.host.id": "host-uuid-2" }),
+            series("fpA", { "cast-operations.host.id": "host-uuid-1" }),
+            series("fpB", { "cast-operations.host.id": "host-uuid-2" }),
           ],
           maintained,
         },
@@ -171,10 +171,12 @@ describe("MonitorMaintenanceSuppression.getSuppressedFingerprintsForMaintainedRe
       MonitorMaintenanceSuppression.getSuppressedFingerprintsForMaintainedResources(
         {
           matchesPerSeries: [
-            series("fpDocker", { "oneuptime.docker.host.name": "docker-1" }),
+            series("fpDocker", {
+              "cast-operations.docker.host.name": "docker-1",
+            }),
             series("fpCluster", { "k8s.cluster.name": "cluster-1" }),
             series("fpService", { "service.name": "payments" }),
-            series("fpClear", { "service.name": "billing" }),
+            series("fpClear", { "service.name": "payments" }),
           ],
           maintained,
         },

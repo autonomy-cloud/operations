@@ -7,7 +7,6 @@ import TableColumnType from "../../Types/AnalyticsDatabase/TableColumnType";
 import { JSONArray } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
 import Permission from "../../Types/Permission";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 
 export default class AuditLog extends AnalyticsBaseModel {
   public constructor() {
@@ -259,12 +258,6 @@ export default class AuditLog extends AnalyticsBaseModel {
         create: [Permission.ProjectOwner, Permission.ProjectAdmin],
         update: [],
         delete: [],
-      },
-      tableBillingAccessControl: {
-        create: PlanType.Free,
-        read: PlanType.Free,
-        update: PlanType.Free,
-        delete: PlanType.Free,
       },
       crudApiPath: new Route("/audit-log"),
       enableDocumentation: true,

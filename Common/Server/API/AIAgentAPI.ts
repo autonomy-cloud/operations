@@ -18,7 +18,7 @@ import AIAgent, {
 import BadDataException from "../../Types/Exception/BadDataException";
 import { JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Version from "../../Types/Version";
 
 export default class AIAgentAPI extends BaseAPI<AIAgent, AIAgentServiceType> {
@@ -70,7 +70,7 @@ export default class AIAgentAPI extends BaseAPI<AIAgent, AIAgentServiceType> {
                 name: (data["aiAgentName"] as string) || "Global AI Agent",
                 description:
                   (data["aiAgentDescription"] as string) || defaultDescription,
-                lastAlive: OneUptimeDate.getCurrentDate(),
+                lastAlive: OperationsDate.getCurrentDate(),
                 connectionStatus: AIAgentConnectionStatus.Connected,
               },
               props: {
@@ -91,7 +91,7 @@ export default class AIAgentAPI extends BaseAPI<AIAgent, AIAgentServiceType> {
             (data["aiAgentName"] as string) || "Global AI Agent";
           newAIAgent.description =
             (data["aiAgentDescription"] as string) || defaultDescription;
-          newAIAgent.lastAlive = OneUptimeDate.getCurrentDate();
+          newAIAgent.lastAlive = OperationsDate.getCurrentDate();
           newAIAgent.connectionStatus = AIAgentConnectionStatus.Connected;
           newAIAgent.aiAgentVersion = new Version("1.0.0");
 

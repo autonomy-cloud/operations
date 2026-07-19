@@ -7,7 +7,7 @@ import AnalyticsModelAPI, {
 } from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Log from "Common/Models/AnalyticsModels/Log";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import React, {
   Fragment,
@@ -88,7 +88,7 @@ const parseCephLogLine: (body: string, fallbackTime: string) => CephLogRow = (
         : tokens[0];
     const parsed: Date = new Date(candidate);
     if (!isNaN(parsed.getTime())) {
-      timestamp = OneUptimeDate.getDateAsLocalFormattedString(parsed);
+      timestamp = OperationsDate.getDateAsLocalFormattedString(parsed);
     }
   }
 
@@ -138,8 +138,8 @@ const CephClusterClusterLog: FunctionComponent<
         return;
       }
 
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveHours(endDate, -24);
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveHours(endDate, -24);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const logQueryOptions: any = {
@@ -178,7 +178,7 @@ const CephClusterClusterLog: FunctionComponent<
           parseCephLogLine(
             body,
             log.time
-              ? OneUptimeDate.getDateAsLocalFormattedString(log.time)
+              ? OperationsDate.getDateAsLocalFormattedString(log.time)
               : "",
           ),
         );

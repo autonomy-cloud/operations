@@ -8,7 +8,7 @@ import { registerUtilityCommands } from "./Commands/UtilityCommands";
 const program: Command = new Command();
 
 program
-  .name("oneuptime")
+  .name("cast-operations")
   .description(
     "Cast Operations CLI - Manage your Cast Operations resources from the command line",
   )

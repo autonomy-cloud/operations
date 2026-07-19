@@ -26,7 +26,7 @@ import AnalyticsModelAPI, {
 } from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import EmbeddedMetricCard from "../../../Components/Metrics/EmbeddedMetricCard";
@@ -75,8 +75,8 @@ const PodmanHostContainerDetail: FunctionComponent<
        * we resolve the name -> id mapping here so the Logs tab can filter
        * precisely to THIS container.
        */
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveMinutes(endDate, -10);
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveMinutes(endDate, -10);
       const projectId: string = ProjectUtil.getCurrentProjectId()!.toString();
 
       /*

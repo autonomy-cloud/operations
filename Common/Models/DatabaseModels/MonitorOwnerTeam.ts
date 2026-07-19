@@ -4,10 +4,8 @@ import Team from "./Team";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import ColumnType from "../../Types/Database/ColumnType";
 import CrudApiEndpoint from "../../Types/Database/CrudApiEndpoint";
 import EnableDocumentation from "../../Types/Database/EnableDocumentation";
@@ -23,12 +21,6 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 
 @EnableDocumentation()
 @TenantColumn("projectId")
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Free,
-  update: PlanType.Growth,
-  delete: PlanType.Free,
-})
 @TableAccessControl({
   create: [
     Permission.ProjectOwner,
@@ -154,7 +146,8 @@ export default class MonitorOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -315,7 +308,8 @@ export default class MonitorOwnerTeam extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Monitor ID",
-    description: "ID of your Cast Operations Monitor in which this object belongs",
+    description:
+      "ID of your Cast Operations Monitor in which this object belongs",
     example: "3c5e7f9a-d1b2-4e6a-8f9c-0d1e2f3a4b5c",
   })
   @Column({

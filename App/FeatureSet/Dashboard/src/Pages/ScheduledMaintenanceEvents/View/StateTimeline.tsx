@@ -1,6 +1,6 @@
 import PageComponentProps from "../../PageComponentProps";
 import { Black } from "Common/Types/BrandColors";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import ObjectID from "Common/Types/ObjectID";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
@@ -111,7 +111,7 @@ const ScheduledMaintenanceViewStateTimeline: FunctionComponent<
             required: true,
             placeholder: "Starts At",
             getDefaultValue: () => {
-              return OneUptimeDate.getCurrentDate();
+              return OperationsDate.getCurrentDate();
             },
           },
           {
@@ -219,9 +219,9 @@ const ScheduledMaintenanceViewStateTimeline: FunctionComponent<
             ): ReactElement => {
               return (
                 <p>
-                  {OneUptimeDate.differenceBetweenTwoDatesAsFromattedString(
+                  {OperationsDate.differenceBetweenTwoDatesAsFromattedString(
                     item["startsAt"] as Date,
-                    (item["endsAt"] as Date) || OneUptimeDate.getCurrentDate(),
+                    (item["endsAt"] as Date) || OperationsDate.getCurrentDate(),
                   )}
                 </p>
               );

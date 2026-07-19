@@ -26,7 +26,7 @@ enum ServiceType {
    * Telemetry that arrived without an OTel service.name and with no
    * host / docker / k8s resource signal. Instead of synthesising a
    * placeholder "Unknown Service" Postgres row (which collected every
-   * oneuptime.label.* attribute from unrelated sources), the row's
+   * cast-operations.label.* attribute from unrelated sources), the row's
    * `serviceId` slot holds the projectId and no Service row is created.
    * The read side renders these under a synthetic "Unknown Service"
    * bucket.

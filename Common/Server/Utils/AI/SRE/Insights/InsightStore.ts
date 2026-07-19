@@ -1,5 +1,5 @@
 import ObjectID from "../../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../../Types/Date";
+import OperationsDate from "../../../../../Types/Date";
 import ColumnLength from "../../../../../Types/Database/ColumnLength";
 import SortOrder from "../../../../../Types/BaseDatabase/SortOrder";
 import AIInsight from "../../../../../Models/DatabaseModels/AIInsight";
@@ -170,13 +170,13 @@ export default class InsightStore {
            * cooldown elapsed, so it suppresses too — when in doubt, stay
            * quiet (G11 noise posture).
            */
-          const cooldownMs: number = OneUptimeDate.getMillisecondsInDays(
+          const cooldownMs: number = OperationsDate.getMillisecondsInDays(
             DISMISSED_COOLDOWN_DAYS,
           );
 
           const withinCooldown: boolean = existing.humanVerdictAt
             ? data.now.getTime() -
-                OneUptimeDate.fromString(existing.humanVerdictAt).getTime() <=
+                OperationsDate.fromString(existing.humanVerdictAt).getTime() <=
               cooldownMs
             : true;
 

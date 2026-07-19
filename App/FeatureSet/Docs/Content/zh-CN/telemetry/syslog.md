@@ -6,9 +6,9 @@ OpenTelemetry 数据摄取服务现在接受原生 Syslog 负载。您可以将�
 
 ## 前提条件
 
-- **遥测摄取令牌** – 从 _项目设置 → 遥测摄取密钥_ 创建一个，并复制 `x-oneuptime-token` 值。
+- **遥测摄取令牌** – 从 _项目设置 → 遥测摄取密钥_ 创建一个，并复制 `x-cast-operations-token` 值。
 - **Syslog 转发器** – 任何能够发送 HTTP POST 请求的工具（例如 `curl`、通过 `omhttp` 的 `rsyslog`，或使用 HTTP 目标插件的 `syslog-ng`）。
-- **服务名称（可选）** – 设置 `x-oneuptime-service-name` 请求头，将传入日志归类到特定遥测服务下。省略时，Cast Operations 回退到 Syslog `APP-NAME`、主机名或 `Syslog`。
+- **服务名称（可选）** – 设置 `x-cast-operations-service-name` 请求头，将传入日志归类到特定遥测服务下。省略时，Cast Operations 回退到 Syslog `APP-NAME`、主机名或 `Syslog`。
 
 ## 端点
 
@@ -17,7 +17,7 @@ POST https://visca.ai/syslog/v1/logs
 ```
 
 - 如果您是自托管 Cast Operations，请将 `visca.ai` 替换为您的主机。
-- 请求中始终包含 `x-oneuptime-token` 请求头。
+- 请求中始终包含 `x-cast-operations-token` 请求头。
 
 ## 请求体
 
@@ -44,8 +44,8 @@ POST https://visca.ai/syslog/v1/logs
 curl \
   -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
-  -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
-  -H "x-oneuptime-service-name: production-web" \
+  -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
+  -H "x-cast-operations-service-name: production-web" \
   -d '{
     "messages": [
       "<34>1 2025-03-02T14:48:05.003Z web-01 nginx 7421 ID47 [env@32473 host=\"web-01\"] 502 on /api/login"
@@ -59,7 +59,7 @@ curl \
    ```bash
    sudo apt-get install rsyslog-omhttp
    ```
-2. 将目标配置追加到 `/etc/rsyslog.d/oneuptime.conf`：
+2. 将目标配置追加到 `/etc/rsyslog.d/cast-operations.conf`：
 
    ```
    module(load="omhttp")
@@ -77,8 +77,8 @@ curl \
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
-     header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
-     header="x-oneuptime-service-name: rsyslog-demo"
+     header="x-cast-operations-token: YOUR_TELEMETRY_KEY"
+     header="x-cast-operations-service-name: rsyslog-demo"
      template="Cast OperationsJson"
    )
    ```
@@ -111,8 +111,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: perimeter-firewall"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: perimeter-firewall"
   template="Cast OperationsJSON"
 )
 ```
@@ -122,7 +122,7 @@ action(
 许多 Cron 作业和旧版守护进程仍然仅通过内核/syslog 设施记录日志。转发 `/var/log/syslog` 或 journald 条目可以将操作记录保存在一个地方。基于 Systemd 的主机可以依赖 journald → syslog 桥接：
 
 ```bash
-# /etc/rsyslog.d/oneuptime.conf
+# /etc/rsyslog.d/cast-operations.conf
 module(load="imjournal" StateFile="imjournal.state")
 module(load="omhttp")
 
@@ -133,8 +133,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: linux-fleet"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: linux-fleet"
   template="Cast OperationsJSON"
 )
 ```
@@ -161,8 +161,8 @@ action(
     Format            json
     json_date_key     time
     Header            Content-Type application/json
-    Header            x-oneuptime-token <TOKEN>
-    Header            x-oneuptime-service-name edge-ingress
+    Header            x-cast-operations-token <TOKEN>
+    Header            x-cast-operations-service-name edge-ingress
     tls               On
 ```
 
@@ -186,7 +186,7 @@ Cast Operations 自动为每条日志条目添加以下属性：
 
 ## 故障排查
 
-- **HTTP 401 或空结果** – 验证 `x-oneuptime-token` 请求头是否属于接收日志的项目。
+- **HTTP 401 或空结果** – 验证 `x-cast-operations-token` 请求头是否属于接收日志的项目。
 - **日志未出现** – 确认请求体实际包含 Syslog 行。空请求体将以 HTTP 400 被拒绝。
-- **意外的服务名称** – 设置 `x-oneuptime-service-name` 以覆盖默认检测逻辑。
+- **意外的服务名称** – 设置 `x-cast-operations-service-name` 以覆盖默认检测逻辑。
 - **大量突发请求** – 每个请求支持批量处理最多 1,000 行。更大的突发请求会排队并异步处理。

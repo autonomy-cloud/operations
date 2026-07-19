@@ -34,15 +34,15 @@ curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/Cep
 bash install.sh
 ```
 
-The script prompts for your Cast Operations URL, telemetry ingestion token, cluster name, and mgr endpoints, installs to `/opt/oneuptime-ceph-agent`, and starts the agent with Docker Compose.
+The script prompts for your Cast Operations URL, telemetry ingestion token, cluster name, and mgr endpoints, installs to `/opt/cast-operations-ceph-agent`, and starts the agent with Docker Compose.
 
 ## Alternative — Docker Compose
 
 Download the two files from the [CephAgent directory](https://github.com/autonomy-cloud/operations/tree/master/CephAgent) — `docker-compose.yml` and `otel-collector-config.yaml` — into a folder, then create a `.env` file next to them:
 
 ```bash
-ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-ONEUPTIME_TELEMETRY_INGESTION_KEY=YOUR_TELEMETRY_INGESTION_TOKEN
+CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+CAST_OPERATIONS_TELEMETRY_INGESTION_KEY=YOUR_TELEMETRY_INGESTION_TOKEN
 CEPH_CLUSTER_NAME=my-ceph-cluster
 CEPH_MGR_ENDPOINTS=[ceph-mon-1:9283,ceph-mon-2:9283,ceph-mon-3:9283]
 ```
@@ -61,8 +61,8 @@ That is it. Once the agent connects, your cluster will appear automatically in t
 
 | Variable                            | Required | Description                                                                                                                                                                                     |
 | ----------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                     | Yes      | Your Cast Operations instance URL (for example `https://visca.ai` or your self-hosted host)                                                                                                      |
-| `ONEUPTIME_TELEMETRY_INGESTION_KEY` | Yes      | Telemetry ingestion token from _Project Settings → Telemetry Ingestion Keys_                                                                                                                    |
+| `CAST_OPERATIONS_URL`                     | Yes      | Your Cast Operations instance URL (for example `https://visca.ai` or your self-hosted host)                                                                                                      |
+| `CAST_OPERATIONS_TELEMETRY_INGESTION_KEY` | Yes      | Telemetry ingestion token from _Project Settings → Telemetry Ingestion Keys_                                                                                                                    |
 | `CEPH_CLUSTER_NAME`                 | Yes      | Cluster identifier shown in Cast Operations, stamped on every metric as the `ceph.cluster.name` resource attribute. Keep it stable — changing it later registers a second cluster. Defaults to `ceph` |
 | `CEPH_MGR_ENDPOINTS`                | Yes      | Comma-separated `host:port` list of **all** mgr daemons, wrapped in square brackets, e.g. `[ceph-mon-1:9283,ceph-mon-2:9283,ceph-mon-3:9283]`. The install script adds the brackets for you     |
 
@@ -82,7 +82,7 @@ docker compose ps
 Check the collector logs:
 
 ```bash
-docker logs -f oneuptime-ceph-agent
+docker logs -f cast-operations-ceph-agent
 ```
 
 Look for: `"Everything is ready. Begin running and processing data."`
@@ -122,17 +122,17 @@ Lines ship verbatim; Cast Operations parses the ceph.log format (timestamp, daem
 ## Run as a systemd Service
 
 ```bash
-sudo cp systemd/oneuptime-ceph-agent.service /etc/systemd/system/
+sudo cp systemd/cast-operations-ceph-agent.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now oneuptime-ceph-agent
+sudo systemctl enable --now cast-operations-ceph-agent
 ```
 
-The unit assumes the agent lives in `/opt/oneuptime-ceph-agent` (the install script default).
+The unit assumes the agent lives in `/opt/cast-operations-ceph-agent` (the install script default).
 
 ## Upgrading the Agent
 
 ```bash
-cd /opt/oneuptime-ceph-agent
+cd /opt/cast-operations-ceph-agent
 docker compose pull
 docker compose up -d
 ```
@@ -140,16 +140,16 @@ docker compose up -d
 ## Uninstalling the Agent
 
 ```bash
-cd /opt/oneuptime-ceph-agent
+cd /opt/cast-operations-ceph-agent
 docker compose down
 ```
 
 ## Self-hosted Cast Operations
 
-If you are self-hosting Cast Operations, set `ONEUPTIME_URL` to your own instance:
+If you are self-hosting Cast Operations, set `CAST_OPERATIONS_URL` to your own instance:
 
 ```bash
-ONEUPTIME_URL=https://your-operations-host.example.com
+CAST_OPERATIONS_URL=https://your-operations-host.example.com
 ```
 
 If your instance is HTTP-only, use `http://` and the appropriate port.
@@ -162,14 +162,14 @@ The agent ships with a doctor script, [`troubleshoot.sh`](https://github.com/aut
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/CephAgent/troubleshoot.sh -o troubleshoot.sh
-bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/oneuptime-ceph-agent
+bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/cast-operations-ceph-agent
 ```
 
 It ends with a VERDICT section naming the most likely root cause. The sections below cover the same ground manually.
 
 ### No cluster appears in Cast Operations
 
-1. Check the collector logs: `docker logs oneuptime-ceph-agent` — a `401` on export means a bad ingestion token, connection refused means a wrong `ONEUPTIME_URL`.
+1. Check the collector logs: `docker logs cast-operations-ceph-agent` — a `401` on export means a bad ingestion token, connection refused means a wrong `CAST_OPERATIONS_URL`.
 2. Verify a mgr serves metrics: `curl http://ACTIVE_MGR_HOST:9283/metrics | head` should print `ceph_*` metric lines. If not, enable the module: `ceph mgr module enable prometheus`.
 3. Make sure `CEPH_MGR_ENDPOINTS` is wrapped in square brackets — without them the collector treats the whole comma-separated string as a single (invalid) target.
 

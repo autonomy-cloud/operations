@@ -1,6 +1,6 @@
 import DataToProcess from "../DataToProcess";
 import CompareCriteria from "./CompareCriteria";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import {
   CheckOn,
   CriteriaFilter,
@@ -83,9 +83,9 @@ export default class ServerMonitorCriteria {
           dataToProcess.isOnline &&
           sslResponse.expiresAt &&
           !sslResponse.isSelfSigned &&
-          OneUptimeDate.isAfter(
+          OperationsDate.isAfter(
             sslResponse.expiresAt,
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
       );
 
@@ -127,9 +127,9 @@ export default class ServerMonitorCriteria {
       const isExpired: boolean = Boolean(
         sslResponse &&
           sslResponse.expiresAt &&
-          OneUptimeDate.isBefore(
+          OperationsDate.isBefore(
             sslResponse.expiresAt,
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
       );
 
@@ -156,9 +156,9 @@ export default class ServerMonitorCriteria {
           sslResponse &&
             sslResponse.expiresAt &&
             (sslResponse.isSelfSigned ||
-              OneUptimeDate.isBefore(
+              OperationsDate.isBefore(
                 sslResponse.expiresAt,
-                OneUptimeDate.getCurrentDate(),
+                OperationsDate.getCurrentDate(),
               )),
         );
       const isTrue: boolean =
@@ -186,8 +186,8 @@ export default class ServerMonitorCriteria {
       const expiresAt: Date | undefined = sslResponse && sslResponse.expiresAt;
       const hours: number | undefined =
         expiresAt &&
-        OneUptimeDate.getHoursBetweenTwoDates(
-          OneUptimeDate.getCurrentDate(),
+        OperationsDate.getHoursBetweenTwoDates(
+          OperationsDate.getCurrentDate(),
           expiresAt,
         );
 
@@ -212,8 +212,8 @@ export default class ServerMonitorCriteria {
       const expiresAt: Date | undefined = sslResponse && sslResponse.expiresAt;
       const days: number | undefined =
         expiresAt &&
-        OneUptimeDate.getDaysBetweenTwoDates(
-          OneUptimeDate.getCurrentDate(),
+        OperationsDate.getDaysBetweenTwoDates(
+          OperationsDate.getCurrentDate(),
           expiresAt,
         );
 

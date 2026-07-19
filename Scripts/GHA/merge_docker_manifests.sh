@@ -47,8 +47,8 @@ if [[ -z "$IMAGE" || -z "$TAGS" ]]; then
 	exit 1
 fi
 
-GHCR="ghcr.io/oneuptime"
-DOCKER_HUB="oneuptime"
+GHCR="ghcr.io/cast-operations"
+DOCKER_HUB="cast-operations"
 
 IFS=',' read -ra TAG_LIST <<< "$TAGS"
 

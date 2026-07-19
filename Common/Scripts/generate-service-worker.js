@@ -125,7 +125,7 @@ function generateServiceWorker(
   fs.writeFileSync(outputPath, finalContent, "utf8");
 
   console.log("✅ Service worker generated successfully:", outputPath);
-  console.log(`   Cache version: oneuptime-v${appVersion}-${gitSha}`);
+  console.log(`   Cache version: cast-operations-v${appVersion}-${gitSha}`);
 }
 
 // Command line interface

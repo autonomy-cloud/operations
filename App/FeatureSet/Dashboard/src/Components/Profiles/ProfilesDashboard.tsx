@@ -21,7 +21,7 @@ import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import AggregatedFlamegraph from "./AggregatedFlamegraph";
 import BreakdownCard from "./BreakdownCard";
 import FunctionFocusPanel from "./FunctionFocusPanel";
@@ -86,8 +86,8 @@ interface TopFunction {
  * stays available for people who like a stable alphabetical list.
  */
 type ProfileSortMode = "activity" | "alpha";
-const SORT_MODE_STORAGE_KEY: string = "oneuptime.profiles.serviceSort";
-const SHOW_KERNEL_STORAGE_KEY: string = "oneuptime.profiles.showKernel";
+const SORT_MODE_STORAGE_KEY: string = "cast-operations.profiles.serviceSort";
+const SHOW_KERNEL_STORAGE_KEY: string = "cast-operations.profiles.showKernel";
 
 function readStoredSortMode(): ProfileSortMode {
   try {
@@ -222,8 +222,8 @@ const ProfilesDashboard: FunctionComponent = (): ReactElement => {
    */
   const [nonce, setNonce] = useState<number>(0);
   const { startTime, endTime } = useMemo(() => {
-    const now: Date = OneUptimeDate.getCurrentDate();
-    const start: Date = OneUptimeDate.addRemoveMinutes(now, -rangeMinutes);
+    const now: Date = OperationsDate.getCurrentDate();
+    const start: Date = OperationsDate.addRemoveMinutes(now, -rangeMinutes);
     return { startTime: start, endTime: now };
     // nonce is intentionally part of the dep list so refresh works.
   }, [rangeMinutes, nonce]);

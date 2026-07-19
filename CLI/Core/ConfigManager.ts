@@ -3,7 +3,7 @@ import * as path from "path";
 import * as os from "os";
 import { CLIConfig, CLIContext, ResolvedCredentials } from "../Types/CLITypes";
 
-const CONFIG_DIR: string = path.join(os.homedir(), ".oneuptime");
+const CONFIG_DIR: string = path.join(os.homedir(), ".cast-operations");
 const CONFIG_FILE: string = path.join(CONFIG_DIR, "config.json");
 
 function getDefaultConfig(): CLIConfig {
@@ -104,8 +104,8 @@ export function getResolvedCredentials(
   }
 
   // Priority 2: Environment variables
-  const envApiKey: string | undefined = process.env["ONEUPTIME_API_KEY"];
-  const envUrl: string | undefined = process.env["ONEUPTIME_URL"];
+  const envApiKey: string | undefined = process.env["CAST_OPERATIONS_API_KEY"];
+  const envUrl: string | undefined = process.env["CAST_OPERATIONS_URL"];
   if (envApiKey && envUrl) {
     return { apiKey: envApiKey, apiUrl: envUrl };
   }
@@ -136,6 +136,6 @@ export function getResolvedCredentials(
   }
 
   throw new Error(
-    "No credentials found. Run `oneuptime login` or set ONEUPTIME_API_KEY and ONEUPTIME_URL environment variables.",
+    "No credentials found. Run `cast-operations login` or set CAST_OPERATIONS_API_KEY and CAST_OPERATIONS_URL environment variables.",
   );
 }

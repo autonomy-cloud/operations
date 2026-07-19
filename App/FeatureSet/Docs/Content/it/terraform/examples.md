@@ -9,16 +9,16 @@ Questo documento fornisce esempi completi per le configurazioni Terraform Cast O
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Usare "= 7.0.123" per self-hosted
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # Modificare per self-hosted
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # Modificare per self-hosted
+  api_key       = var.cast_operations_api_key
 }
 
 ```
@@ -26,7 +26,7 @@ provider "oneuptime" {
 ### Monitor Base
 
 ```hcl
-resource "oneuptime_monitor" "manual_monitor" {
+resource "cast_operations_monitor" "manual_monitor" {
   name        = "Monitor Homepage"
   description = "Monitor per la homepage principale del sito web"
   monitor_type = "Manual"
@@ -37,7 +37,7 @@ resource "oneuptime_monitor" "manual_monitor" {
 
 ```hcl
 # Pagina di stato pubblica
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name        = "Pagina di Stato Pubblica"
   description = "Pagina di stato pubblica per i servizi rivolti ai clienti"
 }

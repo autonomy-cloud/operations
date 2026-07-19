@@ -29,7 +29,7 @@ import Monitor from "../../../Models/DatabaseModels/Monitor";
 import MonitorProbe from "../../../Models/DatabaseModels/MonitorProbe";
 import MonitorStatus from "../../../Models/DatabaseModels/MonitorStatus";
 import MonitorStatusTimeline from "../../../Models/DatabaseModels/MonitorStatusTimeline";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import LogMonitorResponse from "../../../Types/Monitor/LogMonitor/LogMonitorResponse";
 import MetricMonitorResponse from "../../../Types/Monitor/MetricMonitor/MetricMonitorResponse";
 import TelemetryType from "../../../Types/Telemetry/TelemetryType";
@@ -70,7 +70,7 @@ export default class MonitorResourceUtil {
     };
 
     const evaluationSummary: MonitorEvaluationSummary = {
-      evaluatedAt: OneUptimeDate.getCurrentDate(),
+      evaluatedAt: OperationsDate.getCurrentDate(),
       criteriaResults: [],
       events: [],
     };
@@ -331,7 +331,7 @@ export default class MonitorResourceUtil {
                     dataToProcess as ProbeMonitorResponse
                   ).monitorStepId.toString()]: {
                     ...JSON.parse(JSON.stringify(dataToProcess)),
-                    monitoredAt: OneUptimeDate.getCurrentDate(),
+                    monitoredAt: OperationsDate.getCurrentDate(),
                   },
                 } as any,
               },
@@ -430,7 +430,7 @@ export default class MonitorResourceUtil {
             id: monitor.id!,
             data: {
               incomingRequestMonitorHeartbeatCheckedAt:
-                OneUptimeDate.getCurrentDate(),
+                OperationsDate.getCurrentDate(),
               incomingMonitorRequest: JSON.parse(
                 JSON.stringify(incomingMonitorRequest),
               ) as IncomingMonitorRequest,
@@ -670,7 +670,7 @@ export default class MonitorResourceUtil {
           message: probeAgreementResult.hasAgreement
             ? `Probe agreement reached: ${probeAgreementResult.agreementCount}/${probeAgreementResult.requiredCount} probes agree (${probeAgreementResult.totalActiveProbes} active probes total).`
             : `Probe agreement not reached: ${probeAgreementResult.agreementCount}/${probeAgreementResult.requiredCount} probes agree (${probeAgreementResult.totalActiveProbes} active probes total). Skipping status change.`,
-          at: OneUptimeDate.getCurrentDate(),
+          at: OperationsDate.getCurrentDate(),
         });
 
         if (!probeAgreementResult.hasAgreement) {
@@ -859,7 +859,7 @@ export default class MonitorResourceUtil {
               ? `Monitor status changed to "${changedStatusName}" because criteria "${matchedCriteriaInstance.data?.name || "Unnamed criteria"}" was met.`
               : `Monitor status changed because criteria "${matchedCriteriaInstance.data?.name || "Unnamed criteria"}" was met.`,
             relatedCriteriaId: matchedCriteriaInstance.data?.id,
-            at: OneUptimeDate.getCurrentDate(),
+            at: OperationsDate.getCurrentDate(),
           });
         }
 
@@ -1054,7 +1054,7 @@ export default class MonitorResourceUtil {
             message: defaultStatusName
               ? `Monitor status reverted to "${defaultStatusName}" because no monitoring criteria were met.`
               : "Monitor status reverted to its default state because no monitoring criteria were met.",
-            at: OneUptimeDate.getCurrentDate(),
+            at: OperationsDate.getCurrentDate(),
           });
         }
       }
@@ -1178,7 +1178,7 @@ export default class MonitorResourceUtil {
       };
 
       const tempEvaluationSummary: MonitorEvaluationSummary = {
-        evaluatedAt: OneUptimeDate.getCurrentDate(),
+        evaluatedAt: OperationsDate.getCurrentDate(),
         criteriaResults: [],
         events: [],
       };

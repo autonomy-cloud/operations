@@ -28,7 +28,7 @@ import WorkspaceBase, {
 import WorkspaceType from "../../../../Types/Workspace/WorkspaceType";
 import SlackifyMarkdown from "slackify-markdown";
 import { DropdownOption } from "../../../../UI/Components/Dropdown/Dropdown";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import CaptureSpan from "../../Telemetry/CaptureSpan";
 import BadDataException from "../../../../Types/Exception/BadDataException";
 import ObjectID from "../../../../Types/ObjectID";
@@ -739,7 +739,7 @@ export default class SlackUtil extends WorkspaceBase {
           id: channel["id"] as string,
           name: channel["name"] as string,
           workspaceType: WorkspaceType.Slack,
-          lastUpdated: OneUptimeDate.toString(OneUptimeDate.getCurrentDate()),
+          lastUpdated: OperationsDate.toString(OperationsDate.getCurrentDate()),
         };
       }
 
@@ -889,7 +889,7 @@ export default class SlackUtil extends WorkspaceBase {
     channelCache[data.channelName] = {
       id: data.channel.id,
       name: data.channel.name,
-      lastUpdated: OneUptimeDate.toString(OneUptimeDate.getCurrentDate()),
+      lastUpdated: OperationsDate.toString(OperationsDate.getCurrentDate()),
     };
 
     // Update miscData
@@ -1034,7 +1034,7 @@ export default class SlackUtil extends WorkspaceBase {
           id: channel["id"] as string,
           name: channel["name"] as string,
           workspaceType: WorkspaceType.Slack,
-          lastUpdated: OneUptimeDate.toString(OneUptimeDate.getCurrentDate()),
+          lastUpdated: OperationsDate.toString(OperationsDate.getCurrentDate()),
         };
 
         const channelName: string = (channel["name"] as string).toLowerCase();
@@ -1136,7 +1136,7 @@ export default class SlackUtil extends WorkspaceBase {
 
         // if date picker
         if (value["selected_date_time"]) {
-          values[blockId] = OneUptimeDate.fromUnixTimestamp(
+          values[blockId] = OperationsDate.fromUnixTimestamp(
             value["selected_date_time"] as number,
           );
         }
@@ -1735,7 +1735,7 @@ export default class SlackUtil extends WorkspaceBase {
         id: channel.id,
         name: channel.name,
         workspaceType: WorkspaceType.Slack,
-        lastUpdated: OneUptimeDate.toString(OneUptimeDate.getCurrentDate()),
+        lastUpdated: OperationsDate.toString(OperationsDate.getCurrentDate()),
       };
       await this.updateChannelsInCache({
         projectId: data.projectId,

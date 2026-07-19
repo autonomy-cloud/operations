@@ -3,7 +3,7 @@ import { ProbeExpressRequest } from "../../Types/Request";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import NetworkDeviceDiscoveryScanService from "Common/Server/Services/NetworkDeviceDiscoveryScanService";
@@ -92,7 +92,7 @@ router.post(
         const inProgress: NetworkDeviceDiscoveryScan =
           new NetworkDeviceDiscoveryScan();
         inProgress.status = "In Progress";
-        inProgress.startedAt = OneUptimeDate.getCurrentDate();
+        inProgress.startedAt = OperationsDate.getCurrentDate();
 
         await NetworkDeviceDiscoveryScanService.updateOneById({
           id: scan.id!,
@@ -231,7 +231,7 @@ router.post(
         completed.scannedHostCount = req.body["scannedHostCount"] as number;
       }
       completed.respondedHostCount = discoveredDevices.length;
-      completed.completedAt = OneUptimeDate.getCurrentDate();
+      completed.completedAt = OperationsDate.getCurrentDate();
 
       /*
        * Recurring scan: schedule the next run whether this one completed or
@@ -259,7 +259,7 @@ router.post(
         }
 
         completed.nextScanAt =
-          OneUptimeDate.getSomeMinutesAfter(intervalInMinutes);
+          OperationsDate.getSomeMinutesAfter(intervalInMinutes);
       }
 
       await NetworkDeviceDiscoveryScanService.updateOneById({

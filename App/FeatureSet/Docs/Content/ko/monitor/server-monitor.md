@@ -31,10 +31,10 @@ Cast Operations 인프라 에이전트는 시스템 메트릭을 수집하고 30
 curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # 에이전트 구성
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # 에이전트 시작
-sudo oneuptime-infrastructure-agent start
+sudo cast-operations-infrastructure-agent start
 ```
 
 `YOUR_SECRET_KEY`를 모니터 설정에 표시된 비밀 키로 교체하고, 자체 호스팅하는 경우 `https://visca.ai`을 Cast Operations 인스턴스 URL로 교체합니다.
@@ -42,17 +42,17 @@ sudo oneuptime-infrastructure-agent start
 ### Windows
 
 1. [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest)에서 최신 에이전트를 다운로드합니다
-   - x64 시스템의 경우 `oneuptime-infrastructure-agent_windows_amd64.zip`
-   - ARM64 시스템의 경우 `oneuptime-infrastructure-agent_windows_arm64.zip`
+   - x64 시스템의 경우 `cast-operations-infrastructure-agent_windows_amd64.zip`
+   - ARM64 시스템의 경우 `cast-operations-infrastructure-agent_windows_arm64.zip`
 2. zip 파일을 압축 해제합니다
 3. 관리자 권한으로 명령 프롬프트를 열고 실행합니다:
 
 ```bash
 # 에이전트 구성
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # 에이전트 시작
-oneuptime-infrastructure-agent start
+cast-operations-infrastructure-agent start
 ```
 
 ### 프록시 지원
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 서버가 프록시를 통해 인터넷에 연결하는 경우 프록시를 사용하도록 에이전트를 구성할 수 있습니다:
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## 에이전트 명령
@@ -176,8 +176,8 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 
 ### 에이전트가 보고하지 않는 경우
 
-- 에이전트가 실행 중인지 확인합니다: `sudo oneuptime-infrastructure-agent status`
-- 에이전트 로그를 확인합니다: `sudo oneuptime-infrastructure-agent logs -n 50`
+- 에이전트가 실행 중인지 확인합니다: `sudo cast-operations-infrastructure-agent status`
+- 에이전트 로그를 확인합니다: `sudo cast-operations-infrastructure-agent logs -n 50`
 - 비밀 키가 올바른지 확인합니다
 - 서버가 Cast Operations 인스턴스 URL에 도달할 수 있는지 확인합니다
 - 방화벽 규칙이 아웃바운드 HTTPS 연결을 허용하는지 확인합니다
@@ -186,14 +186,14 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 
 에이전트는 경량으로 설계되었습니다. 높은 리소스 사용량이 발견되면:
 
-- 에이전트를 재시작합니다: `sudo oneuptime-infrastructure-agent restart`
+- 에이전트를 재시작합니다: `sudo cast-operations-infrastructure-agent restart`
 - 오류에 대한 에이전트 로그를 확인합니다
 
 ### 프록시 문제
 
 - 프록시 URL과 포트가 올바른지 확인합니다
 - 프록시가 Cast Operations 인스턴스로의 연결을 허용하는지 확인합니다
-- 다음으로 재구성합니다: `sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
+- 다음으로 재구성합니다: `sudo cast-operations-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --cast-operations-url=YOUR_URL`
 
 ## 모범 사례
 

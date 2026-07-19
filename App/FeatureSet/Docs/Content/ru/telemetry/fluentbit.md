@@ -61,7 +61,7 @@ outputs:
     traces_uri: "/otlp/v1/traces"
     tls: On
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 Убедитесь, что в разделе inputs присутствует `opentelemetry_envelope`. Пример раздела inputs:
@@ -118,7 +118,7 @@ pipeline:
       traces_uri: "/otlp/v1/traces"
       tls: On
       header:
-        - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+        - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 **При самостоятельном хостинге Cast Operations**: замените значение `host` на хост вашего экземпляра. Если хостинг на HTTP, а не HTTPS, замените значение `port` соответственно (скорее всего, порт 80).
@@ -137,7 +137,7 @@ outputs:
     logs_uri: "/otlp/v1/logs"
     traces_uri: "/otlp/v1/traces"
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 ## Использование

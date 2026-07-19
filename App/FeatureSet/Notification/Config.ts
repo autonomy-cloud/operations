@@ -293,18 +293,6 @@ export const getTwilioConfig: GetTwilioConfigFunction =
     };
   };
 
-export const SMSDefaultCostInCents: number = process.env[
-  "SMS_DEFAULT_COST_IN_CENTS"
-]
-  ? parseInt(process.env["SMS_DEFAULT_COST_IN_CENTS"])
-  : 0;
-
-export const SMSHighRiskCostInCents: number = process.env[
-  "SMS_HIGH_RISK_COST_IN_CENTS"
-]
-  ? parseInt(process.env["SMS_HIGH_RISK_COST_IN_CENTS"])
-  : 0;
-
 export interface MetaWhatsAppConfig {
   accessToken: string;
   phoneNumberId: string;
@@ -376,12 +364,6 @@ export const getMetaWhatsAppConfig: GetMetaWhatsAppConfigFunction =
     };
   };
 
-export const WhatsAppTextDefaultCostInCents: number = process.env[
-  "WHATSAPP_TEXT_DEFAULT_COST_IN_CENTS"
-]
-  ? parseInt(process.env["WHATSAPP_TEXT_DEFAULT_COST_IN_CENTS"])
-  : 0;
-
 export interface TelegramConfig {
   botToken: string;
   botUsername?: string | undefined;
@@ -427,24 +409,6 @@ export const getTelegramConfig: GetTelegramConfigFunction =
         globalConfig.telegramWebhookSecretToken?.trim() || undefined,
     };
   };
-
-export const TelegramTextDefaultCostInCents: number = process.env[
-  "TELEGRAM_TEXT_DEFAULT_COST_IN_CENTS"
-]
-  ? parseInt(process.env["TELEGRAM_TEXT_DEFAULT_COST_IN_CENTS"])
-  : 0;
-
-export const CallHighRiskCostInCentsPerMinute: number = process.env[
-  "CALL_HIGH_RISK_COST_IN_CENTS_PER_MINUTE"
-]
-  ? parseInt(process.env["CALL_HIGH_RISK_COST_IN_CENTS_PER_MINUTE"])
-  : 0;
-
-export const CallDefaultCostInCentsPerMinute: number = process.env[
-  "CALL_DEFAULT_COST_IN_CENTS_PER_MINUTE"
-]
-  ? parseInt(process.env["CALL_DEFAULT_COST_IN_CENTS_PER_MINUTE"])
-  : 0;
 
 // Call provider type
 export const CallProvider: string = process.env["CALL_PROVIDER"] || "twilio";

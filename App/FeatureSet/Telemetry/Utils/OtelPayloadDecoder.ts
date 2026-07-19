@@ -3,7 +3,7 @@ import path from "path";
 import zlib from "zlib";
 import { promisify } from "util";
 import { JSONObject } from "Common/Types/JSON";
-import ProductType from "Common/Types/MeteredPlan/ProductType";
+import ProductType from "Common/Types/Telemetry/ProductType";
 import TelemetryEntity, {
   ResourceEntityRef,
 } from "Common/Server/Utils/Telemetry/TelemetryEntity";

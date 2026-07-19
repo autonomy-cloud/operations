@@ -15,20 +15,16 @@ import { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import Query from "Common/Types/BaseDatabase/Query";
 import UserElement from "../User/User";
 import User from "Common/Models/DatabaseModels/User";
-import { BILLING_ENABLED } from "Common/UI/Config";
-
 export interface LlmLogsTableProps {
   query?: Query<LlmLog>;
   singularName?: string;
 }
-
 const LlmLogsTable: FunctionComponent<LlmLogsTableProps> = (
   props: LlmLogsTableProps,
 ): ReactElement => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalText, setModalText] = useState<string>("");
   const [modalTitle, setModalTitle] = useState<string>("");
-
   const defaultColumns: Columns<LlmLog> = [
     {
       field: { llmProviderName: true },
@@ -57,7 +53,6 @@ const LlmLogsTable: FunctionComponent<LlmLogsTableProps> = (
         if (!item["user"]) {
           return <p>-</p>;
         }
-
         return <UserElement user={item["user"] as User} />;
       },
     },
@@ -68,7 +63,6 @@ const LlmLogsTable: FunctionComponent<LlmLogsTableProps> = (
       getElement: (item: LlmLog): ReactElement => {
         const total: number = (item["totalTokens"] as number) || 0;
         const cached: number = (item["cachedInputTokens"] as number) || 0;
-
         if (cached > 0) {
           return (
             <p>
@@ -76,28 +70,14 @@ const LlmLogsTable: FunctionComponent<LlmLogsTableProps> = (
             </p>
           );
         }
-
         return <p>{total}</p>;
       },
     },
-    // Only show cost column if billing is enabled
-    ...(BILLING_ENABLED
-      ? [
-          {
-            field: { costInUSDCents: true },
-            title: "Cost (USD)",
-            type: FieldType.Text,
-            getElement: (item: LlmLog): ReactElement => {
-              const cents: number = item["costInUSDCents"] as number;
-              if (cents === undefined || cents === null) {
-                return <p>-</p>;
-              }
-              const usd: number = cents / 100;
-              return <p>${usd.toFixed(4)}</p>;
-            },
-          },
-        ]
-      : []),
+    {
+      field: { costInUSDCents: true },
+      title: "Estimated Cost",
+      type: FieldType.USDCents,
+    },
     {
       field: { createdAt: true },
       title: "Time",
@@ -113,10 +93,7 @@ const LlmLogsTable: FunctionComponent<LlmLogsTableProps> = (
           if (item["status"] === LlmLogStatus.Error) {
             color = Red;
           }
-          if (
-            item["status"] === LlmLogStatus.InsufficientBalance ||
-            item["status"] === LlmLogStatus.BudgetExceeded
-          ) {
+          if (item["status"] === LlmLogStatus.BudgetExceeded) {
             color = Yellow;
           }
           return (
@@ -131,14 +108,12 @@ const LlmLogsTable: FunctionComponent<LlmLogsTableProps> = (
       },
     },
   ];
-
   const defaultFilters: Array<Filter<LlmLog>> = [
     { field: { createdAt: true }, title: "Time", type: FieldType.Date },
     { field: { status: true }, title: "Status", type: FieldType.Text },
     { field: { llmType: true }, title: "Provider Type", type: FieldType.Text },
     { field: { feature: true }, title: "Feature", type: FieldType.Text },
   ];
-
   return (
     <>
       <ModelTable<LlmLog>
@@ -189,7 +164,6 @@ const LlmLogsTable: FunctionComponent<LlmLogsTableProps> = (
             isVisible: (item: LlmLog): boolean => {
               return (
                 item["status"] === LlmLogStatus.Error ||
-                item["status"] === LlmLogStatus.InsufficientBalance ||
                 item["status"] === LlmLogStatus.BudgetExceeded
               );
             },
@@ -219,5 +193,4 @@ const LlmLogsTable: FunctionComponent<LlmLogsTableProps> = (
     </>
   );
 };
-
 export default LlmLogsTable;

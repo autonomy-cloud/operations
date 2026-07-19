@@ -31,7 +31,7 @@ import ExternalStatusPageMonitorResponse from "Common/Types/Monitor/ExternalStat
 import MonitorStepExternalStatusPageMonitor from "Common/Types/Monitor/MonitorStepExternalStatusPageMonitor";
 import HTTPMethod from "Common/Types/API/HTTPMethod";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { JSONObject } from "Common/Types/JSON";
 import JSONFunctions from "Common/Types/JSONFunctions";
 import { CheckOn, CriteriaFilter } from "Common/Types/Monitor/CriteriaFilter";
@@ -331,7 +331,7 @@ export default class MonitorUtil {
       monitorId: monitorId!,
       probeId: ProbeUtil.getProbeId(),
       failureCause: "",
-      monitoredAt: OneUptimeDate.getCurrentDate(),
+      monitoredAt: OperationsDate.getCurrentDate(),
     };
 
     if (!monitorStep.data) {
@@ -892,7 +892,7 @@ export default class MonitorUtil {
     }
 
     // update the monitoredAt time to the current time.
-    result.monitoredAt = OneUptimeDate.getCurrentDate();
+    result.monitoredAt = OperationsDate.getCurrentDate();
 
     return result;
   }

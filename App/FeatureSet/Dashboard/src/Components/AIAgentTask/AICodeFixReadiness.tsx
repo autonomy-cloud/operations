@@ -30,7 +30,6 @@ import {
   AIFixReadinessCheck,
   AIFixReadinessCheckId,
 } from "Common/Types/AI/AIFixReadiness";
-import { isAIAccessibleOnCurrentPlan } from "../AI/AIPlanGate";
 import PageMap from "../../Utils/PageMap";
 import RouteMap, { RouteUtil } from "../../Utils/RouteMap";
 
@@ -188,16 +187,6 @@ const AICodeFixReadiness: FunctionComponent = (): ReactElement => {
   const [error, setError] = useState<string>("");
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  /*
-   * The plan is a prerequisite the server enforces too (AIRun.create is
-   * Growth-gated), and <AIPlanGate /> already says so directly above this.
-   * A downgraded project keeps its repository, provider and agent rows, so
-   * all three checks below can pass while every run is refused — rendering
-   * "AI is ready" next to that warning is the contradiction this component
-   * exists to prevent.
-   */
-  const isPlanAccessible: boolean = isAIAccessibleOnCurrentPlan();
-
   const fetchReadiness: () => Promise<void> =
     useCallback(async (): Promise<void> => {
       try {
@@ -239,20 +228,10 @@ const AICodeFixReadiness: FunctionComponent = (): ReactElement => {
     }, []);
 
   useEffect(() => {
-    if (!isPlanAccessible) {
-      setIsLoading(false);
-      return;
-    }
-
     fetchReadiness().catch(() => {
       // handled inside fetchReadiness
     });
-  }, [fetchReadiness, isPlanAccessible]);
-
-  // AIPlanGate owns this case — see isPlanAccessible above.
-  if (!isPlanAccessible) {
-    return <Fragment />;
-  }
+  }, [fetchReadiness]);
 
   if (isLoading) {
     return (

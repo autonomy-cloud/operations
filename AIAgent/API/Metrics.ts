@@ -5,7 +5,7 @@ import Express, {
   NextFunction,
 } from "Common/Server/Utils/Express";
 import Response from "Common/Server/Utils/Response";
-import { ONEUPTIME_URL } from "../Config";
+import { CAST_OPERATIONS_URL } from "../Config";
 import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import HTTPMethod from "Common/Types/API/HTTPMethod";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
@@ -34,7 +34,7 @@ router.get(
        * This is the correct metric - the number of tasks waiting to be processed
        */
       const pendingTaskCountUrl: URL = URL.fromString(
-        ONEUPTIME_URL.toString(),
+        CAST_OPERATIONS_URL.toString(),
       ).addRoute("/api/ai-agent-task/get-pending-task-count");
 
       logger.debug(
@@ -53,7 +53,9 @@ router.get(
         });
 
       if (result instanceof HTTPErrorResponse) {
-        logger.error("Error fetching pending task count from Cast Operations API");
+        logger.error(
+          "Error fetching pending task count from Cast Operations API",
+        );
         logger.error(result);
         throw result;
       }

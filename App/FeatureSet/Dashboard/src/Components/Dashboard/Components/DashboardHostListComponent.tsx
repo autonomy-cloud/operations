@@ -29,7 +29,7 @@ import PageMap from "../../../Utils/PageMap";
 import AppLink from "../../AppLink/AppLink";
 import Route from "Common/Types/API/Route";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import DashboardModelQueryInterpolation, {
   AttributeToColumnMap,
 } from "Common/Utils/Dashboard/ModelQueryVariableInterpolation";
@@ -76,7 +76,7 @@ function formatRelative(date: Date | undefined | null): string {
   if (!date) {
     return "—";
   }
-  const now: Date = OneUptimeDate.getCurrentDate();
+  const now: Date = OperationsDate.getCurrentDate();
   const diffSeconds: number = Math.max(
     0,
     Math.floor((now.getTime() - date.getTime()) / 1000),

@@ -54,7 +54,7 @@ const reviews: Review[] = [
     role: "Engineering Manager",
     company: "Quantum Computing Co",
     text: "We migrated from New Relic and immediately saw a 65% reduction in our observability spend. The APM capabilities are comparable, and we're not paying per-host anymore.",
-    title: "Enterprise features, startup pricing",
+    title: "Complete capabilities, practical deployment",
   },
   {
     name: "Arjun Mehta",

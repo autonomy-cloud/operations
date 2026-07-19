@@ -130,7 +130,7 @@ Il workflow principale sopra _apre_ gli incidenti. Per _chiuderli_ anche quando 
 3. Dal suo output **Yes**, aggiungi un blocco **Find Incident** che cerca l'incidente aperto creato in precedenza — cerca per il `event_id` Zabbix che hai salvato nella descrizione o in un'etichetta.
 4. Collegalo a un blocco **Update Incident** e sposta l'incidente nel tuo stato _risolto_.
 
-Poiché la risoluzione dipende da come modelli gli stati degli incidenti nel tuo progetto, mantieni il percorso di **creazione** come base affidabile e aggiungi il percorso di risoluzione una volta confermato che gli eventi fluiscono correttamente. Vedi [Componenti → Componenti per i dati di Cast Operations](/docs/workflows/components#oneuptime-data-components).
+Poiché la risoluzione dipende da come modelli gli stati degli incidenti nel tuo progetto, mantieni il percorso di **creazione** come base affidabile e aggiungi il percorso di risoluzione una volta confermato che gli eventi fluiscono correttamente. Vedi [Componenti → Componenti per i dati di Cast Operations](/docs/workflows/components#cast-operations-data-components).
 
 ## Mappatura delle severità Zabbix (opzionale)
 

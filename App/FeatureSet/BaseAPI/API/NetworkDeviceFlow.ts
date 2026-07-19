@@ -1,6 +1,6 @@
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { JSONObject } from "Common/Types/JSON";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import UserMiddleware from "Common/Server/Middleware/UserAuthorization";
 import CommonAPI from "Common/Server/API/CommonAPI";
@@ -57,7 +57,7 @@ function parseOptionalDate(value: unknown, field: string): Date | null {
   if (typeof value !== "string") {
     throw new BadDataException(`${field} must be a date string`);
   }
-  const parsed: Date = OneUptimeDate.fromString(value);
+  const parsed: Date = OperationsDate.fromString(value);
   if (isNaN(parsed.getTime())) {
     throw new BadDataException(`${field} is not a valid date`);
   }
@@ -132,10 +132,10 @@ export default class NetworkDeviceFlowAPI {
           // Default window: the last hour, ending now.
           const endTime: Date =
             parseOptionalDate(body["endTime"], "endTime") ||
-            OneUptimeDate.getCurrentDate();
+            OperationsDate.getCurrentDate();
           const startTime: Date =
             parseOptionalDate(body["startTime"], "startTime") ||
-            OneUptimeDate.addRemoveMinutes(endTime, -DEFAULT_WINDOW_MINUTES);
+            OperationsDate.addRemoveMinutes(endTime, -DEFAULT_WINDOW_MINUTES);
 
           if (endTime.getTime() <= startTime.getTime()) {
             throw new BadDataException("endTime must be after startTime");
@@ -152,13 +152,13 @@ export default class NetworkDeviceFlowAPI {
 
           const databaseName: string =
             NetworkFlowService.database.getDatasourceOptions().database ||
-            "oneuptime";
+            "cast-operations";
           const tableRef: string = `${databaseName}.${NetworkFlowService.model.tableName}`;
 
           const projectIdSql: string = escapeSql(props.tenantId.toString());
           const deviceIdSql: string = escapeSql(device.id.toString());
-          const startSql: string = `toDateTime64('${OneUptimeDate.toClickhouseDateTime64(startTime)}', 9)`;
-          const endSql: string = `toDateTime64('${OneUptimeDate.toClickhouseDateTime64(endTime)}', 9)`;
+          const startSql: string = `toDateTime64('${OperationsDate.toClickhouseDateTime64(startTime)}', 9)`;
+          const endSql: string = `toDateTime64('${OperationsDate.toClickhouseDateTime64(endTime)}', 9)`;
 
           const whereClause: string = `
             WHERE projectId = '${projectIdSql}'
@@ -258,8 +258,8 @@ export default class NetworkDeviceFlowAPI {
 
           return Response.sendJsonObjectResponse(req, res, {
             networkDeviceId: device.id.toString(),
-            windowStartAt: OneUptimeDate.toString(startTime),
-            windowEndAt: OneUptimeDate.toString(endTime),
+            windowStartAt: OperationsDate.toString(startTime),
+            windowEndAt: OperationsDate.toString(endTime),
             totalOctets: Number(totalsRows[0]?.["totalOctets"]) || 0,
             totalPackets: Number(totalsRows[0]?.["totalPackets"]) || 0,
             totalFlows: Number(totalsRows[0]?.["totalFlows"]) || 0,

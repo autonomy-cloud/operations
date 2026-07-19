@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### Anpassade mätvärden
 
-Du kan registrera anpassade mätvärden från ditt skript med funktionen `oneuptime.captureMetric()`. Dessa mätvärden lagras i Cast Operations och kan visas i diagram på instrumentpaneler med hjälp av Metric Explorer.
+Du kan registrera anpassade mätvärden från ditt skript med funktionen `cast-operations.captureMetric()`. Dessa mätvärden lagras i Cast Operations och kan visas i diagram på instrumentpaneler med hjälp av Metric Explorer.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (sträng, obligatorisk): Mätvärdets namn (t.ex. `"api.response.time"`). Det lagras automatiskt med prefixet `custom.monitor.`.
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // Capture a simple metric
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // Capture a metric with attributes
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ När de väl har registrerats visas dessa mätvärden i Metric Explorer under na
 - `axios`: Du kan använda den här modulen för att göra HTTP-förfrågningar. Det är en promise-baserad HTTP-klient för webbläsaren och Node.js.
 - `crypto`: Du kan använda den här modulen för kryptografiska operationer. Det är en inbyggd Node.js-modul som tillhandahåller kryptografisk funktionalitet.
 - `console.log`: Du kan använda den här modulen för att logga data till konsolen. Detta är användbart för felsökning.
-- `oneuptime.captureMetric`: Du kan använda detta för att registrera anpassade mätvärden från ditt skript. Se avsnittet Anpassade mätvärden ovan.
+- `cast-operations.captureMetric`: Du kan använda detta för att registrera anpassade mätvärden från ditt skript. Se avsnittet Anpassade mätvärden ovan.
 - `http`: Du kan använda den här modulen för att göra HTTP-förfrågningar. Det är en inbyggd Node.js-modul som tillhandahåller en HTTP-klient och server.
 - `https`: Du kan använda den här modulen för att göra HTTPS-förfrågningar. Det är en inbyggd Node.js-modul som tillhandahåller en HTTPS-klient och server.
 

@@ -1,15 +1,15 @@
 ---
 name: verify
-description: Drive the local OneUptime dev stack end-to-end (login, dashboard UI) to verify changes at runtime.
+description: Drive the local CastOperations dev stack end-to-end (login, dashboard UI) to verify changes at runtime.
 ---
 
 # Verifying changes against the local dev stack
 
 ## Stack layout
 
-- The dev stack runs in docker compose: `oneuptime-app-1` (all FeatureSets,
+- The dev stack runs in docker compose: `cast-operations-app-1` (all FeatureSets,
   `npm run dev` with host source mounted — edits hot-restart via nodemon),
-  `oneuptime-postgres-1`, `oneuptime-clickhouse-1`, `oneuptime-ingress-1`
+  `cast-operations-postgres-1`, `cast-operations-clickhouse-1`, `cast-operations-ingress-1`
   (nginx on host port 80).
 - App URL: `http://localhost/dashboard/` (302→200 when up, 502 while the app
   boots). Accounts app: `http://localhost/accounts/login`.
@@ -41,8 +41,8 @@ description: Drive the local OneUptime dev stack end-to-end (login, dashboard UI
 
 ## Telemetry test data
 
-- ClickHouse tables: `oneuptime.SpanItemV3`, `LogItemV3`, `MetricItemV3…`.
-  Query via `docker exec oneuptime-clickhouse-1 clickhouse-client -q "…"`.
+- ClickHouse tables: `cast-operations.SpanItemV3`, `LogItemV3`, `MetricItemV3…`.
+  Query via `docker exec cast-operations-clickhouse-1 clickhouse-client -q "…"`.
 - The seeded spans are old/nameless; INSERT fresh rows (projectId,
   primaryEntityId 'OpenTelemetry', name, statusCode, isRootSpan=true, recent
   startTime + matching UnixNano columns, retentionDate) so charts show data

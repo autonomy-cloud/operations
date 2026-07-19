@@ -10,7 +10,7 @@ Du skal sørge for, at du har:
 ```
 # Klon dette repo og gå ind i mappen.
 git clone https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # Kopiér config.example.env til config.env
 cp config.example.env config.env

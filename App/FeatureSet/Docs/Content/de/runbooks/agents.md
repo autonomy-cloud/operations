@@ -49,18 +49,18 @@ Führen Sie den Docker-Befehl auf einem beliebigen Host in Ihrer Umgebung aus, d
 - das tun kann, was Ihre Bash-/JavaScript-Schritte tun sollen (z. B. SSH zu anderen Hosts, `kubectl`, mit einer Datenbank sprechen).
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.yourdomain.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.yourdomain.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. Verifizieren, dass der Agent verbunden ist
 
 Gehen Sie zurück zu **Runbooks → Settings → Agents**. Innerhalb von ~60 Sekunden sollte die Zeile des Agents auf `Connected` umschalten und einen frischen **Last seen**-Zeitstempel zeigen. Wenn er auf `Disconnected` bleibt:
 
-- Prüfen Sie die Container-Logs (`docker logs oneuptime-runbook-agent`) auf Auth-Fehler oder Netzwerkprobleme.
+- Prüfen Sie die Container-Logs (`docker logs cast-operations-runbook-agent`) auf Auth-Fehler oder Netzwerkprobleme.
 - Verifizieren Sie, dass der Host Ihre Cast Operations-URL mit `curl` erreicht.
 - Verifizieren Sie, dass ID und Schlüssel ohne Whitespace kopiert wurden.
 
@@ -116,7 +116,7 @@ Der Agent liest diese beim Start ein:
 
 | Variable                                  | Erforderlich | Standard | Hinweise                                                                     |
 | ----------------------------------------- | ------------ | -------- | ---------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | ja           | —        | Basis-URL Ihrer Cast Operations-Instanz, z. B. `https://operations.yourdomain.com`. |
+| `CAST_OPERATIONS_URL`                           | ja           | —        | Basis-URL Ihrer Cast Operations-Instanz, z. B. `https://operations.yourdomain.com`. |
 | `RUNBOOK_AGENT_ID`                        | ja           | —        | Die UUID, die im Setup-Modal des Agents angezeigt wird.                      |
 | `RUNBOOK_AGENT_KEY`                       | ja           | —        | Das Secret, das im Setup-Modal des Agents angezeigt wird.                    |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | nein         | `5000`   | Wie oft der Agent nach neuen Jobs fragt.                                     |

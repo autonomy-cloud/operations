@@ -10,7 +10,7 @@
 ```
 # Клонируйте репозиторий и перейдите в него.
 git clone https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # Скопируйте config.example.env в config.env
 cp config.example.env config.env

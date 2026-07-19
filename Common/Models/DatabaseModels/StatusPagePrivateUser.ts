@@ -3,11 +3,9 @@ import StatusPage from "./StatusPage";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import OwnedThrough from "../../Types/Database/AccessControl/OwnedThrough";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import CanAccessIfCanReadOn from "../../Types/Database/CanAccessIfCanReadOn";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import ColumnType from "../../Types/Database/ColumnType";
@@ -27,12 +25,6 @@ import Permission from "../../Types/Permission";
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 
 @EnableDocumentation()
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Growth,
-  update: PlanType.Growth,
-  delete: PlanType.Growth,
-})
 @CanAccessIfCanReadOn("statusPage")
 @TenantColumn("projectId")
 @TableAccessControl({
@@ -160,7 +152,8 @@ export default class StatusPagePrivateUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

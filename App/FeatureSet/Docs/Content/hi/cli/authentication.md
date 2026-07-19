@@ -7,7 +7,7 @@ Cast Operations CLI आपके Cast Operations instance के साथ authe
 API key का उपयोग करके अपने Cast Operations instance के साथ authenticate करें:
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **Arguments:**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # डिफ़ॉल्ट context के साथ login करें
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # named context के साथ login करें
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # अनेक environments सेट अप करें
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Contexts
@@ -44,7 +44,7 @@ Contexts आपको कई Cast Operations environments (जैसे producti
 ### Contexts सूचीबद्ध करें
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 सभी configured contexts प्रदर्शित करता है। वर्तमान context `*` से चिह्नित होता है।
@@ -52,23 +52,23 @@ oneuptime context list
 ### Context Switch करें
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 सभी subsequent commands के लिए एक अलग named context पर switch करें।
 
 ```bash
 # staging पर switch करें
-oneuptime context use staging
+cast-operations context use staging
 
 # production पर switch करें
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### वर्तमान Context देखें
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 वर्तमान active context प्रदर्शित करता है, जिसमें instance URL और masked API key शामिल है।
@@ -76,7 +76,7 @@ oneuptime context current
 ### एक Context हटाएं
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 एक named context हटाएं। यदि deleted context वर्तमान है, तो CLI स्वचालित रूप से पहले शेष context पर switch करती है।
@@ -86,7 +86,7 @@ oneuptime context delete <name>
 Credentials को निम्नलिखित प्राथमिकता क्रम में resolve किया जाता है:
 
 1. **CLI flags** (`--api-key` और `--url`)
-2. **Environment variables** (`ONEUPTIME_API_KEY` और `ONEUPTIME_URL`)
+2. **Environment variables** (`CAST_OPERATIONS_API_KEY` और `CAST_OPERATIONS_URL`)
 3. **Named context** (`--context` flag के माध्यम से)
 4. **Current context** (saved configuration से)
 
@@ -95,22 +95,22 @@ Credentials को निम्नलिखित प्राथमिकता
 ### CLI Flags का उपयोग
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Environment Variables का उपयोग
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### एक Specific Context का उपयोग
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## Authentication सत्यापित करें
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 अपनी वर्तमान authentication status जांचें:
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 यह प्रदर्शित करता है:
@@ -127,11 +127,11 @@ oneuptime whoami
 - Masked API key
 - वर्तमान context नाम (केवल तभी दिखाया जाता है जब कोई saved context active हो)
 
-यदि authenticated नहीं है, तो command एक सहायक संदेश दिखाता है जो `oneuptime login` चलाने का सुझाव देता है।
+यदि authenticated नहीं है, तो command एक सहायक संदेश दिखाता है जो `cast-operations login` चलाने का सुझाव देता है।
 
 ## Configuration फ़ाइल
 
-Credentials प्रतिबंधित permissions (`0600`) के साथ `~/.oneuptime/config.json` में संग्रहीत होते हैं।
+Credentials प्रतिबंधित permissions (`0600`) के साथ `~/.cast-operations/config.json` में संग्रहीत होते हैं।
 
 ```json
 {

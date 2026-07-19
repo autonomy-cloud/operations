@@ -8,17 +8,12 @@ import Express, {
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import BadDataException from "../../Types/Exception/BadDataException";
-import PaymentRequiredException from "../../Types/Exception/PaymentRequiredException";
 import NotAuthorizedException from "../../Types/Exception/NotAuthorizedException";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import PositiveNumber from "../../Types/PositiveNumber";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import SubscriptionPlan, {
-  PlanType,
-} from "../../Types/Billing/SubscriptionPlan";
-import { IsBillingEnabled, getAllEnvVars } from "../EnvironmentConfig";
 import AIChatMessageRole from "../../Types/AI/AIChatMessageRole";
 import AIChatMessageStatus from "../../Types/AI/AIChatMessageStatus";
 import {
@@ -157,27 +152,6 @@ router.post(
           req.body["pageContext"] as JSONObject | undefined,
         );
 
-      // Plan gate: custom endpoints get no automatic billing check.
-      if (
-        IsBillingEnabled &&
-        props.currentPlan &&
-        !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-          PlanType.Growth,
-          props.currentPlan,
-          getAllEnvVars(),
-        )
-      ) {
-        throw new PaymentRequiredException(
-          "Please upgrade your plan to Growth to use AI chat.",
-        );
-      }
-
-      if (IsBillingEnabled && props.isSubscriptionUnpaid) {
-        throw new PaymentRequiredException(
-          "Your subscription is unpaid. Please update your payment method to use AI chat.",
-        );
-      }
-
       /*
        * Project AI toggle and the project-wide volume governor (parallel —
        * independent reads).
@@ -205,7 +179,7 @@ router.post(
 
       if (project && project.enableAi === false) {
         throw new BadDataException(
-          "AI features are disabled for this project. Enable them in Project Settings > AI Credits.",
+          "AI features are disabled for this project. Enable them in Project Settings > AI.",
         );
       }
 
@@ -216,8 +190,7 @@ router.post(
       }
 
       /*
-       * Find or create the conversation (created with the USER's props so
-       * RBAC and the Growth billing gate are enforced by the normal chain).
+       * Find or create the conversation with the user's normal RBAC context.
        */
       let conversationId: ObjectID | undefined = undefined;
 
@@ -346,8 +319,8 @@ router.post(
       run.status = AIRunStatus.Running;
       run.userId = userId;
       run.conversationId = conversationId;
-      run.startedAt = OneUptimeDate.getCurrentDate();
-      run.lastHeartbeatAt = OneUptimeDate.getCurrentDate();
+      run.startedAt = OperationsDate.getCurrentDate();
+      run.lastHeartbeatAt = OperationsDate.getCurrentDate();
 
       const createdRun: AIRun = await AIRunService.create({
         data: run,
@@ -383,7 +356,7 @@ router.post(
           id: createdRun.id!,
           data: {
             status: AIRunStatus.Cancelled,
-            completedAt: OneUptimeDate.getCurrentDate(),
+            completedAt: OperationsDate.getCurrentDate(),
             errorMessage:
               "Cancelled: another response was already being generated in this conversation.",
           } as never,
@@ -432,7 +405,7 @@ router.post(
       await AIConversationService.updateOneById({
         id: conversationId,
         data: {
-          lastMessageAt: OneUptimeDate.getCurrentDate(),
+          lastMessageAt: OperationsDate.getCurrentDate(),
         } as never,
         props: { isRoot: true },
       });

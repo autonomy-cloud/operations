@@ -7,39 +7,39 @@ Cast Operations CLI 为所有支持的资源提供完整的 CRUD（创建、读�
 运行以下命令查看所有可用的资源类型：
 
 ```bash
-oneuptime resources
+cast-operations resources
 ```
 
 您可以按类型过滤：
 
 ```bash
 # 仅显示数据库资源
-oneuptime resources --type database
+cast-operations resources --type database
 
 # 仅显示分析资源
-oneuptime resources --type analytics
+cast-operations resources --type analytics
 ```
 
 常用资源包括：
 
 | 资源         | 命令                                    |
 | ------------ | --------------------------------------- |
-| 事件         | `oneuptime incident`                    |
-| 告警         | `oneuptime alert`                       |
-| 监控器       | `oneuptime monitor`                     |
-| 监控器状态   | `oneuptime monitor-status`              |
-| 事件状态     | `oneuptime incident-state`              |
-| 状态页面     | `oneuptime status-page`                 |
-| 值班策略     | `oneuptime on-call-policy`              |
-| 团队         | `oneuptime team`                        |
-| 计划维护事件 | `oneuptime scheduled-maintenance-event` |
+| 事件         | `cast-operations incident`                    |
+| 告警         | `cast-operations alert`                       |
+| 监控器       | `cast-operations monitor`                     |
+| 监控器状态   | `cast-operations monitor-status`              |
+| 事件状态     | `cast-operations incident-state`              |
+| 状态页面     | `cast-operations status-page`                 |
+| 值班策略     | `cast-operations on-call-policy`              |
+| 团队         | `cast-operations team`                        |
+| 计划维护事件 | `cast-operations scheduled-maintenance-event` |
 
 ## 列出资源
 
 获取资源列表，支持可选的过滤、分页和排序。
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 **选项：**
@@ -56,19 +56,19 @@ oneuptime <resource> list [options]
 
 ```bash
 # 列出最近 10 个事件
-oneuptime incident list
+cast-operations incident list
 
 # 按状态 ID 过滤事件
-oneuptime incident list --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident list --query '{"currentIncidentStateId":"<state-id>"}'
 
 # 带分页的列表
-oneuptime incident list --limit 20 --skip 40
+cast-operations incident list --limit 20 --skip 40
 
 # 按创建日期降序排序
-oneuptime incident list --sort '{"createdAt":-1}'
+cast-operations incident list --sort '{"createdAt":-1}'
 
 # 以 JSON 格式输出
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ## 获取资源
@@ -76,7 +76,7 @@ oneuptime incident list -o json
 通过 ID 获取单个资源。
 
 ```bash
-oneuptime <resource> get <id>
+cast-operations <resource> get <id>
 ```
 
 **参数：**
@@ -89,10 +89,10 @@ oneuptime <resource> get <id>
 
 ```bash
 # 获取特定事件
-oneuptime incident get 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident get 550e8400-e29b-41d4-a716-446655440000
 
 # 以 JSON 格式获取监控器
-oneuptime monitor get abc-123 -o json
+cast-operations monitor get abc-123 -o json
 ```
 
 ## 创建资源
@@ -100,7 +100,7 @@ oneuptime monitor get abc-123 -o json
 从内联 JSON 或文件创建新资源。
 
 ```bash
-oneuptime <resource> create [options]
+cast-operations <resource> create [options]
 ```
 
 **选项：**
@@ -117,13 +117,13 @@ oneuptime <resource> create [options]
 
 ```bash
 # 使用内联 JSON 创建事件
-oneuptime incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
+cast-operations incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
 
 # 从 JSON 文件创建
-oneuptime incident create --file incident.json
+cast-operations incident create --file incident.json
 
 # 创建并以 JSON 格式输出以捕获 ID
-oneuptime monitor create --data '{"name":"API Health Check"}' -o json
+cast-operations monitor create --data '{"name":"API Health Check"}' -o json
 ```
 
 ## 更新资源
@@ -131,7 +131,7 @@ oneuptime monitor create --data '{"name":"API Health Check"}' -o json
 通过 ID 更新现有资源。
 
 ```bash
-oneuptime <resource> update <id> [options]
+cast-operations <resource> update <id> [options]
 ```
 
 **参数：**
@@ -151,10 +151,10 @@ oneuptime <resource> update <id> [options]
 
 ```bash
 # 更改事件状态（例如更改为已解决）
-oneuptime incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
+cast-operations incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
 
 # 重命名监控器
-oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
+cast-operations monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 ```
 
 ## 删除资源
@@ -162,7 +162,7 @@ oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 通过 ID 删除资源。
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 **参数：**
@@ -180,11 +180,11 @@ oneuptime <resource> delete <id> [--force]
 **示例：**
 
 ```bash
-oneuptime incident delete abc-123
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident delete abc-123
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000
 
 # 跳过确认
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 ```
 
 ## 统计资源数量
@@ -192,7 +192,7 @@ oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 统计符合可选过滤条件的资源数量。
 
 ```bash
-oneuptime <resource> count [options]
+cast-operations <resource> count [options]
 ```
 
 **选项：**
@@ -205,13 +205,13 @@ oneuptime <resource> count [options]
 
 ```bash
 # 统计所有事件
-oneuptime incident count
+cast-operations incident count
 
 # 按状态统计事件
-oneuptime incident count --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident count --query '{"currentIncidentStateId":"<state-id>"}'
 
 # 统计监控器数量
-oneuptime monitor count
+cast-operations monitor count
 ```
 
 ## 分析资源
@@ -227,4 +227,4 @@ oneuptime monitor count
 | `update` | 否       |
 | `delete` | 否       |
 
-使用 `oneuptime resources --type analytics` 查看您的实例上可用的分析资源。
+使用 `cast-operations resources --type analytics` 查看您的实例上可用的分析资源。

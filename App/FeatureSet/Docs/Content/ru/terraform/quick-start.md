@@ -35,7 +35,7 @@
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       # Для облачных пользователей
       version = "~> 7.0"
@@ -47,17 +47,17 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
+provider "cast-operations" {
   # Для облачных пользователей
-  oneuptime_url = "https://visca.ai"
+  cast_operations_url = "https://visca.ai"
 
   # Для пользователей с самостоятельным хостингом — используйте URL вашего экземпляра
-  # oneuptime_url = "https://operations.yourcompany.com"
+  # cast_operations_url = "https://operations.yourcompany.com"
 
-  api_key = var.oneuptime_api_key
+  api_key = var.cast_operations_api_key
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "API-ключ Cast Operations"
   type        = string
   sensitive   = true
@@ -71,7 +71,7 @@ variable "project_id" {
 }
 
 # Создание простого монитора сайта
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Website Monitor"
   description = "Монитор доступности сайта"
   data        = jsonencode({
@@ -83,7 +83,7 @@ resource "oneuptime_monitor" "website" {
 
 # Вывод идентификатора монитора
 output "monitor_id" {
-  value = oneuptime_monitor.website.id
+  value = cast_operations_monitor.website.id
 }
 ```
 
@@ -93,7 +93,7 @@ output "monitor_id" {
 
 ```hcl
 # terraform.tfvars
-oneuptime_api_key = "your-api-key-here"
+cast_operations_api_key = "your-api-key-here"
 project_id        = "your-project-id-here"  # Получите из панели управления Cast Operations
 ```
 
@@ -132,16 +132,16 @@ terraform apply
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Всегда получает последнюю совместимую версию 7.x
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -150,16 +150,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Должно точно совпадать с вашей версией Cast Operations
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.mycompany.com"  # URL вашего самостоятельного хостинга
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.mycompany.com"  # URL вашего самостоятельного хостинга
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -183,7 +183,7 @@ Error: Invalid API key
 
 1. Проверьте API-ключ в панели управления Cast Operations
 2. Убедитесь, что API-ключ имеет достаточные разрешения
-3. Убедитесь в правильности `oneuptime_url` для вашего экземпляра
+3. Убедитесь в правильности `cast_operations_url` для вашего экземпляра
 
 ### Проблема: Несовпадение версий (самостоятельный хостинг)
 

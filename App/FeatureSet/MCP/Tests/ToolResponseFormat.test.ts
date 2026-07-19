@@ -12,13 +12,13 @@
 
 import { describe, it, expect } from "@jest/globals";
 import { formatToolResponse } from "../Handlers/ToolHandler";
-import { McpToolInfo, OneUptimeToolCallArgs } from "../Types/McpTypes";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import { McpToolInfo, OperationsToolCallArgs } from "../Types/McpTypes";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 import { JSONObject } from "Common/Types/JSON";
 
 function makeTool(
-  operation: OneUptimeOperation,
+  operation: OperationsOperation,
   singularName: string = "Incident",
   pluralName: string = "Incidents",
 ): McpToolInfo {
@@ -46,9 +46,9 @@ describe("formatToolResponse", () => {
   describe("list responses", () => {
     it("computes hasMore=true from skip + returned items vs total count", () => {
       const result: JSONObject = formatToolResponse(
-        makeTool(OneUptimeOperation.List),
+        makeTool(OperationsOperation.List),
         { data: makeItems(5), count: 12 },
-        { skip: 0, limit: 5 } as OneUptimeToolCallArgs,
+        { skip: 0, limit: 5 } as OperationsToolCallArgs,
       );
 
       expect(result["success"]).toBe(true);
@@ -65,9 +65,9 @@ describe("formatToolResponse", () => {
 
     it("computes hasMore=false when all matching rows were returned", () => {
       const result: JSONObject = formatToolResponse(
-        makeTool(OneUptimeOperation.List),
+        makeTool(OperationsOperation.List),
         { data: makeItems(3), count: 3 },
-        { limit: 10 } as OneUptimeToolCallArgs,
+        { limit: 10 } as OperationsToolCallArgs,
       );
 
       expect(result["returnedCount"]).toBe(3);
@@ -78,9 +78,9 @@ describe("formatToolResponse", () => {
 
     it("does NOT truncate items (no preview limit)", () => {
       const result: JSONObject = formatToolResponse(
-        makeTool(OneUptimeOperation.List),
+        makeTool(OperationsOperation.List),
         { data: makeItems(25), count: 100 },
-        { limit: 25 } as OneUptimeToolCallArgs,
+        { limit: 25 } as OperationsToolCallArgs,
       );
 
       expect(result["data"]).toHaveLength(25);
@@ -91,9 +91,9 @@ describe("formatToolResponse", () => {
 
     it("accounts for skip when computing hasMore", () => {
       const result: JSONObject = formatToolResponse(
-        makeTool(OneUptimeOperation.List),
+        makeTool(OperationsOperation.List),
         { data: makeItems(5), count: 10 },
-        { skip: 5, limit: 5 } as OneUptimeToolCallArgs,
+        { skip: 5, limit: 5 } as OperationsToolCallArgs,
       );
 
       // skip(5) + returned(5) === total(10): nothing left.
@@ -102,9 +102,9 @@ describe("formatToolResponse", () => {
 
     it("falls back to a full-page heuristic when the API total is absent", () => {
       const result: JSONObject = formatToolResponse(
-        makeTool(OneUptimeOperation.List),
+        makeTool(OperationsOperation.List),
         makeItems(10),
-        {} as OneUptimeToolCallArgs,
+        {} as OperationsToolCallArgs,
       );
 
       // Bare array, default limit 10 → a full page implies more may exist.
@@ -115,9 +115,9 @@ describe("formatToolResponse", () => {
 
     it("reports an empty result set with a friendly message", () => {
       const result: JSONObject = formatToolResponse(
-        makeTool(OneUptimeOperation.List),
+        makeTool(OperationsOperation.List),
         { data: [], count: 0 },
-        {} as OneUptimeToolCallArgs,
+        {} as OperationsToolCallArgs,
       );
 
       expect(result["returnedCount"]).toBe(0);
@@ -130,12 +130,12 @@ describe("formatToolResponse", () => {
     it("has no data field and points at the get_* tool", () => {
       const result: JSONObject = formatToolResponse(
         makeTool(
-          OneUptimeOperation.Update,
+          OperationsOperation.Update,
           "On-Call Duty Policy",
           "On-Call Duty Policies",
         ),
         undefined,
-        { id: "abc-123" } as OneUptimeToolCallArgs,
+        { id: "abc-123" } as OperationsToolCallArgs,
       );
 
       expect(result["success"]).toBe(true);
@@ -151,9 +151,9 @@ describe("formatToolResponse", () => {
   describe("read responses", () => {
     it("wraps a found record", () => {
       const result: JSONObject = formatToolResponse(
-        makeTool(OneUptimeOperation.Read),
+        makeTool(OperationsOperation.Read),
         { _id: "abc", title: "Found" },
-        { id: "abc" } as OneUptimeToolCallArgs,
+        { id: "abc" } as OperationsToolCallArgs,
       );
 
       expect(result["success"]).toBe(true);
@@ -164,12 +164,12 @@ describe("formatToolResponse", () => {
     it("suggests the sanitized list tool name when not found", () => {
       const result: JSONObject = formatToolResponse(
         makeTool(
-          OneUptimeOperation.Read,
+          OperationsOperation.Read,
           "On-Call Duty Policy",
           "On-Call Duty Policies",
         ),
         null,
-        { id: "missing-id" } as OneUptimeToolCallArgs,
+        { id: "missing-id" } as OperationsToolCallArgs,
       );
 
       expect(result["success"]).toBe(false);
@@ -181,9 +181,9 @@ describe("formatToolResponse", () => {
   describe("count responses", () => {
     it("unwraps a { count } payload", () => {
       const result: JSONObject = formatToolResponse(
-        makeTool(OneUptimeOperation.Count),
+        makeTool(OperationsOperation.Count),
         { count: 42 },
-        {} as OneUptimeToolCallArgs,
+        {} as OperationsToolCallArgs,
       );
 
       expect(result["success"]).toBe(true);
@@ -194,9 +194,9 @@ describe("formatToolResponse", () => {
   describe("create responses", () => {
     it("passes the created record through", () => {
       const result: JSONObject = formatToolResponse(
-        makeTool(OneUptimeOperation.Create),
+        makeTool(OperationsOperation.Create),
         { _id: "new-1" },
-        {} as OneUptimeToolCallArgs,
+        {} as OperationsToolCallArgs,
       );
 
       expect(result["success"]).toBe(true);

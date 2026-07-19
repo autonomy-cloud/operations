@@ -121,10 +121,10 @@ console.log(stringSecret);
 
 ### Metriche Personalizzate
 
-È possibile acquisire metriche personalizzate dallo script usando la funzione `oneuptime.captureMetric()`. Queste metriche vengono archiviate in Cast Operations e possono essere visualizzate in grafici sui dashboard usando Metric Explorer.
+È possibile acquisire metriche personalizzate dallo script usando la funzione `cast-operations.captureMetric()`. Queste metriche vengono archiviate in Cast Operations e possono essere visualizzate in grafici sui dashboard usando Metric Explorer.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (stringa, obbligatorio): Il nome della metrica (ad es. `"dashboard.load.time"`). Verrà archiviato automaticamente con il prefisso `custom.monitor.`.
@@ -141,7 +141,7 @@ await page.waitForSelector("#dashboard-loaded");
 const loadTime = Date.now() - startTime;
 
 // Acquisire il tempo di caricamento della pagina come metrica personalizzata
-oneuptime.captureMetric("dashboard.load.time", loadTime, {
+cast-operations.captureMetric("dashboard.load.time", loadTime, {
   page: "dashboard",
 });
 
@@ -167,7 +167,7 @@ Una volta acquisite, queste metriche appaiono in Metric Explorer con nomi come `
 - `axios`: È possibile usare questo modulo per fare richieste HTTP. È un client HTTP basato su promise per il browser e Node.js.
 - `crypto`: È possibile usare questo modulo per eseguire operazioni crittografiche. È un modulo Node.js integrato che fornisce funzionalità crittografiche che includono un set di wrapper per le funzioni hash, HMAC, cipher, decipher, sign e verify di OpenSSL.
 - `console.log`: È possibile usare questo modulo per registrare dati nella console. Questo è utile per il debug.
-- `oneuptime.captureMetric`: È possibile usare questo per acquisire metriche personalizzate dallo script. Vedere la sezione Metriche Personalizzate sopra.
+- `cast-operations.captureMetric`: È possibile usare questo per acquisire metriche personalizzate dallo script. Vedere la sezione Metriche Personalizzate sopra.
 - `http`: È possibile usare questo modulo per fare richieste HTTP. È un modulo Node.js integrato che fornisce un client e un server HTTP.
 - `https`: È possibile usare questo modulo per fare richieste HTTPS. È un modulo Node.js integrato che fornisce un client e un server HTTPS.
 

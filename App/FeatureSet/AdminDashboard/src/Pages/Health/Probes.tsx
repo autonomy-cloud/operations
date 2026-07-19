@@ -4,7 +4,7 @@ import RouteMap from "../../Utils/RouteMap";
 import HealthPage from "./HealthPage";
 import Route from "Common/Types/API/Route";
 import { Green, Red } from "Common/Types/BrandColors";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IsNull from "Common/Types/BaseDatabase/IsNull";
 import ModelTable from "Common/UI/Components/ModelTable/ModelTable";
 import ProbeElement from "Common/UI/Components/Probe/Probe";
@@ -73,9 +73,9 @@ const HealthProbes: FunctionComponent = (): ReactElement => {
               if (
                 item &&
                 item["lastAlive"] &&
-                OneUptimeDate.getNumberOfMinutesBetweenDates(
-                  OneUptimeDate.fromString(item["lastAlive"]),
-                  OneUptimeDate.getCurrentDate(),
+                OperationsDate.getNumberOfMinutesBetweenDates(
+                  OperationsDate.fromString(item["lastAlive"]),
+                  OperationsDate.getCurrentDate(),
                 ) < 5
               ) {
                 return (

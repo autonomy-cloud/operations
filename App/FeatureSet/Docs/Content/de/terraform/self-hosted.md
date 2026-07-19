@@ -34,14 +34,14 @@ curl https://your-operations-instance.com/api/status
 ### Methode 3: Docker-Images
 
 ```bash
-docker images | grep oneuptime
-# Nach dem Tag suchen, z. B. oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# Nach dem Tag suchen, z. B. cast-operations/dashboard:7.0.123
 ```
 
 ### Methode 4: Helm-Chart
 
 ```bash
-helm list -n oneuptime
+helm list -n cast-operations
 # Chart-Version prüfen
 ```
 
@@ -52,7 +52,7 @@ helm list -n oneuptime
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 123 durch Ihre genaue Build-Nummer ersetzen
     }
@@ -60,9 +60,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # Ihre selbst gehostete URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # Ihre selbst gehostete URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -80,7 +80,7 @@ terraform state pull > backup-$(date +%Y%m%d).tfstate
 curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Aktuelle Provider-Version notieren
-terraform providers | grep oneuptime
+terraform providers | grep cast-operations
 ```
 
 ### 2. Cast Operations-Instanz upgraden
@@ -93,7 +93,7 @@ Folgen Sie Ihrem Standard-Cast Operations-Upgrade-Prozess (Docker, Helm usw.)
 # Version im terraform-Block aktualisieren
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # Neue Version nach dem Upgrade
     }
@@ -120,10 +120,10 @@ terraform apply
 
 ```bash
 # Umgebungsvariablen verwenden
-export ONEUPTIME_API_KEY="your-api-key"
+export CAST_OPERATIONS_API_KEY="your-api-key"
 
 # Oder ein Geheimnisverwaltungssystem verwenden
-export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
+export CAST_OPERATIONS_API_KEY=$(vault kv get -field=api_key secret/cast-operations)
 ```
 
 ### 2. Minimale Berechtigungen
@@ -164,7 +164,7 @@ terraform/
 │       ├── main.tf
 │       └── terraform.tfvars
 └── modules/
-    └── oneuptime/
+    └── cast-operations/
         ├── main.tf
         ├── variables.tf
         └── outputs.tf

@@ -1,4 +1,4 @@
-name: oneuptime-snmp-simulator
+name: cast-operations-snmp-simulator
 
 # Two simulated switches on a dedicated bridge network with fixed IPs.
 # The Cast Operations probe runs with network_mode: host, so it can reach these
@@ -6,7 +6,7 @@ name: oneuptime-snmp-simulator
 services:
   switch-a:
     build: .
-    image: oneuptime-snmp-simulator:local
+    image: cast-operations-snmp-simulator:local
     restart: unless-stopped
     volumes:
       - ./data/switch-a:/data:ro
@@ -16,7 +16,7 @@ services:
 
   switch-b:
     build: .
-    image: oneuptime-snmp-simulator:local
+    image: cast-operations-snmp-simulator:local
     restart: unless-stopped
     volumes:
       - ./data/switch-b:/data:ro
@@ -30,7 +30,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.snmpd
-    image: oneuptime-snmp-simulator-snmpd:local
+    image: cast-operations-snmp-simulator-snmpd:local
     restart: unless-stopped
     networks:
       snmpsim:

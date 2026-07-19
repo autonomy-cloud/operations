@@ -16,7 +16,7 @@ Den här sidan är **installationsguiden**. För att konfigurera Kubernetes-moni
 ## Steg 1 — Lägg till Cast Operations Helm-arkivet
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 ```
 
@@ -34,27 +34,27 @@ Om du är osäker, börja med `standard`. Om installationen misslyckas med ett P
 
 ## Steg 3 — Installera Kubernetes-agenten
 
-Ersätt `YOUR_ONEUPTIME_URL`, `YOUR_ONEUPTIME_API_KEY` och klusternamnet med värden för din miljö. Klusternamnet är hur klustret kommer att visas i Cast Operations — välj något stabilt som `prod-us-east-1`.
+Ersätt `YOUR_CAST_OPERATIONS_URL`, `YOUR_CAST_OPERATIONS_API_KEY` och klusternamnet med värden för din miljö. Klusternamnet är hur klustret kommer att visas i Cast Operations — välj något stabilt som `prod-us-east-1`.
 
 ### Standardkluster (självhanterade, EKS på EC2, GKE Standard, AKS)
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster"
 ```
 
 ### GKE Autopilot
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set preset=gke-autopilot
 ```
@@ -62,11 +62,11 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 ### EKS Fargate
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set preset=eks-fargate
 ```
@@ -76,7 +76,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 Kontrollera att agentens poddar körs:
 
 ```bash
-kubectl get pods -n oneuptime-agent
+kubectl get pods -n cast-operations-agent
 ```
 
 På ett **standard**-kluster ser du en cluster-collector Deployment plus en node-collector DaemonSet-pod per nod:
@@ -123,11 +123,11 @@ Namespace-mönster matchar hela namnet och stöder * som jokertecken, till exemp
 Så här begränsar du poddloggar och eBPF-upptäckt till vissa namespaces:
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["default","production","staging"],"scopes":["podLogs","ebpfDiscovery"]}]'
 ```
@@ -220,8 +220,8 @@ Noteringar som kommer att bespara dig en incident:
 Filtren ovan tar bort en **kategori** av telemetri — en namnrymd, en allvarlighetsgrad, ett måttnamn. Sampling är annorlunda: den behåller varje kategori och tunnar ut populationen i stället. Sätt `sampling.traces.percentage` till den andel av spårningarna du vill behålla:
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --reuse-values \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --reuse-values \
   --set sampling.traces.percentage=10
 ```
 
@@ -256,11 +256,11 @@ Noteringar som kommer att bespara dig en incident:
 Om du inte behöver pod-loggar:
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set logs.enabled=false
 ```
@@ -287,11 +287,11 @@ Det uttryckliga `logs.mode` vinner alltid över förinställningens standard. An
 För självhanterade kluster (inte EKS / GKE / AKS) kan du aktivera kontrollplansmått:
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set controlPlane.enabled=true
 ```
@@ -300,29 +300,29 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
 ### Auto-tagga med projektetiketter
 
-Vilket resursattribut som helst med prefixet `oneuptime.label.` befordras till en projektetikett och kopplas till klustret, tjänsterna och värdarna som denna agent avger. Mönster: `oneuptime.label.<dimension>=<value>` blir en etikett med namnet `<dimension>:<value>`.
+Vilket resursattribut som helst med prefixet `cast-operations.label.` befordras till en projektetikett och kopplas till klustret, tjänsterna och värdarna som denna agent avger. Mönster: `cast-operations.label.<dimension>=<value>` blir en etikett med namnet `<dimension>:<value>`.
 
-Skicka etiketter vid installationen med `--set oneuptime.labels.<key>=<value>`:
+Skicka etiketter vid installationen med `--set cast-operations.labels.<key>=<value>`:
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="prod" \
-  --set oneuptime.labels.team=payments \
-  --set oneuptime.labels.env=production \
-  --set oneuptime.labels.region=us-east-1
+  --set cast-operations.labels.team=payments \
+  --set cast-operations.labels.env=production \
+  --set cast-operations.labels.region=us-east-1
 ```
 
 Eller behåll dem i en values-fil:
 
 ```yaml
 # values.yaml
-oneuptime:
-  url: YOUR_ONEUPTIME_URL
-  apiKey: YOUR_ONEUPTIME_API_KEY
+cast-operations:
+  url: YOUR_CAST_OPERATIONS_URL
+  apiKey: YOUR_CAST_OPERATIONS_API_KEY
   labels:
     team: payments
     env: production
@@ -336,8 +336,8 @@ Etiketter matchas skiftlägesokänsligt, så en befintlig manuellt skapad `Produ
 
 ```bash
 helm repo update
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --reuse-values
 ```
 
@@ -346,8 +346,8 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 ## Avinstallera agenten
 
 ```bash
-helm uninstall kubernetes-agent --namespace oneuptime-agent
-kubectl delete namespace oneuptime-agent
+helm uninstall kubernetes-agent --namespace cast-operations-agent
+kubectl delete namespace cast-operations-agent
 ```
 
 ## Vad som samlas in
@@ -381,11 +381,11 @@ Du bör inaktivera den när:
 - Du redan levererar spårningar via OpenTelemetry-SDK:er från dina appar och inte vill ha dubbletter.
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set ebpf.enabled=false
 ```
@@ -437,8 +437,8 @@ Containerloggar är nästan alltid den största delen av ingesten, eftersom det 
 - **Vill du bara ha loggar från vissa namespaces? Använd en include-regel med scopet podLogs. Matchningen sker vid loggkällan, så filtrerade namespaces läses aldrig och eBPF-telemetrin förblir oberoende.**
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["default","production"],"scopes":["podLogs"]}]'
   ```
 
@@ -447,8 +447,8 @@ Containerloggar är nästan alltid den största delen av ingesten, eftersom det 
 - **Bryr du dig bara om varningar och fel?** `filters.logs.minSeverity` släpper resten i agenten. På ett pratsamt kluster är detta ofta den enskilt största minskningen som finns att få, eftersom INFO och DEBUG utgör merparten av de flesta applikationers utdata:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set filters.logs.minSeverity=WARN
   ```
 
@@ -457,8 +457,8 @@ Containerloggar är nästan alltid den största delen av ingesten, eftersom det 
 - **Behöver du inte pod-loggar från Cast Operations alls?** Stäng av dem:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set logs.enabled=false
   ```
 
@@ -471,16 +471,16 @@ eBPF ger dig spårningar, RED-mått, tjänstekartan och nätverksflödesmått ut
 - **Levererar du redan spårningar från OTel-SDK:er, eller vill du inte ha auto-spårningar?** Stäng av eBPF helt:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set ebpf.enabled=false
   ```
 
 - **Behåll spårningarna, släng de tunga måttfamiljerna.** [Signalfamiljetabellen ovan](#växla-enskilda-signalfamiljer) listar varje `ebpf.features.*`-flagga. Familjerna med högst volym är nätverks- och span-mått — att stänga av dem lämnar spårningar, HTTP RED-mått och tjänstekartan intakta:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set ebpf.features.networkMetrics=false \
     --set ebpf.features.tcpStats=false \
     --set ebpf.features.spanMetrics=false
@@ -491,8 +491,8 @@ eBPF ger dig spårningar, RED-mått, tjänstekartan och nätverksflödesmått ut
 - **Instrumentera bara de körtider du bryr dig om.** Som standard kopplas OBI till varje process den känner igen (`ebpf.autoTargetExe: "*"`). Begränsa den till specifika körtider, eller lägg till binärer i hoppa-över-listan, för att minska antalet "tjänster" och spårningar agenten producerar:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set ebpf.autoTargetExe='*/python,*/java'
   ```
 
@@ -503,8 +503,8 @@ eBPF ger dig spårningar, RED-mått, tjänstekartan och nätverksflödesmått ut
 Måttvolymen är direkt proportionell mot hur ofta agenten skrapar. Att dubbla ett intervall halverar ungefär antalet datapunkter det måttet producerar, utan förlust av täckning — bara grövre upplösning. Om du inte behöver 30-sekundersgranularitet är 60s eller 120s en stor, säker minskning:
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --reuse-values \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --reuse-values \
   --set collectionInterval=60s \
   --set hostMetrics.collectionInterval=60s \
   --set cadvisor.scrapeInterval=60s
@@ -531,8 +531,8 @@ Kardinalitet (antalet distinkta tidsserier) spelar lika stor roll som frekvens, 
 - **Släpp specifika mått efter namn.** Tillåtelselistorna ovan gäller per mottagare; `filters.metrics.exclude` spänner över alla, så använd den för allt som rattarna på mottagarnivå inte kan uttrycka:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set filters.metrics.matchType=regexp \
     --set-json 'filters.metrics.exclude=["^container_network_"]'
   ```
@@ -542,8 +542,8 @@ Kardinalitet (antalet distinkta tidsserier) spelar lika stor roll som frekvens, 
 - **Vill du ta bort mätvärden för ett helt namespace? Lägg till en exclude-regel med scopet metrics. Serier per podd och container filtreras, medan nod- och klusterserier utan namespace behålls.**
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set-json 'namespaceFilters.rules=[{"action":"exclude","namespaces":["noisy-*"],"scopes":["metrics"]}]'
   ```
 
@@ -565,8 +565,8 @@ Dessa är **avstängda som standard** just för att de lägger till belastning �
 Varje spak ovan köper volym genom att ge upp något: en namnrymd du slutar bevaka, en allvarlighetsgrad du slutar behålla, en måttfamilj du slutar samla in. Sampling är undantaget, och på ett upptaget kluster är det ofta den största minskningen som finns att få för den minsta förlusten:
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --reuse-values \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --reuse-values \
   --set sampling.traces.percentage=10
 ```
 
@@ -589,9 +589,9 @@ Om du vill ha ett mindre fotavtryck men fortfarande vill att monitorerna ska fun
 
 ```yaml
 # lean-values.yaml
-oneuptime:
-  url: YOUR_ONEUPTIME_URL
-  apiKey: YOUR_ONEUPTIME_API_KEY
+cast-operations:
+  url: YOUR_CAST_OPERATIONS_URL
+  apiKey: YOUR_CAST_OPERATIONS_API_KEY
 clusterName: my-cluster
 
 # Halvera måttdatapunkterna. Grövre upplösning, samma täckning.
@@ -629,8 +629,8 @@ ebpf:
 ```
 
 ```bash
-helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --create-namespace \
+helm upgrade --install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --create-namespace \
   -f lean-values.yaml
 ```
 
@@ -648,7 +648,7 @@ Telemetrianvändning aggregeras per dag, så kontrollera trenden över en dag el
 >
 > ```bash
 > curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
->   | bash -s -- -n oneuptime-agent
+>   | bash -s -- -n cast-operations-agent
 > ```
 >
 > Det läser bara klustertillstånd och kör ett par sonder; det ändrar ingenting. För det mest exakta egress-testet, installera med `--set debug.enabled=true` först (detta lägger till en liten nätverksverktygs-sidecar till agentens poddar så att skriptet testar insamlarens exakta egress-väg), och kör sedan om.
@@ -658,8 +658,8 @@ Telemetrianvändning aggregeras per dag, så kontrollera trenden över en dag el
 Ditt kluster blockerar `hostPath` — vanligt på **GKE Autopilot** och **EKS Fargate**. Byt till API-lägesförinställningen:
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --reuse-values \
   --set preset=gke-autopilot   # or eks-fargate
 ```
@@ -670,20 +670,20 @@ Ett klusters anslutningsstatus drivs uteslutande av telemetri som anländer — 
 
 Den vanligaste anledningen — särskilt efter en ominstallation — är en **felaktig eller återkallad ingestnyckel**. Detta är lätt att missa eftersom OTLP-ingestslutpunkterna avsiktligt returnerar HTTP `200` även för en felaktig token (så att en felkonfigurerad insamlare inte kan översvämma servern med återförsök). Resultatet: insamlaren rapporterar framgång, dess loggar visar inga fel, och datan kastas tyst.
 
-1. Kontrollera att agentens poddar körs: `kubectl get pods -n oneuptime-agent`
-2. Kontrollera metrics-collector-loggarna: `kubectl logs -n oneuptime-agent -l component=metrics-collector -c otel-collector` (inga fel här betyder **inte** att data landar — se ovan)
+1. Kontrollera att agentens poddar körs: `kubectl get pods -n cast-operations-agent`
+2. Kontrollera metrics-collector-loggarna: `kubectl logs -n cast-operations-agent -l component=metrics-collector -c otel-collector` (inga fel här betyder **inte** att data landar — se ovan)
 3. **Validera ingestnyckeln.** Fråga Cast Operations direkt om din token accepteras (`200` = giltig, `401` = okänd/återkallad):
 
    ```bash
-   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
    ```
 
    Om det returnerar `401` är nyckeln i din release felaktig eller återkallad. Kopiera en aktiv nyckel från _Project Settings → Telemetry Ingestion Keys_ och distribuera om:
 
    ```bash
-   helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-     --namespace oneuptime-agent --reuse-values \
-     --set oneuptime.apiKey=<LIVE_KEY>
+   helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+     --namespace cast-operations-agent --reuse-values \
+     --set cast-operations.apiKey=<LIVE_KEY>
    ```
 
 4. Verifiera att din Cast Operations-URL är korrekt och att ditt kluster kan nå den över nätverket.
@@ -691,9 +691,9 @@ Den vanligaste anledningen — särskilt efter en ominstallation — är en **fe
 
 ### Inga loggar visas (endast API-läge)
 
-1. Bekräfta att loggläsar-podden är Ready: `kubectl get pods -n oneuptime-agent -l component=log-collector`
+1. Bekräfta att loggläsar-podden är Ready: `kubectl get pods -n cast-operations-agent -l component=log-collector`
 2. Kontrollera dess `/healthz` — den rapporterar antalet aktiva strömmar och det senaste exportfelet
-3. Kontrollera loggar: `kubectl logs -n oneuptime-agent deployment/kubernetes-agent-logs`
+3. Kontrollera loggar: `kubectl logs -n cast-operations-agent deployment/kubernetes-agent-logs`
 4. I mycket stora kluster kan en enda replika bli en flaskhals — dela upp separata releaser med podLogs-scopade include-regler i namespaceFilters.rules.
 
 ### Inga mått visas
@@ -706,7 +706,7 @@ Den vanligaste anledningen — särskilt efter en ominstallation — är en **fe
 ### eBPF-poddar är CrashLoopBackOff eller startar inte
 
 ```bash
-kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-agent -l component=ebpf-instrument --tail=200
 ```
 
 Vanliga orsaker:
@@ -717,8 +717,8 @@ Vanliga orsaker:
 
 ### Inga applikationsspårningar visas
 
-1. Bekräfta att eBPF-DaemonSet:en är frisk: `kubectl get pods -n oneuptime-agent -l component=ebpf-instrument`
-2. Slå på debug-spårningsskrivaren för att bekräfta att OBI fångar trafik: `--set ebpf.printTraces=true --set ebpf.logLevel=debug`, kontrollera sedan `kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200`
+1. Bekräfta att eBPF-DaemonSet:en är frisk: `kubectl get pods -n cast-operations-agent -l component=ebpf-instrument`
+2. Slå på debug-spårningsskrivaren för att bekräfta att OBI fångar trafik: `--set ebpf.printTraces=true --set ebpf.logLevel=debug`, kontrollera sedan `kubectl logs -n cast-operations-agent -l component=ebpf-instrument --tail=200`
 3. Om du ser spans i OBI:s stdout men inte i instrumentpanelen är problemet exporten insamlare → Cast Operations — kontrollera metrics-collector-poddens loggar.
 
 ## Nästa steg

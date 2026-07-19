@@ -192,7 +192,7 @@ To use Ceph monitoring, you need to:
 
 1. Enable the mgr prometheus module on the cluster: `ceph mgr module enable prometheus`
 2. Install the Cast Operations Ceph Agent on a machine that can reach every mgr daemon on port 9283 — see the [Ceph Agent installation guide](/docs/telemetry/ceph)
-3. Pass `ONEUPTIME_URL`, `ONEUPTIME_TELEMETRY_INGESTION_KEY`, `CEPH_CLUSTER_NAME`, and `CEPH_MGR_ENDPOINTS` (all mgrs, comma-separated, wrapped in square brackets) as environment variables
+3. Pass `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_TELEMETRY_INGESTION_KEY`, `CEPH_CLUSTER_NAME`, and `CEPH_MGR_ENDPOINTS` (all mgrs, comma-separated, wrapped in square brackets) as environment variables
 4. Wait for the cluster to auto-register (about a minute after the first scrape)
 
 ## Troubleshooting

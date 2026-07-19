@@ -15,7 +15,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -35,14 +35,14 @@ function makeLayer(): LayerProps {
   const rot: Recurring = new Recurring();
   rot.intervalType = EventInterval.Week;
   rot.intervalCount = new PositiveNumber(1);
-  const start: Date = OneUptimeDate.fromString("2025-01-06T00:00:00.000Z"); // Monday
+  const start: Date = OperationsDate.fromString("2025-01-06T00:00:00.000Z"); // Monday
 
   // Active Mon 00:00 -> Sat 00:00 (Mon-Fri coverage). Non-wrapping window.
   const weekly: WeeklyResctriction = {
     startDay: DayOfWeek.Monday,
     endDay: DayOfWeek.Saturday,
-    startTime: OneUptimeDate.fromString("2025-01-06T00:00:00.000Z"), // Monday
-    endTime: OneUptimeDate.fromString("2025-01-11T00:00:00.000Z"), // Saturday
+    startTime: OperationsDate.fromString("2025-01-06T00:00:00.000Z"), // Monday
+    endTime: OperationsDate.fromString("2025-01-11T00:00:00.000Z"), // Saturday
   };
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Weekly;
@@ -70,27 +70,27 @@ describe("Weekly rotation + Mon-Fri restriction: weekend query off-by-one", () =
     const full: Array<CalendarEvent> = util.getEvents({
       ...layer,
       calendarStartDate: layer.startDateTimeOfLayer,
-      calendarEndDate: OneUptimeDate.fromString("2025-01-25T00:00:00.000Z"),
+      calendarEndDate: OperationsDate.fromString("2025-01-25T00:00:00.000Z"),
     });
 
     // Who covers Wed Jan 15 (inside week1 Mon-Fri) in the calendar?
-    const jan15: Date = OneUptimeDate.fromString("2025-01-15T12:00:00.000Z");
+    const jan15: Date = OperationsDate.fromString("2025-01-15T12:00:00.000Z");
     const week1Cover: CalendarEvent | undefined = full.find(
       (e: CalendarEvent) => {
         return (
-          OneUptimeDate.isOnOrAfter(jan15, e.start) &&
-          OneUptimeDate.isBefore(jan15, e.end)
+          OperationsDate.isOnOrAfter(jan15, e.start) &&
+          OperationsDate.isBefore(jan15, e.end)
         );
       },
     );
 
     // Ask on Saturday Jan 11 12:00 (weekend gap of week0).
-    const askAt: Date = OneUptimeDate.fromString("2025-01-11T12:00:00.000Z");
+    const askAt: Date = OperationsDate.fromString("2025-01-11T12:00:00.000Z");
     const windowed: Array<CalendarEvent> = util.getEvents(
       {
         ...layer,
         calendarStartDate: askAt,
-        calendarEndDate: OneUptimeDate.addRemoveDays(askAt, 14),
+        calendarEndDate: OperationsDate.addRemoveDays(askAt, 14),
       },
       { getNumberOfEvents: 1 },
     );

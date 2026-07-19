@@ -2,7 +2,7 @@ import { HTTP_PROXY_URL, HTTPS_PROXY_URL, NO_PROXY } from "../Config";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import { HttpProxyAgent } from "http-proxy-agent";
 import logger from "Common/Server/Utils/Logger";
-import type OneUptimeURL from "Common/Types/API/URL";
+import type OperationsURL from "Common/Types/API/URL";
 import Protocol from "Common/Types/API/Protocol";
 import type { Agent as HttpAgentType } from "http";
 import type { Agent as HttpsAgentType } from "https";
@@ -19,7 +19,7 @@ export interface ProxyAgents {
   httpsAgent?: HttpsAgentType;
 }
 
-type TargetUrl = OneUptimeURL | string;
+type TargetUrl = OperationsURL | string;
 
 export default class ProxyConfig {
   private static isConfigured: boolean = false;

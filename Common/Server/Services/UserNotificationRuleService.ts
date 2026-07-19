@@ -1809,7 +1809,7 @@ export class Service extends DatabaseService<Model> {
       to: to,
       data: [
         {
-          sayMessage: "This is a call from One Uptime",
+          sayMessage: "This is a call from Cast Operations",
         },
         {
           sayMessage: "A new alert has been created",
@@ -1865,7 +1865,7 @@ export class Service extends DatabaseService<Model> {
       to: to,
       data: [
         {
-          sayMessage: "This is a call from One Uptime",
+          sayMessage: "This is a call from Cast Operations",
         },
         {
           sayMessage: "A new incident has been created",
@@ -1922,7 +1922,7 @@ export class Service extends DatabaseService<Model> {
       to: to,
       data: [
         {
-          sayMessage: "This is a call from One Uptime",
+          sayMessage: "This is a call from Cast Operations",
         },
         {
           sayMessage: "A new alert episode has been created",

@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
@@ -11,8 +11,8 @@ terraform {
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -22,7 +22,7 @@ resource "random_id" "suffix" {
 
 # Test: Probe CRUD Operations
 #
-# This test validates complete CRUD operations for the oneuptime_probe resource:
+# This test validates complete CRUD operations for the cast_operations_probe resource:
 # 1. Create multiple probes with different configurations
 # 2. Verify probe_version is properly handled (Issue #2228 fix)
 # 3. Test idempotency (re-apply should show no changes)
@@ -32,7 +32,7 @@ resource "random_id" "suffix" {
 # The fix should unwrap the Version object and store just the version string
 
 # Test Case 1: Basic Probe
-resource "oneuptime_probe" "basic" {
+resource "cast_operations_probe" "basic" {
   key           = "tf-e2e-probe-basic-${random_id.suffix.hex}"
   name          = "TF E2E Basic Probe ${random_id.suffix.hex}"
   description   = "Basic probe created by Terraform E2E tests"
@@ -40,7 +40,7 @@ resource "oneuptime_probe" "basic" {
 }
 
 # Test Case 2: Probe with Different Version
-resource "oneuptime_probe" "versioned" {
+resource "cast_operations_probe" "versioned" {
   key           = "tf-e2e-probe-v2-${random_id.suffix.hex}"
   name          = "TF E2E Versioned Probe ${random_id.suffix.hex}"
   description   = "Probe with specific version"
@@ -48,7 +48,7 @@ resource "oneuptime_probe" "versioned" {
 }
 
 # Test Case 3: Probe with Auto-Enable Setting
-resource "oneuptime_probe" "auto_enable" {
+resource "cast_operations_probe" "auto_enable" {
   key                                    = "tf-e2e-probe-auto-${random_id.suffix.hex}"
   name                                   = "TF E2E Auto-Enable Probe ${random_id.suffix.hex}"
   description                            = "Probe with auto-enable on new monitors"
@@ -57,57 +57,57 @@ resource "oneuptime_probe" "auto_enable" {
 }
 
 # Test Case 4: Probe with Labels
-resource "oneuptime_label" "probe_label" {
+resource "cast_operations_label" "probe_label" {
   name        = "TF E2E Probe Label ${random_id.suffix.hex}"
   description = "Label for probe testing"
   color       = "#9b59b6"
 }
 
-resource "oneuptime_probe" "with_labels" {
+resource "cast_operations_probe" "with_labels" {
   key           = "tf-e2e-probe-labeled-${random_id.suffix.hex}"
   name          = "TF E2E Labeled Probe ${random_id.suffix.hex}"
   description   = "Probe with attached labels"
   probe_version = "1.0.0"
-  labels        = [oneuptime_label.probe_label.id]
+  labels        = [cast_operations_label.probe_label.id]
 }
 
 # Outputs for verification
 output "basic_probe_id" {
-  value       = oneuptime_probe.basic.id
+  value       = cast_operations_probe.basic.id
   description = "ID of the basic probe"
 }
 
 output "basic_probe_version" {
-  value       = oneuptime_probe.basic.probe_version
+  value       = cast_operations_probe.basic.probe_version
   description = "Version of the basic probe - should be '1.0.0' not JSON"
 }
 
 output "versioned_probe_id" {
-  value       = oneuptime_probe.versioned.id
+  value       = cast_operations_probe.versioned.id
   description = "ID of the versioned probe"
 }
 
 output "versioned_probe_version" {
-  value       = oneuptime_probe.versioned.probe_version
+  value       = cast_operations_probe.versioned.probe_version
   description = "Version of the versioned probe - should be '2.1.0' not JSON"
 }
 
 output "auto_enable_probe_id" {
-  value       = oneuptime_probe.auto_enable.id
+  value       = cast_operations_probe.auto_enable.id
   description = "ID of the auto-enable probe"
 }
 
 output "auto_enable_probe_version" {
-  value       = oneuptime_probe.auto_enable.probe_version
+  value       = cast_operations_probe.auto_enable.probe_version
   description = "Version of the auto-enable probe"
 }
 
 output "labeled_probe_id" {
-  value       = oneuptime_probe.with_labels.id
+  value       = cast_operations_probe.with_labels.id
   description = "ID of the labeled probe"
 }
 
 output "label_id" {
-  value       = oneuptime_label.probe_label.id
+  value       = cast_operations_label.probe_label.id
   description = "ID of the test label"
 }

@@ -33,24 +33,24 @@
 ### Docker
 
 ```bash
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 如果您沒有使用 `--network host`，請明確發佈入口連接埠：
 
 ```bash
-docker run --name oneuptime-probe \
+docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 ### Docker Compose
@@ -59,13 +59,13 @@ docker run --name oneuptime-probe \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -78,25 +78,25 @@ services:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
@@ -107,10 +107,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oneuptime-probe-ingress
+  name: cast-operations-probe-ingress
 spec:
   selector:
-    app: oneuptime-probe
+    app: cast-operations-probe
   ports:
     - name: ingress
       port: 3875
@@ -118,7 +118,7 @@ spec:
   type: ClusterIP
 ```
 
-接著內部服務可以將心跳傳送到 `http://oneuptime-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`。
+接著內部服務可以將心跳傳送到 `http://cast-operations-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`。
 
 ## 將請求傳送到探針
 
@@ -167,19 +167,19 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 | `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`          | 每次向 Cast Operations 轉發嘗試的逾時時間（毫秒）。最小值為 `1000`。 |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`              | 探針放棄某次轉發前的重試次數。設為 `0` 以停用重試。            |
 
-標準的探針變數（`PROBE_KEY`、`PROBE_ID`、`ONEUPTIME_URL`、代理變數）全部適用——完整清單請參閱[自訂探針（Custom Probes）](/docs/probe/custom-probe)。
+標準的探針變數（`PROBE_KEY`、`PROBE_ID`、`CAST_OPERATIONS_URL`、代理變數）全部適用——完整清單請參閱[自訂探針（Custom Probes）](/docs/probe/custom-probe)。
 
 ## 安全考量
 
 - **此端點在設計上即為未驗證（unauthenticated）的** ——URL 路徑中的密鑰*就是*驗證方式，正如它在公開的 `visca.ai` 端點上一樣。請將密鑰視為一項憑證。
 - **僅綁定到私有介面。** 入口監聽器不應從公開網際網路存取。請使用網路原則（network policy）、防火牆規則或 `ClusterIP` 服務來限制存取。
-- **如果您需要傳輸過程中的加密，請使用 HTTPS 終止（termination）。** 探針的監聽器使用純 HTTP。如果您需要在傳入跳轉上使用 TLS，請將它置於內部負載平衡器／入口控制器（ingress controller）之後。從探針 → Cast Operations 的轉發環節一律使用 HTTPS（前提是 `ONEUPTIME_URL` 為 `https://`）。
+- **如果您需要傳輸過程中的加密，請使用 HTTPS 終止（termination）。** 探針的監聽器使用純 HTTP。如果您需要在傳入跳轉上使用 TLS，請將它置於內部負載平衡器／入口控制器（ingress controller）之後。從探針 → Cast Operations 的轉發環節一律使用 HTTPS（前提是 `CAST_OPERATIONS_URL` 為 `https://`）。
 - **資源限制。** 此監聽器接受最大 50 MB 的請求主體。如果您需要更嚴格的上限，請在前方放置反向代理（reverse proxy）。
 
 ## 疑難排解
 
 - **探針在啟動時記錄 `Probe ingress listener started on port <port>`** ——確認監聽器已啟動。如果您沒有看到這一行，表示 `PROBE_INGRESS_PORT` 未設定、為 `0` 或無效。
-- **`Probe ingress: failed to forward to <url> after N attempts`** ——探針無法連線到 Cast Operations。請檢查探針的對外連線能力、代理設定，以及 `ONEUPTIME_URL` 的值。
+- **`Probe ingress: failed to forward to <url> after N attempts`** ——探針無法連線到 Cast Operations。請檢查探針的對外連線能力、代理設定，以及 `CAST_OPERATIONS_URL` 的值。
 - **`Probe ingress: probe ID not available, forwarding without it`** ——探針尚未註冊。轉發仍會成功；只是該心跳不會歸屬於某個探針。
 - **心跳出現在 Cast Operations 中，但並非透過探針** ——請確認您的服務連線的是 `http://<probe-host>:<port>/...` 而非公開 URL。通常的原因是 DNS 或 `/etc/hosts` 項目設定錯誤。
 

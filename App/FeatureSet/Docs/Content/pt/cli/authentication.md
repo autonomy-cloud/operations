@@ -7,7 +7,7 @@ O CLI do Cast Operations suporta várias formas de autenticação com sua instâ
 Autentique-se com sua instância do Cast Operations usando uma chave de API:
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **Argumentos:**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Login com contexto padrão
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # Login com um contexto nomeado
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # Configurar múltiplos ambientes
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Contextos
@@ -44,7 +44,7 @@ Os contextos permitem que você salve e alterne entre múltiplos ambientes do Ca
 ### Listar Contextos
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 Exibe todos os contextos configurados. O contexto atual é marcado com `*`.
@@ -52,23 +52,23 @@ Exibe todos os contextos configurados. O contexto atual é marcado com `*`.
 ### Alternar Contexto
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 Alterne para um contexto nomeado diferente para todos os comandos subsequentes.
 
 ```bash
 # Alternar para staging
-oneuptime context use staging
+cast-operations context use staging
 
 # Alternar para produção
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### Ver Contexto Atual
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 Exibe o contexto ativo atualmente, incluindo a URL da instância e uma chave de API mascarada.
@@ -76,7 +76,7 @@ Exibe o contexto ativo atualmente, incluindo a URL da instância e uma chave de 
 ### Excluir um Contexto
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 Remove um contexto nomeado. Se o contexto excluído for o atual, o CLI alterna automaticamente para o primeiro contexto restante.
@@ -86,7 +86,7 @@ Remove um contexto nomeado. Se o contexto excluído for o atual, o CLI alterna a
 As credenciais são resolvidas na seguinte ordem de prioridade:
 
 1. **Flags de CLI** (`--api-key` e `--url`)
-2. **Variáveis de ambiente** (`ONEUPTIME_API_KEY` e `ONEUPTIME_URL`)
+2. **Variáveis de ambiente** (`CAST_OPERATIONS_API_KEY` e `CAST_OPERATIONS_URL`)
 3. **Contexto nomeado** (via flag `--context`)
 4. **Contexto atual** (da configuração salva)
 
@@ -95,22 +95,22 @@ Você pode misturar fontes — por exemplo, usar uma variável de ambiente para 
 ### Usando Flags de CLI
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Usando Variáveis de Ambiente
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### Usando um Contexto Específico
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## Verificar Autenticação
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 Verifique seu status de autenticação atual:
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Isso exibe:
@@ -127,11 +127,11 @@ Isso exibe:
 - Chave de API mascarada
 - Nome do contexto atual (exibido apenas se um contexto salvo estiver ativo)
 
-Se não estiver autenticado, o comando exibe uma mensagem útil sugerindo que você execute `oneuptime login`.
+Se não estiver autenticado, o comando exibe uma mensagem útil sugerindo que você execute `cast-operations login`.
 
 ## Arquivo de Configuração
 
-As credenciais são armazenadas em `~/.oneuptime/config.json` com permissões restritas (`0600`).
+As credenciais são armazenadas em `~/.cast-operations/config.json` com permissões restritas (`0600`).
 
 ```json
 {

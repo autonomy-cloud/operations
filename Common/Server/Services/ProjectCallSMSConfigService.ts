@@ -102,7 +102,7 @@ export class Service extends DatabaseService<Model> {
   ): Promise<OnDelete<Model>> {
     /*
      * When a Call/SMS config is deleted, release any incoming-call numbers
-     * provisioned through it (so they don't keep billing on the provider) and
+     * provisioned through it (so they do not remain active at the provider) and
      * clear the now-dangling number fields on those policies. The config still
      * exists at this point, so the provider can be built to release the numbers.
      */

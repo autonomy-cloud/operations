@@ -27,7 +27,7 @@ Telemetry Ingestion Key पृष्ठ पर, एक टोकन बनान
 | सेटिंग        | मान                                                                |
 | ------------- | ------------------------------------------------------------------ |
 | OTLP एंडपॉइंट | `https://visca.ai/otlp`                                       |
-| Auth हेडर     | `x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN`                |
+| Auth हेडर     | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`                |
 | सेवा का नाम   | वह नाम जिसके अंतर्गत आपकी सेवा दिखाई देनी चाहिए, उदा. `my-service` |
 
 > **Cast Operations को स्वयं-होस्ट कर रहे हैं?** `https://visca.ai/otlp` को `https://YOUR-OPERATIONS-HOST/otlp` से बदलें (या `http://...` यदि आप TLS समाप्त नहीं कर रहे हैं)। बाकी सब कुछ वैसा ही रहता है।
@@ -76,7 +76,7 @@ Log.Logger = new LoggerConfiguration()
         // Authenticate with your Cast Operations telemetry ingestion token.
         options.Headers = new Dictionary<string, string>
         {
-            ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+            ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
         };
 
         // Identify your service in Cast Operations.
@@ -118,7 +118,7 @@ finally
           "endpoint": "https://visca.ai/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
-            "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+            "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
           },
           "resourceAttributes": {
             "service.name": "my-service",
@@ -169,7 +169,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
-                ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+                ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
             };
             options.ResourceAttributes = new Dictionary<string, object>
             {
@@ -228,9 +228,9 @@ Cast Operations इन एट्रिब्यूट का पता लगा
 
 ## समस्या निवारण
 
-- **कोई लॉग दिखाई नहीं देता** – `x-oneuptime-token` मान को दोबारा जाँचें और पुष्टि करें कि यह उसी प्रोजेक्ट से संबंधित है जिसे आप देख रहे हैं। सत्यापित करें कि एंडपॉइंट `https://visca.ai/otlp` है (केवल आधार पथ — `/v1/logs` को स्वयं न जोड़ें)।
+- **कोई लॉग दिखाई नहीं देता** – `x-cast-operations-token` मान को दोबारा जाँचें और पुष्टि करें कि यह उसी प्रोजेक्ट से संबंधित है जिसे आप देख रहे हैं। सत्यापित करें कि एंडपॉइंट `https://visca.ai/otlp` है (केवल आधार पथ — `/v1/logs` को स्वयं न जोड़ें)।
 - **लॉग केवल तब दिखाई देते हैं जब ऐप बाहर निकलता है, या अंतिम लॉग गायब हैं** – सुनिश्चित करें कि shutdown पर `Log.CloseAndFlush()` चलता है। sink इवेंट को बैच करता है, इसलिए यदि प्रक्रिया को फ़्लश किए बिना समाप्त कर दिया जाता है तो बफ़र किए गए लॉग खो जाते हैं।
-- **`401 Unauthorized` / कुछ भी ग्रहण नहीं हुआ** – टोकन गायब है या अमान्य है। पुष्टि करें कि हेडर कुंजी ठीक `x-oneuptime-token` है।
+- **`401 Unauthorized` / कुछ भी ग्रहण नहीं हुआ** – टोकन गायब है या अमान्य है। पुष्टि करें कि हेडर कुंजी ठीक `x-cast-operations-token` है।
 - **गलत सेवा नाम** – `ResourceAttributes` (कोड) या `resourceAttributes` (appsettings.json) में `service.name` सेट करें। इसके बिना, लॉग एक डिफ़ॉल्ट/अज्ञात सेवा पर वापस आ जाते हैं।
 - **स्वयं-होस्ट किए गए instance में कनेक्शन त्रुटियाँ** – सुनिश्चित करें कि प्रोटोकॉल आपके एंडपॉइंट स्कीम (`https://` बनाम `http://`) से मेल खाता है और आपका Cast Operations होस्ट एप्लिकेशन से पहुँच योग्य है।
 

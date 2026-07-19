@@ -12,11 +12,11 @@ import {
  * Telemetry ingestion keys are 36-char UUIDs (ObjectID.generate()), so a
  * match here proves a real key was interpolated into the install command
  * instead of the <YOUR_API_KEY> placeholder. The Docker Swarm agent reads
- * the key from ONEUPTIME_SERVICE_TOKEN (not ONEUPTIME_TELEMETRY_INGESTION_KEY
+ * the key from CAST_OPERATIONS_SERVICE_TOKEN (not CAST_OPERATIONS_TELEMETRY_INGESTION_KEY
  * like the host/k8s agents).
  */
 const serviceTokenEnvLineRegex: RegExp =
-  /ONEUPTIME_SERVICE_TOKEN=([0-9a-fA-F-]{36})/;
+  /CAST_OPERATIONS_SERVICE_TOKEN=([0-9a-fA-F-]{36})/;
 
 /*
  * Docker Swarm product onboarding path (mirrors ProxmoxProduct.spec.ts).
@@ -83,7 +83,7 @@ test.describe.skip("Docker Swarm Product Onboarding", () => {
       .toMatch(serviceTokenEnvLineRegex);
 
     const bodyText: string = await page.locator("body").innerText();
-    expect(bodyText).toMatch(/ONEUPTIME_URL=http/);
+    expect(bodyText).toMatch(/CAST_OPERATIONS_URL=http/);
     expect(bodyText).toContain("DOCKER_SWARM_CLUSTER_NAME=my-swarm");
     expect(bodyText).toContain("docker compose up -d");
     expect(bodyText).not.toContain("<YOUR_API_KEY>");
@@ -212,7 +212,7 @@ test.describe.skip("Docker Swarm Product Onboarding", () => {
     const otlpResponse: APIResponse = await page.request.post(otlpMetricsUrl, {
       headers: {
         "content-type": "application/json",
-        "x-oneuptime-token": ingestionKey,
+        "x-cast-operations-token": ingestionKey,
       },
       data: {
         resourceMetrics: [

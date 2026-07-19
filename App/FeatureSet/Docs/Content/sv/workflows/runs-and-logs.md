@@ -39,7 +39,6 @@ Värdena som visas är exakt vad blocket såg — efter att alla variabler fyllt
 3. För en webhook-utlösare: bekräfta att det andra systemet skickar till rätt URL. De flesta verktyg loggar när de skickar en webhook — kolla där.
 4. För en schemaläggningsutlösare: bekräfta att cron-uttrycket matchar den tid du förväntar dig.
 
-Om utlösaren triggades men ingen körning dyker upp, kolla din körningskvot under **Project Settings → Billing**.
 
 ### "Ett senare block kördes aldrig."
 

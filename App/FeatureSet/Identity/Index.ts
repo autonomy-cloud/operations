@@ -1,5 +1,4 @@
 import AuthenticationAPI from "./API/Authentication";
-import ResellerAPI from "./API/Reseller";
 import SsoAPI from "./API/SSO";
 import OidcAPI from "./API/OIDC";
 import GlobalSsoAPI from "./API/GlobalSSO";
@@ -20,8 +19,6 @@ const IdentityFeatureSet: FeatureSet = {
     const APP_NAME: string = "api/identity";
 
     app.use([`/${APP_NAME}`, "/"], AuthenticationAPI);
-
-    app.use([`/${APP_NAME}`, "/"], ResellerAPI);
 
     app.use([`/${APP_NAME}`, "/"], SsoAPI);
 

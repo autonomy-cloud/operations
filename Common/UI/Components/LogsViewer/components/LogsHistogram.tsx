@@ -23,7 +23,7 @@ import {
 } from "./severityColors";
 import HistogramTooltip from "./HistogramTooltip";
 import ComponentLoader from "../../ComponentLoader/ComponentLoader";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 
 export interface LogsHistogramProps {
   buckets: Array<HistogramBucket>;
@@ -55,7 +55,7 @@ function pivotBuckets(buckets: Array<HistogramBucket>): Array<PivotedRow> {
 }
 
 function formatTickTime(time: string): string {
-  const date: Date = OneUptimeDate.fromString(time);
+  const date: Date = OperationsDate.fromString(time);
 
   if (isNaN(date.getTime())) {
     return time;
@@ -139,8 +139,8 @@ const LogsHistogram: FunctionComponent<LogsHistogramProps> = (
 
     isSelecting.current = false;
 
-    const start: Date = OneUptimeDate.fromString(selectionStart);
-    const end: Date = OneUptimeDate.fromString(selectionEnd);
+    const start: Date = OperationsDate.fromString(selectionStart);
+    const end: Date = OperationsDate.fromString(selectionEnd);
 
     if (isNaN(start.getTime()) || isNaN(end.getTime())) {
       setSelectionStart(null);

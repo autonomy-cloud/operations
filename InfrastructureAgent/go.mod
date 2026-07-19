@@ -1,4 +1,4 @@
-module oneuptime-infrastructure-agent
+module cast-operations-infrastructure-agent
 
 go 1.23.0
 

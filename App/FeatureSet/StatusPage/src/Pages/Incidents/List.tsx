@@ -12,7 +12,7 @@ import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -250,7 +250,7 @@ const Overview: FunctionComponent<PageComponentProps> = (
     const days: Dictionary<EventHistoryDayListComponentProps> = {};
 
     for (const event of events) {
-      const dayString: string = OneUptimeDate.getDateString(event.date);
+      const dayString: string = OperationsDate.getDateString(event.date);
 
       if (!days[dayString]) {
         days[dayString] = {
@@ -292,7 +292,7 @@ const Overview: FunctionComponent<PageComponentProps> = (
       const incidentDate: Date =
         incident.declaredAt ||
         (incident.createdAt as Date | undefined) ||
-        OneUptimeDate.getCurrentDate();
+        OperationsDate.getCurrentDate();
 
       const isResolved: boolean =
         (incident.currentIncidentState?.order || 0) >=
@@ -318,7 +318,7 @@ const Overview: FunctionComponent<PageComponentProps> = (
       const episodeDate: Date =
         episode.declaredAt ||
         (episode.createdAt as Date | undefined) ||
-        OneUptimeDate.getCurrentDate();
+        OperationsDate.getCurrentDate();
 
       const isResolved: boolean =
         (episode.currentIncidentState?.order || 0) >=
@@ -342,7 +342,7 @@ const Overview: FunctionComponent<PageComponentProps> = (
 
     // Sort by date descending
     allEvents.sort((a: EventWithDate, b: EventWithDate) => {
-      return OneUptimeDate.isAfter(a.date, b.date) ? -1 : 1;
+      return OperationsDate.isAfter(a.date, b.date) ? -1 : 1;
     });
 
     const activeEvents: Array<EventWithDate> = allEvents.filter(

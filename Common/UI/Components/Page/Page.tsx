@@ -30,8 +30,10 @@ export interface ComponentProps {
 const Page: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
-  // Cast owns navigation when Operations is embedded. Rendering the feature
-  // sidebar here would create a second navigation rail inside the Cast shell.
+  /*
+   * Cast owns navigation when Operations is embedded. Rendering the feature
+   * sidebar here would create a second navigation rail inside the Cast shell.
+   */
   const sideMenu: ReactElement | undefined = CAST_OPERATIONS_EMBEDDED_MODE
     ? undefined
     : props.sideMenu;
@@ -102,69 +104,83 @@ const Page: FunctionComponent<ComponentProps> = (
       {!hideEmbeddedPageHeader &&
         ((props.breadcrumbLinks && props.breadcrumbLinks.length > 0) ||
           props.title) && (
-        <div className={CAST_OPERATIONS_EMBEDDED_MODE ? "mb-3" : "mb-5"}>
-          {!CAST_OPERATIONS_EMBEDDED_MODE &&
-            props.breadcrumbLinks &&
-            props.breadcrumbLinks.length > 0 && (
-            <div className={CAST_OPERATIONS_EMBEDDED_MODE ? "mt-1" : "mt-2"}>
-              <Breadcrumbs links={props.breadcrumbLinks} />
-            </div>
-            )}
-          {props.title && (
-            <div className="mt-2">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:flex-wrap sm:gap-4">
-                <div className="flex flex-col gap-1 min-w-0">
-                  <h1
-                    className={`font-semibold text-gray-900 sm:tracking-tight sm:truncate ${
-                      CAST_OPERATIONS_EMBEDDED_MODE
-                        ? "text-lg leading-6"
-                        : "text-xl leading-7 sm:text-xl"
-                    }`}
-                  >
-                    {translatedTitle}
-                  </h1>
-                  {translatedDescription && (
-                    <p className="max-w-3xl text-sm leading-6 text-gray-500">
-                      {translatedDescription}
-                    </p>
+          <div className={CAST_OPERATIONS_EMBEDDED_MODE ? "mb-3" : "mb-5"}>
+            {!CAST_OPERATIONS_EMBEDDED_MODE &&
+              props.breadcrumbLinks &&
+              props.breadcrumbLinks.length > 0 && (
+                <div
+                  className={CAST_OPERATIONS_EMBEDDED_MODE ? "mt-1" : "mt-2"}
+                >
+                  <Breadcrumbs links={props.breadcrumbLinks} />
+                </div>
+              )}
+            {props.title && (
+              <div className={CAST_OPERATIONS_EMBEDDED_MODE ? "mt-1" : "mt-2"}>
+                <div
+                  className={
+                    CAST_OPERATIONS_EMBEDDED_MODE
+                      ? "operations-page-heading flex flex-col gap-2"
+                      : "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:flex-wrap sm:gap-4"
+                  }
+                >
+                  <div className="operations-page-title-group flex flex-col gap-1 min-w-0">
+                    <h1
+                      className={`font-semibold text-gray-900 sm:tracking-tight sm:truncate ${
+                        CAST_OPERATIONS_EMBEDDED_MODE
+                          ? "text-lg leading-6"
+                          : "text-xl leading-7 sm:text-xl"
+                      }`}
+                    >
+                      {translatedTitle}
+                    </h1>
+                    {translatedDescription && (
+                      <p className="max-w-3xl text-sm leading-6 text-gray-500">
+                        {translatedDescription}
+                      </p>
+                    )}
+                  </div>
+                  {props.headerRight && (
+                    <div
+                      className={
+                        CAST_OPERATIONS_EMBEDDED_MODE
+                          ? "operations-page-navigation min-w-0 w-full"
+                          : "flex flex-wrap items-center sm:justify-end gap-3"
+                      }
+                    >
+                      {props.headerRight}
+                    </div>
+                  )}
+                  {props.labels && props.labels.length > 0 && (
+                    <div className="hidden sm:flex sm:flex-wrap sm:items-center sm:justify-end sm:gap-3">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-gray-500 whitespace-nowrap">
+                        {translateString("Labels") || "Labels"}
+                      </span>
+                      <div className="flex flex-wrap items-center gap-2 justify-end">
+                        {props.labels
+                          .filter((label: LabelModel | null) => {
+                            return Boolean(label && (label.name || label.slug));
+                          })
+                          .map((label: LabelModel, index: number) => {
+                            return (
+                              <LabelElement
+                                key={
+                                  label.id?.toString() ||
+                                  label._id ||
+                                  label.slug ||
+                                  `${label.name || "label"}-${index}`
+                                }
+                                label={label}
+                              />
+                            );
+                          })}
+                      </div>
+                    </div>
                   )}
                 </div>
-                {props.headerRight && (
-                  <div className="flex flex-wrap items-center sm:justify-end gap-3">
-                    {props.headerRight}
-                  </div>
-                )}
-                {props.labels && props.labels.length > 0 && (
-                  <div className="hidden sm:flex sm:flex-wrap sm:items-center sm:justify-end sm:gap-3">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-500 whitespace-nowrap">
-                      {translateString("Labels") || "Labels"}
-                    </span>
-                    <div className="flex flex-wrap items-center gap-2 justify-end">
-                      {props.labels
-                        .filter((label: LabelModel | null) => {
-                          return Boolean(label && (label.name || label.slug));
-                        })
-                        .map((label: LabelModel, index: number) => {
-                          return (
-                            <LabelElement
-                              key={
-                                label.id?.toString() ||
-                                label._id ||
-                                label.slug ||
-                                `${label.name || "label"}-${index}`
-                              }
-                              label={label}
-                            />
-                          );
-                        })}
-                    </div>
-                  </div>
-                )}
               </div>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+          </div>
+        )}
 
       {sideMenu && (
         <div className="mx-auto max-w-full pb-10">

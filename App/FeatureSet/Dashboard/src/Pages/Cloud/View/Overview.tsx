@@ -22,7 +22,7 @@ import API from "Common/UI/Utils/API/API";
 import Card from "Common/UI/Components/Card/Card";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import TelemetryTimeRangePicker from "Common/UI/Components/TelemetryViewer/components/TelemetryTimeRangePicker";
 import RangeStartAndEndDateTime, {
   RangeStartAndEndDateTimeUtil,
@@ -115,7 +115,7 @@ const CloudResourceOverview: FunctionComponent<
       }
 
       setCloudResource(item);
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
       setIsLoading(false);
       setIsRefreshing(false);
 

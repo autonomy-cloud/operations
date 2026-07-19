@@ -12,7 +12,7 @@ import WorkspaceProjectAuthTokenService from "../../Services/WorkspaceProjectAut
 import WorkspaceProjectAuthToken from "../../../Models/DatabaseModels/WorkspaceProjectAuthToken";
 import logger from "../Logger";
 import CaptureSpan from "../Telemetry/CaptureSpan";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import SortOrder from "../../../Types/BaseDatabase/SortOrder";
 import { LLMMessage } from "../LLM/LLMService";
 import NotificationRuleWorkspaceChannel from "../../../Types/Workspace/NotificationRules/NotificationRuleWorkspaceChannel";
@@ -237,7 +237,7 @@ export default class IncidentEpisodeAIContextBuilder {
     contextText += `**Description:** ${episode.description || "N/A"}\n\n`;
     contextText += `**Severity:** ${episode.incidentSeverity?.name || "N/A"}\n\n`;
     contextText += `**Current State:** ${episode.currentIncidentState?.name || "N/A"}\n\n`;
-    contextText += `**Created At:** ${episode.createdAt ? OneUptimeDate.getDateAsFormattedString(episode.createdAt) : "N/A"}\n\n`;
+    contextText += `**Created At:** ${episode.createdAt ? OperationsDate.getDateAsFormattedString(episode.createdAt) : "N/A"}\n\n`;
 
     // Labels
     if (episode.labels && episode.labels.length > 0) {
@@ -274,7 +274,7 @@ export default class IncidentEpisodeAIContextBuilder {
         contextText += `## Incident ${incident.incidentNumberWithPrefix || "#" + (incident.incidentNumber || "N/A")}: ${incident.title || "Untitled"}\n\n`;
         contextText += `- **Severity:** ${incident.incidentSeverity?.name || "N/A"}\n`;
         contextText += `- **State:** ${incident.currentIncidentState?.name || "N/A"}\n`;
-        contextText += `- **Created:** ${incident.createdAt ? OneUptimeDate.getDateAsFormattedString(incident.createdAt) : "N/A"}\n`;
+        contextText += `- **Created:** ${incident.createdAt ? OperationsDate.getDateAsFormattedString(incident.createdAt) : "N/A"}\n`;
 
         if (incident.description) {
           contextText += `- **Description:** ${incident.description}\n`;
@@ -305,7 +305,7 @@ export default class IncidentEpisodeAIContextBuilder {
       contextText += "# Episode State Timeline\n\n";
       for (const timeline of stateTimeline) {
         const startTime: string = timeline.startsAt
-          ? OneUptimeDate.getDateAsFormattedString(timeline.startsAt)
+          ? OperationsDate.getDateAsFormattedString(timeline.startsAt)
           : "N/A";
         const stateName: string =
           timeline.incidentState?.name?.toString() || "Unknown";
@@ -327,7 +327,7 @@ export default class IncidentEpisodeAIContextBuilder {
       contextText += "# Internal Notes (Private)\n\n";
       for (const note of internalNotes) {
         const noteTime: string = note.createdAt
-          ? OneUptimeDate.getDateAsFormattedString(note.createdAt)
+          ? OperationsDate.getDateAsFormattedString(note.createdAt)
           : "N/A";
         const createdBy: string =
           note.createdByUser?.name?.toString() ||

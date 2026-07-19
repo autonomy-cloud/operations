@@ -48,7 +48,7 @@ Keycloak 是一款流行的开源身份和访问管理解决方案。按照以�
 1. 登录您的 Cast Operations 控制台
 2. 导航至 **项目设置** > **认证** > **SSO**
 3. 点击 **创建 SSO** 并填写以下内容：
-   - **名称**：描述性名称（例如 `my-project-oneuptime`）
+   - **名称**：描述性名称（例如 `my-project-cast-operations`）
    - **登录 URL**：`https://<your-keycloak-domain>/auth/realms/<your-realm>/protocol/saml`
    - **颁发者**：`https://<your-keycloak-domain>/auth/realms/<your-realm>`
    - **证书**：参见下方[第二步](#第二步获取-keycloak-证书)
@@ -201,9 +201,9 @@ Okta 是一款广泛使用的身份平台，提供强大的 SAML SSO 能力。�
 2. 导航至 **项目设置** > **认证** > **SSO**
 3. 点击 **创建 SSO** 并填写以下内容：
    - **名称**：描述性名称（例如 `Okta SAML`）
-   - **登录 URL**：您将在[第三步](#第三步将-okta-saml-元数据复制到-oneuptime)中从 Okta 获取
-   - **颁发者**：您将在[第三步](#第三步将-okta-saml-元数据复制到-oneuptime)中从 Okta 获取
-   - **证书**：您将在[第三步](#第三步将-okta-saml-元数据复制到-oneuptime)中从 Okta 获取
+   - **登录 URL**：您将在[第三步](#第三步将-okta-saml-元数据复制到-cast-operations)中从 Okta 获取
+   - **颁发者**：您将在[第三步](#第三步将-okta-saml-元数据复制到-cast-operations)中从 Okta 获取
+   - **证书**：您将在[第三步](#第三步将-okta-saml-元数据复制到-cast-operations)中从 Okta 获取
    - **签名算法**：`RSA-SHA-256`
    - **摘要算法**：`SHA256`
 4. 点击 **查看 SSO 配置** 并复制 **标识符（实体 ID）** 和 **回复 URL（断言使用者服务 URL）** — 您将在 Okta 中使用这些信息

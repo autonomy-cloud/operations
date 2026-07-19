@@ -4,12 +4,12 @@
 
 ## Команды аутентификации
 
-### `oneuptime login`
+### `cast-operations login`
 
 Аутентификация в экземпляре Cast Operations.
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | Параметр         | Тип      | Обязательный | Описание                                  |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 Список всех сохранённых контекстов.
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 Переключение на именованный контекст.
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | Параметр | Тип      | Обязательный | Описание                    |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 Отображение активного контекста со скрытым ключом API.
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 Удаление сохранённого контекста.
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | Параметр | Тип      | Обязательный | Описание                 |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 Все команды ресурсов следуют одному шаблону. Замените `<resource>` на любое поддерживаемое имя ресурса (например, `incident`, `monitor`, `alert`, `status-page`).
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 Список ресурсов с фильтрацией и пагинацией.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | Опция            | Тип    | По умолчанию | Описание                            |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 Получение одного ресурса по ID.
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | Параметр       | Тип      | Обязательный | Описание          |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 Создание нового ресурса.
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | Опция           | Тип    | Обязательный                  | Описание                      |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 Обновление существующего ресурса.
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | Параметр        | Тип      | Обязательный | Описание                           |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 Удаление ресурса.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | Параметр  | Тип      | Обязательный | Описание                        |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 Подсчёт ресурсов, соответствующих фильтру.
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | Опция            | Тип    | По умолчанию | Описание                           |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## Служебные команды
 
-### `oneuptime version`
+### `cast-operations version`
 
 Отображение версии CLI.
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 Отображение текущих данных аутентификации.
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Отображает URL экземпляра и скрытый ключ API. Если активен сохранённый контекст, также отображается имя контекста.
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 Список всех доступных типов ресурсов.
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | Опция           | Тип    | По умолчанию | Описание                                  |

@@ -25,7 +25,7 @@ import IconProp from "Common/Types/Icon/IconProp";
 import { RangeStartAndEndDateTimeUtil } from "Common/Types/Time/RangeStartAndEndDateTime";
 import DashboardVariableInterpolation from "Common/Utils/Dashboard/VariableInterpolation";
 import ValueFormatter from "Common/Utils/ValueFormatter";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 /*
  * Split a ValueFormatter output like "1.5 MB" / "25.00%" / "1.23K" into a
@@ -452,7 +452,7 @@ const DashboardValueComponentElement: FunctionComponent<ComponentProps> = (
   const { value: formattedValue, unit: displayUnit } =
     splitFormattedValue(formattedString);
   const hoveredTimestamp: string | null = hoveredPoint
-    ? OneUptimeDate.getDateAsLocalFormattedString(hoveredPoint.timestamp)
+    ? OperationsDate.getDateAsLocalFormattedString(hoveredPoint.timestamp)
     : null;
 
   /*

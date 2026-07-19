@@ -121,10 +121,10 @@ console.log(stringSecret);
 
 ### Métricas personalizadas
 
-Puedes capturar métricas personalizadas desde tu script usando la función `oneuptime.captureMetric()`. Estas métricas se almacenan en Cast Operations y pueden representarse en gráficos del panel usando el Explorador de métricas.
+Puedes capturar métricas personalizadas desde tu script usando la función `cast-operations.captureMetric()`. Estas métricas se almacenan en Cast Operations y pueden representarse en gráficos del panel usando el Explorador de métricas.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (cadena, requerido): El nombre de la métrica (por ejemplo, `"dashboard.load.time"`). Se almacenará con el prefijo `custom.monitor.` automáticamente.
@@ -141,7 +141,7 @@ await page.waitForSelector("#dashboard-loaded");
 const loadTime = Date.now() - startTime;
 
 // Capturar el tiempo de carga de la página como métrica personalizada
-oneuptime.captureMetric("dashboard.load.time", loadTime, {
+cast-operations.captureMetric("dashboard.load.time", loadTime, {
   page: "dashboard",
 });
 
@@ -167,7 +167,7 @@ Una vez capturadas, estas métricas aparecen en el Explorador de métricas con n
 - `axios`: Puedes usar este módulo para realizar solicitudes HTTP. Es un cliente HTTP basado en promesas para el navegador y Node.js.
 - `crypto`: Puedes usar este módulo para realizar operaciones criptográficas. Es un módulo integrado de Node.js que proporciona funcionalidad criptográfica.
 - `console.log`: Puedes usar este módulo para registrar datos en la consola. Esto es útil para fines de depuración.
-- `oneuptime.captureMetric`: Puedes usar esto para capturar métricas personalizadas desde tu script. Consulta la sección de Métricas personalizadas anterior.
+- `cast-operations.captureMetric`: Puedes usar esto para capturar métricas personalizadas desde tu script. Consulta la sección de Métricas personalizadas anterior.
 - `http`: Puedes usar este módulo para realizar solicitudes HTTP. Es un módulo integrado de Node.js.
 - `https`: Puedes usar este módulo para realizar solicitudes HTTPS. Es un módulo integrado de Node.js.
 

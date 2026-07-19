@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement } from "react";
 import AIRunStatus, { AIRunStatusHelper } from "Common/Types/AI/AIRunStatus";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 export interface ComponentProps {
   status: AIRunStatus | undefined;
@@ -33,10 +33,10 @@ const CodeFixRunDuration: FunctionComponent<ComponentProps> = (
     return <span className="text-gray-400">-</span>;
   }
 
-  const endsAt: Date = props.completedAt || OneUptimeDate.getCurrentDate();
+  const endsAt: Date = props.completedAt || OperationsDate.getCurrentDate();
 
   const duration: string =
-    OneUptimeDate.differenceBetweenTwoDatesAsFromattedString(
+    OperationsDate.differenceBetweenTwoDatesAsFromattedString(
       props.startedAt,
       endsAt,
     );

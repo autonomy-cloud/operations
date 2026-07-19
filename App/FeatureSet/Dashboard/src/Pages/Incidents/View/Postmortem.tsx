@@ -3,7 +3,7 @@ import PageComponentProps from "../../PageComponentProps";
 import { JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import BasicFormModal from "Common/UI/Components/FormModal/BasicFormModal";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
@@ -75,7 +75,7 @@ const POSTMORTEM_FORM_FIELDS: Fields<Incident> = [
     description: "Set the posted-on timestamp subscribers will see. ",
     placeholder: "Select date and time",
     getDefaultValue: () => {
-      return OneUptimeDate.getCurrentDate();
+      return OperationsDate.getCurrentDate();
     },
   },
   {

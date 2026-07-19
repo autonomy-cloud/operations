@@ -463,7 +463,7 @@ export default class VMRunner {
       proxyCache,
     );
 
-    sandbox["oneuptime"] = createSandboxProxy(
+    sandbox["cast-operations"] = createSandboxProxy(
       {
         captureMetric: (
           name: unknown,
@@ -626,7 +626,7 @@ export default class VMRunner {
         }))};
       `);
 
-      // oneuptime.captureMetric - fire-and-forget callback
+      // cast-operations.captureMetric - fire-and-forget callback
       await jail.set(
         "_captureMetric",
         new ivm.Callback(
@@ -655,7 +655,7 @@ export default class VMRunner {
       );
 
       await context.eval(`
-        const oneuptime = {
+        const cast-operations = {
           captureMetric: (name, value, attributes) => {
             if (typeof name !== 'string' || name.length === 0) return;
             if (typeof value !== 'number' || isNaN(value)) return;

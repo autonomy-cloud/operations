@@ -1,10 +1,8 @@
 import Project from "./Project";
 import User from "./User";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import ColumnType from "../../Types/Database/ColumnType";
 import CrudApiEndpoint from "../../Types/Database/CrudApiEndpoint";
@@ -23,13 +21,6 @@ import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Sort from "../../Types/BaseDatabase/Sort";
 import AnalyticsBaseModel from "../AnalyticsModels/AnalyticsBaseModel/AnalyticsBaseModel";
 import { JSONObject } from "../../Types/JSON";
-
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Free,
-  update: PlanType.Growth,
-  delete: PlanType.Growth,
-})
 @EnableDocumentation()
 @TenantColumn("projectId")
 @TableAccessControl({
@@ -142,7 +133,8 @@ export default class TableView extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({

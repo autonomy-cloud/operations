@@ -7,7 +7,7 @@ import {
   AIChatToolAction,
   AIChatWidget,
 } from "../../../Types/AI/AIChatTypes";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import neutralizeAssistantMarkdown from "./MarkdownSafety";
 import {
   citationsToMarkdown,
@@ -57,7 +57,7 @@ function messageToMarkdown(
 ): Array<string> {
   const lines: Array<string> = [];
   const timestamp: string = message.createdAt
-    ? OneUptimeDate.getDateAsLocalFormattedString(message.createdAt)
+    ? OperationsDate.getDateAsLocalFormattedString(message.createdAt)
     : "";
 
   if (message.role === AIChatMessageRole.User) {
@@ -126,7 +126,7 @@ export default function convertConversationToMarkdown(
   const lines: Array<string> = [
     `# ${options.title || "AI conversation"}`,
     "",
-    `_Exported from Cast Operations on ${OneUptimeDate.getDateAsLocalFormattedString(
+    `_Exported from Cast Operations on ${OperationsDate.getDateAsLocalFormattedString(
       options.exportedAt,
     )}_`,
     "",

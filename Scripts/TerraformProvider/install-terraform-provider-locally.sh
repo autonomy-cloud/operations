@@ -6,14 +6,14 @@ set -e
 
 npm run generate-terraform-provider
 
-PROVIDER_NAME="oneuptime"
+PROVIDER_NAME="cast-operations"
 PROVIDER_VERSION="1.0.0"
-PROVIDER_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/oneuptime/$PROVIDER_NAME/$PROVIDER_VERSION"
+PROVIDER_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/cast-operations/$PROVIDER_NAME/$PROVIDER_VERSION"
 
 echo "🚀 Installing Cast Operations Terraform Provider locally..."
 
 # Navigate to the terraform provider directory
-cd "$(dirname "$0")/../../Terraform/terraform-provider-oneuptime"
+cd "$(dirname "$0")/../../Terraform/terraform-provider-cast-operations"
 
 # Check if the directory exists
 if [ ! -d "$(pwd)" ]; then
@@ -83,7 +83,7 @@ echo ""
 echo "terraform {"
 echo "  required_providers {"
 echo "    $PROVIDER_NAME = {"
-echo "      source = \"oneuptime/$PROVIDER_NAME\""
+echo "      source = \"cast-operations/$PROVIDER_NAME\""
 echo "      version = \"$PROVIDER_VERSION\""
 echo "    }"
 echo "  }"
@@ -91,7 +91,7 @@ echo "}"
 echo ""
 echo "provider \"$PROVIDER_NAME\" {"
 echo "  host    = \"https://visca.ai\""
-echo "  api_key = var.oneuptime_api_key"
+echo "  api_key = var.cast_operations_api_key"
 echo "}"
 echo ""
 echo "🎯 Next steps:"

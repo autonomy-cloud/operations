@@ -14,19 +14,19 @@ Cast Operations Docker エージェントは、チューニング済みの OpenT
 
 ## クイックスタート（1 コマンド）
 
-`YOUR_ONEUPTIME_URL`、`YOUR_TELEMETRY_INGESTION_TOKEN`、およびホスト名を、ご自身の環境の値に置き換えてください。ホスト名は、この Docker ホストが Cast Operations 上でどのように表示されるかを決めるものです。`prod-docker-01` のような名前を選んでください。
+`YOUR_CAST_OPERATIONS_URL`、`YOUR_TELEMETRY_INGESTION_TOKEN`、およびホスト名を、ご自身の環境の値に置き換えてください。ホスト名は、この Docker ホストが Cast Operations 上でどのように表示されるかを決めるものです。`prod-docker-01` のような名前を選んでください。
 
 ```bash
 docker run -d \
-  --name oneuptime-docker-agent \
+  --name cast-operations-docker-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="YOUR_ONEUPTIME_URL" \
-  -e ONEUPTIME_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 ```
 
 これだけです。エージェントが接続すると、お使いの Docker ホストが Cast Operations ダッシュボードの **Docker** セクションに自動的に表示されます。
@@ -37,17 +37,17 @@ Docker Compose を使いたい場合は、以下を `docker-compose.yml` に記�
 
 ```yaml
 services:
-  oneuptime-docker-agent:
-    image: oneuptime/docker-agent:release
-    container_name: oneuptime-docker-agent
+  cast-operations-docker-agent:
+    image: cast-operations/docker-agent:release
+    container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
-      - ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-      - ONEUPTIME_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
+      - CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+      - CAST_OPERATIONS_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
       - DOCKER_HOST_NAME=my-docker-host
     logging:
       driver: json-file
@@ -66,8 +66,8 @@ docker compose up -d
 
 | 変数                      | 必須   | 説明                                                                                                                            |
 | ------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | はい   | お使いの Cast Operations インスタンスの URL（例: `https://visca.ai` またはセルフホストのホスト）                                 |
-| `ONEUPTIME_SERVICE_TOKEN` | はい   | _Project Settings → Telemetry Ingestion Keys_ から取得したテレメトリ取り込みトークン                                            |
+| `CAST_OPERATIONS_URL`           | はい   | お使いの Cast Operations インスタンスの URL（例: `https://visca.ai` またはセルフホストのホスト）                                 |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | はい   | _Project Settings → Telemetry Ingestion Keys_ から取得したテレメトリ取り込みトークン                                            |
 | `DOCKER_HOST_NAME`        | いいえ | このホストのわかりやすい名前。デフォルトは `docker-host` です。ホストごとに安定した値（例: `prod-docker-01`）を設定してください |
 
 ## インストールの確認
@@ -75,13 +75,13 @@ docker compose up -d
 エージェントが実行中であることを確認します。
 
 ```bash
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 ```
 
 エージェントのログを確認します。
 
 ```bash
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 ```
 
 次の行を探してください: `"Everything is ready. Begin running and processing data."`
@@ -91,8 +91,8 @@ docker logs -f oneuptime-docker-agent
 ## エージェントのアップグレード
 
 ```bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # 上記の `docker run` コマンドを再実行します
 ```
 
@@ -106,7 +106,7 @@ docker compose up -d
 ## エージェントのアンインストール
 
 ```bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 ```
 
 Docker Compose を使用した場合:
@@ -128,10 +128,10 @@ docker compose down
 
 ## セルフホストの Cast Operations
 
-Cast Operations をセルフホストしている場合は、`ONEUPTIME_URL` をご自身のインスタンスに設定してください。
+Cast Operations をセルフホストしている場合は、`CAST_OPERATIONS_URL` をご自身のインスタンスに設定してください。
 
 ```bash
--e ONEUPTIME_URL="https://your-operations-host.example.com"
+-e CAST_OPERATIONS_URL="https://your-operations-host.example.com"
 ```
 
 インスタンスが HTTP のみの場合は、`http://` と適切なポートを使用してください。
@@ -144,15 +144,15 @@ Cast Operations をセルフホストしている場合は、`ONEUPTIME_URL` を
 
 ### エージェントが切断状態として表示される
 
-1. エージェントが実行中であることを確認します: `docker ps --filter name=oneuptime-docker-agent`
-2. エージェントのログを確認します: `docker logs oneuptime-docker-agent | grep -i error`
+1. エージェントが実行中であることを確認します: `docker ps --filter name=cast-operations-docker-agent`
+2. エージェントのログを確認します: `docker logs cast-operations-docker-agent | grep -i error`
 3. Cast Operations URL とサービストークンが正しいことを確認します
 4. Docker ホストがネットワーク経由で Cast Operations インスタンスに到達できることを確認します
 
 ### メトリクスが表示されない
 
-1. エージェント内で Docker ソケットにアクセスできることを確認します: `docker exec oneuptime-docker-agent ls -la /var/run/docker.sock`
-2. エクスポートエラーがないか Collector のログを確認します: `docker logs oneuptime-docker-agent | tail -100`
+1. エージェント内で Docker ソケットにアクセスできることを確認します: `docker exec cast-operations-docker-agent ls -la /var/run/docker.sock`
+2. エクスポートエラーがないか Collector のログを確認します: `docker logs cast-operations-docker-agent | tail -100`
 3. サービストークンが有効で、有効期限が切れていないことを確認します
 
 ### ホスト名がコンテナ ID として表示される

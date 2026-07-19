@@ -60,7 +60,7 @@ api_get_resource() {
     local resource_id="$2"
     local select_fields="${3:-'{\"_id\": true}'}"
 
-    curl -s -X POST "${ONEUPTIME_URL}${endpoint}/${resource_id}/get-item" \
+    curl -s -X POST "${CAST_OPERATIONS_URL}${endpoint}/${resource_id}/get-item" \
         -H "Content-Type: application/json" \
         -H "Apikey: $TF_VAR_api_key" \
         -H "projectid: $TF_VAR_project_id" \

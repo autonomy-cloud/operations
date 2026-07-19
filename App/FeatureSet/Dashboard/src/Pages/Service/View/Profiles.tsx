@@ -2,7 +2,7 @@ import AggregatedFlamegraph from "../../../Components/Profiles/AggregatedFlamegr
 import ProfileTable from "../../../Components/Profiles/ProfileTable";
 import ProfileTypeSelector from "../../../Components/Profiles/ProfileTypeSelector";
 import PageComponentProps from "../../PageComponentProps";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import Navigation from "Common/UI/Utils/Navigation";
 import React, {
@@ -54,9 +54,9 @@ const ServiceProfiles: FunctionComponent<
    * look like a new window each time.
    */
   const { startTime, endTime } = useMemo(() => {
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
     return {
-      startTime: OneUptimeDate.addRemoveMinutes(now, -rangeMinutes),
+      startTime: OperationsDate.addRemoveMinutes(now, -rangeMinutes),
       endTime: now,
     };
   }, [rangeMinutes]);

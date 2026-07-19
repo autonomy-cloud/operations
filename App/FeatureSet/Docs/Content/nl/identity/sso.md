@@ -48,7 +48,7 @@ Keycloak is een populaire open-source oplossing voor identiteits- en toegangsbeh
 1. Log in op uw Cast Operations-dashboard
 2. Navigeer naar **Projectinstellingen** > **Authenticatie** > **SSO**
 3. Klik op **SSO aanmaken** en vul het volgende in:
-   - **Naam**: Een beschrijvende naam (bijv. `my-project-oneuptime`)
+   - **Naam**: Een beschrijvende naam (bijv. `my-project-cast-operations`)
    - **Sign On URL**: `https://<your-keycloak-domain>/auth/realms/<your-realm>/protocol/saml`
    - **Issuer**: `https://<your-keycloak-domain>/auth/realms/<your-realm>`
    - **Certificaat**: Zie [Stap 2](#stap-2-het-keycloak-certificaat-ophalen) hieronder
@@ -201,9 +201,9 @@ Okta is een veelgebruikt identiteitsplatform dat robuuste SAML SSO-mogelijkheden
 2. Navigeer naar **Projectinstellingen** > **Authenticatie** > **SSO**
 3. Klik op **SSO aanmaken** en vul het volgende in:
    - **Naam**: Een beschrijvende naam (bijv. `Okta SAML`)
-   - **Sign On URL**: U ontvangt dit van Okta in [Stap 3](#stap-3-okta-saml-metagegevens-kopiëren-naar-oneuptime)
-   - **Issuer**: U ontvangt dit van Okta in [Stap 3](#stap-3-okta-saml-metagegevens-kopiëren-naar-oneuptime)
-   - **Certificaat**: U ontvangt dit van Okta in [Stap 3](#stap-3-okta-saml-metagegevens-kopiëren-naar-oneuptime)
+   - **Sign On URL**: U ontvangt dit van Okta in [Stap 3](#stap-3-okta-saml-metagegevens-kopiëren-naar-cast-operations)
+   - **Issuer**: U ontvangt dit van Okta in [Stap 3](#stap-3-okta-saml-metagegevens-kopiëren-naar-cast-operations)
+   - **Certificaat**: U ontvangt dit van Okta in [Stap 3](#stap-3-okta-saml-metagegevens-kopiëren-naar-cast-operations)
    - **Handtekeningalgoritme**: `RSA-SHA-256`
    - **Digestalgoritme**: `SHA256`
 4. Klik op **SSO-configuratie bekijken** en kopieer de **Identifier (Entiteit-ID)** en **Reply URL (Assertion Consumer Service URL)** — u heeft deze nodig voor Okta

@@ -208,7 +208,7 @@ export default class MicrosoftTeamsAPI {
           res.setHeader("Content-Type", "application/zip");
           res.setHeader(
             "Content-Disposition",
-            'attachment; filename="oneuptime-teams-app.zip"',
+            'attachment; filename="cast-operations-teams-app.zip"',
           );
 
           // Create archive
@@ -1006,7 +1006,7 @@ export default class MicrosoftTeamsAPI {
 
         function saveConfiguration() {
             microsoftTeams.settings.setSettings({
-                entityId: "oneuptime-connector",
+                entityId: "cast-operations-connector",
                 contentUrl: "https://visca.ai",
                 suggestedDisplayName: "Cast Operations Notifications"
             });

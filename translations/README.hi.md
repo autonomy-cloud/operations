@@ -132,7 +132,7 @@ AI एजेंट फ़िक्स के साथ एक पुल रि�
 ```bash
 # 1. Clone the release branch
 git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # 2. Create your config (then edit it — set strong, random secrets!)
 cp config.example.env config.env
@@ -148,8 +148,8 @@ Cast Operations अब **http://localhost** पर चल रहा है — �
 ### ☸️ Helm के साथ Kubernetes — प्रोडक्शन के लिए
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
-helm install oneuptime autonomy-cloud/operations
+helm repo add cast-operations https://helm-chart.visca.ai
+helm install cast-operations autonomy-cloud/operations
 ```
 
 📖 पूरी इंस्टॉल निर्देश और वैल्यूज़ [Artifact Hub पर →](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

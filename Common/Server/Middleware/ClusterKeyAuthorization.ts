@@ -1,4 +1,4 @@
-import { ClusterKey as ONEUPTIME_SECRET } from "../EnvironmentConfig";
+import { ClusterKey as CAST_OPERATIONS_SECRET } from "../EnvironmentConfig";
 import {
   ExpressRequest,
   ExpressResponse,
@@ -20,7 +20,7 @@ export default class ClusterKeyAuthorization {
   @CaptureSpan()
   public static getClusterKey(): string {
     // we encode uri component because a lot of people use special characters in their cluster key secret
-    return encodeURIComponent(ONEUPTIME_SECRET.toString());
+    return encodeURIComponent(CAST_OPERATIONS_SECRET.toString());
   }
 
   @CaptureSpan()

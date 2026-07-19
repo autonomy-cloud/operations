@@ -61,7 +61,7 @@ outputs:
     traces_uri: "/otlp/v1/traces"
     tls: On
     header:
-      - x-oneuptime-token VOSTRO_TOKEN_ACQUISIZIONE_TELEMETRIA
+      - x-cast-operations-token VOSTRO_TOKEN_ACQUISIZIONE_TELEMETRIA
 ```
 
 Assicurarsi di avere opentelemetry_envelope nella propria sezione input. Ecco un esempio di come apparirebbe la sezione input:
@@ -118,7 +118,7 @@ pipeline:
       traces_uri: "/otlp/v1/traces"
       tls: On
       header:
-        - x-oneuptime-token VOSTRO_TOKEN_ACQUISIZIONE_TELEMETRIA
+        - x-cast-operations-token VOSTRO_TOKEN_ACQUISIZIONE_TELEMETRIA
 ```
 
 **Se si ospita autonomamente Cast Operations**: Se si ospita autonomamente Cast Operations, è possibile sostituire `host` con l'host della propria istanza Cast Operations. Se si ospita su un server http e non https, è possibile sostituire `port` con la porta della propria istanza Cast Operations (probabilmente la porta 80).
@@ -137,7 +137,7 @@ outputs:
     logs_uri: "/otlp/v1/logs"
     traces_uri: "/otlp/v1/traces"
     header:
-      - x-oneuptime-token VOSTRO_TOKEN_ACQUISIZIONE_TELEMETRIA
+      - x-cast-operations-token VOSTRO_TOKEN_ACQUISIZIONE_TELEMETRIA
 ```
 
 ## Utilizzo

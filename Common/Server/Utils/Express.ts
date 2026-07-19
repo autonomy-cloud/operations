@@ -37,7 +37,7 @@ export type ExpressResponse = express.Response;
 export type ExpressApplication = express.Application;
 export type ExpressRouter = express.Router;
 
-export interface OneUptimeRequest extends express.Request {
+export interface OperationsRequest extends express.Request {
   bearerTokenData?: JSONObject | string | undefined; //  if bearer token is passed then this is populated.
   probe?: ProbeRequest;
   userType?: UserType;
@@ -56,7 +56,7 @@ export interface OneUptimeRequest extends express.Request {
   rawBody?: string; // Raw body for signature verification (JSON or URL-encoded)
 }
 
-export interface OneUptimeResponse extends express.Response {
+export interface OperationsResponse extends express.Response {
   logBody: JSONObjectOrArray;
 }
 

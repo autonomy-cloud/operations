@@ -33,24 +33,24 @@ Establece `PROBE_INGRESS_PORT` en el puerto en el que deseas que el receptor se 
 ### Docker
 
 ```bash
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 Si no estás usando `--network host`, publica el puerto de ingreso explícitamente:
 
 ```bash
-docker run --name oneuptime-probe \
+docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 ### Docker Compose
@@ -59,13 +59,13 @@ docker run --name oneuptime-probe \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -78,25 +78,25 @@ services:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
@@ -107,10 +107,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oneuptime-probe-ingress
+  name: cast-operations-probe-ingress
 spec:
   selector:
-    app: oneuptime-probe
+    app: cast-operations-probe
   ports:
     - name: ingress
       port: 3875
@@ -118,7 +118,7 @@ spec:
   type: ClusterIP
 ```
 
-Los servicios internos pueden entonces enviar latidos a `http://oneuptime-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
+Los servicios internos pueden entonces enviar latidos a `http://cast-operations-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
 
 ## Envío de solicitudes a la sonda
 
@@ -167,19 +167,19 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 | `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`                          | Tiempo de espera (ms) para cada intento de reenvío a Cast Operations. Mínimo `1000`.                                     |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`                              | Número de reintentos antes de que la sonda abandone un reenvío. Establece en `0` para deshabilitar los reintentos. |
 
-Las variables estándar de la sonda (`PROBE_KEY`, `PROBE_ID`, `ONEUPTIME_URL`, variables de proxy) se aplican todas; consulta [Sondas personalizadas](/docs/probe/custom-probe) para ver la lista completa.
+Las variables estándar de la sonda (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, variables de proxy) se aplican todas; consulta [Sondas personalizadas](/docs/probe/custom-probe) para ver la lista completa.
 
 ## Consideraciones de seguridad
 
 - **El punto de conexión no tiene autenticación por diseño**: la clave secreta en la ruta de la URL _es_ la autenticación, igual que en el punto de conexión público de `visca.ai`. Trata la clave secreta como una credencial.
 - **Vincula solo a una interfaz privada.** El receptor de ingreso no debe ser accesible desde internet público. Usa una política de red, una regla de firewall o un servicio `ClusterIP` para restringir el acceso.
-- **Usa la terminación HTTPS si necesitas cifrado en tránsito.** El receptor de la sonda usa HTTP simple. Ponlo detrás de un balanceador de carga interno/controlador de ingreso si necesitas TLS en el salto de entrada. El tramo de reenvío de la sonda → Cast Operations siempre usa HTTPS (asumiendo que `ONEUPTIME_URL` es `https://`).
+- **Usa la terminación HTTPS si necesitas cifrado en tránsito.** El receptor de la sonda usa HTTP simple. Ponlo detrás de un balanceador de carga interno/controlador de ingreso si necesitas TLS en el salto de entrada. El tramo de reenvío de la sonda → Cast Operations siempre usa HTTPS (asumiendo que `CAST_OPERATIONS_URL` es `https://`).
 - **Límites de recursos.** El receptor acepta cuerpos de solicitud de hasta 50 MB. Si necesitas un límite más estricto, coloca un proxy inverso al frente.
 
 ## Solución de problemas
 
 - **La sonda registra `Probe ingress listener started on port <port>` al iniciar**: confirma que el receptor está activo. Si no ves esta línea, `PROBE_INGRESS_PORT` no está establecido, es `0` o no es válido.
-- **`Probe ingress: failed to forward to <url> after N attempts`**: la sonda no pudo llegar a Cast Operations. Comprueba la conectividad saliente de la sonda, los ajustes del proxy y el valor de `ONEUPTIME_URL`.
+- **`Probe ingress: failed to forward to <url> after N attempts`**: la sonda no pudo llegar a Cast Operations. Comprueba la conectividad saliente de la sonda, los ajustes del proxy y el valor de `CAST_OPERATIONS_URL`.
 - **`Probe ingress: probe ID not available, forwarding without it`**: la sonda aún no se ha registrado. El reenvío sigue teniendo éxito; el latido simplemente no se atribuirá a una sonda.
 - **El latido aparece en Cast Operations pero no a través de la sonda**: confirma que tu servicio está llegando a `http://<probe-host>:<port>/...` y no a la URL pública. Una entrada de DNS o `/etc/hosts` mal configurada es la causa habitual.
 

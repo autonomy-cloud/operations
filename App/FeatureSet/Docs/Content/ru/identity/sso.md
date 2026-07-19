@@ -48,7 +48,7 @@ Keycloak — популярное решение с открытым исход�
 1. Войдите в панель управления Cast Operations
 2. Перейдите в **Project Settings** > **Authentication** > **SSO**
 3. Нажмите **Create SSO** и заполните следующее:
-   - **Name**: Описательное имя (например, `my-project-oneuptime`)
+   - **Name**: Описательное имя (например, `my-project-cast-operations`)
    - **Sign On URL**: `https://<your-keycloak-domain>/auth/realms/<your-realm>/protocol/saml`
    - **Issuer**: `https://<your-keycloak-domain>/auth/realms/<your-realm>`
    - **Certificate**: See [Step 2](#шаг-2-получение-сертификата-keycloak) below
@@ -201,9 +201,9 @@ Okta — широко используемая платформа удостов
 2. Перейдите в **Project Settings** > **Authentication** > **SSO**
 3. Нажмите **Create SSO** и заполните следующее:
    - **Name**: Описательное имя (например, `Okta SAML`)
-   - **Sign On URL**: Получите из Okta на [шаге 3](#шаг-3-копирование-метаданных-okta-saml-в-oneuptime)
-   - **Issuer**: Получите из Okta на [шаге 3](#шаг-3-копирование-метаданных-okta-saml-в-oneuptime)
-   - **Certificate**: Получите из Okta на [шаге 3](#шаг-3-копирование-метаданных-okta-saml-в-oneuptime)
+   - **Sign On URL**: Получите из Okta на [шаге 3](#шаг-3-копирование-метаданных-okta-saml-в-cast-operations)
+   - **Issuer**: Получите из Okta на [шаге 3](#шаг-3-копирование-метаданных-okta-saml-в-cast-operations)
+   - **Certificate**: Получите из Okta на [шаге 3](#шаг-3-копирование-метаданных-okta-saml-в-cast-operations)
    - **Signature Algorithm**: `RSA-SHA-256`
    - **Digest Algorithm**: `SHA256`
 4. Нажмите **View SSO Config** и скопируйте **Identifier (Entity ID)** и **Reply URL (Assertion Consumer Service URL)** — они понадобятся для Okta

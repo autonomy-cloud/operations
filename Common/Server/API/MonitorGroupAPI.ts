@@ -10,7 +10,7 @@ import {
 import Response from "../Utils/Response";
 import BaseAPI from "./BaseAPI";
 import CommonAPI from "./CommonAPI";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
 import MonitorGroup from "../../Models/DatabaseModels/MonitorGroup";
@@ -68,8 +68,8 @@ export default class MonitorGroupAPI extends BaseAPI<
             throw new BadDataException("Monitor group id is required.");
           }
 
-          const startDate: Date = OneUptimeDate.getSomeDaysAgo(90);
-          const endDate: Date = OneUptimeDate.getCurrentDate();
+          const startDate: Date = OperationsDate.getSomeDaysAgo(90);
+          const endDate: Date = OperationsDate.getCurrentDate();
 
           const timeline: Array<MonitorStatusTimeline> =
             await this.service.getStatusTimeline(

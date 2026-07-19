@@ -7,7 +7,7 @@ import React, {
 import MetricType from "Common/Models/DatabaseModels/MetricType";
 import Service from "Common/Models/DatabaseModels/Service";
 import ValueFormatter from "Common/Utils/ValueFormatter";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import MetricSparkline, { SparklinePoint } from "./MetricSparkline";
 import ObjectID from "Common/Types/ObjectID";
 import { getVisibleMetricServices } from "./MetricRowData";
@@ -47,7 +47,7 @@ const MetricRow: FunctionComponent<MetricRowProps> = (
     ? hoveredPoint.value
     : props.lastValue;
   const displayedTime: string | null = hoveredPoint
-    ? OneUptimeDate.getDateAsLocalFormattedString(hoveredPoint.time)
+    ? OperationsDate.getDateAsLocalFormattedString(hoveredPoint.time)
     : null;
 
   const services: Array<Service> = getVisibleMetricServices({

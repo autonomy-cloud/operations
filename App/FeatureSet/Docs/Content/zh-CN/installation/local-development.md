@@ -10,7 +10,7 @@
 ```
 # 克隆此代码仓库并进入目录
 git clone https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # 将 config.example.env 复制为 config.env
 cp config.example.env config.env

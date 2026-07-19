@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### Benutzerdefinierte Metriken
 
-Sie können benutzerdefinierte Metriken aus Ihrem Skript mit der Funktion `oneuptime.captureMetric()` erfassen. Diese Metriken werden in Cast Operations gespeichert und können auf Dashboards mit dem Metric Explorer als Diagramme dargestellt werden.
+Sie können benutzerdefinierte Metriken aus Ihrem Skript mit der Funktion `cast-operations.captureMetric()` erfassen. Diese Metriken werden in Cast Operations gespeichert und können auf Dashboards mit dem Metric Explorer als Diagramme dargestellt werden.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (Zeichenkette, erforderlich): Der Metrikname (z. B. `"api.response.time"`). Er wird automatisch mit dem Präfix `custom.monitor.` gespeichert.
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // Capture a simple metric
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // Capture a metric with attributes
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ Nach der Erfassung erscheinen diese Metriken im Metric Explorer unter Namen wie 
 - `axios`: Dieses Modul können Sie verwenden, um HTTP-Anfragen zu stellen. Es ist ein promise-basierter HTTP-Client für Browser und Node.js.
 - `crypto`: Dieses Modul können Sie für kryptographische Operationen verwenden. Es ist ein integriertes Node.js-Modul mit kryptographischer Funktionalität, einschließlich Wrapper für OpenSSL-Hash-, HMAC-, Verschlüsselungs-, Entschlüsselungs-, Signatur- und Verifizierungsfunktionen.
 - `console.log`: Dieses Modul können Sie verwenden, um Daten in der Konsole zu protokollieren. Dies ist nützlich für Debugging-Zwecke.
-- `oneuptime.captureMetric`: Damit können Sie benutzerdefinierte Metriken aus Ihrem Skript erfassen. Siehe den Abschnitt Benutzerdefinierte Metriken oben.
+- `cast-operations.captureMetric`: Damit können Sie benutzerdefinierte Metriken aus Ihrem Skript erfassen. Siehe den Abschnitt Benutzerdefinierte Metriken oben.
 - `http`: Dieses Modul können Sie verwenden, um HTTP-Anfragen zu stellen. Es ist ein integriertes Node.js-Modul, das einen HTTP-Client und -Server bereitstellt.
 - `https`: Dieses Modul können Sie verwenden, um HTTPS-Anfragen zu stellen. Es ist ein integriertes Node.js-Modul, das einen HTTPS-Client und -Server bereitstellt.
 

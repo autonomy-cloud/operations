@@ -19,7 +19,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const Domains: FunctionComponent<PageComponentProps> = (): ReactElement => {
   const [showVerificationModal, setShowVerificationModal] =
@@ -28,7 +28,7 @@ const Domains: FunctionComponent<PageComponentProps> = (): ReactElement => {
   const [currentVerificationDomain, setCurrentVerificationDomain] =
     useState<Domain | null>(null);
   const [refreshToggle, setRefreshToggle] = useState<string>(
-    OneUptimeDate.getCurrentDate().toString(),
+    OperationsDate.getCurrentDate().toString(),
   );
   const [isVerificationLoading, setIsVerificationLoading] =
     useState<boolean>(false);
@@ -203,7 +203,7 @@ const Domains: FunctionComponent<PageComponentProps> = (): ReactElement => {
               });
               setIsVerificationLoading(false);
               setShowVerificationModal(false);
-              setRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+              setRefreshToggle(OperationsDate.getCurrentDate().toString());
             } catch (err) {
               setError(API.getFriendlyMessage(err));
               setIsVerificationLoading(false);

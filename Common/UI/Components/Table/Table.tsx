@@ -278,7 +278,7 @@ const Table: TableFunction = <T extends GenericObject>(
   });
 
   return (
-    <div className={props.className}>
+    <div className={`operations-table ${props.className || ""}`}>
       <FilterViewer
         id={`${props.id}-filter`}
         showFilterModal={props.showFilterModal || false}
@@ -325,13 +325,13 @@ const Table: TableFunction = <T extends GenericObject>(
           }
         }}
       >
-        <div className="-my-2 overflow-x-auto md:-mx-6">
-          <div className="inline-block min-w-full py-2 align-middle">
+        <div className="operations-table-scroll -my-2 overflow-x-auto md:-mx-6">
+          <div className="operations-table-layout inline-block min-w-full py-2 align-middle">
             <div
               className={
                 props.tableContainerClassName
                   ? props.tableContainerClassName
-                  : "overflow-hidden border-t border-gray-200"
+                  : "operations-table-frame overflow-hidden border-t border-gray-200"
               }
             >
               {isMobile ? (
@@ -341,7 +341,7 @@ const Table: TableFunction = <T extends GenericObject>(
                 </div>
               ) : (
                 // Desktop view: render as table
-                <table className="min-w-full divide-y divide-gray-200">
+                <table className="operations-table-grid min-w-full divide-y divide-gray-200">
                   <TableHeader
                     id={`${props.id}-header`}
                     columns={props.columns}
@@ -368,7 +368,7 @@ const Table: TableFunction = <T extends GenericObject>(
             </div>
           </div>
         </div>
-        <div className="bg-gray-50 text-right md:-mx-6 -mb-6 rounded-b-xl">
+        <div className="operations-table-footer bg-gray-50 text-right md:-mx-6 -mb-6 rounded-b-xl">
           {!props.disablePagination && (
             <Pagination
               singularLabel={translatedSingularLabel}

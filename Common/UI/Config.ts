@@ -23,7 +23,6 @@ import Hostname from "../Types/API/Hostname";
 import Protocol from "../Types/API/Protocol";
 import URL from "../Types/API/URL";
 import Route from "../Types/API/Route";
-import SubscriptionPlan from "../Types/Billing/SubscriptionPlan";
 import Dictionary from "../Types/Dictionary";
 import { JSONObject } from "../Types/JSON";
 import Version from "../Types/Version";
@@ -47,13 +46,8 @@ export const HTTP_PROTOCOL: Protocol =
 
 export const HOST: string = env("HOST") || "";
 
-// Cast Operations is distributed as a single, complete edition. Billing is
-// permanently disabled; this compatibility value keeps legacy cloud-only UI
-// branches inactive while they are removed incrementally.
-export const BILLING_ENABLED: boolean = false;
 export const CAST_OPERATIONS_EMBEDDED_MODE: boolean =
   env("CAST_OPERATIONS_EMBEDDED_MODE") === "true";
-export const BILLING_PUBLIC_KEY: string = "";
 
 export const CAPTCHA_ENABLED: boolean = env("CAPTCHA_ENABLED") === "true";
 export const CAPTCHA_SITE_KEY: string = env("CAPTCHA_SITE_KEY") || "";
@@ -203,9 +197,6 @@ export const HOME_URL: URL = new URL(
   HOME_HOSTNAME,
   new Route(HomeRoute.toString()),
 );
-
-export const SubscriptionPlans: Array<SubscriptionPlan> =
-  SubscriptionPlan.getSubscriptionPlans(getAllEnvVars());
 
 export const StatusPageCNameRecord: string =
   env("STATUS_PAGE_CNAME_RECORD") || "";

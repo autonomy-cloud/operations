@@ -12,7 +12,7 @@ import Recurring from "../../Types/Events/Recurring";
 import RestrictionTimes, {
   RestrictionType,
 } from "../../Types/OnCallDutyPolicy/RestrictionTimes";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import UpdateBy from "../Types/Database/UpdateBy";
 import Model from "../../Models/DatabaseModels/OnCallDutyPolicyScheduleLayer";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
@@ -86,10 +86,10 @@ export class Service extends DatabaseService<Model> {
       parsed.dayRestrictionTimes.startTime &&
       parsed.dayRestrictionTimes.endTime
     ) {
-      const start: Date = OneUptimeDate.fromString(
+      const start: Date = OperationsDate.fromString(
         parsed.dayRestrictionTimes.startTime as any,
       );
-      const end: Date = OneUptimeDate.fromString(
+      const end: Date = OperationsDate.fromString(
         parsed.dayRestrictionTimes.endTime as any,
       );
 

@@ -33,7 +33,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -73,12 +73,12 @@ function dailyRestriction(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: startHour,
       minutes: startMinute,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: endHour,
       minutes: endMinute,
       seconds: 0,
@@ -103,8 +103,8 @@ function weeklyRestriction(entries: WeeklyEntrySpec[]): RestrictionTimes {
       return {
         startDay: e.startDay,
         endDay: e.endDay,
-        startTime: OneUptimeDate.fromString(e.startTimeIso),
-        endTime: OneUptimeDate.fromString(e.endTimeIso),
+        startTime: OperationsDate.fromString(e.startTimeIso),
+        endTime: OperationsDate.fromString(e.endTimeIso),
       };
     },
   );
@@ -156,7 +156,7 @@ function expand(
 function eventKey(events: Array<CalendarEvent>): string {
   return events
     .map((e: CalendarEvent): string => {
-      return `${e.title}@${OneUptimeDate.toString(e.start)}->${OneUptimeDate.toString(e.end)}`;
+      return `${e.title}@${OperationsDate.toString(e.start)}->${OperationsDate.toString(e.end)}`;
     })
     .join("|");
 }
@@ -287,15 +287,15 @@ function assertWeeklyUnchanged(
  * ---------------------------------------------------------------------------
  */
 
-const MON_JAN6: Date = OneUptimeDate.fromString("2025-01-06T00:00:00.000Z");
+const MON_JAN6: Date = OperationsDate.fromString("2025-01-06T00:00:00.000Z");
 const NY: string = "America/New_York";
 const KOLKATA: string = "Asia/Kolkata";
 
 function addDays(base: Date, n: number): Date {
-  return OneUptimeDate.addRemoveDays(base, n);
+  return OperationsDate.addRemoveDays(base, n);
 }
 function addHours(base: Date, n: number): Date {
-  return OneUptimeDate.addRemoveHours(base, n);
+  return OperationsDate.addRemoveHours(base, n);
 }
 
 interface Window {

@@ -11,7 +11,7 @@ import Telemetry, {
  * module from multiple call sites is safe.
  *
  * Naming follows OpenTelemetry semantic conventions where applicable, with a
- * `oneuptime.` prefix for application-specific signals.
+ * `cast-operations.` prefix for application-specific signals.
  *
  * Cardinality rule: never attach high-cardinality identifiers (userId,
  * projectId, monitorId, requestId, raw URLs) to metric attributes — those

@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### Brugerdefinerede metrikker
 
-Du kan optage brugerdefinerede metrikker fra dit script ved hjælp af funktionen `oneuptime.captureMetric()`. Disse metrikker gemmes i Cast Operations og kan vises på dashboards ved hjælp af Metrisk Stifinder.
+Du kan optage brugerdefinerede metrikker fra dit script ved hjælp af funktionen `cast-operations.captureMetric()`. Disse metrikker gemmes i Cast Operations og kan vises på dashboards ved hjælp af Metrisk Stifinder.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (streng, påkrævet): Metrikkens navn (f.eks. `"api.response.time"`). Det gemmes automatisk med præfikset `custom.monitor.`.
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // Optag en simpel metrik
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // Optag en metrik med attributter
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ Når de er optaget, vises disse metrikker i Metrisk Stifinder under navne som `c
 - `axios`: Du kan bruge dette modul til at sende HTTP-anmodninger. Det er en promise-baseret HTTP-klient til browsere og Node.js.
 - `crypto`: Du kan bruge dette modul til at udføre kryptografiske operationer. Det er et indbygget Node.js-modul, der leverer kryptografisk funktionalitet, herunder et sæt wrappers til OpenSSL's hash-, HMAC-, cipher-, decipher-, sign- og verify-funktioner.
 - `console.log`: Du kan bruge dette modul til at logge data til konsollen. Dette er nyttigt til fejlfindingsformål.
-- `oneuptime.captureMetric`: Du kan bruge dette til at optage brugerdefinerede metrikker fra dit script. Se afsnittet Brugerdefinerede metrikker ovenfor.
+- `cast-operations.captureMetric`: Du kan bruge dette til at optage brugerdefinerede metrikker fra dit script. Se afsnittet Brugerdefinerede metrikker ovenfor.
 - `http`: Du kan bruge dette modul til at sende HTTP-anmodninger. Det er et indbygget Node.js-modul, der leverer en HTTP-klient og -server.
 - `https`: Du kan bruge dette modul til at sende HTTPS-anmodninger. Det er et indbygget Node.js-modul, der leverer en HTTPS-klient og -server.
 

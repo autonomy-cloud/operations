@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. En Datadog, ve a **Integrations → Webhooks** (instala la integración **Webhooks** si aún no lo has hecho).
 2. **Añade un webhook**:
 
-   - **Name**: `oneuptime` (esto lo convierte en `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (esto lo convierte en `@webhook-cast-operations`).
    - **URL**: la URL del webhook de tu workflow.
    - **Payload** — Datadog te permite definir el cuerpo JSON usando [variables de plantilla](https://docs.datadoghq.com/integrations/webhooks/#usage):
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Añade el identificador del webhook a los monitores que quieras reenviar. En el **mensaje de notificación** de cada monitor, incluye:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Esto envía tanto la alerta como la recuperación a Cast Operations. (Para reenviar todo, también puedes añadir `@webhook-oneuptime` a un monitor de forma incondicional.)
+Esto envía tanto la alerta como la recuperación a Cast Operations. (Para reenviar todo, también puedes añadir `@webhook-cast-operations` a un monitor de forma incondicional.)
 
 ## Paso 4 — Probarlo
 
@@ -74,7 +74,7 @@ Esto envía tanto la alerta como la recuperación a Cast Operations. (Para reenv
 
 ## Solución de problemas
 
-- **No aparece ninguna ejecución** — confirma que el mensaje del monitor incluye `@webhook-oneuptime` y que el workflow está **Enabled**.
+- **No aparece ninguna ejecución** — confirma que el mensaje del monitor incluye `@webhook-cast-operations` y que el workflow está **Enabled**.
 - **Los campos están vacíos** — Datadog solo sustituye las variables de plantilla que aplican al evento. Inspecciona la salida del disparador en la pestaña **Logs** y ajusta la carga útil de tu webhook.
 - **Incidentes duplicados** — un monitor que re-alerta (renotify) envía múltiples eventos `Triggered`; deduplica con una comprobación **Find Incident** sobre el `id` antes de crear.
 

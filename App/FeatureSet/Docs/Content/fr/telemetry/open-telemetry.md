@@ -40,21 +40,21 @@ Une fois que vous avez configuré le service de télémétrie dans votre applica
 
 | Variable d'environnement    | Valeur                                          |
 | --------------------------- | ----------------------------------------------- |
-| OTEL_EXPORTER_OTLP_HEADERS  | x-oneuptime-token=VOTRE_JETON_SERVICE_ONEUPTIME |
+| OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=VOTRE_JETON_SERVICE_CAST_OPERATIONS |
 | OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                      |
 | OTEL_SERVICE_NAME           | NOM_DE_VOTRE_SERVICE                            |
 
 **Exemple**
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=9c8806e0-a4aa-11ee-be95-010d5967b068
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=mon-service
 ```
 
 **Cast Operations auto-hébergé**
 
-Si vous auto-hébergez Cast Operations, cela peut être remplacé par le point d'accès de votre collecteur OpenTelemetry auto-hébergé (ex. : `http(s)://VOTRE-HÔTE-ONEUPTIME/otlp`)
+Si vous auto-hébergez Cast Operations, cela peut être remplacé par le point d'accès de votre collecteur OpenTelemetry auto-hébergé (ex. : `http(s)://VOTRE-HÔTE-CAST_OPERATIONS/otlp`)
 
 Une fois que vous exécutez votre application, vous devriez voir les journaux dans la page du service de télémétrie Cast Operations. Veuillez contacter support@visca.ai si vous avez besoin d'aide.
 
@@ -82,7 +82,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "JETON_ONEUPTIME" # Votre jeton Cast Operations
+      "x-cast-operations-token": "JETON_CAST_OPERATIONS" # Votre jeton Cast Operations
 
 service:
   pipelines:

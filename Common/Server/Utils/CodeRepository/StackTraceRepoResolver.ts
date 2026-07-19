@@ -37,7 +37,7 @@ export interface RepoResolution {
   repositoryName: string;
   servicePathInRepository: string | null;
   method: "stack-trace" | "name-match" | "only-repository";
-  evidence: string; // human-readable, e.g. 'Matched src/billing/charge.ts in acme/checkout'
+  evidence: string; // human-readable, e.g. 'Matched src/payments/charge.ts in acme/checkout'
 }
 
 // Stack top is most relevant — anything past this is noise.
@@ -87,8 +87,8 @@ const PYTHON_FRAME_REGEX: RegExp = /File\s+"([^"]+)"\s*,\s*line\s+\d+/g;
  * Normalizes one raw path plucked from a stack frame into a relative,
  * forward-slash path — or null when the frame is dependency/runtime noise.
  *
- * Exported because a runtime path from a stack frame (`/app/src/billing.ts`)
- * is not a repository path (`src/billing.ts`): anything that hands a frame's
+ * Exported because a runtime path from a stack frame (`/app/src/payments.ts`)
+ * is not a repository path (`src/payments.ts`): anything that hands a frame's
  * file to a repository API must strip the container prefix first, or every
  * lookup 404s.
  */
@@ -239,7 +239,7 @@ const buildRepositoryMatchState: BuildRepositoryMatchStateFunction = (
 
 /*
  * Finds the longest suffix of the candidate path present in the repository
- * tree: `src/billing/charge.ts` is tried in full, then `billing/charge.ts`,
+ * tree: `src/payments/charge.ts` is tried in full, then `payments/charge.ts`,
  * then `charge.ts`. Every ladder entry shares the candidate's basename, so
  * only tree paths with that basename need checking.
  */
@@ -304,8 +304,8 @@ const totalMatchedSegmentDepth: TotalMatchedSegmentDepthFunction = (
 
 /*
  * The tree-path prefix shared by every matched file, by whole segments:
- * tree `services/checkout/src/billing/charge.ts` matched by suffix
- * `src/billing/charge.ts` contributes prefix `services/checkout`. Root
+ * tree `services/checkout/src/payments/charge.ts` matched by suffix
+ * `src/payments/charge.ts` contributes prefix `services/checkout`. Root
  * matches contribute the empty prefix. Null when nothing is common.
  */
 type DeepestCommonPrefixFunction = (prefixes: Array<string>) => string | null;

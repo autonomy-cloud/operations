@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Recurring from "Common/Types/Events/Recurring";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import WorkspaceNotificationSummaryService from "Common/Server/Services/WorkspaceNotificationSummaryService";
@@ -18,7 +18,7 @@ RunCron(
       await WorkspaceNotificationSummaryService.findAllBy({
         query: {
           isEnabled: true,
-          nextSendAt: QueryHelper.lessThan(OneUptimeDate.getCurrentDate()),
+          nextSendAt: QueryHelper.lessThan(OperationsDate.getCurrentDate()),
         },
         props: {
           isRoot: true,

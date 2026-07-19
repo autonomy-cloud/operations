@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
@@ -11,8 +11,8 @@ terraform {
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -21,7 +21,7 @@ resource "random_id" "suffix" {
 }
 
 # Comprehensive CRUD test for incident_severity resource
-resource "oneuptime_incident_severity" "test" {
+resource "cast_operations_incident_severity" "test" {
   name        = "TF CRUD Severity ${random_id.suffix.hex}"
   description = var.severity_description
   color       = var.severity_color
@@ -29,26 +29,26 @@ resource "oneuptime_incident_severity" "test" {
 }
 
 output "incident_severity_id" {
-  value       = oneuptime_incident_severity.test.id
+  value       = cast_operations_incident_severity.test.id
   description = "ID of the created incident severity"
 }
 
 output "incident_severity_name" {
-  value       = oneuptime_incident_severity.test.name
+  value       = cast_operations_incident_severity.test.name
   description = "Name of the created incident severity"
 }
 
 output "incident_severity_description" {
-  value       = oneuptime_incident_severity.test.description
+  value       = cast_operations_incident_severity.test.description
   description = "Description of the created incident severity"
 }
 
 output "incident_severity_color" {
-  value       = oneuptime_incident_severity.test.color
+  value       = cast_operations_incident_severity.test.color
   description = "Color of the created incident severity"
 }
 
 output "incident_severity_order" {
-  value       = oneuptime_incident_severity.test.order
+  value       = cast_operations_incident_severity.test.order
   description = "Order of the created incident severity"
 }

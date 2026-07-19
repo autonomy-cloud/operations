@@ -35,7 +35,7 @@ x-common-variables: &common-variables
 
 x-common-runtime-variables: &common-runtime-variables
   <<: *common-variables
-  ONEUPTIME_SECRET: ${ONEUPTIME_SECRET}
+  CAST_OPERATIONS_SECRET: ${CAST_OPERATIONS_SECRET}
   EMBEDDED_DASHBOARD_AUTH_ENABLED: ${EMBEDDED_DASHBOARD_AUTH_ENABLED:-false}
 
   # Seed a Global LLM Provider from env at startup (e.g. a local Ollama or
@@ -82,11 +82,6 @@ x-common-runtime-variables: &common-runtime-variables
   CLICKHOUSE_HOST: ${CLICKHOUSE_HOST}
   CLICKHOUSE_PORT: ${CLICKHOUSE_PORT}
 
-  AVERAGE_SPAN_ROW_SIZE_IN_BYTES: ${AVERAGE_SPAN_ROW_SIZE_IN_BYTES}
-  AVERAGE_LOG_ROW_SIZE_IN_BYTES: ${AVERAGE_LOG_ROW_SIZE_IN_BYTES}
-  AVERAGE_METRIC_ROW_SIZE_IN_BYTES: ${AVERAGE_METRIC_ROW_SIZE_IN_BYTES}
-  AVERAGE_EXCEPTION_ROW_SIZE_IN_BYTES: ${AVERAGE_EXCEPTION_ROW_SIZE_IN_BYTES}
-
   WORKFLOW_SCRIPT_TIMEOUT_IN_MS: ${WORKFLOW_SCRIPT_TIMEOUT_IN_MS}
   WORKFLOW_TIMEOUT_IN_MS: ${WORKFLOW_TIMEOUT_IN_MS}
 
@@ -103,7 +98,6 @@ x-common-runtime-variables: &common-runtime-variables
   NOTIFICATION_SLACK_WEBHOOK_ON_CREATED_USER: ${NOTIFICATION_SLACK_WEBHOOK_ON_CREATED_USER}
   NOTIFICATION_SLACK_WEBHOOK_ON_CREATED_PROJECT: ${NOTIFICATION_SLACK_WEBHOOK_ON_CREATED_PROJECT}
   NOTIFICATION_SLACK_WEBHOOK_ON_DELETED_PROJECT: ${NOTIFICATION_SLACK_WEBHOOK_ON_DELETED_PROJECT}
-  NOTIFICATION_SLACK_WEBHOOK_ON_SUBSCRIPTION_UPDATE: ${NOTIFICATION_SLACK_WEBHOOK_ON_SUBSCRIPTION_UPDATE}
 
   SLACK_APP_CLIENT_SECRET: ${SLACK_APP_CLIENT_SECRET}
   SLACK_APP_SIGNING_SECRET: ${SLACK_APP_SIGNING_SECRET}
@@ -135,7 +129,7 @@ services:
     image: redis:7.0.12
     restart: always
     networks:
-      - oneuptime
+      - cast-operations
     command: redis-server --requirepass "${REDIS_PASSWORD}" --save "" --appendonly no
     environment:
       REDIS_PASSWORD: ${REDIS_PASSWORD}
@@ -159,12 +153,12 @@ services:
       CLICKHOUSE_DB: ${CLICKHOUSE_DATABASE}
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
     networks:
-      - oneuptime
+      - cast-operations
     volumes:
       - clickhouse:/var/lib/clickhouse/
       # Cluster + embedded-Keeper drop-in: Cast Operations’ analytics schema is always
       # ReplicatedMergeTree + Distributed, so a single node runs an embedded
-      # Keeper and a 1-node "oneuptime" cluster (config.d is merged into the
+      # Keeper and a 1-node "cast-operations" cluster (config.d is merged into the
       # server config regardless of the main config.xml).
       - ./Clickhouse/config.d/cluster.xml:/etc/clickhouse-server/config.d/cluster.xml
       # Profile-level drop-in: batch the background Distributed-insert sender so it
@@ -191,7 +185,7 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     networks:
-      - oneuptime
+      - cast-operations
     volumes:
       - postgres:/var/lib/postgresql/data
     healthcheck:
@@ -207,7 +201,7 @@ services:
 
   test-server:
     networks:
-      - oneuptime
+      - cast-operations
     restart: always
     environment:
       <<: *common-runtime-variables
@@ -221,16 +215,11 @@ services:
 
   app:
     networks:
-      - oneuptime
+      - cast-operations
     restart: always
     environment:
       <<: *common-runtime-variables
       PORT: ${APP_PORT}
-      SMS_DEFAULT_COST_IN_CENTS: ${SMS_DEFAULT_COST_IN_CENTS}
-      WHATSAPP_TEXT_DEFAULT_COST_IN_CENTS: ${WHATSAPP_TEXT_DEFAULT_COST_IN_CENTS}
-      CALL_DEFAULT_COST_IN_CENTS_PER_MINUTE: ${CALL_DEFAULT_COST_IN_CENTS_PER_MINUTE}
-      SMS_HIGH_RISK_COST_IN_CENTS: ${SMS_HIGH_RISK_COST_IN_CENTS}
-      CALL_HIGH_RISK_COST_IN_CENTS_PER_MINUTE: ${CALL_HIGH_RISK_COST_IN_CENTS_PER_MINUTE}
       DISABLE_TELEMETRY: ${DISABLE_TELEMETRY_FOR_APP}
       ENABLE_PROFILING: ${ENABLE_PROFILING_FOR_APP}
       WORKER_CONCURRENCY: ${WORKER_CONCURRENCY}
@@ -250,7 +239,7 @@ services:
 
   home:
     networks:
-      - oneuptime
+      - cast-operations
     restart: always
     environment:
       <<: *common-runtime-variables
@@ -264,7 +253,7 @@ services:
     restart: always
     network_mode: host
     environment:
-      ONEUPTIME_URL: ${GLOBAL_PROBE_1_ONEUPTIME_URL}
+      CAST_OPERATIONS_URL: ${GLOBAL_PROBE_1_CAST_OPERATIONS_URL}
       REGISTER_PROBE_KEY: ${REGISTER_PROBE_KEY}
       PROBE_NAME: ${GLOBAL_PROBE_1_NAME}
       PROBE_DESCRIPTION: ${GLOBAL_PROBE_1_DESCRIPTION}
@@ -289,7 +278,7 @@ services:
     restart: always
     network_mode: host
     environment:
-      ONEUPTIME_URL: ${GLOBAL_PROBE_2_ONEUPTIME_URL}
+      CAST_OPERATIONS_URL: ${GLOBAL_PROBE_2_CAST_OPERATIONS_URL}
       REGISTER_PROBE_KEY: ${REGISTER_PROBE_KEY}
       PROBE_NAME: ${GLOBAL_PROBE_2_NAME}
       PROBE_DESCRIPTION: ${GLOBAL_PROBE_2_DESCRIPTION}
@@ -316,7 +305,7 @@ services:
     environment:
       <<: *common-runtime-variables
       AI_AGENT_KEY: ${AI_AGENT_KEY}
-      ONEUPTIME_URL: ${AI_AGENT_ONEUPTIME_URL}
+      CAST_OPERATIONS_URL: ${AI_AGENT_CAST_OPERATIONS_URL}
       DISABLE_TELEMETRY: ${DISABLE_TELEMETRY_FOR_AI_AGENT}
       ENABLE_PROFILING: ${ENABLE_PROFILING_FOR_AI_AGENT}
       PORT: ${AI_AGENT_PORT}
@@ -327,7 +316,7 @@ services:
 
   fluentd:
     networks:
-      - oneuptime
+      - cast-operations
     restart: always
     logging:
       driver: "json-file"
@@ -336,7 +325,7 @@ services:
 
   fluent-bit:
     networks:
-      - oneuptime
+      - cast-operations
     restart: always
     logging:
       driver: "json-file"
@@ -361,16 +350,16 @@ services:
   ingress:
     restart: always
     networks:
-      - oneuptime
+      - cast-operations
     environment:
       <<: *common-runtime-variables
-      ONEUPTIME_HTTP_PORT: ${ONEUPTIME_HTTP_PORT}
+      CAST_OPERATIONS_HTTP_PORT: ${CAST_OPERATIONS_HTTP_PORT}
       NGINX_LISTEN_ADDRESS: ${NGINX_LISTEN_ADDRESS}
       NGINX_LISTEN_OPTIONS: ${NGINX_LISTEN_OPTIONS}
       DASHBOARD_FRAME_ANCESTORS: ${DASHBOARD_FRAME_ANCESTORS:-'none'}
       DISABLE_TELEMETRY: ${DISABLE_TELEMETRY_FOR_INGRESS}
     ports:
-      - "${ONEUPTIME_HTTP_PORT}:7849"
+      - "${CAST_OPERATIONS_HTTP_PORT}:7849"
       - "${STATUS_PAGE_HTTPS_PORT}:7850"
     logging:
       driver: "json-file"
@@ -382,5 +371,5 @@ volumes:
   clickhouse:
 
 networks:
-  oneuptime:
+  cast-operations:
     driver: bridge

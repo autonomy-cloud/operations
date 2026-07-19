@@ -112,7 +112,7 @@ const ENGINES: Array<EngineConfig> = [
 
 const ROW_LIMIT_OPTIONS: Array<number> = [50, 100, 500, 1000];
 const HISTORY_LIMIT: number = 25;
-const HISTORY_KEY_PREFIX: string = "oneuptime-admin-query-history-";
+const HISTORY_KEY_PREFIX: string = "cast-operations-admin-query-history-";
 
 interface HistoryEntry {
   query: string;

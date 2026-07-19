@@ -47,7 +47,7 @@ Cast Operations acepta datos de perfilado a través de gRPC y HTTP usando el pro
 Establece las siguientes variables de entorno para apuntar tu perfilador a Cast Operations:
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
@@ -66,15 +66,15 @@ Configuración de ejemplo de Alloy:
 
 ```hcl
 pyroscope.ebpf "default" {
-  forward_to = [pyroscope.write.oneuptime.receiver]
+  forward_to = [pyroscope.write.cast-operations.receiver]
   targets    = discovery.process.all.targets
 }
 
-pyroscope.write "oneuptime" {
+pyroscope.write "cast-operations" {
   endpoint {
     url = "https://visca.ai/pyroscope"
     headers = {
-      "x-oneuptime-token" = "YOUR_ONEUPTIME_SERVICE_TOKEN",
+      "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_SERVICE_TOKEN",
     }
   }
 }
@@ -88,7 +88,7 @@ Para aplicaciones Java, usa [async-profiler](https://github.com/async-profiler/a
 # Inicia tu aplicación Java con el agente Java de OpenTelemetry
 java -javaagent:opentelemetry-javaagent.jar \
   -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
-  -Dotel.exporter.otlp.headers=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN \
+  -Dotel.exporter.otlp.headers=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
 ```
@@ -146,7 +146,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_ONEUPTIME_SERVICE_TOKEN"
+      "x-cast-operations-token": "YOUR_CAST_OPERATIONS_SERVICE_TOKEN"
 
 service:
   pipelines:

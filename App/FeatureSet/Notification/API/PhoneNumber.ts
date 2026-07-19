@@ -23,7 +23,7 @@ import Express, {
   ExpressResponse,
   ExpressRouter,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "Common/Server/Utils/Express";
 import Response from "Common/Server/Utils/Response";
 import logger, {
@@ -42,7 +42,7 @@ const router: ExpressRouter = Express.getRouter();
  * body/URL-supplied project ids must NOT be trusted for ownership decisions.
  */
 function getAuthenticatedProjectId(req: ExpressRequest): ObjectID {
-  const tenantId: ObjectID | undefined = (req as OneUptimeRequest).tenantId;
+  const tenantId: ObjectID | undefined = (req as OperationsRequest).tenantId;
   if (!tenantId) {
     throw new BadDataException("Project ID not found in request");
   }

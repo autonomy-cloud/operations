@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
@@ -11,8 +11,8 @@ terraform {
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -34,19 +34,19 @@ resource "random_id" "suffix" {
 # - Issue #2232: StatusPage server defaults (downtimeMonitorStatuses)
 
 # Step 1: Create the base domain
-resource "oneuptime_domain" "primary" {
+resource "cast_operations_domain" "primary" {
   domain      = "primary-${random_id.suffix.hex}.example.com"
   is_verified = true
 }
 
 # Step 2: Create a secondary domain for multiple domain testing
-resource "oneuptime_domain" "secondary" {
+resource "cast_operations_domain" "secondary" {
   domain      = "secondary-${random_id.suffix.hex}.example.com"
   is_verified = true
 }
 
 # Step 3: Create the main status page
-resource "oneuptime_status_page" "main" {
+resource "cast_operations_status_page" "main" {
   name                     = "TF E2E Main Status Page ${random_id.suffix.hex}"
   description              = "Main status page with custom domains"
   page_title               = "System Status"
@@ -60,7 +60,7 @@ resource "oneuptime_status_page" "main" {
 }
 
 # Step 4: Create a secondary status page
-resource "oneuptime_status_page" "secondary" {
+resource "cast_operations_status_page" "secondary" {
   name                     = "TF E2E Secondary Status Page ${random_id.suffix.hex}"
   description              = "Secondary status page for testing"
   page_title               = "Secondary Status"
@@ -71,9 +71,9 @@ resource "oneuptime_status_page" "secondary" {
 }
 
 # Step 5: Link primary domain to main status page
-resource "oneuptime_status_page_domain" "primary_main" {
-  domain_id      = oneuptime_domain.primary.id
-  status_page_id = oneuptime_status_page.main.id
+resource "cast_operations_status_page_domain" "primary_main" {
+  domain_id      = cast_operations_domain.primary.id
+  status_page_id = cast_operations_status_page.main.id
   subdomain      = "status"
 
   # Note: fullDomain and cnameVerificationToken are NOT specified
@@ -81,18 +81,18 @@ resource "oneuptime_status_page_domain" "primary_main" {
 }
 
 # Step 6: Link secondary domain to main status page (multiple domains on one page)
-resource "oneuptime_status_page_domain" "secondary_main" {
-  domain_id      = oneuptime_domain.secondary.id
-  status_page_id = oneuptime_status_page.main.id
+resource "cast_operations_status_page_domain" "secondary_main" {
+  domain_id      = cast_operations_domain.secondary.id
+  status_page_id = cast_operations_status_page.main.id
   subdomain      = "api-status"
 
   # Note: fullDomain and cnameVerificationToken are NOT specified
 }
 
 # Step 7: Link primary domain to secondary status page (one domain, multiple pages)
-resource "oneuptime_status_page_domain" "primary_secondary" {
-  domain_id      = oneuptime_domain.primary.id
-  status_page_id = oneuptime_status_page.secondary.id
+resource "cast_operations_status_page_domain" "primary_secondary" {
+  domain_id      = cast_operations_domain.primary.id
+  status_page_id = cast_operations_status_page.secondary.id
   subdomain      = "internal"
 
   # Note: fullDomain and cnameVerificationToken are NOT specified
@@ -100,63 +100,63 @@ resource "oneuptime_status_page_domain" "primary_secondary" {
 
 # Outputs for verification
 output "primary_domain_id" {
-  value       = oneuptime_domain.primary.id
+  value       = cast_operations_domain.primary.id
   description = "ID of the primary domain"
 }
 
 output "secondary_domain_id" {
-  value       = oneuptime_domain.secondary.id
+  value       = cast_operations_domain.secondary.id
   description = "ID of the secondary domain"
 }
 
 output "main_status_page_id" {
-  value       = oneuptime_status_page.main.id
+  value       = cast_operations_status_page.main.id
   description = "ID of the main status page"
 }
 
 output "secondary_status_page_id" {
-  value       = oneuptime_status_page.secondary.id
+  value       = cast_operations_status_page.secondary.id
   description = "ID of the secondary status page"
 }
 
 output "primary_main_domain_id" {
-  value       = oneuptime_status_page_domain.primary_main.id
+  value       = cast_operations_status_page_domain.primary_main.id
   description = "ID of the primary-main status page domain"
 }
 
 output "secondary_main_domain_id" {
-  value       = oneuptime_status_page_domain.secondary_main.id
+  value       = cast_operations_status_page_domain.secondary_main.id
   description = "ID of the secondary-main status page domain"
 }
 
 output "primary_secondary_domain_id" {
-  value       = oneuptime_status_page_domain.primary_secondary.id
+  value       = cast_operations_status_page_domain.primary_secondary.id
   description = "ID of the primary-secondary status page domain"
 }
 
 # Computed fields from StatusPageDomain (Issue #2236 fix validation)
 output "primary_main_full_domain" {
-  value       = oneuptime_status_page_domain.primary_main.full_domain
+  value       = cast_operations_status_page_domain.primary_main.full_domain
   description = "Computed full domain for primary-main"
 }
 
 output "secondary_main_full_domain" {
-  value       = oneuptime_status_page_domain.secondary_main.full_domain
+  value       = cast_operations_status_page_domain.secondary_main.full_domain
   description = "Computed full domain for secondary-main"
 }
 
 output "primary_secondary_full_domain" {
-  value       = oneuptime_status_page_domain.primary_secondary.full_domain
+  value       = cast_operations_status_page_domain.primary_secondary.full_domain
   description = "Computed full domain for primary-secondary"
 }
 
 # Server-injected defaults from StatusPage (Issue #2232 fix validation)
 output "main_downtime_monitor_statuses" {
-  value       = oneuptime_status_page.main.downtime_monitor_statuses
+  value       = cast_operations_status_page.main.downtime_monitor_statuses
   description = "Server-injected downtime monitor statuses for main status page"
 }
 
 output "main_slug" {
-  value       = oneuptime_status_page.main.slug
+  value       = cast_operations_status_page.main.slug
   description = "Server-generated slug for main status page"
 }

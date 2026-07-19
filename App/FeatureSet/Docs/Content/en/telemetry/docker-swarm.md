@@ -25,15 +25,15 @@ curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/Doc
 sh install.sh
 ```
 
-The script prompts for your Cast Operations URL, telemetry ingestion key, and cluster name, installs to `/opt/oneuptime-docker-swarm-agent`, and starts the agent.
+The script prompts for your Cast Operations URL, telemetry ingestion key, and cluster name, installs to `/opt/cast-operations-docker-swarm-agent`, and starts the agent.
 
 ## Quick Start — Docker Compose
 
 Download `docker-compose.yml`, `otel-collector-config.yaml`, and `inventory-snapshot.sh` from the [`DockerSwarmAgent`](https://github.com/autonomy-cloud/operations/tree/master/DockerSwarmAgent) directory onto a manager node, then create a `.env` file next to them:
 
 ```bash
-ONEUPTIME_URL=https://visca.ai
-ONEUPTIME_SERVICE_TOKEN=your-telemetry-ingestion-key
+CAST_OPERATIONS_URL=https://visca.ai
+CAST_OPERATIONS_SERVICE_TOKEN=your-telemetry-ingestion-key
 DOCKER_SWARM_CLUSTER_NAME=my-swarm
 ```
 
@@ -59,8 +59,8 @@ The cluster appears in Cast Operations within a few minutes, and the resource li
 
 | Variable                            | Required | Default                 | Notes                                                          |
 | ----------------------------------- | -------- | ----------------------- | -------------------------------------------------------------- |
-| `ONEUPTIME_URL`                     | yes      | `https://visca.ai` | Your Cast Operations instance                                        |
-| `ONEUPTIME_SERVICE_TOKEN`           | yes      | —                       | Telemetry ingestion key                                        |
+| `CAST_OPERATIONS_URL`                     | yes      | `https://visca.ai` | Your Cast Operations instance                                        |
+| `CAST_OPERATIONS_SERVICE_TOKEN`           | yes      | —                       | Telemetry ingestion key                                        |
 | `DOCKER_SWARM_CLUSTER_NAME`         | yes      | `docker-swarm`          | The cluster join key (matches the cluster's Name in Cast Operations) |
 | `DOCKER_INVENTORY_INTERVAL_SECONDS` | no       | `300`                   | How often the poller refreshes the inventory snapshot          |
 
@@ -70,6 +70,6 @@ The Docker Host agent models a single host and stamps `host.name` + `container.r
 
 ## Troubleshooting
 
-- **No inventory appears** — confirm the poller runs on a manager (`docker node ls` must succeed there). Check `docker compose logs oneuptime-docker-swarm-inventory` for `failed to emit ...` lines.
-- **Cluster never appears** — check the collector logs and that `ONEUPTIME_SERVICE_TOKEN` / `ONEUPTIME_URL` are correct.
+- **No inventory appears** — confirm the poller runs on a manager (`docker node ls` must succeed there). Check `docker compose logs cast-operations-docker-swarm-inventory` for `failed to emit ...` lines.
+- **Cluster never appears** — check the collector logs and that `CAST_OPERATIONS_SERVICE_TOKEN` / `CAST_OPERATIONS_URL` are correct.
 - **Status flaps to Disconnected** — the cluster is marked disconnected after 15 minutes without telemetry; ensure the collector container stays running.

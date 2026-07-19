@@ -2,7 +2,7 @@ import URL from "Common/Types/API/URL";
 import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
 import { Green, Red } from "Common/Types/BrandColors";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IconProp from "Common/Types/Icon/IconProp";
 import { JSONArray, JSONObject } from "Common/Types/JSON";
 import Alert, { AlertType } from "Common/UI/Components/Alerts/Alert";
@@ -54,7 +54,7 @@ const formatTimestamp: (value: unknown) => string = (
   }
 
   try {
-    return OneUptimeDate.getDateAsLocalFormattedString(value, false, false);
+    return OperationsDate.getDateAsLocalFormattedString(value, false, false);
   } catch {
     return "—";
   }

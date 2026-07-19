@@ -1,7 +1,6 @@
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import User from "./User";
 import Route from "../../Types/API/Route";
-import AllowAccessIfSubscriptionIsUnpaid from "../../Types/Database/AccessControl/AllowAccessIfSubscriptionIsUnpaid";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
@@ -20,7 +19,6 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 @EnableDocumentation({
   isMasterAdminApiDocs: true,
 })
-@AllowAccessIfSubscriptionIsUnpaid()
 @TableAccessControl({
   create: [Permission.CurrentUser],
   read: [Permission.CurrentUser],

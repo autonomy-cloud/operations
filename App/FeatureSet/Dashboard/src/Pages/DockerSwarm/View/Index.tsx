@@ -18,7 +18,7 @@ import API from "Common/UI/Utils/API/API";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Icon from "Common/UI/Components/Icon/Icon";
 import IconProp from "Common/Types/Icon/IconProp";
 import {
@@ -243,7 +243,7 @@ const DockerSwarmClusterOverview: FunctionComponent<
         },
       });
       setCluster(item);
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
       setIsLoading(false);
       setIsRefreshing(false);
 
@@ -336,7 +336,7 @@ const DockerSwarmClusterOverview: FunctionComponent<
     const status: string = (cluster.otelCollectorStatus as string) || "";
     const lastSeenAt: Date | undefined = cluster.lastSeenAt;
     const lastSeenText: string = lastSeenAt
-      ? OneUptimeDate.fromNow(lastSeenAt)
+      ? OperationsDate.fromNow(lastSeenAt)
       : "never";
 
     const isConnected: boolean =

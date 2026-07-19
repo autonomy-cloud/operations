@@ -50,7 +50,7 @@ ServiceNows Table API accepterer **Basic auth**.
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
-       "correlation_id": "oneuptime-{{Incident._id}}"
+       "correlation_id": "cast-operations-{{Incident._id}}"
      }
      ```
 
@@ -61,7 +61,7 @@ ServiceNows Table API accepterer **Basic auth**.
 ## Trin 3 — Løs ved Cast Operations-løsning (valgfrit)
 
 1. Opret et **andet** workflow med en **Incident → On Update**-trigger og en **Conditions**-blok, der tjekker, om hændelsen er løst.
-2. For at opdatere den rette ServiceNow-post skal du bruge dens `sys_id`. Gem den enten på Cast Operations-hændelsen i Trin 2 (læs `{{CreateRecord.response-body.result.sys_id}}` og skriv den til en label med **Update Incident**), eller slå posten op først med en `GET` på `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}`.
+2. For at opdatere den rette ServiceNow-post skal du bruge dens `sys_id`. Gem den enten på Cast Operations-hændelsen i Trin 2 (læs `{{CreateRecord.response-body.result.sys_id}}` og skriv den til en label med **Update Incident**), eller slå posten op først med en `GET` på `/api/now/table/incident?sysparm_query=correlation_id=cast-operations-{{Incident._id}}`.
 3. Tilføj en **API**-blok: **Method** `PATCH`, **URL** `https://din-instans.service-now.com/api/now/table/incident/<sys_id>`, body `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }` (`state` `6` = Resolved i standard ITIL-workflow'et).
 
 ## Fejlfinding

@@ -27,16 +27,16 @@ Cast Operations Terraform 공급자를 통해 Cast Operations 모니터링, 알�
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -45,16 +45,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Cast Operations 버전과 일치해야 함
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 }
 ```
 

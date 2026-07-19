@@ -1,5 +1,5 @@
 import logger from "../Logger";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Monitor from "../../../Models/DatabaseModels/Monitor";
 import MonitorStep from "../../../Types/Monitor/MonitorStep";
 import DataToProcess from "./DataToProcess";
@@ -335,7 +335,7 @@ export default class MonitorCriteriaObservationBuilder {
     if (probeResponse && probeResponse.isOnline !== undefined) {
       return `Monitor reported ${
         probeResponse.isOnline ? "online" : "offline"
-      } status at ${OneUptimeDate.getDateAsLocalFormattedString(
+      } status at ${OperationsDate.getDateAsLocalFormattedString(
         probeResponse.monitoredAt,
       )}.`;
     }
@@ -348,9 +348,9 @@ export default class MonitorCriteriaObservationBuilder {
     if (serverResponse) {
       const lastHeartbeat: Date = serverResponse.requestReceivedAt;
       const timeNow: Date =
-        serverResponse.timeNow || OneUptimeDate.getCurrentDate();
+        serverResponse.timeNow || OperationsDate.getCurrentDate();
       const minutesSinceHeartbeat: number =
-        OneUptimeDate.getDifferenceInMinutes(lastHeartbeat, timeNow);
+        OperationsDate.getDifferenceInMinutes(lastHeartbeat, timeNow);
 
       const formattedMinutes: string | null =
         MonitorCriteriaMessageFormatter.formatNumber(minutesSinceHeartbeat, {
@@ -395,9 +395,9 @@ export default class MonitorCriteriaObservationBuilder {
 
     const lastHeartbeat: Date = incomingRequest.incomingRequestReceivedAt;
     const checkedAt: Date =
-      incomingRequest.checkedAt || OneUptimeDate.getCurrentDate();
+      incomingRequest.checkedAt || OperationsDate.getCurrentDate();
 
-    const minutesSinceHeartbeat: number = OneUptimeDate.getDifferenceInMinutes(
+    const minutesSinceHeartbeat: number = OperationsDate.getDifferenceInMinutes(
       lastHeartbeat,
       checkedAt,
     );
@@ -409,7 +409,7 @@ export default class MonitorCriteriaObservationBuilder {
 
     return `Last incoming request was ${
       formattedMinutes ?? minutesSinceHeartbeat
-    } minutes ago (checked at ${OneUptimeDate.getDateAsLocalFormattedString(
+    } minutes ago (checked at ${OperationsDate.getDateAsLocalFormattedString(
       checkedAt,
     )}).`;
   }
@@ -780,8 +780,8 @@ export default class MonitorCriteriaObservationBuilder {
       return "SSL certificate expiration time was unavailable.";
     }
 
-    const hoursRemaining: number = OneUptimeDate.getHoursBetweenTwoDates(
-      OneUptimeDate.getCurrentDate(),
+    const hoursRemaining: number = OperationsDate.getHoursBetweenTwoDates(
+      OperationsDate.getCurrentDate(),
       sslResponse.expiresAt,
     );
 
@@ -790,7 +790,7 @@ export default class MonitorCriteriaObservationBuilder {
         maximumFractionDigits: 2,
       });
 
-    return `SSL certificate expires at ${OneUptimeDate.getDateAsLocalFormattedString(
+    return `SSL certificate expires at ${OperationsDate.getDateAsLocalFormattedString(
       sslResponse.expiresAt,
     )} (${formattedHours ?? hoursRemaining} hours remaining).`;
   }
@@ -805,8 +805,8 @@ export default class MonitorCriteriaObservationBuilder {
       return "SSL certificate expiration time was unavailable.";
     }
 
-    const daysRemaining: number = OneUptimeDate.getDaysBetweenTwoDates(
-      OneUptimeDate.getCurrentDate(),
+    const daysRemaining: number = OperationsDate.getDaysBetweenTwoDates(
+      OperationsDate.getCurrentDate(),
       sslResponse.expiresAt,
     );
 
@@ -815,7 +815,7 @@ export default class MonitorCriteriaObservationBuilder {
         maximumFractionDigits: 2,
       });
 
-    return `SSL certificate expires at ${OneUptimeDate.getDateAsLocalFormattedString(
+    return `SSL certificate expires at ${OperationsDate.getDateAsLocalFormattedString(
       sslResponse.expiresAt,
     )} (${formattedDays ?? daysRemaining} days remaining).`;
   }
@@ -845,9 +845,9 @@ export default class MonitorCriteriaObservationBuilder {
       return "SSL certificate expiration time was unavailable.";
     }
 
-    const isExpired: boolean = OneUptimeDate.isBefore(
+    const isExpired: boolean = OperationsDate.isBefore(
       sslResponse.expiresAt,
-      OneUptimeDate.getCurrentDate(),
+      OperationsDate.getCurrentDate(),
     );
 
     return isExpired
@@ -869,9 +869,9 @@ export default class MonitorCriteriaObservationBuilder {
         probeResponse?.isOnline &&
         sslResponse.expiresAt &&
         !sslResponse.isSelfSigned &&
-        OneUptimeDate.isAfter(
+        OperationsDate.isAfter(
           sslResponse.expiresAt,
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         ),
     );
 
@@ -900,9 +900,9 @@ export default class MonitorCriteriaObservationBuilder {
         sslResponse &&
           sslResponse.expiresAt &&
           (sslResponse.isSelfSigned ||
-            OneUptimeDate.isBefore(
+            OperationsDate.isBefore(
               sslResponse.expiresAt,
-              OneUptimeDate.getCurrentDate(),
+              OperationsDate.getCurrentDate(),
             )),
       );
 

@@ -1,6 +1,6 @@
 import { Blue500 } from "../../Types/BrandColors";
 import Color from "../../Types/Color";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
 import PositiveNumber from "../../Types/PositiveNumber";
@@ -9,7 +9,7 @@ import DeleteBy from "../Types/Database/DeleteBy";
 import FindBy from "../Types/Database/FindBy";
 import { OnDelete, OnFind, OnUpdate } from "../Types/Database/Hooks";
 import UpdateBy from "../Types/Database/UpdateBy";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import logger, { LogAttributes } from "../Utils/Logger";
 import DatabaseService from "./DatabaseService";
 import IncidentFeed, {
@@ -24,10 +24,6 @@ import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 export class Service extends DatabaseService<IncidentFeed> {
   public constructor() {
     super(IncidentFeed);
-
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -87,7 +83,7 @@ export class Service extends DatabaseService<IncidentFeed> {
     // send notifificatin to slack and teams. This is optional
     workspaceNotification?:
       | {
-          notifyUserId?: ObjectID | undefined; // this is oneuptime user id.
+          notifyUserId?: ObjectID | undefined; // this is cast-operations user id.
           sendWorkspaceNotification: boolean;
           appendMessageBlocks?: Array<MessageBlocksByWorkspaceType> | undefined;
         }
@@ -132,7 +128,7 @@ export class Service extends DatabaseService<IncidentFeed> {
       incidentFeed.projectId = data.projectId;
 
       if (!data.postedAt) {
-        incidentFeed.postedAt = OneUptimeDate.getCurrentDate();
+        incidentFeed.postedAt = OperationsDate.getCurrentDate();
       }
 
       if (data.userId) {
@@ -204,7 +200,7 @@ export class Service extends DatabaseService<IncidentFeed> {
     incidentId: ObjectID;
     feedInfoInMarkdown: string;
     workspaceNotification: {
-      notifyUserId?: ObjectID | undefined; // this is oneuptime user id.
+      notifyUserId?: ObjectID | undefined; // this is cast-operations user id.
       sendWorkspaceNotification: boolean;
       appendMessageBlocks?: Array<MessageBlocksByWorkspaceType> | undefined;
     };

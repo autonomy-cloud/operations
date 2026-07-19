@@ -132,27 +132,27 @@ jobs:
           echo "GPG key exported successfully"
           eval `ssh-agent -s`
           ssh-add - <<< '${{ secrets.HELM_CHART_GITHUB_REPO_DEPLOY_KEY }}'
-          git clone git@github.com:OneUptime/helm-chart.git
-          cd oneuptime/HelmChart/Public
-          helm lint oneuptime
-          helm template oneuptime --values oneuptime/values.yaml
-          helm package --sign --key 'key@oneuptime.com' --keyring ~/.gnupg/secring.gpg oneuptime --version ${{needs.read-version.outputs.major_minor}} --app-version ${{needs.read-version.outputs.major_minor}}
-          echo "OneUptime Helm Chart Package created successfully"
+          git clone git@github.com:CastOperations/helm-chart.git
+          cd cast-operations/HelmChart/Public
+          helm lint cast-operations
+          helm template cast-operations --values cast-operations/values.yaml
+          helm package --sign --key 'key@cast-operations.com' --keyring ~/.gnupg/secring.gpg cast-operations --version ${{needs.read-version.outputs.major_minor}} --app-version ${{needs.read-version.outputs.major_minor}}
+          echo "CastOperations Helm Chart Package created successfully"
           helm lint kubernetes-agent
           helm template kubernetes-agent --values kubernetes-agent/values.yaml
-          helm package --sign --key 'key@oneuptime.com' --keyring ~/.gnupg/secring.gpg kubernetes-agent --version ${{needs.read-version.outputs.major_minor}} --app-version ${{needs.read-version.outputs.major_minor}}
+          helm package --sign --key 'key@cast-operations.com' --keyring ~/.gnupg/secring.gpg kubernetes-agent --version ${{needs.read-version.outputs.major_minor}} --app-version ${{needs.read-version.outputs.major_minor}}
           echo "Kubernetes Agent Helm Chart Package created successfully"
           cd ..
           ls
           echo "Copying the package to helm-chart repo"
-          rm -rf ../../helm-chart/oneuptime
+          rm -rf ../../helm-chart/cast-operations
           rm -rf ../../helm-chart/kubernetes-agent
           cp -r ./Public/* ../../helm-chart
           echo "Package copied successfully"
           cd .. && cd .. && cd helm-chart
           echo "Updating helm-chart repo"
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "hello@oneuptime.com"
+          git config --global user.email "hello@cast-operations.com"
           echo "Git config set successfully"
           echo "Adding the package to helm-chart repo"
           helm repo index .
@@ -1161,29 +1161,29 @@ jobs:
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
-            --tag oneuptime/${{ matrix.image }}:release \
-            ghcr.io/oneuptime/${{ matrix.image }}:${VERSION}
+            --tag cast-operations/${{ matrix.image }}:release \
+            ghcr.io/cast-operations/${{ matrix.image }}:${VERSION}
 
       - name: Create GHCR release tag from version
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
-            --tag ghcr.io/oneuptime/${{ matrix.image }}:release \
-            ghcr.io/oneuptime/${{ matrix.image }}:${VERSION}
+            --tag ghcr.io/cast-operations/${{ matrix.image }}:release \
+            ghcr.io/cast-operations/${{ matrix.image }}:${VERSION}
 
       - name: Create Docker Hub enterprise release tag from version
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
-            --tag oneuptime/${{ matrix.image }}:enterprise-release \
-            ghcr.io/oneuptime/${{ matrix.image }}:enterprise-${VERSION}
+            --tag cast-operations/${{ matrix.image }}:enterprise-release \
+            ghcr.io/cast-operations/${{ matrix.image }}:enterprise-${VERSION}
 
       - name: Create GHCR enterprise release tag from version
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
-            --tag ghcr.io/oneuptime/${{ matrix.image }}:enterprise-release \
-            ghcr.io/oneuptime/${{ matrix.image }}:enterprise-${VERSION}
+            --tag ghcr.io/cast-operations/${{ matrix.image }}:enterprise-release \
+            ghcr.io/cast-operations/${{ matrix.image }}:enterprise-${VERSION}
 
 
 
@@ -1266,52 +1266,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 26
-      - name: Preinstall and enable billing
-        run: |
-          set -euo pipefail
-          npm run prerun
-          bash ./Tests/Scripts/enable-billing-env-var.sh
-      - name: Inject billing (Stripe) config for SaaS e2e
-        env:
-          # Secret Stripe credentials (private key + webhook secret must not be
-          # committed; the public key is browser-exposed but kept alongside).
-          BILLING_PUBLIC_KEY: ${{ secrets.BILLING_PUBLIC_KEY }}
-          BILLING_PRIVATE_KEY: ${{ secrets.BILLING_PRIVATE_KEY }}
-          BILLING_WEBHOOK_SECRET: ${{ secrets.BILLING_WEBHOOK_SECRET }}
-          # Real Stripe test-mode subscription plans (Stripe account ...ANuQdJ93r7,
-          # matching the injected keys and the hardcoded test metered price IDs in
-          # BillingService). config.env is gitignored, so CI generates it from
-          # config.example.env which ships placeholder price IDs (priceMonthlyId
-          # / priceYearlyId); billing-mode project creation subscribes the project
-          # to one of these plans via Stripe, so the SaaS e2e job needs the real
-          # price IDs. These IDs are non-secret (already served to the browser via
-          # /env.js), so they are stored as repo *variables* (auditable, and not
-          # masked in logs) rather than secrets.
-          SUBSCRIPTION_PLAN_BASIC: ${{ vars.SUBSCRIPTION_PLAN_BASIC }}
-          SUBSCRIPTION_PLAN_GROWTH: ${{ vars.SUBSCRIPTION_PLAN_GROWTH }}
-          SUBSCRIPTION_PLAN_SCALE: ${{ vars.SUBSCRIPTION_PLAN_SCALE }}
-          SUBSCRIPTION_PLAN_ENTERPRISE: ${{ vars.SUBSCRIPTION_PLAN_ENTERPRISE }}
-        run: |
-          set -euo pipefail
-          # Values arrive via the step env (never interpolated into the command)
-          # and contain no '|' or newlines, so the sed replacement is safe.
-          # Fail fast if any are missing/empty: without them the app silently
-          # falls back to config.example.env placeholders and every billing-mode
-          # project-creation test fails with an opaque "Server Error".
-          for k in BILLING_PUBLIC_KEY BILLING_PRIVATE_KEY BILLING_WEBHOOK_SECRET \
-                   SUBSCRIPTION_PLAN_BASIC SUBSCRIPTION_PLAN_GROWTH \
-                   SUBSCRIPTION_PLAN_SCALE SUBSCRIPTION_PLAN_ENTERPRISE; do
-            v="$(printenv "$k" || true)"
-            if [ -z "$v" ]; then
-              echo "::error::${k} is empty. Set the matching GitHub Actions secret/variable (Settings > Secrets and variables > Actions)." >&2
-              exit 1
-            fi
-            if grep -q "^${k}=" config.env; then
-              sed -i "s|^${k}=.*|${k}=${v}|" config.env
-            else
-              echo "${k}=${v}" >> config.env
-            fi
-          done
+      - name: Preinstall
+        run: npm run prerun
       - name: Pin APP_TAG to versioned release
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
@@ -1329,7 +1285,7 @@ jobs:
         run: |
           export $(grep -v '^#' config.env | xargs)
           export APP_TAG=${{needs.read-version.outputs.major_minor}}
-          docker compose -f docker-compose.billing.yml up --remove-orphans -d
+          docker compose up --remove-orphans -d
           npm run status-check
       - name: Wait for server to start
         run: bash ./Tests/Scripts/status-check.sh http://localhost
@@ -1684,12 +1640,12 @@ jobs:
             -PversionCode=${{ needs.generate-build-number.outputs.build_number }}
 
       - name: Rename APK
-        run: mv MobileApp/android/app/build/outputs/apk/release/*.apk MobileApp/android/app/build/outputs/apk/release/oneuptime-on-call-android-app.apk
+        run: mv MobileApp/android/app/build/outputs/apk/release/*.apk MobileApp/android/app/build/outputs/apk/release/cast-operations-on-call-android-app.apk
 
       - name: Upload APK to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: MobileApp/android/app/build/outputs/apk/release/oneuptime-on-call-android-app.apk
+          files: MobileApp/android/app/build/outputs/apk/release/cast-operations-on-call-android-app.apk
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: true
           prerelease: false
@@ -1764,11 +1720,11 @@ jobs:
             exit 1
           fi
           cd MobileApp
-          xcodebuild -workspace ios/OneUptimeOnCall.xcworkspace \
-            -scheme OneUptimeOnCall \
+          xcodebuild -workspace ios/CastOperationsOnCall.xcworkspace \
+            -scheme CastOperationsOnCall \
             -configuration Release \
             -sdk iphoneos \
-            -archivePath $RUNNER_TEMP/OneUptimeOnCall.xcarchive \
+            -archivePath $RUNNER_TEMP/CastOperationsOnCall.xcarchive \
             archive \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="iPhone Distribution" \
@@ -1798,7 +1754,7 @@ jobs:
             <string>manual</string>
             <key>provisioningProfiles</key>
             <dict>
-              <key>com.oneuptime.oncall</key>
+              <key>com.cast-operations.oncall</key>
               <string>${{ env.PROFILE_UUID }}</string>
             </dict>
             <key>stripSwiftSymbols</key>
@@ -1813,17 +1769,17 @@ jobs:
         run: |
           cd MobileApp
           xcodebuild -exportArchive \
-            -archivePath $RUNNER_TEMP/OneUptimeOnCall.xcarchive \
+            -archivePath $RUNNER_TEMP/CastOperationsOnCall.xcarchive \
             -exportOptionsPlist ios/ExportOptions.plist \
             -exportPath $RUNNER_TEMP/build
 
       - name: Rename IPA
-        run: mv ${{ runner.temp }}/build/*.ipa ${{ runner.temp }}/build/oneuptime-on-call-ios-app.ipa
+        run: mv ${{ runner.temp }}/build/*.ipa ${{ runner.temp }}/build/cast-operations-on-call-ios-app.ipa
 
       - name: Upload IPA to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ runner.temp }}/build/oneuptime-on-call-ios-app.ipa
+          files: ${{ runner.temp }}/build/cast-operations-on-call-ios-app.ipa
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: true
           prerelease: false
@@ -1936,7 +1892,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
-          packageName: com.oneuptime.oncall
+          packageName: com.cast-operations.oncall
           releaseFiles: MobileApp/android/app/build/outputs/bundle/release/*.aab
           track: production
           status: completed
@@ -2009,10 +1965,10 @@ jobs:
         run: |
           cd MobileApp/ios
           xcodebuild archive \
-            -workspace OneUptimeOnCall.xcworkspace \
-            -scheme OneUptimeOnCall \
+            -workspace CastOperationsOnCall.xcworkspace \
+            -scheme CastOperationsOnCall \
             -configuration Release \
-            -archivePath $RUNNER_TEMP/OneUptimeOnCall.xcarchive \
+            -archivePath $RUNNER_TEMP/CastOperationsOnCall.xcarchive \
             -destination 'generic/platform=iOS' \
             MARKETING_VERSION=${{ needs.read-version.outputs.major_minor }} \
             CURRENT_PROJECT_VERSION=${{ needs.generate-build-number.outputs.build_number }} \
@@ -2037,7 +1993,7 @@ jobs:
             <string>manual</string>
             <key>provisioningProfiles</key>
             <dict>
-              <key>com.oneuptime.oncall</key>
+              <key>com.cast-operations.oncall</key>
               <string>${{ env.PROFILE_UUID }}</string>
             </dict>
             <key>uploadSymbols</key>
@@ -2047,7 +2003,7 @@ jobs:
           EOF
 
           xcodebuild -exportArchive \
-            -archivePath $RUNNER_TEMP/OneUptimeOnCall.xcarchive \
+            -archivePath $RUNNER_TEMP/CastOperationsOnCall.xcarchive \
             -exportOptionsPlist $RUNNER_TEMP/ExportOptions.plist \
             -exportPath $RUNNER_TEMP/ios-export
 

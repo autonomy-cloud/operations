@@ -35,7 +35,7 @@
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       # 클라우드 고객의 경우
       version = "~> 7.0"
@@ -47,17 +47,17 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
+provider "cast-operations" {
   # 클라우드 고객의 경우
-  oneuptime_url = "https://visca.ai"
+  cast_operations_url = "https://visca.ai"
 
   # 자체 호스팅 고객의 경우 - 인스턴스 URL 사용
-  # oneuptime_url = "https://operations.yourcompany.com"
+  # cast_operations_url = "https://operations.yourcompany.com"
 
-  api_key = var.oneuptime_api_key
+  api_key = var.cast_operations_api_key
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API 키"
   type        = string
   sensitive   = true
@@ -71,7 +71,7 @@ variable "project_id" {
 }
 
 # 간단한 웹사이트 모니터 생성
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "웹사이트 모니터"
   description = "웹사이트 업타임을 위한 모니터"
   data        = jsonencode({
@@ -83,7 +83,7 @@ resource "oneuptime_monitor" "website" {
 
 # 모니터 ID 출력
 output "monitor_id" {
-  value = oneuptime_monitor.website.id
+  value = cast_operations_monitor.website.id
 }
 ```
 
@@ -93,7 +93,7 @@ output "monitor_id" {
 
 ```hcl
 # terraform.tfvars
-oneuptime_api_key = "your-api-key-here"
+cast_operations_api_key = "your-api-key-here"
 project_id        = "your-project-id-here"  # Cast Operations 대시보드에서 가져옵니다
 ```
 
@@ -132,16 +132,16 @@ terraform apply
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 항상 최신 호환 7.x 버전 가져오기
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -150,16 +150,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Cast Operations 버전과 정확히 일치해야 함
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.mycompany.com"  # 자체 호스팅 URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.mycompany.com"  # 자체 호스팅 URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -183,7 +183,7 @@ provider "oneuptime" {
 
 1. Cast Operations 대시보드에서 API 키를 확인합니다
 2. API 키에 충분한 권한이 있는지 확인합니다
-3. `oneuptime_url`이 인스턴스에 대해 올바른지 확인합니다
+3. `cast_operations_url`이 인스턴스에 대해 올바른지 확인합니다
 
 ### 문제: 버전 불일치 (자체 호스팅)
 

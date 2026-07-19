@@ -12,7 +12,7 @@ echo "  Verifying on-call duty policy with server defaults via API..."
 echo "    Resource ID: $RESOURCE_ID"
 
 # Call API to get the resource
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/on-call-duty-policy/${RESOURCE_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/on-call-duty-policy/${RESOURCE_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \

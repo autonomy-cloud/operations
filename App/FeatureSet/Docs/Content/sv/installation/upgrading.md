@@ -10,38 +10,7 @@ Den här guiden beskriver hur du säkert uppgraderar din egeninstallerade Cast O
 
 ## Uppgradering från Cast Operations 10 → 11
 
-<!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
-
-### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
-
-In v11, the following authentication and access-management features moved to
-the **Cast Operations Enterprise Edition** and are no longer part of the free,
-open-source (Community) build:
-
-- **SAML SSO** — both project login and status-page login
-- **OpenID Connect (OIDC)** — both project login and status-page login
-- **SCIM user provisioning** — project and status page
-- **Global (instance-wide) SSO / OIDC**
-- **Team compliance settings**
-
-**What you'll see after upgrading:** if you configured any of these on a
-Community Edition build, sign-in through them is disabled after the upgrade,
-and the settings pages show an upgrade prompt instead of the configuration
-form. Your existing provider records are **preserved in the database** —
-nothing is deleted — they simply become inactive until the instance runs the
-Enterprise Edition.
-
-**Availability:**
-
-- **Self-hosted:** requires the **Enterprise Edition** build.
-- **Cast Operations Cloud:** requires the **Scale** plan (or above).
-
-**If you rely on SSO and self-host**, email
-[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
-license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
-v11 and we'll help you get it back online. If your team is mid-upgrade and this
-is blocking sign-in, contact us before upgrading production so we can plan it
-with you.
+Identity features, including SSO, OIDC, SCIM, global identity providers, and team compliance, are included in every Cast Operations installation and require no license or plan.
 
 Cast Operations 11 bygger om ClickHouse-telemetrilagringen. Den här sidan förklarar vad som ändras, vem som behöver agera och — för installationer som vill ta med historisk telemetri — varje fråga som behövs för det.
 
@@ -79,7 +48,7 @@ Som alltid: uppgradera huvudversioner steg för steg (10 → 11, hoppa inte öve
 Steg 0 utförs **före uppgraderingen**; allt från Steg 1 och framåt utförs **efter att uppgraderingen har startat helt** (de nya tabellerna och deras materialized views måste finnas). Anslut direkt på din ClickHouse-värd — det nativa protokollet har inga HTTP-timeouts, så satser som tar flera timmar är inga problem:
 
 ```bash
-clickhouse-client --database oneuptime
+clickhouse-client --database cast-operations
 ```
 
 Bra att veta innan du börjar:
@@ -214,7 +183,7 @@ Inga ändringar som kräver manuella åtgärder. Följ bara den vanliga uppgrade
 
 Helm-diagrammet tillhandahåller inte längre en Kubernetes Ingress-resurs. Cast Operations levereras med en ingress gateway-container som redan avslutar TLS, hanterar statussidadomäner och dirigerar trafik för plattformen, så en kluster-ingress-kontroller är inte längre nödvändig.
 
-- Ta bort eventuella `oneuptimeIngress`-åsidosättningar från dina anpassade `values.yaml`-filer innan uppgraderingen. Dessa nycklar ignoreras nu och orsakar valideringsfel om de lämnas kvar.
+- Ta bort eventuella `castOperationsIngress`-åsidosättningar från dina anpassade `values.yaml`-filer innan uppgraderingen. Dessa nycklar ignoreras nu och orsakar valideringsfel om de lämnas kvar.
 - Se till att `nginx.service.type` återspeglar hur du vill exponera den medföljande ingress-gatewayen (till exempel `LoadBalancer`, `NodePort` eller `ClusterIP` med en extern lastbalanserare).
 - Verifiera att eventuella DNS-poster för statussidor eller primära värdar fortfarande pekar på den tjänst eller lastbalanserare som befinner sig framför Cast Operations ingress gateway.
 - Efter uppgraderingen, bekräfta att TLS-certifikat fortsätter att förnyas via den inbäddade gatewayen och att statussidadomäner löser sig korrekt.

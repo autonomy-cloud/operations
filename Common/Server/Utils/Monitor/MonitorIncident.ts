@@ -44,7 +44,7 @@ import CaptureSpan from "../Telemetry/CaptureSpan";
 import DataToProcess from "./DataToProcess";
 import MonitorTemplateUtil from "./MonitorTemplateUtil";
 import { JSONObject } from "../../../Types/JSON";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import MonitorEvaluationSummary from "../../../Types/Monitor/MonitorEvaluationSummary";
 import { IncidentMemberRoleAssignment } from "../../../Types/Monitor/CriteriaIncident";
 import { PerSeriesCriteriaMatch } from "../../../Types/Probe/ProbeApiIngestResponse";
@@ -141,7 +141,7 @@ export default class MonitorIncident {
           relatedIncidentNumberWithPrefix:
             openIncident.incidentNumberWithPrefix,
           relatedCriteriaId: input.criteriaInstance?.data?.id,
-          at: OneUptimeDate.getCurrentDate(),
+          at: OperationsDate.getCurrentDate(),
         });
       }
     }
@@ -245,7 +245,7 @@ export default class MonitorIncident {
         relatedIncidentId: openIncident.id?.toString(),
         relatedIncidentNumber: openIncident.incidentNumber,
         relatedIncidentNumberWithPrefix: openIncident.incidentNumberWithPrefix,
-        at: OneUptimeDate.getCurrentDate(),
+        at: OperationsDate.getCurrentDate(),
       });
     }
   }
@@ -404,7 +404,7 @@ export default class MonitorIncident {
             message:
               "Skipped creating an incident because the resource for this series is under an active scheduled maintenance window.",
             relatedCriteriaId: input.criteriaInstance.data?.id,
-            at: OneUptimeDate.getCurrentDate(),
+            at: OperationsDate.getCurrentDate(),
           });
           continue;
         }
@@ -467,7 +467,7 @@ export default class MonitorIncident {
             relatedIncidentNumber: alreadyOpenIncident?.incidentNumber,
             relatedIncidentNumberWithPrefix:
               alreadyOpenIncident?.incidentNumberWithPrefix,
-            at: OneUptimeDate.getCurrentDate(),
+            at: OperationsDate.getCurrentDate(),
           });
           continue;
         }
@@ -543,7 +543,7 @@ export default class MonitorIncident {
               message:
                 "Skipped creating an incident because the project has no incident severity configured.",
               relatedCriteriaId: input.criteriaInstance.data?.id,
-              at: OneUptimeDate.getCurrentDate(),
+              at: OperationsDate.getCurrentDate(),
             });
             continue;
           }
@@ -654,7 +654,7 @@ export default class MonitorIncident {
             message:
               "Automatic incident creation is disabled by environment configuration.",
             relatedCriteriaId: input.criteriaInstance.data?.id,
-            at: OneUptimeDate.getCurrentDate(),
+            at: OperationsDate.getCurrentDate(),
           });
           return;
         }
@@ -756,7 +756,7 @@ export default class MonitorIncident {
           relatedIncidentNumber: createdIncident.incidentNumber,
           relatedIncidentNumberWithPrefix:
             createdIncident.incidentNumberWithPrefix,
-          at: OneUptimeDate.getCurrentDate(),
+          at: OperationsDate.getCurrentDate(),
         });
       }
     }

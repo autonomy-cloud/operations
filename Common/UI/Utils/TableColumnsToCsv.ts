@@ -2,7 +2,7 @@ import Column from "../Components/Table/Types/Column";
 import Columns from "../Components/Table/Types/Columns";
 import FieldType from "../Components/Types/FieldType";
 import GenericObject from "../../Types/GenericObject";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 
 /*
  * Converts the rows currently rendered in a table (or a bulk-selected subset of
@@ -168,14 +168,14 @@ export default class TableColumnsToCsv {
 
   private static formatDate(rawValue: unknown, onlyShowDate: boolean): string {
     if (rawValue instanceof Date) {
-      return OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+      return OperationsDate.getDateAsUserFriendlyLocalFormattedString(
         rawValue,
         onlyShowDate,
       );
     }
 
     if (typeof rawValue === "string" && rawValue.length > 0) {
-      return OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+      return OperationsDate.getDateAsUserFriendlyLocalFormattedString(
         rawValue,
         onlyShowDate,
       );

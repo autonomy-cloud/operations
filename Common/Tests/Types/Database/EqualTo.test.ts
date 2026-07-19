@@ -5,13 +5,13 @@ import { describe, expect, it } from "@jest/globals";
 
 describe("EqualTo", () => {
   it("should create an EqualTo object with a valid value", () => {
-    const value: string = "oneuptime";
+    const value: string = "cast-operations";
     const equalObj: EqualTo<string> = new EqualTo<string>(value);
     expect(equalObj.value).toBe(value);
   });
 
   it("should get the value property of an EqualTo object", () => {
-    const value: string = "oneuptime";
+    const value: string = "cast-operations";
     const equalObj: EqualTo<string> = new EqualTo<string>(value);
     expect(equalObj.value).toBe(value);
   });
@@ -23,15 +23,15 @@ describe("EqualTo", () => {
   });
 
   it("should return the correct string representation using toString method", () => {
-    const equalObj: EqualTo<string> = new EqualTo<string>("oneuptime");
-    expect(equalObj.toString()).toBe("oneuptime");
+    const equalObj: EqualTo<string> = new EqualTo<string>("cast-operations");
+    expect(equalObj.toString()).toBe("cast-operations");
   });
 
   it("should generate the correct JSON representation using toJSON method", () => {
-    const equalObj: EqualTo<string> = new EqualTo<string>("oneuptime");
+    const equalObj: EqualTo<string> = new EqualTo<string>("cast-operations");
     const expectedJSON: JSONObject = {
       _type: "EqualTo",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(equalObj.toJSON()).toEqual(expectedJSON);
   });
@@ -39,16 +39,16 @@ describe("EqualTo", () => {
   it("should create an EqualTo object from valid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "EqualTo",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     const equalObj: EqualTo<string> = EqualTo.fromJSON(jsonInput);
-    expect(equalObj.value).toBe("oneuptime");
+    expect(equalObj.value).toBe("cast-operations");
   });
 
   it("should throw a BadDataException when using invalid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "InvalidType",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(() => {
       return EqualTo.fromJSON(jsonInput);
@@ -56,7 +56,7 @@ describe("EqualTo", () => {
   });
 
   it("should be a type of EqualTo", () => {
-    const equalObj: EqualTo<string> = new EqualTo("oneuptime");
+    const equalObj: EqualTo<string> = new EqualTo("cast-operations");
     expect(equalObj).toBeInstanceOf(EqualTo);
   });
 

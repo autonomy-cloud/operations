@@ -10,7 +10,7 @@ import { CustomElementProps } from "Common/UI/Components/Forms/Types/Field";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
 import FormValues from "Common/UI/Components/Forms/Types/FormValues";
 import OnCallDutyPolicyScheduleLayer from "Common/Models/DatabaseModels/OnCallDutyPolicyScheduleLayer";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { JSONObject } from "Common/Types/JSON";
 import React, { FunctionComponent, ReactElement } from "react";
 
@@ -181,10 +181,10 @@ const LayerConfigForm: FunctionComponent<ComponentProps> = (
          * coverage feature, not an error.
          */
         if (startsAt && handOffTime) {
-          const start: Date = OneUptimeDate.fromString(startsAt as any);
-          const handoff: Date = OneUptimeDate.fromString(handOffTime as any);
+          const start: Date = OperationsDate.fromString(startsAt as any);
+          const handoff: Date = OperationsDate.fromString(handOffTime as any);
 
-          if (OneUptimeDate.isBefore(handoff, start)) {
+          if (OperationsDate.isBefore(handoff, start)) {
             errors["handOffTime"] =
               "The first hand-off time must be at or after the rotation start.";
           }
@@ -207,10 +207,10 @@ const LayerConfigForm: FunctionComponent<ComponentProps> = (
           restrictionTimes.dayRestrictionTimes.startTime &&
           restrictionTimes.dayRestrictionTimes.endTime
         ) {
-          const restrictionStart: Date = OneUptimeDate.fromString(
+          const restrictionStart: Date = OperationsDate.fromString(
             restrictionTimes.dayRestrictionTimes.startTime as any,
           );
-          const restrictionEnd: Date = OneUptimeDate.fromString(
+          const restrictionEnd: Date = OperationsDate.fromString(
             restrictionTimes.dayRestrictionTimes.endTime as any,
           );
 

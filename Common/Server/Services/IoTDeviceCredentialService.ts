@@ -8,7 +8,7 @@ import IoTFleet from "../../Models/DatabaseModels/IoTFleet";
 import GlobalCache from "../Infrastructure/GlobalCache";
 import InMemoryTTLCache from "../Infrastructure/InMemoryTTLCache";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import PositiveNumber from "../../Types/PositiveNumber";
 import BadDataException from "../../Types/Exception/BadDataException";
 import LIMIT_MAX from "../../Types/Database/LimitMax";
@@ -302,7 +302,7 @@ export class Service extends DatabaseService<Model> {
     await this.updateColumnsByIdWithoutHooks({
       id: credentialId,
       data: {
-        lastConnectedAt: OneUptimeDate.getCurrentDate(),
+        lastConnectedAt: OperationsDate.getCurrentDate(),
       },
     });
   }

@@ -1,14 +1,14 @@
 services:
-  oneuptime-podman-agent:
-    image: oneuptime/podman-agent:release
-    container_name: oneuptime-podman-agent
+  cast-operations-podman-agent:
+    image: cast-operations/podman-agent:release
+    container_name: cast-operations-podman-agent
     user: "0:0"
     volumes:
       - /run/podman/podman.sock:/run/podman/podman.sock:ro
       - /var/lib/containers/storage:/var/lib/containers/storage:ro
     environment:
-      - ONEUPTIME_URL=${ONEUPTIME_URL}
-      - ONEUPTIME_SERVICE_TOKEN=${ONEUPTIME_SERVICE_TOKEN}
+      - CAST_OPERATIONS_URL=${CAST_OPERATIONS_URL}
+      - CAST_OPERATIONS_SERVICE_TOKEN=${CAST_OPERATIONS_SERVICE_TOKEN}
       - PODMAN_HOST_NAME=${PODMAN_HOST_NAME:-podman-host}
     restart: unless-stopped
     logging:

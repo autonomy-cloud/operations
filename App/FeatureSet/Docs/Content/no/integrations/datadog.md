@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. I Datadog, gå til **Integrations → Webhooks** (installer **Webhooks**-integrasjonen hvis du ikke har gjort det).
 2. **Legg til en webhook**:
 
-   - **Name**: `oneuptime` (dette blir `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (dette blir `@webhook-cast-operations`).
    - **URL**: arbeidsflytens webhook-URL.
    - **Payload** — Datadog lar deg definere JSON-body-en ved hjelp av [malvariabler](https://docs.datadoghq.com/integrations/webhooks/#usage):
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Legg til webhook-håndtaket til monitorene du vil videresende. I hver monitors **varslingsmelding**, inkluder:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Dette sender både varselet og gjenopprettingen til Cast Operations. (For å videresende alt kan du også legge til `@webhook-oneuptime` i en monitor ubetinget.)
+Dette sender både varselet og gjenopprettingen til Cast Operations. (For å videresende alt kan du også legge til `@webhook-cast-operations` i en monitor ubetinget.)
 
 ## Steg 4 — Test det
 
@@ -74,7 +74,7 @@ Dette sender både varselet og gjenopprettingen til Cast Operations. (For å vid
 
 ## Feilsøking
 
-- **Ingen kjøring vises** — bekreft at monitorens melding inkluderer `@webhook-oneuptime` og at arbeidsflyten er **Enabled**.
+- **Ingen kjøring vises** — bekreft at monitorens melding inkluderer `@webhook-cast-operations` og at arbeidsflyten er **Enabled**.
 - **Felt er tomme** — Datadog erstatter bare malvariabler som gjelder for hendelsen. Inspiser trigger-utdataene i **Logs**-fanen og juster webhook-nyttelasten din.
 - **Duplikathendelser** — en monitor som varsler på nytt (renotify) sender flere `Triggered`-hendelser; dedupliser med en **Find Incident**-sjekk på `id`-en før du oppretter.
 

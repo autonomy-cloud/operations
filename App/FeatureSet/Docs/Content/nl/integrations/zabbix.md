@@ -130,7 +130,7 @@ De bovenstaande basisworkflow _opent_ incidenten. Om ze ook te _sluiten_ wanneer
 3. Voeg vanuit de **Yes**-uitvoer een **Find Incident**-blok toe dat het eerder aangemaakte open incident opzoekt — match op de Zabbix `event_id` die je in de beschrijving of een label hebt opgeslagen.
 4. Verbind dat met een **Update Incident**-blok en zet het incident op je _opgeloste_ status.
 
-Omdat oplossing afhangt van hoe je incidentstatussen in je project modelleert, houd je het **aanmaken**-pad als betrouwbare kern en voeg je het oplossen-pad toe zodra je hebt bevestigd dat events correct doorstromen. Zie [Componenten → Cast Operations-datacomponenten](/docs/workflows/components#oneuptime-data-components).
+Omdat oplossing afhangt van hoe je incidentstatussen in je project modelleert, houd je het **aanmaken**-pad als betrouwbare kern en voeg je het oplossen-pad toe zodra je hebt bevestigd dat events correct doorstromen. Zie [Componenten → Cast Operations-datacomponenten](/docs/workflows/components#cast-operations-data-components).
 
 ## Zabbix-severities mappen (optioneel)
 

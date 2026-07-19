@@ -19,12 +19,12 @@ if ! docker info &> /dev/null 2>&1; then
 fi
 
 # Prompt for configuration
-if [ -z "$ONEUPTIME_URL" ]; then
-    read -rp "Cast Operations URL (e.g., https://visca.ai): " ONEUPTIME_URL
+if [ -z "$CAST_OPERATIONS_URL" ]; then
+    read -rp "Cast Operations URL (e.g., https://visca.ai): " CAST_OPERATIONS_URL
 fi
 
-if [ -z "$ONEUPTIME_SERVICE_TOKEN" ]; then
-    read -rp "Cast Operations Service Token: " ONEUPTIME_SERVICE_TOKEN
+if [ -z "$CAST_OPERATIONS_SERVICE_TOKEN" ]; then
+    read -rp "Cast Operations Service Token: " CAST_OPERATIONS_SERVICE_TOKEN
 fi
 
 if [ -z "$DOCKER_HOST_NAME" ]; then
@@ -32,28 +32,28 @@ if [ -z "$DOCKER_HOST_NAME" ]; then
     DOCKER_HOST_NAME="${DOCKER_HOST_NAME:-docker-host}"
 fi
 
-IMAGE="${ONEUPTIME_DOCKER_AGENT_IMAGE:-oneuptime/docker-agent:release}"
+IMAGE="${CAST_OPERATIONS_DOCKER_AGENT_IMAGE:-cast-operations/docker-agent:release}"
 
 echo ""
 echo "Pulling image: $IMAGE"
 docker pull "$IMAGE"
 
 # Remove any existing container
-if docker ps -a --format '{{.Names}}' | grep -q '^oneuptime-docker-agent$'; then
-    echo "Removing existing oneuptime-docker-agent container..."
-    docker rm -f oneuptime-docker-agent
+if docker ps -a --format '{{.Names}}' | grep -q '^cast-operations-docker-agent$'; then
+    echo "Removing existing cast-operations-docker-agent container..."
+    docker rm -f cast-operations-docker-agent
 fi
 
 echo ""
 echo "Starting Cast Operations Docker Agent..."
 docker run -d \
-    --name oneuptime-docker-agent \
+    --name cast-operations-docker-agent \
     --user 0:0 \
     --restart unless-stopped \
     -v /var/run/docker.sock:/var/run/docker.sock:ro \
     -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-    -e ONEUPTIME_URL="$ONEUPTIME_URL" \
-    -e ONEUPTIME_SERVICE_TOKEN="$ONEUPTIME_SERVICE_TOKEN" \
+    -e CAST_OPERATIONS_URL="$CAST_OPERATIONS_URL" \
+    -e CAST_OPERATIONS_SERVICE_TOKEN="$CAST_OPERATIONS_SERVICE_TOKEN" \
     -e DOCKER_HOST_NAME="$DOCKER_HOST_NAME" \
     --log-driver json-file \
     --log-opt max-size=10m \
@@ -65,7 +65,7 @@ echo "=========================================="
 echo "  Cast Operations Docker Agent is running!"
 echo "=========================================="
 echo ""
-echo "To check status:  docker ps --filter name=oneuptime-docker-agent"
-echo "To view logs:     docker logs -f oneuptime-docker-agent"
-echo "To stop:          docker rm -f oneuptime-docker-agent"
-echo "To upgrade:       docker pull $IMAGE && docker rm -f oneuptime-docker-agent && re-run this script"
+echo "To check status:  docker ps --filter name=cast-operations-docker-agent"
+echo "To view logs:     docker logs -f cast-operations-docker-agent"
+echo "To stop:          docker rm -f cast-operations-docker-agent"
+echo "To upgrade:       docker pull $IMAGE && docker rm -f cast-operations-docker-agent && re-run this script"

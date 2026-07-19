@@ -7,7 +7,7 @@ De Cast Operations CLI ondersteunt meerdere manieren om te authenticeren bij uw 
 Authenticeer bij uw Cast Operations-instantie met een API-sleutel:
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **Argumenten:**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Inloggen met standaardcontext
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # Inloggen met een benoemde context
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # Meerdere omgevingen instellen
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Contexten
@@ -44,7 +44,7 @@ Met contexten kunt u meerdere Cast Operations-omgevingen opslaan en ertussen sch
 ### Contexten weergeven
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 Geeft alle geconfigureerde contexten weer. De huidige context is gemarkeerd met `*`.
@@ -52,23 +52,23 @@ Geeft alle geconfigureerde contexten weer. De huidige context is gemarkeerd met 
 ### Schakelen van context
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 Schakel over naar een andere benoemde context voor alle volgende opdrachten.
 
 ```bash
 # Overschakelen naar staging
-oneuptime context use staging
+cast-operations context use staging
 
 # Overschakelen naar productie
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### Huidige context bekijken
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 Geeft de momenteel actieve context weer, inclusief de instantie-URL en een gemaskeerde API-sleutel.
@@ -76,7 +76,7 @@ Geeft de momenteel actieve context weer, inclusief de instantie-URL en een gemas
 ### Een context verwijderen
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 Verwijder een benoemde context. Als de verwijderde context de huidige is, schakelt de CLI automatisch over naar de eerste resterende context.
@@ -86,7 +86,7 @@ Verwijder een benoemde context. Als de verwijderde context de huidige is, schake
 Inloggegevens worden opgelost in de volgende prioriteitsvolgorde:
 
 1. **CLI-vlaggen** (`--api-key` en `--url`)
-2. **Omgevingsvariabelen** (`ONEUPTIME_API_KEY` en `ONEUPTIME_URL`)
+2. **Omgevingsvariabelen** (`CAST_OPERATIONS_API_KEY` en `CAST_OPERATIONS_URL`)
 3. **Benoemde context** (via `--context`-vlag)
 4. **Huidige context** (uit opgeslagen configuratie)
 
@@ -95,22 +95,22 @@ U kunt bronnen combineren — gebruik bijvoorbeeld een omgevingsvariabele voor d
 ### CLI-vlaggen gebruiken
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Omgevingsvariabelen gebruiken
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### Een specifieke context gebruiken
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## Authenticatie verifiëren
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 Controleer uw huidige authenticatiestatus:
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Dit geeft het volgende weer:
@@ -127,11 +127,11 @@ Dit geeft het volgende weer:
 - Gemaskeerde API-sleutel
 - Naam van de huidige context (alleen weergegeven als een opgeslagen context actief is)
 
-Als u niet bent geauthenticeerd, toont de opdracht een behulpzaam bericht met de suggestie `oneuptime login` uit te voeren.
+Als u niet bent geauthenticeerd, toont de opdracht een behulpzaam bericht met de suggestie `cast-operations login` uit te voeren.
 
 ## Configuratiebestand
 
-Inloggegevens worden opgeslagen in `~/.oneuptime/config.json` met beperkte rechten (`0600`).
+Inloggegevens worden opgeslagen in `~/.cast-operations/config.json` met beperkte rechten (`0600`).
 
 ```json
 {

@@ -12,7 +12,7 @@ import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -110,7 +110,7 @@ const Overview: FunctionComponent<PageComponentProps> = (
     const days: Dictionary<EventHistoryDayListComponentProps> = {};
 
     for (const scheduledMaintenance of scheduledMaintenanceEvents) {
-      const dayString: string = OneUptimeDate.getDateString(
+      const dayString: string = OperationsDate.getDateString(
         scheduledMaintenance.startsAt!,
       );
 

@@ -7,16 +7,16 @@
 # Add these lines to: sudo crontab -e
 
 # Run this on Reboot.
-@reboot sudo curl -sSL https://visca.ai/chart/install.sh | sudo bash -s thirdPartyBillingEnabled
+@reboot sudo curl -sSL https://visca.ai/chart/install.sh | sudo bash
 
 # Run this once every 24 hours.
-0 0 * * * sudo curl -sSL https://visca.ai/chart/install.sh | sudo bash -s thirdPartyBillingEnabled
+0 0 * * * sudo curl -sSL https://visca.ai/chart/install.sh | sudo bash
 
 
 ## FOR AWS EC2
 
 # Run this on Reboot.
-@reboot sudo curl -sSL https://visca.ai/chart/install.sh | sudo bash -s thirdPartyBillingEnabled aws-ec2
+@reboot sudo curl -sSL https://visca.ai/chart/install.sh | sudo bash -s aws-ec2
 
 # Run this once every 24 hours.
-0 0 * * * sudo curl -sSL https://visca.ai/chart/install.sh | sudo bash -s thirdPartyBillingEnabled aws-ec2
+0 0 * * * sudo curl -sSL https://visca.ai/chart/install.sh | sudo bash -s aws-ec2

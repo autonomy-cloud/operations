@@ -1,6 +1,6 @@
 import { DEVICE_FRESH_WINDOW_MINUTES } from "./DeviceStatusUtil";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import GreaterThan from "Common/Types/BaseDatabase/GreaterThan";
 import GreaterThanOrEqual from "Common/Types/BaseDatabase/GreaterThanOrEqual";
 import LessThan from "Common/Types/BaseDatabase/LessThan";
@@ -48,7 +48,7 @@ const DeviceSummaryCards: FunctionComponent = (): ReactElement => {
       const projectId: ObjectID = ProjectUtil.getCurrentProjectId()!;
 
       // Same freshness window the topology API uses to decide up vs down.
-      const freshCutoff: Date = OneUptimeDate.getSomeMinutesAgo(
+      const freshCutoff: Date = OperationsDate.getSomeMinutesAgo(
         DEVICE_FRESH_WINDOW_MINUTES,
       );
 

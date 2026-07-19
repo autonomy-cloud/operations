@@ -6,7 +6,7 @@ import SortOrder from "../../../../Types/BaseDatabase/SortOrder";
 import { AIChatCitationTargetType } from "../../../../Types/AI/AIChatTypes";
 import ScheduledMaintenanceService from "../../../Services/ScheduledMaintenanceService";
 import QueryHelper from "../../../Types/Database/QueryHelper";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import ToolResultSerializer, { SerializedResult } from "./Serializer";
 import WidgetBuilder from "./WidgetBuilder";
 import {
@@ -194,9 +194,9 @@ export const QueryScheduledMaintenanceTool: ObservabilityTool = {
       max: 25,
     });
 
-    const now: Date = OneUptimeDate.getCurrentDate();
-    const windowStart: Date = OneUptimeDate.addRemoveDays(now, -1 * pastDays);
-    const windowEnd: Date = OneUptimeDate.addRemoveDays(now, upcomingDays);
+    const now: Date = OperationsDate.getCurrentDate();
+    const windowStart: Date = OperationsDate.addRemoveDays(now, -1 * pastDays);
+    const windowEnd: Date = OperationsDate.addRemoveDays(now, upcomingDays);
 
     // Overlap: the event's window intersects [windowStart, windowEnd].
     const events: Array<ScheduledMaintenance> =

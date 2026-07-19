@@ -1,7 +1,7 @@
 import DatabaseService from "./DatabaseService";
 import Model from "../../Models/DatabaseModels/CloudResourceInstance";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import logger from "../Utils/Logger";
 
@@ -34,7 +34,7 @@ export class Service extends DatabaseService<Model> {
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const fields: any = { lastSeenAt: OneUptimeDate.getCurrentDate() };
+      const fields: any = { lastSeenAt: OperationsDate.getCurrentDate() };
       if (data.cpuPercent !== undefined) {
         fields.latestCpuPercent = data.cpuPercent;
       }
@@ -55,7 +55,7 @@ export class Service extends DatabaseService<Model> {
       item.projectId = data.projectId;
       item.cloudResourceId = data.cloudResourceId;
       item.instanceName = data.instanceName;
-      item.lastSeenAt = OneUptimeDate.getCurrentDate();
+      item.lastSeenAt = OperationsDate.getCurrentDate();
       if (data.cpuPercent !== undefined) {
         item.latestCpuPercent = data.cpuPercent;
       }

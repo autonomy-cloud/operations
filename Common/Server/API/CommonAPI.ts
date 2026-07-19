@@ -1,8 +1,5 @@
-import { IsBillingEnabled } from "../EnvironmentConfig";
-import ProjectService from "../Services/ProjectService";
-import { ExpressRequest, OneUptimeRequest } from "../Utils/Express";
+import { ExpressRequest, OperationsRequest } from "../Utils/Express";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import UserType from "../../Types/UserType";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import SpanUtil from "../Utils/Telemetry/SpanUtil";
@@ -17,48 +14,39 @@ export default class CommonAPI {
       userGlobalAccessPermission: undefined,
       userTenantAccessPermission: undefined,
       userId: undefined,
-      userType: (req as OneUptimeRequest).userType,
+      userType: (req as OperationsRequest).userType,
       isMultiTenantRequest: undefined,
     };
 
     if (
-      (req as OneUptimeRequest).userAuthorization &&
-      (req as OneUptimeRequest).userAuthorization?.userId
+      (req as OperationsRequest).userAuthorization &&
+      (req as OperationsRequest).userAuthorization?.userId
     ) {
-      props.userId = (req as OneUptimeRequest).userAuthorization!.userId;
+      props.userId = (req as OperationsRequest).userAuthorization!.userId;
     }
 
-    if ((req as OneUptimeRequest).userGlobalAccessPermission) {
+    if ((req as OperationsRequest).userGlobalAccessPermission) {
       props.userGlobalAccessPermission = (
-        req as OneUptimeRequest
+        req as OperationsRequest
       ).userGlobalAccessPermission;
     }
 
-    if ((req as OneUptimeRequest).userTenantAccessPermission) {
+    if ((req as OperationsRequest).userTenantAccessPermission) {
       props.userTenantAccessPermission = (
-        req as OneUptimeRequest
+        req as OperationsRequest
       ).userTenantAccessPermission;
     }
 
-    if ((req as OneUptimeRequest).userTeamIds) {
-      props.userTeamIds = (req as OneUptimeRequest).userTeamIds;
+    if ((req as OperationsRequest).userTeamIds) {
+      props.userTeamIds = (req as OperationsRequest).userTeamIds;
     }
 
-    if ((req as OneUptimeRequest).tenantId) {
-      props.tenantId = (req as OneUptimeRequest).tenantId || undefined;
+    if ((req as OperationsRequest).tenantId) {
+      props.tenantId = (req as OperationsRequest).tenantId || undefined;
     }
 
     if (req.headers["is-multi-tenant-query"]) {
       props.isMultiTenantRequest = true;
-    }
-
-    if (IsBillingEnabled && props.tenantId) {
-      const plan: {
-        plan: PlanType | null;
-        isSubscriptionUnpaid: boolean;
-      } = await ProjectService.getCurrentPlan(props.tenantId!);
-      props.currentPlan = plan.plan || undefined;
-      props.isSubscriptionUnpaid = plan.isSubscriptionUnpaid;
     }
 
     // check for root permissions.
@@ -72,8 +60,8 @@ export default class CommonAPI {
       ...(props.tenantId ? { projectId: props.tenantId.toString() } : {}),
       ...(props.userId ? { userId: props.userId.toString() } : {}),
       ...(props.userType ? { userType: props.userType } : {}),
-      ...((req as OneUptimeRequest).requestId
-        ? { requestId: (req as OneUptimeRequest).requestId }
+      ...((req as OperationsRequest).requestId
+        ? { requestId: (req as OperationsRequest).requestId }
         : {}),
     });
 

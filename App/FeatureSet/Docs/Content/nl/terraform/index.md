@@ -27,16 +27,16 @@ Praktijkvoorbeelden en -patronen voor veelgebruikte Cast Operations Terraform-co
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -45,16 +45,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Moet overeenkomen met uw Cast Operations-versie
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 }
 ```
 

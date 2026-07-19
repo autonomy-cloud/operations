@@ -17,7 +17,7 @@ telemetry across more nodes.
 > set; historical rows stay where they are. Plan for that (see
 > [Existing data does not rebalance](#existing-data-does-not-rebalance)).
 
-Replace `<release>` with your Helm release name (e.g. `oneuptime`) and run every
+Replace `<release>` with your Helm release name (e.g. `cast-operations`) and run every
 command in the release's namespace (add `-n <namespace>` if it isn't `default`).
 
 ---
@@ -48,20 +48,20 @@ clickhouseOperator:
   altinity:
     enabled: true
     cluster:
-      name: oneuptime
+      name: cast-operations
       shardsCount: 3 # was 1
       replicasCount: 1 # leave as-is — this is copies-per-shard, not shards
 ```
 
 ```bash
 # 1. Apply the topology change (operator provisions the new shard pods + PVCs)
-helm upgrade <release> ./HelmChart/Public/oneuptime -f values.yaml
+helm upgrade <release> ./HelmChart/Public/cast-operations -f values.yaml
 
 # 2. Wait for the new shard pods to be Ready and joined to the cluster
 kubectl get chi <release>-clickhouse-altinity -o wide -w
 
 # 3. Re-run the migration Job so schema-sync creates the tables on the new shard
-helm upgrade <release> ./HelmChart/Public/oneuptime -f values.yaml
+helm upgrade <release> ./HelmChart/Public/cast-operations -f values.yaml
 ```
 
 Then [verify](#verify) and decide how to handle
@@ -105,13 +105,13 @@ clickhouseOperator:
     image:
       tag: "25.3" # keep your pinned version
     cluster:
-      name: oneuptime
+      name: cast-operations
       shardsCount: 3 # new target
       replicasCount: 1 # unchanged
 ```
 
 ```bash
-helm upgrade <release> ./HelmChart/Public/oneuptime -f values.yaml
+helm upgrade <release> ./HelmChart/Public/cast-operations -f values.yaml
 ```
 
 The Altinity operator provisions the new shard `StatefulSet`s + PVCs and rewrites
@@ -124,7 +124,7 @@ operation.
 ## Step 2 — Let schema-sync create the tables on the new shard
 
 Cast Operations’ schema-sync issues `CREATE TABLE IF NOT EXISTS <T>Local ON CLUSTER
-'oneuptime'` on every run. Because it's `ON CLUSTER`, once the new shard is in the
+'cast-operations'` on every run. Because it's `ON CLUSTER`, once the new shard is in the
 cluster config the DDL creates the local `ReplicatedMergeTree` tables (and the
 materialized-view triggers) on it automatically; `IF NOT EXISTS` makes it a no-op
 on the existing shards. The `Distributed` wrapper does **not** need recreating —
@@ -142,7 +142,7 @@ the config at query time.
 > against the full shard set:
 >
 > ```bash
-> helm upgrade <release> ./HelmChart/Public/oneuptime -f values.yaml
+> helm upgrade <release> ./HelmChart/Public/cast-operations -f values.yaml
 > ```
 >
 > (A no-op re-upgrade is fine — the hook Job re-runs each revision.)
@@ -156,7 +156,7 @@ Topology — should now list N shards:
 ```sql
 SELECT shard_num, replica_num, host_name
 FROM system.clusters
-WHERE cluster = 'oneuptime'
+WHERE cluster = 'cast-operations'
 ORDER BY shard_num, replica_num;
 ```
 
@@ -166,7 +166,7 @@ tables:
 
 ```sql
 SELECT count() FROM system.tables
-WHERE database = 'oneuptime' AND name LIKE '%Local';
+WHERE database = 'cast-operations' AND name LIKE '%Local';
 ```
 
 Kubernetes:
@@ -255,5 +255,5 @@ redistribution first.
 - [Migrate ClickHouse Standalone → Operator](./MigrateClickhouseStandaloneToOperator.md)
   — get onto the operator path first if you're still on the standalone
   `StatefulSet`.
-- Cast Operations Helm chart [values reference](../Public/oneuptime/README.md) —
+- Cast Operations Helm chart [values reference](../Public/cast-operations/README.md) —
   `clickhouseOperator` configuration.

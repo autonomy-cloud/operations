@@ -33,24 +33,24 @@
 ### Docker
 
 ```bash
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 Если вы не используете `--network host`, опубликуйте порт явно:
 
 ```bash
-docker run --name oneuptime-probe \
+docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 ### Docker Compose
@@ -59,13 +59,13 @@ docker run --name oneuptime-probe \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -78,25 +78,25 @@ services:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
@@ -107,10 +107,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oneuptime-probe-ingress
+  name: cast-operations-probe-ingress
 spec:
   selector:
-    app: oneuptime-probe
+    app: cast-operations-probe
   ports:
     - name: ingress
       port: 3875
@@ -118,7 +118,7 @@ spec:
   type: ClusterIP
 ```
 
-Внутренние сервисы смогут отправлять пульсы на `http://oneuptime-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
+Внутренние сервисы смогут отправлять пульсы на `http://cast-operations-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
 
 ## Отправка запросов на зонд
 
@@ -167,19 +167,19 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 | `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`                 | Тайм-аут (мс) для каждой попытки пересылки в Cast Operations. Минимум `1000`.                                |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`                     | Количество повторных попыток до отказа от пересылки. Укажите `0` для отключения повторных попыток.     |
 
-Стандартные переменные зонда (`PROBE_KEY`, `PROBE_ID`, `ONEUPTIME_URL`, переменные прокси) применяются в обычном порядке — полный список см. в разделе [Пользовательские зонды](/docs/probe/custom-probe).
+Стандартные переменные зонда (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, переменные прокси) применяются в обычном порядке — полный список см. в разделе [Пользовательские зонды](/docs/probe/custom-probe).
 
 ## Соображения безопасности
 
 - **Конечная точка намеренно не аутентифицирована** — секретный ключ в URL-пути _и есть_ аутентификация, так же как на публичной конечной точке `visca.ai`. Относитесь к секретному ключу как к учётным данным.
 - **Привязывайтесь только к частному интерфейсу.** Входящий обработчик не должен быть доступен из публичного интернета. Используйте сетевую политику, правило брандмауэра или сервис `ClusterIP` для ограничения доступа.
-- **При необходимости шифрования трафика используйте HTTPS-терминацию.** Обработчик зонда работает по HTTP. Разместите перед ним внутренний балансировщик нагрузки / контроллер входящего трафика для использования TLS на входящем узле. Канал пересылки от зонда к Cast Operations всегда использует HTTPS (при условии, что `ONEUPTIME_URL` начинается с `https://`).
+- **При необходимости шифрования трафика используйте HTTPS-терминацию.** Обработчик зонда работает по HTTP. Разместите перед ним внутренний балансировщик нагрузки / контроллер входящего трафика для использования TLS на входящем узле. Канал пересылки от зонда к Cast Operations всегда использует HTTPS (при условии, что `CAST_OPERATIONS_URL` начинается с `https://`).
 - **Ограничения ресурсов.** Обработчик принимает тела запросов размером до 50 МБ. При необходимости более строгого ограничения разместите перед ним обратный прокси.
 
 ## Устранение неполадок
 
 - **Зонд выводит в журнал `Probe ingress listener started on port <port>` при запуске** — подтверждает, что обработчик работает. Если эта строка отсутствует, `PROBE_INGRESS_PORT` не задан, равен `0` или содержит недопустимое значение.
-- **`Probe ingress: failed to forward to <url> after N attempts`** — зонд не может достичь Cast Operations. Проверьте исходящее подключение зонда, настройки прокси и значение `ONEUPTIME_URL`.
+- **`Probe ingress: failed to forward to <url> after N attempts`** — зонд не может достичь Cast Operations. Проверьте исходящее подключение зонда, настройки прокси и значение `CAST_OPERATIONS_URL`.
 - **`Probe ingress: probe ID not available, forwarding without it`** — зонд ещё не зарегистрировался. Пересылка всё равно выполнится; пульс просто не будет атрибутирован зонду.
 - **Пульс появляется в Cast Operations, но не через зонд** — убедитесь, что ваш сервис обращается к `http://<probe-host>:<port>/...`, а не к публичному URL. Обычная причина — некорректная настройка DNS или `/etc/hosts`.
 

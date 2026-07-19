@@ -11,7 +11,7 @@ import ModelTable from "Common/UI/Components/ModelTable/ModelTable";
 import FieldType from "Common/UI/Components/Types/FieldType";
 import { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import ConfirmModal from "Common/UI/Components/Modal/ConfirmModal";
-import { APP_API_URL, BILLING_ENABLED } from "Common/UI/Config";
+import { APP_API_URL } from "Common/UI/Config";
 import ModelAPI from "Common/UI/Utils/ModelAPI/ModelAPI";
 import TestLLMProvider, {
   LLMProviderTestResult,
@@ -30,38 +30,31 @@ import IconProp from "Common/Types/Icon/IconProp";
 import Link from "Common/UI/Components/Link/Link";
 import Pill from "Common/UI/Components/Pill/Pill";
 import { Green } from "Common/Types/BrandColors";
-
 const LlmPage: FunctionComponent<PageComponentProps> = (): ReactElement => {
   const [showTestModal, setShowTestModal] = useState<boolean>(false);
   const [isTesting, setIsTesting] = useState<boolean>(false);
   const [testError, setTestError] = useState<string>("");
   const [testMessage, setTestMessage] = useState<string>("");
-
   const codeRepositoriesRoute: Route = RouteUtil.populateRouteParams(
     RouteMap[PageMap.CODE_REPOSITORY] as Route,
   );
-
   const runTest: (item: LlmProvider) => Promise<void> = async (
     item: LlmProvider,
   ): Promise<void> => {
     setIsTesting(true);
     setTestError("");
     setTestMessage("");
-
     const result: LLMProviderTestResult = await TestLLMProvider.test({
       llmProviderId: item["_id"]?.toString() || "",
       headers: ModelAPI.getCommonHeaders(),
     });
-
     if (result.success) {
       setTestMessage(result.message);
     } else {
       setTestError(result.message);
     }
-
     setIsTesting(false);
   };
-
   return (
     <Fragment>
       <>
@@ -199,38 +192,7 @@ const LlmPage: FunctionComponent<PageComponentProps> = (): ReactElement => {
               type: FieldType.Text,
               noValueMessage: "-",
             },
-            ...(BILLING_ENABLED
-              ? [
-                  {
-                    field: {
-                      costPerMillionTokensInUSDCents: true,
-                    },
-                    title: "Cost per Million Tokens",
-                    type: FieldType.Text,
-                    getElement: (item: LlmProvider): ReactElement => {
-                      const costPerMillionInCents: number =
-                        item.costPerMillionTokensInUSDCents || 0;
-
-                      const costPerMillionInUSD: number =
-                        costPerMillionInCents / 100;
-                      const formattedCost: string =
-                        costPerMillionInUSD.toFixed(2);
-
-                      /*
-                       * Show a "Free" pill when there is no cost, or when the
-                       * cost is so small it rounds to $0.00 at the precision we
-                       * display - otherwise we'd render a meaningless
-                       * "$0.00 USD".
-                       */
-                      if (Number(formattedCost) <= 0) {
-                        return <Pill text="Free" color={Green} />;
-                      }
-
-                      return <span>${formattedCost} USD</span>;
-                    },
-                  },
-                ]
-              : []),
+            ...[],
           ]}
         />
 
@@ -272,9 +234,8 @@ const LlmPage: FunctionComponent<PageComponentProps> = (): ReactElement => {
           ]}
           cardProps={{
             title: "Bring Your Own Large Language Model",
-            description: BILLING_ENABLED
-              ? "Configure LLM Providers for AI features. Connect to OpenAI, Azure OpenAI, Anthropic, Groq, Mistral, Ollama, or other providers. You will not be charged for AI usage when you bring your own models."
-              : "Configure LLM Providers for AI features. Connect to OpenAI, Azure OpenAI, Anthropic, Groq, Mistral, Ollama, or other providers.",
+            description:
+              "Configure LLM Providers for AI features. Connect to OpenAI, Azure OpenAI, Anthropic, Groq, Mistral, Ollama, or other providers.",
           }}
           documentationLink={Route.fromString("/docs/ai/llm-provider")}
           selectMoreFields={{
@@ -478,5 +439,4 @@ const LlmPage: FunctionComponent<PageComponentProps> = (): ReactElement => {
     </Fragment>
   );
 };
-
 export default LlmPage;

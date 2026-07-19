@@ -47,7 +47,7 @@ import RecurringViewElement from "Common/UI/Components/Events/RecurringViewEleme
 import Recurring from "Common/Types/Events/Recurring";
 import FormValues from "Common/UI/Components/Forms/Types/FormValues";
 import { CustomElementProps } from "Common/UI/Components/Forms/Types/Field";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import CheckboxElement from "Common/UI/Components/Checkbox/Checkbox";
@@ -295,7 +295,7 @@ const WorkspaceSummaryTable: FunctionComponent<ComponentProps> = (
             );
             if (
               firstReportDate.getTime() >
-              OneUptimeDate.getCurrentDate().getTime()
+              OperationsDate.getCurrentDate().getTime()
             ) {
               values.nextSendAt = firstReportDate;
             } else {
@@ -306,7 +306,7 @@ const WorkspaceSummaryTable: FunctionComponent<ComponentProps> = (
               values.recurringInterval,
             );
             values.nextSendAt = Recurring.getNextDateInterval(
-              OneUptimeDate.getCurrentDate(),
+              OperationsDate.getCurrentDate(),
               recurring,
             );
           }

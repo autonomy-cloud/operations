@@ -7,8 +7,8 @@ The Cast Operations CLI is designed for automation. It supports environment-vari
 Set these environment variables to authenticate without saved contexts:
 
 ```bash
-export ONEUPTIME_API_KEY=sk-your-api-key
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-your-api-key
+export CAST_OPERATIONS_URL=https://visca.ai
 ```
 
 These take precedence over saved contexts but are overridden by CLI flags.
@@ -25,7 +25,7 @@ These take precedence over saved contexts but are overridden by CLI flags.
 Use exit codes in scripts to handle errors:
 
 ```bash
-if ! oneuptime monitor list > /dev/null 2>&1; then
+if ! cast-operations monitor list > /dev/null 2>&1; then
   echo "Failed to list monitors"
   exit 1
 fi
@@ -37,14 +37,14 @@ Use `-o json` to produce machine-readable output:
 
 ```bash
 # Extract all incident titles
-oneuptime incident list -o json | jq '.[].title'
+cast-operations incident list -o json | jq '.[].title'
 
 # Get the ID of a newly created monitor
-NEW_ID=$(oneuptime monitor create --data '{"name":"API Health"}' -o json | jq -r '._id')
+NEW_ID=$(cast-operations monitor create --data '{"name":"API Health"}' -o json | jq -r '._id')
 echo "Created monitor: $NEW_ID"
 
 # Count incidents by severity
-oneuptime incident count --query '{"incidentSeverityId":"<severity-id>"}'
+cast-operations incident count --query '{"incidentSeverityId":"<severity-id>"}'
 ```
 
 ## Creating Resources from Files
@@ -58,7 +58,7 @@ Use `--file` to create resources from JSON files, useful for version-controlled 
 #   "projectId": "your-project-id"
 # }
 
-oneuptime monitor create --file monitor.json
+cast-operations monitor create --file monitor.json
 ```
 
 ## Batch Operations
@@ -68,7 +68,7 @@ Process multiple resources in a loop:
 ```bash
 # Create multiple monitors from a JSON array file
 cat monitors.json | jq -r '.[] | @json' | while read monitor; do
-  oneuptime monitor create --data "$monitor"
+  cast-operations monitor create --data "$monitor"
 done
 ```
 
@@ -87,14 +87,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Cast Operations CLI
-        run: npm install -g @oneuptime/cli
+        run: npm install -g @cast-operations/cli
 
       - name: Check for active incidents
         env:
-          ONEUPTIME_API_KEY: ${{ secrets.ONEUPTIME_API_KEY }}
-          ONEUPTIME_URL: https://visca.ai
+          CAST_OPERATIONS_API_KEY: ${{ secrets.CAST_OPERATIONS_API_KEY }}
+          CAST_OPERATIONS_URL: https://visca.ai
         run: |
-          INCIDENT_COUNT=$(oneuptime incident count)
+          INCIDENT_COUNT=$(cast-operations incident count)
           if [ "$INCIDENT_COUNT" -gt 0 ]; then
             echo "WARNING: $INCIDENT_COUNT incidents found"
             exit 1
@@ -107,12 +107,12 @@ jobs:
 #!/bin/bash
 set -e
 
-export ONEUPTIME_API_KEY="$CI_ONEUPTIME_API_KEY"
-export ONEUPTIME_URL="$CI_ONEUPTIME_URL"
+export CAST_OPERATIONS_API_KEY="$CI_CAST_OPERATIONS_API_KEY"
+export CAST_OPERATIONS_URL="$CI_CAST_OPERATIONS_URL"
 
 # Create a deployment incident and capture the ID
 # Note: currentIncidentStateId and incidentSeverityId must reference existing state/severity IDs in your project
-INCIDENT_ID=$(oneuptime incident create --data '{
+INCIDENT_ID=$(cast-operations incident create --data '{
   "title": "Deployment Started",
   "currentIncidentStateId": "'"$INVESTIGATING_STATE_ID"'",
   "incidentSeverityId": "'"$SEVERITY_ID"'",
@@ -122,24 +122,24 @@ INCIDENT_ID=$(oneuptime incident create --data '{
 # Run deployment steps here...
 
 # Resolve the incident after successful deployment
-oneuptime incident update "$INCIDENT_ID" --data '{"currentIncidentStateId":"'"$RESOLVED_STATE_ID"'"}'
+cast-operations incident update "$INCIDENT_ID" --data '{"currentIncidentStateId":"'"$RESOLVED_STATE_ID"'"}'
 ```
 
 ### Docker
 
 ```dockerfile
 FROM node:26-slim
-RUN npm install -g @oneuptime/cli
-ENV ONEUPTIME_API_KEY=""
-ENV ONEUPTIME_URL=""
-ENTRYPOINT ["oneuptime"]
+RUN npm install -g @cast-operations/cli
+ENV CAST_OPERATIONS_API_KEY=""
+ENV CAST_OPERATIONS_URL=""
+ENTRYPOINT ["cast-operations"]
 ```
 
 ```bash
 docker run --rm \
-  -e ONEUPTIME_API_KEY=sk-abc123 \
-  -e ONEUPTIME_URL=https://visca.ai \
-  oneuptime-cli incident list
+  -e CAST_OPERATIONS_API_KEY=sk-abc123 \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
+  cast-operations-cli incident list
 ```
 
 ## Using a Specific Context in Scripts
@@ -147,6 +147,6 @@ docker run --rm \
 If you have multiple contexts saved, target a specific one:
 
 ```bash
-oneuptime --context production incident list
-oneuptime --context staging monitor count
+cast-operations --context production incident list
+cast-operations --context staging monitor count
 ```

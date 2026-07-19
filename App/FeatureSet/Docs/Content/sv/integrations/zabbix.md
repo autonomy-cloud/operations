@@ -130,7 +130,7 @@ Det grundläggande arbetsflödet ovan _öppnar_ incidenter. För att även _stä
 3. Från dess **Yes**-utdata, lägg till ett **Find Incident**-block som letar upp den öppna incident du skapade tidigare — matcha på Zabbix `event_id` som du lagrade i beskrivningen eller en etikett.
 4. Koppla det till ett **Update Incident**-block och flytta incidenten till ditt _löst_-tillstånd.
 
-Eftersom lösning beror på hur du modellerar incidenttillstånd i ditt projekt, behåll **skapa**-vägen som det pålitliga kärnan och lägg till lösningsvägen när du bekräftat att händelser flödar korrekt. Se [Komponenter → Cast Operations-datakomponenter](/docs/workflows/components#oneuptime-data-components).
+Eftersom lösning beror på hur du modellerar incidenttillstånd i ditt projekt, behåll **skapa**-vägen som det pålitliga kärnan och lägg till lösningsvägen när du bekräftat att händelser flödar korrekt. Se [Komponenter → Cast Operations-datakomponenter](/docs/workflows/components#cast-operations-data-components).
 
 ## Mappa Zabbix-allvarlighetsgrader (valfritt)
 

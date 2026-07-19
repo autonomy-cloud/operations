@@ -16,7 +16,7 @@ import PlaceholderText from "./PlaceholderText";
 import FileModel from "../../../Models/DatabaseModels/DatabaseBaseModel/FileModel";
 import Color from "../../../Types/Color";
 import DatabaseProperty from "../../../Types/Database/DatabaseProperty";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Dictionary from "../../../Types/Dictionary";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import GenericObject from "../../../Types/GenericObject";
@@ -316,7 +316,7 @@ const Detail: DetailFunction = <T extends GenericObject>(
     if (field.fieldType === FieldType.Date) {
       if (data) {
         const formattedDate: string =
-          OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+          OperationsDate.getDateAsUserFriendlyLocalFormattedString(
             data as string,
             true,
           );
@@ -364,7 +364,7 @@ const Detail: DetailFunction = <T extends GenericObject>(
     if (field.fieldType === FieldType.DateTime) {
       if (data) {
         const formattedDateTime: string =
-          OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+          OperationsDate.getDateAsUserFriendlyLocalFormattedString(
             data as string,
             false,
           );

@@ -7,7 +7,6 @@ import SortOrder from "../../Types/BaseDatabase/SortOrder";
 import Query from "../../Types/BaseDatabase/Query";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import ColumnType from "../../Types/Database/ColumnType";
 import CrudApiEndpoint from "../../Types/Database/CrudApiEndpoint";
@@ -19,16 +18,9 @@ import TenantColumn from "../../Types/Database/TenantColumn";
 import IconProp from "../../Types/Icon/IconProp";
 import ObjectID from "../../Types/ObjectID";
 import Permission from "../../Types/Permission";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 
 @EnableDocumentation()
-@TableBillingAccessControl({
-  create: PlanType.Free,
-  read: PlanType.Free,
-  update: PlanType.Free,
-  delete: PlanType.Free,
-})
 @TenantColumn("projectId")
 @CrudApiEndpoint(new Route("/log-saved-view"))
 @Entity({

@@ -1,5 +1,5 @@
 import {
-  ONEUPTIME_BASE_URL,
+  CAST_OPERATIONS_BASE_URL,
   POLL_INTERVAL_MS,
   RUNBOOK_AGENT_ID,
   RUNBOOK_AGENT_VERSION,
@@ -13,7 +13,7 @@ const APP_NAME: string = "runbook-agent";
 const init: () => Promise<void> = async (): Promise<void> => {
   try {
     logger.info(
-      `${APP_NAME} ${RUNBOOK_AGENT_VERSION} starting | agentId=${RUNBOOK_AGENT_ID.toString()} | server=${ONEUPTIME_BASE_URL.toString()} | poll=${POLL_INTERVAL_MS}ms`,
+      `${APP_NAME} ${RUNBOOK_AGENT_VERSION} starting | agentId=${RUNBOOK_AGENT_ID.toString()} | server=${CAST_OPERATIONS_BASE_URL.toString()} | poll=${POLL_INTERVAL_MS}ms`,
     );
 
     startHeartbeat();

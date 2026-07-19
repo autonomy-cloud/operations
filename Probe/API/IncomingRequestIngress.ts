@@ -1,5 +1,5 @@
 import {
-  ONEUPTIME_BASE_URL,
+  CAST_OPERATIONS_BASE_URL,
   PROBE_INGRESS_FORWARD_RETRY_LIMIT,
   PROBE_INGRESS_FORWARD_TIMEOUT_MS,
 } from "../Config";
@@ -118,7 +118,7 @@ async function forwardWithRetry(
   }
 }
 
-const forwardToOneUptime: RequestHandler = (
+const forwardToOperations: RequestHandler = (
   req: ExpressRequest,
   res: ExpressResponse,
   next: NextFunction,
@@ -134,7 +134,7 @@ const forwardToOneUptime: RequestHandler = (
       return;
     }
 
-    const forwardUrl: URL = URL.fromString(ONEUPTIME_BASE_URL.toString())
+    const forwardUrl: URL = URL.fromString(CAST_OPERATIONS_BASE_URL.toString())
       .addRoute("/incoming-request")
       .addRoute(`/${secretKey}`);
 
@@ -169,9 +169,9 @@ const forwardToOneUptime: RequestHandler = (
   }
 };
 
-router.post("/incoming-request/:secretkey", forwardToOneUptime);
-router.get("/incoming-request/:secretkey", forwardToOneUptime);
-router.post("/heartbeat/:secretkey", forwardToOneUptime);
-router.get("/heartbeat/:secretkey", forwardToOneUptime);
+router.post("/incoming-request/:secretkey", forwardToOperations);
+router.get("/incoming-request/:secretkey", forwardToOperations);
+router.post("/heartbeat/:secretkey", forwardToOperations);
+router.get("/heartbeat/:secretkey", forwardToOperations);
 
 export default router;

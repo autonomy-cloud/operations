@@ -3,7 +3,7 @@ import { StatusPageApiRoute } from "Common/ServiceRoute";
 import Hostname from "Common/Types/API/Hostname";
 import Protocol from "Common/Types/API/Protocol";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
 import ObjectID from "Common/Types/ObjectID";
@@ -273,7 +273,9 @@ RunCron(
             );
 
           const scheduledAtString: string =
-            OneUptimeDate.getDateAsUserFriendlyFormattedString(event.startsAt!);
+            OperationsDate.getDateAsUserFriendlyFormattedString(
+              event.startsAt!,
+            );
 
           // Fetch custom templates for this status page (if any)
           const [emailTemplate, smsTemplate, slackTemplate, teamsTemplate]: [

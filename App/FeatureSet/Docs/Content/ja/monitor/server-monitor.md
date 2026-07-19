@@ -31,10 +31,10 @@ Cast Operationsインフラストラクチャエージェントは、システ�
 curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # エージェントの設定
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # エージェントの起動
-sudo oneuptime-infrastructure-agent start
+sudo cast-operations-infrastructure-agent start
 ```
 
 `YOUR_SECRET_KEY` はモニターの設定に表示されているシークレットキーに、セルフホストの場合は `https://visca.ai` をCast OperationsインスタンスのURLに置き換えてください。
@@ -42,17 +42,17 @@ sudo oneuptime-infrastructure-agent start
 ### Windows
 
 1. [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest) から最新のエージェントをダウンロードします
-   - x64システムの場合：`oneuptime-infrastructure-agent_windows_amd64.zip`
-   - ARM64システムの場合：`oneuptime-infrastructure-agent_windows_arm64.zip`
+   - x64システムの場合：`cast-operations-infrastructure-agent_windows_amd64.zip`
+   - ARM64システムの場合：`cast-operations-infrastructure-agent_windows_arm64.zip`
 2. zipファイルを展開します
 3. 管理者としてコマンドプロンプトを開き、以下を実行します：
 
 ```bash
 # エージェントの設定
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # エージェントの起動
-oneuptime-infrastructure-agent start
+cast-operations-infrastructure-agent start
 ```
 
 ### プロキシサポート
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 サーバーがプロキシ経由でインターネットに接続している場合、エージェントがプロキシを使用するように設定できます。
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## エージェントコマンド
@@ -176,8 +176,8 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 
 ### エージェントが報告しない場合
 
-- エージェントが実行中か確認します：`sudo oneuptime-infrastructure-agent status`
-- エージェントログを確認します：`sudo oneuptime-infrastructure-agent logs -n 50`
+- エージェントが実行中か確認します：`sudo cast-operations-infrastructure-agent status`
+- エージェントログを確認します：`sudo cast-operations-infrastructure-agent logs -n 50`
 - シークレットキーが正しいか確認します
 - サーバーがCast OperationsインスタンスのURLに到達できることを確認します
 - ファイアウォールルールがアウトバウンドHTTPS接続を許可していることを確認します
@@ -186,14 +186,14 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 
 エージェントは軽量設計です。高いリソース使用率が見られる場合：
 
-- エージェントを再起動します：`sudo oneuptime-infrastructure-agent restart`
+- エージェントを再起動します：`sudo cast-operations-infrastructure-agent restart`
 - エラーのエージェントログを確認します
 
 ### プロキシの問題
 
 - プロキシのURLとポートが正しいか確認します
 - プロキシがCast Operationsインスタンスへの接続を許可していることを確認します
-- 再設定します：`sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
+- 再設定します：`sudo cast-operations-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --cast-operations-url=YOUR_URL`
 
 ## ベストプラクティス
 

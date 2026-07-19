@@ -10,7 +10,7 @@ import ScheduledMaintenancePublicNoteService from "./ScheduledMaintenancePublicN
 import ScheduledMaintenanceService from "./ScheduledMaintenanceService";
 import ScheduledMaintenanceStateService from "./ScheduledMaintenanceStateService";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import { JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
@@ -23,7 +23,7 @@ import ScheduledMaintenance from "../../Models/DatabaseModels/ScheduledMaintenan
 import ScheduledMaintenancePublicNote from "../../Models/DatabaseModels/ScheduledMaintenancePublicNote";
 import ScheduledMaintenanceState from "../../Models/DatabaseModels/ScheduledMaintenanceState";
 import ScheduledMaintenanceStateTimeline from "../../Models/DatabaseModels/ScheduledMaintenanceStateTimeline";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import ScheduledMaintenanceFeedService from "./ScheduledMaintenanceFeedService";
 import { ScheduledMaintenanceFeedEventType } from "../../Models/DatabaseModels/ScheduledMaintenanceFeed";
 import logger, { LogAttributes } from "../Utils/Logger";
@@ -35,9 +35,6 @@ import Semaphore, { SemaphoreMutex } from "../Infrastructure/Semaphore";
 export class Service extends DatabaseService<ScheduledMaintenanceStateTimeline> {
   public constructor() {
     super(ScheduledMaintenanceStateTimeline);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   private async isLastScheduledMaintenanceState(data: {
@@ -111,7 +108,7 @@ export class Service extends DatabaseService<ScheduledMaintenanceStateTimeline> 
       }
 
       if (!createBy.data.startsAt) {
-        createBy.data.startsAt = OneUptimeDate.getCurrentDate();
+        createBy.data.startsAt = OperationsDate.getCurrentDate();
       }
 
       const scheduledMaintenanceStateId: ObjectID | undefined | null =

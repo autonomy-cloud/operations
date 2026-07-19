@@ -259,7 +259,7 @@ export default class AnalyticsTableManagement {
 
   /**
    * The full ClickHouse engine definition of a table from system.tables (e.g.
-   * `Distributed('oneuptime', 'oneuptime', 'SpanItemV3Local', cityHash64(projectId))`),
+   * `Distributed('cast-operations', 'cast-operations', 'SpanItemV3Local', cityHash64(projectId))`),
    * or null if the table does not exist.
    */
   private static async getTableEngineFull(

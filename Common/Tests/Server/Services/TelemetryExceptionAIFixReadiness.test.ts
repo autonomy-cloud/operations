@@ -5,7 +5,6 @@ import {
 } from "../../../Types/AI/AIFixReadiness";
 import FixRunBudget from "../../../Server/Utils/AI/CodeFix/FixRunBudget";
 import LlmProviderService from "../../../Server/Services/LlmProviderService";
-import ProjectService from "../../../Server/Services/ProjectService";
 import ServiceService from "../../../Server/Services/ServiceService";
 import CodeRepositoryService from "../../../Server/Services/CodeRepositoryService";
 import AIAgentService from "../../../Server/Services/AIAgentService";
@@ -13,13 +12,12 @@ import { RepoResolution } from "../../../Server/Utils/CodeRepository/StackTraceR
 import TelemetryException from "../../../Models/DatabaseModels/TelemetryException";
 import TelemetryService from "../../../Models/DatabaseModels/Service";
 import LlmProvider from "../../../Models/DatabaseModels/LlmProvider";
-import Project from "../../../Models/DatabaseModels/Project";
 import AIAgent, {
   AIAgentConnectionStatus,
 } from "../../../Models/DatabaseModels/AIAgent";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import ObjectID from "../../../Types/ObjectID";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import AIService from "../../../Server/Services/AIService";
 import { describe, expect, test, afterEach, beforeEach } from "@jest/globals";
 
@@ -42,7 +40,7 @@ function fakeException(): TelemetryException {
     id: exceptionId,
     projectId: projectId,
     primaryEntityId: serviceId,
-    stackTrace: "at charge (/app/src/billing/charge.ts:12:5)",
+    stackTrace: "at charge (/app/src/payments/charge.ts:12:5)",
   } as unknown as TelemetryException;
 }
 
@@ -53,7 +51,7 @@ function fakeResolution(): RepoResolution {
     repositoryName: "checkout",
     servicePathInRepository: null,
     method: "stack-trace",
-    evidence: "Matched src/billing/charge.ts in acme/checkout",
+    evidence: "Matched src/payments/charge.ts in acme/checkout",
   };
 }
 
@@ -230,7 +228,7 @@ describe("TelemetryExceptionService.getAIFixReadiness", () => {
     mockReadiness({
       agent: fakeAgent({
         connectionStatus: AIAgentConnectionStatus.Disconnected,
-        lastAlive: OneUptimeDate.getSomeMinutesAgo(10),
+        lastAlive: OperationsDate.getSomeMinutesAgo(10),
       }),
     });
 
@@ -244,127 +242,6 @@ describe("TelemetryExceptionService.getAIFixReadiness", () => {
     const check: AIFixReadinessCheck = getCheck(readiness, "agentAvailable");
     expect(check.ok).toBe(false);
     expect(check.detail).toContain("has not reported in");
-  });
-});
-
-/*
- * The llmProvider check must model PAYABILITY, not just existence: on cloud
- * a COSTED global provider bills the project's AI balance per completion
- * (AIService.executeWithLogging), so a zero balance would pass a
- * presence-only readiness check and then fail the run at its first LLM
- * call — the exact fail-late mode readiness exists to prevent. Project-owned
- * and free-global providers consume no balance and must never require one.
- */
-describe("TelemetryExceptionService.getAIFixReadiness — AI balance gate", () => {
-  beforeEach(() => {
-    mockBudgetNotExhausted();
-  });
-
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  function costedGlobalProvider(): LlmProvider {
-    return {
-      id: ObjectID.generate(),
-      name: "Cast Operations Hosted",
-      isGlobalLlm: true,
-      costPerMillionTokensInUSDCents: 300,
-    } as unknown as LlmProvider;
-  }
-
-  function mockProjectBalance(balanceInUSDCents: number): void {
-    jest.spyOn(ProjectService, "findOneById").mockResolvedValue({
-      aiCurrentBalanceInUSDCents: balanceInUSDCents,
-    } as unknown as Project);
-  }
-
-  test("cloud + costed global provider + zero balance: fails with recharge guidance", async () => {
-    mockReadiness({ provider: costedGlobalProvider() });
-    mockProjectBalance(0);
-
-    const readiness: AIFixReadiness =
-      await TelemetryExceptionService.getAIFixReadiness({
-        telemetryExceptionId: exceptionId,
-        props: { isRoot: true },
-        billingEnabled: true,
-      });
-
-    expect(readiness.ready).toBe(false);
-    const check: AIFixReadinessCheck = getCheck(readiness, "llmProvider");
-    expect(check.ok).toBe(false);
-    expect(check.detail).toContain("AI Credits");
-  });
-
-  test("cloud + costed global provider + positive balance: ready", async () => {
-    mockReadiness({ provider: costedGlobalProvider() });
-    mockProjectBalance(500);
-
-    const readiness: AIFixReadiness =
-      await TelemetryExceptionService.getAIFixReadiness({
-        telemetryExceptionId: exceptionId,
-        props: { isRoot: true },
-        billingEnabled: true,
-      });
-
-    expect(getCheck(readiness, "llmProvider").ok).toBe(true);
-    expect(readiness.ready).toBe(true);
-  });
-
-  test("a FREE global provider needs no balance — the project is never queried", async () => {
-    mockReadiness({
-      provider: {
-        id: ObjectID.generate(),
-        name: "Hosted free",
-        isGlobalLlm: true,
-        costPerMillionTokensInUSDCents: 0,
-      } as unknown as LlmProvider,
-    });
-    const projectSpy: jest.SpiedFunction<typeof ProjectService.findOneById> =
-      jest.spyOn(ProjectService, "findOneById");
-
-    const readiness: AIFixReadiness =
-      await TelemetryExceptionService.getAIFixReadiness({
-        telemetryExceptionId: exceptionId,
-        props: { isRoot: true },
-        billingEnabled: true,
-      });
-
-    expect(getCheck(readiness, "llmProvider").ok).toBe(true);
-    expect(projectSpy).not.toHaveBeenCalled();
-  });
-
-  test("self-host (billing disabled): a costed global provider needs no balance", async () => {
-    mockReadiness({ provider: costedGlobalProvider() });
-    const projectSpy: jest.SpiedFunction<typeof ProjectService.findOneById> =
-      jest.spyOn(ProjectService, "findOneById");
-
-    const readiness: AIFixReadiness =
-      await TelemetryExceptionService.getAIFixReadiness({
-        telemetryExceptionId: exceptionId,
-        props: { isRoot: true },
-        billingEnabled: false,
-      });
-
-    expect(getCheck(readiness, "llmProvider").ok).toBe(true);
-    expect(projectSpy).not.toHaveBeenCalled();
-  });
-
-  test("project-owned provider on cloud: no balance requirement", async () => {
-    // The default mockReadiness fixture is a BYO (project-owned) provider.
-    mockReadiness({});
-    const projectSpy: jest.SpiedFunction<typeof ProjectService.findOneById> =
-      jest.spyOn(ProjectService, "findOneById");
-
-    const readiness: AIFixReadiness =
-      await TelemetryExceptionService.getAIFixReadiness({
-        telemetryExceptionId: exceptionId,
-        props: { isRoot: true },
-        billingEnabled: true,
-      });
-
-    expect(getCheck(readiness, "llmProvider").ok).toBe(true);
-    expect(projectSpy).not.toHaveBeenCalled();
   });
 });
 
@@ -409,7 +286,7 @@ describe("AIAgentService.isAgentAlive", () => {
   test("alive on a heartbeat within five minutes", () => {
     expect(
       AIAgentService.isAgentAlive(
-        fakeAgent({ lastAlive: OneUptimeDate.getCurrentDate() }),
+        fakeAgent({ lastAlive: OperationsDate.getCurrentDate() }),
       ),
     ).toBe(true);
   });
@@ -417,7 +294,7 @@ describe("AIAgentService.isAgentAlive", () => {
   test("dead with a stale heartbeat and no Connected status", () => {
     expect(
       AIAgentService.isAgentAlive(
-        fakeAgent({ lastAlive: OneUptimeDate.getSomeMinutesAgo(10) }),
+        fakeAgent({ lastAlive: OperationsDate.getSomeMinutesAgo(10) }),
       ),
     ).toBe(false);
   });

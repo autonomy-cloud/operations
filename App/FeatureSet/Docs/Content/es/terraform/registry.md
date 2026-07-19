@@ -9,7 +9,7 @@ El Proveedor Terraform de Cast Operations está disponible en el [Registro ofici
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Usa la última versión compatible
     }
@@ -17,9 +17,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -30,7 +30,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Reemplaza con tu versión exacta de Cast Operations
     }
@@ -38,9 +38,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # Tu URL auto-alojada
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # Tu URL auto-alojada
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -77,8 +77,8 @@ curl https://your-operations-instance.com/api/version | jq '.version'
 ### Método 3: Docker
 
 ```bash
-docker images | grep oneuptime
-# Busca la etiqueta, por ejemplo, oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# Busca la etiqueta, por ejemplo, cast-operations/dashboard:7.0.123
 ```
 
 ## Información del Registro del proveedor
@@ -102,28 +102,28 @@ docker images | grep oneuptime
 # Configurar el proveedor
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Ajusta para auto-alojado
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # Ajusta para auto-alojado
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # Ajusta para auto-alojado
+  api_key       = var.cast_operations_api_key
 }
 
 # Crea un proyecto
-resource "oneuptime_project" "example" {
+resource "cast_operations_project" "example" {
   name        = "Ejemplo de Terraform"
   description = "Creado con Terraform"
 }
 
 # Crea un monitor de sitio web
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name       = "Monitor de sitio web"
-  project_id = oneuptime_project.example.id
+  project_id = cast_operations_project.example.id
 
   monitor_type = "website"
   url          = "https://example.com"

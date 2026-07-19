@@ -27,7 +27,7 @@ import { ModelField } from "Common/UI/Components/Forms/ModelForm";
 import { FormStep } from "Common/UI/Components/Forms/Types/FormStep";
 import RecurringFieldElement from "Common/UI/Components/Events/RecurringFieldElement";
 import Recurring from "Common/Types/Events/Recurring";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import RecurringArrayFieldElement from "Common/UI/Components/Events/RecurringArrayFieldElement";
 
 type GetTemplateFormFieldsFunction = (data: {
@@ -592,7 +592,7 @@ const ScheduledMaintenanceTemplates: FunctionComponent<PageComponentProps> = (
               ) : (
                 <span>
                   Next event will be scheduled at{" "}
-                  {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                  {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                     item.scheduleNextEventAt,
                   )}
                 </span>

@@ -20,7 +20,7 @@ import API from "Common/UI/Utils/API/API";
 import Navigation from "Common/UI/Utils/Navigation";
 import ProjectUtil from "Common/UI/Utils/Project";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import Route from "Common/Types/API/Route";
 import { JSONObject } from "Common/Types/JSON";
@@ -453,7 +453,7 @@ const EntityDetailPage: FunctionComponent<
                   {translateString("First Seen") || ""}
                 </dt>
                 <dd className="text-sm text-gray-900 sm:col-span-2">
-                  {OneUptimeDate.getDateAsLocalFormattedString(
+                  {OperationsDate.getDateAsLocalFormattedString(
                     entity.firstSeenAt,
                   )}
                 </dd>
@@ -465,7 +465,7 @@ const EntityDetailPage: FunctionComponent<
                   {translateString("Last Seen") || ""}
                 </dt>
                 <dd className="text-sm text-gray-900 sm:col-span-2">
-                  {OneUptimeDate.getDateAsLocalFormattedString(
+                  {OperationsDate.getDateAsLocalFormattedString(
                     entity.lastSeenAt,
                   )}
                 </dd>
@@ -565,7 +565,7 @@ const EntityDetailPage: FunctionComponent<
                       </div>
                       <div className="text-sm text-gray-500">
                         {row.lastSeenAt
-                          ? OneUptimeDate.getDateAsLocalFormattedString(
+                          ? OperationsDate.getDateAsLocalFormattedString(
                               row.lastSeenAt,
                             )
                           : "-"}

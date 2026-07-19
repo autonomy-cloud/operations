@@ -13,7 +13,7 @@ export interface WorkspaceInfo {
 export default class WorkspaceManager {
   private static readonly BASE_TEMP_DIR: string = path.join(
     os.tmpdir(),
-    "oneuptime-ai-agent",
+    "cast-operations-ai-agent",
   );
 
   // Create a new workspace for a task

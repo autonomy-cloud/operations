@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import SslMonitorResponse from "Common/Types/Monitor/SSLMonitor/SslMonitorResponse";
 import ProbeAttempt from "Common/Types/Probe/ProbeAttempt";
 import ProbeMonitorResponse from "Common/Types/Probe/ProbeMonitorResponse";
@@ -62,7 +62,7 @@ const SSLCertificateMonitorView: FunctionComponent<ComponentProps> = (
             title="Issued At"
             value={
               sslResponse.createdAt
-                ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                     sslResponse.createdAt,
                   )
                 : "-"
@@ -74,7 +74,7 @@ const SSLCertificateMonitorView: FunctionComponent<ComponentProps> = (
             title="Expires At"
             value={
               sslResponse.expiresAt
-                ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                     sslResponse.expiresAt,
                   )
                 : "-"

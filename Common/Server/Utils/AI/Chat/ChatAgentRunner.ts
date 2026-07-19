@@ -2,7 +2,7 @@ import AIConversationMessage from "../../../../Models/DatabaseModels/AIConversat
 import AIRun from "../../../../Models/DatabaseModels/AIRun";
 import DatabaseCommonInteractionProps from "../../../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import SortOrder from "../../../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import { JSONObject } from "../../../../Types/JSON";
 import ObjectID from "../../../../Types/ObjectID";
 import AIChatMessageRole from "../../../../Types/AI/AIChatMessageRole";
@@ -262,7 +262,7 @@ export default class ChatAgentRunner {
       data: {
         status: AIRunStatus.Running,
         pausedState: null,
-        lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+        lastHeartbeatAt: OperationsDate.getCurrentDate(),
       } as never,
       props: { isRoot: true },
     });
@@ -586,8 +586,8 @@ export default class ChatAgentRunner {
       },
       data: {
         status: AIRunStatus.Completed,
-        completedAt: OneUptimeDate.getCurrentDate(),
-        lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+        completedAt: OperationsDate.getCurrentDate(),
+        lastHeartbeatAt: OperationsDate.getCurrentDate(),
         llmCallCount: state.llmCallCount,
         toolCallCount: state.toolCallCount,
         totalTokens: state.totalTokens,
@@ -641,7 +641,7 @@ export default class ChatAgentRunner {
       data: {
         status: AIRunStatus.WaitingForApproval,
         pausedState: pausedState,
-        lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+        lastHeartbeatAt: OperationsDate.getCurrentDate(),
         llmCallCount: state.llmCallCount,
         toolCallCount: state.toolCallCount,
         totalTokens: state.totalTokens,
@@ -897,7 +897,7 @@ export default class ChatAgentRunner {
       {
         role: "system",
         content: buildObservabilityChatSystemPrompt({
-          currentTime: OneUptimeDate.getCurrentDate(),
+          currentTime: OperationsDate.getCurrentDate(),
           permissionMode: request.permissionMode,
           pageContext: request.pageContext,
         }),
@@ -945,7 +945,7 @@ export default class ChatAgentRunner {
     await AIRunService.updateOneById({
       id: request.aiRunId,
       data: {
-        lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+        lastHeartbeatAt: OperationsDate.getCurrentDate(),
         llmCallCount: state.llmCallCount,
         toolCallCount: state.toolCallCount,
         totalTokens: state.totalTokens,
@@ -1005,7 +1005,7 @@ export default class ChatAgentRunner {
     await AIConversationService.updateOneById({
       id: request.conversationId,
       data: {
-        lastMessageAt: OneUptimeDate.getCurrentDate(),
+        lastMessageAt: OperationsDate.getCurrentDate(),
       } as never,
       props: { isRoot: true },
     });
@@ -1054,7 +1054,7 @@ export default class ChatAgentRunner {
         },
         data: {
           status: AIRunStatus.Error,
-          completedAt: OneUptimeDate.getCurrentDate(),
+          completedAt: OperationsDate.getCurrentDate(),
           errorMessage: truncatedError,
           pausedState: null,
         } as never,

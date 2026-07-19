@@ -9,7 +9,7 @@ Der Cast Operations Terraform-Provider ist im offiziellen [Terraform Registry](h
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Neueste kompatible Version verwenden
     }
@@ -17,9 +17,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -30,7 +30,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Durch Ihre genaue Cast Operations-Version ersetzen
     }
@@ -38,9 +38,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # Ihre selbst gehostete URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # Ihre selbst gehostete URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -72,8 +72,8 @@ curl https://your-operations-instance.com/api/version | jq '.version'
 ### Methode 3: Docker
 
 ```bash
-docker images | grep oneuptime
-# Nach dem Tag suchen, z. B. oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# Nach dem Tag suchen, z. B. cast-operations/dashboard:7.0.123
 ```
 
 ## Provider Registry-Informationen

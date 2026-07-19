@@ -16,23 +16,20 @@ import UserNotificationExecutionStatus from "../../Types/UserNotification/UserNo
 import Incident from "../../Models/DatabaseModels/Incident";
 import UserNotificationRule from "../../Models/DatabaseModels/UserNotificationRule";
 import Model from "../../Models/DatabaseModels/UserOnCallLog";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import Alert from "../../Models/DatabaseModels/Alert";
 import AlertService from "./AlertService";
 import AlertEpisode from "../../Models/DatabaseModels/AlertEpisode";
 import AlertEpisodeService from "./AlertEpisodeService";
 import IncidentEpisode from "../../Models/DatabaseModels/IncidentEpisode";
 import IncidentEpisodeService from "./IncidentEpisodeService";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import { JSONObject } from "../../Types/JSON";
 import logger from "../Utils/Logger";
 
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 30);
-    }
   }
 
   /**
@@ -63,7 +60,7 @@ export class Service extends DatabaseService<Model> {
     const ruleKey: string = data.userNotificationRuleId.toString();
 
     try {
-      const nowIso: string = OneUptimeDate.getCurrentDate().toISOString();
+      const nowIso: string = OperationsDate.getCurrentDate().toISOString();
 
       const rows: Array<{ _id: string }> =
         await this.getRepository().manager.query(
@@ -107,7 +104,7 @@ export class Service extends DatabaseService<Model> {
         return false;
       }
 
-      executed[ruleKey] = OneUptimeDate.getCurrentDate();
+      executed[ruleKey] = OperationsDate.getCurrentDate();
 
       await this.updateOneById({
         id: log.id!,

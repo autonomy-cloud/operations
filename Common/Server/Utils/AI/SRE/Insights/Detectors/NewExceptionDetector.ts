@@ -1,5 +1,5 @@
 import ObjectID from "../../../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../../../Types/Date";
+import OperationsDate from "../../../../../../Types/Date";
 import SortOrder from "../../../../../../Types/BaseDatabase/SortOrder";
 import { JSONObject } from "../../../../../../Types/JSON";
 import AIInsightType from "../../../../../../Types/AI/AIInsightType";
@@ -113,7 +113,7 @@ export default class NewExceptionDetector implements InsightDetector {
   public async detect(
     context: InsightScanContext,
   ): Promise<Array<InsightCandidate>> {
-    const firstSeenSince: Date = OneUptimeDate.addRemoveHours(
+    const firstSeenSince: Date = OperationsDate.addRemoveHours(
       context.now,
       -1 * NEW_EXCEPTION_LOOKBACK_HOURS,
     );

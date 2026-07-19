@@ -14,7 +14,7 @@ import MetricQueryConfigData from "Common/Types/Metrics/MetricQueryConfigData";
 import MetricFormulaConfigData from "Common/Types/Metrics/MetricFormulaConfigData";
 import MetricViewData from "Common/Types/Metrics/MetricViewData";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ModelAPI from "Common/UI/Utils/ModelAPI/ModelAPI";
 import API from "Common/UI/Utils/API/API";
 import Card from "Common/UI/Components/Card/Card";
@@ -116,11 +116,11 @@ const IncidentRootCauseMetricChart: FunctionComponent<ComponentProps> = (
          */
         const anchor: Date = incident.createdAt
           ? new Date(incident.createdAt as unknown as string | Date)
-          : OneUptimeDate.getCurrentDate();
+          : OperationsDate.getCurrentDate();
 
         const startAndEndDate: InBetween<Date> = new InBetween(
-          OneUptimeDate.addRemoveMinutes(anchor, -30),
-          OneUptimeDate.addRemoveMinutes(anchor, 15),
+          OperationsDate.addRemoveMinutes(anchor, -30),
+          OperationsDate.addRemoveMinutes(anchor, 15),
         );
 
         setIncidentDeclaredAt(incident.createdAt ? anchor : null);

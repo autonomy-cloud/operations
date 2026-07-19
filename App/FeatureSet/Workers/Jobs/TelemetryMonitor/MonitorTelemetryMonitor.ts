@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
 import MonitorType from "Common/Types/Monitor/MonitorType";
 import MonitorService from "Common/Server/Services/MonitorService";
@@ -163,7 +163,7 @@ export const enqueueDueTelemetryMonitorEvaluationJobs: () => Promise<void> =
         ]),
         telemetryMonitorNextMonitorAt:
           DatabaseQueryHelper.lessThanEqualToOrNull(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
       },
       props: {
@@ -182,8 +182,8 @@ export const enqueueDueTelemetryMonitorEvaluationJobs: () => Promise<void> =
     const updatePromises: Array<Promise<void>> = [];
 
     for (const telemetryMonitor of telemetryMonitors) {
-      let nextPing: Date = OneUptimeDate.addRemoveMinutes(
-        OneUptimeDate.getCurrentDate(),
+      let nextPing: Date = OperationsDate.addRemoveMinutes(
+        OperationsDate.getCurrentDate(),
         1,
       );
 
@@ -204,7 +204,7 @@ export const enqueueDueTelemetryMonitorEvaluationJobs: () => Promise<void> =
         MonitorService.updateOneById({
           id: telemetryMonitor.id!,
           data: {
-            telemetryMonitorLastMonitorAt: OneUptimeDate.getCurrentDate(),
+            telemetryMonitorLastMonitorAt: OperationsDate.getCurrentDate(),
             telemetryMonitorNextMonitorAt: nextPing,
           },
           props: {
@@ -1205,9 +1205,10 @@ const monitorMetric: MonitorMetricFunction = async (data: {
         aggregationTimestampColumnName: "time",
         startTimestamp:
           (startAndEndDate?.startValue as Date) ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         endTimestamp:
-          (startAndEndDate?.endValue as Date) || OneUptimeDate.getCurrentDate(),
+          (startAndEndDate?.endValue as Date) ||
+          OperationsDate.getCurrentDate(),
         limit: LIMIT_PER_PROJECT,
         skip: 0,
         groupBy: queryConfig.metricQueryData.groupBy,
@@ -1571,9 +1572,10 @@ const monitorKubernetes: MonitorKubernetesFunction = async (data: {
         aggregationTimestampColumnName: "time",
         startTimestamp:
           (startAndEndDate?.startValue as Date) ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         endTimestamp:
-          (startAndEndDate?.endValue as Date) || OneUptimeDate.getCurrentDate(),
+          (startAndEndDate?.endValue as Date) ||
+          OperationsDate.getCurrentDate(),
         limit: LIMIT_PER_PROJECT,
         skip: 0,
         groupBy: queryConfig.metricQueryData.groupBy,
@@ -1880,9 +1882,10 @@ const monitorDocker: MonitorDockerFunction = async (data: {
         aggregationTimestampColumnName: "time",
         startTimestamp:
           (startAndEndDate?.startValue as Date) ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         endTimestamp:
-          (startAndEndDate?.endValue as Date) || OneUptimeDate.getCurrentDate(),
+          (startAndEndDate?.endValue as Date) ||
+          OperationsDate.getCurrentDate(),
         limit: LIMIT_PER_PROJECT,
         skip: 0,
         groupBy: queryConfig.metricQueryData.groupBy,
@@ -2049,9 +2052,10 @@ const monitorHost: MonitorHostFunction = async (data: {
         aggregationTimestampColumnName: "time",
         startTimestamp:
           (startAndEndDate?.startValue as Date) ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         endTimestamp:
-          (startAndEndDate?.endValue as Date) || OneUptimeDate.getCurrentDate(),
+          (startAndEndDate?.endValue as Date) ||
+          OperationsDate.getCurrentDate(),
         limit: LIMIT_PER_PROJECT,
         skip: 0,
         groupBy: queryConfig.metricQueryData.groupBy,
@@ -2251,9 +2255,10 @@ const monitorPodman: MonitorPodmanFunction = async (data: {
         aggregationTimestampColumnName: "time",
         startTimestamp:
           (startAndEndDate?.startValue as Date) ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         endTimestamp:
-          (startAndEndDate?.endValue as Date) || OneUptimeDate.getCurrentDate(),
+          (startAndEndDate?.endValue as Date) ||
+          OperationsDate.getCurrentDate(),
         limit: LIMIT_PER_PROJECT,
         skip: 0,
         groupBy: queryConfig.metricQueryData.groupBy,
@@ -2455,9 +2460,10 @@ const monitorProxmox: MonitorProxmoxFunction = async (data: {
         aggregationTimestampColumnName: "time",
         startTimestamp:
           (startAndEndDate?.startValue as Date) ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         endTimestamp:
-          (startAndEndDate?.endValue as Date) || OneUptimeDate.getCurrentDate(),
+          (startAndEndDate?.endValue as Date) ||
+          OperationsDate.getCurrentDate(),
         limit: LIMIT_PER_PROJECT,
         skip: 0,
         groupBy: queryConfig.metricQueryData.groupBy,
@@ -2739,9 +2745,10 @@ const monitorIoT: MonitorIoTFunction = async (data: {
         aggregationTimestampColumnName: "time",
         startTimestamp:
           (startAndEndDate?.startValue as Date) ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         endTimestamp:
-          (startAndEndDate?.endValue as Date) || OneUptimeDate.getCurrentDate(),
+          (startAndEndDate?.endValue as Date) ||
+          OperationsDate.getCurrentDate(),
         limit: LIMIT_PER_PROJECT,
         skip: 0,
         groupBy: queryConfig.metricQueryData.groupBy,
@@ -2972,9 +2979,10 @@ const monitorDockerSwarm: MonitorDockerSwarmFunction = async (data: {
         aggregationTimestampColumnName: "time",
         startTimestamp:
           (startAndEndDate?.startValue as Date) ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         endTimestamp:
-          (startAndEndDate?.endValue as Date) || OneUptimeDate.getCurrentDate(),
+          (startAndEndDate?.endValue as Date) ||
+          OperationsDate.getCurrentDate(),
         limit: LIMIT_PER_PROJECT,
         skip: 0,
         groupBy: queryConfig.metricQueryData.groupBy,
@@ -3254,9 +3262,10 @@ const monitorCeph: MonitorCephFunction = async (data: {
         aggregationTimestampColumnName: "time",
         startTimestamp:
           (startAndEndDate?.startValue as Date) ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         endTimestamp:
-          (startAndEndDate?.endValue as Date) || OneUptimeDate.getCurrentDate(),
+          (startAndEndDate?.endValue as Date) ||
+          OperationsDate.getCurrentDate(),
         limit: LIMIT_PER_PROJECT,
         skip: 0,
         groupBy: queryConfig.metricQueryData.groupBy,

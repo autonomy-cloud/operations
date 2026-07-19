@@ -29,7 +29,7 @@ const ARGS: {
   organizationName: "acme",
   repositoryName: "checkout",
   branchName: "main",
-  filePath: "src/billing/charge.ts",
+  filePath: "src/payments/charge.ts",
 };
 
 function mockContentsResponse(data: JSONObject): void {

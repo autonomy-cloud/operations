@@ -1,7 +1,7 @@
 import DatabaseService from "./DatabaseService";
 import Model from "../../Models/DatabaseModels/TelemetryEntityRelationship";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import logger from "../Utils/Logger";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import { EntityRelationshipEdge } from "../../Utils/Telemetry/EntityRelationship";
@@ -43,7 +43,7 @@ export class TelemetryEntityRelationshipService extends DatabaseService<Model> {
     edge: EntityRelationshipEdge;
   }): Promise<void> {
     const { projectId, edge } = data;
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     await reconcileByNaturalKey({
       service: this,

@@ -14,7 +14,7 @@
 1. [Azure Portal](https://portal.azure.com) पर जाएं
 2. "App registrations" पर जाएं और "New registration" पर क्लिक करें
 3. Registration form भरें:
-   - **Name:** oneuptime
+   - **Name:** cast-operations
    - **Supported account types:** Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)
    - **Redirect URI:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
    - कृपया यह भी जोड़ें: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -55,11 +55,11 @@
 1. Azure Portal में, "Azure Bot" पर जाएं और "Create" पर क्लिक करें
 2. Bot creation form भरें:
 
-   - **Bot handle:** oneuptime-bot
+   - **Bot handle:** cast-operations-bot
    - **Subscription:** आपका Azure subscription
    - **Resource group:** नया बनाएं या existing उपयोग करें
    - **Location:** अपने users के करीब एक location चुनें
-   - **Pricing tier:** Testing के लिए F0 (Free) पर्याप्त है
+   - **Service plan:** Testing के लिए F0 (Free) पर्याप्त है
    - पहले बनाए गए app registration से App (client) ID और Tenant ID उपयोग करें
 
 3. "Review + create" और फिर "Create" पर क्लिक करें

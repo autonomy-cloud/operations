@@ -70,13 +70,13 @@ echo ""
 # Clone the repository
 echo -e "${YELLOW}Cloning Cast Operations repository...${NC}"
 
-if [ -d "oneuptime" ]; then
-    echo -e "${YELLOW}Directory 'oneuptime' already exists. Pulling latest changes...${NC}"
-    cd oneuptime
+if [ -d "cast-operations" ]; then
+    echo -e "${YELLOW}Directory 'cast-operations' already exists. Pulling latest changes...${NC}"
+    cd cast-operations
     git pull
 else
     git clone https://github.com/autonomy-cloud/operations.git
-    cd oneuptime
+    cd cast-operations
 fi
 
 echo ""

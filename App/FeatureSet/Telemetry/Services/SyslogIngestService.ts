@@ -11,7 +11,7 @@ import EventLoop from "Common/Server/Utils/EventLoop";
 import Dictionary from "Common/Types/Dictionary";
 import { JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import LogSeverity from "Common/Types/Log/LogSeverity";
 import { resolveTelemetryRetentionInDays } from "Common/Types/Telemetry/TelemetryRetentionConfig";
 import TelemetryUtil, {
@@ -226,8 +226,8 @@ export default class SyslogIngestService extends OtelIngestBaseService {
             this.mapSeverity(parsed.severity);
 
           const timestamp: Date =
-            parsed.timestamp || OneUptimeDate.getCurrentDate();
-          const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+            parsed.timestamp || OperationsDate.getCurrentDate();
+          const ingestionDate: Date = OperationsDate.getCurrentDate();
 
           const attributes: Dictionary<AttributeType | Array<AttributeType>> =
             this.buildAttributes({
@@ -244,23 +244,23 @@ export default class SyslogIngestService extends OtelIngestBaseService {
             projectConfig: serviceMetadata.projectRetentionConfig,
             projectRetentionInDays: serviceMetadata.projectRetentionInDays,
           });
-          const retentionDate: Date = OneUptimeDate.addRemoveDays(
+          const retentionDate: Date = OperationsDate.addRemoveDays(
             ingestionDate,
             retentionDays,
           );
 
           let logRow: JSONObject = {
             _id: ObjectID.generateTimeOrdered().toString(),
-            createdAt: OneUptimeDate.toClickhouseDateTime(ingestionDate),
+            createdAt: OperationsDate.toClickhouseDateTime(ingestionDate),
             projectId: projectId.toString(),
             primaryEntityId: serviceMetadata.primaryEntityId.toString(),
             primaryEntityType: serviceMetadata.primaryEntityType,
             entityKeys: serviceMetadata.entityKeys || [],
             // serviceEntityKey from the resolved service; '' for the rest.
             ...getScalarEntityKeyColumns(serviceMetadata),
-            time: OneUptimeDate.toClickhouseDateTime64(timestamp),
+            time: OperationsDate.toClickhouseDateTime64(timestamp),
             timeUnixNano: Math.trunc(
-              OneUptimeDate.toUnixNano(timestamp),
+              OperationsDate.toUnixNano(timestamp),
             ).toString(),
             severityNumber: severityInfo.number,
             severityText: severityInfo.text,
@@ -269,7 +269,7 @@ export default class SyslogIngestService extends OtelIngestBaseService {
             traceId: "",
             spanId: "",
             body: parsed.message,
-            retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+            retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
           } satisfies JSONObject;
 
           /*

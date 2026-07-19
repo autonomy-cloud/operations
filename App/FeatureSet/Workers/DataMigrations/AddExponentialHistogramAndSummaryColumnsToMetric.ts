@@ -6,7 +6,7 @@ import Metric from "Common/Models/AnalyticsModels/Metric";
 
 /**
  * Adds the columns required to ingest OTLP `ExponentialHistogram` and
- * `Summary` metric types into oneuptime.MetricItemV2 without dropping data.
+ * `Summary` metric types into cast-operations.MetricItemV2 without dropping data.
  *
  * Before this migration the OTLP ingest at OtelMetricsIngestService only
  * branched on `sum`/`gauge`/`histogram`, silently dropping the other two

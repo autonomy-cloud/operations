@@ -8,7 +8,7 @@
 
 ## 先決條件
 
-- 一個 **Cast Operations 遙測擷取權杖（Telemetry Ingestion Token）**——從 _Project Settings → Telemetry Ingestion Keys_ 建立一個，並複製 `x-oneuptime-token` 的值。
+- 一個 **Cast Operations 遙測擷取權杖（Telemetry Ingestion Token）**——從 _Project Settings → Telemetry Ingestion Keys_ 建立一個，並複製 `x-cast-operations-token` 的值。
 - 對應您函式語言的 OpenTelemetry SDK（或自動檢測層）。
 
 ## Cast Operations 如何識別函式
@@ -31,7 +31,7 @@ Cast Operations 以 `faas.name` 資源屬性作為每個函式的鍵：
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
@@ -44,7 +44,7 @@ OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
 OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 該層會自動依函式名稱設定 `faas.name`，而資源偵測器則會填入 `cloud.platform`、`cloud.region` 與 `cloud.account.id`。

@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. No Datadog, vá em **Integrations → Webhooks** (instale a integração **Webhooks** se ainda não o fez).
 2. **Adicione um webhook**:
 
-   - **Name**: `oneuptime` (isso vira `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (isso vira `@webhook-cast-operations`).
    - **URL**: a URL do webhook do seu workflow.
    - **Payload** — o Datadog permite definir o corpo JSON usando [variáveis de template](https://docs.datadoghq.com/integrations/webhooks/#usage):
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Adicione o handle do webhook aos monitores que deseja encaminhar. Na **notification message** de cada monitor, inclua:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Isso envia tanto o alerta quanto a recuperação para o Cast Operations. (Para encaminhar tudo, você também pode adicionar `@webhook-oneuptime` a um monitor de forma incondicional.)
+Isso envia tanto o alerta quanto a recuperação para o Cast Operations. (Para encaminhar tudo, você também pode adicionar `@webhook-cast-operations` a um monitor de forma incondicional.)
 
 ## Passo 4 — Teste
 
@@ -74,7 +74,7 @@ Isso envia tanto o alerta quanto a recuperação para o Cast Operations. (Para e
 
 ## Solução de problemas
 
-- **Nenhuma execução aparece** — confirme que a mensagem do monitor inclui `@webhook-oneuptime` e que o workflow está **Enabled**.
+- **Nenhuma execução aparece** — confirme que a mensagem do monitor inclui `@webhook-cast-operations` e que o workflow está **Enabled**.
 - **Campos estão vazios** — o Datadog só substitui variáveis de template que se aplicam ao evento. Inspecione a saída do gatilho na aba **Logs** e ajuste o payload do webhook.
 - **Incidentes duplicados** — um monitor que re-alerta (renotify) envia múltiplos eventos `Triggered`; desduplique com uma verificação **Find Incident** no `id` antes de criar.
 

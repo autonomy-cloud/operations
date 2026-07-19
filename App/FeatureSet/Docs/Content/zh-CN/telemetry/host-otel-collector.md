@@ -15,7 +15,7 @@
 
 ## 前提条件
 
-- 一个 **Cast Operations 遥测接入令牌（Telemetry Ingestion Token）**——从 _Project Settings → Telemetry Ingestion Keys_ 创建一个，并复制 `x-oneuptime-token` 值。
+- 一个 **Cast Operations 遥测接入令牌（Telemetry Ingestion Token）**——从 _Project Settings → Telemetry Ingestion Keys_ 创建一个，并复制 `x-cast-operations-token` 值。
 - **OpenTelemetry Collector Contrib** 发行版（`otelcol-contrib`）。默认的 `otelcol` 构建**不**包含诸如 `windowseventlogreceiver`、`journaldreceiver` 或 `hostmetrics` 附加项之类的接收器——请务必使用 `contrib` 发行版。为 Windows **Services** 标签页提供数据的 alpha 阶段 `windowsservicereceiver` 从 **v0.155.0** 起已打包进 `otelcol-contrib` 中，因此请安装较新的发布版；见下文“Windows 服务（指标）”。
 - 主机上的 root / 管理员权限，用于将 collector 安装为服务，并（在适用的情况下）读取需要特权的日志源。
 
@@ -116,7 +116,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 - **`batch`** 在导出前将记录分组，这样你就不必为每条记录支付一次 HTTP 往返。
@@ -335,7 +335,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -387,7 +387,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -450,7 +450,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -486,14 +486,14 @@ sudo journalctl -u otelcol-contrib -f
 
 ### macOS（launchd）
 
-创建 `/Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist`：
+创建 `/Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist`：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>com.oneuptime.otelcol-contrib</string>
+  <key>Label</key><string>com.cast-operations.otelcol-contrib</string>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/local/bin/otelcol-contrib</string>
@@ -510,7 +510,7 @@ sudo journalctl -u otelcol-contrib -f
 加载它：
 
 ```bash
-sudo launchctl load -w /Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist
+sudo launchctl load -w /Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist
 sudo launchctl list | grep otelcol-contrib
 ```
 
@@ -535,8 +535,8 @@ sc.exe query "otelcol-contrib"
 ## 第 4 步——在 Cast Operations 中验证
 
 1. 在主机上产生一些信号：
-   - **Linux / macOS：** `logger "hello from oneuptime"`（写入 syslog / journald）。
-   - **Windows：** 从提升权限的提示符下执行 `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from oneuptime"`。
+   - **Linux / macOS：** `logger "hello from cast-operations"`（写入 syslog / journald）。
+   - **Windows：** 从提升权限的提示符下执行 `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from cast-operations"`。
 2. 在 Cast Operations 仪表板中，打开 **Telemetry → Services** 并选择你配置的 `service.name`。
 3. 打开 **Metrics**——主机指标（CPU、内存、文件系统等）应在一分钟内出现。
 4. 打开 **Logs**——你的文件日志 / journald 条目 / Windows 事件日志应正在流式传入。有用的可搜索属性包括 `log.file.name`、`systemd.unit`、`winlog.channel`、`winlog.event_id` 和 `winlog.provider.name`。
@@ -699,7 +699,7 @@ service:
       exporters: [otlphttp]
 ```
 
-> **正在编辑 Cast Operations 为你生成的配置？** 上面的流水线与本页的完整示例相匹配。而来自仪表板（Hosts → Documentation）的配置对各项的命名有所不同：它的处理器是 `resourcedetection` 和 `batch`（**没有** `resource` 处理器），它的导出器是 `otlphttp/oneuptime`。引用一个未定义的处理器会让 collector 在启动时停止，并报出 `references processor "resource" which is not configured`。请把 filter 添加到已有的内容中，而不是把这个代码块粘贴上去覆盖它：
+> **正在编辑 Cast Operations 为你生成的配置？** 上面的流水线与本页的完整示例相匹配。而来自仪表板（Hosts → Documentation）的配置对各项的命名有所不同：它的处理器是 `resourcedetection` 和 `batch`（**没有** `resource` 处理器），它的导出器是 `otlphttp/cast-operations`。引用一个未定义的处理器会让 collector 在启动时停止，并报出 `references processor "resource" which is not configured`。请把 filter 添加到已有的内容中，而不是把这个代码块粘贴上去覆盖它：
 >
 > ```yaml
 > service:
@@ -707,7 +707,7 @@ service:
 >     metrics:
 >       receivers: [hostmetrics]
 >       processors: [filter/drop-metrics, resourcedetection, batch]
->       exporters: [otlphttp/oneuptime]
+>       exporters: [otlphttp/cast-operations]
 > ```
 >
 > 请保留 `resourcedetection`——Cast Operations 会使用它所设置的 `host.name` / `host.id` 将遥测数据与主机进行匹配。那份生成的配置也是**仅指标**的：在你添加之前，它没有 `logs:` 流水线，因此在你在其旁边添加一个 `filelog` 或 `journald` 接收器之前，`filter/drop-low-severity` 没有任何可过滤的内容。
@@ -746,7 +746,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -769,7 +769,7 @@ exporters:
   otlphttp:
     endpoint: https://your-operations-host.example.com/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 如果你的实例仅支持 HTTP，请将协议方案改为 `http://` 并使用相应的端口。

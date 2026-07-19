@@ -20,7 +20,7 @@ import { ParsedDockerSwarmResource } from "../../Server/Services/DockerSwarmReso
  *             | "Secret" | "Config" | "Volume",
  *     "data": { ...native `docker ... ls --format json` payload... } }
  *
- * The kind discriminator is also set as the `oneuptime.dockerswarm.kind`
+ * The kind discriminator is also set as the `cast-operations.dockerswarm.kind`
  * log record attribute by the agent's filelog operator chain.
  *
  * Each kind has a dedicated parser that pulls the fields promoted to
@@ -31,7 +31,8 @@ import { ParsedDockerSwarmResource } from "../../Server/Services/DockerSwarmReso
  * ------------------------------------------------------------------
  */
 
-export const INVENTORY_KIND_ATTRIBUTE: string = "oneuptime.dockerswarm.kind";
+export const INVENTORY_KIND_ATTRIBUTE: string =
+  "cast-operations.dockerswarm.kind";
 
 export const INVENTORIED_DOCKER_SWARM_KINDS: ReadonlyArray<string> = [
   "Node",

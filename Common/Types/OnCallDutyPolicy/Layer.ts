@@ -1,6 +1,6 @@
 import UserModel from "../../Models/DatabaseModels/User";
 import CalendarEvent from "../Calendar/CalendarEvent";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 import EventInterval from "../Events/EventInterval";
 import Recurring from "../Events/Recurring";
 import StartAndEndTime from "../Time/StartAndEndTime";
@@ -72,7 +72,7 @@ export default class LayerUtil {
     const end: Date = data.calendarEndDate;
 
     // start time of the layer is after the start time of the calendar, so we need to update the start time of the calendar
-    if (OneUptimeDate.isAfter(data.startDateTimeOfLayer, start)) {
+    if (OperationsDate.isAfter(data.startDateTimeOfLayer, start)) {
       start = data.startDateTimeOfLayer;
     }
 
@@ -128,11 +128,11 @@ export default class LayerUtil {
       rotation: data.rotation,
     });
 
-    let currentEventEndTime: Date = OneUptimeDate.getCurrentDate(); // temporary set to current time to avoid typescript error
+    let currentEventEndTime: Date = OperationsDate.getCurrentDate(); // temporary set to current time to avoid typescript error
 
     // check if calendar end is before the handoff time. if it is, then we need to return the event with the current user index as no handoff is needed.
 
-    if (OneUptimeDate.isBefore(end, handOffTime)) {
+    if (OperationsDate.isBefore(end, handOffTime)) {
       const trimmedStartAndEndTimes: Array<StartAndEndTime> =
         this.trimStartAndEndTimesBasedOnRestrictionTimes({
           eventStartTime: currentEventStartTime,
@@ -200,8 +200,8 @@ export default class LayerUtil {
 
       // if current event start time and end time is the same then increase current event start time by 1 second.
 
-      if (OneUptimeDate.isSame(currentEventStartTime, currentEventEndTime)) {
-        currentEventStartTime = OneUptimeDate.addRemoveSeconds(
+      if (OperationsDate.isSame(currentEventStartTime, currentEventEndTime)) {
+        currentEventStartTime = OperationsDate.addRemoveSeconds(
           currentEventEndTime,
           1,
         );
@@ -215,7 +215,7 @@ export default class LayerUtil {
       }
 
       // check calendar end time. if the end time of the event is after the end time of the calendar, we need to update the end time of the event
-      if (OneUptimeDate.isAfter(currentEventEndTime, end)) {
+      if (OperationsDate.isAfter(currentEventEndTime, end)) {
         currentEventEndTime = end;
         hasReachedTheEndOfTheCalendar = true;
       }
@@ -253,7 +253,7 @@ export default class LayerUtil {
 
       // update the current event start time
 
-      currentEventStartTime = OneUptimeDate.addRemoveSeconds(
+      currentEventStartTime = OperationsDate.addRemoveSeconds(
         currentEventEndTime,
         1,
       );
@@ -341,21 +341,23 @@ export default class LayerUtil {
     }
 
     if (typeof data.startDateTimeOfLayer === Typeof.String) {
-      data.startDateTimeOfLayer = OneUptimeDate.fromString(
+      data.startDateTimeOfLayer = OperationsDate.fromString(
         data.startDateTimeOfLayer,
       );
     }
 
     if (typeof data.calendarStartDate === Typeof.String) {
-      data.calendarStartDate = OneUptimeDate.fromString(data.calendarStartDate);
+      data.calendarStartDate = OperationsDate.fromString(
+        data.calendarStartDate,
+      );
     }
 
     if (typeof data.calendarEndDate === Typeof.String) {
-      data.calendarEndDate = OneUptimeDate.fromString(data.calendarEndDate);
+      data.calendarEndDate = OperationsDate.fromString(data.calendarEndDate);
     }
 
     if (typeof data.handOffTime === Typeof.String) {
-      data.handOffTime = OneUptimeDate.fromString(data.handOffTime);
+      data.handOffTime = OperationsDate.fromString(data.handOffTime);
     }
 
     return data;
@@ -363,13 +365,13 @@ export default class LayerUtil {
 
   private isDataValid(data: EventProps): boolean {
     // if calendar end time is before the start time then return an empty array.
-    if (OneUptimeDate.isBefore(data.calendarEndDate, data.calendarStartDate)) {
+    if (OperationsDate.isBefore(data.calendarEndDate, data.calendarStartDate)) {
       return false;
     }
 
     // end time of the layer is before the end time of the calendar, so, we dont have any events and we can return empty array
     if (
-      OneUptimeDate.isAfter(data.startDateTimeOfLayer, data.calendarEndDate)
+      OperationsDate.isAfter(data.startDateTimeOfLayer, data.calendarEndDate)
     ) {
       return false;
     }
@@ -389,7 +391,7 @@ export default class LayerUtil {
   }): Date {
     // if handoff time is ahead of the current event start time, then we dont need to move and we can return it as is.
 
-    if (OneUptimeDate.isAfter(data.handOffTime, data.currentEventStartTime)) {
+    if (OperationsDate.isAfter(data.handOffTime, data.currentEventStartTime)) {
       return data.handOffTime;
     }
 
@@ -457,7 +459,7 @@ export default class LayerUtil {
 
     let safety: number = 0;
     while (
-      OneUptimeDate.isOnOrBefore(handOffTime, data.currentEventStartTime) &&
+      OperationsDate.isOnOrBefore(handOffTime, data.currentEventStartTime) &&
       safety < 1000000
     ) {
       periods++;
@@ -538,7 +540,7 @@ export default class LayerUtil {
 
     // if current event start time is before layer start, idx unchanged.
     if (
-      OneUptimeDate.isBefore(
+      OperationsDate.isBefore(
         data.currentEventStartTime,
         data.startDateTimeOfLayer,
       )
@@ -550,7 +552,7 @@ export default class LayerUtil {
     }
 
     // if handoff is after current start, no rotation has occurred yet — idx unchanged.
-    if (OneUptimeDate.isAfter(data.handOffTime, data.currentEventStartTime)) {
+    if (OperationsDate.isAfter(data.handOffTime, data.currentEventStartTime)) {
       /*
        * No handoff has happened yet, so we are still inside the very first
        * rotation period, which starts at the layer start.
@@ -645,7 +647,7 @@ export default class LayerUtil {
     let iterations: number = 0;
 
     while (
-      OneUptimeDate.isBefore(simulatedTime, data.currentEventStartTime) &&
+      OperationsDate.isBefore(simulatedTime, data.currentEventStartTime) &&
       iterations < maxIterations
     ) {
       iterations++;
@@ -653,7 +655,7 @@ export default class LayerUtil {
       const eventEnd: Date = simulatedHandOff;
 
       // Stop once the rotation period would extend past the target.
-      if (OneUptimeDate.isAfter(eventEnd, data.currentEventStartTime)) {
+      if (OperationsDate.isAfter(eventEnd, data.currentEventStartTime)) {
         break;
       }
 
@@ -671,7 +673,7 @@ export default class LayerUtil {
         );
       }
 
-      simulatedTime = OneUptimeDate.addRemoveSeconds(eventEnd, 1);
+      simulatedTime = OperationsDate.addRemoveSeconds(eventEnd, 1);
       simulatedHandOff = this.moveHandsOffTimeAfterCurrentEventStartTime({
         handOffTime: simulatedHandOff,
         currentEventStartTime: simulatedTime,
@@ -700,7 +702,7 @@ export default class LayerUtil {
     target: Date,
     rotation: Recurring,
   ): number {
-    if (OneUptimeDate.isAfter(firstBoundary, target)) {
+    if (OperationsDate.isAfter(firstBoundary, target)) {
       return 0;
     }
 
@@ -727,7 +729,7 @@ export default class LayerUtil {
       let periods: number = 0;
       let boundary: Date = firstBoundary;
       let safety: number = 0;
-      while (OneUptimeDate.isOnOrBefore(boundary, target) && safety < 100000) {
+      while (OperationsDate.isOnOrBefore(boundary, target) && safety < 100000) {
         periods++;
         // step from the PREVIOUS boundary, mirroring the main-loop rotation.
         boundary = this.addRotationUnits(boundary, periodUnits, intervalType);
@@ -758,7 +760,7 @@ export default class LayerUtil {
      */
     let safety: number = 0;
     while (
-      OneUptimeDate.isOnOrBefore(
+      OperationsDate.isOnOrBefore(
         this.addRotationUnits(
           firstBoundary,
           periods * periodUnits,
@@ -787,17 +789,17 @@ export default class LayerUtil {
     const tz: string | undefined = this.timezone;
     switch (intervalType) {
       case EventInterval.Hour:
-        return OneUptimeDate.addRemoveHours(date, units);
+        return OperationsDate.addRemoveHours(date, units);
       case EventInterval.Day:
-        return OneUptimeDate.addRemoveDays(date, units, tz);
+        return OperationsDate.addRemoveDays(date, units, tz);
       case EventInterval.Week:
-        return OneUptimeDate.addRemoveWeeks(date, units, tz);
+        return OperationsDate.addRemoveWeeks(date, units, tz);
       case EventInterval.Month:
-        return OneUptimeDate.addRemoveMonths(date, units, tz);
+        return OperationsDate.addRemoveMonths(date, units, tz);
       case EventInterval.Year:
-        return OneUptimeDate.addRemoveYears(date, units, tz);
+        return OperationsDate.addRemoveYears(date, units, tz);
       default:
-        return OneUptimeDate.addRemoveDays(date, units, tz);
+        return OperationsDate.addRemoveDays(date, units, tz);
     }
   }
 
@@ -808,17 +810,17 @@ export default class LayerUtil {
   ): number {
     switch (intervalType) {
       case EventInterval.Hour:
-        return OneUptimeDate.getHoursBetweenTwoDates(from, to);
+        return OperationsDate.getHoursBetweenTwoDates(from, to);
       case EventInterval.Day:
-        return OneUptimeDate.getDaysBetweenTwoDates(from, to);
+        return OperationsDate.getDaysBetweenTwoDates(from, to);
       case EventInterval.Week:
-        return OneUptimeDate.getWeeksBetweenTwoDates(from, to);
+        return OperationsDate.getWeeksBetweenTwoDates(from, to);
       case EventInterval.Month:
-        return OneUptimeDate.getMonthsBetweenTwoDates(from, to);
+        return OperationsDate.getMonthsBetweenTwoDates(from, to);
       case EventInterval.Year:
-        return OneUptimeDate.getYearsBetweenTwoDates(from, to);
+        return OperationsDate.getYearsBetweenTwoDates(from, to);
       default:
-        return OneUptimeDate.getDaysBetweenTwoDates(from, to);
+        return OperationsDate.getDaysBetweenTwoDates(from, to);
     }
   }
 
@@ -852,12 +854,12 @@ export default class LayerUtil {
        * local copy produces identical windows with no shared-state side effects.
        */
       const movedDayRestriction: StartAndEndTime = {
-        startTime: OneUptimeDate.keepTimeButMoveDay(
+        startTime: OperationsDate.keepTimeButMoveDay(
           restrictionTimes.dayRestrictionTimes.startTime,
           data.eventStartTime,
           this.timezone,
         ),
-        endTime: OneUptimeDate.keepTimeButMoveDay(
+        endTime: OperationsDate.keepTimeButMoveDay(
           restrictionTimes.dayRestrictionTimes.endTime,
           data.eventStartTime,
           this.timezone,
@@ -944,10 +946,10 @@ export default class LayerUtil {
 
     const sorted: Array<StartAndEndTime> = [...times].sort(
       (a: StartAndEndTime, b: StartAndEndTime) => {
-        if (OneUptimeDate.isBefore(a.startTime, b.startTime)) {
+        if (OperationsDate.isBefore(a.startTime, b.startTime)) {
           return -1;
         }
-        if (OneUptimeDate.isAfter(a.startTime, b.startTime)) {
+        if (OperationsDate.isAfter(a.startTime, b.startTime)) {
           return 1;
         }
         return 0;
@@ -960,8 +962,8 @@ export default class LayerUtil {
       const last: StartAndEndTime | undefined = merged[merged.length - 1];
 
       // overlapping or directly touching the previous window -> extend it.
-      if (last && OneUptimeDate.isOnOrAfter(last.endTime, current.startTime)) {
-        if (OneUptimeDate.isAfter(current.endTime, last.endTime)) {
+      if (last && OperationsDate.isOnOrAfter(last.endTime, current.startTime)) {
+        if (OperationsDate.isAfter(current.endTime, last.endTime)) {
           last.endTime = current.endTime;
         }
         continue;
@@ -996,17 +998,17 @@ export default class LayerUtil {
 
       // move start and end times to the week of the event start time
 
-      startTime = OneUptimeDate.moveDateToTheDayOfWeek(
+      startTime = OperationsDate.moveDateToTheDayOfWeek(
         startTime,
         eventStartTime,
-        OneUptimeDate.getDayOfWeek(startTime, this.timezone),
+        OperationsDate.getDayOfWeek(startTime, this.timezone),
         this.timezone,
       );
 
-      endTime = OneUptimeDate.moveDateToTheDayOfWeek(
+      endTime = OperationsDate.moveDateToTheDayOfWeek(
         endTime,
         eventStartTime,
-        OneUptimeDate.getDayOfWeek(endTime, this.timezone),
+        OperationsDate.getDayOfWeek(endTime, this.timezone),
         this.timezone,
       );
 
@@ -1014,7 +1016,7 @@ export default class LayerUtil {
 
       // if start time is after end time, we need to add one week to the end time
 
-      if (OneUptimeDate.isAfter(startTime, endTime)) {
+      if (OperationsDate.isAfter(startTime, endTime)) {
         /*
          * in this case the restriction is towards the ends of the week and not in the middle so we need to add two objects to the array.
          * One for start of the week
@@ -1035,7 +1037,7 @@ export default class LayerUtil {
          * intersection with the event window discards any portion that has
          * already elapsed.
          */
-        const startOfWeek: Date = OneUptimeDate.getStartOfTheWeek(
+        const startOfWeek: Date = OperationsDate.getStartOfTheWeek(
           data.eventStartTime,
           this.timezone, // anchor to the schedule zone's week boundary (audit F6)
         );
@@ -1071,7 +1073,7 @@ export default class LayerUtil {
            * the wrap-around window's close drifted by the DST offset and that
            * drift then propagated to every subsequent weekend of the expansion.
            */
-          endTime: OneUptimeDate.addRemoveDays(endTime, 7, this.timezone),
+          endTime: OperationsDate.addRemoveDays(endTime, 7, this.timezone),
         });
       } else {
         /*
@@ -1126,7 +1128,7 @@ export default class LayerUtil {
      * 1) start -> endOfDay(start)
      * 2) startOfNextDay -> end (moved to next day)
      */
-    if (OneUptimeDate.isBefore(restrictionEndTime, restrictionStartTime)) {
+    if (OperationsDate.isBefore(restrictionEndTime, restrictionStartTime)) {
       const results: Array<StartAndEndTime> = [];
 
       /*
@@ -1140,8 +1142,8 @@ export default class LayerUtil {
        * call. The addIntersection clip to [eventStart, eventEnd] discards any
        * segment of the extra leading day that falls outside the event.
        */
-      let currentDayStart: Date = OneUptimeDate.addRemoveDays(
-        OneUptimeDate.getStartOfDay(data.eventStartTime, this.timezone),
+      let currentDayStart: Date = OperationsDate.addRemoveDays(
+        OperationsDate.getStartOfDay(data.eventStartTime, this.timezone),
         -1,
         this.timezone, // step wall-clock days in the schedule zone (audit L1)
       );
@@ -1158,7 +1160,7 @@ export default class LayerUtil {
         4000,
         Math.max(
           62,
-          OneUptimeDate.getDaysBetweenTwoDates(
+          OperationsDate.getDaysBetweenTwoDates(
             data.eventStartTime,
             data.eventEndTime,
           ) + 3,
@@ -1166,31 +1168,31 @@ export default class LayerUtil {
       );
 
       while (
-        OneUptimeDate.isOnOrBefore(currentDayStart, absoluteEventEnd) &&
+        OperationsDate.isOnOrBefore(currentDayStart, absoluteEventEnd) &&
         safetyCounter < maxDays
       ) {
         safetyCounter++;
 
-        const segmentNightStart: Date = OneUptimeDate.keepTimeButMoveDay(
+        const segmentNightStart: Date = OperationsDate.keepTimeButMoveDay(
           restrictionStartTime,
           currentDayStart,
           this.timezone,
         );
-        const segmentNightEnd: Date = OneUptimeDate.getEndOfDay(
+        const segmentNightEnd: Date = OperationsDate.getEndOfDay(
           segmentNightStart,
           this.timezone,
         );
 
-        const nextDayStart: Date = OneUptimeDate.addRemoveDays(
+        const nextDayStart: Date = OperationsDate.addRemoveDays(
           currentDayStart,
           1,
           this.timezone, // wall-clock day step; avoids revisiting a day across fall-back DST (audit L1)
         );
-        const segmentMorningStart: Date = OneUptimeDate.getStartOfDay(
+        const segmentMorningStart: Date = OperationsDate.getStartOfDay(
           nextDayStart,
           this.timezone,
         );
-        const segmentMorningEnd: Date = OneUptimeDate.keepTimeButMoveDay(
+        const segmentMorningEnd: Date = OperationsDate.keepTimeButMoveDay(
           restrictionEndTime,
           nextDayStart,
           this.timezone,
@@ -1202,19 +1204,19 @@ export default class LayerUtil {
           segEnd: Date,
         ): void => {
           // normalize zero / invalid lengths
-          if (OneUptimeDate.isOnOrBefore(segEnd, segStart)) {
+          if (OperationsDate.isOnOrBefore(segEnd, segStart)) {
             return; // no length
           }
           // intersect with [eventStart, eventEnd]
-          const start: Date = OneUptimeDate.getGreaterDate(
+          const start: Date = OperationsDate.getGreaterDate(
             segStart,
             data.eventStartTime,
           );
-          const end: Date = OneUptimeDate.getLesserDate(
+          const end: Date = OperationsDate.getLesserDate(
             segEnd,
             data.eventEndTime,
           );
-          if (OneUptimeDate.isAfter(end, start)) {
+          if (OperationsDate.isAfter(end, start)) {
             results.push({ startTime: start, endTime: end });
           }
         };
@@ -1247,7 +1249,7 @@ export default class LayerUtil {
       4000,
       Math.max(
         50,
-        OneUptimeDate.getDaysBetweenTwoDates(
+        OperationsDate.getDaysBetweenTwoDates(
           data.eventStartTime,
           data.eventEndTime,
         ) + 10,
@@ -1263,13 +1265,13 @@ export default class LayerUtil {
       }
       // if current end time is equalto or before than the current start time, we need to return the current event and exit the loop
 
-      if (OneUptimeDate.isOnOrBefore(currentEndTime, currentStartTime)) {
+      if (OperationsDate.isOnOrBefore(currentEndTime, currentStartTime)) {
         reachedTheEndOfTheCurrentEvent = true;
       }
 
       // if the event is ourside the restriction times, we need to return the trimmed array
 
-      if (OneUptimeDate.isOnOrAfter(restrictionStartTime, currentEndTime)) {
+      if (OperationsDate.isOnOrAfter(restrictionStartTime, currentEndTime)) {
         return trimmedStartAndEndTimes;
       }
 
@@ -1284,13 +1286,13 @@ export default class LayerUtil {
        * currentEnd" guard above returns once the window moves past the event end
        * (so a short event entirely after the window still yields no coverage).
        */
-      if (OneUptimeDate.isOnOrAfter(currentStartTime, restrictionEndTime)) {
-        restrictionStartTime = OneUptimeDate.addRemoveDays(
+      if (OperationsDate.isOnOrAfter(currentStartTime, restrictionEndTime)) {
+        restrictionStartTime = OperationsDate.addRemoveDays(
           restrictionStartTime,
           data.props.intervalType === EventInterval.Day ? 1 : 7, // daily or weekly
           this.timezone,
         );
-        restrictionEndTime = OneUptimeDate.addRemoveDays(
+        restrictionEndTime = OperationsDate.addRemoveDays(
           restrictionEndTime,
           data.props.intervalType === EventInterval.Day ? 1 : 7, // daily or weekly
           this.timezone,
@@ -1299,8 +1301,8 @@ export default class LayerUtil {
       }
 
       // if the restriction end time is before the restriction start time, we need to add one day to the restriction end time
-      if (OneUptimeDate.isAfter(restrictionStartTime, restrictionEndTime)) {
-        restrictionEndTime = OneUptimeDate.addRemoveDays(
+      if (OperationsDate.isAfter(restrictionStartTime, restrictionEndTime)) {
+        restrictionEndTime = OperationsDate.addRemoveDays(
           restrictionEndTime,
           data.props.intervalType === EventInterval.Day ? 1 : 7, // daily or weekly
         );
@@ -1317,8 +1319,8 @@ export default class LayerUtil {
 
       // 1 - the event falls entirely within the restriction window: emit it and finish.
       if (
-        OneUptimeDate.isOnOrAfter(currentStartTime, restrictionStartTime) &&
-        OneUptimeDate.isOnOrAfter(restrictionEndTime, currentEndTime)
+        OperationsDate.isOnOrAfter(currentStartTime, restrictionStartTime) &&
+        OperationsDate.isOnOrAfter(restrictionEndTime, currentEndTime)
       ) {
         trimmedStartAndEndTimes.push({
           startTime: currentStartTime,
@@ -1337,34 +1339,34 @@ export default class LayerUtil {
          * covered only day 1). This now mirrors case 4's advance-and-continue.
          * Strict isAfter on the end keeps this exclusive from case 1.
          */
-        OneUptimeDate.isOnOrAfter(currentStartTime, restrictionStartTime) &&
-        OneUptimeDate.isAfter(currentEndTime, restrictionEndTime)
+        OperationsDate.isOnOrAfter(currentStartTime, restrictionStartTime) &&
+        OperationsDate.isAfter(currentEndTime, restrictionEndTime)
       ) {
         trimmedStartAndEndTimes.push({
           startTime: currentStartTime,
           endTime: restrictionEndTime,
         });
 
-        currentStartTime = OneUptimeDate.addRemoveSeconds(
+        currentStartTime = OperationsDate.addRemoveSeconds(
           restrictionEndTime,
           1,
         );
 
-        restrictionStartTime = OneUptimeDate.addRemoveDays(
+        restrictionStartTime = OperationsDate.addRemoveDays(
           restrictionStartTime,
           data.props.intervalType === EventInterval.Day ? 1 : 7, // daily or weekly
           this.timezone, // preserve wall-clock across DST (audit F5)
         );
-        restrictionEndTime = OneUptimeDate.addRemoveDays(
+        restrictionEndTime = OperationsDate.addRemoveDays(
           restrictionEndTime,
           data.props.intervalType === EventInterval.Day ? 1 : 7, // daily or weekly
           this.timezone, // preserve wall-clock across DST (audit F5)
         );
       } else if (
         // 3 - End Restriction - the event starts before the window and ends inside it.
-        OneUptimeDate.isBefore(currentStartTime, restrictionStartTime) &&
-        OneUptimeDate.isBefore(currentEndTime, restrictionEndTime) &&
-        OneUptimeDate.isAfter(currentEndTime, restrictionStartTime)
+        OperationsDate.isBefore(currentStartTime, restrictionStartTime) &&
+        OperationsDate.isBefore(currentEndTime, restrictionEndTime) &&
+        OperationsDate.isAfter(currentEndTime, restrictionStartTime)
       ) {
         trimmedStartAndEndTimes.push({
           startTime: restrictionStartTime,
@@ -1373,27 +1375,27 @@ export default class LayerUtil {
         reachedTheEndOfTheCurrentEvent = true;
       } else if (
         // 4 - the event spans the whole window: emit it, advance a day/week, continue.
-        OneUptimeDate.isBefore(currentStartTime, restrictionStartTime) &&
-        OneUptimeDate.isOnOrAfter(currentEndTime, restrictionEndTime)
+        OperationsDate.isBefore(currentStartTime, restrictionStartTime) &&
+        OperationsDate.isOnOrAfter(currentEndTime, restrictionEndTime)
       ) {
         trimmedStartAndEndTimes.push({
           startTime: restrictionStartTime,
           endTime: restrictionEndTime,
         });
 
-        currentStartTime = OneUptimeDate.addRemoveSeconds(
+        currentStartTime = OperationsDate.addRemoveSeconds(
           restrictionEndTime,
           1,
         );
 
         // add day to restriction start and end times.
 
-        restrictionStartTime = OneUptimeDate.addRemoveDays(
+        restrictionStartTime = OperationsDate.addRemoveDays(
           restrictionStartTime,
           data.props.intervalType === EventInterval.Day ? 1 : 7, // daily or weekly
           this.timezone, // preserve wall-clock across DST (audit F5)
         );
-        restrictionEndTime = OneUptimeDate.addRemoveDays(
+        restrictionEndTime = OperationsDate.addRemoveDays(
           restrictionEndTime,
           data.props.intervalType === EventInterval.Day ? 1 : 7, // daily or weekly
           this.timezone, // preserve wall-clock across DST (audit F5)
@@ -1529,12 +1531,12 @@ export default class LayerUtil {
     // remove events where start time and end time are the same
 
     events = events.filter((event: PriorityCalendarEvents) => {
-      return !OneUptimeDate.isSame(event.start, event.end);
+      return !OperationsDate.isSame(event.start, event.end);
     });
 
     // remove events where start time is after end time
     events = events.filter((event: PriorityCalendarEvents) => {
-      return !OneUptimeDate.isBefore(event.end, event.start);
+      return !OperationsDate.isBefore(event.end, event.start);
     });
 
     const finalEvents: PriorityCalendarEvents[] = [];
@@ -1542,11 +1544,11 @@ export default class LayerUtil {
     // sort events by start time
 
     events.sort((a: CalendarEvent, b: CalendarEvent) => {
-      if (OneUptimeDate.isBefore(a.start, b.start)) {
+      if (OperationsDate.isBefore(a.start, b.start)) {
         return -1;
       }
 
-      if (OneUptimeDate.isAfter(a.start, b.start)) {
+      if (OperationsDate.isAfter(a.start, b.start)) {
         return 1;
       }
 
@@ -1557,12 +1559,12 @@ export default class LayerUtil {
       // trim the trimmed events by the current event based on priority
 
       // if this event starts and end at the same time, we need to remove it
-      if (OneUptimeDate.isSame(event.start, event.end)) {
+      if (OperationsDate.isSame(event.start, event.end)) {
         continue;
       }
 
       // if the end time of the event is before the start time, we need to remove it
-      if (OneUptimeDate.isBefore(event.end, event.start)) {
+      if (OperationsDate.isBefore(event.end, event.start)) {
         continue;
       }
 
@@ -1575,7 +1577,7 @@ export default class LayerUtil {
 
         // check if this final event overlaps with the current event
         if (
-          OneUptimeDate.isOverlapping(
+          OperationsDate.isOverlapping(
             finalEvent.start,
             finalEvent.end,
             event.start,
@@ -1603,36 +1605,38 @@ export default class LayerUtil {
              * silently deleting the fallback layer's coverage after the higher-
              * priority window and leaving on-call gaps where nobody is paged.
              */
-            if (OneUptimeDate.isAfter(tempFinalEventEnd, event.end)) {
+            if (OperationsDate.isAfter(tempFinalEventEnd, event.end)) {
               // add the trailing segment of the lower-priority event
               const trimmedEvent: PriorityCalendarEvents = {
                 ...finalEvent,
                 priority: finalEvent.priority,
-                start: OneUptimeDate.addRemoveSeconds(event.end, 1),
+                start: OperationsDate.addRemoveSeconds(event.end, 1),
                 end: tempFinalEventEnd,
               };
 
               // only keep it if it has positive length
-              if (OneUptimeDate.isAfter(trimmedEvent.end, trimmedEvent.start)) {
+              if (
+                OperationsDate.isAfter(trimmedEvent.end, trimmedEvent.start)
+              ) {
                 finalEvents.push(trimmedEvent);
               }
             }
 
-            finalEvent.end = OneUptimeDate.addRemoveSeconds(event.start, -1);
+            finalEvent.end = OperationsDate.addRemoveSeconds(event.start, -1);
 
             /*
              * check if the final event end time is before the start time of the current event
              * if it is, we need to remove the final event from the final events array
              * (the trailing tail, if any, was already preserved above)
              */
-            if (OneUptimeDate.isBefore(finalEvent.end, finalEvent.start)) {
+            if (OperationsDate.isBefore(finalEvent.end, finalEvent.start)) {
               finalEvents.splice(i, 1);
               i--; // Adjust index after removal
               continue;
             }
 
             // if end and start time of the final event is same, we need to remove it
-            if (OneUptimeDate.isSame(finalEvent.start, finalEvent.end)) {
+            if (OperationsDate.isSame(finalEvent.start, finalEvent.end)) {
               finalEvents.splice(i, 1);
               i--; // Adjust index after removal
               continue;
@@ -1648,16 +1652,16 @@ export default class LayerUtil {
              * monotonically increasing ends, so max equals the old assignment and
              * the output is unchanged.
              */
-            event.start = OneUptimeDate.getGreaterDate(
+            event.start = OperationsDate.getGreaterDate(
               event.start,
-              OneUptimeDate.addRemoveSeconds(finalEvent.end, 1),
+              OperationsDate.addRemoveSeconds(finalEvent.end, 1),
             );
           }
         }
       }
 
       // check if the event end time is before the start time of the current event
-      if (OneUptimeDate.isAfter(event.end, event.start)) {
+      if (OperationsDate.isAfter(event.end, event.start)) {
         finalEvents.push(event);
       }
 
@@ -1680,14 +1684,14 @@ export default class LayerUtil {
           continue;
         }
 
-        if (OneUptimeDate.isSame(finalEvent.start, finalEvent.end)) {
+        if (OperationsDate.isSame(finalEvent.start, finalEvent.end)) {
           finalEvents.splice(index, 1);
           index--; // Adjust index after removal
           continue;
         }
 
         // if any event ends before it starts, we need to remove it
-        if (OneUptimeDate.isBefore(finalEvent.end, finalEvent.start)) {
+        if (OperationsDate.isBefore(finalEvent.end, finalEvent.start)) {
           finalEvents.splice(index, 1);
           index--; // Adjust index after removal
         }
@@ -1700,11 +1704,11 @@ export default class LayerUtil {
      * service's current/next selection) expect events in start order.
      */
     finalEvents.sort((a: CalendarEvent, b: CalendarEvent) => {
-      if (OneUptimeDate.isBefore(a.start, b.start)) {
+      if (OperationsDate.isBefore(a.start, b.start)) {
         return -1;
       }
 
-      if (OneUptimeDate.isAfter(a.start, b.start)) {
+      if (OperationsDate.isAfter(a.start, b.start)) {
         return 1;
       }
 

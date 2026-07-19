@@ -71,7 +71,7 @@ export function registerUtilityCommands(program: Command): void {
           creds = getResolvedCredentials(cliOpts);
         } catch {
           printInfo(
-            "Not authenticated. Run `oneuptime login` to authenticate.",
+            "Not authenticated. Run `cast-operations login` to authenticate.",
           );
           return;
         }

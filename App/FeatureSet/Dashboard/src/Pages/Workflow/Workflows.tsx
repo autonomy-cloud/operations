@@ -1,13 +1,7 @@
 import LabelsElement from "Common/UI/Components/Label/Labels";
-import ProjectUtil from "Common/UI/Utils/Project";
 import PageComponentProps from "../PageComponentProps";
 import URL from "Common/Types/API/URL";
-import InBetween from "Common/Types/BaseDatabase/InBetween";
-import { PlanType } from "Common/Types/Billing/SubscriptionPlan";
-import OneUptimeDate from "Common/Types/Date";
-import WorkflowPlan from "Common/Types/Workflow/WorkflowPlan";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
-import ModelProgress from "Common/UI/Components/ModelProgress/ModelProgress";
 import ModelTable from "Common/UI/Components/ModelTable/ModelTable";
 import useBulkLabelActions from "Common/UI/Components/BulkUpdate/BulkLabelActions";
 import useBulkOwnerActions from "Common/UI/Components/BulkUpdate/BulkOwnerActions";
@@ -15,7 +9,6 @@ import FieldType from "Common/UI/Components/Types/FieldType";
 import Navigation from "Common/UI/Utils/Navigation";
 import Label from "Common/Models/DatabaseModels/Label";
 import Workflow from "Common/Models/DatabaseModels/Workflow";
-import WorkflowLog from "Common/Models/DatabaseModels/WorkflowLog";
 import WorkflowOwnerTeam from "Common/Models/DatabaseModels/WorkflowOwnerTeam";
 import WorkflowOwnerUser from "Common/Models/DatabaseModels/WorkflowOwnerUser";
 import React, { Fragment, FunctionComponent, ReactElement } from "react";
@@ -31,10 +24,6 @@ import { FilterOperator } from "../../Components/ResourceOwners/FilterChipDropdo
 import IconProp from "Common/Types/Icon/IconProp";
 
 const Workflows: FunctionComponent<PageComponentProps> = (): ReactElement => {
-  const startDate: Date = OneUptimeDate.getSomeDaysAgo(30);
-  const endDate: Date = OneUptimeDate.getCurrentDate();
-  const plan: PlanType | null = ProjectUtil.getCurrentPlan();
-
   const { bulkActions: labelBulkActions, modals: labelBulkActionModals } =
     useBulkLabelActions<Workflow>({ modelType: Workflow });
 
@@ -85,24 +74,6 @@ const Workflows: FunctionComponent<PageComponentProps> = (): ReactElement => {
   return (
     <Fragment>
       <>
-        {plan && (plan === PlanType.Growth || plan === PlanType.Scale) && (
-          <ModelProgress<WorkflowLog>
-            totalCount={WorkflowPlan[plan]}
-            modelType={WorkflowLog}
-            countQuery={{
-              createdAt: new InBetween(startDate, endDate),
-            }}
-            title="Workflow Runs"
-            description={
-              "Workflow runs in the last 30 days. Your current plan is " +
-              plan +
-              ". It currently supports " +
-              WorkflowPlan[plan] +
-              " runs in the last 30 days."
-            }
-          />
-        )}
-
         <ModelTable<Workflow>
           modelType={Workflow}
           id="status-page-table"

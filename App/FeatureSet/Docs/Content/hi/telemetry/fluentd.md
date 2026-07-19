@@ -58,7 +58,7 @@ Token बनाने के बाद, token देखने के लिए "
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -93,7 +93,7 @@ bind 0.0.0.0
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -107,7 +107,7 @@ flush_interval 10s
 </match>
 ```
 
-**यदि आप Cast Operations self-host कर रहे हैं**: यदि आप Cast Operations self-host कर रहे हैं तो आप `endpoint_url` को अपने Cast Operations instance के URL से बदल सकते हैं। `http(s)://YOUR_ONEUPTIME_HOST/fluentd/logs`
+**यदि आप Cast Operations self-host कर रहे हैं**: यदि आप Cast Operations self-host कर रहे हैं तो आप `endpoint_url` को अपने Cast Operations instance के URL से बदल सकते हैं। `http(s)://YOUR_CAST_OPERATIONS_HOST/fluentd/logs`
 
 ## Usage
 

@@ -65,7 +65,7 @@ export default class MicrosoftTeamsMonitorActions {
     actionValue: string;
     value: JSONObject;
     projectId: ObjectID;
-    oneUptimeUserId: ObjectID;
+    operationsUserId: ObjectID;
     turnContext: TurnContext;
   }): Promise<void> {
     const { actionType, actionValue, projectId, turnContext } = data;

@@ -2,7 +2,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import JSONWebToken from "../Utils/JsonWebToken";
 import Response from "../Utils/Response";
@@ -37,7 +37,7 @@ export default class NotificationMiddleware {
     res: ExpressResponse,
     next: NextFunction,
   ): Promise<void> {
-    req = req as OneUptimeRequest;
+    req = req as OperationsRequest;
 
     if (!req.body["Digits"]) {
       return Response.sendErrorResponse(

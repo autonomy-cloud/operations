@@ -26,7 +26,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
  *   1. Issues a PER-DEVICE credential (secretKey) the device presents
  *      on MQTT CONNECT (username = this row's id, password = the
  *      secret). Device-authenticated clients can only publish to
- *      their own oneuptime/<fleet>/<device>/... topics, and a single
+ *      their own cast-operations/<fleet>/<device>/... topics, and a single
  *      compromised device can be revoked (isEnabled=false) without
  *      rotating the project-wide ingestion key.
  *
@@ -136,7 +136,8 @@ export default class IoTDeviceCredential extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({

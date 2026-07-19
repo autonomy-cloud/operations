@@ -30,7 +30,7 @@ import Filter from "./Types/Filter";
 import FilterData from "./Types/FilterData";
 import InBetween from "../../../Types/BaseDatabase/InBetween";
 import Search from "../../../Types/BaseDatabase/Search";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Dictionary from "../../../Types/Dictionary";
 import GenericObject from "../../../Types/GenericObject";
 import IconProp from "../../../Types/Icon/IconProp";
@@ -323,7 +323,7 @@ const FilterComponent: FilterComponentFunction = <T extends GenericObject>(
 
       type FormatFunction = (d: Date) => string;
       const format: FormatFunction = (d: Date): string => {
-        return OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+        return OperationsDate.getDateAsUserFriendlyLocalFormattedString(
           d,
           shouldOnlyShowDate,
           shouldShowSeconds,

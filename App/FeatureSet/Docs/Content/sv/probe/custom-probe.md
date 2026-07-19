@@ -11,10 +11,10 @@ För att börja behöver du skapa en anpassad sond i dina Projektinställningar 
 För att köra en sond, se till att du har Docker installerat. Du kan köra en anpassad sond med:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
 ```
 
-Om du egeninstallerar Cast Operations kan du ändra `ONEUPTIME_URL` till din anpassade egeninstallerade instans.
+Om du egeninstallerar Cast Operations kan du ändra `CAST_OPERATIONS_URL` till din anpassade egeninstallerade instans.
 
 ##### Proxykonfiguration
 
@@ -22,32 +22,32 @@ Om din sond behöver gå via en proxyserver för att nå Cast Operations eller �
 
 ```
 # För HTTP-proxy
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # För HTTPS-proxy
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # Med proxyautentisering
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 #### Docker Compose
@@ -58,13 +58,13 @@ Du kan också köra sonden med docker-compose. Skapa en `docker-compose.yml`-fil
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -77,13 +77,13 @@ Om du behöver använda en proxyserver kan du lägga till proxymiljövariabler:
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       # Proxykonfiguration (valfritt)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,45 +102,45 @@ Kör sedan följande kommando:
 docker compose up -d
 ```
 
-Om du egeninstallerar Cast Operations kan du ändra `ONEUPTIME_URL` till din anpassade egeninstallerade instans.
+Om du egeninstallerar Cast Operations kan du ändra `CAST_OPERATIONS_URL` till din anpassade egeninstallerade instans.
 
 #### Kubernetes
 
-Du kan också köra sonden med Kubernetes. Skapa en `oneuptime-probe.yaml`-fil med följande innehåll:
+Du kan också köra sonden med Kubernetes. Skapa en `cast-operations-probe.yaml`-fil med följande innehåll:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
 Kör sedan följande kommando:
 
 ```bash
-kubectl apply -f oneuptime-probe.yaml
+kubectl apply -f cast-operations-probe.yaml
 ```
 
-Om du egeninstallerar Cast Operations kan du ändra `ONEUPTIME_URL` till din anpassade egeninstallerade instans.
+Om du egeninstallerar Cast Operations kan du ändra `CAST_OPERATIONS_URL` till din anpassade egeninstallerade instans.
 
 ### Miljövariabler
 
@@ -150,7 +150,7 @@ Sonden stöder följande miljövariabler:
 
 - `PROBE_KEY` – Sondnyckeln från din Cast Operations-instrumentpanel
 - `PROBE_ID` – Sond-ID:t från din Cast Operations-instrumentpanel
-- `ONEUPTIME_URL` – URL:en till din Cast Operations-instans (standard: https://visca.ai)
+- `CAST_OPERATIONS_URL` – URL:en till din Cast Operations-instans (standard: https://visca.ai)
 
 #### Valfria variabler
 

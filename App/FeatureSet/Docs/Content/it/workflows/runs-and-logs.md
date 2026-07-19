@@ -39,7 +39,6 @@ I valori mostrati sono esattamente quelli che il blocco ha visto — dopo che tu
 3. Per un trigger webhook: conferma che l'altro sistema stia inviando all'URL corretto. La maggior parte degli strumenti registra quando invia un webhook — controlla li.
 4. Per un trigger pianificato: verifica che l'espressione cron corrisponda all'orario previsto.
 
-Se il trigger e scattato ma non appare alcuna esecuzione, controlla la tua quota di esecuzioni sotto **Project Settings → Billing**.
 
 ### "Un blocco successivo non e mai stato eseguito."
 

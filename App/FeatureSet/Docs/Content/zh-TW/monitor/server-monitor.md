@@ -31,10 +31,10 @@ Cast Operations 基礎設施代理程式是一個以 Go 為基礎的輕量級常
 curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Configure the agent
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # Start the agent
-sudo oneuptime-infrastructure-agent start
+sudo cast-operations-infrastructure-agent start
 ```
 
 將 `YOUR_SECRET_KEY` 替換為您監控設定中顯示的 secret key，若為自我託管（self-hosted），請將 `https://visca.ai` 替換為您的 Cast Operations 執行個體 URL。
@@ -42,17 +42,17 @@ sudo oneuptime-infrastructure-agent start
 ### Windows
 
 1. 從 [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest) 下載最新的代理程式
-   - `oneuptime-infrastructure-agent_windows_amd64.zip` 適用於 x64 系統
-   - `oneuptime-infrastructure-agent_windows_arm64.zip` 適用於 ARM64 系統
+   - `cast-operations-infrastructure-agent_windows_amd64.zip` 適用於 x64 系統
+   - `cast-operations-infrastructure-agent_windows_arm64.zip` 適用於 ARM64 系統
 2. 解壓縮該 zip 檔案
 3. 以系統管理員身分開啟命令提示字元（Command Prompt）並執行：
 
 ```bash
 # Configure the agent
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # Start the agent
-oneuptime-infrastructure-agent start
+cast-operations-infrastructure-agent start
 ```
 
 ### Proxy 支援
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 如果您的伺服器透過 proxy 連接網際網路，您可以設定代理程式來使用它：
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## 代理程式指令
@@ -176,8 +176,8 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 
 ### 代理程式未回報
 
-- 確認代理程式正在執行：`sudo oneuptime-infrastructure-agent status`
-- 檢查代理程式日誌：`sudo oneuptime-infrastructure-agent logs -n 50`
+- 確認代理程式正在執行：`sudo cast-operations-infrastructure-agent status`
+- 檢查代理程式日誌：`sudo cast-operations-infrastructure-agent logs -n 50`
 - 確認 secret key 是否正確
 - 確保伺服器能夠連接到您的 Cast Operations 執行個體 URL
 - 檢查防火牆規則是否允許對外的 HTTPS 連線
@@ -186,14 +186,14 @@ sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --one
 
 此代理程式被設計為輕量級。如果您注意到資源使用量偏高：
 
-- 重新啟動代理程式：`sudo oneuptime-infrastructure-agent restart`
+- 重新啟動代理程式：`sudo cast-operations-infrastructure-agent restart`
 - 檢查代理程式日誌中是否有錯誤
 
 ### Proxy 問題
 
 - 確認 proxy URL 與連接埠是否正確
 - 確保 proxy 允許連接到您的 Cast Operations 執行個體
-- 使用以下指令重新設定：`sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
+- 使用以下指令重新設定：`sudo cast-operations-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --cast-operations-url=YOUR_URL`
 
 ## 最佳實務
 

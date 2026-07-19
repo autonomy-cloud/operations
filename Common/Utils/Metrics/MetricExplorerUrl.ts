@@ -1,6 +1,6 @@
 import Dictionary from "../../Types/Dictionary";
 import JSONFunctions from "../../Types/JSONFunctions";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import MetricFormulaConfigData from "../../Types/Metrics/MetricFormulaConfigData";
 import MetricQueryConfigData, {
   MetricChartType,
@@ -132,9 +132,9 @@ export default class MetricExplorerUrl {
 
     if (startTimeValue && endTimeValue) {
       params[MetricExplorerUrlParam.StartTime] =
-        OneUptimeDate.toString(startTimeValue);
+        OperationsDate.toString(startTimeValue);
       params[MetricExplorerUrlParam.EndTime] =
-        OneUptimeDate.toString(endTimeValue);
+        OperationsDate.toString(endTimeValue);
     }
 
     /*

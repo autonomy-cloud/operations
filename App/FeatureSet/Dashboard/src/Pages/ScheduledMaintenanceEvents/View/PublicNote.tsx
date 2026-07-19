@@ -4,7 +4,7 @@ import ProjectUser from "../../../Utils/ProjectUser";
 import PageComponentProps from "../../PageComponentProps";
 import BaseModel from "Common/Models/DatabaseModels/DatabaseBaseModel/DatabaseBaseModel";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import IconProp from "Common/Types/Icon/IconProp";
 import { JSONObject } from "Common/Types/JSON";
@@ -291,10 +291,10 @@ const PublicNote: FunctionComponent<PageComponentProps> = (
             required: true,
             description:
               "This is the date and time this note was posted. This is in " +
-              OneUptimeDate.getCurrentTimezoneString() +
+              OperationsDate.getCurrentTimezoneString() +
               ".",
             getDefaultValue: () => {
-              return OneUptimeDate.getCurrentDate();
+              return OperationsDate.getCurrentDate();
             },
           },
         ]}

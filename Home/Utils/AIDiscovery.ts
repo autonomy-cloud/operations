@@ -4,13 +4,12 @@
  * and the /data/*.json endpoints.
  *
  * Everything here is generated from data that already drives the HTML pages
- * (PageSEO, Pricing, ProductCompare, Reviews) so the two can never drift.
+ * (PageSEO, ProductCompare, Reviews) so the two can never drift.
  * These functions are pure (no filesystem or database access) — callers pass
  * in the home URL and, where needed, the blog post list.
  */
 
 import PageSEOConfig, { PageSEOData } from "./PageSEO";
-import Pricing, { PricingPlans } from "./Pricing";
 import ProductCompare, {
   Product,
   PricingTier,
@@ -47,16 +46,6 @@ function getPagesByType(pageType: PageSEOData["pageType"]): Array<PageSEOData> {
   });
 }
 
-function formatPlanValue(value: string | boolean): string {
-  if (value === true) {
-    return "Yes";
-  }
-  if (value === false) {
-    return "No";
-  }
-  return value;
-}
-
 // Escape characters that would break a markdown table cell.
 function tableCell(value: string): string {
   return value.replace(/\|/g, "\\|").replace(/\n/g, " ");
@@ -86,8 +75,6 @@ const machineReadableSection: (baseUrl: string) => Array<string> = (
     `- [MCP server manifest](${baseUrl}/.well-known/mcp.json): connect AI agents to Cast Operations via Model Context Protocol (endpoint: ${baseUrl}/mcp)`,
     `- [Documentation index for LLMs](${baseUrl}/docs/llms.txt): all docs pages with raw markdown variants`,
     `- [API reference](${baseUrl}/reference): human-friendly API documentation`,
-    `- [Pricing (JSON)](${baseUrl}/data/pricing.json): plans and feature matrix as JSON`,
-    `- [Pricing (Markdown)](${baseUrl}/pricing.md): plans and feature matrix as markdown`,
     `- [Products (JSON)](${baseUrl}/data/products.json): every product with description and feature list`,
     `- [Comparisons (JSON)](${baseUrl}/data/compare.json): Cast Operations vs other tools`,
     `- [Customer reviews (JSON)](${baseUrl}/data/reviews.json)`,
@@ -109,7 +96,7 @@ export function generateLlmsTxt(
   );
   lines.push("");
   lines.push(
-    "Most marketing pages on this site have a markdown variant: append `.md` to the page path (for example `/pricing.md` or `/product/monitoring.md`).",
+    "Most marketing pages on this site have a markdown variant: append `.md` to the page path (for example `/product/monitoring.md`).",
   );
   lines.push("");
   lines.push(...machineReadableSection(baseUrl));
@@ -152,16 +139,6 @@ export function generateLlmsTxt(
   }
 
   lines.push("");
-  lines.push("## Pricing");
-  lines.push("");
-  for (const plan of PricingPlans) {
-    lines.push(`- ${plan.name}: ${plan.monthlyPricePerUser}`);
-  }
-  lines.push(
-    `- Full feature matrix: [markdown](${baseUrl}/pricing.md) / [JSON](${baseUrl}/data/pricing.json)`,
-  );
-
-  lines.push("");
   lines.push("## Docs & Support");
   lines.push("");
   lines.push(`- [Documentation](${baseUrl}/docs)`);
@@ -193,7 +170,7 @@ export function generateLlmsTxt(
   lines.push("## Optional");
   lines.push("");
   lines.push(
-    `- [llms-full.txt](${baseUrl}/llms-full.txt): expanded version of this file with full product, pricing and comparison detail inline`,
+    `- [llms-full.txt](${baseUrl}/llms-full.txt): expanded version of this file with full product and comparison detail inline`,
   );
   lines.push("");
 
@@ -235,9 +212,6 @@ export function generateLlmsFullTxt(
   }
 
   lines.push("");
-  lines.push(generatePricingMarkdown(homeUrl));
-
-  lines.push("");
   lines.push("## Comparisons");
   for (const slug of getProductCompareSlugs()) {
     const product: Product = ProductCompare(slug);
@@ -262,48 +236,6 @@ export function generateLlmsFullTxt(
       lines.push(
         `- [${post.title}](${baseUrl}/blog/post/${post.fileName}/markdown): ${post.description}`,
       );
-    }
-  }
-
-  lines.push("");
-
-  return lines.join("\n");
-}
-
-export function generatePricingMarkdown(homeUrl: string): string {
-  const baseUrl: string = normalizeBaseUrl(homeUrl);
-  const lines: Array<string> = [];
-
-  lines.push("## Pricing");
-  lines.push("");
-  lines.push(
-    "> Cast Operations pricing starts free. Paid plans are priced per user per month. Telemetry (logs, metrics, traces) is billed on usage at $0.10/GB ingested. Self-hosting the open-source platform is free.",
-  );
-  lines.push("");
-  lines.push("| Plan | Price (monthly billing) | Price (yearly billing) |");
-  lines.push("|---|---|---|");
-  for (const plan of PricingPlans) {
-    lines.push(
-      `| ${plan.name} | ${tableCell(plan.monthlyPricePerUser)} | ${tableCell(plan.yearlyMonthlyPricePerUser)} |`,
-    );
-  }
-  lines.push("");
-  lines.push(`Canonical page: ${baseUrl}/pricing`);
-
-  for (const category of Pricing) {
-    lines.push("");
-    lines.push(`### ${category.name}`);
-    lines.push("");
-    lines.push("| Feature | Free | Growth | Scale | Enterprise |");
-    lines.push("|---|---|---|---|---|");
-    for (const feature of category.data) {
-      const cells: Array<string> = ["free", "growth", "scale", "enterprise"];
-      const row: string = cells
-        .map((planKey: string) => {
-          return tableCell(formatPlanValue(feature.plans[planKey] ?? "No"));
-        })
-        .join(" | ");
-      lines.push(`| ${tableCell(feature.name)} | ${row} |`);
     }
   }
 
@@ -345,7 +277,7 @@ export function generatePageMarkdown(
   lines.push(
     `- [All Cast Operations products and links for LLMs](${baseUrl}/llms.txt)`,
   );
-  lines.push(`- [Pricing](${baseUrl}/pricing.md)`);
+  lines.push(`- [Deployment options](${baseUrl}/enterprise/overview.md)`);
   lines.push(`- [Documentation](${baseUrl}/docs)`);
   lines.push(`- [Sign up](${baseUrl}/accounts/register)`);
   lines.push("");
@@ -397,11 +329,13 @@ export function generateCompareMarkdown(
       lines.push("");
       lines.push(`### ${category.name}`);
       lines.push("");
-      lines.push(`| Feature | ${tableCell(product.productName)} | Cast Operations |`);
+      lines.push(
+        `| Feature | ${tableCell(product.productName)} | Cast Operations |`,
+      );
       lines.push("|---|---|---|");
       for (const item of category.data) {
         lines.push(
-          `| ${tableCell(item.title)} (${tableCell(item.description)}) | ${tableCell(formatCompareValue(item.productColumn))} | ${tableCell(formatCompareValue(item.oneuptimeColumn))} |`,
+          `| ${tableCell(item.title)} (${tableCell(item.description)}) | ${tableCell(formatCompareValue(item.productColumn))} | ${tableCell(formatCompareValue(item.castOperationsColumn))} |`,
         );
       }
     }
@@ -434,11 +368,13 @@ export function generateCompareMarkdown(
     lines.push("");
     lines.push("## Real-World Cost Comparison");
     lines.push("");
-    lines.push(`| Scenario | ${tableCell(product.productName)} | Cast Operations |`);
+    lines.push(
+      `| Scenario | ${tableCell(product.productName)} | Cast Operations |`,
+    );
     lines.push("|---|---|---|");
     for (const useCase of product.useCases as Array<UseCaseComparison>) {
       lines.push(
-        `| ${tableCell(useCase.scenario)} | ${tableCell(`${useCase.competitorSolution} — ${useCase.competitorCost}`)} | ${tableCell(`${useCase.oneuptimeSolution} — ${useCase.oneuptimeCost}`)} |`,
+        `| ${tableCell(useCase.scenario)} | ${tableCell(`${useCase.competitorSolution} — ${useCase.competitorCost}`)} | ${tableCell(`${useCase.castOperationsSolution} — ${useCase.castOperationsCost}`)} |`,
       );
     }
   }
@@ -466,7 +402,7 @@ export function generateCompareMarkdown(
   lines.push("");
   lines.push("## Learn More");
   lines.push("");
-  lines.push(`- [Pricing](${baseUrl}/pricing.md)`);
+  lines.push(`- [Deployment options](${baseUrl}/enterprise/overview.md)`);
   lines.push(`- [All comparisons](${baseUrl}/data/compare.json)`);
   lines.push(`- [Sign up](${baseUrl}/accounts/register)`);
   lines.push("");
@@ -499,7 +435,7 @@ export function generateMcpManifest(homeUrl: string): JSONObject {
     packages: [
       {
         registry: "npm",
-        name: "@oneuptime/mcp-server",
+        name: "@cast-operations/mcp-server",
       },
     ],
   };

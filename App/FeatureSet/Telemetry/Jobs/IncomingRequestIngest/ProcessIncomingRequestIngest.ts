@@ -1,7 +1,7 @@
 import { IncomingRequestIngestJobData } from "../../Services/Queue/TelemetryQueueService";
 import logger from "Common/Server/Utils/Logger";
 import HTTPMethod from "Common/Types/API/HTTPMethod";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import ExceptionMessages from "Common/Types/Exception/ExceptionMessages";
@@ -84,7 +84,7 @@ export async function processIncomingRequestFromQueue(
     return;
   }
 
-  const now: Date = OneUptimeDate.getCurrentDate();
+  const now: Date = OperationsDate.getCurrentDate();
 
   const incomingRequest: IncomingMonitorRequest = {
     projectId: monitor.projectId,

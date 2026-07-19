@@ -183,15 +183,15 @@ export default class MicrosoftTeamsIncidentActions {
       }
 
       // Acknowledge the incident
-      const oneUptimeUserId: ObjectID =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
+      const operationsUserId: ObjectID =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId({
           teamsUserId: data.teamsRequest.userId || "",
           projectId: data.teamsRequest.projectId,
         });
 
       await IncidentService.acknowledgeIncident(
         new ObjectID(incidentId),
-        oneUptimeUserId,
+        operationsUserId,
       );
 
       logger.debug("Incident acknowledged successfully", {
@@ -265,15 +265,15 @@ export default class MicrosoftTeamsIncidentActions {
       }
 
       // Resolve the incident
-      const oneUptimeUserId: ObjectID =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
+      const operationsUserId: ObjectID =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId({
           teamsUserId: data.teamsRequest.userId || "",
           projectId: data.teamsRequest.projectId,
         });
 
       await IncidentService.resolveIncident(
         new ObjectID(incidentId),
-        oneUptimeUserId,
+        operationsUserId,
       );
 
       logger.debug("Incident resolved successfully", {
@@ -295,7 +295,7 @@ export default class MicrosoftTeamsIncidentActions {
     actionValue: string;
     value: JSONObject;
     projectId: ObjectID;
-    oneUptimeUserId: ObjectID;
+    operationsUserId: ObjectID;
     turnContext: TurnContext;
   }): Promise<void> {
     const {
@@ -303,7 +303,7 @@ export default class MicrosoftTeamsIncidentActions {
       actionValue,
       value,
       projectId,
-      oneUptimeUserId,
+      operationsUserId,
       turnContext,
     } = data;
 
@@ -317,7 +317,7 @@ export default class MicrosoftTeamsIncidentActions {
 
       await IncidentService.acknowledgeIncident(
         new ObjectID(actionValue),
-        oneUptimeUserId,
+        operationsUserId,
       );
       await turnContext.sendActivity("✅ Incident acknowledged.");
       return;
@@ -333,7 +333,7 @@ export default class MicrosoftTeamsIncidentActions {
 
       await IncidentService.resolveIncident(
         new ObjectID(actionValue),
-        oneUptimeUserId,
+        operationsUserId,
       );
       await turnContext.sendActivity("✅ Incident resolved.");
       return;
@@ -425,14 +425,14 @@ export default class MicrosoftTeamsIncidentActions {
             incidentId: incidentId,
             note: note.toString(),
             projectId: projectId,
-            userId: oneUptimeUserId,
+            userId: operationsUserId,
           });
         } else if (noteType === "private") {
           await IncidentInternalNoteService.addNote({
             incidentId: incidentId,
             note: note.toString(),
             projectId: projectId,
-            userId: oneUptimeUserId,
+            userId: operationsUserId,
           });
         }
 
@@ -621,7 +621,7 @@ export default class MicrosoftTeamsIncidentActions {
         incident.title = title;
         incident.description = description;
         incident.projectId = projectId;
-        incident.createdByUserId = oneUptimeUserId;
+        incident.createdByUserId = operationsUserId;
         incident.incidentSeverityId = new ObjectID(severityId);
         incident.rootCause = `Incident created via Microsoft Teams`;
 
@@ -1023,8 +1023,8 @@ export default class MicrosoftTeamsIncidentActions {
 
     try {
       // Get Cast Operations user ID
-      const oneUptimeUserId: ObjectID =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
+      const operationsUserId: ObjectID =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId({
           teamsUserId: userId,
           projectId: projectId,
         });
@@ -1034,7 +1034,7 @@ export default class MicrosoftTeamsIncidentActions {
       incident.title = title;
       incident.description = description;
       incident.projectId = projectId;
-      incident.createdByUserId = oneUptimeUserId;
+      incident.createdByUserId = operationsUserId;
       incident.incidentSeverityId = new ObjectID(severityId);
       incident.rootCause = `Incident created via Microsoft Teams`;
 

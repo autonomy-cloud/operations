@@ -27,7 +27,7 @@ Une fois que vous avez créé un jeton, cliquez sur « View » pour le consulter
 | Paramètre                  | Valeur                                                                     |
 | -------------------------- | -------------------------------------------------------------------------- |
 | Point de terminaison OTLP  | `https://visca.ai/otlp`                                               |
-| En-tête d'authentification | `x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN`                        |
+| En-tête d'authentification | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`                        |
 | Nom du service             | Le nom sous lequel votre service doit apparaître, par exemple `my-service` |
 
 > **Vous hébergez Cast Operations vous-même ?** Remplacez `https://visca.ai/otlp` par `https://YOUR-OPERATIONS-HOST/otlp` (ou `http://...` si vous ne terminez pas le TLS). Tout le reste demeure inchangé.
@@ -76,7 +76,7 @@ Log.Logger = new LoggerConfiguration()
         // Authenticate with your Cast Operations telemetry ingestion token.
         options.Headers = new Dictionary<string, string>
         {
-            ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+            ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
         };
 
         // Identify your service in Cast Operations.
@@ -118,7 +118,7 @@ Si vous préférez la configuration au code, utilisez `Serilog.Settings.Configur
           "endpoint": "https://visca.ai/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
-            "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+            "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
           },
           "resourceAttributes": {
             "service.name": "my-service",
@@ -169,7 +169,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
-                ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+                ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
             };
             options.ResourceAttributes = new Dictionary<string, object>
             {
@@ -228,9 +228,9 @@ Si votre application est également instrumentée avec le SDK OpenTelemetry .NET
 
 ## Dépannage
 
-- **Aucun journal n'apparaît** – Vérifiez bien la valeur de `x-oneuptime-token` et confirmez qu'elle appartient au projet que vous consultez. Vérifiez que le point de terminaison est `https://visca.ai/otlp` (chemin de base uniquement — n'ajoutez pas `/v1/logs` vous-même).
+- **Aucun journal n'apparaît** – Vérifiez bien la valeur de `x-cast-operations-token` et confirmez qu'elle appartient au projet que vous consultez. Vérifiez que le point de terminaison est `https://visca.ai/otlp` (chemin de base uniquement — n'ajoutez pas `/v1/logs` vous-même).
 - **Les journaux n'apparaissent que lorsque l'application se termine, ou les derniers journaux sont manquants** – Assurez-vous que `Log.CloseAndFlush()` s'exécute à l'arrêt. Le sink regroupe les événements par lots, de sorte que les journaux mis en mémoire tampon sont perdus si le processus est arrêté sans vidage (flush).
-- **`401 Unauthorized` / rien n'est ingéré** – Le jeton est manquant ou invalide. Confirmez que la clé d'en-tête est exactement `x-oneuptime-token`.
+- **`401 Unauthorized` / rien n'est ingéré** – Le jeton est manquant ou invalide. Confirmez que la clé d'en-tête est exactement `x-cast-operations-token`.
 - **Mauvais nom de service** – Définissez `service.name` dans `ResourceAttributes` (code) ou `resourceAttributes` (appsettings.json). Sans cela, les journaux retombent sur un service par défaut/inconnu.
 - **Erreurs de connexion vers une instance auto-hébergée** – Assurez-vous que le protocole correspond au schéma de votre point de terminaison (`https://` vs `http://`) et que votre hôte Cast Operations est accessible depuis l'application.
 

@@ -5,7 +5,7 @@ import AIInsight from "../../Models/DatabaseModels/AIInsight";
 import AIRun from "../../Models/DatabaseModels/AIRun";
 import AIRunEvent from "../../Models/DatabaseModels/AIRunEvent";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
 import BadDataException from "../../Types/Exception/BadDataException";
 import AIInsightStatus from "../../Types/AI/AIInsightStatus";
@@ -50,7 +50,7 @@ export class Service extends DatabaseService<AIInsight> {
       id: data.insightId,
       data: {
         humanVerdict: data.verdict,
-        humanVerdictAt: OneUptimeDate.getCurrentDate(),
+        humanVerdictAt: OperationsDate.getCurrentDate(),
         humanVerdictByUserId: data.byUserId,
         ...(data.verdict === AIInsightHumanVerdict.Dismissed
           ? { status: AIInsightStatus.Dismissed }
@@ -95,7 +95,7 @@ export class Service extends DatabaseService<AIInsight> {
           ? {}
           : {
               humanVerdict: AIInsightHumanVerdict.Confirmed,
-              humanVerdictAt: OneUptimeDate.getCurrentDate(),
+              humanVerdictAt: OperationsDate.getCurrentDate(),
               humanVerdictByUserId: data.byUserId,
             }),
       },

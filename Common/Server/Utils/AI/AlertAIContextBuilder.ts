@@ -6,7 +6,7 @@ import AlertService from "../../Services/AlertService";
 import AlertStateTimelineService from "../../Services/AlertStateTimelineService";
 import AlertInternalNoteService from "../../Services/AlertInternalNoteService";
 import CaptureSpan from "../Telemetry/CaptureSpan";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import SortOrder from "../../../Types/BaseDatabase/SortOrder";
 import { LLMMessage } from "../LLM/LLMService";
 
@@ -141,7 +141,7 @@ export default class AlertAIContextBuilder {
     contextText += `**Description:** ${alert.description || "N/A"}\n\n`;
     contextText += `**Severity:** ${alert.alertSeverity?.name || "N/A"}\n\n`;
     contextText += `**Current State:** ${alert.currentAlertState?.name || "N/A"}\n\n`;
-    contextText += `**Created At:** ${alert.createdAt ? OneUptimeDate.getDateAsFormattedString(alert.createdAt) : "N/A"}\n\n`;
+    contextText += `**Created At:** ${alert.createdAt ? OperationsDate.getDateAsFormattedString(alert.createdAt) : "N/A"}\n\n`;
 
     // Affected monitor
     if (alert.monitor) {
@@ -174,7 +174,7 @@ export default class AlertAIContextBuilder {
       contextText += "# State Timeline\n\n";
       for (const timeline of stateTimeline) {
         const startTime: string = timeline.startsAt
-          ? OneUptimeDate.getDateAsFormattedString(timeline.startsAt)
+          ? OperationsDate.getDateAsFormattedString(timeline.startsAt)
           : "N/A";
         const stateName: string =
           timeline.alertState?.name?.toString() || "Unknown";
@@ -196,7 +196,7 @@ export default class AlertAIContextBuilder {
       contextText += "# Internal Notes (Private)\n\n";
       for (const note of internalNotes) {
         const noteTime: string = note.createdAt
-          ? OneUptimeDate.getDateAsFormattedString(note.createdAt)
+          ? OperationsDate.getDateAsFormattedString(note.createdAt)
           : "N/A";
         const createdBy: string =
           note.createdByUser?.name?.toString() ||

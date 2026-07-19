@@ -667,9 +667,9 @@ const MonitorCriteriaInstanceElement: FunctionComponent<ComponentProps> = (
                       </span>
                     </div>
                     <p className="mb-3 ml-7 mt-1 text-xs text-gray-500">
-                      A webhook only describes what is firing right now, so
-                      Cast Operations cannot tell an incident has recovered unless the
-                      payload says so. Set the field and value that signal
+                      A webhook only describes what is firing right now, so Cast
+                      Operations cannot tell an incident has recovered unless
+                      the payload says so. Set the field and value that signal
                       recovery. Leave blank to resolve these incidents manually.
                     </p>
                     <div className="ml-7 grid grid-cols-1 gap-3 sm:grid-cols-2">

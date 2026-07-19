@@ -9,7 +9,7 @@ import Response from "Common/Server/Utils/Response";
 import EventLoop from "Common/Server/Utils/EventLoop";
 import CaptureSpan from "Common/Server/Utils/Telemetry/CaptureSpan";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import LogSeverity from "Common/Types/Log/LogSeverity";
 import { resolveTelemetryRetentionInDays } from "Common/Types/Telemetry/TelemetryRetentionConfig";
 import TelemetryUtil, {
@@ -244,11 +244,11 @@ export default class FluentLogsIngestService extends OtelIngestBaseService {
             await EventLoop.yieldToEventLoop();
           }
           entryCounter++;
-          const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+          const ingestionDate: Date = OperationsDate.getCurrentDate();
           const ingestionDateTime: string =
-            OneUptimeDate.toClickhouseDateTime(ingestionDate);
+            OperationsDate.toClickhouseDateTime(ingestionDate);
           const timeUnixNano: string = Math.trunc(
-            OneUptimeDate.toUnixNano(ingestionDate),
+            OperationsDate.toUnixNano(ingestionDate),
           ).toString();
 
           const body: string = this.extractBodyFromEntry(entry);
@@ -276,7 +276,7 @@ export default class FluentLogsIngestService extends OtelIngestBaseService {
             projectConfig: serviceMetadata.projectRetentionConfig,
             projectRetentionInDays: serviceMetadata.projectRetentionInDays,
           });
-          const retentionDate: Date = OneUptimeDate.addRemoveDays(
+          const retentionDate: Date = OperationsDate.addRemoveDays(
             ingestionDate,
             retentionDays,
           );
@@ -290,7 +290,7 @@ export default class FluentLogsIngestService extends OtelIngestBaseService {
             entityKeys: serviceMetadata.entityKeys || [],
             // serviceEntityKey from the resolved service; '' for the rest.
             ...getScalarEntityKeyColumns(serviceMetadata),
-            time: OneUptimeDate.toClickhouseDateTime64(ingestionDate),
+            time: OperationsDate.toClickhouseDateTime64(ingestionDate),
             timeUnixNano,
             severityNumber: severityInfo.number,
             severityText: severityInfo.text,
@@ -299,7 +299,7 @@ export default class FluentLogsIngestService extends OtelIngestBaseService {
             traceId,
             spanId,
             body,
-            retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+            retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
           } satisfies JSONObject;
 
           /*

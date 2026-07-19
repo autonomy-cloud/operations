@@ -44,7 +44,7 @@ import MultiSearch from "../../../Types/BaseDatabase/MultiSearch";
 import StartsWith from "../../../Types/BaseDatabase/StartsWith";
 import EndsWith from "../../../Types/BaseDatabase/EndsWith";
 import SortOrder from "../../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import { JSONObject } from "../../../Types/JSON";
 import JSONFunctions from "../../../Types/JSONFunctions";
@@ -283,13 +283,13 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
     }
 
     if (column.type === TableColumnType.Date && value instanceof Date) {
-      value = `parseDateTimeBestEffortOrNull('${OneUptimeDate.toString(
+      value = `parseDateTimeBestEffortOrNull('${OperationsDate.toString(
         value as Date,
       )}')`;
     }
 
     if (column.type === TableColumnType.DateTime64 && value instanceof Date) {
-      value = `parseDateTimeBestEffortOrNull('${OneUptimeDate.toClickhouseDateTime64(
+      value = `parseDateTimeBestEffortOrNull('${OperationsDate.toClickhouseDateTime64(
         value as Date,
       )}')`;
     }

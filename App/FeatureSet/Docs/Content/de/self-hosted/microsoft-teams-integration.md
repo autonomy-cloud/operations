@@ -14,7 +14,7 @@ Um Microsoft Teams mit Ihrer selbst gehosteten Cast Operations-Instanz zu integr
 1. Gehen Sie zum [Azure Portal](https://portal.azure.com)
 2. Navigieren Sie zu „App-Registrierungen" und klicken Sie auf „Neue Registrierung"
 3. Füllen Sie das Registrierungsformular aus:
-   - **Name:** oneuptime
+   - **Name:** cast-operations
    - **Unterstützte Kontotypen:** Konten in einem beliebigen Organisationsverzeichnis (Mehrinstanzenfähig)
    - **Umleitungs-URI:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
    - Fügen Sie auch hinzu: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -53,7 +53,7 @@ Um Microsoft Teams mit Ihrer selbst gehosteten Cast Operations-Instanz zu integr
 1. Navigieren Sie im Azure Portal zu „Azure Bot" und klicken Sie auf „Erstellen"
 2. Füllen Sie das Bot-Erstellungsformular aus:
 
-   - **Bot-Handle:** oneuptime-bot
+   - **Bot-Handle:** cast-operations-bot
    - Verwenden Sie die App-(Client-)ID und Mandanten-ID aus Ihrer App-Registrierung
 
 3. Nach der Bereitstellung gehen Sie zu Ihrer Bot-Ressource und navigieren Sie zu „Konfiguration"

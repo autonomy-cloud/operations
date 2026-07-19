@@ -223,7 +223,7 @@ export default class IncidentAPI extends BaseAPI<
         template,
       );
 
-    // Generate postmortem using AIService (handles billing and logging)
+    // Generate postmortem using AIService (handles provider execution and logging).
     const aiLogRequest: AILogRequest = {
       projectId: incident.projectId,
       feature: "Incident Postmortem",
@@ -342,7 +342,7 @@ export default class IncidentAPI extends BaseAPI<
         template,
       );
 
-    // Generate note using AIService (handles billing and logging)
+    // Generate note using AIService (handles provider execution and logging).
     const aiLogRequest: AILogRequest = {
       projectId: incident.projectId,
       feature:

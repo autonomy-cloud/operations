@@ -1,7 +1,7 @@
 import DataToProcess from "../DataToProcess";
 import CompareCriteria from "./CompareCriteria";
 import EvaluateOverTime from "./EvaluateOverTime";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import { BasicDiskMetrics } from "../../../../Types/Infrastructure/BasicMetrics";
 import { JSONObject } from "../../../../Types/JSON";
 import {
@@ -58,9 +58,9 @@ export default class ServerMonitorCriteria {
 
     const timeNow: Date =
       (input.dataToProcess as ServerMonitorResponse).timeNow ||
-      OneUptimeDate.getCurrentDate();
+      OperationsDate.getCurrentDate();
 
-    const differenceInMinutes: number = OneUptimeDate.getDifferenceInMinutes(
+    const differenceInMinutes: number = OperationsDate.getDifferenceInMinutes(
       lastCheckTime,
       timeNow,
     );

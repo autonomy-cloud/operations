@@ -22,7 +22,7 @@ import AggregatedResult from "../../../../Types/BaseDatabase/AggregatedResult";
 import AggregatedModel from "../../../../Types/BaseDatabase/AggregatedModel";
 import ToolResultSerializer, { SerializedResult } from "./Serializer";
 import WidgetBuilder from "./WidgetBuilder";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import {
   ObservabilityTool,
   TimeRangeSchemaProperties,
@@ -49,7 +49,7 @@ const METRIC_READ_PERMISSIONS: Array<Permission> = [
 export const QueryMetricsTool: ObservabilityTool = {
   name: "query_metrics",
   description:
-    "Aggregate a metric over time: Avg, Max, Min, Sum, Count or P50/P90/P95/P99 percentiles (histogram-aware). Requires the exact metric name — discover names via lookup_context. Monitor metrics use reserved names like oneuptime.monitor.response.time with the monitor's ID as entityId.",
+    "Aggregate a metric over time: Avg, Max, Min, Sum, Count or P50/P90/P95/P99 percentiles (histogram-aware). Requires the exact metric name — discover names via lookup_context. Monitor metrics use reserved names like cast-operations.monitor.response.time with the monitor's ID as entityId.",
   inputSchema: {
     type: "object",
     properties: {
@@ -152,7 +152,7 @@ export const QueryMetricsTool: ObservabilityTool = {
     const points: Array<AIChatWidgetPoint> = result.data.map(
       (item: AggregatedModel) => {
         return {
-          x: OneUptimeDate.toString(OneUptimeDate.fromString(item.timestamp)),
+          x: OperationsDate.toString(OperationsDate.fromString(item.timestamp)),
           y: typeof item.value === "number" ? item.value : null,
         };
       },
@@ -247,7 +247,7 @@ export const BaselineAnomalyTool: ObservabilityTool = {
       "entityId",
     );
 
-    let atTime: Date = OneUptimeDate.getCurrentDate();
+    let atTime: Date = OperationsDate.getCurrentDate();
     const atTimeString: string | undefined = ToolArgs.getString(args, "atTime");
     if (atTimeString) {
       const parsed: Date = new Date(atTimeString);
@@ -350,7 +350,7 @@ export const BaselineAnomalyTool: ObservabilityTool = {
             : "no baseline data"
         } for this hour of week (needs at least ${MetricBaselineServiceClass.DEFAULT_MIN_SAMPLES}). Baseline coverage overall: ${coverage.totalSamples} total sample(s)${
           coverage.oldestDay
-            ? `, oldest day ${OneUptimeDate.getDateAsFormattedString(coverage.oldestDay)}`
+            ? `, oldest day ${OperationsDate.getDateAsFormattedString(coverage.oldestDay)}`
             : ""
         }. Do NOT treat this as "not anomalous" — the baseline simply cannot judge yet.`,
         metricName,
@@ -374,7 +374,7 @@ export const BaselineAnomalyTool: ObservabilityTool = {
     }
 
     // Current value: average over the recent window ending at atTime.
-    const currentWindowStart: Date = OneUptimeDate.addRemoveMinutes(
+    const currentWindowStart: Date = OperationsDate.addRemoveMinutes(
       atTime,
       -1 * BASELINE_CURRENT_WINDOW_MINUTES,
     );
@@ -469,7 +469,7 @@ export const BaselineAnomalyTool: ObservabilityTool = {
     ]);
 
     // Expected-range band + actual values over the recent past, for the panel.
-    const chartStart: Date = OneUptimeDate.addRemoveHours(
+    const chartStart: Date = OperationsDate.addRemoveHours(
       atTime,
       -1 * BASELINE_CHART_HOURS,
     );
@@ -511,7 +511,7 @@ export const BaselineAnomalyTool: ObservabilityTool = {
 
       actualPoints = chartActualResult.data.map((item: AggregatedModel) => {
         return {
-          x: OneUptimeDate.toString(OneUptimeDate.fromString(item.timestamp)),
+          x: OperationsDate.toString(OperationsDate.fromString(item.timestamp)),
           y: typeof item.value === "number" ? item.value : null,
         };
       });
@@ -526,7 +526,7 @@ export const BaselineAnomalyTool: ObservabilityTool = {
     ): Array<AIChatWidgetPoint> => {
       return bandSeries.map((point: BandPoint) => {
         return {
-          x: OneUptimeDate.toString(point.time),
+          x: OperationsDate.toString(point.time),
           y: pick(point),
         };
       });

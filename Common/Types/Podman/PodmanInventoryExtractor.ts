@@ -1,4 +1,4 @@
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 import { JSONObject } from "../JSON";
 import { ParsedPodmanResource } from "../../Server/Services/PodmanResourceService";
 
@@ -33,7 +33,7 @@ import { ParsedPodmanResource } from "../../Server/Services/PodmanResourceServic
  * ------------------------------------------------------------------
  */
 
-export const INVENTORY_KIND_ATTRIBUTE: string = "oneuptime.podman.kind";
+export const INVENTORY_KIND_ATTRIBUTE: string = "cast-operations.podman.kind";
 
 export const INVENTORIED_PODMAN_KINDS: ReadonlyArray<string> = [
   "Container",
@@ -108,7 +108,7 @@ function parseTimestamp(raw: string | null): Date | null {
     return null;
   }
   try {
-    const d: Date = OneUptimeDate.fromString(raw);
+    const d: Date = OperationsDate.fromString(raw);
     if (isNaN(d.getTime())) {
       return null;
     }

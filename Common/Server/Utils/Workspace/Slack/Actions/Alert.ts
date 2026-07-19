@@ -918,7 +918,7 @@ export default class SlackAlertActions {
       return;
     }
 
-    const oneUptimeUserId: ObjectID = userAuth.userId;
+    const operationsUserId: ObjectID = userAuth.userId;
 
     // Fetch the message text using the timestamp
     let messageText: string | null = null;
@@ -970,7 +970,7 @@ export default class SlackAlertActions {
         alertId: alertId,
         note: messageText,
         projectId: projectId,
-        userId: oneUptimeUserId,
+        userId: operationsUserId,
         postedFromSlackMessageId: postedFromSlackMessageId,
       });
       logger.debug("Private note added to alert successfully.", {

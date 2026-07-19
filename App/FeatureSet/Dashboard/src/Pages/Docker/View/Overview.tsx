@@ -24,7 +24,7 @@ import API from "Common/UI/Utils/API/API";
 import AnalyticsModelAPI from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import AggregatedResult from "Common/Types/BaseDatabase/AggregatedResult";
 import AggregatedModel from "Common/Types/BaseDatabase/AggregatedModel";
@@ -287,7 +287,7 @@ const DockerHostOverview: FunctionComponent<
         RangeStartAndEndDateTimeUtil.getStartAndEndDate(timeRange);
       const startDate: Date = dateRange.startValue;
       const endDate: Date = dateRange.endValue;
-      const tileWindowStart: Date = OneUptimeDate.addRemoveMinutes(
+      const tileWindowStart: Date = OperationsDate.addRemoveMinutes(
         endDate,
         -TILE_WINDOW_MINUTES,
       );
@@ -402,7 +402,7 @@ const DockerHostOverview: FunctionComponent<
         query: {
           projectId: projectId,
           time: new InBetween<Date>(startDate, endDate),
-          name: "oneuptime.host.heartbeat",
+          name: "cast-operations.host.heartbeat",
           attributes: {
             "resource.host.name": item.hostIdentifier as string,
           },
@@ -822,7 +822,7 @@ const DockerHostOverview: FunctionComponent<
           heartbeatData: heartbeatResult.data || [],
           windowStart: startDate,
           windowEnd: endDate,
-          now: OneUptimeDate.getCurrentDate(),
+          now: OperationsDate.getCurrentDate(),
         });
       setAvailabilitySeries(
         availability.points.length > 0
@@ -832,7 +832,7 @@ const DockerHostOverview: FunctionComponent<
       setAvailabilityPct(availability.uptimePercent);
 
       setChartWindow({ start: startDate, end: endDate });
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
     } catch (err) {
       setStatsError(API.getFriendlyMessage(err));
     }
@@ -923,7 +923,7 @@ const DockerHostOverview: FunctionComponent<
     const status: string = (host.otelCollectorStatus as string) || "";
     const lastSeenAt: Date | undefined = host.lastSeenAt;
     const lastSeenText: string = lastSeenAt
-      ? OneUptimeDate.fromNow(lastSeenAt)
+      ? OperationsDate.fromNow(lastSeenAt)
       : "never";
 
     const isConnected: boolean =

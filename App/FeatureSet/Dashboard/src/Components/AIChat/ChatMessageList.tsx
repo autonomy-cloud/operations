@@ -3,7 +3,7 @@ import AIRun from "Common/Models/DatabaseModels/AIRun";
 import AIChatMessageRole from "Common/Types/AI/AIChatMessageRole";
 import AIChatMessageStatus from "Common/Types/AI/AIChatMessageStatus";
 import { AIChatToolAction, AIChatWidget } from "Common/Types/AI/AIChatTypes";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IconProp from "Common/Types/Icon/IconProp";
 import Icon from "Common/UI/Components/Icon/Icon";
 import React, { FunctionComponent, ReactElement, useState } from "react";
@@ -115,7 +115,7 @@ const ChatMessageList: FunctionComponent<ComponentProps> = (
       {props.messages.map((message: AIConversationMessage) => {
         const messageId: string = message.id?.toString() || "";
         const timestamp: string = message.createdAt
-          ? OneUptimeDate.fromNow(message.createdAt)
+          ? OperationsDate.fromNow(message.createdAt)
           : "";
 
         if (message.role === AIChatMessageRole.User) {

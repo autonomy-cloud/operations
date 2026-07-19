@@ -3,7 +3,6 @@ import BaseAnalyticsAPI from "Common/Server/API/BaseAnalyticsAPI";
 import FileAPI from "Common/Server/API/FileAPI";
 import GlobalConfigAPI from "Common/Server/API/GlobalConfigAPI";
 import MonitorGroupAPI from "Common/Server/API/MonitorGroupAPI";
-import NotificationAPI from "Common/Server/API/NotificationAPI";
 import AIChatAPI from "Common/Server/API/AIChatAPI";
 import AIReadinessAPI from "Common/Server/API/AIReadinessAPI";
 import AIInvestigationAPI from "Common/Server/API/AIInvestigationAPI";
@@ -60,7 +59,6 @@ import WhatsAppLogAPI from "./WhatsAppLogAPI";
 import TelegramLogAPI from "./TelegramLogAPI";
 
 // Import API
-import ResellerPlanAPI from "Common/Server/API/ResellerPlanAPI";
 import OpenSourceDeploymentAPI from "Common/Server/API/OpenSourceDeploymentAPI";
 import MonitorAPI from "Common/Server/API/MonitorAPI";
 import MonitorTemplateAPI from "Common/Server/API/MonitorTemplateAPI";
@@ -740,15 +738,9 @@ import ProjectUserProfileService, {
 import ProjectSmtpConfigService, {
   Service as ProjectSMTPConfigServiceType,
 } from "Common/Server/Services/ProjectSmtpConfigService";
-import PromoCodeService, {
-  Service as PromoCodeServiceType,
-} from "Common/Server/Services/PromoCodeService";
 import CodeRepositoryService, {
   Service as CodeRepositoryServiceType,
 } from "Common/Server/Services/CodeRepositoryService";
-import ResellerService, {
-  Service as ResellerServiceType,
-} from "Common/Server/Services/ResellerService";
 import ScheduledMaintenanceCustomFieldService, {
   Service as ScheduledMaintenanceCustomFieldServiceType,
 } from "Common/Server/Services/ScheduledMaintenanceCustomFieldService";
@@ -843,9 +835,6 @@ import TeamComplianceSettingService, {
 import TeamService, {
   Service as TeamServiceType,
 } from "Common/Server/Services/TeamService";
-import TelemetryUsageBillingService, {
-  Service as TelemetryUsageBillingServiceType,
-} from "Common/Server/Services/TelemetryUsageBillingService";
 import UserNotificationRuleService, {
   Service as UserNotificationRuleServiceType,
 } from "Common/Server/Services/UserNotificationRuleService";
@@ -1104,9 +1093,7 @@ import OnCallDutyPolicyScheduleLayerUser from "Common/Models/DatabaseModels/OnCa
 import ProjectCallSMSConfig from "Common/Models/DatabaseModels/ProjectCallSMSConfig";
 import ProjectSmtpConfig from "Common/Models/DatabaseModels/ProjectSmtpConfig";
 import ProjectUserProfile from "Common/Models/DatabaseModels/ProjectUserProfile";
-import PromoCode from "Common/Models/DatabaseModels/PromoCode";
 import CodeRepository from "Common/Models/DatabaseModels/CodeRepository";
-import Reseller from "Common/Models/DatabaseModels/Reseller";
 import ScheduledMaintenanceCustomField from "Common/Models/DatabaseModels/ScheduledMaintenanceCustomField";
 import ScheduledMaintenanceNoteTemplate from "Common/Models/DatabaseModels/ScheduledMaintenanceNoteTemplate";
 import ScheduledMaintenanceOwnerTeam from "Common/Models/DatabaseModels/ScheduledMaintenanceOwnerTeam";
@@ -1136,7 +1123,6 @@ import Team from "Common/Models/DatabaseModels/Team";
 import TeamMemberCustomField from "Common/Models/DatabaseModels/TeamMemberCustomField";
 import TeamPermission from "Common/Models/DatabaseModels/TeamPermission";
 import TeamComplianceSetting from "Common/Models/DatabaseModels/TeamComplianceSetting";
-import TelemetryUsageBilling from "Common/Models/DatabaseModels/TelemetryUsageBilling";
 import UserNotificationRule from "Common/Models/DatabaseModels/UserNotificationRule";
 import UserNotificationSetting from "Common/Models/DatabaseModels/UserNotificationSetting";
 import UserOnCallLog from "Common/Models/DatabaseModels/UserOnCallLog";
@@ -2505,14 +2491,6 @@ const BaseAPIFeatureSet: FeatureSet = {
 
     app.use(
       `/${APP_NAME.toLocaleLowerCase()}`,
-      new BaseAPI<TelemetryUsageBilling, TelemetryUsageBillingServiceType>(
-        TelemetryUsageBilling,
-        TelemetryUsageBillingService,
-      ).getRouter(),
-    );
-
-    app.use(
-      `/${APP_NAME.toLocaleLowerCase()}`,
       new BaseAPI<ShortLink, ShortLinkServiceType>(
         ShortLink,
         ShortLinkService,
@@ -3689,14 +3667,6 @@ const BaseAPIFeatureSet: FeatureSet = {
 
     app.use(
       `/${APP_NAME.toLocaleLowerCase()}`,
-      new BaseAPI<Reseller, ResellerServiceType>(
-        Reseller,
-        ResellerService,
-      ).getRouter(),
-    );
-
-    app.use(
-      `/${APP_NAME.toLocaleLowerCase()}`,
       new BaseAPI<CallLog, CallLogServiceType>(
         CallLog,
         CallLogService,
@@ -3845,10 +3815,6 @@ const BaseAPIFeatureSet: FeatureSet = {
         GlobalOidcProject,
         GlobalOidcProjectService,
       ).getRouter(),
-    );
-    app.use(
-      `/${APP_NAME.toLocaleLowerCase()}`,
-      new ResellerPlanAPI().getRouter(),
     );
     app.use(
       `/${APP_NAME.toLocaleLowerCase()}`,
@@ -4043,14 +4009,6 @@ const BaseAPIFeatureSet: FeatureSet = {
       ).getRouter(),
     );
 
-    app.use(
-      `/${APP_NAME.toLocaleLowerCase()}`,
-      new BaseAPI<PromoCode, PromoCodeServiceType>(
-        PromoCode,
-        PromoCodeService,
-      ).getRouter(),
-    );
-
     // Code Repository
     app.use(
       `/${APP_NAME.toLocaleLowerCase()}`,
@@ -4113,8 +4071,6 @@ const BaseAPIFeatureSet: FeatureSet = {
         StatusPageCustomFieldService,
       ).getRouter(),
     );
-
-    app.use(`/${APP_NAME.toLocaleLowerCase()}`, NotificationAPI);
 
     // AI Observability Chat
     app.use(`/${APP_NAME.toLocaleLowerCase()}`, AIChatAPI);

@@ -219,18 +219,15 @@ export class Service extends DatabaseService<Model> {
   }
 
   /*
-   * Resolve the provider for the METERED agent path (B4 Tier 0): the
+   * Resolve the provider for the server-mediated agent path: the
    * server-mediated /ai-agent-data/llm-completion endpoint, whose calls run
-   * through AIService.executeWithLogging — logged to LlmLog, billed when the
-   * global provider is costed, and inside the daily autonomous token budget.
+   * through AIService.executeWithLogging, are logged to LlmLog, and stay
+   * inside the daily autonomous token budget.
    *
    * Because metering is universal on this path, a project-owned provider
    * still wins, but when the project owns none the shared global provider
-   * is returned ON CLOUD TOO — its usage is billed as metered AI tokens.
-   * Cloud zero-config completes: fix tasks work with no per-project
-   * provider. (The old raw-key path — get-llm-config handing the provider
-   * apiKey to the worker for unmetered direct calls — is removed; this is
-   * the only agent provider resolution left.)
+   * is returned. This lets fix tasks work with no per-project provider while
+   * keeping provider credentials on the server.
    */
   @CaptureSpan()
   public async getLlmProviderForMeteredAgentPath(

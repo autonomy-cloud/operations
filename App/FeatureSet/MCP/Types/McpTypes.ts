@@ -1,4 +1,4 @@
-import OneUptimeOperation from "./OneUptimeOperation";
+import OperationsOperation from "./OperationsOperation";
 import ModelType from "./ModelType";
 import { JSONObject } from "Common/Types/JSON";
 
@@ -45,7 +45,7 @@ export interface McpToolInfo {
   description: string;
   inputSchema: JSONSchema;
   modelName: string;
-  operation: OneUptimeOperation;
+  operation: OperationsOperation;
   modelType: ModelType;
   singularName: string;
   pluralName: string;
@@ -72,7 +72,7 @@ export type SortDirection = 1 | -1;
 // Sort object type
 export type SortObject = Record<string, SortDirection>;
 
-export interface OneUptimeToolCallArgs {
+export interface OperationsToolCallArgs {
   id?: string;
   data?: JSONObject;
   query?: JSONObject;

@@ -45,7 +45,7 @@ import IncomingMonitorRequest from "../../../Types/Monitor/IncomingMonitor/Incom
 import SqlMonitorResponse from "../../../Types/Monitor/SqlMonitor/SqlMonitorResponse";
 import MonitorType from "../../../Types/Monitor/MonitorType";
 import { CheckOn, CriteriaFilter } from "../../../Types/Monitor/CriteriaFilter";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import { JSONObject } from "../../../Types/JSON";
 import Dictionary from "../../../Types/Dictionary";
 import InBetween from "../../../Types/BaseDatabase/InBetween";
@@ -154,7 +154,7 @@ export default class MonitorCriteriaEvaluator {
         title: `${criteriaResult.met ? "Criteria met" : "Criteria not met"}: ${criteriaResult.criteriaName || "Unnamed criteria"}`,
         message: criteriaResult.message,
         relatedCriteriaId: criteriaResult.criteriaId,
-        at: OneUptimeDate.getCurrentDate(),
+        at: OperationsDate.getCurrentDate(),
       };
 
       input.evaluationSummary.events.push(criteriaEvent);
@@ -1354,13 +1354,13 @@ ${contextBlock}
     };
 
     // Time window: breach moment +- 15 minutes (or fall back to last hour).
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
     const breachTime: Date | undefined = input.ctx.breachingSample?.timestamp;
     const startTime: Date = breachTime
-      ? OneUptimeDate.addRemoveMinutes(breachTime, -30)
-      : OneUptimeDate.addRemoveHours(now, -1);
+      ? OperationsDate.addRemoveMinutes(breachTime, -30)
+      : OperationsDate.addRemoveHours(now, -1);
     const endTime: Date = breachTime
-      ? OneUptimeDate.addRemoveMinutes(breachTime, 15)
+      ? OperationsDate.addRemoveMinutes(breachTime, 15)
       : now;
 
     const urlParams: Dictionary<string> =
@@ -1578,8 +1578,8 @@ ${contextBlock}
               topResource.namespace;
           }
 
-          const now: Date = OneUptimeDate.getCurrentDate();
-          const fifteenMinutesAgo: Date = OneUptimeDate.addRemoveMinutes(
+          const now: Date = OperationsDate.getCurrentDate();
+          const fifteenMinutesAgo: Date = OperationsDate.addRemoveMinutes(
             now,
             -15,
           );

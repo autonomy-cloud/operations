@@ -1,7 +1,7 @@
 import RunCron from "../../Utils/Cron";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import logger from "Common/Server/Utils/Logger";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
 import OnCallDutyPolicySchedule from "Common/Models/DatabaseModels/OnCallDutyPolicySchedule";
 import OnCallDutyPolicyScheduleService from "Common/Server/Services/OnCallDutyPolicyScheduleService";
@@ -16,7 +16,7 @@ RunCron(
       await OnCallDutyPolicyScheduleService.findAllBy({
         query: {
           rosterHandoffAt: QueryHelper.lessThanEqualTo(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
         },
         select: {
@@ -43,7 +43,7 @@ RunCron(
       await OnCallDutyPolicyScheduleService.findAllBy({
         query: {
           rosterNextStartAt: QueryHelper.lessThanEqualTo(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
           rosterHandoffAt: QueryHelper.isNull(),
         },

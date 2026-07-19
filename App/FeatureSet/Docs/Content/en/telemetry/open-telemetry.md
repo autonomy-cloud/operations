@@ -40,21 +40,21 @@ Once you have configured the telemetry service in your application, you can inte
 
 | Environment Variable        | Value                                          |
 | --------------------------- | ---------------------------------------------- |
-| OTEL_EXPORTER_OTLP_HEADERS  | x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN |
+| OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
 | OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **Example**
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=9c8806e0-a4aa-11ee-be95-010d5967b068
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
 **Self Hosted Cast Operations**
 
-If you're self-hosting oneuptime, this can be changed to your self hosted OpenTelemetry collector endpoint (eg: `http(s)://YOUR-OPERATIONS-HOST/otlp`)
+If you're self-hosting cast-operations, this can be changed to your self hosted OpenTelemetry collector endpoint (eg: `http(s)://YOUR-OPERATIONS-HOST/otlp`)
 
 Once you run your application, you should see the logs in the Cast Operations telemetry service page. Please contact support@visca.ai if you need any help.
 
@@ -82,7 +82,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "ONEUPTIME_TOKEN" # Your Cast Operations token
+      "x-cast-operations-token": "CAST_OPERATIONS_TOKEN" # Your Cast Operations token
 
 service:
   pipelines:

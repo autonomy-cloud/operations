@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. Datadog में, **Integrations → Webhooks** पर जाएँ (यदि आपने नहीं किया है तो **Webhooks** integration install करें)।
 2. **एक webhook जोड़ें**:
 
-   - **Name**: `oneuptime` (यह `@webhook-oneuptime` बन जाता है)।
+   - **Name**: `cast-operations` (यह `@webhook-cast-operations` बन जाता है)।
    - **URL**: आपके वर्कफ़्लो का webhook URL।
    - **Payload** — Datadog आपको [template variables](https://docs.datadoghq.com/integrations/webhooks/#usage) का उपयोग करके JSON body define करने देता है:
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Webhook handle उन monitors में जोड़ें जिन्हें आप forward करना चाहते हैं। हर monitor के **notification message** में शामिल करें:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-यह alert और recovery दोनों Cast Operations को भेजता है। (सब कुछ forward करने के लिए, आप unconditionally `@webhook-oneuptime` भी monitor में जोड़ सकते हैं।)
+यह alert और recovery दोनों Cast Operations को भेजता है। (सब कुछ forward करने के लिए, आप unconditionally `@webhook-cast-operations` भी monitor में जोड़ सकते हैं।)
 
 ## चरण 4 — परीक्षण करें
 
@@ -74,7 +74,7 @@ Webhook handle उन monitors में जोड़ें जिन्हे�
 
 ## समस्या निवारण
 
-- **कोई run नहीं दिखता** — पुष्टि करें कि monitor के message में `@webhook-oneuptime` शामिल है और वर्कफ़्लो **Enabled** है।
+- **कोई run नहीं दिखता** — पुष्टि करें कि monitor के message में `@webhook-cast-operations` शामिल है और वर्कफ़्लो **Enabled** है।
 - **Fields खाली हैं** — Datadog केवल event पर लागू होने वाले template variables substitute करता है। **Logs** tab में trigger output inspect करें और अपना webhook payload adjust करें।
 - **Duplicate incidents** — एक monitor जो re-alert करता है (renotify) कई `Triggered` events भेजता है; create करने से पहले `id` पर **Find Incident** check से dedupe करें।
 

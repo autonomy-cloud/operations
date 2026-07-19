@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement, useState } from "react";
 import RangeStartAndEndDateTime from "../../../Types/Time/RangeStartAndEndDateTime";
 import TimeRange from "../../../Types/Time/TimeRange";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import IconProp from "../../../Types/Icon/IconProp";
 import { GetReactElementFunction } from "../../../UI/Types/FunctionTypes";
 import Icon from "../Icon/Icon";
@@ -47,7 +47,7 @@ const DashboardStartAndEndDateView: FunctionComponent<ComponentProps> = (
       return false;
     }
 
-    return OneUptimeDate.isAfter(
+    return OperationsDate.isAfter(
       startAndEndDate.endValue,
       startAndEndDate.startValue,
     );
@@ -67,14 +67,14 @@ const DashboardStartAndEndDateView: FunctionComponent<ComponentProps> = (
 
   const getButtonTitle: () => string = (): string => {
     if (isCustomRange) {
-      return `${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+      return `${OperationsDate.getDateAsUserFriendlyLocalFormattedString(
         props.dashboardStartAndEndDate.startAndEndDate?.startValue ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         false,
         true,
-      )} - ${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+      )} - ${OperationsDate.getDateAsUserFriendlyLocalFormattedString(
         props.dashboardStartAndEndDate.startAndEndDate?.endValue ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         false,
         true,
       )}`;

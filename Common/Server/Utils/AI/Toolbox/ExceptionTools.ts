@@ -5,7 +5,7 @@ import SortOrder from "../../../../Types/BaseDatabase/SortOrder";
 import { AIChatCitationTargetType } from "../../../../Types/AI/AIChatTypes";
 import TelemetryExceptionService from "../../../Services/TelemetryExceptionService";
 import QueryHelper from "../../../Types/Database/QueryHelper";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import ToolResultSerializer, { SerializedResult } from "./Serializer";
 import WidgetBuilder from "./WidgetBuilder";
 import {
@@ -74,8 +74,8 @@ export const TopExceptionsTool: ObservabilityTool = {
       max: 25,
     });
 
-    const since: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.getCurrentDate(),
+    const since: Date = OperationsDate.addRemoveHours(
+      OperationsDate.getCurrentDate(),
       -1 * lastSeenWithinHours,
     );
 

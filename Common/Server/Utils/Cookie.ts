@@ -5,7 +5,7 @@ import { CookieOptions } from "express";
 import JSONWebToken from "./JsonWebToken";
 import User from "../../Models/DatabaseModels/User";
 import StatusPagePrivateUser from "../../Models/DatabaseModels/StatusPagePrivateUser";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import PositiveNumber from "../../Types/PositiveNumber";
 import CookieName from "../../Types/CookieName";
 import SsoProviderType from "../../Types/SSO/SsoProviderType";
@@ -27,8 +27,10 @@ export default class CookieUtil {
   private static getSessionCookieOptions(): CookieOptions {
     if (process.env["EMBEDDED_DASHBOARD_AUTH_ENABLED"] === "true") {
       return {
-        // Embedded Operations runs on a different origin from the Cast shell.
-        // CHIPS keeps the session isolated to that top-level Cast workspace.
+        /*
+         * Embedded Operations runs on a different origin from the Cast shell.
+         * CHIPS keeps the session isolated to that top-level Cast workspace.
+         */
         sameSite: "none",
         secure: true,
         partitioned: true,
@@ -85,7 +87,7 @@ export default class CookieUtil {
           ? data.ssoProviderType.toString()
           : undefined,
       },
-      expiresInSeconds: OneUptimeDate.getSecondsInDays(new PositiveNumber(30)),
+      expiresInSeconds: OperationsDate.getSecondsInDays(new PositiveNumber(30)),
     });
   }
 
@@ -107,7 +109,7 @@ export default class CookieUtil {
     });
 
     CookieUtil.setCookie(res, CookieUtil.getUserSSOKey(projectId), ssoToken, {
-      maxAge: OneUptimeDate.getMillisecondsInDays(new PositiveNumber(30)),
+      maxAge: OperationsDate.getMillisecondsInDays(new PositiveNumber(30)),
       httpOnly: true,
     });
   }
@@ -138,7 +140,7 @@ export default class CookieUtil {
         ssoProviderId: data.ssoProviderId.toString(),
         ssoProviderType: data.ssoProviderType.toString(),
       },
-      expiresInSeconds: OneUptimeDate.getSecondsInDays(new PositiveNumber(30)),
+      expiresInSeconds: OperationsDate.getSecondsInDays(new PositiveNumber(30)),
     });
   }
 
@@ -158,7 +160,7 @@ export default class CookieUtil {
     });
 
     CookieUtil.setCookie(res, CookieUtil.getGlobalSSOKey(), globalSsoToken, {
-      maxAge: OneUptimeDate.getMillisecondsInDays(new PositiveNumber(30)),
+      maxAge: OperationsDate.getMillisecondsInDays(new PositiveNumber(30)),
       httpOnly: true,
     });
   }
@@ -218,7 +220,7 @@ export default class CookieUtil {
     if (user.id) {
       // set user id cookie
       CookieUtil.setCookie(res, CookieName.UserID, user.id!.toString(), {
-        maxAge: OneUptimeDate.getMillisecondsInDays(new PositiveNumber(30)),
+        maxAge: OperationsDate.getMillisecondsInDays(new PositiveNumber(30)),
         httpOnly: false,
       });
     }
@@ -230,7 +232,7 @@ export default class CookieUtil {
         CookieName.Email,
         user.email?.toString() || "",
         {
-          maxAge: OneUptimeDate.getMillisecondsInDays(new PositiveNumber(30)),
+          maxAge: OperationsDate.getMillisecondsInDays(new PositiveNumber(30)),
           httpOnly: false,
         },
       );
@@ -239,7 +241,7 @@ export default class CookieUtil {
     if (user.name) {
       // set user name cookie
       CookieUtil.setCookie(res, CookieName.Name, user.name?.toString() || "", {
-        maxAge: OneUptimeDate.getMillisecondsInDays(new PositiveNumber(30)),
+        maxAge: OperationsDate.getMillisecondsInDays(new PositiveNumber(30)),
         httpOnly: false,
       });
     }
@@ -251,7 +253,7 @@ export default class CookieUtil {
         CookieName.Timezone,
         user.timezone?.toString() || "",
         {
-          maxAge: OneUptimeDate.getMillisecondsInDays(new PositiveNumber(30)),
+          maxAge: OperationsDate.getMillisecondsInDays(new PositiveNumber(30)),
           httpOnly: false,
         },
       );
@@ -264,7 +266,7 @@ export default class CookieUtil {
         CookieName.IsMasterAdmin,
         user.isMasterAdmin?.toString() || "",
         {
-          maxAge: OneUptimeDate.getMillisecondsInDays(new PositiveNumber(30)),
+          maxAge: OperationsDate.getMillisecondsInDays(new PositiveNumber(30)),
           httpOnly: false,
         },
       );
@@ -277,7 +279,7 @@ export default class CookieUtil {
         CookieName.ProfilePicID,
         user.profilePictureId?.toString() || "",
         {
-          maxAge: OneUptimeDate.getMillisecondsInDays(new PositiveNumber(30)),
+          maxAge: OperationsDate.getMillisecondsInDays(new PositiveNumber(30)),
           httpOnly: false,
         },
       );
@@ -354,7 +356,7 @@ export default class CookieUtil {
         statusPageId: data.statusPageId.toString(),
         type: MASTER_PASSWORD_COOKIE_IDENTIFIER,
       },
-      OneUptimeDate.getSecondsInDays(expiresInDays),
+      OperationsDate.getSecondsInDays(expiresInDays),
     );
 
     CookieUtil.setCookie(
@@ -362,7 +364,7 @@ export default class CookieUtil {
       CookieUtil.getStatusPageMasterPasswordKey(data.statusPageId),
       token,
       {
-        maxAge: OneUptimeDate.getMillisecondsInDays(expiresInDays),
+        maxAge: OperationsDate.getMillisecondsInDays(expiresInDays),
         httpOnly: true,
       },
     );
@@ -444,7 +446,7 @@ export default class CookieUtil {
         dashboardId: data.dashboardId.toString(),
         type: DASHBOARD_MASTER_PASSWORD_COOKIE_IDENTIFIER,
       },
-      OneUptimeDate.getSecondsInDays(expiresInDays),
+      OperationsDate.getSecondsInDays(expiresInDays),
     );
 
     CookieUtil.setCookie(
@@ -452,7 +454,7 @@ export default class CookieUtil {
       CookieUtil.getDashboardMasterPasswordKey(data.dashboardId),
       token,
       {
-        maxAge: OneUptimeDate.getMillisecondsInDays(expiresInDays),
+        maxAge: OperationsDate.getMillisecondsInDays(expiresInDays),
         httpOnly: true,
       },
     );

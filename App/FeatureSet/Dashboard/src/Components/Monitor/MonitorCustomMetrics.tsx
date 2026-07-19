@@ -21,7 +21,7 @@ import AnalyticsModelAPI, {
   ListResult,
 } from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Search from "Common/Types/BaseDatabase/Search";
 
 export interface ComponentProps {
@@ -53,11 +53,11 @@ const MonitorCustomMetrics: FunctionComponent<ComponentProps> = (
               primaryEntityId: props.monitorId,
               name: new Search("custom.monitor.") as any,
               time: new InBetween(
-                OneUptimeDate.addRemoveDays(
-                  OneUptimeDate.getCurrentDate(),
+                OperationsDate.addRemoveDays(
+                  OperationsDate.getCurrentDate(),
                   -30,
                 ),
-                OneUptimeDate.getCurrentDate(),
+                OperationsDate.getCurrentDate(),
               ) as any,
             },
             select: {
@@ -141,7 +141,7 @@ const MonitorCustomMetrics: FunctionComponent<ComponentProps> = (
         id="no-custom-metrics"
         icon={IconProp.ChartBar}
         title="No Custom Metrics"
-        description="No custom metrics have been captured yet. Use oneuptime.captureMetric() in your monitor script to capture custom metrics."
+        description="No custom metrics have been captured yet. Use cast-operations.captureMetric() in your monitor script to capture custom metrics."
       />
     );
   }
@@ -149,7 +149,7 @@ const MonitorCustomMetrics: FunctionComponent<ComponentProps> = (
   return (
     <EmbeddedMetricCard
       title="Custom Metrics"
-      description="Custom metrics captured from your monitor script using oneuptime.captureMetric()."
+      description="Custom metrics captured from your monitor script using cast-operations.captureMetric()."
       queryConfigs={getQueryConfigs()}
     />
   );

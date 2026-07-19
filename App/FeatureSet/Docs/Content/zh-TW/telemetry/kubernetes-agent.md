@@ -16,7 +16,7 @@ Cast Operations Kubernetes Agent 是一個預先封裝好的 Helm chart，會在
 ## 步驟 1 — 加入 Cast Operations Helm Repository
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 ```
 
@@ -34,27 +34,27 @@ helm repo update
 
 ## 步驟 3 — 安裝 Kubernetes Agent
 
-請將 `YOUR_ONEUPTIME_URL`、`YOUR_ONEUPTIME_API_KEY` 以及叢集名稱替換為您環境中的對應值。叢集名稱是此叢集在 Cast Operations 中顯示的方式——請選一個穩定的名稱，例如 `prod-us-east-1`。
+請將 `YOUR_CAST_OPERATIONS_URL`、`YOUR_CAST_OPERATIONS_API_KEY` 以及叢集名稱替換為您環境中的對應值。叢集名稱是此叢集在 Cast Operations 中顯示的方式——請選一個穩定的名稱，例如 `prod-us-east-1`。
 
 ### 標準叢集（自行管理、EKS on EC2、GKE Standard、AKS）
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster"
 ```
 
 ### GKE Autopilot
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set preset=gke-autopilot
 ```
@@ -62,11 +62,11 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 ### EKS Fargate
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set preset=eks-fargate
 ```
@@ -76,7 +76,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 檢查 agent 的 Pod 是否正在執行：
 
 ```bash
-kubectl get pods -n oneuptime-agent
+kubectl get pods -n cast-operations-agent
 ```
 
 在**標準**叢集上，您會看到一個 cluster-collector Deployment，外加每個節點各一個 node-collector DaemonSet Pod：
@@ -123,11 +123,11 @@ kubernetes-agent-logs-yyyyyyyyyy-yyyyy        1/1     Running   0          1m
 若要將 Pod 日誌與 eBPF 探索限制在指定命名空間：
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["default","production","staging"],"scopes":["podLogs","ebpfDiscovery"]}]'
 ```
@@ -220,8 +220,8 @@ podLogs 與 ebpfDiscovery 規則會在來源端篩選：被排除的日誌檔案
 本頁上的其他每一個開關都會移除某個**類別**的遙測資料——一個 namespace、一個嚴重性、一個指標名稱。取樣則不同：它會保留每一個類別，改為將母體變稀疏。請將 `sampling.traces.percentage` 設為您想保留的追蹤比例：
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --reuse-values \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --reuse-values \
   --set sampling.traces.percentage=10
 ```
 
@@ -256,11 +256,11 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 如果您不需要 Pod 日誌：
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set logs.enabled=false
 ```
@@ -287,11 +287,11 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 對於自行管理的叢集（非 EKS / GKE / AKS），您可以啟用 control plane 指標：
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set controlPlane.enabled=true
 ```
@@ -300,29 +300,29 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
 ### 以專案標籤自動標記
 
-任何以 `oneuptime.label.` 為前綴的 resource attribute 都會被提升為專案 Label，並附加到由此 agent 發出的叢集、服務與主機上。模式：`oneuptime.label.<dimension>=<value>` 會變成名為 `<dimension>:<value>` 的標籤。
+任何以 `cast-operations.label.` 為前綴的 resource attribute 都會被提升為專案 Label，並附加到由此 agent 發出的叢集、服務與主機上。模式：`cast-operations.label.<dimension>=<value>` 會變成名為 `<dimension>:<value>` 的標籤。
 
-在安裝時使用 `--set oneuptime.labels.<key>=<value>` 傳入標籤：
+在安裝時使用 `--set cast-operations.labels.<key>=<value>` 傳入標籤：
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="prod" \
-  --set oneuptime.labels.team=payments \
-  --set oneuptime.labels.env=production \
-  --set oneuptime.labels.region=us-east-1
+  --set cast-operations.labels.team=payments \
+  --set cast-operations.labels.env=production \
+  --set cast-operations.labels.region=us-east-1
 ```
 
 或將它們保存在 values 檔案中：
 
 ```yaml
 # values.yaml
-oneuptime:
-  url: YOUR_ONEUPTIME_URL
-  apiKey: YOUR_ONEUPTIME_API_KEY
+cast-operations:
+  url: YOUR_CAST_OPERATIONS_URL
+  apiKey: YOUR_CAST_OPERATIONS_API_KEY
   labels:
     team: payments
     env: production
@@ -336,8 +336,8 @@ clusterName: prod
 
 ```bash
 helm repo update
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --reuse-values
 ```
 
@@ -346,8 +346,8 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 ## 解除安裝 Agent
 
 ```bash
-helm uninstall kubernetes-agent --namespace oneuptime-agent
-kubectl delete namespace oneuptime-agent
+helm uninstall kubernetes-agent --namespace cast-operations-agent
+kubectl delete namespace cast-operations-agent
 ```
 
 ## 會收集哪些資料
@@ -381,11 +381,11 @@ kubectl delete namespace oneuptime-agent
 - 您已經從應用程式透過 OpenTelemetry SDK 傳送追蹤，並且不想要重複資料。
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set ebpf.enabled=false
 ```
@@ -429,8 +429,8 @@ agent 在開箱即用時是為了**涵蓋範圍**而調校的——它會傳送�
 - **只需要特定命名空間的日誌嗎？請使用作用域為 podLogs 的 include 規則。比對發生在日誌來源，因此被篩選的命名空間不會被讀取，而 eBPF 遙測保持獨立。**
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["default","production"],"scopes":["podLogs"]}]'
   ```
 
@@ -439,8 +439,8 @@ agent 在開箱即用時是為了**涵蓋範圍**而調校的——它會傳送�
 - **只在意警告與錯誤？** `filters.logs.minSeverity` 會在 agent 端捨棄其餘的日誌。在一個話很多的叢集上，這往往是可用的單一最大縮減幅度，因為 INFO 與 DEBUG 佔了大多數應用程式輸出的絕大部分：
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set filters.logs.minSeverity=WARN
   ```
 
@@ -449,8 +449,8 @@ agent 在開箱即用時是為了**涵蓋範圍**而調校的——它會傳送�
 - **完全不需要 Cast Operations 的 Pod 日誌？** 將它們關閉：
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set logs.enabled=false
   ```
 
@@ -463,16 +463,16 @@ eBPF 讓您無需修改程式碼即可取得追蹤、RED 指標、service map �
 - **已經從 OTel SDK 傳送追蹤，或不想要自動追蹤？** 將 eBPF 完全關閉：
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set ebpf.enabled=false
   ```
 
 - **保留追蹤，捨棄較重的指標族群。** 上方的[訊號族群表格](#切換個別的訊號族群)列出了每個 `ebpf.features.*` 旗標。資料量最高的族群是網路與 span 指標——將它們關閉後，追蹤、HTTP RED 指標與 service map 仍會保持完整：
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set ebpf.features.networkMetrics=false \
     --set ebpf.features.tcpStats=false \
     --set ebpf.features.spanMetrics=false
@@ -483,8 +483,8 @@ eBPF 讓您無需修改程式碼即可取得追蹤、RED 指標、service map �
 - **只 instrument 您關心的執行階段。** OBI 預設會掛接到它辨識的每個處理程序（`ebpf.autoTargetExe: "*"`）。將它縮小到特定執行階段，或將二進位檔加入略過清單，以減少 agent 產生的「服務」與追蹤數量：
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set ebpf.autoTargetExe='*/python,*/java'
   ```
 
@@ -495,8 +495,8 @@ eBPF 讓您無需修改程式碼即可取得追蹤、RED 指標、service map �
 指標資料量與 agent 抓取的頻率成正比。將間隔加倍大約會使該指標產生的資料點數量減半，且不會損失涵蓋範圍——只是解析度較粗。如果您不需要 30 秒的精細度，60s 或 120s 是一個幅度大又安全的縮減：
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --reuse-values \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --reuse-values \
   --set collectionInterval=60s \
   --set hostMetrics.collectionInterval=60s \
   --set cadvisor.scrapeInterval=60s
@@ -523,8 +523,8 @@ Cardinality（不同時間序列的數量）與頻率同樣重要，因為每個
 - **依名稱捨棄特定指標。** 上方的允許清單是依每個 receiver 各自運作的；`filters.metrics.exclude` 則會橫跨所有 receiver，因此對於 receiver 層級的開關無法表達的任何情況，請使用它：
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set filters.metrics.matchType=regexp \
     --set-json 'filters.metrics.exclude=["^container_network_"]'
   ```
@@ -534,8 +534,8 @@ Cardinality（不同時間序列的數量）與頻率同樣重要，因為每個
 - **要捨棄整個命名空間的指標嗎？請新增作用域為 metrics 的 exclude 規則。每個 Pod 與容器的序列會被篩選，不帶命名空間的節點與叢集序列則會保留。**
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set-json 'namespaceFilters.rules=[{"action":"exclude","namespaces":["noisy-*"],"scopes":["metrics"]}]'
   ```
 
@@ -557,8 +557,8 @@ Cardinality（不同時間序列的數量）與頻率同樣重要，因為每個
 上述每個槓桿都是靠放棄某些東西來換取資料量：一個您不再關注的 namespace、一個您不再保留的嚴重性、一個您不再收集的指標族群。取樣是例外，而在繁忙的叢集上，它往往是以最小的損失所能取得的最大幅削減：
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --reuse-values \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --reuse-values \
   --set sampling.traces.percentage=10
 ```
 
@@ -581,9 +581,9 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 ```yaml
 # lean-values.yaml
-oneuptime:
-  url: YOUR_ONEUPTIME_URL
-  apiKey: YOUR_ONEUPTIME_API_KEY
+cast-operations:
+  url: YOUR_CAST_OPERATIONS_URL
+  apiKey: YOUR_CAST_OPERATIONS_API_KEY
 clusterName: my-cluster
 
 # 將指標資料點減半。解析度較粗，但涵蓋範圍相同。
@@ -621,8 +621,8 @@ ebpf:
 ```
 
 ```bash
-helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --create-namespace \
+helm upgrade --install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --create-namespace \
   -f lean-values.yaml
 ```
 
@@ -640,7 +640,7 @@ helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
 >
 > ```bash
 > curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
->   | bash -s -- -n oneuptime-agent
+>   | bash -s -- -n cast-operations-agent
 > ```
 >
 > 它只會讀取叢集狀態並執行幾個探測；它不會改變任何東西。若要進行最準確的對外連線（egress）測試，請先以 `--set debug.enabled=true` 安裝（這會在 agent 的 Pod 中加入一個小型的 network-tools sidecar，讓指令碼測試 collector 的確切對外路徑），然後重新執行。
@@ -650,8 +650,8 @@ helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
 您的叢集封鎖了 `hostPath`——在 **GKE Autopilot** 與 **EKS Fargate** 上很常見。請切換到 API 模式的 preset：
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --reuse-values \
   --set preset=gke-autopilot   # or eks-fargate
 ```
@@ -662,20 +662,20 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 最常見的原因——尤其是在重新安裝之後——是**錯誤或已撤銷的 ingestion key**。這很容易被忽略，因為 OTLP 接收端點即使對於錯誤的 token 也會刻意回傳 HTTP `200`（如此一來，設定錯誤的 collector 才不會用重試風暴轟炸伺服器）。結果就是：collector 回報成功、它的日誌顯示沒有錯誤，而資料卻被默默丟棄。
 
-1. 檢查 agent 的 Pod 是否正在執行：`kubectl get pods -n oneuptime-agent`
-2. 檢查 metrics-collector 日誌：`kubectl logs -n oneuptime-agent -l component=metrics-collector -c otel-collector`（此處沒有錯誤**並不**代表資料有抵達——見上文）
+1. 檢查 agent 的 Pod 是否正在執行：`kubectl get pods -n cast-operations-agent`
+2. 檢查 metrics-collector 日誌：`kubectl logs -n cast-operations-agent -l component=metrics-collector -c otel-collector`（此處沒有錯誤**並不**代表資料有抵達——見上文）
 3. **驗證 ingestion key。** 直接向 Cast Operations 詢問您的 token 是否被接受（`200` = 有效，`401` = 未知/已撤銷）：
 
    ```bash
-   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
    ```
 
    如果它回傳 `401`，表示您 release 中的 key 是錯誤的或已被撤銷。請從 _Project Settings → Telemetry Ingestion Keys_ 複製一個有效的 key 並重新部署：
 
    ```bash
-   helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-     --namespace oneuptime-agent --reuse-values \
-     --set oneuptime.apiKey=<LIVE_KEY>
+   helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+     --namespace cast-operations-agent --reuse-values \
+     --set cast-operations.apiKey=<LIVE_KEY>
    ```
 
 4. 確認您的 Cast Operations URL 正確，且您的叢集能透過網路連到它。
@@ -683,9 +683,9 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 ### 沒有日誌出現（僅限 API 模式）
 
-1. 確認日誌追蹤 Pod 已 Ready：`kubectl get pods -n oneuptime-agent -l component=log-collector`
+1. 確認日誌追蹤 Pod 已 Ready：`kubectl get pods -n cast-operations-agent -l component=log-collector`
 2. 檢查它的 `/healthz`——它會回報作用中的串流數量以及最後一次匯出錯誤
-3. 檢查日誌：`kubectl logs -n oneuptime-agent deployment/kubernetes-agent-logs`
+3. 檢查日誌：`kubectl logs -n cast-operations-agent deployment/kubernetes-agent-logs`
 4. 對於超大型叢集，單一副本可能成為瓶頸；請在 namespaceFilters.rules 中使用 podLogs 作用域的 include 規則，將不同 release 分片。
 
 ### 沒有指標出現
@@ -698,7 +698,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 ### eBPF Pod 處於 CrashLoopBackOff 或無法啟動
 
 ```bash
-kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-agent -l component=ebpf-instrument --tail=200
 ```
 
 常見原因：
@@ -709,8 +709,8 @@ kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
 
 ### 沒有應用程式追蹤出現
 
-1. 確認 eBPF DaemonSet 健康：`kubectl get pods -n oneuptime-agent -l component=ebpf-instrument`
-2. 開啟 debug 追蹤列印器以確認 OBI 正在擷取流量：`--set ebpf.printTraces=true --set ebpf.logLevel=debug`，然後檢查 `kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200`
+1. 確認 eBPF DaemonSet 健康：`kubectl get pods -n cast-operations-agent -l component=ebpf-instrument`
+2. 開啟 debug 追蹤列印器以確認 OBI 正在擷取流量：`--set ebpf.printTraces=true --set ebpf.logLevel=debug`，然後檢查 `kubectl logs -n cast-operations-agent -l component=ebpf-instrument --tail=200`
 3. 如果您在 OBI 的 stdout 中看到 span，但在儀表板中卻看不到，那麼問題出在 collector → Cast Operations 的匯出——請檢查 metrics-collector Pod 的日誌。
 
 ## 後續步驟

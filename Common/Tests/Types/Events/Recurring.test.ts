@@ -1,4 +1,4 @@
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import EventInterval from "../../../Types/Events/EventInterval";
 import Recurring from "../../../Types/Events/Recurring";
 import BadDataException from "../../../Types/Exception/BadDataException";
@@ -6,7 +6,7 @@ import { JSONObject, ObjectType } from "../../../Types/JSON";
 import PositiveNumber from "../../../Types/PositiveNumber";
 
 describe("Recurring", () => {
-  const baseDate: Date = OneUptimeDate.fromString("2020-01-01T00:00:00.000Z");
+  const baseDate: Date = OperationsDate.fromString("2020-01-01T00:00:00.000Z");
 
   const makeRecurring: (
     intervalType: EventInterval,
@@ -47,7 +47,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveHours(baseDate, 2).getTime(),
+        OperationsDate.addRemoveHours(baseDate, 2).getTime(),
       );
     });
 
@@ -58,7 +58,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveDays(baseDate, 3).getTime(),
+        OperationsDate.addRemoveDays(baseDate, 3).getTime(),
       );
     });
 
@@ -69,7 +69,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveDays(baseDate, 14).getTime(),
+        OperationsDate.addRemoveDays(baseDate, 14).getTime(),
       );
     });
 
@@ -80,7 +80,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveMonths(baseDate, 1).getTime(),
+        OperationsDate.addRemoveMonths(baseDate, 1).getTime(),
       );
     });
 
@@ -91,7 +91,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveYears(baseDate, 1).getTime(),
+        OperationsDate.addRemoveYears(baseDate, 1).getTime(),
       );
     });
 
@@ -103,7 +103,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveDays(baseDate, -1).getTime(),
+        OperationsDate.addRemoveDays(baseDate, -1).getTime(),
       );
     });
 
@@ -114,7 +114,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveHours(baseDate, 2).getTime(),
+        OperationsDate.addRemoveHours(baseDate, 2).getTime(),
       );
     });
 
@@ -125,7 +125,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveDays(baseDate, 3).getTime(),
+        OperationsDate.addRemoveDays(baseDate, 3).getTime(),
       );
     });
 
@@ -136,7 +136,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveDays(baseDate, 14).getTime(),
+        OperationsDate.addRemoveDays(baseDate, 14).getTime(),
       );
     });
 
@@ -147,7 +147,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveMonths(baseDate, 2).getTime(),
+        OperationsDate.addRemoveMonths(baseDate, 2).getTime(),
       );
     });
 
@@ -158,7 +158,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBe(
-        OneUptimeDate.addRemoveYears(baseDate, 2).getTime(),
+        OperationsDate.addRemoveYears(baseDate, 2).getTime(),
       );
     });
 
@@ -174,8 +174,8 @@ describe("Recurring", () => {
 
   describe("getNextDate", () => {
     test("returns a future start date unchanged", () => {
-      const futureDate: Date = OneUptimeDate.addRemoveDays(
-        OneUptimeDate.getCurrentDate(),
+      const futureDate: Date = OperationsDate.addRemoveDays(
+        OperationsDate.getCurrentDate(),
         5,
       );
 
@@ -188,8 +188,8 @@ describe("Recurring", () => {
     });
 
     test("advances a past start date to the future", () => {
-      const pastDate: Date = OneUptimeDate.addRemoveDays(
-        OneUptimeDate.getCurrentDate(),
+      const pastDate: Date = OperationsDate.addRemoveDays(
+        OperationsDate.getCurrentDate(),
         -10,
       );
 
@@ -200,14 +200,14 @@ describe("Recurring", () => {
 
       expect(next.getTime()).toBeGreaterThan(pastDate.getTime());
       expect(next.getTime()).toBeGreaterThanOrEqual(
-        OneUptimeDate.getCurrentDate().getTime() - 1000,
+        OperationsDate.getCurrentDate().getTime() - 1000,
       );
     });
 
     test("advances a past start date by whole hourly intervals", () => {
       const intervalMillis: number = 2 * 3600000;
       const pastDate: Date = new Date(
-        OneUptimeDate.getCurrentDate().getTime() - intervalMillis * 5,
+        OperationsDate.getCurrentDate().getTime() - intervalMillis * 5,
       );
 
       const next: Date = Recurring.getNextDate(
@@ -216,7 +216,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBeGreaterThanOrEqual(
-        OneUptimeDate.getCurrentDate().getTime() - 1000,
+        OperationsDate.getCurrentDate().getTime() - 1000,
       );
       expect((next.getTime() - pastDate.getTime()) % intervalMillis).toBe(0);
     });
@@ -224,7 +224,7 @@ describe("Recurring", () => {
     test("advances a past start date by whole weekly intervals", () => {
       const intervalMillis: number = 604800000;
       const pastDate: Date = new Date(
-        OneUptimeDate.getCurrentDate().getTime() - intervalMillis * 3,
+        OperationsDate.getCurrentDate().getTime() - intervalMillis * 3,
       );
 
       const next: Date = Recurring.getNextDate(
@@ -233,7 +233,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBeGreaterThanOrEqual(
-        OneUptimeDate.getCurrentDate().getTime() - 1000,
+        OperationsDate.getCurrentDate().getTime() - 1000,
       );
       expect((next.getTime() - pastDate.getTime()) % intervalMillis).toBe(0);
     });
@@ -241,7 +241,7 @@ describe("Recurring", () => {
     test("advances a past start date by whole monthly intervals", () => {
       const intervalMillis: number = 2629800000;
       const pastDate: Date = new Date(
-        OneUptimeDate.getCurrentDate().getTime() - intervalMillis * 4,
+        OperationsDate.getCurrentDate().getTime() - intervalMillis * 4,
       );
 
       const next: Date = Recurring.getNextDate(
@@ -250,7 +250,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBeGreaterThanOrEqual(
-        OneUptimeDate.getCurrentDate().getTime() - 1000,
+        OperationsDate.getCurrentDate().getTime() - 1000,
       );
       expect((next.getTime() - pastDate.getTime()) % intervalMillis).toBe(0);
     });
@@ -258,7 +258,7 @@ describe("Recurring", () => {
     test("advances a past start date by whole yearly intervals", () => {
       const intervalMillis: number = 31557600000;
       const pastDate: Date = new Date(
-        OneUptimeDate.getCurrentDate().getTime() - intervalMillis * 2,
+        OperationsDate.getCurrentDate().getTime() - intervalMillis * 2,
       );
 
       const next: Date = Recurring.getNextDate(
@@ -267,7 +267,7 @@ describe("Recurring", () => {
       );
 
       expect(next.getTime()).toBeGreaterThanOrEqual(
-        OneUptimeDate.getCurrentDate().getTime() - 1000,
+        OperationsDate.getCurrentDate().getTime() - 1000,
       );
       expect((next.getTime() - pastDate.getTime()) % intervalMillis).toBe(0);
     });
@@ -279,9 +279,9 @@ describe("Recurring", () => {
        * otherwise a sub-millisecond gap between the two clock reads makes diff a
        * tiny positive number and Math.ceil() rounds it up to a full extra day.
        */
-      const now: Date = OneUptimeDate.fromString("2023-01-01T00:00:00.000Z");
+      const now: Date = OperationsDate.fromString("2023-01-01T00:00:00.000Z");
       const getCurrentDateSpy: jest.SpyInstance = jest
-        .spyOn(OneUptimeDate, "getCurrentDate")
+        .spyOn(OperationsDate, "getCurrentDate")
         .mockReturnValue(now);
 
       try {
@@ -298,8 +298,8 @@ describe("Recurring", () => {
     });
 
     test("throws BadDataException for an unknown interval type when the start date is in the past", () => {
-      const pastDate: Date = OneUptimeDate.addRemoveDays(
-        OneUptimeDate.getCurrentDate(),
+      const pastDate: Date = OperationsDate.addRemoveDays(
+        OperationsDate.getCurrentDate(),
         -10,
       );
 
@@ -312,8 +312,8 @@ describe("Recurring", () => {
     });
 
     test("does not reach the interval switch for a future start date even with an unknown interval type", () => {
-      const futureDate: Date = OneUptimeDate.addRemoveDays(
-        OneUptimeDate.getCurrentDate(),
+      const futureDate: Date = OperationsDate.addRemoveDays(
+        OperationsDate.getCurrentDate(),
         5,
       );
 

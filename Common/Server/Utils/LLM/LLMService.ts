@@ -65,7 +65,7 @@ export interface LLMUsage {
   totalTokens: number;
   /*
    * Prompt-caching breakdown, when the provider reports it. cachedInputTokens
-   * are input tokens served from cache (billed at a large discount);
+   * are input tokens served from cache;
    * cacheCreationTokens are input tokens written to the cache on this call.
    */
   cachedInputTokens?: number | undefined;
@@ -1178,7 +1178,7 @@ export default class LLMService {
     /*
      * Prompt caching. The system prompt and tool definitions are the large,
      * stable prefix re-sent on every turn of the agent loop, so caching them is
-     * the biggest single cost + latency lever (cached input is billed at ~10%).
+     * the biggest single cost and latency lever.
      * An ephemeral cache_control breakpoint on the system block and on the LAST
      * tool caches the whole system + tools prefix. cache_control is GA under
      * anthropic-version 2023-06-01, so no beta header is required.
@@ -1427,7 +1427,7 @@ export default class LLMService {
      * Ollama reports token counts on the final /api/chat response as
      * prompt_eval_count (input) and eval_count (output). Populate usage from
      * them so LlmLog, the AI dashboards and (costed self-hosted Ollama)
-     * billing are not silently blind to token spend.
+     * cost observability is not silently blind to token spend.
      */
     const ollamaPromptTokens: number =
       (jsonData["prompt_eval_count"] as number) || 0;

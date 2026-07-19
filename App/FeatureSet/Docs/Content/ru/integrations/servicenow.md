@@ -50,7 +50,7 @@ Table API ServiceNow принимает **Basic auth**.
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
-       "correlation_id": "oneuptime-{{Incident._id}}"
+       "correlation_id": "cast-operations-{{Incident._id}}"
      }
      ```
 
@@ -61,7 +61,7 @@ Table API ServiceNow принимает **Basic auth**.
 ## Шаг 3 — Разрешение при разрешении в Cast Operations (опционально)
 
 1. Создайте **второй** рабочий процесс с триггером **Incident → On Update** и блоком **Conditions**, проверяющим, что инцидент разрешён.
-2. Чтобы обновить нужную запись ServiceNow, вам потребуется её `sys_id`. Либо сохраните его в инциденте Cast Operations на Шаге 2 (прочитайте `{{CreateRecord.response-body.result.sys_id}}` и запишите в метку через **Update Incident**), либо найдите запись через `GET` на `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}`.
+2. Чтобы обновить нужную запись ServiceNow, вам потребуется её `sys_id`. Либо сохраните его в инциденте Cast Operations на Шаге 2 (прочитайте `{{CreateRecord.response-body.result.sys_id}}` и запишите в метку через **Update Incident**), либо найдите запись через `GET` на `/api/now/table/incident?sysparm_query=correlation_id=cast-operations-{{Incident._id}}`.
 3. Добавьте блок **API**: **Method** `PATCH`, **URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`, тело `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }` (`state` `6` = Resolved в стандартном ITIL-процессе).
 
 ## Устранение неполадок

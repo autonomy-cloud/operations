@@ -1,7 +1,3 @@
-import {
-  IsBillingEnabled,
-  getAllEnvVars,
-} from "../../../Server/EnvironmentConfig";
 import DatabaseRequestType from "../BaseDatabase/DatabaseRequestType";
 import Query from "./Query";
 import Select from "./Select";
@@ -10,20 +6,17 @@ import BaseModel, {
   AnalyticsBaseModelType,
 } from "../../../Models/AnalyticsModels/AnalyticsBaseModel/AnalyticsBaseModel";
 import AnalyticsTableColumn from "../../../Types/AnalyticsDatabase/TableColumn";
-import ColumnBillingAccessControl from "../../../Types/BaseDatabase/ColumnBillingAccessControl";
 import DatabaseCommonInteractionProps from "../../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import DatabaseCommonInteractionPropsUtil, {
   PermissionType,
 } from "../../../Types/BaseDatabase/DatabaseCommonInteractionPropsUtil";
 import Includes from "../../../Types/BaseDatabase/Includes";
-import SubscriptionPlan from "../../../Types/Billing/SubscriptionPlan";
 import PermissionScope from "../../../Types/Database/AccessControl/PermissionScope";
 import Columns from "../../../Types/Database/Columns";
 import LIMIT_MAX from "../../../Types/Database/LimitMax";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import NotAuthenticatedException from "../../../Types/Exception/NotAuthenticatedException";
 import NotAuthorizedException from "../../../Types/Exception/NotAuthorizedException";
-import PaymentRequiredException from "../../../Types/Exception/PaymentRequiredException";
 import ObjectID from "../../../Types/ObjectID";
 import Permission, {
   PermissionHelper,
@@ -204,68 +197,6 @@ export default class ModelPermission {
         throw new BadDataException(
           `User is not allowed to ${requestType} on ${key} column of ${model.singularName}`,
         );
-      }
-
-      const billingAccessControl: ColumnBillingAccessControl | null =
-        model.getColumnBillingAccessControl(key);
-
-      if (IsBillingEnabled && props.currentPlan && billingAccessControl) {
-        if (
-          requestType === DatabaseRequestType.Create &&
-          billingAccessControl.create
-        ) {
-          if (
-            !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-              billingAccessControl.create,
-              props.currentPlan,
-              getAllEnvVars(),
-            )
-          ) {
-            throw new PaymentRequiredException(
-              "Please upgrade your plan to " +
-                billingAccessControl.create +
-                " to access this feature",
-            );
-          }
-        }
-
-        if (
-          requestType === DatabaseRequestType.Read &&
-          billingAccessControl.read
-        ) {
-          if (
-            !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-              billingAccessControl.read,
-              props.currentPlan,
-              getAllEnvVars(),
-            )
-          ) {
-            throw new PaymentRequiredException(
-              "Please upgrade your plan to " +
-                billingAccessControl.read +
-                " to access this feature",
-            );
-          }
-        }
-
-        if (
-          requestType === DatabaseRequestType.Update &&
-          billingAccessControl.update
-        ) {
-          if (
-            !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-              billingAccessControl.update,
-              props.currentPlan,
-              getAllEnvVars(),
-            )
-          ) {
-            throw new PaymentRequiredException(
-              "Please upgrade your plan to " +
-                billingAccessControl.update +
-                " to access this feature",
-            );
-          }
-        }
       }
     }
   }
@@ -1211,97 +1142,6 @@ export default class ModelPermission {
           new modelType().singularName
         }. You need one of these permissions: ${permissions.join(", ")}`,
       );
-    }
-
-    /// Check billing permissions.
-
-    if (IsBillingEnabled && props.currentPlan) {
-      const model: BaseModel = new modelType();
-
-      if (
-        props.isSubscriptionUnpaid &&
-        !model.allowAccessIfSubscriptionIsUnpaid
-      ) {
-        throw new PaymentRequiredException(
-          "Your current subscription is in an unpaid state. Looks like your payment method failed. Please add a new payment method in Project Settings > Invoices to pay unpaid invoices.",
-        );
-      }
-
-      if (
-        type === DatabaseRequestType.Create &&
-        model.tableBillingAccessControl?.create
-      ) {
-        if (
-          !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-            model.tableBillingAccessControl.create,
-            props.currentPlan,
-            getAllEnvVars(),
-          )
-        ) {
-          throw new PaymentRequiredException(
-            "Please upgrade your plan to " +
-              model.tableBillingAccessControl.create +
-              " to access this feature",
-          );
-        }
-      }
-
-      if (
-        type === DatabaseRequestType.Update &&
-        model.tableBillingAccessControl?.update
-      ) {
-        if (
-          !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-            model.tableBillingAccessControl.update,
-            props.currentPlan,
-            getAllEnvVars(),
-          )
-        ) {
-          throw new PaymentRequiredException(
-            "Please upgrade your plan to " +
-              model.tableBillingAccessControl.create +
-              " to access this feature",
-          );
-        }
-      }
-
-      if (
-        type === DatabaseRequestType.Delete &&
-        model.tableBillingAccessControl?.delete
-      ) {
-        if (
-          !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-            model.tableBillingAccessControl.delete,
-            props.currentPlan,
-            getAllEnvVars(),
-          )
-        ) {
-          throw new PaymentRequiredException(
-            "Please upgrade your plan to " +
-              model.tableBillingAccessControl.create +
-              " to access this feature",
-          );
-        }
-      }
-
-      if (
-        type === DatabaseRequestType.Read &&
-        model.tableBillingAccessControl?.read
-      ) {
-        if (
-          !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-            model.tableBillingAccessControl?.read,
-            props.currentPlan,
-            getAllEnvVars(),
-          )
-        ) {
-          throw new PaymentRequiredException(
-            "Please upgrade your plan to " +
-              model.tableBillingAccessControl?.read +
-              " to access this feature",
-          );
-        }
-      }
     }
   }
 }

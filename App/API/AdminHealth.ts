@@ -20,7 +20,7 @@ import Express, {
 } from "Common/Server/Utils/Express";
 import logger from "Common/Server/Utils/Logger";
 import Response from "Common/Server/Utils/Response";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { JSONArray, JSONObject, JSONValue } from "Common/Types/JSON";
 import {
@@ -2704,8 +2704,8 @@ const TELEMETRY_INGESTION_TABLES: Array<{
  * (e.g. an instance that only ingests logs) degrades gracefully. Alongside the
  * counts it reports each table's total ACTUAL (uncompressed) data volume read
  * from system.parts metadata — the real data size, not the compressed
- * bytes_on_disk. No row data is read — only counts and size metadata. Enterprise
- * Edition + master-admin gated at the route.
+ * bytes_on_disk. No row data is read — only counts and size metadata. Access is
+ * restricted to master administrators at the route.
  */
 async function getClickhouseTelemetryIngestion(): Promise<JSONObject> {
   const result: JSONObject = {
@@ -3441,7 +3441,7 @@ router.get(
 /*
  * Recent failed jobs for a single queue, fetched on demand by the health
  * dashboard when an operator expands a queue. Like the overview it backs, it is
- * an Enterprise Edition feature and master-admin only. Each job includes its
+ * restricted to master administrators. Each job includes its
  * full (redacted, size-capped) body, options, return value and per-job logs for
  * debugging — see redactFullFailedJob. Sensitive-looking fields and credential
  * patterns are scrubbed, but the body can still contain customer data.
@@ -3488,7 +3488,7 @@ router.get(
  * Diagnostic logs for the health dashboard: this app instance's own recent log
  * lines plus what we can read from the datastores (Postgres log tail when
  * collected, ClickHouse system-table errors/logs, Redis SLOWLOG + counters).
- * Enterprise Edition + master-admin only, matching the overview it sits beside.
+ * Restricted to master administrators, matching the overview it sits beside.
  * Everything is scrubbed for credentials but logs can contain customer data.
  */
 router.get(
@@ -3513,8 +3513,8 @@ router.get(
  * distributed-DDL queue, replica / replication-queue state and the Keeper
  * connection — the signals that reveal a wedged ON CLUSTER schema sync (where
  * the migrate Job or boot schema-sync times
- * out because a DDL task never finishes on some shards). Enterprise Edition +
- * master-admin only, like the overview and logs beside it. Reuses the support
+ * out because a DDL task never finishes on some shards). Restricted to master
+ * administrators, like the overview and logs beside it. Reuses the support
  * bundle's diagnostics so the dashboard and the downloaded bundle never disagree.
  */
 router.get(
@@ -3544,7 +3544,7 @@ router.get(
  * Telemetry ingestion rate for the dashboard: how many log / metric / trace rows
  * landed in ClickHouse over the last minute, hour and day, so an operator can
  * see the live ingestion throughput and spot a stalled or flooding pipeline.
- * Enterprise Edition + master-admin only, like the ClickHouse cluster endpoint
+ * Restricted to master administrators, like the ClickHouse cluster endpoint
  * beside it. Counts only — no telemetry row data leaves the process.
  */
 router.get(
@@ -3568,8 +3568,8 @@ router.get(
  * Postgres cluster health for the dashboard: streaming-replication lag, slot
  * health, connection saturation, lock/blocking pressure, cache-hit ratio and
  * transaction-ID wraparound headroom — the signals behind a failed
- * CloudNativePG failover or a stalled primary. Enterprise Edition + master-admin
- * only, like the ClickHouse cluster endpoint beside it. Reuses the same probe
+ * CloudNativePG failover or a stalled primary. Restricted to master
+ * administrators, like the ClickHouse cluster endpoint beside it. Reuses the same probe
  * used by the support bundle so the dashboard and the downloaded bundle agree.
  */
 router.get(
@@ -3615,10 +3615,9 @@ router.get(
 );
 
 /*
- * Migration status is intentionally NOT gated behind the Enterprise Edition:
- * every self-hosting operator (Community included) needs to confirm their
- * schema is fully migrated, and this is the data we ask them for when they
- * report an upgrade problem.
+ * Migration status for master administrators. Every self-hosting operator needs
+ * to confirm their schema is fully migrated, and this is the data we ask them
+ * for when they report an upgrade problem.
  */
 router.get(
   "/migrations",
@@ -3646,8 +3645,8 @@ router.get(
  * asked for it to debug — this bundle now DOES include failed-job bodies and
  * application / datastore logs, which can contain customer data. So it is no
  * longer guaranteed free of customer data: it should be reviewed before being
- * shared externally. Like the migration status above, it is available on every
- * edition for master admins.
+ * shared externally. Like the migration status above, it is available to master
+ * administrators.
  */
 router.get(
   "/support-bundle",
@@ -3689,11 +3688,10 @@ router.get(
       ]);
 
       const bundle: JSONObject = {
-        generatedAt: OneUptimeDate.getCurrentDate().toISOString(),
+        generatedAt: OperationsDate.getCurrentDate().toISOString(),
         instance: {
           appVersion: AppVersion,
           gitSha: GitSha,
-          edition: "Complete",
           host: Host,
           nodeVersion: process.version,
         },
@@ -3727,7 +3725,7 @@ router.get(
  * ---------------------------------------------------------------------------
  * Query console
  *
- * Master-admin, Enterprise-Edition-only ad-hoc query execution against the
+ * Master-admin-only ad-hoc query execution against the
  * three datastores backing this instance (Postgres, ClickHouse, Redis). This is
  * a power tool for operators who already hold the datastore credentials, so it
  * deliberately allows arbitrary statements — but defends the instance with:
@@ -4020,16 +4018,16 @@ async function runPostgresQuery(
         // Strip a trailing ';' so it sits cleanly inside the DECLARE.
         const inner: string = sql.trim().replace(/;\s*$/, "");
         await queryRunner.query(
-          `DECLARE oneuptime_console_cursor NO SCROLL CURSOR FOR ${inner}`,
+          `DECLARE cast_operations_console_cursor NO SCROLL CURSOR FOR ${inner}`,
         );
         const fetched: { records?: Array<Record<string, unknown>> } =
           await queryRunner.query(
-            `FETCH FORWARD ${rowLimit + 1} FROM oneuptime_console_cursor`,
+            `FETCH FORWARD ${rowLimit + 1} FROM cast_operations_console_cursor`,
             undefined,
             true,
           );
         records = Array.isArray(fetched?.records) ? fetched.records : [];
-        await queryRunner.query("CLOSE oneuptime_console_cursor");
+        await queryRunner.query("CLOSE cast_operations_console_cursor");
       } else {
         const result: {
           records?: Array<Record<string, unknown>>;

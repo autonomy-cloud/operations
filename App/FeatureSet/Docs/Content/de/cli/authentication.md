@@ -7,7 +7,7 @@ Die Cast Operations CLI unterstützt mehrere Möglichkeiten zur Authentifizierun
 Authentifizieren Sie sich mit Ihrer Cast Operations-Instanz mithilfe eines API-Schlüssels:
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **Argumente:**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Mit Standard-Kontext anmelden
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # Mit benanntem Kontext anmelden
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # Mehrere Umgebungen einrichten
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Kontexte
@@ -44,7 +44,7 @@ Kontexte ermöglichen Ihnen das Speichern und Wechseln zwischen mehreren Cast Op
 ### Kontexte auflisten
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 Zeigt alle konfigurierten Kontexte an. Der aktuelle Kontext ist mit `*` markiert.
@@ -52,23 +52,23 @@ Zeigt alle konfigurierten Kontexte an. Der aktuelle Kontext ist mit `*` markiert
 ### Kontext wechseln
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 Wechselt zu einem anderen benannten Kontext für alle nachfolgenden Befehle.
 
 ```bash
 # Zu Staging wechseln
-oneuptime context use staging
+cast-operations context use staging
 
 # Zu Produktion wechseln
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### Aktuellen Kontext anzeigen
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 Zeigt den aktuell aktiven Kontext an, einschließlich der Instanz-URL und eines maskierten API-Schlüssels.
@@ -76,7 +76,7 @@ Zeigt den aktuell aktiven Kontext an, einschließlich der Instanz-URL und eines 
 ### Einen Kontext löschen
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 Entfernt einen benannten Kontext. Wenn der gelöschte Kontext der aktuelle ist, wechselt die CLI automatisch zum ersten verbleibenden Kontext.
@@ -86,7 +86,7 @@ Entfernt einen benannten Kontext. Wenn der gelöschte Kontext der aktuelle ist, 
 Anmeldedaten werden in der folgenden Prioritätsreihenfolge aufgelöst:
 
 1. **CLI-Flags** (`--api-key` und `--url`)
-2. **Umgebungsvariablen** (`ONEUPTIME_API_KEY` und `ONEUPTIME_URL`)
+2. **Umgebungsvariablen** (`CAST_OPERATIONS_API_KEY` und `CAST_OPERATIONS_URL`)
 3. **Benannter Kontext** (über `--context`-Flag)
 4. **Aktueller Kontext** (aus gespeicherter Konfiguration)
 
@@ -95,22 +95,22 @@ Sie können Quellen mischen – verwenden Sie beispielsweise eine Umgebungsvaria
 ### CLI-Flags verwenden
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Umgebungsvariablen verwenden
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### Einen spezifischen Kontext verwenden
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## Authentifizierung verifizieren
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 Prüfen Sie Ihren aktuellen Authentifizierungsstatus:
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Dies zeigt:
@@ -127,11 +127,11 @@ Dies zeigt:
 - Maskierter API-Schlüssel
 - Aktueller Kontextname (nur angezeigt, wenn ein gespeicherter Kontext aktiv ist)
 
-Falls nicht authentifiziert, zeigt der Befehl eine hilfreiche Meldung mit dem Vorschlag, `oneuptime login` auszuführen.
+Falls nicht authentifiziert, zeigt der Befehl eine hilfreiche Meldung mit dem Vorschlag, `cast-operations login` auszuführen.
 
 ## Konfigurationsdatei
 
-Anmeldedaten werden in `~/.oneuptime/config.json` mit eingeschränkten Berechtigungen (`0600`) gespeichert.
+Anmeldedaten werden in `~/.cast-operations/config.json` mit eingeschränkten Berechtigungen (`0600`) gespeichert.
 
 ```json
 {

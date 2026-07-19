@@ -66,7 +66,7 @@ const resolveUpdatePermissions: () => Array<Permission> =
  */
 const MAX_FILES_PER_COMMIT: number = 10;
 const MAX_FILE_BYTES: number = 256 * 1024;
-const AI_BRANCH_PREFIX: string = "oneuptime-ai";
+const AI_BRANCH_PREFIX: string = "cast-operations-ai";
 
 const FileChangesSchema: JSONObject = {
   type: "array",
@@ -78,7 +78,7 @@ const FileChangesSchema: JSONObject = {
       filePath: {
         type: "string",
         description:
-          "Repository-relative path, e.g. 'src/billing/charge.ts'. A path that does not exist yet creates a new file.",
+          "Repository-relative path, e.g. 'src/payments/charge.ts'. A path that does not exist yet creates a new file.",
       },
       content: {
         type: "string",

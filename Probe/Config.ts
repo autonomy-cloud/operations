@@ -4,19 +4,19 @@ import logger from "Common/Server/Utils/Logger";
 import Port from "Common/Types/Port";
 import NumberUtil from "Common/Utils/Number";
 
-if (!process.env["PROBE_INGEST_URL"] && !process.env["ONEUPTIME_URL"]) {
-  logger.error("PROBE_INGEST_URL or ONEUPTIME_URL is not set");
+if (!process.env["PROBE_INGEST_URL"] && !process.env["CAST_OPERATIONS_URL"]) {
+  logger.error("PROBE_INGEST_URL or CAST_OPERATIONS_URL is not set");
   process.exit(1);
 }
 
-export const ONEUPTIME_BASE_URL: URL = URL.fromString(
-  process.env["ONEUPTIME_URL"] ||
+export const CAST_OPERATIONS_BASE_URL: URL = URL.fromString(
+  process.env["CAST_OPERATIONS_URL"] ||
     process.env["PROBE_INGEST_URL"] ||
     "https://visca.ai",
 );
 
 export let PROBE_INGEST_URL: URL = URL.fromString(
-  ONEUPTIME_BASE_URL.toString(),
+  CAST_OPERATIONS_BASE_URL.toString(),
 );
 
 // If probe api does not have the path. Add it.

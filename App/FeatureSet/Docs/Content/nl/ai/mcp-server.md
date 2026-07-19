@@ -71,7 +71,7 @@ Voeg de volgende configuratie toe:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp",
       "headers": {
@@ -89,7 +89,7 @@ Vervang `visca.ai` door uw Cast Operations-domein:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
@@ -107,7 +107,7 @@ Om alleen publieke tools te gebruiken (statuspagina-informatie, hulp), kunt u ve
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp"
     }
@@ -140,18 +140,18 @@ U kunt ook `.vscode/mcp.json` aanmaken in uw werkruimte voor projectspecifieke c
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://visca.ai/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -164,18 +164,18 @@ U kunt ook `.vscode/mcp.json` aanmaken in uw werkruimte voor projectspecifieke c
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -187,7 +187,7 @@ U kunt ook `.vscode/mcp.json` aanmaken in uw werkruimte voor projectspecifieke c
 
 1. Druk op `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. Typ "MCP: List Servers" om beschikbare servers te bekijken
-3. Klik op "oneuptime" om de server te starten
+3. Klik op "cast-operations" om de server te starten
 4. Voer uw Cast Operations API-sleutel in wanneer daarom wordt gevraagd
 
 #### Stap 4: Gebruiken met Copilot Chat
@@ -222,8 +222,8 @@ De MCP-server ondersteunt twee bedrijfsmodi:
 
 U kunt verbinding maken met de MCP-server zonder API-sleutel om toegang te krijgen tot publieke tools:
 
-- **`oneuptime_help`**: Hulp en begeleiding over Cast Operations MCP-mogelijkheden ophalen
-- **`oneuptime_list_resources`**: Beschikbare resources en hun bewerkingen weergeven
+- **`cast_operations_help`**: Hulp en begeleiding over Cast Operations MCP-mogelijkheden ophalen
+- **`cast_operations_list_resources`**: Beschikbare resources en hun bewerkingen weergeven
 - **`get_public_status_page_overview`**: Overzicht van een publieke statuspagina ophalen
 - **`get_public_status_page_incidents`**: Incidenten van een publieke statuspagina ophalen
 - **`get_public_status_page_scheduled_maintenance`**: Geplande onderhoudsgebeurtenissen ophalen
@@ -253,7 +253,7 @@ Een typische lus: `list_incidents` → `acknowledge_incident` → onderzoeken me
 
 ## Wie ben ik
 
-De tool **`oneuptime_whoami`** retourneert het project waartoe uw API-sleutel behoort (ID en naam). Het is een nuttige eerste aanroep waarmee een agent zich kan oriënteren — en omdat aanmaaktools `projectId` afleiden uit de API-sleutel, hoeft de agent nooit een project-ID mee te geven.
+De tool **`cast_operations_whoami`** retourneert het project waartoe uw API-sleutel behoort (ID en naam). Het is een nuttige eerste aanroep waarmee een agent zich kan oriënteren — en omdat aanmaaktools `projectId` afleiden uit de API-sleutel, hoeft de agent nooit een project-ID mee te geven.
 
 ## Telemetrie opvragen
 

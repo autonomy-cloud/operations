@@ -1,6 +1,6 @@
 import RunCron from "../../Utils/Cron";
 import { CallRequestMessage } from "Common/Types/Call/CallRequest";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import { EmailEnvelope } from "Common/Types/Email/EmailMessage";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
@@ -220,7 +220,7 @@ RunCron(
           addedAtByAlertId[member.alertId.toString()] =
             member.addedAt ||
             member.createdAt ||
-            OneUptimeDate.getCurrentDate();
+            OperationsDate.getCurrentDate();
         }
       }
 
@@ -280,10 +280,10 @@ RunCron(
                 alertNumber: alertNumberStr,
                 alertSeverity: alert.alertSeverity?.name || "Not Set",
                 addedAt:
-                  OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+                  OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
                     date:
                       addedAtByAlertId[alert.id!.toString()] ||
-                      OneUptimeDate.getCurrentDate(),
+                      OperationsDate.getCurrentDate(),
                     timezones: user.timezone ? [user.timezone] : [],
                   }),
                 alertViewLink: alertLink,

@@ -48,7 +48,7 @@ O Keycloak é uma solução popular de código aberto para gerenciamento de iden
 1. Faça login no seu painel do Cast Operations
 2. Navegue para **Project Settings** > **Authentication** > **SSO**
 3. Clique em **Create SSO** e preencha o seguinte:
-   - **Nome**: Um nome descritivo (ex.: `my-project-oneuptime`)
+   - **Nome**: Um nome descritivo (ex.: `my-project-cast-operations`)
    - **Sign On URL**: `https://<seu-dominio-keycloak>/auth/realms/<seu-realm>/protocol/saml`
    - **Issuer**: `https://<seu-dominio-keycloak>/auth/realms/<seu-realm>`
    - **Certificate**: Consulte o [Passo 2](#passo-2-obter-o-certificado-do-keycloak) abaixo
@@ -201,9 +201,9 @@ O Okta é uma plataforma de identidade amplamente utilizada que fornece capacida
 2. Navegue para **Project Settings** > **Authentication** > **SSO**
 3. Clique em **Create SSO** e preencha o seguinte:
    - **Nome**: Um nome descritivo (ex.: `Okta SAML`)
-   - **Sign On URL**: Você obterá isso do Okta no [Passo 3](#passo-3-copiar-metadados-saml-do-okta-para-o-oneuptime)
-   - **Issuer**: Você obterá isso do Okta no [Passo 3](#passo-3-copiar-metadados-saml-do-okta-para-o-oneuptime)
-   - **Certificate**: Você obterá isso do Okta no [Passo 3](#passo-3-copiar-metadados-saml-do-okta-para-o-oneuptime)
+   - **Sign On URL**: Você obterá isso do Okta no [Passo 3](#passo-3-copiar-metadados-saml-do-okta-para-o-cast-operations)
+   - **Issuer**: Você obterá isso do Okta no [Passo 3](#passo-3-copiar-metadados-saml-do-okta-para-o-cast-operations)
+   - **Certificate**: Você obterá isso do Okta no [Passo 3](#passo-3-copiar-metadados-saml-do-okta-para-o-cast-operations)
    - **Signature Algorithm**: `RSA-SHA-256`
    - **Digest Algorithm**: `SHA256`
 4. Clique em **View SSO Config** e copie o **Identifier (Entity ID)** e o **Reply URL (Assertion Consumer Service URL)** — você precisará desses para o Okta

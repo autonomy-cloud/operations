@@ -2,7 +2,7 @@ import Tooltip from "../Tooltip/Tooltip";
 import UptimeBarTooltip, { StatusDuration } from "./UptimeBarTooltip";
 import { Green } from "../../../Types/BrandColors";
 import Color from "../../../Types/Color";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Dictionary from "../../../Types/Dictionary";
 import ObjectID from "../../../Types/ObjectID";
 import UptimeBarTooltipIncident from "../../../Types/Monitor/UptimeBarTooltipIncident";
@@ -43,7 +43,7 @@ const DayUptimeGraph: FunctionComponent<ComponentProps> = (
 
   useEffect(() => {
     setDays(
-      OneUptimeDate.getNumberOfDaysBetweenDatesInclusive(
+      OperationsDate.getNumberOfDaysBetweenDatesInclusive(
         props.startDate,
         props.endDate,
       ),
@@ -64,7 +64,11 @@ const DayUptimeGraph: FunctionComponent<ComponentProps> = (
     }
 
     return props.incidents.filter((incident: UptimeBarTooltipIncident) => {
-      return OneUptimeDate.isBetween(incident.declaredAt, startOfDay, endOfDay);
+      return OperationsDate.isBetween(
+        incident.declaredAt,
+        startOfDay,
+        endOfDay,
+      );
     });
   };
 
@@ -75,33 +79,33 @@ const DayUptimeGraph: FunctionComponent<ComponentProps> = (
   ): ReactElement => {
     let color: Color = props.defaultBarColor || Green;
 
-    const todaysDay: Date = OneUptimeDate.getSomeDaysAfterDate(
+    const todaysDay: Date = OperationsDate.getSomeDaysAfterDate(
       props.startDate,
       dayNumber,
     );
 
-    const startOfTheDay: Date = OneUptimeDate.getStartOfDay(todaysDay);
-    const endOfTheDay: Date = OneUptimeDate.getEndOfDay(todaysDay);
+    const startOfTheDay: Date = OperationsDate.getStartOfDay(todaysDay);
+    const endOfTheDay: Date = OperationsDate.getEndOfDay(todaysDay);
 
     const todaysEvents: Array<Event> = props.events.filter((event: Event) => {
       let doesEventBelongsToToday: boolean = false;
 
       /// if the event starts or end today.
       if (
-        OneUptimeDate.isBetween(event.startDate, startOfTheDay, endOfTheDay)
+        OperationsDate.isBetween(event.startDate, startOfTheDay, endOfTheDay)
       ) {
         doesEventBelongsToToday = true;
       }
 
-      if (OneUptimeDate.isBetween(event.endDate, startOfTheDay, endOfTheDay)) {
+      if (OperationsDate.isBetween(event.endDate, startOfTheDay, endOfTheDay)) {
         doesEventBelongsToToday = true;
       }
 
       // if the event is outside start or end day but overlaps the day completely.
 
       if (
-        OneUptimeDate.isBetween(startOfTheDay, event.startDate, endOfTheDay) &&
-        OneUptimeDate.isBetween(endOfTheDay, startOfTheDay, event.endDate)
+        OperationsDate.isBetween(startOfTheDay, event.startDate, endOfTheDay) &&
+        OperationsDate.isBetween(endOfTheDay, startOfTheDay, event.endDate)
       ) {
         doesEventBelongsToToday = true;
       }
@@ -117,20 +121,20 @@ const DayUptimeGraph: FunctionComponent<ComponentProps> = (
     const eventLabels: Dictionary<string> = {};
 
     for (const event of todaysEvents) {
-      const startDate: Date = OneUptimeDate.getGreaterDate(
+      const startDate: Date = OperationsDate.getGreaterDate(
         event.startDate,
         startOfTheDay,
       );
 
-      const endDate: Date = OneUptimeDate.getLesserDate(
+      const endDate: Date = OperationsDate.getLesserDate(
         event.endDate,
-        OneUptimeDate.getLesserDate(
-          OneUptimeDate.getCurrentDate(),
+        OperationsDate.getLesserDate(
+          OperationsDate.getCurrentDate(),
           endOfTheDay,
         ),
       );
 
-      const seconds: number = OneUptimeDate.getSecondsBetweenDates(
+      const seconds: number = OperationsDate.getSecondsBetweenDates(
         startDate,
         endDate,
       );

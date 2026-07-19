@@ -49,18 +49,18 @@ Voer het Docker-commando uit op elke host in je omgeving die:
 - de dingen kan doen die je Bash-/JavaScript-stappen moeten doen (bv. SSH naar andere hosts, `kubectl`, met een database praten).
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.yourdomain.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.yourdomain.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. Verifiëren dat de agent verbonden is
 
 Ga terug naar **Runbooks → Settings → Agents**. Binnen ~60 seconden moet de rij van de agent omschakelen naar `Connected` met een verse **Last seen**-tijdstempel. Als hij op `Disconnected` blijft:
 
-- Controleer de container-logs (`docker logs oneuptime-runbook-agent`) op auth-fouten of netwerkproblemen.
+- Controleer de container-logs (`docker logs cast-operations-runbook-agent`) op auth-fouten of netwerkproblemen.
 - Verifieer dat de host je Cast Operations-URL met `curl` kan bereiken.
 - Verifieer dat de ID en sleutel zonder whitespace gekopieerd zijn.
 
@@ -116,7 +116,7 @@ De agent leest deze bij het opstarten:
 
 | Variabele                                 | Verplicht | Standaard | Opmerkingen                                                                   |
 | ----------------------------------------- | --------- | --------- | ----------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | ja        | —         | Basis-URL van je Cast Operations-instantie, bv. `https://operations.yourdomain.com`. |
+| `CAST_OPERATIONS_URL`                           | ja        | —         | Basis-URL van je Cast Operations-instantie, bv. `https://operations.yourdomain.com`. |
 | `RUNBOOK_AGENT_ID`                        | ja        | —         | De UUID die in de installatiemodal van de agent wordt getoond.                |
 | `RUNBOOK_AGENT_KEY`                       | ja        | —         | Het secret dat in de installatiemodal van de agent wordt getoond.             |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | nee       | `5000`    | Hoe vaak de agent polls voor nieuwe jobs.                                     |

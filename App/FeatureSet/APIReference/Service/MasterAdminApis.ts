@@ -1,8 +1,4 @@
-import {
-  Host,
-  HttpProtocol,
-  IsBillingEnabled,
-} from "Common/Server/EnvironmentConfig";
+import { Host, HttpProtocol } from "Common/Server/EnvironmentConfig";
 import { ViewsPath } from "../Utils/Config";
 import ResourceUtil, { ModelDocumentation } from "../Utils/Resources";
 import DataTypeUtil, { DataTypeDocumentation } from "../Utils/DataTypes";
@@ -86,7 +82,7 @@ export default class ServiceHandler {
       resources: Resources,
       dataTypes: DataTypes,
       pageTitle: ctx.t("pages.masterAdminApis.metaTitle"),
-      enableGoogleTagManager: IsBillingEnabled,
+      enableGoogleTagManager: false,
       pageDescription: ctx.t("pages.masterAdminApis.metaDescription"),
       pageData: pageData,
       lang: ctx.lang,

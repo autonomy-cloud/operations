@@ -1,5 +1,5 @@
 {
-  "name": "@oneuptime/nginx",
+  "name": "@cast-operations/nginx",
   "version": "11.5.9",
   "description": "",
   "repository": {
@@ -17,8 +17,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "Common": "file:../Common",
-    
-
     "ts-node": "^10.9.1"
   },
   "devDependencies": {

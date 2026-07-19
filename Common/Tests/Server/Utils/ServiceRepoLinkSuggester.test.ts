@@ -49,8 +49,8 @@ describe("computeLinkSuggestions", () => {
   test("containment matches when one name contains the other", () => {
     const suggestions: Array<ServiceRepoLinkSuggestion> =
       computeLinkSuggestions({
-        services: [service("s1", "billing")],
-        repositories: [repo("r1", "acme-billing-monorepo")],
+        services: [service("s1", "payments")],
+        repositories: [repo("r1", "acme-payments-monorepo")],
         existingLinks: [],
       });
 
@@ -83,11 +83,11 @@ describe("computeLinkSuggestions", () => {
   });
 
   test("sharing only a generic short token is not enough", () => {
-    // {payments, service} vs {billing, service}: Jaccard 1/3 < 0.5.
+    // {payments, service} vs {payments, service}: Jaccard 1/3 < 0.5.
     const suggestions: Array<ServiceRepoLinkSuggestion> =
       computeLinkSuggestions({
         services: [service("s1", "payments-service")],
-        repositories: [repo("r1", "billing-service")],
+        repositories: [repo("r1", "payments-service")],
         existingLinks: [],
       });
 
@@ -97,8 +97,8 @@ describe("computeLinkSuggestions", () => {
   test("already-linked services are never suggested again", () => {
     const suggestions: Array<ServiceRepoLinkSuggestion> =
       computeLinkSuggestions({
-        services: [service("s1", "checkout"), service("s2", "billing")],
-        repositories: [repo("r1", "checkout"), repo("r2", "billing")],
+        services: [service("s1", "checkout"), service("s2", "payments")],
+        repositories: [repo("r1", "checkout"), repo("r2", "payments")],
         existingLinks: [{ serviceId: "s1", codeRepositoryId: "r1" }],
       });
 

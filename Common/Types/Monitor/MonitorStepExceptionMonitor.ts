@@ -3,7 +3,7 @@ import InBetween from "../BaseDatabase/InBetween";
 import Includes from "../BaseDatabase/Includes";
 import Query from "../BaseDatabase/Query";
 import Search from "../BaseDatabase/Search";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 import { JSONObject } from "../JSON";
 import ObjectID from "../ObjectID";
 
@@ -60,8 +60,8 @@ export class MonitorStepExceptionMonitorUtil {
     }
 
     if (monitorStepExceptionMonitor.lastXSecondsOfExceptions) {
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveSeconds(
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveSeconds(
         endDate,
         monitorStepExceptionMonitor.lastXSecondsOfExceptions * -1,
       );

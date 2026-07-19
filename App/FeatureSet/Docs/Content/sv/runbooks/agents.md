@@ -49,18 +49,18 @@ Kör Docker-kommandot på vilken värd som helst i din miljö som kan:
 - göra det du vill att dina Bash-/JavaScript-steg ska göra (t.ex. SSH till andra värdar, `kubectl`, prata med en databas).
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.yourdomain.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.yourdomain.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. Verifiera att agenten är ansluten
 
 Gå tillbaka till **Runbooks → Settings → Agents**. Inom ~60 sekunder bör agentens rad växla till `Connected` med en färsk **Last seen**-tidsstämpel. Om den förblir `Disconnected`:
 
-- Kontrollera container-loggarna (`docker logs oneuptime-runbook-agent`) för auth-fel eller nätverksproblem.
+- Kontrollera container-loggarna (`docker logs cast-operations-runbook-agent`) för auth-fel eller nätverksproblem.
 - Verifiera att värden når din Cast Operations-URL med `curl`.
 - Verifiera att ID och nyckel kopierats utan blanksteg.
 
@@ -116,7 +116,7 @@ Agenten läser dessa vid uppstart:
 
 | Variabel                                  | Krävs | Standard | Anteckningar                                                                 |
 | ----------------------------------------- | ----- | -------- | ---------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | ja    | —        | Bas-URL för din Cast Operations-instans, t.ex. `https://operations.yourdomain.com`. |
+| `CAST_OPERATIONS_URL`                           | ja    | —        | Bas-URL för din Cast Operations-instans, t.ex. `https://operations.yourdomain.com`. |
 | `RUNBOOK_AGENT_ID`                        | ja    | —        | UUID:t som visas i agentens installationsmodal.                              |
 | `RUNBOOK_AGENT_KEY`                       | ja    | —        | Hemligheten som visas i agentens installationsmodal.                         |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | nej   | `5000`   | Hur ofta agenten frågar efter nya jobb.                                      |

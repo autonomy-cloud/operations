@@ -4,12 +4,9 @@ import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
 import URL from "../../Types/API/URL";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import OwnedThrough from "../../Types/Database/AccessControl/OwnedThrough";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
-import TableEditionAccessControl from "../../Types/Database/AccessControl/TableEditionAccessControl";
 import CanAccessIfCanReadOn from "../../Types/Database/CanAccessIfCanReadOn";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import ColumnType from "../../Types/Database/ColumnType";
@@ -25,15 +22,6 @@ import Permission from "../../Types/Permission";
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 
 @CanAccessIfCanReadOn("statusPage")
-@TableEditionAccessControl({
-  requiresEnterprise: true,
-})
-@TableBillingAccessControl({
-  create: PlanType.Scale,
-  read: PlanType.Scale,
-  update: PlanType.Scale,
-  delete: PlanType.Scale,
-})
 @TenantColumn("projectId")
 @TableAccessControl({
   create: [
@@ -130,7 +118,8 @@ export default class StatusPageOIDC extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({

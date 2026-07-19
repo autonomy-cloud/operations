@@ -3,7 +3,7 @@ import ProjectUtil from "Common/UI/Utils/Project";
 import PageComponentProps from "../PageComponentProps";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
 import TimezoneUtil from "Common/UI/Utils/Timezone";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ModelTable from "Common/UI/Components/ModelTable/ModelTable";
 import useBulkLabelActions from "Common/UI/Components/BulkUpdate/BulkLabelActions";
 import FieldType from "Common/UI/Components/Types/FieldType";
@@ -73,7 +73,7 @@ const OnCallDutyPage: FunctionComponent<
               "The timezone this schedule's active-hour restrictions and hand-off times are interpreted in. Defaults to your current timezone.",
             fieldType: FormFieldSchemaType.Dropdown,
             dropdownOptions: TimezoneUtil.getTimezoneDropdownOptions(),
-            defaultValue: OneUptimeDate.getCurrentTimezone(),
+            defaultValue: OperationsDate.getCurrentTimezone(),
             required: false,
             placeholder: "Select Timezone",
           },

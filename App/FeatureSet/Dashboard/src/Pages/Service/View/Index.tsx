@@ -43,7 +43,7 @@ import ResourceOverview, {
 import ChartCard from "../../../Components/TelemetryResource/ChartCard";
 import AutoRefreshControl from "../../../Components/TelemetryResource/AutoRefreshControl";
 import useAutoRefresh from "../../../Components/TelemetryResource/useAutoRefresh";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import {
   fetchSpanMetrics,
   formatCompact,
@@ -145,7 +145,7 @@ const ServiceView: FunctionComponent<PageComponentProps> = (): ReactElement => {
       }
 
       setService(item);
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
       setIsLoading(false);
       setIsRefreshing(false);
     } catch (err) {

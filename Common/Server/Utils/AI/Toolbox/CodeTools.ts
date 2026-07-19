@@ -529,8 +529,8 @@ export const FindCodeForExceptionTool: ObservabilityTool = {
     ).slice(0, 15);
 
     /*
-     * A frame's fileName is a RUNTIME path (/app/src/billing/charge.ts); the
-     * Contents API needs a REPOSITORY path (src/billing/charge.ts). Without
+     * A frame's fileName is a RUNTIME path (/app/src/payments/charge.ts); the
+     * Contents API needs a REPOSITORY path (src/payments/charge.ts). Without
      * this mapping every path handed to read_code_file 404s, which is the whole
      * point of the tool. Match each frame against the repository's real tree
      * (already cached for an hour by the resolver's own probe) so the model is
@@ -619,14 +619,14 @@ export const FindCodeForExceptionTool: ObservabilityTool = {
 export const SearchCodeTool: ObservabilityTool = {
   name: "search_code",
   description:
-    "Find source file paths in a connected repository by matching part of a file or directory name (e.g. 'checkout', 'billing/charge.ts'). Returns paths only, not contents — follow up with read_code_file. Use this to locate code when you do not have a stack trace.",
+    "Find source file paths in a connected repository by matching part of a file or directory name (e.g. 'checkout', 'payments/charge.ts'). Returns paths only, not contents — follow up with read_code_file. Use this to locate code when you do not have a stack trace.",
   inputSchema: {
     type: "object",
     properties: {
       query: {
         type: "string",
         description:
-          "Part of a file path or file name to match, case-insensitive (e.g. 'PaymentService' or 'src/billing').",
+          "Part of a file path or file name to match, case-insensitive (e.g. 'PaymentService' or 'src/payments').",
       },
       repositoryId: {
         type: "string",
@@ -677,8 +677,8 @@ export const SearchCodeTool: ObservabilityTool = {
     });
 
     /*
-     * Shortest-first: 'src/billing/charge.ts' is a likelier intent than
-     * 'src/billing/__tests__/charge.fixture.ts', and the cap would otherwise
+     * Shortest-first: 'src/payments/charge.ts' is a likelier intent than
+     * 'src/payments/__tests__/charge.fixture.ts', and the cap would otherwise
      * cut off the file the user actually meant.
      */
     matches.sort((a: string, b: string) => {
@@ -720,7 +720,7 @@ export const ReadCodeFileTool: ObservabilityTool = {
       filePath: {
         type: "string",
         description:
-          "Repository-relative path, e.g. 'src/billing/charge.ts'. Use the exact path from find_code_for_exception or search_code.",
+          "Repository-relative path, e.g. 'src/payments/charge.ts'. Use the exact path from find_code_for_exception or search_code.",
       },
       repositoryId: {
         type: "string",

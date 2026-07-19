@@ -4,14 +4,14 @@ import { IsDevelopment } from "Common/Server/EnvironmentConfig";
 import StatusPageDomainService from "Common/Server/Services/StatusPageDomainService";
 import logger from "Common/Server/Utils/Logger";
 import Telemetry, { Span } from "Common/Server/Utils/Telemetry";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 RunCron(
   "StatusPageCerts:RenewCerts",
   {
     schedule: IsDevelopment ? EVERY_FIFTEEN_MINUTE : EVERY_DAY,
     runOnStartup: false,
-    timeoutInMS: OneUptimeDate.convertMinutesToMilliseconds(15),
+    timeoutInMS: OperationsDate.convertMinutesToMilliseconds(15),
   },
   async () => {
     logger.debug("Renewing Certs...", { service: "workers" });
@@ -26,7 +26,7 @@ RunCron(
     schedule: IsDevelopment ? EVERY_FIFTEEN_MINUTE : EVERY_FIFTEEN_MINUTE,
     runOnStartup: false,
     // Checking provisioning status may require multiple external API calls (DNS + CA) and can exceed default 5m.
-    timeoutInMS: OneUptimeDate.convertMinutesToMilliseconds(30),
+    timeoutInMS: OperationsDate.convertMinutesToMilliseconds(30),
   },
   async () => {
     await StatusPageDomainService.updateSslProvisioningStatusForAllDomains();
@@ -39,7 +39,7 @@ RunCron(
     schedule: IsDevelopment ? EVERY_FIFTEEN_MINUTE : EVERY_FIFTEEN_MINUTE,
     runOnStartup: false,
     // Ordering SSL can involve domain validation challenges and upstream rate limits; allow more time.
-    timeoutInMS: OneUptimeDate.convertMinutesToMilliseconds(30),
+    timeoutInMS: OperationsDate.convertMinutesToMilliseconds(30),
   },
   async () => {
     return await Telemetry.startActiveSpan<Promise<void>>({
@@ -48,7 +48,7 @@ RunCron(
         attributes: {
           schedule: IsDevelopment ? EVERY_FIFTEEN_MINUTE : EVERY_FIFTEEN_MINUTE,
           runOnStartup: false,
-          timeoutInMS: OneUptimeDate.convertMinutesToMilliseconds(15),
+          timeoutInMS: OperationsDate.convertMinutesToMilliseconds(15),
         },
       },
       fn: async (span: Span): Promise<void> => {

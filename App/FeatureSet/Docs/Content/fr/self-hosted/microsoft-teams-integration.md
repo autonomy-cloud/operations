@@ -14,7 +14,7 @@ Pour intégrer Microsoft Teams avec votre instance auto-hébergée Cast Operatio
 1. Allez sur le [Portail Azure](https://portal.azure.com)
 2. Accédez à « Enregistrements d'applications » et cliquez sur « Nouvel enregistrement »
 3. Remplissez le formulaire d'enregistrement :
-   - **Nom :** oneuptime
+   - **Nom :** cast-operations
    - **Types de comptes pris en charge :** Comptes dans n'importe quel annuaire organisationnel (Tout locataire Microsoft Entra ID - Multi-locataire)
    - **URI de redirection :** Web - `https://votre-domaine-visca.ai/api/microsoft-teams/auth`
    - Ajoutez également : `https://votre-domaine-visca.ai/api/microsoft-teams/admin-consent/callback`
@@ -61,7 +61,7 @@ Pour intégrer Microsoft Teams avec votre instance auto-hébergée Cast Operatio
 1. Dans le Portail Azure, accédez à « Azure Bot » et cliquez sur « Créer »
 2. Remplissez le formulaire de création du bot :
 
-   - **Handle du bot :** oneuptime-bot
+   - **Handle du bot :** cast-operations-bot
    - **Abonnement :** Votre abonnement Azure
    - **Groupe de ressources :** Créez-en un nouveau ou utilisez un existant
    - **Emplacement :** Choisissez un emplacement proche de vos utilisateurs

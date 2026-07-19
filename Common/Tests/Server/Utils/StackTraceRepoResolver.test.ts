@@ -53,13 +53,13 @@ describe("extractCandidatePathsFromStackTrace", () => {
   test("parses Node frames with and without a function name", () => {
     const stackTrace: string = [
       "Error: boom",
-      "    at charge (/app/src/billing/charge.ts:10:5)",
+      "    at charge (/app/src/payments/charge.ts:10:5)",
       "    at /app/src/server.js:5:1",
       "    at processTicksAndRejections (node:internal/process/task_queues:95:5)",
     ].join("\n");
 
     expect(extractCandidatePathsFromStackTrace(stackTrace)).toEqual([
-      "src/billing/charge.ts",
+      "src/payments/charge.ts",
       "src/server.js",
     ]);
   });
@@ -67,20 +67,20 @@ describe("extractCandidatePathsFromStackTrace", () => {
   test("parses Python traceback frames", () => {
     const stackTrace: string = [
       "Traceback (most recent call last):",
-      '  File "/usr/src/app/billing/tasks.py", line 12, in charge',
+      '  File "/usr/src/app/payments/tasks.py", line 12, in charge',
       '    raise ValueError("boom")',
       "ValueError: boom",
     ].join("\n");
 
     expect(extractCandidatePathsFromStackTrace(stackTrace)).toEqual([
-      "billing/tasks.py",
+      "payments/tasks.py",
     ]);
   });
 
   test("parses Java frames as basenames only", () => {
     const stackTrace: string = [
       "java.lang.NullPointerException: boom",
-      "\tat com.acme.billing.Charge.run(Charge.java:42)",
+      "\tat com.acme.payments.Charge.run(Charge.java:42)",
       "\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)",
     ].join("\n");
 
@@ -122,13 +122,13 @@ describe("extractCandidatePathsFromStackTrace", () => {
     const stackTrace: string = [
       '  File "/var/task/handler.py", line 3, in run',
       "    at run (/home/deploy/current/src/x.ts:1:1)",
-      "    at boot (C:\\app\\src\\billing\\charge.ts:10:5)",
+      "    at boot (C:\\app\\src\\payments\\charge.ts:10:5)",
     ].join("\n");
 
     expect(extractCandidatePathsFromStackTrace(stackTrace)).toEqual([
       "handler.py",
       "current/src/x.ts",
-      "src/billing/charge.ts",
+      "src/payments/charge.ts",
     ]);
   });
 
@@ -167,7 +167,7 @@ describe("extractCandidatePathsFromStackTrace", () => {
 describe("resolveRepositoryForExceptionFix", () => {
   const nodeStack: string = [
     "Error: boom",
-    "    at charge (/app/src/billing/charge.ts:10:5)",
+    "    at charge (/app/src/payments/charge.ts:10:5)",
   ].join("\n");
 
   test("strong suffix match (>= 2 segments) picks the right repository", async () => {
@@ -177,7 +177,7 @@ describe("resolveRepositoryForExceptionFix", () => {
         serviceName: null,
         repositories: [repo("r1", "checkout"), repo("r2", "infra")],
         getTreePaths: treesByRepoId({
-          r1: ["src/billing/charge.ts", "src/server.ts", "README.md"],
+          r1: ["src/payments/charge.ts", "src/server.ts", "README.md"],
           r2: ["main.tf", "modules/vpc/main.tf"],
         }),
       });
@@ -189,7 +189,7 @@ describe("resolveRepositoryForExceptionFix", () => {
     expect(resolution!.repositoryName).toBe("checkout");
     expect(resolution!.servicePathInRepository).toBeNull();
     expect(resolution!.evidence).toBe(
-      "Matched src/billing/charge.ts in acme/checkout",
+      "Matched src/payments/charge.ts in acme/checkout",
     );
   });
 
@@ -201,8 +201,8 @@ describe("resolveRepositoryForExceptionFix", () => {
         repositories: [repo("r1", "platform"), repo("r2", "infra")],
         getTreePaths: treesByRepoId({
           r1: [
-            "services/checkout/src/billing/charge.ts",
-            "services/billing/src/invoice.ts",
+            "services/checkout/src/payments/charge.ts",
+            "services/payments/src/statement.ts",
           ],
           r2: ["main.tf"],
         }),
@@ -217,7 +217,7 @@ describe("resolveRepositoryForExceptionFix", () => {
   test("disagreeing prefixes fall back to the deepest common prefix", async () => {
     const stackTrace: string = [
       "Error: boom",
-      "    at charge (/app/src/billing/charge.ts:10:5)",
+      "    at charge (/app/src/payments/charge.ts:10:5)",
       "    at notify (/app/lib/notify.ts:2:2)",
     ].join("\n");
 
@@ -228,8 +228,8 @@ describe("resolveRepositoryForExceptionFix", () => {
         repositories: [repo("r1", "platform"), repo("r2", "infra")],
         getTreePaths: treesByRepoId({
           r1: [
-            "services/checkout/src/billing/charge.ts",
-            "services/billing/lib/notify.ts",
+            "services/checkout/src/payments/charge.ts",
+            "services/payments/lib/notify.ts",
           ],
           r2: ["main.tf"],
         }),
@@ -243,7 +243,7 @@ describe("resolveRepositoryForExceptionFix", () => {
   test("a root-level match and a nested match share no prefix", async () => {
     const stackTrace: string = [
       "Error: boom",
-      "    at charge (/app/src/billing/charge.ts:10:5)",
+      "    at charge (/app/src/payments/charge.ts:10:5)",
       "    at notify (/app/lib/notify.ts:2:2)",
     ].join("\n");
 
@@ -253,7 +253,10 @@ describe("resolveRepositoryForExceptionFix", () => {
         serviceName: null,
         repositories: [repo("r1", "platform"), repo("r2", "infra")],
         getTreePaths: treesByRepoId({
-          r1: ["src/billing/charge.ts", "services/notifications/lib/notify.ts"],
+          r1: [
+            "src/payments/charge.ts",
+            "services/notifications/lib/notify.ts",
+          ],
           r2: ["main.tf"],
         }),
       });
@@ -266,14 +269,14 @@ describe("resolveRepositoryForExceptionFix", () => {
   test("basename-only match counts when unique across and within repos", async () => {
     const javaStack: string = [
       "java.lang.NullPointerException: boom",
-      "\tat com.acme.billing.Charge.run(Charge.java:42)",
+      "\tat com.acme.payments.Charge.run(Charge.java:42)",
     ].join("\n");
 
     const resolution: RepoResolution | null =
       await resolveRepositoryForExceptionFix({
         stackTrace: javaStack,
         serviceName: null,
-        repositories: [repo("r1", "billing-java"), repo("r2", "infra")],
+        repositories: [repo("r1", "payments-java"), repo("r2", "infra")],
         getTreePaths: treesByRepoId({
           r1: ["src/main/java/com/acme/Charge.java", "pom.xml"],
           r2: ["main.tf"],
@@ -285,7 +288,7 @@ describe("resolveRepositoryForExceptionFix", () => {
     expect(resolution!.codeRepositoryId).toBe("r1");
     expect(resolution!.servicePathInRepository).toBe("src/main/java/com/acme");
     expect(resolution!.evidence).toBe(
-      "Matched Charge.java in acme/billing-java",
+      "Matched Charge.java in acme/payments-java",
     );
   });
 
@@ -294,7 +297,7 @@ describe("resolveRepositoryForExceptionFix", () => {
       await resolveRepositoryForExceptionFix({
         stackTrace: "    at fn (charge.ts:10:5)",
         serviceName: null,
-        repositories: [repo("r1", "checkout"), repo("r2", "billing")],
+        repositories: [repo("r1", "checkout"), repo("r2", "payments")],
         getTreePaths: treesByRepoId({
           r1: ["src/charge.ts"],
           r2: ["lib/charge.ts"],
@@ -345,14 +348,14 @@ describe("resolveRepositoryForExceptionFix", () => {
   test("deeper matched suffixes break a matched-count tie", async () => {
     const resolution: RepoResolution | null =
       await resolveRepositoryForExceptionFix({
-        stackTrace: nodeStack, // candidate: src/billing/charge.ts
+        stackTrace: nodeStack, // candidate: src/payments/charge.ts
         serviceName: null,
         repositories: [repo("r1", "deep"), repo("r2", "shallow")],
         getTreePaths: treesByRepoId({
           // Full 3-segment suffix.
-          r1: ["services/x/src/billing/charge.ts"],
-          // Only billing/charge.ts (2 segments) matches here.
-          r2: ["legacy/billing/charge.ts"],
+          r1: ["services/x/src/payments/charge.ts"],
+          // Only payments/charge.ts (2 segments) matches here.
+          r2: ["legacy/payments/charge.ts"],
         }),
       });
 
@@ -370,8 +373,8 @@ describe("resolveRepositoryForExceptionFix", () => {
           repo("r2", "checkout-fork"),
         ],
         getTreePaths: treesByRepoId({
-          r1: ["src/billing/charge.ts"],
-          r2: ["src/billing/charge.ts"],
+          r1: ["src/payments/charge.ts"],
+          r2: ["src/payments/charge.ts"],
         }),
       });
 
@@ -391,7 +394,7 @@ describe("resolveRepositoryForExceptionFix", () => {
         repositories: [repo("r1", "broken"), repo("r2", "checkout")],
         // r1 has no tree entry, so its fetch rejects.
         getTreePaths: treesByRepoId({
-          r2: ["src/billing/charge.ts"],
+          r2: ["src/payments/charge.ts"],
         }),
       });
 
@@ -466,9 +469,9 @@ describe("resolveRepositoryForExceptionFix", () => {
     const resolution: RepoResolution | null =
       await resolveRepositoryForExceptionFix({
         stackTrace: null,
-        serviceName: "billing",
+        serviceName: "payments",
         repositories: [
-          repo("r1", "acme-billing-monorepo"),
+          repo("r1", "acme-payments-monorepo"),
           repo("r2", "infra"),
         ],
         getTreePaths: treesByRepoId({}),

@@ -7,13 +7,10 @@ import logger, { LogAttributes } from "../Utils/Logger";
 import DashboardLabelRuleEngineService from "./DashboardLabelRuleEngineService";
 import DashboardOwnerRuleEngineService from "./DashboardOwnerRuleEngineService";
 import DatabaseService from "./DatabaseService";
-import BadDataException from "../../Types/Exception/BadDataException";
 import NotAuthenticatedException from "../../Types/Exception/NotAuthenticatedException";
 import ForbiddenException from "../../Types/Exception/ForbiddenException";
 import MasterPasswordRequiredException from "../../Types/Exception/MasterPasswordRequiredException";
 import Model from "../../Models/DatabaseModels/Dashboard";
-import { IsBillingEnabled } from "../EnvironmentConfig";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import DashboardViewConfigUtil from "../../Utils/Dashboard/DashboardViewConfig";
 import {
   DashboardTemplateType,
@@ -38,30 +35,6 @@ export class Service extends DatabaseService<Model> {
   protected override async onBeforeCreate(
     createBy: CreateBy<Model>,
   ): Promise<OnCreate<Model>> {
-    if (IsBillingEnabled) {
-      // then if free plan, make sure it can only have 1 dashboard.
-
-      if (createBy.props.currentPlan === PlanType.Free) {
-        // get count by project id.
-        const count: number = (
-          await this.countBy({
-            query: {
-              projectId: createBy.data.projectId,
-            },
-            props: {
-              isRoot: true,
-            },
-          })
-        ).toNumber();
-
-        if (count > 0) {
-          throw new BadDataException(
-            "Free plan can only have 1 dashboard. Please upgrade your plan.",
-          );
-        }
-      }
-    }
-
     // Check if a template type was provided via miscDataProps
     const templateType: string | undefined = createBy.miscDataProps?.[
       "dashboardTemplateType"

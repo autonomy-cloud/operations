@@ -3,10 +3,8 @@ import Project from "./Project";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import ColumnType from "../../Types/Database/ColumnType";
 import CrudApiEndpoint from "../../Types/Database/CrudApiEndpoint";
@@ -37,12 +35,6 @@ import CodeFixTaskContext from "../../Types/AI/CodeFixTaskContext";
  * per-run egress manifest.
  */
 @EnableDocumentation()
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Free,
-  update: PlanType.Growth,
-  delete: PlanType.Free,
-})
 @TenantColumn("projectId")
 @CrudApiEndpoint(new Route("/ai-run"))
 @Entity({
@@ -695,7 +687,7 @@ export default class AIRun extends BaseModel {
     required: false,
     type: TableColumnType.Number,
     title: "Total Cost (USD Cents)",
-    description: "Total billed cost of this run in USD cents.",
+    description: "Estimated provider cost of this run in USD cents.",
   })
   @Column({
     type: ColumnType.Number,

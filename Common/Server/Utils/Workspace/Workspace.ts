@@ -17,7 +17,7 @@ import WorkspaceUserAuthToken from "../../../Models/DatabaseModels/WorkspaceUser
 import WorkspaceUserAuthTokenService from "../../Services/WorkspaceUserAuthTokenService";
 import UserService from "../../Services/UserService";
 import CaptureSpan from "../Telemetry/CaptureSpan";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 
 export interface WorkspaceChannelMessage {
   messageId: string;
@@ -32,7 +32,7 @@ export default class WorkspaceUtil {
   @CaptureSpan()
   public static async getMessageBlocksByMarkdown(data: {
     projectId: ObjectID;
-    // this is oneuptime user id.
+    // this is cast-operations user id.
     userId: ObjectID | undefined;
     markdown: string;
   }): Promise<Array<MessageBlocksByWorkspaceType>> {
@@ -358,7 +358,7 @@ export default class WorkspaceUtil {
       let line: string = "";
 
       if (includeTimestamp) {
-        const dateStr: string = OneUptimeDate.getDateAsFormattedString(
+        const dateStr: string = OperationsDate.getDateAsFormattedString(
           msg.timestamp,
         );
         line += `[${dateStr}] `;

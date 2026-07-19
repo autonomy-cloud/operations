@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ProbeAttempt from "Common/Types/Probe/ProbeAttempt";
 import React, { FunctionComponent, ReactElement } from "react";
 
@@ -60,14 +60,14 @@ const ProbeAttemptsView: FunctionComponent<ComponentProps> = (
               </div>
               <div className="ml-4 mt-1 text-xs text-gray-500">
                 Started{" "}
-                {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   attemptedAt,
                   false,
                   true,
                 )}
                 {" → "}
                 Responded{" "}
-                {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   responseReceivedAt,
                   false,
                   true,

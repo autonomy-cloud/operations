@@ -9,7 +9,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import BaseAPI from "./BaseAPI";
@@ -481,7 +481,7 @@ export default class DashboardAPI extends BaseAPI<
             } catch (err) {
               logger.error(
                 err,
-                getLogAttributesFromRequest(req as OneUptimeRequest),
+                getLogAttributesFromRequest(req as OperationsRequest),
               );
               return Response.sendErrorResponse(
                 req,

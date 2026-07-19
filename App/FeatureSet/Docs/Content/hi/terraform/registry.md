@@ -9,7 +9,7 @@ Cast Operations Terraform Provider official [Terraform Registry](https://registr
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # latest compatible version उपयोग करें
     }
@@ -17,9 +17,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -30,7 +30,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # अपने exact Cast Operations version से बदलें
     }
@@ -38,9 +38,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # आपका self-hosted URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # आपका self-hosted URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -77,8 +77,8 @@ curl https://your-operations-instance.com/api/version | jq '.version'
 ### Method 3: Docker
 
 ```bash
-docker images | grep oneuptime
-# tag देखें, जैसे oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# tag देखें, जैसे cast-operations/dashboard:7.0.123
 ```
 
 ## Provider Registry Information

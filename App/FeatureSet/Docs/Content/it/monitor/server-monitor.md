@@ -31,10 +31,10 @@ L'Agente Infrastrutturale di Cast Operations è un daemon leggero basato su Go c
 curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Configurare l'agente
-sudo oneuptime-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --oneuptime-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --cast-operations-url=https://visca.ai
 
 # Avviare l'agente
-sudo oneuptime-infrastructure-agent start
+sudo cast-operations-infrastructure-agent start
 ```
 
 Sostituire `VOSTRA_CHIAVE_SEGRETA` con la chiave segreta mostrata nelle impostazioni del monitor, e `https://visca.ai` con l'URL della propria istanza Cast Operations se self-hosted.
@@ -42,17 +42,17 @@ Sostituire `VOSTRA_CHIAVE_SEGRETA` con la chiave segreta mostrata nelle impostaz
 ### Windows
 
 1. Scaricare l'agente più recente da [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest)
-   - `oneuptime-infrastructure-agent_windows_amd64.zip` per sistemi x64
-   - `oneuptime-infrastructure-agent_windows_arm64.zip` per sistemi ARM64
+   - `cast-operations-infrastructure-agent_windows_amd64.zip` per sistemi x64
+   - `cast-operations-infrastructure-agent_windows_arm64.zip` per sistemi ARM64
 2. Estrarre il file zip
 3. Aprire il Prompt dei comandi come Amministratore ed eseguire:
 
 ```bash
 # Configurare l'agente
-oneuptime-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --oneuptime-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --cast-operations-url=https://visca.ai
 
 # Avviare l'agente
-oneuptime-infrastructure-agent start
+cast-operations-infrastructure-agent start
 ```
 
 ### Supporto Proxy
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 Se il server si connette a Internet tramite un proxy, è possibile configurare l'agente per usarlo:
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Comandi dell'Agente
@@ -176,8 +176,8 @@ Per i controlli dei processi:
 
 ### L'agente non riporta
 
-- Verificare che l'agente sia in esecuzione: `sudo oneuptime-infrastructure-agent status`
-- Controllare i log dell'agente: `sudo oneuptime-infrastructure-agent logs -n 50`
+- Verificare che l'agente sia in esecuzione: `sudo cast-operations-infrastructure-agent status`
+- Controllare i log dell'agente: `sudo cast-operations-infrastructure-agent logs -n 50`
 - Confermare che la chiave segreta sia corretta
 - Assicurarsi che il server possa raggiungere l'URL della propria istanza Cast Operations
 - Controllare che le regole del firewall consentano le connessioni HTTPS in uscita
@@ -186,14 +186,14 @@ Per i controlli dei processi:
 
 L'agente è progettato per essere leggero. Se si nota un alto utilizzo delle risorse:
 
-- Riavviare l'agente: `sudo oneuptime-infrastructure-agent restart`
+- Riavviare l'agente: `sudo cast-operations-infrastructure-agent restart`
 - Controllare i log dell'agente per errori
 
 ### Problemi con il proxy
 
 - Verificare che l'URL e la porta del proxy siano corretti
 - Assicurarsi che il proxy consenta le connessioni all'istanza Cast Operations
-- Riconfigurare con: `sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:porta --secret-key=VOSTRA_CHIAVE --oneuptime-url=VOSTRO_URL`
+- Riconfigurare con: `sudo cast-operations-infrastructure-agent configure --proxy-url=http://proxy:porta --secret-key=VOSTRA_CHIAVE --cast-operations-url=VOSTRO_URL`
 
 ## Buone Pratiche
 

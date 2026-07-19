@@ -74,7 +74,7 @@ Incoming Call Policy feature इस तरह काम करता है:
 4. caller को पहले available on-call engineer से connect करना
 5. कोई answer नहीं होने पर अगले rule पर escalate करना
 
-चूंकि आप Cast Operations self-host कर रहे हैं, आपको अपना खुद का Twilio account configure करना होगा। यह आपको अपने phone numbers और billing पर पूर्ण नियंत्रण देता है।
+चूंकि आप Cast Operations self-host कर रहे हैं, आपको अपना खुद का Twilio account configure करना होगा। यह आपको अपने phone numbers और usage costs पर पूर्ण नियंत्रण देता है।
 
 ## चरण 1: Twilio Account बनाएं
 

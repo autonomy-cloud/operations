@@ -22,7 +22,7 @@ import NotNull from "./BaseDatabase/NotNull";
 import Search from "./BaseDatabase/Search";
 import MultiSearch from "./BaseDatabase/MultiSearch";
 import Color from "./Color";
-import OneUptimeDate from "./Date";
+import OperationsDate from "./Date";
 import Dictionary from "./Dictionary";
 import Domain from "./Domain";
 import Email from "./Email";
@@ -42,7 +42,7 @@ import Version from "./Version";
 
 const SerializableObjectDictionary: Dictionary<any> = {
   [ObjectType.Phone]: Phone,
-  [ObjectType.DateTime]: OneUptimeDate,
+  [ObjectType.DateTime]: OperationsDate,
   [ObjectType.ObjectID]: ObjectID,
   [ObjectType.Name]: Name,
   [ObjectType.EqualTo]: EqualTo,

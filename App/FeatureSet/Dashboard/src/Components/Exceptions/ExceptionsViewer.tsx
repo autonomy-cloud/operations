@@ -40,7 +40,7 @@ import { APP_API_URL } from "Common/UI/Config";
 import { JSONObject } from "Common/Types/JSON";
 import Navigation from "Common/UI/Utils/Navigation";
 import Route from "Common/Types/API/Route";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import RangeStartAndEndDateTime, {
   RangeStartAndEndDateTimeUtil,
 } from "Common/Types/Time/RangeStartAndEndDateTime";
@@ -1192,7 +1192,7 @@ const ExceptionsViewer: FunctionComponent<ExceptionsViewerProps> = (
           modelType: TelemetryException,
           data: {
             isResolved: true,
-            markedAsResolvedAt: OneUptimeDate.getCurrentDate(),
+            markedAsResolvedAt: OperationsDate.getCurrentDate(),
             markedAsResolvedByUserId: UserUtil.getUserId() || null,
           },
         });

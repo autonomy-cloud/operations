@@ -287,7 +287,7 @@ export default class PushNotificationService {
         icon: message.icon || PushNotificationUtil.DEFAULT_ICON,
         badge: message.badge || PushNotificationUtil.DEFAULT_BADGE,
         data: message.data || {},
-        tag: message.tag || "oneuptime-notification",
+        tag: message.tag || "cast-operations-notification",
         requireInteraction: message.requireInteraction || false,
         actions: message.actions || [],
         url: message.url || message.clickAction,

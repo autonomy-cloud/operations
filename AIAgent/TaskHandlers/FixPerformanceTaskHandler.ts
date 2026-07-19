@@ -20,7 +20,7 @@ export default class FixPerformanceTaskHandler extends SubjectPullRequestTaskHan
   public readonly taskType: string = CodeFixTaskType.FixPerformance;
   public readonly name: string = "Fix Performance Handler";
 
-  protected readonly branchPrefix: string = "oneuptime-perf-fix-";
+  protected readonly branchPrefix: string = "cast-operations-perf-fix-";
   protected readonly noActionMessage: string =
     "No performance fix could be applied to any repository";
   protected readonly noRepositoryMessage: string =

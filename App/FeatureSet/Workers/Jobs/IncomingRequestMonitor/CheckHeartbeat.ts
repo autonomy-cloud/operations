@@ -8,7 +8,7 @@ import logger from "Common/Server/Utils/Logger";
 import MonitorResourceUtil from "Common/Server/Utils/Monitor/MonitorResource";
 import Monitor from "Common/Models/DatabaseModels/Monitor";
 import ProjectService from "Common/Server/Services/ProjectService";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
 
@@ -18,8 +18,8 @@ RunCron(
   async () => {
     logger.debug(
       "Checking IncomingRequestMonitor:CheckHeartbeat at " +
-        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
-          OneUptimeDate.getCurrentDate(),
+        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
+          OperationsDate.getCurrentDate(),
         ),
     );
 
@@ -118,7 +118,7 @@ const checkHeartBeat: (monitor: Monitor) => Promise<void> = async (
       id: monitor.id!,
       data: {
         incomingRequestMonitorHeartbeatCheckedAt:
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
       },
       props: {
         isRoot: true,
@@ -147,7 +147,7 @@ const checkHeartBeat: (monitor: Monitor) => Promise<void> = async (
       onlyCheckForIncomingRequestReceivedAt: true,
       monitorId: monitor.id!,
       projectId: monitor.projectId!,
-      checkedAt: OneUptimeDate.getCurrentDate(),
+      checkedAt: OperationsDate.getCurrentDate(),
     };
 
     logger.debug(

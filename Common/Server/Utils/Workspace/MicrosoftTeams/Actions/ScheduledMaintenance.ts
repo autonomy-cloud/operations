@@ -25,7 +25,7 @@ import Label from "../../../../../Models/DatabaseModels/Label";
 import SortOrder from "../../../../../Types/BaseDatabase/SortOrder";
 import { LIMIT_PER_PROJECT } from "../../../../../Types/Database/LimitMax";
 import BadDataException from "../../../../../Types/Exception/BadDataException";
-import OneUptimeDate from "../../../../../Types/Date";
+import OperationsDate from "../../../../../Types/Date";
 import URL from "../../../../../Types/API/URL";
 
 export default class MicrosoftTeamsScheduledMaintenanceActions {
@@ -176,9 +176,9 @@ export default class MicrosoftTeamsScheduledMaintenanceActions {
           const endDateTime: string = `${endDate}T${endTime}`;
 
           scheduledMaintenanceObj.startsAt =
-            OneUptimeDate.fromString(startDateTime);
+            OperationsDate.fromString(startDateTime);
           scheduledMaintenanceObj.endsAt =
-            OneUptimeDate.fromString(endDateTime);
+            OperationsDate.fromString(endDateTime);
 
           // Parse monitors
           if (monitorIds) {
@@ -704,8 +704,8 @@ export default class MicrosoftTeamsScheduledMaintenanceActions {
 
     try {
       // Get Cast Operations user ID
-      const oneUptimeUserId: ObjectID =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
+      const operationsUserId: ObjectID =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId({
           teamsUserId: userId,
           projectId: projectId,
         });
@@ -716,9 +716,9 @@ export default class MicrosoftTeamsScheduledMaintenanceActions {
       scheduledMaintenance.title = title;
       scheduledMaintenance.description = description;
       scheduledMaintenance.projectId = projectId;
-      scheduledMaintenance.createdByUserId = oneUptimeUserId;
-      scheduledMaintenance.startsAt = OneUptimeDate.fromString(startDate);
-      scheduledMaintenance.endsAt = OneUptimeDate.fromString(endDate);
+      scheduledMaintenance.createdByUserId = operationsUserId;
+      scheduledMaintenance.startsAt = OperationsDate.fromString(startDate);
+      scheduledMaintenance.endsAt = OperationsDate.fromString(endDate);
 
       // Parse monitors
       if (monitorIds) {

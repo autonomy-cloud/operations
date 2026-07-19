@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ProbeAttempt from "Common/Types/Probe/ProbeAttempt";
 import ProbeMonitorResponse from "Common/Types/Probe/ProbeMonitorResponse";
 import DnssecMonitorResponse, {
@@ -34,7 +34,7 @@ const DnssecMonitorView: FunctionComponent<ComponentProps> = (
     }
     try {
       const date: Date = new Date(dateStr);
-      return OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(date);
+      return OperationsDate.getDateAsUserFriendlyLocalFormattedString(date);
     } catch {
       return dateStr;
     }

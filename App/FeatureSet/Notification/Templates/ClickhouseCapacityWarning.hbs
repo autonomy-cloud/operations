@@ -9,8 +9,8 @@
 {{> InfoBlock info="ClickHouse storage on your Cast Operations instance has crossed the capacity threshold you configured. Once the disk is full, ingestion of logs, metrics, traces and other telemetry will start to fail." }}
 
 {{> DetailBoxStart this }}
-{{#if oneuptimeHost}}
-{{> DetailBoxField title="Cast Operations Host: " text=oneuptimeHost }}
+{{#if castOperationsHost}}
+{{> DetailBoxField title="Cast Operations Host: " text=castOperationsHost }}
 {{/if}}
 {{> DetailBoxField title="Capacity Used: " text=capacityUsed }}
 {{> DetailBoxField title="Notification Threshold: " text=notificationThreshold }}

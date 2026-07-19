@@ -9,7 +9,7 @@ Cast Operations Terraform Provider er tilgængeligt i det officielle [Terraform 
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Brug seneste kompatible version
     }
@@ -17,9 +17,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -30,7 +30,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Erstat med din nøjagtige Cast Operations-version
     }
@@ -38,9 +38,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # Din selvhostede URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # Din selvhostede URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -77,8 +77,8 @@ curl https://your-operations-instance.com/api/version | jq '.version'
 ### Metode 3: Docker
 
 ```bash
-docker images | grep oneuptime
-# Se efter tagget, f.eks. oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# Se efter tagget, f.eks. cast-operations/dashboard:7.0.123
 ```
 
 ## Registry-oplysninger
@@ -102,28 +102,28 @@ docker images | grep oneuptime
 # Konfigurer provideren
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Juster til selvhostet
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # Juster til selvhostet
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # Juster til selvhostet
+  api_key       = var.cast_operations_api_key
 }
 
 # Opret et projekt
-resource "oneuptime_project" "example" {
+resource "cast_operations_project" "example" {
   name        = "Terraform Example"
   description = "Oprettet med Terraform"
 }
 
 # Opret en website-monitor
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name       = "Website Monitor"
-  project_id = oneuptime_project.example.id
+  project_id = cast_operations_project.example.id
 
   monitor_type = "website"
   url          = "https://example.com"

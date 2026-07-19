@@ -191,7 +191,7 @@ describe("dropClickhousePartition", () => {
 
     expect(command).toHaveBeenCalledWith({
       query:
-        "ALTER TABLE `oneuptime`.`SpanItemV3Local` ON CLUSTER 'oneuptime' " +
+        "ALTER TABLE `cast-operations`.`SpanItemV3Local` ON CLUSTER 'cast-operations' " +
         "DROP PARTITION ID '20260101' SETTINGS max_partition_size_to_drop = 0",
     });
   });

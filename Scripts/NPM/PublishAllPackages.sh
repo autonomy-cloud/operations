@@ -19,13 +19,13 @@ fi
 # You need to configure Trusted Publishers for each npm package:
 
 # Go to npmjs.com and log into your account
-# For each package (@oneuptime/common, @oneuptime/cli, etc.):
+# For each package (@cast-operations/common, @cast-operations/cli, etc.):
 # Navigate to the package settings
 # Find the "Trusted Publisher" section
 # Click "GitHub Actions"
 # Configure:
 # Organization or user: Cast Operations
-# Repository: oneuptime
+# Repository: cast-operations
 # Workflow filename: release.yml
 # Save the configuration
 
@@ -50,8 +50,8 @@ publish_to_npm() {
     npm version --allow-same-version $package_version
 
     # Replace any Common dependency with the pinned version being published
-    sed -i "s/\"Common\": \"file:..\/Common\"/\"Common\": \"npm:@oneuptime\/common@$package_version\"/g" package.json
-    sed -i "s/\"Common\": \"npm:@oneuptime\/common@latest\"/\"Common\": \"npm:@oneuptime\/common@$package_version\"/g" package.json
+    sed -i "s/\"Common\": \"file:..\/Common\"/\"Common\": \"npm:@cast-operations\/common@$package_version\"/g" package.json
+    sed -i "s/\"Common\": \"npm:@cast-operations\/common@latest\"/\"Common\": \"npm:@cast-operations\/common@$package_version\"/g" package.json
 
     npm install
     npm run compile
@@ -64,22 +64,22 @@ publish_to_npm() {
 # Publish Common first - other packages depend on it
 publish_to_npm "Common"
 
-# Wait for @oneuptime/common to be available on the npm registry.
+# Wait for @cast-operations/common to be available on the npm registry.
 # There is a propagation delay after publishing, so we poll until
 # the version resolves (up to ~5 minutes).
-echo "Waiting for @oneuptime/common@$package_version to be available on npm..."
+echo "Waiting for @cast-operations/common@$package_version to be available on npm..."
 max_attempts=30
 attempt=0
-until npm view "@oneuptime/common@$package_version" version 2>/dev/null; do
+until npm view "@cast-operations/common@$package_version" version 2>/dev/null; do
     attempt=$((attempt + 1))
     if [ "$attempt" -ge "$max_attempts" ]; then
-        echo "Timed out waiting for @oneuptime/common@$package_version to appear on npm"
+        echo "Timed out waiting for @cast-operations/common@$package_version to appear on npm"
         exit 1
     fi
     echo "Attempt $attempt/$max_attempts - not available yet, retrying in 10s..."
     sleep 10
 done
-echo "@oneuptime/common@$package_version is now available on npm"
+echo "@cast-operations/common@$package_version is now available on npm"
 
 # Publish packages that depend on Common (after Common is available on npm)
 publish_to_npm "CLI"

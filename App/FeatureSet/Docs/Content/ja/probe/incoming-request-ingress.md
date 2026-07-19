@@ -33,24 +33,24 @@
 ### Docker
 
 ```bash
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 `--network host` を使用しない場合は、イングレスポートを明示的に公開します。
 
 ```bash
-docker run --name oneuptime-probe \
+docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 ### Docker Compose
@@ -59,13 +59,13 @@ docker run --name oneuptime-probe \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -78,25 +78,25 @@ services:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
@@ -107,10 +107,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oneuptime-probe-ingress
+  name: cast-operations-probe-ingress
 spec:
   selector:
-    app: oneuptime-probe
+    app: cast-operations-probe
   ports:
     - name: ingress
       port: 3875
@@ -118,7 +118,7 @@ spec:
   type: ClusterIP
 ```
 
-内部サービスは `http://oneuptime-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>` にハートビートを送信できます。
+内部サービスは `http://cast-operations-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>` にハートビートを送信できます。
 
 ## プローブへのリクエスト送信
 
@@ -167,19 +167,19 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 | `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`          | Cast Operationsへの各転送試行のタイムアウト（ミリ秒）。最小 `1000`。                           |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`              | プローブが転送を諦めるまでの再試行回数。`0` に設定すると再試行を無効化。                 |
 
-標準プローブ変数（`PROBE_KEY`、`PROBE_ID`、`ONEUPTIME_URL`、プロキシ変数）はすべて適用されます。完全なリストは[カスタムプローブ](/docs/probe/custom-probe)を参照してください。
+標準プローブ変数（`PROBE_KEY`、`PROBE_ID`、`CAST_OPERATIONS_URL`、プロキシ変数）はすべて適用されます。完全なリストは[カスタムプローブ](/docs/probe/custom-probe)を参照してください。
 
 ## セキュリティに関する考慮事項
 
 - **エンドポイントは設計上認証なしです** — URLパス内のシークレットキーが認証手段であり、公開 `visca.ai` エンドポイントと同様です。シークレットキーは認証情報として扱ってください。
 - **プライベートインターフェースのみにバインドしてください。** イングレスリスナーはパブリックインターネットから到達できてはなりません。ネットワークポリシー、ファイアウォールルール、または `ClusterIP` サービスを使用してアクセスを制限してください。
-- **転送中の暗号化が必要な場合はHTTPS終端を使用してください。** プローブのリスナーはプレーンHTTPで通信します。インバウンドホップにTLSが必要な場合は、内部ロードバランサー/イングレスコントローラーの背後に置いてください。プローブからCast Operationsへの転送レッグは常にHTTPSを使用します（`ONEUPTIME_URL` が `https://` の場合）。
+- **転送中の暗号化が必要な場合はHTTPS終端を使用してください。** プローブのリスナーはプレーンHTTPで通信します。インバウンドホップにTLSが必要な場合は、内部ロードバランサー/イングレスコントローラーの背後に置いてください。プローブからCast Operationsへの転送レッグは常にHTTPSを使用します（`CAST_OPERATIONS_URL` が `https://` の場合）。
 - **リソース制限。** リスナーは最大50MBのリクエストボディを受け付けます。より厳しい制限が必要な場合は、前段にリバースプロキシを置いてください。
 
 ## トラブルシューティング
 
 - **起動時にプローブが `Probe ingress listener started on port <port>` をログに記録する** — リスナーが起動していることを確認します。この行が見えない場合、`PROBE_INGRESS_PORT` が未設定、`0`、または無効です。
-- **`Probe ingress: failed to forward to <url> after N attempts`** — プローブがCast Operationsに到達できませんでした。プローブのアウトバウンド接続、プロキシ設定、`ONEUPTIME_URL` の値を確認してください。
+- **`Probe ingress: failed to forward to <url> after N attempts`** — プローブがCast Operationsに到達できませんでした。プローブのアウトバウンド接続、プロキシ設定、`CAST_OPERATIONS_URL` の値を確認してください。
 - **`Probe ingress: probe ID not available, forwarding without it`** — プローブがまだ登録されていません。転送は成功しますが、ハートビートはプローブに帰属されません。
 - **ハートビートがCast Operationsに表示されるがプローブ経由でない** — サービスが公開URLではなく `http://<probe-host>:<port>/...` にアクセスしていることを確認してください。設定ミスのDNSや `/etc/hosts` エントリが通常の原因です。
 

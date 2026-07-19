@@ -18,18 +18,10 @@ import IconProp from "../../Types/Icon/IconProp";
 import ObjectID from "../../Types/ObjectID";
 import Permission from "../../Types/Permission";
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import EnableWorkflow from "../../Types/Database/EnableWorkflow";
 
 @EnableDocumentation()
 @CanAccessIfCanReadOn("onCallDutyPolicy")
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Growth,
-  update: PlanType.Growth,
-  delete: PlanType.Growth,
-})
 @TenantColumn("projectId")
 @EnableWorkflow({
   create: true,
@@ -152,7 +144,8 @@ export default class OnCallDutyPolicyTimeLog extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({

@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import DayOfWeek from "Common/Types/Day/DayOfWeek";
 import EventInterval from "Common/Types/Events/EventInterval";
 import Recurring from "Common/Types/Events/Recurring";
@@ -70,7 +70,7 @@ export function summarizeHandOff(handOffTime: Date | undefined): string | null {
     return null;
   }
 
-  return `Hands off at ${OneUptimeDate.getLocalHourAndMinuteFromDate(
+  return `Hands off at ${OperationsDate.getLocalHourAndMinuteFromDate(
     handOffTime,
   )}`;
 }
@@ -104,10 +104,10 @@ export function summarizeRestriction(
     const day: { startTime: Date; endTime: Date } | null =
       restrictionTimes.dayRestrictionTimes;
     if (day && day.startTime && day.endTime) {
-      return `Daily ${OneUptimeDate.getHourAndMinuteInTimezoneString(
+      return `Daily ${OperationsDate.getHourAndMinuteInTimezoneString(
         day.startTime,
         timezone,
-      )} – ${OneUptimeDate.getHourAndMinuteInTimezoneString(
+      )} – ${OperationsDate.getHourAndMinuteInTimezoneString(
         day.endTime,
         timezone,
       )}${tzSuffix}`;
@@ -133,15 +133,15 @@ export function summarizeRestriction(
      * that contradicts who is actually paged. Using the timestamp keeps the
      * summary consistent with the engine and the preview.
      */
-    const startDay: DayOfWeek = OneUptimeDate.getDayOfWeek(
+    const startDay: DayOfWeek = OperationsDate.getDayOfWeek(
       w.startTime,
       timezone,
     );
-    const endDay: DayOfWeek = OneUptimeDate.getDayOfWeek(w.endTime, timezone);
-    return `${startDay} ${OneUptimeDate.getHourAndMinuteInTimezoneString(
+    const endDay: DayOfWeek = OperationsDate.getDayOfWeek(w.endTime, timezone);
+    return `${startDay} ${OperationsDate.getHourAndMinuteInTimezoneString(
       w.startTime,
       timezone,
-    )} – ${endDay} ${OneUptimeDate.getHourAndMinuteInTimezoneString(
+    )} – ${endDay} ${OperationsDate.getHourAndMinuteInTimezoneString(
       w.endTime,
       timezone,
     )}${tzSuffix}`;
@@ -155,7 +155,7 @@ export function summarizeStartsAt(startsAt: Date | undefined): string {
     return "Start time not set";
   }
 
-  return `Starts ${OneUptimeDate.getDateAsLocalFormattedString(startsAt, false)}`;
+  return `Starts ${OperationsDate.getDateAsLocalFormattedString(startsAt, false)}`;
 }
 
 /*
@@ -172,7 +172,7 @@ export function formatShiftInstant(
   date: Date,
   timezone?: string | undefined,
 ): string {
-  return OneUptimeDate.getDateAsFormattedStringInTimezone({
+  return OperationsDate.getDateAsFormattedStringInTimezone({
     date,
     timezone,
     showWeekday: true,
@@ -204,7 +204,7 @@ export function formatDurationFromSeconds(totalSeconds: number): string {
 // Compact human duration of a shift's wall-clock span (start -> end).
 export function formatShiftDuration(start: Date, end: Date): string {
   return formatDurationFromSeconds(
-    OneUptimeDate.getDifferenceInSeconds(end, start),
+    OperationsDate.getDifferenceInSeconds(end, start),
   );
 }
 
@@ -214,11 +214,11 @@ export function formatShiftDuration(start: Date, end: Date): string {
  * "in 2 days" / "in 3 weeks".
  */
 export function formatRelativeStart(start: Date, now: Date): string {
-  if (OneUptimeDate.isOnOrBefore(start, now)) {
+  if (OperationsDate.isOnOrBefore(start, now)) {
     return "Now";
   }
 
-  const seconds: number = OneUptimeDate.getDifferenceInSeconds(start, now);
+  const seconds: number = OperationsDate.getDifferenceInSeconds(start, now);
   const minutes: number = Math.round(seconds / 60);
 
   if (minutes < 60) {

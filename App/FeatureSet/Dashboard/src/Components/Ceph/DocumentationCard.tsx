@@ -44,9 +44,9 @@ const CephDocumentationCard: FunctionComponent<ComponentProps> = (
 
   const httpProtocol: string =
     HTTP_PROTOCOL === Protocol.HTTPS ? "https" : "http";
-  const oneuptimeUrl: string = HOST
+  const castOperationsUrl: string = HOST
     ? `${httpProtocol}://${HOST}`
-    : "<YOUR_ONEUPTIME_URL>";
+    : "<YOUR_CAST_OPERATIONS_URL>";
 
   useEffect(() => {
     loadIngestionKeys().catch(() => {});
@@ -189,7 +189,7 @@ const CephDocumentationCard: FunctionComponent<ComponentProps> = (
                     Cast Operations URL
                   </div>
                   <div className="text-sm text-gray-900 font-mono mt-0.5 break-all select-all">
-                    {oneuptimeUrl}
+                    {castOperationsUrl}
                   </div>
                 </div>
               </div>
@@ -217,7 +217,7 @@ const CephDocumentationCard: FunctionComponent<ComponentProps> = (
   };
 
   const installationMarkdown: string = getCephInstallationMarkdown({
-    oneuptimeUrl: oneuptimeUrl,
+    castOperationsUrl: castOperationsUrl,
     apiKey: apiKeyValue,
   });
 

@@ -9,7 +9,7 @@ export interface ComponentProps {
   copyright?: string | undefined;
   links: Array<Link>;
   className?: string | undefined;
-  hidePoweredByOneUptimeBranding?: boolean | undefined;
+  hidePoweredByOperationsBranding?: boolean | undefined;
   enabledLanguages?: Array<string> | null | undefined;
 }
 
@@ -19,7 +19,7 @@ const StatusPageFooter: FunctionComponent<ComponentProps> = (
   const { t } = useTranslation();
   const links: Array<FooterLink> = [...props.links];
 
-  if (!props.hidePoweredByOneUptimeBranding) {
+  if (!props.hidePoweredByOperationsBranding) {
     links.push({
       title: t("footer.poweredBy"),
       to: URL.fromString("https://visca.ai"),

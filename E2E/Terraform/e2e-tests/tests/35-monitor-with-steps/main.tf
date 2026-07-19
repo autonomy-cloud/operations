@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
@@ -11,8 +11,8 @@ terraform {
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -31,7 +31,7 @@ resource "random_id" "suffix" {
 # - IP Monitor
 
 # Create monitor statuses for criteria
-resource "oneuptime_monitor_status" "operational" {
+resource "cast_operations_monitor_status" "operational" {
   name                 = "TF Operational ${random_id.suffix.hex}"
   description          = "Monitor is operational"
   color                = "#2ecc71"
@@ -39,7 +39,7 @@ resource "oneuptime_monitor_status" "operational" {
   is_operational_state = true
 }
 
-resource "oneuptime_monitor_status" "degraded" {
+resource "cast_operations_monitor_status" "degraded" {
   name                 = "TF Degraded ${random_id.suffix.hex}"
   description          = "Monitor is degraded"
   color                = "#f39c12"
@@ -47,7 +47,7 @@ resource "oneuptime_monitor_status" "degraded" {
   is_operational_state = false
 }
 
-resource "oneuptime_monitor_status" "offline" {
+resource "cast_operations_monitor_status" "offline" {
   name                 = "TF Offline ${random_id.suffix.hex}"
   description          = "Monitor is offline"
   color                = "#e74c3c"
@@ -58,7 +58,7 @@ resource "oneuptime_monitor_status" "offline" {
 # =============================================================================
 # Test Case 1: Website Monitor with Monitor Steps
 # =============================================================================
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name         = "TF Website Monitor ${random_id.suffix.hex}"
   description  = "Website monitor with URL destination and response criteria"
   monitor_type = "Website"
@@ -90,7 +90,7 @@ resource "oneuptime_monitor" "website" {
                       changeMonitorStatus = true
                       createIncidents  = false
                       createAlerts     = false
-                      monitorStatusId  = oneuptime_monitor_status.operational.id
+                      monitorStatusId  = cast_operations_monitor_status.operational.id
                       filters = [
                         {
                           _type = "CriteriaFilter"
@@ -122,7 +122,7 @@ resource "oneuptime_monitor" "website" {
                       changeMonitorStatus = true
                       createIncidents  = false
                       createAlerts     = false
-                      monitorStatusId  = oneuptime_monitor_status.offline.id
+                      monitorStatusId  = cast_operations_monitor_status.offline.id
                       filters = [
                         {
                           _type = "CriteriaFilter"
@@ -145,13 +145,13 @@ resource "oneuptime_monitor" "website" {
     }
   })
 
-  depends_on = [oneuptime_monitor_status.operational, oneuptime_monitor_status.offline]
+  depends_on = [cast_operations_monitor_status.operational, cast_operations_monitor_status.offline]
 }
 
 # =============================================================================
 # Test Case 2: API Monitor with Headers and Body
 # =============================================================================
-resource "oneuptime_monitor" "api" {
+resource "cast_operations_monitor" "api" {
   name         = "TF API Monitor ${random_id.suffix.hex}"
   description  = "API monitor with POST request, headers, and body"
   monitor_type = "API"
@@ -189,7 +189,7 @@ resource "oneuptime_monitor" "api" {
                       changeMonitorStatus = true
                       createIncidents  = false
                       createAlerts     = false
-                      monitorStatusId  = oneuptime_monitor_status.operational.id
+                      monitorStatusId  = cast_operations_monitor_status.operational.id
                       filters = [
                         {
                           _type = "CriteriaFilter"
@@ -220,13 +220,13 @@ resource "oneuptime_monitor" "api" {
     }
   })
 
-  depends_on = [oneuptime_monitor_status.operational]
+  depends_on = [cast_operations_monitor_status.operational]
 }
 
 # =============================================================================
 # Test Case 3: Ping Monitor
 # =============================================================================
-resource "oneuptime_monitor" "ping" {
+resource "cast_operations_monitor" "ping" {
   name         = "TF Ping Monitor ${random_id.suffix.hex}"
   description  = "Ping monitor with hostname destination"
   monitor_type = "Ping"
@@ -258,7 +258,7 @@ resource "oneuptime_monitor" "ping" {
                       changeMonitorStatus = true
                       createIncidents  = false
                       createAlerts     = false
-                      monitorStatusId  = oneuptime_monitor_status.operational.id
+                      monitorStatusId  = cast_operations_monitor_status.operational.id
                       filters = [
                         {
                           _type = "CriteriaFilter"
@@ -282,7 +282,7 @@ resource "oneuptime_monitor" "ping" {
                       changeMonitorStatus = true
                       createIncidents  = false
                       createAlerts     = false
-                      monitorStatusId  = oneuptime_monitor_status.offline.id
+                      monitorStatusId  = cast_operations_monitor_status.offline.id
                       filters = [
                         {
                           _type = "CriteriaFilter"
@@ -305,13 +305,13 @@ resource "oneuptime_monitor" "ping" {
     }
   })
 
-  depends_on = [oneuptime_monitor_status.operational, oneuptime_monitor_status.offline]
+  depends_on = [cast_operations_monitor_status.operational, cast_operations_monitor_status.offline]
 }
 
 # =============================================================================
 # Test Case 4: Port Monitor
 # =============================================================================
-resource "oneuptime_monitor" "port" {
+resource "cast_operations_monitor" "port" {
   name         = "TF Port Monitor ${random_id.suffix.hex}"
   description  = "Port monitor checking HTTPS port"
   monitor_type = "Port"
@@ -347,7 +347,7 @@ resource "oneuptime_monitor" "port" {
                       changeMonitorStatus = true
                       createIncidents  = false
                       createAlerts     = false
-                      monitorStatusId  = oneuptime_monitor_status.operational.id
+                      monitorStatusId  = cast_operations_monitor_status.operational.id
                       filters = [
                         {
                           _type = "CriteriaFilter"
@@ -370,13 +370,13 @@ resource "oneuptime_monitor" "port" {
     }
   })
 
-  depends_on = [oneuptime_monitor_status.operational]
+  depends_on = [cast_operations_monitor_status.operational]
 }
 
 # =============================================================================
 # Test Case 5: SSL Certificate Monitor
 # =============================================================================
-resource "oneuptime_monitor" "ssl" {
+resource "cast_operations_monitor" "ssl" {
   name         = "TF SSL Certificate Monitor ${random_id.suffix.hex}"
   description  = "SSL certificate monitor checking certificate validity"
   monitor_type = "SSL Certificate"
@@ -408,7 +408,7 @@ resource "oneuptime_monitor" "ssl" {
                       changeMonitorStatus = true
                       createIncidents  = false
                       createAlerts     = false
-                      monitorStatusId  = oneuptime_monitor_status.operational.id
+                      monitorStatusId  = cast_operations_monitor_status.operational.id
                       filters = [
                         {
                           _type = "CriteriaFilter"
@@ -432,7 +432,7 @@ resource "oneuptime_monitor" "ssl" {
                       changeMonitorStatus = true
                       createIncidents  = false
                       createAlerts     = false
-                      monitorStatusId  = oneuptime_monitor_status.degraded.id
+                      monitorStatusId  = cast_operations_monitor_status.degraded.id
                       filters = [
                         {
                           _type = "CriteriaFilter"
@@ -456,13 +456,13 @@ resource "oneuptime_monitor" "ssl" {
     }
   })
 
-  depends_on = [oneuptime_monitor_status.operational, oneuptime_monitor_status.degraded]
+  depends_on = [cast_operations_monitor_status.operational, cast_operations_monitor_status.degraded]
 }
 
 # =============================================================================
 # Test Case 6: IP Monitor
 # =============================================================================
-resource "oneuptime_monitor" "ip" {
+resource "cast_operations_monitor" "ip" {
   name         = "TF IP Monitor ${random_id.suffix.hex}"
   description  = "IP monitor checking connectivity"
   monitor_type = "IP"
@@ -494,7 +494,7 @@ resource "oneuptime_monitor" "ip" {
                       changeMonitorStatus = true
                       createIncidents  = false
                       createAlerts     = false
-                      monitorStatusId  = oneuptime_monitor_status.operational.id
+                      monitorStatusId  = cast_operations_monitor_status.operational.id
                       filters = [
                         {
                           _type = "CriteriaFilter"
@@ -517,83 +517,83 @@ resource "oneuptime_monitor" "ip" {
     }
   })
 
-  depends_on = [oneuptime_monitor_status.operational]
+  depends_on = [cast_operations_monitor_status.operational]
 }
 
 # =============================================================================
 # Outputs
 # =============================================================================
 output "website_monitor_id" {
-  value       = oneuptime_monitor.website.id
+  value       = cast_operations_monitor.website.id
   description = "Website monitor ID"
 }
 
 output "website_monitor_type" {
-  value       = oneuptime_monitor.website.monitor_type
+  value       = cast_operations_monitor.website.monitor_type
   description = "Website monitor type"
 }
 
 output "api_monitor_id" {
-  value       = oneuptime_monitor.api.id
+  value       = cast_operations_monitor.api.id
   description = "API monitor ID"
 }
 
 output "api_monitor_type" {
-  value       = oneuptime_monitor.api.monitor_type
+  value       = cast_operations_monitor.api.monitor_type
   description = "API monitor type"
 }
 
 output "ping_monitor_id" {
-  value       = oneuptime_monitor.ping.id
+  value       = cast_operations_monitor.ping.id
   description = "Ping monitor ID"
 }
 
 output "ping_monitor_type" {
-  value       = oneuptime_monitor.ping.monitor_type
+  value       = cast_operations_monitor.ping.monitor_type
   description = "Ping monitor type"
 }
 
 output "port_monitor_id" {
-  value       = oneuptime_monitor.port.id
+  value       = cast_operations_monitor.port.id
   description = "Port monitor ID"
 }
 
 output "port_monitor_type" {
-  value       = oneuptime_monitor.port.monitor_type
+  value       = cast_operations_monitor.port.monitor_type
   description = "Port monitor type"
 }
 
 output "ssl_monitor_id" {
-  value       = oneuptime_monitor.ssl.id
+  value       = cast_operations_monitor.ssl.id
   description = "SSL certificate monitor ID"
 }
 
 output "ssl_monitor_type" {
-  value       = oneuptime_monitor.ssl.monitor_type
+  value       = cast_operations_monitor.ssl.monitor_type
   description = "SSL certificate monitor type"
 }
 
 output "ip_monitor_id" {
-  value       = oneuptime_monitor.ip.id
+  value       = cast_operations_monitor.ip.id
   description = "IP monitor ID"
 }
 
 output "ip_monitor_type" {
-  value       = oneuptime_monitor.ip.monitor_type
+  value       = cast_operations_monitor.ip.monitor_type
   description = "IP monitor type"
 }
 
 output "operational_status_id" {
-  value       = oneuptime_monitor_status.operational.id
+  value       = cast_operations_monitor_status.operational.id
   description = "Operational status ID"
 }
 
 output "degraded_status_id" {
-  value       = oneuptime_monitor_status.degraded.id
+  value       = cast_operations_monitor_status.degraded.id
   description = "Degraded status ID"
 }
 
 output "offline_status_id" {
-  value       = oneuptime_monitor_status.offline.id
+  value       = cast_operations_monitor_status.offline.id
   description = "Offline status ID"
 }

@@ -1,7 +1,7 @@
 import { create } from "xmlbuilder2";
 import { XMLBuilder } from "xmlbuilder2/lib/interfaces";
 import BlogPostUtil, { BlogPostHeader } from "./BlogPost";
-import Cast OperationsDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import URL from "Common/Types/API/URL";
 import Text from "Common/Types/Text";
 
@@ -21,7 +21,7 @@ function isCacheValid<T>(cache: CachedData<T> | null | undefined): boolean {
   if (!cache) {
     return false;
   }
-  const now: number = Cast OperationsDate.getCurrentDate().getTime();
+  const now: number = OperationsDate.getCurrentDate().getTime();
   return now - cache.generatedAt < TTL_MS;
 }
 
@@ -57,7 +57,7 @@ async function buildRssFeed(data: {
   channel.ele("language").txt("en-us");
   channel
     .ele("lastBuildDate")
-    .txt(Cast OperationsDate.getCurrentDate().toUTCString());
+    .txt(OperationsDate.getCurrentDate().toUTCString());
   channel.ele("generator").txt("Cast Operations Blog");
 
   // Atom self-link for feed validators
@@ -68,9 +68,7 @@ async function buildRssFeed(data: {
 
   // Image
   const image: XMLBuilder = channel.ele("image");
-  image
-    .ele("url")
-    .txt(`${data.baseUrlString}/img/CastOperationsSVG/icon.svg`);
+  image.ele("url").txt(`${data.baseUrlString}/img/CastOperationsSVG/icon.svg`);
   image.ele("title").txt(data.title);
   image.ele("link").txt(data.siteUrl);
 
@@ -128,7 +126,7 @@ export async function generateBlogRssFeed(): Promise<string> {
 
   mainFeedCache = {
     data: xml,
-    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
+    generatedAt: OperationsDate.getCurrentDate().getTime(),
   };
 
   return xml;
@@ -162,7 +160,7 @@ export async function generateTagRssFeed(tagName: string): Promise<string> {
 
   tagFeedCaches.set(cacheKey, {
     data: xml,
-    generatedAt: Cast OperationsDate.getCurrentDate().getTime(),
+    generatedAt: OperationsDate.getCurrentDate().getTime(),
   });
 
   return xml;

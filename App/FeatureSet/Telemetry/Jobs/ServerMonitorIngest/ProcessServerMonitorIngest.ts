@@ -10,7 +10,7 @@ import ObjectID from "Common/Types/ObjectID";
 import MonitorService from "Common/Server/Services/MonitorService";
 import MonitorResourceUtil from "Common/Server/Utils/Monitor/MonitorResource";
 import Monitor from "Common/Models/DatabaseModels/Monitor";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ProjectService from "Common/Server/Services/ProjectService";
 
 export async function processServerMonitorFromQueue(
@@ -57,8 +57,8 @@ export async function processServerMonitorFromQueue(
   }
 
   serverMonitorResponse.monitorId = monitor.id;
-  serverMonitorResponse.requestReceivedAt = OneUptimeDate.getCurrentDate();
-  serverMonitorResponse.timeNow = OneUptimeDate.getCurrentDate();
+  serverMonitorResponse.requestReceivedAt = OperationsDate.getCurrentDate();
+  serverMonitorResponse.timeNow = OperationsDate.getCurrentDate();
 
   // process probe response here.
   await MonitorResourceUtil.monitorResource(serverMonitorResponse);

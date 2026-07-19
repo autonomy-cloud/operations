@@ -31,14 +31,14 @@ import AlertOwnerUser from "../../Models/DatabaseModels/AlertOwnerUser";
 import AlertState from "../../Models/DatabaseModels/AlertState";
 import AlertStateTimeline from "../../Models/DatabaseModels/AlertStateTimeline";
 import User from "../../Models/DatabaseModels/User";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import logger, { LogAttributes } from "../Utils/Logger";
 import Semaphore, { SemaphoreMutex } from "../Infrastructure/Semaphore";
 import TelemetryUtil from "../Utils/Telemetry/Telemetry";
 import MutableMetricService from "./MutableMetricService";
 import GlobalConfigService from "./GlobalConfigService";
 import GlobalConfig from "../../Models/DatabaseModels/GlobalConfig";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import MutableMetric from "../../Models/AnalyticsModels/MutableMetric";
 import { MetricPointType } from "../../Models/AnalyticsModels/Metric";
 import ServiceType from "../../Types/Telemetry/ServiceType";
@@ -74,9 +74,6 @@ import ProjectService from "./ProjectService";
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -164,8 +161,8 @@ export class Service extends DatabaseService<Model> {
         matchingRule.reminderIntervalInMinutes &&
         !(await this.isAlertResolved({ alertId: data.alertId }))
       ) {
-        nextReminderNotificationAt = OneUptimeDate.addRemoveMinutes(
-          OneUptimeDate.getCurrentDate(),
+        nextReminderNotificationAt = OperationsDate.addRemoveMinutes(
+          OperationsDate.getCurrentDate(),
           matchingRule.reminderIntervalInMinutes,
         );
       }
@@ -1327,8 +1324,8 @@ ${alertSeverity.name}
             primaryEntityId: alert.id,
             primaryEntityType: ServiceType.Alert,
             metricNames: Object.values(AlertMetricType),
-            retentionDate: OneUptimeDate.addRemoveDays(
-              OneUptimeDate.getCurrentDate(),
+            retentionDate: OperationsDate.addRemoveDays(
+              OperationsDate.getCurrentDate(),
               metricRetentionDays,
             ),
           });
@@ -1525,8 +1522,8 @@ ${alertSeverity.name}
       const metricTypesMap: Dictionary<MetricType> = {};
 
       const metricRetentionDays: number = await this.getMetricRetentionDays();
-      const alertMetricRetentionDate: Date = OneUptimeDate.addRemoveDays(
-        OneUptimeDate.getCurrentDate(),
+      const alertMetricRetentionDate: Date = OperationsDate.addRemoveDays(
+        OperationsDate.getCurrentDate(),
         metricRetentionDays,
       );
 
@@ -1534,7 +1531,7 @@ ${alertSeverity.name}
       const alertStartsAt: Date =
         firstAlertStateTimeline?.startsAt ||
         alert.createdAt ||
-        OneUptimeDate.getCurrentDate();
+        OperationsDate.getCurrentDate();
 
       // register the metric type so the catalog stays complete across refreshes.
       const alertCountMetricType: MetricType = new MetricType();
@@ -1565,7 +1562,7 @@ ${alertSeverity.name}
       );
 
       alertCountMetric.time = alertStartsAt;
-      alertCountMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+      alertCountMetric.timeUnixNano = OperationsDate.toUnixNano(
         alertCountMetric.time,
       );
       alertCountMetric.metricPointType = MetricPointType.Sum;
@@ -1602,8 +1599,8 @@ ${alertSeverity.name}
           timeToAcknowledgeMetric.name = AlertMetricType.TimeToAcknowledge;
           timeToAcknowledgeMetric.metricPointId =
             AlertMetricType.TimeToAcknowledge;
-          timeToAcknowledgeMetric.value = OneUptimeDate.getDifferenceInSeconds(
-            ackAlertStateTimeline?.startsAt || OneUptimeDate.getCurrentDate(),
+          timeToAcknowledgeMetric.value = OperationsDate.getDifferenceInSeconds(
+            ackAlertStateTimeline?.startsAt || OperationsDate.getCurrentDate(),
             alertStartsAt,
           );
           timeToAcknowledgeMetric.attributes = {
@@ -1620,8 +1617,8 @@ ${alertSeverity.name}
           timeToAcknowledgeMetric.time =
             ackAlertStateTimeline?.startsAt ||
             alert.createdAt ||
-            OneUptimeDate.getCurrentDate();
-          timeToAcknowledgeMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+            OperationsDate.getCurrentDate();
+          timeToAcknowledgeMetric.timeUnixNano = OperationsDate.toUnixNano(
             timeToAcknowledgeMetric.time,
           );
           timeToAcknowledgeMetric.metricPointType = MetricPointType.Sum;
@@ -1658,9 +1655,9 @@ ${alertSeverity.name}
         timeToResolveMetric.primaryEntityType = ServiceType.Alert;
         timeToResolveMetric.name = AlertMetricType.TimeToResolve;
         timeToResolveMetric.metricPointId = AlertMetricType.TimeToResolve;
-        timeToResolveMetric.value = OneUptimeDate.getDifferenceInSeconds(
+        timeToResolveMetric.value = OperationsDate.getDifferenceInSeconds(
           resolvedAlertStateTimeline?.startsAt ||
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           alertStartsAt,
         );
         timeToResolveMetric.attributes = {
@@ -1678,8 +1675,8 @@ ${alertSeverity.name}
         timeToResolveMetric.time =
           resolvedAlertStateTimeline?.startsAt ||
           alert.createdAt ||
-          OneUptimeDate.getCurrentDate();
-        timeToResolveMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+          OperationsDate.getCurrentDate();
+        timeToResolveMetric.timeUnixNano = OperationsDate.toUnixNano(
           timeToResolveMetric.time,
         );
         timeToResolveMetric.metricPointType = MetricPointType.Sum;
@@ -1697,7 +1694,8 @@ ${alertSeverity.name}
         metricTypesMap[AlertMetricType.AlertDuration] = metricType;
 
         const alertEndsAt: Date =
-          resolvedAlertStateTimeline.startsAt || OneUptimeDate.getCurrentDate();
+          resolvedAlertStateTimeline.startsAt ||
+          OperationsDate.getCurrentDate();
 
         const alertDurationMetric: MutableMetric = new MutableMetric();
 
@@ -1706,7 +1704,7 @@ ${alertSeverity.name}
         alertDurationMetric.primaryEntityType = ServiceType.Alert;
         alertDurationMetric.name = AlertMetricType.AlertDuration;
         alertDurationMetric.metricPointId = AlertMetricType.AlertDuration;
-        alertDurationMetric.value = OneUptimeDate.getDifferenceInSeconds(
+        alertDurationMetric.value = OperationsDate.getDifferenceInSeconds(
           alertEndsAt,
           alertStartsAt,
         );
@@ -1723,7 +1721,7 @@ ${alertSeverity.name}
         );
 
         alertDurationMetric.time = alertEndsAt;
-        alertDurationMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+        alertDurationMetric.timeUnixNano = OperationsDate.toUnixNano(
           alertDurationMetric.time,
         );
         alertDurationMetric.metricPointType = MetricPointType.Sum;

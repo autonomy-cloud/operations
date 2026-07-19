@@ -15,7 +15,7 @@ import SortOrder from "../../../Types/BaseDatabase/SortOrder";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import GenericObject from "../../../Types/GenericObject";
 import ObjectID from "../../../Types/ObjectID";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import {
   describe,
   expect,
@@ -113,7 +113,7 @@ describe("AnalyticsDatabaseService", () => {
           " SETTINGS max_execution_time = 45, timeout_overflow_mode = 'break', max_memory_usage = 3221225472, max_bytes_before_external_group_by = 1610612736, max_bytes_before_external_sort = 1610612736",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "oneuptime",
+        p0: "cast-operations",
         p1: "<table-name>",
       });
     });
@@ -134,7 +134,7 @@ describe("AnalyticsDatabaseService", () => {
           " SETTINGS max_execution_time = 45, timeout_overflow_mode = 'break', max_memory_usage = 3221225472, max_bytes_before_external_group_by = 1610612736, max_bytes_before_external_sort = 1610612736",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "oneuptime",
+        p0: "cast-operations",
         p1: "<table-name>",
         p2: 123,
       });
@@ -156,7 +156,7 @@ describe("AnalyticsDatabaseService", () => {
           " SETTINGS max_execution_time = 45, timeout_overflow_mode = 'break', max_memory_usage = 3221225472, max_bytes_before_external_group_by = 1610612736, max_bytes_before_external_sort = 1610612736",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "oneuptime",
+        p0: "cast-operations",
         p1: "<table-name>",
         p2: 123,
       });
@@ -221,7 +221,7 @@ describe("AnalyticsDatabaseService", () => {
           "SETTINGS max_execution_time = 45, timeout_overflow_mode = 'break', max_memory_usage = 3221225472, max_bytes_before_external_group_by = 1610612736, max_bytes_before_external_sort = 1610612736",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "oneuptime",
+        p0: "cast-operations",
         p1: "<table-name>",
         p2: 123, // limit
         p3: 234, // offset
@@ -459,11 +459,11 @@ describe("AnalyticsDatabaseService", () => {
        * table).
        */
       expect(statement.query).toBe(
-        "ALTER TABLE {p0:Identifier}.{p1:Identifier} ON CLUSTER 'oneuptime'\n" +
+        "ALTER TABLE {p0:Identifier}.{p1:Identifier} ON CLUSTER 'cast-operations'\n" +
           "DELETE WHERE TRUE <where-statement>",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "oneuptime",
+        p0: "cast-operations",
         p1: "<table-name>Local",
       });
     });
@@ -554,7 +554,7 @@ describe("AnalyticsDatabaseService", () => {
       const model: RequiredFieldsModel = new RequiredFieldsModel();
       // _id and createdAt are required on the base model and carry no default.
       model.setColumnValue("_id", ObjectID.generate());
-      model.setColumnValue("createdAt", OneUptimeDate.getCurrentDate());
+      model.setColumnValue("createdAt", OperationsDate.getCurrentDate());
       model.setColumnValue("requiredText", "value");
       if (overrides) {
         overrides(model);
@@ -606,7 +606,7 @@ describe("AnalyticsDatabaseService", () => {
     test("throws when a required column without a default is missing", () => {
       const model: RequiredFieldsModel = new RequiredFieldsModel();
       model.setColumnValue("_id", ObjectID.generate());
-      model.setColumnValue("createdAt", OneUptimeDate.getCurrentDate());
+      model.setColumnValue("createdAt", OperationsDate.getCurrentDate());
       model.setColumnValue("requiredBoolWithDefault", false);
       // requiredText (required, no default) intentionally left unset.
 

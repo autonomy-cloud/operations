@@ -37,7 +37,7 @@ import {
   displayNameForResource,
   displayStatusForResource,
 } from "../Utils/ProxmoxResourceUtils";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const ProxmoxClusterNodeDetail: FunctionComponent<
   PageComponentProps
@@ -240,7 +240,7 @@ const ProxmoxClusterNodeDetail: FunctionComponent<
     if (row.lastSeenAt) {
       summaryFields.push({
         title: "Last Seen",
-        value: OneUptimeDate.fromNow(new Date(row.lastSeenAt as Date)),
+        value: OperationsDate.fromNow(new Date(row.lastSeenAt as Date)),
       });
     }
   }

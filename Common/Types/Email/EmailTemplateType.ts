@@ -82,13 +82,7 @@ enum EmailTemplateType {
   UserNextOnOnCallRoster = "UserNextOnOnCallRoster.hbs",
   UserNoLongerActiveOnOnCallRoster = "UserNoLongerActiveOnOnCallRoster.hbs",
 
-  ProjectSubscriptionOverdue = "ProjectSubscriptionOverdue.hbs",
-  Invoice = "Invoice.hbs",
-
   ClickhouseCapacityWarning = "ClickhouseCapacityWarning.hbs",
-
-  EnterpriseLicenseUserLimitBreach = "EnterpriseLicenseUserLimitBreach.hbs",
-  EnterpriseLicenseExpiryReminder = "EnterpriseLicenseExpiryReminder.hbs",
 }
 
 export default EmailTemplateType;

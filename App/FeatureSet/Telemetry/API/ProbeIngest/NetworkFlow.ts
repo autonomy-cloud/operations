@@ -3,7 +3,7 @@ import BadDataException from "Common/Types/Exception/BadDataException";
 import Dictionary from "Common/Types/Dictionary";
 import { JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import NetworkFlowRecord from "Common/Types/NetFlow/NetworkFlowRecord";
 import NetworkDevice from "Common/Models/DatabaseModels/NetworkDevice";
 import NetworkDeviceHydrationUtil from "Common/Server/Utils/Monitor/NetworkDeviceHydrationUtil";
@@ -97,7 +97,7 @@ async function processFlowRecords(
   let unmatched: number = 0;
   let malformed: number = 0;
 
-  const ingestedAt: Date = OneUptimeDate.getCurrentDate();
+  const ingestedAt: Date = OperationsDate.getCurrentDate();
 
   for (const rawRecord of rawRecords) {
     try {
@@ -133,7 +133,7 @@ async function processFlowRecords(
 
         rows.push({
           _id: ObjectID.generateTimeOrdered().toString(),
-          createdAt: OneUptimeDate.toClickhouseDateTime(ingestedAt),
+          createdAt: OperationsDate.toClickhouseDateTime(ingestedAt),
           projectId: device.projectId.toString(),
           networkDeviceId: device.id.toString(),
           exporterIp: flowRecord.exporterIpAddress,
@@ -144,11 +144,13 @@ async function processFlowRecords(
           protocol: flowRecord.protocolNumber,
           octets: flowRecord.octets,
           packets: flowRecord.packets,
-          flowStartAt: OneUptimeDate.toClickhouseDateTime64(
+          flowStartAt: OperationsDate.toClickhouseDateTime64(
             flowRecord.flowStartAt,
           ),
-          flowEndAt: OneUptimeDate.toClickhouseDateTime64(flowRecord.flowEndAt),
-          ingestedAt: OneUptimeDate.toClickhouseDateTime64(ingestedAt),
+          flowEndAt: OperationsDate.toClickhouseDateTime64(
+            flowRecord.flowEndAt,
+          ),
+          ingestedAt: OperationsDate.toClickhouseDateTime64(ingestedAt),
         } satisfies JSONObject);
       }
     } catch (processingError) {
@@ -206,7 +208,7 @@ function deserializeFlowRecord(raw: JSONObject): NetworkFlowRecord | null {
     return null;
   }
 
-  const fallbackDate: Date = OneUptimeDate.getCurrentDate();
+  const fallbackDate: Date = OperationsDate.getCurrentDate();
   const flowStartAt: Date = parseDateOrDefault(
     raw["flowStartAt"],
     fallbackDate,

@@ -1,4 +1,4 @@
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import {
   AIChatWidget,
   AIChatWidgetColumn,
@@ -40,7 +40,7 @@ export function toTimeAgo(value: unknown): string {
     return "";
   }
   try {
-    return OneUptimeDate.fromNow(OneUptimeDate.fromString(value as string));
+    return OperationsDate.fromNow(OperationsDate.fromString(value as string));
   } catch {
     return "";
   }
@@ -56,10 +56,10 @@ export function formatTableCell(
   }
   if (column.type === "date") {
     try {
-      const date: Date = OneUptimeDate.fromString(value as string);
-      return `${OneUptimeDate.getDateAsLocalFormattedString(
+      const date: Date = OperationsDate.fromString(value as string);
+      return `${OperationsDate.getDateAsLocalFormattedString(
         date,
-      )} · ${OneUptimeDate.fromNow(date)}`;
+      )} · ${OperationsDate.fromNow(date)}`;
     } catch {
       return String(value);
     }
@@ -277,7 +277,7 @@ export function toExportChartSeries(
       }
       let date: Date | undefined = undefined;
       try {
-        const parsed: Date = OneUptimeDate.fromString(point.x);
+        const parsed: Date = OperationsDate.fromString(point.x);
         if (!isNaN(parsed.getTime())) {
           date = parsed;
         }

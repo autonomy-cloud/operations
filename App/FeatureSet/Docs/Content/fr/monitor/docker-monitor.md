@@ -215,10 +215,10 @@ docker run ... <image>
 Pour utiliser la surveillance Docker, vous devez :
 
 1. Installer l'agent Docker Cast Operations sur chaque hôte Docker que vous souhaitez surveiller
-2. Passer `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` et `DOCKER_HOST_NAME` comme variables d'environnement
+2. Passer `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_SERVICE_TOKEN` et `DOCKER_HOST_NAME` comme variables d'environnement
 3. S'assurer que les conteneurs que vous souhaitez observer utilisent le pilote de journalisation `json-file` (voir ci-dessus)
 
-L'agent est publié sous le nom `oneuptime/docker-agent:release` sur Docker Hub. Consultez le [guide d'installation de l'agent Docker](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) pour les exemples complets `docker run` et `docker compose`.
+L'agent est publié sous le nom `cast-operations/docker-agent:release` sur Docker Hub. Consultez le [guide d'installation de l'agent Docker](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) pour les exemples complets `docker run` et `docker compose`.
 
 ## Dépannage
 

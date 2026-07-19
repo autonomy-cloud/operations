@@ -121,10 +121,10 @@ console.log(stringSecret);
 
 ### Anpassade mätvärden
 
-Du kan registrera anpassade mätvärden från ditt skript med funktionen `oneuptime.captureMetric()`. Dessa mätvärden lagras i Cast Operations och kan visas i diagram på instrumentpaneler med hjälp av Metric Explorer.
+Du kan registrera anpassade mätvärden från ditt skript med funktionen `cast-operations.captureMetric()`. Dessa mätvärden lagras i Cast Operations och kan visas i diagram på instrumentpaneler med hjälp av Metric Explorer.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (sträng, obligatorisk): Mätvärdets namn (t.ex. `"dashboard.load.time"`). Det lagras automatiskt med prefixet `custom.monitor.`.
@@ -141,7 +141,7 @@ await page.waitForSelector("#dashboard-loaded");
 const loadTime = Date.now() - startTime;
 
 // Capture page load time as a custom metric
-oneuptime.captureMetric("dashboard.load.time", loadTime, {
+cast-operations.captureMetric("dashboard.load.time", loadTime, {
   page: "dashboard",
 });
 
@@ -165,7 +165,7 @@ return {
 - `axios`: Du kan använda den här modulen för att göra HTTP-förfrågningar. Det är en promise-baserad HTTP-klient för webbläsaren och Node.js.
 - `crypto`: Du kan använda den här modulen för kryptografiska operationer.
 - `console.log`: Du kan använda den här modulen för att logga data till konsolen.
-- `oneuptime.captureMetric`: Du kan använda detta för att registrera anpassade mätvärden från ditt skript.
+- `cast-operations.captureMetric`: Du kan använda detta för att registrera anpassade mätvärden från ditt skript.
 - `http`: Du kan använda den här modulen för att göra HTTP-förfrågningar.
 - `https`: Du kan använda den här modulen för att göra HTTPS-förfrågningar.
 

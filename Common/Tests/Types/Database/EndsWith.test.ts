@@ -5,7 +5,7 @@ import { describe, expect, it } from "@jest/globals";
 
 describe("EndsWith", () => {
   it("should create an EndsWith object with a valid value", () => {
-    const value: string = "oneuptime";
+    const value: string = "cast-operations";
     const obj: EndsWith<string> = new EndsWith<string>(value);
     expect(obj.value).toBe(value);
   });
@@ -17,15 +17,15 @@ describe("EndsWith", () => {
   });
 
   it("should return the value using toString", () => {
-    const obj: EndsWith<string> = new EndsWith<string>("oneuptime");
-    expect(obj.toString()).toBe("oneuptime");
+    const obj: EndsWith<string> = new EndsWith<string>("cast-operations");
+    expect(obj.toString()).toBe("cast-operations");
   });
 
   it("should generate the correct JSON representation using toJSON", () => {
-    const obj: EndsWith<string> = new EndsWith<string>("oneuptime");
+    const obj: EndsWith<string> = new EndsWith<string>("cast-operations");
     const expectedJSON: JSONObject = {
       _type: "EndsWith",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(obj.toJSON()).toEqual(expectedJSON);
   });
@@ -33,10 +33,10 @@ describe("EndsWith", () => {
   it("should create an EndsWith object from valid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "EndsWith",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     const obj: EndsWith<string> = EndsWith.fromJSON(jsonInput);
-    expect(obj.value).toBe("oneuptime");
+    expect(obj.value).toBe("cast-operations");
   });
 
   it("should default to an empty string when the JSON value is missing", () => {
@@ -50,7 +50,7 @@ describe("EndsWith", () => {
   it("should throw a BadDataException when using invalid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "InvalidType",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(() => {
       return EndsWith.fromJSON(jsonInput);
@@ -58,7 +58,7 @@ describe("EndsWith", () => {
   });
 
   it("should be an instance of EndsWith", () => {
-    const obj: EndsWith<string> = new EndsWith<string>("oneuptime");
+    const obj: EndsWith<string> = new EndsWith<string>("cast-operations");
     expect(obj).toBeInstanceOf(EndsWith);
   });
 });

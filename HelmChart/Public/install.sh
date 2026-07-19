@@ -50,7 +50,7 @@ if [[ ! -n $DKIM_PRIVATE_KEY ]]; then
     openssl rsa -in private -out public -pubout
     # value of DKIM dns record
     echo "DKIM DNS TXT Record"
-    echo "DNS Selector: oneuptime._domainkey"
+    echo "DNS Selector: cast-operations._domainkey"
     echo "DNS Value: v=DKIM1;p=$(grep -v '^-' public | tr -d '\n')"
     DKIM_PRIVATE_KEY=$(cat private | base64)
 fi
@@ -165,46 +165,29 @@ then
 fi
 
 # Install cluster with helm-chart.
-sudo helm repo add oneuptime https://visca.ai/chart || echo "Cast Operations already added"
+sudo helm repo add cast-operations https://visca.ai/chart || echo "Cast Operations already added"
 sudo helm repo update
 
 
 function updateinstallation {
-    sudo k delete job oneuptime-InitScript || echo "InitScript already deleted"
-    sudo helm upgrade --reuse-values fi oneuptime/OneUptime \
+    sudo k delete job cast-operations-InitScript || echo "InitScript already deleted"
+    sudo helm upgrade --reuse-values fi cast-operations/Operations \
         --set image.tag=$AVAILABLE_VERSION
 }
 
 
-if [[ "$1" == "thirdPartyBillingEnabled" ]] #If thirdPartyBillingIsEnabled (for ex for Marketplace VM's)
+if [[ "$1" == "aws-ec2" ]]
 then
     if [[ $DEPLOYED_VERSION_BUILD -eq 0 ]]
     then
-        if [[ "$2" == "aws-ec2" ]]
-        then
-            # 169.254.169.254 is a static AWS service which amazon uses to get instance id
-            # https://forums.aws.amazon.com/thread.jspa?threadID=100982
-            INSTANCEID=`wget -q -O - http://169.254.169.254/latest/meta-data/instance-id`
-
-            # Chart not deployed. Create a new deployment. Set service of type nodeport for VM's.
-            # Add Admin Email and Password on AWS.
-            sudo helm install fi oneuptime/OneUptime \
-            --set isThirdPartyBilling=true \
-            --set nginx-ingress-controller.service.type=NodePort \
-            --set nginx-ingress-controller.hostNetwork=true \
-            --set image.tag=$AVAILABLE_VERSION \
-            --set oneuptime.admin.email=admin@admin.com \
-            --set disableSignup=true \
-            --set oneuptime.admin.password=$INSTANCEID
-
-        else
-            # Chart not deployed. Create a new deployment. Set service of type nodeport for VM's. This is used for Azure and AWS.
-            sudo helm install fi oneuptime/OneUptime \
-            --set isThirdPartyBilling=true \
-            --set nginx-ingress-controller.service.type=NodePort \
-            --set nginx-ingress-controller.hostNetwork=true \
-            --set image.tag=$AVAILABLE_VERSION
-        fi
+        INSTANCEID=`wget -q -O - http://169.254.169.254/latest/meta-data/instance-id`
+        sudo helm install fi cast-operations/Operations \
+        --set nginx-ingress-controller.service.type=NodePort \
+        --set nginx-ingress-controller.hostNetwork=true \
+        --set image.tag=$AVAILABLE_VERSION \
+        --set cast-operations.admin.email=admin@admin.com \
+        --set disableSignup=true \
+        --set cast-operations.admin.password=$INSTANCEID
     else
         updateinstallation
     fi
@@ -212,22 +195,16 @@ elif [[ "$1" == "ci-install" ]] # If its a local install, take local scripts.
 then
     if [[ $DEPLOYED_VERSION_BUILD -eq 0 ]]
     then
-        # install services.
-        if [[ "$2" == "enterprise" ]]
-        then
-            sudo helm install -f ./kubernetes/values-enterprise-ci.yaml fi ./HelmChart/public/oneuptime
-        else
-            sudo helm install -f ./kubernetes/values-saas-ci.yaml fi ./HelmChart/public/oneuptime
-        fi
+        sudo helm install -f ./kubernetes/values-saas-ci.yaml fi ./HelmChart/public/cast-operations
     else
-        sudo k delete job oneuptime-InitScript || echo "InitScript already deleted"
-        sudo helm upgrade --reuse-values fi ./HelmChart/public/oneuptime
+        sudo k delete job cast-operations-InitScript || echo "InitScript already deleted"
+        sudo helm upgrade --reuse-values fi ./HelmChart/public/cast-operations
     fi
 else
     if [[ $DEPLOYED_VERSION_BUILD -eq 0 ]]
     then
         # set service of type nodeport for VM's.
-        sudo helm install fi oneuptime/OneUptime \
+        sudo helm install fi cast-operations/Operations \
         --set nginx-ingress-controller.service.type=NodePort \
         --set nginx-ingress-controller.hostNetwork=true \
         --set image.tag=$AVAILABLE_VERSION

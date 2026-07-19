@@ -1,6 +1,6 @@
 import PositiveNumber from "../../Types/PositiveNumber";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import AIRunStatus from "../../Types/AI/AIRunStatus";
 import AIRunType from "../../Types/AI/AIRunType";
 import AIRunHumanVerdict from "../../Types/AI/AIRunHumanVerdict";
@@ -141,8 +141,8 @@ export class Service extends DatabaseService<Model> {
         expectedAttemptCount: run.attemptCount || 0,
         set: {
           status: AIRunStatus.Running,
-          startedAt: OneUptimeDate.getCurrentDate(),
-          lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+          startedAt: OperationsDate.getCurrentDate(),
+          lastHeartbeatAt: OperationsDate.getCurrentDate(),
           attemptCount: (run.attemptCount || 0) + 1,
           aiAgentId: data.aiAgentId.toString(),
         },
@@ -199,7 +199,7 @@ export class Service extends DatabaseService<Model> {
           fromStatus: AIRunStatus.Running,
           set: {
             status: AIRunStatus.Error,
-            completedAt: OneUptimeDate.getCurrentDate(),
+            completedAt: OperationsDate.getCurrentDate(),
             errorMessage: missingContextMessage,
           },
         });
@@ -322,7 +322,7 @@ export class Service extends DatabaseService<Model> {
       id: run.id,
       data: {
         humanVerdict: data.verdict,
-        humanVerdictAt: OneUptimeDate.getCurrentDate(),
+        humanVerdictAt: OperationsDate.getCurrentDate(),
         humanVerdictByUserId: data.verdictByUserId,
       },
       props: { isRoot: true },

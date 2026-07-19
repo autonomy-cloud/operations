@@ -1,5 +1,5 @@
 import CompareBase, { CompareType } from "../Database/CompareBase";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 import BadDataException from "../Exception/BadDataException";
 import { JSONObject, ObjectType } from "../JSON";
 
@@ -21,7 +21,7 @@ export default class GreaterThanOrNull<
     let value: T = this.value;
 
     if (value instanceof Date) {
-      value = OneUptimeDate.asDateForDatabaseQuery(value) as T;
+      value = OperationsDate.asDateForDatabaseQuery(value) as T;
     }
 
     return value.toString();

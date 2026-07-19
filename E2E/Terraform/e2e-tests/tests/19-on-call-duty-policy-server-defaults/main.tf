@@ -1,14 +1,14 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -23,7 +23,7 @@ provider "oneuptime" {
 # Tests various Optional+Computed field types.
 
 # Create on-call policy with minimal fields
-resource "oneuptime_on_call_policy" "test_server_defaults" {
+resource "cast_operations_on_call_policy" "test_server_defaults" {
   name       = "On-Call Policy Server Defaults Test"
 
   # IMPORTANT: We intentionally DO NOT specify these Optional+Computed fields:
@@ -37,29 +37,29 @@ resource "oneuptime_on_call_policy" "test_server_defaults" {
 
 # Output to verify creation succeeded
 output "on_call_duty_policy_id" {
-  value       = oneuptime_on_call_policy.test_server_defaults.id
+  value       = cast_operations_on_call_policy.test_server_defaults.id
   description = "ID of the created on-call policy"
 }
 
 # On-call policy name for API validation
 output "on_call_duty_policy_name" {
-  value       = oneuptime_on_call_policy.test_server_defaults.name
+  value       = cast_operations_on_call_policy.test_server_defaults.name
   description = "Name of the on-call policy"
 }
 
 # List field - server may provide empty list or defaults
 output "labels" {
-  value       = oneuptime_on_call_policy.test_server_defaults.labels
+  value       = cast_operations_on_call_policy.test_server_defaults.labels
   description = "Server-provided labels list"
 }
 
 # Other server-computed fields
 output "slug" {
-  value       = oneuptime_on_call_policy.test_server_defaults.slug
+  value       = cast_operations_on_call_policy.test_server_defaults.slug
   description = "Server-generated slug"
 }
 
 output "created_at" {
-  value       = oneuptime_on_call_policy.test_server_defaults.created_at
+  value       = cast_operations_on_call_policy.test_server_defaults.created_at
   description = "Server-generated creation timestamp"
 }

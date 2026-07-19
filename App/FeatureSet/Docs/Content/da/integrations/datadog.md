@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. I Datadog, gå til **Integrations → Webhooks** (installér **Webhooks**-integrationen, hvis du ikke allerede har gjort det).
 2. **Tilføj en webhook**:
 
-   - **Name**: `oneuptime` (dette bliver `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (dette bliver `@webhook-cast-operations`).
    - **URL**: din workflows webhook-URL.
    - **Payload** — Datadog lader dig definere JSON-bodyen ved hjælp af [skabelonvariabler](https://docs.datadoghq.com/integrations/webhooks/#usage):
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Tilføj webhook-håndtaget til de monitorer, du ønsker at videresende. I hver monitors **notifikationsbesked**, inkludér:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Dette sender både alarmen og genopretningen til Cast Operations. (For at videresende alt kan du også tilføje `@webhook-oneuptime` til en monitor ubetinget.)
+Dette sender både alarmen og genopretningen til Cast Operations. (For at videresende alt kan du også tilføje `@webhook-cast-operations` til en monitor ubetinget.)
 
 ## Trin 4 — Test det
 
@@ -74,7 +74,7 @@ Dette sender både alarmen og genopretningen til Cast Operations. (For at videre
 
 ## Fejlfinding
 
-- **Ingen kørsel vises** — bekræft, at monitorens besked inkluderer `@webhook-oneuptime`, og at workflowet er **Enabled**.
+- **Ingen kørsel vises** — bekræft, at monitorens besked inkluderer `@webhook-cast-operations`, og at workflowet er **Enabled**.
 - **Felter er tomme** — Datadog erstatter kun skabelonvariabler, der gælder for eventet. Inspicér trigger-outputtet i **Logs**-fanen og justér din webhook-payload.
 - **Duplikerede hændelser** — en monitor, der re-alarmer (renotify), sender flere `Triggered`-events; dedupliker med en **Find Incident**-kontrol på `id`'et, før du opretter.
 

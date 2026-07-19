@@ -4,7 +4,7 @@ import RestrictionTimes, {
   RestrictionType,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 
@@ -37,12 +37,12 @@ function dailyRestrictionHM(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: sH,
       minutes: sM,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: eH,
       minutes: eM,
       seconds: 0,
@@ -52,7 +52,7 @@ function dailyRestrictionHM(
 }
 
 function fmt(d: Date): string {
-  return OneUptimeDate.toString(d);
+  return OperationsDate.toString(d);
 }
 
 function dump(label: string, events: Array<CalendarEvent>): void {
@@ -183,7 +183,7 @@ describe("Daily restriction probe", () => {
             },
           ],
           calendarStartDate: now,
-          calendarEndDate: OneUptimeDate.addRemoveSeconds(now, 1),
+          calendarEndDate: OperationsDate.addRemoveSeconds(now, 1),
         },
         { getNumberOfEvents: 1 },
       );

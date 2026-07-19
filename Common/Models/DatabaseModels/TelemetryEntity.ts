@@ -124,7 +124,8 @@ export default class TelemetryEntity extends DatabaseBaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -227,7 +228,7 @@ export default class TelemetryEntity extends DatabaseBaseModel {
     required: false,
     title: "Labels",
     description:
-      "Labels observed on this entity's telemetry (e.g. promoted from oneuptime.label.* resource attributes), merged as a set union. Simple string array in v1 — a relation to the Label table is a follow-up.",
+      "Labels observed on this entity's telemetry (e.g. promoted from cast-operations.label.* resource attributes), merged as a set union. Simple string array in v1 — a relation to the Label table is a follow-up.",
   })
   @Column({ type: ColumnType.JSON, nullable: true })
   public labels?: Array<string> = undefined;

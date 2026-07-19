@@ -49,7 +49,7 @@ export default function SSOProviderSelectScreen({
       const result: WebBrowser.WebBrowserAuthSessionResult =
         await WebBrowser.openAuthSessionAsync(
           ssoUrl,
-          "oneuptime://sso-callback",
+          "cast-operations://sso-callback",
         );
 
       if (result.type === "success" && result.url) {

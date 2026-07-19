@@ -137,7 +137,7 @@ export default class ScheduledMaintenanceAPI extends BaseAPI<
         template,
       );
 
-    // Generate note using AIService (handles billing and logging)
+    // Generate note using AIService (handles provider execution and logging).
     const aiLogRequest: AILogRequest = {
       projectId: scheduledMaintenance.projectId,
       feature:

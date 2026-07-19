@@ -11,7 +11,7 @@ answers SNMP works as a "device". This compose file starts three:
 | ----------- | --------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
 | `switch-a`  | `172.30.99.11`  | snmpsim replaying a fake 3-port switch (LLDP, live counters)       | v2c, community `public`                                  |
 | `switch-b`  | `172.30.99.12`  | Same, LLDP-adjacent to `switch-a` (renders a topology edge)        | v2c, community `public`                                  |
-| `router-v3` | `172.30.99.13`  | Real `snmpd` agent, for exercising the SNMPv3 code path            | v3 user `oneuptime`, authPriv, SHA `authpass123`, AES `privpass123` (also v2c `public`) |
+| `router-v3` | `172.30.99.13`  | Real `snmpd` agent, for exercising the SNMPv3 code path            | v3 user `cast-operations`, authPriv, SHA `authpass123`, AES `privpass123` (also v2c `public`) |
 
 What the fake switches serve:
 
@@ -37,8 +37,8 @@ docker compose up -d --build
 Sanity check (optional):
 
 ```bash
-docker run --rm --network oneuptime-snmp-simulator_snmpsim \
-  oneuptime-snmp-simulator:local \
+docker run --rm --network cast-operations-snmp-simulator_snmpsim \
+  cast-operations-snmp-simulator:local \
   snmpwalk -v2c -c public 172.30.99.11 1.3.6.1.2.1.2.2.1.2
 ```
 
@@ -53,7 +53,7 @@ ports and use `127.0.0.1` + that port as the device address instead.)
 1. **Register devices** - Dashboard -> Network Devices -> add:
    - `switch-a`: hostname `172.30.99.11`, SNMP v2c, community `public`, port 161, pick your probe.
    - `switch-b`: hostname `172.30.99.12`, same settings.
-   - `router-v3`: hostname `172.30.99.13`, SNMP v3, user `oneuptime`,
+   - `router-v3`: hostname `172.30.99.13`, SNMP v3, user `cast-operations`,
      security level authPriv, auth SHA / `authpass123`, priv AES / `privpass123`.
 2. **Create monitors** - one "Network Device" monitor per device, with
    interface monitoring enabled. After the first poll the device shows

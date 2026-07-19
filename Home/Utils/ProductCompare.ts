@@ -14,7 +14,7 @@ export interface Item {
   title: string;
   description: string;
   productColumn: string;
-  oneuptimeColumn: string;
+  castOperationsColumn: string;
 }
 
 export interface Category {
@@ -40,25 +40,25 @@ export interface UseCaseComparison {
   scenario: string;
   competitorSolution: string;
   competitorCost: string;
-  oneuptimeSolution: string;
-  oneuptimeCost: string;
+  castOperationsSolution: string;
+  castOperationsCost: string;
 }
 
 export interface Product {
   productName: string;
   iconUrl: string;
   price: string;
-  oneuptimePrice: string;
+  castOperationsPrice: string;
   description: string;
   descriptionLine2: string;
   tagline: string;
   competitorFocus: string;
-  oneuptimeFocus: string;
+  castOperationsFocus: string;
   annualSavings: string;
   faq: Array<FAQ>;
   items: Array<Category>;
   keyDifferences: Array<KeyDifference>;
-  oneUptimeDescription: string;
+  operationsDescription: string;
   productDescription: string;
   competitorPricingTiers?: Array<PricingTier>;
   hiddenCosts?: Array<string>;
@@ -73,21 +73,21 @@ const products: Dictionary<Product> = {
     productName: "PagerDuty",
     iconUrl: "/img/pagerduty.jpeg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One complete platform vs a single-purpose alerting tool with add-ons",
     competitorFocus:
       "Specialized in on-call alerting and incident response, requiring separate monitoring, status page, and AIOps tools bought as add-ons or integrations.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "A complete observability platform with monitoring, status pages, on-call, incident management, and telemetry unified in one solution.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "PagerDuty is the market-leading on-call scheduling and incident response platform, trusted by many enterprises for reliable alerting. It operates as an alerting hub, so teams typically integrate separate monitoring solutions and buy add-ons like status pages, AIOps, and live call routing to build a complete incident response system.",
-    oneUptimeDescription:
-      "Cast Operations brings together monitoring, status pages, on-call scheduling, incident management, logs, metrics, and traces in a single open-source platform. Everything works together natively, reducing context switching, tool sprawl, and unpredictable add-on costs.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "PagerDuty is the market leader in incident management and on-call scheduling, trusted by many enterprises. However, it is primarily an alerting tool priced per user, and a complete setup requires separate monitoring integrations plus paid add-ons for status pages, AIOps, and live call routing. Cast Operations provides a complete, unified observability platform where monitoring, status pages, on-call, and incidents all work together natively at flat, predictable pricing.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "Simplify your reliability stack. Get monitoring, status pages, on-call, and incident management working together in one platform, without per-seat pricing or surprise add-ons.",
     migrationBenefits: [
@@ -180,8 +180,9 @@ const products: Dictionary<Product> = {
         scenario: "10-person engineering team with basic on-call",
         competitorSolution: "PagerDuty Professional + external monitoring",
         competitorCost: "$210/month + ~$100/month monitoring = ~$310/month",
-        oneuptimeSolution: "Cast Operations with built-in monitoring and on-call",
-        oneuptimeCost: "$0/month (Free tier) or $99/month (Growth)",
+        castOperationsSolution:
+          "Cast Operations with built-in monitoring and on-call",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "25-person team with status pages and incident management",
@@ -189,17 +190,18 @@ const products: Dictionary<Product> = {
           "PagerDuty Business + status pages add-on + monitoring",
         competitorCost:
           "$1,025/month + $89/month + ~$200/month = ~$1,314/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with unlimited status pages and subscribers",
-        oneuptimeCost: "$0-299/month",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "Enterprise with 100 engineers, AIOps and stakeholder access",
         competitorSolution:
           "PagerDuty Enterprise + AIOps + stakeholder licenses",
         competitorCost: "$5,000+/month + $799/month AIOps + add-ons",
-        oneuptimeSolution: "Cast Operations Enterprise with unlimited users",
-        oneuptimeCost: "Contact for enterprise pricing",
+        castOperationsSolution:
+          "Cast Operations Enterprise with unlimited users",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -249,49 +251,49 @@ const products: Dictionary<Product> = {
             description:
               "SMS, phone call, email, push notifications, Slack, Microsoft Teams",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-Call Rotations",
             description: "Daily, weekly, monthly, or custom rotation schedules",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Escalation Policies",
             description: "Multi-level escalation with customizable timeouts",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Vacation/Override Schedules",
             description: "Temporary schedule overrides for time off",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Follow-the-Sun Scheduling",
             description: "Global team scheduling across timezones",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS/Phone Notifications",
             description: "Voice and text message alerts",
             productColumn: "100/mo free, unlimited paid",
-            oneuptimeColumn: "Included in all plans",
+            castOperationsColumn: "Included in every deployment",
           },
           {
             title: "Alert Deduplication",
             description: "Intelligent grouping to reduce noise",
             productColumn: "AIOps add-on ($799/mo)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Live Call Routing",
             description: "Route customer calls to on-call responders",
             productColumn: "Add-on / Enterprise",
-            oneuptimeColumn: "Coming soon",
+            castOperationsColumn: "Coming soon",
           },
         ],
       },
@@ -302,49 +304,49 @@ const products: Dictionary<Product> = {
             title: "Website & URL Monitoring",
             description: "HTTP/HTTPS uptime and response time monitoring",
             productColumn: "Requires 3rd party integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API Monitoring",
             description: "REST API monitoring with custom headers/payloads",
             productColumn: "Requires 3rd party integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server & Infrastructure",
             description: "CPU, memory, disk, network metrics",
             productColumn: "Requires 3rd party integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container Monitoring",
             description: "Docker and Kubernetes monitoring",
             productColumn: "Requires 3rd party integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic Monitoring",
             description: "Multi-step transaction monitoring",
             productColumn: "Requires 3rd party integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL Certificate Monitoring",
             description: "Certificate expiration alerts",
             productColumn: "Requires 3rd party integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global Probe Locations",
             description: "Monitor from multiple geographic locations",
             productColumn: "",
-            oneuptimeColumn: "7+ locations worldwide",
+            castOperationsColumn: "7+ locations worldwide",
           },
           {
             title: "Custom Check Intervals",
             description: "Configurable monitoring frequency",
             productColumn: "",
-            oneuptimeColumn: "1 second to 24 hours",
+            castOperationsColumn: "1 second to 24 hours",
           },
         ],
       },
@@ -355,49 +357,49 @@ const products: Dictionary<Product> = {
             title: "Public Status Pages",
             description: "Customer-facing status communication",
             productColumn: "Add-on ($89/mo)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Status Pages",
             description: "Internal team status dashboards",
             productColumn: "Business+ plans only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber Limits",
             description: "Number of status page subscribers",
             productColumn: "250-500 based on plan",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Email/SMS Notifications",
             description: "Subscriber notification channels",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled Maintenance",
             description: "Announce planned maintenance windows",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Branding",
             description: "Logo, colors, custom domain",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom HTML/CSS/JS",
             description: "Advanced page customization",
             productColumn: "Premium plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic Status Updates",
             description: "Update status based on monitors",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -408,49 +410,49 @@ const products: Dictionary<Product> = {
             title: "Incident Timeline",
             description: "Automatic event timeline tracking",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Severity Levels",
             description: "Categorize incidents by impact",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack/Teams Integration",
             description: "Manage incidents from chat",
             productColumn: "Basic (full in Enterprise)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Incident Types",
             description: "Define incident categories",
             productColumn: "3 types (100 in Enterprise)",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Postmortem Templates",
             description: "Structured post-incident reviews",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action Item Tracking",
             description: "Follow-up task management",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbook Integration",
             description: "Link response procedures",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Analytics",
             description: "MTTR, frequency metrics",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -461,49 +463,49 @@ const products: Dictionary<Product> = {
             title: "SSO/SAML",
             description: "Enterprise single sign-on",
             productColumn: "Professional+",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Role-Based Access Control",
             description: "Granular permissions",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API Access",
             description: "Full REST API",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Webhooks",
             description: "Event-driven integrations",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-Hosting Option",
             description: "Deploy on your infrastructure",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source",
             description: "Transparent, auditable code",
             productColumn: "",
-            oneuptimeColumn: "Apache 2.0 License",
+            castOperationsColumn: "Apache 2.0 License",
           },
           {
             title: "SOC 2 Compliance",
             description: "Enterprise security standards",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit Logs",
             description: "Activity tracking",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -522,7 +524,7 @@ const products: Dictionary<Product> = {
       {
         question: "What are the benefits of a unified platform?",
         answer:
-          "With a unified platform like Cast Operations, your team gets a single dashboard for all observability needs. Alerts automatically link to relevant logs and metrics. Status pages update based on real incident data. On-call engineers have full context without jumping between tools. This reduces mean time to resolution and eliminates the complexity and cost of maintaining multiple tool integrations and add-ons.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Cast Operations match PagerDuty's on-call features?",
@@ -532,7 +534,7 @@ const products: Dictionary<Product> = {
       {
         question: "How does Cast Operations handle alert noise reduction?",
         answer:
-          "Cast Operations includes alert deduplication and grouping to reduce noise out of the box. Similar alerts are automatically grouped, and you can configure thresholds and conditions to prevent alert fatigue. PagerDuty charges for advanced noise reduction through its AIOps add-on, which starts around $799/month on top of per-user fees. Our approach delivers practical noise reduction without a separate paid module.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I migrate from PagerDuty to Cast Operations?",
@@ -550,20 +552,20 @@ const products: Dictionary<Product> = {
     productName: "Atlassian Statuspage",
     iconUrl: "/img/statuspagelogo.png",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "Complete reliability platform vs dedicated status page tool",
     competitorFocus:
       "Specialized status page product - requires separate monitoring, alerting, and incident management tools to actually detect and respond to issues.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Unified platform where status pages automatically reflect real system health from built-in monitoring, on-call, and incident management.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Statuspage provides beautiful, customizable status pages for communicating with customers during incidents. It excels at status communication but relies entirely on external tools to detect issues and manage incident response, and its pricing is tiered around subscriber count with public, private, and audience-specific pages billed separately.",
-    oneUptimeDescription:
+    operationsDescription:
       "Cast Operations combines status pages with monitoring, on-call scheduling, and incident management in a single open-source platform. Your status pages automatically update based on real system health, and incidents flow seamlessly from detection to on-call alerting to resolution to public communication.",
     description:
-      "Atlassian Statuspage is a dedicated status page product that excels at customer communication during incidents. However, it operates in isolation - you need separate monitoring tools to detect issues, separate alerting to notify your team, and separate incident management for coordination. Costs also scale with subscriber count, and private and audience-specific pages are billed as additional products on top of your public page. Cast Operations provides a unified platform where everything works together natively.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "Get status pages that automatically reflect your actual system health, connected to monitoring, alerting, and incident management in one platform, with unlimited subscribers.",
     migrationBenefits: [
@@ -669,18 +671,18 @@ const products: Dictionary<Product> = {
         scenario: "Startup with 500 customers needing status updates",
         competitorSolution: "Statuspage Startup + Pingdom + Opsgenie",
         competitorCost: "$99 + $50 + $100 = $249/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with unlimited subscribers, monitoring, and on-call",
-        oneuptimeCost: "$0/month (Free tier)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "Growing company with 10,000 status page subscribers",
         competitorSolution:
           "Statuspage Enterprise (subscriber tier) + monitoring + on-call",
         competitorCost: "$1,499 + $150 + $300 = $1,949/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with unlimited subscribers and integrated tooling",
-        oneuptimeCost: "$0-99/month + $1 per active monitor",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -688,9 +690,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Statuspage audience-specific pages ($300/mo add-on) + monitoring + on-call",
         competitorCost: "$300 + $150 + $300 = $750/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with unlimited public and private status pages",
-        oneuptimeCost: "$0-99/month + $1 per active monitor",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -727,7 +729,7 @@ const products: Dictionary<Product> = {
       {
         title: "All Notification Channels",
         description:
-          "Email, SMS, Slack, Teams, webhooks, and push notifications included on all plans",
+          "Email, SMS, Slack, Teams, webhooks, and push notifications included in every deployment",
         icon: "sms",
       },
     ],
@@ -739,49 +741,49 @@ const products: Dictionary<Product> = {
             title: "Public Status Pages",
             description: "Customer-facing status communication",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Status Pages",
             description: "Password-protected internal pages",
             productColumn: "Add-on ($79-300+/mo)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber Limits",
             description: "Maximum status page subscribers",
             productColumn: "100-25,000 by plan",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Multiple Status Pages",
             description: "Create different pages for different audiences",
             productColumn: "Additional cost",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Component Groups",
             description: "Organize services into logical groups",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled Maintenance",
             description: "Announce planned maintenance windows",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident History",
             description: "Show past incidents and resolutions",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Uptime Percentage",
             description: "Display historical uptime metrics",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -792,49 +794,49 @@ const products: Dictionary<Product> = {
             title: "Custom Domain",
             description: "Use your own domain (status.yourcompany.com)",
             productColumn: "Hobby+ ($29+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Free SSL Certificate",
             description: "Automatic HTTPS for custom domains",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Branding",
             description: "Logo, colors, favicon customization",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom CSS",
             description: "Style with custom CSS",
             productColumn: "Startup+ ($99+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom HTML",
             description: "Custom page structure",
             productColumn: "Business+ ($399+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "JavaScript Injection",
             description: "Add custom scripts for analytics",
             productColumn: "Business+ ($399+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "White Label",
             description: "Remove vendor branding",
             productColumn: "Business+ ($399+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Metrics Display",
             description: "Show real-time performance data",
             productColumn: "2-50 by plan",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
         ],
       },
@@ -845,49 +847,49 @@ const products: Dictionary<Product> = {
             title: "Email Notifications",
             description: "Send status updates via email",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS Notifications",
             description: "Send status updates via text",
             productColumn: "Startup+ ($99+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Webhook Notifications",
             description: "Push to custom endpoints",
             productColumn: "Startup+ ($99+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "RSS Feeds",
             description: "Subscribe via RSS readers",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack Integration",
             description: "Post to Slack channels",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Microsoft Teams",
             description: "Post to Teams channels",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Component-level Subscriptions",
             description: "Subscribe to specific services only",
             productColumn: "Business+ ($399+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push Notifications",
             description: "Mobile push alerts",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -898,49 +900,49 @@ const products: Dictionary<Product> = {
             title: "Built-in Uptime Monitoring",
             description: "Monitor service availability",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API Monitoring",
             description: "Monitor API endpoints",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic Status Updates",
             description: "Update page based on monitor status",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-Call Scheduling",
             description: "Route alerts to on-call responders",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Management",
             description: "Full incident workflow",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Escalation Policies",
             description: "Automatic alert escalation",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API Access",
             description: "Programmatic status updates",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Third-party Integrations",
             description: "Connect with other tools",
             productColumn: "Limited",
-            oneuptimeColumn: "2000+ via Zapier + native",
+            castOperationsColumn: "2000+ via Zapier + native",
           },
         ],
       },
@@ -951,37 +953,37 @@ const products: Dictionary<Product> = {
             title: "Team Member Limits",
             description: "Number of users who can manage pages",
             productColumn: "2-50 by plan",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Team Member SSO",
             description: "Single sign-on for team members",
             productColumn: "Startup+ ($99+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Role-Based Access",
             description: "Granular permissions",
             productColumn: "Business+ ($399+)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-Hosting Option",
             description: "Run on your own infrastructure",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source",
             description: "Transparent, auditable code",
             productColumn: "",
-            oneuptimeColumn: "Apache 2.0 License",
+            castOperationsColumn: "Apache 2.0 License",
           },
           {
             title: "Compliance",
             description: "SOC 2 Type II, ISO 27001, GDPR",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1003,9 +1005,10 @@ const products: Dictionary<Product> = {
           "Cast Operations connects your monitors directly to status page components. When a monitor detects an issue, it automatically updates the corresponding component status. You can configure automatic updates for different severity levels, or require manual approval for public status changes. This eliminates the delay between detecting an issue and communicating it to customers.",
       },
       {
-        question: "Can I customize my Cast Operations status page like Statuspage?",
+        question:
+          "Can I customize my Cast Operations status page like Statuspage?",
         answer:
-          "Yes, and without gating customization behind higher tiers. Cast Operations status pages support custom domains with automatic SSL, custom branding (logos, colors, favicon), and custom HTML/CSS/JavaScript on every plan. You can create component groups, show historical uptime percentages, display real-time metrics, and configure exactly how much detail to share with your audience.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Cast Operations support private status pages?",
@@ -1015,12 +1018,12 @@ const products: Dictionary<Product> = {
       {
         question: "What notification channels does Cast Operations support?",
         answer:
-          "Cast Operations supports comprehensive notification channels: email, SMS, webhooks, RSS feeds, Slack, Microsoft Teams, and push notifications. Subscribers can choose their preferred channels, and you can configure different notification types for different incident severities. SMS is included rather than reserved for a higher-priced tier.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Is Cast Operations cheaper than Statuspage as I grow?",
         answer:
-          "Almost always. Statuspage pricing climbs with subscriber count, from $29/mo up to $1,499/mo, and private and audience-specific pages are billed as separate add-ons. Cast Operations gives you unlimited subscribers and unlimited status pages, charges a flat $1/month per active monitor with no per-check tiers, and is completely free to self-host - so your status page costs stay predictable no matter how large your audience gets.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -1028,24 +1031,24 @@ const products: Dictionary<Product> = {
     productName: "SolarWinds Pingdom",
     iconUrl: "/img/pingdom.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "Complete observability platform vs monitoring-only tool",
     competitorFocus:
       "Specialized in uptime and performance monitoring - requires separate tools for alerting, status pages, and incident management",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Unified platform where monitoring connects directly to alerting, status pages, and incident workflows",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Pingdom (owned by SolarWinds) is a veteran in the monitoring space with reliable uptime monitoring and 100+ probe locations worldwide. It focuses on synthetic monitoring and real user monitoring, but its plans are tiered by the number of uptime and advanced monitors, and it requires additional tools for incident response, on-call, and status communication.",
-    oneUptimeDescription:
-      "Cast Operations provides monitoring from global locations at a flat $1/month per active monitor (no per-check tiers and no caps), plus unlimited free manual monitors, integrated status pages, on-call scheduling, and incident management. Monitor everything your infrastructure needs without worrying about check limits or upgrading tiers.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Pingdom (now owned by SolarWinds) is one of the oldest and most reliable monitoring tools, offering uptime monitoring from 100+ probe locations. It excels at detecting outages but operates in isolation - you need additional tools for on-call scheduling, incident management, and customer-facing status pages. Its synthetic plans are gated by monitor counts, so growing coverage means jumping to a higher tier.",
     descriptionLine2:
-      "Get monitoring at a flat $1/month per active monitor plus status pages, on-call scheduling, and incident management working together in one platform.",
+      "The complete feature set is available in every deployment.",
     migrationBenefits: [
-      "Monitor any number of endpoints at $1/month each with no per-check tiers",
+      "Monitor any number of endpoints with the complete feature set",
       "Global probe network plus private probes for internal and external coverage",
       "Add on-call scheduling with rotations and escalations you didn't have before",
       "Get status pages that auto-update from monitoring with unlimited subscribers",
@@ -1149,33 +1152,33 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Pingdom Standard + PagerDuty + Atlassian Statuspage",
         competitorCost: "$50 + $210 + $99 = $359/month",
-        oneuptimeSolution:
-          "Cast Operations at $1/active monitor, on-call and status included",
-        oneuptimeCost: "~$20/month (all included)",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "Growing company with 100 monitors and RUM",
         competitorSolution: "Pingdom Advanced + RUM + PagerDuty + Statuspage",
         competitorCost: "$95 + $10 + $400 + $99 = $604+/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with monitoring, RUM, on-call, and status included",
-        oneuptimeCost: "~$100/month (all included)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "E-commerce site with synthetic transactions",
         competitorSolution:
           "Pingdom Professional (transactions) + on-call + status page",
         competitorCost: "$249 + $400 + $99 = $748+/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with synthetic transaction monitoring included",
-        oneuptimeCost: "$99-299/month (Growth tier)",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
       {
-        title: "$1 Per Active Monitor",
+        title: "All capabilities included",
         description:
-          "Monitor every endpoint, service, and region at a flat $1/month each - no per-check tiers and no caps",
+          "Monitor every endpoint, service, and region with the complete feature set",
         icon: "unlimited",
       },
       {
@@ -1216,49 +1219,49 @@ const products: Dictionary<Product> = {
             title: "HTTP/HTTPS Monitoring",
             description: "Monitor websites and web applications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API Monitoring",
             description: "Monitor REST APIs with custom requests",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Transaction Monitoring",
             description: "Multi-step synthetic user flows",
             productColumn: "Advanced monitor add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Number of Monitors",
             description: "How many endpoints you can monitor",
             productColumn: "10-250 by tier",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Check Frequency",
             description: "How often monitors run",
             productColumn: "1-60 minutes",
-            oneuptimeColumn: "1 second - 24 hours",
+            castOperationsColumn: "1 second - 24 hours",
           },
           {
             title: "Global Probe Locations",
             description: "Monitoring locations worldwide",
             productColumn: "100+ (tier-based)",
-            oneuptimeColumn: "7+ (all included)",
+            castOperationsColumn: "7+ (all included)",
           },
           {
             title: "Private Probes",
             description: "Monitor internal resources",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL Certificate Monitoring",
             description: "Certificate expiration alerts",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1269,37 +1272,37 @@ const products: Dictionary<Product> = {
             title: "Server Monitoring",
             description: "CPU, memory, disk metrics",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container Monitoring",
             description: "Docker and Kubernetes",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Metrics",
             description: "Send custom application metrics",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Log Monitoring",
             description: "Monitor log patterns and errors",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Real User Monitoring",
             description: "Actual user experience metrics",
             productColumn: "Separate product ($10+/mo)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Core Web Vitals",
             description: "LCP, FID, CLS metrics",
             productColumn: "In RUM product",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1310,49 +1313,49 @@ const products: Dictionary<Product> = {
             title: "Email Alerts",
             description: "Receive alerts via email",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS Alerts",
             description: "Receive alerts via text message",
             productColumn: "Capped by tier",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone Call Alerts",
             description: "Receive voice call alerts",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack/Teams Alerts",
             description: "Alert in chat tools",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push Notifications",
             description: "Mobile app push alerts",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-Call Scheduling",
             description: "Rotation schedules",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Escalation Policies",
             description: "Automatic escalation",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Alert Deduplication",
             description: "Reduce alert noise",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1363,49 +1366,49 @@ const products: Dictionary<Product> = {
             title: "Public Status Pages",
             description: "Customer-facing status",
             productColumn: "Basic feature",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Status Pages",
             description: "Internal status dashboards",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber Notifications",
             description: "Email/SMS status updates",
             productColumn: "Limited",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom Domain",
             description: "Use your own domain",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Branding",
             description: "Logo, colors, styling",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic Status Updates",
             description: "Update based on monitors",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled Maintenance",
             description: "Announce planned work",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident History",
             description: "Show past incidents",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1416,37 +1419,37 @@ const products: Dictionary<Product> = {
             title: "Incident Creation",
             description: "Create and track incidents",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Timeline",
             description: "Automatic event tracking",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Collaboration",
             description: "Team coordination",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Post-incident reviews",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action Item Tracking",
             description: "Follow-up tasks",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack/Teams Integration",
             description: "Manage from chat",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1457,37 +1460,37 @@ const products: Dictionary<Product> = {
             title: "API Access",
             description: "Full REST API",
             productColumn: "Higher tiers",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Webhooks",
             description: "Event notifications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Reports & Analytics",
             description: "Uptime reports, SLA tracking",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-Hosting",
             description: "Run on your infrastructure",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source",
             description: "Transparent code",
             productColumn: "",
-            oneuptimeColumn: "Apache 2.0 License",
+            castOperationsColumn: "Apache 2.0 License",
           },
           {
             title: "SSO/SAML",
             description: "Enterprise authentication",
             productColumn: "Enterprise",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1496,37 +1499,39 @@ const products: Dictionary<Product> = {
       {
         question: "How does Cast Operations compare to Pingdom?",
         answer:
-          "Pingdom is a focused uptime monitoring tool with 100+ probe locations and plans tiered by monitor count ($15-$249/month for synthetic). It does basic monitoring well but lacks incident management, on-call scheduling, and robust status pages. Cast Operations provides active monitors at a flat $1/month - no per-check tiers and no caps - plus unlimited free manual monitors, status pages with unlimited subscribers, on-call scheduling with escalation policies, and full incident management. You replace Pingdom plus 2-3 other tools with one platform.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "What types of monitoring does Cast Operations support vs Pingdom?",
+        question:
+          "What types of monitoring does Cast Operations support vs Pingdom?",
         answer:
-          "Both support HTTP/HTTPS monitoring, SSL certificate checks, and transaction/synthetic monitoring. Cast Operations additionally provides server monitoring (CPU, memory, disk), container monitoring (Docker/Kubernetes), and custom metrics without needing the separate RUM product. All Cast Operations monitoring is included at no extra per-check cost, while Pingdom gates advanced monitors and pageviews behind higher tiers.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "How do probe locations compare?",
         answer:
-          "Pingdom offers 100+ probe locations worldwide but charges based on plan tier. Cast Operations provides 7+ strategically placed global locations and allows checking from all locations on every monitor without additional cost. For most use cases, our locations provide excellent coverage. We also support private probes inside your network for internal monitoring.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "What about Pingdom's Real User Monitoring (RUM)?",
         answer:
-          "Pingdom's RUM is a separate product with per-pageview pricing starting at $10/month for 100,000 pageviews. Cast Operations includes real user monitoring capabilities in our platform to track actual user experience metrics like page load time, time to first byte, and core web vitals - without separate per-pageview charges.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "Does Cast Operations have transaction monitoring like Pingdom?",
+        question:
+          "Does Cast Operations have transaction monitoring like Pingdom?",
         answer:
-          "Yes. Cast Operations supports multi-step synthetic monitoring to test user flows like login, checkout, or form submissions. Pingdom charges extra for these as advanced monitors, and each tier caps how many you get (1 on Starter, up to 50+ on Professional). Cast Operations includes synthetic transaction monitoring without a separate add-on.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "What about Pingdom's status pages?",
         answer:
-          "Pingdom offers a basic public status page as a feature with limited customization. Cast Operations provides full-featured public and private status pages with unlimited subscribers, custom branding, custom domains, and automatic updates based on monitor status. This alone can save $100+/month compared to buying a separate status page product like Atlassian Statuspage.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Why is tiered per-monitor pricing problematic?",
         answer:
-          "Tier-based pricing creates perverse incentives to monitor less. With Pingdom, adding services or advanced checks can push you into the next plan tier. With Cast Operations’ flat $1/month per active monitor - no per-check tiers and no caps - you can monitor everything across every endpoint, region, and environment with simple, predictable costs. This leads to better coverage and faster issue detection.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -1534,25 +1539,25 @@ const products: Dictionary<Product> = {
     productName: "Datadog",
     iconUrl: "/img/datadog.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One flat-priced unified platform vs metered per-host, per-seat SKUs",
     competitorFocus:
       "Datadog is the market leader in cloud monitoring, APM, and logs, but its status pages, on-call, and incident management are separate seat-based products layered on top of per-host and per-GB metering.",
-    oneuptimeFocus:
-      "Cast Operations unifies monitoring, logs, metrics, traces, status pages, on-call, and incident management in one platform at a flat, predictable price.",
+    castOperationsFocus:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Datadog is the industry leader in cloud monitoring, APM, and log management, with a deep observability suite and 800+ integrations. In 2025 it added native On-Call, Incident Management, and Status Pages, but each is a separate seat-based SKU stacked on top of per-host and per-GB metering, so a full deployment means juggling many priced modules.",
-    oneUptimeDescription:
-      "Cast Operations delivers monitoring, logs, metrics, traces, status pages, on-call, and incident management in one open-source platform with flat pricing. Active monitors are a flat $1/month each, telemetry ingestion is about $0.10/GB, and every reliability feature is included instead of sold as a separate seat.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Datadog is the industry leader in cloud monitoring, APM, and log management, offering deep observability with 800+ integrations. It now bundles native On-Call, Incident Management, and Status Pages, but each is metered separately - per host, per GB, and per seat - so bills grow with usage and headcount and are hard to forecast. Standing up a complete reliability stack still means stitching together and paying for several priced modules.",
     descriptionLine2:
-      "Cast Operations gives you monitoring, status pages, on-call, and incident management in one open-source platform at a flat, predictable price - no per-host, per-seat, or surprise per-GB bills.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     migrationBenefits: [
-      "Flat $1 per active monitor - no per-host, per-seat, or per-GB surprises",
+      "The complete feature set is available in every deployment.",
       "Status pages with unlimited subscribers included, not a seat-based add-on",
       "Built-in on-call rotations and escalations at no extra per-seat charge",
       "Full incident management with postmortems and action items included",
@@ -1650,8 +1655,8 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Datadog Infrastructure + APM + logs + 5 Incident Response seats",
         competitorCost: "$150 + $350 + ~$150 logs + $200 = ~$850/month",
-        oneuptimeSolution: "Cast Operations with everything included",
-        oneuptimeCost: "$0/month (Free tier) or $99/month (Growth)",
+        castOperationsSolution: "Cast Operations with everything included",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -1659,25 +1664,24 @@ const products: Dictionary<Product> = {
         competitorSolution: "Datadog full stack + 15 Incident Response seats",
         competitorCost:
           "$750 infra + $1,750 APM + $500-1,500 logs + $600 seats = ~$3,600-4,600/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with monitoring, status, on-call, and incidents included",
-        oneuptimeCost: "$0-299/month",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "Enterprise with containers and microservices",
         competitorSolution:
           "Datadog Enterprise + on-call and incident seats across teams",
         competitorCost: "$10,000-50,000+/month",
-        oneuptimeSolution: "Cast Operations Enterprise or self-hosted",
-        oneuptimeCost:
-          "Contact for pricing (fraction of Datadog) or free self-hosted",
+        castOperationsSolution: "Cast Operations Enterprise or self-hosted",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
       {
-        title: "Predictable Flat Pricing",
+        title: "Complete feature set",
         description:
-          "Active monitors at a flat $1/month each - no per-host, per-seat, or 99th-percentile billing to forecast",
+          "The complete feature set is available in every deployment.",
         icon: "pricing",
       },
       {
@@ -1707,7 +1711,7 @@ const products: Dictionary<Product> = {
       {
         title: "No Metering Surprises",
         description:
-          "Transparent, published pricing instead of stacked per-host, per-GB, and per-seat meters",
+          "Complete self-hosted deployment instead of stacked per-host, per-GB, and per-seat meters",
         icon: "transparent",
       },
     ],
@@ -1719,49 +1723,49 @@ const products: Dictionary<Product> = {
             title: "Infrastructure Monitoring",
             description: "Server metrics, CPU, memory, disk",
             productColumn: "$15-27/host/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "APM / Tracing",
             description: "Application performance monitoring",
             productColumn: "+$35/host/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Log Management",
             description: "Log collection and search",
             productColumn: "$0.10/GB + indexing",
-            oneuptimeColumn: "~$0.10/GB, no indexing fee",
+            castOperationsColumn: "Included",
           },
           {
             title: "Uptime Monitoring",
             description: "Website and API availability",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic Monitoring",
             description: "Multi-step transaction tests",
             productColumn: "$5/10K API, $12/1K browser",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container Monitoring",
             description: "Docker and Kubernetes",
             productColumn: "Billed above host limit",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL Certificate Monitoring",
             description: "Certificate expiration alerts",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Metrics",
             description: "Send custom application metrics",
             productColumn: "Usage-based",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1772,49 +1776,49 @@ const products: Dictionary<Product> = {
             title: "Threshold Alerts",
             description: "Alert on metric thresholds",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Anomaly Detection",
             description: "ML-based anomaly alerts",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Email Alerts",
             description: "Receive alerts via email",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS Alerts",
             description: "Text message notifications",
             productColumn: "On-Call seat ($20/mo)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone Call Alerts",
             description: "Voice call notifications",
             productColumn: "On-Call seat ($20/mo)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-Call Scheduling",
             description: "Rotation schedules",
             productColumn: "$20/seat/mo add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Escalation Policies",
             description: "Multi-level escalation",
             productColumn: "$20/seat/mo add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push Notifications",
             description: "Mobile push alerts",
             productColumn: "On-Call seat",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1825,37 +1829,37 @@ const products: Dictionary<Product> = {
             title: "Public Status Page",
             description: "Customer-facing status",
             productColumn: "Incident Response seat",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Status Page",
             description: "Internal dashboards",
             productColumn: "Incident Response seat",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited Subscribers",
             description: "Email/SMS status updates",
             productColumn: "Limited",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom Domain + Free SSL",
             description: "Your own domain and certificate",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom HTML/CSS/JS",
             description: "Full branding control",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled Maintenance",
             description: "Announce planned work",
             productColumn: "Incident Response seat",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1866,37 +1870,37 @@ const products: Dictionary<Product> = {
             title: "Incident Tracking",
             description: "Create and manage incidents",
             productColumn: "$30/seat/mo add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Timeline",
             description: "Automatic event history",
             productColumn: "$30/seat/mo add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Post-incident reviews",
             productColumn: "$30/seat/mo add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack / Teams Collaboration",
             description: "Manage incidents from chat",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action Item Tracking",
             description: "Follow-up tasks",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR Analytics",
             description: "Incident response metrics",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1907,49 +1911,50 @@ const products: Dictionary<Product> = {
             title: "API Access",
             description: "REST API",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Integrations",
             description: "Third-party connections",
             productColumn: "800+",
-            oneuptimeColumn: "2000+ via Zapier + native",
+            castOperationsColumn: "2000+ via Zapier + native",
           },
           {
-            title: "Predictable Flat Pricing",
+            title: "Complete feature set",
             description: "No per-host or per-GB metering",
             productColumn: "",
-            oneuptimeColumn: "$1/active monitor",
+            castOperationsColumn:
+              "The complete feature set is available in every deployment.",
           },
           {
             title: "Self-Hosting",
             description: "On-premises deployment",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source",
             description: "Transparent code",
             productColumn: "",
-            oneuptimeColumn: "Apache 2.0",
+            castOperationsColumn: "Apache 2.0",
           },
           {
             title: "SSO / SAML & RBAC",
             description: "Enterprise authentication",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit Logs",
             description: "Activity tracking",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2 / ISO 27001 / GDPR",
             description: "Compliance certifications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -1958,22 +1963,22 @@ const products: Dictionary<Product> = {
       {
         question: "How does Cast Operations compare to Datadog?",
         answer:
-          "Datadog is a comprehensive observability platform with deep APM, log management, and infrastructure monitoring, and it now offers native On-Call, Incident Management, and Status Pages. The catch is that everything is metered separately: Infrastructure starts at $15/host/month, APM adds about $35/host/month, logs run $0.10/GB plus indexing, and each on-call, incident, or status-page user is a $20-40/seat/month add-on on top. A typical startup can spend $700-2,000/month once those modules stack up. Cast Operations provides monitoring, status pages, on-call, and incident management in one platform with flat, predictable pricing.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can Cast Operations replace Datadog for monitoring?",
         answer:
-          "For most teams, yes. Cast Operations covers website and API monitoring, server and container metrics, SSL and port checks, synthetic transactions, and OpenTelemetry logs, metrics, and traces. If you need Datadog's deepest APM across hundreds of microservices, Datadog may still fit. But many teams pay for Datadog features they could get elsewhere at a fraction of the cost, so we recommend evaluating your actual needs - often core monitoring plus status pages, on-call, and incidents (all in Cast Operations) is more than enough.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "What about Datadog's 800+ integrations?",
         answer:
-          "Datadog has an impressive integration library. Cast Operations takes a different approach: core monitoring and telemetry are built in and OpenTelemetry-native, plus 2000+ integrations via Zapier and native webhooks. Our monitoring is designed to work out of the box without extensive configuration, and for many teams a smaller set of well-designed integrations beats integration overload and the per-integration data volume that inflates Datadog bills.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "How much can I save switching from Datadog?",
         answer:
-          "Savings vary with usage, but they are usually large. A team with 10-20 servers on Infrastructure + APM + logs can spend $500-2,000/month, and adding Datadog On-Call ($20/seat), Incident Management ($30/seat), or the Incident Response bundle ($40/seat) pushes it higher as headcount grows. Cast Operations provides monitoring, status pages, on-call, and incident management starting from $0, with active monitors at a flat $1/month each. Even at enterprise scale, teams commonly cut spend by 70-90%.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Is Cast Operations’ monitoring as comprehensive as Datadog?",
@@ -1983,12 +1988,12 @@ const products: Dictionary<Product> = {
       {
         question: "Does Cast Operations support logs like Datadog?",
         answer:
-          "Yes. Cast Operations ingests logs, metrics, and traces natively via OpenTelemetry, with search, dashboards, and exception tracking. The difference is price predictability: Cast Operations telemetry ingestion is about $0.10/GB, whereas Datadog layers indexing charges (up to $3.75/million events on-demand) and 99th-percentile host billing on top, which is where bills routinely land 2-3x over estimate.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "Can I self-host Cast Operations to control costs?",
+        question: "How do deployment costs compare?",
         answer:
-          "Yes. Cast Operations is open source (Apache 2.0) and can be self-hosted on your own infrastructure at no license cost - you pay only for the compute you run, not per-host, per-seat, or per-GB fees. This is impossible with Datadog, which is SaaS-only. Self-hosting is ideal for teams with strict data-residency requirements or those wanting to eliminate variable cloud observability costs entirely.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -1996,26 +2001,26 @@ const products: Dictionary<Product> = {
     productName: "New Relic",
     iconUrl: "/img/newrelic.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One unified reliability platform vs an APM-focused observability tool",
     competitorFocus:
       "New Relic delivers powerful full-stack observability with deep APM, logs, and infrastructure monitoring, but leaves status pages, on-call scheduling, and incident response to separate tools.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, logs, metrics, traces, status pages, on-call, and incident management in a single open-source platform that works together out of the box.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "New Relic is a powerful full-stack observability platform with comprehensive APM, distributed tracing, logs, and infrastructure monitoring. It offers deep insight into application performance, but you still need separate products for status pages, on-call scheduling, and end-to-end incident management. Pricing is usage-based, combining per-full-platform-user fees with per-GB data ingestion charges.",
-    oneUptimeDescription:
-      "Cast Operations provides complete observability and reliability with monitoring, logs, metrics, traces, status pages, on-call scheduling, and incident management in one unified platform. Everything works together without stitching multiple vendors, and it is open source (Apache 2.0) with a free self-hosted option and predictable pricing.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "New Relic is a powerful full-stack observability platform with comprehensive APM, distributed tracing, logs, and infrastructure monitoring. It excels at deep application insight, but it focuses purely on observability, so status pages, on-call scheduling, and full incident workflows require additional paid tools. Its usage-based pricing combines per-user fees ($99-349/full platform user) with per-GB data charges that can grow unpredictably. Cast Operations brings all of these capabilities together in one platform with flat, predictable pricing.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "Get monitoring, telemetry, status pages, on-call scheduling, and incident management all working together in one open-source platform with predictable, flat pricing.",
     migrationBenefits: [
       "Add unlimited team members with no per-user fees (New Relic charges $99-349/full platform user)",
-      "Predictable flat pricing you can plan around: $1 per active monitor and $0.10/GB telemetry",
+      "The complete feature set is available in every deployment.",
       "Public and private status pages included with unlimited subscribers and automatic updates",
       "On-call rotations and multi-level escalation policies built in (no separate PagerDuty needed)",
       "Complete incident management workflow with timelines, postmortems, and MTTR analytics",
@@ -2096,30 +2101,31 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "New Relic Standard (5 users) + Atlassian Statuspage + PagerDuty",
         competitorCost: "$406 + $99 + $105 = ~$610/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with monitoring, status pages, on-call, and incidents included",
-        oneuptimeCost: "$0/month (Free tier)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "10-person engineering team sending 500GB data/month",
         competitorSolution:
           "New Relic Pro + data overages + Statuspage + PagerDuty",
         competitorCost: "$3,490 + $240 + $99 + $290 = ~$4,119/month",
-        oneuptimeSolution:
-          "Cast Operations with unlimited users and telemetry at $0.10/GB",
-        oneuptimeCost: "$0-299/month",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "Growing company with 25 engineers",
         competitorSolution: "New Relic Pro ($349/user) + supporting tools",
         competitorCost: "$8,725+/month plus data and add-on tools",
-        oneuptimeSolution: "Cast Operations Enterprise with everything unified",
-        oneuptimeCost: "Contact for enterprise pricing",
+        castOperationsSolution:
+          "Cast Operations Enterprise with everything unified",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
       {
-        title: "No Per-User Pricing",
+        title: "Deployment model",
         description:
           "Add team members without cost scaling - New Relic charges $99-349 per full platform user",
         icon: "pricing",
@@ -2127,7 +2133,7 @@ const products: Dictionary<Product> = {
       {
         title: "Lower Data Costs",
         description:
-          "Telemetry at $0.10/GB - New Relic charges $0.40-0.60/GB in data overages",
+          "The complete feature set is available in every deployment.",
         icon: "transparent",
       },
       {
@@ -2163,43 +2169,43 @@ const products: Dictionary<Product> = {
             title: "Application Performance Monitoring",
             description: "Response times, throughput, and errors",
             productColumn: "tick",
-            oneuptimeColumn: "Basic APM included",
+            castOperationsColumn: "Basic APM included",
           },
           {
             title: "Distributed Tracing",
             description: "Trace requests across services",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Error & Exception Tracking",
             description: "Capture and group exceptions",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Real User Monitoring",
             description: "Browser-side real user data",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "Metrics",
             description: "Custom and infra metrics",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Log Management",
             description: "Centralized log ingestion",
             productColumn: "$0.40-0.60/GB overage",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Dashboards",
             description: "Custom telemetry dashboards",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -2210,43 +2216,43 @@ const products: Dictionary<Product> = {
             title: "Infrastructure Monitoring",
             description: "Server and cloud metrics",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Website & Uptime Monitoring",
             description: "Website and page availability",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API Monitoring",
             description: "REST/API endpoint checks",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic Monitoring",
             description: "Multi-step transactions",
             productColumn: "Usage-based add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL Certificate Monitoring",
             description: "Certificate expiry checks",
             productColumn: "Via synthetics",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron & Heartbeat Monitoring",
             description: "Scheduled job monitoring",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container & Kubernetes",
             description: "Docker and K8s monitoring",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -2257,43 +2263,43 @@ const products: Dictionary<Product> = {
             title: "Alert Conditions",
             description: "Threshold and anomaly alerts",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Email Alerts",
             description: "Email notifications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS & Phone Alerts",
             description: "SMS and voice call alerts",
             productColumn: "Via integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push, Slack & Teams Alerts",
             description: "Push and chat notifications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-Call Scheduling",
             description: "Rotation schedules",
             productColumn: "Via PagerDuty",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Escalation Policies",
             description: "Multi-level escalation",
             productColumn: "Via PagerDuty",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides & Follow-the-Sun",
             description: "Vacation and global rotations",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -2304,49 +2310,49 @@ const products: Dictionary<Product> = {
             title: "Public Status Page",
             description: "Customer-facing status",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Status Page",
             description: "Internal/authenticated status",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber Notifications",
             description: "Email/SMS/webhook updates",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom Domain + SSL",
             description: "Branded status page domain",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled Maintenance",
             description: "Planned maintenance events",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Management",
             description: "Full incident workflow",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Post-incident reviews",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Response runbooks",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -2357,43 +2363,43 @@ const products: Dictionary<Product> = {
             title: "API Access",
             description: "REST and GraphQL APIs",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-Hosting",
             description: "On-premises deployment",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source",
             description: "Transparent, auditable code",
             productColumn: "",
-            oneuptimeColumn: "Apache 2.0",
+            castOperationsColumn: "Apache 2.0",
           },
           {
             title: "SSO/SAML",
             description: "Enterprise single sign-on",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "RBAC & Audit Logs",
             description: "Access control and audit trail",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Per-User Pricing",
+            title: "Deployment model",
             description: "Fees per platform user",
             productColumn: "$99-349/user",
-            oneuptimeColumn: "No per-user fees",
+            castOperationsColumn: "No per-user fees",
           },
           {
-            title: "Predictable Flat Pricing",
+            title: "Complete feature set",
             description: "Cost you can plan around",
             productColumn: "Usage-based",
-            oneuptimeColumn: "$1/monitor/mo",
+            castOperationsColumn: "Included",
           },
         ],
       },
@@ -2402,22 +2408,23 @@ const products: Dictionary<Product> = {
       {
         question: "How does Cast Operations compare to New Relic?",
         answer:
-          "New Relic is a comprehensive observability platform with excellent APM, distributed tracing, logs, and infrastructure monitoring. However, its usage-based pricing (per-user fees of $99-349/full platform user plus per-GB data charges) can make costs unpredictable. A 10-person team on Pro is $3,490/month before data charges. On top of that you need Atlassian Statuspage and PagerDuty for status pages and on-call. Cast Operations provides monitoring, telemetry, status pages, on-call, and incident management together with flat, predictable pricing.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "Can Cast Operations match New Relic's observability features?",
+        question:
+          "Can Cast Operations match New Relic's observability features?",
         answer:
           "New Relic offers deeper APM capabilities, especially code-level distributed tracing across complex, high-service-count applications and real user monitoring. Cast Operations covers what most teams actually use day to day: uptime and API monitoring, server and container metrics, synthetic tests, and OpenTelemetry logs, metrics, and traces. If you need deep code-level APM across hundreds of services, New Relic may be necessary. For monitoring reliability and coordinating incident response, Cast Operations is fully capable.",
       },
       {
         question: "What about New Relic's free tier?",
         answer:
-          "New Relic's free tier is generous: 100GB of data ingest and one full platform user. But once you need more than one power user or exceed 100GB, costs climb quickly through per-user fees and data overages. Cast Operations’ free tier includes unlimited team members and unlimited free manual monitors, with telemetry at a low $0.10/GB ingested, so it scales more affordably as your team grows.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "How does data pricing compare?",
         answer:
-          "New Relic charges $0.40/GB (Original Data) to $0.60/GB (Data Plus) after the 100GB free allotment. A team generating 500GB/month pays roughly $160-240 in overages alone, on top of user fees. Cast Operations’ telemetry is just $0.10/GB ingested, well below New Relic's overage rates, so the same 500GB/month costs a fraction as much and stays predictable as your infrastructure grows.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Cast Operations have APM like New Relic?",
@@ -2427,7 +2434,7 @@ const products: Dictionary<Product> = {
       {
         question: "Is Cast Operations open source and self-hostable?",
         answer:
-          "Yes. Cast Operations is fully open source under the Apache 2.0 license and can be self-hosted on your own infrastructure at no license cost, giving you complete control over your data. New Relic is SaaS-only and closed source. You can also use Cast Operations’ managed cloud if you prefer not to run it yourself.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I migrate my New Relic telemetry to Cast Operations?",
@@ -2440,26 +2447,26 @@ const products: Dictionary<Product> = {
     productName: "Better Stack (Better Uptime)",
     iconUrl: "/img/betterstack.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "Open source and unified vs a modular platform with per-responder add-on pricing",
     competitorFocus:
       "A modern monitoring, status page, incident, and telemetry platform whose bill is built from a per-responder license plus separate monitor, status page, and telemetry add-ons.",
-    oneuptimeFocus:
-      "One open-source, self-hostable platform that includes monitoring at a flat $1/active monitor, on-call, incidents, status pages, and telemetry with no per-responder or per-subscriber fees.",
+    castOperationsFocus:
+      "The complete feature set is available in every deployment.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Better Stack (formerly Better Uptime) offers uptime monitoring, status pages, on-call, incident management, and log and metric telemetry in one modern, developer-friendly product. Its pricing is modular: you start free, then pay a per-responder license and layer on packs for extra monitors, status page features, and telemetry volume. The polished UX is a real strength, but costs compound as your on-call team, monitor count, and subscriber list grow.",
-    oneUptimeDescription:
-      "Cast Operations provides monitoring at a flat $1/month per active monitor, status pages with unlimited subscribers, and full on-call scheduling and incident management included for the whole team at no extra per-person cost. It is OpenTelemetry-native for logs, metrics, and traces, and is fully open source under Apache 2.0 so you can self-host it on your own infrastructure. You get the same unified vision with transparent pricing and no vendor lock-in.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Better Stack (formerly Better Uptime) and Cast Operations share the same unified vision: monitoring, status pages, on-call, incidents, and telemetry in one place instead of a stack of point tools. The difference is how you pay and how much control you keep. Better Stack layers a $29-34/month per-responder license on top of add-on packs for monitors, status pages, and telemetry, so the bill scales with every engineer, subscriber, and gigabyte. Cast Operations charges a flat $1/month per active monitor with on-call, incidents, and unlimited status page subscribers included, and is fully open source and self-hostable.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
-      "Both consolidate your observability tooling into one product. Cast Operations adds predictable per-monitor pricing, no per-responder or per-subscriber fees, open-source transparency, and the option to self-host.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     migrationBenefits: [
       "Eliminate per-responder licenses - on-call and incident management for your whole team are included",
-      "Predictable $1/month per active monitor with no $21-25 per-50-monitor bundles to stack",
+      "The complete feature set is available in every deployment.",
       "Unlimited status page subscribers with no $40 per additional 1,000 metering",
       "White-label, custom-domain status pages included rather than a $208-250 per-page add-on",
       "Self-host on your own Docker or Kubernetes infrastructure for complete data control and compliance",
@@ -2549,9 +2556,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Better Stack (Free 10 + 20 extra monitors + 4 responders)",
         competitorCost: "$0 + $21 + $116 = ~$137/month",
-        oneuptimeSolution:
-          "Cast Operations at $1/active monitor with on-call included for all 4 engineers",
-        oneuptimeCost: "~$30/month",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -2559,9 +2566,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Better Stack (140 extra monitors + 5 responders + white-label page)",
         competitorCost: "$63 + $145 + $208 = ~$416/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations monitors + custom-domain branded status page + on-call, all included",
-        oneuptimeCost: "~$150/month",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -2569,16 +2576,16 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Better Stack (490 extra monitors + 10 responders + 10k subscribers)",
         competitorCost: "$210 + $290 + $400 = ~$900/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with unlimited subscribers and unlimited responders included",
-        oneuptimeCost: "~$500/month",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
       {
-        title: "$1 Per Active Monitor",
+        title: "All capabilities included",
         description:
-          "Flat $1/month per active monitor - Better Stack sells monitors in $21-25 per-50 packs",
+          "The complete feature set is available in every deployment.",
         icon: "unlimited",
       },
       {
@@ -2606,7 +2613,7 @@ const products: Dictionary<Product> = {
         icon: "transparent",
       },
       {
-        title: "Simpler Pricing",
+        title: "Deployment model",
         description:
           "No stacking monitor packs, responder seats, and telemetry bundles to model your bill",
         icon: "pricing",
@@ -2620,49 +2627,50 @@ const products: Dictionary<Product> = {
             title: "Number of Monitors",
             description: "How many checks included",
             productColumn: "10 free, +$21-25/50",
-            oneuptimeColumn: "$1/active monitor",
+            castOperationsColumn:
+              "The complete feature set is available in every deployment.",
           },
           {
             title: "Check Frequency",
             description: "How often monitors run",
             productColumn: "30 seconds minimum",
-            oneuptimeColumn: "1 second minimum",
+            castOperationsColumn: "1 second minimum",
           },
           {
             title: "HTTP and Website Monitoring",
             description: "Website and URL availability",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API Monitoring",
             description: "API health checks",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL Certificate Monitoring",
             description: "Certificate expiration",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server and Infra Monitoring",
             description: "CPU, memory, disk",
             productColumn: "Via telemetry add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and Transaction",
             description: "Multi-step browser flows",
             productColumn: "$1/100 Playwright min",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron and Heartbeat Monitoring",
             description: "Background job checks",
             productColumn: "10 free, +$17-20/10",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -2673,43 +2681,43 @@ const products: Dictionary<Product> = {
             title: "On-Call Scheduling",
             description: "Rotation schedules",
             productColumn: "Responder ($29-34/mo)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone and SMS Alerts",
             description: "Voice and text alerts",
             productColumn: "Responder ($29-34/mo)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-Level Escalation",
             description: "Escalation policies",
             productColumn: "Responder license",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Rotations and Overrides",
             description: "Vacation and follow-the-sun",
             productColumn: "Responder license",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack Integration",
             description: "Alert and act in Slack",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Microsoft Teams",
             description: "Alert and act in Teams",
             productColumn: "$9/responder/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push Notifications",
             description: "Mobile push alerts",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -2720,43 +2728,43 @@ const products: Dictionary<Product> = {
             title: "Incident Timelines",
             description: "Chronological event log",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities",
             description: "Classify incident impact",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Post-incident reviews",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action Item Tracking",
             description: "Follow-up task tracking",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Documented response steps",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams Collaboration",
             description: "Coordinate response in chat",
             productColumn: "$9/responder/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR Analytics",
             description: "Response time reporting",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -2767,49 +2775,49 @@ const products: Dictionary<Product> = {
             title: "Public Status Page",
             description: "Customer-facing status",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Status Page",
             description: "Internal or gated status",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Domain and SSL",
             description: "Your own domain",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom CSS and JavaScript",
             description: "Full styling control",
             productColumn: "$12-15/page/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "White-Label Branding",
             description: "Remove vendor branding",
             productColumn: "$208-250/page/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber Notifications",
             description: "Email, SMS, webhook, RSS updates",
             productColumn: "$40/1,000 subs",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Scheduled Maintenance",
             description: "Announce planned work",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multiple Status Pages",
             description: "Add more pages",
             productColumn: "$12-15/page/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -2820,43 +2828,43 @@ const products: Dictionary<Product> = {
             title: "Log Management",
             description: "Centralized logs",
             productColumn: "Telemetry bundle",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Time-series metrics",
             productColumn: "Telemetry bundle",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed Traces",
             description: "Request tracing",
             productColumn: "Telemetry bundle",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry Native",
             description: "Standard OTel ingestion",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Dashboards",
             description: "Build your own views",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception and Error Tracking",
             description: "Capture app errors",
             productColumn: "100k free, then paid",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Telemetry Pricing",
+            title: "Deployment model",
             description: "How ingestion is billed",
             productColumn: "$25-1,750/mo bundles",
-            oneuptimeColumn: "~$0.10/GB",
+            castOperationsColumn: "Included",
           },
         ],
       },
@@ -2867,74 +2875,76 @@ const products: Dictionary<Product> = {
             title: "Self-Hosting",
             description: "On-premises option",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source",
             description: "Audit the code",
             productColumn: "",
-            oneuptimeColumn: "Apache 2.0",
+            castOperationsColumn: "Apache 2.0",
           },
           {
             title: "REST API",
             description: "Programmatic access",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Native Webhooks",
             description: "Event callbacks",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO and SAML",
             description: "Enterprise sign-on",
             productColumn: "Enterprise",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit Logs",
             description: "Track account activity",
             productColumn: "Enterprise",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Pricing Model",
+            title: "Deployment model",
             description: "How the bill is built",
             productColumn: "Per-responder + packs",
-            oneuptimeColumn: "$1/active monitor",
+            castOperationsColumn:
+              "The complete feature set is available in every deployment.",
           },
         ],
       },
     ],
     faq: [
       {
-        question: "How does Cast Operations compare to Better Stack (Better Uptime)?",
+        question:
+          "How does Cast Operations compare to Better Stack (Better Uptime)?",
         answer:
-          "Better Stack (formerly Better Uptime) and Cast Operations share a similar vision of unified observability. Both provide monitoring, status pages, incident management, and telemetry in one platform. The key differences are pricing and openness: Better Stack charges a $29-34/month per-responder license plus add-on packs for monitors ($21-25 per 50), status page features, and telemetry, while Cast Operations offers simple usage-based pricing at $1/month per active monitor with on-call, incidents, and unlimited status page subscribers included. Cast Operations is also fully open source under Apache 2.0 with self-hosting options, giving you complete control over your data and infrastructure.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "What is Better Uptime and why did it become Better Stack?",
         answer:
-          "Better Uptime was a popular monitoring and status page tool that rebranded to Better Stack in 2023 to reflect an expanded suite that now includes logs, metrics, traces, and incident management. The core uptime monitoring product remains strong, but the pricing model is modular: you pay a per-responder license and add packs for monitors, status pages, and telemetry volume. Cast Operations offers a simpler, more predictable model of a flat $1/month per active monitor with on-call and incidents included.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question:
-          "How does Better Stack's per-responder pricing compare to Cast Operations?",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         answer:
-          "Better Stack requires a Responder license, roughly $29/month per person on annual billing or $34/month monthly, for anyone who runs on-call rotations, acknowledges incidents, or receives phone and SMS alerts. That fee multiplies with every engineer you add to the pager. Cast Operations includes on-call scheduling, escalation policies, and incident management for your entire team at no per-responder cost, so growing your on-call rotation does not grow your bill.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question:
           "How do monitoring capabilities compare between Better Stack and Cast Operations?",
         answer:
-          "Both offer HTTP and API checks, SSL certificate monitoring, heartbeats, and status pages. Cast Operations provides faster minimum check frequencies (1 second versus 30 seconds on Better Stack) and includes native server and infrastructure monitoring for CPU, memory, and disk. Better Stack meters extra monitors in per-50 bundles and charges separately for heartbeats and Playwright transaction minutes, while Cast Operations bills a flat $1/month per active monitor with unlimited free manual and static monitors.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "What do status pages cost on Better Stack versus Cast Operations?",
+        question: "How do deployment costs compare?",
         answer:
-          "Better Stack includes one status page, then charges for extras: about $12 per page per month for additional pages or custom CSS and JavaScript, $208-250 per page per month for white-label branding, password protection, and SSO, and $40/month for each additional 1,000 subscribers. Cast Operations includes public and private status pages, custom domains with free SSL, custom branding and HTML/CSS/JS, and unlimited subscribers at no extra cost.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I self-host Cast Operations like Better Stack?",
@@ -2945,7 +2955,7 @@ const products: Dictionary<Product> = {
         question:
           "What features does Cast Operations have that Better Stack charges extra for?",
         answer:
-          "Cast Operations includes several things Better Stack meters or gates behind add-ons: on-call and incident management for the whole team (no per-responder license), unlimited status page subscribers (no $40 per 1,000), white-label custom-domain status pages (no $208-250 per-page fee), and native server and infrastructure monitoring. On top of that, Cast Operations offers 1-second minimum check intervals, an open-source Apache 2.0 codebase you can audit and extend, and self-hosting on your own infrastructure.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -2953,18 +2963,18 @@ const products: Dictionary<Product> = {
     productName: "Uptime Robot",
     iconUrl: "/img/uptimerobot.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "Complete observability platform vs simple monitoring tool",
     competitorFocus:
       "Simple, popular uptime monitoring tool that excels at basic checks and status pages but has no on-call scheduling or real incident response.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "One unified platform where monitoring, status pages, on-call scheduling, and incident management work together out of the box.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Uptime Robot is one of the most popular simple monitoring tools, with a genuinely generous free tier and a clean, easy interface. It covers uptime checks, SSL and domain expiry, keyword and DNS monitoring, and status pages, but it stops there - there is no on-call scheduling and only lightweight incident tracking.",
-    oneUptimeDescription:
-      "Cast Operations delivers the same core monitoring at a flat $1/month per active monitor, then adds the full incident lifecycle - status pages, on-call rotations and escalations, incident management, postmortems, and OpenTelemetry logs, metrics, and traces - in a single open-source platform.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Uptime Robot is one of the most popular simple monitoring tools, with an excellent free tier of 50 monitors. It is great for straightforward uptime checks and basic status pages, but it lacks on-call scheduling, has only lightweight incident tracking, and caps monitors by plan (50 to 1,000+). As needs grow beyond simple monitoring, teams end up bolting on separate tools like PagerDuty and Statuspage.",
     descriptionLine2:
@@ -2974,7 +2984,7 @@ const products: Dictionary<Product> = {
       "Complete incident management workflow with timelines and postmortems",
       "Status pages with unlimited subscribers and free custom-domain SSL",
       "Faster checks: intervals down to 1 second vs a 30-second minimum",
-      "Active monitors at a flat $1/month each with no per-plan caps",
+      "The complete feature set is available in every deployment.",
       "All alerting included: SMS, phone calls, Slack, Teams, webhooks, and push",
     ],
     competitorPricingTiers: [
@@ -3055,25 +3065,26 @@ const products: Dictionary<Product> = {
         scenario: "Small team needing monitoring plus on-call",
         competitorSolution: "Uptime Robot Team + PagerDuty",
         competitorCost: "$38 + $210 = $248/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with monitoring, on-call, and incidents included",
-        oneuptimeCost: "$0/month (Free tier)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
           "Startup monitoring 40 endpoints with a status page and on-call",
         competitorSolution: "Uptime Robot Solo + a separate on-call tool",
         competitorCost: "$10 + on-call tooling",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations: 40 active monitors, status page, and on-call together",
-        oneuptimeCost: "~$40/month ($1 per active monitor)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "Growing company needing complete observability",
         competitorSolution: "Uptime Robot Enterprise + PagerDuty + Statuspage",
         competitorCost: "$82 + $400 + $99 = $581/month",
-        oneuptimeSolution: "Cast Operations at a flat $1 per active monitor",
-        oneuptimeCost: "$0-99/month",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -3090,9 +3101,9 @@ const products: Dictionary<Product> = {
         icon: "incident",
       },
       {
-        title: "$1 Per Active Monitor",
+        title: "All capabilities included",
         description:
-          "Flat $1/month per active monitor with no caps - Uptime Robot limits 50 to 1,000+ by plan",
+          "The complete feature set is available in every deployment.",
         icon: "unlimited",
       },
       {
@@ -3122,49 +3133,49 @@ const products: Dictionary<Product> = {
             title: "Monitor Limits",
             description: "Number of monitors included",
             productColumn: "50-1,000+ based on plan",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Check Frequency",
             description: "Minimum check interval",
             productColumn: "5min (Free), 30sec (Enterprise)",
-            oneuptimeColumn: "1 second",
+            castOperationsColumn: "1 second",
           },
           {
             title: "HTTP Monitoring",
             description: "Website availability",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Port Monitoring",
             description: "TCP port checks",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Keyword Monitoring",
             description: "Content verification",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API Monitoring",
             description: "Custom API tests",
             productColumn: "Paid plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server Monitoring",
             description: "CPU, memory, disk",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL Monitoring",
             description: "Certificate checks",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -3175,43 +3186,43 @@ const products: Dictionary<Product> = {
             title: "Email Alerts",
             description: "Email notifications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS Alerts",
             description: "Text notifications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone Calls",
             description: "Voice alerts",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Mobile Push",
             description: "Mobile app push",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack/Teams",
             description: "Chat integrations",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Webhooks",
             description: "Custom webhook alerts",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Integrations",
             description: "Third-party alerts",
             productColumn: "5-12 based on plan",
-            oneuptimeColumn: "2000+ via Zapier + native",
+            castOperationsColumn: "2000+ via Zapier + native",
           },
         ],
       },
@@ -3222,43 +3233,43 @@ const products: Dictionary<Product> = {
             title: "On-Call Scheduling",
             description: "Rotation schedules",
             productColumn: "Not included",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Escalation Policies",
             description: "Multi-level escalation",
             productColumn: "Not included",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Management",
             description: "Full workflow",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Timeline",
             description: "Event history",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Post-incident reviews",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Response runbooks",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR Analytics",
             description: "Resolution metrics",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -3269,43 +3280,43 @@ const products: Dictionary<Product> = {
             title: "Public Status Page",
             description: "Customer-facing status",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Domain",
             description: "Your own domain",
             productColumn: "Paid plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Branding",
             description: "Logo, colors, CSS/JS",
             productColumn: "Paid plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber Notifications",
             description: "Email/SMS/webhook updates",
             productColumn: "Basic",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Scheduled Maintenance",
             description: "Maintenance windows",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Status Pages",
             description: "Password protected",
             productColumn: "Paid plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic Updates",
             description: "Update from monitors",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -3316,43 +3327,44 @@ const products: Dictionary<Product> = {
             title: "Self-Hosting",
             description: "On-premises option",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source",
             description: "Transparent code",
             productColumn: "",
-            oneuptimeColumn: "Apache 2.0",
+            castOperationsColumn: "Apache 2.0",
           },
           {
             title: "API Access",
             description: "REST API",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO/SAML",
             description: "Enterprise SSO",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Telemetry (Logs/Metrics/Traces)",
             description: "OpenTelemetry-native",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit Logs",
             description: "Activity tracking",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable Pricing",
+            title: "Complete feature set",
             description: "Flat, capped costs",
             productColumn: "Tiered by monitor count",
-            oneuptimeColumn: "$1/active monitor",
+            castOperationsColumn:
+              "The complete feature set is available in every deployment.",
           },
         ],
       },
@@ -3361,12 +3373,12 @@ const products: Dictionary<Product> = {
       {
         question: "How does Cast Operations compare to Uptime Robot?",
         answer:
-          "Uptime Robot is excellent for simple, affordable uptime monitoring and basic status pages. Cast Operations provides that same monitoring plus on-call scheduling, full incident management, and richer status pages in one platform. If you only need basic monitoring, Uptime Robot's free tier is hard to beat. But once you need to manage incidents and alert an on-call team, you would add PagerDuty ($210+/month) and possibly Statuspage ($99+/month), which is where Cast Operations becomes far more cost-effective.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "What about Uptime Robot's free tier?",
         answer:
-          "Uptime Robot's free tier (50 monitors, 5-minute intervals, 1 status page) is genuinely generous for basic needs. Cast Operations also has a free tier, and it includes on-call scheduling, incident management, and better status pages. If monitoring alone is enough, Uptime Robot Free works well; if you need the complete incident lifecycle, Cast Operations Free delivers far more.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Cast Operations have the same monitoring types?",
@@ -3376,12 +3388,12 @@ const products: Dictionary<Product> = {
       {
         question: "Why switch from Uptime Robot?",
         answer:
-          "Consider switching when you need on-call scheduling (Uptime Robot has none), real incident management workflows (only basic tracking in Uptime Robot), advanced status pages with unlimited subscribers, or you are hitting monitor caps. Rather than bolting PagerDuty and Statuspage onto Uptime Robot, Cast Operations gives you everything in one platform at a flat $1 per active monitor.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "How does the pricing compare in 2026?",
         answer:
-          "Uptime Robot's paid plans in 2026 run from Solo at $10/month to Team at $38/month and Enterprise starting at $82/month, with monitors capped per tier (50 to 1,000+). Cast Operations charges a flat $1/month per active monitor with no caps, keeps manual and static monitors free, and includes on-call and incident management - so as you scale, costs stay predictable instead of jumping between tiers.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I self-host Cast Operations?",
@@ -3400,20 +3412,20 @@ const products: Dictionary<Product> = {
     productName: "Checkly",
     iconUrl: "/img/checkly.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "Complete observability vs developer-focused synthetic monitoring",
     competitorFocus:
       "Developer-focused synthetic monitoring with best-in-class Playwright and Terraform support for CI/CD; on-call rotations and deep incident response still lean on separate tools.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "One unified platform where monitoring, status pages, on-call, and full incident management work together out of the box.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Checkly is a developer-focused reliability platform centered on synthetic monitoring, with excellent Playwright and Terraform integration for API and browser testing in CI/CD pipelines. It has expanded into status pages and basic incident communication through its Communicate module and uses Rocky AI for root-cause analysis. Its core strength and pricing model remain monitoring-as-code for engineering teams.",
-    oneUptimeDescription:
-      "Cast Operations provides unlimited synthetic monitoring plus the complete incident lifecycle in one platform. On-call scheduling, escalation policies, incident management with postmortems, and unlimited-subscriber status pages are all included, with predictable flat per-monitor pricing.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Checkly is a developer-focused synthetic monitoring tool with excellent Playwright and Terraform integration, built for API and browser testing inside CI/CD pipelines. It has recently added status pages and basic status-page incidents through a paid Communicate module, but on-call rotations and a full incident lifecycle still rely on integrations like PagerDuty or Opsgenie. Its check-run quotas and per-run overages also make high-frequency monitoring costs hard to predict. Cast Operations folds monitoring, status pages, on-call, and incident management into a single platform with unlimited check runs and flat per-monitor pricing.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "Checkly is excellent for synthetic testing as code. For a complete reliability platform with real on-call, full incident management, and unlimited-subscriber status pages, Cast Operations does it all in one place.",
     migrationBenefits: [
@@ -3422,7 +3434,7 @@ const products: Dictionary<Product> = {
       "Full incident lifecycle: timelines, postmortems, action items, runbooks, and MTTR analytics",
       "Status pages with unlimited subscribers plus free custom domain and SSL",
       "Faster check frequencies down to a 1-second interval",
-      "Open-source and self-hostable, or predictable $1 per active monitor in the cloud",
+      "The complete feature set is available in every deployment.",
     ],
     competitorPricingTiers: [
       {
@@ -3505,9 +3517,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Checkly Team (Detect) + Communicate add-on + PagerDuty for on-call",
         competitorCost: "$64 + ~$30 + ~$21/user = $115+/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations unified: synthetic monitoring, status page, and on-call included",
-        oneuptimeCost: "$0/month (Free tier) or a few $/monitor",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -3515,9 +3527,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Checkly Enterprise + Communicate + dedicated incident tool",
         competitorCost: "$300+ plus add-ons = $500+/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with synthetic monitoring, incidents, postmortems, and status page",
-        oneuptimeCost: "$1/active monitor + ~$0.10/GB telemetry",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -3525,9 +3537,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Checkly with API check-run overages past the included quota",
         competitorCost: "Base plan + $2.50/10K overages = $1,000+/month",
-        oneuptimeSolution:
-          "Cast Operations flat per-monitor pricing, no run counting",
-        oneuptimeCost: "$50/month flat (50 x $1), unlimited runs",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -3576,37 +3588,37 @@ const products: Dictionary<Product> = {
             title: "Browser Checks",
             description: "Headless browser tests",
             productColumn: "1K-12K/mo, then overages",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "API Checks",
             description: "HTTP API monitoring",
             productColumn: "10K-100K/mo, then overages",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Multi-Step Tests",
             description: "Transaction monitoring",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Check Frequency",
             description: "Minimum interval",
             productColumn: "Down to 10 sec",
-            oneuptimeColumn: "1 second",
+            castOperationsColumn: "1 second",
           },
           {
             title: "Global Locations",
             description: "Probe locations",
             productColumn: "4-22 by plan",
-            oneuptimeColumn: "7+ included",
+            castOperationsColumn: "7+ included",
           },
           {
             title: "Private Locations",
             description: "Probes inside your network",
             productColumn: "Team+ plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -3617,25 +3629,25 @@ const products: Dictionary<Product> = {
             title: "Playwright Integration",
             description: "Native Playwright support",
             productColumn: "tick",
-            oneuptimeColumn: "Browser testing supported",
+            castOperationsColumn: "Browser testing supported",
           },
           {
             title: "Terraform Provider",
             description: "Infrastructure as code",
             productColumn: "tick",
-            oneuptimeColumn: "API-based automation",
+            castOperationsColumn: "API-based automation",
           },
           {
             title: "CI/CD Integration",
             description: "Pipeline integration",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "AI Root-Cause Help",
             description: "AI failure analysis",
             productColumn: "Rocky AI",
-            oneuptimeColumn: "AI SRE",
+            castOperationsColumn: "AI SRE",
           },
         ],
       },
@@ -3646,37 +3658,37 @@ const products: Dictionary<Product> = {
             title: "On-Call Rotations",
             description: "Daily/weekly/custom schedules",
             productColumn: "Via integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-Level Escalation",
             description: "Escalate to next responder",
             productColumn: "Alert-based only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides & Vacation",
             description: "Cover schedule gaps",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS & Phone Alerts",
             description: "Voice and text alerts",
             productColumn: "100-200/mo by plan",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack & Teams Alerts",
             description: "Chat notifications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Mobile Push",
             description: "Push notifications",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -3687,37 +3699,37 @@ const products: Dictionary<Product> = {
             title: "Incident Timelines",
             description: "Chronological updates",
             productColumn: "Basic (status page)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic Incident Creation",
             description: "Open incidents from failures",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities",
             description: "Built-in severity levels",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured retrospectives",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action Items & Runbooks",
             description: "Follow-ups and playbooks",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR Analytics",
             description: "Response metrics",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -3728,37 +3740,37 @@ const products: Dictionary<Product> = {
             title: "Public Status Page",
             description: "Customer-facing status",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private/Internal Status Page",
             description: "Internal audiences",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited Subscribers",
             description: "Notify stakeholders",
             productColumn: "Email/RSS only",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom Domain",
             description: "Your own domain",
             productColumn: "Starter+ plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom HTML/CSS/Branding",
             description: "Full white labeling",
             productColumn: "Add-on (~$30/mo)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS/Slack/Teams Updates",
             description: "Multi-channel subscriber alerts",
             productColumn: "Email/RSS only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -3769,37 +3781,37 @@ const products: Dictionary<Product> = {
             title: "Self-Hosting",
             description: "On-premises option",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source",
             description: "Transparent code",
             productColumn: "",
-            oneuptimeColumn: "Apache 2.0",
+            castOperationsColumn: "Apache 2.0",
           },
           {
             title: "REST API",
             description: "Full API access",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable Flat Pricing",
+            title: "Complete feature set",
             description: "No per-run overages",
             productColumn: "Per-run overages",
-            oneuptimeColumn: "$1/monitor flat",
+            castOperationsColumn: "Included",
           },
           {
             title: "SSO / SAML",
             description: "Enterprise auth",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unified Platform",
             description: "Detect, respond, communicate",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -3814,10 +3826,11 @@ const products: Dictionary<Product> = {
         question:
           "Doesn't Checkly now have status pages and incident management?",
         answer:
-          "Yes. Checkly launched a Communicate module with public and internal status pages and the ability to open, update, and resolve incidents from a failing check. However, branding, custom CSS, and white labeling sit behind a paid add-on, subscribers are email/RSS only, and incidents are essentially status-page updates without postmortems, action items, runbooks, or MTTR analytics. Cast Operations includes unlimited subscribers, free custom domain and SSL, and a full incident lifecycle at no extra tier.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "Does Checkly have real on-call scheduling like Cast Operations?",
+        question:
+          "Does Checkly have real on-call scheduling like Cast Operations?",
         answer:
           "Not natively. Checkly offers alert escalation policies that control when and how often alerts fire, but managing human on-call rotations, overrides, and follow-the-sun coverage means integrating PagerDuty, Opsgenie, Incident.io, or Rootly as a separate tool. Cast Operations includes on-call rotations, multi-level escalation policies, and overrides built in, with alerts via SMS, phone call, email, push, Slack, and Microsoft Teams.",
       },
@@ -3834,12 +3847,12 @@ const products: Dictionary<Product> = {
       {
         question: "How do check-run limits and pricing compare?",
         answer:
-          "Checkly bills by check runs, limiting browser checks (1K-12K/month) and API checks (10K-100K/month), then charging per-run overages of roughly $2.50-$6.50 per batch. High-frequency monitoring gets expensive and hard to predict. Cast Operations does not count check runs at all: active monitors are a flat $1/month each with no per-check tiers or caps, so a 30-second monitor costs the same as an hourly one.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I self-host or audit the code?",
         answer:
-          "Checkly is a SaaS-only product with no open-source or self-host option. Cast Operations is Apache 2.0 licensed and fully self-hostable for free, so you can run it on your own infrastructure, audit every line, and keep telemetry data in your environment, or use the managed cloud with predictable pricing.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -3847,19 +3860,19 @@ const products: Dictionary<Product> = {
     productName: "Incident.io",
     iconUrl: "/img/incident-io.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "Complete incident lifecycle platform vs incident response specialist",
     competitorFocus:
       "Modern, beautifully designed incident response with excellent Slack and Microsoft Teams integration, but it has no monitoring to detect incidents, on-call is a paid per-user add-on, and status pages are basic.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Full incident lifecycle: Detection (Monitoring) + Response (On-Call + Incidents) + Communication (Status Pages), unified in one open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Incident.io is a modern, beautifully designed incident management tool that excels at Slack- and Teams-native incident response. It provides polished coordination features for teams during incidents, plus built-in on-call (as a paid add-on) and basic status pages. It does not monitor anything, so incidents must be detected by separate tools.",
-    oneUptimeDescription:
-      "Cast Operations provides complete incident management plus integrated monitoring, full-featured status pages, and on-call scheduling in one platform. It covers the entire incident lifecycle from automatic detection to customer communication and post-incident learning, with predictable flat pricing instead of per-user seats.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Incident.io is a modern, beautifully designed incident management tool that excels at Slack- and Teams-native incident response, and it's excellent for coordinating teams during a live incident. It includes on-call (as a paid per-user add-on) and basic status pages. However, it has no monitoring to detect incidents in the first place, and its pricing scales per user with every hire. Complete reliability needs detection, response, and customer communication working together.",
     descriptionLine2:
@@ -3869,7 +3882,7 @@ const products: Dictionary<Product> = {
       "Get full-featured status pages with unlimited subscribers and custom domains",
       "On-call scheduling and escalations included, not a per-user paid add-on",
       "Flat pricing instead of per-user seats that grow with every hire",
-      "Slack and Microsoft Teams incident collaboration included on all plans",
+      "Slack and Microsoft Teams incident collaboration included in every deployment",
       "Complete incident lifecycle in one unified, open-source platform",
     ],
     competitorPricingTiers: [
@@ -3955,9 +3968,9 @@ const products: Dictionary<Product> = {
           "Incident.io Team + On-call add-on + a separate monitoring tool",
         competitorCost:
           "$250/mo (Team + on-call) + ~$150 monitoring = ~$400/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with monitoring, on-call, incidents, and status pages included",
-        oneuptimeCost: "$0/month (Free tier) or $99/month (Growth)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "25-person team on Pro with private incidents and monitoring",
@@ -3965,18 +3978,18 @@ const products: Dictionary<Product> = {
           "Incident.io Pro + On-call add-on + separate monitoring",
         competitorCost:
           "$1,125/mo (Pro + on-call) + ~$200 monitoring = ~$1,325+/month",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with unlimited users and monitoring included",
-        oneuptimeCost: "$0-299/month",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "Startup needing Slack-based incident response and on-call",
         competitorSolution:
           "Incident.io Team + On-call add-on (6 users) + basic monitoring",
         competitorCost: "$150/mo (Team + on-call) + monitoring",
-        oneuptimeSolution:
-          "Cast Operations Free tier with Slack and Teams integration",
-        oneuptimeCost: "$0/month (Free tier)",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -3999,7 +4012,7 @@ const products: Dictionary<Product> = {
         icon: "on-call",
       },
       {
-        title: "No Per-User Pricing",
+        title: "Deployment model",
         description:
           "Add team members without cost scaling - incident.io bills per user, so cost grows with every hire",
         icon: "pricing",
@@ -4025,55 +4038,55 @@ const products: Dictionary<Product> = {
             title: "Incident Creation",
             description: "Create incidents manually or automatically",
             productColumn: "Manual + alert triggers",
-            oneuptimeColumn: "Manual + automatic from monitors",
+            castOperationsColumn: "Manual + automatic from monitors",
           },
           {
             title: "Slack Integration",
             description: "Manage incidents from Slack",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Microsoft Teams",
             description: "Manage incidents from Teams",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Severity",
             description: "Categorize by impact level",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Timeline",
             description: "Automatic event history",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Roles",
             description: "Commander, communications, etc.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Incidents",
             description: "Restricted visibility incidents",
             productColumn: "Pro plan only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Fields",
             description: "Add custom incident data",
             productColumn: "3 (Team), unlimited (Pro)",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Workflows/Automation",
             description: "Automated incident actions",
             productColumn: "3 (Team), unlimited (Pro)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4084,37 +4097,37 @@ const products: Dictionary<Product> = {
             title: "Postmortem Templates",
             description: "Structured review documents",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action Item Tracking",
             description: "Follow-up task management",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Analytics",
             description: "MTTR, frequency metrics",
             productColumn: "Advanced on Pro",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Learning Reviews",
             description: "Blameless retrospectives",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Public Postmortem",
             description: "Publish to status page",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Trend Analysis",
             description: "Incident patterns over time",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4125,43 +4138,43 @@ const products: Dictionary<Product> = {
             title: "On-Call Scheduling",
             description: "Rotation schedules",
             productColumn: "+$10-20/user add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Escalation Policies",
             description: "Multi-level escalation",
             productColumn: "+$10-20/user add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS Alerts",
             description: "Text message notifications",
             productColumn: "Add-on required",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone Call Alerts",
             description: "Voice call notifications",
             productColumn: "Add-on required",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push Notifications",
             description: "Mobile app alerts",
             productColumn: "Add-on required",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Alert Deduplication",
             description: "Reduce noise",
             productColumn: "On-call add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Alert Routing",
             description: "Route to right team",
             productColumn: "On-call add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4172,37 +4185,37 @@ const products: Dictionary<Product> = {
             title: "Uptime Monitoring",
             description: "Website/API availability",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API Monitoring",
             description: "Endpoint health checks",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server Monitoring",
             description: "Infrastructure metrics",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL Monitoring",
             description: "Certificate expiration",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic Monitoring",
             description: "Transaction testing",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Auto-Incident Creation",
             description: "Create incidents from monitors",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4213,37 +4226,37 @@ const products: Dictionary<Product> = {
             title: "Public Status Page",
             description: "Customer-facing status",
             productColumn: "Included",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Status Page",
             description: "Internal dashboards",
             productColumn: "Pro plan",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multiple Status Pages",
             description: "No page count limits",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Subscriber Notifications",
             description: "Email/SMS updates",
             productColumn: "Email only",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom Domain",
             description: "Your own domain",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic Updates from Monitors",
             description: "Update status from monitor health",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4254,37 +4267,37 @@ const products: Dictionary<Product> = {
             title: "API Access",
             description: "REST API",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Webhooks",
             description: "Event integrations",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-Hosting",
             description: "On-premises deployment",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source",
             description: "Transparent code",
             productColumn: "",
-            oneuptimeColumn: "Apache 2.0",
+            castOperationsColumn: "Apache 2.0",
           },
           {
             title: "SSO/SAML",
             description: "Enterprise SSO",
             productColumn: "Enterprise",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit Logs",
             description: "Activity tracking",
             productColumn: "Enterprise",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4293,10 +4306,11 @@ const products: Dictionary<Product> = {
       {
         question: "How does Cast Operations compare to Incident.io?",
         answer:
-          "Incident.io excels at Slack- and Teams-native incident management - it's beautifully designed for coordinating a live incident. However, it's only one piece of the puzzle. It has no monitoring to detect incidents (incident.io monitors nothing), on-call is a paid per-user add-on (+$10-20/user/month), and its status pages are basic, with multiple pages reserved for Enterprise. Cast Operations provides the complete incident lifecycle: monitoring detects issues, on-call alerts the right people, incident management coordinates response, and full-featured status pages keep customers informed - all in one platform.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "Does Cast Operations work with Slack and Teams like Incident.io?",
+        question:
+          "Does Cast Operations work with Slack and Teams like Incident.io?",
         answer:
           "Yes. Cast Operations has native Slack and Microsoft Teams integration for incident management. You can create, acknowledge, update, and resolve incidents directly from either tool. Incident.io also supports both, but the difference is Cast Operations’ chat integration is part of a complete platform that monitors your systems, runs your on-call, and powers your status page - not the entire product.",
       },
@@ -4313,17 +4327,17 @@ const products: Dictionary<Product> = {
       {
         question: "Is on-call included in Cast Operations?",
         answer:
-          "Yes. Full on-call scheduling with rotations, multi-level escalation policies, and multi-channel alerts (SMS, phone call, push, email, Slack, Teams) is included in Cast Operations on all plans. Incident.io charges on-call as a per-user add-on: +$10/user/month on Team (annual) and +$20/user/month on Pro. For a 10-person team, that's an extra $100-200/month just for on-call, on top of the base per-user seat cost.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "What about private incidents?",
         answer:
-          "Cast Operations supports private incidents on all plans. Incident.io restricts private incidents to the Pro plan ($25/user/month). This matters for security incidents or HR-related issues that shouldn't be visible to everyone in the workspace.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Why choose Cast Operations over Incident.io?",
         answer:
-          "Choose Cast Operations if you want a complete reliability platform without assembling and paying for separate tools. With incident.io you still need a dedicated monitoring tool to detect incidents (incident.io monitors nothing), on-call is a paid add-on (+$10-20/user/month), and pricing scales per user with every hire. Cast Operations includes monitoring, full-featured status pages, on-call, AND incident management - with predictable flat pricing and no per-seat costs, plus the option to self-host for free.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -4331,18 +4345,18 @@ const products: Dictionary<Product> = {
     productName: "SigNoz",
     iconUrl: "/img/signoz.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "Complete reliability platform vs open-source APM",
     competitorFocus:
       "An excellent open-source, OpenTelemetry-native APM built on ClickHouse for logs, metrics, traces, and exceptions - but it stops at observability data.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "A unified platform that pairs logs, metrics, and traces with uptime monitoring, on-call, incident management, and status pages in one tool.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
-      "SigNoz is a strong open-source observability platform focused on logs, metrics, traces, and exceptions, native to OpenTelemetry and built on ClickHouse for high-performance querying. It offers a free self-hosted Community edition and a managed Teams cloud, making it a credible open-source alternative to Datadog and New Relic. Its scope is observability data - on-call, incident response, and customer-facing status pages need separate tools.",
-    oneUptimeDescription:
-      "Cast Operations is a unified, Apache 2.0 reliability platform that combines OpenTelemetry logs, metrics, and traces with uptime monitoring, on-call scheduling, incident management, and unlimited status pages. It is available as a free self-hosted stack or a managed cloud with predictable, flat pricing. One platform covers detection, response, and customer communication.",
+      "SigNoz is a strong open-source observability platform focused on logs, metrics, traces, and exceptions, native to OpenTelemetry and built on ClickHouse for high-performance querying. It offers a free self-hosted distribution and a managed Teams cloud, making it a credible open-source alternative to Datadog and New Relic. Its scope is observability data - on-call, incident response, and customer-facing status pages need separate tools.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "SigNoz is an excellent open-source observability platform focused on logs, metrics, traces, and exceptions. Built on ClickHouse and native to OpenTelemetry, it is a genuine alternative to proprietary APM tools with a transparent, usage-based cloud. However, SigNoz covers only observability data - synthetic and uptime monitoring, on-call scheduling, incident management, and customer-facing status pages all require additional products. That means stitching together and paying for several tools to cover the full incident lifecycle.",
     descriptionLine2:
@@ -4352,7 +4366,7 @@ const products: Dictionary<Product> = {
       "Add end-to-end incident management with timelines, postmortems, and MTTR analytics",
       "Add unlimited-subscriber, custom-domain status pages your customers can trust",
       "Add synthetic, SSL, port, and heartbeat monitoring alongside your telemetry",
-      "Predictable pricing - flat $1/active monitor and ~$0.10/GB telemetry, no per-sample surprises",
+      "The complete feature set is available in every deployment.",
       "Stay fully open source and self-hostable under a permissive Apache 2.0 license",
     ],
     competitorPricingTiers: [
@@ -4415,16 +4429,17 @@ const products: Dictionary<Product> = {
         scenario: "Dev team needing APM plus on-call and a status page",
         competitorSolution: "SigNoz Teams + PagerDuty + Statuspage",
         competitorCost: "$49 + ~$210 + ~$99 = ~$358/month + usage",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with telemetry, on-call, and status pages included",
-        oneuptimeCost: "$0/month on the Free tier",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "Growing startup ingesting 500GB/month of logs",
         competitorSolution: "SigNoz Teams with usage overage",
         competitorCost: "$49 + (~337GB x $0.30) = ~$150/month for logs alone",
-        oneuptimeSolution: "Cast Operations telemetry at ~$0.10/GB",
-        oneuptimeCost: "~$50/month for the same volume",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -4432,8 +4447,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "SigNoz Enterprise + separate on-call + status page tools",
         competitorCost: "$4,000+ + ~$500 + ~$400 = $4,900+/month",
-        oneuptimeSolution: "Cast Operations Enterprise with everything unified",
-        oneuptimeCost: "Contact for enterprise pricing",
+        castOperationsSolution:
+          "Cast Operations Enterprise with everything unified",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -4456,9 +4472,9 @@ const products: Dictionary<Product> = {
         icon: "status-page",
       },
       {
-        title: "Predictable Pricing",
+        title: "Complete feature set",
         description:
-          "Flat $1/monitor and ~$0.10/GB vs SigNoz per-GB and per-sample usage",
+          "Complete feature set in every deployment versus metered feature bundles",
         icon: "pricing",
       },
       {
@@ -4482,43 +4498,43 @@ const products: Dictionary<Product> = {
             title: "Logs Management",
             description: "Centralized logging",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Time-series metrics",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed Traces",
             description: "Request tracing",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "APM",
             description: "Application performance",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry Native",
             description: "OTel-first ingestion",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exceptions Tracking",
             description: "Error and exception views",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Dashboards",
             description: "Build your own views",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4529,37 +4545,37 @@ const products: Dictionary<Product> = {
             title: "HTTP Monitoring",
             description: "Website and API checks",
             productColumn: "Via synthetic tests",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "TCP/UDP Monitoring",
             description: "Port and protocol checks",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global Probes",
             description: "Multi-region monitoring",
             productColumn: "Limited",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
           {
             title: "SSL Monitoring",
             description: "Certificate expiry alerts",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron/Heartbeat",
             description: "Job and heartbeat checks",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server/Infra Monitors",
             description: "CPU, memory, disk",
             productColumn: "Via metrics",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4570,37 +4586,37 @@ const products: Dictionary<Product> = {
             title: "On-Call Scheduling",
             description: "Rotation schedules",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Escalation Policies",
             description: "Multi-level escalation",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident Management",
             description: "Full workflow",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS/Phone Alerts",
             description: "Voice and text alerts",
             productColumn: "Via integrations",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Retros and action items",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Alert Rules",
             description: "Condition-based alerting",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4611,37 +4627,37 @@ const products: Dictionary<Product> = {
             title: "Public Status Page",
             description: "Customer-facing status",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber Notifications",
             description: "Email/SMS updates",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom Domain",
             description: "Your own domain + SSL",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled Maintenance",
             description: "Planned downtime notices",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom Branding",
             description: "HTML/CSS/JS control",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private Status Pages",
             description: "Internal audiences",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4652,37 +4668,37 @@ const products: Dictionary<Product> = {
             title: "Self-Hosting",
             description: "On-premises option",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Open Source License",
             description: "How the code is licensed",
             productColumn: "Open-core (ee module)",
-            oneuptimeColumn: "Apache 2.0",
+            castOperationsColumn: "Apache 2.0",
           },
           {
-            title: "Pricing Model",
+            title: "Deployment model",
             description: "How you pay",
             productColumn: "Usage-based per GB/sample",
-            oneuptimeColumn: "Flat $1/monitor + tiers",
+            castOperationsColumn: "Included in every deployment",
           },
           {
             title: "SOC 2 Type II",
             description: "Security compliance",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO/SAML",
             description: "Enterprise identity",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Full Reliability Stack",
             description: "Monitoring to status pages",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4691,7 +4707,7 @@ const products: Dictionary<Product> = {
       {
         question: "How does Cast Operations compare to SigNoz?",
         answer:
-          "SigNoz excels at APM with logs, metrics, traces, and exceptions in one OpenTelemetry-native tool, and it is an excellent open-source Datadog alternative with transparent usage-based pricing. Cast Operations covers the complete incident lifecycle: monitoring to detect issues, on-call to notify the right people, incident management to coordinate response, and status pages to communicate with customers - plus its own logs, metrics, and traces. If you only need deep APM, SigNoz is a great choice. If you need the full reliability stack in one place, Cast Operations unifies telemetry with monitoring, on-call, incidents, and status pages.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Is SigNoz really open source like Cast Operations?",
@@ -4701,7 +4717,7 @@ const products: Dictionary<Product> = {
       {
         question: "What about SigNoz's usage-based pricing?",
         answer:
-          "SigNoz Teams starts at $49/month, then charges $0.30/GB for logs and traces and $0.10 per million metric samples once you exceed the included quota. That is transparent but can be hard to forecast for high or spiky volumes. Cast Operations uses predictable pricing - a flat $1/month per active monitor and roughly $0.10/GB for telemetry - so bills stay easy to plan even as data grows.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does SigNoz include uptime monitoring and status pages?",
@@ -4716,7 +4732,7 @@ const products: Dictionary<Product> = {
       {
         question: "Which is more cost-effective for a full reliability stack?",
         answer:
-          "If all you need is APM, SigNoz Community (self-hosted, free) or Teams is cost-effective. But once you add on-call, incident response, and status pages, you are paying for and integrating multiple products. Cast Operations bundles monitoring, on-call, incidents, status pages, and telemetry under one predictable bill, which is usually cheaper and simpler than assembling SigNoz plus a paging tool plus a status page tool.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -4724,26 +4740,26 @@ const products: Dictionary<Product> = {
     productName: "Opsgenie",
     iconUrl: "/img/opsgenie.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "One unified reliability platform vs a sunsetting alert router",
     competitorFocus:
       "Opsgenie is Atlassian's on-call scheduling and alert-routing tool, now being retired and migrated into Jira Service Management and Compass.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, status pages, on-call, incidents, and telemetry in one open-source platform so you never stitch tools together.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Opsgenie is Atlassian's on-call management and alert-routing product. It schedules who is on call, deduplicates alerts from external monitoring tools, and escalates via SMS, phone, email, and push. It has no native monitoring or status page and relies on Atlassian Statuspage and third-party monitors bolted on around it.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, self-hostable reliability platform that combines uptime and infrastructure monitoring, public and private status pages, on-call and escalations, incident management, and OpenTelemetry logs, metrics, and traces. Everything shares one data model, so an alert, an incident, and a status page update are the same event rather than three integrations. You can self-host for free or use the managed cloud with flat, predictable pricing.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Opsgenie only ever solved one slice of reliability: routing alerts to the right on-call responder. To actually run reliability you also paid for monitoring, a status page, and incident tooling, then wired them together. Now Atlassian is sunsetting Opsgenie itself, forcing every customer onto Jira Service Management or Compass on a hard deadline. Cast Operations replaces the entire stack with one open-source platform where monitoring, on-call, incidents, and status pages already work together.",
     descriptionLine2:
-      "Instead of migrating from a dead product into a pricier Atlassian bundle, move to a unified platform that bills a flat $1 per active monitor and can be self-hosted for free.",
+      "The complete feature set is available in every deployment.",
     migrationBenefits: [
       "Escape the forced Atlassian migration and end-of-support deadline with a stable open-source platform you control",
       "Replace Opsgenie plus a separate monitor and status page with one unified tool and one data model",
-      "Stop paying per responder seat; pay a flat $1 per active monitor with no per-check tiers or caps",
+      "The complete feature set is available in every deployment.",
       "Get built-in website, API, server, container, synthetic, SSL, and cron monitoring with no third-party integrations to wire up",
       "Publish unlimited-subscriber status pages that update automatically from the same monitors that page your team",
       "Own your data and avoid vendor lock-in by self-hosting under Apache 2.0, or use predictable managed cloud pricing",
@@ -4825,9 +4841,9 @@ const products: Dictionary<Product> = {
           "Opsgenie Standard at $19.95/user for 15 users, plus a separate monitoring tool and Atlassian Statuspage",
         competitorCost:
           "~$300/mo for Opsgenie seats plus separate monitoring and status page bills",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations covers on-call, monitoring, and status page in one platform; pay only for active monitors",
-        oneuptimeCost: "~$50/mo for 50 active monitors, or $0 self-hosted",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -4836,9 +4852,9 @@ const products: Dictionary<Product> = {
           "Opsgenie Free covers 5 users but only 100 SMS total and no monitoring or status page, so add paid tools",
         competitorCost:
           "Extra monthly cost for monitoring and Statuspage on top of Opsgenie",
-        oneuptimeSolution:
-          "Cast Operations generous free tier plus $1 per active monitor and unlimited status page subscribers",
-        oneuptimeCost: "~$30/mo, or $0 on the self-hosted or free tier",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -4847,10 +4863,9 @@ const products: Dictionary<Product> = {
           "Migrate to Jira Service Management Operations, where incident features sit in Premium at roughly $51/agent/month",
         competitorCost:
           "~$3,000+/mo in JSM Premium seats, a jump over old Opsgenie pricing",
-        oneuptimeSolution:
-          "Migrate to Cast Operations and consolidate monitoring, on-call, incidents, and status pages with monitor-based billing",
-        oneuptimeCost:
-          "Flat $1 per active monitor, predictable Growth tier ~$99/mo, or free self-hosted",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -4875,13 +4890,13 @@ const products: Dictionary<Product> = {
       {
         title: "Status pages included",
         description:
-          "Opsgenie relies on the separately-priced Atlassian Statuspage. Cast Operations ships public and private status pages with unlimited subscribers, custom domains, and free SSL.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "status-page",
       },
       {
-        title: "Flat, predictable pricing",
+        title: "Deployment model",
         description:
-          "Opsgenie bills per user per month across four tiers, and JSM is pricier still. Cast Operations charges a flat $1 per active monitor with unlimited free manual monitors and no per-check tiers.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
       {
@@ -4899,49 +4914,49 @@ const products: Dictionary<Product> = {
             title: "On-call schedules",
             description: "Daily, weekly, and custom rotations",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate until an alert is acknowledged",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS and phone call alerts",
             description: "Voice and text notifications to responders",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams alerts",
             description: "Notify and collaborate in chat",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and follow-the-sun",
             description: "Vacation overrides and global handoffs",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Alert deduplication and grouping",
             description: "Combine related alerts into one incident",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited SMS on entry tier",
             description: "Not capped on the lowest paid plan",
             productColumn: "Standard+ only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Included without per-seat billing",
+            title: "Included without per-seat charges",
             description: "On-call not priced per responder",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -4952,49 +4967,49 @@ const products: Dictionary<Product> = {
             title: "Website and API monitoring",
             description: "Uptime and response checks",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server and infrastructure monitoring",
             description: "CPU, memory, and disk metrics",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring",
             description: "Docker and Kubernetes",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and transaction monitoring",
             description: "Scripted multi-step user flows",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Expiry and validity checks",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron and heartbeat monitoring",
             description: "Detect missed scheduled jobs",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Check from 7+ regions plus private probes",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Receives alerts from monitors",
             description: "Ingest alerts via integrations",
             productColumn: "Via integrations",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5005,43 +5020,43 @@ const products: Dictionary<Product> = {
             title: "Built-in status pages",
             description: "Native, not a separate product",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Public and private status pages",
             description: "Internal and external audiences",
             productColumn: "Separate Statuspage",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "No cap or per-subscriber fees",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom domain with free SSL",
             description: "Host on your own domain",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS/JS",
             description: "Full visual control",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Publish planned maintenance windows",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Status reflects live monitor state",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5052,49 +5067,49 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Full chronological record",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities and prioritization",
             description: "Classify incident impact",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Post-incident analysis reports",
             productColumn: "Capped on lower tiers",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items",
             description: "Track follow-up work",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Attach response procedures",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams collaboration",
             description: "Coordinate response in chat",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure response performance",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited incidents on entry tier",
             description: "No monthly incident cap",
             productColumn: "Standard+ only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5105,37 +5120,37 @@ const products: Dictionary<Product> = {
             title: "Log management",
             description: "Ingest and search logs",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Store and query time-series metrics",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "OpenTelemetry-native traces",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Dashboards",
             description: "Custom observability dashboards",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception and error tracking",
             description: "Capture and group exceptions",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry ingestion",
             description: "Standard OTel data pipeline",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5146,49 +5161,50 @@ const products: Dictionary<Product> = {
             title: "Open-source (Apache 2.0)",
             description: "Inspect and extend the code",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hostable for free",
             description: "Run on your own infrastructure",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Flat per-monitor pricing",
-            description: "$1 per active monitor, no per-check tiers",
+            title: "Deployment model",
+            description:
+              "The complete feature set is available in every deployment.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Priced per user seat",
             description: "Cost scales with responders",
             productColumn: "Per user",
-            oneuptimeColumn: "Unlimited users",
+            castOperationsColumn: "Unlimited users",
           },
           {
             title: "REST API and native webhooks",
             description: "Automate and integrate",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO/SAML, RBAC, audit logs",
             description: "Enterprise access controls",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2, ISO 27001, GDPR",
             description: "Security and compliance",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "No forced product migration",
             description: "Not being sunset or retired",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5203,7 +5219,7 @@ const products: Dictionary<Product> = {
         question:
           "Why move to Cast Operations instead of Jira Service Management or Compass?",
         answer:
-          "Migrating within Atlassian still leaves you with an alerting tool that needs separate monitoring and status page products, and Jira Service Management incident features sit in the pricier Premium tier at roughly $51 per agent per month. Cast Operations replaces the whole stack with one unified, open-source platform and flat per-monitor pricing.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Opsgenie include monitoring?",
@@ -5213,12 +5229,12 @@ const products: Dictionary<Product> = {
       {
         question: "Does Opsgenie include a status page?",
         answer:
-          "No. Opsgenie relies on Atlassian Statuspage, a separately-priced product, integrated through a two-way connection. Cast Operations includes public and private status pages with unlimited subscribers, custom domains, free SSL, and automatic updates from your monitors at no extra cost.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "How does Cast Operations pricing compare to Opsgenie?",
+        question: "How do deployment costs compare?",
         answer:
-          "Opsgenie charges per user per month across Essentials, Standard, and Enterprise tiers, so costs grow with every responder. Cast Operations charges a flat $1 per active monitor with unlimited free manual monitors and no per-check caps, plus a generous free tier and free self-hosting, so pricing stays predictable as your team grows.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I self-host Cast Operations?",
@@ -5236,28 +5252,28 @@ const products: Dictionary<Product> = {
     productName: "Squadcast",
     iconUrl: "/img/squadcast.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "One unified reliability platform vs an on-call-only tool",
     competitorFocus:
       "Squadcast (now part of SolarWinds) specializes in on-call scheduling and incident response but relies on external tools for uptime and infrastructure monitoring, logs, metrics, and traces.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry data in a single open-source platform, so you are not stitching together separate tools.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Squadcast is a per-seat SRE platform focused on on-call alerting, escalation, and incident response, with SRE workflows like SLO tracking, service graphs, and runbooks on higher tiers. It ingests alerts from external monitoring tools rather than generating its own uptime or telemetry signals. Following its acquisition by SolarWinds, it is being folded into a broader incident-response portfolio.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, Apache 2.0 platform that combines uptime and infrastructure monitoring, public and private status pages, on-call and escalation, incident management, and OpenTelemetry logs, metrics, and traces. It is billed at a flat $1 per active monitor per month instead of per user, and can be self-hosted for free. That means one bill, one login, and no per-seat tax as your team grows.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Squadcast is a capable on-call and incident-response tool, but it does not monitor your systems itself. You still have to buy and connect a separate uptime monitor, an APM or telemetry backend, and often a separate status-page product, then pay Squadcast per user on top. Cast Operations brings monitoring, status pages, on-call, incident management, and telemetry into one open-source platform. The result is fewer vendors, one predictable bill, and no tool sprawl.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
-      "Instead of paying per seat and wiring up external monitors, you get uptime checks, telemetry, alerting, and status pages in one place for a flat $1 per active monitor, with free self-hosting always available.",
+      "The complete feature set is available in every deployment.",
     migrationBenefits: [
       "Replace Squadcast plus a separate uptime monitor, telemetry backend, and status-page tool with one unified platform",
-      "Switch from per-seat pricing to a flat $1 per active monitor, so adding responders never inflates your bill",
+      "The complete feature set is available in every deployment.",
       "Get native website, API, server, container, synthetic, SSL, port, and cron monitoring built in, not just alert ingestion",
       "Ingest OpenTelemetry logs, metrics, and traces alongside incidents for real root-cause context Squadcast does not store",
-      "Publish unlimited status page subscribers on every plan instead of Squadcast's 5,000-per-page cap on higher tiers",
+      "Publish unlimited status page subscribers in every deployment instead of Squadcast's 5,000-per-page cap on higher tiers",
       "Self-host the entire Apache 2.0 platform for free with full data ownership, or use the managed cloud",
     ],
     competitorPricingTiers: [
@@ -5337,9 +5353,9 @@ const products: Dictionary<Product> = {
           "Squadcast Premium at $19/user for on-call and status pages, plus a separate uptime monitoring tool for the 50 endpoints",
         competitorCost:
           "$190/mo for Squadcast seats, plus a separate monitoring subscription",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations for on-call, incident management, status pages, and 50 active monitors, with unlimited team seats",
-        oneuptimeCost: "About $50/mo for 50 active monitors, seats included",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -5348,10 +5364,9 @@ const products: Dictionary<Product> = {
           "Squadcast Premium for 25 seats, plus a separate logs/metrics/traces backend since Squadcast stores none",
         competitorCost:
           "$475/mo in Squadcast seats, plus a telemetry vendor billed by data volume",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations for on-call, incidents, status pages, monitors, and OpenTelemetry ingestion, seats included",
-        oneuptimeCost:
-          "$1 per active monitor plus about $0.10/GB telemetry, no per-seat fees",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -5359,9 +5374,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Squadcast Pro at $12/user, upgrading to Premium for status pages, plus external monitoring",
         competitorCost: "$12-19 per user every month, rising with headcount",
-        oneuptimeSolution:
-          "Self-host Cast Operations for free, or use the generous free cloud tier and pay only for active monitors",
-        oneuptimeCost: "$0 self-hosted, or $1 per active monitor on cloud",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -5384,15 +5399,15 @@ const products: Dictionary<Product> = {
         icon: "open-source",
       },
       {
-        title: "Per-monitor pricing, not per-seat",
+        title: "Deployment model",
         description:
-          "Cast Operations charges a flat $1 per active monitor so responders are free to add, while Squadcast bills $12 to $19 per user every month.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
       {
         title: "Unlimited status page subscribers",
         description:
-          "Cast Operations status pages allow unlimited subscribers on every plan, versus Squadcast's cap of about 5,000 subscribers per page on Premium.",
+          "Cast Operations status pages allow unlimited subscribers in every deployment, versus Squadcast's cap of about 5,000 subscribers per page on Premium.",
         icon: "subscribers",
       },
       {
@@ -5410,50 +5425,50 @@ const products: Dictionary<Product> = {
             title: "On-call schedules and rotations",
             description: "Daily, weekly, or custom rotations for responders",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description:
               "Escalate to the next responder or level automatically",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and vacation cover",
             description: "Temporary schedule overrides and follow-the-sun",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS, phone, email, and push alerts",
             description: "Reach responders across multiple channels",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams collaboration",
             description: "Manage incidents from chat",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems and action items",
             description: "Structured retros with follow-up tracking",
             productColumn: "Limited on Pro",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR and incident analytics",
             description: "Measure response and resolution performance",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Included without per-seat fees",
             description: "Add responders without growing the bill",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5464,49 +5479,49 @@ const products: Dictionary<Product> = {
             title: "Website and API monitoring",
             description: "Check uptime and response of URLs and endpoints",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server and infrastructure monitoring",
             description: "CPU, memory, and disk metrics from hosts",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring",
             description: "Docker and Kubernetes workloads",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and transaction monitoring",
             description: "Scripted multi-step user flows",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate and port monitoring",
             description: "Catch expiring certs and closed ports",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron and heartbeat monitoring",
             description: "Detect missed scheduled jobs",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Alert ingestion from external monitors",
             description: "Receive alerts routed from third-party tools",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global and private probe locations",
             description: "7+ global probes plus private probes",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5517,43 +5532,43 @@ const products: Dictionary<Product> = {
             title: "Public and private status pages",
             description: "Share status internally or externally",
             productColumn: "Premium only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "No cap on people who can subscribe",
             productColumn: "5,000 per page",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom domain with free SSL",
             description: "Host status on your own domain",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS/JS",
             description: "Fully brand and script the page",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Status reflects live monitor state",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance windows",
             description: "Announce planned work in advance",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notifications",
             description: "Email, SMS, webhook, RSS, Slack, Teams",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5564,43 +5579,43 @@ const products: Dictionary<Product> = {
             title: "Log management",
             description: "Collect and search application logs",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Store and query time-series metrics",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "Trace requests across services",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry native ingestion",
             description: "Standards-based data collection",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Dashboards",
             description: "Visualize telemetry and reliability data",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception and error tracking",
             description: "Capture and group application errors",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SLO tracking",
             description: "Track objectives and error budgets",
             productColumn: "Premium only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5611,43 +5626,43 @@ const products: Dictionary<Product> = {
             title: "Workflow automation",
             description: "Automate reliability and response tasks",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API and native webhooks",
             description: "Programmatic access and event hooks",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Third-party integrations",
             description: "Connect monitoring and collaboration tools",
             productColumn: "175+",
-            oneuptimeColumn: "2000+ via Zapier",
+            castOperationsColumn: "2000+ via Zapier",
           },
           {
             title: "AI assistant",
             description: "AI help for reliability workflows",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO/SAML and RBAC",
             description: "Enterprise identity and access control",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit logs",
             description: "Track who changed what",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2, ISO 27001, GDPR",
             description: "Recognized security and privacy standards",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5658,43 +5673,44 @@ const products: Dictionary<Product> = {
             title: "Open source (Apache 2.0)",
             description: "Inspect, extend, and own the code",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Free self-hosting",
+            title: "Self-hosting",
             description: "Run the full platform on your own infra",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable per-monitor pricing",
-            description: "Flat $1 per active monitor, no per-check tiers",
+            title: "Complete feature set",
+            description:
+              "The complete feature set is available in every deployment.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "No per-seat fees",
             description: "Add responders without growing the bill",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Generous free tier",
-            description: "Real capability without a credit card",
+            title: "Complete feature set",
+            description: "All capabilities are available in every deployment.",
             productColumn: "Up to 5 users",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Unlimited free manual monitors",
+            title: "Unlimited manual monitors",
             description: "Static and manual monitors at no cost",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Monitoring, status, on-call, telemetry in one bill",
             description: "One vendor instead of several",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5707,14 +5723,14 @@ const products: Dictionary<Product> = {
           "No. Squadcast is an on-call and incident-response platform that ingests alerts from external monitoring tools. It does not run its own website, API, server, container, or SSL checks. Cast Operations includes all of that natively, so your monitoring and your response live in one platform.",
       },
       {
-        question: "How does pricing compare between Squadcast and Cast Operations?",
+        question: "How do deployment costs compare?",
         answer:
-          "Squadcast charges per user, roughly $12 per user on Pro and $19 per user on Premium each month, so costs climb as your team grows. Cast Operations charges a flat $1 per active monitor with no per-seat fees, plus about $0.10 per GB for telemetry, and self-hosting is free.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Squadcast offer status pages?",
         answer:
-          "Status pages are available on Squadcast's Premium tier and above, with a cap of around 5,000 subscribers per page. Cast Operations includes public and private status pages with unlimited subscribers, custom domains, free SSL, and full branding on every plan.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I store logs, metrics, and traces in Squadcast?",
@@ -5730,10 +5746,11 @@ const products: Dictionary<Product> = {
         question:
           "What happened to Squadcast after the SolarWinds acquisition?",
         answer:
-          "Squadcast was acquired by SolarWinds and is being folded into its broader incident-response and observability portfolio. If you prefer an independent, open-source platform with predictable pricing, Cast Operations offers monitoring, status pages, on-call, incidents, and telemetry in one place.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "How hard is it to migrate from Squadcast to Cast Operations?",
+        question:
+          "How hard is it to migrate from Squadcast to Cast Operations?",
         answer:
           "Migration is straightforward. You recreate on-call schedules, escalation policies, and services in Cast Operations, point your existing alert sources or monitors at it, and add native uptime checks. Because Cast Operations is unified, you can also retire separate monitoring, status-page, and telemetry tools during the move.",
       },
@@ -5743,27 +5760,27 @@ const products: Dictionary<Product> = {
     productName: "FireHydrant",
     iconUrl: "/img/firehydrant.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One unified reliability platform vs an incident tool that needs its own monitoring",
     competitorFocus:
       "FireHydrant specializes in the incident response lifecycle (runbooks, retrospectives, Slack and Teams collaboration, and its newer Signals on-call), but relies on external tools to actually detect problems.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, on-call, incident management, status pages, and telemetry in a single open-source platform, so you detect and respond in one place.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "FireHydrant is a dedicated incident management and response platform built around runbooks, retrospectives, and Slack and Teams-driven collaboration, with status pages and a Signals on-call and alerting module. It is strong at organizing the incident lifecycle once an issue is known, but it does not monitor your systems, so it must be paired with a separate monitoring or observability stack to detect outages.",
-    oneUptimeDescription:
+    operationsDescription:
       "Cast Operations is an open-source, self-hostable reliability platform that combines uptime and infrastructure monitoring, on-call and escalations, incident management, status pages, and OpenTelemetry logs, metrics, and traces. Because detection and response live in the same product, monitors can automatically open, update, and post incidents without stitching multiple vendors together.",
     description:
-      "FireHydrant and Cast Operations both help teams run a disciplined incident process, but they start from different places. FireHydrant is an incident-first tool that assumes another product is already watching your systems and telling it when something breaks. Cast Operations is a unified platform that watches your systems itself and then drives the full incident lifecycle, so a single tool covers detection through resolution and public communication. That means less integration work, one predictable bill, and no gap between the alert and the response.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "Instead of buying FireHydrant for incidents and a separate monitoring vendor to feed it, teams get monitoring, on-call, incidents, status pages, and telemetry from one open-source platform at a flat, predictable price.",
     migrationBenefits: [
       "Replace FireHydrant plus a separate monitoring vendor with one unified platform that both detects and responds.",
       "Built-in website, API, server, container, synthetic, and SSL monitoring automatically opens and updates incidents.",
-      "Predictable pricing at $1 per active monitor per month instead of $25 per responder per month.",
+      "The complete feature set is available in every deployment.",
       "SMS and phone-call alerts are included, not a paid add-on you buy on top of your plan.",
       "Unlimited status page subscribers with custom domain, free SSL, and full custom HTML, CSS, and JS branding.",
       "Apache 2.0 open source and self-hostable, so you own your incident data with no per-seat lock-in.",
@@ -5831,9 +5848,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "FireHydrant Pro at $25 per responder per month, plus a separate monitoring tool to detect outages, plus the SMS and voice add-on for reliable paging.",
         competitorCost: "~$250/mo + monitoring tool + SMS add-on",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations unified: monitoring, on-call, incident management, and a branded status page in one platform.",
-        oneuptimeCost: "~$20-50/mo (monitors at $1 each)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -5841,9 +5858,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Requires FireHydrant Enterprise on a custom annual contract, and still has no monitoring or telemetry of its own.",
         competitorCost: "Custom Enterprise, roughly $9k-15k+/yr",
-        oneuptimeSolution:
-          "Cast Operations includes private status pages, MTTR analytics, RBAC, and audit logs on its standard predictable tiers.",
-        oneuptimeCost: "~$99/mo Growth tier",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -5851,9 +5868,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "FireHydrant runs the incident process well, but you must buy and integrate a separate monitoring and observability stack to feed it alerts.",
         competitorCost: "FireHydrant + Datadog-style monitoring bill",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations detects with built-in monitors and OpenTelemetry, then automatically creates, updates, and communicates the incident.",
-        oneuptimeCost: "One bill, telemetry ~$0.10/GB",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -5876,9 +5893,9 @@ const products: Dictionary<Product> = {
         icon: "open-source",
       },
       {
-        title: "Predictable Flat Pricing",
+        title: "Complete feature set",
         description:
-          "Cast Operations bills a flat $1 per active monitor with no per-seat charge, while FireHydrant charges $25 per responder per month plus add-ons.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
       {
@@ -5903,52 +5920,52 @@ const products: Dictionary<Product> = {
             description:
               "Chronological record of every incident event and update.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks and automation",
             description: "Automate repetitive response steps and workflows.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Retrospectives / postmortems",
             description:
               "Structured learning and postmortem documents after incidents.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams collaboration",
             description: "Drive incidents from chat with a dedicated bot.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities and custom fields",
             description:
               "Classify and enrich incidents with your own taxonomy.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items",
             description: "Track follow-up tasks to closure after an incident.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR and incident analytics",
             description:
               "Trend analysis and mean-time-to-resolution reporting.",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private incidents",
             description: "Restrict sensitive incidents to specific people.",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -5959,49 +5976,49 @@ const products: Dictionary<Product> = {
             title: "Website / URL monitoring",
             description: "Detect downtime and slow responses on web endpoints.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description: "Validate API availability and response correctness.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server and infrastructure monitoring",
             description: "Track CPU, memory, and disk on hosts.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container and Kubernetes monitoring",
             description: "Monitor Docker and Kubernetes workloads.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and transaction monitoring",
             description: "Script multi-step user journeys to catch breakages.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron / heartbeat monitoring",
             description: "Detect failed or missed scheduled jobs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Check from multiple regions plus private probes.",
             productColumn: "",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
         ],
       },
@@ -6012,50 +6029,50 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Communicate live status to customers.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Internal or authenticated status pages.",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "No cap on people subscribed to updates.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain and free SSL",
             description: "Host the page on your own domain with SSL.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom HTML, CSS, and JS branding",
             description: "Fully control look and feel of the page.",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description:
               "Status reflects monitor health without manual posting.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Announce planned maintenance windows.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Component groups",
             description: "Organize services into logical groups.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6066,43 +6083,43 @@ const products: Dictionary<Product> = {
             title: "On-call rotations and schedules",
             description: "Daily, weekly, and custom rotations.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate unacknowledged alerts up the chain.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS alerts",
             description: "Notify responders via text message.",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone-call alerts",
             description: "Reach responders with an automated voice call.",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams alerts",
             description: "Page responders through chat platforms.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Mobile push notifications",
             description: "Push alerts to a mobile app.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and vacation",
             description: "Cover shifts and follow-the-sun handoffs.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6113,37 +6130,37 @@ const products: Dictionary<Product> = {
             title: "Log management",
             description: "Ingest, store, and search application logs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Collect and chart time-series metrics.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed traces",
             description: "Trace requests across services.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry native",
             description: "First-class OpenTelemetry ingestion.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Dashboards",
             description: "Build custom observability dashboards.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Error and exception tracking",
             description: "Capture and group application exceptions.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6154,49 +6171,49 @@ const products: Dictionary<Product> = {
             title: "Open source (Apache 2.0)",
             description: "Inspect, extend, and self-host the code.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hostable for free",
             description: "Run on your own infrastructure at no license cost.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable pricing",
+            title: "Complete feature set",
             description: "Flat, per-monitor cost versus per-responder seats.",
             productColumn: "Per responder",
-            oneuptimeColumn: "$1/monitor",
+            castOperationsColumn: "Included",
           },
           {
             title: "REST API and webhooks",
             description: "Automate and integrate programmatically.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO / SAML",
             description: "Single sign-on for your organization.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit logs",
             description: "Track who did what across the platform.",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "AI copilot / assistant",
             description: "AI assistance for incidents and operations.",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2 Type II and ISO 27001",
             description: "Recognized security and compliance attestations.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6209,9 +6226,9 @@ const products: Dictionary<Product> = {
       },
       {
         question:
-          "How does Cast Operations pricing compare to FireHydrant's per-responder model?",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         answer:
-          "FireHydrant Pro is $25 per responder per month billed annually, so costs scale with your team size, and Enterprise features require a custom contract. Cast Operations bills a flat $1 per active monitor per month with a generous free tier, unlimited free manual monitors, and no per-seat charge, making spend predictable as your team grows.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question:
@@ -6222,7 +6239,7 @@ const products: Dictionary<Product> = {
       {
         question: "What about status pages, including private ones?",
         answer:
-          "FireHydrant offers public status pages, but private status pages and incident analytics are gated to its Enterprise tier. Cast Operations provides both public and private status pages with unlimited subscribers, custom domains, free SSL, and full custom branding on standard tiers.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Is Cast Operations really open source?",
@@ -6236,9 +6253,10 @@ const products: Dictionary<Product> = {
           "Yes. Cast Operations supports runbooks, incident timelines, severities, postmortems, action items, and Slack and Teams incident collaboration, plus MTTR analytics. You get the incident lifecycle FireHydrant is known for, alongside the monitoring and telemetry it lacks.",
       },
       {
-        question: "How hard is it to migrate from FireHydrant to Cast Operations?",
+        question:
+          "How hard is it to migrate from FireHydrant to Cast Operations?",
         answer:
-          "Most teams start by pointing their monitors and alert sources at Cast Operations and rebuilding on-call schedules, escalation policies, and status pages, which is straightforward given the unified model. Because Cast Operations also detects issues, you can retire a separate monitoring vendor at the same time and consolidate onto one bill.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -6246,27 +6264,27 @@ const products: Dictionary<Product> = {
     productName: "Rootly",
     iconUrl: "/img/rootly.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "One unified reliability platform vs a Slack-native incident tool",
     competitorFocus:
       "Rootly automates incident response inside Slack and offers a paired on-call product, but has no monitoring, telemetry, or detection of its own.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, telemetry, status pages, on-call, and incident management in one open-source platform, so detection and response live together.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Rootly is an AI-native, Slack-first incident management platform with a separately priced On-Call product. It excels at automating response workflows, retrospectives, and communications once an incident is declared, and connects to external tools like Datadog, Grafana, and Sentry as alert sources. It does not collect monitoring signals or store telemetry itself and depends on those third-party tools to detect problems.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, self-hostable reliability platform that combines monitoring, logs, metrics, traces, status pages, on-call, and incident management in one place. Because detection and response share one system, alerts from your own monitors flow straight into incidents and automatic status page updates. Active monitors are billed a flat $1 per month with no per-seat charges, and self-hosting is free.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Rootly is a capable, Slack-native incident management and on-call tool, but it only starts working after something else has already detected a problem. It has no built-in website, API, or infrastructure monitoring and no telemetry storage, so you still need Datadog, Grafana, or similar tools underneath it, each billed separately and per user. Cast Operations takes a different approach: monitoring, telemetry, status pages, on-call, and incident management are one open-source platform, so detection and response are never in separate silos. You get the same incident and on-call capabilities plus the monitors that trigger them, at flat per-monitor pricing with no per-seat fees.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "Consolidate detection and response into one predictable, open-source platform instead of stitching Rootly to a stack of separate monitoring, telemetry, and status page tools.",
     migrationBenefits: [
       "Detect and respond in one platform, with your own monitors triggering incidents and status page updates automatically.",
       "Add native website, API, server, container, synthetic, SSL, and cron monitoring that Rootly does not provide at all.",
       "Store and query logs, metrics, and traces with OpenTelemetry-native observability instead of paying a separate telemetry vendor.",
-      "Replace per-user seat fees with a flat $1 per active monitor and unlimited free static monitors, so cost scales with infrastructure, not headcount.",
+      "The complete feature set is available in every deployment.",
       "Run status pages with unlimited subscribers, custom domains, and free SSL rather than Rootly's one-status-page Essentials limit.",
       "Own your reliability stack with an Apache 2.0, self-hostable platform that avoids the incident-plus-on-call-plus-monitoring tool sprawl.",
     ],
@@ -6338,7 +6356,7 @@ const products: Dictionary<Product> = {
         ],
         limitations: [
           "Contact sales for pricing",
-          "Per-user billing on annual contract",
+          "Per-user charges on annual contract",
           "No monitoring or telemetry of its own",
           "Priced separately from incident response",
         ],
@@ -6368,9 +6386,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Rootly Incident Response Essentials plus On-Call Essentials at $20 + $20 per user per month.",
         competitorCost: "~$12,000 / year (25 users)",
-        oneuptimeSolution:
-          "Cast Operations includes incident management and on-call for all users at no per-seat cost; pay only for active monitors.",
-        oneuptimeCost: "~$600 / year for 50 monitors, $0 per user",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -6378,9 +6396,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Rootly for incidents and on-call, plus a separate monitoring/telemetry vendor (Datadog, Grafana) as the detection layer.",
         competitorCost: "Rootly seats + separate monitoring bill",
-        oneuptimeSolution:
-          "Cast Operations covers monitoring, telemetry, status pages, on-call, and incidents in a single platform on the free tier and flat monitor pricing.",
-        oneuptimeCost: "Free tier + $1 / active monitor",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -6388,16 +6406,16 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Rootly Incident Response plus On-Call at ~$40 per user per month, with a separate observability platform for logs, metrics, and traces.",
         competitorCost: "~$48,000 / year, before telemetry costs",
-        oneuptimeSolution:
-          "Cast Operations Growth tier plus flat per-monitor and per-GB telemetry pricing, with no per-user fees and self-hosting free.",
-        oneuptimeCost: "~$99 / month + usage",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
       {
         title: "One platform, not three products",
         description:
-          "Rootly splits incident response, on-call, and AI SRE into separately priced products. Cast Operations delivers monitoring, telemetry, status pages, on-call, and incidents in a single platform.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "unified",
       },
       {
@@ -6419,9 +6437,9 @@ const products: Dictionary<Product> = {
         icon: "open-source",
       },
       {
-        title: "Flat, predictable pricing",
+        title: "Deployment model",
         description:
-          "Rootly charges $20+ per user per month for each product, so cost grows with headcount. Cast Operations bills a flat $1 per active monitor with unlimited free static monitors and no per-seat fees.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "transparent",
       },
       {
@@ -6439,43 +6457,43 @@ const products: Dictionary<Product> = {
             title: "Slack-native incident response",
             description: "Declare and manage incidents directly in Slack.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Microsoft Teams collaboration",
             description: "Run incident collaboration in Microsoft Teams.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident timelines and severities",
             description: "Track severity, status, and a full event timeline.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems and retrospectives",
             description: "Structured retrospectives with action items.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automated workflows and runbooks",
             description: "Automate response steps and runbooks.",
             productColumn: "Advanced is Enterprise",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR and incident analytics",
             description: "Metrics and insights on response performance.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "AI incident assistance",
             description: "AI summaries, similar incidents, and scribe.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6486,49 +6504,49 @@ const products: Dictionary<Product> = {
             title: "Website and URL monitoring",
             description: "Check uptime and response of web endpoints.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description: "Monitor API endpoints and validate responses.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server and infrastructure monitoring",
             description: "Track CPU, memory, and disk on hosts.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and transaction monitoring",
             description: "Script multi-step user journeys.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron and heartbeat monitoring",
             description: "Detect missed jobs and dead crons.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Check from multiple regions worldwide.",
             productColumn: "",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
           {
             title: "Ingests monitor alerts natively",
             description: "Turn monitor signals into incidents.",
             productColumn: "Via integrations",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6539,49 +6557,49 @@ const products: Dictionary<Product> = {
             title: "Public status page",
             description: "Branded, customer-facing status page.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private / internal status page",
             description: "Restricted status pages for stakeholders.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Number of status pages",
             description: "How many pages you can publish.",
             productColumn: "1 on Essentials",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Subscriber notifications",
             description: "Email, SMS, webhook, and RSS updates.",
             productColumn: "Subscriptions",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain and free SSL",
             description: "Host the page on your own domain.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom HTML, CSS, and JS",
             description: "Fully customize page markup and styling.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Page reflects live monitor state.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance events",
             description: "Publish planned maintenance windows.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6592,49 +6610,49 @@ const products: Dictionary<Product> = {
             title: "On-call schedules and rotations",
             description: "Daily, weekly, and custom rotations.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate through tiers automatically.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and vacation coverage",
             description: "Handle PTO and one-off coverage.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Follow-the-sun scheduling",
             description: "Hand off across regions and time zones.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS and phone call alerts",
             description: "Reach responders via SMS and voice.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack, Teams, and push alerts",
             description: "Notify across chat and mobile push.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Schedule limits",
             description: "How many schedules you can create.",
             productColumn: "20 on Essentials",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Included with the platform",
             description: "On-call bundled, not sold separately.",
             productColumn: "Separate product",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6645,43 +6663,43 @@ const products: Dictionary<Product> = {
             title: "Log management",
             description: "Collect, store, and search logs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Ingest and chart time-series metrics.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "Trace requests across services.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry-native ingestion",
             description: "Store OTel logs, metrics, and traces.",
             productColumn: "Integration only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Dashboards",
             description: "Build custom observability dashboards.",
             productColumn: "Incident metrics",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Error and exception tracking",
             description: "Capture and group application errors.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Telemetry data retention",
             description: "Retain and query stored telemetry.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6692,49 +6710,49 @@ const products: Dictionary<Product> = {
             title: "Open source and self-hostable",
             description: "Run and modify the platform yourself.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable flat pricing",
+            title: "Complete feature set",
             description: "Cost that does not scale with headcount.",
             productColumn: "Per user",
-            oneuptimeColumn: "$1 / monitor",
+            castOperationsColumn: "Included",
           },
           {
-            title: "Free tier",
-            description: "Meaningful free plan to start.",
+            title: "Complete feature set",
+            description: "All capabilities are available in every deployment.",
             productColumn: "Startup only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO and SAML",
             description: "Enterprise single sign-on.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "RBAC",
             description: "Role-based access control.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit logs",
             description: "Track user and system activity.",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2 and ISO 27001",
             description: "Security and compliance attestations.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API and webhooks",
             description: "Automate and integrate programmatically.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -6748,12 +6766,12 @@ const products: Dictionary<Product> = {
       {
         question: "How much does Rootly cost in 2026?",
         answer:
-          "Rootly Incident Response Essentials and On-Call Essentials are each $20 per user per month, so a team using both effectively pays around $40 per user per month. Enterprise tiers and the AI SRE product are quote-based. Cast Operations does not charge per user; you pay a flat $1 per active monitor with unlimited free static monitors.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Is Rootly's on-call included with incident response?",
         answer:
-          "No. Rootly On-Call is a separate product with its own per-user price, and the Essentials tier caps you at 20 schedules and one live-call-routing number. Cast Operations includes on-call scheduling and escalation for all users at no additional per-seat cost, with unlimited schedules.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can Cast Operations fully replace Rootly?",
@@ -6761,14 +6779,14 @@ const products: Dictionary<Product> = {
           "Yes for most teams. Cast Operations provides Slack and Teams incident collaboration, timelines, severities, postmortems, action items, and MTTR analytics, plus on-call rotations and escalation. On top of that it adds the monitoring, telemetry, and status pages that Rootly lacks, so you can consolidate several tools into one.",
       },
       {
-        question: "Does Cast Operations charge per user like Rootly?",
+        question: "How do deployment costs compare?",
         answer:
-          "No. Cast Operations pricing is based on usage, not seats. Active monitors are billed a flat $1 per month each, manual and static monitors are free and unlimited, and telemetry ingestion is roughly $0.10 per GB. Self-hosting the open-source platform is free.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Rootly have status pages?",
         answer:
-          "Yes, but they are driven by incident workflows rather than live monitors, and the Essentials tier is limited to a single external status page. Cast Operations status pages update automatically from your monitors and support unlimited subscribers, custom domains with free SSL, and full custom HTML, CSS, and JS.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Is Cast Operations open source?",
@@ -6781,26 +6799,26 @@ const products: Dictionary<Product> = {
     productName: "xMatters",
     iconUrl: "/img/xmatters.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One unified reliability platform vs a single-purpose alerting tool",
     competitorFocus:
       "xMatters specializes in enterprise on-call alerting and no-code toolchain workflow automation, but does not monitor your systems or host public status pages.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations combines monitoring, on-call, incident management, status pages, and OpenTelemetry observability in one open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "xMatters, part of Everbridge, is an enterprise IT alerting and incident response platform built around on-call management and its Flow Designer workflow automation engine. It routes signals from your existing monitoring and DevOps tools to the right responders and coordinates resolution across the toolchain. It is a mature, well-regarded alerting layer, but it depends on other products for monitoring, telemetry, and customer-facing status pages.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, Apache 2.0, self-hostable reliability platform that unifies monitoring, on-call, incident management, public status pages, and OpenTelemetry-based observability. It replaces several point tools with one system, so alerts arrive with full context from the same platform that detected the problem. Active monitors are billed at a flat one dollar per month, with a generous free tier and free self-hosting.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "xMatters is one of the strongest names in enterprise on-call alerting and workflow automation, and it does that job well. But it is a single layer of the reliability stack: it does not run your monitors, store your logs and traces, or publish a public status page to your customers. That means teams pair xMatters with separate monitoring, observability, and status-page vendors, each with its own per-user or usage bill. Cast Operations brings all of those functions into one open-source platform with predictable per-monitor pricing.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
-      "Consolidate alerting, monitoring, incidents, status pages, and telemetry into a single tool and pay a flat one dollar per active monitor instead of stacking per-user seats across multiple vendors.",
+      "The complete feature set is available in every deployment.",
     migrationBenefits: [
       "Replace xMatters plus separate monitoring, status-page, and observability tools with one unified platform.",
-      "Move from per-user metered pricing to a flat one dollar per active monitor, with no per-check tiers or seat caps.",
+      "The complete feature set is available in every deployment.",
       "Publish public status pages with custom domains, free SSL, and unlimited subscribers at no extra cost.",
       "Add website, API, server, container, synthetic, SSL, and cron/heartbeat monitoring that xMatters does not provide.",
       "Ingest OpenTelemetry logs, metrics, and traces alongside alerting so incidents carry full context.",
@@ -6887,9 +6905,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "xMatters Base at $39 per user for alerting, plus a separate monitoring tool.",
         competitorCost: "$975+/mo (users only)",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations unifies on-call, monitoring, and status pages in one platform.",
-        oneuptimeCost: "~$100/mo (100 monitors)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -6897,9 +6915,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "xMatters offers only internal stakeholder pages, so a separate status-page vendor is required.",
         competitorCost: "Extra tool + subscriber fees",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations includes a public status page with custom domain and unlimited subscribers.",
-        oneuptimeCost: "$0 add-on",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -6907,9 +6925,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "xMatters Advanced (custom-priced) for alerting, plus separate APM and log vendors.",
         competitorCost: "Custom + multiple tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations unifies alerting, incidents, and OpenTelemetry telemetry.",
-        oneuptimeCost: "$1/monitor + ~$0.10/GB",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -6938,9 +6956,9 @@ const products: Dictionary<Product> = {
         icon: "open-source",
       },
       {
-        title: "Flat, predictable pricing",
+        title: "Deployment model",
         description:
-          "xMatters charges per user per month with metered SMS and voice allotments. Cast Operations charges a flat one dollar per active monitor, with unlimited free manual monitors and no seat-based tiers.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
       {
@@ -6958,51 +6976,51 @@ const products: Dictionary<Product> = {
             title: "On-call schedules & rotations",
             description: "Daily, weekly, and custom rotation scheduling.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description:
               "Escalate through tiers until an alert is acknowledged.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS & voice call alerts",
             description: "Reach responders by text message and phone call.",
             productColumn: "Paid tiers, metered",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides & follow-the-sun",
             description: "Vacation overrides and global handoff coverage.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push notifications",
             description: "Mobile push alerts to on-call responders.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack & Microsoft Teams alerts",
             description: "Deliver and acknowledge alerts inside chat tools.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "No-code workflow automation",
             description:
               "Visual builder for alert routing and toolchain actions.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Live call routing / conference bridge",
             description: "Route inbound calls and spin up conference lines.",
             productColumn: "Base+ tiers",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
         ],
       },
@@ -7013,49 +7031,49 @@ const products: Dictionary<Product> = {
             title: "Website & URL monitoring",
             description: "Uptime and response checks for web endpoints.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description: "Validate API availability and response payloads.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server & infrastructure metrics",
             description: "Track CPU, memory, and disk on hosts.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring (Docker/K8s)",
             description: "Monitor containerized and Kubernetes workloads.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic & transaction monitoring",
             description: "Scripted multi-step user journey checks.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before TLS certificates expire.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron / heartbeat monitoring",
             description: "Detect missed jobs and silent failures.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Check from multiple regions plus private probes.",
             productColumn: "",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
         ],
       },
@@ -7066,49 +7084,49 @@ const products: Dictionary<Product> = {
             title: "Public customer status page",
             description: "Externally hosted page for customer communication.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Internal stakeholder pages",
             description: "Private updates for internal stakeholders.",
             productColumn: "Base+ tiers",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "No cap on status-page subscribers.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain + free SSL",
             description: "Host the page on your own domain with SSL.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding & HTML/CSS/JS",
             description: "Fully brand and theme the status page.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notifications",
             description: "Email, SMS, webhook, RSS, Slack, and Teams updates.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Status reflects monitor state automatically.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance & component groups",
             description: "Publish maintenance windows and grouped components.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -7119,43 +7137,43 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Chronological record of incident activity.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities & prioritization",
             description: "Classify incidents by severity level.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks / playbooks",
             description: "Guided response procedures for responders.",
             productColumn: "Base+ tiers",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems & action items",
             description: "Capture learnings and follow-up tasks.",
             productColumn: "Advanced tier",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack & Teams incident collaboration",
             description: "Coordinate response from within chat tools.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolution over time.",
             productColumn: "Advanced tier",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Service catalog & dependencies",
             description: "Model services and their ownership.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -7166,37 +7184,37 @@ const products: Dictionary<Product> = {
             title: "Log management",
             description: "Collect, search, and alert on application logs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Store and visualize time-series metrics.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed traces",
             description: "Trace requests across services.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry native",
             description: "Ingest OTel data without proprietary agents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Dashboards",
             description: "Build dashboards across signals.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Error & exception tracking",
             description: "Capture and group application exceptions.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -7207,49 +7225,49 @@ const products: Dictionary<Product> = {
             title: "Open source (Apache 2.0)",
             description: "Source-available, community-inspectable code.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hosting",
             description: "Run the platform on your own infrastructure.",
             productColumn: "",
-            oneuptimeColumn: "Free",
+            castOperationsColumn: "Free",
           },
           {
-            title: "Predictable flat pricing",
+            title: "Complete feature set",
             description: "Cost tied to monitors, not per-user seats.",
             productColumn: "Per-user, metered",
-            oneuptimeColumn: "$1/monitor",
+            castOperationsColumn: "Included",
           },
           {
-            title: "Free tier",
-            description: "No-cost plan to get started.",
+            title: "Complete feature set",
+            description: "All capabilities are available in every deployment.",
             productColumn: "10 users",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO / SAML",
             description: "Single sign-on for centralized access.",
             productColumn: "Starter+ tiers",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "RBAC & audit logs",
             description: "Role-based access control and audit trails.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API & native webhooks",
             description: "Automate and integrate programmatically.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2 Type II & ISO 27001",
             description: "Enterprise security and compliance attestations.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -7263,12 +7281,12 @@ const products: Dictionary<Product> = {
       {
         question: "Does xMatters offer public customer status pages?",
         answer:
-          "xMatters provides internal stakeholder updates on higher tiers but is not a public customer status-page product. Cast Operations includes public status pages with custom domains, free SSL, custom branding, and unlimited subscribers at no extra cost.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "How does pricing compare?",
         answer:
-          "xMatters charges per user per month (roughly $9 Starter, $39 Base, and custom Advanced) with metered SMS and voice allotments. Cast Operations charges a flat one dollar per active monitor, offers unlimited free manual monitors, and prices telemetry ingestion at about $0.10 per GB, so costs stay predictable as teams grow.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I self-host instead of using SaaS?",
@@ -7276,7 +7294,8 @@ const products: Dictionary<Product> = {
           "Cast Operations is open source under Apache 2.0 and can be self-hosted for free, or run as managed cloud. xMatters is a proprietary SaaS with no self-hosting option, so your alerting data stays in the vendor's environment.",
       },
       {
-        question: "Does Cast Operations match xMatters on on-call and escalations?",
+        question:
+          "Does Cast Operations match xMatters on on-call and escalations?",
         answer:
           "Yes. Cast Operations supports daily, weekly, and custom rotations, multi-level escalation policies, overrides and vacation, and follow-the-sun coverage, with alerts via SMS, phone call, email, push, Slack, and Microsoft Teams.",
       },
@@ -7296,25 +7315,25 @@ const products: Dictionary<Product> = {
     productName: "Grafana Cloud",
     iconUrl: "/img/grafana.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "One turnkey platform vs an assembly-heavy, usage-priced stack",
     competitorFocus:
       "Grafana Cloud specializes in powerful dashboards and observability across metrics, logs, and traces, but leaves you to assemble and tune the pieces yourself.",
-    oneuptimeFocus:
-      "Cast Operations unifies monitoring, status pages, on-call, incidents, and OpenTelemetry telemetry in one turnkey platform with predictable pricing.",
+    castOperationsFocus:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Grafana Cloud is Grafana Labs' hosted observability stack, combining Grafana dashboards with Mimir for metrics, Loki for logs, Tempo for traces, Pyroscope for profiling, and k6 for synthetics and load testing. It is highly flexible and best-in-class for visualization, but it is assembled from many independent components with separate usage meters. Setting it up well typically requires significant instrumentation, tuning, and cost management expertise.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, unified reliability platform that brings monitoring, status pages, on-call, incident management, and OpenTelemetry-native logs, metrics, and traces together in a single product. Everything is designed to work out of the box with predictable, flat pricing of $1 per active monitor per month and telemetry around $0.10/GB. You can use the generous free cloud tier or self-host the whole platform for free.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Grafana Cloud is a powerful observability toolkit: Grafana dashboards on top of Mimir, Loki, Tempo, and k6, with Grafana Cloud IRM bolted on for on-call and incidents. The power comes with assembly: multiple usage meters, per-active-series metric billing, three-part logs and traces pricing, per-user IRM fees, and a steep setup and tuning curve. Cast Operations takes a different approach, delivering monitoring, status pages, on-call, incident management, and OpenTelemetry telemetry as one cohesive product. You get predictable, flat pricing instead of a spreadsheet full of usage meters, and you can self-host the entire stack under Apache 2.0.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "If you want great dashboards without gluing together five products and forecasting a dozen usage meters, Cast Operations gives you the whole reliability workflow in one place for a fraction of the operational overhead.",
     migrationBenefits: [
       "Replace the Grafana plus Mimir, Loki, Tempo, and IRM assembly with one unified, turnkey platform",
-      "Swap unpredictable per-active-series and three-part GB usage meters for flat $1 per active monitor and ~$0.10/GB telemetry",
+      "The complete feature set is available in every deployment.",
       "Get real public and private status pages with unlimited subscribers, which Grafana Cloud does not offer as a product",
       "Keep on-call and incident response built in, instead of paying separate per-active-user Grafana Cloud IRM fees",
       "Stay OpenTelemetry-native for logs, metrics, and traces without stitching together separate backends",
@@ -7396,9 +7415,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Grafana Cloud Pro with metrics, logs, and traces usage plus a few IRM users",
         competitorCost: "$19/mo base plus growing usage and per-user IRM fees",
-        oneuptimeSolution:
+        castOperationsSolution:
           "50 active monitors, built-in status page, on-call, and telemetry",
-        oneuptimeCost: "~$50/mo ($1 per active monitor) plus minimal telemetry",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -7406,10 +7425,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Grafana Cloud for dashboards plus a separate third-party status page tool",
         competitorCost: "Grafana usage plus an added status page subscription",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Unified monitoring, telemetry, and a branded status page with unlimited subscribers",
-        oneuptimeCost:
-          "Predictable Growth tier around $99/mo, status pages included",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario: "Team that wants full control and no vendor usage bills",
@@ -7417,9 +7435,9 @@ const products: Dictionary<Product> = {
           "Self-host OSS Grafana, Mimir, Loki, and Tempo and operate each yourself",
         competitorCost:
           "No license fee but heavy engineering and infrastructure overhead",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Self-host the entire Cast Operations platform under Apache 2.0",
-        oneuptimeCost: "Free self-hosted, one unified deployment to operate",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -7430,9 +7448,9 @@ const products: Dictionary<Product> = {
         icon: "unified",
       },
       {
-        title: "Predictable vs usage-metered pricing",
+        title: "Deployment model",
         description:
-          "Cast Operations charges a flat $1 per active monitor and ~$0.10/GB telemetry, versus Grafana's per-active-series and three-part per-GB usage meters that are hard to forecast.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
       {
@@ -7444,7 +7462,7 @@ const products: Dictionary<Product> = {
       {
         title: "On-call included, not an add-on",
         description:
-          "Cast Operations bundles on-call and escalations, while Grafana bills on-call and incidents separately through per-active-user Grafana Cloud IRM.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "on-call",
       },
       {
@@ -7456,7 +7474,7 @@ const products: Dictionary<Product> = {
       {
         title: "Turnkey vs steep setup",
         description:
-          "Cast Operations works out of the box, while Grafana Cloud typically requires significant instrumentation, tuning, and cost-management expertise to run well.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "monitoring",
       },
     ],
@@ -7469,49 +7487,49 @@ const products: Dictionary<Product> = {
             description:
               "Build visual dashboards over metrics, logs, and traces",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry-native ingestion",
             description: "Ingest logs, metrics, and traces via OpenTelemetry",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics backend",
             description: "Time-series metrics storage and querying",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Log management",
             description: "Centralized log aggregation and search",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "End-to-end request tracing across services",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception & error tracking",
             description: "Capture and group application exceptions",
             productColumn: "Via logs/tracing",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Turnkey setup",
             description: "Works without assembling separate backends",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Advanced visualization library",
             description: "Deep panel and plugin ecosystem for charts",
             productColumn: "tick",
-            oneuptimeColumn: "Core panels",
+            castOperationsColumn: "Core panels",
           },
         ],
       },
@@ -7522,49 +7540,49 @@ const products: Dictionary<Product> = {
             title: "Website & API monitoring",
             description: "Check uptime and response of URLs and APIs",
             productColumn: "Via k6 synthetics",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic & transaction checks",
             description: "Emulate user journeys from global locations",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server & infrastructure monitoring",
             description: "CPU, memory, and disk metrics from hosts",
             productColumn: "Via agent/metrics",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron / heartbeat monitoring",
             description: "Detect missed scheduled jobs",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Port & ping checks",
             description: "TCP port and ICMP reachability tests",
             productColumn: "Via synthetics",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private probe locations",
             description: "Run checks from inside your own network",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Sub-second check intervals",
             description: "Frequent checks down to 1 second",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -7575,43 +7593,43 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Customer-facing status and incident history",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Internal, access-controlled status pages",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "Notify unlimited subscribers at no extra cost",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain + free SSL",
             description: "Host on your own domain with managed SSL",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding & HTML/CSS/JS",
             description: "Fully brand and customize the page",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance windows",
             description: "Communicate planned maintenance",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notifications",
             description: "Email, SMS, webhook, RSS, Slack, Teams updates",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -7622,43 +7640,43 @@ const products: Dictionary<Product> = {
             title: "On-call schedules & rotations",
             description: "Daily, weekly, and custom rotations",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate unacknowledged alerts automatically",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS & phone call alerts",
             description: "Reach responders by SMS and voice",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Mobile push notifications",
             description: "Push alerts to a mobile app",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides & vacation handling",
             description: "Temporary schedule overrides",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Follow-the-sun coverage",
             description: "Route alerts across global teams",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Included at no extra per-user fee",
             description: "On-call bundled in the platform price",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -7669,43 +7687,43 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Chronological record of incident events",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities & prioritization",
             description: "Classify incidents by severity",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured post-incident reviews",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items & runbooks",
             description: "Track follow-ups and response procedures",
             productColumn: "Partial",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack & Teams collaboration",
             description: "Coordinate incidents in chat tools",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolution",
             productColumn: "Via IRM add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Auto-linked to monitors & status",
             description: "Incidents tie into monitoring and status pages",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -7716,49 +7734,50 @@ const products: Dictionary<Product> = {
             title: "Open source (Apache 2.0)",
             description: "Full platform available under a permissive license",
             productColumn: "Partial",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hostable",
             description: "Run the entire platform on your own infrastructure",
             productColumn: "Complex, per-component",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable flat pricing",
-            description: "Simple per-monitor pricing without usage guessing",
+            title: "Complete feature set",
+            description: "Complete monitoring without usage gates",
             productColumn: "",
-            oneuptimeColumn: "$1/active monitor",
+            castOperationsColumn:
+              "The complete feature set is available in every deployment.",
           },
           {
             title: "Transparent telemetry cost",
             description: "Flat per-GB ingestion pricing",
             productColumn: "Three-part meters",
-            oneuptimeColumn: "~$0.10/GB",
+            castOperationsColumn: "Included",
           },
           {
             title: "SSO/SAML, RBAC, audit logs",
             description: "Enterprise access control and auditing",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Compliance certifications",
             description: "SOC 2 Type II, ISO 27001, GDPR",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API & webhooks",
             description: "Automate and integrate via API",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Workflows & 2000+ integrations",
             description: "No-code automation and Zapier integrations",
             productColumn: "Partial",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -7770,9 +7789,9 @@ const products: Dictionary<Product> = {
           "For most reliability teams, yes. Cast Operations covers monitoring, OpenTelemetry-native logs, metrics, traces, and dashboards, plus status pages, on-call, and incident management in one product. Grafana Cloud offers deeper, more customizable visualization and a larger plugin ecosystem, so teams that need highly specialized dashboards may still value it, but Cast Operations replaces the everyday observability and reliability workflow without the assembly.",
       },
       {
-        question: "How does Cast Operations pricing compare to Grafana Cloud?",
+        question: "How do deployment costs compare?",
         answer:
-          "Cast Operations uses simple, predictable pricing: $1 per active monitor per month, unlimited free manual and static monitors, and telemetry ingestion around $0.10/GB. Grafana Cloud Pro starts at a $19/month platform fee plus multiple usage meters, including $6.50 per 1,000 billable metrics series and a three-part per-GB charge for logs and traces, which makes bills hard to forecast.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Grafana Cloud include a customer-facing status page?",
@@ -7783,7 +7802,7 @@ const products: Dictionary<Product> = {
         question:
           "What happened to Grafana OnCall and how does that affect me?",
         answer:
-          "Grafana OnCall OSS entered maintenance mode and was archived in March 2026, with on-call and incident features consolidated into the paid Grafana Cloud IRM app, billed per active user plus a platform fee. Cast Operations includes on-call rotations, escalations, and incident management in the platform, with no separate per-active-user fee.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I self-host instead of using the cloud?",
@@ -7796,7 +7815,8 @@ const products: Dictionary<Product> = {
           "Yes. Cast Operations ingests logs, metrics, and traces via OpenTelemetry, so you can point existing OTel instrumentation at it. Unlike Grafana Cloud, you do not need to configure and tune separate backends for each signal type.",
       },
       {
-        question: "How hard is it to migrate from Grafana Cloud to Cast Operations?",
+        question:
+          "How hard is it to migrate from Grafana Cloud to Cast Operations?",
         answer:
           "Because Cast Operations is OpenTelemetry-native, you can redirect your existing OTel exporters to Cast Operations and start ingesting immediately. You then recreate the workflows you actually rely on, such as monitors, dashboards, status pages, on-call schedules, and incident processes, in one place instead of across several Grafana components and add-ons.",
       },
@@ -7806,26 +7826,26 @@ const products: Dictionary<Product> = {
     productName: "Dynatrace",
     iconUrl: "/img/dynatrace.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One unified reliability platform vs a single-purpose enterprise APM suite",
     competitorFocus:
       "Dynatrace specializes in deep, agent-based full-stack APM and observability with Davis AI, but leaves customer status pages, on-call, and incident response to separate tools.",
-    oneuptimeFocus:
-      "Cast Operations unifies monitoring, OpenTelemetry observability, status pages, on-call, and incident management in one open-source, self-hostable platform with predictable pricing.",
+    castOperationsFocus:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Dynatrace is an enterprise-grade full-stack observability and APM platform built around its OneAgent and the Davis AI engine for automatic root-cause analysis and topology mapping. It is powerful and deep for large application estates, but it is priced on consumption through the Dynatrace Platform Subscription (DPS) and is widely regarded as expensive and complex to forecast. It focuses on application and infrastructure telemetry rather than customer-facing status pages or built-in on-call and incident workflows.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source (Apache 2.0), self-hostable platform that combines uptime and infrastructure monitoring, OpenTelemetry-native logs, metrics, and traces, public and private status pages, on-call rotations, and incident management in a single product. It replaces the stack of separate tools most Dynatrace customers still need. Pricing is flat and predictable at one dollar per active monitor per month, with self-hosting completely free.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Dynatrace is an enterprise APM and observability powerhouse: its OneAgent captures deep code-level detail and Davis AI automates root-cause analysis across large estates. That depth comes with consumption-based DPS pricing that is hard to predict and can climb quickly as hosts, logs, and sessions scale. Dynatrace also stops at telemetry, so teams still buy separate products for customer status pages and for on-call and incident response. Cast Operations takes the opposite approach, unifying monitoring, observability, status pages, on-call, and incidents in one open-source platform.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
-      "Instead of a metered enterprise bill plus add-on tools, Cast Operations gives you a flat one dollar per active monitor, roughly ten cents per GB of telemetry, and a free self-hosted option, so cost scales in a way you can actually forecast.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     migrationBenefits: [
       "Replace Dynatrace plus a separate status page tool plus a separate on-call and incident tool with one unified platform",
-      "Swap unpredictable DPS consumption billing for a flat one dollar per active monitor per month",
+      "The complete feature set is available in every deployment.",
       "Stay OpenTelemetry-native with no proprietary OneAgent lock-in for logs, metrics, and traces",
       "Own your data and run it yourself for free under the Apache 2.0 license, or use managed cloud",
       "Publish customer-facing status pages with unlimited subscribers and a custom domain at no extra cost",
@@ -7846,7 +7866,7 @@ const products: Dictionary<Product> = {
           "No code-level APM or distributed tracing",
           "No customer-facing status pages",
           "No built-in on-call or incident response",
-          "Consumption billing is hard to forecast",
+          "Consumption costs are hard to forecast",
         ],
       },
       {
@@ -7860,7 +7880,7 @@ const products: Dictionary<Product> = {
           "Real user and session monitoring add-ons",
         ],
         limitations: [
-          "Memory-weighted billing rises with host RAM",
+          "Memory-weighted costs rise with host RAM",
           "4 GiB minimum billed per host regardless of size",
           "No status pages, on-call, or incident workflows",
           "Costs scale steeply across large fleets",
@@ -7925,9 +7945,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Full-Stack Monitoring on 50 hosts (roughly $58 per 8 GiB host per month) plus log ingest, plus a separate status page tool and a separate on-call and incident product",
         competitorCost: "$3,000+ per month plus add-on tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "50 active monitors, OpenTelemetry logs, metrics, and traces, a branded status page, and on-call rotations all in one platform",
-        oneuptimeCost: "About $99 to $300 per month, or free self-hosted",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -7935,9 +7955,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Infrastructure Monitoring on 20 hosts under an annual DPS commitment, plus a separate hosted status page product",
         competitorCost: "$600+ per month plus annual commitment",
-        oneuptimeSolution:
+        castOperationsSolution:
           "20 active monitors at one dollar each with a free public status page and unlimited subscribers included",
-        oneuptimeCost: "$20 per month, or free self-hosted",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -7945,9 +7965,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Full-Stack Monitoring across 200 hosts plus Grail logs and RUM, plus a dedicated on-call tool for 30 seats and a dedicated status page product",
         competitorCost: "Six figures per year across DPS and add-ons",
-        oneuptimeSolution:
+        castOperationsSolution:
           "200 active monitors, telemetry ingestion, unlimited status page subscribers, and unlimited on-call responders on the Enterprise tier or self-hosted",
-        oneuptimeCost: "A small fraction of DPS, or free self-hosted",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -7964,9 +7984,9 @@ const products: Dictionary<Product> = {
         icon: "open-source",
       },
       {
-        title: "Predictable flat pricing",
+        title: "Complete feature set",
         description:
-          "Cast Operations charges a flat one dollar per active monitor plus about ten cents per GB of telemetry. Dynatrace bills on DPS consumption that is hard to forecast and rises quickly at scale.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "transparent",
       },
       {
@@ -7996,50 +8016,50 @@ const products: Dictionary<Product> = {
             title: "Distributed tracing",
             description: "Follow requests across services end to end.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Code-level APM",
             description:
               "Method-level hotspots and deep code profiling via agent.",
             productColumn: "tick",
-            oneuptimeColumn: "Via OpenTelemetry",
+            castOperationsColumn: "Via OpenTelemetry",
           },
           {
             title: "AI root-cause analysis",
             description: "Automated cause detection across the topology.",
             productColumn: "tick",
-            oneuptimeColumn: "AI SRE",
+            castOperationsColumn: "AI SRE",
           },
           {
             title: "Automatic topology mapping",
             description: "Dependency and service maps built automatically.",
             productColumn: "tick",
-            oneuptimeColumn: "Service map",
+            castOperationsColumn: "Service map",
           },
           {
             title: "Metrics",
             description: "Time-series metrics collection and dashboards.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Log management",
             description: "Centralized log ingestion and analytics.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception and error tracking",
             description: "Capture and group application exceptions.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry-native",
             description: "Built directly on the OpenTelemetry standard.",
             productColumn: "Supported",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8050,49 +8070,49 @@ const products: Dictionary<Product> = {
             title: "Server and infrastructure",
             description: "CPU, memory, disk, and network monitoring.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring",
             description: "Docker and Kubernetes visibility.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Website and URL uptime",
             description: "Simple availability and response checks.",
             productColumn: "Synthetic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire.",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron and heartbeat monitoring",
             description: "Detect missed scheduled jobs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Ping and port monitoring",
             description: "Low-level reachability checks.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and transaction",
             description: "Scripted multi-step user journeys.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private probe locations",
             description: "Monitor from inside your own network.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8103,49 +8123,49 @@ const products: Dictionary<Product> = {
             title: "Public status page",
             description: "Customer-facing availability page.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status page",
             description: "Internal or authenticated status page.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "No cap or per-subscriber charge.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain and free SSL",
             description: "Host on your own domain with SSL.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS",
             description: "Fully brand the page with custom code.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Announce planned maintenance windows.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Status reflects live monitor state.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notifications",
             description: "Email, SMS, webhook, and RSS updates.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8156,43 +8176,43 @@ const products: Dictionary<Product> = {
             title: "On-call rotations",
             description: "Daily, weekly, and custom schedules.",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation",
             description: "Escalate through tiers automatically.",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS alerts",
             description: "Notify responders by text message.",
             productColumn: "Via integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone call alerts",
             description: "Escalate with a voice call.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams alerts",
             description: "Push alerts into chat channels.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and vacation",
             description: "Temporary schedule swaps and cover.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Follow-the-sun scheduling",
             description: "Hand off across global time zones.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8203,43 +8223,43 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Chronological record of an incident.",
             productColumn: "Problems",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities",
             description: "Classify incidents by impact level.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured after-incident reviews.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items",
             description: "Track follow-up tasks to closure.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Documented response procedures.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams collaboration",
             description: "Coordinate response inside chat.",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolution.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8250,49 +8270,49 @@ const products: Dictionary<Product> = {
             title: "Open source (Apache 2.0)",
             description: "Inspect, extend, and contribute to the code.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hostable",
             description: "Run the platform on your own infrastructure.",
             productColumn: "Managed (paid)",
-            oneuptimeColumn: "Free",
+            castOperationsColumn: "Free",
           },
           {
-            title: "Predictable flat pricing",
+            title: "Complete feature set",
             description: "Costs you can forecast in advance.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Free tier",
-            description: "Start using the product at no cost.",
+            title: "Complete feature set",
+            description: "All capabilities are available in every deployment.",
             productColumn: "15-day trial",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO, SAML, and RBAC",
             description: "Enterprise identity and access controls.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API and webhooks",
             description: "Automate and integrate programmatically.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit logs",
             description: "Track configuration and access changes.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2 and ISO 27001",
             description: "Independently audited security posture.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8301,12 +8321,12 @@ const products: Dictionary<Product> = {
       {
         question: "Does Dynatrace include customer-facing status pages?",
         answer:
-          "No. Dynatrace focuses on internal observability and does not offer a public status page product, so teams typically buy a separate tool. Cast Operations includes public and private status pages with custom domains, branding, unlimited subscribers, and automatic updates from your monitors at no extra cost.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Why is Dynatrace considered expensive?",
         answer:
-          "Dynatrace bills through the Dynatrace Platform Subscription, a consumption model where full-stack hosts, logs, queries, RUM sessions, and synthetics each draw down prepaid capability units. Costs are hard to forecast and rise quickly at scale. Cast Operations charges a flat one dollar per active monitor plus about ten cents per GB of telemetry, so your bill is predictable.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question:
@@ -8327,7 +8347,7 @@ const products: Dictionary<Product> = {
       {
         question: "Will I actually save money by switching?",
         answer:
-          "Most teams save the most by consolidating tools. Moving off Dynatrace plus a separate status page product plus a separate on-call and incident tool onto Cast Operations removes several bills at once, and the flat per-monitor pricing replaces unpredictable consumption charges. Self-hosting can reduce software cost to zero.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question:
@@ -8341,25 +8361,25 @@ const products: Dictionary<Product> = {
     productName: "Splunk",
     iconUrl: "/img/splunk.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One open-source reliability platform vs Splunk's costly, fragmented stack",
     competitorFocus:
       "Splunk is an enterprise powerhouse for log analytics, SIEM, and observability at massive scale, but it is expensive, complex, and split across many separately priced products.",
-    oneuptimeFocus:
-      "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces in a single open-source platform with flat, predictable pricing.",
+    castOperationsFocus:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Splunk Observability Cloud pairs infrastructure monitoring, APM, RUM, and synthetics with Splunk's industry-leading log analytics and SIEM platform, now owned by Cisco. It is genuinely powerful at enterprise scale, but pricing is per-host plus usage-based ingestion, tiers are billed annually, and capabilities are spread across many add-ons. On-call lives in the legacy VictorOps-based Splunk On-Call product and the newer Incident Intelligence add-on.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source (Apache 2.0), self-hostable platform that combines monitoring, public and private status pages, on-call rotations, incident management, and OpenTelemetry-native logs, metrics, and traces. Active monitors are billed a flat $1/month each and telemetry ingestion is roughly $0.10/GB, with no per-host tiers, mandatory annual commitments, or add-on sprawl. You get the whole reliability toolchain in one place, or run it free on your own infrastructure.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Splunk is a formidable log-analytics and observability platform built for large enterprises with big budgets and dedicated Splunk administrators. Its power comes at a cost: per-host tiers billed annually, usage-based ingestion that can run well over one hundred dollars per GB per day on the core platform, and functionality fragmented across Infrastructure, APM, RUM, Synthetics, Log Observer, and the separate Splunk On-Call product. Cast Operations takes the opposite approach, bundling the entire monitoring, status-page, on-call, incident-management, and telemetry workflow into one open-source platform. Pricing is flat and transparent at $1 per active monitor per month, so costs stay predictable as you grow.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
-      "For teams that want full-stack reliability without enterprise pricing, annual lock-in, or stitching six Splunk products together, Cast Operations delivers the same core workflows in a single, self-hostable tool.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     migrationBenefits: [
-      "Replace Splunk's per-host tiers and per-GB ingestion with a flat $1/active monitor and roughly $0.10/GB telemetry",
+      "The complete feature set is available in every deployment.",
       "Consolidate monitoring, status pages, on-call, incidents, and OpenTelemetry data into one platform instead of many Splunk add-ons",
       "Get public and private status pages with unlimited subscribers, a capability Splunk simply does not offer",
       "Own your data and avoid annual lock-in by self-hosting the open-source (Apache 2.0) platform for free",
@@ -8456,9 +8476,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Splunk End-to-End at $75/host/month, billed annually, plus a separate third-party status page tool since Splunk has none",
         competitorCost: "~$45,000/yr + status page tool + log ingestion",
-        oneuptimeSolution:
-          "50 active monitors at $1 each, status pages with unlimited subscribers included, telemetry billed at ~$0.10/GB",
-        oneuptimeCost: "~$50/mo + telemetry (or free self-hosted)",
+        castOperationsSolution:
+          "The complete feature set is available in every deployment.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -8466,9 +8486,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Splunk App & Infrastructure at $60/host/month plus Splunk On-Call per user and usage-based log ingestion",
         competitorCost: "~$150,000+/yr before ingestion overages",
-        oneuptimeSolution:
-          "Active monitors at $1 each, on-call rotations and escalations included, OpenTelemetry logs/metrics/traces at ~$0.10/GB",
-        oneuptimeCost: "Growth tier ~$99/mo + usage, on-call included",
+        castOperationsSolution:
+          "The complete feature set is available in every deployment.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -8476,9 +8496,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Splunk platform ingest or workload pricing, historically well over $100/GB/day, on top of per-host observability tiers",
         competitorCost: "Six figures annually for ingestion alone",
-        oneuptimeSolution:
-          "OpenTelemetry-native ingestion at roughly $0.10/GB with dashboards, exceptions, and tracing built in",
-        oneuptimeCost: "~$1,500/mo at 500 GB/day (or free self-hosted)",
+        castOperationsSolution:
+          "The complete feature set is available in every deployment.",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -8491,13 +8511,13 @@ const products: Dictionary<Product> = {
       {
         title: "One unified platform",
         description:
-          "Cast Operations bundles monitoring, status pages, on-call, incidents, and telemetry in one tool, while Splunk spreads these across Observability Cloud tiers, the Splunk platform, and Splunk On-Call.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "unified",
       },
       {
-        title: "Flat, predictable pricing",
+        title: "Deployment model",
         description:
-          "Cast Operations charges a flat $1 per active monitor per month with no per-host tiers or annual lock-in; Splunk uses per-host tiers plus usage-based ingestion that can escalate quickly.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
       {
@@ -8527,49 +8547,49 @@ const products: Dictionary<Product> = {
             title: "Log management",
             description: "Collect, search, and analyze log data",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics monitoring",
             description: "Time-series metrics and alerting",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "Trace requests across services",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry-native",
             description: "Standards-based OTel ingestion",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception and error tracking",
             description: "Capture and group application errors",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SIEM / security analytics",
             description: "Security information and event management",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
-            title: "Log ingestion pricing",
+            title: "Deployment model",
             description: "Cost to ingest telemetry data",
             productColumn: "$100+/GB/day (Splunk)",
-            oneuptimeColumn: "~$0.10/GB",
+            castOperationsColumn: "Included",
           },
           {
             title: "Custom dashboards",
             description: "Build charts and dashboards",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8580,49 +8600,49 @@ const products: Dictionary<Product> = {
             title: "Website / URL monitoring",
             description: "Check uptime of web endpoints",
             productColumn: "Synthetics add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description: "Monitor API endpoints and responses",
             productColumn: "Synthetics add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server / infrastructure monitoring",
             description: "CPU, memory, and disk metrics",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container / Kubernetes monitoring",
             description: "Docker and Kubernetes visibility",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic / transaction monitoring",
             description: "Scripted browser and API checks",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron / heartbeat monitoring",
             description: "Detect missed scheduled jobs",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global + private probe locations",
             description: "Check from multiple regions",
             productColumn: "tick",
-            oneuptimeColumn: "7+ global + private",
+            castOperationsColumn: "7+ global + private",
           },
         ],
       },
@@ -8633,43 +8653,43 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Externally visible status page",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Internal or restricted status pages",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "No cap on status page subscribers",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain + free SSL",
             description: "Host status page on your domain",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS/JS",
             description: "Fully brand and customize the page",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance windows",
             description: "Communicate planned downtime",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notifications",
             description: "Email, SMS, webhook, Slack, RSS",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8680,43 +8700,43 @@ const products: Dictionary<Product> = {
             title: "On-call schedules and rotations",
             description: "Daily, weekly, and custom rotations",
             productColumn: "Splunk On-Call",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate unacknowledged alerts",
             productColumn: "Splunk On-Call",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and follow-the-sun",
             description: "Vacation overrides and global handoff",
             productColumn: "Splunk On-Call",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS and phone call alerts",
             description: "Reach responders via SMS and voice",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push and email alerts",
             description: "Mobile push and email notifications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams alerts",
             description: "ChatOps notifications",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-call included in platform",
             description: "No separate product or license",
             productColumn: "Separate add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8727,43 +8747,43 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Chronological incident activity",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities and prioritization",
             description: "Classify incident impact",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured post-incident reviews",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items and runbooks",
             description: "Track follow-ups and procedures",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack / Teams incident collaboration",
             description: "Coordinate response in chat",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolution",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Status page updates from incidents",
             description: "Auto-publish incident status",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8774,49 +8794,49 @@ const products: Dictionary<Product> = {
             title: "Open source (self-hostable)",
             description: "Apache 2.0 licensed platform",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Flat, predictable pricing",
+            title: "Deployment model",
             description: "Simple per-monitor cost",
             productColumn: "Per-host + usage",
-            oneuptimeColumn: "$1/monitor/mo",
+            castOperationsColumn: "Included",
           },
           {
             title: "No annual commitment required",
             description: "Pay as you go without lock-in",
             productColumn: "Annual tiers",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Free tier",
+            title: "Complete feature set",
             description: "Generous no-cost starting plan",
             productColumn: "Limited trial",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API and native webhooks",
             description: "Programmatic access and automation",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Workflows and automation",
             description: "Build automated response flows",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO/SAML, RBAC, audit logs",
             description: "Enterprise access controls",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2, ISO 27001, GDPR",
             description: "Security and compliance attestations",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -8828,14 +8848,14 @@ const products: Dictionary<Product> = {
           "For most teams focused on monitoring, observability, status pages, on-call, and incident management, yes. Cast Operations covers OpenTelemetry-native logs, metrics, and traces plus the full reliability workflow in one platform. Splunk still leads in heavy-duty SIEM and security analytics at very large enterprise scale, so if your primary need is advanced SIEM you may keep Splunk for that specific use case.",
       },
       {
-        question: "How does Cast Operations pricing compare to Splunk?",
+        question: "How do deployment costs compare?",
         answer:
-          "Cast Operations bills active monitors at a flat $1 per month each, with unlimited free manual monitors and telemetry ingestion at roughly $0.10 per GB. Splunk Observability Cloud is priced per host, from $15 to $75+ per host per month billed annually, plus usage-based log ingestion that on the core Splunk platform has historically run well over $100 per GB per day. For most teams Cast Operations is dramatically cheaper and far more predictable.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Splunk offer status pages?",
         answer:
-          "No. Splunk has no native public or private status page product, so teams using Splunk typically buy a separate status page vendor. Cast Operations includes public and private status pages with custom domains, free SSL, custom branding, and unlimited subscribers at no extra cost.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "What happened to Splunk On-Call and VictorOps?",
@@ -8843,17 +8863,19 @@ const products: Dictionary<Product> = {
           "Splunk On-Call is the rebranded VictorOps product Splunk acquired. Splunk has since introduced Incident Intelligence within Observability Cloud, leaving the standalone On-Call product with an uncertain roadmap. Cast Operations includes on-call rotations, escalation policies, and incident management natively, so there is no separate product to license or migrate.",
       },
       {
-        question: "Can I self-host Cast Operations like I run Splunk on-premises?",
+        question:
+          "Can I self-host Cast Operations like I run Splunk on-premises?",
         answer:
-          "Yes. Cast Operations is open source under the Apache 2.0 license and can be fully self-hosted for free with complete data ownership. Unlike Splunk's enterprise licensing, there are no per-host fees or annual contracts when you run it yourself, and you can also use the managed cloud if you prefer.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Will migrating from Splunk mean losing observability depth?",
         answer:
-          "Cast Operations is OpenTelemetry-native, so it ingests standards-based logs, metrics, and traces with dashboards, exceptions, and error tracking built in. You keep full-stack observability without runaway ingestion bills or managing separate Splunk add-ons for infrastructure, APM, RUM, and synthetics.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "Is Cast Operations enterprise-ready for security and compliance?",
+        question:
+          "Is Cast Operations enterprise-ready for security and compliance?",
         answer:
           "Yes. Cast Operations supports SSO/SAML, role-based access control, and audit logs, and is SOC 2 Type II, ISO 27001, and GDPR compliant. Enterprise support is available, and self-hosting gives security-sensitive teams full control over where their data lives.",
       },
@@ -8863,29 +8885,29 @@ const products: Dictionary<Product> = {
     productName: "Sentry",
     iconUrl: "/img/sentry.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "One unified reliability platform vs a code-only error tracker",
     competitorFocus:
       "Sentry specializes in code-level error and performance monitoring, but it has no status pages, on-call scheduling, or incident-response product.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, telemetry, status pages, on-call, and incident management in a single open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Sentry is a developer-focused error and performance monitoring tool with session replay, distributed tracing, code profiling, and its Seer AI debugging agent. It excels at catching application exceptions and slow transactions and pinpointing the exact line of code responsible. It has recently added basic URL uptime and cron monitoring, but it is not built for infrastructure monitoring, status pages, or incident response.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, unified observability and reliability platform. It combines uptime and infrastructure monitoring, OpenTelemetry logs, metrics and traces, status pages, on-call scheduling, and incident management in one tool. Teams can self-host it for free or use the managed cloud with predictable per-monitor pricing.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Sentry is one of the best tools available for catching code-level errors and diagnosing performance regressions, and developers rely on its stack traces and session replay every day. But it is a single-purpose developer tool: it has no status pages, no on-call or paging, and no incident-management workflow, so teams end up pairing it with separate products like Statuspage and PagerDuty. Cast Operations takes a different approach, unifying monitoring, telemetry, status pages, on-call, and incidents in one open-source platform. Instead of stitching several point tools together, you run your entire reliability stack in one place.",
     descriptionLine2:
-      "Keep an OpenTelemetry-native approach to telemetry while replacing usage-based event billing and tool sprawl with predictable one-dollar-per-monitor pricing on a single, self-hostable platform.",
+      "Keep an OpenTelemetry-native approach to telemetry while replacing usage-based costs and tool sprawl with a single, self-hostable platform.",
     migrationBenefits: [
       "Replace Sentry plus separate status page and on-call tools with one unified platform.",
       "Keep OpenTelemetry-native logs, metrics, and traces without proprietary SDK lock-in.",
       "Add real uptime, server, container, and synthetic monitoring that Sentry does not offer.",
       "Get built-in public and private status pages with unlimited subscribers and free SSL.",
       "Gain full on-call scheduling, multi-level escalation, and incident management with postmortems.",
-      "Move to predictable one-dollar-per-monitor pricing instead of usage-based event billing.",
+      "Move from usage-based event costs to a complete self-hosted deployment.",
     ],
     competitorPricingTiers: [
       {
@@ -8965,19 +8987,19 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Sentry Business for errors and telemetry, plus a separate status page tool and a separate on-call and paging tool",
         competitorCost: "$80/mo Sentry + extra status page and on-call tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations unified: error and telemetry ingestion, 20 monitors, status page, and on-call in one platform",
-        oneuptimeCost: "~$20/mo (20 monitors at $1 each)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
           "Scaling SaaS ingesting high error, span, and replay volume across many services",
         competitorSolution:
-          "Sentry with usage-based overage billing on errors, spans, and replays, plus the Seer AI add-on",
+          "Sentry with usage-based overage charges on errors, spans, and replays, plus the Seer AI add-on",
         competitorCost: "$200-500+/mo as event volume grows",
-        oneuptimeSolution:
-          "Cast Operations OpenTelemetry ingestion billed by data volume with a generous free allowance",
-        oneuptimeCost: "~$0.10 per GB ingested",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -8985,9 +9007,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Sentry covers errors and telemetry only, so uptime, status page, on-call, and incident tools are bought separately",
         competitorCost: "$80/mo Sentry + three or four more tools",
-        oneuptimeSolution:
-          "Cast Operations delivers the entire stack in one platform, self-hosted free or on a predictable managed tier",
-        oneuptimeCost: "One platform, ~$99/mo Growth",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -9022,9 +9044,9 @@ const products: Dictionary<Product> = {
         icon: "monitoring",
       },
       {
-        title: "Predictable pricing",
+        title: "Complete feature set",
         description:
-          "Sentry bills by event volume with overages and per-user AI add-ons. Cast Operations charges a flat one dollar per active monitor with telemetry at roughly ten cents per GB.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
     ],
@@ -9037,47 +9059,47 @@ const products: Dictionary<Product> = {
             description:
               "Capture and group application exceptions with stack traces.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description:
               "Follow requests across services with OpenTelemetry traces.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Session replay",
             description:
               "Video-like reproductions of user sessions around an error.",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "Code-level profiling",
             description:
               "CPU profiles that pinpoint slow functions line by line.",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "Release health & source maps",
             description:
               "Track regressions across releases with mapped stack traces.",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "AI root-cause assistance",
             description: "AI help to explain errors and suggest fixes.",
             productColumn: "Seer add-on ($40/user)",
-            oneuptimeColumn: "AI SRE",
+            castOperationsColumn: "AI SRE",
           },
           {
             title: "Logs, metrics & dashboards",
             description: "Structured telemetry alongside errors and traces.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -9089,49 +9111,49 @@ const products: Dictionary<Product> = {
             description:
               "Continuously check that public endpoints are reachable.",
             productColumn: "Basic (beta)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description: "Validate API responses, status codes, and payloads.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server & infrastructure metrics",
             description: "Monitor CPU, memory, and disk on hosts.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring",
             description: "Track Docker and Kubernetes workload health.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic & transaction monitoring",
             description: "Scripted multi-step user journeys from probes.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before TLS certificates expire.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron & heartbeat monitoring",
             description: "Detect missed or late scheduled jobs.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Check from multiple regions and private networks.",
             productColumn: "",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
         ],
       },
@@ -9142,50 +9164,50 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Communicate live status and incidents to customers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Internal status views for teams and stakeholders.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "Notify any number of subscribers at no extra cost.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain + free SSL",
             description: "Host the page on your own domain with managed SSL.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding & CSS",
             description:
               "Match the page to your brand with custom HTML/CSS/JS.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Announce planned maintenance windows in advance.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Reflect monitor state on the page automatically.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notifications",
             description: "Email, SMS, webhook, RSS, Slack, and Teams updates.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -9196,49 +9218,49 @@ const products: Dictionary<Product> = {
             title: "On-call schedules & rotations",
             description: "Daily, weekly, and custom rotation schedules.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate unacknowledged alerts up the chain.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides & vacation",
             description: "Temporary schedule overrides for time off.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Follow-the-sun coverage",
             description: "Hand off on-call across regions and time zones.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS alerts",
             description: "Notify responders by text message.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone call / voice alerts",
             description: "Escalate critical alerts via phone call.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack & Microsoft Teams alerts",
             description: "Route notifications into chat channels.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Email alerts",
             description: "Send alert notifications by email.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -9249,49 +9271,49 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "A chronological record of everything that happened.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severity levels",
             description: "Classify incidents by impact and urgency.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured post-incident reviews and reports.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items",
             description: "Track follow-up tasks to prevent recurrence.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Documented response procedures for responders.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack & Teams collaboration",
             description: "Coordinate incident response inside chat.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolve across incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Auto-create incidents from monitors",
             description: "Open incidents automatically when monitors fail.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -9302,49 +9324,49 @@ const products: Dictionary<Product> = {
             title: "Open source license",
             description: "Freely licensed, community-driven codebase.",
             productColumn: "Source-available (FSL)",
-            oneuptimeColumn: "Apache 2.0",
+            castOperationsColumn: "Apache 2.0",
           },
           {
             title: "Self-hostable",
             description: "Run the full platform on your own infrastructure.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable flat pricing",
+            title: "Complete feature set",
             description: "Costs that do not swing with event volume.",
             productColumn: "",
-            oneuptimeColumn: "$1/monitor",
+            castOperationsColumn: "Included",
           },
           {
             title: "SSO / SAML",
             description: "Enterprise single sign-on for access control.",
             productColumn: "Business+",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit logs",
             description: "Track who changed what across the platform.",
             productColumn: "Business+",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Role-based access control",
             description: "Granular permissions by role and team.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API & webhooks",
             description: "Automate and integrate with your own systems.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Workflow automation",
             description: "No-code workflows to react to events.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -9373,10 +9395,11 @@ const products: Dictionary<Product> = {
       {
         question: "How does pricing compare?",
         answer:
-          "Sentry uses usage-based event billing, so costs scale with errors, spans, and replays, and its Seer AI is a $40 per-user add-on. Cast Operations bills active monitors at a flat $1 per month each, ingests telemetry at roughly $0.10 per GB, offers unlimited free static monitors, and has a generous free tier.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "Can I keep using OpenTelemetry if I move to Cast Operations?",
+        question:
+          "Can I keep using OpenTelemetry if I move to Cast Operations?",
         answer:
           "Yes. Cast Operations is OpenTelemetry-native for logs, metrics, and traces, so you can point your existing instrumentation at it without adopting a proprietary SDK.",
       },
@@ -9391,26 +9414,26 @@ const products: Dictionary<Product> = {
     productName: "AppDynamics",
     iconUrl: "/img/appdynamics.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One open-source unified platform vs a heavyweight, per-core APM agent",
     competitorFocus:
       "AppDynamics specializes in deep, agent-based application performance monitoring for large enterprises, but leaves customer status pages, on-call scheduling, and incident response to separate tools.",
-    oneuptimeFocus:
-      "Cast Operations unifies monitoring, OpenTelemetry, status pages, on-call, and incident management in one open-source platform with flat per-monitor pricing.",
+    castOperationsFocus:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "AppDynamics, now part of Cisco and Splunk, is an enterprise APM and business performance monitoring suite that instruments applications with proprietary agents for code-level transaction tracing, database visibility, and Business iQ analytics. It excels at deep, agent-based visibility into large Java, .NET, and cloud applications. It is licensed per CPU core, sold through enterprise sales, and does not include customer status pages, on-call rotations, or built-in incident management.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source (Apache 2.0), self-hostable reliability platform that combines uptime monitoring, OpenTelemetry logs, metrics and traces, public status pages, on-call scheduling, and incident management in one place. It uses open standards instead of proprietary agents, so you keep your existing instrumentation. Active monitors are billed at a flat $1 per month, telemetry ingestion is about $0.10 per GB, and self-hosting is free.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "AppDynamics gives you deep, code-level insight into application performance, but it is a single-purpose, agent-based APM tool priced per CPU core and aimed squarely at large enterprises. To cover the rest of reliability you still need a separate status page product, a separate paging tool, and a separate incident workflow. Cast Operations takes a different approach: one open-source platform that spans monitoring, telemetry, status pages, on-call, and incident response. Instead of licensing every core across your fleet, you pay a flat $1 per active monitor with no per-check tiers or caps.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "Keep your OpenTelemetry instrumentation, drop the proprietary agents and per-core bill, and consolidate three or four tools into one predictable platform you can self-host for free.",
     migrationBenefits: [
       "Consolidate APM, uptime monitoring, status pages, on-call, and incident management into one platform instead of stitching AppDynamics to Statuspage.io and PagerDuty.",
-      "Replace per-CPU-core licensing that grows with every host and core with predictable, flat $1-per-month active monitors and no caps.",
+      "The complete feature set is available in every deployment.",
       "Keep your existing OpenTelemetry instrumentation with no proprietary bytecode agents to install, tune, or maintain.",
       "Own your stack by self-hosting the Apache 2.0 codebase for free, or use managed cloud, with no vendor lock-in.",
       "Publish public and private status pages with unlimited subscribers, something AppDynamics does not offer at all.",
@@ -9493,9 +9516,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "AppDynamics Premium APM across roughly 30 CPU cores, plus a separate status page product and a separate paging tool",
         competitorCost: "~$990/mo APM plus extra tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "OpenTelemetry traces and metrics, uptime monitors, a branded status page, and on-call all in one plan",
-        oneuptimeCost: "~$99/mo (Growth)",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -9503,9 +9526,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "AppDynamics Enterprise at $50 per core, plus Statuspage Business and a PagerDuty plan per user",
         competitorCost: "$5,000+/mo combined",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Around 200 active monitors, telemetry ingestion, unlimited status page subscribers, and on-call in one platform",
-        oneuptimeCost: "~$300-$500/mo",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -9513,9 +9536,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "AppDynamics on-premises, still licensed per CPU core with heavyweight agents and a paid contract",
         competitorCost: "Custom, per-core license",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Self-host the Apache 2.0 platform on your own infrastructure with the full feature set",
-        oneuptimeCost: "$0 license (self-host)",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -9532,9 +9555,9 @@ const products: Dictionary<Product> = {
         icon: "open-source",
       },
       {
-        title: "Flat per-monitor vs per-CPU-core pricing",
+        title: "Deployment model",
         description:
-          "AppDynamics charges $33 to $50 per CPU core every month, so the bill grows with every host you add. Cast Operations charges a flat $1 per active monitor with no per-check tiers or caps.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
       {
@@ -9552,7 +9575,7 @@ const products: Dictionary<Product> = {
       {
         title: "Predictable, transparent cost",
         description:
-          "Cast Operations publishes a generous free tier and simple tiers with self-hosting free. AppDynamics requires enterprise sales, quotes per core, and adds separate charges for RUM and security.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "transparent",
       },
     ],
@@ -9564,44 +9587,44 @@ const products: Dictionary<Product> = {
             title: "Code-level transaction tracing",
             description: "Trace requests through application code paths.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "Follow requests across services and hops.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic code diagnostics",
             description: "Deep bytecode-level call graphs and snapshots.",
             productColumn: "tick",
-            oneuptimeColumn: "Via OpenTelemetry",
+            castOperationsColumn: "Via OpenTelemetry",
           },
           {
             title: "Business performance monitoring",
             description:
               "Correlate app health with business KPIs (Business iQ).",
             productColumn: "Enterprise only",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "Database query visibility",
             description: "Slow query and remote service monitoring.",
             productColumn: "tick",
-            oneuptimeColumn: "Via OpenTelemetry",
+            castOperationsColumn: "Via OpenTelemetry",
           },
           {
             title: "Error and exception tracking",
             description: "Capture and group application exceptions.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Instrumentation model",
             description: "How code is instrumented for telemetry.",
             productColumn: "Proprietary agents",
-            oneuptimeColumn: "Open standard",
+            castOperationsColumn: "Open standard",
           },
         ],
       },
@@ -9612,49 +9635,49 @@ const products: Dictionary<Product> = {
             title: "Website and URL monitoring",
             description: "Check availability and response of web endpoints.",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description: "Validate API endpoints and payloads.",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and transaction monitoring",
             description: "Scripted browser and multi-step checks.",
             productColumn: "Add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron and heartbeat monitoring",
             description: "Detect missed scheduled jobs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server and infrastructure monitoring",
             description: "CPU, memory, and disk for hosts.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container and Kubernetes monitoring",
             description: "Visibility into containers and clusters.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Check from multiple regions worldwide.",
             productColumn: "Add-on",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
         ],
       },
@@ -9665,43 +9688,43 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Customer-facing uptime and incident pages.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Internal or authenticated status pages.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "Notify any number of subscribers.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain and free SSL",
             description: "Host on your own domain with SSL.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS",
             description: "Fully brand and style the page.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Publish planned maintenance windows.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Push monitor status to the page automatically.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -9712,43 +9735,43 @@ const products: Dictionary<Product> = {
             title: "Health-rule alerting",
             description: "Threshold and baseline-based alerts.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-call rotations",
             description: "Daily, weekly, and custom rotations.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate unacknowledged alerts.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS and phone call alerts",
             description: "Reach responders by SMS and voice.",
             productColumn: "Via integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams alerts",
             description: "Notify chat channels on alerts.",
             productColumn: "Via integration",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and vacation",
             description: "Temporary schedule overrides.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Follow-the-sun scheduling",
             description: "Rotate coverage across time zones.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -9759,43 +9782,43 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Track events across an incident lifecycle.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities and states",
             description: "Classify and manage incident severity.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured post-incident reviews.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items and runbooks",
             description: "Track follow-ups and response steps.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams incident collaboration",
             description: "Coordinate response in chat.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolution.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "AI-assisted analysis",
             description: "AI anomaly detection and assistance.",
             productColumn: "tick",
-            oneuptimeColumn: "AI SRE",
+            castOperationsColumn: "AI SRE",
           },
         ],
       },
@@ -9806,49 +9829,49 @@ const products: Dictionary<Product> = {
             title: "Open source (Apache 2.0)",
             description: "Inspect and extend the source code.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hostable for free",
             description: "Run the full platform on your own infra.",
             productColumn: "Paid on-prem",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable flat pricing",
+            title: "Complete feature set",
             description: "Simple, published per-unit cost.",
             productColumn: "",
-            oneuptimeColumn: "$1/monitor",
+            castOperationsColumn: "Included",
           },
           {
-            title: "Free tier",
+            title: "Complete feature set",
             description: "Start without a sales contract.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO / SAML",
             description: "Enterprise single sign-on.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "RBAC and audit logs",
             description: "Role-based access and audit trails.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API and webhooks",
             description: "Automate and integrate programmatically.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Compliance (SOC 2, ISO 27001, GDPR)",
             description: "Recognized security and privacy compliance.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -9861,9 +9884,9 @@ const products: Dictionary<Product> = {
       },
       {
         question:
-          "How does Cast Operations pricing compare to AppDynamics per-CPU-core licensing?",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         answer:
-          "AppDynamics is licensed per CPU core, roughly $33 per core for Premium APM and $50 per core for Enterprise, billed annually, so your cost rises with every host and core you add. Cast Operations charges a flat $1 per month per active monitor with no per-check tiers or caps, telemetry ingestion is about $0.10 per GB, and self-hosting is free.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does AppDynamics include status pages and on-call?",
@@ -9882,9 +9905,10 @@ const products: Dictionary<Product> = {
           "Yes, and it is free. Cast Operations is open source under Apache 2.0 and can be self-hosted on your own infrastructure with the full feature set, so you pay only for the compute you run. AppDynamics on-premises is still a paid, per-core licensed product.",
       },
       {
-        question: "Is Cast Operations enterprise-ready for security and compliance?",
+        question:
+          "Is Cast Operations enterprise-ready for security and compliance?",
         answer:
-          "Yes. Cast Operations provides SSO and SAML, role-based access control, and audit logs, and it is SOC 2 Type II, ISO 27001, and GDPR compliant. Enterprise plans and support are available alongside the free and self-hosted options.",
+          "Yes. Cast Operations provides SSO and SAML, role-based access control, and audit logs in every deployment. Contracted support is available for managed and private installations.",
       },
       {
         question: "What do teams gain by consolidating onto Cast Operations?",
@@ -9897,26 +9921,26 @@ const products: Dictionary<Product> = {
     productName: "Elastic Observability",
     iconUrl: "/img/elastic-stack.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One unified reliability platform vs a data-heavy observability stack",
     competitorFocus:
       "Elastic Observability specializes in ELK-based logs, metrics, and APM at scale, but it stops at telemetry and leaves status pages, on-call, and incident workflows to other tools.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, OpenTelemetry logs/metrics/traces, status pages, on-call, and incident management in a single open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Elastic Observability is built on the Elasticsearch and Kibana stack, offering powerful and flexible log analytics, metrics, APM, and search across large volumes of telemetry. It is highly capable but operationally heavy, requiring cluster sizing, shard and index management, and careful data-volume governance to control cost. Pricing is consumption-based on ingest and retention, so bills scale with the amount of data you send.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source (Apache 2.0), self-hostable reliability platform that combines uptime and infrastructure monitoring, OpenTelemetry-native logs, metrics, and traces, public and private status pages, on-call scheduling, and incident management in one place. Active monitors are billed a flat 1 dollar per month and telemetry ingestion is roughly 0.10 dollars per GB, so costs stay predictable. Self-hosting is completely free.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Elastic Observability is a strong choice when your primary need is deep, search-driven log and APM analytics, and you have the engineering capacity to run and tune the underlying Elasticsearch clusters. But observability is only half of reliability. Elastic has no built-in status pages, on-call rotations, escalation policies, or incident management, so teams end up bolting on separate tools for the workflows that actually resolve outages. Cast Operations brings monitoring, telemetry, status pages, on-call, and incident response together in one open-source platform.",
     descriptionLine2:
       "Instead of paying rising, data-volume-based bills and stitching Elastic to PagerDuty, Statuspage, and an incident tool, you get one predictable platform with flat 1 dollar per month monitors and free self-hosting.",
     migrationBenefits: [
       "Replace a logs-and-APM-only stack with a unified platform that also covers status pages, on-call, and incident management",
-      "Swap consumption-based ingest and retention billing for predictable flat 1 dollar per month active monitors and roughly 0.10 dollars per GB telemetry",
+      "The complete feature set is available in every deployment.",
       "Keep OpenTelemetry-native logs, metrics, and traces without vendor-specific agents or lock-in",
       "Eliminate the operational burden of sizing, scaling, and tuning Elasticsearch clusters and shards",
       "Publish unlimited-subscriber status pages with a custom domain and free SSL that Elastic does not offer",
@@ -9995,10 +10019,10 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Elastic Observability for logs and APM, plus separate tools for status pages and on-call",
         competitorCost:
-          "Elastic consumption billing plus extra status page and paging subscriptions",
-        oneuptimeSolution:
+          "Elastic consumption costs plus extra status page and paging subscriptions",
+        castOperationsSolution:
           "Cast Operations for monitors, status page, on-call, incidents, and telemetry in one platform",
-        oneuptimeCost: "Generous free tier, then ~$1/month per active monitor",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -10007,10 +10031,9 @@ const products: Dictionary<Product> = {
           "Elastic Observability Complete on serverless with retention and egress",
         competitorCost:
           "Roughly $9+/month in ingest alone plus retention, egress, and add-ons that grow with volume",
-        oneuptimeSolution:
-          "Cast Operations OpenTelemetry ingestion plus flat-priced monitors and included reliability workflows",
-        oneuptimeCost:
-          "~$0.10/GB ingested plus ~$1/month per monitor, or free self-hosted",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -10019,9 +10042,9 @@ const products: Dictionary<Product> = {
           "Self-managed Elastic clusters that the team sizes, scales, and tunes in-house",
         competitorCost:
           "Free license but significant engineering and infrastructure operating cost",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Self-hosted Cast Operations under Apache 2.0 with monitoring, status, on-call, and incidents built in",
-        oneuptimeCost: "$0 in license fees, fully self-hosted",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -10034,7 +10057,7 @@ const products: Dictionary<Product> = {
       {
         title: "Truly permissive open source",
         description:
-          "Cast Operations is Apache 2.0 and free to self-host, while Elastic's core is AGPL/SSPL with many observability features gated behind paid Elastic tiers.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "open-source",
       },
       {
@@ -10056,9 +10079,9 @@ const products: Dictionary<Product> = {
         icon: "incident",
       },
       {
-        title: "Predictable pricing",
+        title: "Complete feature set",
         description:
-          "Cast Operations charges a flat $1/month per active monitor and ~$0.10/GB telemetry. Elastic bills on ingest, retention, and egress, so costs rise with data volume.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
     ],
@@ -10071,46 +10094,46 @@ const products: Dictionary<Product> = {
             description:
               "Collect, index, and search application and infrastructure logs.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Ingest and visualize time-series metrics.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing / APM",
             description:
               "Trace requests across services to find latency and errors.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry-native",
             description:
               "First-class support for OpenTelemetry data without proprietary agents.",
             productColumn: "Supported",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Dashboards",
             description: "Build custom dashboards over telemetry data.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception / error tracking",
             description: "Capture and group application exceptions and errors.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "No cluster or shard management",
             description:
               "Avoid sizing, scaling, and tuning search clusters yourself.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -10121,44 +10144,44 @@ const products: Dictionary<Product> = {
             title: "Website / URL monitoring",
             description: "Check that public endpoints stay up and fast.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description: "Validate API responses, status codes, and payloads.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic / transaction monitoring",
             description: "Run scripted browser and multi-step checks.",
             productColumn: "Add-on (paid)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server / infrastructure monitoring",
             description: "Track CPU, memory, and disk on hosts.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron / heartbeat monitoring",
             description: "Detect missed scheduled jobs and background tasks.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description:
               "Check availability from multiple regions plus private probes.",
             productColumn: "Synthetics locations",
-            oneuptimeColumn: "7+ regions",
+            castOperationsColumn: "7+ regions",
           },
         ],
       },
@@ -10169,44 +10192,44 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Communicate uptime and incidents to customers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description:
               "Restrict status to internal or authenticated audiences.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "Notify any number of subscribers at no extra cost.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain and free SSL",
             description: "Host the status page on your own domain with SSL.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS/JS",
             description: "Match the status page to your brand.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Announce planned maintenance windows in advance.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Reflect monitor status on the page automatically.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -10217,44 +10240,44 @@ const products: Dictionary<Product> = {
             title: "Alerting on telemetry",
             description: "Trigger alerts from logs, metrics, and thresholds.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-call rotations",
             description: "Schedule daily, weekly, or custom rotations.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description:
               "Escalate unacknowledged alerts to the next responder.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and vacation",
             description: "Swap shifts and cover time off cleanly.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS and phone call alerts",
             description: "Reach responders via SMS and voice, not just email.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams alerts",
             description: "Deliver alerts into team chat channels.",
             productColumn: "Webhook only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Follow-the-sun scheduling",
             description: "Route alerts across global teams by time zone.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -10265,37 +10288,37 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Track the full lifecycle of each incident.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities and prioritization",
             description: "Classify incidents by impact and urgency.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Document root cause and lessons learned.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items and runbooks",
             description: "Assign follow-ups and link response playbooks.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack / Teams incident collaboration",
             description: "Coordinate response directly in chat.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure and improve time to resolution.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -10306,59 +10329,60 @@ const products: Dictionary<Product> = {
             title: "Open source license",
             description: "Freely inspect, modify, and self-host the platform.",
             productColumn: "AGPL / SSPL",
-            oneuptimeColumn: "Apache 2.0",
+            castOperationsColumn: "Apache 2.0",
           },
           {
-            title: "Free self-hosting",
+            title: "Self-hosting",
             description:
               "Run the full product on your own infrastructure at no license cost.",
             productColumn: "Core only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable flat pricing",
+            title: "Complete feature set",
             description:
               "Avoid bills that scale with data ingest and retention.",
             productColumn: "",
-            oneuptimeColumn: "$1/monitor/mo",
+            castOperationsColumn: "Included",
           },
           {
             title: "REST API and webhooks",
             description: "Automate and integrate with your own systems.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Workflow automation",
             description: "Build automated responses and integrations.",
             productColumn: "Usage-based",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO/SAML, RBAC, audit logs",
             description: "Enterprise access control and governance.",
             productColumn: "Higher tiers",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2, ISO 27001, GDPR",
             description: "Recognized security and compliance posture.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
     ],
     faq: [
       {
-        question: "Is Cast Operations a full replacement for Elastic Observability?",
+        question:
+          "Is Cast Operations a full replacement for Elastic Observability?",
         answer:
           "For most teams, yes. Cast Operations provides OpenTelemetry-native logs, metrics, traces, dashboards, and exception tracking, and it adds monitoring, status pages, on-call, and incident management that Elastic does not include. If your primary need is extremely deep, search-heavy log analytics at very large scale, Elastic's search engine is more specialized, but Cast Operations covers the full reliability workflow in one platform.",
       },
       {
-        question: "How does pricing compare between Cast Operations and Elastic?",
+        question: "How do deployment costs compare?",
         answer:
-          "Elastic Observability bills on consumption, charging separately for ingest, retention, and egress, so your bill grows with data volume. Cast Operations charges a flat 1 dollar per month per active monitor and roughly 0.10 dollars per GB for telemetry ingestion, with a generous free tier and free self-hosting, making costs far more predictable.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question:
@@ -10369,12 +10393,12 @@ const products: Dictionary<Product> = {
       {
         question: "Is Cast Operations really open source?",
         answer:
-          "Yes. Cast Operations is licensed under the permissive Apache 2.0 license and can be fully self-hosted for free. Elastic's core is now available under AGPLv3 and SSPL, but many observability features remain gated behind paid Elastic tiers, and AGPL is a more restrictive copyleft license than Apache 2.0.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "How hard is it to operate compared with Elastic?",
         answer:
-          "Running Elastic yourself means sizing clusters, managing shards and indices, and tuning for performance and cost, which is a meaningful ongoing engineering burden. Cast Operations is designed to be simpler to self-host and also offers a fully managed cloud, so you can avoid cluster operations entirely.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I migrate my OpenTelemetry data to Cast Operations?",
@@ -10393,25 +10417,25 @@ const products: Dictionary<Product> = {
     productName: "Site24x7",
     iconUrl: "/img/site24x7.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One open-source platform vs a monitoring suite with add-on sprawl",
     competitorFocus:
       "Site24x7 is a broad Zoho ManageEngine monitoring suite spanning uptime, APM, infrastructure, network, and real user monitoring, but with a dated console and shallow on-call and incident depth.",
-    oneuptimeFocus:
-      "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry observability in one open-source platform with predictable per-monitor pricing.",
+    castOperationsFocus:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Site24x7 is an all-in-one monitoring product from Zoho's ManageEngine division, covering website uptime, application performance monitoring, server and network infrastructure, and real user monitoring. It is a mature, feature-broad suite, but its console feels dated and its cost is built around a base plan plus many separate add-ons for host monitors, advanced monitors, logs, synthetic runs, and RUM page views. Incident response and on-call scheduling are comparatively shallow, and the platform is closed source with no self-host option.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, Apache 2.0 licensed platform that combines monitoring, status pages, on-call rotations, incident management, and OpenTelemetry-native logs, metrics, and traces in a single app. Active monitors are billed at a flat $1 per month with no per-check tiers or caps, and telemetry ingestion runs about $0.10 per GB. Teams can run it fully hosted or self-host the whole platform for free.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Site24x7 and Cast Operations both promise all-in-one monitoring, but they take very different paths. Site24x7 is a broad, closed-source suite from ManageEngine whose real cost climbs as you stack add-ons for host monitors, advanced monitors, logs, synthetic runs, and RUM page views. Cast Operations is open source and delivers comparable monitoring breadth alongside far deeper on-call and incident management, plus OpenTelemetry-native observability. Pricing is a predictable flat $1 per active monitor per month, with a generous free tier and free self-hosting.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
-      "If you want monitoring plus real incident response and status pages without maintaining an add-on spreadsheet, Cast Operations gives you one platform at one predictable price.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     migrationBenefits: [
-      "Replace Site24x7's add-on maze with a flat $1 per month per active monitor, with no separate host, advanced, network, or synthetic add-ons.",
+      "The complete feature set is available in every deployment.",
       "Get unlimited status page subscribers with free custom domains and SSL, instead of 250-subscriber caps and per-page add-on packs.",
       "Own your stack with Cast Operations’ Apache 2.0 open-source, self-hostable platform and avoid closed-source vendor lock-in.",
       "Gain deeper incident management including postmortems, action items, runbooks, and MTTR analytics that Site24x7 does not match.",
@@ -10492,9 +10516,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Site24x7 Professional plus basic and host monitor add-ons, plus a separate StatusIQ page",
         competitorCost: "~$90+/month with add-ons",
-        oneuptimeSolution:
-          "50 active monitors at $1 each with a status page included",
-        oneuptimeCost: "~$50/month",
+        castOperationsSolution:
+          "The complete feature set is available in every deployment.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -10502,9 +10526,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Site24x7 alerting with basic on-call schedules; postmortems and runbooks handled in external tools",
         competitorCost: "Higher tier plus third-party tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Built-in multi-level escalation, rotations, overrides, postmortems, runbooks, and MTTR analytics",
-        oneuptimeCost: "Included at $1 per monitor",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -10512,9 +10536,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Site24x7 APM plus log ingestion add-ons priced per GB by retention window",
         competitorCost: "Add-on based, scales with GB",
-        oneuptimeSolution:
+        castOperationsSolution:
           "OpenTelemetry-native logs, metrics, and traces in one platform",
-        oneuptimeCost: "~$0.10 per GB ingested",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -10525,15 +10549,15 @@ const products: Dictionary<Product> = {
         icon: "open-source",
       },
       {
-        title: "Predictable flat pricing",
+        title: "Complete feature set",
         description:
-          "Cast Operations charges a flat $1 per active monitor per month, versus Site24x7's base plan plus a stack of host, advanced, log, synthetic, and RUM add-ons.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
       {
         title: "Truly unified platform",
         description:
-          "Monitoring, status pages, on-call, and incident management live in one Cast Operations app, while Site24x7 splits status pages into a separately priced StatusIQ product.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "unified",
       },
       {
@@ -10564,52 +10588,52 @@ const products: Dictionary<Product> = {
             description:
               "Check availability and response of public and internal endpoints.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server and infrastructure monitoring",
             description: "Track CPU, memory, and disk on hosts and VMs.",
             productColumn: "Host add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Application performance monitoring",
             description:
               "Trace application requests and diagnose slow transactions.",
             productColumn: "tick",
-            oneuptimeColumn: "OTel-native",
+            castOperationsColumn: "OTel-native",
           },
           {
             title: "Network device monitoring (SNMP)",
             description: "Poll routers, switches, and network gear over SNMP.",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "Real user monitoring (RUM)",
             description:
               "Measure real browser page-load performance from end users.",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "Synthetic and transaction monitoring",
             description:
               "Script multi-step user journeys from global locations.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container and Kubernetes monitoring",
             description: "Monitor Docker and Kubernetes workloads.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Fastest check interval",
             description: "Minimum time between monitor checks.",
             productColumn: "1 min minimum",
-            oneuptimeColumn: "1s intervals",
+            castOperationsColumn: "1s intervals",
           },
         ],
       },
@@ -10620,49 +10644,49 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Publicly share service health and history.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Restrict visibility with authentication or IP rules.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Included with the platform",
             description: "Status pages bundled rather than sold separately.",
             productColumn: "Separate add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "No cap on the number of status page subscribers.",
             productColumn: "250/page + add-ons",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain with free SSL",
             description: "Host the status page on your own domain with SSL.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS/JS",
             description: "Fully control look and feel of the page.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Announce and track planned maintenance windows.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notifications (email/SMS/Slack/RSS)",
             description: "Notify subscribers across multiple channels.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -10674,44 +10698,44 @@ const products: Dictionary<Product> = {
             description:
               "Reach responders across email, SMS, phone call, and push.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-call rotations",
             description: "Daily, weekly, and custom on-call rotations.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description:
               "Escalate through tiers until an alert is acknowledged.",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and vacation coverage",
             description: "Swap on-call coverage for time off.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Follow-the-sun scheduling",
             description: "Rotate coverage across global time zones.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams alerts",
             description: "Route alerts into team chat channels.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone call and push notifications",
             description: "Wake responders with voice calls and mobile push.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -10722,43 +10746,43 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Chronological record of incident activity.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severity levels",
             description: "Classify incidents by impact and urgency.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured post-incident reviews.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items",
             description: "Track follow-up tasks to closure.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Attach response procedures to incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams incident collaboration",
             description: "Coordinate response in chat channels.",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolution over time.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -10769,43 +10793,43 @@ const products: Dictionary<Product> = {
             title: "Log management",
             description: "Ingest, search, and retain application logs.",
             productColumn: "Add-on (per GB)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Collect and visualize time-series metrics.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed traces",
             description: "Follow requests across services.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry-native ingestion",
             description: "First-class OpenTelemetry logs, metrics, and traces.",
             productColumn: "Limited",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom dashboards",
             description: "Build dashboards across signals.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception and error tracking",
             description: "Capture and group application exceptions.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Telemetry pricing model",
+            title: "Deployment model",
             description: "How log and telemetry ingestion is billed.",
             productColumn: "Tiered add-on",
-            oneuptimeColumn: "~$0.10/GB",
+            castOperationsColumn: "Included",
           },
         ],
       },
@@ -10817,49 +10841,49 @@ const products: Dictionary<Product> = {
             description:
               "Run the full platform yourself under an open license.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Transparent flat pricing",
+            title: "Complete feature set",
             description: "Predictable per-monitor cost without add-on math.",
             productColumn: "Add-on based",
-            oneuptimeColumn: "$1/monitor",
+            castOperationsColumn: "Included",
           },
           {
-            title: "Free tier",
-            description: "Ongoing free usage beyond a trial period.",
+            title: "Complete feature set",
+            description: "All capabilities are available in every deployment.",
             productColumn: "30-day trial",
-            oneuptimeColumn: "Generous free tier",
+            castOperationsColumn: "Included",
           },
           {
-            title: "Unlimited free static monitors",
+            title: "Unlimited static monitors",
             description: "Manual and static monitors at no cost.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO/SAML and RBAC",
             description: "Enterprise identity and role-based access.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit logs",
             description: "Track configuration and access changes.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API and native webhooks",
             description: "Automate and integrate programmatically.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "AI assistance",
             description: "AI-driven detection and copilots.",
             productColumn: "Zia AI",
-            oneuptimeColumn: "AI SRE",
+            castOperationsColumn: "AI SRE",
           },
         ],
       },
@@ -10868,15 +10892,16 @@ const products: Dictionary<Product> = {
       {
         question: "Is Cast Operations a good Site24x7 alternative?",
         answer:
-          "Yes. Cast Operations covers the monitoring breadth most teams use Site24x7 for, including website, server, container, synthetic, SSL, and cron monitoring, and adds deeper on-call, incident management, status pages, and OpenTelemetry observability in one open-source platform with predictable per-monitor pricing.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "How does Cast Operations pricing compare to Site24x7?",
+        question: "How do deployment costs compare?",
         answer:
-          "Cast Operations charges a flat $1 per active monitor per month with unlimited free static monitors and telemetry at roughly $0.10 per GB. Site24x7 starts low but relies on a base plan plus separate add-ons for host monitors, advanced monitors, logs, synthetic runs, and RUM page views, so the real bill grows as you scale.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
-        question: "Does Site24x7 have on-call and escalation like Cast Operations?",
+        question:
+          "Does Site24x7 have on-call and escalation like Cast Operations?",
         answer:
           "Site24x7 offers alerting with basic on-call schedules, but its escalation and rotation capabilities are limited. Cast Operations provides full multi-level escalation policies, daily, weekly, and custom rotations, overrides for time off, and follow-the-sun coverage built in.",
       },
@@ -10886,20 +10911,21 @@ const products: Dictionary<Product> = {
           "No. Site24x7 is a closed-source SaaS product from Zoho's ManageEngine division with no self-host option. Cast Operations is open source under the Apache 2.0 license and can be self-hosted for free or used as a managed cloud service.",
       },
       {
-        question: "Can Cast Operations replace Site24x7's StatusIQ status pages?",
+        question:
+          "Can Cast Operations replace Site24x7's StatusIQ status pages?",
         answer:
-          "Yes. Cast Operations includes public and private status pages with custom domains, free SSL, custom branding, scheduled maintenance, and unlimited subscribers at no extra cost. Site24x7 sells status pages as the separate StatusIQ product with a 250-subscriber cap per page and add-on packs for more.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question:
           "Does Cast Operations support OpenTelemetry logs, metrics, and traces?",
         answer:
-          "Yes. Cast Operations is OpenTelemetry-native, so you can send logs, metrics, and traces directly without proprietary agents, and correlate them with monitors and incidents. Telemetry ingestion is billed at about $0.10 per GB instead of retention-tiered add-ons.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "What does Site24x7 do better than Cast Operations?",
         answer:
-          "Site24x7 has a longer-established suite with deep SNMP network-device monitoring and real user monitoring (RUM) that Cast Operations does not currently offer. If those are core requirements, Site24x7 may fit; if you want unified monitoring, on-call, incidents, and status pages with open-source flexibility and predictable pricing, Cast Operations is the stronger choice.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -10907,25 +10933,25 @@ const products: Dictionary<Product> = {
     productName: "Cronitor",
     iconUrl: "/img/cronitor.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One unified reliability platform vs a focused cron and uptime monitor",
     competitorFocus:
       "Cronitor specializes in developer-friendly cron job, heartbeat, and uptime monitoring, but leaves real on-call scheduling and deep incident management to third-party tools.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry observability in one open-source, self-hostable platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Cronitor is a developer-focused monitoring service best known for its deep, schedule-aware cron job and heartbeat monitoring, alongside website and API uptime checks and hosted status pages. It offers clean analytics and strong alert-routing integrations, but pricing is per-monitor at $2 per month plus per-user charges, and it relies on tools like PagerDuty or Opsgenie for true on-call scheduling and escalation.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, self-hostable reliability platform that combines monitoring, status pages, on-call scheduling, incident management, and OpenTelemetry-based logs, metrics, and traces. Active monitors are a flat $1 per month each with unlimited team members, and you can run it in the managed cloud or on your own infrastructure for free.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Cronitor is an excellent, developer-friendly tool for watching cron jobs, background tasks, and uptime, and its status pages are simple to stand up. But as your team grows you hit its edges: alerts route out to a separate on-call tool, incident management stops at the status page, and per-monitor plus per-user pricing climbs quickly. Cast Operations covers the same cron and uptime monitoring while adding native on-call rotations, full incident management, and OpenTelemetry observability in a single platform. It is open-source, self-hostable, and bills active monitors at a flat $1 each with no per-user fees.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "Instead of stitching Cronitor together with PagerDuty and a separate observability stack, you get one predictable, unified platform you can even host yourself.",
     migrationBenefits: [
-      "Cut per-monitor cost in half with a flat $1 per month per active monitor versus Cronitor's $2, and pay nothing extra per user.",
+      "The complete feature set is available in every deployment.",
       "Get built-in on-call rotations, multi-level escalation, and overrides so you can retire a separate PagerDuty or Opsgenie subscription.",
       "Run full incident management with severities, postmortems, action items, runbooks, and MTTR analytics instead of status-page-only incidents.",
       "Publish status pages with unlimited subscribers, free custom branding, and private pages, with no $25 to $50 per month add-ons or subscriber caps.",
@@ -10977,7 +11003,7 @@ const products: Dictionary<Product> = {
           "Custom monitor and user pricing",
           "Dedicated engineer and priority support",
           "Unlimited status pages",
-          "Flexible invoice billing",
+          "Flexible contract terms",
         ],
         limitations: [
           "Annual contract and custom quote required",
@@ -10993,9 +11019,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Business plan: 50 monitors at $2 each plus per-user charges",
         competitorCost: "~$125/month",
-        oneuptimeSolution:
-          "50 active monitors at $1 each with unlimited team members included",
-        oneuptimeCost: "$50/month",
+        castOperationsSolution:
+          "The complete feature set is available in every deployment.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -11003,9 +11029,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "100 monitors ($200) plus users, branded ($25) and private ($50) page add-ons",
         competitorCost: "~$300/month",
-        oneuptimeSolution:
-          "100 monitors at $1 with branded and private status pages and unlimited subscribers included",
-        oneuptimeCost: "$100/month",
+        castOperationsSolution:
+          "100 monitors with branded and private status pages and unlimited subscribers included",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -11013,9 +11039,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Cronitor for monitoring plus a separate PagerDuty or Opsgenie subscription for on-call",
         competitorCost: "Cronitor + $100+/month add-on tool",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Monitoring, on-call rotations, escalation, and postmortems in one platform",
-        oneuptimeCost: "Included, from $1/monitor",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -11044,9 +11070,9 @@ const products: Dictionary<Product> = {
         icon: "unified",
       },
       {
-        title: "Predictable flat pricing",
+        title: "Complete feature set",
         description:
-          "Cast Operations charges a flat $1 per active monitor with no per-user fees; Cronitor is $2 per monitor plus $5 per user with paid page add-ons.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
       {
@@ -11065,53 +11091,53 @@ const products: Dictionary<Product> = {
             description:
               "Track scheduled jobs and background tasks with alerts when they miss or fail.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Website and API uptime monitoring",
             description:
               "Check availability and response of websites and API endpoints.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Schedule-aware cron analytics",
             description:
               "Cron expression parsing, duration tracking, and exit code categorization.",
             productColumn: "tick",
-            oneuptimeColumn: "Heartbeat-based",
+            castOperationsColumn: "Heartbeat-based",
           },
           {
             title: "Check frequency",
             description: "How often monitors run their checks.",
             productColumn: "30s (paid)",
-            oneuptimeColumn: "1s to 24h",
+            castOperationsColumn: "1s to 24h",
           },
           {
             title: "Server and infrastructure agent",
             description:
               "Monitor CPU, memory, and disk on servers via an agent.",
             productColumn: "Heartbeat only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and transaction monitoring",
             description: "Scripted multi-step browser flows and user journeys.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global and private probe locations",
             description:
               "Run checks from multiple regions and your own private probes.",
             productColumn: "tick",
-            oneuptimeColumn: "7+ and private",
+            castOperationsColumn: "7+ and private",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before TLS certificates expire.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -11123,49 +11149,49 @@ const products: Dictionary<Product> = {
             description:
               "Customer-facing pages fed automatically from monitors.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Internal pages with access control.",
             productColumn: "$50/mo add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom domain and free SSL",
             description: "Host the status page on your own domain with SSL.",
             productColumn: "Branded $25/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and logo",
             description: "Apply your brand to the status page.",
             productColumn: "$25/mo add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom HTML, CSS, and JS",
             description: "Fully customize page markup and styling.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber limit",
             description: "How many people can subscribe to updates.",
             productColumn: "50 to 500 cap",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Component groups and scheduled maintenance",
             description: "Group components and announce maintenance windows.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notification channels",
             description: "How subscribers receive updates.",
             productColumn: "Email and RSS",
-            oneuptimeColumn: "Email/SMS/Slack",
+            castOperationsColumn: "Email/SMS/Slack",
           },
         ],
       },
@@ -11176,49 +11202,49 @@ const products: Dictionary<Product> = {
             title: "Email and Slack alerts",
             description: "Route alerts to email and Slack.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Microsoft Teams alerts",
             description: "Route alerts to Microsoft Teams.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS alerts",
             description: "Send alert notifications by SMS.",
             productColumn: "Paid plan only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone call alerts",
             description: "Escalate to a phone call for critical alerts.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push notification alerts",
             description: "Native mobile push notifications.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-call rotations",
             description: "Daily, weekly, and custom on-call schedules.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate unacknowledged alerts across responders.",
             productColumn: "Via PagerDuty",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and follow-the-sun",
             description: "Vacation overrides and global handoffs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -11229,49 +11255,49 @@ const products: Dictionary<Product> = {
             title: "Status page incidents",
             description: "Create and publish incidents to a status page.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident timelines",
             description: "Chronological record of incident activity.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severity levels",
             description: "Classify incidents by severity.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured post-incident reviews.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items and follow-ups",
             description: "Track remediation tasks after incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Documented response procedures.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams incident collaboration",
             description: "Coordinate response inside chat tools.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR and incident analytics",
             description: "Measure response and resolution performance.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -11282,37 +11308,37 @@ const products: Dictionary<Product> = {
             title: "Log management",
             description: "Ingest, search, and alert on logs.",
             productColumn: "Cron logs only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Store and chart custom metrics.",
             productColumn: "Cron metrics",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "Trace requests across services.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry-native ingestion",
             description: "Send telemetry using OpenTelemetry standards.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Error and exception tracking",
             description: "Capture and group application exceptions.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom dashboards",
             description: "Build dashboards across telemetry data.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -11323,49 +11349,49 @@ const products: Dictionary<Product> = {
             title: "Open source (Apache 2.0)",
             description: "Source-available under a permissive license.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hostable",
             description: "Run the full platform on your own infrastructure.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Per-monitor price",
             description: "Cost of an active monitor.",
             productColumn: "$2/monitor/mo",
-            oneuptimeColumn: "$1/monitor/mo",
+            castOperationsColumn: "Included",
           },
           {
             title: "Per-user charges",
             description: "Cost per additional team member.",
             productColumn: "$5/user/mo",
-            oneuptimeColumn: "Unlimited free",
+            castOperationsColumn: "Unlimited free",
           },
           {
             title: "SSO and SAML",
             description: "Enterprise single sign-on.",
             productColumn: "$5/user/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Workflow automation",
             description: "No-code automation and workflows.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API and webhooks",
             description: "Programmatic access and native webhooks.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2 and ISO 27001",
             description: "Security and compliance certifications.",
             productColumn: "SOC 2",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -11374,7 +11400,7 @@ const products: Dictionary<Product> = {
       {
         question: "Is Cast Operations a good alternative to Cronitor?",
         answer:
-          "Yes. Cast Operations covers the cron job, heartbeat, website, and API monitoring Cronitor is known for, and adds native on-call scheduling, full incident management, and OpenTelemetry observability in one platform. It is open-source and self-hostable, with active monitors billed at a flat $1 per month and no per-user fees.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question:
@@ -11383,9 +11409,9 @@ const products: Dictionary<Product> = {
           "Yes. Cast Operations supports cron and heartbeat monitoring so you get alerted when a scheduled job fails to check in or runs late. It also adds server, container, synthetic, SSL, and port monitoring so you can consolidate more of your stack in one place.",
       },
       {
-        question: "How does Cast Operations pricing compare to Cronitor?",
+        question: "How do deployment costs compare?",
         answer:
-          "Cronitor charges $2 per monitor per month plus $5 per user, with paid add-ons for branded and private status pages. Cast Operations charges a flat $1 per active monitor per month with unlimited team members and status pages included, which typically cuts the bill roughly in half at the same monitor count.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Cronitor include on-call scheduling and escalation?",
@@ -11393,19 +11419,20 @@ const products: Dictionary<Product> = {
           "No. Cronitor routes alerts to channels like Slack, email, PagerDuty, and Opsgenie, but it does not manage who is on call or escalate unacknowledged alerts, so teams pair it with a separate on-call tool. Cast Operations includes on-call rotations, multi-level escalation, and overrides natively.",
       },
       {
-        question: "What incident management does Cast Operations add over Cronitor?",
+        question:
+          "What incident management does Cast Operations add over Cronitor?",
         answer:
           "Cronitor incidents live on the status page for communication. Cast Operations adds severities, timelines, postmortems, action items, runbooks, Slack and Teams collaboration, and MTTR analytics so you can run the full incident lifecycle in one tool.",
       },
       {
         question: "Are there limits on status page subscribers?",
         answer:
-          "Cronitor caps status page subscribers at 50 on the free plan and 500 on Business, with charges for more. Cast Operations status pages support unlimited subscribers, plus a custom domain, free SSL, custom branding, and private pages at no extra add-on cost.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I self-host Cast Operations?",
         answer:
-          "Yes. Cast Operations is open-source under the Apache 2.0 license and can be self-hosted on your own infrastructure for free, giving you full control of your data. You can also use the managed cloud with the same predictable, transparent pricing. Cronitor is a closed-source SaaS with no self-hosting option.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -11413,23 +11440,23 @@ const products: Dictionary<Product> = {
     productName: "Healthchecks.io",
     iconUrl: "/img/healthchecks.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One unified reliability platform vs a single-purpose cron monitor",
     competitorFocus:
       "Healthchecks.io specializes in cron-job and scheduled-task monitoring using a dead-man's-switch model, and does nothing beyond it.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations covers cron and heartbeat monitoring plus uptime, infrastructure, status pages, on-call, and incident management in one platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Healthchecks.io is an open-source, self-hostable service for monitoring cron jobs and scheduled tasks. Each job sends a periodic HTTP ping, and if a ping is late or missing, Healthchecks.io alerts you through channels like email, Slack, SMS, or PagerDuty. It is purpose-built for backups, batch scripts, and background workers, but does not do uptime, infrastructure, or synthetic monitoring.",
-    oneUptimeDescription:
+    operationsDescription:
       "Cast Operations is an open-source, Apache 2.0 platform that unifies monitoring, status pages, on-call, incident management, and OpenTelemetry-native telemetry. It includes the same cron and heartbeat monitoring Healthchecks.io offers, plus website, API, server, container, synthetic, and SSL monitoring. Teams replace several point tools with one predictable, self-hostable system.",
     description:
       "Healthchecks.io is excellent at one narrow job: telling you when a scheduled task fails to run. But cron monitoring is only a slice of reliability, and Healthchecks.io has no uptime monitoring, status pages, on-call scheduling, or incident management. Cast Operations includes the same dead-man's-switch heartbeat monitoring and then covers everything Healthchecks.io leaves out. You get one open-source platform instead of stitching together several tools.",
     descriptionLine2:
-      "Keep your cron alerts and gain uptime and infrastructure monitoring, public status pages, escalation policies, and postmortems, all under one predictable price of $1 per active monitor.",
+      "The complete feature set is available in every deployment.",
     migrationBenefits: [
       "Keep your dead-man's-switch cron and heartbeat checks with the same ping-based workflow you already use.",
       "Add website, API, server, container, synthetic, and SSL monitoring that Healthchecks.io does not offer.",
@@ -11518,9 +11545,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Business plan for the cron checks, plus separate uptime and status-page tools bolted on",
         competitorCost: "$20/mo for Healthchecks.io plus extra tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "40 active monitors covering cron, heartbeat, and website uptime, with a built-in status page",
-        oneuptimeCost: "$40/mo, status page included",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -11528,9 +11555,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Business plan with capped 50 SMS and 20 call credits, plus a separate on-call tool like PagerDuty",
         competitorCost: "$20/mo plus PagerDuty seats",
-        oneuptimeSolution:
+        castOperationsSolution:
           "80 active monitors with built-in on-call rotations, escalation, SMS, and phone-call alerts",
-        oneuptimeCost: "$80/mo, on-call included",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -11538,9 +11565,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Business Plus plan for the checks, plus separate infrastructure monitoring and incident tools",
         competitorCost: "$80/mo plus multiple add-on tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "300 active monitors across cron, infra, and services with incidents and telemetry in one platform",
-        oneuptimeCost: "$300/mo at $1/monitor, or self-host free",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -11575,9 +11602,9 @@ const products: Dictionary<Product> = {
         icon: "incident",
       },
       {
-        title: "Predictable flat pricing",
+        title: "Complete feature set",
         description:
-          "Cast Operations charges a flat $1 per active monitor with no per-check tiers or capped SMS and call credits.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
     ],
@@ -11589,50 +11616,50 @@ const products: Dictionary<Product> = {
             title: "Dead-man's-switch heartbeat checks",
             description: "Alert when a scheduled job stops pinging on time.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Crontab schedule expressions",
             description: "Define expected run schedules with cron syntax.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Grace time and late detection",
             description: "Allow expected slack before flagging a job as late.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Start, success, and fail signals",
             description:
               "Measure execution time and capture failures via pings.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Ping / heartbeat API",
             description: "Simple HTTP URL each job calls to report its status.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Log capture per ping",
             description: "Attach output or diagnostics to each recorded ping.",
             productColumn: "100-1000 entries",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Status badges",
             description: "Embeddable badges showing a check's current state.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Check states (up/late/down/paused)",
             description: "Track lifecycle states for each monitored job.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -11644,49 +11671,49 @@ const products: Dictionary<Product> = {
             description:
               "Check that public endpoints are reachable and healthy.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description: "Validate API responses, status codes, and payloads.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server / infrastructure metrics",
             description: "Monitor CPU, memory, and disk on your servers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring (Docker/K8s)",
             description: "Track health of containerized workloads.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic / transaction monitoring",
             description: "Script multi-step user flows to catch regressions.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Port and ping monitoring",
             description: "Check TCP ports and network reachability.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Test from multiple regions plus private probes.",
             productColumn: "",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
         ],
       },
@@ -11697,44 +11724,44 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Communicate real-time status to customers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Restricted status pages for internal audiences.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "Notify any number of subscribers at no extra cost.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain with free SSL",
             description: "Host the status page on your own domain.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS/JS",
             description: "Fully style the status page to match your brand.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance events",
             description: "Publish planned maintenance windows.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description:
               "Status pages reflect live monitor state automatically.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -11745,49 +11772,49 @@ const products: Dictionary<Product> = {
             title: "Email notifications",
             description: "Send alerts to email recipients.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS alerts",
             description: "Deliver alerts by text message.",
             productColumn: "Capped credits",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone-call alerts",
             description: "Escalate with voice calls.",
             productColumn: "Capped credits",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams alerts",
             description: "Post alerts into team chat channels.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push notifications",
             description: "Mobile push alerts to responders.",
             productColumn: "Via Pushover/ntfy",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-call rotations",
             description: "Daily, weekly, or custom schedules for responders.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate to the next responder if unacknowledged.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and follow-the-sun",
             description: "Handle vacations and global on-call coverage.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -11798,37 +11825,37 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Track a chronological record of each incident.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severity levels",
             description: "Classify incidents by impact and urgency.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Document root cause and follow-up after incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items and runbooks",
             description: "Assign follow-ups and link operational runbooks.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack/Teams incident collaboration",
             description: "Coordinate response directly in chat.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolution and trends.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -11839,49 +11866,49 @@ const products: Dictionary<Product> = {
             title: "Open source and self-hostable",
             description: "Run the platform on your own infrastructure.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API",
             description: "Programmatically manage resources.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Native webhooks",
             description: "Send events to external systems.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO / SAML",
             description: "Enterprise single sign-on for teams.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Role-based access control",
             description: "Granular permissions across the platform.",
             productColumn: "Read/read-write",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Telemetry (logs, metrics, traces)",
             description: "OpenTelemetry-native observability data.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit logs",
             description: "Track user and system actions for compliance.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Flat per-monitor pricing",
+            title: "Deployment model",
             description: "Predictable cost that does not tier by check count.",
             productColumn: "Tiered by checks",
-            oneuptimeColumn: "$1/monitor",
+            castOperationsColumn: "Included",
           },
         ],
       },
@@ -11902,12 +11929,12 @@ const products: Dictionary<Product> = {
         question:
           "Is Cast Operations open source and self-hostable like Healthchecks.io?",
         answer:
-          "Yes. Cast Operations is Apache 2.0 licensed and fully self-hostable at no cost, just like Healthchecks.io's BSD-licensed code. The difference is scope: Cast Operations is a complete reliability platform rather than a single-purpose cron monitor.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "How does pricing compare?",
         answer:
-          "Healthchecks.io charges tiered plans by check count, from Free with 20 checks to Business Plus at $80 per month for 1,000 checks, with capped SMS and phone-call credits. Cast Operations charges a flat $1 per active monitor, keeps manual monitors free, and bundles status pages, on-call, and incidents at no extra cost.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can I get SMS and phone-call alerts without credit caps?",
@@ -11932,29 +11959,29 @@ const products: Dictionary<Product> = {
     productName: "Instatus",
     iconUrl: "/img/instatus.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "One unified reliability platform vs a fast but single-purpose status page tool",
     competitorFocus:
       "Instatus specializes in fast, inexpensive, beautifully designed hosted status pages, but leaves deep monitoring and full observability to other tools.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces in one open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Instatus is a hosted status page provider known for some of the fastest-loading, cleanest status pages on the market and flat pricing with no per-seat fees. It has since added basic uptime monitoring, on-call, and incident communication, making it a solid choice for teams that mainly need to keep customers informed during outages. However, it stops short of the deep monitoring and observability an engineering team needs to actually detect and diagnose those outages.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, Apache 2.0 licensed reliability platform that combines monitoring, status pages, on-call, incident management, and OpenTelemetry-based logs, metrics, and traces. Every status page includes unlimited subscribers, and active monitors are billed a flat $1 per month with unlimited free static monitors. It can be used as a generous free hosted service or self-hosted for free with no seat or subscriber caps.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Instatus and Cast Operations both help you communicate reliability to customers, but they solve very different scopes. Instatus is purpose-built for polished, high-performance status pages and adds lightweight monitoring and on-call on top. Cast Operations is a full reliability platform that detects incidents with deep monitoring, manages on-call and postmortems, ingests OpenTelemetry logs, metrics, and traces, and publishes status pages with unlimited subscribers. If you want one tool instead of a status page plus a separate monitoring stack plus an incident tool, Cast Operations consolidates it all.",
     descriptionLine2:
-      "With predictable $1-per-monitor pricing, unlimited status page subscribers, and an Apache 2.0 open-source core you can self-host, Cast Operations removes both tool sprawl and pricing surprises.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     migrationBenefits: [
       "Replace Instatus plus your separate monitoring, on-call, and telemetry tools with one unified platform.",
       "Get full OpenTelemetry observability with logs, metrics, and traces that Instatus does not offer at all.",
-      "Publish status pages with unlimited subscribers on every plan, versus Instatus caps of 200 to 25,000.",
+      "Publish status pages with unlimited subscribers in every deployment, versus Instatus caps of 200 to 25,000.",
       "Add deep infrastructure and container monitoring for CPU, memory, disk, Docker, and Kubernetes.",
-      "Pay a predictable $1 per active monitor with unlimited free static monitors, avoiding tier jumps to $300/mo.",
+      "The complete feature set is available in every deployment.",
       "Own your data with an open-source, self-hostable Apache 2.0 core and no vendor lock-in.",
     ],
     competitorPricingTiers: [
@@ -12037,9 +12064,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Instatus Pro for a custom-domain status page and 50 uptime monitors.",
         competitorCost: "$20/mo plus a separate tool for logs and metrics",
-        oneuptimeSolution:
+        castOperationsSolution:
           "A Cast Operations status page with a handful of active monitors and telemetry included.",
-        oneuptimeCost: "Free tier or a few dollars per month",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -12047,9 +12074,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Instatus Business for 25,000 subscribers, SMS and phone alerts, and 50 on-call members.",
         competitorCost: "$300/mo, or $3,600/yr",
-        oneuptimeSolution:
-          "Cast Operations with unlimited subscribers, full escalation policies, and pay-per-monitor pricing.",
-        oneuptimeCost: "About $99/mo Growth tier plus $1 per monitor",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -12058,9 +12085,9 @@ const products: Dictionary<Product> = {
           "Instatus for status and uptime, plus separate APM, log, and incident tools.",
         competitorCost:
           "$300/mo Instatus plus $500 to $2,000/mo for observability tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations unified: monitoring, status pages, on-call, incidents, and telemetry together.",
-        oneuptimeCost: "$1 per monitor plus about $0.10/GB telemetry",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -12089,9 +12116,9 @@ const products: Dictionary<Product> = {
         icon: "monitoring",
       },
       {
-        title: "Predictable, transparent pricing",
+        title: "Deployment model",
         description:
-          "Instatus jumps from $20 to $300 per month for more monitors and SSO. Cast Operations charges a flat $1 per active monitor with unlimited free static monitors and no subscriber caps.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "transparent",
       },
       {
@@ -12110,51 +12137,51 @@ const products: Dictionary<Product> = {
             description:
               "Customer-facing pages showing real-time component status.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description:
               "Internal or authenticated status pages for staff and partners.",
             productColumn: "Business plan",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom domain with free SSL",
             description:
               "Host the status page on your own domain with managed SSL.",
             productColumn: "Pro and up",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding",
             description: "Logos, colors, and themes to match your brand.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom HTML, CSS, and JS",
             description: "Deep visual customization of the status page.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Component groups",
             description: "Group services and components into logical sections.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Announce planned maintenance windows in advance.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "Notify any number of subscribers with no cap.",
             productColumn: "Capped 200 to 25k",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
         ],
       },
@@ -12166,50 +12193,50 @@ const products: Dictionary<Product> = {
             description:
               "Check availability and response of web pages and endpoints.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description: "Validate API responses, status codes, and payloads.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire or misconfigure.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Ping and port monitoring",
             description: "Check reachability of hosts and specific ports.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server and infra monitoring",
             description: "Track CPU, memory, and disk with an agent.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring",
             description: "Monitor Docker and Kubernetes workloads.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic transaction monitoring",
             description:
               "Script multi-step user journeys to catch flow breakage.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron and heartbeat monitoring",
             description: "Detect missed or failed scheduled jobs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12220,50 +12247,50 @@ const products: Dictionary<Product> = {
             title: "Email alerts",
             description: "Notify responders and teams by email.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS alerts",
             description: "Text message notifications for incidents.",
             productColumn: "Pro and up",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone call alerts",
             description: "Voice calls to responders for urgent issues.",
             productColumn: "Business plan",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push notifications",
             description: "Mobile push alerts to on-call responders.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams alerts",
             description: "Route alerts into Slack and Microsoft Teams.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-call rotations",
             description: "Daily, weekly, and custom rotation schedules.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate through tiers until someone acknowledges.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and follow-the-sun",
             description:
               "Vacation overrides and global follow-the-sun coverage.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12274,50 +12301,50 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Chronological record of updates during an incident.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident severities",
             description: "Classify incidents by impact and priority.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Status page incident updates",
             description:
               "Publish investigating, identified, and resolved updates.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured retrospectives after incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items",
             description: "Track follow-up tasks from incidents to closure.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Documented response procedures for responders.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams collaboration",
             description: "Coordinate incident response inside chat tools.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolution and trends.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12329,43 +12356,43 @@ const products: Dictionary<Product> = {
             description:
               "Ingest, search, and retain application and infra logs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics",
             description: "Collect and chart time-series metrics.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "Trace requests across services to find bottlenecks.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry-native",
             description: "First-class OpenTelemetry ingestion with no lock-in.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom dashboards",
             description: "Build dashboards across logs, metrics, and traces.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception and error tracking",
             description: "Capture and group application exceptions.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Application performance monitoring",
             description: "APM across services and endpoints.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12377,50 +12404,50 @@ const products: Dictionary<Product> = {
             description:
               "Fully open-source codebase you can inspect and extend.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hostable",
             description: "Run the entire platform on your own infrastructure.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO and SAML",
             description: "Single sign-on for team access control.",
             productColumn: "Business plan",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Role-based access control",
             description: "Granular permissions across teams and resources.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Audit logs",
             description: "Track who changed what and when.",
             productColumn: "Enterprise",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API",
             description: "Programmatic access to platform resources.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Workflows and automation",
             description: "No-code automation across the platform.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "AI SRE",
             description:
               "AI assistance for reliability and incident workflows.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12433,9 +12460,9 @@ const products: Dictionary<Product> = {
           "Instatus includes basic uptime monitoring for websites, APIs, SSL, ping, and DNS, which is enough to trigger status page updates. For server, container, synthetic transaction, or heartbeat monitoring, and for any logs, metrics, or traces, you would run a separate tool. Cast Operations covers all of these in one platform.",
       },
       {
-        question: "How does Instatus pricing compare to Cast Operations?",
+        question: "How do deployment costs compare?",
         answer:
-          "Instatus uses flat plans: Free, Pro at $20 per month, and Business at $300 per month, with subscriber and monitor limits per tier. Cast Operations charges a flat $1 per active monitor with unlimited free static monitors, telemetry at about $0.10 per GB, and predictable tiers such as Growth around $99 per month. Self-hosting Cast Operations is free.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Can Instatus handle logs, metrics, and traces?",
@@ -12469,29 +12496,29 @@ const products: Dictionary<Product> = {
     productName: "Freshping",
     iconUrl: "/img/freshping.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "One unified reliability platform vs a discontinued uptime tool",
     competitorFocus:
       "Freshping offered simple, low-cost uptime checks and basic status pages, but Freshworks discontinued it in March 2026 with no on-call, incident management, or deep monitoring and no replacement product.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies uptime and synthetic monitoring, infrastructure and telemetry, status pages, on-call, and incident management in one open-source platform you can self-host and keep forever.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Freshping was Freshworks' entry-level uptime monitoring service, paired with the Freshstatus status page product. It offered HTTP, ping, TCP, and SSL checks at 1-minute intervals from around 10 global locations, with a generous free tier. Freshworks shut Freshping down on March 6, 2026, and has not released a replacement uptime monitoring product.",
-    oneUptimeDescription:
-      "Cast Operations is an open-source, Apache 2.0 licensed, self-hostable platform that combines uptime and synthetic monitoring, infrastructure metrics, OpenTelemetry logs, metrics and traces, public status pages, on-call scheduling, and incident management. Active monitors are billed at a flat $1 per month each, telemetry ingestion is roughly $0.10/GB, and self-hosting is free. Because it is open source, the platform can never be taken away from you.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Freshping was a popular choice for teams that wanted cheap, simple uptime checks and a basic status page. But its monitoring stopped at surface-level HTTP and ping checks, it never offered real on-call or incident management, and Freshworks discontinued the product entirely in March 2026. Cast Operations covers the same uptime and status-page needs and goes far beyond them, adding synthetic, API, and infrastructure monitoring, full on-call and incident workflows, and OpenTelemetry observability. As an open-source platform, it gives you a permanent home instead of another tool that can be shut down.",
     descriptionLine2:
-      "Migrate off the retired Freshping to a unified platform with predictable $1 per month monitors, unlimited status page subscribers, and no vendor lock-in.",
+      "Migrate off the retired Freshping to a unified platform with complete monitoring, unlimited status page subscribers, and no vendor lock-in.",
     migrationBenefits: [
       "Replace a discontinued product with an actively developed, open-source platform you can self-host and control forever.",
       "Go beyond HTTP and ping with synthetic, API, server, container, SSL, port, and cron/heartbeat monitoring in one place.",
       "Add real on-call scheduling and multi-level escalation with SMS, phone call, push, Slack, and Microsoft Teams alerts.",
       "Manage incidents end to end with timelines, severities, postmortems, action items, runbooks, and MTTR analytics.",
       "Publish status pages with unlimited subscribers, custom domains, free SSL, and full branding at no per-subscriber cost.",
-      "Keep costs predictable at a flat $1 per active monitor with unlimited free static monitors and no surprise tiers.",
+      "The complete feature set is available in every deployment.",
     ],
     competitorPricingTiers: [
       {
@@ -12553,9 +12580,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Freshping Sprout free tier, which is now discontinued",
         competitorCost: "$0/mo (no longer available)",
-        oneuptimeSolution:
+        castOperationsSolution:
           "50 active monitors on Cast Operations plus a branded status page with unlimited subscribers",
-        oneuptimeCost: "About $50/mo, or free when self-hosted",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -12563,9 +12590,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Freshping Garden plus separate on-call and incident tools",
         competitorCost: "$36/mo + extra tools (e.g. PagerDuty ~$21/user/mo)",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations with monitors, on-call, escalation, and incidents all included",
-        oneuptimeCost: "About $99/mo Growth tier, all-in",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -12573,9 +12600,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Not possible on Freshping; would require several separate SaaS products",
         competitorCost: "Multiple subscriptions, hard to predict",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations self-hosted, unifying monitoring, telemetry, on-call, and status pages",
-        oneuptimeCost: "$0 software cost (self-hosted)",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -12625,50 +12652,50 @@ const products: Dictionary<Product> = {
             description:
               "Check websites and endpoints for availability and response.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Ping, TCP, and port checks",
             description:
               "Layer-3 and layer-4 reachability checks for hosts and services.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Track certificate validity and expiry.",
             productColumn: "Paid plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "1-second check intervals",
             description: "High-frequency checks for critical services.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Check from multiple regions around the world.",
             productColumn: "~10 locations",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
           {
             title: "Private probes",
             description: "Monitor internal services from inside your network.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Public status pages",
             description: "Communicate uptime and incidents to customers.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Actively supported product",
             description: "The service is still maintained and available.",
             productColumn: "Discontinued",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12679,37 +12706,37 @@ const products: Dictionary<Product> = {
             title: "API and transaction monitoring",
             description: "Multi-step synthetic checks across API flows.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Server and infrastructure metrics",
             description: "Monitor CPU, memory, and disk on hosts.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring",
             description: "Monitor Docker and Kubernetes workloads.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron and heartbeat monitoring",
             description: "Detect missed scheduled jobs and background tasks.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Response-string and keyword checks",
             description: "Verify page content, not just status codes.",
             productColumn: "Paid plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom HTTP headers",
             description: "Send auth or custom headers with checks.",
             productColumn: "Paid plans",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12720,50 +12747,50 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Share real-time status with customers.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Internal-only status for teams.",
             productColumn: "Freshstatus",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom domain and free SSL",
             description: "Host the status page on your own domain.",
             productColumn: "Paid add-on",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "No per-subscriber charges or caps.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom HTML, CSS, and JS branding",
             description: "Fully brand and customize the page.",
             productColumn: "Logo & colors",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Announce planned maintenance windows.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notifications",
             description:
               "Notify via email, SMS, webhook, RSS, Slack, or Teams.",
             productColumn: "Email/Slack",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Status reflects monitor state automatically.",
             productColumn: "Needed Freshping",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12774,49 +12801,49 @@ const products: Dictionary<Product> = {
             title: "On-call scheduling and rotations",
             description: "Daily, weekly, and custom rotation schedules.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate unacknowledged alerts through tiers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and follow-the-sun",
             description: "Vacation overrides and global handoffs.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS alerts",
             description: "Notify responders by text message.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone call alerts",
             description: "Escalate with automated phone calls.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push notification alerts",
             description: "Mobile push notifications to responders.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams alerts",
             description: "Route alerts into chat tools.",
             productColumn: "Slack only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Email alerts",
             description: "Notify responders by email.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12827,43 +12854,43 @@ const products: Dictionary<Product> = {
             title: "Incident timelines and severities",
             description: "Track incidents with severity and full history.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems and action items",
             description: "Document root cause and follow-up work.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Attach response procedures to incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure and improve response times.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Logs, metrics, and traces",
             description: "OpenTelemetry-native observability data.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exceptions and error tracking",
             description: "Capture and triage application errors.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Dashboards",
             description: "Build custom dashboards over your data.",
             productColumn: "Basic reports",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12874,49 +12901,49 @@ const products: Dictionary<Product> = {
             title: "Open source (Apache 2.0)",
             description: "Inspect, extend, and own the code.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hostable",
             description: "Run on your own infrastructure for free.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Flat $1 per active monitor",
-            description: "Predictable per-monitor pricing, no per-check tiers.",
+            title: "All capabilities included",
+            description: "Complete monitoring without feature tiers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Unlimited free static monitors",
+            title: "Unlimited static monitors",
             description: "Manual and static monitors at no cost.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API and webhooks",
             description: "Automate and integrate programmatically.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO / SAML",
             description: "Enterprise single sign-on.",
             productColumn: "Enterprise",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "RBAC and audit logs",
             description: "Role-based access control and activity trails.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Actively maintained",
             description: "Ongoing development and support.",
             productColumn: "Discontinued",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -12934,9 +12961,9 @@ const products: Dictionary<Product> = {
       },
       {
         question:
-          "How does Cast Operations pricing compare to Freshping's old plans?",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         answer:
-          "Freshping charged $0 to $36 per month by tier with fixed monitor caps. Cast Operations bills active monitors at a flat $1 each per month with unlimited free static monitors and no per-check tiers, plus telemetry ingestion at roughly $0.10 per GB. Self-hosting Cast Operations is completely free.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Did Freshping offer on-call or incident management?",
@@ -12965,18 +12992,18 @@ const products: Dictionary<Product> = {
     productName: "Prometheus",
     iconUrl: "/img/prometheus.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline: "One integrated open-source platform vs a DIY metrics stack",
     competitorFocus:
       "Prometheus is a best-in-class open-source engine for time-series metrics collection and PromQL-based alerting, but it stops at metrics and expects you to assemble everything else.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations is an open-source, unified platform that pairs metrics, logs, and traces with uptime monitoring, status pages, on-call, and incident management out of the box.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Prometheus is a mature, CNCF-graduated open-source monitoring system built around a pull-based time-series database and the PromQL query language. Alerting is handled by its companion Alertmanager, which offers strong deduplication, silencing, and routing. It is metrics-only by design, so dashboards, long-term storage, logs, traces, and probing all come from separate tools you integrate yourself.",
-    oneUptimeDescription:
-      "Cast Operations is an Apache 2.0, self-hostable observability and reliability platform that brings OpenTelemetry metrics, logs, and traces together with uptime and synthetic monitoring, status pages, on-call scheduling, and incident management. Instead of stitching together Prometheus, Grafana, Alertmanager, exporters, remote storage, a status page tool, and a paging tool, you run one system. Self-hosting is free and the managed cloud uses flat, predictable pricing.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Prometheus is the de facto open-source standard for infrastructure and application metrics, and Cast Operations does not try to replace PromQL's power for time-series analysis. The difference is scope. Prometheus gives you a metrics engine and Alertmanager, then leaves you to bolt on Grafana for dashboards, Thanos or Mimir for long-term storage, dozens of exporters for coverage, plus separate products for status pages, on-call rotations, and incident response. Cast Operations folds all of that into one open-source platform so a single team can go from a metric spike to a paged engineer, a public status update, and a completed postmortem without leaving the tool.",
     descriptionLine2:
@@ -13064,10 +13091,9 @@ const products: Dictionary<Product> = {
           "Run Prometheus and Alertmanager, add Grafana for dashboards and Blackbox exporter for probing, then buy a separate status page product and a separate paging product to fill the gaps.",
         competitorCost:
           "Free licenses, but real engineering time plus paid status page and paging tools that often run $50 to $150+ per month combined",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Ingest metrics into Cast Operations, add URL and SSL monitors, publish a status page, and configure on-call rotations and escalation in the same platform.",
-        oneuptimeCost:
-          "Free self-hosted, or roughly a handful of active monitors at $1 each per month on managed cloud",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -13076,10 +13102,9 @@ const products: Dictionary<Product> = {
           "Add Thanos or Mimir with object storage for retention and stand up extra alert rules, accepting a larger distributed system to operate.",
         competitorCost:
           "Free software plus compute, object storage, and the ongoing operational overhead of running remote-storage clusters",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Keep metrics, logs, and traces with built-in retention in Cast Operations and alert across all three signals without extra clusters.",
-        oneuptimeCost:
-          "Telemetry ingestion around $0.10 per GB with no separate storage cluster to run",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -13088,10 +13113,9 @@ const products: Dictionary<Product> = {
           "Alertmanager routes the alert, then engineers switch to a chat tool, a status page tool, and a document to coordinate, communicate, and review.",
         competitorCost:
           "Multiple additional subscriptions and constant context switching between disconnected tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Cast Operations raises the incident, pages the right responder, posts to the status page, and hosts the timeline, action items, and postmortem in one place.",
-        oneuptimeCost:
-          "Included in the same platform at no additional per-incident cost",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -13140,49 +13164,49 @@ const products: Dictionary<Product> = {
             title: "Time-series metrics",
             description: "Collect and store numeric metrics over time.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "PromQL query language",
             description: "Native PromQL for slicing and aggregating metrics.",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "Exporter ecosystem",
             description: "Pull metrics from a large library of exporters.",
             productColumn: "tick",
-            oneuptimeColumn: "OTel-native",
+            castOperationsColumn: "OTel-native",
           },
           {
             title: "Alert deduplication and routing",
             description: "Group, silence, and route alerts to receivers.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Built-in metric dashboards",
             description: "Visualize metrics without a separate tool.",
             productColumn: "Needs Grafana",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Built-in long-term storage",
             description: "Retain historical metrics without extra clusters.",
             productColumn: "Needs Thanos/Mimir",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Logs and traces",
             description: "Correlate metrics with logs and distributed traces.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception and error tracking",
             description: "Capture and group application exceptions.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -13193,43 +13217,43 @@ const products: Dictionary<Product> = {
             title: "Server and infra metrics",
             description: "Track CPU, memory, and disk usage.",
             productColumn: "Node exporter",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring",
             description: "Monitor Docker and Kubernetes workloads.",
             productColumn: "cAdvisor/exporter",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Website and URL uptime",
             description: "Check that endpoints are up and responsive.",
             productColumn: "Blackbox exporter",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and transaction",
             description: "Script multi-step user journeys.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire.",
             productColumn: "Partial (exporter)",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron and heartbeat checks",
             description: "Detect missed scheduled jobs.",
             productColumn: "Pushgateway",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Test from multiple regions worldwide.",
             productColumn: "",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
         ],
       },
@@ -13240,43 +13264,43 @@ const products: Dictionary<Product> = {
             title: "Public status page",
             description: "Communicate uptime to customers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status page",
             description: "Share status with internal audiences only.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "Notify any number of subscribers at no extra cost.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain with free SSL",
             description: "Host the page on your own domain.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance",
             description: "Announce planned work in advance.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Reflect monitor state on the page automatically.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS",
             description: "Match the page to your brand.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -13287,43 +13311,43 @@ const products: Dictionary<Product> = {
             title: "On-call rotations",
             description: "Daily, weekly, or custom schedules.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation",
             description: "Escalate when an alert is not acknowledged.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and vacation",
             description: "Swap coverage for time off.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Follow-the-sun",
             description: "Route to the on-duty region automatically.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS and phone call alerts",
             description: "Reach responders by SMS and voice.",
             productColumn: "Via webhook",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push notification alerts",
             description: "Native mobile push to on-call engineers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams alerts",
             description: "Deliver alerts to chat channels.",
             productColumn: "Via receivers",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -13334,43 +13358,43 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "Chronological record of what happened.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severities",
             description: "Classify incidents by impact.",
             productColumn: "Alert labels",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Structured retrospectives after incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items",
             description: "Track follow-up work to closure.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Guide responders through remediation.",
             productColumn: "Annotation links",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams collaboration",
             description: "Coordinate response in chat.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure and improve response times.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -13381,50 +13405,51 @@ const products: Dictionary<Product> = {
             title: "Open source",
             description: "Freely licensed and inspectable.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Self-hostable",
             description: "Run entirely on your own infrastructure.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unified platform",
             description: "One system instead of assembled components.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Managed cloud option",
             description: "First-party hosted service from the maker.",
             productColumn: "Third-party only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO and SAML",
             description: "Enterprise single sign-on.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "RBAC and audit logs",
             description: "Fine-grained access control and audit trail.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Predictable managed pricing",
+            title: "Deployment model",
             description: "Flat per-monitor cost with no surprises.",
             productColumn: "",
-            oneuptimeColumn: "$1/monitor",
+            castOperationsColumn: "Included",
           },
         ],
       },
     ],
     faq: [
       {
-        question: "Is Cast Operations trying to replace Prometheus for metrics?",
+        question:
+          "Is Cast Operations trying to replace Prometheus for metrics?",
         answer:
           "No. Prometheus and PromQL are excellent for time-series metrics, and Cast Operations does not compete on that specific engine. Cast Operations is OpenTelemetry-native and gives you metrics, logs, and traces plus everything Prometheus does not do, such as uptime monitoring, status pages, on-call, and incident management, in one open-source platform.",
       },
@@ -13456,7 +13481,7 @@ const products: Dictionary<Product> = {
       {
         question: "Is Cast Operations open source like Prometheus?",
         answer:
-          "Yes. Cast Operations is licensed under Apache 2.0 and is fully self-hostable at no license cost, just like Prometheus. The difference is that Cast Operations is an integrated reliability platform rather than a single component you assemble a larger stack around.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
     ],
   },
@@ -13464,21 +13489,21 @@ const products: Dictionary<Product> = {
     productName: "Zabbix",
     iconUrl: "/img/zabbix.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "Powerful open-source monitoring vs a complete reliability platform",
     competitorFocus:
       "Zabbix specializes in deep, agent-, SNMP-, and IPMI-based infrastructure and network monitoring, but ships no status pages, on-call scheduling, or incident workflow.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces in a single open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Zabbix is a mature, fully open-source monitoring system built for infrastructure, network, and server metrics using agents, SNMP, IPMI, and web checks. It is free to self-host and highly customizable, with powerful triggers, templates, and auto-discovery. However, it is heavy to deploy and tune, carries a dated interface, and leaves status pages, on-call rotations, and incident response to other tools.",
-    oneUptimeDescription:
-      "Cast Operations is an Apache 2.0 open-source platform that combines monitoring, status pages, on-call, incident management, and OpenTelemetry telemetry in one place. You can self-host it for free or use the managed cloud with predictable, flat pricing. It removes the tool sprawl and glue work that Zabbix leaves behind.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
-      "Zabbix is one of the most capable open-source infrastructure and network monitoring engines available, trusted for SNMP, agent, and IPMI data collection at scale. But it stops at monitoring: there are no built-in status pages, no on-call rotations, no incident postmortems, and no OpenTelemetry tracing, so teams stitch together three or four extra tools around it. Cast Operations is also open source and self-hostable, but delivers monitoring, status pages, on-call, incident management, and full telemetry as one product. That means one login, one data model, and one predictable bill instead of a maintenance-heavy stack.",
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     descriptionLine2:
       "Keep the open-source freedom you want from Zabbix, but replace the tool sprawl and manual glue with a single unified platform that covers alerting, status pages, and incidents out of the box.",
     migrationBenefits: [
@@ -13487,7 +13512,7 @@ const products: Dictionary<Product> = {
       "Native on-call rotations, multi-level escalation, and vacation overrides with SMS, phone call, and push alerts.",
       "Full incident management with timelines, severities, postmortems, action items, runbooks, and MTTR analytics.",
       "OpenTelemetry-native logs, metrics, and traces alongside monitoring, so there is no separate tracing stack.",
-      "Predictable pricing at a flat $1 per active monitor, or self-host for free, with no per-server support contract to negotiate.",
+      "The complete feature set is available in every deployment.",
     ],
     competitorPricingTiers: [
       {
@@ -13579,9 +13604,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Self-host Zabbix for infrastructure monitoring, then add a separate status-page tool and an on-call tool, plus the engineering time to run and connect them.",
         competitorCost: "$0 software + infra + eng time + extra tools",
-        oneuptimeSolution:
-          "Use Cast Operations for monitoring, status pages, and on-call together; roughly 20 active monitors on the cloud plan.",
-        oneuptimeCost: "~$20/mo all-in (or free tier)",
+        castOperationsSolution:
+          "Use Cast Operations for monitoring, status pages, and on-call together in one complete deployment.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -13589,9 +13614,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Run Zabbix with proxies and buy Gold support priced per server and per proxy, while continuing to manage the database and servers.",
         competitorCost: "From $825/mo support + self-run infra",
-        oneuptimeSolution:
-          "Monitor 60 servers as active monitors on Cast Operations, or move to the Growth tier, with alerting and dashboards included.",
-        oneuptimeCost: "~$60/mo, or Growth ~$99/mo",
+        castOperationsSolution:
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -13599,9 +13624,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Negotiate a Zabbix Enterprise or Global support contract, then license and integrate separate status-page, on-call, and incident-management products.",
         competitorCost: "Custom (thousands/mo) + multiple add-on tools",
-        oneuptimeSolution:
+        castOperationsSolution:
           "Adopt Cast Operations Enterprise or self-host it, covering monitoring, status pages, on-call, incidents, and telemetry in one platform.",
-        oneuptimeCost: "Predictable Enterprise, or self-host free",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -13636,9 +13661,9 @@ const products: Dictionary<Product> = {
         icon: "open-source",
       },
       {
-        title: "Predictable, flat pricing",
+        title: "Deployment model",
         description:
-          "Zabbix software is free but real costs come from per-server support contracts and ops time. Cast Operations is a flat $1 per active monitor, or free to self-host.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
     ],
@@ -13651,45 +13676,45 @@ const products: Dictionary<Product> = {
             description:
               "Collect CPU, memory, disk, and process metrics from servers via an agent.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SNMP monitoring",
             description:
               "Poll network devices, switches, and appliances over SNMP.",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "IPMI monitoring",
             description: "Monitor hardware health via IPMI sensors.",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "Network device monitoring",
             description: "Track routers, switches, and network gear.",
             productColumn: "tick",
-            oneuptimeColumn: "Ping/port only",
+            castOperationsColumn: "Ping/port only",
           },
           {
             title: "Auto-discovery of hosts",
             description:
               "Automatically discover hosts and services on a network segment.",
             productColumn: "tick",
-            oneuptimeColumn: "Containers/K8s",
+            castOperationsColumn: "Containers/K8s",
           },
           {
             title: "Container and Kubernetes monitoring",
             description: "Monitor Docker containers and Kubernetes clusters.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom metrics and scripts",
             description: "Collect user-defined metrics via scripts or API.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -13701,44 +13726,44 @@ const products: Dictionary<Product> = {
             description:
               "Check that web pages and endpoints respond correctly.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "API monitoring",
             description:
               "Validate API endpoints, status codes, and response bodies.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic / browser monitoring",
             description: "Run scripted browser flows to simulate real users.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before TLS certificates expire.",
             productColumn: "Via templates",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Cron / heartbeat monitoring",
             description: "Detect when scheduled jobs fail to check in.",
             productColumn: "Via trapper items",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Check services from multiple regions out of the box.",
             productColumn: "Self-deployed",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
           {
             title: "Check intervals down to 1 second",
             description: "Poll critical checks as frequently as every second.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -13749,46 +13774,46 @@ const products: Dictionary<Product> = {
             title: "Public status pages",
             description: "Publicly share service health with your users.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status pages",
             description: "Share internal status with authenticated audiences.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom domain with free SSL",
             description:
               "Host the status page on your own domain with managed SSL.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "Let any number of users subscribe to updates.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom branding and HTML/CSS/JS",
             description:
               "Fully brand and customize the status page look and feel.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance updates",
             description: "Announce planned maintenance to subscribers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Subscriber notifications",
             description:
               "Notify via email, SMS, webhook, RSS, Slack, and Teams.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -13800,49 +13825,49 @@ const products: Dictionary<Product> = {
             description:
               "Fire alerts when triggers or monitors detect problems.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Email notifications",
             description: "Send alerts by email.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS notifications",
             description: "Send alerts by text message.",
             productColumn: "Via gateway",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone call alerts",
             description: "Escalate with automated voice calls.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams alerts",
             description: "Route alerts into chat channels.",
             productColumn: "Via webhooks",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-call rotations and schedules",
             description: "Daily, weekly, or custom rotations with a roster.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate to the next responder when unacknowledged.",
             productColumn: "Basic steps",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and follow-the-sun",
             description: "Handle vacations and hand off across time zones.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -13853,43 +13878,43 @@ const products: Dictionary<Product> = {
             title: "Incident timelines",
             description: "See a chronological record of an incident.",
             productColumn: "Problems/events",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severity levels",
             description: "Classify incidents by severity.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems",
             description: "Document root cause and learnings after resolution.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Action items",
             description: "Track follow-up tasks from incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Attach response procedures to incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack / Teams incident collaboration",
             description: "Coordinate response directly in chat.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure and trend mean time to resolution.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -13900,59 +13925,59 @@ const products: Dictionary<Product> = {
             title: "Open source",
             description: "Source-available under an open license.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Free to self-host",
             description: "Run the full platform on your own infrastructure.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Managed cloud option",
             description: "Vendor-hosted SaaS with no infra to run.",
             productColumn: "From EUR 50/mo",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry logs, metrics, traces",
             description: "Native ingestion of OTel telemetry.",
             productColumn: "Metrics + logs",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "Trace requests across services.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "REST API and webhooks",
             description: "Automate and integrate programmatically.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO/SAML, RBAC, and audit logs",
             description: "Enterprise access control and audit trails.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SOC 2 and ISO 27001 (cloud)",
             description:
               "Independent security and compliance attestations for the hosted service.",
             productColumn: "",
-            oneuptimeColumn: "SOC 2, ISO 27001",
+            castOperationsColumn: "SOC 2, ISO 27001",
           },
         ],
       },
     ],
     faq: [
       {
-        question: "Is Zabbix really free, and what does Cast Operations cost?",
+        question: "How do deployment costs compare?",
         answer:
-          "Zabbix software is free and open source, but real costs come from the infrastructure and staff time to run it, plus support subscriptions that start around $325 per month and scale per server and proxy. Cast Operations is also free to self-host, or on the cloud it is a flat $1 per active monitor with a generous free tier and predictable tiers such as Growth around $99 per month.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Zabbix include status pages?",
@@ -13970,7 +13995,8 @@ const products: Dictionary<Product> = {
           "Zabbix models issues as problems and events but has no incident postmortems, action items, runbooks, or MTTR analytics. Cast Operations offers end-to-end incident management with timelines, severities, postmortems, action items, runbooks, Slack and Teams collaboration, and MTTR reporting.",
       },
       {
-        question: "Is Cast Operations open source and self-hostable like Zabbix?",
+        question:
+          "Is Cast Operations open source and self-hostable like Zabbix?",
         answer:
           "Yes. Cast Operations is Apache 2.0 licensed and can be self-hosted for free, just like Zabbix. The difference is scope: Cast Operations bundles monitoring, status pages, on-call, incidents, and telemetry into one platform instead of leaving those to separate tools.",
       },
@@ -13991,30 +14017,30 @@ const products: Dictionary<Product> = {
     productName: "Nagios",
     iconUrl: "/img/nagios.svg",
     price: "",
-    oneuptimePrice: "",
+    castOperationsPrice: "",
     tagline:
       "A modern open-source all-in-one platform vs a legacy monitoring-only tool",
     competitorFocus:
       "Nagios is a battle-tested, plugin-driven engine for infrastructure and network monitoring, but it stops at up/down checks and leaves status pages, on-call, and incident response to other tools.",
-    oneuptimeFocus:
+    castOperationsFocus:
       "Cast Operations unifies monitoring, status pages, on-call, incident management, and OpenTelemetry observability in a single open-source platform.",
     annualSavings: "",
     lastUpdated: "2026",
     productDescription:
       "Nagios is one of the original open-source monitoring tools, offered as the free Nagios Core engine and the commercial Nagios XI edition with a configuration GUI, dashboards, and reporting. It excels at server, host, and network device monitoring through a vast library of community plugins. However, it depends on config files or paid add-ons, carries a dated interface, and has no native status pages, on-call scheduling, or incident management.",
-    oneUptimeDescription:
-      "Cast Operations is a modern, Apache 2.0 open-source platform that brings monitoring, status pages, on-call, incident management, and OpenTelemetry logs, metrics, and traces together in one place. It replaces the plugin-and-add-on sprawl of legacy tooling with a unified web app, predictable pricing, and a free self-hosted option.",
+    operationsDescription:
+      "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
     description:
       "Nagios pioneered open-source infrastructure monitoring and remains a dependable up/down checking engine, but it was built for a pre-cloud, config-file era. Standing up modern reliability workflows means bolting on a separate status page tool, PagerDuty for on-call, and a logging product for observability. Cast Operations delivers all of that in one open-source platform: monitoring, status pages, on-call, incident management, and full telemetry. You get modern reliability tooling without the plugin wrangling or the stack of separate subscriptions.",
     descriptionLine2:
-      "Consolidate Nagios plus its add-ons into a single platform billed at a flat $1 per active monitor, with unlimited status page subscribers and a free self-hosted edition.",
+      "The complete feature set is available in every deployment.",
     migrationBenefits: [
       "Replace config files and plugin sprawl with a modern web UI where new monitors are set up in seconds.",
       "Get public and private status pages with unlimited subscribers built in, no Statuspage-style add-on required.",
       "Add real on-call rotations, multi-level escalation, and SMS and phone alerting without bolting on PagerDuty.",
       "Run full incident management with timelines, severities, postmortems, and MTTR analytics natively.",
       "Unify logs, metrics, and traces via OpenTelemetry instead of licensing Nagios Log Server separately.",
-      "Swap unpredictable per-node perpetual licenses plus annual maintenance for a flat $1 per month per active monitor.",
+      "The complete feature set is available in every deployment.",
     ],
     competitorPricingTiers: [
       {
@@ -14103,9 +14129,9 @@ const products: Dictionary<Product> = {
         competitorSolution:
           "Nagios XI Standard 100-node license plus a separate status page tool and PagerDuty for on-call",
         competitorCost: "$2,595 license + maintenance + add-on subscriptions",
-        oneuptimeSolution:
+        castOperationsSolution:
           "50 active monitors, built-in status page, and native on-call in one platform",
-        oneuptimeCost: "$50/month, or free when self-hosted",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -14114,9 +14140,9 @@ const products: Dictionary<Product> = {
           "Nagios XI Enterprise 200-node license plus PagerDuty and a status page service",
         competitorCost:
           "$6,490 license + ~20-25% annual maintenance + subscriptions",
-        oneuptimeSolution:
+        castOperationsSolution:
           "200 active monitors with SLA-grade incident analytics, on-call, and status pages included",
-        oneuptimeCost: "$200/month all-in on Growth-tier features",
+        castOperationsCost: "Included in every deployment",
       },
       {
         scenario:
@@ -14125,9 +14151,9 @@ const products: Dictionary<Product> = {
           "Nagios XI plus Nagios Log Server, PagerDuty, and a hosted status page to cover the gaps",
         competitorCost:
           "Multiple licenses and subscriptions to stitch together",
-        oneuptimeSolution:
+        castOperationsSolution:
           "One unified open-source platform covering every function with OpenTelemetry ingestion",
-        oneuptimeCost: "$1/monitor + ~$0.10/GB telemetry, free self-hosted",
+        castOperationsCost: "Included in every deployment",
       },
     ],
     keyDifferences: [
@@ -14162,9 +14188,9 @@ const products: Dictionary<Product> = {
         icon: "monitoring",
       },
       {
-        title: "Predictable, transparent pricing",
+        title: "Deployment model",
         description:
-          "Cast Operations bills a flat $1 per active monitor with no per-check tiers, versus Nagios per-node perpetual licenses plus 20-25% annual maintenance.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
         icon: "pricing",
       },
     ],
@@ -14177,51 +14203,51 @@ const products: Dictionary<Product> = {
             description:
               "Track CPU, memory, disk, and process health on servers.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Network and SNMP device monitoring",
             description:
               "Monitor routers, switches, and SNMP-enabled hardware.",
             productColumn: "tick",
-            oneuptimeColumn: "",
+            castOperationsColumn: "",
           },
           {
             title: "Website and API uptime monitoring",
             description: "Check HTTP endpoints and API responses from a probe.",
             productColumn: "Via plugins",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSL certificate monitoring",
             description: "Alert before certificates expire or become invalid.",
             productColumn: "Via plugins",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Container monitoring (Docker/K8s)",
             description: "Monitor container and Kubernetes workload health.",
             productColumn: "Via plugins",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Synthetic and transaction monitoring",
             description:
               "Script multi-step user flows to catch broken journeys.",
             productColumn: "Via plugins",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Global probe locations",
             description: "Check availability from multiple regions worldwide.",
             productColumn: "Self-hosted only",
-            oneuptimeColumn: "7+ locations",
+            castOperationsColumn: "7+ locations",
           },
           {
             title: "GUI setup wizards",
             description: "Add hosts and services without editing config files.",
             productColumn: "XI only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -14232,38 +14258,38 @@ const products: Dictionary<Product> = {
             title: "Log management",
             description: "Centralize, search, and alert on application logs.",
             productColumn: "Separate product",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Metrics and time-series data",
             description: "Store and query numeric metrics over time.",
             productColumn: "Perf graphs",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Distributed tracing",
             description: "Trace requests across services to find bottlenecks.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "OpenTelemetry-native ingestion",
             description: "Ingest telemetry using the open OTel standard.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Exception and error tracking",
             description: "Capture and group application exceptions.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom dashboards",
             description:
               "Build tailored views of monitoring and telemetry data.",
             productColumn: "XI only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -14274,43 +14300,43 @@ const products: Dictionary<Product> = {
             title: "Public status page",
             description: "Communicate live status to customers.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Private status page",
             description: "Share internal status with authenticated users.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Unlimited subscribers",
             description: "Notify any number of subscribers at no extra cost.",
             productColumn: "",
-            oneuptimeColumn: "Unlimited",
+            castOperationsColumn: "Unlimited",
           },
           {
             title: "Custom domain with free SSL",
             description: "Host the status page on your own domain.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Custom branding and HTML/CSS/JS",
             description: "Fully style the page to match your brand.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Scheduled maintenance events",
             description: "Announce planned maintenance windows.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Automatic updates from monitors",
             description: "Reflect monitor status on the page automatically.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -14321,49 +14347,49 @@ const products: Dictionary<Product> = {
             title: "Email and basic notifications",
             description: "Send alerts when checks change state.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SMS alerts",
             description: "Notify responders by text message.",
             productColumn: "Via gateway",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Phone call alerts",
             description: "Escalate with automated voice calls.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Push notifications",
             description: "Alert responders via mobile push.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "On-call rotations and schedules",
             description: "Rotate coverage daily, weekly, or custom.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Multi-level escalation policies",
             description: "Escalate to the next responder if unacknowledged.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Overrides and vacation coverage",
             description: "Swap on-call responsibility temporarily.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Microsoft Teams alerts",
             description: "Route alerts into chat channels.",
             productColumn: "Via integrations",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -14374,43 +14400,43 @@ const products: Dictionary<Product> = {
             title: "Problem acknowledgement",
             description: "Acknowledge active problems to silence alerts.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Incident timelines",
             description: "Track a chronological record of each incident.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Severity levels",
             description: "Classify incidents by impact.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Postmortems and action items",
             description: "Document root cause and follow-up tasks.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Runbooks",
             description: "Attach response procedures to incidents.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Slack and Teams incident collaboration",
             description: "Coordinate response directly from chat.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "MTTR analytics",
             description: "Measure mean time to resolution over time.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -14422,49 +14448,49 @@ const products: Dictionary<Product> = {
             description:
               "Run the platform on your own infrastructure for free.",
             productColumn: "tick",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Modern web interface",
             description: "Clean, current UI for daily operations.",
             productColumn: "Dated",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
-            title: "Pricing model",
+            title: "Deployment model",
             description: "How the product is billed as you grow.",
             productColumn: "Per-node license",
-            oneuptimeColumn: "$1/monitor",
+            castOperationsColumn: "Included",
           },
           {
-            title: "Free tier",
-            description: "Usable free plan to get started.",
+            title: "Complete feature set",
+            description: "All capabilities are available in every deployment.",
             productColumn: "7 nodes",
-            oneuptimeColumn: "Generous",
+            castOperationsColumn: "Included",
           },
           {
             title: "REST API and webhooks",
             description: "Automate and integrate programmatically.",
             productColumn: "XI only",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "Workflow automation",
             description: "Build no-code automations across the platform.",
             productColumn: "Basic",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "SSO/SAML, RBAC, and audit logs",
             description: "Enterprise access control and compliance.",
             productColumn: "Enterprise",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
           {
             title: "AI SRE",
             description: "AI assistance for reliability workflows.",
             productColumn: "",
-            oneuptimeColumn: "tick",
+            castOperationsColumn: "tick",
           },
         ],
       },
@@ -14478,12 +14504,12 @@ const products: Dictionary<Product> = {
       {
         question: "Can I self-host Cast Operations like Nagios Core?",
         answer:
-          "Yes. Cast Operations is Apache 2.0 open source and fully self-hostable at no license cost, just like Nagios Core. The difference is that the self-hosted Cast Operations includes status pages, on-call, and incident management out of the box, whereas Nagios would need extra products for the same coverage.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "Does Nagios have built-in status pages?",
         answer:
-          "No. Neither Nagios Core nor Nagios XI ships a customer-facing status page product, so teams typically buy a separate service like Statuspage. Cast Operations includes public and private status pages with custom domains, branding, and unlimited subscribers at no additional cost.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question: "How does Nagios handle on-call and escalations?",
@@ -14493,7 +14519,7 @@ const products: Dictionary<Product> = {
       {
         question: "What does Nagios XI actually cost?",
         answer:
-          "Nagios XI is licensed per node. A 100-node Standard license starts around $2,595 and a 100-node Enterprise license around $4,690, both as perpetual licenses with roughly 20-25% annual maintenance for support and updates. Cast Operations instead bills a flat $1 per month per active monitor with a generous free tier and free self-hosting.",
+          "Cast Operations includes the complete feature set in every deployment; managed deployment terms are defined by agreement.",
       },
       {
         question:

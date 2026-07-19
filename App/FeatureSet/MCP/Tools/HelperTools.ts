@@ -4,7 +4,7 @@
  */
 
 import { McpToolInfo } from "../Types/McpTypes";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 import { sanitizeToolName } from "./SchemaConverter";
 
@@ -107,14 +107,14 @@ function createHelpTool(resources: ResourceInfo[]): McpToolInfo {
     .join("\n");
 
   return {
-    name: "oneuptime_help",
+    name: "cast_operations_help",
     description: `Get help and guidance for using the Cast Operations MCP server. Returns information about available resources and common operations. Use this tool first to understand what you can do with Cast Operations.
 
 AVAILABLE RESOURCES:
 ${resourceSummary}
 
 COMMON WORKFLOWS:
-1. Orient yourself: Use oneuptime_whoami to see your project
+1. Orient yourself: Use cast_operations_whoami to see your project
 2. List incidents: Use list_incidents to see current incidents
 3. Respond: Use acknowledge_incident / resolve_incident / add_incident_note
 4. Investigate: Use list_logs, list_metrics, list_spans, list_monitor_logs (always with a time-range filter)
@@ -141,7 +141,7 @@ COMMON WORKFLOWS:
     title: "Cast Operations Help",
     annotations: { readOnlyHint: true },
     modelName: "Help",
-    operation: OneUptimeOperation.Read,
+    operation: OperationsOperation.Read,
     modelType: ModelType.Database,
     singularName: "Help",
     pluralName: "Help",
@@ -152,7 +152,7 @@ COMMON WORKFLOWS:
 
 function createResourceInfoTool(_resources: ResourceInfo[]): McpToolInfo {
   return {
-    name: "oneuptime_list_resources",
+    name: "cast_operations_list_resources",
     description:
       "List all available Cast Operations resources and their supported operations. Use this to discover what resources you can manage through the MCP server.",
     inputSchema: {
@@ -163,7 +163,7 @@ function createResourceInfoTool(_resources: ResourceInfo[]): McpToolInfo {
     title: "List Cast Operations Resources",
     annotations: { readOnlyHint: true },
     modelName: "ResourceInfo",
-    operation: OneUptimeOperation.List,
+    operation: OperationsOperation.List,
     modelType: ModelType.Database,
     singularName: "Resource",
     pluralName: "Resources",
@@ -201,9 +201,9 @@ export function handleHelperTool(
 
   const resourceList: ResourceInfo[] = Array.from(resources.values());
 
-  if (toolName === "oneuptime_help") {
+  if (toolName === "cast_operations_help") {
     return handleHelpTool(args, resourceList);
-  } else if (toolName === "oneuptime_list_resources") {
+  } else if (toolName === "cast_operations_list_resources") {
     return handleListResourcesTool(resourceList);
   }
 
@@ -403,8 +403,8 @@ function handleHelpTool(
         "examples",
       ];
       (response["data"] as Record<string, unknown>)["quickStart"] = [
-        "1. Use 'oneuptime_whoami' to see which project your API key belongs to",
-        "2. Use 'oneuptime_list_resources' to see all available resources",
+        "1. Use 'cast_operations_whoami' to see which project your API key belongs to",
+        "2. Use 'cast_operations_list_resources' to see all available resources",
         "3. Use 'list_*' tools to browse existing data",
         "4. Use 'acknowledge_incident', 'resolve_incident', 'add_incident_note' for incident response",
         "5. Use 'list_logs', 'list_metrics', 'list_spans' to investigate telemetry (always filter by time range)",
@@ -428,22 +428,22 @@ function handleListResourcesTool(resources: ResourceInfo[]): string {
       const operations: string[] = r.operations;
 
       const tools: Record<string, string> = {};
-      if (operations.includes(OneUptimeOperation.Create)) {
+      if (operations.includes(OperationsOperation.Create)) {
         tools["create"] = `create_${singular}`;
       }
-      if (operations.includes(OneUptimeOperation.Read)) {
+      if (operations.includes(OperationsOperation.Read)) {
         tools["get"] = `get_${singular}`;
       }
-      if (operations.includes(OneUptimeOperation.List)) {
+      if (operations.includes(OperationsOperation.List)) {
         tools["list"] = `list_${plural}`;
       }
-      if (operations.includes(OneUptimeOperation.Update)) {
+      if (operations.includes(OperationsOperation.Update)) {
         tools["update"] = `update_${singular}`;
       }
-      if (operations.includes(OneUptimeOperation.Delete)) {
+      if (operations.includes(OperationsOperation.Delete)) {
         tools["delete"] = `delete_${singular}`;
       }
-      if (operations.includes(OneUptimeOperation.Count)) {
+      if (operations.includes(OperationsOperation.Count)) {
         tools["count"] = `count_${plural}`;
       }
 
@@ -466,7 +466,8 @@ function handleListResourcesTool(resources: ResourceInfo[]): string {
  */
 export function isHelperTool(toolName: string): boolean {
   return (
-    toolName === "oneuptime_help" || toolName === "oneuptime_list_resources"
+    toolName === "cast_operations_help" ||
+    toolName === "cast_operations_list_resources"
   );
 }
 

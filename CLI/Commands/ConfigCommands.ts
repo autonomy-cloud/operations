@@ -61,7 +61,7 @@ export function registerConfigCommands(program: Command): void {
 
       if (contexts.length === 0) {
         printInfo(
-          "No contexts configured. Run `oneuptime login` to create one.",
+          "No contexts configured. Run `cast-operations login` to create one.",
         );
         return;
       }
@@ -105,7 +105,7 @@ export function registerConfigCommands(program: Command): void {
       const ctx: CLIContext | null = ConfigManager.getCurrentContext();
       if (!ctx) {
         printInfo(
-          "No current context set. Run `oneuptime login` to create one.",
+          "No current context set. Run `cast-operations login` to create one.",
         );
         return;
       }

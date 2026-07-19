@@ -7,7 +7,7 @@ import Express, {
   ExpressResponse,
   ExpressRouter,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "Common/Server/Utils/Express";
 import Response from "Common/Server/Utils/Response";
 import logger, {
@@ -158,9 +158,9 @@ router.post(
         getLogAttributesFromRequest(req as any),
       );
 
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const statusPageId: ObjectID = bearerData["statusPageId"] as ObjectID;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const scimConfig: StatusPageSCIM = bearerData[
@@ -621,9 +621,10 @@ router.post(
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
       // Log the error
-      const oneuptimeRequestErr: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequestErr: OperationsRequest =
+        req as OperationsRequest;
       const bearerDataErr: JSONObject =
-        oneuptimeRequestErr.bearerTokenData as JSONObject;
+        castOperationsRequestErr.bearerTokenData as JSONObject;
       void createStatusPageSCIMLog({
         projectId: bearerDataErr["projectId"] as ObjectID,
         statusPageId: bearerDataErr["statusPageId"] as ObjectID,
@@ -667,9 +668,9 @@ router.get(
         `Status Page SCIM Users list request for statusPageScimId: ${req.params["statusPageScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const statusPageId: ObjectID = bearerData["statusPageId"] as ObjectID;
 
       executionSteps.push("Authenticated and extracted status page context");
@@ -854,9 +855,9 @@ router.get(
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
       // Log the error
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       void createStatusPageSCIMLog({
         projectId: bearerData["projectId"] as ObjectID,
         statusPageId: bearerData["statusPageId"] as ObjectID,
@@ -898,9 +899,9 @@ router.get(
         `Status Page SCIM Get individual user request for userId: ${req.params["userId"]}, statusPageScimId: ${req.params["statusPageScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const statusPageId: ObjectID = bearerData["statusPageId"] as ObjectID;
       const userId: string = req.params["userId"]!;
 
@@ -984,9 +985,9 @@ router.get(
       return Response.sendJsonObjectResponse(req, res, user);
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
 
       // Not found is expected behavior for SCIM providers checking if user exists
       const isNotFound: boolean = err instanceof NotFoundException;
@@ -1029,9 +1030,9 @@ router.post(
         `Status Page SCIM Create user request for statusPageScimId: ${req.params["statusPageScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const statusPageId: ObjectID = bearerData["statusPageId"] as ObjectID;
       const scimConfig: StatusPageSCIM = bearerData[
         "scimConfig"
@@ -1183,9 +1184,9 @@ router.post(
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
       // Log the error
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       void createStatusPageSCIMLog({
         projectId: bearerData["projectId"] as ObjectID,
         statusPageId: bearerData["statusPageId"] as ObjectID,
@@ -1223,9 +1224,9 @@ const handleStatusPageUserUpdate: (
       `Status Page SCIM Update user request for userId: ${req.params["userId"]}, statusPageScimId: ${req.params["statusPageScimId"]}`,
       getLogAttributesFromRequest(req as any),
     );
-    const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+    const castOperationsRequest: OperationsRequest = req as OperationsRequest;
     const bearerData: JSONObject =
-      oneuptimeRequest.bearerTokenData as JSONObject;
+      castOperationsRequest.bearerTokenData as JSONObject;
     const statusPageId: ObjectID = bearerData["statusPageId"] as ObjectID;
     const userId: string = req.params["userId"]!;
     const scimUser: JSONObject = req.body;
@@ -1484,9 +1485,9 @@ const handleStatusPageUserUpdate: (
     return Response.sendJsonObjectResponse(req, res, user);
   } catch (err) {
     executionSteps.push(`Error occurred: ${(err as Error).message}`);
-    const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+    const castOperationsRequest: OperationsRequest = req as OperationsRequest;
     const bearerData: JSONObject =
-      oneuptimeRequest.bearerTokenData as JSONObject;
+      castOperationsRequest.bearerTokenData as JSONObject;
 
     // Not found is expected behavior for SCIM providers
     const isNotFound: boolean = err instanceof NotFoundException;
@@ -1543,9 +1544,9 @@ router.delete(
         `Status Page SCIM Delete user request for userId: ${req.params["userId"]}, statusPageScimId: ${req.params["statusPageScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const statusPageId: ObjectID = bearerData["statusPageId"] as ObjectID;
       const scimConfig: StatusPageSCIM = bearerData[
         "scimConfig"
@@ -1646,9 +1647,9 @@ router.delete(
       return Response.sendEmptySuccessResponse(req, res);
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
 
       // Not found is expected behavior for SCIM providers
       const isNotFound: boolean = err instanceof NotFoundException;

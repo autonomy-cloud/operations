@@ -1,6 +1,6 @@
 import logger from "../../../Utils/Logger";
 import DataToProcess from "../DataToProcess";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import { JSONObject } from "../../../../Types/JSON";
 import {
   CheckOn,
@@ -101,10 +101,10 @@ export default class IncomingRequestCriteria {
 
       logger.debug("Last Check Time: " + lastCheckTime);
 
-      const differenceInMinutes: number = OneUptimeDate.getDifferenceInMinutes(
+      const differenceInMinutes: number = OperationsDate.getDifferenceInMinutes(
         lastCheckTime,
         (input.dataToProcess as IncomingMonitorRequest)?.checkedAt ||
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
       );
 
       logger.debug("Difference in minutes: " + differenceInMinutes);

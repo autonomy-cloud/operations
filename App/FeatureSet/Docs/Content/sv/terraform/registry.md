@@ -9,7 +9,7 @@ Cast Operations Terraform-leverantören finns tillgänglig på det officiella [T
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use latest compatible version
     }
@@ -17,9 +17,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -30,7 +30,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Replace with your exact Cast Operations version
     }
@@ -38,9 +38,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # Your self-hosted URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # Your self-hosted URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -77,8 +77,8 @@ curl https://your-operations-instance.com/api/version | jq '.version'
 ### Metod 3: Docker
 
 ```bash
-docker images | grep oneuptime
-# Look for the tag, e.g., oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# Look for the tag, e.g., cast-operations/dashboard:7.0.123
 ```
 
 ## Leverantörsregistreringsinformation

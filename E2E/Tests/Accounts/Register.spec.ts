@@ -1,4 +1,4 @@
-import { BASE_URL, IS_BILLING_ENABLED, IS_USER_REGISTERED } from "../../Config";
+import { BASE_URL, IS_USER_REGISTERED } from "../../Config";
 import { Page, expect, test, Response } from "@playwright/test";
 import URL from "Common/Types/API/URL";
 import Faker from "Common/Utils/Faker";
@@ -55,13 +55,6 @@ test.describe("Account Registration", () => {
     await page.getByTestId("email").press("Tab");
     await page.getByTestId("name").fill("sample");
     await page.getByTestId("name").press("Tab");
-
-    if (IS_BILLING_ENABLED) {
-      await page.getByTestId("companyName").fill("sample");
-      await page.getByTestId("companyName").press("Tab");
-      await page.getByTestId("companyPhoneNumber").fill("+1234567890");
-      await page.getByTestId("companyPhoneNumber").press("Tab");
-    }
 
     await page.getByTestId("password").fill("sample");
     await page.getByTestId("password").press("Tab");

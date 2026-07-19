@@ -5,14 +5,14 @@ Cast Operations Kubernetes-agenten indsamler klyngemetrikker, hændelser, pod-lo
 ## Hurtig start
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
@@ -35,20 +35,20 @@ Hvis du er i tvivl, så lad `preset` være uindstillet — du får `standard`-st
 **GKE Standard, EKS på EC2, selvadministreret eller AKS:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
 
 **GKE Autopilot:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
 ```
@@ -56,10 +56,10 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **EKS Fargate:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
 ```
@@ -77,7 +77,7 @@ En DaemonSet kører én OpenTelemetry Collector-pod pr. node. Den læser logfile
 
 ### API-tilstand (`logs.mode: api`)
 
-En Deployment med én replika (`oneuptime/kubernetes-log-tailer`-imaget) bruger Kubernetes API'en til at streame container-logs — det samme endpoint, som `kubectl logs -f` bruger. Ingen hostPath, ingen værtsadgang, ingen DaemonSet.
+En Deployment med én replika (`cast-operations/kubernetes-log-tailer`-imaget) bruger Kubernetes API'en til at streame container-logs — det samme endpoint, som `kubectl logs -f` bruger. Ingen hostPath, ingen værtsadgang, ingen DaemonSet.
 
 - **Fordele:** virker på GKE Autopilot, EKS Fargate og enhver klynge, der blokerer hostPath eller håndhæver `restricted` Pod Security Standard.
 $1 hver containerstream er en langvarig forbindelse til kube-apiserver. Én replika håndterer normalt nogle få tusinde containere. For meget store klynger skal du opdele separate releases med podLogs-scopede include-regler i namespaceFilters.rules.
@@ -157,8 +157,8 @@ Forbehold:
 For at tjekke, at OBI kører og ser trafik:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent -l component=ebpf-instrument
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent -l component=ebpf-instrument
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 ## Kontinuerlig CPU-profilering (deaktiveret som standard)
@@ -205,8 +205,8 @@ Charten kan også indsamle:
 | Indstilling                               | Standard                         | Beskrivelse                                                                                                                                                                         |
 | ----------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | (tom — behandles som `standard`) | Se tabellen ovenfor.                                                                                                                                                                |
-| `oneuptime.url`                           | _(påkrævet)_                     | URL til din Cast Operations-instans.                                                                                                                                                      |
-| `oneuptime.apiKey`                        | _(påkrævet)_                     | Projekt-API-nøgle (Settings → API Keys).                                                                                                                                            |
+| `cast-operations.url`                           | _(påkrævet)_                     | URL til din Cast Operations-instans.                                                                                                                                                      |
+| `cast-operations.apiKey`                        | _(påkrævet)_                     | Projekt-API-nøgle (Settings → API Keys).                                                                                                                                            |
 | `clusterName`                             | _(påkrævet)_                     | Unikt navn for denne klynge. Stemplet som `k8s.cluster.name` på hver post.                                                                                                          |
 | `namespaceFilters.rules`                  | Udeluk kube-system fra podLogs og ebpfDiscovery | Scoped include/exclude-regler for podLogs, ebpfDiscovery, metrics og traces. Namespace-mønstre understøtter *, og exclude vinder altid. |
 | `logs.enabled`                            | `true`                           | Slå logindsamling til eller fra.                                                                                                                                                    |
@@ -230,8 +230,8 @@ Se chartens [`values.yaml`](https://github.com/autonomy-cloud/operations/blob/ma
 
 ```bash
 helm repo update
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values
 ```
 
@@ -242,8 +242,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 > **Helm 3.14+** — skift til `--reset-then-reuse-values`. Den genlæser chart-standardværdierne for nøgler, du ikke har tilsidesat:
 >
 > ```bash
-> helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
->   --namespace oneuptime-kubernetes-agent \
+> helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+>   --namespace cast-operations-kubernetes-agent \
 >   --reset-then-reuse-values
 > ```
 >
@@ -254,8 +254,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 ## Afinstallation
 
 ```bash
-helm uninstall oneuptime-agent --namespace oneuptime-kubernetes-agent
-kubectl delete namespace oneuptime-kubernetes-agent
+helm uninstall cast-operations-agent --namespace cast-operations-kubernetes-agent
+kubectl delete namespace cast-operations-kubernetes-agent
 ```
 
 ## Fejlfinding
@@ -265,8 +265,8 @@ kubectl delete namespace oneuptime-kubernetes-agent
 Din klynge blokerer hostPath. Skift til en API-tilstand-preset:
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values \
   --set preset=gke-autopilot   # or eks-fargate
 ```
@@ -276,8 +276,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 Tjek agent-poddene:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent
-kubectl logs -n oneuptime-kubernetes-agent -l app.kubernetes.io/part-of=oneuptime --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent
+kubectl logs -n cast-operations-kubernetes-agent -l app.kubernetes.io/part-of=cast-operations --tail=200
 ```
 
 I API-tilstand eksponerer log-tailer-pod'en `/healthz` på port 13133 — ram den via `kubectl port-forward` for et øjebliksbillede af eksportstatus.
@@ -287,7 +287,7 @@ I API-tilstand eksponerer log-tailer-pod'en `/healthz` på port 13133 — ram de
 Tjek OBI-pod-loggene:
 
 ```bash
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 Almindelige årsager:
@@ -301,7 +301,7 @@ Almindelige årsager:
 Skalér horisontalt ved at sharde namespaces. Deploy én gang pr. namespace-gruppe:
 
 ```bash
-helm install oneuptime-agent-ns-a oneuptime/kubernetes-agent \
+helm install cast-operations-agent-ns-a cast-operations/kubernetes-agent \
   --set preset=gke-autopilot \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["app-a","app-b"],"scopes":["podLogs"]}]' \
   ...

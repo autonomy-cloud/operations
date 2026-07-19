@@ -8,13 +8,13 @@ import AlertService from "./AlertService";
 import AlertStateService from "./AlertStateService";
 import UserService from "./UserService";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
 import PositiveNumber from "../../Types/PositiveNumber";
 import AlertState from "../../Models/DatabaseModels/AlertState";
 import AlertStateTimeline from "../../Models/DatabaseModels/AlertStateTimeline";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import { JSONObject } from "../../Types/JSON";
 import AlertInternalNote from "../../Models/DatabaseModels/AlertInternalNote";
 import AlertInternalNoteService from "./AlertInternalNoteService";
@@ -29,9 +29,6 @@ import Semaphore, { SemaphoreMutex } from "../Infrastructure/Semaphore";
 export class Service extends DatabaseService<AlertStateTimeline> {
   public constructor() {
     super(AlertStateTimeline);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -70,7 +67,7 @@ export class Service extends DatabaseService<AlertStateTimeline> {
 
     try {
       if (!createBy.data.startsAt) {
-        createBy.data.startsAt = OneUptimeDate.getCurrentDate();
+        createBy.data.startsAt = OperationsDate.getCurrentDate();
       }
 
       try {

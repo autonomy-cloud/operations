@@ -30,7 +30,7 @@ import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 // Cast Operations OTLP/HTTP exporter:
 const exporter = new OTLPTraceExporter({
   url: "https://visca.ai/otlp/v1/traces",
-  headers: { "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
+  headers: { "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
 });
 
 // Register `exporter` with your WebTracerProvider, using a resource of:
@@ -45,7 +45,7 @@ Usa l'SDK OpenTelemetry Swift o Android, imposta `service.name` ed esporta OTLP 
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 Gli attributi `device.*` dell'SDK instradano la telemetria verso il RUM. Se utilizzi Cast Operations in modalità self-hosted, usa `https://YOUR-OPERATIONS-HOST/otlp`.

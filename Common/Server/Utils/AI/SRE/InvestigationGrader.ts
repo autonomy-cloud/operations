@@ -1,5 +1,5 @@
 import ObjectID from "../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import AIRunType from "../../../../Types/AI/AIRunType";
 import AIRunStatus from "../../../../Types/AI/AIRunStatus";
 import AIRunAutoGrade from "../../../../Types/AI/AIRunAutoGrade";
@@ -265,7 +265,7 @@ export default class InvestigationGrader {
         id: run.id!,
         data: {
           autoGrade: grade,
-          autoGradeAt: OneUptimeDate.getCurrentDate(),
+          autoGradeAt: OperationsDate.getCurrentDate(),
         },
         props: { isRoot: true },
       });

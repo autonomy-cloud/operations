@@ -33,7 +33,7 @@ Cast Operations을 설치하려면:
 ```
 # 릴리스 브랜치만으로 이 레포를 클론하고 해당 디렉토리로 이동합니다.
 git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # config.example.env를 config.env로 복사합니다
 cp config.example.env config.env

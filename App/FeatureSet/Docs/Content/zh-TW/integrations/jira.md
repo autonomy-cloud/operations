@@ -108,14 +108,14 @@ Jira Cloud 使用 **Basic auth**，以您的電子郵件與 API token 進行 bas
 
 3. 在 workflow 中，使用一個 **Find Incident** 區塊以儲存的 key 找出該事件，接著使用一個 **Update Incident** 區塊將它移至您的已解決狀態。
 
-如果您在步驟 4 中已將 Jira key 儲存在事件上，比對就很直接。請參閱 [Components → Cast Operations data components](/docs/workflows/components#oneuptime-data-components)。
+如果您在步驟 4 中已將 Jira key 儲存在事件上，比對就很直接。請參閱 [Components → Cast Operations data components](/docs/workflows/components#cast-operations-data-components)。
 
 ## 自訂 issue
 
 針對 API 區塊主體的幾項常見調整：
 
 - **Priority** — 在 `fields` 內加入 `"priority": { "name": "High" }`。您可以使用 **Conditions** 針對 `{{Incident.incidentSeverity.name}}` 進行分支，以將 Cast Operations 的嚴重程度對應到 Jira 的優先順序。
-- **Labels** — 加入 `"labels": ["oneuptime", "incident"]`。
+- **Labels** — 加入 `"labels": ["cast-operations", "incident"]`。
 - **Assignee** — 加入 `"assignee": { "id": "<accountId>" }`（Jira Cloud 使用 account ID，而非使用者名稱）。
 - **自訂欄位（Custom fields）** — 使用來自您 Jira 管理員的欄位 ID，加入 `"customfield_XXXXX": "..."`。
 

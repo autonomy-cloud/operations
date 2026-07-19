@@ -1,9 +1,9 @@
 import { Blue500 } from "../../Types/BrandColors";
 import Color from "../../Types/Color";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import logger, { LogAttributes } from "../Utils/Logger";
 import DatabaseService from "./DatabaseService";
 import Model, {
@@ -17,10 +17,6 @@ import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -35,7 +31,7 @@ export class Service extends DatabaseService<Model> {
     postedAt?: Date | undefined;
     workspaceNotification?:
       | {
-          notifyUserId?: ObjectID | undefined; // this is oneuptime user id.
+          notifyUserId?: ObjectID | undefined; // this is cast-operations user id.
           sendWorkspaceNotification: boolean;
           appendMessageBlocks?: Array<MessageBlocksByWorkspaceType> | undefined;
         }
@@ -84,7 +80,7 @@ export class Service extends DatabaseService<Model> {
       }
 
       if (!data.postedAt) {
-        scheduledMaintenanceFeed.postedAt = OneUptimeDate.getCurrentDate();
+        scheduledMaintenanceFeed.postedAt = OperationsDate.getCurrentDate();
       }
 
       await this.create({
@@ -138,7 +134,7 @@ export class Service extends DatabaseService<Model> {
     scheduledMaintenanceId: ObjectID;
     feedInfoInMarkdown: string;
     workspaceNotification: {
-      notifyUserId?: ObjectID | undefined; // this is oneuptime user id.
+      notifyUserId?: ObjectID | undefined; // this is cast-operations user id.
       sendWorkspaceNotification: boolean;
       appendMessageBlocks?: Array<MessageBlocksByWorkspaceType> | undefined;
     };

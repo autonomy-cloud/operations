@@ -1,5 +1,5 @@
 import NotAuthenticatedException from "../../Types/Exception/NotAuthenticatedException";
-import ProductType from "../../Types/MeteredPlan/ProductType";
+import ProductType from "../../Types/Telemetry/ProductType";
 import ObjectID from "../../Types/ObjectID";
 import {
   ExpressRequest,
@@ -27,27 +27,27 @@ export default class TelemetryIngest {
     try {
       // check header.
 
-      let oneuptimeToken: string | undefined = req.headers[
-        "x-oneuptime-token"
+      let castOperationsToken: string | undefined = req.headers[
+        "x-cast-operations-token"
       ] as string | undefined;
 
-      // if x-oneuptime-service-token header is present then use that as token.
-      if (!oneuptimeToken) {
-        oneuptimeToken = req.headers["x-oneuptime-service-token"] as
+      // if x-cast-operations-service-token header is present then use that as token.
+      if (!castOperationsToken) {
+        castOperationsToken = req.headers["x-cast-operations-service-token"] as
           | string
           | undefined;
       }
 
-      // if x-oneuptime-ingestion-key header is present then use that as token.
-      if (!oneuptimeToken) {
-        oneuptimeToken = req.headers["x-oneuptime-ingestion-key"] as
+      // if x-cast-operations-ingestion-key header is present then use that as token.
+      if (!castOperationsToken) {
+        castOperationsToken = req.headers["x-cast-operations-ingestion-key"] as
           | string
           | undefined;
       }
 
-      if (!oneuptimeToken) {
+      if (!castOperationsToken) {
         logger.error(
-          "Missing header: x-oneuptime-token",
+          "Missing header: x-cast-operations-token",
           getLogAttributesFromRequest(req as any),
         );
 
@@ -62,19 +62,19 @@ export default class TelemetryIngest {
           req,
           res,
           new NotAuthenticatedException(
-            "Missing ingestion token. Send your Cast Operations telemetry ingestion key in the x-oneuptime-token header.",
+            "Missing ingestion token. Send your Cast Operations telemetry ingestion key in the x-cast-operations-token header.",
           ),
         );
       }
 
       const projectId: ObjectID | null =
         await TelemetryIngestionKeyService.getProjectIdFromSecretKey(
-          oneuptimeToken.toString(),
+          castOperationsToken.toString(),
         );
 
       if (!projectId) {
         logger.error(
-          "Invalid service token: " + oneuptimeToken,
+          "Invalid service token: " + castOperationsToken,
           getLogAttributesFromRequest(req as any),
         );
 
@@ -88,7 +88,7 @@ export default class TelemetryIngest {
           req,
           res,
           new NotAuthenticatedException(
-            "Invalid ingestion token. Send a valid Cast Operations telemetry ingestion key in the x-oneuptime-token header.",
+            "Invalid ingestion token. Send a valid Cast Operations telemetry ingestion key in the x-cast-operations-token header.",
           ),
         );
       }

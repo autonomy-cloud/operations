@@ -265,7 +265,7 @@ export default class GenerateText extends ComponentCode {
         maxTokens: maxOutputTokens,
         requestTimeoutInMs,
         /*
-         * A retry after an ambiguous network result could duplicate a billed,
+         * A retry after an ambiguous network result could duplicate a
          * non-deterministic completion, so workflows make a single attempt.
          */
         requestRetries: 0,

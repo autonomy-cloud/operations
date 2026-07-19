@@ -40,21 +40,21 @@ Når du har konfigureret telemetritjenesten i din applikation, kan du integrere 
 
 | Miljøvariabel               | Værdi                                          |
 | --------------------------- | ---------------------------------------------- |
-| OTEL_EXPORTER_OTLP_HEADERS  | x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN |
+| OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
 | OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **Eksempel**
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=9c8806e0-a4aa-11ee-be95-010d5967b068
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
 **Selvhostet Cast Operations**
 
-Hvis du selvhoster oneuptime, kan dette ændres til dit selvhostede OpenTelemetry Collector-endpoint (f.eks. `http(s)://YOUR-OPERATIONS-HOST/otlp`)
+Hvis du selvhoster cast-operations, kan dette ændres til dit selvhostede OpenTelemetry Collector-endpoint (f.eks. `http(s)://YOUR-OPERATIONS-HOST/otlp`)
 
 Når du kører din applikation, bør du se loggene på Cast Operations-telemetriservicesiden. Kontakt venligst support@visca.ai, hvis du har brug for hjælp.
 
@@ -82,7 +82,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "ONEUPTIME_TOKEN" # Dit Cast Operations-token
+      "x-cast-operations-token": "CAST_OPERATIONS_TOKEN" # Dit Cast Operations-token
 
 service:
   pipelines:

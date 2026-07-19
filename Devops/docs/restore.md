@@ -11,7 +11,7 @@ Syntax:
 `sudo kubectl cp <localfilePath> <pod>:<filepath>`
 
 Example:
-`sudo kubectl cp /Volumes/DataDrive/Projects/OneUptime/app/backup.archive fi-mongodb-0:/bitnami/mongodb/oneuptimedata.archive`
+`sudo kubectl cp /Volumes/DataDrive/Projects/Operations/app/backup.archive fi-mongodb-0:/bitnami/mongodb/cast-operationsdata.archive`
 
 **Step 2**: Mongorestore on the container.
 
@@ -21,4 +21,4 @@ Syntax:
 
 Example:
 
-`sudo kubectl exec fi-mongodb-0 -- mongorestore --uri="mongodb://oneuptime:password@localhost:27017/oneuptimedb" --archive="/bitnami/mongodb/oneuptimedata.archive"`
+`sudo kubectl exec fi-mongodb-0 -- mongorestore --uri="mongodb://cast-operations:password@localhost:27017/castoperationsdb" --archive="/bitnami/mongodb/cast-operationsdata.archive"`

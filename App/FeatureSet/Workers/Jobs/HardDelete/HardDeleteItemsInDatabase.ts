@@ -1,11 +1,8 @@
 import RunCron from "../../Utils/Cron";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { EVERY_DAY, EVERY_MINUTE } from "Common/Utils/CronTime";
-import {
-  IsBillingEnabled,
-  IsDevelopment,
-} from "Common/Server/EnvironmentConfig";
+import { IsDevelopment } from "Common/Server/EnvironmentConfig";
 import DatabaseService from "Common/Server/Services/DatabaseService";
 import Services from "Common/Server/Services/Index";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
@@ -15,13 +12,6 @@ RunCron(
   "HardDelete:HardDeleteItemsInDatabase",
   { schedule: IsDevelopment ? EVERY_MINUTE : EVERY_DAY, runOnStartup: false },
   async () => {
-    if (!IsBillingEnabled) {
-      logger.debug(
-        "HardDelete:HardDeleteItemsInDatabase: Billing is not enabled. Skipping hard delete.",
-      );
-      return;
-    }
-
     for (const service of Services) {
       if (service instanceof DatabaseService) {
         if (service.doNotAllowDelete) {
@@ -37,7 +27,7 @@ RunCron(
             deletedCount = await service.hardDeleteBy({
               query: {
                 deletedAt: QueryHelper.lessThan(
-                  OneUptimeDate.getSomeDaysAgo(30),
+                  OperationsDate.getSomeDaysAgo(30),
                 ),
               },
               props: {
@@ -76,7 +66,7 @@ RunCron(
             deletedCount = await service.hardDeleteBy({
               query: {
                 [service.hardDeleteItemByColumnName]: QueryHelper.lessThan(
-                  OneUptimeDate.getSomeDaysAgo(
+                  OperationsDate.getSomeDaysAgo(
                     service.hardDeleteItemsOlderThanDays,
                   ),
                 ),

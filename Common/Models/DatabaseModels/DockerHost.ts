@@ -153,7 +153,8 @@ export default class DockerHost extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -383,7 +384,7 @@ export default class DockerHost extends BaseModel {
     canReadOnRelationQuery: true,
     title: "Agent Version",
     description:
-      "Version of the Cast Operations Docker agent reporting telemetry, as self-reported via the oneuptime.agent.version resource attribute",
+      "Version of the Cast Operations Docker agent reporting telemetry, as self-reported via the cast-operations.agent.version resource attribute",
     example: "1.0.0",
   })
   @Column({

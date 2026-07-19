@@ -22,7 +22,7 @@ import ModelFormModal from "Common/UI/Components/ModelFormModal/ModelFormModal";
 import IncidentPublicNote from "Common/Models/DatabaseModels/IncidentPublicNote";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
 import { FormType } from "Common/UI/Components/Forms/ModelForm";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IncidentInternalNote from "Common/Models/DatabaseModels/IncidentInternalNote";
 import { ModalWidth } from "Common/UI/Components/Modal/Modal";
 import OnCallDutyPolicyExecutionLog from "Common/Models/DatabaseModels/OnCallDutyPolicyExecutionLog";
@@ -450,7 +450,7 @@ const IncidentFeedElement: FunctionComponent<ComponentProps> = (
                   title: "Posted At",
                   required: true,
                   getDefaultValue: () => {
-                    return OneUptimeDate.getCurrentDate();
+                    return OperationsDate.getCurrentDate();
                   },
                 },
                 {

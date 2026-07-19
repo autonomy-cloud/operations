@@ -1,7 +1,7 @@
 import { Blue500 } from "../../../Types/BrandColors";
 import CalendarEvent from "../../../Types/Calendar/CalendarEvent";
 import Color from "../../../Types/Color";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import StartAndEndTime from "../../../Types/Time/StartAndEndTime";
 import moment from "moment-timezone";
 import React, { FunctionComponent, ReactElement, useMemo } from "react";
@@ -44,7 +44,7 @@ const CalendarElement: FunctionComponent<ComponentProps> = (
 ): ReactElement => {
   const { defaultDate } = useMemo(() => {
     return {
-      defaultDate: props.defaultDate || OneUptimeDate.getCurrentDate(),
+      defaultDate: props.defaultDate || OperationsDate.getCurrentDate(),
     };
   }, [props.defaultDate]);
 
@@ -76,7 +76,7 @@ const CalendarElement: FunctionComponent<ComponentProps> = (
   return (
     <div
       id={props.id}
-      className="oneuptime-calendar mt-5 h-[42rem] rounded-xl bg-white"
+      className="cast-operations-calendar mt-5 h-[42rem] rounded-xl bg-white"
     >
       <Calendar
         defaultDate={defaultDate}
@@ -91,7 +91,7 @@ const CalendarElement: FunctionComponent<ComponentProps> = (
           if (Array.isArray(range)) {
             return props.onRangeChange({
               startTime: range[0] as Date,
-              endTime: OneUptimeDate.getEndOfDay(
+              endTime: OperationsDate.getEndOfDay(
                 range[range.length - 1] as Date,
               ),
             });

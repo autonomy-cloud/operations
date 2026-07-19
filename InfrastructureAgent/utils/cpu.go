@@ -3,7 +3,7 @@ package utils
 import (
 	"fmt"
 	"log/slog"
-	"oneuptime-infrastructure-agent/model"
+	"cast-operations-infrastructure-agent/model"
 	"time"
 
 	"github.com/shirou/gopsutil/v3/cpu"

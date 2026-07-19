@@ -108,7 +108,7 @@ export default function SSOLoginScreen(): React.JSX.Element {
   };
 
   /**
-   * Parses the `oneuptime://sso-callback` deep-link params, persists the auth
+   * Parses the `cast-operations://sso-callback` deep-link params, persists the auth
    * tokens and every per-project SSO token, then marks the user authenticated.
    * Returns true on success.
    */
@@ -176,7 +176,7 @@ export default function SSOLoginScreen(): React.JSX.Element {
       const result: WebBrowser.WebBrowserAuthSessionResult =
         await WebBrowser.openAuthSessionAsync(
           ssoUrl,
-          "oneuptime://sso-callback",
+          "cast-operations://sso-callback",
         );
 
       if (result.type === "cancel" || result.type === "dismiss") {

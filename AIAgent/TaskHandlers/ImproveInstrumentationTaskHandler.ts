@@ -18,7 +18,7 @@ export default class ImproveInstrumentationTaskHandler extends SubjectPullReques
   public readonly taskType: string = CodeFixTaskType.ImproveInstrumentation;
   public readonly name: string = "Improve Instrumentation Handler";
 
-  protected readonly branchPrefix: string = "oneuptime-instrumentation-";
+  protected readonly branchPrefix: string = "cast-operations-instrumentation-";
   protected readonly noActionMessage: string =
     "No instrumentation could be added to any repository";
   protected readonly noRepositoryMessage: string =

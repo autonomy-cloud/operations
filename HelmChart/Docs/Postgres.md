@@ -3,7 +3,7 @@
 To access postgres use port forwarding in kubernetes
 
 ```
-kubectl port-forward --address 0.0.0.0 service/oneuptime-postgresql 5432:5432
+kubectl port-forward --address 0.0.0.0 service/cast-operations-postgresql 5432:5432
 ```
 
 then you should be able to access from the localhost and port 5432
@@ -12,14 +12,14 @@ You also need to read postgres password which is stored in kubenretes secrets. Y
 
 ```
 # Username for Postgres user is `postgres`
-echo $(kubectl get secret --namespace "default" oneuptime-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+echo $(kubectl get secret --namespace "default" cast-operations-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 ```
 
 Important: Please ignore % in the end of the password output.
 
 ```
-# Username for Postgres user is `oneuptime`
-echo $(kubectl get secret --namespace "default" oneuptime-postgresql -o jsonpath="{.data.password}" | base64 -d)
+# Username for Postgres user is `cast-operations`
+echo $(kubectl get secret --namespace "default" cast-operations-postgresql -o jsonpath="{.data.password}" | base64 -d)
 ```
 
 Important: Please ignore % in the end of the password output.
@@ -95,7 +95,7 @@ postgresOperator:
     enabled: true # turns on the operator + an operator-managed Cluster
     instances: 3 # 1 primary + 2 hot standbys (use 1 for single node)
     imageName: "ghcr.io/cloudnative-pg/postgresql:17.4" # pin a minor version
-    database: oneuptimedb
+    database: castoperationsdb
 ```
 
 When `postgresOperator.cnpg.enabled` is `true`:
@@ -116,7 +116,7 @@ When `postgresOperator.cnpg.enabled` is `true`:
 Read the superuser password:
 
 ```
-echo $(kubectl get secret --namespace "default" oneuptime-postgresql-cnpg-superuser -o jsonpath="{.data.password}" | base64 -d)
+echo $(kubectl get secret --namespace "default" cast-operations-postgresql-cnpg-superuser -o jsonpath="{.data.password}" | base64 -d)
 ```
 
 > **Bundled-operator caveats.** The operator is cluster-scoped and owns the
@@ -149,8 +149,8 @@ one-time step per cluster:
 
 ```bash
 # 1) Render the chart and apply ONLY the CloudNativePG CRDs first.
-helm template oneuptime ./HelmChart/Public/oneuptime \
-  -f ./HelmChart/Public/oneuptime/values.yaml \
+helm template cast-operations ./HelmChart/Public/cast-operations \
+  -f ./HelmChart/Public/cast-operations/values.yaml \
   -f ./HelmChart/Values/<your>.values.yaml \
 | python3 -c 'import sys,re; d=sys.stdin.read().split("\n---\n"); print("\n---\n".join(x for x in d if re.search(r"^kind: CustomResourceDefinition$",x,re.M) and "cnpg.io" in x))' \
 | kubectl apply --server-side -f -
@@ -159,13 +159,13 @@ helm template oneuptime ./HelmChart/Public/oneuptime \
 for c in $(kubectl get crd -o name | grep '\.postgresql\.cnpg\.io' | sed 's#.*/##'); do
   kubectl label  crd "$c" app.kubernetes.io/managed-by=Helm --overwrite
   kubectl annotate crd "$c" \
-    meta.helm.sh/release-name=oneuptime \
+    meta.helm.sh/release-name=cast-operations \
     meta.helm.sh/release-namespace=default --overwrite
 done
 
 # 3) Now the normal install/upgrade (e.g. npm run deploy-test) succeeds.
-helm upgrade --install oneuptime ./HelmChart/Public/oneuptime \
-  -f ./HelmChart/Public/oneuptime/values.yaml -f ./HelmChart/Values/<your>.values.yaml
+helm upgrade --install cast-operations ./HelmChart/Public/cast-operations \
+  -f ./HelmChart/Public/cast-operations/values.yaml -f ./HelmChart/Values/<your>.values.yaml
 ```
 
 Step 2 is only needed if you keep the default `cloudnative-pg.crds.create: true`

@@ -10,7 +10,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import BaseAPI from "./BaseAPI";
@@ -22,7 +22,7 @@ import UserPush from "../../Models/DatabaseModels/UserPush";
 import PushNotificationMessage from "../../Types/PushNotification/PushNotificationMessage";
 
 function getAuthenticatedUserId(req: ExpressRequest): ObjectID {
-  const userId: ObjectID | undefined = (req as OneUptimeRequest)
+  const userId: ObjectID | undefined = (req as OperationsRequest)
     .userAuthorization?.userId;
   if (!userId) {
     throw new NotAuthenticatedException(
@@ -44,7 +44,7 @@ export default class UserPushAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           const userId: ObjectID = getAuthenticatedUserId(req);
 
@@ -133,7 +133,7 @@ export default class UserPushAPI extends BaseAPI<
           } catch (e) {
             logger.error(
               e,
-              getLogAttributesFromRequest(req as OneUptimeRequest),
+              getLogAttributesFromRequest(req as OperationsRequest),
             );
           }
 
@@ -152,7 +152,7 @@ export default class UserPushAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           const userId: ObjectID = getAuthenticatedUserId(req);
 
@@ -191,7 +191,7 @@ export default class UserPushAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           const userId: ObjectID = getAuthenticatedUserId(req);
 
@@ -295,7 +295,7 @@ export default class UserPushAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           const userId: ObjectID = getAuthenticatedUserId(req);
 
@@ -351,7 +351,7 @@ export default class UserPushAPI extends BaseAPI<
           } catch (e) {
             logger.error(
               e,
-              getLogAttributesFromRequest(req as OneUptimeRequest),
+              getLogAttributesFromRequest(req as OperationsRequest),
             );
           }
 
@@ -367,7 +367,7 @@ export default class UserPushAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           const userId: ObjectID = getAuthenticatedUserId(req);
 

@@ -66,7 +66,6 @@ export interface ComponentProps {
   showProjectModal: boolean;
   onProjectModalClose: () => void;
   selectedProject: Project | null;
-  paymentMethodsCount?: number | undefined;
 }
 
 const DashboardHeader: FunctionComponent<ComponentProps> = (

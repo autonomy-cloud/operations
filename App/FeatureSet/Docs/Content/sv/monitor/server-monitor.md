@@ -31,10 +31,10 @@ Cast Operations Infrastrukturagenten är en lätt Go-baserad daemon som samlar i
 curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Konfigurera agenten
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # Starta agenten
-sudo oneuptime-infrastructure-agent start
+sudo cast-operations-infrastructure-agent start
 ```
 
 Ersätt `YOUR_SECRET_KEY` med den hemliga nyckel som visas i monitorns inställningar och `https://visca.ai` med din Cast Operations-instans-URL om du egeninstallerar.
@@ -42,17 +42,17 @@ Ersätt `YOUR_SECRET_KEY` med den hemliga nyckel som visas i monitorns inställn
 ### Windows
 
 1. Ladda ner den senaste agenten från [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest)
-   - `oneuptime-infrastructure-agent_windows_amd64.zip` för x64-system
-   - `oneuptime-infrastructure-agent_windows_arm64.zip` för ARM64-system
+   - `cast-operations-infrastructure-agent_windows_amd64.zip` för x64-system
+   - `cast-operations-infrastructure-agent_windows_arm64.zip` för ARM64-system
 2. Extrahera zip-filen
 3. Öppna kommandotolken som administratör och kör:
 
 ```bash
 # Konfigurera agenten
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # Starta agenten
-oneuptime-infrastructure-agent start
+cast-operations-infrastructure-agent start
 ```
 
 ### Proxystöd
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 Om din server ansluter till internet via en proxy kan du konfigurera agenten att använda den:
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Agentkommandon
@@ -170,8 +170,8 @@ För processkontroller:
 
 ### Agenten rapporterar inte
 
-- Verifiera att agenten körs: `sudo oneuptime-infrastructure-agent status`
-- Kontrollera agentloggar: `sudo oneuptime-infrastructure-agent logs -n 50`
+- Verifiera att agenten körs: `sudo cast-operations-infrastructure-agent status`
+- Kontrollera agentloggar: `sudo cast-operations-infrastructure-agent logs -n 50`
 - Bekräfta att den hemliga nyckeln är korrekt
 - Se till att servern kan nå din Cast Operations-instans-URL
 - Kontrollera att brandväggsregler tillåter utgående HTTPS-anslutningar
@@ -180,7 +180,7 @@ För processkontroller:
 
 Agenten är designad för att vara lätt. Om du märker hög resursanvändning:
 
-- Starta om agenten: `sudo oneuptime-infrastructure-agent restart`
+- Starta om agenten: `sudo cast-operations-infrastructure-agent restart`
 - Kontrollera agentloggar efter fel
 
 ## Bästa praxis

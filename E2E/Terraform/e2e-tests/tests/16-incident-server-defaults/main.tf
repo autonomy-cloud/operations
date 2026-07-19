@@ -1,14 +1,14 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -22,7 +22,7 @@ provider "oneuptime" {
 # The server injects defaults for many fields that aren't specified.
 
 # First create an incident severity (required dependency)
-resource "oneuptime_incident_severity" "test" {
+resource "cast_operations_incident_severity" "test" {
   name        = "Incident Test Severity"
   description = "Severity for incident server defaults test"
   color       = "#FF0000"
@@ -30,9 +30,9 @@ resource "oneuptime_incident_severity" "test" {
 }
 
 # Create incident with minimal fields - let server provide defaults
-resource "oneuptime_incident" "test_server_defaults" {
+resource "cast_operations_incident" "test_server_defaults" {
   title                = "Incident Server Defaults Test"
-  incident_severity_id = oneuptime_incident_severity.test.id
+  incident_severity_id = cast_operations_incident_severity.test.id
 
   # IMPORTANT: We intentionally DO NOT specify these Optional+Computed fields:
   # - description (string)
@@ -48,62 +48,62 @@ resource "oneuptime_incident" "test_server_defaults" {
 
 # Output to verify creation succeeded
 output "incident_id" {
-  value       = oneuptime_incident.test_server_defaults.id
+  value       = cast_operations_incident.test_server_defaults.id
   description = "ID of the created incident"
 }
 
 # Incident severity outputs for API validation
 output "incident_severity_id" {
-  value       = oneuptime_incident_severity.test.id
+  value       = cast_operations_incident_severity.test.id
   description = "ID of the created incident severity"
 }
 
 output "incident_severity_name" {
-  value       = oneuptime_incident_severity.test.name
+  value       = cast_operations_incident_severity.test.name
   description = "Name of the incident severity"
 }
 
 output "incident_severity_color" {
-  value       = oneuptime_incident_severity.test.color
+  value       = cast_operations_incident_severity.test.color
   description = "Color of the incident severity"
 }
 
 # Incident title for API validation
 output "incident_title" {
-  value       = oneuptime_incident.test_server_defaults.title
+  value       = cast_operations_incident.test_server_defaults.title
   description = "Title of the created incident"
 }
 
 # String field - server provides default incident state
 output "current_incident_state_id" {
-  value       = oneuptime_incident.test_server_defaults.current_incident_state_id
+  value       = cast_operations_incident.test_server_defaults.current_incident_state_id
   description = "Server-assigned default incident state (should be 'created' state)"
 }
 
 # List field - server may provide empty list or defaults
 output "monitors" {
-  value       = oneuptime_incident.test_server_defaults.monitors
+  value       = cast_operations_incident.test_server_defaults.monitors
   description = "Server-provided monitors list"
 }
 
 output "labels" {
-  value       = oneuptime_incident.test_server_defaults.labels
+  value       = cast_operations_incident.test_server_defaults.labels
   description = "Server-provided labels list"
 }
 
 # Bool field - server provides default
 output "should_notify_subscribers" {
-  value       = oneuptime_incident.test_server_defaults.should_status_page_subscribers_be_notified_on_incident_created
+  value       = cast_operations_incident.test_server_defaults.should_status_page_subscribers_be_notified_on_incident_created
   description = "Server-provided default for subscriber notification"
 }
 
 # Other server-computed fields
 output "slug" {
-  value       = oneuptime_incident.test_server_defaults.slug
+  value       = cast_operations_incident.test_server_defaults.slug
   description = "Server-generated slug"
 }
 
 output "created_at" {
-  value       = oneuptime_incident.test_server_defaults.created_at
+  value       = cast_operations_incident.test_server_defaults.created_at
   description = "Server-generated creation timestamp"
 }

@@ -16,7 +16,7 @@ import API from "Common/UI/Utils/API/API";
 import User from "Common/UI/Utils/User";
 import UserEmail from "Common/Models/DatabaseModels/UserEmail";
 import React, { ReactElement, useEffect, useState } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const Email: () => JSX.Element = (): ReactElement => {
   const [showVerificationCodeModal, setShowVerificationCodeModal] =
@@ -28,7 +28,7 @@ const Email: () => JSX.Element = (): ReactElement => {
   const [error, setError] = useState<string>("");
   const [currentItem, setCurrentItem] = useState<UserEmail | null>(null);
   const [refreshToggle, setRefreshToggle] = useState<string>(
-    OneUptimeDate.getCurrentDate().toString(),
+    OperationsDate.getCurrentDate().toString(),
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -187,7 +187,7 @@ const Email: () => JSX.Element = (): ReactElement => {
               } else {
                 setIsLoading(false);
                 setShowVerificationCodeModal(false);
-                setRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+                setRefreshToggle(OperationsDate.getCurrentDate().toString());
               }
             } catch (e) {
               setError(API.getFriendlyMessage(e));

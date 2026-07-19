@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. Dans Datadog, allez dans **Integrations → Webhooks** (installez l'intégration **Webhooks** si ce n'est pas déjà fait).
 2. **Ajoutez un webhook** :
 
-   - **Name** : `oneuptime` (cela devient `@webhook-oneuptime`).
+   - **Name** : `cast-operations` (cela devient `@webhook-cast-operations`).
    - **URL** : l'URL webhook de votre workflow.
    - **Payload** — Datadog vous permet de définir le corps JSON en utilisant des [variables de modèle](https://docs.datadoghq.com/integrations/webhooks/#usage) :
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Ajoutez le handle du webhook aux monitors que vous souhaitez transmettre. Dans le **message de notification** de chaque monitor, incluez :
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Cela envoie à la fois l'alerte et la reprise vers Cast Operations. (Pour tout transmettre, vous pouvez également ajouter `@webhook-oneuptime` à un monitor de façon inconditionnelle.)
+Cela envoie à la fois l'alerte et la reprise vers Cast Operations. (Pour tout transmettre, vous pouvez également ajouter `@webhook-cast-operations` à un monitor de façon inconditionnelle.)
 
 ## Étape 4 — Tester
 
@@ -74,7 +74,7 @@ Cela envoie à la fois l'alerte et la reprise vers Cast Operations. (Pour tout t
 
 ## Dépannage
 
-- **Aucune exécution n'apparaît** — confirmez que le message du monitor inclut `@webhook-oneuptime` et que le workflow est **Enabled**.
+- **Aucune exécution n'apparaît** — confirmez que le message du monitor inclut `@webhook-cast-operations` et que le workflow est **Enabled**.
 - **Les champs sont vides** — Datadog ne substitue que les variables de modèle qui s'appliquent à l'événement. Inspectez la sortie du déclencheur dans l'onglet **Logs** et ajustez votre charge utile webhook.
 - **Incidents en double** — un monitor qui ré-alerte (renotify) envoie plusieurs événements `Triggered` ; déduplication avec une vérification **Find Incident** sur l'`id` avant la création.
 

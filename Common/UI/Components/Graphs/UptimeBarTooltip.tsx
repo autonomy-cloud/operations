@@ -1,4 +1,4 @@
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Color from "../../../Types/Color";
 import UptimeBarTooltipIncident from "../../../Types/Monitor/UptimeBarTooltipIncident";
 import React, { FunctionComponent, ReactElement } from "react";
@@ -23,7 +23,7 @@ const UptimeBarTooltip: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
   const dateStr: string =
-    OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(props.date, true);
+    OperationsDate.getDateAsUserFriendlyLocalFormattedString(props.date, true);
 
   // Color tiers
   const isGood: boolean = props.uptimePercent >= 99.9;
@@ -336,7 +336,7 @@ const UptimeBarTooltip: FunctionComponent<ComponentProps> = (
                     flexShrink: 0,
                   }}
                 >
-                  {OneUptimeDate.secondsToFormattedFriendlyTimeString(
+                  {OperationsDate.secondsToFormattedFriendlyTimeString(
                     status.seconds,
                   )}
                 </span>
@@ -521,7 +521,7 @@ const UptimeBarTooltip: FunctionComponent<ComponentProps> = (
                         whiteSpace: "nowrap",
                       }}
                     >
-                      {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                      {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                         incident.declaredAt,
                         false,
                       )}

@@ -1,6 +1,6 @@
 import RunCron from "../../Utils/Cron";
 import { CallRequestMessage } from "Common/Types/Call/CallRequest";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import { EmailEnvelope } from "Common/Types/Email/EmailMessage";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
@@ -170,12 +170,12 @@ RunCron(
 
           if (previousStartTime && currentStartTime) {
             const durationInSeconds: number =
-              OneUptimeDate.getDifferenceInSeconds(
+              OperationsDate.getDifferenceInSeconds(
                 currentStartTime,
                 previousStartTime,
               );
             previousStateDuration =
-              OneUptimeDate.convertSecondsToDaysHoursMinutesAndSeconds(
+              OperationsDate.convertSecondsToDaysHoursMinutesAndSeconds(
                 durationInSeconds,
               );
           }
@@ -232,7 +232,7 @@ RunCron(
           ),
           resourcesAffected: alert.monitor?.name || "",
           stateChangedAt:
-            OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+            OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
               date: alertStateTimeline.createdAt!,
               timezones: user.timezone ? [user.timezone] : [],
             }),

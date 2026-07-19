@@ -12,7 +12,7 @@ import AIChatPermissionMode, {
 } from "Common/Types/AI/AIChatPermissionMode";
 import { AIChatToolAction } from "Common/Types/AI/AIChatTypes";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { JSONArray, JSONObject } from "Common/Types/JSON";
 import ModelEventType from "Common/Types/Realtime/ModelEventType";
 import ObjectID from "Common/Types/ObjectID";
@@ -670,7 +670,7 @@ export function useAiChat(options: { enabled: boolean }): UseAiChat {
       optimisticMessage.role = AIChatMessageRole.User;
       optimisticMessage.contentInMarkdown = content;
       optimisticMessage.status = AIChatMessageStatus.Completed;
-      optimisticMessage.createdAt = OneUptimeDate.getCurrentDate();
+      optimisticMessage.createdAt = OperationsDate.getCurrentDate();
 
       setMessages((current: Array<AIConversationMessage>) => {
         return [...current, optimisticMessage];

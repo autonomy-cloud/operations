@@ -1,5 +1,5 @@
 import CalendarEvent from "Common/Types/Calendar/CalendarEvent";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import EventInterval from "Common/Types/Events/EventInterval";
 import Recurring from "Common/Types/Events/Recurring";
 import LayerUtil, { LayerProps } from "Common/Types/OnCallDutyPolicy/Layer";
@@ -44,17 +44,17 @@ const addRotationPeriods: (
 
   switch (rotation.intervalType) {
     case EventInterval.Hour:
-      return OneUptimeDate.addRemoveHours(date, units);
+      return OperationsDate.addRemoveHours(date, units);
     case EventInterval.Day:
-      return OneUptimeDate.addRemoveDays(date, units);
+      return OperationsDate.addRemoveDays(date, units);
     case EventInterval.Week:
-      return OneUptimeDate.addRemoveWeeks(date, units);
+      return OperationsDate.addRemoveWeeks(date, units);
     case EventInterval.Month:
-      return OneUptimeDate.addRemoveMonths(date, units);
+      return OperationsDate.addRemoveMonths(date, units);
     case EventInterval.Year:
-      return OneUptimeDate.addRemoveYears(date, units);
+      return OperationsDate.addRemoveYears(date, units);
     default:
-      return OneUptimeDate.addRemoveDays(date, units);
+      return OperationsDate.addRemoveDays(date, units);
   }
 };
 
@@ -89,7 +89,7 @@ export const getLayerPreviewEvents: (params: {
   timezone?: string | undefined;
   numberOfShifts?: number | undefined;
 }): LayerPreviewResult => {
-  const now: Date = OneUptimeDate.getCurrentDate();
+  const now: Date = OperationsDate.getCurrentDate();
   const numberOfShifts: number = params.numberOfShifts || 6;
 
   /*
@@ -128,13 +128,13 @@ export const getLayerPreviewEvents: (params: {
     rotation,
     numberOfShifts + 2,
   );
-  const minStart: Date = OneUptimeDate.addRemoveDays(now, -2);
-  const minEnd: Date = OneUptimeDate.addRemoveDays(now, 14);
+  const minStart: Date = OperationsDate.addRemoveDays(now, -2);
+  const minEnd: Date = OperationsDate.addRemoveDays(now, 14);
 
-  const windowStart: Date = OneUptimeDate.isBefore(cadenceStart, minStart)
+  const windowStart: Date = OperationsDate.isBefore(cadenceStart, minStart)
     ? cadenceStart
     : minStart;
-  const windowEnd: Date = OneUptimeDate.isAfter(cadenceEnd, minEnd)
+  const windowEnd: Date = OperationsDate.isAfter(cadenceEnd, minEnd)
     ? cadenceEnd
     : minEnd;
 

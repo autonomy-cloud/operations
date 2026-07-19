@@ -1,7 +1,7 @@
 services:
-  oneuptime-ceph-agent:
+  cast-operations-ceph-agent:
     image: otel/opentelemetry-collector-contrib:latest
-    container_name: oneuptime-ceph-agent
+    container_name: cast-operations-ceph-agent
     volumes:
       - ./otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml:ro
       # Uncomment (together with the filelog receiver and logs pipeline in
@@ -10,8 +10,8 @@ services:
       # that has the cluster log (a mon host by default).
       # - /var/log/ceph:/var/log/ceph:ro
     environment:
-      - ONEUPTIME_URL=${ONEUPTIME_URL}
-      - ONEUPTIME_TELEMETRY_INGESTION_KEY=${ONEUPTIME_TELEMETRY_INGESTION_KEY}
+      - CAST_OPERATIONS_URL=${CAST_OPERATIONS_URL}
+      - CAST_OPERATIONS_TELEMETRY_INGESTION_KEY=${CAST_OPERATIONS_TELEMETRY_INGESTION_KEY}
       - CEPH_CLUSTER_NAME=${CEPH_CLUSTER_NAME:-ceph}
       # Comma-separated host:port list of ALL mgr daemons, wrapped in
       # square brackets so the collector parses it as a list, e.g.

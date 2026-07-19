@@ -71,7 +71,7 @@ MCP-сервер размещён вместе с вашим экземпляр�
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp",
       "headers": {
@@ -89,7 +89,7 @@ MCP-сервер размещён вместе с вашим экземпляр�
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
@@ -107,7 +107,7 @@ MCP-сервер размещён вместе с вашим экземпляр�
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp"
     }
@@ -140,18 +140,18 @@ VS Code поддерживает MCP-серверы нативно с GitHub Cop
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://visca.ai/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -164,18 +164,18 @@ VS Code поддерживает MCP-серверы нативно с GitHub Cop
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -187,7 +187,7 @@ VS Code поддерживает MCP-серверы нативно с GitHub Cop
 
 1. Нажмите `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. Введите "MCP: List Servers", чтобы увидеть доступные серверы
-3. Нажмите на "oneuptime", чтобы запустить сервер
+3. Нажмите на "cast-operations", чтобы запустить сервер
 4. При появлении запроса введите ваш ключ API Cast Operations
 
 #### Шаг 4: Используйте с Copilot Chat
@@ -222,8 +222,8 @@ MCP-сервер поддерживает два режима работы:
 
 Вы можете подключиться к MCP-серверу без ключа API для доступа к публичным инструментам:
 
-- **`oneuptime_help`**: Получение справки и руководства по возможностям MCP Cast Operations
-- **`oneuptime_list_resources`**: Перечисление доступных ресурсов и их операций
+- **`cast_operations_help`**: Получение справки и руководства по возможностям MCP Cast Operations
+- **`cast_operations_list_resources`**: Перечисление доступных ресурсов и их операций
 - **`get_public_status_page_overview`**: Получение обзора публичной страницы статуса
 - **`get_public_status_page_incidents`**: Получение инцидентов с публичной страницы статуса
 - **`get_public_status_page_scheduled_maintenance`**: Получение запланированных событий технического обслуживания
@@ -253,7 +253,7 @@ MCP-сервер поддерживает два режима работы:
 
 ## Кто я
 
-Инструмент **`oneuptime_whoami`** возвращает проект, которому принадлежит ваш ключ API (идентификатор и имя). Это полезный первый вызов, позволяющий агенту сориентироваться, — а поскольку инструменты создания определяют `projectId` по ключу API, агенту никогда не нужно передавать идентификатор проекта.
+Инструмент **`cast_operations_whoami`** возвращает проект, которому принадлежит ваш ключ API (идентификатор и имя). Это полезный первый вызов, позволяющий агенту сориентироваться, — а поскольку инструменты создания определяют `projectId` по ключу API, агенту никогда не нужно передавать идентификатор проекта.
 
 ## Запросы к телеметрии
 

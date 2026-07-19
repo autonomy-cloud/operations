@@ -42,7 +42,7 @@ Keycloak ist eine beliebte Open-Source-Identitäts- und Zugriffsmanagementlösun
 1. Melden Sie sich bei Ihrem Cast Operations-Dashboard an
 2. Navigieren Sie zu **Projekteinstellungen** > **Authentifizierung** > **SSO**
 3. Klicken Sie auf **SSO erstellen** und füllen Sie Folgendes aus:
-   - **Name**: Ein beschreibender Name (z. B. `my-project-oneuptime`)
+   - **Name**: Ein beschreibender Name (z. B. `my-project-cast-operations`)
    - **Sign-On-URL**: `https://<your-keycloak-domain>/auth/realms/<your-realm>/protocol/saml`
    - **Aussteller**: `https://<your-keycloak-domain>/auth/realms/<your-realm>`
    - **Zertifikat**: Siehe Schritt 2 unten

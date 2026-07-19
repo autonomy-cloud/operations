@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ProbeAttempt from "Common/Types/Probe/ProbeAttempt";
 import ProbeMonitorResponse from "Common/Types/Probe/ProbeMonitorResponse";
 import SqlMonitorResponse from "Common/Types/Monitor/SqlMonitor/SqlMonitorResponse";
@@ -80,7 +80,7 @@ const SqlMonitorView: FunctionComponent<ComponentProps> = (
           title="Monitored At"
           value={
             props.probeMonitorResponse?.monitoredAt
-              ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+              ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   props.probeMonitorResponse.monitoredAt,
                 )
               : "-"

@@ -8,7 +8,7 @@
 # to Cast Operations.
 #
 # Each line is a JSON envelope:
-#   {"oneuptime.podman.kind":"Container","data":{...native podman payload...}}
+#   {"cast-operations.podman.kind":"Container","data":{...native podman payload...}}
 #
 # The collector's filelog operator chain promotes the kind to a log
 # record attribute and moves `data` to the body, so the backend
@@ -22,7 +22,7 @@
 set -eu
 
 SOCKET="${PODMAN_INVENTORY_SOCKET:-/run/podman/podman.sock}"
-LOG_PATH="${PODMAN_INVENTORY_LOG_PATH:-/var/log/oneuptime-podman-inventory.log}"
+LOG_PATH="${PODMAN_INVENTORY_LOG_PATH:-/var/log/cast-operations-podman-inventory.log}"
 INTERVAL="${PODMAN_INVENTORY_INTERVAL_SECONDS:-300}"
 
 # Pin to a modern API version that matches the docker_stats receiver
@@ -41,12 +41,12 @@ emit_array_endpoint() {
     #      the filelog json_parser operator expects.
     if ! curl --silent --fail --unix-socket "${SOCKET}" \
         "${PODMAN_API}${endpoint}" 2>/dev/null \
-        | jq -c --arg kind "${kind}" '.[] | {"oneuptime.podman.kind":$kind,"data":.}' \
+        | jq -c --arg kind "${kind}" '.[] | {"cast-operations.podman.kind":$kind,"data":.}' \
         >> "${LOG_PATH}.tmp" 2>/dev/null; then
         # A failed scrape for one kind shouldn't kill the loop; the
         # next iteration retries. Most likely cause is the daemon
         # being temporarily unavailable.
-        echo "oneuptime-inventory: failed to scrape ${kind}" >&2
+        echo "cast-operations-inventory: failed to scrape ${kind}" >&2
     fi
 }
 
@@ -55,9 +55,9 @@ emit_volumes() {
     # array, so we extract .Volumes[] instead of .[].
     if ! curl --silent --fail --unix-socket "${SOCKET}" \
         "${PODMAN_API}/volumes" 2>/dev/null \
-        | jq -c '.Volumes[]? | {"oneuptime.podman.kind":"Volume","data":.}' \
+        | jq -c '.Volumes[]? | {"cast-operations.podman.kind":"Volume","data":.}' \
         >> "${LOG_PATH}.tmp" 2>/dev/null; then
-        echo "oneuptime-inventory: failed to scrape Volume" >&2
+        echo "cast-operations-inventory: failed to scrape Volume" >&2
     fi
 }
 

@@ -46,7 +46,7 @@ import { JSONObject } from "Common/Types/JSON";
 import AlertBanner, {
   AlertBannerType,
 } from "Common/UI/Components/AlertBanner/AlertBanner";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import StackedProgressBar, {
   type StackedProgressBarSegment,
 } from "Common/UI/Components/StackedProgressBar/StackedProgressBar";
@@ -439,8 +439,8 @@ const KubernetesClusterOverview: FunctionComponent<
     clusterIdentifier: string,
   ): Promise<void> => {
     try {
-      const allocatableEnd: Date = OneUptimeDate.getCurrentDate();
-      const allocatableStart: Date = OneUptimeDate.addRemoveHours(
+      const allocatableEnd: Date = OperationsDate.getCurrentDate();
+      const allocatableStart: Date = OperationsDate.addRemoveHours(
         allocatableEnd,
         -2,
       );
@@ -572,7 +572,7 @@ const KubernetesClusterOverview: FunctionComponent<
         RangeStartAndEndDateTimeUtil.getStartAndEndDate(timeRange);
       const startDate: Date = dateRange.startValue;
       const endDate: Date = dateRange.endValue;
-      const tileWindowStart: Date = OneUptimeDate.addRemoveMinutes(
+      const tileWindowStart: Date = OperationsDate.addRemoveMinutes(
         endDate,
         -TILE_WINDOW_MINUTES,
       );
@@ -652,7 +652,7 @@ const KubernetesClusterOverview: FunctionComponent<
       networkAgg.groupBy = { attributes: true };
 
       const heartbeatAgg: AggregateBy<Metric> = buildAggregateBy(
-        "oneuptime.host.heartbeat",
+        "cast-operations.host.heartbeat",
         AggregationType.Count,
       );
 
@@ -935,7 +935,7 @@ const KubernetesClusterOverview: FunctionComponent<
           heartbeatData: heartbeatResult.data || [],
           windowStart: startDate,
           windowEnd: endDate,
-          now: OneUptimeDate.getCurrentDate(),
+          now: OperationsDate.getCurrentDate(),
         });
       setAvailabilitySeries(
         availability.points.length > 0
@@ -959,7 +959,7 @@ const KubernetesClusterOverview: FunctionComponent<
       });
 
       setChartWindow({ start: startDate, end: endDate });
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
     } catch (err) {
       setGoldenError(API.getFriendlyMessage(err));
     } finally {
@@ -1657,7 +1657,7 @@ const KubernetesClusterOverview: FunctionComponent<
     const status: string = (cluster.otelCollectorStatus as string) || "";
     const lastSeenAt: Date | undefined = cluster.lastSeenAt;
     const lastSeenText: string = lastSeenAt
-      ? OneUptimeDate.fromNow(lastSeenAt)
+      ? OperationsDate.fromNow(lastSeenAt)
       : "never";
 
     const isConnected: boolean =

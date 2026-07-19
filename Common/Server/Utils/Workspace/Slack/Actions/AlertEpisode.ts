@@ -855,7 +855,7 @@ export default class SlackAlertEpisodeActions {
       return;
     }
 
-    const oneUptimeUserId: ObjectID = userAuth.userId;
+    const operationsUserId: ObjectID = userAuth.userId;
 
     // Fetch the message text using the timestamp
     let messageText: string | null = null;
@@ -907,7 +907,7 @@ export default class SlackAlertEpisodeActions {
         alertEpisodeId: episodeId,
         note: messageText,
         projectId: projectId,
-        userId: oneUptimeUserId,
+        userId: operationsUserId,
         postedFromSlackMessageId: postedFromSlackMessageId,
       });
       logger.debug("Private note added to alert episode successfully.", {

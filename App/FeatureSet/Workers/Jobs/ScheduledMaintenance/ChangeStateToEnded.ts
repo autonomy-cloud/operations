@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import ScheduledMaintenanceService from "Common/Server/Services/ScheduledMaintenanceService";
 import ScheduledMaintenanceStateService from "Common/Server/Services/ScheduledMaintenanceStateService";
@@ -18,7 +18,7 @@ RunCron(
           currentScheduledMaintenanceState: {
             isOngoingState: true,
           } as any,
-          endsAt: QueryHelper.lessThan(OneUptimeDate.getCurrentDate()),
+          endsAt: QueryHelper.lessThan(OperationsDate.getCurrentDate()),
         },
         props: {
           isRoot: true,

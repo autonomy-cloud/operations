@@ -40,14 +40,14 @@ Når du har konfigurert telemetritjenesten i applikasjonen din, kan du integrere
 
 | Miljøvariabel               | Verdi                                          |
 | --------------------------- | ---------------------------------------------- |
-| OTEL_EXPORTER_OTLP_HEADERS  | x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN |
+| OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
 | OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **Eksempel**
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=9c8806e0-a4aa-11ee-be95-010d5967b068
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
@@ -82,7 +82,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "ONEUPTIME_TOKEN" # Din Cast Operations-token
+      "x-cast-operations-token": "CAST_OPERATIONS_TOKEN" # Din Cast Operations-token
 
 service:
   pipelines:

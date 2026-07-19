@@ -1,5 +1,5 @@
 import CalendarEvent from "../Calendar/CalendarEvent";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 
 /*
  * Turns the low-level calendar events produced by LayerUtil into the
@@ -90,10 +90,10 @@ export default class ScheduleShiftUtil {
         );
       })
       .sort((a: CalendarEvent, b: CalendarEvent) => {
-        if (OneUptimeDate.isBefore(a.start, b.start)) {
+        if (OperationsDate.isBefore(a.start, b.start)) {
           return -1;
         }
-        if (OneUptimeDate.isAfter(a.start, b.start)) {
+        if (OperationsDate.isAfter(a.start, b.start)) {
           return 1;
         }
         return 0;
@@ -103,7 +103,7 @@ export default class ScheduleShiftUtil {
 
     for (const event of sorted) {
       const userId: string = event.title;
-      const eventSeconds: number = OneUptimeDate.getDifferenceInSeconds(
+      const eventSeconds: number = OperationsDate.getDifferenceInSeconds(
         event.end,
         event.start,
       );
@@ -113,9 +113,9 @@ export default class ScheduleShiftUtil {
 
       const isContiguous: boolean =
         Boolean(last) &&
-        OneUptimeDate.getDifferenceInSeconds(last!.end, event.start) <=
+        OperationsDate.getDifferenceInSeconds(last!.end, event.start) <=
           CONTIGUITY_TOLERANCE_SECONDS &&
-        OneUptimeDate.isOnOrBefore(last!.end, event.end);
+        OperationsDate.isOnOrBefore(last!.end, event.end);
 
       /*
        * Extend the previous shift when it belongs to the same user AND either we
@@ -126,7 +126,7 @@ export default class ScheduleShiftUtil {
        * so a turn merged across off-hours reports its real active time on call.
        */
       if (last && sameUser && (mergeAcrossGaps || isContiguous)) {
-        if (OneUptimeDate.isAfter(event.end, last.end)) {
+        if (OperationsDate.isAfter(event.end, last.end)) {
           last.end = event.end;
         }
         last.coverageSeconds += eventSeconds;
@@ -159,16 +159,16 @@ export default class ScheduleShiftUtil {
     let next: OnCallShift | null = null;
 
     for (const shift of shifts) {
-      const hasStarted: boolean = OneUptimeDate.isOnOrBefore(shift.start, now);
-      const hasNotEnded: boolean = OneUptimeDate.isAfter(shift.end, now);
+      const hasStarted: boolean = OperationsDate.isOnOrBefore(shift.start, now);
+      const hasNotEnded: boolean = OperationsDate.isAfter(shift.end, now);
 
       if (hasStarted && hasNotEnded) {
         current = shift;
         continue;
       }
 
-      if (OneUptimeDate.isAfter(shift.start, now)) {
-        if (!next || OneUptimeDate.isBefore(shift.start, next.start)) {
+      if (OperationsDate.isAfter(shift.start, now)) {
+        if (!next || OperationsDate.isBefore(shift.start, next.start)) {
           next = shift;
         }
       }
@@ -194,7 +194,7 @@ export default class ScheduleShiftUtil {
   ): Array<CoverageGap> {
     const gaps: Array<CoverageGap> = [];
 
-    if (OneUptimeDate.isOnOrAfter(windowStart, windowEnd)) {
+    if (OperationsDate.isOnOrAfter(windowStart, windowEnd)) {
       return gaps;
     }
 
@@ -208,8 +208,8 @@ export default class ScheduleShiftUtil {
       end: Date,
     ): boolean => {
       return (
-        OneUptimeDate.isAfter(end, start) &&
-        OneUptimeDate.getDifferenceInSeconds(end, start) >
+        OperationsDate.isAfter(end, start) &&
+        OperationsDate.getDifferenceInSeconds(end, start) >
           CONTIGUITY_TOLERANCE_SECONDS
       );
     };
@@ -224,7 +224,7 @@ export default class ScheduleShiftUtil {
     // Leading gap: nobody on call from the window start until the first shift.
     const firstShift: OnCallShift = shifts[0]!;
     if (
-      OneUptimeDate.isAfter(firstShift.start, windowStart) &&
+      OperationsDate.isAfter(firstShift.start, windowStart) &&
       isRealGap(windowStart, firstShift.start)
     ) {
       gaps.push({ start: windowStart, end: firstShift.start });
@@ -241,13 +241,13 @@ export default class ScheduleShiftUtil {
       const shift: OnCallShift = shifts[i]!;
 
       if (
-        OneUptimeDate.isAfter(shift.start, coveredUntil) &&
+        OperationsDate.isAfter(shift.start, coveredUntil) &&
         isRealGap(coveredUntil, shift.start)
       ) {
         gaps.push({ start: coveredUntil, end: shift.start });
       }
 
-      if (OneUptimeDate.isAfter(shift.end, coveredUntil)) {
+      if (OperationsDate.isAfter(shift.end, coveredUntil)) {
         coveredUntil = shift.end;
       }
     }

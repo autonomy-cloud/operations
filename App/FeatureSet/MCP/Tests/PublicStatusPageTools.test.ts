@@ -108,7 +108,7 @@ describe("PublicStatusPageTools", () => {
         expect(isPublicStatusPageTool(name)).toBe(true);
       }
 
-      expect(isPublicStatusPageTool("oneuptime_help")).toBe(false);
+      expect(isPublicStatusPageTool("cast_operations_help")).toBe(false);
       expect(isPublicStatusPageTool("get_status_page")).toBe(false);
     });
 

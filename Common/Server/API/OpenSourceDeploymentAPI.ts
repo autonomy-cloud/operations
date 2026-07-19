@@ -35,8 +35,8 @@ export default class OpenSourceDeploymentAPI extends BaseAPI<
           deployment.companyName = (body["companyName"] as string) || "";
           deployment.companyPhoneNumber =
             (body["companyPhoneNumber"] as string) || "";
-          deployment.oneuptimeVersion =
-            (body["oneuptimeVersion"] as string) || "unknown";
+          deployment.castOperationsVersion =
+            (body["castOperationsVersion"] as string) || "unknown";
           deployment.instanceUrl = (body["instanceUrl"] as string) || "";
 
           // Skip localhost instances - these are default/unconfigured deployments.
@@ -63,7 +63,8 @@ export default class OpenSourceDeploymentAPI extends BaseAPI<
                 companyName: deployment.companyName?.toString() || "",
                 companyPhoneNumber:
                   deployment.companyPhoneNumber?.toString() || "",
-                oneuptimeVersion: deployment.oneuptimeVersion?.toString() || "",
+                castOperationsVersion:
+                  deployment.castOperationsVersion?.toString() || "",
                 instanceUrl: deployment.instanceUrl?.toString() || "",
               },
             }).catch((err: Error) => {

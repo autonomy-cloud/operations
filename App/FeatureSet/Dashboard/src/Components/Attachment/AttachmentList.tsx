@@ -5,7 +5,7 @@ import ObjectID from "Common/Types/ObjectID";
 import { APP_API_URL } from "Common/UI/Config";
 import Icon from "Common/UI/Components/Icon/Icon";
 import IconProp from "Common/Types/Icon/IconProp";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ProjectUtil from "Common/UI/Utils/Project";
 
 export interface AttachmentListProps {
@@ -69,7 +69,7 @@ const AttachmentList: FunctionComponent<AttachmentListProps> = (
 
     if (file.createdAt) {
       metadataParts.push(
-        `Added ${OneUptimeDate.fromNow(OneUptimeDate.fromString(file.createdAt))}`,
+        `Added ${OperationsDate.fromNow(OperationsDate.fromString(file.createdAt))}`,
       );
     }
 

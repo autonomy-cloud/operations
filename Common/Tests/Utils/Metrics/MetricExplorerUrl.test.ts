@@ -6,7 +6,7 @@ import MetricExplorerUrl, {
 import AggregatedModel from "../../../Types/BaseDatabase/AggregatedModel";
 import InBetween from "../../../Types/BaseDatabase/InBetween";
 import Dictionary from "../../../Types/Dictionary";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import MetricFormulaConfigData from "../../../Types/Metrics/MetricFormulaConfigData";
 import MetricQueryConfigData, {
   ChartSeries,
@@ -233,10 +233,10 @@ describe("MetricExplorerUrl", () => {
     });
 
     test("emits startTime/endTime only when both ends of the window exist", () => {
-      const startTime: Date = OneUptimeDate.fromString(
+      const startTime: Date = OperationsDate.fromString(
         "2026-07-16T10:00:00.000Z",
       );
-      const endTime: Date = OneUptimeDate.fromString(
+      const endTime: Date = OperationsDate.fromString(
         "2026-07-16T11:00:00.000Z",
       );
 
@@ -249,10 +249,10 @@ describe("MetricExplorerUrl", () => {
         );
 
       expect(paramsWithWindow[MetricExplorerUrlParam.StartTime]).toBe(
-        OneUptimeDate.toString(startTime),
+        OperationsDate.toString(startTime),
       );
       expect(paramsWithWindow[MetricExplorerUrlParam.EndTime]).toBe(
-        OneUptimeDate.toString(endTime),
+        OperationsDate.toString(endTime),
       );
 
       const paramsWithoutWindow: Dictionary<string> =
@@ -313,10 +313,10 @@ describe("MetricExplorerUrl", () => {
     });
 
     test("emits the range param for every relative token, including the default hour", () => {
-      const startTime: Date = OneUptimeDate.fromString(
+      const startTime: Date = OperationsDate.fromString(
         "2026-07-16T10:00:00.000Z",
       );
-      const endTime: Date = OneUptimeDate.fromString(
+      const endTime: Date = OperationsDate.fromString(
         "2026-07-16T11:00:00.000Z",
       );
 
@@ -337,8 +337,8 @@ describe("MetricExplorerUrl", () => {
       // Relative token → range param plus absolute back-compat window.
       expect(buildParamsForToken(TimeRange.PAST_ONE_DAY)).toMatchObject({
         [MetricExplorerUrlParam.Range]: TimeRange.PAST_ONE_DAY,
-        [MetricExplorerUrlParam.StartTime]: OneUptimeDate.toString(startTime),
-        [MetricExplorerUrlParam.EndTime]: OneUptimeDate.toString(endTime),
+        [MetricExplorerUrlParam.StartTime]: OperationsDate.toString(startTime),
+        [MetricExplorerUrlParam.EndTime]: OperationsDate.toString(endTime),
       });
 
       /*
@@ -566,11 +566,11 @@ describe("MetricExplorerUrl", () => {
        * (buildMetricExplorerDeepLink): a single query config from the
        * criteria context plus a breach-centered time window.
        */
-      const breachTime: Date = OneUptimeDate.fromString(
+      const breachTime: Date = OperationsDate.fromString(
         "2026-07-16T09:30:00.000Z",
       );
-      const startTime: Date = OneUptimeDate.addRemoveMinutes(breachTime, -30);
-      const endTime: Date = OneUptimeDate.addRemoveMinutes(breachTime, 15);
+      const startTime: Date = OperationsDate.addRemoveMinutes(breachTime, -30);
+      const endTime: Date = OperationsDate.addRemoveMinutes(breachTime, 15);
 
       const queryConfig: MetricQueryConfigData = {
         metricQueryData: {
@@ -598,10 +598,10 @@ describe("MetricExplorerUrl", () => {
         "startTime",
       ]);
       expect(urlParams[MetricExplorerUrlParam.StartTime]).toBe(
-        OneUptimeDate.toString(startTime),
+        OperationsDate.toString(startTime),
       );
       expect(urlParams[MetricExplorerUrlParam.EndTime]).toBe(
-        OneUptimeDate.toString(endTime),
+        OperationsDate.toString(endTime),
       );
 
       // The explorer must accept the deep link's metricQueries payload.

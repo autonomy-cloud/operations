@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, jest } from "@jest/globals";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 import { McpToolInfo } from "../Types/McpTypes";
 
@@ -81,14 +81,14 @@ describe("DynamicToolGenerator", () => {
       });
 
       // Test that tools are generated for each operation
-      const operations: OneUptimeOperation[] =
-        Object.values(OneUptimeOperation);
-      expect(operations).toContain(OneUptimeOperation.Create);
-      expect(operations).toContain(OneUptimeOperation.Read);
-      expect(operations).toContain(OneUptimeOperation.List);
-      expect(operations).toContain(OneUptimeOperation.Update);
-      expect(operations).toContain(OneUptimeOperation.Delete);
-      expect(operations).toContain(OneUptimeOperation.Count);
+      const operations: OperationsOperation[] =
+        Object.values(OperationsOperation);
+      expect(operations).toContain(OperationsOperation.Create);
+      expect(operations).toContain(OperationsOperation.Read);
+      expect(operations).toContain(OperationsOperation.List);
+      expect(operations).toContain(OperationsOperation.Update);
+      expect(operations).toContain(OperationsOperation.Delete);
+      expect(operations).toContain(OperationsOperation.Count);
     });
 
     it("should create proper tool info structure", () => {
@@ -101,7 +101,7 @@ describe("DynamicToolGenerator", () => {
           required: [],
         },
         modelName: "Project",
-        operation: OneUptimeOperation.Create,
+        operation: OperationsOperation.Create,
         modelType: ModelType.Database,
         singularName: "project",
         pluralName: "projects",
@@ -111,7 +111,7 @@ describe("DynamicToolGenerator", () => {
 
       // Verify the structure matches expected format
       expect(expectedToolStructure.name).toBe("create_project");
-      expect(expectedToolStructure.operation).toBe(OneUptimeOperation.Create);
+      expect(expectedToolStructure.operation).toBe(OperationsOperation.Create);
       expect(expectedToolStructure.modelType).toBe(ModelType.Database);
       expect(expectedToolStructure.inputSchema).toHaveProperty(
         "type",
@@ -224,39 +224,39 @@ describe("DynamicToolGenerator", () => {
   describe("Tool Description Generation", () => {
     it("should generate appropriate descriptions for each operation", () => {
       const testCases: Array<{
-        operation: OneUptimeOperation;
+        operation: OperationsOperation;
         modelName: string;
         expectedDescription: string;
       }> = [
         {
-          operation: OneUptimeOperation.Create,
+          operation: OperationsOperation.Create,
           modelName: "Project",
           expectedDescription: "Create a new project in Cast Operations",
         },
         {
-          operation: OneUptimeOperation.Read,
+          operation: OperationsOperation.Read,
           modelName: "Monitor",
           expectedDescription:
             "Retrieve a specific monitor from Cast Operations by ID",
         },
         {
-          operation: OneUptimeOperation.List,
+          operation: OperationsOperation.List,
           modelName: "Alert",
           expectedDescription:
             "List and search alerts in Cast Operations with optional filtering, pagination, and sorting",
         },
         {
-          operation: OneUptimeOperation.Update,
+          operation: OperationsOperation.Update,
           modelName: "Team",
           expectedDescription: "Update an existing team in Cast Operations",
         },
         {
-          operation: OneUptimeOperation.Delete,
+          operation: OperationsOperation.Delete,
           modelName: "User",
           expectedDescription: "Delete a user from Cast Operations",
         },
         {
-          operation: OneUptimeOperation.Count,
+          operation: OperationsOperation.Count,
           modelName: "Incident",
           expectedDescription:
             "Count the total number of incidents in Cast Operations with optional filtering",
@@ -269,7 +269,7 @@ describe("DynamicToolGenerator", () => {
           modelName,
           expectedDescription,
         }: {
-          operation: OneUptimeOperation;
+          operation: OperationsOperation;
           modelName: string;
           expectedDescription: string;
         }) => {
@@ -277,22 +277,22 @@ describe("DynamicToolGenerator", () => {
           let description: string;
 
           switch (operation) {
-            case OneUptimeOperation.Create:
+            case OperationsOperation.Create:
               description = `Create a new ${singularName} in Cast Operations`;
               break;
-            case OneUptimeOperation.Read:
+            case OperationsOperation.Read:
               description = `Retrieve a specific ${singularName} from Cast Operations by ID`;
               break;
-            case OneUptimeOperation.List:
+            case OperationsOperation.List:
               description = `List and search ${modelName.toLowerCase()}s in Cast Operations with optional filtering, pagination, and sorting`;
               break;
-            case OneUptimeOperation.Update:
+            case OperationsOperation.Update:
               description = `Update an existing ${singularName} in Cast Operations`;
               break;
-            case OneUptimeOperation.Delete:
+            case OperationsOperation.Delete:
               description = `Delete a ${singularName} from Cast Operations`;
               break;
-            case OneUptimeOperation.Count:
+            case OperationsOperation.Count:
               description = `Count the total number of ${modelName.toLowerCase()}s in Cast Operations with optional filtering`;
               break;
             default:
@@ -308,37 +308,37 @@ describe("DynamicToolGenerator", () => {
   describe("Input Schema Generation", () => {
     it("should generate appropriate schemas for different operations", () => {
       const testCases: Array<{
-        operation: OneUptimeOperation;
+        operation: OperationsOperation;
         expectedProps: string[];
         requiredProps: string[];
       }> = [
         {
-          operation: OneUptimeOperation.Create,
+          operation: OperationsOperation.Create,
           expectedProps: ["data"],
           requiredProps: ["data"],
         },
         {
-          operation: OneUptimeOperation.Read,
+          operation: OperationsOperation.Read,
           expectedProps: ["id"],
           requiredProps: ["id"],
         },
         {
-          operation: OneUptimeOperation.List,
+          operation: OperationsOperation.List,
           expectedProps: ["query", "limit", "skip", "sort", "select"],
           requiredProps: [],
         },
         {
-          operation: OneUptimeOperation.Update,
+          operation: OperationsOperation.Update,
           expectedProps: ["id", "data"],
           requiredProps: ["id", "data"],
         },
         {
-          operation: OneUptimeOperation.Delete,
+          operation: OperationsOperation.Delete,
           expectedProps: ["id"],
           requiredProps: ["id"],
         },
         {
-          operation: OneUptimeOperation.Count,
+          operation: OperationsOperation.Count,
           expectedProps: ["query"],
           requiredProps: [],
         },
@@ -350,7 +350,7 @@ describe("DynamicToolGenerator", () => {
           expectedProps,
           requiredProps,
         }: {
-          operation: OneUptimeOperation;
+          operation: OperationsOperation;
           expectedProps: string[];
           requiredProps: string[];
         }) => {
@@ -471,11 +471,11 @@ describe("DynamicToolGenerator", () => {
         "Team",
         "User",
       ];
-      const operations: OneUptimeOperation[] =
-        Object.values(OneUptimeOperation);
+      const operations: OperationsOperation[] =
+        Object.values(OperationsOperation);
 
       testModels.forEach((model: string) => {
-        operations.forEach((operation: OneUptimeOperation) => {
+        operations.forEach((operation: OperationsOperation) => {
           const expectedName: string = `${operation}_${model.toLowerCase()}`;
           const sanitizedName: string = expectedName
             .replace(/([a-z])([A-Z])/g, "$1_$2")

@@ -230,7 +230,7 @@
             },
             "saml2:AudienceRestriction": [
               {
-                "saml2:Audience": ["oneuptime-org-test"]
+                "saml2:Audience": ["cast-operations-org-test"]
               }
             ]
           }

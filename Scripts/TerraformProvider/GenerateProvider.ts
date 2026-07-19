@@ -41,7 +41,7 @@ async function main(): Promise<void> {
   const openApiSpecPath: string = path.resolve(terraformDir, "openapi.json");
   const providerDir: string = path.resolve(
     terraformDir,
-    "terraform-provider-oneuptime",
+    "terraform-provider-cast-operations",
   );
 
   try {
@@ -65,7 +65,7 @@ async function main(): Promise<void> {
     const generator: TerraformProviderGenerator =
       new TerraformProviderGenerator({
         outputDir: providerDir,
-        providerName: "oneuptime",
+        providerName: "cast-operations",
         providerVersion: "1.0.0",
         goModuleName: "github.com/autonomy-cloud/terraform-provider-operations",
       });
@@ -154,7 +154,7 @@ async function main(): Promise<void> {
       "🔨 Step 12: Verifying provider compiles (current platform)...",
     );
     try {
-      await execAsync("go build -o terraform-provider-oneuptime", {
+      await execAsync("go build -o terraform-provider-cast-operations", {
         cwd: providerDir,
       });
       Logger.info("✅ Provider compiled successfully");
@@ -173,7 +173,7 @@ async function main(): Promise<void> {
     Logger.info("✅ Terraform provider generation completed successfully!");
     Logger.info(`📁 Provider generated at: ${providerDir}`);
     Logger.info("🎯 Next steps:");
-    Logger.info("   1. cd Terraform/terraform-provider-oneuptime");
+    Logger.info("   1. cd Terraform/terraform-provider-cast-operations");
     Logger.info("   2. Run tests with: go test ./...");
     Logger.info("   3. Install locally with: ./install.sh");
   } catch (error) {

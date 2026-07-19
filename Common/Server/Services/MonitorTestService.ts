@@ -1,7 +1,7 @@
 import DatabaseService, { EntityManager } from "./DatabaseService";
 import MonitorTest from "../../Models/DatabaseModels/MonitorTest";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import { MonitorStepProbeResponse } from "../../Models/DatabaseModels/MonitorProbe";
 
 export class Service extends DatabaseService<MonitorTest> {
@@ -21,8 +21,8 @@ export class Service extends DatabaseService<MonitorTest> {
     probeId: ObjectID;
     limit: number;
   }): Promise<Array<ObjectID>> {
-    const staleClaimThreshold: Date = OneUptimeDate.addRemoveMinutes(
-      OneUptimeDate.getCurrentDate(),
+    const staleClaimThreshold: Date = OperationsDate.addRemoveMinutes(
+      OperationsDate.getCurrentDate(),
       -Service.STALE_TEST_CLAIM_TIMEOUT_IN_MINUTES,
     );
 
@@ -86,7 +86,7 @@ export class Service extends DatabaseService<MonitorTest> {
     testId: ObjectID;
     monitorStepProbeResponse: MonitorStepProbeResponse;
   }): Promise<void> {
-    const testedAt: Date = OneUptimeDate.getCurrentDate();
+    const testedAt: Date = OperationsDate.getCurrentDate();
 
     await this.executeTransaction(
       async (transactionalEntityManager: EntityManager) => {

@@ -45,9 +45,9 @@ const ResourceDocumentationCard: FunctionComponent<ComponentProps> = (
 
   const httpProtocol: string =
     HTTP_PROTOCOL === Protocol.HTTPS ? "https" : "http";
-  const oneuptimeUrl: string = HOST
+  const castOperationsUrl: string = HOST
     ? `${httpProtocol}://${HOST}`
-    : "<YOUR_ONEUPTIME_URL>";
+    : "<YOUR_CAST_OPERATIONS_URL>";
 
   const loadIngestionKeys: () => Promise<void> = async (): Promise<void> => {
     try {
@@ -190,7 +190,7 @@ const ResourceDocumentationCard: FunctionComponent<ComponentProps> = (
                     Cast Operations URL
                   </div>
                   <div className="text-sm text-gray-900 font-mono mt-0.5 break-all select-all">
-                    {oneuptimeUrl}
+                    {castOperationsUrl}
                   </div>
                 </div>
               </div>
@@ -218,7 +218,7 @@ const ResourceDocumentationCard: FunctionComponent<ComponentProps> = (
   };
 
   const markdown: string = props.buildMarkdown({
-    oneuptimeUrl: oneuptimeUrl,
+    castOperationsUrl: castOperationsUrl,
     apiKey: apiKeyValue,
   });
 

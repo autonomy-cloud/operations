@@ -72,7 +72,8 @@ export const Categories: Array<ComponentCategory> = [
   },
   {
     name: "Telegram",
-    description: "Integrate Cast Operations with your Telegram chats and channels.",
+    description:
+      "Integrate Cast Operations with your Telegram chats and channels.",
     icon: IconProp.SendMessage,
   },
   {

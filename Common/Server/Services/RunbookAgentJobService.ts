@@ -4,7 +4,7 @@ import BadDataException from "../../Types/Exception/BadDataException";
 import Model from "../../Models/DatabaseModels/RunbookAgentJob";
 import RunbookAgentJobStatus from "../../Types/Runbook/RunbookAgentJobStatus";
 import RunbookStepType from "../../Types/Runbook/RunbookStepType";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import { JSONObject } from "../../Types/JSON";
 import PostgresAppInstance from "../Infrastructure/PostgresDatabase";
 import logger from "../Utils/Logger";
@@ -76,8 +76,8 @@ export class Service extends DatabaseService<Model> {
       );
     }
 
-    const claimDeadlineAt: Date = OneUptimeDate.addRemoveSeconds(
-      OneUptimeDate.getCurrentDate(),
+    const claimDeadlineAt: Date = OperationsDate.addRemoveSeconds(
+      OperationsDate.getCurrentDate(),
       Math.ceil((data.claimTimeoutInMs ?? DEFAULT_CLAIM_TIMEOUT_MS) / 1000),
     );
 
@@ -286,8 +286,8 @@ export class Service extends DatabaseService<Model> {
     claimTimeoutInMs: number;
     executionTimeoutInMs: number;
   }): Promise<Model> {
-    const overallDeadline: Date = OneUptimeDate.addRemoveSeconds(
-      OneUptimeDate.getCurrentDate(),
+    const overallDeadline: Date = OperationsDate.addRemoveSeconds(
+      OperationsDate.getCurrentDate(),
       Math.ceil(
         (data.claimTimeoutInMs + data.executionTimeoutInMs + 5_000) / 1000,
       ),
@@ -327,7 +327,7 @@ export class Service extends DatabaseService<Model> {
         return job;
       }
 
-      const now: Date = OneUptimeDate.getCurrentDate();
+      const now: Date = OperationsDate.getCurrentDate();
 
       // Pending with claim deadline elapsed -> no agent picked it up.
       if (

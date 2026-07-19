@@ -16,7 +16,7 @@ import Route from "Common/Types/API/Route";
 import Select from "Common/Types/BaseDatabase/Select";
 import { JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import CopyTextButton from "Common/UI/Components/CopyTextButton/CopyTextButton";
 import Icon from "Common/UI/Components/Icon/Icon";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -165,10 +165,10 @@ const SpanDetailsPanel: FunctionComponent<SpanDetailsPanelProps> = (
   const statusLabel: string = getStatusLabel(span.statusCode);
 
   const startTimeDate: Date | null = span.startTime
-    ? OneUptimeDate.fromString(span.startTime as unknown as string)
+    ? OperationsDate.fromString(span.startTime as unknown as string)
     : null;
   const endTimeDate: Date | null = span.endTime
-    ? OneUptimeDate.fromString(span.endTime as unknown as string)
+    ? OperationsDate.fromString(span.endTime as unknown as string)
     : null;
 
   const kindLabel: string = SpanUtil.getSpanKindFriendlyName(
@@ -241,7 +241,9 @@ const SpanDetailsPanel: FunctionComponent<SpanDetailsPanelProps> = (
           {
             label: "Start Time",
             value:
-              OneUptimeDate.getDateAsUserFriendlyFormattedString(startTimeDate),
+              OperationsDate.getDateAsUserFriendlyFormattedString(
+                startTimeDate,
+              ),
           },
         ]
       : []),
@@ -250,7 +252,7 @@ const SpanDetailsPanel: FunctionComponent<SpanDetailsPanelProps> = (
           {
             label: "End Time",
             value:
-              OneUptimeDate.getDateAsUserFriendlyFormattedString(endTimeDate),
+              OperationsDate.getDateAsUserFriendlyFormattedString(endTimeDate),
           },
         ]
       : []),

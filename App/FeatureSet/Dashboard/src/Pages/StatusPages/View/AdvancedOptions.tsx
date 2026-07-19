@@ -17,7 +17,7 @@ import CardModelDetail from "Common/UI/Components/ModelDetail/CardModelDetail";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
 import FieldType from "Common/UI/Components/Types/FieldType";
 import ModelAPI from "Common/UI/Utils/ModelAPI/ModelAPI";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ConfirmModal from "Common/UI/Components/Modal/ConfirmModal";
 import Button, { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -38,7 +38,7 @@ const StatusPageAdvancedOptions: FunctionComponent<
     try {
       // Generate a new random token
       const newToken: string =
-        OneUptimeDate.getCurrentDate().getTime().toString() +
+        OperationsDate.getCurrentDate().getTime().toString() +
         Math.random().toString(36).substring(2, 15);
 
       await ModelAPI.updateById<StatusPage>({

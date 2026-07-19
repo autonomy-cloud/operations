@@ -50,7 +50,7 @@ Die Table API von ServiceNow akzeptiert **Basic-Auth**.
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
-       "correlation_id": "oneuptime-{{Incident._id}}"
+       "correlation_id": "cast-operations-{{Incident._id}}"
      }
      ```
 
@@ -61,7 +61,7 @@ Die Table API von ServiceNow akzeptiert **Basic-Auth**.
 ## Schritt 3 — Bei Cast Operations-Auflösung auflösen (optional)
 
 1. Erstellen Sie einen **zweiten** Workflow mit einem **Incident → On Update**-Auslöser und einem **Conditions**-Block, der prüft, ob der Vorfall aufgelöst ist.
-2. Um den richtigen ServiceNow-Datensatz zu aktualisieren, benötigen Sie seine `sys_id`. Entweder speichern Sie diese am Cast Operations-Vorfall in Schritt 2 (lesen Sie `{{CreateRecord.response-body.result.sys_id}}` und schreiben Sie sie mit **Update Incident** in ein Label), oder suchen Sie den Datensatz zuerst mit einem `GET` auf `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}`.
+2. Um den richtigen ServiceNow-Datensatz zu aktualisieren, benötigen Sie seine `sys_id`. Entweder speichern Sie diese am Cast Operations-Vorfall in Schritt 2 (lesen Sie `{{CreateRecord.response-body.result.sys_id}}` und schreiben Sie sie mit **Update Incident** in ein Label), oder suchen Sie den Datensatz zuerst mit einem `GET` auf `/api/now/table/incident?sysparm_query=correlation_id=cast-operations-{{Incident._id}}`.
 3. Fügen Sie einen **API**-Block hinzu: **Method** `PATCH`, **URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`, Body `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }` (`state` `6` = Aufgelöst im Standard-ITIL-Workflow).
 
 ## Fehlerbehebung

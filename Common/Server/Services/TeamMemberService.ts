@@ -1,5 +1,5 @@
 import DatabaseConfig from "../DatabaseConfig";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import CreateBy from "../Types/Database/CreateBy";
 import DeleteBy from "../Types/Database/DeleteBy";
 import { OnCreate, OnDelete, OnUpdate } from "../Types/Database/Hooks";
@@ -11,7 +11,6 @@ import Errors from "../Utils/Errors";
 import logger, { LogAttributes } from "../Utils/Logger";
 import ProductAnalytics from "../Utils/ProductAnalytics";
 import AccessTokenService from "./AccessTokenService";
-import BillingService from "./BillingService";
 import DatabaseService from "./DatabaseService";
 import MailService from "./MailService";
 import ProjectService from "./ProjectService";
@@ -23,9 +22,6 @@ import Hostname from "../../Types/API/Hostname";
 import Protocol from "../../Types/API/Protocol";
 import URL from "../../Types/API/URL";
 import Route from "../../Types/API/Route";
-import SubscriptionPlan, {
-  PlanType,
-} from "../../Types/Billing/SubscriptionPlan";
 import LIMIT_MAX from "../../Types/Database/LimitMax";
 import Email from "../../Types/Email";
 import EmailTemplateType from "../../Types/Email/EmailTemplateType";
@@ -37,7 +33,7 @@ import Project from "../../Models/DatabaseModels/Project";
 import TeamMember from "../../Models/DatabaseModels/TeamMember";
 import User from "../../Models/DatabaseModels/User";
 import OnCallDutyPolicyTimeLogService from "./OnCallDutyPolicyTimeLogService";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import ProjectSCIMService from "./ProjectSCIMService";
 import InMemoryTTLCache from "../Infrastructure/InMemoryTTLCache";
 
@@ -87,38 +83,6 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
     }
 
     // check if this project can have more members.
-    if (IsBillingEnabled && createBy.data.projectId) {
-      const project: Project | null = await ProjectService.findOneById({
-        id: createBy.data.projectId!,
-        select: {
-          seatLimit: true,
-          paymentProviderSubscriptionSeats: true,
-        },
-        props: {
-          isRoot: true,
-        },
-      });
-
-      if (
-        project &&
-        project.seatLimit &&
-        project.paymentProviderSubscriptionSeats &&
-        project.paymentProviderSubscriptionSeats >= project.seatLimit
-      ) {
-        throw new BadDataException(Errors.TeamMemberService.LIMIT_REACHED);
-      }
-
-      if (
-        createBy.props.currentPlan === PlanType.Free &&
-        project &&
-        project.paymentProviderSubscriptionSeats &&
-        project.paymentProviderSubscriptionSeats >= 1
-      ) {
-        throw new BadDataException(
-          Errors.TeamMemberService.LIMIT_REACHED_FOR_FREE_PLAN,
-        );
-      }
-    }
 
     if (!createBy.props.isRoot) {
       createBy.data.hasAcceptedInvitation = false;
@@ -293,10 +257,6 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
       onCreate.createBy.data.projectId!,
     );
 
-    await this.updateSubscriptionSeatsByUniqueTeamMembersInProject(
-      onCreate.createBy.data.projectId!,
-    );
-
     // Activation event for marketing funnels, attributed to the inviter.
     ProductAnalytics.captureForUser({
       userId: onCreate.createBy.props.userId,
@@ -402,7 +362,7 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
          * open (audit F17).
          */
         teamId: member.teamId!,
-        endsAt: OneUptimeDate.getCurrentDate(),
+        endsAt: OperationsDate.getCurrentDate(),
       }).catch((err: Error) => {
         logger.error(err, {
           projectId: member.projectId?.toString(),
@@ -452,9 +412,6 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
   ): Promise<OnDelete<TeamMember>> {
     for (const item of onDelete.carryForward as Array<TeamMember>) {
       await this.refreshTokens(item.userId!, item.projectId!);
-      await this.updateSubscriptionSeatsByUniqueTeamMembersInProject(
-        item.projectId!,
-      );
       await UserNotificationSettingService.removeDefaultNotificationSettingsForUser(
         item.userId!,
         item.projectId!,
@@ -556,58 +513,6 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
     return members.map((member: TeamMember) => {
       return member.user!;
     });
-  }
-
-  @CaptureSpan()
-  public async updateSubscriptionSeatsByUniqueTeamMembersInProject(
-    projectId: ObjectID,
-  ): Promise<void> {
-    if (!IsBillingEnabled) {
-      return;
-    }
-
-    const numberOfMembers: number =
-      await this.getUniqueTeamMemberCountInProject(projectId);
-    const project: Project | null = await ProjectService.findOneById({
-      id: projectId,
-      select: {
-        paymentProviderSubscriptionId: true,
-        paymentProviderPlanId: true,
-      },
-      props: {
-        isRoot: true,
-      },
-    });
-
-    if (
-      project &&
-      project.paymentProviderSubscriptionId &&
-      project?.paymentProviderPlanId
-    ) {
-      const plan: SubscriptionPlan | undefined =
-        SubscriptionPlan.getSubscriptionPlanById(
-          project?.paymentProviderPlanId,
-        );
-
-      if (!plan) {
-        return;
-      }
-
-      await BillingService.changeQuantity(
-        project.paymentProviderSubscriptionId,
-        numberOfMembers,
-      );
-
-      await ProjectService.updateOneById({
-        id: projectId,
-        data: {
-          paymentProviderSubscriptionSeats: numberOfMembers,
-        },
-        props: {
-          isRoot: true,
-        },
-      });
-    }
   }
 
   /*

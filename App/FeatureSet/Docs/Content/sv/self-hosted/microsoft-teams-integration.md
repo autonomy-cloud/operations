@@ -14,7 +14,7 @@ För att integrera Microsoft Teams med din egeninstallerade Cast Operations-inst
 1. Gå till [Azure-portalen](https://portal.azure.com)
 2. Navigera till "App registrations" och klicka på "New registration"
 3. Fyll i registreringsformuläret:
-   - **Namn:** oneuptime
+   - **Namn:** cast-operations
    - **Kontotyper som stöds:** Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)
    - **Redirect URI:** Web – `https://your-operations-domain.com/api/microsoft-teams/auth`
    - Lägg även till: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -55,7 +55,7 @@ För att integrera Microsoft Teams med din egeninstallerade Cast Operations-inst
 1. I Azure-portalen, navigera till "Azure Bot" och klicka på "Create"
 2. Fyll i botformuläret:
 
-   - **Bot handle:** oneuptime-bot
+   - **Bot handle:** cast-operations-bot
    - **Prenumeration:** Din Azure-prenumeration
    - **Resursgrupp:** Skapa en ny eller använd en befintlig
    - **Plats:** Välj en plats nära dina användare

@@ -1,96 +1,96 @@
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import PositiveNumber from "../../Types/PositiveNumber";
 import Timezone from "../../Types/Timezone";
 import moment, { isMoment } from "moment";
 
-describe("class OneUptimeDate", () => {
-  test("OneUptimeDate.getCurrentDate should return current date", () => {
-    expect(OneUptimeDate.getCurrentDate().getFullYear()).toEqual(
+describe("class OperationsDate", () => {
+  test("OperationsDate.getCurrentDate should return current date", () => {
+    expect(OperationsDate.getCurrentDate().getFullYear()).toEqual(
       new Date().getFullYear(),
     );
-    expect(OneUptimeDate.getCurrentDate().getDay()).toEqual(
+    expect(OperationsDate.getCurrentDate().getDay()).toEqual(
       new Date().getDay(),
     );
-    expect(OneUptimeDate.getCurrentDate().getDate()).toEqual(
+    expect(OperationsDate.getCurrentDate().getDate()).toEqual(
       new Date().getDate(),
     );
-    expect(OneUptimeDate.getCurrentDate().getHours()).toEqual(
+    expect(OperationsDate.getCurrentDate().getHours()).toEqual(
       new Date().getHours(),
     );
-    expect(isMoment(OneUptimeDate.getCurrentDate())).toBeFalsy();
+    expect(isMoment(OperationsDate.getCurrentDate())).toBeFalsy();
   });
-  test("OneUptimeDAte.getCurrentMomentDate() should return moment Date", () => {
-    expect(isMoment(OneUptimeDate.getCurrentMomentDate())).toBeTruthy();
+  test("OperationsDAte.getCurrentMomentDate() should return moment Date", () => {
+    expect(isMoment(OperationsDate.getCurrentMomentDate())).toBeTruthy();
   });
-  test("OneUptimeDAte.getSomeMinutesAgo should return someMinutes ago Date from current time", () => {
+  test("OperationsDAte.getSomeMinutesAgo should return someMinutes ago Date from current time", () => {
     expect(
-      OneUptimeDate.getSomeMinutesAgo(new PositiveNumber(4)).getMinutes(),
+      OperationsDate.getSomeMinutesAgo(new PositiveNumber(4)).getMinutes(),
     ).toEqual(moment().add(-4, "minutes").toDate().getMinutes());
   });
-  test("OneUptimeDAte.getOneMinAgo should return one minute age Date from current time", () => {
-    expect(OneUptimeDate.getOneMinAgo().getMinutes()).toEqual(
+  test("OperationsDAte.getOneMinAgo should return one minute age Date from current time", () => {
+    expect(OperationsDate.getOneMinAgo().getMinutes()).toEqual(
       moment().add(-1, "minute").toDate().getMinutes(),
     );
   });
-  test("OneUptimeDAte.getOneDayAgo should return oneDate ago Date", () => {
-    expect(OneUptimeDate.getOneDayAgo().getDay()).toEqual(
+  test("OperationsDAte.getOneDayAgo should return oneDate ago Date", () => {
+    expect(OperationsDate.getOneDayAgo().getDay()).toEqual(
       moment().add(-1, "day").toDate().getDay(),
     );
   });
-  test("OneUptimeDAte.getSomeHoursAgo should return moment Date", () => {
+  test("OperationsDAte.getSomeHoursAgo should return moment Date", () => {
     expect(
-      OneUptimeDate.getSomeHoursAgo(new PositiveNumber(4)).getHours(),
+      OperationsDate.getSomeHoursAgo(new PositiveNumber(4)).getHours(),
     ).toEqual(moment().add(-4, "hours").toDate().getHours());
   });
-  test("OneUptimeDAte.getSomeDaysAgo should return moment Date", () => {
+  test("OperationsDAte.getSomeDaysAgo should return moment Date", () => {
     expect(
-      OneUptimeDate.getSomeDaysAgo(new PositiveNumber(4)).getDay(),
+      OperationsDate.getSomeDaysAgo(new PositiveNumber(4)).getDay(),
     ).toEqual(moment().add(-4, "days").toDate().getDay());
   });
-  test("OneUptimeDAte.getSomeSecondsAgo should return moment Date", () => {
+  test("OperationsDAte.getSomeSecondsAgo should return moment Date", () => {
     expect(
-      OneUptimeDate.getSomeSecondsAgo(new PositiveNumber(4)).getSeconds(),
+      OperationsDate.getSomeSecondsAgo(new PositiveNumber(4)).getSeconds(),
     ).toEqual(moment().add(-4, "seconds").toDate().getSeconds());
   });
-  test("OneUptimeDAte.getOneMinAfter should return moment Date", () => {
-    expect(OneUptimeDate.getOneMinAfter().getMinutes()).toEqual(
+  test("OperationsDAte.getOneMinAfter should return moment Date", () => {
+    expect(OperationsDate.getOneMinAfter().getMinutes()).toEqual(
       moment().add(1, "minute").toDate().getMinutes(),
     );
   });
-  test("OneUptimeDAte.getOneDayAfter should return moment Date", () => {
-    expect(OneUptimeDate.getOneDayAfter().getDay()).toEqual(
+  test("OperationsDAte.getOneDayAfter should return moment Date", () => {
+    expect(OperationsDate.getOneDayAfter().getDay()).toEqual(
       moment().add(1, "day").toDate().getDay(),
     );
   });
-  test("OneUptimeDAte.getSomeMinutesAfter should return moment Date", () => {
+  test("OperationsDAte.getSomeMinutesAfter should return moment Date", () => {
     expect(
-      OneUptimeDate.getSomeMinutesAfter(new PositiveNumber(4)).getMinutes(),
+      OperationsDate.getSomeMinutesAfter(new PositiveNumber(4)).getMinutes(),
     ).toEqual(moment().add(4, "minutes").toDate().getMinutes());
   });
-  test("OneUptimeDAte.getSomeHoursAfter should return moment Date", () => {
+  test("OperationsDAte.getSomeHoursAfter should return moment Date", () => {
     expect(
-      OneUptimeDate.getSomeHoursAfter(new PositiveNumber(4)).getHours(),
+      OperationsDate.getSomeHoursAfter(new PositiveNumber(4)).getHours(),
     ).toEqual(moment().add(4, "hours").toDate().getHours());
   });
-  test("OneUptimeDAte.getSomeDaysAfter should return moment Date", () => {
+  test("OperationsDAte.getSomeDaysAfter should return moment Date", () => {
     expect(
-      OneUptimeDate.getSomeDaysAfter(new PositiveNumber(4)).getDay(),
+      OperationsDate.getSomeDaysAfter(new PositiveNumber(4)).getDay(),
     ).toEqual(moment().add(4, "days").toDate().getDay());
   });
-  test("OneUptimeDAte.getSomeSecondsAfter should return moment Date", () => {
+  test("OperationsDAte.getSomeSecondsAfter should return moment Date", () => {
     expect(
-      OneUptimeDate.getSomeSecondsAfter(new PositiveNumber(4)).getSeconds(),
+      OperationsDate.getSomeSecondsAfter(new PositiveNumber(4)).getSeconds(),
     ).toEqual(moment().add(4, "seconds").toDate().getSeconds());
   });
-  test("OneUptimeDAte.getCurrentYear should return the current year", () => {
+  test("OperationsDAte.getCurrentYear should return the current year", () => {
     expect(
-      OneUptimeDate.getSomeSecondsAfter(new PositiveNumber(4)).getSeconds(),
+      OperationsDate.getSomeSecondsAfter(new PositiveNumber(4)).getSeconds(),
     ).toEqual(moment().add(4, "seconds").toDate().getSeconds());
   });
 
-  test("OneUptimeDate.fromString should parse ClickHouse timestamps as UTC", () => {
+  test("OperationsDate.fromString should parse ClickHouse timestamps as UTC", () => {
     expect(
-      OneUptimeDate.fromString("2026-04-01 14:45:31.414000000").toISOString(),
+      OperationsDate.fromString("2026-04-01 14:45:31.414000000").toISOString(),
     ).toBe("2026-04-01T14:45:31.414Z");
   });
 
@@ -98,7 +98,7 @@ describe("class OneUptimeDate", () => {
     test("returns EST for America/New_York on a winter date", () => {
       const winterDate: Date = new Date("2026-01-15T12:00:00Z");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(
+        OperationsDate.getZoneAbbrByTimezone(
           Timezone.AmericaNew_York,
           winterDate,
         ),
@@ -108,7 +108,7 @@ describe("class OneUptimeDate", () => {
     test("returns EDT for America/New_York on a summer date", () => {
       const summerDate: Date = new Date("2026-07-15T12:00:00Z");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(
+        OperationsDate.getZoneAbbrByTimezone(
           Timezone.AmericaNew_York,
           summerDate,
         ),
@@ -118,7 +118,7 @@ describe("class OneUptimeDate", () => {
     test("returns PST for America/Los_Angeles on a winter date", () => {
       const winterDate: Date = new Date("2026-01-15T12:00:00Z");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(
+        OperationsDate.getZoneAbbrByTimezone(
           Timezone.AmericaLos_Angeles,
           winterDate,
         ),
@@ -128,7 +128,7 @@ describe("class OneUptimeDate", () => {
     test("returns PDT for America/Los_Angeles on a summer date", () => {
       const summerDate: Date = new Date("2026-07-15T12:00:00Z");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(
+        OperationsDate.getZoneAbbrByTimezone(
           Timezone.AmericaLos_Angeles,
           summerDate,
         ),
@@ -139,10 +139,10 @@ describe("class OneUptimeDate", () => {
       const winterDate: Date = new Date("2026-01-15T12:00:00Z");
       const summerDate: Date = new Date("2026-07-15T12:00:00Z");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(Timezone.UTC, winterDate),
+        OperationsDate.getZoneAbbrByTimezone(Timezone.UTC, winterDate),
       ).toBe("UTC");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(Timezone.UTC, summerDate),
+        OperationsDate.getZoneAbbrByTimezone(Timezone.UTC, summerDate),
       ).toBe("UTC");
     });
 
@@ -150,10 +150,10 @@ describe("class OneUptimeDate", () => {
       const winterDate: Date = new Date("2026-01-15T12:00:00Z");
       const summerDate: Date = new Date("2026-07-15T12:00:00Z");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(Timezone.AsiaKolkata, winterDate),
+        OperationsDate.getZoneAbbrByTimezone(Timezone.AsiaKolkata, winterDate),
       ).toBe("IST");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(Timezone.AsiaKolkata, summerDate),
+        OperationsDate.getZoneAbbrByTimezone(Timezone.AsiaKolkata, summerDate),
       ).toBe("IST");
     });
 
@@ -162,25 +162,28 @@ describe("class OneUptimeDate", () => {
       const beforeDst: Date = new Date("2026-03-08T06:00:00Z"); // 01:00 EST
       const afterDst: Date = new Date("2026-03-08T08:00:00Z"); // 04:00 EDT
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(
+        OperationsDate.getZoneAbbrByTimezone(
           Timezone.AmericaNew_York,
           beforeDst,
         ),
       ).toBe("EST");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(Timezone.AmericaNew_York, afterDst),
+        OperationsDate.getZoneAbbrByTimezone(
+          Timezone.AmericaNew_York,
+          afterDst,
+        ),
       ).toBe("EDT");
     });
 
     test("accepts an ISO date string", () => {
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(
+        OperationsDate.getZoneAbbrByTimezone(
           Timezone.AmericaNew_York,
           "2026-01-15T12:00:00Z",
         ),
       ).toBe("EST");
       expect(
-        OneUptimeDate.getZoneAbbrByTimezone(
+        OperationsDate.getZoneAbbrByTimezone(
           Timezone.AmericaNew_York,
           "2026-07-15T12:00:00Z",
         ),
@@ -188,7 +191,7 @@ describe("class OneUptimeDate", () => {
     });
 
     test("falls back to current date when no date is passed (backward compat)", () => {
-      const abbr: string = OneUptimeDate.getZoneAbbrByTimezone(Timezone.UTC);
+      const abbr: string = OperationsDate.getZoneAbbrByTimezone(Timezone.UTC);
       expect(abbr).toBe("UTC");
     });
   });
@@ -196,7 +199,7 @@ describe("class OneUptimeDate", () => {
   describe("getDateAsFormattedArrayInMultipleTimezones (DST awareness)", () => {
     test("shows EST for a winter event in America/New_York", () => {
       const result: Array<string> =
-        OneUptimeDate.getDateAsFormattedArrayInMultipleTimezones({
+        OperationsDate.getDateAsFormattedArrayInMultipleTimezones({
           date: new Date("2026-01-15T17:00:00Z"),
           timezones: [Timezone.AmericaNew_York],
           use12HourFormat: true,
@@ -210,7 +213,7 @@ describe("class OneUptimeDate", () => {
 
     test("shows EDT for a summer event in America/New_York", () => {
       const result: Array<string> =
-        OneUptimeDate.getDateAsFormattedArrayInMultipleTimezones({
+        OperationsDate.getDateAsFormattedArrayInMultipleTimezones({
           date: new Date("2026-07-15T17:00:00Z"),
           timezones: [Timezone.AmericaNew_York],
           use12HourFormat: true,
@@ -225,7 +228,7 @@ describe("class OneUptimeDate", () => {
     test("picks the correct abbreviation per-timezone for the same event", () => {
       // A winter event in multiple zones: NY should say EST, LA should say PST, UTC stays UTC.
       const result: Array<string> =
-        OneUptimeDate.getDateAsFormattedArrayInMultipleTimezones({
+        OperationsDate.getDateAsFormattedArrayInMultipleTimezones({
           date: new Date("2026-01-15T17:00:00Z"),
           timezones: [
             Timezone.UTC,
@@ -241,7 +244,7 @@ describe("class OneUptimeDate", () => {
 
     test("omits the abbreviation when onlyShowDate is true", () => {
       const result: Array<string> =
-        OneUptimeDate.getDateAsFormattedArrayInMultipleTimezones({
+        OperationsDate.getDateAsFormattedArrayInMultipleTimezones({
           date: new Date("2026-07-15T17:00:00Z"),
           timezones: [Timezone.AmericaNew_York],
           onlyShowDate: true,
@@ -254,7 +257,7 @@ describe("class OneUptimeDate", () => {
   describe("getDateAsFormattedArrayInMultipleTimezones default timezones", () => {
     test("defaults include UTC, London, New York, LA, Kolkata, Sydney", () => {
       const result: Array<string> =
-        OneUptimeDate.getDateAsFormattedArrayInMultipleTimezones({
+        OperationsDate.getDateAsFormattedArrayInMultipleTimezones({
           date: new Date("2026-07-15T17:00:00Z"),
           use12HourFormat: true,
         });
@@ -268,7 +271,7 @@ describe("class OneUptimeDate", () => {
        * boundaries so AEST/AEDT (Sydney) doesn't match EST/EDT.
        */
       const result: Array<string> =
-        OneUptimeDate.getDateAsFormattedArrayInMultipleTimezones({
+        OperationsDate.getDateAsFormattedArrayInMultipleTimezones({
           date: new Date("2026-04-27T21:30:00Z"),
           use12HourFormat: true,
         });
@@ -285,7 +288,7 @@ describe("class OneUptimeDate", () => {
        * word boundaries so AEDT (Sydney) doesn't match EDT.
        */
       const result: Array<string> =
-        OneUptimeDate.getDateAsFormattedArrayInMultipleTimezones({
+        OperationsDate.getDateAsFormattedArrayInMultipleTimezones({
           date: new Date("2026-01-15T17:00:00Z"),
           use12HourFormat: true,
         });

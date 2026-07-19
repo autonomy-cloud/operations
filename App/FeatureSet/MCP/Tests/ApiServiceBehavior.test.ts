@@ -1,12 +1,12 @@
 /**
- * OneUptimeApiService behavior tests.
+ * OperationsApiService behavior tests.
  *
  * Covers the request-building and resilience behavior around executeOperation:
  * - missing/undefined args are normalized to {} (parameterless list calls work)
  * - non-UUID ids are rejected before any HTTP request is attempted
  * - select accepts an array of field names (converted to { field: true })
  * - select-permission errors drop the denied column and retry
- * - OneUptimeApiError carries statusCode and details
+ * - OperationsApiError carries statusCode and details
  *
  * The HTTP layer is mocked by spying on the private static makeApiRequest,
  * so no network traffic occurs.
@@ -24,12 +24,12 @@ import {
 
 jest.mock("../Utils/MCPLogger");
 
-import OneUptimeApiService, {
-  OneUptimeApiError,
-} from "../Services/OneUptimeApiService";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsApiService, {
+  OperationsApiError,
+} from "../Services/OperationsApiService";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
-import { OneUptimeToolCallArgs } from "../Types/McpTypes";
+import { OperationsToolCallArgs } from "../Types/McpTypes";
 import { JSONObject } from "Common/Types/JSON";
 import Route from "Common/Types/API/Route";
 import Headers from "Common/Types/API/Headers";
@@ -38,24 +38,24 @@ const VALID_UUID: string = "550e8400-e29b-41d4-a716-446655440000";
 const API_KEY: string = "test-api-key";
 
 type MakeApiRequestArgs = [
-  OneUptimeOperation,
+  OperationsOperation,
   Route,
   Headers,
   JSONObject | undefined,
 ];
 
-describe("OneUptimeApiService behavior", () => {
+describe("OperationsApiService behavior", () => {
   // Bare SpyInstance keeps the annotation compatible across @types/jest versions
   let makeApiRequestSpy: jest.SpyInstance;
 
   beforeAll(() => {
-    OneUptimeApiService.initialize({ url: "https://test.visca.ai" });
+    OperationsApiService.initialize({ url: "https://test.visca.ai" });
   });
 
   beforeEach(() => {
     makeApiRequestSpy = jest
       .spyOn(
-        OneUptimeApiService as unknown as {
+        OperationsApiService as unknown as {
           makeApiRequest: (...args: MakeApiRequestArgs) => Promise<unknown>;
         },
         "makeApiRequest",
@@ -70,12 +70,12 @@ describe("OneUptimeApiService behavior", () => {
   describe("argument normalization", () => {
     it("treats undefined args as {} for list operations", async () => {
       await expect(
-        OneUptimeApiService.executeOperation(
+        OperationsApiService.executeOperation(
           "Incident",
-          OneUptimeOperation.List,
+          OperationsOperation.List,
           ModelType.Database,
           "/incident",
-          undefined as unknown as OneUptimeToolCallArgs,
+          undefined as unknown as OperationsToolCallArgs,
           API_KEY,
         ),
       ).resolves.toEqual({ data: [], count: 0 });
@@ -88,12 +88,12 @@ describe("OneUptimeApiService behavior", () => {
 
     it("treats null args as {} for count operations", async () => {
       await expect(
-        OneUptimeApiService.executeOperation(
+        OperationsApiService.executeOperation(
           "Incident",
-          OneUptimeOperation.Count,
+          OperationsOperation.Count,
           ModelType.Database,
           "/incident",
-          null as unknown as OneUptimeToolCallArgs,
+          null as unknown as OperationsToolCallArgs,
           API_KEY,
         ),
       ).resolves.toBeDefined();
@@ -105,9 +105,9 @@ describe("OneUptimeApiService behavior", () => {
   describe("id validation", () => {
     it("rejects a non-UUID id with a friendly error before any HTTP call", async () => {
       await expect(
-        OneUptimeApiService.executeOperation(
+        OperationsApiService.executeOperation(
           "Incident",
-          OneUptimeOperation.Read,
+          OperationsOperation.Read,
           ModelType.Database,
           "/incident",
           { id: "abc" },
@@ -121,9 +121,9 @@ describe("OneUptimeApiService behavior", () => {
     it("accepts a valid UUID id and routes to get-item", async () => {
       makeApiRequestSpy.mockResolvedValue({ _id: VALID_UUID });
 
-      await OneUptimeApiService.executeOperation(
+      await OperationsApiService.executeOperation(
         "Incident",
-        OneUptimeOperation.Read,
+        OperationsOperation.Read,
         ModelType.Database,
         "/incident",
         { id: VALID_UUID },
@@ -137,9 +137,9 @@ describe("OneUptimeApiService behavior", () => {
 
   describe("select handling", () => {
     it("converts an array select into a { field: true } object", async () => {
-      await OneUptimeApiService.executeOperation(
+      await OperationsApiService.executeOperation(
         "Incident",
-        OneUptimeOperation.List,
+        OperationsOperation.List,
         ModelType.Database,
         "/incident",
         { select: ["_id", "title"] },
@@ -152,9 +152,9 @@ describe("OneUptimeApiService behavior", () => {
     });
 
     it("falls back to the generated select for an empty array", async () => {
-      await OneUptimeApiService.executeOperation(
+      await OperationsApiService.executeOperation(
         "Incident",
-        OneUptimeOperation.List,
+        OperationsOperation.List,
         ModelType.Database,
         "/incident",
         { select: [] },
@@ -170,7 +170,7 @@ describe("OneUptimeApiService behavior", () => {
     it("drops a column named in a select-permission error and retries", async () => {
       makeApiRequestSpy
         .mockRejectedValueOnce(
-          new OneUptimeApiError(
+          new OperationsApiError(
             "API request failed: 403 - You do not have permissions to select on - internalNote.",
             403,
           ),
@@ -178,9 +178,9 @@ describe("OneUptimeApiService behavior", () => {
         .mockResolvedValueOnce({ data: [], count: 0 });
 
       await expect(
-        OneUptimeApiService.executeOperation(
+        OperationsApiService.executeOperation(
           "Incident",
-          OneUptimeOperation.List,
+          OperationsOperation.List,
           ModelType.Database,
           "/incident",
           { select: ["_id", "internalNote"] },
@@ -198,13 +198,13 @@ describe("OneUptimeApiService behavior", () => {
 
     it("does not retry errors that are not select-permission failures", async () => {
       makeApiRequestSpy.mockRejectedValue(
-        new OneUptimeApiError("API request failed: 500 - boom", 500),
+        new OperationsApiError("API request failed: 500 - boom", 500),
       );
 
       await expect(
-        OneUptimeApiService.executeOperation(
+        OperationsApiService.executeOperation(
           "Incident",
-          OneUptimeOperation.List,
+          OperationsOperation.List,
           ModelType.Database,
           "/incident",
           { select: ["_id"] },
@@ -219,9 +219,9 @@ describe("OneUptimeApiService behavior", () => {
   describe("API key validation", () => {
     it("rejects operations without an API key", async () => {
       await expect(
-        OneUptimeApiService.executeOperation(
+        OperationsApiService.executeOperation(
           "Incident",
-          OneUptimeOperation.List,
+          OperationsOperation.List,
           ModelType.Database,
           "/incident",
           {},
@@ -233,16 +233,16 @@ describe("OneUptimeApiService behavior", () => {
     });
   });
 
-  describe("OneUptimeApiError", () => {
+  describe("OperationsApiError", () => {
     it("carries statusCode and details", () => {
-      const error: OneUptimeApiError = new OneUptimeApiError(
+      const error: OperationsApiError = new OperationsApiError(
         "API request failed: 403 - Forbidden",
         403,
         { field: "internalNote" },
       );
 
       expect(error).toBeInstanceOf(Error);
-      expect(error.name).toBe("OneUptimeApiError");
+      expect(error.name).toBe("OperationsApiError");
       expect(error.statusCode).toBe(403);
       expect(error.details).toEqual({ field: "internalNote" });
     });

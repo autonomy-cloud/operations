@@ -24,7 +24,7 @@ Zabbix / Prometheus / Grafana / Datadog  ──►  Cast Operations Webhook trig
 
 當*Cast Operations 中的某些東西應該出現在另一個工具中*時使用這種模式——開立一張 Jira 工單、在 PagerDuty 中呼叫某人、或張貼到 Slack。
 
-1. 建立一個以 **[Cast Operations 事件觸發器](/docs/workflows/triggers#oneuptime-event-triggers)** 開始的工作流程——例如 **Incident → On Create**。
+1. 建立一個以 **[Cast Operations 事件觸發器](/docs/workflows/triggers#cast-operations-event-triggers)** 開始的工作流程——例如 **Incident → On Create**。
 2. 加入一個 **[API 元件](/docs/workflows/components#api)**，以事件的詳細資訊呼叫另一個工具的 REST API。
 3. 將任何 API 金鑰儲存為 **祕密 [全域變數](/docs/workflows/variables#global-variables)**，讓它們永遠不會出現在工作流程或其記錄檔中。
 

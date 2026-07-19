@@ -1,5 +1,5 @@
 import ObjectID from "../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import AIRunType from "../../../../Types/AI/AIRunType";
 import AIRunStatus from "../../../../Types/AI/AIRunStatus";
 import AIRun from "../../../../Models/DatabaseModels/AIRun";
@@ -232,7 +232,7 @@ export default class AIInvestigationQueue {
   @CaptureSpan()
   public static async processQueuedRuns(): Promise<void> {
     const expiryThreshold: Date =
-      OneUptimeDate.getSomeMinutesAgo(QUEUE_TTL_MINUTES);
+      OperationsDate.getSomeMinutesAgo(QUEUE_TTL_MINUTES);
 
     const expiredRuns: Array<AIRun> = await AIRunService.findBy({
       query: {
@@ -252,7 +252,7 @@ export default class AIInvestigationQueue {
         fromStatus: AIRunStatus.Queued,
         set: {
           status: AIRunStatus.Cancelled,
-          completedAt: OneUptimeDate.getCurrentDate(),
+          completedAt: OperationsDate.getCurrentDate(),
           errorMessage: `Expired in the investigation queue after ${QUEUE_TTL_MINUTES} minutes — a first-pass analysis this late would no longer be useful. The project may have been at its concurrency cap or daily token budget.`,
         },
       });
@@ -353,7 +353,7 @@ export default class AIInvestigationQueue {
       fromStatus: AIRunStatus.Running,
       set: {
         status: AIRunStatus.Error,
-        completedAt: OneUptimeDate.getCurrentDate(),
+        completedAt: OperationsDate.getCurrentDate(),
         errorMessage: truncatedMessage,
       },
     });
@@ -389,7 +389,7 @@ export default class AIInvestigationQueue {
       fromStatus: AIRunStatus.Running,
       set: {
         status: AIRunStatus.Stale,
-        completedAt: OneUptimeDate.getCurrentDate(),
+        completedAt: OperationsDate.getCurrentDate(),
         errorMessage:
           "The run stopped reporting progress and was marked as stale after exhausting its retry attempts. The server processing it may have restarted.",
       },
@@ -503,8 +503,8 @@ export default class AIInvestigationQueue {
       expectedAttemptCount: run.attemptCount || 0,
       set: {
         status: AIRunStatus.Running,
-        startedAt: OneUptimeDate.getCurrentDate(),
-        lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+        startedAt: OperationsDate.getCurrentDate(),
+        lastHeartbeatAt: OperationsDate.getCurrentDate(),
         attemptCount: attempt,
       },
     });
@@ -580,7 +580,7 @@ export default class AIInvestigationQueue {
       fromStatus: AIRunStatus.Running,
       set: {
         status: AIRunStatus.Error,
-        completedAt: OneUptimeDate.getCurrentDate(),
+        completedAt: OperationsDate.getCurrentDate(),
         errorMessage: "Queued investigation has no subject to investigate.",
       },
     });

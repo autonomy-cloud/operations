@@ -215,10 +215,10 @@ docker run ... <image>
 For at bruge Docker-overvågning skal du:
 
 1. Installere Cast Operations Docker Agent på hver Docker-host, du vil overvåge
-2. Sende `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` og `DOCKER_HOST_NAME` som miljøvariabler
+2. Sende `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_SERVICE_TOKEN` og `DOCKER_HOST_NAME` som miljøvariabler
 3. Sørge for, at de containere, du vil observere, bruger `json-file`-logdriveren (se ovenfor)
 
-Agenten publiceres som `oneuptime/docker-agent:release` på Docker Hub. Se [Docker Agent-installationsvejledningen](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) for de fulde `docker run`- og `docker compose`-eksempler.
+Agenten publiceres som `cast-operations/docker-agent:release` på Docker Hub. Se [Docker Agent-installationsvejledningen](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) for de fulde `docker run`- og `docker compose`-eksempler.
 
 ## Fejlfinding
 

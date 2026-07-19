@@ -14,7 +14,7 @@ For at integrere Microsoft Teams med din selvhostede Cast Operations-instans ska
 1. Gå til [Azure Portal](https://portal.azure.com)
 2. Naviger til "App registrations" og klik på "New registration"
 3. Udfyld registreringsformularen:
-   - **Navn:** oneuptime
+   - **Navn:** cast-operations
    - **Understøttede kontotyper:** Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)
    - **Omdirigerings-URI:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
    - Tilføj også: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -61,7 +61,7 @@ For at integrere Microsoft Teams med din selvhostede Cast Operations-instans ska
 1. I Azure Portal skal du navigere til "Azure Bot" og klikke på "Create"
 2. Udfyld bot-oprettelsesformularen:
 
-   - **Bot-handle:** oneuptime-bot
+   - **Bot-handle:** cast-operations-bot
    - **Abonnement:** Dit Azure-abonnement
    - **Ressourcegruppe:** Opret en ny eller brug en eksisterende
    - **Placering:** Vælg en placering tæt på dine brugere

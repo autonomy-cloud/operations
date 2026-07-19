@@ -18,7 +18,7 @@ import Incident from "Common/Models/DatabaseModels/Incident";
 import API from "Common/UI/Utils/API/API";
 import IconProp from "Common/Types/Icon/IconProp";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Query from "Common/Types/BaseDatabase/Query";
 import Includes from "Common/Types/BaseDatabase/Includes";
 import JSONFunctions from "Common/Types/JSONFunctions";
@@ -214,7 +214,7 @@ const DashboardIncidentListComponentElement: FunctionComponent<
       const severityColor: Color | undefined = incident.incidentSeverity
         ?.color as Color | undefined;
       const created: Date | undefined = incident.createdAt
-        ? OneUptimeDate.fromString(incident.createdAt as unknown as string)
+        ? OperationsDate.fromString(incident.createdAt as unknown as string)
         : undefined;
 
       const detailRoute: Route = RouteUtil.populateRouteParams(
@@ -270,7 +270,7 @@ const DashboardIncidentListComponentElement: FunctionComponent<
           </td>
           <td className="px-3 py-2 text-xs text-gray-500 tabular-nums">
             {created
-              ? OneUptimeDate.getDateAsLocalFormattedString(created, true)
+              ? OperationsDate.getDateAsLocalFormattedString(created, true)
               : "—"}
           </td>
         </tr>

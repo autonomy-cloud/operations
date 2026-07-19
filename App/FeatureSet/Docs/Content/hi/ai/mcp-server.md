@@ -71,7 +71,7 @@ API keys project-scoped होती हैं: MCP server आपकी key स�
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp",
       "headers": {
@@ -89,7 +89,7 @@ API keys project-scoped होती हैं: MCP server आपकी key स�
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
@@ -107,7 +107,7 @@ API keys project-scoped होती हैं: MCP server आपकी key स�
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp"
     }
@@ -140,18 +140,18 @@ VS Code, GitHub Copilot (version 1.99+) के साथ MCP servers को nati
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://visca.ai/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -164,18 +164,18 @@ VS Code, GitHub Copilot (version 1.99+) के साथ MCP servers को nati
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -187,7 +187,7 @@ VS Code, GitHub Copilot (version 1.99+) के साथ MCP servers को nati
 
 1. `Ctrl+Shift+P` / `Cmd+Shift+P` दबाएं
 2. उपलब्ध servers देखने के लिए "MCP: List Servers" टाइप करें
-3. server शुरू करने के लिए "oneuptime" पर क्लिक करें
+3. server शुरू करने के लिए "cast-operations" पर क्लिक करें
 4. जब पूछा जाए, अपनी Cast Operations API key दर्ज करें
 
 #### चरण 4: Copilot Chat के साथ उपयोग करें
@@ -222,8 +222,8 @@ MCP server दो modes में काम करता है:
 
 आप public tools तक पहुंचने के लिए API key के बिना MCP server से connect कर सकते हैं:
 
-- **`oneuptime_help`**: Cast Operations MCP capabilities के बारे में help और मार्गदर्शन प्राप्त करें
-- **`oneuptime_list_resources`**: उपलब्ध resources और उनके operations सूचीबद्ध करें
+- **`cast_operations_help`**: Cast Operations MCP capabilities के बारे में help और मार्गदर्शन प्राप्त करें
+- **`cast_operations_list_resources`**: उपलब्ध resources और उनके operations सूचीबद्ध करें
 - **`get_public_status_page_overview`**: एक public status page का overview प्राप्त करें
 - **`get_public_status_page_incidents`**: एक public status page से incidents प्राप्त करें
 - **`get_public_status_page_scheduled_maintenance`**: scheduled maintenance events प्राप्त करें
@@ -253,7 +253,7 @@ per-resource CRUD tools के अलावा, server incident और alert res
 
 ## Who Am I
 
-**`oneuptime_whoami`** tool वह project लौटाता है जिससे आपकी API key संबंधित है (ID और नाम)। किसी agent के लिए स्वयं को orient करने हेतु यह एक उपयोगी पहली call है — और चूंकि create tools API key से `projectId` स्वयं पहचान लेते हैं, agent को कभी project ID pass करने की आवश्यकता नहीं होती।
+**`cast_operations_whoami`** tool वह project लौटाता है जिससे आपकी API key संबंधित है (ID और नाम)। किसी agent के लिए स्वयं को orient करने हेतु यह एक उपयोगी पहली call है — और चूंकि create tools API key से `projectId` स्वयं पहचान लेते हैं, agent को कभी project ID pass करने की आवश्यकता नहीं होती।
 
 ## Telemetry Query करना
 

@@ -21,7 +21,7 @@ import {
   registerResourceCommands,
 } from "../Commands/ResourceCommands";
 
-const CONFIG_DIR: string = path.join(os.homedir(), ".oneuptime");
+const CONFIG_DIR: string = path.join(os.homedir(), ".cast-operations");
 const CONFIG_FILE: string = path.join(CONFIG_DIR, "config.json");
 
 describe("ResourceCommands", () => {
@@ -49,14 +49,14 @@ describe("ResourceCommands", () => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(process, "exit").mockImplementation((() => {}) as any);
     mockExecuteApiRequest.mockReset();
-    delete process.env["ONEUPTIME_API_KEY"];
-    delete process.env["ONEUPTIME_URL"];
+    delete process.env["CAST_OPERATIONS_API_KEY"];
+    delete process.env["CAST_OPERATIONS_URL"];
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
-    delete process.env["ONEUPTIME_API_KEY"];
-    delete process.env["ONEUPTIME_URL"];
+    delete process.env["CAST_OPERATIONS_API_KEY"];
+    delete process.env["CAST_OPERATIONS_URL"];
   });
 
   describe("discoverResources", () => {
@@ -178,10 +178,10 @@ describe("ResourceCommands", () => {
     beforeEach(() => {
       /*
        * Use env vars for credentials instead of config file to avoid
-       * race conditions with other test files that share ~/.oneuptime/config.json
+       * race conditions with other test files that share ~/.cast-operations/config.json
        */
-      process.env["ONEUPTIME_API_KEY"] = "test-key-12345";
-      process.env["ONEUPTIME_URL"] = "https://test.visca.ai";
+      process.env["CAST_OPERATIONS_API_KEY"] = "test-key-12345";
+      process.env["CAST_OPERATIONS_URL"] = "https://test.visca.ai";
       mockExecuteApiRequest.mockResolvedValue({ data: [] });
     });
 
@@ -540,8 +540,8 @@ describe("ResourceCommands", () => {
 
     describe("credential resolution in commands", () => {
       it("should use global --api-key and --url flags", async () => {
-        delete process.env["ONEUPTIME_API_KEY"];
-        delete process.env["ONEUPTIME_URL"];
+        delete process.env["CAST_OPERATIONS_API_KEY"];
+        delete process.env["CAST_OPERATIONS_URL"];
         mockExecuteApiRequest.mockResolvedValue({ data: [] });
 
         const program: Command = createProgramWithResources();

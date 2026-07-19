@@ -7,7 +7,7 @@ Cast Operations CLI stöder flera sätt att autentisera mot din Cast Operations-
 Autentisera mot din Cast Operations-instans med en API-nyckel:
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **Argument:**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Logga in med standardkontext
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # Logga in med en namngiven kontext
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # Konfigurera flera miljöer
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Kontexter
@@ -44,7 +44,7 @@ Kontexter gör det möjligt att spara och växla mellan flera Cast Operations-mi
 ### Lista kontexter
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 Visar alla konfigurerade kontexter. Den aktiva kontexten markeras med `*`.
@@ -52,23 +52,23 @@ Visar alla konfigurerade kontexter. Den aktiva kontexten markeras med `*`.
 ### Byt kontext
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 Byt till en annan namngiven kontext för alla efterföljande kommandon.
 
 ```bash
 # Byt till staging
-oneuptime context use staging
+cast-operations context use staging
 
 # Byt till produktion
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### Visa aktuell kontext
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 Visar den aktuellt aktiva kontexten, inklusive instans-URL:en och en maskerad API-nyckel.
@@ -76,7 +76,7 @@ Visar den aktuellt aktiva kontexten, inklusive instans-URL:en och en maskerad AP
 ### Ta bort en kontext
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 Ta bort en namngiven kontext. Om den borttagna kontexten är den aktiva växlar CLI automatiskt till den första kvarvarande kontexten.
@@ -86,7 +86,7 @@ Ta bort en namngiven kontext. Om den borttagna kontexten är den aktiva växlar 
 Autentiseringsuppgifter löses i följande prioritetsordning:
 
 1. **CLI-flaggor** (`--api-key` och `--url`)
-2. **Miljövariabler** (`ONEUPTIME_API_KEY` och `ONEUPTIME_URL`)
+2. **Miljövariabler** (`CAST_OPERATIONS_API_KEY` och `CAST_OPERATIONS_URL`)
 3. **Namngiven kontext** (via `--context`-flaggan)
 4. **Aktuell kontext** (från sparad konfiguration)
 
@@ -95,22 +95,22 @@ Du kan blanda källor – till exempel använda en miljövariabel för API-nycke
 ### Använda CLI-flaggor
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Använda miljövariabler
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### Använda en specifik kontext
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## Verifiera autentisering
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 Kontrollera din aktuella autentiseringsstatus:
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Detta visar:
@@ -127,11 +127,11 @@ Detta visar:
 - Maskerad API-nyckel
 - Aktuellt kontextnamn (visas bara om en sparad kontext är aktiv)
 
-Om du inte är autentiserad visar kommandot ett hjälpsamt meddelande som föreslår att du kör `oneuptime login`.
+Om du inte är autentiserad visar kommandot ett hjälpsamt meddelande som föreslår att du kör `cast-operations login`.
 
 ## Konfigurationsfil
 
-Autentiseringsuppgifter lagras i `~/.oneuptime/config.json` med begränsade behörigheter (`0600`).
+Autentiseringsuppgifter lagras i `~/.cast-operations/config.json` med begränsade behörigheter (`0600`).
 
 ```json
 {

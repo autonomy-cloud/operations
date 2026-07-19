@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Timezone from "Common/Types/Timezone";
 import React, { FunctionComponent, ReactElement } from "react";
 
@@ -10,7 +10,7 @@ const TimezoneElement: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
   return (
-    <p>{OneUptimeDate.getGmtOffsetFriendlyStringByTimezone(props.timezone)}</p>
+    <p>{OperationsDate.getGmtOffsetFriendlyStringByTimezone(props.timezone)}</p>
   );
 };
 

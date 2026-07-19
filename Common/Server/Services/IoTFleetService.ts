@@ -7,7 +7,7 @@ import { OnCreate } from "../Types/Database/Hooks";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import ObjectID from "../../Types/ObjectID";
 import QueryHelper from "../Types/Database/QueryHelper";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import LIMIT_MAX from "../../Types/Database/LimitMax";
 import GlobalCache from "../Infrastructure/GlobalCache";
 import logger, { LogAttributes } from "../Utils/Logger";
@@ -102,7 +102,7 @@ export class Service extends DatabaseService<Model> {
       newFleet.projectId = data.projectId;
       newFleet.name = name;
       newFleet.otelCollectorStatus = "connected";
-      newFleet.lastSeenAt = OneUptimeDate.getCurrentDate();
+      newFleet.lastSeenAt = OperationsDate.getCurrentDate();
 
       const createdFleet: Model = await this.create({
         data: newFleet,
@@ -156,7 +156,7 @@ export class Service extends DatabaseService<Model> {
    * metrics snapshot flush (counts, every batch) and the fenced
    * autoDiscoverIoTFleet maintenance path (agentVersion only — and
    * usually an all-null fingerprint, since the shipped agent config
-   * does not stamp oneuptime.agent.version). The single fingerprint
+   * does not stamp cast-operations.agent.version). The single fingerprint
    * covers the whole extras object, so each alternation between the
    * two shapes busts the throttle: at most one extra Postgres UPDATE
    * per maintenance-fence window (~5 min), which is accepted. Do NOT
@@ -215,7 +215,7 @@ export class Service extends DatabaseService<Model> {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: any = {
-      lastSeenAt: OneUptimeDate.getCurrentDate(),
+      lastSeenAt: OperationsDate.getCurrentDate(),
       otelCollectorStatus: "connected",
     };
 
@@ -328,8 +328,8 @@ export class Service extends DatabaseService<Model> {
      * equal to the fence TTL flaps healthy resources. 15 minutes
      * gives 3x headroom.
      */
-    const fifteenMinutesAgo: Date = OneUptimeDate.addRemoveMinutes(
-      OneUptimeDate.getCurrentDate(),
+    const fifteenMinutesAgo: Date = OperationsDate.addRemoveMinutes(
+      OperationsDate.getCurrentDate(),
       -15,
     );
 

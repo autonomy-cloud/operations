@@ -108,14 +108,14 @@ Jira Cloud использует **Basic auth** с адресом электро�
 
 3. В рабочем процессе используйте блок **Find Incident** для поиска инцидента по сохранённому ключу, затем блок **Update Incident**, чтобы перевести его в состояние разрешено.
 
-Если вы сохранили ключ Jira в инциденте на Шаге 4, совпадение выполняется легко. См. [Компоненты → Компоненты данных Cast Operations](/docs/workflows/components#oneuptime-data-components).
+Если вы сохранили ключ Jira в инциденте на Шаге 4, совпадение выполняется легко. См. [Компоненты → Компоненты данных Cast Operations](/docs/workflows/components#cast-operations-data-components).
 
 ## Настройка задачи
 
 Несколько распространённых изменений в теле блока API:
 
 - **Приоритет** — добавьте `"priority": { "name": "High" }` в `fields`. Ветвясь по `{{Incident.incidentSeverity.name}}` с помощью **Conditions**, можно сопоставлять уровни серьёзности Cast Operations с приоритетами Jira.
-- **Метки** — добавьте `"labels": ["oneuptime", "incident"]`.
+- **Метки** — добавьте `"labels": ["cast-operations", "incident"]`.
 - **Исполнитель** — добавьте `"assignee": { "id": "<accountId>" }` (Jira Cloud использует ID учётных записей, а не имена пользователей).
 - **Пользовательские поля** — добавьте `"customfield_XXXXX": "..."`, используя ID поля из администрирования Jira.
 

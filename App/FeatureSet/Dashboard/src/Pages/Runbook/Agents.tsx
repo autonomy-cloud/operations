@@ -15,7 +15,7 @@ import Label from "Common/Models/DatabaseModels/Label";
 import RunbookAgent, {
   RunbookAgentConnectionStatus,
 } from "Common/Models/DatabaseModels/RunbookAgent";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import React, {
   Fragment,
@@ -184,7 +184,7 @@ const RunbookAgentsPage: FunctionComponent<
               if (!item.lastAlive) {
                 return <span className="text-gray-500">Never</span>;
               }
-              return <span>{OneUptimeDate.fromNow(item.lastAlive)}</span>;
+              return <span>{OperationsDate.fromNow(item.lastAlive)}</span>;
             },
           },
           {

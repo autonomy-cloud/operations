@@ -1,5 +1,5 @@
 import ColumnLength from "../../../Types/Database/ColumnLength";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import { JSONArray, JSONObject, JSONValue } from "../../../Types/JSON";
 import logger from "../Logger";
 
@@ -121,7 +121,7 @@ function toNumberOrNull(value: unknown): number | null {
 export const IOT_MAX_FUTURE_CLOCK_SKEW_MINUTES: number = 5;
 
 export function clampIoTTimestamp(date: Date, nowOverride?: Date): Date {
-  const now: Date = nowOverride || OneUptimeDate.getCurrentDate();
+  const now: Date = nowOverride || OperationsDate.getCurrentDate();
   const maxAllowedMs: number =
     now.getTime() + IOT_MAX_FUTURE_CLOCK_SKEW_MINUTES * 60 * 1000;
   if (date.getTime() > maxAllowedMs) {
@@ -153,13 +153,13 @@ function parseUnixNanoToDate(
          * with BigInt — nanosecond epochs exceed Number.MAX_SAFE_INTEGER, so
          * parsing to a float here would drop up to a full millisecond.
          */
-        return OneUptimeDate.fromUnixNano(trimmed);
+        return OperationsDate.fromUnixNano(trimmed);
       }
       if (typeof value === "number") {
         if (!Number.isFinite(value)) {
           throw new Error(`Invalid timestamp number: ${value}`);
         }
-        return OneUptimeDate.fromUnixNano(value);
+        return OperationsDate.fromUnixNano(value);
       }
     } catch (error) {
       logger.warn(
@@ -168,7 +168,7 @@ function parseUnixNanoToDate(
     }
   }
 
-  return OneUptimeDate.getCurrentDate();
+  return OperationsDate.getCurrentDate();
 }
 
 // Same trim-or-null read contract as OtelIngestBaseService.getStringAttribute.

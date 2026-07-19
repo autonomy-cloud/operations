@@ -54,7 +54,7 @@ const TableHeader: TableHeaderFunction = <T extends GenericObject>(
   );
 
   return (
-    <thead className="bg-gray-50" id={props.id}>
+    <thead className="operations-table-head bg-gray-50" id={props.id}>
       <tr>
         {props.enableDragAndDrop && (
           <th scope="col">
@@ -105,7 +105,7 @@ const TableHeader: TableHeaderFunction = <T extends GenericObject>(
                 key={i}
                 scope="col"
                 aria-sort={ariaSort}
-                className={`px-6 py-3 text-left text-sm font-semibold text-gray-900 ${
+                className={`operations-table-heading px-6 py-3 text-left text-sm font-semibold text-gray-900 ${
                   canSort ? "cursor-pointer" : ""
                 }`}
                 onClick={() => {

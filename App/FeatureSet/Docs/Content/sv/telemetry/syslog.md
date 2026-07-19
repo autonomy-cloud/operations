@@ -6,9 +6,9 @@ OpenTelemetry Ingest-tjänsten accepterar nu inbyggda Syslog-nyttolaster. Du kan
 
 ## Förutsättningar
 
-- **Telemetriintagningstoken** – skapa en från _Projektinställningar → Telemetriintagningsnycklar_ och kopiera `x-oneuptime-token`-värdet.
+- **Telemetriintagningstoken** – skapa en från _Projektinställningar → Telemetriintagningsnycklar_ och kopiera `x-cast-operations-token`-värdet.
 - **Syslog-vidarebefordrare** – vilket verktyg som helst som kan skicka HTTP POST-förfrågningar (t.ex. `curl`, `rsyslog` via `omhttp` eller `syslog-ng` med HTTP-destinationsplugin:et).
-- **Tjänstnamn (valfritt)** – ange `x-oneuptime-service-name`-huvudet för att gruppera inkommande loggar under en specifik telemetritjänst. När det utelämnas faller Cast Operations tillbaka på syslog `APP-NAME`, värdnamn eller `Syslog`.
+- **Tjänstnamn (valfritt)** – ange `x-cast-operations-service-name`-huvudet för att gruppera inkommande loggar under en specifik telemetritjänst. När det utelämnas faller Cast Operations tillbaka på syslog `APP-NAME`, värdnamn eller `Syslog`.
 
 ## Slutpunkt
 
@@ -17,7 +17,7 @@ POST https://visca.ai/syslog/v1/logs
 ```
 
 - Ersätt `visca.ai` med din värd om du egeninstallerar Cast Operations.
-- Inkludera alltid `x-oneuptime-token`-huvudet i förfrågan.
+- Inkludera alltid `x-cast-operations-token`-huvudet i förfrågan.
 
 ## Förfrågningsinnehåll
 
@@ -44,8 +44,8 @@ Skicka radavgränsade Syslog-strängar eller en JSON-nyttolast med en `messages`
 curl \
   -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
-  -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
-  -H "x-oneuptime-service-name: production-web" \
+  -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
+  -H "x-cast-operations-service-name: production-web" \
   -d '{
     "messages": [
       "<34>1 2025-03-02T14:48:05.003Z web-01 nginx 7421 ID47 [env@32473 host=\"web-01\"] 502 on /api/login"
@@ -59,7 +59,7 @@ curl \
    ```bash
    sudo apt-get install rsyslog-omhttp
    ```
-2. Lägg till destinationen i `/etc/rsyslog.d/oneuptime.conf`:
+2. Lägg till destinationen i `/etc/rsyslog.d/cast-operations.conf`:
 
    ```
    module(load="omhttp")
@@ -77,8 +77,8 @@ curl \
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
-     header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
-     header="x-oneuptime-service-name: rsyslog-demo"
+     header="x-cast-operations-token: YOUR_TELEMETRY_KEY"
+     header="x-cast-operations-service-name: rsyslog-demo"
      template="Cast OperationsJson"
    )
    ```
@@ -120,7 +120,7 @@ Dessa attribut blir sökbara inuti Telemetri → Loggar-utforskaren.
 
 ## Felsökning
 
-- **HTTP 401 eller tomma resultat** – verifiera att `x-oneuptime-token`-huvudet tillhör projektet som tar emot loggarna.
+- **HTTP 401 eller tomma resultat** – verifiera att `x-cast-operations-token`-huvudet tillhör projektet som tar emot loggarna.
 - **Inga loggar visas** – bekräfta att förfrågningsinnehållet faktiskt innehåller syslog-rader. Tomma innehåll avvisas med HTTP 400.
-- **Oväntat tjänstnamn** – ange `x-oneuptime-service-name` för att åsidosätta standardidentifieringslogiken.
+- **Oväntat tjänstnamn** – ange `x-cast-operations-service-name` för att åsidosätta standardidentifieringslogiken.
 - **Stora belastningstoppar** – batchning upp till 1 000 rader per förfrågan stöds. Större belastningstoppar köas och bearbetas asynkront.

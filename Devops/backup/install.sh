@@ -1,8 +1,8 @@
 #!/bin/sh
 
-ONEUPTIME_DB_USERNAME='oneuptime'
-ONEUPTIME_DB_PASSWORD='password'
-ONEUPTIME_DB_NAME='oneuptimedb'
+CAST_OPERATIONS_DB_USERNAME='cast-operations'
+CAST_OPERATIONS_DB_PASSWORD='password'
+CAST_OPERATIONS_DB_NAME='castoperationsdb'
 BACKUP_RETAIN_DAYS=14
 BACKUP_PATH=~/db-backup
 
@@ -17,9 +17,9 @@ function HELP() {
   echo "optional arguments have a default value when not set"
   echo ""
   echo " -l       Backup path on local system where backup file will be stored. Default value - $BACKUP_PATH"
-  echo " -n       Database name. Default value 'oneuptimedb'"
+  echo " -n       Database name. Default value 'castoperationsdb'"
   echo " -p       Database password. Default value 'password'"
-  echo " -u       Set database username. Default value 'oneuptime'."
+  echo " -u       Set database username. Default value 'cast-operations'."
   echo " -t       Backup retain days. Number of days backup is kept before it is deleted. Default value '14'"
   echo ""
   echo " -h      Help."
@@ -34,16 +34,16 @@ while getopts "l:p:n:t:u:h" opt; do
     BACKUP_PATH=$OPTARG
     ;;
   p)
-    ONEUPTIME_DB_PASSWORD="$OPTARG"
+    CAST_OPERATIONS_DB_PASSWORD="$OPTARG"
     ;;
   n)
-    ONEUPTIME_DB_NAME="$OPTARG"
+    CAST_OPERATIONS_DB_NAME="$OPTARG"
     ;;
   t)
     BACKUP_RETAIN_DAYS="$OPTARG"
     ;;
   u)
-    ONEUPTIME_DB_USERNAME="$OPTARG"
+    CAST_OPERATIONS_DB_USERNAME="$OPTARG"
     ;;
   h)
     HELP
@@ -63,7 +63,7 @@ echo '
 Description=Cast Operations database backup
         
 [Service]
-ExecStart=bash '"$HOME"'/backup.sh -u '${ONEUPTIME_DB_USERNAME}' -p '${ONEUPTIME_DB_PASSWORD}' -n '${ONEUPTIME_DB_NAME}' -l '${BACKUP_PATH}' -t '${BACKUP_RETAIN_DAYS}'
+ExecStart=bash '"$HOME"'/backup.sh -u '${CAST_OPERATIONS_DB_USERNAME}' -p '${CAST_OPERATIONS_DB_PASSWORD}' -n '${CAST_OPERATIONS_DB_NAME}' -l '${BACKUP_PATH}' -t '${BACKUP_RETAIN_DAYS}'
 
 ' | sudo tee -a /etc/systemd/system/backup.service
 

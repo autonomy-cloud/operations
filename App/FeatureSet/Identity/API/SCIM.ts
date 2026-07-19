@@ -9,7 +9,7 @@ import Express, {
   ExpressResponse,
   ExpressRouter,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "Common/Server/Utils/Express";
 import Response from "Common/Server/Utils/Response";
 import logger, {
@@ -25,7 +25,7 @@ import ProjectSCIM from "Common/Models/DatabaseModels/ProjectSCIM";
 import Team from "Common/Models/DatabaseModels/Team";
 import BadRequestException from "Common/Types/Exception/BadRequestException";
 import NotFoundException from "Common/Types/Exception/NotFoundException";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import LIMIT_MAX, { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
 import Query from "Common/Types/BaseDatabase/Query";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
@@ -108,7 +108,7 @@ const handleUserTeamOperations: (
         teamMember.userId = userId;
         teamMember.teamId = team.id!;
         teamMember.hasAcceptedInvitation = true;
-        teamMember.invitationAcceptedAt = OneUptimeDate.getCurrentDate();
+        teamMember.invitationAcceptedAt = OperationsDate.getCurrentDate();
 
         await TeamMemberService.create({
           data: teamMember,
@@ -231,7 +231,7 @@ const addUserToUnassignedTeam: (
     teamMember.userId = userId;
     teamMember.teamId = unassignedTeam.id!;
     teamMember.hasAcceptedInvitation = true;
-    teamMember.invitationAcceptedAt = OneUptimeDate.getCurrentDate();
+    teamMember.invitationAcceptedAt = OperationsDate.getCurrentDate();
 
     await TeamMemberService.create({
       data: teamMember,
@@ -470,9 +470,9 @@ router.post(
         getLogAttributesFromRequest(req as any),
       );
 
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const scimConfig: ProjectSCIM = bearerData["scimConfig"] as ProjectSCIM;
       const projectScimId: string = req.params["projectScimId"]!;
@@ -836,7 +836,7 @@ router.post(
                       newTeamMember.teamId = targetTeam.id!;
                       newTeamMember.hasAcceptedInvitation = true;
                       newTeamMember.invitationAcceptedAt =
-                        OneUptimeDate.getCurrentDate();
+                        OperationsDate.getCurrentDate();
 
                       await TeamMemberService.create({
                         data: newTeamMember,
@@ -940,7 +940,7 @@ router.post(
                     newTeamMember.teamId = team.id!;
                     newTeamMember.hasAcceptedInvitation = true;
                     newTeamMember.invitationAcceptedAt =
-                      OneUptimeDate.getCurrentDate();
+                      OperationsDate.getCurrentDate();
 
                     await TeamMemberService.create({
                       data: newTeamMember,
@@ -1056,7 +1056,7 @@ router.post(
                           newTeamMember.teamId = team.id!;
                           newTeamMember.hasAcceptedInvitation = true;
                           newTeamMember.invitationAcceptedAt =
-                            OneUptimeDate.getCurrentDate();
+                            OperationsDate.getCurrentDate();
 
                           await TeamMemberService.create({
                             data: newTeamMember,
@@ -1103,7 +1103,7 @@ router.post(
                             newTeamMember.teamId = team.id!;
                             newTeamMember.hasAcceptedInvitation = true;
                             newTeamMember.invitationAcceptedAt =
-                              OneUptimeDate.getCurrentDate();
+                              OperationsDate.getCurrentDate();
 
                             await TeamMemberService.create({
                               data: newTeamMember,
@@ -1333,9 +1333,10 @@ router.post(
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
       // Log the error
-      const oneuptimeRequestErr: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequestErr: OperationsRequest =
+        req as OperationsRequest;
       const bearerDataErr: JSONObject =
-        oneuptimeRequestErr.bearerTokenData as JSONObject;
+        castOperationsRequestErr.bearerTokenData as JSONObject;
       void createProjectSCIMLog({
         projectId: bearerDataErr["projectId"] as ObjectID,
         projectScimId: new ObjectID(req.params["projectScimId"]!),
@@ -1373,9 +1374,9 @@ router.get(
         getLogAttributesFromRequest(req as any),
       );
 
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const scimConfig: ProjectSCIM = bearerData["scimConfig"] as ProjectSCIM;
 
@@ -1666,9 +1667,9 @@ router.get(
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
       // Log the error
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       void createProjectSCIMLog({
         projectId: bearerData["projectId"] as ObjectID,
         projectScimId: new ObjectID(req.params["projectScimId"]!),
@@ -1709,9 +1710,9 @@ router.get(
         `SCIM Get individual user request for userId: ${req.params["userId"]}, projectScimId: ${req.params["projectScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const userId: string = req.params["userId"]!;
 
@@ -1795,9 +1796,9 @@ router.get(
       return Response.sendJsonObjectResponse(req, res, user);
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
 
       // Not found is expected behavior for SCIM providers checking if user exists
       const isNotFound: boolean = err instanceof NotFoundException;
@@ -1842,9 +1843,9 @@ const handleUserUpdate: (
       `SCIM Update user request for userId: ${req.params["userId"]}, projectScimId: ${req.params["projectScimId"]}`,
       getLogAttributesFromRequest(req as any),
     );
-    const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+    const castOperationsRequest: OperationsRequest = req as OperationsRequest;
     const bearerData: JSONObject =
-      oneuptimeRequest.bearerTokenData as JSONObject;
+      castOperationsRequest.bearerTokenData as JSONObject;
     const projectId: ObjectID = bearerData["projectId"] as ObjectID;
     const userId: string = req.params["userId"]!;
     const scimUser: JSONObject = req.body;
@@ -2089,9 +2090,9 @@ const handleUserUpdate: (
     return Response.sendJsonObjectResponse(req, res, user);
   } catch (err) {
     executionSteps.push(`Error occurred: ${(err as Error).message}`);
-    const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+    const castOperationsRequest: OperationsRequest = req as OperationsRequest;
     const bearerData: JSONObject =
-      oneuptimeRequest.bearerTokenData as JSONObject;
+      castOperationsRequest.bearerTokenData as JSONObject;
 
     // Not found is expected behavior for SCIM providers
     const isNotFound: boolean = err instanceof NotFoundException;
@@ -2150,9 +2151,9 @@ router.get(
         `SCIM Groups list request for projectScimId: ${req.params["projectScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
 
       executionSteps.push("Authenticated and extracted project context");
@@ -2276,9 +2277,9 @@ router.get(
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
       // Log the error
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       void createProjectSCIMLog({
         projectId: bearerData["projectId"] as ObjectID,
         projectScimId: new ObjectID(req.params["projectScimId"]!),
@@ -2319,9 +2320,9 @@ router.get(
         `SCIM Get individual group request for groupId: ${req.params["groupId"]}, projectScimId: ${req.params["projectScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const groupId: string = req.params["groupId"]!;
 
@@ -2405,9 +2406,9 @@ router.get(
       return Response.sendJsonObjectResponse(req, res, group);
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
 
       // Not found is expected behavior for SCIM providers checking if group exists
       const isNotFound: boolean = err instanceof NotFoundException;
@@ -2452,9 +2453,9 @@ router.post(
         `SCIM Create group request for projectScimId: ${req.params["projectScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const scimGroup: JSONObject = req.body;
 
@@ -2575,7 +2576,7 @@ router.post(
                 newTeamMember.teamId = targetTeam.id!;
                 newTeamMember.hasAcceptedInvitation = true;
                 newTeamMember.invitationAcceptedAt =
-                  OneUptimeDate.getCurrentDate();
+                  OperationsDate.getCurrentDate();
 
                 await TeamMemberService.create({
                   data: newTeamMember,
@@ -2677,9 +2678,9 @@ router.post(
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
       // Log the error
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       void createProjectSCIMLog({
         projectId: bearerData["projectId"] as ObjectID,
         projectScimId: new ObjectID(req.params["projectScimId"]!),
@@ -2716,9 +2717,9 @@ router.put(
         `SCIM Update group request for groupId: ${req.params["groupId"]}, projectScimId: ${req.params["projectScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const groupId: string = req.params["groupId"]!;
       const scimGroup: JSONObject = req.body;
@@ -2853,7 +2854,7 @@ router.put(
               newTeamMember.teamId = team.id!;
               newTeamMember.hasAcceptedInvitation = true;
               newTeamMember.invitationAcceptedAt =
-                OneUptimeDate.getCurrentDate();
+                OperationsDate.getCurrentDate();
 
               await TeamMemberService.create({
                 data: newTeamMember,
@@ -2942,9 +2943,9 @@ router.put(
       throw new NotFoundException("Failed to retrieve updated group");
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
 
       // Not found is expected behavior for SCIM providers
       const isNotFound: boolean = err instanceof NotFoundException;
@@ -2990,9 +2991,9 @@ router.delete(
         `SCIM Delete group request for groupId: ${req.params["groupId"]}, projectScimId: ${req.params["projectScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const groupId: string = req.params["groupId"]!;
 
@@ -3103,9 +3104,9 @@ router.delete(
       });
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
 
       // Not found is expected behavior for SCIM providers
       const isNotFound: boolean = err instanceof NotFoundException;
@@ -3154,9 +3155,9 @@ router.patch(
         `SCIM Patch group request for groupId: ${req.params["groupId"]}, projectScimId: ${req.params["projectScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const groupId: string = req.params["groupId"]!;
       const scimPatch: JSONObject = req.body;
@@ -3278,7 +3279,7 @@ router.patch(
                     newTeamMember.teamId = team.id!;
                     newTeamMember.hasAcceptedInvitation = true;
                     newTeamMember.invitationAcceptedAt =
-                      OneUptimeDate.getCurrentDate();
+                      OperationsDate.getCurrentDate();
 
                     await TeamMemberService.create({
                       data: newTeamMember,
@@ -3341,7 +3342,7 @@ router.patch(
                     newTeamMember.teamId = team.id!;
                     newTeamMember.hasAcceptedInvitation = true;
                     newTeamMember.invitationAcceptedAt =
-                      OneUptimeDate.getCurrentDate();
+                      OperationsDate.getCurrentDate();
 
                     await TeamMemberService.create({
                       data: newTeamMember,
@@ -3477,9 +3478,9 @@ router.patch(
       throw new NotFoundException("Failed to retrieve updated group");
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
 
       // Not found is expected behavior for SCIM providers
       const isNotFound: boolean = err instanceof NotFoundException;
@@ -3529,9 +3530,9 @@ router.post(
         `SCIM Create user request for projectScimId: ${req.params["projectScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const scimConfig: ProjectSCIM = bearerData["scimConfig"] as ProjectSCIM;
 
@@ -3733,9 +3734,9 @@ router.post(
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
 
       // Log the error
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       void createProjectSCIMLog({
         projectId: bearerData["projectId"] as ObjectID,
         projectScimId: new ObjectID(req.params["projectScimId"]!),
@@ -3775,9 +3776,9 @@ router.delete(
         `SCIM Delete user request for userId: ${req.params["userId"]}, projectScimId: ${req.params["projectScimId"]}`,
         getLogAttributesFromRequest(req as any),
       );
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
       const projectId: ObjectID = bearerData["projectId"] as ObjectID;
       const scimConfig: ProjectSCIM = bearerData["scimConfig"] as ProjectSCIM;
       userId = req.params["userId"]!;
@@ -3876,9 +3877,9 @@ router.delete(
       });
     } catch (err) {
       executionSteps.push(`Error occurred: ${(err as Error).message}`);
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
       const bearerData: JSONObject =
-        oneuptimeRequest.bearerTokenData as JSONObject;
+        castOperationsRequest.bearerTokenData as JSONObject;
 
       // Not found is expected behavior for SCIM providers
       const isNotFound: boolean = err instanceof NotFoundException;

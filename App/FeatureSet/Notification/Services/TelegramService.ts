@@ -1,22 +1,16 @@
-import {
-  TelegramTextDefaultCostInCents,
-  getTelegramConfig,
-  TelegramConfig,
-} from "../Config";
+import { getTelegramConfig, TelegramConfig } from "../Config";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import ObjectID from "Common/Types/ObjectID";
 import UserNotificationStatus from "Common/Types/UserNotification/UserNotificationStatus";
 import TelegramMessage from "Common/Types/Telegram/TelegramMessage";
 import TelegramStatus from "Common/Types/TelegramStatus";
 import { JSONObject } from "Common/Types/JSON";
-import { IsBillingEnabled } from "Common/Server/EnvironmentConfig";
-import NotificationService from "Common/Server/Services/NotificationService";
 import ProjectService from "Common/Server/Services/ProjectService";
 import UserOnCallLogTimelineService from "Common/Server/Services/UserOnCallLogTimelineService";
 import TelegramLogService from "Common/Server/Services/TelegramLogService";
 import logger from "Common/Server/Utils/Logger";
-import Project from "Common/Models/DatabaseModels/Project";
 import TelegramLog from "Common/Models/DatabaseModels/TelegramLog";
+import Project from "Common/Models/DatabaseModels/Project";
 import API from "Common/Utils/API";
 import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
@@ -124,23 +118,11 @@ export default class TelegramService {
         telegramLog.fromBotUsername = config.botUsername;
       }
 
-      let messageCost: number = 0;
-      const shouldChargeForMessage: boolean = IsBillingEnabled;
-
-      if (shouldChargeForMessage) {
-        messageCost = TelegramTextDefaultCostInCents / 100;
-      }
-
-      let project: Project | null = null;
-
       if (options.projectId) {
-        project = await ProjectService.findOneById({
+        const project: Project | null = await ProjectService.findOneById({
           id: options.projectId,
           select: {
-            smsOrCallCurrentBalanceInUSDCents: true,
-            lowCallAndSMSBalanceNotificationSentToOwners: true,
             name: true,
-            notEnabledSmsOrCallNotificationSentToOwners: true,
           },
           props: {
             isRoot: true,
@@ -158,60 +140,6 @@ export default class TelegramService {
             },
           });
           return;
-        }
-
-        if (shouldChargeForMessage && messageCost > 0) {
-          let updatedBalance: number =
-            project.smsOrCallCurrentBalanceInUSDCents || 0;
-
-          try {
-            updatedBalance = await NotificationService.rechargeIfBalanceIsLow(
-              project.id!,
-            );
-          } catch (err) {
-            logger.error(err);
-          }
-
-          project.smsOrCallCurrentBalanceInUSDCents = updatedBalance;
-
-          if (
-            !project.smsOrCallCurrentBalanceInUSDCents ||
-            project.smsOrCallCurrentBalanceInUSDCents < messageCost * 100
-          ) {
-            telegramLog.status = TelegramStatus.LowBalance;
-            telegramLog.statusMessage = `Project does not have enough balance to send Telegram message. Current balance is ${
-              (project.smsOrCallCurrentBalanceInUSDCents || 0) / 100
-            } USD. Required balance is ${messageCost} USD.`;
-            logger.error(telegramLog.statusMessage);
-
-            await TelegramLogService.create({
-              data: telegramLog,
-              props: {
-                isRoot: true,
-              },
-            });
-
-            if (!project.lowCallAndSMSBalanceNotificationSentToOwners) {
-              await ProjectService.updateOneById({
-                id: project.id!,
-                data: {
-                  lowCallAndSMSBalanceNotificationSentToOwners: true,
-                },
-                props: {
-                  isRoot: true,
-                },
-              });
-
-              await ProjectService.sendEmailToProjectOwners(
-                project.id!,
-                `Low Telegram message balance for ${project.name || ""}`,
-                `We tried to send a Telegram message to chat ${message.to} with message:<br/><br/>${messageSummary}<br/><br/>The message was not sent because your project does not have enough balance for Telegram messages. Current balance is ${
-                  (project.smsOrCallCurrentBalanceInUSDCents || 0) / 100
-                } USD. Required balance is ${messageCost} USD. Please enable auto recharge or recharge manually.`,
-              );
-            }
-            return;
-          }
         }
       }
 
@@ -282,30 +210,6 @@ export default class TelegramService {
       telegramLog.statusMessage = telegramMessageId
         ? `Message ID: ${telegramMessageId}`
         : "Telegram message sent successfully";
-
-      if (shouldChargeForMessage && project && messageCost > 0) {
-        const deduction: number = Math.floor(messageCost * 100);
-        telegramLog.telegramCostInUSDCents = deduction;
-
-        project.smsOrCallCurrentBalanceInUSDCents = Math.max(
-          0,
-          Math.floor(
-            (project.smsOrCallCurrentBalanceInUSDCents || 0) - deduction,
-          ),
-        );
-
-        await ProjectService.updateOneById({
-          id: project.id!,
-          data: {
-            smsOrCallCurrentBalanceInUSDCents:
-              project.smsOrCallCurrentBalanceInUSDCents,
-            notEnabledSmsOrCallNotificationSentToOwners: false,
-          },
-          props: {
-            isRoot: true,
-          },
-        });
-      }
     } catch (error: unknown) {
       logger.error("Failed to send Telegram message.");
       logger.error(error);

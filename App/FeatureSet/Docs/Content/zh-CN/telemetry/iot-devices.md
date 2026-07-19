@@ -10,7 +10,7 @@ Cast Operations 通过采集标准的 OpenTelemetry (OTLP) 指标来监控 IoT �
 
 - 一台能够向 Cast Operations 发送 OTLP/HTTP 的设备、网关或采集器
 - 设备/网关到你的 Cast Operations 实例的网络可达性
-- 一个 **Cast Operations 遥测采集令牌**——从 _Project Settings → Telemetry Ingestion Keys_ 创建一个，并复制 `x-oneuptime-token` 的值
+- 一个 **Cast Operations 遥测采集令牌**——从 _Project Settings → Telemetry Ingestion Keys_ 创建一个，并复制 `x-cast-operations-token` 的值
 
 ## Cast Operations 如何对 IoT 建模
 
@@ -35,14 +35,14 @@ Cast Operations 使用 OpenTelemetry 资源属性将你的设备映射到两个�
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | 环境变量                       | 是否必需 | 描述                                                                                                  |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | 是       | Cast Operations OTLP 端点（`https://visca.ai/otlp`，自托管时为 `http(s)://YOUR-OPERATIONS-HOST/otlp`） |
-| `OTEL_EXPORTER_OTLP_HEADERS`  | 是       | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | 是       | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | 是       | 逗号分隔的资源属性。必须包含 `iot.fleet.name`、`device.id` 和 `service.name=iot/<fleet>`               |
 
 使用下面的 `iot_*` 名称将你的读数作为指标发出（参阅[指标约定](#指标约定)）。大约一分钟内，设备会出现在 Cast Operations 仪表板的 **IoT** 区域。
@@ -80,7 +80,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
 service:
   pipelines:
@@ -108,28 +108,28 @@ Cast Operations 内置了 MQTT 端点，因此已经能够使用 MQTT 通信的�
 **认证**——有两种方式：
 
 - **项目级**：将你的**遥测采集令牌**作为 MQTT 密码发送（用户名会被忽略；如果你的客户端只暴露了用户名字段，请改为把令牌填在那里）。适合代表多台设备发布数据的网关。
-- **按设备**（推荐用于直接连接的设备）：在仪表板中该机群的 **Device Registry** 标签页下注册设备。注册会签发一份按设备的凭据——凭据 ID 即 MQTT **用户名**，密钥即**密码**。使用设备认证的客户端只能在它们自己的 `oneuptime/<fleet>/<device>/…` 主题下发布；单台被攻破的设备可以从仪表板吊销，而不影响机群中的其余设备（吊销大约在一分钟内生效，即使对于已连接的会话也是如此）；并且已注册的设备还能获得**静默死亡离线检测**：当它们停止上报时，会以 Offline 状态留在清单中而不是消失，并且即使它们在没有 Last Will 的情况下死亡，设备离线告警模板也会为它们触发。
+- **按设备**（推荐用于直接连接的设备）：在仪表板中该机群的 **Device Registry** 标签页下注册设备。注册会签发一份按设备的凭据——凭据 ID 即 MQTT **用户名**，密钥即**密码**。使用设备认证的客户端只能在它们自己的 `cast-operations/<fleet>/<device>/…` 主题下发布；单台被攻破的设备可以从仪表板吊销，而不影响机群中的其余设备（吊销大约在一分钟内生效，即使对于已连接的会话也是如此）；并且已注册的设备还能获得**静默死亡离线检测**：当它们停止上报时，会以 Offline 状态留在清单中而不是消失，并且即使它们在没有 Last Will 的情况下死亡，设备离线告警模板也会为它们触发。
 
 无效的凭据会在 CONNECT 时以返回码 4（用户名或密码错误）被拒绝，因此配置错误的设备会明确地失败。
 
-**主题**——在固定的 `oneuptime/` 前缀下发布。机群段和设备段不得包含 `/`、`+` 或 `#`，且限制为 100 个字符：
+**主题**——在固定的 `cast-operations/` 前缀下发布。机群段和设备段不得包含 `/`、`+` 或 `#`，且限制为 100 个字符：
 
 | 主题                                              | 负载                                                                                                  |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `oneuptime/<fleet>/<device>/telemetry`           | 读数的 JSON 对象——`{ "metrics": { "iot_temperature_celsius": 21.5 } }`，或一个扁平对象，其数值字段即为指标 |
-| `oneuptime/<fleet>/<device>/metrics/<metricName>`| 单个值——一个裸数字（`23.4`）或 `{ "value": 23.4 }`                                                     |
-| `oneuptime/<fleet>/<device>/status`              | `"online"` 或 `"offline"`（也可用 `1`/`0`、`true`/`false`、`up`/`down`）——映射到 `iot_device_up`        |
+| `cast-operations/<fleet>/<device>/telemetry`           | 读数的 JSON 对象——`{ "metrics": { "iot_temperature_celsius": 21.5 } }`，或一个扁平对象，其数值字段即为指标 |
+| `cast-operations/<fleet>/<device>/metrics/<metricName>`| 单个值——一个裸数字（`23.4`）或 `{ "value": 23.4 }`                                                     |
+| `cast-operations/<fleet>/<device>/status`              | `"online"` 或 `"offline"`（也可用 `1`/`0`、`true`/`false`、`up`/`down`）——映射到 `iot_device_up`        |
 
 遥测负载还可以携带 `"attributes"`（一个打在每个数据点上的字符串映射——可用它来传 `iot.device.kind`、`iot.device.type`、`iot.device.firmware` 或你自己的标签）和 `"timestamp"`（ISO-8601，或 unix 秒/毫秒）。两者都是可选的；缺少 `timestamp` 时使用采集时间。
 
-**使用 Last Will 进行离线检测**——在 `oneuptime/<fleet>/<device>/status` 上注册一个负载为 `offline` 的 MQTT Last Will。如果设备死亡或从网络上掉线，broker 会在会话结束的那一刻代表它发布 `iot_device_up = 0`——这会触发内置的**设备离线**告警模板，并将设备在清单中翻转为 Down，无需轮询，也无需等待一次错过的抓取。连接之后向同一主题发布 `online`，设备便会再次显示为 Up。
+**使用 Last Will 进行离线检测**——在 `cast-operations/<fleet>/<device>/status` 上注册一个负载为 `offline` 的 MQTT Last Will。如果设备死亡或从网络上掉线，broker 会在会话结束的那一刻代表它发布 `iot_device_up = 0`——这会触发内置的**设备离线**告警模板，并将设备在清单中翻转为 Down，无需轮询，也无需等待一次错过的抓取。连接之后向同一主题发布 `online`，设备便会再次显示为 Up。
 
 使用 `mosquitto_pub` 的示例（原始 TCP，自托管）：
 
 ```bash
-mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
-  -u oneuptime -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
-  -t "oneuptime/building-a-sensors/sensor-001/telemetry" \
+mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
+  -u cast-operations -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -t "cast-operations/building-a-sensors/sensor-001/telemetry" \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
@@ -139,19 +139,19 @@ mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
 const mqtt = require("mqtt");
 
 const client = mqtt.connect("wss://visca.ai/mqtt", {
-  username: "oneuptime", // 会被忽略——真正用于认证的是下面的令牌
+  username: "cast-operations", // 会被忽略——真正用于认证的是下面的令牌
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
-    topic: "oneuptime/building-a-sensors/sensor-001/status",
+    topic: "cast-operations/building-a-sensors/sensor-001/status",
     payload: "offline",
   },
 });
 
 client.on("connect", () => {
-  client.publish("oneuptime/building-a-sensors/sensor-001/status", "online");
+  client.publish("cast-operations/building-a-sensors/sensor-001/status", "online");
   setInterval(() => {
     client.publish(
-      "oneuptime/building-a-sensors/sensor-001/telemetry",
+      "cast-operations/building-a-sensors/sensor-001/telemetry",
       JSON.stringify({
         metrics: {
           iot_device_up: 1,
@@ -171,15 +171,15 @@ import json
 import paho.mqtt.client as mqtt
 
 client = mqtt.Client(transport="websockets")
-client.username_pw_set("oneuptime", "YOUR_TELEMETRY_INGESTION_TOKEN")
+client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
-client.will_set("oneuptime/building-a-sensors/sensor-001/status", "offline")
+client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
 client.connect("visca.ai", 443)
 
-client.publish("oneuptime/building-a-sensors/sensor-001/status", "online")
+client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
-    "oneuptime/building-a-sensors/sensor-001/telemetry",
+    "cast-operations/building-a-sensors/sensor-001/telemetry",
     json.dumps({"metrics": {"iot_device_up": 1, "iot_temperature_celsius": 21.5}}),
 )
 ```
@@ -219,7 +219,7 @@ Cast Operations 识别以下 `iot_*` 指标名称。每个数据点都应带有 
 ### 机群未出现
 
 1. 验证 `iot.fleet.name` 被设置为**资源**属性（而非数据点标签），且 `service.name` 为 `iot/<fleet>`。
-2. 确认导出器端点为 `https://visca.ai/otlp`（或你自托管的 `…/otlp`），且 `x-oneuptime-token` 请求头携带了有效令牌。
+2. 确认导出器端点为 `https://visca.ai/otlp`（或你自托管的 `…/otlp`），且 `x-cast-operations-token` 请求头携带了有效令牌。
 3. 如果使用采集器，请确保在 `otlphttp` 导出器上设置了 `encoding: json` 和 `Content-Type: application/json`。
 
 ### 设备未出现在清单中
@@ -230,7 +230,7 @@ Cast Operations 识别以下 `iot_*` 指标名称。每个数据点都应带有 
 
 ### 导出器返回 HTTP 401 / 403
 
-采集令牌无效、已吊销或缺失。请从 _Project Settings → Telemetry Ingestion Keys_ 生成一个新令牌，并更新 `x-oneuptime-token` 请求头。
+采集令牌无效、已吊销或缺失。请从 _Project Settings → Telemetry Ingestion Keys_ 生成一个新令牌，并更新 `x-cast-operations-token` 请求头。
 
 ### 指标未绘制成图表
 
@@ -255,7 +255,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 如果你的实例仅支持 HTTP，请将协议改为 `http://` 并使用相应的端口。

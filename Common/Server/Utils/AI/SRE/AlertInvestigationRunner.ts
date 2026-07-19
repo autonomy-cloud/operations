@@ -1,5 +1,5 @@
 import ObjectID from "../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import SortOrder from "../../../../Types/BaseDatabase/SortOrder";
 import AIRunType from "../../../../Types/AI/AIRunType";
 import { Blue500 } from "../../../../Types/BrandColors";
@@ -272,7 +272,7 @@ export default class AIAlertInvestigationRunner {
 
     if (alert.monitorId && dedupeWindowMinutes > 0) {
       const windowStart: Date =
-        OneUptimeDate.getSomeMinutesAgo(dedupeWindowMinutes);
+        OperationsDate.getSomeMinutesAgo(dedupeWindowMinutes);
 
       const recentRunCount: number = (
         await AIRunService.countBy({
@@ -361,7 +361,7 @@ export default class AIAlertInvestigationRunner {
     lines.push(
       `Declared at: ${
         alert.createdAt
-          ? OneUptimeDate.getDateAsFormattedString(alert.createdAt)
+          ? OperationsDate.getDateAsFormattedString(alert.createdAt)
           : "N/A"
       }`,
     );

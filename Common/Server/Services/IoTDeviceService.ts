@@ -3,7 +3,7 @@ import Model from "../../Models/DatabaseModels/IoTDevice";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import { clampIoTTimestamp } from "../Utils/Telemetry/IoTSnapshotScan";
 import logger from "../Utils/Logger";
 
@@ -473,8 +473,8 @@ export class Service extends DatabaseService<Model> {
    */
   public getStaleThresholdDate(nowOverride?: Date): Date {
     const minutes: number = this.getStaleThresholdMinutes();
-    return OneUptimeDate.addRemoveMinutes(
-      nowOverride || OneUptimeDate.getCurrentDate(),
+    return OperationsDate.addRemoveMinutes(
+      nowOverride || OperationsDate.getCurrentDate(),
       -minutes,
     );
   }

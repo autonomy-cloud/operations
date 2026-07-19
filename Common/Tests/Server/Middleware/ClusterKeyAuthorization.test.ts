@@ -1,4 +1,4 @@
-import { ClusterKey as ONEUPTIME_SECRET } from "../../../Server/EnvironmentConfig";
+import { ClusterKey as CAST_OPERATIONS_SECRET } from "../../../Server/EnvironmentConfig";
 import ClusterKeyAuthorization from "../../../Server/Middleware/ClusterKeyAuthorization";
 import {
   ExpressRequest,
@@ -13,7 +13,7 @@ describe("ClusterKeyAuthorization", () => {
   describe("getClusterKeyHeaders", () => {
     test("should return cluster key headers", () => {
       const mockedResult: Dictionary<string> = {
-        clusterkey: ONEUPTIME_SECRET.toString(),
+        clusterkey: CAST_OPERATIONS_SECRET.toString(),
       };
 
       const result: Dictionary<string> =
@@ -24,7 +24,7 @@ describe("ClusterKeyAuthorization", () => {
   });
 
   describe("isAuthorizedServiceMiddleware", () => {
-    const clusterKey: string = ONEUPTIME_SECRET.toString();
+    const clusterKey: string = CAST_OPERATIONS_SECRET.toString();
 
     const mockedValidRequestFields: string[] = [
       "params",

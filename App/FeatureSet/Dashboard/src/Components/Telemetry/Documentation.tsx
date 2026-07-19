@@ -27,7 +27,7 @@ import Route from "Common/Types/API/Route";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
 import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import { JSONObject } from "Common/Types/JSON";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import RouteMap, { RouteUtil } from "../../Utils/RouteMap";
 import PageMap from "../../Utils/PageMap";
 import AppLink from "../AppLink/AppLink";
@@ -98,10 +98,10 @@ function replacePlaceholders(
   pyroscopeUrl: string,
 ): string {
   return code
-    .replace(/<YOUR_ONEUPTIME_URL>/g, otlpUrl)
-    .replace(/<YOUR_ONEUPTIME_PYROSCOPE_URL>/g, pyroscopeUrl)
-    .replace(/<YOUR_ONEUPTIME_OTLP_HOST>/g, otlpHost)
-    .replace(/<YOUR_ONEUPTIME_TOKEN>/g, token);
+    .replace(/<YOUR_CAST_OPERATIONS_URL>/g, otlpUrl)
+    .replace(/<YOUR_CAST_OPERATIONS_PYROSCOPE_URL>/g, pyroscopeUrl)
+    .replace(/<YOUR_CAST_OPERATIONS_OTLP_HOST>/g, otlpHost)
+    .replace(/<YOUR_CAST_OPERATIONS_TOKEN>/g, token);
 }
 
 // --- OpenTelemetry code snippets per language ---
@@ -272,20 +272,20 @@ import { BatchLogRecordProcessor } from '@opentelemetry/sdk-logs';
 const sdk = new NodeSDK({
   serviceName: 'my-service',
   traceExporter: new OTLPTraceExporter({
-    url: '<YOUR_ONEUPTIME_URL>/v1/traces',
-    headers: { 'x-oneuptime-token': '<YOUR_ONEUPTIME_TOKEN>' },
+    url: '<YOUR_CAST_OPERATIONS_URL>/v1/traces',
+    headers: { 'x-cast-operations-token': '<YOUR_CAST_OPERATIONS_TOKEN>' },
   }),
   metricReader: new PeriodicExportingMetricReader({
     exporter: new OTLPMetricExporter({
-      url: '<YOUR_ONEUPTIME_URL>/v1/metrics',
-      headers: { 'x-oneuptime-token': '<YOUR_ONEUPTIME_TOKEN>' },
+      url: '<YOUR_CAST_OPERATIONS_URL>/v1/metrics',
+      headers: { 'x-cast-operations-token': '<YOUR_CAST_OPERATIONS_TOKEN>' },
     }),
   }),
   logRecordProcessors: [
     new BatchLogRecordProcessor(
       new OTLPLogExporter({
-        url: '<YOUR_ONEUPTIME_URL>/v1/logs',
-        headers: { 'x-oneuptime-token': '<YOUR_ONEUPTIME_TOKEN>' },
+        url: '<YOUR_CAST_OPERATIONS_URL>/v1/logs',
+        headers: { 'x-cast-operations-token': '<YOUR_CAST_OPERATIONS_TOKEN>' },
       })
     ),
   ],
@@ -314,8 +314,8 @@ trace_provider = TracerProvider(resource=resource)
 trace_provider.add_span_processor(
     BatchSpanProcessor(
         OTLPSpanExporter(
-            endpoint="<YOUR_ONEUPTIME_URL>",
-            headers={"x-oneuptime-token": "<YOUR_ONEUPTIME_TOKEN>"},
+            endpoint="<YOUR_CAST_OPERATIONS_URL>",
+            headers={"x-cast-operations-token": "<YOUR_CAST_OPERATIONS_TOKEN>"},
         )
     )
 )
@@ -324,8 +324,8 @@ trace.set_tracer_provider(trace_provider)
 # Metrics
 metric_reader = PeriodicExportingMetricReader(
     OTLPMetricExporter(
-        endpoint="<YOUR_ONEUPTIME_URL>",
-        headers={"x-oneuptime-token": "<YOUR_ONEUPTIME_TOKEN>"},
+        endpoint="<YOUR_CAST_OPERATIONS_URL>",
+        headers={"x-cast-operations-token": "<YOUR_CAST_OPERATIONS_TOKEN>"},
     )
 )
 metrics.set_meter_provider(MeterProvider(resource=resource, metric_readers=[metric_reader]))`,
@@ -348,9 +348,9 @@ func initTracer() (*sdktrace.TracerProvider, error) {
     ctx := context.Background()
 
     exporter, err := otlptracehttp.New(ctx,
-        otlptracehttp.WithEndpoint("<YOUR_ONEUPTIME_OTLP_HOST>"),
+        otlptracehttp.WithEndpoint("<YOUR_CAST_OPERATIONS_OTLP_HOST>"),
         otlptracehttp.WithHeaders(map[string]string{
-            "x-oneuptime-token": "<YOUR_ONEUPTIME_TOKEN>",
+            "x-cast-operations-token": "<YOUR_CAST_OPERATIONS_TOKEN>",
         }),
     )
     if err != nil {
@@ -374,8 +374,8 @@ func initTracer() (*sdktrace.TracerProvider, error) {
         code: `# Run your Java application with the OpenTelemetry agent:
 java -javaagent:opentelemetry-javaagent.jar \\
   -Dotel.service.name=my-service \\
-  -Dotel.exporter.otlp.endpoint=<YOUR_ONEUPTIME_URL> \\
-  -Dotel.exporter.otlp.headers="x-oneuptime-token=<YOUR_ONEUPTIME_TOKEN>" \\
+  -Dotel.exporter.otlp.endpoint=<YOUR_CAST_OPERATIONS_URL> \\
+  -Dotel.exporter.otlp.headers="x-cast-operations-token=<YOUR_CAST_OPERATIONS_TOKEN>" \\
   -Dotel.exporter.otlp.protocol=http/protobuf \\
   -Dotel.metrics.exporter=otlp \\
   -Dotel.logs.exporter=otlp \\
@@ -404,8 +404,8 @@ builder.Services.AddOpenTelemetry()
         .AddAspNetCoreInstrumentation()
         .AddHttpClientInstrumentation()
         .AddOtlpExporter(options => {
-            options.Endpoint = new Uri("<YOUR_ONEUPTIME_URL>");
-            options.Headers = "x-oneuptime-token=<YOUR_ONEUPTIME_TOKEN>";
+            options.Endpoint = new Uri("<YOUR_CAST_OPERATIONS_URL>");
+            options.Headers = "x-cast-operations-token=<YOUR_CAST_OPERATIONS_TOKEN>";
             options.Protocol = OtlpExportProtocol.HttpProtobuf;
         })
     )
@@ -413,8 +413,8 @@ builder.Services.AddOpenTelemetry()
         .SetResourceBuilder(resourceBuilder)
         .AddAspNetCoreInstrumentation()
         .AddOtlpExporter(options => {
-            options.Endpoint = new Uri("<YOUR_ONEUPTIME_URL>");
-            options.Headers = "x-oneuptime-token=<YOUR_ONEUPTIME_TOKEN>";
+            options.Endpoint = new Uri("<YOUR_CAST_OPERATIONS_URL>");
+            options.Headers = "x-cast-operations-token=<YOUR_CAST_OPERATIONS_TOKEN>";
             options.Protocol = OtlpExportProtocol.HttpProtobuf;
         })
     );
@@ -423,8 +423,8 @@ builder.Services.AddOpenTelemetry()
 builder.Logging.AddOpenTelemetry(logging => {
     logging.SetResourceBuilder(resourceBuilder);
     logging.AddOtlpExporter(options => {
-        options.Endpoint = new Uri("<YOUR_ONEUPTIME_URL>");
-        options.Headers = "x-oneuptime-token=<YOUR_ONEUPTIME_TOKEN>";
+        options.Endpoint = new Uri("<YOUR_CAST_OPERATIONS_URL>");
+        options.Headers = "x-cast-operations-token=<YOUR_CAST_OPERATIONS_TOKEN>";
         options.Protocol = OtlpExportProtocol.HttpProtobuf;
     });
 });
@@ -445,13 +445,13 @@ use std::collections::HashMap;
 fn init_tracer() -> sdktrace::TracerProvider {
     let mut headers = HashMap::new();
     headers.insert(
-        "x-oneuptime-token".to_string(),
-        "<YOUR_ONEUPTIME_TOKEN>".to_string(),
+        "x-cast-operations-token".to_string(),
+        "<YOUR_CAST_OPERATIONS_TOKEN>".to_string(),
     );
 
     let exporter = opentelemetry_otlp::new_exporter()
         .http()
-        .with_endpoint("<YOUR_ONEUPTIME_URL>")
+        .with_endpoint("<YOUR_CAST_OPERATIONS_URL>")
         .with_headers(headers);
 
     opentelemetry_otlp::new_pipeline()
@@ -482,9 +482,9 @@ use OpenTelemetry\\SemConv\\ResourceAttributes;
 use OpenTelemetry\\Contrib\\Otlp\\HttpTransportFactory;
 
 $transport = (new HttpTransportFactory())->create(
-    '<YOUR_ONEUPTIME_URL>/v1/traces',
+    '<YOUR_CAST_OPERATIONS_URL>/v1/traces',
     'application/x-protobuf',
-    ['x-oneuptime-token' => '<YOUR_ONEUPTIME_TOKEN>']
+    ['x-cast-operations-token' => '<YOUR_CAST_OPERATIONS_TOKEN>']
 );
 
 $exporter = new SpanExporter($transport);
@@ -514,8 +514,8 @@ OpenTelemetry::SDK.configure do |c|
   c.add_span_processor(
     OpenTelemetry::SDK::Trace::Export::BatchSpanProcessor.new(
       OpenTelemetry::Exporter::OTLP::Exporter.new(
-        endpoint: '<YOUR_ONEUPTIME_URL>/v1/traces',
-        headers: { 'x-oneuptime-token' => '<YOUR_ONEUPTIME_TOKEN>' }
+        endpoint: '<YOUR_CAST_OPERATIONS_URL>/v1/traces',
+        headers: { 'x-cast-operations-token' => '<YOUR_CAST_OPERATIONS_TOKEN>' }
       )
     )
   )
@@ -534,8 +534,8 @@ config :opentelemetry,
 
 config :opentelemetry_exporter,
   otlp_protocol: :http_protobuf,
-  otlp_endpoint: "<YOUR_ONEUPTIME_URL>",
-  otlp_headers: [{"x-oneuptime-token", "<YOUR_ONEUPTIME_TOKEN>"}]
+  otlp_endpoint: "<YOUR_CAST_OPERATIONS_URL>",
+  otlp_headers: [{"x-cast-operations-token", "<YOUR_CAST_OPERATIONS_TOKEN>"}]
 
 # In application.ex, add to children:
 # {OpentelemetryPhoenix, []},
@@ -556,8 +556,8 @@ namespace otlp = opentelemetry::exporter::otlp;
 
 void initTracer() {
     otlp::OtlpHttpExporterOptions opts;
-    opts.url = "<YOUR_ONEUPTIME_URL>/v1/traces";
-    opts.http_headers = {{"x-oneuptime-token", "<YOUR_ONEUPTIME_TOKEN>"}};
+    opts.url = "<YOUR_CAST_OPERATIONS_URL>/v1/traces";
+    opts.http_headers = {{"x-cast-operations-token", "<YOUR_CAST_OPERATIONS_TOKEN>"}};
 
     auto exporter = otlp::OtlpHttpExporterFactory::Create(opts);
 
@@ -584,9 +584,9 @@ import OtlpHttpSpanExporting
 
 func initTracer() {
     let exporter = OtlpHttpSpanExporter(
-        endpoint: URL(string: "<YOUR_ONEUPTIME_URL>/v1/traces")!,
+        endpoint: URL(string: "<YOUR_CAST_OPERATIONS_URL>/v1/traces")!,
         config: OtlpConfiguration(
-            headers: [("x-oneuptime-token", "<YOUR_ONEUPTIME_TOKEN>")]
+            headers: [("x-cast-operations-token", "<YOUR_CAST_OPERATIONS_TOKEN>")]
         )
     )
 
@@ -625,8 +625,8 @@ const provider = new WebTracerProvider({
 provider.addSpanProcessor(
   new BatchSpanProcessor(
     new OTLPTraceExporter({
-      url: '<YOUR_ONEUPTIME_URL>/v1/traces',
-      headers: { 'x-oneuptime-token': '<YOUR_ONEUPTIME_TOKEN>' },
+      url: '<YOUR_CAST_OPERATIONS_URL>/v1/traces',
+      headers: { 'x-cast-operations-token': '<YOUR_CAST_OPERATIONS_TOKEN>' },
     })
   )
 );
@@ -675,8 +675,8 @@ const provider = new WebTracerProvider({
 provider.addSpanProcessor(
   new BatchSpanProcessor(
     new OTLPTraceExporter({
-      url: '<YOUR_ONEUPTIME_URL>/v1/traces',
-      headers: { 'x-oneuptime-token': '<YOUR_ONEUPTIME_TOKEN>' },
+      url: '<YOUR_CAST_OPERATIONS_URL>/v1/traces',
+      headers: { 'x-cast-operations-token': '<YOUR_CAST_OPERATIONS_TOKEN>' },
     })
   )
 );
@@ -709,29 +709,29 @@ registerInstrumentations({
 function getEnvVarSnippet(): string {
   return `# Alternatively, configure via environment variables (works with any language):
 export OTEL_SERVICE_NAME="my-service"
-export OTEL_EXPORTER_OTLP_ENDPOINT="<YOUR_ONEUPTIME_URL>"
-export OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=<YOUR_ONEUPTIME_TOKEN>"
+export OTEL_EXPORTER_OTLP_ENDPOINT="<YOUR_CAST_OPERATIONS_URL>"
+export OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=<YOUR_CAST_OPERATIONS_TOKEN>"
 export OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"`;
 }
 
-function getOneuptimeServiceLabelsSnippet(): string {
-  return `# Pattern: any resource attribute prefixed "oneuptime.label." is promoted to a project label
-#   oneuptime.label.<dimension>=<value>  →  becomes a project label named "<dimension>:<value>"
+function getOperationsServiceLabelsSnippet(): string {
+  return `# Pattern: any resource attribute prefixed "cast-operations.label." is promoted to a project label
+#   cast-operations.label.<dimension>=<value>  →  becomes a project label named "<dimension>:<value>"
 # The label is attached to this telemetry service automatically (and to the host, if the
 # same collector emits host metrics). Manual labels added via the Cast Operations UI are never
 # removed by ingest. Existing labels are matched case-insensitively, so "production"
 # reuses an existing "Production" label rather than spawning a duplicate.
 
 # Universal — set via the standard OpenTelemetry resource-attribute env var:
-export OTEL_RESOURCE_ATTRIBUTES="oneuptime.label.team=payments,oneuptime.label.env=production,oneuptime.label.region=us-east-1"
+export OTEL_RESOURCE_ATTRIBUTES="cast-operations.label.team=payments,cast-operations.label.env=production,cast-operations.label.region=us-east-1"
 
 # Or pass the same attributes inline on your SDK's Resource:
-#   Node.js:  new Resource({ "oneuptime.label.team": "payments", "oneuptime.label.env": "production" })
-#   Python:   Resource.create({"oneuptime.label.team": "payments", "oneuptime.label.env": "production"})
+#   Node.js:  new Resource({ "cast-operations.label.team": "payments", "cast-operations.label.env": "production" })
+#   Python:   Resource.create({"cast-operations.label.team": "payments", "cast-operations.label.env": "production"})
 #   Go:       resource.NewWithAttributes(semconv.SchemaURL,
-#                 attribute.String("oneuptime.label.team", "payments"),
-#                 attribute.String("oneuptime.label.env", "production"))
-#   Java:     -Dotel.resource.attributes=oneuptime.label.team=payments,oneuptime.label.env=production`;
+#                 attribute.String("cast-operations.label.team", "payments"),
+#                 attribute.String("cast-operations.label.env", "production"))
+#   Java:     -Dotel.resource.attributes=cast-operations.label.team=payments,cast-operations.label.env=production`;
 }
 
 // --- Profile-specific snippets ---
@@ -810,12 +810,12 @@ function getProfileConfigSnippet(lang: Language): {
         code: `const Pyroscope = require('@pyroscope/nodejs');
 
 Pyroscope.init({
-  serverAddress: '<YOUR_ONEUPTIME_PYROSCOPE_URL>',
+  serverAddress: '<YOUR_CAST_OPERATIONS_PYROSCOPE_URL>',
   appName: 'my-service',
   tags: {
     region: process.env.REGION || 'default',
   },
-  authToken: '<YOUR_ONEUPTIME_TOKEN>',
+  authToken: '<YOUR_CAST_OPERATIONS_TOKEN>',
 });
 
 Pyroscope.start();`,
@@ -827,12 +827,12 @@ Pyroscope.start();`,
 
 pyroscope.configure(
     application_name="my-service",
-    server_address="<YOUR_ONEUPTIME_PYROSCOPE_URL>",
+    server_address="<YOUR_CAST_OPERATIONS_PYROSCOPE_URL>",
     sample_rate=100,
     tags={
         "region": "us-east-1",
     },
-    auth_token="<YOUR_ONEUPTIME_TOKEN>",
+    auth_token="<YOUR_CAST_OPERATIONS_TOKEN>",
 )`,
         language: "python",
       };
@@ -854,8 +854,8 @@ func main() {
 
     pyroscope.Start(pyroscope.Config{
         ApplicationName: "my-service",
-        ServerAddress:   "<YOUR_ONEUPTIME_PYROSCOPE_URL>",
-        AuthToken:       os.Getenv("ONEUPTIME_TOKEN"),
+        ServerAddress:   "<YOUR_CAST_OPERATIONS_PYROSCOPE_URL>",
+        AuthToken:       os.Getenv("CAST_OPERATIONS_TOKEN"),
         Tags:            map[string]string{"hostname": os.Getenv("HOSTNAME")},
         ProfileTypes: []pyroscope.ProfileType{
             pyroscope.ProfileCPU,
@@ -886,8 +886,8 @@ func main() {
       return {
         code: `# Set environment variables before running your .NET application:
 export PYROSCOPE_APPLICATION_NAME=my-service
-export PYROSCOPE_SERVER_ADDRESS=<YOUR_ONEUPTIME_PYROSCOPE_URL>
-export PYROSCOPE_AUTH_TOKEN=<YOUR_ONEUPTIME_TOKEN>
+export PYROSCOPE_SERVER_ADDRESS=<YOUR_CAST_OPERATIONS_PYROSCOPE_URL>
+export PYROSCOPE_AUTH_TOKEN=<YOUR_CAST_OPERATIONS_TOKEN>
 export PYROSCOPE_PROFILING_ENABLED=1
 export CORECLR_ENABLE_PROFILING=1
 export CORECLR_PROFILER={BD1A650D-AC5D-4896-B64F-D6FA25D6B26A}
@@ -905,8 +905,8 @@ require 'pyroscope'
 
 Pyroscope.configure do |config|
   config.application_name = "my-service"
-  config.server_address   = "<YOUR_ONEUPTIME_PYROSCOPE_URL>"
-  config.auth_token       = "<YOUR_ONEUPTIME_TOKEN>"
+  config.server_address   = "<YOUR_CAST_OPERATIONS_PYROSCOPE_URL>"
+  config.auth_token       = "<YOUR_CAST_OPERATIONS_TOKEN>"
   config.tags = {
     "hostname" => ENV["HOSTNAME"],
     "region"   => ENV.fetch("REGION", "default"),
@@ -924,10 +924,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let backend_impl = pprof_backend(pprof_config);
 
     let agent = PyroscopeAgent::builder(
-            "<YOUR_ONEUPTIME_PYROSCOPE_URL>", "my-service"
+            "<YOUR_CAST_OPERATIONS_PYROSCOPE_URL>", "my-service"
         )
         .backend(backend_impl)
-        .auth_token("<YOUR_ONEUPTIME_TOKEN>".to_string())
+        .auth_token("<YOUR_CAST_OPERATIONS_TOKEN>".to_string())
         .tags([("hostname", "localhost")].to_vec())
         .build()?;
 
@@ -971,17 +971,17 @@ discovery.relabel "alloy_profiles" {
 
 pyroscope.ebpf "default" {
   targets    = discovery.relabel.alloy_profiles.output
-  forward_to = [pyroscope.write.oneuptime.receiver]
+  forward_to = [pyroscope.write.cast-operations.receiver]
 
   collect_interval = "15s"
   sample_rate      = 97
 }
 
-pyroscope.write "oneuptime" {
+pyroscope.write "cast-operations" {
   endpoint {
-    url = "<YOUR_ONEUPTIME_PYROSCOPE_URL>"
+    url = "<YOUR_CAST_OPERATIONS_PYROSCOPE_URL>"
     headers = {
-      "x-oneuptime-token" = "<YOUR_ONEUPTIME_TOKEN>",
+      "x-cast-operations-token" = "<YOUR_CAST_OPERATIONS_TOKEN>",
     }
   }
 }`;
@@ -1020,10 +1020,10 @@ function getFluentBitSnippet(): string {
 [OUTPUT]
     Name         opentelemetry
     Match        *
-    Host         <YOUR_ONEUPTIME_OTLP_HOST>
+    Host         <YOUR_CAST_OPERATIONS_OTLP_HOST>
     Port         443
     Tls          On
-    Header       x-oneuptime-token <YOUR_ONEUPTIME_TOKEN>
+    Header       x-cast-operations-token <YOUR_CAST_OPERATIONS_TOKEN>
     Logs_uri     /v1/logs`;
 }
 
@@ -1036,7 +1036,7 @@ services:
       - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
       - /var/log:/var/log:ro
     environment:
-      - FLB_ES_HOST=<YOUR_ONEUPTIME_OTLP_HOST>`;
+      - FLB_ES_HOST=<YOUR_CAST_OPERATIONS_OTLP_HOST>`;
 }
 
 // --- Fluentd snippets ---
@@ -1061,8 +1061,8 @@ function getFluentdSnippet(): string {
 
 <match **>
   @type http
-  endpoint https://<YOUR_ONEUPTIME_OTLP_HOST>/v1/logs
-  headers {"x-oneuptime-token":"<YOUR_ONEUPTIME_TOKEN>"}
+  endpoint https://<YOUR_CAST_OPERATIONS_OTLP_HOST>/v1/logs
+  headers {"x-cast-operations-token":"<YOUR_CAST_OPERATIONS_TOKEN>"}
   json_array true
   <format>
     @type json
@@ -1127,13 +1127,13 @@ const TelemetryDocumentation: FunctionComponent<ComponentProps> = (
   // Compute OTLP URL and host
   const httpProtocol: string =
     HTTP_PROTOCOL === Protocol.HTTPS ? "https" : "http";
-  const otlpHost: string = HOST ? HOST : "<YOUR_ONEUPTIME_OTLP_HOST>";
+  const otlpHost: string = HOST ? HOST : "<YOUR_CAST_OPERATIONS_OTLP_HOST>";
   const otlpUrl: string = HOST
     ? `${httpProtocol}://${HOST}/otlp`
-    : "<YOUR_ONEUPTIME_URL>";
+    : "<YOUR_CAST_OPERATIONS_URL>";
   const pyroscopeUrl: string = HOST
     ? `${httpProtocol}://${HOST}/pyroscope`
-    : "<YOUR_ONEUPTIME_PYROSCOPE_URL>";
+    : "<YOUR_CAST_OPERATIONS_PYROSCOPE_URL>";
 
   // Fetch ingestion keys on mount
   useEffect(() => {
@@ -1161,8 +1161,8 @@ const TelemetryDocumentation: FunctionComponent<ComponentProps> = (
          * their agent. 15 minutes comfortably covers agent flush
          * intervals without picking up stale data from older runs.
          */
-        const endTime: Date = OneUptimeDate.getCurrentDate();
-        const startTime: Date = OneUptimeDate.addRemoveMinutes(endTime, -15);
+        const endTime: Date = OperationsDate.getCurrentDate();
+        const startTime: Date = OperationsDate.addRemoveMinutes(endTime, -15);
 
         const response: HTTPResponse<JSONObject> | HTTPErrorResponse =
           await API.post({
@@ -1261,7 +1261,7 @@ const TelemetryDocumentation: FunctionComponent<ComponentProps> = (
 
   // Get token string for code snippets
   const tokenValue: string =
-    selectedKey?.secretKey?.toString() || "<YOUR_ONEUPTIME_TOKEN>";
+    selectedKey?.secretKey?.toString() || "<YOUR_CAST_OPERATIONS_TOKEN>";
   const otlpUrlValue: string = otlpUrl;
   const otlpHostValue: string = otlpHost;
 
@@ -1777,10 +1777,10 @@ const TelemetryDocumentation: FunctionComponent<ComponentProps> = (
             renderStep(
               5,
               "Optional — Auto-tag this service with project labels",
-              "Promote any resource attribute prefixed `oneuptime.label.` into a project label and attach it to this service. Use it to tag services with team, environment, region, or any other dimension you organize by.",
+              "Promote any resource attribute prefixed `cast-operations.label.` into a project label and attach it to this service. Use it to tag services with team, environment, region, or any other dimension you organize by.",
               <CodeBlock
                 code={replacePlaceholders(
-                  getOneuptimeServiceLabelsSnippet(),
+                  getOperationsServiceLabelsSnippet(),
                   otlpUrlValue,
                   otlpHostValue,
                   tokenValue,

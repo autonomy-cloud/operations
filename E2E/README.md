@@ -24,7 +24,6 @@ The tests use environment variables for configuration. Set the following variabl
 | ----------------------------------- | ----------------------------------------- | ----------- |
 | `HOST`                              | The hostname to test against              | `localhost` |
 | `HTTP_PROTOCOL`                     | Protocol to use (`http` or `https`)       | `http`      |
-| `BILLING_ENABLED`                   | Enable billing-related tests              | `false`     |
 | `E2E_TEST_IS_USER_REGISTERED`       | Whether a test user is already registered | `false`     |
 | `E2E_TEST_REGISTERED_USER_EMAIL`    | Email of the registered test user         | -           |
 | `E2E_TEST_REGISTERED_USER_PASSWORD` | Password of the registered test user      | -           |
@@ -36,7 +35,6 @@ The tests use environment variables for configuration. Set the following variabl
 ```bash
 export HOST=staging.visca.ai
 export HTTP_PROTOCOL=https
-export BILLING_ENABLED=true
 ```
 
 ## Running Tests
@@ -78,7 +76,7 @@ npx playwright test --ui
 ### Run a specific test by name
 
 ```bash
-npx playwright test -g "oneUptime link navigate to homepage"
+npx playwright test -g "operations link navigate to homepage"
 ```
 
 ## Test Structure

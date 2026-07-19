@@ -10,7 +10,7 @@
 ```
 # このリポジトリをクローンして cd で移動します。
 git clone https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # config.example.env を config.env にコピーします
 cp config.example.env config.env

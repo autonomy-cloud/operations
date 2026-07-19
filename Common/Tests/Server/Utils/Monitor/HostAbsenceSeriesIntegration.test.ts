@@ -29,7 +29,7 @@ import MetricSeriesFingerprint from "../../../../Utils/Metrics/MetricSeriesFinge
 /*
  * End-to-end validation of the host-absence fix using the exact shape of
  * Aptean's "Host Availability" monitor: a group-by-host (resource.host.name)
- * metric monitor on oneuptime.host.heartbeat with a `== 0` filter and
+ * metric monitor on cast-operations.host.heartbeat with a `== 0` filter and
  * onNoDataPolicy = Trigger. It proves that a synthetic absent-host series
  * produced by buildAbsentHostSeries flows through the real criteria
  * evaluator and yields exactly one correctly-labeled per-host trigger,
@@ -37,7 +37,7 @@ import MetricSeriesFingerprint from "../../../../Utils/Metrics/MetricSeriesFinge
  */
 
 const HOST_KEY: string = "resource.host.name";
-const HEARTBEAT_METRIC: string = "oneuptime.host.heartbeat";
+const HEARTBEAT_METRIC: string = "cast-operations.host.heartbeat";
 const PRESENT_HOST: string = "pmtrs2app01";
 const SILENT_HOST: string = "chsdc08";
 

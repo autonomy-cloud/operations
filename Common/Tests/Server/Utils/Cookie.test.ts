@@ -65,16 +65,12 @@ describe("CookieUtils", () => {
 
     CookieUtil.setCookie(mockResponse, "testName", "testValue", {});
 
-    expect(mockResponse.cookie).toHaveBeenCalledWith(
-      "testName",
-      "testValue",
-      {
-        path: "/",
-        sameSite: "none",
-        secure: true,
-        partitioned: true,
-      },
-    );
+    expect(mockResponse.cookie).toHaveBeenCalledWith("testName", "testValue", {
+      path: "/",
+      sameSite: "none",
+      secure: true,
+      partitioned: true,
+    });
   });
 
   test("Should remove a cookie", () => {

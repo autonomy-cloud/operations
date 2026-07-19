@@ -7,7 +7,7 @@
 # receiver picks up and forwards to Cast Operations.
 #
 # Each line is a JSON envelope:
-#   {"oneuptime.docker.kind":"Container","data":{...native docker payload...}}
+#   {"cast-operations.docker.kind":"Container","data":{...native docker payload...}}
 #
 # The collector's filelog operator chain promotes the kind to a log
 # record attribute and moves `data` to the body, so the backend
@@ -21,7 +21,7 @@
 set -eu
 
 SOCKET="${DOCKER_INVENTORY_SOCKET:-/var/run/docker.sock}"
-LOG_PATH="${DOCKER_INVENTORY_LOG_PATH:-/var/log/oneuptime-docker-inventory.log}"
+LOG_PATH="${DOCKER_INVENTORY_LOG_PATH:-/var/log/cast-operations-docker-inventory.log}"
 INTERVAL="${DOCKER_INVENTORY_INTERVAL_SECONDS:-300}"
 
 # Pin to a modern API version that matches the docker_stats receiver
@@ -39,12 +39,12 @@ emit_array_endpoint() {
     #      the filelog json_parser operator expects.
     if ! curl --silent --fail --unix-socket "${SOCKET}" \
         "${DOCKER_API}${endpoint}" 2>/dev/null \
-        | jq -c --arg kind "${kind}" '.[] | {"oneuptime.docker.kind":$kind,"data":.}' \
+        | jq -c --arg kind "${kind}" '.[] | {"cast-operations.docker.kind":$kind,"data":.}' \
         >> "${LOG_PATH}.tmp" 2>/dev/null; then
         # A failed scrape for one kind shouldn't kill the loop; the
         # next iteration retries. Most likely cause is the daemon
         # being temporarily unavailable.
-        echo "oneuptime-inventory: failed to scrape ${kind}" >&2
+        echo "cast-operations-inventory: failed to scrape ${kind}" >&2
     fi
 }
 
@@ -53,9 +53,9 @@ emit_volumes() {
     # array, so we extract .Volumes[] instead of .[].
     if ! curl --silent --fail --unix-socket "${SOCKET}" \
         "${DOCKER_API}/volumes" 2>/dev/null \
-        | jq -c '.Volumes[]? | {"oneuptime.docker.kind":"Volume","data":.}' \
+        | jq -c '.Volumes[]? | {"cast-operations.docker.kind":"Volume","data":.}' \
         >> "${LOG_PATH}.tmp" 2>/dev/null; then
-        echo "oneuptime-inventory: failed to scrape Volume" >&2
+        echo "cast-operations-inventory: failed to scrape Volume" >&2
     fi
 }
 

@@ -14,19 +14,19 @@ Cast Operations Docker Agent는 튜닝된 OpenTelemetry Collector 구성과 함�
 
 ## 빠른 시작 (단일 명령)
 
-`YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, 그리고 호스트 이름을 사용자 환경에 맞는 값으로 교체하세요. 호스트 이름은 이 Docker 호스트가 Cast Operations에 표시되는 방식입니다 — `prod-docker-01`과 같은 이름을 선택하세요.
+`YOUR_CAST_OPERATIONS_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, 그리고 호스트 이름을 사용자 환경에 맞는 값으로 교체하세요. 호스트 이름은 이 Docker 호스트가 Cast Operations에 표시되는 방식입니다 — `prod-docker-01`과 같은 이름을 선택하세요.
 
 ```bash
 docker run -d \
-  --name oneuptime-docker-agent \
+  --name cast-operations-docker-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="YOUR_ONEUPTIME_URL" \
-  -e ONEUPTIME_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 ```
 
 이것이 전부입니다. 에이전트가 연결되면 Cast Operations 대시보드의 **Docker** 섹션에 Docker 호스트가 자동으로 표시됩니다.
@@ -37,17 +37,17 @@ Docker Compose를 선호하는 경우 다음 내용을 `docker-compose.yml`에 �
 
 ```yaml
 services:
-  oneuptime-docker-agent:
-    image: oneuptime/docker-agent:release
-    container_name: oneuptime-docker-agent
+  cast-operations-docker-agent:
+    image: cast-operations/docker-agent:release
+    container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
-      - ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-      - ONEUPTIME_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
+      - CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+      - CAST_OPERATIONS_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
       - DOCKER_HOST_NAME=my-docker-host
     logging:
       driver: json-file
@@ -66,8 +66,8 @@ docker compose up -d
 
 | 변수                      | 필수   | 설명                                                                                                                |
 | ------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | 예     | Cast Operations 인스턴스 URL (예: `https://visca.ai` 또는 자체 호스팅 호스트)                                        |
-| `ONEUPTIME_SERVICE_TOKEN` | 예     | *Project Settings → Telemetry Ingestion Keys*에서 발급한 텔레메트리 수집 토큰                                       |
+| `CAST_OPERATIONS_URL`           | 예     | Cast Operations 인스턴스 URL (예: `https://visca.ai` 또는 자체 호스팅 호스트)                                        |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | 예     | *Project Settings → Telemetry Ingestion Keys*에서 발급한 텔레메트리 수집 토큰                                       |
 | `DOCKER_HOST_NAME`        | 아니오 | 이 호스트의 친숙한 이름. 기본값은 `docker-host`입니다. 호스트별로 안정적인 값으로 설정하세요 (예: `prod-docker-01`) |
 
 ## 설치 확인
@@ -75,13 +75,13 @@ docker compose up -d
 에이전트가 실행 중인지 확인:
 
 ```bash
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 ```
 
 에이전트 로그 확인:
 
 ```bash
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 ```
 
 다음을 찾으세요: `"Everything is ready. Begin running and processing data."`
@@ -91,8 +91,8 @@ docker logs -f oneuptime-docker-agent
 ## 에이전트 업그레이드
 
 ```bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # 위의 `docker run` 명령을 다시 실행하세요
 ```
 
@@ -106,7 +106,7 @@ docker compose up -d
 ## 에이전트 제거
 
 ```bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 ```
 
 Docker Compose를 사용한 경우:
@@ -128,10 +128,10 @@ docker compose down
 
 ## 자체 호스팅 Cast Operations
 
-Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 사용자 인스턴스로 설정하세요:
+Cast Operations을 자체 호스팅하는 경우 `CAST_OPERATIONS_URL`을 사용자 인스턴스로 설정하세요:
 
 ```bash
--e ONEUPTIME_URL="https://your-operations-host.example.com"
+-e CAST_OPERATIONS_URL="https://your-operations-host.example.com"
 ```
 
 인스턴스가 HTTP 전용인 경우 `http://`와 적절한 포트를 사용하세요.
@@ -144,15 +144,15 @@ Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 사용자 �
 
 ### 에이전트가 연결 끊김으로 표시됨
 
-1. 에이전트가 실행 중인지 확인: `docker ps --filter name=oneuptime-docker-agent`
-2. 에이전트 로그 확인: `docker logs oneuptime-docker-agent | grep -i error`
+1. 에이전트가 실행 중인지 확인: `docker ps --filter name=cast-operations-docker-agent`
+2. 에이전트 로그 확인: `docker logs cast-operations-docker-agent | grep -i error`
 3. Cast Operations URL과 서비스 토큰이 올바른지 확인
 4. Docker 호스트가 네트워크를 통해 Cast Operations 인스턴스에 도달할 수 있는지 확인
 
 ### 메트릭이 표시되지 않음
 
-1. 에이전트 내부에서 Docker 소켓에 접근할 수 있는지 확인: `docker exec oneuptime-docker-agent ls -la /var/run/docker.sock`
-2. 내보내기 오류에 대한 collector 로그 확인: `docker logs oneuptime-docker-agent | tail -100`
+1. 에이전트 내부에서 Docker 소켓에 접근할 수 있는지 확인: `docker exec cast-operations-docker-agent ls -la /var/run/docker.sock`
+2. 내보내기 오류에 대한 collector 로그 확인: `docker logs cast-operations-docker-agent | tail -100`
 3. 서비스 토큰이 유효하고 만료되지 않았는지 확인
 
 ### 호스트 이름이 컨테이너 ID로 표시됨

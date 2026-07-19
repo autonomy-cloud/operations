@@ -12,7 +12,7 @@ import TraceRecordingRuleDefinition, {
 } from "Common/Types/Trace/TraceRecordingRuleDefinition";
 import TraceAggregationType from "Common/Types/Trace/TraceAggregationType";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import { MetricPointType } from "Common/Models/AnalyticsModels/Metric";
 import ServiceType from "Common/Types/Telemetry/ServiceType";
@@ -24,6 +24,14 @@ import {
   type ParseError,
   type ParseResult,
 } from "Common/Utils/Metrics/RecordingRuleExpression";
+import {
+  getClickhouseDatabaseName,
+  quoteClickhouseIdentifier,
+} from "Common/Server/Utils/AnalyticsDatabase/ClusterConfig";
+
+const CLICKHOUSE_DATABASE: string = quoteClickhouseIdentifier(
+  getClickhouseDatabaseName(),
+);
 
 /*
  * Trace recording rules — mirror of Metrics/ComputeRecordingRules but source
@@ -65,11 +73,11 @@ RunCron(
         `Traces:ComputeRecordingRules: evaluating ${rules.length} enabled rule(s)`,
       );
 
-      const now: Date = OneUptimeDate.getCurrentDate();
+      const now: Date = OperationsDate.getCurrentDate();
       const endTime: Date = startOfMinute(
-        OneUptimeDate.addRemoveSeconds(now, -EVALUATION_LAG_SECONDS),
+        OperationsDate.addRemoveSeconds(now, -EVALUATION_LAG_SECONDS),
       );
-      const startTime: Date = OneUptimeDate.addRemoveMinutes(endTime, -1);
+      const startTime: Date = OperationsDate.addRemoveMinutes(endTime, -1);
 
       for (const rule of rules) {
         try {
@@ -199,8 +207,8 @@ async function runSourceQuery(args: {
   const aggregateSql: string = toSpanAggregateSql(source.aggregationType);
 
   const projectIdStr: string = projectId.toString();
-  const startIso: string = OneUptimeDate.toClickhouseDateTime64(startTime);
-  const endIso: string = OneUptimeDate.toClickhouseDateTime64(endTime);
+  const startIso: string = OperationsDate.toClickhouseDateTime64(startTime);
+  const endIso: string = OperationsDate.toClickhouseDateTime64(endTime);
 
   const esc: (s: string) => string = (s: string): string => {
     return s.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
@@ -250,7 +258,7 @@ async function runSourceQuery(args: {
 
   const sql: string = `
     SELECT ${groupSqlSelect}, ${aggregateSql} AS value
-    FROM oneuptime.SpanItemV3
+    FROM ${CLICKHOUSE_DATABASE}.SpanItemV3
     WHERE projectId = '${esc(projectIdStr)}'
       AND startTime >= toDateTime64('${startIso}', 9)
       AND startTime < toDateTime64('${endIso}', 9)
@@ -320,20 +328,20 @@ function buildDerivedMetricRow(args: {
   const { rule, groupAttribute, groupValue, value, bucketStart } = args;
 
   const attributes: Record<string, string> = {
-    "oneuptime.derived.trace_rule_id": rule._id?.toString() ?? "",
+    "cast-operations.derived.trace_rule_id": rule._id?.toString() ?? "",
   };
   if (groupAttribute && groupValue !== "") {
     attributes[groupAttribute] = groupValue;
   }
 
-  const now: Date = OneUptimeDate.getCurrentDate();
-  const retentionDate: Date = OneUptimeDate.addRemoveDays(now, 15);
+  const now: Date = OperationsDate.getCurrentDate();
+  const retentionDate: Date = OperationsDate.addRemoveDays(now, 15);
 
   return {
     _id: ObjectID.generateTimeOrdered().toString(),
     projectId: rule.projectId!.toString(),
-    createdAt: OneUptimeDate.toClickhouseDateTime(now),
-    time: OneUptimeDate.toClickhouseDateTime(bucketStart),
+    createdAt: OperationsDate.toClickhouseDateTime(now),
+    time: OperationsDate.toClickhouseDateTime(bucketStart),
     timeUnixNano: (bucketStart.getTime() * 1_000_000).toString(),
     primaryEntityType: ServiceType.OpenTelemetry,
     name: rule.outputMetricName,
@@ -341,7 +349,7 @@ function buildDerivedMetricRow(args: {
     value: value,
     attributes: attributes,
     attributeKeys: Object.keys(attributes).sort(),
-    retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+    retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
   };
 }
 

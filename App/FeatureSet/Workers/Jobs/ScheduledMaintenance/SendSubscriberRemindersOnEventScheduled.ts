@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
 import ScheduledMaintenance from "Common/Models/DatabaseModels/ScheduledMaintenance";
@@ -21,7 +21,7 @@ RunCron(
       await ScheduledMaintenanceService.findAllBy({
         query: {
           nextSubscriberNotificationBeforeTheEventAt: QueryHelper.lessThan(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
         },
         props: {

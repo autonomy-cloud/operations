@@ -12,7 +12,7 @@ import WorkspaceProjectAuthTokenService from "../../Services/WorkspaceProjectAut
 import WorkspaceProjectAuthToken from "../../../Models/DatabaseModels/WorkspaceProjectAuthToken";
 import logger from "../Logger";
 import CaptureSpan from "../Telemetry/CaptureSpan";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import SortOrder from "../../../Types/BaseDatabase/SortOrder";
 import { LLMMessage } from "../LLM/LLMService";
 import NotificationRuleWorkspaceChannel from "../../../Types/Workspace/NotificationRules/NotificationRuleWorkspaceChannel";
@@ -228,7 +228,7 @@ export default class IncidentAIContextBuilder {
     contextText += `**Description:** ${incident.description || "N/A"}\n\n`;
     contextText += `**Severity:** ${incident.incidentSeverity?.name || "N/A"}\n\n`;
     contextText += `**Current State:** ${incident.currentIncidentState?.name || "N/A"}\n\n`;
-    contextText += `**Created At:** ${incident.createdAt ? OneUptimeDate.getDateAsFormattedString(incident.createdAt) : "N/A"}\n\n`;
+    contextText += `**Created At:** ${incident.createdAt ? OperationsDate.getDateAsFormattedString(incident.createdAt) : "N/A"}\n\n`;
 
     // Affected monitors
     if (incident.monitors && incident.monitors.length > 0) {
@@ -267,7 +267,7 @@ export default class IncidentAIContextBuilder {
       contextText += "# State Timeline\n\n";
       for (const timeline of stateTimeline) {
         const startTime: string = timeline.startsAt
-          ? OneUptimeDate.getDateAsFormattedString(timeline.startsAt)
+          ? OperationsDate.getDateAsFormattedString(timeline.startsAt)
           : "N/A";
         const stateName: string =
           timeline.incidentState?.name?.toString() || "Unknown";
@@ -289,7 +289,7 @@ export default class IncidentAIContextBuilder {
       contextText += "# Internal Notes (Private)\n\n";
       for (const note of internalNotes) {
         const noteTime: string = note.createdAt
-          ? OneUptimeDate.getDateAsFormattedString(note.createdAt)
+          ? OperationsDate.getDateAsFormattedString(note.createdAt)
           : "N/A";
         const createdBy: string =
           note.createdByUser?.name?.toString() ||
@@ -306,9 +306,9 @@ export default class IncidentAIContextBuilder {
       contextText += "# Public Notes\n\n";
       for (const note of publicNotes) {
         const noteTime: string = note.postedAt
-          ? OneUptimeDate.getDateAsFormattedString(note.postedAt)
+          ? OperationsDate.getDateAsFormattedString(note.postedAt)
           : note.createdAt
-            ? OneUptimeDate.getDateAsFormattedString(note.createdAt)
+            ? OperationsDate.getDateAsFormattedString(note.createdAt)
             : "N/A";
         const createdBy: string =
           note.createdByUser?.name?.toString() ||
@@ -419,7 +419,7 @@ Grounding rules (important):
     contextText += `**Description:** ${incident.description || "N/A"}\n\n`;
     contextText += `**Severity:** ${incident.incidentSeverity?.name || "N/A"}\n\n`;
     contextText += `**Current State:** ${incident.currentIncidentState?.name || "N/A"}\n\n`;
-    contextText += `**Created At:** ${incident.createdAt ? OneUptimeDate.getDateAsFormattedString(incident.createdAt) : "N/A"}\n\n`;
+    contextText += `**Created At:** ${incident.createdAt ? OperationsDate.getDateAsFormattedString(incident.createdAt) : "N/A"}\n\n`;
 
     // Affected monitors
     if (incident.monitors && incident.monitors.length > 0) {
@@ -453,7 +453,7 @@ Grounding rules (important):
       contextText += "# State Timeline\n\n";
       for (const timeline of stateTimeline) {
         const startTime: string = timeline.startsAt
-          ? OneUptimeDate.getDateAsFormattedString(timeline.startsAt)
+          ? OperationsDate.getDateAsFormattedString(timeline.startsAt)
           : "N/A";
         const stateName: string =
           timeline.incidentState?.name?.toString() || "Unknown";
@@ -475,7 +475,7 @@ Grounding rules (important):
       contextText += "# Internal Notes (Private)\n\n";
       for (const note of internalNotes) {
         const noteTime: string = note.createdAt
-          ? OneUptimeDate.getDateAsFormattedString(note.createdAt)
+          ? OperationsDate.getDateAsFormattedString(note.createdAt)
           : "N/A";
         const createdBy: string =
           note.createdByUser?.name?.toString() ||
@@ -492,9 +492,9 @@ Grounding rules (important):
       contextText += "# Public Notes\n\n";
       for (const note of publicNotes) {
         const noteTime: string = note.postedAt
-          ? OneUptimeDate.getDateAsFormattedString(note.postedAt)
+          ? OperationsDate.getDateAsFormattedString(note.postedAt)
           : note.createdAt
-            ? OneUptimeDate.getDateAsFormattedString(note.createdAt)
+            ? OperationsDate.getDateAsFormattedString(note.createdAt)
             : "N/A";
         const createdBy: string =
           note.createdByUser?.name?.toString() ||

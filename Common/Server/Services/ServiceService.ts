@@ -8,7 +8,7 @@ import ArrayUtil from "../../Utils/Array";
 import { BrightColors } from "../../Types/BrandColors";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Model from "../../Models/DatabaseModels/Service";
 import Label from "../../Models/DatabaseModels/Label";
 import Project from "../../Models/DatabaseModels/Project";
@@ -164,7 +164,7 @@ export class Service extends DatabaseService<Model> {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: any = {
-      lastSeenAt: OneUptimeDate.getCurrentDate(),
+      lastSeenAt: OperationsDate.getCurrentDate(),
     };
 
     if (extra?.serviceVersion) {

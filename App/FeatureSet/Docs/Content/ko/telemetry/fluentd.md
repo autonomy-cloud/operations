@@ -58,7 +58,7 @@ Cast Operations에 가입하고 프로젝트를 생성한 후. 내비게이션 �
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -93,7 +93,7 @@ bind 0.0.0.0
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -107,7 +107,7 @@ flush_interval 10s
 </match>
 ```
 
-**Cast Operations을 자체 호스팅하는 경우**: Cast Operations을 자체 호스팅하는 경우 `endpoint_url`을 Cast Operations 인스턴스의 URL로 교체할 수 있습니다. `http(s)://YOUR_ONEUPTIME_HOST/fluentd/logs`
+**Cast Operations을 자체 호스팅하는 경우**: Cast Operations을 자체 호스팅하는 경우 `endpoint_url`을 Cast Operations 인스턴스의 URL로 교체할 수 있습니다. `http(s)://YOUR_CAST_OPERATIONS_HOST/fluentd/logs`
 
 ## 사용
 

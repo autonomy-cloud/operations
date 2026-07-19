@@ -9,7 +9,7 @@ import Model from "../../Models/DatabaseModels/ScheduledMaintenanceTemplate";
 import ScheduledMaintenanceTemplateOwnerTeam from "../../Models/DatabaseModels/ScheduledMaintenanceTemplateOwnerTeam";
 import ScheduledMaintenanceTemplateOwnerUser from "../../Models/DatabaseModels/ScheduledMaintenanceTemplateOwnerUser";
 import CreateBy from "../Types/Database/CreateBy";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Recurring from "../../Types/Events/Recurring";
 import UpdateBy from "../Types/Database/UpdateBy";
 import QueryDeepPartialEntity from "../../Types/Database/PartialEntity";
@@ -49,20 +49,20 @@ export class Service extends DatabaseService<Model> {
 
       // check if all dates are in the future.
 
-      if (OneUptimeDate.isInTheFuture(startDate) === false) {
+      if (OperationsDate.isInTheFuture(startDate) === false) {
         throw new BadDataException("Start date should be in the future.");
       }
 
-      if (OneUptimeDate.isInTheFuture(endDate) === false) {
+      if (OperationsDate.isInTheFuture(endDate) === false) {
         throw new BadDataException("End date should be in the future.");
       }
 
-      if (OneUptimeDate.isInTheFuture(scheduledTime) === false) {
+      if (OperationsDate.isInTheFuture(scheduledTime) === false) {
         throw new BadDataException("Scheduled time should be in the future.");
       }
 
       // make sure scheduedDate is < start date
-      if (!OneUptimeDate.isBefore(scheduledTime, startDate)) {
+      if (!OperationsDate.isBefore(scheduledTime, startDate)) {
         throw new BadDataException(
           "Scheduled time should be less than start date.",
         );
@@ -70,7 +70,7 @@ export class Service extends DatabaseService<Model> {
 
       // make sure scheduledDate is < end date
 
-      if (!OneUptimeDate.isBefore(scheduledTime, endDate)) {
+      if (!OperationsDate.isBefore(scheduledTime, endDate)) {
         throw new BadDataException(
           "Scheduled time should be less than end date.",
         );
@@ -78,7 +78,7 @@ export class Service extends DatabaseService<Model> {
 
       // make sure start date is < end date
 
-      if (!OneUptimeDate.isBefore(startDate, endDate)) {
+      if (!OperationsDate.isBefore(startDate, endDate)) {
         throw new BadDataException("Start date should be less than end date.");
       }
 
@@ -98,7 +98,7 @@ export class Service extends DatabaseService<Model> {
   }): Date {
     // check if firstScheduledAt is in the future, and if yes return that.
 
-    if (OneUptimeDate.isInTheFuture(data.dateAndTime)) {
+    if (OperationsDate.isInTheFuture(data.dateAndTime)) {
       return data.dateAndTime;
     }
 
@@ -211,7 +211,7 @@ export class Service extends DatabaseService<Model> {
 
         // make sure scheduedDate is < start date
         if (
-          !OneUptimeDate.isBefore(firstEventScheduledAt, firstEventStartsAt)
+          !OperationsDate.isBefore(firstEventScheduledAt, firstEventStartsAt)
         ) {
           throw new BadDataException(
             "Scheduled time should be less than start date.",
@@ -220,7 +220,7 @@ export class Service extends DatabaseService<Model> {
 
         // make sure scheduledDate is < end date
 
-        if (!OneUptimeDate.isBefore(firstEventScheduledAt, firstEventEndsAt)) {
+        if (!OperationsDate.isBefore(firstEventScheduledAt, firstEventEndsAt)) {
           throw new BadDataException(
             "Scheduled time should be less than end date.",
           );
@@ -228,14 +228,14 @@ export class Service extends DatabaseService<Model> {
 
         // make sure start date is < end date
 
-        if (!OneUptimeDate.isBefore(firstEventStartsAt, firstEventEndsAt)) {
+        if (!OperationsDate.isBefore(firstEventStartsAt, firstEventEndsAt)) {
           throw new BadDataException(
             "Start date should be less than end date.",
           );
         }
 
         // check if firstEventScheduledAt is in the future, and if yes return that.
-        if (OneUptimeDate.isInTheFuture(firstEventScheduledAt)) {
+        if (OperationsDate.isInTheFuture(firstEventScheduledAt)) {
           // if it is in the future, then we do not need to change the next scheduled time.
           newTemplate.scheduleNextEventAt = firstEventScheduledAt;
         } else {

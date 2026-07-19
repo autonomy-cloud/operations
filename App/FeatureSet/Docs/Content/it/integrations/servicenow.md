@@ -50,7 +50,7 @@ La Table API di ServiceNow accetta la **Basic auth**.
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
-       "correlation_id": "oneuptime-{{Incident._id}}"
+       "correlation_id": "cast-operations-{{Incident._id}}"
      }
      ```
 
@@ -61,7 +61,7 @@ La Table API di ServiceNow accetta la **Basic auth**.
 ## Passaggio 3 — Risolvi alla risoluzione in Cast Operations (opzionale)
 
 1. Crea un **secondo** workflow con un trigger **Incident → On Update** e un blocco **Conditions** che verifica che l'incidente sia risolto.
-2. Per aggiornare il record ServiceNow corretto hai bisogno del suo `sys_id`. Puoi salvarlo sull'incidente Cast Operations nel Passaggio 2 (leggi `{{CreateRecord.response-body.result.sys_id}}` e scrivilo in un'etichetta con **Update Incident**), oppure cerca il record con una `GET` su `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}`.
+2. Per aggiornare il record ServiceNow corretto hai bisogno del suo `sys_id`. Puoi salvarlo sull'incidente Cast Operations nel Passaggio 2 (leggi `{{CreateRecord.response-body.result.sys_id}}` e scrivilo in un'etichetta con **Update Incident**), oppure cerca il record con una `GET` su `/api/now/table/incident?sysparm_query=correlation_id=cast-operations-{{Incident._id}}`.
 3. Aggiungi un blocco **API**: **Method** `PATCH`, **URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`, body `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }` (`state` `6` = Risolto nel workflow ITIL predefinito).
 
 ## Risoluzione dei problemi

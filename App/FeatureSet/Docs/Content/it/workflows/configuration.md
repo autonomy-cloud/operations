@@ -72,7 +72,6 @@ La maggior parte degli ingegneri dovrebbe avere create/edit/read sui workflow ma
 
 ## Limiti di piano
 
-Cast Operations Cloud limita il numero di esecuzioni mensili sui piani piu piccoli. Il tuo limite attuale e mostrato sotto **Project Settings → Billing**. Quando lo raggiungi, i nuovi trigger vengono rifiutati fino al ciclo di fatturazione successivo. Le installazioni self-hosted non hanno questo limite.
 
 ## Quando i workflow non sono lo strumento giusto
 

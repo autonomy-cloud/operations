@@ -11,10 +11,10 @@
 若要執行探針，請先確認您已安裝 docker。您可以透過以下方式執行自訂探針：
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
 ```
 
-如果您是自行託管 Cast Operations，您可以將 `ONEUPTIME_URL` 變更為您自訂的自行託管執行個體。
+如果您是自行託管 Cast Operations，您可以將 `CAST_OPERATIONS_URL` 變更為您自訂的自行託管執行個體。
 
 ##### Proxy 設定
 
@@ -22,32 +22,32 @@ docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PRO
 
 ```
 # For HTTP proxy
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # For HTTPS proxy
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # With proxy authentication
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 #### Docker Compose
@@ -58,13 +58,13 @@ docker run --name oneuptime-probe --network host \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -77,13 +77,13 @@ services:
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       # Proxy configuration (optional)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,35 +102,35 @@ services:
 docker compose up -d
 ```
 
-如果您是自行託管 Cast Operations，您可以將 `ONEUPTIME_URL` 變更為您自訂的自行託管執行個體。
+如果您是自行託管 Cast Operations，您可以將 `CAST_OPERATIONS_URL` 變更為您自訂的自行託管執行個體。
 
 #### Kubernetes
 
-您也可以使用 Kubernetes 來執行探針。請建立一個包含以下內容的 `oneuptime-probe.yaml` 檔案：
+您也可以使用 Kubernetes 來執行探針。請建立一個包含以下內容的 `cast-operations-probe.yaml` 檔案：
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
@@ -142,25 +142,25 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             # Proxy configuration (optional)
             - name: HTTP_PROXY_URL
@@ -181,10 +181,10 @@ spec:
 接著執行以下指令：
 
 ```bash
-kubectl apply -f oneuptime-probe.yaml
+kubectl apply -f cast-operations-probe.yaml
 ```
 
-如果您是自行託管 Cast Operations，您可以將 `ONEUPTIME_URL` 變更為您自訂的自行託管執行個體。
+如果您是自行託管 Cast Operations，您可以將 `CAST_OPERATIONS_URL` 變更為您自訂的自行託管執行個體。
 
 ### 環境變數
 
@@ -194,7 +194,7 @@ kubectl apply -f oneuptime-probe.yaml
 
 - `PROBE_KEY` - 來自您 Cast Operations 儀表板的探針金鑰
 - `PROBE_ID` - 來自您 Cast Operations 儀表板的探針 ID
-- `ONEUPTIME_URL` - 您 Cast Operations 執行個體的 URL（預設值：https://visca.ai）
+- `CAST_OPERATIONS_URL` - 您 Cast Operations 執行個體的 URL（預設值：https://visca.ai）
 
 #### 選用變數
 

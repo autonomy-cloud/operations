@@ -6,7 +6,7 @@ import SortOrder from "../../../../Types/BaseDatabase/SortOrder";
 import { AIChatCitationTargetType } from "../../../../Types/AI/AIChatTypes";
 import IncidentService from "../../../Services/IncidentService";
 import QueryHelper from "../../../Types/Database/QueryHelper";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import ToolResultSerializer, { SerializedResult } from "./Serializer";
 import WidgetBuilder from "./WidgetBuilder";
 import {
@@ -177,8 +177,8 @@ export const QueryIncidentsTool: ObservabilityTool = {
       max: 25,
     });
 
-    const endTime: Date = OneUptimeDate.getCurrentDate();
-    const startTime: Date = OneUptimeDate.addRemoveHours(
+    const endTime: Date = OperationsDate.getCurrentDate();
+    const startTime: Date = OperationsDate.addRemoveHours(
       endTime,
       -1 * createdWithinHours,
     );
@@ -301,8 +301,8 @@ export const SearchIncidentsTool: ObservabilityTool = {
       max: 15,
     });
 
-    const endTime: Date = OneUptimeDate.getCurrentDate();
-    const startTime: Date = OneUptimeDate.addRemoveHours(
+    const endTime: Date = OperationsDate.getCurrentDate();
+    const startTime: Date = OperationsDate.addRemoveHours(
       endTime,
       -1 * createdWithinHours,
     );

@@ -9,16 +9,16 @@ Dette dokument indeholder omfattende eksempler til almindelige Cast Operations T
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Brug "= 7.0.123" til selvhostet
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # Skift til selvhostet
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # Skift til selvhostet
+  api_key       = var.cast_operations_api_key
 }
 
 ```
@@ -26,7 +26,7 @@ provider "oneuptime" {
 ### Grundlæggende monitor
 
 ```hcl
-resource "oneuptime_monitor" "manual_monitor" {
+resource "cast_operations_monitor" "manual_monitor" {
   name        = "Homepage Monitor"
   description = "Monitor til webstedets hjemmeside"
   monitor_type = "Manual"
@@ -37,7 +37,7 @@ resource "oneuptime_monitor" "manual_monitor" {
 
 ```hcl
 # Offentlig statusside
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name        = "Offentlig statusside"
   description = "Offentlig statusside til kundevendte tjenester"
 }

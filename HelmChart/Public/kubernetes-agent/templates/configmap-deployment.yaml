@@ -328,8 +328,8 @@ data:
       # aren't overwritten and show up under their own service in the
       # dashboard.
       #
-      # Any keys under .Values.oneuptime.labels are also stamped here as
-      # `oneuptime.label.<key>=<value>` resource attributes. The Cast Operations
+      # Any keys under .Values.cast-operations.labels are also stamped here as
+      # `cast-operations.label.<key>=<value>` resource attributes. The Cast Operations
       # ingest pipeline promotes those into project Labels.
       resource:
         attributes:
@@ -339,10 +339,10 @@ data:
           - key: service.name
             value: "kubernetes-agent-{{ .Values.clusterName }}"
             action: insert
-          - key: oneuptime.agent.version
+          - key: cast-operations.agent.version
             value: {{ .Chart.AppVersion | quote }}
             action: insert
-          {{- include "kubernetes-agent.oneuptimeLabels" (dict "labels" .Values.oneuptime.labels "action" "insert") | nindent 10 }}
+          {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" .Values.cast-operations.labels "action" "insert") | nindent 10 }}
 
       # The k8sobjects receiver emits LogRecords without a severity, so
       # Kubernetes events and resource snapshots arrive at Cast Operations with
@@ -407,10 +407,10 @@ data:
 
     exporters:
       otlphttp:
-        endpoint: "{{ .Values.oneuptime.url }}/otlp"
+        endpoint: "{{ .Values.cast-operations.url }}/otlp"
         encoding: json
         headers:
-          x-oneuptime-token: "${env:ONEUPTIME_API_KEY}"
+          x-cast-operations-token: "${env:CAST_OPERATIONS_API_KEY}"
         sending_queue:
           enabled: true
           num_consumers: 10

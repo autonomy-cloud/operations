@@ -1,6 +1,6 @@
 import RunCron from "../../Utils/Cron";
 import { CallRequestMessage } from "Common/Types/Call/CallRequest";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import { EmailEnvelope } from "Common/Types/Email/EmailMessage";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
@@ -221,7 +221,7 @@ RunCron(
           addedAtByIncidentId[member.incidentId.toString()] =
             member.addedAt ||
             member.createdAt ||
-            OneUptimeDate.getCurrentDate();
+            OperationsDate.getCurrentDate();
         }
       }
 
@@ -289,10 +289,10 @@ RunCron(
                   incidentSeverity:
                     incident.incidentSeverity?.name || "Not Set",
                   addedAt:
-                    OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+                    OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
                       date:
                         addedAtByIncidentId[incident.id!.toString()] ||
-                        OneUptimeDate.getCurrentDate(),
+                        OperationsDate.getCurrentDate(),
                       timezones: user.timezone ? [user.timezone] : [],
                     }),
                   incidentViewLink: incidentLink,

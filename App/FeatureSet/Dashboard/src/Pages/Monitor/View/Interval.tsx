@@ -106,9 +106,10 @@ const MonitorCriteria: FunctionComponent<
           }
           description={
             <>
-              This is a incoming request / heartbeat monitor. Since Cast Operations
-              does not send an outbound request, we do not need monitoring
-              interval. You can have monitoring interval on other monitor types.{" "}
+              This is a incoming request / heartbeat monitor. Since Cast
+              Operations does not send an outbound request, we do not need
+              monitoring interval. You can have monitoring interval on other
+              monitor types.{" "}
             </>
           }
         />

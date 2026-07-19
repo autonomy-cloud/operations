@@ -21,8 +21,6 @@ export const REGISTERED_USER_EMAIL: string =
 export const REGISTERED_USER_PASSWORD: string =
   env("E2E_TEST_REGISTERED_USER_PASSWORD") || "";
 
-export const IS_BILLING_ENABLED: boolean = env("BILLING_ENABLED") === "true";
-
 export const STATUS_PAGE_URL: URL | null = env("E2E_TEST_STATUS_PAGE_URL")
   ? URL.fromString(env("E2E_TEST_STATUS_PAGE_URL"))
   : null;

@@ -22,7 +22,7 @@ import ModelFormModal from "Common/UI/Components/ModelFormModal/ModelFormModal";
 import ScheduledMaintenancePublicNote from "Common/Models/DatabaseModels/ScheduledMaintenancePublicNote";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
 import { FormType } from "Common/UI/Components/Forms/ModelForm";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ScheduledMaintenanceInternalNote from "Common/Models/DatabaseModels/ScheduledMaintenanceInternalNote";
 import { ModalWidth } from "Common/UI/Components/Modal/Modal";
 import MoreMenu from "Common/UI/Components/MoreMenu/MoreMenu";
@@ -362,7 +362,7 @@ const ScheduledMaintenanceFeedElement: FunctionComponent<ComponentProps> = (
                   title: "Posted At",
                   required: true,
                   getDefaultValue: () => {
-                    return OneUptimeDate.getCurrentDate();
+                    return OperationsDate.getCurrentDate();
                   },
                 },
                 {

@@ -4,12 +4,12 @@
 
 ## 인증 명령
 
-### `oneuptime login`
+### `cast-operations login`
 
 Cast Operations 인스턴스에 인증합니다.
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | 매개변수         | 유형 | 필수 여부 | 설명                                |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 저장된 모든 컨텍스트를 나열합니다.
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 명명된 컨텍스트로 전환합니다.
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | 매개변수 | 유형 | 필수 여부 | 설명                   |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 마스킹된 API 키와 함께 활성 컨텍스트를 표시합니다.
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 저장된 컨텍스트를 제거합니다.
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | 매개변수 | 유형 | 필수 여부 | 설명                 |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 모든 리소스 명령은 동일한 패턴을 따릅니다. `<resource>`를 지원되는 리소스 이름으로 교체합니다 (예: `incident`, `monitor`, `alert`, `status-page`).
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 필터링 및 페이지 매김으로 리소스를 나열합니다.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | 옵션             | 유형   | 기본값  | 설명                  |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 ID로 단일 리소스를 가져옵니다.
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | 매개변수       | 유형 | 필수 여부 | 설명             |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 새 리소스를 생성합니다.
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | 옵션            | 유형   | 필수 여부                      | 설명                      |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 기존 리소스를 업데이트합니다.
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | 매개변수        | 유형 | 필수 여부 | 설명                        |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 리소스를 삭제합니다.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | 매개변수  | 유형 | 필수 여부 | 설명                   |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 필터와 일치하는 리소스를 카운트합니다.
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | 옵션             | 유형   | 기본값 | 설명                  |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## 유틸리티 명령
 
-### `oneuptime version`
+### `cast-operations version`
 
 CLI 버전을 표시합니다.
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 현재 인증 세부 정보를 표시합니다.
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 인스턴스 URL과 마스킹된 API 키를 표시합니다. 저장된 컨텍스트가 활성화된 경우 컨텍스트 이름도 표시됩니다.
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 사용 가능한 모든 리소스 유형을 나열합니다.
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | 옵션            | 유형   | 기본값 | 설명                                 |

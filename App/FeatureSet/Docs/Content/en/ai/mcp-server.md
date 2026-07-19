@@ -71,7 +71,7 @@ Add the following configuration:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp",
       "headers": {
@@ -89,7 +89,7 @@ Replace `visca.ai` with your Cast Operations domain:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
@@ -107,7 +107,7 @@ To use only public tools (status page information, help), you can connect withou
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp"
     }
@@ -140,18 +140,18 @@ Alternatively, create `.vscode/mcp.json` in your workspace for project-specific 
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://visca.ai/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -164,18 +164,18 @@ Alternatively, create `.vscode/mcp.json` in your workspace for project-specific 
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -187,7 +187,7 @@ Alternatively, create `.vscode/mcp.json` in your workspace for project-specific 
 
 1. Press `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. Type "MCP: List Servers" to see available servers
-3. Click on "oneuptime" to start the server
+3. Click on "cast-operations" to start the server
 4. When prompted, enter your Cast Operations API key
 
 #### Step 4: Use with Copilot Chat
@@ -222,8 +222,8 @@ The MCP server supports two modes of operation:
 
 You can connect to the MCP server without an API key to access public tools:
 
-- **`oneuptime_help`**: Get help and guidance about Cast Operations MCP capabilities
-- **`oneuptime_list_resources`**: List available resources and their operations
+- **`cast_operations_help`**: Get help and guidance about Cast Operations MCP capabilities
+- **`cast_operations_list_resources`**: List available resources and their operations
 - **`get_public_status_page_overview`**: Get overview of a public status page
 - **`get_public_status_page_incidents`**: Get incidents from a public status page
 - **`get_public_status_page_scheduled_maintenance`**: Get scheduled maintenance events
@@ -255,7 +255,7 @@ A typical loop: `list_incidents` → `acknowledge_incident` → investigate with
 
 ## Who Am I
 
-The **`oneuptime_whoami`** tool returns the project your API key belongs to (ID and name). It is a useful first call for an agent to orient itself — and since create tools infer `projectId` from the API key, the agent never needs to pass a project ID.
+The **`cast_operations_whoami`** tool returns the project your API key belongs to (ID and name). It is a useful first call for an agent to orient itself — and since create tools infer `projectId` from the API key, the agent never needs to pass a project ID.
 
 ## Querying Telemetry
 

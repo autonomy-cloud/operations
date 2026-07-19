@@ -17,18 +17,18 @@ This page is the **installation guide**. For configuring Proxmox monitors and al
 **Fastest path — run this on any PVE node** (shell as root):
 
 ```bash
-pveum user token add monitoring@pam oneuptime --privsep 1
-pveum acl modify / --roles PVEAuditor --tokens 'monitoring@pam!oneuptime'
+pveum user token add monitoring@pam cast-operations --privsep 1
+pveum acl modify / --roles PVEAuditor --tokens 'monitoring@pam!cast-operations'
 ```
 
 (If the `monitoring@pam` user does not exist yet, create it first with `pveum user add monitoring@pam` — API tokens carry their own secret, so the user needs no password or system account.)
 
-The ACL must sit at the root path `/` because **PVEAuditor** needs read access to every node, guest, and storage object the exporter walks — granting it on a narrower path hides the rest of the cluster and produces `401`/`403 Permission check failed (/, Sys.Audit)` errors. The first command prints the token secret once; in your `.env` that becomes `PVE_API_TOKEN_ID=monitoring@pam!oneuptime` and `PVE_API_TOKEN_SECRET=<the printed secret>`.
+The ACL must sit at the root path `/` because **PVEAuditor** needs read access to every node, guest, and storage object the exporter walks — granting it on a narrower path hides the rest of the cluster and produces `401`/`403 Permission check failed (/, Sys.Audit)` errors. The first command prints the token secret once; in your `.env` that becomes `PVE_API_TOKEN_ID=monitoring@pam!cast-operations` and `PVE_API_TOKEN_SECRET=<the printed secret>`.
 
 **Or via the Proxmox web UI:**
 
 1. In the Proxmox web UI go to _Datacenter → Permissions → API Tokens_ and click **Add**.
-2. Pick (or create) a user, give the token an ID like `oneuptime`, and **uncheck Privilege Separation** (or grant the token its own permissions in the next step).
+2. Pick (or create) a user, give the token an ID like `cast-operations`, and **uncheck Privilege Separation** (or grant the token its own permissions in the next step).
 3. Under _Datacenter → Permissions_ add a permission on path `/` for the token with the **PVEAuditor** role.
 4. Copy the token id (`user@realm!tokenname`) and the secret — the secret is shown only once.
 
@@ -43,18 +43,18 @@ curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/Pro
 bash install.sh
 ```
 
-The script prompts for your Cast Operations URL, telemetry ingestion token, cluster name, and Proxmox API details, installs to `/opt/oneuptime-proxmox-agent`, and starts the agent with Docker Compose.
+The script prompts for your Cast Operations URL, telemetry ingestion token, cluster name, and Proxmox API details, installs to `/opt/cast-operations-proxmox-agent`, and starts the agent with Docker Compose.
 
 ## Alternative — Docker Compose
 
 Download the two files from the [ProxmoxAgent directory](https://github.com/autonomy-cloud/operations/tree/master/ProxmoxAgent) — `docker-compose.yml` and `otel-collector-config.yaml` — into a folder, then create a `.env` file next to them:
 
 ```bash
-ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-ONEUPTIME_TELEMETRY_INGESTION_KEY=YOUR_TELEMETRY_INGESTION_TOKEN
+CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+CAST_OPERATIONS_TELEMETRY_INGESTION_KEY=YOUR_TELEMETRY_INGESTION_TOKEN
 PROXMOX_CLUSTER_NAME=my-proxmox-cluster
 PVE_HOST=192.168.1.10
-PVE_API_TOKEN_ID=oneuptime@pve!exporter
+PVE_API_TOKEN_ID=cast-operations@pve!exporter
 PVE_API_TOKEN_SECRET=your-token-secret
 COMPOSE_PROFILES=pve-exporter
 ```
@@ -77,12 +77,12 @@ PVE_EXPORTER_URL=your-exporter-host:9221
 
 | Variable                            | Required              | Description                                                                                                                                                                                                   |
 | ----------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                     | Yes                   | Your Cast Operations instance URL (for example `https://visca.ai` or your self-hosted host)                                                                                                                    |
-| `ONEUPTIME_TELEMETRY_INGESTION_KEY` | Yes                   | Telemetry ingestion token from _Project Settings → Telemetry Ingestion Keys_                                                                                                                                  |
+| `CAST_OPERATIONS_URL`                     | Yes                   | Your Cast Operations instance URL (for example `https://visca.ai` or your self-hosted host)                                                                                                                    |
+| `CAST_OPERATIONS_TELEMETRY_INGESTION_KEY` | Yes                   | Telemetry ingestion token from _Project Settings → Telemetry Ingestion Keys_                                                                                                                                  |
 | `PROXMOX_CLUSTER_NAME`              | Yes                   | Cluster identifier shown in Cast Operations, stamped on every metric as the `proxmox.cluster.name` resource attribute. Keep it stable — changing it later registers a second cluster. Defaults to `proxmox-cluster` |
 | `PVE_HOST`                          | Yes                   | Proxmox VE API host (any node of the cluster) the exporter queries, e.g. `192.168.1.10`                                                                                                                       |
 | `PVE_EXPORTER_URL`                  | No                    | Address (`host:port`, no scheme) of prometheus-pve-exporter. Defaults to the bundled exporter (`pve-exporter:9221`)                                                                                           |
-| `PVE_API_TOKEN_ID`                  | Bundled exporter only | Full Proxmox API token id, e.g. `oneuptime@pve!exporter`                                                                                                                                                      |
+| `PVE_API_TOKEN_ID`                  | Bundled exporter only | Full Proxmox API token id, e.g. `cast-operations@pve!exporter`                                                                                                                                                      |
 | `PVE_API_TOKEN_SECRET`              | Bundled exporter only | Proxmox API token secret                                                                                                                                                                                      |
 | `PVE_VERIFY_SSL`                    | No                    | Verify the Proxmox API TLS certificate. Defaults to `false` because Proxmox ships self-signed certificates                                                                                                    |
 | `COMPOSE_PROFILES`                  | No                    | Set to `pve-exporter` to start the bundled exporter container                                                                                                                                                 |
@@ -98,7 +98,7 @@ docker compose ps
 Check the collector logs:
 
 ```bash
-docker logs -f oneuptime-proxmox-agent
+docker logs -f cast-operations-proxmox-agent
 ```
 
 Look for: `"Everything is ready. Begin running and processing data."`
@@ -185,7 +185,7 @@ Proxmox VE 9.0 and later ship a built-in **OpenTelemetry metric server** that pu
 | Port     | `443`                                                                |
 | Protocol | `https`                                                              |
 | Path     | `/otlp/v1/metrics`                                                   |
-| Headers  | `{"x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"}`            |
+| Headers  | `{"x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"}`            |
 
 Two trade-offs to be aware of:
 
@@ -197,17 +197,17 @@ You can also run both: native push for low-latency raw metrics, agent for discov
 ## Run as a systemd Service
 
 ```bash
-sudo cp systemd/oneuptime-proxmox-agent.service /etc/systemd/system/
+sudo cp systemd/cast-operations-proxmox-agent.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now oneuptime-proxmox-agent
+sudo systemctl enable --now cast-operations-proxmox-agent
 ```
 
-The unit assumes the agent lives in `/opt/oneuptime-proxmox-agent` (the install script default).
+The unit assumes the agent lives in `/opt/cast-operations-proxmox-agent` (the install script default).
 
 ## Upgrading the Agent
 
 ```bash
-cd /opt/oneuptime-proxmox-agent
+cd /opt/cast-operations-proxmox-agent
 docker compose pull
 docker compose up -d
 ```
@@ -215,16 +215,16 @@ docker compose up -d
 ## Uninstalling the Agent
 
 ```bash
-cd /opt/oneuptime-proxmox-agent
+cd /opt/cast-operations-proxmox-agent
 docker compose down
 ```
 
 ## Self-hosted Cast Operations
 
-If you are self-hosting Cast Operations, set `ONEUPTIME_URL` to your own instance:
+If you are self-hosting Cast Operations, set `CAST_OPERATIONS_URL` to your own instance:
 
 ```bash
-ONEUPTIME_URL=https://your-operations-host.example.com
+CAST_OPERATIONS_URL=https://your-operations-host.example.com
 ```
 
 If your instance is HTTP-only, use `http://` and the appropriate port.
@@ -237,15 +237,15 @@ The agent ships with a doctor script, [`troubleshoot.sh`](https://github.com/aut
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/ProxmoxAgent/troubleshoot.sh -o troubleshoot.sh
-bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/oneuptime-proxmox-agent
+bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/cast-operations-proxmox-agent
 ```
 
 It ends with a VERDICT section naming the most likely root cause. The sections below cover the same ground manually.
 
 ### No cluster appears in Cast Operations
 
-1. Check the collector logs: `docker logs oneuptime-proxmox-agent` — a `401` on export means a bad ingestion token, connection refused means a wrong `ONEUPTIME_URL`.
-2. Verify the exporter scrape works. The bundled exporter does not publish its port on the host, so test from inside its network namespace: `docker run --rm --network container:oneuptime-pve-exporter curlimages/curl -s "http://localhost:9221/pve?target=YOUR_PVE_HOST" | head` should print `pve_*` metric lines. (For an external exporter, `curl` its `host:9221` directly.)
+1. Check the collector logs: `docker logs cast-operations-proxmox-agent` — a `401` on export means a bad ingestion token, connection refused means a wrong `CAST_OPERATIONS_URL`.
+2. Verify the exporter scrape works. The bundled exporter does not publish its port on the host, so test from inside its network namespace: `docker run --rm --network container:cast-operations-pve-exporter curlimages/curl -s "http://localhost:9221/pve?target=YOUR_PVE_HOST" | head` should print `pve_*` metric lines. (For an external exporter, `curl` its `host:9221` directly.)
 3. Make sure `PROXMOX_CLUSTER_NAME` is set — discovery keys on the `proxmox.cluster.name` resource attribute.
 
 ### The exporter logs 401 / authentication errors

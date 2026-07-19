@@ -1,7 +1,7 @@
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import AnalyticsModelAPI from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import MetricsAggregationType from "Common/Types/Metrics/MetricsAggregationType";
 import AggregatedResult from "Common/Types/BaseDatabase/AggregatedResult";
@@ -67,8 +67,8 @@ export default class KubernetesResourceUtils {
       hoursBack = 24,
     } = options;
 
-    const endDate: Date = OneUptimeDate.getCurrentDate();
-    const startDate: Date = OneUptimeDate.addRemoveHours(endDate, -hoursBack);
+    const endDate: Date = OperationsDate.getCurrentDate();
+    const startDate: Date = OperationsDate.addRemoveHours(endDate, -hoursBack);
 
     const cpuResult: AggregatedResult = await AnalyticsModelAPI.aggregate({
       modelType: Metric,
@@ -155,8 +155,8 @@ export default class KubernetesResourceUtils {
      * time ranges.
      */
     const hoursBack: number = options.hoursBack || 1;
-    const endDate: Date = OneUptimeDate.getCurrentDate();
-    const startDate: Date = OneUptimeDate.addRemoveHours(endDate, -hoursBack);
+    const endDate: Date = OperationsDate.getCurrentDate();
+    const startDate: Date = OperationsDate.addRemoveHours(endDate, -hoursBack);
 
     /*
      * Fire CPU and memory aggregations in parallel. They're
@@ -484,7 +484,7 @@ export default class KubernetesResourceUtils {
         }
 
         const creationTsIso: string | undefined = row.resourceCreationTimestamp
-          ? OneUptimeDate.toString(row.resourceCreationTimestamp)
+          ? OperationsDate.toString(row.resourceCreationTimestamp)
           : undefined;
 
         // Stale-cutoff metric reads: render N/A rather than stale numbers.
@@ -729,8 +729,8 @@ export default class KubernetesResourceUtils {
       return;
     }
 
-    const endDate: Date = OneUptimeDate.getCurrentDate();
-    const startDate: Date = OneUptimeDate.addRemoveHours(endDate, -hoursBack);
+    const endDate: Date = OperationsDate.getCurrentDate();
+    const startDate: Date = OperationsDate.addRemoveHours(endDate, -hoursBack);
 
     const makeKey: (ns: string, name: string) => string = (
       ns: string,

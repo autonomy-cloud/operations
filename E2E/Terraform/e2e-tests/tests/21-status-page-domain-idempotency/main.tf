@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
@@ -11,8 +11,8 @@ terraform {
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -40,13 +40,13 @@ resource "random_id" "suffix" {
 # 4. Verify no changes are detected
 
 # First, create a domain
-resource "oneuptime_domain" "test" {
+resource "cast_operations_domain" "test" {
   domain      = "idempotency-test-${random_id.suffix.hex}.example.com"
   is_verified = true
 }
 
 # Then, create a status page
-resource "oneuptime_status_page" "test" {
+resource "cast_operations_status_page" "test" {
   name                     = "Idempotency Test Status Page ${random_id.suffix.hex}"
   description              = "Status page for idempotency testing"
   page_title               = "Idempotency Test"
@@ -60,9 +60,9 @@ resource "oneuptime_status_page" "test" {
 # After the fix:
 # - full_domain is NOT specified (it's computed)
 # - cname_verification_token is NOT specified (it's computed)
-resource "oneuptime_status_page_domain" "test" {
-  domain_id      = oneuptime_domain.test.id
-  status_page_id = oneuptime_status_page.test.id
+resource "cast_operations_status_page_domain" "test" {
+  domain_id      = cast_operations_domain.test.id
+  status_page_id = cast_operations_status_page.test.id
   subdomain      = "status"
 
   # IMPORTANT: We do NOT specify full_domain or cname_verification_token
@@ -71,26 +71,26 @@ resource "oneuptime_status_page_domain" "test" {
 
 # Outputs to verify the computed fields are populated
 output "status_page_domain_id" {
-  value       = oneuptime_status_page_domain.test.id
+  value       = cast_operations_status_page_domain.test.id
   description = "ID of the created status page domain"
 }
 
 output "full_domain" {
-  value       = oneuptime_status_page_domain.test.full_domain
+  value       = cast_operations_status_page_domain.test.full_domain
   description = "Full domain computed by the server"
 }
 
 output "subdomain" {
-  value       = oneuptime_status_page_domain.test.subdomain
+  value       = cast_operations_status_page_domain.test.subdomain
   description = "Subdomain of the status page domain"
 }
 
 output "domain_id" {
-  value       = oneuptime_domain.test.id
+  value       = cast_operations_domain.test.id
   description = "ID of the created domain"
 }
 
 output "status_page_id" {
-  value       = oneuptime_status_page.test.id
+  value       = cast_operations_status_page.test.id
   description = "ID of the created status page"
 }

@@ -1,7 +1,7 @@
 import DatabaseService from "./DatabaseService";
 import Model from "../../Models/DatabaseModels/ServerlessFunctionInstance";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import logger from "../Utils/Logger";
 
@@ -34,7 +34,7 @@ export class Service extends DatabaseService<Model> {
       if (existing && existing._id) {
         await this.updateOneById({
           id: new ObjectID(existing._id.toString()),
-          data: { lastSeenAt: OneUptimeDate.getCurrentDate() },
+          data: { lastSeenAt: OperationsDate.getCurrentDate() },
           props: { isRoot: true },
         });
         return;
@@ -44,7 +44,7 @@ export class Service extends DatabaseService<Model> {
       item.projectId = data.projectId;
       item.serverlessFunctionId = data.serverlessFunctionId;
       item.instanceName = data.instanceName;
-      item.lastSeenAt = OneUptimeDate.getCurrentDate();
+      item.lastSeenAt = OperationsDate.getCurrentDate();
       await this.create({ data: item, props: { isRoot: true } });
     } catch (err) {
       /*

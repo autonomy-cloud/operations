@@ -1,6 +1,6 @@
 import RunCron from "../../Utils/Cron";
 import { CallRequestMessage } from "Common/Types/Call/CallRequest";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import { EmailEnvelope } from "Common/Types/Email/EmailMessage";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
@@ -38,7 +38,7 @@ RunCron(
     const alerts: Array<Alert> = await AlertService.findAllBy({
       query: {
         nextReminderNotificationAt: QueryHelper.lessThan(
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         ),
       },
       props: {
@@ -153,8 +153,8 @@ const sendReminderForAlert: SendReminderForAlertFunction = async (
   await AlertService.updateOneById({
     id: alertId,
     data: {
-      nextReminderNotificationAt: OneUptimeDate.addRemoveMinutes(
-        OneUptimeDate.getCurrentDate(),
+      nextReminderNotificationAt: OperationsDate.addRemoveMinutes(
+        OperationsDate.getCurrentDate(),
         rule.reminderIntervalInMinutes,
       ),
       reminderNotificationSentCount:
@@ -185,9 +185,9 @@ const sendReminderForAlert: SendReminderForAlertFunction = async (
   const openedAt: Date = alert.createdAt!;
 
   const openDuration: string =
-    OneUptimeDate.convertSecondsToDaysHoursMinutesAndSeconds(
-      OneUptimeDate.getDifferenceInSeconds(
-        OneUptimeDate.getCurrentDate(),
+    OperationsDate.convertSecondsToDaysHoursMinutesAndSeconds(
+      OperationsDate.getDifferenceInSeconds(
+        OperationsDate.getCurrentDate(),
         openedAt,
       ),
     );
@@ -211,7 +211,7 @@ const sendReminderForAlert: SendReminderForAlertFunction = async (
       projectName: alert.project!.name!,
       currentState: currentStateName,
       openDuration: openDuration,
-      createdAt: OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+      createdAt: OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
         date: openedAt,
         timezones: user.timezone ? [user.timezone] : [],
       }),

@@ -1,5 +1,5 @@
 import { LogLevel } from "../EnvironmentConfig";
-import OneUptimeTelemetry, { TelemetryLogger } from "./Telemetry";
+import OperationsTelemetry, { TelemetryLogger } from "./Telemetry";
 import TelemetryContext from "./Telemetry/TelemetryContext";
 import { SeverityNumber } from "@opentelemetry/api-logs";
 import Exception from "../../Types/Exception/Exception";
@@ -230,7 +230,7 @@ export default class logger {
     attributes?: LogAttributes | undefined;
   }): void {
     try {
-      const logger: TelemetryLogger | null = OneUptimeTelemetry.getLogger();
+      const logger: TelemetryLogger | null = OperationsTelemetry.getLogger();
 
       if (logger === null) {
         return;

@@ -3,11 +3,11 @@ import Model from "../../Models/DatabaseModels/IncidentSla";
 import IncidentSlaRule from "../../Models/DatabaseModels/IncidentSlaRule";
 import Incident from "../../Models/DatabaseModels/Incident";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import IncidentSlaStatus from "../../Types/Incident/IncidentSlaStatus";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import logger, { LogAttributes } from "../Utils/Logger";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import IncidentSlaRuleService from "./IncidentSlaRuleService";
 import IncidentService from "./IncidentService";
 import QueryHelper from "../Types/Database/QueryHelper";
@@ -16,9 +16,6 @@ import { LIMIT_PER_PROJECT } from "../../Types/Database/LimitMax";
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -64,14 +61,14 @@ export class Service extends DatabaseService<Model> {
     let resolutionDeadline: Date | undefined = undefined;
 
     if (matchingRule.responseTimeInMinutes) {
-      responseDeadline = OneUptimeDate.addRemoveMinutes(
+      responseDeadline = OperationsDate.addRemoveMinutes(
         slaStartedAt,
         matchingRule.responseTimeInMinutes,
       );
     }
 
     if (matchingRule.resolutionTimeInMinutes) {
-      resolutionDeadline = OneUptimeDate.addRemoveMinutes(
+      resolutionDeadline = OperationsDate.addRemoveMinutes(
         slaStartedAt,
         matchingRule.resolutionTimeInMinutes,
       );
@@ -207,13 +204,13 @@ export class Service extends DatabaseService<Model> {
       // Check if response deadline was breached
       if (sla.responseDeadline && !sla.respondedAt) {
         // Never responded, check if response deadline passed
-        if (OneUptimeDate.isAfter(data.resolvedAt, sla.responseDeadline)) {
+        if (OperationsDate.isAfter(data.resolvedAt, sla.responseDeadline)) {
           finalStatus = IncidentSlaStatus.ResponseBreached;
         }
       } else if (
         sla.responseDeadline &&
         sla.respondedAt &&
-        OneUptimeDate.isAfter(sla.respondedAt, sla.responseDeadline)
+        OperationsDate.isAfter(sla.respondedAt, sla.responseDeadline)
       ) {
         // Responded after deadline
         finalStatus = IncidentSlaStatus.ResponseBreached;
@@ -222,7 +219,7 @@ export class Service extends DatabaseService<Model> {
       // Check if resolution deadline was breached (takes precedence)
       if (
         sla.resolutionDeadline &&
-        OneUptimeDate.isAfter(data.resolvedAt, sla.resolutionDeadline)
+        OperationsDate.isAfter(data.resolvedAt, sla.resolutionDeadline)
       ) {
         finalStatus = IncidentSlaStatus.ResolutionBreached;
       }
@@ -325,14 +322,14 @@ export class Service extends DatabaseService<Model> {
         let resolutionDeadline: Date | undefined = undefined;
 
         if (newMatchingRule.responseTimeInMinutes) {
-          responseDeadline = OneUptimeDate.addRemoveMinutes(
+          responseDeadline = OperationsDate.addRemoveMinutes(
             sla.slaStartedAt,
             newMatchingRule.responseTimeInMinutes,
           );
         }
 
         if (newMatchingRule.resolutionTimeInMinutes) {
-          resolutionDeadline = OneUptimeDate.addRemoveMinutes(
+          resolutionDeadline = OperationsDate.addRemoveMinutes(
             sla.slaStartedAt,
             newMatchingRule.resolutionTimeInMinutes,
           );
@@ -374,7 +371,7 @@ export class Service extends DatabaseService<Model> {
      * - Has internal note reminder interval configured
      * - Last reminder was sent more than interval ago OR never sent
      */
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     const slaRecords: Array<Model> = await this.findBy({
       query: {
@@ -413,7 +410,7 @@ export class Service extends DatabaseService<Model> {
 
       if (!sla.lastInternalNoteReminderSentAt) {
         // Never sent, check if enough time has passed since SLA started
-        const timeSinceStart: number = OneUptimeDate.getDifferenceInMinutes(
+        const timeSinceStart: number = OperationsDate.getDifferenceInMinutes(
           now,
           sla.slaStartedAt!,
         );
@@ -421,7 +418,7 @@ export class Service extends DatabaseService<Model> {
       }
 
       const timeSinceLastReminder: number =
-        OneUptimeDate.getDifferenceInMinutes(
+        OperationsDate.getDifferenceInMinutes(
           now,
           sla.lastInternalNoteReminderSentAt,
         );
@@ -434,7 +431,7 @@ export class Service extends DatabaseService<Model> {
 
   @CaptureSpan()
   public async getIncidentsNeedingPublicNoteReminder(): Promise<Array<Model>> {
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     const slaRecords: Array<Model> = await this.findBy({
       query: {
@@ -473,7 +470,7 @@ export class Service extends DatabaseService<Model> {
 
       if (!sla.lastPublicNoteReminderSentAt) {
         // Never sent, check if enough time has passed since SLA started
-        const timeSinceStart: number = OneUptimeDate.getDifferenceInMinutes(
+        const timeSinceStart: number = OperationsDate.getDifferenceInMinutes(
           now,
           sla.slaStartedAt!,
         );
@@ -481,7 +478,7 @@ export class Service extends DatabaseService<Model> {
       }
 
       const timeSinceLastReminder: number =
-        OneUptimeDate.getDifferenceInMinutes(
+        OperationsDate.getDifferenceInMinutes(
           now,
           sla.lastPublicNoteReminderSentAt,
         );

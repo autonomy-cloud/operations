@@ -1,5 +1,5 @@
 import ObjectID from "../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import AIRunType from "../../../../Types/AI/AIRunType";
 import AIRunStatus from "../../../../Types/AI/AIRunStatus";
 import AIRun from "../../../../Models/DatabaseModels/AIRun";
@@ -48,7 +48,7 @@ export default class CodeFixRunQueue {
       fromStatus: AIRunStatus.Running,
       set: {
         status: AIRunStatus.Error,
-        completedAt: OneUptimeDate.getCurrentDate(),
+        completedAt: OperationsDate.getCurrentDate(),
         errorMessage:
           "The AI agent working on this fix stopped reporting progress — its container may have crashed or been terminated. The fix was not retried automatically because the agent may already have pushed a partial branch. Check the agent container, then retry the fix from the exception page.",
       },
@@ -62,7 +62,7 @@ export default class CodeFixRunQueue {
    */
   @CaptureSpan()
   public static async failOrphanedQueuedRuns(): Promise<void> {
-    const waitThreshold: Date = OneUptimeDate.getSomeMinutesAgo(
+    const waitThreshold: Date = OperationsDate.getSomeMinutesAgo(
       ORPHANED_QUEUED_TIMEOUT_MINUTES,
     );
 
@@ -113,7 +113,7 @@ export default class CodeFixRunQueue {
           fromStatus: AIRunStatus.Queued,
           set: {
             status: AIRunStatus.Error,
-            completedAt: OneUptimeDate.getCurrentDate(),
+            completedAt: OperationsDate.getCurrentDate(),
             errorMessage: `No AI agent picked this task up within ${ORPHANED_QUEUED_TIMEOUT_MINUTES} minutes and none is currently online. Check that your agent container is running (Settings > AI > AI Agents), then retry the fix from the exception page.`,
           },
         });

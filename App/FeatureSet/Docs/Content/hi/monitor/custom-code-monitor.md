@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### Custom Metrics
 
-आप `oneuptime.captureMetric()` function का उपयोग करके अपने script से custom metrics capture कर सकते हैं। ये metrics Cast Operations में संग्रहीत होती हैं और Metric Explorer का उपयोग करके dashboards पर chart की जा सकती हैं।
+आप `cast-operations.captureMetric()` function का उपयोग करके अपने script से custom metrics capture कर सकते हैं। ये metrics Cast Operations में संग्रहीत होती हैं और Metric Explorer का उपयोग करके dashboards पर chart की जा सकती हैं।
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (string, आवश्यक): metric name (जैसे `"api.response.time"`)। इसे automatically `custom.monitor.` prefix के साथ संग्रहीत किया जाएगा।
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // एक simple metric capture करें
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // attributes के साथ metric capture करें
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ capture होने के बाद, ये metrics `custom.monitor.api.respon
 - `axios`: आप इस module का उपयोग HTTP requests करने के लिए कर सकते हैं। यह browser और Node.js के लिए एक promise-based HTTP client है।
 - `crypto`: आप इस module का उपयोग cryptographic operations करने के लिए कर सकते हैं। यह एक built-in Node.js module है जो OpenSSL के hash, HMAC, cipher, decipher, sign और verify functions के wrappers का एक set प्रदान करता है।
 - `console.log`: आप इस module का उपयोग console में data log करने के लिए कर सकते हैं। यह debugging के लिए उपयोगी है।
-- `oneuptime.captureMetric`: आप इसका उपयोग अपने script से custom metrics capture करने के लिए कर सकते हैं। ऊपर Custom Metrics section देखें।
+- `cast-operations.captureMetric`: आप इसका उपयोग अपने script से custom metrics capture करने के लिए कर सकते हैं। ऊपर Custom Metrics section देखें।
 - `http`: आप इस module का उपयोग HTTP requests करने के लिए कर सकते हैं। यह एक built-in Node.js module है जो HTTP client और server प्रदान करता है।
 - `https`: आप इस module का उपयोग HTTPS requests करने के लिए कर सकते हैं। यह एक built-in Node.js module है जो HTTPS client और server प्रदान करता है।
 

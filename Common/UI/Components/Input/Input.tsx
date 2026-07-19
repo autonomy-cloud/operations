@@ -2,7 +2,7 @@
 import { Logger } from "../../Utils/Logger";
 import useTranslateValue from "../../Utils/Translation";
 import Icon from "../Icon/Icon";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import IconProp from "../../../Types/Icon/IconProp";
 import React, {
   FunctionComponent,
@@ -82,9 +82,9 @@ const Input: FunctionComponent<ComponentProps> = (
         let dateString: string = "";
         try {
           if (props.type === InputType.DATETIME_LOCAL) {
-            dateString = OneUptimeDate.toDateTimeLocalString(value as any);
+            dateString = OperationsDate.toDateTimeLocalString(value as any);
           } else {
-            dateString = OneUptimeDate.asDateForDatabaseQuery(value);
+            dateString = OperationsDate.asDateForDatabaseQuery(value);
           }
         } catch (e: any) {
           Logger.error(e);
@@ -96,13 +96,13 @@ const Input: FunctionComponent<ComponentProps> = (
         !(value as any).includes(" - ")
       ) {
         // " - " is for InBetween dates.
-        const date: Date = OneUptimeDate.fromString(value);
+        const date: Date = OperationsDate.fromString(value);
         let dateString: string = "";
         try {
           if (props.type === InputType.DATETIME_LOCAL) {
-            dateString = OneUptimeDate.toDateTimeLocalString(date);
+            dateString = OperationsDate.toDateTimeLocalString(date);
           } else {
-            dateString = OneUptimeDate.asDateForDatabaseQuery(date);
+            dateString = OperationsDate.asDateForDatabaseQuery(date);
           }
         } catch (err: any) {
           Logger.error(err);
@@ -174,8 +174,8 @@ const Input: FunctionComponent<ComponentProps> = (
                 props.type === InputType.DATETIME_LOCAL) &&
               value
             ) {
-              const date: Date = OneUptimeDate.fromString(value);
-              const dateString: string = OneUptimeDate.toString(date);
+              const date: Date = OperationsDate.fromString(value);
+              const dateString: string = OperationsDate.toString(date);
               setValue(dateString);
               if (props.onChange) {
                 props.onChange(dateString);

@@ -108,14 +108,14 @@ Pour résoudre l'incident Cast Operations lorsque quelqu'un ferme le ticket Jira
 
 3. Dans le workflow, utilisez un bloc **Find Incident** pour localiser l'incident par la clé stockée, puis un bloc **Update Incident** pour le faire passer à votre état résolu.
 
-Si vous avez stocké la clé Jira sur l'incident à l'Étape 4, la correspondance est simple. Voir [Composants → Composants de données Cast Operations](/docs/workflows/components#oneuptime-data-components).
+Si vous avez stocké la clé Jira sur l'incident à l'Étape 4, la correspondance est simple. Voir [Composants → Composants de données Cast Operations](/docs/workflows/components#cast-operations-data-components).
 
 ## Personnaliser le ticket
 
 Quelques ajustements courants au corps du bloc API :
 
 - **Priority** — ajoutez `"priority": { "name": "High" }` dans `fields`. Vous pouvez vous brancher sur `{{Incident.incidentSeverity.name}}` avec **Conditions** pour associer les gravités Cast Operations aux priorités Jira.
-- **Labels** — ajoutez `"labels": ["oneuptime", "incident"]`.
+- **Labels** — ajoutez `"labels": ["cast-operations", "incident"]`.
 - **Assignee** — ajoutez `"assignee": { "id": "<accountId>" }` (Jira Cloud utilise des ID de compte, pas des noms d'utilisateur).
 - **Champs personnalisés** — ajoutez `"customfield_XXXXX": "..."` en utilisant l'ID du champ depuis votre administration Jira.
 

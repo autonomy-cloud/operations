@@ -1,4 +1,4 @@
-# These are aliases that will make your life simple when you're building OneUptime
+# These are aliases that will make your life simple when you're building CastOperations
 
 # Make directory and change directory at the same time. 
 mkcdir ()
@@ -51,7 +51,7 @@ alias c="cargo"
 alias cb="cargo build"
 alias cr="cargo run"
 
-# OneUptime Specific Aliases
+# CastOperations Specific Aliases
 # --------------------------
 
 alias nrd="npm run dev"
@@ -60,7 +60,7 @@ alias nrb="npm run build"
 alias nrfb="npm run force-build"
 alias nrps="npm run ps-dev"
 
-# OneUptime LLM Server
+# CastOperations LLM Server
 alias nrfbl="npm run force-build-llm"
 alias nrdl="npm run dev-llm"
 alias nrll="npm run logs-llm"

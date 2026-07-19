@@ -22,7 +22,7 @@ Cast Operations Terraform 공급자는 [Terraform 레지스트리](https://regis
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 최신 7.x 버전 사용
     }
@@ -38,7 +38,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Cast Operations 설치와 일치하는 정확한 버전으로 고정
     }
@@ -60,7 +60,7 @@ terraform {
 # 예시: Cast Operations 7.0.123을 실행 중인 경우
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"
     }
@@ -73,9 +73,9 @@ terraform {
 ### 기본 구성
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://your-operations-instance.com"  # 또는 클라우드의 경우 https://visca.ai
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://your-operations-instance.com"  # 또는 클라우드의 경우 https://visca.ai
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -84,14 +84,14 @@ provider "oneuptime" {
 환경 변수를 사용하여 공급자를 구성할 수 있습니다:
 
 ```bash
-export ONEUPTIME_URL="https://your-operations-instance.com"
-export ONEUPTIME_API_KEY="your-api-key-here"
+export CAST_OPERATIONS_URL="https://your-operations-instance.com"
+export CAST_OPERATIONS_API_KEY="your-api-key-here"
 ```
 
 그런 다음 명시적 구성 없이 공급자를 사용합니다:
 
 ```hcl
-provider "oneuptime" {
+provider "cast-operations" {
   # 구성은 환경 변수에서 읽힙니다
 }
 ```
@@ -100,8 +100,8 @@ provider "oneuptime" {
 
 | 인수            | 환경 변수           | 설명             | 필수 여부 |
 | --------------- | ------------------- | ---------------- | --------- |
-| `oneuptime_url` | `ONEUPTIME_URL`     | Cast Operations URL    | 예        |
-| `api_key`       | `ONEUPTIME_API_KEY` | Cast Operations API 키 | 예        |
+| `cast_operations_url` | `CAST_OPERATIONS_URL`     | Cast Operations URL    | 예        |
+| `api_key`       | `CAST_OPERATIONS_API_KEY` | Cast Operations API 키 | 예        |
 
 ## 빠른 시작
 
@@ -122,16 +122,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # 인스턴스 URL 사용
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # 인스턴스 URL 사용
+  api_key       = var.cast_operations_api_key
 }
 
 # 참고: 프로젝트는 Cast Operations 대시보드에서 수동으로 생성해야 합니다
@@ -141,7 +141,7 @@ variable "project_id" {
 }
 
 # 모니터 생성
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "웹사이트 모니터"
   description = "웹사이트 업타임을 위한 모니터"
   data        = jsonencode({
@@ -152,7 +152,7 @@ resource "oneuptime_monitor" "website" {
 }
 
 # 팀 생성
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "플랫폼 팀"
   description = "플랫폼 엔지니어링 팀"
 }
@@ -183,7 +183,7 @@ Cast Operations 클라우드 고객의 경우 최신 공급자 버전을 사용�
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 항상 최신 호환 버전 사용
     }
@@ -206,7 +206,7 @@ Cast Operations 7.0.123의 예시:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 정확한 버전 일치
     }
@@ -220,29 +220,29 @@ Cast Operations Terraform 공급자는 다음 리소스를 지원합니다:
 
 ### 핵심 리소스
 
-- `oneuptime_team` - 팀 관리
+- `cast_operations_team` - 팀 관리
 
 ### 모니터링
 
-- `oneuptime_monitor` - 모니터 생성 및 관리
-- `oneuptime_probe` - 모니터링 프로브 관리
+- `cast_operations_monitor` - 모니터 생성 및 관리
+- `cast_operations_probe` - 모니터링 프로브 관리
 
 ### 온콜 관리
 
-- `oneuptime_on_call_duty_policy` - 온콜 일정 설정
+- `cast_operations_on_call_duty_policy` - 온콜 일정 설정
 
 ### 상태 페이지
 
-- `oneuptime_status_page` - 상태 페이지 생성
+- `cast_operations_status_page` - 상태 페이지 생성
 
 ### 서비스 카탈로그
 
-- `oneuptime_service_catalog` - 서비스 카탈로그 항목 관리
+- `cast_operations_service_catalog` - 서비스 카탈로그 항목 관리
 
 ### 서비스 카탈로그
 
-- `oneuptime_service` - 서비스 정의
-- `oneuptime_service_dependency` - 서비스 종속성 매핑
+- `cast_operations_service` - 서비스 정의
+- `cast_operations_service_dependency` - 서비스 종속성 매핑
 
 ### 데이터 소스
 
@@ -254,7 +254,7 @@ Cast Operations Terraform 공급자는 다음 리소스를 지원합니다:
 
 ```hcl
 # 변수
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API 키"
   type        = string
   sensitive   = true
@@ -265,7 +265,7 @@ variable "project_id" {
   type        = string
 }
 
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast Operations URL"
   type        = string
   default     = "https://visca.ai"
@@ -274,26 +274,26 @@ variable "oneuptime_url" {
 # 공급자 구성
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # 팀
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "플랫폼 팀"
   description = "플랫폼 엔지니어링 팀"
 }
 
 # 모니터
-resource "oneuptime_monitor" "api" {
+resource "cast_operations_monitor" "api" {
   name        = "API 상태 확인"
   description = "API 상태 엔드포인트를 위한 모니터"
   data        = jsonencode({
@@ -305,9 +305,9 @@ resource "oneuptime_monitor" "api" {
   }
 }
 
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "데이터베이스 연결"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   monitor_type = "port"
   hostname     = "db.mycompany.com"
@@ -322,10 +322,10 @@ resource "oneuptime_monitor" "database" {
 }
 
 # 온콜 정책
-resource "oneuptime_on_call_policy" "platform_oncall" {
+resource "cast_operations_on_call_policy" "platform_oncall" {
   name       = "플랫폼 온콜"
-  project_id = oneuptime_project.production.id
-  team_id    = oneuptime_team.platform.id
+  project_id = cast_operations_project.production.id
+  team_id    = cast_operations_team.platform.id
 
   schedules {
     name      = "업무 시간"
@@ -343,17 +343,17 @@ resource "oneuptime_on_call_policy" "platform_oncall" {
 }
 
 # 알림 정책
-resource "oneuptime_alert_policy" "critical_alerts" {
+resource "cast_operations_alert_policy" "critical_alerts" {
   name       = "중요 시스템 알림"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   conditions {
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
     threshold  = "down"
   }
 
   conditions {
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
     threshold  = "down"
   }
 
@@ -364,25 +364,25 @@ resource "oneuptime_alert_policy" "critical_alerts" {
 
   actions {
     type           = "oncall_escalation"
-    oncall_policy_id = oneuptime_on_call_policy.platform_oncall.id
+    oncall_policy_id = cast_operations_on_call_policy.platform_oncall.id
   }
 }
 
 # 상태 페이지
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name       = "MyCompany 상태"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   domain = "status.mycompany.com"
 
   components {
     name       = "API"
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
   }
 
   components {
     name       = "데이터베이스"
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
   }
 }
 ```
@@ -393,7 +393,7 @@ resource "oneuptime_status_page" "public" {
 # 자체 호스팅 Cast Operations 인스턴스 버전 7.0.123의 경우
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Cast Operations 버전과 정확히 일치해야 함
     }
@@ -401,9 +401,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.mycompany.com"  # 자체 호스팅 URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.mycompany.com"  # 자체 호스팅 URL
+  api_key       = var.cast_operations_api_key
 }
 
 # 나머지 구성...
@@ -430,7 +430,7 @@ provider "oneuptime" {
 terraform {
   backend "s3" {
     bucket = "my-terraform-state"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
@@ -488,12 +488,12 @@ monitors = [
 일관된 명명 규칙을 사용합니다:
 
 ```hcl
-resource "oneuptime_monitor" "website_production" {
+resource "cast_operations_monitor" "website_production" {
   name = "${var.environment}-website-monitor"
   # ...
 }
 
-resource "oneuptime_alert_policy" "critical_production" {
+resource "cast_operations_alert_policy" "critical_production" {
   name = "${var.environment}-critical-alerts"
   # ...
 }
@@ -513,10 +513,10 @@ resource "oneuptime_alert_policy" "critical_production" {
 
 ```bash
 # 기존 모니터 가져오기
-terraform import oneuptime_monitor.website monitor-id-here
+terraform import cast_operations_monitor.website monitor-id-here
 
 # 기존 프로젝트 가져오기
-terraform import oneuptime_project.main project-id-here
+terraform import cast_operations_project.main project-id-here
 ```
 
 ### 버전 업그레이드

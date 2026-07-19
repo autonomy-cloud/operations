@@ -130,7 +130,7 @@ Zabbix は*ユーザー宛て*に通知を送ります。専用のユーザー�
 3. **Yes** 出力から **Find Incident** ブロックを追加して、先ほど作成したオープン状態のインシデントを検索します — 説明またはラベルに保存した Zabbix `event_id` でマッチングします。
 4. **Update Incident** ブロックに接続して、インシデントを*解決済み*状態に変更します。
 
-解決は自プロジェクトのインシデント状態の定義に依存するため、まず**作成**パスが確実に動くことを確認してから解決パスを追加してください。[コンポーネント → Cast Operations データコンポーネント](/docs/workflows/components#oneuptime-data-components) を参照してください。
+解決は自プロジェクトのインシデント状態の定義に依存するため、まず**作成**パスが確実に動くことを確認してから解決パスを追加してください。[コンポーネント → Cast Operations データコンポーネント](/docs/workflows/components#cast-operations-data-components) を参照してください。
 
 ## Zabbix 重大度のマッピング (オプション)
 

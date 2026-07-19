@@ -10,38 +10,7 @@
 
 ## 从 Cast Operations 10 升级到 11
 
-<!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
-
-### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
-
-In v11, the following authentication and access-management features moved to
-the **Cast Operations Enterprise Edition** and are no longer part of the free,
-open-source (Community) build:
-
-- **SAML SSO** — both project login and status-page login
-- **OpenID Connect (OIDC)** — both project login and status-page login
-- **SCIM user provisioning** — project and status page
-- **Global (instance-wide) SSO / OIDC**
-- **Team compliance settings**
-
-**What you'll see after upgrading:** if you configured any of these on a
-Community Edition build, sign-in through them is disabled after the upgrade,
-and the settings pages show an upgrade prompt instead of the configuration
-form. Your existing provider records are **preserved in the database** —
-nothing is deleted — they simply become inactive until the instance runs the
-Enterprise Edition.
-
-**Availability:**
-
-- **Self-hosted:** requires the **Enterprise Edition** build.
-- **Cast Operations Cloud:** requires the **Scale** plan (or above).
-
-**If you rely on SSO and self-host**, email
-[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
-license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
-v11 and we'll help you get it back online. If your team is mid-upgrade and this
-is blocking sign-in, contact us before upgrading production so we can plan it
-with you.
+Identity features, including SSO, OIDC, SCIM, global identity providers, and team compliance, are included in every Cast Operations installation and require no license or plan.
 
 Cast Operations 11 重建了 ClickHouse 遥测存储。本页说明发生了哪些变化、谁需要采取行动,以及——对于想保留历史遥测数据的安装环境——完成迁移所需的每一条查询。
 
@@ -79,7 +48,7 @@ Cast Operations 11 重建了 ClickHouse 遥测存储。本页说明发生了哪�
 第 0 步在**升级之前**执行;从第 1 步开始的所有操作都在**升级完全启动之后**执行(新表及其物化视图必须已存在)。请直接在 ClickHouse 主机上连接——原生协议没有 HTTP 超时,因此运行数小时的语句也没有问题:
 
 ```bash
-clickhouse-client --database oneuptime
+clickhouse-client --database cast-operations
 ```
 
 开始之前需要了解:
@@ -214,7 +183,7 @@ DROP TABLE IF EXISTS MetricItemAggMV1mByHost_backup SETTINGS max_table_size_to_d
 
 Helm 图表不再配置 Kubernetes Ingress 资源。Cast Operations 内置了一个 ingress 网关容器，该容器已经负责终止 TLS、管理状态页面域名并路由平台流量，因此不再需要集群 ingress 控制器。
 
-- 在升级前，从您的自定义 `values.yaml` 文件中删除所有 `oneuptimeIngress` 覆盖项。这些键现在已被忽略，如果保留会导致验证错误。
+- 在升级前，从您的自定义 `values.yaml` 文件中删除所有 `castOperationsIngress` 覆盖项。这些键现在已被忽略，如果保留会导致验证错误。
 - 确保 `nginx.service.type` 反映您希望暴露捆绑的 ingress 网关的方式（例如 `LoadBalancer`、`NodePort`，或带有外部负载均衡器的 `ClusterIP`）。
 - 验证状态页面或主机的所有 DNS 记录是否仍指向 Cast Operations ingress 网关前端的 Service 或负载均衡器。
 - 升级后，确认 TLS 证书通过嵌入式网关继续续期，并且状态页面域名可正常解析。

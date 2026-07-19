@@ -5,7 +5,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import DayOfWeek from "../../../Types/Day/DayOfWeek";
@@ -49,8 +49,8 @@ function noRestriction(): RestrictionTimes {
 
 // Returns the Monday 00:00 (local) of the week containing `base`.
 function mondayOf(base: Date): Date {
-  const startOfWeek: Date = OneUptimeDate.getStartOfTheWeek(base); // Sunday
-  return OneUptimeDate.addRemoveDays(startOfWeek, 1); // Monday
+  const startOfWeek: Date = OperationsDate.getStartOfTheWeek(base); // Sunday
+  return OperationsDate.addRemoveDays(startOfWeek, 1); // Monday
 }
 
 // Is time T covered by any event? (start <= T < end)
@@ -60,8 +60,8 @@ function coveringEvent(
 ): CalendarEvent | null {
   for (const e of events) {
     if (
-      OneUptimeDate.isOnOrAfter(t, e.start) &&
-      OneUptimeDate.isBefore(t, e.end)
+      OperationsDate.isOnOrAfter(t, e.start) &&
+      OperationsDate.isBefore(t, e.end)
     ) {
       return e;
     }
@@ -73,16 +73,16 @@ describe("LayerUtil HIGH-1: intervalCount >= 2 rotation stays on boundaries", ()
   test("every-2-days rotation keeps handoffs on even-day boundaries from a mid-interval preview", () => {
     const util: LayerUtil = new LayerUtil();
     // Fixed Jan 2026 (no DST transitions) local midnight anchor.
-    const layerStart: Date = OneUptimeDate.getStartOfDay(
+    const layerStart: Date = OperationsDate.getStartOfDay(
       new Date(2026, 0, 1, 0, 0, 0),
     );
 
     // Preview window starts 2.5 days in (mid second interval [day2,day4]).
-    const calStart: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveDays(layerStart, 2),
+    const calStart: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveDays(layerStart, 2),
       12,
     );
-    const calEnd: Date = OneUptimeDate.addRemoveDays(layerStart, 12);
+    const calEnd: Date = OperationsDate.addRemoveDays(layerStart, 12);
 
     const layer: LayerProps = {
       users: [user("A"), user("B")],
@@ -100,7 +100,7 @@ describe("LayerUtil HIGH-1: intervalCount >= 2 rotation stays on boundaries", ()
 
     const dayOf: (d: Date) => number = (d: Date): number => {
       return Math.round(
-        OneUptimeDate.getSecondsBetweenTwoDates(layerStart, d) / 86400,
+        OperationsDate.getSecondsBetweenTwoDates(layerStart, d) / 86400,
       );
     };
 
@@ -124,15 +124,15 @@ describe("LayerUtil HIGH-1: intervalCount >= 2 rotation stays on boundaries", ()
 
   test("every-3-hours rotation lands on 3-hour boundaries", () => {
     const util: LayerUtil = new LayerUtil();
-    const layerStart: Date = OneUptimeDate.getStartOfDay(
+    const layerStart: Date = OperationsDate.getStartOfDay(
       new Date(2026, 0, 1, 0, 0, 0),
     );
     // Preview from 10:30 (inside interval [9:00,12:00]).
-    const calStart: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveMinutes(layerStart, 30),
+    const calStart: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveMinutes(layerStart, 30),
       10,
     );
-    const calEnd: Date = OneUptimeDate.addRemoveHours(layerStart, 24);
+    const calEnd: Date = OperationsDate.addRemoveHours(layerStart, 24);
 
     const events: Array<CalendarEvent> = util.getEvents({
       users: [user("A"), user("B"), user("C")],
@@ -146,7 +146,7 @@ describe("LayerUtil HIGH-1: intervalCount >= 2 rotation stays on boundaries", ()
 
     const hourOf: (d: Date) => number = (d: Date): number => {
       return Math.round(
-        OneUptimeDate.getSecondsBetweenTwoDates(layerStart, d) / 3600,
+        OperationsDate.getSecondsBetweenTwoDates(layerStart, d) / 3600,
       );
     };
 
@@ -160,14 +160,14 @@ describe("LayerUtil HIGH-1: intervalCount >= 2 rotation stays on boundaries", ()
 
   test("intervalCount = 1 daily rotation is unchanged (regression guard)", () => {
     const util: LayerUtil = new LayerUtil();
-    const layerStart: Date = OneUptimeDate.getStartOfDay(
+    const layerStart: Date = OperationsDate.getStartOfDay(
       new Date(2026, 0, 1, 0, 0, 0),
     );
-    const calStart: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveDays(layerStart, 3),
+    const calStart: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveDays(layerStart, 3),
       6,
     );
-    const calEnd: Date = OneUptimeDate.addRemoveDays(layerStart, 8);
+    const calEnd: Date = OperationsDate.addRemoveDays(layerStart, 8);
 
     const events: Array<CalendarEvent> = util.getEvents({
       users: [user("A"), user("B")],
@@ -181,7 +181,7 @@ describe("LayerUtil HIGH-1: intervalCount >= 2 rotation stays on boundaries", ()
 
     const dayOf: (d: Date) => number = (d: Date): number => {
       return Math.round(
-        OneUptimeDate.getSecondsBetweenTwoDates(layerStart, d) / 86400,
+        OperationsDate.getSecondsBetweenTwoDates(layerStart, d) / 86400,
       );
     };
     // First handoff after day 3.25 is day 4.
@@ -194,10 +194,10 @@ describe("LayerUtil HIGH-1: intervalCount >= 2 rotation stays on boundaries", ()
 describe("LayerUtil M-7 defense: invalid rotation interval does not hang or crash", () => {
   test("intervalCount = 0 is clamped to a single unit (no infinite loop)", () => {
     const util: LayerUtil = new LayerUtil();
-    const layerStart: Date = OneUptimeDate.getStartOfDay(
+    const layerStart: Date = OperationsDate.getStartOfDay(
       new Date(2026, 0, 1, 0, 0, 0),
     );
-    const calEnd: Date = OneUptimeDate.addRemoveDays(layerStart, 4);
+    const calEnd: Date = OperationsDate.addRemoveDays(layerStart, 4);
 
     const events: Array<CalendarEvent> = util.getEvents({
       users: [user("A"), user("B")],
@@ -213,7 +213,7 @@ describe("LayerUtil M-7 defense: invalid rotation interval does not hang or cras
     expect(events.length).toBeGreaterThan(0);
     const dayOf: (d: Date) => number = (d: Date): number => {
       return Math.round(
-        OneUptimeDate.getSecondsBetweenTwoDates(layerStart, d) / 86400,
+        OperationsDate.getSecondsBetweenTwoDates(layerStart, d) / 86400,
       );
     };
     expect(dayOf(events[0]!.end)).toBe(1);
@@ -223,12 +223,12 @@ describe("LayerUtil M-7 defense: invalid rotation interval does not hang or cras
 describe("LayerUtil M-1: long-lived rotation resolves the correct current user (no 10000 cap)", () => {
   test("hourly rotation 12000 hours after start resolves the analytically-correct user", () => {
     const util: LayerUtil = new LayerUtil();
-    const layerStart: Date = OneUptimeDate.getStartOfDay(
+    const layerStart: Date = OperationsDate.getStartOfDay(
       new Date(2024, 0, 1, 0, 0, 0),
     );
     // 12000 hours later (well past the old 10000-iteration cap).
-    const calStart: Date = OneUptimeDate.addRemoveHours(layerStart, 12000);
-    const calEnd: Date = OneUptimeDate.addRemoveHours(calStart, 5);
+    const calStart: Date = OperationsDate.addRemoveHours(layerStart, 12000);
+    const calEnd: Date = OperationsDate.addRemoveHours(calStart, 5);
 
     const events: Array<CalendarEvent> = util.getEvents({
       users: [user("A"), user("B"), user("C")],
@@ -252,13 +252,13 @@ describe("LayerUtil HIGH-2: weekly wrap-around restriction has no phantom nightl
   test("Fri 22:00 -> Mon 06:00 covers weekend only, not Tue/Wed/Thu nights", () => {
     const util: LayerUtil = new LayerUtil();
     const monday: Date = mondayOf(new Date(2026, 1, 15)); // February, no DST
-    const calEnd: Date = OneUptimeDate.addRemoveDays(monday, 7);
+    const calEnd: Date = OperationsDate.addRemoveDays(monday, 7);
 
-    const friday22: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveDays(monday, 4),
+    const friday22: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveDays(monday, 4),
       22,
     );
-    const monday06: Date = OneUptimeDate.addRemoveHours(monday, 6);
+    const monday06: Date = OperationsDate.addRemoveHours(monday, 6);
 
     const weekly: WeeklyResctriction = {
       startDay: DayOfWeek.Friday,
@@ -273,7 +273,7 @@ describe("LayerUtil HIGH-2: weekly wrap-around restriction has no phantom nightl
     const events: Array<CalendarEvent> = util.getEvents({
       users: [user("u1")],
       startDateTimeOfLayer: monday,
-      handOffTime: OneUptimeDate.addRemoveWeeks(monday, 1),
+      handOffTime: OperationsDate.addRemoveWeeks(monday, 1),
       restrictionTimes: restrictionTimes,
       rotation: rotation(EventInterval.Week, 1),
       calendarStartDate: monday,
@@ -281,27 +281,27 @@ describe("LayerUtil HIGH-2: weekly wrap-around restriction has no phantom nightl
     });
 
     // Weekend nights ARE covered.
-    const sat02: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveDays(monday, 5),
+    const sat02: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveDays(monday, 5),
       2,
     );
     expect(coveringEvent(events, sat02)).not.toBeNull();
 
     // The Monday-morning tail (00:00-06:00) of the prior weekend IS covered.
-    const mon03: Date = OneUptimeDate.addRemoveHours(monday, 3);
+    const mon03: Date = OperationsDate.addRemoveHours(monday, 3);
     expect(coveringEvent(events, mon03)).not.toBeNull();
 
     // Mid-week nights are NOT covered (these were the phantom windows).
-    const tue02: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveDays(monday, 1),
+    const tue02: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveDays(monday, 1),
       2,
     );
-    const wed02: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveDays(monday, 2),
+    const wed02: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveDays(monday, 2),
       2,
     );
-    const thu02: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveDays(monday, 3),
+    const thu02: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveDays(monday, 3),
       2,
     );
     expect(coveringEvent(events, tue02)).toBeNull();
@@ -314,17 +314,17 @@ describe("LayerUtil HIGH-3: overnight daily restriction covers the first-day mor
   test("22:00 -> 06:00 with midnight daily rotation has no nightly coverage gap", () => {
     const util: LayerUtil = new LayerUtil();
     const monday: Date = mondayOf(new Date(2026, 1, 15));
-    const calEnd: Date = OneUptimeDate.addRemoveDays(monday, 3);
+    const calEnd: Date = OperationsDate.addRemoveDays(monday, 3);
 
     const restrictionTimes: RestrictionTimes = new RestrictionTimes();
     restrictionTimes.restictionType = RestrictionType.Daily;
     restrictionTimes.dayRestrictionTimes = {
-      startTime: OneUptimeDate.getDateWithCustomTime({
+      startTime: OperationsDate.getDateWithCustomTime({
         hours: 22,
         minutes: 0,
         seconds: 0,
       }),
-      endTime: OneUptimeDate.getDateWithCustomTime({
+      endTime: OperationsDate.getDateWithCustomTime({
         hours: 6,
         minutes: 0,
         seconds: 0,
@@ -334,7 +334,7 @@ describe("LayerUtil HIGH-3: overnight daily restriction covers the first-day mor
     const events: Array<CalendarEvent> = util.getEvents({
       users: [user("A"), user("B"), user("C")],
       startDateTimeOfLayer: monday,
-      handOffTime: OneUptimeDate.addRemoveDays(monday, 1),
+      handOffTime: OperationsDate.addRemoveDays(monday, 1),
       restrictionTimes: restrictionTimes,
       rotation: rotation(EventInterval.Day, 1),
       calendarStartDate: monday,
@@ -342,8 +342,8 @@ describe("LayerUtil HIGH-3: overnight daily restriction covers the first-day mor
     });
 
     // Tue 03:00 must be covered (day-2 user B, via the tail of Mon 22:00 window).
-    const tue03: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveDays(monday, 1),
+    const tue03: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveDays(monday, 1),
       3,
     );
     const cover: CalendarEvent | null = coveringEvent(events, tue03);
@@ -357,7 +357,7 @@ describe("LayerUtil M-2: multi-layer 'next' roster keeps a fallback layer's post
     const util: LayerUtil = new LayerUtil();
     const monday: Date = mondayOf(new Date(2026, 1, 15));
     const calStart: Date = monday;
-    const calEnd: Date = OneUptimeDate.addRemoveDays(monday, 14);
+    const calEnd: Date = OperationsDate.addRemoveDays(monday, 14);
 
     // Primary: user A, weekly, active only Mon 00:00 -> Wed 00:00.
     const primaryRestriction: RestrictionTimes = new RestrictionTimes();
@@ -367,14 +367,14 @@ describe("LayerUtil M-2: multi-layer 'next' roster keeps a fallback layer's post
         startDay: DayOfWeek.Monday,
         endDay: DayOfWeek.Wednesday,
         startTime: monday, // Monday 00:00
-        endTime: OneUptimeDate.addRemoveDays(monday, 2), // Wednesday 00:00
+        endTime: OperationsDate.addRemoveDays(monday, 2), // Wednesday 00:00
       },
     ];
 
     const primary: LayerProps = {
       users: [user("A")],
       startDateTimeOfLayer: monday,
-      handOffTime: OneUptimeDate.addRemoveWeeks(monday, 1),
+      handOffTime: OperationsDate.addRemoveWeeks(monday, 1),
       restrictionTimes: primaryRestriction,
       rotation: rotation(EventInterval.Week, 1),
     };
@@ -383,7 +383,7 @@ describe("LayerUtil M-2: multi-layer 'next' roster keeps a fallback layer's post
     const fallback: LayerProps = {
       users: [user("B")],
       startDateTimeOfLayer: monday,
-      handOffTime: OneUptimeDate.addRemoveDays(monday, 1),
+      handOffTime: OperationsDate.addRemoveDays(monday, 1),
       restrictionTimes: noRestriction(),
       rotation: rotation(EventInterval.Day, 1),
     };
@@ -407,7 +407,7 @@ describe("LayerUtil M-2: multi-layer 'next' roster keeps a fallback layer's post
      * overlap-removal separates adjacent events by 1 second, so allow a small
      * tolerance — the point is it starts at the gap, not A's next week.
      */
-    const wed00: number = OneUptimeDate.addRemoveDays(monday, 2).getTime();
+    const wed00: number = OperationsDate.addRemoveDays(monday, 2).getTime();
     expect(events[1]!.start.getTime()).toBeGreaterThanOrEqual(wed00);
     expect(events[1]!.start.getTime()).toBeLessThan(wed00 + 5000);
   });

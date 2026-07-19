@@ -7,7 +7,7 @@ O CLI do Cast Operations suporta três formatos de saída: **tabela**, **JSON** 
 O formato padrão ao executar em um terminal interativo. Exibe os resultados como uma tabela ASCII com colunas selecionadas de forma inteligente.
 
 ```bash
-oneuptime incident list
+cast-operations incident list
 ```
 
 ```
@@ -30,7 +30,7 @@ Comportamento do formato de tabela:
 Saída JSON bruta, formatada com indentação de 2 espaços. Este é o melhor formato para scripting e encaminhamento para outras ferramentas.
 
 ```bash
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ```json
@@ -48,7 +48,7 @@ O formato JSON é usado automaticamente quando a saída é encaminhada para outr
 
 ```bash
 # JSON é usado automaticamente ao encaminhar
-oneuptime incident list | jq '.[].title'
+cast-operations incident list | jq '.[].title'
 ```
 
 ## Wide
@@ -56,7 +56,7 @@ oneuptime incident list | jq '.[].title'
 Exibe todas as colunas sem truncamento. Útil para inspeção detalhada, mas pode produzir saída muito larga.
 
 ```bash
-oneuptime incident list -o wide
+cast-operations incident list -o wide
 ```
 
 ## Desativando Cores
@@ -65,10 +65,10 @@ A saída colorida pode ser desativada de várias formas:
 
 ```bash
 # Usando a flag --no-color
-oneuptime --no-color incident list
+cast-operations --no-color incident list
 
 # Usando a variável de ambiente NO_COLOR
-NO_COLOR=1 oneuptime incident list
+NO_COLOR=1 cast-operations incident list
 ```
 
 ## Casos Especiais de Saída

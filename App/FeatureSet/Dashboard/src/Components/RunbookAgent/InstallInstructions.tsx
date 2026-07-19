@@ -15,18 +15,18 @@ const RunbookAgentInstallInstructions: FunctionComponent<ComponentProps> = (
 ): ReactElement => {
   const host: string = `${HTTP_PROTOCOL}${HOST}`;
 
-  const dockerCommand: string = `docker run --name oneuptime-runbook-agent --restart unless-stopped \\
+  const dockerCommand: string = `docker run --name cast-operations-runbook-agent --restart unless-stopped \\
   -e RUNBOOK_AGENT_ID=${props.agentId.toString()} \\
   -e RUNBOOK_AGENT_KEY=${props.agentKey} \\
-  -e ONEUPTIME_URL=${host} \\
-  -d oneuptime/runbook-agent:release`;
+  -e CAST_OPERATIONS_URL=${host} \\
+  -d cast-operations/runbook-agent:release`;
 
   return (
     <div className="space-y-5">
       <p className="text-sm leading-relaxed text-gray-600">
         Run this Docker command on a host inside the infrastructure where you
-        want bash steps to execute. The agent polls Cast Operations for jobs tagged
-        for it, runs the script locally, and reports the result back.
+        want bash steps to execute. The agent polls Cast Operations for jobs
+        tagged for it, runs the script locally, and reports the result back.
       </p>
 
       <div className="flex gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">

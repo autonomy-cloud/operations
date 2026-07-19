@@ -49,18 +49,18 @@ Esegui il comando Docker su qualunque host del tuo ambiente che possa:
 - fare le cose che vuoi che i tuoi passi Bash/JavaScript facciano (es. SSH ad altri host, `kubectl`, parlare con un database).
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.yourdomain.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.yourdomain.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. Verifica che l'agente sia connesso
 
 Torna su **Runbook → Impostazioni → Agenti**. Entro circa 60 secondi la riga dell'agente dovrebbe passare a `Connected` con un timestamp **Last seen** fresco. Se rimane `Disconnected`:
 
-- Controlla i log del container (`docker logs oneuptime-runbook-agent`) per errori di autenticazione o di rete.
+- Controlla i log del container (`docker logs cast-operations-runbook-agent`) per errori di autenticazione o di rete.
 - Verifica che l'host raggiunga il tuo URL Cast Operations con `curl`.
 - Verifica che ID e chiave siano stati copiati senza spazi bianchi.
 
@@ -116,7 +116,7 @@ L'agente legge queste all'avvio:
 
 | Variabile                                 | Obbligatoria | Default | Note                                                                          |
 | ----------------------------------------- | ------------ | ------- | ----------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | sì           | —       | URL base della tua istanza Cast Operations, es. `https://operations.yourdomain.com`. |
+| `CAST_OPERATIONS_URL`                           | sì           | —       | URL base della tua istanza Cast Operations, es. `https://operations.yourdomain.com`. |
 | `RUNBOOK_AGENT_ID`                        | sì           | —       | L'UUID mostrato nel modale di setup dell'agente.                              |
 | `RUNBOOK_AGENT_KEY`                       | sì           | —       | Il segreto mostrato nel modale di setup dell'agente.                          |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | no           | `5000`  | Ogni quanto l'agente fa polling per nuovi job.                                |

@@ -35,13 +35,11 @@ import "ejs";
 // xmlbuilder imports removed (handled inside Sitemap util)
 import OSSFriends, { OSSFriend, OSSCategory } from "./Utils/OSSFriends";
 import Reviews, { AllReviews, Review } from "./Utils/Reviews";
-import Pricing, { PricingCategory, PricingPlans } from "./Utils/Pricing";
 import {
   generateLlmsTxt,
   generateLlmsFullTxt,
   generateMcpManifest,
   generatePageMarkdown,
-  generatePricingMarkdown,
   generateCompareMarkdown,
   generateProductsJson,
   generateCompareIndexJson,
@@ -56,7 +54,7 @@ import {
   getGitHubCommitsCount,
   formatCount,
 } from "./Jobs/FetchGitHubStats";
-import { Host, IsBillingEnabled } from "Common/Server/EnvironmentConfig";
+import { Host } from "Common/Server/EnvironmentConfig";
 import LocalCache from "Common/Server/Infrastructure/LocalCache";
 
 // Helper to get SEO data and merge with homeUrl for templates
@@ -196,19 +194,6 @@ const HomeFeatureSet: FeatureSet = {
 
     // Machine-readable marketing data.
     app.get(
-      "/data/pricing.json",
-      (_req: ExpressRequest, res: ExpressResponse) => {
-        res.setHeader("Cache-Control", "public, max-age=600");
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.json({
-          plans: PricingPlans,
-          telemetryIngestPricePerGB: "$0.10",
-          featureMatrix: Pricing,
-        });
-      },
-    );
-
-    app.get(
       "/data/products.json",
       (_req: ExpressRequest, res: ExpressResponse) => {
         res.setHeader("Cache-Control", "public, max-age=600");
@@ -258,7 +243,7 @@ const HomeFeatureSet: FeatureSet = {
 
     /*
      * Markdown variants of marketing pages: append `.md` to a page path
-     * (e.g. /pricing.md, /product/monitoring.md, /compare/pagerduty.md).
+     * (e.g. /product/monitoring.md or /compare/pagerduty.md).
      * Generated from the same structured data as the HTML pages.
      */
     app.get(/^\/.+\.md$/, (req: ExpressRequest, res: ExpressResponse) => {
@@ -267,9 +252,7 @@ const HomeFeatureSet: FeatureSet = {
 
       let markdown: string | null = null;
 
-      if (pagePath === "/pricing") {
-        markdown = generatePricingMarkdown(homeUrl);
-      } else if (pagePath.startsWith("/compare/")) {
+      if (pagePath.startsWith("/compare/")) {
         markdown = generateCompareMarkdown(
           pagePath.replace("/compare/", ""),
           homeUrl,
@@ -305,7 +288,7 @@ const HomeFeatureSet: FeatureSet = {
 
       res.render(`${ViewsPath}/index`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -342,7 +325,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/support`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -372,25 +355,11 @@ const HomeFeatureSet: FeatureSet = {
             };
           }),
           categories,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
     );
-
-    app.get("/pricing", (_req: ExpressRequest, res: ExpressResponse) => {
-      const pricing: Array<PricingCategory> = Pricing;
-
-      const seo: PageSEOData & { fullCanonicalUrl: string } = getSEOForPath(
-        "/pricing",
-        res.locals["homeUrl"] as string,
-      );
-      res.render(`${ViewsPath}/pricing`, {
-        pricing,
-        enableGoogleTagManager: IsBillingEnabled,
-        seo,
-      });
-    });
 
     app.get(
       "/enterprise/demo",
@@ -402,7 +371,7 @@ const HomeFeatureSet: FeatureSet = {
         const { reviewsList1, reviewsList2, reviewsList3 } = Reviews;
         res.render(`${ViewsPath}/demo`, {
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           footerCards: false,
           cta: false,
           blackLogo: true,
@@ -423,7 +392,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/status-page`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -437,7 +406,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/logs-management`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -529,7 +498,7 @@ const HomeFeatureSet: FeatureSet = {
         contributors: gitHubContributors,
         basicInfo: gitHubBasicInfo,
         commits: gitHubCommits,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -539,7 +508,7 @@ const HomeFeatureSet: FeatureSet = {
       (_req: ExpressRequest, res: ExpressResponse) => {
         res.render(`${ViewsPath}/status-page`, {
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           footerCards: true,
           cta: true,
           blackLogo: false,
@@ -574,7 +543,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/monitoring`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -588,7 +557,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/on-call`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -602,7 +571,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/workflows`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -616,7 +585,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/runbooks`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -630,7 +599,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/incident-management`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -644,7 +613,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/ai-agent`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -658,7 +627,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/metrics`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -672,7 +641,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/kubernetes`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -684,7 +653,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/docker`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -695,7 +664,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/podman`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -706,7 +675,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/host`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -719,7 +688,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/proxmox`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -733,7 +702,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/ai-observability`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -745,7 +714,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/ceph`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -758,7 +727,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/docker-swarm`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -770,7 +739,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/iot`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -783,7 +752,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/network-monitoring`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -797,7 +766,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/observability`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -811,7 +780,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/topology`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -825,7 +794,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/services`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -839,7 +808,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/profiles`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -853,7 +822,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/scheduled-maintenance`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -872,7 +841,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/traces`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -885,7 +854,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/exceptions`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -899,7 +868,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/dashboards`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -913,7 +882,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/serverless`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -925,7 +894,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/cloud`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -936,7 +905,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/rum`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -960,7 +929,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/mcp-server`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -972,7 +941,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/cli`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -987,7 +956,7 @@ const HomeFeatureSet: FeatureSet = {
         );
         res.render(`${ViewsPath}/enterprise-overview.ejs`, {
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           footerCards: true,
           cta: true,
           blackLogo: false,
@@ -1009,7 +978,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/solutions/devops`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1021,7 +990,7 @@ const HomeFeatureSet: FeatureSet = {
         res.locals["homeUrl"] as string,
       );
       res.render(`${ViewsPath}/solutions/sre`, {
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         seo,
       });
     });
@@ -1034,7 +1003,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/solutions/platform`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1048,7 +1017,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/solutions/developers`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1062,7 +1031,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/solutions/incident-response`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1076,7 +1045,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/solutions/uptime-monitoring`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1090,7 +1059,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/solutions/observability`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1104,7 +1073,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/solutions/status-communication`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1119,7 +1088,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/industries/fintech`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1133,7 +1102,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/industries/saas`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1147,7 +1116,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/industries/healthcare`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1161,7 +1130,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/industries/ecommerce`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1175,7 +1144,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/industries/media`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1189,7 +1158,7 @@ const HomeFeatureSet: FeatureSet = {
           res.locals["homeUrl"] as string,
         );
         res.render(`${ViewsPath}/industries/government`, {
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           seo,
         });
       },
@@ -1198,7 +1167,7 @@ const HomeFeatureSet: FeatureSet = {
     app.get("/legal", (_req: ExpressRequest, res: ExpressResponse) => {
       res.render(`${ViewsPath}/legal.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1210,7 +1179,7 @@ const HomeFeatureSet: FeatureSet = {
     app.get("/legal/terms", (_req: ExpressRequest, res: ExpressResponse) => {
       res.render(`${ViewsPath}/legal.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1222,7 +1191,7 @@ const HomeFeatureSet: FeatureSet = {
     app.get("/legal/privacy", (_req: ExpressRequest, res: ExpressResponse) => {
       res.render(`${ViewsPath}/legal.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1236,7 +1205,7 @@ const HomeFeatureSet: FeatureSet = {
       (_req: ExpressRequest, res: ExpressResponse) => {
         res.render(`${ViewsPath}/legal.ejs`, {
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           footerCards: true,
           cta: true,
           blackLogo: false,
@@ -1249,7 +1218,7 @@ const HomeFeatureSet: FeatureSet = {
     app.get("/legal/contact", (_req: ExpressRequest, res: ExpressResponse) => {
       res.render(`${ViewsPath}/legal.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1263,7 +1232,7 @@ const HomeFeatureSet: FeatureSet = {
       (_req: ExpressRequest, res: ExpressResponse) => {
         res.render(`${ViewsPath}/legal.ejs`, {
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           footerCards: true,
           cta: true,
           blackLogo: false,
@@ -1277,7 +1246,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "dpa",
@@ -1288,7 +1257,7 @@ const HomeFeatureSet: FeatureSet = {
     app.get("/legal/ccpa", (_req: ExpressRequest, res: ExpressResponse) => {
       res.render(`${ViewsPath}/legal.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1300,7 +1269,7 @@ const HomeFeatureSet: FeatureSet = {
     app.get("/legal/cookies", (_req: ExpressRequest, res: ExpressResponse) => {
       res.render(`${ViewsPath}/legal.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1312,7 +1281,7 @@ const HomeFeatureSet: FeatureSet = {
     app.get("/legal/hipaa", (_req: ExpressRequest, res: ExpressResponse) => {
       res.render(`${ViewsPath}/legal.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1324,7 +1293,7 @@ const HomeFeatureSet: FeatureSet = {
     app.get("/legal/dmca", (_req: ExpressRequest, res: ExpressResponse) => {
       res.render(`${ViewsPath}/legal.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1336,7 +1305,7 @@ const HomeFeatureSet: FeatureSet = {
     app.get("/legal/pci", (_req: ExpressRequest, res: ExpressResponse) => {
       res.render(`${ViewsPath}/legal.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1350,7 +1319,7 @@ const HomeFeatureSet: FeatureSet = {
       (_req: ExpressRequest, res: ExpressResponse) => {
         res.render(`${ViewsPath}/legal.ejs`, {
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           footerCards: true,
           cta: true,
           blackLogo: false,
@@ -1366,7 +1335,7 @@ const HomeFeatureSet: FeatureSet = {
         res.render(`${ViewsPath}/legal.ejs`, {
           footerCards: true,
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           cta: true,
           blackLogo: false,
           section: "iso-27017",
@@ -1381,7 +1350,7 @@ const HomeFeatureSet: FeatureSet = {
         res.render(`${ViewsPath}/legal.ejs`, {
           footerCards: true,
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           cta: true,
           blackLogo: false,
           section: "iso-27018",
@@ -1396,7 +1365,7 @@ const HomeFeatureSet: FeatureSet = {
         res.render(`${ViewsPath}/legal.ejs`, {
           footerCards: true,
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           cta: true,
           blackLogo: false,
           section: "iso-27017",
@@ -1411,7 +1380,7 @@ const HomeFeatureSet: FeatureSet = {
         res.render(`${ViewsPath}/legal.ejs`, {
           footerCards: true,
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           cta: true,
           blackLogo: false,
           section: "iso-27018",
@@ -1424,7 +1393,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "soc-2",
@@ -1436,7 +1405,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "soc-3",
@@ -1448,7 +1417,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "vpat",
@@ -1462,7 +1431,7 @@ const HomeFeatureSet: FeatureSet = {
         res.render(`${ViewsPath}/legal.ejs`, {
           footerCards: true,
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           cta: true,
           blackLogo: false,
           section: "data-residency",
@@ -1475,7 +1444,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "gdpr",
@@ -1489,7 +1458,7 @@ const HomeFeatureSet: FeatureSet = {
         res.render(`${ViewsPath}/legal.ejs`, {
           footerCards: true,
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           cta: true,
           blackLogo: false,
           section: "21-cfr-part-11",
@@ -1502,7 +1471,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "gamp-5",
@@ -1514,7 +1483,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "annex-11",
@@ -1526,7 +1495,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "iso-9001",
@@ -1540,7 +1509,7 @@ const HomeFeatureSet: FeatureSet = {
         res.render(`${ViewsPath}/legal.ejs`, {
           footerCards: true,
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           cta: true,
           blackLogo: false,
           section: "gxp-cloud",
@@ -1553,7 +1522,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "csa-star",
@@ -1565,7 +1534,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "fedramp",
@@ -1577,7 +1546,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "sla",
@@ -1589,7 +1558,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/legal.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         section: "security",
@@ -1603,7 +1572,7 @@ const HomeFeatureSet: FeatureSet = {
         res.render(`${ViewsPath}/legal.ejs`, {
           footerCards: true,
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           cta: true,
           blackLogo: false,
           section: "deprecation-policy",
@@ -1620,7 +1589,7 @@ const HomeFeatureSet: FeatureSet = {
       res.render(`${ViewsPath}/trust.ejs`, {
         footerCards: true,
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         cta: true,
         blackLogo: false,
         requestDemoCta: false,
@@ -1778,7 +1747,7 @@ const HomeFeatureSet: FeatureSet = {
 
       res.render(`${ViewsPath}/compare-index.ejs`, {
         support: false,
-        enableGoogleTagManager: IsBillingEnabled,
+        enableGoogleTagManager: false,
         footerCards: true,
         cta: true,
         blackLogo: false,
@@ -1805,7 +1774,7 @@ const HomeFeatureSet: FeatureSet = {
         );
         res.render(`${ViewsPath}/product-compare.ejs`, {
           support: false,
-          enableGoogleTagManager: IsBillingEnabled,
+          enableGoogleTagManager: false,
           footerCards: true,
           cta: true,
           blackLogo: false,

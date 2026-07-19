@@ -102,7 +102,7 @@ describe("MetricService aggregate statement generation", () => {
           projectId: projectId,
           name: "http.client.request.duration",
           time: new InBetween(startDate, endDate),
-          attributes: { "oneuptime.service.name": "starship-web" },
+          attributes: { "cast-operations.service.name": "starship-web" },
         } as unknown as AggregateBy<Metric>["query"],
       });
 
@@ -114,7 +114,7 @@ describe("MetricService aggregate statement generation", () => {
 
     it("groups by individual attribute keys, not the whole attributes map", () => {
       const aggregateBy: AggregateBy<Metric> = buildAggregateBy({
-        groupByAttributeKeys: ["oneuptime.service.name"],
+        groupByAttributeKeys: ["cast-operations.service.name"],
       });
 
       const result: { statement: Statement; columns: Array<string> } =
@@ -137,7 +137,7 @@ describe("MetricService aggregate statement generation", () => {
       );
       expect(
         parameterValues.filter((value: unknown) => {
-          return value === "oneuptime.service.name";
+          return value === "cast-operations.service.name";
         }),
       ).toHaveLength(2); // extraction + map key
 
@@ -147,7 +147,7 @@ describe("MetricService aggregate statement generation", () => {
     it("drops a legacy whole-map attributes group-by when key-scoped grouping is requested", () => {
       const aggregateBy: AggregateBy<Metric> = buildAggregateBy({
         groupBy: { attributes: true } as AggregateBy<Metric>["groupBy"],
-        groupByAttributeKeys: ["oneuptime.service.name"],
+        groupByAttributeKeys: ["cast-operations.service.name"],
       });
 
       const query: string = getQuery(aggregateBy);
@@ -176,7 +176,7 @@ describe("MetricService aggregate statement generation", () => {
     it("keeps the histogram bucket fanout and pools by selected attribute keys", () => {
       const aggregateBy: AggregateBy<Metric> = buildAggregateBy({
         aggregationType: AggregationType.P90,
-        groupByAttributeKeys: ["oneuptime.service.name"],
+        groupByAttributeKeys: ["cast-operations.service.name"],
       });
 
       const result: { statement: Statement; columns: Array<string> } =
@@ -310,7 +310,7 @@ describe("MetricService aggregate statement generation", () => {
           projectId: projectId,
           name: "http.client.request.duration",
           time: new InBetween(startDate, endDate),
-          attributes: { "oneuptime.service.name": "starship-web" },
+          attributes: { "cast-operations.service.name": "starship-web" },
         } as unknown as AggregateBy<Metric>["query"],
       });
 
@@ -602,7 +602,7 @@ describe("MetricService aggregate statement generation", () => {
             buildAggregateBy({
               query: {
                 projectId: projectId,
-                name: "oneuptime.incident.count",
+                name: "cast-operations.incident.count",
                 time: new InBetween(startDate, endDate),
               } as AggregateBy<Metric>["query"],
               timeoutOverflowMode: "throw",
@@ -748,7 +748,7 @@ describe("MetricService aggregate statement generation", () => {
             projectId: projectId,
             name: "http.client.request.duration",
             time: new InBetween(startDate, endDate),
-            attributes: { "oneuptime.service.name": "starship-web" },
+            attributes: { "cast-operations.service.name": "starship-web" },
           } as unknown as AggregateBy<Metric>["query"],
           topK: { count: 10, rankBy: "max" },
         }),
@@ -785,7 +785,7 @@ describe("MetricService aggregate statement generation", () => {
     });
 
     it("applies Top-K to grouped mutable-metric aggregations over the deduped rows", () => {
-      // "oneuptime.incident.count" is a registered mutable metric name.
+      // "cast-operations.incident.count" is a registered mutable metric name.
       const buildMutable: (
         overrides?: Partial<AggregateBy<Metric>>,
       ) => AggregateBy<Metric> = (
@@ -794,7 +794,7 @@ describe("MetricService aggregate statement generation", () => {
         return buildAggregateBy({
           query: {
             projectId: projectId,
-            name: "oneuptime.incident.count",
+            name: "cast-operations.incident.count",
             time: new InBetween(startDate, endDate),
           } as AggregateBy<Metric>["query"],
           groupBy: {
@@ -899,7 +899,7 @@ describe("MetricService aggregate statement generation", () => {
           buildAggregateBy({
             query: {
               projectId: projectId,
-              name: "oneuptime.incident.count",
+              name: "cast-operations.incident.count",
               time: new InBetween(startDate, endDate),
             } as AggregateBy<Metric>["query"],
             groupBy: {

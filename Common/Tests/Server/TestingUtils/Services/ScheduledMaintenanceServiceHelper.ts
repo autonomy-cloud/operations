@@ -1,7 +1,7 @@
 import ObjectID from "../../../../Types/ObjectID";
 import Faker from "../../../../Utils/Faker";
 import ScheduledMaintenance from "../../../../Models/DatabaseModels/ScheduledMaintenance";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 
 export default class ScheduledMaintenanceTestService {
   public static generateRandomScheduledMaintenance(data: {
@@ -16,9 +16,9 @@ export default class ScheduledMaintenanceTestService {
       data.currentScheduledMaintenanceStateId;
     maintenance.title = Faker.generateName();
     maintenance.description = Faker.generateName();
-    maintenance.startsAt = OneUptimeDate.getCurrentDate();
-    maintenance.endsAt = OneUptimeDate.addRemoveDays(
-      OneUptimeDate.getCurrentDate(),
+    maintenance.startsAt = OperationsDate.getCurrentDate();
+    maintenance.endsAt = OperationsDate.addRemoveDays(
+      OperationsDate.getCurrentDate(),
       2,
     );
     maintenance.isOwnerNotifiedOfResourceCreation = false;

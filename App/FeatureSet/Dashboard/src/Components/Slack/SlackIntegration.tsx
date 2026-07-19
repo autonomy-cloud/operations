@@ -346,8 +346,8 @@ const SlackIntegration: FunctionComponent<ComponentProps> = (
       setError(
         <div>
           Looks like the Slack App Client ID is not set in the environment
-          variables when you installed Cast Operations. For more information, please
-          check this guide to set up Slack App properly:{" "}
+          variables when you installed Cast Operations. For more information,
+          please check this guide to set up Slack App properly:{" "}
           <Link
             to={new Route("/docs/self-hosted/slack-integration")}
             openInNewTab={true}

@@ -1,10 +1,10 @@
 import { Blue500 } from "../../Types/BrandColors";
 import Color from "../../Types/Color";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
 import PositiveNumber from "../../Types/PositiveNumber";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import logger, { LogAttributes } from "../Utils/Logger";
 import CountBy from "../Types/Database/CountBy";
 import DeleteBy from "../Types/Database/DeleteBy";
@@ -24,10 +24,6 @@ import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -128,7 +124,7 @@ export class Service extends DatabaseService<Model> {
       incidentEpisodeFeed.projectId = data.projectId;
 
       if (!data.postedAt) {
-        incidentEpisodeFeed.postedAt = OneUptimeDate.getCurrentDate();
+        incidentEpisodeFeed.postedAt = OperationsDate.getCurrentDate();
       } else {
         incidentEpisodeFeed.postedAt = data.postedAt;
       }

@@ -73,7 +73,7 @@ PagerDuty's `severity` accepts `critical`, `error`, `warning`, or `info`. To map
 
 ## Inbound (optional)
 
-To go the other way — open a Cast Operations incident from a PagerDuty event — add a **Webhook** trigger workflow and point a PagerDuty [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (or an Events Orchestration) at its URL, then use **Create Incident**. See the [inbound pattern](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
+To go the other way — open a Cast Operations incident from a PagerDuty event — add a **Webhook** trigger workflow and point a PagerDuty [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (or an Events Orchestration) at its URL, then use **Create Incident**. See the [inbound pattern](/docs/integrations/index#inbound-another-tool-sends-data-into-cast-operations).
 
 ## Troubleshooting
 

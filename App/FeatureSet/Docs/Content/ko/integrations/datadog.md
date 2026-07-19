@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. Datadog에서 **Integrations → Webhooks** 로 이동합니다(아직 설치하지 않은 경우 **Webhooks** 통합을 설치합니다).
 2. **webhook을 추가합니다**:
 
-   - **Name**: `oneuptime` (이것이 `@webhook-oneuptime` 이 됩니다).
+   - **Name**: `cast-operations` (이것이 `@webhook-cast-operations` 이 됩니다).
    - **URL**: 워크플로의 webhook URL.
    - **Payload** — Datadog에서 [템플릿 변수](https://docs.datadoghq.com/integrations/webhooks/#usage)를 사용해 JSON 본문을 정의할 수 있습니다:
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 전달하려는 각 모니터의 **알림 메시지** 에 webhook 핸들을 추가합니다:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-이렇게 하면 알림과 복구 모두 Cast Operations으로 전송됩니다. (모든 것을 전달하려면 `@webhook-oneuptime` 을 모니터에 무조건 추가할 수도 있습니다.)
+이렇게 하면 알림과 복구 모두 Cast Operations으로 전송됩니다. (모든 것을 전달하려면 `@webhook-cast-operations` 을 모니터에 무조건 추가할 수도 있습니다.)
 
 ## 4단계 — 테스트
 
@@ -74,7 +74,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 
 ## 문제 해결
 
-- **실행이 나타나지 않습니다** — 모니터 메시지에 `@webhook-oneuptime` 이 포함되어 있고 워크플로가 **Enabled** 상태인지 확인합니다.
+- **실행이 나타나지 않습니다** — 모니터 메시지에 `@webhook-cast-operations` 이 포함되어 있고 워크플로가 **Enabled** 상태인지 확인합니다.
 - **필드가 비어 있습니다** — Datadog은 이벤트에 해당하는 템플릿 변수만 치환합니다. **Logs** 탭에서 트리거 출력을 검사하고 webhook 페이로드를 조정하세요.
 - **중복 인시던트** — 재알림(renotify) 모니터는 여러 `Triggered` 이벤트를 보냅니다. 생성 전에 `id` 로 **Find Incident** 검사를 해 중복을 제거하세요.
 

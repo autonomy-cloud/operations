@@ -4,12 +4,12 @@ import Logger from "./Logger";
 import OTLPBatcher from "./OTLPBatcher";
 import { PodWatcher } from "./PodWatcher";
 import { startHealthServer } from "./Health";
-import { CLUSTER_NAME, ONEUPTIME_URL } from "./Config";
+import { CLUSTER_NAME, CAST_OPERATIONS_URL } from "./Config";
 
 const main: () => Promise<void> = async (): Promise<void> => {
   Logger.info("starting kubernetes-log-tailer", {
     cluster: CLUSTER_NAME,
-    oneuptimeUrl: ONEUPTIME_URL,
+    castOperationsUrl: CAST_OPERATIONS_URL,
   });
 
   const kubeConfig: k8s.KubeConfig = new k8s.KubeConfig();

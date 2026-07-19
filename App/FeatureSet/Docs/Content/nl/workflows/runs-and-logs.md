@@ -39,7 +39,6 @@ De waarden die je ziet zijn precies wat het blok zag — nadat alle variabelen z
 3. Voor een webhook-trigger: controleer dat het andere systeem naar de juiste URL stuurt. De meeste tools loggen wanneer ze een webhook versturen — kijk daar.
 4. Voor een schedule-trigger: controleer dat de cron-expressie overeenkomt met de tijd die je verwacht.
 
-Als de trigger is afgegaan maar er geen run verschijnt, controleer dan je run-quotum onder **Project Settings → Billing**.
 
 ### "Een later blok heeft nooit gedraaid."
 

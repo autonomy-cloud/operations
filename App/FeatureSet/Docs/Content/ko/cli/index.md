@@ -13,23 +13,23 @@ Cast Operations CLI는 터미널에서 Cast Operations 리소스를 직접 관�
 ## 설치
 
 ```bash
-npm install -g @oneuptime/cli
+npm install -g @cast-operations/cli
 ```
 
 ## 빠른 시작
 
 ```bash
 # Cast Operations 인스턴스로 인증
-oneuptime login <your-api-key> https://visca.ai
+cast-operations login <your-api-key> https://visca.ai
 
 # 모니터 목록 조회
-oneuptime monitor list
+cast-operations monitor list
 
 # 특정 인시던트 보기
-oneuptime incident get <incident-id>
+cast-operations incident get <incident-id>
 
 # 사용 가능한 모든 리소스 보기
-oneuptime resources
+cast-operations resources
 ```
 
 ## 문서
@@ -60,9 +60,9 @@ oneuptime resources
 
 ```bash
 # 일반 도움말
-oneuptime --help
+cast-operations --help
 
 # 특정 명령에 대한 도움말
-oneuptime monitor --help
-oneuptime monitor list --help
+cast-operations monitor --help
+cast-operations monitor list --help
 ```

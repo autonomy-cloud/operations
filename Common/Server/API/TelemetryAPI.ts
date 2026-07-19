@@ -71,7 +71,7 @@ import ProfileSampleService from "../Services/ProfileSampleService";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
 import Permission from "../../Types/Permission";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import { JSONObject } from "../../Types/JSON";
 import ResourceFacetResolver, {
   ResolvedFacetValue,
@@ -367,12 +367,12 @@ router.post(
       const body: JSONObject = req.body as JSONObject;
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const bucketSizeInMinutes: number =
         (body["bucketSizeInMinutes"] as number) ||
@@ -464,12 +464,12 @@ router.post(
         : ["severityText", "primaryEntityId"];
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const limit: number = (body["limit"] as number) || 500;
 
@@ -744,12 +744,12 @@ router.post(
       const body: JSONObject = req.body as JSONObject;
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const bucketSizeInMinutes: number =
         (body["bucketSizeInMinutes"] as number) ||
@@ -806,12 +806,12 @@ router.post(
         : ["primaryEntityId", "statusCode", "kind", "name"];
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const limit: number = (body["limit"] as number) || 500;
 
@@ -1073,12 +1073,12 @@ router.post(
       }
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const rawBucketSize: number = Number(body["bucketSizeInMinutes"]);
       const bucketSizeInMinutes: number =
@@ -1175,12 +1175,12 @@ router.post(
       const body: JSONObject = req.body as JSONObject;
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -24);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -24);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const bucketSizeInMinutes: number =
         (body["bucketSizeInMinutes"] as number) ||
@@ -1278,12 +1278,12 @@ router.post(
           ];
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -24);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -24);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const limit: number = (body["limit"] as number) || 500;
 
@@ -1445,12 +1445,12 @@ router.post(
           ];
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const limit: number = (body["limit"] as number) || 500;
 
@@ -1595,12 +1595,12 @@ router.post(
       }
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const bucketSizeInMinutes: number =
         (body["bucketSizeInMinutes"] as number) ||
@@ -1713,12 +1713,12 @@ router.post(
       const body: JSONObject = req.body as JSONObject;
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const limit: number = Math.min((body["limit"] as number) || 10000, 10000);
 
@@ -1856,7 +1856,7 @@ router.post(
       } = await LogAggregationService.getLogContext({
         projectId: databaseProps.tenantId,
         primaryEntityId: new ObjectID(primaryEntityId),
-        time: OneUptimeDate.fromString(time),
+        time: OperationsDate.fromString(time),
         logId,
         count,
       });
@@ -1908,12 +1908,12 @@ router.post(
       }
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -24);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -24);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const serviceIds: Array<ObjectID> | undefined = body["serviceIds"]
         ? (body["serviceIds"] as Array<string>).map((id: string) => {
@@ -2017,11 +2017,11 @@ router.post(
         : undefined;
 
       const startTime: Date | undefined = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
+        ? OperationsDate.fromString(body["startTime"] as string)
         : undefined;
 
       const endTime: Date | undefined = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
+        ? OperationsDate.fromString(body["endTime"] as string)
         : undefined;
 
       const serviceIds: Array<ObjectID> | undefined = body["serviceIds"]
@@ -2113,16 +2113,16 @@ router.post(
        * before the window started.
        */
       const startTime: Date | undefined = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
+        ? OperationsDate.fromString(body["startTime"] as string)
         : profileId
           ? undefined
-          : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+          : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date | undefined = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
+        ? OperationsDate.fromString(body["endTime"] as string)
         : profileId
           ? undefined
-          : OneUptimeDate.getCurrentDate();
+          : OperationsDate.getCurrentDate();
 
       if (!profileId && !startTime) {
         return Response.sendErrorResponse(
@@ -2215,12 +2215,12 @@ router.post(
       const body: JSONObject = req.body as JSONObject;
 
       const startTime: Date = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
-        : OneUptimeDate.addRemoveHours(OneUptimeDate.getCurrentDate(), -1);
+        ? OperationsDate.fromString(body["startTime"] as string)
+        : OperationsDate.addRemoveHours(OperationsDate.getCurrentDate(), -1);
 
       const endTime: Date = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
-        : OneUptimeDate.getCurrentDate();
+        ? OperationsDate.fromString(body["endTime"] as string)
+        : OperationsDate.getCurrentDate();
 
       const profileType: string | undefined = body["profileType"]
         ? (body["profileType"] as string)
@@ -2411,19 +2411,19 @@ router.post(
       const body: JSONObject = req.body as JSONObject;
 
       const baselineStartTime: Date | undefined = body["baselineStartTime"]
-        ? OneUptimeDate.fromString(body["baselineStartTime"] as string)
+        ? OperationsDate.fromString(body["baselineStartTime"] as string)
         : undefined;
 
       const baselineEndTime: Date | undefined = body["baselineEndTime"]
-        ? OneUptimeDate.fromString(body["baselineEndTime"] as string)
+        ? OperationsDate.fromString(body["baselineEndTime"] as string)
         : undefined;
 
       const comparisonStartTime: Date | undefined = body["comparisonStartTime"]
-        ? OneUptimeDate.fromString(body["comparisonStartTime"] as string)
+        ? OperationsDate.fromString(body["comparisonStartTime"] as string)
         : undefined;
 
       const comparisonEndTime: Date | undefined = body["comparisonEndTime"]
-        ? OneUptimeDate.fromString(body["comparisonEndTime"] as string)
+        ? OperationsDate.fromString(body["comparisonEndTime"] as string)
         : undefined;
 
       if (
@@ -2543,11 +2543,11 @@ router.post(
         : undefined;
 
       const startTime: Date | undefined = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
+        ? OperationsDate.fromString(body["startTime"] as string)
         : undefined;
 
       const endTime: Date | undefined = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
+        ? OperationsDate.fromString(body["endTime"] as string)
         : undefined;
 
       const serviceIds: Array<ObjectID> | undefined = body["serviceIds"]
@@ -2638,11 +2638,11 @@ router.post(
       const body: JSONObject = req.body as JSONObject;
 
       const startTime: Date | undefined = body["startTime"]
-        ? OneUptimeDate.fromString(body["startTime"] as string)
+        ? OperationsDate.fromString(body["startTime"] as string)
         : undefined;
 
       const endTime: Date | undefined = body["endTime"]
-        ? OneUptimeDate.fromString(body["endTime"] as string)
+        ? OperationsDate.fromString(body["endTime"] as string)
         : undefined;
 
       /*

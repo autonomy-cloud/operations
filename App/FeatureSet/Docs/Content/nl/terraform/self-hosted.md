@@ -46,8 +46,8 @@ curl https://your-operations-instance.com/api/status
 Als u Cast Operations met Docker uitvoert:
 
 ```bash
-docker images | grep oneuptime
-# Zoek naar de tag, bijv. oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# Zoek naar de tag, bijv. cast-operations/dashboard:7.0.123
 ```
 
 ### Methode 4: Helm-chart
@@ -55,7 +55,7 @@ docker images | grep oneuptime
 Als u Helm gebruikt:
 
 ```bash
-helm list -n oneuptime
+helm list -n cast-operations
 # Controleer de chartversie
 ```
 
@@ -64,7 +64,7 @@ helm list -n oneuptime
 Controleer uw configuratiebestanden op versievariabelen:
 
 ```bash
-grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
+grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/cast-operations/config
 ```
 
 ## Providerconfiguratie-sjablonen
@@ -74,7 +74,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Vervang 123 door uw exacte buildnummer
     }
@@ -82,9 +82,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # Uw zelf-gehoste URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # Uw zelf-gehoste URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -93,7 +93,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # Vervang door uw exacte versie
     }
@@ -101,9 +101,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -115,7 +115,7 @@ Hier is een volledig voorbeeld voor een zelf-gehoste Cast Operations-instantie:
 # versions.tf
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Moet overeenkomen met uw Cast Operations-versie
     }
@@ -125,19 +125,19 @@ terraform {
   # Optioneel: Gebruik externe status voor teamsamenwerking
   backend "s3" {
     bucket = "your-terraform-state-bucket"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
 
 # variables.tf
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast Operations-instantie-URL"
   type        = string
   default     = "https://operations.yourcompany.com"
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API-sleutel"
   type        = string
   sensitive   = true
@@ -150,9 +150,9 @@ variable "environment" {
 }
 
 # providers.tf
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # variables.tf
@@ -163,21 +163,21 @@ variable "project_id" {
 
 # main.tf
 # Teams aanmaken
-resource "oneuptime_team" "infrastructure" {
+resource "cast_operations_team" "infrastructure" {
   name        = "Infrastructuurteam"
   description = "Infrastructuur- en operatieteam"
 }
 
-resource "oneuptime_team" "development" {
+resource "cast_operations_team" "development" {
   name        = "Ontwikkelingsteam"
   description = "Applicatieontwikkelingsteam"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 }
 
 # Infrastructuurmonitors
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "${var.environment}-database"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "port"
   hostname     = "db.internal.yourcompany.com"
@@ -193,9 +193,9 @@ resource "oneuptime_monitor" "database" {
   }
 }
 
-resource "oneuptime_monitor" "application" {
+resource "cast_operations_monitor" "application" {
   name       = "${var.environment}-application"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "website"
   url          = "https://app.yourcompany.com/health"
@@ -219,7 +219,7 @@ resource "oneuptime_monitor" "application" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://operations-dev.yourcompany.com"
+cast_operations_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -227,7 +227,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://operations-staging.yourcompany.com"
+cast_operations_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -235,7 +235,7 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://operations.yourcompany.com"
+cast_operations_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
@@ -253,7 +253,7 @@ terraform state pull > backup-$(date +%Y%m%d).tfstate
 curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Huidige providerversie noteren
-terraform providers | grep oneuptime
+terraform providers | grep cast-operations
 ```
 
 ### 2. Cast Operations-instantie upgraden
@@ -266,7 +266,7 @@ Volg uw standaard Cast Operations-upgradeproces (Docker, Helm, enz.)
 # Versie bijwerken in terraform-blok
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # Nieuwe versie na upgrade
     }
@@ -301,9 +301,9 @@ Zorg dat uw Terraform-runner toegang heeft tot:
 Als Cast Operations op een privénetwerk staat:
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://10.0.1.100:443"  # Intern IP
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://10.0.1.100:443"  # Intern IP
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -313,10 +313,10 @@ provider "oneuptime" {
 
 ```bash
 # Omgevingsvariabelen gebruiken
-export ONEUPTIME_API_KEY="your-api-key"
+export CAST_OPERATIONS_API_KEY="your-api-key"
 
 # Of gebruik een geheimbeheersysteem
-export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
+export CAST_OPERATIONS_API_KEY=$(vault kv get -field=api_key secret/cast-operations)
 ```
 
 ### 2. Principe van minimale bevoegdheden voor API-sleutels
@@ -372,7 +372,7 @@ terraform/
 │       ├── main.tf
 │       └── terraform.tfvars
 └── modules/
-    └── oneuptime/
+    └── cast-operations/
         ├── main.tf
         ├── variables.tf
         └── outputs.tf
@@ -413,7 +413,7 @@ Als u zelfondertekende certificaten gebruikt:
 
 ```bash
 # TLS-verificatie tijdelijk overslaan (niet aanbevolen voor productie)
-export ONEUPTIME_SKIP_TLS_VERIFY=true
+export CAST_OPERATIONS_SKIP_TLS_VERIFY=true
 ```
 
 Betere oplossing: Voeg uw CA-certificaat toe aan de systeemvertrouwensopslag.

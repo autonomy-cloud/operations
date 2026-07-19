@@ -20,7 +20,7 @@ import ObjectID from "Common/Types/ObjectID";
 import Route from "Common/Types/API/Route";
 import RouteMap, { RouteUtil } from "../../Utils/RouteMap";
 import PageMap from "../../Utils/PageMap";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import useTranslateValue from "Common/UI/Utils/Translation";
 import {
   formatCallRate,
@@ -332,7 +332,7 @@ const EntityDetailPanel: FunctionComponent<ComponentProps> = (
               <div className="flex justify-between gap-4">
                 <dt>{translateString("First seen") || ""}</dt>
                 <dd>
-                  {OneUptimeDate.getDateAsLocalFormattedString(
+                  {OperationsDate.getDateAsLocalFormattedString(
                     entity.firstSeenAt,
                   )}
                 </dd>
@@ -342,7 +342,7 @@ const EntityDetailPanel: FunctionComponent<ComponentProps> = (
               <div className="flex justify-between gap-4">
                 <dt>{translateString("Last seen") || ""}</dt>
                 <dd>
-                  {OneUptimeDate.getDateAsLocalFormattedString(
+                  {OperationsDate.getDateAsLocalFormattedString(
                     entity.lastSeenAt,
                   )}
                 </dd>

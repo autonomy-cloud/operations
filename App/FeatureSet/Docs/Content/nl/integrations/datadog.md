@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. Ga in Datadog naar **Integrations → Webhooks** (installeer de **Webhooks**-integratie als je dat nog niet hebt gedaan).
 2. **Voeg een webhook toe**:
 
-   - **Name**: `oneuptime` (dit wordt `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (dit wordt `@webhook-cast-operations`).
    - **URL**: de webhook-URL van je workflow.
    - **Payload** — Datadog laat je de JSON-body definiëren met [sjabloonvariabelen](https://docs.datadoghq.com/integrations/webhooks/#usage):
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Voeg de webhook-handle toe aan de monitors die je wilt doorsturen. Neem in het **notificatiebericht** van elke monitor het volgende op:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Hiermee worden zowel de alert als het herstel naar Cast Operations gestuurd. (Om alles door te sturen kun je ook onvoorwaardelijk `@webhook-oneuptime` toevoegen aan een monitor.)
+Hiermee worden zowel de alert als het herstel naar Cast Operations gestuurd. (Om alles door te sturen kun je ook onvoorwaardelijk `@webhook-cast-operations` toevoegen aan een monitor.)
 
 ## Stap 4 — Test het
 
@@ -74,7 +74,7 @@ Hiermee worden zowel de alert als het herstel naar Cast Operations gestuurd. (Om
 
 ## Probleemoplossing
 
-- **Er verschijnt geen run** — bevestig dat het bericht van de monitor `@webhook-oneuptime` bevat en dat de workflow **Enabled** is.
+- **Er verschijnt geen run** — bevestig dat het bericht van de monitor `@webhook-cast-operations` bevat en dat de workflow **Enabled** is.
 - **Velden zijn leeg** — Datadog vervangt alleen sjabloonvariabelen die van toepassing zijn op het event. Bekijk de triggeruitvoer in het tabblad **Logs** en pas je webhook-payload aan.
 - **Dubbele incidenten** — een monitor die opnieuw alertt (renotify) stuurt meerdere `Triggered`-events; dedupliceer met een **Find Incident**-controle op het `id` vóór het aanmaken.
 

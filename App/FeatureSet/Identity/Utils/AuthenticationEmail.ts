@@ -3,7 +3,7 @@ import Hostname from "Common/Types/API/Hostname";
 import Protocol from "Common/Types/API/Protocol";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Email from "Common/Types/Email";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
 import ObjectID from "Common/Types/ObjectID";
@@ -23,7 +23,7 @@ export default class AuthenticationEmail {
     emailVerificationToken.userId = user?.id as ObjectID;
     emailVerificationToken.email = user?.email as Email;
     emailVerificationToken.token = generatedToken;
-    emailVerificationToken.expires = OneUptimeDate.getOneDayAfter();
+    emailVerificationToken.expires = OperationsDate.getOneDayAfter();
 
     await EmailVerificationTokenService.create({
       data: emailVerificationToken,

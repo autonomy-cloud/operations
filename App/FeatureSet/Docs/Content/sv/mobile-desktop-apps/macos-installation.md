@@ -231,10 +231,10 @@ Hantera Cast Operations via Terminal:
 
 ```bash
 # Skapa alias för snabb Cast Operations-start
-echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
+echo 'alias cast-operations="open -a \"Cast Operations\""' >> ~/.zshrc
 
 # Funktion för att kontrollera om Cast Operations körs
-oneuptime_status() {
+cast_operations_status() {
     if pgrep -f "Cast Operations" > /dev/null; then
         echo "Cast Operations is running"
     else

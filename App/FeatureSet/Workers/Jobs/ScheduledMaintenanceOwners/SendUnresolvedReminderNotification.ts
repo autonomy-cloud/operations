@@ -1,6 +1,6 @@
 import RunCron from "../../Utils/Cron";
 import { CallRequestMessage } from "Common/Types/Call/CallRequest";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import { EmailEnvelope } from "Common/Types/Email/EmailMessage";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
@@ -40,7 +40,7 @@ RunCron(
       await ScheduledMaintenanceService.findAllBy({
         query: {
           nextReminderNotificationAt: QueryHelper.lessThan(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
         },
         props: {
@@ -139,12 +139,12 @@ const sendReminderForScheduledMaintenance: SendReminderForScheduledMaintenanceFu
     if (
       !rule.remindWhileScheduled &&
       scheduledMaintenance.startsAt &&
-      OneUptimeDate.isInTheFuture(scheduledMaintenance.startsAt)
+      OperationsDate.isInTheFuture(scheduledMaintenance.startsAt)
     ) {
       await ScheduledMaintenanceService.updateOneById({
         id: scheduledMaintenanceId,
         data: {
-          nextReminderNotificationAt: OneUptimeDate.addRemoveMinutes(
+          nextReminderNotificationAt: OperationsDate.addRemoveMinutes(
             scheduledMaintenance.startsAt,
             rule.reminderIntervalInMinutes,
           ),
@@ -184,8 +184,8 @@ const sendReminderForScheduledMaintenance: SendReminderForScheduledMaintenanceFu
     await ScheduledMaintenanceService.updateOneById({
       id: scheduledMaintenanceId,
       data: {
-        nextReminderNotificationAt: OneUptimeDate.addRemoveMinutes(
-          OneUptimeDate.getCurrentDate(),
+        nextReminderNotificationAt: OperationsDate.addRemoveMinutes(
+          OperationsDate.getCurrentDate(),
           rule.reminderIntervalInMinutes,
         ),
         reminderNotificationSentCount:
@@ -221,14 +221,14 @@ const sendReminderForScheduledMaintenance: SendReminderForScheduledMaintenanceFu
      */
     const openedAt: Date =
       scheduledMaintenance.startsAt &&
-      OneUptimeDate.isInThePast(scheduledMaintenance.startsAt)
+      OperationsDate.isInThePast(scheduledMaintenance.startsAt)
         ? scheduledMaintenance.startsAt
         : scheduledMaintenance.createdAt!;
 
     const openDuration: string =
-      OneUptimeDate.convertSecondsToDaysHoursMinutesAndSeconds(
-        OneUptimeDate.getDifferenceInSeconds(
-          OneUptimeDate.getCurrentDate(),
+      OperationsDate.convertSecondsToDaysHoursMinutesAndSeconds(
+        OperationsDate.getDifferenceInSeconds(
+          OperationsDate.getCurrentDate(),
           openedAt,
         ),
       );
@@ -266,7 +266,7 @@ const sendReminderForScheduledMaintenance: SendReminderForScheduledMaintenanceFu
         projectName: scheduledMaintenance.project!.name!,
         currentState: currentStateName,
         openDuration: openDuration,
-        openedAt: OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+        openedAt: OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
           date: openedAt,
           timezones: user.timezone ? [user.timezone] : [],
         }),

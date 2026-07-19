@@ -1,6 +1,6 @@
 import DataMigrationBase from "./DataMigrationBase";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import MonitorProbeService from "Common/Server/Services/MonitorProbeService";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
 import MonitorProbe from "Common/Models/DatabaseModels/MonitorProbe";
@@ -31,7 +31,7 @@ export default class AddMonitoringDatesToMonitor extends DataMigrationBase {
       await MonitorProbeService.updateOneById({
         id: probeMonitor.id!,
         data: {
-          nextPingAt: OneUptimeDate.getCurrentDate(),
+          nextPingAt: OperationsDate.getCurrentDate(),
         },
         props: {
           isRoot: true,
@@ -59,7 +59,7 @@ export default class AddMonitoringDatesToMonitor extends DataMigrationBase {
       await MonitorProbeService.updateOneById({
         id: probeMonitor.id!,
         data: {
-          lastPingAt: OneUptimeDate.getCurrentDate(),
+          lastPingAt: OperationsDate.getCurrentDate(),
         },
         props: {
           isRoot: true,

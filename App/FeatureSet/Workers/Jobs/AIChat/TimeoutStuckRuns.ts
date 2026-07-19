@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import AIRunStatus from "Common/Types/AI/AIRunStatus";
 import AIRunType from "Common/Types/AI/AIRunType";
 import AIChatMessageStatus from "Common/Types/AI/AIChatMessageStatus";
@@ -35,7 +35,7 @@ RunCron(
     runOnStartup: false,
   },
   async () => {
-    const timeoutThreshold: Date = OneUptimeDate.getSomeMinutesAgo(
+    const timeoutThreshold: Date = OperationsDate.getSomeMinutesAgo(
       RUN_HEARTBEAT_TIMEOUT_MINUTES,
     );
 
@@ -106,7 +106,7 @@ RunCron(
           id: run.id!,
           data: {
             status: AIRunStatus.Stale,
-            completedAt: OneUptimeDate.getCurrentDate(),
+            completedAt: OperationsDate.getCurrentDate(),
             errorMessage:
               "The run stopped reporting progress and was marked as stale. The server processing it may have restarted.",
           },

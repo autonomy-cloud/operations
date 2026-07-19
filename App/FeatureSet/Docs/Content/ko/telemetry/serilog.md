@@ -27,7 +27,7 @@ Telemetry Ingestion Key 페이지에서 "Create Ingestion Key"를 클릭하여 �
 | 설정            | 값                                                  |
 | --------------- | --------------------------------------------------- |
 | OTLP 엔드포인트 | `https://visca.ai/otlp`                        |
-| 인증 헤더       | `x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN` |
+| 인증 헤더       | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN` |
 | 서비스 이름     | 서비스가 표시될 이름, 예: `my-service`              |
 
 > **Cast Operations을 자체 호스팅하시나요?** `https://visca.ai/otlp`를 `https://YOUR-OPERATIONS-HOST/otlp`로 교체하세요(TLS를 종료하지 않는 경우 `http://...`). 그 외 나머지는 모두 동일하게 유지됩니다.
@@ -76,7 +76,7 @@ Log.Logger = new LoggerConfiguration()
         // Authenticate with your Cast Operations telemetry ingestion token.
         options.Headers = new Dictionary<string, string>
         {
-            ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+            ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
         };
 
         // Identify your service in Cast Operations.
@@ -118,7 +118,7 @@ finally
           "endpoint": "https://visca.ai/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
-            "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+            "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
           },
           "resourceAttributes": {
             "service.name": "my-service",
@@ -169,7 +169,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
-                ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+                ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
             };
             options.ResourceAttributes = new Dictionary<string, object>
             {
@@ -228,9 +228,9 @@ Cast Operations은 이러한 속성을 감지하여 오류를 자동으로 **Exc
 
 ## 문제 해결
 
-- **로그가 표시되지 않음** – `x-oneuptime-token` 값을 다시 확인하고 그것이 보고 있는 프로젝트에 속하는지 확인하세요. 엔드포인트가 `https://visca.ai/otlp`인지 확인하세요(기본 경로만 사용 — `/v1/logs`를 직접 추가하지 마세요).
+- **로그가 표시되지 않음** – `x-cast-operations-token` 값을 다시 확인하고 그것이 보고 있는 프로젝트에 속하는지 확인하세요. 엔드포인트가 `https://visca.ai/otlp`인지 확인하세요(기본 경로만 사용 — `/v1/logs`를 직접 추가하지 마세요).
 - **앱이 종료될 때만 로그가 표시되거나 마지막 로그가 누락됨** – 종료 시 `Log.CloseAndFlush()`가 실행되는지 확인하세요. 싱크는 이벤트를 일괄 처리하므로, 플러시 없이 프로세스가 종료되면 버퍼링된 로그가 손실됩니다.
-- **`401 Unauthorized` / 아무것도 수집되지 않음** – 토큰이 누락되었거나 유효하지 않습니다. 헤더 키가 정확히 `x-oneuptime-token`인지 확인하세요.
+- **`401 Unauthorized` / 아무것도 수집되지 않음** – 토큰이 누락되었거나 유효하지 않습니다. 헤더 키가 정확히 `x-cast-operations-token`인지 확인하세요.
 - **잘못된 서비스 이름** – `ResourceAttributes`(코드) 또는 `resourceAttributes`(appsettings.json)에서 `service.name`을 설정하세요. 이를 설정하지 않으면 로그가 기본/알 수 없는 서비스로 대체됩니다.
 - **자체 호스팅 인스턴스에 대한 연결 오류** – 프로토콜이 엔드포인트 스킴(`https://` 대 `http://`)과 일치하는지, 그리고 Cast Operations 호스트가 애플리케이션에서 도달 가능한지 확인하세요.
 

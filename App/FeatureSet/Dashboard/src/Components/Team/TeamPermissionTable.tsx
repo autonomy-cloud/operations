@@ -113,10 +113,6 @@ const TeamPermissionTable: FunctionComponent<ComponentProps> = (
     [Permission.SettingsMember]: IconProp.Settings,
     [Permission.SettingsViewer]: IconProp.Settings,
 
-    [Permission.BillingAdmin]: IconProp.CreditCard,
-    [Permission.BillingMember]: IconProp.CreditCard,
-    [Permission.BillingViewer]: IconProp.CreditCard,
-
     [Permission.WorkflowAdmin]: IconProp.Workflow,
     [Permission.WorkflowMember]: IconProp.Workflow,
     [Permission.WorkflowViewer]: IconProp.Workflow,
@@ -153,9 +149,7 @@ const TeamPermissionTable: FunctionComponent<ComponentProps> = (
       p.permission === Permission.SettingsAdmin ||
       p.permission === Permission.SettingsMember ||
       p.permission === Permission.SettingsViewer ||
-      p.permission === Permission.BillingAdmin ||
-      p.permission === Permission.BillingMember ||
-      p.permission === Permission.BillingViewer
+      false
     ) {
       administrationRoles.push(option);
     } else {

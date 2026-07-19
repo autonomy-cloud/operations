@@ -14,19 +14,19 @@ Cast Operations Docker Agent 是一个预构建的容器镜像，内置了经过
 
 ## 快速开始（一条命令）
 
-请将 `YOUR_ONEUPTIME_URL`、`YOUR_TELEMETRY_INGESTION_TOKEN` 以及主机名替换为你自己环境中的值。主机名决定了该 Docker 主机在 Cast Operations 中的显示方式 —— 可以选用类似 `prod-docker-01` 这样的名称。
+请将 `YOUR_CAST_OPERATIONS_URL`、`YOUR_TELEMETRY_INGESTION_TOKEN` 以及主机名替换为你自己环境中的值。主机名决定了该 Docker 主机在 Cast Operations 中的显示方式 —— 可以选用类似 `prod-docker-01` 这样的名称。
 
 ```bash
 docker run -d \
-  --name oneuptime-docker-agent \
+  --name cast-operations-docker-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="YOUR_ONEUPTIME_URL" \
-  -e ONEUPTIME_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 ```
 
 就是这样。一旦 agent 连接成功，你的 Docker 主机就会自动出现在 Cast Operations 仪表板的 **Docker** 板块中。
@@ -37,17 +37,17 @@ docker run -d \
 
 ```yaml
 services:
-  oneuptime-docker-agent:
-    image: oneuptime/docker-agent:release
-    container_name: oneuptime-docker-agent
+  cast-operations-docker-agent:
+    image: cast-operations/docker-agent:release
+    container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
-      - ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-      - ONEUPTIME_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
+      - CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+      - CAST_OPERATIONS_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
       - DOCKER_HOST_NAME=my-docker-host
     logging:
       driver: json-file
@@ -66,8 +66,8 @@ docker compose up -d
 
 | 变量                      | 是否必需 | 说明                                                                                            |
 | ------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | 是       | 你的 Cast Operations 实例 URL（例如 `https://visca.ai` 或你自托管的主机地址）                    |
-| `ONEUPTIME_SERVICE_TOKEN` | 是       | 来自 _Project Settings → Telemetry Ingestion Keys_ 的遥测摄取令牌                               |
+| `CAST_OPERATIONS_URL`           | 是       | 你的 Cast Operations 实例 URL（例如 `https://visca.ai` 或你自托管的主机地址）                    |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | 是       | 来自 _Project Settings → Telemetry Ingestion Keys_ 的遥测摄取令牌                               |
 | `DOCKER_HOST_NAME`        | 否       | 该主机的友好名称。默认值为 `docker-host`。请为每台主机设置一个稳定的值（例如 `prod-docker-01`） |
 
 ## 验证安装
@@ -75,13 +75,13 @@ docker compose up -d
 检查 agent 是否正在运行：
 
 ```bash
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 ```
 
 查看 agent 日志：
 
 ```bash
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 ```
 
 留意这一行：`"Everything is ready. Begin running and processing data."`
@@ -91,8 +91,8 @@ docker logs -f oneuptime-docker-agent
 ## 升级 Agent
 
 ```bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # 重新运行上面的 `docker run` 命令
 ```
 
@@ -106,7 +106,7 @@ docker compose up -d
 ## 卸载 Agent
 
 ```bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 ```
 
 如果你使用的是 Docker Compose：
@@ -128,10 +128,10 @@ docker compose down
 
 ## 自托管的 Cast Operations
 
-如果你正在自托管 Cast Operations，请将 `ONEUPTIME_URL` 设置为你自己的实例：
+如果你正在自托管 Cast Operations，请将 `CAST_OPERATIONS_URL` 设置为你自己的实例：
 
 ```bash
--e ONEUPTIME_URL="https://your-operations-host.example.com"
+-e CAST_OPERATIONS_URL="https://your-operations-host.example.com"
 ```
 
 如果你的实例仅支持 HTTP，请使用 `http://` 以及相应的端口。
@@ -144,15 +144,15 @@ agent 容器必须以 root 身份运行（`--user 0:0`）才能访问 `/var/run/
 
 ### Agent 显示为已断开连接
 
-1. 检查 agent 是否正在运行：`docker ps --filter name=oneuptime-docker-agent`
-2. 查看 agent 日志：`docker logs oneuptime-docker-agent | grep -i error`
+1. 检查 agent 是否正在运行：`docker ps --filter name=cast-operations-docker-agent`
+2. 查看 agent 日志：`docker logs cast-operations-docker-agent | grep -i error`
 3. 确认你的 Cast Operations URL 和服务令牌是否正确
 4. 确保你的 Docker 主机可以通过网络访问到该 Cast Operations 实例
 
 ### 没有出现任何指标
 
-1. 验证 agent 内部能否访问 Docker socket：`docker exec oneuptime-docker-agent ls -la /var/run/docker.sock`
-2. 检查 collector 日志中是否有导出错误：`docker logs oneuptime-docker-agent | tail -100`
+1. 验证 agent 内部能否访问 Docker socket：`docker exec cast-operations-docker-agent ls -la /var/run/docker.sock`
+2. 检查 collector 日志中是否有导出错误：`docker logs cast-operations-docker-agent | tail -100`
 3. 确保你的服务令牌有效且未过期
 
 ### 主机名显示为容器 ID

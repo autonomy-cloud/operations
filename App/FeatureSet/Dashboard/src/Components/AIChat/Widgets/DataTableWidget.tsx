@@ -1,6 +1,6 @@
 import { AIChatWidget, AIChatWidgetColumn } from "Common/Types/AI/AIChatTypes";
 import { JSONObject } from "Common/Types/JSON";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import React, { FunctionComponent, ReactElement } from "react";
 
 export interface ComponentProps {
@@ -16,10 +16,10 @@ function renderCell(value: unknown, column: AIChatWidgetColumn): string {
   }
   if (column.type === "date") {
     try {
-      const date: Date = OneUptimeDate.fromString(value as string);
-      return `${OneUptimeDate.getDateAsLocalFormattedString(
+      const date: Date = OperationsDate.fromString(value as string);
+      return `${OperationsDate.getDateAsLocalFormattedString(
         date,
-      )} · ${OneUptimeDate.fromNow(date)}`;
+      )} · ${OperationsDate.fromNow(date)}`;
     } catch {
       return String(value);
     }

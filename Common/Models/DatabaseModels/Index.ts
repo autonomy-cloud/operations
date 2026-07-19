@@ -61,8 +61,6 @@ import RumApplicationClient from "./RumApplicationClient";
 // API Keys
 import ApiKey from "./ApiKey";
 import ApiKeyPermission from "./ApiKeyPermission";
-import BillingInvoice from "./BillingInvoice";
-import BillingPaymentMethods from "./BillingPaymentMethod";
 import CallLog from "./CallLog";
 // Date migration
 import DataMigration from "./DataMigration";
@@ -192,12 +190,7 @@ import GlobalSSO from "./GlobalSso";
 import GlobalOIDC from "./GlobalOidc";
 import GlobalSSOProject from "./GlobalSsoProject";
 import GlobalOIDCProject from "./GlobalOidcProject";
-import PromoCode from "./PromoCode";
-import EnterpriseLicense from "./EnterpriseLicense";
-import EnterpriseLicenseInstance from "./EnterpriseLicenseInstance";
 import OpenSourceDeployment from "./OpenSourceDeployment";
-import Reseller from "./Reseller";
-import ResellerPlan from "./ResellerPlan";
 // ScheduledMaintenances
 import ScheduledMaintenance from "./ScheduledMaintenance";
 import ScheduledMaintenanceCustomField from "./ScheduledMaintenanceCustomField";
@@ -249,7 +242,6 @@ import TeamMember from "./TeamMember";
 import TeamMemberCustomField from "./TeamMemberCustomField";
 import TeamPermission from "./TeamPermission";
 import TeamComplianceSetting from "./TeamComplianceSetting";
-import UsageBilling from "./TelemetryUsageBilling";
 import User from "./User";
 import UserSession from "./UserSession";
 import UserCall from "./UserCall";
@@ -588,9 +580,6 @@ const AllModelTypes: Array<{
   ScheduledMaintenanceCustomField,
   ScheduledMaintenanceFeed,
 
-  BillingPaymentMethods,
-  BillingInvoice,
-
   GreenlockChallenge,
   GreenlockCertificate,
 
@@ -666,12 +655,6 @@ const AllModelTypes: Array<{
   ScheduledMaintenanceTemplateOwnerUser,
   ScheduledMaintenanceNoteTemplate,
 
-  Reseller,
-  ResellerPlan,
-
-  PromoCode,
-  EnterpriseLicense,
-  EnterpriseLicenseInstance,
   OpenSourceDeployment,
 
   GlobalConfig,
@@ -699,8 +682,6 @@ const AllModelTypes: Array<{
   IncomingCallPolicyLabelRule,
   IncomingCallPolicyOwnerRule,
   OnCallDutyPolicyEscalationRuleSchedule,
-
-  UsageBilling,
 
   ProjectCallSMSConfig,
   ProjectUserProfile,

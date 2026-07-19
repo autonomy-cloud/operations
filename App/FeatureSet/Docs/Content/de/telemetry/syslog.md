@@ -6,9 +6,9 @@ Der OpenTelemetry Ingest-Dienst akzeptiert jetzt native Syslog-Payloads. Sie kö
 
 ## Voraussetzungen
 
-- **Telemetrie-Ingestion-Token** – erstellen Sie eines über _Projekteinstellungen → Telemetrie-Ingestion-Schlüssel_ und kopieren Sie den `x-oneuptime-token`-Wert.
+- **Telemetrie-Ingestion-Token** – erstellen Sie eines über _Projekteinstellungen → Telemetrie-Ingestion-Schlüssel_ und kopieren Sie den `x-cast-operations-token`-Wert.
 - **Syslog-Forwarder** – jedes Tool, das HTTP-POST-Anfragen senden kann (z. B. `curl`, `rsyslog` über `omhttp` oder `syslog-ng` mit dem HTTP-Ziel-Plugin).
-- **Dienstname (optional)** – setzen Sie den `x-oneuptime-service-name`-Header, um eingehende Logs einem bestimmten Telemetrie-Dienst zuzuordnen.
+- **Dienstname (optional)** – setzen Sie den `x-cast-operations-service-name`-Header, um eingehende Logs einem bestimmten Telemetrie-Dienst zuzuordnen.
 
 ## Endpunkt
 
@@ -17,7 +17,7 @@ POST https://visca.ai/syslog/v1/logs
 ```
 
 - Ersetzen Sie `visca.ai` durch Ihren Host, wenn Sie Cast Operations selbst hosten.
-- Schließen Sie immer den `x-oneuptime-token`-Header in die Anfrage ein.
+- Schließen Sie immer den `x-cast-operations-token`-Header in die Anfrage ein.
 
 ## Anfragekörper
 
@@ -44,8 +44,8 @@ Senden Sie zeilengetrennte Syslog-Zeichenketten oder eine JSON-Payload mit einem
 curl \
   -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
-  -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
-  -H "x-oneuptime-service-name: production-web" \
+  -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
+  -H "x-cast-operations-service-name: production-web" \
   -d '{
     "messages": [
       "<34>1 2025-03-02T14:48:05.003Z web-01 nginx 7421 ID47 [env@32473 host=\"web-01\"] 502 on /api/login"
@@ -59,7 +59,7 @@ curl \
    ```bash
    sudo apt-get install rsyslog-omhttp
    ```
-2. Ziel an `/etc/rsyslog.d/oneuptime.conf` anhängen:
+2. Ziel an `/etc/rsyslog.d/cast-operations.conf` anhängen:
 
    ```
    module(load="omhttp")
@@ -77,8 +77,8 @@ curl \
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
-     header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
-     header="x-oneuptime-service-name: rsyslog-demo"
+     header="x-cast-operations-token: YOUR_TELEMETRY_KEY"
+     header="x-cast-operations-service-name: rsyslog-demo"
      template="Cast OperationsJson"
    )
    ```
@@ -102,6 +102,6 @@ Diese Attribute werden im Telemetrie-Log-Explorer durchsuchbar.
 
 ## Fehlerbehebung
 
-- **HTTP 401 oder leere Ergebnisse** – überprüfen Sie, ob der `x-oneuptime-token`-Header zum Projekt gehört, das die Logs empfängt.
+- **HTTP 401 oder leere Ergebnisse** – überprüfen Sie, ob der `x-cast-operations-token`-Header zum Projekt gehört, das die Logs empfängt.
 - **Keine Logs erscheinen** – stellen Sie sicher, dass der Anfragekörper tatsächlich Syslog-Zeilen enthält. Leere Körper werden mit HTTP 400 abgelehnt.
-- **Unerwarteter Dienstname** – setzen Sie `x-oneuptime-service-name`, um die Standard-Erkennungslogik zu überschreiben.
+- **Unerwarteter Dienstname** – setzen Sie `x-cast-operations-service-name`, um die Standard-Erkennungslogik zu überschreiben.

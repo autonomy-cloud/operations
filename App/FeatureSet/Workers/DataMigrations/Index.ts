@@ -26,11 +26,9 @@ import DataMigrationBase from "./DataMigrationBase";
 import GenerateNewCertsForStatusPage from "./GenerateNewCertsForStatusPage";
 import MigrateDefaultUserNotificationRule from "./MigrateDefaultUserNotificationRule";
 import MigrateDefaultUserNotificationSetting from "./MigrateDefaultUserSettingNotification";
-import MigrateToMeteredSubscription from "./MigrateToMeteredSubscription";
 import MoveEnableSubscribersToEnableEmailSubscribersOnStatusPage from "./MoveEnableSubscribersToEnableEmailSubscribersOnStatusPage";
 import MoveGreenlockCertsToAcmeCerts from "./MoveGreenlockCertsToAcmeCerts";
 import RemoveCanFromPermissions from "./RemoveCanFromPermissions";
-import UpdateActiveMonitorCountToBillingProvider from "./UpdateActiveMonitorCountToBillingProvider";
 import UpdateGlobalConfigFromEnv from "./UpdateGlobalCongfigFromEnv";
 import MigrateServiceLanguageToTechStack from "./MigrateServiceLanguageToTechStack";
 import DeleteOldTelemetryTable from "./DeleteOldTelelmetryTable";
@@ -99,8 +97,6 @@ const DataMigrations: Array<DataMigrationBase> = [
   new MigrateDefaultUserNotificationRule(),
   new AddOwnerInfoToProjects(),
   new MigrateDefaultUserNotificationSetting(),
-  new MigrateToMeteredSubscription(),
-  new UpdateActiveMonitorCountToBillingProvider(),
   new AddMonitoringDatesToMonitor(),
   new AddEndedState(),
   new AddDefaultGlobalConfig(),

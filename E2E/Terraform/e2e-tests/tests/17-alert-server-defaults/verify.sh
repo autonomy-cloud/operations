@@ -27,7 +27,7 @@ echo "  Verifying alert with server defaults via API..."
 echo "  Verifying alert severity..."
 echo "    Alert Severity ID: $ALERT_SEVERITY_ID"
 
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/alert-severity/${ALERT_SEVERITY_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/alert-severity/${ALERT_SEVERITY_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \
@@ -53,7 +53,7 @@ echo ""
 echo "  Verifying alert resource..."
 echo "    Alert ID: $ALERT_ID"
 
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/alert/${ALERT_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/alert/${ALERT_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \

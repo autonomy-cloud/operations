@@ -3,11 +3,8 @@ import Team from "./Team";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
-import TableEditionAccessControl from "../../Types/Database/AccessControl/TableEditionAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import ColumnType from "../../Types/Database/ColumnType";
 import CrudApiEndpoint from "../../Types/Database/CrudApiEndpoint";
@@ -24,15 +21,6 @@ import Permission from "../../Types/Permission";
 import ComplianceRuleType from "../../Types/Team/ComplianceRuleType";
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 
-@TableEditionAccessControl({
-  requiresEnterprise: true,
-})
-@TableBillingAccessControl({
-  create: PlanType.Scale,
-  read: PlanType.Free,
-  update: PlanType.Scale,
-  delete: PlanType.Free,
-})
 @EnableDocumentation()
 @TableAccessControl({
   create: [
@@ -135,7 +123,8 @@ export default class TeamComplianceSetting extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

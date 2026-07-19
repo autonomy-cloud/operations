@@ -115,7 +115,7 @@ export default class AlertAPI extends BaseAPI<Alert, AlertServiceType> {
     const aiContext: AIGenerationContext =
       AlertAIContextBuilder.formatAlertContextForNote(contextData, template);
 
-    // Generate note using AIService (handles billing and logging)
+    // Generate note using AIService (handles provider execution and logging).
     const aiLogRequest: AILogRequest = {
       projectId: alert.projectId,
       feature: "Alert Internal Note",

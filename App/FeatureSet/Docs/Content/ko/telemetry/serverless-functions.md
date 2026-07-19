@@ -8,7 +8,7 @@ Cast Operations은 `faas.name` 리소스 속성으로 태그된 OpenTelemetry �
 
 ## 사전 요구 사항
 
-- **Cast Operations 텔레메트리 수집 토큰(Telemetry Ingestion Token)** — *Project Settings → Telemetry Ingestion Keys*에서 하나를 생성하고 `x-oneuptime-token` 값을 복사합니다.
+- **Cast Operations 텔레메트리 수집 토큰(Telemetry Ingestion Token)** — *Project Settings → Telemetry Ingestion Keys*에서 하나를 생성하고 `x-cast-operations-token` 값을 복사합니다.
 - 함수의 언어에 맞는 OpenTelemetry SDK(또는 자동 계측 레이어).
 
 ## Cast Operations이 함수를 식별하는 방법
@@ -31,7 +31,7 @@ Cast Operations은 각 함수를 `faas.name` 리소스 속성을 기준으로 �
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
@@ -44,7 +44,7 @@ AWS Lambda의 경우 가장 간단한 방법은 [OpenTelemetry Lambda 레이어]
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
 OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 이 레이어는 함수 이름에서 `faas.name`을 자동으로 설정하며, 리소스 디텍터가 `cloud.platform`, `cloud.region`, `cloud.account.id`를 채웁니다.

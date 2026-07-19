@@ -1,20 +1,20 @@
 import { describe, it, expect, beforeEach, jest } from "@jest/globals";
-import OneUptimeApiService from "../Services/OneUptimeApiService";
+import OperationsApiService from "../Services/OperationsApiService";
 import * as ToolGenerator from "../Tools/ToolGenerator";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 import { McpToolInfo } from "../Types/McpTypes";
 
 // Mock the dependencies
-jest.mock("../Services/OneUptimeApiService");
+jest.mock("../Services/OperationsApiService");
 jest.mock("../Tools/ToolGenerator");
 jest.mock("../Utils/MCPLogger");
 
 describe("Cast Operations MCP Server", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    process.env["ONEUPTIME_API_KEY"] = "test-api-key";
-    process.env["ONEUPTIME_URL"] = "https://test.visca.ai";
+    process.env["CAST_OPERATIONS_API_KEY"] = "test-api-key";
+    process.env["CAST_OPERATIONS_URL"] = "https://test.visca.ai";
   });
 
   describe("Server Initialization", () => {
@@ -25,7 +25,7 @@ describe("Cast Operations MCP Server", () => {
           description: "Create a new project",
           inputSchema: { type: "object", properties: {} },
           modelName: "Project",
-          operation: OneUptimeOperation.Create,
+          operation: OperationsOperation.Create,
           modelType: ModelType.Database,
           singularName: "project",
           pluralName: "projects",
@@ -35,20 +35,20 @@ describe("Cast Operations MCP Server", () => {
       ];
 
       (ToolGenerator.generateAllTools as jest.Mock).mockReturnValue(mockTools);
-      (OneUptimeApiService.initialize as jest.Mock).mockImplementation(
+      (OperationsApiService.initialize as jest.Mock).mockImplementation(
         () => {},
       );
 
       // Call the mocked functions to simulate server initialization
       ToolGenerator.generateAllTools();
-      OneUptimeApiService.initialize({
+      OperationsApiService.initialize({
         url: "https://test.visca.ai",
         apiKey: "test-api-key",
       });
 
       // Test that the functions were called
       expect(ToolGenerator.generateAllTools).toHaveBeenCalled();
-      expect(OneUptimeApiService.initialize).toHaveBeenCalledWith({
+      expect(OperationsApiService.initialize).toHaveBeenCalledWith({
         url: "https://test.visca.ai",
         apiKey: "test-api-key",
       });
@@ -56,7 +56,7 @@ describe("Cast Operations MCP Server", () => {
 
     it("should throw error when API key is missing", () => {
       // Mock the service to throw error for missing API key
-      (OneUptimeApiService.initialize as jest.Mock).mockImplementation(
+      (OperationsApiService.initialize as jest.Mock).mockImplementation(
         (config: unknown) => {
           const typedConfig: { url: string; apiKey: string } = config as {
             url: string;
@@ -69,7 +69,7 @@ describe("Cast Operations MCP Server", () => {
       );
 
       expect(() => {
-        OneUptimeApiService.initialize({
+        OperationsApiService.initialize({
           url: "https://test.visca.ai",
           apiKey: "",
         });
@@ -92,7 +92,7 @@ describe("Cast Operations MCP Server", () => {
             required: ["name", "url"],
           },
           modelName: "Monitor",
-          operation: OneUptimeOperation.Create,
+          operation: OperationsOperation.Create,
           modelType: ModelType.Database,
           singularName: "monitor",
           pluralName: "monitors",
@@ -110,7 +110,7 @@ describe("Cast Operations MCP Server", () => {
             },
           },
           modelName: "Project",
-          operation: OneUptimeOperation.List,
+          operation: OperationsOperation.List,
           modelType: ModelType.Database,
           singularName: "project",
           pluralName: "projects",
@@ -126,8 +126,8 @@ describe("Cast Operations MCP Server", () => {
       expect(tools).toHaveLength(2);
       expect(tools[0]?.name).toBe("create_monitor");
       expect(tools[1]?.name).toBe("list_projects");
-      expect(tools[0]?.operation).toBe(OneUptimeOperation.Create);
-      expect(tools[1]?.operation).toBe(OneUptimeOperation.List);
+      expect(tools[0]?.operation).toBe(OperationsOperation.Create);
+      expect(tools[1]?.operation).toBe(OperationsOperation.List);
     });
 
     it("should handle tool generation errors", () => {

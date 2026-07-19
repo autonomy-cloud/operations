@@ -36,7 +36,7 @@ import API from "Common/UI/Utils/API/API";
 import ModelAPI from "Common/UI/Utils/ModelAPI/ModelAPI";
 import ProjectUtil from "Common/UI/Utils/Project";
 import { APP_API_URL } from "Common/UI/Config";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import useTranslateValue from "Common/UI/Utils/Translation";
 import ObjectID from "Common/Types/ObjectID";
 import Route from "Common/Types/API/Route";
@@ -95,7 +95,7 @@ function parseBucketStart(value: string): Date {
   if (NAIVE_DATETIME_REGEX.test(value)) {
     return new Date(`${value.replace(" ", "T")}Z`);
   }
-  return OneUptimeDate.fromString(value);
+  return OperationsDate.fromString(value);
 }
 
 /*
@@ -172,8 +172,8 @@ const EdgeDetailPanel: FunctionComponent<ComponentProps> = (
               projectId: ProjectUtil.getCurrentProjectId()?.toString(),
               callerServiceName: fromName,
               calleeServiceName: toName,
-              startTime: OneUptimeDate.toString(window.startValue),
-              endTime: OneUptimeDate.toString(window.endValue),
+              startTime: OperationsDate.toString(window.startValue),
+              endTime: OperationsDate.toString(window.endValue),
               bucketSeconds: chartAlignedBucketSeconds(
                 Math.ceil(
                   (window.endValue.getTime() - window.startValue.getTime()) /

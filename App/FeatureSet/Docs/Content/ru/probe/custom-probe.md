@@ -11,10 +11,10 @@
 Для запуска зонда убедитесь, что Docker установлен. Пользовательский зонд можно запустить следующей командой:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
 ```
 
-При самостоятельном хостинге Cast Operations замените `ONEUPTIME_URL` на URL вашего экземпляра.
+При самостоятельном хостинге Cast Operations замените `CAST_OPERATIONS_URL` на URL вашего экземпляра.
 
 ##### Настройка прокси
 
@@ -22,32 +22,32 @@ docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PRO
 
 ```
 # Для HTTP-прокси
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # Для HTTPS-прокси
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # Прокси с аутентификацией
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 #### Docker Compose
@@ -58,13 +58,13 @@ docker run --name oneuptime-probe --network host \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -77,13 +77,13 @@ services:
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       # Настройка прокси (необязательно)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,35 +102,35 @@ services:
 docker compose up -d
 ```
 
-При самостоятельном хостинге Cast Operations замените `ONEUPTIME_URL` на URL вашего экземпляра.
+При самостоятельном хостинге Cast Operations замените `CAST_OPERATIONS_URL` на URL вашего экземпляра.
 
 #### Kubernetes
 
-Зонд также можно запустить в Kubernetes. Создайте файл `oneuptime-probe.yaml` со следующим содержимым:
+Зонд также можно запустить в Kubernetes. Создайте файл `cast-operations-probe.yaml` со следующим содержимым:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
@@ -142,25 +142,25 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             # Настройка прокси (необязательно)
             - name: HTTP_PROXY_URL
@@ -181,10 +181,10 @@ spec:
 Затем выполните команду:
 
 ```bash
-kubectl apply -f oneuptime-probe.yaml
+kubectl apply -f cast-operations-probe.yaml
 ```
 
-При самостоятельном хостинге Cast Operations замените `ONEUPTIME_URL` на URL вашего экземпляра.
+При самостоятельном хостинге Cast Operations замените `CAST_OPERATIONS_URL` на URL вашего экземпляра.
 
 ### Переменные среды
 
@@ -194,7 +194,7 @@ kubectl apply -f oneuptime-probe.yaml
 
 - `PROBE_KEY` — ключ зонда из вашей панели управления Cast Operations
 - `PROBE_ID` — идентификатор зонда из вашей панели управления Cast Operations
-- `ONEUPTIME_URL` — URL вашего экземпляра Cast Operations (по умолчанию: https://visca.ai)
+- `CAST_OPERATIONS_URL` — URL вашего экземпляра Cast Operations (по умолчанию: https://visca.ai)
 
 #### Необязательные переменные
 

@@ -1,5 +1,5 @@
 import { JSONObject } from "Common/Types/JSON";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import DashboardTraceChartComponent from "Common/Types/Dashboard/DashboardComponents/DashboardTraceChartComponent";
 
 /*
@@ -137,7 +137,7 @@ export function formatCount(value: number): string {
 }
 
 export function formatTickTime(time: string): string {
-  const date: Date = OneUptimeDate.fromString(time);
+  const date: Date = OperationsDate.fromString(time);
   if (isNaN(date.getTime())) {
     return time;
   }

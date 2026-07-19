@@ -6,7 +6,7 @@ import OnCallDutyPolicyStatus from "../../Types/OnCallDutyPolicy/OnCallDutyPolic
 import UserNotificationEventType from "../../Types/UserNotification/UserNotificationEventType";
 import OnCallDutyPolicyEscalationRule from "../../Models/DatabaseModels/OnCallDutyPolicyEscalationRule";
 import Model from "../../Models/DatabaseModels/OnCallDutyPolicyExecutionLog";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import IncidentFeedService from "./IncidentFeedService";
 import { IncidentFeedEventType } from "../../Models/DatabaseModels/IncidentFeed";
@@ -31,9 +31,6 @@ import { IsNull, UpdateResult } from "typeorm";
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 30);
-    }
   }
 
   /**

@@ -82,14 +82,14 @@ AI モデルをセルフホストして、コードを完全にプライベー�
 AI エージェントを実行するには、Docker がインストールされていることを確認してください。以下のコマンドでエージェントを実行します。
 
 ```bash
-docker run --name oneuptime-ai-agent --network host \
+docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
-  -d oneuptime/ai-agent:release
+  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -d cast-operations/ai-agent:release
 ```
 
-Cast Operations をセルフホストしている場合は、`ONEUPTIME_URL` をカスタムセルフホストインスタンスの URL に変更してください。
+Cast Operations をセルフホストしている場合は、`CAST_OPERATIONS_URL` をカスタムセルフホストインスタンスの URL に変更してください。
 
 #### Docker Compose
 
@@ -99,13 +99,13 @@ docker-compose を使用して AI エージェントを実行することもで�
 version: "3"
 
 services:
-  oneuptime-ai-agent:
-    image: oneuptime/ai-agent:release
-    container_name: oneuptime-ai-agent
+  cast-operations-ai-agent:
+    image: cast-operations/ai-agent:release
+    container_name: cast-operations-ai-agent
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -118,38 +118,38 @@ docker compose up -d
 
 #### Kubernetes
 
-`oneuptime-ai-agent.yaml` ファイルを作成します。
+`cast-operations-ai-agent.yaml` ファイルを作成します。
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-ai-agent
+  name: cast-operations-ai-agent
 spec:
   selector:
     matchLabels:
-      app: oneuptime-ai-agent
+      app: cast-operations-ai-agent
   template:
     metadata:
       labels:
-        app: oneuptime-ai-agent
+        app: cast-operations-ai-agent
     spec:
       containers:
-        - name: oneuptime-ai-agent
-          image: oneuptime/ai-agent:release
+        - name: cast-operations-ai-agent
+          image: cast-operations/ai-agent:release
           env:
             - name: AI_AGENT_KEY
               value: "<ai-agent-key>"
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
 設定を適用します。
 
 ```bash
-kubectl apply -f oneuptime-ai-agent.yaml
+kubectl apply -f cast-operations-ai-agent.yaml
 ```
 
 ### 環境変数
@@ -162,7 +162,7 @@ AI エージェントは以下の環境変数をサポートしています。
 | --------------- | ----------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | Cast Operations ダッシュボードからの AI エージェントキー                |
 | `AI_AGENT_ID`   | Cast Operations ダッシュボードからの AI エージェント ID                 |
-| `ONEUPTIME_URL` | Cast Operations インスタンスの URL（デフォルト: https://visca.ai） |
+| `CAST_OPERATIONS_URL` | Cast Operations インスタンスの URL（デフォルト: https://visca.ai） |
 
 ## AI エージェントの確認
 
@@ -176,10 +176,10 @@ AI エージェントをデプロイした後:
 
 ```bash
 # Docker
-docker logs oneuptime-ai-agent
+docker logs cast-operations-ai-agent
 
 # Kubernetes
-kubectl logs deployment/oneuptime-ai-agent
+kubectl logs deployment/cast-operations-ai-agent
 ```
 
 ## トラブルシューティング

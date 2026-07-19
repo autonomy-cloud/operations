@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import DayOfWeek from "Common/Types/Day/DayOfWeek";
 import IconProp from "Common/Types/Icon/IconProp";
 import RestrictionTimes, {
@@ -61,15 +61,15 @@ const RestrictionTimesFieldElement: FunctionComponent<ComponentProps> = (
     stored: Date | undefined,
   ) => string | undefined = (stored: Date | undefined): string | undefined => {
     if (!stored) {
-      return OneUptimeDate.toString(stored as any);
+      return OperationsDate.toString(stored as any);
     }
     const display: Date = props.timezone
-      ? OneUptimeDate.getLocalDateFromWallClockInTimezone(
+      ? OperationsDate.getLocalDateFromWallClockInTimezone(
           stored,
           props.timezone,
         )
       : stored;
-    return OneUptimeDate.toString(display);
+    return OperationsDate.toString(display);
   };
 
   /*
@@ -80,18 +80,18 @@ const RestrictionTimesFieldElement: FunctionComponent<ComponentProps> = (
   const timePickerValueToStoredDate: (value: any) => Date = (
     value: any,
   ): Date => {
-    let date: Date = OneUptimeDate.getCurrentDate();
+    let date: Date = OperationsDate.getCurrentDate();
 
     if (value instanceof Date) {
       date = value;
     }
 
     if (typeof value === Typeof.String) {
-      date = OneUptimeDate.fromString(value);
+      date = OperationsDate.fromString(value);
     }
 
     return props.timezone
-      ? OneUptimeDate.getInstantFromLocalWallClockInTimezone(
+      ? OperationsDate.getInstantFromLocalWallClockInTimezone(
           date,
           props.timezone,
         )
@@ -180,11 +180,11 @@ const RestrictionTimesFieldElement: FunctionComponent<ComponentProps> = (
     (): WeeklyResctriction => {
       const startDay: DayOfWeek = DayOfWeek.Sunday;
       const endDay: DayOfWeek = DayOfWeek.Monday;
-      const now: Date = OneUptimeDate.getCurrentDate();
+      const now: Date = OperationsDate.getCurrentDate();
 
-      const startTime: Date = OneUptimeDate.moveDateToTheDayOfWeek(
+      const startTime: Date = OperationsDate.moveDateToTheDayOfWeek(
         timePickerValueToStoredDate(
-          OneUptimeDate.getDateWithCustomTime({
+          OperationsDate.getDateWithCustomTime({
             hours: 0,
             minutes: 0,
             seconds: 0,
@@ -195,9 +195,9 @@ const RestrictionTimesFieldElement: FunctionComponent<ComponentProps> = (
         props.timezone,
       );
 
-      const endTime: Date = OneUptimeDate.moveDateToTheDayOfWeek(
+      const endTime: Date = OperationsDate.moveDateToTheDayOfWeek(
         timePickerValueToStoredDate(
-          OneUptimeDate.getDateWithCustomTime({
+          OperationsDate.getDateWithCustomTime({
             hours: 1,
             minutes: 0,
             seconds: 0,
@@ -332,9 +332,9 @@ const RestrictionTimesFieldElement: FunctionComponent<ComponentProps> = (
                   // move start time to the new start day (in the schedule tz)
                   if (params.weeklyRestriction.startTime) {
                     params.weeklyRestriction.startTime =
-                      OneUptimeDate.moveDateToTheDayOfWeek(
+                      OperationsDate.moveDateToTheDayOfWeek(
                         params.weeklyRestriction.startTime,
-                        OneUptimeDate.getCurrentDate(),
+                        OperationsDate.getCurrentDate(),
                         value,
                         props.timezone,
                       );
@@ -356,9 +356,9 @@ const RestrictionTimesFieldElement: FunctionComponent<ComponentProps> = (
                    * schedule timezone so the weekday boundary matches the engine.
                    */
                   params.weeklyRestriction.startTime =
-                    OneUptimeDate.moveDateToTheDayOfWeek(
+                    OperationsDate.moveDateToTheDayOfWeek(
                       date,
-                      OneUptimeDate.getCurrentDate(),
+                      OperationsDate.getCurrentDate(),
                       params.weeklyRestriction.startDay,
                       props.timezone,
                     );
@@ -385,9 +385,9 @@ const RestrictionTimesFieldElement: FunctionComponent<ComponentProps> = (
                   // move end time to the new end day (in the schedule tz)
                   if (params.weeklyRestriction.endTime) {
                     params.weeklyRestriction.endTime =
-                      OneUptimeDate.moveDateToTheDayOfWeek(
+                      OperationsDate.moveDateToTheDayOfWeek(
                         params.weeklyRestriction.endTime,
-                        OneUptimeDate.getCurrentDate(),
+                        OperationsDate.getCurrentDate(),
                         value,
                         props.timezone,
                       );
@@ -409,9 +409,9 @@ const RestrictionTimesFieldElement: FunctionComponent<ComponentProps> = (
                    * schedule timezone so the weekday boundary matches the engine.
                    */
                   params.weeklyRestriction.endTime =
-                    OneUptimeDate.moveDateToTheDayOfWeek(
+                    OperationsDate.moveDateToTheDayOfWeek(
                       date,
-                      OneUptimeDate.getCurrentDate(),
+                      OperationsDate.getCurrentDate(),
                       params.weeklyRestriction.endDay,
                       props.timezone,
                     );
@@ -513,7 +513,7 @@ const RestrictionTimesFieldElement: FunctionComponent<ComponentProps> = (
           <p className="mt-2 text-xs text-gray-400">
             {props.timezone
               ? `These times are in the schedule's timezone: ${props.timezone}.`
-              : `These times are in your local timezone: ${OneUptimeDate.getCurrentTimezoneString()}.`}
+              : `These times are in your local timezone: ${OperationsDate.getCurrentTimezoneString()}.`}
           </p>
         )}
 

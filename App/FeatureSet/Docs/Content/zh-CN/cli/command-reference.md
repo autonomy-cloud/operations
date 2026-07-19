@@ -4,12 +4,12 @@ Cast Operations CLI 所有命令的完整参考。
 
 ## 认证命令
 
-### `oneuptime login`
+### `cast-operations login`
 
 向 Cast Operations 实例进行认证。
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | 参数             | 类型 | 是否必填 | 描述                            |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 列出所有已保存的上下文。
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 切换到命名上下文。
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | 参数     | 类型 | 是否必填 | 描述               |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 显示带有掩码 API 密钥的活动上下文。
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 删除已保存的上下文。
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | 参数     | 类型 | 是否必填 | 描述               |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 所有资源命令遵循相同的模式。将 `<resource>` 替换为任何支持的资源名称（例如 `incident`、`monitor`、`alert`、`status-page`）。
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 列出资源，支持过滤和分页。
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | 选项             | 类型   | 默认值  | 描述                |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 通过 ID 获取单个资源。
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | 参数           | 类型 | 是否必填 | 描述            |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 创建新资源。
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | 选项            | 类型   | 是否必填                    | 描述                |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 更新现有资源。
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | 参数            | 类型 | 是否必填 | 描述                  |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 删除资源。
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | 参数      | 类型 | 是否必填 | 描述         |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 统计符合过滤条件的资源数量。
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | 选项             | 类型   | 默认值 | 描述                |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## 实用命令
 
-### `oneuptime version`
+### `cast-operations version`
 
 显示 CLI 版本。
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 显示当前认证详情。
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 显示实例 URL 和掩码后的 API 密钥。如果活动的已保存上下文处于活动状态，还会显示上下文名称。
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 列出所有可用的资源类型。
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | 选项            | 类型   | 默认值 | 描述                              |

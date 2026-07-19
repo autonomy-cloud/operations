@@ -6,9 +6,9 @@ OpenTelemetry 수집 서비스는 이제 네이티브 Syslog 페이로드를 허
 
 ## 전제 조건
 
-- **텔레메트리 수집 토큰** – *프로젝트 설정 → 텔레메트리 수집 키*에서 생성하고 `x-oneuptime-token` 값을 복사합니다.
+- **텔레메트리 수집 토큰** – *프로젝트 설정 → 텔레메트리 수집 키*에서 생성하고 `x-cast-operations-token` 값을 복사합니다.
 - **Syslog 전달자** – HTTP POST 요청을 보낼 수 있는 모든 도구 (예: `curl`, `omhttp`를 통한 `rsyslog` 또는 HTTP 대상 플러그인이 있는 `syslog-ng`).
-- **서비스 이름 (선택 사항)** – 특정 텔레메트리 서비스 아래에 수신 로그를 그룹화하려면 `x-oneuptime-service-name` 헤더를 설정합니다. 생략하면 Cast Operations은 syslog `APP-NAME`, 호스트 이름 또는 `Syslog`로 폴백합니다.
+- **서비스 이름 (선택 사항)** – 특정 텔레메트리 서비스 아래에 수신 로그를 그룹화하려면 `x-cast-operations-service-name` 헤더를 설정합니다. 생략하면 Cast Operations은 syslog `APP-NAME`, 호스트 이름 또는 `Syslog`로 폴백합니다.
 
 ## 엔드포인트
 
@@ -17,7 +17,7 @@ POST https://visca.ai/syslog/v1/logs
 ```
 
 - Cast Operations을 자체 호스팅하는 경우 `visca.ai`을 호스트로 교체합니다.
-- 항상 요청에 `x-oneuptime-token` 헤더를 포함합니다.
+- 항상 요청에 `x-cast-operations-token` 헤더를 포함합니다.
 
 ## 요청 본문
 
@@ -44,8 +44,8 @@ POST https://visca.ai/syslog/v1/logs
 curl \
   -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
-  -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
-  -H "x-oneuptime-service-name: production-web" \
+  -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
+  -H "x-cast-operations-service-name: production-web" \
   -d '{
     "messages": [
       "<34>1 2025-03-02T14:48:05.003Z web-01 nginx 7421 ID47 [env@32473 host=\"web-01\"] 502 on /api/login"
@@ -59,7 +59,7 @@ curl \
    ```bash
    sudo apt-get install rsyslog-omhttp
    ```
-2. 대상을 `/etc/rsyslog.d/oneuptime.conf`에 추가합니다:
+2. 대상을 `/etc/rsyslog.d/cast-operations.conf`에 추가합니다:
 
    ```
    module(load="omhttp")
@@ -77,8 +77,8 @@ curl \
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
-     header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
-     header="x-oneuptime-service-name: rsyslog-demo"
+     header="x-cast-operations-token: YOUR_TELEMETRY_KEY"
+     header="x-cast-operations-service-name: rsyslog-demo"
      template="Cast OperationsJson"
    )
    ```
@@ -111,8 +111,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: perimeter-firewall"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: perimeter-firewall"
   template="Cast OperationsJSON"
 )
 ```
@@ -122,7 +122,7 @@ action(
 많은 cron 작업과 레거시 데몬은 여전히 커널/syslog 시설을 통해서만 로그합니다. `/var/log/syslog` 또는 journald 항목을 전달하면 운영 흔적을 한 곳에 유지합니다. systemd 호스트는 journald → syslog 브릿지에 의존할 수 있습니다:
 
 ```bash
-# /etc/rsyslog.d/oneuptime.conf
+# /etc/rsyslog.d/cast-operations.conf
 module(load="imjournal" StateFile="imjournal.state")
 module(load="omhttp")
 
@@ -133,8 +133,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: linux-fleet"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: linux-fleet"
   template="Cast OperationsJSON"
 )
 ```
@@ -161,8 +161,8 @@ action(
     Format            json
     json_date_key     time
     Header            Content-Type application/json
-    Header            x-oneuptime-token <TOKEN>
-    Header            x-oneuptime-service-name edge-ingress
+    Header            x-cast-operations-token <TOKEN>
+    Header            x-cast-operations-service-name edge-ingress
     tls               On
 ```
 
@@ -186,7 +186,7 @@ Cast Operations은 각 로그 항목에 다음 속성을 자동으로 추가합�
 
 ## 문제 해결
 
-- **HTTP 401 또는 빈 결과** – `x-oneuptime-token` 헤더가 로그를 수신하는 프로젝트에 속하는지 확인합니다.
+- **HTTP 401 또는 빈 결과** – `x-cast-operations-token` 헤더가 로그를 수신하는 프로젝트에 속하는지 확인합니다.
 - **로그가 나타나지 않음** – 요청 본문에 실제로 syslog 줄이 포함되어 있는지 확인합니다. 빈 본문은 HTTP 400으로 거부됩니다.
-- **예상치 못한 서비스 이름** – 기본 감지 로직을 재정의하려면 `x-oneuptime-service-name`을 설정합니다.
+- **예상치 못한 서비스 이름** – 기본 감지 로직을 재정의하려면 `x-cast-operations-service-name`을 설정합니다.
 - **대량 버스트** – 요청당 최대 1,000줄의 일괄 처리가 지원됩니다. 더 큰 버스트는 대기열에 들어가 비동기적으로 처리됩니다.

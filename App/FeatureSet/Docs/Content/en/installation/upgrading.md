@@ -73,7 +73,7 @@ host — the native protocol has no HTTP timeouts, so multi-hour statements
 are fine:
 
 ```bash
-clickhouse-client --database oneuptime
+clickhouse-client --database cast-operations
 ```
 
 Good to know before starting:
@@ -255,7 +255,7 @@ No changes that require manual action. Just follow the standard upgrade process.
 
 The Helm chart no longer provisions a Kubernetes Ingress resource. Cast Operations ships an ingress gateway container that already terminates TLS, manages status page domains, and routes traffic for the platform, so a cluster ingress controller is no longer necessary.
 
-- Remove any `oneuptimeIngress` overrides from your custom `values.yaml` files before upgrading. Those keys are now ignored and will cause validation errors if left in place.
+- Remove any `castOperationsIngress` overrides from your custom `values.yaml` files before upgrading. Those keys are now ignored and will cause validation errors if left in place.
 - Ensure `nginx.service.type` reflects how you want to expose the bundled ingress gateway (for example `LoadBalancer`, `NodePort`, or `ClusterIP` with an external load balancer).
 - Verify any DNS records for status pages or primary hosts still point to the Service or load balancer that fronts the Cast Operations ingress gateway.
 - After the upgrade, confirm TLS certificates continue to renew via the embedded gateway and that status page domains resolve correctly.

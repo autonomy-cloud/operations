@@ -7,7 +7,7 @@ import BadDataException from "Common/Types/Exception/BadDataException";
 import JSONFunctions from "Common/Types/JSONFunctions";
 import ObjectID from "Common/Types/ObjectID";
 import MonitorResourceUtil from "Common/Server/Utils/Monitor/MonitorResource";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import MonitorTestService from "Common/Server/Services/MonitorTestService";
 import MonitorService from "Common/Server/Services/MonitorService";
 import ProbeMonitorResponse from "Common/Types/Probe/ProbeMonitorResponse";
@@ -39,7 +39,7 @@ export async function processProbeFromQueue(
   }
 
   // this is when the resource was ingested.
-  probeResponse.ingestedAt = OneUptimeDate.getCurrentDate();
+  probeResponse.ingestedAt = OperationsDate.getCurrentDate();
 
   if (jobData.jobType === "probe-response") {
     // Handle regular probe response
@@ -52,13 +52,13 @@ export async function processProbeFromQueue(
       throw new BadDataException("TestId not found");
     }
 
-    probeResponse.ingestedAt = OneUptimeDate.getCurrentDate();
+    probeResponse.ingestedAt = OperationsDate.getCurrentDate();
 
     // save the probe response to the monitor test.
     const stepResponse: MonitorStepProbeResponse = {
       [probeResponse.monitorStepId.toString()]: {
         ...JSON.parse(JSON.stringify(probeResponse)),
-        monitoredAt: OneUptimeDate.getCurrentDate(),
+        monitoredAt: OperationsDate.getCurrentDate(),
       } as ProbeMonitorResponse,
     };
 
@@ -225,8 +225,8 @@ export async function processSnmpTrapFromQueue(
         probeId: probeId,
         snmpTrapResponse: snmpTrap,
         failureCause: "",
-        monitoredAt: OneUptimeDate.getCurrentDate(),
-        ingestedAt: OneUptimeDate.getCurrentDate(),
+        monitoredAt: OperationsDate.getCurrentDate(),
+        ingestedAt: OperationsDate.getCurrentDate(),
       };
 
       try {
@@ -285,7 +285,7 @@ export async function processIncomingEmailFromQueue(
     throw new BadDataException("Project not found");
   }
 
-  const now: Date = OneUptimeDate.getCurrentDate();
+  const now: Date = OperationsDate.getCurrentDate();
 
   const incomingEmailRequest: IncomingEmailMonitorRequest = {
     projectId: monitor.projectId,

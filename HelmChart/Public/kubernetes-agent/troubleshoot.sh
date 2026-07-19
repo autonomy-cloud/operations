@@ -8,7 +8,7 @@
 # healthy and the collector logs show no errors.
 #
 # Why that happens: the agent ships telemetry to `<url>/otlp/v1/*` with the
-# ingestion key in the `x-oneuptime-token` header. If that key is missing,
+# ingestion key in the `x-cast-operations-token` header. If that key is missing,
 # malformed, or revoked, the OTLP endpoints *deliberately return HTTP 200 and
 # silently drop the data* (so a misconfigured collector can't retry-flood the
 # server). The collector therefore reports success, logs nothing, and the
@@ -26,7 +26,7 @@
 # Usage:
 #   ./troubleshoot.sh [-n NAMESPACE] [--skip-egress] [--curl-image IMG] [--no-color]
 #
-# Defaults: NAMESPACE=oneuptime-agent
+# Defaults: NAMESPACE=cast-operations-agent
 #
 # Requires: kubectl (required), curl on this machine (for the health/self-metric
 # port-forward checks — optional), and the cluster being able to pull a small
@@ -37,7 +37,7 @@ set -uo pipefail
 # ----------------------------------------------------------------------------
 # Config / args
 # ----------------------------------------------------------------------------
-NS="oneuptime-agent"
+NS="cast-operations-agent"
 SKIP_EGRESS=0
 CURL_IMAGE="curlimages/curl:latest"
 USE_COLOR=1
@@ -84,7 +84,7 @@ PF_PID=""
 cleanup() {
   [ -n "$PF_PID" ] && kill "$PF_PID" >/dev/null 2>&1
   # Best-effort removal of any probe pod we created.
-  kubectl delete pod -n "$NS" -l oneuptime-doctor=true --now >/dev/null 2>&1 &
+  kubectl delete pod -n "$NS" -l cast-operations-doctor=true --now >/dev/null 2>&1 &
 }
 trap cleanup EXIT INT TERM
 
@@ -120,7 +120,7 @@ incluster_req() {
   snippet=$(cat <<EOF
 out=\$(curl -sS -m 15 -w '\nOUSTATUS:%{http_code}' \
   -X $method '$url' \
-  -H 'x-oneuptime-token: $token' \
+  -H 'x-cast-operations-token: $token' \
   $body_args 2>&1); cx=\$?
 printf '%s\n' "\$out"
 printf 'OUEXIT:%s\n' "\$cx"
@@ -134,7 +134,7 @@ EOF
     local pod="oub-curl-${RANDOM}"
     raw=$(kubectl run "$pod" -n "$NS" --rm -i --restart=Never \
             --image="$CURL_IMAGE" \
-            --labels="oneuptime-doctor=true" \
+            --labels="cast-operations-doctor=true" \
             --command -- sh -c "$snippet" 2>&1)
   fi
 
@@ -162,7 +162,7 @@ EOF
 }
 
 # ============================================================================
-printf "%s%sOneUptime Kubernetes Agent — Diagnostic%s\n" "$C_BOLD" "$C_BLU" "$C_OFF"
+printf "%s%sOperations Kubernetes Agent — Diagnostic%s\n" "$C_BOLD" "$C_BLU" "$C_OFF"
 printf "%sNamespace:%s %s\n" "$C_DIM" "$C_OFF" "$NS"
 
 # ----------------------------------------------------------------------------
@@ -190,7 +190,7 @@ pass "Namespace '$NS' exists"
 # ----------------------------------------------------------------------------
 section "2. Agent workloads"
 # ----------------------------------------------------------------------------
-SEL="app.kubernetes.io/part-of=oneuptime"
+SEL="app.kubernetes.io/part-of=cast-operations"
 WORKLOADS=$(kubectl get deploy,daemonset -n "$NS" -l "$SEL" \
   -o jsonpath='{range .items[*]}{.kind}{"\t"}{.metadata.name}{"\n"}{end}' 2>/dev/null)
 
@@ -305,15 +305,15 @@ UUID_RE='^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F
 SECRET_NAME=""; SECRET_KEY="api-key"
 if [ -n "$METRICS_DEPLOY" ]; then
   SECRET_NAME=$(kubectl get deploy "$METRICS_DEPLOY" -n "$NS" \
-    -o jsonpath='{.spec.template.spec.containers[?(@.name=="otel-collector")].env[?(@.name=="ONEUPTIME_API_KEY")].valueFrom.secretKeyRef.name}' 2>/dev/null)
+    -o jsonpath='{.spec.template.spec.containers[?(@.name=="otel-collector")].env[?(@.name=="CAST_OPERATIONS_API_KEY")].valueFrom.secretKeyRef.name}' 2>/dev/null)
   K=$(kubectl get deploy "$METRICS_DEPLOY" -n "$NS" \
-    -o jsonpath='{.spec.template.spec.containers[?(@.name=="otel-collector")].env[?(@.name=="ONEUPTIME_API_KEY")].valueFrom.secretKeyRef.key}' 2>/dev/null)
+    -o jsonpath='{.spec.template.spec.containers[?(@.name=="otel-collector")].env[?(@.name=="CAST_OPERATIONS_API_KEY")].valueFrom.secretKeyRef.key}' 2>/dev/null)
   [ -n "$K" ] && SECRET_KEY="$K"
 fi
 
 if [ -z "$SECRET_NAME" ]; then
   warn "Couldn't resolve the api-key Secret from the Deployment; trying common names."
-  for cand in "$NS" kubernetes-agent oneuptime-kubernetes-agent; do
+  for cand in "$NS" kubernetes-agent cast-operations-kubernetes-agent; do
     if kubectl get secret "$cand" -n "$NS" >/dev/null 2>&1; then SECRET_NAME="$cand"; break; fi
   done
 fi
@@ -322,7 +322,7 @@ if [ -n "$SECRET_NAME" ] && kubectl get secret "$SECRET_NAME" -n "$NS" >/dev/nul
   RAW=$(kubectl get secret "$SECRET_NAME" -n "$NS" -o jsonpath="{.data.${SECRET_KEY//./\\.}}" 2>/dev/null)
   if [ -z "$RAW" ]; then
     fail "Secret '$SECRET_NAME' has no '$SECRET_KEY' value (empty)."
-    add_finding "The ingestion key Secret is empty. Reinstall/upgrade with --set oneuptime.apiKey=<key>."
+    add_finding "The ingestion key Secret is empty. Reinstall/upgrade with --set cast-operations.apiKey=<key>."
   else
     # Sentinel 'X' preserves any trailing newline (which $() would otherwise
     # strip) so we can catch the classic 'echo key | base64' corruption.
@@ -332,7 +332,7 @@ if [ -n "$SECRET_NAME" ] && kubectl get secret "$SECRET_NAME" -n "$NS" >/dev/nul
     MASK="${TRIMMED:0:8}…${TRIMMED: -4}"
     if [ "$TOKEN" != "$TRIMMED" ]; then
       fail "Token in Secret '$SECRET_NAME' contains whitespace/newline — the collector sends it literally, so Cast Operations can't match it."
-      add_finding "The api-key has stray whitespace/newline (classic 'echo key | base64' bug — echo adds a trailing \\n; use 'printf %s' or --set oneuptime.apiKey=). Recreate it cleanly and re-run."
+      add_finding "The api-key has stray whitespace/newline (classic 'echo key | base64' bug — echo adds a trailing \\n; use 'printf %s' or --set cast-operations.apiKey=). Recreate it cleanly and re-run."
       TOKEN_HAS_WS=1
     fi
     TOKEN="$TRIMMED"
@@ -458,12 +458,12 @@ egress_fail_finding() {
     *"refused"*|*"timed out"*|*"Connection timed out"*|*"Failed to connect"*)
       add_finding "Connection to $BASE_URL is refused/times out — firewall/NetworkPolicy/proxy is blocking cluster egress." ;;
     *)
-      add_finding "Egress to $BASE_URL failed from the cluster. Verify oneuptime.url and that pods can reach it." ;;
+      add_finding "Egress to $BASE_URL failed from the cluster. Verify cast-operations.url and that pods can reach it." ;;
   esac
 }
 
 token_invalid_finding() {
-  add_finding "DEFINITIVE: the ingestion key in the Secret is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: create or copy a live Telemetry Ingestion Key in Cast Operations, then: helm upgrade <release> oneuptime/kubernetes-agent -n $NS --reuse-values --set oneuptime.apiKey=<key>"
+  add_finding "DEFINITIVE: the ingestion key in the Secret is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: create or copy a live Telemetry Ingestion Key in Cast Operations, then: helm upgrade <release> cast-operations/kubernetes-agent -n $NS --reuse-values --set cast-operations.apiKey=<key>"
 }
 
 # Fallback token oracle for servers without /otlp/v1/validate.
@@ -476,7 +476,7 @@ fluentd_token_probe() {
     *"Missing header"*)
       fail "Server says the token header is missing (HTTP $RESP_CODE) — a proxy may be stripping it."
       TOKEN_VERDICT="INVALID"
-      add_finding "The x-oneuptime-token header isn't arriving at Cast Operations — check any egress proxy/ingress that might strip headers." ;;
+      add_finding "The x-cast-operations-token header isn't arriving at Cast Operations — check any egress proxy/ingress that might strip headers." ;;
     *)
       if [ "$RESP_CODE" = "404" ]; then
         warn "/fluentd/v1/logs returned 404 — token check inconclusive."
@@ -589,9 +589,9 @@ else
   if [ -n "$BASE_URL" ]; then
     printf "  • Run the definitive token check by hand (200 = valid, 401 = bad/revoked key):\n"
     if [ -n "$SIDECAR_POD" ]; then
-      printf "      %skubectl exec -n %s %s -c debug -- \\\\\n        curl -i -H \"x-oneuptime-token: \$ONEUPTIME_API_KEY\" %s/otlp/v1/validate%s\n" "$C_DIM" "$NS" "$SIDECAR_POD" "$BASE_URL" "$C_OFF"
+      printf "      %skubectl exec -n %s %s -c debug -- \\\\\n        curl -i -H \"x-cast-operations-token: \$CAST_OPERATIONS_API_KEY\" %s/otlp/v1/validate%s\n" "$C_DIM" "$NS" "$SIDECAR_POD" "$BASE_URL" "$C_OFF"
     else
-      printf "      %s# (install with --set debug.enabled=true to get a shell in-cluster, then:)\n      kubectl exec -n %s <agent-pod> -c debug -- \\\\\n        curl -i -H \"x-oneuptime-token: <key>\" %s/otlp/v1/validate%s\n" "$C_DIM" "$NS" "$BASE_URL" "$C_OFF"
+      printf "      %s# (install with --set debug.enabled=true to get a shell in-cluster, then:)\n      kubectl exec -n %s <agent-pod> -c debug -- \\\\\n        curl -i -H \"x-cast-operations-token: <key>\" %s/otlp/v1/validate%s\n" "$C_DIM" "$NS" "$BASE_URL" "$C_OFF"
     fi
   fi
 fi

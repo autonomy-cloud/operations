@@ -71,7 +71,7 @@ const ICON_COLOR_CLASSES: Record<string, IconColorClasses> = {
 };
 
 // Persist the handful of most-recently opened products across sessions.
-const RECENT_STORAGE_KEY: string = "oneuptime-navbar-recent-products";
+const RECENT_STORAGE_KEY: string = "cast-operations-navbar-recent-products";
 const RECENT_LIMIT: number = 5;
 
 const readRecentRoutes: () => string[] = (): string[] => {

@@ -30,13 +30,13 @@ import React, {
 } from "react";
 import ExceptionMessages from "Common/Types/Exception/ExceptionMessages";
 import useAsyncEffect from "use-async-effect";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const MonitorCriteria: FunctionComponent<
   PageComponentProps
 > = (): ReactElement => {
   const [alertRefreshToggle, setAlertRefreshToggle] = useState<string>(
-    OneUptimeDate.getCurrentDate().toString(),
+    OperationsDate.getCurrentDate().toString(),
   );
 
   const modelId: ObjectID = Navigation.getLastParamAsObjectID(1);
@@ -103,7 +103,7 @@ const MonitorCriteria: FunctionComponent<
               description: "Here are some advanced settings for this monitor.",
             }}
             onSaveSuccess={() => {
-              setAlertRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+              setAlertRefreshToggle(OperationsDate.getCurrentDate().toString());
             }}
             isEditable={true}
             formFields={[
@@ -148,7 +148,7 @@ const MonitorCriteria: FunctionComponent<
               }}
               onSaveSuccess={() => {
                 setAlertRefreshToggle(
-                  OneUptimeDate.getCurrentDate().toString(),
+                  OperationsDate.getCurrentDate().toString(),
                 );
               }}
               isEditable={true}

@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
@@ -107,14 +107,14 @@ const Separator: FunctionComponent = (): ReactElement => {
 const NextReminderCountdown: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
-  const [now, setNow] = useState<Date>(OneUptimeDate.getCurrentDate());
+  const [now, setNow] = useState<Date>(OperationsDate.getCurrentDate());
   const [intervalInMinutes, setIntervalInMinutes] = useState<number | null>(
     null,
   );
 
   useEffect(() => {
     const timer: ReturnType<typeof setInterval> = setInterval(() => {
-      setNow(OneUptimeDate.getCurrentDate());
+      setNow(OperationsDate.getCurrentDate());
     }, 1000);
 
     return () => {
@@ -288,9 +288,9 @@ const NextReminderCountdown: FunctionComponent<ComponentProps> = (
     );
   }
 
-  const targetDate: Date = OneUptimeDate.fromString(props.nextReminderAt);
+  const targetDate: Date = OperationsDate.fromString(props.nextReminderAt);
   const formattedTargetDate: string =
-    OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(targetDate, false);
+    OperationsDate.getDateAsUserFriendlyLocalFormattedString(targetDate, false);
 
   const remainingSeconds: number = Math.floor(
     (targetDate.getTime() - now.getTime()) / 1000,
@@ -363,7 +363,7 @@ const NextReminderCountdown: FunctionComponent<ComponentProps> = (
           <div className="mt-1.5 flex justify-between text-xs text-gray-500">
             <span>
               Repeats every{" "}
-              {OneUptimeDate.getHoursAndMinutesFromMinutes(intervalInMinutes)}
+              {OperationsDate.getHoursAndMinutesFromMinutes(intervalInMinutes)}
             </span>
             <span>{Math.round(elapsedPercent)}% elapsed</span>
           </div>

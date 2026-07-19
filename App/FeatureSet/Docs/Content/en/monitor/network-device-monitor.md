@@ -161,7 +161,7 @@ The receiver is on by default and listens on UDP port 162. Configure it on the p
 If the probe runs in Docker, publish the UDP port so traps can reach it:
 
 ```bash
-docker run ... -p 162:162/udp oneuptime/probe
+docker run ... -p 162:162/udp cast-operations/probe
 ```
 
 Outside Docker, binding ports below 1024 requires elevated privileges — either run the probe with those privileges or set `PROBE_SNMP_TRAP_RECEIVER_PORT` to a port above 1024 (and configure your devices to send traps to that port). A failed bind is logged and never affects polling.

@@ -50,7 +50,7 @@ ServiceNow 的 Table API 接受 **Basic 认证**。
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
-       "correlation_id": "oneuptime-{{Incident._id}}"
+       "correlation_id": "cast-operations-{{Incident._id}}"
      }
      ```
 
@@ -61,7 +61,7 @@ ServiceNow 的 Table API 接受 **Basic 认证**。
 ## 步骤 3——在 Cast Operations 解决时解决（可选）
 
 1. 创建一个带有 **Incident → On Update** 触发器的**第二个**工作流，并添加 **Conditions** 模块检查事件是否已解决。
-2. 要更新正确的 ServiceNow 记录，你需要其 `sys_id`。可以在步骤 2 中将其存储到 Cast Operations 事件上（读取 `{{CreateRecord.response-body.result.sys_id}}` 并用 **Update Incident** 写入标签），或者先通过 `GET` 请求 `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}` 查找记录。
+2. 要更新正确的 ServiceNow 记录，你需要其 `sys_id`。可以在步骤 2 中将其存储到 Cast Operations 事件上（读取 `{{CreateRecord.response-body.result.sys_id}}` 并用 **Update Incident** 写入标签），或者先通过 `GET` 请求 `/api/now/table/incident?sysparm_query=correlation_id=cast-operations-{{Incident._id}}` 查找记录。
 3. 添加 **API** 模块：**Method** `PATCH`，**URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`，正文 `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }`（`state` `6` = 默认 ITIL 工作流中的 Resolved 状态）。
 
 ## 故障排查

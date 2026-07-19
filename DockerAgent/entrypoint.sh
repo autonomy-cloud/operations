@@ -11,7 +11,7 @@ set -eu
 # Start the inventory poller in the background. Output goes to a log
 # file watched by a filelog receiver inside the collector, so we can
 # also tee its own stderr to stdout for container logs.
-/usr/local/bin/oneuptime-docker-inventory.sh &
+/usr/local/bin/cast-operations-docker-inventory.sh &
 
 # Hand off to the collector. The base image's CMD provides the right
 # args; we just exec it.

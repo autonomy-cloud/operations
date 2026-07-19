@@ -39,7 +39,7 @@ import Alert from "../../../../Models/DatabaseModels/Alert";
 import AlertState from "../../../../Models/DatabaseModels/AlertState";
 import ScheduledMaintenance from "../../../../Models/DatabaseModels/ScheduledMaintenance";
 import Monitor from "../../../../Models/DatabaseModels/Monitor";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import {
   MicrosoftTeamsAppClientId,
   MicrosoftTeamsAppClientSecret,
@@ -110,7 +110,7 @@ const MICROSOFT_TEAMS_MAX_PAGES: number = 500;
 export default class MicrosoftTeamsUtil extends WorkspaceBase {
   private static cachedAdapter: CloudAdapter | null = null;
   private static readonly WELCOME_CARD_STATE_KEY: string =
-    "oneuptime.microsoftTeams.welcomeCardSent";
+    "cast-operations.microsoftTeams.welcomeCardSent";
   // Get or create Bot Framework adapter for a specific tenant
   private static getBotAdapter(): CloudAdapter {
     if (this.cachedAdapter) {
@@ -226,12 +226,12 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
       logger.debug("Found app access token in miscData");
       // Check if token is expired
       if (miscData.appAccessTokenExpiresAt) {
-        const expiryDate: Date = OneUptimeDate.fromString(
+        const expiryDate: Date = OperationsDate.fromString(
           miscData.appAccessTokenExpiresAt,
         );
-        const now: Date = OneUptimeDate.getCurrentDate();
-        const isExpired: boolean = OneUptimeDate.isAfter(now, expiryDate);
-        const secondsToExpiry: number = OneUptimeDate.getSecondsTo(expiryDate);
+        const now: Date = OperationsDate.getCurrentDate();
+        const isExpired: boolean = OperationsDate.isAfter(now, expiryDate);
+        const secondsToExpiry: number = OperationsDate.getSecondsTo(expiryDate);
         logger.debug(`Token expires in ${secondsToExpiry} seconds`);
         logger.debug(`Token is expired: ${isExpired}`);
 
@@ -377,22 +377,22 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
       }
 
       // Calculate expiry time
-      const now: Date = OneUptimeDate.getCurrentDate();
-      const expiryDate: Date = OneUptimeDate.addRemoveSeconds(
+      const now: Date = OperationsDate.getCurrentDate();
+      const expiryDate: Date = OperationsDate.addRemoveSeconds(
         now,
         expiresIn - 300,
       ); // Subtrutes buffer
 
       logger.debug(
-        `Token expiry calculated: ${OneUptimeDate.toString(expiryDate)}`,
+        `Token expiry calculated: ${OperationsDate.toString(expiryDate)}`,
       );
 
       // Update the miscData with new token and expiry
       const updatedMiscData: MicrosoftTeamsMiscData = {
         ...data.miscData,
         appAccessToken: newAccessToken,
-        appAccessTokenExpiresAt: OneUptimeDate.toString(expiryDate),
-        lastAppTokenIssuedAt: OneUptimeDate.toString(now),
+        appAccessTokenExpiresAt: OperationsDate.toString(expiryDate),
+        lastAppTokenIssuedAt: OperationsDate.toString(now),
         tenantId: data.tenantId,
       };
 
@@ -2422,10 +2422,10 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
     }
 
     // Resolve the Cast Operations user linked to this Teams user.
-    let oneUptimeUserId: ObjectID;
+    let operationsUserId: ObjectID;
     try {
-      oneUptimeUserId =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId({
+      operationsUserId =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId({
           teamsUserId: teamsUserId,
           projectId: projectId,
         });
@@ -2488,7 +2488,7 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
       const props: DatabaseCommonInteractionProps =
         await AccessTokenService.getDatabaseCommonInteractionPropsByUserAndProject(
           {
-            userId: oneUptimeUserId,
+            userId: operationsUserId,
             projectId: projectId,
           },
         );
@@ -2510,7 +2510,7 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
       const result: ObservabilityAssistantResult =
         await ObservabilityAssistant.answerQuestion({
           projectId: projectId,
-          userId: oneUptimeUserId,
+          userId: operationsUserId,
           props: props,
           question: question,
           ...(history.length > 0 && { history: history }),
@@ -2637,7 +2637,7 @@ If you need to report an incident or check historical incidents, please visit th
         const declaredAt: Date | undefined =
           incident.declaredAt || incident.createdAt;
         const declaredAtText: string = declaredAt
-          ? OneUptimeDate.getDateAsFormattedString(declaredAt)
+          ? OperationsDate.getDateAsFormattedString(declaredAt)
           : "Unknown";
 
         const severityIcon: string = ["Critical", "Major"].includes(severity)
@@ -2747,10 +2747,10 @@ Check back later for upcoming maintenance windows.`;
         const state: string =
           event.currentScheduledMaintenanceState?.name || "Scheduled";
         const startTime: string = event.startsAt
-          ? OneUptimeDate.getDateAsFormattedString(event.startsAt)
+          ? OperationsDate.getDateAsFormattedString(event.startsAt)
           : "TBD";
         const endTime: string = event.endsAt
-          ? OneUptimeDate.getDateAsFormattedString(event.endsAt)
+          ? OperationsDate.getDateAsFormattedString(event.endsAt)
           : "TBD";
 
         const eventUrl: URL =
@@ -2853,10 +2853,10 @@ All systems are currently operating normally.`;
         const state: string =
           event.currentScheduledMaintenanceState?.name || "Ongoing";
         const startTime: string = event.startsAt
-          ? OneUptimeDate.getDateAsFormattedString(event.startsAt)
+          ? OperationsDate.getDateAsFormattedString(event.startsAt)
           : "Unknown";
         const endTime: string = event.endsAt
-          ? OneUptimeDate.getDateAsFormattedString(event.endsAt)
+          ? OperationsDate.getDateAsFormattedString(event.endsAt)
           : "TBD";
 
         const eventUrl: URL =
@@ -2971,7 +2971,7 @@ All monitoring checks are passing normally.`;
         const severity: string = alert.alertSeverity?.name || "Unknown";
         const state: string = alert.currentAlertState?.name || "Unknown";
         const createdAt: string = alert.createdAt
-          ? OneUptimeDate.getDateAsFormattedString(alert.createdAt)
+          ? OperationsDate.getDateAsFormattedString(alert.createdAt)
           : "Unknown";
 
         const alertUrl: URL = await AlertService.getAlertLinkInDashboard(
@@ -3088,8 +3088,8 @@ All monitoring checks are passing normally.`;
         projectId: projectId,
       };
 
-      const oneUptimeUserId: ObjectID =
-        await MicrosoftTeamsAuthAction.getOneUptimeUserIdFromTeamsUserId(
+      const operationsUserId: ObjectID =
+        await MicrosoftTeamsAuthAction.getOperationsUserIdFromTeamsUserId(
           userLookupParamsRes,
         );
 
@@ -3100,7 +3100,7 @@ All monitoring checks are passing normally.`;
           actionValue,
           value,
           projectId,
-          oneUptimeUserId,
+          operationsUserId,
           turnContext: data.turnContext,
         });
         return;
@@ -3113,7 +3113,7 @@ All monitoring checks are passing normally.`;
           actionValue,
           value,
           projectId,
-          oneUptimeUserId,
+          operationsUserId,
           turnContext: data.turnContext,
         });
         return;
@@ -3128,7 +3128,7 @@ All monitoring checks are passing normally.`;
           actionValue,
           value,
           projectId,
-          oneUptimeUserId,
+          operationsUserId,
           turnContext: data.turnContext,
         });
         return;
@@ -3146,7 +3146,7 @@ All monitoring checks are passing normally.`;
             actionValue,
             value,
             projectId,
-            oneUptimeUserId,
+            operationsUserId,
             turnContext: data.turnContext,
           },
         );
@@ -3160,7 +3160,7 @@ All monitoring checks are passing normally.`;
           actionValue,
           value,
           projectId,
-          oneUptimeUserId,
+          operationsUserId,
           turnContext: data.turnContext,
         });
         return;
@@ -3177,7 +3177,7 @@ All monitoring checks are passing normally.`;
           data.turnContext,
           value,
           {
-            userId: oneUptimeUserId.toString(),
+            userId: operationsUserId.toString(),
             projectId,
             isAuthorized: true,
             authToken: "",
@@ -3298,7 +3298,7 @@ All monitoring checks are passing normally.`;
       const adapter: CloudAdapter = this.getBotAdapter();
 
       // Create custom activity handler class that extends TeamsActivityHandler
-      class OneUptimeTeamsActivityHandler extends TeamsActivityHandler {
+      class OperationsTeamsActivityHandler extends TeamsActivityHandler {
         public constructor() {
           super();
 
@@ -3363,7 +3363,7 @@ All monitoring checks are passing normally.`;
 
       // Create activity handler instance
       const activityHandler: TeamsActivityHandler =
-        new OneUptimeTeamsActivityHandler();
+        new OperationsTeamsActivityHandler();
 
       // Use the adapter's process method with Express-style req/res
       await adapter.process(req, res, async (context: TurnContext) => {
@@ -3832,7 +3832,7 @@ All monitoring checks are passing normally.`;
       if (
         !accessToken ||
         (tokenExpiresAt &&
-          OneUptimeDate.isInThePast(OneUptimeDate.fromString(tokenExpiresAt)))
+          OperationsDate.isInThePast(OperationsDate.fromString(tokenExpiresAt)))
       ) {
         logger.debug(
           "Microsoft Teams access token expired or missing, skipping message fetch",

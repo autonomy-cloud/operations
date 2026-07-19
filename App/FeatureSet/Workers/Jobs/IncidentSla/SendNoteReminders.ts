@@ -9,7 +9,7 @@ import IncidentService from "Common/Server/Services/IncidentService";
 import Incident from "Common/Models/DatabaseModels/Incident";
 import IncidentInternalNote from "Common/Models/DatabaseModels/IncidentInternalNote";
 import IncidentPublicNote from "Common/Models/DatabaseModels/IncidentPublicNote";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 /**
  * This job sends automatic internal and public note reminders for incidents
@@ -103,7 +103,7 @@ async function processInternalNoteReminders(): Promise<void> {
         await IncidentSlaService.updateOneById({
           id: sla.id,
           data: {
-            lastInternalNoteReminderSentAt: OneUptimeDate.getCurrentDate(),
+            lastInternalNoteReminderSentAt: OperationsDate.getCurrentDate(),
           },
           props: {
             isRoot: true,
@@ -174,7 +174,7 @@ async function processPublicNoteReminders(): Promise<void> {
         publicNote.projectId = sla.projectId;
         publicNote.note = noteContent;
         publicNote.isOwnerNotified = true; // Mark as already notified since this is automated
-        publicNote.postedAt = OneUptimeDate.getCurrentDate();
+        publicNote.postedAt = OperationsDate.getCurrentDate();
 
         await IncidentPublicNoteService.create({
           data: publicNote,
@@ -187,7 +187,7 @@ async function processPublicNoteReminders(): Promise<void> {
         await IncidentSlaService.updateOneById({
           id: sla.id,
           data: {
-            lastPublicNoteReminderSentAt: OneUptimeDate.getCurrentDate(),
+            lastPublicNoteReminderSentAt: OperationsDate.getCurrentDate(),
           },
           props: {
             isRoot: true,
@@ -221,11 +221,11 @@ function processTemplate(
   sla: IncidentSla,
   incident: Incident,
 ): string {
-  const now: Date = OneUptimeDate.getCurrentDate();
+  const now: Date = OperationsDate.getCurrentDate();
 
   // Calculate elapsed time
   const elapsedMinutes: number = sla.slaStartedAt
-    ? OneUptimeDate.getDifferenceInMinutes(now, sla.slaStartedAt)
+    ? OperationsDate.getDifferenceInMinutes(now, sla.slaStartedAt)
     : 0;
 
   const elapsedTime: string = formatDuration(elapsedMinutes);
@@ -233,23 +233,23 @@ function processTemplate(
   // Calculate time to deadlines
   const timeToResponseDeadline: string = sla.responseDeadline
     ? formatDuration(
-        OneUptimeDate.getDifferenceInMinutes(sla.responseDeadline, now),
+        OperationsDate.getDifferenceInMinutes(sla.responseDeadline, now),
       )
     : "N/A";
 
   const timeToResolutionDeadline: string = sla.resolutionDeadline
     ? formatDuration(
-        OneUptimeDate.getDifferenceInMinutes(sla.resolutionDeadline, now),
+        OperationsDate.getDifferenceInMinutes(sla.resolutionDeadline, now),
       )
     : "N/A";
 
   // Format deadlines
   const responseDeadline: string = sla.responseDeadline
-    ? OneUptimeDate.getDateAsLocalFormattedString(sla.responseDeadline)
+    ? OperationsDate.getDateAsLocalFormattedString(sla.responseDeadline)
     : "N/A";
 
   const resolutionDeadline: string = sla.resolutionDeadline
-    ? OneUptimeDate.getDateAsLocalFormattedString(sla.resolutionDeadline)
+    ? OperationsDate.getDateAsLocalFormattedString(sla.resolutionDeadline)
     : "N/A";
 
   // Replace template variables

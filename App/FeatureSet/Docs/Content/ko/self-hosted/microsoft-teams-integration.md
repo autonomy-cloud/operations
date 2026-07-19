@@ -14,7 +14,7 @@
 1. [Azure 포털](https://portal.azure.com)로 이동합니다
 2. "앱 등록"으로 이동하고 "새 등록"을 클릭합니다
 3. 등록 양식을 작성합니다:
-   - **이름:** oneuptime
+   - **이름:** cast-operations
    - **지원되는 계정 유형:** 모든 조직 디렉토리의 계정 (모든 Microsoft Entra ID 테넌트 - 멀티테넌트)
    - **리디렉션 URI:** 웹 - `https://your-operations-domain.com/api/microsoft-teams/auth`
    - 다음도 추가하십시오: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -61,7 +61,7 @@
 1. Azure 포털에서 "Azure Bot"으로 이동하고 "만들기"를 클릭합니다
 2. 봇 생성 양식을 작성합니다:
 
-   - **봇 핸들:** oneuptime-bot
+   - **봇 핸들:** cast-operations-bot
    - **구독:** Azure 구독
    - **리소스 그룹:** 새로 만들거나 기존 사용
    - **위치:** 사용자와 가까운 위치 선택

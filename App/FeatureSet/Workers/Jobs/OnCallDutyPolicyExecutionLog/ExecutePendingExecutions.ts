@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import OnCallDutyPolicyStatus from "Common/Types/OnCallDutyPolicy/OnCallDutyPolicyStatus";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import OnCallDutyPolicyEscalationRuleService from "Common/Server/Services/OnCallDutyPolicyEscalationRuleService";
@@ -197,15 +197,13 @@ const executeOnCallPolicy: ExecuteOnCallPolicyFunction = async (
 
     // check if this execution needs to be executed.
 
-    const currentDate: Date = OneUptimeDate.getCurrentDate();
+    const currentDate: Date = OperationsDate.getCurrentDate();
 
     const lastExecutedAt: Date =
       executionLog.lastEscalationRuleExecutedAt || executionLog.createdAt!;
 
-    const getDifferenceInMinutes: number = OneUptimeDate.getDifferenceInMinutes(
-      lastExecutedAt,
-      currentDate,
-    );
+    const getDifferenceInMinutes: number =
+      OperationsDate.getDifferenceInMinutes(lastExecutedAt, currentDate);
 
     logger.debug(
       `Current date: ${currentDate}, Last executed at: ${lastExecutedAt}, Difference in minutes: ${getDifferenceInMinutes}`,

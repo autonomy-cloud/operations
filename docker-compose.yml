@@ -1,5 +1,5 @@
 # Images are pushed to both Docker Hub and Github Container Registry. If you're using Github Container Registry, you can change the image tag to use the Github Container Registry.
-# For example, if you want to use the image from Github Container Registry, you can change the image tag from oneuptime/dashboard:latest to ghcr.io/oneuptime/dashboard:latest
+# For example, if you want to use the image from Github Container Registry, you can change the image tag from cast-operations/dashboard:latest to ghcr.io/cast-operations/dashboard:latest
 
 x-common-depends-on: &common-depends-on
   postgres:
@@ -28,7 +28,7 @@ services:
       service: postgres
 
   app:
-    image: oneuptime/app:${APP_TAG}
+    image: cast-operations/app:${APP_TAG}
     extends:
       file: ./docker-compose.base.yml
       service: app
@@ -36,7 +36,7 @@ services:
       <<: *common-depends-on
 
   probe-1:
-    image: oneuptime/probe:${APP_TAG}
+    image: cast-operations/probe:${APP_TAG}
     extends:
       file: ./docker-compose.base.yml
       service: probe-1
@@ -44,7 +44,7 @@ services:
       <<: *common-depends-on
 
   ai-agent:
-    image: oneuptime/ai-agent:${APP_TAG}
+    image: cast-operations/ai-agent:${APP_TAG}
     extends:
       file: ./docker-compose.base.yml
       service: ai-agent
@@ -52,7 +52,7 @@ services:
       <<: *common-depends-on
 
   ingress:
-    image: oneuptime/nginx:${APP_TAG}
+    image: cast-operations/nginx:${APP_TAG}
     extends:
       file: ./docker-compose.base.yml
       service: ingress
@@ -64,5 +64,5 @@ volumes:
   clickhouse:
 
 networks:
-  oneuptime:
+  cast-operations:
     driver: bridge

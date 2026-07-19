@@ -12,12 +12,12 @@
 MONGO_SERVER_HOST='a59a474aad89940889c1eb69b1a8f884-135820180.us-east-2.elb.amazonaws.com'
 MONGO_SERVER_PORT="27017"
 
-ONEUPTIME_DB_USERNAME='oneuptime'
-ONEUPTIME_DB_PASSWORD='password'
-ONEUPTIME_DB_NAME='oneuptimedb'
+CAST_OPERATIONS_DB_USERNAME='cast-operations'
+CAST_OPERATIONS_DB_PASSWORD='password'
+CAST_OPERATIONS_DB_NAME='castoperationsdb'
 CURRENT_DATE=$(date +%s)
 CURRENT_USER=$(whoami)
-FILE_NAME="oneuptime-backup-1638534940.archive"
+FILE_NAME="cast-operations-backup-1638534940.archive"
 FILE_PATH=~/db-backup
 TODAY=$(date +"%d-%b-%Y")
 ENVIRONMENT='Staging'
@@ -30,9 +30,9 @@ function HELP() {
 	echo ""
 	echo " -f       Name of file to be restored"
 	echo " -l       File path on local system where file will be restored from. Default value - $FILE_PATH"
-	echo " -n       Database name. Default value 'oneuptimedb'"
+	echo " -n       Database name. Default value 'castoperationsdb'"
 	echo " -p       Database password. Default value 'password'"
-	echo " -u       Set database username. Default value 'oneuptime'."
+	echo " -u       Set database username. Default value 'cast-operations'."
 	echo " -v       Set database environment. Enums {Production, Staging}, defaults to 'Staging'."
 	echo ""
 	echo " -h       Help."
@@ -44,13 +44,13 @@ function HELP() {
 while getopts "u:p:n:l:f:v:h" opt; do
 	case $opt in
 	u)
-		ONEUPTIME_DB_USERNAME="$OPTARG"
+		CAST_OPERATIONS_DB_USERNAME="$OPTARG"
 		;;
 	p)
-		ONEUPTIME_DB_PASSWORD="$OPTARG"
+		CAST_OPERATIONS_DB_PASSWORD="$OPTARG"
 		;;
 	n)
-		ONEUPTIME_DB_NAME="$OPTARG"
+		CAST_OPERATIONS_DB_NAME="$OPTARG"
 		;;
 	l)
 		FILE_PATH="$OPTARG"
@@ -144,7 +144,7 @@ function RESTORE_FAIL_LOCAL() {
 
 echo "Restoring Database. This will take some time...."
 echo ""
-if mongorestore --authenticationDatabase="${ONEUPTIME_DB_NAME}" --host="${MONGO_SERVER_HOST}" --port="${MONGO_SERVER_PORT}" --username="${ONEUPTIME_DB_USERNAME}" --password="${ONEUPTIME_DB_PASSWORD}" --archive="$FILE_PATH/$FILE_NAME"; then
+if mongorestore --authenticationDatabase="${CAST_OPERATIONS_DB_NAME}" --host="${MONGO_SERVER_HOST}" --port="${MONGO_SERVER_PORT}" --username="${CAST_OPERATIONS_DB_USERNAME}" --password="${CAST_OPERATIONS_DB_PASSWORD}" --archive="$FILE_PATH/$FILE_NAME"; then
 	echo "Restore success"
 	RESTORE_SUCCESS
 else

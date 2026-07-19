@@ -64,7 +64,7 @@ import { exportLogs, LogExportFormat } from "../../Utils/LogExport";
 import ProjectUtil from "../../Utils/Project";
 import TelemetryServiceUtil from "../../Utils/TelemetryService";
 import ObjectID from "../../../Types/ObjectID";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 
 export interface ComponentProps {
   logs: Array<Log>;
@@ -315,10 +315,10 @@ const LogsViewer: FunctionComponent<ComponentProps> = (
       if (sortField === "time") {
         const aTime: number =
           Number(a.timeUnixNano) ||
-          (a.time ? OneUptimeDate.fromString(a.time).getTime() : 0);
+          (a.time ? OperationsDate.fromString(a.time).getTime() : 0);
         const bTime: number =
           Number(b.timeUnixNano) ||
-          (b.time ? OneUptimeDate.fromString(b.time).getTime() : 0);
+          (b.time ? OperationsDate.fromString(b.time).getTime() : 0);
 
         if (aTime === bTime) {
           return 0;

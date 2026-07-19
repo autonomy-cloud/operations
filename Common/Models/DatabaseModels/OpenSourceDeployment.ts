@@ -118,7 +118,7 @@ export default class OpenSourceDeployment extends BaseModel {
     type: ColumnType.ShortText,
     length: ColumnLength.ShortText,
   })
-  public oneuptimeVersion?: string = undefined;
+  public castOperationsVersion?: string = undefined;
 
   @ColumnAccessControl({
     create: [],

@@ -2,7 +2,7 @@ import RunCron from "../../Utils/Cron";
 import Hostname from "Common/Types/API/Hostname";
 import Protocol from "Common/Types/API/Protocol";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
 import SMS from "Common/Types/SMS/SMS";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
@@ -51,7 +51,7 @@ RunCron(
             StatusPageSubscriberNotificationStatus.Pending,
           shouldStatusPageSubscribersBeNotified: false,
           showAnnouncementAt: QueryHelper.lessThan(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
         },
         props: {
@@ -95,7 +95,7 @@ RunCron(
             StatusPageSubscriberNotificationStatus.Pending,
           shouldStatusPageSubscribersBeNotified: true,
           showAnnouncementAt: QueryHelper.lessThan(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
         },
         props: {

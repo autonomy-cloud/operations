@@ -130,7 +130,7 @@ Zabbix는 _사용자에게_ 알림을 보냅니다. 통합을 쉽게 찾고 비�
 3. **Yes** 출력에서 **Find Incident** 블록을 추가해 앞서 생성한 열린 인시던트를 조회합니다 — 설명이나 라벨에 저장한 Zabbix `event_id` 로 매칭합니다.
 4. **Update Incident** 블록에 연결해 인시던트를 _해결됨_ 상태로 이동합니다.
 
-해결은 프로젝트의 인시던트 상태 모델링 방식에 따라 달라지므로, **생성** 경로를 안정적인 핵심으로 유지하고 이벤트 흐름이 올바르게 확인된 후에 해결 경로를 추가하세요. [컴포넌트 → Cast Operations 데이터 컴포넌트](/docs/workflows/components#oneuptime-data-components)를 참조하시기 바랍니다.
+해결은 프로젝트의 인시던트 상태 모델링 방식에 따라 달라지므로, **생성** 경로를 안정적인 핵심으로 유지하고 이벤트 흐름이 올바르게 확인된 후에 해결 경로를 추가하세요. [컴포넌트 → Cast Operations 데이터 컴포넌트](/docs/workflows/components#cast-operations-data-components)를 참조하시기 바랍니다.
 
 ## Zabbix 심각도 매핑 (선택 사항)
 

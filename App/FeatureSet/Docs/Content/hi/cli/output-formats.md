@@ -7,7 +7,7 @@ Cast Operations CLI तीन output formats का समर्थन करत
 एक interactive terminal में चलाते समय डिफ़ॉल्ट format। results को intelligently चयनित columns के साथ ASCII table के रूप में प्रदर्शित करता है।
 
 ```bash
-oneuptime incident list
+cast-operations incident list
 ```
 
 ```
@@ -30,7 +30,7 @@ Table format का व्यवहार:
 Raw JSON output, 2-space indentation के साथ pretty-printed। यह scripting और अन्य tools में piping के लिए सबसे अच्छा format है।
 
 ```bash
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ```json
@@ -48,7 +48,7 @@ JSON format स्वचालित रूप से तब उपयोग क
 
 ```bash
 # piping करते समय JSON स्वचालित रूप से उपयोग होता है
-oneuptime incident list | jq '.[].title'
+cast-operations incident list | jq '.[].title'
 ```
 
 ## Wide
@@ -56,7 +56,7 @@ oneuptime incident list | jq '.[].title'
 बिना truncation के सभी columns प्रदर्शित करता है। विस्तृत निरीक्षण के लिए उपयोगी लेकिन बहुत चौड़ा output उत्पन्न कर सकता है।
 
 ```bash
-oneuptime incident list -o wide
+cast-operations incident list -o wide
 ```
 
 ## Color अक्षम करना
@@ -65,10 +65,10 @@ Color output को कई तरीकों से अक्षम किय�
 
 ```bash
 # --no-color flag का उपयोग करके
-oneuptime --no-color incident list
+cast-operations --no-color incident list
 
 # NO_COLOR environment variable का उपयोग करके
-NO_COLOR=1 oneuptime incident list
+NO_COLOR=1 cast-operations incident list
 ```
 
 ## विशेष Output Cases

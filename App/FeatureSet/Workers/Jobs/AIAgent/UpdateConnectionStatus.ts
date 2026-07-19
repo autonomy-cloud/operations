@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import RunCron from "../../Utils/Cron";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import AIAgentService from "Common/Server/Services/AIAgentService";
@@ -49,8 +49,8 @@ RunCron(
 
         if (
           aiAgent.lastAlive &&
-          OneUptimeDate.getDifferenceInMinutes(
-            OneUptimeDate.getCurrentDate(),
+          OperationsDate.getDifferenceInMinutes(
+            OperationsDate.getCurrentDate(),
             aiAgent.lastAlive,
           ) > 2
         ) {

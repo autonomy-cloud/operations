@@ -130,7 +130,7 @@ Kjernarbeidsflyten ovenfor _åpner_ hendelser. For også å _lukke_ dem når Zab
 3. Fra **Yes**-utgangen, legg til en **Find Incident**-blokk som slår opp den åpne hendelsen du opprettet tidligere — match på Zabbix `event_id` du lagret i beskrivelsen eller en kode.
 4. Koble det til en **Update Incident**-blokk og flytt hendelsen til din _løst_-tilstand.
 
-Fordi løsning avhenger av hvordan du modellerer hendelsetilstander i prosjektet ditt, hold **create**-stien som den pålitelige kjernen og legg til løsningsstien når du har bekreftet at hendelser flyter korrekt. Se [Komponenter → Cast Operations-datakomponenter](/docs/workflows/components#oneuptime-data-components).
+Fordi løsning avhenger av hvordan du modellerer hendelsetilstander i prosjektet ditt, hold **create**-stien som den pålitelige kjernen og legg til løsningsstien når du har bekreftet at hendelser flyter korrekt. Se [Komponenter → Cast Operations-datakomponenter](/docs/workflows/components#cast-operations-data-components).
 
 ## Kartlegge Zabbix-alvorlighetsgrader (valgfritt)
 

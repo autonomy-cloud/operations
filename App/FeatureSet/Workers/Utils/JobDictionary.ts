@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
@@ -22,7 +22,7 @@ export default class JobDictionary {
 
   public static getTimeoutInMs(name: string): number {
     const defaultTimeInMs: number =
-      OneUptimeDate.convertMinutesToMilliseconds(5);
+      OperationsDate.convertMinutesToMilliseconds(5);
     if (this.timeoutInMsDictionary[name]) {
       return this.timeoutInMsDictionary[name] || defaultTimeInMs;
     }

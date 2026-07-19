@@ -1,5 +1,5 @@
 import ObjectID from "../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import { Blue500 } from "../../../../Types/BrandColors";
 import { IncidentFeedEventType } from "../../../../Models/DatabaseModels/IncidentFeed";
 import IncidentInternalNote from "../../../../Models/DatabaseModels/IncidentInternalNote";
@@ -252,7 +252,7 @@ export default class AIIncidentInvestigationRunner {
     lines.push(
       `Declared at: ${
         incident.createdAt
-          ? OneUptimeDate.getDateAsFormattedString(incident.createdAt)
+          ? OperationsDate.getDateAsFormattedString(incident.createdAt)
           : "N/A"
       }`,
     );

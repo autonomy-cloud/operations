@@ -3,10 +3,8 @@ import Service from "./Service";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import CanAccessIfCanReadOn from "../../Types/Database/CanAccessIfCanReadOn";
 import ColumnType from "../../Types/Database/ColumnType";
 import CrudApiEndpoint from "../../Types/Database/CrudApiEndpoint";
@@ -24,12 +22,6 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 @CanAccessIfCanReadOn("service")
 @EnableDocumentation()
 @TenantColumn("projectId")
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Free,
-  update: PlanType.Growth,
-  delete: PlanType.Free,
-})
 @TableAccessControl({
   create: [
     Permission.ProjectOwner,
@@ -148,7 +140,8 @@ export default class ServiceOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -309,7 +302,8 @@ export default class ServiceOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Service ID",
-    description: "ID of your Cast Operations Service in which this object belongs",
+    description:
+      "ID of your Cast Operations Service in which this object belongs",
     example: "f6a7b8c9-d0e1-2345-fa67-bc89de012345",
   })
   @Column({

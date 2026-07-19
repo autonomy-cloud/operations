@@ -22,7 +22,7 @@ While the investigation runs, the incident or alert page shows a live **AI Inves
 Autonomous investigations are **off by default**. To enable them:
 
 1. **Configure an LLM provider.** Self-hosted installations bring their own key (or run fully air-gapped with local Ollama) — see [LLM Providers](/docs/ai/llm-provider). Cast Operations Cloud users can use the pre-configured global provider, billed as metered AI tokens.
-2. **Make sure AI is enabled for the project** (it is by default) — Project Settings > AI > AI Credits > Enable AI.
+2. **Make sure AI is enabled for the project** (it is by default) — Project Settings > AI.
 3. **Opt in per signal type:**
    - Incidents: **Incidents > Settings > AI** — toggle *Automatically Investigate Incidents*.
    - Alerts: **Alerts > Settings > AI** — toggle *Automatically Investigate Alerts*.
@@ -91,4 +91,4 @@ Every insight has **Confirm** and **Dismiss** buttons — use them even when you
 - An LLM provider must be configured (project-specific or the cloud global provider).
 - Investigations trigger on **newly created** incidents and alerts only — enabling the toggles does not investigate historical signals.
 - The `baseline_anomaly` check needs about two weeks of metric history before its hour-of-week baselines are reliable; before that it reports "insufficient baseline data" rather than guessing.
-- On Cast Operations Cloud with the global provider, investigations consume metered AI tokens (see Project Settings > AI Credits). Bring your own provider key for unmetered usage.
+- With a shared provider, investigations are recorded in AI Logs with token and estimated-cost telemetry. You can also configure a project-owned provider key.

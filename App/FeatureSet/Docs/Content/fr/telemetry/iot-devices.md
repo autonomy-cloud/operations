@@ -15,7 +15,7 @@ Il n'y a aucun agent propriétaire à installer côté appareil. Cette page est 
 
 - Un appareil, une passerelle ou un collector capable d'envoyer du OTLP/HTTP vers Cast Operations
 - Une accessibilité réseau depuis l'appareil/la passerelle vers votre instance Cast Operations
-- Un **jeton d'ingestion de télémétrie Cast Operations** — créez-en un depuis _Project Settings → Telemetry Ingestion Keys_ et copiez la valeur `x-oneuptime-token`
+- Un **jeton d'ingestion de télémétrie Cast Operations** — créez-en un depuis _Project Settings → Telemetry Ingestion Keys_ et copiez la valeur `x-cast-operations-token`
 
 ## Comment Cast Operations modélise l'IoT
 
@@ -40,14 +40,14 @@ Si votre appareil exécute directement un SDK OpenTelemetry, pointez-le vers Cas
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | Variable d'environnement      | Requis   | Description                                                                                           |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | Oui      | Endpoint OTLP de Cast Operations (`https://visca.ai/otlp`, ou `http(s)://YOUR-OPERATIONS-HOST/otlp` en auto-hébergé) |
-| `OTEL_EXPORTER_OTLP_HEADERS`  | Oui      | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | Oui      | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | Oui      | Attributs de ressource séparés par des virgules. Doit inclure `iot.fleet.name`, `device.id` et `service.name=iot/<fleet>` |
 
 Émettez vos relevés sous forme de métriques en utilisant les noms `iot_*` ci-dessous (voir [Conventions de métriques](#conventions-de-métriques)). En l'espace d'une minute environ, l'appareil apparaît dans la section **IoT** du tableau de bord Cast Operations.
@@ -82,7 +82,7 @@ exporters:
   otlphttp:
     endpoint: "https://visca.ai/otlp"
     headers:
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
 service:
   pipelines:
@@ -110,28 +110,28 @@ Cast Operations embarque un endpoint MQTT intégré, si bien que les appareils q
 **Authentification** — deux options :
 
 - **À l'échelle du projet** : envoyez votre **jeton d'ingestion de télémétrie** comme mot de passe MQTT (le nom d'utilisateur est ignoré ; si votre client n'expose qu'un champ nom d'utilisateur, placez-y le jeton à la place). Adapté aux passerelles qui publient pour le compte de nombreux appareils.
-- **Par appareil** (recommandé pour les appareils qui se connectent directement) : enregistrez l'appareil depuis l'onglet **Device Registry** de la flotte dans le tableau de bord. L'enregistrement délivre un identifiant propre à l'appareil — l'ID de l'identifiant est le **nom d'utilisateur** MQTT et le secret est le **mot de passe**. Les clients authentifiés par appareil ne peuvent publier que sous leurs propres topics `oneuptime/<fleet>/<device>/…`, un appareil compromis peut être révoqué depuis le tableau de bord sans toucher au reste de la flotte (la révocation prend effet en une minute environ, même pour les sessions connectées), et les appareils enregistrés bénéficient de la **détection de mort silencieuse** : ils restent dans l'inventaire avec le statut Offline au lieu de disparaître lorsqu'ils cessent de rapporter, et le modèle d'alerte Device Offline se déclenche pour eux même s'ils meurent sans Last Will.
+- **Par appareil** (recommandé pour les appareils qui se connectent directement) : enregistrez l'appareil depuis l'onglet **Device Registry** de la flotte dans le tableau de bord. L'enregistrement délivre un identifiant propre à l'appareil — l'ID de l'identifiant est le **nom d'utilisateur** MQTT et le secret est le **mot de passe**. Les clients authentifiés par appareil ne peuvent publier que sous leurs propres topics `cast-operations/<fleet>/<device>/…`, un appareil compromis peut être révoqué depuis le tableau de bord sans toucher au reste de la flotte (la révocation prend effet en une minute environ, même pour les sessions connectées), et les appareils enregistrés bénéficient de la **détection de mort silencieuse** : ils restent dans l'inventaire avec le statut Offline au lieu de disparaître lorsqu'ils cessent de rapporter, et le modèle d'alerte Device Offline se déclenche pour eux même s'ils meurent sans Last Will.
 
 Les identifiants invalides sont rejetés dès le CONNECT avec le code de retour 4 (bad username or password) ; un appareil mal configuré échoue donc bruyamment.
 
-**Topics** — publiez sous le préfixe fixe `oneuptime/`. Les segments de flotte et d'appareil ne doivent pas contenir `/`, `+` ni `#`, et sont limités à 100 caractères :
+**Topics** — publiez sous le préfixe fixe `cast-operations/`. Les segments de flotte et d'appareil ne doivent pas contenir `/`, `+` ni `#`, et sont limités à 100 caractères :
 
 | Topic                                            | Charge utile                                                                                         |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `oneuptime/<fleet>/<device>/telemetry`           | Objet JSON de relevés — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, ou un objet plat dont les champs numériques sont les métriques |
-| `oneuptime/<fleet>/<device>/metrics/<metricName>`| Une valeur unique — un nombre brut (`23.4`) ou `{ "value": 23.4 }`                                    |
-| `oneuptime/<fleet>/<device>/status`              | `"online"` ou `"offline"` (également `1`/`0`, `true`/`false`, `up`/`down`) — correspond à `iot_device_up` |
+| `cast-operations/<fleet>/<device>/telemetry`           | Objet JSON de relevés — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, ou un objet plat dont les champs numériques sont les métriques |
+| `cast-operations/<fleet>/<device>/metrics/<metricName>`| Une valeur unique — un nombre brut (`23.4`) ou `{ "value": 23.4 }`                                    |
+| `cast-operations/<fleet>/<device>/status`              | `"online"` ou `"offline"` (également `1`/`0`, `true`/`false`, `up`/`down`) — correspond à `iot_device_up` |
 
 Les charges utiles de télémétrie peuvent également porter `"attributes"` (une map de chaînes estampillée sur chaque point de données — utilisez-la pour `iot.device.kind`, `iot.device.type`, `iot.device.firmware`, ou vos propres labels) et `"timestamp"` (ISO-8601, ou unix en secondes/millisecondes). Les deux sont facultatifs ; l'heure d'ingestion est utilisée lorsque `timestamp` est absent.
 
-**Détection hors ligne avec Last Will** — enregistrez un Last Will MQTT sur `oneuptime/<fleet>/<device>/status` avec la charge utile `offline`. Si l'appareil meurt ou quitte le réseau, le broker publie `iot_device_up = 0` en son nom dès la fin de la session — ce qui déclenche le modèle d'alerte **Device Offline** fourni en standard et bascule l'appareil en Down dans l'inventaire, sans polling et sans attendre une collecte manquée. Publiez `online` sur le même topic après la connexion pour que l'appareil réapparaisse en service.
+**Détection hors ligne avec Last Will** — enregistrez un Last Will MQTT sur `cast-operations/<fleet>/<device>/status` avec la charge utile `offline`. Si l'appareil meurt ou quitte le réseau, le broker publie `iot_device_up = 0` en son nom dès la fin de la session — ce qui déclenche le modèle d'alerte **Device Offline** fourni en standard et bascule l'appareil en Down dans l'inventaire, sans polling et sans attendre une collecte manquée. Publiez `online` sur le même topic après la connexion pour que l'appareil réapparaisse en service.
 
 Exemple avec `mosquitto_pub` (TCP brut, auto-hébergé) :
 
 ```bash
-mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
-  -u oneuptime -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
-  -t "oneuptime/building-a-sensors/sensor-001/telemetry" \
+mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
+  -u cast-operations -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -t "cast-operations/building-a-sensors/sensor-001/telemetry" \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
@@ -141,19 +141,19 @@ Exemple avec le module Node.js `mqtt` sur WebSocket (fonctionne avec visca.ai et
 const mqtt = require("mqtt");
 
 const client = mqtt.connect("wss://visca.ai/mqtt", {
-  username: "oneuptime", // ignoré — c'est le jeton ci-dessous qui authentifie
+  username: "cast-operations", // ignoré — c'est le jeton ci-dessous qui authentifie
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
-    topic: "oneuptime/building-a-sensors/sensor-001/status",
+    topic: "cast-operations/building-a-sensors/sensor-001/status",
     payload: "offline",
   },
 });
 
 client.on("connect", () => {
-  client.publish("oneuptime/building-a-sensors/sensor-001/status", "online");
+  client.publish("cast-operations/building-a-sensors/sensor-001/status", "online");
   setInterval(() => {
     client.publish(
-      "oneuptime/building-a-sensors/sensor-001/telemetry",
+      "cast-operations/building-a-sensors/sensor-001/telemetry",
       JSON.stringify({
         metrics: {
           iot_device_up: 1,
@@ -173,15 +173,15 @@ import json
 import paho.mqtt.client as mqtt
 
 client = mqtt.Client(transport="websockets")
-client.username_pw_set("oneuptime", "YOUR_TELEMETRY_INGESTION_TOKEN")
+client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
-client.will_set("oneuptime/building-a-sensors/sensor-001/status", "offline")
+client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
 client.connect("visca.ai", 443)
 
-client.publish("oneuptime/building-a-sensors/sensor-001/status", "online")
+client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
-    "oneuptime/building-a-sensors/sensor-001/telemetry",
+    "cast-operations/building-a-sensors/sensor-001/telemetry",
     json.dumps({"metrics": {"iot_device_up": 1, "iot_temperature_celsius": 21.5}}),
 )
 ```
@@ -221,8 +221,8 @@ Cast Operations reconnaît les noms de métriques `iot_*` suivants. Chaque point
 ### La flotte n'apparaît pas
 
 1. Vérifiez que `iot.fleet.name` est défini comme attribut de **ressource** (et non comme label de point de données), et que `service.name` vaut `iot/<fleet>`.
-2. Confirmez que l'endpoint de l'exportateur est `https://visca.ai/otlp` (ou votre `…/otlp` auto-hébergé) et que l'en-tête `x-oneuptime-token` porte un jeton valide.
-3. Si vous utilisez MQTT, confirmez que le topic suit exactement `oneuptime/<fleet>/<device>/…` — c'est le segment de flotte du topic qui crée la flotte.
+2. Confirmez que l'endpoint de l'exportateur est `https://visca.ai/otlp` (ou votre `…/otlp` auto-hébergé) et que l'en-tête `x-cast-operations-token` porte un jeton valide.
+3. Si vous utilisez MQTT, confirmez que le topic suit exactement `cast-operations/<fleet>/<device>/…` — c'est le segment de flotte du topic qui crée la flotte.
 
 ### Des appareils manquent dans l'inventaire
 
@@ -232,7 +232,7 @@ Cast Operations reconnaît les noms de métriques `iot_*` suivants. Chaque point
 
 ### HTTP 401 / 403 depuis l'exportateur
 
-Le jeton d'ingestion est invalide, révoqué ou manquant. Générez-en un nouveau depuis _Project Settings → Telemetry Ingestion Keys_ et mettez à jour l'en-tête `x-oneuptime-token`.
+Le jeton d'ingestion est invalide, révoqué ou manquant. Générez-en un nouveau depuis _Project Settings → Telemetry Ingestion Keys_ et mettez à jour l'en-tête `x-cast-operations-token`.
 
 ### Les métriques ne se tracent pas
 
@@ -255,7 +255,7 @@ exporters:
   otlphttp:
     endpoint: https://your-operations-host.example.com/otlp
     headers:
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 Pour MQTT, connectez-vous à `wss://your-operations-host.example.com/mqtt`, ou exposez le port MQTT TCP brut du service app (`MQTT_INGEST_PORT`, `1883` par défaut) si vos appareils ne savent pas parler WebSocket. Définissez `MQTT_INGEST_ENABLED=false` sur le service app pour désactiver entièrement les listeners MQTT.

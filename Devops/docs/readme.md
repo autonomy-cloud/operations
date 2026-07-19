@@ -4,7 +4,7 @@
 
 **_Step 1 : Files Upload_**
 
-- ssh into the local VN and upload scripts install.sh, backup.sh and restore.sh to `/root/oneuptime_bk_files`.
+- ssh into the local VN and upload scripts install.sh, backup.sh and restore.sh to `/root/cast_operations_bk_files`.
 
 The script install.sh will automatically install the latest kubectl version if non is present, create default backup and kube-config paths, copy the remote server kubernetes config file, create backup service and run the service with a timer.
 
@@ -12,22 +12,22 @@ The script install.sh will automatically install the latest kubectl version if n
 
 The first thing to take note of is passing the right arguments.
 
-- cd into folder containing install scripts `/root/oneuptime_bk_files`.
+- cd into folder containing install scripts `/root/cast_operations_bk_files`.
 - Enter command `bash install.sh -h` to see list of all available commands
 
 | Argument | Function                                                                        | Default                         |
 | -------- | :------------------------------------------------------------------------------ | :------------------------------ |
 | -a       | IP Address of remote server                                                     | No Default. Compulsory argument |
 | -l       | Backup path on local system where backup file will be stored.                   | /root/Documents/backup          |
-| -n       | Database name.                                                                  | 'oneuptimedb'                   |
+| -n       | Database name.                                                                  | 'castoperationsdb'                   |
 | -p       | Database password.                                                              | 'password'                      |
 | -t       | Backup retain days. Set the number of days backup is kept before it is deleted. | 14                              |
-| -u       | Set database username.                                                          | 'oneuptime'                     |
+| -u       | Set database username.                                                          | 'cast-operations'                     |
 | -h       | Help                                                                            | null                            |
 
-_ex: To create a backup of a database without username or password and database name is 'oneuptime'_
+_ex: To create a backup of a database without username or password and database name is 'cast-operations'_
 
-The command will be `bash install.sh -u '' -p '' -n 'oneuptime'`
+The command will be `bash install.sh -u '' -p '' -n 'cast-operations'`
 
 **_Step 3 : Run backup_**
 
@@ -56,11 +56,11 @@ The first thing to take note of is passing the right arguments.
 | -------- | :---------------------------------------------------------- | :------------------------------- |
 | -f       | Name of file to be restored.                                | No default. Compulsory argument. |
 | -l       | File path on local system where file will be restored from. | /root/Documents/backup           |
-| -n       | Database name. Default value                                | 'oneuptimedb'                    |
+| -n       | Database name. Default value                                | 'castoperationsdb'                    |
 | -p       | Database password. Default value                            | 'password'                       |
-| -u       | Set database username.                                      | 'oneuptime'                      |
+| -u       | Set database username.                                      | 'cast-operations'                      |
 | -h       | Help                                                        | null                             |
 
-_ex: To restore a backup with name oneuptime-backup-1613551425.archive to a database without username or password and database name is 'oneuptime'._
+_ex: To restore a backup with name cast-operations-backup-1613551425.archive to a database without username or password and database name is 'cast-operations'._
 
-The command will be `/root/oneuptime_bk_files bash restore.sh -f oneuptime-backup-1613551425.archive -p '' -u ''`
+The command will be `/root/cast_operations_bk_files bash restore.sh -f cast-operations-backup-1613551425.archive -p '' -u ''`

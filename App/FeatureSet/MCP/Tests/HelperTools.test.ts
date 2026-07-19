@@ -1,7 +1,7 @@
 /**
  * Helper tool tests.
  *
- * Verifies that oneuptime_list_resources derives tool names via
+ * Verifies that cast_operations_list_resources derives tool names via
  * sanitizeToolName (matching ToolGenerator exactly) and only lists the
  * operations a resource actually has.
  */
@@ -9,11 +9,11 @@
 import { describe, it, expect } from "@jest/globals";
 import { handleHelperTool, isHelperTool } from "../Tools/HelperTools";
 import { McpToolInfo } from "../Types/McpTypes";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 
 function makeTool(
-  operation: OneUptimeOperation,
+  operation: OperationsOperation,
   tableName: string,
   singularName: string,
   pluralName: string,
@@ -41,38 +41,38 @@ interface ResourceEntry {
 describe("HelperTools", () => {
   describe("isHelperTool", () => {
     it("recognizes helper tools and rejects others", () => {
-      expect(isHelperTool("oneuptime_help")).toBe(true);
-      expect(isHelperTool("oneuptime_list_resources")).toBe(true);
+      expect(isHelperTool("cast_operations_help")).toBe(true);
+      expect(isHelperTool("cast_operations_list_resources")).toBe(true);
       expect(isHelperTool("list_incidents")).toBe(false);
-      expect(isHelperTool("oneuptime_whoami")).toBe(false);
+      expect(isHelperTool("cast_operations_whoami")).toBe(false);
     });
   });
 
-  describe("oneuptime_list_resources", () => {
+  describe("cast_operations_list_resources", () => {
     // Monitor Log has list+count only; Incident has full CRUD.
     const resourceTools: McpToolInfo[] = [
       makeTool(
-        OneUptimeOperation.List,
+        OperationsOperation.List,
         "MonitorLog",
         "Monitor Log",
         "Monitor Logs",
       ),
       makeTool(
-        OneUptimeOperation.Count,
+        OperationsOperation.Count,
         "MonitorLog",
         "Monitor Log",
         "Monitor Logs",
       ),
-      makeTool(OneUptimeOperation.Create, "Incident", "Incident", "Incidents"),
-      makeTool(OneUptimeOperation.Read, "Incident", "Incident", "Incidents"),
-      makeTool(OneUptimeOperation.List, "Incident", "Incident", "Incidents"),
-      makeTool(OneUptimeOperation.Update, "Incident", "Incident", "Incidents"),
-      makeTool(OneUptimeOperation.Delete, "Incident", "Incident", "Incidents"),
-      makeTool(OneUptimeOperation.Count, "Incident", "Incident", "Incidents"),
+      makeTool(OperationsOperation.Create, "Incident", "Incident", "Incidents"),
+      makeTool(OperationsOperation.Read, "Incident", "Incident", "Incidents"),
+      makeTool(OperationsOperation.List, "Incident", "Incident", "Incidents"),
+      makeTool(OperationsOperation.Update, "Incident", "Incident", "Incidents"),
+      makeTool(OperationsOperation.Delete, "Incident", "Incident", "Incidents"),
+      makeTool(OperationsOperation.Count, "Incident", "Incident", "Incidents"),
     ];
 
     const response: { resources: ResourceEntry[] } = JSON.parse(
-      handleHelperTool("oneuptime_list_resources", {}, resourceTools),
+      handleHelperTool("cast_operations_list_resources", {}, resourceTools),
     ) as { resources: ResourceEntry[] };
 
     function findResource(name: string): ResourceEntry {

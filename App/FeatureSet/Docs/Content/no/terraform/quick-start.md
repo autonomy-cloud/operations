@@ -35,7 +35,7 @@ Opprett en ny katalog og `main.tf`-fil:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       # For Sky-kunder
       version = "~> 7.0"
@@ -47,17 +47,17 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
+provider "cast-operations" {
   # For Sky-kunder
-  oneuptime_url = "https://visca.ai"
+  cast_operations_url = "https://visca.ai"
 
   # For selvhostede kunder – bruk din instans-URL
-  # oneuptime_url = "https://operations.yourcompany.com"
+  # cast_operations_url = "https://operations.yourcompany.com"
 
-  api_key = var.oneuptime_api_key
+  api_key = var.cast_operations_api_key
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API-nøkkel"
   type        = string
   sensitive   = true
@@ -71,7 +71,7 @@ variable "project_id" {
 }
 
 # Opprett en enkel nettstedmonitor
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Nettstedmonitor"
   description = "Monitor for nettstedoppetid"
   data        = jsonencode({
@@ -83,7 +83,7 @@ resource "oneuptime_monitor" "website" {
 
 # Skriv ut monitor-ID-en
 output "monitor_id" {
-  value = oneuptime_monitor.website.id
+  value = cast_operations_monitor.website.id
 }
 ```
 
@@ -93,7 +93,7 @@ Opprett `terraform.tfvars`:
 
 ```hcl
 # terraform.tfvars
-oneuptime_api_key = "your-api-key-here"
+cast_operations_api_key = "your-api-key-here"
 project_id        = "your-project-id-here"  # Hent dette fra Cast Operations-dashbordet
 ```
 
@@ -132,16 +132,16 @@ terraform apply
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Henter alltid nyeste kompatible 7.x-versjon
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -150,16 +150,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Må samsvare nøyaktig med din Cast Operations-versjon
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.mycompany.com"  # Din selvhostede URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.mycompany.com"  # Din selvhostede URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -183,7 +183,7 @@ Error: Invalid API key
 
 1. Verifiser API-nøkkelen i Cast Operations-dashbordet
 2. Sjekk at API-nøkkelen har tilstrekkelige tillatelser
-3. Sørg for at `oneuptime_url` er korrekt for instansen din
+3. Sørg for at `cast_operations_url` er korrekt for instansen din
 
 ### Problem: Versjonskonflikt (selvhostet)
 

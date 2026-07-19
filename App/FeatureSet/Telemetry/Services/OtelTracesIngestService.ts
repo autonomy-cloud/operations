@@ -6,7 +6,7 @@ import {
 import { ResourceEntityRef } from "Common/Server/Utils/Telemetry/TelemetryEntity";
 import EventLoop from "Common/Server/Utils/EventLoop";
 import OtelPayloadDecoder from "../Utils/OtelPayloadDecoder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { resolveTelemetryRetentionInDays } from "Common/Types/Telemetry/TelemetryRetentionConfig";
 import BadRequestException from "Common/Types/Exception/BadRequestException";
 import {
@@ -1009,9 +1009,9 @@ export default class OtelTracesIngestService extends OtelIngestBaseService {
     llmFields: LlmSpanFields;
     serviceMetadata: TelemetryServiceMetadata;
   }): JSONObject {
-    const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+    const ingestionDate: Date = OperationsDate.getCurrentDate();
     const ingestionTimestamp: string =
-      OneUptimeDate.toClickhouseDateTime(ingestionDate);
+      OperationsDate.toClickhouseDateTime(ingestionDate);
     const retentionDays: number = resolveTelemetryRetentionInDays({
       pillar: "traces",
       bucketKey: data.statusCode,
@@ -1020,7 +1020,7 @@ export default class OtelTracesIngestService extends OtelIngestBaseService {
       projectConfig: data.serviceMetadata.projectRetentionConfig,
       projectRetentionInDays: data.serviceMetadata.projectRetentionInDays,
     });
-    const retentionDate: Date = OneUptimeDate.addRemoveDays(
+    const retentionDate: Date = OperationsDate.addRemoveDays(
       ingestionDate,
       retentionDays,
     );
@@ -1032,8 +1032,8 @@ export default class OtelTracesIngestService extends OtelIngestBaseService {
       primaryEntityType: data.serviceMetadata.primaryEntityType,
       entityKeys: data.serviceMetadata.entityKeys || [],
       ...getScalarEntityKeyColumns(data.serviceMetadata),
-      startTime: OneUptimeDate.toClickhouseDateTime(data.startTime.date),
-      endTime: OneUptimeDate.toClickhouseDateTime(data.endTime.date),
+      startTime: OperationsDate.toClickhouseDateTime(data.startTime.date),
+      endTime: OperationsDate.toClickhouseDateTime(data.endTime.date),
       startTimeUnixNano: data.startTime.nano,
       endTimeUnixNano: data.endTime.nano,
       durationUnixNano: data.durationUnixNano,
@@ -1062,14 +1062,14 @@ export default class OtelTracesIngestService extends OtelIngestBaseService {
       llmOutputTokens: data.llmFields.llmOutputTokens,
       llmTotalTokens: data.llmFields.llmTotalTokens,
       llmCost: data.llmFields.llmCost,
-      retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+      retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
     };
   }
 
   private static buildExceptionRow(data: ExceptionEventPayload): JSONObject {
-    const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+    const ingestionDate: Date = OperationsDate.getCurrentDate();
     const ingestionTimestamp: string =
-      OneUptimeDate.toClickhouseDateTime(ingestionDate);
+      OperationsDate.toClickhouseDateTime(ingestionDate);
     const retentionDays: number = resolveTelemetryRetentionInDays({
       pillar: "traces",
       bucketKey: data.spanStatusCode,
@@ -1078,7 +1078,7 @@ export default class OtelTracesIngestService extends OtelIngestBaseService {
       projectConfig: data.serviceMetadata.projectRetentionConfig,
       projectRetentionInDays: data.serviceMetadata.projectRetentionInDays,
     });
-    const retentionDate: Date = OneUptimeDate.addRemoveDays(
+    const retentionDate: Date = OperationsDate.addRemoveDays(
       ingestionDate,
       retentionDays,
     );
@@ -1092,7 +1092,7 @@ export default class OtelTracesIngestService extends OtelIngestBaseService {
       primaryEntityType: data.serviceMetadata.primaryEntityType,
       entityKeys: data.serviceMetadata.entityKeys || [],
       ...getScalarEntityKeyColumns(data.serviceMetadata),
-      time: OneUptimeDate.toClickhouseDateTime(data.time.date),
+      time: OperationsDate.toClickhouseDateTime(data.time.date),
       timeUnixNano: data.time.nano,
       exceptionType: data.exceptionType || "",
       stackTrace: data.stackTrace || "",
@@ -1111,7 +1111,7 @@ export default class OtelTracesIngestService extends OtelIngestBaseService {
       parsedFrames: data.parsedFrames || "[]",
       attributes: attributes,
       attributeKeys: TelemetryUtil.getAttributeKeys(attributes),
-      retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+      retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
     };
   }
 
@@ -1119,7 +1119,7 @@ export default class OtelTracesIngestService extends OtelIngestBaseService {
     value: string | number | undefined,
     context: string,
   ): ParsedUnixNano {
-    let numericValue: number = OneUptimeDate.getCurrentDateAsUnixNano();
+    let numericValue: number = OperationsDate.getCurrentDateAsUnixNano();
 
     if (value !== undefined && value !== null) {
       try {
@@ -1140,13 +1140,13 @@ export default class OtelTracesIngestService extends OtelIngestBaseService {
         logger.warn(
           `Error processing ${context}: ${error instanceof Error ? error.message : String(error)}, using current time`,
         );
-        numericValue = OneUptimeDate.getCurrentDateAsUnixNano();
+        numericValue = OperationsDate.getCurrentDateAsUnixNano();
       }
     }
 
     numericValue = Math.trunc(numericValue);
-    const date: Date = OneUptimeDate.fromUnixNano(numericValue);
-    const iso: string = OneUptimeDate.toString(date);
+    const date: Date = OperationsDate.fromUnixNano(numericValue);
+    const iso: string = OperationsDate.toString(date);
 
     return {
       unixNano: numericValue,

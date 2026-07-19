@@ -125,7 +125,7 @@ const StatusPageMcp: FunctionComponent<
               language="json"
               code={`{
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "${mcpUrl}"
     }
@@ -142,7 +142,7 @@ const StatusPageMcp: FunctionComponent<
           <div className="space-y-2 w-full mt-3">
             <CodeBlock
               language="bash"
-              code={`claude mcp add --transport http oneuptime ${mcpUrl}`}
+              code={`claude mcp add --transport http cast-operations ${mcpUrl}`}
             />
           </div>
         }
@@ -160,7 +160,7 @@ const StatusPageMcp: FunctionComponent<
               language="json"
               code={`{
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "${mcpUrl}"
     }

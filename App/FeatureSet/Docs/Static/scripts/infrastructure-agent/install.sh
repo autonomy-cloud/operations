@@ -78,7 +78,7 @@ fi
 echo "Fetching the latest release: $TAG"
 
 # Construct the URL for the binary release
-URL="https://github.com/${REPO}/releases/download/${TAG}/oneuptime-infrastructure-agent_${OS}_${ARCH}.tar.gz"
+URL="https://github.com/${REPO}/releases/download/${TAG}/cast-operations-infrastructure-agent_${OS}_${ARCH}.tar.gz"
 
 # Check if wget is installed otherwise install it, do it for all os'es
 
@@ -102,14 +102,14 @@ wget "${URL}"
 
 # if darwin
 
-tar -xvzf "oneuptime-infrastructure-agent_${OS}_${ARCH}.tar.gz" -C "${BINDIR}"
+tar -xvzf "cast-operations-infrastructure-agent_${OS}_${ARCH}.tar.gz" -C "${BINDIR}"
 
 # delete the downlaoded file
-rm "oneuptime-infrastructure-agent_${OS}_${ARCH}.tar.gz"
+rm "cast-operations-infrastructure-agent_${OS}_${ARCH}.tar.gz"
 
 # Check if the binary is executable
-if [ ! -x "${BINDIR}/oneuptime-infrastructure-agent" ]; then
-  echo "Failed to install oneuptime-infrastructure-agent"
+if [ ! -x "${BINDIR}/cast-operations-infrastructure-agent" ]; then
+  echo "Failed to install cast-operations-infrastructure-agent"
   exit 1
 fi
 
@@ -156,6 +156,6 @@ if [ -f "$HOME/.bashrc" ]; then
 fi
 
 
-echo "oneuptime-infrastructure-agent has been installed to ${BINDIR}"
-echo "oneuptime-infrastructure-agent installed successfully to ${BINDIR}. Please configure the agent using 'oneuptime-infrastructure-agent configure'."
-echo "Please reload your shell or open a new shell session to use the oneuptime-infrastructure-agent command."
+echo "cast-operations-infrastructure-agent has been installed to ${BINDIR}"
+echo "cast-operations-infrastructure-agent installed successfully to ${BINDIR}. Please configure the agent using 'cast-operations-infrastructure-agent configure'."
+echo "Please reload your shell or open a new shell session to use the cast-operations-infrastructure-agent command."

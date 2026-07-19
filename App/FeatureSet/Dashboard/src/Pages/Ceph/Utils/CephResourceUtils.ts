@@ -3,7 +3,7 @@ import ModelAPI, { ListResult } from "Common/UI/Utils/ModelAPI/ModelAPI";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
 import ObjectID from "Common/Types/ObjectID";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import AggregatedResult from "Common/Types/BaseDatabase/AggregatedResult";
 import AggregatedModel from "Common/Types/BaseDatabase/AggregatedModel";
 
@@ -236,7 +236,7 @@ export function formatLastSeen(date: Date | undefined | null): string {
   if (!date) {
     return "never";
   }
-  return OneUptimeDate.fromNow(new Date(date));
+  return OperationsDate.fromNow(new Date(date));
 }
 
 export type GrowthFitSample = { t: number; v: number };

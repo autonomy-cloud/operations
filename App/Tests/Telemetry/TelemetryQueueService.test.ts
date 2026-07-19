@@ -1,7 +1,7 @@
 import { describe, expect, test, beforeEach, afterEach } from "@jest/globals";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
-import ProductType from "Common/Types/MeteredPlan/ProductType";
+import OperationsDate from "Common/Types/Date";
+import ProductType from "Common/Types/Telemetry/ProductType";
 import { JSONObject } from "Common/Types/JSON";
 import { TelemetryRequest } from "Common/Server/Middleware/TelemetryIngest";
 import Queue from "Common/Server/Infrastructure/Queue";
@@ -248,7 +248,7 @@ describe("TelemetryQueueService.addTelemetryIngestJob", () => {
      */
     const frozenUnixNano: number = 1234567890123456;
     jest
-      .spyOn(OneUptimeDate, "getCurrentDateAsUnixNano")
+      .spyOn(OperationsDate, "getCurrentDateAsUnixNano")
       .mockReturnValue(frozenUnixNano);
 
     const projectId: ObjectID = ObjectID.generate();
@@ -329,7 +329,7 @@ describe("TelemetryQueueService.addIncomingRequestIngestJob", () => {
   test("job id is unique per call but the dedup id is stable per secret key", async () => {
     const frozenUnixNano: number = 1234567890123456;
     jest
-      .spyOn(OneUptimeDate, "getCurrentDateAsUnixNano")
+      .spyOn(OperationsDate, "getCurrentDateAsUnixNano")
       .mockReturnValue(frozenUnixNano);
 
     const secretKey: string = ObjectID.generate().toString();

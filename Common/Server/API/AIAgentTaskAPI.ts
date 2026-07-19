@@ -13,7 +13,7 @@ import AIRun from "../../Models/DatabaseModels/AIRun";
 import BadDataException from "../../Types/Exception/BadDataException";
 import { JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import AIAgentTaskStatus from "../../Types/AI/AIAgentTaskStatus";
 import AIRunStatus from "../../Types/AI/AIRunStatus";
 import AIRunType from "../../Types/AI/AIRunType";
@@ -243,7 +243,7 @@ export default class AIAgentTaskAPI {
                 status: AIRunStatus.Running,
               },
               data: {
-                lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+                lastHeartbeatAt: OperationsDate.getCurrentDate(),
               } as never,
               props: {
                 isRoot: true,
@@ -286,8 +286,8 @@ export default class AIAgentTaskAPI {
                 fromStatus: AIRunStatus.Running,
                 set: {
                   status: toStatus,
-                  completedAt: OneUptimeDate.getCurrentDate(),
-                  lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+                  completedAt: OperationsDate.getCurrentDate(),
+                  lastHeartbeatAt: OperationsDate.getCurrentDate(),
                   ...(shouldStoreMessage
                     ? { errorMessage: statusMessage }
                     : {}),

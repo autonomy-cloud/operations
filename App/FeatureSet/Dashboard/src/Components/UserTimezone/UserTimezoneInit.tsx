@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Timezone from "Common/Types/Timezone";
 import User from "Common/UI/Utils/User";
 import React, { FunctionComponent, ReactElement } from "react";
@@ -46,7 +46,7 @@ const UseTimezoneInitElement: FunctionComponent = (): ReactElement => {
     if (User.isLoggedIn()) {
       // check user timezone
 
-      const guessTimezone: Timezone = OneUptimeDate.getCurrentTimezone();
+      const guessTimezone: Timezone = OperationsDate.getCurrentTimezone();
       const userTimezone: Timezone | null = User.getSavedUserTimezone();
 
       if (userTimezone === null) {

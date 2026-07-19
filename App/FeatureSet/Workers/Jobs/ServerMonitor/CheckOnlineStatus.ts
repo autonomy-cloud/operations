@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { CheckOn } from "Common/Types/Monitor/CriteriaFilter";
 import MonitorType from "Common/Types/Monitor/MonitorType";
 import ServerMonitorResponse from "Common/Types/Monitor/ServerMonitor/ServerMonitorResponse";
@@ -15,7 +15,7 @@ RunCron(
   { schedule: EVERY_MINUTE, runOnStartup: false },
   async () => {
     try {
-      const threeMinsAgo: Date = OneUptimeDate.getSomeMinutesAgo(3);
+      const threeMinsAgo: Date = OperationsDate.getSomeMinutesAgo(3);
 
       const serverMonitors: Array<Monitor> = await MonitorService.findAllBy({
         query: {
@@ -94,7 +94,7 @@ RunCron(
                 serverMonitor.serverMonitorResponse?.requestReceivedAt ||
                 serverMonitor.createdAt!,
               hostname: serverMonitor.serverMonitorResponse?.hostname || "",
-              timeNow: OneUptimeDate.getCurrentDate(),
+              timeNow: OperationsDate.getCurrentDate(),
             };
 
             await MonitorResourceUtil.monitorResource(serverMonitorResponse);

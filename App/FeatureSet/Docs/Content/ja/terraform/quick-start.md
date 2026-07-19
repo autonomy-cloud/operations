@@ -35,7 +35,7 @@
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       # Cloudのお客様の場合
       version = "~> 7.0"
@@ -47,17 +47,17 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
+provider "cast-operations" {
   # Cloudのお客様の場合
-  oneuptime_url = "https://visca.ai"
+  cast_operations_url = "https://visca.ai"
 
   # セルフホストのお客様の場合 — インスタンスURLを使用
-  # oneuptime_url = "https://operations.yourcompany.com"
+  # cast_operations_url = "https://operations.yourcompany.com"
 
-  api_key = var.oneuptime_api_key
+  api_key = var.cast_operations_api_key
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations APIキー"
   type        = string
   sensitive   = true
@@ -71,7 +71,7 @@ variable "project_id" {
 }
 
 # シンプルなウェブサイトモニターを作成
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "ウェブサイトモニター"
   description = "ウェブサイトの稼働時間監視"
   data        = jsonencode({
@@ -83,7 +83,7 @@ resource "oneuptime_monitor" "website" {
 
 # モニターIDを出力
 output "monitor_id" {
-  value = oneuptime_monitor.website.id
+  value = cast_operations_monitor.website.id
 }
 ```
 
@@ -93,7 +93,7 @@ output "monitor_id" {
 
 ```hcl
 # terraform.tfvars
-oneuptime_api_key = "your-api-key-here"
+cast_operations_api_key = "your-api-key-here"
 project_id        = "your-project-id-here"  # Cast Operations ダッシュボードから取得
 ```
 
@@ -132,16 +132,16 @@ terraform apply
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 常に最新の互換7.xバージョンを取得
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -150,16 +150,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Cast Operationsのバージョンと完全一致させる必要あり
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.mycompany.com"  # セルフホストURL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.mycompany.com"  # セルフホストURL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -183,7 +183,7 @@ Error: Invalid API key
 
 1. Cast Operations ダッシュボードでAPIキーを確認する
 2. APIキーに十分な権限があるか確認する
-3. インスタンスの `oneuptime_url` が正しいか確認する
+3. インスタンスの `cast_operations_url` が正しいか確認する
 
 ### 問題：バージョンの不一致（セルフホスト）
 

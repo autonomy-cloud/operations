@@ -21,7 +21,7 @@ import GitHubUtil, {
 import LogSeverity from "Common/Types/Log/LogSeverity";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import logger from "Common/Server/Utils/Logger";
 
 /**
@@ -267,7 +267,7 @@ RunCron(
 
             if (ciStatus !== pullRequest.ciStatus) {
               updateData.ciStatus = ciStatus;
-              updateData.ciStatusAt = OneUptimeDate.getCurrentDate();
+              updateData.ciStatusAt = OperationsDate.getCurrentDate();
               ciChangeMessage =
                 FixPullRequestCiStatusHelper.describeForProgressLog({
                   ciStatus: ciStatus,

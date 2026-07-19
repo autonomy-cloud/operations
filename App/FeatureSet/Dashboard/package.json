@@ -1,5 +1,5 @@
 {
-  "name": "@oneuptime/dashboard",
+  "name": "@cast-operations/dashboard",
   "version": "11.5.9",
   "private": false,
   "repository": {
@@ -34,8 +34,6 @@
     ]
   },
   "dependencies": {
-    "@stripe/react-stripe-js": "^1.15.0",
-    "@stripe/stripe-js": "^1.44.1",
     "Common": "file:../../../Common",
     "ejs": "^3.1.10",
     "i18next": "^23.16.8",
@@ -49,7 +47,6 @@
     "react-router-dom": "^6.30.2",
     "reactflow": "^11.11.2",
     "recharts": "^3.0.0",
-    "stripe": "^11.0.0",
     "use-async-effect": "^2.2.6"
   },
   "devDependencies": {

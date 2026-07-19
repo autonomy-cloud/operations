@@ -1,7 +1,7 @@
 import {
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import BadDataException from "../../Types/Exception/BadDataException";
@@ -15,7 +15,7 @@ import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 export default class WhatsAppAuthorization {
   @CaptureSpan()
   public static async isAuthorizedWhatsAppRequest(
-    req: OneUptimeRequest,
+    req: OperationsRequest,
     res: ExpressResponse,
     next: NextFunction,
   ): Promise<void> {

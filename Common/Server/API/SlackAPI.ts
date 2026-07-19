@@ -1272,8 +1272,8 @@ export default class SlackAPI {
     );
 
     /*
-     * Slash command endpoint: `/oneuptime ask <question>` (or bare
-     * `/oneuptime <question>`). Slack posts an application/x-www-form-urlencoded
+     * Slash command endpoint: `/cast-operations ask <question>` (or bare
+     * `/cast-operations <question>`). Slack posts an application/x-www-form-urlencoded
      * body and expects a 200 within 3 seconds. We acknowledge instantly with an
      * ephemeral message, then run the assistant detached and POST the final
      * answer back to the command's response_url.
@@ -1295,7 +1295,7 @@ export default class SlackAPI {
 
         /*
          * Slack sends everything after the command word in `text`. We also
-         * accept a leading "ask" keyword (e.g. `/oneuptime ask <question>`).
+         * accept a leading "ask" keyword (e.g. `/cast-operations ask <question>`).
          */
         const askPrefixRegex: RegExp = /^ask\s+/i;
         let questionText: string = ((body["text"] as string) || "").trim();
@@ -1307,7 +1307,7 @@ export default class SlackAPI {
         if (!questionText) {
           return Response.sendJsonObjectResponse(req, res, {
             response_type: "ephemeral",
-            text: "Usage: `/oneuptime ask which monitors are down?` — ask Cast Operations AI about your logs, traces, metrics, incidents and monitors.",
+            text: "Usage: `/cast-operations ask which monitors are down?` — ask Cast Operations AI about your logs, traces, metrics, incidents and monitors.",
           });
         }
 
@@ -1409,7 +1409,7 @@ export default class SlackAPI {
 
   /*
    * Shared "AI Ops" resolution used by both @mentions / DMs (Events API) and
-   * the /oneuptime slash command. Resolves the Slack team_id -> Cast Operations
+   * the /cast-operations slash command. Resolves the Slack team_id -> Cast Operations
    * project and the Slack user id -> Cast Operations user using the same
    * WorkspaceProjectAuthToken / WorkspaceUserAuthToken pattern as
    * SlackAuthAction.isAuthorized. Returns undefined when the workspace is not

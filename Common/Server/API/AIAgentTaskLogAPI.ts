@@ -13,7 +13,7 @@ import AIRun from "../../Models/DatabaseModels/AIRun";
 import BadDataException from "../../Types/Exception/BadDataException";
 import { JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import AIRunStatus from "../../Types/AI/AIRunStatus";
 import AIRunEventType from "../../Types/AI/AIRunEventType";
 import LogSeverity from "../../Types/Log/LogSeverity";
@@ -186,7 +186,7 @@ export default class AIAgentTaskLogAPI {
               status: AIRunStatus.Running,
             },
             data: {
-              lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+              lastHeartbeatAt: OperationsDate.getCurrentDate(),
             } as never,
             props: {
               isRoot: true,

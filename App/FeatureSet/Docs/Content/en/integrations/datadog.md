@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. In Datadog, go to **Integrations → Webhooks** (install the **Webhooks** integration if you haven't).
 2. **Add a webhook**:
 
-   - **Name**: `oneuptime` (this becomes `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (this becomes `@webhook-cast-operations`).
    - **URL**: your workflow's webhook URL.
    - **Payload** — Datadog lets you define the JSON body using [template variables](https://docs.datadoghq.com/integrations/webhooks/#usage):
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Add the webhook handle to the monitors you want to forward. In each monitor's **notification message**, include:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-This sends both the alert and the recovery to Cast Operations. (To forward everything, you can also add `@webhook-oneuptime` to a monitor unconditionally.)
+This sends both the alert and the recovery to Cast Operations. (To forward everything, you can also add `@webhook-cast-operations` to a monitor unconditionally.)
 
 ## Step 4 — Test it
 
@@ -74,7 +74,7 @@ This sends both the alert and the recovery to Cast Operations. (To forward every
 
 ## Troubleshooting
 
-- **No run appears** — confirm the monitor's message includes `@webhook-oneuptime` and the workflow is **Enabled**.
+- **No run appears** — confirm the monitor's message includes `@webhook-cast-operations` and the workflow is **Enabled**.
 - **Fields are empty** — Datadog only substitutes template variables that apply to the event. Inspect the trigger output in the **Logs** tab and adjust your webhook payload.
 - **Duplicate incidents** — a monitor that re-alerts (renotify) sends multiple `Triggered` events; dedupe with a **Find Incident** check on the `id` before creating.
 

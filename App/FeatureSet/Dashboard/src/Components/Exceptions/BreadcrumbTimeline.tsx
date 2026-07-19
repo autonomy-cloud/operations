@@ -18,7 +18,7 @@ import {
   Gray500,
 } from "Common/Types/BrandColors";
 import Color from "Common/Types/Color";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { JSONObject, JSONValue } from "Common/Types/JSON";
 
 export interface BreadcrumbEvent {
@@ -271,7 +271,7 @@ const formatRelativeTime: FormatRelativeTimeFunction = (
   exceptionTime: Date | undefined,
 ): string => {
   if (!exceptionTime) {
-    return OneUptimeDate.getDateAsLocalFormattedString(eventTime);
+    return OperationsDate.getDateAsLocalFormattedString(eventTime);
   }
 
   const diffMs: number = eventTime.getTime() - exceptionTime.getTime();
@@ -306,7 +306,7 @@ type FormatAbsoluteTimeFunction = (eventTime: Date) => string;
 const formatAbsoluteTime: FormatAbsoluteTimeFunction = (
   eventTime: Date,
 ): string => {
-  return OneUptimeDate.getDateAsLocalFormattedString(eventTime);
+  return OperationsDate.getDateAsLocalFormattedString(eventTime);
 };
 
 // --- Grouping logic ---

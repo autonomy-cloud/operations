@@ -17,7 +17,7 @@ import API from "Common/UI/Utils/API/API";
 import User from "Common/UI/Utils/User";
 import UserTelegram from "Common/Models/DatabaseModels/UserTelegram";
 import React, { ReactElement, useEffect, useState } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 interface VerificationInfo {
   verificationCode: string;
@@ -46,7 +46,7 @@ const Telegram: () => JSX.Element = (): ReactElement => {
 
   const [currentItem, setCurrentItem] = useState<UserTelegram | null>(null);
   const [refreshToggle, setRefreshToggle] = useState<string>(
-    OneUptimeDate.getCurrentDate().toString(),
+    OperationsDate.getCurrentDate().toString(),
   );
 
   useEffect(() => {
@@ -121,7 +121,7 @@ const Telegram: () => JSX.Element = (): ReactElement => {
         if (data["isVerified"]) {
           setShowVerificationModal(false);
           setShowVerifiedModal(true);
-          setRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+          setRefreshToggle(OperationsDate.getCurrentDate().toString());
         } else {
           setVerificationError(
             "Still waiting — please send /start to the bot in Telegram.",
@@ -361,7 +361,7 @@ const Telegram: () => JSX.Element = (): ReactElement => {
               } else {
                 setIsResendLoading(false);
                 setShowResendCodeModal(false);
-                setRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+                setRefreshToggle(OperationsDate.getCurrentDate().toString());
               }
             } catch (err) {
               setResendError(API.getFriendlyMessage(err));

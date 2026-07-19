@@ -4,7 +4,7 @@
  * the selected ingestion key so the snippets are copy-paste ready.
  */
 export interface DocVars {
-  oneuptimeUrl: string;
+  castOperationsUrl: string;
   apiKey: string;
 }
 
@@ -34,8 +34,8 @@ export const getServerlessDocMarkdown: (vars: DocVars) => string = (
     "Most language auto-instrumentations read these environment variables:",
     "",
     "```bash",
-    `OTEL_EXPORTER_OTLP_ENDPOINT="${vars.oneuptimeUrl}/otlp"`,
-    `OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=${vars.apiKey}"`,
+    `OTEL_EXPORTER_OTLP_ENDPOINT="${vars.castOperationsUrl}/otlp"`,
+    `OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=${vars.apiKey}"`,
     `OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"`,
     "```",
     "",
@@ -72,10 +72,10 @@ export const getCloudDocMarkdown: (vars: DocVars) => string = (
     "",
     "```yaml",
     "exporters:",
-    "  otlphttp/oneuptime:",
-    `    endpoint: ${vars.oneuptimeUrl}/otlp`,
+    "  otlphttp/cast-operations:",
+    `    endpoint: ${vars.castOperationsUrl}/otlp`,
     "    headers:",
-    `      x-oneuptime-token: ${vars.apiKey}`,
+    `      x-cast-operations-token: ${vars.apiKey}`,
     "```",
     "",
     "### 3. View",
@@ -106,8 +106,8 @@ export const getRumDocMarkdown: (vars: DocVars) => string = (
     "//   service.name           = storefront-web",
     "//   telemetry.sdk.language = webjs",
     "// OTLP/HTTP exporter:",
-    `//   url:     ${vars.oneuptimeUrl}/otlp/v1/traces`,
-    `//   headers: { "x-oneuptime-token": "${vars.apiKey}" }`,
+    `//   url:     ${vars.castOperationsUrl}/otlp/v1/traces`,
+    `//   headers: { "x-cast-operations-token": "${vars.apiKey}" }`,
     "```",
     "",
     "### Mobile (Swift / Android)",
@@ -116,8 +116,8 @@ export const getRumDocMarkdown: (vars: DocVars) => string = (
     "OTLP to Cast Operations:",
     "",
     "```bash",
-    `OTEL_EXPORTER_OTLP_ENDPOINT="${vars.oneuptimeUrl}/otlp"`,
-    `OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=${vars.apiKey}"`,
+    `OTEL_EXPORTER_OTLP_ENDPOINT="${vars.castOperationsUrl}/otlp"`,
+    `OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=${vars.apiKey}"`,
     "```",
     "",
     "The `device.*` attributes the mobile SDK adds route the telemetry to RUM",

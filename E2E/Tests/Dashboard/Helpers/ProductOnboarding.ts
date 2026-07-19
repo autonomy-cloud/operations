@@ -1,8 +1,7 @@
-import { BASE_URL, IS_BILLING_ENABLED } from "../../../Config";
+import { BASE_URL } from "../../../Config";
 import { Page, expect, Response, Locator } from "@playwright/test";
 import URL from "Common/Types/API/URL";
 import Faker from "Common/Utils/Faker";
-import selectProjectPlan from "../../Helpers/selectProjectPlan";
 
 const projectDashboardUrlRegex: RegExp =
   /\/dashboard\/([a-f0-9-]+)(?:\/home\/?)?$/;
@@ -11,7 +10,7 @@ const projectDashboardUrlRegex: RegExp =
  * Registers a fresh user, creates a project, and returns the project id.
  * Mirrors the flow in CreateProject.spec.ts / CreateMonitor.spec.ts so the
  * product onboarding specs stay consistent with the existing Dashboard
- * specs (register -> selectProjectPlan -> getByTestId navigation).
+ * specs (register -> create project -> getByTestId navigation).
  */
 type RegisterAndCreateProjectFunction = (data: {
   page: Page;
@@ -48,13 +47,6 @@ export const registerAndCreateProject: RegisterAndCreateProjectFunction =
     await page.getByTestId("name").fill("E2E Test User");
     await page.getByTestId("name").press("Tab");
 
-    if (IS_BILLING_ENABLED) {
-      await page.getByTestId("companyName").fill("E2E Test Company");
-      await page.getByTestId("companyName").press("Tab");
-      await page.getByTestId("companyPhoneNumber").fill("+1234567890");
-      await page.getByTestId("companyPhoneNumber").press("Tab");
-    }
-
     await page.getByTestId("password").fill("sample");
     await page.getByTestId("password").press("Tab");
     await page.getByTestId("confirmPassword").fill("sample");
@@ -79,15 +71,7 @@ export const registerAndCreateProject: RegisterAndCreateProjectFunction =
       .first()
       .fill(projectName);
 
-    if (IS_BILLING_ENABLED) {
-      await modalSubmitButton.click();
-
-      await selectProjectPlan({ page, submitButton: modalSubmitButton });
-
-      await modalSubmitButton.click();
-    } else {
-      await modalSubmitButton.click();
-    }
+    await modalSubmitButton.click();
 
     /*
      * Wait for navigation to the project dashboard. The app does a hard

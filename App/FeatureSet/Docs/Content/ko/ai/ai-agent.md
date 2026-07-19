@@ -82,14 +82,14 @@ AI 모델을 자체 호스팅하여 코드를 완전히 비공개로 유지할 �
 AI 에이전트를 실행하려면 Docker가 설치되어 있는지 확인하십시오. 다음 명령으로 에이전트를 실행합니다:
 
 ```bash
-docker run --name oneuptime-ai-agent --network host \
+docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
-  -d oneuptime/ai-agent:release
+  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -d cast-operations/ai-agent:release
 ```
 
-Cast Operations을 자체 호스팅하는 경우, `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스 URL로 변경하십시오.
+Cast Operations을 자체 호스팅하는 경우, `CAST_OPERATIONS_URL`을 커스텀 자체 호스팅 인스턴스 URL로 변경하십시오.
 
 #### Docker Compose
 
@@ -99,13 +99,13 @@ docker-compose를 사용하여 AI 에이전트를 실행할 수도 있습니다.
 version: "3"
 
 services:
-  oneuptime-ai-agent:
-    image: oneuptime/ai-agent:release
-    container_name: oneuptime-ai-agent
+  cast-operations-ai-agent:
+    image: cast-operations/ai-agent:release
+    container_name: cast-operations-ai-agent
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -118,38 +118,38 @@ docker compose up -d
 
 #### Kubernetes
 
-`oneuptime-ai-agent.yaml` 파일을 생성합니다:
+`cast-operations-ai-agent.yaml` 파일을 생성합니다:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-ai-agent
+  name: cast-operations-ai-agent
 spec:
   selector:
     matchLabels:
-      app: oneuptime-ai-agent
+      app: cast-operations-ai-agent
   template:
     metadata:
       labels:
-        app: oneuptime-ai-agent
+        app: cast-operations-ai-agent
     spec:
       containers:
-        - name: oneuptime-ai-agent
-          image: oneuptime/ai-agent:release
+        - name: cast-operations-ai-agent
+          image: cast-operations/ai-agent:release
           env:
             - name: AI_AGENT_KEY
               value: "<ai-agent-key>"
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
 구성을 적용합니다:
 
 ```bash
-kubectl apply -f oneuptime-ai-agent.yaml
+kubectl apply -f cast-operations-ai-agent.yaml
 ```
 
 ### 환경 변수
@@ -162,7 +162,7 @@ AI 에이전트는 다음 환경 변수를 지원합니다:
 | --------------- | -------------------------------------------------------- |
 | `AI_AGENT_KEY`  | Cast Operations 대시보드의 AI 에이전트 키                      |
 | `AI_AGENT_ID`   | Cast Operations 대시보드의 AI 에이전트 ID                      |
-| `ONEUPTIME_URL` | Cast Operations 인스턴스의 URL (기본값: https://visca.ai) |
+| `CAST_OPERATIONS_URL` | Cast Operations 인스턴스의 URL (기본값: https://visca.ai) |
 
 ## AI 에이전트 확인
 
@@ -176,10 +176,10 @@ AI 에이전트를 배포한 후:
 
 ```bash
 # Docker
-docker logs oneuptime-ai-agent
+docker logs cast-operations-ai-agent
 
 # Kubernetes
-kubectl logs deployment/oneuptime-ai-agent
+kubectl logs deployment/cast-operations-ai-agent
 ```
 
 ## 문제 해결

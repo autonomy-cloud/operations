@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import NotificationRuleType from "Common/Types/NotificationRule/NotificationRuleType";
 import UserNotificationExecutionStatus from "Common/Types/UserNotification/UserNotificationExecutionStatus";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
@@ -259,9 +259,9 @@ const executePendingNotificationLog: ExecutePendingNotificationLogFunction =
       let isAllExecuted: boolean = true;
 
       const minutesSinceExecutionStarted: number =
-        OneUptimeDate.getDifferenceInMinutes(
+        OperationsDate.getDifferenceInMinutes(
           pendingNotificationLog.createdAt!,
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         );
 
       for (const notificationRule of notificationRules) {

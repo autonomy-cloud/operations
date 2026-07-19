@@ -2,7 +2,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import JSONWebToken from "../Utils/JsonWebToken";
 import NotAuthorizedException from "../../Types/Exception/NotAuthorizedException";
@@ -17,7 +17,7 @@ export default class BearerTokenAuthorization {
     next: NextFunction,
   ): Promise<void> {
     try {
-      req = req as OneUptimeRequest;
+      req = req as OperationsRequest;
 
       if (req.headers?.["authorization"] || req.headers?.["Authorization"]) {
         let token: string | undefined | Array<string> =
@@ -26,7 +26,7 @@ export default class BearerTokenAuthorization {
         if (token) {
           const tokenData: JSONObject = JSONWebToken.decodeJsonPayload(token);
 
-          (req as OneUptimeRequest).bearerTokenData = tokenData;
+          (req as OperationsRequest).bearerTokenData = tokenData;
 
           return next();
         }

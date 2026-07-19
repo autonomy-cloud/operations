@@ -5,7 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log/slog"
-	"oneuptime-infrastructure-agent/utils"
+	"cast-operations-infrastructure-agent/utils"
 	"os"
 	"time"
 
@@ -31,7 +31,7 @@ func (a *agentService) Start(s service.Service) error {
 }
 
 func (a *agentService) runAgent() {
-	a.agent = NewAgent(a.config.SecretKey, a.config.OneUptimeURL, a.config.ProxyURL)
+	a.agent = NewAgent(a.config.SecretKey, a.config.OperationsURL, a.config.ProxyURL)
 	a.agent.Start()
 	if service.Interactive() {
 		slog.Info("Running in terminal.")
@@ -139,7 +139,7 @@ func main() {
 	cfgFile := newConfigFile()
 
 	svcConfig := &service.Config{
-		Name:        "oneuptime-infrastructure-agent",
+		Name:        "cast-operations-infrastructure-agent",
 		DisplayName: "Cast Operations Infrastructure Agent",
 		Description: "The Cast Operations Infrastructure Agent is a lightweight, open-source agent that collects system metrics and sends them to the Cast Operations platform. It is designed to be easy to configure and use, and to be extensible.",
 		Arguments:   []string{"run"},
@@ -161,7 +161,7 @@ func main() {
 		case "configure":
 			installFlags := flag.NewFlagSet("configure", flag.ExitOnError)
 			secretKey := installFlags.String("secret-key", "", "Secret key of this monitor, you can find this on Cast Operations dashboard (required)")
-			oneuptimeURL := installFlags.String("oneuptime-url", "", "Cast Operations endpoint root URL (required)")
+			castOperationsURL := installFlags.String("cast-operations-url", "", "Cast Operations endpoint root URL (required)")
 			proxyURL := installFlags.String("proxy-url", "", "Proxy URL (optional)")
 			err := installFlags.Parse(os.Args[2:])
 			if err != nil {
@@ -169,38 +169,38 @@ func main() {
 				os.Exit(2)
 			}
 			agentSvc.config.SecretKey = *secretKey
-			agentSvc.config.OneUptimeURL = *oneuptimeURL
+			agentSvc.config.OperationsURL = *castOperationsURL
 			agentSvc.config.ProxyURL = *proxyURL
-			if agentSvc.config.SecretKey == "" || agentSvc.config.OneUptimeURL == "" {
-				slog.Error("The --secret-key and --oneuptime-url flags are required for the 'configure' command")
+			if agentSvc.config.SecretKey == "" || agentSvc.config.OperationsURL == "" {
+				slog.Error("The --secret-key and --cast-operations-url flags are required for the 'configure' command")
 				os.Exit(2)
 			}
 			slog.Info("Configuring service...")
 			slog.Info("Secret key: " + *secretKey)
-			slog.Info("Cast Operations URL: " + *oneuptimeURL)
+			slog.Info("Cast Operations URL: " + *castOperationsURL)
 			slog.Info("Proxy URL: " + *proxyURL)
-			err = agentSvc.config.save(agentSvc.config.SecretKey, agentSvc.config.OneUptimeURL, agentSvc.config.ProxyURL)
+			err = agentSvc.config.save(agentSvc.config.SecretKey, agentSvc.config.OperationsURL, agentSvc.config.ProxyURL)
 			if err != nil {
 				slog.Error(err.Error())
 				os.Exit(2)
 			}
 			if err := s.Install(); err != nil {
-				slog.Error("Failed to configure service. Please consider uninstalling the service by running 'oneuptime-infrastructure-agent uninstall' and run configure again.", "error", err)
+				slog.Error("Failed to configure service. Please consider uninstalling the service by running 'cast-operations-infrastructure-agent uninstall' and run configure again.", "error", err)
 				os.Exit(2)
 			}
-			fmt.Println("Service installed. Run the service using 'oneuptime-infrastructure-agent start'")
+			fmt.Println("Service installed. Run the service using 'cast-operations-infrastructure-agent start'")
 		case "start":
 			err := agentSvc.config.loadConfig()
 			if os.IsNotExist(err) {
-				slog.Error("Service configuration not found. Please run 'oneuptime-infrastructure-agent configure' to configure the service.")
+				slog.Error("Service configuration not found. Please run 'cast-operations-infrastructure-agent configure' to configure the service.")
 				os.Exit(2)
 			}
 			if err != nil {
 				slog.Error(err.Error())
 				os.Exit(2)
 			}
-			if agentSvc.config.SecretKey == "" || agentSvc.config.OneUptimeURL == "" {
-				slog.Error("Service configuration not found or is incomplete. Please run 'oneuptime-infrastructure-agent configure' to configure the service.")
+			if agentSvc.config.SecretKey == "" || agentSvc.config.OperationsURL == "" {
+				slog.Error("Service configuration not found or is incomplete. Please run 'cast-operations-infrastructure-agent configure' to configure the service.")
 				os.Exit(2)
 			}
 			err = s.Start()
@@ -212,15 +212,15 @@ func main() {
 		case "run":
 			err := agentSvc.config.loadConfig()
 			if os.IsNotExist(err) {
-				slog.Error("Service configuration not found. Please run 'oneuptime-infrastructure-agent configure' to configure the service.")
+				slog.Error("Service configuration not found. Please run 'cast-operations-infrastructure-agent configure' to configure the service.")
 				os.Exit(2)
 			}
 			if err != nil {
 				slog.Error(err.Error())
 				os.Exit(2)
 			}
-			if agentSvc.config.SecretKey == "" || agentSvc.config.OneUptimeURL == "" {
-				slog.Error("Service configuration not found or is incomplete. Please run 'oneuptime-infrastructure-agent configure' to configure the service.")
+			if agentSvc.config.SecretKey == "" || agentSvc.config.OperationsURL == "" {
+				slog.Error("Service configuration not found or is incomplete. Please run 'cast-operations-infrastructure-agent configure' to configure the service.")
 				os.Exit(2)
 			}
 			err = s.Run()
@@ -249,7 +249,7 @@ func main() {
 				slog.Info("Service Restarted")
 			}
 		case "help":
-			fmt.Println("Usage: oneuptime-infrastructure-agent configure | uninstall | start | stop | restart | status | logs")
+			fmt.Println("Usage: cast-operations-infrastructure-agent configure | uninstall | start | stop | restart | status | logs")
 			fmt.Println()
 			fmt.Println("Commands:")
 			fmt.Println("  configure    Configure the agent with secret key and Cast Operations URL")
@@ -290,6 +290,6 @@ func main() {
 			os.Exit(2)
 		}
 	} else {
-		fmt.Println("Usage: oneuptime-infrastructure-agent configure | uninstall | start | stop | restart | status | logs")
+		fmt.Println("Usage: cast-operations-infrastructure-agent configure | uninstall | start | stop | restart | status | logs")
 	}
 }

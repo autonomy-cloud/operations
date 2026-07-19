@@ -13,7 +13,7 @@ import (
 
 type ConfigFile struct {
 	SecretKey     string `json:"secret_key"`
-	OneUptimeURL  string `json:"oneuptime_url"`
+	OperationsURL  string `json:"cast_operations_url"`
 	ProxyURL      string `json:"proxy_url"`
 	ProxyPort     string `json:"proxy_port"`
 	ProxyUsername string `json:"proxy_username"`
@@ -23,7 +23,7 @@ type ConfigFile struct {
 func newConfigFile() *ConfigFile {
 	return &ConfigFile{
 		SecretKey:    "",
-		OneUptimeURL: "",
+		OperationsURL: "",
 	}
 }
 
@@ -38,12 +38,12 @@ func (c *ConfigFile) loadConfig() error {
 		return err
 	}
 	c.SecretKey = cfg.SecretKey
-	c.OneUptimeURL = cfg.OneUptimeURL
+	c.OperationsURL = cfg.OperationsURL
 	c.ProxyURL = cfg.ProxyURL
 	return nil
 }
 
-func (c *ConfigFile) save(secretKey string, oneuptimeUrl string, proxyUrl string) error {
+func (c *ConfigFile) save(secretKey string, castOperationsUrl string, proxyUrl string) error {
 	err := c.loadConfig()
 	if err != nil && !os.IsNotExist(err) {
 		return err
@@ -52,7 +52,7 @@ func (c *ConfigFile) save(secretKey string, oneuptimeUrl string, proxyUrl string
 	if err != nil {
 		return err
 	}
-	err = config.Set("oneuptime_url", oneuptimeUrl)
+	err = config.Set("cast_operations_url", castOperationsUrl)
 	if err != nil {
 		return err
 	}
@@ -99,7 +99,7 @@ func (c *ConfigFile) removeConfigFile() error {
 
 // isDirWritable probes whether the current process can create files in dir.
 func isDirWritable(dir string) bool {
-	probe, err := os.CreateTemp(dir, ".oneuptime-agent-write-check-")
+	probe, err := os.CreateTemp(dir, ".cast-operations-agent-write-check-")
 	if err != nil {
 		return false
 	}
@@ -130,13 +130,13 @@ func (c *ConfigFile) ensureDir(dirName string) error {
 // configPath returns the full path to the configuration file,
 // ensuring the directory exists or creating it if it does not.
 //
-// An explicit path can be supplied via the ONEUPTIME_AGENT_CONFIG_PATH
+// An explicit path can be supplied via the CAST_OPERATIONS_AGENT_CONFIG_PATH
 // env var. When unset, the agent uses the system-wide default
 // (/etc/... on Unix, %PROGRAMDATA%\... on Windows) and falls back to
-// $HOME/.oneuptime-infrastructure-agent/ when the system path is not
+// $HOME/.cast-operations-infrastructure-agent/ when the system path is not
 // writable (e.g. unprivileged local testing).
 func (c *ConfigFile) configPath() string {
-	if override := os.Getenv("ONEUPTIME_AGENT_CONFIG_PATH"); override != "" {
+	if override := os.Getenv("CAST_OPERATIONS_AGENT_CONFIG_PATH"); override != "" {
 		return override
 	}
 
@@ -150,14 +150,14 @@ func (c *ConfigFile) configPath() string {
 		basePath = fmt.Sprintf("%setc", string(filepath.Separator))
 	}
 
-	configDirectory := filepath.Join(basePath, "oneuptime-infrastructure-agent")
+	configDirectory := filepath.Join(basePath, "cast-operations-infrastructure-agent")
 
 	// If the system dir isn't usable (missing or not writable by us, e.g. the
 	// directory was created by a prior root install), fall back to $HOME so
 	// an unprivileged user can still run the agent locally.
 	if err := c.ensureDir(configDirectory); err != nil || !isDirWritable(configDirectory) {
 		if home, herr := os.UserHomeDir(); herr == nil {
-			configDirectory = filepath.Join(home, ".oneuptime-infrastructure-agent")
+			configDirectory = filepath.Join(home, ".cast-operations-infrastructure-agent")
 			if ferr := c.ensureDir(configDirectory); ferr != nil {
 				slog.Error("Failed to create config directory", "error", ferr)
 			}

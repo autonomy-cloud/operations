@@ -5,7 +5,7 @@ import DashboardSideMenu from "../SideMenu";
 import Route from "Common/Types/API/Route";
 import IsNull from "Common/Types/BaseDatabase/IsNull";
 import { Green, Red } from "Common/Types/BrandColors";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { ErrorFunction, VoidFunction } from "Common/Types/FunctionTypes";
 import Banner from "Common/UI/Components/Banner/Banner";
 import { ButtonStyleType } from "Common/UI/Components/Button/Button";
@@ -189,9 +189,9 @@ const Settings: FunctionComponent = (): ReactElement => {
               if (
                 item &&
                 item["lastAlive"] &&
-                OneUptimeDate.getNumberOfMinutesBetweenDates(
-                  OneUptimeDate.fromString(item["lastAlive"]),
-                  OneUptimeDate.getCurrentDate(),
+                OperationsDate.getNumberOfMinutesBetweenDates(
+                  OperationsDate.fromString(item["lastAlive"]),
+                  OperationsDate.getCurrentDate(),
                 ) < 5
               ) {
                 return (

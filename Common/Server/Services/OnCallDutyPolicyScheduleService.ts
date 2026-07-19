@@ -5,7 +5,7 @@ import OnCallDutyPolicyUserOverrideService from "./OnCallDutyPolicyUserOverrideS
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
 import CalendarEvent from "../../Types/Calendar/CalendarEvent";
 import { LIMIT_PER_PROJECT } from "../../Types/Database/LimitMax";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import ObjectID from "../../Types/ObjectID";
 import LayerUtil, { LayerProps } from "../../Types/OnCallDutyPolicy/Layer";
 import { RestrictionType } from "../../Types/OnCallDutyPolicy/RestrictionTimes";
@@ -106,7 +106,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
       OnCallDutyPolicyTimeLogService.endTimeForSchedule({
         projectId: schedule.projectId!,
         onCallDutyPolicyScheduleId: schedule.id!,
-        endsAt: OneUptimeDate.getCurrentDate(),
+        endsAt: OperationsDate.getCurrentDate(),
       }).catch((err: Error) => {
         logger.error(err, {
           projectId: schedule.projectId?.toString(),
@@ -261,16 +261,16 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
               onCallSchedule.name +
               " just ended.",
             rosterStartsAt:
-              OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+              OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
                 date: previousInformation.rosterStartAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
               }),
             rosterEndsAt:
-              OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
-                date: OneUptimeDate.isInTheFuture(
+              OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
+                date: OperationsDate.isInTheFuture(
                   previousInformation.rosterHandoffAt!,
                 )
-                  ? OneUptimeDate.getCurrentDate()
+                  ? OperationsDate.getCurrentDate()
                   : previousInformation.rosterHandoffAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
               }),
@@ -345,7 +345,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
               escalationRule.onCallDutyPolicyEscalationRule!.id!,
             onCallDutyPolicyId: escalationRule.onCallDutyPolicy!.id!,
             projectId: projectId,
-            endsAt: OneUptimeDate.getCurrentDate(),
+            endsAt: OperationsDate.getCurrentDate(),
           }).catch((err: Error) => {
             logger.error(
               "Error ending time log for user: " +
@@ -418,12 +418,12 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
               " because your on-call roster on schedule " +
               onCallSchedule.name,
             rosterStartsAt:
-              OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+              OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
                 date: newInformation.rosterStartAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
               }),
             rosterEndsAt:
-              OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+              OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
                 date: newInformation.rosterHandoffAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
               }),
@@ -497,7 +497,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
               escalationRule.onCallDutyPolicyEscalationRule!.id!,
             onCallDutyPolicyId: escalationRule.onCallDutyPolicy!.id!,
             projectId: projectId,
-            startsAt: OneUptimeDate.getCurrentDate(),
+            startsAt: OperationsDate.getCurrentDate(),
           }).catch((err: Error) => {
             logger.error(
               "Error starting time log for user: " +
@@ -530,12 +530,12 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
                 userId: sendEmailToUserId,
                 projectId: projectId!,
               },
-            )}** is currently on call for [On-Call Policy ${escalationRule.onCallDutyPolicy?.name}](${(await OnCallDutyPolicyService.getOnCallDutyPolicyLinkInDashboard(projectId!, onCallDutyPolicyId!)).toString()}) escalation rule **${escalationRule.onCallDutyPolicyEscalationRule?.name}** with order **${escalationRule.onCallDutyPolicyEscalationRule?.order}** because of schedule **${onCallSchedule.name}** and your on-call roster starts at **${OneUptimeDate.getDateAsFormattedStringInMultipleTimezones(
+            )}** is currently on call for [On-Call Policy ${escalationRule.onCallDutyPolicy?.name}](${(await OnCallDutyPolicyService.getOnCallDutyPolicyLinkInDashboard(projectId!, onCallDutyPolicyId!)).toString()}) escalation rule **${escalationRule.onCallDutyPolicyEscalationRule?.name}** with order **${escalationRule.onCallDutyPolicyEscalationRule?.order}** because of schedule **${onCallSchedule.name}** and your on-call roster starts at **${OperationsDate.getDateAsFormattedStringInMultipleTimezones(
               {
                 date: newInformation.rosterStartAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
               },
-            )}** and ends at **${OneUptimeDate.getDateAsFormattedStringInMultipleTimezones(
+            )}** and ends at **${OperationsDate.getDateAsFormattedStringInMultipleTimezones(
               {
                 date: newInformation.rosterHandoffAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
@@ -591,12 +591,12 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
               onCallSchedule.name +
               " will start when the next handoff happens.",
             rosterStartsAt:
-              OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+              OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
                 date: newInformation.nextRosterStartAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
               }),
             rosterEndsAt:
-              OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+              OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
                 date: newInformation.nextHandOffTimeAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
               }),
@@ -677,12 +677,12 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
                 userId: sendEmailToUserId,
                 projectId: projectId!,
               },
-            )}** is next on call for [On-Call Policy ${escalationRule.onCallDutyPolicy?.name}](${(await OnCallDutyPolicyService.getOnCallDutyPolicyLinkInDashboard(projectId!, onCallDutyPolicyId!)).toString()}) escalation rule **${escalationRule.onCallDutyPolicyEscalationRule?.name}** with order **${escalationRule.onCallDutyPolicyEscalationRule?.order}**. The on-call roster on schedule **${onCallSchedule.name}** will start when the next handoff happens which is at **${OneUptimeDate.getDateAsFormattedStringInMultipleTimezones(
+            )}** is next on call for [On-Call Policy ${escalationRule.onCallDutyPolicy?.name}](${(await OnCallDutyPolicyService.getOnCallDutyPolicyLinkInDashboard(projectId!, onCallDutyPolicyId!)).toString()}) escalation rule **${escalationRule.onCallDutyPolicyEscalationRule?.name}** with order **${escalationRule.onCallDutyPolicyEscalationRule?.order}**. The on-call roster on schedule **${onCallSchedule.name}** will start when the next handoff happens which is at **${OperationsDate.getDateAsFormattedStringInMultipleTimezones(
               {
                 date: newInformation.nextRosterStartAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
               },
-            )}** and will end at **${OneUptimeDate.getDateAsFormattedStringInMultipleTimezones(
+            )}** and will end at **${OperationsDate.getDateAsFormattedStringInMultipleTimezones(
               {
                 date: newInformation.nextHandOffTimeAt!,
                 timezones: userTimezone ? [userTimezone] : [Timezone.GMT],
@@ -987,7 +987,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
     } as LogAttributes);
 
     // if the current event start time in the future then the current event is the next event.
-    if (currentEvent && OneUptimeDate.isInTheFuture(currentEvent.start)) {
+    if (currentEvent && OperationsDate.isInTheFuture(currentEvent.start)) {
       logger.debug(
         "Current event is in the future, treating it as next event.",
         { onCallDutyPolicyScheduleId: scheduleId.toString() } as LogAttributes,
@@ -1040,7 +1040,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
           resultReturn.rosterStartAt = await this.getTrueRosterStartAt({
             scheduleId: scheduleId,
             currentUserId: resultReturn.currentUserId,
-            now: OneUptimeDate.getCurrentDate(),
+            now: OperationsDate.getCurrentDate(),
             onCallDutyPolicyId: options?.onCallDutyPolicyId,
             fallbackStart: startTime,
           });
@@ -1410,7 +1410,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
         candidate = Recurring.getNextDateInterval(candidate, recurring);
       }
 
-      if (OneUptimeDate.isAfter(candidate, windowEnd)) {
+      if (OperationsDate.isAfter(candidate, windowEnd)) {
         windowEnd = candidate;
       }
     }
@@ -1428,10 +1428,10 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
      * unrestricted layers a small 1-day floor is ample margin.
      */
     const floor: Date = anyLayerRestricted
-      ? OneUptimeDate.addRemoveYears(from, 1)
-      : OneUptimeDate.addRemoveDays(from, 1);
+      ? OperationsDate.addRemoveYears(from, 1)
+      : OperationsDate.addRemoveDays(from, 1);
 
-    if (OneUptimeDate.isBefore(windowEnd, floor)) {
+    if (OperationsDate.isBefore(windowEnd, floor)) {
       windowEnd = floor;
     }
 
@@ -1472,7 +1472,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
     from: Date,
     periodsBack: number,
   ): Date {
-    let windowStart: Date = OneUptimeDate.addRemoveDays(from, -1);
+    let windowStart: Date = OperationsDate.addRemoveDays(from, -1);
 
     for (const layer of layerProps) {
       if (!layer.rotation) {
@@ -1494,7 +1494,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
         candidate = Recurring.getNextDateInterval(candidate, recurring, true);
       }
 
-      if (OneUptimeDate.isBefore(candidate, windowStart)) {
+      if (OperationsDate.isBefore(candidate, windowStart)) {
         windowStart = candidate;
       }
     }
@@ -1532,7 +1532,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
         data.now,
         2,
       );
-      const windowEnd: Date = OneUptimeDate.addRemoveSeconds(data.now, 1);
+      const windowEnd: Date = OperationsDate.addRemoveSeconds(data.now, 1);
 
       let events: Array<CalendarEvent> = this.layerUtil.getMultiLayerEvents({
         layers: layerProps,
@@ -1568,8 +1568,8 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
 
         if (
           event.title === currentUserIdStr &&
-          OneUptimeDate.isOnOrBefore(event.start, data.now) &&
-          OneUptimeDate.isOnOrAfter(event.end, data.now)
+          OperationsDate.isOnOrBefore(event.start, data.now) &&
+          OperationsDate.isOnOrAfter(event.end, data.now)
         ) {
           return event.start;
         }
@@ -1612,7 +1612,7 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
       return [];
     }
 
-    const currentStartTime: Date = OneUptimeDate.getCurrentDate();
+    const currentStartTime: Date = OperationsDate.getCurrentDate();
     logger.debug("Current start time: " + currentStartTime.toISOString(), {
       onCallDutyPolicyScheduleId: data.scheduleId.toString(),
     } as LogAttributes);
@@ -1690,8 +1690,8 @@ export class Service extends DatabaseService<OnCallDutyPolicySchedule> {
       return null;
     }
 
-    const currentStartTime: Date = OneUptimeDate.getCurrentDate();
-    const currentEndTime: Date = OneUptimeDate.addRemoveSeconds(
+    const currentStartTime: Date = OperationsDate.getCurrentDate();
+    const currentEndTime: Date = OperationsDate.addRemoveSeconds(
       currentStartTime,
       1,
     );

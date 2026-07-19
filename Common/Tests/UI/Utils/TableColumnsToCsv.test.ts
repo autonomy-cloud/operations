@@ -4,7 +4,7 @@ import TableColumnsToCsv from "../../../UI/Utils/TableColumnsToCsv";
 import Column from "../../../UI/Components/Table/Types/Column";
 import Columns from "../../../UI/Components/Table/Types/Columns";
 import FieldType from "../../../UI/Components/Types/FieldType";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import ObjectID from "../../../Types/ObjectID";
 
 /*
@@ -186,7 +186,7 @@ describe("TableColumnsToCsv", () => {
     test("formats a Date column using the friendly date-only format", () => {
       const date: Date = new Date("2024-01-31T10:30:00.000Z");
       expect(TableColumnsToCsv.formatValueForCsv(date, FieldType.Date)).toBe(
-        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(date, true),
+        OperationsDate.getDateAsUserFriendlyLocalFormattedString(date, true),
       );
     });
 
@@ -195,14 +195,14 @@ describe("TableColumnsToCsv", () => {
       expect(
         TableColumnsToCsv.formatValueForCsv(date, FieldType.DateTime),
       ).toBe(
-        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(date, false),
+        OperationsDate.getDateAsUserFriendlyLocalFormattedString(date, false),
       );
     });
 
     test("formats an ISO date string for a Date column", () => {
       const iso: string = "2024-01-31T10:30:00.000Z";
       expect(TableColumnsToCsv.formatValueForCsv(iso, FieldType.Date)).toBe(
-        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(iso, true),
+        OperationsDate.getDateAsUserFriendlyLocalFormattedString(iso, true),
       );
     });
 

@@ -16,7 +16,7 @@ import API from "Common/UI/Utils/API/API";
 import User from "Common/UI/Utils/User";
 import UserPush from "Common/Models/DatabaseModels/UserPush";
 import React, { ReactElement, useEffect, useState } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const Push: () => JSX.Element = (): ReactElement => {
   const [showRegisterDeviceModal, setShowRegisterDeviceModal] =
@@ -24,7 +24,7 @@ const Push: () => JSX.Element = (): ReactElement => {
 
   const [error, setError] = useState<string>("");
   const [refreshToggle, setRefreshToggle] = useState<string>(
-    OneUptimeDate.getCurrentDate().toString(),
+    OperationsDate.getCurrentDate().toString(),
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -141,7 +141,7 @@ const Push: () => JSX.Element = (): ReactElement => {
       setError(""); // Clear any previous errors
       setShowRegisterDeviceModal(false);
       setShowRegistrationSuccessModal(true);
-      setRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+      setRefreshToggle(OperationsDate.getCurrentDate().toString());
     } catch (err: any) {
       const errorMessage: string = API.getFriendlyMessage(err);
       setError(errorMessage);

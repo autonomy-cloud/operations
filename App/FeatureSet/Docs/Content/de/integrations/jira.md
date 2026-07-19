@@ -108,14 +108,14 @@ Um den Cast Operations-Vorfall aufzulösen, wenn jemand das Jira-Issue schließt
 
 3. Verwenden Sie im Workflow einen **Find Incident**-Block, um den Vorfall anhand des gespeicherten Keys zu finden, dann einen **Update Incident**-Block, um ihn in Ihren aufgelösten Zustand zu bewegen.
 
-Wenn Sie den Jira-Key in Schritt 4 am Vorfall gespeichert haben, ist die Zuordnung unkompliziert. Siehe [Komponenten → Cast Operations-Datenkomponenten](/docs/workflows/components#oneuptime-data-components).
+Wenn Sie den Jira-Key in Schritt 4 am Vorfall gespeichert haben, ist die Zuordnung unkompliziert. Siehe [Komponenten → Cast Operations-Datenkomponenten](/docs/workflows/components#cast-operations-data-components).
 
 ## Das Issue anpassen
 
 Einige häufige Anpassungen am Body des API-Blocks:
 
 - **Priorität** — fügen Sie `"priority": { "name": "High" }` in `fields` ein. Sie können auf `{{Incident.incidentSeverity.name}}` mit **Conditions** verzweigen, um Cast Operations-Schweregrade auf Jira-Prioritäten abzubilden.
-- **Labels** — fügen Sie `"labels": ["oneuptime", "incident"]` hinzu.
+- **Labels** — fügen Sie `"labels": ["cast-operations", "incident"]` hinzu.
 - **Verantwortlicher** — fügen Sie `"assignee": { "id": "<accountId>" }` hinzu (Jira Cloud verwendet Account-IDs, keine Benutzernamen).
 - **Benutzerdefinierte Felder** — fügen Sie `"customfield_XXXXX": "..."` mit der Feld-ID aus Ihrer Jira-Administration hinzu.
 

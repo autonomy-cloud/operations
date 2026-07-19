@@ -4,7 +4,7 @@ import RestrictionTimes, {
   RestrictionType,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 
@@ -42,12 +42,12 @@ function dailyRestriction(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: startHour,
       minutes: 0,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: endHour,
       minutes: 0,
       seconds: 0,
@@ -134,7 +134,7 @@ describe("Multi-layer edge cases", () => {
       const actual: string | null = coveringUser(merged, t);
       if (expected !== actual) {
         mismatches.push(
-          `${OneUptimeDate.toString(t)} expected=${expected} actual=${actual}`,
+          `${OperationsDate.toString(t)} expected=${expected} actual=${actual}`,
         );
       }
     }

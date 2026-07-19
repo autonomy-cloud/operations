@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 -->
-<h1 align="center"><img alt="oneuptime logo" width=50% src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/></h1>
+<h1 align="center"><img alt="cast-operations logo" width=50% src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/></h1>
 <!-- markdownlint-enable MD033 -->
 
 # Cast Operations Kubernetes Agent
@@ -11,13 +11,13 @@ Full docs: [Install the Kubernetes Agent](https://visca.ai/docs/monitor/kubernet
 ## Quick start
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
@@ -36,10 +36,10 @@ The `preset` option picks compatible defaults for your Kubernetes distribution �
 **GKE Autopilot:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod \
   --set preset=gke-autopilot
 ```
@@ -47,10 +47,10 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **EKS Fargate:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod \
   --set preset=eks-fargate
 ```
@@ -79,10 +79,10 @@ CPU is in cores (`500m` = half a core). Memory is in bytes (`Mi` = mebibytes, `G
 For one or two changes at install or upgrade time:
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   --set deployment.resources.requests.cpu=500m \
   --set deployment.resources.requests.memory=2Gi \
@@ -125,19 +125,19 @@ logs:
 Apply it with `-f`:
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   -f my-values.yaml
 ```
 
-> **Already installed?** Use `helm upgrade oneuptime-agent oneuptime/kubernetes-agent --namespace oneuptime-kubernetes-agent --reset-then-reuse-values -f my-values.yaml` to apply new resource values without losing your existing settings. Don't use plain `--reuse-values` — see [Upgrading](#upgrading) for why.
+> **Already installed?** Use `helm upgrade cast-operations-agent cast-operations/kubernetes-agent --namespace cast-operations-kubernetes-agent --reset-then-reuse-values -f my-values.yaml` to apply new resource values without losing your existing settings. Don't use plain `--reuse-values` — see [Upgrading](#upgrading) for why.
 
 ### Recommended sizing
 
-Pick the tier closest to your cluster as a starting point, then watch `kubectl top pod -n oneuptime-kubernetes-agent` and adjust.
+Pick the tier closest to your cluster as a starting point, then watch `kubectl top pod -n cast-operations-kubernetes-agent` and adjust.
 
 | Tier | Cluster size | Notes |
 | --- | --- | --- |
@@ -292,25 +292,25 @@ profiling:
 Apply any of these with `-f`:
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   -f large.yaml
 ```
 
-> These are conservative starting points. Real usage depends on pod density per node, request volume (for eBPF), and how many distinct process types are running. After install, watch `kubectl top pod -n oneuptime-kubernetes-agent` for ~24 hours and set limits to roughly 1.5× observed peak.
+> These are conservative starting points. Real usage depends on pod density per node, request volume (for eBPF), and how many distinct process types are running. After install, watch `kubectl top pod -n cast-operations-kubernetes-agent` for ~24 hours and set limits to roughly 1.5× observed peak.
 
 ### When to tune
 
 - **Large clusters (1000+ pods):** raise `deployment.resources.limits.memory` first — the metrics collector batches every series in memory, and an OOM there leaves gaps in your dashboards. `2–8Gi` is typical for production.
-- **eBPF DaemonSet restarting or throttled:** raise `ebpf.resources.limits`. Confirm with `kubectl top pod -n oneuptime-kubernetes-agent` and check the OBI pod's restart count.
+- **eBPF DaemonSet restarting or throttled:** raise `ebpf.resources.limits`. Confirm with `kubectl top pod -n cast-operations-kubernetes-agent` and check the OBI pod's restart count.
 - **API-mode log tailer falling behind:** shard first with `--set logs.api.replicas=2` (or more) — one replica handles a few thousand containers. Only raise per-pod limits if a single replica is still saturated after sharding.
 - **Profiling on dense nodes:** raise `profiling.resources.limits`. Flame-graph stack unwinding is the heaviest workload the agent runs.
 - **Bundled kube-state-metrics on large clusters:** scale `kubeStateMetrics.resources` with object count — KSM holds the whole cluster state in memory.
 
-After installing or upgrading, run `kubectl top pod -n oneuptime-kubernetes-agent` to see actual CPU/memory usage versus your limits and adjust from there.
+After installing or upgrading, run `kubectl top pod -n cast-operations-kubernetes-agent` to see actual CPU/memory usage versus your limits and adjust from there.
 
 ## Configuration reference
 
@@ -318,8 +318,8 @@ After installing or upgrading, run `kubectl top pod -n oneuptime-kubernetes-agen
 
 | Key | Description |
 | --- | --- |
-| `oneuptime.url` | URL of your Cast Operations instance (e.g. `https://visca.ai`). |
-| `oneuptime.apiKey` | Project API key. Create one at **Project Settings → API Keys**. |
+| `cast-operations.url` | URL of your Cast Operations instance (e.g. `https://visca.ai`). |
+| `cast-operations.apiKey` | Project API key. Create one at **Project Settings → API Keys**. |
 | `clusterName` | Unique name for this cluster. Stamped as `k8s.cluster.name` on every record. |
 
 ### Common
@@ -373,10 +373,10 @@ A separate DaemonSet runs the [`otelcol-ebpf-profiler`](https://github.com/open-
 Profiling is **off by default** — it's heavier than the OBI auto-instrumentation (more CPU per node, larger memory footprint) and not every cluster wants always-on flame graphs. Enable it when you want richer telemetry:
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   --set profiling.enabled=true
 ```
@@ -414,10 +414,10 @@ Requirements:
 Turn it off if you don't want it:
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   --set ebpf.enabled=false
 ```
@@ -460,7 +460,7 @@ Useful knobs:
 
 | Key | Default | Description |
 | --- | --- | --- |
-| `logs.api.image.repository` | `oneuptime/kubernetes-log-tailer` | Image for the log tailer Deployment. |
+| `logs.api.image.repository` | `cast-operations/kubernetes-log-tailer` | Image for the log tailer Deployment. |
 | `logs.api.image.tag` | `""` (tracks chart `appVersion` — the Cast Operations product version at release time) | Override to pin to a specific tag. |
 | `logs.api.replicas` | `1` | Number of log-tailer replicas. One replica handles a few thousand containers; shard by namespace for larger clusters. |
 | `logs.api.batchMaxRecords` | `500` | Flush after this many log records. |
@@ -475,8 +475,8 @@ See [`values.yaml`](./values.yaml) for the exhaustive list, including service me
 
 ```bash
 helm repo update
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --reuse-values
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --reuse-values
 ```
 
 > ⚠️ **`--reuse-values` skips defaults for newly added settings.** When the chart adds a new top-level field (e.g. `profiling.*` in v0.4.x, `ebpf.features.*` in v0.4.x), Helm's `--reuse-values` keeps your old value file as-is and does **not** merge the new defaults — so the new feature stays unset and renders as disabled in the templates.
@@ -486,17 +486,17 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 > - **Helm 3.14+**: use `--reset-then-reuse-values` instead of `--reuse-values`. This re-reads the chart's `values.yaml` for any keys you haven't overridden, while still keeping your `--set` values.
 >
 >   ```bash
->   helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
->     --namespace oneuptime-kubernetes-agent --reset-then-reuse-values
+>   helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+>     --namespace cast-operations-kubernetes-agent --reset-then-reuse-values
 >   ```
 >
 > - **Helm 3.13 and earlier**: pass your original `--set` flags (or `-f values.yaml`) without `--reuse-values`. The new defaults apply automatically and your overrides override them.
 >
 >   ```bash
->   helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
->     --namespace oneuptime-kubernetes-agent \
->     --set oneuptime.url=<URL> \
->     --set oneuptime.apiKey=<KEY> \
+>   helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+>     --namespace cast-operations-kubernetes-agent \
+>     --set cast-operations.url=<URL> \
+>     --set cast-operations.apiKey=<KEY> \
 >     --set clusterName=<NAME>
 >   ```
 >
@@ -505,8 +505,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 ## Uninstalling
 
 ```bash
-helm uninstall oneuptime-agent --namespace oneuptime-kubernetes-agent
-kubectl delete namespace oneuptime-kubernetes-agent
+helm uninstall cast-operations-agent --namespace cast-operations-kubernetes-agent
+kubectl delete namespace cast-operations-kubernetes-agent
 ```
 
 ## Troubleshooting
@@ -521,7 +521,7 @@ The bundled script checks pod health, decodes/validates the key, tests cluster e
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
-  | bash -s -- -n oneuptime-agent
+  | bash -s -- -n cast-operations-agent
 ```
 
 It only reads cluster state and runs a couple of probes — it changes nothing. For the most accurate egress test, install with `--set debug.enabled=true` first (see below), then re-run.
@@ -529,7 +529,7 @@ It only reads cluster state and runs a couple of probes — it changes nothing. 
 To validate a key by hand (`200` = valid, `401` = unknown/revoked):
 
 ```bash
-curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" "$ONEUPTIME_URL/otlp/v1/validate"
+curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" "$CAST_OPERATIONS_URL/otlp/v1/validate"
 ```
 
 ### Application pods crash with SIGSEGV after enabling log ↔ trace correlation
@@ -549,8 +549,8 @@ These agents wrap libc `write()` and hold pointers into the caller's stdout buff
 **Immediate mitigation** — disable the log enricher (keeps the rest of eBPF working):
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --reuse-values \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --reuse-values \
   --set ebpf.logToTraceCorrelation=false
 ```
 
@@ -587,8 +587,8 @@ If you run a service mesh (Linkerd, Istio, Consul Connect) or an eBPF-based CNI 
 1. **OBI's IP-option trace propagation modifies packet headers.** Service-mesh proxies and eBPF CNIs validate the bytes they receive — an extra IP option from OBI can fail mTLS, get dropped by the CNI, or confuse the proxy. The chart defaults to `ebpf.contextPropagationMode: headers` (HTTP/1.1 headers only, no packet modification) for exactly this reason. If you upgraded from an older release with `--reuse-values`, you may still be on the old `all` behavior — re-apply explicitly:
 
     ```bash
-    helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-      --namespace oneuptime-kubernetes-agent --reset-then-reuse-values \
+    helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+      --namespace cast-operations-kubernetes-agent --reset-then-reuse-values \
       --set ebpf.contextPropagationMode=headers
     ```
 
@@ -611,8 +611,8 @@ the binary is fine — this is OBI attaching a **uprobe** to `/usr/bin/clickhous
 The default `ebpf.excludeExePaths` now ships `*/clickhouse`, so a fresh install is protected. If you're on an older release or maintain a custom exclude list, add it and roll the agent:
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --reset-then-reuse-values \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --reset-then-reuse-values \
   --set ebpf.excludeExePaths="...existing list...,*/clickhouse"
 ```
 
@@ -627,10 +627,10 @@ Three things to check, in order:
 3. **Service mesh** — if all your traffic flows through `linkerd2-proxy` or `envoy` and those are excluded (correctly — see above), OBI still sees the application's local connection to the sidecar on `127.0.0.1`. If you see no traces at all, also check that `ebpf.printTraces=true` shows spans in the OBI pod's stdout:
 
     ```bash
-    helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-      --namespace oneuptime-kubernetes-agent --reset-then-reuse-values \
+    helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+      --namespace cast-operations-kubernetes-agent --reset-then-reuse-values \
       --set ebpf.printTraces=true
-    kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+    kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
     ```
 
     No spans there means OBI isn't capturing traffic on that node. Spans there but nothing in Cast Operations means the OTLP export path is broken — check the metrics-collector Deployment logs.
@@ -656,10 +656,10 @@ Requires Kubernetes ≥ 1.23. Leaves no permanent footprint:
 
 ```bash
 # Pick a pod (metrics collector shown; use component=log-collector for logs)
-POD=$(kubectl get pod -n oneuptime-kubernetes-agent \
+POD=$(kubectl get pod -n cast-operations-kubernetes-agent \
   -l component=metrics-collector -o name | head -1)
 
-kubectl debug -it "$POD" -n oneuptime-kubernetes-agent \
+kubectl debug -it "$POD" -n cast-operations-kubernetes-agent \
   --image=nicolaka/netshoot --target=otel-collector -- bash
 # then, from the shell:
 curl -v https://operations.example.com/otlp/v1/metrics
@@ -677,13 +677,13 @@ ephemeral containers), enable the debug sidecar. It injects a `debug` container
 and turns on `shareProcessNamespace`:
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --reset-then-reuse-values \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --reset-then-reuse-values \
   --set debug.enabled=true
 
-kubectl exec -it "$POD" -n oneuptime-kubernetes-agent -c debug -- bash
-# $ONEUPTIME_URL is preset in the sidecar:
-curl -v "$ONEUPTIME_URL/otlp/v1/metrics"
+kubectl exec -it "$POD" -n cast-operations-kubernetes-agent -c debug -- bash
+# $CAST_OPERATIONS_URL is preset in the sidecar:
+curl -v "$CAST_OPERATIONS_URL/otlp/v1/metrics"
 ```
 
 This adds an always-running container to every agent pod (extra resources +

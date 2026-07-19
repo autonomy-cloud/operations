@@ -8,7 +8,7 @@
 # healthy and the collector logs show no errors.
 #
 # Why that happens: the agent ships telemetry to `<url>/otlp/v1/*` with the
-# ingestion key in the `x-oneuptime-service-token` header. If that key is
+# ingestion key in the `x-cast-operations-service-token` header. If that key is
 # missing, malformed, or revoked, the OTLP endpoints *deliberately return
 # HTTP 200 and silently drop the data*. The collector reports success, logs
 # nothing, and the cluster never flips to "connected" because connection
@@ -21,7 +21,7 @@
 # Usage:
 #   ./troubleshoot.sh [-d INSTALL_DIR] [--skip-egress] [--curl-image IMG] [--no-color]
 #
-# Default: INSTALL_DIR=/opt/oneuptime-docker-swarm-agent
+# Default: INSTALL_DIR=/opt/cast-operations-docker-swarm-agent
 #
 # Requires: docker. The collector image is distroless (no shell/curl), so
 # network probes run a small curl image as a sibling container sharing the
@@ -29,12 +29,12 @@
 
 set -uo pipefail
 
-DIR="/opt/oneuptime-docker-swarm-agent"
+DIR="/opt/cast-operations-docker-swarm-agent"
 SKIP_EGRESS=0
 CURL_IMAGE="curlimages/curl:latest"
 USE_COLOR=1
-AGENT_CONTAINER="oneuptime-docker-swarm-agent"
-INVENTORY_CONTAINER="oneuptime-docker-swarm-inventory"
+AGENT_CONTAINER="cast-operations-docker-swarm-agent"
+INVENTORY_CONTAINER="cast-operations-docker-swarm-inventory"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -86,7 +86,7 @@ agent_netns_req() {
   local method="$1" url="$2" token="$3"
   RESP_CODE=""; RESP_EXIT=""; RESP_BODY=""
   local -a args=(-sS -m 15 -w $'\nOUSTATUS:%{http_code}' -X "$method" "$url")
-  [ -n "$token" ] && args+=(-H "x-oneuptime-service-token: $token")
+  [ -n "$token" ] && args+=(-H "x-cast-operations-service-token: $token")
   [ "$method" = "POST" ] && args+=(-H "Content-Type: application/json" --data '{}')
   local raw=""
   if [ "${AGENT_RUNNING:-0}" = 1 ]; then
@@ -164,7 +164,7 @@ fi
 
 # Has the poller written a snapshot yet?
 if [ "${INV_STATE:-}" = "running" ]; then
-  INV_LOG=$(docker exec "$INVENTORY_CONTAINER" sh -c 'wc -l < /var/log/oneuptime-docker-swarm-inventory.log 2>/dev/null' 2>/dev/null | tr -d '[:space:]')
+  INV_LOG=$(docker exec "$INVENTORY_CONTAINER" sh -c 'wc -l < /var/log/cast-operations-docker-swarm-inventory.log 2>/dev/null' 2>/dev/null | tr -d '[:space:]')
   if [ -n "$INV_LOG" ] && [ "$INV_LOG" -gt 0 ] 2>/dev/null; then
     pass "Inventory snapshot present ($INV_LOG record(s) in the latest snapshot)."
   else
@@ -199,18 +199,18 @@ fi
 # ----------------------------------------------------------------------------
 section "4. Ingestion token (shape)"
 # ----------------------------------------------------------------------------
-TOKEN=$(agent_env ONEUPTIME_SERVICE_TOKEN)
+TOKEN=$(agent_env CAST_OPERATIONS_SERVICE_TOKEN)
 TOKEN_SHAPE_OK=0; TOKEN_HAS_WS=0
 UUID_RE='^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
 if [ -z "$TOKEN" ]; then
-  fail "ONEUPTIME_SERVICE_TOKEN is not set."
-  add_finding "Set ONEUPTIME_SERVICE_TOKEN in $ENV_FILE (Project Settings → Telemetry Ingestion Keys) and restart the agent."
+  fail "CAST_OPERATIONS_SERVICE_TOKEN is not set."
+  add_finding "Set CAST_OPERATIONS_SERVICE_TOKEN in $ENV_FILE (Project Settings → Telemetry Ingestion Keys) and restart the agent."
 else
   TRIMMED=$(printf '%s' "$TOKEN" | tr -d '[:space:]')
   MASK="${TRIMMED:0:8}…${TRIMMED: -4}"
   if [ "$TOKEN" != "$TRIMMED" ]; then
     fail "Token contains whitespace — the collector sends it literally, so Cast Operations can't match it."
-    add_finding "ONEUPTIME_SERVICE_TOKEN has stray whitespace in $ENV_FILE. Re-paste it cleanly and restart the agent."
+    add_finding "CAST_OPERATIONS_SERVICE_TOKEN has stray whitespace in $ENV_FILE. Re-paste it cleanly and restart the agent."
     TOKEN_HAS_WS=1
   fi
   TOKEN="$TRIMMED"
@@ -257,18 +257,18 @@ section "6. Egress + DEFINITIVE token check"
 # ----------------------------------------------------------------------------
 TOKEN_VERDICT="UNKNOWN"
 EGRESS="UNKNOWN"
-BASE_URL=$(agent_env ONEUPTIME_URL)
+BASE_URL=$(agent_env CAST_OPERATIONS_URL)
 BASE_URL="${BASE_URL%/}"
 
 token_invalid_finding() {
-  add_finding "DEFINITIVE: the ingestion key is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: copy a live Telemetry Ingestion Key in Cast Operations, update ONEUPTIME_SERVICE_TOKEN in $ENV_FILE, then: cd $DIR && docker compose up -d"
+  add_finding "DEFINITIVE: the ingestion key is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: copy a live Telemetry Ingestion Key in Cast Operations, update CAST_OPERATIONS_SERVICE_TOKEN in $ENV_FILE, then: cd $DIR && docker compose up -d"
 }
 
 if [ "$SKIP_EGRESS" = 1 ]; then
   warn "Egress test skipped (--skip-egress)."; EGRESS="SKIPPED"
 elif [ -z "$BASE_URL" ]; then
-  warn "ONEUPTIME_URL is not set; cannot run the egress/token probe."; EGRESS="SKIPPED"
-  add_finding "Set ONEUPTIME_URL in $ENV_FILE (e.g. https://visca.ai) and restart the agent."
+  warn "CAST_OPERATIONS_URL is not set; cannot run the egress/token probe."; EGRESS="SKIPPED"
+  add_finding "Set CAST_OPERATIONS_URL in $ENV_FILE (e.g. https://visca.ai) and restart the agent."
 elif ! [[ "$TOKEN" =~ ^[A-Za-z0-9-]+$ ]]; then
   warn "Token unusable/missing; cannot run the authenticated probe (fix Section 4 first)."; EGRESS="SKIPPED"
 else
@@ -285,7 +285,7 @@ else
     if is_conn_fail; then
       fail "Cannot reach $BASE_URL/otlp/v1/metrics from the agent's network (curl exit ${RESP_EXIT:-?})."
       EGRESS="FAIL"
-      add_finding "Egress to $BASE_URL failed from the collector container. Verify ONEUPTIME_URL and that this machine can reach it (DNS/TLS/firewall)."
+      add_finding "Egress to $BASE_URL failed from the collector container. Verify CAST_OPERATIONS_URL and that this machine can reach it (DNS/TLS/firewall)."
     else
       pass "Reachable: $BASE_URL/otlp/v1/metrics returned HTTP $RESP_CODE (token check inconclusive on this server version)."
       EGRESS="OK"; TOKEN_VERDICT="INCONCLUSIVE"
@@ -294,7 +294,7 @@ else
     fail "Cannot reach $BASE_URL/otlp/v1/validate from the agent's network (curl exit ${RESP_EXIT:-?})."
     EGRESS="FAIL"
     detail "curl: $(printf '%s' "$RESP_BODY" | tr '\n' ' ' | head -c 200)"
-    add_finding "Egress to $BASE_URL failed from the collector container. Check ONEUPTIME_URL, DNS, TLS, and firewall/proxy egress."
+    add_finding "Egress to $BASE_URL failed from the collector container. Check CAST_OPERATIONS_URL, DNS, TLS, and firewall/proxy egress."
   else
     warn "Unexpected HTTP $RESP_CODE from /otlp/v1/validate."; EGRESS="OK"
   fi

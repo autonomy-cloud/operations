@@ -33,24 +33,24 @@ Ingress listener उपयोग करें जब:
 ### Docker
 
 ```bash
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 यदि आप `--network host` उपयोग नहीं कर रहे, तो ingress port explicitly publish करें:
 
 ```bash
-docker run --name oneuptime-probe \
+docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 ### Docker Compose
@@ -59,13 +59,13 @@ docker run --name oneuptime-probe \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -78,25 +78,25 @@ services:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
@@ -107,10 +107,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oneuptime-probe-ingress
+  name: cast-operations-probe-ingress
 spec:
   selector:
-    app: oneuptime-probe
+    app: cast-operations-probe
   ports:
     - name: ingress
       port: 3875
@@ -118,7 +118,7 @@ spec:
   type: ClusterIP
 ```
 
-Internal services फिर `http://oneuptime-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>` पर heartbeats भेज सकती हैं।
+Internal services फिर `http://cast-operations-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>` पर heartbeats भेज सकती हैं।
 
 ## Probe को requests भेजना
 
@@ -167,18 +167,18 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 | `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`            | Cast Operations को प्रत्येक forward attempt के लिए Timeout (ms)। Minimum `1000`।                          |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`                | probe द्वारा forward छोड़ने से पहले retries की संख्या। retries disable करने के लिए `0` पर सेट करें। |
 
-Standard probe variables (`PROBE_KEY`, `PROBE_ID`, `ONEUPTIME_URL`, proxy vars) सभी लागू होते हैं — पूरी list के लिए [Custom Probes](/docs/probe/custom-probe) देखें।
+Standard probe variables (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, proxy vars) सभी लागू होते हैं — पूरी list के लिए [Custom Probes](/docs/probe/custom-probe) देखें।
 
 ## Security considerations
 
 - **Endpoint design से unauthenticated है** — URL path में secret key _ही_ authentication है, जैसा public `visca.ai` endpoint पर होता है। Secret key को credential के रूप में treat करें।
 - **केवल private interface पर Bind करें।** Ingress listener public internet से reachable नहीं होना चाहिए। Access restrict करने के लिए network policy, firewall rule, या `ClusterIP` service उपयोग करें।
-- **यदि आपको transit में encryption की आवश्यकता है तो HTTPS termination उपयोग करें।** Probe का listener plain HTTP बोलता है। यदि आपको inbound hop पर TLS चाहिए तो इसे internal load balancer/ingress controller के पीछे रखें। Forward leg probe → Cast Operations always HTTPS उपयोग करती है (assuming `ONEUPTIME_URL` `https://` है)।
+- **यदि आपको transit में encryption की आवश्यकता है तो HTTPS termination उपयोग करें।** Probe का listener plain HTTP बोलता है। यदि आपको inbound hop पर TLS चाहिए तो इसे internal load balancer/ingress controller के पीछे रखें। Forward leg probe → Cast Operations always HTTPS उपयोग करती है (assuming `CAST_OPERATIONS_URL` `https://` है)।
 - **Resource limits.** Listener 50 MB तक request bodies accept करता है। यदि आपको tighter cap चाहिए, तो probe के सामने reverse proxy रखें।
 
 ## समस्या निवारण
 
 - **Probe startup पर `Probe ingress listener started on port <port>` log करता है** — confirms करता है कि listener up है। यदि आपको यह line नहीं दिखती, तो `PROBE_INGRESS_PORT` unset, `0`, या invalid है।
-- **`Probe ingress: failed to forward to <url> after N attempts`** — probe Cast Operations तक पहुंच नहीं सका। probe की outbound connectivity, proxy settings और `ONEUPTIME_URL` का value जांचें।
+- **`Probe ingress: failed to forward to <url> after N attempts`** — probe Cast Operations तक पहुंच नहीं सका। probe की outbound connectivity, proxy settings और `CAST_OPERATIONS_URL` का value जांचें।
 - **`Probe ingress: probe ID not available, forwarding without it`** — probe ने अभी register नहीं किया है। Forward अभी भी succeed होती है; heartbeat simply किसी probe से attribute नहीं होगा।
 - **Heartbeat Cast Operations में दिखाई देता है लेकिन probe के माध्यम से नहीं** — confirm करें कि आपकी service `http://<probe-host>:<port>/...` को hit कर रही है न कि public URL को। Misconfigured DNS या `/etc/hosts` entry सामान्य कारण है।

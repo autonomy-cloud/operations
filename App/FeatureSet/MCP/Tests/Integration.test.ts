@@ -1,5 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 
 describe("MCP Server Integration", () => {
@@ -81,8 +81,8 @@ describe("MCP Server Integration", () => {
     });
 
     it("should validate operation types", () => {
-      const operations: OneUptimeOperation[] =
-        Object.values(OneUptimeOperation);
+      const operations: OperationsOperation[] =
+        Object.values(OperationsOperation);
       expect(operations).toContain("create");
       expect(operations).toContain("read");
       expect(operations).toContain("update");

@@ -39,7 +39,6 @@ Les valeurs affichées sont exactement ce que le bloc a vu — après que toutes
 3. Pour un déclencheur webhook : confirmez que l'autre système envoie bien à la bonne URL. La plupart des outils consignent l'envoi d'un webhook — vérifiez de leur côté.
 4. Pour un déclencheur planifié : confirmez que l'expression cron correspond à l'heure attendue.
 
-Si le déclencheur s'est bien activé mais qu'aucune exécution n'apparaît, vérifiez votre quota d'exécutions sous **Project Settings → Billing**.
 
 ### « Un bloc ultérieur ne s'est jamais exécuté. »
 

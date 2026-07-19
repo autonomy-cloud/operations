@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Includes from "Common/Types/BaseDatabase/Includes";
 import DashboardLogChartComponent from "Common/Types/Dashboard/DashboardComponents/DashboardLogChartComponent";
 import DashboardVariable from "Common/Types/Dashboard/DashboardVariable";
@@ -216,7 +216,7 @@ export function pivotLogHistogramBuckets(
   for (const bucket of buckets) {
     let time: string = bucket.time;
     if (shouldFillRange) {
-      const bucketDate: Date = OneUptimeDate.fromString(bucket.time);
+      const bucketDate: Date = OperationsDate.fromString(bucket.time);
       if (isNaN(bucketDate.getTime())) {
         continue;
       }
@@ -270,7 +270,7 @@ export function formatLogChartTickTime(
   time: string,
   includeDate: boolean = false,
 ): string {
-  const date: Date = OneUptimeDate.fromString(time);
+  const date: Date = OperationsDate.fromString(time);
   if (isNaN(date.getTime())) {
     return time;
   }

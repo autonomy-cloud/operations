@@ -86,7 +86,7 @@ func main() {
     flag.Parse()
 
     opts := providerserver.ServeOpts{
-        Address: "registry.terraform.io/oneuptime/${this.config.providerName}",
+        Address: "registry.terraform.io/cast-operations/${this.config.providerName}",
         Debug:   debug,
     }
 

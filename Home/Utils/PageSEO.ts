@@ -28,7 +28,6 @@ export interface PageSEOData {
   pageType:
     | "home"
     | "product"
-    | "pricing"
     | "legal"
     | "blog"
     | "about"
@@ -80,7 +79,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
     title:
       "Cast Operations vs Alternatives | Compare Monitoring, On-Call & Status Page Tools",
     description:
-      "Compare Cast Operations with PagerDuty, Datadog, Grafana, Opsgenie, Statuspage and 25+ other tools. See features, pricing, and why teams consolidate monitoring, on-call, incidents, and status pages onto one open-source platform.",
+      "Compare Cast Operations with PagerDuty, Datadog, Grafana, Opsgenie, Statuspage and other tools. See how teams consolidate monitoring, on-call, incidents, and status pages onto one open-source platform.",
     canonicalPath: "/compare",
     twitterCard: "summary_large_image",
     pageType: "compare",
@@ -124,7 +123,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/monitoring": {
-    title: "Uptime Monitoring | Website, API, Server Monitoring | Cast Operations",
+    title:
+      "Uptime Monitoring | Website, API, Server Monitoring | Cast Operations",
     description:
       "Monitor websites, APIs, servers, and any resource in real-time. Get instant alerts when things go wrong. Supports HTTP, TCP, UDP, DNS, SSL, ping monitoring. Open source.",
     canonicalPath: "/product/monitoring",
@@ -286,7 +286,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/runbooks": {
-    title: "Runbooks | Automated Incident Response Procedures | Cast Operations",
+    title:
+      "Runbooks | Automated Incident Response Procedures | Cast Operations",
     description:
       "Runbooks that combine manual checklists with sandboxed JavaScript, HTTP, bash, and AI steps. Auto-trigger on incidents, alerts, and scheduled maintenance. Open source incident response automation.",
     canonicalPath: "/product/runbooks",
@@ -352,7 +353,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/tool/mcp-server": {
-    title: "MCP Server | Model Context Protocol for AI Agents | Cast Operations",
+    title:
+      "MCP Server | Model Context Protocol for AI Agents | Cast Operations",
     description:
       "Connect AI agents and LLMs to your Cast Operations observability data via Model Context Protocol (MCP). Query incidents, monitors, logs, metrics, and traces directly from your AI tools.",
     canonicalPath: "/tool/mcp-server",
@@ -555,7 +557,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/host": {
-    title: "Host Observability | Server Metrics, Processes & Logs | Cast Operations",
+    title:
+      "Host Observability | Server Metrics, Processes & Logs | Cast Operations",
     description:
       "Auto-discover hosts from any OpenTelemetry collector. Live CPU, memory, disk, filesystem, network, and per-process telemetry — plus logs and traces correlated to the same host. Open source.",
     canonicalPath: "/product/host",
@@ -589,9 +592,10 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/proxmox": {
-    title: "Proxmox Monitoring | Nodes, VMs, Storage & Backups | Cast Operations",
+    title:
+      "Proxmox Monitoring | Nodes, VMs, Storage & Backups | Cast Operations",
     description:
-      "Monitor Proxmox VE clusters end to end: node and guest health, storage usage, backup coverage, and replication alerting. One agent per cluster, usage-based pricing, 10-minute setup. Open source.",
+      "Monitor Proxmox VE clusters end to end: node and guest health, storage usage, backup coverage, and replication alerting. One agent per cluster, 10-minute setup, and the complete feature set. Open source.",
     canonicalPath: "/product/proxmox",
     twitterCard: "summary_large_image",
     pageType: "product",
@@ -615,7 +619,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
         "Storage usage and growth tracking",
         "Guest-to-host agent cross-linking",
         "Copy-paste onboarding with token validator",
-        "Usage-based pricing, not per-host",
+        "Complete feature set in every deployment",
         "OpenTelemetry native",
         "Open source",
       ],
@@ -651,7 +655,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
         "Filter calls by provider, model and operation",
         "Token / cost / latency dashboards and alerts",
         "Scrub rules for sensitive prompt data",
-        "Usage-based pricing, not per-seat",
+        "Complete feature set in every deployment",
         "Open source",
       ],
     },
@@ -696,7 +700,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
     title:
       "Docker Swarm Monitoring | Nodes, Services, Tasks & Stacks | Cast Operations",
     description:
-      "Monitor Docker Swarm clusters end to end: manager and worker node health, services and their task replicas, stacks, overlay networks, secrets, configs, and volumes. One agent on a manager node, usage-based pricing, 10-minute setup. Open source.",
+      "Monitor Docker Swarm clusters end to end: manager and worker node health, services and their task replicas, stacks, overlay networks, secrets, configs, and volumes. One agent on a manager node, 10-minute setup, and the complete feature set. Open source.",
     canonicalPath: "/product/docker-swarm",
     twitterCard: "summary_large_image",
     pageType: "product",
@@ -721,7 +725,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
         "Raft manager quorum & service convergence alerting",
         "Per-container CPU and memory metrics",
         "Container and service logs",
-        "Usage-based pricing",
+        "Complete feature set in every deployment",
         "OpenTelemetry native",
         "Open source",
       ],
@@ -732,7 +736,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
     title:
       "IoT Device Monitoring | Fleets, Sensors, Battery & Signal | Cast Operations",
     description:
-      "Monitor your entire IoT fleet from one dashboard: per-device health, battery, signal strength, temperature, and connectivity alerting. Standard OpenTelemetry, no proprietary agent, usage-based pricing. Open source.",
+      "Monitor your entire IoT fleet from one dashboard: per-device health, battery, signal strength, temperature, and connectivity alerting. Standard OpenTelemetry, no proprietary agent, and the complete feature set. Open source.",
     canonicalPath: "/product/iot",
     twitterCard: "summary_large_image",
     pageType: "product",
@@ -756,7 +760,7 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
         "High-temperature and high-CPU alerting",
         "One incident per device.id, auto-resolving",
         "Gateway-friendly via OpenTelemetry Collector",
-        "Usage-based pricing, not per-device",
+        "Complete feature set in every deployment",
         "OpenTelemetry native",
         "Open source",
       ],
@@ -823,14 +827,15 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
         "Custom dashboards",
         "Alert on any telemetry query",
         "On-call, incidents & status pages built in",
-        "Usage-based pricing per GB ingested",
+        "Complete feature set in every deployment",
         "Open source",
       ],
     },
   },
 
   "/product/topology": {
-    title: "Topology | Service Map, Infrastructure & Network Maps | Cast Operations",
+    title:
+      "Topology | Service Map, Infrastructure & Network Maps | Cast Operations",
     description:
       "Automatic topology maps built from your telemetry: a service map drawn from traces with live traffic and latency, a nested infrastructure map, and a live network map. Active incidents overlay on every node. Open source.",
     canonicalPath: "/product/topology",
@@ -864,7 +869,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/services": {
-    title: "Service Catalog | Map, Own & Monitor Every Service | Cast Operations",
+    title:
+      "Service Catalog | Map, Own & Monitor Every Service | Cast Operations",
     description:
       "A single catalog of every service you run. Assign owners, group by labels, and connect each service to its logs, traces, metrics, and incidents. Open source.",
     canonicalPath: "/product/services",
@@ -932,7 +938,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/scheduled-maintenance": {
-    title: "Scheduled Maintenance | Plan & Communicate Downtime | Cast Operations",
+    title:
+      "Scheduled Maintenance | Plan & Communicate Downtime | Cast Operations",
     description:
       "Plan, schedule, and communicate maintenance windows to your users. Notify subscribers automatically, update status pages in real-time. Open source maintenance management.",
     canonicalPath: "/product/scheduled-maintenance",
@@ -1063,7 +1070,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/serverless": {
-    title: "Serverless Observability | AWS Lambda & Functions | Cast Operations",
+    title:
+      "Serverless Observability | AWS Lambda & Functions | Cast Operations",
     description:
       "Monitor AWS Lambda, Google Cloud Functions, Azure Functions, and Cloudflare Workers with OpenTelemetry. Invocations, cold starts, duration, errors, and per-invocation traces. Open source.",
     canonicalPath: "/product/serverless",
@@ -1133,7 +1141,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/product/rum": {
-    title: "Real User Monitoring (RUM) | Web Vitals & Sessions | Cast Operations",
+    title:
+      "Real User Monitoring (RUM) | Web Vitals & Sessions | Cast Operations",
     description:
       "Real User Monitoring for browser and mobile apps with the OpenTelemetry Web SDK. Core Web Vitals, page views, JavaScript errors, and real user sessions correlated with backend traces. Open source.",
     canonicalPath: "/product/rum",
@@ -1165,20 +1174,6 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
         "Open source",
       ],
     },
-  },
-
-  // Pricing
-  "/pricing": {
-    title: "Pricing | Free Tier & Paid Plans | Cast Operations",
-    description:
-      "Cast Operations pricing starts free. Get status pages, monitoring, incident management, and more. Transparent pricing with no hidden fees. Enterprise plans available.",
-    canonicalPath: "/pricing",
-    twitterCard: "summary_large_image",
-    pageType: "pricing",
-    breadcrumbs: [
-      { name: "Home", url: "/" },
-      { name: "Pricing", url: "/pricing" },
-    ],
   },
 
   // Enterprise
@@ -1362,7 +1357,8 @@ export const PageSEOConfig: Record<string, PageSEOData> = {
   },
 
   "/solutions/sre": {
-    title: "SRE Tools & Platform | Site Reliability Engineering | Cast Operations",
+    title:
+      "SRE Tools & Platform | Site Reliability Engineering | Cast Operations",
     description:
       "Complete SRE platform with SLOs, error budgets, incident management, and on-call scheduling. Track reliability metrics and reduce toil. Open source.",
     canonicalPath: "/solutions/sre",
@@ -1509,7 +1505,7 @@ export const getPageSEO: (path: string) => PageSEOData = (
       .join(" ");
     return {
       title: `Cast Operations vs ${productName} | Comparison | Cast Operations`,
-      description: `Compare Cast Operations with ${productName}. See features, pricing, and why teams choose Cast Operations as their observability platform.`,
+      description: `Compare Cast Operations with ${productName}. See features and why teams choose Cast Operations as their observability platform.`,
       canonicalPath: path,
       twitterCard: "summary_large_image",
       pageType: "compare",

@@ -11,10 +11,10 @@
 probe चलाने के लिए, सुनिश्चित करें कि docker installed है। आप custom probe निम्नानुसार चला सकते हैं:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
 ```
 
-यदि आप Cast Operations self-host कर रहे हैं, तो `ONEUPTIME_URL` को अपने custom self-hosted instance में बदल सकते हैं।
+यदि आप Cast Operations self-host कर रहे हैं, तो `CAST_OPERATIONS_URL` को अपने custom self-hosted instance में बदल सकते हैं।
 
 ##### Proxy Configuration
 
@@ -22,32 +22,32 @@ docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PRO
 
 ```
 # HTTP proxy के लिए
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # HTTPS proxy के लिए
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # proxy authentication के साथ
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 #### Docker Compose
@@ -58,13 +58,13 @@ docker run --name oneuptime-probe --network host \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -77,13 +77,13 @@ services:
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       # Proxy configuration (वैकल्पिक)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,35 +102,35 @@ services:
 docker compose up -d
 ```
 
-यदि आप Cast Operations self-host कर रहे हैं, तो `ONEUPTIME_URL` को अपने custom self-hosted instance में बदल सकते हैं।
+यदि आप Cast Operations self-host कर रहे हैं, तो `CAST_OPERATIONS_URL` को अपने custom self-hosted instance में बदल सकते हैं।
 
 #### Kubernetes
 
-आप Kubernetes का उपयोग करके भी probe चला सकते हैं। निम्नलिखित content के साथ एक `oneuptime-probe.yaml` फ़ाइल बनाएं:
+आप Kubernetes का उपयोग करके भी probe चला सकते हैं। निम्नलिखित content के साथ एक `cast-operations-probe.yaml` फ़ाइल बनाएं:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
@@ -142,25 +142,25 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             # Proxy configuration (वैकल्पिक)
             - name: HTTP_PROXY_URL
@@ -174,10 +174,10 @@ spec:
 फिर निम्नलिखित command चलाएं:
 
 ```bash
-kubectl apply -f oneuptime-probe.yaml
+kubectl apply -f cast-operations-probe.yaml
 ```
 
-यदि आप Cast Operations self-host कर रहे हैं, तो `ONEUPTIME_URL` को अपने custom self-hosted instance में बदल सकते हैं।
+यदि आप Cast Operations self-host कर रहे हैं, तो `CAST_OPERATIONS_URL` को अपने custom self-hosted instance में बदल सकते हैं।
 
 ### Environment Variables
 
@@ -187,7 +187,7 @@ Probe निम्नलिखित environment variables का समर्�
 
 - `PROBE_KEY` - आपके Cast Operations dashboard से probe key
 - `PROBE_ID` - आपके Cast Operations dashboard से probe ID
-- `ONEUPTIME_URL` - आपके Cast Operations instance का URL (default: https://visca.ai)
+- `CAST_OPERATIONS_URL` - आपके Cast Operations instance का URL (default: https://visca.ai)
 
 #### वैकल्पिक Variables
 

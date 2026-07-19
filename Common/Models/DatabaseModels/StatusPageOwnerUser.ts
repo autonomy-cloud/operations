@@ -3,10 +3,8 @@ import StatusPage from "./StatusPage";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import CanAccessIfCanReadOn from "../../Types/Database/CanAccessIfCanReadOn";
 import ColumnType from "../../Types/Database/ColumnType";
 import CrudApiEndpoint from "../../Types/Database/CrudApiEndpoint";
@@ -24,12 +22,6 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 @CanAccessIfCanReadOn("statusPage")
 @EnableDocumentation()
 @TenantColumn("projectId")
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Free,
-  update: PlanType.Growth,
-  delete: PlanType.Free,
-})
 @TableAccessControl({
   create: [
     Permission.ProjectOwner,
@@ -148,7 +140,8 @@ export default class StatusPageOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -307,7 +300,8 @@ export default class StatusPageOwnerUser extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "StatusPage ID",
-    description: "ID of your Cast Operations StatusPage in which this object belongs",
+    description:
+      "ID of your Cast Operations StatusPage in which this object belongs",
     example: "a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890",
   })
   @Column({

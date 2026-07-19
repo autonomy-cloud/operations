@@ -11,10 +11,10 @@ For å begynne må du opprette en egendefinert probe i Prosjektinnstillinger > P
 For å kjøre en probe, sørg for at du har Docker installert. Du kan kjøre egendefinert probe ved å:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
 ```
 
-Hvis du selvhoster Cast Operations, kan du endre `ONEUPTIME_URL` til din egendefinerte selvhostede instans.
+Hvis du selvhoster Cast Operations, kan du endre `CAST_OPERATIONS_URL` til din egendefinerte selvhostede instans.
 
 ##### Proxy-konfigurasjon
 
@@ -22,32 +22,32 @@ Hvis proben trenger å gå gjennom en proxy-server for å nå Cast Operations el
 
 ```
 # For HTTP-proxy
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # For HTTPS-proxy
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # Med proxy-autentisering
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 #### Docker Compose
@@ -58,13 +58,13 @@ Du kan også kjøre proben ved hjelp av docker-compose. Opprett en `docker-compo
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -77,13 +77,13 @@ Hvis du trenger å bruke en proxy-server, kan du legge til proxy-miljøvariabler
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       # Proxy-konfigurasjon (valgfritt)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,35 +102,35 @@ Kjør deretter følgende kommando:
 docker compose up -d
 ```
 
-Hvis du selvhoster Cast Operations, kan du endre `ONEUPTIME_URL` til din egendefinerte selvhostede instans.
+Hvis du selvhoster Cast Operations, kan du endre `CAST_OPERATIONS_URL` til din egendefinerte selvhostede instans.
 
 #### Kubernetes
 
-Du kan også kjøre proben ved hjelp av Kubernetes. Opprett en `oneuptime-probe.yaml`-fil med følgende innhold:
+Du kan også kjøre proben ved hjelp av Kubernetes. Opprett en `cast-operations-probe.yaml`-fil med følgende innhold:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
@@ -142,25 +142,25 @@ Hvis du trenger å bruke en proxy-server, kan du legge til proxy-miljøvariabler
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             # Proxy-konfigurasjon (valgfritt)
             - name: HTTP_PROXY_URL
@@ -181,10 +181,10 @@ spec:
 Kjør deretter følgende kommando:
 
 ```bash
-kubectl apply -f oneuptime-probe.yaml
+kubectl apply -f cast-operations-probe.yaml
 ```
 
-Hvis du selvhoster Cast Operations, kan du endre `ONEUPTIME_URL` til din egendefinerte selvhostede instans.
+Hvis du selvhoster Cast Operations, kan du endre `CAST_OPERATIONS_URL` til din egendefinerte selvhostede instans.
 
 ### Miljøvariabler
 
@@ -194,7 +194,7 @@ Proben støtter følgende miljøvariabler:
 
 - `PROBE_KEY` – Probe-nøkkelen fra Cast Operations-dashbordet ditt
 - `PROBE_ID` – Probe-ID-en fra Cast Operations-dashbordet ditt
-- `ONEUPTIME_URL` – URL-en til din Cast Operations-instans (standard: https://visca.ai)
+- `CAST_OPERATIONS_URL` – URL-en til din Cast Operations-instans (standard: https://visca.ai)
 
 #### Valgfrie variabler
 

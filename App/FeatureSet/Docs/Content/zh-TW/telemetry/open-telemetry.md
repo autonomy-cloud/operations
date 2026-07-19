@@ -40,21 +40,21 @@
 
 | Environment Variable        | Value                                          |
 | --------------------------- | ---------------------------------------------- |
-| OTEL_EXPORTER_OTLP_HEADERS  | x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN |
+| OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
 | OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **範例**
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=9c8806e0-a4aa-11ee-be95-010d5967b068
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
 **自架式 Cast Operations**
 
-如果您是自架 oneuptime，這可以變更為您的自架 OpenTelemetry 收集器端點（例如：`http(s)://YOUR-OPERATIONS-HOST/otlp`）
+如果您是自架 cast-operations，這可以變更為您的自架 OpenTelemetry 收集器端點（例如：`http(s)://YOUR-OPERATIONS-HOST/otlp`）
 
 執行您的應用程式後，您應該會在 Cast Operations 遙測服務頁面上看到記錄。如果您需要任何協助，請聯絡 support@visca.ai。
 
@@ -82,7 +82,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "ONEUPTIME_TOKEN" # Your Cast Operations token
+      "x-cast-operations-token": "CAST_OPERATIONS_TOKEN" # Your Cast Operations token
 
 service:
   pipelines:

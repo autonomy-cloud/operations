@@ -22,7 +22,7 @@ Cast Operations Terraformプロバイダーは [Terraform Registry](https://regi
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 最新の7.xバージョンを使用
     }
@@ -38,7 +38,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Cast Operationsのインストールバージョンに完全一致させる
     }
@@ -60,7 +60,7 @@ Cast Operationsのバージョンはいくつかの方法で確認できます�
 # 例：Cast Operations 7.0.123を実行している場合
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"
     }
@@ -73,9 +73,9 @@ terraform {
 ### 基本設定
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://your-operations-instance.com"  # またはクラウドの場合 https://visca.ai
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://your-operations-instance.com"  # またはクラウドの場合 https://visca.ai
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -84,14 +84,14 @@ provider "oneuptime" {
 環境変数を使用してプロバイダーを設定できます：
 
 ```bash
-export ONEUPTIME_URL="https://your-operations-instance.com"
-export ONEUPTIME_API_KEY="your-api-key-here"
+export CAST_OPERATIONS_URL="https://your-operations-instance.com"
+export CAST_OPERATIONS_API_KEY="your-api-key-here"
 ```
 
 環境変数から読み取る場合、明示的な設定なしでプロバイダーを使用できます：
 
 ```hcl
-provider "oneuptime" {
+provider "cast-operations" {
   # 設定は環境変数から読み取られます
 }
 ```
@@ -100,8 +100,8 @@ provider "oneuptime" {
 
 | 引数            | 環境変数            | 説明              | 必須 |
 | --------------- | ------------------- | ----------------- | ---- |
-| `oneuptime_url` | `ONEUPTIME_URL`     | Cast Operations URL     | はい |
-| `api_key`       | `ONEUPTIME_API_KEY` | Cast Operations APIキー | はい |
+| `cast_operations_url` | `CAST_OPERATIONS_URL`     | Cast Operations URL     | はい |
+| `api_key`       | `CAST_OPERATIONS_API_KEY` | Cast Operations APIキー | はい |
 
 ## クイックスタート
 
@@ -122,16 +122,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # インスタンスURLを使用
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # インスタンスURLを使用
+  api_key       = var.cast_operations_api_key
 }
 
 # 注意：プロジェクトはCast Operations ダッシュボードで手動作成する必要があります
@@ -141,7 +141,7 @@ variable "project_id" {
 }
 
 # モニターを作成
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "ウェブサイトモニター"
   description = "ウェブサイトの稼働時間監視"
   data        = jsonencode({
@@ -152,7 +152,7 @@ resource "oneuptime_monitor" "website" {
 }
 
 # チームを作成
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "プラットフォームチーム"
   description = "プラットフォームエンジニアリングチーム"
 }
@@ -183,7 +183,7 @@ Cast Operations Cloudのお客様は最新のプロバイダーバージョン�
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 常に最新の互換バージョンを使用
     }
@@ -206,7 +206,7 @@ Cast Operations 7.0.123の例：
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # バージョンを完全一致させる
     }
@@ -220,29 +220,29 @@ Cast Operations Terraformプロバイダーは以下のリソースをサポー�
 
 ### コアリソース
 
-- `oneuptime_team` — チームの管理
+- `cast_operations_team` — チームの管理
 
 ### モニタリング
 
-- `oneuptime_monitor` — モニターの作成と管理
-- `oneuptime_probe` — 監視プローブの管理
+- `cast_operations_monitor` — モニターの作成と管理
+- `cast_operations_probe` — 監視プローブの管理
 
 ### オンコール管理
 
-- `oneuptime_on_call_duty_policy` — オンコールスケジュールの設定
+- `cast_operations_on_call_duty_policy` — オンコールスケジュールの設定
 
 ### ステータスページ
 
-- `oneuptime_status_page` — ステータスページの作成
+- `cast_operations_status_page` — ステータスページの作成
 
 ### サービスカタログ
 
-- `oneuptime_service_catalog` — サービスカタログエントリの管理
+- `cast_operations_service_catalog` — サービスカタログエントリの管理
 
 ### サービスカタログ
 
-- `oneuptime_service` — サービスの定義
-- `oneuptime_service_dependency` — サービス依存関係のマッピング
+- `cast_operations_service` — サービスの定義
+- `cast_operations_service_dependency` — サービス依存関係のマッピング
 
 ### データソース
 
@@ -254,7 +254,7 @@ Cast Operations Terraformプロバイダーは以下のリソースをサポー�
 
 ```hcl
 # 変数
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations APIキー"
   type        = string
   sensitive   = true
@@ -265,7 +265,7 @@ variable "project_id" {
   type        = string
 }
 
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast Operations URL"
   type        = string
   default     = "https://visca.ai"
@@ -274,26 +274,26 @@ variable "oneuptime_url" {
 # プロバイダー設定
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # チーム
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "プラットフォームチーム"
   description = "プラットフォームエンジニアリングチーム"
 }
 
 # モニター
-resource "oneuptime_monitor" "api" {
+resource "cast_operations_monitor" "api" {
   name        = "APIヘルスチェック"
   description = "APIヘルスエンドポイントのモニター"
   data        = jsonencode({
@@ -305,9 +305,9 @@ resource "oneuptime_monitor" "api" {
   }
 }
 
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "データベース接続"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   monitor_type = "port"
   hostname     = "db.mycompany.com"
@@ -322,10 +322,10 @@ resource "oneuptime_monitor" "database" {
 }
 
 # オンコールポリシー
-resource "oneuptime_on_call_policy" "platform_oncall" {
+resource "cast_operations_on_call_policy" "platform_oncall" {
   name       = "プラットフォームオンコール"
-  project_id = oneuptime_project.production.id
-  team_id    = oneuptime_team.platform.id
+  project_id = cast_operations_project.production.id
+  team_id    = cast_operations_team.platform.id
 
   schedules {
     name      = "営業時間"
@@ -343,17 +343,17 @@ resource "oneuptime_on_call_policy" "platform_oncall" {
 }
 
 # アラートポリシー
-resource "oneuptime_alert_policy" "critical_alerts" {
+resource "cast_operations_alert_policy" "critical_alerts" {
   name       = "重要システムアラート"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   conditions {
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
     threshold  = "down"
   }
 
   conditions {
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
     threshold  = "down"
   }
 
@@ -364,25 +364,25 @@ resource "oneuptime_alert_policy" "critical_alerts" {
 
   actions {
     type           = "oncall_escalation"
-    oncall_policy_id = oneuptime_on_call_policy.platform_oncall.id
+    oncall_policy_id = cast_operations_on_call_policy.platform_oncall.id
   }
 }
 
 # ステータスページ
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name       = "MyCompanyステータス"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   domain = "status.mycompany.com"
 
   components {
     name       = "API"
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
   }
 
   components {
     name       = "データベース"
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
   }
 }
 ```
@@ -393,7 +393,7 @@ resource "oneuptime_status_page" "public" {
 # セルフホストCast Operationsインスタンスバージョン7.0.123の場合
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Cast Operationsバージョンと完全一致させる必要あり
     }
@@ -401,9 +401,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.mycompany.com"  # セルフホストURL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.mycompany.com"  # セルフホストURL
+  api_key       = var.cast_operations_api_key
 }
 
 # その他の設定...
@@ -430,7 +430,7 @@ provider "oneuptime" {
 terraform {
   backend "s3" {
     bucket = "my-terraform-state"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
@@ -488,12 +488,12 @@ monitors = [
 一貫した命名規則を使用します：
 
 ```hcl
-resource "oneuptime_monitor" "website_production" {
+resource "cast_operations_monitor" "website_production" {
   name = "${var.environment}-website-monitor"
   # ...
 }
 
-resource "oneuptime_alert_policy" "critical_production" {
+resource "cast_operations_alert_policy" "critical_production" {
   name = "${var.environment}-critical-alerts"
   # ...
 }
@@ -513,10 +513,10 @@ resource "oneuptime_alert_policy" "critical_production" {
 
 ```bash
 # 既存のモニターをインポート
-terraform import oneuptime_monitor.website monitor-id-here
+terraform import cast_operations_monitor.website monitor-id-here
 
 # 既存のプロジェクトをインポート
-terraform import oneuptime_project.main project-id-here
+terraform import cast_operations_project.main project-id-here
 ```
 
 ### バージョンアップグレード

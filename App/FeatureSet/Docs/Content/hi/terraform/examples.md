@@ -9,16 +9,16 @@
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # self-hosted के लिए "= 7.0.123" उपयोग करें
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # self-hosted के लिए बदलें
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # self-hosted के लिए बदलें
+  api_key       = var.cast_operations_api_key
 }
 
 ```
@@ -26,7 +26,7 @@ provider "oneuptime" {
 ### Basic Monitor
 
 ```hcl
-resource "oneuptime_monitor" "manual_monitor" {
+resource "cast_operations_monitor" "manual_monitor" {
   name        = "Homepage Monitor"
   description = "main website homepage के लिए Monitor"
   monitor_type = "Manual"
@@ -37,7 +37,7 @@ resource "oneuptime_monitor" "manual_monitor" {
 
 ```hcl
 # Public status page
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name        = "Public Status Page"
   description = "customer-facing services के लिए Public status page"
 }

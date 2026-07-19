@@ -202,12 +202,12 @@ If you disabled auto-registration (`vllm.globalProvider.enabled: false`), create
 ```
 Name: In-Cluster vLLM
 LLM Provider: OpenAI Compatible
-Base URL: http://oneuptime-vllm.default.svc.cluster.local:8000/v1
+Base URL: http://cast-operations-vllm.default.svc.cluster.local:8000/v1
 Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-See the [Helm chart README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) for GPU scheduling, gated models and tuning options.
+See the [Helm chart README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/cast-operations#local-models-with-vllm) for GPU scheduling, gated models and tuning options.
 
 ## Using Custom Base URLs
 
@@ -244,4 +244,4 @@ For enterprise deployments or when using proxy services, you can specify a custo
 If you encounter issues setting up your LLM provider, please:
 
 1. Check the [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) for known problems
-2. Contact support if you're on an enterprise plan
+2. Contact support with your deployment details

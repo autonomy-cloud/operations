@@ -1,8 +1,5 @@
 import DatabaseConfig from "../DatabaseConfig";
-import {
-  IsBillingEnabled,
-  NotificationSlackWebhookOnCreateUser,
-} from "../EnvironmentConfig";
+import { NotificationSlackWebhookOnCreateUser } from "../EnvironmentConfig";
 import { OnCreate, OnDelete, OnUpdate } from "../Types/Database/Hooks";
 import CreateBy from "../Types/Database/CreateBy";
 import UpdateBy from "../Types/Database/UpdateBy";
@@ -23,7 +20,7 @@ import Route from "../../Types/API/Route";
 import URL from "../../Types/API/URL";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import LIMIT_MAX from "../../Types/Database/LimitMax";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Email from "../../Types/Email";
 import EmailTemplateType from "../../Types/Email/EmailTemplateType";
 import HashedString from "../../Types/HashedString";
@@ -77,7 +74,7 @@ export class Service extends DatabaseService<Model> {
 
     void this.updateOneById({
       id: userId,
-      data: { lastActive: OneUptimeDate.getCurrentDate() },
+      data: { lastActive: OperationsDate.getCurrentDate() },
       props: { isRoot: true },
     }).catch((err: Error) => {
       this.lastActiveCache.delete(key);
@@ -449,7 +446,7 @@ export class Service extends DatabaseService<Model> {
           emailVerificationToken.userId = user.id;
           emailVerificationToken.email = newUser.email!;
           emailVerificationToken.token = generatedToken;
-          emailVerificationToken.expires = OneUptimeDate.getOneDayAfter();
+          emailVerificationToken.expires = OperationsDate.getOneDayAfter();
 
           await EmailVerificationTokenService.create({
             data: emailVerificationToken,
@@ -530,10 +527,7 @@ export class Service extends DatabaseService<Model> {
       user.password = new HashedString(Text.generateRandomText(20));
     }
 
-    if (!IsBillingEnabled) {
-      // if billing is not enabled, then email is verified by default.
-      user.isEmailVerified = true;
-    }
+    user.isEmailVerified = true;
 
     return await this.create({
       data: user,

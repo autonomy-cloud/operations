@@ -12,7 +12,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "Common/Types/OnCallDutyPolicy/RestrictionTimes";
 import DayOfWeek from "Common/Types/Day/DayOfWeek";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 function rotation(intervalType: EventInterval, count: number): Recurring {
   const r: Recurring = new Recurring();
@@ -32,7 +32,7 @@ function tzInstant(
   mi: number,
   tz: string,
 ): Date {
-  return OneUptimeDate.getInstantFromLocalWallClockInTimezone(
+  return OperationsDate.getInstantFromLocalWallClockInTimezone(
     new Date(y, mo, d, h, mi, 0),
     tz,
   );

@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import ObjectID from "Common/Types/ObjectID";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import OnCallDutyPolicyTimeLog from "Common/Models/DatabaseModels/OnCallDutyPolicyTimeLog";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
@@ -149,14 +149,14 @@ const OnCallPolicyLogTable: FunctionComponent<ComponentProps> = (
 
           logs.forEach((log: OnCallDutyPolicyTimeLog) => {
             let startDate: Date = log.startsAt!;
-            let endDate: Date = log.endsAt || OneUptimeDate.getCurrentDate();
+            let endDate: Date = log.endsAt || OperationsDate.getCurrentDate();
 
             /*
              * if end date is more than the end date selected in the range, then
              * set the end date to the end date selected in the range
              */
             if (
-              OneUptimeDate.isAfter(endDate, pickedStartAndEndDate.endValue)
+              OperationsDate.isAfter(endDate, pickedStartAndEndDate.endValue)
             ) {
               endDate = pickedStartAndEndDate.endValue;
             }
@@ -167,7 +167,7 @@ const OnCallPolicyLogTable: FunctionComponent<ComponentProps> = (
              */
 
             if (
-              OneUptimeDate.isBefore(
+              OperationsDate.isBefore(
                 startDate,
                 pickedStartAndEndDate.startValue,
               )
@@ -200,7 +200,7 @@ const OnCallPolicyLogTable: FunctionComponent<ComponentProps> = (
           // Calculate total minutes from merged periods (no double counting)
           let totalMinutes: number = 0;
           mergedPeriods.forEach((period: { start: Date; end: Date }) => {
-            totalMinutes += OneUptimeDate.getDifferenceInMinutes(
+            totalMinutes += OperationsDate.getDifferenceInMinutes(
               period.start,
               period.end,
             );
@@ -284,7 +284,7 @@ const OnCallPolicyLogTable: FunctionComponent<ComponentProps> = (
               getElement: (item: TableDataItem) => {
                 return (
                   <span>
-                    {OneUptimeDate.getHoursAndMinutesFromMinutes(
+                    {OperationsDate.getHoursAndMinutesFromMinutes(
                       item.totalTimeInMinutesOnCall,
                     )}
                   </span>

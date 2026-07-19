@@ -6,7 +6,7 @@ import Protocol from "Common/Types/API/Protocol";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Email from "Common/Types/Email";
 import BadRequestException from "Common/Types/Exception/BadRequestException";
 import Exception from "Common/Types/Exception/Exception";
@@ -424,7 +424,7 @@ const loginUserWithGlobalSso: LoginUserWithGlobalSsoFunction = async (
           teamMember.projectId = attachment.projectId;
           teamMember.userId = alreadySavedUser!.id!;
           teamMember.hasAcceptedInvitation = true;
-          teamMember.invitationAcceptedAt = OneUptimeDate.getCurrentDate();
+          teamMember.invitationAcceptedAt = OperationsDate.getCurrentDate();
           teamMember.teamId = team.id!;
 
           teamMember = await TeamMemberService.create({
@@ -517,7 +517,7 @@ const loginUserWithGlobalSso: LoginUserWithGlobalSsoFunction = async (
       // Single global SSO token (mobile sends it via the x-global-sso-token header).
       params.set("globalSsoToken", globalSsoToken);
 
-      const deepLinkUrl: string = `oneuptime://sso-callback?${params.toString()}`;
+      const deepLinkUrl: string = `cast-operations://sso-callback?${params.toString()}`;
 
       logger.info(
         "User logged in with Global SSO (mobile): " + email.toString(),

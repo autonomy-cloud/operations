@@ -40,7 +40,7 @@ import RangeStartAndEndDateTime, {
 } from "Common/Types/Time/RangeStartAndEndDateTime";
 import TimeRange from "Common/Types/Time/TimeRange";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import MetricsAggregationType from "Common/Types/Metrics/MetricsAggregationType";
 import AggregatedResult from "Common/Types/BaseDatabase/AggregatedResult";
 import AggregateBy from "Common/Types/BaseDatabase/AggregateBy";
@@ -1003,7 +1003,9 @@ const MetricsViewer: FunctionComponent<Props> = (
               row.timestamp instanceof Date
                 ? row.timestamp
                 : row.timestamp
-                  ? OneUptimeDate.fromString(row.timestamp as unknown as string)
+                  ? OperationsDate.fromString(
+                      row.timestamp as unknown as string,
+                    )
                   : undefined;
             const value: number = Number(row.value);
             if (!ts || !Number.isFinite(value)) {
@@ -1282,12 +1284,12 @@ const MetricsViewer: FunctionComponent<Props> = (
         RangeStartAndEndDateTimeUtil.getStartAndEndDate(timeRange);
       metricUrl.addQueryParam(
         "startTime",
-        OneUptimeDate.toString(dateRange.startValue),
+        OperationsDate.toString(dateRange.startValue),
         true,
       );
       metricUrl.addQueryParam(
         "endTime",
-        OneUptimeDate.toString(dateRange.endValue),
+        OperationsDate.toString(dateRange.endValue),
         true,
       );
       if (timeRange.range !== TimeRange.CUSTOM) {

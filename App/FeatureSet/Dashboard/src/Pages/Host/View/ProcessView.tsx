@@ -18,7 +18,7 @@ import AnalyticsModelAPI, {
 } from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import AggregatedResult from "Common/Types/BaseDatabase/AggregatedResult";
 import AggregatedModel from "Common/Types/BaseDatabase/AggregatedModel";
@@ -300,7 +300,7 @@ const HostProcessView: FunctionComponent<
         RangeStartAndEndDateTimeUtil.getStartAndEndDate(timeRange);
       const startDate: Date = dateRange.startValue;
       const endDate: Date = dateRange.endValue;
-      const tileWindowStart: Date = OneUptimeDate.addRemoveMinutes(
+      const tileWindowStart: Date = OperationsDate.addRemoveMinutes(
         endDate,
         -TILE_WINDOW_MINUTES,
       );
@@ -313,7 +313,7 @@ const HostProcessView: FunctionComponent<
        * recycle a pid to a different process. Filtering by (pid + exe)
        * keeps us locked to one process.
        */
-      const identityLookbackStart: Date = OneUptimeDate.addRemoveMinutes(
+      const identityLookbackStart: Date = OperationsDate.addRemoveMinutes(
         endDate,
         -IDENTITY_LOOKBACK_MINUTES,
       );
@@ -702,7 +702,7 @@ const HostProcessView: FunctionComponent<
       );
 
       setChartWindow({ start: startDate, end: endDate });
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
     } catch (err) {
       setStatsError(API.getFriendlyMessage(err));
     }
@@ -797,7 +797,7 @@ const HostProcessView: FunctionComponent<
     if (identity.latestSampleAt) {
       chips.push({
         icon: IconProp.Clock,
-        label: `Last sample ${OneUptimeDate.fromNow(identity.latestSampleAt)}`,
+        label: `Last sample ${OperationsDate.fromNow(identity.latestSampleAt)}`,
       });
     }
 

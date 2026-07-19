@@ -353,10 +353,10 @@ const MonitorStepElement: FunctionComponent<ComponentProps> = (
 // You can use axios, http modules here.
 const response = await axios.get('https://example.com');
 
-// To capture custom metrics, use oneuptime.captureMetric(name, value, attributes)
+// To capture custom metrics, use cast-operations.captureMetric(name, value, attributes)
 // These metrics can be charted on dashboards via the Metric Explorer.
-oneuptime.captureMetric('api.response.time', response.data.latency);
-oneuptime.captureMetric('api.queue.depth', response.data.queueDepth, {
+cast-operations.captureMetric('api.response.time', response.data.latency);
+cast-operations.captureMetric('api.queue.depth', response.data.queueDepth, {
     region: 'us-east-1'
 });
 
@@ -377,7 +377,7 @@ return {
 // - screenshots: Pre-declared object to collect screenshots (preserved even if the script throws)
 // - browserType: Browser type in the current run context - Chromium, Firefox, Webkit
 // - screenSizeType: Screen size type in the current run context - Mobile, Tablet, Desktop
-// - oneuptime.captureMetric: Capture custom metrics for dashboards
+// - cast-operations.captureMetric: Capture custom metrics for dashboards
 
 await page.goto('https://playwright.dev/');
 
@@ -389,11 +389,11 @@ await page.goto('https://playwright.dev/');
 
 screenshots['screenshot-name'] = await page.screenshot(); // you can save multiple screenshots with different names.
 
-// To capture custom metrics, use oneuptime.captureMetric(name, value, attributes)
+// To capture custom metrics, use cast-operations.captureMetric(name, value, attributes)
 // These metrics can be charted on dashboards via the Metric Explorer.
 const startTime = Date.now();
 await page.waitForSelector('h1');
-oneuptime.captureMetric('page.load.time', Date.now() - startTime);
+cast-operations.captureMetric('page.load.time', Date.now() - startTime);
 
 // To log data, use console.log
 console.log('Hello World');

@@ -1,9 +1,9 @@
 import { Blue500 } from "../../Types/BrandColors";
 import Color from "../../Types/Color";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import logger, { LogAttributes } from "../Utils/Logger";
 import DatabaseService from "./DatabaseService";
 import OnCallDutyPolicyFeed, {
@@ -17,10 +17,6 @@ import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 export class Service extends DatabaseService<OnCallDutyPolicyFeed> {
   public constructor() {
     super(OnCallDutyPolicyFeed);
-
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 90);
-    }
   }
 
   @CaptureSpan()
@@ -36,7 +32,7 @@ export class Service extends DatabaseService<OnCallDutyPolicyFeed> {
     // send notifificatin to slack and teams. This is optional
     workspaceNotification?:
       | {
-          notifyUserId?: ObjectID | undefined; // this is oneuptime user id.
+          notifyUserId?: ObjectID | undefined; // this is cast-operations user id.
           sendWorkspaceNotification: boolean;
           appendMessageBlocks?: Array<MessageBlocksByWorkspaceType> | undefined;
         }
@@ -86,7 +82,7 @@ export class Service extends DatabaseService<OnCallDutyPolicyFeed> {
       onCallDutyPolicyFeed.projectId = data.projectId;
 
       if (!data.postedAt) {
-        onCallDutyPolicyFeed.postedAt = OneUptimeDate.getCurrentDate();
+        onCallDutyPolicyFeed.postedAt = OperationsDate.getCurrentDate();
       }
 
       if (data.userId) {
@@ -160,7 +156,7 @@ export class Service extends DatabaseService<OnCallDutyPolicyFeed> {
     onCallDutyPolicyId: ObjectID;
     feedInfoInMarkdown: string;
     workspaceNotification: {
-      notifyUserId?: ObjectID | undefined; // this is oneuptime user id.
+      notifyUserId?: ObjectID | undefined; // this is cast-operations user id.
       sendWorkspaceNotification: boolean;
       appendMessageBlocks?: Array<MessageBlocksByWorkspaceType> | undefined;
     };

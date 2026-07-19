@@ -39,7 +39,6 @@ De viste værdier er præcis, hvad blokken så — efter alle variabler blev udf
 3. For en webhook-trigger: bekræft at det andet system sender til den rigtige URL. De fleste værktøjer logger, når de sender en webhook — tjek der.
 4. For en tidsplan-trigger: bekræft at cron-udtrykket matcher det tidspunkt, du forventer.
 
-Hvis triggeren udløstes, men ingen kørsel dukker op, så tjek din kørselskvote under **Project Settings → Billing**.
 
 ### "En senere blok kørte aldrig."
 

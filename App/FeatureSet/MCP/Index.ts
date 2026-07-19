@@ -11,9 +11,9 @@ import { getApiUrl } from "./Config/ServerConfig";
 import { initializeMCPServer } from "./Server/MCPServer";
 import { setupMCPRoutes } from "./Handlers/RouteHandler";
 import { generateAllTools } from "./Tools/ToolGenerator";
-import OneUptimeApiService, {
-  OneUptimeApiConfig,
-} from "./Services/OneUptimeApiService";
+import OperationsApiService, {
+  OperationsApiConfig,
+} from "./Services/OperationsApiService";
 import { McpToolInfo } from "./Types/McpTypes";
 
 const MCPFeatureSet: FeatureSet = {
@@ -22,13 +22,16 @@ const MCPFeatureSet: FeatureSet = {
 
     // Initialize Cast Operations API Service
     const apiUrl: string = getApiUrl();
-    const config: OneUptimeApiConfig = {
+    const config: OperationsApiConfig = {
       url: apiUrl,
     };
-    OneUptimeApiService.initialize(config);
-    logger.info(`MCP: Cast Operations API Service initialized with: ${apiUrl}`, {
-      featureSet: "MCP",
-    } as LogAttributes);
+    OperationsApiService.initialize(config);
+    logger.info(
+      `MCP: Cast Operations API Service initialized with: ${apiUrl}`,
+      {
+        featureSet: "MCP",
+      } as LogAttributes,
+    );
 
     // Mark MCP subsystem as initialized
     initializeMCPServer();

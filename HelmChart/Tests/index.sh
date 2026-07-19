@@ -75,7 +75,7 @@ if ! command -v helm >/dev/null 2>&1; then
 fi
 
 # Create cluster
-CLUSTER_NAME="oneuptime-ci"
+CLUSTER_NAME="cast-operations-ci"
 if ! kind get clusters | grep -q "^${CLUSTER_NAME}$"; then
     echo "Creating KinD cluster: ${CLUSTER_NAME}"
     kind create cluster --name "${CLUSTER_NAME}" --wait 180s
@@ -95,8 +95,8 @@ echo "Installing Cast Operations via Helm"
 kubectl get pods -A || true
 
 # Install Cast Operations. Override storageClass to local-path for KinD
-helm install oneuptime ../../HelmChart/Public/oneuptime \
-    -f ../../HelmChart/Public/oneuptime/values.yaml \
+helm install cast-operations ../../HelmChart/Public/cast-operations \
+    -f ../../HelmChart/Public/cast-operations/values.yaml \
     -f ./ci-values.yaml 
 
 

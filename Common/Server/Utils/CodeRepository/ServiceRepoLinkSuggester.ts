@@ -122,7 +122,7 @@ const matchNames: MatchNamesFunction = (
     }
   }
 
-  // Tier 3 — token overlap (checkout-service ↔ checkout, billing-api ↔ billing_api_v2).
+  // Tier 3 — token overlap (checkout-service ↔ checkout, payments-api ↔ payments_api_v2).
   const serviceTokens: Set<string> = tokenize(serviceName);
 
   for (const candidate of candidateNames) {

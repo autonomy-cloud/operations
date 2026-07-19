@@ -19,7 +19,7 @@ import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import Icon, { SizeProp } from "Common/UI/Components/Icon/Icon";
 import IconProp from "Common/Types/Icon/IconProp";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import TelemetryExceptionElement from "./ExceptionElement";
 import RouteMap, { RouteUtil } from "../../Utils/RouteMap";
 import PageMap from "../../Utils/PageMap";
@@ -264,8 +264,8 @@ const ExceptionsDashboard: FunctionComponent = (): ReactElement => {
       ? Math.round(((resolvedCount + archivedCount) / totalCount) * 100)
       : 0;
 
-  const now: Date = OneUptimeDate.getCurrentDate();
-  const oneDayAgo: Date = OneUptimeDate.addRemoveHours(now, -24);
+  const now: Date = OperationsDate.getCurrentDate();
+  const oneDayAgo: Date = OperationsDate.addRemoveHours(now, -24);
   const newTodayCount: number = topExceptions.filter(
     (e: TelemetryException) => {
       return e.firstSeenAt && new Date(e.firstSeenAt) > oneDayAgo;
@@ -548,7 +548,7 @@ const ExceptionsDashboard: FunctionComponent = (): ReactElement => {
                                 {exception.lastSeenAt && (
                                   <span className="text-gray-400">
                                     ·{" "}
-                                    {OneUptimeDate.fromNow(
+                                    {OperationsDate.fromNow(
                                       new Date(exception.lastSeenAt),
                                     )}
                                   </span>
@@ -692,7 +692,7 @@ const ExceptionsDashboard: FunctionComponent = (): ReactElement => {
                               {exception.lastSeenAt && (
                                 <span className="text-gray-400">
                                   ·{" "}
-                                  {OneUptimeDate.fromNow(
+                                  {OperationsDate.fromNow(
                                     new Date(exception.lastSeenAt),
                                   )}
                                 </span>

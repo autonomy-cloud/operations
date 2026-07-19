@@ -52,10 +52,10 @@ data:
           - key: k8s.node.name
             value: "${env:NODE_NAME}"
             action: insert
-          - key: oneuptime.agent.version
+          - key: cast-operations.agent.version
             value: {{ .Chart.AppVersion | quote }}
             action: insert
-          {{- include "kubernetes-agent.oneuptimeLabels" (dict "labels" .Values.oneuptime.labels "action" "insert") | nindent 10 }}
+          {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" .Values.cast-operations.labels "action" "insert") | nindent 10 }}
 
     exporters:
       # Direct to Cast Operations — bypassing the in-cluster collector
@@ -67,12 +67,12 @@ data:
       # is still in development upstream, so otlphttp builds URLs
       # against `/v1development/profiles` by default. Cast Operations’
       # ingest route is the stable `/otlp/v1/profiles` path.
-      otlp_http/oneuptime:
-        endpoint: "{{ .Values.oneuptime.url }}/otlp"
-        profiles_endpoint: "{{ .Values.oneuptime.url }}/otlp/v1/profiles"
+      otlp_http/cast-operations:
+        endpoint: "{{ .Values.cast-operations.url }}/otlp"
+        profiles_endpoint: "{{ .Values.cast-operations.url }}/otlp/v1/profiles"
         encoding: proto
         headers:
-          x-oneuptime-token: "${env:ONEUPTIME_API_KEY}"
+          x-cast-operations-token: "${env:CAST_OPERATIONS_API_KEY}"
         sending_queue:
           enabled: true
           num_consumers: 4
@@ -93,5 +93,5 @@ data:
           processors:
             - resource
           exporters:
-            - otlp_http/oneuptime
+            - otlp_http/cast-operations
 {{- end }}

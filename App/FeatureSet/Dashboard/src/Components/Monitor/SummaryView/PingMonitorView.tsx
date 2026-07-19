@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import PingMonitorResponse from "Common/Types/Monitor/PingMonitor/PingMonitorResponse";
 import ProbeAttempt from "Common/Types/Probe/ProbeAttempt";
 import ProbeMonitorResponse from "Common/Types/Probe/ProbeMonitorResponse";
@@ -72,7 +72,7 @@ const PingMonitorView: FunctionComponent<ComponentProps> = (
           title="Monitored At"
           value={
             props.probeMonitorResponse?.monitoredAt
-              ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+              ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   props.probeMonitorResponse.monitoredAt,
                 )
               : "-"

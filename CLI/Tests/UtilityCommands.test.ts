@@ -5,7 +5,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
 
-const CONFIG_DIR: string = path.join(os.homedir(), ".oneuptime");
+const CONFIG_DIR: string = path.join(os.homedir(), ".cast-operations");
 const CONFIG_FILE: string = path.join(CONFIG_DIR, "config.json");
 
 describe("UtilityCommands", () => {
@@ -34,14 +34,14 @@ describe("UtilityCommands", () => {
     consoleLogSpy = jest.spyOn(console, "log").mockImplementation(() => {});
     jest.spyOn(console, "error").mockImplementation(() => {});
     exitSpy = jest.spyOn(process, "exit").mockImplementation((() => {}) as any);
-    delete process.env["ONEUPTIME_API_KEY"];
-    delete process.env["ONEUPTIME_URL"];
+    delete process.env["CAST_OPERATIONS_API_KEY"];
+    delete process.env["CAST_OPERATIONS_URL"];
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
-    delete process.env["ONEUPTIME_API_KEY"];
-    delete process.env["ONEUPTIME_URL"];
+    delete process.env["CAST_OPERATIONS_API_KEY"];
+    delete process.env["CAST_OPERATIONS_URL"];
   });
 
   function createProgram(): Command {
@@ -108,8 +108,8 @@ describe("UtilityCommands", () => {
     });
 
     it("should show credentials from env vars", async () => {
-      process.env["ONEUPTIME_API_KEY"] = "env-key-long-enough";
-      process.env["ONEUPTIME_URL"] = "https://env.com";
+      process.env["CAST_OPERATIONS_API_KEY"] = "env-key-long-enough";
+      process.env["CAST_OPERATIONS_URL"] = "https://env.com";
 
       const program: Command = createProgram();
       await program.parseAsync(["node", "test", "whoami"]);
@@ -133,8 +133,8 @@ describe("UtilityCommands", () => {
     });
 
     it("should not show context line when no context exists", async () => {
-      process.env["ONEUPTIME_API_KEY"] = "env-key-long-enough";
-      process.env["ONEUPTIME_URL"] = "https://env.com";
+      process.env["CAST_OPERATIONS_API_KEY"] = "env-key-long-enough";
+      process.env["CAST_OPERATIONS_URL"] = "https://env.com";
 
       const program: Command = createProgram();
       await program.parseAsync(["node", "test", "whoami"]);

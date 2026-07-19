@@ -215,10 +215,10 @@ Terminal を通じて Cast Operations を管理します:
 
 ```bash
 # 素早い Cast Operations 起動のためのエイリアスを作成
-echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
+echo 'alias cast-operations="open -a \"Cast Operations\""' >> ~/.zshrc
 
 # Cast Operations が実行中かどうかを確認する関数
-oneuptime_status() {
+cast_operations_status() {
     if pgrep -f "Cast Operations" > /dev/null; then
         echo "Cast Operations is running"
     else

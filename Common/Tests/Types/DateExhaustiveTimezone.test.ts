@@ -1,5 +1,5 @@
 /**
- * EXHAUSTIVE timezone / DST coverage for the OneUptimeDate helpers that back the
+ * EXHAUSTIVE timezone / DST coverage for the OperationsDate helpers that back the
  * on-call scheduling & restriction-time machinery. These lock in the CORRECT
  * (post-audit-fix) behavior of:
  *
@@ -18,7 +18,7 @@
  * under. Run under TZ=UTC as well to model a UTC server whose zone differs from
  * the schedule zone.
  */
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import DayOfWeek from "../../Types/Day/DayOfWeek";
 import moment from "moment-timezone";
 
@@ -65,7 +65,7 @@ const ONE_DAY_MS: number = 24 * ONE_HOUR_MS;
  * The 12/24-hour choice getHourAndMinuteInTimezoneString makes is environment
  * dependent, so derive the same format the code will use and match against it.
  */
-const TZ_TIME_FORMAT: string = OneUptimeDate.getUserPrefers12HourFormat()
+const TZ_TIME_FORMAT: string = OperationsDate.getUserPrefers12HourFormat()
   ? "h:mm A"
   : "HH:mm";
 
@@ -87,7 +87,7 @@ const DST_DAYS: DstDay[] = [
   { zone: SYDNEY, transitionSundayYmd: "2026-04-05", springForward: false },
 ];
 
-describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
+describe("OperationsDate exhaustive timezone / DST helpers", () => {
   describe("getInstantFromLocalWallClockInTimezone", () => {
     it("plants the local wall-clock as the same wall-clock in the target zone (winter & summer, all zones)", () => {
       const walls: Date[] = [
@@ -99,7 +99,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       for (const wall of walls) {
         for (const zone of ALL_ZONES) {
           const instant: Date =
-            OneUptimeDate.getInstantFromLocalWallClockInTimezone(wall, zone);
+            OperationsDate.getInstantFromLocalWallClockInTimezone(wall, zone);
           expect(hhmm(instant, zone)).toBe(
             `${pad(wall.getHours())}:${pad(wall.getMinutes())}`,
           );
@@ -109,14 +109,14 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
 
     it("produces distinct absolute instants for the same wall-clock in different zones", () => {
       const wall: Date = localDate(2026, 5, 15, 9, 0, 0);
-      const inNY: Date = OneUptimeDate.getInstantFromLocalWallClockInTimezone(
+      const inNY: Date = OperationsDate.getInstantFromLocalWallClockInTimezone(
         wall,
         NY,
       );
       const inKolkata: Date =
-        OneUptimeDate.getInstantFromLocalWallClockInTimezone(wall, KOLKATA);
+        OperationsDate.getInstantFromLocalWallClockInTimezone(wall, KOLKATA);
       const inSydney: Date =
-        OneUptimeDate.getInstantFromLocalWallClockInTimezone(wall, SYDNEY);
+        OperationsDate.getInstantFromLocalWallClockInTimezone(wall, SYDNEY);
       expect(inNY.getTime()).not.toBe(inKolkata.getTime());
       expect(inNY.getTime()).not.toBe(inSydney.getTime());
       expect(inKolkata.getTime()).not.toBe(inSydney.getTime());
@@ -128,7 +128,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
     it("honors the half-hour Kolkata offset (09:00 IST is xx:30 UTC)", () => {
       const wall: Date = localDate(2026, 5, 15, 9, 0, 0);
       const instant: Date =
-        OneUptimeDate.getInstantFromLocalWallClockInTimezone(wall, KOLKATA);
+        OperationsDate.getInstantFromLocalWallClockInTimezone(wall, KOLKATA);
       expect(moment.utc(instant).format("mm")).toBe("30");
       expect(moment.utc(instant).format("HH")).toBe("03"); // 09:00 - 5:30
     });
@@ -142,7 +142,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
           }) as number[];
         const wall: Date = localDate(y!, m! - 1, day!, 9, 0, 0);
         const instant: Date =
-          OneUptimeDate.getInstantFromLocalWallClockInTimezone(wall, d.zone);
+          OperationsDate.getInstantFromLocalWallClockInTimezone(wall, d.zone);
         expect(hhmm(instant, d.zone)).toBe("09:00");
         expect(ymd(instant, d.zone)).toBe(d.transitionSundayYmd);
       }
@@ -151,10 +151,10 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
     it("accepts a string input via fromString (equivalent to the Date input)", () => {
       const wall: Date = localDate(2026, 5, 15, 9, 0, 0);
       const fromDate: Date =
-        OneUptimeDate.getInstantFromLocalWallClockInTimezone(wall, NY);
+        OperationsDate.getInstantFromLocalWallClockInTimezone(wall, NY);
       // Its UTC-marked ISO string parses back to the identical instant.
       const fromString: Date =
-        OneUptimeDate.getInstantFromLocalWallClockInTimezone(
+        OperationsDate.getInstantFromLocalWallClockInTimezone(
           wall.toISOString(),
           NY,
         );
@@ -165,7 +165,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       // 02:30 on 2026-03-08 does not exist in NY (02:00 jumps to 03:00).
       const wall: Date = localDate(2026, 2, 8, 2, 30, 0);
       const instant: Date =
-        OneUptimeDate.getInstantFromLocalWallClockInTimezone(wall, NY);
+        OperationsDate.getInstantFromLocalWallClockInTimezone(wall, NY);
       // moment-timezone shifts the gap time forward by the DST offset.
       expect(hhmm(instant, NY)).toBe("03:30");
     });
@@ -175,7 +175,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
     it("returns a local Date whose local wall-clock equals the target-zone wall-clock (all zones)", () => {
       for (const zone of ALL_ZONES) {
         const instant: Date = moment.tz("2026-01-06 09:00", zone).toDate();
-        const local: Date = OneUptimeDate.getLocalDateFromWallClockInTimezone(
+        const local: Date = OperationsDate.getLocalDateFromWallClockInTimezone(
           instant,
           zone,
         );
@@ -186,7 +186,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
 
     it("honors the half-hour Kolkata offset", () => {
       const instant: Date = moment.tz("2026-06-15 09:15", KOLKATA).toDate();
-      const local: Date = OneUptimeDate.getLocalDateFromWallClockInTimezone(
+      const local: Date = OperationsDate.getLocalDateFromWallClockInTimezone(
         instant,
         KOLKATA,
       );
@@ -198,12 +198,12 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       // 2026-07-01 12:00 UTC is 08:00 in NY (EDT, -4).
       const summer: Date = moment.utc("2026-07-01 12:00").toDate();
       const localSummer: Date =
-        OneUptimeDate.getLocalDateFromWallClockInTimezone(summer, NY);
+        OperationsDate.getLocalDateFromWallClockInTimezone(summer, NY);
       expect(localSummer.getHours()).toBe(8);
       // 2026-01-01 12:00 UTC is 07:00 in NY (EST, -5).
       const winter: Date = moment.utc("2026-01-01 12:00").toDate();
       const localWinter: Date =
-        OneUptimeDate.getLocalDateFromWallClockInTimezone(winter, NY);
+        OperationsDate.getLocalDateFromWallClockInTimezone(winter, NY);
       expect(localWinter.getHours()).toBe(7);
     });
   });
@@ -219,8 +219,8 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       for (const wall of walls) {
         for (const zone of ALL_ZONES) {
           const instant: Date =
-            OneUptimeDate.getInstantFromLocalWallClockInTimezone(wall, zone);
-          const back: Date = OneUptimeDate.getLocalDateFromWallClockInTimezone(
+            OperationsDate.getInstantFromLocalWallClockInTimezone(wall, zone);
+          const back: Date = OperationsDate.getLocalDateFromWallClockInTimezone(
             instant,
             zone,
           );
@@ -238,12 +238,10 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
           moment.tz("2026-01-15 14:30", zone).toDate(),
         ];
         for (const instant0 of instants) {
-          const local: Date = OneUptimeDate.getLocalDateFromWallClockInTimezone(
-            instant0,
-            zone,
-          );
+          const local: Date =
+            OperationsDate.getLocalDateFromWallClockInTimezone(instant0, zone);
           const instant1: Date =
-            OneUptimeDate.getInstantFromLocalWallClockInTimezone(local, zone);
+            OperationsDate.getInstantFromLocalWallClockInTimezone(local, zone);
           expect(instant1.getTime()).toBe(instant0.getTime());
         }
       }
@@ -254,7 +252,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
     it("formats an instant in the requested zone (matches moment format) for every zone", () => {
       const instant: Date = moment.utc("2026-01-06 17:00").toDate();
       for (const zone of ALL_ZONES) {
-        const actual: string = OneUptimeDate.getHourAndMinuteInTimezoneString(
+        const actual: string = OperationsDate.getHourAndMinuteInTimezoneString(
           instant,
           zone,
         );
@@ -264,15 +262,15 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
 
     it("differs across zones for the same instant", () => {
       const nyNoon: Date = moment.tz("2026-01-06 12:00", NY).toDate();
-      const inNY: string = OneUptimeDate.getHourAndMinuteInTimezoneString(
+      const inNY: string = OperationsDate.getHourAndMinuteInTimezoneString(
         nyNoon,
         NY,
       );
-      const inKolkata: string = OneUptimeDate.getHourAndMinuteInTimezoneString(
+      const inKolkata: string = OperationsDate.getHourAndMinuteInTimezoneString(
         nyNoon,
         KOLKATA,
       );
-      const inSydney: string = OneUptimeDate.getHourAndMinuteInTimezoneString(
+      const inSydney: string = OperationsDate.getHourAndMinuteInTimezoneString(
         nyNoon,
         SYDNEY,
       );
@@ -283,7 +281,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
 
     it("shows the Kolkata half-hour minute component", () => {
       const nyNoon: Date = moment.tz("2026-01-06 12:00", NY).toDate();
-      const inKolkata: string = OneUptimeDate.getHourAndMinuteInTimezoneString(
+      const inKolkata: string = OperationsDate.getHourAndMinuteInTimezoneString(
         nyNoon,
         KOLKATA,
       );
@@ -300,10 +298,10 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
         .tz(summerInstant, NY)
         .format(TZ_TIME_FORMAT);
       expect(
-        OneUptimeDate.getHourAndMinuteInTimezoneString(summerInstant, NY),
+        OperationsDate.getHourAndMinuteInTimezoneString(summerInstant, NY),
       ).toBe(expected);
       expect(
-        OneUptimeDate.getHourAndMinuteInTimezoneString(winterInstant, NY),
+        OperationsDate.getHourAndMinuteInTimezoneString(winterInstant, NY),
       ).toBe(moment.tz(winterInstant, NY).format(TZ_TIME_FORMAT));
       // Both are NY noon.
       expect(hhmm(summerInstant, NY)).toBe("12:00");
@@ -312,15 +310,15 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
 
     it("falls back to the local wall-clock when no timezone is given", () => {
       const d: Date = localDate(2026, 0, 6, 8, 15, 0);
-      expect(OneUptimeDate.getHourAndMinuteInTimezoneString(d, undefined)).toBe(
-        OneUptimeDate.getLocalHourAndMinuteFromDate(d),
-      );
+      expect(
+        OperationsDate.getHourAndMinuteInTimezoneString(d, undefined),
+      ).toBe(OperationsDate.getLocalHourAndMinuteFromDate(d));
     });
 
     it("NOTE: current behavior - an empty-string timezone is falsy so it falls back to local", () => {
       const d: Date = localDate(2026, 0, 6, 8, 15, 0);
-      expect(OneUptimeDate.getHourAndMinuteInTimezoneString(d, "")).toBe(
-        OneUptimeDate.getLocalHourAndMinuteFromDate(d),
+      expect(OperationsDate.getHourAndMinuteInTimezoneString(d, "")).toBe(
+        OperationsDate.getLocalHourAndMinuteFromDate(d),
       );
     });
   });
@@ -354,13 +352,13 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
           const restriction: Date = moment
             .tz(`${y}-01-07 09:00`, d.zone)
             .toDate();
-          const moved: Date = OneUptimeDate.moveDateToTheDayOfWeek(
+          const moved: Date = OperationsDate.moveDateToTheDayOfWeek(
             restriction,
             moveToWeek,
             targetDay,
             d.zone,
           );
-          expect(OneUptimeDate.getDayOfWeek(moved, d.zone)).toBe(targetDay);
+          expect(OperationsDate.getDayOfWeek(moved, d.zone)).toBe(targetDay);
           expect(hhmm(moved, d.zone)).toBe("09:00");
         }
       }
@@ -374,13 +372,13 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
         .toDate();
       for (const targetDay of ORDERED_DAYS) {
         const restriction: Date = moment.tz("2026-01-07 23:30", NY).toDate();
-        const moved: Date = OneUptimeDate.moveDateToTheDayOfWeek(
+        const moved: Date = OperationsDate.moveDateToTheDayOfWeek(
           restriction,
           moveToWeek,
           targetDay,
           NY,
         );
-        expect(OneUptimeDate.getDayOfWeek(moved, NY)).toBe(targetDay);
+        expect(OperationsDate.getDayOfWeek(moved, NY)).toBe(targetDay);
         expect(hhmm(moved, NY)).toBe("23:30");
       }
     });
@@ -388,13 +386,13 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
     it("keeps a Sunday 01:00 boundary at 01:00 when moved into the NY spring-forward week (gap is at 02:00, F9 boundary)", () => {
       const restriction: Date = moment.tz("2026-01-04 01:00", NY).toDate(); // a Sunday 01:00
       const moveToWeek: Date = moment.tz("2026-03-11 12:00", NY).toDate(); // Wed of NY SF week
-      const moved: Date = OneUptimeDate.moveDateToTheDayOfWeek(
+      const moved: Date = OperationsDate.moveDateToTheDayOfWeek(
         restriction,
         moveToWeek,
         DayOfWeek.Sunday,
         NY,
       );
-      expect(OneUptimeDate.getDayOfWeek(moved, NY)).toBe(DayOfWeek.Sunday);
+      expect(OperationsDate.getDayOfWeek(moved, NY)).toBe(DayOfWeek.Sunday);
       expect(hhmm(moved, NY)).toBe("01:00");
     });
 
@@ -402,13 +400,13 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       // 01:30 occurs twice on 2026-11-01 (NY fall-back). Wall-clock must still read 01:30.
       const restriction: Date = moment.tz("2026-01-04 01:30", NY).toDate();
       const moveToWeek: Date = moment.tz("2026-11-04 12:00", NY).toDate(); // Wed of NY FB week
-      const moved: Date = OneUptimeDate.moveDateToTheDayOfWeek(
+      const moved: Date = OperationsDate.moveDateToTheDayOfWeek(
         restriction,
         moveToWeek,
         DayOfWeek.Sunday,
         NY,
       );
-      expect(OneUptimeDate.getDayOfWeek(moved, NY)).toBe(DayOfWeek.Sunday);
+      expect(OperationsDate.getDayOfWeek(moved, NY)).toBe(DayOfWeek.Sunday);
       expect(ymd(moved, NY)).toBe("2026-11-01");
       expect(hhmm(moved, NY)).toBe("01:30");
     });
@@ -420,13 +418,13 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
        */
       const restriction: Date = moment.tz("2026-01-04 01:00", LONDON).toDate(); // a Sunday 01:00
       const moveToWeek: Date = moment.tz("2026-04-01 12:00", LONDON).toDate(); // Wed of London SF week
-      const moved: Date = OneUptimeDate.moveDateToTheDayOfWeek(
+      const moved: Date = OperationsDate.moveDateToTheDayOfWeek(
         restriction,
         moveToWeek,
         DayOfWeek.Sunday,
         LONDON,
       );
-      expect(OneUptimeDate.getDayOfWeek(moved, LONDON)).toBe(DayOfWeek.Sunday);
+      expect(OperationsDate.getDayOfWeek(moved, LONDON)).toBe(DayOfWeek.Sunday);
       expect(ymd(moved, LONDON)).toBe("2026-03-29");
       expect(hhmm(moved, LONDON)).toBe("02:00");
     });
@@ -435,7 +433,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       // moveToWeek is a Wednesday; targeting Wednesday must not shift.
       const moveToWeek: Date = moment.tz("2026-03-11 12:00", NY).toDate(); // Wednesday
       const restriction: Date = moment.tz("2026-01-07 09:00", NY).toDate();
-      const moved: Date = OneUptimeDate.moveDateToTheDayOfWeek(
+      const moved: Date = OperationsDate.moveDateToTheDayOfWeek(
         restriction,
         moveToWeek,
         DayOfWeek.Wednesday,
@@ -449,7 +447,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
   describe("addRemoveDays WITH a timezone across DST", () => {
     it("+1 day across spring-forward keeps wall-clock (23h absolute jump)", () => {
       const start: Date = moment.tz("2026-03-07 09:00", NY).toDate();
-      const next: Date = OneUptimeDate.addRemoveDays(start, 1, NY);
+      const next: Date = OperationsDate.addRemoveDays(start, 1, NY);
       expect(hhmm(next, NY)).toBe("09:00");
       expect(ymd(next, NY)).toBe("2026-03-08");
       expect(next.getTime() - start.getTime()).toBe(23 * ONE_HOUR_MS);
@@ -457,7 +455,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
 
     it("+1 day across fall-back keeps wall-clock (25h absolute jump)", () => {
       const start: Date = moment.tz("2026-10-31 09:00", NY).toDate();
-      const next: Date = OneUptimeDate.addRemoveDays(start, 1, NY);
+      const next: Date = OperationsDate.addRemoveDays(start, 1, NY);
       expect(hhmm(next, NY)).toBe("09:00");
       expect(ymd(next, NY)).toBe("2026-11-01");
       expect(next.getTime() - start.getTime()).toBe(25 * ONE_HOUR_MS);
@@ -465,7 +463,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
 
     it("-1 day back across spring-forward keeps wall-clock", () => {
       const start: Date = moment.tz("2026-03-08 09:00", NY).toDate();
-      const prev: Date = OneUptimeDate.addRemoveDays(start, -1, NY);
+      const prev: Date = OperationsDate.addRemoveDays(start, -1, NY);
       expect(hhmm(prev, NY)).toBe("09:00");
       expect(ymd(prev, NY)).toBe("2026-03-07");
       expect(start.getTime() - prev.getTime()).toBe(23 * ONE_HOUR_MS);
@@ -478,7 +476,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
           .subtract(1, "days")
           .set({ hour: 9, minute: 0, second: 0, millisecond: 0 })
           .toDate();
-        const after: Date = OneUptimeDate.addRemoveDays(before, 1, d.zone);
+        const after: Date = OperationsDate.addRemoveDays(before, 1, d.zone);
         expect(hhmm(after, d.zone)).toBe("09:00");
         const absHours: number =
           (after.getTime() - before.getTime()) / ONE_HOUR_MS;
@@ -488,7 +486,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
 
     it("Kolkata (no DST) advances by exactly 24h", () => {
       const start: Date = moment.tz("2026-03-08 09:00", KOLKATA).toDate();
-      const next: Date = OneUptimeDate.addRemoveDays(start, 1, KOLKATA);
+      const next: Date = OperationsDate.addRemoveDays(start, 1, KOLKATA);
       expect(hhmm(next, KOLKATA)).toBe("09:00");
       expect(next.getTime() - start.getTime()).toBe(ONE_DAY_MS);
     });
@@ -496,7 +494,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
     it("samples a long horizon: adding k days keeps 09:00 across many DST crossings", () => {
       const start: Date = moment.tz("2026-01-01 09:00", NY).toDate();
       for (let k: number = 0; k <= 730; k += 10) {
-        const moved: Date = OneUptimeDate.addRemoveDays(start, k, NY);
+        const moved: Date = OperationsDate.addRemoveDays(start, k, NY);
         expect(hhmm(moved, NY)).toBe("09:00");
       }
     });
@@ -505,7 +503,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
   describe("addRemoveWeeks WITH a timezone across DST", () => {
     it("+1 week across spring-forward keeps wall-clock (167h absolute span)", () => {
       const start: Date = moment.tz("2026-03-01 09:00", NY).toDate();
-      const next: Date = OneUptimeDate.addRemoveWeeks(start, 1, NY);
+      const next: Date = OperationsDate.addRemoveWeeks(start, 1, NY);
       expect(hhmm(next, NY)).toBe("09:00");
       expect(ymd(next, NY)).toBe("2026-03-08");
       expect(next.getTime() - start.getTime()).toBe(167 * ONE_HOUR_MS);
@@ -513,7 +511,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
 
     it("+1 week across fall-back keeps wall-clock (span is not 168h)", () => {
       const start: Date = moment.tz("2026-10-25 09:00", NY).toDate();
-      const next: Date = OneUptimeDate.addRemoveWeeks(start, 1, NY);
+      const next: Date = OperationsDate.addRemoveWeeks(start, 1, NY);
       expect(hhmm(next, NY)).toBe("09:00");
       expect(ymd(next, NY)).toBe("2026-11-01");
       const absHours: number = (next.getTime() - start.getTime()) / ONE_HOUR_MS;
@@ -524,7 +522,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       for (const zone of ALL_ZONES) {
         const start: Date = moment.tz("2026-02-01 09:00", zone).toDate();
         for (let w: number = 0; w <= 40; w += 4) {
-          const moved: Date = OneUptimeDate.addRemoveWeeks(start, w, zone);
+          const moved: Date = OperationsDate.addRemoveWeeks(start, w, zone);
           expect(hhmm(moved, zone)).toBe("09:00");
         }
       }
@@ -534,21 +532,21 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
   describe("addRemoveMonths WITH a timezone across DST", () => {
     it("+1 month across spring-forward keeps wall-clock and calendar day", () => {
       const start: Date = moment.tz("2026-02-15 09:00", NY).toDate();
-      const next: Date = OneUptimeDate.addRemoveMonths(start, 1, NY);
+      const next: Date = OperationsDate.addRemoveMonths(start, 1, NY);
       expect(ymd(next, NY)).toBe("2026-03-15");
       expect(hhmm(next, NY)).toBe("09:00");
     });
 
     it("+1 month across fall-back keeps wall-clock", () => {
       const start: Date = moment.tz("2026-10-15 09:00", NY).toDate();
-      const next: Date = OneUptimeDate.addRemoveMonths(start, 1, NY);
+      const next: Date = OperationsDate.addRemoveMonths(start, 1, NY);
       expect(ymd(next, NY)).toBe("2026-11-15");
       expect(hhmm(next, NY)).toBe("09:00");
     });
 
     it("clamps a month-end overflow (Jan 31 + 1 month -> last day of Feb) keeping wall-clock", () => {
       const start: Date = moment.tz("2027-01-31 09:00", NY).toDate();
-      const next: Date = OneUptimeDate.addRemoveMonths(start, 1, NY);
+      const next: Date = OperationsDate.addRemoveMonths(start, 1, NY);
       expect(ymd(next, NY)).toBe("2027-02-28"); // 2027 is not a leap year
       expect(hhmm(next, NY)).toBe("09:00");
     });
@@ -557,7 +555,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       for (const zone of ALL_ZONES) {
         const start: Date = moment.tz("2026-01-10 09:00", zone).toDate();
         for (let mo: number = 0; mo <= 24; mo += 2) {
-          const moved: Date = OneUptimeDate.addRemoveMonths(start, mo, zone);
+          const moved: Date = OperationsDate.addRemoveMonths(start, mo, zone);
           expect(hhmm(moved, zone)).toBe("09:00");
         }
       }
@@ -567,14 +565,14 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
   describe("addRemoveYears WITH a timezone across DST", () => {
     it("+1 year keeps wall-clock (offset EST vs EST at the same date)", () => {
       const start: Date = moment.tz("2026-01-15 09:00", NY).toDate();
-      const next: Date = OneUptimeDate.addRemoveYears(start, 1, NY);
+      const next: Date = OperationsDate.addRemoveYears(start, 1, NY);
       expect(ymd(next, NY)).toBe("2027-01-15");
       expect(hhmm(next, NY)).toBe("09:00");
     });
 
     it("clamps Feb-29 leap-day overflow (+1 year -> Feb 28) keeping wall-clock", () => {
       const start: Date = moment.tz("2028-02-29 09:00", NY).toDate();
-      const next: Date = OneUptimeDate.addRemoveYears(start, 1, NY);
+      const next: Date = OperationsDate.addRemoveYears(start, 1, NY);
       expect(ymd(next, NY)).toBe("2029-02-28");
       expect(hhmm(next, NY)).toBe("09:00");
     });
@@ -583,7 +581,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       for (const zone of ALL_ZONES) {
         const start: Date = moment.tz("2026-07-15 09:00", zone).toDate();
         for (let yr: number = 0; yr <= 6; yr += 1) {
-          const moved: Date = OneUptimeDate.addRemoveYears(start, yr, zone);
+          const moved: Date = OperationsDate.addRemoveYears(start, yr, zone);
           expect(hhmm(moved, zone)).toBe("09:00");
         }
       }
@@ -600,7 +598,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
         const moveDayTo: Date = moment
           .tz(`${d.transitionSundayYmd} 00:00`, d.zone)
           .toDate();
-        const result: Date = OneUptimeDate.keepTimeButMoveDay(
+        const result: Date = OperationsDate.keepTimeButMoveDay(
           keepTimeFor,
           moveDayTo,
           d.zone,
@@ -614,7 +612,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
       // 09:00 is unambiguous; verify placement onto the fall-back day.
       const keepTimeFor: Date = moment.tz("2026-06-01 09:00", NY).toDate();
       const moveDayTo: Date = moment.tz("2026-11-01 18:00", NY).toDate();
-      const result: Date = OneUptimeDate.keepTimeButMoveDay(
+      const result: Date = OperationsDate.keepTimeButMoveDay(
         keepTimeFor,
         moveDayTo,
         NY,
@@ -626,7 +624,7 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
     it("no-timezone: keeps the process-local wall-clock and moves to the destination calendar day", () => {
       const keepTimeFor: Date = localDate(2026, 0, 1, 14, 37, 45);
       const moveDayTo: Date = localDate(2026, 5, 20, 3, 0, 0);
-      const result: Date = OneUptimeDate.keepTimeButMoveDay(
+      const result: Date = OperationsDate.keepTimeButMoveDay(
         keepTimeFor,
         moveDayTo,
       );
@@ -654,8 +652,8 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
     it("maps every isoWeekday to the correct DayOfWeek enum (UTC noon anchors)", () => {
       for (const entry of WEEK) {
         const instant: Date = moment.utc(`${entry.ymd} 12:00`).toDate();
-        expect(OneUptimeDate.getDayOfWeek(instant, UTC)).toBe(entry.day);
-        expect(OneUptimeDate.geyDayOfWeekAsNumber(instant, UTC)).toBe(
+        expect(OperationsDate.getDayOfWeek(instant, UTC)).toBe(entry.day);
+        expect(OperationsDate.geyDayOfWeekAsNumber(instant, UTC)).toBe(
           entry.iso,
         );
       }
@@ -664,26 +662,26 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
     it("resolves the same UTC-noon instant to the same weekday in NY and Kolkata (no flip)", () => {
       for (const entry of WEEK) {
         const instant: Date = moment.utc(`${entry.ymd} 12:00`).toDate();
-        expect(OneUptimeDate.getDayOfWeek(instant, NY)).toBe(entry.day);
-        expect(OneUptimeDate.getDayOfWeek(instant, KOLKATA)).toBe(entry.day);
+        expect(OperationsDate.getDayOfWeek(instant, NY)).toBe(entry.day);
+        expect(OperationsDate.getDayOfWeek(instant, KOLKATA)).toBe(entry.day);
       }
     });
 
     it("flips the weekday across zones for a late-evening UTC instant", () => {
       // 2026-01-05 23:00 UTC: NY 18:00 Mon, Kolkata 04:30 Tue.
       const instant: Date = moment.utc("2026-01-05 23:00").toDate();
-      expect(OneUptimeDate.getDayOfWeek(instant, NY)).toBe(DayOfWeek.Monday);
-      expect(OneUptimeDate.getDayOfWeek(instant, KOLKATA)).toBe(
+      expect(OperationsDate.getDayOfWeek(instant, NY)).toBe(DayOfWeek.Monday);
+      expect(OperationsDate.getDayOfWeek(instant, KOLKATA)).toBe(
         DayOfWeek.Tuesday,
       );
-      expect(OneUptimeDate.getDayOfWeek(instant, UTC)).toBe(DayOfWeek.Monday);
+      expect(OperationsDate.getDayOfWeek(instant, UTC)).toBe(DayOfWeek.Monday);
     });
 
     it("flips the weekday the other direction for an early-UTC instant (NY still on the previous day)", () => {
       // 2026-01-06 02:00 UTC: NY 21:00 Mon Jan 5, Kolkata 07:30 Tue Jan 6.
       const instant: Date = moment.utc("2026-01-06 02:00").toDate();
-      expect(OneUptimeDate.getDayOfWeek(instant, NY)).toBe(DayOfWeek.Monday);
-      expect(OneUptimeDate.getDayOfWeek(instant, KOLKATA)).toBe(
+      expect(OperationsDate.getDayOfWeek(instant, NY)).toBe(DayOfWeek.Monday);
+      expect(OperationsDate.getDayOfWeek(instant, KOLKATA)).toBe(
         DayOfWeek.Tuesday,
       );
     });
@@ -693,7 +691,9 @@ describe("OneUptimeDate exhaustive timezone / DST helpers", () => {
         const noon: Date = moment
           .tz(`${d.transitionSundayYmd} 12:00`, d.zone)
           .toDate();
-        expect(OneUptimeDate.getDayOfWeek(noon, d.zone)).toBe(DayOfWeek.Sunday);
+        expect(OperationsDate.getDayOfWeek(noon, d.zone)).toBe(
+          DayOfWeek.Sunday,
+        );
       }
     });
   });

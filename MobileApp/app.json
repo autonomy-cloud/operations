@@ -1,11 +1,11 @@
 {
   "expo": {
     "name": "Cast Operations On-Call",
-    "slug": "oneuptime-on-call",
+    "slug": "cast-operations-on-call",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
-    "scheme": "oneuptime",
+    "scheme": "cast-operations",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.oneuptime.oncall",
+      "bundleIdentifier": "com.cast-operations.oncall",
       "icon": "./assets/icon.png",
       "splash": {
         "image": "./assets/splash-icon.png",
@@ -34,7 +34,7 @@
         "backgroundColor": "#000000"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.oneuptime.oncall",
+      "package": "com.cast-operations.oncall",
       "versionCode": 2,
       "googleServicesFile": "./google-services.json",
       "permissions": [
@@ -79,6 +79,6 @@
         "projectId": "d9f87edc-1c3e-466f-b032-1ced7621aa8a"
       }
     },
-    "owner": "oneuptime"
+    "owner": "cast-operations"
   }
 }

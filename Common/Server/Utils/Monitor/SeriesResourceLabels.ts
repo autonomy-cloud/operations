@@ -7,8 +7,8 @@ import { JSONObject } from "../../../Types/JSON";
  *
  *   - the raw OTel resource attribute            (`host.name`)
  *   - the ClickHouse `resource.`-prefixed form   (`resource.host.name`)
- *   - the Cast Operations stamps added at ingest        (`oneuptime.host.id`
- *     / `oneuptime.host.name` and their `resource.`-prefixed twins)
+ *   - the Cast Operations stamps added at ingest        (`cast-operations.host.id`
+ *     / `cast-operations.host.name` and their `resource.`-prefixed twins)
  *
  * This module is the single source of truth for "which label keys
  * identify which resource type", so that everything keying off series
@@ -21,57 +21,57 @@ import { JSONObject } from "../../../Types/JSON";
  */
 
 export const HostIdLabelKeys: ReadonlyArray<string> = [
-  "resource.oneuptime.host.id",
-  "oneuptime.host.id",
+  "resource.cast-operations.host.id",
+  "cast-operations.host.id",
 ];
 
 export const HostNameLabelKeys: ReadonlyArray<string> = [
-  "resource.oneuptime.host.name",
-  "oneuptime.host.name",
+  "resource.cast-operations.host.name",
+  "cast-operations.host.name",
   "resource.host.name",
   "host.name",
 ];
 
 /*
  * For Docker hosts we deliberately ignore raw `host.name` /
- * `oneuptime.host.name`: those are the Host's territory. The ingest
- * pipeline stamps `oneuptime.docker.host.*` independently when the
+ * `cast-operations.host.name`: those are the Host's territory. The ingest
+ * pipeline stamps `cast-operations.docker.host.*` independently when the
  * source is a docker host, so only those keys identify a DockerHost.
  */
 export const DockerHostIdLabelKeys: ReadonlyArray<string> = [
-  "resource.oneuptime.docker.host.id",
-  "oneuptime.docker.host.id",
+  "resource.cast-operations.docker.host.id",
+  "cast-operations.docker.host.id",
 ];
 
 export const DockerHostNameLabelKeys: ReadonlyArray<string> = [
-  "resource.oneuptime.docker.host.name",
-  "oneuptime.docker.host.name",
+  "resource.cast-operations.docker.host.name",
+  "cast-operations.docker.host.name",
 ];
 
 /*
  * For Podman hosts we deliberately ignore raw `host.name` /
- * `oneuptime.host.name`: those are the Host's territory. The ingest
- * pipeline stamps `oneuptime.podman.host.*` independently when the
+ * `cast-operations.host.name`: those are the Host's territory. The ingest
+ * pipeline stamps `cast-operations.podman.host.*` independently when the
  * source is a podman host, so only those keys identify a PodmanHost.
  */
 export const PodmanHostIdLabelKeys: ReadonlyArray<string> = [
-  "resource.oneuptime.podman.host.id",
-  "oneuptime.podman.host.id",
+  "resource.cast-operations.podman.host.id",
+  "cast-operations.podman.host.id",
 ];
 
 export const PodmanHostNameLabelKeys: ReadonlyArray<string> = [
-  "resource.oneuptime.podman.host.name",
-  "oneuptime.podman.host.name",
+  "resource.cast-operations.podman.host.name",
+  "cast-operations.podman.host.name",
 ];
 
 export const KubernetesClusterIdLabelKeys: ReadonlyArray<string> = [
-  "resource.oneuptime.kubernetes.cluster.id",
-  "oneuptime.kubernetes.cluster.id",
+  "resource.cast-operations.kubernetes.cluster.id",
+  "cast-operations.kubernetes.cluster.id",
 ];
 
 export const KubernetesClusterNameLabelKeys: ReadonlyArray<string> = [
-  "resource.oneuptime.kubernetes.cluster.name",
-  "oneuptime.kubernetes.cluster.name",
+  "resource.cast-operations.kubernetes.cluster.name",
+  "cast-operations.kubernetes.cluster.name",
   "resource.k8s.cluster.name",
   "k8s.cluster.name",
 ];
@@ -80,7 +80,7 @@ export const KubernetesClusterNameLabelKeys: ReadonlyArray<string> = [
  * Proxmox/Ceph cluster identity rides the agent-stamped resource
  * attribute (`proxmox.cluster.name` / `ceph.cluster.name`) and its
  * ClickHouse `resource.`-prefixed twin. Ingest keys cluster rows by
- * name only — there is no `oneuptime.*.id` stamp for these clusters —
+ * name only — there is no `cast-operations.*.id` stamp for these clusters —
  * so only name keys exist. The name maps to the cluster model's `name`
  * column. Note the shipped Proxmox/Ceph alert templates group by
  * datapoint labels (`id`, `ceph_daemon`, `pool_id`), so their series
@@ -102,7 +102,7 @@ export const CephClusterNameLabelKeys: ReadonlyArray<string> = [
 /*
  * IoT fleet identity rides the agent-stamped resource attribute
  * (`iot.fleet.name`) and its ClickHouse `resource.`-prefixed twin.
- * Ingest keys fleet rows by name only — there is no `oneuptime.*.id`
+ * Ingest keys fleet rows by name only — there is no `cast-operations.*.id`
  * stamp for fleets — so only name keys exist. The name maps to the
  * IoTFleet model's `name` column. Like Proxmox/Ceph, the shipped IoT
  * alert templates group by the datapoint label `device.id`, so their
@@ -120,12 +120,12 @@ export const IoTFleetNameLabelKeys: ReadonlyArray<string> = [
  * Services come from OTel-ingested telemetry. The ingest pipeline
  * auto-creates a Service row keyed by `service.name`, so any series
  * label carrying that attribute (raw or prefixed) tells us the emitting
- * service. The `oneuptime.service.id` stamp is also accepted for callers
+ * service. The `cast-operations.service.id` stamp is also accepted for callers
  * that resolved the ID upstream.
  */
 export const ServiceIdLabelKeys: ReadonlyArray<string> = [
-  "resource.oneuptime.service.id",
-  "oneuptime.service.id",
+  "resource.cast-operations.service.id",
+  "cast-operations.service.id",
 ];
 
 export const ServiceNameLabelKeys: ReadonlyArray<string> = [
@@ -135,7 +135,7 @@ export const ServiceNameLabelKeys: ReadonlyArray<string> = [
 
 /*
  * The identifiers carried by one series, split by resource type and by
- * id-vs-name. Ids are Cast Operations database ids (the `oneuptime.*.id`
+ * id-vs-name. Ids are Cast Operations database ids (the `cast-operations.*.id`
  * stamps); names are the human/telemetry identifiers (host.name,
  * k8s.cluster.name, service.name) that map to a resource's identifier
  * column (`hostIdentifier`, `clusterIdentifier`, `name`).

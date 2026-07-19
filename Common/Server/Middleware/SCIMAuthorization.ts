@@ -4,7 +4,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import ObjectID from "../../Types/ObjectID";
 import ProjectSCIM from "../../Models/DatabaseModels/ProjectSCIM";
@@ -22,7 +22,7 @@ export default class SCIMMiddleware {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
 
       // Extract SCIM ID from URL path (could be project or status page)
       const scimId: string | undefined =
@@ -44,7 +44,7 @@ export default class SCIMMiddleware {
         `SCIM Authorization: scimId=${scimId}, bearerToken=${
           bearerToken ? "***" : "missing"
         }`,
-        getLogAttributesFromRequest(req as OneUptimeRequest),
+        getLogAttributesFromRequest(req as OperationsRequest),
       );
 
       if (!bearerToken) {
@@ -78,7 +78,7 @@ export default class SCIMMiddleware {
 
       if (projectScimConfig) {
         // Store Project SCIM configuration
-        oneuptimeRequest.bearerTokenData = {
+        castOperationsRequest.bearerTokenData = {
           scimConfig: projectScimConfig,
           projectId: projectScimConfig.projectId,
           projectScimId: new ObjectID(scimId),
@@ -108,7 +108,7 @@ export default class SCIMMiddleware {
 
       if (statusPageScimConfig) {
         // Store Status Page SCIM configuration
-        oneuptimeRequest.bearerTokenData = {
+        castOperationsRequest.bearerTokenData = {
           scimConfig: statusPageScimConfig,
           projectId: statusPageScimConfig.projectId,
           statusPageId: statusPageScimConfig.statusPageId,

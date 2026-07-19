@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import React, {
   FunctionComponent,
   ReactElement,
@@ -14,7 +14,7 @@ export interface ComponentProps {
 const LiveDuration: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
-  const [now, setNow] = useState<Date>(OneUptimeDate.getCurrentDate());
+  const [now, setNow] = useState<Date>(OperationsDate.getCurrentDate());
 
   useEffect(() => {
     if (props.endDate) {
@@ -22,7 +22,7 @@ const LiveDuration: FunctionComponent<ComponentProps> = (
     }
 
     const interval: ReturnType<typeof setInterval> = setInterval(() => {
-      setNow(OneUptimeDate.getCurrentDate());
+      setNow(OperationsDate.getCurrentDate());
     }, 30 * 1000);
 
     return () => {
@@ -33,13 +33,13 @@ const LiveDuration: FunctionComponent<ComponentProps> = (
   const endDate: Date = props.endDate || now;
 
   const minutes: number = Math.abs(
-    OneUptimeDate.getDifferenceInMinutes(endDate, props.startDate),
+    OperationsDate.getDifferenceInMinutes(endDate, props.startDate),
   );
 
   const text: string =
     minutes < 1
       ? "less than a minute"
-      : OneUptimeDate.convertMinutesToDaysHoursAndMinutes(minutes);
+      : OperationsDate.convertMinutesToDaysHoursAndMinutes(minutes);
 
   return <span>{text}</span>;
 };

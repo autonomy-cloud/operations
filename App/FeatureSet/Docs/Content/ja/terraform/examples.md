@@ -9,16 +9,16 @@
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # セルフホストの場合は "= 7.0.123" を使用
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # セルフホストの場合は変更してください
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # セルフホストの場合は変更してください
+  api_key       = var.cast_operations_api_key
 }
 
 ```
@@ -26,7 +26,7 @@ provider "oneuptime" {
 ### 基本的なモニター
 
 ```hcl
-resource "oneuptime_monitor" "manual_monitor" {
+resource "cast_operations_monitor" "manual_monitor" {
   name        = "ホームページモニター"
   description = "メインウェブサイトのホームページモニター"
   monitor_type = "Manual"
@@ -37,7 +37,7 @@ resource "oneuptime_monitor" "manual_monitor" {
 
 ```hcl
 # 公開ステータスページ
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name        = "公開ステータスページ"
   description = "顧客向けサービスの公開ステータスページ"
 }

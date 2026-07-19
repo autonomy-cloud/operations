@@ -20,7 +20,7 @@ use admin
 
 db.auth("root", "<password>")
 
-use oneuptimedb
+use castoperationsdb
 
 db.createUser(
 {
@@ -35,7 +35,7 @@ db.createUser(
 ## Copy DB from One Server to Another
 
 ```
-mongodump --uri="mongodb://old_username:old_password@old_ip:old_port/oneuptimedb" --archive | mongorestore --uri="mongodb://new_username:new_pass@new_ip:new_port/oneuptimedb" --archive
+mongodump --uri="mongodb://old_username:old_password@old_ip:old_port/castoperationsdb" --archive | mongorestore --uri="mongodb://new_username:new_pass@new_ip:new_port/castoperationsdb" --archive
 ```
 
 ## Root Username
@@ -62,10 +62,10 @@ Resolution: Delete all statefulset and start again.
 kubectl delete pvc datadir-fi-mongodb-0 datadir-fi-mongodb-1
 
 # If staging
-sudo helm upgrade -f ./HelmChart/public/oneuptime/values.yaml -f ./kubernetes/values-saas-staging.yaml fi ./HelmChart/public/oneuptime
+sudo helm upgrade -f ./HelmChart/public/cast-operations/values.yaml -f ./kubernetes/values-saas-staging.yaml fi ./HelmChart/public/cast-operations
 
 # If production
-sudo helm upgrade -f ./HelmChart/public/oneuptime/values.yaml -f ./kubernetes/values-saas-production.yaml fi ./HelmChart/public/oneuptime
+sudo helm upgrade -f ./HelmChart/public/cast-operations/values.yaml -f ./kubernetes/values-saas-production.yaml fi ./HelmChart/public/cast-operations
 ```
 
 Important: Restore. See restore section in this document for more info.
@@ -86,7 +86,7 @@ Example:
 
 sudo kubectl delete job fi-InitScript
 
-sudo helm upgrade -f ./kubernetes/values-saas-staging.yaml --set mongodb.externalAccess.enabled=true --set mongodb.externalAccess.service.type=LoadBalancer --set externalAccess.service.port=27017 --set mongodb.externalAccess.autoDiscovery.enabled=true --set mongodb.serviceAccount.create=true --set mongodb.rbac.create=true fi ./HelmChart/public/oneuptime
+sudo helm upgrade -f ./kubernetes/values-saas-staging.yaml --set mongodb.externalAccess.enabled=true --set mongodb.externalAccess.service.type=LoadBalancer --set externalAccess.service.port=27017 --set mongodb.externalAccess.autoDiscovery.enabled=true --set mongodb.serviceAccount.create=true --set mongodb.rbac.create=true fi ./HelmChart/public/cast-operations
 
 ```
 
@@ -102,8 +102,8 @@ On the destination cluster:
 
 ```
 kubectl exec -it fi-mongodb-0 -- bash
-mongodump --uri="mongodb://oneuptime:password@<EXTERNAL-IP-ADDRESS-FROM-STEP-1>:27017/oneuptimedb" --archive="/bitnami/mongodb/oneuptimedata.archive" --excludeCollection=auditlogs --excludeCollection=monitorlogs
-mongorestore --uri="mongodb://oneuptime:password@localhost:27017/oneuptimedb" --archive="/bitnami/mongodb/oneuptimedata.archive"
+mongodump --uri="mongodb://cast-operations:password@<EXTERNAL-IP-ADDRESS-FROM-STEP-1>:27017/castoperationsdb" --archive="/bitnami/mongodb/cast-operationsdata.archive" --excludeCollection=auditlogs --excludeCollection=monitorlogs
+mongorestore --uri="mongodb://cast-operations:password@localhost:27017/castoperationsdb" --archive="/bitnami/mongodb/cast-operationsdata.archive"
 ```
 
 **Step 3:** Block the exposed Mongodb from the internet
@@ -113,7 +113,7 @@ On source cluster:
 ```
 kubectl delete job fi-InitScript
 
-sudo helm upgrade -f ./kubernetes/values-saas-staging.yaml --set mongodb.externalAccess.enabled=false --set mongodb.externalAccess.autoDiscovery.enabled=false --set mongodb.serviceAccount.create=false --set mongodb.rbac.create=false fi ./HelmChart/public/oneuptime
+sudo helm upgrade -f ./kubernetes/values-saas-staging.yaml --set mongodb.externalAccess.enabled=false --set mongodb.externalAccess.autoDiscovery.enabled=false --set mongodb.serviceAccount.create=false --set mongodb.rbac.create=false fi ./HelmChart/public/cast-operations
 
 ```
 
@@ -131,7 +131,7 @@ Syntax:
 
 Example:
 
-`sudo kubectl exec fi-mongodb-0 -- mongodump --uri="mongodb://oneuptime:password@localhost:27017/oneuptimedb" --archive="/bitnami/mongodb/oneuptimedata.archive"`
+`sudo kubectl exec fi-mongodb-0 -- mongodump --uri="mongodb://cast-operations:password@localhost:27017/castoperationsdb" --archive="/bitnami/mongodb/cast-operationsdata.archive"`
 
 **Step 2**: Copy file from conatiner to local machine.
 
@@ -141,7 +141,7 @@ Syntax:
 
 Example:
 
-`sudo kubectl cp fi-mongodb-0:/bitnami/mongodb/oneuptimedata.archive /Volumes/DataDrive/Projects/OneUptime/app/backup.archive`
+`sudo kubectl cp fi-mongodb-0:/bitnami/mongodb/cast-operationsdata.archive /Volumes/DataDrive/Projects/Operations/app/backup.archive`
 
 ## Restore
 
@@ -156,7 +156,7 @@ Syntax:
 `sudo kubectl cp <localfilePath> <pod>:<filepath>`
 
 Example:
-`sudo kubectl cp /Volumes/DataDrive/Projects/OneUptime/app/backup.archive fi-mongodb-0:/bitnami/mongodb/oneuptimedata.archive`
+`sudo kubectl cp /Volumes/DataDrive/Projects/Operations/app/backup.archive fi-mongodb-0:/bitnami/mongodb/cast-operationsdata.archive`
 
 **Step 2**: Mongorestore on the container.
 
@@ -166,7 +166,7 @@ Syntax:
 
 Example:
 
-`sudo kubectl exec fi-mongodb-0 -- mongorestore --uri="mongodb://oneuptime:password@localhost:27017/oneuptimedb" --archive="/bitnami/mongodb/oneuptimedata.archive"`
+`sudo kubectl exec fi-mongodb-0 -- mongorestore --uri="mongodb://cast-operations:password@localhost:27017/castoperationsdb" --archive="/bitnami/mongodb/cast-operationsdata.archive"`
 
 ## Misc commands
 
@@ -191,7 +191,7 @@ Change user password:
 kubectl exec -it fi-mongodb-0 mongo     # get into mongodb container.
 db = db.getSiblingDB('admin')                   # Change to admin db
 db.auth("root", "<OLD-PASSWORD>")
-use oneuptimedb
+use castoperationsdb
 db.changeUserPassword("<USER-PASSWORD>", "<NEW-PASSWORD>")
 exit                                            # This is important.
 ```
@@ -200,8 +200,8 @@ exit                                            # This is important.
 
 ```
 kubectl exec -it fi-mongodb-0 mongo
-use oneuptimedb
-db.auth('oneuptime','password')
+use castoperationsdb
+db.auth('cast-operations','password')
 db.users.find({email: 'admin@visca.ai'}) # Master admin user. Should be already signed up.
 db.users.update({email: 'admin@visca.ai'}, {$set:{ role: 'master-admin'}}) # Update the user
 ```

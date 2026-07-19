@@ -338,7 +338,7 @@
                 <span class="text-sm font-semibold text-violet-600 uppercase tracking-wide">Tokens &amp; Cost</span>
               </div>
               <h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Know what your AI features actually cost</h3>
-              <p class="mt-4 text-lg text-gray-600">Token usage is denormalized at ingest, so you can slice spend by model, operation, agent or service — and chart or alert on it like any other metric. When your instrumentation reports cost, Cast Operations shows it directly; no separate billing scraper to wire up.</p>
+              <p class="mt-4 text-lg text-gray-600">Token usage is denormalized at ingest, so you can slice spend by model, operation, agent or service — and chart or alert on it like any other metric. When your instrumentation reports cost, Cast Operations shows it directly; no separate cost scraper to wire up.</p>
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600"><svg class="h-5 w-5 text-violet-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>Input / output / total tokens per call</li>
                 <li class="flex items-center gap-3 text-gray-600"><svg class="h-5 w-5 text-violet-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>Dashboards on GenAI token &amp; latency metrics</li>
@@ -362,7 +362,7 @@
               <ul class="mt-6 space-y-3">
                 <li class="flex items-center gap-3 text-gray-600"><svg class="h-5 w-5 text-violet-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>OpenLLMetry, OpenInference &amp; native OTel</li>
                 <li class="flex items-center gap-3 text-gray-600"><svg class="h-5 w-5 text-violet-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>Same backend as your logs, metrics &amp; traces</li>
-                <li class="flex items-center gap-3 text-gray-600"><svg class="h-5 w-5 text-violet-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>Open source, self-hostable, usage-based pricing</li>
+                <li class="flex items-center gap-3 text-gray-600"><svg class="h-5 w-5 text-violet-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>Open source, self-hostable, and included in every deployment</li>
               </ul>
               <a href="/docs/telemetry/ai-llm-observability" class="inline-flex items-center gap-1.5 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors mt-8">Read the docs<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
             </div>
@@ -379,7 +379,7 @@
                     <div class="mt-3">Traceloop.init(</div>
                     <div class="pl-4">app_name=<span class="text-emerald-400">"my-ai-agent"</span>,</div>
                     <div class="pl-4">api_endpoint=<span class="text-emerald-400">"https://visca.ai/otlp"</span>,</div>
-                    <div class="pl-4">headers={<span class="text-emerald-400">"x-oneuptime-token"</span>: token},</div>
+                    <div class="pl-4">headers={<span class="text-emerald-400">"x-cast-operations-token"</span>: token},</div>
                     <div>)</div>
                     <div class="mt-3 text-gray-500"># your OpenAI / Anthropic calls are now traced</div>
                   </div>

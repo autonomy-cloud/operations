@@ -3,13 +3,13 @@
 Test Install:
 
 ```
-helm install oneuptime ./HelmChart/Public/oneuptime -f ./HelmChart/Public/oneuptime/values.yaml -f ./HelmChart/Values/test.values.yaml
+helm install cast-operations ./HelmChart/Public/cast-operations -f ./HelmChart/Public/cast-operations/values.yaml -f ./HelmChart/Values/test.values.yaml
 ```
 
 Prod Install:
 
 ```
-helm install oneuptime ./HelmChart/Public/oneuptime -f ./HelmChart/Public/oneuptime/values.yaml -f ./HelmChart/Values/prod.values.yaml
+helm install cast-operations ./HelmChart/Public/cast-operations -f ./HelmChart/Public/cast-operations/values.yaml -f ./HelmChart/Values/prod.values.yaml
 ```
 
 ### Upgrade
@@ -17,29 +17,29 @@ helm install oneuptime ./HelmChart/Public/oneuptime -f ./HelmChart/Public/oneupt
 Test Upgrade:
 
 ```
-helm upgrade oneuptime ./HelmChart/Public/oneuptime -f ./HelmChart/Public/oneuptime/values.yaml  -f ./HelmChart/Values/test.values.yaml
+helm upgrade cast-operations ./HelmChart/Public/cast-operations -f ./HelmChart/Public/cast-operations/values.yaml  -f ./HelmChart/Values/test.values.yaml
 ```
 
 Prod Upgrade:
 
 ```
-helm upgrade oneuptime ./HelmChart/Public/oneuptime -f ./HelmChart/Public/oneuptime/values.yaml -f ./HelmChart/Values/prod.values.yaml
+helm upgrade cast-operations ./HelmChart/Public/cast-operations -f ./HelmChart/Public/cast-operations/values.yaml -f ./HelmChart/Values/prod.values.yaml
 ```
 
 ### Remove
 
 ```
-helm uninstall oneuptime
+helm uninstall cast-operations
 ```
 
 ### Lint
 
 ```
-helm lint ./HelmChart/Public/oneuptime
+helm lint ./HelmChart/Public/cast-operations
 ```
 
 ### Run tests
 
 ```
-helm test oneuptime
+helm test cast-operations
 ```

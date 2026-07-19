@@ -5,13 +5,13 @@ import { describe, expect, it } from "@jest/globals";
 
 describe("EqualToOrNull", () => {
   it("should create an EqualToOrNull object with a valid value", () => {
-    const value: string = "oneuptime";
+    const value: string = "cast-operations";
     const equalObj: EqualToOrNull<string> = new EqualToOrNull<string>(value);
     expect(equalObj.value).toBe(value);
   });
 
   it("should get the value property of an EqualToOrNull object", () => {
-    const value: string = "oneuptime";
+    const value: string = "cast-operations";
     const equalObj: EqualToOrNull<string> = new EqualToOrNull<string>(value);
     expect(equalObj.value).toBe(value);
   });
@@ -26,18 +26,18 @@ describe("EqualToOrNull", () => {
 
   it("should return the correct string representation using toString method", () => {
     const equalObj: EqualToOrNull<string> = new EqualToOrNull<string>(
-      "oneuptime",
+      "cast-operations",
     );
-    expect(equalObj.toString()).toBe("oneuptime");
+    expect(equalObj.toString()).toBe("cast-operations");
   });
 
   it("should generate the correct JSON representation using toJSON method", () => {
     const equalObj: EqualToOrNull<string> = new EqualToOrNull<string>(
-      "oneuptime",
+      "cast-operations",
     );
     const expectedJSON: JSONObject = {
       _type: "EqualToOrNull",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(equalObj.toJSON()).toEqual(expectedJSON);
   });
@@ -45,16 +45,16 @@ describe("EqualToOrNull", () => {
   it("should create an EqualToOrNull object from valid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "EqualToOrNull",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     const equalObj: EqualToOrNull<string> = EqualToOrNull.fromJSON(jsonInput);
-    expect(equalObj.value).toBe("oneuptime");
+    expect(equalObj.value).toBe("cast-operations");
   });
 
   it("should throw a BadDataException when using invalid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "InvalidType",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(() => {
       return EqualToOrNull.fromJSON(jsonInput);
@@ -62,7 +62,9 @@ describe("EqualToOrNull", () => {
   });
 
   it("should be a type of EqualToOrNull", () => {
-    const equalObj: EqualToOrNull<string> = new EqualToOrNull("oneuptime");
+    const equalObj: EqualToOrNull<string> = new EqualToOrNull(
+      "cast-operations",
+    );
     expect(equalObj).toBeInstanceOf(EqualToOrNull);
   });
 

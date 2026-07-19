@@ -425,10 +425,6 @@ export default class OpenAPIUtil {
         description:
           "Unauthorized. This response indicates that the request requires user authentication.",
       },
-      "402": {
-        description:
-          "Payment Required. This response indicates that the request requires payment or a valid subscription.",
-      },
       "403": {
         description:
           "Forbidden. This response indicates that the server understood the request, but refuses to authorize it.",

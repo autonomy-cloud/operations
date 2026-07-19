@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from "react";
 import Span, { SpanStatus, SpanKind } from "Common/Models/AnalyticsModels/Span";
 import Service from "Common/Models/DatabaseModels/Service";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import SpanUtil from "../../Utils/SpanUtil";
 
 export interface TraceRowProps {
@@ -114,7 +114,7 @@ const TraceRow: FunctionComponent<TraceRowProps> = (
   });
 
   const startTimeDate: Date | null = span.startTime
-    ? OneUptimeDate.fromString(span.startTime as unknown as string)
+    ? OperationsDate.fromString(span.startTime as unknown as string)
     : null;
 
   const serviceName: string = service?.name || "unknown service";

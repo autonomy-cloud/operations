@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 /*
  * A device is considered up when its last successful SNMP poll happened
@@ -23,8 +23,8 @@ export default class DeviceStatusUtil {
       return NetworkDeviceStatus.Pending;
     }
 
-    const lastSeen: Date = OneUptimeDate.fromString(lastSeenAt);
-    const cutoff: Date = OneUptimeDate.getSomeMinutesAgo(
+    const lastSeen: Date = OperationsDate.fromString(lastSeenAt);
+    const cutoff: Date = OperationsDate.getSomeMinutesAgo(
       DEVICE_FRESH_WINDOW_MINUTES,
     );
 

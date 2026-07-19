@@ -132,7 +132,7 @@ AI 代理開出一個包含修復內容的拉取請求，連結到該事件，�
 ```bash
 # 1. Clone the release branch
 git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # 2. Create your config (then edit it — set strong, random secrets!)
 cp config.example.env config.env
@@ -148,8 +148,8 @@ Cast Operations 現在已運行於 **http://localhost** — 打開它並建立�
 ### ☸️ 使用 Helm 部署 Kubernetes — 適用於生產環境
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
-helm install oneuptime autonomy-cloud/operations
+helm repo add cast-operations https://helm-chart.visca.ai
+helm install cast-operations autonomy-cloud/operations
 ```
 
 📖 完整安裝說明與參數值請見 [Artifact Hub →](https://artifacthub.io/packages/helm/autonomy-cloud/operations)

@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### Пользовательские метрики
 
-Пользовательские метрики можно записывать из скрипта с помощью функции `oneuptime.captureMetric()`. Метрики сохраняются в Cast Operations и могут быть отображены на панелях управления с помощью обозревателя метрик.
+Пользовательские метрики можно записывать из скрипта с помощью функции `cast-operations.captureMetric()`. Метрики сохраняются в Cast Operations и могут быть отображены на панелях управления с помощью обозревателя метрик.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (строка, обязательно): название метрики (например, `"api.response.time"`). Автоматически сохраняется с префиксом `custom.monitor.`.
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // Запись простой метрики
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // Запись метрики с атрибутами
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ return {
 - `axios`: модуль для выполнения HTTP-запросов. Это основанный на промисах HTTP-клиент для браузера и Node.js.
 - `crypto`: модуль для выполнения криптографических операций. Встроенный модуль Node.js, предоставляющий криптографическую функциональность, включая обёртки для хеширования, HMAC, шифрования/расшифровки OpenSSL.
 - `console.log`: модуль для вывода данных в консоль. Полезен для отладки.
-- `oneuptime.captureMetric`: функция записи пользовательских метрик из скрипта. См. раздел «Пользовательские метрики» выше.
+- `cast-operations.captureMetric`: функция записи пользовательских метрик из скрипта. См. раздел «Пользовательские метрики» выше.
 - `http`: модуль для выполнения HTTP-запросов. Встроенный модуль Node.js.
 - `https`: модуль для выполнения HTTPS-запросов. Встроенный модуль Node.js.
 

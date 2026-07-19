@@ -25,7 +25,7 @@ import IconProp from "Common/Types/Icon/IconProp";
 import { RangeStartAndEndDateTimeUtil } from "Common/Types/Time/RangeStartAndEndDateTime";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Query from "Common/Types/BaseDatabase/Query";
 import JSONFunctions from "Common/Types/JSONFunctions";
 
@@ -183,7 +183,7 @@ const DashboardTraceListComponentElement: FunctionComponent<ComponentProps> = (
         STATUS_COLORS[statusCode] || STATUS_COLORS[SpanStatus.Unset]!;
       const durationNano: number = (span.durationUnixNano as number) || 0;
       const startTime: Date | undefined = span.startTime
-        ? OneUptimeDate.fromString(span.startTime as unknown as string)
+        ? OperationsDate.fromString(span.startTime as unknown as string)
         : undefined;
       const id: string =
         (span.spanId as string) || (span.traceId as string) || `${index}`;
@@ -199,7 +199,7 @@ const DashboardTraceListComponentElement: FunctionComponent<ComponentProps> = (
             {
               label: "Time",
               value: startTime
-                ? OneUptimeDate.getDateAsLocalFormattedString(startTime, true)
+                ? OperationsDate.getDateAsLocalFormattedString(startTime, true)
                 : "—",
             },
           ],
@@ -215,7 +215,7 @@ const DashboardTraceListComponentElement: FunctionComponent<ComponentProps> = (
       const statusStyle: StatusStyle = getStatusStyle(statusCode);
       const durationNano: number = (span.durationUnixNano as number) || 0;
       const startTime: Date | undefined = span.startTime
-        ? OneUptimeDate.fromString(span.startTime as unknown as string)
+        ? OperationsDate.fromString(span.startTime as unknown as string)
         : undefined;
 
       return (
@@ -239,7 +239,7 @@ const DashboardTraceListComponentElement: FunctionComponent<ComponentProps> = (
           </td>
           <td className="px-3 py-2 text-xs text-gray-500 tabular-nums">
             {startTime
-              ? OneUptimeDate.getDateAsLocalFormattedString(startTime, true)
+              ? OperationsDate.getDateAsLocalFormattedString(startTime, true)
               : "—"}
           </td>
         </tr>

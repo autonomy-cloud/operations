@@ -1,11 +1,9 @@
 import ProjectAPI from "../../../Server/API/ProjectAPI";
-import BillingService from "../../../Server/Services/BillingService";
-import ProjectService from "../../../Server/Services/ProjectService";
 import TeamMemberService from "../../../Server/Services/TeamMemberService";
 import {
   NextFunction,
-  OneUptimeRequest,
-  OneUptimeResponse,
+  OperationsRequest,
+  OperationsResponse,
 } from "../../../Server/Utils/Express";
 import Response from "../../../Server/Utils/Response";
 import { mockRouter } from "./Helpers";
@@ -17,17 +15,12 @@ import ObjectID from "../../../Types/ObjectID";
 import PositiveNumber from "../../../Types/PositiveNumber";
 import Project from "../../../Models/DatabaseModels/Project";
 import TeamMember from "../../../Models/DatabaseModels/TeamMember";
-import BadDataException from "../../../Types/Exception/BadDataException";
-import Permission, { UserPermission } from "../../../Types/Permission";
 
 jest.mock("../../../Server/EnvironmentConfig", () => {
   return {
     ...jest.requireActual("../../../Server/EnvironmentConfig"),
-    IsBillingEnabled: true,
   };
 });
-
-jest.mock("../../../Server/Services/BillingService");
 
 jest.mock("../../../Server/Utils/Express", () => {
   return {
@@ -56,18 +49,18 @@ jest.mock("../../../Server/Services/TeamMemberService");
 jest.mock("../../../Server/Services/ProjectService");
 
 describe("ProjectAPI", () => {
-  let mockRequest: OneUptimeRequest;
-  let mockResponse: OneUptimeResponse;
+  let mockRequest: OperationsRequest;
+  let mockResponse: OperationsResponse;
   let nextFunction: NextFunction;
 
   beforeEach(() => {
     new ProjectAPI();
-    mockRequest = {} as OneUptimeRequest;
+    mockRequest = {} as OperationsRequest;
     mockResponse = {
       send: jest.fn(),
       json: jest.fn(),
       status: jest.fn().mockReturnThis(),
-    } as unknown as OneUptimeResponse;
+    } as unknown as OperationsResponse;
     nextFunction = jest.fn();
   });
 
@@ -106,12 +99,7 @@ describe("ProjectAPI", () => {
           project: {
             _id: true,
             name: true,
-            trialEndsAt: true,
-            paymentProviderPlanId: true,
-            resellerId: true,
             isFeatureFlagMonitorGroupsEnabled: true,
-            paymentProviderMeteredSubscriptionStatus: true,
-            paymentProviderSubscriptionStatus: true,
           },
         },
         limit: LIMIT_PER_PROJECT,
@@ -189,12 +177,7 @@ describe("ProjectAPI", () => {
           project: {
             _id: true,
             name: true,
-            trialEndsAt: true,
-            paymentProviderPlanId: true,
-            resellerId: true,
             isFeatureFlagMonitorGroupsEnabled: true,
-            paymentProviderMeteredSubscriptionStatus: true,
-            paymentProviderSubscriptionStatus: true,
           },
         },
         limit: LIMIT_PER_PROJECT,
@@ -227,84 +210,6 @@ describe("ProjectAPI", () => {
         .handlerFunction(mockRequest, mockResponse, nextFunction);
 
       expect(nextFunction).toHaveBeenCalledWith(authError);
-    });
-  });
-
-  describe("PUT /project/:id/change-plan", () => {
-    const planId: string = "plan_123";
-
-    const tenantMismatchError: BadDataException = new BadDataException(
-      "Project ID in the URL does not match the project the request is authenticated for",
-    );
-
-    beforeEach(() => {
-      ProjectService.findOneById = jest.fn().mockResolvedValue({
-        paymentProviderCustomerId: "cus_123",
-      } as Project);
-      ProjectService.changePlan = jest.fn().mockResolvedValue(undefined);
-      BillingService.hasPaymentMethods = jest.fn().mockResolvedValue(true);
-    });
-
-    it("should reject when the URL project id does not match the authenticated tenant", async () => {
-      const victimProjectId: ObjectID = ObjectID.generate();
-      const attackerProjectId: ObjectID = ObjectID.generate();
-
-      mockRequest.params = { id: victimProjectId.toString() };
-      mockRequest.tenantId = attackerProjectId;
-      mockRequest.body = { data: { paymentProviderPlanId: planId } };
-
-      await mockRouter
-        .match("put", "/project/:id/change-plan")
-        .handlerFunction(mockRequest, mockResponse, nextFunction);
-
-      expect(nextFunction).toHaveBeenCalledWith(tenantMismatchError);
-      expect(ProjectService.changePlan).not.toHaveBeenCalled();
-      // the foreign project must not even be looked up.
-      expect(ProjectService.findOneById).not.toHaveBeenCalled();
-    });
-
-    it("should reject when the request has no authenticated tenant", async () => {
-      const projectId: ObjectID = ObjectID.generate();
-
-      mockRequest.params = { id: projectId.toString() };
-      mockRequest.body = { data: { paymentProviderPlanId: planId } };
-
-      await mockRouter
-        .match("put", "/project/:id/change-plan")
-        .handlerFunction(mockRequest, mockResponse, nextFunction);
-
-      expect(nextFunction).toHaveBeenCalledWith(tenantMismatchError);
-      expect(ProjectService.changePlan).not.toHaveBeenCalled();
-    });
-
-    it("should change the plan of the authenticated tenant's own project", async () => {
-      const projectId: ObjectID = ObjectID.generate();
-
-      mockRequest.params = { id: projectId.toString() };
-      mockRequest.tenantId = projectId;
-      mockRequest.body = { data: { paymentProviderPlanId: planId } };
-
-      jest
-        .spyOn(ProjectAPI.prototype, "getPermissionsForTenant")
-        .mockResolvedValue([
-          {
-            permission: Permission.ProjectOwner,
-          } as UserPermission,
-        ]);
-
-      await mockRouter
-        .match("put", "/project/:id/change-plan")
-        .handlerFunction(mockRequest, mockResponse, nextFunction);
-
-      expect(nextFunction).not.toHaveBeenCalled();
-      expect(ProjectService.changePlan).toHaveBeenCalledWith({
-        projectId: projectId,
-        paymentProviderPlanId: planId,
-      });
-      expect(Response.sendEmptySuccessResponse).toHaveBeenCalledWith(
-        mockRequest,
-        mockResponse,
-      );
     });
   });
 });

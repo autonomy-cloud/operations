@@ -1,8 +1,5 @@
 import UserMiddleware from "Common/Server/Middleware/UserAuthorization";
-import {
-  IsBillingEnabled,
-  getFrontendEnvVars,
-} from "Common/Server/EnvironmentConfig";
+import { getFrontendEnvVars } from "Common/Server/EnvironmentConfig";
 import Express, {
   ExpressApplication,
   ExpressRequest,
@@ -332,7 +329,7 @@ const renderFrontendIndexPage: (
     }
 
     res.render(frontendConfig.indexViewPath, {
-      enableGoogleTagManager: IsBillingEnabled || false,
+      enableGoogleTagManager: false,
       ...variables,
     });
   } catch (err) {
@@ -504,10 +501,6 @@ const registerDashboardFallbackForPrimaryHost: () => void = (): void => {
   app.get(
     "*",
     async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
-      if (IsBillingEnabled) {
-        return next();
-      }
-
       if (!isPrimaryHostRequest(req)) {
         return next();
       }
@@ -531,7 +524,7 @@ const registerDashboardRootPwaFiles: () => void = (): void => {
     app.get(
       pwaFileRoute.route,
       (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
-        if (IsBillingEnabled || !isPrimaryHostRequest(req)) {
+        if (!isPrimaryHostRequest(req)) {
           return next();
         }
 

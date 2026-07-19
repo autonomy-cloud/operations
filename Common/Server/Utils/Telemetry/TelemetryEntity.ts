@@ -6,7 +6,7 @@ import {
 import EntityType from "../../../Types/Telemetry/EntityType";
 import Dictionary from "../../../Types/Dictionary";
 import logger from "../Logger";
-import { ONEUPTIME_LABEL_ATTRIBUTE_PREFIX } from "./OneuptimeLabel";
+import { CAST_OPERATIONS_LABEL_ATTRIBUTE_PREFIX } from "./OperationsLabel";
 import crypto from "crypto";
 
 /*
@@ -77,7 +77,7 @@ export interface ExtractedEntity {
    */
   descriptiveAttributes?: Record<string, string>;
   /**
-   * Label names promoted from `oneuptime.label.<name>` resource
+   * Label names promoted from `cast-operations.label.<name>` resource
    * attributes (the suffix after the prefix, trimmed). Non-identifying;
    * the registry attaches them via the existing project label system.
    */
@@ -366,7 +366,7 @@ export default class TelemetryEntity {
   }
 
   /**
-   * Label names promoted from `oneuptime.label.<name>` resource
+   * Label names promoted from `cast-operations.label.<name>` resource
    * attributes — the suffix after the prefix, trimmed, deduped, sorted.
    * Purely descriptive; never identity-bearing.
    */
@@ -374,11 +374,11 @@ export default class TelemetryEntity {
     const seen: Set<string> = new Set<string>();
 
     for (const key of Object.keys(attrs || {})) {
-      if (!key.startsWith(ONEUPTIME_LABEL_ATTRIBUTE_PREFIX)) {
+      if (!key.startsWith(CAST_OPERATIONS_LABEL_ATTRIBUTE_PREFIX)) {
         continue;
       }
       const labelName: string = key
-        .substring(ONEUPTIME_LABEL_ATTRIBUTE_PREFIX.length)
+        .substring(CAST_OPERATIONS_LABEL_ATTRIBUTE_PREFIX.length)
         .trim();
       if (labelName) {
         seen.add(labelName);

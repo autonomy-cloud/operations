@@ -50,7 +50,7 @@ export default class ProductAnalytics {
           event: data.event,
           distinct_id: data.distinctId,
           properties: {
-            source: "oneuptime-server",
+            source: "cast-operations-server",
             ...(data.properties || {}),
           },
         },

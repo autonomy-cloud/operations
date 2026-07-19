@@ -9,7 +9,7 @@ Cast Operations Terraformプロバイダーは公式の [Terraform Registry](htt
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 最新の互換バージョンを使用
     }
@@ -17,9 +17,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -30,7 +30,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 正確なCast Operationsバージョンに置き換えてください
     }
@@ -38,9 +38,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # セルフホストURL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # セルフホストURL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -77,8 +77,8 @@ curl https://your-operations-instance.com/api/version | jq '.version'
 ### 方法3：Docker
 
 ```bash
-docker images | grep oneuptime
-# タグを確認、例：oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# タグを確認、例：cast-operations/dashboard:7.0.123
 ```
 
 ## プロバイダーのRegistry情報
@@ -102,28 +102,28 @@ docker images | grep oneuptime
 # プロバイダーを設定
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # セルフホストの場合は調整
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # セルフホストの場合は調整
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # セルフホストの場合は調整
+  api_key       = var.cast_operations_api_key
 }
 
 # プロジェクトを作成
-resource "oneuptime_project" "example" {
+resource "cast_operations_project" "example" {
   name        = "Terraform例"
   description = "Terraformで作成"
 }
 
 # ウェブサイトモニターを作成
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name       = "ウェブサイトモニター"
-  project_id = oneuptime_project.example.id
+  project_id = cast_operations_project.example.id
 
   monitor_type = "website"
   url          = "https://example.com"

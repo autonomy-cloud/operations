@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import IncidentEpisodeService from "Common/Server/Services/IncidentEpisodeService";
 import IncidentEpisodeMemberService from "Common/Server/Services/IncidentEpisodeMemberService";
@@ -189,7 +189,7 @@ const checkAndResolveEpisode: CheckAndResolveEpisodeFunction = async (
       await IncidentEpisodeService.updateOneById({
         id: episode.id,
         data: {
-          allIncidentsResolvedAt: OneUptimeDate.getCurrentDate(),
+          allIncidentsResolvedAt: OperationsDate.getCurrentDate(),
         },
         props: {
           isRoot: true,
@@ -211,10 +211,11 @@ const checkAndResolveEpisode: CheckAndResolveEpisodeFunction = async (
       resolveDelayMinutes > 0 &&
       episode.allIncidentsResolvedAt
     ) {
-      const timeSinceAllResolved: number = OneUptimeDate.getDifferenceInMinutes(
-        episode.allIncidentsResolvedAt,
-        OneUptimeDate.getCurrentDate(),
-      );
+      const timeSinceAllResolved: number =
+        OperationsDate.getDifferenceInMinutes(
+          episode.allIncidentsResolvedAt,
+          OperationsDate.getCurrentDate(),
+        );
 
       if (timeSinceAllResolved < resolveDelayMinutes) {
         logger.debug(

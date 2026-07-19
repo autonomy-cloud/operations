@@ -9,7 +9,7 @@ import MonitorService from "./MonitorService";
 import UserService from "./UserService";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
 import PositiveNumber from "../../Types/PositiveNumber";
@@ -47,7 +47,7 @@ export class Service extends DatabaseService<MonitorStatusTimeline> {
     }
 
     if (!createBy.data.startsAt) {
-      createBy.data.startsAt = OneUptimeDate.getCurrentDate();
+      createBy.data.startsAt = OperationsDate.getCurrentDate();
     }
 
     if (

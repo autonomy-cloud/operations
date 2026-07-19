@@ -8,6 +8,6 @@
  * Runs via setupFiles (before the test module is loaded), NOT
  * setupFilesAfterEnv, so these are set before Config's top-level checks run.
  */
-process.env["ONEUPTIME_URL"] =
-  process.env["ONEUPTIME_URL"] || "http://localhost";
+process.env["CAST_OPERATIONS_URL"] =
+  process.env["CAST_OPERATIONS_URL"] || "http://localhost";
 process.env["AI_AGENT_KEY"] = process.env["AI_AGENT_KEY"] || "test-agent-key";

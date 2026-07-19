@@ -18,7 +18,7 @@ export default class WriteRegressionTestTaskHandler extends ExceptionPullRequest
   public readonly taskType: string = CodeFixTaskType.WriteRegressionTest;
   public readonly name: string = "Write Regression Test Handler";
 
-  protected readonly branchPrefix: string = "oneuptime-regression-test-";
+  protected readonly branchPrefix: string = "cast-operations-regression-test-";
   protected readonly noActionMessage: string =
     "No regression test could be written for any repository";
 

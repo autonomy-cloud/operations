@@ -50,7 +50,7 @@ ServiceNow の Table API は **Basic 認証**を受け付けます。
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
-       "correlation_id": "oneuptime-{{Incident._id}}"
+       "correlation_id": "cast-operations-{{Incident._id}}"
      }
      ```
 
@@ -61,7 +61,7 @@ ServiceNow の Table API は **Basic 認証**を受け付けます。
 ## ステップ 3 — Cast Operations の解決時に解決する (オプション)
 
 1. **Incident → On Update** トリガーと、インシデントが解決済みかどうかをチェックする **Conditions** ブロックを持つ**2 つ目のワークフロー**を作成します。
-2. 正しい ServiceNow レコードを更新するには `sys_id` が必要です。ステップ 2 で `{{CreateRecord.response-body.result.sys_id}}` を読み取って **Update Incident** でラベルに書き込んで Cast Operations インシデントに保存するか、`GET` で `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}` を呼び出してレコードを検索します。
+2. 正しい ServiceNow レコードを更新するには `sys_id` が必要です。ステップ 2 で `{{CreateRecord.response-body.result.sys_id}}` を読み取って **Update Incident** でラベルに書き込んで Cast Operations インシデントに保存するか、`GET` で `/api/now/table/incident?sysparm_query=correlation_id=cast-operations-{{Incident._id}}` を呼び出してレコードを検索します。
 3. **API** ブロックを追加します: **Method** `PATCH`、**URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`、ボディ `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }` (`state` `6` はデフォルトの ITIL ワークフローで「解決済み」を意味します)。
 
 ## トラブルシューティング

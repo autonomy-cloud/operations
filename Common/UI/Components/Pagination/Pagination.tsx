@@ -74,12 +74,23 @@ const Pagination: FunctionComponent<ComponentProps> = (
     ? props.isLoading || props.isError
     : props.totalItemsCount === 0 || props.isLoading || props.isError;
 
+  const currentPageOffset: number =
+    props.itemsOnPage * (props.currentPageNumber - 1);
+  const firstVisibleItem: number =
+    props.totalItemsCount > currentPageOffset ? currentPageOffset + 1 : 0;
+  const lastVisibleItem: number = isHasMoreMode
+    ? currentPageOffset + Math.max(props.totalItemsCount - currentPageOffset, 0)
+    : Math.min(
+        props.itemsOnPage * props.currentPageNumber,
+        props.totalItemsCount,
+      );
+
   const [showPaginationModel, setShowPaginationModel] =
     useState<boolean>(false);
 
   return (
     <nav
-      className="flex items-center justify-between border-t border-gray-200 bg-white px-4"
+      className="operations-pagination flex items-center justify-between border-t border-gray-200 bg-white px-4"
       data-testid={props.dataTestId}
       aria-label={`Pagination for ${props.pluralLabel}`}
     >
@@ -88,16 +99,9 @@ const Pagination: FunctionComponent<ComponentProps> = (
         <p className="text-sm text-gray-500">
           {!props.isLoading && isHasMoreMode && (
             <span>
-              {`Showing ${
-                props.itemsOnPage * (props.currentPageNumber - 1) + 1
-              } to ${
-                props.itemsOnPage * (props.currentPageNumber - 1) +
-                Math.max(
-                  props.totalItemsCount -
-                    props.itemsOnPage * (props.currentPageNumber - 1),
-                  0,
-                )
-              }${props.hasMore ? "+" : ""} ${props.pluralLabel.toLowerCase()}.`}
+              {`Showing ${firstVisibleItem} to ${lastVisibleItem}${
+                props.hasMore ? "+" : ""
+              } ${props.pluralLabel.toLowerCase()}.`}
             </span>
           )}
           {!props.isLoading && !isHasMoreMode && (
@@ -106,11 +110,7 @@ const Pagination: FunctionComponent<ComponentProps> = (
               {props.totalItemsCount > 1
                 ? props.pluralLabel
                 : props.singularLabel}{" "}
-              {`in total. Showing ${
-                props.itemsOnPage * (props.currentPageNumber - 1) + 1
-              } to ${
-                props.itemsOnPage * props.currentPageNumber
-              } on this page.`}
+              {`in total. Showing ${firstVisibleItem} to ${lastVisibleItem} on this page.`}
             </span>
           )}
         </p>

@@ -48,7 +48,7 @@ Keycloak は、人気のあるオープンソースの ID およびアクセス�
 1. Cast Operations ダッシュボードにログインします
 2. **プロジェクト設定** > **認証** > **SSO** に移動します
 3. **SSO を作成** をクリックして以下を入力します。
-   - **名前**: わかりやすい名前（例: `my-project-oneuptime`）
+   - **名前**: わかりやすい名前（例: `my-project-cast-operations`）
    - **サインオン URL**: `https://<your-keycloak-domain>/auth/realms/<your-realm>/protocol/saml`
    - **発行者**: `https://<your-keycloak-domain>/auth/realms/<your-realm>`
    - **証明書**: 以下の[ステップ 2](#ステップ-2-keycloak-証明書を取得する)を参照
@@ -201,9 +201,9 @@ Okta は、堅牢な SAML SSO 機能を提供する広く使用されている I
 2. **プロジェクト設定** > **認証** > **SSO** に移動します
 3. **SSO を作成** をクリックして以下を入力します。
    - **名前**: わかりやすい名前（例: `Okta SAML`）
-   - **サインオン URL**: [ステップ 3](#ステップ-3-okta-saml-メタデータを-oneuptime-にコピーする) で Okta から取得します
-   - **発行者**: [ステップ 3](#ステップ-3-okta-saml-メタデータを-oneuptime-にコピーする) で Okta から取得します
-   - **証明書**: [ステップ 3](#ステップ-3-okta-saml-メタデータを-oneuptime-にコピーする) で Okta から取得します
+   - **サインオン URL**: [ステップ 3](#ステップ-3-okta-saml-メタデータを-cast-operations-にコピーする) で Okta から取得します
+   - **発行者**: [ステップ 3](#ステップ-3-okta-saml-メタデータを-cast-operations-にコピーする) で Okta から取得します
+   - **証明書**: [ステップ 3](#ステップ-3-okta-saml-メタデータを-cast-operations-にコピーする) で Okta から取得します
    - **署名アルゴリズム**: `RSA-SHA-256`
    - **ダイジェストアルゴリズム**: `SHA256`
 4. **SSO 設定を表示** をクリックして **識別子（エンティティ ID）** と **返信 URL（アサーションコンシューマーサービス URL）** をコピーします - Okta の設定に必要です

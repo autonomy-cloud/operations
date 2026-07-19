@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Typeof from "Common/Types/Typeof";
 
 /*
@@ -20,18 +20,18 @@ export function wallClockInputToStoredInstant(
   value: Date | string,
   timezone?: string | undefined,
 ): Date {
-  let date: Date = OneUptimeDate.getCurrentDate();
+  let date: Date = OperationsDate.getCurrentDate();
 
   if (value instanceof Date) {
     date = value;
   }
 
   if (typeof value === Typeof.String) {
-    date = OneUptimeDate.fromString(value as string);
+    date = OperationsDate.fromString(value as string);
   }
 
   return timezone
-    ? OneUptimeDate.getInstantFromLocalWallClockInTimezone(date, timezone)
+    ? OperationsDate.getInstantFromLocalWallClockInTimezone(date, timezone)
     : date;
 }
 
@@ -48,9 +48,9 @@ export function storedInstantToWallClockInput(
     return undefined;
   }
 
-  const instant: Date = OneUptimeDate.fromString(stored as any);
+  const instant: Date = OperationsDate.fromString(stored as any);
 
   return timezone
-    ? OneUptimeDate.getLocalDateFromWallClockInTimezone(instant, timezone)
+    ? OperationsDate.getLocalDateFromWallClockInTimezone(instant, timezone)
     : instant;
 }

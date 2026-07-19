@@ -16,7 +16,7 @@ Azure Account - You can create one by going to https://azure.com.
 1. Go to the [Azure Portal](https://portal.azure.com)
 2. Navigate to "App registrations" and click "New registration"
 3. Fill out the registration form:
-   - **Name:** oneuptime
+   - **Name:** cast-operations
    - **Supported account types:** Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)
    - **Redirect URI:** Web - \`${window.location.origin}/api/microsoft-teams/auth\`
    - Please also add: \`${window.location.origin}/api/microsoft-teams/admin-consent/callback\`
@@ -60,11 +60,11 @@ Please note: Do not copy the secret ID, you need the secret VALUE which is typic
 
 1. In the Azure Portal, navigate to "Azure Bot" and click "Create"
 2. Fill out the bot creation form:
-   - **Bot handle:** oneuptime-bot
+   - **Bot handle:** cast-operations-bot
    - **Subscription:** Your Azure subscription
    - **Resource group:** Create a new one or use an existing one
    - **Location:** Choose a location close to your users
-   - **Pricing tier:** F0 (Free) is sufficient for testing
+   - **Service plan:** F0 (Free) is sufficient for testing
   - Please use the App (client) ID and Tenant ID from your app registration created earlier
 
 3. Click "Review + create" and then "Create"

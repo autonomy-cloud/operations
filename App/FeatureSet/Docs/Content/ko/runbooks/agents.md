@@ -49,18 +49,18 @@ Runbook 에이전트는 이를 뒤집습니다. Bash와 JavaScript 단계는 우
 - Bash/JavaScript 단계로 하고 싶은 일을 할 수 있어야 합니다 (다른 호스트로 SSH, `kubectl`, 데이터베이스와 통신 등).
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.yourdomain.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.yourdomain.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. 에이전트 연결 확인
 
 **Runbooks → 설정 → 에이전트**로 돌아갑니다. 약 60초 안에 에이전트의 행이 `Connected`로 바뀌고 **마지막 확인** 시각이 갱신되어야 합니다. 계속 `Disconnected`라면:
 
-- 컨테이너 로그(`docker logs oneuptime-runbook-agent`)에서 인증 오류나 네트워크 실패를 확인.
+- 컨테이너 로그(`docker logs cast-operations-runbook-agent`)에서 인증 오류나 네트워크 실패를 확인.
 - 호스트에서 `curl`로 Cast Operations URL에 닿는지 확인.
 - ID와 키가 공백 없이 복사됐는지 확인.
 
@@ -116,7 +116,7 @@ Runbook 실행을 (실행 뷰나 API에서) 취소하면 `Pending`/`Claimed`/`Ru
 
 | 변수                                      | 필수   | 기본값  | 메모                                                                     |
 | ----------------------------------------- | ------ | ------- | ------------------------------------------------------------------------ |
-| `ONEUPTIME_URL`                           | 예     | —       | Cast Operations 인스턴스의 베이스 URL, 예: `https://operations.yourdomain.com`. |
+| `CAST_OPERATIONS_URL`                           | 예     | —       | Cast Operations 인스턴스의 베이스 URL, 예: `https://operations.yourdomain.com`. |
 | `RUNBOOK_AGENT_ID`                        | 예     | —       | 에이전트의 설치 모달에 나오는 UUID.                                      |
 | `RUNBOOK_AGENT_KEY`                       | 예     | —       | 에이전트의 설치 모달에 나오는 시크릿.                                    |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | 아니오 | `5000`  | 새 작업을 폴링하는 주기.                                                 |

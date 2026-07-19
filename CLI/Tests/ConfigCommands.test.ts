@@ -5,7 +5,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
 
-const CONFIG_DIR: string = path.join(os.homedir(), ".oneuptime");
+const CONFIG_DIR: string = path.join(os.homedir(), ".cast-operations");
 const CONFIG_FILE: string = path.join(CONFIG_DIR, "config.json");
 
 describe("ConfigCommands", () => {

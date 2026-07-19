@@ -11,10 +11,10 @@
 프로브를 실행하려면 Docker가 설치되어 있는지 확인하십시오. 다음 명령으로 커스텀 프로브를 실행할 수 있습니다:
 
 ```
-docker run --name oneuptime-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e ONEUPTIME_URL=https://visca.ai -d oneuptime/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
 ```
 
-Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
+Cast Operations을 자체 호스팅하는 경우 `CAST_OPERATIONS_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
 
 ##### 프록시 구성
 
@@ -22,32 +22,32 @@ Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 �
 
 ```
 # HTTP 프록시의 경우
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # HTTPS 프록시의 경우
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 
 # 프록시 인증과 함께
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 #### Docker Compose
@@ -58,13 +58,13 @@ docker-compose를 사용하여 프로브를 실행할 수도 있습니다. 다�
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
     network_mode: host
     restart: always
 ```
@@ -77,13 +77,13 @@ services:
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       # 프록시 구성 (선택 사항)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -102,35 +102,35 @@ services:
 docker compose up -d
 ```
 
-Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
+Cast Operations을 자체 호스팅하는 경우 `CAST_OPERATIONS_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
 
 #### Kubernetes
 
-Kubernetes를 사용하여 프로브를 실행할 수도 있습니다. 다음 내용으로 `oneuptime-probe.yaml` 파일을 생성합니다:
+Kubernetes를 사용하여 프로브를 실행할 수도 있습니다. 다음 내용으로 `cast-operations-probe.yaml` 파일을 생성합니다:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
 ```
 
@@ -142,25 +142,25 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             # 프록시 구성 (선택 사항)
             - name: HTTP_PROXY_URL
@@ -181,10 +181,10 @@ spec:
 그런 다음 다음 명령을 실행합니다:
 
 ```bash
-kubectl apply -f oneuptime-probe.yaml
+kubectl apply -f cast-operations-probe.yaml
 ```
 
-Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
+Cast Operations을 자체 호스팅하는 경우 `CAST_OPERATIONS_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
 
 ### 환경 변수
 
@@ -194,7 +194,7 @@ Cast Operations을 자체 호스팅하는 경우 `ONEUPTIME_URL`을 커스텀 �
 
 - `PROBE_KEY` - Cast Operations 대시보드의 프로브 키
 - `PROBE_ID` - Cast Operations 대시보드의 프로브 ID
-- `ONEUPTIME_URL` - Cast Operations 인스턴스의 URL (기본값: https://visca.ai)
+- `CAST_OPERATIONS_URL` - Cast Operations 인스턴스의 URL (기본값: https://visca.ai)
 
 #### 선택적 변수
 

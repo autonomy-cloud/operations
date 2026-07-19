@@ -198,7 +198,7 @@ export default class MicrosoftTeamsAuthAction {
   }
 
   @CaptureSpan()
-  public static async getOneUptimeUserIdFromTeamsUserId(data: {
+  public static async getOperationsUserIdFromTeamsUserId(data: {
     teamsUserId: string;
     projectId: ObjectID;
   }): Promise<ObjectID> {
@@ -240,7 +240,8 @@ export default class MicrosoftTeamsAuthAction {
       );
     } catch (error) {
       logger.error(
-        "Error finding Cast Operations user for Teams user: " + data.teamsUserId,
+        "Error finding Cast Operations user for Teams user: " +
+          data.teamsUserId,
         {
           projectId: data.projectId.toString(),
           workspaceUserId: data.teamsUserId,

@@ -14,7 +14,7 @@ import IncidentSeverity from "../../Models/DatabaseModels/IncidentSeverity";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import logger, { LogAttributes } from "../Utils/Logger";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import QueryHelper from "../Types/Database/QueryHelper";
 import IncidentGroupingRuleService from "./IncidentGroupingRuleService";
 import IncidentService from "./IncidentService";
@@ -455,7 +455,7 @@ class IncidentGroupingEngineServiceClass {
       let timeWindowCutoff: Date | null = null;
       if (rule.enableTimeWindow) {
         const timeWindowMinutes: number = rule.timeWindowMinutes || 60;
-        timeWindowCutoff = OneUptimeDate.getSomeMinutesAgo(timeWindowMinutes);
+        timeWindowCutoff = OperationsDate.getSomeMinutesAgo(timeWindowMinutes);
       }
 
       // Find existing active episode that matches
@@ -497,7 +497,7 @@ class IncidentGroupingEngineServiceClass {
         const reopenWindowMinutes: number = rule.reopenWindowMinutes || 0;
         if (reopenWindowMinutes > 0) {
           const reopenCutoff: Date =
-            OneUptimeDate.getSomeMinutesAgo(reopenWindowMinutes);
+            OperationsDate.getSomeMinutesAgo(reopenWindowMinutes);
           const recentlyResolvedEpisode: IncidentEpisode | null =
             await this.findRecentlyResolvedEpisode(
               incident.projectId!,
@@ -838,7 +838,7 @@ class IncidentGroupingEngineServiceClass {
     newEpisode.incidentGroupingRuleId = rule.id!;
     newEpisode.groupingKey = groupingKey;
     newEpisode.isManuallyCreated = false;
-    newEpisode.lastIncidentAddedAt = OneUptimeDate.getCurrentDate();
+    newEpisode.lastIncidentAddedAt = OperationsDate.getCurrentDate();
 
     // Set severity from incident
     if (incident.incidentSeverityId) {

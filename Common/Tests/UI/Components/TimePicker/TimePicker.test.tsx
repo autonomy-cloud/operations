@@ -21,7 +21,7 @@ type HourMinuteMock = {
   getMinutes: () => number;
 };
 
-// Mock OneUptimeDate utilities used by the component
+// Mock OperationsDate utilities used by the component
 jest.mock("../../../../Types/Date", () => {
   const real: DateModule = jest.requireActual("../../../../Types/Date");
   // Helper to create a minimal date-like object with getHours/getMinutes

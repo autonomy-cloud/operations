@@ -14,7 +14,7 @@ import HTTPResponse from "Common/Types/API/HTTPResponse";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
 import { Blue500 } from "Common/Types/BrandColors";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -168,7 +168,7 @@ export const getAnnouncementEventItem: GetAnnouncementEventItemFunction = (
     eventTypeColor: Blue500,
     eventSecondDescription: announcement.showAnnouncementAt!
       ? i18n.t("announcements.announcedAt") +
-        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
           announcement.showAnnouncementAt!,
         )
       : "",

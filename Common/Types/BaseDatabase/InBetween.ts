@@ -1,4 +1,4 @@
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 import BadDataException from "../Exception/BadDataException";
 import { JSONObject, ObjectType } from "../JSON";
 import QueryOperator from "./QueryOperator";
@@ -51,11 +51,11 @@ export default class InBetween<
     let endValue: T = this.endValue;
 
     if (startValue instanceof Date) {
-      startValue = OneUptimeDate.asDateForDatabaseQuery(startValue) as T;
+      startValue = OperationsDate.asDateForDatabaseQuery(startValue) as T;
     }
 
     if (endValue instanceof Date) {
-      endValue = OneUptimeDate.asDateForDatabaseQuery(endValue) as T;
+      endValue = OperationsDate.asDateForDatabaseQuery(endValue) as T;
     }
 
     if (startValue.toString() === endValue.toString()) {

@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { BasicDiskMetrics } from "Common/Types/Infrastructure/BasicMetrics";
 import ServerMonitorResponse from "Common/Types/Monitor/ServerMonitor/ServerMonitorResponse";
 import Button, { ButtonStyleType } from "Common/UI/Components/Button/Button";
@@ -168,7 +168,7 @@ const ServerMonitorSummaryView: FunctionComponent<ComponentProps> = (
           title="Last Ping At"
           value={
             props.serverMonitorResponse?.requestReceivedAt
-              ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+              ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   props.serverMonitorResponse.requestReceivedAt,
                 )
               : "-"

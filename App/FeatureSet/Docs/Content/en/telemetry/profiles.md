@@ -11,9 +11,9 @@ Cast Operations exposes a **Pyroscope-compatible ingest API**. Anything that can
 | Setting                             | Value                                               |
 | ----------------------------------- | --------------------------------------------------- |
 | Base URL (Pyroscope server address) | `https://visca.ai/pyroscope`                   |
-| Authentication header               | `x-oneuptime-token: YOUR_ONEUPTIME_INGESTION_TOKEN` |
+| Authentication header               | `x-cast-operations-token: YOUR_CAST_OPERATIONS_INGESTION_TOKEN` |
 
-Pyroscope SDKs append `/ingest` to the base URL and Grafana Alloy appends `/push.v1.PusherService/Push` — you always configure just the base URL. SDKs that take an `authToken` / `auth_token` option send it as `Authorization: Bearer <token>`, which Cast Operations accepts as an alias for the `x-oneuptime-token` header.
+Pyroscope SDKs append `/ingest` to the base URL and Grafana Alloy appends `/push.v1.PusherService/Push` — you always configure just the base URL. SDKs that take an `authToken` / `auth_token` option send it as `Authorization: Bearer <token>`, which Cast Operations accepts as an alias for the `x-cast-operations-token` header.
 
 **Self Hosted Cast Operations:** replace `https://visca.ai` with your own host, e.g. `http(s)://YOUR-OPERATIONS-HOST/pyroscope`.
 
@@ -62,17 +62,17 @@ discovery.relabel "alloy_profiles" {
 
 pyroscope.ebpf "default" {
   targets    = discovery.relabel.alloy_profiles.output
-  forward_to = [pyroscope.write.oneuptime.receiver]
+  forward_to = [pyroscope.write.cast-operations.receiver]
 
   collect_interval = "15s"
   sample_rate      = 97
 }
 
-pyroscope.write "oneuptime" {
+pyroscope.write "cast-operations" {
   endpoint {
     url = "https://visca.ai/pyroscope"
     headers = {
-      "x-oneuptime-token" = "YOUR_ONEUPTIME_INGESTION_TOKEN",
+      "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_INGESTION_TOKEN",
     }
   }
 }
@@ -114,7 +114,7 @@ import "github.com/grafana/pyroscope-go"
 pyroscope.Start(pyroscope.Config{
     ApplicationName: "my-service",
     ServerAddress:   "https://visca.ai/pyroscope",
-    AuthToken:       "YOUR_ONEUPTIME_INGESTION_TOKEN",
+    AuthToken:       "YOUR_CAST_OPERATIONS_INGESTION_TOKEN",
     ProfileTypes: []pyroscope.ProfileType{
         pyroscope.ProfileCPU,
         pyroscope.ProfileAllocObjects,
@@ -134,7 +134,7 @@ const Pyroscope = require("@pyroscope/nodejs");
 Pyroscope.init({
   serverAddress: "https://visca.ai/pyroscope",
   appName: "my-service",
-  authToken: "YOUR_ONEUPTIME_INGESTION_TOKEN",
+  authToken: "YOUR_CAST_OPERATIONS_INGESTION_TOKEN",
 });
 
 Pyroscope.start();
@@ -148,7 +148,7 @@ import pyroscope
 pyroscope.configure(
     application_name="my-service",
     server_address="https://visca.ai/pyroscope",
-    auth_token="YOUR_ONEUPTIME_INGESTION_TOKEN",
+    auth_token="YOUR_CAST_OPERATIONS_INGESTION_TOKEN",
 )
 ```
 
@@ -178,7 +178,7 @@ Anything else (for example a custom sample type) appears under "Other" with its 
 1. **Check your token.** The ingest endpoints intentionally return HTTP 200 even for an invalid token (so a misconfigured agent does not retry-storm the server), which means a silent token typo is invisible from the agent side. Ask the validation endpoint instead:
 
    ```bash
-   curl -i -H "x-oneuptime-token: YOUR_ONEUPTIME_INGESTION_TOKEN" \
+   curl -i -H "x-cast-operations-token: YOUR_CAST_OPERATIONS_INGESTION_TOKEN" \
      https://visca.ai/otlp/v1/validate
    ```
 

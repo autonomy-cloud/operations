@@ -10,7 +10,7 @@ import MutableMetricDatabaseService, {
 import TableColumnType from "../../Types/AnalyticsDatabase/TableColumnType";
 import { JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import GlobalCache from "../Infrastructure/GlobalCache";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import AnalyticsDatabaseService, {
@@ -179,8 +179,8 @@ export class TelemetryAttributeService {
   }
 
   private static getLookbackStartDate(): Date {
-    return OneUptimeDate.addRemoveDays(
-      OneUptimeDate.getCurrentDate(),
+    return OperationsDate.addRemoveDays(
+      OperationsDate.getCurrentDate(),
       -TelemetryAttributeService.LOOKBACK_WINDOW_IN_DAYS,
     );
   }
@@ -224,16 +224,19 @@ export class TelemetryAttributeService {
 
     return {
       attributes,
-      refreshedAt: OneUptimeDate.fromString(refreshedAtValue),
+      refreshedAt: OperationsDate.fromString(refreshedAtValue),
     };
   }
 
   private static isCacheFresh(
     cacheEntry: TelemetryAttributesCacheEntry,
   ): boolean {
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
     const minutesSinceRefresh: number = Math.abs(
-      OneUptimeDate.getNumberOfMinutesBetweenDates(cacheEntry.refreshedAt, now),
+      OperationsDate.getNumberOfMinutesBetweenDates(
+        cacheEntry.refreshedAt,
+        now,
+      ),
     );
 
     return (
@@ -247,7 +250,7 @@ export class TelemetryAttributeService {
   ): Promise<void> {
     const payload: JSONObject = {
       attributes,
-      refreshedAt: OneUptimeDate.getCurrentDate().toISOString(),
+      refreshedAt: OperationsDate.getCurrentDate().toISOString(),
     };
 
     try {

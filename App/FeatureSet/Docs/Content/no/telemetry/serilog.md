@@ -27,7 +27,7 @@ Når du har opprettet et token, klikker du på "View" for å vise tokenet.
 | Innstilling    | Verdi                                                      |
 | -------------- | ---------------------------------------------------------- |
 | OTLP-endepunkt | `https://visca.ai/otlp`                               |
-| Auth-header    | `x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN`        |
+| Auth-header    | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`        |
 | Tjenestenavn   | Navnet tjenesten din skal vises under, f.eks. `my-service` |
 
 > **Selvhoster du Cast Operations?** Erstatt `https://visca.ai/otlp` med `https://YOUR-OPERATIONS-HOST/otlp` (eller `http://...` hvis du ikke terminerer TLS). Alt annet forblir det samme.
@@ -76,7 +76,7 @@ Log.Logger = new LoggerConfiguration()
         // Authenticate with your Cast Operations telemetry ingestion token.
         options.Headers = new Dictionary<string, string>
         {
-            ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+            ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
         };
 
         // Identify your service in Cast Operations.
@@ -118,7 +118,7 @@ Hvis du foretrekker konfigurasjon fremfor kode, bruk `Serilog.Settings.Configura
           "endpoint": "https://visca.ai/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
-            "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+            "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
           },
           "resourceAttributes": {
             "service.name": "my-service",
@@ -169,7 +169,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
-                ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+                ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
             };
             options.ResourceAttributes = new Dictionary<string, object>
             {
@@ -228,9 +228,9 @@ Hvis applikasjonen din også er instrumentert med OpenTelemetry .NET SDK for tra
 
 ## Feilsøking
 
-- **Ingen logger vises** – Dobbeltsjekk verdien `x-oneuptime-token` og bekreft at den tilhører prosjektet du ser på. Verifiser at endepunktet er `https://visca.ai/otlp` (kun grunnsti — ikke legg til `/v1/logs` selv).
+- **Ingen logger vises** – Dobbeltsjekk verdien `x-cast-operations-token` og bekreft at den tilhører prosjektet du ser på. Verifiser at endepunktet er `https://visca.ai/otlp` (kun grunnsti — ikke legg til `/v1/logs` selv).
 - **Logger vises bare når appen avsluttes, eller de siste loggene mangler** – Sørg for at `Log.CloseAndFlush()` kjører ved nedstengning. Sinken samler hendelser i batcher, så bufrede logger går tapt hvis prosessen avsluttes uten å tømme bufferen.
-- **`401 Unauthorized` / ingenting tas imot** – Tokenet mangler eller er ugyldig. Bekreft at headernøkkelen er nøyaktig `x-oneuptime-token`.
+- **`401 Unauthorized` / ingenting tas imot** – Tokenet mangler eller er ugyldig. Bekreft at headernøkkelen er nøyaktig `x-cast-operations-token`.
 - **Feil tjenestenavn** – Sett `service.name` i `ResourceAttributes` (kode) eller `resourceAttributes` (appsettings.json). Uten det faller loggene tilbake til en standard/ukjent tjeneste.
 - **Tilkoblingsfeil til en selvhostet instans** – Sørg for at protokollen samsvarer med endepunktets skjema (`https://` vs `http://`) og at Cast Operations-hosten din er tilgjengelig fra applikasjonen.
 

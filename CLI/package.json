@@ -1,5 +1,5 @@
 {
-  "name": "@oneuptime/cli",
+  "name": "@cast-operations/cli",
   "version": "11.5.9",
   "description": "Cast Operations CLI - Command-line interface for managing Cast Operations resources",
   "repository": {
@@ -8,7 +8,7 @@
   },
   "main": "./build/dist/Index.js",
   "bin": {
-    "oneuptime": "build/dist/Index.js"
+    "cast-operations": "build/dist/Index.js"
   },
   "files": [
     "build/dist/**/*"
@@ -27,10 +27,10 @@
   "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
   "license": "Apache-2.0",
   "dependencies": {
-    "Common": "npm:@oneuptime/common@latest",
-    "commander": "^12.1.0",
     "chalk": "^4.1.2",
     "cli-table3": "^0.6.5",
+    "commander": "^12.1.0",
+    "Common": "file:../Common",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {

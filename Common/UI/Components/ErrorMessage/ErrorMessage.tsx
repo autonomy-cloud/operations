@@ -16,7 +16,7 @@ const ErrorMessage: FunctionComponent<ComponentProps> = (
         props.message
       : props.message;
   return (
-    <div className="text-center my-10 text-gray-500 text-sm">
+    <div className="operations-empty-state text-center my-10 text-gray-500 text-sm">
       {translatedMessage}
       {props.onRefreshClick ? (
         <div

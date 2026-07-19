@@ -1,5 +1,5 @@
 export function getDockerInstallationMarkdown(data: {
-  oneuptimeUrl: string;
+  castOperationsUrl: string;
   apiKey: string;
 }): string {
   return `
@@ -14,15 +14,15 @@ The Cast Operations Docker Agent is a pre-built image that ships with a tuned Op
 
 \`\`\`bash
 docker run -d \\
-  --name oneuptime-docker-agent \\
+  --name cast-operations-docker-agent \\
   --user 0:0 \\
   --restart unless-stopped \\
   -v /var/run/docker.sock:/var/run/docker.sock:ro \\
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \\
-  -e ONEUPTIME_URL="${data.oneuptimeUrl}" \\
-  -e ONEUPTIME_SERVICE_TOKEN="${data.apiKey}" \\
+  -e CAST_OPERATIONS_URL="${data.castOperationsUrl}" \\
+  -e CAST_OPERATIONS_SERVICE_TOKEN="${data.apiKey}" \\
   -e DOCKER_HOST_NAME="my-docker-host" \\
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 \`\`\`
 
 Replace \`my-docker-host\` with a friendly name for this host — it is how the host will appear in Cast Operations.
@@ -35,17 +35,17 @@ If you prefer Docker Compose, create a \`docker-compose.yml\`:
 
 \`\`\`yaml
 services:
-  oneuptime-docker-agent:
-    image: oneuptime/docker-agent:release
-    container_name: oneuptime-docker-agent
+  cast-operations-docker-agent:
+    image: cast-operations/docker-agent:release
+    container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
-      - ONEUPTIME_URL=${data.oneuptimeUrl}
-      - ONEUPTIME_SERVICE_TOKEN=${data.apiKey}
+      - CAST_OPERATIONS_URL=${data.castOperationsUrl}
+      - CAST_OPERATIONS_SERVICE_TOKEN=${data.apiKey}
       - DOCKER_HOST_NAME=my-docker-host
     logging:
       driver: json-file
@@ -64,8 +64,8 @@ docker compose up -d
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| \`ONEUPTIME_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.oneuptimeUrl}\`) |
-| \`ONEUPTIME_SERVICE_TOKEN\` | Yes | Telemetry ingestion service token |
+| \`CAST_OPERATIONS_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.castOperationsUrl}\`) |
+| \`CAST_OPERATIONS_SERVICE_TOKEN\` | Yes | Telemetry ingestion service token |
 | \`DOCKER_HOST_NAME\` | No | Friendly name for this host. Defaults to \`docker-host\` |
 
 ## Verify the Installation
@@ -73,13 +73,13 @@ docker compose up -d
 Check that the agent is running:
 
 \`\`\`bash
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 \`\`\`
 
 Check the agent logs:
 
 \`\`\`bash
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 \`\`\`
 
 Look for: \`"Everything is ready. Begin running and processing data."\`
@@ -87,8 +87,8 @@ Look for: \`"Everything is ready. Begin running and processing data."\`
 ## Upgrading the Agent
 
 \`\`\`bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # Re-run the \`docker run\` command above
 \`\`\`
 
@@ -102,7 +102,7 @@ docker compose up -d
 ## Uninstalling the Agent
 
 \`\`\`bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 \`\`\`
 
 ## What Gets Collected
@@ -124,14 +124,14 @@ The agent container must run as root (\`--user 0:0\`) to access \`/var/run/docke
 
 ### Agent Shows as Disconnected
 
-1. Check that the agent is running: \`docker ps --filter name=oneuptime-docker-agent\`
-2. Check the agent logs: \`docker logs oneuptime-docker-agent | grep -i error\`
+1. Check that the agent is running: \`docker ps --filter name=cast-operations-docker-agent\`
+2. Check the agent logs: \`docker logs cast-operations-docker-agent | grep -i error\`
 3. Verify your Cast Operations URL and service token are correct
 4. Ensure your Docker host can reach the Cast Operations instance over the network
 
 ### No Metrics Appearing
 
-1. Verify the Docker socket is accessible: \`docker exec oneuptime-docker-agent ls -la /var/run/docker.sock\`
+1. Verify the Docker socket is accessible: \`docker exec cast-operations-docker-agent ls -la /var/run/docker.sock\`
 2. Check the collector logs for export errors
 3. Ensure your service token is valid and not expired
 

@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. В Datadog перейдите в **Integrations → Webhooks** (установите интеграцию **Webhooks**, если ещё не установлена).
 2. **Добавьте webhook**:
 
-   - **Name**: `oneuptime` (это станет `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (это станет `@webhook-cast-operations`).
    - **URL**: URL webhook вашего рабочего процесса.
    - **Payload** — Datadog позволяет задать тело JSON с помощью [переменных шаблона](https://docs.datadoghq.com/integrations/webhooks/#usage):
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Добавьте имя webhook в мониторы, которые хотите пересылать. В **notification message** каждого монитора включите:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Это отправляет в Cast Operations как оповещение, так и восстановление. (Чтобы пересылать всё, можно также добавить `@webhook-oneuptime` в монитор без условий.)
+Это отправляет в Cast Operations как оповещение, так и восстановление. (Чтобы пересылать всё, можно также добавить `@webhook-cast-operations` в монитор без условий.)
 
 ## Шаг 4 — Протестируйте
 
@@ -74,7 +74,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 
 ## Устранение неполадок
 
-- **Запуск не появляется** — убедитесь, что сообщение монитора содержит `@webhook-oneuptime` и рабочий процесс **Enabled**.
+- **Запуск не появляется** — убедитесь, что сообщение монитора содержит `@webhook-cast-operations` и рабочий процесс **Enabled**.
 - **Поля пустые** — Datadog подставляет только те переменные шаблона, которые применимы к событию. Проверьте вывод триггера на вкладке **Logs** и скорректируйте нагрузку webhook.
 - **Дублирующиеся инциденты** — монитор с повторными уведомлениями (renotify) отправляет несколько событий `Triggered`; дедуплицируйте через проверку **Find Incident** по `id` перед созданием.
 

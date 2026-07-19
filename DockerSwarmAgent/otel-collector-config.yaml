@@ -70,10 +70,10 @@ receivers:
 
   # Inventory snapshots produced by inventory-snapshot.sh (which runs on
   # a manager node and walks the Swarm API). Each line is a JSON
-  # envelope: {"oneuptime.dockerswarm.kind":"Node","data":{...}}
+  # envelope: {"cast-operations.dockerswarm.kind":"Node","data":{...}}
   filelog/inventory:
     include:
-      - /var/log/oneuptime-docker-swarm-inventory.log
+      - /var/log/cast-operations-docker-swarm-inventory.log
     start_at: beginning
     include_file_path: false
     include_file_name: false
@@ -96,7 +96,7 @@ processors:
       - key: docker.swarm.cluster.name
         value: "${env:DOCKER_SWARM_CLUSTER_NAME}"
         action: upsert
-      - key: oneuptime.agent.version
+      - key: cast-operations.agent.version
         value: "${env:APP_VERSION}"
         action: upsert
   batch:
@@ -114,9 +114,9 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "${env:ONEUPTIME_URL}/otlp"
+    endpoint: "${env:CAST_OPERATIONS_URL}/otlp"
     headers:
-      x-oneuptime-service-token: "${env:ONEUPTIME_SERVICE_TOKEN}"
+      x-cast-operations-service-token: "${env:CAST_OPERATIONS_SERVICE_TOKEN}"
 
 service:
   pipelines:

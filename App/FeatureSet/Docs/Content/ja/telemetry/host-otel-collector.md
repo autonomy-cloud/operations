@@ -15,7 +15,7 @@
 
 ## 前提条件
 
-- **Cast Operations Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ から作成し、`x-oneuptime-token` の値をコピーします。
+- **Cast Operations Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ から作成し、`x-cast-operations-token` の値をコピーします。
 - **OpenTelemetry Collector Contrib** ディストリビューション（`otelcol-contrib`）。デフォルトの `otelcol` ビルドには `windowseventlogreceiver`、`journaldreceiver`、`hostmetrics` の追加機能などのレシーバーは**含まれていません** — 必ず `contrib` ディストリビューションを使用してください。Windows の **Services** タブを支える alpha の `windowsservicereceiver` は、**v0.155.0** 以降の `otelcol-contrib` に同梱されているため、最新のリリースをインストールしてください。下記の「Windows サービス（メトリクス）」を参照してください。
 - コレクターをサービスとしてインストールし、（該当する場合は）権限が必要なログソースを読み取るための、ホスト上の Root / Administrator 権限。
 
@@ -116,7 +116,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 - **`batch`** はエクスポート前にレコードをまとめるので、レコードごとに 1 回の HTTP ラウンドトリップを発生させずに済みます。
@@ -335,7 +335,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -387,7 +387,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -450,7 +450,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -486,14 +486,14 @@ sudo journalctl -u otelcol-contrib -f
 
 ### macOS（launchd）
 
-`/Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist` を作成します。
+`/Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist` を作成します。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>com.oneuptime.otelcol-contrib</string>
+  <key>Label</key><string>com.cast-operations.otelcol-contrib</string>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/local/bin/otelcol-contrib</string>
@@ -510,7 +510,7 @@ sudo journalctl -u otelcol-contrib -f
 読み込みます。
 
 ```bash
-sudo launchctl load -w /Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist
+sudo launchctl load -w /Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist
 sudo launchctl list | grep otelcol-contrib
 ```
 
@@ -535,8 +535,8 @@ sc.exe query "otelcol-contrib"
 ## ステップ 4 — Cast Operations で確認する
 
 1. ホスト上で何らかのシグナルを生成します。
-   - **Linux / macOS:** `logger "hello from oneuptime"`（syslog / journald に書き込みます）。
-   - **Windows:** 管理者権限のプロンプトから `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from oneuptime"`。
+   - **Linux / macOS:** `logger "hello from cast-operations"`（syslog / journald に書き込みます）。
+   - **Windows:** 管理者権限のプロンプトから `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from cast-operations"`。
 2. Cast Operations ダッシュボードで **Telemetry → Services** を開き、設定した `service.name` を選択します。
 3. **Metrics** を開きます — ホストメトリクス（CPU、メモリ、ファイルシステムなど）が 1 分以内に表示されるはずです。
 4. **Logs** を開きます — ファイルログ / journald のエントリ / Windows イベントログがストリーミングされてくるはずです。検索に役立つ属性には、`log.file.name`、`systemd.unit`、`winlog.channel`、`winlog.event_id`、`winlog.provider.name` などがあります。
@@ -699,7 +699,7 @@ service:
       exporters: [otlphttp]
 ```
 
-> **Cast Operations が生成した設定を編集していますか?** 上記のパイプラインは、このページの完全な例と対応しています。ダッシュボード（Hosts → Documentation）から取得できる設定は、名前の付け方が異なります。プロセッサは `resourcedetection` と `batch` であり（`resource` プロセッサは **ありません**）、エクスポーターは `otlphttp/oneuptime` です。定義されていないプロセッサを参照すると、コレクターは起動時に `references processor "resource" which is not configured` で停止します。このブロックを上書きで貼り付けるのではなく、すでにあるものにフィルターを追加してください。
+> **Cast Operations が生成した設定を編集していますか?** 上記のパイプラインは、このページの完全な例と対応しています。ダッシュボード（Hosts → Documentation）から取得できる設定は、名前の付け方が異なります。プロセッサは `resourcedetection` と `batch` であり（`resource` プロセッサは **ありません**）、エクスポーターは `otlphttp/cast-operations` です。定義されていないプロセッサを参照すると、コレクターは起動時に `references processor "resource" which is not configured` で停止します。このブロックを上書きで貼り付けるのではなく、すでにあるものにフィルターを追加してください。
 >
 > ```yaml
 > service:
@@ -707,7 +707,7 @@ service:
 >     metrics:
 >       receivers: [hostmetrics]
 >       processors: [filter/drop-metrics, resourcedetection, batch]
->       exporters: [otlphttp/oneuptime]
+>       exporters: [otlphttp/cast-operations]
 > ```
 >
 > `resourcedetection` は残してください — Cast Operations は、それが設定する `host.name` / `host.id` を使ってテレメトリをホストに対応付けます。その生成された設定はまた **メトリクス専用** です。自分で追加するまで `logs:` パイプラインを持たないため、`filelog` または `journald` レシーバーを併せて追加するまで、`filter/drop-low-severity` にはフィルターする対象がありません。
@@ -746,7 +746,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -769,7 +769,7 @@ exporters:
   otlphttp:
     endpoint: https://your-operations-host.example.com/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 インスタンスが HTTP のみの場合は、スキームを `http://` に変更し、適切なポートを使用してください。

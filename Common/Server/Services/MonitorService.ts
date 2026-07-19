@@ -1,9 +1,4 @@
 import DatabaseConfig from "../DatabaseConfig";
-import {
-  AllowedActiveMonitorCountInFreePlan,
-  IsBillingEnabled,
-} from "../EnvironmentConfig";
-import { ActiveMonitoringMeteredPlan } from "../Types/Billing/MeteredPlan/AllMeteredPlans";
 import CreateBy from "../Types/Database/CreateBy";
 import { OnCreate, OnDelete, OnUpdate } from "../Types/Database/Hooks";
 import QueryHelper from "../Types/Database/QueryHelper";
@@ -16,12 +11,11 @@ import MonitorProbeService from "./MonitorProbeService";
 import MonitorStatusService from "./MonitorStatusService";
 import MonitorStatusTimelineService from "./MonitorStatusTimelineService";
 import ProbeService from "./ProbeService";
-import ProjectService, { CurrentPlan } from "./ProjectService";
+import ProjectService from "./ProjectService";
 import TeamMemberService from "./TeamMemberService";
 import URL from "../../Types/API/URL";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import LIMIT_MAX, { LIMIT_PER_PROJECT } from "../../Types/Database/LimitMax";
 import BadDataException from "../../Types/Exception/BadDataException";
 import { JSONObject } from "../../Types/JSON";
@@ -31,7 +25,6 @@ import MonitorType, {
 import MonitorSteps from "../../Types/Monitor/MonitorSteps";
 import MonitorStep from "../../Types/Monitor/MonitorStep";
 import ObjectID from "../../Types/ObjectID";
-import PositiveNumber from "../../Types/PositiveNumber";
 import Typeof from "../../Types/Typeof";
 import Model from "../../Models/DatabaseModels/Monitor";
 import MonitorOwnerTeam from "../../Models/DatabaseModels/MonitorOwnerTeam";
@@ -350,8 +343,7 @@ export class Service extends DatabaseService<Model> {
   ): Promise<OnDelete<Model>> {
     /*
      * The monitor has already been deleted from the database at this point.
-     * Any failure in the post-delete side effects below (e.g. billing
-     * reporting) must NOT propagate up to the caller as a 500 — otherwise the
+     * Any failure in the post-delete side effects below must NOT propagate up to the caller as a 500 — otherwise the
      * client sees "500 Internal Server Error" even though the delete actually
      * succeeded. Log and swallow instead.
      *
@@ -361,17 +353,6 @@ export class Service extends DatabaseService<Model> {
      * A synchronous ALTER TABLE … DELETE on every monitor deletion is both
      * redundant and expensive.
      */
-    if (onDelete.deleteBy.props.tenantId && IsBillingEnabled) {
-      try {
-        await ActiveMonitoringMeteredPlan.reportQuantityToBillingProvider(
-          onDelete.deleteBy.props.tenantId,
-        );
-      } catch (error) {
-        logger.error(
-          `Error while reporting active monitor quantity to billing provider for project ${onDelete.deleteBy.props.tenantId?.toString()}: ${error}`,
-        );
-      }
-    }
 
     return onDelete;
   }
@@ -543,41 +524,6 @@ export class Service extends DatabaseService<Model> {
           createBy.data.monitorType
         }". Valid monitor types are ${Object.values(MonitorType).join(", ")}.`,
       );
-    }
-
-    if (IsBillingEnabled && createBy.props.tenantId) {
-      const currentPlan: CurrentPlan = await ProjectService.getCurrentPlan(
-        createBy.props.tenantId,
-      );
-
-      if (currentPlan.isSubscriptionUnpaid) {
-        throw new BadDataException(
-          "Your subscription is unpaid. Please update your payment method and pay all the outstanding invoices to add more monitors.",
-        );
-      }
-
-      if (
-        currentPlan.plan === PlanType.Free &&
-        createBy.data.monitorType !== MonitorType.Manual
-      ) {
-        const monitorCount: PositiveNumber = await this.countBy({
-          query: {
-            projectId: createBy.props.tenantId,
-            monitorType: QueryHelper.any(
-              MonitorTypeHelper.getActiveMonitorTypes(),
-            ),
-          },
-          props: {
-            isRoot: true,
-          },
-        });
-
-        if (monitorCount.toNumber() >= AllowedActiveMonitorCountInFreePlan) {
-          throw new BadDataException(
-            `You have reached the maximum allowed monitor limit for the free plan. Please upgrade your plan to add more monitors.`,
-          );
-        }
-      }
     }
 
     if (createBy.data.monitorType === MonitorType.Server) {
@@ -760,26 +706,6 @@ ${createdItem.description?.trim() || "No description provided."}
         } catch (error) {
           logger.error(
             "Add default probes failed in MonitorService.onCreateSuccess",
-            {
-              projectId: createdItem.projectId?.toString(),
-              monitorId: createdItem.id?.toString(),
-            } as LogAttributes,
-          );
-          logger.error(error as Error);
-          return Promise.resolve();
-        }
-      })
-      .then(async () => {
-        try {
-          if (IsBillingEnabled) {
-            return await ActiveMonitoringMeteredPlan.reportQuantityToBillingProvider(
-              createdItem.projectId!,
-            );
-          }
-          return Promise.resolve();
-        } catch (error) {
-          logger.error(
-            "Billing operations failed in MonitorService.onCreateSuccess",
             {
               projectId: createdItem.projectId?.toString(),
               monitorId: createdItem.id?.toString(),
@@ -1262,20 +1188,6 @@ ${createdItem.description?.trim() || "No description provided."}
         );
       },
     );
-
-    if (IsBillingEnabled) {
-      // check if these probes are global probes.
-      const anyGlobalProbe: boolean = enabledProbes.some(
-        (monitorProbe: MonitorProbe) => {
-          return monitorProbe.probe?.isGlobalProbe === true;
-        },
-      );
-
-      if (anyGlobalProbe) {
-        // do not notify if any global probe is disconnected.
-        return;
-      }
-    }
 
     if (
       disconnectedProbes.length === enabledProbes.length &&

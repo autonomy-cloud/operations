@@ -4,12 +4,12 @@
 
 ## Authentication Commands
 
-### `oneuptime login`
+### `cast-operations login`
 
 Cast Operations instance के साथ authenticate करें।
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | Parameter        | Type     | आवश्यक | विवरण                               |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 सभी saved contexts सूचीबद्ध करें।
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 एक named context पर switch करें।
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | Parameter | Type     | आवश्यक | विवरण                            |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 Masked API key के साथ active context प्रदर्शित करें।
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 एक saved context हटाएं।
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | Parameter | Type     | आवश्यक | विवरण                          |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 सभी resource commands एक ही pattern का पालन करते हैं। `<resource>` को किसी भी समर्थित resource नाम से बदलें (जैसे `incident`, `monitor`, `alert`, `status-page`)।
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 filtering और pagination के साथ resources सूचीबद्ध करें।
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | Option           | Type   | Default | विवरण                           |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 ID से एक single resource प्राप्त करें।
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | Parameter      | Type     | आवश्यक | विवरण              |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 एक नया resource बनाएं।
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | Option          | Type   | आवश्यक                         | विवरण                         |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 एक मौजूदा resource अपडेट करें।
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | Parameter       | Type     | आवश्यक | विवरण                                     |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 एक resource हटाएं।
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | Parameter | Type     | आवश्यक | विवरण                      |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 एक filter से मेल खाने वाले resources गिनें।
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | Option           | Type   | Default | विवरण                           |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## Utility Commands
 
-### `oneuptime version`
+### `cast-operations version`
 
 CLI version प्रदर्शित करें।
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 वर्तमान authentication विवरण दिखाएं।
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 instance URL और masked API key प्रदर्शित करता है। यदि कोई saved context active है, तो context नाम भी दिखाया जाता है।
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 सभी उपलब्ध resource types सूचीबद्ध करें।
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | Option          | Type   | Default | विवरण                                    |

@@ -1,7 +1,7 @@
 import EventHistoryItem, {
   ComponentProps as ItemComponentProps,
 } from "../EventItem/EventItem";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import React, {
   FunctionComponent,
   ReactElement,
@@ -55,7 +55,7 @@ const EventHistoryDayList: FunctionComponent<ComponentProps> = (
           width: isMobile ? "100%" : "15%",
         }}
       >
-        {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+        {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
           props.date,
           true,
         )}

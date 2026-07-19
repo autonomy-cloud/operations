@@ -1,4 +1,4 @@
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import NotImplementedException from "../../../../Types/Exception/NotImplementedException";
 import XAxisMaxMin from "../Types/XAxis/XAxisMaxMin";
 import XAxisPrecision from "../Types/XAxis/XAxisPrecision";
@@ -20,8 +20,8 @@ export default class XAxisUtil {
       throw new NotImplementedException();
     }
 
-    const startDate: Date = OneUptimeDate.fromString(data.xAxisMin as Date);
-    const endDate: Date = OneUptimeDate.fromString(data.xAxisMax as Date);
+    const startDate: Date = OperationsDate.fromString(data.xAxisMin as Date);
+    const endDate: Date = OperationsDate.fromString(data.xAxisMax as Date);
 
     const totalMilliseconds: number = endDate.getTime() - startDate.getTime();
     const totalSeconds: number = totalMilliseconds / 1000;
@@ -190,7 +190,7 @@ export default class XAxisUtil {
     switch (precision) {
       case XAxisPrecision.EVERY_SECOND:
         return (value: Date) => {
-          return OneUptimeDate.getLocalTimeString(value, {
+          return OperationsDate.getLocalTimeString(value, {
             includeSeconds: true,
           });
         };
@@ -202,7 +202,7 @@ export default class XAxisUtil {
           const roundedSeconds: number = Math.floor(seconds / 5) * 5;
           roundedValue.setSeconds(roundedSeconds, 0);
 
-          return OneUptimeDate.getLocalTimeString(roundedValue, {
+          return OperationsDate.getLocalTimeString(roundedValue, {
             includeSeconds: true,
           });
         };
@@ -214,7 +214,7 @@ export default class XAxisUtil {
           const roundedSeconds: number = Math.floor(seconds / 10) * 10;
           roundedValue.setSeconds(roundedSeconds, 0);
 
-          return OneUptimeDate.getLocalTimeString(roundedValue, {
+          return OperationsDate.getLocalTimeString(roundedValue, {
             includeSeconds: true,
           });
         };
@@ -226,14 +226,14 @@ export default class XAxisUtil {
           const roundedSeconds: number = Math.floor(seconds / 30) * 30;
           roundedValue.setSeconds(roundedSeconds, 0);
 
-          return OneUptimeDate.getLocalTimeString(roundedValue, {
+          return OperationsDate.getLocalTimeString(roundedValue, {
             includeSeconds: true,
           });
         };
       case XAxisPrecision.EVERY_MINUTE:
         // round down to nearest minute
         return (value: Date) => {
-          return OneUptimeDate.getLocalTimeString(value);
+          return OperationsDate.getLocalTimeString(value);
         };
       case XAxisPrecision.EVERY_FIVE_MINUTES:
         // round down to nearest 5 minutes
@@ -243,7 +243,7 @@ export default class XAxisUtil {
           const roundedMinutes: number = Math.floor(minutes / 5) * 5;
           roundedValue.setMinutes(roundedMinutes, 0, 0);
 
-          return OneUptimeDate.getLocalTimeString(roundedValue);
+          return OperationsDate.getLocalTimeString(roundedValue);
         };
       case XAxisPrecision.EVERY_TEN_MINUTES:
         // round down to nearest 10 minutes
@@ -253,7 +253,7 @@ export default class XAxisUtil {
           const roundedMinutes: number = Math.floor(minutes / 10) * 10;
           roundedValue.setMinutes(roundedMinutes, 0, 0);
 
-          return OneUptimeDate.getLocalTimeString(roundedValue);
+          return OperationsDate.getLocalTimeString(roundedValue);
         };
       case XAxisPrecision.EVERY_FIFTEEN_MINUTES:
         // round down to nearest 15 minutes
@@ -263,7 +263,7 @@ export default class XAxisUtil {
           const roundedMinutes: number = Math.floor(minutes / 15) * 15;
           roundedValue.setMinutes(roundedMinutes, 0, 0);
 
-          return OneUptimeDate.getLocalTimeString(roundedValue);
+          return OperationsDate.getLocalTimeString(roundedValue);
         };
       case XAxisPrecision.EVERY_THIRTY_MINUTES:
         // round down to nearest 30 minutes
@@ -273,7 +273,7 @@ export default class XAxisUtil {
           const roundedMinutes: number = Math.floor(minutes / 30) * 30;
           roundedValue.setMinutes(roundedMinutes, 0, 0);
 
-          return OneUptimeDate.getLocalTimeString(roundedValue);
+          return OperationsDate.getLocalTimeString(roundedValue);
         };
       case XAxisPrecision.EVERY_HOUR:
         /*
@@ -283,7 +283,7 @@ export default class XAxisUtil {
         return (value: Date) => {
           const roundedValue: Date = this.cloneDate(value);
           roundedValue.setMinutes(0, 0, 0);
-          return OneUptimeDate.getDateAsLocalDayMonthHourString(roundedValue);
+          return OperationsDate.getDateAsLocalDayMonthHourString(roundedValue);
         };
       case XAxisPrecision.EVERY_TWO_HOURS:
         return (value: Date) => {
@@ -292,7 +292,7 @@ export default class XAxisUtil {
           const roundedHours: number = Math.floor(hours / 2) * 2;
           roundedValue.setHours(roundedHours, 0, 0, 0);
 
-          return OneUptimeDate.getDateAsLocalDayMonthHourString(roundedValue);
+          return OperationsDate.getDateAsLocalDayMonthHourString(roundedValue);
         };
       case XAxisPrecision.EVERY_THREE_HOURS:
         // round down to nearest 3 hours
@@ -302,7 +302,7 @@ export default class XAxisUtil {
           const roundedHours: number = Math.floor(hours / 3) * 3;
           roundedValue.setHours(roundedHours, 0, 0, 0);
 
-          return OneUptimeDate.getDateAsLocalDayMonthHourString(roundedValue);
+          return OperationsDate.getDateAsLocalDayMonthHourString(roundedValue);
         };
       case XAxisPrecision.EVERY_SIX_HOURS:
         // round down to nearest 6 hours // HH:00 DD MMM
@@ -312,7 +312,7 @@ export default class XAxisUtil {
           const roundedHours: number = Math.floor(hours / 6) * 6;
           roundedValue.setHours(roundedHours, 0, 0, 0);
 
-          return OneUptimeDate.getDateAsLocalDayMonthHourString(roundedValue);
+          return OperationsDate.getDateAsLocalDayMonthHourString(roundedValue);
         };
       case XAxisPrecision.EVERY_TWELVE_HOURS:
         // round down to nearest 12 hours  // DD MMM, HH:00
@@ -322,12 +322,12 @@ export default class XAxisUtil {
           const roundedHours: number = Math.floor(hours / 12) * 12;
           roundedValue.setHours(roundedHours, 0, 0, 0);
 
-          return OneUptimeDate.getDateAsLocalDayMonthHourString(roundedValue);
+          return OperationsDate.getDateAsLocalDayMonthHourString(roundedValue);
         };
       case XAxisPrecision.EVERY_DAY:
         // round down to nearest day
         return (value: Date) => {
-          return OneUptimeDate.getDateAsLocalDayMonthString(value);
+          return OperationsDate.getDateAsLocalDayMonthString(value);
         };
       case XAxisPrecision.EVERY_TWO_DAYS:
         // round down to nearest 2 days
@@ -337,14 +337,14 @@ export default class XAxisUtil {
           const roundedDays: number = Math.floor(days / 2) * 2;
           roundedValue.setDate(roundedDays);
 
-          return OneUptimeDate.getDateAsLocalDayMonthString(roundedValue);
+          return OperationsDate.getDateAsLocalDayMonthString(roundedValue);
         };
       case XAxisPrecision.EVERY_WEEK:
         // round down to nearest week
         return (value: Date) => {
           const day: string = value.getDate().toString();
           const month: string =
-            OneUptimeDate.getLocalShortMonthNameFromDate(value);
+            OperationsDate.getLocalShortMonthNameFromDate(value);
           return `${day} ${month}`;
         };
       case XAxisPrecision.EVERY_TWO_WEEKS:
@@ -356,13 +356,13 @@ export default class XAxisUtil {
           roundedValue.setDate(roundedDays);
           const day: string = roundedValue.getDate().toString();
           const month: string =
-            OneUptimeDate.getLocalShortMonthNameFromDate(roundedValue);
+            OperationsDate.getLocalShortMonthNameFromDate(roundedValue);
           return `${day} ${month}`;
         };
       case XAxisPrecision.EVERY_MONTH:
         // round down to nearest month // MM YYYY
         return (value: Date) => {
-          return OneUptimeDate.getDateAsLocalMonthYearString(value);
+          return OperationsDate.getDateAsLocalMonthYearString(value);
         };
 
       case XAxisPrecision.EVERY_TWO_MONTHS:
@@ -373,7 +373,7 @@ export default class XAxisUtil {
           const roundedMonths: number = Math.floor(months / 2) * 2;
           roundedValue.setMonth(roundedMonths);
 
-          return OneUptimeDate.getDateAsLocalMonthYearString(roundedValue);
+          return OperationsDate.getDateAsLocalMonthYearString(roundedValue);
         };
       case XAxisPrecision.EVERY_THREE_MONTHS:
         // round down to nearest 3 months // MM YYYY
@@ -383,7 +383,7 @@ export default class XAxisUtil {
           const roundedMonths: number = Math.floor(months / 3) * 3;
           roundedValue.setMonth(roundedMonths);
 
-          return OneUptimeDate.getDateAsLocalMonthYearString(roundedValue);
+          return OperationsDate.getDateAsLocalMonthYearString(roundedValue);
         };
       case XAxisPrecision.EVERY_SIX_MONTHS:
         // round down to nearest 6 months // MM YYYY
@@ -393,7 +393,7 @@ export default class XAxisUtil {
           const roundedMonths: number = Math.floor(months / 6) * 6;
           roundedValue.setMonth(roundedMonths);
 
-          return OneUptimeDate.getDateAsLocalMonthYearString(roundedValue);
+          return OperationsDate.getDateAsLocalMonthYearString(roundedValue);
         };
       case XAxisPrecision.EVERY_YEAR:
         // round down to nearest year // YYYY

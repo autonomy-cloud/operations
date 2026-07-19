@@ -1,8 +1,7 @@
-import { BASE_URL, IS_BILLING_ENABLED } from "../../Config";
+import { BASE_URL } from "../../Config";
 import { Page, expect, test, Response, Locator } from "@playwright/test";
 import URL from "Common/Types/API/URL";
 import Faker from "Common/Utils/Faker";
-import selectProjectPlan from "../Helpers/selectProjectPlan";
 
 const projectDashboardUrlRegex: RegExp =
   /\/dashboard\/([a-f0-9-]+)(?:\/home\/?)?$/;
@@ -38,13 +37,6 @@ test.describe.skip("Project Creation", () => {
     await page.getByTestId("name").fill("E2E Test User");
     await page.getByTestId("name").press("Tab");
 
-    if (IS_BILLING_ENABLED) {
-      await page.getByTestId("companyName").fill("E2E Test Company");
-      await page.getByTestId("companyName").press("Tab");
-      await page.getByTestId("companyPhoneNumber").fill("+1234567890");
-      await page.getByTestId("companyPhoneNumber").press("Tab");
-    }
-
     await page.getByTestId("password").fill("sample");
     await page.getByTestId("password").press("Tab");
     await page.getByTestId("confirmPassword").fill("sample");
@@ -73,18 +65,7 @@ test.describe.skip("Project Creation", () => {
       .first()
       .fill(projectName);
 
-    if (IS_BILLING_ENABLED) {
-      // Click "Next" to go to the plan selection step
-      await modalSubmitButton.click();
-
-      await selectProjectPlan({ page, submitButton: modalSubmitButton });
-
-      // Submit the form to create the project
-      await modalSubmitButton.click();
-    } else {
-      // Submit the form to create the project
-      await modalSubmitButton.click();
-    }
+    await modalSubmitButton.click();
 
     /*
      * Wait for navigation to the project dashboard.

@@ -46,8 +46,8 @@ curl https://your-operations-instance.com/api/status
 Hvis du kører Cast Operations med Docker:
 
 ```bash
-docker images | grep oneuptime
-# Se efter tagget, f.eks. oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# Se efter tagget, f.eks. cast-operations/dashboard:7.0.123
 ```
 
 ### Metode 4: Helm-chart
@@ -55,7 +55,7 @@ docker images | grep oneuptime
 Hvis du bruger Helm:
 
 ```bash
-helm list -n oneuptime
+helm list -n cast-operations
 # Kontroller chartversionen
 ```
 
@@ -64,7 +64,7 @@ helm list -n oneuptime
 Kontroller dine konfigurationsfiler for versionsvariabler:
 
 ```bash
-grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
+grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/cast-operations/config
 ```
 
 ## Providerkonfigurationsskabeloner
@@ -74,7 +74,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Erstat 123 med dit nøjagtige build-nummer
     }
@@ -82,9 +82,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # Din selvhostede URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # Din selvhostede URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -93,7 +93,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # Erstat med din nøjagtige version
     }
@@ -101,9 +101,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -115,7 +115,7 @@ Her er et komplet eksempel til en selvhostet Cast Operations-instans:
 # versions.tf
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Skal matche din Cast Operations-version
     }
@@ -125,19 +125,19 @@ terraform {
   # Valgfrit: Brug fjernlager til teamsamarbejde
   backend "s3" {
     bucket = "your-terraform-state-bucket"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
 
 # variables.tf
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast Operations-instans-URL"
   type        = string
   default     = "https://operations.yourcompany.com"
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API-nøgle"
   type        = string
   sensitive   = true
@@ -150,9 +150,9 @@ variable "environment" {
 }
 
 # providers.tf
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # variables.tf
@@ -163,21 +163,21 @@ variable "project_id" {
 
 # main.tf
 # Opret teams
-resource "oneuptime_team" "infrastructure" {
+resource "cast_operations_team" "infrastructure" {
   name        = "Infrastructure Team"
   description = "Infrastruktur- og driftsteam"
 }
 
-resource "oneuptime_team" "development" {
+resource "cast_operations_team" "development" {
   name        = "Development Team"
   description = "Applikationsudviklingsteam"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 }
 
 # Infrastrukturmonitorer
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "${var.environment}-database"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "port"
   hostname     = "db.internal.yourcompany.com"
@@ -193,9 +193,9 @@ resource "oneuptime_monitor" "database" {
   }
 }
 
-resource "oneuptime_monitor" "application" {
+resource "cast_operations_monitor" "application" {
   name       = "${var.environment}-application"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "website"
   url          = "https://app.yourcompany.com/health"
@@ -213,10 +213,10 @@ resource "oneuptime_monitor" "application" {
 }
 
 # Vagtpolitikker
-resource "oneuptime_on_call_policy" "infrastructure_oncall" {
+resource "cast_operations_on_call_policy" "infrastructure_oncall" {
   name       = "Infrastructure On-Call"
-  project_id = oneuptime_project.main.id
-  team_id    = oneuptime_team.infrastructure.id
+  project_id = cast_operations_project.main.id
+  team_id    = cast_operations_team.infrastructure.id
 
   schedules {
     name     = "24x7 Infrastructure"
@@ -234,12 +234,12 @@ resource "oneuptime_on_call_policy" "infrastructure_oncall" {
 }
 
 # Advarsels-politikker
-resource "oneuptime_alert_policy" "critical_infrastructure" {
+resource "cast_operations_alert_policy" "critical_infrastructure" {
   name       = "Critical Infrastructure Alerts"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   conditions {
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
     threshold  = "down"
   }
 
@@ -250,37 +250,37 @@ resource "oneuptime_alert_policy" "critical_infrastructure" {
 
   actions {
     type             = "oncall_escalation"
-    oncall_policy_id = oneuptime_on_call_policy.infrastructure_oncall.id
+    oncall_policy_id = cast_operations_on_call_policy.infrastructure_oncall.id
   }
 }
 
 # Intern statusside
-resource "oneuptime_status_page" "internal" {
+resource "cast_operations_status_page" "internal" {
   name       = "Internal Services Status"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   domain = "status.internal.yourcompany.com"
 
   components {
     name       = "Database"
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
   }
 
   components {
     name       = "Application"
-    monitor_id = oneuptime_monitor.application.id
+    monitor_id = cast_operations_monitor.application.id
   }
 }
 
 # outputs.tf
 output "project_id" {
   description = "Projekt-ID"
-  value       = oneuptime_project.main.id
+  value       = cast_operations_project.main.id
 }
 
 output "status_page_url" {
   description = "Statusside-URL"
-  value       = "https://${oneuptime_status_page.internal.domain}"
+  value       = "https://${cast_operations_status_page.internal.domain}"
 }
 ```
 
@@ -290,7 +290,7 @@ output "status_page_url" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://operations-dev.yourcompany.com"
+cast_operations_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -298,7 +298,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://operations-staging.yourcompany.com"
+cast_operations_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -306,7 +306,7 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://operations.yourcompany.com"
+cast_operations_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
@@ -324,7 +324,7 @@ terraform state pull > backup-$(date +%Y%m%d).tfstate
 curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Notér aktuel providerversion
-terraform providers | grep oneuptime
+terraform providers | grep cast-operations
 ```
 
 ### 2. Opgrader Cast Operations-instansen
@@ -337,7 +337,7 @@ Følg din standardopgraderingsproces til Cast Operations (Docker, Helm osv.)
 # Opdater version i terraform-blokken
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # Ny version efter opgradering
     }
@@ -372,9 +372,9 @@ Sørg for, at din Terraform-runner kan tilgå:
 Hvis Cast Operations er på et privat netværk:
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://10.0.1.100:443"  # Intern IP
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://10.0.1.100:443"  # Intern IP
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -384,10 +384,10 @@ provider "oneuptime" {
 
 ```bash
 # Brug miljøvariabler
-export ONEUPTIME_API_KEY="your-api-key"
+export CAST_OPERATIONS_API_KEY="your-api-key"
 
 # Eller brug et hemmeligheds-styringssystem
-export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
+export CAST_OPERATIONS_API_KEY=$(vault kv get -field=api_key secret/cast-operations)
 ```
 
 ### 2. API-nøgler med mindste privilegium
@@ -402,9 +402,9 @@ Opret API-nøgler med minimale påkrævede tilladelser:
 
 ```hcl
 # Eksempel med TLS-verifikation
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 
   # Yderligere sikkerhedsmuligheder, hvis understøttet
   verify_ssl = true
@@ -417,9 +417,9 @@ provider "oneuptime" {
 Opret monitorer til din Terraform-automatisering:
 
 ```hcl
-resource "oneuptime_monitor" "terraform_runner" {
+resource "cast_operations_monitor" "terraform_runner" {
   name       = "Terraform Runner Health"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "heartbeat"
   interval     = "15m"
@@ -464,7 +464,7 @@ Hvis du bruger selvsignerede certifikater:
 
 ```bash
 # Spring TLS-verifikation over midlertidigt (ikke anbefalet til produktion)
-export ONEUPTIME_SKIP_TLS_VERIFY=true
+export CAST_OPERATIONS_SKIP_TLS_VERIFY=true
 ```
 
 Bedre løsning: Tilføj dit CA-certifikat til systemets tillidslagring.
@@ -521,7 +521,7 @@ terraform/
 │       ├── main.tf
 │       └── terraform.tfvars
 └── modules/
-    └── oneuptime/
+    └── cast-operations/
         ├── main.tf
         ├── variables.tf
         └── outputs.tf

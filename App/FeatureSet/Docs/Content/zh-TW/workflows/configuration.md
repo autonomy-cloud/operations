@@ -72,7 +72,6 @@ API 與其他 HTTP 區塊會從 Cast Operations 發出其請求。如果您自�
 
 ## 方案限制
 
-Cast Operations Cloud 在較小的方案上會限制每月的執行次數。您目前的限制顯示於 **Project Settings → Billing** 下。當您達到上限時，新的觸發器會被拒絕，直到下一個計費週期為止。自行託管的安裝沒有此限制。
 
 ## 何時工作流程不是合適的工具
 

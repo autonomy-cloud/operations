@@ -22,7 +22,7 @@ Le fournisseur Terraform Cast Operations est disponible sur le [Registre Terrafo
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Utiliser la dernière version 7.x
     }
@@ -38,7 +38,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Épingler à la version exacte correspondant à votre installation Cast Operations
     }
@@ -60,7 +60,7 @@ Vous pouvez trouver votre version Cast Operations de plusieurs façons :
 # Exemple : Si vous exécutez Cast Operations 7.0.123
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"
     }
@@ -73,9 +73,9 @@ terraform {
 ### Configuration de base
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://votre-instance-visca.ai"  # Ou https://visca.ai pour le cloud
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://votre-instance-visca.ai"  # Ou https://visca.ai pour le cloud
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -84,14 +84,14 @@ provider "oneuptime" {
 Vous pouvez configurer le fournisseur en utilisant des variables d'environnement :
 
 ```bash
-export ONEUPTIME_URL="https://votre-instance-visca.ai"
-export ONEUPTIME_API_KEY="votre-clé-api-ici"
+export CAST_OPERATIONS_URL="https://votre-instance-visca.ai"
+export CAST_OPERATIONS_API_KEY="votre-clé-api-ici"
 ```
 
 Puis utilisez le fournisseur sans configuration explicite :
 
 ```hcl
-provider "oneuptime" {
+provider "cast-operations" {
   # La configuration sera lue depuis les variables d'environnement
 }
 ```
@@ -100,8 +100,8 @@ provider "oneuptime" {
 
 | Argument        | Variable d'environnement | Description       | Obligatoire |
 | --------------- | ------------------------ | ----------------- | ----------- |
-| `oneuptime_url` | `ONEUPTIME_URL`          | URL Cast Operations     | Oui         |
-| `api_key`       | `ONEUPTIME_API_KEY`      | Clé API Cast Operations | Oui         |
+| `cast_operations_url` | `CAST_OPERATIONS_URL`          | URL Cast Operations     | Oui         |
+| `api_key`       | `CAST_OPERATIONS_API_KEY`      | Clé API Cast Operations | Oui         |
 
 ## Démarrage rapide
 
@@ -122,16 +122,16 @@ Créez un fichier `main.tf` :
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # Utilisez l'URL de votre instance
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # Utilisez l'URL de votre instance
+  api_key       = var.cast_operations_api_key
 }
 
 # Remarque : Les projets doivent être créés manuellement dans le tableau de bord Cast Operations
@@ -141,7 +141,7 @@ variable "project_id" {
 }
 
 # Créer un moniteur
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Moniteur de site Web"
   description = "Moniteur pour la disponibilité du site Web"
   data        = jsonencode({
@@ -152,7 +152,7 @@ resource "oneuptime_monitor" "website" {
 }
 
 # Créer une équipe
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "Équipe Plateforme"
   description = "Équipe d'ingénierie de la plateforme"
 }
@@ -180,7 +180,7 @@ Pour les clients Cast Operations Cloud, utilisez la dernière version du fournis
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Toujours utiliser la dernière version compatible
     }
@@ -203,7 +203,7 @@ Exemple pour Cast Operations 7.0.123 :
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Correspondance de version exacte
     }
@@ -217,29 +217,29 @@ Le fournisseur Terraform Cast Operations prend en charge les ressources suivante
 
 ### Ressources principales
 
-- `oneuptime_team` — Gérer les équipes
+- `cast_operations_team` — Gérer les équipes
 
 ### Surveillance
 
-- `oneuptime_monitor` — Créer et gérer les moniteurs
-- `oneuptime_probe` — Gérer les sondes de surveillance
+- `cast_operations_monitor` — Créer et gérer les moniteurs
+- `cast_operations_probe` — Gérer les sondes de surveillance
 
 ### Gestion de l'astreinte
 
-- `oneuptime_on_call_duty_policy` — Configurer les plannings d'astreinte
+- `cast_operations_on_call_duty_policy` — Configurer les plannings d'astreinte
 
 ### Pages de statut
 
-- `oneuptime_status_page` — Créer des pages de statut
+- `cast_operations_status_page` — Créer des pages de statut
 
 ### Catalogue de services
 
-- `oneuptime_service_catalog` — Gérer les entrées du catalogue de services
+- `cast_operations_service_catalog` — Gérer les entrées du catalogue de services
 
 ### Catalogue de services
 
-- `oneuptime_service` — Définir des services
-- `oneuptime_service_dependency` — Cartographier les dépendances de services
+- `cast_operations_service` — Définir des services
+- `cast_operations_service_dependency` — Cartographier les dépendances de services
 
 ### Sources de données
 
@@ -251,7 +251,7 @@ Remarque : Les sources de données ne sont actuellement pas disponibles dans le 
 
 ```hcl
 # Variables
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Clé API Cast Operations"
   type        = string
   sensitive   = true
@@ -262,7 +262,7 @@ variable "project_id" {
   type        = string
 }
 
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "URL Cast Operations"
   type        = string
   default     = "https://visca.ai"
@@ -271,26 +271,26 @@ variable "oneuptime_url" {
 # Configuration du fournisseur
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # Équipe
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "Équipe Plateforme"
   description = "Équipe d'ingénierie de la plateforme"
 }
 
 # Moniteurs
-resource "oneuptime_monitor" "api" {
+resource "cast_operations_monitor" "api" {
   name        = "Vérification de santé API"
   description = "Moniteur pour le point d'accès de santé de l'API"
   data        = jsonencode({
@@ -301,9 +301,9 @@ resource "oneuptime_monitor" "api" {
   })
 }
 
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "Connexion à la base de données"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   monitor_type = "port"
   hostname     = "db.maentreprise.com"
@@ -318,20 +318,20 @@ resource "oneuptime_monitor" "database" {
 }
 
 # Page de statut
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name       = "Statut de MaEntreprise"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   domain = "statut.maentreprise.com"
 
   components {
     name       = "API"
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
   }
 
   components {
     name       = "Base de données"
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
   }
 }
 ```
@@ -357,7 +357,7 @@ resource "oneuptime_status_page" "public" {
 terraform {
   backend "s3" {
     bucket = "mon-état-terraform"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
@@ -415,12 +415,12 @@ monitors = [
 Utilisez des conventions de nommage cohérentes :
 
 ```hcl
-resource "oneuptime_monitor" "website_production" {
+resource "cast_operations_monitor" "website_production" {
   name = "${var.environment}-website-monitor"
   # ...
 }
 
-resource "oneuptime_alert_policy" "critical_production" {
+resource "cast_operations_alert_policy" "critical_production" {
   name = "${var.environment}-critical-alerts"
   # ...
 }
@@ -440,10 +440,10 @@ Exemple d'importation :
 
 ```bash
 # Importer un moniteur existant
-terraform import oneuptime_monitor.website monitor-id-ici
+terraform import cast_operations_monitor.website monitor-id-ici
 
 # Importer un projet existant
-terraform import oneuptime_project.main project-id-ici
+terraform import cast_operations_project.main project-id-ici
 ```
 
 ### Mises à niveau de version

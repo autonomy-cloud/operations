@@ -50,7 +50,7 @@ ServiceNow 的 Table API 接受**基本驗證（Basic auth）**。
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
-       "correlation_id": "oneuptime-{{Incident._id}}"
+       "correlation_id": "cast-operations-{{Incident._id}}"
      }
      ```
 
@@ -61,7 +61,7 @@ ServiceNow 的 Table API 接受**基本驗證（Basic auth）**。
 ## 步驟 3 — 在 Cast Operations 解決時一併解決（選用）
 
 1. 建立**第二個** workflow，帶有 **Incident → On Update** 觸發器，以及一個檢查事件是否已解決的 **Conditions** 區塊。
-2. 若要更新正確的 ServiceNow 記錄，你需要其 `sys_id`。你可以在步驟 2 中將其儲存於 Cast Operations 事件上（讀取 `{{CreateRecord.response-body.result.sys_id}}` 並透過 **Update Incident** 將其寫入標籤），或先以對 `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}` 的 `GET` 查詢來尋找該記錄。
+2. 若要更新正確的 ServiceNow 記錄，你需要其 `sys_id`。你可以在步驟 2 中將其儲存於 Cast Operations 事件上（讀取 `{{CreateRecord.response-body.result.sys_id}}` 並透過 **Update Incident** 將其寫入標籤），或先以對 `/api/now/table/incident?sysparm_query=correlation_id=cast-operations-{{Incident._id}}` 的 `GET` 查詢來尋找該記錄。
 3. 加入一個 **API** 區塊：**Method** `PATCH`、**URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`、body `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }`（`state` `6` = 在預設 ITIL workflow 中代表 Resolved）。
 
 ## 疑難排解

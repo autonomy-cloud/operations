@@ -6,7 +6,7 @@
  *
  * UserOverrideUtil is pure timestamp math (no timezone conversion happens inside
  * it), so the resolved segments are invariant to the process TZ. Date
- * comparisons are done at SECOND precision (OneUptimeDate.isAfter/isBefore/
+ * comparisons are done at SECOND precision (OperationsDate.isAfter/isBefore/
  * isOnOrAfter/isOnOrBefore all truncate to whole seconds), which every boundary
  * test below pins down explicitly.
  *

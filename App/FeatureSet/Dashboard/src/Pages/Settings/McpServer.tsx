@@ -25,11 +25,11 @@ const McpServerPage: FunctionComponent<PageComponentProps> = (
         description={
           <div className="space-y-4 w-full mt-3">
             <p>
-              Cast Operations ships a built-in Model Context Protocol (MCP) server, so
-              AI agents like Claude, Cursor, and GitHub Copilot can operate
-              Cast Operations directly: investigate and resolve incidents and alerts,
-              query logs, metrics, traces and exceptions, manage monitors and
-              status pages, and post public status updates.
+              Cast Operations ships a built-in Model Context Protocol (MCP)
+              server, so AI agents like Claude, Cursor, and GitHub Copilot can
+              operate Cast Operations directly: investigate and resolve
+              incidents and alerts, query logs, metrics, traces and exceptions,
+              manage monitors and status pages, and post public status updates.
             </p>
             <p>
               The server speaks streamable HTTP and is stateless, so it works
@@ -46,8 +46,8 @@ const McpServerPage: FunctionComponent<PageComponentProps> = (
         description={
           <div className="space-y-4 w-full mt-3">
             <p>
-              Every request is authenticated with a Cast Operations API key sent via
-              the <code>x-api-key</code> header (or{" "}
+              Every request is authenticated with a Cast Operations API key sent
+              via the <code>x-api-key</code> header (or{" "}
               <code>Authorization: Bearer</code>). The key determines which
               project the agent operates on — project IDs are inferred
               automatically, so agents never need to know them.
@@ -75,7 +75,7 @@ const McpServerPage: FunctionComponent<PageComponentProps> = (
               language="json"
               code={`{
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "${mcpUrl}",
       "headers": {
@@ -95,7 +95,7 @@ const McpServerPage: FunctionComponent<PageComponentProps> = (
           <div className="space-y-2 w-full mt-3">
             <CodeBlock
               language="bash"
-              code={`claude mcp add --transport http oneuptime ${mcpUrl} --header "x-api-key: your-api-key-here"`}
+              code={`claude mcp add --transport http cast-operations ${mcpUrl} --header "x-api-key: your-api-key-here"`}
             />
           </div>
         }
@@ -113,7 +113,7 @@ const McpServerPage: FunctionComponent<PageComponentProps> = (
               language="json"
               code={`{
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "${mcpUrl}",
       "headers": {

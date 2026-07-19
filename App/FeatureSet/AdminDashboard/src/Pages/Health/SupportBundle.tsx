@@ -72,7 +72,7 @@ const SupportBundle: FunctionComponent = (): ReactElement => {
 
       downloadFile(
         JSON.stringify(response.data, null, 2),
-        `oneuptime-support-bundle-${timestamp}.json`,
+        `cast-operations-support-bundle-${timestamp}.json`,
         "application/json;charset=utf-8;",
       );
     } catch (err) {

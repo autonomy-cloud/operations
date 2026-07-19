@@ -10,7 +10,7 @@ import InBetween from "Common/Types/BaseDatabase/InBetween";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { Black, Gray500, Green, Red500 } from "Common/Types/BrandColors";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import IncomingMonitorRequest from "Common/Types/Monitor/IncomingMonitor/IncomingMonitorRequest";
@@ -78,8 +78,8 @@ const MonitorView: FunctionComponent<PageComponentProps> = (): ReactElement => {
   >([]);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const startDate: Date = OneUptimeDate.getSomeDaysAgo(90);
-  const endDate: Date = OneUptimeDate.getCurrentDate();
+  const startDate: Date = OperationsDate.getSomeDaysAgo(90);
+  const endDate: Date = OperationsDate.getCurrentDate();
   const [downTimeMonitorStatues, setDowntimeMonitorStatues] = useState<
     Array<MonitorStatus>
   >([]);
@@ -682,8 +682,8 @@ const MonitorView: FunctionComponent<PageComponentProps> = (): ReactElement => {
         <MonitorUptimeGraph
           error={error}
           items={statusTimelines}
-          startDate={OneUptimeDate.getSomeDaysAgo(90)}
-          endDate={OneUptimeDate.getCurrentDate()}
+          startDate={OperationsDate.getSomeDaysAgo(90)}
+          endDate={OperationsDate.getCurrentDate()}
           isLoading={isLoading}
           defaultBarColor={Green}
           downtimeMonitorStatuses={downTimeMonitorStatues}

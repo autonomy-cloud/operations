@@ -11,7 +11,7 @@ import React, { Fragment, FunctionComponent, ReactElement } from "react";
 import FinalPreview from "../../../Components/OnCallPolicy/OnCallScheduleLayer/FinalPreview";
 import ProjectUtil from "Common/UI/Utils/Project";
 import Alert, { AlertType } from "Common/UI/Components/Alerts/Alert";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IconProp from "Common/Types/Icon/IconProp";
 import AppLink from "../../../Components/AppLink/AppLink";
 import DashboardUserUtil from "../../../Utils/User";
@@ -51,13 +51,13 @@ const OnCallDutyScheduleView: FunctionComponent<
               <span>
                 This user has been on the roster since{" "}
                 <strong>
-                  {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                  {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                     onCallSchedule.rosterStartAt,
                   )}
                 </strong>{" "}
                 and will remain on the roster until{" "}
                 <strong>
-                  {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                  {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                     onCallSchedule.rosterHandoffAt,
                   )}
                 </strong>
@@ -94,13 +94,13 @@ const OnCallDutyScheduleView: FunctionComponent<
                 <span>
                   This user will be on the roster from{" "}
                   <strong>
-                    {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                    {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                       onCallSchedule.rosterNextStartAt,
                     )}
                   </strong>{" "}
                   and remain on the roster until{" "}
                   <strong>
-                    {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                    {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                       onCallSchedule.rosterNextHandoffAt,
                     )}
                   </strong>

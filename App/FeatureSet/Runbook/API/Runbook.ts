@@ -8,7 +8,7 @@ import Express, {
   ExpressResponse,
   ExpressRouter,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "Common/Server/Utils/Express";
 import Response from "Common/Server/Utils/Response";
 import RunbookService from "Common/Server/Services/RunbookService";
@@ -85,14 +85,14 @@ export default class RunbookAPI {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const oneUptimeReq: OneUptimeRequest = req as OneUptimeRequest;
+      const operationsReq: OperationsRequest = req as OperationsRequest;
       const runbookId: string | undefined = req.params["runbookId"];
 
       if (!runbookId) {
         throw new BadDataException("runbookId not found in URL");
       }
 
-      if (!oneUptimeReq.tenantId) {
+      if (!operationsReq.tenantId) {
         throw new BadDataException("Project not found in request");
       }
 
@@ -112,7 +112,7 @@ export default class RunbookAPI {
         throw new NotFoundException("Runbook not found");
       }
 
-      if (runbook.projectId?.toString() !== oneUptimeReq.tenantId.toString()) {
+      if (runbook.projectId?.toString() !== operationsReq.tenantId.toString()) {
         throw new BadDataException("Runbook does not belong to this project");
       }
 
@@ -139,7 +139,7 @@ export default class RunbookAPI {
           };
         });
 
-      const userIdRaw: unknown = oneUptimeReq.userAuthorization?.["userId"];
+      const userIdRaw: unknown = operationsReq.userAuthorization?.["userId"];
       const triggeredByUserId: ObjectID | undefined =
         typeof userIdRaw === "string" && userIdRaw.length > 0
           ? new ObjectID(userIdRaw)
@@ -173,7 +173,7 @@ export default class RunbookAPI {
         const incidentId: ObjectID = new ObjectID(incidentIdRaw);
         await this.assertBelongsToProject({
           entityName: "Incident",
-          projectId: oneUptimeReq.tenantId,
+          projectId: operationsReq.tenantId,
           findProjectId: async (): Promise<ObjectID | undefined> => {
             return (
               await IncidentService.findOneById({
@@ -190,7 +190,7 @@ export default class RunbookAPI {
         const alertId: ObjectID = new ObjectID(alertIdRaw);
         await this.assertBelongsToProject({
           entityName: "Alert",
-          projectId: oneUptimeReq.tenantId,
+          projectId: operationsReq.tenantId,
           findProjectId: async (): Promise<ObjectID | undefined> => {
             return (
               await AlertService.findOneById({
@@ -207,7 +207,7 @@ export default class RunbookAPI {
         const scheduledMaintenanceId: ObjectID = new ObjectID(smIdRaw);
         await this.assertBelongsToProject({
           entityName: "Scheduled Maintenance",
-          projectId: oneUptimeReq.tenantId,
+          projectId: operationsReq.tenantId,
           findProjectId: async (): Promise<ObjectID | undefined> => {
             return (
               await ScheduledMaintenanceService.findOneById({
@@ -245,7 +245,7 @@ export default class RunbookAPI {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const oneUptimeReq: OneUptimeRequest = req as OneUptimeRequest;
+      const operationsReq: OperationsRequest = req as OperationsRequest;
       const executionId: string | undefined = req.params["executionId"];
       const stepId: string | undefined = req.params["stepId"];
 
@@ -258,12 +258,12 @@ export default class RunbookAPI {
       const updated: RunbookStepExecutionState | null = await updateStepStatus({
         executionId,
         stepId,
-        tenantId: oneUptimeReq.tenantId,
+        tenantId: operationsReq.tenantId,
         newStatus: RunbookStepExecutionStatus.Completed,
         notes: typeof req.body?.notes === "string" ? req.body.notes : undefined,
         userId:
-          typeof oneUptimeReq.userAuthorization?.["userId"] === "string"
-            ? (oneUptimeReq.userAuthorization["userId"] as string)
+          typeof operationsReq.userAuthorization?.["userId"] === "string"
+            ? (operationsReq.userAuthorization["userId"] as string)
             : undefined,
       });
 
@@ -287,7 +287,7 @@ export default class RunbookAPI {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const oneUptimeReq: OneUptimeRequest = req as OneUptimeRequest;
+      const operationsReq: OperationsRequest = req as OperationsRequest;
       const executionId: string | undefined = req.params["executionId"];
       const stepId: string | undefined = req.params["stepId"];
 
@@ -300,13 +300,13 @@ export default class RunbookAPI {
       const updated: RunbookStepExecutionState | null = await updateStepStatus({
         executionId,
         stepId,
-        tenantId: oneUptimeReq.tenantId,
+        tenantId: operationsReq.tenantId,
         newStatus: RunbookStepExecutionStatus.Skipped,
         notes:
           typeof req.body?.reason === "string" ? req.body.reason : undefined,
         userId:
-          typeof oneUptimeReq.userAuthorization?.["userId"] === "string"
-            ? (oneUptimeReq.userAuthorization["userId"] as string)
+          typeof operationsReq.userAuthorization?.["userId"] === "string"
+            ? (operationsReq.userAuthorization["userId"] as string)
             : undefined,
       });
 
@@ -330,7 +330,7 @@ export default class RunbookAPI {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const oneUptimeReq: OneUptimeRequest = req as OneUptimeRequest;
+      const operationsReq: OperationsRequest = req as OperationsRequest;
       const executionId: string | undefined = req.params["executionId"];
 
       if (!executionId) {
@@ -354,8 +354,8 @@ export default class RunbookAPI {
       }
 
       if (
-        oneUptimeReq.tenantId &&
-        execution.projectId?.toString() !== oneUptimeReq.tenantId.toString()
+        operationsReq.tenantId &&
+        execution.projectId?.toString() !== operationsReq.tenantId.toString()
       ) {
         throw new BadDataException(
           "Runbook execution does not belong to this project",

@@ -8,7 +8,7 @@ Cast Operations は、`faas.name` リソース属性でタグ付けされた Ope
 
 ## 前提条件
 
-- **Cast Operations Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ から作成し、`x-oneuptime-token` の値をコピーします。
+- **Cast Operations Telemetry Ingestion Token** — _Project Settings → Telemetry Ingestion Keys_ から作成し、`x-cast-operations-token` の値をコピーします。
 - 関数の言語用の OpenTelemetry SDK(または自動インストルメンテーションレイヤー)。
 
 ## Cast Operations が関数を識別する方法
@@ -31,7 +31,7 @@ Cast Operations は各関数を `faas.name` リソース属性をキーとして
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
@@ -44,7 +44,7 @@ AWS Lambda の場合、最も簡単な方法は [OpenTelemetry Lambda レイヤ�
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
 OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 レイヤーは関数名から `faas.name` を自動的に設定し、リソースディテクターが `cloud.platform`、`cloud.region`、`cloud.account.id` を補完します。

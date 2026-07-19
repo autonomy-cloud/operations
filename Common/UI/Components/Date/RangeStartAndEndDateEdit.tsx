@@ -7,7 +7,7 @@ import StartAndEndDate, {
 } from "../../../UI/Components/Date/StartAndEndDate";
 import InBetween from "../../../Types/BaseDatabase/InBetween";
 import TimeRange from "../../../Types/Time/TimeRange";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Icon from "../Icon/Icon";
 import IconProp from "../../../Types/Icon/IconProp";
 
@@ -58,7 +58,7 @@ const RangeStartAndEndDateEdit: FunctionComponent<ComponentProps> = (
     );
 
   const formatDateTime: (date: Date) => string = (date: Date): string => {
-    return OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+    return OperationsDate.getDateAsUserFriendlyLocalFormattedString(
       date,
       false,
       true,
@@ -69,13 +69,13 @@ const RangeStartAndEndDateEdit: FunctionComponent<ComponentProps> = (
     start: Date,
     end: Date,
   ): string => {
-    const seconds: number = OneUptimeDate.getDifferenceInSeconds(end, start);
+    const seconds: number = OperationsDate.getDifferenceInSeconds(end, start);
 
     if (seconds <= 0) {
       return "";
     }
 
-    return OneUptimeDate.secondsToFormattedFriendlyTimeString(seconds).trim();
+    return OperationsDate.secondsToFormattedFriendlyTimeString(seconds).trim();
   };
 
   const onSelectQuickRange: (range: TimeRange) => void = (
@@ -106,7 +106,7 @@ const RangeStartAndEndDateEdit: FunctionComponent<ComponentProps> = (
    * read as a positive "Showing N of data" while Apply is disabled.
    */
   const customDuration: string =
-    customStart && customEnd && OneUptimeDate.isAfter(customEnd, customStart)
+    customStart && customEnd && OperationsDate.isAfter(customEnd, customStart)
       ? getDurationText(customStart, customEnd)
       : "";
 

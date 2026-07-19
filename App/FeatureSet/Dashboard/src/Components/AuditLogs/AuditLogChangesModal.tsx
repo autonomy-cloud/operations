@@ -3,7 +3,7 @@ import { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import IconProp from "Common/Types/Icon/IconProp";
 import Icon, { SizeProp, ThickProp } from "Common/UI/Components/Icon/Icon";
 import { JSONArray, JSONObject, JSONValue } from "Common/Types/JSON";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import React, { FunctionComponent, ReactElement, useMemo } from "react";
 
 export type AuditLogModalAction = "Create" | "Update" | "Delete" | string;
@@ -59,7 +59,7 @@ const formatScalar: (value: JSONValue | undefined) => string = (
   if (typeof value === "string") {
     if (isISODate(value)) {
       try {
-        return OneUptimeDate.getDateAsLocalFormattedString(value);
+        return OperationsDate.getDateAsLocalFormattedString(value);
       } catch {
         return value;
       }

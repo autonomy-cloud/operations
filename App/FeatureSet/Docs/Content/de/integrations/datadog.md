@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. Gehen Sie in Datadog zu **Integrations → Webhooks** (installieren Sie die **Webhooks**-Integration, falls noch nicht geschehen).
 2. **Einen Webhook hinzufügen**:
 
-   - **Name**: `oneuptime` (dieser wird zu `@webhook-oneuptime`).
+   - **Name**: `cast-operations` (dieser wird zu `@webhook-cast-operations`).
    - **URL**: die Webhook-URL Ihres Workflows.
    - **Payload** — Datadog erlaubt Ihnen, den JSON-Body mit [Vorlagenvariablen](https://docs.datadoghq.com/integrations/webhooks/#usage) zu definieren:
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 Fügen Sie den Webhook-Handle zu den Monitoren hinzu, die Sie weiterleiten möchten. Nehmen Sie in der **Benachrichtigungsnachricht** jedes Monitors Folgendes auf:
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-Damit werden sowohl der Alarm als auch die Wiederherstellung an Cast Operations gesendet. (Um alles weiterzuleiten, können Sie `@webhook-oneuptime` auch bedingungslos zu einem Monitor hinzufügen.)
+Damit werden sowohl der Alarm als auch die Wiederherstellung an Cast Operations gesendet. (Um alles weiterzuleiten, können Sie `@webhook-cast-operations` auch bedingungslos zu einem Monitor hinzufügen.)
 
 ## Schritt 4 — Testen
 
@@ -74,7 +74,7 @@ Damit werden sowohl der Alarm als auch die Wiederherstellung an Cast Operations 
 
 ## Fehlerbehebung
 
-- **Kein Lauf erscheint** — bestätigen Sie, dass die Nachricht des Monitors `@webhook-oneuptime` enthält und der Workflow **Enabled** ist.
+- **Kein Lauf erscheint** — bestätigen Sie, dass die Nachricht des Monitors `@webhook-cast-operations` enthält und der Workflow **Enabled** ist.
 - **Felder sind leer** — Datadog ersetzt nur Vorlagenvariablen, die für das Ereignis zutreffen. Prüfen Sie die Trigger-Ausgabe im Tab **Logs** und passen Sie Ihre Webhook-Payload an.
 - **Doppelte Vorfälle** — ein Monitor, der erneut alarmiert (renotify), sendet mehrere `Triggered`-Ereignisse; deduplizieren Sie mit einer **Find Incident**-Prüfung auf der `id`, bevor Sie erstellen.
 

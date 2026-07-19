@@ -43,7 +43,7 @@ import ScheduledMaintenanceFeedElement from "../../../Components/ScheduledMainte
 import EntityRunbooks from "../../../Components/Runbook/EntityRunbooks";
 import EventStatTile from "../../../Components/EventView/EventStatTile";
 import LiveDuration from "../../../Components/EventView/LiveDuration";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const ScheduledMaintenanceView: FunctionComponent<
   PageComponentProps
@@ -134,19 +134,21 @@ const ScheduledMaintenanceView: FunctionComponent<
             <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
               <EventStatTile
                 label="Starts"
-                value={OneUptimeDate.getDateAsLocalFormattedString(
+                value={OperationsDate.getDateAsLocalFormattedString(
                   eventStartsAt,
                 )}
                 description={
                   "Your local timezone (" +
-                  OneUptimeDate.getCurrentTimezoneString() +
+                  OperationsDate.getCurrentTimezoneString() +
                   ")"
                 }
                 icon={IconProp.Clock}
               />
               <EventStatTile
                 label="Ends"
-                value={OneUptimeDate.getDateAsLocalFormattedString(eventEndsAt)}
+                value={OperationsDate.getDateAsLocalFormattedString(
+                  eventEndsAt,
+                )}
                 icon={IconProp.Clock}
               />
               <EventStatTile
@@ -224,7 +226,7 @@ const ScheduledMaintenanceView: FunctionComponent<
                 title: "Event Starts At",
                 description:
                   "Shown in your local timezone (" +
-                  OneUptimeDate.getCurrentTimezoneString() +
+                  OperationsDate.getCurrentTimezoneString() +
                   ").",
                 fieldType: FormFieldSchemaType.DateTime,
                 required: true,
@@ -238,7 +240,7 @@ const ScheduledMaintenanceView: FunctionComponent<
                 stepId: "event-info",
                 description:
                   "Shown in your local timezone (" +
-                  OneUptimeDate.getCurrentTimezoneString() +
+                  OperationsDate.getCurrentTimezoneString() +
                   ").",
                 fieldType: FormFieldSchemaType.DateTime,
                 required: true,
@@ -475,7 +477,7 @@ const ScheduledMaintenanceView: FunctionComponent<
                             <span className="font-semibold">
                               Next reminder will be sent at:
                             </span>{" "}
-                            {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                            {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                               item.nextSubscriberNotificationBeforeTheEventAt,
                             )}
                           </div>

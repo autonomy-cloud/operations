@@ -15,7 +15,7 @@ import API from "Common/UI/Utils/API/API";
 import User from "Common/UI/Utils/User";
 import UserWebhook from "Common/Models/DatabaseModels/UserWebhook";
 import React, { ReactElement, useState } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const Webhook: () => JSX.Element = (): ReactElement => {
   const [showTestModal, setShowTestModal] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const Webhook: () => JSX.Element = (): ReactElement => {
   const [isTesting, setIsTesting] = useState<boolean>(false);
   const [currentItem, setCurrentItem] = useState<UserWebhook | null>(null);
   const [refreshToggle, setRefreshToggle] = useState<string>(
-    OneUptimeDate.getCurrentDate().toString(),
+    OperationsDate.getCurrentDate().toString(),
   );
 
   const sendTest: (item: UserWebhook) => Promise<void> = async (
@@ -189,7 +189,7 @@ const Webhook: () => JSX.Element = (): ReactElement => {
             setShowTestModal(false);
             setTestError("");
             setTestMessage("");
-            setRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+            setRefreshToggle(OperationsDate.getCurrentDate().toString());
           }}
         />
       ) : null}

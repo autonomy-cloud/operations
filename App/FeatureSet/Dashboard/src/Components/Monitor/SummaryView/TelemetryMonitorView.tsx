@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InfoCard from "Common/UI/Components/InfoCard/InfoCard";
 import React, { FunctionComponent, ReactElement } from "react";
 import TelemetryMonitorSummary from "./Types/TelemetryMonitorSummary";
@@ -18,7 +18,7 @@ const WebsiteMonitorSummaryView: FunctionComponent<ComponentProps> = (
           title="Monitored At"
           value={
             props.telemetryMonitorSummary?.lastCheckedAt
-              ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+              ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   props.telemetryMonitorSummary?.lastCheckedAt,
                 )
               : "-"
@@ -29,7 +29,7 @@ const WebsiteMonitorSummaryView: FunctionComponent<ComponentProps> = (
           title="Next Check At"
           value={
             props.telemetryMonitorSummary?.nextCheckAt
-              ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+              ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   props.telemetryMonitorSummary?.nextCheckAt,
                 )
               : "-"

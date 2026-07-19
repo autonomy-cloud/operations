@@ -1,5 +1,5 @@
 import {
-  ONEUPTIME_URL,
+  CAST_OPERATIONS_URL,
   AI_AGENT_ID,
   AI_AGENT_KEY,
   AI_AGENT_NAME,
@@ -66,7 +66,7 @@ export default class Register {
     if (HasClusterKey) {
       // Clustered mode: Auto-register and get ID from server
       const aiAgentRegistrationUrl: URL = URL.fromString(
-        ONEUPTIME_URL.toString(),
+        CAST_OPERATIONS_URL.toString(),
       ).addRoute("/api/ai-agent/register");
 
       logger.debug("Registering AI Agent...", {
@@ -130,13 +130,13 @@ export default class Register {
        */
       if (!AI_AGENT_ID) {
         throw new Error(
-          "AI_AGENT_ID or ONEUPTIME_SECRET should be set for the AI agent to register. Set one of them and the agent will register on its next retry.",
+          "AI_AGENT_ID or CAST_OPERATIONS_SECRET should be set for the AI agent to register. Set one of them and the agent will register on its next retry.",
         );
       }
 
-      const aliveUrl: URL = URL.fromString(ONEUPTIME_URL.toString()).addRoute(
-        "/api/ai-agent/alive",
-      );
+      const aliveUrl: URL = URL.fromString(
+        CAST_OPERATIONS_URL.toString(),
+      ).addRoute("/api/ai-agent/alive");
 
       logger.debug("Registering AI Agent...", {
         aiAgentId: AI_AGENT_ID?.toString(),

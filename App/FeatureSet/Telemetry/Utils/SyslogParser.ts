@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 export interface ParsedSyslogStructuredData {
   [sdId: string]: {
@@ -122,7 +122,7 @@ function parseRfc5424(payload: string): ParsedSyslogMessage | null {
 
   const timestamp: Date | undefined =
     timestampToken && timestampToken !== "-"
-      ? OneUptimeDate.parseRfc5424Timestamp(timestampToken)
+      ? OperationsDate.parseRfc5424Timestamp(timestampToken)
       : undefined;
 
   const hostname: string | undefined =
@@ -171,7 +171,7 @@ function parseRfc3164(payload: string): ParsedSyslogMessage | null {
   const rest: string = match[3] ?? "";
 
   const timestamp: Date | undefined =
-    OneUptimeDate.parseRfc3164Timestamp(timestampToken);
+    OperationsDate.parseRfc3164Timestamp(timestampToken);
 
   let appName: string | undefined;
   let procId: string | undefined;

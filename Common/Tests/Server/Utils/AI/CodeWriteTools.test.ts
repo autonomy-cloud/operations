@@ -60,7 +60,7 @@ function buildRepository(): CodeRepositoryModel {
 }
 
 const CHANGES: Array<{ filePath: string; content: string }> = [
-  { filePath: "src/billing/charge.ts", content: "export const a = 1;\n" },
+  { filePath: "src/payments/charge.ts", content: "export const a = 1;\n" },
 ];
 
 beforeEach(() => {
@@ -177,7 +177,7 @@ describe("the default-branch invariant", () => {
     // Base is the default branch (we merge INTO it); head must never be.
     expect(call.baseBranchName).toBe("main");
     expect(call.headBranchName).not.toBe("main");
-    expect(call.headBranchName).toContain("oneuptime-ai/");
+    expect(call.headBranchName).toContain("cast-operations-ai/");
   });
 });
 
@@ -241,7 +241,7 @@ describe("open_code_pull_request", () => {
       .calls[0][0];
 
     expect(created.data.codeRepositoryId.toString()).toBe(REPO_ID.toString());
-    expect(created.data.headRefName).toContain("oneuptime-ai/");
+    expect(created.data.headRefName).toContain("cast-operations-ai/");
   });
 
   /*

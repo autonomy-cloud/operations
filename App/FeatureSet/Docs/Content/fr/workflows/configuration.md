@@ -72,7 +72,6 @@ La plupart des ingénieurs devraient avoir create/edit/read sur les workflows ma
 
 ## Limites de plan
 
-Cast Operations Cloud limite le nombre d'exécutions par mois sur les plans inférieurs. Votre limite actuelle est affichée sous **Project Settings → Billing**. Lorsque vous l'atteignez, les nouveaux déclencheurs sont rejetés jusqu'au cycle de facturation suivant. Les installations auto-hébergées n'ont pas cette limite.
 
 ## Quand les workflows ne sont pas le bon outil
 

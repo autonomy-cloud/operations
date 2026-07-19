@@ -1,5 +1,5 @@
 import ObjectID from "../../../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../../../Types/Date";
+import OperationsDate from "../../../../../../Types/Date";
 import SortOrder from "../../../../../../Types/BaseDatabase/SortOrder";
 import InBetween from "../../../../../../Types/BaseDatabase/InBetween";
 import AIInsightType from "../../../../../../Types/AI/AIInsightType";
@@ -284,11 +284,11 @@ export default class TraceLatencyRegressionDetector implements InsightDetector {
   public async detect(
     context: InsightScanContext,
   ): Promise<Array<InsightCandidate>> {
-    const recentWindowStart: Date = OneUptimeDate.addRemoveHours(
+    const recentWindowStart: Date = OperationsDate.addRemoveHours(
       context.now,
       -1 * LATENCY_RECENT_WINDOW_HOURS,
     );
-    const priorWindowStart: Date = OneUptimeDate.addRemoveHours(
+    const priorWindowStart: Date = OperationsDate.addRemoveHours(
       recentWindowStart,
       -1 * LATENCY_BASELINE_WINDOW_HOURS,
     );

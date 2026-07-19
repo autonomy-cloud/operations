@@ -1,15 +1,10 @@
-import { PlanType } from "Common/Types/Billing/SubscriptionPlan";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import ObjectID from "Common/Types/ObjectID";
-import PositiveNumber from "Common/Types/PositiveNumber";
-import WorkflowPlan from "Common/Types/Workflow/WorkflowPlan";
 import WorkflowStatus from "Common/Types/Workflow/WorkflowStatus";
 import Queue, { QueueName } from "Common/Server/Infrastructure/Queue";
-import ProjectService from "Common/Server/Services/ProjectService";
 import WorkflowLogService from "Common/Server/Services/WorkflowLogService";
 import WorkflowService from "Common/Server/Services/WorkflowService";
-import QueryHelper from "Common/Server/Types/Database/QueryHelper";
 import { ExecuteWorkflowType } from "Common/Server/Types/Workflow/TriggerCode";
 import Workflow from "Common/Models/DatabaseModels/Workflow";
 import WorkflowLog from "Common/Models/DatabaseModels/WorkflowLog";
@@ -86,74 +81,6 @@ export default class QueueWorkflow {
       );
     }
 
-    //check project and plan
-    const projectPlan: {
-      plan: PlanType | null;
-      isSubscriptionUnpaid: boolean;
-    } = await ProjectService.getCurrentPlan(workflow.projectId);
-
-    if (projectPlan.isSubscriptionUnpaid) {
-      // Add Workflow Run Log.
-
-      const runLog: WorkflowLog = new WorkflowLog();
-      runLog.workflowId = workflowId;
-      runLog.projectId = workflow.projectId;
-      runLog.workflowStatus = WorkflowStatus.WorkflowCountExceeded;
-      runLog.logs =
-        OneUptimeDate.getCurrentDateAsFormattedString({
-          showSeconds: true,
-        }) + ": Workflow cannot run because subscription is unpaid.";
-
-      await WorkflowLogService.create({
-        data: runLog,
-        props: {
-          isRoot: true,
-        },
-      });
-
-      return;
-    }
-
-    if (projectPlan.plan) {
-      const startDate: Date = OneUptimeDate.getSomeDaysAgo(30);
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-
-      const workflowCount: PositiveNumber = await WorkflowLogService.countBy({
-        query: {
-          projectId: workflow.projectId,
-          createdAt: QueryHelper.inBetween(startDate, endDate),
-        },
-        props: {
-          isRoot: true,
-        },
-      });
-
-      if (workflowCount.toNumber() > WorkflowPlan[projectPlan.plan]) {
-        // Add Workflow Run Log.
-
-        const runLog: WorkflowLog = new WorkflowLog();
-        runLog.workflowId = workflowId;
-        runLog.projectId = workflow.projectId;
-        runLog.workflowStatus = WorkflowStatus.WorkflowCountExceeded;
-        runLog.logs =
-          OneUptimeDate.getCurrentDateAsFormattedString({
-            showSeconds: true,
-          }) +
-          `: Workflow cannot run because it already ran ${workflowCount.toNumber()} in the last 30 days. Your current plan limit is ${
-            WorkflowPlan[projectPlan.plan]
-          }`;
-
-        await WorkflowLogService.create({
-          data: runLog,
-          props: {
-            isRoot: true,
-          },
-        });
-
-        return;
-      }
-    }
-
     // Add Workflow Run Log.
     let workflowLog: WorkflowLog | null = null;
     if (!scheduleAt) {
@@ -163,7 +90,7 @@ export default class QueueWorkflow {
       runLog.projectId = workflow.projectId;
       runLog.workflowStatus = WorkflowStatus.Scheduled;
       runLog.logs =
-        OneUptimeDate.getCurrentDateAsFormattedString({
+        OperationsDate.getCurrentDateAsFormattedString({
           showSeconds: true,
         }) + `: Workflow ${workflowId.toString()} Scheduled.`;
 

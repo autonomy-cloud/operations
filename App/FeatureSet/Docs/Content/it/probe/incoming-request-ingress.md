@@ -33,24 +33,24 @@ Impostare `PROBE_INGRESS_PORT` alla porta su cui si vuole far ascoltare il liste
 ### Docker
 
 ```bash
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 Se non si usa `--network host`, pubblicare esplicitamente la porta ingress:
 
 ```bash
-docker run --name oneuptime-probe \
+docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 ### Docker Compose
@@ -59,13 +59,13 @@ docker run --name oneuptime-probe \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -78,25 +78,25 @@ services:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
@@ -107,10 +107,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oneuptime-probe-ingress
+  name: cast-operations-probe-ingress
 spec:
   selector:
-    app: oneuptime-probe
+    app: cast-operations-probe
   ports:
     - name: ingress
       port: 3875
@@ -118,7 +118,7 @@ spec:
   type: ClusterIP
 ```
 
-I servizi interni possono quindi inviare heartbeat a `http://oneuptime-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
+I servizi interni possono quindi inviare heartbeat a `http://cast-operations-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
 
 ## Invio di Richieste al Probe
 
@@ -167,19 +167,19 @@ curl -X POST http://probe.internal:3875/heartbeat/VOSTRA_CHIAVE_SEGRETA \
 | `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`                        | Timeout (ms) per ogni tentativo di inoltro a Cast Operations. Minimo `1000`.                                     |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`                            | Numero di tentativi prima che il probe rinunci a un inoltro. Impostare a `0` per disabilitare i tentativi. |
 
-Le variabili standard del probe (`PROBE_KEY`, `PROBE_ID`, `ONEUPTIME_URL`, variabili proxy) si applicano tutte — vedere [Probe Personalizzati](/docs/probe/custom-probe) per l'elenco completo.
+Le variabili standard del probe (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, variabili proxy) si applicano tutte — vedere [Probe Personalizzati](/docs/probe/custom-probe) per l'elenco completo.
 
 ## Considerazioni sulla Sicurezza
 
 - **L'endpoint è non autenticato by design** — la chiave segreta nel percorso URL _è_ l'autenticazione, proprio come avviene sull'endpoint pubblico di `visca.ai`. Trattare la chiave segreta come una credenziale.
 - **Vincolare solo a un'interfaccia privata.** Il listener ingress non dovrebbe essere raggiungibile da Internet pubblico. Usare una network policy, una regola firewall o un servizio `ClusterIP` per limitare l'accesso.
-- **Usare la terminazione HTTPS se si richiede crittografia in transito.** Il listener del probe parla HTTP semplice. Metterlo dietro un load balancer interno / ingress controller se si necessita di TLS sul hop inbound. Il leg di inoltro dal probe a Cast Operations usa sempre HTTPS (assumendo che `ONEUPTIME_URL` sia `https://`).
+- **Usare la terminazione HTTPS se si richiede crittografia in transito.** Il listener del probe parla HTTP semplice. Metterlo dietro un load balancer interno / ingress controller se si necessita di TLS sul hop inbound. Il leg di inoltro dal probe a Cast Operations usa sempre HTTPS (assumendo che `CAST_OPERATIONS_URL` sia `https://`).
 - **Limiti di risorse.** Il listener accetta corpi di richiesta fino a 50 MB. Se si necessita di un limite più stretto, porre un reverse proxy davanti.
 
 ## Risoluzione dei Problemi
 
 - **Il probe registra `Probe ingress listener started on port <port>` all'avvio** — conferma che il listener è attivo. Se non si vede questa riga, `PROBE_INGRESS_PORT` non è impostato, è `0` o non è valido.
-- **`Probe ingress: failed to forward to <url> after N attempts`** — il probe non è riuscito a raggiungere Cast Operations. Controllare la connettività in uscita del probe, le impostazioni proxy e il valore di `ONEUPTIME_URL`.
+- **`Probe ingress: failed to forward to <url> after N attempts`** — il probe non è riuscito a raggiungere Cast Operations. Controllare la connettività in uscita del probe, le impostazioni proxy e il valore di `CAST_OPERATIONS_URL`.
 - **`Probe ingress: probe ID not available, forwarding without it`** — il probe non si è ancora registrato. L'inoltro ha comunque successo; l'heartbeat semplicemente non sarà attribuito a un probe.
 - **L'heartbeat appare in Cast Operations ma non tramite il probe** — confermare che il servizio stia raggiungendo `http://<probe-host>:<porta>/...` e non l'URL pubblico. Una voce DNS o `/etc/hosts` mal configurata è la causa più comune.
 

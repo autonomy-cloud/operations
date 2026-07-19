@@ -1,7 +1,7 @@
 import LayersPreview from "./LayersPreview";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -176,7 +176,7 @@ const Layers: FunctionComponent<ComponentProps> = (
               ? "Here is the final schedule of who is on call and when. Restriction windows are resolved in this schedule's timezone - " +
                 scheduleTimezone
               : "Here is the final schedule of who is on call and when. This is based on your local timezone - " +
-                OneUptimeDate.getCurrentTimezoneString()
+                OperationsDate.getCurrentTimezoneString()
           }
         >
           <LayersPreview

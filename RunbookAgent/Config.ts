@@ -3,8 +3,8 @@ import ObjectID from "Common/Types/ObjectID";
 import NumberUtil from "Common/Utils/Number";
 import logger from "Common/Server/Utils/Logger";
 
-if (!process.env["ONEUPTIME_URL"]) {
-  logger.error("ONEUPTIME_URL is not set");
+if (!process.env["CAST_OPERATIONS_URL"]) {
+  logger.error("CAST_OPERATIONS_URL is not set");
   process.exit(1);
 }
 
@@ -18,8 +18,8 @@ if (!process.env["RUNBOOK_AGENT_KEY"]) {
   process.exit(1);
 }
 
-export const ONEUPTIME_BASE_URL: URL = URL.fromString(
-  process.env["ONEUPTIME_URL"]!,
+export const CAST_OPERATIONS_BASE_URL: URL = URL.fromString(
+  process.env["CAST_OPERATIONS_URL"]!,
 );
 
 /*
@@ -30,7 +30,7 @@ export const ONEUPTIME_BASE_URL: URL = URL.fromString(
  *   POST /runbook-agent-ingest/job/:jobId/result
  */
 export const RUNBOOK_AGENT_INGEST_URL: URL = URL.fromString(
-  ONEUPTIME_BASE_URL.toString(),
+  CAST_OPERATIONS_BASE_URL.toString(),
 ).addRoute("/runbook-agent-ingest");
 
 export const RUNBOOK_AGENT_ID: ObjectID = new ObjectID(

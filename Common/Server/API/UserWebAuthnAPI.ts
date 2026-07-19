@@ -7,7 +7,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import BaseAPI from "./BaseAPI";
 import UserWebAuthn from "../../Models/DatabaseModels/UserWebAuthn";
@@ -29,7 +29,7 @@ export default class UserWebAuthnAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          const userId: ObjectID = (req as OneUptimeRequest).userAuthorization!
+          const userId: ObjectID = (req as OperationsRequest).userAuthorization!
             .userId;
 
           const result: { options: any; challenge: string } =

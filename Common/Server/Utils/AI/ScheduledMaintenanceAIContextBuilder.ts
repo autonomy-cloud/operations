@@ -8,7 +8,7 @@ import ScheduledMaintenanceStateTimelineService from "../../Services/ScheduledMa
 import ScheduledMaintenanceInternalNoteService from "../../Services/ScheduledMaintenanceInternalNoteService";
 import ScheduledMaintenancePublicNoteService from "../../Services/ScheduledMaintenancePublicNoteService";
 import CaptureSpan from "../Telemetry/CaptureSpan";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import SortOrder from "../../../Types/BaseDatabase/SortOrder";
 import { LLMMessage } from "../LLM/LLMService";
 
@@ -168,9 +168,9 @@ export default class ScheduledMaintenanceAIContextBuilder {
     contextText += `**Title:** ${scheduledMaintenance.title || "N/A"}\n\n`;
     contextText += `**Description:** ${scheduledMaintenance.description || "N/A"}\n\n`;
     contextText += `**Current State:** ${scheduledMaintenance.currentScheduledMaintenanceState?.name || "N/A"}\n\n`;
-    contextText += `**Scheduled Start:** ${scheduledMaintenance.startsAt ? OneUptimeDate.getDateAsFormattedString(scheduledMaintenance.startsAt) : "N/A"}\n\n`;
-    contextText += `**Scheduled End:** ${scheduledMaintenance.endsAt ? OneUptimeDate.getDateAsFormattedString(scheduledMaintenance.endsAt) : "N/A"}\n\n`;
-    contextText += `**Created At:** ${scheduledMaintenance.createdAt ? OneUptimeDate.getDateAsFormattedString(scheduledMaintenance.createdAt) : "N/A"}\n\n`;
+    contextText += `**Scheduled Start:** ${scheduledMaintenance.startsAt ? OperationsDate.getDateAsFormattedString(scheduledMaintenance.startsAt) : "N/A"}\n\n`;
+    contextText += `**Scheduled End:** ${scheduledMaintenance.endsAt ? OperationsDate.getDateAsFormattedString(scheduledMaintenance.endsAt) : "N/A"}\n\n`;
+    contextText += `**Created At:** ${scheduledMaintenance.createdAt ? OperationsDate.getDateAsFormattedString(scheduledMaintenance.createdAt) : "N/A"}\n\n`;
 
     // Affected monitors
     if (
@@ -202,7 +202,7 @@ export default class ScheduledMaintenanceAIContextBuilder {
       contextText += "# State Timeline\n\n";
       for (const timeline of stateTimeline) {
         const startTime: string = timeline.startsAt
-          ? OneUptimeDate.getDateAsFormattedString(timeline.startsAt)
+          ? OperationsDate.getDateAsFormattedString(timeline.startsAt)
           : "N/A";
         const stateName: string =
           timeline.scheduledMaintenanceState?.name?.toString() || "Unknown";
@@ -221,7 +221,7 @@ export default class ScheduledMaintenanceAIContextBuilder {
       contextText += "# Internal Notes (Private)\n\n";
       for (const note of internalNotes) {
         const noteTime: string = note.createdAt
-          ? OneUptimeDate.getDateAsFormattedString(note.createdAt)
+          ? OperationsDate.getDateAsFormattedString(note.createdAt)
           : "N/A";
         const createdBy: string =
           note.createdByUser?.name?.toString() ||
@@ -238,9 +238,9 @@ export default class ScheduledMaintenanceAIContextBuilder {
       contextText += "# Public Notes\n\n";
       for (const note of publicNotes) {
         const noteTime: string = note.postedAt
-          ? OneUptimeDate.getDateAsFormattedString(note.postedAt)
+          ? OperationsDate.getDateAsFormattedString(note.postedAt)
           : note.createdAt
-            ? OneUptimeDate.getDateAsFormattedString(note.createdAt)
+            ? OperationsDate.getDateAsFormattedString(note.createdAt)
             : "N/A";
         const createdBy: string =
           note.createdByUser?.name?.toString() ||

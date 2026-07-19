@@ -214,7 +214,7 @@ describe("Pull-request task handlers: the no-pull-request branch", () => {
       const secondRepository: CodeRepositoryInfo = {
         ...repository,
         id: "repo-id-2",
-        repositoryName: "billing",
+        repositoryName: "payments",
       };
 
       const backendAPI: BackendAPI = {
@@ -227,7 +227,7 @@ describe("Pull-request task handlers: the no-pull-request branch", () => {
       jest
         .spyOn(handler as unknown as ProcessRepositorySeam, "processRepository")
         .mockRejectedValueOnce(new Error("clone failed"))
-        .mockResolvedValueOnce("https://github.com/acme/billing/pull/1");
+        .mockResolvedValueOnce("https://github.com/acme/payments/pull/1");
 
       const result: TaskResult = await handler.execute(
         buildContext(backendAPI),

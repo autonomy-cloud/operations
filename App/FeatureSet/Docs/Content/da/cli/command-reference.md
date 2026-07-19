@@ -4,12 +4,12 @@ Komplet reference til alle Cast Operations CLI-kommandoer.
 
 ## Autentificeringskommandoer
 
-### `oneuptime login`
+### `cast-operations login`
 
 Autentificer med en Cast Operations-instans.
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | Parameter        | Type        | Påkrævet | Beskrivelse                          |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 List alle gemte kontekster.
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 Skift til en navngivet kontekst.
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | Parameter | Type     | Påkrævet | Beskrivelse                     |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 Vis den aktive kontekst med maskeret API-nøgle.
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 Fjern en gemt kontekst.
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | Parameter | Type     | Påkrævet | Beskrivelse                   |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 Alle ressourcekommandoer følger det samme mønster. Erstat `<resource>` med et understøttet ressourcenavn (f.eks. `incident`, `monitor`, `alert`, `status-page`).
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 List ressourcer med filtrering og paginering.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | Indstilling      | Type   | Standard | Beskrivelse                       |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 Hent en enkelt ressource efter ID.
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | Parameter      | Type        | Påkrævet | Beskrivelse         |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 Opret en ny ressource.
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | Indstilling     | Type   | Påkrævet                      | Beskrivelse            |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 Opdater en eksisterende ressource.
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | Parameter       | Type        | Påkrævet | Beskrivelse                        |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 Slet en ressource.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | Parameter | Type        | Påkrævet | Beskrivelse                    |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 Tæl ressourcer, der matcher et filter.
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | Indstilling      | Type   | Standard | Beskrivelse              |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## Hjælpekommandoer
 
-### `oneuptime version`
+### `cast-operations version`
 
 Vis CLI-versionen.
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 Vis aktuelle autentificeringsdetaljer.
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Viser instans-URL og maskeret API-nøgle. Hvis en gemt kontekst er aktiv, vises kontekstnavnet også.
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 List alle tilgængelige ressourcetyper.
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | Indstilling     | Type   | Standard | Beskrivelse                                |

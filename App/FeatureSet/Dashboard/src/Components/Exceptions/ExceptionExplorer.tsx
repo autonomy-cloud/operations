@@ -30,7 +30,7 @@ import {
 } from "Common/Types/AI/AIFixReadiness";
 import ActionCard from "Common/UI/Components/ActionCard/ActionCard";
 import IconProp from "Common/Types/Icon/IconProp";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import User from "Common/UI/Utils/User";
 import Button, { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import OccouranceTable from "./OccuranceTable";
@@ -597,7 +597,7 @@ const ExceptionExplorer: FunctionComponent<ComponentProps> = (
         data: {
           isResolved: isResolved,
           markedAsResolvedAt: isResolved
-            ? OneUptimeDate.getCurrentDate()
+            ? OperationsDate.getCurrentDate()
             : null,
           markedAsResolvedByUserId: isResolved
             ? User.getUserId() || null
@@ -634,7 +634,9 @@ const ExceptionExplorer: FunctionComponent<ComponentProps> = (
         modelType: TelemetryException,
         data: {
           isArchived: isArchive,
-          markedAsArchivedAt: isArchive ? OneUptimeDate.getCurrentDate() : null,
+          markedAsArchivedAt: isArchive
+            ? OperationsDate.getCurrentDate()
+            : null,
           markedAsArchivedByUserId: isArchive ? User.getUserId() || null : null,
         },
       });

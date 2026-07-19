@@ -108,14 +108,14 @@ Para resolver o incidente no Cast Operations quando alguém fechar o issue no Ji
 
 3. No workflow, use um bloco **Find Incident** para localizar o incidente pela chave armazenada e depois um bloco **Update Incident** para movê-lo ao estado resolvido.
 
-Se você armazenou a chave do Jira no incidente no Passo 4, a correspondência é direta. Veja [Componentes → Componentes de dados do Cast Operations](/docs/workflows/components#oneuptime-data-components).
+Se você armazenou a chave do Jira no incidente no Passo 4, a correspondência é direta. Veja [Componentes → Componentes de dados do Cast Operations](/docs/workflows/components#cast-operations-data-components).
 
 ## Personalizando o issue
 
 Alguns ajustes comuns no corpo do bloco API:
 
 - **Priority** — adicione `"priority": { "name": "High" }` dentro de `fields`. Você pode ramificar em `{{Incident.incidentSeverity.name}}` com **Conditions** para mapear severidades do Cast Operations às prioridades do Jira.
-- **Labels** — adicione `"labels": ["oneuptime", "incident"]`.
+- **Labels** — adicione `"labels": ["cast-operations", "incident"]`.
 - **Assignee** — adicione `"assignee": { "id": "<accountId>" }` (o Jira Cloud usa IDs de conta, não nomes de usuário).
 - **Campos personalizados** — adicione `"customfield_XXXXX": "..."` usando o ID do campo no seu admin do Jira.
 

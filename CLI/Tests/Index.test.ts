@@ -7,7 +7,7 @@ describe("Index (CLI entry point)", () => {
   it("should create a program with all command groups registered", () => {
     const program: Command = new Command();
     program
-      .name("oneuptime")
+      .name("cast-operations")
       .description(
         "Cast Operations CLI - Manage your Cast Operations resources from the command line",
       )
@@ -38,9 +38,9 @@ describe("Index (CLI entry point)", () => {
 
   it("should set correct program name and description", () => {
     const program: Command = new Command();
-    program.name("oneuptime").description("Cast Operations CLI");
+    program.name("cast-operations").description("Cast Operations CLI");
 
-    expect(program.name()).toBe("oneuptime");
+    expect(program.name()).toBe("cast-operations");
   });
 
   it("should define global options", () => {

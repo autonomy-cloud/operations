@@ -64,7 +64,7 @@ const DashboardMasterPage: FunctionComponent<ComponentProps> = (
 
   const [statusPage, setStatusPage] = useState<StatusPage | null>(null);
 
-  const [hidePoweredByOneUptimeBranding, setHidePoweredByOneUptimeBranding] =
+  const [hidePoweredByOperationsBranding, setHidePoweredByOperationsBranding] =
     useState<boolean>(false);
 
   useEffect(() => {
@@ -203,11 +203,11 @@ const DashboardMasterPage: FunctionComponent<ComponentProps> = (
 
       const headHtml: string | null = statusPage.headerHTML || null;
 
-      const hidePoweredByOneUptimeBranding: boolean | null =
-        statusPage.hidePoweredByOneUptimeBranding || false;
+      const hidePoweredByOperationsBranding: boolean | null =
+        statusPage.hidePoweredByOperationsBranding || false;
 
-      setHidePoweredByOneUptimeBranding(
-        Boolean(hidePoweredByOneUptimeBranding),
+      setHidePoweredByOperationsBranding(
+        Boolean(hidePoweredByOperationsBranding),
       );
 
       const footHTML: string | null = statusPage.footerHTML || null;
@@ -352,7 +352,7 @@ const DashboardMasterPage: FunctionComponent<ComponentProps> = (
           </main>
           {!footerHtml ? (
             <Footer
-              hidePoweredByOneUptimeBranding={hidePoweredByOneUptimeBranding}
+              hidePoweredByOperationsBranding={hidePoweredByOperationsBranding}
               enabledLanguages={statusPage?.enabledLanguages || null}
               className="mx-auto w-full py-3 px-0 sm:py-5 md:flex md:items-center md:justify-between lg:px-0"
               copyright={

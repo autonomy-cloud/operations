@@ -18,7 +18,7 @@ import IconProp from "Common/Types/Icon/IconProp";
 import { RangeStartAndEndDateTimeUtil } from "Common/Types/Time/RangeStartAndEndDateTime";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Query from "Common/Types/BaseDatabase/Query";
 import JSONFunctions from "Common/Types/JSONFunctions";
 import {
@@ -245,7 +245,7 @@ const DashboardLogStreamComponentElement: FunctionComponent<ComponentProps> = (
             const colors: SeverityColor = getSeverityColor(severity);
             const body: string = (log.body as string) || "";
             const time: Date | undefined = log.time
-              ? OneUptimeDate.fromString(log.time as unknown as string)
+              ? OperationsDate.fromString(log.time as unknown as string)
               : undefined;
 
             return (
@@ -269,7 +269,7 @@ const DashboardLogStreamComponentElement: FunctionComponent<ComponentProps> = (
                     className="text-xs text-gray-400 shrink-0 tabular-nums"
                     style={{ fontSize: "11px" }}
                   >
-                    {OneUptimeDate.getDateAsLocalFormattedString(time, true)}
+                    {OperationsDate.getDateAsLocalFormattedString(time, true)}
                   </span>
                 )}
                 <span

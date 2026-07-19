@@ -49,18 +49,18 @@ Runbook エージェントはこれを逆転させます。Bash と JavaScript �
 - Bash/JavaScript ステップで行いたいこと (他のホストへの SSH、`kubectl`、データベースとの通信など) ができる。
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.yourdomain.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.yourdomain.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. エージェントが接続されているか確認する
 
 **Runbooks → 設定 → エージェント** に戻ります。約 60 秒以内に、エージェントの行が `Connected` に切り替わり、**最終確認時刻** が更新されているはずです。`Disconnected` のままなら:
 
-- コンテナログ (`docker logs oneuptime-runbook-agent`) を確認して認証エラーやネットワーク障害を探す。
+- コンテナログ (`docker logs cast-operations-runbook-agent`) を確認して認証エラーやネットワーク障害を探す。
 - ホストから `curl` で Cast Operations URL に到達できるか確認。
 - ID とキーが空白なしでコピーされているか確認。
 
@@ -116,7 +116,7 @@ Runbook 実行をキャンセル (実行ビューまたは API から) すると
 
 | 変数                                      | 必須   | デフォルト | 注意                                                                         |
 | ----------------------------------------- | ------ | ---------- | ---------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | はい   | —          | Cast Operations インスタンスのベース URL、例: `https://operations.yourdomain.com`。 |
+| `CAST_OPERATIONS_URL`                           | はい   | —          | Cast Operations インスタンスのベース URL、例: `https://operations.yourdomain.com`。 |
 | `RUNBOOK_AGENT_ID`                        | はい   | —          | エージェントのセットアップモーダルに表示される UUID。                        |
 | `RUNBOOK_AGENT_KEY`                       | はい   | —          | エージェントのセットアップモーダルに表示されるシークレット。                 |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | いいえ | `5000`     | 新規ジョブのポーリング間隔。                                                 |

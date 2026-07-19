@@ -22,7 +22,7 @@ import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IconProp from "Common/Types/Icon/IconProp";
 import { JSONArray, JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
@@ -383,8 +383,8 @@ const AIInsightViewPage: FunctionComponent<
     metaItems.push({
       label: "First Seen",
       icon: IconProp.Clock,
-      value: OneUptimeDate.fromNow(insight.firstSeenAt),
-      title: OneUptimeDate.getDateAsLocalFormattedString(insight.firstSeenAt),
+      value: OperationsDate.fromNow(insight.firstSeenAt),
+      title: OperationsDate.getDateAsLocalFormattedString(insight.firstSeenAt),
     });
   }
 
@@ -392,8 +392,8 @@ const AIInsightViewPage: FunctionComponent<
     metaItems.push({
       label: "Last Seen",
       icon: IconProp.Clock,
-      value: OneUptimeDate.fromNow(insight.lastSeenAt),
-      title: OneUptimeDate.getDateAsLocalFormattedString(insight.lastSeenAt),
+      value: OperationsDate.fromNow(insight.lastSeenAt),
+      title: OperationsDate.getDateAsLocalFormattedString(insight.lastSeenAt),
     });
   }
 

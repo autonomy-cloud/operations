@@ -27,7 +27,7 @@
 | Настройка                | Значение                                                               |
 | ------------------------ | ---------------------------------------------------------------------- |
 | Эндпоинт OTLP            | `https://visca.ai/otlp`                                           |
-| Заголовок аутентификации | `x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN`                    |
+| Заголовок аутентификации | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`                    |
 | Имя сервиса              | Имя, под которым должен отображаться ваш сервис, например `my-service` |
 
 > **Используете самостоятельно размещённый Cast Operations?** Замените `https://visca.ai/otlp` на `https://YOUR-OPERATIONS-HOST/otlp` (или `http://...`, если вы не используете TLS). Всё остальное остаётся прежним.
@@ -76,7 +76,7 @@ Log.Logger = new LoggerConfiguration()
         // Authenticate with your Cast Operations telemetry ingestion token.
         options.Headers = new Dictionary<string, string>
         {
-            ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+            ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
         };
 
         // Identify your service in Cast Operations.
@@ -118,7 +118,7 @@ finally
           "endpoint": "https://visca.ai/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
-            "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+            "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
           },
           "resourceAttributes": {
             "service.name": "my-service",
@@ -169,7 +169,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
-                ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+                ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
             };
             options.ResourceAttributes = new Dictionary<string, object>
             {
@@ -228,9 +228,9 @@ Cast Operations обнаруживает эти атрибуты и автома
 
 ## Устранение неполадок
 
-- **Логи не появляются** – Перепроверьте значение `x-oneuptime-token` и убедитесь, что оно принадлежит проекту, который вы просматриваете. Проверьте, что эндпоинт — `https://visca.ai/otlp` (только базовый путь — не добавляйте `/v1/logs` самостоятельно).
+- **Логи не появляются** – Перепроверьте значение `x-cast-operations-token` и убедитесь, что оно принадлежит проекту, который вы просматриваете. Проверьте, что эндпоинт — `https://visca.ai/otlp` (только базовый путь — не добавляйте `/v1/logs` самостоятельно).
 - **Логи появляются только при выходе из приложения, или последние логи отсутствуют** – Убедитесь, что `Log.CloseAndFlush()` выполняется при завершении работы. Приёмник группирует события в пакеты, поэтому буферизованные логи теряются, если процесс завершается без сброса буфера.
-- **`401 Unauthorized` / ничего не принимается** – Токен отсутствует или недействителен. Убедитесь, что ключ заголовка — это в точности `x-oneuptime-token`.
+- **`401 Unauthorized` / ничего не принимается** – Токен отсутствует или недействителен. Убедитесь, что ключ заголовка — это в точности `x-cast-operations-token`.
 - **Неправильное имя сервиса** – Установите `service.name` в `ResourceAttributes` (код) или `resourceAttributes` (appsettings.json). Без него логи будут отнесены к сервису по умолчанию/неизвестному сервису.
 - **Ошибки подключения к самостоятельно размещённому экземпляру** – Убедитесь, что протокол соответствует схеме вашего эндпоинта (`https://` или `http://`) и что ваш хост Cast Operations доступен из приложения.
 

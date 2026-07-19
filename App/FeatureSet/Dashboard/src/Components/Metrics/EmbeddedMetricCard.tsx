@@ -13,7 +13,7 @@ import MetricQueryConfigData from "Common/Types/Metrics/MetricQueryConfigData";
 import MetricFormulaConfigData from "Common/Types/Metrics/MetricFormulaConfigData";
 import MetricViewData from "Common/Types/Metrics/MetricViewData";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import RangeStartAndEndDateTime, {
   RangeStartAndEndDateTimeUtil,
 } from "Common/Types/Time/RangeStartAndEndDateTime";
@@ -84,10 +84,10 @@ function getTimeRangeKey(timeRange: RangeStartAndEndDateTime): string {
   return [
     timeRange.range,
     timeRange.startAndEndDate
-      ? OneUptimeDate.toString(timeRange.startAndEndDate.startValue)
+      ? OperationsDate.toString(timeRange.startAndEndDate.startValue)
       : "",
     timeRange.startAndEndDate
-      ? OneUptimeDate.toString(timeRange.startAndEndDate.endValue)
+      ? OperationsDate.toString(timeRange.startAndEndDate.endValue)
       : "",
   ].join("|");
 }

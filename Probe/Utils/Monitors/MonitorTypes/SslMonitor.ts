@@ -3,7 +3,7 @@ import ProxyConfig from "../../ProxyConfig";
 import URL from "Common/Types/API/URL";
 import type { HttpsProxyAgent } from "https-proxy-agent";
 import type { HttpProxyAgent } from "http-proxy-agent";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import SslMonitorResponse from "Common/Types/Monitor/SSLMonitor/SslMonitorResponse";
 import ObjectID from "Common/Types/ObjectID";
@@ -206,8 +206,8 @@ export default class SSLMonitor {
     const res: SslResponse = {
       isOnline: true,
       isSelfSigned: isSelfSigned,
-      createdAt: OneUptimeDate.fromString(certificate.valid_from),
-      expiresAt: OneUptimeDate.fromString(certificate.valid_to),
+      createdAt: OperationsDate.fromString(certificate.valid_from),
+      expiresAt: OperationsDate.fromString(certificate.valid_to),
       commonName: certificate.subject.CN,
       organizationalUnit: certificate.subject.OU,
       organization: certificate.subject.O,

@@ -6,7 +6,7 @@ import Protocol from "Common/Types/API/Protocol";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Email from "Common/Types/Email";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
 import BadDataException from "Common/Types/Exception/BadDataException";
@@ -17,11 +17,7 @@ import Name from "Common/Types/Name";
 import ObjectID from "Common/Types/ObjectID";
 import PositiveNumber from "Common/Types/PositiveNumber";
 import DatabaseConfig from "Common/Server/DatabaseConfig";
-import {
-  AppVersion,
-  EncryptionSecret,
-  IsBillingEnabled,
-} from "Common/Server/EnvironmentConfig";
+import { AppVersion, EncryptionSecret } from "Common/Server/EnvironmentConfig";
 import API from "Common/Utils/API";
 import AccessTokenService from "Common/Server/Services/AccessTokenService";
 import EmailVerificationTokenService from "Common/Server/Services/EmailVerificationTokenService";
@@ -191,11 +187,7 @@ router.post(
         User,
       ) as User;
 
-      if (IsBillingEnabled) {
-        //ALERT: Delete data.role so user don't accidently sign up as master-admin from the API.
-        partialUser.isMasterAdmin = false;
-        partialUser.isEmailVerified = false;
-      } else {
+      {
         // IF its not a saas service then we will make the email verified.
 
         // check if there are more than one user and if there is then we will not make the user master admin.
@@ -273,7 +265,7 @@ router.post(
       emailVerificationToken.userId = savedUser?.id as ObjectID;
       emailVerificationToken.email = savedUser?.email as Email;
       emailVerificationToken.token = generatedToken;
-      emailVerificationToken.expires = OneUptimeDate.getOneDayAfter();
+      emailVerificationToken.expires = OperationsDate.getOneDayAfter();
 
       await EmailVerificationTokenService.create({
         data: emailVerificationToken,
@@ -319,7 +311,7 @@ router.post(
           getLogAttributesFromRequest(req as RequestLike),
         );
 
-        if (!IsBillingEnabled && miscDataProps["notifySelfHosted"] === true) {
+        if (miscDataProps["notifySelfHosted"] === true) {
           const instanceUrl: string = new URL(httpProtocol, host).toString();
 
           API.post({
@@ -333,7 +325,7 @@ router.post(
                 (miscDataProps["selfHostedCompanyName"] as string) || undefined,
               companyPhoneNumber:
                 (miscDataProps["selfHostedPhoneNumber"] as string) || undefined,
-              oneuptimeVersion: AppVersion,
+              castOperationsVersion: AppVersion,
               instanceUrl: instanceUrl,
             },
           }).catch((err: Error) => {
@@ -393,7 +385,7 @@ router.post(
           },
           data: {
             resetPasswordToken: hashedToken,
-            resetPasswordExpires: OneUptimeDate.getOneDayAfter(),
+            resetPasswordExpires: OperationsDate.getOneDayAfter(),
           },
           props: {
             isRoot: true,
@@ -487,7 +479,7 @@ router.post(
         );
       }
 
-      if (OneUptimeDate.hasExpired(alreadySavedToken.expires!)) {
+      if (OperationsDate.hasExpired(alreadySavedToken.expires!)) {
         return Response.sendErrorResponse(
           req,
           res,
@@ -606,7 +598,7 @@ router.post(
 
       if (
         alreadySavedUser &&
-        OneUptimeDate.hasExpired(alreadySavedUser.resetPasswordExpires!)
+        OperationsDate.hasExpired(alreadySavedUser.resetPasswordExpires!)
       ) {
         return Response.sendErrorResponse(
           req,
@@ -698,7 +690,7 @@ router.post(
 
       if (
         session.refreshTokenExpiresAt &&
-        OneUptimeDate.hasExpired(session.refreshTokenExpiresAt)
+        OperationsDate.hasExpired(session.refreshTokenExpiresAt)
       ) {
         await UserSessionService.revokeSessionById(session.id, {
           reason: "Refresh token expired",
@@ -1051,9 +1043,8 @@ const login: LoginFunction = async (options: {
           (!totpAuthList || totpAuthList.length === 0) &&
           (!webAuthnList || webAuthnList.length === 0)
         ) {
-          const errorMessage: string = IsBillingEnabled
-            ? "Two Factor Authentication is enabled but no two factor auth is setup. Please contact Cast Operations support for help."
-            : "Two Factor Authentication is enabled but no two factor auth is setup. Please contact your server admin to disable two factor auth for this account.";
+          const errorMessage: string =
+            "Two Factor Authentication is enabled but no two factor auth is setup. Please contact your server admin to disable two factor auth for this account.";
 
           return Response.sendErrorResponse(
             req,

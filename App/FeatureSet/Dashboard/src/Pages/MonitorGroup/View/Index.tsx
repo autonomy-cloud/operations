@@ -4,7 +4,7 @@ import URL from "Common/Types/API/URL";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { Green } from "Common/Types/BrandColors";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import ObjectID from "Common/Types/ObjectID";
 import Card from "Common/UI/Components/Card/Card";
@@ -288,8 +288,8 @@ const MonitorGroupView: FunctionComponent<
         <MonitorUptimeGraph
           error={error}
           items={statusTimelines}
-          startDate={OneUptimeDate.getSomeDaysAgo(90)}
-          endDate={OneUptimeDate.getCurrentDate()}
+          startDate={OperationsDate.getSomeDaysAgo(90)}
+          endDate={OperationsDate.getCurrentDate()}
           isLoading={isLoading}
           defaultBarColor={Green}
           downtimeMonitorStatuses={downTimeMonitorStatues}

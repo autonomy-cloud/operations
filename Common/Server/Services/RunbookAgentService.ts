@@ -7,7 +7,7 @@ import BadDataException from "../../Types/Exception/BadDataException";
 import Model, {
   RunbookAgentConnectionStatus,
 } from "../../Models/DatabaseModels/RunbookAgent";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import { JSONObject } from "../../Types/JSON";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 
@@ -70,7 +70,7 @@ export class Service extends DatabaseService<Model> {
     }
 
     const update: JSONObject = {
-      lastAlive: OneUptimeDate.getCurrentDate(),
+      lastAlive: OperationsDate.getCurrentDate(),
       connectionStatus: RunbookAgentConnectionStatus.Connected,
     };
 

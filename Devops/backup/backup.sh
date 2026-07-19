@@ -9,9 +9,9 @@ MONGO_HOSTS='a59a474aad89940889c1eb69b1a8f884-135820180.us-east-2.elb.amazonaws.
 MONGO_HOST='a59a474aad89940889c1eb69b1a8f884-135820180.us-east-2.elb.amazonaws.com' #Add one host because mongodump only supports one host.
 MONGO_PORT="27017"
 
-ONEUPTIME_DB_USERNAME='oneuptime'
-ONEUPTIME_DB_PASSWORD='password'
-ONEUPTIME_DB_NAME='oneuptimedb'
+CAST_OPERATIONS_DB_USERNAME='cast-operations'
+CAST_OPERATIONS_DB_PASSWORD='password'
+CAST_OPERATIONS_DB_NAME='castoperationsdb'
 CURRENT_DATE=$(date +%s)
 CURRENT_USER=$(whoami)
 BACKUP_PATH=~/db-backup
@@ -35,11 +35,11 @@ function HELP() {
   echo "all arguments are optional and have a default value when not set"
   echo ""
   echo " -l       Backup path on local system where backup file will be stored. Default value - $BACKUP_PATH"
-  echo " -n       Database name. Default value 'oneuptimedb'"
+  echo " -n       Database name. Default value 'castoperationsdb'"
   echo " -p       Database password. Default value 'password'"
   echo " -r       Helm release name. Default value 'fi'"
   echo " -t       Backup retain days. Set the number of days backup is kept before it is deleted. Default value '14'"
-  echo " -u       Set database username. Default value 'oneuptime'."
+  echo " -u       Set database username. Default value 'cast-operations'."
   echo " -v       Set database environment. Enums {Production, Staging}, defaults to 'Staging'."
   echo ""
   echo " -h       Help."
@@ -51,13 +51,13 @@ function HELP() {
 while getopts "u:p:n:l:t:v:h" opt; do
   case $opt in
   u)
-    ONEUPTIME_DB_USERNAME="$OPTARG"
+    CAST_OPERATIONS_DB_USERNAME="$OPTARG"
     ;;
   p)
-    ONEUPTIME_DB_PASSWORD="$OPTARG"
+    CAST_OPERATIONS_DB_PASSWORD="$OPTARG"
     ;;
   n)
-    ONEUPTIME_DB_NAME="$OPTARG"
+    CAST_OPERATIONS_DB_NAME="$OPTARG"
     ;;
   l)
     BACKUP_PATH="$OPTARG"
@@ -87,7 +87,7 @@ function BACKUP_SUCCESS(){
     --data '{
     "routing_key": "a92c8fef8b394f01d02a9f9c0e1317f5",
     "payload": {
-      "summary": "Backup created successfully on vm. Archive: '$BACKUP_PATH'/oneuptime-backup-'$CURRENT_DATE'.archive",
+      "summary": "Backup created successfully on vm. Archive: '$BACKUP_PATH'/cast-operations-backup-'$CURRENT_DATE'.archive",
       "source": "production-db-backup-vm"
     }
   }'
@@ -101,7 +101,7 @@ function BACKUP_SUCCESS(){
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": "*'$ENVIRONMENT' Backup Complete*\n Date: '$TODAY'\nPath: '$BACKUP_PATH'/oneuptime-backup-'$CURRENT_DATE'.archive"
+          "text": "*'$ENVIRONMENT' Backup Complete*\n Date: '$TODAY'\nPath: '$BACKUP_PATH'/cast-operations-backup-'$CURRENT_DATE'.archive"
         }
       },
       {
@@ -117,7 +117,7 @@ function BACKUP_FAIL_SERVER(){
     --header 'Content-Type: application/json' \
     --data '{
     "payload": {
-      "summary": "Could not create backup on vm. Archive: '$BACKUP_PATH'/oneuptime-backup-'$CURRENT_DATE'.archive",
+      "summary": "Could not create backup on vm. Archive: '$BACKUP_PATH'/cast-operations-backup-'$CURRENT_DATE'.archive",
       "severity": "error",
       "source": "production-db-backup-vm"
     },
@@ -134,7 +134,7 @@ function BACKUP_FAIL_SERVER(){
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": "*'$ENVIRONMENT' Backup Failed*\n Date: '$TODAY'\nReason: Could not create backup on container.\nPath: '$BACKUP_PATH'/oneuptime-backup-'$CURRENT_DATE'.archive"
+          "text": "*'$ENVIRONMENT' Backup Failed*\n Date: '$TODAY'\nReason: Could not create backup on container.\nPath: '$BACKUP_PATH'/cast-operations-backup-'$CURRENT_DATE'.archive"
         }
       },
       {
@@ -154,7 +154,7 @@ function BACKUP_FAIL_LOCAL(){
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": "*'$ENVIRONMENT' Backup Failed*\n Date: '$TODAY'\nReason: Could not create backup on local path.\nPath: '$BACKUP_PATH'/oneuptime-backup-'$CURRENT_DATE'.archive"
+          "text": "*'$ENVIRONMENT' Backup Failed*\n Date: '$TODAY'\nReason: Could not create backup on local path.\nPath: '$BACKUP_PATH'/cast-operations-backup-'$CURRENT_DATE'.archive"
         }
       },
       {
@@ -169,14 +169,14 @@ echo ""
 
 # Drop audit logs collection because we don't need to take backup of that.
 # echo "Removing audit logs collections. This will take some time."
-# sudo mongo ${ONEUPTIME_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$ONEUPTIME_DB_USERNAME" --password="$ONEUPTIME_DB_PASSWORD" --eval 'db.auditlogs.drop()'
+# sudo mongo ${CAST_OPERATIONS_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$CAST_OPERATIONS_DB_USERNAME" --password="$CAST_OPERATIONS_DB_PASSWORD" --eval 'db.auditlogs.drop()'
 
 # Remove old monitor logs to make backup faster
 # echo "Removing old monitor logs. This will take some time."
-# sudo mongo ${ONEUPTIME_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$ONEUPTIME_DB_USERNAME" --password="$ONEUPTIME_DB_PASSWORD" --eval "db.monitorlogs.remove({'createdAt': { \$lt: ISODate('${THREE_DAYS_AGO}')}})"
-sudo mongo ${ONEUPTIME_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$ONEUPTIME_DB_USERNAME" --password="$ONEUPTIME_DB_PASSWORD" --eval "db.monitorlogbyweeks.remove({'createdAt': { \$lt: ISODate('${SIX_MONTHS_AGO}')}})"
-sudo mongo ${ONEUPTIME_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$ONEUPTIME_DB_USERNAME" --password="$ONEUPTIME_DB_PASSWORD" --eval "db.monitorlogbydays.remove({'createdAt': { \$lt: ISODate('${THREE_MONTHS_AGO}')}})"
-sudo mongo ${ONEUPTIME_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$ONEUPTIME_DB_USERNAME" --password="$ONEUPTIME_DB_PASSWORD" --eval "db.monitorlogbyhours.remove({'createdAt': { \$lt: ISODate('${THREE_MONTHS_AGO}')}})"
+# sudo mongo ${CAST_OPERATIONS_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$CAST_OPERATIONS_DB_USERNAME" --password="$CAST_OPERATIONS_DB_PASSWORD" --eval "db.monitorlogs.remove({'createdAt': { \$lt: ISODate('${THREE_DAYS_AGO}')}})"
+sudo mongo ${CAST_OPERATIONS_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$CAST_OPERATIONS_DB_USERNAME" --password="$CAST_OPERATIONS_DB_PASSWORD" --eval "db.monitorlogbyweeks.remove({'createdAt': { \$lt: ISODate('${SIX_MONTHS_AGO}')}})"
+sudo mongo ${CAST_OPERATIONS_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$CAST_OPERATIONS_DB_USERNAME" --password="$CAST_OPERATIONS_DB_PASSWORD" --eval "db.monitorlogbydays.remove({'createdAt': { \$lt: ISODate('${THREE_MONTHS_AGO}')}})"
+sudo mongo ${CAST_OPERATIONS_DB_NAME} --host="${MONGO_HOSTS}" --port="${MONGO_PORT}" --username="$CAST_OPERATIONS_DB_USERNAME" --password="$CAST_OPERATIONS_DB_PASSWORD" --eval "db.monitorlogbyhours.remove({'createdAt': { \$lt: ISODate('${THREE_MONTHS_AGO}')}})"
 
 echo "Sleeping for 1 minute..."
 # Sleeping for 1 mins for database server to cool down.
@@ -187,7 +187,7 @@ mkdir $BACKUP_PATH || echo "Backup directory already exist!"
 
 # Instead of deleting auditlogs and monitorlogs collection, we can ignore the collection during backup
 # --excludeCollection=auditlogs --excludeCollection=monitorlogs
-if mongodump --forceTableScan --authenticationDatabase="${ONEUPTIME_DB_NAME}" --host="${MONGO_HOST}" --db="${ONEUPTIME_DB_NAME}" --port="${MONGO_PORT}" --username="${ONEUPTIME_DB_USERNAME}" --password="${ONEUPTIME_DB_PASSWORD}" --archive="$BACKUP_PATH/oneuptime-backup-$CURRENT_DATE.archive" --excludeCollection=auditlogs --excludeCollection=monitorlogs; then
+if mongodump --forceTableScan --authenticationDatabase="${CAST_OPERATIONS_DB_NAME}" --host="${MONGO_HOST}" --db="${CAST_OPERATIONS_DB_NAME}" --port="${MONGO_PORT}" --username="${CAST_OPERATIONS_DB_USERNAME}" --password="${CAST_OPERATIONS_DB_PASSWORD}" --archive="$BACKUP_PATH/cast-operations-backup-$CURRENT_DATE.archive" --excludeCollection=auditlogs --excludeCollection=monitorlogs; then
     echo  ${green}"BACKUP SUCCESS $"${reset}
     BACKUP_SUCCESS
 else
@@ -200,4 +200,4 @@ fi
 echo "Removing backup older than ${BACKUP_RETAIN_DAYS} days."
 find $BACKUP_PATH* -mtime +${BACKUP_RETAIN_DAYS} -exec rm -f {} \; || echo "Removed!"
 echo ""
-echo "Done - File Name: oneuptime-backup-$CURRENT_DATE.archive"
+echo "Done - File Name: cast-operations-backup-$CURRENT_DATE.archive"

@@ -24,7 +24,7 @@ ClickHouse provided by the bundled
 ## What actually changes
 
 Only the connection target and the password secret change — the app keeps using
-the `oneuptime` user and the `oneuptime` database, so no application config
+the `cast-operations` user and the `cast-operations` database, so no application config
 changes are required beyond flipping the Helm switch.
 
 |                                     | Standalone (`clickhouse.enabled: true`)               | Operator (`clickhouseOperator.altinity.enabled: true`) |
@@ -33,12 +33,12 @@ changes are required beyond flipping the Helm switch.
 | App connects to (`CLICKHOUSE_HOST`) | `<release>-clickhouse`                                | `<release>-clickhouse-altinity`                        |
 | HTTP port (`CLICKHOUSE_PORT`)       | `8123`                                                | `8123`                                                 |
 | Native TCP port                     | `9000`                                                | `9000`                                                 |
-| User (`CLICKHOUSE_USER`)            | `oneuptime`                                           | `oneuptime`                                            |
-| Database (`CLICKHOUSE_DATABASE`)    | `oneuptime`                                           | `oneuptime`                                            |
+| User (`CLICKHOUSE_USER`)            | `cast-operations`                                           | `cast-operations`                                            |
+| Database (`CLICKHOUSE_DATABASE`)    | `cast-operations`                                           | `cast-operations`                                            |
 | Password secret                     | `<release>-clickhouse` → key `admin-password`         | `<release>-clickhouse-altinity` → key `admin-password` |
 | Coordination                        | —                                                     | ClickHouse Keeper `<release>-clickhouse-keeper`        |
 
-Replace `<release>` with your Helm release name (e.g. `oneuptime`) and run every
+Replace `<release>` with your Helm release name (e.g. `cast-operations`) and run every
 command in the release's namespace (add `-n <namespace>` if it isn't `default`).
 
 When `clickhouseOperator.altinity.enabled` is `true`, the chart stops rendering
@@ -91,7 +91,7 @@ clickhouseOperator:
 ```
 
 ```bash
-helm upgrade --install <release> ./HelmChart/Public/oneuptime -f values.yaml
+helm upgrade --install <release> ./HelmChart/Public/cast-operations -f values.yaml
 ```
 
 The app reconnects to `<release>-clickhouse-altinity`, recreates its schema, and
@@ -108,7 +108,7 @@ To copy a consistent snapshot you want the app to stop writing to ClickHouse
 during the capture/cutover window:
 
 ```bash
-helm upgrade --install <release> ./HelmChart/Public/oneuptime \
+helm upgrade --install <release> ./HelmChart/Public/cast-operations \
   -f <your-values.yaml> \
   --set deployment.disableDeployments=true
 ```
@@ -202,15 +202,15 @@ password from the retained `<release>-clickhouse` secret:
 
 ```sql
 -- Run against the new operator cluster (<release>-clickhouse-altinity).
--- Repeat for every table in the `oneuptime` database; the schema already exists.
-INSERT INTO oneuptime.<table>
-SELECT * FROM remote('clickhouse-old:9000', 'oneuptime', '<table>', 'oneuptime', '<old-password>');
+-- Repeat for every table in the `cast-operations` database; the schema already exists.
+INSERT INTO cast-operations.<table>
+SELECT * FROM remote('clickhouse-old:9000', 'cast-operations', '<table>', 'cast-operations', '<old-password>');
 ```
 
 To enumerate the tables to copy:
 
 ```sql
-SELECT name FROM system.tables WHERE database = 'oneuptime' AND engine NOT LIKE '%View';
+SELECT name FROM system.tables WHERE database = 'cast-operations' AND engine NOT LIKE '%View';
 ```
 
 > Skip materialized/standard views (the app recreates them); copy only the base
@@ -232,7 +232,7 @@ clusters:
 -- Run on both the old standalone and the new operator cluster, then compare.
 SELECT table, sum(rows) AS rows
 FROM system.parts
-WHERE active AND database = 'oneuptime'
+WHERE active AND database = 'cast-operations'
 GROUP BY table
 ORDER BY table;
 ```
@@ -247,7 +247,7 @@ Until you delete the old PVC, rollback is a one-line revert — the standalone d
 is intact:
 
 ```bash
-helm upgrade --install <release> ./HelmChart/Public/oneuptime -f <your-values.yaml> \
+helm upgrade --install <release> ./HelmChart/Public/cast-operations -f <your-values.yaml> \
   --set clickhouseOperator.altinity.enabled=false \
   --set clickhouse.enabled=true
 ```
@@ -284,5 +284,5 @@ operator cluster after cutover won't be on the standalone.)
 
 - [Clickhouse.md](./Clickhouse.md) — operator day-2 operations: replication,
   sharding, Keeper sizing / bring-your-own ZooKeeper, and backups.
-- Cast Operations Helm chart [README](../Public/oneuptime/README.md) —
+- Cast Operations Helm chart [README](../Public/cast-operations/README.md) —
   `clickhouseOperator` configuration reference.

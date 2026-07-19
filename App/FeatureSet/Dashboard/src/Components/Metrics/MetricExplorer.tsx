@@ -11,7 +11,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import MetricViewData from "Common/Types/Metrics/MetricViewData";
 import MetricQueryConfigData from "Common/Types/Metrics/MetricQueryConfigData";
@@ -377,7 +377,7 @@ const MetricExplorer: FunctionComponent = (): ReactElement => {
             continue;
           }
           markers.push({
-            date: OneUptimeDate.fromString(
+            date: OperationsDate.fromString(
               incident.createdAt as unknown as string,
             ),
             label: `Incident: ${truncateEventMarkerTitle(incident.title || "")}`,
@@ -396,7 +396,7 @@ const MetricExplorer: FunctionComponent = (): ReactElement => {
             continue;
           }
           markers.push({
-            date: OneUptimeDate.fromString(
+            date: OperationsDate.fromString(
               alert.createdAt as unknown as string,
             ),
             label: `Alert: ${truncateEventMarkerTitle(alert.title || "")}`,
@@ -491,8 +491,8 @@ const MetricExplorer: FunctionComponent = (): ReactElement => {
           : {}),
         ...(startValue && endValue
           ? {
-              startTime: OneUptimeDate.toString(startValue),
-              endTime: OneUptimeDate.toString(endValue),
+              startTime: OperationsDate.toString(startValue),
+              endTime: OperationsDate.toString(endValue),
             }
           : {}),
       } as unknown as JSONObject;
@@ -537,12 +537,12 @@ const MetricExplorer: FunctionComponent = (): ReactElement => {
         if (
           typeof startRaw === "string" &&
           typeof endRaw === "string" &&
-          OneUptimeDate.isValidDateString(startRaw) &&
-          OneUptimeDate.isValidDateString(endRaw)
+          OperationsDate.isValidDateString(startRaw) &&
+          OperationsDate.isValidDateString(endRaw)
         ) {
           startAndEndDate = new InBetween<Date>(
-            OneUptimeDate.fromString(startRaw),
-            OneUptimeDate.fromString(endRaw),
+            OperationsDate.fromString(startRaw),
+            OperationsDate.fromString(endRaw),
           );
         }
       }
@@ -622,10 +622,10 @@ const MetricExplorer: FunctionComponent = (): ReactElement => {
       targetUrl.addQueryParam("range", TimeRange.CUSTOM, true);
       targetUrl.addQueryParam(
         "start",
-        OneUptimeDate.toString(startValue),
+        OperationsDate.toString(startValue),
         true,
       );
-      targetUrl.addQueryParam("end", OneUptimeDate.toString(endValue), true);
+      targetUrl.addQueryParam("end", OperationsDate.toString(endValue), true);
     }
 
     Navigation.navigate(targetUrl);
@@ -825,7 +825,7 @@ const MetricExplorer: FunctionComponent = (): ReactElement => {
         onIsFetchingResultsChange={(isFetching: boolean) => {
           setIsFetchingResults(isFetching);
           if (!isFetching) {
-            setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+            setLastRefreshedAt(OperationsDate.getCurrentDate());
           }
         }}
         onChange={(data: MetricViewData) => {
@@ -884,17 +884,17 @@ function getTimeRangeFromQuery(): InBetween<Date> | null {
   }
 
   if (
-    !OneUptimeDate.isValidDateString(startTimeParam) ||
-    !OneUptimeDate.isValidDateString(endTimeParam)
+    !OperationsDate.isValidDateString(startTimeParam) ||
+    !OperationsDate.isValidDateString(endTimeParam)
   ) {
     return null;
   }
 
   try {
-    const startDate: Date = OneUptimeDate.fromString(startTimeParam);
-    const endDate: Date = OneUptimeDate.fromString(endTimeParam);
+    const startDate: Date = OperationsDate.fromString(startTimeParam);
+    const endDate: Date = OperationsDate.fromString(endTimeParam);
 
-    if (!OneUptimeDate.isOnOrBefore(startDate, endDate)) {
+    if (!OperationsDate.isOnOrBefore(startDate, endDate)) {
       return null;
     }
 

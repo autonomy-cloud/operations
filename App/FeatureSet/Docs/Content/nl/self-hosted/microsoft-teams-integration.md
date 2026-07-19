@@ -14,7 +14,7 @@ Om Microsoft Teams te integreren met uw zelf-gehoste Cast Operations-instantie, 
 1. Ga naar de [Azure Portal](https://portal.azure.com)
 2. Navigeer naar "App-registraties" en klik op "Nieuwe registratie"
 3. Vul het registratieformulier in:
-   - **Naam:** oneuptime
+   - **Naam:** cast-operations
    - **Ondersteunde accounttypen:** Accounts in elke organisatiemap (Elke Microsoft Entra ID-tenant - Multitenant)
    - **Omleidings-URI:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
    - Voeg ook toe: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -61,7 +61,7 @@ Om Microsoft Teams te integreren met uw zelf-gehoste Cast Operations-instantie, 
 1. Navigeer in de Azure Portal naar "Azure Bot" en klik op "Aanmaken"
 2. Vul het formulier voor het aanmaken van de bot in:
 
-   - **Bot-handle:** oneuptime-bot
+   - **Bot-handle:** cast-operations-bot
    - **Abonnement:** Uw Azure-abonnement
    - **Resourcegroep:** Maak een nieuwe aan of gebruik een bestaande
    - **Locatie:** Kies een locatie dicht bij uw gebruikers

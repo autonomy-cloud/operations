@@ -8,7 +8,7 @@ Cast Operations автоматически распознаёт **бессерв
 
 ## Предварительные требования
 
-- **Токен приёма телеметрии Cast Operations** — создайте его в разделе _Project Settings → Telemetry Ingestion Keys_ и скопируйте значение `x-oneuptime-token`.
+- **Токен приёма телеметрии Cast Operations** — создайте его в разделе _Project Settings → Telemetry Ingestion Keys_ и скопируйте значение `x-cast-operations-token`.
 - OpenTelemetry SDK (или слой автоматической инструментации) для языка вашей функции.
 
 ## Как Cast Operations идентифицирует функцию
@@ -31,7 +31,7 @@ Cast Operations определяет каждую функцию по ресур
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
@@ -44,7 +44,7 @@ OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
 OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 Слой автоматически задаёт `faas.name` на основе имени функции, а детектор ресурсов заполняет `cloud.platform`, `cloud.region` и `cloud.account.id`.

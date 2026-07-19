@@ -9,7 +9,7 @@ Every pull request is reviewed and merged by a human. The agent never merges its
 1. You click **Fix with AI** on an unresolved exception.
 2. A fix task is created and picked up by an available agent.
 3. The agent fetches the exception details — exception type, error message, and stack trace.
-4. It clones the linked repository into an ephemeral workspace and creates a branch (named like `oneuptime-fix-exception-<task-id>`).
+4. It clones the linked repository into an ephemeral workspace and creates a branch (named like `cast-operations-fix-exception-<task-id>`).
 5. A code agent, powered by your project's LLM provider, analyzes the codebase and writes the fix. The agent's LLM calls are executed by the Cast Operations server — the worker container never holds your provider's API key — and every call is metered and logged in the AI logs.
 6. The agent commits, pushes the branch, opens a pull request, and deletes the workspace.
 
@@ -49,11 +49,11 @@ You do **not** map repositories to services: Cast Operations resolves the right 
 To run an additional agent elsewhere (for example on a machine closer to your repositories), create an agent under **Settings** > **AI** > **AI Agents**. You will get an `AI_AGENT_ID` and an `AI_AGENT_KEY` (the key is shown once — save it securely). Then run the agent container:
 
 ```bash
-docker run --name oneuptime-ai-agent --network host \
+docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e ONEUPTIME_URL=<your-operations-url> \
-  -d oneuptime/ai-agent:release
+  -e CAST_OPERATIONS_URL=<your-operations-url> \
+  -d cast-operations/ai-agent:release
 ```
 
 The agent page in the dashboard shows this command pre-filled with your agent's credentials. Any way of running the container works (Docker Compose, Kubernetes, and so on) as long as these environment variables are set and the container can reach your Cast Operations instance over HTTPS:
@@ -62,9 +62,9 @@ The agent page in the dashboard shows this command pre-filled with your agent's 
 | --------------- | -------------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | The agent key shown when the agent was created                       |
 | `AI_AGENT_ID`   | The agent ID from the dashboard                                      |
-| `ONEUPTIME_URL` | Your Cast Operations instance URL (`https://visca.ai` on Cloud)       |
+| `CAST_OPERATIONS_URL` | Your Cast Operations instance URL (`https://visca.ai` on Cloud)       |
 
-The agent shows as connected on the **Settings** > **AI** > **AI Agents** page within a few minutes. If it does not, check the container logs (`docker logs oneuptime-ai-agent`) for credential or network errors.
+The agent shows as connected on the **Settings** > **AI** > **AI Agents** page within a few minutes. If it does not, check the container logs (`docker logs cast-operations-ai-agent`) for credential or network errors.
 
 ## When a fix fails
 

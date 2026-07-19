@@ -18,7 +18,7 @@ shard's data.
 > **automatically pulls every existing part** from its peers. No manual backfill,
 > no rebalancing — just capacity and Keeper.
 
-Replace `<release>` with your Helm release name (e.g. `oneuptime`) and run every
+Replace `<release>` with your Helm release name (e.g. `cast-operations`) and run every
 command in the release's namespace (add `-n <namespace>` if it isn't `default`).
 
 ---
@@ -52,7 +52,7 @@ clickhouseOperator:
   altinity:
     enabled: true
     cluster:
-      name: oneuptime
+      name: cast-operations
       shardsCount: 1 # unchanged
       replicasCount: 2 # was 1 — 2 copies of each shard = HA
     keeper:
@@ -61,7 +61,7 @@ clickhouseOperator:
 ```
 
 ```bash
-helm upgrade <release> ./HelmChart/Public/oneuptime -f values.yaml
+helm upgrade <release> ./HelmChart/Public/cast-operations -f values.yaml
 ```
 
 The operator adds the new replica pods; each one pulls existing data from its peer
@@ -106,7 +106,7 @@ clickhouseOperator:
     image:
       tag: "25.3" # keep your pinned version
     cluster:
-      name: oneuptime
+      name: cast-operations
       shardsCount: 1 # unchanged
       replicasCount: 2 # new target
     keeper:
@@ -115,7 +115,7 @@ clickhouseOperator:
 ```
 
 ```bash
-helm upgrade <release> ./HelmChart/Public/oneuptime -f values.yaml
+helm upgrade <release> ./HelmChart/Public/cast-operations -f values.yaml
 ```
 
 The operator adds a new replica pod (and PVC) for each shard and updates the
@@ -148,7 +148,7 @@ Topology — each shard should now show N replicas:
 ```sql
 SELECT shard_num, replica_num, host_name
 FROM system.clusters
-WHERE cluster = 'oneuptime'
+WHERE cluster = 'cast-operations'
 ORDER BY shard_num, replica_num;
 ```
 
@@ -163,7 +163,7 @@ SELECT
     queue_size, absolute_delay,
     is_readonly, is_session_expired
 FROM system.replicas
-WHERE database = 'oneuptime'
+WHERE database = 'cast-operations'
 ORDER BY absolute_delay DESC;
 ```
 
@@ -184,7 +184,7 @@ so removing one loses no data as long as at least one healthy replica of each
 shard remains. Lower `replicasCount` and re-upgrade:
 
 ```bash
-helm upgrade <release> ./HelmChart/Public/oneuptime -f values.yaml
+helm upgrade <release> ./HelmChart/Public/cast-operations -f values.yaml
 ```
 
 > **Cleanup note.** The operator removes the extra replica pods, but the released
@@ -210,5 +210,5 @@ helm upgrade <release> ./HelmChart/Public/oneuptime -f values.yaml
 - [Migrate ClickHouse Standalone → Operator](./MigrateClickhouseStandaloneToOperator.md)
   — get onto the operator path first if you're still on the standalone
   `StatefulSet`.
-- Cast Operations Helm chart [values reference](../Public/oneuptime/README.md) —
+- Cast Operations Helm chart [values reference](../Public/cast-operations/README.md) —
   `clickhouseOperator` configuration.

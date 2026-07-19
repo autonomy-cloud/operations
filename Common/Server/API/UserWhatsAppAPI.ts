@@ -7,7 +7,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import logger, { getLogAttributesFromRequest } from "../Utils/Logger";
@@ -28,7 +28,7 @@ export default class UserWhatsAppAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           if (!req.body.itemId) {
             return Response.sendErrorResponse(
@@ -77,7 +77,7 @@ export default class UserWhatsAppAPI extends BaseAPI<
 
           if (
             item.userId?.toString() !==
-            (req as OneUptimeRequest)?.userAuthorization?.userId?.toString()
+            (req as OperationsRequest)?.userAuthorization?.userId?.toString()
           ) {
             return Response.sendErrorResponse(
               req,
@@ -118,7 +118,7 @@ export default class UserWhatsAppAPI extends BaseAPI<
           } catch (e) {
             logger.error(
               e,
-              getLogAttributesFromRequest(req as OneUptimeRequest),
+              getLogAttributesFromRequest(req as OperationsRequest),
             );
           }
 
@@ -136,7 +136,7 @@ export default class UserWhatsAppAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           if (!req.body.itemId) {
             return Response.sendErrorResponse(
@@ -166,7 +166,7 @@ export default class UserWhatsAppAPI extends BaseAPI<
 
           if (
             item.userId?.toString() !==
-            (req as OneUptimeRequest)?.userAuthorization?.userId?.toString()
+            (req as OperationsRequest)?.userAuthorization?.userId?.toString()
           ) {
             return Response.sendErrorResponse(
               req,

@@ -71,7 +71,7 @@ Claude Desktop 구성 파일을 찾습니다:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp",
       "headers": {
@@ -89,7 +89,7 @@ Claude Desktop 구성 파일을 찾습니다:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
@@ -107,7 +107,7 @@ Claude Desktop 구성 파일을 찾습니다:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp"
     }
@@ -140,18 +140,18 @@ VS Code는 GitHub Copilot (버전 1.99+)을 통해 MCP 서버를 기본적으로
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://visca.ai/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -164,18 +164,18 @@ VS Code는 GitHub Copilot (버전 1.99+)을 통해 MCP 서버를 기본적으로
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -187,7 +187,7 @@ VS Code는 GitHub Copilot (버전 1.99+)을 통해 MCP 서버를 기본적으로
 
 1. `Ctrl+Shift+P` / `Cmd+Shift+P`를 누릅니다
 2. "MCP: List Servers"를 입력하여 사용 가능한 서버를 확인합니다
-3. "oneuptime"을 클릭하여 서버를 시작합니다
+3. "cast-operations"을 클릭하여 서버를 시작합니다
 4. 메시지가 표시되면 Cast Operations API 키를 입력합니다
 
 #### 4단계: Copilot Chat과 함께 사용
@@ -222,8 +222,8 @@ MCP 서버는 두 가지 운영 모드를 지원합니다:
 
 API 키 없이 MCP 서버에 연결하여 공개 도구에 액세스할 수 있습니다:
 
-- **`oneuptime_help`**: Cast Operations MCP 기능에 대한 도움말 및 안내 얻기
-- **`oneuptime_list_resources`**: 사용 가능한 리소스 및 작업 나열
+- **`cast_operations_help`**: Cast Operations MCP 기능에 대한 도움말 및 안내 얻기
+- **`cast_operations_list_resources`**: 사용 가능한 리소스 및 작업 나열
 - **`get_public_status_page_overview`**: 공개 상태 페이지 개요 가져오기
 - **`get_public_status_page_incidents`**: 공개 상태 페이지의 인시던트 가져오기
 - **`get_public_status_page_scheduled_maintenance`**: 예정된 유지보수 이벤트 가져오기
@@ -253,7 +253,7 @@ API 키 없이 MCP 서버에 연결하여 공개 도구에 액세스할 수 있�
 
 ## 내 정보 확인 (Who Am I)
 
-**`oneuptime_whoami`** 도구는 API 키가 속한 프로젝트(ID 및 이름)를 반환합니다. 에이전트가 자신의 상황을 파악하기 위한 유용한 첫 번째 호출이며, 생성 도구는 API 키로부터 `projectId`를 추론하므로 에이전트가 프로젝트 ID를 전달할 필요가 전혀 없습니다.
+**`cast_operations_whoami`** 도구는 API 키가 속한 프로젝트(ID 및 이름)를 반환합니다. 에이전트가 자신의 상황을 파악하기 위한 유용한 첫 번째 호출이며, 생성 도구는 API 키로부터 `projectId`를 추론하므로 에이전트가 프로젝트 ID를 전달할 필요가 전혀 없습니다.
 
 ## 텔레메트리 쿼리
 

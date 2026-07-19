@@ -61,7 +61,7 @@ outputs:
     traces_uri: "/otlp/v1/traces"
     tls: On
     header:
-      - x-oneuptime-token VOTRE_JETON_INGESTION_TELEMETRIE
+      - x-cast-operations-token VOTRE_JETON_INGESTION_TELEMETRIE
 ```
 
 Assurez-vous d'avoir opentelemetry_envelope dans votre section d'entrées. Voici un exemple de ce à quoi ressemblerait la section d'entrées :
@@ -118,7 +118,7 @@ pipeline:
       traces_uri: "/otlp/v1/traces"
       tls: On
       header:
-        - x-oneuptime-token VOTRE_JETON_INGESTION_TELEMETRIE
+        - x-cast-operations-token VOTRE_JETON_INGESTION_TELEMETRIE
 ```
 
 **Si vous auto-hébergez Cast Operations** : Si vous auto-hébergez Cast Operations, vous pouvez remplacer le `host` par l'hôte de votre instance Cast Operations. Si vous hébergez sur un serveur http et non https, vous pouvez remplacer le `port` par le port de votre instance Cast Operations (probablement le port 80).
@@ -137,7 +137,7 @@ outputs:
     logs_uri: "/otlp/v1/logs"
     traces_uri: "/otlp/v1/traces"
     header:
-      - x-oneuptime-token VOTRE_JETON_INGESTION_TELEMETRIE
+      - x-cast-operations-token VOTRE_JETON_INGESTION_TELEMETRIE
 ```
 
 ## Utilisation

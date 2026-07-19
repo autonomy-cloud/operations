@@ -48,7 +48,7 @@ Keycloak is a popular open-source identity and access management solution. Follo
 1. Log in to your Cast Operations dashboard
 2. Navigate to **Project Settings** > **Authentication** > **SSO**
 3. Click **Create SSO** and fill in the following:
-   - **Name**: A descriptive name (e.g., `my-project-oneuptime`)
+   - **Name**: A descriptive name (e.g., `my-project-cast-operations`)
    - **Sign On URL**: `https://<your-keycloak-domain>/auth/realms/<your-realm>/protocol/saml`
    - **Issuer**: `https://<your-keycloak-domain>/auth/realms/<your-realm>`
    - **Certificate**: See [Step 2](#step-2-get-the-keycloak-certificate) below
@@ -201,9 +201,9 @@ Okta is a widely-used identity platform that provides robust SAML SSO capabiliti
 2. Navigate to **Project Settings** > **Authentication** > **SSO**
 3. Click **Create SSO** and fill in the following:
    - **Name**: A descriptive name (e.g., `Okta SAML`)
-   - **Sign On URL**: You will get this from Okta in [Step 3](#step-3-copy-okta-saml-metadata-to-oneuptime)
-   - **Issuer**: You will get this from Okta in [Step 3](#step-3-copy-okta-saml-metadata-to-oneuptime)
-   - **Certificate**: You will get this from Okta in [Step 3](#step-3-copy-okta-saml-metadata-to-oneuptime)
+   - **Sign On URL**: You will get this from Okta in [Step 3](#step-3-copy-okta-saml-metadata-to-cast-operations)
+   - **Issuer**: You will get this from Okta in [Step 3](#step-3-copy-okta-saml-metadata-to-cast-operations)
+   - **Certificate**: You will get this from Okta in [Step 3](#step-3-copy-okta-saml-metadata-to-cast-operations)
    - **Signature Algorithm**: `RSA-SHA-256`
    - **Digest Algorithm**: `SHA256`
 4. Click **View SSO Config** and copy the **Identifier (Entity ID)** and **Reply URL (Assertion Consumer Service URL)** — you will need these for Okta

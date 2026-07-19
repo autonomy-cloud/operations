@@ -45,7 +45,7 @@ import {
   displayNameForResource,
   displayStatusForResource,
 } from "../Utils/ProxmoxResourceUtils";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const ProxmoxClusterGuestDetail: FunctionComponent<
   PageComponentProps
@@ -328,7 +328,7 @@ const ProxmoxClusterGuestDetail: FunctionComponent<
     if (row.lastSeenAt) {
       summaryFields.push({
         title: "Last Seen",
-        value: OneUptimeDate.fromNow(new Date(row.lastSeenAt as Date)),
+        value: OperationsDate.fromNow(new Date(row.lastSeenAt as Date)),
       });
     }
   }
@@ -377,10 +377,10 @@ const ProxmoxClusterGuestDetail: FunctionComponent<
         description="pve-exporter reports CPU, memory, and I/O for this guest — but not what's running inside it."
       >
         <div className="text-sm text-gray-600">
-          Install the Cast Operations host agent inside this VM for process-level
-          visibility (processes, per-core CPU, mounts, host logs). Once the
-          agent reports with a host identifier matching this guest&apos;s name,
-          the host is linked here automatically.{" "}
+          Install the Cast Operations host agent inside this VM for
+          process-level visibility (processes, per-core CPU, mounts, host logs).
+          Once the agent reports with a host identifier matching this
+          guest&apos;s name, the host is linked here automatically.{" "}
           <Link
             to={hostsRoute}
             className="text-indigo-600 hover:text-indigo-900 font-medium"

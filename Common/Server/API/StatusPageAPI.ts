@@ -43,7 +43,7 @@ import BaseModel from "../../Models/DatabaseModels/DatabaseBaseModel/DatabaseBas
 import ArrayUtil from "../../Utils/Array";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
 import { LIMIT_PER_PROJECT } from "../../Types/Database/LimitMax";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Dictionary from "../../Types/Dictionary";
 import Email from "../../Types/Email";
 import BadDataException from "../../Types/Exception/BadDataException";
@@ -861,7 +861,7 @@ export default class StatusPageAPI extends BaseAPI<
             copyrightText: true,
             customCSS: true,
             customJavaScript: true,
-            hidePoweredByOneUptimeBranding: true,
+            hidePoweredByOperationsBranding: true,
             headerHTML: true,
             footerHTML: true,
             enableEmailSubscribers: true,
@@ -1222,25 +1222,25 @@ export default class StatusPageAPI extends BaseAPI<
            * if no start date is provided then it will be 14 days ago from end date.
            */
 
-          let startDate: Date = OneUptimeDate.getSomeDaysAgo(14);
-          let endDate: Date = OneUptimeDate.getCurrentDate();
+          let startDate: Date = OperationsDate.getSomeDaysAgo(14);
+          let endDate: Date = OperationsDate.getCurrentDate();
 
           if (req.body["startDate"]) {
-            startDate = OneUptimeDate.fromString(
+            startDate = OperationsDate.fromString(
               req.body["startDate"] as string,
             );
           }
 
           if (req.body["endDate"]) {
-            endDate = OneUptimeDate.fromString(req.body["endDate"] as string);
+            endDate = OperationsDate.fromString(req.body["endDate"] as string);
           }
 
-          if (OneUptimeDate.isAfter(startDate, endDate)) {
+          if (OperationsDate.isAfter(startDate, endDate)) {
             throw new BadDataException("Start date cannot be after end date");
           }
 
           if (
-            OneUptimeDate.getDaysBetweenTwoDatesInclusive(startDate, endDate) >
+            OperationsDate.getDaysBetweenTwoDatesInclusive(startDate, endDate) >
             90
           ) {
             throw new BadDataException(
@@ -1542,8 +1542,9 @@ export default class StatusPageAPI extends BaseAPI<
           uptimeHistoryDays = 1;
         }
 
-        const startDate: Date = OneUptimeDate.getSomeDaysAgo(uptimeHistoryDays);
-        const endDate: Date = OneUptimeDate.getCurrentDate();
+        const startDate: Date =
+          OperationsDate.getSomeDaysAgo(uptimeHistoryDays);
+        const endDate: Date = OperationsDate.getCurrentDate();
 
         const {
           monitorStatuses,
@@ -2029,7 +2030,7 @@ export default class StatusPageAPI extends BaseAPI<
 
         // check if status page has active announcement.
 
-        const today: Date = OneUptimeDate.getCurrentDate();
+        const today: Date = OperationsDate.getCurrentDate();
 
         let activeAnnouncements: Array<StatusPageAnnouncement> = [];
 
@@ -2805,8 +2806,8 @@ export default class StatusPageAPI extends BaseAPI<
       });
 
     // check if status page has active scheduled events.
-    const today: Date = OneUptimeDate.getCurrentDate();
-    const historyDays: Date = OneUptimeDate.getSomeDaysAgo(
+    const today: Date = OperationsDate.getCurrentDate();
+    const historyDays: Date = OperationsDate.getSomeDaysAgo(
       statusPage.showScheduledEventHistoryInDays || 14,
     );
 
@@ -3120,8 +3121,8 @@ export default class StatusPageAPI extends BaseAPI<
 
     // check if status page has active announcement.
 
-    const today: Date = OneUptimeDate.getCurrentDate();
-    const historyDays: Date = OneUptimeDate.getSomeDaysAgo(
+    const today: Date = OperationsDate.getCurrentDate();
+    const historyDays: Date = OperationsDate.getSomeDaysAgo(
       statusPage.showAnnouncementHistoryInDays || 14,
     );
 
@@ -4166,9 +4167,9 @@ export default class StatusPageAPI extends BaseAPI<
         statusPageId: statusPageId,
       });
 
-    const today: Date = OneUptimeDate.getCurrentDate();
+    const today: Date = OperationsDate.getCurrentDate();
 
-    const historyDays: Date = OneUptimeDate.getSomeDaysAgo(
+    const historyDays: Date = OperationsDate.getSomeDaysAgo(
       statusPage.showIncidentHistoryInDays || 14,
     );
 
@@ -4442,9 +4443,9 @@ export default class StatusPageAPI extends BaseAPI<
         statusPageId: statusPageId,
       });
 
-    const today: Date = OneUptimeDate.getCurrentDate();
+    const today: Date = OperationsDate.getCurrentDate();
 
-    const historyDays: Date = OneUptimeDate.getSomeDaysAgo(
+    const historyDays: Date = OperationsDate.getSomeDaysAgo(
       statusPage.showEpisodeHistoryInDays || 14,
     );
 

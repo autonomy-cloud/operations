@@ -1,6 +1,6 @@
 import RunCron from "../../Utils/Cron";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import QueryDeepPartialEntity from "Common/Types/Database/PartialEntity";
 import NetworkDeviceDiscoveryScan from "Common/Models/DatabaseModels/NetworkDeviceDiscoveryScan";
 import NetworkDeviceDiscoveryScanService from "Common/Server/Services/NetworkDeviceDiscoveryScanService";
@@ -52,7 +52,7 @@ RunCron(
         query: {
           status: "In Progress",
           startedAt: QueryHelper.lessThan(
-            OneUptimeDate.getSomeHoursAgo(STALE_IN_PROGRESS_HOURS),
+            OperationsDate.getSomeHoursAgo(STALE_IN_PROGRESS_HOURS),
           ),
         },
         select: {
@@ -75,9 +75,9 @@ RunCron(
         data: {
           status: "Failed",
           statusMessage: `The probe did not report a result within ${STALE_IN_PROGRESS_HOURS} hours. It may have gone offline mid-scan.`,
-          completedAt: OneUptimeDate.getCurrentDate(),
+          completedAt: OperationsDate.getCurrentDate(),
           // Recurring scans become due immediately; ignored for one-shots.
-          nextScanAt: OneUptimeDate.getCurrentDate(),
+          nextScanAt: OperationsDate.getCurrentDate(),
         } as unknown as QueryDeepPartialEntity<NetworkDeviceDiscoveryScan>,
         props: {
           isRoot: true,
@@ -90,7 +90,7 @@ RunCron(
         query: {
           isRecurring: true,
           nextScanAt: QueryHelper.lessThanEqualTo(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
           status: QueryHelper.any(["Completed", "Failed"]),
         },

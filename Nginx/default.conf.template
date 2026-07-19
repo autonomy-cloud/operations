@@ -27,9 +27,6 @@ server {
     fastcgi_buffers  16 16k;
     fastcgi_buffer_size  32k;
 
-    set $billing_enabled ${BILLING_ENABLED};
-
-
     location / {
 
         resolver ${NGINX_RESOLVER} valid=30s;
@@ -39,13 +36,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
 
-        if ($billing_enabled = true) {
-            return 301 https://$host$request_uri;
-        }
-
-        if ($billing_enabled != true) {
-            proxy_pass $backend_app;
-        }
+        proxy_pass $backend_app;
 
     }
 
@@ -58,13 +49,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
 
-        if ($billing_enabled = true) {
-            return 301 https://$host$request_uri;
-        }
-
-        if ($billing_enabled != true) {
-            proxy_pass $backend_app;
-        }
+        proxy_pass $backend_app;
     }
 
     location /status-page-api/ {
@@ -377,12 +362,9 @@ ${PROVISION_SSL_CERTIFICATE_KEY_DIRECTIVE}
     fastcgi_buffers  16 16k;
     fastcgi_buffer_size  32k;
 
-    set $billing_enabled ${BILLING_ENABLED};
-
     location / {
         resolver ${NGINX_RESOLVER} valid=30s;
         set $backend_app http://${SERVER_APP_HOSTNAME}:${APP_PORT};
-        set $backend_home http://${SERVER_HOME_HOSTNAME}:${HOME_PORT};
         proxy_set_header Host $server_name;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -393,14 +375,7 @@ ${PROVISION_SSL_CERTIFICATE_KEY_DIRECTIVE}
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
 
-        # If billing_enabled is true then proxy to home otherwise to dashboard because we dont need marketing pages for on-prem install.
-        if ($billing_enabled = true) {
-            proxy_pass $backend_home;
-        }
-
-        if ($billing_enabled != true) {
-            proxy_pass $backend_app;
-        }
+        proxy_pass $backend_app;
     }
 
     # ACME Challenge for primary domain.
@@ -441,7 +416,6 @@ ${PROVISION_SSL_CERTIFICATE_KEY_DIRECTIVE}
     location ~* ^/(manifest\.json|service-worker\.js)$ {
         resolver ${NGINX_RESOLVER} valid=30s;
         set $backend_app http://${SERVER_APP_HOSTNAME}:${APP_PORT};
-        set $backend_home http://${SERVER_HOME_HOSTNAME}:${HOME_PORT};
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -458,14 +432,7 @@ ${PROVISION_SSL_CERTIFICATE_KEY_DIRECTIVE}
             add_header Cache-Control "public, max-age=3600" always;
         }
 
-        # Serve from home if billing enabled, dashboard otherwise
-        if ($billing_enabled = true) {
-            proxy_pass $backend_home;
-        }
-
-        if ($billing_enabled != true) {
-            proxy_pass $backend_app;
-        }
+        proxy_pass $backend_app;
     }
 
 

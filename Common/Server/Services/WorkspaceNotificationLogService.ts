@@ -1,4 +1,4 @@
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import DatabaseService from "./DatabaseService";
 import Model from "../../Models/DatabaseModels/WorkspaceNotificationLog";
 import WorkspaceNotificationStatus from "../../Types/Workspace/WorkspaceNotificationStatus";
@@ -36,9 +36,6 @@ export interface WorkspaceLogData {
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3);
-    }
   }
 
   public async createWorkspaceLog(

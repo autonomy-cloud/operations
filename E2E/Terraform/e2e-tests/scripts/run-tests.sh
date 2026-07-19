@@ -3,27 +3,27 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEST_DIR="$(dirname "$SCRIPT_DIR")"
-PROVIDER_DIR="$TEST_DIR/../../../Terraform/terraform-provider-oneuptime"
+PROVIDER_DIR="$TEST_DIR/../../../Terraform/terraform-provider-cast-operations"
 
 # Load test environment
 source "$TEST_DIR/test-env.sh"
 
 echo "=== Running Terraform E2E Tests ==="
-echo "Cast Operations URL: $ONEUPTIME_URL"
+echo "Cast Operations URL: $CAST_OPERATIONS_URL"
 
 # Build and install provider locally
 echo ""
 echo "=== Building Terraform Provider ==="
 cd "$PROVIDER_DIR"
 go mod tidy
-go build -o terraform-provider-oneuptime
+go build -o terraform-provider-cast-operations
 
 # Install provider
 OS=$(go env GOOS)
 ARCH=$(go env GOARCH)
 INSTALL_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/autonomy-cloud/operations/1.0.0/${OS}_${ARCH}"
 mkdir -p "$INSTALL_DIR"
-cp terraform-provider-oneuptime "$INSTALL_DIR/"
+cp terraform-provider-cast-operations "$INSTALL_DIR/"
 
 # Pre-download the random provider before setting up dev_overrides — running
 # `terraform init` after dev_overrides is configured can silently no-op
@@ -88,12 +88,12 @@ validate_resource_deleted() {
     local endpoint="$1"
     local resource_id="$2"
 
-    echo "    Verifying deletion via API: POST ${ONEUPTIME_URL}${endpoint}/${resource_id}/get-item"
+    echo "    Verifying deletion via API: POST ${CAST_OPERATIONS_URL}${endpoint}/${resource_id}/get-item"
 
     local response
     local http_code
     local body
-    response=$(curl -s -w $'\n%{http_code}' -X POST "${ONEUPTIME_URL}${endpoint}/${resource_id}/get-item" \
+    response=$(curl -s -w $'\n%{http_code}' -X POST "${CAST_OPERATIONS_URL}${endpoint}/${resource_id}/get-item" \
         -H "Content-Type: application/json" \
         -H "Apikey: $TF_VAR_api_key" \
         -H "projectid: $TF_VAR_project_id" \
@@ -152,7 +152,7 @@ validate_all_deleted() {
 
 # Export functions and variables for verify.sh scripts
 export -f get_api_endpoint
-export ONEUPTIME_URL
+export CAST_OPERATIONS_URL
 export TF_VAR_api_key
 export TF_VAR_project_id
 
@@ -197,7 +197,7 @@ for test_name in "${TEST_DIRS[@]}"; do
     # 5. Verify Deletion via API
 
     # Step 0: Initialize. We can't run `terraform init` here because the
-    # oneuptime provider isn't published to the public registry — even with
+    # cast-operations provider isn't published to the public registry — even with
     # dev_overrides, init still queries the registry for available versions
     # and fails. So we plant the pre-downloaded random provider and lock
     # file directly into the test's .terraform directory.

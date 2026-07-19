@@ -3,14 +3,14 @@
 To access clickhouse use port forwarding in kubernetes
 
 ```
-kubectl port-forward --address 0.0.0.0 service/oneuptime-oneuptime 8123:8123
+kubectl port-forward --address 0.0.0.0 service/cast-operations-cast-operations 8123:8123
 ```
 
 then you should be able to access from the localhost and port 8123
 
 ```
-# Username for Postgres user is `oneuptime`
-echo $(kubectl get secret --namespace "default" oneuptime-clickhouse -o jsonpath="{.data.admin-password}" | base64 -d)
+# Username for Postgres user is `cast-operations`
+echo $(kubectl get secret --namespace "default" cast-operations-clickhouse -o jsonpath="{.data.admin-password}" | base64 -d)
 ```
 
 Important: Please ignore % in the end of the password output.
@@ -75,7 +75,7 @@ SELECT
 FROM system.columns c
 JOIN system.tables t
   ON c.database = t.database AND c.table = t.name
-WHERE c.database = 'oneuptime'
+WHERE c.database = 'cast-operations'
 GROUP BY c.table, t.total_rows
 ORDER BY avg_uncompressed_row_size_bytes DESC;
 ```
@@ -111,7 +111,7 @@ When `clickhouseOperator.altinity.enabled` is `true`:
 - The built-in `StatefulSet`, its `Service`s and `ConfigMap` are **not** rendered
   (regardless of `clickhouse.enabled`; the operator path takes precedence).
 - A `ClickHouseInstallation` (CHI) named `<release>-clickhouse-altinity` is created.
-- The app connects as the `oneuptime` user to the root CHI service
+- The app connects as the `cast-operations` user to the root CHI service
   `<release>-clickhouse-altinity` on port `8123`, using the password in the
   `<release>-clickhouse-altinity` secret (auto-generated, or set
   `clickhouseOperator.altinity.auth.password`). The password is preserved across
@@ -122,7 +122,7 @@ When `clickhouseOperator.altinity.enabled` is `true`:
 Read the ClickHouse user password:
 
 ```
-echo $(kubectl get secret --namespace "default" oneuptime-clickhouse-altinity -o jsonpath="{.data.admin-password}" | base64 -d)
+echo $(kubectl get secret --namespace "default" cast-operations-clickhouse-altinity -o jsonpath="{.data.admin-password}" | base64 -d)
 ```
 
 > **Bundled-operator caveats.** The Altinity operator is cluster-scoped and owns
@@ -173,11 +173,11 @@ span/trace visible only on the fraction of reads that hit the node holding it
 Cast Operations therefore ALWAYS runs the analytics schema as a sharded + replicated
 cluster — there is no single-node code path. A single node is a "cluster of one"
 (1 shard, 1 replica) backed by an **embedded** ClickHouse Keeper: the built-in
-StatefulSet ships the embedded Keeper + a 1-node `oneuptime` cluster in
+StatefulSet ships the embedded Keeper + a 1-node `cast-operations` cluster in
 `clickhouse.configuration` (a `config.d` drop-in), the operator path uses its
 bundled Keeper ensemble + CHI cluster, and an external ClickHouse must provide its
 own Keeper + cluster (`externalClickhouse.clusterName`). `CLICKHOUSE_CLUSTER_NAME`
-(default `oneuptime`) only selects WHICH cluster to target. For every analytics
+(default `cast-operations`) only selects WHICH cluster to target. For every analytics
 table `<T>` the schema-sync creates:
 
 - a **local** table `<T>Local` — `ReplicatedMergeTree` / `ReplicatedAggregatingMergeTree`,

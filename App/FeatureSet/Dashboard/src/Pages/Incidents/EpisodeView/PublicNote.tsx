@@ -3,7 +3,7 @@ import UserElement from "../../../Components/User/User";
 import ProjectUser from "../../../Utils/ProjectUser";
 import PageComponentProps from "../../PageComponentProps";
 import BadDataException from "Common/Types/Exception/BadDataException";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
 import { ModalWidth } from "Common/UI/Components/Modal/Modal";
@@ -137,10 +137,10 @@ const EpisodePublicNote: FunctionComponent<PageComponentProps> = (
             required: true,
             description:
               "This is the date and time this note was posted. This is in " +
-              OneUptimeDate.getCurrentTimezoneString() +
+              OperationsDate.getCurrentTimezoneString() +
               ".",
             getDefaultValue: () => {
-              return OneUptimeDate.getCurrentDate();
+              return OperationsDate.getCurrentDate();
             },
           },
         ]}

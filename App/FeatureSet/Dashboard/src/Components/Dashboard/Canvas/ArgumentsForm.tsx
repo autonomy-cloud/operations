@@ -1151,9 +1151,9 @@ const ArgumentsForm: FunctionComponent<ComponentProps> = (
                   <p className="mt-1 text-xs text-gray-500">
                     Optional. Only include data where these attributes match —
                     applied to every metric column. For example, filter
-                    oneuptime.host.environment = production to show this table
-                    for one environment/product only. Leave empty to include
-                    everything.
+                    cast-operations.host.environment = production to show this
+                    table for one environment/product only. Leave empty to
+                    include everything.
                   </p>
                   <div className="mt-2">
                     <DictionaryForm

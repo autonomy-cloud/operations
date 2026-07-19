@@ -33,24 +33,24 @@ Set `PROBE_INGRESS_PORT` to the port you want the listener to bind. Any value gr
 ### Docker
 
 ```bash
-docker run --name oneuptime-probe --network host \
+docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 If you are not using `--network host`, publish the ingress port explicitly:
 
 ```bash
-docker run --name oneuptime-probe \
+docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e ONEUPTIME_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
-  -d oneuptime/probe:release
+  -d cast-operations/probe:release
 ```
 
 ### Docker Compose
@@ -59,13 +59,13 @@ docker run --name oneuptime-probe \
 version: "3"
 
 services:
-  oneuptime-probe:
-    image: oneuptime/probe:release
-    container_name: oneuptime-probe
+  cast-operations-probe:
+    image: cast-operations/probe:release
+    container_name: cast-operations-probe
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - ONEUPTIME_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://visca.ai
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -78,25 +78,25 @@ services:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneuptime-probe
+  name: cast-operations-probe
 spec:
   selector:
     matchLabels:
-      app: oneuptime-probe
+      app: cast-operations-probe
   template:
     metadata:
       labels:
-        app: oneuptime-probe
+        app: cast-operations-probe
     spec:
       containers:
-        - name: oneuptime-probe
-          image: oneuptime/probe:release
+        - name: cast-operations-probe
+          image: cast-operations/probe:release
           env:
             - name: PROBE_KEY
               value: "<probe-key>"
             - name: PROBE_ID
               value: "<probe-id>"
-            - name: ONEUPTIME_URL
+            - name: CAST_OPERATIONS_URL
               value: "https://visca.ai"
             - name: PROBE_INGRESS_PORT
               value: "3875"
@@ -107,10 +107,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oneuptime-probe-ingress
+  name: cast-operations-probe-ingress
 spec:
   selector:
-    app: oneuptime-probe
+    app: cast-operations-probe
   ports:
     - name: ingress
       port: 3875
@@ -118,7 +118,7 @@ spec:
   type: ClusterIP
 ```
 
-Internal services can then send heartbeats to `http://oneuptime-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
+Internal services can then send heartbeats to `http://cast-operations-probe-ingress.<namespace>.svc.cluster.local:3875/heartbeat/<secret-key>`.
 
 ## Sending requests to the probe
 
@@ -167,19 +167,19 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 | `PROBE_INGRESS_FORWARD_TIMEOUT_MS`  | `10000`            | Timeout (ms) for each forward attempt to Cast Operations. Minimum `1000`.                      |
 | `PROBE_INGRESS_FORWARD_RETRY_LIMIT` | `3`                | Number of retries before the probe gives up on a forward. Set to `0` to disable retries. |
 
-The standard probe variables (`PROBE_KEY`, `PROBE_ID`, `ONEUPTIME_URL`, proxy vars) all apply — see [Custom Probes](/docs/probe/custom-probe) for the full list.
+The standard probe variables (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, proxy vars) all apply — see [Custom Probes](/docs/probe/custom-probe) for the full list.
 
 ## Security considerations
 
 - **The endpoint is unauthenticated by design** — the secret key in the URL path _is_ the authentication, just as it is on the public `visca.ai` endpoint. Treat the secret key as a credential.
 - **Bind to a private interface only.** The ingress listener should not be reachable from the public internet. Use a network policy, firewall rule, or `ClusterIP` service to restrict access.
-- **Use HTTPS termination if you require encryption in transit.** The probe's listener speaks plain HTTP. Put it behind an internal load balancer / ingress controller if you need TLS on the inbound hop. The forward leg from probe → Cast Operations always uses HTTPS (assuming `ONEUPTIME_URL` is `https://`).
+- **Use HTTPS termination if you require encryption in transit.** The probe's listener speaks plain HTTP. Put it behind an internal load balancer / ingress controller if you need TLS on the inbound hop. The forward leg from probe → Cast Operations always uses HTTPS (assuming `CAST_OPERATIONS_URL` is `https://`).
 - **Resource limits.** The listener accepts request bodies up to 50 MB. If you need a tighter cap, place a reverse proxy in front.
 
 ## Troubleshooting
 
 - **Probe logs `Probe ingress listener started on port <port>` on startup** — confirms the listener is up. If you do not see this line, `PROBE_INGRESS_PORT` is unset, `0`, or invalid.
-- **`Probe ingress: failed to forward to <url> after N attempts`** — the probe could not reach Cast Operations. Check the probe's outbound connectivity, proxy settings, and the value of `ONEUPTIME_URL`.
+- **`Probe ingress: failed to forward to <url> after N attempts`** — the probe could not reach Cast Operations. Check the probe's outbound connectivity, proxy settings, and the value of `CAST_OPERATIONS_URL`.
 - **`Probe ingress: probe ID not available, forwarding without it`** — the probe has not yet registered. The forward still succeeds; the heartbeat will simply not be attributed to a probe.
 - **Heartbeat shows up in Cast Operations but not via the probe** — confirm your service is hitting `http://<probe-host>:<port>/...` and not the public URL. A misconfigured DNS or `/etc/hosts` entry is the usual cause.
 

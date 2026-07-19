@@ -4,12 +4,12 @@ Volledig overzicht van alle Cast Operations CLI-opdrachten.
 
 ## Authenticatieopdrachten
 
-### `oneuptime login`
+### `cast-operations login`
 
 Authenticeer bij een Cast Operations-instantie.
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | Parameter        | Type     | Vereist | Beschrijving                         |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 Alle opgeslagen contexten weergeven.
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 Overschakelen naar een benoemde context.
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | Parameter | Type     | Vereist | Beschrijving             |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 De actieve context weergeven met gemaskeerde API-sleutel.
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 Een opgeslagen context verwijderen.
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | Parameter | Type     | Vereist | Beschrijving               |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 Alle resourceopdrachten volgen hetzelfde patroon. Vervang `<resource>` door een ondersteunde resourcenaam (bijv. `incident`, `monitor`, `alert`, `status-page`).
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 Resources weergeven met filteren en paginering.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | Optie            | Type   | Standaard | Beschrijving              |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 Eén resource ophalen op ID.
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | Parameter      | Type     | Vereist | Beschrijving       |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 Een nieuwe resource aanmaken.
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | Optie           | Type   | Vereist                      | Beschrijving              |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 Een bestaande resource bijwerken.
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | Parameter       | Type     | Vereist | Beschrijving                  |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 Een resource verwijderen.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | Parameter | Type     | Vereist | Beschrijving                 |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 Resources tellen die overeenkomen met een filter.
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | Optie            | Type   | Standaard | Beschrijving            |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## Hulpprogramma-opdrachten
 
-### `oneuptime version`
+### `cast-operations version`
 
 De CLI-versie weergeven.
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 Huidige authenticatiegegevens weergeven.
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Geeft de instantie-URL en gemaskeerde API-sleutel weer. Als een opgeslagen context actief is, wordt ook de contextnaam getoond.
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 Alle beschikbare resourcetypen weergeven.
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | Optie           | Type   | Standaard | Beschrijving                          |

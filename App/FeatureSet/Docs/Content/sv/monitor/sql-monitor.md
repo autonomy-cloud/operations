@@ -131,27 +131,27 @@ Anslut alltid med en dedikerad skrivskyddad användare. Exempel:
 
 ```sql
 -- PostgreSQL
-CREATE USER oneuptime_ro WITH PASSWORD 'a-strong-password';
-GRANT CONNECT ON DATABASE orders TO oneuptime_ro;
-GRANT USAGE ON SCHEMA public TO oneuptime_ro;
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO oneuptime_ro;
+CREATE USER cast_operations_ro WITH PASSWORD 'a-strong-password';
+GRANT CONNECT ON DATABASE orders TO cast_operations_ro;
+GRANT USAGE ON SCHEMA public TO cast_operations_ro;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO cast_operations_ro;
 -- Inkludera tabeller som skapas i framtiden:
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO oneuptime_ro;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO cast_operations_ro;
 ```
 
 ```sql
 -- MySQL
-CREATE USER 'oneuptime_ro'@'%' IDENTIFIED BY 'a-strong-password';
-GRANT SELECT ON orders.* TO 'oneuptime_ro'@'%';
+CREATE USER 'cast_operations_ro'@'%' IDENTIFIED BY 'a-strong-password';
+GRANT SELECT ON orders.* TO 'cast_operations_ro'@'%';
 FLUSH PRIVILEGES;
 ```
 
 ```sql
 -- Microsoft SQL Server
-CREATE LOGIN oneuptime_ro WITH PASSWORD = 'a-strong-password';
+CREATE LOGIN cast_operations_ro WITH PASSWORD = 'a-strong-password';
 USE orders;
-CREATE USER oneuptime_ro FOR LOGIN oneuptime_ro;
-ALTER ROLE db_datareader ADD MEMBER oneuptime_ro;
+CREATE USER cast_operations_ro FOR LOGIN cast_operations_ro;
+ALTER ROLE db_datareader ADD MEMBER cast_operations_ro;
 ```
 
 ## Saker att tänka på

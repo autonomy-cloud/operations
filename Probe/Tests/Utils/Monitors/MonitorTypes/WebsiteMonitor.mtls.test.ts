@@ -1,5 +1,5 @@
 // Set required env vars before importing anything that pulls Config.ts
-process.env["ONEUPTIME_URL"] = "https://visca.ai";
+process.env["CAST_OPERATIONS_URL"] = "https://visca.ai";
 process.env["PROBE_KEY"] = "test-probe-key";
 
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
@@ -61,7 +61,7 @@ function generateCerts(workDir: string): CertSet {
     "-days",
     "1",
     "-subj",
-    "/CN=oneuptime-test-ca",
+    "/CN=cast-operations-test-ca",
   ]);
 
   const issueLeaf: (
@@ -123,7 +123,9 @@ describe("WebsiteMonitor mTLS (client certificate)", () => {
   let serverUrl: URL;
 
   beforeAll(async () => {
-    workDir = fs.mkdtempSync(path.join(os.tmpdir(), "oneuptime-mtls-web-"));
+    workDir = fs.mkdtempSync(
+      path.join(os.tmpdir(), "cast-operations-mtls-web-"),
+    );
     certs = generateCerts(workDir);
 
     server = https.createServer(

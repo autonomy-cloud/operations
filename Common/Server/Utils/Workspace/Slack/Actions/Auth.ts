@@ -40,7 +40,7 @@ export interface SlackRequest {
     | undefined;
 }
 
-const slackActionTypesThatDoNotRequireUserSlackAccountToBeConnectedToOneUptime: Array<SlackActionType> =
+const slackActionTypesThatDoNotRequireUserSlackAccountToBeConnectedToOperations: Array<SlackActionType> =
   [
     /*
      * anyone in the company can create incident.
@@ -249,7 +249,7 @@ export default class SlackAuthAction {
       for (const action of actions) {
         if (
           action.actionType &&
-          !slackActionTypesThatDoNotRequireUserSlackAccountToBeConnectedToOneUptime.includes(
+          !slackActionTypesThatDoNotRequireUserSlackAccountToBeConnectedToOperations.includes(
             action.actionType,
           )
         ) {

@@ -15,7 +15,7 @@ Du kan kjore **OpenTelemetry Collector** som en tjeneste direkte pa Linux-, macO
 
 ## Forutsetninger
 
-- En **Cast Operations Telemetry Ingestion Token** — opprett en fra _Project Settings → Telemetry Ingestion Keys_ og kopier `x-oneuptime-token`-verdien.
+- En **Cast Operations Telemetry Ingestion Token** — opprett en fra _Project Settings → Telemetry Ingestion Keys_ og kopier `x-cast-operations-token`-verdien.
 - **OpenTelemetry Collector Contrib**-distribusjonen (`otelcol-contrib`). Standard `otelcol`-bygget inkluderer **ikke** receivere som `windowseventlogreceiver`, `journaldreceiver` eller `hostmetrics`-tillegg — pass pa a bruke `contrib`-distribusjonen. Alpha-receiveren `windowsservicereceiver` som driver Windows-fanen **Services** er buntet i `otelcol-contrib` fra **v0.155.0** og fremover, sa installer en gjeldende utgave; se "Windows Services (metrikker)" nedenfor.
 - Root / Administrator pa hosten for a installere collectoren som en tjeneste og (der det er aktuelt) lese privilegerte loggkilder.
 
@@ -116,7 +116,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 - **`batch`** grupperer poster for eksport slik at du ikke betaler en HTTP-rundtur per post.
@@ -335,7 +335,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -387,7 +387,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -450,7 +450,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -486,14 +486,14 @@ sudo journalctl -u otelcol-contrib -f
 
 ### macOS (launchd)
 
-Opprett `/Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist`:
+Opprett `/Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>com.oneuptime.otelcol-contrib</string>
+  <key>Label</key><string>com.cast-operations.otelcol-contrib</string>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/local/bin/otelcol-contrib</string>
@@ -510,7 +510,7 @@ Opprett `/Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist`:
 Last den inn:
 
 ```bash
-sudo launchctl load -w /Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist
+sudo launchctl load -w /Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist
 sudo launchctl list | grep otelcol-contrib
 ```
 
@@ -535,8 +535,8 @@ Tjenesten kjorer under `LocalSystem` som standard, som har privilegiene som tren
 ## Trinn 4 — Verifiser i Cast Operations
 
 1. Generer noe signal pa hosten:
-   - **Linux / macOS:** `logger "hello from oneuptime"` (skriver til syslog / journald).
-   - **Windows:** `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from oneuptime"` fra en forhoyet ledetekst.
+   - **Linux / macOS:** `logger "hello from cast-operations"` (skriver til syslog / journald).
+   - **Windows:** `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from cast-operations"` fra en forhoyet ledetekst.
 2. I Cast Operations-dashbordet, apne **Telemetry → Services** og velg `service.name`-en du konfigurerte.
 3. Apne **Metrics** — host-metrikker (CPU, minne, filsystem osv.) bor vises innen et minutt.
 4. Apne **Logs** — filloggene / journald-oppforingene / Windows Event Logs bor streame inn. Nyttige sokbare attributter inkluderer `log.file.name`, `systemd.unit`, `winlog.channel`, `winlog.event_id` og `winlog.provider.name`.
@@ -699,7 +699,7 @@ service:
       exporters: [otlphttp]
 ```
 
-> **Redigerer du konfigurasjonen Cast Operations genererte for deg?** Pipelinen ovenfor samsvarer med de komplette eksemplene pa denne siden. Konfigurasjonen fra dashbordet (Hosts → Documentation) navngir ting annerledes: prosessorene der er `resourcedetection` og `batch` (det finnes **ingen** `resource`-prosessor), og eksportoren der er `otlphttp/oneuptime`. A referere til en prosessor som ikke er definert, stopper collectoren ved oppstart med `references processor "resource" which is not configured`. Legg filteret til i det som allerede er der, i stedet for a lime denne blokken over det:
+> **Redigerer du konfigurasjonen Cast Operations genererte for deg?** Pipelinen ovenfor samsvarer med de komplette eksemplene pa denne siden. Konfigurasjonen fra dashbordet (Hosts → Documentation) navngir ting annerledes: prosessorene der er `resourcedetection` og `batch` (det finnes **ingen** `resource`-prosessor), og eksportoren der er `otlphttp/cast-operations`. A referere til en prosessor som ikke er definert, stopper collectoren ved oppstart med `references processor "resource" which is not configured`. Legg filteret til i det som allerede er der, i stedet for a lime denne blokken over det:
 >
 > ```yaml
 > service:
@@ -707,7 +707,7 @@ service:
 >     metrics:
 >       receivers: [hostmetrics]
 >       processors: [filter/drop-metrics, resourcedetection, batch]
->       exporters: [otlphttp/oneuptime]
+>       exporters: [otlphttp/cast-operations]
 > ```
 >
 > Behold `resourcedetection` — Cast Operations matcher telemetri til en host ved hjelp av `host.name` / `host.id` som den setter. Den genererte konfigurasjonen er ogsa **kun metrikker**: den har ingen `logs:`-pipeline for du legger til en, sa en `filter/drop-low-severity` har ingenting a filtrere for du legger til en `filelog`- eller `journald`-receiver ved siden av den.
@@ -746,7 +746,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -769,7 +769,7 @@ exporters:
   otlphttp:
     endpoint: https://your-operations-host.example.com/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 Hvis instansen din kun er HTTP, endre skjemaet til `http://` og bruk passende port.

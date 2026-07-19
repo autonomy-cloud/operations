@@ -14,7 +14,7 @@
     "android:build-apk": "npm run prebuild && cd android && ./gradlew assembleRelease",
     "android:submit": "npx eas-cli submit --platform android --profile production",
     "ios:build": "npx eas-cli build --platform ios --profile production",
-    "ios:build-local": "npm run prebuild && cd ios && pod install && xcodebuild -workspace OneUptimeOnCall.xcworkspace -scheme OneUptimeOnCall -configuration Release -sdk iphoneos -archivePath build/OneUptimeOnCall.xcarchive archive && xcodebuild -exportArchive -archivePath build/OneUptimeOnCall.xcarchive -exportPath build/output -exportOptionsPlist exportOptions.plist",
+    "ios:build-local": "npm run prebuild && cd ios && pod install && xcodebuild -workspace OperationsOnCall.xcworkspace -scheme OperationsOnCall -configuration Release -sdk iphoneos -archivePath build/OperationsOnCall.xcarchive archive && xcodebuild -exportArchive -archivePath build/OperationsOnCall.xcarchive -exportPath build/output -exportOptionsPlist exportOptions.plist",
     "ios:submit": "npx eas-cli submit --platform ios --profile production",
     "build": "npx eas-cli build --platform all --profile production",
     "submit": "npx eas-cli submit --platform all --profile production"

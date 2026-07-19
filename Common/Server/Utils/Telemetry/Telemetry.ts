@@ -169,8 +169,8 @@ export default class TelemetryUtil {
   }): Dictionary<AttributeType> {
     // get attributes for service id and service name
     return {
-      "oneuptime.service.id": data.serviceId.toString(),
-      "oneuptime.service.name": data.serviceName,
+      "cast-operations.service.id": data.serviceId.toString(),
+      "cast-operations.service.name": data.serviceName,
     };
   }
 
@@ -187,8 +187,8 @@ export default class TelemetryUtil {
     hostName: string;
   }): Dictionary<AttributeType> {
     return {
-      "oneuptime.host.id": data.hostId.toString(),
-      "oneuptime.host.name": data.hostName,
+      "cast-operations.host.id": data.hostId.toString(),
+      "cast-operations.host.name": data.hostName,
     };
   }
 
@@ -197,8 +197,8 @@ export default class TelemetryUtil {
     hostName: string;
   }): Dictionary<AttributeType> {
     return {
-      "oneuptime.docker.host.id": data.dockerHostId.toString(),
-      "oneuptime.docker.host.name": data.hostName,
+      "cast-operations.docker.host.id": data.dockerHostId.toString(),
+      "cast-operations.docker.host.name": data.hostName,
     };
   }
 
@@ -207,8 +207,8 @@ export default class TelemetryUtil {
     hostName: string;
   }): Dictionary<AttributeType> {
     return {
-      "oneuptime.podman.host.id": data.podmanHostId.toString(),
-      "oneuptime.podman.host.name": data.hostName,
+      "cast-operations.podman.host.id": data.podmanHostId.toString(),
+      "cast-operations.podman.host.name": data.hostName,
     };
   }
 
@@ -217,8 +217,9 @@ export default class TelemetryUtil {
     clusterName: string;
   }): Dictionary<AttributeType> {
     return {
-      "oneuptime.kubernetes.cluster.id": data.kubernetesClusterId.toString(),
-      "oneuptime.kubernetes.cluster.name": data.clusterName,
+      "cast-operations.kubernetes.cluster.id":
+        data.kubernetesClusterId.toString(),
+      "cast-operations.kubernetes.cluster.name": data.clusterName,
     };
   }
 

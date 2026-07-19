@@ -48,7 +48,7 @@ Keycloak er en populær open source-identitets- og adgangsstyringsløsning. Føl
 1. Log ind på dit Cast Operations-dashboard
 2. Naviger til **Projektindstillinger** > **Autentificering** > **SSO**
 3. Klik på **Opret SSO** og udfyld følgende:
-   - **Navn**: Et beskrivende navn (f.eks. `my-project-oneuptime`)
+   - **Navn**: Et beskrivende navn (f.eks. `my-project-cast-operations`)
    - **Sign On URL**: `https://<your-keycloak-domain>/auth/realms/<your-realm>/protocol/saml`
    - **Udsteder**: `https://<your-keycloak-domain>/auth/realms/<your-realm>`
    - **Certifikat**: Se [Trin 2](#trin-2-hent-keycloak-certifikatet) nedenfor
@@ -201,9 +201,9 @@ Okta er en bredt anvendt identitetsplatform, der leverer robuste SAML SSO-kapaci
 2. Naviger til **Projektindstillinger** > **Autentificering** > **SSO**
 3. Klik på **Opret SSO** og udfyld følgende:
    - **Navn**: Et beskrivende navn (f.eks. `Okta SAML`)
-   - **Sign On URL**: Du henter dette fra Okta i [Trin 3](#trin-3-kopiér-okta-saml-metadata-til-oneuptime)
-   - **Udsteder**: Du henter dette fra Okta i [Trin 3](#trin-3-kopiér-okta-saml-metadata-til-oneuptime)
-   - **Certifikat**: Du henter dette fra Okta i [Trin 3](#trin-3-kopiér-okta-saml-metadata-til-oneuptime)
+   - **Sign On URL**: Du henter dette fra Okta i [Trin 3](#trin-3-kopiér-okta-saml-metadata-til-cast-operations)
+   - **Udsteder**: Du henter dette fra Okta i [Trin 3](#trin-3-kopiér-okta-saml-metadata-til-cast-operations)
+   - **Certifikat**: Du henter dette fra Okta i [Trin 3](#trin-3-kopiér-okta-saml-metadata-til-cast-operations)
    - **Signaturalgoritme**: `RSA-SHA-256`
    - **Digest-algoritme**: `SHA256`
 4. Klik på **Vis SSO-konfiguration** og kopiér **Identifikator (Entity ID)** og **Svar-URL (Assertion Consumer Service URL)** – du skal bruge disse til Okta

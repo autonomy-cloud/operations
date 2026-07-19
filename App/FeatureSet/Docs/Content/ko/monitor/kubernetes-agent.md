@@ -5,14 +5,14 @@ Cast Operations Kubernetes 에이전트는 Kubernetes 클러스터에서 클러�
 ## 빠른 시작
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
@@ -35,20 +35,20 @@ Kubernetes 배포판마다 서로 다른 제약 조건이 있습니다 — 가�
 **GKE Standard, EC2의 EKS, 자체 관리형 또는 AKS:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
 
 **GKE Autopilot:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
 ```
@@ -56,10 +56,10 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **EKS Fargate:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
 ```
@@ -77,7 +77,7 @@ DaemonSet은 노드당 하나의 OpenTelemetry Collector 파드를 실행합니�
 
 ### API 모드 (`logs.mode: api`)
 
-단일 복제본 Deployment(`oneuptime/kubernetes-log-tailer` 이미지)가 Kubernetes API를 사용하여 컨테이너 로그를 스트리밍합니다 — `kubectl logs -f`가 사용하는 것과 동일한 엔드포인트입니다. hostPath도, 호스트 액세스도, DaemonSet도 필요 없습니다.
+단일 복제본 Deployment(`cast-operations/kubernetes-log-tailer` 이미지)가 Kubernetes API를 사용하여 컨테이너 로그를 스트리밍합니다 — `kubectl logs -f`가 사용하는 것과 동일한 엔드포인트입니다. hostPath도, 호스트 액세스도, DaemonSet도 필요 없습니다.
 
 - **장점:** GKE Autopilot, EKS Fargate 및 hostPath를 차단하거나 `restricted` Pod Security Standard를 적용하는 모든 클러스터에서 작동합니다.
 $1 각 컨테이너 스트림은 kube-apiserver에 대한 장기 연결입니다. 일반적으로 복제본 하나가 수천 개의 컨테이너를 처리합니다. 매우 큰 클러스터에서는 namespaceFilters.rules의 podLogs 범위 include 규칙으로 별도 릴리스를 샤딩하세요.
@@ -157,8 +157,8 @@ OBI는 또한 기본적으로 서비스 경계 전반에 걸쳐 트레이스 컨
 OBI가 실행 중이며 트래픽을 보고 있는지 확인하려면:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent -l component=ebpf-instrument
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent -l component=ebpf-instrument
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 ## 연속 CPU 프로파일링 (기본 비활성화)
@@ -205,8 +205,8 @@ eBPF 자동 계측도 활성화되어 있는 경우(`ebpf.enabled: true`, 기본
 | 옵션                                      | 기본값                            | 설명                                                                                                                                                                                          |
 | ----------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | (비어 있음 — `standard`로 처리됨) | 위의 표를 참조하십시오.                                                                                                                                                                       |
-| `oneuptime.url`                           | _(필수)_                          | Cast Operations 인스턴스의 URL입니다.                                                                                                                                                               |
-| `oneuptime.apiKey`                        | _(필수)_                          | 프로젝트 API 키(Settings → API Keys).                                                                                                                                                         |
+| `cast-operations.url`                           | _(필수)_                          | Cast Operations 인스턴스의 URL입니다.                                                                                                                                                               |
+| `cast-operations.apiKey`                        | _(필수)_                          | 프로젝트 API 키(Settings → API Keys).                                                                                                                                                         |
 | `clusterName`                             | _(필수)_                          | 이 클러스터의 고유한 이름입니다. 모든 레코드에 `k8s.cluster.name`으로 기록됩니다.                                                                                                             |
 | `namespaceFilters.rules`                  | kube-system을 podLogs와 ebpfDiscovery에서 제외 | podLogs, ebpfDiscovery, metrics, traces에 대한 범위별 include/exclude 규칙입니다. 패턴은 *를 지원하며 exclude가 항상 우선합니다. |
 | `logs.enabled`                            | `true`                            | 로그 수집 켜기 또는 끄기.                                                                                                                                                                     |
@@ -230,8 +230,8 @@ eBPF 자동 계측도 활성화되어 있는 경우(`ebpf.enabled: true`, 기본
 
 ```bash
 helm repo update
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values
 ```
 
@@ -242,8 +242,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 > **Helm 3.14+** — `--reset-then-reuse-values`로 전환하십시오. 재정의하지 않은 키에 대해 차트 기본값을 다시 읽어옵니다:
 >
 > ```bash
-> helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
->   --namespace oneuptime-kubernetes-agent \
+> helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+>   --namespace cast-operations-kubernetes-agent \
 >   --reset-then-reuse-values
 > ```
 >
@@ -254,8 +254,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 ## 제거
 
 ```bash
-helm uninstall oneuptime-agent --namespace oneuptime-kubernetes-agent
-kubectl delete namespace oneuptime-kubernetes-agent
+helm uninstall cast-operations-agent --namespace cast-operations-kubernetes-agent
+kubectl delete namespace cast-operations-kubernetes-agent
 ```
 
 ## 문제 해결
@@ -265,8 +265,8 @@ kubectl delete namespace oneuptime-kubernetes-agent
 클러스터가 hostPath를 차단하고 있습니다. API 모드 프리셋으로 전환하십시오:
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values \
   --set preset=gke-autopilot   # or eks-fargate
 ```
@@ -276,8 +276,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 에이전트 파드를 확인하십시오:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent
-kubectl logs -n oneuptime-kubernetes-agent -l app.kubernetes.io/part-of=oneuptime --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent
+kubectl logs -n cast-operations-kubernetes-agent -l app.kubernetes.io/part-of=cast-operations --tail=200
 ```
 
 API 모드에서 로그 테일러 파드는 포트 13133에서 `/healthz`를 노출합니다 — `kubectl port-forward`로 접근하여 내보내기 상태 스냅샷을 확인하십시오.
@@ -287,7 +287,7 @@ API 모드에서 로그 테일러 파드는 포트 13133에서 `/healthz`를 노
 OBI 파드 로그를 확인하십시오:
 
 ```bash
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 일반적인 원인:
@@ -301,7 +301,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 네임스페이스를 샤딩하여 수평으로 확장하십시오. 네임스페이스 그룹마다 한 번씩 배포하십시오:
 
 ```bash
-helm install oneuptime-agent-ns-a oneuptime/kubernetes-agent \
+helm install cast-operations-agent-ns-a cast-operations/kubernetes-agent \
   --set preset=gke-autopilot \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["app-a","app-b"],"scopes":["podLogs"]}]' \
   ...

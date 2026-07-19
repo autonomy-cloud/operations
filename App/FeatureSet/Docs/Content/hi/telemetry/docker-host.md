@@ -14,19 +14,19 @@ Cast Operations Docker Agent एक पूर्व-निर्मित कं
 
 ## त्वरित प्रारंभ (एक कमांड)
 
-`YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, और होस्ट नाम को अपने परिवेश के मानों से बदलें। होस्ट नाम वह है जिससे यह Docker होस्ट Cast Operations में दिखाई देगा — कुछ ऐसा चुनें जैसे `prod-docker-01`।
+`YOUR_CAST_OPERATIONS_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, और होस्ट नाम को अपने परिवेश के मानों से बदलें। होस्ट नाम वह है जिससे यह Docker होस्ट Cast Operations में दिखाई देगा — कुछ ऐसा चुनें जैसे `prod-docker-01`।
 
 ```bash
 docker run -d \
-  --name oneuptime-docker-agent \
+  --name cast-operations-docker-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="YOUR_ONEUPTIME_URL" \
-  -e ONEUPTIME_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 ```
 
 बस इतना ही। एक बार एजेंट कनेक्ट हो जाने पर, आपका Docker होस्ट Cast Operations डैशबोर्ड के **Docker** अनुभाग में स्वतः दिखाई देगा।
@@ -37,17 +37,17 @@ docker run -d \
 
 ```yaml
 services:
-  oneuptime-docker-agent:
-    image: oneuptime/docker-agent:release
-    container_name: oneuptime-docker-agent
+  cast-operations-docker-agent:
+    image: cast-operations/docker-agent:release
+    container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
-      - ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-      - ONEUPTIME_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
+      - CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+      - CAST_OPERATIONS_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
       - DOCKER_HOST_NAME=my-docker-host
     logging:
       driver: json-file
@@ -66,8 +66,8 @@ docker compose up -d
 
 | वेरिएबल                   | आवश्यक | विवरण                                                                                                                       |
 | ------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | हाँ    | आपका Cast Operations इंस्टेंस URL (उदाहरण के लिए `https://visca.ai` या आपका स्वयं-होस्ट किया गया होस्ट)                      |
-| `ONEUPTIME_SERVICE_TOKEN` | हाँ    | _Project Settings → Telemetry Ingestion Keys_ से Telemetry ingestion token                                                  |
+| `CAST_OPERATIONS_URL`           | हाँ    | आपका Cast Operations इंस्टेंस URL (उदाहरण के लिए `https://visca.ai` या आपका स्वयं-होस्ट किया गया होस्ट)                      |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | हाँ    | _Project Settings → Telemetry Ingestion Keys_ से Telemetry ingestion token                                                  |
 | `DOCKER_HOST_NAME`        | नहीं   | इस होस्ट के लिए सुलभ नाम। डिफ़ॉल्ट रूप से `docker-host`। इसे प्रति होस्ट किसी स्थिर मान पर सेट करें (उदा. `prod-docker-01`) |
 
 ## इंस्टॉलेशन सत्यापित करें
@@ -75,13 +75,13 @@ docker compose up -d
 जाँचें कि एजेंट चल रहा है:
 
 ```bash
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 ```
 
 एजेंट लॉग्स जाँचें:
 
 ```bash
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 ```
 
 इसे खोजें: `"Everything is ready. Begin running and processing data."`
@@ -91,8 +91,8 @@ docker logs -f oneuptime-docker-agent
 ## एजेंट को अपग्रेड करना
 
 ```bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # Re-run the `docker run` command above
 ```
 
@@ -106,7 +106,7 @@ docker compose up -d
 ## एजेंट को अनइंस्टॉल करना
 
 ```bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 ```
 
 यदि आपने Docker Compose का उपयोग किया है:
@@ -128,10 +128,10 @@ docker compose down
 
 ## स्वयं-होस्ट किया गया Cast Operations
 
-यदि आप Cast Operations को स्वयं-होस्ट कर रहे हैं, तो `ONEUPTIME_URL` को अपने स्वयं के इंस्टेंस पर सेट करें:
+यदि आप Cast Operations को स्वयं-होस्ट कर रहे हैं, तो `CAST_OPERATIONS_URL` को अपने स्वयं के इंस्टेंस पर सेट करें:
 
 ```bash
--e ONEUPTIME_URL="https://your-operations-host.example.com"
+-e CAST_OPERATIONS_URL="https://your-operations-host.example.com"
 ```
 
 यदि आपका इंस्टेंस केवल HTTP है, तो `http://` और उपयुक्त पोर्ट का उपयोग करें।
@@ -144,15 +144,15 @@ docker compose down
 
 ### एजेंट डिसकनेक्टेड के रूप में दिखता है
 
-1. जाँचें कि एजेंट चल रहा है: `docker ps --filter name=oneuptime-docker-agent`
-2. एजेंट लॉग्स जाँचें: `docker logs oneuptime-docker-agent | grep -i error`
+1. जाँचें कि एजेंट चल रहा है: `docker ps --filter name=cast-operations-docker-agent`
+2. एजेंट लॉग्स जाँचें: `docker logs cast-operations-docker-agent | grep -i error`
 3. सत्यापित करें कि आपका Cast Operations URL और service token सही हैं
 4. सुनिश्चित करें कि आपका Docker होस्ट नेटवर्क पर Cast Operations इंस्टेंस तक पहुँच सकता है
 
 ### कोई मेट्रिक्स दिखाई नहीं दे रहे
 
-1. सत्यापित करें कि एजेंट के अंदर Docker socket सुलभ है: `docker exec oneuptime-docker-agent ls -la /var/run/docker.sock`
-2. एक्सपोर्ट त्रुटियों के लिए collector लॉग्स जाँचें: `docker logs oneuptime-docker-agent | tail -100`
+1. सत्यापित करें कि एजेंट के अंदर Docker socket सुलभ है: `docker exec cast-operations-docker-agent ls -la /var/run/docker.sock`
+2. एक्सपोर्ट त्रुटियों के लिए collector लॉग्स जाँचें: `docker logs cast-operations-docker-agent | tail -100`
 3. सुनिश्चित करें कि आपका service token वैध है और समाप्त नहीं हुआ है
 
 ### होस्ट नाम एक Container ID के रूप में दिखता है

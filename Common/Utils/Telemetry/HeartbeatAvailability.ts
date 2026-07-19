@@ -4,7 +4,7 @@ import AggregationIntervalUtil from "../../Types/BaseDatabase/AggregationInterva
 
 /*
  * Shared availability-series builder for the synthetic
- * `oneuptime.host.heartbeat` metric, used by the Host, Docker host,
+ * `cast-operations.host.heartbeat` metric, used by the Host, Docker host,
  * and Kubernetes cluster overview pages. Input is the result of a
  * Count aggregation over the heartbeat metric; output is a step
  * series (100 = up, 0 = down) plus an uptime percentage.

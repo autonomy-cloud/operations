@@ -13,7 +13,7 @@ import Route from "Common/Types/API/Route";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import Query from "Common/Types/BaseDatabase/Query";
 import Search from "Common/Types/BaseDatabase/Search";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import AIInsight from "Common/Models/DatabaseModels/AIInsight";
 import AIInsightHumanVerdict from "Common/Types/AI/AIInsightHumanVerdict";
 import AIInsightSeverity from "Common/Types/AI/AIInsightSeverity";
@@ -36,7 +36,6 @@ import Link from "Common/UI/Components/Link/Link";
 import API from "Common/UI/Utils/API/API";
 import ModelAPI, { ListResult } from "Common/UI/Utils/ModelAPI/ModelAPI";
 import Navigation from "Common/UI/Utils/Navigation";
-import AIPlanGate from "../../Components/AI/AIPlanGate";
 
 // Human labels for the wire-contract enum values (e.g. "NewException").
 const INSIGHT_TYPE_LABELS: Record<AIInsightType, string> = {
@@ -526,7 +525,7 @@ const AIInsightsPage: FunctionComponent<
                 {item.lastSeenAt ? (
                   <span className="inline-flex items-center gap-1">
                     <Icon icon={IconProp.Clock} className="h-3.5 w-3.5" />
-                    Last seen {OneUptimeDate.fromNow(item.lastSeenAt)}
+                    Last seen {OperationsDate.fromNow(item.lastSeenAt)}
                   </span>
                 ) : (
                   <></>
@@ -584,10 +583,10 @@ const AIInsightsPage: FunctionComponent<
           title="No insights yet"
           description={
             <span>
-              When AI Insights is enabled, Cast Operations AI continuously watches
-              this project&apos;s telemetry and files a quiet insight whenever a
-              deterministic sensor finds something — without paging anyone or
-              opening incidents.
+              When AI Insights is enabled, Cast Operations AI continuously
+              watches this project&apos;s telemetry and files a quiet insight
+              whenever a deterministic sensor finds something — without paging
+              anyone or opening incidents.
             </span>
           }
           footer={
@@ -681,14 +680,12 @@ const AIInsightsPage: FunctionComponent<
 
   return (
     <div className="space-y-4">
-      <AIPlanGate />
-
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <p className="max-w-2xl text-sm text-gray-500">
-          Proactive findings from Cast Operations AI&apos;s deterministic telemetry
-          sensors — new or spiking exceptions, error-log spikes, latency
-          regressions and metric drift. Insights never page and never open
-          incidents.
+          Proactive findings from Cast Operations AI&apos;s deterministic
+          telemetry sensors — new or spiking exceptions, error-log spikes,
+          latency regressions and metric drift. Insights never page and never
+          open incidents.
         </p>
         <div className="flex flex-shrink-0 items-center gap-2">
           <Button

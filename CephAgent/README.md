@@ -32,15 +32,15 @@ curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/Cep
 bash install.sh
 ```
 
-The script prompts for your Cast Operations URL, telemetry ingestion key, cluster name, and mgr endpoints, installs to `/opt/oneuptime-ceph-agent`, and starts the agent with Docker Compose.
+The script prompts for your Cast Operations URL, telemetry ingestion key, cluster name, and mgr endpoints, installs to `/opt/cast-operations-ceph-agent`, and starts the agent with Docker Compose.
 
 ## Quick Start — Docker Compose
 
 Download `docker-compose.yml` and `otel-collector-config.yaml` from this directory into a folder, then create a `.env` file next to them:
 
 ```bash
-ONEUPTIME_URL=https://visca.ai
-ONEUPTIME_TELEMETRY_INGESTION_KEY=your-telemetry-ingestion-key
+CAST_OPERATIONS_URL=https://visca.ai
+CAST_OPERATIONS_TELEMETRY_INGESTION_KEY=your-telemetry-ingestion-key
 CEPH_CLUSTER_NAME=my-ceph-cluster
 CEPH_MGR_ENDPOINTS=[ceph-mon-1:9283,ceph-mon-2:9283,ceph-mon-3:9283]
 ```
@@ -57,8 +57,8 @@ The cluster will appear automatically in the **Ceph** section of Cast Operations
 
 | Variable                            | Required | Description                                                                                                                                                                                 |
 | ----------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                     | Yes      | Your Cast Operations instance URL                                                                                                                                                                 |
-| `ONEUPTIME_TELEMETRY_INGESTION_KEY` | Yes      | Telemetry ingestion key (_Project Settings → Telemetry Ingestion Keys_)                                                                                                                     |
+| `CAST_OPERATIONS_URL`                     | Yes      | Your Cast Operations instance URL                                                                                                                                                                 |
+| `CAST_OPERATIONS_TELEMETRY_INGESTION_KEY` | Yes      | Telemetry ingestion key (_Project Settings → Telemetry Ingestion Keys_)                                                                                                                     |
 | `CEPH_CLUSTER_NAME`                 | Yes      | Cluster identifier shown in Cast Operations. Stamped on every metric as the `ceph.cluster.name` resource attribute. Keep it stable — changing it registers a new cluster (default: `ceph`)        |
 | `CEPH_MGR_ENDPOINTS`                | Yes      | Comma-separated `host:port` list of **all** mgr daemons, wrapped in square brackets, e.g. `[ceph-mon-1:9283,ceph-mon-2:9283,ceph-mon-3:9283]`. The install script adds the brackets for you |
 
@@ -96,7 +96,7 @@ Lines ship verbatim; Cast Operations parses the ceph.log format (timestamp, daem
 
 ## Auto-tag with Project Labels
 
-Any resource attribute prefixed with `oneuptime.label.` is promoted to a project Label and attached to the cluster. Pattern: `oneuptime.label.<dimension>=<value>` becomes a label named `<dimension>:<value>`.
+Any resource attribute prefixed with `cast-operations.label.` is promoted to a project Label and attached to the cluster. Pattern: `cast-operations.label.<dimension>=<value>` becomes a label named `<dimension>:<value>`.
 
 Add the attributes to the `resource` processor in `otel-collector-config.yaml` (next to `ceph.cluster.name`):
 
@@ -105,10 +105,10 @@ processors:
   resource:
     attributes:
       # ...existing attributes...
-      - key: oneuptime.label.team
+      - key: cast-operations.label.team
         value: storage
         action: upsert
-      - key: oneuptime.label.env
+      - key: cast-operations.label.env
         value: production
         action: upsert
 ```
@@ -120,17 +120,17 @@ The cluster shows up tagged `team:storage` and `env:production`. Labels are matc
 To survive reboots without relying on Docker's restart policy alone, install the provided unit:
 
 ```bash
-sudo cp systemd/oneuptime-ceph-agent.service /etc/systemd/system/
+sudo cp systemd/cast-operations-ceph-agent.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now oneuptime-ceph-agent
+sudo systemctl enable --now cast-operations-ceph-agent
 ```
 
-The unit assumes the agent lives in `/opt/oneuptime-ceph-agent` (the install script default).
+The unit assumes the agent lives in `/opt/cast-operations-ceph-agent` (the install script default).
 
 ## Upgrading
 
 ```bash
-cd /opt/oneuptime-ceph-agent
+cd /opt/cast-operations-ceph-agent
 docker compose pull
 docker compose up -d
 ```
@@ -138,7 +138,7 @@ docker compose up -d
 ## Uninstalling
 
 ```bash
-cd /opt/oneuptime-ceph-agent
+cd /opt/cast-operations-ceph-agent
 docker compose down
 ```
 
@@ -150,12 +150,12 @@ docker compose down
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/CephAgent/troubleshoot.sh -o troubleshoot.sh
-bash troubleshoot.sh                 # add -d <dir> if you installed outside /opt/oneuptime-ceph-agent
+bash troubleshoot.sh                 # add -d <dir> if you installed outside /opt/cast-operations-ceph-agent
 ```
 
 ### No cluster appears in Cast Operations
 
-1. Check the collector logs: `docker logs oneuptime-ceph-agent` — look for export errors (`401` means a bad ingestion key, connection refused means a wrong `ONEUPTIME_URL`).
+1. Check the collector logs: `docker logs cast-operations-ceph-agent` — look for export errors (`401` means a bad ingestion key, connection refused means a wrong `CAST_OPERATIONS_URL`).
 2. Verify a mgr endpoint serves metrics: `curl http://<active-mgr>:9283/metrics | head` — you should see `ceph_*` metric lines. If not, enable the module: `ceph mgr module enable prometheus`.
 3. Make sure `CEPH_MGR_ENDPOINTS` is wrapped in square brackets — without them the collector treats the whole comma-separated string as a single (invalid) target.
 
@@ -174,7 +174,7 @@ Expected if `mgr/prometheus/standby_behaviour` is set to `error` on your cluster
 docker compose ps
 
 # View collector logs
-docker logs -f oneuptime-ceph-agent
+docker logs -f cast-operations-ceph-agent
 
 # Check which mgr is active
 ceph mgr stat

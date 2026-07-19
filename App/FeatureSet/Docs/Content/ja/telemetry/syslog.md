@@ -6,9 +6,9 @@ OpenTelemetry IngestサービスはネイティブのSyslogペイロードを受
 
 ## 前提条件
 
-- **テレメトリー取り込みトークン** — _プロジェクト設定 → テレメトリー取り込みキー_ から作成し、`x-oneuptime-token` の値をコピーします。
+- **テレメトリー取り込みトークン** — _プロジェクト設定 → テレメトリー取り込みキー_ から作成し、`x-cast-operations-token` の値をコピーします。
 - **Syslogフォワーダー** — HTTPのPOSTリクエストを送信できる任意のツール（例：`curl`、`omhttp` 経由の `rsyslog`、HTTP宛先プラグインを使った `syslog-ng`）。
-- **サービス名（オプション）** — `x-oneuptime-service-name` ヘッダーを設定して受信ログを特定のテレメトリーサービスにグループ化します。省略するとCast Operationsはsyslogの `APP-NAME`、ホスト名、または `Syslog` にフォールバックします。
+- **サービス名（オプション）** — `x-cast-operations-service-name` ヘッダーを設定して受信ログを特定のテレメトリーサービスにグループ化します。省略するとCast Operationsはsyslogの `APP-NAME`、ホスト名、または `Syslog` にフォールバックします。
 
 ## エンドポイント
 
@@ -17,7 +17,7 @@ POST https://visca.ai/syslog/v1/logs
 ```
 
 - Cast Operationsをセルフホストしている場合は、`visca.ai` を自分のホストに置き換えてください。
-- リクエストには必ず `x-oneuptime-token` ヘッダーを含めてください。
+- リクエストには必ず `x-cast-operations-token` ヘッダーを含めてください。
 
 ## リクエストボディ
 
@@ -44,8 +44,8 @@ POST https://visca.ai/syslog/v1/logs
 curl \
   -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
-  -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
-  -H "x-oneuptime-service-name: production-web" \
+  -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
+  -H "x-cast-operations-service-name: production-web" \
   -d '{
     "messages": [
       "<34>1 2025-03-02T14:48:05.003Z web-01 nginx 7421 ID47 [env@32473 host=\"web-01\"] 502 on /api/login"
@@ -59,7 +59,7 @@ curl \
    ```bash
    sudo apt-get install rsyslog-omhttp
    ```
-2. 宛先を `/etc/rsyslog.d/oneuptime.conf` に追加します：
+2. 宛先を `/etc/rsyslog.d/cast-operations.conf` に追加します：
 
    ```
    module(load="omhttp")
@@ -77,8 +77,8 @@ curl \
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
-     header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
-     header="x-oneuptime-service-name: rsyslog-demo"
+     header="x-cast-operations-token: YOUR_TELEMETRY_KEY"
+     header="x-cast-operations-service-name: rsyslog-demo"
      template="Cast OperationsJson"
    )
    ```
@@ -111,8 +111,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: perimeter-firewall"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: perimeter-firewall"
   template="Cast OperationsJSON"
 )
 ```
@@ -122,7 +122,7 @@ action(
 多くのcronジョブやレガシーデーモンはカーネル/syslogファシリティ経由でのみログを記録します。`/var/log/syslog` やjournaldエントリを転送することで、運用上のブレッドクラムを一か所に保持できます。SystemdホストはjournaldとsyslogブリッジN:
 
 ```bash
-# /etc/rsyslog.d/oneuptime.conf
+# /etc/rsyslog.d/cast-operations.conf
 module(load="imjournal" StateFile="imjournal.state")
 module(load="omhttp")
 
@@ -133,8 +133,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: linux-fleet"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: linux-fleet"
   template="Cast OperationsJSON"
 )
 ```
@@ -161,8 +161,8 @@ Fluent BitやFluentdを既に実行している場合は、コンテナログは
     Format            json
     json_date_key     time
     Header            Content-Type application/json
-    Header            x-oneuptime-token <TOKEN>
-    Header            x-oneuptime-service-name edge-ingress
+    Header            x-cast-operations-token <TOKEN>
+    Header            x-cast-operations-service-name edge-ingress
     tls               On
 ```
 
@@ -186,7 +186,7 @@ Cast Operationsは各ログエントリに以下の属性を自動的に付加�
 
 ## トラブルシューティング
 
-- **HTTP 401または空の結果** — `x-oneuptime-token` ヘッダーがログを受信するプロジェクトに属していることを確認してください。
+- **HTTP 401または空の結果** — `x-cast-operations-token` ヘッダーがログを受信するプロジェクトに属していることを確認してください。
 - **ログが表示されない** — リクエストボディに実際にsyslog行が含まれているか確認してください。空のボディはHTTP 400で拒否されます。
-- **予期しないサービス名** — `x-oneuptime-service-name` を設定してデフォルトの検出ロジックを上書きしてください。
+- **予期しないサービス名** — `x-cast-operations-service-name` を設定してデフォルトの検出ロジックを上書きしてください。
 - **大量のバースト** — リクエストあたり最大1,000行のバッチ処理がサポートされています。それより大きいバーストはキューに入れられて非同期で処理されます。

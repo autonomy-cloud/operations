@@ -6,7 +6,7 @@ import Metric from "Common/Models/AnalyticsModels/Metric";
 import logger from "Common/Server/Utils/Logger";
 
 /**
- * Convert oneuptime.MetricItemV2.explicitBounds from Array(Int64) to
+ * Convert cast-operations.MetricItemV2.explicitBounds from Array(Int64) to
  * Array(Float64).
  *
  * Sub-integer bucket boundaries are common in HTTP histograms (e.g.

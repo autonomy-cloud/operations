@@ -8,7 +8,7 @@ import ModelAPI, {
   ListResult as ModelListResult,
 } from "Common/UI/Utils/ModelAPI/ModelAPI";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import { JSONObject } from "Common/Types/JSON";
@@ -157,7 +157,7 @@ function rowToTypedObject<T extends KubernetesObjectType>(
       row.namespaceKey && row.namespaceKey !== "" ? row.namespaceKey : "",
     uid: row.uid || "",
     creationTimestamp: row.resourceCreationTimestamp
-      ? OneUptimeDate.toString(row.resourceCreationTimestamp)
+      ? OperationsDate.toString(row.resourceCreationTimestamp)
       : "",
     labels: (row.labels as Record<string, string>) || {},
     annotations: (row.annotations as Record<string, string>) || {},
@@ -320,7 +320,7 @@ export async function fetchRawK8sObject(
             : undefined,
         uid: row.uid || undefined,
         creationTimestamp: row.resourceCreationTimestamp
-          ? OneUptimeDate.toString(row.resourceCreationTimestamp)
+          ? OperationsDate.toString(row.resourceCreationTimestamp)
           : undefined,
         labels: row.labels || undefined,
         annotations: row.annotations || undefined,
@@ -437,8 +437,8 @@ export async function fetchK8sEventsForResource(options: {
     return [];
   }
 
-  const endDate: Date = OneUptimeDate.getCurrentDate();
-  const startDate: Date = OneUptimeDate.addRemoveHours(endDate, -24);
+  const endDate: Date = OperationsDate.getCurrentDate();
+  const startDate: Date = OperationsDate.addRemoveHours(endDate, -24);
 
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -543,7 +543,7 @@ export async function fetchK8sEventsForResource(options: {
 
       events.push({
         timestamp: log.time
-          ? OneUptimeDate.getDateAsLocalFormattedString(log.time)
+          ? OperationsDate.getDateAsLocalFormattedString(log.time)
           : "",
         type: eventType || "Unknown",
         reason: reason || "Unknown",
@@ -575,8 +575,8 @@ export async function fetchClusterWarningEvents(options: {
    * have a ~1h TTL in the API server anyway, so anything older won't
    * be re-ingested — a wider window mostly scans empty partitions.
    */
-  const endDate: Date = OneUptimeDate.getCurrentDate();
-  const startDate: Date = OneUptimeDate.addRemoveHours(endDate, -3);
+  const endDate: Date = OperationsDate.getCurrentDate();
+  const startDate: Date = OperationsDate.addRemoveHours(endDate, -3);
 
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -676,7 +676,7 @@ export async function fetchClusterWarningEvents(options: {
 
       events.push({
         timestamp: log.time
-          ? OneUptimeDate.getDateAsLocalFormattedString(log.time)
+          ? OperationsDate.getDateAsLocalFormattedString(log.time)
           : "",
         type: eventType,
         reason: reason || "Unknown",
@@ -717,8 +717,8 @@ export async function fetchPodLogs(options: {
     return [];
   }
 
-  const endDate: Date = OneUptimeDate.getCurrentDate();
-  const startDate: Date = OneUptimeDate.addRemoveHours(endDate, -6);
+  const endDate: Date = OperationsDate.getCurrentDate();
+  const startDate: Date = OperationsDate.addRemoveHours(endDate, -6);
 
   const attributeFilters: Record<string, string> = {
     "resource.k8s.cluster.name": options.clusterIdentifier,
@@ -767,7 +767,7 @@ export async function fetchPodLogs(options: {
         const attrs: JSONObject = log.attributes || {};
         return {
           timestamp: log.time
-            ? OneUptimeDate.getDateAsLocalFormattedString(log.time)
+            ? OperationsDate.getDateAsLocalFormattedString(log.time)
             : "",
           body: typeof log.body === "string" ? log.body : "",
           severity: log.severityText || "INFO",

@@ -22,7 +22,7 @@ Cast Operations Terraform 提供商可在 [Terraform Registry](https://registry.
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 使用最新的 7.x 版本
     }
@@ -38,7 +38,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 固定到与您的 Cast Operations 安装完全匹配的版本
     }
@@ -60,7 +60,7 @@ terraform {
 # 示例：如果运行 Cast Operations 7.0.123
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"
     }
@@ -73,9 +73,9 @@ terraform {
 ### 基本配置
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://your-operations-instance.com"  # 或 https://visca.ai（云端）
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://your-operations-instance.com"  # 或 https://visca.ai（云端）
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -84,14 +84,14 @@ provider "oneuptime" {
 您可以使用环境变量配置提供商：
 
 ```bash
-export ONEUPTIME_URL="https://your-operations-instance.com"
-export ONEUPTIME_API_KEY="your-api-key-here"
+export CAST_OPERATIONS_URL="https://your-operations-instance.com"
+export CAST_OPERATIONS_API_KEY="your-api-key-here"
 ```
 
 然后不需要显式配置地使用提供商：
 
 ```hcl
-provider "oneuptime" {
+provider "cast-operations" {
   # 配置将从环境变量中读取
 }
 ```
@@ -100,8 +100,8 @@ provider "oneuptime" {
 
 | 参数            | 环境变量            | 描述               | 是否必填 |
 | --------------- | ------------------- | ------------------ | -------- |
-| `oneuptime_url` | `ONEUPTIME_URL`     | Cast Operations URL      | 是       |
-| `api_key`       | `ONEUPTIME_API_KEY` | Cast Operations API 密钥 | 是       |
+| `cast_operations_url` | `CAST_OPERATIONS_URL`     | Cast Operations URL      | 是       |
+| `api_key`       | `CAST_OPERATIONS_API_KEY` | Cast Operations API 密钥 | 是       |
 
 ## 快速开始
 
@@ -122,16 +122,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # 使用您的实例 URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # 使用您的实例 URL
+  api_key       = var.cast_operations_api_key
 }
 
 # 注意：项目必须在 Cast Operations 控制台中手动创建
@@ -141,7 +141,7 @@ variable "project_id" {
 }
 
 # 创建监控器
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Website Monitor"
   description = "Monitor for website uptime"
   data        = jsonencode({
@@ -152,7 +152,7 @@ resource "oneuptime_monitor" "website" {
 }
 
 # 创建团队
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "Platform Team"
   description = "Platform engineering team"
 }
@@ -183,7 +183,7 @@ terraform apply
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 始终使用最新兼容版本
     }
@@ -206,7 +206,7 @@ Cast Operations 7.0.123 的示例：
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 精确版本匹配
     }
@@ -220,29 +220,29 @@ Cast Operations Terraform 提供商支持以下资源：
 
 ### 核心资源
 
-- `oneuptime_team` - 管理团队
+- `cast_operations_team` - 管理团队
 
 ### 监控
 
-- `oneuptime_monitor` - 创建和管理监控器
-- `oneuptime_probe` - 管理监控探针
+- `cast_operations_monitor` - 创建和管理监控器
+- `cast_operations_probe` - 管理监控探针
 
 ### 值班管理
 
-- `oneuptime_on_call_duty_policy` - 设置值班排班
+- `cast_operations_on_call_duty_policy` - 设置值班排班
 
 ### 状态页面
 
-- `oneuptime_status_page` - 创建状态页面
+- `cast_operations_status_page` - 创建状态页面
 
 ### 服务目录
 
-- `oneuptime_service_catalog` - 管理服务目录条目
+- `cast_operations_service_catalog` - 管理服务目录条目
 
 ### 服务目录
 
-- `oneuptime_service` - 定义服务
-- `oneuptime_service_dependency` - 映射服务依赖
+- `cast_operations_service` - 定义服务
+- `cast_operations_service_dependency` - 映射服务依赖
 
 ### 数据源
 
@@ -254,7 +254,7 @@ Cast Operations Terraform 提供商支持以下资源：
 
 ```hcl
 # 变量
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API 密钥"
   type        = string
   sensitive   = true
@@ -265,7 +265,7 @@ variable "project_id" {
   type        = string
 }
 
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast Operations URL"
   type        = string
   default     = "https://visca.ai"
@@ -274,26 +274,26 @@ variable "oneuptime_url" {
 # 提供商配置
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # 团队
-resource "oneuptime_team" "platform" {
+resource "cast_operations_team" "platform" {
   name        = "Platform Team"
   description = "Platform engineering team"
 }
 
 # 监控器
-resource "oneuptime_monitor" "api" {
+resource "cast_operations_monitor" "api" {
   name        = "API Health Check"
   description = "Monitor for API health endpoint"
   data        = jsonencode({
@@ -305,9 +305,9 @@ resource "oneuptime_monitor" "api" {
   }
 }
 
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "Database Connection"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   monitor_type = "port"
   hostname     = "db.mycompany.com"
@@ -322,10 +322,10 @@ resource "oneuptime_monitor" "database" {
 }
 
 # 值班策略
-resource "oneuptime_on_call_policy" "platform_oncall" {
+resource "cast_operations_on_call_policy" "platform_oncall" {
   name       = "Platform On-Call"
-  project_id = oneuptime_project.production.id
-  team_id    = oneuptime_team.platform.id
+  project_id = cast_operations_project.production.id
+  team_id    = cast_operations_team.platform.id
 
   schedules {
     name      = "Business Hours"
@@ -343,17 +343,17 @@ resource "oneuptime_on_call_policy" "platform_oncall" {
 }
 
 # 告警策略
-resource "oneuptime_alert_policy" "critical_alerts" {
+resource "cast_operations_alert_policy" "critical_alerts" {
   name       = "Critical System Alerts"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   conditions {
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
     threshold  = "down"
   }
 
   conditions {
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
     threshold  = "down"
   }
 
@@ -364,25 +364,25 @@ resource "oneuptime_alert_policy" "critical_alerts" {
 
   actions {
     type           = "oncall_escalation"
-    oncall_policy_id = oneuptime_on_call_policy.platform_oncall.id
+    oncall_policy_id = cast_operations_on_call_policy.platform_oncall.id
   }
 }
 
 # 状态页面
-resource "oneuptime_status_page" "public" {
+resource "cast_operations_status_page" "public" {
   name       = "MyCompany Status"
-  project_id = oneuptime_project.production.id
+  project_id = cast_operations_project.production.id
 
   domain = "status.mycompany.com"
 
   components {
     name       = "API"
-    monitor_id = oneuptime_monitor.api.id
+    monitor_id = cast_operations_monitor.api.id
   }
 
   components {
     name       = "Database"
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
   }
 }
 ```
@@ -393,7 +393,7 @@ resource "oneuptime_status_page" "public" {
 # 适用于自托管 Cast Operations 实例版本 7.0.123
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 必须与您的 Cast Operations 版本完全匹配
     }
@@ -401,9 +401,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.mycompany.com"  # 您的自托管 URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.mycompany.com"  # 您的自托管 URL
+  api_key       = var.cast_operations_api_key
 }
 
 # 其余配置...
@@ -430,7 +430,7 @@ provider "oneuptime" {
 terraform {
   backend "s3" {
     bucket = "my-terraform-state"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
@@ -488,12 +488,12 @@ monitors = [
 使用一致的命名规范：
 
 ```hcl
-resource "oneuptime_monitor" "website_production" {
+resource "cast_operations_monitor" "website_production" {
   name = "${var.environment}-website-monitor"
   # ...
 }
 
-resource "oneuptime_alert_policy" "critical_production" {
+resource "cast_operations_alert_policy" "critical_production" {
   name = "${var.environment}-critical-alerts"
   # ...
 }
@@ -513,10 +513,10 @@ resource "oneuptime_alert_policy" "critical_production" {
 
 ```bash
 # 导入现有监控器
-terraform import oneuptime_monitor.website monitor-id-here
+terraform import cast_operations_monitor.website monitor-id-here
 
 # 导入现有项目
-terraform import oneuptime_project.main project-id-here
+terraform import cast_operations_project.main project-id-here
 ```
 
 ### 版本升级

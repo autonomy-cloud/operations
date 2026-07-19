@@ -56,7 +56,7 @@ import URL from "../../Types/API/URL";
 import AnalyticsTableColumn from "../../Types/AnalyticsDatabase/TableColumn";
 import TableColumnType from "../../Types/AnalyticsDatabase/TableColumnType";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import Exception from "../../Types/Exception/Exception";
 import ExceptionCode from "../../Types/Exception/ExceptionCode";
@@ -304,12 +304,12 @@ export default class AnalyticsDatabaseService<
       });
 
       logger.debug(
-        `ClickHouse insert succeeded for table ${tableName} at ${OneUptimeDate.toString(OneUptimeDate.getCurrentDate())}`,
+        `ClickHouse insert succeeded for table ${tableName} at ${OperationsDate.toString(OperationsDate.getCurrentDate())}`,
         { tableName } as LogAttributes,
       );
     } catch (error) {
       logger.error(
-        `ClickHouse insert failed for table ${tableName} at ${OneUptimeDate.toString(OneUptimeDate.getCurrentDate())}`,
+        `ClickHouse insert failed for table ${tableName} at ${OperationsDate.toString(OperationsDate.getCurrentDate())}`,
         { tableName } as LogAttributes,
       );
       logger.error(error, { tableName } as LogAttributes);
@@ -628,12 +628,12 @@ export default class AnalyticsDatabaseService<
    * Group telemetry rows by (primaryEntityId, primaryEntityType) for a project over a
    * time window, returning the row count and an estimate of the ingested
    * byte size (ClickHouse `byteSize(*)`, the uncompressed in-memory size of
-   * each row's columns). This is the enumeration source for usage billing:
+   * each row's columns). This is the enumeration source for usage reporting:
    * a single aggregation scan surfaces EVERY resource that emitted
    * telemetry — real Services, Hosts, Docker hosts, Kubernetes clusters,
    * Monitors and unattributed (primaryEntityId = projectId) — without needing a
-   * Postgres row per resource. The caller decides which serviceTypes to
-   * bill and how to attribute retention.
+   * Postgres row per resource. The caller decides which service types to
+   * include and how to attribute retention.
    */
   @CaptureSpan()
   public async groupTelemetryUsageByService(data: {
@@ -675,9 +675,8 @@ export default class AnalyticsDatabaseService<
     }} GROUP BY primaryEntityId, primaryEntityType`;
 
     /*
-     * Billing scan: deliberately NO timeout_overflow_mode='break'. A
-     * partial aggregation here silently undercounts usage (rows that
-     * weren't scanned before the cap simply never get billed). Failing
+     * Deliberately use no timeout_overflow_mode='break'. A partial aggregation
+     * silently undercounts usage. Failing
      * loudly lets the staging cron retry instead; the cap is raised to
      * compensate for the full-day scan on large projects.
      */
@@ -876,7 +875,7 @@ export default class AnalyticsDatabaseService<
          * single-column consumers still work.
          */
         const aggregatedModel: AggregatedModel = {
-          timestamp: OneUptimeDate.fromString(
+          timestamp: OperationsDate.fromString(
             (item as JSONObject)[
               aggregateBy.aggregationTimestampColumnName as string
             ] as string,
@@ -2042,7 +2041,7 @@ export default class AnalyticsDatabaseService<
       data.id = ObjectID.generateTimeOrdered();
     }
 
-    data.createdAt = OneUptimeDate.getCurrentDate();
+    data.createdAt = OperationsDate.getCurrentDate();
 
     return data;
   }

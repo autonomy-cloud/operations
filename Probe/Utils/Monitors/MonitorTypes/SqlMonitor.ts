@@ -62,7 +62,7 @@ export const buildSqlServerIntegratedConnectionString: (
     `TrustServerCertificate=${
       config.useSsl && !config.rejectUnauthorizedSsl ? "yes" : "no"
     }`,
-    `APP=${escapeOdbcConnectionStringValue("OneUptimeProbe-SQLMonitor")}`,
+    `APP=${escapeOdbcConnectionStringValue("OperationsProbe-SQLMonitor")}`,
   ].join(";");
 };
 
@@ -105,7 +105,7 @@ export const buildMicrosoftSqlServerPoolConfig: (input: {
       trustServerCertificate: config.useSsl
         ? !config.rejectUnauthorizedSsl
         : true,
-      appName: "OneUptimeProbe-SQLMonitor",
+      appName: "OperationsProbe-SQLMonitor",
     },
   };
 
@@ -697,7 +697,7 @@ export default class SqlMonitor {
       statement_timeout: statementTimeoutInMs,
       // Client-side backstop in case the server ignores statement_timeout.
       query_timeout: statementTimeoutInMs + 2000,
-      application_name: "OneUptimeProbe-SQLMonitor",
+      application_name: "OperationsProbe-SQLMonitor",
       ssl: config.useSsl
         ? { rejectUnauthorized: config.rejectUnauthorizedSsl }
         : false,
@@ -707,7 +707,7 @@ export default class SqlMonitor {
 
     await client.connect();
 
-    const cursorName: string = "oneuptime_sql_monitor_cursor";
+    const cursorName: string = "cast_operations_sql_monitor_cursor";
 
     // Strip any trailing terminator so it can be embedded in DECLARE ... CURSOR.
     const cursorQuery: string = config.query.replace(/;+\s*$/g, "").trim();

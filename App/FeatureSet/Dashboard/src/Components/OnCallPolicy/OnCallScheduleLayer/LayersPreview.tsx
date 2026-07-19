@@ -2,7 +2,7 @@ import FinalScheduleSummary from "./FinalScheduleSummary";
 import { getColorForUserId } from "./LayerUserColors";
 import TimezoneSelectButton from "./TimezoneSelectButton";
 import CalendarEvent from "Common/Types/Calendar/CalendarEvent";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IconProp from "Common/Types/Icon/IconProp";
 import Dictionary from "Common/Types/Dictionary";
 import LayerUtil, { LayerProps } from "Common/Types/OnCallDutyPolicy/Layer";
@@ -101,10 +101,10 @@ const LayersPreview: FunctionComponent<ComponentProps> = (
    * until a view was toggled. https://github.com/autonomy-cloud/operations/issues/2466
    */
   const [startTime, setStartTime] = useState<Date>(
-    OneUptimeDate.getStartOfTheWeek(OneUptimeDate.getCurrentDate()),
+    OperationsDate.getStartOfTheWeek(OperationsDate.getCurrentDate()),
   );
   const [endTime, setEndTime] = useState<Date>(
-    OneUptimeDate.getEndOfTheWeek(OneUptimeDate.getCurrentDate()),
+    OperationsDate.getEndOfTheWeek(OperationsDate.getCurrentDate()),
   );
 
   const [calendarEvents, setCalendarEvents] = useState<Array<CalendarEvent>>(
@@ -121,13 +121,13 @@ const LayersPreview: FunctionComponent<ComponentProps> = (
    * never affects who is on call or when.
    */
   const [viewAsTimezone, setViewAsTimezone] = useState<string>(
-    props.timezone || OneUptimeDate.getCurrentTimezone().toString(),
+    props.timezone || OperationsDate.getCurrentTimezone().toString(),
   );
 
   // Follow the schedule zone when it changes (e.g. edited on the layers page).
   useEffect(() => {
     setViewAsTimezone(
-      props.timezone || OneUptimeDate.getCurrentTimezone().toString(),
+      props.timezone || OperationsDate.getCurrentTimezone().toString(),
     );
   }, [props.timezone]);
 
@@ -191,15 +191,15 @@ const LayersPreview: FunctionComponent<ComponentProps> = (
      * the user navigates the calendar to that week (which previously made the
      * summary contradict the calendar and the actual paging).
      */
-    const summaryNow: Date = OneUptimeDate.getCurrentDate();
-    const summaryEnd: Date = OneUptimeDate.addRemoveDays(
+    const summaryNow: Date = OperationsDate.getCurrentDate();
+    const summaryEnd: Date = OperationsDate.addRemoveDays(
       summaryNow,
       SUMMARY_WINDOW_DAYS,
     );
-    const fetchStart: Date = OneUptimeDate.isBefore(startTime, summaryNow)
+    const fetchStart: Date = OperationsDate.isBefore(startTime, summaryNow)
       ? startTime
       : summaryNow;
-    const fetchEnd: Date = OneUptimeDate.isAfter(endTime, summaryEnd)
+    const fetchEnd: Date = OperationsDate.isAfter(endTime, summaryEnd)
       ? endTime
       : summaryEnd;
 
@@ -370,8 +370,8 @@ const LayersPreview: FunctionComponent<ComponentProps> = (
     now: Date;
     windowEnd: Date;
   } = useMemo(() => {
-    const now: Date = OneUptimeDate.getCurrentDate();
-    const windowEnd: Date = OneUptimeDate.addRemoveDays(
+    const now: Date = OperationsDate.getCurrentDate();
+    const windowEnd: Date = OperationsDate.addRemoveDays(
       now,
       SUMMARY_WINDOW_DAYS,
     );
@@ -464,11 +464,11 @@ const LayersPreview: FunctionComponent<ComponentProps> = (
     return calendarEvents.map((event: CalendarEvent) => {
       return {
         ...event,
-        start: OneUptimeDate.getLocalDateFromWallClockInTimezone(
+        start: OperationsDate.getLocalDateFromWallClockInTimezone(
           event.start,
           viewAsTimezone,
         ),
-        end: OneUptimeDate.getLocalDateFromWallClockInTimezone(
+        end: OperationsDate.getLocalDateFromWallClockInTimezone(
           event.end,
           viewAsTimezone,
         ),
@@ -478,8 +478,8 @@ const LayersPreview: FunctionComponent<ComponentProps> = (
 
   // "now" shifted into the view zone so the grid opens on that zone's today.
   const displayDefaultDate: Date = useMemo(() => {
-    return OneUptimeDate.getLocalDateFromWallClockInTimezone(
-      OneUptimeDate.getCurrentDate(),
+    return OperationsDate.getLocalDateFromWallClockInTimezone(
+      OperationsDate.getCurrentDate(),
       viewAsTimezone,
     );
   }, [viewAsTimezone]);
@@ -508,7 +508,7 @@ const LayersPreview: FunctionComponent<ComponentProps> = (
               ? "Here is a preview of who is on call and when. Restriction windows are resolved in this schedule's timezone - " +
                 props.timezone
               : "Here is a preview of who is on call and when. This is based on your local timezone - " +
-                OneUptimeDate.getCurrentTimezoneString()
+                OperationsDate.getCurrentTimezoneString()
           }
         />
       )}
@@ -606,13 +606,13 @@ const LayersPreview: FunctionComponent<ComponentProps> = (
            * computation and the override fetch stay in true UTC.
            */
           setStartTime(
-            OneUptimeDate.getInstantFromLocalWallClockInTimezone(
+            OperationsDate.getInstantFromLocalWallClockInTimezone(
               startEndTime.startTime,
               viewAsTimezone,
             ),
           );
           setEndTime(
-            OneUptimeDate.getInstantFromLocalWallClockInTimezone(
+            OperationsDate.getInstantFromLocalWallClockInTimezone(
               startEndTime.endTime,
               viewAsTimezone,
             ),

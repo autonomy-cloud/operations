@@ -23,7 +23,7 @@ import AnalyticsModelAPI, {
 } from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import AggregatedResult from "Common/Types/BaseDatabase/AggregatedResult";
@@ -343,8 +343,8 @@ const CephClusterOverview: FunctionComponent<
     labelAttr: string,
     windowMinutes: number,
   ): Promise<LatestPerLabel> => {
-    const endDate: Date = OneUptimeDate.getCurrentDate();
-    const startDate: Date = OneUptimeDate.addRemoveMinutes(
+    const endDate: Date = OperationsDate.getCurrentDate();
+    const startDate: Date = OperationsDate.addRemoveMinutes(
       endDate,
       -windowMinutes,
     );
@@ -497,8 +497,8 @@ const CephClusterOverview: FunctionComponent<
     clusterName: string,
   ): Promise<void> => {
     try {
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveHours(
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveHours(
         endDate,
         -PROJECTION_WINDOW_HOURS,
       );
@@ -637,7 +637,7 @@ const CephClusterOverview: FunctionComponent<
       fetchCapacity(item.name).catch(() => {});
     }
 
-    setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+    setLastRefreshedAt(OperationsDate.getCurrentDate());
     setIsRefreshing(false);
   };
 
@@ -721,7 +721,7 @@ const CephClusterOverview: FunctionComponent<
     const status: string = (cluster.otelCollectorStatus as string) || "";
     const lastSeenAt: Date | undefined = cluster.lastSeenAt;
     const lastSeenText: string = lastSeenAt
-      ? OneUptimeDate.fromNow(lastSeenAt)
+      ? OperationsDate.fromNow(lastSeenAt)
       : "never";
 
     const isConnected: boolean =

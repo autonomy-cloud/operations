@@ -9,7 +9,7 @@ Cast Operations Terraform 提供商可在官方 [Terraform Registry](https://reg
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 使用最新兼容版本
     }
@@ -17,9 +17,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -30,7 +30,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 替换为您的确切 Cast Operations 版本
     }
@@ -38,9 +38,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # 您的自托管 URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # 您的自托管 URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -77,8 +77,8 @@ curl https://your-operations-instance.com/api/version | jq '.version'
 ### 方法三：Docker
 
 ```bash
-docker images | grep oneuptime
-# 查看标签，例如 oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# 查看标签，例如 cast-operations/dashboard:7.0.123
 ```
 
 ## 提供商 Registry 信息
@@ -102,28 +102,28 @@ docker images | grep oneuptime
 # 配置提供商
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 自托管请调整
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # 自托管请调整
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # 自托管请调整
+  api_key       = var.cast_operations_api_key
 }
 
 # 创建项目
-resource "oneuptime_project" "example" {
+resource "cast_operations_project" "example" {
   name        = "Terraform Example"
   description = "Created with Terraform"
 }
 
 # 创建网站监控器
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name       = "Website Monitor"
-  project_id = oneuptime_project.example.id
+  project_id = cast_operations_project.example.id
 
   monitor_type = "website"
   url          = "https://example.com"

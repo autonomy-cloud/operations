@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### 커스텀 메트릭
 
-`oneuptime.captureMetric()` 함수를 사용하여 스크립트에서 커스텀 메트릭을 캡처할 수 있습니다. 이러한 메트릭은 Cast Operations에 저장되며 메트릭 탐색기를 사용하여 대시보드에 차트화할 수 있습니다.
+`cast-operations.captureMetric()` 함수를 사용하여 스크립트에서 커스텀 메트릭을 캡처할 수 있습니다. 이러한 메트릭은 Cast Operations에 저장되며 메트릭 탐색기를 사용하여 대시보드에 차트화할 수 있습니다.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (문자열, 필수): 메트릭 이름 (예: `"api.response.time"`). `custom.monitor.` 접두사가 자동으로 저장됩니다.
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // 간단한 메트릭 캡처
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // 속성과 함께 메트릭 캡처
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ return {
 - `axios`: HTTP 요청을 만들 수 있습니다. 브라우저와 Node.js를 위한 프로미스 기반 HTTP 클라이언트입니다.
 - `crypto`: 암호화 작업을 수행할 수 있습니다. OpenSSL의 해시, HMAC, 암호화, 복호화, 서명 및 검증 함수에 대한 래퍼를 제공하는 내장 Node.js 모듈입니다.
 - `console.log`: 콘솔에 데이터를 로그할 수 있습니다. 디버깅 목적에 유용합니다.
-- `oneuptime.captureMetric`: 스크립트에서 커스텀 메트릭을 캡처하는 데 사용합니다. 위의 커스텀 메트릭 섹션을 참조하십시오.
+- `cast-operations.captureMetric`: 스크립트에서 커스텀 메트릭을 캡처하는 데 사용합니다. 위의 커스텀 메트릭 섹션을 참조하십시오.
 - `http`: HTTP 요청을 만들 수 있습니다. HTTP 클라이언트와 서버를 제공하는 내장 Node.js 모듈입니다.
 - `https`: HTTPS 요청을 만들 수 있습니다. HTTPS 클라이언트와 서버를 제공하는 내장 Node.js 모듈입니다.
 

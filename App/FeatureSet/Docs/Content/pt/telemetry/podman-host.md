@@ -14,19 +14,19 @@ This page is the **installation guide**. For configuring Podman monitors and ale
 
 ## Quick Start (One Command)
 
-Replace `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, and the host name with values for your environment. The host name is how this Podman host will appear in Cast Operations — pick something like `prod-podman-01`.
+Replace `YOUR_CAST_OPERATIONS_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN`, and the host name with values for your environment. The host name is how this Podman host will appear in Cast Operations — pick something like `prod-podman-01`.
 
 ```bash
 podman run -d \
-  --name oneuptime-podman-agent \
+  --name cast-operations-podman-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /run/podman/podman.sock:/run/podman/podman.sock:ro \
   -v /var/lib/containers:/var/lib/containers:ro \
-  -e ONEUPTIME_URL="YOUR_ONEUPTIME_URL" \
-  -e ONEUPTIME_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e PODMAN_HOST_NAME="my-podman-host" \
-  oneuptime/podman-agent:release
+  cast-operations/podman-agent:release
 ```
 
 That is it. Once the agent connects, your Podman host will appear automatically in the **Podman** section of the Cast Operations dashboard.
@@ -37,17 +37,17 @@ If you prefer Podman Compose, drop the following into a `docker-compose.yml`:
 
 ```yaml
 services:
-  oneuptime-podman-agent:
-    image: oneuptime/podman-agent:release
-    container_name: oneuptime-podman-agent
+  cast-operations-podman-agent:
+    image: cast-operations/podman-agent:release
+    container_name: cast-operations-podman-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /run/podman/podman.sock:/run/podman/podman.sock:ro
       - /var/lib/containers:/var/lib/containers:ro
     environment:
-      - ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-      - ONEUPTIME_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
+      - CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+      - CAST_OPERATIONS_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
       - PODMAN_HOST_NAME=my-podman-host
     logging:
       driver: json-file
@@ -66,8 +66,8 @@ podman compose up -d
 
 | Variable                  | Required | Description                                                                                                         |
 | ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | Yes      | Your Cast Operations instance URL (for example `https://visca.ai` or your self-hosted host)                          |
-| `ONEUPTIME_SERVICE_TOKEN` | Yes      | Telemetry ingestion token from _Project Settings → Telemetry Ingestion Keys_                                        |
+| `CAST_OPERATIONS_URL`           | Yes      | Your Cast Operations instance URL (for example `https://visca.ai` or your self-hosted host)                          |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | Yes      | Telemetry ingestion token from _Project Settings → Telemetry Ingestion Keys_                                        |
 | `PODMAN_HOST_NAME`        | No       | Friendly name for this host. Defaults to `podman-host`. Set it to something stable per host (e.g. `prod-podman-01`) |
 
 ## Verify the Installation
@@ -75,13 +75,13 @@ podman compose up -d
 Check that the agent is running:
 
 ```bash
-podman ps --filter name=oneuptime-podman-agent
+podman ps --filter name=cast-operations-podman-agent
 ```
 
 Check the agent logs:
 
 ```bash
-podman logs -f oneuptime-podman-agent
+podman logs -f cast-operations-podman-agent
 ```
 
 Look for: `"Everything is ready. Begin running and processing data."`
@@ -91,8 +91,8 @@ Within a minute or so the host should appear in the Cast Operations dashboard wi
 ## Upgrading the Agent
 
 ```bash
-podman pull oneuptime/podman-agent:release
-podman rm -f oneuptime-podman-agent
+podman pull cast-operations/podman-agent:release
+podman rm -f cast-operations-podman-agent
 # Re-run the `podman run` command above
 ```
 
@@ -106,7 +106,7 @@ podman compose up -d
 ## Uninstalling the Agent
 
 ```bash
-podman rm -f oneuptime-podman-agent
+podman rm -f cast-operations-podman-agent
 ```
 
 If you used Podman Compose:
@@ -128,10 +128,10 @@ podman compose down
 
 ## Self-hosted Cast Operations
 
-If you are self-hosting Cast Operations, set `ONEUPTIME_URL` to your own instance:
+If you are self-hosting Cast Operations, set `CAST_OPERATIONS_URL` to your own instance:
 
 ```bash
--e ONEUPTIME_URL="https://your-operations-host.example.com"
+-e CAST_OPERATIONS_URL="https://your-operations-host.example.com"
 ```
 
 If your instance is HTTP-only, use `http://` and the appropriate port.
@@ -148,15 +148,15 @@ The Podman API socket must be enabled and reachable at `/run/podman/podman.sock`
 
 ### Agent Shows as Disconnected
 
-1. Check that the agent is running: `podman ps --filter name=oneuptime-podman-agent`
-2. Check the agent logs: `podman logs oneuptime-podman-agent | grep -i error`
+1. Check that the agent is running: `podman ps --filter name=cast-operations-podman-agent`
+2. Check the agent logs: `podman logs cast-operations-podman-agent | grep -i error`
 3. Verify your Cast Operations URL and service token are correct
 4. Ensure your Podman host can reach the Cast Operations instance over the network
 
 ### No Metrics Appearing
 
-1. Verify the Podman socket is accessible inside the agent: `podman exec oneuptime-podman-agent ls -la /run/podman/podman.sock`
-2. Check the collector logs for export errors: `podman logs oneuptime-podman-agent | tail -100`
+1. Verify the Podman socket is accessible inside the agent: `podman exec cast-operations-podman-agent ls -la /run/podman/podman.sock`
+2. Check the collector logs for export errors: `podman logs cast-operations-podman-agent | tail -100`
 3. Ensure your service token is valid and not expired
 
 ### Host Name Shows as a Container ID

@@ -10,7 +10,7 @@ Cast Operations 透過擷取標準的 OpenTelemetry (OTLP) 指標來監控 IoT �
 
 - 一個能夠將 OTLP/HTTP 傳送到 Cast Operations 的裝置、閘道器或 collector
 - 從裝置／閘道器到你的 Cast Operations 執行個體之間的網路連通性
-- 一個 **Cast Operations 遙測擷取權杖（Telemetry Ingestion Token）** — 從 _Project Settings → Telemetry Ingestion Keys_ 建立一個，並複製 `x-oneuptime-token` 的值
+- 一個 **Cast Operations 遙測擷取權杖（Telemetry Ingestion Token）** — 從 _Project Settings → Telemetry Ingestion Keys_ 建立一個，並複製 `x-cast-operations-token` 的值
 
 ## Cast Operations 如何建模 IoT
 
@@ -35,14 +35,14 @@ Cast Operations 使用 OpenTelemetry 資源屬性將你的裝置對應到兩個�
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | 環境變數                      | 必填     | 說明                                                                                                 |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | 是       | Cast Operations OTLP 端點（`https://visca.ai/otlp`，或自我託管的 `http(s)://YOUR-OPERATIONS-HOST/otlp`） |
-| `OTEL_EXPORTER_OTLP_HEADERS`  | 是       | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | 是       | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | 是       | 以逗號分隔的資源屬性。必須包含 `iot.fleet.name`、`device.id` 與 `service.name=iot/<fleet>`            |
 
 請使用下方的 `iot_*` 名稱將你的讀數作為指標發送（參閱[指標慣例](#指標慣例)）。大約一分鐘內，裝置就會出現在 Cast Operations 儀表板的 **IoT** 區段下。
@@ -80,7 +80,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
 service:
   pipelines:
@@ -108,28 +108,28 @@ Cast Operations 內建了 MQTT 端點，因此已經會使用 MQTT 的裝置可�
 **驗證** — 有兩種選項：
 
 - **專案層級**：將你的**遙測擷取權杖**作為 MQTT 密碼傳送（使用者名稱會被忽略；如果你的用戶端只提供使用者名稱欄位，請改將權杖放在那裡）。適合代表多個裝置發布的閘道器。
-- **個別裝置層級**（建議直接連線的裝置採用）：在儀表板中該機群的 **Device Registry** 分頁下註冊裝置。註冊會發給每個裝置一組憑證 — 憑證 ID 即 MQTT **使用者名稱**，密鑰即**密碼**。以裝置身分驗證的用戶端只能在自己的 `oneuptime/<fleet>/<device>/…` 主題下發布；單一遭入侵的裝置可從儀表板撤銷，而不影響機群的其餘部分（撤銷大約在一分鐘內生效，即使是已連線的工作階段也一樣）；而且已註冊的裝置具備**無聲死亡離線偵測（silent-death offline detection）**：當它們停止回報時，會以 Offline 狀態留在清單中而不會消失，且即使裝置在沒有 Last Will 的情況下死亡，**Device Offline** 警示範本仍會為它們觸發。
+- **個別裝置層級**（建議直接連線的裝置採用）：在儀表板中該機群的 **Device Registry** 分頁下註冊裝置。註冊會發給每個裝置一組憑證 — 憑證 ID 即 MQTT **使用者名稱**，密鑰即**密碼**。以裝置身分驗證的用戶端只能在自己的 `cast-operations/<fleet>/<device>/…` 主題下發布；單一遭入侵的裝置可從儀表板撤銷，而不影響機群的其餘部分（撤銷大約在一分鐘內生效，即使是已連線的工作階段也一樣）；而且已註冊的裝置具備**無聲死亡離線偵測（silent-death offline detection）**：當它們停止回報時，會以 Offline 狀態留在清單中而不會消失，且即使裝置在沒有 Last Will 的情況下死亡，**Device Offline** 警示範本仍會為它們觸發。
 
 無效的憑證會在 CONNECT 時以回應碼 4（使用者名稱或密碼錯誤）被拒絕，因此設定錯誤的裝置會明確地失敗。
 
-**主題** — 請在固定的 `oneuptime/` 前綴下發布。機群與裝置區段不得包含 `/`、`+` 或 `#`，且長度限制為 100 個字元：
+**主題** — 請在固定的 `cast-operations/` 前綴下發布。機群與裝置區段不得包含 `/`、`+` 或 `#`，且長度限制為 100 個字元：
 
 | 主題                                             | 酬載                                                                                                 |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `oneuptime/<fleet>/<device>/telemetry`           | 讀數的 JSON 物件 — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`，或一個以數值欄位作為指標的扁平物件 |
-| `oneuptime/<fleet>/<device>/metrics/<metricName>`| 單一值 — 一個裸數字（`23.4`）或 `{ "value": 23.4 }`                                                   |
-| `oneuptime/<fleet>/<device>/status`              | `"online"` 或 `"offline"`（也接受 `1`/`0`、`true`/`false`、`up`/`down`） — 對應到 `iot_device_up`     |
+| `cast-operations/<fleet>/<device>/telemetry`           | 讀數的 JSON 物件 — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`，或一個以數值欄位作為指標的扁平物件 |
+| `cast-operations/<fleet>/<device>/metrics/<metricName>`| 單一值 — 一個裸數字（`23.4`）或 `{ "value": 23.4 }`                                                   |
+| `cast-operations/<fleet>/<device>/status`              | `"online"` 或 `"offline"`（也接受 `1`/`0`、`true`/`false`、`up`/`down`） — 對應到 `iot_device_up`     |
 
 遙測酬載也可以攜帶 `"attributes"`（一個會標記在每個資料點上的字串對應表 — 可用於 `iot.device.kind`、`iot.device.type`、`iot.device.firmware` 或你自己的標籤）與 `"timestamp"`（ISO-8601，或 unix 秒／毫秒）。兩者皆為選用；當 `timestamp` 不存在時，會使用擷取時間。
 
-**使用 Last Will 進行離線偵測** — 在 `oneuptime/<fleet>/<device>/status` 上註冊一個酬載為 `offline` 的 MQTT Last Will。如果裝置死亡或從網路上掉線，broker 會在工作階段結束的當下代替它發布 `iot_device_up = 0` — 這會觸發內建的 **Device Offline** 警示範本，並將裝置在清單中翻轉為下線，不需要輪詢，也不必等待錯過的抓取。連線之後請向同一個主題發布 `online`，讓裝置再次顯示為上線。
+**使用 Last Will 進行離線偵測** — 在 `cast-operations/<fleet>/<device>/status` 上註冊一個酬載為 `offline` 的 MQTT Last Will。如果裝置死亡或從網路上掉線，broker 會在工作階段結束的當下代替它發布 `iot_device_up = 0` — 這會觸發內建的 **Device Offline** 警示範本，並將裝置在清單中翻轉為下線，不需要輪詢，也不必等待錯過的抓取。連線之後請向同一個主題發布 `online`，讓裝置再次顯示為上線。
 
 使用 `mosquitto_pub` 的範例（原始 TCP，自我託管）：
 
 ```bash
-mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
-  -u oneuptime -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
-  -t "oneuptime/building-a-sensors/sensor-001/telemetry" \
+mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
+  -u cast-operations -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -t "cast-operations/building-a-sensors/sensor-001/telemetry" \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
@@ -139,19 +139,19 @@ mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
 const mqtt = require("mqtt");
 
 const client = mqtt.connect("wss://visca.ai/mqtt", {
-  username: "oneuptime", // 會被忽略 — 進行驗證的是下方的權杖
+  username: "cast-operations", // 會被忽略 — 進行驗證的是下方的權杖
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
-    topic: "oneuptime/building-a-sensors/sensor-001/status",
+    topic: "cast-operations/building-a-sensors/sensor-001/status",
     payload: "offline",
   },
 });
 
 client.on("connect", () => {
-  client.publish("oneuptime/building-a-sensors/sensor-001/status", "online");
+  client.publish("cast-operations/building-a-sensors/sensor-001/status", "online");
   setInterval(() => {
     client.publish(
-      "oneuptime/building-a-sensors/sensor-001/telemetry",
+      "cast-operations/building-a-sensors/sensor-001/telemetry",
       JSON.stringify({
         metrics: {
           iot_device_up: 1,
@@ -171,15 +171,15 @@ import json
 import paho.mqtt.client as mqtt
 
 client = mqtt.Client(transport="websockets")
-client.username_pw_set("oneuptime", "YOUR_TELEMETRY_INGESTION_TOKEN")
+client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
-client.will_set("oneuptime/building-a-sensors/sensor-001/status", "offline")
+client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
 client.connect("visca.ai", 443)
 
-client.publish("oneuptime/building-a-sensors/sensor-001/status", "online")
+client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
-    "oneuptime/building-a-sensors/sensor-001/telemetry",
+    "cast-operations/building-a-sensors/sensor-001/telemetry",
     json.dumps({"metrics": {"iot_device_up": 1, "iot_temperature_celsius": 21.5}}),
 )
 ```
@@ -219,7 +219,7 @@ Cast Operations 可辨識下列 `iot_*` 指標名稱。每個資料點都應帶�
 ### 機群未出現
 
 1. 確認 `iot.fleet.name` 是設定為**資源（resource）**屬性（而非資料點標籤），並且 `service.name` 為 `iot/<fleet>`。
-2. 確認匯出器端點為 `https://visca.ai/otlp`（或你自我託管的 `…/otlp`），且 `x-oneuptime-token` 標頭攜帶有效的權杖。
+2. 確認匯出器端點為 `https://visca.ai/otlp`（或你自我託管的 `…/otlp`），且 `x-cast-operations-token` 標頭攜帶有效的權杖。
 3. 如果使用 collector，請確保 `otlphttp` 匯出器上有設定 `encoding: json` 與 `Content-Type: application/json`。
 
 ### 裝置從清單中遺漏
@@ -230,7 +230,7 @@ Cast Operations 可辨識下列 `iot_*` 指標名稱。每個資料點都應帶�
 
 ### 匯出器傳回 HTTP 401 / 403
 
-擷取權杖無效、已撤銷或遺漏。請從 _Project Settings → Telemetry Ingestion Keys_ 產生一個新的，並更新 `x-oneuptime-token` 標頭。
+擷取權杖無效、已撤銷或遺漏。請從 _Project Settings → Telemetry Ingestion Keys_ 產生一個新的，並更新 `x-cast-operations-token` 標頭。
 
 ### 指標未繪製成圖表
 
@@ -255,7 +255,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 如果你的執行個體僅支援 HTTP，請將協定改為 `http://` 並使用適當的連接埠。

@@ -10,7 +10,6 @@ import Navigation from "Common/UI/Utils/Navigation";
 import URL from "Common/Types/API/URL";
 import {
   APP_API_URL,
-  BILLING_ENABLED,
   HOME_URL,
   MicrosoftTeamsAppClientId,
 } from "Common/UI/Config";
@@ -39,19 +38,15 @@ import Link from "Common/UI/Components/Link/Link";
 import { ButtonStyleType as SharedButtonStyle } from "Common/UI/Components/Button/Button";
 import MarkdownViewer from "Common/UI/Components/Markdown.tsx/MarkdownViewer";
 import TeamsAvailableModal from "./TeamsAvailableModal";
-
 export interface ComponentProps {
   onConnected: VoidFunction;
   onDisconnected: VoidFunction;
 }
-
 const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
   const [error, setError] = React.useState<ReactElement | null>(null);
-
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
-
   const [isUserAccountConnected, setIsUserAccountConnected] =
     React.useState<boolean>(false);
   const [userAuthTokenId, setWorkspaceUserAuthTokenId] =
@@ -65,34 +60,28 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
     React.useState<boolean>(false);
   const [isRefreshTeamsLoading, setIsRefreshTeamsLoading] =
     React.useState<boolean>(false);
-
   // Teams Modal state
   interface TeamItem {
     id: string;
     name: string;
   }
-
   const [isTeamsModalOpen, setIsTeamsModalOpen] =
     React.useState<boolean>(false);
   const [teams, setTeams] = React.useState<Array<TeamItem>>([]);
   const [isTeamsLoading, setIsTeamsLoading] = React.useState<boolean>(false);
   const [teamsError, setTeamsError] = React.useState<string>("");
-
   const loadTeams: PromiseVoidFunction = async (): Promise<void> => {
     try {
       setTeamsError("");
       setIsTeamsLoading(true);
-
       const response: HTTPResponse<JSONObject> | HTTPErrorResponse =
         await API.get<JSONObject>({
           url: URL.fromURL(APP_API_URL).addRoute("/microsoft-teams/teams"),
           headers: ModelAPI.getCommonHeaders(),
         });
-
       if (response instanceof HTTPErrorResponse) {
         throw response;
       }
-
       const data: JSONObject = response.data as JSONObject;
       const list: Array<TeamItem> = ((data["teams"] as Array<JSONObject>) || [])
         .map((t: JSONObject) => {
@@ -104,7 +93,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
         .filter((t: TeamItem) => {
           return t.id && t.name;
         });
-
       setTeams(list);
     } catch (err) {
       setTeamsError(API.getFriendlyErrorMessage(err as Exception));
@@ -112,7 +100,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       setIsTeamsLoading(false);
     }
   };
-
   const openTeamsModal: VoidFunction = (): void => {
     setIsTeamsModalOpen(true);
     // Load teams on open
@@ -120,7 +107,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       setTeamsError(API.getFriendlyErrorMessage(error));
     });
   };
-
   useEffect(() => {
     if (isProjectAccountConnected) {
       props.onConnected();
@@ -128,12 +114,10 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       props.onDisconnected();
     }
   }, [isProjectAccountConnected]);
-
   const loadItems: PromiseVoidFunction = async (): Promise<void> => {
     try {
       setError(null);
       setIsLoading(true);
-
       // check if the project is already connected with Microsoft Teams.
       const projectAuth: ListResult<WorkspaceProjectAuthToken> =
         await ModelAPI.getList<WorkspaceProjectAuthToken>({
@@ -153,24 +137,18 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
             createdAt: SortOrder.Descending,
           },
         });
-
       if (projectAuth.data.length > 0) {
         const miscData: MicrosoftTeamsMiscData = projectAuth.data[0]!
           .miscData! as MicrosoftTeamsMiscData;
-
         setWorkspaceProjectAuthTokenId(projectAuth.data[0]!.id);
-
         // Check if admin consent is granted
         const adminConsentGranted: boolean =
           miscData.adminConsentGranted || false;
         setIsAdminConsentCompleted(adminConsentGranted);
-
         // Project is connected if there's a project auth token
         setIsProjectAccountConnected(true);
       }
-
       // fetch user auth token.
-
       const userAuth: ListResult<WorkspaceUserAuthToken> =
         await ModelAPI.getList<WorkspaceUserAuthToken>({
           modelType: WorkspaceUserAuthToken,
@@ -188,7 +166,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
             createdAt: SortOrder.Descending,
           },
         });
-
       if (userAuth.data.length > 0) {
         setIsUserAccountConnected(true);
         setWorkspaceUserAuthTokenId(userAuth.data[0]!.id);
@@ -199,11 +176,9 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     // if this page has a query param with error, then there was the error in authentication.
     const error: string | null = Navigation.getQueryStringByName("error");
-
     if (error) {
       setError(
         <div>
@@ -216,24 +191,19 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       setIsLoading(false);
       return;
     }
-
     loadItems().catch((error: Exception) => {
       setError(<div>{API.getFriendlyErrorMessage(error)}</div>);
     });
   }, []);
-
   if (isLoading) {
     return <PageLoader isVisible={true} />;
   }
-
   if (error) {
     return <ErrorMessage message={error} />;
   }
-
   let cardTitle: string = "";
   let cardDescription: string = "";
   let cardButtons: Array<CardButtonSchema> = [];
-
   // if user and project both connected with Microsoft Teams, then.
   if (isUserAccountConnected && isProjectAccountConnected) {
     cardTitle = `You are connected with Microsoft Teams`;
@@ -252,7 +222,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
                 modelType: WorkspaceUserAuthToken,
                 id: userAuthTokenId!,
               });
-
               setIsUserAccountConnected(false);
               setWorkspaceUserAuthTokenId(null);
             } else {
@@ -274,12 +243,10 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       },
     ];
   }
-
   const connectWithTeams: VoidFunction = (): void => {
     if (MicrosoftTeamsAppClientId) {
       const projectId: ObjectID | null = ProjectUtil.getCurrentProjectId();
       const userId: ObjectID | null = UserUtil.getUserId();
-
       if (!projectId) {
         setError(
           <div>
@@ -289,7 +256,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
         );
         return;
       }
-
       if (!userId) {
         setError(
           <div>
@@ -298,13 +264,11 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
         );
         return;
       }
-
       // Use static redirect URI (no projectId/userId in path) and encode both values in the state param.
       const redirectUri: string = `${APP_API_URL}/microsoft-teams/auth`;
       const scopes: string =
         "https://graph.microsoft.com/User.Read https://graph.microsoft.com/Team.ReadBasic.All https://graph.microsoft.com/Channel.ReadBasic.All https://graph.microsoft.com/ChannelMessage.Send";
       const state: string = `${projectId.toString()}:${userId.toString()}`;
-
       if (!isProjectAccountConnected) {
         // Install the app and connect the project
         Navigation.navigate(
@@ -337,9 +301,7 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       );
     }
   };
-
   type GetConnectWithTeamsButtonFunction = (title: string) => CardButtonSchema;
-
   const getConnectWithTeamsButton: GetConnectWithTeamsButtonFunction = (
     title: string,
   ): CardButtonSchema => {
@@ -352,7 +314,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       icon: IconProp.MicrosoftTeams,
     };
   };
-
   const startAdminConsent: VoidFunction = (): void => {
     const projectId: ObjectID | null = ProjectUtil.getCurrentProjectId();
     const userId: ObjectID | null = UserUtil.getUserId();
@@ -363,18 +324,14 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
     const state: string = `${projectId.toString()}:${userId.toString()}`;
     Navigation.navigate(
       URL.fromString(
-        `${HOME_URL.toString()}api/microsoft-teams/admin-consent?state=${encodeURIComponent(
-          state,
-        )}`,
+        `${HOME_URL.toString()}api/microsoft-teams/admin-consent?state=${encodeURIComponent(state)}`,
       ),
     );
   };
-
   const refreshTeams: PromiseVoidFunction = async (): Promise<void> => {
     try {
       setIsRefreshTeamsLoading(true);
       setError(null);
-
       const response: HTTPResponse<JSONObject> | HTTPErrorResponse =
         await API.post<JSONObject>({
           url: URL.fromURL(APP_API_URL).addRoute(
@@ -382,11 +339,9 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
           ),
           headers: ModelAPI.getCommonHeaders(),
         });
-
       if (response instanceof HTTPErrorResponse) {
         throw response;
       }
-
       // Reload the component to get updated teams
       await loadItems();
     } catch (error) {
@@ -395,7 +350,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       setIsRefreshTeamsLoading(false);
     }
   };
-
   // if user is not connected and the project is connected with Teams.
   if (!isUserAccountConnected && isProjectAccountConnected) {
     cardTitle = `You are disconnected from Microsoft Teams`;
@@ -416,7 +370,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
                 modelType: WorkspaceProjectAuthToken,
                 id: projectAuthTokenId!,
               });
-
               setIsProjectAccountConnected(false);
               setIsAdminConsentCompleted(false); // Reset admin consent when project is disconnected
               setWorkspaceProjectAuthTokenId(null);
@@ -439,7 +392,6 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
       },
     ];
   }
-
   // if admin consent is completed but no team is selected yet
   if (
     isAdminConsentCompleted &&
@@ -450,17 +402,14 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
     cardDescription = `Admin consent has been granted for the Cast Operations Microsoft Teams app. Now connect your account to select a team and complete the setup.`;
     cardButtons = [getConnectWithTeamsButton(`Connect with Microsoft Teams`)];
   }
-
   if (!isProjectAccountConnected && !isAdminConsentCompleted) {
     cardTitle = `Connect with Microsoft Teams`;
     cardDescription = `Connect your account with Microsoft Teams to make the most out of Cast Operations.`;
     cardButtons = [getConnectWithTeamsButton(`Connect with Microsoft Teams`)];
   }
-
   if (!MicrosoftTeamsAppClientId) {
     return <MicrosoftTeamsIntegrationDocumentation />;
   }
-
   return (
     <Fragment>
       <div className="mt-6">
@@ -519,32 +468,30 @@ const MicrosoftTeamsIntegration: FunctionComponent<ComponentProps> = (
         </div>
       )}
 
-      {isAdminConsentCompleted &&
-        isUserAccountConnected &&
-        !BILLING_ENABLED && (
-          <div className="mt-6">
-            <Card
-              title="Action Required: Install App on Microsoft Teams"
-              description="If you prefer to install the Cast Operations app manually in Microsoft Teams, download the app manifest zip file and follow the instructions below."
-              buttons={[
-                {
-                  title: "Download App Manifest Zip",
-                  buttonStyle: SharedButtonStyle.PRIMARY,
-                  icon: IconProp.Download,
-                  onClick: () => {
-                    window.open(
-                      `${HOME_URL.toString()}api/microsoft-teams/app-manifest-zip`,
-                      "_blank",
-                    );
-                  },
+      {isAdminConsentCompleted && isUserAccountConnected && !false && (
+        <div className="mt-6">
+          <Card
+            title="Action Required: Install App on Microsoft Teams"
+            description="If you prefer to install the Cast Operations app manually in Microsoft Teams, download the app manifest zip file and follow the instructions below."
+            buttons={[
+              {
+                title: "Download App Manifest Zip",
+                buttonStyle: SharedButtonStyle.PRIMARY,
+                icon: IconProp.Download,
+                onClick: () => {
+                  window.open(
+                    `${HOME_URL.toString()}api/microsoft-teams/app-manifest-zip`,
+                    "_blank",
+                  );
                 },
-              ]}
-            >
-              <MarkdownViewer
-                text={`
+              },
+            ]}
+          >
+            <MarkdownViewer
+              text={`
 ##### Installation Steps:
 
-Pre-requisite: 
+Pre-requisite:
 - If you or anyone else in your organization has already installed the Cast Operations app in Microsoft Teams, you can skip the installation steps. In this case, you do not need to do anything here.
 
 
@@ -560,65 +507,6 @@ Pre-requisite:
 4. Once the app is installed, you can create workspace notification rules in Cast Operations to send messages to your teams.
 
 The zip file contains the app manifest and required icons for Teams installation.
-              `}
-              />
-            </Card>
-          </div>
-        )}
-
-      {isAdminConsentCompleted && isUserAccountConnected && BILLING_ENABLED && (
-        <div className="mt-6">
-          <Card
-            title="Install Cast Operations App from Microsoft Teams Store"
-            description="Install the Cast Operations app directly from the Microsoft Teams App Store to enable notifications and integrations."
-            buttons={[
-              {
-                title: "Open Teams Store",
-                buttonStyle: SharedButtonStyle.PRIMARY,
-                icon: IconProp.ExternalLink,
-                onClick: () => {
-                  window.open(
-                    "https://teams.microsoft.com/l/app/" +
-                      MicrosoftTeamsAppClientId,
-                    "_blank",
-                  );
-                },
-              },
-              {
-                title: "Download App Manifest for Sideloading",
-                buttonStyle: SharedButtonStyle.NORMAL,
-                icon: IconProp.Download,
-                onClick: () => {
-                  window.open(
-                    `${HOME_URL.toString()}api/microsoft-teams/app-manifest-zip`,
-                    "_blank",
-                  );
-                },
-              },
-            ]}
-          >
-            <MarkdownViewer
-              text={`
-##### Installation Steps:
-
-1. **Click the button above** to open the Cast Operations app in the Microsoft Teams Store
-2. **Install the app:**
-   - Click "Add" to install it for yourself
-   - Or click "Add to a team" to install it for your entire team
-   - Grant the necessary permissions
-3. Once the app is installed, you can create workspace notification rules in Cast Operations to send messages to your teams.
-
-##### Alternative Installation:
-
-You can also search for "Cast Operations" in the Microsoft Teams App Store and install it from there.
-
-##### Manual Sideloading (Advanced):
-
-If you prefer to manually sideload the app:
-1. Download the app manifest using the "Download App Manifest for Sideloading" button above
-2. Go to Microsoft Teams → Apps → Manage your apps
-3. Click "Upload an app" → "Upload a custom app"
-4. Select the downloaded zip file and follow the installation prompts
               `}
             />
           </Card>
@@ -645,5 +533,4 @@ If you prefer to manually sideload the app:
     </Fragment>
   );
 };
-
 export default MicrosoftTeamsIntegration;

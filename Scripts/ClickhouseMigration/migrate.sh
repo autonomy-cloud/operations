@@ -8,7 +8,7 @@
 #   export OLD_CH_PORT="8443"
 #   export OLD_CH_USER="default"
 #   export OLD_CH_PASSWORD="password"
-#   export OLD_CH_DATABASE="oneuptime"
+#   export OLD_CH_DATABASE="cast-operations"
 #   export OLD_CH_PROTOCOL="https"
 #   export OLD_CH_NATIVE_PORT="9440"   # native port for remote() function
 #
@@ -16,7 +16,7 @@
 #   export NEW_CH_PORT="8443"
 #   export NEW_CH_USER="default"
 #   export NEW_CH_PASSWORD="password"
-#   export NEW_CH_DATABASE="oneuptime"
+#   export NEW_CH_DATABASE="cast-operations"
 #   export NEW_CH_PROTOCOL="https"
 #
 #   # Optional
@@ -32,14 +32,14 @@ OLD_CH_HOST="${OLD_CH_HOST:?Set OLD_CH_HOST}"
 OLD_CH_PORT="${OLD_CH_PORT:-8443}"
 OLD_CH_USER="${OLD_CH_USER:-default}"
 OLD_CH_PASSWORD="${OLD_CH_PASSWORD:?Set OLD_CH_PASSWORD}"
-OLD_CH_DATABASE="${OLD_CH_DATABASE:-oneuptime}"
+OLD_CH_DATABASE="${OLD_CH_DATABASE:-cast-operations}"
 OLD_CH_PROTOCOL="${OLD_CH_PROTOCOL:-https}"
 
 NEW_CH_HOST="${NEW_CH_HOST:?Set NEW_CH_HOST}"
 NEW_CH_PORT="${NEW_CH_PORT:-8443}"
 NEW_CH_USER="${NEW_CH_USER:-default}"
 NEW_CH_PASSWORD="${NEW_CH_PASSWORD:?Set NEW_CH_PASSWORD}"
-NEW_CH_DATABASE="${NEW_CH_DATABASE:-oneuptime}"
+NEW_CH_DATABASE="${NEW_CH_DATABASE:-cast-operations}"
 NEW_CH_PROTOCOL="${NEW_CH_PROTOCOL:-https}"
 
 OLD_CH_NATIVE_PORT="${OLD_CH_NATIVE_PORT:-9440}"

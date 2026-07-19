@@ -48,15 +48,15 @@
     <macros>
         <shard>01</shard>
         <replica>replica-1</replica>
-        <cluster>oneuptime</cluster>
+        <cluster>cast-operations</cluster>
     </macros>
 
-    <!-- The cluster the app issues `ON CLUSTER 'oneuptime'` and
-         `Distributed('oneuptime', …)` against. internal_replication=true so the
+    <!-- The cluster the app issues `ON CLUSTER 'cast-operations'` and
+         `Distributed('cast-operations', …)` against. internal_replication=true so the
          Distributed table writes to one replica per shard and ReplicatedMergeTree
          fans it out. -->
     <remote_servers>
-        <oneuptime>
+        <cast-operations>
             <shard>
                 <internal_replication>true</internal_replication>
                 <replica>
@@ -64,6 +64,6 @@
                     <port>9000</port>
                 </replica>
             </shard>
-        </oneuptime>
+        </cast-operations>
     </remote_servers>
 </clickhouse>

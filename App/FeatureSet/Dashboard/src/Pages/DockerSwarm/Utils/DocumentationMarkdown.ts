@@ -1,5 +1,5 @@
 export function getDockerSwarmInstallationMarkdown(data: {
-  oneuptimeUrl: string;
+  castOperationsUrl: string;
   apiKey: string;
 }): string {
   return `
@@ -24,15 +24,15 @@ curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/Doc
 sh install.sh
 \`\`\`
 
-The script prompts for your Cast Operations URL, telemetry ingestion key, and cluster name, installs to \`/opt/oneuptime-docker-swarm-agent\`, and starts the agent with Docker Compose.
+The script prompts for your Cast Operations URL, telemetry ingestion key, and cluster name, installs to \`/opt/cast-operations-docker-swarm-agent\`, and starts the agent with Docker Compose.
 
 ## Quick Start — Docker Compose
 
 Download \`docker-compose.yml\`, \`otel-collector-config.yaml\`, and \`inventory-snapshot.sh\` from the [DockerSwarmAgent directory](https://github.com/autonomy-cloud/operations/tree/master/DockerSwarmAgent) onto a manager node, then create a \`.env\` file next to them:
 
 \`\`\`bash
-ONEUPTIME_URL=${data.oneuptimeUrl}
-ONEUPTIME_SERVICE_TOKEN=${data.apiKey}
+CAST_OPERATIONS_URL=${data.castOperationsUrl}
+CAST_OPERATIONS_SERVICE_TOKEN=${data.apiKey}
 DOCKER_SWARM_CLUSTER_NAME=my-swarm
 \`\`\`
 
@@ -49,8 +49,8 @@ Replace \`my-swarm\` with a friendly name for this cluster — it is how the clu
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| \`ONEUPTIME_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.oneuptimeUrl}\`) |
-| \`ONEUPTIME_SERVICE_TOKEN\` | Yes | Telemetry ingestion key |
+| \`CAST_OPERATIONS_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.castOperationsUrl}\`) |
+| \`CAST_OPERATIONS_SERVICE_TOKEN\` | Yes | Telemetry ingestion key |
 | \`DOCKER_SWARM_CLUSTER_NAME\` | Yes | Cluster identifier shown in Cast Operations. Stamped on every signal as the \`docker.swarm.cluster.name\` resource attribute. Defaults to \`docker-swarm\` |
 | \`DOCKER_INVENTORY_INTERVAL_SECONDS\` | No | How often the poller refreshes the inventory snapshot (default \`300\`) |
 
@@ -69,8 +69,8 @@ The agent deliberately stamps **only** \`docker.swarm.cluster.name\` (not \`host
 
 \`\`\`bash
 docker compose ps
-docker compose logs -f oneuptime-docker-swarm-agent
-docker compose logs -f oneuptime-docker-swarm-inventory
+docker compose logs -f cast-operations-docker-swarm-agent
+docker compose logs -f cast-operations-docker-swarm-inventory
 \`\`\`
 
 The cluster appears in Cast Operations within a few minutes, and the resource list pages (Nodes, Services, Tasks, Stacks, Networks, Secrets, Configs, Volumes) populate after the first inventory snapshot (≤ 5 minutes).
@@ -78,7 +78,7 @@ The cluster appears in Cast Operations within a few minutes, and the resource li
 ## Upgrading the Agent
 
 \`\`\`bash
-cd /opt/oneuptime-docker-swarm-agent
+cd /opt/cast-operations-docker-swarm-agent
 docker compose pull
 docker compose up -d
 \`\`\`
@@ -86,7 +86,7 @@ docker compose up -d
 ## Uninstalling the Agent
 
 \`\`\`bash
-cd /opt/oneuptime-docker-swarm-agent
+cd /opt/cast-operations-docker-swarm-agent
 docker compose down
 \`\`\`
 
@@ -94,11 +94,11 @@ docker compose down
 
 ### No inventory appears
 
-Confirm the poller runs on a manager (\`docker node ls\` must succeed there). Check \`docker compose logs oneuptime-docker-swarm-inventory\` for \`failed to emit ...\` lines.
+Confirm the poller runs on a manager (\`docker node ls\` must succeed there). Check \`docker compose logs cast-operations-docker-swarm-inventory\` for \`failed to emit ...\` lines.
 
 ### Cluster never appears
 
-Check the collector logs and that \`ONEUPTIME_SERVICE_TOKEN\` / \`ONEUPTIME_URL\` are correct, and that the manager can reach the Cast Operations instance.
+Check the collector logs and that \`CAST_OPERATIONS_SERVICE_TOKEN\` / \`CAST_OPERATIONS_URL\` are correct, and that the manager can reach the Cast Operations instance.
 
 ### Status flaps to Disconnected
 

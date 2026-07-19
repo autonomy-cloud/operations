@@ -9,7 +9,7 @@ import ObjectID from "../../../../Types/ObjectID";
 import Permission from "../../../../Types/Permission";
 import BadDataException from "../../../../Types/Exception/BadDataException";
 import SortOrder from "../../../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import UserNotificationEventType from "../../../../Types/UserNotification/UserNotificationEventType";
 import { AIChatCitationTargetType } from "../../../../Types/AI/AIChatTypes";
 import IncidentService from "../../../Services/IncidentService";
@@ -408,7 +408,7 @@ export const PostIncidentStatusUpdateTool: ObservabilityTool = {
     publicNote.incidentId = incidentId;
     publicNote.projectId = ctx.projectId;
     publicNote.note = note;
-    publicNote.postedAt = OneUptimeDate.getCurrentDate();
+    publicNote.postedAt = OperationsDate.getCurrentDate();
     publicNote.createdByUserId = userId;
     publicNote.shouldStatusPageSubscribersBeNotifiedOnNoteCreated =
       notifySubscribers;

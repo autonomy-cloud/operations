@@ -5,7 +5,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import DayOfWeek from "../../../Types/Day/DayOfWeek";
@@ -27,7 +27,7 @@ function u(id: string): User {
 }
 
 function d(iso: string): Date {
-  return OneUptimeDate.fromString(iso);
+  return OperationsDate.fromString(iso);
 }
 
 function rot(intervalType: EventInterval, count: number): Recurring {
@@ -70,8 +70,8 @@ function coveringEvent(
 ): CalendarEvent | undefined {
   return events.find((e: CalendarEvent) => {
     return (
-      OneUptimeDate.isOnOrBefore(e.start, at) &&
-      OneUptimeDate.isOnOrAfter(e.end, at)
+      OperationsDate.isOnOrBefore(e.start, at) &&
+      OperationsDate.isOnOrAfter(e.end, at)
     );
   });
 }
@@ -223,8 +223,8 @@ describe("LayerUtil audit fixes round 2", () => {
           const a: CalendarEvent = events[i]!;
           const b: CalendarEvent = events[j]!;
           const overlap: boolean =
-            OneUptimeDate.isBefore(a.start, b.end) &&
-            OneUptimeDate.isBefore(b.start, a.end);
+            OperationsDate.isBefore(a.start, b.end) &&
+            OperationsDate.isBefore(b.start, a.end);
           expect(overlap).toBe(false);
         }
       }
@@ -269,11 +269,11 @@ describe("LayerUtil audit fixes round 2", () => {
 
       expect(events.length).toBeGreaterThan(0);
       // The first coverage is next Monday, > 100 hours after calendarStart.
-      const hundredHoursOut: Date = OneUptimeDate.addRemoveHours(
+      const hundredHoursOut: Date = OperationsDate.addRemoveHours(
         calendarStart,
         100,
       );
-      expect(OneUptimeDate.isAfter(events[0]!.start, hundredHoursOut)).toBe(
+      expect(OperationsDate.isAfter(events[0]!.start, hundredHoursOut)).toBe(
         true,
       );
     });

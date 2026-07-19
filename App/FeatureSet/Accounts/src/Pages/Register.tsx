@@ -3,7 +3,6 @@ import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
 import Dictionary from "Common/Types/Dictionary";
 import { JSONObject } from "Common/Types/JSON";
-import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import ModelForm, {
   FormType,
   ModelField,
@@ -12,113 +11,46 @@ import { CustomElementProps } from "Common/UI/Components/Forms/Types/Field";
 import FormFieldSchemaType from "Common/UI/Components/Forms/Types/FormFieldSchemaType";
 import FormValues from "Common/UI/Components/Forms/Types/FormValues";
 import Link from "Common/UI/Components/Link/Link";
-import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import Captcha from "Common/UI/Components/Captcha/Captcha";
 import {
-  BILLING_ENABLED,
   DASHBOARD_URL,
   CAPTCHA_ENABLED,
   CAPTCHA_SITE_KEY,
 } from "Common/UI/Config";
 import CastOperationsLogo from "Common/UI/Images/logos/CastOperationsSVG/logo.svg";
-import BaseAPI from "Common/UI/Utils/API/API";
 import UiAnalytics from "Common/UI/Utils/Analytics";
-import LocalStorage from "Common/UI/Utils/LocalStorage";
 import LoginUtil from "Common/UI/Utils/Login";
-import ModelAPI, { ListResult } from "Common/UI/Utils/ModelAPI/ModelAPI";
 import Navigation from "Common/UI/Utils/Navigation";
 import UserUtil from "Common/UI/Utils/User";
-import Reseller from "Common/Models/DatabaseModels/Reseller";
 import User from "Common/Models/DatabaseModels/User";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import useAsyncEffect from "use-async-effect";
-import { IsBillingEnabled } from "Common/Server/EnvironmentConfig";
-
+import {} from "Common/Server/EnvironmentConfig";
 const RegisterPage: () => JSX.Element = () => {
   const { t } = useTranslation();
   const apiUrl: URL = SIGNUP_API_URL;
-
   const [initialValues, setInitialValues] = React.useState<JSONObject>({});
-
-  const [error, setError] = useState<string>("");
-
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
-  const [reseller, setResller] = React.useState<Reseller | undefined>(
-    undefined,
-  );
-
   const isCaptchaEnabled: boolean =
     CAPTCHA_ENABLED && Boolean(CAPTCHA_SITE_KEY);
-
   const [shouldResetCaptcha, setShouldResetCaptcha] =
     React.useState<boolean>(false);
   const [captchaResetSignal, setCaptchaResetSignal] = React.useState<number>(0);
-
   const handleCaptchaReset: () => void = React.useCallback(() => {
     setCaptchaResetSignal((current: number) => {
       return current + 1;
     });
   }, []);
-
   if (UserUtil.isLoggedIn()) {
     Navigation.navigate(DASHBOARD_URL);
   }
-
-  type FetchResellerFunction = (resellerId: string) => Promise<void>;
-
-  const fetchReseller: FetchResellerFunction = async (
-    resellerId: string,
-  ): Promise<void> => {
-    setIsLoading(true);
-
-    try {
-      const reseller: ListResult<Reseller> = await ModelAPI.getList<Reseller>({
-        modelType: Reseller,
-        query: {
-          resellerId: resellerId,
-        },
-        limit: 1,
-        skip: 0,
-        select: {
-          hidePhoneNumberOnSignup: true,
-        },
-        sort: {},
-        requestOptions: {},
-      });
-
-      if (reseller.data.length > 0) {
-        setResller(reseller.data[0]);
-      }
-    } catch (err) {
-      setError(BaseAPI.getFriendlyMessage(err));
-    }
-
-    setIsLoading(false);
-  };
-
   useAsyncEffect(async () => {
-    // if promo code is found, please save it in localstorage.
-    if (Navigation.getQueryStringByName("promoCode")) {
-      LocalStorage.setItem(
-        "promoCode",
-        Navigation.getQueryStringByName("promoCode"),
-      );
-    }
-
     if (Navigation.getQueryStringByName("email")) {
       setInitialValues({
         email: Navigation.getQueryStringByName("email"),
       });
     }
-
-    // if promo code is found, please save it in localstorage.
-    if (Navigation.getQueryStringByName("partnerId")) {
-      await fetchReseller(Navigation.getQueryStringByName("partnerId")!);
-    }
   }, []);
-
   let formFields: Array<ModelField<User>> = [
     {
       field: {
@@ -145,37 +77,7 @@ const RegisterPage: () => JSX.Element = () => {
     },
   ];
 
-  if (BILLING_ENABLED) {
-    formFields = formFields.concat([
-      {
-        field: {
-          companyName: true,
-        },
-        fieldType: FormFieldSchemaType.Text,
-        placeholder: "Acme, Inc.",
-        required: true,
-        title: t("common.companyName"),
-        dataTestId: "companyName",
-        disableSpellCheck: true,
-      },
-    ]);
-
-    // If reseller wants to hide phone number on sign up, we hide it.
-    if (!reseller || !reseller.hidePhoneNumberOnSignup) {
-      formFields.push({
-        field: {
-          companyPhoneNumber: true,
-        },
-        fieldType: FormFieldSchemaType.Phone,
-        required: true,
-        placeholder: "+11234567890",
-        title: t("common.phoneNumber"),
-        dataTestId: "companyPhoneNumber",
-      });
-    }
-  }
-
-  if (!BILLING_ENABLED) {
+  {
     formFields = formFields.concat([
       {
         overrideField: {
@@ -204,7 +106,6 @@ const RegisterPage: () => JSX.Element = () => {
       },
     ]);
   }
-
   formFields = formFields.concat([
     {
       field: {
@@ -238,15 +139,13 @@ const RegisterPage: () => JSX.Element = () => {
       disableSpellCheck: true,
     },
   ]);
-
-  if (!IsBillingEnabled) {
+  {
     formFields = formFields.concat([
       {
         overrideField: {
           notifySelfHosted: true,
         },
         overrideFieldKey: "notifySelfHosted",
-
         fieldType: FormFieldSchemaType.Checkbox,
         required: false,
         defaultValue: true,
@@ -257,7 +156,6 @@ const RegisterPage: () => JSX.Element = () => {
       },
     ]);
   }
-
   if (isCaptchaEnabled) {
     formFields = formFields.concat([
       {
@@ -289,15 +187,6 @@ const RegisterPage: () => JSX.Element = () => {
       },
     ]);
   }
-
-  if (error) {
-    return <ErrorMessage message={error} />;
-  }
-
-  if (isLoading) {
-    return <PageLoader isVisible={true} />;
-  }
-
   return (
     <div className="flex min-h-full flex-col justify-center py-6 px-4 sm:py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md mx-auto lg:max-w-2xl">
@@ -322,7 +211,7 @@ const RegisterPage: () => JSX.Element = () => {
           <ModelForm<User>
             modelType={User}
             id="register-form"
-            showAsColumns={reseller ? 1 : 2}
+            showAsColumns={2}
             name="Register"
             initialValues={initialValues}
             maxPrimaryButtonWidth={true}
@@ -338,17 +227,13 @@ const RegisterPage: () => JSX.Element = () => {
                 )
                   ?.toString()
                   .trim();
-
                 if (!captchaToken) {
                   throw new Error(t("captcha.errorOnSignUp"));
                 }
-
                 miscDataProps["captchaToken"] = captchaToken;
                 setShouldResetCaptcha(true);
               }
-
               const utmParams: Dictionary<string> = UserUtil.getUtmParams();
-
               if (utmParams && Object.keys(utmParams).length > 0) {
                 item.utmSource = utmParams["utmSource"] || "";
                 item.utmMedium = utmParams["utmMedium"] || "";
@@ -356,28 +241,22 @@ const RegisterPage: () => JSX.Element = () => {
                 item.utmTerm = utmParams["utmTerm"] || "";
                 item.utmContent = utmParams["utmContent"] || "";
                 item.utmUrl = utmParams["utmUrl"] || "";
-
                 UiAnalytics.capture("utm_event", utmParams);
               }
-
               /*
                * Ad platform click IDs (gclid, fbclid, ...) for offline
                * conversion uploads, and the visitor's first attributed touch.
                */
               const clickIds: JSONObject | null =
                 UserUtil.getAttributionClickIds();
-
               if (clickIds) {
                 item.clickIds = clickIds;
               }
-
               const firstTouch: JSONObject | null =
                 UserUtil.getFirstTouchAttribution();
-
               if (firstTouch) {
                 item.firstTouchAttribution = firstTouch;
               }
-
               return Promise.resolve(item);
             }}
             formType={FormType.Create}
@@ -386,7 +265,6 @@ const RegisterPage: () => JSX.Element = () => {
               if (!isCaptchaEnabled) {
                 return;
               }
-
               if (!loading && shouldResetCaptcha) {
                 setShouldResetCaptcha(false);
                 handleCaptchaReset();
@@ -398,7 +276,6 @@ const RegisterPage: () => JSX.Element = () => {
                 UiAnalytics.capture("accounts/register");
                 UiAnalytics.capture("sign_up");
               }
-
               LoginUtil.login({
                 user: value,
                 token: miscData ? miscData["token"] : undefined,
@@ -421,5 +298,4 @@ const RegisterPage: () => JSX.Element = () => {
     </div>
   );
 };
-
 export default RegisterPage;

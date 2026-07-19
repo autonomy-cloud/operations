@@ -1,5 +1,5 @@
 import Modal, { ModalWidth } from "../Modal/Modal";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import UptimeBarTooltipIncident from "../../../Types/Monitor/UptimeBarTooltipIncident";
 import React, { FunctionComponent, ReactElement } from "react";
 
@@ -14,7 +14,7 @@ const UptimeBarDayModal: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
   const dateStr: string =
-    OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(props.date, true);
+    OperationsDate.getDateAsUserFriendlyLocalFormattedString(props.date, true);
 
   return (
     <Modal
@@ -154,7 +154,7 @@ const UptimeBarDayModal: FunctionComponent<ComponentProps> = (
                     }}
                   >
                     Declared{" "}
-                    {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                    {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                       incident.declaredAt,
                       false,
                     )}

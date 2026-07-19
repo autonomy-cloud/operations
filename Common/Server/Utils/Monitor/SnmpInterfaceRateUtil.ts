@@ -1,7 +1,7 @@
 import { JSONObject } from "../../../Types/JSON";
 import SnmpInterface from "../../../Types/Monitor/SnmpMonitor/SnmpInterface";
 import ProbeMonitorResponse from "../../../Types/Probe/ProbeMonitorResponse";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import logger from "../Logger";
 
 /*
@@ -60,7 +60,7 @@ export default class SnmpInterfaceRateUtil {
      * current side of the delta uses server time too.
      */
     const elapsedSeconds: number =
-      (OneUptimeDate.getCurrentDate().getTime() -
+      (OperationsDate.getCurrentDate().getTime() -
         previousMonitoredAt.getTime()) /
       1000;
 

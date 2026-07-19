@@ -43,25 +43,25 @@ OTEL_RESOURCE_DETECTORS=env,ecs
 
 ```yaml
 exporters:
-  otlphttp/oneuptime:
+  otlphttp/cast-operations:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [resourcedetection]
-      exporters: [otlphttp/oneuptime]
+      exporters: [otlphttp/cast-operations]
     metrics:
       receivers: [otlp]
       processors: [resourcedetection]
-      exporters: [otlphttp/oneuptime]
+      exporters: [otlphttp/cast-operations]
     logs:
       receivers: [otlp]
       processors: [resourcedetection]
-      exporters: [otlphttp/oneuptime]
+      exporters: [otlphttp/cast-operations]
 ```
 
 如果你自托管 Cast Operations，请使用 `https://YOUR-OPERATIONS-HOST/otlp`。

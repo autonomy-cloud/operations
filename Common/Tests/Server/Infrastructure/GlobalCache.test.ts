@@ -1,6 +1,6 @@
 import GlobalCache from "../../../Server/Infrastructure/GlobalCache";
 import Redis from "../../../Server/Infrastructure/Redis";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import DatabaseNotConnectedException from "../../../Types/Exception/DatabaseNotConnectedException";
 
 jest.mock("../../../Server/Infrastructure/Redis", () => {
@@ -63,7 +63,7 @@ describe("GlobalCache.setString", () => {
       "ns-key",
       "value",
       "EX",
-      OneUptimeDate.getSecondsInDays(30),
+      OperationsDate.getSecondsInDays(30),
     );
     expect(client.expire).not.toHaveBeenCalled();
   });

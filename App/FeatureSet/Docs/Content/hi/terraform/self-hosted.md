@@ -46,8 +46,8 @@ curl https://your-operations-instance.com/api/status
 यदि आप Docker के साथ Cast Operations चला रहे हैं:
 
 ```bash
-docker images | grep oneuptime
-# tag देखें, जैसे oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# tag देखें, जैसे cast-operations/dashboard:7.0.123
 ```
 
 ### Method 4: Helm Chart
@@ -55,7 +55,7 @@ docker images | grep oneuptime
 यदि आप Helm उपयोग कर रहे हैं:
 
 ```bash
-helm list -n oneuptime
+helm list -n cast-operations
 # chart version जांचें
 ```
 
@@ -66,7 +66,7 @@ helm list -n oneuptime
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 123 को अपने exact build number से बदलें
     }
@@ -74,9 +74,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # आपका self-hosted URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # आपका self-hosted URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -88,7 +88,7 @@ provider "oneuptime" {
 # versions.tf
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # आपके Cast Operations version से match होना चाहिए
     }
@@ -98,19 +98,19 @@ terraform {
   # वैकल्पिक: team collaboration के लिए remote state उपयोग करें
   backend "s3" {
     bucket = "your-terraform-state-bucket"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
 
 # variables.tf
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast Operations instance URL"
   type        = string
   default     = "https://operations.yourcompany.com"
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API Key"
   type        = string
   sensitive   = true
@@ -123,20 +123,20 @@ variable "environment" {
 }
 
 # providers.tf
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # main.tf
 # teams बनाएं
-resource "oneuptime_team" "infrastructure" {
+resource "cast_operations_team" "infrastructure" {
   name        = "Infrastructure Team"
   description = "Infrastructure और operations team"
 }
 
 # Infrastructure monitors
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name        = "${var.environment}-database"
   description = "Database connectivity monitor"
   data        = jsonencode({
@@ -145,7 +145,7 @@ resource "oneuptime_monitor" "database" {
   })
 }
 
-resource "oneuptime_monitor" "application" {
+resource "cast_operations_monitor" "application" {
   name        = "${var.environment}-application"
   description = "Application health monitor"
   data        = jsonencode({
@@ -154,7 +154,7 @@ resource "oneuptime_monitor" "application" {
 }
 
 # Status page
-resource "oneuptime_status_page" "internal" {
+resource "cast_operations_status_page" "internal" {
   name        = "Internal Services Status"
   description = "Internal services के लिए status page"
 }
@@ -174,7 +174,7 @@ terraform state pull > backup-$(date +%Y%m%d).tfstate
 curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # current provider version नोट करें
-terraform providers | grep oneuptime
+terraform providers | grep cast-operations
 ```
 
 ### 2. Cast Operations Instance Upgrade करें
@@ -187,7 +187,7 @@ terraform providers | grep oneuptime
 # terraform block में version update करें
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # upgrade के बाद नया version
     }
@@ -214,10 +214,10 @@ terraform apply
 
 ```bash
 # environment variables उपयोग करें
-export ONEUPTIME_API_KEY="your-api-key"
+export CAST_OPERATIONS_API_KEY="your-api-key"
 
 # या secret management system उपयोग करें
-export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
+export CAST_OPERATIONS_API_KEY=$(vault kv get -field=api_key secret/cast-operations)
 ```
 
 ### 2. Least Privilege API Keys

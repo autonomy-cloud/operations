@@ -34,7 +34,7 @@ import logger from "Common/Server/Utils/Logger";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
 import Dictionary from "Common/Types/Dictionary";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
@@ -45,7 +45,7 @@ import RunCron from "../../Utils/Cron";
 
 const JOB_NAME: string = "InstanceHealth:EvaluateClickhouseCapacity";
 const ADVISORY_LOCK_LABEL: string =
-  "oneuptime:instance-health:clickhouse-capacity";
+  "cast-operations:instance-health:clickhouse-capacity";
 const MAX_PARTITIONS_PER_BATCH: number = 25;
 const RECLAIM_CHECK_DELAY_IN_MINUTES: number = 10;
 const RETRY_COOLDOWN_IN_MINUTES: number = 60;
@@ -270,7 +270,7 @@ async function sendCapacityNotificationToMasterAdmins(data: {
     subject,
     badgeType: isCritical ? "critical" : "warning",
     badgeText: isCritical ? "Capacity Critical" : "Capacity Warning",
-    oneuptimeHost: Host,
+    castOperationsHost: Host,
     homeURL: Host ? HomeClientUrl.toString() : "",
     capacityPageLink: getAdminDashboardClickhouseLink(),
     capacityUsed: `${capacityPercent}% used`,
@@ -367,7 +367,7 @@ export async function evaluateNotification(data: {
         status: InstanceHealthLogStatus.Resolved,
         message:
           "ClickHouse capacity notification state was resolved because notifications were disabled.",
-        completedAt: OneUptimeDate.getCurrentDate(),
+        completedAt: OperationsDate.getCurrentDate(),
         thresholdPercent: data.settings.notificationThresholdPercent,
         metadata: {
           resolutionReason: "NotificationsDisabled",
@@ -386,7 +386,7 @@ export async function evaluateNotification(data: {
     (isRetryableFailure || isPendingDelivery) &&
     data.latestLog?.nextCheckAt &&
     data.latestLog.nextCheckAt.getTime() >
-      OneUptimeDate.getCurrentDate().getTime() &&
+      OperationsDate.getCurrentDate().getTime() &&
     data.capacityPercent >= data.settings.notificationThresholdPercent
   ) {
     return;
@@ -408,7 +408,9 @@ export async function evaluateNotification(data: {
       message:
         `ClickHouse capacity reached ${data.capacityPercent.toFixed(2)}%, ` +
         `meeting the ${data.settings.notificationThresholdPercent}% notification threshold. Notification delivery is pending.`,
-      nextCheckAt: OneUptimeDate.getSomeMinutesAfter(RETRY_COOLDOWN_IN_MINUTES),
+      nextCheckAt: OperationsDate.getSomeMinutesAfter(
+        RETRY_COOLDOWN_IN_MINUTES,
+      ),
       capacityBeforePercent: data.capacityPercent,
       thresholdPercent: data.settings.notificationThresholdPercent,
       metadata: {
@@ -434,10 +436,10 @@ export async function evaluateNotification(data: {
           ? InstanceHealthLogStatus.Failed
           : InstanceHealthLogStatus.NotificationActive;
         updateData.completedAt = noSuccessfulDelivery
-          ? OneUptimeDate.getCurrentDate()
+          ? OperationsDate.getCurrentDate()
           : (null as unknown as Date);
         updateData.nextCheckAt = noSuccessfulDelivery
-          ? OneUptimeDate.getSomeMinutesAfter(RETRY_COOLDOWN_IN_MINUTES)
+          ? OperationsDate.getSomeMinutesAfter(RETRY_COOLDOWN_IN_MINUTES)
           : (null as unknown as Date);
         updateData.metadata = metadata;
         updateData.message = noSuccessfulDelivery
@@ -460,8 +462,8 @@ export async function evaluateNotification(data: {
         updateData.message =
           `${activeLog.message} Notification delivery failed before any confirmed email: ` +
           getErrorMessage(error);
-        updateData.completedAt = OneUptimeDate.getCurrentDate();
-        updateData.nextCheckAt = OneUptimeDate.getSomeMinutesAfter(
+        updateData.completedAt = OperationsDate.getCurrentDate();
+        updateData.nextCheckAt = OperationsDate.getSomeMinutesAfter(
           RETRY_COOLDOWN_IN_MINUTES,
         );
         updateData.metadata = mergeMetadata(activeLog.metadata, {
@@ -493,7 +495,7 @@ export async function evaluateNotification(data: {
       message:
         `ClickHouse capacity returned to ${data.capacityPercent.toFixed(2)}%, ` +
         `below the ${data.settings.notificationThresholdPercent}% notification threshold.`,
-      completedAt: OneUptimeDate.getCurrentDate(),
+      completedAt: OperationsDate.getCurrentDate(),
       capacityAfterPercent: data.capacityPercent,
       thresholdPercent: data.settings.notificationThresholdPercent,
       metadata: {
@@ -520,7 +522,7 @@ async function markWaitingLogComplete(data: {
       status: data.status,
       message: data.message,
       capacityAfterPercent: data.capacityPercent,
-      completedAt: OneUptimeDate.getCurrentDate(),
+      completedAt: OperationsDate.getCurrentDate(),
       nextCheckAt: null as unknown as Date,
     },
     props: {
@@ -537,7 +539,7 @@ async function recoverInterruptedPruningLog(
     return;
   }
 
-  const nextCheckAt: Date = OneUptimeDate.getSomeMinutesAfter(
+  const nextCheckAt: Date = OperationsDate.getSomeMinutesAfter(
     RECLAIM_CHECK_DELAY_IN_MINUTES,
   );
 
@@ -549,7 +551,7 @@ async function recoverInterruptedPruningLog(
         "The pruning worker stopped before recording the DDL result. Waiting before another destructive batch while ClickHouse state is reconciled.",
       nextCheckAt,
       metadata: mergeMetadata(log.metadata, {
-        recoveredInterruptedBatchAt: OneUptimeDate.getCurrentDate(),
+        recoveredInterruptedBatchAt: OperationsDate.getCurrentDate(),
         ...(cancelAfterReclaim ? { cancelAfterReclaim: true } : {}),
       }),
     },
@@ -642,7 +644,7 @@ async function shouldKeepWaitingForReclaim(
     getPartitionsToReconcile(log);
 
   if (partitions.length === 0) {
-    const nextCheckAt: Date = OneUptimeDate.getSomeMinutesAfter(
+    const nextCheckAt: Date = OperationsDate.getSomeMinutesAfter(
       RETRY_COOLDOWN_IN_MINUTES,
     );
     await updateInstanceHealthLog({
@@ -654,7 +656,7 @@ async function shouldKeepWaitingForReclaim(
         nextCheckAt,
         metadata: mergeMetadata(log.metadata, {
           reclaimReconciliationError: "PartitionMetadataMissing",
-          reclaimCheckedAt: OneUptimeDate.getCurrentDate().toISOString(),
+          reclaimCheckedAt: OperationsDate.getCurrentDate().toISOString(),
         }),
       },
       props: {
@@ -675,7 +677,7 @@ async function shouldKeepWaitingForReclaim(
       return false;
     }
 
-    const nextCheckAt: Date = OneUptimeDate.getSomeMinutesAfter(
+    const nextCheckAt: Date = OperationsDate.getSomeMinutesAfter(
       RECLAIM_CHECK_DELAY_IN_MINUTES,
     );
     await updateInstanceHealthLog({
@@ -689,7 +691,7 @@ async function shouldKeepWaitingForReclaim(
         metadata: mergeMetadata(log.metadata, {
           remainingInactivePartCount: reclaimState.inactivePartCount,
           remainingInactiveBytes: reclaimState.inactiveBytes,
-          reclaimCheckedAt: OneUptimeDate.getCurrentDate().toISOString(),
+          reclaimCheckedAt: OperationsDate.getCurrentDate().toISOString(),
         }),
       },
       props: {
@@ -698,7 +700,7 @@ async function shouldKeepWaitingForReclaim(
     });
     return true;
   } catch (error) {
-    const nextCheckAt: Date = OneUptimeDate.getSomeMinutesAfter(
+    const nextCheckAt: Date = OperationsDate.getSomeMinutesAfter(
       RETRY_COOLDOWN_IN_MINUTES,
     );
     const errorMessage: string = getErrorMessage(error);
@@ -711,7 +713,7 @@ async function shouldKeepWaitingForReclaim(
         nextCheckAt,
         metadata: mergeMetadata(log.metadata, {
           reclaimReconciliationError: errorMessage,
-          reclaimCheckedAt: OneUptimeDate.getCurrentDate().toISOString(),
+          reclaimCheckedAt: OperationsDate.getCurrentDate().toISOString(),
         }),
       },
       props: {
@@ -765,7 +767,7 @@ export async function evaluatePruning(data: {
   worstDisk: ClickhouseDiskSnapshot;
 }): Promise<void> {
   let latestLog: InstanceHealthLog | null = data.latestLog;
-  const now: Date = OneUptimeDate.getCurrentDate();
+  const now: Date = OperationsDate.getCurrentDate();
 
   if (
     latestLog?.status === InstanceHealthLogStatus.Partial &&
@@ -865,7 +867,7 @@ export async function evaluatePruning(data: {
         status: InstanceHealthLogStatus.Resolved,
         message:
           "The incomplete ClickHouse pruning cycle was cancelled after reclaim because automatic pruning was disabled.",
-        completedAt: OneUptimeDate.getCurrentDate(),
+        completedAt: OperationsDate.getCurrentDate(),
         capacityAfterPercent: data.capacityPercent,
         thresholdPercent: data.settings.pruningThresholdPercent,
         targetPercent: data.settings.pruningTargetPercent,
@@ -918,8 +920,8 @@ export async function evaluatePruning(data: {
         message:
           `ClickHouse capacity is ${data.capacityPercent.toFixed(2)}%, but no ` +
           "safe historical partition is available to prune. The newest partition of each table is protected.",
-        completedAt: OneUptimeDate.getCurrentDate(),
-        nextCheckAt: OneUptimeDate.getSomeMinutesAfter(
+        completedAt: OperationsDate.getCurrentDate(),
+        nextCheckAt: OperationsDate.getSomeMinutesAfter(
           RETRY_COOLDOWN_IN_MINUTES,
         ),
         capacityBeforePercent: data.capacityPercent,
@@ -976,7 +978,7 @@ export async function evaluatePruning(data: {
       throw new Error("The running InstanceHealthLog has no id.");
     }
 
-    const nextCheckAt: Date = OneUptimeDate.getSomeMinutesAfter(
+    const nextCheckAt: Date = OperationsDate.getSomeMinutesAfter(
       RECLAIM_CHECK_DELAY_IN_MINUTES,
     );
 
@@ -1018,7 +1020,7 @@ export async function evaluatePruning(data: {
      * otherwise re-issue destructive DDL every RECLAIM_CHECK_DELAY_IN_MINUTES
      * forever. Hold the long cooldown instead.
      */
-    const nextCheckAt: Date = OneUptimeDate.getSomeMinutesAfter(
+    const nextCheckAt: Date = OperationsDate.getSomeMinutesAfter(
       droppedPartitions.length > 0
         ? RECLAIM_CHECK_DELAY_IN_MINUTES
         : RETRY_COOLDOWN_IN_MINUTES,
@@ -1040,7 +1042,7 @@ export async function evaluatePruning(data: {
           completedAt:
             issuedPartitionCount > 0
               ? (null as unknown as Date)
-              : OneUptimeDate.getCurrentDate(),
+              : OperationsDate.getCurrentDate(),
           nextCheckAt,
           metadata: mergeMetadata(runningLog.metadata, {
             error: errorMessage,
@@ -1059,7 +1061,7 @@ export async function evaluatePruning(data: {
         eventType: InstanceHealthLogEventType.ClickHouseDataPruning,
         status: InstanceHealthLogStatus.Failed,
         message: `ClickHouse pruning planning failed: ${errorMessage}`,
-        completedAt: OneUptimeDate.getCurrentDate(),
+        completedAt: OperationsDate.getCurrentDate(),
         nextCheckAt,
         capacityBeforePercent: data.capacityPercent,
         thresholdPercent: data.settings.pruningThresholdPercent,
@@ -1106,7 +1108,7 @@ export async function evaluateClickhouseCapacity(): Promise<void> {
       status: InstanceHealthLogStatus.Resolved,
       message:
         "The incomplete ClickHouse pruning cycle was cancelled because automatic pruning was disabled.",
-      completedAt: OneUptimeDate.getCurrentDate(),
+      completedAt: OperationsDate.getCurrentDate(),
       thresholdPercent: settings.pruningThresholdPercent,
       targetPercent: settings.pruningTargetPercent,
       metadata: {
@@ -1216,7 +1218,7 @@ RunCron(
   {
     schedule: EVERY_FIVE_MINUTE,
     runOnStartup: false,
-    timeoutInMS: OneUptimeDate.convertMinutesToMilliseconds(15),
+    timeoutInMS: OperationsDate.convertMinutesToMilliseconds(15),
   },
   async (): Promise<void> => {
     try {

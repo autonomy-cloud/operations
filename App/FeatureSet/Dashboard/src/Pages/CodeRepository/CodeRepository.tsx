@@ -21,7 +21,6 @@ import React, {
 } from "react";
 import { env, HOME_URL } from "Common/UI/Config";
 import UserUtil from "Common/UI/Utils/User";
-import AIPlanGate from "../../Components/AI/AIPlanGate";
 import RepositoryConnectionStatus from "../../Components/CodeRepository/RepositoryConnectionStatus";
 import Card from "Common/UI/Components/Card/Card";
 import ObjectID from "Common/Types/ObjectID";
@@ -86,8 +85,6 @@ const CodeRepositoryPage: FunctionComponent<
 
   return (
     <>
-      <AIPlanGate />
-
       {showGitHubConnectedBanner && (
         <Alert
           type={AlertType.SUCCESS}
@@ -164,8 +161,8 @@ const CodeRepositoryPage: FunctionComponent<
             <p className="mt-1 text-sm text-gray-500">
               Connecting a repository requires the GitHub App environment
               variables (like <code>GITHUB_APP_NAME</code> and{" "}
-              <code>GITHUB_APP_ID</code>) to be configured on your Cast Operations
-              server. See the{" "}
+              <code>GITHUB_APP_ID</code>) to be configured on your Cast
+              Operations server. See the{" "}
               <Link
                 to={Route.fromString("/docs/self-hosted/github-integration")}
                 openInNewTab={true}

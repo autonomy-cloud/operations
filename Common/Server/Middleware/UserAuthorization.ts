@@ -8,7 +8,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import JSONWebToken from "../Utils/JsonWebToken";
@@ -106,7 +106,7 @@ export default class UserMiddleware {
         } catch (err) {
           logger.error(
             err,
-            getLogAttributesFromRequest(req as OneUptimeRequest),
+            getLogAttributesFromRequest(req as OperationsRequest),
           );
           continue;
         }
@@ -151,13 +151,16 @@ export default class UserMiddleware {
           } catch (err) {
             logger.error(
               err,
-              getLogAttributesFromRequest(req as OneUptimeRequest),
+              getLogAttributesFromRequest(req as OperationsRequest),
             );
             continue;
           }
         }
       } catch (err) {
-        logger.error(err, getLogAttributesFromRequest(req as OneUptimeRequest));
+        logger.error(
+          err,
+          getLogAttributesFromRequest(req as OperationsRequest),
+        );
       }
     }
 
@@ -229,7 +232,7 @@ export default class UserMiddleware {
 
       return null;
     } catch (err) {
-      logger.error(err, getLogAttributesFromRequest(req as OneUptimeRequest));
+      logger.error(err, getLogAttributesFromRequest(req as OperationsRequest));
       return null;
     }
   }
@@ -287,10 +290,10 @@ export default class UserMiddleware {
     next: NextFunction,
   ): Promise<void> {
     const tenantId: ObjectID | null = ProjectMiddleware.getProjectId(req);
-    const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+    const castOperationsRequest: OperationsRequest = req as OperationsRequest;
 
     if (tenantId) {
-      oneuptimeRequest.tenantId = tenantId;
+      castOperationsRequest.tenantId = tenantId;
 
       /*
        * Fire-and-forget: lastActive write is debounced inside the service
@@ -312,15 +315,16 @@ export default class UserMiddleware {
       UserMiddleware.getAccessTokenFromExpressRequest(req);
 
     if (!accessToken) {
-      oneuptimeRequest.userType = UserType.Public;
+      castOperationsRequest.userType = UserType.Public;
       return next();
     }
 
     try {
-      oneuptimeRequest.userAuthorization = JSONWebToken.decode(accessToken);
+      castOperationsRequest.userAuthorization =
+        JSONWebToken.decode(accessToken);
     } catch (err) {
       // if the token is invalid or expired, return 401 so clients can refresh the token.
-      logger.error(err, getLogAttributesFromRequest(oneuptimeRequest));
+      logger.error(err, getLogAttributesFromRequest(castOperationsRequest));
       return Response.sendErrorResponse(
         req,
         res,
@@ -330,21 +334,22 @@ export default class UserMiddleware {
       );
     }
 
-    if (oneuptimeRequest.userAuthorization.isMasterAdmin) {
-      oneuptimeRequest.userType = UserType.MasterAdmin;
+    if (castOperationsRequest.userAuthorization.isMasterAdmin) {
+      castOperationsRequest.userType = UserType.MasterAdmin;
     } else {
-      oneuptimeRequest.userType = UserType.User;
+      castOperationsRequest.userType = UserType.User;
     }
 
-    const userId: string = oneuptimeRequest.userAuthorization.userId.toString();
+    const userId: string =
+      castOperationsRequest.userAuthorization.userId.toString();
 
     // Tag the current span with user and project context for observability
     SpanUtil.addAttributesToCurrentSpan({
       userId: userId,
-      userType: oneuptimeRequest.userType,
+      userType: castOperationsRequest.userType,
       ...(tenantId ? { projectId: tenantId.toString() } : {}),
-      ...(oneuptimeRequest.requestId
-        ? { requestId: oneuptimeRequest.requestId }
+      ...(castOperationsRequest.requestId
+        ? { requestId: castOperationsRequest.requestId }
         : {}),
     });
 
@@ -365,7 +370,7 @@ export default class UserMiddleware {
      */
     const userGlobalAccessPermissionPromise: Promise<UserGlobalAccessPermission | null> =
       AccessTokenService.getUserGlobalAccessPermission(
-        oneuptimeRequest.userAuthorization.userId,
+        castOperationsRequest.userAuthorization.userId,
       );
 
     let userGlobalAccessPermission: UserGlobalAccessPermission | null = null;
@@ -389,14 +394,15 @@ export default class UserMiddleware {
         userGlobalAccessPermission = globalPermission;
 
         if (userGlobalAccessPermission) {
-          oneuptimeRequest.userGlobalAccessPermission =
+          castOperationsRequest.userGlobalAccessPermission =
             userGlobalAccessPermission;
         }
 
         if (userTenantAccessPermission) {
-          oneuptimeRequest.userTenantAccessPermission = {};
-          oneuptimeRequest.userTenantAccessPermission[tenantId.toString()] =
-            userTenantAccessPermission;
+          castOperationsRequest.userTenantAccessPermission = {};
+          castOperationsRequest.userTenantAccessPermission[
+            tenantId.toString()
+          ] = userTenantAccessPermission;
         }
 
         /*
@@ -405,7 +411,7 @@ export default class UserMiddleware {
          * an extra DB roundtrip on every permission check. Absent for non-user
          * callers (API keys, Probes); `Owned` then evaluates as `All`.
          */
-        oneuptimeRequest.userTeamIds = userTeamIds;
+        castOperationsRequest.userTeamIds = userTeamIds;
       } catch (error) {
         return Response.sendErrorResponse(req, res, error as Exception);
       }
@@ -413,7 +419,7 @@ export default class UserMiddleware {
       userGlobalAccessPermission = await userGlobalAccessPermissionPromise;
 
       if (userGlobalAccessPermission) {
-        oneuptimeRequest.userGlobalAccessPermission =
+        castOperationsRequest.userGlobalAccessPermission =
           userGlobalAccessPermission;
       }
     }
@@ -432,7 +438,7 @@ export default class UserMiddleware {
           );
 
         if (userTenantAccessPermission) {
-          oneuptimeRequest.userTenantAccessPermission =
+          castOperationsRequest.userTenantAccessPermission =
             userTenantAccessPermission;
         }
       }
@@ -440,9 +446,9 @@ export default class UserMiddleware {
 
     // set permission hash.
 
-    if (oneuptimeRequest.userGlobalAccessPermission) {
+    if (castOperationsRequest.userGlobalAccessPermission) {
       const serializedValue: JSONObject = JSONFunctions.serialize(
-        oneuptimeRequest.userGlobalAccessPermission,
+        castOperationsRequest.userGlobalAccessPermission,
       );
       const globalValue: string = JSON.stringify(serializedValue);
       const globalPermissionsHash: string = await HashedString.hashValue(
@@ -455,13 +461,15 @@ export default class UserMiddleware {
 
     // set project permissions hash.
     if (
-      oneuptimeRequest.userTenantAccessPermission &&
+      castOperationsRequest.userTenantAccessPermission &&
       tenantId &&
-      oneuptimeRequest.userTenantAccessPermission[tenantId.toString()]
+      castOperationsRequest.userTenantAccessPermission[tenantId.toString()]
     ) {
       const projectValue: string = JSON.stringify(
         JSONFunctions.serialize(
-          oneuptimeRequest.userTenantAccessPermission[tenantId.toString()]!,
+          castOperationsRequest.userTenantAccessPermission[
+            tenantId.toString()
+          ]!,
         ),
       );
 
@@ -491,11 +499,11 @@ export default class UserMiddleware {
     res: ExpressResponse,
     next: NextFunction,
   ): Promise<void> {
-    const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+    const castOperationsRequest: OperationsRequest = req as OperationsRequest;
 
     if (
-      !oneuptimeRequest.userType ||
-      oneuptimeRequest.userType === UserType.Public
+      !castOperationsRequest.userType ||
+      castOperationsRequest.userType === UserType.Public
     ) {
       return Response.sendErrorResponse(
         req,
@@ -521,14 +529,14 @@ export default class UserMiddleware {
       res: ExpressResponse,
       next: NextFunction,
     ): Promise<void> => {
-      const oneuptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+      const castOperationsRequest: OperationsRequest = req as OperationsRequest;
 
       // Master admins bypass permission checks
-      if (oneuptimeRequest.userType === UserType.MasterAdmin) {
+      if (castOperationsRequest.userType === UserType.MasterAdmin) {
         return next();
       }
 
-      const tenantId: ObjectID | undefined = oneuptimeRequest.tenantId;
+      const tenantId: ObjectID | undefined = castOperationsRequest.tenantId;
 
       if (!tenantId) {
         return Response.sendErrorResponse(
@@ -541,7 +549,7 @@ export default class UserMiddleware {
       }
 
       const userTenantPermission: UserTenantAccessPermission | undefined =
-        oneuptimeRequest.userTenantAccessPermission?.[tenantId.toString()];
+        castOperationsRequest.userTenantAccessPermission?.[tenantId.toString()];
 
       if (!userTenantPermission) {
         return Response.sendErrorResponse(
@@ -586,7 +594,7 @@ export default class UserMiddleware {
     const { req, tenantId, userId } = data;
 
     const isMasterAdmin: boolean =
-      (req as OneUptimeRequest).userAuthorization?.isMasterAdmin === true;
+      (req as OperationsRequest).userAuthorization?.isMasterAdmin === true;
 
     /*
      * Resolve the SSO requirement and the tenant permission in parallel.
@@ -662,7 +670,7 @@ export default class UserMiddleware {
     }
 
     const isMasterAdmin: boolean =
-      (req as OneUptimeRequest).userAuthorization?.isMasterAdmin === true;
+      (req as OperationsRequest).userAuthorization?.isMasterAdmin === true;
 
     /*
      * Instance-wide "Require SSO for Login" forces SSO on every project. Master

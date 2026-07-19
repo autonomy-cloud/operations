@@ -19,8 +19,8 @@ NC='\033[0m' # No Color
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 TERRAFORM_DIR="$PROJECT_ROOT/Terraform"
-PROVIDER_FRAMEWORK_DIR="$TERRAFORM_DIR/terraform-provider-oneuptime"
-PROVIDER_NAME="oneuptime"
+PROVIDER_FRAMEWORK_DIR="$TERRAFORM_DIR/terraform-provider-cast-operations"
+PROVIDER_NAME="cast-operations"
 PROVIDER_REPO="terraform-provider-$PROVIDER_NAME"
 GITHUB_ORG="Cast Operations"
 VERSION=""
@@ -72,10 +72,10 @@ Examples:
     $0 -v 1.0.1 --skip-tests --github-token \${{ secrets.SIMLARSEN_GITHUB_PAT }}
 
 Note: The GITHUB_TOKEN should have the following permissions:
-    - repo (for creating releases in the terraform-provider-oneuptime repository)
+    - repo (for creating releases in the terraform-provider-cast-operations repository)
     - write:packages (if publishing packages)
     - For organization repos, ensure the token has access to the Cast Operations organization
-    - The token must have access to the terraform-provider-oneuptime repository
+    - The token must have access to the terraform-provider-cast-operations repository
 
 EOF
 }
@@ -265,9 +265,9 @@ generate_provider() {
     print_success "Terraform provider generated and validated successfully"
 }
 
-# Function to push code to terraform-provider-oneuptime repository
+# Function to push code to terraform-provider-cast-operations repository
 push_to_repository() {
-    print_step "Pushing generated code to terraform-provider-oneuptime repository..."
+    print_step "Pushing generated code to terraform-provider-cast-operations repository..."
 
     cd "$PROVIDER_FRAMEWORK_DIR"
 
@@ -326,8 +326,8 @@ push_to_repository() {
         "$temp_dir/.git" \
         "$temp_dir/dist" \
         "$temp_dir/builds" \
-        "$temp_dir/terraform-provider-oneuptime" \
-        "$temp_dir/terraform-provider-oneuptime.exe" \
+        "$temp_dir/terraform-provider-cast-operations" \
+        "$temp_dir/terraform-provider-cast-operations.exe" \
         2>/dev/null || true
 
     # Initialize or reset git repository
@@ -385,8 +385,8 @@ push_to_repository() {
         "*.zip"
         "*.sig"
         "*SHA256SUMS*"
-        "terraform-provider-oneuptime"
-        "terraform-provider-oneuptime.exe"
+        "terraform-provider-cast-operations"
+        "terraform-provider-cast-operations.exe"
     )
     if [[ ! -f .gitignore ]]; then
         : > .gitignore
@@ -405,8 +405,8 @@ push_to_repository() {
     git rm -r --cached --ignore-unmatch \
         dist \
         builds \
-        terraform-provider-oneuptime \
-        terraform-provider-oneuptime.exe \
+        terraform-provider-cast-operations \
+        terraform-provider-cast-operations.exe \
         2>/dev/null || true
 
     # Stage all generated files
@@ -497,7 +497,7 @@ Changes include:
         fi
     fi
 
-    print_success "Code pushed to terraform-provider-oneuptime repository"
+    print_success "Code pushed to terraform-provider-cast-operations repository"
 }
 
 # Function to create GitHub release
@@ -577,7 +577,7 @@ This release includes the latest Cast Operations Terraform provider generated fr
 \`\`\`hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> $VERSION"
     }
@@ -814,19 +814,19 @@ generate_shasums() {
     cd "$PROVIDER_FRAMEWORK_DIR/builds"
 
     # Check if we have binary files to work with
-    if ! ls terraform-provider-oneuptime_* 1> /dev/null 2>&1; then
+    if ! ls terraform-provider-cast_operations_* 1> /dev/null 2>&1; then
         print_error "No terraform provider binaries found in builds directory"
-        print_error "Expected files like: terraform-provider-oneuptime_darwin_amd64"
+        print_error "Expected files like: terraform-provider-cast_operations_darwin_amd64"
         exit 1
     fi
 
     # Create zip archives for each binary following Terraform's naming convention
     print_status "Creating zip archives from binaries..."
-    for binary in terraform-provider-oneuptime_*; do
+    for binary in terraform-provider-cast_operations_*; do
         if [[ -f "$binary" ]]; then
             # Extract OS and architecture from filename
-            # e.g., terraform-provider-oneuptime_darwin_amd64 -> darwin_amd64
-            local os_arch=$(echo "$binary" | sed 's/terraform-provider-oneuptime_//')
+            # e.g., terraform-provider-cast_operations_darwin_amd64 -> darwin_amd64
+            local os_arch=$(echo "$binary" | sed 's/terraform-provider-cast_operations_//')
             
             # Handle Windows executable extension
             if [[ "$binary" == *.exe ]]; then
@@ -1079,7 +1079,7 @@ show_summary() {
         if [[ "$TAG_ALREADY_EXISTS" == true ]]; then
             echo "• Code/tag already published — not re-pushed"
         else
-            echo "✓ Pushed code to terraform-provider-oneuptime repository"
+            echo "✓ Pushed code to terraform-provider-cast-operations repository"
         fi
         echo "• Release creation skipped (release already existed)"
         echo "✓ (Re)built and uploaded release assets (archives, checksums, signatures)"
@@ -1092,7 +1092,7 @@ show_summary() {
         print_warning "This was a TEST RELEASE with the following actions taken:"
         echo "✓ Generated Terraform provider"
         echo "✓ Ran tests (if not skipped)"
-        echo "✓ Pushed code to terraform-provider-oneuptime repository"
+        echo "✓ Pushed code to terraform-provider-cast-operations repository"
         echo "✓ Created draft GitHub release v$VERSION"
         echo "✓ Generated multi-platform zip archives from binaries (linux, darwin, windows, freebsd)"
         echo "✓ Generated SHA256SUMS and signature files"
@@ -1110,7 +1110,7 @@ show_summary() {
         print_status "Actions completed:"
         echo "✓ Generated Terraform provider"
         echo "✓ Ran tests (if not skipped)"
-        echo "✓ Pushed code to terraform-provider-oneuptime repository"
+        echo "✓ Pushed code to terraform-provider-cast-operations repository"
         echo "✓ Created GitHub release v$VERSION"
         echo "✓ Generated multi-platform zip archives from binaries (linux, darwin, windows, freebsd)"
         echo "✓ Generated SHA256SUMS and signature files"

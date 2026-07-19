@@ -19,14 +19,14 @@ import AnalyticsTableEngine from "../../../Types/AnalyticsDatabase/AnalyticsTabl
  * every object-lifecycle DDL statement carries `ON CLUSTER`.
  *
  * The cluster NAME is read live from process.env (CLICKHOUSE_CLUSTER_NAME,
- * default "oneuptime") so it can be pointed at a differently-named external
+ * default "cast-operations") so it can be pointed at a differently-named external
  * cluster, and so unit tests can vary it. It must match the cluster defined in
  * the ClickHouse config / ClickHouseInstallation.
  */
 
-export const DEFAULT_CLICKHOUSE_CLUSTER_NAME: string = "oneuptime";
+export const DEFAULT_CLICKHOUSE_CLUSTER_NAME: string = "cast-operations";
 export const DEFAULT_CLICKHOUSE_SHARDING_KEY: string = "cityHash64(projectId)";
-export const DEFAULT_CLICKHOUSE_DATABASE: string = "oneuptime";
+export const DEFAULT_CLICKHOUSE_DATABASE: string = "cast-operations";
 
 // Suffix appended to a model's tableName to name its local (data) table.
 export const LOCAL_TABLE_SUFFIX: string = "Local";
@@ -47,6 +47,10 @@ export function getClickhouseShardingKeyOverride(): string {
 
 export function getClickhouseDatabaseName(): string {
   return process.env["CLICKHOUSE_DATABASE"] || DEFAULT_CLICKHOUSE_DATABASE;
+}
+
+export function quoteClickhouseIdentifier(value: string): string {
+  return `\`${value.replace(/`/g, "``")}\``;
 }
 
 /*

@@ -58,7 +58,7 @@ Fluentd 支援數百種資料來源，您可以將這些來源中的任何日誌
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -93,7 +93,7 @@ bind 0.0.0.0
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -107,7 +107,7 @@ flush_interval 10s
 </match>
 ```
 
-**如果您自行託管 Cast Operations**：如果您自行託管 Cast Operations，您可以將 `endpoint_url` 替換為您的 Cast Operations 執行個體的 URL。`http(s)://YOUR_ONEUPTIME_HOST/fluentd/logs`
+**如果您自行託管 Cast Operations**：如果您自行託管 Cast Operations，您可以將 `endpoint_url` 替換為您的 Cast Operations 執行個體的 URL。`http(s)://YOUR_CAST_OPERATIONS_HOST/fluentd/logs`
 
 ## 使用方式
 

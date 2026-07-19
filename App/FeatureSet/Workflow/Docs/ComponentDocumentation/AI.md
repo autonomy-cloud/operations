@@ -6,9 +6,8 @@ The request is tool-free: it contains no tool definitions or provider-native cap
 
 ## Before you use it
 
-- AI must be enabled for the project. On Cast Operations Cloud, the subscription must be paid and the Growth plan (or a plan that includes Growth features) is required. Self-hosted installations with billing disabled do not have this plan gate.
+- AI must be enabled for the project.
 - Configure a provider under **Project Settings → AI → LLM Providers**. The project default is used first; an installation-wide global provider is the fallback when available.
-- On Cast Operations Cloud, a costed global provider consumes the project's AI credit balance. Project-owned providers use the credentials configured for that provider.
 - The call counts toward the project's daily autonomous AI token budget and appears in **Project Settings → AI → AI Logs**.
 
 You do not supply a provider key, model endpoint, or provider choice in the component. Provider configuration stays centralized so credentials never become workflow arguments.
@@ -59,27 +58,27 @@ System Instructions, Prompt, and the serialized Context have a combined 50,000-c
 
 ## Outputs
 
-| Output | Description |
-|---|---|
-| **Response** | Generated text returned by the model. |
-| **Provider** | Name of the LLM provider used for the call. |
-| **Model** | Configured model name used for the call. |
-| **Total Tokens** | Input plus output tokens reported by the provider. |
-| **Completion Tokens** | Output tokens reported by the provider. |
-| **LLM Log ID** | ID of the metered AI log entry for this call. |
-| **Error** | Error message when the component takes the Error path. |
+| Output                | Description                                            |
+| --------------------- | ------------------------------------------------------ |
+| **Response**          | Generated text returned by the model.                  |
+| **Provider**          | Name of the LLM provider used for the call.            |
+| **Model**             | Configured model name used for the call.               |
+| **Total Tokens**      | Input plus output tokens reported by the provider.     |
+| **Completion Tokens** | Output tokens reported by the provider.                |
+| **LLM Log ID**        | ID of the AI log entry for this call.                  |
+| **Error**             | Error message when the component takes the Error path. |
 
 The **Success** port runs after the provider returns successfully. Use the component-value picker in a downstream field to insert the Response. The resulting reference has the form `{{local.components.<component-id>.returnValues.response}}`.
 
-The **Error** port runs when input validation, project or plan access, provider configuration, the daily token budget, AI credit balance, the concurrency limit, the provider request, or the timeout check fails. Connect it to a safe fallback, notification, or log component; an unconnected Error path stops that branch of the workflow.
+The **Error** port runs when input validation, provider configuration, the daily token budget, the concurrency limit, the provider request, or the timeout check fails. Connect it to a safe fallback, notification, or log component; an unconnected Error path stops that branch of the workflow.
 
-## Data, logs, and billing
+## Data and logs
 
 The resolved System Instructions, Prompt, and Context are the request's explicit egress. A hosted provider receives those values; a local self-hosted provider such as Ollama can keep them inside your infrastructure.
 
-System Instructions, Prompt, Context, and generated Response values are redacted from this AI component's own argument and return-value entries in the automatic workflow execution log. They remain available to downstream components during the run. If you insert one into another component, that component's logging policy applies and may record the resolved value; treat reuse as an explicit disclosure. The LLM log stores operational metadata and usage, but not prompt or response previews or raw provider error details. Raw provider error bodies are also excluded from application logs and traces. Provider/model names, token counts, the LLM Log ID, and safe errors remain visible so a run can be diagnosed and billed.
+System Instructions, Prompt, Context, and generated Response values are redacted from this AI component's own argument and return-value entries in the automatic workflow execution log. They remain available to downstream components during the run. If you insert one into another component, that component's logging policy applies and may record the resolved value; treat reuse as an explicit disclosure. The LLM log stores operational metadata and usage, but not prompt or response previews or raw provider error details. Raw provider error bodies are also excluded from application logs and traces. Provider/model names, token counts, the LLM Log ID, and safe errors remain visible so a run can be diagnosed.
 
-Every call is metered. A costed global provider deducts the calculated usage from the project's AI credit balance. The workflow call is also covered by the daily autonomous AI token budget; once that budget is exhausted, the component follows Error without making another provider request.
+Every call records token usage. The workflow call is also covered by the daily autonomous AI token budget; once that budget is exhausted, the component follows Error without making another provider request.
 
 ## Safe use
 

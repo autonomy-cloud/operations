@@ -1,11 +1,7 @@
 // Connect common api's.
 import CommonAPI from "../API/Index";
 import { StatusAPIOptions } from "../API/StatusAPI";
-import {
-  AppVersion,
-  IsBillingEnabled,
-  getFrontendEnvVars,
-} from "../EnvironmentConfig";
+import { AppVersion, getFrontendEnvVars } from "../EnvironmentConfig";
 import LocalCache from "../Infrastructure/LocalCache";
 import HttpMetricsMiddleware from "../Middleware/HttpMetricsMiddleware";
 import "./Environment";
@@ -18,7 +14,7 @@ import Express, {
   ExpressStatic,
   ExpressUrlEncoded,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
   RequestHandler,
   headerValueToString,
 } from "./Express";
@@ -66,10 +62,10 @@ const jsonBodyParserMiddleware: RequestHandler = ExpressJson({
   limit: "50mb",
   extended: true,
   verify: (req: ExpressRequest, _res: ExpressResponse, buf: Buffer) => {
-    (req as OneUptimeRequest).rawBody = buf.toString();
+    (req as OperationsRequest).rawBody = buf.toString();
     logger.debug(
       `Raw JSON Body for signature verification captured`,
-      getLogAttributesFromRequest(req as OneUptimeRequest),
+      getLogAttributesFromRequest(req as OperationsRequest),
     );
   },
 }); // 50 MB limit.
@@ -78,11 +74,11 @@ const urlEncodedMiddleware: RequestHandler = ExpressUrlEncoded({
   limit: "50mb",
   extended: true,
   verify: (req: ExpressRequest, _res: ExpressResponse, buf: Buffer) => {
-    (req as OneUptimeRequest).rawFormUrlEncodedBody = buf.toString();
-    (req as OneUptimeRequest).rawBody = buf.toString(); // Also set rawBody for consistency
+    (req as OperationsRequest).rawFormUrlEncodedBody = buf.toString();
+    (req as OperationsRequest).rawBody = buf.toString(); // Also set rawBody for consistency
     logger.debug(
-      `Raw Form Url Encoded Body: ${(req as OneUptimeRequest).rawFormUrlEncodedBody}`,
-      getLogAttributesFromRequest(req as OneUptimeRequest),
+      `Raw Form Url Encoded Body: ${(req as OperationsRequest).rawFormUrlEncodedBody}`,
+      getLogAttributesFromRequest(req as OperationsRequest),
     );
   },
 }); // 50 MB limit.
@@ -139,7 +135,7 @@ const protobufBodyParserMiddleware: RequestHandler = ExpressRaw({
   limit: "50mb",
 });
 
-app.use((req: OneUptimeRequest, res: ExpressResponse, next: NextFunction) => {
+app.use((req: OperationsRequest, res: ExpressResponse, next: NextFunction) => {
   if (req.path.includes("/otlp/v1/")) {
     return next();
   }
@@ -164,7 +160,7 @@ app.use((req: OneUptimeRequest, res: ExpressResponse, next: NextFunction) => {
         if (err) {
           logger.error(
             err,
-            getLogAttributesFromRequest(req as OneUptimeRequest),
+            getLogAttributesFromRequest(req as OperationsRequest),
           );
           return Response.sendErrorResponse(
             req,
@@ -212,7 +208,7 @@ app.use((_req: ExpressRequest, _res: ExpressResponse, next: NextFunction) => {
 
 app.use((req: ExpressRequest, _res: ExpressResponse, next: NextFunction) => {
   const requestId: string = crypto.randomUUID();
-  (req as OneUptimeRequest).requestId = requestId;
+  (req as OperationsRequest).requestId = requestId;
 
   /*
    * Open a telemetry-context scope for the entire request. requestId is seeded
@@ -321,7 +317,7 @@ const init: InitFunction = async (
       ) => {
         try {
           const renderLogAttributes: LogAttributes =
-            getLogAttributesFromRequest(_req as OneUptimeRequest);
+            getLogAttributesFromRequest(_req as OperationsRequest);
 
           logger.debug("Rendering index page", renderLogAttributes);
 
@@ -359,7 +355,7 @@ const init: InitFunction = async (
           }
 
           return res.render(path.resolve(process.cwd(), "views/index.ejs"), {
-            enableGoogleTagManager: IsBillingEnabled || false,
+            enableGoogleTagManager: false,
             ...variables,
           });
         } catch (err) {
@@ -413,7 +409,7 @@ const addDefaultRoutes: PromiseVoidFunction = async (): Promise<void> => {
       res: ExpressResponse,
       next: NextFunction,
     ) => {
-      logger.error(err, getLogAttributesFromRequest(_req as OneUptimeRequest));
+      logger.error(err, getLogAttributesFromRequest(_req as OperationsRequest));
 
       // Mark span as error.
       if (err) {

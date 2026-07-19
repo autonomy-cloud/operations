@@ -10,8 +10,8 @@ import EventLoop from "Common/Server/Utils/EventLoop";
 import logger from "Common/Server/Utils/Logger";
 import BadRequestException from "Common/Types/Exception/BadRequestException";
 import { JSONObject } from "Common/Types/JSON";
-import OneUptimeDate from "Common/Types/Date";
-import ProductType from "Common/Types/MeteredPlan/ProductType";
+import OperationsDate from "Common/Types/Date";
+import ProductType from "Common/Types/Telemetry/ProductType";
 import ObjectID from "Common/Types/ObjectID";
 import protobuf from "protobufjs";
 import path from "path";
@@ -743,7 +743,7 @@ export default class PyroscopeIngestService {
      * neither the pprof payload nor the query params carry one.
      */
     const nowNanos: number =
-      OneUptimeDate.getCurrentDate().getTime() * 1_000_000;
+      OperationsDate.getCurrentDate().getTime() * 1_000_000;
     const startNanos: number = pprofData.timeNanos
       ? Number(pprofData.timeNanos)
       : fromSeconds > 0

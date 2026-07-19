@@ -3,19 +3,17 @@ import BaseAPI from "../../../Server/API/BaseAPI";
 import CommonAPI from "../../../Server/API/CommonAPI";
 import UserMiddleware from "../../../Server/Middleware/UserAuthorization";
 import DatabaseService from "../../../Server/Services/DatabaseService";
-import ProjectService from "../../../Server/Services/ProjectService";
 import Express, {
   ExpressResponse,
   ExpressRouter,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../../../Server/Utils/Express";
 import Response from "../../../Server/Utils/Response";
 import { mockRouter } from "./Helpers";
 import { describe, expect, it } from "@jest/globals";
 import BaseModel from "../../../Models/DatabaseModels/DatabaseBaseModel/DatabaseBaseModel";
 import DatabaseCommonInteractionProps from "../../../Types/BaseDatabase/DatabaseCommonInteractionProps";
-import { PlanType } from "../../../Types/Billing/SubscriptionPlan";
 import { LIMIT_PER_PROJECT } from "../../../Types/Database/LimitMax";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import BadRequestException from "../../../Types/Exception/BadRequestException";
@@ -90,21 +88,9 @@ jest.mock(
   },
 );
 
-jest.mock("../../../Server/Services/ProjectService", () => {
-  return {
-    getCurrentPlan: () => {
-      return {
-        currentPlan: "Free",
-        isSubscriptionUnpaid: false,
-      };
-    },
-  };
-});
-
 jest.mock("../../../Server/EnvironmentConfig", () => {
   return {
     ...jest.requireActual("../../../Server/EnvironmentConfig"),
-    IsBillingEnabled: true,
     LogLevel: "INFO", // Use string literal instead of ConfigLogLevel.INFO
     DisableTelemetry: true,
   };
@@ -123,20 +109,20 @@ const TEST_COUNT_ID: string = "550e8400-e29b-41d4-a716-446655440002";
 const TEST_GET_ID: string = "550e8400-e29b-41d4-a716-446655440003";
 const TEST_UPDATE_ID: string = "550e8400-e29b-41d4-a716-446655440004";
 
-const deleteRequest: OneUptimeRequest = {
+const deleteRequest: OperationsRequest = {
   params: { id: TEST_DELETE_ID },
   headers: {},
-} as unknown as OneUptimeRequest;
+} as unknown as OperationsRequest;
 
-const countRequest: OneUptimeRequest = {
+const countRequest: OperationsRequest = {
   body: { query: { id: TEST_COUNT_ID } },
   headers: {},
-} as unknown as OneUptimeRequest;
+} as unknown as OperationsRequest;
 
-const getRequest: OneUptimeRequest = {
+const getRequest: OperationsRequest = {
   params: { id: TEST_GET_ID },
   headers: {},
-} as unknown as OneUptimeRequest;
+} as unknown as OperationsRequest;
 
 const next: NextFunction = jest.fn();
 
@@ -145,10 +131,10 @@ let emptyDatabaseCommonInteractionProps: DatabaseCommonInteractionProps = {};
 
 describe("BaseAPI", () => {
   let baseApiInstance: BaseAPI<BaseModel, DatabaseService<BaseModel>>;
-  let emptyRequest: OneUptimeRequest = {
+  let emptyRequest: OperationsRequest = {
     query: {},
     headers: {},
-  } as OneUptimeRequest;
+  } as OperationsRequest;
 
   beforeAll(async () => {
     mockRouter.post.mockClear();
@@ -167,7 +153,7 @@ describe("BaseAPI", () => {
     emptyRequest = {
       query: {},
       headers: {},
-    } as OneUptimeRequest;
+    } as OperationsRequest;
   });
 
   describe("constructor", () => {
@@ -309,15 +295,15 @@ describe("BaseAPI", () => {
 
     it("should return ObjectID if tennantId is passed", () => {
       const tenantId: ObjectID = new ObjectID("123");
-      const tenantRequest: OneUptimeRequest = {
+      const tenantRequest: OperationsRequest = {
         tenantId,
-      } as OneUptimeRequest;
+      } as OperationsRequest;
       expect(baseApiInstance.getTenantId(tenantRequest)).toEqual(tenantId);
     });
   });
 
   describe("getDatabaseCommonInteractionProps", () => {
-    let request: OneUptimeRequest;
+    let request: OperationsRequest;
 
     beforeEach(() => {
       request = {
@@ -327,7 +313,7 @@ describe("BaseAPI", () => {
         userTenantAccessPermission: undefined,
         tenantId: undefined,
         headers: {},
-      } as unknown as OneUptimeRequest;
+      } as unknown as OperationsRequest;
     });
 
     it("should initialize props with undefined values", async () => {
@@ -378,30 +364,6 @@ describe("BaseAPI", () => {
       const props: DatabaseCommonInteractionProps =
         await CommonAPI.getDatabaseCommonInteractionProps(request);
       expect(props.isMultiTenantRequest).toBe(true);
-    });
-
-    describe("when billing is enabled", () => {
-      it("should set currentPlan and isSubscriptionUnpaid if tenantId is present", async () => {
-        request.tenantId = new ObjectID("789");
-        // eslint-disable-next-line @typescript-eslint/typedef
-        const plan = {
-          plan: "Free" as PlanType,
-          isSubscriptionUnpaid: false,
-        };
-        jest.spyOn(ProjectService, "getCurrentPlan").mockResolvedValue(plan);
-
-        const props: DatabaseCommonInteractionProps =
-          await CommonAPI.getDatabaseCommonInteractionProps(request);
-        expect(props.currentPlan).toBe("Free");
-        expect(props.isSubscriptionUnpaid).toBe(false);
-      });
-
-      it("should set currentPlan and isSubscriptionUnpaid to undefined if tenantId is not present", async () => {
-        const props: DatabaseCommonInteractionProps =
-          await CommonAPI.getDatabaseCommonInteractionProps(request);
-        expect(props.currentPlan).toBeUndefined();
-        expect(props.isSubscriptionUnpaid).toBeUndefined();
-      });
     });
 
     it("should set isMasterAdmin if userType is MasterAdmin", async () => {
@@ -587,10 +549,10 @@ describe("BaseAPI", () => {
         baseApiInstance.service,
         "findOneById",
       );
-      const getRequestWithSelect: OneUptimeRequest = {
+      const getRequestWithSelect: OperationsRequest = {
         ...getRequest,
         ...{ body: { select: { id: true } } },
-      } as unknown as OneUptimeRequest;
+      } as unknown as OperationsRequest;
 
       await baseApiInstance.getItem(getRequestWithSelect, res);
       expect(findOneByIdSpy).toHaveBeenCalledWith(
@@ -654,7 +616,7 @@ describe("BaseAPI", () => {
   });
 
   describe("updateItem", () => {
-    let updateRequest: OneUptimeRequest;
+    let updateRequest: OperationsRequest;
     let updateResponse: ExpressResponse;
     let emptyProps: DatabaseCommonInteractionProps;
 
@@ -663,7 +625,7 @@ describe("BaseAPI", () => {
         params: { id: TEST_UPDATE_ID },
         body: { data: { name: "updatedName" } },
         headers: {},
-      } as unknown as OneUptimeRequest;
+      } as unknown as OperationsRequest;
 
       updateResponse = {
         status: jest.fn().mockReturnThis(),
@@ -754,7 +716,7 @@ describe("BaseAPI", () => {
 
   /*
    * describe('createItem', () => {
-   *     let createRequest: OneUptimeRequest;
+   *     let createRequest: OperationsRequest;
    *     let createResponse: ExpressResponse;
    *     let savedItem: BaseModel;
    */
@@ -767,7 +729,7 @@ describe("BaseAPI", () => {
    *                 miscDataProps: { additional: 'info' },
    *             },
    *             headers: {},
-   *         } as unknown as OneUptimeRequest;
+   *         } as unknown as OperationsRequest;
    */
 
   /*

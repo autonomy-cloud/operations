@@ -8,13 +8,12 @@ import RouteMap from "./Utils/RouteMap";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
-import { APP_API_URL, BILLING_ENABLED } from "Common/UI/Config";
+import { APP_API_URL } from "Common/UI/Config";
 import API from "Common/UI/Utils/API/API";
 import GlobalEvents from "Common/UI/Utils/GlobalEvents";
 import ModelAPI, { ListResult } from "Common/UI/Utils/ModelAPI/ModelAPI";
 import Navigation from "Common/UI/Utils/Navigation";
 import ProjectUtil from "Common/UI/Utils/Project";
-import BillingPaymentMethod from "Common/Models/DatabaseModels/BillingPaymentMethod";
 import Project from "Common/Models/DatabaseModels/Project";
 import React, { useEffect, useState, Suspense, lazy } from "react";
 import {
@@ -28,7 +27,6 @@ import useAsyncEffect from "use-async-effect";
 import PageComponentProps from "./Pages/PageComponentProps";
 import PageLoader from "Common/UI/Components/Loader/PageLoader";
 import { RoutesProps } from "./Types/RoutesProps";
-
 // Static page imports
 import Welcome from "./Pages/Onboarding/Welcome";
 import Home from "./Pages/Home/Home";
@@ -53,7 +51,6 @@ import ActiveAlertEpisodes from "./Pages/Global/ActiveAlertEpisodes";
 import ActiveIncidentEpisodes from "./Pages/Global/ActiveIncidentEpisodes";
 import MyOnCallPolicies from "./Pages/Global/MyOnCallPolicies";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
-
 // Lazy-loaded route bundles (all routes in one bundle to minimize chunk count)
 type AllRoutesModule = typeof import("./Routes/AllRoutes");
 const InitRoutes: React.LazyExoticComponent<
@@ -61,7 +58,6 @@ const InitRoutes: React.LazyExoticComponent<
 > = lazy(() => {
   return import("./Routes/InitRoutes");
 });
-
 const LogsRoutes: React.LazyExoticComponent<AllRoutesModule["LogsRoutes"]> =
   lazy(() => {
     return import("./Routes/AllRoutes").then((m: AllRoutesModule) => {
@@ -94,7 +90,6 @@ const ExceptionsRoutes: React.LazyExoticComponent<
     };
   });
 });
-
 const LlmRoutes: React.LazyExoticComponent<AllRoutesModule["LlmRoutes"]> = lazy(
   () => {
     return import("./Routes/AllRoutes").then((m: AllRoutesModule) => {
@@ -104,7 +99,6 @@ const LlmRoutes: React.LazyExoticComponent<AllRoutesModule["LlmRoutes"]> = lazy(
     });
   },
 );
-
 const EntitiesRoutes: React.LazyExoticComponent<
   AllRoutesModule["EntitiesRoutes"]
 > = lazy(() => {
@@ -114,7 +108,6 @@ const EntitiesRoutes: React.LazyExoticComponent<
     };
   });
 });
-
 const TopologyRoutes: React.LazyExoticComponent<
   AllRoutesModule["TopologyRoutes"]
 > = lazy(() => {
@@ -396,66 +389,28 @@ const TeamsRoutes: React.LazyExoticComponent<AllRoutesModule["TeamsRoutes"]> =
       };
     });
   });
-
 const App: () => JSX.Element = () => {
   Navigation.setNavigateHook(useNavigate());
   Navigation.setLocation(useLocation());
   Navigation.setParams(useParams());
-
   const [isLoading, setLoading] = useState<boolean>(true);
   const [showProjectModal, setShowProjectModal] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [projects, setProjects] = useState<Array<Project>>([]);
-
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
-  const [ispaymentMethodsCountLoading, setPaymentMethodsCountLoading] =
-    useState<boolean>(false);
-  const [paymentMethodsCount, setPaymentMethodsCount] = useState<
-    number | undefined
-  >(undefined);
-
-  const [hasPaymentMethod, setHasPaymentMethod] = useState<boolean>(false);
-
   useAsyncEffect(async () => {
     try {
       if (selectedProject && selectedProject._id) {
         ProjectUtil.setCurrentProject(selectedProject);
       }
-
-      if (selectedProject && selectedProject._id && BILLING_ENABLED) {
-        setPaymentMethodsCountLoading(true);
-
-        const paymentMethodsCount: number = await ModelAPI.count({
-          modelType: BillingPaymentMethod,
-          query: { projectId: selectedProject._id },
-        });
-
-        setPaymentMethodsCount(paymentMethodsCount);
-
-        if (paymentMethodsCount && paymentMethodsCount > 0) {
-          setHasPaymentMethod(true);
-        } else {
-          setHasPaymentMethod(false);
-        }
-      }
-
-      if (!BILLING_ENABLED) {
-        setHasPaymentMethod(true);
-      }
-
-      setPaymentMethodsCountLoading(false);
     } catch (e) {
       setError(API.getFriendlyMessage(e));
-      setPaymentMethodsCountLoading(false);
     }
   }, [selectedProject?._id]);
-
   const onProjectSelected: (project: Project) => void = (
     project: Project,
   ): void => {
     setSelectedProject(project);
-
     if (
       projects.filter((i: Project) => {
         return i && i._id === project._id;
@@ -463,9 +418,7 @@ const App: () => JSX.Element = () => {
     ) {
       setProjects([...projects, project]);
     }
-
     const currentRoute: Route = Navigation.getCurrentRoute();
-
     if (!currentRoute.toString().includes(project._id!)) {
       ProjectUtil.setCurrentProject(project);
       Navigation.navigate(new Route("/dashboard/" + project._id), {
@@ -473,13 +426,11 @@ const App: () => JSX.Element = () => {
       });
     }
   };
-
   useEffect(() => {
     GlobalEvents.addEventListener(
       EventName.PROJECT_INVITATIONS_REFRESH,
       fetchProjects,
     );
-
     return () => {
       // on unmount.
       GlobalEvents.removeEventListener(
@@ -488,10 +439,8 @@ const App: () => JSX.Element = () => {
       );
     };
   }, []);
-
   const fetchProjects: PromiseVoidFunction = async (): Promise<void> => {
     setLoading(true);
-
     // get list of projects.
     try {
       const result: ListResult<Project> = await ModelAPI.getList<Project>({
@@ -501,7 +450,6 @@ const App: () => JSX.Element = () => {
         skip: 0,
         select: {},
         sort: {},
-
         requestOptions: {
           isMultiTenantRequest: true,
           overrideRequestUrl: URL.fromString(APP_API_URL.toString()).addRoute(
@@ -513,26 +461,20 @@ const App: () => JSX.Element = () => {
     } catch (err) {
       setError(API.getFriendlyMessage(err));
     }
-
     setLoading(false);
   };
-
   useAsyncEffect(async () => {
     await fetchProjects();
   }, []);
-
   const commonPageProps: PageComponentProps = {
     currentProject: selectedProject,
-    hasPaymentMethod: hasPaymentMethod,
     pageRoute: Navigation.getCurrentRoute(), // this will be overwritten by different pages
   };
-
   return (
     <MasterPage
-      isLoading={isLoading || ispaymentMethodsCountLoading}
+      isLoading={isLoading}
       projects={projects}
       error={error}
-      paymentMethodsCount={paymentMethodsCount}
       onProjectSelected={onProjectSelected}
       showProjectModal={showProjectModal}
       onProjectModalClose={() => {
@@ -1068,5 +1010,4 @@ const App: () => JSX.Element = () => {
     </MasterPage>
   );
 };
-
 export default App;

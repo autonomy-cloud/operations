@@ -13,23 +13,23 @@ CLI Cast Operations — это интерфейс командной строк�
 ## Установка
 
 ```bash
-npm install -g @oneuptime/cli
+npm install -g @cast-operations/cli
 ```
 
 ## Быстрый старт
 
 ```bash
 # Аутентификация в вашем экземпляре Cast Operations
-oneuptime login <your-api-key> https://visca.ai
+cast-operations login <your-api-key> https://visca.ai
 
 # Список ваших мониторов
-oneuptime monitor list
+cast-operations monitor list
 
 # Просмотр конкретного инцидента
-oneuptime incident get <incident-id>
+cast-operations incident get <incident-id>
 
 # Просмотр всех доступных ресурсов
-oneuptime resources
+cast-operations resources
 ```
 
 ## Документация
@@ -60,9 +60,9 @@ oneuptime resources
 
 ```bash
 # Общая справка
-oneuptime --help
+cast-operations --help
 
 # Справка по конкретной команде
-oneuptime monitor --help
-oneuptime monitor list --help
+cast-operations monitor --help
+cast-operations monitor list --help
 ```

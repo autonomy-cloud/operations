@@ -1,6 +1,6 @@
 import { TelemetryRequest } from "Common/Server/Middleware/TelemetryIngest";
 import BadRequestException from "Common/Types/Exception/BadRequestException";
-import ProductType from "Common/Types/MeteredPlan/ProductType";
+import ProductType from "Common/Types/Telemetry/ProductType";
 import {
   ExpressRequest,
   ExpressResponse,

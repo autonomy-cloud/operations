@@ -25,8 +25,8 @@ EKS Fargate, and any other restricted Kubernetes environment.
 - Parses RFC3339Nano timestamps and derives log severity from the message
   body (`ERROR`, `WARN`, `INFO`, etc.) with a fallback to the stderr/stdout
   marker when no severity keyword is present.
-- Batches records and exports via OTLP-HTTP JSON to `<oneuptime>/otlp/v1/logs`
-  with the `x-oneuptime-token` authentication header.
+- Batches records and exports via OTLP-HTTP JSON to `<cast-operations>/otlp/v1/logs`
+  with the `x-cast-operations-token` authentication header.
 - Reconnects streams with exponential backoff when connections drop or the
   Kubernetes API returns a transient error.
 - Skips its own pods (identified by a configurable label selector) to avoid a
@@ -38,13 +38,13 @@ All configuration is via environment variables:
 
 | Variable                 | Required | Default                               | Description                                                                                                      |
 | ------------------------ | -------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`          | yes      | —                                     | Base URL of your Cast Operations instance (e.g. `https://operations.example.com`).                                      |
-| `ONEUPTIME_API_KEY`      | yes      | —                                     | Project API key.                                                                                                 |
+| `CAST_OPERATIONS_URL`          | yes      | —                                     | Base URL of your Cast Operations instance (e.g. `https://operations.example.com`).                                      |
+| `CAST_OPERATIONS_API_KEY`      | yes      | —                                     | Project API key.                                                                                                 |
 | `CLUSTER_NAME`           | yes      | —                                     | Stamped as `k8s.cluster.name` on every log record.                                                               |
 | `NAMESPACE_INCLUDE`      | no       | (empty)                               | Comma-separated namespace-pattern allowlist. `*` is a wildcard; if set, only matching namespaces are tailed.     |
 | `NAMESPACE_EXCLUDE`      | no       | `kube-system`                         | Comma-separated namespace-pattern denylist. `*` is a wildcard and exclude always wins.                           |
 | `AGENT_NAMESPACE`        | no       | (empty)                               | Scope the self-exclusion label selector to this namespace.                                                       |
-| `AGENT_LABEL_SELECTOR`   | no       | `app.kubernetes.io/part-of=oneuptime` | Pods matching this selector are skipped to prevent feedback loops.                                               |
+| `AGENT_LABEL_SELECTOR`   | no       | `app.kubernetes.io/part-of=cast-operations` | Pods matching this selector are skipped to prevent feedback loops.                                               |
 | `BATCH_MAX_RECORDS`      | no       | `500`                                 | Flush the batch after this many records.                                                                         |
 | `BATCH_MAX_MS`           | no       | `5000`                                | Flush the batch after this many milliseconds.                                                                    |
 | `EXPORT_MAX_RETRIES`     | no       | `5`                                   | Max retries for a failed OTLP export (exponential backoff).                                                      |

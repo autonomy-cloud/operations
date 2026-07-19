@@ -14,19 +14,19 @@ Diese Seite ist die **Installationsanleitung**. Informationen zum Konfigurieren 
 
 ## Schnellstart (Ein Befehl)
 
-Ersetzen Sie `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` und den Hostnamen durch die Werte für Ihre Umgebung. Der Hostname ist die Bezeichnung, unter der dieser Docker-Host in Cast Operations erscheint — wählen Sie etwas wie `prod-docker-01`.
+Ersetzen Sie `YOUR_CAST_OPERATIONS_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` und den Hostnamen durch die Werte für Ihre Umgebung. Der Hostname ist die Bezeichnung, unter der dieser Docker-Host in Cast Operations erscheint — wählen Sie etwas wie `prod-docker-01`.
 
 ```bash
 docker run -d \
-  --name oneuptime-docker-agent \
+  --name cast-operations-docker-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="YOUR_ONEUPTIME_URL" \
-  -e ONEUPTIME_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 ```
 
 Das war's. Sobald der Agent eine Verbindung hergestellt hat, erscheint Ihr Docker-Host automatisch im Bereich **Docker** des Cast Operations-Dashboards.
@@ -37,17 +37,17 @@ Wenn Sie Docker Compose bevorzugen, fügen Sie Folgendes in eine `docker-compose
 
 ```yaml
 services:
-  oneuptime-docker-agent:
-    image: oneuptime/docker-agent:release
-    container_name: oneuptime-docker-agent
+  cast-operations-docker-agent:
+    image: cast-operations/docker-agent:release
+    container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
-      - ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-      - ONEUPTIME_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
+      - CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+      - CAST_OPERATIONS_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
       - DOCKER_HOST_NAME=my-docker-host
     logging:
       driver: json-file
@@ -66,8 +66,8 @@ docker compose up -d
 
 | Variable                  | Erforderlich | Beschreibung                                                                                                                               |
 | ------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ONEUPTIME_URL`           | Ja           | Die URL Ihrer Cast Operations-Instanz (zum Beispiel `https://visca.ai` oder Ihr selbst gehosteter Host)                                     |
-| `ONEUPTIME_SERVICE_TOKEN` | Ja           | Telemetry Ingestion Token aus _Project Settings → Telemetry Ingestion Keys_                                                                |
+| `CAST_OPERATIONS_URL`           | Ja           | Die URL Ihrer Cast Operations-Instanz (zum Beispiel `https://visca.ai` oder Ihr selbst gehosteter Host)                                     |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | Ja           | Telemetry Ingestion Token aus _Project Settings → Telemetry Ingestion Keys_                                                                |
 | `DOCKER_HOST_NAME`        | Nein         | Sprechender Name für diesen Host. Standardwert ist `docker-host`. Setzen Sie ihn pro Host auf einen stabilen Wert (z. B. `prod-docker-01`) |
 
 ## Installation überprüfen
@@ -75,13 +75,13 @@ docker compose up -d
 Prüfen Sie, ob der Agent läuft:
 
 ```bash
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 ```
 
 Prüfen Sie die Agent-Logs:
 
 ```bash
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 ```
 
 Achten Sie auf: `"Everything is ready. Begin running and processing data."`
@@ -91,8 +91,8 @@ Innerhalb von etwa einer Minute sollte der Host im Cast Operations-Dashboard ers
 ## Agent aktualisieren
 
 ```bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # Führen Sie den obigen `docker run`-Befehl erneut aus
 ```
 
@@ -106,7 +106,7 @@ docker compose up -d
 ## Agent deinstallieren
 
 ```bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 ```
 
 Wenn Sie Docker Compose verwendet haben:
@@ -128,10 +128,10 @@ docker compose down
 
 ## Selbst gehostetes Cast Operations
 
-Wenn Sie Cast Operations selbst hosten, setzen Sie `ONEUPTIME_URL` auf Ihre eigene Instanz:
+Wenn Sie Cast Operations selbst hosten, setzen Sie `CAST_OPERATIONS_URL` auf Ihre eigene Instanz:
 
 ```bash
--e ONEUPTIME_URL="https://your-operations-host.example.com"
+-e CAST_OPERATIONS_URL="https://your-operations-host.example.com"
 ```
 
 Wenn Ihre Instanz nur HTTP unterstützt, verwenden Sie `http://` und den entsprechenden Port.
@@ -144,15 +144,15 @@ Der Agent-Container muss als root (`--user 0:0`) ausgeführt werden, um auf `/va
 
 ### Agent wird als getrennt angezeigt
 
-1. Prüfen Sie, ob der Agent läuft: `docker ps --filter name=oneuptime-docker-agent`
-2. Prüfen Sie die Agent-Logs: `docker logs oneuptime-docker-agent | grep -i error`
+1. Prüfen Sie, ob der Agent läuft: `docker ps --filter name=cast-operations-docker-agent`
+2. Prüfen Sie die Agent-Logs: `docker logs cast-operations-docker-agent | grep -i error`
 3. Überprüfen Sie, ob Ihre Cast Operations-URL und Ihr Service-Token korrekt sind
 4. Stellen Sie sicher, dass Ihr Docker-Host die Cast Operations-Instanz über das Netzwerk erreichen kann
 
 ### Keine Metriken werden angezeigt
 
-1. Überprüfen Sie, ob der Docker-Socket innerhalb des Agents zugänglich ist: `docker exec oneuptime-docker-agent ls -la /var/run/docker.sock`
-2. Prüfen Sie die Collector-Logs auf Export-Fehler: `docker logs oneuptime-docker-agent | tail -100`
+1. Überprüfen Sie, ob der Docker-Socket innerhalb des Agents zugänglich ist: `docker exec cast-operations-docker-agent ls -la /var/run/docker.sock`
+2. Prüfen Sie die Collector-Logs auf Export-Fehler: `docker logs cast-operations-docker-agent | tail -100`
 3. Stellen Sie sicher, dass Ihr Service-Token gültig und nicht abgelaufen ist
 
 ### Hostname wird als Container-ID angezeigt

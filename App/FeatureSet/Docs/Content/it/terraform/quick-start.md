@@ -35,7 +35,7 @@ Creare una nuova directory e un file `main.tf`:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       # Per i clienti Cloud
       version = "~> 7.0"
@@ -47,17 +47,17 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
+provider "cast-operations" {
   # Per i clienti Cloud
-  oneuptime_url = "https://visca.ai"
+  cast_operations_url = "https://visca.ai"
 
   # Per i clienti Self-Hosted - usare l'URL della propria istanza
-  # oneuptime_url = "https://operations.vostracompany.com"
+  # cast_operations_url = "https://operations.vostracompany.com"
 
-  api_key = var.oneuptime_api_key
+  api_key = var.cast_operations_api_key
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Chiave API Cast Operations"
   type        = string
   sensitive   = true
@@ -71,7 +71,7 @@ variable "project_id" {
 }
 
 # Creare un semplice monitor sito web
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Monitor Sito Web"
   description = "Monitor per l'uptime del sito web"
   data        = jsonencode({
@@ -83,7 +83,7 @@ resource "oneuptime_monitor" "website" {
 
 # Restituire l'ID del monitor
 output "monitor_id" {
-  value = oneuptime_monitor.website.id
+  value = cast_operations_monitor.website.id
 }
 ```
 
@@ -93,7 +93,7 @@ Creare `terraform.tfvars`:
 
 ```hcl
 # terraform.tfvars
-oneuptime_api_key = "vostra-api-key"
+cast_operations_api_key = "vostra-api-key"
 project_id        = "vostro-id-progetto"  # Ottenere dal dashboard Cast Operations
 ```
 
@@ -132,16 +132,16 @@ terraform apply
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Ottiene sempre la versione 7.x compatibile più recente
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -150,16 +150,16 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Deve corrispondere esattamente alla versione Cast Operations
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.miacompany.com"  # Il proprio URL self-hosted
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.miacompany.com"  # Il proprio URL self-hosted
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -183,7 +183,7 @@ Error: Invalid API key
 
 1. Verificare la chiave API nel dashboard Cast Operations
 2. Controllare che la chiave API abbia permessi sufficienti
-3. Assicurarsi che `oneuptime_url` sia corretto per la propria istanza
+3. Assicurarsi che `cast_operations_url` sia corretto per la propria istanza
 
 ### Problema: Mancata corrispondenza di versione (Self-Hosted)
 

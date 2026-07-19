@@ -11,7 +11,7 @@ export default class FixExceptionTaskHandler extends ExceptionPullRequestTaskHan
   public readonly taskType: string = CodeFixTaskType.FixException;
   public readonly name: string = "Fix Exception Handler";
 
-  protected readonly branchPrefix: string = "oneuptime-fix-exception-";
+  protected readonly branchPrefix: string = "cast-operations-fix-exception-";
   protected readonly noActionMessage: string =
     "No fixes could be applied to any repository";
 

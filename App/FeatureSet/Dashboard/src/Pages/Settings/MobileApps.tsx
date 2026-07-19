@@ -91,8 +91,7 @@ const features: Array<Feature> = [
   },
 ];
 
-const IOS_URL: string =
-  "https://github.com/autonomy-cloud/operations/releases";
+const IOS_URL: string = "https://github.com/autonomy-cloud/operations/releases";
 const ANDROID_URL: string =
   "https://github.com/autonomy-cloud/operations/releases";
 const APK_URL: string =
@@ -191,8 +190,8 @@ const MobileApps: FunctionComponent<PageComponentProps> = (): ReactElement => {
             </h1>
             <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-gray-500">
               Get paged on critical incidents, manage your rotation, and respond
-              — all from your phone. Install the Cast Operations On-Call app on your
-              device.
+              — all from your phone. Install the Cast Operations On-Call app on
+              your device.
             </p>
           </div>
           <div className="flex items-center gap-1.5 self-start rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-medium text-gray-600 md:self-end">

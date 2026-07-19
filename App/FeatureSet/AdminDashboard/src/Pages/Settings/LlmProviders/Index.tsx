@@ -20,37 +20,29 @@ import { useTranslation } from "react-i18next";
 import TestLLMProvider, {
   LLMProviderTestResult,
 } from "Common/UI/Utils/TestLLMProvider";
-import { BILLING_ENABLED } from "Common/UI/Config";
-
 const Settings: FunctionComponent = (): ReactElement => {
   const { t } = useTranslation();
-
   const [showTestModal, setShowTestModal] = useState<boolean>(false);
   const [isTesting, setIsTesting] = useState<boolean>(false);
   const [testError, setTestError] = useState<string>("");
   const [testMessage, setTestMessage] = useState<string>("");
-
   const runTest: (item: LlmProvider) => Promise<void> = async (
     item: LlmProvider,
   ): Promise<void> => {
     setIsTesting(true);
     setTestError("");
     setTestMessage("");
-
     const result: LLMProviderTestResult = await TestLLMProvider.test({
       llmProviderId: item["_id"]?.toString() || "",
       headers: AdminModelAPI.getCommonHeaders(),
     });
-
     if (result.success) {
       setTestMessage(result.message);
     } else {
       setTestError(result.message);
     }
-
     setIsTesting(false);
   };
-
   return (
     <Page
       title={t("pages.settings.title")}
@@ -141,14 +133,7 @@ const Settings: FunctionComponent = (): ReactElement => {
             title: t("pages.settings.llmProviders.stepAdvanced"),
             id: "advanced",
           },
-          ...(BILLING_ENABLED
-            ? [
-                {
-                  title: t("pages.settings.llmProviders.stepCostSettings"),
-                  id: "cost-settings",
-                },
-              ]
-            : []),
+          ...[],
         ]}
         formFields={[
           {
@@ -164,7 +149,6 @@ const Settings: FunctionComponent = (): ReactElement => {
               minLength: 2,
             },
           },
-
           {
             field: {
               description: true,
@@ -233,22 +217,7 @@ const Settings: FunctionComponent = (): ReactElement => {
             description:
               'Optional JSON object with extra parameters sent directly to the provider API. These override any defaults. Leave empty unless you need model-specific parameters. Presets — OpenAI / Azure OpenAI (gpt-5 family): {"max_completion_tokens": 2048} | OpenAI o1/o3 reasoning models: {"reasoning_effort": "high", "max_completion_tokens": 10000} | Override temperature: {"temperature": 0.2} | Top-p sampling: {"top_p": 0.9}',
           },
-          ...(BILLING_ENABLED
-            ? [
-                {
-                  field: {
-                    costPerMillionTokensInUSDCents: true,
-                  },
-                  title: "Cost Per Million Tokens (USD Cents)",
-                  stepId: "cost-settings",
-                  fieldType: FormFieldSchemaType.Number,
-                  required: false,
-                  placeholder: "0",
-                  description:
-                    "Cost per million tokens in USD cents. For example, if the cost is $0.01 per 1M tokens, enter 1.",
-                },
-              ]
-            : []),
+          ...[],
         ]}
         selectMoreFields={{
           apiKey: true,
@@ -299,18 +268,7 @@ const Settings: FunctionComponent = (): ReactElement => {
             type: FieldType.Text,
             noValueMessage: "-",
           },
-          ...(BILLING_ENABLED
-            ? [
-                {
-                  field: {
-                    costPerMillionTokensInUSDCents: true,
-                  },
-                  title: "Cost (cents/1M)",
-                  type: FieldType.Number,
-                  noValueMessage: "0",
-                },
-              ]
-            : []),
+          ...[],
         ]}
       />
 
@@ -338,5 +296,4 @@ const Settings: FunctionComponent = (): ReactElement => {
     </Page>
   );
 };
-
 export default Settings;

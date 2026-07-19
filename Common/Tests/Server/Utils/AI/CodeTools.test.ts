@@ -79,10 +79,11 @@ function mockFileContent(content: string): void {
 
   jest.spyOn(GitHubUtil, "getFileContent").mockResolvedValue({
     content: content,
-    filePath: "src/billing/charge.ts",
+    filePath: "src/payments/charge.ts",
     sizeInBytes: content.length,
     totalLines: lines.length,
-    htmlUrl: "https://github.com/acme/checkout/blob/main/src/billing/charge.ts",
+    htmlUrl:
+      "https://github.com/acme/checkout/blob/main/src/payments/charge.ts",
   });
 }
 
@@ -138,7 +139,7 @@ describe("read_code_file — repository targeting", () => {
   test("refuses to guess when several repositories could match", async () => {
     mockRepositories([
       buildRepository({ id: REPO_ID, name: "checkout" }),
-      buildRepository({ id: ObjectID.generate(), name: "billing" }),
+      buildRepository({ id: ObjectID.generate(), name: "payments" }),
     ]);
 
     await expect(
@@ -151,7 +152,7 @@ describe("read_code_file — repository targeting", () => {
     mockFileContent("const a = 1;");
 
     const result: ToolExecutionResult = await ReadCodeFileTool.execute(
-      { filePath: "src/billing/charge.ts" },
+      { filePath: "src/payments/charge.ts" },
       ctx,
     );
 
@@ -186,7 +187,7 @@ describe("read_code_file — line windows", () => {
     mockFileContent(file);
 
     const result: ToolExecutionResult = await ReadCodeFileTool.execute(
-      { filePath: "src/billing/charge.ts", startLine: 10, endLine: 12 },
+      { filePath: "src/payments/charge.ts", startLine: 10, endLine: 12 },
       ctx,
     );
 
@@ -202,7 +203,7 @@ describe("read_code_file — line windows", () => {
     mockFileContent(file);
 
     const result: ToolExecutionResult = await ReadCodeFileTool.execute(
-      { filePath: "src/billing/charge.ts", aroundLine: 200 },
+      { filePath: "src/payments/charge.ts", aroundLine: 200 },
       ctx,
     );
 
@@ -216,7 +217,7 @@ describe("read_code_file — line windows", () => {
     mockFileContent(file);
 
     const result: ToolExecutionResult = await ReadCodeFileTool.execute(
-      { filePath: "src/billing/charge.ts", aroundLine: 3 },
+      { filePath: "src/payments/charge.ts", aroundLine: 3 },
       ctx,
     );
 
@@ -229,7 +230,7 @@ describe("read_code_file — line windows", () => {
     mockFileContent(file);
 
     const result: ToolExecutionResult = await ReadCodeFileTool.execute(
-      { filePath: "src/billing/charge.ts", startLine: 1, endLine: 500 },
+      { filePath: "src/payments/charge.ts", startLine: 1, endLine: 500 },
       ctx,
     );
 
@@ -260,7 +261,7 @@ describe("read_code_file — line windows", () => {
     mockFileContent(file);
 
     const result: ToolExecutionResult = await ReadCodeFileTool.execute(
-      { filePath: "src/billing/charge.ts", aroundLine: 200, endLine: 210 },
+      { filePath: "src/payments/charge.ts", aroundLine: 200, endLine: 210 },
       ctx,
     );
 
@@ -339,8 +340,8 @@ describe("search_code", () => {
     jest
       .spyOn(GitHubUtil, "getRepositoryTreePaths")
       .mockResolvedValue([
-        "src/billing/__tests__/charge.fixture.ts",
-        "src/billing/charge.ts",
+        "src/payments/__tests__/charge.fixture.ts",
+        "src/payments/charge.ts",
         "docs/unrelated.md",
       ]);
 
@@ -350,7 +351,7 @@ describe("search_code", () => {
     );
 
     const firstIndex: number = result.dataForLlm.indexOf(
-      "src/billing/charge.ts",
+      "src/payments/charge.ts",
     );
     const fixtureIndex: number = result.dataForLlm.indexOf("charge.fixture.ts");
 
@@ -363,7 +364,7 @@ describe("search_code", () => {
     mockRepositories([buildRepository()]);
     jest
       .spyOn(GitHubUtil, "getRepositoryTreePaths")
-      .mockResolvedValue(["src/billing/charge.ts"]);
+      .mockResolvedValue(["src/payments/charge.ts"]);
 
     const result: ToolExecutionResult = await SearchCodeTool.execute(
       { query: "nonexistent" },
@@ -404,7 +405,7 @@ describe("find_code_for_exception", () => {
         repositoryName: "checkout",
         servicePathInRepository: null,
         method: "stack-trace",
-        evidence: "Matched src/billing/charge.ts in acme/checkout",
+        evidence: "Matched src/payments/charge.ts in acme/checkout",
       });
   }
 
@@ -412,7 +413,7 @@ describe("find_code_for_exception", () => {
     mockException(
       [
         "TypeError: Cannot read property 'id' of undefined",
-        "    at chargeCustomer (/app/src/billing/charge.ts:42:15)",
+        "    at chargeCustomer (/app/src/payments/charge.ts:42:15)",
         "    at processPayment (/app/node_modules/express/lib/router.js:10:5)",
       ].join("\n"),
     );
@@ -421,7 +422,7 @@ describe("find_code_for_exception", () => {
     mockResolution();
     jest
       .spyOn(GitHubUtil, "getRepositoryTreePaths")
-      .mockResolvedValue(["src/billing/charge.ts", "src/index.ts"]);
+      .mockResolvedValue(["src/payments/charge.ts", "src/index.ts"]);
 
     const result: ToolExecutionResult = await FindCodeForExceptionTool.execute(
       { exceptionId: ObjectID.generate().toString() },
@@ -438,25 +439,25 @@ describe("find_code_for_exception", () => {
 
   /*
    * The bug this locks: StackTraceParser reports the RUNTIME path
-   * (/app/src/billing/charge.ts), but the Contents API needs the REPOSITORY
-   * path (src/billing/charge.ts). Emitting the runtime path made every
+   * (/app/src/payments/charge.ts), but the Contents API needs the REPOSITORY
+   * path (src/payments/charge.ts). Emitting the runtime path made every
    * read_code_file follow-up 404 — the feature's whole point.
    */
   test("rewrites runtime stack-trace paths to real repository paths", async () => {
-    mockException("    at chargeCustomer (/app/src/billing/charge.ts:42:15)");
+    mockException("    at chargeCustomer (/app/src/payments/charge.ts:42:15)");
     mockRepositories([buildRepository()]);
     mockResolution();
     jest
       .spyOn(GitHubUtil, "getRepositoryTreePaths")
-      .mockResolvedValue(["src/billing/charge.ts"]);
+      .mockResolvedValue(["src/payments/charge.ts"]);
 
     const result: ToolExecutionResult = await FindCodeForExceptionTool.execute(
       { exceptionId: ObjectID.generate().toString() },
       ctx,
     );
 
-    expect(result.dataForLlm).toContain("file=src/billing/charge.ts");
-    expect(result.dataForLlm).not.toContain("/app/src/billing/charge.ts");
+    expect(result.dataForLlm).toContain("file=src/payments/charge.ts");
+    expect(result.dataForLlm).not.toContain("/app/src/payments/charge.ts");
     expect(result.dataForLlm).toContain("openableWithReadCodeFile=true");
   });
 
@@ -466,7 +467,7 @@ describe("find_code_for_exception", () => {
     mockResolution();
     jest
       .spyOn(GitHubUtil, "getRepositoryTreePaths")
-      .mockResolvedValue(["src/billing/charge.ts"]);
+      .mockResolvedValue(["src/payments/charge.ts"]);
 
     const result: ToolExecutionResult = await FindCodeForExceptionTool.execute(
       { exceptionId: ObjectID.generate().toString() },
@@ -485,7 +486,7 @@ describe("find_code_for_exception", () => {
     mockResolution();
     jest
       .spyOn(GitHubUtil, "getRepositoryTreePaths")
-      .mockResolvedValue(["src/billing/charge.ts", "src/legacy/charge.ts"]);
+      .mockResolvedValue(["src/payments/charge.ts", "src/legacy/charge.ts"]);
 
     const result: ToolExecutionResult = await FindCodeForExceptionTool.execute(
       { exceptionId: ObjectID.generate().toString() },
@@ -538,7 +539,7 @@ describe("find_code_for_exception", () => {
    * through it.
    */
   test("does not disclose a repository the user cannot read", async () => {
-    mockException("    at chargeCustomer (/app/src/billing/charge.ts:42:15)");
+    mockException("    at chargeCustomer (/app/src/payments/charge.ts:42:15)");
     mockResolution();
     // The user's own readable set is empty — the label ACL excludes this repo.
     mockRepositories([]);
@@ -554,7 +555,7 @@ describe("find_code_for_exception", () => {
   });
 
   test("says the code could not be located rather than guessing a repository", async () => {
-    mockException("    at chargeCustomer (/app/src/billing/charge.ts:42:15)");
+    mockException("    at chargeCustomer (/app/src/payments/charge.ts:42:15)");
 
     jest
       .spyOn(CodeRepositoryService, "resolveRepositoryForException")

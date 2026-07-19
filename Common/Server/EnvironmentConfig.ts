@@ -7,11 +7,9 @@ import {
   DocsRoute,
   HomeRoute,
 } from "../ServiceRoute";
-import BillingConfig from "./BillingConfig";
 import Protocol from "../Types/API/Protocol";
 import URL from "../Types/API/URL";
 import Route from "../Types/API/Route";
-import SubscriptionPlan from "../Types/Billing/SubscriptionPlan";
 import Email from "../Types/Email";
 import { JSONObject } from "../Types/JSON";
 import ObjectID from "../Types/ObjectID";
@@ -75,30 +73,6 @@ export const getFrontendEnvVars: () => JSONObject = (): JSONObject => {
   return frontendEnv;
 };
 
-const parsePositiveNumberFromEnv: (
-  envKey: string,
-  fallback: number,
-) => number = (envKey: string, fallback: number): number => {
-  const rawValue: string | undefined = process.env[envKey];
-
-  if (!rawValue) {
-    return fallback;
-  }
-
-  const parsedValue: number = parseFloat(rawValue);
-
-  if (!Number.isFinite(parsedValue) || parsedValue <= 0) {
-    return fallback;
-  }
-
-  return parsedValue;
-};
-
-export const IsBillingEnabled: boolean = BillingConfig.IsBillingEnabled;
-export const BillingPublicKey: string = BillingConfig.BillingPublicKey;
-export const BillingPrivateKey: string = BillingConfig.BillingPrivateKey;
-export const BillingWebhookSecret: string = BillingConfig.BillingWebhookSecret;
-
 export const DatabaseHost: Hostname = Hostname.fromString(
   process.env["DATABASE_HOST"] || "postgres",
 );
@@ -121,7 +95,7 @@ export const DatabasePassword: string =
   process.env["DATABASE_PASSWORD"] || "password";
 
 export const DatabaseName: string =
-  process.env["DATABASE_NAME"] || "oneuptimedb";
+  process.env["DATABASE_NAME"] || "castoperationsdb";
 
 export const DatabaseSslCa: string | undefined =
   process.env["DATABASE_SSL_CA"] || undefined;
@@ -248,10 +222,12 @@ export const AirtableApiKey: string = process.env["AIRTABLE_API_KEY"] || "";
 export const AirtableBaseId: string = process.env["AIRTABLE_BASE_ID"] || "";
 
 export const ClusterKey: ObjectID = new ObjectID(
-  process.env["ONEUPTIME_SECRET"] || "secret",
+  process.env["CAST_OPERATIONS_SECRET"] || "secret",
 );
 
-export const HasClusterKey: boolean = Boolean(process.env["ONEUPTIME_SECRET"]);
+export const HasClusterKey: boolean = Boolean(
+  process.env["CAST_OPERATIONS_SECRET"],
+);
 
 export const EnableQueueDashboard: boolean =
   process.env["ENABLE_QUEUE_DASHBOARD"] === "true";
@@ -325,9 +301,6 @@ export const IsDevelopment: boolean =
 
 export const IsTest: boolean = process.env["ENVIRONMENT"] === "test";
 
-export const SubscriptionPlans: Array<SubscriptionPlan> =
-  SubscriptionPlan.getSubscriptionPlans(getAllEnvVars());
-
 export const AnalyticsKey: string = process.env["ANALYTICS_KEY"] || "";
 export const AnalyticsHost: string = process.env["ANALYTICS_HOST"] || "";
 
@@ -386,7 +359,7 @@ export const ClickhousePassword: string =
   process.env["CLICKHOUSE_PASSWORD"] || "password";
 
 export const ClickhouseDatabase: string =
-  process.env["CLICKHOUSE_DATABASE"] || "oneuptime";
+  process.env["CLICKHOUSE_DATABASE"] || "cast-operations";
 
 export const ClickhouseTlsCa: string | undefined =
   process.env["CLICKHOUSE_TLS_CA"] || undefined;
@@ -425,7 +398,7 @@ export const MaxClickhouseIngestConnections: number = parseInt(
  * cluster (Distributed tables over local ReplicatedMergeTree, `ON CLUSTER
  * '<name>'`); a single node is just a 1-shard/1-replica cluster backed by an
  * embedded Keeper. The name must match the cluster defined in the ClickHouse
- * config / ClickHouseInstallation; it defaults to 'oneuptime' (what the bundled
+ * config / ClickHouseInstallation; it defaults to 'cast-operations' (what the bundled
  * StatefulSet config and the Altinity operator both create).
  *
  * NOTE: the live, test-toggleable readers live in
@@ -434,7 +407,7 @@ export const MaxClickhouseIngestConnections: number = parseInt(
  * so the env surface is discoverable here alongside the other CLICKHOUSE_* vars.
  */
 export const ClickhouseClusterName: string =
-  process.env["CLICKHOUSE_CLUSTER_NAME"] || "oneuptime";
+  process.env["CLICKHOUSE_CLUSTER_NAME"] || "cast-operations";
 
 /*
  * Optional GLOBAL override of the Distributed sharding-key expression. Empty by
@@ -476,26 +449,6 @@ export const WorkflowTimeoutInMs: number = process.env["WORKFLOW_TIMEOUT_IN_MS"]
   ? parseInt(process.env["WORKFLOW_TIMEOUT_IN_MS"].toString())
   : 120000;
 
-export const AllowedActiveMonitorCountInFreePlan: number = process.env[
-  "ALLOWED_ACTIVE_MONITOR_COUNT_IN_FREE_PLAN"
-]
-  ? parseInt(
-      process.env["ALLOWED_ACTIVE_MONITOR_COUNT_IN_FREE_PLAN"].toString(),
-    )
-  : 10;
-
-export const AllowedStatusPageCountInFreePlan: number = process.env[
-  "ALLOWED_STATUS_PAGE_COUNT_IN_FREE_PLAN"
-]
-  ? parseInt(process.env["ALLOWED_STATUS_PAGE_COUNT_IN_FREE_PLAN"].toString())
-  : 1;
-
-export const AllowedSubscribersCountInFreePlan: number = process.env[
-  "ALLOWED_SUBSCRIBERS_COUNT_IN_FREE_PLAN"
-]
-  ? parseInt(process.env["ALLOWED_SUBSCRIBERS_COUNT_IN_FREE_PLAN"].toString())
-  : 100;
-
 export const NotificationSlackWebhookOnCreateUser: string =
   process.env["NOTIFICATION_SLACK_WEBHOOK_ON_CREATED_USER"] || "";
 
@@ -505,10 +458,6 @@ export const NotificationSlackWebhookOnCreateProject: string =
 // notification delete project
 export const NotificationSlackWebhookOnDeleteProject: string =
   process.env["NOTIFICATION_SLACK_WEBHOOK_ON_DELETED_PROJECT"] || "";
-
-// notification subscripton update.
-export const NotificationSlackWebhookOnSubscriptionUpdate: string =
-  process.env["NOTIFICATION_SLACK_WEBHOOK_ON_SUBSCRIPTION_UPDATE"] || "";
 
 export const AdminDashboardClientURL: URL = new URL(
   HttpProtocol,
@@ -577,32 +526,6 @@ export const DisableTelemetry: boolean =
 
 export const EnableProfiling: boolean =
   process.env["ENABLE_PROFILING"] === "true";
-
-export const AverageSpanRowSizeInBytes: number = parsePositiveNumberFromEnv(
-  "AVERAGE_SPAN_ROW_SIZE_IN_BYTES",
-  1024,
-);
-
-export const AverageLogRowSizeInBytes: number = parsePositiveNumberFromEnv(
-  "AVERAGE_LOG_ROW_SIZE_IN_BYTES",
-  1024,
-);
-
-export const AverageMetricRowSizeInBytes: number = parsePositiveNumberFromEnv(
-  "AVERAGE_METRIC_ROW_SIZE_IN_BYTES",
-  1024,
-);
-
-export const AverageExceptionRowSizeInBytes: number =
-  parsePositiveNumberFromEnv("AVERAGE_EXCEPTION_ROW_SIZE_IN_BYTES", 1024);
-
-export const AverageProfileRowSizeInBytes: number = parsePositiveNumberFromEnv(
-  "AVERAGE_PROFILE_ROW_SIZE_IN_BYTES",
-  1024,
-);
-
-export const AverageProfileSampleRowSizeInBytes: number =
-  parsePositiveNumberFromEnv("AVERAGE_PROFILE_SAMPLE_ROW_SIZE_IN_BYTES", 512);
 
 export const SlackAppClientId: string | null =
   process.env["SLACK_APP_CLIENT_ID"] || null;

@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ProbeAttempt from "Common/Types/Probe/ProbeAttempt";
 import ProbeMonitorResponse from "Common/Types/Probe/ProbeMonitorResponse";
 import DomainMonitorResponse from "Common/Types/Monitor/DomainMonitor/DomainMonitorResponse";
@@ -33,7 +33,7 @@ const DomainMonitorView: FunctionComponent<ComponentProps> = (
     }
     try {
       const date: Date = new Date(dateStr);
-      return OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(date);
+      return OperationsDate.getDateAsUserFriendlyLocalFormattedString(date);
     } catch {
       return dateStr;
     }
@@ -73,7 +73,7 @@ const DomainMonitorView: FunctionComponent<ComponentProps> = (
           title="Monitored At"
           value={
             props.probeMonitorResponse?.monitoredAt
-              ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+              ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                   props.probeMonitorResponse.monitoredAt,
                 )
               : "-"

@@ -50,7 +50,7 @@ ServiceNow का Table API **Basic auth** accept करता है।
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
-       "correlation_id": "oneuptime-{{Incident._id}}"
+       "correlation_id": "cast-operations-{{Incident._id}}"
      }
      ```
 
@@ -61,7 +61,7 @@ ServiceNow का Table API **Basic auth** accept करता है।
 ## चरण 3 — Cast Operations resolve पर resolve करें (वैकल्पिक)
 
 1. **Incident → On Update** trigger और एक **Conditions** ब्लॉक के साथ एक **दूसरा** वर्कफ़्लो बनाएँ जो जाँचे कि incident resolved है।
-2. सही ServiceNow record update करने के लिए आपको उसका `sys_id` चाहिए। या तो चरण 2 में Cast Operations incident पर store करें (`{{CreateRecord.response-body.result.sys_id}}` पढ़ें और **Update Incident** के साथ label में लिखें), या `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}` पर `GET` से पहले record खोजें।
+2. सही ServiceNow record update करने के लिए आपको उसका `sys_id` चाहिए। या तो चरण 2 में Cast Operations incident पर store करें (`{{CreateRecord.response-body.result.sys_id}}` पढ़ें और **Update Incident** के साथ label में लिखें), या `/api/now/table/incident?sysparm_query=correlation_id=cast-operations-{{Incident._id}}` पर `GET` से पहले record खोजें।
 3. एक **API** ब्लॉक जोड़ें: **Method** `PATCH`, **URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`, body `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }` (`state` `6` = default ITIL workflow में Resolved)।
 
 ## समस्या निवारण

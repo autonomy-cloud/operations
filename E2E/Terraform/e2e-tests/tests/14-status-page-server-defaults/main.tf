@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
@@ -11,8 +11,8 @@ terraform {
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -34,7 +34,7 @@ resource "random_id" "suffix" {
 # 2. Verify no "inconsistent result" error occurs
 # 3. Verify server provides default values for the field
 
-resource "oneuptime_status_page" "test_server_defaults" {
+resource "cast_operations_status_page" "test_server_defaults" {
   name                     = "TF Server Defaults SP ${random_id.suffix.hex}"
   description              = "Tests that server-provided defaults work correctly (Issue #2232)"
   page_title               = "Server Defaults Test"
@@ -51,60 +51,60 @@ resource "oneuptime_status_page" "test_server_defaults" {
 
 # Output the ID to verify creation succeeded
 output "status_page_id" {
-  value       = oneuptime_status_page.test_server_defaults.id
+  value       = cast_operations_status_page.test_server_defaults.id
   description = "ID of the created status page"
 }
 
 # Status page fields for API validation
 output "status_page_name" {
-  value       = oneuptime_status_page.test_server_defaults.name
+  value       = cast_operations_status_page.test_server_defaults.name
   description = "Name of the created status page"
 }
 
 output "status_page_description" {
-  value       = oneuptime_status_page.test_server_defaults.description
+  value       = cast_operations_status_page.test_server_defaults.description
   description = "Description of the created status page"
 }
 
 output "status_page_page_title" {
-  value       = oneuptime_status_page.test_server_defaults.page_title
+  value       = cast_operations_status_page.test_server_defaults.page_title
   description = "Page title of the created status page"
 }
 
 output "status_page_page_description" {
-  value       = oneuptime_status_page.test_server_defaults.page_description
+  value       = cast_operations_status_page.test_server_defaults.page_description
   description = "Page description of the created status page"
 }
 
 output "status_page_is_public_status_page" {
-  value       = oneuptime_status_page.test_server_defaults.is_public_status_page
+  value       = cast_operations_status_page.test_server_defaults.is_public_status_page
   description = "Whether the status page is public"
 }
 
 output "status_page_enable_email_subscribers" {
-  value       = oneuptime_status_page.test_server_defaults.enable_email_subscribers
+  value       = cast_operations_status_page.test_server_defaults.enable_email_subscribers
   description = "Whether email subscribers are enabled"
 }
 
 output "status_page_enable_sms_subscribers" {
-  value       = oneuptime_status_page.test_server_defaults.enable_sms_subscribers
+  value       = cast_operations_status_page.test_server_defaults.enable_sms_subscribers
   description = "Whether SMS subscribers are enabled"
 }
 
 # Output the server-provided downtime_monitor_statuses
 # This should contain the default non-operational monitor statuses
 output "downtime_monitor_statuses" {
-  value       = oneuptime_status_page.test_server_defaults.downtime_monitor_statuses
+  value       = cast_operations_status_page.test_server_defaults.downtime_monitor_statuses
   description = "Server-provided default downtime monitor statuses (should not be empty)"
 }
 
 # Output other server-computed fields to verify they work too
 output "slug" {
-  value       = oneuptime_status_page.test_server_defaults.slug
+  value       = cast_operations_status_page.test_server_defaults.slug
   description = "Server-generated slug"
 }
 
 output "created_at" {
-  value       = oneuptime_status_page.test_server_defaults.created_at
+  value       = cast_operations_status_page.test_server_defaults.created_at
   description = "Server-generated creation timestamp"
 }

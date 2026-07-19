@@ -7,39 +7,39 @@ Cast Operations CLI は、サポートされているすべてのリソースに
 以下のコマンドを実行して、利用可能なすべてのリソースタイプを確認します。
 
 ```bash
-oneuptime resources
+cast-operations resources
 ```
 
 タイプでフィルタリングできます。
 
 ```bash
 # データベースリソースのみ表示
-oneuptime resources --type database
+cast-operations resources --type database
 
 # 分析リソースのみ表示
-oneuptime resources --type analytics
+cast-operations resources --type analytics
 ```
 
 主なリソースには以下が含まれます。
 
 | リソース                               | コマンド                                |
 | -------------------------------------- | --------------------------------------- |
-| インシデント                           | `oneuptime incident`                    |
-| アラート                               | `oneuptime alert`                       |
-| モニター                               | `oneuptime monitor`                     |
-| モニターステータス                     | `oneuptime monitor-status`              |
-| インシデント状態                       | `oneuptime incident-state`              |
-| ステータスページ                       | `oneuptime status-page`                 |
-| オンコールポリシー                     | `oneuptime on-call-policy`              |
-| チーム                                 | `oneuptime team`                        |
-| スケジュールされたメンテナンスイベント | `oneuptime scheduled-maintenance-event` |
+| インシデント                           | `cast-operations incident`                    |
+| アラート                               | `cast-operations alert`                       |
+| モニター                               | `cast-operations monitor`                     |
+| モニターステータス                     | `cast-operations monitor-status`              |
+| インシデント状態                       | `cast-operations incident-state`              |
+| ステータスページ                       | `cast-operations status-page`                 |
+| オンコールポリシー                     | `cast-operations on-call-policy`              |
+| チーム                                 | `cast-operations team`                        |
+| スケジュールされたメンテナンスイベント | `cast-operations scheduled-maintenance-event` |
 
 ## リソースの一覧表示
 
 オプションのフィルタリング、ページネーション、ソートを使用してリソースの一覧を取得します。
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 **オプション:**
@@ -56,19 +56,19 @@ oneuptime <resource> list [options]
 
 ```bash
 # 最新の 10 件のインシデントを一覧表示
-oneuptime incident list
+cast-operations incident list
 
 # 状態 ID でインシデントをフィルター
-oneuptime incident list --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident list --query '{"currentIncidentStateId":"<state-id>"}'
 
 # ページネーションで一覧表示
-oneuptime incident list --limit 20 --skip 40
+cast-operations incident list --limit 20 --skip 40
 
 # 作成日で降順ソート
-oneuptime incident list --sort '{"createdAt":-1}'
+cast-operations incident list --sort '{"createdAt":-1}'
 
 # JSON で出力
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ## リソースの取得
@@ -76,7 +76,7 @@ oneuptime incident list -o json
 ID で単一のリソースを取得します。
 
 ```bash
-oneuptime <resource> get <id>
+cast-operations <resource> get <id>
 ```
 
 **引数:**
@@ -89,10 +89,10 @@ oneuptime <resource> get <id>
 
 ```bash
 # 特定のインシデントを取得
-oneuptime incident get 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident get 550e8400-e29b-41d4-a716-446655440000
 
 # モニターを JSON で取得
-oneuptime monitor get abc-123 -o json
+cast-operations monitor get abc-123 -o json
 ```
 
 ## リソースの作成
@@ -100,7 +100,7 @@ oneuptime monitor get abc-123 -o json
 インライン JSON またはファイルから新しいリソースを作成します。
 
 ```bash
-oneuptime <resource> create [options]
+cast-operations <resource> create [options]
 ```
 
 **オプション:**
@@ -117,13 +117,13 @@ oneuptime <resource> create [options]
 
 ```bash
 # インライン JSON でインシデントを作成
-oneuptime incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
+cast-operations incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
 
 # JSON ファイルから作成
-oneuptime incident create --file incident.json
+cast-operations incident create --file incident.json
 
 # JSON で出力して ID を取得
-oneuptime monitor create --data '{"name":"API Health Check"}' -o json
+cast-operations monitor create --data '{"name":"API Health Check"}' -o json
 ```
 
 ## リソースの更新
@@ -131,7 +131,7 @@ oneuptime monitor create --data '{"name":"API Health Check"}' -o json
 ID で既存のリソースを更新します。
 
 ```bash
-oneuptime <resource> update <id> [options]
+cast-operations <resource> update <id> [options]
 ```
 
 **引数:**
@@ -151,10 +151,10 @@ oneuptime <resource> update <id> [options]
 
 ```bash
 # インシデント状態を変更（例: 解決済みに）
-oneuptime incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
+cast-operations incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
 
 # モニターの名前を変更
-oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
+cast-operations monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 ```
 
 ## リソースの削除
@@ -162,7 +162,7 @@ oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 ID でリソースを削除します。
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 **引数:**
@@ -180,11 +180,11 @@ oneuptime <resource> delete <id> [--force]
 **例:**
 
 ```bash
-oneuptime incident delete abc-123
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident delete abc-123
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000
 
 # 確認をスキップ
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 ```
 
 ## リソースのカウント
@@ -192,7 +192,7 @@ oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 オプションのフィルター条件に一致するリソースをカウントします。
 
 ```bash
-oneuptime <resource> count [options]
+cast-operations <resource> count [options]
 ```
 
 **オプション:**
@@ -205,13 +205,13 @@ oneuptime <resource> count [options]
 
 ```bash
 # すべてのインシデントをカウント
-oneuptime incident count
+cast-operations incident count
 
 # 状態別にインシデントをカウント
-oneuptime incident count --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident count --query '{"currentIncidentStateId":"<state-id>"}'
 
 # モニターをカウント
-oneuptime monitor count
+cast-operations monitor count
 ```
 
 ## 分析リソース
@@ -227,4 +227,4 @@ oneuptime monitor count
 | `update` | いいえ   |
 | `delete` | いいえ   |
 
-インスタンスで利用可能な分析リソースを確認するには、`oneuptime resources --type analytics` を使用します。
+インスタンスで利用可能な分析リソースを確認するには、`cast-operations resources --type analytics` を使用します。

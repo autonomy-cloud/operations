@@ -6,7 +6,7 @@ import {
 import { ResourceEntityRef } from "Common/Server/Utils/Telemetry/TelemetryEntity";
 import EventLoop from "Common/Server/Utils/EventLoop";
 import OtelPayloadDecoder from "../Utils/OtelPayloadDecoder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadRequestException from "Common/Types/Exception/BadRequestException";
 import Text from "Common/Types/Text";
 import {
@@ -265,7 +265,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
       /*
        * Docker inventory buffer keyed by docker host ID. Populated only
        * when a log record carries the Docker agent's snapshot envelope
-       * attribute (oneuptime.docker.kind).
+       * attribute (cast-operations.docker.kind).
        */
       const dockerInventoryBuffer: Map<
         string,
@@ -275,7 +275,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
       /*
        * Podman inventory buffer keyed by podman host ID. Populated only
        * when a log record carries the Podman agent's snapshot envelope
-       * attribute (oneuptime.podman.kind).
+       * attribute (cast-operations.podman.kind).
        */
       const podmanInventoryBuffer: Map<
         string,
@@ -285,7 +285,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
       /*
        * Docker Swarm inventory buffer keyed by swarm cluster ID.
        * Populated only when a log record carries the Docker Swarm
-       * agent's snapshot envelope attribute (oneuptime.dockerswarm.kind).
+       * agent's snapshot envelope attribute (cast-operations.dockerswarm.kind).
        */
       const dockerSwarmInventoryBuffer: Map<
         string,
@@ -379,7 +379,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
           /*
            * Docker Swarm inventory eligibility — the agent's inventory
            * poller tags each JSON-line log record with
-           * `oneuptime.dockerswarm.kind`. Per-record check happens in the
+           * `cast-operations.dockerswarm.kind`. Per-record check happens in the
            * loop below; zero cost on non-inventory batches.
            */
           const isDockerSwarmInventoryEligible: boolean =
@@ -581,8 +581,8 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
                     serviceDictionary[serviceName]!.primaryEntityId!;
 
                   let timeUnixNanoNumeric: number =
-                    OneUptimeDate.getCurrentDateAsUnixNano();
-                  let timeDate: Date = OneUptimeDate.getCurrentDate();
+                    OperationsDate.getCurrentDateAsUnixNano();
+                  let timeDate: Date = OperationsDate.getCurrentDate();
 
                   if (log["timeUnixNano"]) {
                     try {
@@ -597,23 +597,23 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
                       } else {
                         timeUnixNano =
                           (log["timeUnixNano"] as number) ||
-                          OneUptimeDate.getCurrentDateAsUnixNano();
+                          OperationsDate.getCurrentDateAsUnixNano();
                       }
 
                       timeUnixNanoNumeric = timeUnixNano;
-                      timeDate = OneUptimeDate.fromUnixNano(timeUnixNano);
+                      timeDate = OperationsDate.fromUnixNano(timeUnixNano);
                     } catch (timeError) {
                       logger.warn(
                         `Error processing timestamp ${log["timeUnixNano"]}: ${timeError instanceof Error ? timeError.message : String(timeError)}, using current time`,
                       );
                       timeUnixNanoNumeric =
-                        OneUptimeDate.getCurrentDateAsUnixNano();
-                      timeDate = OneUptimeDate.getCurrentDate();
+                        OperationsDate.getCurrentDateAsUnixNano();
+                      timeDate = OperationsDate.getCurrentDate();
                     }
                   } else {
                     timeUnixNanoNumeric =
-                      OneUptimeDate.getCurrentDateAsUnixNano();
-                    timeDate = OneUptimeDate.getCurrentDate();
+                      OperationsDate.getCurrentDateAsUnixNano();
+                    timeDate = OperationsDate.getCurrentDate();
                   }
 
                   let logSeverityNumber: number =
@@ -712,7 +712,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
                   /*
                    * Docker inventory hook: the agent's snapshot script
                    * emits each container/image/network/volume as a JSON
-                   * envelope tagged with `oneuptime.docker.kind`. We
+                   * envelope tagged with `cast-operations.docker.kind`. We
                    * route these into the DockerResource inventory table
                    * exactly like the K8s flow above.
                    */
@@ -751,7 +751,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
                   /*
                    * Podman inventory hook: the agent's snapshot script
                    * emits each container/image/network/volume as a JSON
-                   * envelope tagged with `oneuptime.podman.kind`. We
+                   * envelope tagged with `cast-operations.podman.kind`. We
                    * route these into the PodmanResource inventory table
                    * exactly like the K8s flow above.
                    */
@@ -792,7 +792,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
                    * poller (running on a manager node) emits each node /
                    * service / task / stack / network / secret / config /
                    * volume as a JSON envelope tagged with
-                   * `oneuptime.dockerswarm.kind`. Route these into the
+                   * `cast-operations.dockerswarm.kind`. Route these into the
                    * DockerSwarmResource inventory table.
                    */
                   if (
@@ -872,11 +872,11 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
 
                   const logFlags: number = (log["flags"] as number) || 0;
 
-                  const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+                  const ingestionDate: Date = OperationsDate.getCurrentDate();
                   const ingestionTimestamp: string =
-                    OneUptimeDate.toClickhouseDateTime(ingestionDate);
+                    OperationsDate.toClickhouseDateTime(ingestionDate);
                   const logTimestamp: string =
-                    OneUptimeDate.toClickhouseDateTime64(
+                    OperationsDate.toClickhouseDateTime64(
                       timeDate,
                       timeUnixNanoNumeric,
                     );
@@ -895,7 +895,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
                         serviceMetadata.projectRetentionInDays,
                     },
                   );
-                  const retentionDate: Date = OneUptimeDate.addRemoveDays(
+                  const retentionDate: Date = OperationsDate.addRemoveDays(
                     ingestionDate,
                     retentionDays,
                   );
@@ -922,7 +922,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
                     droppedAttributesCount: droppedAttributesCount,
                     flags: logFlags,
                     retentionDate:
-                      OneUptimeDate.toClickhouseDateTime(retentionDate),
+                      OperationsDate.toClickhouseDateTime(retentionDate),
                   };
 
                   // Drop filter check (before pipeline processing)
@@ -1297,8 +1297,8 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
     const environment: string =
       (finalAttributes["resource.deployment.environment"] as string) || "";
 
-    const ingestionTimestamp: string = OneUptimeDate.toClickhouseDateTime(
-      OneUptimeDate.getCurrentDate(),
+    const ingestionTimestamp: string = OperationsDate.toClickhouseDateTime(
+      OperationsDate.getCurrentDate(),
     );
     const exceptionAttributes: JSONObject = {
       "exception.source": "log",
@@ -1313,7 +1313,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
       primaryEntityType: data.serviceMetadata.primaryEntityType,
       entityKeys: data.serviceMetadata.entityKeys || [],
       ...getScalarEntityKeyColumns(data.serviceMetadata),
-      time: OneUptimeDate.toClickhouseDateTime(data.timeDate),
+      time: OperationsDate.toClickhouseDateTime(data.timeDate),
       timeUnixNano: Math.trunc(data.timeUnixNano).toString(),
       exceptionType: extracted.exceptionType || "",
       stackTrace: extracted.stackTrace || "",
@@ -1329,7 +1329,7 @@ export default class OtelLogsIngestService extends OtelIngestBaseService {
       parsedFrames: extracted.parsedFrames || "[]",
       attributes: exceptionAttributes,
       attributeKeys: TelemetryUtil.getAttributeKeys(exceptionAttributes),
-      retentionDate: OneUptimeDate.toClickhouseDateTime(data.retentionDate),
+      retentionDate: OperationsDate.toClickhouseDateTime(data.retentionDate),
     });
 
     data.pendingExceptionUpserts.push({

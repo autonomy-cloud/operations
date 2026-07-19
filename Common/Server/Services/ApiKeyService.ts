@@ -3,7 +3,7 @@ import DeleteBy from "../Types/Database/DeleteBy";
 import UpdateBy from "../Types/Database/UpdateBy";
 import { OnCreate, OnDelete, OnUpdate } from "../Types/Database/Hooks";
 import DatabaseService from "./DatabaseService";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import ObjectID from "../../Types/ObjectID";
 import QueryHelper from "../Types/Database/QueryHelper";
 import Model from "../../Models/DatabaseModels/ApiKey";
@@ -94,7 +94,7 @@ export class Service extends DatabaseService<Model> {
     const row: Model | null = await this.findOneBy({
       query: {
         apiKey: apiKey,
-        expiresAt: QueryHelper.greaterThan(OneUptimeDate.getCurrentDate()),
+        expiresAt: QueryHelper.greaterThan(OperationsDate.getCurrentDate()),
       },
       select: {
         _id: true,

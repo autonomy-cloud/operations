@@ -13,7 +13,7 @@ import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
 import { Gray500, Green, Yellow } from "Common/Types/BrandColors";
 import Color from "Common/Types/Color";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -100,7 +100,7 @@ export const getScheduledEventEventItem: GetScheduledEventEventItemFunction = (
         a: ScheduledMaintenancePublicNote,
         b: ScheduledMaintenancePublicNote,
       ) => {
-        return OneUptimeDate.isAfter(a.postedAt!, b.postedAt!) === false
+        return OperationsDate.isAfter(a.postedAt!, b.postedAt!) === false
           ? 1
           : -1;
       },
@@ -113,7 +113,7 @@ export const getScheduledEventEventItem: GetScheduledEventEventItemFunction = (
       ) => {
         const aDate: Date = a.startsAt || a.createdAt!;
         const bDate: Date = b.startsAt || b.createdAt!;
-        return OneUptimeDate.isAfter(aDate, bDate) === false ? 1 : -1;
+        return OperationsDate.isAfter(aDate, bDate) === false ? 1 : -1;
       },
     );
   }
@@ -230,7 +230,7 @@ export const getScheduledEventEventItem: GetScheduledEventEventItemFunction = (
   }
 
   timeline.sort((a: TimelineItem, b: TimelineItem) => {
-    return OneUptimeDate.isAfter(a.date, b.date) === true ? 1 : -1;
+    return OperationsDate.isAfter(a.date, b.date) === true ? 1 : -1;
   });
 
   let namesOfResources: Array<StatusPageResource> = [];
@@ -307,7 +307,7 @@ export const getScheduledEventEventItem: GetScheduledEventEventItemFunction = (
     eventTypeColor: Yellow,
     eventSecondDescription: scheduledMaintenance.startsAt
       ? i18n.t("scheduledEvents.scheduledAt") +
-        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
           scheduledMaintenance.startsAt!,
         )
       : "",

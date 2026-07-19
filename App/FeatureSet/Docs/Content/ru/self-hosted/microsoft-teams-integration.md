@@ -14,7 +14,7 @@
 1. Перейдите на [портал Azure](https://portal.azure.com)
 2. Откройте «Регистрации приложений» и нажмите «Новая регистрация»
 3. Заполните форму регистрации:
-   - **Имя:** oneuptime
+   - **Имя:** cast-operations
    - **Поддерживаемые типы учётных записей:** Учётные записи в любом каталоге организации (Any Microsoft Entra ID tenant - Multitenant)
    - **URI перенаправления:** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
    - Также добавьте: `https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -61,7 +61,7 @@
 1. На портале Azure откройте «Azure Bot» и нажмите «Создать»
 2. Заполните форму создания бота:
 
-   - **Bot handle:** oneuptime-bot
+   - **Bot handle:** cast-operations-bot
    - **Подписка:** ваша подписка Azure
    - **Группа ресурсов:** создайте новую или используйте существующую
    - **Расположение:** выберите ближайшее к пользователям

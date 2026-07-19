@@ -1,5 +1,5 @@
 import RunCron from "../../Utils/Cron";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Recurring from "Common/Types/Events/Recurring";
 import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import StatusPageService from "Common/Server/Services/StatusPageService";
@@ -20,7 +20,7 @@ RunCron(
         query: {
           isReportEnabled: true,
           sendNextReportBy: QueryHelper.lessThan(
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           ),
         },
         props: {

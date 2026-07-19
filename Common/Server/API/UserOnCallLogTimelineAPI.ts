@@ -7,7 +7,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import BaseAPI from "./BaseAPI";
@@ -15,7 +15,7 @@ import { AppApiRoute, DashboardRoute } from "../../ServiceRoute";
 import Hostname from "../../Types/API/Hostname";
 import Protocol from "../../Types/API/Protocol";
 import URL from "../../Types/API/URL";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import { JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
@@ -37,7 +37,7 @@ export default class UserNotificationLogTimelineAPI extends BaseAPI<
       NotificationMiddleware.isValidCallNotificationRequest,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           if (!req.params["itemId"]) {
             return Response.sendErrorResponse(
@@ -80,7 +80,7 @@ export default class UserNotificationLogTimelineAPI extends BaseAPI<
             await this.service.updateOneById({
               id: itemId,
               data: {
-                acknowledgedAt: OneUptimeDate.getCurrentDate(),
+                acknowledgedAt: OperationsDate.getCurrentDate(),
                 isAcknowledged: true,
                 status: UserNotificationStatus.Acknowledged,
                 statusMessage: "Notification Acknowledged",
@@ -109,7 +109,7 @@ export default class UserNotificationLogTimelineAPI extends BaseAPI<
         ?.toString()}/acknowledge-page/:itemId`,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           if (!req.params["itemId"]) {
             return Response.sendErrorResponse(
@@ -209,7 +209,7 @@ export default class UserNotificationLogTimelineAPI extends BaseAPI<
         ?.toString()}/acknowledge/:itemId`,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          req = req as OneUptimeRequest;
+          req = req as OperationsRequest;
 
           if (!req.params["itemId"]) {
             return Response.sendErrorResponse(
@@ -339,7 +339,7 @@ export default class UserNotificationLogTimelineAPI extends BaseAPI<
           await this.service.updateOneById({
             id: itemId,
             data: {
-              acknowledgedAt: OneUptimeDate.getCurrentDate(),
+              acknowledgedAt: OperationsDate.getCurrentDate(),
               isAcknowledged: true,
               status: UserNotificationStatus.Acknowledged,
               statusMessage: "Notification Acknowledged",

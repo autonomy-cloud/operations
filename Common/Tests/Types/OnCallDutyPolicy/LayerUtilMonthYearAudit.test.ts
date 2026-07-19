@@ -3,7 +3,7 @@ import RestrictionTimes from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import CalendarEvent from "../../../Types/Calendar/CalendarEvent";
 import { describe, expect, test } from "@jest/globals";
@@ -61,8 +61,8 @@ function coveringEvent(
 ): CalendarEvent | null {
   for (const event of events) {
     if (
-      OneUptimeDate.isOnOrBefore(event.start, at) &&
-      OneUptimeDate.isOnOrAfter(event.end, at)
+      OperationsDate.isOnOrBefore(event.start, at) &&
+      OperationsDate.isOnOrAfter(event.end, at)
     ) {
       return event;
     }

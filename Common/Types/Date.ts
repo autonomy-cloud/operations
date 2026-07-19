@@ -9,7 +9,7 @@ import Zod, { ZodSchema } from "../Utils/Schema/Zod";
 
 export const Moment: typeof moment = moment;
 
-export default class OneUptimeDate {
+export default class OperationsDate {
   // get date time from unix timestamp
 
   private static padDatePart(value: number): string {
@@ -729,7 +729,7 @@ export default class OneUptimeDate {
 
   public static fromJSON(json: JSONObject): Date {
     if (json["_type"] === ObjectType.DateTime) {
-      return OneUptimeDate.fromString(json["value"] as string);
+      return OperationsDate.fromString(json["value"] as string);
     }
 
     throw new BadDataException("Invalid JSON: " + JSON.stringify(json));
@@ -738,7 +738,7 @@ export default class OneUptimeDate {
   public static toJSON(date: Date): JSONObject {
     return {
       _type: ObjectType.DateTime,
-      value: OneUptimeDate.toString(date),
+      value: OperationsDate.toString(date),
     };
   }
 
@@ -1471,18 +1471,18 @@ export default class OneUptimeDate {
 
     const microseconds: number = nanoseconds / 1000;
     if (microseconds < 1000) {
-      return sign + OneUptimeDate.formatDurationValue(microseconds) + " μs";
+      return sign + OperationsDate.formatDurationValue(microseconds) + " μs";
     }
 
     const milliseconds: number = nanoseconds / 1000000;
     if (milliseconds < 1000) {
-      return sign + OneUptimeDate.formatDurationValue(milliseconds) + " ms";
+      return sign + OperationsDate.formatDurationValue(milliseconds) + " ms";
     }
 
     const seconds: number = nanoseconds / 1000000000;
 
     if (seconds < 60) {
-      return sign + OneUptimeDate.formatDurationValue(seconds) + " s";
+      return sign + OperationsDate.formatDurationValue(seconds) + " s";
     }
 
     const units: Array<{ label: string; seconds: number }> = [
@@ -1517,21 +1517,21 @@ export default class OneUptimeDate {
 
     if (leftoverSeconds > 0) {
       if (parts.length === 0) {
-        parts.push(`${OneUptimeDate.formatDurationValue(leftoverSeconds)}s`);
+        parts.push(`${OperationsDate.formatDurationValue(leftoverSeconds)}s`);
       } else if (parts[parts.length - 1]?.endsWith("s")) {
         const numericValue: number = parseFloat(
           parts[parts.length - 1]!.slice(0, -1),
         );
         const updatedSeconds: number = numericValue + leftoverSeconds;
         parts[parts.length - 1] =
-          `${OneUptimeDate.formatDurationValue(updatedSeconds)}s`;
+          `${OperationsDate.formatDurationValue(updatedSeconds)}s`;
       } else if (parts.length < maxParts) {
-        parts.push(`${OneUptimeDate.formatDurationValue(leftoverSeconds)}s`);
+        parts.push(`${OperationsDate.formatDurationValue(leftoverSeconds)}s`);
       }
     }
 
     if (parts.length === 0) {
-      return sign + OneUptimeDate.formatDurationValue(seconds) + " s";
+      return sign + OperationsDate.formatDurationValue(seconds) + " s";
     }
 
     const trimmedParts: string[] = parts.slice(0, maxParts);
@@ -1821,8 +1821,8 @@ export default class OneUptimeDate {
     date = this.fromString(date);
     const formattedDate: Date = moment(date).toDate();
     return new InBetween(
-      OneUptimeDate.getStartOfDay(formattedDate),
-      OneUptimeDate.getEndOfDay(formattedDate),
+      OperationsDate.getStartOfDay(formattedDate),
+      OperationsDate.getEndOfDay(formattedDate),
     );
   }
 
@@ -1850,7 +1850,7 @@ export default class OneUptimeDate {
       throw new BadDataException("Invalid seconds");
     }
 
-    const date: Date = OneUptimeDate.getCurrentDate();
+    const date: Date = OperationsDate.getCurrentDate();
 
     date.setHours(hour);
     date.setMinutes(minutes);

@@ -18,7 +18,7 @@ Add to `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp",
       "headers": {
@@ -32,7 +32,7 @@ Add to `claude_desktop_config.json`:
 ### Claude Code
 
 ```bash
-claude mcp add --transport http oneuptime https://visca.ai/mcp \
+claude mcp add --transport http cast-operations https://visca.ai/mcp \
   --header "x-api-key: your-api-key-here"
 ```
 
@@ -43,18 +43,18 @@ claude mcp add --transport http oneuptime https://visca.ai/mcp \
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://visca.ai/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -69,7 +69,7 @@ claude mcp add --transport http oneuptime https://visca.ai/mcp \
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "url": "https://visca.ai/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
@@ -87,7 +87,7 @@ Create a **project API key** in Cast Operations under **Project Settings → API
 
 > **Warning — never give an AI agent a master key.** A Cast Operations *master* API key is also accepted on this header and grants instance-wide admin access. Always use a project-scoped API key with least privilege for AI agents.
 
-Public status page tools and `oneuptime_help` / `oneuptime_list_resources` work without any API key.
+Public status page tools and `cast_operations_help` / `cast_operations_list_resources` work without any API key.
 
 ## Tool catalog
 
@@ -109,11 +109,11 @@ Purpose-built shortcuts for incident/alert response (`App/FeatureSet/MCP/Tools/W
 - `acknowledge_alert`, `resolve_alert`
 - `add_incident_note` (with `visibility: "internal" | "public"` — public notes post to the status page)
 - `add_alert_note`
-- `oneuptime_whoami` — returns the project (ID and name) the API key belongs to
+- `cast_operations_whoami` — returns the project (ID and name) the API key belongs to
 
 ### Helper and public tools
 
-- `oneuptime_help`, `oneuptime_list_resources`
+- `cast_operations_help`, `cast_operations_list_resources`
 - No API key needed: `get_public_status_page_overview`, `get_public_status_page_incidents`, `get_public_status_page_scheduled_maintenance`, `get_public_status_page_announcements`
 
 ### Annotations and results
@@ -168,7 +168,7 @@ Values are `"ASC"` or `"DESC"`.
 
 A typical incident-response loop an agent can run:
 
-1. `oneuptime_whoami` — confirm which project the key belongs to.
+1. `cast_operations_whoami` — confirm which project the key belongs to.
 2. `list_incidents` with `{"sort": {"createdAt": "DESC"}, "limit": 5}` — find the active incident.
 3. `acknowledge_incident` — take ownership.
 4. `list_logs` with a time-range filter (`{"time": {"_type": "GreaterThan", "value": "..."}}`) and `list_exception_instances` — investigate.

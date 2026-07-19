@@ -5,7 +5,7 @@ import NetworkDeviceHydrationUtil from "Common/Server/Utils/Monitor/NetworkDevic
 import BaseModel from "Common/Models/DatabaseModels/DatabaseBaseModel/DatabaseBaseModel";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
@@ -43,7 +43,7 @@ const getMonitorFetchQuery: GetMonitorFetchQueryFunction = (
     probeId: probeId,
     isEnabled: true,
     nextPingAt: QueryHelper.lessThanEqualToOrNull(
-      OneUptimeDate.getCurrentDate(),
+      OperationsDate.getCurrentDate(),
     ),
     monitor: {
       ...MonitorService.getEnabledMonitorQuery(),
@@ -79,8 +79,8 @@ router.get(
           query: {
             ...getMonitorFetchQuery(new ObjectID(req.params["probeId"])),
             nextPingAt: QueryHelper.lessThanEqualToOrNull(
-              OneUptimeDate.addRemoveMinutes(
-                OneUptimeDate.getCurrentDate(),
+              OperationsDate.addRemoveMinutes(
+                OperationsDate.getCurrentDate(),
                 -3,
               ),
             ),
@@ -149,8 +149,8 @@ router.get(
             },
             incomingRequestMonitorHeartbeatCheckedAt:
               QueryHelper.lessThanEqualToOrNull(
-                OneUptimeDate.addRemoveMinutes(
-                  OneUptimeDate.getCurrentDate(),
+                OperationsDate.addRemoveMinutes(
+                  OperationsDate.getCurrentDate(),
                   -2,
                 ),
               ),
@@ -170,8 +170,8 @@ router.get(
             },
             incomingRequestMonitorHeartbeatCheckedAt:
               QueryHelper.lessThanEqualToOrNull(
-                OneUptimeDate.addRemoveMinutes(
-                  OneUptimeDate.getCurrentDate(),
+                OperationsDate.addRemoveMinutes(
+                  OperationsDate.getCurrentDate(),
                   -2,
                 ),
               ),
@@ -197,7 +197,7 @@ router.get(
           firstMonitorToBeFetched?.incomingRequestMonitorHeartbeatCheckedAt,
         friendlyIncomingRequestMonitorHeartbeatCheckedAt:
           firstMonitorToBeFetched?.incomingRequestMonitorHeartbeatCheckedAt
-            ? OneUptimeDate.getDateAsFormattedStringInMultipleTimezones({
+            ? OperationsDate.getDateAsFormattedStringInMultipleTimezones({
                 date: firstMonitorToBeFetched?.incomingRequestMonitorHeartbeatCheckedAt,
               })
             : "",
@@ -241,8 +241,8 @@ router.get(
           query: {
             ...getMonitorFetchQuery(new ObjectID(req.params["probeId"])),
             nextPingAt: QueryHelper.lessThanEqualToOrNull(
-              OneUptimeDate.addRemoveMinutes(
-                OneUptimeDate.getCurrentDate(),
+              OperationsDate.addRemoveMinutes(
+                OperationsDate.getCurrentDate(),
                 -3,
               ),
             ),
@@ -266,7 +266,7 @@ router.get(
         count: monitorProbesCount.toNumber(),
         nextPingAt: firstMonitorToBeFetched?.nextPingAt,
         friendlyNextPingAt: firstMonitorToBeFetched?.nextPingAt
-          ? OneUptimeDate.getDateAsFormattedStringInMultipleTimezones({
+          ? OperationsDate.getDateAsFormattedStringInMultipleTimezones({
               date: firstMonitorToBeFetched?.nextPingAt,
             })
           : "",

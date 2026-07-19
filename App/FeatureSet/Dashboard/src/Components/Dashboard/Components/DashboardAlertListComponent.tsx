@@ -18,7 +18,7 @@ import Alert from "Common/Models/DatabaseModels/Alert";
 import API from "Common/UI/Utils/API/API";
 import IconProp from "Common/Types/Icon/IconProp";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Query from "Common/Types/BaseDatabase/Query";
 import Includes from "Common/Types/BaseDatabase/Includes";
 import JSONFunctions from "Common/Types/JSONFunctions";
@@ -211,7 +211,7 @@ const DashboardAlertListComponentElement: FunctionComponent<ComponentProps> = (
       | Color
       | undefined;
     const created: Date | undefined = alert.createdAt
-      ? OneUptimeDate.fromString(alert.createdAt as unknown as string)
+      ? OperationsDate.fromString(alert.createdAt as unknown as string)
       : undefined;
 
     const detailRoute: Route = RouteUtil.populateRouteParams(
@@ -263,7 +263,7 @@ const DashboardAlertListComponentElement: FunctionComponent<ComponentProps> = (
         </td>
         <td className="px-3 py-2 text-xs text-gray-500 tabular-nums">
           {created
-            ? OneUptimeDate.getDateAsLocalFormattedString(created, true)
+            ? OperationsDate.getDateAsLocalFormattedString(created, true)
             : "—"}
         </td>
       </tr>

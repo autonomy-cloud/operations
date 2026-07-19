@@ -52,7 +52,7 @@ export const HOST_INSTALL_METHODS: Array<HostInstallMethodOption> = [
 ];
 
 export function getHostIntroMarkdown(data: {
-  oneuptimeUrl: string;
+  castOperationsUrl: string;
   apiKey: string;
 }): string {
   return `
@@ -135,43 +135,43 @@ processors:
   batch:
 
 exporters:
-  otlphttp/oneuptime:
-    endpoint: ${data.oneuptimeUrl}/otlp
+  otlphttp/cast-operations:
+    endpoint: ${data.castOperationsUrl}/otlp
     headers:
-      x-oneuptime-token: ${data.apiKey}
+      x-cast-operations-token: ${data.apiKey}
 
 service:
   pipelines:
     metrics:
       receivers: [hostmetrics]
       processors: [resourcedetection, batch]
-      exporters: [otlphttp/oneuptime]
+      exporters: [otlphttp/cast-operations]
 \`\`\`
 
 ## Optional — Auto-tag this host with project labels
 
-Any resource attribute prefixed with \`oneuptime.label.\` is promoted to a project Label and attached to the host (and to the telemetry service emitted from this collector). Pattern: \`oneuptime.label.<dimension>=<value>\` becomes a label named \`<dimension>:<value>\`.
+Any resource attribute prefixed with \`cast-operations.label.\` is promoted to a project Label and attached to the host (and to the telemetry service emitted from this collector). Pattern: \`cast-operations.label.<dimension>=<value>\` becomes a label named \`<dimension>:<value>\`.
 
 Add a \`resource\` processor and reference it from the metrics pipeline:
 
 \`\`\`yaml
 processors:
-  resource/oneuptime-labels:
+  resource/cast-operations-labels:
     attributes:
-      - key: oneuptime.label.team
+      - key: cast-operations.label.team
         value: payments
         action: upsert
-      - key: oneuptime.label.env
+      - key: cast-operations.label.env
         value: production
         action: upsert
-      - key: oneuptime.label.region
+      - key: cast-operations.label.region
         value: us-east-1
         action: upsert
 
 service:
   pipelines:
     metrics:
-      processors: [resourcedetection, resource/oneuptime-labels, batch]
+      processors: [resourcedetection, resource/cast-operations-labels, batch]
 \`\`\`
 
 The host above shows up tagged \`team:payments\`, \`env:production\`, and \`region:us-east-1\`. Labels are matched case-insensitively, so an existing manually-created \`Production\` label is reused rather than duplicated. Labels added manually in the Cast Operations UI are never removed by the collector.
@@ -180,7 +180,7 @@ The host above shows up tagged \`team:payments\`, \`env:production\`, and \`regi
 
 export function getHostMethodMarkdown(
   data: {
-    oneuptimeUrl: string;
+    castOperationsUrl: string;
     apiKey: string;
   },
   method: HostInstallMethod,
@@ -418,18 +418,18 @@ presets:
 
 config:
   exporters:
-    otlphttp/oneuptime:
-      endpoint: ${data.oneuptimeUrl}/otlp
+    otlphttp/cast-operations:
+      endpoint: ${data.castOperationsUrl}/otlp
       headers:
-        x-oneuptime-token: ${data.apiKey}
+        x-cast-operations-token: ${data.apiKey}
   service:
     pipelines:
       metrics:
-        exporters: [otlphttp/oneuptime]
+        exporters: [otlphttp/cast-operations]
       logs:
-        exporters: [otlphttp/oneuptime]
+        exporters: [otlphttp/cast-operations]
       traces:
-        exporters: [otlphttp/oneuptime]
+        exporters: [otlphttp/cast-operations]
 EOF
 
 helm upgrade --install otel-collector \\

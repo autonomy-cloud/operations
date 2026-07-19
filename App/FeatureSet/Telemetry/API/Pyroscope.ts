@@ -2,7 +2,7 @@ import TelemetryIngest, {
   TelemetryRequest,
 } from "Common/Server/Middleware/TelemetryIngest";
 import TelemetryIngestionDisabled from "Common/Server/Middleware/TelemetryIngestionDisabled";
-import ProductType from "Common/Types/MeteredPlan/ProductType";
+import ProductType from "Common/Types/Telemetry/ProductType";
 import Express, {
   ExpressRequest,
   ExpressResponse,
@@ -26,7 +26,7 @@ const setProfilesProductType: RequestHandler = (
 };
 
 /*
- * Map Authorization: Bearer <token> to x-oneuptime-token header
+ * Map Authorization: Bearer <token> to x-cast-operations-token header
  * Pyroscope SDKs use authToken which sends Authorization: Bearer
  */
 const mapBearerTokenMiddleware: RequestHandler = (
@@ -34,12 +34,12 @@ const mapBearerTokenMiddleware: RequestHandler = (
   _res: ExpressResponse,
   next: NextFunction,
 ): void => {
-  if (!req.headers["x-oneuptime-token"]) {
+  if (!req.headers["x-cast-operations-token"]) {
     const authHeader: string | undefined = req.headers[
       "authorization"
     ] as string;
     if (authHeader && authHeader.startsWith("Bearer ")) {
-      req.headers["x-oneuptime-token"] = authHeader.substring(7);
+      req.headers["x-cast-operations-token"] = authHeader.substring(7);
     }
   }
   next();

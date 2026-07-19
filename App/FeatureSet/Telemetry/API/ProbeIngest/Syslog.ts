@@ -10,7 +10,7 @@ import BadDataException from "Common/Types/Exception/BadDataException";
 import Dictionary from "Common/Types/Dictionary";
 import { JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
 import LogSeverity from "Common/Types/Log/LogSeverity";
 import SyslogMessage from "Common/Types/Syslog/SyslogMessage";
@@ -217,7 +217,7 @@ async function processSyslogMessages(
         syslogMessage.severity,
       );
 
-      const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+      const ingestionDate: Date = OperationsDate.getCurrentDate();
 
       for (const device of devices) {
         if (!device.id || !device.projectId) {
@@ -257,22 +257,22 @@ async function processSyslogMessages(
           projectRetentionInDays: serviceMetadata.projectRetentionInDays,
         });
 
-        const retentionDate: Date = OneUptimeDate.addRemoveDays(
+        const retentionDate: Date = OperationsDate.addRemoveDays(
           ingestionDate,
           retentionDays,
         );
 
         let logRow: JSONObject = {
           _id: ObjectID.generateTimeOrdered().toString(),
-          createdAt: OneUptimeDate.toClickhouseDateTime(ingestionDate),
+          createdAt: OperationsDate.toClickhouseDateTime(ingestionDate),
           projectId: projectId.toString(),
           primaryEntityId: serviceMetadata.primaryEntityId.toString(),
           primaryEntityType: serviceMetadata.primaryEntityType,
           entityKeys: serviceMetadata.entityKeys || [],
           ...getScalarEntityKeyColumns(serviceMetadata),
-          time: OneUptimeDate.toClickhouseDateTime64(syslogMessage.timestamp),
+          time: OperationsDate.toClickhouseDateTime64(syslogMessage.timestamp),
           timeUnixNano: Math.trunc(
-            OneUptimeDate.toUnixNano(syslogMessage.timestamp),
+            OperationsDate.toUnixNano(syslogMessage.timestamp),
           ).toString(),
           severityNumber: severityInfo.number,
           severityText: severityInfo.text,
@@ -281,7 +281,7 @@ async function processSyslogMessages(
           traceId: "",
           spanId: "",
           body: syslogMessage.message,
-          retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+          retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
         } satisfies JSONObject;
 
         /*
@@ -427,7 +427,7 @@ function deserializeSyslogMessage(raw: JSONObject): SyslogMessage | null {
 
   const receivedAt: Date = parseDateOrDefault(
     raw["receivedAt"],
-    OneUptimeDate.getCurrentDate(),
+    OperationsDate.getCurrentDate(),
   );
 
   const timestamp: Date = parseDateOrDefault(raw["timestamp"], receivedAt);

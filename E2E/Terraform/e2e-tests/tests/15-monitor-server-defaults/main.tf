@@ -1,14 +1,14 @@
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }
 
@@ -27,7 +27,7 @@ provider "oneuptime" {
 # 2. Verify no "inconsistent result" error occurs
 # 3. Verify server can inject defaults into monitor_steps
 
-resource "oneuptime_monitor" "test_server_defaults" {
+resource "cast_operations_monitor" "test_server_defaults" {
   name         = "Monitor Server Defaults Test"
   description  = "Tests that server-provided defaults work correctly (Issue #2226)"
   monitor_type = "Manual"
@@ -40,45 +40,45 @@ resource "oneuptime_monitor" "test_server_defaults" {
 
 # Output the ID to verify creation succeeded
 output "monitor_id" {
-  value       = oneuptime_monitor.test_server_defaults.id
+  value       = cast_operations_monitor.test_server_defaults.id
   description = "ID of the created monitor"
 }
 
 # Monitor fields for API validation
 output "monitor_name" {
-  value       = oneuptime_monitor.test_server_defaults.name
+  value       = cast_operations_monitor.test_server_defaults.name
   description = "Name of the created monitor"
 }
 
 output "monitor_description" {
-  value       = oneuptime_monitor.test_server_defaults.description
+  value       = cast_operations_monitor.test_server_defaults.description
   description = "Description of the created monitor"
 }
 
 output "monitor_monitor_type" {
-  value       = oneuptime_monitor.test_server_defaults.monitor_type
+  value       = cast_operations_monitor.test_server_defaults.monitor_type
   description = "Type of the created monitor"
 }
 
 # Output the server-modified monitor_steps
 # This should contain the server-injected exceptionMonitor defaults
 output "monitor_steps" {
-  value       = oneuptime_monitor.test_server_defaults.monitor_steps
+  value       = cast_operations_monitor.test_server_defaults.monitor_steps
   description = "Server-modified monitor_steps (may contain injected exceptionMonitor)"
 }
 
 # Output other server-computed fields
 output "slug" {
-  value       = oneuptime_monitor.test_server_defaults.slug
+  value       = cast_operations_monitor.test_server_defaults.slug
   description = "Server-generated slug"
 }
 
 output "created_at" {
-  value       = oneuptime_monitor.test_server_defaults.created_at
+  value       = cast_operations_monitor.test_server_defaults.created_at
   description = "Server-generated creation timestamp"
 }
 
 output "current_monitor_status_id" {
-  value       = oneuptime_monitor.test_server_defaults.current_monitor_status_id
+  value       = cast_operations_monitor.test_server_defaults.current_monitor_status_id
   description = "Server-assigned default monitor status"
 }

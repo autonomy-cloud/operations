@@ -7,7 +7,7 @@ CLI Cast Operations поддерживает несколько способов
 Выполните аутентификацию в вашем экземпляре Cast Operations с помощью ключа API:
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **Аргументы:**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Вход с контекстом по умолчанию
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # Вход с именованным контекстом
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # Настройка нескольких сред
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Контексты
@@ -44,7 +44,7 @@ oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
 ### Список контекстов
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 Отображает все настроенные контексты. Текущий контекст отмечен символом `*`.
@@ -52,23 +52,23 @@ oneuptime context list
 ### Переключение контекста
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 Переключается на другой именованный контекст для всех последующих команд.
 
 ```bash
 # Переключение на staging
-oneuptime context use staging
+cast-operations context use staging
 
 # Переключение на production
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### Просмотр текущего контекста
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 Отображает активный контекст, включая URL экземпляра и скрытый ключ API.
@@ -76,7 +76,7 @@ oneuptime context current
 ### Удаление контекста
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 Удаляет именованный контекст. Если удалённый контекст является текущим, CLI автоматически переключается на первый оставшийся контекст.
@@ -86,7 +86,7 @@ oneuptime context delete <name>
 Учётные данные разрешаются в следующем порядке приоритета:
 
 1. **Флаги CLI** (`--api-key` и `--url`)
-2. **Переменные окружения** (`ONEUPTIME_API_KEY` и `ONEUPTIME_URL`)
+2. **Переменные окружения** (`CAST_OPERATIONS_API_KEY` и `CAST_OPERATIONS_URL`)
 3. **Именованный контекст** (через флаг `--context`)
 4. **Текущий контекст** (из сохранённой конфигурации)
 
@@ -95,22 +95,22 @@ oneuptime context delete <name>
 ### Использование флагов CLI
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Использование переменных окружения
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### Использование конкретного контекста
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## Проверка аутентификации
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 Проверьте текущий статус аутентификации:
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Отображает:
@@ -127,11 +127,11 @@ oneuptime whoami
 - Скрытый ключ API
 - Имя текущего контекста (отображается только при активном сохранённом контексте)
 
-Если аутентификация не выполнена, команда выводит полезное сообщение с предложением выполнить `oneuptime login`.
+Если аутентификация не выполнена, команда выводит полезное сообщение с предложением выполнить `cast-operations login`.
 
 ## Файл конфигурации
 
-Учётные данные хранятся в `~/.oneuptime/config.json` с ограниченными правами доступа (`0600`).
+Учётные данные хранятся в `~/.cast-operations/config.json` с ограниченными правами доступа (`0600`).
 
 ```json
 {

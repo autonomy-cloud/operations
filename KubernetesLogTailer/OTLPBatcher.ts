@@ -7,9 +7,9 @@ import {
   CLUSTER_NAME,
   EXPORT_MAX_RETRIES,
   MIN_SEVERITY,
-  ONEUPTIME_API_KEY,
-  ONEUPTIME_LABELS,
-  ONEUPTIME_URL,
+  CAST_OPERATIONS_API_KEY,
+  CAST_OPERATIONS_LABELS,
+  CAST_OPERATIONS_URL,
 } from "./Config";
 import Logger from "./Logger";
 
@@ -174,18 +174,20 @@ const groupByResource: (entries: Array<LogEntry>) => Array<OtlpResourceLogs> = (
         resourceAttrs.push(kv(`k8s.pod.label.${labelKey}`, labelValue));
       }
       /*
-       * Project labels from .Values.oneuptime.labels (helm chart). The
-       * Cast Operations ingest pipeline promotes `oneuptime.label.*` resource
+       * Project labels from .Values.cast-operations.labels (helm chart). The
+       * Cast Operations ingest pipeline promotes `cast-operations.label.*` resource
        * attributes into project Labels on the host/service.
        */
-      for (const [labelKey, labelValue] of Object.entries(ONEUPTIME_LABELS)) {
-        resourceAttrs.push(kv(`oneuptime.label.${labelKey}`, labelValue));
+      for (const [labelKey, labelValue] of Object.entries(
+        CAST_OPERATIONS_LABELS,
+      )) {
+        resourceAttrs.push(kv(`cast-operations.label.${labelKey}`, labelValue));
       }
       group = {
         resource: { attributes: resourceAttrs },
         scopeLogs: [
           {
-            scope: { name: "oneuptime.kubernetes-log-tailer" },
+            scope: { name: "cast-operations.kubernetes-log-tailer" },
             logRecords: [],
           },
         ],
@@ -225,7 +227,7 @@ class OTLPBatcher {
   private readonly transport: typeof http | typeof https;
 
   public constructor() {
-    this.endpoint = new URL(`${ONEUPTIME_URL}/otlp/v1/logs`);
+    this.endpoint = new URL(`${CAST_OPERATIONS_URL}/otlp/v1/logs`);
     this.transport = this.endpoint.protocol === "https:" ? https : http;
   }
 
@@ -358,7 +360,7 @@ class OTLPBatcher {
             headers: {
               "Content-Type": "application/json",
               "Content-Length": body.length,
-              "x-oneuptime-token": ONEUPTIME_API_KEY,
+              "x-cast-operations-token": CAST_OPERATIONS_API_KEY,
             },
             timeout: 30000,
           },

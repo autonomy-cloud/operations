@@ -19,7 +19,7 @@ import HTTPResponse from "Common/Types/API/HTTPResponse";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
 import { Green } from "Common/Types/BrandColors";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -168,8 +168,8 @@ const Overview: FunctionComponent<PageComponentProps> = (
     setScheduledMaintenanceStateTimelines,
   ] = useState<Array<ScheduledMaintenanceStateTimeline>>([]);
   const uptimeHistoryDays: number = statusPage?.showUptimeHistoryInDays || 90;
-  const startDate: Date = OneUptimeDate.getSomeDaysAgo(uptimeHistoryDays);
-  const endDate: Date = OneUptimeDate.getCurrentDate();
+  const startDate: Date = OperationsDate.getSomeDaysAgo(uptimeHistoryDays);
+  const endDate: Date = OperationsDate.getCurrentDate();
   const [currentStatus, setCurrentStatus] = useState<MonitorStatus | null>(
     null,
   );

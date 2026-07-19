@@ -24,7 +24,7 @@ import {
   Indigo500,
 } from "Common/Types/BrandColors";
 import Color from "Common/Types/Color";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { JSONArray, JSONObject } from "Common/Types/JSON";
 import Alert, { AlertType } from "Common/UI/Components/Alerts/Alert";
 import Card from "Common/UI/Components/Card/Card";
@@ -88,7 +88,7 @@ const formatTimestamp: FormatTimestampFunction = (
     return "-";
   }
 
-  return OneUptimeDate.getDateAsLocalFormattedString(date, false);
+  return OperationsDate.getDateAsLocalFormattedString(date, false);
 };
 
 /*
@@ -162,7 +162,7 @@ const toLogEntries: ToLogEntriesFunction = (
       toolName: eventJson["toolName"] as string | undefined,
       message: (resultSummary["message"] as string) || "",
       severity: resultSummary["severity"] as string | undefined,
-      createdAt: createdAt ? OneUptimeDate.fromString(createdAt) : undefined,
+      createdAt: createdAt ? OperationsDate.fromString(createdAt) : undefined,
       durationInMs: resultSummary["durationInMs"] as number | undefined,
       contentPayload: eventJson["contentPayload"] as
         | AIRunEventContentPayload
@@ -192,7 +192,7 @@ const toLlmCallLogs: ToLlmCallLogsFunction = (
       totalTokens: logJson["totalTokens"] as number | undefined,
       completionTokens: logJson["completionTokens"] as number | undefined,
       durationMs: logJson["durationMs"] as number | undefined,
-      startedAt: startedAt ? OneUptimeDate.fromString(startedAt) : undefined,
+      startedAt: startedAt ? OperationsDate.fromString(startedAt) : undefined,
     };
   });
 };

@@ -3,10 +3,8 @@ import SubjectCodeFixRun from "../../../../Server/Utils/AI/SRE/SubjectCodeFixRun
 import AIAgentService from "../../../../Server/Services/AIAgentService";
 import AIService from "../../../../Server/Services/AIService";
 import LlmProviderService from "../../../../Server/Services/LlmProviderService";
-import ProjectService from "../../../../Server/Services/ProjectService";
 import AIAgent from "../../../../Models/DatabaseModels/AIAgent";
 import LlmProvider from "../../../../Models/DatabaseModels/LlmProvider";
-import Project from "../../../../Models/DatabaseModels/Project";
 import ObjectID from "../../../../Types/ObjectID";
 import {
   AIFixReadiness,
@@ -67,120 +65,18 @@ describe("CodeFixReadiness.getLlmProviderCheck", () => {
     expect(check.detail).toContain("LLM Providers");
   });
 
-  test("a project-owned provider is ready and is named as the project's own", async () => {
-    jest
-      .spyOn(LlmProviderService, "getLlmProviderForMeteredAgentPath")
-      .mockResolvedValue(fakeProvider({ name: "My OpenAI" }));
-
-    const check: AIFixReadinessCheck =
-      await CodeFixReadiness.getLlmProviderCheck({
-        projectId,
-        billingEnabled: true,
-      });
-
-    expect(check.ok).toBe(true);
-    expect(check.title).toContain("My OpenAI");
-    expect(check.detail).toContain("this project's own provider");
-  });
-
-  /*
-   * The headline case the old banner got wrong: no project provider, a free
-   * global one, and the project is nonetheless ready.
-   */
-  test("a FREE global provider is ready with no project provider and no balance", async () => {
+  test("a configured shared provider is ready", async () => {
     jest
       .spyOn(LlmProviderService, "getLlmProviderForMeteredAgentPath")
       .mockResolvedValue(
-        fakeProvider({
-          name: "Global LLM Provider",
-          isGlobalLlm: true,
-          costPerMillionTokensInUSDCents: 0,
-        }),
+        fakeProvider({ name: "Shared LLM Provider", isGlobalLlm: true }),
       );
-    const projectSpy: jest.SpiedFunction<typeof ProjectService.findOneById> =
-      jest.spyOn(ProjectService, "findOneById");
 
     const check: AIFixReadinessCheck =
-      await CodeFixReadiness.getLlmProviderCheck({
-        projectId,
-        billingEnabled: true,
-      });
+      await CodeFixReadiness.getLlmProviderCheck({ projectId });
 
     expect(check.ok).toBe(true);
     expect(check.detail).toContain("shared provider");
-    // A free provider bills nothing, so the balance must never be consulted.
-    expect(projectSpy).not.toHaveBeenCalled();
-  });
-
-  test("a costed global provider with billing OFF is ready and skips the balance check", async () => {
-    jest
-      .spyOn(LlmProviderService, "getLlmProviderForMeteredAgentPath")
-      .mockResolvedValue(
-        fakeProvider({
-          name: "Cast Operations AI",
-          isGlobalLlm: true,
-          costPerMillionTokensInUSDCents: 500,
-        }),
-      );
-    const projectSpy: jest.SpiedFunction<typeof ProjectService.findOneById> =
-      jest.spyOn(ProjectService, "findOneById");
-
-    const check: AIFixReadinessCheck =
-      await CodeFixReadiness.getLlmProviderCheck({
-        projectId,
-        billingEnabled: false,
-      });
-
-    expect(check.ok).toBe(true);
-    expect(projectSpy).not.toHaveBeenCalled();
-  });
-
-  test("a costed global provider with billing ON and a funded balance is ready and says it is metered", async () => {
-    jest
-      .spyOn(LlmProviderService, "getLlmProviderForMeteredAgentPath")
-      .mockResolvedValue(
-        fakeProvider({
-          name: "Cast Operations AI",
-          isGlobalLlm: true,
-          costPerMillionTokensInUSDCents: 500,
-        }),
-      );
-    jest.spyOn(ProjectService, "findOneById").mockResolvedValue({
-      aiCurrentBalanceInUSDCents: 2000,
-    } as unknown as Project);
-
-    const check: AIFixReadinessCheck =
-      await CodeFixReadiness.getLlmProviderCheck({
-        projectId,
-        billingEnabled: true,
-      });
-
-    expect(check.ok).toBe(true);
-    expect(check.detail).toContain("AI balance");
-  });
-
-  test("a costed global provider with billing ON and an empty balance is NOT ready", async () => {
-    jest
-      .spyOn(LlmProviderService, "getLlmProviderForMeteredAgentPath")
-      .mockResolvedValue(
-        fakeProvider({
-          name: "Cast Operations AI",
-          isGlobalLlm: true,
-          costPerMillionTokensInUSDCents: 500,
-        }),
-      );
-    jest.spyOn(ProjectService, "findOneById").mockResolvedValue({
-      aiCurrentBalanceInUSDCents: 0,
-    } as unknown as Project);
-
-    const check: AIFixReadinessCheck =
-      await CodeFixReadiness.getLlmProviderCheck({
-        projectId,
-        billingEnabled: true,
-      });
-
-    expect(check.ok).toBe(false);
-    expect(check.detail).toContain("AI Credits");
   });
 });
 
@@ -188,7 +84,7 @@ describe("CodeFixReadiness.getLlmProviderCheck", () => {
  * AI_CODE_FIX_FEATURE is one of AUTONOMOUS_AI_FEATURES, so executeWithLogging
  * runs every fix completion through the daily token budget. Readiness that
  * ignored it would report ready and then die at the run's first completion
- * call — the exact fail-late hole the balance gate exists to close.
+ * call — the provider should be checked before a run starts.
  */
 describe("CodeFixReadiness.getLlmProviderCheck — daily autonomous token budget", () => {
   afterEach(() => {
@@ -208,7 +104,6 @@ describe("CodeFixReadiness.getLlmProviderCheck — daily autonomous token budget
     const check: AIFixReadinessCheck =
       await CodeFixReadiness.getLlmProviderCheck({
         projectId,
-        billingEnabled: false,
       });
 
     expect(check.ok).toBe(false);
@@ -228,7 +123,6 @@ describe("CodeFixReadiness.getLlmProviderCheck — daily autonomous token budget
     const check: AIFixReadinessCheck =
       await CodeFixReadiness.getLlmProviderCheck({
         projectId,
-        billingEnabled: false,
       });
 
     expect(check.ok).toBe(false);
@@ -245,7 +139,6 @@ describe("CodeFixReadiness.getLlmProviderCheck — daily autonomous token budget
     const check: AIFixReadinessCheck =
       await CodeFixReadiness.getLlmProviderCheck({
         projectId,
-        billingEnabled: false,
       });
 
     expect(check.ok).toBe(true);

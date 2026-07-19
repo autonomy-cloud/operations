@@ -26,11 +26,11 @@ func SetDefaultLogger() {
 
 // GetLogPath returns the full path to the log file.
 //
-// Supports an override via ONEUPTIME_AGENT_LOG_PATH. When unset, uses the
-// system log dir and falls back to $HOME/.oneuptime-infrastructure-agent
+// Supports an override via CAST_OPERATIONS_AGENT_LOG_PATH. When unset, uses the
+// system log dir and falls back to $HOME/.cast-operations-infrastructure-agent
 // when that dir is not writable (unprivileged local testing).
 func GetLogPath() string {
-	if override := os.Getenv("ONEUPTIME_AGENT_LOG_PATH"); override != "" {
+	if override := os.Getenv("CAST_OPERATIONS_AGENT_LOG_PATH"); override != "" {
 		return override
 	}
 
@@ -44,29 +44,29 @@ func GetLogPath() string {
 		basePath = "/var/log"
 	}
 
-	logDirectory := filepath.Join(basePath, "oneuptime-infrastructure-agent")
+	logDirectory := filepath.Join(basePath, "cast-operations-infrastructure-agent")
 
 	// If the system dir isn't writable by us (missing or root-owned), fall
 	// back to $HOME so the agent can log while running unprivileged.
 	if err := ensureDir(logDirectory); err != nil || !isDirWritable(logDirectory) {
 		if home, herr := os.UserHomeDir(); herr == nil {
-			logDirectory = filepath.Join(home, ".oneuptime-infrastructure-agent")
+			logDirectory = filepath.Join(home, ".cast-operations-infrastructure-agent")
 			if ferr := ensureDir(logDirectory); ferr != nil {
 				slog.Default().Error("Failed to create log directory, falling back to current directory", "error", ferr)
-				return "oneuptime-infrastructure-agent.log"
+				return "cast-operations-infrastructure-agent.log"
 			}
 		} else {
 			slog.Default().Error("Failed to create log directory, falling back to current directory", "error", err)
-			return "oneuptime-infrastructure-agent.log"
+			return "cast-operations-infrastructure-agent.log"
 		}
 	}
 
-	return filepath.Join(logDirectory, "oneuptime-infrastructure-agent.log")
+	return filepath.Join(logDirectory, "cast-operations-infrastructure-agent.log")
 }
 
 // isDirWritable probes whether the current process can create files in dir.
 func isDirWritable(dir string) bool {
-	probe, err := os.CreateTemp(dir, ".oneuptime-agent-write-check-")
+	probe, err := os.CreateTemp(dir, ".cast-operations-agent-write-check-")
 	if err != nil {
 		return false
 	}

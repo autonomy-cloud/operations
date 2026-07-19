@@ -61,7 +61,7 @@ export class Service extends DatabaseService<Model> {
    * Find existing labels by name (case-insensitive) or auto-create
    * them, returning the ObjectIDs in the same order as the input.
    * Used by the OTel ingest pipeline to promote
-   * `oneuptime.label.<dim>=<val>` resource attributes into project
+   * `cast-operations.label.<dim>=<val>` resource attributes into project
    * labels attached to the discovered host or service.
    *
    * Names are matched case-insensitively, so an OTel attribute of

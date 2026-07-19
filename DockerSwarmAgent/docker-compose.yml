@@ -1,9 +1,9 @@
 services:
   # The collector: docker_stats metrics + container logs + the
   # filelog/inventory receiver that tails the shared snapshot file.
-  oneuptime-docker-swarm-agent:
-    image: oneuptime/docker-swarm-agent:release
-    container_name: oneuptime-docker-swarm-agent
+  cast-operations-docker-swarm-agent:
+    image: cast-operations/docker-swarm-agent:release
+    container_name: cast-operations-docker-swarm-agent
     user: "0:0"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -16,8 +16,8 @@ services:
       # snapshot file the sidecar writes here.
       - swarm-inventory:/var/log
     environment:
-      - ONEUPTIME_URL=${ONEUPTIME_URL}
-      - ONEUPTIME_SERVICE_TOKEN=${ONEUPTIME_SERVICE_TOKEN}
+      - CAST_OPERATIONS_URL=${CAST_OPERATIONS_URL}
+      - CAST_OPERATIONS_SERVICE_TOKEN=${CAST_OPERATIONS_SERVICE_TOKEN}
       - DOCKER_SWARM_CLUSTER_NAME=${DOCKER_SWARM_CLUSTER_NAME:-docker-swarm}
     restart: unless-stopped
     logging:
@@ -29,9 +29,9 @@ services:
   # Inventory poller — MUST run on a manager node (the /nodes, /services,
   # /tasks endpoints are manager-only). Stock alpine + curl + jq; writes
   # the JSON-line snapshot the collector tails on the shared volume.
-  oneuptime-docker-swarm-inventory:
+  cast-operations-docker-swarm-inventory:
     image: alpine:3.20
-    container_name: oneuptime-docker-swarm-inventory
+    container_name: cast-operations-docker-swarm-inventory
     user: "0:0"
     entrypoint:
       - /bin/sh

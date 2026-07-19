@@ -1,7 +1,7 @@
 import CreateBy from "../Types/Database/CreateBy";
 import { OnCreate, OnUpdate } from "../Types/Database/Hooks";
 import DatabaseService from "./DatabaseService";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Model from "../../Models/DatabaseModels/ScheduledMaintenancePublicNote";
 import ScheduledMaintenanceFeedService from "./ScheduledMaintenanceFeedService";
 import ObjectID from "../../Types/ObjectID";
@@ -25,7 +25,7 @@ export class Service extends DatabaseService<Model> {
     createBy: CreateBy<Model>,
   ): Promise<OnCreate<Model>> {
     if (!createBy.data.postedAt) {
-      createBy.data.postedAt = OneUptimeDate.getCurrentDate();
+      createBy.data.postedAt = OperationsDate.getCurrentDate();
     }
 
     // Set notification status based on shouldStatusPageSubscribersBeNotifiedOnNoteCreated
@@ -172,7 +172,7 @@ ${(updatedItem.note || "") + attachmentsMarkdown}
     publicNote.scheduledMaintenanceId = data.scheduledMaintenanceId;
     publicNote.projectId = data.projectId;
     publicNote.note = data.note;
-    publicNote.postedAt = OneUptimeDate.getCurrentDate();
+    publicNote.postedAt = OperationsDate.getCurrentDate();
 
     if (data.postedFromSlackMessageId) {
       publicNote.postedFromSlackMessageId = data.postedFromSlackMessageId;

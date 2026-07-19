@@ -5,7 +5,7 @@ import ServiceService from "./ServiceService";
 import QueryHelper from "../Types/Database/QueryHelper";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import QueryDeepPartialEntity from "../../Types/Database/PartialEntity";
 import { JSONObject } from "../../Types/JSON";
@@ -123,7 +123,7 @@ export class TelemetryEntityService extends DatabaseService<Model> {
     countByType: Map<EntityType, number>;
   }): Promise<void> {
     const { projectId, entity, countByType } = data;
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     const serviceResourceId: ObjectID | null =
       await this.resolveServiceResourceId({ projectId, entity });

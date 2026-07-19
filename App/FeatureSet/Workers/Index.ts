@@ -66,7 +66,6 @@ import "./Jobs/IncidentPublicNote/SendNotificationToSubscribers";
 import "./Jobs/IncidentStateTimeline/SendNotificationToSubscribers";
 import "./Jobs/IncomingRequestMonitor/CheckHeartbeat";
 import "./Jobs/IncomingEmailMonitor/CheckOnlineStatus";
-import "./Jobs/MeteredPlan/ReportTelemetryMeteredPlan";
 
 // Monitor Owners
 import "./Jobs/MonitorOwners/SendCreatedResourceNotification";
@@ -83,9 +82,6 @@ import "./Jobs/NetworkDeviceDiscovery/RequeueRecurringScans";
 import "./Jobs/OnCallDutyPolicyExecutionLog/ExecutePendingExecutions";
 import "./Jobs/OnCallDutyPolicyExecutionLog/TimeoutStuckExecutions";
 // Payments.
-import "./Jobs/PaymentProvider/CheckSubscriptionStatus";
-import "./Jobs/PaymentProvider/PopulatePlanNameInProject";
-import "./Jobs/PaymentProvider/UpdateTeamMembersIfNull";
 import "./Jobs/ScheduledMaintenance/ChangeStateToEnded";
 
 // Scheduled Event

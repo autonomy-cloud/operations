@@ -613,8 +613,6 @@ export const getHttpStatusFromException: (err: Exception) => number = (
       return 400;
     case "NotAuthorizedException":
       return 401;
-    case "PaymentRequiredException":
-      return 402;
     case "NotFoundException":
       return 404;
     case "NotImplementedException":

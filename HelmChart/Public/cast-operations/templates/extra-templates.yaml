@@ -1,0 +1,5 @@
+{{- range $.Values.extraTemplates }}
+---
+{{ include "cast-operations.renderTemplate" (dict "value" . "context" $) }}
+---
+{{- end }}

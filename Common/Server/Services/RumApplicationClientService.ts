@@ -1,7 +1,7 @@
 import DatabaseService from "./DatabaseService";
 import Model from "../../Models/DatabaseModels/RumApplicationClient";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import logger from "../Utils/Logger";
 
@@ -33,7 +33,7 @@ export class Service extends DatabaseService<Model> {
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const fields: any = { lastSeenAt: OneUptimeDate.getCurrentDate() };
+      const fields: any = { lastSeenAt: OperationsDate.getCurrentDate() };
       if (data.clientType) {
         fields.clientType = data.clientType;
       }
@@ -51,7 +51,7 @@ export class Service extends DatabaseService<Model> {
       item.projectId = data.projectId;
       item.rumApplicationId = data.rumApplicationId;
       item.clientName = data.clientName;
-      item.lastSeenAt = OneUptimeDate.getCurrentDate();
+      item.lastSeenAt = OperationsDate.getCurrentDate();
       if (data.clientType) {
         item.clientType = data.clientType;
       }

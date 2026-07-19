@@ -532,7 +532,7 @@ const IncomingCallPolicyOwnerRulesTable: FunctionComponent =
             stepId: "match-criteria",
             fieldType: FormFieldSchemaType.Text,
             required: false,
-            placeholder: "billing|support",
+            placeholder: "payments|support",
           },
           {
             field: { ownerTeams: true },

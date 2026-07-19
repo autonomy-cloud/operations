@@ -27,7 +27,7 @@ const options: ClickHouseClientConfigOptions = {
   username: ClickhouseUsername,
   password: ClickhousePassword,
   database: ClickhouseDatabase,
-  application: "oneuptime",
+  application: "cast-operations",
   /*
    * The default @clickhouse/client request_timeout is 30s which is too
    * short for aggregation queries over wide time ranges on large span /

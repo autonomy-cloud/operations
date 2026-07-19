@@ -6,9 +6,9 @@
 console.log('[ServiceWorker] Cast Operations PWA Service Worker Loaded');
 
 // Cache configuration - Updated dynamically during build
-// Version format: oneuptime-v{APP_VERSION}-{GIT_SHA}
+// Version format: cast-operations-v{APP_VERSION}-{GIT_SHA}
 // This ensures cache invalidation on every deployment
-const CACHE_VERSION = 'oneuptime-v{{APP_VERSION}}-{{GIT_SHA}}'; // Auto-generated version
+const CACHE_VERSION = 'cast-operations-v{{APP_VERSION}}-{{GIT_SHA}}'; // Auto-generated version
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -57,7 +57,7 @@ self.addEventListener('activate', function(event) {
       caches.keys().then(function(cacheNames) {
         return Promise.all(
           cacheNames.map(function(cacheName) {
-            if (cacheName.startsWith('oneuptime-') && 
+            if (cacheName.startsWith('cast-operations-') &&
                 !cacheName.startsWith(CACHE_VERSION)) {
               console.log('[ServiceWorker] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
@@ -249,7 +249,7 @@ self.addEventListener('push', function(event) {
         body: data.body,
         icon: data.icon || '/dashboard/assets/img/favicons/android-chrome-192x192.png',
         badge: data.badge || '/dashboard/assets/img/favicons/favicon-32x32.png',
-        tag: data.tag || 'oneuptime-notification',
+        tag: data.tag || 'cast-operations-notification',
         requireInteraction: data.requireInteraction || false,
         actions: data.actions || [],
         data: data.data || {},
@@ -280,7 +280,7 @@ self.addEventListener('push', function(event) {
         self.registration.showNotification('Cast Operations Notification', {
           body: 'You have a new notification from Cast Operations',
           icon: '/dashboard/assets/img/favicons/android-chrome-192x192.png',
-          tag: 'oneuptime-fallback',
+          tag: 'cast-operations-fallback',
           data: { url: '/dashboard' }
         })
       );
@@ -293,7 +293,7 @@ self.addEventListener('push', function(event) {
       self.registration.showNotification('Cast Operations', {
         body: 'You have a new notification',
         icon: '/dashboard/assets/img/favicons/android-chrome-192x192.png',
-        tag: 'oneuptime-default',
+        tag: 'cast-operations-default',
         data: { url: '/dashboard' }
       })
     );

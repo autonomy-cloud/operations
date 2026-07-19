@@ -47,7 +47,7 @@ Cast Operations 使用 OTLP profiles 通訊協定，同時透過 gRPC 與 HTTP �
 設定以下環境變數，讓您的剖析器指向 Cast Operations：
 
 ```bash
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
@@ -66,15 +66,15 @@ Alloy 設定範例：
 
 ```hcl
 pyroscope.ebpf "default" {
-  forward_to = [pyroscope.write.oneuptime.receiver]
+  forward_to = [pyroscope.write.cast-operations.receiver]
   targets    = discovery.process.all.targets
 }
 
-pyroscope.write "oneuptime" {
+pyroscope.write "cast-operations" {
   endpoint {
     url = "https://visca.ai/pyroscope"
     headers = {
-      "x-oneuptime-token" = "YOUR_ONEUPTIME_SERVICE_TOKEN",
+      "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_SERVICE_TOKEN",
     }
   }
 }
@@ -88,7 +88,7 @@ pyroscope.write "oneuptime" {
 # Start your Java application with the OpenTelemetry Java agent
 java -javaagent:opentelemetry-javaagent.jar \
   -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
-  -Dotel.exporter.otlp.headers=x-oneuptime-token=YOUR_ONEUPTIME_SERVICE_TOKEN \
+  -Dotel.exporter.otlp.headers=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
 ```
@@ -146,7 +146,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_ONEUPTIME_SERVICE_TOKEN"
+      "x-cast-operations-token": "YOUR_CAST_OPERATIONS_SERVICE_TOKEN"
 
 service:
   pipelines:

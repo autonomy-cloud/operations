@@ -46,8 +46,8 @@ curl https://your-operations-instance.com/api/status
 Docker로 Cast Operations을 실행하는 경우:
 
 ```bash
-docker images | grep oneuptime
-# 태그를 찾습니다 (예: oneuptime/dashboard:7.0.123)
+docker images | grep cast-operations
+# 태그를 찾습니다 (예: cast-operations/dashboard:7.0.123)
 ```
 
 ### 방법 4: Helm 차트
@@ -55,7 +55,7 @@ docker images | grep oneuptime
 Helm을 사용하는 경우:
 
 ```bash
-helm list -n oneuptime
+helm list -n cast-operations
 # 차트 버전 확인
 ```
 
@@ -64,7 +64,7 @@ helm list -n oneuptime
 구성 파일에서 버전 변수를 확인합니다:
 
 ```bash
-grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
+grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/cast-operations/config
 ```
 
 ## 공급자 구성 템플릿
@@ -74,7 +74,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 123을 정확한 빌드 번호로 교체
     }
@@ -82,9 +82,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # 자체 호스팅 URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # 자체 호스팅 URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -93,7 +93,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # 정확한 버전으로 교체
     }
@@ -101,9 +101,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -115,7 +115,7 @@ provider "oneuptime" {
 # versions.tf
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Cast Operations 버전과 일치해야 함
     }
@@ -125,19 +125,19 @@ terraform {
   # 선택 사항: 팀 협업을 위한 원격 상태 사용
   backend "s3" {
     bucket = "your-terraform-state-bucket"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
 
 # variables.tf
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast Operations 인스턴스 URL"
   type        = string
   default     = "https://operations.yourcompany.com"
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API 키"
   type        = string
   sensitive   = true
@@ -150,9 +150,9 @@ variable "environment" {
 }
 
 # providers.tf
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # variables.tf
@@ -163,15 +163,15 @@ variable "project_id" {
 
 # main.tf
 # 팀 생성
-resource "oneuptime_team" "infrastructure" {
+resource "cast_operations_team" "infrastructure" {
   name        = "인프라 팀"
   description = "인프라 및 운영 팀"
 }
 
 # 인프라 모니터
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "${var.environment}-database"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "port"
   hostname     = "db.internal.yourcompany.com"
@@ -194,7 +194,7 @@ resource "oneuptime_monitor" "database" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://operations-dev.yourcompany.com"
+cast_operations_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -202,7 +202,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://operations-staging.yourcompany.com"
+cast_operations_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -210,7 +210,7 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://operations.yourcompany.com"
+cast_operations_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
@@ -228,7 +228,7 @@ terraform state pull > backup-$(date +%Y%m%d).tfstate
 curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # 현재 공급자 버전 기록
-terraform providers | grep oneuptime
+terraform providers | grep cast-operations
 ```
 
 ### 2. Cast Operations 인스턴스 업그레이드
@@ -241,7 +241,7 @@ terraform providers | grep oneuptime
 # terraform 블록에서 버전 업데이트
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # 업그레이드 후 새 버전
     }
@@ -276,9 +276,9 @@ Terraform 실행기가 다음에 액세스할 수 있는지 확인합니다:
 Cast Operations이 프라이빗 네트워크에 있는 경우:
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://10.0.1.100:443"  # 내부 IP
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://10.0.1.100:443"  # 내부 IP
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -288,10 +288,10 @@ provider "oneuptime" {
 
 ```bash
 # 환경 변수 사용
-export ONEUPTIME_API_KEY="your-api-key"
+export CAST_OPERATIONS_API_KEY="your-api-key"
 
 # 또는 시크릿 관리 시스템 사용
-export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
+export CAST_OPERATIONS_API_KEY=$(vault kv get -field=api_key secret/cast-operations)
 ```
 
 ### 2. 최소 권한 API 키
@@ -306,9 +306,9 @@ export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
 
 ```hcl
 # TLS 확인 예시
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 
   # 지원되는 경우 추가 보안 옵션
   verify_ssl = true
@@ -321,9 +321,9 @@ provider "oneuptime" {
 Terraform 자동화에 대한 모니터를 생성합니다:
 
 ```hcl
-resource "oneuptime_monitor" "terraform_runner" {
+resource "cast_operations_monitor" "terraform_runner" {
   name       = "Terraform 실행기 상태"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "heartbeat"
   interval     = "15m"
@@ -368,7 +368,7 @@ resource "oneuptime_monitor" "terraform_runner" {
 
 ```bash
 # TLS 확인 임시 건너뛰기 (프로덕션에는 권장하지 않음)
-export ONEUPTIME_SKIP_TLS_VERIFY=true
+export CAST_OPERATIONS_SKIP_TLS_VERIFY=true
 ```
 
 더 나은 해결책: CA 인증서를 시스템 신뢰 저장소에 추가합니다.
@@ -425,7 +425,7 @@ terraform/
 │       ├── main.tf
 │       └── terraform.tfvars
 └── modules/
-    └── oneuptime/
+    └── cast-operations/
         ├── main.tf
         ├── variables.tf
         └── outputs.tf

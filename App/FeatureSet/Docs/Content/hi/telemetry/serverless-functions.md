@@ -8,7 +8,7 @@ Cast Operations किसी **Serverless Function** को उसी क्ष�
 
 ## पूर्वापेक्षाएं
 
-- एक **Cast Operations Telemetry Ingestion Token** — इसे _Project Settings → Telemetry Ingestion Keys_ से बनाएं और `x-oneuptime-token` मान को कॉपी करें।
+- एक **Cast Operations Telemetry Ingestion Token** — इसे _Project Settings → Telemetry Ingestion Keys_ से बनाएं और `x-cast-operations-token` मान को कॉपी करें।
 - आपके फंक्शन की भाषा के लिए OpenTelemetry SDK (या एक ऑटो-इंस्ट्रूमेंटेशन लेयर)।
 
 ## Cast Operations किसी फंक्शन की पहचान कैसे करता है
@@ -31,7 +31,7 @@ Cast Operations प्रत्येक फंक्शन को `faas.name` r
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
@@ -44,7 +44,7 @@ AWS Lambda के लिए सबसे सरल मार्ग [OpenTelemetr
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
 OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 लेयर फंक्शन नाम से `faas.name` स्वतः सेट कर देती है, और resource detector `cloud.platform`, `cloud.region` और `cloud.account.id` को भर देता है।

@@ -5,7 +5,7 @@ import RestrictionTimes, {
 import Recurring from "../../../Types/Events/Recurring";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import CalendarEvent from "../../../Types/Calendar/CalendarEvent";
 import { describe, expect, test } from "@jest/globals";
@@ -204,7 +204,7 @@ describe("LayerUtil audit H2: multi-layer merge invariants preserved", () => {
       timezone: "UTC",
     };
 
-    const start: number = OneUptimeDate.getCurrentDate().getTime();
+    const start: number = OperationsDate.getCurrentDate().getTime();
     const events: Array<CalendarEvent> = new LayerUtil().getMultiLayerEvents({
       layers: [layer],
       /*
@@ -214,7 +214,7 @@ describe("LayerUtil audit H2: multi-layer merge invariants preserved", () => {
       calendarStartDate: new Date(Date.UTC(2025, 5, 1, 0, 0, 0)),
       calendarEndDate: new Date(Date.UTC(2025, 5, 21, 0, 0, 0)),
     });
-    const elapsedMs: number = OneUptimeDate.getCurrentDate().getTime() - start;
+    const elapsedMs: number = OperationsDate.getCurrentDate().getTime() - start;
 
     expect(events.length).toBeGreaterThan(0);
     assertSortedNonOverlappingPositive(events);

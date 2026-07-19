@@ -1,140 +1,146 @@
 type TemplateIdsMap = {
-  readonly AlertCreated: "oneuptime_created_alert";
-  readonly AlertEpisodeCreated: "oneuptime_created_alert_episode";
-  readonly IncidentCreated: "oneuptime_created_incident";
-  readonly IncidentEpisodeCreated: "oneuptime_created_incident_episode";
-  readonly VerificationCode: "oneuptime_verification_code";
-  readonly TestNotification: "oneuptime_test_notification";
-  readonly IncidentCreatedOwnerNotification: "oneuptime_incident_created_owner_notification";
-  readonly IncidentNotePostedOwnerNotification: "oneuptime_incident_note_posted_owner_notification";
-  readonly IncidentStateChangedOwnerNotification: "oneuptime_incident_state_change_owner_notification";
-  readonly IncidentOwnerAddedNotification: "oneuptime_incident_owner_added_notification";
-  readonly IncidentMemberAddedNotification: "oneuptime_incident_member_added_notification";
-  readonly IncidentReminderOwnerNotification: "oneuptime_incident_reminder_owner_notification";
-  readonly AlertReminderOwnerNotification: "oneuptime_alert_reminder_owner_notification";
-  readonly AlertCreatedOwnerNotification: "oneuptime_alert_created_owner_notification";
-  readonly AlertNotePostedOwnerNotification: "oneuptime_alert_note_posted_owner_notification";
-  readonly AlertStateChangedOwnerNotification: "oneuptime_alert_state_changed_owner_notification";
-  readonly AlertOwnerAddedNotification: "oneuptime_alert_owner_added_notification";
-  readonly AlertEpisodeCreatedOwnerNotification: "oneuptime_alert_episode_created_owner_notification";
-  readonly AlertEpisodeNotePostedOwnerNotification: "oneuptime_alert_episode_note_posted_owner_notification";
-  readonly AlertEpisodeStateChangedOwnerNotification: "oneuptime_alert_episode_state_changed_owner_notification";
-  readonly AlertEpisodeOwnerAddedNotification: "oneuptime_alert_episode_owner_added_notification";
-  readonly AlertAddedToEpisodeOwnerNotification: "oneuptime_alert_added_to_episode_owner_notification";
-  readonly IncidentEpisodeCreatedOwnerNotification: "oneuptime_incident_episode_created_owner_notification";
-  readonly IncidentEpisodeNotePostedOwnerNotification: "oneuptime_incident_episode_note_posted_owner_notification";
-  readonly IncidentEpisodeStateChangedOwnerNotification: "oneuptime_incident_episode_state_changed_owner_notification";
-  readonly IncidentEpisodeOwnerAddedNotification: "oneuptime_incident_episode_owner_added_notification";
-  readonly IncidentAddedToEpisodeOwnerNotification: "oneuptime_incident_added_to_episode_owner_notification";
-  readonly MonitorOwnerAddedNotification: "oneuptime_monitor_owner_added_notification";
-  readonly MonitorCreatedOwnerNotification: "oneuptime_monitor_created_owner_notification";
-  readonly MonitorStatusChangedOwnerNotification: "oneuptime_monitor_status_changed_owner_notification";
-  readonly MonitorProbeStatusChangedNotification: "oneuptime_monitor_probe_status_changed_notification";
-  readonly MonitorNoProbesMonitoringNotification: "oneuptime_monitor_no_probes_monitoring_notification";
-  readonly ScheduledMaintenanceCreatedOwnerNotification: "oneuptime_scheduled_maintenance_created_owner_notification";
-  readonly ScheduledMaintenanceNotePostedOwnerNotification: "oneuptime_scheduled_maintenance_note_posted_owner_notification";
-  readonly ScheduledMaintenanceOwnerAddedNotification: "oneuptime_scheduled_maintenance_owner_added_notification";
-  readonly ScheduledMaintenanceStateChangedOwnerNotification: "oneuptime_scheduled_maintenance_state_changed_owner_notification";
-  readonly ScheduledMaintenanceReminderOwnerNotification: "oneuptime_scheduled_maintenance_reminder_owner_notification";
-  readonly StatusPageAnnouncementCreatedOwnerNotification: "oneuptime_status_page_announcement_created_owner_notification";
-  readonly StatusPageCreatedOwnerNotification: "oneuptime_status_page_created_owner_notification";
-  readonly StatusPageOwnerAddedNotification: "oneuptime_status_page_owner_added_notification";
-  readonly ProbeStatusChangedOwnerNotification: "oneuptime_probe_status_changed_owner_notification";
-  readonly ProbeOwnerAddedNotification: "oneuptime_probe_owner_added_notification";
-  readonly OnCallUserIsOnRosterNotification: "oneuptime_oncall_user_is_on_roster_notification";
-  readonly OnCallUserIsNextNotification: "oneuptime_oncall_user_is_next_notification";
-  readonly OnCallUserAddedToPolicyNotification: "oneuptime_oncall_user_added_to_policy_notification";
-  readonly OnCallUserRemovedFromPolicyNotification: "oneuptime_oncall_user_removed_from_policy_notification";
-  readonly OnCallUserNoLongerActiveNotification: "oneuptime_oncall_user_no_longer_active_notification";
-  readonly AIAgentStatusChangedOwnerNotification: "oneuptime_ai_agent_status_changed_owner_notification";
-  readonly AIAgentOwnerAddedNotification: "oneuptime_ai_agent_owner_added_notification";
+  readonly AlertCreated: "cast_operations_created_alert";
+  readonly AlertEpisodeCreated: "cast_operations_created_alert_episode";
+  readonly IncidentCreated: "cast_operations_created_incident";
+  readonly IncidentEpisodeCreated: "cast_operations_created_incident_episode";
+  readonly VerificationCode: "cast_operations_verification_code";
+  readonly TestNotification: "cast_operations_test_notification";
+  readonly IncidentCreatedOwnerNotification: "cast_operations_incident_created_owner_notification";
+  readonly IncidentNotePostedOwnerNotification: "cast_operations_incident_note_posted_owner_notification";
+  readonly IncidentStateChangedOwnerNotification: "cast_operations_incident_state_change_owner_notification";
+  readonly IncidentOwnerAddedNotification: "cast_operations_incident_owner_added_notification";
+  readonly IncidentMemberAddedNotification: "cast_operations_incident_member_added_notification";
+  readonly IncidentReminderOwnerNotification: "cast_operations_incident_reminder_owner_notification";
+  readonly AlertReminderOwnerNotification: "cast_operations_alert_reminder_owner_notification";
+  readonly AlertCreatedOwnerNotification: "cast_operations_alert_created_owner_notification";
+  readonly AlertNotePostedOwnerNotification: "cast_operations_alert_note_posted_owner_notification";
+  readonly AlertStateChangedOwnerNotification: "cast_operations_alert_state_changed_owner_notification";
+  readonly AlertOwnerAddedNotification: "cast_operations_alert_owner_added_notification";
+  readonly AlertEpisodeCreatedOwnerNotification: "cast_operations_alert_episode_created_owner_notification";
+  readonly AlertEpisodeNotePostedOwnerNotification: "cast_operations_alert_episode_note_posted_owner_notification";
+  readonly AlertEpisodeStateChangedOwnerNotification: "cast_operations_alert_episode_state_changed_owner_notification";
+  readonly AlertEpisodeOwnerAddedNotification: "cast_operations_alert_episode_owner_added_notification";
+  readonly AlertAddedToEpisodeOwnerNotification: "cast_operations_alert_added_to_episode_owner_notification";
+  readonly IncidentEpisodeCreatedOwnerNotification: "cast_operations_incident_episode_created_owner_notification";
+  readonly IncidentEpisodeNotePostedOwnerNotification: "cast_operations_incident_episode_note_posted_owner_notification";
+  readonly IncidentEpisodeStateChangedOwnerNotification: "cast_operations_incident_episode_state_changed_owner_notification";
+  readonly IncidentEpisodeOwnerAddedNotification: "cast_operations_incident_episode_owner_added_notification";
+  readonly IncidentAddedToEpisodeOwnerNotification: "cast_operations_incident_added_to_episode_owner_notification";
+  readonly MonitorOwnerAddedNotification: "cast_operations_monitor_owner_added_notification";
+  readonly MonitorCreatedOwnerNotification: "cast_operations_monitor_created_owner_notification";
+  readonly MonitorStatusChangedOwnerNotification: "cast_operations_monitor_status_changed_owner_notification";
+  readonly MonitorProbeStatusChangedNotification: "cast_operations_monitor_probe_status_changed_notification";
+  readonly MonitorNoProbesMonitoringNotification: "cast_operations_monitor_no_probes_monitoring_notification";
+  readonly ScheduledMaintenanceCreatedOwnerNotification: "cast_operations_scheduled_maintenance_created_owner_notification";
+  readonly ScheduledMaintenanceNotePostedOwnerNotification: "cast_operations_scheduled_maintenance_note_posted_owner_notification";
+  readonly ScheduledMaintenanceOwnerAddedNotification: "cast_operations_scheduled_maintenance_owner_added_notification";
+  readonly ScheduledMaintenanceStateChangedOwnerNotification: "cast_operations_scheduled_maintenance_state_changed_owner_notification";
+  readonly ScheduledMaintenanceReminderOwnerNotification: "cast_operations_scheduled_maintenance_reminder_owner_notification";
+  readonly StatusPageAnnouncementCreatedOwnerNotification: "cast_operations_status_page_announcement_created_owner_notification";
+  readonly StatusPageCreatedOwnerNotification: "cast_operations_status_page_created_owner_notification";
+  readonly StatusPageOwnerAddedNotification: "cast_operations_status_page_owner_added_notification";
+  readonly ProbeStatusChangedOwnerNotification: "cast_operations_probe_status_changed_owner_notification";
+  readonly ProbeOwnerAddedNotification: "cast_operations_probe_owner_added_notification";
+  readonly OnCallUserIsOnRosterNotification: "cast_operations_oncall_user_is_on_roster_notification";
+  readonly OnCallUserIsNextNotification: "cast_operations_oncall_user_is_next_notification";
+  readonly OnCallUserAddedToPolicyNotification: "cast_operations_oncall_user_added_to_policy_notification";
+  readonly OnCallUserRemovedFromPolicyNotification: "cast_operations_oncall_user_removed_from_policy_notification";
+  readonly OnCallUserNoLongerActiveNotification: "cast_operations_oncall_user_no_longer_active_notification";
+  readonly AIAgentStatusChangedOwnerNotification: "cast_operations_ai_agent_status_changed_owner_notification";
+  readonly AIAgentOwnerAddedNotification: "cast_operations_ai_agent_owner_added_notification";
 };
 
 const templateIds: TemplateIdsMap = {
-  AlertCreated: "oneuptime_created_alert",
-  AlertEpisodeCreated: "oneuptime_created_alert_episode",
-  IncidentCreated: "oneuptime_created_incident",
-  IncidentEpisodeCreated: "oneuptime_created_incident_episode",
-  VerificationCode: "oneuptime_verification_code",
-  TestNotification: "oneuptime_test_notification",
+  AlertCreated: "cast_operations_created_alert",
+  AlertEpisodeCreated: "cast_operations_created_alert_episode",
+  IncidentCreated: "cast_operations_created_incident",
+  IncidentEpisodeCreated: "cast_operations_created_incident_episode",
+  VerificationCode: "cast_operations_verification_code",
+  TestNotification: "cast_operations_test_notification",
   IncidentCreatedOwnerNotification:
-    "oneuptime_incident_created_owner_notification",
+    "cast_operations_incident_created_owner_notification",
   IncidentNotePostedOwnerNotification:
-    "oneuptime_incident_note_posted_owner_notification",
+    "cast_operations_incident_note_posted_owner_notification",
   IncidentStateChangedOwnerNotification:
-    "oneuptime_incident_state_change_owner_notification",
-  IncidentOwnerAddedNotification: "oneuptime_incident_owner_added_notification",
+    "cast_operations_incident_state_change_owner_notification",
+  IncidentOwnerAddedNotification:
+    "cast_operations_incident_owner_added_notification",
   IncidentMemberAddedNotification:
-    "oneuptime_incident_member_added_notification",
+    "cast_operations_incident_member_added_notification",
   IncidentReminderOwnerNotification:
-    "oneuptime_incident_reminder_owner_notification",
-  AlertReminderOwnerNotification: "oneuptime_alert_reminder_owner_notification",
-  AlertCreatedOwnerNotification: "oneuptime_alert_created_owner_notification",
+    "cast_operations_incident_reminder_owner_notification",
+  AlertReminderOwnerNotification:
+    "cast_operations_alert_reminder_owner_notification",
+  AlertCreatedOwnerNotification:
+    "cast_operations_alert_created_owner_notification",
   AlertNotePostedOwnerNotification:
-    "oneuptime_alert_note_posted_owner_notification",
+    "cast_operations_alert_note_posted_owner_notification",
   AlertStateChangedOwnerNotification:
-    "oneuptime_alert_state_changed_owner_notification",
-  AlertOwnerAddedNotification: "oneuptime_alert_owner_added_notification",
+    "cast_operations_alert_state_changed_owner_notification",
+  AlertOwnerAddedNotification: "cast_operations_alert_owner_added_notification",
   AlertEpisodeCreatedOwnerNotification:
-    "oneuptime_alert_episode_created_owner_notification",
+    "cast_operations_alert_episode_created_owner_notification",
   AlertEpisodeNotePostedOwnerNotification:
-    "oneuptime_alert_episode_note_posted_owner_notification",
+    "cast_operations_alert_episode_note_posted_owner_notification",
   AlertEpisodeStateChangedOwnerNotification:
-    "oneuptime_alert_episode_state_changed_owner_notification",
+    "cast_operations_alert_episode_state_changed_owner_notification",
   AlertEpisodeOwnerAddedNotification:
-    "oneuptime_alert_episode_owner_added_notification",
+    "cast_operations_alert_episode_owner_added_notification",
   AlertAddedToEpisodeOwnerNotification:
-    "oneuptime_alert_added_to_episode_owner_notification",
+    "cast_operations_alert_added_to_episode_owner_notification",
   IncidentEpisodeCreatedOwnerNotification:
-    "oneuptime_incident_episode_created_owner_notification",
+    "cast_operations_incident_episode_created_owner_notification",
   IncidentEpisodeNotePostedOwnerNotification:
-    "oneuptime_incident_episode_note_posted_owner_notification",
+    "cast_operations_incident_episode_note_posted_owner_notification",
   IncidentEpisodeStateChangedOwnerNotification:
-    "oneuptime_incident_episode_state_changed_owner_notification",
+    "cast_operations_incident_episode_state_changed_owner_notification",
   IncidentEpisodeOwnerAddedNotification:
-    "oneuptime_incident_episode_owner_added_notification",
+    "cast_operations_incident_episode_owner_added_notification",
   IncidentAddedToEpisodeOwnerNotification:
-    "oneuptime_incident_added_to_episode_owner_notification",
-  MonitorOwnerAddedNotification: "oneuptime_monitor_owner_added_notification",
+    "cast_operations_incident_added_to_episode_owner_notification",
+  MonitorOwnerAddedNotification:
+    "cast_operations_monitor_owner_added_notification",
   MonitorCreatedOwnerNotification:
-    "oneuptime_monitor_created_owner_notification",
+    "cast_operations_monitor_created_owner_notification",
   MonitorStatusChangedOwnerNotification:
-    "oneuptime_monitor_status_changed_owner_notification",
+    "cast_operations_monitor_status_changed_owner_notification",
   MonitorProbeStatusChangedNotification:
-    "oneuptime_monitor_probe_status_changed_notification",
+    "cast_operations_monitor_probe_status_changed_notification",
   MonitorNoProbesMonitoringNotification:
-    "oneuptime_monitor_no_probes_monitoring_notification",
+    "cast_operations_monitor_no_probes_monitoring_notification",
   ScheduledMaintenanceCreatedOwnerNotification:
-    "oneuptime_scheduled_maintenance_created_owner_notification",
+    "cast_operations_scheduled_maintenance_created_owner_notification",
   ScheduledMaintenanceNotePostedOwnerNotification:
-    "oneuptime_scheduled_maintenance_note_posted_owner_notification",
+    "cast_operations_scheduled_maintenance_note_posted_owner_notification",
   ScheduledMaintenanceOwnerAddedNotification:
-    "oneuptime_scheduled_maintenance_owner_added_notification",
+    "cast_operations_scheduled_maintenance_owner_added_notification",
   ScheduledMaintenanceStateChangedOwnerNotification:
-    "oneuptime_scheduled_maintenance_state_changed_owner_notification",
+    "cast_operations_scheduled_maintenance_state_changed_owner_notification",
   ScheduledMaintenanceReminderOwnerNotification:
-    "oneuptime_scheduled_maintenance_reminder_owner_notification",
+    "cast_operations_scheduled_maintenance_reminder_owner_notification",
   StatusPageAnnouncementCreatedOwnerNotification:
-    "oneuptime_status_page_announcement_created_owner_notification",
+    "cast_operations_status_page_announcement_created_owner_notification",
   StatusPageCreatedOwnerNotification:
-    "oneuptime_status_page_created_owner_notification",
+    "cast_operations_status_page_created_owner_notification",
   StatusPageOwnerAddedNotification:
-    "oneuptime_status_page_owner_added_notification",
+    "cast_operations_status_page_owner_added_notification",
   ProbeStatusChangedOwnerNotification:
-    "oneuptime_probe_status_changed_owner_notification",
-  ProbeOwnerAddedNotification: "oneuptime_probe_owner_added_notification",
+    "cast_operations_probe_status_changed_owner_notification",
+  ProbeOwnerAddedNotification: "cast_operations_probe_owner_added_notification",
   OnCallUserIsOnRosterNotification:
-    "oneuptime_oncall_user_is_on_roster_notification",
-  OnCallUserIsNextNotification: "oneuptime_oncall_user_is_next_notification",
+    "cast_operations_oncall_user_is_on_roster_notification",
+  OnCallUserIsNextNotification:
+    "cast_operations_oncall_user_is_next_notification",
   OnCallUserAddedToPolicyNotification:
-    "oneuptime_oncall_user_added_to_policy_notification",
+    "cast_operations_oncall_user_added_to_policy_notification",
   OnCallUserRemovedFromPolicyNotification:
-    "oneuptime_oncall_user_removed_from_policy_notification",
+    "cast_operations_oncall_user_removed_from_policy_notification",
   OnCallUserNoLongerActiveNotification:
-    "oneuptime_oncall_user_no_longer_active_notification",
+    "cast_operations_oncall_user_no_longer_active_notification",
   AIAgentStatusChangedOwnerNotification:
-    "oneuptime_ai_agent_status_changed_owner_notification",
-  AIAgentOwnerAddedNotification: "oneuptime_ai_agent_owner_added_notification",
+    "cast_operations_ai_agent_status_changed_owner_notification",
+  AIAgentOwnerAddedNotification:
+    "cast_operations_ai_agent_owner_added_notification",
 } as const;
 
 export const WhatsAppTemplateIds: TemplateIdsMap = templateIds;

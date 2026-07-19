@@ -46,8 +46,8 @@ curl https://your-operations-instance.com/api/status
 如果您使用 Docker 运行 Cast Operations：
 
 ```bash
-docker images | grep oneuptime
-# 查看标签，例如 oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# 查看标签，例如 cast-operations/dashboard:7.0.123
 ```
 
 ### 方法四：Helm Chart
@@ -55,7 +55,7 @@ docker images | grep oneuptime
 如果您使用 Helm：
 
 ```bash
-helm list -n oneuptime
+helm list -n cast-operations
 # 检查 Chart 版本
 ```
 
@@ -64,7 +64,7 @@ helm list -n oneuptime
 检查您的配置文件中的版本变量：
 
 ```bash
-grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
+grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/cast-operations/config
 ```
 
 ## 提供商配置模板
@@ -74,7 +74,7 @@ grep -r "APP_VERSION\|IMAGE_TAG" /path/to/your/oneuptime/config
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 替换 123 为您的确切构建号
     }
@@ -82,9 +82,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # 您的自托管 URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # 您的自托管 URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -93,7 +93,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.1.45"  # 替换为您的确切版本
     }
@@ -101,9 +101,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -115,7 +115,7 @@ provider "oneuptime" {
 # versions.tf
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 必须与您的 Cast Operations 版本匹配
     }
@@ -125,19 +125,19 @@ terraform {
   # 可选：使用远程状态进行团队协作
   backend "s3" {
     bucket = "your-terraform-state-bucket"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }
 
 # variables.tf
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   description = "Cast Operations 实例 URL"
   type        = string
   default     = "https://operations.yourcompany.com"
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API 密钥"
   type        = string
   sensitive   = true
@@ -150,9 +150,9 @@ variable "environment" {
 }
 
 # providers.tf
-provider "oneuptime" {
-  oneuptime_url = var.oneuptime_url
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = var.cast_operations_url
+  api_key       = var.cast_operations_api_key
 }
 
 # variables.tf
@@ -163,21 +163,21 @@ variable "project_id" {
 
 # main.tf
 # 创建团队
-resource "oneuptime_team" "infrastructure" {
+resource "cast_operations_team" "infrastructure" {
   name        = "Infrastructure Team"
   description = "Infrastructure and operations team"
 }
 
-resource "oneuptime_team" "development" {
+resource "cast_operations_team" "development" {
   name        = "Development Team"
   description = "Application development team"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 }
 
 # 基础设施监控器
-resource "oneuptime_monitor" "database" {
+resource "cast_operations_monitor" "database" {
   name       = "${var.environment}-database"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "port"
   hostname     = "db.internal.yourcompany.com"
@@ -193,9 +193,9 @@ resource "oneuptime_monitor" "database" {
   }
 }
 
-resource "oneuptime_monitor" "application" {
+resource "cast_operations_monitor" "application" {
   name       = "${var.environment}-application"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "website"
   url          = "https://app.yourcompany.com/health"
@@ -213,10 +213,10 @@ resource "oneuptime_monitor" "application" {
 }
 
 # 值班策略
-resource "oneuptime_on_call_policy" "infrastructure_oncall" {
+resource "cast_operations_on_call_policy" "infrastructure_oncall" {
   name       = "Infrastructure On-Call"
-  project_id = oneuptime_project.main.id
-  team_id    = oneuptime_team.infrastructure.id
+  project_id = cast_operations_project.main.id
+  team_id    = cast_operations_team.infrastructure.id
 
   schedules {
     name     = "24x7 Infrastructure"
@@ -234,12 +234,12 @@ resource "oneuptime_on_call_policy" "infrastructure_oncall" {
 }
 
 # 告警策略
-resource "oneuptime_alert_policy" "critical_infrastructure" {
+resource "cast_operations_alert_policy" "critical_infrastructure" {
   name       = "Critical Infrastructure Alerts"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   conditions {
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
     threshold  = "down"
   }
 
@@ -250,37 +250,37 @@ resource "oneuptime_alert_policy" "critical_infrastructure" {
 
   actions {
     type             = "oncall_escalation"
-    oncall_policy_id = oneuptime_on_call_policy.infrastructure_oncall.id
+    oncall_policy_id = cast_operations_on_call_policy.infrastructure_oncall.id
   }
 }
 
 # 内部状态页面
-resource "oneuptime_status_page" "internal" {
+resource "cast_operations_status_page" "internal" {
   name       = "Internal Services Status"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   domain = "status.internal.yourcompany.com"
 
   components {
     name       = "Database"
-    monitor_id = oneuptime_monitor.database.id
+    monitor_id = cast_operations_monitor.database.id
   }
 
   components {
     name       = "Application"
-    monitor_id = oneuptime_monitor.application.id
+    monitor_id = cast_operations_monitor.application.id
   }
 }
 
 # outputs.tf
 output "project_id" {
   description = "项目 ID"
-  value       = oneuptime_project.main.id
+  value       = cast_operations_project.main.id
 }
 
 output "status_page_url" {
   description = "状态页面 URL"
-  value       = "https://${oneuptime_status_page.internal.domain}"
+  value       = "https://${cast_operations_status_page.internal.domain}"
 }
 ```
 
@@ -290,7 +290,7 @@ output "status_page_url" {
 
 ```hcl
 # dev.tfvars
-oneuptime_url = "https://operations-dev.yourcompany.com"
+cast_operations_url = "https://operations-dev.yourcompany.com"
 environment = "development"
 ```
 
@@ -298,7 +298,7 @@ environment = "development"
 
 ```hcl
 # staging.tfvars
-oneuptime_url = "https://operations-staging.yourcompany.com"
+cast_operations_url = "https://operations-staging.yourcompany.com"
 environment = "staging"
 ```
 
@@ -306,7 +306,7 @@ environment = "staging"
 
 ```hcl
 # prod.tfvars
-oneuptime_url = "https://operations.yourcompany.com"
+cast_operations_url = "https://operations.yourcompany.com"
 environment = "production"
 ```
 
@@ -324,7 +324,7 @@ terraform state pull > backup-$(date +%Y%m%d).tfstate
 curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # 记录当前提供商版本
-terraform providers | grep oneuptime
+terraform providers | grep cast-operations
 ```
 
 ### 2. 升级 Cast Operations 实例
@@ -337,7 +337,7 @@ terraform providers | grep oneuptime
 # 更新 terraform 块中的版本
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # 升级后的新版本
     }
@@ -372,9 +372,9 @@ terraform apply
 如果 Cast Operations 在私有网络上：
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://10.0.1.100:443"  # 内部 IP
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://10.0.1.100:443"  # 内部 IP
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -384,10 +384,10 @@ provider "oneuptime" {
 
 ```bash
 # 使用环境变量
-export ONEUPTIME_API_KEY="your-api-key"
+export CAST_OPERATIONS_API_KEY="your-api-key"
 
 # 或使用密钥管理系统
-export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
+export CAST_OPERATIONS_API_KEY=$(vault kv get -field=api_key secret/cast-operations)
 ```
 
 ### 2. 最小权限 API 密钥
@@ -402,9 +402,9 @@ export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
 
 ```hcl
 # 带 TLS 验证的示例
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"
+  api_key       = var.cast_operations_api_key
 
   # 如果支持的话，添加其他安全选项
   verify_ssl = true
@@ -417,9 +417,9 @@ provider "oneuptime" {
 为您的 Terraform 自动化创建监控器：
 
 ```hcl
-resource "oneuptime_monitor" "terraform_runner" {
+resource "cast_operations_monitor" "terraform_runner" {
   name       = "Terraform Runner Health"
-  project_id = oneuptime_project.main.id
+  project_id = cast_operations_project.main.id
 
   monitor_type = "heartbeat"
   interval     = "15m"
@@ -464,7 +464,7 @@ Error: API version incompatible
 
 ```bash
 # 临时跳过 TLS 验证（不建议用于生产）
-export ONEUPTIME_SKIP_TLS_VERIFY=true
+export CAST_OPERATIONS_SKIP_TLS_VERIFY=true
 ```
 
 更好的解决方案：将您的 CA 证书添加到系统信任存储。
@@ -521,7 +521,7 @@ terraform/
 │       ├── main.tf
 │       └── terraform.tfvars
 └── modules/
-    └── oneuptime/
+    └── cast-operations/
         ├── main.tf
         ├── variables.tf
         └── outputs.tf

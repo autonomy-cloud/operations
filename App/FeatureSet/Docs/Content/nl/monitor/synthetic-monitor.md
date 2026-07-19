@@ -121,10 +121,10 @@ console.log(stringSecret);
 
 ### Aangepaste metrics
 
-U kunt aangepaste metrics vastleggen vanuit uw script met de functie `oneuptime.captureMetric()`. Deze metrics worden opgeslagen in Cast Operations en kunnen worden weergegeven op dashboards via de Metric Explorer.
+U kunt aangepaste metrics vastleggen vanuit uw script met de functie `cast-operations.captureMetric()`. Deze metrics worden opgeslagen in Cast Operations en kunnen worden weergegeven op dashboards via de Metric Explorer.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (string, vereist): De metrieknaam (bijv. `"dashboard.load.time"`). Deze wordt automatisch opgeslagen met het voorvoegsel `custom.monitor.`.
@@ -141,7 +141,7 @@ await page.waitForSelector("#dashboard-loaded");
 const loadTime = Date.now() - startTime;
 
 // Capture page load time as a custom metric
-oneuptime.captureMetric("dashboard.load.time", loadTime, {
+cast-operations.captureMetric("dashboard.load.time", loadTime, {
   page: "dashboard",
 });
 
@@ -167,7 +167,7 @@ Na vastlegging verschijnen deze metrics in de Metric Explorer onder namen zoals 
 - `axios`: U kunt deze module gebruiken om HTTP-verzoeken te doen. Het is een op beloften gebaseerde HTTP-client voor de browser en Node.js.
 - `crypto`: U kunt deze module gebruiken voor cryptografische bewerkingen. Het is een ingebouwde Node.js-module die cryptografische functionaliteit biedt.
 - `console.log`: U kunt deze module gebruiken om gegevens naar de console te loggen. Dit is nuttig voor foutopsporingsdoeleinden.
-- `oneuptime.captureMetric`: U kunt dit gebruiken om aangepaste metrics vast te leggen vanuit uw script. Zie de sectie Aangepaste metrics hierboven.
+- `cast-operations.captureMetric`: U kunt dit gebruiken om aangepaste metrics vast te leggen vanuit uw script. Zie de sectie Aangepaste metrics hierboven.
 - `http`: U kunt deze module gebruiken om HTTP-verzoeken te doen. Het is een ingebouwde Node.js-module die een HTTP-client en -server biedt.
 - `https`: U kunt deze module gebruiken om HTTPS-verzoeken te doen. Het is een ingebouwde Node.js-module die een HTTPS-client en -server biedt.
 

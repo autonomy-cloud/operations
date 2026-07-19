@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### Metriche Personalizzate
 
-Puoi acquisire metriche personalizzate dal tuo script usando la funzione `oneuptime.captureMetric()`. Queste metriche sono archiviate in Cast Operations e possono essere visualizzate in grafici sulle dashboard tramite il Metric Explorer.
+Puoi acquisire metriche personalizzate dal tuo script usando la funzione `cast-operations.captureMetric()`. Queste metriche sono archiviate in Cast Operations e possono essere visualizzate in grafici sulle dashboard tramite il Metric Explorer.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (stringa, obbligatorio): Il nome della metrica (es. `"api.response.time"`). Verrà archiviato automaticamente con il prefisso `custom.monitor.`.
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // Acquisisci una metrica semplice
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // Acquisisci una metrica con attributi
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ Una volta acquisite, queste metriche appaiono nel Metric Explorer con nomi come 
 - `axios`: Puoi usare questo modulo per effettuare richieste HTTP. È un client HTTP basato su promise per il browser e Node.js.
 - `crypto`: Puoi usare questo modulo per eseguire operazioni crittografiche. È un modulo Node.js integrato che fornisce funzionalità crittografiche che includono un insieme di wrapper per le funzioni hash, HMAC, cipher, decipher, sign e verify di OpenSSL.
 - `console.log`: Puoi usare questo modulo per registrare dati nella console. Questo è utile per scopi di debugging.
-- `oneuptime.captureMetric`: Puoi usare questo per acquisire metriche personalizzate dal tuo script. Vedi la sezione Metriche Personalizzate sopra.
+- `cast-operations.captureMetric`: Puoi usare questo per acquisire metriche personalizzate dal tuo script. Vedi la sezione Metriche Personalizzate sopra.
 - `http`: Puoi usare questo modulo per effettuare richieste HTTP. È un modulo Node.js integrato che fornisce un client e server HTTP.
 - `https`: Puoi usare questo modulo per effettuare richieste HTTPS. È un modulo Node.js integrato che fornisce un client e server HTTPS.
 

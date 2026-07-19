@@ -100,7 +100,10 @@ export default function ProjectsScreen({
     await WebBrowser.warmUpAsync();
 
     const result: WebBrowser.WebBrowserAuthSessionResult =
-      await WebBrowser.openAuthSessionAsync(ssoUrl, "oneuptime://sso-callback");
+      await WebBrowser.openAuthSessionAsync(
+        ssoUrl,
+        "cast-operations://sso-callback",
+      );
 
     if (result.type === "success" && result.url) {
       const url: URL = new URL(result.url);

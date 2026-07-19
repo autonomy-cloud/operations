@@ -6,9 +6,6 @@ import ApiKeyPermissionService from "./ApiKeyPermissionService";
 // API Keys
 import ApiKeyService from "./ApiKeyService";
 import BaseService from "./BaseService";
-import BillingInvoiceService from "./BillingInvoiceService";
-import BillingPaymentMethodsService from "./BillingPaymentMethodService";
-import BillingService from "./BillingService";
 import CallLogService from "./CallLogService";
 import CallService from "./CallService";
 import DataMigrationService from "./DataMigrationService";
@@ -92,7 +89,6 @@ import MonitorService from "./MonitorService";
 import MonitorFeedService from "./MonitorFeedService";
 import MonitorStatusService from "./MonitorStatusService";
 import MonitorStatusTimelineService from "./MonitorStatusTimelineService";
-import NotificationService from "./NotificationService";
 import OnCallDutyPolicyCustomFieldService from "./OnCallDutyPolicyCustomFieldService";
 import OnCallDutyPolicyEscalationRuleScheduleService from "./OnCallDutyPolicyEscalationRuleScheduleService";
 import OnCallDutyPolicyEscalationRuleService from "./OnCallDutyPolicyEscalationRuleService";
@@ -123,12 +119,7 @@ import GlobalSsoService from "./GlobalSsoService";
 import GlobalOidcService from "./GlobalOidcService";
 import GlobalSsoProjectService from "./GlobalSsoProjectService";
 import GlobalOidcProjectService from "./GlobalOidcProjectService";
-import PromoCodeService from "./PromoCodeService";
-import EnterpriseLicenseService from "./EnterpriseLicenseService";
-import EnterpriseLicenseInstanceService from "./EnterpriseLicenseInstanceService";
 import OpenSourceDeploymentService from "./OpenSourceDeploymentService";
-import ResellerPlanService from "./ResellerPlanService";
-import ResellerService from "./ResellerService";
 import ScheduledMaintenanceCustomFieldService from "./ScheduledMaintenanceCustomFieldService";
 import ScheduledMaintenanceInternalNoteService from "./ScheduledMaintenanceInternalNoteService";
 import ScheduledMaintenanceOwnerTeamService from "./ScheduledMaintenanceOwnerTeamService";
@@ -176,7 +167,6 @@ import TeamPermissionService from "./TeamPermissionService";
 import TeamComplianceSettingService from "./TeamComplianceSettingService";
 // Team
 import TeamService from "./TeamService";
-import UsageBillingService from "./TelemetryUsageBillingService";
 import UserCallService from "./UserCallService";
 import UserEmailService from "./UserEmailService";
 import UserNotificationRuleService from "./UserNotificationRuleService";
@@ -265,21 +255,12 @@ import StatusPageSCIMLogService from "./StatusPageSCIMLogService";
 const services: Array<BaseService> = [
   OnCallDutyPolicyTimeLogService,
   AcmeCertificateService,
-  PromoCodeService,
-  EnterpriseLicenseService,
-  EnterpriseLicenseInstanceService,
   OpenSourceDeploymentService,
 
-  ResellerService,
-  ResellerPlanService,
   // Import all services in current folder here.
   AccessTokenService,
   ApiKeyPermissionService,
   ApiKeyService,
-
-  BillingInvoiceService,
-  BillingPaymentMethodsService,
-  BillingService,
 
   CallLogService,
   CallService,
@@ -353,8 +334,6 @@ const services: Array<BaseService> = [
   RunbookSecretService,
   AIInsightService,
   MonitorFeedService,
-
-  NotificationService,
 
   OnCallDutyPolicyCustomFieldService,
   OnCallDutyPolicyEscalationRuleService,
@@ -454,7 +433,6 @@ const services: Array<BaseService> = [
   OnCallDutyPolicyScheduleLayerService,
   OnCallDutyPolicyEscalationRuleScheduleService,
 
-  UsageBillingService,
   ProjectCallSMSConfigService,
   ProjectUserProfileService,
 

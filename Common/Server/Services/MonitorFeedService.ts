@@ -1,9 +1,9 @@
 import { Blue500 } from "../../Types/BrandColors";
 import Color from "../../Types/Color";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import logger, { LogAttributes } from "../Utils/Logger";
 import DatabaseService from "./DatabaseService";
 import MonitorFeed, {
@@ -17,10 +17,6 @@ import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 export class Service extends DatabaseService<MonitorFeed> {
   public constructor() {
     super(MonitorFeed);
-
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -36,7 +32,7 @@ export class Service extends DatabaseService<MonitorFeed> {
     // send notifificatin to slack and teams. This is optional
     workspaceNotification?:
       | {
-          notifyUserId?: ObjectID | undefined; // this is oneuptime user id.
+          notifyUserId?: ObjectID | undefined; // this is cast-operations user id.
           sendWorkspaceNotification: boolean;
           appendMessageBlocks?: Array<MessageBlocksByWorkspaceType> | undefined;
         }
@@ -81,7 +77,7 @@ export class Service extends DatabaseService<MonitorFeed> {
       monitorFeed.projectId = data.projectId;
 
       if (!data.postedAt) {
-        monitorFeed.postedAt = OneUptimeDate.getCurrentDate();
+        monitorFeed.postedAt = OperationsDate.getCurrentDate();
       }
 
       if (data.userId) {
@@ -153,7 +149,7 @@ export class Service extends DatabaseService<MonitorFeed> {
     monitorId: ObjectID;
     feedInfoInMarkdown: string;
     workspaceNotification: {
-      notifyUserId?: ObjectID | undefined; // this is oneuptime user id.
+      notifyUserId?: ObjectID | undefined; // this is cast-operations user id.
       sendWorkspaceNotification: boolean;
       appendMessageBlocks?: Array<MessageBlocksByWorkspaceType> | undefined;
     };

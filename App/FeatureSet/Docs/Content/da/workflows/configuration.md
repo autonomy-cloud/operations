@@ -72,7 +72,6 @@ De fleste ingeniører bør have create/edit/read på workflows, men ikke på var
 
 ## Plan-grænser
 
-Cast Operations Cloud begrænser antallet af kørsler pr. måned på mindre planer. Din aktuelle grænse vises under **Project Settings → Billing**. Når du når den, afvises nye triggere indtil næste faktureringscyklus. Selv-hostede installationer har ikke denne grænse.
 
 ## Når workflows ikke er det rette værktøj
 

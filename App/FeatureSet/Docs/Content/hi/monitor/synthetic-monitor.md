@@ -120,10 +120,10 @@ console.log(stringSecret);
 
 ### Custom Metrics
 
-आप `oneuptime.captureMetric()` function का उपयोग करके अपने script से custom metrics capture कर सकते हैं।
+आप `cast-operations.captureMetric()` function का उपयोग करके अपने script से custom metrics capture कर सकते हैं।
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (string, आवश्यक): metric name (जैसे `"dashboard.load.time"`)। इसे automatically `custom.monitor.` prefix के साथ stored किया जाएगा।
@@ -140,7 +140,7 @@ await page.waitForSelector("#dashboard-loaded");
 const loadTime = Date.now() - startTime;
 
 // page load time को custom metric के रूप में capture करें
-oneuptime.captureMetric("dashboard.load.time", loadTime, {
+cast-operations.captureMetric("dashboard.load.time", loadTime, {
   page: "dashboard",
 });
 
@@ -164,7 +164,7 @@ return {
 - `axios`: आप इस module का उपयोग HTTP requests करने के लिए कर सकते हैं।
 - `crypto`: आप इस module का उपयोग cryptographic operations करने के लिए कर सकते हैं।
 - `console.log`: आप इस module का उपयोग console में data log करने के लिए कर सकते हैं।
-- `oneuptime.captureMetric`: आप इसका उपयोग अपने script से custom metrics capture करने के लिए कर सकते हैं।
+- `cast-operations.captureMetric`: आप इसका उपयोग अपने script से custom metrics capture करने के लिए कर सकते हैं।
 - `http`: HTTP requests के लिए built-in Node.js module।
 - `https`: HTTPS requests के लिए built-in Node.js module।
 

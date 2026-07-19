@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import KubernetesCpuUtils, { NodeAllocatableCpu } from "./KubernetesCpuUtils";
 
 /**
@@ -24,8 +24,8 @@ export default function useNodeAllocatableCpu(
     }
 
     let cancelled: boolean = false;
-    const endDate: Date = OneUptimeDate.getCurrentDate();
-    const startDate: Date = OneUptimeDate.addRemoveHours(endDate, -2);
+    const endDate: Date = OperationsDate.getCurrentDate();
+    const startDate: Date = OperationsDate.addRemoveHours(endDate, -2);
 
     KubernetesCpuUtils.fetchNodeAllocatableCpu({
       clusterIdentifier: clusterIdentifier,

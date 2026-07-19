@@ -170,12 +170,12 @@ Si desactivaste el registro automático (`vllm.globalProvider.enabled: false`), 
 ```
 Name: In-Cluster vLLM
 LLM Provider: OpenAI Compatible
-Base URL: http://oneuptime-vllm.default.svc.cluster.local:8000/v1
+Base URL: http://cast-operations-vllm.default.svc.cluster.local:8000/v1
 Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-Consulta el [README del chart de Helm](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm) para conocer las opciones de programación de GPU, modelos restringidos y ajustes.
+Consulta el [README del chart de Helm](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/cast-operations#local-models-with-vllm) para conocer las opciones de programación de GPU, modelos restringidos y ajustes.
 
 ## Uso de URLs base personalizadas
 

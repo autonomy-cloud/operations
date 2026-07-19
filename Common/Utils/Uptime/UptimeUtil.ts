@@ -1,7 +1,7 @@
 import Event from "./Event";
 import MonitorEvent from "./MonitorEvent";
 import { Green } from "../../Types/BrandColors";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import ObjectID from "../../Types/ObjectID";
 import MonitorStatus from "../../Models/DatabaseModels/MonitorStatus";
 import MonitorStatusTimeline from "../../Models/DatabaseModels/MonitorStatusTimeline";
@@ -28,11 +28,11 @@ export default class UptimeUtil {
         return 0;
       }
 
-      if (OneUptimeDate.isAfter(a.startsAt!, b.startsAt!)) {
+      if (OperationsDate.isAfter(a.startsAt!, b.startsAt!)) {
         return 1;
       }
 
-      if (OneUptimeDate.isAfter(b.startsAt!, a.startsAt!)) {
+      if (OperationsDate.isAfter(b.startsAt!, a.startsAt!)) {
         return -1;
       }
 
@@ -56,7 +56,7 @@ export default class UptimeUtil {
 
       // Set the start date of the event to the creation date of the current item. If it doesn't exist, use the current date.
       const startDate: Date =
-        monitorEvents[i]!.startsAt || OneUptimeDate.getCurrentDate();
+        monitorEvents[i]!.startsAt || OperationsDate.getCurrentDate();
 
       // Initialize the end date as the current date.
       let endDate: Date | undefined = monitorEvents[i]!.endsAt;
@@ -66,7 +66,7 @@ export default class UptimeUtil {
         if (i < monitorEvents.length - 1) {
           endDate = monitorEvents[i + 1]!.startsAt;
         } else {
-          endDate = OneUptimeDate.getCurrentDate();
+          endDate = OperationsDate.getCurrentDate();
         }
       }
 
@@ -104,21 +104,21 @@ export default class UptimeUtil {
         // otherwise set it to start date of next event.
 
         if (i === monitorEventList.length - 1) {
-          monitorEvent.endDate = OneUptimeDate.getCurrentDate();
+          monitorEvent.endDate = OperationsDate.getCurrentDate();
         } else {
           monitorEvent.endDate =
             monitorEventList[i + 1]!.startDate ||
-            OneUptimeDate.getCurrentDate();
+            OperationsDate.getCurrentDate();
         }
       }
 
       if (
         eventList.length === 0 ||
-        OneUptimeDate.isAfter(
+        OperationsDate.isAfter(
           monitorEvent.startDate,
           eventList[eventList.length - 1]!.endDate,
         ) ||
-        OneUptimeDate.isEqualBySeconds(
+        OperationsDate.isEqualBySeconds(
           monitorEvent.startDate,
           eventList[eventList.length - 1]!.endDate,
         )
@@ -129,7 +129,7 @@ export default class UptimeUtil {
 
       // if this event starts before the last event, then we need to check if it ends before the last event. If it does, then we can skip this event if the monitrEvent is of lower priority than the last event. If it is of higher priority, then we need to add it to the list and remove the last event from the list.
       if (
-        OneUptimeDate.isBefore(
+        OperationsDate.isBefore(
           monitorEvent.startDate,
           eventList[eventList.length - 1]!.endDate,
         )
@@ -140,11 +140,11 @@ export default class UptimeUtil {
           eventList[eventList.length - 1]?.endDate
         ) {
           isEndDateOfCurrenteventAfterLastEvent =
-            OneUptimeDate.isAfter(
+            OperationsDate.isAfter(
               monitorEvent.endDate,
               eventList[eventList.length - 1]!.endDate,
             ) ||
-            OneUptimeDate.isEqualBySeconds(
+            OperationsDate.isEqualBySeconds(
               monitorEvent.endDate,
               eventList[eventList.length - 1]!.endDate,
             );
@@ -166,7 +166,7 @@ export default class UptimeUtil {
           // if the monitorEvent endDate is before the end of the last event, then we need to add the end of the last event to the list.
 
           if (
-            OneUptimeDate.isBefore(monitorEvent.endDate, tempLastEvent.endDate)
+            OperationsDate.isBefore(monitorEvent.endDate, tempLastEvent.endDate)
           ) {
             eventList.push({
               startDate: monitorEvent.endDate,
@@ -225,11 +225,11 @@ export default class UptimeUtil {
 
     // sort event list by start date.
     eventList.sort((a: MonitorEvent, b: MonitorEvent) => {
-      if (OneUptimeDate.isAfter(a.startDate, b.startDate)) {
+      if (OperationsDate.isAfter(a.startDate, b.startDate)) {
         return 1;
       }
 
-      if (OneUptimeDate.isAfter(b.startDate, a.startDate)) {
+      if (OperationsDate.isAfter(b.startDate, a.startDate)) {
         return -1;
       }
 
@@ -252,11 +252,11 @@ export default class UptimeUtil {
 
     // sort these by start date,
     monitorEvents.sort((a: Event, b: Event) => {
-      if (OneUptimeDate.isAfter(a.startDate, b.startDate)) {
+      if (OperationsDate.isAfter(a.startDate, b.startDate)) {
         return 1;
       }
 
-      if (OneUptimeDate.isAfter(b.startDate, a.startDate)) {
+      if (OperationsDate.isAfter(b.startDate, a.startDate)) {
         return -1;
       }
 
@@ -274,9 +274,9 @@ export default class UptimeUtil {
     }
 
     if (
-      OneUptimeDate.isAfter(
+      OperationsDate.isAfter(
         monitorEvents[0]!.startDate,
-        OneUptimeDate.getCurrentDate(),
+        OperationsDate.getCurrentDate(),
       )
     ) {
       return {
@@ -286,9 +286,9 @@ export default class UptimeUtil {
     }
 
     totalSecondsInTimePeriod =
-      OneUptimeDate.getSecondsBetweenDates(
+      OperationsDate.getSecondsBetweenDates(
         monitorEvents[0]!.startDate,
-        OneUptimeDate.getCurrentDate(),
+        OperationsDate.getCurrentDate(),
       ) || 1;
 
     // get order of operational state.
@@ -305,7 +305,7 @@ export default class UptimeUtil {
       );
 
       if (isDowntimeEvent) {
-        totalDowntime += OneUptimeDate.getSecondsBetweenDates(
+        totalDowntime += OperationsDate.getSecondsBetweenDates(
           monitorEvent.startDate,
           monitorEvent.endDate,
         );

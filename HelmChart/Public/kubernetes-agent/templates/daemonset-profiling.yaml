@@ -41,7 +41,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
-            - name: ONEUPTIME_API_KEY
+            - name: CAST_OPERATIONS_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ include "kubernetes-agent.fullname" . }}

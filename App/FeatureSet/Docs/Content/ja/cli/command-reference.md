@@ -4,12 +4,12 @@ Cast Operations CLI の全コマンドの完全なリファレンスです。
 
 ## 認証コマンド
 
-### `oneuptime login`
+### `cast-operations login`
 
 Cast Operations インスタンスに認証します。
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | パラメータ       | タイプ     | 必須   | 説明                                      |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 保存されているすべてのコンテキストを一覧表示します。
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 名前付きコンテキストに切り替えます。
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | パラメータ | タイプ | 必須 | 説明                     |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 マスクされた API キーとともにアクティブなコンテキストを表示します。
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 保存されているコンテキストを削除します。
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | パラメータ | タイプ | 必須 | 説明                   |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 すべてのリソースコマンドは同じパターンに従います。`<resource>` をサポートされているリソース名（例: `incident`、`monitor`、`alert`、`status-page`）に置き換えてください。
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 フィルタリングとページネーションを使用してリソースを一覧表示します。
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | オプション       | タイプ | デフォルト | 説明                      |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 ID で単一のリソースを取得します。
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | パラメータ     | タイプ     | 必須   | 説明                |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 新しいリソースを作成します。
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | オプション      | タイプ | 必須                                | 説明                      |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 既存のリソースを更新します。
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | パラメータ      | タイプ     | 必須   | 説明                      |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 リソースを削除します。
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | パラメータ | タイプ     | 必須   | 説明                     |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 フィルターに一致するリソースをカウントします。
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | オプション       | タイプ | デフォルト | 説明                      |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## ユーティリティコマンド
 
-### `oneuptime version`
+### `cast-operations version`
 
 CLI のバージョンを表示します。
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 現在の認証情報を表示します。
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 インスタンス URL とマスクされた API キーを表示します。保存されたコンテキストがアクティブな場合は、コンテキスト名も表示されます。
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 利用可能なすべてのリソースタイプを一覧表示します。
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | オプション      | タイプ | デフォルト | 説明                                       |

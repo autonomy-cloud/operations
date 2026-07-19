@@ -8,7 +8,7 @@ Isso funciona para AWS Lambda, Google Cloud Functions, Azure Functions, Cloudfla
 
 ## Pré-requisitos
 
-- Um **Token de Ingestão de Telemetria do Cast Operations** — crie um em _Project Settings → Telemetry Ingestion Keys_ e copie o valor `x-oneuptime-token`.
+- Um **Token de Ingestão de Telemetria do Cast Operations** — crie um em _Project Settings → Telemetry Ingestion Keys_ e copie o valor `x-cast-operations-token`.
 - O OpenTelemetry SDK (ou uma camada de auto-instrumentação) para a linguagem da sua função.
 
 ## Como o Cast Operations identifica uma função
@@ -31,7 +31,7 @@ A maioria das auto-instrumentações de linguagem respeita as variáveis de ambi
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
@@ -44,7 +44,7 @@ Para o AWS Lambda, o caminho mais simples é a [camada Lambda do OpenTelemetry](
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
 OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 A camada define `faas.name` a partir do nome da função automaticamente, e o detector de recurso preenche `cloud.platform`, `cloud.region` e `cloud.account.id`.

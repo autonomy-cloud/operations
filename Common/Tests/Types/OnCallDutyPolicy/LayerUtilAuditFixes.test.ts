@@ -5,7 +5,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import DayOfWeek from "../../../Types/Day/DayOfWeek";
@@ -58,12 +58,12 @@ function dailyRestriction(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: startHour,
       minutes: 0,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: endHour,
       minutes: 0,
       seconds: 0,
@@ -216,7 +216,7 @@ describe("LayerUtil audit fixes", () => {
               },
             ],
             calendarStartDate: now,
-            calendarEndDate: OneUptimeDate.addRemoveSeconds(now, 1),
+            calendarEndDate: OperationsDate.addRemoveSeconds(now, 1),
           },
           { getNumberOfEvents: 1 },
         );

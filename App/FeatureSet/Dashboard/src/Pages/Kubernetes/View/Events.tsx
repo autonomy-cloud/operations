@@ -7,7 +7,7 @@ import AnalyticsModelAPI, {
 } from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Log from "Common/Models/AnalyticsModels/Log";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import React, {
   FunctionComponent,
@@ -81,8 +81,8 @@ const KubernetesClusterEvents: FunctionComponent<
         return;
       }
 
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveHours(endDate, -24);
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveHours(endDate, -24);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const eventsQueryOptions: any = {
@@ -186,7 +186,7 @@ const KubernetesClusterEvents: FunctionComponent<
         if (eventType || reason) {
           k8sEvents.push({
             timestamp: log.time
-              ? OneUptimeDate.getDateAsLocalFormattedString(log.time)
+              ? OperationsDate.getDateAsLocalFormattedString(log.time)
               : "",
             type: eventType || "Unknown",
             reason: reason || "Unknown",

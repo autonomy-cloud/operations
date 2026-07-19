@@ -10,7 +10,7 @@ Syntax:
 
 Example:
 
-`sudo kubectl exec fi-mongodb-0 -- mongodump --uri="mongodb://oneuptime:password@localhost:27017/oneuptimedb" --archive="/bitnami/mongodb/oneuptimedata.archive"`
+`sudo kubectl exec fi-mongodb-0 -- mongodump --uri="mongodb://cast-operations:password@localhost:27017/castoperationsdb" --archive="/bitnami/mongodb/cast-operationsdata.archive"`
 
 **Step 2**: Copy file from conatiner to local machine.
 
@@ -20,4 +20,4 @@ Syntax:
 
 Example:
 
-`sudo kubectl cp fi-mongodb-0:/bitnami/mongodb/oneuptimedata.archive /Volumes/DataDrive/Projects/OneUptime/app/backup.archive`
+`sudo kubectl cp fi-mongodb-0:/bitnami/mongodb/cast-operationsdata.archive /Volumes/DataDrive/Projects/Operations/app/backup.archive`

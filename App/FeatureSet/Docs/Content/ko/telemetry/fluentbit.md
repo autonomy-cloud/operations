@@ -61,7 +61,7 @@ outputs:
     traces_uri: "/otlp/v1/traces"
     tls: On
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 입력 섹션에 opentelemetry_envelope이 있는지 확인하십시오. 입력 섹션이 어떻게 보이는지에 대한 예시입니다:
@@ -118,7 +118,7 @@ pipeline:
       traces_uri: "/otlp/v1/traces"
       tls: On
       header:
-        - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+        - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 **Cast Operations을 자체 호스팅하는 경우**: Cast Operations을 자체 호스팅하는 경우 `host`를 Cast Operations 인스턴스의 호스트로 교체할 수 있습니다. HTTPS가 아닌 HTTP 서버에서 호스팅하는 경우 `port`를 Cast Operations 인스턴스의 포트 (포트 80일 가능성이 높음)로 교체할 수 있습니다.
@@ -137,7 +137,7 @@ outputs:
     logs_uri: "/otlp/v1/logs"
     traces_uri: "/otlp/v1/traces"
     header:
-      - x-oneuptime-token YOUR_TELEMETRY_INGESTION_TOKEN
+      - x-cast-operations-token YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 ## 사용

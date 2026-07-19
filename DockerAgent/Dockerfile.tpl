@@ -5,9 +5,9 @@
 # hosts, containers, and container logs and ships them to Cast Operations.
 #
 # Users only need to supply a few environment variables:
-#   - ONEUPTIME_URL               (e.g. https://visca.ai)
-#   - ONEUPTIME_SERVICE_TOKEN     (telemetry ingestion token)
-#   - ONEUPTIME_PROJECT_ID        (Cast Operations project ID)
+#   - CAST_OPERATIONS_URL               (e.g. https://visca.ai)
+#   - CAST_OPERATIONS_SERVICE_TOKEN     (telemetry ingestion token)
+#   - CAST_OPERATIONS_PROJECT_ID        (Cast Operations project ID)
 #   - DOCKER_HOST_NAME (optional) (friendly host name, defaults to docker-host)
 #
 
@@ -25,8 +25,8 @@ LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 # Bake the pre-tuned collector config into the image. The config uses
-# env-var substitution (${ONEUPTIME_URL}, ${ONEUPTIME_SERVICE_TOKEN},
-# ${ONEUPTIME_PROJECT_ID}) which the collector resolves at startup.
+# env-var substitution (${CAST_OPERATIONS_URL}, ${CAST_OPERATIONS_SERVICE_TOKEN},
+# ${CAST_OPERATIONS_PROJECT_ID}) which the collector resolves at startup.
 COPY ./DockerAgent/otel-collector-config.yaml /etc/otelcol-contrib/config.yaml
 
 # Default friendly host name — users can override at runtime with

@@ -4,7 +4,7 @@ import MonitorEvaluationSummary, {
   MonitorEvaluationFilterResult,
 } from "Common/Types/Monitor/MonitorEvaluationSummary";
 import { FilterType } from "Common/Types/Monitor/CriteriaFilter";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import Route from "Common/Types/API/Route";
 import Button, {
@@ -407,7 +407,7 @@ const EvaluationLogList: FunctionComponent<ComponentProps> = (
           )}
           {event.at && (
             <div className="text-xs text-gray-400">
-              {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+              {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                 event.at,
               )}
             </div>
@@ -426,7 +426,7 @@ const EvaluationLogList: FunctionComponent<ComponentProps> = (
       {evaluationSummary.evaluatedAt && (
         <div className="text-xs text-gray-500">
           Evaluated at{" "}
-          {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+          {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
             evaluationSummary.evaluatedAt,
           )}
         </div>

@@ -9,11 +9,8 @@ import {
   ColumnAccessControl,
   TableAccessControl,
 } from "../../../Types/BaseDatabase/AccessControl";
-import ColumnBillingAccessControl from "../../../Types/BaseDatabase/ColumnBillingAccessControl";
 import EnableWorkflowOn from "../../../Types/BaseDatabase/EnableWorkflowOn";
 import ModelPermission from "../../../Types/BaseDatabase/ModelPermission";
-import TableBillingAccessControl from "../../../Types/BaseDatabase/TableBillingAccessControl";
-import { PlanType } from "../../../Types/Billing/SubscriptionPlan";
 import Dictionary from "../../../Types/Dictionary";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import { JSONValue } from "../../../Types/JSON";
@@ -50,8 +47,6 @@ export default class AnalyticsBaseModel extends CommonModel {
     // Human-readable summary shown on the model's API Reference page.
     tableDescription?: string | undefined;
     isMasterAdminApiDocs?: boolean | undefined;
-    allowAccessIfSubscriptionIsUnpaid?: boolean | undefined;
-    tableBillingAccessControl?: TableBillingAccessControl | undefined;
     accessControl?: TableAccessControl | undefined;
     primaryKeys: Array<string>; // this should be the subset of tableColumns
     sortKeys: Array<string>; // this should be the subset of tableColumns
@@ -175,9 +170,6 @@ export default class AnalyticsBaseModel extends CommonModel {
     this.tableColumns = columns;
     this.singularName = data.singularName;
     this.pluralName = data.pluralName;
-    this.tableBillingAccessControl = data.tableBillingAccessControl;
-    this.allowAccessIfSubscriptionIsUnpaid =
-      data.allowAccessIfSubscriptionIsUnpaid || false;
     this.accessControl = data.accessControl;
     this.enableWorkflowOn = data.enableWorkflowOn;
     this.crudApiPath = data.crudApiPath;
@@ -321,26 +313,6 @@ export default class AnalyticsBaseModel extends CommonModel {
     this._pluralName = v;
   }
 
-  private _tableBillingAccessControl: TableBillingAccessControl | undefined;
-  public get tableBillingAccessControl():
-    | TableBillingAccessControl
-    | undefined {
-    return this._tableBillingAccessControl;
-  }
-  public set tableBillingAccessControl(
-    v: TableBillingAccessControl | undefined,
-  ) {
-    this._tableBillingAccessControl = v;
-  }
-
-  private _allowAccessIfSubscriptionIsUnpaid: boolean = false;
-  public get allowAccessIfSubscriptionIsUnpaid(): boolean {
-    return this._allowAccessIfSubscriptionIsUnpaid;
-  }
-  public set allowAccessIfSubscriptionIsUnpaid(v: boolean) {
-    this._allowAccessIfSubscriptionIsUnpaid = v;
-  }
-
   private _tableName: string = "";
   public get tableName(): string {
     return this._tableName;
@@ -463,18 +435,6 @@ export default class AnalyticsBaseModel extends CommonModel {
     return column.defaultValue;
   }
 
-  public getColumnBillingAccessControl(
-    columnName: string,
-  ): ColumnBillingAccessControl | null {
-    const column: AnalyticsTableColumn | null = this.getTableColumn(columnName);
-
-    if (!column) {
-      return null;
-    }
-
-    return column.billingAccessControl || null;
-  }
-
   public get id(): ObjectID | undefined {
     return this.getColumnValue("_id") as ObjectID | undefined;
   }
@@ -550,22 +510,6 @@ export default class AnalyticsBaseModel extends CommonModel {
 
   public getDeletePermissions(): Array<Permission> {
     return this.accessControl?.delete || [];
-  }
-
-  public getReadBillingPlan(): PlanType | null {
-    return this.tableBillingAccessControl?.read || null;
-  }
-
-  public getCreateBillingPlan(): PlanType | null {
-    return this.tableBillingAccessControl?.create || null;
-  }
-
-  public getUpdateBillingPlan(): PlanType | null {
-    return this.tableBillingAccessControl?.update || null;
-  }
-
-  public getDeleteBillingPlan(): PlanType | null {
-    return this.tableBillingAccessControl?.delete || null;
   }
 
   public isEntityColumn(_columnName: string): boolean {

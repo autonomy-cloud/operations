@@ -36,7 +36,7 @@ from traceloop.sdk import Traceloop
 Traceloop.init(
     app_name="my-ai-agent",
     api_endpoint="https://visca.ai/otlp",   # or your self-hosted host + /otlp
-    headers={"x-oneuptime-token": "YOUR_INGESTION_TOKEN"},
+    headers={"x-cast-operations-token": "YOUR_INGESTION_TOKEN"},
 )
 
 # Your normal OpenAI / Anthropic / LangChain calls are now traced automatically.
@@ -54,7 +54,7 @@ import * as traceloop from "@traceloop/node-server-sdk";
 traceloop.initialize({
   appName: "my-ai-agent",
   baseUrl: "https://visca.ai/otlp", // or your self-hosted host + /otlp
-  headers: { "x-oneuptime-token": "YOUR_INGESTION_TOKEN" },
+  headers: { "x-cast-operations-token": "YOUR_INGESTION_TOKEN" },
 });
 ```
 
@@ -64,7 +64,7 @@ If you instrument with a native OpenTelemetry SDK, point the OTLP exporter at Ca
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-export OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_INGESTION_TOKEN"
+export OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_INGESTION_TOKEN"
 export OTEL_SERVICE_NAME="my-ai-agent"
 ```
 

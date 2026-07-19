@@ -1,6 +1,6 @@
 import { Black } from "Common/Types/BrandColors";
 import Color from "Common/Types/Color";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Span, { SpanKind, SpanStatus } from "Common/Models/AnalyticsModels/Span";
 import Service from "Common/Models/DatabaseModels/Service";
 import { DropdownOption } from "Common/UI/Components/Dropdown/Dropdown";
@@ -52,7 +52,7 @@ export default class SpanUtil {
       return "0 ms";
     }
 
-    return OneUptimeDate.getHumanizedDurationFromNanoseconds({
+    return OperationsDate.getHumanizedDurationFromNanoseconds({
       nanoseconds: spanDurationInUnixNano,
     });
   }

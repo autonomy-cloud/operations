@@ -11,7 +11,7 @@ Cast Operations Terraform-leverantören finns tillgänglig på [Terraform Regist
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # Use latest 7.x version
     }
@@ -27,7 +27,7 @@ terraform {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Pin to exact version matching your Cast Operations installation
     }
@@ -41,9 +41,9 @@ terraform {
 ### Grundläggande konfiguration
 
 ```hcl
-provider "oneuptime" {
-  oneuptime_url = "https://your-operations-instance.com"  # Or https://visca.ai for cloud
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://your-operations-instance.com"  # Or https://visca.ai for cloud
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -52,16 +52,16 @@ provider "oneuptime" {
 Du kan konfigurera leverantören med miljövariabler:
 
 ```bash
-export ONEUPTIME_URL="https://your-operations-instance.com"
-export ONEUPTIME_API_KEY="your-api-key-here"
+export CAST_OPERATIONS_URL="https://your-operations-instance.com"
+export CAST_OPERATIONS_API_KEY="your-api-key-here"
 ```
 
 ### Konfigurationsalternativ
 
 | Argument        | Miljövariabel       | Beskrivning          | Obligatorisk |
 | --------------- | ------------------- | -------------------- | ------------ |
-| `oneuptime_url` | `ONEUPTIME_URL`     | Cast Operations URL        | Ja           |
-| `api_key`       | `ONEUPTIME_API_KEY` | Cast Operations API-nyckel | Ja           |
+| `cast_operations_url` | `CAST_OPERATIONS_URL`     | Cast Operations URL        | Ja           |
+| `api_key`       | `CAST_OPERATIONS_API_KEY` | Cast Operations API-nyckel | Ja           |
 
 ## Snabbstart
 
@@ -82,16 +82,16 @@ Skapa en `main.tf`-fil:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # Use your instance URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # Use your instance URL
+  api_key       = var.cast_operations_api_key
 }
 
 variable "project_id" {
@@ -100,7 +100,7 @@ variable "project_id" {
 }
 
 # Create a monitor
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Website Monitor"
   description = "Monitor for website uptime"
   data        = jsonencode({
@@ -130,24 +130,24 @@ Cast Operations Terraform-leverantören stöder följande resurser:
 
 ### Kärnresurser
 
-- `oneuptime_team` – Hantera team
+- `cast_operations_team` – Hantera team
 
 ### Övervakning
 
-- `oneuptime_monitor` – Skapa och hantera monitorer
-- `oneuptime_probe` – Hantera övervakningssonder
+- `cast_operations_monitor` – Skapa och hantera monitorer
+- `cast_operations_probe` – Hantera övervakningssonder
 
 ### Jour-hantering
 
-- `oneuptime_on_call_duty_policy` – Konfigurera jourschemat
+- `cast_operations_on_call_duty_policy` – Konfigurera jourschemat
 
 ### Statussidor
 
-- `oneuptime_status_page` – Skapa statussidor
+- `cast_operations_status_page` – Skapa statussidor
 
 ### Tjänstkatalog
 
-- `oneuptime_service_catalog` – Hantera tjänstkatalogposter
+- `cast_operations_service_catalog` – Hantera tjänstkatalogposter
 
 ## Bästa praxis
 
@@ -169,7 +169,7 @@ Cast Operations Terraform-leverantören stöder följande resurser:
 terraform {
   backend "s3" {
     bucket = "my-terraform-state"
-    key    = "oneuptime/terraform.tfstate"
+    key    = "cast-operations/terraform.tfstate"
     region = "us-west-2"
   }
 }

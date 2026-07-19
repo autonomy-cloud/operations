@@ -42,7 +42,7 @@ import {
   displayNameForResource,
   displayStatusForResource,
 } from "../Utils/ProxmoxResourceUtils";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 /*
  * WI-29: window for the client-side linear growth fit — same 24 h
@@ -101,8 +101,8 @@ const ProxmoxClusterStorageDetail: FunctionComponent<
         return;
       }
 
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveHours(
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveHours(
         endDate,
         -PROJECTION_WINDOW_HOURS,
       );
@@ -370,7 +370,7 @@ const ProxmoxClusterStorageDetail: FunctionComponent<
     if (row.lastSeenAt) {
       summaryFields.push({
         title: "Last Seen",
-        value: OneUptimeDate.fromNow(new Date(row.lastSeenAt as Date)),
+        value: OperationsDate.fromNow(new Date(row.lastSeenAt as Date)),
       });
     }
   }

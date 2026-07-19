@@ -181,10 +181,10 @@ Then **recreate** the affected containers. Podman binds the log driver at contai
 To use Podman monitoring, you need to:
 
 1. Install the Cast Operations Podman Agent on each Podman host you want to monitor
-2. Pass `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN`, and `PODMAN_HOST_NAME` as environment variables
+2. Pass `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_SERVICE_TOKEN`, and `PODMAN_HOST_NAME` as environment variables
 3. Ensure the containers you want to observe use the `k8s-file` log driver (see above)
 
-The agent is published as `oneuptime/podman-agent:release` on Docker Hub. See the [Podman Host installation guide](https://github.com/autonomy-cloud/operations/tree/master/PodmanAgent) for the full `podman run` and Compose examples.
+The agent is published as `cast-operations/podman-agent:release` on Docker Hub. See the [Podman Host installation guide](https://github.com/autonomy-cloud/operations/tree/master/PodmanAgent) for the full `podman run` and Compose examples.
 
 ## Troubleshooting
 

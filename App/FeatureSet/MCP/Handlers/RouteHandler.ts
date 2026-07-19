@@ -145,7 +145,7 @@ function createMCPHandler(tools: McpToolInfo[]): McpHandlerFunction {
         // Non-SSE GET (browser / probe): return a friendly discovery payload.
         if (!acceptHeader.includes("text/event-stream")) {
           res.status(200).json({
-            name: "oneuptime-mcp",
+            name: "cast-operations-mcp",
             status: "running",
             message:
               "This is a Model Context Protocol (MCP) server endpoint. Use an MCP client to connect.",
@@ -273,7 +273,7 @@ function setupHealthEndpoint(
   app.get(endpoint, (_req: ExpressRequest, res: ExpressResponse) => {
     res.json({
       status: "healthy",
-      service: "oneuptime-mcp",
+      service: "cast-operations-mcp",
       mode: "stateless",
       tools: tools.length,
       // Stateless mode keeps no sessions in memory; retained for response-shape compatibility.

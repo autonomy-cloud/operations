@@ -72,7 +72,6 @@ De meeste engineers zouden create/edit/read op workflows moeten hebben, maar nie
 
 ## Plan-limieten
 
-Cast Operations Cloud beperkt het aantal runs per maand op kleinere plannen. Je huidige limiet staat onder **Project Settings → Billing**. Wanneer je hem bereikt, worden nieuwe triggers afgewezen tot de volgende factureringscyclus. Self-hosted installaties hebben deze limiet niet.
 
 ## Wanneer workflows niet de juiste tool zijn
 

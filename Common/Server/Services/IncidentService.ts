@@ -45,7 +45,7 @@ import Monitor from "../../Models/DatabaseModels/Monitor";
 import MonitorStatus from "../../Models/DatabaseModels/MonitorStatus";
 import MonitorStatusTimeline from "../../Models/DatabaseModels/MonitorStatusTimeline";
 import User from "../../Models/DatabaseModels/User";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import MutableMetricService from "./MutableMetricService";
 import GlobalConfigService from "./GlobalConfigService";
 import GlobalConfig from "../../Models/DatabaseModels/GlobalConfig";
@@ -53,7 +53,7 @@ import IncidentMetricType from "../../Types/Incident/IncidentMetricType";
 import MutableMetric from "../../Models/AnalyticsModels/MutableMetric";
 import { MetricPointType } from "../../Models/AnalyticsModels/Metric";
 import ServiceType from "../../Types/Telemetry/ServiceType";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import TelemetryUtil from "../Utils/Telemetry/Telemetry";
 import logger, { LogAttributes } from "../Utils/Logger";
 import ProductAnalytics from "../Utils/ProductAnalytics";
@@ -116,9 +116,6 @@ type IncidentUpdatePayload = {
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -272,8 +269,8 @@ export class Service extends DatabaseService<Model> {
         matchingRule.reminderIntervalInMinutes &&
         !(await this.isIncidentResolved({ incidentId: data.incidentId }))
       ) {
-        nextReminderNotificationAt = OneUptimeDate.addRemoveMinutes(
-          OneUptimeDate.getCurrentDate(),
+        nextReminderNotificationAt = OperationsDate.addRemoveMinutes(
+          OperationsDate.getCurrentDate(),
           matchingRule.reminderIntervalInMinutes,
         );
       }
@@ -572,9 +569,9 @@ export class Service extends DatabaseService<Model> {
       createBy.props.tenantId || createBy.data.projectId!;
 
     if (!createBy.data.declaredAt) {
-      createBy.data.declaredAt = OneUptimeDate.getCurrentDate();
+      createBy.data.declaredAt = OperationsDate.getCurrentDate();
     } else {
-      createBy.data.declaredAt = OneUptimeDate.fromString(
+      createBy.data.declaredAt = OperationsDate.fromString(
         createBy.data.declaredAt as Date,
       );
     }
@@ -1913,7 +1910,7 @@ ${incident.remediationNotes || "No remediation notes provided."}
                 IncidentMetricType.PostmortemCompletionTime;
               postmortemMetric.metricPointId =
                 IncidentMetricType.PostmortemCompletionTime;
-              postmortemMetric.value = OneUptimeDate.getDifferenceInSeconds(
+              postmortemMetric.value = OperationsDate.getDifferenceInSeconds(
                 postmortemPostedAt,
                 resolvedTimeline.startsAt,
               );
@@ -1925,14 +1922,14 @@ ${incident.remediationNotes || "No remediation notes provided."}
                 postmortemMetric.attributes,
               );
               postmortemMetric.time = postmortemPostedAt;
-              postmortemMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+              postmortemMetric.timeUnixNano = OperationsDate.toUnixNano(
                 postmortemMetric.time,
               );
               postmortemMetric.metricPointType = MetricPointType.Sum;
               const postmortemRetentionDays: number =
                 await this.getMetricRetentionDays();
-              postmortemMetric.retentionDate = OneUptimeDate.addRemoveDays(
-                OneUptimeDate.getCurrentDate(),
+              postmortemMetric.retentionDate = OperationsDate.addRemoveDays(
+                OperationsDate.getCurrentDate(),
                 postmortemRetentionDays,
               );
 
@@ -2214,15 +2211,15 @@ ${incidentSeverity.name}
               };
               severityChangeMetric.attributeKeys =
                 TelemetryUtil.getAttributeKeys(severityChangeMetric.attributes);
-              severityChangeMetric.time = OneUptimeDate.getCurrentDate();
-              severityChangeMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+              severityChangeMetric.time = OperationsDate.getCurrentDate();
+              severityChangeMetric.timeUnixNano = OperationsDate.toUnixNano(
                 severityChangeMetric.time,
               );
               severityChangeMetric.metricPointType = MetricPointType.Sum;
               const severityRetentionDays: number =
                 await this.getMetricRetentionDays();
-              severityChangeMetric.retentionDate = OneUptimeDate.addRemoveDays(
-                OneUptimeDate.getCurrentDate(),
+              severityChangeMetric.retentionDate = OperationsDate.addRemoveDays(
+                OperationsDate.getCurrentDate(),
                 severityRetentionDays,
               );
 
@@ -2677,8 +2674,8 @@ ${incidentSeverity.name}
             primaryEntityId: incident.id,
             primaryEntityType: ServiceType.Incident,
             metricNames: Object.values(IncidentMetricType),
-            retentionDate: OneUptimeDate.addRemoveDays(
-              OneUptimeDate.getCurrentDate(),
+            retentionDate: OperationsDate.addRemoveDays(
+              OperationsDate.getCurrentDate(),
               metricRetentionDays,
             ),
           });
@@ -2716,7 +2713,7 @@ ${incidentSeverity.name}
     } = data;
 
     const declaredTimelineStart: Date | undefined = timelineStartsAt
-      ? OneUptimeDate.fromString(timelineStartsAt as Date)
+      ? OperationsDate.fromString(timelineStartsAt as Date)
       : undefined;
 
     // get last monitor status timeline.
@@ -2973,13 +2970,13 @@ ${incidentSeverity.name}
     }: { incident: Model; baseMetricAttributes: JSONObject } =
       await this.getIncidentMetricContext({ incidentId: data.incidentId });
 
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
     const incidentCreatedAt: Date =
       incident.createdAt || incident.declaredAt || now;
 
     const metricRetentionDays: number = await this.getMetricRetentionDays();
-    const retentionDate: Date = OneUptimeDate.addRemoveDays(
-      OneUptimeDate.getCurrentDate(),
+    const retentionDate: Date = OperationsDate.addRemoveDays(
+      OperationsDate.getCurrentDate(),
       metricRetentionDays,
     );
 
@@ -2990,7 +2987,7 @@ ${incidentSeverity.name}
     timeToRcaMetric.primaryEntityType = ServiceType.Incident;
     timeToRcaMetric.name = IncidentMetricType.TimeToRootCausePosted;
     timeToRcaMetric.metricPointId = IncidentMetricType.TimeToRootCausePosted;
-    timeToRcaMetric.value = OneUptimeDate.getDifferenceInSeconds(
+    timeToRcaMetric.value = OperationsDate.getDifferenceInSeconds(
       now,
       incidentCreatedAt,
     );
@@ -3003,7 +3000,7 @@ ${incidentSeverity.name}
       timeToRcaMetric.attributes,
     );
     timeToRcaMetric.time = now;
-    timeToRcaMetric.timeUnixNano = OneUptimeDate.toUnixNano(now);
+    timeToRcaMetric.timeUnixNano = OperationsDate.toUnixNano(now);
     timeToRcaMetric.metricPointType = MetricPointType.Sum;
     timeToRcaMetric.retentionDate = retentionDate;
 
@@ -3138,8 +3135,8 @@ ${incidentSeverity.name}
       const itemsToSave: Array<MutableMetric> = [];
 
       const metricRetentionDays: number = await this.getMetricRetentionDays();
-      const incidentMetricRetentionDate: Date = OneUptimeDate.addRemoveDays(
-        OneUptimeDate.getCurrentDate(),
+      const incidentMetricRetentionDate: Date = OperationsDate.addRemoveDays(
+        OperationsDate.getCurrentDate(),
         metricRetentionDays,
       );
 
@@ -3149,7 +3146,7 @@ ${incidentSeverity.name}
         firstIncidentStateTimeline?.startsAt ||
         incident.declaredAt ||
         incident.createdAt ||
-        OneUptimeDate.getCurrentDate();
+        OperationsDate.getCurrentDate();
 
       const metricTypesMap: Dictionary<MetricType> = {};
 
@@ -3167,7 +3164,7 @@ ${incidentSeverity.name}
       );
 
       incidentCountMetric.time = incidentStartsAt;
-      incidentCountMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+      incidentCountMetric.timeUnixNano = OperationsDate.toUnixNano(
         incidentCountMetric.time,
       );
       incidentCountMetric.metricPointType = MetricPointType.Sum;
@@ -3213,9 +3210,9 @@ ${incidentSeverity.name}
           timeToAcknowledgeMetric.name = IncidentMetricType.TimeToAcknowledge;
           timeToAcknowledgeMetric.metricPointId =
             IncidentMetricType.TimeToAcknowledge;
-          timeToAcknowledgeMetric.value = OneUptimeDate.getDifferenceInSeconds(
+          timeToAcknowledgeMetric.value = OperationsDate.getDifferenceInSeconds(
             ackIncidentStateTimeline?.startsAt ||
-              OneUptimeDate.getCurrentDate(),
+              OperationsDate.getCurrentDate(),
             incidentStartsAt,
           );
           // aiInvestigated: the MTTA with/without-AI dimension.
@@ -3230,8 +3227,8 @@ ${incidentSeverity.name}
             ackIncidentStateTimeline?.startsAt ||
             incident.declaredAt ||
             incident.createdAt ||
-            OneUptimeDate.getCurrentDate();
-          timeToAcknowledgeMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+            OperationsDate.getCurrentDate();
+          timeToAcknowledgeMetric.timeUnixNano = OperationsDate.toUnixNano(
             timeToAcknowledgeMetric.time,
           );
           timeToAcknowledgeMetric.metricPointType = MetricPointType.Sum;
@@ -3268,9 +3265,9 @@ ${incidentSeverity.name}
         timeToResolveMetric.primaryEntityType = ServiceType.Incident;
         timeToResolveMetric.name = IncidentMetricType.TimeToResolve;
         timeToResolveMetric.metricPointId = IncidentMetricType.TimeToResolve;
-        timeToResolveMetric.value = OneUptimeDate.getDifferenceInSeconds(
+        timeToResolveMetric.value = OperationsDate.getDifferenceInSeconds(
           resolvedIncidentStateTimeline?.startsAt ||
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           incidentStartsAt,
         );
         // aiInvestigated: the MTTR with/without-AI dimension.
@@ -3286,8 +3283,8 @@ ${incidentSeverity.name}
           resolvedIncidentStateTimeline?.startsAt ||
           incident.declaredAt ||
           incident.createdAt ||
-          OneUptimeDate.getCurrentDate();
-        timeToResolveMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+          OperationsDate.getCurrentDate();
+        timeToResolveMetric.timeUnixNano = OperationsDate.toUnixNano(
           timeToResolveMetric.time,
         );
         timeToResolveMetric.metricPointType = MetricPointType.Sum;
@@ -3306,7 +3303,7 @@ ${incidentSeverity.name}
 
         const incidentEndsAt: Date =
           resolvedIncidentStateTimeline.startsAt ||
-          OneUptimeDate.getCurrentDate();
+          OperationsDate.getCurrentDate();
 
         const incidentDurationMetric: MutableMetric = new MutableMetric();
 
@@ -3316,7 +3313,7 @@ ${incidentSeverity.name}
         incidentDurationMetric.name = IncidentMetricType.IncidentDuration;
         incidentDurationMetric.metricPointId =
           IncidentMetricType.IncidentDuration;
-        incidentDurationMetric.value = OneUptimeDate.getDifferenceInSeconds(
+        incidentDurationMetric.value = OperationsDate.getDifferenceInSeconds(
           incidentEndsAt,
           incidentStartsAt,
         );
@@ -3326,7 +3323,7 @@ ${incidentSeverity.name}
         );
 
         incidentDurationMetric.time = incidentEndsAt;
-        incidentDurationMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+        incidentDurationMetric.timeUnixNano = OperationsDate.toUnixNano(
           incidentDurationMetric.time,
         );
         incidentDurationMetric.metricPointType = MetricPointType.Sum;
@@ -3352,7 +3349,7 @@ ${incidentSeverity.name}
           postmortemMetric.name = IncidentMetricType.PostmortemCompletionTime;
           postmortemMetric.metricPointId =
             IncidentMetricType.PostmortemCompletionTime;
-          postmortemMetric.value = OneUptimeDate.getDifferenceInSeconds(
+          postmortemMetric.value = OperationsDate.getDifferenceInSeconds(
             incident.postmortemPostedAt,
             incidentEndsAt,
           );
@@ -3361,7 +3358,7 @@ ${incidentSeverity.name}
             postmortemMetric.attributes,
           );
           postmortemMetric.time = incident.postmortemPostedAt;
-          postmortemMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+          postmortemMetric.timeUnixNano = OperationsDate.toUnixNano(
             postmortemMetric.time,
           );
           postmortemMetric.metricPointType = MetricPointType.Sum;
@@ -3387,7 +3384,7 @@ ${incidentSeverity.name}
         timeInStateMetric.primaryEntityType = ServiceType.Incident;
         timeInStateMetric.name = IncidentMetricType.TimeInState;
         timeInStateMetric.metricPointId = `time-in-state:${timeline.id!.toString()}`;
-        timeInStateMetric.value = OneUptimeDate.getDifferenceInSeconds(
+        timeInStateMetric.value = OperationsDate.getDifferenceInSeconds(
           timeline.endsAt,
           timeline.startsAt,
         );
@@ -3407,7 +3404,7 @@ ${incidentSeverity.name}
         );
 
         timeInStateMetric.time = timeline.startsAt;
-        timeInStateMetric.timeUnixNano = OneUptimeDate.toUnixNano(
+        timeInStateMetric.timeUnixNano = OperationsDate.toUnixNano(
           timeInStateMetric.time,
         );
         timeInStateMetric.metricPointType = MetricPointType.Sum;
@@ -3622,9 +3619,9 @@ ${incidentSeverity.name}
       );
 
     /*
-     * Route through AIService so the call is metered, billed and budget-
-     * checked like every other AI feature — the previous direct
-     * LLMService.getCompletion bypassed LlmLog and cloud billing entirely.
+     * Route through AIService so the call is logged and budget-checked like
+     * every other AI feature — the previous direct
+     * LLMService.getCompletion bypassed the shared LlmLog path entirely.
      * Previews stay off: the prompt embeds incident context (including
      * private notes and workspace messages) whose read ACLs are narrower
      * than LlmLog's (G8).

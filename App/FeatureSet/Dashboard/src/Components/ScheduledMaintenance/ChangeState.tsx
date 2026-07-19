@@ -23,7 +23,7 @@ import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import { Black } from "Common/Types/BrandColors";
 import ScheduledMaintenanceNoteTemplate from "Common/Models/DatabaseModels/ScheduledMaintenanceNoteTemplate";
 import FormValues from "Common/UI/Components/Forms/Types/FormValues";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IconProp from "Common/Types/Icon/IconProp";
 import { ButtonStyleType } from "Common/UI/Components/Button/Button";
 import EventStatusPanel, {
@@ -328,7 +328,7 @@ const ChangeScheduledMaintenanceState: FunctionComponent<ComponentProps> = (
   if (
     isCurrentStateScheduled &&
     props.eventStartsAt &&
-    OneUptimeDate.isInTheFuture(props.eventStartsAt)
+    OperationsDate.isInTheFuture(props.eventStartsAt)
   ) {
     durationPrefix = "Starts in";
     durationStartsAt = props.eventStartsAt;

@@ -15,7 +15,7 @@ Puedes ejecutar el **OpenTelemetry Collector** como un servicio directamente en 
 
 ## Requisitos previos
 
-- Un **Cast Operations Telemetry Ingestion Token** — crea uno desde _Project Settings → Telemetry Ingestion Keys_ y copia el valor de `x-oneuptime-token`.
+- Un **Cast Operations Telemetry Ingestion Token** — crea uno desde _Project Settings → Telemetry Ingestion Keys_ y copia el valor de `x-cast-operations-token`.
 - La distribución **OpenTelemetry Collector Contrib** (`otelcol-contrib`). La compilación predeterminada `otelcol` **no** incluye receptores como `windowseventlogreceiver`, `journaldreceiver` ni los extras de `hostmetrics` — asegúrate de usar la distribución `contrib`. El `windowsservicereceiver` en alpha que alimenta la pestaña **Services** de Windows viene incluido en `otelcol-contrib` a partir de la **v0.155.0**, así que instala una versión actual; consulta "Windows Services (métricas)" más abajo.
 - Root / Administrador en el host para instalar el recolector como servicio y (donde corresponda) leer fuentes de logs privilegiadas.
 
@@ -116,7 +116,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 - **`batch`** agrupa los registros antes de exportarlos para que no pagues un viaje HTTP de ida y vuelta por cada registro.
@@ -335,7 +335,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -387,7 +387,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -450,7 +450,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -486,14 +486,14 @@ sudo journalctl -u otelcol-contrib -f
 
 ### macOS (launchd)
 
-Crea `/Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist`:
+Crea `/Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>com.oneuptime.otelcol-contrib</string>
+  <key>Label</key><string>com.cast-operations.otelcol-contrib</string>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/local/bin/otelcol-contrib</string>
@@ -510,7 +510,7 @@ Crea `/Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist`:
 Cárgalo:
 
 ```bash
-sudo launchctl load -w /Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist
+sudo launchctl load -w /Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist
 sudo launchctl list | grep otelcol-contrib
 ```
 
@@ -535,8 +535,8 @@ El servicio se ejecuta bajo `LocalSystem` de forma predeterminada, que tiene los
 ## Paso 4 — Verificar en Cast Operations
 
 1. Genera alguna señal en el host:
-   - **Linux / macOS:** `logger "hello from oneuptime"` (escribe en syslog / journald).
-   - **Windows:** `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from oneuptime"` desde un símbolo del sistema elevado.
+   - **Linux / macOS:** `logger "hello from cast-operations"` (escribe en syslog / journald).
+   - **Windows:** `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from cast-operations"` desde un símbolo del sistema elevado.
 2. En el panel de Cast Operations, abre **Telemetry → Services** y elige el `service.name` que configuraste.
 3. Abre **Metrics** — las métricas del host (CPU, memoria, sistema de archivos, etc.) deberían aparecer en un minuto.
 4. Abre **Logs** — tus logs de archivos / entradas de journald / Windows Event Logs deberían estar transmitiéndose. Entre los atributos útiles para búsquedas se incluyen `log.file.name`, `systemd.unit`, `winlog.channel`, `winlog.event_id` y `winlog.provider.name`.
@@ -699,7 +699,7 @@ service:
       exporters: [otlphttp]
 ```
 
-> **¿Estás editando la configuración que Cast Operations generó para ti?** La canalización de arriba coincide con los ejemplos completos de esta página. La configuración del panel (Hosts → Documentation) nombra las cosas de otra manera: sus procesadores son `resourcedetection` y `batch` (**no** hay procesador `resource`) y su exportador es `otlphttp/oneuptime`. Referenciar un procesador que no está definido detiene el recolector al arrancar con `references processor "resource" which is not configured`. Añade el filtro a lo que ya está ahí en lugar de pegar este bloque encima:
+> **¿Estás editando la configuración que Cast Operations generó para ti?** La canalización de arriba coincide con los ejemplos completos de esta página. La configuración del panel (Hosts → Documentation) nombra las cosas de otra manera: sus procesadores son `resourcedetection` y `batch` (**no** hay procesador `resource`) y su exportador es `otlphttp/cast-operations`. Referenciar un procesador que no está definido detiene el recolector al arrancar con `references processor "resource" which is not configured`. Añade el filtro a lo que ya está ahí en lugar de pegar este bloque encima:
 >
 > ```yaml
 > service:
@@ -707,7 +707,7 @@ service:
 >     metrics:
 >       receivers: [hostmetrics]
 >       processors: [filter/drop-metrics, resourcedetection, batch]
->       exporters: [otlphttp/oneuptime]
+>       exporters: [otlphttp/cast-operations]
 > ```
 >
 > Conserva `resourcedetection` — Cast Operations asocia la telemetría a un host usando el `host.name` / `host.id` que este establece. Esa configuración generada es además **solo de métricas**: no tiene ninguna canalización `logs:` hasta que añadas una, así que un `filter/drop-low-severity` no tiene nada que filtrar hasta que añadas junto a él un receptor `filelog` o `journald`.
@@ -746,7 +746,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -769,7 +769,7 @@ exporters:
   otlphttp:
     endpoint: https://your-operations-host.example.com/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 Si tu instancia es solo HTTP, cambia el esquema a `http://` y usa el puerto apropiado.

@@ -5,7 +5,7 @@ import LIMIT_MAX from "../../Types/Database/LimitMax";
 import { JSONObject } from "../../Types/JSON";
 import HashedString from "../../Types/HashedString";
 import { EncryptionSecret } from "../EnvironmentConfig";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Text from "../../Types/Text";
 import logger from "../Utils/Logger";
 import Exception from "../../Types/Exception/Exception";
@@ -134,7 +134,7 @@ export class Service extends DatabaseService<Model> {
     const updatePayload: Partial<Model> = {
       refreshToken: HashedString.fromString(refreshToken),
       refreshTokenExpiresAt: refreshTokenExpiresAt,
-      lastActiveAt: OneUptimeDate.getCurrentDate(),
+      lastActiveAt: OperationsDate.getCurrentDate(),
       isRevoked: false,
     };
 
@@ -214,7 +214,7 @@ export class Service extends DatabaseService<Model> {
     options: TouchSessionOptions,
   ): Promise<void> {
     const updatePayload: Partial<Model> = {
-      lastActiveAt: OneUptimeDate.getCurrentDate(),
+      lastActiveAt: OperationsDate.getCurrentDate(),
     };
 
     const ipAddress: string | undefined = Text.truncate(
@@ -253,7 +253,7 @@ export class Service extends DatabaseService<Model> {
       id: sessionId,
       data: {
         isRevoked: true,
-        revokedAt: OneUptimeDate.getCurrentDate(),
+        revokedAt: OperationsDate.getCurrentDate(),
         revokedReason: options?.reason ?? null,
       },
       props: {
@@ -287,7 +287,7 @@ export class Service extends DatabaseService<Model> {
       },
       data: {
         isRevoked: true,
-        revokedAt: OneUptimeDate.getCurrentDate(),
+        revokedAt: OperationsDate.getCurrentDate(),
         revokedReason: options?.reason ?? null,
       },
       limit: LIMIT_MAX,
@@ -306,7 +306,7 @@ export class Service extends DatabaseService<Model> {
     session.userId = options.userId;
     session.refreshToken = HashedString.fromString(tokenMeta.refreshToken);
     session.refreshTokenExpiresAt = tokenMeta.refreshTokenExpiresAt;
-    session.lastActiveAt = OneUptimeDate.getCurrentDate();
+    session.lastActiveAt = OperationsDate.getCurrentDate();
     if (options.userAgent) {
       session.userAgent = options.userAgent;
     }
@@ -364,7 +364,7 @@ export class Service extends DatabaseService<Model> {
   }
 
   private static getRefreshTokenExpiry(): Date {
-    return OneUptimeDate.getSomeDaysAfter(
+    return OperationsDate.getSomeDaysAfter(
       Service.DEFAULT_REFRESH_TOKEN_TTL_DAYS,
     );
   }

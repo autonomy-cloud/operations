@@ -24,7 +24,7 @@ import { createWhatsAppMessageFromTemplate } from "../Utils/WhatsAppTemplateUtil
 import { WhatsAppMessagePayload } from "../../Types/WhatsApp/WhatsAppMessage";
 import Team from "../../Models/DatabaseModels/Team";
 import OnCallDutyPolicyTimeLogService from "./OnCallDutyPolicyTimeLogService";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 
 export class Service extends DatabaseService<Model> {
   public constructor() {
@@ -372,7 +372,7 @@ export class Service extends DatabaseService<Model> {
 
           projectId: deletedItem.projectId!,
           teamId: deletedItem.teamId!,
-          endsAt: OneUptimeDate.getCurrentDate(),
+          endsAt: OperationsDate.getCurrentDate(),
         });
       }
     }

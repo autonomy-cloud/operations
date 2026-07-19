@@ -19,8 +19,8 @@ import logger, { LogAttributes } from "../Utils/Logger";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import AlertEpisodeStateTimeline from "../../Models/DatabaseModels/AlertEpisodeStateTimeline";
 import AlertEpisodeStateTimelineService from "./AlertEpisodeStateTimelineService";
-import { IsBillingEnabled } from "../EnvironmentConfig";
-import OneUptimeDate from "../../Types/Date";
+import {} from "../EnvironmentConfig";
+import OperationsDate from "../../Types/Date";
 import AlertEpisodeFeedService from "./AlertEpisodeFeedService";
 import { AlertEpisodeFeedEventType } from "../../Models/DatabaseModels/AlertEpisodeFeed";
 import {
@@ -59,9 +59,6 @@ import ProjectService from "./ProjectService";
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -154,7 +151,7 @@ export class Service extends DatabaseService<Model> {
 
     // Set initial lastAlertAddedAt
     if (!createBy.data.lastAlertAddedAt) {
-      createBy.data.lastAlertAddedAt = OneUptimeDate.getCurrentDate();
+      createBy.data.lastAlertAddedAt = OperationsDate.getCurrentDate();
     }
 
     return { createBy, carryForward: null };
@@ -914,7 +911,7 @@ export class Service extends DatabaseService<Model> {
     await this.updateOneById({
       id: episodeId,
       data: {
-        lastAlertAddedAt: OneUptimeDate.getCurrentDate(),
+        lastAlertAddedAt: OperationsDate.getCurrentDate(),
       },
       props: {
         isRoot: true,

@@ -14,19 +14,19 @@ Deze pagina is de **installatiehandleiding**. Voor het configureren van Docker-m
 
 ## Snelstart (Eén commando)
 
-Vervang `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` en de hostnaam door waarden voor jouw omgeving. De hostnaam is hoe deze Docker-host in Cast Operations zal verschijnen — kies iets als `prod-docker-01`.
+Vervang `YOUR_CAST_OPERATIONS_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` en de hostnaam door waarden voor jouw omgeving. De hostnaam is hoe deze Docker-host in Cast Operations zal verschijnen — kies iets als `prod-docker-01`.
 
 ```bash
 docker run -d \
-  --name oneuptime-docker-agent \
+  --name cast-operations-docker-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="YOUR_ONEUPTIME_URL" \
-  -e ONEUPTIME_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 ```
 
 Dat is alles. Zodra de agent verbinding maakt, zal je Docker-host automatisch verschijnen in de **Docker**-sectie van het Cast Operations-dashboard.
@@ -37,17 +37,17 @@ Als je de voorkeur geeft aan Docker Compose, plaats dan het volgende in een `doc
 
 ```yaml
 services:
-  oneuptime-docker-agent:
-    image: oneuptime/docker-agent:release
-    container_name: oneuptime-docker-agent
+  cast-operations-docker-agent:
+    image: cast-operations/docker-agent:release
+    container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
-      - ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-      - ONEUPTIME_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
+      - CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+      - CAST_OPERATIONS_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
       - DOCKER_HOST_NAME=my-docker-host
     logging:
       driver: json-file
@@ -66,8 +66,8 @@ docker compose up -d
 
 | Variabele                 | Vereist | Beschrijving                                                                                                              |
 | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | Ja      | De URL van je Cast Operations-instantie (bijvoorbeeld `https://visca.ai` of je zelf-gehoste host)                          |
-| `ONEUPTIME_SERVICE_TOKEN` | Ja      | Telemetry ingestion token uit _Project Settings → Telemetry Ingestion Keys_                                               |
+| `CAST_OPERATIONS_URL`           | Ja      | De URL van je Cast Operations-instantie (bijvoorbeeld `https://visca.ai` of je zelf-gehoste host)                          |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | Ja      | Telemetry ingestion token uit _Project Settings → Telemetry Ingestion Keys_                                               |
 | `DOCKER_HOST_NAME`        | Nee     | Vriendelijke naam voor deze host. Standaard `docker-host`. Stel hem in op iets stabiels per host (bijv. `prod-docker-01`) |
 
 ## De installatie verifiëren
@@ -75,13 +75,13 @@ docker compose up -d
 Controleer of de agent draait:
 
 ```bash
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 ```
 
 Bekijk de agent-logs:
 
 ```bash
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 ```
 
 Zoek naar: `"Everything is ready. Begin running and processing data."`
@@ -91,8 +91,8 @@ Binnen ongeveer een minuut zou de host in het Cast Operations-dashboard moeten v
 ## De agent upgraden
 
 ```bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # Voer het `docker run`-commando hierboven opnieuw uit
 ```
 
@@ -106,7 +106,7 @@ docker compose up -d
 ## De agent verwijderen
 
 ```bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 ```
 
 Als je Docker Compose hebt gebruikt:
@@ -128,10 +128,10 @@ docker compose down
 
 ## Zelf-gehoste Cast Operations
 
-Als je Cast Operations zelf host, stel `ONEUPTIME_URL` dan in op je eigen instantie:
+Als je Cast Operations zelf host, stel `CAST_OPERATIONS_URL` dan in op je eigen instantie:
 
 ```bash
--e ONEUPTIME_URL="https://your-operations-host.example.com"
+-e CAST_OPERATIONS_URL="https://your-operations-host.example.com"
 ```
 
 Als je instantie alleen HTTP gebruikt, gebruik dan `http://` en de juiste poort.
@@ -144,15 +144,15 @@ De agent-container moet als root draaien (`--user 0:0`) om toegang te krijgen to
 
 ### Agent wordt weergegeven als losgekoppeld
 
-1. Controleer of de agent draait: `docker ps --filter name=oneuptime-docker-agent`
-2. Bekijk de agent-logs: `docker logs oneuptime-docker-agent | grep -i error`
+1. Controleer of de agent draait: `docker ps --filter name=cast-operations-docker-agent`
+2. Bekijk de agent-logs: `docker logs cast-operations-docker-agent | grep -i error`
 3. Verifieer dat je Cast Operations-URL en service token correct zijn
 4. Zorg ervoor dat je Docker-host de Cast Operations-instantie via het netwerk kan bereiken
 
 ### Er verschijnen geen metrics
 
-1. Verifieer dat de Docker-socket toegankelijk is binnen de agent: `docker exec oneuptime-docker-agent ls -la /var/run/docker.sock`
-2. Bekijk de collector-logs op exportfouten: `docker logs oneuptime-docker-agent | tail -100`
+1. Verifieer dat de Docker-socket toegankelijk is binnen de agent: `docker exec cast-operations-docker-agent ls -la /var/run/docker.sock`
+2. Bekijk de collector-logs op exportfouten: `docker logs cast-operations-docker-agent | tail -100`
 3. Zorg ervoor dat je service token geldig is en niet verlopen
 
 ### Hostnaam wordt weergegeven als een container-ID

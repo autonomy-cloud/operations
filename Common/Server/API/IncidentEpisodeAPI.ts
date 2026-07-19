@@ -127,7 +127,7 @@ export default class IncidentEpisodeAPI extends BaseAPI<
         template,
       );
 
-    // Generate postmortem using AIService (handles billing and logging)
+    // Generate postmortem using AIService (handles provider execution and logging).
     const aiLogRequest: AILogRequest = {
       projectId: episode.projectId,
       feature: "Incident Episode Postmortem",

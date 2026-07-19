@@ -9,7 +9,7 @@
 # no errors.
 #
 # Why that happens: the agent ships telemetry to `<url>/otlp/v1/*` with the
-# ingestion key in the `x-oneuptime-token` header. If that key is missing,
+# ingestion key in the `x-cast-operations-token` header. If that key is missing,
 # malformed, or revoked, the OTLP endpoints *deliberately return HTTP 200 and
 # silently drop the data* (so a misconfigured collector can't retry-flood the
 # server). The collector therefore reports success, logs nothing, and the
@@ -26,7 +26,7 @@
 # Usage:
 #   ./troubleshoot.sh [-d INSTALL_DIR] [--skip-egress] [--curl-image IMG] [--no-color]
 #
-# Defaults: INSTALL_DIR=/opt/oneuptime-proxmox-agent
+# Defaults: INSTALL_DIR=/opt/cast-operations-proxmox-agent
 #
 # Requires: docker (required). The collector image is distroless (no shell,
 # no curl), so the network probes run a small curl image as a sibling
@@ -38,12 +38,12 @@ set -uo pipefail
 # ----------------------------------------------------------------------------
 # Config / args
 # ----------------------------------------------------------------------------
-DIR="/opt/oneuptime-proxmox-agent"
+DIR="/opt/cast-operations-proxmox-agent"
 SKIP_EGRESS=0
 CURL_IMAGE="curlimages/curl:latest"
 USE_COLOR=1
-AGENT_CONTAINER="oneuptime-proxmox-agent"
-EXPORTER_CONTAINER="oneuptime-pve-exporter"
+AGENT_CONTAINER="cast-operations-proxmox-agent"
+EXPORTER_CONTAINER="cast-operations-pve-exporter"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -109,7 +109,7 @@ agent_netns_req() {
   local method="$1" url="$2" token="$3"
   RESP_CODE=""; RESP_EXIT=""; RESP_BODY=""
   local -a args=(-sS -m 15 -w $'\nOUSTATUS:%{http_code}' -X "$method" "$url")
-  [ -n "$token" ] && args+=(-H "x-oneuptime-token: $token")
+  [ -n "$token" ] && args+=(-H "x-cast-operations-token: $token")
   [ "$method" = "POST" ] && args+=(-H "Content-Type: application/json" --data '{}')
   local raw=""
   if [ "${AGENT_RUNNING:-0}" = 1 ]; then
@@ -129,7 +129,7 @@ agent_netns_req() {
 is_conn_fail() { [ "$RESP_CODE" = "000" ] || [ "${RESP_EXIT:-1}" != "0" ]; }
 
 # ============================================================================
-printf "%s%sOneUptime Proxmox Agent — Diagnostic%s\n" "$C_BOLD" "$C_BLU" "$C_OFF"
+printf "%s%sOperations Proxmox Agent — Diagnostic%s\n" "$C_BOLD" "$C_BLU" "$C_OFF"
 printf "%sInstall dir:%s %s\n" "$C_DIM" "$C_OFF" "$DIR"
 
 # ----------------------------------------------------------------------------
@@ -153,8 +153,8 @@ fi
 
 # systemd wrapper (optional — it only wraps docker compose).
 if command -v systemctl >/dev/null 2>&1; then
-  SYSD=$(systemctl is-active oneuptime-proxmox-agent 2>/dev/null || true)
-  [ "$SYSD" = "active" ] && info "systemd unit oneuptime-proxmox-agent is active."
+  SYSD=$(systemctl is-active cast-operations-proxmox-agent 2>/dev/null || true)
+  [ "$SYSD" = "active" ] && info "systemd unit cast-operations-proxmox-agent is active."
 fi
 
 AGENT_RUNNING=0
@@ -270,18 +270,18 @@ fi
 # ----------------------------------------------------------------------------
 section "4. Ingestion token (shape)"
 # ----------------------------------------------------------------------------
-TOKEN=$(agent_env ONEUPTIME_TELEMETRY_INGESTION_KEY)
+TOKEN=$(agent_env CAST_OPERATIONS_TELEMETRY_INGESTION_KEY)
 TOKEN_SHAPE_OK=0; TOKEN_HAS_WS=0
 UUID_RE='^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
 if [ -z "$TOKEN" ]; then
-  fail "ONEUPTIME_TELEMETRY_INGESTION_KEY is not set."
-  add_finding "Set ONEUPTIME_TELEMETRY_INGESTION_KEY in $ENV_FILE (Project Settings → Telemetry Ingestion Keys) and restart the agent."
+  fail "CAST_OPERATIONS_TELEMETRY_INGESTION_KEY is not set."
+  add_finding "Set CAST_OPERATIONS_TELEMETRY_INGESTION_KEY in $ENV_FILE (Project Settings → Telemetry Ingestion Keys) and restart the agent."
 else
   TRIMMED=$(printf '%s' "$TOKEN" | tr -d '[:space:]')
   MASK="${TRIMMED:0:8}…${TRIMMED: -4}"
   if [ "$TOKEN" != "$TRIMMED" ]; then
     fail "Token contains whitespace — the collector sends it literally, so Cast Operations can't match it."
-    add_finding "ONEUPTIME_TELEMETRY_INGESTION_KEY has stray whitespace in $ENV_FILE. Re-paste it cleanly and restart the agent."
+    add_finding "CAST_OPERATIONS_TELEMETRY_INGESTION_KEY has stray whitespace in $ENV_FILE. Re-paste it cleanly and restart the agent."
     TOKEN_HAS_WS=1
   fi
   TOKEN="$TRIMMED"
@@ -340,7 +340,7 @@ section "6. Egress + DEFINITIVE token check"
 TOKEN_VERDICT="UNKNOWN"   # UNKNOWN | VALID | INVALID | INCONCLUSIVE
 EGRESS="UNKNOWN"          # UNKNOWN | OK | FAIL | SKIPPED
 
-BASE_URL=$(agent_env ONEUPTIME_URL)
+BASE_URL=$(agent_env CAST_OPERATIONS_URL)
 BASE_URL="${BASE_URL%/}"
 
 egress_fail_finding() {
@@ -350,18 +350,18 @@ egress_fail_finding() {
   EGRESS="FAIL"
   case "$RESP_BODY" in
     *"Could not resolve host"*|*"Name or service not known"*)
-      add_finding "DNS resolution of the Cast Operations host fails from the agent container. Check ONEUPTIME_URL and the machine's DNS/egress." ;;
+      add_finding "DNS resolution of the Cast Operations host fails from the agent container. Check CAST_OPERATIONS_URL and the machine's DNS/egress." ;;
     *"certificate"*|*"SSL"*|*"TLS"*|*"self-signed"*|*"self signed"*)
       add_finding "TLS verification to $BASE_URL fails (cert/CA). The collector image's trust store must accept the cert." ;;
     *"refused"*|*"timed out"*|*"Connection timed out"*|*"Failed to connect"*)
       add_finding "Connection to $BASE_URL is refused/times out — firewall/proxy is blocking egress from this machine." ;;
     *)
-      add_finding "Egress to $BASE_URL failed from the agent container. Verify ONEUPTIME_URL and that this machine can reach it." ;;
+      add_finding "Egress to $BASE_URL failed from the agent container. Verify CAST_OPERATIONS_URL and that this machine can reach it." ;;
   esac
 }
 
 token_invalid_finding() {
-  add_finding "DEFINITIVE: the ingestion key is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: create or copy a live Telemetry Ingestion Key in Cast Operations, update ONEUPTIME_TELEMETRY_INGESTION_KEY in $ENV_FILE, then: cd $DIR && docker compose up -d"
+  add_finding "DEFINITIVE: the ingestion key is unknown/revoked server-side. On /otlp this is hidden behind a silent 200, which is why the agent looks healthy while nothing ingests. FIX: create or copy a live Telemetry Ingestion Key in Cast Operations, update CAST_OPERATIONS_TELEMETRY_INGESTION_KEY in $ENV_FILE, then: cd $DIR && docker compose up -d"
 }
 
 # Fallback token oracle for servers without /otlp/v1/validate.
@@ -374,7 +374,7 @@ fluentd_token_probe() {
     *"Missing header"*)
       fail "Server says the token header is missing (HTTP $RESP_CODE) — a proxy may be stripping it."
       TOKEN_VERDICT="INVALID"
-      add_finding "The x-oneuptime-token header isn't arriving at Cast Operations — check any egress proxy that might strip headers." ;;
+      add_finding "The x-cast-operations-token header isn't arriving at Cast Operations — check any egress proxy that might strip headers." ;;
     *)
       if [ "$RESP_CODE" = "404" ]; then
         warn "/fluentd/v1/logs returned 404 — token check inconclusive."
@@ -389,8 +389,8 @@ fluentd_token_probe() {
 if [ "$SKIP_EGRESS" = 1 ]; then
   warn "Egress test skipped (--skip-egress)."; EGRESS="SKIPPED"
 elif [ -z "$BASE_URL" ]; then
-  warn "ONEUPTIME_URL is not set; cannot run the egress/token probe."; EGRESS="SKIPPED"
-  add_finding "Set ONEUPTIME_URL in $ENV_FILE (e.g. https://visca.ai) and restart the agent."
+  warn "CAST_OPERATIONS_URL is not set; cannot run the egress/token probe."; EGRESS="SKIPPED"
+  add_finding "Set CAST_OPERATIONS_URL in $ENV_FILE (e.g. https://visca.ai) and restart the agent."
 elif ! [[ "$TOKEN" =~ ^[A-Za-z0-9-]+$ ]]; then
   warn "Token unusable/missing; cannot run the authenticated probe (fix Section 4 first)."; EGRESS="SKIPPED"
 else
@@ -469,7 +469,7 @@ else
   printf "  • Confirm the key under Project Settings → Telemetry Ingestion Keys still exists.\n"
   if [ -n "$BASE_URL" ]; then
     printf "  • Run the definitive token check by hand (200 = valid, 401 = bad/revoked key):\n"
-    printf "      %sdocker run --rm --network container:%s %s \\\\\n        -i -H \"x-oneuptime-token: <key>\" %s/otlp/v1/validate%s\n" \
+    printf "      %sdocker run --rm --network container:%s %s \\\\\n        -i -H \"x-cast-operations-token: <key>\" %s/otlp/v1/validate%s\n" \
       "$C_DIM" "$AGENT_CONTAINER" "$CURL_IMAGE" "$BASE_URL" "$C_OFF"
   fi
 fi

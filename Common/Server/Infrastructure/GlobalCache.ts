@@ -1,6 +1,6 @@
 import logger from "../Utils/Logger";
 import Redis, { ClientType } from "./Redis";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import DatabaseNotConnectedException from "../../Types/Exception/DatabaseNotConnectedException";
 import { JSONArray, JSONObject } from "../../Types/JSON";
@@ -165,7 +165,7 @@ export default abstract class GlobalCache {
     }
 
     const expiresInSeconds: number =
-      options?.expiresInSeconds ?? OneUptimeDate.getSecondsInDays(30);
+      options?.expiresInSeconds ?? OperationsDate.getSecondsInDays(30);
 
     /*
      * Atomic SET ... EX — a separate SET followed by EXPIRE can crash

@@ -10,7 +10,7 @@ import RecordingRuleDefinition, {
 } from "Common/Types/Metrics/RecordingRuleDefinition";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
 import AggregationType from "Common/Types/BaseDatabase/AggregationType";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import { MetricPointType } from "Common/Models/AnalyticsModels/Metric";
 import ServiceType from "Common/Types/Telemetry/ServiceType";
@@ -22,6 +22,14 @@ import {
   type ParseError,
   type ParseResult,
 } from "Common/Utils/Metrics/RecordingRuleExpression";
+import {
+  getClickhouseDatabaseName,
+  quoteClickhouseIdentifier,
+} from "Common/Server/Utils/AnalyticsDatabase/ClusterConfig";
+
+const CLICKHOUSE_DATABASE: string = quoteClickhouseIdentifier(
+  getClickhouseDatabaseName(),
+);
 
 /*
  * ClickHouse side: we reach into AnalyticsDatabaseService.executeQuery
@@ -77,11 +85,11 @@ RunCron(
        * Compute one 1-minute bucket that ends EVALUATION_LAG_SECONDS ago,
        * rounded to the prior minute boundary.
        */
-      const now: Date = OneUptimeDate.getCurrentDate();
+      const now: Date = OperationsDate.getCurrentDate();
       const endTime: Date = startOfMinute(
-        OneUptimeDate.addRemoveSeconds(now, -EVALUATION_LAG_SECONDS),
+        OperationsDate.addRemoveSeconds(now, -EVALUATION_LAG_SECONDS),
       );
-      const startTime: Date = OneUptimeDate.addRemoveMinutes(endTime, -1);
+      const startTime: Date = OperationsDate.addRemoveMinutes(endTime, -1);
 
       for (const rule of rules) {
         try {
@@ -236,8 +244,8 @@ async function runSourceQuery(args: {
    * rule). No untrusted end-user data reaches this path.
    */
   const projectIdStr: string = projectId.toString();
-  const startIso: string = OneUptimeDate.toClickhouseDateTime64(startTime);
-  const endIso: string = OneUptimeDate.toClickhouseDateTime64(endTime);
+  const startIso: string = OperationsDate.toClickhouseDateTime64(startTime);
+  const endIso: string = OperationsDate.toClickhouseDateTime64(endTime);
 
   const esc: (s: string) => string = (s: string): string => {
     return s.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
@@ -257,7 +265,7 @@ async function runSourceQuery(args: {
 
   const sql: string = `
     SELECT ${groupSqlSelect}, ${aggregateSql} AS value
-    FROM oneuptime.MetricItemV3
+    FROM ${CLICKHOUSE_DATABASE}.MetricItemV3
     WHERE projectId = '${esc(projectIdStr)}'
       AND name = '${esc(source.metricName)}'
       AND time >= toDateTime64('${startIso}', 9)
@@ -334,24 +342,24 @@ function buildDerivedMetricRow(args: {
   const { rule, groupAttribute, groupValue, value, bucketStart } = args;
 
   const attributes: Record<string, string> = {
-    "oneuptime.derived.rule_id": rule._id?.toString() ?? "",
+    "cast-operations.derived.rule_id": rule._id?.toString() ?? "",
   };
   if (groupAttribute && groupValue !== "") {
     attributes[groupAttribute] = groupValue;
   }
 
-  const now: Date = OneUptimeDate.getCurrentDate();
+  const now: Date = OperationsDate.getCurrentDate();
   /*
    * Derived rows inherit project default retention since they may span
    * many services. 15 days matches the Service default.
    */
-  const retentionDate: Date = OneUptimeDate.addRemoveDays(now, 15);
+  const retentionDate: Date = OperationsDate.addRemoveDays(now, 15);
 
   return {
     _id: ObjectID.generateTimeOrdered().toString(),
     projectId: rule.projectId!.toString(),
-    createdAt: OneUptimeDate.toClickhouseDateTime(now),
-    time: OneUptimeDate.toClickhouseDateTime(bucketStart),
+    createdAt: OperationsDate.toClickhouseDateTime(now),
+    time: OperationsDate.toClickhouseDateTime(bucketStart),
     timeUnixNano: (bucketStart.getTime() * 1_000_000).toString(),
     primaryEntityType: ServiceType.OpenTelemetry,
     name: rule.outputMetricName,
@@ -359,7 +367,7 @@ function buildDerivedMetricRow(args: {
     value: value,
     attributes: attributes,
     attributeKeys: Object.keys(attributes).sort(),
-    retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+    retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
   };
 }
 

@@ -16,7 +16,7 @@ import API from "Common/UI/Utils/API/API";
 import User from "Common/UI/Utils/User";
 import UserWhatsApp from "Common/Models/DatabaseModels/UserWhatsApp";
 import React, { ReactElement, useEffect, useState } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const WhatsApp: () => JSX.Element = (): ReactElement => {
   const [showVerificationCodeModal, setShowVerificationCodeModal] =
@@ -29,7 +29,7 @@ const WhatsApp: () => JSX.Element = (): ReactElement => {
   const [resendError, setResendError] = useState<string>("");
   const [currentItem, setCurrentItem] = useState<UserWhatsApp | null>(null);
   const [refreshToggle, setRefreshToggle] = useState<string>(
-    OneUptimeDate.getCurrentDate().toString(),
+    OperationsDate.getCurrentDate().toString(),
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -198,7 +198,7 @@ const WhatsApp: () => JSX.Element = (): ReactElement => {
               } else {
                 setIsLoading(false);
                 setShowVerificationCodeModal(false);
-                setRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+                setRefreshToggle(OperationsDate.getCurrentDate().toString());
               }
             } catch (e) {
               setVerificationError(API.getFriendlyMessage(e));

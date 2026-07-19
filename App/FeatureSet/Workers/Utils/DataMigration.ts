@@ -1,5 +1,5 @@
 import DataMigrations from "../DataMigrations/Index";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import DataMigrationService from "Common/Server/Services/DataMigrationService";
 import {
@@ -19,7 +19,8 @@ import PostgresDatabase, {
  * it to the bigint key pg_advisory_lock expects; the readable string keeps the
  * lock self-documenting and unlikely to collide with other advisory locks.
  */
-const DATA_MIGRATION_LOCK_LABEL: string = "oneuptime:data-migration-runner";
+const DATA_MIGRATION_LOCK_LABEL: string =
+  "cast-operations:data-migration-runner";
 
 const RunDatabaseMigrations: PromiseVoidFunction = async (): Promise<void> => {
   const dataSource: DatabaseSource | null = PostgresDatabase.getDataSource();
@@ -101,7 +102,7 @@ const RunDatabaseMigrations: PromiseVoidFunction = async (): Promise<void> => {
           const baselined: DataMigration = new DataMigration();
           baselined.name = migration.name;
           baselined.executed = true;
-          baselined.executedAt = OneUptimeDate.getCurrentDate();
+          baselined.executedAt = OperationsDate.getCurrentDate();
           await DataMigrationService.create({
             data: baselined,
             props: {
@@ -125,7 +126,7 @@ const RunDatabaseMigrations: PromiseVoidFunction = async (): Promise<void> => {
         const dataMigration: DataMigration = new DataMigration();
         dataMigration.name = migration.name;
         dataMigration.executed = true;
-        dataMigration.executedAt = OneUptimeDate.getCurrentDate();
+        dataMigration.executedAt = OperationsDate.getCurrentDate();
 
         await DataMigrationService.create({
           data: dataMigration,

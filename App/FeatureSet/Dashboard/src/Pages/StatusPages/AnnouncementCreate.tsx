@@ -27,7 +27,7 @@ import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import FetchStatusPages from "../../Components/StatusPage/FetchStatusPages";
 import FetchMonitors from "../../Components/Monitor/FetchMonitors";
 import FormValues from "Common/UI/Components/Forms/Types/FormValues";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Page from "Common/UI/Components/Page/Page";
 
 const AnnouncementCreate: FunctionComponent<
@@ -87,7 +87,7 @@ const AnnouncementCreate: FunctionComponent<
           monitors: announcementTemplate.monitors?.map((monitor: Monitor) => {
             return monitor.id!.toString();
           }),
-          showAnnouncementAt: OneUptimeDate.getCurrentDate(),
+          showAnnouncementAt: OperationsDate.getCurrentDate(),
         };
 
         setInitialValuesForAnnouncement(initialValue);
@@ -295,7 +295,7 @@ const AnnouncementCreate: FunctionComponent<
                   required: true,
                   placeholder: "Pick Date and Time",
                   getDefaultValue: () => {
-                    return OneUptimeDate.getCurrentDate();
+                    return OperationsDate.getCurrentDate();
                   },
                 },
                 {

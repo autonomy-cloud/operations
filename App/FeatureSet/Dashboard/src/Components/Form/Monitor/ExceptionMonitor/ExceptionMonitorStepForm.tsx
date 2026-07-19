@@ -26,7 +26,7 @@ import ProjectUtil from "Common/UI/Utils/Project";
 import Includes from "Common/Types/BaseDatabase/Includes";
 import IncludesNone from "Common/Types/BaseDatabase/IncludesNone";
 import GreaterThanOrEqual from "Common/Types/BaseDatabase/GreaterThanOrEqual";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 
 /*
@@ -268,8 +268,8 @@ const ExceptionMonitorStepForm: FunctionComponent<ComponentProps> = (
            * doesn't refetch. Over-fetching is harmless: excluding a
            * fingerprint with no occurrences in the window is a no-op.
            */
-          const lastSeenAfter: Date = OneUptimeDate.addRemoveSeconds(
-            OneUptimeDate.getCurrentDate(),
+          const lastSeenAfter: Date = OperationsDate.addRemoveSeconds(
+            OperationsDate.getCurrentDate(),
             (86400 + 3600) * -1,
           );
 

@@ -1,4 +1,4 @@
-variable "oneuptime_url" {
+variable "cast_operations_url" {
   type        = string
   description = "Cast Operations API URL"
 }

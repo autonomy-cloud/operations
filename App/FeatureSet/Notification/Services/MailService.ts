@@ -9,7 +9,7 @@ import SMTPOAuthService from "./SMTPOAuthService";
 import SendgridMail, { ClientResponse, MailDataRequired } from "@sendgrid/mail";
 import Hostname from "Common/Types/API/Hostname";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import Email from "Common/Types/Email";
 import EmailMessage from "Common/Types/Email/EmailMessage";
@@ -732,7 +732,7 @@ export default class MailService {
     }
 
     if (!mail.vars["year"]) {
-      mail.vars["year"] = OneUptimeDate.getCurrentYear().toString();
+      mail.vars["year"] = OperationsDate.getCurrentYear().toString();
     }
 
     try {

@@ -14,7 +14,7 @@ import RestrictionTimes, {
   RestrictionType,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -33,12 +33,12 @@ function dailyRestriction(sh: number, eh: number): RestrictionTimes {
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: sh,
       minutes: 0,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: eh,
       minutes: 0,
       seconds: 0,
@@ -51,7 +51,7 @@ function makeLayer(): LayerProps {
   const rot: Recurring = new Recurring();
   rot.intervalType = EventInterval.Day;
   rot.intervalCount = new PositiveNumber(1);
-  const start: Date = OneUptimeDate.fromString("2025-01-06T00:00:00.000Z");
+  const start: Date = OperationsDate.fromString("2025-01-06T00:00:00.000Z");
   return {
     users: [user("A"), user("B")],
     startDateTimeOfLayer: start,
@@ -75,27 +75,29 @@ describe("Restricted daily rotation: post-window gap query is off-by-one", () =>
     const full: Array<CalendarEvent> = util.getEvents({
       ...layer,
       calendarStartDate: layer.startDateTimeOfLayer,
-      calendarEndDate: OneUptimeDate.fromString("2025-01-10T00:00:00.000Z"),
+      calendarEndDate: OperationsDate.fromString("2025-01-10T00:00:00.000Z"),
     });
 
     // Identify who covers the Jan 7 09:00-17:00 window in the full expansion.
-    const jan7noon: Date = OneUptimeDate.fromString("2025-01-07T12:00:00.000Z");
+    const jan7noon: Date = OperationsDate.fromString(
+      "2025-01-07T12:00:00.000Z",
+    );
     const jan7Cover: CalendarEvent | undefined = full.find(
       (e: CalendarEvent) => {
         return (
-          OneUptimeDate.isOnOrAfter(jan7noon, e.start) &&
-          OneUptimeDate.isBefore(jan7noon, e.end)
+          OperationsDate.isOnOrAfter(jan7noon, e.start) &&
+          OperationsDate.isBefore(jan7noon, e.end)
         );
       },
     );
 
     // WINDOWED resolution asked during the Jan 6 evening gap (after 17:00).
-    const askAt: Date = OneUptimeDate.fromString("2025-01-06T20:52:48.000Z");
+    const askAt: Date = OperationsDate.fromString("2025-01-06T20:52:48.000Z");
     const windowed: Array<CalendarEvent> = util.getEvents(
       {
         ...layer,
         calendarStartDate: askAt,
-        calendarEndDate: OneUptimeDate.addRemoveDays(askAt, 5),
+        calendarEndDate: OperationsDate.addRemoveDays(askAt, 5),
       },
       { getNumberOfEvents: 1 },
     );
@@ -106,7 +108,7 @@ describe("Restricted daily rotation: post-window gap query is off-by-one", () =>
       {
         layers: [layer],
         calendarStartDate: askAt,
-        calendarEndDate: OneUptimeDate.addRemoveDays(askAt, 5),
+        calendarEndDate: OperationsDate.addRemoveDays(askAt, 5),
       },
       { getNumberOfEvents: 1 },
     );
@@ -128,7 +130,7 @@ describe("Restricted daily rotation: post-window gap query is off-by-one", () =>
 
     // The windowed "next on-call" is the Jan 7 09:00-17:00 window ...
     expect(
-      OneUptimeDate.getDateAsLocalFormattedString(windowedNext!.start),
+      OperationsDate.getDateAsLocalFormattedString(windowedNext!.start),
     ).toContain("2025");
     expect(windowedNext!.start.getUTCHours()).toBe(9);
     expect(windowedNext!.start.getUTCDate()).toBe(7);
@@ -140,14 +142,14 @@ describe("Restricted daily rotation: post-window gap query is off-by-one", () =>
   test("querying INSIDE Jan7 window correctly returns B (proves inconsistency)", () => {
     const layer: LayerProps = makeLayer();
     const util: LayerUtil = new LayerUtil();
-    const askInside: Date = OneUptimeDate.fromString(
+    const askInside: Date = OperationsDate.fromString(
       "2025-01-07T10:00:00.000Z",
     );
     const windowed: Array<CalendarEvent> = util.getEvents(
       {
         ...layer,
         calendarStartDate: askInside,
-        calendarEndDate: OneUptimeDate.addRemoveDays(askInside, 5),
+        calendarEndDate: OperationsDate.addRemoveDays(askInside, 5),
       },
       { getNumberOfEvents: 1 },
     );

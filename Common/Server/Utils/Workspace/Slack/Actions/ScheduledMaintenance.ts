@@ -33,7 +33,7 @@ import MonitorStatusService from "../../../../Services/MonitorStatusService";
 import Label from "../../../../../Models/DatabaseModels/Label";
 import LabelService from "../../../../Services/LabelService";
 import ScheduledMaintenance from "../../../../../Models/DatabaseModels/ScheduledMaintenance";
-import OneUptimeDate from "../../../../../Types/Date";
+import OperationsDate from "../../../../../Types/Date";
 import AccessTokenService from "../../../../Services/AccessTokenService";
 import CaptureSpan from "../../../Telemetry/CaptureSpan";
 import WorkspaceType from "../../../../../Types/Workspace/WorkspaceType";
@@ -184,15 +184,15 @@ export default class SlackScheduledMaintenanceActions {
         ? new ObjectID(monitorStatus)
         : undefined;
 
-      const startDate: Date = OneUptimeDate.fromString(
+      const startDate: Date = OperationsDate.fromString(
         data.slackRequest.viewValues["startDate"].toString(),
       );
-      const endDate: Date = OneUptimeDate.fromString(
+      const endDate: Date = OperationsDate.fromString(
         data.slackRequest.viewValues["endDate"].toString(),
       );
 
       // make sure start and end date are in the future.
-      if (OneUptimeDate.isInTheFuture(startDate) === false) {
+      if (OperationsDate.isInTheFuture(startDate) === false) {
         // send slack message to user that start date is in the past.
         const markdownPayload: WorkspacePayloadMarkdown = {
           _type: "WorkspacePayloadMarkdown",
@@ -206,7 +206,7 @@ export default class SlackScheduledMaintenanceActions {
         return;
       }
 
-      if (OneUptimeDate.isInTheFuture(endDate) === false) {
+      if (OperationsDate.isInTheFuture(endDate) === false) {
         // send slack message to user that end date is in the past.
         const markdownPayload: WorkspacePayloadMarkdown = {
           _type: "WorkspacePayloadMarkdown",
@@ -222,7 +222,7 @@ export default class SlackScheduledMaintenanceActions {
 
       // make sure end date is after start date.
 
-      if (OneUptimeDate.isAfter(endDate, startDate) === false) {
+      if (OperationsDate.isAfter(endDate, startDate) === false) {
         // send slack message to user that end date is before start date.
         const markdownPayload: WorkspacePayloadMarkdown = {
           _type: "WorkspacePayloadMarkdown",
@@ -1262,7 +1262,7 @@ export default class SlackScheduledMaintenanceActions {
       return;
     }
 
-    const oneUptimeUserId: ObjectID = userAuth.userId;
+    const operationsUserId: ObjectID = userAuth.userId;
 
     // Fetch the message text using the timestamp
     let messageText: string | null = null;
@@ -1325,7 +1325,7 @@ export default class SlackScheduledMaintenanceActions {
           scheduledMaintenanceId: scheduledMaintenanceId,
           note: messageText,
           projectId: projectId,
-          userId: oneUptimeUserId,
+          userId: operationsUserId,
           postedFromSlackMessageId: postedFromSlackMessageId,
         });
         logger.debug("Private note added successfully.", {
@@ -1357,7 +1357,7 @@ export default class SlackScheduledMaintenanceActions {
           scheduledMaintenanceId: scheduledMaintenanceId,
           note: messageText,
           projectId: projectId,
-          userId: oneUptimeUserId,
+          userId: operationsUserId,
           postedFromSlackMessageId: postedFromSlackMessageId,
         });
         logger.debug("Public note added successfully.", {

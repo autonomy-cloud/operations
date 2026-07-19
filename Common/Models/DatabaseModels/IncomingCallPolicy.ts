@@ -172,7 +172,8 @@ export default class IncomingCallPolicy extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,
@@ -754,7 +755,7 @@ export default class IncomingCallPolicy extends BaseModel {
   /*
    * Project-level Twilio configuration (optional)
    * If set, uses the project's own Twilio config instead of the global config
-   * When using project config, billing does not apply
+   * Uses the project's own telephony credentials when configured.
    */
   @ColumnAccessControl({
     create: [
@@ -790,7 +791,7 @@ export default class IncomingCallPolicy extends BaseModel {
     modelType: ProjectCallSMSConfig,
     title: "Project Call/SMS Config",
     description:
-      "Optional project-level Twilio configuration. If set, uses this config instead of global config and billing does not apply.",
+      "Optional project-level Twilio configuration. If set, it is used instead of the global configuration.",
   })
   @ManyToOne(
     () => {
@@ -838,7 +839,7 @@ export default class IncomingCallPolicy extends BaseModel {
     type: TableColumnType.ObjectID,
     title: "Project Call/SMS Config ID",
     description:
-      "ID of the project-level Twilio configuration. If set, uses this config instead of global config and billing does not apply.",
+      "ID of the project-level Twilio configuration. If set, it is used instead of the global configuration.",
   })
   @Column({
     type: ColumnType.ObjectID,

@@ -24,7 +24,7 @@ import CephResourceUtils from "../Utils/CephResourceUtils";
 import AnalyticsModelAPI from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import AggregatedResult from "Common/Types/BaseDatabase/AggregatedResult";
 import AggregationType from "Common/Types/BaseDatabase/AggregationType";
@@ -58,8 +58,8 @@ const CephClusterPools: FunctionComponent<
     clusterName: string,
     metricName: string,
   ): Promise<Map<string, number>> => {
-    const endDate: Date = OneUptimeDate.getCurrentDate();
-    const startDate: Date = OneUptimeDate.addRemoveMinutes(
+    const endDate: Date = OperationsDate.getCurrentDate();
+    const startDate: Date = OperationsDate.addRemoveMinutes(
       endDate,
       -IOPS_WINDOW_MINUTES,
     );

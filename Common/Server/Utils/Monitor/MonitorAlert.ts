@@ -36,7 +36,7 @@ import MonitorClusterContextUtil, {
 } from "./MonitorClusterContext";
 import MonitorTemplateUtil from "./MonitorTemplateUtil";
 import { JSONObject } from "../../../Types/JSON";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import MonitorEvaluationSummary from "../../../Types/Monitor/MonitorEvaluationSummary";
 import { PerSeriesCriteriaMatch } from "../../../Types/Probe/ProbeApiIngestResponse";
 
@@ -114,7 +114,7 @@ export default class MonitorAlert {
           relatedAlertNumber: openAlert.alertNumber,
           relatedAlertNumberWithPrefix: openAlert.alertNumberWithPrefix,
           relatedCriteriaId: input.criteriaInstance?.data?.id,
-          at: OneUptimeDate.getCurrentDate(),
+          at: OperationsDate.getCurrentDate(),
         });
       }
     }
@@ -206,7 +206,7 @@ export default class MonitorAlert {
         relatedAlertId: openAlert.id?.toString(),
         relatedAlertNumber: openAlert.alertNumber,
         relatedAlertNumberWithPrefix: openAlert.alertNumberWithPrefix,
-        at: OneUptimeDate.getCurrentDate(),
+        at: OperationsDate.getCurrentDate(),
       });
     }
   }
@@ -341,7 +341,7 @@ export default class MonitorAlert {
             message:
               "Skipped creating an alert because the resource for this series is under an active scheduled maintenance window.",
             relatedCriteriaId: input.criteriaInstance.data?.id,
-            at: OneUptimeDate.getCurrentDate(),
+            at: OperationsDate.getCurrentDate(),
           });
           continue;
         }
@@ -390,7 +390,7 @@ export default class MonitorAlert {
             relatedAlertNumber: alreadyOpenAlert?.alertNumber,
             relatedAlertNumberWithPrefix:
               alreadyOpenAlert?.alertNumberWithPrefix,
-            at: OneUptimeDate.getCurrentDate(),
+            at: OperationsDate.getCurrentDate(),
           });
           continue;
         }
@@ -627,7 +627,7 @@ export default class MonitorAlert {
             message:
               "Automatic alert creation is disabled by environment configuration.",
             relatedCriteriaId: input.criteriaInstance.data?.id,
-            at: OneUptimeDate.getCurrentDate(),
+            at: OperationsDate.getCurrentDate(),
           });
           return;
         }
@@ -686,7 +686,7 @@ export default class MonitorAlert {
           relatedAlertId: createdAlert.id?.toString(),
           relatedAlertNumber: createdAlert.alertNumber,
           relatedAlertNumberWithPrefix: createdAlert.alertNumberWithPrefix,
-          at: OneUptimeDate.getCurrentDate(),
+          at: OperationsDate.getCurrentDate(),
         });
       }
     }

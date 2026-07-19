@@ -7,7 +7,7 @@ import { BaseSchema, SchemaExample, ShapeRecord } from "./BaseSchema";
 import IP from "../../Types/IP/IP";
 import Port from "../../Types/Port";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 
 export type AnalyticsModelSchemaType = ZodSchema;
 
@@ -211,7 +211,7 @@ export class AnalyticsModelSchema extends BaseSchema {
       case TableColumnType.ObjectID:
         return ObjectID.getSchema();
       case TableColumnType.Date:
-        return OneUptimeDate.getSchema();
+        return OperationsDate.getSchema();
       case TableColumnType.Text:
         return this.applyOpenApi(
           z.string(),

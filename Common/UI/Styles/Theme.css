@@ -295,34 +295,209 @@ html.cast-operations-embedded
   color: var(--ou-text-subtle) !important;
 }
 
-/* Cast Operations’ segmented page navigation reads like a control card. Cast uses
- * quiet underline tabs, so flatten the shared pattern in embedded mode. */
-html.cast-operations-embedded
-  nav.inline-flex.flex-wrap.items-center.gap-1.rounded-lg.border {
+/* Cast uses quiet underline tabs instead of a second floating control card.
+ * Keep the row single-line and horizontally scrollable so labels never wrap or
+ * push the page title out of alignment. */
+html.cast-operations-embedded nav.operations-tabs {
+  align-items: stretch;
   background: transparent;
   border: 0;
   border-bottom: 1px solid var(--ou-border-default);
   border-radius: 0;
   box-shadow: none;
-  gap: 14px;
+  flex-wrap: nowrap;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
   padding: 0;
+  white-space: nowrap;
+  width: 100%;
 }
 
-html.cast-operations-embedded
-  nav.inline-flex.flex-wrap.items-center.gap-1.rounded-lg.border
-  > a {
+html.cast-operations-embedded nav.operations-tabs > a {
   border-bottom: 2px solid transparent;
   border-radius: 0;
+  color: var(--ou-text-muted) !important;
+  font-size: 12px !important;
+  font-weight: 500;
+  min-height: 36px;
   margin-bottom: -1px;
-  padding: 0.5rem 0.25rem;
+  padding: 7px 12px 8px;
 }
 
-html.cast-operations-embedded
-  nav.inline-flex.flex-wrap.items-center.gap-1.rounded-lg.border
-  > a.bg-indigo-50 {
+html.cast-operations-embedded nav.operations-tabs > a:hover {
+  background: var(--ou-surface-secondary) !important;
+  color: var(--ou-text-primary) !important;
+}
+
+html.cast-operations-embedded nav.operations-tabs > a.bg-indigo-50 {
   background: transparent !important;
   border-bottom-color: var(--ou-link);
   color: var(--ou-text-primary) !important;
+}
+
+html.cast-operations-embedded .operations-page-heading {
+  min-width: 0;
+}
+
+html.cast-operations-embedded .operations-page-title-group {
+  padding-inline: 2px;
+}
+
+html.cast-operations-embedded .operations-page-navigation > div {
+  display: block;
+  min-width: 0;
+  width: 100%;
+}
+
+html.cast-operations-embedded .operations-page-navigation nav.operations-tabs {
+  justify-content: flex-start;
+}
+
+/* Cards and data tables share Cast's compact, low-elevation surface language.
+ * These semantic classes live on the shared primitives, so every Operations
+ * list receives the same density, overflow behavior, and dark-theme tokens. */
+html.cast-operations-embedded .operations-card-shell {
+  margin-bottom: 12px;
+}
+
+html.cast-operations-embedded .operations-card {
+  border-color: var(--ou-border-default) !important;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+html.cast-operations-embedded .operations-card-header {
+  padding: 18px 20px;
+}
+
+html.cast-operations-embedded .operations-card-title {
+  font-size: 16px !important;
+  line-height: 22px !important;
+}
+
+html.cast-operations-embedded .operations-card-description {
+  color: var(--ou-text-muted) !important;
+  font-size: 12px !important;
+  line-height: 18px !important;
+  margin-top: 4px;
+  max-width: 960px;
+}
+
+html.cast-operations-embedded .operations-card-body {
+  margin-top: 14px;
+}
+
+html.cast-operations-embedded .operations-table-scroll {
+  margin-bottom: -8px;
+  margin-inline: -20px;
+  margin-top: -8px;
+  overscroll-behavior-inline: contain;
+}
+
+html.cast-operations-embedded .operations-table-layout {
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+html.cast-operations-embedded .operations-table-frame {
+  border-color: var(--ou-border-default) !important;
+}
+
+html.cast-operations-embedded .operations-table-grid {
+  border-color: var(--ou-border-default) !important;
+  min-width: 100%;
+  width: 100%;
+}
+
+html.cast-operations-embedded .operations-table-head {
+  background: var(--ou-surface-secondary) !important;
+}
+
+html.cast-operations-embedded .operations-table-heading {
+  color: var(--ou-text-secondary) !important;
+  font-size: 11px !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 16px !important;
+  padding: 10px 16px;
+  white-space: nowrap;
+}
+
+html.cast-operations-embedded .operations-table-row {
+  transition: background-color 120ms ease;
+}
+
+html.cast-operations-embedded .operations-table-row:hover {
+  background: var(--ou-surface-secondary);
+}
+
+html.cast-operations-embedded .operations-table-cell {
+  color: var(--ou-text-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 400;
+  line-height: 18px !important;
+  padding: 10px 16px !important;
+  vertical-align: middle;
+}
+
+html.cast-operations-embedded .operations-empty-state {
+  align-items: center;
+  color: var(--ou-text-muted) !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  min-height: 144px;
+  padding: 24px;
+}
+
+html.cast-operations-embedded .operations-table-footer {
+  background: var(--ou-surface-primary) !important;
+  border-radius: 0 0 12px 12px;
+  margin-bottom: -18px;
+  margin-inline: -20px;
+}
+
+html.cast-operations-embedded .operations-pagination {
+  background: var(--ou-surface-primary) !important;
+  border-color: var(--ou-border-default) !important;
+  min-height: 48px;
+  padding-inline: 16px;
+}
+
+html.cast-operations-embedded .operations-pagination p {
+  font-size: 11px !important;
+  line-height: 16px !important;
+}
+
+html.cast-operations-embedded .operations-pagination button {
+  font-size: 11px !important;
+  line-height: 16px !important;
+  min-height: 30px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+}
+
+html.cast-operations-embedded .operations-pagination .my-2 {
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+html.cast-operations-embedded .operations-pagination .py-3 {
+  padding-bottom: 4px;
+  padding-top: 4px;
+}
+
+@media (max-width: 767px) {
+  html.cast-operations-embedded .operations-card-header {
+    padding: 16px;
+  }
+
+  html.cast-operations-embedded .operations-table-scroll,
+  html.cast-operations-embedded .operations-table-footer {
+    margin-inline: -16px;
+  }
 }
 
 html.cast-operations-embedded
@@ -1564,17 +1739,17 @@ html.dark .chrome-picker svg {
 }
 
 /* React Big Calendar ships a light-only skin; these remain wrapper-scoped. */
-html.dark .oneuptime-calendar .rbc-calendar,
-html.dark .oneuptime-calendar .rbc-toolbar-label,
-html.dark .oneuptime-calendar .rbc-date-cell,
-html.dark .oneuptime-calendar .rbc-agenda-view table,
-html.dark .oneuptime-calendar .rbc-agenda-date-cell,
-html.dark .oneuptime-calendar .rbc-agenda-time-cell {
+html.dark .cast-operations-calendar .rbc-calendar,
+html.dark .cast-operations-calendar .rbc-toolbar-label,
+html.dark .cast-operations-calendar .rbc-date-cell,
+html.dark .cast-operations-calendar .rbc-agenda-view table,
+html.dark .cast-operations-calendar .rbc-agenda-date-cell,
+html.dark .cast-operations-calendar .rbc-agenda-time-cell {
   color: var(--ou-text-secondary);
 }
 
 html.dark
-  .oneuptime-calendar
+  .cast-operations-calendar
   :is(
     .rbc-month-view,
     .rbc-time-view,
@@ -1589,7 +1764,7 @@ html.dark
 }
 
 html.dark
-  .oneuptime-calendar
+  .cast-operations-calendar
   :is(
     .rbc-header,
     .rbc-off-range-bg,
@@ -1602,37 +1777,37 @@ html.dark
   color: var(--ou-text-muted);
 }
 
-html.dark .oneuptime-calendar .rbc-today {
+html.dark .cast-operations-calendar .rbc-today {
   background-color: var(--ou-accent-soft);
 }
 
-html.dark .oneuptime-calendar .rbc-toolbar button {
+html.dark .cast-operations-calendar .rbc-toolbar button {
   background-color: var(--ou-surface-primary);
   border-color: var(--ou-border-default);
   color: var(--ou-text-secondary);
 }
 
-html.dark .oneuptime-calendar .rbc-toolbar button.rbc-active {
+html.dark .cast-operations-calendar .rbc-toolbar button.rbc-active {
   background-color: var(--ou-accent-soft);
   border-color: var(--ou-border-strong);
   color: var(--ou-accent-text);
 }
 
-html.dark .oneuptime-calendar :is(.rbc-off-range, .rbc-label) {
+html.dark .cast-operations-calendar :is(.rbc-off-range, .rbc-label) {
   color: var(--ou-text-subtle);
 }
 
-html.dark .oneuptime-calendar .rbc-show-more {
+html.dark .cast-operations-calendar .rbc-show-more {
   background-color: var(--ou-surface-secondary);
   color: var(--ou-link);
 }
 
-html.dark .oneuptime-calendar .rbc-current-time-indicator {
+html.dark .cast-operations-calendar .rbc-current-time-indicator {
   background-color: #818cf8;
 }
 
 html.dark
-  .oneuptime-calendar
+  .cast-operations-calendar
   :is(
     .rbc-month-row,
     .rbc-day-bg,

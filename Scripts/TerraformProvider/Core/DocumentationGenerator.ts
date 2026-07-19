@@ -41,14 +41,14 @@ ${this.spec.info.description || `Terraform provider for ${StringUtils.capitalize
 terraform {
   required_providers {
     ${this.config.providerName} = {
-      source = "oneuptime/${this.config.providerName}"
+      source = "cast-operations/${this.config.providerName}"
       version = "${this.config.providerVersion}"
     }
   }
 }
 
 provider "${this.config.providerName}" {
-  oneuptime_url = "visca.ai"  # Optional, defaults to visca.ai (internally becomes visca.ai/api)
+  cast_operations_url = "visca.ai"  # Optional, defaults to visca.ai (internally becomes visca.ai/api)
   api_key       = var.${this.config.providerName}_api_key
 }
 \`\`\`
@@ -61,7 +61,7 @@ provider "${this.config.providerName}" {
 
 ### Optional
 
-- \`oneuptime_url\` (String) The ${this.config.providerName} URL (without /api path). Defaults to 'visca.ai' if not specified. The provider automatically appends '/api' to the URL. Can also be set via the \`${StringUtils.toConstantCase(this.config.providerName)}_URL\` environment variable.
+- \`cast_operations_url\` (String) The ${this.config.providerName} URL (without /api path). Defaults to 'visca.ai' if not specified. The provider automatically appends '/api' to the URL. Can also be set via the \`${StringUtils.toConstantCase(this.config.providerName)}_URL\` environment variable.
 `;
 
     await this.fileGenerator.writeFileInDir("docs", "index.md", providerDoc);
@@ -300,7 +300,7 @@ ${schemaItems.join("\n")}
     const providerExample: string = `terraform {
   required_providers {
     ${this.config.providerName} = {
-      source = "oneuptime/${this.config.providerName}"
+      source = "cast-operations/${this.config.providerName}"
       version = "${this.config.providerVersion}"
     }
   }
@@ -410,14 +410,14 @@ go build
 terraform {
   required_providers {
     ${this.config.providerName} = {
-      source = "oneuptime/${this.config.providerName}"
+      source = "cast-operations/${this.config.providerName}"
       version = "${this.config.providerVersion}"
     }
   }
 }
 
 provider "${this.config.providerName}" {
-  oneuptime_url = "https://api.${this.config.providerName}.com"
+  cast_operations_url = "https://api.${this.config.providerName}.com"
   api_key       = var.${this.config.providerName}_api_key
 }
 \`\`\`

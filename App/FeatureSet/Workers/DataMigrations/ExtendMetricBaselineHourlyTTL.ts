@@ -11,10 +11,10 @@ import logger from "Common/Server/Utils/Logger";
  * anomaly evaluator could ask for at 28 days. That's enough for the
  * default 14-day window with headroom, but customers running
  * monthly-seasonality workloads (think weekly batch jobs, payroll,
- * billing cycles) need to compare against month-prior data — a 28-day
+ * payments cycles) need to compare against month-prior data — a 28-day
  * window can't see "the same day-of-month last cycle".
  *
- * The MV target tables live in `oneuptime` (the default ClickHouse
+ * The MV target tables live in `cast-operations` (the default ClickHouse
  * database). `MODIFY TTL` rewrites the engine-level TTL setting in
  * place — existing rows are not deleted immediately; the next merge
  * decides retention based on the new expression, so older data

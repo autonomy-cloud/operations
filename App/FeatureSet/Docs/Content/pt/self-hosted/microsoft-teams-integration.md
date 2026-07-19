@@ -14,7 +14,7 @@ Para integrar o Microsoft Teams com sua instância auto-hospedada do Cast Operat
 1. Vá para o [Portal Azure](https://portal.azure.com)
 2. Navegue para "App registrations" e clique em "New registration"
 3. Preencha o formulário de registro:
-   - **Name:** oneuptime
+   - **Name:** cast-operations
    - **Supported account types:** Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)
    - **Redirect URI:** Web - `https://seu-dominio-visca.ai/api/microsoft-teams/auth`
    - Adicione também: `https://seu-dominio-visca.ai/api/microsoft-teams/admin-consent/callback`
@@ -61,11 +61,11 @@ Para integrar o Microsoft Teams com sua instância auto-hospedada do Cast Operat
 1. No Portal Azure, navegue para "Azure Bot" e clique em "Create"
 2. Preencha o formulário de criação do bot:
 
-   - **Bot handle:** oneuptime-bot
+   - **Bot handle:** cast-operations-bot
    - **Subscription:** Sua assinatura Azure
    - **Resource group:** Crie um novo ou use um existente
    - **Location:** Escolha uma localização próxima aos seus usuários
-   - **Pricing tier:** F0 (Gratuito) é suficiente para testes
+   - **Service plan:** F0 (Gratuito) é suficiente para testes
    - Use o App (client) ID e Tenant ID do registro de aplicativo criado anteriormente
 
 3. Clique em "Review + create" e depois em "Create"

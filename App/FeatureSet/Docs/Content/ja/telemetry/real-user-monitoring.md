@@ -30,7 +30,7 @@ import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 // Cast Operations OTLP/HTTP exporter:
 const exporter = new OTLPTraceExporter({
   url: "https://visca.ai/otlp/v1/traces",
-  headers: { "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
+  headers: { "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
 });
 
 // Register `exporter` with your WebTracerProvider, using a resource of:
@@ -45,7 +45,7 @@ OpenTelemetry の Swift または Android SDK を使用し、`service.name` を�
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 SDK の `device.*` 属性がテレメトリを RUM へルーティングします。Cast Operations をセルフホストしている場合は、`https://YOUR-OPERATIONS-HOST/otlp` を使用してください。

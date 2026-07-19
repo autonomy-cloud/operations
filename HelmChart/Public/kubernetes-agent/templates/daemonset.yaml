@@ -61,7 +61,7 @@ spec:
             - name: GOMEMLIMIT
               value: {{ include "kubernetes-agent.gomemlimit" . | quote }}
             {{- end }}
-            - name: ONEUPTIME_API_KEY
+            - name: CAST_OPERATIONS_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ include "kubernetes-agent.fullname" . }}

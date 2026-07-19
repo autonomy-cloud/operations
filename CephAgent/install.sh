@@ -24,12 +24,12 @@ if ! docker compose version &> /dev/null 2>&1; then
 fi
 
 # Prompt for configuration
-if [ -z "$ONEUPTIME_URL" ]; then
-    read -rp "Cast Operations URL (e.g., https://visca.ai): " ONEUPTIME_URL
+if [ -z "$CAST_OPERATIONS_URL" ]; then
+    read -rp "Cast Operations URL (e.g., https://visca.ai): " CAST_OPERATIONS_URL
 fi
 
-if [ -z "$ONEUPTIME_TELEMETRY_INGESTION_KEY" ]; then
-    read -rp "Cast Operations Telemetry Ingestion Key: " ONEUPTIME_TELEMETRY_INGESTION_KEY
+if [ -z "$CAST_OPERATIONS_TELEMETRY_INGESTION_KEY" ]; then
+    read -rp "Cast Operations Telemetry Ingestion Key: " CAST_OPERATIONS_TELEMETRY_INGESTION_KEY
 fi
 
 if [ -z "$CEPH_CLUSTER_NAME" ]; then
@@ -50,7 +50,7 @@ case "$CEPH_MGR_ENDPOINTS" in
 esac
 
 # Create installation directory
-INSTALL_DIR="${INSTALL_DIR:-/opt/oneuptime-ceph-agent}"
+INSTALL_DIR="${INSTALL_DIR:-/opt/cast-operations-ceph-agent}"
 echo ""
 echo "Installing to: $INSTALL_DIR"
 mkdir -p "$INSTALL_DIR"
@@ -64,8 +64,8 @@ curl -sSL "$REPO_BASE/otel-collector-config.yaml" -o "$INSTALL_DIR/otel-collecto
 
 # Create .env file
 cat > "$INSTALL_DIR/.env" <<EOF
-ONEUPTIME_URL=$ONEUPTIME_URL
-ONEUPTIME_TELEMETRY_INGESTION_KEY=$ONEUPTIME_TELEMETRY_INGESTION_KEY
+CAST_OPERATIONS_URL=$CAST_OPERATIONS_URL
+CAST_OPERATIONS_TELEMETRY_INGESTION_KEY=$CAST_OPERATIONS_TELEMETRY_INGESTION_KEY
 CEPH_CLUSTER_NAME=$CEPH_CLUSTER_NAME
 CEPH_MGR_ENDPOINTS=$CEPH_MGR_ENDPOINTS
 EOF

@@ -1,5 +1,5 @@
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import NetworkDevice from "Common/Models/DatabaseModels/NetworkDevice";
 import CardModelDetail from "Common/UI/Components/ModelDetail/CardModelDetail";
 import FieldType from "Common/UI/Components/Types/FieldType";
@@ -28,17 +28,17 @@ const DeviceInventoryCard: FunctionComponent<ComponentProps> = (
       return <span>-</span>;
     }
 
-    const lastRebootedAt: Date = OneUptimeDate.fromString(item.lastRebootedAt);
+    const lastRebootedAt: Date = OperationsDate.fromString(item.lastRebootedAt);
 
     const humanizedUptime: string =
-      OneUptimeDate.differenceBetweenTwoDatesAsFromattedString(
+      OperationsDate.differenceBetweenTwoDatesAsFromattedString(
         lastRebootedAt,
-        OneUptimeDate.getCurrentDate(),
+        OperationsDate.getCurrentDate(),
       );
 
     return (
       <Tooltip
-        text={`Booted at ${OneUptimeDate.getDateAsFormattedString(
+        text={`Booted at ${OperationsDate.getDateAsFormattedString(
           lastRebootedAt,
         )}`}
       >

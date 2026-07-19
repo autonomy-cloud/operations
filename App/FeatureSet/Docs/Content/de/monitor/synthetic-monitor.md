@@ -94,10 +94,10 @@ console.log(stringSecret);
 
 ### Benutzerdefinierte Metriken
 
-Sie können benutzerdefinierte Metriken aus Ihrem Skript mit der Funktion `oneuptime.captureMetric()` erfassen.
+Sie können benutzerdefinierte Metriken aus Ihrem Skript mit der Funktion `cast-operations.captureMetric()` erfassen.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 ### Im Skript verfügbare Module
@@ -107,7 +107,7 @@ oneuptime.captureMetric(name, value, attributes);
 - `axios`: Sie können dieses Modul verwenden, um HTTP-Anfragen zu stellen.
 - `crypto`: Für kryptographische Operationen.
 - `console.log`: Für Debugging-Zwecke.
-- `oneuptime.captureMetric`: Zum Erfassen benutzerdefinierter Metriken.
+- `cast-operations.captureMetric`: Zum Erfassen benutzerdefinierter Metriken.
 - `http`: Für HTTP-Anfragen.
 - `https`: Für HTTPS-Anfragen.
 

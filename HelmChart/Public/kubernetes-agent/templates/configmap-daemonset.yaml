@@ -375,8 +375,8 @@ data:
               - from: connection
 
       # Stamp with cluster name and default service name. Any keys under
-      # .Values.oneuptime.labels are also stamped here as
-      # `oneuptime.label.<key>=<value>` resource attributes — the Cast Operations
+      # .Values.cast-operations.labels are also stamped here as
+      # `cast-operations.label.<key>=<value>` resource attributes — the Cast Operations
       # ingest pipeline promotes those into project Labels.
       resource:
         attributes:
@@ -386,10 +386,10 @@ data:
           - key: service.name
             value: "kubernetes-agent-{{ .Values.clusterName }}"
             action: upsert
-          - key: oneuptime.agent.version
+          - key: cast-operations.agent.version
             value: {{ .Chart.AppVersion | quote }}
             action: upsert
-          {{- include "kubernetes-agent.oneuptimeLabels" (dict "labels" .Values.oneuptime.labels "action" "upsert") | nindent 10 }}
+          {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" .Values.cast-operations.labels "action" "upsert") | nindent 10 }}
 
       # Set service.name from deployment/statefulset/daemonset name when available
       transform:
@@ -427,9 +427,9 @@ data:
 
     exporters:
       otlphttp:
-        endpoint: "{{ .Values.oneuptime.url }}/otlp"
+        endpoint: "{{ .Values.cast-operations.url }}/otlp"
         headers:
-          x-oneuptime-token: "${env:ONEUPTIME_API_KEY}"
+          x-cast-operations-token: "${env:CAST_OPERATIONS_API_KEY}"
         # Bound how much un-exported telemetry can buffer in RAM when the
         # Cast Operations backend is slow or unreachable. Without an explicit queue
         # and retry window the exporter falls back to the OTel defaults

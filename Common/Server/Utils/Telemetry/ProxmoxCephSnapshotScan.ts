@@ -1,4 +1,4 @@
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import { JSONArray, JSONObject, JSONValue } from "../../../Types/JSON";
 import logger from "../Logger";
 
@@ -254,13 +254,13 @@ function parseUnixNanoToDate(
          * with BigInt — nanosecond epochs exceed Number.MAX_SAFE_INTEGER, so
          * parsing to a float here would drop up to a full millisecond.
          */
-        return OneUptimeDate.fromUnixNano(trimmed);
+        return OperationsDate.fromUnixNano(trimmed);
       }
       if (typeof value === "number") {
         if (!Number.isFinite(value)) {
           throw new Error(`Invalid timestamp number: ${value}`);
         }
-        return OneUptimeDate.fromUnixNano(value);
+        return OperationsDate.fromUnixNano(value);
       }
     } catch (error) {
       logger.warn(
@@ -269,7 +269,7 @@ function parseUnixNanoToDate(
     }
   }
 
-  return OneUptimeDate.getCurrentDate();
+  return OperationsDate.getCurrentDate();
 }
 
 // Same trim-or-null read contract as OtelIngestBaseService.getStringAttribute.

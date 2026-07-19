@@ -15,7 +15,7 @@ Cast Operations은 소수의 `iot_*` 메트릭을 수집하여 IoT 장치 플릿
 
 - Cast Operations으로 OTLP/HTTP를 전송할 수 있는 장치, 게이트웨이 또는 collector
 - 장치/게이트웨이에서 Cast Operations 인스턴스로의 네트워크 도달성
-- **Cast Operations 텔레메트리 수집 토큰** — _Project Settings → Telemetry Ingestion Keys_ 에서 하나 생성하고 `x-oneuptime-token` 값을 복사하세요
+- **Cast Operations 텔레메트리 수집 토큰** — _Project Settings → Telemetry Ingestion Keys_ 에서 하나 생성하고 `x-cast-operations-token` 값을 복사하세요
 
 ## Cast Operations이 IoT를 모델링하는 방식
 
@@ -40,14 +40,14 @@ Cast Operations은 OpenTelemetry 리소스 속성을 사용하여 장치를 두 
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | 환경 변수                       | 필수 여부 | 설명                                                                                                  |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | 예       | Cast Operations OTLP 엔드포인트(`https://visca.ai/otlp`, 또는 자체 호스팅 시 `http(s)://YOUR-OPERATIONS-HOST/otlp`) |
-| `OTEL_EXPORTER_OTLP_HEADERS`  | 예       | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | 예       | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | 예       | 쉼표로 구분된 리소스 속성. `iot.fleet.name`, `device.id`, `service.name=iot/<fleet>`를 반드시 포함해야 합니다 |
 
 아래 `iot_*` 이름을 사용하여 측정값을 메트릭으로 내보내세요(자세한 내용은 [메트릭 규칙](#메트릭-규칙) 참조). 약 1분 이내에 장치가 Cast Operations 대시보드의 **IoT** 섹션에 나타납니다.
@@ -82,7 +82,7 @@ exporters:
   otlphttp:
     endpoint: "https://visca.ai/otlp"
     headers:
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
 service:
   pipelines:
@@ -110,28 +110,28 @@ Cast Operations은 내장 MQTT 엔드포인트를 제공하므로, 이미 MQTT�
 **인증** — 두 가지 옵션이 있습니다:
 
 - **프로젝트 전체**: **텔레메트리 수집 토큰**을 MQTT 비밀번호로 전송하세요(사용자 이름은 무시됩니다. 클라이언트가 사용자 이름 필드만 제공하는 경우 거기에 토큰을 넣으세요). 여러 장치를 대신하여 게시하는 게이트웨이에 적합합니다.
-- **장치별**(직접 연결하는 장치에 권장): 대시보드의 플릿 **Device Registry** 탭에서 장치를 등록하세요. 등록하면 장치별 자격 증명이 발급됩니다 — 자격 증명 ID가 MQTT **사용자 이름**이고 시크릿이 **비밀번호**입니다. 장치로 인증된 클라이언트는 자신의 `oneuptime/<fleet>/<device>/…` 토픽 아래에만 게시할 수 있고, 손상된 장치 하나를 플릿의 나머지 부분을 건드리지 않고 대시보드에서 취소할 수 있으며(취소는 연결된 세션에 대해서도 약 1분 이내에 적용됩니다), 등록된 장치는 **조용한 종료 오프라인 감지** 기능을 얻습니다. 즉, 보고를 중단해도 인벤토리에서 사라지지 않고 Offline 상태로 남아 있으며, Last Will 없이 종료되더라도 Device Offline 알림 템플릿이 발동합니다.
+- **장치별**(직접 연결하는 장치에 권장): 대시보드의 플릿 **Device Registry** 탭에서 장치를 등록하세요. 등록하면 장치별 자격 증명이 발급됩니다 — 자격 증명 ID가 MQTT **사용자 이름**이고 시크릿이 **비밀번호**입니다. 장치로 인증된 클라이언트는 자신의 `cast-operations/<fleet>/<device>/…` 토픽 아래에만 게시할 수 있고, 손상된 장치 하나를 플릿의 나머지 부분을 건드리지 않고 대시보드에서 취소할 수 있으며(취소는 연결된 세션에 대해서도 약 1분 이내에 적용됩니다), 등록된 장치는 **조용한 종료 오프라인 감지** 기능을 얻습니다. 즉, 보고를 중단해도 인벤토리에서 사라지지 않고 Offline 상태로 남아 있으며, Last Will 없이 종료되더라도 Device Offline 알림 템플릿이 발동합니다.
 
 유효하지 않은 자격 증명은 CONNECT 시 반환 코드 4(잘못된 사용자 이름 또는 비밀번호)로 거부되므로, 잘못 구성된 장치는 명확하게 실패합니다.
 
-**토픽** — 고정된 `oneuptime/` 접두사 아래에 게시하세요. 플릿과 장치 세그먼트에는 `/`, `+`, `#`가 포함되어서는 안 되며 100자로 제한됩니다:
+**토픽** — 고정된 `cast-operations/` 접두사 아래에 게시하세요. 플릿과 장치 세그먼트에는 `/`, `+`, `#`가 포함되어서는 안 되며 100자로 제한됩니다:
 
 | 토픽                                              | 페이로드                                                                                              |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `oneuptime/<fleet>/<device>/telemetry`           | 측정값의 JSON 객체 — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, 또는 숫자 필드가 메트릭인 평면 객체 |
-| `oneuptime/<fleet>/<device>/metrics/<metricName>`| 단일 값 — 순수한 숫자(`23.4`) 또는 `{ "value": 23.4 }`                                                 |
-| `oneuptime/<fleet>/<device>/status`              | `"online"` 또는 `"offline"`(`1`/`0`, `true`/`false`, `up`/`down`도 가능) — `iot_device_up`에 매핑됩니다 |
+| `cast-operations/<fleet>/<device>/telemetry`           | 측정값의 JSON 객체 — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, 또는 숫자 필드가 메트릭인 평면 객체 |
+| `cast-operations/<fleet>/<device>/metrics/<metricName>`| 단일 값 — 순수한 숫자(`23.4`) 또는 `{ "value": 23.4 }`                                                 |
+| `cast-operations/<fleet>/<device>/status`              | `"online"` 또는 `"offline"`(`1`/`0`, `true`/`false`, `up`/`down`도 가능) — `iot_device_up`에 매핑됩니다 |
 
 텔레메트리 페이로드는 `"attributes"`(모든 데이터포인트에 찍히는 문자열 맵 — `iot.device.kind`, `iot.device.type`, `iot.device.firmware` 또는 사용자 정의 레이블에 사용하세요)와 `"timestamp"`(ISO-8601, 또는 유닉스 초/밀리초)를 함께 전달할 수도 있습니다. 둘 다 선택 사항이며, `timestamp`가 없으면 수집 시각이 사용됩니다.
 
-**Last Will을 통한 오프라인 감지** — `oneuptime/<fleet>/<device>/status`에 페이로드 `offline`로 MQTT Last Will을 등록하세요. 장치가 종료되거나 네트워크에서 떨어지면, 세션이 끝나는 순간 브로커가 장치를 대신하여 `iot_device_up = 0`을 게시합니다 — 이는 기본 **Device Offline** 알림 템플릿을 발동시키고 인벤토리에서 장치를 Down으로 전환하며, 폴링도 필요 없고 누락된 스크레이프를 기다릴 필요도 없습니다. 연결 후 동일한 토픽에 `online`을 게시하면 장치가 다시 Up으로 표시됩니다.
+**Last Will을 통한 오프라인 감지** — `cast-operations/<fleet>/<device>/status`에 페이로드 `offline`로 MQTT Last Will을 등록하세요. 장치가 종료되거나 네트워크에서 떨어지면, 세션이 끝나는 순간 브로커가 장치를 대신하여 `iot_device_up = 0`을 게시합니다 — 이는 기본 **Device Offline** 알림 템플릿을 발동시키고 인벤토리에서 장치를 Down으로 전환하며, 폴링도 필요 없고 누락된 스크레이프를 기다릴 필요도 없습니다. 연결 후 동일한 토픽에 `online`을 게시하면 장치가 다시 Up으로 표시됩니다.
 
 `mosquitto_pub` 예시(원시 TCP, 자체 호스팅):
 
 ```bash
-mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
-  -u oneuptime -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
-  -t "oneuptime/building-a-sensors/sensor-001/telemetry" \
+mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
+  -u cast-operations -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -t "cast-operations/building-a-sensors/sensor-001/telemetry" \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
@@ -141,19 +141,19 @@ WebSocket을 통한 Node.js `mqtt` 예시(visca.ai 및 모든 자체 호스팅 �
 const mqtt = require("mqtt");
 
 const client = mqtt.connect("wss://visca.ai/mqtt", {
-  username: "oneuptime", // 무시됩니다 — 아래의 토큰이 인증을 수행합니다
+  username: "cast-operations", // 무시됩니다 — 아래의 토큰이 인증을 수행합니다
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
-    topic: "oneuptime/building-a-sensors/sensor-001/status",
+    topic: "cast-operations/building-a-sensors/sensor-001/status",
     payload: "offline",
   },
 });
 
 client.on("connect", () => {
-  client.publish("oneuptime/building-a-sensors/sensor-001/status", "online");
+  client.publish("cast-operations/building-a-sensors/sensor-001/status", "online");
   setInterval(() => {
     client.publish(
-      "oneuptime/building-a-sensors/sensor-001/telemetry",
+      "cast-operations/building-a-sensors/sensor-001/telemetry",
       JSON.stringify({
         metrics: {
           iot_device_up: 1,
@@ -173,15 +173,15 @@ import json
 import paho.mqtt.client as mqtt
 
 client = mqtt.Client(transport="websockets")
-client.username_pw_set("oneuptime", "YOUR_TELEMETRY_INGESTION_TOKEN")
+client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
-client.will_set("oneuptime/building-a-sensors/sensor-001/status", "offline")
+client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
 client.connect("visca.ai", 443)
 
-client.publish("oneuptime/building-a-sensors/sensor-001/status", "online")
+client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
-    "oneuptime/building-a-sensors/sensor-001/telemetry",
+    "cast-operations/building-a-sensors/sensor-001/telemetry",
     json.dumps({"metrics": {"iot_device_up": 1, "iot_temperature_celsius": 21.5}}),
 )
 ```
@@ -221,8 +221,8 @@ Cast Operations은 다음 `iot_*` 메트릭 이름을 인식합니다. 각 데�
 ### 플릿이 나타나지 않음
 
 1. `iot.fleet.name`이 데이터포인트 레이블이 아닌 **리소스** 속성으로 설정되어 있고, `service.name`이 `iot/<fleet>`인지 확인하세요.
-2. 익스포터 엔드포인트가 `https://visca.ai/otlp`(또는 자체 호스팅 `…/otlp`)이고 `x-oneuptime-token` 헤더에 유효한 토큰이 들어 있는지 확인하세요.
-3. MQTT를 사용하는 경우, 토픽이 `oneuptime/<fleet>/<device>/…` 형식을 정확히 따르는지 확인하세요 — 토픽의 플릿 세그먼트가 플릿을 생성하는 요소입니다.
+2. 익스포터 엔드포인트가 `https://visca.ai/otlp`(또는 자체 호스팅 `…/otlp`)이고 `x-cast-operations-token` 헤더에 유효한 토큰이 들어 있는지 확인하세요.
+3. MQTT를 사용하는 경우, 토픽이 `cast-operations/<fleet>/<device>/…` 형식을 정확히 따르는지 확인하세요 — 토픽의 플릿 세그먼트가 플릿을 생성하는 요소입니다.
 
 ### 인벤토리에서 장치 누락
 
@@ -232,7 +232,7 @@ Cast Operations은 다음 `iot_*` 메트릭 이름을 인식합니다. 각 데�
 
 ### 익스포터에서 HTTP 401 / 403 발생
 
-수집 토큰이 유효하지 않거나, 취소되었거나, 누락된 것입니다. _Project Settings → Telemetry Ingestion Keys_ 에서 새 토큰을 생성하고 `x-oneuptime-token` 헤더를 업데이트하세요.
+수집 토큰이 유효하지 않거나, 취소되었거나, 누락된 것입니다. _Project Settings → Telemetry Ingestion Keys_ 에서 새 토큰을 생성하고 `x-cast-operations-token` 헤더를 업데이트하세요.
 
 ### 메트릭이 차트에 표시되지 않음
 
@@ -255,7 +255,7 @@ exporters:
   otlphttp:
     endpoint: https://your-operations-host.example.com/otlp
     headers:
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 MQTT의 경우 `wss://your-operations-host.example.com/mqtt`에 연결하거나, 장치가 WebSocket을 사용할 수 없다면 앱 서비스의 원시 MQTT TCP 포트(`MQTT_INGEST_PORT`, 기본값 `1883`)를 노출하세요. MQTT 리스너를 완전히 끄려면 앱 서비스에 `MQTT_INGEST_ENABLED=false`를 설정하세요.

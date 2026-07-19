@@ -19,8 +19,8 @@ import logger, { LogAttributes } from "../Utils/Logger";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import IncidentEpisodeStateTimeline from "../../Models/DatabaseModels/IncidentEpisodeStateTimeline";
 import IncidentEpisodeStateTimelineService from "./IncidentEpisodeStateTimelineService";
-import { IsBillingEnabled } from "../EnvironmentConfig";
-import OneUptimeDate from "../../Types/Date";
+import {} from "../EnvironmentConfig";
+import OperationsDate from "../../Types/Date";
 import IncidentEpisodeFeedService from "./IncidentEpisodeFeedService";
 import { IncidentEpisodeFeedEventType } from "../../Models/DatabaseModels/IncidentEpisodeFeed";
 import { Red500, Yellow500, Purple500 } from "../../Types/BrandColors";
@@ -55,9 +55,6 @@ import IncidentEpisodePrivacyRuleEngineService from "./IncidentEpisodePrivacyRul
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -153,12 +150,12 @@ export class Service extends DatabaseService<Model> {
 
     // Set initial lastIncidentAddedAt
     if (!createBy.data.lastIncidentAddedAt) {
-      createBy.data.lastIncidentAddedAt = OneUptimeDate.getCurrentDate();
+      createBy.data.lastIncidentAddedAt = OperationsDate.getCurrentDate();
     }
 
     // Set declaredAt if not provided
     if (!createBy.data.declaredAt) {
-      createBy.data.declaredAt = OneUptimeDate.getCurrentDate();
+      createBy.data.declaredAt = OperationsDate.getCurrentDate();
     }
 
     // Copy showEpisodeOnStatusPage from grouping rule if available
@@ -1016,7 +1013,7 @@ export class Service extends DatabaseService<Model> {
     await this.updateOneById({
       id: episodeId,
       data: {
-        lastIncidentAddedAt: OneUptimeDate.getCurrentDate(),
+        lastIncidentAddedAt: OperationsDate.getCurrentDate(),
       },
       props: {
         isRoot: true,

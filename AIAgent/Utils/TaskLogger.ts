@@ -1,4 +1,4 @@
-import { ONEUPTIME_URL } from "../Config";
+import { CAST_OPERATIONS_URL } from "../Config";
 import AIAgentAPIRequest from "./AIAgentAPIRequest";
 import URL from "Common/Types/API/URL";
 import API from "Common/Utils/API";
@@ -6,7 +6,7 @@ import HTTPResponse from "Common/Types/API/HTTPResponse";
 import { JSONObject } from "Common/Types/JSON";
 import LogSeverity from "Common/Types/Log/LogSeverity";
 import logger from "Common/Server/Utils/Logger";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 export interface TaskLoggerOptions {
   taskId: string;
@@ -52,9 +52,9 @@ export default class TaskLogger {
 
   private getCreateLogUrl(): URL {
     if (!this.createLogUrl) {
-      this.createLogUrl = URL.fromString(ONEUPTIME_URL.toString()).addRoute(
-        "/api/ai-agent-task-log/create-log",
-      );
+      this.createLogUrl = URL.fromString(
+        CAST_OPERATIONS_URL.toString(),
+      ).addRoute("/api/ai-agent-task-log/create-log");
     }
     return this.createLogUrl;
   }
@@ -79,7 +79,8 @@ export default class TaskLogger {
     message: string,
     timestamp: Date,
   ): string {
-    const timestampStr: string = OneUptimeDate.toDateTimeLocalString(timestamp);
+    const timestampStr: string =
+      OperationsDate.toDateTimeLocalString(timestamp);
     const severityStr: string = severity.toUpperCase().padEnd(7);
     const contextStr: string = this.context ? `[${this.context}] ` : "";
 
@@ -98,7 +99,7 @@ export default class TaskLogger {
     const entry: LogEntry = {
       severity,
       message,
-      timestamp: OneUptimeDate.getCurrentDate(),
+      timestamp: OperationsDate.getCurrentDate(),
       ...(toolDetail
         ? {
             toolName: toolDetail.toolName,

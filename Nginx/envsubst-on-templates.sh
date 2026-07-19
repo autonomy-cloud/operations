@@ -47,7 +47,7 @@ ensure_placeholder_certificate() {
   mkdir -p "$(dirname "$cert_path")"
 
   if ! openssl req -x509 -newkey rsa:2048 -nodes \
-    -subj "/C=US/ST=CA/L=San Francisco/O=OneUptime/OU=Ingress/CN=${domain}" \
+    -subj "/C=US/ST=CA/L=San Francisco/O=Operations/OU=Ingress/CN=${domain}" \
     -keyout "${tmp_dir}/placeholder.key" \
     -out "${tmp_dir}/placeholder.crt" \
     -days 3 >/dev/null 2>&1; then

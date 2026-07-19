@@ -1,4 +1,4 @@
-import { ONEUPTIME_URL } from "../Config";
+import { CAST_OPERATIONS_URL } from "../Config";
 import AIAgentAPIRequest from "./AIAgentAPIRequest";
 import URL from "Common/Types/API/URL";
 import API from "Common/Utils/API";
@@ -206,7 +206,7 @@ export default class BackendAPI {
   private baseUrl: URL;
 
   public constructor() {
-    this.baseUrl = URL.fromString(ONEUPTIME_URL.toString());
+    this.baseUrl = URL.fromString(CAST_OPERATIONS_URL.toString());
   }
 
   // Get exception details with telemetry service info

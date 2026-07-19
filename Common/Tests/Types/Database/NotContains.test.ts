@@ -5,7 +5,7 @@ import { describe, expect, it } from "@jest/globals";
 
 describe("NotContains", () => {
   it("should create a NotContains object with a valid value", () => {
-    const value: string = "oneuptime";
+    const value: string = "cast-operations";
     const obj: NotContains<string> = new NotContains<string>(value);
     expect(obj.value).toBe(value);
   });
@@ -17,15 +17,15 @@ describe("NotContains", () => {
   });
 
   it("should return the value using toString", () => {
-    const obj: NotContains<string> = new NotContains<string>("oneuptime");
-    expect(obj.toString()).toBe("oneuptime");
+    const obj: NotContains<string> = new NotContains<string>("cast-operations");
+    expect(obj.toString()).toBe("cast-operations");
   });
 
   it("should generate the correct JSON representation using toJSON", () => {
-    const obj: NotContains<string> = new NotContains<string>("oneuptime");
+    const obj: NotContains<string> = new NotContains<string>("cast-operations");
     const expectedJSON: JSONObject = {
       _type: "NotContains",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(obj.toJSON()).toEqual(expectedJSON);
   });
@@ -33,10 +33,10 @@ describe("NotContains", () => {
   it("should create a NotContains object from valid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "NotContains",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     const obj: NotContains<string> = NotContains.fromJSON(jsonInput);
-    expect(obj.value).toBe("oneuptime");
+    expect(obj.value).toBe("cast-operations");
   });
 
   it("should default to an empty string when the JSON value is missing", () => {
@@ -50,7 +50,7 @@ describe("NotContains", () => {
   it("should throw a BadDataException when using invalid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "InvalidType",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(() => {
       return NotContains.fromJSON(jsonInput);
@@ -58,7 +58,7 @@ describe("NotContains", () => {
   });
 
   it("should be an instance of NotContains", () => {
-    const obj: NotContains<string> = new NotContains<string>("oneuptime");
+    const obj: NotContains<string> = new NotContains<string>("cast-operations");
     expect(obj).toBeInstanceOf(NotContains);
   });
 });

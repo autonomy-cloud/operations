@@ -2,6 +2,7 @@ import React, { FunctionComponent, ReactElement } from "react";
 import Route from "Common/Types/API/Route";
 import Icon from "Common/UI/Components/Icon/Icon";
 import IconProp from "Common/Types/Icon/IconProp";
+import { CAST_OPERATIONS_EMBEDDED_MODE } from "Common/UI/Config";
 
 export interface TelemetryTab {
   key: string;
@@ -32,7 +33,7 @@ const TelemetryNavTabs: FunctionComponent<Props> = (
 ): ReactElement => {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
-      <nav className="inline-flex flex-wrap items-center gap-1 rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
+      <nav className="operations-tabs inline-flex flex-wrap items-center gap-1 rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
         {props.tabs.map((tab: TelemetryTab): ReactElement => {
           const isActive: boolean = tab.key === props.activeKey;
           const badgeTone: string =
@@ -49,7 +50,9 @@ const TelemetryNavTabs: FunctionComponent<Props> = (
                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               }`}
             >
-              <Icon icon={tab.icon} className="h-3.5 w-3.5" />
+              {!CAST_OPERATIONS_EMBEDDED_MODE && (
+                <Icon icon={tab.icon} className="h-3.5 w-3.5" />
+              )}
               <span>{tab.label}</span>
               {tab.badge ? (
                 <span

@@ -1,4 +1,4 @@
-import { ONEUPTIME_URL } from "../Config";
+import { CAST_OPERATIONS_URL } from "../Config";
 import AIAgentAPIRequest from "../Utils/AIAgentAPIRequest";
 import AIAgentTaskLog from "../Utils/AIAgentTaskLog";
 import TaskLogger from "../Utils/TaskLogger";
@@ -162,11 +162,11 @@ const startTaskProcessingLoop: () => Promise<void> =
     );
 
     const getPendingTaskUrl: URL = URL.fromString(
-      ONEUPTIME_URL.toString(),
+      CAST_OPERATIONS_URL.toString(),
     ).addRoute("/api/ai-agent-task/get-pending-task");
 
     const updateTaskStatusUrl: URL = URL.fromString(
-      ONEUPTIME_URL.toString(),
+      CAST_OPERATIONS_URL.toString(),
     ).addRoute("/api/ai-agent-task/update-task-status");
 
     /* Continuous loop to process tasks */

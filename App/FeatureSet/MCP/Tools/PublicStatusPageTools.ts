@@ -5,7 +5,7 @@
  */
 
 import { McpToolInfo, JSONSchema } from "../Types/McpTypes";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
 import MCPLogger from "../Utils/MCPLogger";
 import API from "Common/Utils/API";
@@ -68,7 +68,7 @@ RETURNS:
     title: "Get Status Page Overview",
     annotations: { readOnlyHint: true },
     modelName: "StatusPageOverview",
-    operation: OneUptimeOperation.Read,
+    operation: OperationsOperation.Read,
     modelType: ModelType.Database,
     singularName: "Status Page Overview",
     pluralName: "Status Page Overviews",
@@ -114,7 +114,7 @@ RETURNS:
     title: "Get Status Page Incidents",
     annotations: { readOnlyHint: true },
     modelName: "StatusPageIncidents",
-    operation: OneUptimeOperation.List,
+    operation: OperationsOperation.List,
     modelType: ModelType.Database,
     singularName: "Status Page Incident",
     pluralName: "Status Page Incidents",
@@ -161,7 +161,7 @@ RETURNS:
     title: "Get Status Page Maintenance",
     annotations: { readOnlyHint: true },
     modelName: "StatusPageScheduledMaintenance",
-    operation: OneUptimeOperation.List,
+    operation: OperationsOperation.List,
     modelType: ModelType.Database,
     singularName: "Status Page Scheduled Maintenance",
     pluralName: "Status Page Scheduled Maintenances",
@@ -206,7 +206,7 @@ RETURNS:
     title: "Get Status Page Announcements",
     annotations: { readOnlyHint: true },
     modelName: "StatusPageAnnouncements",
-    operation: OneUptimeOperation.List,
+    operation: OperationsOperation.List,
     modelType: ModelType.Database,
     singularName: "Status Page Announcement",
     pluralName: "Status Page Announcements",

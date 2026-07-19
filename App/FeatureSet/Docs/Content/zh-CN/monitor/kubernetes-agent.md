@@ -5,14 +5,14 @@ Cast Operations Kubernetes 代理从您的 Kubernetes 集群中收集集群指�
 ## 快速开始
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
@@ -35,20 +35,20 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **GKE Standard、EC2 上的 EKS、自管集群或 AKS：**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
 
 **GKE Autopilot：**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
 ```
@@ -56,10 +56,10 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **EKS Fargate：**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
 ```
@@ -77,7 +77,7 @@ DaemonSet 在每个节点上运行一个 OpenTelemetry Collector pod。它通过
 
 ### API 模式（`logs.mode: api`）
 
-单副本 Deployment（`oneuptime/kubernetes-log-tailer` 镜像）使用 Kubernetes API 来流式获取容器日志 —— 与 `kubectl logs -f` 使用的是同一个端点。无需 hostPath、无需主机访问、无需 DaemonSet。
+单副本 Deployment（`cast-operations/kubernetes-log-tailer` 镜像）使用 Kubernetes API 来流式获取容器日志 —— 与 `kubectl logs -f` 使用的是同一个端点。无需 hostPath、无需主机访问、无需 DaemonSet。
 
 - **优点：** 可在 GKE Autopilot、EKS Fargate 以及任何禁用 hostPath 或强制使用 `restricted` Pod Security Standard 的集群上运行。
 - **缺点：** 每个容器流都是到 `kube-apiserver` 的长连接。一个副本通常可处理数千个容器。对于超大型集群，请在 `namespaceFilters.rules` 中使用 `podLogs` 作用域的 `include` 规则，将不同发布分片。
@@ -157,8 +157,8 @@ OBI 默认还会跨服务边界传播追踪上下文。当 pod A 向 pod B 发�
 要检查 OBI 是否正在运行并看到流量：
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent -l component=ebpf-instrument
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent -l component=ebpf-instrument
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 ## 持续 CPU 性能分析（默认禁用）
@@ -205,8 +205,8 @@ chart 还可以采集：
 | 选项                                      | 默认                      | 描述                                                                                                                                                                              |
 | ----------------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | （空 —— 视为 `standard`） | 见上表。                                                                                                                                                                          |
-| `oneuptime.url`                           | _(必填)_                  | Cast Operations 实例的 URL。                                                                                                                                                            |
-| `oneuptime.apiKey`                        | _(必填)_                  | 项目 API 密钥（Settings → API Keys）。                                                                                                                                            |
+| `cast-operations.url`                           | _(必填)_                  | Cast Operations 实例的 URL。                                                                                                                                                            |
+| `cast-operations.apiKey`                        | _(必填)_                  | 项目 API 密钥（Settings → API Keys）。                                                                                                                                            |
 | `clusterName`                             | _(必填)_                  | 此集群的唯一名称。会作为 `k8s.cluster.name` 打到每条记录上。                                                                                                                      |
 | `namespaceFilters.rules`                  | 从 `podLogs` 和 `ebpfDiscovery` 中排除 `kube-system` | 针对 `podLogs`、`ebpfDiscovery`、`metrics` 和 `traces` 的作用域 `include`/`exclude` 规则。模式支持 `*`，且 `exclude` 始终优先。                              |
 | `logs.enabled`                            | `true`                    | 启用或禁用日志采集。                                                                                                                                                              |
@@ -230,8 +230,8 @@ chart 还可以采集：
 
 ```bash
 helm repo update
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values
 ```
 
@@ -242,8 +242,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 > **Helm 3.14+** —— 切换到 `--reset-then-reuse-values`。它会为您未覆盖的键重新读取 chart 默认值：
 >
 > ```bash
-> helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
->   --namespace oneuptime-kubernetes-agent \
+> helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+>   --namespace cast-operations-kubernetes-agent \
 >   --reset-then-reuse-values
 > ```
 >
@@ -254,8 +254,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 ## 卸载
 
 ```bash
-helm uninstall oneuptime-agent --namespace oneuptime-kubernetes-agent
-kubectl delete namespace oneuptime-kubernetes-agent
+helm uninstall cast-operations-agent --namespace cast-operations-kubernetes-agent
+kubectl delete namespace cast-operations-kubernetes-agent
 ```
 
 ## 故障排查
@@ -265,8 +265,8 @@ kubectl delete namespace oneuptime-kubernetes-agent
 您的集群禁用了 hostPath。请切换到 API 模式的预设：
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values \
   --set preset=gke-autopilot   # or eks-fargate
 ```
@@ -276,8 +276,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 检查代理 Pod：
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent
-kubectl logs -n oneuptime-kubernetes-agent -l app.kubernetes.io/part-of=oneuptime --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent
+kubectl logs -n cast-operations-kubernetes-agent -l app.kubernetes.io/part-of=cast-operations --tail=200
 ```
 
 在 API 模式下，日志收集器 Pod 在 13133 端口上暴露 `/healthz` —— 通过 `kubectl port-forward` 访问它可以获取导出状态快照。
@@ -287,7 +287,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l app.kubernetes.io/part-of=oneuptim
 检查 OBI Pod 的日志：
 
 ```bash
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 常见原因：
@@ -301,7 +301,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 通过对命名空间分片来横向扩展。为每个命名空间组部署一次：
 
 ```bash
-helm install oneuptime-agent-ns-a oneuptime/kubernetes-agent \
+helm install cast-operations-agent-ns-a cast-operations/kubernetes-agent \
   --set preset=gke-autopilot \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["app-a","app-b"],"scopes":["podLogs"]}]' \
   ...

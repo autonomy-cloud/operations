@@ -2,7 +2,7 @@ import DatabaseService from "./DatabaseService";
 import Model from "../../Models/DatabaseModels/DockerResource";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import { JSONObject } from "../../Types/JSON";
 import logger from "../Utils/Logger";
 
@@ -288,8 +288,8 @@ export class Service extends DatabaseService<Model> {
 
   public getStaleThresholdDate(nowOverride?: Date): Date {
     const minutes: number = this.getStaleThresholdMinutes();
-    return OneUptimeDate.addRemoveMinutes(
-      nowOverride || OneUptimeDate.getCurrentDate(),
+    return OperationsDate.addRemoveMinutes(
+      nowOverride || OperationsDate.getCurrentDate(),
       -minutes,
     );
   }

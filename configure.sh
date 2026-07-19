@@ -141,15 +141,15 @@ setup_gomplate() {
     fi
 }
 
-clone_oneuptime() {
+clone_cast-operations() {
     if [[ ${IS_DOCKER:-false} != "true" ]]; then
         local GIT_REPO_URL
         GIT_REPO_URL=$(git config --get remote.origin.url || echo "")
         
-        if [[ $GIT_REPO_URL != *oneuptime* ]]; then
+        if [[ $GIT_REPO_URL != *cast-operations* ]]; then
             print_info "Cloning Cast Operations repository..."
             git clone https://github.com/autonomy-cloud/operations.git || true
-            cd oneuptime
+            cd cast-operations
         fi
 
         # Update repository if not in CI/CD
@@ -183,7 +183,7 @@ main() {
     setup_tsnode
 
     
-    clone_oneuptime
+    clone_cast-operations
     
     # Configure environment
     touch config.env

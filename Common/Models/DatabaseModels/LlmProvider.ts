@@ -2,10 +2,8 @@ import Project from "./Project";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import ColumnType from "../../Types/Database/ColumnType";
 import CrudApiEndpoint from "../../Types/Database/CrudApiEndpoint";
@@ -24,12 +22,6 @@ import LlmType from "../../Types/LLM/LlmType";
 import { JSONObject } from "../../Types/JSON";
 
 @EnableDocumentation()
-@TableBillingAccessControl({
-  create: PlanType.Growth,
-  read: PlanType.Free,
-  update: PlanType.Growth,
-  delete: PlanType.Free,
-})
 @IsPermissionsIf(Permission.Public, "projectId", null)
 @TenantColumn("projectId")
 @CrudApiEndpoint(new Route("/llm-provider"))
@@ -554,7 +546,7 @@ export default class LlmProvider extends BaseModel {
     type: TableColumnType.Number,
     title: "Cost Per Million Tokens (USD Cents)",
     description:
-      "Cost per million tokens in USD cents. Used for billing when using global LLM providers.",
+      "Cost per million tokens in USD cents. Used to estimate model usage cost.",
     defaultValue: 0,
   })
   @Column({

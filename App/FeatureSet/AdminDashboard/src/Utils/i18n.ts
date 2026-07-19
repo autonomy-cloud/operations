@@ -32,7 +32,7 @@ export const SUPPORTED_LANGUAGES: Array<SupportedLanguage> =
   SUPPORTED_ADMIN_DASHBOARD_LANGUAGES;
 
 export const DEFAULT_LANGUAGE: string = DEFAULT_ADMIN_DASHBOARD_LANGUAGE;
-export const LANGUAGE_STORAGE_KEY: string = "oneuptimeLang";
+export const LANGUAGE_STORAGE_KEY: string = "castOperationsLang";
 
 /*
  * Backward-compat: the language code "zh" was renamed to "zh-CN" when

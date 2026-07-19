@@ -1,13 +1,13 @@
 /* Cast Operations Calendar – modern, minimal overrides for react-big-calendar.
-   Scoped via the .oneuptime-calendar wrapper so we don't leak styles. */
+   Scoped via the .cast-operations-calendar wrapper so we don't leak styles. */
 
-.oneuptime-calendar .rbc-calendar {
+.cast-operations-calendar .rbc-calendar {
   font-family: inherit;
   color: #111827; /* gray-900 */
 }
 
 /* ---------- Toolbar ---------- */
-.oneuptime-calendar .rbc-toolbar {
+.cast-operations-calendar .rbc-toolbar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -18,7 +18,7 @@
   font-size: 0.875rem;
 }
 
-.oneuptime-calendar .rbc-toolbar .rbc-toolbar-label {
+.cast-operations-calendar .rbc-toolbar .rbc-toolbar-label {
   flex: 1 1 auto;
   text-align: center;
   font-size: 1rem;
@@ -27,7 +27,7 @@
   letter-spacing: -0.01em;
 }
 
-.oneuptime-calendar .rbc-toolbar .rbc-btn-group {
+.cast-operations-calendar .rbc-toolbar .rbc-btn-group {
   display: inline-flex;
   border: 1px solid #e5e7eb; /* gray-200 */
   background-color: #ffffff;
@@ -36,7 +36,7 @@
   overflow: hidden;
 }
 
-.oneuptime-calendar .rbc-toolbar .rbc-btn-group button {
+.cast-operations-calendar .rbc-toolbar .rbc-btn-group button {
   border: none;
   background-color: transparent;
   color: #4b5563; /* gray-600 */
@@ -50,44 +50,44 @@
     color 120ms ease;
 }
 
-.oneuptime-calendar .rbc-toolbar .rbc-btn-group button + button {
+.cast-operations-calendar .rbc-toolbar .rbc-btn-group button + button {
   border-left: 1px solid #e5e7eb;
 }
 
-.oneuptime-calendar .rbc-toolbar .rbc-btn-group button:hover,
-.oneuptime-calendar .rbc-toolbar .rbc-btn-group button:focus {
+.cast-operations-calendar .rbc-toolbar .rbc-btn-group button:hover,
+.cast-operations-calendar .rbc-toolbar .rbc-btn-group button:focus {
   background-color: #f9fafb; /* gray-50 */
   color: #111827;
   outline: none;
   box-shadow: none;
 }
 
-.oneuptime-calendar .rbc-toolbar .rbc-btn-group button.rbc-active,
-.oneuptime-calendar .rbc-toolbar .rbc-btn-group button.rbc-active:hover,
-.oneuptime-calendar .rbc-toolbar .rbc-btn-group button.rbc-active:focus {
+.cast-operations-calendar .rbc-toolbar .rbc-btn-group button.rbc-active,
+.cast-operations-calendar .rbc-toolbar .rbc-btn-group button.rbc-active:hover,
+.cast-operations-calendar .rbc-toolbar .rbc-btn-group button.rbc-active:focus {
   background-color: #4f46e5; /* indigo-600 */
   color: #ffffff;
   box-shadow: none;
 }
 
 /* ---------- Calendar surface ---------- */
-.oneuptime-calendar .rbc-month-view,
-.oneuptime-calendar .rbc-time-view,
-.oneuptime-calendar .rbc-agenda-view {
+.cast-operations-calendar .rbc-month-view,
+.cast-operations-calendar .rbc-time-view,
+.cast-operations-calendar .rbc-agenda-view {
   border: 1px solid #e5e7eb; /* gray-200 */
   border-radius: 0.75rem;
   background-color: #ffffff;
   overflow: hidden;
 }
 
-.oneuptime-calendar .rbc-month-view {
+.cast-operations-calendar .rbc-month-view {
   background-color: #ffffff;
 }
 
 /* ---------- Headers ---------- */
-.oneuptime-calendar .rbc-header,
-.oneuptime-calendar .rbc-time-header-content > .rbc-row > .rbc-header,
-.oneuptime-calendar .rbc-time-header .rbc-header {
+.cast-operations-calendar .rbc-header,
+.cast-operations-calendar .rbc-time-header-content > .rbc-row > .rbc-header,
+.cast-operations-calendar .rbc-time-header .rbc-header {
   padding: 0.625rem 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
@@ -98,29 +98,29 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.oneuptime-calendar .rbc-header + .rbc-header,
-.oneuptime-calendar .rbc-time-header-content .rbc-header + .rbc-header {
+.cast-operations-calendar .rbc-header + .rbc-header,
+.cast-operations-calendar .rbc-time-header-content .rbc-header + .rbc-header {
   border-left: 1px solid #f3f4f6; /* gray-100 */
 }
 
-.oneuptime-calendar .rbc-time-header.rbc-overflowing {
+.cast-operations-calendar .rbc-time-header.rbc-overflowing {
   border-right: none;
 }
 
-.oneuptime-calendar .rbc-time-header-content {
+.cast-operations-calendar .rbc-time-header-content {
   border-left: 1px solid #e5e7eb;
 }
 
 /* ---------- Month grid ---------- */
-.oneuptime-calendar .rbc-month-row + .rbc-month-row {
+.cast-operations-calendar .rbc-month-row + .rbc-month-row {
   border-top: 1px solid #f3f4f6; /* gray-100 */
 }
 
-.oneuptime-calendar .rbc-day-bg + .rbc-day-bg {
+.cast-operations-calendar .rbc-day-bg + .rbc-day-bg {
   border-left: 1px solid #f3f4f6;
 }
 
-.oneuptime-calendar .rbc-date-cell {
+.cast-operations-calendar .rbc-date-cell {
   padding: 0.35rem 0.5rem;
   text-align: right;
   font-size: 0.8125rem;
@@ -128,64 +128,64 @@
   color: #374151; /* gray-700 */
 }
 
-.oneuptime-calendar .rbc-date-cell.rbc-now {
+.cast-operations-calendar .rbc-date-cell.rbc-now {
   color: #4f46e5; /* indigo-600 */
   font-weight: 600;
 }
 
-.oneuptime-calendar .rbc-off-range {
+.cast-operations-calendar .rbc-off-range {
   color: #d1d5db; /* gray-300 */
 }
 
-.oneuptime-calendar .rbc-off-range-bg {
+.cast-operations-calendar .rbc-off-range-bg {
   background-color: #fafafa;
 }
 
-.oneuptime-calendar .rbc-today {
+.cast-operations-calendar .rbc-today {
   background-color: #eef2ff; /* indigo-50 */
 }
 
 /* ---------- Time view (week/day) ---------- */
-.oneuptime-calendar .rbc-time-view .rbc-time-gutter,
-.oneuptime-calendar .rbc-time-view .rbc-time-content > * + * > * {
+.cast-operations-calendar .rbc-time-view .rbc-time-gutter,
+.cast-operations-calendar .rbc-time-view .rbc-time-content > * + * > * {
   border-color: #f3f4f6;
 }
 
-.oneuptime-calendar .rbc-time-view .rbc-time-gutter .rbc-timeslot-group {
+.cast-operations-calendar .rbc-time-view .rbc-time-gutter .rbc-timeslot-group {
   font-size: 0.75rem;
   color: #6b7280;
 }
 
-.oneuptime-calendar .rbc-timeslot-group {
+.cast-operations-calendar .rbc-timeslot-group {
   border-bottom: 1px solid #f3f4f6;
 }
 
-.oneuptime-calendar .rbc-time-content {
+.cast-operations-calendar .rbc-time-content {
   border-top: 1px solid #e5e7eb;
 }
 
-.oneuptime-calendar .rbc-time-content > * + * > * {
+.cast-operations-calendar .rbc-time-content > * + * > * {
   border-left: 1px solid #f3f4f6;
 }
 
-.oneuptime-calendar .rbc-current-time-indicator {
+.cast-operations-calendar .rbc-current-time-indicator {
   background-color: #ef4444; /* red-500 */
   height: 2px;
 }
 
-.oneuptime-calendar .rbc-time-slot {
+.cast-operations-calendar .rbc-time-slot {
   color: #9ca3af; /* gray-400 */
 }
 
-.oneuptime-calendar .rbc-label {
+.cast-operations-calendar .rbc-label {
   padding: 0 0.5rem;
   font-size: 0.75rem;
   color: #6b7280;
 }
 
 /* ---------- Events ---------- */
-.oneuptime-calendar .rbc-event,
-.oneuptime-calendar .rbc-day-slot .rbc-background-event {
+.cast-operations-calendar .rbc-event,
+.cast-operations-calendar .rbc-day-slot .rbc-background-event {
   border: none;
   border-radius: 0.375rem;
   padding: 0.2rem 0.5rem;
@@ -198,24 +198,24 @@
     filter 120ms ease;
 }
 
-.oneuptime-calendar .rbc-event:hover,
-.oneuptime-calendar .rbc-day-slot .rbc-background-event:hover {
+.cast-operations-calendar .rbc-event:hover,
+.cast-operations-calendar .rbc-day-slot .rbc-background-event:hover {
   filter: brightness(0.97);
   box-shadow: 0 4px 10px -2px rgb(0 0 0 / 0.12);
 }
 
-.oneuptime-calendar .rbc-event:focus,
-.oneuptime-calendar .rbc-event.rbc-selected {
+.cast-operations-calendar .rbc-event:focus,
+.cast-operations-calendar .rbc-event.rbc-selected {
   outline: 2px solid #4f46e5; /* indigo-600 */
   outline-offset: 1px;
 }
 
-.oneuptime-calendar .rbc-event-label {
+.cast-operations-calendar .rbc-event-label {
   font-size: 0.6875rem;
   opacity: 0.85;
 }
 
-.oneuptime-calendar .rbc-show-more {
+.cast-operations-calendar .rbc-show-more {
   color: #4f46e5;
   font-weight: 500;
   background-color: transparent;
@@ -223,11 +223,11 @@
 }
 
 /* ---------- Agenda view ---------- */
-.oneuptime-calendar .rbc-agenda-view table.rbc-agenda-table {
+.cast-operations-calendar .rbc-agenda-view table.rbc-agenda-table {
   border: none;
 }
 
-.oneuptime-calendar .rbc-agenda-view table.rbc-agenda-table thead > tr > th {
+.cast-operations-calendar .rbc-agenda-view table.rbc-agenda-table thead > tr > th {
   background-color: #f9fafb;
   color: #6b7280;
   font-size: 0.75rem;
@@ -238,7 +238,7 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.oneuptime-calendar .rbc-agenda-view table.rbc-agenda-table tbody > tr > td {
+.cast-operations-calendar .rbc-agenda-view table.rbc-agenda-table tbody > tr > td {
   padding: 0.625rem 0.75rem;
   font-size: 0.8125rem;
   /* react-big-calendar applies the per-event color (set by eventPropGetter) to
@@ -249,11 +249,11 @@
   border-top: 1px solid #f3f4f6;
 }
 
-.oneuptime-calendar .rbc-agenda-view table.rbc-agenda-table tbody > tr + tr {
+.cast-operations-calendar .rbc-agenda-view table.rbc-agenda-table tbody > tr + tr {
   border-top: none;
 }
 
-.oneuptime-calendar .rbc-agenda-empty {
+.cast-operations-calendar .rbc-agenda-empty {
   padding: 1.5rem;
   text-align: center;
   color: #9ca3af;

@@ -11,7 +11,7 @@ import ProductAnalytics from "../Utils/ProductAnalytics";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import DatabaseService from "./DatabaseService";
 import MonitorStatusService from "./MonitorStatusService";
-import ProjectService, { CurrentPlan } from "./ProjectService";
+import ProjectService from "./ProjectService";
 import StatusPageDomainService from "./StatusPageDomainService";
 import StatusPageLabelRuleEngineService from "./StatusPageLabelRuleEngineService";
 import StatusPageOwnerRuleEngineService from "./StatusPageOwnerRuleEngineService";
@@ -35,12 +35,7 @@ import StatusPageDomain from "../../Models/DatabaseModels/StatusPageDomain";
 import StatusPageOwnerTeam from "../../Models/DatabaseModels/StatusPageOwnerTeam";
 import StatusPageOwnerUser from "../../Models/DatabaseModels/StatusPageOwnerUser";
 import User from "../../Models/DatabaseModels/User";
-import {
-  AllowedStatusPageCountInFreePlan,
-  IsBillingEnabled,
-  LetsEncryptAccountKey,
-} from "../EnvironmentConfig";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
+import { LetsEncryptAccountKey } from "../EnvironmentConfig";
 import Recurring from "../../Types/Events/Recurring";
 import Email from "../../Types/Email";
 import StatusPageSubscriberService from "./StatusPageSubscriberService";
@@ -60,7 +55,7 @@ import { JSONObject } from "../../Types/JSON";
 import MonitorGroupResource from "../../Models/DatabaseModels/MonitorGroupResource";
 import MonitorGroupResourceService from "./MonitorGroupResourceService";
 import QueryHelper from "../Types/Database/QueryHelper";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import IncidentService from "./IncidentService";
 import MonitorStatusTimeline from "../../Models/DatabaseModels/MonitorStatusTimeline";
 import MonitorStatusTimelineService from "./MonitorStatusTimelineService";
@@ -226,36 +221,6 @@ export class Service extends DatabaseService<StatusPage> {
   ): Promise<OnCreate<StatusPage>> {
     if (!createBy.data.projectId) {
       throw new BadDataException("projectId is required");
-    }
-
-    // if the project is on the free plan, then only allow 1 status page.
-    if (IsBillingEnabled) {
-      const currentPlan: CurrentPlan = await ProjectService.getCurrentPlan(
-        createBy.data.projectId,
-      );
-
-      if (currentPlan.isSubscriptionUnpaid) {
-        throw new BadDataException(
-          "Your subscription is unpaid. Please update your payment method and pay all the outstanding invoices to add more status pages.",
-        );
-      }
-
-      if (currentPlan.plan === PlanType.Free) {
-        const statusPageCount: PositiveNumber = await this.countBy({
-          query: {
-            projectId: createBy.data.projectId,
-          },
-          props: {
-            isRoot: true,
-          },
-        });
-
-        if (statusPageCount.toNumber() >= AllowedStatusPageCountInFreePlan) {
-          throw new BadDataException(
-            `You have reached the maximum allowed status page limit for the free plan. Please upgrade your plan to add more status pages.`,
-          );
-        }
-      }
     }
 
     if (!createBy.data.downtimeMonitorStatuses) {
@@ -1197,9 +1162,9 @@ export class Service extends DatabaseService<StatusPage> {
 
     const numberOfDays: number = data.historyDays || 14;
 
-    const endDate: Date = OneUptimeDate.getCurrentDate();
-    const startDate: Date = OneUptimeDate.getSomeDaysAgo(numberOfDays);
-    const startAndEndDate: string = `${numberOfDays} days (${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(startDate, true)} - ${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(endDate, true)})`;
+    const endDate: Date = OperationsDate.getCurrentDate();
+    const startDate: Date = OperationsDate.getSomeDaysAgo(numberOfDays);
+    const startAndEndDate: string = `${numberOfDays} days (${OperationsDate.getDateAsUserFriendlyLocalFormattedString(startDate, true)} - ${OperationsDate.getDateAsUserFriendlyLocalFormattedString(endDate, true)})`;
 
     if (statusPageResources.length === 0) {
       return {
@@ -1278,7 +1243,7 @@ export class Service extends DatabaseService<StatusPage> {
         uptimePercent: uptimePercent,
         uptimePercentAsString: `${uptimePercent}%`,
         downtimeInHoursAndMinutes:
-          OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
+          OperationsDate.convertMinutesToDaysHoursAndMinutes(
             Math.ceil(downtime.totalDowntimeInSeconds / 60),
           ),
       };
@@ -1308,7 +1273,7 @@ export class Service extends DatabaseService<StatusPage> {
       averageUptimePercent: avgUptimePercentString,
       resources: reportItems,
       totalDowntimeInHoursAndMinutes:
-        OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
+        OperationsDate.convertMinutesToDaysHoursAndMinutes(
           Math.ceil(totalDowntimeInSeconds.totalDowntimeInSeconds / 60),
         ),
     };
@@ -1319,9 +1284,9 @@ export class Service extends DatabaseService<StatusPage> {
     monitorIds: Array<ObjectID>;
     historyDays: number;
   }): Promise<number> {
-    const today: Date = OneUptimeDate.getCurrentDate();
+    const today: Date = OperationsDate.getCurrentDate();
 
-    const historyDays: Date = OneUptimeDate.getSomeDaysAgo(
+    const historyDays: Date = OperationsDate.getSomeDaysAgo(
       data.historyDays || 14,
     );
 

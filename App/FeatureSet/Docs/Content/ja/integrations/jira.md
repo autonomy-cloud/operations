@@ -108,14 +108,14 @@ Jira の課題を誰かがクローズしたときに Cast Operations のイン�
 
 3. ワークフロー内で **Find Incident** ブロックを使って保存したキーでインシデントを検索し、**Update Incident** ブロックで解決済み状態に変更します。
 
-ステップ 4 でインシデントに Jira キーを保存していれば、マッチングは簡単です。[コンポーネント → Cast Operations データコンポーネント](/docs/workflows/components#oneuptime-data-components) を参照してください。
+ステップ 4 でインシデントに Jira キーを保存していれば、マッチングは簡単です。[コンポーネント → Cast Operations データコンポーネント](/docs/workflows/components#cast-operations-data-components) を参照してください。
 
 ## 課題のカスタマイズ
 
 API ブロックのボディへのよくある変更:
 
 - **優先度** — `fields` の中に `"priority": { "name": "High" }` を追加します。**Conditions** で `{{Incident.incidentSeverity.name}}` に分岐して Cast Operations の重大度を Jira の優先度にマッピングできます。
-- **ラベル** — `"labels": ["oneuptime", "incident"]` を追加します。
+- **ラベル** — `"labels": ["cast-operations", "incident"]` を追加します。
 - **担当者** — `"assignee": { "id": "<accountId>" }` を追加します (Jira Cloud はユーザー名ではなくアカウント ID を使います)。
 - **カスタムフィールド** — Jira 管理画面のフィールド ID を使って `"customfield_XXXXX": "..."` を追加します。
 

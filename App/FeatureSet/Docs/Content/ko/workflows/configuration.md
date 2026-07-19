@@ -72,7 +72,6 @@ API 및 기타 HTTP 블록은 Cast Operations에서 요청을 보냅니다. 자�
 
 ## 요금제 한도
 
-Cast Operations Cloud는 더 작은 요금제에서 월별 실행 횟수에 한도를 둡니다. 현재 한도는 **Project Settings → Billing**에 표시됩니다. 한도에 도달하면 다음 청구 주기까지 새 트리거가 거부됩니다. 자체 호스팅 설치는 이런 한도가 없습니다.
 
 ## 워크플로가 적합하지 않은 경우
 

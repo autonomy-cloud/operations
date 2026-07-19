@@ -8,7 +8,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import BaseAPI from "./BaseAPI";
@@ -37,10 +37,10 @@ export default class TeamMemberAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          const oneUptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+          const operationsRequest: OperationsRequest = req as OperationsRequest;
 
           const userId: ObjectID | undefined =
-            oneUptimeRequest.userAuthorization?.userId;
+            operationsRequest.userAuthorization?.userId;
           if (!userId) {
             return Response.sendErrorResponse(
               req,
@@ -82,7 +82,7 @@ export default class TeamMemberAPI extends BaseAPI<
       UserMiddleware.getUserMiddleware,
       async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
         try {
-          const oneUptimeRequest: OneUptimeRequest = req as OneUptimeRequest;
+          const operationsRequest: OperationsRequest = req as OperationsRequest;
 
           const idParam: string = req.params["id"] as string;
           if (!idParam) {
@@ -97,7 +97,7 @@ export default class TeamMemberAPI extends BaseAPI<
           const teamMemberId: ObjectID = new ObjectID(idParam);
 
           const userId: ObjectID | undefined =
-            oneUptimeRequest.userAuthorization?.userId;
+            operationsRequest.userAuthorization?.userId;
           if (!userId) {
             return Response.sendErrorResponse(
               req,

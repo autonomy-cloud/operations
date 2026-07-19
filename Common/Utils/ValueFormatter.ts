@@ -466,7 +466,7 @@ export default class ValueFormatter {
    * return `false` so generic counters (request rate, network I/O, span
    * count) keep the up = good colour scheme. Explicit "higher is better"
    * tokens (uptime/availability/online/ready/healthy/available/success/
-   * passed) take precedence — without that allowlist `oneuptime.monitor.
+   * passed) take precedence — without that allowlist `cast-operations.monitor.
    * online` would match nothing and incorrectly fall through; the suffix
    * test then catches incident counts, error rates, MTTR/MTTA, response
    * times, CPU/memory usage, restarts, pressure, queue backlogs, etc.

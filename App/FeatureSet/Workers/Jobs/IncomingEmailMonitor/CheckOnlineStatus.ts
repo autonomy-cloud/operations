@@ -8,7 +8,7 @@ import logger from "Common/Server/Utils/Logger";
 import MonitorResourceUtil from "Common/Server/Utils/Monitor/MonitorResource";
 import Monitor from "Common/Models/DatabaseModels/Monitor";
 import ProjectService from "Common/Server/Services/ProjectService";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
 
@@ -18,8 +18,8 @@ RunCron(
   async () => {
     logger.debug(
       "Checking IncomingEmailMonitor:CheckOnlineStatus at " +
-        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
-          OneUptimeDate.getCurrentDate(),
+        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
+          OperationsDate.getCurrentDate(),
         ),
     );
 
@@ -117,7 +117,7 @@ const checkOnlineStatus: (monitor: Monitor) => Promise<void> = async (
     await MonitorService.updateOneById({
       id: monitor.id!,
       data: {
-        incomingEmailMonitorHeartbeatCheckedAt: OneUptimeDate.getCurrentDate(),
+        incomingEmailMonitorHeartbeatCheckedAt: OperationsDate.getCurrentDate(),
       },
       props: {
         isRoot: true,
@@ -146,7 +146,7 @@ const checkOnlineStatus: (monitor: Monitor) => Promise<void> = async (
       onlyCheckForIncomingEmailReceivedAt: true,
       monitorId: monitor.id!,
       projectId: monitor.projectId!,
-      checkedAt: OneUptimeDate.getCurrentDate(),
+      checkedAt: OperationsDate.getCurrentDate(),
       emailFrom: monitor.incomingEmailMonitorRequest?.emailFrom || "",
       emailTo: monitor.incomingEmailMonitorRequest?.emailTo || "",
       emailSubject: monitor.incomingEmailMonitorRequest?.emailSubject || "",

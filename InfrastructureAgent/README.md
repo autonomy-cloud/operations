@@ -16,13 +16,13 @@ Configure the agent as a system service
 - You can find the secret key on Cast Operations Dashboard. Click on "View Monitor" and go to "Settings" tab.
 
 ```bash
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 ```
 
 ### Starting the agent
 
 ```
-oneuptime-infrastructure-agent start
+cast-operations-infrastructure-agent start
 ```
 
 Once its up and running you should see the metrics on the Cast Operations Dashboard.
@@ -30,31 +30,31 @@ Once its up and running you should see the metrics on the Cast Operations Dashbo
 ### Stopping the agent
 
 ```
-oneuptime-infrastructure-agent stop
+cast-operations-infrastructure-agent stop
 ```
 
 ### Restarting the agent
 
 ```
-oneuptime-infrastructure-agent restart
+cast-operations-infrastructure-agent restart
 ```
 
 ### Uninstalling the agent
 
 ```
-oneuptime-infrastructure-agent uninstall && rm -rf /usr/bin/oneuptime-infrastructure-agent
+cast-operations-infrastructure-agent uninstall && rm -rf /usr/bin/cast-operations-infrastructure-agent
 ```
 
 ### Viewing agent logs
 
 ```
-oneuptime-infrastructure-agent logs
+cast-operations-infrastructure-agent logs
 ```
 
 You can also use the following options:
 
-- Show specific number of lines: `oneuptime-infrastructure-agent logs -n 50`
-- Follow logs in real-time: `oneuptime-infrastructure-agent logs -f`
+- Show specific number of lines: `cast-operations-infrastructure-agent logs -n 50`
+- Follow logs in real-time: `cast-operations-infrastructure-agent logs -f`
 
 ### Supported Platforms
 
@@ -77,23 +77,23 @@ go build
 ### Configure the agent
 
 ```bash
-sudo ./oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://localhost
+sudo ./cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://localhost
 ```
 
 ### Starting the agent
 
 ```bash
-sudo ./oneuptime-infrastructure-agent start
+sudo ./cast-operations-infrastructure-agent start
 ```
 
 ### Stopping the agent
 
 ```bash
-sudo ./oneuptime-infrastructure-agent stop
+sudo ./cast-operations-infrastructure-agent stop
 ```
 
 ### Viewing logs
 
 ```bash
-sudo ./oneuptime-infrastructure-agent logs
+sudo ./cast-operations-infrastructure-agent logs
 ```

@@ -7,7 +7,7 @@ The Cast Operations CLI supports multiple ways to authenticate with your Cast Op
 Authenticate with your Cast Operations instance using an API key:
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **Arguments:**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Login with default context
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # Login with a named context
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # Set up multiple environments
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Contexts
@@ -44,7 +44,7 @@ Contexts allow you to save and switch between multiple Cast Operations environme
 ### List Contexts
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 Displays all configured contexts. The current context is marked with `*`.
@@ -52,23 +52,23 @@ Displays all configured contexts. The current context is marked with `*`.
 ### Switch Context
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 Switch to a different named context for all subsequent commands.
 
 ```bash
 # Switch to staging
-oneuptime context use staging
+cast-operations context use staging
 
 # Switch to production
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### View Current Context
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 Displays the currently active context, including the instance URL and a masked API key.
@@ -76,7 +76,7 @@ Displays the currently active context, including the instance URL and a masked A
 ### Delete a Context
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 Remove a named context. If the deleted context is the current one, the CLI automatically switches to the first remaining context.
@@ -86,7 +86,7 @@ Remove a named context. If the deleted context is the current one, the CLI autom
 Credentials are resolved in the following priority order:
 
 1. **CLI flags** (`--api-key` and `--url`)
-2. **Environment variables** (`ONEUPTIME_API_KEY` and `ONEUPTIME_URL`)
+2. **Environment variables** (`CAST_OPERATIONS_API_KEY` and `CAST_OPERATIONS_URL`)
 3. **Named context** (via `--context` flag)
 4. **Current context** (from saved configuration)
 
@@ -95,22 +95,22 @@ You can mix sources -- for example, use an environment variable for the API key 
 ### Using CLI Flags
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Using Environment Variables
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### Using a Specific Context
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## Verify Authentication
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 Check your current authentication status:
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 This displays:
@@ -127,11 +127,11 @@ This displays:
 - Masked API key
 - Current context name (only shown if a saved context is active)
 
-If not authenticated, the command shows a helpful message suggesting you run `oneuptime login`.
+If not authenticated, the command shows a helpful message suggesting you run `cast-operations login`.
 
 ## Configuration File
 
-Credentials are stored in `~/.oneuptime/config.json` with restricted permissions (`0600`).
+Credentials are stored in `~/.cast-operations/config.json` with restricted permissions (`0600`).
 
 ```json
 {

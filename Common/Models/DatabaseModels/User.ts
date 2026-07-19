@@ -3,7 +3,6 @@ import UserModel from "../../Models/DatabaseModels/DatabaseBaseModel/UserModel";
 import Route from "../../Types/API/Route";
 import CompanySize from "../../Types/Company/CompanySize";
 import JobRole from "../../Types/Company/JobRole";
-import AllowAccessIfSubscriptionIsUnpaid from "../../Types/Database/AccessControl/AllowAccessIfSubscriptionIsUnpaid";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
@@ -29,7 +28,6 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 @EnableDocumentation({
   isMasterAdminApiDocs: true,
 })
-@AllowAccessIfSubscriptionIsUnpaid()
 @TableAccessControl({
   create: [],
   read: [Permission.CurrentUser],
@@ -321,21 +319,6 @@ class User extends UserModel {
     nullable: true,
     unique: false,
   })
-  public paymentProviderCustomerId?: string = undefined;
-
-  @ColumnAccessControl({
-    create: [],
-    read: [],
-
-    update: [],
-  })
-  @TableColumn({ type: TableColumnType.ShortText })
-  @Column({
-    type: ColumnType.ShortText,
-    length: ColumnLength.ShortText,
-    nullable: true,
-    unique: false,
-  })
   public resetPasswordToken?: string = undefined;
 
   @ColumnAccessControl({
@@ -408,24 +391,6 @@ class User extends UserModel {
   public lastActive?: Date = undefined;
 
   @ColumnAccessControl({
-    create: [Permission.Public],
-    read: [],
-
-    update: [],
-  })
-  @TableColumn({
-    type: TableColumnType.ShortText,
-    hideColumnInDocumentation: true,
-  })
-  @Column({
-    type: ColumnType.ShortText,
-    length: ColumnLength.ShortText,
-    nullable: true,
-    unique: false,
-  })
-  public promotionName?: string = undefined;
-
-  @ColumnAccessControl({
     create: [],
     read: [Permission.CustomerSupport],
 
@@ -444,20 +409,6 @@ class User extends UserModel {
     default: false,
   })
   public isDisabled?: boolean = undefined;
-
-  @ColumnAccessControl({
-    create: [],
-    read: [],
-
-    update: [],
-  })
-  @TableColumn({ type: TableColumnType.Date })
-  @Column({
-    type: ColumnType.Date,
-    nullable: true,
-    unique: false,
-  })
-  public paymentFailedDate?: Date = undefined;
 
   @ColumnAccessControl({
     create: [],

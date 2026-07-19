@@ -40,9 +40,12 @@ const Card: FunctionComponent<ComponentProps> = (
 
   return (
     <React.Fragment>
-      <div data-testid="card" className={`mb-5 ${props.className || ""}`}>
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-visible">
-          <div className="py-6 px-5 md:px-6">
+      <div
+        data-testid="card"
+        className={`operations-card-shell mb-5 ${props.className || ""}`}
+      >
+        <div className="operations-card bg-white border border-gray-200 rounded-xl shadow-sm overflow-visible">
+          <div className="operations-card-header py-6 px-5 md:px-6">
             <div className="flex flex-col md:flex-row md:justify-between md:items-start">
               <div
                 className={`${noRightElementsOrButtons ? "w-full" : "flex-1 min-w-0"}`}
@@ -51,7 +54,7 @@ const Card: FunctionComponent<ComponentProps> = (
                   <h2
                     data-testid="card-details-heading"
                     id="card-details-heading"
-                    className="text-lg font-semibold leading-6 text-gray-900"
+                    className="operations-card-title text-lg font-semibold leading-6 text-gray-900"
                   >
                     {translatedTitle}
                   </h2>
@@ -59,7 +62,7 @@ const Card: FunctionComponent<ComponentProps> = (
                 {translatedDescription && (
                   <p
                     data-testid="card-description"
-                    className="mt-1.5 text-sm text-gray-500 w-full hidden md:block leading-relaxed"
+                    className="operations-card-description mt-1.5 text-sm text-gray-500 w-full hidden md:block leading-relaxed"
                   >
                     {translatedDescription}
                   </p>
@@ -125,7 +128,9 @@ const Card: FunctionComponent<ComponentProps> = (
             </div>
 
             {props.children && (
-              <div className={props.bodyClassName || "mt-4"}>
+              <div
+                className={`operations-card-body ${props.bodyClassName || "mt-4"}`}
+              >
                 {props.children}
               </div>
             )}

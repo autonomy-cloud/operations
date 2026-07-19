@@ -249,10 +249,10 @@ Cast Operations 작업 자동화:
 
 ```bash
 # 빠른 Cast Operations 실행을 위한 별칭 생성
-echo 'alias oneuptime="open -a \"Cast Operations\""' >> ~/.zshrc
+echo 'alias cast-operations="open -a \"Cast Operations\""' >> ~/.zshrc
 
 # Cast Operations이 실행 중인지 확인하는 함수
-oneuptime_status() {
+cast_operations_status() {
     if pgrep -f "Cast Operations" > /dev/null; then
         echo "Cast Operations is running"
     else

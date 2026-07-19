@@ -8,16 +8,13 @@ import FieldType from "Common/UI/Components/Types/FieldType";
 import ObjectID from "Common/Types/ObjectID";
 import IconProp from "Common/Types/Icon/IconProp";
 import Icon, { SizeProp, ThickProp } from "Common/UI/Components/Icon/Icon";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Route from "Common/Types/API/Route";
 import { JSONArray } from "Common/Types/JSON";
 import AppLink from "../AppLink/AppLink";
 import PageMap from "../../Utils/PageMap";
 import RouteMap, { RouteUtil } from "../../Utils/RouteMap";
 import AuditLogChangesModal from "./AuditLogChangesModal";
-import AuditLogsEnterpriseUpgrade, {
-  isAuditLogsEnterpriseEligible,
-} from "./AuditLogsEnterpriseUpgrade";
 import React, {
   Fragment,
   FunctionComponent,
@@ -233,10 +230,6 @@ const getActorInitials: (name: string | undefined) => string = (
 const AuditLogsTable: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
-  const isEnterpriseEligible: boolean = useMemo(() => {
-    return isAuditLogsEnterpriseEligible();
-  }, []);
-
   const [detailItem, setDetailItem] = useState<AuditLog | null>(null);
 
   const computedQuery: Query<AuditLog> = useMemo(() => {
@@ -258,15 +251,6 @@ const AuditLogsTable: FunctionComponent<ComponentProps> = (
 
     return query;
   }, [props.resourceType, props.resourceId]);
-
-  if (!isEnterpriseEligible) {
-    return (
-      <AuditLogsEnterpriseUpgrade
-        title={props.title}
-        description={props.description}
-      />
-    );
-  }
 
   const extraSelect: Select<AuditLog> = {
     resourceName: true,
@@ -362,15 +346,15 @@ const AuditLogsTable: FunctionComponent<ComponentProps> = (
               return (
                 <div
                   className="flex flex-col leading-tight"
-                  title={OneUptimeDate.getDateAsLocalFormattedString(
+                  title={OperationsDate.getDateAsLocalFormattedString(
                     createdDate,
                   )}
                 >
                   <span className="text-sm font-medium text-gray-900">
-                    {OneUptimeDate.fromNow(createdDate)}
+                    {OperationsDate.fromNow(createdDate)}
                   </span>
                   <span className="text-[11px] text-gray-500">
-                    {OneUptimeDate.getDateAsLocalFormattedString(createdDate)}
+                    {OperationsDate.getDateAsLocalFormattedString(createdDate)}
                   </span>
                 </div>
               );

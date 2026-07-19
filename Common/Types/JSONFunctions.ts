@@ -1,6 +1,6 @@
 import BaseModel from "../Models/DatabaseModels/DatabaseBaseModel/DatabaseBaseModel";
 import DatabaseProperty from "./Database/DatabaseProperty";
-import OneUptimeDate from "./Date";
+import OperationsDate from "./Date";
 import DiskSize from "./DiskSize";
 import GenericObject from "./GenericObject";
 import { JSONArray, JSONObject, JSONValue, ObjectType } from "./JSON";
@@ -289,7 +289,7 @@ export default class JSONFunctions {
     } else if (val && val instanceof Date) {
       return {
         _type: ObjectType.DateTime,
-        value: OneUptimeDate.toString(val as Date).toString(),
+        value: OperationsDate.toString(val as Date).toString(),
       };
     } else if (
       typeof val === Typeof.Object &&

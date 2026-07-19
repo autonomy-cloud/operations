@@ -35,7 +35,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -65,12 +65,12 @@ function dailyRestriction(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: startHour,
       minutes: 0,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: endHour,
       minutes: 0,
       seconds: 0,
@@ -90,8 +90,8 @@ function weeklyMondayToFriday(): RestrictionTimes {
   const weekly: WeeklyResctriction = {
     startDay: DayOfWeek.Monday,
     endDay: DayOfWeek.Saturday,
-    startTime: OneUptimeDate.fromString("2025-01-06T00:00:00.000Z"), // Monday
-    endTime: OneUptimeDate.fromString("2025-01-11T00:00:00.000Z"), // Saturday
+    startTime: OperationsDate.fromString("2025-01-06T00:00:00.000Z"), // Monday
+    endTime: OperationsDate.fromString("2025-01-11T00:00:00.000Z"), // Saturday
   };
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Weekly;
@@ -194,7 +194,7 @@ const MAX_COVERED_SAMPLES: number = 3;
 const MAX_GAP_SAMPLES: number = 2;
 
 // A Monday 00:00 UTC.
-const FIXED_START_JAN: Date = OneUptimeDate.fromString(
+const FIXED_START_JAN: Date = OperationsDate.fromString(
   "2025-01-06T00:00:00.000Z",
 );
 
@@ -215,7 +215,7 @@ function windowedTitles(layer: LayerProps, at: Date, n: number): string[] {
     {
       ...layer,
       calendarStartDate: at,
-      calendarEndDate: OneUptimeDate.addRemoveDays(at, WINDOWED_END_DAYS),
+      calendarEndDate: OperationsDate.addRemoveDays(at, WINDOWED_END_DAYS),
     },
     { getNumberOfEvents: n },
   );
@@ -230,7 +230,7 @@ function multiLayerFirstTitle(layer: LayerProps, at: Date): string | null {
     {
       layers: [layer],
       calendarStartDate: at,
-      calendarEndDate: OneUptimeDate.addRemoveDays(at, MULTI_WINDOW_DAYS),
+      calendarEndDate: OperationsDate.addRemoveDays(at, MULTI_WINDOW_DAYS),
     },
     { getNumberOfEvents: 1 },
   );
@@ -375,7 +375,7 @@ function checkConfig(c: Config): string[] {
   const full: CalendarEvent[] = fullExpand(
     layer,
     c.start,
-    OneUptimeDate.addRemoveDays(c.start, groundToDays),
+    OperationsDate.addRemoveDays(c.start, groundToDays),
   );
 
   const mismatches: string[] = [];
@@ -530,14 +530,14 @@ describe("REGRESSION: intervalCount>=2 boundary overshoot resolves the correct n
       userIds: ["A", "B", "C"],
       restrictionKind: "weeklyMonFri",
       timezone: "America/New_York",
-      start: OneUptimeDate.fromString("2025-10-27T00:00:00.000Z"),
+      start: OperationsDate.fromString("2025-10-27T00:00:00.000Z"),
     };
     const layer: LayerProps = layerOf(c);
     const util: LayerUtil = new LayerUtil();
     const full: CalendarEvent[] = fullExpand(
       layer,
       c.start,
-      OneUptimeDate.fromString("2025-11-25T00:00:00.000Z"),
+      OperationsDate.fromString("2025-11-25T00:00:00.000Z"),
     );
 
     /*
@@ -546,23 +546,23 @@ describe("REGRESSION: intervalCount>=2 boundary overshoot resolves the correct n
      * next event after the instant). Before the fix, Sat 19:00-19:40 EST
      * diverged (windowed A vs oracle B).
      */
-    const startProbe: Date = OneUptimeDate.fromString(
+    const startProbe: Date = OperationsDate.fromString(
       "2025-11-14T18:00:00.000Z",
     );
     const mismatches: string[] = [];
     for (let i: number = 0; i < 72 * 3; i++) {
-      const at: Date = OneUptimeDate.addRemoveMinutes(startProbe, i * 20);
+      const at: Date = OperationsDate.addRemoveMinutes(startProbe, i * 20);
       let cover: CalendarEvent | null = null;
       let next: CalendarEvent | null = null;
       for (const e of full) {
         if (
-          OneUptimeDate.isOnOrAfter(at, e.start) &&
-          OneUptimeDate.isBefore(at, e.end)
+          OperationsDate.isOnOrAfter(at, e.start) &&
+          OperationsDate.isBefore(at, e.end)
         ) {
           cover = e;
         }
-        if (OneUptimeDate.isAfter(e.start, at)) {
-          if (!next || OneUptimeDate.isBefore(e.start, next.start)) {
+        if (OperationsDate.isAfter(e.start, at)) {
+          if (!next || OperationsDate.isBefore(e.start, next.start)) {
             next = e;
           }
         }
@@ -577,7 +577,7 @@ describe("REGRESSION: intervalCount>=2 boundary overshoot resolves the correct n
           {
             ...layer,
             calendarStartDate: at,
-            calendarEndDate: OneUptimeDate.addRemoveDays(at, 20),
+            calendarEndDate: OperationsDate.addRemoveDays(at, 20),
           },
           { getNumberOfEvents: 1 },
         )[0]?.title ?? null;
@@ -597,7 +597,7 @@ describe("REGRESSION: intervalCount>=2 boundary overshoot resolves the correct n
      * one period further out).
      */
     const util: LayerUtil = new LayerUtil();
-    const start: Date = OneUptimeDate.fromString("2025-01-06T00:00:00.000Z");
+    const start: Date = OperationsDate.fromString("2025-01-06T00:00:00.000Z");
     for (const [it, count] of [
       [EventInterval.Day, 2],
       [EventInterval.Day, 3],
@@ -617,7 +617,7 @@ describe("REGRESSION: intervalCount>=2 boundary overshoot resolves the correct n
       const full: CalendarEvent[] = fullExpand(
         layer,
         start,
-        OneUptimeDate.addRemoveDays(start, 40),
+        OperationsDate.addRemoveDays(start, 40),
       );
       /*
        * For each full event, sampling 3 points inside it must resolve the same
@@ -630,7 +630,7 @@ describe("REGRESSION: intervalCount>=2 boundary overshoot resolves the correct n
             {
               ...layer,
               calendarStartDate: mid,
-              calendarEndDate: OneUptimeDate.addRemoveDays(mid, 40),
+              calendarEndDate: OperationsDate.addRemoveDays(mid, 40),
             },
             { getNumberOfEvents: 1 },
           )[0]?.title ?? null;
@@ -698,11 +698,11 @@ function buildDstMatrix(): Config[] {
   const dstStarts: { label: string; start: Date }[] = [
     {
       label: "spring-forward-week",
-      start: OneUptimeDate.fromString("2025-03-03T00:00:00.000Z"), // Monday before US DST
+      start: OperationsDate.fromString("2025-03-03T00:00:00.000Z"), // Monday before US DST
     },
     {
       label: "fall-back-week",
-      start: OneUptimeDate.fromString("2025-10-27T00:00:00.000Z"), // Monday before US fall-back
+      start: OperationsDate.fromString("2025-10-27T00:00:00.000Z"), // Monday before US fall-back
     },
   ];
   const dstIntervals: EventInterval[] = [EventInterval.Day, EventInterval.Week];
@@ -781,8 +781,8 @@ describe("Concrete anchors (absolute expected on-call user)", () => {
     const layer: LayerProps = dailyRotationLayer(["A", "B"], 1, "none");
     const expectedByDay: string[] = ["A", "B", "A", "B", "A", "B"];
     for (let day: number = 0; day < expectedByDay.length; day++) {
-      const noon: Date = OneUptimeDate.addRemoveHours(
-        OneUptimeDate.addRemoveDays(MON_JAN6, day),
+      const noon: Date = OperationsDate.addRemoveHours(
+        OperationsDate.addRemoveDays(MON_JAN6, day),
         12,
       );
       expect(firstTitleAt(layer, noon)).toBe(expectedByDay[day]);
@@ -804,8 +804,8 @@ describe("Concrete anchors (absolute expected on-call user)", () => {
       { day: 7, who: "A" },
     ];
     for (const cse of cases) {
-      const noon: Date = OneUptimeDate.addRemoveHours(
-        OneUptimeDate.addRemoveDays(MON_JAN6, cse.day),
+      const noon: Date = OperationsDate.addRemoveHours(
+        OperationsDate.addRemoveDays(MON_JAN6, cse.day),
         12,
       );
       expect(firstTitleAt(layer, noon)).toBe(cse.who);
@@ -817,8 +817,8 @@ describe("Concrete anchors (absolute expected on-call user)", () => {
     // Jan6=A(9-17), Jan7=B, Jan8=A ... Evening (20:00) gap => next day's user.
     const nextByEveningDay: string[] = ["B", "A", "B", "A", "B"];
     for (let day: number = 0; day < nextByEveningDay.length; day++) {
-      const evening: Date = OneUptimeDate.addRemoveHours(
-        OneUptimeDate.addRemoveDays(MON_JAN6, day),
+      const evening: Date = OperationsDate.addRemoveHours(
+        OperationsDate.addRemoveDays(MON_JAN6, day),
         20,
       );
       expect(firstTitleAt(layer, evening)).toBe(nextByEveningDay[day]);
@@ -828,8 +828,8 @@ describe("Concrete anchors (absolute expected on-call user)", () => {
     expect(
       firstTitleAt(
         layer,
-        OneUptimeDate.addRemoveHours(
-          OneUptimeDate.addRemoveDays(MON_JAN6, 1),
+        OperationsDate.addRemoveHours(
+          OperationsDate.addRemoveDays(MON_JAN6, 1),
           12,
         ),
       ),
@@ -850,14 +850,16 @@ describe("Concrete anchors (absolute expected on-call user)", () => {
      * Week rotation: week1 (Jan6-)=A, week2 (Jan13-)=B, week3=A ...
      * Saturday of week1 (Jan11 12:00) is a weekend gap => next Monday Jan13 = B.
      */
-    const week1Saturday: Date = OneUptimeDate.fromString(
+    const week1Saturday: Date = OperationsDate.fromString(
       "2025-01-11T12:00:00.000Z",
     );
     expect(firstTitleAt(layer, week1Saturday)).toBe("B");
     expect(multiLayerFirstTitle(layer, week1Saturday)).toBe("B");
 
     // Mid-week1 (Wed Jan8 12:00) is covered => current user A.
-    const week1Wed: Date = OneUptimeDate.fromString("2025-01-08T12:00:00.000Z");
+    const week1Wed: Date = OperationsDate.fromString(
+      "2025-01-08T12:00:00.000Z",
+    );
     expect(firstTitleAt(layer, week1Wed)).toBe("A");
   });
 });

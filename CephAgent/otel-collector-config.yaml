@@ -8,7 +8,7 @@ receivers:
   prometheus:
     config:
       scrape_configs:
-        - job_name: oneuptime-ceph
+        - job_name: cast-operations-ceph
           # Keep the labels Ceph exports (ceph_daemon, pool_id, etc.).
           # Without honor_labels the instance label is rewritten per
           # scrape target and flips every time the active mgr changes,
@@ -61,10 +61,10 @@ processors:
       #   value: "${env:CEPH_CLUSTER_FSID}"
       #   action: upsert
       # The prometheus receiver synthesizes service.name (= the scrape job
-      # name, "oneuptime-ceph") and service.instance.id on every batch per
+      # name, "cast-operations-ceph") and service.instance.id on every batch per
       # the Prometheus->OTLP compatibility spec. Drop them: Cast Operations
       # routes batches by service.name first, so leaving them in would
-      # register a phantom "oneuptime-ceph" Service instead of routing
+      # register a phantom "cast-operations-ceph" Service instead of routing
       # this data to the Ceph cluster discovered from `ceph.cluster.name`
       # (which would also break per-cluster retention settings). Do not
       # remove these two deletes.
@@ -82,9 +82,9 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "${env:ONEUPTIME_URL}/otlp"
+    endpoint: "${env:CAST_OPERATIONS_URL}/otlp"
     headers:
-      x-oneuptime-token: "${env:ONEUPTIME_TELEMETRY_INGESTION_KEY}"
+      x-cast-operations-token: "${env:CAST_OPERATIONS_TELEMETRY_INGESTION_KEY}"
 
 service:
   pipelines:

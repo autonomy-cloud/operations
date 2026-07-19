@@ -1,7 +1,7 @@
 import ObjectID from "../../../../Types/ObjectID";
 import AIRunType from "../../../../Types/AI/AIRunType";
 import BadDataException from "../../../../Types/Exception/BadDataException";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import Project from "../../../../Models/DatabaseModels/Project";
 import ProjectService from "../../../Services/ProjectService";
 import AIRunService from "../../../Services/AIRunService";
@@ -110,7 +110,10 @@ export default class FixRunBudget {
           projectId,
           runType: AIRunType.CodeFix,
           createdAt: QueryHelper.greaterThanEqualTo(
-            OneUptimeDate.getStartOfDay(OneUptimeDate.getCurrentDate(), "UTC"),
+            OperationsDate.getStartOfDay(
+              OperationsDate.getCurrentDate(),
+              "UTC",
+            ),
           ),
         },
         props: { isRoot: true },

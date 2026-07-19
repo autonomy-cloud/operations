@@ -29,7 +29,7 @@ import ServerlessFunctionInstanceService from "Common/Server/Services/Serverless
 import CloudResourceInstanceService from "Common/Server/Services/CloudResourceInstanceService";
 import RumApplicationClientService from "Common/Server/Services/RumApplicationClientService";
 import LabelService from "Common/Server/Services/LabelService";
-import { extractOneuptimeLabelNames } from "Common/Server/Utils/Telemetry/OneuptimeLabel";
+import { extractOperationsLabelNames } from "Common/Server/Utils/Telemetry/OperationsLabel";
 import logger from "Common/Server/Utils/Logger";
 import GlobalCache from "Common/Server/Infrastructure/GlobalCache";
 import OTelIngestService, {
@@ -178,7 +178,7 @@ export default abstract class OtelIngestBaseService {
     }
 
     const serviceName: string = req.headers[
-      "x-oneuptime-service-name"
+      "x-cast-operations-service-name"
     ] as string;
 
     if (serviceName) {
@@ -191,7 +191,7 @@ export default abstract class OtelIngestBaseService {
      * service.name. Synthesize a per-container service name so each
      * container shows up as its own service in the Cast Operations UI instead of
      * every Docker log collapsing into "Unknown Service". A container
-     * name is a meaningful logical service (e.g. "oneuptime-postgres")
+     * name is a meaningful logical service (e.g. "cast-operations-postgres")
      * and is intentionally still backed by a Service row. Batches that
      * only carry container.id with no resolvable name fall through to
      * null and get routed to the DockerHost record instead.
@@ -212,7 +212,7 @@ export default abstract class OtelIngestBaseService {
      * service.name. Synthesize a per-container service name so each
      * container shows up as its own service in the Cast Operations UI instead of
      * every Podman log collapsing into "Unknown Service". A container
-     * name is a meaningful logical service (e.g. "oneuptime-postgres")
+     * name is a meaningful logical service (e.g. "cast-operations-postgres")
      * and is intentionally still backed by a Service row. Batches that
      * only carry container.id with no resolvable name fall through to
      * null and get routed to the PodmanHost record instead.
@@ -263,7 +263,7 @@ export default abstract class OtelIngestBaseService {
    * path. Takes the already-discovered Host / DockerHost /
    * KubernetesCluster ids for this batch and dispatches:
    *
-   *   1. Explicit service.name / x-oneuptime-service-name header
+   *   1. Explicit service.name / x-cast-operations-service-name header
    *      / docker container name  →  ServiceType.OpenTelemetry,
    *      primaryEntityId = Service._id (created on first contact via
    *      `telemetryServiceFromName`).
@@ -294,7 +294,7 @@ export default abstract class OtelIngestBaseService {
    *      retention only applies to batches that land here.
    *   5. Fallback: no Service row at all. primaryEntityId = projectId,
    *      ServiceType.Unknown. The read side groups these under a
-   *      synthetic "Unknown Service" bucket. No oneuptime.label.*
+   *      synthetic "Unknown Service" bucket. No cast-operations.label.*
    *      promotion happens here — there is no owning resource, which
    *      is what stops label-less telemetry from collapsing into one
    *      row that accumulates every label.
@@ -585,7 +585,7 @@ export default abstract class OtelIngestBaseService {
      * batch. Tag it with the projectId in the primaryEntityId slot under
      * ServiceType.Unknown and create no Service row. Crucially we go
      * through buildResourceMetadataForNonService (not
-     * telemetryServiceFromName), so no oneuptime.label.* attributes are
+     * telemetryServiceFromName), so no cast-operations.label.* attributes are
      * promoted — that is what prevents every label-less source from
      * collapsing into a single "Unknown Service" row that accumulates
      * all labels. Retention falls back to the project default.
@@ -775,8 +775,8 @@ export default abstract class OtelIngestBaseService {
    * mangling container names that legitimately end in a digit.
    *
    * Examples:
-   *   oneuptime-postgres-1   -> oneuptime-postgres
-   *   oneuptime-probe-1-2    -> oneuptime-probe-1   (only the last "-2")
+   *   cast-operations-postgres-1   -> cast-operations-postgres
+   *   cast-operations-probe-1-2    -> cast-operations-probe-1   (only the last "-2")
    *   my-app_3               -> my-app
    *   redis                  -> redis               (unchanged)
    */
@@ -787,7 +787,7 @@ export default abstract class OtelIngestBaseService {
     }
 
     /*
-     * Docker Compose's "/" prefix on the raw inspect output (e.g. "/oneuptime-app-1")
+     * Docker Compose's "/" prefix on the raw inspect output (e.g. "/cast-operations-app-1")
      * is already stripped by the docker_stats receiver, but handle it defensively.
      */
     const withoutSlash: string = trimmed.startsWith("/")
@@ -817,8 +817,8 @@ export default abstract class OtelIngestBaseService {
    * mangling container names that legitimately end in a digit.
    *
    * Examples:
-   *   oneuptime-postgres-1   -> oneuptime-postgres
-   *   oneuptime-probe-1-2    -> oneuptime-probe-1   (only the last "-2")
+   *   cast-operations-postgres-1   -> cast-operations-postgres
+   *   cast-operations-probe-1-2    -> cast-operations-probe-1   (only the last "-2")
    *   my-app_3               -> my-app
    *   redis                  -> redis               (unchanged)
    */
@@ -829,7 +829,7 @@ export default abstract class OtelIngestBaseService {
     }
 
     /*
-     * Compose's "/" prefix on the raw inspect output (e.g. "/oneuptime-app-1")
+     * Compose's "/" prefix on the raw inspect output (e.g. "/cast-operations-app-1")
      * is already stripped by the docker_stats receiver, but handle it defensively.
      */
     const withoutSlash: string = trimmed.startsWith("/")
@@ -923,12 +923,12 @@ export default abstract class OtelIngestBaseService {
         if (await this.shouldRunMaintenance("k8s-cluster", clusterIdStr)) {
           const agentVersion: string | null = this.getStringAttribute(
             data.attributes,
-            "oneuptime.agent.version",
+            "cast-operations.agent.version",
           );
           await KubernetesClusterService.updateLastSeen(clusterId, {
             agentVersion: agentVersion || undefined,
           });
-          await this.promoteOneuptimeLabelsToCluster({
+          await this.promoteOperationsLabelsToCluster({
             projectId: data.projectId,
             kubernetesClusterId: clusterId,
             attributes: data.attributes,
@@ -957,20 +957,20 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * Promote `oneuptime.label.<dim>=<val>` resource attributes into
+   * Promote `cast-operations.label.<dim>=<val>` resource attributes into
    * project labels and attach them to the discovered Kubernetes
    * cluster. Mirrors the host/service label promotion. Throttled
    * per-cluster inside `attachLabels` so steady-state ingest with
    * unchanged labels costs one in-memory cache lookup.
    */
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToCluster(data: {
+  protected static async promoteOperationsLabelsToCluster(data: {
     projectId: ObjectID;
     kubernetesClusterId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -1061,12 +1061,12 @@ export default abstract class OtelIngestBaseService {
         if (await this.shouldRunMaintenance("proxmox-cluster", clusterIdStr)) {
           const agentVersion: string | null = this.getStringAttribute(
             data.attributes,
-            "oneuptime.agent.version",
+            "cast-operations.agent.version",
           );
           await ProxmoxClusterService.updateLastSeen(clusterId, {
             agentVersion: agentVersion || undefined,
           });
-          await this.promoteOneuptimeLabelsToProxmoxCluster({
+          await this.promoteOperationsLabelsToProxmoxCluster({
             projectId: data.projectId,
             proxmoxClusterId: clusterId,
             attributes: data.attributes,
@@ -1085,20 +1085,20 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * Promote `oneuptime.label.<dim>=<val>` resource attributes into
+   * Promote `cast-operations.label.<dim>=<val>` resource attributes into
    * project labels and attach them to the discovered Proxmox
    * cluster. Mirrors the Kubernetes cluster label promotion.
    * Throttled per-cluster inside `attachLabels` so steady-state
    * ingest with unchanged labels costs one in-memory cache lookup.
    */
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToProxmoxCluster(data: {
+  protected static async promoteOperationsLabelsToProxmoxCluster(data: {
     projectId: ObjectID;
     proxmoxClusterId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -1194,12 +1194,12 @@ export default abstract class OtelIngestBaseService {
         if (await this.shouldRunMaintenance("iot-fleet", fleetIdStr)) {
           const agentVersion: string | null = this.getStringAttribute(
             data.attributes,
-            "oneuptime.agent.version",
+            "cast-operations.agent.version",
           );
           await IoTFleetService.updateLastSeen(fleetId, {
             agentVersion: agentVersion || undefined,
           });
-          await this.promoteOneuptimeLabelsToIoTFleet({
+          await this.promoteOperationsLabelsToIoTFleet({
             projectId: data.projectId,
             iotFleetId: fleetId,
             attributes: data.attributes,
@@ -1218,20 +1218,20 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * Promote `oneuptime.label.<dim>=<val>` resource attributes into
+   * Promote `cast-operations.label.<dim>=<val>` resource attributes into
    * project labels and attach them to the discovered IoT fleet.
    * Mirrors the Proxmox cluster label promotion. Throttled
    * per-fleet inside `attachLabels` so steady-state ingest with
    * unchanged labels costs one in-memory cache lookup.
    */
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToIoTFleet(data: {
+  protected static async promoteOperationsLabelsToIoTFleet(data: {
     projectId: ObjectID;
     iotFleetId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -1323,12 +1323,12 @@ export default abstract class OtelIngestBaseService {
         ) {
           const agentVersion: string | null = this.getStringAttribute(
             data.attributes,
-            "oneuptime.agent.version",
+            "cast-operations.agent.version",
           );
           await DockerSwarmClusterService.updateLastSeen(clusterId, {
             agentVersion: agentVersion || undefined,
           });
-          await this.promoteOneuptimeLabelsToDockerSwarmCluster({
+          await this.promoteOperationsLabelsToDockerSwarmCluster({
             projectId: data.projectId,
             dockerSwarmClusterId: clusterId,
             attributes: data.attributes,
@@ -1348,18 +1348,18 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * Promote `oneuptime.label.<dim>=<val>` resource attributes into
+   * Promote `cast-operations.label.<dim>=<val>` resource attributes into
    * project labels and attach them to the discovered Docker Swarm
    * cluster. Mirrors the Proxmox cluster label promotion.
    */
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToDockerSwarmCluster(data: {
+  protected static async promoteOperationsLabelsToDockerSwarmCluster(data: {
     projectId: ObjectID;
     dockerSwarmClusterId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -1451,7 +1451,7 @@ export default abstract class OtelIngestBaseService {
         if (await this.shouldRunMaintenance("ceph-cluster", clusterIdStr)) {
           const agentVersion: string | null = this.getStringAttribute(
             data.attributes,
-            "oneuptime.agent.version",
+            "cast-operations.agent.version",
           );
           // Optional fsid stamping (ships commented-out in the agent config).
           const fsid: string | null = this.getStringAttribute(
@@ -1462,7 +1462,7 @@ export default abstract class OtelIngestBaseService {
             agentVersion: agentVersion || undefined,
             fsid: fsid || undefined,
           });
-          await this.promoteOneuptimeLabelsToCephCluster({
+          await this.promoteOperationsLabelsToCephCluster({
             projectId: data.projectId,
             cephClusterId: clusterId,
             attributes: data.attributes,
@@ -1481,20 +1481,20 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * Promote `oneuptime.label.<dim>=<val>` resource attributes into
+   * Promote `cast-operations.label.<dim>=<val>` resource attributes into
    * project labels and attach them to the discovered Ceph cluster.
    * Mirrors the Kubernetes cluster label promotion. Throttled
    * per-cluster inside `attachLabels` so steady-state ingest with
    * unchanged labels costs one in-memory cache lookup.
    */
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToCephCluster(data: {
+  protected static async promoteOperationsLabelsToCephCluster(data: {
     projectId: ObjectID;
     cephClusterId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -1614,7 +1614,7 @@ export default abstract class OtelIngestBaseService {
         ) {
           const agentVersion: string | null = this.getStringAttribute(
             data.attributes,
-            "oneuptime.agent.version",
+            "cast-operations.agent.version",
           );
           await ServerlessFunctionService.updateLastSeen(functionId, {
             agentVersion: agentVersion || undefined,
@@ -1642,7 +1642,7 @@ export default abstract class OtelIngestBaseService {
                 "process.runtime.version",
               ) || undefined,
           });
-          await this.promoteOneuptimeLabelsToServerlessFunction({
+          await this.promoteOperationsLabelsToServerlessFunction({
             projectId: data.projectId,
             serverlessFunctionId: functionId,
             attributes: data.attributes,
@@ -1680,13 +1680,13 @@ export default abstract class OtelIngestBaseService {
   }
 
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToServerlessFunction(data: {
+  protected static async promoteOperationsLabelsToServerlessFunction(data: {
     projectId: ObjectID;
     serverlessFunctionId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -1842,7 +1842,7 @@ export default abstract class OtelIngestBaseService {
             cloudRegion: cloudRegion || undefined,
             cloudAccountId: cloudAccountId || undefined,
           });
-          await this.promoteOneuptimeLabelsToCloudResource({
+          await this.promoteOperationsLabelsToCloudResource({
             projectId: data.projectId,
             cloudResourceId,
             attributes: data.attributes,
@@ -1880,13 +1880,13 @@ export default abstract class OtelIngestBaseService {
   }
 
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToCloudResource(data: {
+  protected static async promoteOperationsLabelsToCloudResource(data: {
     projectId: ObjectID;
     cloudResourceId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -1998,7 +1998,10 @@ export default abstract class OtelIngestBaseService {
         if (await this.shouldRunMaintenance("rum-application", appIdStr)) {
           const agentVersion: string | null =
             this.getStringAttribute(data.attributes, "telemetry.sdk.version") ||
-            this.getStringAttribute(data.attributes, "oneuptime.agent.version");
+            this.getStringAttribute(
+              data.attributes,
+              "cast-operations.agent.version",
+            );
           const sdkLanguage: string | null = this.getStringAttribute(
             data.attributes,
             "telemetry.sdk.language",
@@ -2008,7 +2011,7 @@ export default abstract class OtelIngestBaseService {
             clientType: clientType || undefined,
             sdkLanguage: sdkLanguage || undefined,
           });
-          await this.promoteOneuptimeLabelsToRumApplication({
+          await this.promoteOperationsLabelsToRumApplication({
             projectId: data.projectId,
             rumApplicationId,
             attributes: data.attributes,
@@ -2046,13 +2049,13 @@ export default abstract class OtelIngestBaseService {
   }
 
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToRumApplication(data: {
+  protected static async promoteOperationsLabelsToRumApplication(data: {
     projectId: ObjectID;
     rumApplicationId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -2342,14 +2345,14 @@ export default abstract class OtelIngestBaseService {
         if (await this.shouldRunMaintenance("docker-host", hostIdStr)) {
           const agentVersion: string | null = this.getStringAttribute(
             data.attributes,
-            "oneuptime.agent.version",
+            "cast-operations.agent.version",
           );
           await DockerHostService.updateLastSeen(dockerHostId, {
             osType: osType || undefined,
             osVersion: osVersion || undefined,
             agentVersion: agentVersion || undefined,
           });
-          await this.promoteOneuptimeLabelsToDockerHost({
+          await this.promoteOperationsLabelsToDockerHost({
             projectId: data.projectId,
             dockerHostId,
             attributes: data.attributes,
@@ -2368,20 +2371,20 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * Promote `oneuptime.label.<dim>=<val>` resource attributes into
+   * Promote `cast-operations.label.<dim>=<val>` resource attributes into
    * project labels and attach them to the discovered Docker host.
    * Mirrors the host/service label promotion. Throttled per-host
    * inside `attachLabels` so steady-state ingest with unchanged
    * labels costs one in-memory cache lookup.
    */
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToDockerHost(data: {
+  protected static async promoteOperationsLabelsToDockerHost(data: {
     projectId: ObjectID;
     dockerHostId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -2468,14 +2471,14 @@ export default abstract class OtelIngestBaseService {
         if (await this.shouldRunMaintenance("podman-host", hostIdStr)) {
           const agentVersion: string | null = this.getStringAttribute(
             data.attributes,
-            "oneuptime.agent.version",
+            "cast-operations.agent.version",
           );
           await PodmanHostService.updateLastSeen(podmanHostId, {
             osType: osType || undefined,
             osVersion: osVersion || undefined,
             agentVersion: agentVersion || undefined,
           });
-          await this.promoteOneuptimeLabelsToPodmanHost({
+          await this.promoteOperationsLabelsToPodmanHost({
             projectId: data.projectId,
             podmanHostId,
             attributes: data.attributes,
@@ -2494,20 +2497,20 @@ export default abstract class OtelIngestBaseService {
   }
 
   /*
-   * Promote `oneuptime.label.<dim>=<val>` resource attributes into
+   * Promote `cast-operations.label.<dim>=<val>` resource attributes into
    * project labels and attach them to the discovered Podman host.
    * Mirrors the host/service label promotion. Throttled per-host
    * inside `attachLabels` so steady-state ingest with unchanged
    * labels costs one in-memory cache lookup.
    */
   @CaptureSpan()
-  protected static async promoteOneuptimeLabelsToPodmanHost(data: {
+  protected static async promoteOperationsLabelsToPodmanHost(data: {
     projectId: ObjectID;
     podmanHostId: ObjectID;
     attributes: JSONArray;
   }): Promise<void> {
     try {
-      const labelNames: Array<string> = extractOneuptimeLabelNames(
+      const labelNames: Array<string> = extractOperationsLabelNames(
         data.attributes,
       );
       if (labelNames.length === 0) {
@@ -2710,7 +2713,7 @@ export default abstract class OtelIngestBaseService {
         if (await this.shouldRunMaintenance("host", hostIdStr)) {
           const agentVersion: string | null = this.getStringAttribute(
             data.attributes,
-            "oneuptime.agent.version",
+            "cast-operations.agent.version",
           );
           const deploymentEnvironment: string | null =
             this.getStringAttribute(
@@ -3039,7 +3042,7 @@ export default abstract class OtelIngestBaseService {
     defaultName: string = "Unknown Service",
   ): string {
     const headerValue: string | string[] | undefined =
-      req.headers["x-oneuptime-service-name"];
+      req.headers["x-cast-operations-service-name"];
 
     if (typeof headerValue === "string" && headerValue.trim()) {
       return headerValue.trim();

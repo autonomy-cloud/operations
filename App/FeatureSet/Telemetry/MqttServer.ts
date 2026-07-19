@@ -13,7 +13,7 @@ import WebSocket, { WebSocketServer } from "ws";
 import Express from "Common/Server/Utils/Express";
 import logger from "Common/Server/Utils/Logger";
 import ObjectID from "Common/Types/ObjectID";
-import ProductType from "Common/Types/MeteredPlan/ProductType";
+import ProductType from "Common/Types/Telemetry/ProductType";
 import TelemetryIngestionKeyService from "Common/Server/Services/TelemetryIngestionKeyService";
 import IoTDeviceCredentialService, {
   IoTDeviceCredentialContext,
@@ -63,7 +63,7 @@ import {
  *
  * INGESTION happens in authorizePublish (which aedes also applies to
  * Last Will messages, with the deceased client attached) — a device
- * that sets its Will to oneuptime/<fleet>/<device>/status = "offline"
+ * that sets its Will to cast-operations/<fleet>/<device>/status = "offline"
  * gets iot_device_up=0 published on its behalf the moment its session
  * dies, which is what the stock iot-device-offline alert template and
  * the inventory isUp column key off. Ingestion is at-least-once: a
@@ -103,7 +103,7 @@ interface MqttAuthContext {
    * Present when the client authenticated with a per-device credential
    * (username = credential id, password = device secret) instead of a
    * project-wide ingestion key. Device-authenticated clients may only
-   * publish under their own oneuptime/<fleet>/<device>/... topics, and
+   * publish under their own cast-operations/<fleet>/<device>/... topics, and
    * every publish re-validates the credential through the service's
    * cache so revocation cuts a connected device off within ~60s.
    */

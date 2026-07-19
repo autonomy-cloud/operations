@@ -29,9 +29,9 @@ import ClusterKeyAuthorization from "Common/Server/Middleware/ClusterKeyAuthoriz
 import PositiveNumber from "Common/Types/PositiveNumber";
 import MonitorProbeService from "Common/Server/Services/MonitorProbeService";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import MonitorService from "Common/Server/Services/MonitorService";
-import { IsBillingEnabled } from "Common/Server/EnvironmentConfig";
+import {} from "Common/Server/EnvironmentConfig";
 
 const router: ExpressRouter = Express.getRouter();
 
@@ -222,11 +222,8 @@ router.post(
           issue += " This probe cannot reach out to monitor ports.";
         }
 
-        /*
-         * now send an email to all the emailsToNotify
-         * Skip sending email if billing is enabled
-         */
-        if (!IsBillingEnabled) {
+        // Send an email to every configured recipient.
+        {
           for (const email of emailsToNotify) {
             MailService.sendMail(
               {
@@ -252,11 +249,6 @@ router.post(
               logger.error(err, getLogAttributesFromRequest(req as any));
             });
           }
-        } else {
-          logger.debug(
-            "Billing is enabled, skipping probe offline email notification",
-            getLogAttributesFromRequest(req as any),
-          );
         }
       }
 
@@ -465,7 +457,7 @@ router.post(
           probeId: probeId,
           isEnabled: true,
           nextPingAt: QueryHelper.lessThanEqualToOrNull(
-            OneUptimeDate.getSomeMinutesAgo(2),
+            OperationsDate.getSomeMinutesAgo(2),
           ),
           monitor: {
             ...MonitorService.getEnabledMonitorQuery(),

@@ -6,7 +6,7 @@ import PageContextUtil, {
 } from "./PageContext";
 import AIConversation from "Common/Models/DatabaseModels/AIConversation";
 import Route from "Common/Types/API/Route";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import IconProp from "Common/Types/Icon/IconProp";
 import Icon from "Common/UI/Components/Icon/Icon";
 import Link from "Common/UI/Components/Link/Link";
@@ -214,7 +214,7 @@ const ChatHomeView: FunctionComponent<ComponentProps> = (
                     </div>
                     {conversation.lastMessageAt && (
                       <div className="mt-0.5 text-[11px] text-gray-400">
-                        {OneUptimeDate.fromNow(conversation.lastMessageAt)}
+                        {OperationsDate.fromNow(conversation.lastMessageAt)}
                       </div>
                     )}
                   </div>

@@ -13,7 +13,7 @@ import {
 export const APP_NAME: string = "mcp";
 
 // MCP Server information
-export const MCP_SERVER_NAME: string = "oneuptime-mcp";
+export const MCP_SERVER_NAME: string = "cast-operations-mcp";
 export const MCP_SERVER_VERSION: string =
   AppVersion && AppVersion !== "unknown" ? AppVersion : "1.0.0";
 

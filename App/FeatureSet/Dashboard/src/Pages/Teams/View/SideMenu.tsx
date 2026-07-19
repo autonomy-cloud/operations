@@ -6,8 +6,7 @@ import ObjectID from "Common/Types/ObjectID";
 import SideMenu, {
   SideMenuSectionProps,
 } from "Common/UI/Components/SideMenu/SideMenu";
-import { isEnterpriseFeatureEligible } from "../../../Components/EnterpriseEdition/EnterpriseFeatureUpgrade";
-import React, { FunctionComponent, ReactElement, useMemo } from "react";
+import React, { FunctionComponent, ReactElement } from "react";
 
 export interface ComponentProps {
   modelId: ObjectID;
@@ -16,10 +15,6 @@ export interface ComponentProps {
 const TeamViewSideMenu: FunctionComponent<ComponentProps> = (
   props: ComponentProps,
 ): ReactElement => {
-  const isComplianceEnterpriseEligible: boolean = useMemo(() => {
-    return isEnterpriseFeatureEligible();
-  }, []);
-
   const sections: SideMenuSectionProps[] = [
     {
       title: "Overview",
@@ -73,23 +68,21 @@ const TeamViewSideMenu: FunctionComponent<ComponentProps> = (
     },
   ];
 
-  if (isComplianceEnterpriseEligible) {
-    sections.push({
-      title: "Compliance",
-      items: [
-        {
-          link: {
-            title: "Compliance",
-            to: RouteUtil.populateRouteParams(
-              RouteMap[PageMap.TEAM_VIEW_COMPLIANCE] as Route,
-              { modelId: props.modelId },
-            ),
-          },
-          icon: IconProp.ShieldCheck,
+  sections.push({
+    title: "Compliance",
+    items: [
+      {
+        link: {
+          title: "Compliance",
+          to: RouteUtil.populateRouteParams(
+            RouteMap[PageMap.TEAM_VIEW_COMPLIANCE] as Route,
+            { modelId: props.modelId },
+          ),
         },
-      ],
-    });
-  }
+        icon: IconProp.ShieldCheck,
+      },
+    ],
+  });
 
   sections.push({
     title: "Settings",

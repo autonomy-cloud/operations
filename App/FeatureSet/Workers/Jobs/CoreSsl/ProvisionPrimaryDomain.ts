@@ -9,7 +9,7 @@ import logger from "Common/Server/Utils/Logger";
 import Domain from "Common/Types/Domain";
 import AcmeCertificateService from "Common/Server/Services/AcmeCertificateService";
 import GreenlockUtil from "Common/Server/Utils/Greenlock/Greenlock";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import AcmeCertificate from "Common/Models/DatabaseModels/AcmeCertificate";
 
 const JOB_NAME: string = "CoreSSL:EnsurePrimaryHostCertificate";
@@ -19,7 +19,7 @@ RunCron(
   {
     schedule: IsDevelopment ? EVERY_FIFTEEN_MINUTE : EVERY_DAY,
     runOnStartup: true,
-    timeoutInMS: OneUptimeDate.convertMinutesToMilliseconds(30),
+    timeoutInMS: OperationsDate.convertMinutesToMilliseconds(30),
   },
   async () => {
     if (!ProvisionSsl) {
@@ -60,8 +60,8 @@ RunCron(
         });
 
       if (existingCertificate?.expiresAt) {
-        const renewalCheckDate: Date = OneUptimeDate.addRemoveDays(
-          OneUptimeDate.getCurrentDate(),
+        const renewalCheckDate: Date = OperationsDate.addRemoveDays(
+          OperationsDate.getCurrentDate(),
           30,
         );
 

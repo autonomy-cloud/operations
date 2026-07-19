@@ -7,39 +7,39 @@ La CLI de Cast Operations proporciona operaciones CRUD (Crear, Leer, Actualizar,
 Ejecuta el siguiente comando para ver todos los tipos de recursos disponibles:
 
 ```bash
-oneuptime resources
+cast-operations resources
 ```
 
 Puedes filtrar por tipo:
 
 ```bash
 # Mostrar solo recursos de base de datos
-oneuptime resources --type database
+cast-operations resources --type database
 
 # Mostrar solo recursos de análisis
-oneuptime resources --type analytics
+cast-operations resources --type analytics
 ```
 
 Los recursos comunes incluyen:
 
 | Recurso                            | Comando                                 |
 | ---------------------------------- | --------------------------------------- |
-| Incidente                          | `oneuptime incident`                    |
-| Alerta                             | `oneuptime alert`                       |
-| Monitor                            | `oneuptime monitor`                     |
-| Estado del monitor                 | `oneuptime monitor-status`              |
-| Estado del incidente               | `oneuptime incident-state`              |
-| Página de estado                   | `oneuptime status-page`                 |
-| Política de guardia                | `oneuptime on-call-policy`              |
-| Equipo                             | `oneuptime team`                        |
-| Evento de mantenimiento programado | `oneuptime scheduled-maintenance-event` |
+| Incidente                          | `cast-operations incident`                    |
+| Alerta                             | `cast-operations alert`                       |
+| Monitor                            | `cast-operations monitor`                     |
+| Estado del monitor                 | `cast-operations monitor-status`              |
+| Estado del incidente               | `cast-operations incident-state`              |
+| Página de estado                   | `cast-operations status-page`                 |
+| Política de guardia                | `cast-operations on-call-policy`              |
+| Equipo                             | `cast-operations team`                        |
+| Evento de mantenimiento programado | `cast-operations scheduled-maintenance-event` |
 
 ## Listar recursos
 
 Recupera una lista de recursos con filtrado, paginación y ordenación opcionales.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 **Opciones:**
@@ -56,19 +56,19 @@ oneuptime <resource> list [options]
 
 ```bash
 # Listar los 10 incidentes más recientes
-oneuptime incident list
+cast-operations incident list
 
 # Filtrar incidentes por ID de estado
-oneuptime incident list --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident list --query '{"currentIncidentStateId":"<state-id>"}'
 
 # Listar con paginación
-oneuptime incident list --limit 20 --skip 40
+cast-operations incident list --limit 20 --skip 40
 
 # Ordenar por fecha de creación (descendente)
-oneuptime incident list --sort '{"createdAt":-1}'
+cast-operations incident list --sort '{"createdAt":-1}'
 
 # Salida en formato JSON
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ## Obtener un recurso
@@ -76,7 +76,7 @@ oneuptime incident list -o json
 Recupera un solo recurso por su ID.
 
 ```bash
-oneuptime <resource> get <id>
+cast-operations <resource> get <id>
 ```
 
 **Argumentos:**
@@ -89,10 +89,10 @@ oneuptime <resource> get <id>
 
 ```bash
 # Obtener un incidente específico
-oneuptime incident get 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident get 550e8400-e29b-41d4-a716-446655440000
 
 # Obtener un monitor en formato JSON
-oneuptime monitor get abc-123 -o json
+cast-operations monitor get abc-123 -o json
 ```
 
 ## Crear un recurso
@@ -100,7 +100,7 @@ oneuptime monitor get abc-123 -o json
 Crea un nuevo recurso a partir de JSON en línea o desde un archivo.
 
 ```bash
-oneuptime <resource> create [options]
+cast-operations <resource> create [options]
 ```
 
 **Opciones:**
@@ -117,13 +117,13 @@ Debes proporcionar `--data` o `--file`.
 
 ```bash
 # Crear un incidente con JSON en línea
-oneuptime incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
+cast-operations incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
 
 # Crear desde un archivo JSON
-oneuptime incident create --file incident.json
+cast-operations incident create --file incident.json
 
 # Crear y mostrar en JSON para capturar el ID
-oneuptime monitor create --data '{"name":"API Health Check"}' -o json
+cast-operations monitor create --data '{"name":"API Health Check"}' -o json
 ```
 
 ## Actualizar un recurso
@@ -131,7 +131,7 @@ oneuptime monitor create --data '{"name":"API Health Check"}' -o json
 Actualiza un recurso existente por ID.
 
 ```bash
-oneuptime <resource> update <id> [options]
+cast-operations <resource> update <id> [options]
 ```
 
 **Argumentos:**
@@ -151,10 +151,10 @@ oneuptime <resource> update <id> [options]
 
 ```bash
 # Cambiar el estado de un incidente (por ejemplo, a resuelto)
-oneuptime incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
+cast-operations incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
 
 # Renombrar un monitor
-oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
+cast-operations monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 ```
 
 ## Eliminar un recurso
@@ -162,7 +162,7 @@ oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 Elimina un recurso por ID.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 **Argumentos:**
@@ -180,11 +180,11 @@ oneuptime <resource> delete <id> [--force]
 **Ejemplos:**
 
 ```bash
-oneuptime incident delete abc-123
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident delete abc-123
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000
 
 # Omitir la confirmación
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 ```
 
 ## Contar recursos
@@ -192,7 +192,7 @@ oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 Cuenta los recursos que coincidan con criterios de filtro opcionales.
 
 ```bash
-oneuptime <resource> count [options]
+cast-operations <resource> count [options]
 ```
 
 **Opciones:**
@@ -205,13 +205,13 @@ oneuptime <resource> count [options]
 
 ```bash
 # Contar todos los incidentes
-oneuptime incident count
+cast-operations incident count
 
 # Contar incidentes por estado
-oneuptime incident count --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident count --query '{"currentIncidentStateId":"<state-id>"}'
 
 # Contar monitores
-oneuptime monitor count
+cast-operations monitor count
 ```
 
 ## Recursos de análisis
@@ -227,4 +227,4 @@ Los recursos de análisis admiten un conjunto limitado de operaciones en compara
 | `update`  | No         |
 | `delete`  | No         |
 
-Usa `oneuptime resources --type analytics` para ver qué recursos de análisis están disponibles en tu instancia.
+Usa `cast-operations resources --type analytics` para ver qué recursos de análisis están disponibles en tu instancia.

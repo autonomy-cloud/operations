@@ -28,7 +28,7 @@ import FileModel from "../../../../Models/DatabaseModels/DatabaseBaseModel/FileM
 import CodeType from "../../../../Types/Code/CodeType";
 import Color from "../../../../Types/Color";
 import IconProp from "../../../../Types/Icon/IconProp";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import BadDataException from "../../../../Types/Exception/BadDataException";
 import MimeType from "../../../../Types/File/MimeType";
 import GenericObject from "../../../../Types/GenericObject";
@@ -293,7 +293,7 @@ const FormField: <T extends GenericObject>(
 
       fieldDescription +=
         " This is in your local timezone - " +
-        OneUptimeDate.getCurrentTimezoneString();
+        OperationsDate.getCurrentTimezoneString();
     }
 
     type GetFieldDescriptionFunction = () => ReactElement | string;

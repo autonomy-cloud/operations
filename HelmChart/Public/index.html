@@ -98,7 +98,7 @@
       <div class="links">
         <a class="btn primary" href="https://visca.ai" target="_blank" rel="noopener">Website</a>
         <a class="btn" href="https://github.com/autonomy-cloud/operations" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="oneuptime/README.md">Chart Docs</a>
+        <a class="btn" href="cast-operations/README.md">Chart Docs</a>
         <a class="btn" href="https://github.com/autonomy-cloud/operations" target="_blank" rel="noopener">Artifact Hub</a>
       </div>
     </header>
@@ -106,7 +106,7 @@
     <section>
       <h2>Add the repository</h2>
       <p class="sub">Register this repo with Helm and pull the latest chart index.</p>
-      <pre>helm repo add oneuptime https://helm-chart.visca.ai/
+      <pre>helm repo add cast-operations https://helm-chart.visca.ai/
 helm repo update</pre>
     </section>
 
@@ -115,18 +115,18 @@ helm repo update</pre>
       <p class="sub">Two charts are published from this repository.</p>
       <div class="charts">
         <div class="card">
-          <h3>oneuptime</h3>
+          <h3>cast-operations</h3>
           <p>Deploys the full Cast Operations platform — monitoring, status pages, incident management, on-call, logs, traces, and metrics.</p>
-          <pre>helm install my-oneuptime \
+          <pre>helm install my-cast-operations \
   autonomy-cloud/operations \
   -f values.yaml</pre>
-          <p class="note"><a href="oneuptime/README.md">Read the oneuptime chart docs &rarr;</a></p>
+          <p class="note"><a href="cast-operations/README.md">Read the cast-operations chart docs &rarr;</a></p>
         </div>
         <div class="card">
           <h3>kubernetes-agent</h3>
           <p>Installs the Cast Operations Kubernetes monitoring agent into any cluster (standard, GKE Autopilot, EKS Fargate).</p>
           <pre>helm install my-agent \
-  oneuptime/kubernetes-agent \
+  cast-operations/kubernetes-agent \
   -f values.yaml</pre>
           <p class="note"><a href="kubernetes-agent/README.md">Read the kubernetes-agent docs &rarr;</a></p>
         </div>
@@ -140,12 +140,12 @@ helm repo update</pre>
         <div class="card">
           <h3>Installation &amp; upgrades</h3>
           <p>Prerequisites, install, upgrade, and uninstall the platform.</p>
-          <p class="note"><a href="oneuptime/docs/installation.md">Installation guide &rarr;</a></p>
+          <p class="note"><a href="cast-operations/docs/installation.md">Installation guide &rarr;</a></p>
         </div>
         <div class="card">
           <h3>Configuration reference</h3>
           <p>Every <code>values.yaml</code> setting, grouped by topic.</p>
-          <p class="note"><a href="oneuptime/docs/configuration.md">Configuration docs &rarr;</a></p>
+          <p class="note"><a href="cast-operations/docs/configuration.md">Configuration docs &rarr;</a></p>
         </div>
       </div>
       <p class="note">

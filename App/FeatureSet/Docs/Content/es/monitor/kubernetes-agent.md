@@ -5,14 +5,14 @@ El agente de Kubernetes de Cast Operations recopila métricas del clúster, even
 ## Inicio rápido
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
@@ -35,20 +35,20 @@ Si no está seguro, deje `preset` sin establecer — obtendrá los valores por d
 **GKE Standard, EKS en EC2, autogestionado o AKS:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
 
 **GKE Autopilot:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
 ```
@@ -56,10 +56,10 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **EKS Fargate:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
 ```
@@ -77,7 +77,7 @@ Un DaemonSet ejecuta un pod del OpenTelemetry Collector por nodo. Lee archivos d
 
 ### Modo API (`logs.mode: api`)
 
-Un Deployment de una sola réplica (la imagen `oneuptime/kubernetes-log-tailer`) usa la API de Kubernetes para transmitir los registros de los contenedores — el mismo endpoint que usa `kubectl logs -f`. Sin hostPath, sin acceso al host, sin DaemonSet.
+Un Deployment de una sola réplica (la imagen `cast-operations/kubernetes-log-tailer`) usa la API de Kubernetes para transmitir los registros de los contenedores — el mismo endpoint que usa `kubectl logs -f`. Sin hostPath, sin acceso al host, sin DaemonSet.
 
 - **Pros:** funciona en GKE Autopilot, EKS Fargate y cualquier clúster que bloquee hostPath o aplique el Pod Security Standard `restricted`.
 $1 Cada flujo de contenedor es una conexión de larga duración a kube-apiserver. Una réplica maneja cómodamente unos miles de contenedores. En clústeres muy grandes, divida versiones independientes con reglas include de ámbito podLogs en namespaceFilters.rules.
@@ -157,8 +157,8 @@ Salvedades:
 Para verificar que OBI está ejecutándose y viendo tráfico:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent -l component=ebpf-instrument
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent -l component=ebpf-instrument
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 ## Perfilado continuo de CPU (desactivado por defecto)
@@ -205,8 +205,8 @@ El chart también puede recopilar:
 | Opción                                    | Por defecto                       | Descripción                                                                                                                                                                                        |
 | ----------------------------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | (vacío — tratado como `standard`) | Vea la tabla anterior.                                                                                                                                                                             |
-| `oneuptime.url`                           | _(requerido)_                     | URL de su instancia de Cast Operations.                                                                                                                                                                  |
-| `oneuptime.apiKey`                        | _(requerido)_                     | Clave de API del proyecto (Settings → API Keys).                                                                                                                                                   |
+| `cast-operations.url`                           | _(requerido)_                     | URL de su instancia de Cast Operations.                                                                                                                                                                  |
+| `cast-operations.apiKey`                        | _(requerido)_                     | Clave de API del proyecto (Settings → API Keys).                                                                                                                                                   |
 | `clusterName`                             | _(requerido)_                     | Nombre único para este clúster. Estampado como `k8s.cluster.name` en cada registro.                                                                                                                |
 | `namespaceFilters.rules`                  | Excluir kube-system de podLogs y ebpfDiscovery | Reglas include/exclude por ámbito para podLogs, ebpfDiscovery, metrics y traces. Los patrones admiten * y exclude siempre prevalece. |
 | `logs.enabled`                            | `true`                            | Activa o desactiva la recopilación de registros.                                                                                                                                                   |
@@ -230,8 +230,8 @@ Vea el [`values.yaml` del chart](https://github.com/autonomy-cloud/operations/bl
 
 ```bash
 helm repo update
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values
 ```
 
@@ -242,8 +242,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 > **Helm 3.14+** — cambie a `--reset-then-reuse-values`. Vuelve a leer los valores por defecto del chart para las claves que no haya anulado:
 >
 > ```bash
-> helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
->   --namespace oneuptime-kubernetes-agent \
+> helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+>   --namespace cast-operations-kubernetes-agent \
 >   --reset-then-reuse-values
 > ```
 >
@@ -254,8 +254,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 ## Desinstalación
 
 ```bash
-helm uninstall oneuptime-agent --namespace oneuptime-kubernetes-agent
-kubectl delete namespace oneuptime-kubernetes-agent
+helm uninstall cast-operations-agent --namespace cast-operations-kubernetes-agent
+kubectl delete namespace cast-operations-kubernetes-agent
 ```
 
 ## Resolución de problemas
@@ -265,8 +265,8 @@ kubectl delete namespace oneuptime-kubernetes-agent
 Su clúster bloquea hostPath. Cambie a un preset de modo API:
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values \
   --set preset=gke-autopilot   # or eks-fargate
 ```
@@ -276,8 +276,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 Compruebe los pods del agente:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent
-kubectl logs -n oneuptime-kubernetes-agent -l app.kubernetes.io/part-of=oneuptime --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent
+kubectl logs -n cast-operations-kubernetes-agent -l app.kubernetes.io/part-of=cast-operations --tail=200
 ```
 
 En modo API, el pod del tailer de registros expone `/healthz` en el puerto 13133 — acceda a él mediante `kubectl port-forward` para obtener una instantánea del estado de exportación.
@@ -287,7 +287,7 @@ En modo API, el pod del tailer de registros expone `/healthz` en el puerto 13133
 Compruebe los registros del pod de OBI:
 
 ```bash
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 Causas comunes:
@@ -301,7 +301,7 @@ Causas comunes:
 Escale horizontalmente fragmentando los namespaces. Despliegue una vez por grupo de namespaces:
 
 ```bash
-helm install oneuptime-agent-ns-a oneuptime/kubernetes-agent \
+helm install cast-operations-agent-ns-a cast-operations/kubernetes-agent \
   --set preset=gke-autopilot \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["app-a","app-b"],"scopes":["podLogs"]}]' \
   ...

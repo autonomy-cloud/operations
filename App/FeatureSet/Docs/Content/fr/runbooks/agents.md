@@ -49,18 +49,18 @@ Lancez la commande Docker sur n'importe quel hôte de votre environnement qui pe
 - faire ce que vous voulez que vos étapes Bash/JavaScript fassent (SSH vers d'autres hôtes, `kubectl`, accès base de données, etc.).
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.votre-domaine.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.votre-domaine.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. Vérifier que l'agent est connecté
 
 Retournez à **Runbooks → Paramètres → Agents**. En environ 60 secondes, la ligne de l'agent doit passer à `Connected` avec un horodatage **Last seen** récent. Si elle reste `Disconnected` :
 
-- Vérifiez les logs du conteneur (`docker logs oneuptime-runbook-agent`) pour des erreurs d'auth ou de réseau.
+- Vérifiez les logs du conteneur (`docker logs cast-operations-runbook-agent`) pour des erreurs d'auth ou de réseau.
 - Vérifiez que l'hôte atteint votre URL Cast Operations avec `curl`.
 - Vérifiez que l'ID et la clé ont été copiés sans espaces.
 
@@ -116,7 +116,7 @@ L'agent les lit au démarrage :
 
 | Variable                                  | Requise | Défaut  | Notes                                                                                   |
 | ----------------------------------------- | ------- | ------- | --------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | oui     | —       | URL de base de votre instance Cast Operations, par ex. `https://operations.votre-domaine.com`. |
+| `CAST_OPERATIONS_URL`                           | oui     | —       | URL de base de votre instance Cast Operations, par ex. `https://operations.votre-domaine.com`. |
 | `RUNBOOK_AGENT_ID`                        | oui     | —       | L'UUID affiché dans le modal de configuration de l'agent.                               |
 | `RUNBOOK_AGENT_KEY`                       | oui     | —       | Le secret affiché dans le modal de configuration de l'agent.                            |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | non     | `5000`  | Fréquence à laquelle l'agent demande de nouveaux jobs.                                  |

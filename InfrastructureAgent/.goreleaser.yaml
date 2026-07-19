@@ -27,9 +27,9 @@ nfpms:
     #
     # Default: ProjectName.
     # Templates: allowed.
-    package_name: oneuptime-infrastructure-agent
+    package_name: cast-operations-infrastructure-agent
 
-    file_name_template: 'oneuptime-infrastructure-agent_{{ .Arch }}.{{ .Format }}'
+    file_name_template: 'cast-operations-infrastructure-agent_{{ .Arch }}.{{ .Format }}'
 
     # Your app's vendor.
     vendor: HackerBay, Inc.
@@ -37,18 +37,18 @@ nfpms:
     # Your app's homepage.
     #
     # Default: inferred from global metadata.
-    homepage: https:/oneuptime.com/
+    homepage: https:/cast-operations.com/
 
     # Your app's maintainer (probably you).
     #
     # Default: inferred from global metadata.
-    maintainer: OneUptime Infrastructure Team <infra@oneuptime.com>
+    maintainer: CastOperations Infrastructure Team <infra@cast-operations.com>
 
     # Your app's description.
     #
     # Default: inferred from global metadata.
     description: |-
-      OneUptime Infrastructure Agent is a lightweight agent that collects system metrics and sends them to the OneUptime platform.
+      CastOperations Infrastructure Agent is a lightweight agent that collects system metrics and sends them to the CastOperations platform.
 
     # Your app's license.
     #
@@ -72,7 +72,7 @@ nfpms:
   
 
 builds:
-  - binary: oneuptime-infrastructure-agent
+  - binary: cast-operations-infrastructure-agent
     main: ./
     goos:
       - linux

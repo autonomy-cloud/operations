@@ -71,12 +71,10 @@ describe("LlmProviderService.getProjectOwnedLlmProvider", () => {
 });
 
 /*
- * getLlmProviderForMeteredAgentPath backs the SERVER-MEDIATED completion
- * endpoint (B4 Tier 0), whose calls run through AIService.executeWithLogging
- * — metered, logged, budgeted. Because metering is universal there, the
- * global provider is a legitimate fallback ON CLOUD TOO (usage is billed as
- * metered AI tokens). This is the only agent provider resolution — the
- * raw-key path (get-llm-config / getLlmProviderForAgentTasks) is removed.
+ * getLlmProviderForMeteredAgentPath backs the server-mediated completion
+ * endpoint, whose calls run through AIService.executeWithLogging and are
+ * logged and budgeted. The global provider is a legitimate fallback because
+ * credentials remain on the server.
  */
 describe("LlmProviderService.getLlmProviderForMeteredAgentPath", () => {
   afterEach(() => {

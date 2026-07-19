@@ -13,7 +13,7 @@ import AggregatedModel from "Common/Types/BaseDatabase/AggregatedModel";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import Query from "Common/Types/BaseDatabase/Query";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ProjectUtil from "Common/UI/Utils/Project";
 import Icon from "Common/UI/Components/Icon/Icon";
 import InfoCard from "Common/UI/Components/InfoCard/InfoCard";
@@ -83,8 +83,8 @@ const LlmOverview: FunctionComponent = (): ReactElement => {
 
   const [range, setRange] = useState<InBetween<Date>>(() => {
     return new InBetween<Date>(
-      OneUptimeDate.getSomeDaysAgo(DEFAULT_WINDOW_DAYS),
-      OneUptimeDate.getCurrentDate(),
+      OperationsDate.getSomeDaysAgo(DEFAULT_WINDOW_DAYS),
+      OperationsDate.getCurrentDate(),
     );
   });
 

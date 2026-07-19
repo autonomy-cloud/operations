@@ -4,7 +4,7 @@ import LogAggregationService, {
 import { Statement } from "../../../Server/Utils/AnalyticsDatabase/Statement";
 import AnalyticsTableName from "../../../Types/AnalyticsDatabase/AnalyticsTableName";
 import ObjectID from "../../../Types/ObjectID";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import { describe, expect, test } from "@jest/globals";
 
 describe("LogAggregationService", () => {
@@ -38,8 +38,8 @@ describe("LogAggregationService", () => {
       p0: "severityText",
       p1: AnalyticsTableName.Log,
       p2: defaultRequest.projectId.toString(),
-      p3: OneUptimeDate.toClickhouseDateTime(defaultRequest.startTime),
-      p4: OneUptimeDate.toClickhouseDateTime(defaultRequest.endTime),
+      p3: OperationsDate.toClickhouseDateTime(defaultRequest.startTime),
+      p4: OperationsDate.toClickhouseDateTime(defaultRequest.endTime),
       p5: 15,
     });
   });
@@ -63,8 +63,8 @@ describe("LogAggregationService", () => {
       p0: facetKey,
       p1: AnalyticsTableName.Log,
       p2: defaultRequest.projectId.toString(),
-      p3: OneUptimeDate.toClickhouseDateTime(defaultRequest.startTime),
-      p4: OneUptimeDate.toClickhouseDateTime(defaultRequest.endTime),
+      p3: OperationsDate.toClickhouseDateTime(defaultRequest.startTime),
+      p4: OperationsDate.toClickhouseDateTime(defaultRequest.endTime),
       p5: facetKey,
       p6: 15,
     });

@@ -1,5 +1,4 @@
 import {
-  IsBillingEnabled,
   LetsEncryptAccountKey,
   LetsEncryptNotificationEmail,
 } from "../../../Server/EnvironmentConfig";
@@ -9,7 +8,7 @@ import QueryHelper from "../../Types/Database/QueryHelper";
 import logger, { LogAttributes } from "../Logger";
 import SortOrder from "../../../Types/BaseDatabase/SortOrder";
 import LIMIT_MAX from "../../../Types/Database/LimitMax";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import BadDataException from "../../../Types/Exception/BadDataException";
 import Exception from "../../../Types/Exception/Exception";
 import ServerException from "../../../Types/Exception/ServerException";
@@ -35,8 +34,8 @@ export default class GreenlockUtil {
         await AcmeCertificateService.findBy({
           query: {
             expiresAt: QueryHelper.lessThanEqualTo(
-              OneUptimeDate.addRemoveDays(
-                OneUptimeDate.getCurrentDate(),
+              OperationsDate.addRemoveDays(
+                OperationsDate.getCurrentDate(),
                 40, // 40 days before expiry
               ),
             ),
@@ -226,7 +225,7 @@ export default class GreenlockUtil {
         csr: certificateRequest,
         email: LetsEncryptNotificationEmail.toString(),
         termsOfServiceAgreed: true,
-        challengePriority: ["http-01"], // only http-01 challenge is supported by oneuptime
+        challengePriority: ["http-01"], // only http-01 challenge is supported by cast-operations
         challengeCreateFn: async (
           authz: acme.Authorization,
           challenge: Challenge,
@@ -382,11 +381,7 @@ export default class GreenlockUtil {
         throw e;
       }
 
-      if (IsBillingEnabled) {
-        throw new ServerException(
-          `Unable to order certificate for ${data.domain}. Please contact support at support@visca.ai for more information.`,
-        );
-      } else {
+      {
         throw new ServerException(
           `Unable to order certificate for ${data.domain}. Please make sure that your server can be accessed publicly over port 80 (HTTP) and port 443 (HTTPS). If the problem persists, please refer to server logs for more information. Please also set up LOG_LEVEL=DEBUG to get more detailed server logs.`,
         );

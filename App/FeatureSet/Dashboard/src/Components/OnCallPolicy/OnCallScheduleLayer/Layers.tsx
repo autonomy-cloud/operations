@@ -4,7 +4,7 @@ import TimezoneSelectButton from "./TimezoneSelectButton";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import Recurring from "Common/Types/Events/Recurring";
 import BadDataException from "Common/Types/Exception/BadDataException";
@@ -256,9 +256,9 @@ const Layers: FunctionComponent<ComponentProps> = (
       newLayer.projectId = props.projectId;
       newLayer.name = `Layer ${nameIndex}`;
       newLayer.order = newOrder;
-      newLayer.startsAt = OneUptimeDate.getCurrentDate();
-      newLayer.handOffTime = OneUptimeDate.addRemoveDays(
-        OneUptimeDate.getCurrentDate(),
+      newLayer.startsAt = OperationsDate.getCurrentDate();
+      newLayer.handOffTime = OperationsDate.addRemoveDays(
+        OperationsDate.getCurrentDate(),
         1,
       );
       newLayer.rotation = Recurring.getDefault();
@@ -685,7 +685,7 @@ const Layers: FunctionComponent<ComponentProps> = (
                 scheduleTimezone +
                 "."
               : "Shown in your local timezone — " +
-                OneUptimeDate.getCurrentTimezoneString() +
+                OperationsDate.getCurrentTimezoneString() +
                 ".")
           }
         >

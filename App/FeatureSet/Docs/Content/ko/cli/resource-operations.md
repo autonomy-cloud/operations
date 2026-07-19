@@ -7,39 +7,39 @@ Cast Operations CLI는 지원되는 모든 리소스에 대한 전체 CRUD (생�
 다음 명령을 실행하여 사용 가능한 모든 리소스 유형을 확인합니다:
 
 ```bash
-oneuptime resources
+cast-operations resources
 ```
 
 유형으로 필터링할 수 있습니다:
 
 ```bash
 # 데이터베이스 리소스만 표시
-oneuptime resources --type database
+cast-operations resources --type database
 
 # 분석 리소스만 표시
-oneuptime resources --type analytics
+cast-operations resources --type analytics
 ```
 
 일반적인 리소스:
 
 | 리소스               | 명령                                    |
 | -------------------- | --------------------------------------- |
-| 인시던트             | `oneuptime incident`                    |
-| 알림                 | `oneuptime alert`                       |
-| 모니터               | `oneuptime monitor`                     |
-| 모니터 상태          | `oneuptime monitor-status`              |
-| 인시던트 상태        | `oneuptime incident-state`              |
-| 상태 페이지          | `oneuptime status-page`                 |
-| 온콜 정책            | `oneuptime on-call-policy`              |
-| 팀                   | `oneuptime team`                        |
-| 예정 유지보수 이벤트 | `oneuptime scheduled-maintenance-event` |
+| 인시던트             | `cast-operations incident`                    |
+| 알림                 | `cast-operations alert`                       |
+| 모니터               | `cast-operations monitor`                     |
+| 모니터 상태          | `cast-operations monitor-status`              |
+| 인시던트 상태        | `cast-operations incident-state`              |
+| 상태 페이지          | `cast-operations status-page`                 |
+| 온콜 정책            | `cast-operations on-call-policy`              |
+| 팀                   | `cast-operations team`                        |
+| 예정 유지보수 이벤트 | `cast-operations scheduled-maintenance-event` |
 
 ## 리소스 목록
 
 선택적 필터링, 페이지 매김 및 정렬로 리소스 목록을 가져옵니다.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 **옵션:**
@@ -56,19 +56,19 @@ oneuptime <resource> list [options]
 
 ```bash
 # 최근 10개의 인시던트 나열
-oneuptime incident list
+cast-operations incident list
 
 # 상태 ID로 인시던트 필터링
-oneuptime incident list --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident list --query '{"currentIncidentStateId":"<state-id>"}'
 
 # 페이지 매김으로 나열
-oneuptime incident list --limit 20 --skip 40
+cast-operations incident list --limit 20 --skip 40
 
 # 생성 날짜로 정렬 (내림차순)
-oneuptime incident list --sort '{"createdAt":-1}'
+cast-operations incident list --sort '{"createdAt":-1}'
 
 # JSON으로 출력
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ## 리소스 가져오기
@@ -76,7 +76,7 @@ oneuptime incident list -o json
 ID로 단일 리소스를 가져옵니다.
 
 ```bash
-oneuptime <resource> get <id>
+cast-operations <resource> get <id>
 ```
 
 **인수:**
@@ -89,10 +89,10 @@ oneuptime <resource> get <id>
 
 ```bash
 # 특정 인시던트 가져오기
-oneuptime incident get 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident get 550e8400-e29b-41d4-a716-446655440000
 
 # JSON으로 모니터 가져오기
-oneuptime monitor get abc-123 -o json
+cast-operations monitor get abc-123 -o json
 ```
 
 ## 리소스 생성
@@ -100,7 +100,7 @@ oneuptime monitor get abc-123 -o json
 인라인 JSON 또는 파일에서 새 리소스를 생성합니다.
 
 ```bash
-oneuptime <resource> create [options]
+cast-operations <resource> create [options]
 ```
 
 **옵션:**
@@ -117,13 +117,13 @@ oneuptime <resource> create [options]
 
 ```bash
 # 인라인 JSON으로 인시던트 생성
-oneuptime incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
+cast-operations incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
 
 # JSON 파일에서 생성
-oneuptime incident create --file incident.json
+cast-operations incident create --file incident.json
 
 # 생성 후 ID를 캡처하기 위해 JSON으로 출력
-oneuptime monitor create --data '{"name":"API Health Check"}' -o json
+cast-operations monitor create --data '{"name":"API Health Check"}' -o json
 ```
 
 ## 리소스 업데이트
@@ -131,7 +131,7 @@ oneuptime monitor create --data '{"name":"API Health Check"}' -o json
 ID로 기존 리소스를 업데이트합니다.
 
 ```bash
-oneuptime <resource> update <id> [options]
+cast-operations <resource> update <id> [options]
 ```
 
 **인수:**
@@ -151,10 +151,10 @@ oneuptime <resource> update <id> [options]
 
 ```bash
 # 인시던트 상태 변경 (예: 해결됨으로)
-oneuptime incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
+cast-operations incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
 
 # 모니터 이름 변경
-oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
+cast-operations monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 ```
 
 ## 리소스 삭제
@@ -162,7 +162,7 @@ oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 ID로 리소스를 삭제합니다.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 **인수:**
@@ -180,11 +180,11 @@ oneuptime <resource> delete <id> [--force]
 **예시:**
 
 ```bash
-oneuptime incident delete abc-123
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident delete abc-123
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000
 
 # 확인 건너뛰기
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 ```
 
 ## 리소스 카운트
@@ -192,7 +192,7 @@ oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 선택적 필터 기준과 일치하는 리소스를 카운트합니다.
 
 ```bash
-oneuptime <resource> count [options]
+cast-operations <resource> count [options]
 ```
 
 **옵션:**
@@ -205,13 +205,13 @@ oneuptime <resource> count [options]
 
 ```bash
 # 모든 인시던트 카운트
-oneuptime incident count
+cast-operations incident count
 
 # 상태별 인시던트 카운트
-oneuptime incident count --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident count --query '{"currentIncidentStateId":"<state-id>"}'
 
 # 모니터 카운트
-oneuptime monitor count
+cast-operations monitor count
 ```
 
 ## 분석 리소스
@@ -227,4 +227,4 @@ oneuptime monitor count
 | `update` | 아니요    |
 | `delete` | 아니요    |
 
-`oneuptime resources --type analytics`를 사용하여 인스턴스에서 사용 가능한 분석 리소스를 확인합니다.
+`cast-operations resources --type analytics`를 사용하여 인스턴스에서 사용 가능한 분석 리소스를 확인합니다.

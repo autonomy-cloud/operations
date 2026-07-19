@@ -3,7 +3,7 @@ import LIMIT_MAX from "Common/Types/Database/LimitMax";
 import ScheduledMaintenance from "Common/Models/DatabaseModels/ScheduledMaintenance";
 import ScheduledMaintenanceService from "Common/Server/Services/ScheduledMaintenanceService";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import logger from "Common/Server/Utils/Logger";
 
 export default class UpdateRemiderDateInScheduledEvent extends DataMigrationBase {
@@ -18,7 +18,7 @@ export default class UpdateRemiderDateInScheduledEvent extends DataMigrationBase
       await ScheduledMaintenanceService.findBy({
         query: {
           sendSubscriberNotificationsOnBeforeTheEvent: QueryHelper.notNull(),
-          startsAt: QueryHelper.greaterThan(OneUptimeDate.getCurrentDate()),
+          startsAt: QueryHelper.greaterThan(OperationsDate.getCurrentDate()),
         },
         props: {
           isRoot: true,

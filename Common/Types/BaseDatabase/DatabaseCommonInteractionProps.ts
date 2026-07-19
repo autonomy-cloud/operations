@@ -1,4 +1,3 @@
-import { PlanType } from "../Billing/SubscriptionPlan";
 import Dictionary from "../Dictionary";
 import ObjectID from "../ObjectID";
 import {
@@ -18,8 +17,6 @@ export default interface DatabaseCommonInteractionProps {
   isRoot?: boolean | undefined;
   isMultiTenantRequest?: boolean | undefined;
   ignoreHooks?: boolean | undefined;
-  currentPlan?: PlanType | undefined;
-  isSubscriptionUnpaid?: boolean | undefined;
   isMasterAdmin?: boolean | undefined;
   /*
    * Team membership for the requesting user within the current tenant. Used by

@@ -6,14 +6,14 @@ import DatabaseService from "./DatabaseService";
 import IncidentStateService from "./IncidentStateService";
 import UserService from "./UserService";
 import SortOrder from "../../Types/BaseDatabase/SortOrder";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
 import PositiveNumber from "../../Types/PositiveNumber";
 import IncidentState from "../../Models/DatabaseModels/IncidentState";
 import IncidentEpisode from "../../Models/DatabaseModels/IncidentEpisode";
 import IncidentEpisodeStateTimeline from "../../Models/DatabaseModels/IncidentEpisodeStateTimeline";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import logger, { LogAttributes } from "../Utils/Logger";
 import IncidentEpisodeFeedService from "./IncidentEpisodeFeedService";
@@ -24,9 +24,6 @@ import IncidentEpisodeService from "./IncidentEpisodeService";
 export class Service extends DatabaseService<IncidentEpisodeStateTimeline> {
   public constructor() {
     super(IncidentEpisodeStateTimeline);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -41,7 +38,7 @@ export class Service extends DatabaseService<IncidentEpisodeStateTimeline> {
 
     try {
       if (!createBy.data.startsAt) {
-        createBy.data.startsAt = OneUptimeDate.getCurrentDate();
+        createBy.data.startsAt = OperationsDate.getCurrentDate();
       }
 
       try {
@@ -328,7 +325,7 @@ export class Service extends DatabaseService<IncidentEpisodeStateTimeline> {
 
       if (newIncidentState?.isResolvedState) {
         // Set resolvedAt when transitioning to resolved state
-        updateData.resolvedAt = OneUptimeDate.getCurrentDate();
+        updateData.resolvedAt = OperationsDate.getCurrentDate();
       } else {
         // Clear resolvedAt when transitioning away from resolved state
         updateData.resolvedAt = null;

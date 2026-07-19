@@ -1,6 +1,6 @@
 import { AIChatWidget, AIChatWidgetType } from "Common/Types/AI/AIChatTypes";
 import { JSONObject } from "Common/Types/JSON";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import React, { FunctionComponent, ReactElement } from "react";
 
 export interface ComponentProps {
@@ -21,7 +21,7 @@ function timeAgo(value: unknown): string {
     return "";
   }
   try {
-    return OneUptimeDate.fromNow(OneUptimeDate.fromString(value as string));
+    return OperationsDate.fromNow(OperationsDate.fromString(value as string));
   } catch {
     return "";
   }

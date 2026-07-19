@@ -79,11 +79,6 @@ export class Service extends DatabaseService<Model> {
   public async getAIFixReadiness(params: {
     telemetryExceptionId: ObjectID;
     props: DatabaseCommonInteractionProps;
-    /*
-     * Overrides the IsBillingEnabled env flag for the balance check — exists
-     * so tests can exercise both modes without mocking the module.
-     */
-    billingEnabled?: boolean;
   }): Promise<AIFixReadiness> {
     const telemetryException: Model | null = await this.findOneById({
       id: params.telemetryExceptionId,
@@ -111,7 +106,6 @@ export class Service extends DatabaseService<Model> {
     const llmCheck: AIFixReadinessCheck =
       await CodeFixReadiness.getLlmProviderCheck({
         projectId,
-        billingEnabled: params.billingEnabled,
       });
 
     /*

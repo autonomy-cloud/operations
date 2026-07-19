@@ -1,4 +1,4 @@
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import CreateBy from "../Types/Database/CreateBy";
 import DeleteBy from "../Types/Database/DeleteBy";
 import { OnCreate, OnDelete } from "../Types/Database/Hooks";
@@ -76,7 +76,6 @@ export class Service extends DatabaseService<Model> {
       },
       select: {
         enableSmsNotifications: true,
-        smsOrCallCurrentBalanceInUSDCents: true,
       },
     });
 
@@ -87,25 +86,6 @@ export class Service extends DatabaseService<Model> {
     if (!project.enableSmsNotifications) {
       throw new BadDataException(
         "SMS notifications are disabled for this project. Please enable them in Project Settings > Notification Settings.",
-      );
-    }
-
-    /*
-     * If the project has its own default Twilio config, Cast Operations does not
-     * charge the project's SMS balance, so the low-balance check does not apply.
-     */
-    const projectTwilioConfig: TwilioConfig | undefined =
-      await ProjectCallSMSConfigService.getProjectDefaultTwilioConfig(
-        createBy.data.projectId!,
-      );
-
-    if (
-      !projectTwilioConfig &&
-      (project.smsOrCallCurrentBalanceInUSDCents as number) <= 100 &&
-      IsBillingEnabled
-    ) {
-      throw new BadDataException(
-        "Your SMS balance is low. Please recharge your SMS balance in Project Settings > Notification Settings.",
       );
     }
 
@@ -157,7 +137,6 @@ export class Service extends DatabaseService<Model> {
       },
       select: {
         enableSmsNotifications: true,
-        smsOrCallCurrentBalanceInUSDCents: true,
       },
     });
 
@@ -168,25 +147,6 @@ export class Service extends DatabaseService<Model> {
     if (!project.enableSmsNotifications) {
       throw new BadDataException(
         "SMS notifications are disabled for this project. Please enable them in Project Settings > Notification Settings.",
-      );
-    }
-
-    /*
-     * If the project has its own default Twilio config, Cast Operations does not
-     * charge the project's SMS balance, so the low-balance check does not apply.
-     */
-    const projectTwilioConfig: TwilioConfig | undefined =
-      await ProjectCallSMSConfigService.getProjectDefaultTwilioConfig(
-        item.projectId!,
-      );
-
-    if (
-      !projectTwilioConfig &&
-      (project.smsOrCallCurrentBalanceInUSDCents as number) <= 100 &&
-      IsBillingEnabled
-    ) {
-      throw new BadDataException(
-        "Your SMS balance is low. Please recharge your SMS balance in Project Settings > Notification Settings.",
       );
     }
 

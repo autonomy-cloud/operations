@@ -16,7 +16,7 @@ Cast Operations Kubernetes 에이전트는 클러스터에 OpenTelemetry 기반 
 ## 1단계 — Cast Operations Helm 저장소 추가
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 ```
 
@@ -34,27 +34,27 @@ helm repo update
 
 ## 3단계 — Kubernetes 에이전트 설치
 
-`YOUR_ONEUPTIME_URL`, `YOUR_ONEUPTIME_API_KEY` 및 클러스터 이름을 사용자 환경에 맞는 값으로 교체하세요. 클러스터 이름은 클러스터가 Cast Operations에 표시되는 방식이므로 `prod-us-east-1`처럼 안정적인 이름을 선택하세요.
+`YOUR_CAST_OPERATIONS_URL`, `YOUR_CAST_OPERATIONS_API_KEY` 및 클러스터 이름을 사용자 환경에 맞는 값으로 교체하세요. 클러스터 이름은 클러스터가 Cast Operations에 표시되는 방식이므로 `prod-us-east-1`처럼 안정적인 이름을 선택하세요.
 
 ### 표준 클러스터 (자체 관리형, EKS on EC2, GKE Standard, AKS)
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster"
 ```
 
 ### GKE Autopilot
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set preset=gke-autopilot
 ```
@@ -62,11 +62,11 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 ### EKS Fargate
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set preset=eks-fargate
 ```
@@ -76,7 +76,7 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 에이전트 파드가 실행 중인지 확인하세요:
 
 ```bash
-kubectl get pods -n oneuptime-agent
+kubectl get pods -n cast-operations-agent
 ```
 
 **표준** 클러스터에서는 cluster-collector Deployment와 함께 노드당 하나의 node-collector DaemonSet 파드가 표시됩니다:
@@ -123,11 +123,11 @@ kubernetes-agent-logs-yyyyyyyyyy-yyyyy        1/1     Running   0          1m
 Pod 로그와 eBPF 검색을 특정 네임스페이스로 제한하려면:
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["default","production","staging"],"scopes":["podLogs","ebpfDiscovery"]}]'
 ```
@@ -220,8 +220,8 @@ Kubernetes 이벤트는 에이전트에서 네임스페이스별로 필터링할
 이 페이지의 다른 모든 조정 항목은 텔레메트리의 **범주** 하나를 제거합니다 — 네임스페이스 하나, 심각도 하나, 메트릭 이름 하나. 샘플링은 다릅니다: 모든 범주를 유지한 채 모집단을 솎아 냅니다. `sampling.traces.percentage`에 유지하고 싶은 트레이스의 비율을 설정하세요:
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --reuse-values \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --reuse-values \
   --set sampling.traces.percentage=10
 ```
 
@@ -256,11 +256,11 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 파드 로그가 필요 없는 경우:
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set logs.enabled=false
 ```
@@ -286,11 +286,11 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 자체 관리형 클러스터(EKS / GKE / AKS가 아닌 경우)에서는 컨트롤 플레인 메트릭을 활성화할 수 있습니다:
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set controlPlane.enabled=true
 ```
@@ -299,29 +299,29 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 
 ### 프로젝트 레이블로 자동 태그 지정
 
-`oneuptime.label.` 접두사가 붙은 모든 리소스 속성은 프로젝트 Label로 승격되어 이 에이전트에서 방출되는 클러스터, 서비스 및 호스트에 연결됩니다. 패턴: `oneuptime.label.<dimension>=<value>`는 `<dimension>:<value>`라는 이름의 레이블이 됩니다.
+`cast-operations.label.` 접두사가 붙은 모든 리소스 속성은 프로젝트 Label로 승격되어 이 에이전트에서 방출되는 클러스터, 서비스 및 호스트에 연결됩니다. 패턴: `cast-operations.label.<dimension>=<value>`는 `<dimension>:<value>`라는 이름의 레이블이 됩니다.
 
-설치 시 `--set oneuptime.labels.<key>=<value>`로 레이블을 전달하세요:
+설치 시 `--set cast-operations.labels.<key>=<value>`로 레이블을 전달하세요:
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="prod" \
-  --set oneuptime.labels.team=payments \
-  --set oneuptime.labels.env=production \
-  --set oneuptime.labels.region=us-east-1
+  --set cast-operations.labels.team=payments \
+  --set cast-operations.labels.env=production \
+  --set cast-operations.labels.region=us-east-1
 ```
 
 또는 values 파일에 유지하세요:
 
 ```yaml
 # values.yaml
-oneuptime:
-  url: YOUR_ONEUPTIME_URL
-  apiKey: YOUR_ONEUPTIME_API_KEY
+cast-operations:
+  url: YOUR_CAST_OPERATIONS_URL
+  apiKey: YOUR_CAST_OPERATIONS_API_KEY
   labels:
     team: payments
     env: production
@@ -335,8 +335,8 @@ clusterName: prod
 
 ```bash
 helm repo update
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --reuse-values
 ```
 
@@ -345,8 +345,8 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 ## 에이전트 제거
 
 ```bash
-helm uninstall kubernetes-agent --namespace oneuptime-agent
-kubectl delete namespace oneuptime-agent
+helm uninstall kubernetes-agent --namespace cast-operations-agent
+kubectl delete namespace cast-operations-agent
 ```
 
 ## 수집되는 항목
@@ -380,11 +380,11 @@ kubectl delete namespace oneuptime-agent
 - 이미 앱에서 OpenTelemetry SDK를 통해 트레이스를 전송하고 있어 중복을 원하지 않는 경우.
 
 ```bash
-helm install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --create-namespace \
-  --set oneuptime.url="YOUR_ONEUPTIME_URL" \
-  --set oneuptime.apiKey="YOUR_ONEUPTIME_API_KEY" \
+  --set cast-operations.url="YOUR_CAST_OPERATIONS_URL" \
+  --set cast-operations.apiKey="YOUR_CAST_OPERATIONS_API_KEY" \
   --set clusterName="my-cluster" \
   --set ebpf.enabled=false
 ```
@@ -436,8 +436,8 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 - **특정 네임스페이스의 로그만 필요합니까? podLogs 범위의 include 규칙을 사용하세요. 로그 소스에서 일치 여부를 판단하므로 필터링된 네임스페이스는 읽히지 않고 eBPF 텔레메트리는 독립적으로 유지됩니다.**
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["default","production"],"scopes":["podLogs"]}]'
   ```
 
@@ -446,8 +446,8 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 - **경고와 오류에만 관심 있나요?** `filters.logs.minSeverity`가 나머지를 에이전트에서 삭제합니다. 수다스러운 클러스터에서는 INFO와 DEBUG가 대부분의 애플리케이션 출력의 대부분을 차지하기 때문에, 이것이 종종 사용 가능한 가장 큰 단일 감소책입니다:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set filters.logs.minSeverity=WARN
   ```
 
@@ -456,8 +456,8 @@ helm install kubernetes-agent oneuptime/kubernetes-agent \
 - **Cast Operations에서 파드 로그가 전혀 필요 없나요?** 끄세요:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set logs.enabled=false
   ```
 
@@ -470,16 +470,16 @@ eBPF는 코드 변경 없이 트레이스, RED 메트릭, 서비스 맵 및 네�
 - **이미 OTel SDK에서 트레이스를 전송하고 있거나 자동 트레이스를 원하지 않나요?** eBPF를 완전히 끄세요:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set ebpf.enabled=false
   ```
 
 - **트레이스는 유지하고 무거운 메트릭 패밀리는 제거하세요.** [위의 시그널 패밀리 표](#개별-시그널-패밀리-토글)에는 각 `ebpf.features.*` 플래그가 나열되어 있습니다. 가장 볼륨이 큰 패밀리는 네트워크 및 스팬 메트릭입니다 — 이를 끄면 트레이스, HTTP RED 메트릭 및 서비스 맵은 그대로 유지됩니다:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set ebpf.features.networkMetrics=false \
     --set ebpf.features.tcpStats=false \
     --set ebpf.features.spanMetrics=false
@@ -490,8 +490,8 @@ eBPF는 코드 변경 없이 트레이스, RED 메트릭, 서비스 맵 및 네�
 - **관심 있는 런타임만 계측하세요.** 기본적으로 OBI는 인식하는 모든 프로세스에 연결됩니다(`ebpf.autoTargetExe: "*"`). 특정 런타임으로 좁히거나 바이너리를 건너뛰기 목록에 추가하여 에이전트가 생성하는 "서비스" 및 트레이스 수를 줄이세요:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set ebpf.autoTargetExe='*/python,*/java'
   ```
 
@@ -502,8 +502,8 @@ eBPF는 코드 변경 없이 트레이스, RED 메트릭, 서비스 맵 및 네�
 메트릭 볼륨은 에이전트가 스크레이프하는 빈도에 정비례합니다. 간격을 두 배로 늘리면 해당 메트릭이 생성하는 데이터 포인트 수가 커버리지 손실 없이 대략 절반으로 줄어들며 — 단지 해상도가 더 거칠어질 뿐입니다. 30초 단위의 세분성이 필요하지 않다면 60초 또는 120초가 크고 안전한 감소입니다:
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --reuse-values \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --reuse-values \
   --set collectionInterval=60s \
   --set hostMetrics.collectionInterval=60s \
   --set cadvisor.scrapeInterval=60s
@@ -530,8 +530,8 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 - **이름으로 특정 메트릭 삭제하기.** 위의 허용 목록은 리시버별이지만, `filters.metrics.exclude`는 모든 리시버에 걸쳐 적용되므로 리시버 수준의 조정 항목으로 표현할 수 없는 것에 사용하세요:
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set filters.metrics.matchType=regexp \
     --set-json 'filters.metrics.exclude=["^container_network_"]'
   ```
@@ -541,8 +541,8 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 - **전체 네임스페이스의 메트릭을 삭제하시겠습니까? metrics 범위의 exclude 규칙을 추가하세요. Pod 및 컨테이너별 시리즈는 필터링되고 네임스페이스가 없는 노드와 클러스터 시리즈는 유지됩니다.**
 
   ```bash
-  helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-    --namespace oneuptime-agent --reuse-values \
+  helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+    --namespace cast-operations-agent --reuse-values \
     --set-json 'namespaceFilters.rules=[{"action":"exclude","namespaces":["noisy-*"],"scopes":["metrics"]}]'
   ```
 
@@ -564,8 +564,8 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 위의 모든 레버는 무언가를 포기하는 대가로 볼륨을 얻습니다: 더 이상 지켜보지 않는 네임스페이스, 더 이상 유지하지 않는 심각도, 더 이상 수집하지 않는 메트릭 패밀리. 샘플링은 예외이며, 바쁜 클러스터에서는 가장 적은 손실로 가장 크게 줄일 수 있는 방법인 경우가 많습니다:
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --reuse-values \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --reuse-values \
   --set sampling.traces.percentage=10
 ```
 
@@ -588,9 +588,9 @@ eBPF 트레이스가 수집에서 큰 비중을 차지하지만 서비스 맵과
 
 ```yaml
 # lean-values.yaml
-oneuptime:
-  url: YOUR_ONEUPTIME_URL
-  apiKey: YOUR_ONEUPTIME_API_KEY
+cast-operations:
+  url: YOUR_CAST_OPERATIONS_URL
+  apiKey: YOUR_CAST_OPERATIONS_API_KEY
 clusterName: my-cluster
 
 # 메트릭 데이터 포인트를 절반으로. 해상도는 거칠어지지만 커버리지는 동일합니다.
@@ -628,8 +628,8 @@ ebpf:
 ```
 
 ```bash
-helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent --create-namespace \
+helm upgrade --install kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent --create-namespace \
   -f lean-values.yaml
 ```
 
@@ -647,7 +647,7 @@ helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
 >
 > ```bash
 > curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
->   | bash -s -- -n oneuptime-agent
+>   | bash -s -- -n cast-operations-agent
 > ```
 >
 > 이 스크립트는 클러스터 상태를 읽고 몇 가지 프로브만 실행할 뿐, 아무것도 변경하지 않습니다. 가장 정확한 이그레스 테스트를 위해서는 먼저 `--set debug.enabled=true`로 설치한 다음(이는 에이전트 파드에 작은 네트워크 도구 사이드카를 추가하여 스크립트가 컬렉터의 정확한 이그레스 경로를 테스트하도록 함) 다시 실행하세요.
@@ -657,8 +657,8 @@ helm upgrade --install kubernetes-agent oneuptime/kubernetes-agent \
 클러스터가 `hostPath`를 차단합니다 — **GKE Autopilot** 및 **EKS Fargate**에서 흔히 발생합니다. API 모드 프리셋으로 전환하세요:
 
 ```bash
-helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-agent \
+helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-agent \
   --reuse-values \
   --set preset=gke-autopilot   # or eks-fargate
 ```
@@ -669,20 +669,20 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 가장 흔한 이유 — 특히 재설치 후 — 는 **잘못되었거나 취소된 수집 키**입니다. OTLP 수집 엔드포인트는 잘못된 토큰에 대해서도 의도적으로 HTTP `200`을 반환하기 때문에(잘못 구성된 컬렉터가 서버에 재시도 폭주를 일으킬 수 없도록) 이를 놓치기 쉽습니다. 그 결과 컬렉터는 성공을 보고하고, 로그에는 오류가 표시되지 않으며, 데이터는 조용히 폐기됩니다.
 
-1. 에이전트 파드가 실행 중인지 확인하세요: `kubectl get pods -n oneuptime-agent`
-2. metrics-collector 로그를 확인하세요: `kubectl logs -n oneuptime-agent -l component=metrics-collector -c otel-collector` (여기에 오류가 없다고 해서 데이터가 도착하고 있다는 의미는 **아닙니다** — 위 내용 참조)
+1. 에이전트 파드가 실행 중인지 확인하세요: `kubectl get pods -n cast-operations-agent`
+2. metrics-collector 로그를 확인하세요: `kubectl logs -n cast-operations-agent -l component=metrics-collector -c otel-collector` (여기에 오류가 없다고 해서 데이터가 도착하고 있다는 의미는 **아닙니다** — 위 내용 참조)
 3. **수집 키를 검증하세요.** Cast Operations에 토큰이 수락되는지 직접 문의하세요(`200` = 유효, `401` = 알 수 없음/취소됨):
 
    ```bash
-   curl -i -H "x-oneuptime-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
    ```
 
    `401`을 반환하면 릴리스의 키가 잘못되었거나 취소된 것입니다. *Project Settings → Telemetry Ingestion Keys*에서 유효한 키를 복사하여 다시 배포하세요:
 
    ```bash
-   helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
-     --namespace oneuptime-agent --reuse-values \
-     --set oneuptime.apiKey=<LIVE_KEY>
+   helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
+     --namespace cast-operations-agent --reuse-values \
+     --set cast-operations.apiKey=<LIVE_KEY>
    ```
 
 4. Cast Operations URL이 올바른지, 그리고 클러스터가 네트워크를 통해 도달할 수 있는지 확인하세요.
@@ -690,9 +690,9 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 
 ### 로그가 나타나지 않음 (API 모드 전용)
 
-1. 로그 테일러 파드가 Ready 상태인지 확인하세요: `kubectl get pods -n oneuptime-agent -l component=log-collector`
+1. 로그 테일러 파드가 Ready 상태인지 확인하세요: `kubectl get pods -n cast-operations-agent -l component=log-collector`
 2. 해당 파드의 `/healthz`를 확인하세요 — 활성 스트림 수와 마지막 내보내기 오류를 보고합니다
-3. 로그를 확인하세요: `kubectl logs -n oneuptime-agent deployment/kubernetes-agent-logs`
+3. 로그를 확인하세요: `kubectl logs -n cast-operations-agent deployment/kubernetes-agent-logs`
 4. 매우 큰 클러스터에서는 단일 복제본이 병목이 될 수 있습니다. namespaceFilters.rules의 podLogs 범위 include 규칙을 사용해 별도 릴리스를 샤딩하세요.
 
 ### 메트릭이 나타나지 않음
@@ -705,7 +705,7 @@ helm upgrade kubernetes-agent oneuptime/kubernetes-agent \
 ### eBPF 파드가 CrashLoopBackOff이거나 시작에 실패함
 
 ```bash
-kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-agent -l component=ebpf-instrument --tail=200
 ```
 
 흔한 원인:
@@ -716,8 +716,8 @@ kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200
 
 ### 애플리케이션 트레이스가 나타나지 않음
 
-1. eBPF DaemonSet이 정상인지 확인하세요: `kubectl get pods -n oneuptime-agent -l component=ebpf-instrument`
-2. OBI가 트래픽을 캡처하고 있는지 확인하기 위해 디버그 트레이스 프린터를 켜세요: `--set ebpf.printTraces=true --set ebpf.logLevel=debug`, 그런 다음 `kubectl logs -n oneuptime-agent -l component=ebpf-instrument --tail=200`을 확인하세요
+1. eBPF DaemonSet이 정상인지 확인하세요: `kubectl get pods -n cast-operations-agent -l component=ebpf-instrument`
+2. OBI가 트래픽을 캡처하고 있는지 확인하기 위해 디버그 트레이스 프린터를 켜세요: `--set ebpf.printTraces=true --set ebpf.logLevel=debug`, 그런 다음 `kubectl logs -n cast-operations-agent -l component=ebpf-instrument --tail=200`을 확인하세요
 3. OBI의 stdout에서는 스팬이 보이지만 대시보드에는 보이지 않는다면, 문제는 컬렉터 → Cast Operations 내보내기입니다 — metrics-collector 파드의 로그를 확인하세요.
 
 ## 다음 단계

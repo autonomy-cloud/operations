@@ -31,10 +31,10 @@ De Cast Operations Infrastructuuragent is een lichtgewicht, Go-gebaseerde daemon
 curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # De agent configureren
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # De agent starten
-sudo oneuptime-infrastructure-agent start
+sudo cast-operations-infrastructure-agent start
 ```
 
 Vervang `YOUR_SECRET_KEY` door de geheime sleutel die wordt weergegeven in de instellingen van uw monitor, en `https://visca.ai` door de URL van uw Cast Operations-instantie als u zelf host.
@@ -42,17 +42,17 @@ Vervang `YOUR_SECRET_KEY` door de geheime sleutel die wordt weergegeven in de in
 ### Windows
 
 1. Download de nieuwste agent van [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest)
-   - `oneuptime-infrastructure-agent_windows_amd64.zip` voor x64-systemen
-   - `oneuptime-infrastructure-agent_windows_arm64.zip` voor ARM64-systemen
+   - `cast-operations-infrastructure-agent_windows_amd64.zip` voor x64-systemen
+   - `cast-operations-infrastructure-agent_windows_arm64.zip` voor ARM64-systemen
 2. Pak het zip-bestand uit
 3. Open een opdrachtprompt als beheerder en voer uit:
 
 ```bash
 # De agent configureren
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # De agent starten
-oneuptime-infrastructure-agent start
+cast-operations-infrastructure-agent start
 ```
 
 ### Proxy-ondersteuning
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 Als uw server verbinding maakt met internet via een proxy, kunt u de agent zo configureren dat deze deze gebruikt:
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Agentopdrachten
@@ -176,8 +176,8 @@ Voor procescontroles:
 
 ### Agent rapporteert niet
 
-- Controleer of de agent actief is: `sudo oneuptime-infrastructure-agent status`
-- Bekijk agentlogboeken: `sudo oneuptime-infrastructure-agent logs -n 50`
+- Controleer of de agent actief is: `sudo cast-operations-infrastructure-agent status`
+- Bekijk agentlogboeken: `sudo cast-operations-infrastructure-agent logs -n 50`
 - Bevestig dat de geheime sleutel correct is
 - Zorg dat de server de URL van uw Cast Operations-instantie kan bereiken
 - Controleer of firewallregels uitgaande HTTPS-verbindingen toestaan
@@ -186,14 +186,14 @@ Voor procescontroles:
 
 De agent is ontworpen om lichtgewicht te zijn. Als u hoog resourcegebruik opmerkt:
 
-- Herstart de agent: `sudo oneuptime-infrastructure-agent restart`
+- Herstart de agent: `sudo cast-operations-infrastructure-agent restart`
 - Controleer agentlogboeken op fouten
 
 ### Proxyproblemen
 
 - Controleer of de proxy-URL en -poort correct zijn
 - Zorg dat de proxy verbindingen met uw Cast Operations-instantie toestaat
-- Herconfigureer met: `sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
+- Herconfigureer met: `sudo cast-operations-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --cast-operations-url=YOUR_URL`
 
 ## Best practices
 

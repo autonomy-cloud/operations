@@ -10,7 +10,7 @@ Cast Operations IoT डिवाइसों के फ्लीट — से�
 
 - एक डिवाइस, गेटवे या कलेक्टर जो Cast Operations को OTLP/HTTP भेज सकता है
 - डिवाइस/गेटवे से आपके Cast Operations इंस्टेंस तक नेटवर्क पहुँच
-- एक **Cast Operations Telemetry Ingestion Token** — इसे _Project Settings → Telemetry Ingestion Keys_ से बनाएँ और `x-oneuptime-token` मान को कॉपी करें
+- एक **Cast Operations Telemetry Ingestion Token** — इसे _Project Settings → Telemetry Ingestion Keys_ से बनाएँ और `x-cast-operations-token` मान को कॉपी करें
 
 ## Cast Operations IoT को कैसे मॉडल करता है
 
@@ -35,14 +35,14 @@ Cast Operations OpenTelemetry रिसोर्स एट्रिब्यू�
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | एनवायरनमेंट वेरिएबल          | आवश्यक | विवरण                                                                                          |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | हाँ      | Cast Operations OTLP एंडपॉइंट (`https://visca.ai/otlp`, या सेल्फ-होस्टेड के लिए `http(s)://YOUR-OPERATIONS-HOST/otlp`) |
-| `OTEL_EXPORTER_OTLP_HEADERS`  | हाँ      | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | हाँ      | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | हाँ      | अल्पविराम से अलग किए गए रिसोर्स एट्रिब्यूट्स। इसमें `iot.fleet.name`, `device.id`, और `service.name=iot/<fleet>` शामिल होने चाहिए |
 
 नीचे दिए गए `iot_*` नामों का उपयोग करके अपने रीडिंग्स को मेट्रिक्स के रूप में उत्सर्जित करें (देखें [मेट्रिक परंपराएँ](#मेट्रिक-परंपराएँ))। लगभग एक मिनट के भीतर डिवाइस Cast Operations डैशबोर्ड के **IoT** अनुभाग के अंतर्गत दिखाई देता है।
@@ -77,7 +77,7 @@ exporters:
   otlphttp:
     endpoint: "https://visca.ai/otlp"
     headers:
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
 service:
   pipelines:
@@ -105,28 +105,28 @@ Cast Operations एक अंतर्निहित MQTT एंडपॉइं
 **प्रमाणीकरण** — दो विकल्प:
 
 - **प्रोजेक्ट-व्यापी**: अपना **Telemetry Ingestion Token** MQTT पासवर्ड के रूप में भेजें (यूज़रनेम को अनदेखा किया जाता है; यदि आपका क्लाइंट केवल यूज़रनेम फ़ील्ड दिखाता है, तो टोकन वहाँ रखें)। उन गेटवे के लिए सही है जो कई डिवाइसों की ओर से प्रकाशित करते हैं।
-- **प्रति-डिवाइस** (सीधे कनेक्ट होने वाले डिवाइसों के लिए अनुशंसित): डैशबोर्ड में फ्लीट के **Device Registry** टैब के अंतर्गत डिवाइस को पंजीकृत करें। पंजीकरण एक प्रति-डिवाइस क्रेडेंशियल जारी करता है — क्रेडेंशियल ID MQTT **यूज़रनेम** है और सीक्रेट **पासवर्ड** है। डिवाइस-प्रमाणित क्लाइंट केवल अपने स्वयं के `oneuptime/<fleet>/<device>/…` टॉपिक्स के अंतर्गत प्रकाशित कर सकते हैं, एक समझौता किए गए डिवाइस को शेष फ्लीट को छुए बिना डैशबोर्ड से रद्द किया जा सकता है (रद्दीकरण लगभग एक मिनट के भीतर प्रभावी होता है, कनेक्टेड सत्रों के लिए भी), और पंजीकृत डिवाइसों को **साइलेंट-डेथ ऑफ़लाइन डिटेक्शन** मिलता है: रिपोर्ट करना बंद करने पर वे गायब होने के बजाय इन्वेंट्री में Offline के रूप में बने रहते हैं, और Device Offline अलर्ट टेम्पलेट उनके लिए तब भी फ़ायर होता है जब वे Last Will के बिना समाप्त हो जाएँ।
+- **प्रति-डिवाइस** (सीधे कनेक्ट होने वाले डिवाइसों के लिए अनुशंसित): डैशबोर्ड में फ्लीट के **Device Registry** टैब के अंतर्गत डिवाइस को पंजीकृत करें। पंजीकरण एक प्रति-डिवाइस क्रेडेंशियल जारी करता है — क्रेडेंशियल ID MQTT **यूज़रनेम** है और सीक्रेट **पासवर्ड** है। डिवाइस-प्रमाणित क्लाइंट केवल अपने स्वयं के `cast-operations/<fleet>/<device>/…` टॉपिक्स के अंतर्गत प्रकाशित कर सकते हैं, एक समझौता किए गए डिवाइस को शेष फ्लीट को छुए बिना डैशबोर्ड से रद्द किया जा सकता है (रद्दीकरण लगभग एक मिनट के भीतर प्रभावी होता है, कनेक्टेड सत्रों के लिए भी), और पंजीकृत डिवाइसों को **साइलेंट-डेथ ऑफ़लाइन डिटेक्शन** मिलता है: रिपोर्ट करना बंद करने पर वे गायब होने के बजाय इन्वेंट्री में Offline के रूप में बने रहते हैं, और Device Offline अलर्ट टेम्पलेट उनके लिए तब भी फ़ायर होता है जब वे Last Will के बिना समाप्त हो जाएँ।
 
 अमान्य क्रेडेंशियल्स को CONNECT पर रिटर्न कोड 4 (खराब यूज़रनेम या पासवर्ड) के साथ अस्वीकार कर दिया जाता है, इसलिए एक गलत कॉन्फ़िगर किया गया डिवाइस स्पष्ट रूप से विफल होता है।
 
-**टॉपिक्स** — निश्चित `oneuptime/` उपसर्ग के अंतर्गत प्रकाशित करें। फ्लीट और डिवाइस सेगमेंट में `/`, `+`, या `#` नहीं होने चाहिए, और वे 100 वर्णों तक सीमित हैं:
+**टॉपिक्स** — निश्चित `cast-operations/` उपसर्ग के अंतर्गत प्रकाशित करें। फ्लीट और डिवाइस सेगमेंट में `/`, `+`, या `#` नहीं होने चाहिए, और वे 100 वर्णों तक सीमित हैं:
 
 | टॉपिक                                            | पेलोड                                                                                              |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `oneuptime/<fleet>/<device>/telemetry`           | रीडिंग्स का JSON ऑब्जेक्ट — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, या एक फ्लैट ऑब्जेक्ट जिसके संख्यात्मक फ़ील्ड मेट्रिक्स हैं |
-| `oneuptime/<fleet>/<device>/metrics/<metricName>`| एक एकल मान — एक सादा संख्या (`23.4`) या `{ "value": 23.4 }`                                        |
-| `oneuptime/<fleet>/<device>/status`              | `"online"` या `"offline"` (साथ ही `1`/`0`, `true`/`false`, `up`/`down`) — `iot_device_up` पर मैप होता है       |
+| `cast-operations/<fleet>/<device>/telemetry`           | रीडिंग्स का JSON ऑब्जेक्ट — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, या एक फ्लैट ऑब्जेक्ट जिसके संख्यात्मक फ़ील्ड मेट्रिक्स हैं |
+| `cast-operations/<fleet>/<device>/metrics/<metricName>`| एक एकल मान — एक सादा संख्या (`23.4`) या `{ "value": 23.4 }`                                        |
+| `cast-operations/<fleet>/<device>/status`              | `"online"` या `"offline"` (साथ ही `1`/`0`, `true`/`false`, `up`/`down`) — `iot_device_up` पर मैप होता है       |
 
 टेलीमेट्री पेलोड `"attributes"` (एक स्ट्रिंग मैप जो प्रत्येक डेटापॉइंट पर स्टैम्प किया जाता है — इसका उपयोग `iot.device.kind`, `iot.device.type`, `iot.device.firmware`, या अपने स्वयं के लेबल के लिए करें) और `"timestamp"` (ISO-8601, या यूनिक्स सेकंड/मिलीसेकंड) भी ले जा सकते हैं। दोनों वैकल्पिक हैं; `timestamp` अनुपस्थित होने पर इन्जेस्ट समय का उपयोग किया जाता है।
 
-**Last Will के साथ ऑफ़लाइन डिटेक्शन** — `oneuptime/<fleet>/<device>/status` पर `offline` पेलोड के साथ एक MQTT Last Will पंजीकृत करें। यदि डिवाइस समाप्त हो जाता है या नेटवर्क से हट जाता है, तो सत्र समाप्त होते ही ब्रोकर उसकी ओर से `iot_device_up = 0` प्रकाशित करता है — जो स्टॉक **Device Offline** अलर्ट टेम्पलेट को ट्रिगर करता है और इन्वेंट्री में डिवाइस को Down में बदल देता है, बिना किसी पोलिंग और बिना किसी छूटे हुए स्क्रेप की प्रतीक्षा किए। कनेक्ट होने के बाद उसी टॉपिक पर `online` प्रकाशित करें ताकि डिवाइस फिर से Up दिखे।
+**Last Will के साथ ऑफ़लाइन डिटेक्शन** — `cast-operations/<fleet>/<device>/status` पर `offline` पेलोड के साथ एक MQTT Last Will पंजीकृत करें। यदि डिवाइस समाप्त हो जाता है या नेटवर्क से हट जाता है, तो सत्र समाप्त होते ही ब्रोकर उसकी ओर से `iot_device_up = 0` प्रकाशित करता है — जो स्टॉक **Device Offline** अलर्ट टेम्पलेट को ट्रिगर करता है और इन्वेंट्री में डिवाइस को Down में बदल देता है, बिना किसी पोलिंग और बिना किसी छूटे हुए स्क्रेप की प्रतीक्षा किए। कनेक्ट होने के बाद उसी टॉपिक पर `online` प्रकाशित करें ताकि डिवाइस फिर से Up दिखे।
 
 `mosquitto_pub` के साथ उदाहरण (रॉ TCP, सेल्फ-होस्टेड):
 
 ```bash
-mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
-  -u oneuptime -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
-  -t "oneuptime/building-a-sensors/sensor-001/telemetry" \
+mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
+  -u cast-operations -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -t "cast-operations/building-a-sensors/sensor-001/telemetry" \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
@@ -136,19 +136,19 @@ WebSocket पर Node.js `mqtt` के साथ उदाहरण (visca.ai �
 const mqtt = require("mqtt");
 
 const client = mqtt.connect("wss://visca.ai/mqtt", {
-  username: "oneuptime", // ignored — the token below is what authenticates
+  username: "cast-operations", // ignored — the token below is what authenticates
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
-    topic: "oneuptime/building-a-sensors/sensor-001/status",
+    topic: "cast-operations/building-a-sensors/sensor-001/status",
     payload: "offline",
   },
 });
 
 client.on("connect", () => {
-  client.publish("oneuptime/building-a-sensors/sensor-001/status", "online");
+  client.publish("cast-operations/building-a-sensors/sensor-001/status", "online");
   setInterval(() => {
     client.publish(
-      "oneuptime/building-a-sensors/sensor-001/telemetry",
+      "cast-operations/building-a-sensors/sensor-001/telemetry",
       JSON.stringify({
         metrics: {
           iot_device_up: 1,
@@ -168,15 +168,15 @@ import json
 import paho.mqtt.client as mqtt
 
 client = mqtt.Client(transport="websockets")
-client.username_pw_set("oneuptime", "YOUR_TELEMETRY_INGESTION_TOKEN")
+client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
-client.will_set("oneuptime/building-a-sensors/sensor-001/status", "offline")
+client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
 client.connect("visca.ai", 443)
 
-client.publish("oneuptime/building-a-sensors/sensor-001/status", "online")
+client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
-    "oneuptime/building-a-sensors/sensor-001/telemetry",
+    "cast-operations/building-a-sensors/sensor-001/telemetry",
     json.dumps({"metrics": {"iot_device_up": 1, "iot_temperature_celsius": 21.5}}),
 )
 ```
@@ -216,8 +216,8 @@ Cast Operations निम्नलिखित `iot_*` मेट्रिक न
 ### फ्लीट दिखाई नहीं देता
 
 1. सत्यापित करें कि `iot.fleet.name` एक **resource** एट्रिब्यूट के रूप में सेट है (डेटापॉइंट लेबल के रूप में नहीं), और `service.name` `iot/<fleet>` है।
-2. पुष्टि करें कि एक्सपोर्टर एंडपॉइंट `https://visca.ai/otlp` (या आपका सेल्फ-होस्टेड `…/otlp`) है और `x-oneuptime-token` हेडर एक मान्य टोकन ले जाता है।
-3. यदि MQTT का उपयोग कर रहे हैं, तो पुष्टि करें कि टॉपिक ठीक `oneuptime/<fleet>/<device>/…` का पालन करता है — टॉपिक का फ्लीट सेगमेंट ही वह चीज़ है जो फ्लीट बनाती है।
+2. पुष्टि करें कि एक्सपोर्टर एंडपॉइंट `https://visca.ai/otlp` (या आपका सेल्फ-होस्टेड `…/otlp`) है और `x-cast-operations-token` हेडर एक मान्य टोकन ले जाता है।
+3. यदि MQTT का उपयोग कर रहे हैं, तो पुष्टि करें कि टॉपिक ठीक `cast-operations/<fleet>/<device>/…` का पालन करता है — टॉपिक का फ्लीट सेगमेंट ही वह चीज़ है जो फ्लीट बनाती है।
 
 ### इन्वेंट्री से डिवाइस गायब
 
@@ -227,7 +227,7 @@ Cast Operations निम्नलिखित `iot_*` मेट्रिक न
 
 ### एक्सपोर्टर से HTTP 401 / 403
 
-इन्जेस्शन टोकन अमान्य, रद्द या गायब है। _Project Settings → Telemetry Ingestion Keys_ से एक नया बनाएँ और `x-oneuptime-token` हेडर अपडेट करें।
+इन्जेस्शन टोकन अमान्य, रद्द या गायब है। _Project Settings → Telemetry Ingestion Keys_ से एक नया बनाएँ और `x-cast-operations-token` हेडर अपडेट करें।
 
 ### मेट्रिक्स चार्ट नहीं हो रहे
 
@@ -250,7 +250,7 @@ exporters:
   otlphttp:
     endpoint: https://your-operations-host.example.com/otlp
     headers:
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 यदि आपका इंस्टेंस केवल-HTTP है, तो स्कीम को `http://` में बदलें और उपयुक्त पोर्ट का उपयोग करें।

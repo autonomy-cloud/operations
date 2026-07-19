@@ -1,6 +1,6 @@
 import { loadAllComponentMetadata } from "../Utils/ComponentMetadata";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import Exception from "Common/Types/Exception/Exception";
@@ -219,7 +219,7 @@ export default class RunWorkflow {
             data: {
               workflowStatus: WorkflowStatus.Error,
               logs: this.logs.join("\n"),
-              completedAt: OneUptimeDate.getCurrentDate(),
+              completedAt: OperationsDate.getCurrentDate(),
               resumeData: null!,
               resumeAt: null!,
             },
@@ -241,7 +241,7 @@ export default class RunWorkflow {
         runLog.projectId = workflow.projectId!;
         runLog.workflowStatus = WorkflowStatus.Scheduled;
         runLog.logs =
-          OneUptimeDate.getCurrentDateAsFormattedString({
+          OperationsDate.getCurrentDateAsFormattedString({
             showSeconds: true,
           }) + `: Workflow ${runProps.workflowId.toString()} Scheduled.`;
 
@@ -263,7 +263,7 @@ export default class RunWorkflow {
           // Preserve the original start time across suspend/resume cycles.
           ...(runProps.isResume
             ? {}
-            : { startedAt: OneUptimeDate.getCurrentDate() }),
+            : { startedAt: OperationsDate.getCurrentDate() }),
         },
         props: {
           isRoot: true,
@@ -478,7 +478,7 @@ export default class RunWorkflow {
         data: {
           workflowStatus: WorkflowStatus.Success,
           logs: this.logs.join("\n"),
-          completedAt: OneUptimeDate.getCurrentDate(),
+          completedAt: OperationsDate.getCurrentDate(),
           // Run finished — drop any leftover suspend state.
           resumeData: null!,
           resumeAt: null!,
@@ -506,7 +506,7 @@ export default class RunWorkflow {
           data: {
             workflowStatus: WorkflowStatus.Timeout,
             logs: this.logs.join("\n"),
-            completedAt: OneUptimeDate.getCurrentDate(),
+            completedAt: OperationsDate.getCurrentDate(),
             resumeData: null!,
             resumeAt: null!,
           },
@@ -521,7 +521,7 @@ export default class RunWorkflow {
           data: {
             workflowStatus: WorkflowStatus.Error,
             logs: this.logs.join("\n"),
-            completedAt: OneUptimeDate.getCurrentDate(),
+            completedAt: OperationsDate.getCurrentDate(),
             resumeData: null!,
             resumeAt: null!,
           },
@@ -550,8 +550,8 @@ export default class RunWorkflow {
   }): Promise<void> {
     const workflowLogId: ObjectID = params.runProps.workflowLogId!;
 
-    const resumeAt: Date = OneUptimeDate.addRemoveSeconds(
-      OneUptimeDate.getCurrentDate(),
+    const resumeAt: Date = OperationsDate.addRemoveSeconds(
+      OperationsDate.getCurrentDate(),
       Math.ceil(params.suspendForMs / 1000),
     );
 
@@ -870,7 +870,7 @@ export default class RunWorkflow {
 
     if (typeof data === "string") {
       this.logs.push(
-        OneUptimeDate.getCurrentDateAsFormattedString({
+        OperationsDate.getCurrentDateAsFormattedString({
           showSeconds: true,
         }) +
           ": " +
@@ -878,7 +878,7 @@ export default class RunWorkflow {
       );
     } else {
       this.logs.push(
-        OneUptimeDate.getCurrentDateAsFormattedString({
+        OperationsDate.getCurrentDateAsFormattedString({
           showSeconds: true,
         }) +
           ": " +

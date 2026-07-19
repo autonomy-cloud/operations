@@ -19,6 +19,6 @@ rm -f "$TEST_DIR/cookies.txt"
 rm -f "$HOME/.terraformrc"
 
 # Remove local provider installation
-rm -rf "$HOME/.terraform.d/plugins/registry.terraform.io/oneuptime" 2>/dev/null || true
+rm -rf "$HOME/.terraform.d/plugins/registry.terraform.io/cast-operations" 2>/dev/null || true
 
 echo "Cleanup complete"

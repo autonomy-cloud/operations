@@ -8,7 +8,7 @@ import NetworkInterface from "../../../../Models/DatabaseModels/NetworkInterface
 import MonitorStep from "../../../../Types/Monitor/MonitorStep";
 import MonitorSteps from "../../../../Types/Monitor/MonitorSteps";
 import ObjectID from "../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import ProbeMonitorResponse from "../../../../Types/Probe/ProbeMonitorResponse";
 import SnmpInterface from "../../../../Types/Monitor/SnmpMonitor/SnmpInterface";
 import SnmpMonitorResponse from "../../../../Types/Monitor/SnmpMonitor/SnmpMonitorResponse";
@@ -154,7 +154,7 @@ async function runWalk(
 }
 
 beforeEach(() => {
-  jest.spyOn(OneUptimeDate, "getCurrentDate").mockReturnValue(NOW);
+  jest.spyOn(OperationsDate, "getCurrentDate").mockReturnValue(NOW);
 });
 
 afterEach(() => {
@@ -647,7 +647,7 @@ describe("NetworkInventoryUtil.updateFromWalk — interface upsert", () => {
     );
 
     jest.restoreAllMocks();
-    jest.spyOn(OneUptimeDate, "getCurrentDate").mockReturnValue(NOW);
+    jest.spyOn(OperationsDate, "getCurrentDate").mockReturnValue(NOW);
 
     mockServices([]);
     await runWalk({

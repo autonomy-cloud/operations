@@ -7,7 +7,7 @@ CLI Cast Operations поддерживает три формата вывода:
 Формат по умолчанию при работе в интерактивном терминале. Отображает результаты в виде ASCII-таблицы с интеллектуально подобранными столбцами.
 
 ```bash
-oneuptime incident list
+cast-operations incident list
 ```
 
 ```
@@ -30,7 +30,7 @@ oneuptime incident list
 Необработанный JSON-вывод с отступами в 2 пробела. Это лучший формат для скриптинга и передачи данных другим инструментам.
 
 ```bash
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ```json
@@ -48,7 +48,7 @@ oneuptime incident list -o json
 
 ```bash
 # JSON используется автоматически при передаче по конвейеру
-oneuptime incident list | jq '.[].title'
+cast-operations incident list | jq '.[].title'
 ```
 
 ## Широкий
@@ -56,7 +56,7 @@ oneuptime incident list | jq '.[].title'
 Отображает все столбцы без усечения. Полезно для детального просмотра, но может создавать очень широкий вывод.
 
 ```bash
-oneuptime incident list -o wide
+cast-operations incident list -o wide
 ```
 
 ## Отключение цветного вывода
@@ -65,10 +65,10 @@ oneuptime incident list -o wide
 
 ```bash
 # Использование флага --no-color
-oneuptime --no-color incident list
+cast-operations --no-color incident list
 
 # Использование переменной окружения NO_COLOR
-NO_COLOR=1 oneuptime incident list
+NO_COLOR=1 cast-operations incident list
 ```
 
 ## Особые случаи вывода

@@ -130,7 +130,7 @@ Zabbix 将通知发送*给一个用户*。创建一个专用用户，便于查�
 3. 从其 **Yes** 输出，添加一个 **Find Incident** 模块，查找你之前创建的未解决事件——通过描述或标签中存储的 Zabbix `event_id` 来匹配。
 4. 将其连接到 **Update Incident** 模块，并将事件移至你的*已解决*状态。
 
-由于解决方式取决于你在项目中如何建模事件状态，请先确保事件正确流转后再添加解决路径。参见[组件 → Cast Operations 数据组件](/docs/workflows/components#oneuptime-data-components)。
+由于解决方式取决于你在项目中如何建模事件状态，请先确保事件正确流转后再添加解决路径。参见[组件 → Cast Operations 数据组件](/docs/workflows/components#cast-operations-data-components)。
 
 ## 映射 Zabbix 严重程度（可选）
 

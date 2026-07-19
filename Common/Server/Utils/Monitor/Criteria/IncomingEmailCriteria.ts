@@ -1,6 +1,6 @@
 import logger from "../../../Utils/Logger";
 import DataToProcess from "../DataToProcess";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import {
   CheckOn,
   CriteriaFilter,
@@ -47,9 +47,9 @@ export default class IncomingEmailCriteria {
 
       logger.debug("Last Email Time: " + lastEmailTime);
 
-      const differenceInMinutes: number = OneUptimeDate.getDifferenceInMinutes(
+      const differenceInMinutes: number = OperationsDate.getDifferenceInMinutes(
         lastEmailTime,
-        emailData.checkedAt || OneUptimeDate.getCurrentDate(),
+        emailData.checkedAt || OperationsDate.getCurrentDate(),
       );
 
       logger.debug("Difference in minutes: " + differenceInMinutes);

@@ -1,5 +1,5 @@
 import CalendarEvent from "../Calendar/CalendarEvent";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 
 export interface UserOverrideRecord {
   overrideUserId: string;
@@ -116,27 +116,30 @@ export default class UserOverrideUtil {
      * seconds, an inconsistent mix).
      */
     if (
-      OneUptimeDate.isOnOrAfter(override.startsAt, event.end) ||
-      OneUptimeDate.isOnOrBefore(override.endsAt, event.start)
+      OperationsDate.isOnOrAfter(override.startsAt, event.end) ||
+      OperationsDate.isOnOrBefore(override.endsAt, event.start)
     ) {
       return [event];
     }
 
-    const overrideStart: Date = OneUptimeDate.isAfter(
+    const overrideStart: Date = OperationsDate.isAfter(
       override.startsAt,
       event.start,
     )
       ? override.startsAt
       : event.start;
 
-    const overrideEnd: Date = OneUptimeDate.isBefore(override.endsAt, event.end)
+    const overrideEnd: Date = OperationsDate.isBefore(
+      override.endsAt,
+      event.end,
+    )
       ? override.endsAt
       : event.end;
 
     const segments: Array<CalendarEvent> = [];
 
     // Segment before the override window — original user remains on call.
-    if (OneUptimeDate.isBefore(event.start, overrideStart)) {
+    if (OperationsDate.isBefore(event.start, overrideStart)) {
       segments.push({
         ...event,
         end: overrideStart,
@@ -161,7 +164,7 @@ export default class UserOverrideUtil {
     });
 
     // Segment after the override window — original user resumes.
-    if (OneUptimeDate.isAfter(event.end, overrideEnd)) {
+    if (OperationsDate.isAfter(event.end, overrideEnd)) {
       segments.push({
         ...event,
         start: overrideEnd,

@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const STORAGE_KEY: string = "oneuptime_sso_tokens";
-const GLOBAL_STORAGE_KEY: string = "oneuptime_global_sso_token";
+const STORAGE_KEY: string = "cast_operations_sso_tokens";
+const GLOBAL_STORAGE_KEY: string = "cast_operations_global_sso_token";
 
 // In-memory cache for fast synchronous access by the API client interceptor
 let cachedSsoTokens: Record<string, string> = {};

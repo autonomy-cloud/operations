@@ -6,7 +6,7 @@ import LayerUtil, { LayerProps } from "../../../Types/OnCallDutyPolicy/Layer";
 import Recurring from "../../../Types/Events/Recurring";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import DayOfWeek from "../../../Types/Day/DayOfWeek";
 import User from "../../../Models/DatabaseModels/User";
 import CalendarEvent from "../../../Types/Calendar/CalendarEvent";
@@ -44,8 +44,8 @@ describe("RestrictionTimes audit M4: default weekly restriction weekday", () => 
      * The TIMESTAMP's weekday — what the engine actually enforces — matches the
      * enum. Before the fix this was TODAY's weekday.
      */
-    expect(OneUptimeDate.getDayOfWeek(def.startTime)).toBe(DayOfWeek.Sunday);
-    expect(OneUptimeDate.getDayOfWeek(def.endTime)).toBe(DayOfWeek.Monday);
+    expect(OperationsDate.getDayOfWeek(def.startTime)).toBe(DayOfWeek.Sunday);
+    expect(OperationsDate.getDayOfWeek(def.endTime)).toBe(DayOfWeek.Monday);
   });
 
   test("default preserves the intended times of day (00:00 start, 01:00 end)", () => {
@@ -105,7 +105,9 @@ describe("RestrictionTimes audit M4: default weekly restriction weekday", () => 
      * only as the continuation edge; no segment may start Tue-Sat.
      */
     for (const e of events) {
-      const startDow: DayOfWeek = OneUptimeDate.getDayOfWeek(new Date(e.start));
+      const startDow: DayOfWeek = OperationsDate.getDayOfWeek(
+        new Date(e.start),
+      );
       expect([DayOfWeek.Sunday, DayOfWeek.Monday]).toContain(startDow);
     }
   });

@@ -58,7 +58,7 @@ Fluentd поддерживает сотни источников данных, �
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -93,7 +93,7 @@ bind 0.0.0.0
 endpoint https://visca.ai/fluentd/logs
 open_timeout 2
 
-headers {"x-oneuptime-token":"YOUR_SERVICE_TOKEN", "x-oneuptime-service-name":"YOUR_SERVICE_NAME"}
+headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
 
 content_type application/json
 json_array true
@@ -107,7 +107,7 @@ flush_interval 10s
 </match>
 ```
 
-**При самостоятельном хостинге Cast Operations**: замените `endpoint_url` на URL вашего экземпляра. `http(s)://YOUR_ONEUPTIME_HOST/fluentd/logs`
+**При самостоятельном хостинге Cast Operations**: замените `endpoint_url` на URL вашего экземпляра. `http(s)://YOUR_CAST_OPERATIONS_HOST/fluentd/logs`
 
 ## Использование
 

@@ -73,7 +73,7 @@ PagerDuty का `severity` `critical`, `error`, `warning`, या `info` accept
 
 ## इनबाउंड (वैकल्पिक)
 
-दूसरी दिशा में जाने के लिए — PagerDuty event से Cast Operations incident खोलें — एक **Webhook** trigger वर्कफ़्लो जोड़ें और उसके URL पर एक PagerDuty [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (या Events Orchestration) point करें, फिर **Create Incident** इस्तेमाल करें। [inbound pattern](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime) देखें।
+दूसरी दिशा में जाने के लिए — PagerDuty event से Cast Operations incident खोलें — एक **Webhook** trigger वर्कफ़्लो जोड़ें और उसके URL पर एक PagerDuty [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (या Events Orchestration) point करें, फिर **Create Incident** इस्तेमाल करें। [inbound pattern](/docs/integrations/index#inbound-another-tool-sends-data-into-cast-operations) देखें।
 
 ## समस्या निवारण
 

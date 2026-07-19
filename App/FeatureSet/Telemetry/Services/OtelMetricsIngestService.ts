@@ -38,7 +38,7 @@ import { TELEMETRY_METRIC_FLUSH_BATCH_SIZE } from "../Config";
 import MetricPipelineRuleService, {
   MetricRulesForProject,
 } from "./MetricPipelineRuleService";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { resolveTelemetryRetentionInDays } from "Common/Types/Telemetry/TelemetryRetentionConfig";
 import MetricService from "Common/Server/Services/MetricService";
 import Text from "Common/Types/Text";
@@ -76,7 +76,7 @@ import IoTFleetService from "Common/Server/Services/IoTFleetService";
 import HostService from "Common/Server/Services/HostService";
 import LabelService from "Common/Server/Services/LabelService";
 import Host from "Common/Models/DatabaseModels/Host";
-import { extractOneuptimeLabelNames } from "Common/Server/Utils/Telemetry/OneuptimeLabel";
+import { extractOperationsLabelNames } from "Common/Server/Utils/Telemetry/OperationsLabel";
 import { HEARTBEAT_MAX_BACKDATE_MS } from "Common/Utils/Telemetry/HeartbeatAvailability";
 import {
   PVE_SNAPSHOT_METRIC_NAMES,
@@ -451,7 +451,7 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
       }
 
       const labelNamesForResource: Array<string> =
-        extractOneuptimeLabelNames(ras);
+        extractOperationsLabelNames(ras);
       for (const labelName of labelNamesForResource) {
         entry.labelNames.add(labelName);
       }
@@ -958,7 +958,7 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
 
           /*
            * Synthetic per-host heartbeat. Lets users alert on "host went
-           * silent" by querying `count(oneuptime.host.heartbeat) > 0`
+           * silent" by querying `count(cast-operations.host.heartbeat) > 0`
            * over a window instead of relying on the presence of a
            * specific scraper metric. Dedup per host within this batch
            * (hostmetrics emits one ResourceMetrics per scraper) — the
@@ -974,7 +974,8 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
             !hostHeartbeatHostNames.has(heartbeatHostName)
           ) {
             hostHeartbeatHostNames.add(heartbeatHostName);
-            const heartbeatMetricName: string = "oneuptime.host.heartbeat";
+            const heartbeatMetricName: string =
+              "cast-operations.host.heartbeat";
             if (!metricNameServiceNameMap[heartbeatMetricName]) {
               const heartbeatMetricType: MetricType = new MetricType();
               heartbeatMetricType.name = heartbeatMetricName;
@@ -1038,7 +1039,7 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
              * invariant documented on HEARTBEAT_MAX_BACKDATE_MS.
              */
             const nowUnixNano: number =
-              OneUptimeDate.getCurrentDateAsUnixNano();
+              OperationsDate.getCurrentDateAsUnixNano();
             const maxBackdateNano: number =
               HEARTBEAT_MAX_BACKDATE_MS * 1_000_000;
             const maxDatapointTimeUnixNano: number | null =
@@ -3056,9 +3057,9 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
     isMonotonic?: boolean;
     serviceMetadata: TelemetryServiceMetadata;
   }): JSONObject {
-    const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+    const ingestionDate: Date = OperationsDate.getCurrentDate();
     const ingestionTimestamp: string =
-      OneUptimeDate.toClickhouseDateTime(ingestionDate);
+      OperationsDate.toClickhouseDateTime(ingestionDate);
 
     const timeFields: MetricTimestamp = this.safeParseUnixNano(
       data.datapoint["timeUnixNano"] as string | number | undefined,
@@ -3211,7 +3212,7 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
       projectConfig: data.serviceMetadata.projectRetentionConfig,
       projectRetentionInDays: data.serviceMetadata.projectRetentionInDays,
     });
-    const retentionDate: Date = OneUptimeDate.addRemoveDays(
+    const retentionDate: Date = OperationsDate.addRemoveDays(
       ingestionDate,
       retentionDays,
     );
@@ -3259,7 +3260,7 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
       summaryValues: summaryValues,
       traceId: exemplarTraceAndSpanIds.traceId,
       spanId: exemplarTraceAndSpanIds.spanId,
-      retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+      retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
     };
 
     if (startTimeFields) {
@@ -3353,7 +3354,7 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
     value: string | number | undefined,
     context: string,
   ): MetricTimestamp {
-    let numericValue: number = OneUptimeDate.getCurrentDateAsUnixNano();
+    let numericValue: number = OperationsDate.getCurrentDateAsUnixNano();
 
     if (value !== undefined && value !== null) {
       try {
@@ -3373,13 +3374,13 @@ export default class OtelMetricsIngestService extends OtelIngestBaseService {
         logger.warn(
           `Error processing ${context}: ${error instanceof Error ? error.message : String(error)}, using current time`,
         );
-        numericValue = OneUptimeDate.getCurrentDateAsUnixNano();
+        numericValue = OperationsDate.getCurrentDateAsUnixNano();
       }
     }
 
-    const date: Date = OneUptimeDate.fromUnixNano(numericValue);
-    const iso: string = OneUptimeDate.toString(date);
-    const db: string = OneUptimeDate.toClickhouseDateTime(date);
+    const date: Date = OperationsDate.fromUnixNano(numericValue);
+    const iso: string = OperationsDate.toString(date);
+    const db: string = OperationsDate.toClickhouseDateTime(date);
 
     return {
       nano: Math.trunc(numericValue).toString(),

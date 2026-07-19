@@ -72,7 +72,7 @@ const sanitizeHtml: (html: string) => string = (html: string): string => {
   return DOMPurify.sanitize(html, {
     ADD_ATTR: ["target"],
     ALLOWED_URI_REGEXP:
-      /^(?:(?:https?|mailto|tel|ftp|data|placeholder|oneuptime-uploading):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
+      /^(?:(?:https?|mailto|tel|ftp|data|placeholder|cast-operations-uploading):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
   });
 };
 
@@ -312,7 +312,7 @@ const MarkdownEditor: FunctionComponent<ComponentProps> = (
     const token: string = `${Date.now().toString(16)}-${Math.random()
       .toString(16)
       .slice(2)}`;
-    const placeholderUrl: string = `oneuptime-uploading-${token}`;
+    const placeholderUrl: string = `cast-operations-uploading-${token}`;
     const placeholderMarkdown: string = `![Uploading ${filename}…](${placeholderUrl})`;
 
     if (file.size > MAX_IMAGE_SIZE_BYTES) {
@@ -859,7 +859,7 @@ const MarkdownEditor: FunctionComponent<ComponentProps> = (
       " border-red-300 pr-10 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500";
   }
 
-  const wysiwygClassName: string = `oneuptime-wysiwyg block w-full min-h-32 rounded-md rounded-t-none border border-gray-300 bg-white py-2 pl-3 pr-3 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 ${
+  const wysiwygClassName: string = `cast-operations-wysiwyg block w-full min-h-32 rounded-md rounded-t-none border border-gray-300 bg-white py-2 pl-3 pr-3 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 ${
     props.error
       ? "border-red-300 pr-10 text-red-900 focus:border-red-500 focus:outline-none focus:ring-red-500"
       : ""
@@ -892,26 +892,26 @@ const MarkdownEditor: FunctionComponent<ComponentProps> = (
     <div className="relative" data-testid={props.dataTestId}>
       {/* Inline styles to keep WYSIWYG view visually formatted. */}
       <style>{`
-        .oneuptime-wysiwyg h1 { font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0; }
-        .oneuptime-wysiwyg h2 { font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0; }
-        .oneuptime-wysiwyg h3 { font-size: 1.125rem; font-weight: 600; margin: 0.5rem 0; }
-        .oneuptime-wysiwyg p { margin: 0.5rem 0; }
-        .oneuptime-wysiwyg ul, .oneuptime-wysiwyg ol { margin: 0.5rem 0 0.5rem 1.5rem; }
-        .oneuptime-wysiwyg ul { list-style-type: disc; }
-        .oneuptime-wysiwyg ol { list-style-type: decimal; }
-        .oneuptime-wysiwyg ul.task-list, .oneuptime-wysiwyg ul.task-list li { list-style: none; margin-left: 0; }
-        .oneuptime-wysiwyg ul.task-list li { padding-left: 0; }
-        .oneuptime-wysiwyg blockquote { border-left: 3px solid var(--ou-border-strong, #d1d5db); padding-left: 0.75rem; color: var(--ou-text-secondary, #4b5563); margin: 0.5rem 0; }
-        .oneuptime-wysiwyg pre { background: var(--ou-surface-tertiary, #f3f4f6); border-radius: 0.375rem; padding: 0.75rem; overflow-x: auto; margin: 0.5rem 0; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.85rem; }
-        .oneuptime-wysiwyg code { background: var(--ou-surface-tertiary, #f3f4f6); padding: 0 0.25rem; border-radius: 0.25rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.85em; }
-        .oneuptime-wysiwyg pre code { background: transparent; padding: 0; }
-        .oneuptime-wysiwyg a { color: var(--ou-link, #4f46e5); text-decoration: underline; }
-        .oneuptime-wysiwyg hr { margin: 1rem 0; border: 0; border-top: 1px solid var(--ou-border-default, #e5e7eb); }
-        .oneuptime-wysiwyg table { border-collapse: collapse; margin: 0.5rem 0; }
-        .oneuptime-wysiwyg th, .oneuptime-wysiwyg td { border: 1px solid var(--ou-border-default, #e5e7eb); padding: 0.25rem 0.5rem; }
-        .oneuptime-wysiwyg th { background: var(--ou-surface-secondary, #f9fafb); font-weight: 600; }
-        .oneuptime-wysiwyg img { max-width: 100%; height: auto; }
-        .oneuptime-wysiwyg:empty::before { content: attr(data-placeholder); color: var(--ou-text-subtle, #9ca3af); pointer-events: none; }
+        .cast-operations-wysiwyg h1 { font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0; }
+        .cast-operations-wysiwyg h2 { font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0; }
+        .cast-operations-wysiwyg h3 { font-size: 1.125rem; font-weight: 600; margin: 0.5rem 0; }
+        .cast-operations-wysiwyg p { margin: 0.5rem 0; }
+        .cast-operations-wysiwyg ul, .cast-operations-wysiwyg ol { margin: 0.5rem 0 0.5rem 1.5rem; }
+        .cast-operations-wysiwyg ul { list-style-type: disc; }
+        .cast-operations-wysiwyg ol { list-style-type: decimal; }
+        .cast-operations-wysiwyg ul.task-list, .cast-operations-wysiwyg ul.task-list li { list-style: none; margin-left: 0; }
+        .cast-operations-wysiwyg ul.task-list li { padding-left: 0; }
+        .cast-operations-wysiwyg blockquote { border-left: 3px solid var(--ou-border-strong, #d1d5db); padding-left: 0.75rem; color: var(--ou-text-secondary, #4b5563); margin: 0.5rem 0; }
+        .cast-operations-wysiwyg pre { background: var(--ou-surface-tertiary, #f3f4f6); border-radius: 0.375rem; padding: 0.75rem; overflow-x: auto; margin: 0.5rem 0; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.85rem; }
+        .cast-operations-wysiwyg code { background: var(--ou-surface-tertiary, #f3f4f6); padding: 0 0.25rem; border-radius: 0.25rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.85em; }
+        .cast-operations-wysiwyg pre code { background: transparent; padding: 0; }
+        .cast-operations-wysiwyg a { color: var(--ou-link, #4f46e5); text-decoration: underline; }
+        .cast-operations-wysiwyg hr { margin: 1rem 0; border: 0; border-top: 1px solid var(--ou-border-default, #e5e7eb); }
+        .cast-operations-wysiwyg table { border-collapse: collapse; margin: 0.5rem 0; }
+        .cast-operations-wysiwyg th, .cast-operations-wysiwyg td { border: 1px solid var(--ou-border-default, #e5e7eb); padding: 0.25rem 0.5rem; }
+        .cast-operations-wysiwyg th { background: var(--ou-surface-secondary, #f9fafb); font-weight: 600; }
+        .cast-operations-wysiwyg img { max-width: 100%; height: auto; }
+        .cast-operations-wysiwyg:empty::before { content: attr(data-placeholder); color: var(--ou-text-subtle, #9ca3af); pointer-events: none; }
       `}</style>
 
       {/* Toolbar */}

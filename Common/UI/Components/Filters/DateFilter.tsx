@@ -10,7 +10,7 @@ import LessThan from "../../../Types/BaseDatabase/LessThan";
 import EqualTo from "../../../Types/BaseDatabase/EqualTo";
 import IsNull from "../../../Types/BaseDatabase/IsNull";
 import NotNull from "../../../Types/BaseDatabase/NotNull";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import GenericObject from "../../../Types/GenericObject";
 import React, { ReactElement, useEffect, useState } from "react";
 
@@ -49,7 +49,7 @@ const toDate: ToDateFunction = (value: unknown): Date | null => {
     return value;
   }
   try {
-    return OneUptimeDate.fromString(value as string);
+    return OperationsDate.fromString(value as string);
   } catch {
     return null;
   }
@@ -64,8 +64,8 @@ const detectState: DetectStateFunction = (rawValue: unknown): DateState => {
 
     // If start/end match the bounds of a single day, treat as "Is".
     if (start && end) {
-      const startOfDay: Date = OneUptimeDate.getStartOfDay(start);
-      const endOfDay: Date = OneUptimeDate.getEndOfDay(start);
+      const startOfDay: Date = OperationsDate.getStartOfDay(start);
+      const endOfDay: Date = OperationsDate.getEndOfDay(start);
       if (
         start.getTime() === startOfDay.getTime() &&
         end.getTime() === endOfDay.getTime()
@@ -121,8 +121,8 @@ const buildValue: BuildValueFunction = (
         return new EqualTo(state.start as any);
       }
       return new InBetween(
-        OneUptimeDate.getStartOfDay(state.start) as any,
-        OneUptimeDate.getEndOfDay(state.start) as any,
+        OperationsDate.getStartOfDay(state.start) as any,
+        OperationsDate.getEndOfDay(state.start) as any,
       );
     }
     case FilterOperator.Before:
@@ -136,8 +136,8 @@ const buildValue: BuildValueFunction = (
       return new InBetween(
         (isDateTime
           ? state.start
-          : OneUptimeDate.getStartOfDay(state.start)) as any,
-        (isDateTime ? state.end : OneUptimeDate.getEndOfDay(state.end)) as any,
+          : OperationsDate.getStartOfDay(state.start)) as any,
+        (isDateTime ? state.end : OperationsDate.getEndOfDay(state.end)) as any,
       );
     }
     case FilterOperator.IsEmpty:

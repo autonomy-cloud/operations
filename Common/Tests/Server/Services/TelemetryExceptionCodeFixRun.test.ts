@@ -42,7 +42,7 @@ function fakeException(): TelemetryException {
     id: exceptionId,
     projectId: projectId,
     primaryEntityId: serviceId,
-    stackTrace: "at charge (/app/src/billing/charge.ts:12:5)",
+    stackTrace: "at charge (/app/src/payments/charge.ts:12:5)",
   } as unknown as TelemetryException;
 }
 
@@ -53,7 +53,7 @@ function fakeResolution(): RepoResolution {
     repositoryName: "checkout",
     servicePathInRepository: null,
     method: "stack-trace",
-    evidence: "Matched src/billing/charge.ts in acme/checkout",
+    evidence: "Matched src/payments/charge.ts in acme/checkout",
   };
 }
 

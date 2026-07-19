@@ -13,23 +13,23 @@ Cast Operations CLI 是一個命令列介面，可讓您直接從終端機管理
 ## 安裝
 
 ```bash
-npm install -g @oneuptime/cli
+npm install -g @cast-operations/cli
 ```
 
 ## 快速開始
 
 ```bash
 # Authenticate with your Cast Operations instance
-oneuptime login <your-api-key> https://visca.ai
+cast-operations login <your-api-key> https://visca.ai
 
 # List your monitors
-oneuptime monitor list
+cast-operations monitor list
 
 # View a specific incident
-oneuptime incident get <incident-id>
+cast-operations incident get <incident-id>
 
 # See all available resources
-oneuptime resources
+cast-operations resources
 ```
 
 ## 文件
@@ -60,9 +60,9 @@ oneuptime resources
 
 ```bash
 # General help
-oneuptime --help
+cast-operations --help
 
 # Help for a specific command
-oneuptime monitor --help
-oneuptime monitor list --help
+cast-operations monitor --help
+cast-operations monitor list --help
 ```

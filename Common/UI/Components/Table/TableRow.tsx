@@ -8,7 +8,7 @@ import FieldType from "../Types/FieldType";
 import Column from "./Types/Column";
 import Columns from "./Types/Columns";
 import Color from "../../../Types/Color";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import GenericObject from "../../../Types/GenericObject";
 import IconProp from "../../../Types/Icon/IconProp";
 import React, { ReactElement, useState, useEffect } from "react";
@@ -192,7 +192,7 @@ const TableRow: TableRowFunction = <T extends GenericObject>(
                   column.key && !column.getElement ? (
                     column.type === FieldType.Date ? (
                       props.item[column.key] ? (
-                        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                           props.item[column.key] as string,
                           true,
                         )
@@ -201,7 +201,7 @@ const TableRow: TableRowFunction = <T extends GenericObject>(
                       )
                     ) : column.type === FieldType.DateTime ? (
                       props.item[column.key] ? (
-                        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                           props.item[column.key] as string,
                           false,
                         )
@@ -305,7 +305,11 @@ const TableRow: TableRowFunction = <T extends GenericObject>(
     // Desktop view: render as table row
     return (
       <>
-        <tr {...provided?.draggableProps} ref={provided?.innerRef}>
+        <tr
+          className="operations-table-row"
+          {...provided?.draggableProps}
+          ref={provided?.innerRef}
+        >
           {props.enableDragAndDrop && (
             <td
               className="ml-5 py-4 w-10 align-top"
@@ -345,10 +349,10 @@ const TableRow: TableRowFunction = <T extends GenericObject>(
               })
               .map((column: Column<T>, i: number) => {
                 let className: string =
-                  "whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6 align-top";
+                  "operations-table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6 align-top";
                 if (i === props.columns.length - 1) {
                   className =
-                    "whitespace-nowrap py-4 pl-4 pr-6 text-sm font-medium text-gray-500 sm:pl-6 align-top";
+                    "operations-table-cell whitespace-nowrap py-4 pl-4 pr-6 text-sm font-medium text-gray-500 sm:pl-6 align-top";
                 }
 
                 let columnContent: React.ReactNode = null;
@@ -357,7 +361,7 @@ const TableRow: TableRowFunction = <T extends GenericObject>(
                   columnContent =
                     column.type === FieldType.Date ? (
                       props.item[column.key] ? (
-                        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                           props.item[column.key] as string,
                           true,
                         )
@@ -366,7 +370,7 @@ const TableRow: TableRowFunction = <T extends GenericObject>(
                       )
                     ) : column.type === FieldType.DateTime ? (
                       props.item[column.key] ? (
-                        OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                        OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                           props.item[column.key] as string,
                           false,
                         )

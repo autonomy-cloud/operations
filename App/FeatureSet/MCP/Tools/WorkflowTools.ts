@@ -7,9 +7,9 @@
  */
 
 import { McpToolInfo, JSONSchema } from "../Types/McpTypes";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
+import OperationsOperation from "../Types/OperationsOperation";
 import ModelType from "../Types/ModelType";
-import OneUptimeApiService from "../Services/OneUptimeApiService";
+import OperationsApiService from "../Services/OperationsApiService";
 import ObjectID from "Common/Types/ObjectID";
 import { JSONObject, JSONArray } from "Common/Types/JSON";
 
@@ -152,7 +152,7 @@ const WORKFLOW_TOOL_DEFINITIONS: WorkflowToolDefinition[] = [
     readOnly: false,
   },
   {
-    name: "oneuptime_whoami",
+    name: "cast_operations_whoami",
     title: "Who Am I",
     description:
       "Get the project your API key belongs to (ID and name). Call this first to understand your context. Note: create tools infer projectId from the API key automatically, so you never need to pass it.",
@@ -181,8 +181,8 @@ export function generateWorkflowTools(): McpToolInfo[] {
           : { readOnlyHint: false, destructiveHint: false },
         modelName: "Workflow",
         operation: definition.readOnly
-          ? OneUptimeOperation.Read
-          : OneUptimeOperation.Create,
+          ? OperationsOperation.Read
+          : OperationsOperation.Create,
         modelType: ModelType.Database,
         singularName: definition.title,
         pluralName: definition.title,
@@ -246,7 +246,7 @@ export async function handleWorkflowTool(
       return addIncidentNote(args, apiKey);
     case "add_alert_note":
       return addAlertNote(args, apiKey);
-    case "oneuptime_whoami":
+    case "cast_operations_whoami":
       return whoami(apiKey);
     default:
       throw new Error(`Unknown workflow tool: ${toolName}`);
@@ -286,17 +286,19 @@ async function findStateId(data: {
   const statePath: string =
     data.kind === "incident" ? "/incident-state" : "/alert-state";
 
-  const response: unknown = await OneUptimeApiService.makeAuthenticatedApiCall({
-    method: "POST",
-    path: `/api${statePath}/get-list`,
-    body: {
-      query: { [data.flag]: true },
-      select: { _id: true, name: true },
-      skip: 0,
-      limit: 1,
-    } as JSONObject,
-    apiKey: data.apiKey,
-  });
+  const response: unknown = await OperationsApiService.makeAuthenticatedApiCall(
+    {
+      method: "POST",
+      path: `/api${statePath}/get-list`,
+      body: {
+        query: { [data.flag]: true },
+        select: { _id: true, name: true },
+        skip: 0,
+        limit: 1,
+      } as JSONObject,
+      apiKey: data.apiKey,
+    },
+  );
 
   const rows: JSONArray =
     ((response as JSONObject)?.["data"] as JSONArray) || [];
@@ -340,7 +342,7 @@ async function changeState(data: {
   const stateField: string =
     data.kind === "incident" ? "incidentStateId" : "alertStateId";
 
-  await OneUptimeApiService.makeAuthenticatedApiCall({
+  await OperationsApiService.makeAuthenticatedApiCall({
     method: "POST",
     path: `/api${timelinePath}`,
     body: {
@@ -381,7 +383,7 @@ async function addIncidentNote(
       ? "/api/incident-public-note"
       : "/api/incident-internal-note";
 
-  const created: unknown = await OneUptimeApiService.makeAuthenticatedApiCall({
+  const created: unknown = await OperationsApiService.makeAuthenticatedApiCall({
     method: "POST",
     path,
     body: {
@@ -413,7 +415,7 @@ async function addAlertNote(
   const alertId: string = requireUuid(args, "alertId");
   const note: string = requireString(args, "note");
 
-  const created: unknown = await OneUptimeApiService.makeAuthenticatedApiCall({
+  const created: unknown = await OperationsApiService.makeAuthenticatedApiCall({
     method: "POST",
     path: "/api/alert-internal-note",
     body: {
@@ -439,17 +441,19 @@ async function addAlertNote(
  * _id, so a project-scoped key sees exactly its own project.
  */
 async function whoami(apiKey: string): Promise<JSONObject> {
-  const response: unknown = await OneUptimeApiService.makeAuthenticatedApiCall({
-    method: "POST",
-    path: "/api/project/get-list",
-    body: {
-      query: {},
-      select: { _id: true, name: true },
-      skip: 0,
-      limit: 10,
-    } as JSONObject,
-    apiKey,
-  });
+  const response: unknown = await OperationsApiService.makeAuthenticatedApiCall(
+    {
+      method: "POST",
+      path: "/api/project/get-list",
+      body: {
+        query: {},
+        select: { _id: true, name: true },
+        skip: 0,
+        limit: 10,
+      } as JSONObject,
+      apiKey,
+    },
+  );
 
   const rows: JSONArray =
     ((response as JSONObject)?.["data"] as JSONArray) || [];
@@ -463,7 +467,7 @@ async function whoami(apiKey: string): Promise<JSONObject> {
 
   return {
     success: true,
-    operation: "oneuptime_whoami",
+    operation: "cast_operations_whoami",
     projects,
     message:
       projects.length > 0

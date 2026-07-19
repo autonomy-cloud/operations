@@ -2,9 +2,7 @@ import File from "./File";
 import Project from "./Project";
 import User from "./User";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
-import ColumnBillingAccessControl from "../../Types/Database/AccessControl/ColumnBillingAccessControl";
 import OperationalResource from "../../Types/Database/AccessControl/OperationalResource";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
@@ -151,7 +149,8 @@ export default class Dashboard extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -756,11 +755,6 @@ export default class Dashboard extends BaseModel {
     type: ColumnType.Boolean,
     default: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public isPublicDashboard?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -870,11 +864,6 @@ export default class Dashboard extends BaseModel {
   @Column({
     type: ColumnType.VeryLongText,
     nullable: true,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Scale,
-    create: PlanType.Free,
   })
   public ipWhitelist?: string = undefined;
 }

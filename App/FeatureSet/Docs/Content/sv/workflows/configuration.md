@@ -72,7 +72,6 @@ De flesta utvecklare bör ha skapa/redigera/läsa på arbetsflöden men inte på
 
 ## Plangränser
 
-Cast Operations Cloud begränsar antalet körningar per månad på mindre planer. Din aktuella gräns visas under **Project Settings → Billing**. När du når den avvisas nya utlösare till nästa faktureringscykel. Självhostade installationer har inte denna gräns.
 
 ## När arbetsflöden inte är rätt verktyg
 

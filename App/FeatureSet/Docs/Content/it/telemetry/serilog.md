@@ -27,7 +27,7 @@ Una volta creato un token, fai clic su "View" per visualizzarlo.
 | Impostazione             | Valore                                                                 |
 | ------------------------ | ---------------------------------------------------------------------- |
 | Endpoint OTLP            | `https://visca.ai/otlp`                                           |
-| Header di autenticazione | `x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN`                    |
+| Header di autenticazione | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`                    |
 | Nome del servizio        | Il nome con cui il tuo servizio dovrebbe apparire, ad es. `my-service` |
 
 > **Self-hosting di Cast Operations?** Sostituisci `https://visca.ai/otlp` con `https://YOUR-OPERATIONS-HOST/otlp` (oppure `http://...` se non stai terminando il TLS). Tutto il resto rimane invariato.
@@ -76,7 +76,7 @@ Log.Logger = new LoggerConfiguration()
         // Authenticate with your Cast Operations telemetry ingestion token.
         options.Headers = new Dictionary<string, string>
         {
-            ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+            ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
         };
 
         // Identify your service in Cast Operations.
@@ -118,7 +118,7 @@ Se preferisci la configurazione al codice, usa `Serilog.Settings.Configuration` 
           "endpoint": "https://visca.ai/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
-            "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+            "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
           },
           "resourceAttributes": {
             "service.name": "my-service",
@@ -169,7 +169,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
-                ["x-oneuptime-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
+                ["x-cast-operations-token"] = "YOUR_TELEMETRY_INGESTION_TOKEN"
             };
             options.ResourceAttributes = new Dictionary<string, object>
             {
@@ -228,9 +228,9 @@ Se la tua applicazione è anche strumentata con l'OpenTelemetry .NET SDK per le 
 
 ## Risoluzione dei problemi
 
-- **Non compare alcun log** – Ricontrolla il valore di `x-oneuptime-token` e verifica che appartenga al progetto che stai visualizzando. Verifica che l'endpoint sia `https://visca.ai/otlp` (solo il percorso base — non aggiungere tu stesso `/v1/logs`).
+- **Non compare alcun log** – Ricontrolla il valore di `x-cast-operations-token` e verifica che appartenga al progetto che stai visualizzando. Verifica che l'endpoint sia `https://visca.ai/otlp` (solo il percorso base — non aggiungere tu stesso `/v1/logs`).
 - **I log compaiono solo all'uscita dell'app, oppure mancano gli ultimi log** – Assicurati che `Log.CloseAndFlush()` venga eseguito all'arresto. Il sink raggruppa gli eventi, quindi i log nel buffer vanno persi se il processo viene terminato senza eseguire il flush.
-- **`401 Unauthorized` / nulla viene acquisito** – Il token è mancante o non valido. Verifica che la chiave dell'header sia esattamente `x-oneuptime-token`.
+- **`401 Unauthorized` / nulla viene acquisito** – Il token è mancante o non valido. Verifica che la chiave dell'header sia esattamente `x-cast-operations-token`.
 - **Nome del servizio errato** – Imposta `service.name` in `ResourceAttributes` (codice) o `resourceAttributes` (appsettings.json). Senza di esso, i log ricadono su un servizio predefinito/sconosciuto.
 - **Errori di connessione a un'istanza self-hosted** – Assicurati che il protocollo corrisponda allo schema del tuo endpoint (`https://` vs `http://`) e che il tuo host Cast Operations sia raggiungibile dall'applicazione.
 

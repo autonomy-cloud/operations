@@ -49,18 +49,18 @@ Runbook एजेंट इसे उलट देते हैं। Bash औ�
 - वे चीज़ें कर सकता हो जो आप Bash/JavaScript steps से करवाना चाहते हैं (जैसे दूसरे hosts पर SSH, `kubectl`, database से बात करना)।
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.yourdomain.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.yourdomain.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. एजेंट का connection सत्यापित करें
 
 **Runbooks → Settings → Agents** पर वापस जाएँ। लगभग 60 सेकंड के भीतर एजेंट की पंक्ति को ताज़ा **Last seen** टाइमस्टैम्प के साथ `Connected` में बदल जाना चाहिए। अगर वह `Disconnected` ही रहे:
 
-- container logs (`docker logs oneuptime-runbook-agent`) में auth या नेटवर्क errors देखें।
+- container logs (`docker logs cast-operations-runbook-agent`) में auth या नेटवर्क errors देखें।
 - सत्यापित करें कि host `curl` से Cast Operations URL तक पहुँचता है।
 - सत्यापित करें कि ID और key बिना whitespace के copy हुए हैं।
 
@@ -116,7 +116,7 @@ Runbook execution को रद्द करना (execution view या API �
 
 | Variable                                  | आवश्यक | डिफ़ॉल्ट | टिप्पणियाँ                                                                    |
 | ----------------------------------------- | ------ | -------- | ----------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | हाँ    | —        | आपके Cast Operations instance का base URL, जैसे `https://operations.yourdomain.com`। |
+| `CAST_OPERATIONS_URL`                           | हाँ    | —        | आपके Cast Operations instance का base URL, जैसे `https://operations.yourdomain.com`। |
 | `RUNBOOK_AGENT_ID`                        | हाँ    | —        | एजेंट के setup modal में दिखाया गया UUID।                                     |
 | `RUNBOOK_AGENT_KEY`                       | हाँ    | —        | एजेंट के setup modal में दिखाया गया secret।                                   |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | नहीं   | `5000`   | एजेंट कितनी बार नए jobs के लिए poll करता है।                                  |

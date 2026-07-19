@@ -10,7 +10,7 @@ Er is geen agent die je aan de apparaatzijde hoeft te installeren — alles wat 
 
 - Een apparaat, gateway of collector die OTLP/HTTP naar Cast Operations kan sturen
 - Netwerkbereikbaarheid van het apparaat/de gateway naar je Cast Operations-instantie
-- Een **Cast Operations Telemetry Ingestion Token** — maak er een aan via _Project Settings → Telemetry Ingestion Keys_ en kopieer de `x-oneuptime-token`-waarde
+- Een **Cast Operations Telemetry Ingestion Token** — maak er een aan via _Project Settings → Telemetry Ingestion Keys_ en kopieer de `x-cast-operations-token`-waarde
 
 ## Hoe Cast Operations IoT modelleert
 
@@ -35,14 +35,14 @@ Als je apparaat rechtstreeks een OpenTelemetry SDK draait, wijs deze dan naar Ca
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | Omgevingsvariabele          | Vereist | Beschrijving                                                                                          |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | Ja      | Cast Operations OTLP-endpoint (`https://visca.ai/otlp`, of `http(s)://YOUR-OPERATIONS-HOST/otlp` bij self-hosting) |
-| `OTEL_EXPORTER_OTLP_HEADERS`  | Ja      | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | Ja      | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | Ja      | Door komma's gescheiden resourceattributen. Moet `iot.fleet.name`, `device.id` en `service.name=iot/<fleet>` bevatten |
 
 Verstuur je metingen als metrics met de `iot_*`-namen hieronder (zie [Metric-conventies](#metric-conventies)). Binnen ongeveer een minuut verschijnt het apparaat in het gedeelte **IoT** van het Cast Operations-dashboard.
@@ -80,7 +80,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
 service:
   pipelines:
@@ -108,28 +108,28 @@ Cast Operations wordt geleverd met een ingebouwd MQTT-endpoint, zodat apparaten 
 **Authenticatie** — twee opties:
 
 - **Projectbreed**: verstuur je **Telemetry Ingestion Token** als het MQTT-wachtwoord (de gebruikersnaam wordt genegeerd; als je client alleen een gebruikersnaamveld biedt, zet het token dan daarin). Geschikt voor gateways die namens veel apparaten publiceren.
-- **Per apparaat** (aanbevolen voor apparaten die rechtstreeks verbinden): registreer het apparaat onder het tabblad **Device Registry** van de vloot in het dashboard. Registratie geeft een credential per apparaat uit — de credential-id is de MQTT-**gebruikersnaam** en het geheim is het **wachtwoord**. Clients die per apparaat zijn geauthenticeerd, kunnen alleen publiceren onder hun eigen `oneuptime/<fleet>/<device>/…`-topics, een enkel gecompromitteerd apparaat kan vanuit het dashboard worden ingetrokken zonder de rest van de vloot aan te raken (intrekking wordt binnen ongeveer een minuut van kracht, zelfs voor verbonden sessies), en geregistreerde apparaten krijgen **offlinedetectie bij stille uitval**: ze blijven als Offline in de inventaris staan in plaats van te verdwijnen wanneer ze stoppen met rapporteren, en het waarschuwingssjabloon Device Offline wordt voor hen geactiveerd, zelfs als ze uitvallen zonder Last Will.
+- **Per apparaat** (aanbevolen voor apparaten die rechtstreeks verbinden): registreer het apparaat onder het tabblad **Device Registry** van de vloot in het dashboard. Registratie geeft een credential per apparaat uit — de credential-id is de MQTT-**gebruikersnaam** en het geheim is het **wachtwoord**. Clients die per apparaat zijn geauthenticeerd, kunnen alleen publiceren onder hun eigen `cast-operations/<fleet>/<device>/…`-topics, een enkel gecompromitteerd apparaat kan vanuit het dashboard worden ingetrokken zonder de rest van de vloot aan te raken (intrekking wordt binnen ongeveer een minuut van kracht, zelfs voor verbonden sessies), en geregistreerde apparaten krijgen **offlinedetectie bij stille uitval**: ze blijven als Offline in de inventaris staan in plaats van te verdwijnen wanneer ze stoppen met rapporteren, en het waarschuwingssjabloon Device Offline wordt voor hen geactiveerd, zelfs als ze uitvallen zonder Last Will.
 
 Ongeldige credentials worden bij CONNECT geweigerd met retourcode 4 (bad username or password), zodat een verkeerd geconfigureerd apparaat luid en duidelijk faalt.
 
-**Topics** — publiceer onder het vaste `oneuptime/`-voorvoegsel. Vloot- en apparaatsegmenten mogen geen `/`, `+` of `#` bevatten en zijn beperkt tot 100 tekens:
+**Topics** — publiceer onder het vaste `cast-operations/`-voorvoegsel. Vloot- en apparaatsegmenten mogen geen `/`, `+` of `#` bevatten en zijn beperkt tot 100 tekens:
 
 | Topic                                            | Payload                                                                                              |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `oneuptime/<fleet>/<device>/telemetry`           | JSON-object met metingen — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, of een plat object waarvan de numerieke velden de metrics zijn |
-| `oneuptime/<fleet>/<device>/metrics/<metricName>`| Eén enkele waarde — een kaal getal (`23.4`) of `{ "value": 23.4 }`                                    |
-| `oneuptime/<fleet>/<device>/status`              | `"online"` of `"offline"` (ook `1`/`0`, `true`/`false`, `up`/`down`) — wordt toegewezen aan `iot_device_up` |
+| `cast-operations/<fleet>/<device>/telemetry`           | JSON-object met metingen — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, of een plat object waarvan de numerieke velden de metrics zijn |
+| `cast-operations/<fleet>/<device>/metrics/<metricName>`| Eén enkele waarde — een kaal getal (`23.4`) of `{ "value": 23.4 }`                                    |
+| `cast-operations/<fleet>/<device>/status`              | `"online"` of `"offline"` (ook `1`/`0`, `true`/`false`, `up`/`down`) — wordt toegewezen aan `iot_device_up` |
 
 Telemetry-payloads mogen ook `"attributes"` bevatten (een string-map die op elk datapunt wordt gestempeld — gebruik deze voor `iot.device.kind`, `iot.device.type`, `iot.device.firmware` of je eigen labels) en `"timestamp"` (ISO-8601, of unix-seconden/-milliseconden). Beide zijn optioneel; als `timestamp` ontbreekt, wordt het ingestietijdstip gebruikt.
 
-**Offlinedetectie met Last Will** — registreer een MQTT Last Will op `oneuptime/<fleet>/<device>/status` met payload `offline`. Als het apparaat uitvalt of van het netwerk verdwijnt, publiceert de broker namens het apparaat `iot_device_up = 0` op het moment dat de sessie eindigt — waarmee het standaard waarschuwingssjabloon **Device Offline** wordt geactiveerd en het apparaat in de inventaris op Down wordt gezet, zonder polling en zonder te wachten op een gemiste scrape. Publiceer `online` op hetzelfde topic na het verbinden zodat het apparaat weer als Up wordt weergegeven.
+**Offlinedetectie met Last Will** — registreer een MQTT Last Will op `cast-operations/<fleet>/<device>/status` met payload `offline`. Als het apparaat uitvalt of van het netwerk verdwijnt, publiceert de broker namens het apparaat `iot_device_up = 0` op het moment dat de sessie eindigt — waarmee het standaard waarschuwingssjabloon **Device Offline** wordt geactiveerd en het apparaat in de inventaris op Down wordt gezet, zonder polling en zonder te wachten op een gemiste scrape. Publiceer `online` op hetzelfde topic na het verbinden zodat het apparaat weer als Up wordt weergegeven.
 
 Voorbeeld met `mosquitto_pub` (ruwe TCP, self-hosted):
 
 ```bash
-mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
-  -u oneuptime -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
-  -t "oneuptime/building-a-sensors/sensor-001/telemetry" \
+mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
+  -u cast-operations -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -t "cast-operations/building-a-sensors/sensor-001/telemetry" \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
@@ -139,19 +139,19 @@ Voorbeeld met Node.js `mqtt` via WebSocket (werkt tegen visca.ai en elke self-ho
 const mqtt = require("mqtt");
 
 const client = mqtt.connect("wss://visca.ai/mqtt", {
-  username: "oneuptime", // genegeerd — het token hieronder is wat authenticeert
+  username: "cast-operations", // genegeerd — het token hieronder is wat authenticeert
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
-    topic: "oneuptime/building-a-sensors/sensor-001/status",
+    topic: "cast-operations/building-a-sensors/sensor-001/status",
     payload: "offline",
   },
 });
 
 client.on("connect", () => {
-  client.publish("oneuptime/building-a-sensors/sensor-001/status", "online");
+  client.publish("cast-operations/building-a-sensors/sensor-001/status", "online");
   setInterval(() => {
     client.publish(
-      "oneuptime/building-a-sensors/sensor-001/telemetry",
+      "cast-operations/building-a-sensors/sensor-001/telemetry",
       JSON.stringify({
         metrics: {
           iot_device_up: 1,
@@ -171,15 +171,15 @@ import json
 import paho.mqtt.client as mqtt
 
 client = mqtt.Client(transport="websockets")
-client.username_pw_set("oneuptime", "YOUR_TELEMETRY_INGESTION_TOKEN")
+client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
-client.will_set("oneuptime/building-a-sensors/sensor-001/status", "offline")
+client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
 client.connect("visca.ai", 443)
 
-client.publish("oneuptime/building-a-sensors/sensor-001/status", "online")
+client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
-    "oneuptime/building-a-sensors/sensor-001/telemetry",
+    "cast-operations/building-a-sensors/sensor-001/telemetry",
     json.dumps({"metrics": {"iot_device_up": 1, "iot_temperature_celsius": 21.5}}),
 )
 ```
@@ -219,7 +219,7 @@ Cast Operations herkent de volgende `iot_*`-metricnamen. Elk datapunt moet het `
 ### Vloot verschijnt niet
 
 1. Controleer of `iot.fleet.name` is ingesteld als een **resource**-attribuut (niet als een datapuntlabel), en dat `service.name` gelijk is aan `iot/<fleet>`.
-2. Bevestig dat het exporter-endpoint `https://visca.ai/otlp` is (of je self-hosted `…/otlp`) en dat de `x-oneuptime-token`-header een geldig token draagt.
+2. Bevestig dat het exporter-endpoint `https://visca.ai/otlp` is (of je self-hosted `…/otlp`) en dat de `x-cast-operations-token`-header een geldig token draagt.
 3. Als je een collector gebruikt, zorg er dan voor dat `encoding: json` en `Content-Type: application/json` zijn ingesteld op de `otlphttp`-exporter.
 
 ### Apparaten ontbreken in de inventaris
@@ -230,7 +230,7 @@ Cast Operations herkent de volgende `iot_*`-metricnamen. Elk datapunt moet het `
 
 ### HTTP 401 / 403 van de exporter
 
-Het ingestietoken is ongeldig, ingetrokken of ontbreekt. Genereer een nieuw token via _Project Settings → Telemetry Ingestion Keys_ en werk de `x-oneuptime-token`-header bij.
+Het ingestietoken is ongeldig, ingetrokken of ontbreekt. Genereer een nieuw token via _Project Settings → Telemetry Ingestion Keys_ en werk de `x-cast-operations-token`-header bij.
 
 ### Metrics worden niet in grafieken weergegeven
 
@@ -255,7 +255,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 Als je instantie alleen HTTP gebruikt, wijzig dan het schema naar `http://` en gebruik de juiste poort.

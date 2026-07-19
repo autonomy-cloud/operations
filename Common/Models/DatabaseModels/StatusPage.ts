@@ -7,10 +7,8 @@ import ProjectSmtpConfig from "./ProjectSmtpConfig";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import Color from "../../Types/Color";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
-import ColumnBillingAccessControl from "../../Types/Database/AccessControl/ColumnBillingAccessControl";
 import OperationalResource from "../../Types/Database/AccessControl/OperationalResource";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
 import AccessControlColumn from "../../Types/Database/AccessControlColumn";
@@ -176,7 +174,8 @@ export default class StatusPage extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -874,11 +873,6 @@ export default class StatusPage extends BaseModel {
     nullable: true,
     type: ColumnType.HTML,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public headerHTML?: string = undefined;
 
   @ColumnAccessControl({
@@ -919,11 +913,6 @@ export default class StatusPage extends BaseModel {
     nullable: true,
     type: ColumnType.HTML,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public footerHTML?: string = undefined;
 
   @ColumnAccessControl({
@@ -963,11 +952,6 @@ export default class StatusPage extends BaseModel {
   @Column({
     nullable: true,
     type: ColumnType.CSS,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
   })
   public customCSS?: string = undefined;
 
@@ -1010,11 +994,6 @@ export default class StatusPage extends BaseModel {
     nullable: true,
     type: ColumnType.JavaScript,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public customJavaScript?: string = undefined;
 
   @ColumnAccessControl({
@@ -1055,11 +1034,6 @@ export default class StatusPage extends BaseModel {
   @Column({
     type: ColumnType.Boolean,
     default: true,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
   })
   public isPublicStatusPage?: boolean = undefined;
 
@@ -1232,11 +1206,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Boolean,
     default: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public showIncidentLabelsOnStatusPage?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -1277,11 +1246,6 @@ export default class StatusPage extends BaseModel {
   @Column({
     type: ColumnType.Boolean,
     default: false,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
   })
   public showScheduledEventLabelsOnStatusPage?: boolean = undefined;
 
@@ -1365,11 +1329,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Boolean,
     default: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Scale,
-    create: PlanType.Free,
-  })
   public allowSubscribersToChooseResources?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -1412,11 +1371,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Boolean,
     default: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Scale,
-    create: PlanType.Free,
-  })
   public allowSubscribersToChooseEventTypes?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -1458,11 +1412,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Boolean,
     default: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public enableSmsSubscribers?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -1503,11 +1452,6 @@ export default class StatusPage extends BaseModel {
   @Column({
     type: ColumnType.Boolean,
     default: false,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Scale,
-    create: PlanType.Free,
   })
   public enableSlackSubscribers?: boolean = undefined;
 
@@ -1551,11 +1495,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Boolean,
     default: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Scale,
-    create: PlanType.Free,
-  })
   public enableMicrosoftTeamsSubscribers?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -1596,11 +1535,6 @@ export default class StatusPage extends BaseModel {
   @Column({
     type: ColumnType.Boolean,
     default: false,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Scale,
-    create: PlanType.Free,
   })
   public enableWebhookSubscribers?: boolean = undefined;
 
@@ -2256,12 +2190,7 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Boolean,
     default: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Scale,
-    create: PlanType.Free,
-  })
-  public hidePoweredByOneUptimeBranding?: boolean = undefined;
+  public hidePoweredByOperationsBranding?: boolean = undefined;
 
   @ColumnAccessControl({
     create: [
@@ -2446,11 +2375,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Boolean,
     default: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public isReportEnabled?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -2489,11 +2413,6 @@ export default class StatusPage extends BaseModel {
   @Column({
     type: ColumnType.Date,
     nullable: true,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
   })
   public reportStartDateTime?: Date = undefined;
 
@@ -2535,11 +2454,6 @@ export default class StatusPage extends BaseModel {
     nullable: true,
     transformer: Recurring.getDatabaseTransformer(),
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public reportRecurringInterval?: Recurring = undefined;
 
   @ColumnAccessControl({
@@ -2578,11 +2492,6 @@ export default class StatusPage extends BaseModel {
   @Column({
     type: ColumnType.Date,
     nullable: true,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
   })
   public sendNextReportBy?: Date = undefined;
 
@@ -2625,11 +2534,6 @@ export default class StatusPage extends BaseModel {
     nullable: true,
     default: 30,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public reportDataInDays?: number = undefined;
 
   @ColumnAccessControl({
@@ -2670,11 +2574,6 @@ export default class StatusPage extends BaseModel {
   @Column({
     type: ColumnType.Boolean,
     default: false,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Scale,
-    create: PlanType.Free,
   })
   public showOverallUptimePercentOnStatusPage?: boolean = undefined;
 
@@ -2844,11 +2743,6 @@ export default class StatusPage extends BaseModel {
     default: true,
     nullable: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public showIncidentsOnStatusPage?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -2890,11 +2784,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Boolean,
     default: true,
     nullable: false,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
   })
   public showAnnouncementsOnStatusPage?: boolean = undefined;
 
@@ -2938,11 +2827,6 @@ export default class StatusPage extends BaseModel {
     default: true,
     nullable: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public showEpisodesOnStatusPage?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -2984,11 +2868,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Number,
     default: 14,
     nullable: false,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
   })
   public showEpisodeHistoryInDays?: number = undefined;
 
@@ -3032,11 +2911,6 @@ export default class StatusPage extends BaseModel {
     default: false,
     nullable: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public showEpisodeLabelsOnStatusPage?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -3078,11 +2952,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.Boolean,
     default: true,
     nullable: false,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
   })
   public showScheduledMaintenanceEventsOnStatusPage?: boolean = undefined;
 
@@ -3126,11 +2995,6 @@ export default class StatusPage extends BaseModel {
     default: true,
     nullable: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public showSubscriberPageOnStatusPage?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -3172,11 +3036,6 @@ export default class StatusPage extends BaseModel {
   @Column({
     type: ColumnType.VeryLongText,
     nullable: true,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Scale,
-    create: PlanType.Free,
   })
   public ipWhitelist?: string = undefined;
 
@@ -3221,11 +3080,6 @@ export default class StatusPage extends BaseModel {
     default: false,
     nullable: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
-  })
   public enableEmbeddedOverallStatus?: boolean = undefined;
 
   @ColumnAccessControl({
@@ -3269,11 +3123,6 @@ export default class StatusPage extends BaseModel {
     default: 90,
     nullable: false,
   })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Free,
-    create: PlanType.Free,
-  })
   public showUptimeHistoryInDays?: number = undefined;
 
   @ColumnAccessControl({
@@ -3316,11 +3165,6 @@ export default class StatusPage extends BaseModel {
     type: ColumnType.ShortText,
     length: ColumnLength.ShortText,
     nullable: true,
-  })
-  @ColumnBillingAccessControl({
-    read: PlanType.Free,
-    update: PlanType.Growth,
-    create: PlanType.Free,
   })
   public embeddedOverallStatusToken?: string = undefined;
 

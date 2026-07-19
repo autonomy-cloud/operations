@@ -1,7 +1,7 @@
 import {
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import BadDataException from "../../Types/Exception/BadDataException";
@@ -13,7 +13,7 @@ import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 export default class SlackAuthorization {
   @CaptureSpan()
   public static async isAuthorizedSlackRequest(
-    req: OneUptimeRequest,
+    req: OperationsRequest,
     res: ExpressResponse,
     next: NextFunction,
   ): Promise<void> {
@@ -45,8 +45,8 @@ export default class SlackAuthorization {
     ] as string;
     // Use rawBody for both JSON and URL-encoded requests, fallback to rawFormUrlEncodedBody for backward compatibility
     const requestBody: string =
-      (req as OneUptimeRequest).rawBody ||
-      (req as OneUptimeRequest).rawFormUrlEncodedBody ||
+      (req as OperationsRequest).rawBody ||
+      (req as OperationsRequest).rawFormUrlEncodedBody ||
       "";
 
     logger.debug(

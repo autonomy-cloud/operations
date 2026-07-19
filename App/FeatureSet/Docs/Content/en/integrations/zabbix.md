@@ -130,7 +130,7 @@ The core workflow above _opens_ incidents. To also _close_ them when Zabbix reco
 3. From its **Yes** output, add a **Find Incident** block that looks up the open incident you created earlier — match on the Zabbix `event_id` you stored in the description or a label.
 4. Connect that to an **Update Incident** block and move the incident to your _resolved_ state.
 
-Because resolution depends on how you model incident states in your project, keep the **create** path as the reliable core and layer the resolve path on once you've confirmed events flow correctly. See [Components → Cast Operations data components](/docs/workflows/components#oneuptime-data-components).
+Because resolution depends on how you model incident states in your project, keep the **create** path as the reliable core and layer the resolve path on once you've confirmed events flow correctly. See [Components → Cast Operations data components](/docs/workflows/components#cast-operations-data-components).
 
 ## Mapping Zabbix severities (optional)
 

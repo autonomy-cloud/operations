@@ -5,7 +5,7 @@ import { describe, expect, it } from "@jest/globals";
 
 describe("StartsWith", () => {
   it("should create a StartsWith object with a valid value", () => {
-    const value: string = "oneuptime";
+    const value: string = "cast-operations";
     const obj: StartsWith<string> = new StartsWith<string>(value);
     expect(obj.value).toBe(value);
   });
@@ -17,15 +17,15 @@ describe("StartsWith", () => {
   });
 
   it("should return the value using toString", () => {
-    const obj: StartsWith<string> = new StartsWith<string>("oneuptime");
-    expect(obj.toString()).toBe("oneuptime");
+    const obj: StartsWith<string> = new StartsWith<string>("cast-operations");
+    expect(obj.toString()).toBe("cast-operations");
   });
 
   it("should generate the correct JSON representation using toJSON", () => {
-    const obj: StartsWith<string> = new StartsWith<string>("oneuptime");
+    const obj: StartsWith<string> = new StartsWith<string>("cast-operations");
     const expectedJSON: JSONObject = {
       _type: "StartsWith",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(obj.toJSON()).toEqual(expectedJSON);
   });
@@ -33,10 +33,10 @@ describe("StartsWith", () => {
   it("should create a StartsWith object from valid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "StartsWith",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     const obj: StartsWith<string> = StartsWith.fromJSON(jsonInput);
-    expect(obj.value).toBe("oneuptime");
+    expect(obj.value).toBe("cast-operations");
   });
 
   it("should default to an empty string when the JSON value is missing", () => {
@@ -50,7 +50,7 @@ describe("StartsWith", () => {
   it("should throw a BadDataException when using invalid JSON input", () => {
     const jsonInput: JSONObject = {
       _type: "InvalidType",
-      value: "oneuptime",
+      value: "cast-operations",
     };
     expect(() => {
       return StartsWith.fromJSON(jsonInput);
@@ -58,7 +58,7 @@ describe("StartsWith", () => {
   });
 
   it("should be an instance of StartsWith", () => {
-    const obj: StartsWith<string> = new StartsWith<string>("oneuptime");
+    const obj: StartsWith<string> = new StartsWith<string>("cast-operations");
     expect(obj).toBeInstanceOf(StartsWith);
   });
 });

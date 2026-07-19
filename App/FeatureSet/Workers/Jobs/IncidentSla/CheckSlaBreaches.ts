@@ -3,7 +3,7 @@ import { EVERY_MINUTE } from "Common/Utils/CronTime";
 import IncidentSlaService from "Common/Server/Services/IncidentSlaService";
 import IncidentSla from "Common/Models/DatabaseModels/IncidentSla";
 import IncidentSlaStatus from "Common/Types/Incident/IncidentSlaStatus";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import logger from "Common/Server/Utils/Logger";
 import IncidentService from "Common/Server/Services/IncidentService";
 import UserNotificationSettingService from "Common/Server/Services/UserNotificationSettingService";
@@ -33,7 +33,7 @@ RunCron(
     runOnStartup: false,
   },
   async () => {
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     // Get all SLAs that need breach checking (OnTrack or AtRisk, not resolved)
     const slasToCheck: Array<IncidentSla> =
@@ -58,17 +58,17 @@ RunCron(
           sla.status !== IncidentSlaStatus.ResponseBreached
         ) {
           // Check if response deadline is breached
-          if (OneUptimeDate.isAfter(now, sla.responseDeadline)) {
+          if (OperationsDate.isAfter(now, sla.responseDeadline)) {
             newStatus = IncidentSlaStatus.ResponseBreached;
             breachType = "response";
           } else if (sla.status === IncidentSlaStatus.OnTrack) {
             // Check if at risk for response
             const totalResponseTime: number =
-              OneUptimeDate.getDifferenceInMinutes(
+              OperationsDate.getDifferenceInMinutes(
                 sla.responseDeadline,
                 sla.slaStartedAt,
               );
-            const elapsedTime: number = OneUptimeDate.getDifferenceInMinutes(
+            const elapsedTime: number = OperationsDate.getDifferenceInMinutes(
               now,
               sla.slaStartedAt,
             );
@@ -87,7 +87,7 @@ RunCron(
           sla.status !== IncidentSlaStatus.ResolutionBreached
         ) {
           // Check if resolution deadline is breached
-          if (OneUptimeDate.isAfter(now, sla.resolutionDeadline)) {
+          if (OperationsDate.isAfter(now, sla.resolutionDeadline)) {
             newStatus = IncidentSlaStatus.ResolutionBreached;
             breachType = "resolution";
           } else if (
@@ -97,11 +97,11 @@ RunCron(
             // Check if at risk for resolution (only if not already breached for response)
             if (newStatus !== IncidentSlaStatus.ResponseBreached) {
               const totalResolutionTime: number =
-                OneUptimeDate.getDifferenceInMinutes(
+                OperationsDate.getDifferenceInMinutes(
                   sla.resolutionDeadline,
                   sla.slaStartedAt,
                 );
-              const elapsedTime: number = OneUptimeDate.getDifferenceInMinutes(
+              const elapsedTime: number = OperationsDate.getDifferenceInMinutes(
                 now,
                 sla.slaStartedAt,
               );
@@ -243,7 +243,7 @@ async function sendBreachNotification(data: {
       breachType === "response" ? sla.responseDeadline : sla.resolutionDeadline;
 
     const deadlineStr: string = deadline
-      ? OneUptimeDate.getDateAsLocalFormattedString(deadline)
+      ? OperationsDate.getDateAsLocalFormattedString(deadline)
       : "N/A";
 
     const ruleName: string = sla.incidentSlaRule?.name || "SLA Rule";

@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const KEYS: {
-  readonly BIOMETRIC_ENABLED: "oneuptime_biometric_enabled";
+  readonly BIOMETRIC_ENABLED: "cast_operations_biometric_enabled";
 } = {
-  BIOMETRIC_ENABLED: "oneuptime_biometric_enabled",
+  BIOMETRIC_ENABLED: "cast_operations_biometric_enabled",
 } as const;
 
 export async function getBiometricEnabled(): Promise<boolean> {

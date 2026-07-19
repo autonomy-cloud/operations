@@ -1,5 +1,5 @@
 import DatabaseProperty from "../Database/DatabaseProperty";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 import DayOfWeek from "../Day/DayOfWeek";
 import BadDataException from "../Exception/BadDataException";
 import { JSONObject, ObjectType } from "../JSON";
@@ -135,12 +135,12 @@ export default class RestrictionTimes extends DatabaseProperty {
   public addDefaultDailyRestriction(): void {
     this.restictionType = RestrictionType.Daily;
     this.dayRestrictionTimes = {
-      startTime: OneUptimeDate.getDateWithCustomTime({
+      startTime: OperationsDate.getDateWithCustomTime({
         hours: 0,
         minutes: 0,
         seconds: 0,
       }),
-      endTime: OneUptimeDate.getDateWithCustomTime({
+      endTime: OperationsDate.getDateWithCustomTime({
         hours: 1,
         minutes: 0,
         seconds: 0,
@@ -171,16 +171,24 @@ export default class RestrictionTimes extends DatabaseProperty {
      * moveDateToTheDayOfWeek keeps the time-of-day and moves to the target
      * weekday, so timestamp, dropdown enum, preview and summary all agree.
      */
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
-    const startTime: Date = OneUptimeDate.moveDateToTheDayOfWeek(
-      OneUptimeDate.getDateWithCustomTime({ hours: 0, minutes: 0, seconds: 0 }),
+    const startTime: Date = OperationsDate.moveDateToTheDayOfWeek(
+      OperationsDate.getDateWithCustomTime({
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      }),
       now,
       startDay,
     );
 
-    const endTime: Date = OneUptimeDate.moveDateToTheDayOfWeek(
-      OneUptimeDate.getDateWithCustomTime({ hours: 1, minutes: 0, seconds: 0 }),
+    const endTime: Date = OperationsDate.moveDateToTheDayOfWeek(
+      OperationsDate.getDateWithCustomTime({
+        hours: 1,
+        minutes: 0,
+        seconds: 0,
+      }),
       now,
       endDay,
     );

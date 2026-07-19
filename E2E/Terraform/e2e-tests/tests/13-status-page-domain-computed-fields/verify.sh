@@ -30,7 +30,7 @@ echo "  Verifying computed fields test via API (Issue #2236)..."
 echo "  Verifying domain resource..."
 echo "    Domain ID: $DOMAIN_ID"
 
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/domain/${DOMAIN_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/domain/${DOMAIN_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \
@@ -57,7 +57,7 @@ echo ""
 echo "  Verifying status page resource..."
 echo "    Status Page ID: $STATUS_PAGE_ID"
 
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/status-page/${STATUS_PAGE_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/status-page/${STATUS_PAGE_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \
@@ -76,7 +76,7 @@ echo "  Verifying status page domain computed fields (Issue #2236)..."
 echo "    Status Page Domain ID: $STATUS_PAGE_DOMAIN_ID"
 
 # Note: cnameVerificationToken has no read permission, so we don't include it in the select
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/status-page-domain/${STATUS_PAGE_DOMAIN_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/status-page-domain/${STATUS_PAGE_DOMAIN_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \

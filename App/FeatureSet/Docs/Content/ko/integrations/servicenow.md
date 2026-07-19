@@ -50,7 +50,7 @@ ServiceNow의 Table API는 **Basic 인증** 을 허용합니다.
        "description": "{{Incident.description}}",
        "urgency": "1",
        "impact": "1",
-       "correlation_id": "oneuptime-{{Incident._id}}"
+       "correlation_id": "cast-operations-{{Incident._id}}"
      }
      ```
 
@@ -61,7 +61,7 @@ ServiceNow의 Table API는 **Basic 인증** 을 허용합니다.
 ## 3단계 — Cast Operations 해결 시 해결 (선택 사항)
 
 1. **Incident → On Update** 트리거와 인시던트가 해결되었는지 확인하는 **Conditions** 블록이 있는 **두 번째** 워크플로를 만듭니다.
-2. 올바른 ServiceNow 레코드를 업데이트하려면 해당 `sys_id` 가 필요합니다. 2단계에서 Cast Operations 인시던트에 저장하거나(`{{CreateRecord.response-body.result.sys_id}}` 를 읽어 **Update Incident** 로 라벨에 기록), `/api/now/table/incident?sysparm_query=correlation_id=oneuptime-{{Incident._id}}` 로 `GET` 요청해 먼저 레코드를 조회합니다.
+2. 올바른 ServiceNow 레코드를 업데이트하려면 해당 `sys_id` 가 필요합니다. 2단계에서 Cast Operations 인시던트에 저장하거나(`{{CreateRecord.response-body.result.sys_id}}` 를 읽어 **Update Incident** 로 라벨에 기록), `/api/now/table/incident?sysparm_query=correlation_id=cast-operations-{{Incident._id}}` 로 `GET` 요청해 먼저 레코드를 조회합니다.
 3. **API** 블록을 추가합니다: **Method** `PATCH`, **URL** `https://your-instance.service-now.com/api/now/table/incident/<sys_id>`, 본문 `{ "state": "6", "close_code": "Resolved by monitoring", "close_notes": "Resolved in Cast Operations" }` (`state` `6` = 기본 ITIL 워크플로에서 해결됨).
 
 ## 문제 해결

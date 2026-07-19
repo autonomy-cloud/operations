@@ -18,7 +18,7 @@ export default class FixFromIncidentTaskHandler extends SubjectPullRequestTaskHa
   public readonly taskType: string = CodeFixTaskType.FixFromIncident;
   public readonly name: string = "Fix From Incident Handler";
 
-  protected readonly branchPrefix: string = "oneuptime-incident-fix-";
+  protected readonly branchPrefix: string = "cast-operations-incident-fix-";
   protected readonly noActionMessage: string =
     "No fix could be applied to any repository";
   protected readonly noRepositoryMessage: string =

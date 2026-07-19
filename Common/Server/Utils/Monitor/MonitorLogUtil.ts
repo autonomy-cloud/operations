@@ -3,7 +3,7 @@ import GlobalConfigService from "../../Services/GlobalConfigService";
 import GlobalConfig from "../../../Models/DatabaseModels/GlobalConfig";
 import logger from "../Logger";
 import GracefulShutdown, { ShutdownPriority } from "../GracefulShutdown";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import ObjectID from "../../../Types/ObjectID";
 import { JSONObject } from "../../../Types/JSON";
 import DataToProcess from "./DataToProcess";
@@ -54,7 +54,7 @@ export default class MonitorLogUtil {
   private static shutdownHooksRegistered: boolean = false;
 
   private static async getRetentionDays(): Promise<number> {
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     // Return cached value if still fresh
     if (
@@ -123,11 +123,11 @@ export default class MonitorLogUtil {
     // Fire-and-forget: fetch retention config then enqueue
     this.getRetentionDays()
       .then((retentionDays: number) => {
-        const logIngestionDate: Date = OneUptimeDate.getCurrentDate();
+        const logIngestionDate: Date = OperationsDate.getCurrentDate();
         const logTimestamp: string =
-          OneUptimeDate.toClickhouseDateTime(logIngestionDate);
+          OperationsDate.toClickhouseDateTime(logIngestionDate);
 
-        const retentionDate: Date = OneUptimeDate.addRemoveDays(
+        const retentionDate: Date = OperationsDate.addRemoveDays(
           logIngestionDate,
           retentionDays,
         );
@@ -139,7 +139,7 @@ export default class MonitorLogUtil {
           monitorId: data.monitorId.toString(),
           time: logTimestamp,
           logBody: JSON.parse(JSON.stringify(data.dataToProcess)),
-          retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+          retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
         };
 
         this.enqueueRow(monitorLogRow);

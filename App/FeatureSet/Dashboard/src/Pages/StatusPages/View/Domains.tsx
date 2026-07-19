@@ -24,7 +24,7 @@ import React, {
   ReactElement,
   useState,
 } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import FormValues from "Common/UI/Components/Forms/Types/FormValues";
 import ProjectUtil from "Common/UI/Utils/Project";
 
@@ -34,7 +34,7 @@ const StatusPageDelete: FunctionComponent<PageComponentProps> = (
   const modelId: ObjectID = Navigation.getLastParamAsObjectID(1);
 
   const [refreshToggle, setRefreshToggle] = useState<string>(
-    OneUptimeDate.getCurrentDate().toString(),
+    OperationsDate.getCurrentDate().toString(),
   );
 
   const [showCnameModal, setShowCnameModal] = useState<boolean>(false);
@@ -353,13 +353,14 @@ const StatusPageDelete: FunctionComponent<PageComponentProps> = (
               ) : (
                 <div>
                   <span>
-                    Custom Domains not enabled for this Cast Operations installation.
-                    Please contact your server admin to enable this feature. To
-                    enable this feature, if you are using Docker compose, the
+                    Custom Domains not enabled for this Cast Operations
+                    installation. Please contact your server admin to enable
+                    this feature. To enable this feature, if you are using
+                    Docker compose, the
                     <b>STATUS_PAGE_CNAME_RECORD</b> environment variable must be
-                    set when starting the Cast Operations cluster. If you are using
-                    Helm and Kubernetes then set statusPage.cnameRecord in the
-                    values.yaml file.
+                    set when starting the Cast Operations cluster. If you are
+                    using Helm and Kubernetes then set statusPage.cnameRecord in
+                    the values.yaml file.
                   </span>
                 </div>
               )
@@ -393,7 +394,7 @@ const StatusPageDelete: FunctionComponent<PageComponentProps> = (
                 }
 
                 setShowCnameModal(false);
-                setRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+                setRefreshToggle(OperationsDate.getCurrentDate().toString());
                 setSelectedStatusPageDomain(null);
               } catch (err) {
                 setError(API.getFriendlyMessage(err));
@@ -418,8 +419,9 @@ const StatusPageDelete: FunctionComponent<PageComponentProps> = (
               ) : (
                 <div>
                   <span>
-                    Custom Domains not enabled for this Cast Operations installation.
-                    Please contact your server admin to enable this feature.
+                    Custom Domains not enabled for this Cast Operations
+                    installation. Please contact your server admin to enable
+                    this feature.
                   </span>
                 </div>
               )
@@ -453,7 +455,7 @@ const StatusPageDelete: FunctionComponent<PageComponentProps> = (
                 }
 
                 setShowOrderSSLModal(false);
-                setRefreshToggle(OneUptimeDate.getCurrentDate().toString());
+                setRefreshToggle(OperationsDate.getCurrentDate().toString());
                 setSelectedStatusPageDomain(null);
               } catch (err) {
                 setError(API.getFriendlyMessage(err));

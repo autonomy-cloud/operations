@@ -111,7 +111,7 @@ Microsoft Entra ID provides enterprise-grade identity management with robust SCI
 #### Prerequisites
 
 - Microsoft Entra ID tenant with Premium P1 or P2 license (required for automatic provisioning)
-- Cast Operations account with Scale plan or higher
+- Cast Operations project administrator access
 - Admin access to both Microsoft Entra ID and Cast Operations
 
 #### Step 1: Get SCIM Configuration from Cast Operations
@@ -213,7 +213,7 @@ Okta provides flexible identity management with excellent SCIM support. Follow t
 #### Prerequisites
 
 - Okta tenant with provisioning capabilities (Lifecycle Management feature)
-- Cast Operations account with Scale plan or higher
+- Cast Operations project administrator access
 - Admin access to both Okta and Cast Operations
 
 #### Step 1: Get SCIM Configuration from Cast Operations

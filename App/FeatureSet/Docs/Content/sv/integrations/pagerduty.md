@@ -73,7 +73,7 @@ PagerDutys `severity` accepterar `critical`, `error`, `warning` eller `info`. F�
 
 ## Inkommande (valfritt)
 
-För att gå den andra vägen — öppna en Cast Operations-incident från en PagerDuty-händelse — lägg till ett arbetsflöde med **Webhook**-utlösare och peka en PagerDuty [V3-webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (eller en Events Orchestration) mot dess URL, använd sedan **Create Incident**. Se det [inkommande mönstret](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
+För att gå den andra vägen — öppna en Cast Operations-incident från en PagerDuty-händelse — lägg till ett arbetsflöde med **Webhook**-utlösare och peka en PagerDuty [V3-webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) (eller en Events Orchestration) mot dess URL, använd sedan **Create Incident**. Se det [inkommande mönstret](/docs/integrations/index#inbound-another-tool-sends-data-into-cast-operations).
 
 ## Felsökning
 

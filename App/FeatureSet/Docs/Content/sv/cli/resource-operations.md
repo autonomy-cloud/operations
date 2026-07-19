@@ -7,39 +7,39 @@ Cast Operations CLI erbjuder fullständiga CRUD-operationer (Skapa, Läs, Uppdat
 Kör följande kommando för att se alla tillgängliga resurstyper:
 
 ```bash
-oneuptime resources
+cast-operations resources
 ```
 
 Du kan filtrera efter typ:
 
 ```bash
 # Visa bara databasresurser
-oneuptime resources --type database
+cast-operations resources --type database
 
 # Visa bara analysresurser
-oneuptime resources --type analytics
+cast-operations resources --type analytics
 ```
 
 Vanliga resurser inkluderar:
 
 | Resurs                   | Kommando                                |
 | ------------------------ | --------------------------------------- |
-| Incident                 | `oneuptime incident`                    |
-| Varning                  | `oneuptime alert`                       |
-| Monitor                  | `oneuptime monitor`                     |
-| Monitorstatus            | `oneuptime monitor-status`              |
-| Incidenttillstånd        | `oneuptime incident-state`              |
-| Statussida               | `oneuptime status-page`                 |
-| Jour-policy              | `oneuptime on-call-policy`              |
-| Team                     | `oneuptime team`                        |
-| Planerat underhållsevent | `oneuptime scheduled-maintenance-event` |
+| Incident                 | `cast-operations incident`                    |
+| Varning                  | `cast-operations alert`                       |
+| Monitor                  | `cast-operations monitor`                     |
+| Monitorstatus            | `cast-operations monitor-status`              |
+| Incidenttillstånd        | `cast-operations incident-state`              |
+| Statussida               | `cast-operations status-page`                 |
+| Jour-policy              | `cast-operations on-call-policy`              |
+| Team                     | `cast-operations team`                        |
+| Planerat underhållsevent | `cast-operations scheduled-maintenance-event` |
 
 ## Lista resurser
 
 Hämta en lista med resurser med valfri filtrering, sidnumrering och sortering.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 **Alternativ:**
@@ -56,19 +56,19 @@ oneuptime <resource> list [options]
 
 ```bash
 # Lista de 10 senaste incidenterna
-oneuptime incident list
+cast-operations incident list
 
 # Filtrera incidenter efter tillstånds-ID
-oneuptime incident list --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident list --query '{"currentIncidentStateId":"<state-id>"}'
 
 # Lista med sidnumrering
-oneuptime incident list --limit 20 --skip 40
+cast-operations incident list --limit 20 --skip 40
 
 # Sortera efter skapandedatum (fallande)
-oneuptime incident list --sort '{"createdAt":-1}'
+cast-operations incident list --sort '{"createdAt":-1}'
 
 # Utdata som JSON
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ## Hämta en resurs
@@ -76,7 +76,7 @@ oneuptime incident list -o json
 Hämta en enskild resurs med dess ID.
 
 ```bash
-oneuptime <resource> get <id>
+cast-operations <resource> get <id>
 ```
 
 **Argument:**
@@ -89,10 +89,10 @@ oneuptime <resource> get <id>
 
 ```bash
 # Hämta en specifik incident
-oneuptime incident get 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident get 550e8400-e29b-41d4-a716-446655440000
 
 # Hämta en monitor som JSON
-oneuptime monitor get abc-123 -o json
+cast-operations monitor get abc-123 -o json
 ```
 
 ## Skapa en resurs
@@ -100,7 +100,7 @@ oneuptime monitor get abc-123 -o json
 Skapa en ny resurs från inline-JSON eller en fil.
 
 ```bash
-oneuptime <resource> create [options]
+cast-operations <resource> create [options]
 ```
 
 **Alternativ:**
@@ -117,13 +117,13 @@ Du måste ange antingen `--data` eller `--file`.
 
 ```bash
 # Skapa en incident med inline-JSON
-oneuptime incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
+cast-operations incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
 
 # Skapa från en JSON-fil
-oneuptime incident create --file incident.json
+cast-operations incident create --file incident.json
 
 # Skapa och utdata som JSON för att fånga ID:t
-oneuptime monitor create --data '{"name":"API Health Check"}' -o json
+cast-operations monitor create --data '{"name":"API Health Check"}' -o json
 ```
 
 ## Uppdatera en resurs
@@ -131,7 +131,7 @@ oneuptime monitor create --data '{"name":"API Health Check"}' -o json
 Uppdatera en befintlig resurs med ID.
 
 ```bash
-oneuptime <resource> update <id> [options]
+cast-operations <resource> update <id> [options]
 ```
 
 **Argument:**
@@ -151,10 +151,10 @@ oneuptime <resource> update <id> [options]
 
 ```bash
 # Ändra incidenttillstånd (t.ex. till löst)
-oneuptime incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
+cast-operations incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
 
 # Byt namn på en monitor
-oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
+cast-operations monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 ```
 
 ## Ta bort en resurs
@@ -162,7 +162,7 @@ oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 Ta bort en resurs med ID.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 **Argument:**
@@ -180,11 +180,11 @@ oneuptime <resource> delete <id> [--force]
 **Exempel:**
 
 ```bash
-oneuptime incident delete abc-123
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident delete abc-123
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000
 
 # Hoppa över bekräftelse
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 ```
 
 ## Räkna resurser
@@ -192,7 +192,7 @@ oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 Räkna resurser som matchar valfria filterkriterier.
 
 ```bash
-oneuptime <resource> count [options]
+cast-operations <resource> count [options]
 ```
 
 **Alternativ:**
@@ -205,13 +205,13 @@ oneuptime <resource> count [options]
 
 ```bash
 # Räkna alla incidenter
-oneuptime incident count
+cast-operations incident count
 
 # Räkna incidenter efter tillstånd
-oneuptime incident count --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident count --query '{"currentIncidentStateId":"<state-id>"}'
 
 # Räkna monitorer
-oneuptime monitor count
+cast-operations monitor count
 ```
 
 ## Analysresurser
@@ -227,4 +227,4 @@ Analysresurser stöder en begränsad uppsättning operationer jämfört med data
 | `update`  | Nej   |
 | `delete`  | Nej   |
 
-Använd `oneuptime resources --type analytics` för att se vilka analysresurser som är tillgängliga i din instans.
+Använd `cast-operations resources --type analytics` för att se vilka analysresurser som är tillgängliga i din instans.

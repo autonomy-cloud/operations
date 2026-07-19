@@ -4,12 +4,12 @@ Cast Operations CLI 所有命令的完整參考。
 
 ## 驗證命令
 
-### `oneuptime login`
+### `cast-operations login`
 
 向 Cast Operations 執行個體進行驗證。
 
 ```bash
-oneuptime login <api-key> <instance-url> [--context-name <name>]
+cast-operations login <api-key> <instance-url> [--context-name <name>]
 ```
 
 | 參數             | 類型     | 是否必填 | 說明                            |
@@ -20,22 +20,22 @@ oneuptime login <api-key> <instance-url> [--context-name <name>]
 
 ---
 
-### `oneuptime context list`
+### `cast-operations context list`
 
 列出所有已儲存的內容。
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 ---
 
-### `oneuptime context use`
+### `cast-operations context use`
 
 切換至具名內容。
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 | 參數     | 類型     | 是否必填 | 說明             |
@@ -44,22 +44,22 @@ oneuptime context use <name>
 
 ---
 
-### `oneuptime context current`
+### `cast-operations context current`
 
 顯示目前作用中的內容，並遮罩 API 金鑰。
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 ---
 
-### `oneuptime context delete`
+### `cast-operations context delete`
 
 移除已儲存的內容。
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 | 參數     | 類型     | 是否必填 | 說明             |
@@ -72,12 +72,12 @@ oneuptime context delete <name>
 
 所有資源命令都遵循相同的模式。請將 `<resource>` 替換為任何受支援的資源名稱（例如 `incident`、`monitor`、`alert`、`status-page`）。
 
-### `oneuptime <resource> list`
+### `cast-operations <resource> list`
 
 列出資源，並支援篩選與分頁。
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 | 選項             | 類型   | 預設值  | 說明                       |
@@ -90,12 +90,12 @@ oneuptime <resource> list [options]
 
 ---
 
-### `oneuptime <resource> get`
+### `cast-operations <resource> get`
 
 依 ID 取得單一資源。
 
 ```bash
-oneuptime <resource> get <id> [-o <format>]
+cast-operations <resource> get <id> [-o <format>]
 ```
 
 | 參數           | 類型     | 是否必填 | 說明            |
@@ -105,12 +105,12 @@ oneuptime <resource> get <id> [-o <format>]
 
 ---
 
-### `oneuptime <resource> create`
+### `cast-operations <resource> create`
 
 建立新資源。
 
 ```bash
-oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
+cast-operations <resource> create [--data <json> | --file <path>] [-o <format>]
 ```
 
 | 選項            | 類型   | 是否必填                  | 說明                       |
@@ -121,12 +121,12 @@ oneuptime <resource> create [--data <json> | --file <path>] [-o <format>]
 
 ---
 
-### `oneuptime <resource> update`
+### `cast-operations <resource> update`
 
 更新現有資源。
 
 ```bash
-oneuptime <resource> update <id> --data <json> [-o <format>]
+cast-operations <resource> update <id> --data <json> [-o <format>]
 ```
 
 | 參數            | 類型     | 是否必填 | 說明                         |
@@ -137,12 +137,12 @@ oneuptime <resource> update <id> --data <json> [-o <format>]
 
 ---
 
-### `oneuptime <resource> delete`
+### `cast-operations <resource> delete`
 
 刪除資源。
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 | 參數      | 類型     | 是否必填 | 說明         |
@@ -152,12 +152,12 @@ oneuptime <resource> delete <id> [--force]
 
 ---
 
-### `oneuptime <resource> count`
+### `cast-operations <resource> count`
 
 計算符合篩選條件的資源數量。
 
 ```bash
-oneuptime <resource> count [--query <json>]
+cast-operations <resource> count [--query <json>]
 ```
 
 | 選項             | 類型   | 預設值 | 說明                       |
@@ -168,34 +168,34 @@ oneuptime <resource> count [--query <json>]
 
 ## 公用程式命令
 
-### `oneuptime version`
+### `cast-operations version`
 
 顯示 CLI 版本。
 
 ```bash
-oneuptime version
+cast-operations version
 ```
 
 ---
 
-### `oneuptime whoami`
+### `cast-operations whoami`
 
 顯示目前的驗證詳細資訊。
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 顯示執行個體 URL 與遮罩後的 API 金鑰。如果有作用中的已儲存內容，也會一併顯示內容名稱。
 
 ---
 
-### `oneuptime resources`
+### `cast-operations resources`
 
 列出所有可用的資源類型。
 
 ```bash
-oneuptime resources [--type <type>]
+cast-operations resources [--type <type>]
 ```
 
 | 選項            | 類型   | 預設值 | 說明                              |

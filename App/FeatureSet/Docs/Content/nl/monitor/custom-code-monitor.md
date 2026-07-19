@@ -50,10 +50,10 @@ console.log(stringSecret);
 
 ### Aangepaste metrics
 
-U kunt aangepaste metrics vastleggen vanuit uw script met de functie `oneuptime.captureMetric()`. Deze metrics worden opgeslagen in Cast Operations en kunnen worden weergegeven op dashboards via de Metric Explorer.
+U kunt aangepaste metrics vastleggen vanuit uw script met de functie `cast-operations.captureMetric()`. Deze metrics worden opgeslagen in Cast Operations en kunnen worden weergegeven op dashboards via de Metric Explorer.
 
 ```javascript
-oneuptime.captureMetric(name, value, attributes);
+cast-operations.captureMetric(name, value, attributes);
 ```
 
 - `name` (string, vereist): De metrieknaam (bijv. `"api.response.time"`). Deze wordt automatisch opgeslagen met het voorvoegsel `custom.monitor.`.
@@ -66,10 +66,10 @@ oneuptime.captureMetric(name, value, attributes);
 const response = await axios.get("https://api.example.com/health");
 
 // Capture a simple metric
-oneuptime.captureMetric("api.response.time", response.data.latency);
+cast-operations.captureMetric("api.response.time", response.data.latency);
 
 // Capture a metric with attributes
-oneuptime.captureMetric("api.queue.depth", response.data.queueDepth, {
+cast-operations.captureMetric("api.queue.depth", response.data.queueDepth, {
   region: "us-east-1",
   environment: "production",
 });
@@ -92,7 +92,7 @@ Na vastlegging verschijnen deze metrics in de Metric Explorer onder namen zoals 
 - `axios`: U kunt deze module gebruiken om HTTP-verzoeken te doen. Het is een op beloften gebaseerde HTTP-client voor de browser en Node.js.
 - `crypto`: U kunt deze module gebruiken voor cryptografische bewerkingen. Het is een ingebouwde Node.js-module die cryptografische functionaliteit biedt met een set wrappers voor de hash-, HMAC-, cipher-, decipher-, sign- en verify-functies van OpenSSL.
 - `console.log`: U kunt deze module gebruiken om gegevens naar de console te loggen. Dit is nuttig voor foutopsporingsdoeleinden.
-- `oneuptime.captureMetric`: U kunt dit gebruiken om aangepaste metrics vast te leggen vanuit uw script. Zie de sectie Aangepaste metrics hierboven.
+- `cast-operations.captureMetric`: U kunt dit gebruiken om aangepaste metrics vast te leggen vanuit uw script. Zie de sectie Aangepaste metrics hierboven.
 - `http`: U kunt deze module gebruiken om HTTP-verzoeken te doen. Het is een ingebouwde Node.js-module die een HTTP-client en -server biedt.
 - `https`: U kunt deze module gebruiken om HTTPS-verzoeken te doen. Het is een ingebouwde Node.js-module die een HTTPS-client en -server biedt.
 

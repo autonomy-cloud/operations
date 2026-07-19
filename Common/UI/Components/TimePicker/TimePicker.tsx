@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import Icon from "../Icon/Icon";
 import IconProp from "../../../Types/Icon/IconProp";
 import Modal, { ModalWidth } from "../Modal/Modal";
@@ -46,7 +46,7 @@ const toDate: (v?: string | Date) => Date | undefined = (
     return undefined;
   }
   try {
-    return OneUptimeDate.fromString(v);
+    return OperationsDate.fromString(v);
   } catch {
     return undefined;
   }
@@ -57,28 +57,28 @@ const TimePicker: FunctionComponent<ComponentProps> = (
 ): ReactElement => {
   // Start with project-level preference (works on server), then update to browser preference on mount
   const [userPrefers12h, setUserPrefers12h] = useState<boolean>(
-    OneUptimeDate.getUserPrefers12HourFormat(),
+    OperationsDate.getUserPrefers12HourFormat(),
   );
 
   useEffect((): void => {
     // Resolve to actual browser preference once mounted using project utility
-    setUserPrefers12h(OneUptimeDate.getUserPrefers12HourFormat());
+    setUserPrefers12h(OperationsDate.getUserPrefers12HourFormat());
   }, []);
 
-  // Timezone label derived from OneUptimeDate utilities (e.g., "PDT (America/Los_Angeles)" or "GMT+5:30 (Asia/Kolkata)")
+  // Timezone label derived from OperationsDate utilities (e.g., "PDT (America/Los_Angeles)" or "GMT+5:30 (Asia/Kolkata)")
   const [timezoneLabel, setTimezoneLabel] = useState<string>(
     "your local time zone",
   );
 
   useEffect((): void => {
-    const abbr: string = OneUptimeDate.getCurrentTimezoneString();
+    const abbr: string = OperationsDate.getCurrentTimezoneString();
     const iana: string =
-      OneUptimeDate.getCurrentTimezone() as unknown as string;
+      OperationsDate.getCurrentTimezone() as unknown as string;
     setTimezoneLabel(`${abbr}${iana ? ` (${iana})` : ""}`);
   }, []);
 
   const initialDate: Date = useMemo(() => {
-    return toDate(props.value) || OneUptimeDate.getCurrentDate();
+    return toDate(props.value) || OperationsDate.getCurrentDate();
   }, [props.value]);
 
   const [hours24, setHours24] = useState<number>(initialDate.getHours());
@@ -107,12 +107,12 @@ const TimePicker: FunctionComponent<ComponentProps> = (
     h24: number,
     m: number,
   ): void => {
-    const date: Date = OneUptimeDate.getDateWithCustomTime({
+    const date: Date = OperationsDate.getDateWithCustomTime({
       hours: clamp(h24, 0, 23),
       minutes: clamp(m, 0, 59),
       seconds: 0,
     });
-    props.onChange?.(OneUptimeDate.toString(date));
+    props.onChange?.(OperationsDate.toString(date));
   };
 
   const display: { hours: string; minutes: string; isPM: boolean } =

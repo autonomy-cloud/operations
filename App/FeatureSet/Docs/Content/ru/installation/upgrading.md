@@ -10,38 +10,7 @@
 
 ## Обновление Cast Operations 10 → 11
 
-<!-- TODO(i18n): Translate this section. English source: en/installation/upgrading.md (added for v11 SSO->Enterprise change). -->
-
-### Identity features (SSO, OIDC, SCIM) now require the Enterprise Edition
-
-In v11, the following authentication and access-management features moved to
-the **Cast Operations Enterprise Edition** and are no longer part of the free,
-open-source (Community) build:
-
-- **SAML SSO** — both project login and status-page login
-- **OpenID Connect (OIDC)** — both project login and status-page login
-- **SCIM user provisioning** — project and status page
-- **Global (instance-wide) SSO / OIDC**
-- **Team compliance settings**
-
-**What you'll see after upgrading:** if you configured any of these on a
-Community Edition build, sign-in through them is disabled after the upgrade,
-and the settings pages show an upgrade prompt instead of the configuration
-form. Your existing provider records are **preserved in the database** —
-nothing is deleted — they simply become inactive until the instance runs the
-Enterprise Edition.
-
-**Availability:**
-
-- **Self-hosted:** requires the **Enterprise Edition** build.
-- **Cast Operations Cloud:** requires the **Scale** plan (or above).
-
-**If you rely on SSO and self-host**, email
-[support@visca.ai](mailto:support@visca.ai) for an Enterprise Edition
-license so you can restore SSO/OIDC/SCIM. Mention that you upgraded from v10 to
-v11 and we'll help you get it back online. If your team is mid-upgrade and this
-is blocking sign-in, contact us before upgrading production so we can plan it
-with you.
+Identity features, including SSO, OIDC, SCIM, global identity providers, and team compliance, are included in every Cast Operations installation and require no license or plan.
 
 Cast Operations 11 перестраивает хранилище телеметрии ClickHouse. Эта страница объясняет, что меняется, кому нужно действовать и — для установок, которые хотят сохранить историческую телеметрию, — приводит каждый необходимый для этого запрос.
 
@@ -79,7 +48,7 @@ Cast Operations 11 перестраивает хранилище телемет�
 Шаг 0 выполняется **до обновления**; всё начиная с Шага 1 выполняется **после полного запуска обновлённой системы** (новые таблицы и их материализованные представления должны существовать). Подключайтесь напрямую на хосте ClickHouse — у нативного протокола нет HTTP-таймаутов, поэтому многочасовые запросы не проблема:
 
 ```bash
-clickhouse-client --database oneuptime
+clickhouse-client --database cast-operations
 ```
 
 Полезно знать перед началом:
@@ -214,7 +183,7 @@ DROP TABLE IF EXISTS MetricItemAggMV1mByHost_backup SETTINGS max_table_size_to_d
 
 Helm-чарт больше не создаёт ресурс Kubernetes Ingress. Cast Operations поставляется с контейнером шлюза ingress, который уже завершает TLS, управляет доменами страниц статуса и маршрутизирует трафик платформы, поэтому контроллер ingress кластера больше не нужен.
 
-- Удалите все переопределения `oneuptimeIngress` из ваших пользовательских файлов `values.yaml` перед обновлением. Эти ключи теперь игнорируются и вызовут ошибки валидации, если оставить их.
+- Удалите все переопределения `castOperationsIngress` из ваших пользовательских файлов `values.yaml` перед обновлением. Эти ключи теперь игнорируются и вызовут ошибки валидации, если оставить их.
 - Убедитесь, что `nginx.service.type` отражает способ, которым вы хотите открыть встроенный шлюз ingress (например, `LoadBalancer`, `NodePort` или `ClusterIP` с внешним балансировщиком нагрузки).
 - Проверьте, что записи DNS для страниц статуса или основных хостов по-прежнему указывают на Service или балансировщик нагрузки перед шлюзом ingress Cast Operations.
 - После обновления убедитесь, что TLS-сертификаты продолжают обновляться через встроенный шлюз и что домены страниц статуса разрешаются корректно.

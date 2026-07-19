@@ -27,7 +27,7 @@ import ScheduledMaintenanceState from "../../Models/DatabaseModels/ScheduledMain
 import ScheduledMaintenanceStateTimeline from "../../Models/DatabaseModels/ScheduledMaintenanceStateTimeline";
 import User from "../../Models/DatabaseModels/User";
 import Recurring from "../../Types/Events/Recurring";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import UpdateBy from "../Types/Database/UpdateBy";
 import { StatusPageApiRoute } from "../../ServiceRoute";
 import Dictionary from "../../Types/Dictionary";
@@ -48,7 +48,7 @@ import StatusPageResource from "../../Models/DatabaseModels/StatusPageResource";
 import StatusPageSubscriber from "../../Models/DatabaseModels/StatusPageSubscriber";
 import Hostname from "../../Types/API/Hostname";
 import Protocol from "../../Types/API/Protocol";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import StatusPageEventType from "../../Types/StatusPage/StatusPageEventType";
 import ScheduledMaintenanceFeedService from "./ScheduledMaintenanceFeedService";
 import ScheduledMaintenanceLabelRuleEngineService from "./ScheduledMaintenanceLabelRuleEngineService";
@@ -76,9 +76,6 @@ import StatusPageSubscriberNotificationMethod from "../../Types/StatusPage/Statu
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -247,11 +244,13 @@ export class Service extends DatabaseService<Model> {
             scheduledMaintenanceTitle: event.title || "",
             scheduledMaintenanceDescription: event.description || "",
             scheduledStartTime:
-              OneUptimeDate.getDateAsUserFriendlyFormattedString(
+              OperationsDate.getDateAsUserFriendlyFormattedString(
                 event.startsAt!,
               ),
             scheduledEndTime: event.endsAt
-              ? OneUptimeDate.getDateAsUserFriendlyFormattedString(event.endsAt)
+              ? OperationsDate.getDateAsUserFriendlyFormattedString(
+                  event.endsAt,
+                )
               : "",
             resourcesAffected: resourcesAffected,
             unsubscribeUrl: unsubscribeUrl,
@@ -318,7 +317,7 @@ export class Service extends DatabaseService<Model> {
               // Use default template
               slackMessage = `## 🔧 Scheduled Maintenance - ${event.title || ""}
 
-**Scheduled Date:** ${OneUptimeDate.getDateAsUserFriendlyFormattedString(event.startsAt!)}
+**Scheduled Date:** ${OperationsDate.getDateAsUserFriendlyFormattedString(event.startsAt!)}
 
 ${resourcesAffected ? `**Resources Affected:** ${resourcesAffected}` : ""}
 
@@ -352,11 +351,11 @@ ${resourcesAffected ? `**Resources Affected:** ${resourcesAffected}` : ""}
                   scheduledMaintenanceTitle: event.title || "",
                   scheduledMaintenanceDescription: event.description || "",
                   scheduledStartTime:
-                    OneUptimeDate.getDateAsUserFriendlyFormattedString(
+                    OperationsDate.getDateAsUserFriendlyFormattedString(
                       event.startsAt!,
                     ),
                   scheduledEndTime: event.endsAt
-                    ? OneUptimeDate.getDateAsUserFriendlyFormattedString(
+                    ? OperationsDate.getDateAsUserFriendlyFormattedString(
                         event.endsAt,
                       )
                     : "",
@@ -395,7 +394,7 @@ ${resourcesAffected ? `**Resources Affected:** ${resourcesAffected}` : ""}
                 statuspage.subscriberEmailNotificationFooterText || "",
               resourcesAffected: resourcesAffected,
               scheduledAt:
-                OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+                OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
                   date: event.startsAt!,
                   timezones: statuspage.subscriberTimezones || [],
                   use12HourFormat: true,
@@ -691,7 +690,7 @@ ${resourcesAffected ? `**Resources Affected:** ${resourcesAffected}` : ""}
       );
 
       // if this date is in the future. set it to recurring date.
-      if (!recurringDate && OneUptimeDate.isInTheFuture(notificationDate)) {
+      if (!recurringDate && OperationsDate.isInTheFuture(notificationDate)) {
         recurringDate = notificationDate;
         logger.debug(
           `Notification date is in the future. Setting recurring date to: ${recurringDate}`,
@@ -703,8 +702,8 @@ ${resourcesAffected ? `**Resources Affected:** ${resourcesAffected}` : ""}
       // if this new date is less than the recurring date then set it to recurring date. We need to get the least date.
       if (recurringDate) {
         if (
-          OneUptimeDate.isBefore(notificationDate, recurringDate) &&
-          OneUptimeDate.isInTheFuture(notificationDate)
+          OperationsDate.isBefore(notificationDate, recurringDate) &&
+          OperationsDate.isInTheFuture(notificationDate)
         ) {
           recurringDate = notificationDate;
           logger.debug(
@@ -857,17 +856,17 @@ ${resourcesAffected ? `**Resources Affected:** ${resourcesAffected}` : ""}
          * defer the first reminder until after the event has started so that
          * owners are not notified about an event that has not begun yet.
          */
-        let referenceDate: Date = OneUptimeDate.getCurrentDate();
+        let referenceDate: Date = OperationsDate.getCurrentDate();
 
         if (
           !matchingRule.remindWhileScheduled &&
           scheduledMaintenance.startsAt &&
-          OneUptimeDate.isInTheFuture(scheduledMaintenance.startsAt)
+          OperationsDate.isInTheFuture(scheduledMaintenance.startsAt)
         ) {
           referenceDate = scheduledMaintenance.startsAt;
         }
 
-        nextReminderNotificationAt = OneUptimeDate.addRemoveMinutes(
+        nextReminderNotificationAt = OperationsDate.addRemoveMinutes(
           referenceDate,
           matchingRule.reminderIntervalInMinutes,
         );
@@ -1161,11 +1160,11 @@ ${scheduledMaintenance.description || "No description provided."}
 
       // add starts at and ends at.
       if (scheduledMaintenance.startsAt) {
-        feedInfoInMarkdown += `**Starts At**: ${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(scheduledMaintenance.startsAt)} \n\n`;
+        feedInfoInMarkdown += `**Starts At**: ${OperationsDate.getDateAsUserFriendlyLocalFormattedString(scheduledMaintenance.startsAt)} \n\n`;
       }
 
       if (scheduledMaintenance.endsAt) {
-        feedInfoInMarkdown += `**Ends At**: ${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(scheduledMaintenance.endsAt)} \n\n`;
+        feedInfoInMarkdown += `**Ends At**: ${OperationsDate.getDateAsUserFriendlyLocalFormattedString(scheduledMaintenance.endsAt)} \n\n`;
       }
 
       if (scheduledMaintenance.currentScheduledMaintenanceState?.name) {
@@ -1475,7 +1474,7 @@ ${onUpdate.updateBy.data.title || "No title provided."}
           // add scheduledMaintenance feed.
 
           feedInfoInMarkdown += `\n\n**Starts At**: 
-${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(onUpdate.updateBy.data.startsAt as Date) || "No title provided."}
+${OperationsDate.getDateAsUserFriendlyLocalFormattedString(onUpdate.updateBy.data.startsAt as Date) || "No title provided."}
 `;
           shouldAddScheduledMaintenanceFeed = true;
         }
@@ -1484,7 +1483,7 @@ ${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(onUpdate.updateBy.data
           // add scheduledMaintenance feed.
 
           feedInfoInMarkdown += `\n\n**Ends At**:
-${OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(onUpdate.updateBy.data.endsAt as Date) || "No title provided."}
+${OperationsDate.getDateAsUserFriendlyLocalFormattedString(onUpdate.updateBy.data.endsAt as Date) || "No title provided."}
 `;
           shouldAddScheduledMaintenanceFeed = true;
         }

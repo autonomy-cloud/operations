@@ -137,7 +137,7 @@ export const postInfraMetric: PostInfraMetricFunction = async (data: {
   const response: APIResponse = await data.page.request.post(otlpMetricsUrl, {
     headers: {
       "content-type": "application/json",
-      "x-oneuptime-token": data.ingestionKey,
+      "x-cast-operations-token": data.ingestionKey,
     },
     data: {
       resourceMetrics: [

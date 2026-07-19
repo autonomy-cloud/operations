@@ -32,7 +32,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 1. 在 Datadog 中，前往 **Integrations → Webhooks**（如果尚未安裝，請先安裝 **Webhooks** 整合）。
 2. **新增一個 webhook**：
 
-   - **Name**：`oneuptime`（這會成為 `@webhook-oneuptime`）。
+   - **Name**：`cast-operations`（這會成為 `@webhook-cast-operations`）。
    - **URL**：你的工作流程的 webhook URL。
    - **Payload** — Datadog 讓你能夠使用 [範本變數](https://docs.datadoghq.com/integrations/webhooks/#usage) 定義 JSON 主體：
 
@@ -56,11 +56,11 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 將 webhook 控制代碼新增至你想要轉發的監控。在每個監控的**通知訊息**中，加入：
 
 ```text
-{{#is_alert}}@webhook-oneuptime{{/is_alert}}
-{{#is_recovery}}@webhook-oneuptime{{/is_recovery}}
+{{#is_alert}}@webhook-cast-operations{{/is_alert}}
+{{#is_recovery}}@webhook-cast-operations{{/is_recovery}}
 ```
 
-這會同時將警報與復原傳送至 Cast Operations。（若要轉發所有內容，你也可以無條件地將 `@webhook-oneuptime` 新增至監控。）
+這會同時將警報與復原傳送至 Cast Operations。（若要轉發所有內容，你也可以無條件地將 `@webhook-cast-operations` 新增至監控。）
 
 ## 步驟 4 — 測試
 
@@ -74,7 +74,7 @@ Datadog monitor alerts  ──►  Webhook integration  ──►  Cast Operatio
 
 ## 疑難排解
 
-- **沒有出現任何執行紀錄** — 確認監控的訊息包含 `@webhook-oneuptime` 且工作流程已**啟用**。
+- **沒有出現任何執行紀錄** — 確認監控的訊息包含 `@webhook-cast-operations` 且工作流程已**啟用**。
 - **欄位為空** — Datadog 只會替換適用於該事件的範本變數。請在 **Logs** 分頁中檢查觸發器輸出，並調整你的 webhook payload。
 - **重複的事件** — 重複發出警報（renotify）的監控會傳送多個 `Triggered` 事件；在建立之前，先以針對 `id` 的 **Find Incident** 檢查進行去重。
 

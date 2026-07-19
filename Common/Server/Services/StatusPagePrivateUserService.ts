@@ -11,7 +11,7 @@ import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import Hostname from "../../Types/API/Hostname";
 import Protocol from "../../Types/API/Protocol";
 import URL from "../../Types/API/URL";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import EmailTemplateType from "../../Types/Email/EmailTemplateType";
 import BadDataException from "../../Types/Exception/BadDataException";
 import ObjectID from "../../Types/ObjectID";
@@ -66,7 +66,7 @@ export class Service extends DatabaseService<Model> {
       id: createdItem.id!,
       data: {
         resetPasswordToken: token,
-        resetPasswordExpires: OneUptimeDate.getOneDayAfter(),
+        resetPasswordExpires: OperationsDate.getOneDayAfter(),
       },
       props: {
         isRoot: true,

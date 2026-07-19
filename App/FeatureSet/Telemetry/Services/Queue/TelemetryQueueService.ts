@@ -1,11 +1,11 @@
 import { TelemetryRequest } from "Common/Server/Middleware/TelemetryIngest";
 import Queue, { QueueName } from "Common/Server/Infrastructure/Queue";
 import { JSONObject } from "Common/Types/JSON";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import logger from "Common/Server/Utils/Logger";
 import Dictionary from "Common/Types/Dictionary";
 import ObjectID from "Common/Types/ObjectID";
-import ProductType from "Common/Types/MeteredPlan/ProductType";
+import ProductType from "Common/Types/Telemetry/ProductType";
 import {
   OtelPayloadEncoding,
   OtelPayloadFormat,
@@ -218,7 +218,7 @@ export default class TelemetryQueueService {
         type,
         projectId: req.projectId.toString(),
         requestHeaders: req.headers as Record<string, string>,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
       };
 
       const isRawBuffer: boolean =
@@ -292,7 +292,7 @@ export default class TelemetryQueueService {
         jobData.requestBody = req.body;
       }
 
-      const jobId: string = `${type}-${req.projectId?.toString()}-${OneUptimeDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
+      const jobId: string = `${type}-${req.projectId?.toString()}-${OperationsDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
 
       await Queue.addJob(
         QueueName.Telemetry,
@@ -352,16 +352,16 @@ export default class TelemetryQueueService {
         probeMonitorResponse: data.probeMonitorResponse,
         jobType: data.jobType,
         testId: data.testId,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
       };
 
       const jobData: TelemetryIngestJobData = {
         type: TelemetryType.ProbeIngest,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
         probeIngest: probeData,
       };
 
-      const jobId: string = `probe-${data.jobType}-${data.testId || "general"}-${OneUptimeDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
+      const jobId: string = `probe-${data.jobType}-${data.testId || "general"}-${OperationsDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
 
       await Queue.addJob(
         QueueName.Telemetry,
@@ -394,16 +394,16 @@ export default class TelemetryQueueService {
       const probeData: ProbeIngestJobData = {
         jobType: "snmp-trap",
         snmpTrap: data.snmpTrapRequestBody,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
       };
 
       const jobData: TelemetryIngestJobData = {
         type: TelemetryType.ProbeIngest,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
         probeIngest: probeData,
       };
 
-      const jobId: string = `probe-snmp-trap-${OneUptimeDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
+      const jobId: string = `probe-snmp-trap-${OperationsDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
 
       await Queue.addJob(
         QueueName.Telemetry,
@@ -442,7 +442,7 @@ export default class TelemetryQueueService {
     try {
       const probeData: ProbeIngestJobData = {
         jobType: "incoming-email",
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
         incomingEmail: {
           secretKey: data.secretKey,
           emailFrom: data.emailFrom,
@@ -457,11 +457,11 @@ export default class TelemetryQueueService {
 
       const jobData: TelemetryIngestJobData = {
         type: TelemetryType.ProbeIngest,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
         probeIngest: probeData,
       };
 
-      const jobId: string = `incoming-email-${data.secretKey}-${OneUptimeDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
+      const jobId: string = `incoming-email-${data.secretKey}-${OperationsDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
 
       await Queue.addJob(
         QueueName.Telemetry,
@@ -495,16 +495,16 @@ export default class TelemetryQueueService {
       const serverMonitorData: ServerMonitorIngestJobData = {
         secretKey: data.secretKey,
         serverMonitorResponse: data.serverMonitorResponse,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
       };
 
       const jobData: TelemetryIngestJobData = {
         type: TelemetryType.ServerMonitorIngest,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
         serverMonitorIngest: serverMonitorData,
       };
 
-      const jobId: string = `server-monitor-${data.secretKey}-${OneUptimeDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
+      const jobId: string = `server-monitor-${data.secretKey}-${OperationsDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
 
       await Queue.addJob(
         QueueName.Telemetry,
@@ -543,17 +543,17 @@ export default class TelemetryQueueService {
         requestHeaders: data.requestHeaders,
         requestBody: data.requestBody,
         requestMethod: data.requestMethod,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
         receivedViaProbeId: data.receivedViaProbeId,
       };
 
       const jobData: TelemetryIngestJobData = {
         type: TelemetryType.IncomingRequestIngest,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
         incomingRequestIngest: incomingRequestData,
       };
 
-      const jobId: string = `incoming-request-${data.secretKey}-${OneUptimeDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
+      const jobId: string = `incoming-request-${data.secretKey}-${OperationsDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
 
       await Queue.addJob(
         QueueName.Telemetry,
@@ -609,12 +609,12 @@ export default class TelemetryQueueService {
       const projectId: string | undefined = data.projectId?.toString();
       const telemetryMonitorEvaluation: TelemetryMonitorEvaluationJobData = {
         monitorId,
-        queuedAt: OneUptimeDate.getCurrentDate(),
+        queuedAt: OperationsDate.getCurrentDate(),
       };
 
       const jobData: TelemetryIngestJobData = {
         type: TelemetryType.TelemetryMonitorEvaluation,
-        ingestionTimestamp: OneUptimeDate.getCurrentDate(),
+        ingestionTimestamp: OperationsDate.getCurrentDate(),
         telemetryMonitorEvaluation,
       };
 
@@ -623,7 +623,7 @@ export default class TelemetryQueueService {
         jobData.projectId = projectId;
       }
 
-      const jobId: string = `telemetry-monitor-evaluation-${monitorId}-${OneUptimeDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
+      const jobId: string = `telemetry-monitor-evaluation-${monitorId}-${OperationsDate.getCurrentDateAsUnixNano()}-${ObjectID.generate().toString()}`;
 
       await Queue.addJob(
         QueueName.Telemetry,

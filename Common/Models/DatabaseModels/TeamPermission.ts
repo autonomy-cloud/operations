@@ -4,10 +4,8 @@ import Team from "./Team";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
-import TableBillingAccessControl from "../../Types/Database/AccessControl/TableBillingAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
 import ColumnType from "../../Types/Database/ColumnType";
 import PermissionScope from "../../Types/Database/AccessControl/PermissionScope";
@@ -30,13 +28,6 @@ import {
   ManyToMany,
   ManyToOne,
 } from "typeorm";
-
-@TableBillingAccessControl({
-  create: PlanType.Scale,
-  read: PlanType.Free,
-  update: PlanType.Scale,
-  delete: PlanType.Free,
-})
 @EnableDocumentation()
 @TableAccessControl({
   create: [
@@ -154,7 +145,8 @@ export default class TeamPermission extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "a3f9c8e2-d4b6-4a7c-9e5f-1a2b3c4d5e6f",
   })
   @Column({

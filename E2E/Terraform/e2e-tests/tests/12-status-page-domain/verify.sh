@@ -29,7 +29,7 @@ echo "  Verifying domain resource via API..."
 echo "    Domain ID: $DOMAIN_ID"
 
 # Validate Domain
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/domain/${DOMAIN_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/domain/${DOMAIN_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \
@@ -63,7 +63,7 @@ echo ""
 echo "  Verifying status page resource via API..."
 echo "    Status Page ID: $STATUS_PAGE_ID"
 
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/status-page/${STATUS_PAGE_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/status-page/${STATUS_PAGE_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \
@@ -90,7 +90,7 @@ echo ""
 echo "  Verifying status page domain resource via API..."
 echo "    Status Page Domain ID: $STATUS_PAGE_DOMAIN_ID"
 
-RESPONSE=$(curl -s -X POST "${ONEUPTIME_URL}/api/status-page-domain/${STATUS_PAGE_DOMAIN_ID}/get-item" \
+RESPONSE=$(curl -s -X POST "${CAST_OPERATIONS_URL}/api/status-page-domain/${STATUS_PAGE_DOMAIN_ID}/get-item" \
     -H "Content-Type: application/json" \
     -H "Apikey: $TF_VAR_api_key" \
     -H "projectid: $TF_VAR_project_id" \

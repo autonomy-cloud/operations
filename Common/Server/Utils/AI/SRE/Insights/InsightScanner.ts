@@ -1,5 +1,5 @@
 import ObjectID from "../../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../../Types/Date";
+import OperationsDate from "../../../../../Types/Date";
 import LIMIT_MAX from "../../../../../Types/Database/LimitMax";
 import Project from "../../../../../Models/DatabaseModels/Project";
 import AIInsight from "../../../../../Models/DatabaseModels/AIInsight";
@@ -95,7 +95,7 @@ export default class InsightScanner {
     });
 
     // The tick's single clock — detectors compute all windows from it.
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     const context: InsightScanContext = {
       projectId: projectId,

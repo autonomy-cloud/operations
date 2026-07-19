@@ -6,9 +6,9 @@
 
 ## Предварительные требования
 
-- **Токен приёма телеметрии** — создайте его в _Настройки проекта → Ключи приёма телеметрии_ и скопируйте значение `x-oneuptime-token`.
+- **Токен приёма телеметрии** — создайте его в _Настройки проекта → Ключи приёма телеметрии_ и скопируйте значение `x-cast-operations-token`.
 - **Форвардер Syslog** — любой инструмент, способный отправлять HTTP POST-запросы (например, `curl`, `rsyslog` через `omhttp` или `syslog-ng` с плагином HTTP-назначения).
-- **Имя сервиса (необязательно)** — установите заголовок `x-oneuptime-service-name` для группировки входящих журналов под определённым телеметрическим сервисом. При отсутствии Cast Operations использует `APP-NAME` syslog, имя хоста или `Syslog`.
+- **Имя сервиса (необязательно)** — установите заголовок `x-cast-operations-service-name` для группировки входящих журналов под определённым телеметрическим сервисом. При отсутствии Cast Operations использует `APP-NAME` syslog, имя хоста или `Syslog`.
 
 ## Конечная точка
 
@@ -17,7 +17,7 @@ POST https://visca.ai/syslog/v1/logs
 ```
 
 - Замените `visca.ai` на ваш хост при самостоятельном хостинге Cast Operations.
-- Всегда включайте заголовок `x-oneuptime-token` в запрос.
+- Всегда включайте заголовок `x-cast-operations-token` в запрос.
 
 ## Тело запроса
 
@@ -44,8 +44,8 @@ POST https://visca.ai/syslog/v1/logs
 curl \
   -X POST https://visca.ai/syslog/v1/logs \
   -H "Content-Type: application/json" \
-  -H "x-oneuptime-token: YOUR_TELEMETRY_KEY" \
-  -H "x-oneuptime-service-name: production-web" \
+  -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
+  -H "x-cast-operations-service-name: production-web" \
   -d '{
     "messages": [
       "<34>1 2025-03-02T14:48:05.003Z web-01 nginx 7421 ID47 [env@32473 host=\"web-01\"] 502 on /api/login"
@@ -59,7 +59,7 @@ curl \
    ```bash
    sudo apt-get install rsyslog-omhttp
    ```
-2. Добавьте назначение в `/etc/rsyslog.d/oneuptime.conf`:
+2. Добавьте назначение в `/etc/rsyslog.d/cast-operations.conf`:
 
    ```
    module(load="omhttp")
@@ -77,8 +77,8 @@ curl \
      usehttps="on"
      endpoint="/syslog/v1/logs"
      header="Content-Type: application/json"
-     header="x-oneuptime-token: YOUR_TELEMETRY_KEY"
-     header="x-oneuptime-service-name: rsyslog-demo"
+     header="x-cast-operations-token: YOUR_TELEMETRY_KEY"
+     header="x-cast-operations-service-name: rsyslog-demo"
      template="Cast OperationsJson"
    )
    ```
@@ -111,8 +111,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: perimeter-firewall"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: perimeter-firewall"
   template="Cast OperationsJSON"
 )
 ```
@@ -122,7 +122,7 @@ action(
 Многие cron-задания и устаревшие демоны по-прежнему записывают журналы исключительно через системный объект syslog. Пересылка `/var/log/syslog` или записей journald обеспечивает хранение операционных данных в одном месте. Хосты на Systemd могут использовать мост journald → syslog:
 
 ```bash
-# /etc/rsyslog.d/oneuptime.conf
+# /etc/rsyslog.d/cast-operations.conf
 module(load="imjournal" StateFile="imjournal.state")
 module(load="omhttp")
 
@@ -133,8 +133,8 @@ action(
   usehttps="on"
   endpoint="/syslog/v1/logs"
   header="Content-Type: application/json"
-  header="x-oneuptime-token: <TOKEN>"
-  header="x-oneuptime-service-name: linux-fleet"
+  header="x-cast-operations-token: <TOKEN>"
+  header="x-cast-operations-service-name: linux-fleet"
   template="Cast OperationsJSON"
 )
 ```
@@ -161,8 +161,8 @@ action(
     Format            json
     json_date_key     time
     Header            Content-Type application/json
-    Header            x-oneuptime-token <TOKEN>
-    Header            x-oneuptime-service-name edge-ingress
+    Header            x-cast-operations-token <TOKEN>
+    Header            x-cast-operations-service-name edge-ingress
     tls               On
 ```
 
@@ -186,7 +186,7 @@ Cast Operations автоматически добавляет следующие
 
 ## Устранение неполадок
 
-- **HTTP 401 или пустые результаты** — убедитесь, что заголовок `x-oneuptime-token` принадлежит проекту, принимающему журналы.
+- **HTTP 401 или пустые результаты** — убедитесь, что заголовок `x-cast-operations-token` принадлежит проекту, принимающему журналы.
 - **Журналы не появляются** — убедитесь, что тело запроса действительно содержит строки syslog. Пустые тела отклоняются с HTTP 400.
-- **Неожиданное имя сервиса** — установите `x-oneuptime-service-name` для переопределения логики определения по умолчанию.
+- **Неожиданное имя сервиса** — установите `x-cast-operations-service-name` для переопределения логики определения по умолчанию.
 - **Большие пакеты** — поддерживается пакетирование до 1000 строк в одном запросе. Большие пакеты помещаются в очередь и обрабатываются асинхронно.

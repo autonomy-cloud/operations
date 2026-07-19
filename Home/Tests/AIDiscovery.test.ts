@@ -3,7 +3,6 @@ import {
   generateLlmsFullTxt,
   generateMcpManifest,
   generatePageMarkdown,
-  generatePricingMarkdown,
   generateCompareMarkdown,
   generateProductsJson,
   generateCompareIndexJson,
@@ -16,7 +15,7 @@ import { JSONObject } from "Common/Types/JSON";
 const homeUrl: string = "https://visca.ai";
 
 describe("AIDiscovery", () => {
-  test("llms.txt lists products, pricing and machine-readable resources", () => {
+  test("llms.txt lists products and machine-readable resources", () => {
     const posts: Array<RecentBlogPostLink> = [
       {
         title: "Some Post",
@@ -28,7 +27,6 @@ describe("AIDiscovery", () => {
 
     expect(txt).toContain("# Cast Operations");
     expect(txt).toContain("https://visca.ai/product/monitoring.md");
-    expect(txt).toContain("https://visca.ai/pricing.md");
     expect(txt).toContain("https://visca.ai/.well-known/mcp.json");
     expect(txt).toContain("https://visca.ai/docs/llms.txt");
     expect(txt).toContain("https://visca.ai/llms-full.txt");
@@ -43,24 +41,14 @@ describe("AIDiscovery", () => {
 
   test("llms.txt normalizes a trailing slash on the home url", () => {
     const txt: string = generateLlmsTxt("https://visca.ai/", []);
-    expect(txt).toContain("https://visca.ai/pricing.md");
+    expect(txt).toContain("https://visca.ai/product/monitoring.md");
     expect(txt).not.toContain("https://visca.ai//");
   });
 
-  test("llms-full.txt includes product features, pricing and comparisons", () => {
+  test("llms-full.txt includes product features and comparisons", () => {
     const txt: string = generateLlmsFullTxt(homeUrl, []);
     expect(txt).toContain("### Cast Operations Monitoring");
-    expect(txt).toContain(
-      "| Plan | Price (monthly billing) | Price (yearly billing) |",
-    );
     expect(txt).toContain("### Cast Operations vs PagerDuty");
-  });
-
-  test("pricing markdown contains plans and the feature matrix", () => {
-    const md: string = generatePricingMarkdown(homeUrl);
-    expect(md).toContain("| Growth | $22 | $20 |");
-    expect(md).toContain("### Status Page");
-    expect(md).toContain("| Feature | Free | Growth | Scale | Enterprise |");
   });
 
   test("page markdown is generated from PageSEO data", () => {
@@ -70,9 +58,7 @@ describe("AIDiscovery", () => {
     );
     expect(md).toContain("# Cast Operations Monitoring");
     expect(md).toContain("## Features");
-    expect(md).toContain(
-      "Canonical page: https://visca.ai/product/monitoring",
-    );
+    expect(md).toContain("Canonical page: https://visca.ai/product/monitoring");
   });
 
   test("compare markdown renders tables and returns null for unknown slugs", () => {
@@ -99,7 +85,7 @@ describe("AIDiscovery", () => {
     expect(products.length).toBeGreaterThan(20);
     for (const product of products) {
       expect(product["markdownUrl"]).toMatch(
-        /^https:\/\/oneuptime\.com\/.+\.md$/,
+        /^https:\/\/cast-operations\.com\/.+\.md$/,
       );
     }
   });

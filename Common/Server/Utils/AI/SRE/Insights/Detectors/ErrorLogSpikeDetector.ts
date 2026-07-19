@@ -1,5 +1,5 @@
 import ObjectID from "../../../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../../../Types/Date";
+import OperationsDate from "../../../../../../Types/Date";
 import AIInsightType from "../../../../../../Types/AI/AIInsightType";
 import AIInsightSeverity from "../../../../../../Types/AI/AIInsightSeverity";
 import Service from "../../../../../../Models/DatabaseModels/Service";
@@ -195,11 +195,11 @@ export default class ErrorLogSpikeDetector implements InsightDetector {
   public async detect(
     context: InsightScanContext,
   ): Promise<Array<InsightCandidate>> {
-    const recentWindowStart: Date = OneUptimeDate.addRemoveMinutes(
+    const recentWindowStart: Date = OperationsDate.addRemoveMinutes(
       context.now,
       -1 * ERROR_LOG_SPIKE_RECENT_WINDOW_MINUTES,
     );
-    const baselineWindowStart: Date = OneUptimeDate.addRemoveHours(
+    const baselineWindowStart: Date = OperationsDate.addRemoveHours(
       recentWindowStart,
       -1 * ERROR_LOG_SPIKE_BASELINE_WINDOW_HOURS,
     );

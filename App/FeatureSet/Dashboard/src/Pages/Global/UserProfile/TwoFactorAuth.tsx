@@ -26,7 +26,7 @@ import FormValues from "Common/UI/Components/Forms/Types/FormValues";
 import { CustomElementProps } from "Common/UI/Components/Forms/Types/Field";
 import CardModelDetail from "Common/UI/Components/ModelDetail/CardModelDetail";
 import User from "Common/Models/DatabaseModels/User";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Base64 from "Common/Utils/Base64";
 
 const Home: FunctionComponent<PageComponentProps> = (): ReactElement => {
@@ -41,7 +41,7 @@ const Home: FunctionComponent<PageComponentProps> = (): ReactElement => {
     React.useState<boolean>(false);
 
   const [tableRefreshToggle, setTableRefreshToggle] = React.useState<string>(
-    OneUptimeDate.getCurrentDate().toString(),
+    OperationsDate.getCurrentDate().toString(),
   );
 
   const [showWebAuthnRegistrationModal, setShowWebAuthnRegistrationModal] =
@@ -284,7 +284,7 @@ const Home: FunctionComponent<PageComponentProps> = (): ReactElement => {
                 }
 
                 setTableRefreshToggle(
-                  OneUptimeDate.getCurrentDate().toString(),
+                  OperationsDate.getCurrentDate().toString(),
                 );
               } catch (err) {
                 setVerificationError(API.getFriendlyMessage(err));
@@ -402,7 +402,7 @@ const Home: FunctionComponent<PageComponentProps> = (): ReactElement => {
                 setShowWebAuthnRegistrationModal(false);
                 setWebAuthnRegistrationError(null);
                 setTableRefreshToggle(
-                  OneUptimeDate.getCurrentDate().toString(),
+                  OperationsDate.getCurrentDate().toString(),
                 );
                 setWebAuthnRegistrationLoading(false);
               } catch (err) {

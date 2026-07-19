@@ -44,7 +44,7 @@ import RestrictionTimes, {
   RestrictionType,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -72,7 +72,7 @@ const NY: string = "America/New_York";
 const KOLKATA: string = "Asia/Kolkata";
 
 // A Monday 00:00 UTC, far from any DST transition for Day/Week horizons.
-const FIXED_START: Date = OneUptimeDate.fromString("2025-01-06T00:00:00.000Z");
+const FIXED_START: Date = OperationsDate.fromString("2025-01-06T00:00:00.000Z");
 
 interface Cfg {
   name: string;
@@ -95,17 +95,17 @@ function addUnits(
 ): Date {
   switch (intervalType) {
     case EventInterval.Hour:
-      return OneUptimeDate.addRemoveHours(date, units);
+      return OperationsDate.addRemoveHours(date, units);
     case EventInterval.Day:
-      return OneUptimeDate.addRemoveDays(date, units, tz);
+      return OperationsDate.addRemoveDays(date, units, tz);
     case EventInterval.Week:
-      return OneUptimeDate.addRemoveWeeks(date, units, tz);
+      return OperationsDate.addRemoveWeeks(date, units, tz);
     case EventInterval.Month:
-      return OneUptimeDate.addRemoveMonths(date, units, tz);
+      return OperationsDate.addRemoveMonths(date, units, tz);
     case EventInterval.Year:
-      return OneUptimeDate.addRemoveYears(date, units, tz);
+      return OperationsDate.addRemoveYears(date, units, tz);
     default:
-      return OneUptimeDate.addRemoveDays(date, units, tz);
+      return OperationsDate.addRemoveDays(date, units, tz);
   }
 }
 
@@ -177,14 +177,14 @@ function contiguityProblems(events: CalendarEvent[]): string[] {
   const problems: string[] = [];
   for (let i: number = 0; i < events.length; i++) {
     const e: CalendarEvent = events[i]!;
-    if (!OneUptimeDate.isAfter(e.end, e.start)) {
+    if (!OperationsDate.isAfter(e.end, e.start)) {
       problems.push(
         `event ${i} non-positive length ${e.start.toISOString()}->${e.end.toISOString()}`,
       );
     }
     if (i > 0) {
       const prev: CalendarEvent = events[i - 1]!;
-      const gapSeconds: number = OneUptimeDate.getSecondsBetweenTwoDates(
+      const gapSeconds: number = OperationsDate.getSecondsBetweenTwoDates(
         prev.end,
         e.start,
       );
@@ -444,8 +444,8 @@ describe("Unrestricted rotation: windowed current-user == full-expansion cover (
           const at: Date = interiorInstant(cover, f);
           // strictly interior guard.
           if (
-            !OneUptimeDate.isAfter(at, cover.start) ||
-            !OneUptimeDate.isBefore(at, cover.end)
+            !OperationsDate.isAfter(at, cover.start) ||
+            !OperationsDate.isBefore(at, cover.end)
           ) {
             continue;
           }
@@ -632,13 +632,13 @@ describe("Edge cases", () => {
     const events: CalendarEvent[] = util.getEvents({
       ...layerOf(cfg),
       calendarStartDate: FIXED_START,
-      calendarEndDate: OneUptimeDate.addRemoveDays(FIXED_START, 10),
+      calendarEndDate: OperationsDate.addRemoveDays(FIXED_START, 10),
     });
     expect(events).toEqual([]);
     const multi: CalendarEvent[] = util.getMultiLayerEvents({
       layers: [layerOf(cfg)],
       calendarStartDate: FIXED_START,
-      calendarEndDate: OneUptimeDate.addRemoveDays(FIXED_START, 10),
+      calendarEndDate: OperationsDate.addRemoveDays(FIXED_START, 10),
     });
     expect(multi).toEqual([]);
   });
@@ -656,8 +656,8 @@ describe("Edge cases", () => {
       const util: LayerUtil = new LayerUtil();
       const events: CalendarEvent[] = util.getEvents({
         ...layerOf(cfg),
-        calendarStartDate: OneUptimeDate.addRemoveDays(FIXED_START, -30),
-        calendarEndDate: OneUptimeDate.addRemoveDays(FIXED_START, -5),
+        calendarStartDate: OperationsDate.addRemoveDays(FIXED_START, -30),
+        calendarEndDate: OperationsDate.addRemoveDays(FIXED_START, -5),
       });
       expect(events).toEqual([]);
     }
@@ -675,8 +675,8 @@ describe("Edge cases", () => {
     const util: LayerUtil = new LayerUtil();
     const events: CalendarEvent[] = util.getEvents({
       ...layerOf(cfg),
-      calendarStartDate: OneUptimeDate.addRemoveHours(FIXED_START, -50),
-      calendarEndDate: OneUptimeDate.addRemoveHours(FIXED_START, -1),
+      calendarStartDate: OperationsDate.addRemoveHours(FIXED_START, -50),
+      calendarEndDate: OperationsDate.addRemoveHours(FIXED_START, -1),
     });
     expect(events).toEqual([]);
   });
@@ -772,7 +772,7 @@ describe("Edge cases", () => {
     };
     const util: LayerUtil = new LayerUtil();
     // 3 days == exactly a rotation boundary for a daily x1 rotation.
-    const calEnd: Date = OneUptimeDate.addRemoveDays(FIXED_START, 3);
+    const calEnd: Date = OperationsDate.addRemoveDays(FIXED_START, 3);
 
     const raw: CalendarEvent[] = util.getEvents({
       ...layerOf(cfg),
@@ -786,7 +786,7 @@ describe("Edge cases", () => {
      * getMultiLayerEvents, which removes it (see assertion below). Not a
      * user-observable defect, so it is documented rather than reported.
      */
-    expect(OneUptimeDate.isBefore(last.end, last.start)).toBe(true);
+    expect(OperationsDate.isBefore(last.end, last.start)).toBe(true);
 
     const multi: CalendarEvent[] = util.getMultiLayerEvents({
       layers: [layerOf(cfg)],
@@ -795,7 +795,7 @@ describe("Edge cases", () => {
     });
     // No inverted / zero-length events survive the merge.
     for (const e of multi) {
-      expect(OneUptimeDate.isAfter(e.end, e.start)).toBe(true);
+      expect(OperationsDate.isAfter(e.end, e.start)).toBe(true);
     }
     expect(contiguityProblems(multi)).toEqual([]);
   });
@@ -900,7 +900,9 @@ describe("America/New_York rotation across DST transitions (schedule-zone wall-c
          */
         const daySpans: Set<number> = new Set<number>();
         for (const e of full) {
-          daySpans.add(OneUptimeDate.getSecondsBetweenTwoDates(e.start, e.end));
+          daySpans.add(
+            OperationsDate.getSecondsBetweenTwoDates(e.start, e.end),
+          );
         }
         expect(daySpans.size).toBeGreaterThan(1);
         // Every period is within +/- 1h of a nominal 24h day.
@@ -917,8 +919,8 @@ describe("America/New_York rotation across DST transitions (schedule-zone wall-c
         for (const f of [0.25, 0.75]) {
           const at: Date = interiorInstant(cover, f);
           if (
-            !OneUptimeDate.isAfter(at, cover.start) ||
-            !OneUptimeDate.isBefore(at, cover.end)
+            !OperationsDate.isAfter(at, cover.start) ||
+            !OperationsDate.isBefore(at, cover.end)
           ) {
             continue;
           }

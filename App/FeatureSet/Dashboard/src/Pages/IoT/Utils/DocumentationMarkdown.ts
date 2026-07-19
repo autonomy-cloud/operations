@@ -27,7 +27,7 @@ export function getIoTIntroMarkdown(): string {
 
 - A device, gateway, or OpenTelemetry Collector that can send OTLP/HTTP — or any MQTT client
 - Network reachability from the device/gateway to your Cast Operations instance
-- The telemetry ingestion key selected above (sent as the \`x-oneuptime-token\` header for OTLP, or as the MQTT password)
+- The telemetry ingestion key selected above (sent as the \`x-cast-operations-token\` header for OTLP, or as the MQTT password)
 
 There is **no agent to install on the device side** — anything that can speak OTLP (an OpenTelemetry SDK on the device, or an OpenTelemetry Collector running on a gateway that fans out to many devices) or **MQTT** (publish straight to Cast Operations’ built-in MQTT endpoint) works. For the full ingestion guide, see the [IoT Devices documentation](/docs/telemetry/iot-devices).
 
@@ -52,13 +52,13 @@ Optional attributes refine how each device is classified and scoped in monitors:
 
 export function getIoTMethodMarkdown(
   data: {
-    oneuptimeUrl: string;
+    castOperationsUrl: string;
     apiKey: string;
   },
   method: IoTIngestionMethod,
 ): string {
   // ws(s):// form of the instance URL for the MQTT-over-WebSocket endpoint.
-  const mqttWebSocketUrl: string = `${data.oneuptimeUrl.replace(/^http/, "ws")}/mqtt`;
+  const mqttWebSocketUrl: string = `${data.castOperationsUrl.replace(/^http/, "ws")}/mqtt`;
 
   switch (method) {
     case "opentelemetry":
@@ -68,8 +68,8 @@ export function getIoTMethodMarkdown(
 If your device runs an OpenTelemetry SDK directly, point it at Cast Operations and stamp the IoT resource attributes via the standard \`OTEL_*\` environment variables. Replace the fleet name and device id with values for your environment:
 
 \`\`\`bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=${data.oneuptimeUrl}/otlp
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=${data.apiKey}
+export OTEL_EXPORTER_OTLP_ENDPOINT=${data.castOperationsUrl}/otlp
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=${data.apiKey}
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 \`\`\`
 
@@ -103,9 +103,9 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "${data.oneuptimeUrl}/otlp"
+    endpoint: "${data.castOperationsUrl}/otlp"
     headers:
-      "x-oneuptime-token": "${data.apiKey}"
+      "x-cast-operations-token": "${data.apiKey}"
 
 service:
   pipelines:
@@ -130,10 +130,10 @@ Devices that already speak MQTT can publish readings directly — no SDK, collec
 ${mqttWebSocketUrl}
 \`\`\`
 
-Authenticate with the ingestion key selected above as the **MQTT password** (the username is ignored) — or better, register each device under the fleet's **Device Registry** tab to get a per-device credential (credential ID as username, secret as password) with topic isolation, individual revocation, and silent-death offline detection. Then publish JSON readings under the \`oneuptime/\` topic prefix:
+Authenticate with the ingestion key selected above as the **MQTT password** (the username is ignored) — or better, register each device under the fleet's **Device Registry** tab to get a per-device credential (credential ID as username, secret as password) with topic isolation, individual revocation, and silent-death offline detection. Then publish JSON readings under the \`cast-operations/\` topic prefix:
 
 \`\`\`text
-Topic:   oneuptime/<fleet>/<device>/telemetry
+Topic:   cast-operations/<fleet>/<device>/telemetry
 Payload: {"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5}}
 \`\`\`
 
@@ -143,31 +143,33 @@ For example, with the Node.js \`mqtt\` client:
 const mqtt = require("mqtt");
 
 const client = mqtt.connect("${mqttWebSocketUrl}", {
-  username: "oneuptime", // ignored — the key below is what authenticates
+  username: "cast-operations", // ignored — the key below is what authenticates
   password: "${data.apiKey}",
   will: {
-    topic: "oneuptime/building-a-sensors/sensor-001/status",
+    topic: "cast-operations/building-a-sensors/sensor-001/status",
     payload: "offline",
   },
 });
 
 client.on("connect", () => {
-  client.publish("oneuptime/building-a-sensors/sensor-001/status", "online");
+  client.publish("cast-operations/building-a-sensors/sensor-001/status", "online");
   client.publish(
-    "oneuptime/building-a-sensors/sensor-001/telemetry",
+    "cast-operations/building-a-sensors/sensor-001/telemetry",
     JSON.stringify({ metrics: { iot_device_up: 1, iot_temperature_celsius: 21.5 } }),
   );
 });
 \`\`\`
 
-Register an MQTT **Last Will** on \`oneuptime/<fleet>/<device>/status\` with payload \`offline\` — if the device dies, Cast Operations publishes \`iot_device_up = 0\` on its behalf the moment the session drops, which trips the stock Device Offline alert template with no polling. Single values can also go to \`oneuptime/<fleet>/<device>/metrics/<metricName>\` with a bare-number payload. Self-hosted deployments can additionally expose raw MQTT TCP (\`MQTT_INGEST_PORT\`, default \`1883\`).
+Register an MQTT **Last Will** on \`cast-operations/<fleet>/<device>/status\` with payload \`offline\` — if the device dies, Cast Operations publishes \`iot_device_up = 0\` on its behalf the moment the session drops, which trips the stock Device Offline alert template with no polling. Single values can also go to \`cast-operations/<fleet>/<device>/metrics/<metricName>\` with a bare-number payload. Self-hosted deployments can additionally expose raw MQTT TCP (\`MQTT_INGEST_PORT\`, default \`1883\`).
 
 Keep the MQTT keepalive **under 5 minutes** on the WebSocket endpoint (client-library defaults of 60 s are fine) — idle WebSocket connections are closed after 300 seconds, which would fire the Last Will and a false offline alert.
 `;
   }
 }
 
-export function getIoTFooterMarkdown(data: { oneuptimeUrl: string }): string {
+export function getIoTFooterMarkdown(data: {
+  castOperationsUrl: string;
+}): string {
   return `
 ## Metric Conventions
 
@@ -197,8 +199,8 @@ Cast Operations recognizes the following \`iot_*\` metric names. Each datapoint 
 ### Fleet Does Not Appear
 
 1. Verify \`iot.fleet.name\` is set as a **resource** attribute (not a datapoint label), and that \`service.name\` is \`iot/<fleet>\`.
-2. Confirm the exporter endpoint is \`${data.oneuptimeUrl}/otlp\` and the \`x-oneuptime-token\` header carries a valid ingestion key.
-3. If using MQTT, confirm the topic follows \`oneuptime/<fleet>/<device>/…\` exactly — the fleet segment of the topic is what creates the fleet.
+2. Confirm the exporter endpoint is \`${data.castOperationsUrl}/otlp\` and the \`x-cast-operations-token\` header carries a valid ingestion key.
+3. If using MQTT, confirm the topic follows \`cast-operations/<fleet>/<device>/…\` exactly — the fleet segment of the topic is what creates the fleet.
 
 ### Devices Missing from the Inventory
 
@@ -208,7 +210,7 @@ Cast Operations recognizes the following \`iot_*\` metric names. Each datapoint 
 
 ### HTTP 401 / 403 from the Exporter
 
-The ingestion key is invalid, revoked, or missing. Select a different key above (or create a new one) and update the \`x-oneuptime-token\` header your device or collector sends.
+The ingestion key is invalid, revoked, or missing. Select a different key above (or create a new one) and update the \`x-cast-operations-token\` header your device or collector sends.
 
 For the complete ingestion guide — including the SDK and collector setup in depth, self-hosted endpoints, and configuring IoT monitors — see the [IoT Devices documentation](/docs/telemetry/iot-devices).
 `;

@@ -5,7 +5,7 @@ import TelemetryEntityService from "Common/Server/Services/TelemetryEntityServic
 import TelemetryEntityRelationshipService from "Common/Server/Services/TelemetryEntityRelationshipService";
 import QueryHelper from "Common/Server/Types/Database/QueryHelper";
 import LIMIT_MAX from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import EntityType from "Common/Types/Telemetry/EntityType";
 
 /*
@@ -86,7 +86,7 @@ RunCron(
         try {
           totalEntities += await deleteStaleEntities({
             entityType,
-            cutoff: OneUptimeDate.getSomeHoursAgo(ttlHours),
+            cutoff: OperationsDate.getSomeHoursAgo(ttlHours),
           });
         } catch (err) {
           logger.error(
@@ -97,7 +97,7 @@ RunCron(
 
       let totalEdges: number = 0;
       try {
-        const cutoff: Date = OneUptimeDate.getSomeHoursAgo(
+        const cutoff: Date = OperationsDate.getSomeHoursAgo(
           RELATIONSHIP_TTL_HOURS,
         );
         let deleted: number = 0;

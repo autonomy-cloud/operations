@@ -7,8 +7,8 @@ Cast Operations CLI는 자동화를 위해 설계되었습니다. 환경 변수 
 저장된 컨텍스트 없이 인증하려면 다음 환경 변수를 설정합니다:
 
 ```bash
-export ONEUPTIME_API_KEY=sk-your-api-key
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-your-api-key
+export CAST_OPERATIONS_URL=https://visca.ai
 ```
 
 이 변수들은 저장된 컨텍스트보다 우선하지만 CLI 플래그에 의해 재정의됩니다.
@@ -25,7 +25,7 @@ export ONEUPTIME_URL=https://visca.ai
 스크립트에서 종료 코드를 사용하여 오류를 처리합니다:
 
 ```bash
-if ! oneuptime monitor list > /dev/null 2>&1; then
+if ! cast-operations monitor list > /dev/null 2>&1; then
   echo "Failed to list monitors"
   exit 1
 fi
@@ -37,14 +37,14 @@ fi
 
 ```bash
 # 모든 인시던트 제목 추출
-oneuptime incident list -o json | jq '.[].title'
+cast-operations incident list -o json | jq '.[].title'
 
 # 새로 생성된 모니터의 ID 가져오기
-NEW_ID=$(oneuptime monitor create --data '{"name":"API Health"}' -o json | jq -r '._id')
+NEW_ID=$(cast-operations monitor create --data '{"name":"API Health"}' -o json | jq -r '._id')
 echo "Created monitor: $NEW_ID"
 
 # 심각도별 인시던트 카운트
-oneuptime incident count --query '{"incidentSeverityId":"<severity-id>"}'
+cast-operations incident count --query '{"incidentSeverityId":"<severity-id>"}'
 ```
 
 ## 파일에서 리소스 생성
@@ -58,7 +58,7 @@ oneuptime incident count --query '{"incidentSeverityId":"<severity-id>"}'
 #   "projectId": "your-project-id"
 # }
 
-oneuptime monitor create --file monitor.json
+cast-operations monitor create --file monitor.json
 ```
 
 ## 배치 작업
@@ -68,7 +68,7 @@ oneuptime monitor create --file monitor.json
 ```bash
 # JSON 배열 파일에서 여러 모니터 생성
 cat monitors.json | jq -r '.[] | @json' | while read monitor; do
-  oneuptime monitor create --data "$monitor"
+  cast-operations monitor create --data "$monitor"
 done
 ```
 
@@ -87,14 +87,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Cast Operations CLI
-        run: npm install -g @oneuptime/cli
+        run: npm install -g @cast-operations/cli
 
       - name: Check for active incidents
         env:
-          ONEUPTIME_API_KEY: ${{ secrets.ONEUPTIME_API_KEY }}
-          ONEUPTIME_URL: https://visca.ai
+          CAST_OPERATIONS_API_KEY: ${{ secrets.CAST_OPERATIONS_API_KEY }}
+          CAST_OPERATIONS_URL: https://visca.ai
         run: |
-          INCIDENT_COUNT=$(oneuptime incident count)
+          INCIDENT_COUNT=$(cast-operations incident count)
           if [ "$INCIDENT_COUNT" -gt 0 ]; then
             echo "WARNING: $INCIDENT_COUNT incidents found"
             exit 1
@@ -107,12 +107,12 @@ jobs:
 #!/bin/bash
 set -e
 
-export ONEUPTIME_API_KEY="$CI_ONEUPTIME_API_KEY"
-export ONEUPTIME_URL="$CI_ONEUPTIME_URL"
+export CAST_OPERATIONS_API_KEY="$CI_CAST_OPERATIONS_API_KEY"
+export CAST_OPERATIONS_URL="$CI_CAST_OPERATIONS_URL"
 
 # 배포 인시던트 생성 및 ID 캡처
 # 참고: currentIncidentStateId와 incidentSeverityId는 프로젝트의 기존 상태/심각도 ID를 참조해야 합니다
-INCIDENT_ID=$(oneuptime incident create --data '{
+INCIDENT_ID=$(cast-operations incident create --data '{
   "title": "Deployment Started",
   "currentIncidentStateId": "'"$INVESTIGATING_STATE_ID"'",
   "incidentSeverityId": "'"$SEVERITY_ID"'",
@@ -122,24 +122,24 @@ INCIDENT_ID=$(oneuptime incident create --data '{
 # 배포 단계 실행...
 
 # 성공적인 배포 후 인시던트 해결
-oneuptime incident update "$INCIDENT_ID" --data '{"currentIncidentStateId":"'"$RESOLVED_STATE_ID"'"}'
+cast-operations incident update "$INCIDENT_ID" --data '{"currentIncidentStateId":"'"$RESOLVED_STATE_ID"'"}'
 ```
 
 ### Docker
 
 ```dockerfile
 FROM node:26-slim
-RUN npm install -g @oneuptime/cli
-ENV ONEUPTIME_API_KEY=""
-ENV ONEUPTIME_URL=""
-ENTRYPOINT ["oneuptime"]
+RUN npm install -g @cast-operations/cli
+ENV CAST_OPERATIONS_API_KEY=""
+ENV CAST_OPERATIONS_URL=""
+ENTRYPOINT ["cast-operations"]
 ```
 
 ```bash
 docker run --rm \
-  -e ONEUPTIME_API_KEY=sk-abc123 \
-  -e ONEUPTIME_URL=https://visca.ai \
-  oneuptime-cli incident list
+  -e CAST_OPERATIONS_API_KEY=sk-abc123 \
+  -e CAST_OPERATIONS_URL=https://visca.ai \
+  cast-operations-cli incident list
 ```
 
 ## 스크립트에서 특정 컨텍스트 사용
@@ -147,6 +147,6 @@ docker run --rm \
 여러 컨텍스트가 저장된 경우 특정 컨텍스트를 대상으로 지정합니다:
 
 ```bash
-oneuptime --context production incident list
-oneuptime --context staging monitor count
+cast-operations --context production incident list
+cast-operations --context staging monitor count
 ```

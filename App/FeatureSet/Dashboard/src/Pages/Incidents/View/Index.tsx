@@ -8,7 +8,7 @@ import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { Black } from "Common/Types/BrandColors";
 import Color from "Common/Types/Color";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import { JSONObject } from "Common/Types/JSON";
 import ObjectID from "Common/Types/ObjectID";
@@ -287,13 +287,16 @@ const IncidentView: FunctionComponent<
     }
 
     if (!acknowledgeTime && resolveTime) {
-      return OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
-        OneUptimeDate.getDifferenceInMinutes(resolveTime, incidentStartTime),
+      return OperationsDate.convertMinutesToDaysHoursAndMinutes(
+        OperationsDate.getDifferenceInMinutes(resolveTime, incidentStartTime),
       );
     }
 
-    return OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
-      OneUptimeDate.getDifferenceInMinutes(acknowledgeTime!, incidentStartTime),
+    return OperationsDate.convertMinutesToDaysHoursAndMinutes(
+      OperationsDate.getDifferenceInMinutes(
+        acknowledgeTime!,
+        incidentStartTime,
+      ),
     );
   };
 
@@ -316,8 +319,8 @@ const IncidentView: FunctionComponent<
       );
     }
 
-    return OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
-      OneUptimeDate.getDifferenceInMinutes(resolveTime, incidentStartTime),
+    return OperationsDate.convertMinutesToDaysHoursAndMinutes(
+      OperationsDate.getDifferenceInMinutes(resolveTime, incidentStartTime),
     );
   };
 
@@ -389,7 +392,7 @@ const IncidentView: FunctionComponent<
                       onClick={() => {
                         // do nothing!
                       }}
-                      title={OneUptimeDate.getInBetweenDatesAsFormattedString(
+                      title={OperationsDate.getInBetweenDatesAsFormattedString(
                         telemetryQuery.metricViewData.startAndEndDate,
                       )}
                       alertType={HeaderAlertType.INFO}

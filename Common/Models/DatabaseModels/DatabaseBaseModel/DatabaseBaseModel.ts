@@ -1,13 +1,10 @@
 import EnableRealtimeEventsOn from "../../../Types/Realtime/EnableRealtimeEventsOn";
 import Route from "../../../Types/API/Route";
 import { ColumnAccessControl } from "../../../Types/BaseDatabase/AccessControl";
-import ColumnBillingAccessControl from "../../../Types/BaseDatabase/ColumnBillingAccessControl";
 import EnableAuditLogOn from "../../../Types/BaseDatabase/EnableAuditLogOn";
 import EnableWorkflowOn from "../../../Types/BaseDatabase/EnableWorkflowOn";
 import ModelPermission from "../../../Types/BaseDatabase/ModelPermission";
-import { PlanType } from "../../../Types/Billing/SubscriptionPlan";
 import { getColumnAccessControlForAllColumns } from "../../../Types/Database/AccessControl/ColumnAccessControl";
-import { getColumnBillingAccessControlForAllColumns } from "../../../Types/Database/AccessControl/ColumnBillingAccessControl";
 import { OwnedThroughMetadata } from "../../../Types/Database/AccessControl/OwnedThrough";
 import Columns from "../../../Types/Database/Columns";
 import ColumnType from "../../../Types/Database/ColumnType";
@@ -113,21 +110,6 @@ export default class DatabaseBaseModel extends BaseEntity {
   public deleteRecordPermissions!: Array<Permission>;
   public updateRecordPermissions!: Array<Permission>;
 
-  // Billing Plans.
-  public createBillingPlan!: PlanType | null;
-  public readBillingPlan!: PlanType | null;
-  public updateBillingPlan!: PlanType | null;
-  public deleteBillingPlan!: PlanType | null;
-
-  /*
-   * Edition gating. When true, the model is only available on the
-   * Enterprise self-hosted edition or on the cloud Enterprise plan.
-   * Set by the @TableEditionAccessControl decorator.
-   */
-  public requiresEnterprise!: boolean;
-
-  public allowAccessIfSubscriptionIsUnpaid!: boolean;
-
   public enableWorkflowOn!: EnableWorkflowOn;
 
   public enableAuditLogOn!: EnableAuditLogOn | undefined;
@@ -150,7 +132,7 @@ export default class DatabaseBaseModel extends BaseEntity {
    * Set by the @OperationalResource() decorator. When true, *AllOperationalResources
    * wildcard permissions (ReadAllOperationalResources, EditAllOperationalResources, etc.) cover this
    * model in the table-level permission short-circuit. Settings/admin models
-   * (Team, TeamPermission, Project, Label, Billing, Integration credentials)
+   * (Team, TeamPermission, Project, Label, Integration credentials)
    * remain off.
    */
   public isOperationalResource!: boolean;
@@ -254,14 +236,6 @@ export default class DatabaseBaseModel extends BaseEntity {
 
   public hasColumn(columnName: string): boolean {
     return Boolean(getTableColumn(this, columnName));
-  }
-
-  public getColumnBillingAccessControl(
-    columnName: string,
-  ): ColumnBillingAccessControl {
-    const dictionary: Dictionary<ColumnBillingAccessControl> =
-      getColumnBillingAccessControlForAllColumns(this);
-    return dictionary[columnName] as ColumnBillingAccessControl;
   }
 
   public getColumnAccessControlFor(
@@ -511,22 +485,6 @@ export default class DatabaseBaseModel extends BaseEntity {
 
   public getReadPermissions(): Array<Permission> {
     return this.readRecordPermissions;
-  }
-
-  public getReadBillingPlan(): PlanType | null {
-    return this.readBillingPlan;
-  }
-
-  public getCreateBillingPlan(): PlanType | null {
-    return this.createBillingPlan;
-  }
-
-  public getUpdateBillingPlan(): PlanType | null {
-    return this.updateBillingPlan;
-  }
-
-  public getDeleteBillingPlan(): PlanType | null {
-    return this.deleteBillingPlan;
   }
 
   public getCreatePermissions(): Array<Permission> {

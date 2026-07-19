@@ -6,7 +6,7 @@ import OnCallDutyPolicyUserOverride from "../../Models/DatabaseModels/OnCallDuty
 import CreateBy from "../Types/Database/CreateBy";
 import UpdateBy from "../Types/Database/UpdateBy";
 import { OnCreate, OnDelete, OnUpdate } from "../Types/Database/Hooks";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import BadDataException from "../../Types/Exception/BadDataException";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import OnCallDutyPolicyFeedService from "./OnCallDutyPolicyFeedService";
@@ -76,7 +76,9 @@ export class Service extends DatabaseService<OnCallDutyPolicyUserOverride> {
      * turn into a zero-length / inverted substitution segment and a spurious
      * "you are next on-call" notification.
      */
-    if (!OneUptimeDate.isBefore(createBy.data.startsAt, createBy.data.endsAt)) {
+    if (
+      !OperationsDate.isBefore(createBy.data.startsAt, createBy.data.endsAt)
+    ) {
       throw new BadDataException("Start time must be before end time");
     }
 
@@ -166,15 +168,17 @@ export class Service extends DatabaseService<OnCallDutyPolicyUserOverride> {
             userId: routeAlertsToUserId,
             projectId: projectId!,
           },
-        )}** from **${OneUptimeDate.getDateAsFormattedStringInMultipleTimezones(
+        )}** from **${OperationsDate.getDateAsFormattedStringInMultipleTimezones(
           {
             date: createdItem.startsAt!,
             timezones: timezones,
           },
-        )}**  to **${OneUptimeDate.getDateAsFormattedStringInMultipleTimezones({
-          date: createdItem.endsAt!,
-          timezones: timezones,
-        })}**. `,
+        )}**  to **${OperationsDate.getDateAsFormattedStringInMultipleTimezones(
+          {
+            date: createdItem.endsAt!,
+            timezones: timezones,
+          },
+        )}**. `,
 
         userId: createdItem.createdByUserId! || undefined,
         workspaceNotification: {

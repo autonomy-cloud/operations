@@ -1,5 +1,5 @@
 import ObjectID from "../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import { JSONObject } from "../../../../Types/JSON";
 import {
   AIChatCitation,
@@ -265,8 +265,8 @@ export default class AIInvestigationEngine {
           fromStatus: AIRunStatus.Running,
           set: {
             status: AIRunStatus.Completed,
-            completedAt: OneUptimeDate.getCurrentDate(),
-            lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+            completedAt: OperationsDate.getCurrentDate(),
+            lastHeartbeatAt: OperationsDate.getCurrentDate(),
             llmCallCount: result.llmCallCount,
             toolCallCount: result.toolCallCount,
             totalTokens: result.totalTokens,
@@ -395,7 +395,7 @@ export default class AIInvestigationEngine {
       await AIRunService.updateOneBy({
         query: { _id: aiRunId.toString(), status: AIRunStatus.Running },
         data: {
-          lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+          lastHeartbeatAt: OperationsDate.getCurrentDate(),
         } as never,
         props: { isRoot: true },
       });

@@ -1,6 +1,6 @@
 # Helm Chart for Cast Operations
 
-[Read Docs here](Public/oneuptime/README.md)
+[Read Docs here](Public/cast-operations/README.md)
 
 ## Database migration guides
 

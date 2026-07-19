@@ -5,7 +5,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import DayOfWeek from "../../../Types/Day/DayOfWeek";
@@ -44,12 +44,12 @@ function dailyRestriction(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: startHour,
       minutes: 0,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: endHour,
       minutes: 0,
       seconds: 0,
@@ -79,12 +79,12 @@ function weeklyRestriction(
       return {
         startDay: w.startDay,
         endDay: w.endDay,
-        startTime: OneUptimeDate.getDateWithCustomTime({
+        startTime: OperationsDate.getDateWithCustomTime({
           hours: w.startHour,
           minutes: 0,
           seconds: 0,
         }),
-        endTime: OneUptimeDate.getDateWithCustomTime({
+        endTime: OperationsDate.getDateWithCustomTime({
           hours: w.endHour,
           minutes: 0,
           seconds: 0,
@@ -184,7 +184,7 @@ describe("Multi-layer priority merge audit (lens: getMultiLayerEvents / removeOv
       const actual: string | null = coveringUser(merged, t);
       if (expected !== actual) {
         mismatches.push(
-          `${OneUptimeDate.toString(t)} expected=${expected} actual=${actual}`,
+          `${OperationsDate.toString(t)} expected=${expected} actual=${actual}`,
         );
       }
     }

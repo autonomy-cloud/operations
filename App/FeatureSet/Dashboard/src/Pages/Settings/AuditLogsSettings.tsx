@@ -5,33 +5,11 @@ import CardModelDetail from "Common/UI/Components/ModelDetail/CardModelDetail";
 import FieldType from "Common/UI/Components/Types/FieldType";
 import Navigation from "Common/UI/Utils/Navigation";
 import Project from "Common/Models/DatabaseModels/Project";
-import AuditLogsEnterpriseUpgrade, {
-  isAuditLogsEnterpriseEligible,
-} from "../../Components/AuditLogs/AuditLogsEnterpriseUpgrade";
-import React, {
-  Fragment,
-  FunctionComponent,
-  ReactElement,
-  useMemo,
-} from "react";
+import React, { Fragment, FunctionComponent, ReactElement } from "react";
 
 const AuditLogsSettings: FunctionComponent<PageComponentProps> = (
   _props: PageComponentProps,
 ): ReactElement => {
-  const isEnterpriseEligible: boolean = useMemo(() => {
-    return isAuditLogsEnterpriseEligible();
-  }, []);
-
-  if (!isEnterpriseEligible) {
-    return (
-      <AuditLogsEnterpriseUpgrade
-        title="Audit Logs Settings"
-        description="Configure how long audit logs are retained for this project."
-        featureDescription="Toggle audit logging for this project and choose how long we keep the history."
-      />
-    );
-  }
-
   return (
     <Fragment>
       <CardModelDetail

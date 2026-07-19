@@ -1,5 +1,5 @@
 export function getCephInstallationMarkdown(data: {
-  oneuptimeUrl: string;
+  castOperationsUrl: string;
   apiKey: string;
 }): string {
   return `
@@ -31,15 +31,15 @@ curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/Cep
 bash install.sh
 \`\`\`
 
-The script prompts for your Cast Operations URL, telemetry ingestion key, cluster name, and mgr endpoints, installs to \`/opt/oneuptime-ceph-agent\`, and starts the agent with Docker Compose.
+The script prompts for your Cast Operations URL, telemetry ingestion key, cluster name, and mgr endpoints, installs to \`/opt/cast-operations-ceph-agent\`, and starts the agent with Docker Compose.
 
 ## Alternative: Docker Compose
 
 Download \`docker-compose.yml\` and \`otel-collector-config.yaml\` from the [CephAgent directory](https://github.com/autonomy-cloud/operations/tree/master/CephAgent) into a folder, then create a \`.env\` file next to them:
 
 \`\`\`bash
-ONEUPTIME_URL=${data.oneuptimeUrl}
-ONEUPTIME_TELEMETRY_INGESTION_KEY=${data.apiKey}
+CAST_OPERATIONS_URL=${data.castOperationsUrl}
+CAST_OPERATIONS_TELEMETRY_INGESTION_KEY=${data.apiKey}
 CEPH_CLUSTER_NAME=my-ceph-cluster
 CEPH_MGR_ENDPOINTS=[ceph-mon-1:9283,ceph-mon-2:9283,ceph-mon-3:9283]
 \`\`\`
@@ -58,8 +58,8 @@ That's it. Once the agent connects, your cluster will appear automatically in th
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| \`ONEUPTIME_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.oneuptimeUrl}\`) |
-| \`ONEUPTIME_TELEMETRY_INGESTION_KEY\` | Yes | Telemetry ingestion key (*Project Settings → Telemetry Ingestion Keys*) |
+| \`CAST_OPERATIONS_URL\` | Yes | Your Cast Operations instance URL (e.g. \`${data.castOperationsUrl}\`) |
+| \`CAST_OPERATIONS_TELEMETRY_INGESTION_KEY\` | Yes | Telemetry ingestion key (*Project Settings → Telemetry Ingestion Keys*) |
 | \`CEPH_CLUSTER_NAME\` | Yes | Cluster identifier shown in Cast Operations. Stamped on every metric as the \`ceph.cluster.name\` resource attribute |
 | \`CEPH_MGR_ENDPOINTS\` | Yes | Comma-separated \`host:port\` list of **all** mgr daemons, wrapped in square brackets, e.g. \`[ceph-mon-1:9283,ceph-mon-2:9283]\`. The install script adds the brackets for you |
 
@@ -78,7 +78,7 @@ receivers:
   prometheus:
     config:
       scrape_configs:
-        - job_name: oneuptime-ceph
+        - job_name: cast-operations-ceph
           # Keep the labels Ceph exports (ceph_daemon, pool_id, etc.).
           # Without honor_labels the instance label is rewritten per
           # scrape target and flips every time the active mgr changes,
@@ -131,10 +131,10 @@ processors:
       #   value: "\${env:CEPH_CLUSTER_FSID}"
       #   action: upsert
       # The prometheus receiver synthesizes service.name (= the scrape job
-      # name, "oneuptime-ceph") and service.instance.id on every batch per
+      # name, "cast-operations-ceph") and service.instance.id on every batch per
       # the Prometheus->OTLP compatibility spec. Drop them: Cast Operations
       # routes batches by service.name first, so leaving them in would
-      # register a phantom "oneuptime-ceph" Service instead of routing
+      # register a phantom "cast-operations-ceph" Service instead of routing
       # this data to the Ceph cluster discovered from \`ceph.cluster.name\`
       # (which would also break per-cluster retention settings). Do not
       # remove these two deletes.
@@ -152,9 +152,9 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "\${env:ONEUPTIME_URL}/otlp"
+    endpoint: "\${env:CAST_OPERATIONS_URL}/otlp"
     headers:
-      x-oneuptime-token: "\${env:ONEUPTIME_TELEMETRY_INGESTION_KEY}"
+      x-cast-operations-token: "\${env:CAST_OPERATIONS_TELEMETRY_INGESTION_KEY}"
 
 service:
   pipelines:
@@ -175,13 +175,13 @@ service:
 Check that the agent is running:
 
 \`\`\`bash
-docker ps --filter name=oneuptime-ceph-agent
+docker ps --filter name=cast-operations-ceph-agent
 \`\`\`
 
 Check the agent logs:
 
 \`\`\`bash
-docker logs -f oneuptime-ceph-agent
+docker logs -f cast-operations-ceph-agent
 \`\`\`
 
 Look for: \`"Everything is ready. Begin running and processing data."\`
@@ -204,7 +204,7 @@ Look for: \`"Everything is ready. Begin running and processing data."\`
 ## Upgrading the Agent
 
 \`\`\`bash
-cd /opt/oneuptime-ceph-agent
+cd /opt/cast-operations-ceph-agent
 docker compose pull
 docker compose up -d
 \`\`\`
@@ -212,7 +212,7 @@ docker compose up -d
 ## Uninstalling the Agent
 
 \`\`\`bash
-cd /opt/oneuptime-ceph-agent
+cd /opt/cast-operations-ceph-agent
 docker compose down
 \`\`\`
 
@@ -232,12 +232,12 @@ The agent can tail \`/var/log/ceph/ceph.log\` and ship it to Cast Operations, wh
 
 \`\`\`bash
 curl -sSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/CephAgent/troubleshoot.sh -o troubleshoot.sh
-bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/oneuptime-ceph-agent
+bash troubleshoot.sh    # add -d <dir> if you installed outside /opt/cast-operations-ceph-agent
 \`\`\`
 
 ### No cluster appears in Cast Operations
 
-1. Check the collector logs: \`docker logs oneuptime-ceph-agent\` — look for export errors (\`401\` means a bad ingestion key, connection refused means a wrong \`ONEUPTIME_URL\`).
+1. Check the collector logs: \`docker logs cast-operations-ceph-agent\` — look for export errors (\`401\` means a bad ingestion key, connection refused means a wrong \`CAST_OPERATIONS_URL\`).
 2. Verify a mgr endpoint serves metrics: \`curl http://<active-mgr>:9283/metrics | head\` — you should see \`ceph_*\` metric lines. If not, enable the module: \`ceph mgr module enable prometheus\`.
 3. Make sure \`CEPH_MGR_ENDPOINTS\` is wrapped in square brackets — without them the collector treats the whole comma-separated string as a single (invalid) target.
 
@@ -247,8 +247,8 @@ You are probably scraping only the (previously) active mgr. List **every** mgr d
 
 ### Cluster shows as Disconnected
 
-1. Check that the agent is running: \`docker ps --filter name=oneuptime-ceph-agent\`
-2. Check the agent logs: \`docker logs oneuptime-ceph-agent | grep -i error\`
+1. Check that the agent is running: \`docker ps --filter name=cast-operations-ceph-agent\`
+2. Check the agent logs: \`docker logs cast-operations-ceph-agent | grep -i error\`
 3. Verify your Cast Operations URL and ingestion key are correct
 4. Ensure the agent machine can reach the Cast Operations instance over the network
 `;

@@ -7,7 +7,7 @@ Cast Operations CLI 支援三種輸出格式：**table**、**JSON** 與 **wide**
 在互動式終端機中執行時的預設格式。會以 ASCII 表格的形式顯示結果，並智慧地選取欄位。
 
 ```bash
-oneuptime incident list
+cast-operations incident list
 ```
 
 ```
@@ -30,7 +30,7 @@ Table 格式的行為：
 原始 JSON 輸出，以 2 個空格縮排美化排版。這是用於指令稿撰寫以及導向其他工具時的最佳格式。
 
 ```bash
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ```json
@@ -48,7 +48,7 @@ oneuptime incident list -o json
 
 ```bash
 # JSON is used automatically when piping
-oneuptime incident list | jq '.[].title'
+cast-operations incident list | jq '.[].title'
 ```
 
 ## Wide
@@ -56,7 +56,7 @@ oneuptime incident list | jq '.[].title'
 顯示所有欄位且不截斷。適合用於詳細檢視，但可能產生非常寬的輸出。
 
 ```bash
-oneuptime incident list -o wide
+cast-operations incident list -o wide
 ```
 
 ## 停用顏色
@@ -65,10 +65,10 @@ oneuptime incident list -o wide
 
 ```bash
 # Using the --no-color flag
-oneuptime --no-color incident list
+cast-operations --no-color incident list
 
 # Using the NO_COLOR environment variable
-NO_COLOR=1 oneuptime incident list
+NO_COLOR=1 cast-operations incident list
 ```
 
 ## 特殊輸出情況

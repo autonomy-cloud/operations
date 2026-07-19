@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import DiffFlamegraph, { DiffFlamegraphNode } from "./DiffFlamegraph";
 import ProfileUtil from "../../Utils/ProfileUtil";
@@ -203,9 +203,9 @@ const DiffFlamegraphWithPresets: FunctionComponent<
      * the window ends at "now" (live mode).
      */
     const comparisonEnd: Date = props.anchorTime
-      ? OneUptimeDate.addRemoveMinutes(props.anchorTime, windowMinutes / 2)
-      : OneUptimeDate.getCurrentDate();
-    const comparisonStart: Date = OneUptimeDate.addRemoveMinutes(
+      ? OperationsDate.addRemoveMinutes(props.anchorTime, windowMinutes / 2)
+      : OperationsDate.getCurrentDate();
+    const comparisonStart: Date = OperationsDate.addRemoveMinutes(
       comparisonEnd,
       -windowMinutes,
     );
@@ -226,11 +226,11 @@ const DiffFlamegraphWithPresets: FunctionComponent<
       0,
       active.offsetMinutes - windowMinutes,
     );
-    const baselineEnd: Date = OneUptimeDate.addRemoveMinutes(
+    const baselineEnd: Date = OperationsDate.addRemoveMinutes(
       comparisonStart,
       -backOffMinutes,
     );
-    const baselineStart: Date = OneUptimeDate.addRemoveMinutes(
+    const baselineStart: Date = OperationsDate.addRemoveMinutes(
       baselineEnd,
       -windowMinutes,
     );

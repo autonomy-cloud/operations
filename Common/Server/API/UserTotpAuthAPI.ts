@@ -7,7 +7,7 @@ import {
   ExpressRequest,
   ExpressResponse,
   NextFunction,
-  OneUptimeRequest,
+  OperationsRequest,
 } from "../Utils/Express";
 import BaseAPI from "./BaseAPI";
 import UserTotpAuth from "../../Models/DatabaseModels/UserTotpAuth";
@@ -47,7 +47,7 @@ export default class UserTotpAuthAPI extends BaseAPI<
 
           if (
             userTotpAuth.userId?.toString() !==
-            (req as OneUptimeRequest).userAuthorization?.userId.toString()
+            (req as OperationsRequest).userAuthorization?.userId.toString()
           ) {
             throw new BadDataException("Two factor auth not found");
           }

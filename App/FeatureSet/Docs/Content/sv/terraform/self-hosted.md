@@ -46,8 +46,8 @@ curl https://your-operations-instance.com/api/status
 Om du kör Cast Operations med Docker:
 
 ```bash
-docker images | grep oneuptime
-# Look for the tag, e.g., oneuptime/dashboard:7.0.123
+docker images | grep cast-operations
+# Look for the tag, e.g., cast-operations/dashboard:7.0.123
 ```
 
 ### Metod 4: Helm Chart
@@ -55,7 +55,7 @@ docker images | grep oneuptime
 Om du använder Helm:
 
 ```bash
-helm list -n oneuptime
+helm list -n cast-operations
 # Check the chart version
 ```
 
@@ -66,7 +66,7 @@ helm list -n oneuptime
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # Replace 123 with your exact build number
     }
@@ -74,9 +74,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # Your self-hosted URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # Your self-hosted URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -94,7 +94,7 @@ terraform state pull > backup-$(date +%Y%m%d).tfstate
 curl https://operations.yourcompany.com/api/status | jq '.version'
 
 # Note current provider version
-terraform providers | grep oneuptime
+terraform providers | grep cast-operations
 ```
 
 ### 2. Uppgradera Cast Operations-instansen
@@ -107,7 +107,7 @@ Följ din standardmässiga Cast Operations-uppgraderingsprocess (Docker, Helm et
 # Update version in terraform block
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.124"  # New version after upgrade
     }
@@ -134,10 +134,10 @@ terraform apply
 
 ```bash
 # Use environment variables
-export ONEUPTIME_API_KEY="your-api-key"
+export CAST_OPERATIONS_API_KEY="your-api-key"
 
 # Or use a secret management system
-export ONEUPTIME_API_KEY=$(vault kv get -field=api_key secret/oneuptime)
+export CAST_OPERATIONS_API_KEY=$(vault kv get -field=api_key secret/cast-operations)
 ```
 
 ### 2. API-nycklar med minsta privilegium
@@ -178,7 +178,7 @@ terraform/
 │       ├── main.tf
 │       └── terraform.tfvars
 └── modules/
-    └── oneuptime/
+    └── cast-operations/
         ├── main.tf
         ├── variables.tf
         └── outputs.tf

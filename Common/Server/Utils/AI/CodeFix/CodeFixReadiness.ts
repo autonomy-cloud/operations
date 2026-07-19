@@ -1,17 +1,14 @@
 import AIAgentService from "../../../Services/AIAgentService";
 import AIService, { AutonomousBudgetStatus } from "../../../Services/AIService";
 import LlmProviderService from "../../../Services/LlmProviderService";
-import ProjectService from "../../../Services/ProjectService";
 import SubjectCodeFixRun from "../SRE/SubjectCodeFixRun";
 import AIAgent from "../../../../Models/DatabaseModels/AIAgent";
 import LlmProvider from "../../../../Models/DatabaseModels/LlmProvider";
-import Project from "../../../../Models/DatabaseModels/Project";
 import ObjectID from "../../../../Types/ObjectID";
 import {
   AIFixReadiness,
   AIFixReadinessCheck,
 } from "../../../../Types/AI/AIFixReadiness";
-import { IsBillingEnabled } from "../../../EnvironmentConfig";
 import CaptureSpan from "../../Telemetry/CaptureSpan";
 
 /*
@@ -35,11 +32,6 @@ export default class CodeFixReadiness {
   @CaptureSpan()
   public static async getLlmProviderCheck(params: {
     projectId: ObjectID;
-    /*
-     * Overrides the IsBillingEnabled env flag for the balance check — exists
-     * so tests can exercise both modes without mocking the module.
-     */
-    billingEnabled?: boolean | undefined;
   }): Promise<AIFixReadinessCheck> {
     const llmProvider: LlmProvider | null =
       await LlmProviderService.getLlmProviderForMeteredAgentPath(
@@ -58,46 +50,12 @@ export default class CodeFixReadiness {
 
     const providerName: string = llmProvider.name || "LLM provider";
     const isGlobal: boolean = llmProvider.isGlobalLlm || false;
-    const isCosted: boolean =
-      (llmProvider.costPerMillionTokensInUSDCents || 0) > 0;
-    const billingEnabled: boolean = params.billingEnabled ?? IsBillingEnabled;
 
     /*
-     * A resolved provider must also be PAYABLE, or the run passes readiness
-     * here and dies at its first completion call instead. Mirrors the
-     * billing gate in AIService.executeWithLogging: only a COSTED global
-     * provider on cloud bills the project's AI balance per call —
-     * project-owned and free-global providers consume no balance and must
-     * not require one.
-     */
-    const isMetered: boolean = isGlobal && isCosted && billingEnabled;
-
-    if (isMetered) {
-      const project: Project | null = await ProjectService.findOneById({
-        id: params.projectId,
-        select: { aiCurrentBalanceInUSDCents: true },
-        props: { isRoot: true },
-      });
-
-      if (!project || (project.aiCurrentBalanceInUSDCents || 0) <= 0) {
-        return {
-          id: "llmProvider",
-          ok: false,
-          title: "LLM provider",
-          detail:
-            "AI fix tasks would use the Cast Operations-hosted LLM provider, which is billed against your AI balance — and the project's balance is empty. Recharge it in Project Settings > AI Credits, or add your own LLM provider in Project Settings > AI > LLM Providers.",
-        };
-      }
-    }
-
-    /*
-     * The project must also be ALLOWED to spend, not just able to pay.
-     * executeWithLogging enforces two gates back to back: the balance check
-     * above, and the daily autonomous token budget — and AI_CODE_FIX_FEATURE
+     * The project must also have autonomous execution capacity.
+     * executeWithLogging enforces the daily autonomous token budget, and AI_CODE_FIX_FEATURE
      * is one of AUTONOMOUS_AI_FEATURES, so every fix completion goes through
-     * it. Unlike the balance, this one has no billing condition: it fires on
-     * self-hosted too, where a project-owned provider makes the balance gate
-     * moot and this becomes the ONLY thing that can kill a run.
+     * it for every provider configuration.
      *
      * A limit of 0 is a documented kill-switch ("pause AI entirely"), i.e.
      * durable config — so without this a paused project would read "ready"
@@ -121,9 +79,7 @@ export default class CodeFixReadiness {
     let detail: string = "";
 
     if (!isGlobal) {
-      detail = `Using "${providerName}", this project's own provider. Tasks run on your API key and consume no AI credits.`;
-    } else if (isMetered) {
-      detail = `Using "${providerName}", the shared provider. Tasks are billed against this project's AI balance. Add your own provider in Settings to use your API key instead.`;
+      detail = `Using "${providerName}", this project's own provider. Tasks run on your configured API key.`;
     } else {
       detail = `Using "${providerName}", a shared provider available to every project on this instance. No project provider is needed.`;
     }
@@ -200,7 +156,6 @@ export default class CodeFixReadiness {
   @CaptureSpan()
   public static async getProjectReadiness(params: {
     projectId: ObjectID;
-    billingEnabled?: boolean | undefined;
   }): Promise<AIFixReadiness> {
     const [repositoryCheck, llmCheck, agentCheck]: [
       AIFixReadinessCheck,
@@ -210,7 +165,6 @@ export default class CodeFixReadiness {
       this.getRepositoryConnectedCheck({ projectId: params.projectId }),
       this.getLlmProviderCheck({
         projectId: params.projectId,
-        billingEnabled: params.billingEnabled,
       }),
       this.getAgentCheck({ projectId: params.projectId }),
     ]);

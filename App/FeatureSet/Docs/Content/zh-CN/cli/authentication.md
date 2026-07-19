@@ -7,7 +7,7 @@ Cast Operations CLI 支持多种方式与您的 Cast Operations 实例进行认�
 使用 API 密钥向您的 Cast Operations 实例进行认证：
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **参数：**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # 使用默认上下文登录
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # 使用命名上下文登录
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # 设置多个环境
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## 上下文
@@ -44,7 +44,7 @@ oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
 ### 列出上下文
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 显示所有已配置的上下文。当前上下文用 `*` 标记。
@@ -52,23 +52,23 @@ oneuptime context list
 ### 切换上下文
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 切换到不同的命名上下文，用于所有后续命令。
 
 ```bash
 # 切换到预发布
-oneuptime context use staging
+cast-operations context use staging
 
 # 切换到生产
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### 查看当前上下文
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 显示当前活动的上下文，包括实例 URL 和掩码后的 API 密钥。
@@ -76,7 +76,7 @@ oneuptime context current
 ### 删除上下文
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 删除命名上下文。如果删除的是当前上下文，CLI 会自动切换到第一个剩余的上下文。
@@ -86,7 +86,7 @@ oneuptime context delete <name>
 凭据按以下优先级顺序解析：
 
 1. **CLI 标志**（`--api-key` 和 `--url`）
-2. **环境变量**（`ONEUPTIME_API_KEY` 和 `ONEUPTIME_URL`）
+2. **环境变量**（`CAST_OPERATIONS_API_KEY` 和 `CAST_OPERATIONS_URL`）
 3. **命名上下文**（通过 `--context` 标志）
 4. **当前上下文**（来自保存的配置）
 
@@ -95,22 +95,22 @@ oneuptime context delete <name>
 ### 使用 CLI 标志
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### 使用环境变量
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### 使用特定上下文
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## 验证认证
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 检查您当前的认证状态：
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 此命令显示：
@@ -127,11 +127,11 @@ oneuptime whoami
 - 掩码后的 API 密钥
 - 当前上下文名称（仅在活动的已保存上下文时显示）
 
-如果未认证，该命令会显示一条有帮助的消息，建议您运行 `oneuptime login`。
+如果未认证，该命令会显示一条有帮助的消息，建议您运行 `cast-operations login`。
 
 ## 配置文件
 
-凭据存储在 `~/.oneuptime/config.json` 中，具有受限权限（`0600`）。
+凭据存储在 `~/.cast-operations/config.json` 中，具有受限权限（`0600`）。
 
 ```json
 {

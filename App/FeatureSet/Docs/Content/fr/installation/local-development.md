@@ -10,7 +10,7 @@ Vous devez vous assurer d'avoir :
 ```
 # Cloner ce dépôt et accéder au répertoire.
 git clone https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # Copier config.example.env vers config.env
 cp config.example.env config.env

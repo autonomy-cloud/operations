@@ -71,7 +71,7 @@ Lägg till följande konfiguration:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp",
       "headers": {
@@ -89,7 +89,7 @@ Ersätt `visca.ai` med din Cast Operations-domän:
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
@@ -107,7 +107,7 @@ För att endast använda offentliga verktyg (statussideinformation, hjälp) kan 
 ```json
 {
   "mcpServers": {
-    "oneuptime": {
+    "cast-operations": {
       "transport": "streamable-http",
       "url": "https://visca.ai/mcp"
     }
@@ -140,18 +140,18 @@ Alternativt kan du skapa `.vscode/mcp.json` i din arbetsyta för projektspecifik
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://visca.ai/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -164,18 +164,18 @@ Alternativt kan du skapa `.vscode/mcp.json` i din arbetsyta för projektspecifik
 ```json
 {
   "servers": {
-    "oneuptime": {
+    "cast-operations": {
       "type": "http",
       "url": "https://your-operations-domain.com/mcp",
       "headers": {
-        "x-api-key": "${input:oneuptime-api-key}"
+        "x-api-key": "${input:cast-operations-api-key}"
       }
     }
   },
   "inputs": [
     {
       "type": "promptString",
-      "id": "oneuptime-api-key",
+      "id": "cast-operations-api-key",
       "description": "Cast Operations API Key",
       "password": true
     }
@@ -187,7 +187,7 @@ Alternativt kan du skapa `.vscode/mcp.json` i din arbetsyta för projektspecifik
 
 1. Tryck på `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. Skriv "MCP: List Servers" för att se tillgängliga servrar
-3. Klicka på "oneuptime" för att starta servern
+3. Klicka på "cast-operations" för att starta servern
 4. När du uppmanas, ange din Cast Operations API-nyckel
 
 #### Steg 4: Använd med Copilot Chat
@@ -222,8 +222,8 @@ MCP-servern stöder två driftslägen:
 
 Du kan ansluta till MCP-servern utan en API-nyckel för att komma åt offentliga verktyg:
 
-- **`oneuptime_help`**: Få hjälp och vägledning om Cast Operations MCP-funktioner
-- **`oneuptime_list_resources`**: Lista tillgängliga resurser och deras operationer
+- **`cast_operations_help`**: Få hjälp och vägledning om Cast Operations MCP-funktioner
+- **`cast_operations_list_resources`**: Lista tillgängliga resurser och deras operationer
 - **`get_public_status_page_overview`**: Hämta en översikt av en offentlig statussida
 - **`get_public_status_page_incidents`**: Hämta incidenter från en offentlig statussida
 - **`get_public_status_page_scheduled_maintenance`**: Hämta schemalagda underhållshändelser
@@ -253,7 +253,7 @@ En typisk loop: `list_incidents` → `acknowledge_incident` → undersök med `l
 
 ## Vem är jag
 
-Verktyget **`oneuptime_whoami`** returnerar det projekt som din API-nyckel tillhör (ID och namn). Det är ett användbart första anrop för att en agent ska orientera sig — och eftersom skapa-verktyg härleder `projectId` från API-nyckeln behöver agenten aldrig skicka ett projekt-ID.
+Verktyget **`cast_operations_whoami`** returnerar det projekt som din API-nyckel tillhör (ID och namn). Det är ett användbart första anrop för att en agent ska orientera sig — och eftersom skapa-verktyg härleder `projectId` från API-nyckeln behöver agenten aldrig skicka ett projekt-ID.
 
 ## Fråga efter telemetri
 

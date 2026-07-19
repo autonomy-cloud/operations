@@ -26,7 +26,7 @@ export class TerraformProviderGenerator {
 # Terraform Provider Makefile
 
 HOSTNAME=registry.terraform.io
-NAMESPACE=oneuptime
+NAMESPACE=cast-operations
 NAME=${this.config.providerName}
 BINARY=terraform-provider-\${NAME}
 VERSION=${this.config.providerVersion}
@@ -209,7 +209,7 @@ echo "Building provider..."
 go build -o terraform-provider-${this.config.providerName}
 
 # Create plugin directory
-PLUGIN_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/oneuptime/${this.config.providerName}/${this.config.providerVersion}/darwin_amd64"
+PLUGIN_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/cast-operations/${this.config.providerName}/${this.config.providerVersion}/darwin_amd64"
 mkdir -p "$PLUGIN_DIR"
 
 # Copy binary
@@ -222,7 +222,7 @@ echo ""
 echo "terraform {"
 echo "  required_providers {"
 echo "    ${this.config.providerName} = {"
-echo "      source = "oneuptime/${this.config.providerName}""
+echo "      source = "cast-operations/${this.config.providerName}""
 echo "      version = "${this.config.providerVersion}""
 echo "    }"
 echo "  }"

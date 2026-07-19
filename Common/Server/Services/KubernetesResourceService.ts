@@ -2,7 +2,7 @@ import DatabaseService from "./DatabaseService";
 import Model from "../../Models/DatabaseModels/KubernetesResource";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import ObjectID from "../../Types/ObjectID";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import { ParsedKubernetesResource } from "../../Types/Kubernetes/KubernetesInventoryExtractor";
 import logger from "../Utils/Logger";
 
@@ -904,8 +904,8 @@ export class Service extends DatabaseService<Model> {
    */
   public getStaleThresholdDate(nowOverride?: Date): Date {
     const minutes: number = this.getStaleThresholdMinutes();
-    return OneUptimeDate.addRemoveMinutes(
-      nowOverride || OneUptimeDate.getCurrentDate(),
+    return OperationsDate.addRemoveMinutes(
+      nowOverride || OperationsDate.getCurrentDate(),
       -minutes,
     );
   }

@@ -2,7 +2,7 @@ import {
   storedInstantToWallClockInput,
   wallClockInputToStoredInstant,
 } from "./LayerDateTimeAnchorUtil";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Input, { InputType } from "Common/UI/Components/Input/Input";
 import React, { FunctionComponent, ReactElement } from "react";
 
@@ -67,7 +67,7 @@ const LayerDateTimeFieldElement: FunctionComponent<ComponentProps> = (
       <p className="mt-2 text-xs text-gray-400">
         {props.timezone
           ? `This time is in the schedule's timezone: ${props.timezone}.`
-          : `This time is in your local timezone: ${OneUptimeDate.getCurrentTimezoneString()}.`}
+          : `This time is in your local timezone: ${OperationsDate.getCurrentTimezoneString()}.`}
       </p>
     </div>
   );

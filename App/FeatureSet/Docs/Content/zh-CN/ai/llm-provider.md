@@ -170,12 +170,12 @@ API Key: (leave blank)
 ```
 Name: In-Cluster vLLM
 LLM Type: OpenAI Compatible
-Base URL: http://oneuptime-vllm.default.svc.cluster.local:8000/v1
+Base URL: http://cast-operations-vllm.default.svc.cluster.local:8000/v1
 Model Name: Qwen/Qwen2.5-1.5B-Instruct
 API Key: (leave blank unless vllm.apiKey is set)
 ```
 
-有关 GPU 调度、受限模型和调优选项，请参阅 [Helm chart README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/oneuptime#local-models-with-vllm)。
+有关 GPU 调度、受限模型和调优选项，请参阅 [Helm chart README](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/cast-operations#local-models-with-vllm)。
 
 ## 使用自定义基础 URL
 

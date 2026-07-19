@@ -8,7 +8,7 @@ import PositiveNumber from "../../Types/PositiveNumber";
 import Model from "../../Models/DatabaseModels/AlertEpisodeMember";
 import Alert from "../../Models/DatabaseModels/Alert";
 import AlertEpisode from "../../Models/DatabaseModels/AlertEpisode";
-import { IsBillingEnabled } from "../EnvironmentConfig";
+import {} from "../EnvironmentConfig";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import logger from "../Utils/Logger";
 import AlertEpisodeFeedService from "./AlertEpisodeFeedService";
@@ -16,16 +16,13 @@ import AlertFeedService from "./AlertFeedService";
 import { AlertEpisodeFeedEventType } from "../../Models/DatabaseModels/AlertEpisodeFeed";
 import { AlertFeedEventType } from "../../Models/DatabaseModels/AlertFeed";
 import { Yellow500, Green500 } from "../../Types/BrandColors";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import AlertService from "./AlertService";
 import AlertEpisodeService from "./AlertEpisodeService";
 
 export class Service extends DatabaseService<Model> {
   public constructor() {
     super(Model);
-    if (IsBillingEnabled) {
-      this.hardDeleteItemsOlderThanInDays("createdAt", 3 * 365); // 3 years
-    }
   }
 
   @CaptureSpan()
@@ -60,7 +57,7 @@ export class Service extends DatabaseService<Model> {
 
     // Set addedAt if not provided
     if (!createBy.data.addedAt) {
-      createBy.data.addedAt = OneUptimeDate.getCurrentDate();
+      createBy.data.addedAt = OperationsDate.getCurrentDate();
     }
 
     /*

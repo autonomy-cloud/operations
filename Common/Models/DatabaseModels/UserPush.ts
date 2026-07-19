@@ -2,7 +2,6 @@ import Project from "./Project";
 import User from "./User";
 import BaseModel from "./DatabaseBaseModel/DatabaseBaseModel";
 import Route from "../../Types/API/Route";
-import AllowAccessIfSubscriptionIsUnpaid from "../../Types/Database/AccessControl/AllowAccessIfSubscriptionIsUnpaid";
 import ColumnAccessControl from "../../Types/Database/AccessControl/ColumnAccessControl";
 import TableAccessControl from "../../Types/Database/AccessControl/TableAccessControl";
 import ColumnLength from "../../Types/Database/ColumnLength";
@@ -20,7 +19,6 @@ import PushDeviceType from "../../Types/PushNotification/PushDeviceType";
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 
 @TenantColumn("projectId")
-@AllowAccessIfSubscriptionIsUnpaid()
 @TableAccessControl({
   create: [Permission.CurrentUser],
   read: [Permission.CurrentUser],
@@ -77,7 +75,8 @@ class UserPush extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
   })
   @Column({
     type: ColumnType.ObjectID,

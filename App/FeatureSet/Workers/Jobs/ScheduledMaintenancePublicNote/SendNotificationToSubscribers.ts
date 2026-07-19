@@ -3,7 +3,7 @@ import { StatusPageApiRoute } from "Common/ServiceRoute";
 import Hostname from "Common/Types/API/Hostname";
 import Protocol from "Common/Types/API/Protocol";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
 import ObjectID from "Common/Types/ObjectID";
@@ -348,12 +348,12 @@ RunCron(
             detailsUrl: scheduledEventDetailsUrl,
             scheduledMaintenanceTitle: event.title || "",
             scheduledMaintenanceState:
-              OneUptimeDate.getDateAsUserFriendlyFormattedString(
+              OperationsDate.getDateAsUserFriendlyFormattedString(
                 event.startsAt!,
               ),
             note: publicNote.note || "",
-            postedAt: OneUptimeDate.getDateAsUserFriendlyFormattedString(
-              OneUptimeDate.getCurrentDate(),
+            postedAt: OperationsDate.getDateAsUserFriendlyFormattedString(
+              OperationsDate.getCurrentDate(),
             ),
           };
 
@@ -623,7 +623,7 @@ RunCron(
                           })
                           .join(", ") || "",
                       scheduledAt:
-                        OneUptimeDate.getDateAsUserFriendlyFormattedString(
+                        OperationsDate.getDateAsUserFriendlyFormattedString(
                           event.startsAt!,
                         ),
                       eventTitle: event.title || "",

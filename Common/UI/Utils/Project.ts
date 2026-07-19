@@ -1,15 +1,8 @@
-import { BILLING_ENABLED, getAllEnvVars } from "../Config";
 import LocalStorage from "./LocalStorage";
 import BaseModel from "../../Models/DatabaseModels/DatabaseBaseModel/DatabaseBaseModel";
-import SubscriptionPlan, {
-  PlanType,
-} from "../../Types/Billing/SubscriptionPlan";
 import { JSONObject } from "../../Types/JSON";
 import ObjectID from "../../Types/ObjectID";
 import Project from "../../Models/DatabaseModels/Project";
-import SubscriptionStatus, {
-  SubscriptionStatusUtil,
-} from "../../Types/Billing/SubscriptionStatus";
 import Navigation from "./Navigation";
 import SessionStorage from "./SessionStorage";
 import Telemetry from "./Telemetry/Telemetry";
@@ -37,55 +30,6 @@ export default class ProjectUtil {
     }
 
     return null;
-  }
-
-  public static setIsSubscriptionInactiveOrOverdue(data: {
-    paymentProviderMeteredSubscriptionStatus: SubscriptionStatus;
-    paymentProviderSubscriptionStatus: SubscriptionStatus;
-  }): boolean {
-    const currentProjectId: string | undefined =
-      this.getCurrentProjectId()?.toString();
-
-    const isSubscriptionInactive: boolean =
-      SubscriptionStatusUtil.isSubscriptionInactive(
-        data.paymentProviderMeteredSubscriptionStatus,
-      ) ||
-      SubscriptionStatusUtil.isSubscriptionInactive(
-        data.paymentProviderSubscriptionStatus,
-      );
-
-    const isSubscriptionOverdue: boolean =
-      SubscriptionStatusUtil.isSubscriptionOverdue(
-        data.paymentProviderMeteredSubscriptionStatus,
-      ) ||
-      SubscriptionStatusUtil.isSubscriptionOverdue(
-        data.paymentProviderSubscriptionStatus,
-      );
-
-    // save this to local storage
-    LocalStorage.setItem(
-      currentProjectId?.toString() + "_isSubscriptionInactive",
-      isSubscriptionInactive,
-    );
-
-    LocalStorage.setItem(
-      currentProjectId?.toString() + "_isSubscriptionOverdue",
-      isSubscriptionOverdue,
-    );
-
-    return isSubscriptionInactive || isSubscriptionOverdue;
-  }
-
-  public static isSubscriptionInactive(): boolean {
-    const currentProjectId: string | undefined =
-      this.getCurrentProjectId()?.toString();
-    return (
-      Boolean(
-        LocalStorage.getItem(
-          currentProjectId?.toString() + "_isSubscriptionInactive",
-        ),
-      ) || false
-    );
   }
 
   public static getCurrentProject(): Project | null {
@@ -120,21 +64,5 @@ export default class ProjectUtil {
       this.getCurrentProjectId()?.toString();
     LocalStorage.setItem(`project_${currentProjectId}`, null);
     SessionStorage.setItem(`current_project_id`, null);
-  }
-
-  public static getCurrentPlan(): PlanType | null {
-    if (!BILLING_ENABLED) {
-      return null;
-    }
-
-    const project: Project | null = this.getCurrentProject();
-    if (!project || !project.paymentProviderPlanId) {
-      return null;
-    }
-
-    return SubscriptionPlan.getPlanType(
-      project.paymentProviderPlanId,
-      getAllEnvVars(),
-    );
   }
 }

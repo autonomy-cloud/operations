@@ -14,19 +14,19 @@ Denne siden er **installasjonsveiledningen**. For å konfigurere Docker-monitore
 
 ## Hurtigstart (én kommando)
 
-Erstatt `YOUR_ONEUPTIME_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` og vertsnavnet med verdier for ditt miljo. Vertsnavnet er hvordan denne Docker-verten vil vises i Cast Operations — velg noe som `prod-docker-01`.
+Erstatt `YOUR_CAST_OPERATIONS_URL`, `YOUR_TELEMETRY_INGESTION_TOKEN` og vertsnavnet med verdier for ditt miljo. Vertsnavnet er hvordan denne Docker-verten vil vises i Cast Operations — velg noe som `prod-docker-01`.
 
 ```bash
 docker run -d \
-  --name oneuptime-docker-agent \
+  --name cast-operations-docker-agent \
   --user 0:0 \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e ONEUPTIME_URL="YOUR_ONEUPTIME_URL" \
-  -e ONEUPTIME_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
+  -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  oneuptime/docker-agent:release
+  cast-operations/docker-agent:release
 ```
 
 Det er alt. Når agenten kobler til, vil Docker-verten din vises automatisk i **Docker**-seksjonen i Cast Operations-dashbordet.
@@ -37,17 +37,17 @@ Hvis du foretrekker Docker Compose, legg folgende inn i en `docker-compose.yml`:
 
 ```yaml
 services:
-  oneuptime-docker-agent:
-    image: oneuptime/docker-agent:release
-    container_name: oneuptime-docker-agent
+  cast-operations-docker-agent:
+    image: cast-operations/docker-agent:release
+    container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
-      - ONEUPTIME_URL=YOUR_ONEUPTIME_URL
-      - ONEUPTIME_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
+      - CAST_OPERATIONS_URL=YOUR_CAST_OPERATIONS_URL
+      - CAST_OPERATIONS_SERVICE_TOKEN=YOUR_TELEMETRY_INGESTION_TOKEN
       - DOCKER_HOST_NAME=my-docker-host
     logging:
       driver: json-file
@@ -66,8 +66,8 @@ docker compose up -d
 
 | Variabel                  | Pakrevd | Beskrivelse                                                                                                                |
 | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `ONEUPTIME_URL`           | Ja      | URL-en til din Cast Operations-instans (for eksempel `https://visca.ai` eller din selvhostede vert)                         |
-| `ONEUPTIME_SERVICE_TOKEN` | Ja      | Telemetry ingestion token fra _Project Settings → Telemetry Ingestion Keys_                                                |
+| `CAST_OPERATIONS_URL`           | Ja      | URL-en til din Cast Operations-instans (for eksempel `https://visca.ai` eller din selvhostede vert)                         |
+| `CAST_OPERATIONS_SERVICE_TOKEN` | Ja      | Telemetry ingestion token fra _Project Settings → Telemetry Ingestion Keys_                                                |
 | `DOCKER_HOST_NAME`        | Nei     | Vennlig navn for denne verten. Standardverdi er `docker-host`. Sett den til noe stabilt per vert (f.eks. `prod-docker-01`) |
 
 ## Verifiser installasjonen
@@ -75,13 +75,13 @@ docker compose up -d
 Sjekk at agenten kjorer:
 
 ```bash
-docker ps --filter name=oneuptime-docker-agent
+docker ps --filter name=cast-operations-docker-agent
 ```
 
 Sjekk agentloggene:
 
 ```bash
-docker logs -f oneuptime-docker-agent
+docker logs -f cast-operations-docker-agent
 ```
 
 Se etter: `"Everything is ready. Begin running and processing data."`
@@ -91,8 +91,8 @@ I lopet av et minutt eller så skal verten vises i Cast Operations-dashbordet me
 ## Oppgradere agenten
 
 ```bash
-docker pull oneuptime/docker-agent:release
-docker rm -f oneuptime-docker-agent
+docker pull cast-operations/docker-agent:release
+docker rm -f cast-operations-docker-agent
 # Kjor `docker run`-kommandoen ovenfor på nytt
 ```
 
@@ -106,7 +106,7 @@ docker compose up -d
 ## Avinstallere agenten
 
 ```bash
-docker rm -f oneuptime-docker-agent
+docker rm -f cast-operations-docker-agent
 ```
 
 Hvis du brukte Docker Compose:
@@ -128,10 +128,10 @@ docker compose down
 
 ## Selvhostet Cast Operations
 
-Hvis du selvhoster Cast Operations, sett `ONEUPTIME_URL` til din egen instans:
+Hvis du selvhoster Cast Operations, sett `CAST_OPERATIONS_URL` til din egen instans:
 
 ```bash
--e ONEUPTIME_URL="https://your-operations-host.example.com"
+-e CAST_OPERATIONS_URL="https://your-operations-host.example.com"
 ```
 
 Hvis instansen din kun er HTTP, bruk `http://` og riktig port.
@@ -144,15 +144,15 @@ Agentcontaineren må kjore som root (`--user 0:0`) for å få tilgang til `/var/
 
 ### Agenten vises som frakoblet
 
-1. Sjekk at agenten kjorer: `docker ps --filter name=oneuptime-docker-agent`
-2. Sjekk agentloggene: `docker logs oneuptime-docker-agent | grep -i error`
+1. Sjekk at agenten kjorer: `docker ps --filter name=cast-operations-docker-agent`
+2. Sjekk agentloggene: `docker logs cast-operations-docker-agent | grep -i error`
 3. Verifiser at Cast Operations-URL-en og service-token er riktige
 4. Sorg for at Docker-verten din kan nå Cast Operations-instansen over nettverket
 
 ### Ingen metrikker vises
 
-1. Verifiser at Docker-socketen er tilgjengelig inne i agenten: `docker exec oneuptime-docker-agent ls -la /var/run/docker.sock`
-2. Sjekk collector-loggene for eksportfeil: `docker logs oneuptime-docker-agent | tail -100`
+1. Verifiser at Docker-socketen er tilgjengelig inne i agenten: `docker exec cast-operations-docker-agent ls -la /var/run/docker.sock`
+2. Sjekk collector-loggene for eksportfeil: `docker logs cast-operations-docker-agent | tail -100`
 3. Sorg for at service-token er gyldig og ikke utlopt
 
 ### Vertsnavnet vises som en container-ID

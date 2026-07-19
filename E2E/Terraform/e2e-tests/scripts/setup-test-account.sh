@@ -3,7 +3,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEST_DIR="$(dirname "$SCRIPT_DIR")"
-ONEUPTIME_URL="${ONEUPTIME_URL:-http://localhost}"
+CAST_OPERATIONS_URL="${CAST_OPERATIONS_URL:-http://localhost}"
 
 # Generate unique test values
 TIMESTAMP=$(date +%s)
@@ -16,7 +16,7 @@ echo "Email: $TEST_EMAIL"
 
 # Step 1: Register a new user
 echo "Step 1: Registering new user..."
-SIGNUP_RESPONSE=$(curl -sf -X POST "${ONEUPTIME_URL}/api/identity/signup" \
+SIGNUP_RESPONSE=$(curl -sf -X POST "${CAST_OPERATIONS_URL}/api/identity/signup" \
     -H "Content-Type: application/json" \
     -d "{
         \"data\": {
@@ -32,7 +32,7 @@ echo "User registered successfully"
 
 # Step 2: Login to get session
 echo "Step 2: Logging in..."
-LOGIN_RESPONSE=$(curl -sf -X POST "${ONEUPTIME_URL}/api/identity/login" \
+LOGIN_RESPONSE=$(curl -sf -X POST "${CAST_OPERATIONS_URL}/api/identity/login" \
     -H "Content-Type: application/json" \
     -c "$TEST_DIR/cookies.txt" \
     -d "{
@@ -49,7 +49,7 @@ echo "Login successful"
 echo "Step 3: Fetching project..."
 sleep 3  # Wait for automatic project creation
 
-PROJECT_RESPONSE=$(curl -sf -X POST "${ONEUPTIME_URL}/api/project/get-list" \
+PROJECT_RESPONSE=$(curl -sf -X POST "${CAST_OPERATIONS_URL}/api/project/get-list" \
     -H "Content-Type: application/json" \
     $COOKIES \
     -d "{
@@ -62,7 +62,7 @@ PROJECT_ID=$(echo "$PROJECT_RESPONSE" | jq -r '.data[0]._id // empty')
 
 if [ -z "$PROJECT_ID" ]; then
     echo "Creating new project..."
-    PROJECT_CREATE=$(curl -sf -X POST "${ONEUPTIME_URL}/api/project" \
+    PROJECT_CREATE=$(curl -sf -X POST "${CAST_OPERATIONS_URL}/api/project" \
         -H "Content-Type: application/json" \
         $COOKIES \
         -d "{
@@ -80,7 +80,7 @@ echo "Step 4: Creating API key..."
 EXPIRES_AT=$(date -d "+1 year" -u +"%Y-%m-%dT%H:%M:%S.000Z" 2>/dev/null || \
              date -v+1y -u +"%Y-%m-%dT%H:%M:%S.000Z")
 
-API_KEY_RESPONSE=$(curl -sf -X POST "${ONEUPTIME_URL}/api/api-key" \
+API_KEY_RESPONSE=$(curl -sf -X POST "${CAST_OPERATIONS_URL}/api/api-key" \
     -H "Content-Type: application/json" \
     -H "projectid: $PROJECT_ID" \
     $COOKIES \
@@ -102,7 +102,7 @@ echo "API Key: $API_KEY"
 
 # Step 5: Add ProjectOwner permission
 echo "Step 5: Adding ProjectOwner permission..."
-PERMISSION_RESPONSE=$(curl -sf -X POST "${ONEUPTIME_URL}/api/api-key-permission" \
+PERMISSION_RESPONSE=$(curl -sf -X POST "${CAST_OPERATIONS_URL}/api/api-key-permission" \
     -H "Content-Type: application/json" \
     -H "projectid: $PROJECT_ID" \
     $COOKIES \
@@ -121,10 +121,10 @@ echo "Permission added"
 echo "Step 6: Writing test environment..."
 cat > "$TEST_DIR/test-env.sh" << EOF
 #!/bin/bash
-export ONEUPTIME_URL="$ONEUPTIME_URL"
-export ONEUPTIME_API_KEY="$API_KEY"
+export CAST_OPERATIONS_URL="$CAST_OPERATIONS_URL"
+export CAST_OPERATIONS_API_KEY="$API_KEY"
 export TF_VAR_api_key="$API_KEY"
-export TF_VAR_oneuptime_url="$ONEUPTIME_URL"
+export TF_VAR_cast_operations_url="$CAST_OPERATIONS_URL"
 EOF
 
 chmod +x "$TEST_DIR/test-env.sh"
@@ -134,5 +134,5 @@ rm -f "$TEST_DIR/cookies.txt"
 
 echo ""
 echo "=== Setup Complete ==="
-echo "ONEUPTIME_URL: $ONEUPTIME_URL"
+echo "CAST_OPERATIONS_URL: $CAST_OPERATIONS_URL"
 echo "API_KEY: $API_KEY"

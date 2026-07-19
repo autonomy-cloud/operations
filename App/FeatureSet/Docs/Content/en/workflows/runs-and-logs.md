@@ -39,7 +39,7 @@ The values shown are exactly what the block saw — after all variables were fil
 3. For a webhook trigger: confirm the other system is sending to the right URL. Most tools log when they send a webhook — check there.
 4. For a schedule trigger: confirm the cron expression matches the time you expect.
 
-If the trigger fired but no run shows up, check your run quota under **Project Settings → Billing**.
+If the trigger fired but no run shows up, check the workflow worker logs and the trigger's execution history.
 
 ### "A later block never ran."
 

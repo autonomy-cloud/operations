@@ -1,22 +1,15 @@
-import {
-  IsBillingEnabled,
-  getAllEnvVars,
-} from "../../../../Server/EnvironmentConfig";
 import DatabaseRequestType from "../../BaseDatabase/DatabaseRequestType";
 import BaseModel from "../../../../Models/DatabaseModels/DatabaseBaseModel/DatabaseBaseModel";
 import { ColumnAccessControl } from "../../../../Types/BaseDatabase/AccessControl";
-import ColumnBillingAccessControl from "../../../../Types/BaseDatabase/ColumnBillingAccessControl";
 import DatabaseCommonInteractionProps from "../../../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import DatabaseCommonInteractionPropsUtil, {
   PermissionType,
 } from "../../../../Types/BaseDatabase/DatabaseCommonInteractionPropsUtil";
-import SubscriptionPlan from "../../../../Types/Billing/SubscriptionPlan";
 import Columns from "../../../../Types/Database/Columns";
 import { TableColumnMetadata } from "../../../../Types/Database/TableColumn";
 import TableColumnType from "../../../../Types/Database/TableColumnType";
 import Dictionary from "../../../../Types/Dictionary";
 import BadDataException from "../../../../Types/Exception/BadDataException";
-import PaymentRequiredException from "../../../../Types/Exception/PaymentRequiredException";
 
 import Permission, {
   PermissionHelper,
@@ -24,7 +17,6 @@ import Permission, {
 } from "../../../../Types/Permission";
 
 import CaptureSpan from "../../../Utils/Telemetry/CaptureSpan";
-import logger from "../../../Utils/Logger";
 
 export default class ColumnPermissions {
   @CaptureSpan()
@@ -162,76 +154,6 @@ export default class ColumnPermissions {
         throw new BadDataException(
           `User is not allowed to ${requestType} on ${key} column of ${model.singularName}`,
         );
-      }
-
-      if (
-        IsBillingEnabled &&
-        props.currentPlan &&
-        model.getColumnBillingAccessControl(key)
-      ) {
-        const billingAccessControl: ColumnBillingAccessControl =
-          model.getColumnBillingAccessControl(key);
-
-        if (
-          requestType === DatabaseRequestType.Create &&
-          billingAccessControl.create
-        ) {
-          if (
-            !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-              billingAccessControl.create,
-              props.currentPlan,
-              getAllEnvVars(),
-            )
-          ) {
-            throw new PaymentRequiredException(
-              "Please upgrade your plan to " +
-                billingAccessControl.create +
-                " to access this feature",
-            );
-          }
-        }
-
-        if (
-          requestType === DatabaseRequestType.Read &&
-          billingAccessControl.read
-        ) {
-          if (
-            !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-              billingAccessControl.read,
-              props.currentPlan,
-              getAllEnvVars(),
-            )
-          ) {
-            throw new PaymentRequiredException(
-              "Please upgrade your plan to " +
-                billingAccessControl.read +
-                " to access this feature",
-            );
-          }
-        }
-
-        if (
-          requestType === DatabaseRequestType.Update &&
-          billingAccessControl.update
-        ) {
-          if (
-            !SubscriptionPlan.isFeatureAccessibleOnCurrentPlan(
-              billingAccessControl.update,
-              props.currentPlan,
-              getAllEnvVars(),
-            )
-          ) {
-            logger.debug(
-              `User does not have access to update ${key} column of ${model.singularName}`,
-            );
-
-            throw new PaymentRequiredException(
-              "Please upgrade your plan to " +
-                billingAccessControl.update +
-                " to access this feature",
-            );
-          }
-        }
       }
     }
   }

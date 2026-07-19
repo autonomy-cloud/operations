@@ -15,7 +15,7 @@
 
 ## 사전 요구 사항
 
-- **Cast Operations Telemetry Ingestion Token** — *Project Settings → Telemetry Ingestion Keys*에서 생성하고 `x-oneuptime-token` 값을 복사합니다.
+- **Cast Operations Telemetry Ingestion Token** — *Project Settings → Telemetry Ingestion Keys*에서 생성하고 `x-cast-operations-token` 값을 복사합니다.
 - **OpenTelemetry Collector Contrib** 배포판(`otelcol-contrib`). 기본 `otelcol` 빌드에는 `windowseventlogreceiver`, `journaldreceiver` 또는 `hostmetrics` 추가 기능과 같은 receiver가 **포함되어 있지 않습니다** — 반드시 `contrib` 배포판을 사용하세요. Windows **Services** 탭을 구동하는 alpha `windowsservicereceiver`는 **v0.155.0**부터 `otelcol-contrib`에 번들로 포함되어 있으므로, 최신 릴리스를 설치하세요. 아래의 "Windows Services (메트릭)"를 참조하세요.
 - Collector를 서비스로 설치하고 (해당되는 경우) 권한이 필요한 로그 소스를 읽으려면 호스트에 대한 Root / Administrator 권한이 필요합니다.
 
@@ -116,7 +116,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 - **`batch`**는 내보내기 전에 레코드를 그룹화하여 레코드당 한 번의 HTTP 왕복 비용을 지불하지 않도록 합니다.
@@ -335,7 +335,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -387,7 +387,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -450,7 +450,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -486,14 +486,14 @@ sudo journalctl -u otelcol-contrib -f
 
 ### macOS (launchd)
 
-`/Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist`를 생성하세요:
+`/Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist`를 생성하세요:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>com.oneuptime.otelcol-contrib</string>
+  <key>Label</key><string>com.cast-operations.otelcol-contrib</string>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/local/bin/otelcol-contrib</string>
@@ -510,7 +510,7 @@ sudo journalctl -u otelcol-contrib -f
 로드하세요:
 
 ```bash
-sudo launchctl load -w /Library/LaunchDaemons/com.oneuptime.otelcol-contrib.plist
+sudo launchctl load -w /Library/LaunchDaemons/com.cast-operations.otelcol-contrib.plist
 sudo launchctl list | grep otelcol-contrib
 ```
 
@@ -535,8 +535,8 @@ sc.exe query "otelcol-contrib"
 ## 4단계 — Cast Operations에서 확인
 
 1. 호스트에서 일부 신호를 생성하세요:
-   - **Linux / macOS:** `logger "hello from oneuptime"` (syslog / journald에 기록).
-   - **Windows:** 권한이 상승된 프롬프트에서 `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from oneuptime"`.
+   - **Linux / macOS:** `logger "hello from cast-operations"` (syslog / journald에 기록).
+   - **Windows:** 권한이 상승된 프롬프트에서 `eventcreate /T INFORMATION /ID 999 /L APPLICATION /SO CastOperationsTest /D "hello from cast-operations"`.
 2. Cast Operations 대시보드에서 **Telemetry → Services**를 열고 구성한 `service.name`을 선택하세요.
 3. **Metrics**를 여세요 — 호스트 메트릭(CPU, 메모리, 파일 시스템 등)이 1분 이내에 나타나야 합니다.
 4. **Logs**를 여세요 — 파일 로그 / journald 항목 / Windows Event Logs가 스트리밍되어 들어와야 합니다. 유용한 검색 가능 속성으로는 `log.file.name`, `systemd.unit`, `winlog.channel`, `winlog.event_id`, `winlog.provider.name`이 있습니다.
@@ -699,7 +699,7 @@ service:
       exporters: [otlphttp]
 ```
 
-> **Cast Operations이 생성해 준 구성을 편집하고 있나요?** 위의 파이프라인은 이 페이지의 전체 예제와 일치합니다. 대시보드(Hosts → Documentation)에서 제공하는 구성은 이름이 다릅니다: 프로세서가 `resourcedetection`과 `batch`이며(`resource` 프로세서는 **없습니다**) exporter는 `otlphttp/oneuptime`입니다. 정의되지 않은 프로세서를 참조하면 Collector가 시작 시 `references processor "resource" which is not configured` 오류와 함께 중단됩니다. 이 블록을 그 위에 붙여넣지 말고, 이미 있는 것에 filter를 추가하세요:
+> **Cast Operations이 생성해 준 구성을 편집하고 있나요?** 위의 파이프라인은 이 페이지의 전체 예제와 일치합니다. 대시보드(Hosts → Documentation)에서 제공하는 구성은 이름이 다릅니다: 프로세서가 `resourcedetection`과 `batch`이며(`resource` 프로세서는 **없습니다**) exporter는 `otlphttp/cast-operations`입니다. 정의되지 않은 프로세서를 참조하면 Collector가 시작 시 `references processor "resource" which is not configured` 오류와 함께 중단됩니다. 이 블록을 그 위에 붙여넣지 말고, 이미 있는 것에 filter를 추가하세요:
 >
 > ```yaml
 > service:
@@ -707,7 +707,7 @@ service:
 >     metrics:
 >       receivers: [hostmetrics]
 >       processors: [filter/drop-metrics, resourcedetection, batch]
->       exporters: [otlphttp/oneuptime]
+>       exporters: [otlphttp/cast-operations]
 > ```
 >
 > `resourcedetection`은 유지하세요 — Cast Operations은 이것이 설정하는 `host.name` / `host.id`를 사용하여 텔레메트리를 호스트에 매칭합니다. 또한 그 생성된 구성은 **메트릭 전용**입니다: 직접 추가하기 전까지는 `logs:` 파이프라인이 없으므로, `filelog`나 `journald` 리시버를 함께 추가하기 전까지 `filter/drop-low-severity`는 필터링할 대상이 없습니다.
@@ -746,7 +746,7 @@ exporters:
   otlphttp:
     endpoint: https://visca.ai/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
 service:
   pipelines:
@@ -769,7 +769,7 @@ exporters:
   otlphttp:
     endpoint: https://your-operations-host.example.com/otlp
     headers:
-      x-oneuptime-token: YOUR_TELEMETRY_INGESTION_TOKEN
+      x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 인스턴스가 HTTP 전용인 경우, 스키마를 `http://`로 변경하고 적절한 포트를 사용하세요.

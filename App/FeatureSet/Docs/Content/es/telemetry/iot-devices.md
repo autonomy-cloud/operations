@@ -10,7 +10,7 @@ No hay ningún agente que instalar en el lado del dispositivo — cualquier cosa
 
 - Un dispositivo, gateway o collector que pueda enviar OTLP/HTTP a Cast Operations
 - Conectividad de red desde el dispositivo/gateway hasta tu instancia de Cast Operations
-- Un **Token de Ingesta de Telemetría de Cast Operations** — crea uno desde _Project Settings → Telemetry Ingestion Keys_ y copia el valor de `x-oneuptime-token`
+- Un **Token de Ingesta de Telemetría de Cast Operations** — crea uno desde _Project Settings → Telemetry Ingestion Keys_ y copia el valor de `x-cast-operations-token`
 
 ## Cómo modela Cast Operations el IoT
 
@@ -35,14 +35,14 @@ Si tu dispositivo ejecuta un SDK de OpenTelemetry directamente, apúntalo a Cast
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-export OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | Variable de entorno           | Obligatorio | Descripción                                                                                          |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | Sí      | Endpoint OTLP de Cast Operations (`https://visca.ai/otlp`, o `http(s)://YOUR-OPERATIONS-HOST/otlp` autoalojado) |
-| `OTEL_EXPORTER_OTLP_HEADERS`  | Sí      | `x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | Sí      | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | Sí      | Atributos de recurso separados por comas. Debe incluir `iot.fleet.name`, `device.id` y `service.name=iot/<fleet>` |
 
 Emite tus lecturas como métricas usando los nombres `iot_*` que aparecen a continuación (consulta [Convenciones de Métricas](#convenciones-de-métricas)). En aproximadamente un minuto el dispositivo aparece en la sección **IoT** del panel de Cast Operations.
@@ -80,7 +80,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
 service:
   pipelines:
@@ -108,28 +108,28 @@ Cast Operations incluye un endpoint MQTT integrado, de modo que los dispositivos
 **Autenticación** — dos opciones:
 
 - **Para todo el proyecto**: envía tu **Token de Ingesta de Telemetría** como la contraseña MQTT (el nombre de usuario se ignora; si tu cliente solo expone un campo de nombre de usuario, coloca el token ahí en su lugar). Adecuado para gateways que publican en nombre de muchos dispositivos.
-- **Por dispositivo** (recomendado para dispositivos que se conectan directamente): registra el dispositivo en la pestaña **Device Registry** de la flota en el panel. El registro emite una credencial por dispositivo — el ID de la credencial es el **nombre de usuario** MQTT y el secreto es la **contraseña**. Los clientes autenticados por dispositivo solo pueden publicar bajo sus propios topics `oneuptime/<fleet>/<device>/…`, un único dispositivo comprometido puede revocarse desde el panel sin tocar el resto de la flota (la revocación surte efecto en aproximadamente un minuto, incluso para sesiones conectadas), y los dispositivos registrados obtienen **detección de fuera de línea por muerte silenciosa**: permanecen en el inventario como Offline en lugar de desaparecer cuando dejan de reportar, y la plantilla de alerta Device Offline se dispara para ellos incluso si mueren sin un Last Will.
+- **Por dispositivo** (recomendado para dispositivos que se conectan directamente): registra el dispositivo en la pestaña **Device Registry** de la flota en el panel. El registro emite una credencial por dispositivo — el ID de la credencial es el **nombre de usuario** MQTT y el secreto es la **contraseña**. Los clientes autenticados por dispositivo solo pueden publicar bajo sus propios topics `cast-operations/<fleet>/<device>/…`, un único dispositivo comprometido puede revocarse desde el panel sin tocar el resto de la flota (la revocación surte efecto en aproximadamente un minuto, incluso para sesiones conectadas), y los dispositivos registrados obtienen **detección de fuera de línea por muerte silenciosa**: permanecen en el inventario como Offline en lugar de desaparecer cuando dejan de reportar, y la plantilla de alerta Device Offline se dispara para ellos incluso si mueren sin un Last Will.
 
 Las credenciales inválidas se rechazan en el CONNECT con el código de retorno 4 (nombre de usuario o contraseña incorrectos), de modo que un dispositivo mal configurado falla de forma evidente.
 
-**Topics** — publica bajo el prefijo fijo `oneuptime/`. Los segmentos de flota y dispositivo no pueden contener `/`, `+` ni `#`, y están limitados a 100 caracteres:
+**Topics** — publica bajo el prefijo fijo `cast-operations/`. Los segmentos de flota y dispositivo no pueden contener `/`, `+` ni `#`, y están limitados a 100 caracteres:
 
 | Topic                                            | Payload                                                                                              |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `oneuptime/<fleet>/<device>/telemetry`           | Objeto JSON de lecturas — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, o un objeto plano cuyos campos numéricos son las métricas |
-| `oneuptime/<fleet>/<device>/metrics/<metricName>`| Un único valor — un número simple (`23.4`) o `{ "value": 23.4 }`                                      |
-| `oneuptime/<fleet>/<device>/status`              | `"online"` u `"offline"` (también `1`/`0`, `true`/`false`, `up`/`down`) — se asigna a `iot_device_up` |
+| `cast-operations/<fleet>/<device>/telemetry`           | Objeto JSON de lecturas — `{ "metrics": { "iot_temperature_celsius": 21.5 } }`, o un objeto plano cuyos campos numéricos son las métricas |
+| `cast-operations/<fleet>/<device>/metrics/<metricName>`| Un único valor — un número simple (`23.4`) o `{ "value": 23.4 }`                                      |
+| `cast-operations/<fleet>/<device>/status`              | `"online"` u `"offline"` (también `1`/`0`, `true`/`false`, `up`/`down`) — se asigna a `iot_device_up` |
 
 Los payloads de telemetría también pueden llevar `"attributes"` (un mapa de cadenas estampado en cada datapoint — úsalo para `iot.device.kind`, `iot.device.type`, `iot.device.firmware` o tus propias etiquetas) y `"timestamp"` (ISO-8601, o segundos/milisegundos unix). Ambos son opcionales; se usa la hora de ingesta cuando falta `timestamp`.
 
-**Detección de fuera de línea con Last Will** — registra un Last Will de MQTT en `oneuptime/<fleet>/<device>/status` con el payload `offline`. Si el dispositivo muere o se cae de la red, el broker publica `iot_device_up = 0` en su nombre en el momento en que termina la sesión — lo que activa la plantilla de alerta **Device Offline** estándar y cambia el dispositivo a Caído en el inventario, sin sondeo y sin esperar a un scrape perdido. Publica `online` en el mismo topic después de conectar para que el dispositivo vuelva a mostrarse como Activo.
+**Detección de fuera de línea con Last Will** — registra un Last Will de MQTT en `cast-operations/<fleet>/<device>/status` con el payload `offline`. Si el dispositivo muere o se cae de la red, el broker publica `iot_device_up = 0` en su nombre en el momento en que termina la sesión — lo que activa la plantilla de alerta **Device Offline** estándar y cambia el dispositivo a Caído en el inventario, sin sondeo y sin esperar a un scrape perdido. Publica `online` en el mismo topic después de conectar para que el dispositivo vuelva a mostrarse como Activo.
 
 Ejemplo con `mosquitto_pub` (TCP puro, autoalojado):
 
 ```bash
-mosquitto_pub -h YOUR-ONEUPTIME-APP-HOST -p 1883 \
-  -u oneuptime -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
-  -t "oneuptime/building-a-sensors/sensor-001/telemetry" \
+mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
+  -u cast-operations -P "YOUR_TELEMETRY_INGESTION_TOKEN" \
+  -t "cast-operations/building-a-sensors/sensor-001/telemetry" \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
@@ -139,19 +139,19 @@ Ejemplo con `mqtt` de Node.js sobre WebSocket (funciona contra visca.ai y cualqu
 const mqtt = require("mqtt");
 
 const client = mqtt.connect("wss://visca.ai/mqtt", {
-  username: "oneuptime", // ignorado — el token de abajo es lo que autentica
+  username: "cast-operations", // ignorado — el token de abajo es lo que autentica
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
-    topic: "oneuptime/building-a-sensors/sensor-001/status",
+    topic: "cast-operations/building-a-sensors/sensor-001/status",
     payload: "offline",
   },
 });
 
 client.on("connect", () => {
-  client.publish("oneuptime/building-a-sensors/sensor-001/status", "online");
+  client.publish("cast-operations/building-a-sensors/sensor-001/status", "online");
   setInterval(() => {
     client.publish(
-      "oneuptime/building-a-sensors/sensor-001/telemetry",
+      "cast-operations/building-a-sensors/sensor-001/telemetry",
       JSON.stringify({
         metrics: {
           iot_device_up: 1,
@@ -171,15 +171,15 @@ import json
 import paho.mqtt.client as mqtt
 
 client = mqtt.Client(transport="websockets")
-client.username_pw_set("oneuptime", "YOUR_TELEMETRY_INGESTION_TOKEN")
+client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
-client.will_set("oneuptime/building-a-sensors/sensor-001/status", "offline")
+client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
 client.connect("visca.ai", 443)
 
-client.publish("oneuptime/building-a-sensors/sensor-001/status", "online")
+client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
-    "oneuptime/building-a-sensors/sensor-001/telemetry",
+    "cast-operations/building-a-sensors/sensor-001/telemetry",
     json.dumps({"metrics": {"iot_device_up": 1, "iot_temperature_celsius": 21.5}}),
 )
 ```
@@ -219,7 +219,7 @@ Cast Operations reconoce los siguientes nombres de métricas `iot_*`. Cada datap
 ### La flota no aparece
 
 1. Verifica que `iot.fleet.name` esté establecido como un atributo de **recurso** (no como una etiqueta de datapoint), y que `service.name` sea `iot/<fleet>`.
-2. Confirma que el endpoint del exportador sea `https://visca.ai/otlp` (o tu `…/otlp` autoalojado) y que el encabezado `x-oneuptime-token` lleve un token válido.
+2. Confirma que el endpoint del exportador sea `https://visca.ai/otlp` (o tu `…/otlp` autoalojado) y que el encabezado `x-cast-operations-token` lleve un token válido.
 3. Si usas un collector, asegúrate de que `encoding: json` y `Content-Type: application/json` estén establecidos en el exportador `otlphttp`.
 
 ### Faltan dispositivos en el inventario
@@ -230,7 +230,7 @@ Cast Operations reconoce los siguientes nombres de métricas `iot_*`. Cada datap
 
 ### HTTP 401 / 403 del exportador
 
-El token de ingesta es inválido, ha sido revocado o falta. Genera uno nuevo desde _Project Settings → Telemetry Ingestion Keys_ y actualiza el encabezado `x-oneuptime-token`.
+El token de ingesta es inválido, ha sido revocado o falta. Genera uno nuevo desde _Project Settings → Telemetry Ingestion Keys_ y actualiza el encabezado `x-cast-operations-token`.
 
 ### Las métricas no se grafican
 
@@ -255,7 +255,7 @@ exporters:
     encoding: json
     headers:
       "Content-Type": "application/json"
-      "x-oneuptime-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
+      "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 
 Si tu instancia es solo HTTP, cambia el esquema a `http://` y usa el puerto apropiado.

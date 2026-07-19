@@ -1,5 +1,5 @@
 import URL from "Common/Types/API/URL";
-import Cast OperationsDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { JSONArray, JSONObject } from "Common/Types/JSON";
 import JSONFunctions from "Common/Types/JSONFunctions";
@@ -793,8 +793,8 @@ export default class BlogPostUtil {
       return null;
     }
     try {
-      const date: Date = Cast OperationsDate.getDateFromYYYYMMDD(year, month, day);
-      return Cast OperationsDate.getDateAsLocalFormattedString(date, true);
+      const date: Date = OperationsDate.getDateFromYYYYMMDD(year, month, day);
+      return OperationsDate.getDateAsLocalFormattedString(date, true);
     } catch {
       return null;
     }
@@ -849,8 +849,8 @@ export default class BlogPostUtil {
       throw new BadDataException("Invalid file name");
     }
 
-    const date: Date = Cast OperationsDate.getDateFromYYYYMMDD(year, month, day);
-    return Cast OperationsDate.getDateAsLocalFormattedString(date, true);
+    const date: Date = OperationsDate.getDateFromYYYYMMDD(year, month, day);
+    return OperationsDate.getDateAsLocalFormattedString(date, true);
   }
 
   private static getPostFromMarkdown(markdownContent: string): string {

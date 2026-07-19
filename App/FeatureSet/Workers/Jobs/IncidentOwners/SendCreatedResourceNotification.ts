@@ -1,6 +1,6 @@
 import RunCron from "../../Utils/Cron";
 import { CallRequestMessage } from "Common/Types/Call/CallRequest";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import { EmailEnvelope } from "Common/Types/Email/EmailMessage";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
@@ -153,12 +153,11 @@ Notification sent to owners because [Incident ${incidentNumberDisplay}](${(await
                 })
                 .join(", ") || "None",
             incidentSeverity: incident.incidentSeverity!.name!,
-            declaredAt: OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones(
-              {
+            declaredAt:
+              OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
                 date: incidentIdentifiedDate,
                 timezones: user.timezone ? [user.timezone] : [],
-              },
-            ),
+              }),
             declaredBy: declaredBy,
             remediationNotes:
               (await Markdown.convertToHTML(

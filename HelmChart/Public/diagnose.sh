@@ -59,7 +59,7 @@ fi
 TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 TS_FILE=$(date -u +"%Y%m%d-%H%M%S")
 if [ -z "$REPORT_FILE" ]; then
-  REPORT_FILE="oneuptime-diagnostic-${TS_FILE}.txt"
+  REPORT_FILE="cast-operations-diagnostic-${TS_FILE}.txt"
 fi
 
 # Findings storage. Each entry: "SEVERITY|COMPONENT|MESSAGE|ACTION"
@@ -144,7 +144,7 @@ discover() {
   step "started at   : $TS"
 
   if [ -z "$NAMESPACE" ]; then
-    NAMESPACE=$(kubectl get pods -A -l appname=oneuptime \
+    NAMESPACE=$(kubectl get pods -A -l appname=cast-operations \
       -o jsonpath='{.items[0].metadata.namespace}' 2>/dev/null)
     if [ -z "$NAMESPACE" ]; then
       echo "ERROR: could not auto-detect Cast Operations namespace." >&2
@@ -157,7 +157,7 @@ discover() {
   if [ -z "$RELEASE" ]; then
     # Release name is the prefix of "<release>-app" pod's `app` label.
     local app_label
-    app_label=$(kc get pod -l "appname=oneuptime" \
+    app_label=$(kc get pod -l "appname=cast-operations" \
       -o jsonpath='{range .items[*]}{.metadata.labels.app}{"\n"}{end}' 2>/dev/null \
       | grep -E -- '-app$' | head -n1)
     if [ -n "$app_label" ]; then
@@ -165,7 +165,7 @@ discover() {
     fi
     if [ -z "$RELEASE" ]; then
       # Fall back to common name.
-      RELEASE="oneuptime"
+      RELEASE="cast-operations"
     fi
   fi
   step "release      : $RELEASE"
@@ -179,11 +179,11 @@ discover() {
 check_pod_health() {
   section "Pod health"
   local all_pods
-  all_pods=$(kc get pods -l appname=oneuptime -o wide 2>/dev/null)
+  all_pods=$(kc get pods -l appname=cast-operations -o wide 2>/dev/null)
   if [ -z "$all_pods" ]; then
     crit "No Cast Operations pods found in namespace $NAMESPACE."
     add_finding "CRIT" "cluster" \
-      "No pods found with label appname=oneuptime in namespace $NAMESPACE" \
+      "No pods found with label appname=cast-operations in namespace $NAMESPACE" \
       "Verify the helm release is installed: helm -n $NAMESPACE list"
     return
   fi
@@ -191,7 +191,7 @@ check_pod_health() {
 
   # Pending pods.
   local pending
-  pending=$(kc get pods -l appname=oneuptime \
+  pending=$(kc get pods -l appname=cast-operations \
     --field-selector=status.phase=Pending \
     -o jsonpath='{range .items[*]}{.metadata.name}{" "}{end}' 2>/dev/null)
   if [ -n "$pending" ]; then
@@ -203,7 +203,7 @@ check_pod_health() {
 
   # CrashLoopBackOff / Error.
   local bad
-  bad=$(kc get pods -l appname=oneuptime \
+  bad=$(kc get pods -l appname=cast-operations \
     -o jsonpath='{range .items[*]}{.metadata.name}={.status.containerStatuses[*].state.waiting.reason}{"\n"}{end}' \
     2>/dev/null | grep -E "CrashLoopBackOff|Error|ImagePullBackOff|CreateContainerConfigError" || true)
   if [ -n "$bad" ]; then
@@ -216,7 +216,7 @@ check_pod_health() {
 
   # Restart counts and OOMKilled.
   local restarts_out
-  restarts_out=$(kc get pods -l appname=oneuptime \
+  restarts_out=$(kc get pods -l appname=cast-operations \
     -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.status.containerStatuses[0].restartCount}{" "}{.status.containerStatuses[0].lastState.terminated.reason}{"\n"}{end}' \
     2>/dev/null)
   while IFS=' ' read -r pod restarts last_reason; do
@@ -254,7 +254,7 @@ check_resources() {
   section "Resource usage"
 
   local top_out
-  top_out=$(kc top pods -l appname=oneuptime --no-headers 2>&1)
+  top_out=$(kc top pods -l appname=cast-operations --no-headers 2>&1)
   if echo "$top_out" | grep -qiE "metrics.*not available|metrics-server|error"; then
     warn "kubectl top is unavailable (metrics-server not installed?)"
     add_finding "WARN" "cluster" \
@@ -375,7 +375,7 @@ check_postgres() {
 
   local pw db user
   pw=$(secret_value "${RELEASE}-postgresql" "postgres-password")
-  db="oneuptimedb"
+  db="castoperationsdb"
   user="postgres"
   if [ -z "$pw" ]; then
     warn "Could not read postgres password from secret ${RELEASE}-postgresql"
@@ -478,7 +478,7 @@ check_clickhouse() {
 
   local pw user db
   pw=$(secret_value "${RELEASE}-clickhouse" "admin-password")
-  user="oneuptime"
+  user="cast-operations"
   db="default"
   local ch_args=(--user "$user" --database "$db")
   if [ -n "$pw" ]; then
@@ -687,7 +687,7 @@ check_logs() {
     pod=$(first_ready_pod "app=${RELEASE}-${comp}")
     if [ -z "$pod" ]; then
       # Probes have suffixes — try a glob via grep on names.
-      pod=$(kc get pod -l appname=oneuptime \
+      pod=$(kc get pod -l appname=cast-operations \
         -o jsonpath='{range .items[?(@.status.phase=="Running")]}{.metadata.name}{"\n"}{end}' \
         2>/dev/null | grep -E "^${RELEASE}-${comp}" | head -n1)
     fi

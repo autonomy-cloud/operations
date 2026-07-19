@@ -1,6 +1,6 @@
 import Route from "../../Types/API/Route";
 import URL from "../../Types/API/URL";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 import Email from "../../Types/Email";
 import { JSONObject, JSONValue } from "../../Types/JSON";
 import JSONFunctions from "../../Types/JSONFunctions";
@@ -44,7 +44,7 @@ export default class Cookie {
     };
 
     if (options?.maxAgeInDays) {
-      cookieOptions.maxAge = OneUptimeDate.getMillisecondsInDays(
+      cookieOptions.maxAge = OperationsDate.getMillisecondsInDays(
         options.maxAgeInDays,
       );
     }

@@ -4,7 +4,7 @@ import RestrictionTimes, {
   RestrictionType,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 
@@ -51,12 +51,12 @@ function dailyRestriction(
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: startHour,
       minutes: 0,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: endHour,
       minutes: 0,
       seconds: 0,
@@ -65,20 +65,20 @@ function dailyRestriction(
   return r;
 }
 
-const JAN1: Date = OneUptimeDate.getStartOfDay(new Date(2026, 0, 1, 0, 0, 0));
+const JAN1: Date = OperationsDate.getStartOfDay(new Date(2026, 0, 1, 0, 0, 0));
 
 function dayOf(from: Date, d: Date): number {
-  return Math.round(OneUptimeDate.getSecondsBetweenTwoDates(from, d) / 86400);
+  return Math.round(OperationsDate.getSecondsBetweenTwoDates(from, d) / 86400);
 }
 
 describe("LayerUtil edge: multi-interval rotations of every unit stay on boundaries", () => {
   test("every-3-days rotation with 2 users", () => {
     const util: LayerUtil = new LayerUtil();
-    const calStart: Date = OneUptimeDate.addRemoveHours(
-      OneUptimeDate.addRemoveDays(JAN1, 4),
+    const calStart: Date = OperationsDate.addRemoveHours(
+      OperationsDate.addRemoveDays(JAN1, 4),
       6,
     ); // day 4.25, inside [3,6]
-    const calEnd: Date = OneUptimeDate.addRemoveDays(JAN1, 18);
+    const calEnd: Date = OperationsDate.addRemoveDays(JAN1, 18);
 
     const events: Array<CalendarEvent> = util.getEvents({
       users: [user("A"), user("B")],
@@ -101,8 +101,8 @@ describe("LayerUtil edge: multi-interval rotations of every unit stay on boundar
 
   test("every-2-weeks rotation lands on 14-day boundaries", () => {
     const util: LayerUtil = new LayerUtil();
-    const calStart: Date = OneUptimeDate.addRemoveDays(JAN1, 20); // inside [14,28]
-    const calEnd: Date = OneUptimeDate.addRemoveDays(JAN1, 60);
+    const calStart: Date = OperationsDate.addRemoveDays(JAN1, 20); // inside [14,28]
+    const calEnd: Date = OperationsDate.addRemoveDays(JAN1, 60);
 
     const events: Array<CalendarEvent> = util.getEvents({
       users: [user("A"), user("B")],
@@ -149,7 +149,7 @@ describe("LayerUtil edge: degenerate restrictions", () => {
     const util: LayerUtil = new LayerUtil();
     // Event window is only 00:00-06:00 each day (short calendar), restriction 09:00-17:00.
     const calStart: Date = JAN1;
-    const calEnd: Date = OneUptimeDate.addRemoveHours(JAN1, 6); // 00:00-06:00
+    const calEnd: Date = OperationsDate.addRemoveHours(JAN1, 6); // 00:00-06:00
 
     const events: Array<CalendarEvent> = util.getEvents({
       users: [user("A")],
@@ -177,7 +177,7 @@ describe("LayerUtil edge: degenerate restrictions", () => {
       restrictionTimes: r,
       rotation: rotation(EventInterval.Day, 1),
       calendarStartDate: JAN1,
-      calendarEndDate: OneUptimeDate.addRemoveDays(JAN1, 2),
+      calendarEndDate: OperationsDate.addRemoveDays(JAN1, 2),
     });
 
     expect(events.length).toBeGreaterThan(0);
@@ -188,7 +188,7 @@ describe("LayerUtil edge: multi-layer nesting", () => {
   test("three layers with staggered starts: highest priority active wins", () => {
     const util: LayerUtil = new LayerUtil();
     const start: Date = JAN1;
-    const calEnd: Date = OneUptimeDate.addRemoveHours(start, 12);
+    const calEnd: Date = OperationsDate.addRemoveHours(start, 12);
 
     /*
      * A layer covers everything from its start onward (its rotation repeats),
@@ -197,22 +197,22 @@ describe("LayerUtil edge: multi-layer nesting", () => {
      */
     const layer1: LayerProps = {
       users: [user("P1")],
-      startDateTimeOfLayer: OneUptimeDate.addRemoveHours(start, 4), // active hour 4+
-      handOffTime: OneUptimeDate.addRemoveHours(start, 8),
+      startDateTimeOfLayer: OperationsDate.addRemoveHours(start, 4), // active hour 4+
+      handOffTime: OperationsDate.addRemoveHours(start, 8),
       restrictionTimes: noRestriction(),
       rotation: rotation(EventInterval.Hour, 4),
     };
     const layer2: LayerProps = {
       users: [user("P2")],
-      startDateTimeOfLayer: OneUptimeDate.addRemoveHours(start, 2), // active hour 2+
-      handOffTime: OneUptimeDate.addRemoveHours(start, 10),
+      startDateTimeOfLayer: OperationsDate.addRemoveHours(start, 2), // active hour 2+
+      handOffTime: OperationsDate.addRemoveHours(start, 10),
       restrictionTimes: noRestriction(),
       rotation: rotation(EventInterval.Hour, 8),
     };
     const layer3: LayerProps = {
       users: [user("P3")],
       startDateTimeOfLayer: start, // active hour 0+
-      handOffTime: OneUptimeDate.addRemoveHours(start, 12),
+      handOffTime: OperationsDate.addRemoveHours(start, 12),
       restrictionTimes: noRestriction(),
       rotation: rotation(EventInterval.Hour, 12),
     };
@@ -224,8 +224,8 @@ describe("LayerUtil edge: multi-layer nesting", () => {
     });
 
     const at: (h: number) => string | null = (h: number): string | null => {
-      const t: Date = OneUptimeDate.addRemoveMinutes(
-        OneUptimeDate.addRemoveHours(start, h),
+      const t: Date = OperationsDate.addRemoveMinutes(
+        OperationsDate.addRemoveHours(start, h),
         30,
       ); // h:30
       for (const e of events) {
@@ -255,8 +255,8 @@ describe("LayerUtil edge: single-user and empty-user rotations", () => {
       handOffTime: JAN1,
       restrictionTimes: noRestriction(),
       rotation: rotation(EventInterval.Day, 1),
-      calendarStartDate: OneUptimeDate.addRemoveDays(JAN1, 100),
-      calendarEndDate: OneUptimeDate.addRemoveDays(JAN1, 103),
+      calendarStartDate: OperationsDate.addRemoveDays(JAN1, 100),
+      calendarEndDate: OperationsDate.addRemoveDays(JAN1, 103),
     });
     expect(events.length).toBeGreaterThan(0);
     for (const e of events) {
@@ -273,7 +273,7 @@ describe("LayerUtil edge: single-user and empty-user rotations", () => {
       restrictionTimes: noRestriction(),
       rotation: rotation(EventInterval.Day, 1),
       calendarStartDate: JAN1,
-      calendarEndDate: OneUptimeDate.addRemoveDays(JAN1, 3),
+      calendarEndDate: OperationsDate.addRemoveDays(JAN1, 3),
     });
     expect(events.length).toBe(0);
   });

@@ -15,7 +15,7 @@ import React, {
   useCallback,
 } from "react";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Card from "Common/UI/Components/Card/Card";
 import API from "Common/UI/Utils/API/API";
 import ModelAPI from "Common/UI/Utils/ModelAPI/ModelAPI";
@@ -48,7 +48,7 @@ const SlaTimer: FunctionComponent<SlaTimerProps> = (
   props: SlaTimerProps,
 ): ReactElement => {
   const [currentTime, setCurrentTime] = useState<Date>(
-    OneUptimeDate.getCurrentDate(),
+    OperationsDate.getCurrentDate(),
   );
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const SlaTimer: FunctionComponent<SlaTimerProps> = (
     }
 
     const interval: ReturnType<typeof setInterval> = setInterval(() => {
-      setCurrentTime(OneUptimeDate.getCurrentDate());
+      setCurrentTime(OperationsDate.getCurrentDate());
     }, 1000);
 
     return () => {
@@ -77,11 +77,11 @@ const SlaTimer: FunctionComponent<SlaTimerProps> = (
   const startedAt: Date = props.startedAt;
 
   // Calculate progress
-  const totalDuration: number = OneUptimeDate.getDifferenceInMinutes(
+  const totalDuration: number = OperationsDate.getDifferenceInMinutes(
     deadline,
     startedAt,
   );
-  const elapsed: number = OneUptimeDate.getDifferenceInMinutes(
+  const elapsed: number = OperationsDate.getDifferenceInMinutes(
     props.isCompleted && props.completedAt ? props.completedAt : currentTime,
     startedAt,
   );
@@ -190,17 +190,17 @@ const SlaTimer: FunctionComponent<SlaTimerProps> = (
       {/* Deadline info */}
       <div className="flex justify-between text-xs text-gray-500 mt-1">
         <span>
-          Started: {OneUptimeDate.getDateAsLocalFormattedString(startedAt)}
+          Started: {OperationsDate.getDateAsLocalFormattedString(startedAt)}
         </span>
         <span>
-          Deadline: {OneUptimeDate.getDateAsLocalFormattedString(deadline)}
+          Deadline: {OperationsDate.getDateAsLocalFormattedString(deadline)}
         </span>
       </div>
 
       {props.isCompleted && props.completedAt && (
         <div className="text-xs text-gray-500 mt-1">
           Completed:{" "}
-          {OneUptimeDate.getDateAsLocalFormattedString(props.completedAt)}
+          {OperationsDate.getDateAsLocalFormattedString(props.completedAt)}
         </div>
       )}
     </div>
@@ -219,7 +219,7 @@ const NoteReminderTimer: FunctionComponent<NoteReminderTimerProps> = (
   props: NoteReminderTimerProps,
 ): ReactElement => {
   const [currentTime, setCurrentTime] = useState<Date>(
-    OneUptimeDate.getCurrentDate(),
+    OperationsDate.getCurrentDate(),
   );
 
   useEffect(() => {
@@ -228,7 +228,7 @@ const NoteReminderTimer: FunctionComponent<NoteReminderTimerProps> = (
     }
 
     const interval: ReturnType<typeof setInterval> = setInterval(() => {
-      setCurrentTime(OneUptimeDate.getCurrentDate());
+      setCurrentTime(OperationsDate.getCurrentDate());
     }, 1000);
 
     return () => {
@@ -332,7 +332,7 @@ const NoteReminderTimer: FunctionComponent<NoteReminderTimerProps> = (
         {props.lastSentAt && (
           <span>
             Last:{" "}
-            {OneUptimeDate.getDateAsLocalFormattedString(props.lastSentAt)}
+            {OperationsDate.getDateAsLocalFormattedString(props.lastSentAt)}
           </span>
         )}
       </div>
@@ -488,7 +488,7 @@ const SlaCard: FunctionComponent<SlaCardProps> = (
             <span className="text-gray-500">SLA Started:</span>
             <div className="font-medium">
               {sla.slaStartedAt
-                ? OneUptimeDate.getDateAsLocalFormattedString(sla.slaStartedAt)
+                ? OperationsDate.getDateAsLocalFormattedString(sla.slaStartedAt)
                 : "N/A"}
             </div>
           </div>
@@ -496,7 +496,7 @@ const SlaCard: FunctionComponent<SlaCardProps> = (
             <span className="text-gray-500">Responded At:</span>
             <div className="font-medium">
               {sla.respondedAt
-                ? OneUptimeDate.getDateAsLocalFormattedString(sla.respondedAt)
+                ? OperationsDate.getDateAsLocalFormattedString(sla.respondedAt)
                 : "Not yet"}
             </div>
           </div>
@@ -504,7 +504,7 @@ const SlaCard: FunctionComponent<SlaCardProps> = (
             <span className="text-gray-500">Resolved At:</span>
             <div className="font-medium">
               {sla.resolvedAt
-                ? OneUptimeDate.getDateAsLocalFormattedString(sla.resolvedAt)
+                ? OperationsDate.getDateAsLocalFormattedString(sla.resolvedAt)
                 : "Not yet"}
             </div>
           </div>
@@ -761,19 +761,19 @@ const IncidentViewSla: FunctionComponent<
 
         // Calculate deadlines based on rule configuration
         const slaStartTime: Date =
-          incidentDeclaredAt || OneUptimeDate.getCurrentDate();
+          incidentDeclaredAt || OperationsDate.getCurrentDate();
         let responseDeadline: Date | undefined;
         let resolutionDeadline: Date | undefined;
 
         if (selectedRule.responseTimeInMinutes) {
-          responseDeadline = OneUptimeDate.addRemoveMinutes(
+          responseDeadline = OperationsDate.addRemoveMinutes(
             slaStartTime,
             selectedRule.responseTimeInMinutes,
           );
         }
 
         if (selectedRule.resolutionTimeInMinutes) {
-          resolutionDeadline = OneUptimeDate.addRemoveMinutes(
+          resolutionDeadline = OperationsDate.addRemoveMinutes(
             slaStartTime,
             selectedRule.resolutionTimeInMinutes,
           );
@@ -787,10 +787,10 @@ const IncidentViewSla: FunctionComponent<
           const responseMetDeadline: boolean =
             !responseDeadline ||
             !respondedAt ||
-            OneUptimeDate.isBefore(respondedAt, responseDeadline);
+            OperationsDate.isBefore(respondedAt, responseDeadline);
           const resolutionMetDeadline: boolean =
             !resolutionDeadline ||
-            OneUptimeDate.isBefore(resolvedAt, resolutionDeadline);
+            OperationsDate.isBefore(resolvedAt, resolutionDeadline);
 
           if (responseMetDeadline && resolutionMetDeadline) {
             slaStatus = IncidentSlaStatus.Met;
@@ -802,16 +802,16 @@ const IncidentViewSla: FunctionComponent<
         } else if (respondedAt) {
           // Incident is responded but not resolved
           if (resolutionDeadline) {
-            const now: Date = OneUptimeDate.getCurrentDate();
-            if (OneUptimeDate.isAfter(now, resolutionDeadline)) {
+            const now: Date = OperationsDate.getCurrentDate();
+            if (OperationsDate.isAfter(now, resolutionDeadline)) {
               slaStatus = IncidentSlaStatus.ResolutionBreached;
             } else {
               // Check if at risk (80% of time elapsed)
-              const totalTime: number = OneUptimeDate.getDifferenceInMinutes(
+              const totalTime: number = OperationsDate.getDifferenceInMinutes(
                 resolutionDeadline,
                 slaStartTime,
               );
-              const elapsedTime: number = OneUptimeDate.getDifferenceInMinutes(
+              const elapsedTime: number = OperationsDate.getDifferenceInMinutes(
                 now,
                 slaStartTime,
               );

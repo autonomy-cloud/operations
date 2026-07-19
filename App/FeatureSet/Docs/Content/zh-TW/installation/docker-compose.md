@@ -33,7 +33,7 @@
 ```
 # Clone this repo with just the release branch and cd into it.
 git clone --depth 1 --single-branch --branch release https://github.com/autonomy-cloud/operations.git
-cd oneuptime
+cd cast-operations
 
 # Copy config.example.env to config.env
 cp config.example.env config.env

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "required": ["oneuptime", "clusterName"],
+  "required": ["cast-operations", "clusterName"],
   "properties": {
     "global": {
       "type": "object",
@@ -20,7 +20,7 @@
       "type": "string",
       "description": "Override the fully qualified resource name. Useful for installing side-by-side with an existing release that shares the default cluster-scoped resource names."
     },
-    "oneuptime": {
+    "cast-operations": {
       "type": "object",
       "description": "Cast Operations instance connection details",
       "required": ["url", "apiKey"],
@@ -35,7 +35,7 @@
         },
         "labels": {
           "type": "object",
-          "description": "Project Labels auto-attached to every record. Each key/value becomes an `oneuptime.label.<key>=<value>` resource attribute, which the Cast Operations ingest pipeline promotes to a project Label.",
+          "description": "Project Labels auto-attached to every record. Each key/value becomes an `cast-operations.label.<key>=<value>` resource attribute, which the Cast Operations ingest pipeline promotes to a project Label.",
           "additionalProperties": {
             "type": ["string", "number", "boolean"]
           }

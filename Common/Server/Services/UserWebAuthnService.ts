@@ -19,7 +19,7 @@ import ObjectID from "../../Types/ObjectID";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 import UserTotpAuth from "../../Models/DatabaseModels/UserTotpAuth";
 import UserTotpAuthService from "./UserTotpAuthService";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 
 const WEBAUTHN_CHALLENGE_TTL_MINUTES: number = 5;
 
@@ -110,8 +110,8 @@ export class Service extends DatabaseService<Model> {
       id: data.userId,
       data: {
         webauthnChallenge: options.challenge,
-        webauthnChallengeExpiresAt: OneUptimeDate.addRemoveMinutes(
-          OneUptimeDate.getCurrentDate(),
+        webauthnChallengeExpiresAt: OperationsDate.addRemoveMinutes(
+          OperationsDate.getCurrentDate(),
           WEBAUTHN_CHALLENGE_TTL_MINUTES,
         ),
       },
@@ -240,8 +240,8 @@ export class Service extends DatabaseService<Model> {
       id: user.id!,
       data: {
         webauthnChallenge: options.challenge,
-        webauthnChallengeExpiresAt: OneUptimeDate.addRemoveMinutes(
-          OneUptimeDate.getCurrentDate(),
+        webauthnChallengeExpiresAt: OperationsDate.addRemoveMinutes(
+          OperationsDate.getCurrentDate(),
           WEBAUTHN_CHALLENGE_TTL_MINUTES,
         ),
       },
@@ -364,9 +364,9 @@ export class Service extends DatabaseService<Model> {
 
     // Check expiry
     if (
-      OneUptimeDate.isBefore(
+      OperationsDate.isBefore(
         user.webauthnChallengeExpiresAt,
-        OneUptimeDate.getCurrentDate(),
+        OperationsDate.getCurrentDate(),
       )
     ) {
       // Clear the expired challenge

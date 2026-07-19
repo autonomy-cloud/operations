@@ -31,10 +31,10 @@ Cast Operations 基础设施 Agent 是一个轻量级的 Go 语言守护进程�
 curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # 配置 Agent
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # 启动 Agent
-sudo oneuptime-infrastructure-agent start
+sudo cast-operations-infrastructure-agent start
 ```
 
 将 `YOUR_SECRET_KEY` 替换为监控器设置中显示的密钥，如果是自托管，请将 `https://visca.ai` 替换为您的 Cast Operations 实例 URL。
@@ -42,17 +42,17 @@ sudo oneuptime-infrastructure-agent start
 ### Windows
 
 1. 从 [GitHub Releases](https://github.com/autonomy-cloud/operations/releases/latest) 下载最新版 Agent
-   - `oneuptime-infrastructure-agent_windows_amd64.zip`（x64 系统）
-   - `oneuptime-infrastructure-agent_windows_arm64.zip`（ARM64 系统）
+   - `cast-operations-infrastructure-agent_windows_amd64.zip`（x64 系统）
+   - `cast-operations-infrastructure-agent_windows_arm64.zip`（ARM64 系统）
 2. 解压 zip 文件
 3. 以管理员身份打开命令提示符并运行：
 
 ```bash
 # 配置 Agent
-oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
 
 # 启动 Agent
-oneuptime-infrastructure-agent start
+cast-operations-infrastructure-agent start
 ```
 
 ### 代理支持
@@ -60,7 +60,7 @@ oneuptime-infrastructure-agent start
 如果您的服务器通过代理连接到互联网，可以配置 Agent 使用代理：
 
 ```bash
-sudo oneuptime-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --oneuptime-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Agent 命令
@@ -176,8 +176,8 @@ Agent 从服务器收集以下指标：
 
 ### Agent 未上报
 
-- 验证 Agent 是否正在运行：`sudo oneuptime-infrastructure-agent status`
-- 检查 Agent 日志：`sudo oneuptime-infrastructure-agent logs -n 50`
+- 验证 Agent 是否正在运行：`sudo cast-operations-infrastructure-agent status`
+- 检查 Agent 日志：`sudo cast-operations-infrastructure-agent logs -n 50`
 - 确认密钥是否正确
 - 确保服务器能够访问您的 Cast Operations 实例 URL
 - 检查防火墙规则是否允许出站 HTTPS 连接
@@ -186,14 +186,14 @@ Agent 从服务器收集以下指标：
 
 Agent 设计为轻量级。如果您注意到资源占用高：
 
-- 重启 Agent：`sudo oneuptime-infrastructure-agent restart`
+- 重启 Agent：`sudo cast-operations-infrastructure-agent restart`
 - 检查 Agent 日志中的错误
 
 ### 代理问题
 
 - 验证代理 URL 和端口是否正确
 - 确保代理允许连接到您的 Cast Operations 实例
-- 重新配置：`sudo oneuptime-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --oneuptime-url=YOUR_URL`
+- 重新配置：`sudo cast-operations-infrastructure-agent configure --proxy-url=http://proxy:port --secret-key=YOUR_KEY --cast-operations-url=YOUR_URL`
 
 ## 最佳实践
 

@@ -50,7 +50,7 @@ export class Service extends DatabaseService<Model> {
     }
 
     createBy.data.domainVerificationText =
-      "oneuptime-verification-" + Text.generateRandomText(20);
+      "cast-operations-verification-" + Text.generateRandomText(20);
     return Promise.resolve({ createBy, carryForward: null });
   }
 

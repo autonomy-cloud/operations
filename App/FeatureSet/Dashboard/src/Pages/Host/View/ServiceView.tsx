@@ -18,7 +18,7 @@ import AnalyticsModelAPI, {
 } from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
@@ -428,7 +428,7 @@ const HostServiceView: FunctionComponent<
         start: truncated ? parsed[0]!.time : startDate,
         end: endDate,
       });
-      setLastRefreshedAt(OneUptimeDate.getCurrentDate());
+      setLastRefreshedAt(OperationsDate.getCurrentDate());
     } catch (err) {
       if (isStale()) {
         return;
@@ -533,7 +533,7 @@ const HostServiceView: FunctionComponent<
     if (identity?.latestSampleAt) {
       chips.push({
         icon: IconProp.Clock,
-        label: `Last sample ${OneUptimeDate.fromNow(identity.latestSampleAt)}`,
+        label: `Last sample ${OperationsDate.fromNow(identity.latestSampleAt)}`,
       });
     }
 
@@ -649,7 +649,7 @@ const HostServiceView: FunctionComponent<
           value={statusMeta(identity.currentCode).label}
           sublabel={
             identity.latestSampleAt
-              ? `as of ${OneUptimeDate.fromNow(identity.latestSampleAt)}`
+              ? `as of ${OperationsDate.fromNow(identity.latestSampleAt)}`
               : "no samples in range"
           }
         />
@@ -680,7 +680,7 @@ const HostServiceView: FunctionComponent<
           value={transitions.length.toString()}
           sublabel={
             truncatedFrom
-              ? `since ${OneUptimeDate.fromNow(truncatedFrom)} (sample cap reached)`
+              ? `since ${OperationsDate.fromNow(truncatedFrom)} (sample cap reached)`
               : "in selected range"
           }
         />
@@ -789,7 +789,7 @@ const HostServiceView: FunctionComponent<
     );
 
     const scopeLabel: string = truncatedFrom
-      ? `since ${OneUptimeDate.getDateAsLocalFormattedString(truncatedFrom)} — the selected range exceeded the ${SAMPLE_FETCH_LIMIT}-sample cap`
+      ? `since ${OperationsDate.getDateAsLocalFormattedString(truncatedFrom)} — the selected range exceeded the ${SAMPLE_FETCH_LIMIT}-sample cap`
       : "in the selected time range";
 
     return (
@@ -817,7 +817,7 @@ const HostServiceView: FunctionComponent<
                     className="flex flex-wrap items-center gap-x-3 gap-y-1 py-2.5"
                   >
                     <span className="w-40 text-sm text-gray-500">
-                      {OneUptimeDate.getDateAsLocalFormattedString(
+                      {OperationsDate.getDateAsLocalFormattedString(
                         transition.time,
                       )}
                     </span>
@@ -830,7 +830,7 @@ const HostServiceView: FunctionComponent<
                       <StatusPill code={transition.toCode} />
                     </span>
                     <span className="ml-auto text-xs text-gray-400">
-                      {OneUptimeDate.fromNow(transition.time)}
+                      {OperationsDate.fromNow(transition.time)}
                     </span>
                   </div>
                 );

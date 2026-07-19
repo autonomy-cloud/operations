@@ -13,14 +13,14 @@ import {
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   McpToolInfo,
-  OneUptimeToolCallArgs,
+  OperationsToolCallArgs,
   JSONSchema,
   ToolAnnotations,
 } from "../Types/McpTypes";
-import OneUptimeOperation from "../Types/OneUptimeOperation";
-import OneUptimeApiService, {
-  OneUptimeApiError,
-} from "../Services/OneUptimeApiService";
+import OperationsOperation from "../Types/OperationsOperation";
+import OperationsApiService, {
+  OperationsApiError,
+} from "../Services/OperationsApiService";
 import { LIST_DEFAULT_LIMIT } from "../Config/ServerConfig";
 import { isHelperTool, handleHelperTool } from "../Tools/HelperTools";
 import {
@@ -154,7 +154,7 @@ function buildErrorResult(toolName: string, error: unknown): ToolCallResult {
     error: error instanceof Error ? error.message : String(error),
   };
 
-  if (error instanceof OneUptimeApiError) {
+  if (error instanceof OperationsApiError) {
     payload["statusCode"] = error.statusCode;
     if (error.details !== undefined && error.details !== null) {
       payload["details"] = error.details as JSONValue;
@@ -162,7 +162,7 @@ function buildErrorResult(toolName: string, error: unknown): ToolCallResult {
     payload["suggestion"] = getSuggestionForStatusCode(error.statusCode);
   } else {
     payload["suggestion"] =
-      "Check the tool's input schema for required parameters. Use 'oneuptime_help' for guidance.";
+      "Check the tool's input schema for required parameters. Use 'cast_operations_help' for guidance.";
   }
 
   const result: ToolCallResult = {
@@ -191,7 +191,7 @@ function getSuggestionForStatusCode(statusCode: number): string {
     case 429:
       return "Rate limited. Wait a moment and retry.";
     default:
-      return "Use 'oneuptime_help' for guidance on available tools and workflows.";
+      return "Use 'cast_operations_help' for guidance on available tools and workflows.";
   }
 }
 
@@ -256,7 +256,7 @@ async function handleCallTool(
     if (!tool) {
       throw new McpError(
         ErrorCode.MethodNotFound,
-        `Unknown tool: ${name}. Use 'oneuptime_help' to see available tools.`,
+        `Unknown tool: ${name}. Use 'cast_operations_help' to see available tools.`,
       );
     }
 
@@ -267,18 +267,18 @@ async function handleCallTool(
       return buildErrorResult(
         name,
         new Error(
-          "API key is required. Please provide the x-api-key header in your MCP server configuration. Use 'oneuptime_help' to learn more.",
+          "API key is required. Please provide the x-api-key header in your MCP server configuration. Use 'cast_operations_help' to learn more.",
         ),
       );
     }
 
     // Execute the Cast Operations operation with the session's API key
-    const result: unknown = await OneUptimeApiService.executeOperation(
+    const result: unknown = await OperationsApiService.executeOperation(
       tool.tableName,
       tool.operation,
       tool.modelType,
       tool.apiPath || "",
-      args as OneUptimeToolCallArgs,
+      args as OperationsToolCallArgs,
       apiKey,
     );
 
@@ -286,7 +286,7 @@ async function handleCallTool(
     const envelope: JSONObject = formatToolResponse(
       tool,
       result,
-      args as OneUptimeToolCallArgs,
+      args as OperationsToolCallArgs,
     );
 
     return toToolResult(envelope);
@@ -309,29 +309,29 @@ async function handleCallTool(
 export function formatToolResponse(
   tool: McpToolInfo,
   result: unknown,
-  args: OneUptimeToolCallArgs,
+  args: OperationsToolCallArgs,
 ): JSONObject {
-  const operation: OneUptimeOperation = tool.operation;
+  const operation: OperationsOperation = tool.operation;
   const modelName: string = tool.singularName;
   const pluralName: string = tool.pluralName;
 
   switch (operation) {
-    case OneUptimeOperation.Create:
+    case OperationsOperation.Create:
       return formatCreateResponse(modelName, result);
 
-    case OneUptimeOperation.Read:
+    case OperationsOperation.Read:
       return formatReadResponse(tool, result, args.id);
 
-    case OneUptimeOperation.List:
+    case OperationsOperation.List:
       return formatListResponse(modelName, pluralName, result, args);
 
-    case OneUptimeOperation.Update:
+    case OperationsOperation.Update:
       return formatUpdateResponse(tool, args.id);
 
-    case OneUptimeOperation.Delete:
+    case OperationsOperation.Delete:
       return formatDeleteResponse(modelName, args.id);
 
-    case OneUptimeOperation.Count:
+    case OperationsOperation.Count:
       return formatCountResponse(pluralName, result);
 
     default:
@@ -384,7 +384,7 @@ function formatListResponse(
   modelName: string,
   pluralName: string,
   result: unknown,
-  args: OneUptimeToolCallArgs,
+  args: OperationsToolCallArgs,
 ): JSONObject {
   /*
    * BaseAPI get-list returns { data: [...], count: <total matching rows>,

@@ -1,9 +1,4 @@
-import { PlanType } from "../../Types/Billing/SubscriptionPlan";
 import DatabaseConfig from "../DatabaseConfig";
-import {
-  AllowedSubscribersCountInFreePlan,
-  IsBillingEnabled,
-} from "../EnvironmentConfig";
 import ProjectSMTPConfigService from "../Services/ProjectSmtpConfigService";
 import CreateBy from "../Types/Database/CreateBy";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
@@ -13,7 +8,7 @@ import logger, { LogAttributes } from "../Utils/Logger";
 import DatabaseService from "./DatabaseService";
 import MailService from "./MailService";
 import ProjectCallSMSConfigService from "./ProjectCallSMSConfigService";
-import ProjectService, { CurrentPlan } from "./ProjectService";
+import ProjectService from "./ProjectService";
 import SmsService from "./SmsService";
 import StatusPageService from "./StatusPageService";
 import { StatusPageApiRoute } from "../../ServiceRoute";
@@ -29,7 +24,6 @@ import StatusPage from "../../Models/DatabaseModels/StatusPage";
 import StatusPageResource from "../../Models/DatabaseModels/StatusPageResource";
 import Model from "../../Models/DatabaseModels/StatusPageSubscriber";
 import StatusPageSubscriberNotificationTemplate from "../../Models/DatabaseModels/StatusPageSubscriberNotificationTemplate";
-import PositiveNumber from "../../Types/PositiveNumber";
 import StatusPageEventType from "../../Types/StatusPage/StatusPageEventType";
 import StatusPageSubscriberNotificationEventType from "../../Types/StatusPage/StatusPageSubscriberNotificationEventType";
 import StatusPageSubscriberNotificationMethod from "../../Types/StatusPage/StatusPageSubscriberNotificationMethod";
@@ -78,62 +72,6 @@ export class Service extends DatabaseService<Model> {
       projectId: data.data.projectId?.toString(),
       statusPageId: data.data.statusPageId?.toString(),
     } as LogAttributes);
-
-    // if the project is on the free plan, then only allow 1 status page.
-    if (IsBillingEnabled) {
-      logger.debug("Billing is enabled.", {
-        projectId: data.data.projectId?.toString(),
-        statusPageId: data.data.statusPageId?.toString(),
-      } as LogAttributes);
-      const currentPlan: CurrentPlan =
-        await ProjectService.getCurrentPlan(projectId);
-      logger.debug(`Current Plan: ${JSON.stringify(currentPlan)}`, {
-        projectId: data.data.projectId?.toString(),
-        statusPageId: data.data.statusPageId?.toString(),
-      } as LogAttributes);
-
-      if (currentPlan.isSubscriptionUnpaid) {
-        logger.debug("Subscription is unpaid.", {
-          projectId: data.data.projectId?.toString(),
-          statusPageId: data.data.statusPageId?.toString(),
-        } as LogAttributes);
-        throw new BadDataException(
-          "Your subscription is unpaid. Please update your payment method and to add subscribers.",
-        );
-      }
-
-      if (currentPlan.plan === PlanType.Free) {
-        logger.debug("Current plan is Free.", {
-          projectId: data.data.projectId?.toString(),
-          statusPageId: data.data.statusPageId?.toString(),
-        } as LogAttributes);
-        const subscribersCount: PositiveNumber = await this.countBy({
-          query: {
-            projectId: projectId,
-          },
-          props: {
-            isRoot: true,
-          },
-        });
-        logger.debug(`Subscribers Count: ${subscribersCount.toNumber()}`, {
-          projectId: data.data.projectId?.toString(),
-          statusPageId: data.data.statusPageId?.toString(),
-        } as LogAttributes);
-
-        if (subscribersCount.toNumber() >= AllowedSubscribersCountInFreePlan) {
-          logger.debug(
-            "Reached maximum allowed subscriber limit for the free plan.",
-            {
-              projectId: data.data.projectId?.toString(),
-              statusPageId: data.data.statusPageId?.toString(),
-            } as LogAttributes,
-          );
-          throw new BadDataException(
-            `You have reached the maximum allowed subscriber limit for the free plan. Please upgrade your plan to add more subscribers.`,
-          );
-        }
-      }
-    }
 
     let subscriber: Model | null = null;
 

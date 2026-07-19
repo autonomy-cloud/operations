@@ -7,39 +7,39 @@ The Cast Operations CLI provides full CRUD (Create, Read, Update, Delete) operat
 Run the following command to see all available resource types:
 
 ```bash
-oneuptime resources
+cast-operations resources
 ```
 
 You can filter by type:
 
 ```bash
 # Show only database resources
-oneuptime resources --type database
+cast-operations resources --type database
 
 # Show only analytics resources
-oneuptime resources --type analytics
+cast-operations resources --type analytics
 ```
 
 Common resources include:
 
 | Resource                    | Command                                 |
 | --------------------------- | --------------------------------------- |
-| Incident                    | `oneuptime incident`                    |
-| Alert                       | `oneuptime alert`                       |
-| Monitor                     | `oneuptime monitor`                     |
-| Monitor Status              | `oneuptime monitor-status`              |
-| Incident State              | `oneuptime incident-state`              |
-| Status Page                 | `oneuptime status-page`                 |
-| On-Call Policy              | `oneuptime on-call-policy`              |
-| Team                        | `oneuptime team`                        |
-| Scheduled Maintenance Event | `oneuptime scheduled-maintenance-event` |
+| Incident                    | `cast-operations incident`                    |
+| Alert                       | `cast-operations alert`                       |
+| Monitor                     | `cast-operations monitor`                     |
+| Monitor Status              | `cast-operations monitor-status`              |
+| Incident State              | `cast-operations incident-state`              |
+| Status Page                 | `cast-operations status-page`                 |
+| On-Call Policy              | `cast-operations on-call-policy`              |
+| Team                        | `cast-operations team`                        |
+| Scheduled Maintenance Event | `cast-operations scheduled-maintenance-event` |
 
 ## List Resources
 
 Retrieve a list of resources with optional filtering, pagination, and sorting.
 
 ```bash
-oneuptime <resource> list [options]
+cast-operations <resource> list [options]
 ```
 
 **Options:**
@@ -56,19 +56,19 @@ oneuptime <resource> list [options]
 
 ```bash
 # List the 10 most recent incidents
-oneuptime incident list
+cast-operations incident list
 
 # Filter incidents by state ID
-oneuptime incident list --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident list --query '{"currentIncidentStateId":"<state-id>"}'
 
 # List with pagination
-oneuptime incident list --limit 20 --skip 40
+cast-operations incident list --limit 20 --skip 40
 
 # Sort by creation date (descending)
-oneuptime incident list --sort '{"createdAt":-1}'
+cast-operations incident list --sort '{"createdAt":-1}'
 
 # Output as JSON
-oneuptime incident list -o json
+cast-operations incident list -o json
 ```
 
 ## Get a Resource
@@ -76,7 +76,7 @@ oneuptime incident list -o json
 Retrieve a single resource by its ID.
 
 ```bash
-oneuptime <resource> get <id>
+cast-operations <resource> get <id>
 ```
 
 **Arguments:**
@@ -89,10 +89,10 @@ oneuptime <resource> get <id>
 
 ```bash
 # Get a specific incident
-oneuptime incident get 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident get 550e8400-e29b-41d4-a716-446655440000
 
 # Get a monitor as JSON
-oneuptime monitor get abc-123 -o json
+cast-operations monitor get abc-123 -o json
 ```
 
 ## Create a Resource
@@ -100,7 +100,7 @@ oneuptime monitor get abc-123 -o json
 Create a new resource from inline JSON or a file.
 
 ```bash
-oneuptime <resource> create [options]
+cast-operations <resource> create [options]
 ```
 
 **Options:**
@@ -117,13 +117,13 @@ You must provide either `--data` or `--file`.
 
 ```bash
 # Create an incident with inline JSON
-oneuptime incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
+cast-operations incident create --data '{"title":"API Outage","currentIncidentStateId":"<state-id>","incidentSeverityId":"<severity-id>","declaredAt":"2025-01-15T10:30:00Z"}'
 
 # Create from a JSON file
-oneuptime incident create --file incident.json
+cast-operations incident create --file incident.json
 
 # Create and output as JSON to capture the ID
-oneuptime monitor create --data '{"name":"API Health Check"}' -o json
+cast-operations monitor create --data '{"name":"API Health Check"}' -o json
 ```
 
 ## Update a Resource
@@ -131,7 +131,7 @@ oneuptime monitor create --data '{"name":"API Health Check"}' -o json
 Update an existing resource by ID.
 
 ```bash
-oneuptime <resource> update <id> [options]
+cast-operations <resource> update <id> [options]
 ```
 
 **Arguments:**
@@ -151,10 +151,10 @@ oneuptime <resource> update <id> [options]
 
 ```bash
 # Change incident state (e.g., to resolved)
-oneuptime incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
+cast-operations incident update abc-123 --data '{"currentIncidentStateId":"<resolved-state-id>"}'
 
 # Rename a monitor
-oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
+cast-operations monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 ```
 
 ## Delete a Resource
@@ -162,7 +162,7 @@ oneuptime monitor update abc-123 --data '{"name":"Updated Monitor Name"}'
 Delete a resource by ID.
 
 ```bash
-oneuptime <resource> delete <id> [--force]
+cast-operations <resource> delete <id> [--force]
 ```
 
 **Arguments:**
@@ -180,11 +180,11 @@ oneuptime <resource> delete <id> [--force]
 **Examples:**
 
 ```bash
-oneuptime incident delete abc-123
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000
+cast-operations incident delete abc-123
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000
 
 # Skip confirmation
-oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
+cast-operations monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 ```
 
 ## Count Resources
@@ -192,7 +192,7 @@ oneuptime monitor delete 550e8400-e29b-41d4-a716-446655440000 --force
 Count resources matching optional filter criteria.
 
 ```bash
-oneuptime <resource> count [options]
+cast-operations <resource> count [options]
 ```
 
 **Options:**
@@ -205,13 +205,13 @@ oneuptime <resource> count [options]
 
 ```bash
 # Count all incidents
-oneuptime incident count
+cast-operations incident count
 
 # Count incidents by state
-oneuptime incident count --query '{"currentIncidentStateId":"<state-id>"}'
+cast-operations incident count --query '{"currentIncidentStateId":"<state-id>"}'
 
 # Count monitors
-oneuptime monitor count
+cast-operations monitor count
 ```
 
 ## Analytics Resources
@@ -227,4 +227,4 @@ Analytics resources support a limited set of operations compared to database res
 | `update`  | No        |
 | `delete`  | No        |
 
-Use `oneuptime resources --type analytics` to see which analytics resources are available on your instance.
+Use `cast-operations resources --type analytics` to see which analytics resources are available on your instance.

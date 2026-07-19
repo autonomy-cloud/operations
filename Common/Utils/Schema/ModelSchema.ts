@@ -21,7 +21,7 @@ import Name from "../../Types/Name";
 import IP from "../../Types/IP/IP";
 import Port from "../../Types/Port";
 import MonitorSteps from "../../Types/Monitor/MonitorSteps";
-import OneUptimeDate from "../../Types/Date";
+import OperationsDate from "../../Types/Date";
 
 export type ModelSchemaType = ZodSchema;
 
@@ -118,7 +118,7 @@ export class ModelSchema extends BaseSchema {
       } else if (column.type === TableColumnType.MonitorSteps) {
         zodType = MonitorSteps.getSchema();
       } else if (column.type === TableColumnType.Date) {
-        zodType = OneUptimeDate.getSchema();
+        zodType = OperationsDate.getSchema();
       } else if (column.type === TableColumnType.VeryLongText) {
         zodType = z.string().openapi({
           type: "string",
@@ -1264,7 +1264,7 @@ export class ModelSchema extends BaseSchema {
     } else if (column.type === TableColumnType.Color) {
       zodType = Color.getSchema();
     } else if (column.type === TableColumnType.Date) {
-      zodType = OneUptimeDate.getSchema();
+      zodType = OperationsDate.getSchema();
     } else if (column.type === TableColumnType.VeryLongText) {
       zodType = applyOpenApi(z.string(), {
         type: "string",

@@ -46,7 +46,7 @@
         "should_escape": false
       },
       {
-        "command": "/oneuptime",
+        "command": "/cast-operations",
         "url": "{{SERVER_URL}}/api/slack/command",
         "description": "Ask Cast Operations AI about your logs, traces, metrics, incidents and monitors",
         "usage_hint": "ask which monitors are down?",

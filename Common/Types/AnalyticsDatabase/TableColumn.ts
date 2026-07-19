@@ -1,6 +1,5 @@
 import TableColumnType from "../AnalyticsDatabase/TableColumnType";
 import { ColumnAccessControl } from "../BaseDatabase/AccessControl";
-import ColumnBillingAccessControl from "../BaseDatabase/ColumnBillingAccessControl";
 import { JSONValue } from "../JSON";
 
 export enum SkipIndexType {
@@ -127,22 +126,6 @@ export default class AnalyticsTableColumn {
     return Boolean(this.defaultValue !== undefined);
   }
 
-  private _billingAccessControl?: ColumnBillingAccessControl | undefined;
-  public get billingAccessControl(): ColumnBillingAccessControl | undefined {
-    return this._billingAccessControl;
-  }
-  public set billingAccessControl(v: ColumnBillingAccessControl | undefined) {
-    this._billingAccessControl = v;
-  }
-
-  private _allowAccessIfSubscriptionIsUnpaid: boolean = false;
-  public get allowAccessIfSubscriptionIsUnpaid(): boolean {
-    return this._allowAccessIfSubscriptionIsUnpaid;
-  }
-  public set allowAccessIfSubscriptionIsUnpaid(v: boolean) {
-    this._allowAccessIfSubscriptionIsUnpaid = v;
-  }
-
   private _accessControl: ColumnAccessControl | undefined;
   public get accessControl(): ColumnAccessControl | undefined {
     return this._accessControl;
@@ -220,10 +203,8 @@ export default class AnalyticsTableColumn {
     required: boolean;
     defaultValue?: JSONValue | undefined;
     type: TableColumnType;
-    billingAccessControl?: ColumnBillingAccessControl | undefined;
     isTenantId?: boolean | undefined;
     accessControl?: ColumnAccessControl | undefined;
-    allowAccessIfSubscriptionIsUnpaid?: boolean | undefined;
     forceGetDefaultValueOnCreate?:
       | (() => Date | string | number | boolean)
       | undefined;
@@ -242,9 +223,6 @@ export default class AnalyticsTableColumn {
     this.isTenantId = data.isTenantId || false;
     this.forceGetDefaultValueOnCreate = data.forceGetDefaultValueOnCreate;
     this.defaultValue = data.defaultValue;
-    this.billingAccessControl = data.billingAccessControl;
-    this.allowAccessIfSubscriptionIsUnpaid =
-      data.allowAccessIfSubscriptionIsUnpaid || false;
     this.skipIndex = data.skipIndex;
     this.codec = data.codec;
     this.isLowCardinality = data.isLowCardinality || false;

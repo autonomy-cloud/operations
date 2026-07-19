@@ -7,7 +7,7 @@ Cast Operations CLI støtter flere måter å autentisere med Cast Operations-ins
 Autentiser med Cast Operations-instansen din ved hjelp av en API-nøkkel:
 
 ```bash
-oneuptime login <api-key> <instance-url>
+cast-operations login <api-key> <instance-url>
 ```
 
 **Argumenter:**
@@ -27,14 +27,14 @@ oneuptime login <api-key> <instance-url>
 
 ```bash
 # Logg inn med standardkontekst
-oneuptime login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://visca.ai
 
 # Logg inn med en navngitt kontekst
-oneuptime login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://visca.ai --context-name production
 
 # Konfigurer flere miljøer
-oneuptime login sk-prod-key https://visca.ai --context-name production
-oneuptime login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
 ```
 
 ## Kontekster
@@ -44,7 +44,7 @@ Kontekster lar deg lagre og bytte mellom flere Cast Operations-miljøer (f.eks. 
 ### List kontekster
 
 ```bash
-oneuptime context list
+cast-operations context list
 ```
 
 Viser alle konfigurerte kontekster. Den gjeldende konteksten er merket med `*`.
@@ -52,23 +52,23 @@ Viser alle konfigurerte kontekster. Den gjeldende konteksten er merket med `*`.
 ### Bytt kontekst
 
 ```bash
-oneuptime context use <name>
+cast-operations context use <name>
 ```
 
 Bytt til en annen navngitt kontekst for alle påfølgende kommandoer.
 
 ```bash
 # Bytt til staging
-oneuptime context use staging
+cast-operations context use staging
 
 # Bytt til produksjon
-oneuptime context use production
+cast-operations context use production
 ```
 
 ### Vis gjeldende kontekst
 
 ```bash
-oneuptime context current
+cast-operations context current
 ```
 
 Viser den aktive konteksten, inkludert instans-URL og maskert API-nøkkel.
@@ -76,7 +76,7 @@ Viser den aktive konteksten, inkludert instans-URL og maskert API-nøkkel.
 ### Slett en kontekst
 
 ```bash
-oneuptime context delete <name>
+cast-operations context delete <name>
 ```
 
 Fjern en navngitt kontekst. Hvis den slettede konteksten er den gjeldende, bytter CLI automatisk til den første gjenværende konteksten.
@@ -86,7 +86,7 @@ Fjern en navngitt kontekst. Hvis den slettede konteksten er den gjeldende, bytte
 Legitimasjon løses i følgende prioritetsrekkefølge:
 
 1. **CLI-flagg** (`--api-key` og `--url`)
-2. **Miljøvariabler** (`ONEUPTIME_API_KEY` og `ONEUPTIME_URL`)
+2. **Miljøvariabler** (`CAST_OPERATIONS_API_KEY` og `CAST_OPERATIONS_URL`)
 3. **Navngitt kontekst** (via `--context`-flagget)
 4. **Gjeldende kontekst** (fra lagret konfigurasjon)
 
@@ -95,22 +95,22 @@ Du kan blande kilder – for eksempel bruke en miljøvariabel for API-nøkkelen 
 ### Bruke CLI-flagg
 
 ```bash
-oneuptime --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://visca.ai incident list
 ```
 
 ### Bruke miljøvariabler
 
 ```bash
-export ONEUPTIME_API_KEY=sk-abc123
-export ONEUPTIME_URL=https://visca.ai
+export CAST_OPERATIONS_API_KEY=sk-abc123
+export CAST_OPERATIONS_URL=https://visca.ai
 
-oneuptime incident list
+cast-operations incident list
 ```
 
 ### Bruke en spesifikk kontekst
 
 ```bash
-oneuptime --context production incident list
+cast-operations --context production incident list
 ```
 
 ## Bekreft autentisering
@@ -118,7 +118,7 @@ oneuptime --context production incident list
 Sjekk gjeldende autentiseringsstatus:
 
 ```bash
-oneuptime whoami
+cast-operations whoami
 ```
 
 Dette viser:
@@ -127,11 +127,11 @@ Dette viser:
 - Maskert API-nøkkel
 - Gjeldende kontekstnavn (vises kun hvis en lagret kontekst er aktiv)
 
-Hvis du ikke er autentisert, viser kommandoen en nyttig melding som foreslår å kjøre `oneuptime login`.
+Hvis du ikke er autentisert, viser kommandoen en nyttig melding som foreslår å kjøre `cast-operations login`.
 
 ## Konfigurasjonsfil
 
-Legitimasjon lagres i `~/.oneuptime/config.json` med begrensede tillatelser (`0600`).
+Legitimasjon lagres i `~/.cast-operations/config.json` med begrensede tillatelser (`0600`).
 
 ```json
 {

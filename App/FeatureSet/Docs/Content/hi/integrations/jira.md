@@ -108,14 +108,14 @@ Jira issue key को incident पर store करना उपयोगी ह�
 
 3. वर्कफ़्लो में, stored key द्वारा incident locate करने के लिए **Find Incident** ब्लॉक इस्तेमाल करें, फिर उसे आपके resolved state में ले जाने के लिए **Update Incident** ब्लॉक।
 
-यदि आपने चरण 4 में Jira key incident पर store की है, तो matching सीधी है। [कंपोनेंट → Cast Operations data components](/docs/workflows/components#oneuptime-data-components) देखें।
+यदि आपने चरण 4 में Jira key incident पर store की है, तो matching सीधी है। [कंपोनेंट → Cast Operations data components](/docs/workflows/components#cast-operations-data-components) देखें।
 
 ## Issue को customize करना
 
 API block की body में कुछ सामान्य बदलाव:
 
 - **Priority** — `fields` के अंदर `"priority": { "name": "High" }` जोड़ें। Cast Operations severities को Jira priorities से map करने के लिए API block से पहले `{{Incident.incidentSeverity.name}}` पर **Conditions** से branch कर सकते हैं।
-- **Labels** — `"labels": ["oneuptime", "incident"]` जोड़ें।
+- **Labels** — `"labels": ["cast-operations", "incident"]` जोड़ें।
 - **Assignee** — `"assignee": { "id": "<accountId>" }` जोड़ें (Jira Cloud usernames की बजाय account IDs इस्तेमाल करता है)।
 - **Custom fields** — अपने Jira admin से field के ID का उपयोग करके `"customfield_XXXXX": "..."` जोड़ें।
 

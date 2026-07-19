@@ -8,7 +8,7 @@ import Route from "../../../Types/API/Route";
 import URL from "../../../Types/API/URL";
 import { VeryLightGray } from "../../../Types/BrandColors";
 import Color from "../../../Types/Color";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import IconProp from "../../../Types/Icon/IconProp";
 import React, { FunctionComponent, ReactElement } from "react";
 import { useTranslation } from "react-i18next";
@@ -244,7 +244,7 @@ const EventItem: FunctionComponent<ComponentProps> = (
                             </div>
                             <div>
                               <span className="text-sm leading-8 text-gray-500 whitespace-nowrap">
-                                {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                                {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                                   item.date,
                                 )}
                               </span>
@@ -307,7 +307,7 @@ const EventItem: FunctionComponent<ComponentProps> = (
                               </div>
                               <p className="mt-0.5 text-sm text-gray-500">
                                 {t("eventItem.postedOn")}{" "}
-                                {OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                                {OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                                   item.date,
                                 )}
                               </p>

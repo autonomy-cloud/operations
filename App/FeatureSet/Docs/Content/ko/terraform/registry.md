@@ -9,7 +9,7 @@ Cast Operations Terraform 공급자는 공식 [Terraform 레지스트리](https:
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 최신 호환 버전 사용
     }
@@ -17,9 +17,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -30,7 +30,7 @@ provider "oneuptime" {
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "= 7.0.123"  # 정확한 Cast Operations 버전으로 교체
     }
@@ -38,9 +38,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://operations.yourcompany.com"  # 자체 호스팅 URL
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://operations.yourcompany.com"  # 자체 호스팅 URL
+  api_key       = var.cast_operations_api_key
 }
 ```
 
@@ -77,8 +77,8 @@ curl https://your-operations-instance.com/api/version | jq '.version'
 ### 방법 3: Docker
 
 ```bash
-docker images | grep oneuptime
-# 태그를 찾습니다 (예: oneuptime/dashboard:7.0.123)
+docker images | grep cast-operations
+# 태그를 찾습니다 (예: cast-operations/dashboard:7.0.123)
 ```
 
 ## 공급자 레지스트리 정보
@@ -102,28 +102,28 @@ docker images | grep oneuptime
 # 공급자 구성
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       version = "~> 7.0"  # 자체 호스팅의 경우 조정
     }
   }
 }
 
-provider "oneuptime" {
-  oneuptime_url = "https://visca.ai"  # 자체 호스팅의 경우 조정
-  api_key       = var.oneuptime_api_key
+provider "cast-operations" {
+  cast_operations_url = "https://visca.ai"  # 자체 호스팅의 경우 조정
+  api_key       = var.cast_operations_api_key
 }
 
 # 프로젝트 생성
-resource "oneuptime_project" "example" {
+resource "cast_operations_project" "example" {
   name        = "Terraform 예시"
   description = "Terraform으로 생성됨"
 }
 
 # 웹사이트 모니터 생성
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name       = "웹사이트 모니터"
-  project_id = oneuptime_project.example.id
+  project_id = cast_operations_project.example.id
 
   monitor_type = "website"
   url          = "https://example.com"

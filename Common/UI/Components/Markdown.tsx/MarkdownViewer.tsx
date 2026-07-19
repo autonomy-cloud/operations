@@ -78,11 +78,11 @@ SyntaxHighlighter.registerLanguage("graphql", graphql);
 SyntaxHighlighter.registerLanguage("http", http);
 import mermaid from "mermaid";
 import DOMPurify from "dompurify";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import { Theme, useTheme } from "../../Utils/Theme";
 
 /*
- * ISO 8601 timestamps produced by OneUptimeDate.toString() — the
+ * ISO 8601 timestamps produced by OperationsDate.toString() — the
  * backend-generated root cause markdown inline-codes every timestamp so
  * we can localize it here without needing a custom markdown plugin.
  * Matches e.g. "2026-04-20T11:21:00.000Z" (Z-terminated, with ms).
@@ -339,7 +339,7 @@ const LocalTime: FunctionComponent<{ isoValue: string }> = ({
     );
   }
 
-  const localFormatted: string = OneUptimeDate.getDateAsLocalFormattedString(
+  const localFormatted: string = OperationsDate.getDateAsLocalFormattedString(
     parsed,
     false,
     true,

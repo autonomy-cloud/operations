@@ -1,5 +1,5 @@
 import ObjectID from "../../../../Types/ObjectID";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import BadDataException from "../../../../Types/Exception/BadDataException";
 import AIRunStatus from "../../../../Types/AI/AIRunStatus";
 import AIRunType from "../../../../Types/AI/AIRunType";
@@ -22,12 +22,10 @@ import {
 import CaptureSpan from "../../Telemetry/CaptureSpan";
 
 /*
- * Server-mediated LLM completions for the in-house code-fix agent (B4 Tier
- * 0, Internal/Roadmap/CodeFixSandboxDesign.md). The worker never holds a
+ * Server-mediated LLM completions for the in-house code-fix agent. The worker never holds a
  * provider secret: every completion of its tool loop is executed HERE via
- * AIService.executeWithLogging — logged to LlmLog, linked to the run, billed
- * when the provider is the costed global one, and inside the G4 daily
- * autonomous token budget.
+ * AIService.executeWithLogging, logged to LlmLog, linked to the run, and
+ * kept inside the daily autonomous token budget.
  *
  * Loop budgets are enforced server-side per run, not trusted to the worker:
  * a run gets at most MAX_COMPLETION_CALLS_PER_RUN completion calls and
@@ -175,9 +173,8 @@ export default class CodeFixAgentCompletion {
     }
 
     /*
-     * Metered-path provider resolution: project-owned first, else the global
-     * provider — on cloud too, because this call is executed through
-     * AIService.executeWithLogging and therefore billed/logged/budgeted.
+     * Provider resolution is project-owned first, then the global provider.
+     * The call remains logged and budgeted through AIService.executeWithLogging.
      * See getLlmProviderForMeteredAgentPath for the full rationale.
      */
     const llmProvider: LlmProvider | null =
@@ -220,7 +217,7 @@ export default class CodeFixAgentCompletion {
         status: AIRunStatus.Running,
       },
       data: {
-        lastHeartbeatAt: OneUptimeDate.getCurrentDate(),
+        lastHeartbeatAt: OperationsDate.getCurrentDate(),
       } as never,
       props: {
         isRoot: true,

@@ -24,7 +24,7 @@ Zabbix / Prometheus / Grafana / Datadog  ──►  Cast Operations Webhook trig
 
 Используйте этот паттерн, когда _что-то в Cast Operations должно отобразиться в другом инструменте_ — открыть тикет в Jira, вызвать кого-то через PagerDuty, опубликовать в Slack.
 
-1. Создайте рабочий процесс с **[триггером события Cast Operations](/docs/workflows/triggers#oneuptime-event-triggers)** — например, **Incident → On Create**.
+1. Создайте рабочий процесс с **[триггером события Cast Operations](/docs/workflows/triggers#cast-operations-event-triggers)** — например, **Incident → On Create**.
 2. Добавьте **[компонент API](/docs/workflows/components#api)**, который вызывает REST API другого инструмента с деталями инцидента.
 3. Храните любые API-ключи как **секретные [глобальные переменные](/docs/workflows/variables#global-variables)**, чтобы они никогда не появлялись в рабочем процессе или его журналах.
 

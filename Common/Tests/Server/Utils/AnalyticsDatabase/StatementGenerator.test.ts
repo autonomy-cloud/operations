@@ -12,7 +12,7 @@ import Route from "../../../../Types/API/Route";
 import AnalyticsTableEngine from "../../../../Types/AnalyticsDatabase/AnalyticsTableEngine";
 import AnalyticsTableColumn from "../../../../Types/AnalyticsDatabase/TableColumn";
 import TableColumnType from "../../../../Types/AnalyticsDatabase/TableColumnType";
-import OneUptimeDate from "../../../../Types/Date";
+import OperationsDate from "../../../../Types/Date";
 import EqualTo from "../../../../Types/BaseDatabase/EqualTo";
 import NotEqual from "../../../../Types/BaseDatabase/NotEqual";
 import IsNull from "../../../../Types/BaseDatabase/IsNull";
@@ -116,7 +116,7 @@ describe("StatementGenerator", () => {
       expectStatement(
         statement,
         SQL`
-                ALTER TABLE ${"oneuptime"}.${"<table-name>Local"} ON CLUSTER 'oneuptime'
+                ALTER TABLE ${"cast-operations"}.${"<table-name>Local"} ON CLUSTER 'cast-operations'
                 UPDATE <set-statement>
                 WHERE TRUE <where-statement>
             `,
@@ -189,7 +189,7 @@ describe("StatementGenerator", () => {
         p0: "_id",
         p1: "<value>",
         p2: "createdAt",
-        p3: OneUptimeDate.toClickhouseDateTime(date),
+        p3: OperationsDate.toClickhouseDateTime(date),
       });
     });
 
@@ -1160,7 +1160,7 @@ describe("StatementGenerator", () => {
       /* eslint-disable prettier/prettier */
       // Cluster mode: the local <table>Local table, Replicated engine, ON CLUSTER.
       const expectedStatement: Statement = SQL`
-            CREATE TABLE IF NOT EXISTS ${"oneuptime"}.${"<table-name>Local"} ON CLUSTER 'oneuptime'
+            CREATE TABLE IF NOT EXISTS ${"cast-operations"}.${"<table-name>Local"} ON CLUSTER 'cast-operations'
     (
         <columns-create-statement>
     )

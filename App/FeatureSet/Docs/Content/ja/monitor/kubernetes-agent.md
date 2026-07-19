@@ -5,14 +5,14 @@ Cast Operations Kubernetes エージェントは、クラスターメトリク�
 ## クイックスタート
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
@@ -35,20 +35,20 @@ Kubernetes のディストリビューションごとに制約が異なります
 **GKE Standard、EKS on EC2、セルフマネージド、または AKS:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
 
 **GKE Autopilot:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
 ```
@@ -56,10 +56,10 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **EKS Fargate:**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
 ```
@@ -77,7 +77,7 @@ DaemonSet がノードごとに 1 つの OpenTelemetry Collector pod を実行�
 
 ### API モード(`logs.mode: api`)
 
-シングルレプリカの Deployment(`oneuptime/kubernetes-log-tailer` イメージ)が Kubernetes API を使用してコンテナログをストリーミングします。これは `kubectl logs -f` が使用するのと同じエンドポイントです。hostPath、ホストアクセス、DaemonSet はいずれも不要です。
+シングルレプリカの Deployment(`cast-operations/kubernetes-log-tailer` イメージ)が Kubernetes API を使用してコンテナログをストリーミングします。これは `kubectl logs -f` が使用するのと同じエンドポイントです。hostPath、ホストアクセス、DaemonSet はいずれも不要です。
 
 - **長所:** GKE Autopilot、EKS Fargate、および hostPath をブロックしたり `restricted` Pod Security Standard を強制したりするあらゆるクラスターで動作します。
 $1 各コンテナストリームはkube-apiserverへの長時間接続です。通常、1つのレプリカで数千のコンテナを処理できます。非常に大きなクラスタでは、namespaceFilters.rulesのpodLogsスコープ付きincludeルールでリリースを分けてシャーディングしてください。
@@ -157,8 +157,8 @@ OBI はデフォルトで、サービス境界をまたいでトレースコン�
 OBI が動作しトラフィックを認識していることを確認するには:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent -l component=ebpf-instrument
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent -l component=ebpf-instrument
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 ## 連続的な CPU プロファイリング(デフォルトで無効)
@@ -205,8 +205,8 @@ chart は以下のデータも収集できます:
 | オプション                                | デフォルト                         | 説明                                                                                                                                                                                                                    |
 | ----------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | (空 — `standard` として扱われます) | 上記のテーブルを参照してください。                                                                                                                                                                                      |
-| `oneuptime.url`                           | _(必須)_                           | Cast Operations インスタンスの URL。                                                                                                                                                                                          |
-| `oneuptime.apiKey`                        | _(必須)_                           | プロジェクトの API キー(Settings → API Keys)。                                                                                                                                                                          |
+| `cast-operations.url`                           | _(必須)_                           | Cast Operations インスタンスの URL。                                                                                                                                                                                          |
+| `cast-operations.apiKey`                        | _(必須)_                           | プロジェクトの API キー(Settings → API Keys)。                                                                                                                                                                          |
 | `clusterName`                             | _(必須)_                           | このクラスターの一意の名前。すべてのレコードに `k8s.cluster.name` として刻印されます。                                                                                                                                  |
 | `namespaceFilters.rules`                  | kube-systemをpodLogsとebpfDiscoveryから除外 | podLogs、ebpfDiscovery、metrics、traces向けのスコープ別include/excludeルール。パターンは*をサポートし、excludeが常に優先されます。 |
 | `logs.enabled`                            | `true`                             | ログ収集を有効化または無効化します。                                                                                                                                                                                    |
@@ -230,8 +230,8 @@ chart は以下のデータも収集できます:
 
 ```bash
 helm repo update
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values
 ```
 
@@ -242,8 +242,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 > **Helm 3.14+** — `--reset-then-reuse-values` に切り替えてください。これは上書きしていないキーについて chart のデフォルトを再読み込みします:
 >
 > ```bash
-> helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
->   --namespace oneuptime-kubernetes-agent \
+> helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+>   --namespace cast-operations-kubernetes-agent \
 >   --reset-then-reuse-values
 > ```
 >
@@ -254,8 +254,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 ## アンインストール
 
 ```bash
-helm uninstall oneuptime-agent --namespace oneuptime-kubernetes-agent
-kubectl delete namespace oneuptime-kubernetes-agent
+helm uninstall cast-operations-agent --namespace cast-operations-kubernetes-agent
+kubectl delete namespace cast-operations-kubernetes-agent
 ```
 
 ## トラブルシューティング
@@ -265,8 +265,8 @@ kubectl delete namespace oneuptime-kubernetes-agent
 クラスターが hostPath をブロックしています。API モードのプリセットに切り替えてください:
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values \
   --set preset=gke-autopilot   # または eks-fargate
 ```
@@ -276,8 +276,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 エージェント pod を確認してください:
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent
-kubectl logs -n oneuptime-kubernetes-agent -l app.kubernetes.io/part-of=oneuptime --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent
+kubectl logs -n cast-operations-kubernetes-agent -l app.kubernetes.io/part-of=cast-operations --tail=200
 ```
 
 API モードでは、ログテイラー pod がポート 13133 で `/healthz` を公開しています。`kubectl port-forward` 経由でアクセスすると、エクスポートステータスのスナップショットを確認できます。
@@ -287,7 +287,7 @@ API モードでは、ログテイラー pod がポート 13133 で `/healthz` �
 OBI pod のログを確認してください:
 
 ```bash
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 よくある原因:
@@ -301,7 +301,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 namespace でシャーディングして水平方向にスケールしてください。namespace グループごとに 1 回ずつデプロイします:
 
 ```bash
-helm install oneuptime-agent-ns-a oneuptime/kubernetes-agent \
+helm install cast-operations-agent-ns-a cast-operations/kubernetes-agent \
   --set preset=gke-autopilot \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["app-a","app-b"],"scopes":["podLogs"]}]' \
   ...

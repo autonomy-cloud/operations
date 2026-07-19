@@ -39,7 +39,7 @@ Non-finite results (division by zero, missing source) produce no row — dashboa
 
 ### Output labeling
 
-Every materialized row carries \`oneuptime.derived.trace_rule_id\` plus the group-by value when set.
+Every materialized row carries \`cast-operations.derived.trace_rule_id\` plus the group-by value when set.
 `;
 
 const TraceRecordingRules: FunctionComponent<

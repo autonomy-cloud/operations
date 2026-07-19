@@ -46,7 +46,7 @@ import {
 } from "Common/Types/Monitor/CriteriaFilter";
 import FilterCondition from "Common/Types/Filter/FilterCondition";
 import RollingTime from "Common/Types/RollingTime/RollingTime";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import MetricQueryConfigData from "Common/Types/Metrics/MetricQueryConfigData";
 import MetricFormulaConfigData from "Common/Types/Metrics/MetricFormulaConfigData";
 import MetricExplorerUrl, {
@@ -106,15 +106,15 @@ function getNearestRollingTimeForWindow(): RollingTime {
   if (
     !startTimeParam ||
     !endTimeParam ||
-    !OneUptimeDate.isValidDateString(startTimeParam) ||
-    !OneUptimeDate.isValidDateString(endTimeParam)
+    !OperationsDate.isValidDateString(startTimeParam) ||
+    !OperationsDate.isValidDateString(endTimeParam)
   ) {
     return RollingTime.Past1Hour;
   }
 
   const windowMinutes: number =
-    (OneUptimeDate.fromString(endTimeParam).getTime() -
-      OneUptimeDate.fromString(startTimeParam).getTime()) /
+    (OperationsDate.fromString(endTimeParam).getTime() -
+      OperationsDate.fromString(startTimeParam).getTime()) /
     60000;
 
   if (!Number.isFinite(windowMinutes) || windowMinutes <= 0) {

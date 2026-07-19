@@ -22,7 +22,7 @@ PostgreSQL provided by the bundled [CloudNativePG](https://cloudnative-pg.io)
 ## What actually changes
 
 Only the connection target and the password secret change — the app keeps using
-the `postgres` user and the `oneuptimedb` database, so no application config
+the `postgres` user and the `castoperationsdb` database, so no application config
 changes are required beyond flipping the Helm switch.
 
 |                                   | Standalone (`postgresql.enabled: true`)          | Operator (`postgresOperator.cnpg.enabled: true`)       |
@@ -32,10 +32,10 @@ changes are required beyond flipping the Helm switch.
 | Read-only endpoint                | —                                                | `<release>-postgresql-cnpg-ro` (replicas)              |
 | Port                              | `5432`                                           | `5432`                                                 |
 | User (`DATABASE_USERNAME`)        | `postgres`                                       | `postgres`                                             |
-| Database (`DATABASE_NAME`)        | `oneuptimedb`                                    | `oneuptimedb`                                          |
+| Database (`DATABASE_NAME`)        | `castoperationsdb`                                    | `castoperationsdb`                                          |
 | Password secret                   | `<release>-postgresql` → key `postgres-password` | `<release>-postgresql-cnpg-superuser` → key `password` |
 
-Replace `<release>` with your Helm release name (e.g. `oneuptime`) and run every
+Replace `<release>` with your Helm release name (e.g. `cast-operations`) and run every
 command in the release's namespace (add `-n <namespace>` if it isn't `default`).
 
 When `postgresOperator.cnpg.enabled` is `true`, the chart stops rendering the
@@ -79,7 +79,7 @@ Several steps below need the app to stop writing to Postgres so the copy is
 consistent and the freshly-bootstrapped operator cluster isn't modified mid-restore:
 
 ```bash
-helm upgrade --install <release> ./HelmChart/Public/oneuptime \
+helm upgrade --install <release> ./HelmChart/Public/cast-operations \
   -f <your-values.yaml> \
   --set deployment.disableDeployments=true
 ```
@@ -136,11 +136,11 @@ spec:
     name: <release>-postgresql-cnpg-superuser
   bootstrap:
     initdb:
-      database: oneuptimedb
-      owner: oneuptime
+      database: castoperationsdb
+      owner: cast-operations
       import:
         type: microservice
-        databases: ["oneuptimedb"]
+        databases: ["castoperationsdb"]
         source:
           externalCluster: old-standalone
   externalClusters:
@@ -148,7 +148,7 @@ spec:
       connectionParameters:
         host: <release>-postgresql # the existing standalone service
         user: postgres
-        dbname: oneuptimedb
+        dbname: castoperationsdb
       password:
         name: <release>-postgresql # existing standalone secret
         key: postgres-password
@@ -180,13 +180,13 @@ postgresOperator:
     enabled: true
     instances: 3 # 1 primary + 2 hot standbys
     imageName: ghcr.io/cloudnative-pg/postgresql:17.4 # same image as the import
-    database: oneuptimedb
+    database: castoperationsdb
     persistence:
       size: 25Gi
 ```
 
 ```bash
-helm upgrade --install <release> ./HelmChart/Public/oneuptime -f values.yaml
+helm upgrade --install <release> ./HelmChart/Public/cast-operations -f values.yaml
 ```
 
 The app reconnects to `<release>-postgresql-cnpg-rw`. Then
@@ -238,11 +238,11 @@ through `kubectl exec` stdout — see the pitfalls below):
 
 ```bash
 kubectl exec -it <release>-postgresql-0 -- \
-  pg_dump -U postgres -d oneuptimedb -Fc -f /var/lib/postgresql/data/oneuptime.dump
+  pg_dump -U postgres -d castoperationsdb -Fc -f /var/lib/postgresql/data/cast-operations.dump
 
 # Verify the archive end-to-end (exit 0 == complete, not truncated):
 kubectl exec -it <release>-postgresql-0 -- \
-  pg_restore -f /dev/null /var/lib/postgresql/data/oneuptime.dump && echo "archive OK"
+  pg_restore -f /dev/null /var/lib/postgresql/data/cast-operations.dump && echo "archive OK"
 ```
 
 **3. Flip to operator mode** while keeping the app quiesced, so the chart
@@ -250,7 +250,7 @@ installs the operator and a fresh, empty cluster but the app does **not** start
 writing to it yet:
 
 ```bash
-helm upgrade --install <release> ./HelmChart/Public/oneuptime -f <your-values.yaml> \
+helm upgrade --install <release> ./HelmChart/Public/cast-operations -f <your-values.yaml> \
   --set postgresql.enabled=false \
   --set postgresOperator.cnpg.enabled=true \
   --set postgresOperator.cnpg.instances=1 \
@@ -268,7 +268,7 @@ PW=$(kubectl get secret <release>-postgresql-cnpg-superuser \
 # From a throwaway client pod on the cluster network:
 kubectl run pg-restore --rm -it --restart=Never --image=postgres:17 -- bash -lc "
   PGPASSWORD='$PW' pg_restore --no-owner --role=postgres -U postgres \
-    -h <release>-postgresql-cnpg-rw -d oneuptimedb /path/to/oneuptime.dump"
+    -h <release>-postgresql-cnpg-rw -d castoperationsdb /path/to/cast-operations.dump"
 ```
 
 > Copy the dump file to where the restore runs first (`kubectl cp`, or stream it
@@ -279,7 +279,7 @@ kubectl run pg-restore --rm -it --restart=Never --image=postgres:17 -- bash -lc 
 **5. Re-enable the app** (remove `disableDeployments`) and scale up:
 
 ```bash
-helm upgrade --install <release> ./HelmChart/Public/oneuptime -f <your-values.yaml> \
+helm upgrade --install <release> ./HelmChart/Public/cast-operations -f <your-values.yaml> \
   --set postgresql.enabled=false \
   --set postgresOperator.cnpg.enabled=true \
   --set postgresOperator.cnpg.instances=3
@@ -327,7 +327,7 @@ Until you delete the old PVC, rollback is a one-line revert — the standalone
 `StatefulSet` and its data are intact:
 
 ```bash
-helm upgrade --install <release> ./HelmChart/Public/oneuptime -f <your-values.yaml> \
+helm upgrade --install <release> ./HelmChart/Public/cast-operations -f <your-values.yaml> \
   --set postgresOperator.cnpg.enabled=false \
   --set postgresql.enabled=true
 ```
@@ -364,5 +364,5 @@ production writes if you can.)
 - [Postgres.md](./Postgres.md) — operator day-2 operations: CRD bootstrap,
   replication/failover, synchronous commits, read scaling, and volume-snapshot
   backups.
-- Cast Operations Helm chart [README](../Public/oneuptime/README.md) — `postgresOperator`
+- Cast Operations Helm chart [README](../Public/cast-operations/README.md) — `postgresOperator`
   configuration reference.

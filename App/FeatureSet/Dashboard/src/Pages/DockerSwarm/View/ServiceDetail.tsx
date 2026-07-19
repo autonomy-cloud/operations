@@ -31,7 +31,7 @@ import {
   displayNameForResource,
   displayStatusForResource,
 } from "../Utils/DockerSwarmResourceUtils";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 
 const DockerSwarmClusterServiceDetail: FunctionComponent<
   PageComponentProps
@@ -161,7 +161,7 @@ const DockerSwarmClusterServiceDetail: FunctionComponent<
     if (row.lastSeenAt) {
       summaryFields.push({
         title: "Last Seen",
-        value: OneUptimeDate.fromNow(new Date(row.lastSeenAt as Date)),
+        value: OperationsDate.fromNow(new Date(row.lastSeenAt as Date)),
       });
     }
   }

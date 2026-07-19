@@ -24,7 +24,7 @@ import ServerMonitorResponse from "../../../Types/Monitor/ServerMonitor/ServerMo
 import SyntheticMonitorResponse from "../../../Types/Monitor/SyntheticMonitors/SyntheticMonitorResponse";
 import { CheckOn } from "../../../Types/Monitor/CriteriaFilter";
 import ObjectID from "../../../Types/ObjectID";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 
 export default class MonitorMetricUtil {
   /*
@@ -40,7 +40,7 @@ export default class MonitorMetricUtil {
   private static readonly CACHE_TTL_MS: number = 5 * 60 * 1000; // 5 minutes
 
   private static async getRetentionDays(): Promise<number> {
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     // Return cached value if still fresh
     if (
@@ -123,18 +123,18 @@ export default class MonitorMetricUtil {
     attributes: JSONObject;
     metricPointType?: MetricPointType;
   }): Promise<JSONObject> {
-    const ingestionDate: Date = OneUptimeDate.getCurrentDate();
+    const ingestionDate: Date = OperationsDate.getCurrentDate();
     const ingestionTimestamp: string =
-      OneUptimeDate.toClickhouseDateTime(ingestionDate);
+      OperationsDate.toClickhouseDateTime(ingestionDate);
     const timeUnixNano: string =
-      OneUptimeDate.toUnixNano(ingestionDate).toString();
+      OperationsDate.toUnixNano(ingestionDate).toString();
 
     const attributes: JSONObject = { ...data.attributes };
     const attributeKeys: Array<string> =
       TelemetryUtil.getAttributeKeys(attributes);
 
     const retentionDays: number = await this.getRetentionDays();
-    const retentionDate: Date = OneUptimeDate.addRemoveDays(
+    const retentionDate: Date = OperationsDate.addRemoveDays(
       ingestionDate,
       retentionDays,
     );
@@ -162,7 +162,7 @@ export default class MonitorMetricUtil {
       bucketCounts: [],
       explicitBounds: [],
       value: data.value ?? null,
-      retentionDate: OneUptimeDate.toClickhouseDateTime(retentionDate),
+      retentionDate: OperationsDate.toClickhouseDateTime(retentionDate),
     } as JSONObject;
   }
 
@@ -271,9 +271,9 @@ export default class MonitorMetricUtil {
         let isOnline: boolean = true;
 
         const differenceInMinutes: number =
-          OneUptimeDate.getDifferenceInMinutes(
+          OperationsDate.getDifferenceInMinutes(
             (data.dataToProcess as ServerMonitorResponse).requestReceivedAt,
-            OneUptimeDate.getCurrentDate(),
+            OperationsDate.getCurrentDate(),
           );
 
         if (differenceInMinutes > 2) {

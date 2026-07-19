@@ -172,7 +172,8 @@ export default class Monitor extends BaseModel {
     required: true,
     canReadOnRelationQuery: true,
     title: "Project ID",
-    description: "ID of your Cast Operations Project in which this object belongs",
+    description:
+      "ID of your Cast Operations Project in which this object belongs",
     example: "5f8b9c0d-e1a2-4b3c-8d5e-6f7a8b9c0d1e",
   })
   @Column({
@@ -770,7 +771,8 @@ export default class Monitor extends BaseModel {
     required: false,
     type: TableColumnType.ShortText,
     title: "Monitoring Interval",
-    description: "How often would you like Cast Operations to monitor this resource?",
+    description:
+      "How often would you like Cast Operations to monitor this resource?",
     example: "Every 5 minutes",
   })
   @Column({

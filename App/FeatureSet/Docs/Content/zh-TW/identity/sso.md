@@ -48,7 +48,7 @@ Keycloak 是熱門的開源身分與存取管理解決方案。請依照下列�
 1. 登入您的 Cast Operations 儀表板
 2. 導覽至 **Project Settings** > **Authentication** > **SSO**
 3. 點選 **Create SSO** 並填寫下列內容：
-   - **Name**：具描述性的名稱（例如 `my-project-oneuptime`）
+   - **Name**：具描述性的名稱（例如 `my-project-cast-operations`）
    - **Sign On URL**：`https://<your-keycloak-domain>/auth/realms/<your-realm>/protocol/saml`
    - **Issuer**：`https://<your-keycloak-domain>/auth/realms/<your-realm>`
    - **Certificate**：請參閱下方的[步驟 2](#步驟-2取得-keycloak-憑證)
@@ -201,9 +201,9 @@ Okta 是廣為使用的身分平台，提供強大的 SAML SSO 能力。請依�
 2. 導覽至 **Project Settings** > **Authentication** > **SSO**
 3. 點選 **Create SSO** 並填寫下列內容：
    - **Name**：具描述性的名稱（例如 `Okta SAML`）
-   - **Sign On URL**：您將在[步驟 3](#步驟-3將-okta-saml-中繼資料複製到-oneuptime) 從 Okta 取得此項
-   - **Issuer**：您將在[步驟 3](#步驟-3將-okta-saml-中繼資料複製到-oneuptime) 從 Okta 取得此項
-   - **Certificate**：您將在[步驟 3](#步驟-3將-okta-saml-中繼資料複製到-oneuptime) 從 Okta 取得此項
+   - **Sign On URL**：您將在[步驟 3](#步驟-3將-okta-saml-中繼資料複製到-cast-operations) 從 Okta 取得此項
+   - **Issuer**：您將在[步驟 3](#步驟-3將-okta-saml-中繼資料複製到-cast-operations) 從 Okta 取得此項
+   - **Certificate**：您將在[步驟 3](#步驟-3將-okta-saml-中繼資料複製到-cast-operations) 從 Okta 取得此項
    - **Signature Algorithm**：`RSA-SHA-256`
    - **Digest Algorithm**：`SHA256`
 4. 點選 **View SSO Config** 並複製 **Identifier (Entity ID)** 與 **Reply URL (Assertion Consumer Service URL)** — 您在 Okta 中會需要這些項目

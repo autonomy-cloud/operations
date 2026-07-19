@@ -73,7 +73,7 @@ PagerDuty находит инцидент по `dedup_key` и закрывает
 
 ## Входящий путь (опционально)
 
-Чтобы сделать наоборот — открыть инцидент Cast Operations из события PagerDuty — добавьте рабочий процесс с триггером **Webhook** и укажите его URL в [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) PagerDuty (или в Events Orchestration), затем используйте **Create Incident**. См. [входящий паттерн](/docs/integrations/index#inbound-another-tool-sends-data-into-oneuptime).
+Чтобы сделать наоборот — открыть инцидент Cast Operations из события PagerDuty — добавьте рабочий процесс с триггером **Webhook** и укажите его URL в [V3 webhook](https://developer.pagerduty.com/docs/webhooks/v3-overview/) PagerDuty (или в Events Orchestration), затем используйте **Create Incident**. См. [входящий паттерн](/docs/integrations/index#inbound-another-tool-sends-data-into-cast-operations).
 
 ## Устранение неполадок
 

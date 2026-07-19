@@ -14,7 +14,7 @@
 1. [Azureポータル](https://portal.azure.com) にアクセスします
 2. 「アプリの登録」に移動し、「新規登録」をクリックします
 3. 登録フォームを入力します：
-   - **名前：** oneuptime
+   - **名前：** cast-operations
    - **サポートされるアカウントタイプ：** 任意の組織ディレクトリのアカウント（任意のMicrosoft Entra IDテナント - マルチテナント）
    - **リダイレクトURI：** Web - `https://your-operations-domain.com/api/microsoft-teams/auth`
    - 以下も追加してください：`https://your-operations-domain.com/api/microsoft-teams/admin-consent/callback`
@@ -61,7 +61,7 @@
 1. Azureポータルで「Azure Bot」に移動し、「作成」をクリックします
 2. ボット作成フォームを入力します：
 
-   - **ボットのハンドル：** oneuptime-bot
+   - **ボットのハンドル：** cast-operations-bot
    - **サブスクリプション：** Azureサブスクリプション
    - **リソースグループ：** 新規作成または既存のものを使用
    - **場所：** ユーザーに近い場所を選択

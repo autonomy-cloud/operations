@@ -13,7 +13,7 @@ import SnmpEntityInfo from "../../../Types/Monitor/SnmpMonitor/SnmpEntityInfo";
 import SnmpVendorTemplateUtil from "../../../Types/Monitor/SnmpMonitor/SnmpVendorTemplate";
 import ProbeMonitorResponse from "../../../Types/Probe/ProbeMonitorResponse";
 import ObjectID from "../../../Types/ObjectID";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import logger from "../Logger";
 
 /*
@@ -84,7 +84,7 @@ export default class NetworkInventoryUtil {
     const cdpNeighbors: Array<CdpNeighbor> | undefined =
       data.dataToProcess.snmpResponse?.cdpNeighbors;
 
-    const now: Date = OneUptimeDate.getCurrentDate();
+    const now: Date = OperationsDate.getCurrentDate();
 
     /*
      * lastSeenAt is "last time the device actually answered", not "last time

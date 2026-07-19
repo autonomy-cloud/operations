@@ -1,5 +1,5 @@
 // Set required env vars before importing SqlMonitor (which imports Config.ts).
-process.env["ONEUPTIME_URL"] = "https://visca.ai";
+process.env["CAST_OPERATIONS_URL"] = "https://visca.ai";
 process.env["PROBE_KEY"] = "test-probe-key";
 
 import SqlMonitor, {
@@ -514,7 +514,7 @@ describe("buildMicrosoftSqlServerPoolConfig", () => {
         min: 0,
         idleTimeoutMillis: 30000,
       });
-      expect(poolConfig.options?.appName).toBe("OneUptimeProbe-SQLMonitor");
+      expect(poolConfig.options?.appName).toBe("OperationsProbe-SQLMonitor");
     }
   });
 });

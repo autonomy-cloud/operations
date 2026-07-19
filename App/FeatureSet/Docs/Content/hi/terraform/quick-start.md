@@ -35,7 +35,7 @@
 ```hcl
 terraform {
   required_providers {
-    oneuptime = {
+    cast-operations = {
       source  = "autonomy-cloud/operations"
       # Cloud customers के लिए
       version = "~> 7.0"
@@ -47,17 +47,17 @@ terraform {
   required_version = ">= 1.0"
 }
 
-provider "oneuptime" {
+provider "cast-operations" {
   # Cloud customers के लिए
-  oneuptime_url = "https://visca.ai"
+  cast_operations_url = "https://visca.ai"
 
   # Self-Hosted customers के लिए - अपना instance URL उपयोग करें
-  # oneuptime_url = "https://operations.yourcompany.com"
+  # cast_operations_url = "https://operations.yourcompany.com"
 
-  api_key = var.oneuptime_api_key
+  api_key = var.cast_operations_api_key
 }
 
-variable "oneuptime_api_key" {
+variable "cast_operations_api_key" {
   description = "Cast Operations API Key"
   type        = string
   sensitive   = true
@@ -71,7 +71,7 @@ variable "project_id" {
 }
 
 # एक simple website monitor बनाएं
-resource "oneuptime_monitor" "website" {
+resource "cast_operations_monitor" "website" {
   name        = "Website Monitor"
   description = "website uptime के लिए Monitor"
   data        = jsonencode({
@@ -83,7 +83,7 @@ resource "oneuptime_monitor" "website" {
 
 # monitor ID output करें
 output "monitor_id" {
-  value = oneuptime_monitor.website.id
+  value = cast_operations_monitor.website.id
 }
 ```
 
@@ -93,7 +93,7 @@ output "monitor_id" {
 
 ```hcl
 # terraform.tfvars
-oneuptime_api_key = "your-api-key-here"
+cast_operations_api_key = "your-api-key-here"
 project_id        = "your-project-id-here"  # Cast Operations dashboard से प्राप्त करें
 ```
 
@@ -138,7 +138,7 @@ Error: Invalid API key
 
 1. Cast Operations dashboard में अपनी API key verify करें
 2. जांचें कि API key में पर्याप्त permissions हैं
-3. सुनिश्चित करें कि `oneuptime_url` आपके instance के लिए correct है
+3. सुनिश्चित करें कि `cast_operations_url` आपके instance के लिए correct है
 
 ### समस्या: Version mismatch (Self-Hosted)
 

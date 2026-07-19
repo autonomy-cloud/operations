@@ -9,11 +9,11 @@ extensions:
   headers_setter:
     headers:
       - action: upsert
-        key: x-oneuptime-token
-        from_context: x-oneuptime-token
+        key: x-cast-operations-token
+        from_context: x-cast-operations-token
       - action: upsert
-        key: x-oneuptime-service-name
-        from_context:  x-oneuptime-service-name
+        key: x-cast-operations-service-name
+        from_context:  x-cast-operations-service-name
 
 processors:
 

@@ -13,7 +13,7 @@ import HTTPErrorResponse from "Common/Types/API/HTTPErrorResponse";
 import HTTPResponse from "Common/Types/API/HTTPResponse";
 import Route from "Common/Types/API/Route";
 import URL from "Common/Types/API/URL";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import IconProp from "Common/Types/Icon/IconProp";
@@ -132,7 +132,7 @@ const Overview: FunctionComponent<PageComponentProps> = (
     const days: Dictionary<EventHistoryDayListComponentProps> = {};
 
     for (const announcement of announcements) {
-      const dayString: string = OneUptimeDate.getDateString(
+      const dayString: string = OperationsDate.getDateString(
         announcement.showAnnouncementAt!,
       );
 
@@ -176,8 +176,8 @@ const Overview: FunctionComponent<PageComponentProps> = (
         return (
           !announcement.endAnnouncementAt ||
           (announcement.endAnnouncementAt &&
-            OneUptimeDate.isBefore(
-              OneUptimeDate.getCurrentDate(),
+            OperationsDate.isBefore(
+              OperationsDate.getCurrentDate(),
               announcement.endAnnouncementAt!,
             ))
         );
@@ -187,8 +187,8 @@ const Overview: FunctionComponent<PageComponentProps> = (
       announcements.filter((announcement: StatusPageAnnouncement) => {
         return (
           announcement.endAnnouncementAt &&
-          OneUptimeDate.isAfter(
-            OneUptimeDate.getCurrentDate(),
+          OperationsDate.isAfter(
+            OperationsDate.getCurrentDate(),
             announcement.endAnnouncementAt!,
           )
         );

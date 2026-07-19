@@ -1,4 +1,4 @@
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import CustomCodeMonitorResponse, {
   RetryAttempt,
 } from "Common/Types/Monitor/CustomCodeMonitor/CustomCodeMonitorResponse";
@@ -113,7 +113,7 @@ const CustomMonitorSummaryView: FunctionComponent<ComponentProps> = (
             title="Monitored At"
             value={
               props.monitoredAt
-                ? OneUptimeDate.getDateAsUserFriendlyLocalFormattedString(
+                ? OperationsDate.getDateAsUserFriendlyLocalFormattedString(
                     props.monitoredAt,
                   )
                 : "-"

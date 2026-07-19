@@ -2,7 +2,7 @@ package utils
 
 import (
 	"log/slog"
-	"oneuptime-infrastructure-agent/model"
+	"cast-operations-infrastructure-agent/model"
 
 	"github.com/shirou/gopsutil/v3/mem"
 )

@@ -25,7 +25,7 @@ import AnalyticsModelAPI, {
 } from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Metric from "Common/Models/AnalyticsModels/Metric";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import InBetween from "Common/Types/BaseDatabase/InBetween";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import Table from "Common/UI/Components/Table/Table";
@@ -111,8 +111,8 @@ const HostServices: FunctionComponent<
 
       setHost(item);
 
-      const endDate: Date = OneUptimeDate.getCurrentDate();
-      const startDate: Date = OneUptimeDate.addRemoveMinutes(
+      const endDate: Date = OperationsDate.getCurrentDate();
+      const startDate: Date = OperationsDate.addRemoveMinutes(
         endDate,
         -SERVICE_LOOKBACK_MINUTES,
       );
@@ -189,7 +189,7 @@ const HostServices: FunctionComponent<
 
       setRows(Array.from(byKey.values()));
       setLatestSampleAt(newestSample);
-      setRefreshedAt(OneUptimeDate.getCurrentDate());
+      setRefreshedAt(OperationsDate.getCurrentDate());
     } catch (err) {
       setError(API.getFriendlyMessage(err));
     }
@@ -450,10 +450,10 @@ const HostServices: FunctionComponent<
       `Windows services on this host (last ${SERVICE_LOOKBACK_MINUTES} minutes).`,
     ];
     if (latestSampleAt) {
-      parts.push(`Latest sample ${OneUptimeDate.fromNow(latestSampleAt)}.`);
+      parts.push(`Latest sample ${OperationsDate.fromNow(latestSampleAt)}.`);
     }
     if (refreshedAt) {
-      parts.push(`Refreshed ${OneUptimeDate.fromNow(refreshedAt)}.`);
+      parts.push(`Refreshed ${OperationsDate.fromNow(refreshedAt)}.`);
     }
     return <span>{parts.join(" ")}</span>;
   })();

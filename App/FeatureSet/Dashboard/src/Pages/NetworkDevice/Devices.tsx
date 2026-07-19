@@ -26,7 +26,7 @@ import ErrorMessage from "Common/UI/Components/ErrorMessage/ErrorMessage";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import AppLink from "../../Components/AppLink/AppLink";
 import ObjectID from "Common/Types/ObjectID";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import { Gray500, Green, Red500 } from "Common/Types/BrandColors";
 import Pill, { PillSize } from "Common/UI/Components/Pill/Pill";
 import ProbeElement from "Common/UI/Components/Probe/Probe";
@@ -369,14 +369,14 @@ const NetworkDevices: FunctionComponent<
                 return <span className="text-sm text-gray-400">Never</span>;
               }
 
-              const lastSeen: Date = OneUptimeDate.fromString(item.lastSeenAt);
+              const lastSeen: Date = OperationsDate.fromString(item.lastSeenAt);
 
               return (
                 <span
                   className="text-sm text-gray-600"
-                  title={OneUptimeDate.getDateAsLocalFormattedString(lastSeen)}
+                  title={OperationsDate.getDateAsLocalFormattedString(lastSeen)}
                 >
-                  {OneUptimeDate.fromNow(lastSeen)}
+                  {OperationsDate.fromNow(lastSeen)}
                 </span>
               );
             },

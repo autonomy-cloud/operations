@@ -5,14 +5,14 @@ Cast Operations Kubernetes agent 會從您的 Kubernetes 叢集收集叢集指�
 ## 快速開始
 
 ```bash
-helm repo add oneuptime https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.visca.ai
 helm repo update
 
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
 
@@ -20,27 +20,27 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 
 ## 選用 — 使用專案標籤自動為此叢集加上標籤
 
-任何以 `oneuptime.label.` 為前綴的資源屬性都會被提升為專案標籤（Label），並附加到此 agent 所發出的叢集、服務和主機上。模式：`oneuptime.label.<dimension>=<value>` 會成為名為 `<dimension>:<value>` 的標籤。
+任何以 `cast-operations.label.` 為前綴的資源屬性都會被提升為專案標籤（Label），並附加到此 agent 所發出的叢集、服務和主機上。模式：`cast-operations.label.<dimension>=<value>` 會成為名為 `<dimension>:<value>` 的標籤。
 
-在安裝時使用 `--set oneuptime.labels.<key>=<value>` 傳入標籤：
+在安裝時使用 `--set cast-operations.labels.<key>=<value>` 傳入標籤：
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod \
-  --set oneuptime.labels.team=payments \
-  --set oneuptime.labels.env=production \
-  --set oneuptime.labels.region=us-east-1
+  --set cast-operations.labels.team=payments \
+  --set cast-operations.labels.env=production \
+  --set cast-operations.labels.region=us-east-1
 ```
 
 或將它們保存在 values 檔案中：
 
 ```yaml
 # values.yaml
-oneuptime:
+cast-operations:
   url: https://visca.ai
   apiKey: <YOUR_API_KEY>
   labels:
@@ -51,8 +51,8 @@ clusterName: prod
 ```
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
   -f values.yaml
 ```
 
@@ -75,20 +75,20 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **GKE Standard、EC2 上的 EKS、自我管理或 AKS：**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
 
 **GKE Autopilot：**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
 ```
@@ -96,10 +96,10 @@ helm install oneuptime-agent oneuptime/kubernetes-agent \
 **EKS Fargate：**
 
 ```bash
-helm install oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --create-namespace \
-  --set oneuptime.url=https://visca.ai \
-  --set oneuptime.apiKey=<YOUR_API_KEY> \
+helm install cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --create-namespace \
+  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate
 ```
@@ -117,7 +117,7 @@ DaemonSet 會在每個節點上執行一個 OpenTelemetry Collector pod。它透
 
 ### API 模式（`logs.mode: api`）
 
-一個單一複本的 Deployment（`oneuptime/kubernetes-log-tailer` 映像檔）使用 Kubernetes API 來串流容器記錄 — 與 `kubectl logs -f` 所使用的相同端點。沒有 hostPath、沒有主機存取、沒有 DaemonSet。
+一個單一複本的 Deployment（`cast-operations/kubernetes-log-tailer` 映像檔）使用 Kubernetes API 來串流容器記錄 — 與 `kubectl logs -f` 所使用的相同端點。沒有 hostPath、沒有主機存取、沒有 DaemonSet。
 
 - **優點：** 可在 GKE Autopilot、EKS Fargate，以及任何封鎖 hostPath 或強制執行 `restricted` Pod Security Standard 的叢集上運作。
 $1 每個容器串流都是連到 kube-apiserver 的長連線。一個副本通常可處理數千個容器。對於超大型叢集，請在 namespaceFilters.rules 中使用 podLogs 作用域的 include 規則，將不同 release 分片。
@@ -173,8 +173,8 @@ OBI 也預設會跨服務邊界傳播追蹤內容（trace context）。當 pod A
 啟用方式：
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent --reset-then-reuse-values \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent --reset-then-reuse-values \
   --set ebpf.logToTraceCorrelation=true
 ```
 
@@ -244,8 +244,8 @@ ebpf:
 若要檢查 OBI 是否正在執行並看到流量：
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent -l component=ebpf-instrument
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent -l component=ebpf-instrument
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 ## 持續性 CPU 分析（預設關閉）
@@ -292,9 +292,9 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 | 選項                                      | 預設                       | 描述                                                                                                                                                                                      |
 | ----------------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`                                  | （空白 — 視為 `standard`） | 請參閱上方的表格。                                                                                                                                                                        |
-| `oneuptime.url`                           | _(必填)_                   | 您的 Cast Operations 實例的 URL。                                                                                                                                                               |
-| `oneuptime.apiKey`                        | _(必填)_                   | 專案 API 金鑰（Settings → API Keys）。                                                                                                                                                    |
-| `oneuptime.labels`                        | `{}`                       | 要附加到此 agent 每一筆記錄的專案標籤。每個 `<key>: <value>` 都會成為一個 `oneuptime.label.<key>=<value>` 資源屬性。請參閱上方的自動標記章節。                                            |
+| `cast-operations.url`                           | _(必填)_                   | 您的 Cast Operations 實例的 URL。                                                                                                                                                               |
+| `cast-operations.apiKey`                        | _(必填)_                   | 專案 API 金鑰（Settings → API Keys）。                                                                                                                                                    |
+| `cast-operations.labels`                        | `{}`                       | 要附加到此 agent 每一筆記錄的專案標籤。每個 `<key>: <value>` 都會成為一個 `cast-operations.label.<key>=<value>` 資源屬性。請參閱上方的自動標記章節。                                            |
 | `clusterName`                             | _(必填)_                   | 此叢集的唯一名稱。會在每一筆記錄上標記為 `k8s.cluster.name`。                                                                                                                             |
 | `namespaceFilters.rules`                  | 從 podLogs 與 ebpfDiscovery 排除 kube-system | 針對 podLogs、ebpfDiscovery、metrics 與 traces 的作用域 include/exclude 規則。模式支援 *，而且 exclude 永遠優先。 |
 | `logs.enabled`                            | `true`                     | 開啟或關閉記錄收集。                                                                                                                                                                      |
@@ -318,8 +318,8 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 
 ```bash
 helm repo update
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values
 ```
 
@@ -330,8 +330,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 > **Helm 3.14+** — 改用 `--reset-then-reuse-values`。它會為您未覆寫的鍵重新讀取 chart 預設值：
 >
 > ```bash
-> helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
->   --namespace oneuptime-kubernetes-agent \
+> helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+>   --namespace cast-operations-kubernetes-agent \
 >   --reset-then-reuse-values
 > ```
 >
@@ -342,8 +342,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 ## 解除安裝
 
 ```bash
-helm uninstall oneuptime-agent --namespace oneuptime-kubernetes-agent
-kubectl delete namespace oneuptime-kubernetes-agent
+helm uninstall cast-operations-agent --namespace cast-operations-kubernetes-agent
+kubectl delete namespace cast-operations-kubernetes-agent
 ```
 
 ## 疑難排解
@@ -353,8 +353,8 @@ kubectl delete namespace oneuptime-kubernetes-agent
 您的叢集封鎖 hostPath。請切換到 API 模式的 preset：
 
 ```bash
-helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
-  --namespace oneuptime-kubernetes-agent \
+helm upgrade cast-operations-agent cast-operations/kubernetes-agent \
+  --namespace cast-operations-kubernetes-agent \
   --reuse-values \
   --set preset=gke-autopilot   # or eks-fargate
 ```
@@ -364,8 +364,8 @@ helm upgrade oneuptime-agent oneuptime/kubernetes-agent \
 檢查 agent 的 pod：
 
 ```bash
-kubectl get pods -n oneuptime-kubernetes-agent
-kubectl logs -n oneuptime-kubernetes-agent -l app.kubernetes.io/part-of=oneuptime --tail=200
+kubectl get pods -n cast-operations-kubernetes-agent
+kubectl logs -n cast-operations-kubernetes-agent -l app.kubernetes.io/part-of=cast-operations --tail=200
 ```
 
 在 API 模式中，記錄 tailer pod 會在連接埠 13133 上公開 `/healthz` — 透過 `kubectl port-forward` 連線以取得匯出狀態快照。
@@ -375,7 +375,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l app.kubernetes.io/part-of=oneuptim
 檢查 OBI pod 的記錄：
 
 ```bash
-kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=200
+kubectl logs -n cast-operations-kubernetes-agent -l component=ebpf-instrument --tail=200
 ```
 
 常見原因：
@@ -389,7 +389,7 @@ kubectl logs -n oneuptime-kubernetes-agent -l component=ebpf-instrument --tail=2
 透過分片命名空間進行水平擴展。每個命名空間群組部署一次：
 
 ```bash
-helm install oneuptime-agent-ns-a oneuptime/kubernetes-agent \
+helm install cast-operations-agent-ns-a cast-operations/kubernetes-agent \
   --set preset=gke-autopilot \
   --set-json 'namespaceFilters.rules=[{"action":"include","namespaces":["app-a","app-b"],"scopes":["podLogs"]}]' \
   ...

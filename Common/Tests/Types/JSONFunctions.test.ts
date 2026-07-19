@@ -38,7 +38,7 @@ describe("JSONFunctions Class", () => {
     });
 
     test("fromJSON returns a BaseModel instance", () => {
-      const json: JSONObject = { name: "oneuptime" };
+      const json: JSONObject = { name: "cast-operations" };
       const result: BaseModel | BaseModel[] = BaseModel.fromJSON(
         json,
         BaseModel,

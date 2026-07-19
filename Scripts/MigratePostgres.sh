@@ -21,18 +21,18 @@ OLD_PG_HOST="${OLD_PG_HOST:?Error: Set OLD_PG_HOST environment variable}"
 OLD_PG_PORT="${OLD_PG_PORT:-5432}"
 OLD_PG_USER="${OLD_PG_USER:-postgres}"
 OLD_PG_PASSWORD="${OLD_PG_PASSWORD:?Error: Set OLD_PG_PASSWORD environment variable}"
-OLD_PG_DATABASE="${OLD_PG_DATABASE:-oneuptimedb}"
+OLD_PG_DATABASE="${OLD_PG_DATABASE:-castoperationsdb}"
 
 # New (target) PostgreSQL instance — local (this pod)
 NEW_PG_HOST="${NEW_PG_HOST:-localhost}"
 NEW_PG_PORT="${NEW_PG_PORT:-5432}"
 NEW_PG_USER="${NEW_PG_USER:-postgres}"
 NEW_PG_PASSWORD="${NEW_PG_PASSWORD:-${POSTGRES_PASSWORD:-password}}"
-NEW_PG_DATABASE="${NEW_PG_DATABASE:-oneuptimedb}"
+NEW_PG_DATABASE="${NEW_PG_DATABASE:-castoperationsdb}"
 
 # Dump file location
 DUMP_DIR="/tmp/pg_migration"
-DUMP_FILE="${DUMP_DIR}/oneuptimedb.dump"
+DUMP_FILE="${DUMP_DIR}/castoperationsdb.dump"
 
 # ---------------------
 # Helper functions

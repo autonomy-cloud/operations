@@ -49,18 +49,18 @@ Runbook 代理把这件事翻转过来。Bash 和 JavaScript 步骤不再跑在�
 - 做你希望 Bash/JavaScript 步骤做的事（例如 SSH 到其他主机、`kubectl`、与数据库通信）。
 
 ```bash
-docker run --name oneuptime-runbook-agent --restart unless-stopped \
+docker run --name cast-operations-runbook-agent --restart unless-stopped \
   -e RUNBOOK_AGENT_ID=<agent-id> \
   -e RUNBOOK_AGENT_KEY=<agent-key> \
-  -e ONEUPTIME_URL=https://operations.yourdomain.com \
-  -d oneuptime/runbook-agent:release
+  -e CAST_OPERATIONS_URL=https://operations.yourdomain.com \
+  -d cast-operations/runbook-agent:release
 ```
 
 ### 4. 确认代理已连接
 
 回到 **Runbooks → 设置 → 代理**。约 60 秒之内，这个代理的那一行应该切换到 `Connected`，并显示新的 **最近活跃** 时间戳。如果它一直 `Disconnected`：
 
-- 查看容器日志（`docker logs oneuptime-runbook-agent`）寻找认证错误或网络失败。
+- 查看容器日志（`docker logs cast-operations-runbook-agent`）寻找认证错误或网络失败。
 - 用 `curl` 验证主机能否触达你的 Cast Operations URL。
 - 验证 ID 与密钥拷贝时没有夹带空白字符。
 
@@ -116,7 +116,7 @@ Worker 的整体等待窗口是 `领取超时 + 执行超时 + 几秒`。挑能�
 
 | 变量                                      | 必填 | 默认值  | 说明                                                                   |
 | ----------------------------------------- | ---- | ------- | ---------------------------------------------------------------------- |
-| `ONEUPTIME_URL`                           | 是   | —       | 你的 Cast Operations 实例基础 URL，例如 `https://operations.yourdomain.com`。 |
+| `CAST_OPERATIONS_URL`                           | 是   | —       | 你的 Cast Operations 实例基础 URL，例如 `https://operations.yourdomain.com`。 |
 | `RUNBOOK_AGENT_ID`                        | 是   | —       | 代理设置对话框中显示的 UUID。                                          |
 | `RUNBOOK_AGENT_KEY`                       | 是   | —       | 代理设置对话框中显示的密钥。                                           |
 | `RUNBOOK_AGENT_POLL_INTERVAL_MS`          | 否   | `5000`  | 代理轮询新任务的频率。                                                 |

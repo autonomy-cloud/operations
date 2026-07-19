@@ -1,6 +1,6 @@
 import RunCron from "../../Utils/Cron";
 import { CallRequestMessage } from "Common/Types/Call/CallRequest";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import Dictionary from "Common/Types/Dictionary";
 import { EmailEnvelope } from "Common/Types/Email/EmailMessage";
 import EmailTemplateType from "Common/Types/Email/EmailTemplateType";
@@ -39,7 +39,7 @@ RunCron(
     const incidents: Array<Incident> = await IncidentService.findAllBy({
       query: {
         nextReminderNotificationAt: QueryHelper.lessThan(
-          OneUptimeDate.getCurrentDate(),
+          OperationsDate.getCurrentDate(),
         ),
       },
       props: {
@@ -158,8 +158,8 @@ const sendReminderForIncident: SendReminderForIncidentFunction = async (
   await IncidentService.updateOneById({
     id: incidentId,
     data: {
-      nextReminderNotificationAt: OneUptimeDate.addRemoveMinutes(
-        OneUptimeDate.getCurrentDate(),
+      nextReminderNotificationAt: OperationsDate.addRemoveMinutes(
+        OperationsDate.getCurrentDate(),
         rule.reminderIntervalInMinutes,
       ),
       reminderNotificationSentCount:
@@ -190,9 +190,9 @@ const sendReminderForIncident: SendReminderForIncidentFunction = async (
   const openedAt: Date = incident.declaredAt || incident.createdAt!;
 
   const openDuration: string =
-    OneUptimeDate.convertSecondsToDaysHoursMinutesAndSeconds(
-      OneUptimeDate.getDifferenceInSeconds(
-        OneUptimeDate.getCurrentDate(),
+    OperationsDate.convertSecondsToDaysHoursMinutesAndSeconds(
+      OperationsDate.getDifferenceInSeconds(
+        OperationsDate.getCurrentDate(),
         openedAt,
       ),
     );
@@ -224,7 +224,7 @@ const sendReminderForIncident: SendReminderForIncidentFunction = async (
       projectName: incident.project!.name!,
       currentState: currentStateName,
       openDuration: openDuration,
-      declaredAt: OneUptimeDate.getDateAsFormattedHTMLInMultipleTimezones({
+      declaredAt: OperationsDate.getDateAsFormattedHTMLInMultipleTimezones({
         date: openedAt,
         timezones: user.timezone ? [user.timezone] : [],
       }),

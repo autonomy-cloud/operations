@@ -215,10 +215,10 @@ docker run ... <image>
 Voor Docker-monitoring moet u:
 
 1. De Cast Operations Docker Agent installeren op elke Docker-host die u wilt bewaken
-2. `ONEUPTIME_URL`, `ONEUPTIME_SERVICE_TOKEN` en `DOCKER_HOST_NAME` doorgeven als omgevingsvariabelen
+2. `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_SERVICE_TOKEN` en `DOCKER_HOST_NAME` doorgeven als omgevingsvariabelen
 3. Ervoor zorgen dat de te observeren containers het `json-file`-logstuurprogramma gebruiken (zie hierboven)
 
-De agent wordt gepubliceerd als `oneuptime/docker-agent:release` op Docker Hub. Zie de [Docker Agent-installatiegids](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) voor de volledige `docker run`- en `docker compose`-voorbeelden.
+De agent wordt gepubliceerd als `cast-operations/docker-agent:release` op Docker Hub. Zie de [Docker Agent-installatiegids](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) voor de volledige `docker run`- en `docker compose`-voorbeelden.
 
 ## Probleemoplossing
 

@@ -71,7 +71,7 @@ function queryWithAttributes(
   return {
     metricQueryData: {
       filterData: {
-        metricName: "oneuptime.host.heartbeat",
+        metricName: "cast-operations.host.heartbeat",
         ...(attributes ? { attributes } : {}),
       },
     } as unknown as MetricQueryData,

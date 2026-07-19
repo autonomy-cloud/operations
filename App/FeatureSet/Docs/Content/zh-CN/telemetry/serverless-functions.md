@@ -8,7 +8,7 @@
 
 ## 前置条件
 
-- 一个 **Cast Operations 遥测采集令牌（Telemetry Ingestion Token）** —— 从 _Project Settings → Telemetry Ingestion Keys_ 创建一个，并复制其中的 `x-oneuptime-token` 值。
+- 一个 **Cast Operations 遥测采集令牌（Telemetry Ingestion Token）** —— 从 _Project Settings → Telemetry Ingestion Keys_ 创建一个，并复制其中的 `x-cast-operations-token` 值。
 - 适合你的函数所用语言的 OpenTelemetry SDK（或自动监测埋点层）。
 
 ## Cast Operations 如何识别一个函数
@@ -31,7 +31,7 @@ Cast Operations 以 `faas.name` 资源属性作为每个函数的键：
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
-OTEL_EXPORTER_OTLP_HEADERS="x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN"
+OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
 
@@ -44,7 +44,7 @@ OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
 OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
-OTEL_EXPORTER_OTLP_HEADERS=x-oneuptime-token=YOUR_TELEMETRY_INGESTION_TOKEN
+OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 
 该层会自动从函数名称设置 `faas.name`，并且资源检测器会填充 `cloud.platform`、`cloud.region` 和 `cloud.account.id`。

@@ -6,7 +6,7 @@ import PageComponentProps from "../../PageComponentProps";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
 import { Black } from "Common/Types/BrandColors";
 import { LIMIT_PER_PROJECT } from "Common/Types/Database/LimitMax";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import BadDataException from "Common/Types/Exception/BadDataException";
 import { PromiseVoidFunction } from "Common/Types/FunctionTypes";
 import ObjectID from "Common/Types/ObjectID";
@@ -165,13 +165,13 @@ const IncidentEpisodeView: FunctionComponent<
     }
 
     if (!acknowledgeTime && resolveTime) {
-      return OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
-        OneUptimeDate.getDifferenceInMinutes(resolveTime, episodeStartTime),
+      return OperationsDate.convertMinutesToDaysHoursAndMinutes(
+        OperationsDate.getDifferenceInMinutes(resolveTime, episodeStartTime),
       );
     }
 
-    return OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
-      OneUptimeDate.getDifferenceInMinutes(acknowledgeTime!, episodeStartTime),
+    return OperationsDate.convertMinutesToDaysHoursAndMinutes(
+      OperationsDate.getDifferenceInMinutes(acknowledgeTime!, episodeStartTime),
     );
   };
 
@@ -194,8 +194,8 @@ const IncidentEpisodeView: FunctionComponent<
       );
     }
 
-    return OneUptimeDate.convertMinutesToDaysHoursAndMinutes(
-      OneUptimeDate.getDifferenceInMinutes(resolveTime, episodeStartTime),
+    return OperationsDate.convertMinutesToDaysHoursAndMinutes(
+      OperationsDate.getDifferenceInMinutes(resolveTime, episodeStartTime),
     );
   };
 

@@ -438,7 +438,7 @@ const StatusPageDelete: FunctionComponent<
         formFields={[
           {
             field: {
-              hidePoweredByOneUptimeBranding: true,
+              hidePoweredByOperationsBranding: true,
             },
             title: "Hide Powered By Cast Operations Branding",
             fieldType: FormFieldSchemaType.Toggle,
@@ -453,7 +453,7 @@ const StatusPageDelete: FunctionComponent<
           fields: [
             {
               field: {
-                hidePoweredByOneUptimeBranding: true,
+                hidePoweredByOperationsBranding: true,
               },
               fieldType: FieldType.Boolean,
               title: "Hide Powered By Cast Operations Branding",

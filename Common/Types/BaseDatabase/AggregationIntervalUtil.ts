@@ -1,5 +1,5 @@
 import AggregationInterval from "./AggregationInterval";
-import OneUptimeDate from "../Date";
+import OperationsDate from "../Date";
 
 /*
  * Single source of truth for "which time-bucket size does the
@@ -31,8 +31,8 @@ export class AggregationIntervalUtil {
       return data.aggregationInterval;
     }
 
-    const startDate: Date = OneUptimeDate.fromString(data.startDate);
-    const endDate: Date = OneUptimeDate.fromString(data.endDate);
+    const startDate: Date = OperationsDate.fromString(data.startDate);
+    const endDate: Date = OperationsDate.fromString(data.endDate);
 
     const diff: number = endDate.getTime() - startDate.getTime();
 
@@ -136,7 +136,7 @@ export class AggregationIntervalUtil {
     date: Date,
     interval: AggregationInterval,
   ): Date {
-    const ms: number = OneUptimeDate.fromString(date).getTime();
+    const ms: number = OperationsDate.fromString(date).getTime();
     const alignableIntervals: Array<AggregationInterval> = [
       AggregationInterval.Minute,
       AggregationInterval.FiveMinutes,
@@ -180,7 +180,7 @@ export class AggregationIntervalUtil {
     });
     return {
       startDate: this.floorDateToIntervalGrid(data.startDate, interval),
-      endDate: OneUptimeDate.fromString(data.endDate),
+      endDate: OperationsDate.fromString(data.endDate),
       interval,
     };
   }

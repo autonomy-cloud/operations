@@ -19,7 +19,7 @@ import ProfileUtil from "../../../Utils/ProfileUtil";
 import AnalyticsModelAPI from "Common/UI/Utils/AnalyticsModelAPI/AnalyticsModelAPI";
 import Profile from "Common/Models/AnalyticsModels/Profile";
 import ProjectUtil from "Common/UI/Utils/Project";
-import OneUptimeDate from "Common/Types/Date";
+import OperationsDate from "Common/Types/Date";
 import ObjectID from "Common/Types/ObjectID";
 import ServiceType from "Common/Types/Telemetry/ServiceType";
 import SortOrder from "Common/Types/BaseDatabase/SortOrder";
@@ -388,7 +388,7 @@ const ProfileSummaryCard: FunctionComponent<ProfileSummaryCardProps> = (
           </div>
           <div className="text-sm font-medium text-gray-900 mt-0.5">
             {p.startTime
-              ? OneUptimeDate.getDateAsLocalFormattedString(
+              ? OperationsDate.getDateAsLocalFormattedString(
                   new Date(p.startTime as unknown as string),
                 )
               : "—"}

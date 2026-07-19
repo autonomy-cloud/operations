@@ -20,7 +20,7 @@ import RestrictionTimes, {
   WeeklyResctriction,
 } from "../../../Types/OnCallDutyPolicy/RestrictionTimes";
 import Recurring from "../../../Types/Events/Recurring";
-import OneUptimeDate from "../../../Types/Date";
+import OperationsDate from "../../../Types/Date";
 import User from "../../../Models/DatabaseModels/User";
 import EventInterval from "../../../Types/Events/EventInterval";
 import PositiveNumber from "../../../Types/PositiveNumber";
@@ -40,12 +40,12 @@ function dailyRestriction(sh: number, eh: number): RestrictionTimes {
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OneUptimeDate.getDateWithCustomTime({
+    startTime: OperationsDate.getDateWithCustomTime({
       hours: sh,
       minutes: 0,
       seconds: 0,
     }),
-    endTime: OneUptimeDate.getDateWithCustomTime({
+    endTime: OperationsDate.getDateWithCustomTime({
       hours: eh,
       minutes: 0,
       seconds: 0,
@@ -86,7 +86,7 @@ function windowedNextAt(
     {
       layers: [layer],
       calendarStartDate: at,
-      calendarEndDate: OneUptimeDate.addRemoveDays(at, 20),
+      calendarEndDate: OperationsDate.addRemoveDays(at, 20),
     },
     { getNumberOfEvents: 1 },
   )[0];
@@ -106,7 +106,7 @@ function fullExpand(
   });
 }
 
-const MON_JAN6: Date = OneUptimeDate.fromString("2025-01-06T00:00:00.000Z");
+const MON_JAN6: Date = OperationsDate.fromString("2025-01-06T00:00:00.000Z");
 
 describe("F2 fix: daily rotation post-window gap resolves the correct next user", () => {
   test("x1 daily, [A,B], 09-17: evening gaps never go off-by-one over 10 days", () => {
@@ -120,7 +120,7 @@ describe("F2 fix: daily rotation post-window gap resolves the correct next user"
     const full: Array<CalendarEvent> = fullExpand(
       layer,
       MON_JAN6,
-      OneUptimeDate.addRemoveDays(MON_JAN6, 12),
+      OperationsDate.addRemoveDays(MON_JAN6, 12),
     );
 
     /*
@@ -128,13 +128,13 @@ describe("F2 fix: daily rotation post-window gap resolves the correct next user"
      * NEXT day's covered user in the full expansion.
      */
     for (let day: number = 0; day < 9; day++) {
-      const eveningGap: Date = OneUptimeDate.addRemoveHours(
-        OneUptimeDate.addRemoveDays(MON_JAN6, day),
+      const eveningGap: Date = OperationsDate.addRemoveHours(
+        OperationsDate.addRemoveDays(MON_JAN6, day),
         20, // 20:00, after the 09-17 window closed
       );
       const nextCovered: CalendarEvent | undefined = full.find(
         (e: CalendarEvent) => {
-          return OneUptimeDate.isAfter(e.start, eveningGap);
+          return OperationsDate.isAfter(e.start, eveningGap);
         },
       );
       const windowed: CalendarEvent | undefined = windowedNextAt(
@@ -155,16 +155,16 @@ describe("F2 fix: daily rotation post-window gap resolves the correct next user"
     const full: Array<CalendarEvent> = fullExpand(
       layer,
       MON_JAN6,
-      OneUptimeDate.addRemoveDays(MON_JAN6, 12),
+      OperationsDate.addRemoveDays(MON_JAN6, 12),
     );
     for (let day: number = 0; day < 9; day++) {
-      const eveningGap: Date = OneUptimeDate.addRemoveHours(
-        OneUptimeDate.addRemoveDays(MON_JAN6, day),
+      const eveningGap: Date = OperationsDate.addRemoveHours(
+        OperationsDate.addRemoveDays(MON_JAN6, day),
         20,
       );
       const nextCovered: CalendarEvent | undefined = full.find(
         (e: CalendarEvent) => {
-          return OneUptimeDate.isAfter(e.start, eveningGap);
+          return OperationsDate.isAfter(e.start, eveningGap);
         },
       );
       expect(windowedNextAt(layer, eveningGap)?.title).toBe(nextCovered?.title);
@@ -183,7 +183,7 @@ describe("F2 fix: daily rotation post-window gap resolves the correct next user"
      * Querying on Jan7 evening (last covered day of period 1, after 17:00) must
      * resolve the NEXT covered shift = Jan8 = B, not A.
      */
-    const jan7evening: Date = OneUptimeDate.fromString(
+    const jan7evening: Date = OperationsDate.fromString(
       "2025-01-07T20:00:00.000Z",
     );
     const next: CalendarEvent | undefined = windowedNextAt(layer, jan7evening);
@@ -191,7 +191,7 @@ describe("F2 fix: daily rotation post-window gap resolves the correct next user"
     expect(next?.start.getUTCDate()).toBe(8);
 
     // Querying on Jan6 evening (still period 1, Jan7 window ahead) resolves A/Jan7.
-    const jan6evening: Date = OneUptimeDate.fromString(
+    const jan6evening: Date = OperationsDate.fromString(
       "2025-01-06T20:00:00.000Z",
     );
     const next2: CalendarEvent | undefined = windowedNextAt(layer, jan6evening);
@@ -210,8 +210,8 @@ describe("F2 fix preserves #2413: fully-restricted periods still skip their turn
     const weekly: WeeklyResctriction = {
       startDay: DayOfWeek.Monday,
       endDay: DayOfWeek.Saturday,
-      startTime: OneUptimeDate.fromString("2025-01-06T00:00:00.000Z"),
-      endTime: OneUptimeDate.fromString("2025-01-11T00:00:00.000Z"),
+      startTime: OperationsDate.fromString("2025-01-06T00:00:00.000Z"),
+      endTime: OperationsDate.fromString("2025-01-11T00:00:00.000Z"),
     };
     const r: RestrictionTimes = new RestrictionTimes();
     r.restictionType = RestrictionType.Weekly;
@@ -232,19 +232,19 @@ describe("F2 fix preserves #2413: fully-restricted periods still skip their turn
     const full: Array<CalendarEvent> = fullExpand(
       layer,
       MON_JAN6,
-      OneUptimeDate.addRemoveDays(MON_JAN6, 14),
+      OperationsDate.addRemoveDays(MON_JAN6, 14),
     );
 
     /*
      * A Saturday-gap query (Jan 11) must resolve to the next covered day
      * (Monday Jan 13) with the SAME user the calendar assigns it.
      */
-    const saturdayGap: Date = OneUptimeDate.fromString(
+    const saturdayGap: Date = OperationsDate.fromString(
       "2025-01-11T12:00:00.000Z",
     );
     const nextCovered: CalendarEvent | undefined = full.find(
       (e: CalendarEvent) => {
-        return OneUptimeDate.isAfter(e.start, saturdayGap);
+        return OperationsDate.isAfter(e.start, saturdayGap);
       },
     );
     expect(nextCovered).toBeTruthy();

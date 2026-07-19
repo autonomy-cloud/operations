@@ -130,7 +130,7 @@ Zabbix notifications _एक user को_ भेजता है। एक स�
 3. उसके **Yes** output से, एक **Find Incident** ब्लॉक जोड़ें जो पहले बनाए गए open incident को खोजे — description या label में स्टोर किए गए Zabbix `event_id` पर match करें।
 4. उसे एक **Update Incident** ब्लॉक से जोड़ें और incident को आपके _resolved_ state में ले जाएँ।
 
-चूँकि resolution इस बात पर निर्भर करता है कि आप अपने project में incident states कैसे model करते हैं, **create** path को reliable core के रूप में रखें और resolve path बाद में जोड़ें जब आप पुष्टि कर लें कि events सही से flow हो रहे हैं। [कंपोनेंट → Cast Operations data components](/docs/workflows/components#oneuptime-data-components) देखें।
+चूँकि resolution इस बात पर निर्भर करता है कि आप अपने project में incident states कैसे model करते हैं, **create** path को reliable core के रूप में रखें और resolve path बाद में जोड़ें जब आप पुष्टि कर लें कि events सही से flow हो रहे हैं। [कंपोनेंट → Cast Operations data components](/docs/workflows/components#cast-operations-data-components) देखें।
 
 ## Zabbix severities mapping (वैकल्पिक)
 
