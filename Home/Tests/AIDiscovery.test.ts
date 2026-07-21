@@ -84,9 +84,7 @@ describe("AIDiscovery", () => {
     ] as Array<JSONObject>;
     expect(products.length).toBeGreaterThan(20);
     for (const product of products) {
-      expect(product["markdownUrl"]).toMatch(
-        /^https:\/\/cast-operations\.com\/.+\.md$/,
-      );
+      expect(product["markdownUrl"]).toMatch(/^https:\/\/visca\.ai\/.+\.md$/);
     }
   });
 
