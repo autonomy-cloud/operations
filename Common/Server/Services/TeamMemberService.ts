@@ -53,6 +53,38 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
   }
 
   @CaptureSpan()
+  private async assertCastAllowsMembershipMutation(
+    projectIds: Array<ObjectID>,
+  ): Promise<void> {
+    const uniqueProjectIds: Array<ObjectID> = Array.from(
+      new Map(
+        projectIds.map((projectId: ObjectID) => {
+          return [projectId.toString(), projectId];
+        }),
+      ).values(),
+    );
+    if (uniqueProjectIds.length === 0) {
+      return;
+    }
+
+    const castManagedProjects: Array<Project> = await ProjectService.findBy({
+      query: {
+        _id: QueryHelper.any(uniqueProjectIds),
+        castWorkspaceId: QueryHelper.notNull(),
+      },
+      select: { _id: true },
+      limit: LIMIT_MAX,
+      skip: 0,
+      props: { isRoot: true },
+    });
+    if (castManagedProjects.length > 0) {
+      throw new BadDataException(
+        "Membership for a Cast-managed Operations project is controlled by the owning Cast workspace",
+      );
+    }
+  }
+
+  @CaptureSpan()
   private async isSCIMPushGroupsEnabled(projectId: ObjectID): Promise<boolean> {
     const count: PositiveNumber = await ProjectSCIMService.countBy({
       query: {
@@ -70,6 +102,12 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
   protected override async onBeforeCreate(
     createBy: CreateBy<TeamMember>,
   ): Promise<OnCreate<TeamMember>> {
+    const projectId: ObjectID | undefined =
+      createBy.data.projectId || createBy.props.tenantId;
+    if (!createBy.props.isRoot && projectId) {
+      await this.assertCastAllowsMembershipMutation([new ObjectID(projectId)]);
+    }
+
     // Check if SCIM is enabled for the project
     if (
       !createBy.props.isRoot &&
@@ -226,6 +264,28 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
   }
 
   @CaptureSpan()
+  protected override async onBeforeUpdate(
+    updateBy: UpdateBy<TeamMember>,
+  ): Promise<OnUpdate<TeamMember>> {
+    if (!updateBy.props.isRoot) {
+      const members: Array<TeamMember> = await this.findBy({
+        query: updateBy.query,
+        select: { projectId: true },
+        limit: LIMIT_MAX,
+        skip: 0,
+        props: { isRoot: true },
+      });
+      await this.assertCastAllowsMembershipMutation(
+        members.flatMap((member: TeamMember) => {
+          return member.projectId ? [member.projectId] : [];
+        }),
+      );
+    }
+
+    return { updateBy, carryForward: null };
+  }
+
+  @CaptureSpan()
   public async refreshTokens(
     userId: ObjectID,
     projectId: ObjectID,
@@ -337,6 +397,14 @@ export class TeamMemberService extends DatabaseService<TeamMember> {
         isRoot: true,
       },
     });
+
+    if (!deleteBy.props.isRoot) {
+      await this.assertCastAllowsMembershipMutation(
+        members.flatMap((member: TeamMember) => {
+          return member.projectId ? [member.projectId] : [];
+        }),
+      );
+    }
 
     // Check if SCIM is enabled for the project
     if (

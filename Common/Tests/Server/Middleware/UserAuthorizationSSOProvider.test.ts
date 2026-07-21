@@ -37,16 +37,18 @@ describe("UserMiddleware.doesSsoTokenForProjectExist - requiredSsoProviderId", (
   const buildRequestWithSsoToken: (data: {
     tokenProjectId: ObjectID;
     discriminatorProviderId?: ObjectID | undefined;
+    providerType?: SsoProviderType | undefined;
   }) => ExpressRequest = (data: {
     tokenProjectId: ObjectID;
     discriminatorProviderId?: ObjectID | undefined;
+    providerType?: SsoProviderType | undefined;
   }): ExpressRequest => {
     const token: string = CookieUtil.getSSOToken({
       user: buildUser(),
       projectId: data.tokenProjectId,
       ssoProviderId: data.discriminatorProviderId,
       ssoProviderType: data.discriminatorProviderId
-        ? SsoProviderType.GlobalSSO
+        ? data.providerType ?? SsoProviderType.GlobalSSO
         : undefined,
     });
 
@@ -83,6 +85,31 @@ describe("UserMiddleware.doesSsoTokenForProjectExist - requiredSsoProviderId", (
         ssoProviderId,
       ),
     ).toBe(true);
+  });
+
+  test("Cast Console token satisfies only its matching managed installation", () => {
+    const req: ExpressRequest = buildRequestWithSsoToken({
+      tokenProjectId: projectId,
+      discriminatorProviderId: ssoProviderId,
+      providerType: SsoProviderType.CastConsole,
+    });
+
+    expect(
+      UserMiddleware.doesSsoTokenForProjectExist(
+        req,
+        projectId,
+        userId,
+        ssoProviderId,
+      ),
+    ).toBe(true);
+    expect(
+      UserMiddleware.doesSsoTokenForProjectExist(
+        req,
+        projectId,
+        userId,
+        otherProviderId,
+      ),
+    ).toBe(false);
   });
 
   test("matching project+user, requiredProviderId DIFFERENT from token's ssoProviderId -> false", () => {

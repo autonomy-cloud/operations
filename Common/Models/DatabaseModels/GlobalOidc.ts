@@ -239,6 +239,26 @@ export default class GlobalOIDC extends BaseModel {
   @TableColumn({
     isDefaultValueColumn: true,
     type: TableColumnType.Boolean,
+    title: "Allow Verified Email Account Linking",
+    description:
+      "Migration-only policy. When enabled, an OIDC identity may be linked to an existing verified account only when the identity provider explicitly reports email_verified=true. Keep disabled after identities are linked.",
+    defaultValue: false,
+    example: false,
+  })
+  @Column({
+    type: ColumnType.Boolean,
+    default: false,
+  })
+  public allowAccountLinkingByVerifiedEmail?: boolean = undefined;
+
+  @ColumnAccessControl({
+    create: [],
+    read: [],
+    update: [],
+  })
+  @TableColumn({
+    isDefaultValueColumn: true,
+    type: TableColumnType.Boolean,
     title: "Enabled",
     description: "Is this OIDC provider enabled?",
     defaultValue: false,

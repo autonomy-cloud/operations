@@ -67,6 +67,32 @@ spec:
       containers:
         - image: {{ include "cast-operations.image" (dict "Values" $.Values "ServiceName" "ai-agent") }}
           name: {{ printf "%s-%s" $.Release.Name "ai-agent" }}
+          {{- if $.Values.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /status/live
+              port: {{ $.Values.aiAgent.ports.http }}
+            periodSeconds: {{ $.Values.startupProbe.periodSeconds }}
+            failureThreshold: {{ $.Values.startupProbe.failureThreshold }}
+          {{- end }}
+          {{- if $.Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /status/live
+              port: {{ $.Values.aiAgent.ports.http }}
+            periodSeconds: {{ $.Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ $.Values.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ $.Values.livenessProbe.initialDelaySeconds }}
+          {{- end }}
+          {{- if $.Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /status/ready
+              port: {{ $.Values.aiAgent.ports.http }}
+            periodSeconds: {{ $.Values.readinessProbe.periodSeconds }}
+            initialDelaySeconds: {{ $.Values.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $.Values.readinessProbe.timeoutSeconds }}
+          {{- end }}
           {{- if $.Values.aiAgent.containerSecurityContext }}
           securityContext:
             {{- toYaml $.Values.aiAgent.containerSecurityContext | nindent 12 }}

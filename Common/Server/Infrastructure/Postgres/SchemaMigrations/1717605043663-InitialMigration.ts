@@ -1379,9 +1379,6 @@ export default class InitialMigration implements MigrationInterface {
       `CREATE INDEX "IDX_37b2094ce25cc62b4766a7d3b1" ON "ScheduledMaintenance" ("nextSubscriberNotificationBeforeTheEventAt") `,
     );
     await queryRunner.query(
-      `CREATE INDEX "IDX_37b2094ce25cc62b4766a7d3b1" ON "ScheduledMaintenance" ("nextSubscriberNotificationBeforeTheEventAt") `,
-    );
-    await queryRunner.query(
       `CREATE INDEX "IDX_207fe82fd8bdc67bbe1aa0ebf8" ON "ScheduledMaintenance" ("scheduledMaintenanceNumber") `,
     );
     await queryRunner.query(
@@ -1730,9 +1727,6 @@ export default class InitialMigration implements MigrationInterface {
       `CREATE INDEX "IDX_16db786b562f1db40c93d463c7" ON "IncidentStateTimeline" ("incidentId", "projectId", "startsAt") `,
     );
     await queryRunner.query(
-      `CREATE INDEX "IDX_410cf30b966f88c287d368aa48" ON "IncidentStateTimeline" ("incidentId", "startsAt") `,
-    );
-    await queryRunner.query(
       `CREATE TABLE "IncidentTemplate" ("_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "version" integer NOT NULL, "projectId" uuid NOT NULL, "title" character varying(500) NOT NULL, "templateName" character varying(100) NOT NULL, "templateDescription" character varying(500) NOT NULL, "description" text, "slug" character varying(100) NOT NULL, "createdByUserId" uuid, "deletedByUserId" uuid, "incidentSeverityId" uuid, "changeMonitorStatusToId" uuid, "initialIncidentStateId" uuid, "customFields" jsonb, CONSTRAINT "UQ_9fe9e55006c2a1f26727e479ab4" UNIQUE ("slug"), CONSTRAINT "PK_f00b9bff4a246bd76cfe7179435" PRIMARY KEY ("_id"))`,
     );
     await queryRunner.query(
@@ -2061,9 +2055,6 @@ export default class InitialMigration implements MigrationInterface {
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_2606f4914507b3471f40864348" ON "MonitorStatusTimeline" ("startsAt") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_570f164ca5b3559eb8555eb1b1" ON "MonitorStatusTimeline" ("monitorId", "startsAt") `,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_570f164ca5b3559eb8555eb1b1" ON "MonitorStatusTimeline" ("monitorId", "startsAt") `,
@@ -25857,9 +25848,6 @@ export default class InitialMigration implements MigrationInterface {
       `DROP INDEX "public"."IDX_570f164ca5b3559eb8555eb1b1"`,
     );
     await queryRunner.query(
-      `DROP INDEX "public"."IDX_570f164ca5b3559eb8555eb1b1"`,
-    );
-    await queryRunner.query(
       `DROP INDEX "public"."IDX_2606f4914507b3471f40864348"`,
     );
     await queryRunner.query(
@@ -26135,9 +26123,6 @@ export default class InitialMigration implements MigrationInterface {
       `DROP INDEX "public"."IDX_b82dafef226b0fae1ad6cb1857"`,
     );
     await queryRunner.query(`DROP TABLE "IncidentTemplate"`);
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_410cf30b966f88c287d368aa48"`,
-    );
     await queryRunner.query(
       `DROP INDEX "public"."IDX_16db786b562f1db40c93d463c7"`,
     );
@@ -26439,9 +26424,6 @@ export default class InitialMigration implements MigrationInterface {
     );
     await queryRunner.query(
       `DROP INDEX "public"."IDX_207fe82fd8bdc67bbe1aa0ebf8"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_37b2094ce25cc62b4766a7d3b1"`,
     );
     await queryRunner.query(
       `DROP INDEX "public"."IDX_37b2094ce25cc62b4766a7d3b1"`,

@@ -175,6 +175,7 @@ import UserOnCallLogService from "./UserOnCallLogService";
 import UserOnCallLogTimelineService from "./UserOnCallLogTimelineService";
 import UserService from "./UserService";
 import UserSessionService from "./UserSessionService";
+import UserOidcIdentityService from "./UserOidcIdentityService";
 import UserTotpAuthService from "./UserTotpAuthService";
 import UserWebAuthnService from "./UserWebAuthnService";
 import UserSmsService from "./UserSmsService";
@@ -404,6 +405,7 @@ const services: Array<BaseService> = [
 
   UserService,
   UserSessionService,
+  UserOidcIdentityService,
   UserCallService,
   UserEmailService,
   UserNotificationRuleService,

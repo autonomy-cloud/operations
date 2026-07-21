@@ -17,6 +17,8 @@ export interface OidcCallbackResult {
   email: Email;
   name: Name | null;
   issuer: string;
+  subject: string;
+  emailVerified: boolean;
   rawClaims: JSONObject;
 }
 
@@ -97,6 +99,12 @@ export default class OIDCUtil {
       );
     }
 
+    if (!claims["sub"] || typeof claims["sub"] !== "string") {
+      throw new BadRequestException(
+        "OIDC response did not include a usable 'sub' claim",
+      );
+    }
+
     let emailValue: unknown = claims[data.emailClaimName];
     let nameValue: unknown = claims[data.nameClaimName];
 
@@ -136,6 +144,8 @@ export default class OIDCUtil {
       email,
       name,
       issuer: claims["iss"] as string,
+      subject: claims["sub"],
+      emailVerified: claims["email_verified"] === true,
       rawClaims: claims,
     };
   }

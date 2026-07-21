@@ -228,6 +228,30 @@ export class ProjectService extends DatabaseService<Model> {
   protected override async onBeforeUpdate(
     updateBy: UpdateBy<Model>,
   ): Promise<OnUpdate<Model>> {
+    if (
+      !updateBy.props.isRoot &&
+      (updateBy.data.requireSsoForLogin !== undefined ||
+        updateBy.data.requireSsoWithSsoProviderId !== undefined)
+    ) {
+      const projects: Array<Model> = await this.findBy({
+        query: updateBy.query,
+        props: { isRoot: true },
+        limit: LIMIT_MAX,
+        skip: 0,
+        select: { _id: true, castWorkspaceId: true },
+      });
+
+      if (
+        projects.some((project: Model) => {
+          return Boolean(project.castWorkspaceId);
+        })
+      ) {
+        throw new BadDataException(
+          "Cast-managed Operations project identity policy is controlled by the owning Cast workspace",
+        );
+      }
+    }
+
     /*
      * Any project field could have changed; invalidate the in-process cache
      * of the SSO flag. Cheap to refetch on the next request.
@@ -1138,6 +1162,7 @@ export class ProjectService extends DatabaseService<Model> {
       skip: 0,
       select: {
         _id: true,
+        castWorkspaceId: true,
         name: true,
         createdAt: true,
         createdByUser: {
@@ -1146,6 +1171,17 @@ export class ProjectService extends DatabaseService<Model> {
         },
       },
     });
+
+    if (
+      !deleteBy.props.isRoot &&
+      projects.some((project: Model) => {
+        return Boolean(project.castWorkspaceId);
+      })
+    ) {
+      throw new BadDataException(
+        "Cast-managed Operations projects must be removed from the owning Cast workspace",
+      );
+    }
 
     return { deleteBy, carryForward: projects };
   }

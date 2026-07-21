@@ -19,6 +19,7 @@ import AccessTokenService from "Common/Server/Services/AccessTokenService";
 import ProjectOidcService from "Common/Server/Services/ProjectOidcService";
 import TeamMemberService from "Common/Server/Services/TeamMemberService";
 import UserService from "Common/Server/Services/UserService";
+import UserOidcIdentityService from "Common/Server/Services/UserOidcIdentityService";
 import UserSessionService, {
   SessionMetadata,
 } from "Common/Server/Services/UserSessionService";
@@ -44,6 +45,7 @@ import Project from "Common/Models/DatabaseModels/Project";
 import ProjectOIDC from "Common/Models/DatabaseModels/ProjectOidc";
 import TeamMember from "Common/Models/DatabaseModels/TeamMember";
 import User from "Common/Models/DatabaseModels/User";
+import UserOidcIdentity from "Common/Models/DatabaseModels/UserOidcIdentity";
 import { Client } from "openid-client";
 import SsoProviderType from "Common/Types/SSO/SsoProviderType";
 
@@ -380,6 +382,7 @@ const handleOidcCallback: HandleOidcCallbackFunction = async (
         scopes: true,
         emailClaimName: true,
         nameClaimName: true,
+        allowAccountLinkingByVerifiedEmail: true,
         teams: { _id: true },
       },
       props: { isRoot: true },
@@ -452,32 +455,121 @@ const handleOidcCallback: HandleOidcCallbackFunction = async (
       );
     }
 
-    // Find or create user.
-    let alreadySavedUser: User | null = await UserService.findOneBy({
-      query: { email: result.email },
-      select: {
-        _id: true,
-        name: true,
-        email: true,
-        isMasterAdmin: true,
-        isEmailVerified: true,
-        profilePictureId: true,
-        timezone: true,
-      },
-      props: { isRoot: true },
-    });
+    /*
+     * Resolve the security principal by the immutable OIDC key. Email is
+     * mutable profile data; silently attaching a new issuer/subject to an
+     * existing email would turn a provider misconfiguration into account
+     * takeover. Existing local accounts therefore require an explicit admin
+     * link before their first federated login.
+     */
+    const existingIdentity: UserOidcIdentity | null =
+      await UserOidcIdentityService.findOneBy({
+        query: { issuer: result.issuer, subject: result.subject },
+        select: { userId: true },
+        props: { isRoot: true },
+      });
+
+    let alreadySavedUser: User | null = null;
+
+    if (existingIdentity?.userId) {
+      alreadySavedUser = await UserService.findOneBy({
+        query: { _id: existingIdentity.userId },
+        select: {
+          _id: true,
+          name: true,
+          email: true,
+          isMasterAdmin: true,
+          isEmailVerified: true,
+          profilePictureId: true,
+          timezone: true,
+        },
+        props: { isRoot: true },
+      });
+
+      if (!alreadySavedUser) {
+        return Response.sendErrorResponse(
+          req,
+          res,
+          new BadRequestException(
+            "This OIDC identity is linked to an unavailable account. Contact your administrator.",
+          ),
+        );
+      }
+    }
 
     let isNewUser: boolean = false;
 
     if (!alreadySavedUser) {
-      alreadySavedUser = await UserService.createByEmail({
-        email: result.email,
-        name: result.name || undefined,
-        isEmailVerified: true,
-        generateRandomPassword: true,
+      const conflictingEmailUser: User | null = await UserService.findOneBy({
+        query: { email: result.email },
+        select: { _id: true },
         props: { isRoot: true },
       });
-      isNewUser = true;
+
+      if (
+        conflictingEmailUser &&
+        (!projectOidc.allowAccountLinkingByVerifiedEmail ||
+          !result.emailVerified)
+      ) {
+        return Response.sendErrorResponse(
+          req,
+          res,
+          new BadRequestException(
+            "An account with this email already exists but is not linked to this OIDC identity. Contact your administrator to link it safely.",
+          ),
+        );
+      }
+
+      if (conflictingEmailUser) {
+        alreadySavedUser = await UserService.findOneBy({
+          query: { _id: conflictingEmailUser.id! },
+          select: {
+            _id: true,
+            name: true,
+            email: true,
+            isMasterAdmin: true,
+            isEmailVerified: true,
+            profilePictureId: true,
+            timezone: true,
+          },
+          props: { isRoot: true },
+        });
+
+        if (!alreadySavedUser?.isEmailVerified) {
+          return Response.sendErrorResponse(
+            req,
+            res,
+            new BadRequestException(
+              "The existing account email is not verified and cannot be linked automatically.",
+            ),
+          );
+        }
+      } else {
+        alreadySavedUser = await UserService.createByEmail({
+          email: result.email,
+          name: result.name || undefined,
+          isEmailVerified: true,
+          generateRandomPassword: true,
+          props: { isRoot: true },
+        });
+        isNewUser = true;
+      }
+
+      if (!alreadySavedUser) {
+        throw new ServerException("Unable to resolve OIDC user account");
+      }
+
+      const identity: UserOidcIdentity = new UserOidcIdentity();
+      identity.userId = alreadySavedUser.id!;
+      identity.issuer = result.issuer;
+      identity.subject = result.subject;
+      identity.providerType = "PROJECT_OIDC";
+      identity.providerId = projectOidcId;
+
+      await UserOidcIdentityService.create({
+        data: identity,
+        props: { isRoot: true },
+      });
     }
 
     if (!alreadySavedUser.isEmailVerified && !isNewUser) {
@@ -534,8 +626,6 @@ const handleOidcCallback: HandleOidcCallbackFunction = async (
     }
 
     const projectId: ObjectID = new ObjectID(req.params["projectId"] as string);
-
-    alreadySavedUser.email = result.email;
 
     await AccessTokenService.refreshUserAllPermissions(alreadySavedUser.id!);
 

@@ -244,6 +244,7 @@ import TeamPermission from "./TeamPermission";
 import TeamComplianceSetting from "./TeamComplianceSetting";
 import User from "./User";
 import UserSession from "./UserSession";
+import UserOidcIdentity from "./UserOidcIdentity";
 import UserCall from "./UserCall";
 // Notification Methods
 import UserEmail from "./UserEmail";
@@ -714,6 +715,7 @@ const AllModelTypes: Array<{
   LlmLog,
 
   UserSession,
+  UserOidcIdentity,
   UserTotpAuth,
   UserWebAuthn,
 

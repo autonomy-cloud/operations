@@ -139,6 +139,8 @@ services:
       EMBEDDED_DASHBOARD_AUTH_ENABLED: "true"
       # Let Cast own branding, workspace identity, and account-level chrome.
       CAST_OPERATIONS_EMBEDDED_MODE: "true"
+      # Local Cast uses an HTTP localhost issuer; production remains HTTPS-only.
+      CAST_INTEGRATION_ALLOW_INSECURE_LOCALHOST: "true"
     depends_on:
       <<: *common-depends-on
     ports:

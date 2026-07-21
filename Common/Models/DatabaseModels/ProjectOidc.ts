@@ -434,6 +434,33 @@ export default class ProjectOIDC extends BaseModel {
     ],
   })
   @TableColumn({
+    type: TableColumnType.Boolean,
+    title: "Allow verified email account linking",
+    description:
+      "Explicitly allow a first OIDC login to link an existing verified local account only when the provider asserts email_verified=true. Keep disabled unless this issuer is authoritative for those addresses.",
+    defaultValue: false,
+  })
+  @Column({ type: ColumnType.Boolean, nullable: false, default: false })
+  public allowAccountLinkingByVerifiedEmail?: boolean = undefined;
+
+  @ColumnAccessControl({
+    create: [
+      Permission.ProjectOwner,
+      Permission.ProjectAdmin,
+      Permission.CreateProjectOIDC,
+    ],
+    read: [
+      Permission.ProjectOwner,
+      Permission.ProjectAdmin,
+      Permission.ReadProjectOIDC,
+    ],
+    update: [
+      Permission.ProjectOwner,
+      Permission.ProjectAdmin,
+      Permission.EditProjectOIDC,
+    ],
+  })
+  @TableColumn({
     required: true,
     type: TableColumnType.ShortText,
     canReadOnRelationQuery: true,

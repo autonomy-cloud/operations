@@ -36,6 +36,7 @@ x-common-variables: &common-variables
 x-common-runtime-variables: &common-runtime-variables
   <<: *common-variables
   CAST_OPERATIONS_SECRET: ${CAST_OPERATIONS_SECRET}
+  CAST_INTEGRATION_ALLOW_INSECURE_LOCALHOST: ${CAST_INTEGRATION_ALLOW_INSECURE_LOCALHOST:-false}
   EMBEDDED_DASHBOARD_AUTH_ENABLED: ${EMBEDDED_DASHBOARD_AUTH_ENABLED:-false}
 
   # Seed a Global LLM Provider from env at startup (e.g. a local Ollama or

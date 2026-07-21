@@ -12,6 +12,9 @@ import PositiveNumber from "../../Types/PositiveNumber";
 import TeamMember from "../../Models/DatabaseModels/TeamMember";
 import TeamMemberService from "./TeamMemberService";
 import ProjectSCIMService from "./ProjectSCIMService";
+import Project from "../../Models/DatabaseModels/Project";
+import ProjectService from "./ProjectService";
+import QueryHelper from "../Types/Database/QueryHelper";
 
 export class Service extends DatabaseService<Model> {
   public constructor() {
@@ -49,6 +52,37 @@ export class Service extends DatabaseService<Model> {
     }
 
     return teams;
+  }
+
+  private async assertCastAllowsTeamMutation(
+    projectIds: Array<ObjectID>,
+  ): Promise<void> {
+    const uniqueProjectIds: Array<ObjectID> = Array.from(
+      new Map(
+        projectIds.map((projectId: ObjectID) => {
+          return [projectId.toString(), projectId];
+        }),
+      ).values(),
+    );
+    if (uniqueProjectIds.length === 0) {
+      return;
+    }
+
+    const castManagedProjects: Array<Project> = await ProjectService.findBy({
+      query: {
+        _id: QueryHelper.any(uniqueProjectIds),
+        castWorkspaceId: QueryHelper.notNull(),
+      },
+      select: { _id: true },
+      limit: LIMIT_MAX,
+      skip: 0,
+      props: { isRoot: true },
+    });
+    if (castManagedProjects.length > 0) {
+      throw new BadDataException(
+        "Teams for a Cast-managed Operations project are controlled by the owning Cast workspace",
+      );
+    }
   }
 
   private async assertScimAllowsTeamMutation(data: {
@@ -107,6 +141,7 @@ export class Service extends DatabaseService<Model> {
     createBy.data.projectId = projectId;
 
     if (!createBy.props.isRoot) {
+      await this.assertCastAllowsTeamMutation([projectId]);
       await this.assertScimAllowsTeamMutation({
         projectIds: [projectId],
         action: "create",
@@ -129,10 +164,19 @@ export class Service extends DatabaseService<Model> {
       select: {
         name: true,
         isTeamEditable: true,
+        projectId: true,
       },
 
       props: updateBy.props,
     });
+
+    if (!updateBy.props.isRoot) {
+      await this.assertCastAllowsTeamMutation(
+        teams.flatMap((team: Model) => {
+          return team.projectId ? [team.projectId] : [];
+        }),
+      );
+    }
 
     for (const team of teams) {
       if (!team.isTeamEditable) {
@@ -173,6 +217,7 @@ export class Service extends DatabaseService<Model> {
       });
 
     if (deleteBy.props.isRoot !== true) {
+      await this.assertCastAllowsTeamMutation(projectIds);
       await this.assertScimAllowsTeamMutation({
         projectIds: projectIds,
         action: "delete",

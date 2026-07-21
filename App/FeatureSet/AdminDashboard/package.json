@@ -1,5 +1,6 @@
 {
   "name": "@cast-operations/admin-dashboard",
+  "license": "Apache-2.0",
   "version": "11.5.9",
   "private": false,
   "repository": {

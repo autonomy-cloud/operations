@@ -89,6 +89,36 @@ spec:
       containers:
         - image: {{ include "cast-operations.image" (dict "Values" $.Values "ServiceName" "probe") }}
           name: {{ printf "%s-%s" $.Release.Name (printf "probe-%s" $key)  }}
+          {{- $probeHttpPort := 3874 }}
+          {{- if and $val.ports $val.ports.http }}
+          {{- $probeHttpPort = $val.ports.http }}
+          {{- end }}
+          {{- if $.Values.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /status/live
+              port: {{ $probeHttpPort }}
+            periodSeconds: {{ $.Values.startupProbe.periodSeconds }}
+            failureThreshold: {{ $.Values.startupProbe.failureThreshold }}
+          {{- end }}
+          {{- if $.Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /status/live
+              port: {{ $probeHttpPort }}
+            periodSeconds: {{ $.Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ $.Values.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ $.Values.livenessProbe.initialDelaySeconds }}
+          {{- end }}
+          {{- if $.Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /status/ready
+              port: {{ $probeHttpPort }}
+            periodSeconds: {{ $.Values.readinessProbe.periodSeconds }}
+            initialDelaySeconds: {{ $.Values.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $.Values.readinessProbe.timeoutSeconds }}
+          {{- end }}
           {{- if $val.containerSecurityContext }}
           securityContext:
             {{- toYaml $val.containerSecurityContext | nindent 12 }}

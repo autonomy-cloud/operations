@@ -110,55 +110,42 @@ jobs:
   helm-chart-deploy:
     runs-on: ubuntu-latest
     needs: [generate-build-number, read-version]
-    env:
-        CI_COMMIT_AUTHOR: Continuous Integration
+    permissions:
+      contents: read
+      packages: write
     steps:
-
-      - name: Install Helm
-        run: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
-      - name:  Build and Package Helm chart
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+
+      - name: Authenticate to the Autonomy Cloud chart registry
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd ..
-          echo '${{ secrets.GPG_PRIVATE_KEY }}' > private.key
-          gpg --import private.key || true
-          rm private.key
-          echo "GPG key imported successfully"
-          gpg --export-secret-keys >~/.gnupg/secring.gpg
-          echo "GPG key exported successfully"
-          eval `ssh-agent -s`
-          ssh-add - <<< '${{ secrets.HELM_CHART_GITHUB_REPO_DEPLOY_KEY }}'
-          git clone git@github.com:CastOperations/helm-chart.git
-          cd cast-operations/HelmChart/Public
-          helm lint cast-operations
-          helm template cast-operations --values cast-operations/values.yaml
-          helm package --sign --key 'key@cast-operations.com' --keyring ~/.gnupg/secring.gpg cast-operations --version ${{needs.read-version.outputs.major_minor}} --app-version ${{needs.read-version.outputs.major_minor}}
-          echo "CastOperations Helm Chart Package created successfully"
-          helm lint kubernetes-agent
-          helm template kubernetes-agent --values kubernetes-agent/values.yaml
-          helm package --sign --key 'key@cast-operations.com' --keyring ~/.gnupg/secring.gpg kubernetes-agent --version ${{needs.read-version.outputs.major_minor}} --app-version ${{needs.read-version.outputs.major_minor}}
-          echo "Kubernetes Agent Helm Chart Package created successfully"
-          cd ..
-          ls
-          echo "Copying the package to helm-chart repo"
-          rm -rf ../../helm-chart/cast-operations
-          rm -rf ../../helm-chart/kubernetes-agent
-          cp -r ./Public/* ../../helm-chart
-          echo "Package copied successfully"
-          cd .. && cd .. && cd helm-chart
-          echo "Updating helm-chart repo"
-          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "hello@cast-operations.com"
-          echo "Git config set successfully"
-          echo "Adding the package to helm-chart repo"
-          helm repo index .
-          git add -A
-          git commit -m "Helm Chart Release ${{needs.read-version.outputs.major_minor}}"
-          git push origin master
+          set -euo pipefail
+          echo "$GH_TOKEN" | helm registry login ghcr.io \
+            --username "${{ github.actor }}" --password-stdin
+
+      - name: Validate, package, and publish immutable Helm charts
+        env:
+          VERSION: ${{ needs.read-version.outputs.major_minor }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist/helm
+          for chart in cast-operations kubernetes-agent; do
+            chart_path="HelmChart/Public/$chart"
+            helm dependency update "$chart_path"
+            helm lint "$chart_path"
+            helm template "$chart" "$chart_path" >/dev/null
+            helm package "$chart_path" \
+              --version "$VERSION" \
+              --app-version "$VERSION" \
+              --destination dist/helm
+            helm push "dist/helm/$chart-$VERSION.tgz" oci://ghcr.io/autonomy-cloud/charts
+          done
 
   # ─── Docker image build jobs (per-arch matrix) ───────────────────────
 

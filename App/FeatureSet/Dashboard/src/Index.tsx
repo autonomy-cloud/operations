@@ -9,6 +9,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { CAST_OPERATIONS_EMBEDDED_MODE } from "Common/UI/Config";
+import {
+  bootstrapCastConsoleIdentity,
+  getTrustedCastParentOrigin,
+} from "./Utils/CastConsoleIdentityBootstrap";
 
 ThemeUtil.initialize();
 
@@ -37,8 +41,14 @@ if (CAST_OPERATIONS_EMBEDDED_MODE) {
     brandSoft: "--cast-brand-soft",
   };
 
+  const castParentOrigin: string | null = getTrustedCastParentOrigin();
+
   window.addEventListener("message", (event: MessageEvent): void => {
-    if (event.source !== window.parent) {
+    if (
+      castParentOrigin === null ||
+      event.source !== window.parent ||
+      event.origin !== castParentOrigin
+    ) {
       return;
     }
 
@@ -50,7 +60,7 @@ if (CAST_OPERATIONS_EMBEDDED_MODE) {
       } else {
         window.parent.postMessage(
           { type: "CAST_OPERATIONS_BACK_UNAVAILABLE" },
-          event.origin,
+          castParentOrigin,
         );
       }
       return;
@@ -105,8 +115,40 @@ const root: any = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 
-root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-);
+const renderApp: () => void = (): void => {
+  root.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
+  );
+};
+
+const start: () => Promise<void> = async (): Promise<void> => {
+  if (CAST_OPERATIONS_EMBEDDED_MODE) {
+    const parentOrigin: string | null = getTrustedCastParentOrigin();
+    if (!parentOrigin) {
+      throw new Error(
+        "Cast Operations embed has no trusted Cast parent origin",
+      );
+    }
+    await bootstrapCastConsoleIdentity(parentOrigin);
+  }
+  renderApp();
+};
+
+void start().catch((error: unknown) => {
+  const message: string =
+    error instanceof Error
+      ? error.message
+      : "Cast identity initialization failed";
+  root.render(
+    <main className="min-h-screen flex items-center justify-center p-8">
+      <section role="alert" className="max-w-lg text-center">
+        <h1 className="text-xl font-semibold">
+          Unable to open Cast Operations
+        </h1>
+        <p className="mt-3 text-sm text-gray-500">{message}</p>
+      </section>
+    </main>,
+  );
+});

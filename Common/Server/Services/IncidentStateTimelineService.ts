@@ -34,6 +34,7 @@ import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import { LIMIT_PER_PROJECT } from "../../Types/Database/LimitMax";
 import WorkspaceNotificationRuleService from "./WorkspaceNotificationRuleService";
 import Semaphore, { SemaphoreMutex } from "../Infrastructure/Semaphore";
+import { isIncidentStateOrderTransitionAllowed } from "../Utils/IncidentStateTransition";
 
 export class Service extends DatabaseService<IncidentStateTimeline> {
   public constructor() {
@@ -213,6 +214,7 @@ export class Service extends DatabaseService<IncidentStateTimeline> {
             select: {
               order: true,
               name: true,
+              isResolvedState: true,
             },
             props: {
               isRoot: true,
@@ -220,12 +222,25 @@ export class Service extends DatabaseService<IncidentStateTimeline> {
           });
 
         if (newIncidentState && newIncidentState.order) {
-          // check if the new incident state is in order is greater than the previous state order
+          /*
+           * Normal incident progress is monotonic. A resolved incident may,
+           * however, be reopened into any unresolved state. The success hook
+           * already treats that transition as a new SLA window; allowing it
+           * here makes that native reopen path reachable without weakening
+           * validation for any other backwards transition.
+           */
           if (
             stateBeforeThis &&
             stateBeforeThis.incidentState &&
             stateBeforeThis.incidentState.order &&
-            newIncidentState.order <= stateBeforeThis.incidentState.order
+            !isIncidentStateOrderTransitionAllowed({
+              previousOrder: stateBeforeThis.incidentState.order,
+              previousIsResolved: Boolean(
+                stateBeforeThis.incidentState.isResolvedState,
+              ),
+              nextOrder: newIncidentState.order,
+              nextIsResolved: Boolean(newIncidentState.isResolvedState),
+            })
           ) {
             throw new BadDataException(
               `Incident cannot transition to ${newIncidentState.name} state from ${stateBeforeThis.incidentState.name} state because ${newIncidentState.name} is before ${stateBeforeThis.incidentState.name} in the order of incident states.`,

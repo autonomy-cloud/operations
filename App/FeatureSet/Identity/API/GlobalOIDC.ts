@@ -20,6 +20,7 @@ import GlobalOIDCService from "Common/Server/Services/GlobalOidcService";
 import GlobalOIDCProjectService from "Common/Server/Services/GlobalOidcProjectService";
 import TeamMemberService from "Common/Server/Services/TeamMemberService";
 import UserService from "Common/Server/Services/UserService";
+import UserOidcIdentityService from "Common/Server/Services/UserOidcIdentityService";
 import UserSessionService, {
   SessionMetadata,
 } from "Common/Server/Services/UserSessionService";
@@ -43,6 +44,7 @@ import GlobalOIDC from "Common/Models/DatabaseModels/GlobalOidc";
 import GlobalOIDCProject from "Common/Models/DatabaseModels/GlobalOidcProject";
 import TeamMember from "Common/Models/DatabaseModels/TeamMember";
 import User from "Common/Models/DatabaseModels/User";
+import UserOidcIdentity from "Common/Models/DatabaseModels/UserOidcIdentity";
 import { Client } from "openid-client";
 
 const router: ExpressRouter = Express.getRouter();
@@ -298,6 +300,7 @@ const handleGlobalOidcCallback: HandleGlobalOidcCallbackFunction = async (
         scopes: true,
         emailClaimName: true,
         nameClaimName: true,
+        allowAccountLinkingByVerifiedEmail: true,
         disableSignUpWithSso: true,
       },
       props: { isRoot: true },
@@ -384,39 +387,103 @@ const handleGlobalOidcCallback: HandleGlobalOidcCallbackFunction = async (
     const isSignUpDisabled: boolean =
       Boolean(globalOidc.disableSignUpWithSso) || isDefaultAllMode;
 
-    let alreadySavedUser: User | null = await UserService.findOneBy({
-      query: { email: result.email },
-      select: {
-        _id: true,
-        name: true,
-        email: true,
-        isMasterAdmin: true,
-        isEmailVerified: true,
-        profilePictureId: true,
-        timezone: true,
-      },
-      props: { isRoot: true },
-    });
+    const existingIdentity: UserOidcIdentity | null =
+      await UserOidcIdentityService.findOneBy({
+        query: { issuer: result.issuer, subject: result.subject },
+        select: { userId: true },
+        props: { isRoot: true },
+      });
+
+    let alreadySavedUser: User | null = null;
+
+    if (existingIdentity?.userId) {
+      alreadySavedUser = await UserService.findOneBy({
+        query: { _id: existingIdentity.userId },
+        select: {
+          _id: true,
+          name: true,
+          email: true,
+          isMasterAdmin: true,
+          isEmailVerified: true,
+          profilePictureId: true,
+          timezone: true,
+        },
+        props: { isRoot: true },
+      });
+
+      if (!alreadySavedUser) {
+        return Response.sendErrorResponse(
+          req,
+          res,
+          new BadRequestException(
+            "This OIDC identity is linked to an unavailable account. Contact your administrator.",
+          ),
+        );
+      }
+    }
 
     let isNewUser: boolean = false;
 
     if (!alreadySavedUser) {
-      if (isSignUpDisabled) {
+      const conflictingEmailUser: User | null = await UserService.findOneBy({
+        query: { email: result.email },
+        select: {
+          _id: true,
+          name: true,
+          email: true,
+          isMasterAdmin: true,
+          isEmailVerified: true,
+          profilePictureId: true,
+          timezone: true,
+        },
+        props: { isRoot: true },
+      });
+
+      if (
+        conflictingEmailUser &&
+        (!globalOidc.allowAccountLinkingByVerifiedEmail ||
+          !result.emailVerified ||
+          !conflictingEmailUser.isEmailVerified)
+      ) {
+        return Response.sendErrorResponse(
+          req,
+          res,
+          new BadRequestException(
+            "An account with this email already exists but is not linked to this OIDC identity. Contact your administrator to link it safely.",
+          ),
+        );
+      }
+
+      if (conflictingEmailUser) {
+        alreadySavedUser = conflictingEmailUser;
+      } else if (isSignUpDisabled) {
         return Response.render(req, res, MESSAGE_VIEW, {
           title: "You need to be invited.",
           message:
             "You must be invited to a project on this Cast Operations instance before you can sign in with SSO. Please contact your administrator.",
         });
+      } else {
+        alreadySavedUser = await UserService.createByEmail({
+          email: result.email,
+          name: result.name || undefined,
+          isEmailVerified: true,
+          generateRandomPassword: true,
+          props: { isRoot: true },
+        });
+        isNewUser = true;
       }
 
-      alreadySavedUser = await UserService.createByEmail({
-        email: result.email,
-        name: result.name || undefined,
-        isEmailVerified: true,
-        generateRandomPassword: true,
+      const identity: UserOidcIdentity = new UserOidcIdentity();
+      identity.userId = alreadySavedUser.id!;
+      identity.issuer = result.issuer;
+      identity.subject = result.subject;
+      identity.providerType = "GLOBAL_OIDC";
+      identity.providerId = globalOidcId;
+
+      await UserOidcIdentityService.create({
+        data: identity,
         props: { isRoot: true },
       });
-      isNewUser = true;
     }
 
     if (!alreadySavedUser.isEmailVerified && !isNewUser) {
@@ -468,8 +535,6 @@ const handleGlobalOidcCallback: HandleGlobalOidcCallbackFunction = async (
         }
       }
     }
-
-    alreadySavedUser.email = result.email;
 
     await AccessTokenService.refreshUserAllPermissions(alreadySavedUser.id!);
 

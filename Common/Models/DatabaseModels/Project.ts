@@ -60,6 +60,21 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 })
 @TenantColumn("_id")
 export default class Project extends TenantModel {
+  @Index("IDX_Project_castWorkspaceId", { unique: true })
+  @ColumnAccessControl({ create: [], read: [], update: [] })
+  @TableColumn({
+    type: TableColumnType.ObjectID,
+    title: "Cast Workspace ID",
+    description:
+      "Immutable Cast workspace that owns this Operations project when provisioned through Cast.",
+  })
+  @Column({
+    type: ColumnType.ObjectID,
+    nullable: true,
+    transformer: ObjectID.getDatabaseTransformer(),
+  })
+  public castWorkspaceId?: ObjectID = undefined;
+
   @ColumnAccessControl({
     create: [Permission.User],
     read: [

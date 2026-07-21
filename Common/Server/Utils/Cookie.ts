@@ -69,6 +69,7 @@ export default class CookieUtil {
     projectId: ObjectID;
     ssoProviderId?: ObjectID | undefined;
     ssoProviderType?: SsoProviderType | undefined;
+    expiresInSeconds?: number | undefined;
   }): string {
     const { user, projectId } = data;
 
@@ -87,7 +88,9 @@ export default class CookieUtil {
           ? data.ssoProviderType.toString()
           : undefined,
       },
-      expiresInSeconds: OperationsDate.getSecondsInDays(new PositiveNumber(30)),
+      expiresInSeconds:
+        data.expiresInSeconds ||
+        OperationsDate.getSecondsInDays(new PositiveNumber(30)),
     });
   }
 
@@ -98,6 +101,7 @@ export default class CookieUtil {
     expressResponse: ExpressResponse;
     ssoProviderId?: ObjectID | undefined;
     ssoProviderType?: SsoProviderType | undefined;
+    expiresInSeconds?: number | undefined;
   }): void {
     const { projectId, expressResponse: res } = data;
 
@@ -106,10 +110,13 @@ export default class CookieUtil {
       projectId: projectId,
       ssoProviderId: data.ssoProviderId,
       ssoProviderType: data.ssoProviderType,
+      expiresInSeconds: data.expiresInSeconds,
     });
 
     CookieUtil.setCookie(res, CookieUtil.getUserSSOKey(projectId), ssoToken, {
-      maxAge: OperationsDate.getMillisecondsInDays(new PositiveNumber(30)),
+      maxAge:
+        (data.expiresInSeconds ||
+          OperationsDate.getSecondsInDays(new PositiveNumber(30))) * 1000,
       httpOnly: true,
     });
   }
