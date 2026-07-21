@@ -10,6 +10,7 @@ import {
   ClickhousePruningPlan,
   dropClickhousePartition,
 } from "../../../../Server/Utils/AnalyticsDatabase/ClickhouseCapacity";
+import { getClickhouseDatabaseName } from "../../../../Server/Utils/AnalyticsDatabase/ClusterConfig";
 import "../../TestingUtils/Init";
 
 function disk(data: {
@@ -191,7 +192,7 @@ describe("dropClickhousePartition", () => {
 
     expect(command).toHaveBeenCalledWith({
       query:
-        "ALTER TABLE `cast-operations`.`SpanItemV3Local` ON CLUSTER 'cast-operations' " +
+        `ALTER TABLE \`${getClickhouseDatabaseName()}\`.\`SpanItemV3Local\` ON CLUSTER 'cast-operations' ` +
         "DROP PARTITION ID '20260101' SETTINGS max_partition_size_to_drop = 0",
     });
   });

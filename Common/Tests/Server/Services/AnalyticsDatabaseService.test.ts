@@ -1,4 +1,5 @@
 import AnalyticsDatabaseService from "../../../Server/Services/AnalyticsDatabaseService";
+import { getClickhouseDatabaseName } from "../../../Server/Utils/AnalyticsDatabase/ClusterConfig";
 import {
   SQL,
   Statement,
@@ -113,7 +114,7 @@ describe("AnalyticsDatabaseService", () => {
           " SETTINGS max_execution_time = 45, timeout_overflow_mode = 'break', max_memory_usage = 3221225472, max_bytes_before_external_group_by = 1610612736, max_bytes_before_external_sort = 1610612736",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "cast-operations",
+        p0: getClickhouseDatabaseName(),
         p1: "<table-name>",
       });
     });
@@ -134,7 +135,7 @@ describe("AnalyticsDatabaseService", () => {
           " SETTINGS max_execution_time = 45, timeout_overflow_mode = 'break', max_memory_usage = 3221225472, max_bytes_before_external_group_by = 1610612736, max_bytes_before_external_sort = 1610612736",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "cast-operations",
+        p0: getClickhouseDatabaseName(),
         p1: "<table-name>",
         p2: 123,
       });
@@ -156,7 +157,7 @@ describe("AnalyticsDatabaseService", () => {
           " SETTINGS max_execution_time = 45, timeout_overflow_mode = 'break', max_memory_usage = 3221225472, max_bytes_before_external_group_by = 1610612736, max_bytes_before_external_sort = 1610612736",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "cast-operations",
+        p0: getClickhouseDatabaseName(),
         p1: "<table-name>",
         p2: 123,
       });
@@ -221,7 +222,7 @@ describe("AnalyticsDatabaseService", () => {
           "SETTINGS max_execution_time = 45, timeout_overflow_mode = 'break', max_memory_usage = 3221225472, max_bytes_before_external_group_by = 1610612736, max_bytes_before_external_sort = 1610612736",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "cast-operations",
+        p0: getClickhouseDatabaseName(),
         p1: "<table-name>",
         p2: 123, // limit
         p3: 234, // offset
@@ -463,7 +464,7 @@ describe("AnalyticsDatabaseService", () => {
           "DELETE WHERE TRUE <where-statement>",
       );
       expect(statement.query_params).toStrictEqual({
-        p0: "cast-operations",
+        p0: getClickhouseDatabaseName(),
         p1: "<table-name>Local",
       });
     });

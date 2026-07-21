@@ -7,6 +7,7 @@ import {
 import {
   adaptTableSettingsForStorage,
   applyClusterToMaterializedViewQuery,
+  getClickhouseDatabaseName,
   getClickhouseClusterName,
   getDistributedEngine,
   getStorageEngine,
@@ -219,7 +220,7 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
       const q: string = spanGen.toDistributedTableCreateStatement().query;
       expect(q).toContain("ON CLUSTER 'cast-operations'");
       expect(q).toContain(
-        "Distributed('cast-operations', cast-operations, SpanItemV3Local, cityHash64(traceId))",
+        `Distributed('cast-operations', ${getClickhouseDatabaseName()}, SpanItemV3Local, cityHash64(traceId))`,
       );
       expect(q).toContain("AS ");
       expect(q).toContain("SpanItemV3 "); // the app-facing distributed name

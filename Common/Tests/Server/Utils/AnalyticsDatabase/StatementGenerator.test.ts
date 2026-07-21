@@ -5,6 +5,7 @@ import {
   Statement,
 } from "../../../../Server/Utils/AnalyticsDatabase/Statement";
 import StatementGenerator from "../../../../Server/Utils/AnalyticsDatabase/StatementGenerator";
+import { getClickhouseDatabaseName } from "../../../../Server/Utils/AnalyticsDatabase/ClusterConfig";
 import logger from "../../../../Server/Utils/Logger";
 import "../../TestingUtils/Init";
 import AnalyticsBaseModel from "../../../../Models/AnalyticsModels/AnalyticsBaseModel/AnalyticsBaseModel";
@@ -116,7 +117,7 @@ describe("StatementGenerator", () => {
       expectStatement(
         statement,
         SQL`
-                ALTER TABLE ${"cast-operations"}.${"<table-name>Local"} ON CLUSTER 'cast-operations'
+                ALTER TABLE ${getClickhouseDatabaseName()}.${"<table-name>Local"} ON CLUSTER 'cast-operations'
                 UPDATE <set-statement>
                 WHERE TRUE <where-statement>
             `,
@@ -1160,7 +1161,7 @@ describe("StatementGenerator", () => {
       /* eslint-disable prettier/prettier */
       // Cluster mode: the local <table>Local table, Replicated engine, ON CLUSTER.
       const expectedStatement: Statement = SQL`
-            CREATE TABLE IF NOT EXISTS ${"cast-operations"}.${"<table-name>Local"} ON CLUSTER 'cast-operations'
+            CREATE TABLE IF NOT EXISTS ${getClickhouseDatabaseName()}.${"<table-name>Local"} ON CLUSTER 'cast-operations'
     (
         <columns-create-statement>
     )
