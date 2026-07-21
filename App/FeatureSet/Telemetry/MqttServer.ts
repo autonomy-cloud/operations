@@ -2,8 +2,8 @@ import net from "net";
 import http from "http";
 import { timingSafeEqual } from "crypto";
 import { Duplex } from "stream";
-import Aedes, {
-  createBroker,
+import {
+  Aedes,
   AuthenticateError,
   Client,
   PublishPacket,
@@ -362,8 +362,8 @@ async function handleAuthorizePublish(
   await MetricsQueueService.addMetricIngestJob(req as TelemetryRequest);
 }
 
-function createMqttBroker(): Aedes {
-  const broker: Aedes = createBroker();
+async function createMqttBroker(): Promise<Aedes> {
+  const broker: Aedes = await Aedes.createBroker();
 
   broker.authenticate = (
     client: Client,
@@ -765,7 +765,7 @@ function startWebSocketListener(broker: Aedes): void {
   );
 }
 
-export function startMqttServer(): void {
+export async function startMqttServer(): Promise<void> {
   if (!MQTT_INGEST_ENABLED) {
     logger.info(
       "MQTT_INGEST_ENABLED=false — MQTT ingest listeners not started.",
@@ -774,7 +774,7 @@ export function startMqttServer(): void {
     return;
   }
 
-  const broker: Aedes = createMqttBroker();
+  const broker: Aedes = await createMqttBroker();
 
   startTcpListener(broker);
   startWebSocketListener(broker);

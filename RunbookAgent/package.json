@@ -19,7 +19,7 @@
   "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
   "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^1.13.1",
+    "axios": "^1.18.0",
     "Common": "file:../Common",
     "isolated-vm": "^7.0.0",
     "ts-node": "^10.9.1"

@@ -140,12 +140,9 @@ export class PodWatcher {
   }
 
   public async start(): Promise<void> {
-    const listFn: k8s.ListPromise<k8s.V1Pod> = ((): Promise<{
-      response: import("http").IncomingMessage;
-      body: k8s.V1PodList;
-    }> => {
+    const listFn: k8s.ListPromise<k8s.V1Pod> = (): Promise<k8s.V1PodList> => {
       return this.coreApi.listPodForAllNamespaces();
-    }) as k8s.ListPromise<k8s.V1Pod>;
+    };
     this.informer = k8s.makeInformer<k8s.V1Pod>(
       this.kubeConfig,
       "/api/v1/pods",

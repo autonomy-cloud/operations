@@ -41,18 +41,18 @@
   "dependencies": {
     "@grpc/grpc-js": "^1.12.5",
     "@grpc/proto-loader": "^0.7.13",
-    "@modelcontextprotocol/sdk": "^1.27.1",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@sendgrid/mail": "^8.1.0",
     "@xmldom/xmldom": "^0.9.10",
-    "aedes": "^0.51.3",
-    "axios": "^1.16.0",
+    "aedes": "^1.1.1",
+    "axios": "^1.18.0",
     "Common": "file:../Common",
     "ejs": "^3.1.9",
     "handlebars": "^4.7.8",
     "jsonwebtoken": "^9.0.0",
-    "nodemailer": "^8.0.11",
+    "nodemailer": "^9.0.3",
     "openid-client": "^5.7.1",
-    "protobufjs": "^7.5.4",
+    "protobufjs": "^7.6.5",
     "ts-node": "^10.9.1",
     "twilio": "^4.20.0",
     "ws": "^8.21.0",
@@ -70,5 +70,9 @@
     "jest": "^28.1.0",
     "nodemon": "^3.1.14",
     "ts-jest": "^28.0.8"
+  },
+  "overrides": {
+    "@hono/node-server": "^2.0.5",
+    "fast-uri": "^3.1.3"
   }
 }

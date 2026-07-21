@@ -87,7 +87,7 @@ const TelemetryFeatureSet: FeatureSet = {
       startGrpcServer();
 
       // Start MQTT ingest listeners (TCP 1883 + WebSocket /mqtt)
-      startMqttServer();
+      await startMqttServer();
     } catch (err) {
       logger.error("Telemetry FeatureSet Init Failed:", {
         service: "telemetry",

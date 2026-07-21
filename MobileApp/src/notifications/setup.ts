@@ -3,7 +3,6 @@ import type { ExpoPushToken } from "expo-notifications";
 import * as Device from "expo-device";
 import Constants from "expo-constants";
 import { Platform } from "react-native";
-import { PermissionStatus } from "expo-modules-core";
 import logger from "../utils/logger";
 
 // Show notifications when app is in foreground
@@ -88,7 +87,7 @@ export async function requestPermissionsAndGetToken(): Promise<string | null> {
   }
 
   const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus: PermissionStatus = existingStatus;
+  let finalStatus: typeof existingStatus = existingStatus;
 
   if (existingStatus !== "granted") {
     const { status } = await Notifications.requestPermissionsAsync({
