@@ -176,7 +176,7 @@ describe("MonitorMaintenanceSuppression.getSuppressedFingerprintsForMaintainedRe
             }),
             series("fpCluster", { "k8s.cluster.name": "cluster-1" }),
             series("fpService", { "service.name": "payments" }),
-            series("fpClear", { "service.name": "payments" }),
+            series("fpClear", { "service.name": "orders" }),
           ],
           maintained,
         },

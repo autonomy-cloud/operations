@@ -83,11 +83,11 @@ describe("computeLinkSuggestions", () => {
   });
 
   test("sharing only a generic short token is not enough", () => {
-    // {payments, service} vs {payments, service}: Jaccard 1/3 < 0.5.
+    // {payments, api} vs {payments, worker}: Jaccard 1/3 < 0.5.
     const suggestions: Array<ServiceRepoLinkSuggestion> =
       computeLinkSuggestions({
-        services: [service("s1", "payments-service")],
-        repositories: [repo("r1", "payments-service")],
+        services: [service("s1", "payments-api")],
+        repositories: [repo("r1", "payments-worker")],
         existingLinks: [],
       });
 

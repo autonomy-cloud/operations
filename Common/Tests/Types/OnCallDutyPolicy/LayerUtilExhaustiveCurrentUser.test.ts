@@ -762,15 +762,27 @@ describe("Concrete anchors (absolute expected on-call user)", () => {
     intervalCount: number,
     restrictionKind: RestrictionKind,
   ): LayerProps {
-    return layerOf({
+    const layer: LayerProps = layerOf({
       name: "anchor",
       intervalType: EventInterval.Day,
       intervalCount,
       userIds: users,
       restrictionKind,
-      timezone: undefined,
+      timezone: "UTC",
       start: MON_JAN6,
     });
+
+    if (
+      restrictionKind === "daily09-17" &&
+      layer.restrictionTimes.dayRestrictionTimes
+    ) {
+      layer.restrictionTimes.dayRestrictionTimes = {
+        startTime: OperationsDate.fromString("2025-01-06T09:00:00.000Z"),
+        endTime: OperationsDate.fromString("2025-01-06T17:00:00.000Z"),
+      };
+    }
+
+    return layer;
   }
 
   function firstTitleAt(layer: LayerProps, at: Date): string | null {

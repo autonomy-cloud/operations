@@ -33,16 +33,12 @@ function dailyRestriction(sh: number, eh: number): RestrictionTimes {
   const r: RestrictionTimes = new RestrictionTimes();
   r.restictionType = RestrictionType.Daily;
   r.dayRestrictionTimes = {
-    startTime: OperationsDate.getDateWithCustomTime({
-      hours: sh,
-      minutes: 0,
-      seconds: 0,
-    }),
-    endTime: OperationsDate.getDateWithCustomTime({
-      hours: eh,
-      minutes: 0,
-      seconds: 0,
-    }),
+    startTime: OperationsDate.fromString(
+      `2025-01-06T${sh.toString().padStart(2, "0")}:00:00.000Z`,
+    ),
+    endTime: OperationsDate.fromString(
+      `2025-01-06T${eh.toString().padStart(2, "0")}:00:00.000Z`,
+    ),
   };
   return r;
 }
@@ -58,7 +54,7 @@ function makeLayer(): LayerProps {
     restrictionTimes: dailyRestriction(9, 17),
     handOffTime: Recurring.getNextDateInterval(start, rot),
     rotation: rot,
-    timezone: undefined,
+    timezone: "UTC",
   };
 }
 

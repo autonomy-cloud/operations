@@ -78,9 +78,8 @@ describe("StatusPage.enableMcpServer", () => {
     const migration: string = fs.readFileSync(MIGRATION_PATH, "utf8");
 
     expect(migration).toContain('ALTER TABLE "StatusPage"');
-    expect(migration).toContain(
-      `ADD "${COLUMN}" boolean NOT NULL DEFAULT true`,
-    );
+    expect(migration).toContain(`"${COLUMN}" boolean NOT NULL DEFAULT true`);
+    expect(migration).toContain("IF NOT EXISTS");
   });
 
   test("is documented as defaulting to enabled", () => {

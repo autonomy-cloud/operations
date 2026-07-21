@@ -1,6 +1,6 @@
 import ComponentsModal from "../../../UI/Components/Workflow/ComponentsModal";
 import { describe, expect, it } from "@jest/globals";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import IconProp from "../../../Types/Icon/IconProp";
 import ComponentMetadata, {

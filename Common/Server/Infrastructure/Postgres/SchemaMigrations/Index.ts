@@ -1,4 +1,5 @@
 import InitialMigration from "./1717605043663-InitialMigration";
+import { AddEnableMcpServerToStatusPage1784137457184 } from "./1784137457184-AddEnableMcpServerToStatusPage";
 import { AddUserOidcIdentity1784534785067 } from "./1784534785067-AddUserOidcIdentity";
 import { AddCastIntegrationInstallation1784534785068 } from "./1784534785068-AddCastIntegrationInstallation";
 import { AddCastManagedMembership1784534785069 } from "./1784534785069-AddCastManagedMembership";
@@ -7,6 +8,7 @@ import { EnforceCastManagedProjectIdentity1784534785071 } from "./1784534785071-
 
 export default [
   InitialMigration,
+  AddEnableMcpServerToStatusPage1784137457184,
   AddUserOidcIdentity1784534785067,
   AddCastIntegrationInstallation1784534785068,
   AddCastManagedMembership1784534785069,

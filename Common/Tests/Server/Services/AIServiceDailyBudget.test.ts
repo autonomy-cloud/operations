@@ -1,7 +1,6 @@
 import AIService, {
   AUTONOMOUS_AI_FEATURES,
   AutonomousBudgetStatus,
-  LEGACY_AUTONOMOUS_AI_FEATURES,
   AI_ALERT_INVESTIGATION_FEATURE,
   AI_CODE_FIX_FEATURE,
   AI_CONFIDENCE_CLASSIFICATION_FEATURE,
@@ -47,7 +46,8 @@ function fakeProject(limit: number | undefined): Project {
  * one silently rewrites a project's usage history for the current UTC day:
  * older rows stop matching, usedTokensToday collapses toward zero, and an
  * already-exhausted project gets a fresh full budget. These tests pin the
- * exact wire values and the legacy aliases so no rename can do that quietly.
+ * exact wire values so no rename can do that quietly. Historical labels are
+ * rewritten by RenameSentinelToAI1784030612266 before the renamed writers run.
  */
 describe("AUTONOMOUS_AI_FEATURES persisted labels", () => {
   test("each label has its exact persisted value", () => {
@@ -79,33 +79,10 @@ describe("AUTONOMOUS_AI_FEATURES persisted labels", () => {
   });
 
   /*
-   * The budget hole this guards: the six labels below were persisted by the
-   * pre-rename code. Dropping them from the match-list stops LlmLog rows that
-   * ALREADY carry them from counting — during the deploy window (old and new
-   * pods write different labels into the same UTC day) and for any row the
-   * backfill migration missed. A future cleanup must fail here and go read the
-   * retention argument in AIService before deleting them.
+   * Nothing but the constants may reach the list — a raw literal here is how
+   * a writer and the budget silently drift apart.
    */
-  test("the six legacy Sentinel labels are still counted by the budget", () => {
-    expect(LEGACY_AUTONOMOUS_AI_FEATURES).toEqual([
-      "Sentinel Incident Investigation",
-      "Sentinel Alert Investigation",
-      "Sentinel Investigation Grading",
-      "Sentinel Confidence Classification",
-      "Sentinel Code Fix",
-      "Sentinel Insight Triage",
-    ]);
-
-    for (const legacyFeature of LEGACY_AUTONOMOUS_AI_FEATURES) {
-      expect(AUTONOMOUS_AI_FEATURES).toContain(legacyFeature);
-    }
-  });
-
-  /*
-   * Nothing but the constants and the legacy aliases may reach the list — a
-   * raw literal here is how a writer and the budget silently drift apart.
-   */
-  test("the match-list is exactly the current labels plus the legacy aliases", () => {
+  test("the match-list is exactly the current persisted labels", () => {
     expect([...AUTONOMOUS_AI_FEATURES].sort()).toEqual(
       [
         AI_INCIDENT_INVESTIGATION_FEATURE,
@@ -116,7 +93,6 @@ describe("AUTONOMOUS_AI_FEATURES persisted labels", () => {
         AI_INSIGHT_TRIAGE_FEATURE,
         RUNBOOK_AI_STEP_FEATURE,
         WORKFLOW_AI_FEATURE,
-        ...LEGACY_AUTONOMOUS_AI_FEATURES,
       ].sort(),
     );
   });

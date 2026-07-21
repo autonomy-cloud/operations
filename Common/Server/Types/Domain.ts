@@ -63,7 +63,7 @@ export default class Domain extends DomainCommon {
               // Generic DNS error fallback
               reject(
                 new BadDataException(
-                  `Unable to verify CNAME record for domain "${data.domain}". DNS Error: ${err.message}. Please check your DNS configuration and try again.`,
+                  `Unable to verify CNAME record for domain "${data.domain}". Please check your DNS configuration and try again.`,
                 ),
               );
             } else if (addresses.length > 0) {
@@ -141,7 +141,7 @@ export default class Domain extends DomainCommon {
               // Generic DNS error fallback
               return reject(
                 new BadDataException(
-                  `Unable to verify TXT record for domain "${domain.toString()}". DNS Error: ${err.message}. Please check your DNS configuration and try again.`,
+                  `Unable to verify TXT record for domain "${domain.toString()}". Please check your DNS configuration and try again.`,
                 ),
               );
             }
