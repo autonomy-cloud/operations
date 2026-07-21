@@ -18,7 +18,7 @@ import {
   jest,
 } from "@jest/globals";
 import http from "http";
-import { AddressInfo } from "net";
+import { AddressInfo, Socket } from "net";
 
 // Avoid real network calls from tool execution and keep logs quiet.
 jest.mock("../Services/OperationsApiService");
@@ -61,6 +61,7 @@ const TOOLS: McpToolInfo[] = [
 ];
 
 const A_RANDOM_SESSION_ID: string = "11111111-2222-3333-4444-555555555555";
+const replicaSockets: WeakMap<http.Server, Set<Socket>> = new WeakMap();
 
 interface McpResult {
   status: number;
@@ -77,20 +78,46 @@ function startReplica(): Promise<{ server: http.Server; port: number }> {
   const app: ReturnType<typeof createExpressApp> = createExpressApp();
   setupMCPRoutes(app, TOOLS);
   return new Promise(
-    (resolve: (value: { server: http.Server; port: number }) => void) => {
+    (
+      resolve: (value: { server: http.Server; port: number }) => void,
+      reject: (reason?: unknown) => void,
+    ) => {
       const server: http.Server = http.createServer(app);
+      const sockets: Set<Socket> = new Set();
+      replicaSockets.set(server, sockets);
+      server.on("connection", (socket: Socket) => {
+        sockets.add(socket);
+        socket.once("close", () => {
+          sockets.delete(socket);
+        });
+      });
+      server.once("error", reject);
       server.listen(0, "127.0.0.1", () => {
+        server.off("error", reject);
+        server.unref();
         resolve({ server, port: (server.address() as AddressInfo).port });
       });
     },
   );
 }
 
-function closeServer(server: http.Server): Promise<void> {
+function closeServer(server: http.Server | undefined): Promise<void> {
+  if (!server) {
+    return Promise.resolve();
+  }
+
   return new Promise<void>((resolve: (value: void) => void) => {
     server.close(() => {
       return resolve();
     });
+    // Fetch keeps sockets alive; close them after stopping new connections.
+    const serverWithConnectionCleanup: http.Server & {
+      closeAllConnections?: () => void;
+    } = server;
+    serverWithConnectionCleanup.closeAllConnections?.();
+    for (const socket of replicaSockets.get(server) || []) {
+      socket.destroy();
+    }
   });
 }
 
@@ -129,6 +156,7 @@ function postMcp(
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json, text/event-stream",
+      Connection: "close",
       ...extraHeaders,
     },
     body: JSON.stringify(body),
@@ -173,8 +201,10 @@ describe("MCP RouteHandler (stateless mode)", () => {
   });
 
   afterAll(async () => {
-    await closeServer(replicaA);
-    await closeServer(replicaB);
+    await Promise.all([closeServer(replicaA), closeServer(replicaB)]);
+    await new Promise<void>((resolve: (value: void) => void) => {
+      setImmediate(resolve);
+    });
   });
 
   beforeEach(() => {
