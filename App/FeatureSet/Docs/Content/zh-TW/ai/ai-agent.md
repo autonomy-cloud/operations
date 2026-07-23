@@ -85,7 +85,7 @@ Cast Operations 可搭配任何 LLM 供應商使用。您可以使用：
 docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -d cast-operations/ai-agent:release
 ```
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 套用此設定：
@@ -162,7 +162,7 @@ AI 代理人支援以下環境變數：
 | --------------- | ------------------------------------------------------------ |
 | `AI_AGENT_KEY`  | 來自您 Cast Operations 儀表板的 AI 代理人金鑰                      |
 | `AI_AGENT_ID`   | 來自您 Cast Operations 儀表板的 AI 代理人 ID                       |
-| `CAST_OPERATIONS_URL` | 您 Cast Operations 執行個體的 URL（預設值：https://visca.ai） |
+| `CAST_OPERATIONS_URL` | 您 Cast Operations 執行個體的 URL（預設值：https://latticeruntime.com） |
 
 ## 驗證您的 AI 代理人
 
@@ -203,4 +203,4 @@ kubectl logs deployment/cast-operations-ai-agent
 
 1. 查看 [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) 中已知的問題
 2. 如果您的問題尚未被回報，請建立一個新的 issue
-3. 如果您使用的是企業方案，請聯絡 [support](https://visca.ai/support)
+3. 如果您使用的是企業方案，請聯絡 [support](https://latticeruntime.com/support)

@@ -19,7 +19,7 @@
 </p>
 
 <div align="center">
-  <a href="https://visca.ai">
+  <a href="https://latticeruntime.com">
     <img alt="Cast Operations ロゴ" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
@@ -38,14 +38,14 @@
   </p>
 
   <p>
-    <a href="https://visca.ai"><b>ウェブサイト</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/docs"><b>ドキュメント</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com"><b>ウェブサイト</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/docs"><b>ドキュメント</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>クイックスタート</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/pricing"><b>料金</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/pricing"><b>料金</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>コントリビュート</b></a>
   </p>
 
-  <a href="https://visca.ai"><b>🚀 Cast Operations Cloud を試す — ずっと無料のプラン、クレジットカード不要 →</b></a>
+  <a href="https://latticeruntime.com"><b>🚀 Cast Operations Cloud を試す — ずっと無料のプラン、クレジットカード不要 →</b></a>
 </div>
 
 <br/>
@@ -123,7 +123,7 @@ AI エージェントが、インシデントに紐付いた修正内容のプ�
 
 セットアップ不要、常に最新、そしてオープンソースプロジェクトの支援にもなります。
 
-**→ [visca.ai で無料登録](https://visca.ai)**
+**→ [latticeruntime.com で無料登録](https://latticeruntime.com)**
 
 ### 🐳 Docker Compose でセルフホスト
 
@@ -148,7 +148,7 @@ Cast Operations は **http://localhost** で起動しました。開いて最初
 ### ☸️ Helm を使った Kubernetes — 本番環境向け
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm install cast-operations autonomy-cloud/operations
 ```
 
@@ -202,7 +202,7 @@ helm install cast-operations autonomy-cloud/operations
 | | **Community** | **Enterprise** |
 |---|---|---|
 | **こんな方に** | セルフホスターと小規模チーム | プレミアムサポートを必要とする規制対象チーム |
-| **費用** | 無料＆オープンソース | [営業に問い合わせ](mailto:sales@visca.ai) |
+| **費用** | 無料＆オープンソース | [営業に問い合わせ](mailto:sales@latticeruntime.com) |
 | **機能** | フル機能セット | フル機能セット + 堅牢化イメージ、優先サポート、カスタム機能、データレジデンシー |
 
 ---
@@ -231,7 +231,7 @@ Cast Operations がお役に立っているなら:
 
 - ⭐ **このリポジトリにスターを** — 他の人が私たちを見つける助けに本当になります
 - 💵 **[スポンサーになる](https://github.com/autonomy-cloud/operations)** — いただいた 1 ドルごとが新機能の開発につながります
-- 🛍️ **[グッズを手に入れる](https://shop.visca.ai)** — 収益はすべてオープンソース開発の資金になります
+- 🛍️ **[グッズを手に入れる](https://shop.latticeruntime.com)** — 収益はすべてオープンソース開発の資金になります
 
 ---
 
@@ -240,5 +240,5 @@ Cast Operations がお役に立っているなら:
 Cast Operations は [Apache License 2.0](/LICENSE) のもとでライセンスされています。
 
 <div align="center">
-  <sub><a href="https://visca.ai">Cast Operations</a> チームと <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">コントリビューター</a> が ❤️ を込めて制作しました。</sub>
+  <sub><a href="https://latticeruntime.com">Cast Operations</a> チームと <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">コントリビューター</a> が ❤️ を込めて制作しました。</sub>
 </div>

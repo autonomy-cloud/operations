@@ -47,10 +47,10 @@ Si no quieres usar npm o no lo tienes instalado, ejecuta esto en su lugar:
 
 ```
 # Lee las variables de entorno del archivo config.env y ejecuta docker compose up.
-(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)
+(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)
 
 # Usa sudo si tienes problemas de permisos al enlazar puertos.
-sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
+sudo bash -c "(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)"
 ```
 
 ### Acceso a Cast Operations

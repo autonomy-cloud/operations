@@ -28,16 +28,16 @@ Cast Operations 基礎設施代理程式是一個以 Go 為基礎的輕量級常
 
 ```bash
 # Install the agent
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Configure the agent
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Start the agent
 sudo cast-operations-infrastructure-agent start
 ```
 
-將 `YOUR_SECRET_KEY` 替換為您監控設定中顯示的 secret key，若為自我託管（self-hosted），請將 `https://visca.ai` 替換為您的 Cast Operations 執行個體 URL。
+將 `YOUR_SECRET_KEY` 替換為您監控設定中顯示的 secret key，若為自我託管（self-hosted），請將 `https://latticeruntime.com` 替換為您的 Cast Operations 執行個體 URL。
 
 ### Windows
 
@@ -49,7 +49,7 @@ sudo cast-operations-infrastructure-agent start
 
 ```bash
 # Configure the agent
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Start the agent
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 如果您的伺服器透過 proxy 連接網際網路，您可以設定代理程式來使用它：
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## 代理程式指令

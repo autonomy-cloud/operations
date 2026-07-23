@@ -8,8 +8,8 @@
 
 ## 前提条件
 
-- **Cast Operations アカウントにサインアップする** – 無料アカウントは[こちら](https://visca.ai)からサインアップできます。アカウント自体は無料ですが、ログの取り込みは有料機能であることにご注意ください。料金の詳細は[こちら](https://visca.ai/pricing)でご確認いただけます。
-- **Cast Operations プロジェクトを作成する** – アカウントを取得したら、Cast Operations ダッシュボードからプロジェクトを作成します。サポートが必要な場合は、support@visca.ai までお問い合わせください。
+- **Cast Operations アカウントにサインアップする** – 無料アカウントは[こちら](https://latticeruntime.com)からサインアップできます。アカウント自体は無料ですが、ログの取り込みは有料機能であることにご注意ください。料金の詳細は[こちら](https://latticeruntime.com/pricing)でご確認いただけます。
+- **Cast Operations プロジェクトを作成する** – アカウントを取得したら、Cast Operations ダッシュボードからプロジェクトを作成します。サポートが必要な場合は、support@latticeruntime.com までお問い合わせください。
 - **Telemetry Ingestion Token を作成する** – ログを認証するためにトークンが必要です。
 
 Cast Operations にサインアップしてプロジェクトを作成したら、ナビゲーションバーの「More」をクリックし、「Project Settings」をクリックします。
@@ -26,13 +26,13 @@ Telemetry Ingestion Key ページで「Create Ingestion Key」をクリックし
 
 | 設定                | 値                                                  |
 | ------------------- | --------------------------------------------------- |
-| OTLP エンドポイント | `https://visca.ai/otlp`                        |
+| OTLP エンドポイント | `https://latticeruntime.com/otlp`                        |
 | 認証ヘッダー        | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN` |
 | サービス名          | サービスが表示される名前。例: `my-service`          |
 
-> **Cast Operations をセルフホストしていますか？** `https://visca.ai/otlp` を `https://YOUR-OPERATIONS-HOST/otlp` に置き換えてください（TLS を終端していない場合は `http://...`）。それ以外はすべて同じままです。
+> **Cast Operations をセルフホストしていますか？** `https://latticeruntime.com/otlp` を `https://YOUR-OPERATIONS-HOST/otlp` に置き換えてください（TLS を終端していない場合は `http://...`）。それ以外はすべて同じままです。
 
-シンクは OTLP の **HTTP/protobuf** プロトコルを使用し、エンドポイントに `/v1/logs` パスを自動的に付加します。そのため、最終的にポストする URL は `https://visca.ai/otlp/v1/logs` となります。指定する必要があるのはベースの `/otlp` エンドポイントだけです。
+シンクは OTLP の **HTTP/protobuf** プロトコルを使用し、エンドポイントに `/v1/logs` パスを自動的に付加します。そのため、最終的にポストする URL は `https://latticeruntime.com/otlp/v1/logs` となります。指定する必要があるのはベースの `/otlp` エンドポイントだけです。
 
 ## ステップ 1 — NuGet パッケージをインストールする
 
@@ -70,7 +70,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.OpenTelemetry(options =>
     {
         // Base OTLP endpoint. The sink appends /v1/logs automatically.
-        options.Endpoint = "https://visca.ai/otlp";
+        options.Endpoint = "https://latticeruntime.com/otlp";
         options.Protocol = OtlpProtocol.HttpProtobuf;
 
         // Authenticate with your Cast Operations telemetry ingestion token.
@@ -115,7 +115,7 @@ finally
       {
         "Name": "OpenTelemetry",
         "Args": {
-          "endpoint": "https://visca.ai/otlp",
+          "endpoint": "https://latticeruntime.com/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
             "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
@@ -165,7 +165,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.OpenTelemetry(options =>
         {
-            options.Endpoint = "https://visca.ai/otlp";
+            options.Endpoint = "https://latticeruntime.com/otlp";
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
@@ -228,10 +228,10 @@ Cast Operations はこれらの属性を検出し、エラーを **Exceptions**�
 
 ## トラブルシューティング
 
-- **ログが表示されない** – `x-cast-operations-token` の値を再確認し、表示しているプロジェクトに属していることを確認してください。エンドポイントが `https://visca.ai/otlp` であることを確認してください（ベースパスのみ。自分で `/v1/logs` を付加しないでください）。
+- **ログが表示されない** – `x-cast-operations-token` の値を再確認し、表示しているプロジェクトに属していることを確認してください。エンドポイントが `https://latticeruntime.com/otlp` であることを確認してください（ベースパスのみ。自分で `/v1/logs` を付加しないでください）。
 - **アプリ終了時にのみログが表示される、または最後のログが欠落する** – シャットダウン時に `Log.CloseAndFlush()` が実行されることを確認してください。シンクはイベントをバッチ処理するため、フラッシュせずにプロセスが終了されると、バッファされたログは失われます。
 - **`401 Unauthorized` / 何も取り込まれない** – トークンが欠落しているか無効です。ヘッダーキーが正確に `x-cast-operations-token` であることを確認してください。
 - **サービス名が誤っている** – `ResourceAttributes`（コード）または `resourceAttributes`（appsettings.json）に `service.name` を設定してください。設定しないと、ログはデフォルト/不明なサービスにフォールバックします。
 - **セルフホストインスタンスへの接続エラー** – プロトコルがエンドポイントのスキーム（`https://` か `http://` か）と一致していること、およびアプリケーションから Cast Operations ホストに到達可能であることを確認してください。
 
-ご質問やサポートが必要な場合は、support@visca.ai までお問い合わせください。
+ご質問やサポートが必要な場合は、support@latticeruntime.com までお問い合わせください。

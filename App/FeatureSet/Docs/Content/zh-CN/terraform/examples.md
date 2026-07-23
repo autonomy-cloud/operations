@@ -17,7 +17,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # 自托管请更改
+  cast_operations_url = "https://latticeruntime.com"  # 自托管请更改
   api_key       = var.cast_operations_api_key
 }
 

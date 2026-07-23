@@ -15,7 +15,7 @@ cast-operations login <api-key> <instance-url>
 | 인수             | 설명                                                 |
 | ---------------- | ---------------------------------------------------- |
 | `<api-key>`      | Cast Operations API 키 (예: `sk-your-api-key`)             |
-| `<instance-url>` | Cast Operations 인스턴스 URL (예: `https://visca.ai`) |
+| `<instance-url>` | Cast Operations 인스턴스 URL (예: `https://latticeruntime.com`) |
 
 **옵션:**
 
@@ -27,14 +27,14 @@ cast-operations login <api-key> <instance-url>
 
 ```bash
 # 기본 컨텍스트로 로그인
-cast-operations login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://latticeruntime.com
 
 # 명명된 컨텍스트로 로그인
-cast-operations login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://latticeruntime.com --context-name production
 
 # 여러 환경 설정
-cast-operations login sk-prod-key https://visca.ai --context-name production
-cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://latticeruntime.com --context-name production
+cast-operations login sk-staging-key https://staging.latticeruntime.com --context-name staging
 ```
 
 ## 컨텍스트
@@ -95,14 +95,14 @@ cast-operations context delete <name>
 ### CLI 플래그 사용
 
 ```bash
-cast-operations --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://latticeruntime.com incident list
 ```
 
 ### 환경 변수 사용
 
 ```bash
 export CAST_OPERATIONS_API_KEY=sk-abc123
-export CAST_OPERATIONS_URL=https://visca.ai
+export CAST_OPERATIONS_URL=https://latticeruntime.com
 
 cast-operations incident list
 ```
@@ -139,12 +139,12 @@ cast-operations whoami
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://visca.ai",
+      "apiUrl": "https://latticeruntime.com",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.visca.ai",
+      "apiUrl": "https://staging.latticeruntime.com",
       "apiKey": "sk-..."
     }
   },

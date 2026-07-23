@@ -16,8 +16,8 @@ Pour intégrer Microsoft Teams avec votre instance auto-hébergée Cast Operatio
 3. Remplissez le formulaire d'enregistrement :
    - **Nom :** cast-operations
    - **Types de comptes pris en charge :** Comptes dans n'importe quel annuaire organisationnel (Tout locataire Microsoft Entra ID - Multi-locataire)
-   - **URI de redirection :** Web - `https://votre-domaine-visca.ai/api/microsoft-teams/auth`
-   - Ajoutez également : `https://votre-domaine-visca.ai/api/microsoft-teams/admin-consent/callback`
+   - **URI de redirection :** Web - `https://votre-domaine-latticeruntime.com/api/microsoft-teams/auth`
+   - Ajoutez également : `https://votre-domaine-latticeruntime.com/api/microsoft-teams/admin-consent/callback`
 4. Cliquez sur « S'inscrire »
 5. Notez l'« ID d'application (client) » — vous en aurez besoin plus tard
 
@@ -71,7 +71,7 @@ Pour intégrer Microsoft Teams avec votre instance auto-hébergée Cast Operatio
 3. Cliquez sur « Vérifier + créer », puis sur « Créer »
 
 4. Une fois déployé, allez dans votre ressource bot et accédez à « Configuration »
-5. Définissez l'« Point de terminaison de messagerie » sur `https://votre-domaine-visca.ai/api/microsoft-bot/messages`
+5. Définissez l'« Point de terminaison de messagerie » sur `https://votre-domaine-latticeruntime.com/api/microsoft-bot/messages`
 6. Enregistrez la configuration
 
 ### Étape 5 : Ajouter le canal Microsoft Teams au bot
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 Si vous rencontrez des problèmes :
 
 - Assurez-vous que votre application dispose des permissions correctement accordées
-- Vérifiez que l'URI de redirection correspond exactement (remplacez `votre-domaine-visca.ai` par votre domaine réel)
+- Vérifiez que l'URI de redirection correspond exactement (remplacez `votre-domaine-latticeruntime.com` par votre domaine réel)
 - Vérifiez que vos variables d'environnement sont correctement définies
 - Assurez-vous que le point de terminaison de messagerie du bot est accessible depuis Internet
 - Vérifiez que le bot est correctement configuré avec le canal Teams
@@ -129,4 +129,4 @@ Si vous rencontrez des problèmes :
 
 ## Support
 
-Nous souhaitons améliorer cette intégration, donc les retours sont plus que bienvenus. Veuillez nous en faire part à [hello@visca.ai](mailto:hello@visca.ai)
+Nous souhaitons améliorer cette intégration, donc les retours sont plus que bienvenus. Veuillez nous en faire part à [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

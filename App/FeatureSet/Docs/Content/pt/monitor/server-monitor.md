@@ -28,16 +28,16 @@ O Agente de Infraestrutura do Cast Operations é um daemon leve baseado em Go qu
 
 ```bash
 # Install the agent
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Configure the agent
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Start the agent
 sudo cast-operations-infrastructure-agent start
 ```
 
-Substitua `YOUR_SECRET_KEY` pela chave secreta mostrada nas configurações do seu monitor e `https://visca.ai` pela URL da sua instância do Cast Operations se for auto-hospedada.
+Substitua `YOUR_SECRET_KEY` pela chave secreta mostrada nas configurações do seu monitor e `https://latticeruntime.com` pela URL da sua instância do Cast Operations se for auto-hospedada.
 
 ### Windows
 
@@ -49,7 +49,7 @@ Substitua `YOUR_SECRET_KEY` pela chave secreta mostrada nas configurações do s
 
 ```bash
 # Configure the agent
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Start the agent
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 Se o seu servidor se conecta à internet por meio de um proxy, você pode configurar o agente para usá-lo:
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Comandos do Agente

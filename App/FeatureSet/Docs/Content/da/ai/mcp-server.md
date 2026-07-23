@@ -10,7 +10,7 @@ Cast Operations MCP Serveren er en bro mellem Large Language Models (LLM'er) og 
 
 MCP-serveren hostes sammen med din Cast Operations-instans og er tilgængelig via Streamable HTTP-transporten. Der kræves ingen lokal installation.
 
-**Skybrugere**: `https://visca.ai/mcp`
+**Skybrugere**: `https://latticeruntime.com/mcp`
 **Selvhostede brugere**: `https://your-operations-domain.com/mcp`
 
 ## Nøglefunktioner
@@ -73,7 +73,7 @@ Tilføj følgende konfiguration:
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ Tilføj følgende konfiguration:
 
 ### For selvhostet Cast Operations
 
-Erstat `visca.ai` med dit Cast Operations-domæne:
+Erstat `latticeruntime.com` med dit Cast Operations-domæne:
 
 ```json
 {
@@ -109,7 +109,7 @@ For kun at bruge offentlige værktøjer (statussideinformation, hjælp) kan du o
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ Alternativt kan du oprette `.vscode/mcp.json` i dit arbejdsområde til projektsp
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -296,7 +296,7 @@ Bekræft, at MCP-serveren kører:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -306,7 +306,7 @@ Liste over tilgængelige værktøjer:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

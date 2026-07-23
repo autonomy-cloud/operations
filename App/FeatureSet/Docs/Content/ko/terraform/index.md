@@ -35,7 +35,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -66,7 +66,7 @@ provider "cast-operations" {
 
 - **Terraform 레지스트리**: [Cast Operations 공급자](https://registry.terraform.io/providers/autonomy-cloud/operations)
 - **GitHub 저장소**: [Cast Operations 소스 코드](https://github.com/autonomy-cloud/operations)
-- **커뮤니티 지원**: [Cast Operations 커뮤니티](https://community.visca.ai)
+- **커뮤니티 지원**: [Cast Operations 커뮤니티](https://community.latticeruntime.com)
 
 ## 사용 가능한 리소스
 

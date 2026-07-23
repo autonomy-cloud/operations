@@ -48,7 +48,7 @@ Cast Operations OTLP profiles protocol का उपयोग करके gRPC 
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "cast-operations" {
   endpoint {
-    url = "https://visca.ai/pyroscope"
+    url = "https://latticeruntime.com/pyroscope"
     headers = {
       "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ Java applications के लिए, OTLP के माध्यम से profil
 ```bash
 # OpenTelemetry Java agent के साथ अपना Java application start करें
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
+  -Dotel.exporter.otlp.endpoint=https://latticeruntime.com/otlp \
   -Dotel.exporter.otlp.headers=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -108,7 +108,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -143,4 +143,4 @@ Profile data retention आपके Cast Operations project settings में �
 
 ## सहायता चाहिए?
 
-यदि आपको Cast Operations के साथ profiling सेट अप करने में सहायता की आवश्यकता है तो कृपया support@visca.ai से संपर्क करें।
+यदि आपको Cast Operations के साथ profiling सेट अप करने में सहायता की आवश्यकता है तो कृपया support@latticeruntime.com से संपर्क करें।

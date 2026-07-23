@@ -63,7 +63,7 @@ func (p *${StringUtils.toPascalCase(this.config.providerName)}Provider) Schema(c
 
         Attributes: map[string]schema.Attribute{
             "cast_operations_url": schema.StringAttribute{
-                MarkdownDescription: "The ${this.config.providerName} URL (without /api path). Defaults to 'visca.ai' if not specified. The provider automatically appends '/api' to the URL.",
+                MarkdownDescription: "The ${this.config.providerName} URL (without /api path). Defaults to 'latticeruntime.com' if not specified. The provider automatically appends '/api' to the URL.",
                 Optional:            true,
             },
             "api_key": schema.StringAttribute{
@@ -100,7 +100,7 @@ func (p *${StringUtils.toPascalCase(this.config.providerName)}Provider) Configur
     if data.OperationsUrl.IsNull() {
         castOperationsUrl = os.Getenv("${StringUtils.toConstantCase(this.config.providerName)}_URL")
         if castOperationsUrl == "" {
-            castOperationsUrl = "visca.ai"
+            castOperationsUrl = "latticeruntime.com"
         }
     } else {
         castOperationsUrl = data.OperationsUrl.ValueString()
@@ -354,7 +354,7 @@ func NewConfig(ctx context.Context, model ${StringUtils.toPascalCase(this.config
     if model.OperationsUrl.IsNull() {
         config.OperationsUrl = os.Getenv("${StringUtils.toConstantCase(this.config.providerName)}_URL")
         if config.OperationsUrl == "" {
-            config.OperationsUrl = "visca.ai"
+            config.OperationsUrl = "latticeruntime.com"
         }
     } else {
         config.OperationsUrl = model.OperationsUrl.ValueString()

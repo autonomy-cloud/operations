@@ -16,8 +16,8 @@ Per integrare Microsoft Teams con la propria istanza self-hosted di Cast Operati
 3. Compilare il modulo di registrazione:
    - **Nome:** cast-operations
    - **Tipi di account supportati:** Account in qualsiasi directory organizzativa (Qualsiasi tenant Microsoft Entra ID - Multitenant)
-   - **URI di reindirizzamento:** Web - `https://vostro-dominio-visca.ai/api/microsoft-teams/auth`
-   - Aggiungere anche: `https://vostro-dominio-visca.ai/api/microsoft-teams/admin-consent/callback`
+   - **URI di reindirizzamento:** Web - `https://vostro-dominio-latticeruntime.com/api/microsoft-teams/auth`
+   - Aggiungere anche: `https://vostro-dominio-latticeruntime.com/api/microsoft-teams/admin-consent/callback`
 4. Fare clic su "Registra"
 5. Annotare l'"ID applicazione (client)" — sarà necessario in seguito
 
@@ -71,7 +71,7 @@ Per integrare Microsoft Teams con la propria istanza self-hosted di Cast Operati
 3. Fare clic su "Rivedi + crea" e poi su "Crea"
 
 4. Una volta distribuito, accedere alla propria risorsa bot e navigare a "Configurazione"
-5. Impostare l'"Endpoint di messaggistica" a `https://vostro-dominio-visca.ai/api/microsoft-bot/messages`
+5. Impostare l'"Endpoint di messaggistica" a `https://vostro-dominio-latticeruntime.com/api/microsoft-bot/messages`
 6. Salvare la configurazione
 
 ### Fase 5: Aggiungere il Canale Microsoft Teams al Bot
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 In caso di problemi:
 
 - Assicurarsi che l'app abbia i permessi corretti concessi
-- Verificare che l'URI di reindirizzamento corrisponda esattamente (sostituire `vostro-dominio-visca.ai` con il proprio dominio effettivo)
+- Verificare che l'URI di reindirizzamento corrisponda esattamente (sostituire `vostro-dominio-latticeruntime.com` con il proprio dominio effettivo)
 - Verificare che le variabili d'ambiente siano impostate correttamente
 - Assicurarsi che l'endpoint di messaggistica del bot sia accessibile da Internet
 - Verificare che il bot sia configurato correttamente con il canale Teams
@@ -129,4 +129,4 @@ In caso di problemi:
 
 ## Supporto
 
-Vogliamo migliorare questa integrazione, quindi i feedback sono più che benvenuti. Inviare qualsiasi commento a [hello@visca.ai](mailto:hello@visca.ai)
+Vogliamo migliorare questa integrazione, quindi i feedback sono più che benvenuti. Inviare qualsiasi commento a [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

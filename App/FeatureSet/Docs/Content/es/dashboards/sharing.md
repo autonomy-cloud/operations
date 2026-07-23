@@ -4,7 +4,7 @@ Por defecto, los paneles son privados para tu proyecto: solo los miembros del eq
 
 ## Paneles privados (el valor predeterminado)
 
-Un panel es accesible solo para los miembros del proyecto que han iniciado sesión. La URL se ve como `https://visca.ai/dashboards/<id>/view` y requiere inicio de sesión.
+Un panel es accesible solo para los miembros del proyecto que han iniciado sesión. La URL se ve como `https://latticeruntime.com/dashboards/<id>/view` y requiere inicio de sesión.
 
 Dentro del proyecto, los propietarios y las etiquetas controlan quién ve qué; consulta [Configuración y Permisos](/docs/dashboards/configuration).
 
@@ -51,7 +51,7 @@ Las solicitudes desde cualquier otra IP se rechazan.
 
 ## Dominios personalizados
 
-De forma predeterminada, un panel público se sirve en `visca.ai`. Para alojarlo en tu propio subdominio como `dashboard.acme.com`:
+De forma predeterminada, un panel público se sirve en `latticeruntime.com`. Para alojarlo en tu propio subdominio como `dashboard.acme.com`:
 
 1. Añade un registro CNAME en tu DNS apuntando el subdominio al destino de Cast Operations.
 2. En **Panel → Configuración → Dominios Personalizados**, añade el dominio.

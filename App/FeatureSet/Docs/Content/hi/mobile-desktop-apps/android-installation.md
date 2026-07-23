@@ -32,7 +32,7 @@ APK को Cast Operations द्वारा Play Store release के सम�
 ## पहला Launch और Sign-in
 
 1. **Server URL**
-   - यदि आप Cast Operations Cloud का उपयोग कर रहे हैं, तो default `https://visca.ai` को छोड़ दें।
+   - यदि आप Cast Operations Cloud का उपयोग कर रहे हैं, तो default `https://latticeruntime.com` को छोड़ दें।
    - यदि आप self-hosting कर रहे हैं, तो अपने Cast Operations instance का URL enter करें (उदाहरण के लिए, `https://operations.example.com`)।
    - app आगे बढ़ने से पहले verify करता है कि server reachable है।
 2. **Sign In**

@@ -30,7 +30,7 @@ Projekt-SCIM ermöglicht Identity Providern, Teammitglieder innerhalb von Cast O
    - Kopieren Sie die **SCIM-Basis-URL** und das **Bearer-Token** für Ihre IdP-Konfiguration
 
 3. **Ihren Identity Provider konfigurieren**
-   - Verwenden Sie die SCIM-Basis-URL: `https://visca.ai/scim/v2/{scimId}`
+   - Verwenden Sie die SCIM-Basis-URL: `https://latticeruntime.com/scim/v2/{scimId}`
    - Bearer-Token-Authentifizierung mit dem bereitgestellten Token konfigurieren
    - Benutzerattribute zuordnen (E-Mail ist erforderlich)
 
@@ -67,7 +67,7 @@ Status-Seiten-SCIM ermöglicht Identity Providern, Abonnenten privater Status-Se
    - Kopieren Sie die **SCIM-Basis-URL** und das **Bearer-Token** für Ihre IdP-Konfiguration
 
 3. **Ihren Identity Provider konfigurieren**
-   - Verwenden Sie die SCIM-Basis-URL: `https://visca.ai/status-page-scim/v2/{scimId}`
+   - Verwenden Sie die SCIM-Basis-URL: `https://latticeruntime.com/status-page-scim/v2/{scimId}`
 
 ## Identity Provider-Konfiguration
 

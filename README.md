@@ -19,7 +19,7 @@
 </p>
 
 <div align="center">
-  <a href="https://visca.ai">
+  <a href="https://latticeruntime.com">
     <img alt="Cast Operations logo" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
@@ -38,14 +38,14 @@
   </p>
 
   <p>
-    <a href="https://visca.ai"><b>Website</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/docs"><b>Docs</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com"><b>Website</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/docs"><b>Docs</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>Quick Start</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/pricing"><b>Pricing</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/pricing"><b>Pricing</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>Contribute</b></a>
   </p>
 
-  <a href="https://visca.ai"><b>🚀 Try Cast Operations Cloud — free forever plan, no credit card →</b></a>
+  <a href="https://latticeruntime.com"><b>🚀 Try Cast Operations Cloud — free forever plan, no credit card →</b></a>
 </div>
 
 <br/>
@@ -123,7 +123,7 @@ The AI agent opens a pull request with the fix, linked to the incident, with tes
 
 Zero setup, always up to date, and it funds the open-source project.
 
-**→ [Sign up free at visca.ai](https://visca.ai)**
+**→ [Sign up free at latticeruntime.com](https://latticeruntime.com)**
 
 ### 🐳 Self-host with Docker Compose
 
@@ -148,7 +148,7 @@ Cast Operations is now running at **http://localhost** — open it and create yo
 ### ☸️ Kubernetes with Helm — for production
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm install cast-operations autonomy-cloud/operations
 ```
 
@@ -202,7 +202,7 @@ Drop in copy-paste, **OpenTelemetry-based** agents to watch everything your serv
 | | **Community** | **Enterprise** |
 |---|---|---|
 | **Best for** | Self-hosters & small teams | Regulated teams needing premium support |
-| **Cost** | Free & open source | [Contact sales](mailto:sales@visca.ai) |
+| **Cost** | Free & open source | [Contact sales](mailto:sales@latticeruntime.com) |
 | **Features** | Full feature set | Full feature set + hardened images, priority support, custom features & data residency |
 
 ---
@@ -231,7 +231,7 @@ If Cast Operations is useful to you:
 
 - ⭐ **Star this repo** — it genuinely helps others find us
 - 💵 **[Sponsor us](https://github.com/autonomy-cloud/operations)** — every dollar ships new features
-- 🛍️ **[Grab some merch](https://shop.visca.ai)** — all proceeds fund open-source development
+- 🛍️ **[Grab some merch](https://shop.latticeruntime.com)** — all proceeds fund open-source development
 
 ---
 
@@ -240,5 +240,5 @@ If Cast Operations is useful to you:
 Cast Operations is licensed under the [Apache License 2.0](/LICENSE).
 
 <div align="center">
-  <sub>Made with ❤️ by the <a href="https://visca.ai">Cast Operations</a> team and <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">contributors</a>.</sub>
+  <sub>Made with ❤️ by the <a href="https://latticeruntime.com">Cast Operations</a> team and <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">contributors</a>.</sub>
 </div>

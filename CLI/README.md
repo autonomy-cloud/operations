@@ -21,7 +21,7 @@ npm start -- --help
 ```bash
 # Authenticate with your Cast Operations instance
 cast-operations login <api-key> <instance-url>
-cast-operations login sk-your-api-key https://visca.ai
+cast-operations login sk-your-api-key https://latticeruntime.com
 
 # List incidents
 cast-operations incident list --limit 10
@@ -44,10 +44,10 @@ The CLI supports multiple authentication contexts, making it easy to switch betw
 
 ```bash
 # Create a production context
-cast-operations login sk-prod-key https://visca.ai --context-name production
+cast-operations login sk-prod-key https://latticeruntime.com --context-name production
 
 # Create a staging context
-cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-staging-key https://staging.latticeruntime.com --context-name staging
 ```
 
 ### Switching Contexts
@@ -147,7 +147,7 @@ cast-operations incident count --query '{"currentIncidentStateId":"..."}'
 cast-operations monitor create --file monitor.json
 
 # Use environment variables in CI/CD
-CAST_OPERATIONS_API_KEY=sk-xxx CAST_OPERATIONS_URL=https://visca.ai cast-operations incident list
+CAST_OPERATIONS_API_KEY=sk-xxx CAST_OPERATIONS_URL=https://latticeruntime.com cast-operations incident list
 ```
 
 ## Environment Variables
@@ -168,7 +168,7 @@ The CLI stores configuration at `~/.cast-operations/config.json` with `0600` per
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://visca.ai",
+      "apiUrl": "https://latticeruntime.com",
       "apiKey": "sk-..."
     }
   },

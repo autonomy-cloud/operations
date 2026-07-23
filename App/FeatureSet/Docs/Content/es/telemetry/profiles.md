@@ -48,7 +48,7 @@ Establece las siguientes variables de entorno para apuntar tu perfilador a Cast 
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "cast-operations" {
   endpoint {
-    url = "https://visca.ai/pyroscope"
+    url = "https://latticeruntime.com/pyroscope"
     headers = {
       "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ Para aplicaciones Java, usa [async-profiler](https://github.com/async-profiler/a
 ```bash
 # Inicia tu aplicación Java con el agente Java de OpenTelemetry
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
+  -Dotel.exporter.otlp.endpoint=https://latticeruntime.com/otlp \
   -Dotel.exporter.otlp.headers=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -142,7 +142,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -181,4 +181,4 @@ Para cambiar el período de retención de un servicio, navega a **Telemetría > 
 
 ## ¿Necesitas ayuda?
 
-Por favor, comunícate con support@visca.ai si necesitas ayuda para configurar el perfilado con Cast Operations.
+Por favor, comunícate con support@latticeruntime.com si necesitas ayuda para configurar el perfilado con Cast Operations.

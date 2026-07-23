@@ -22,7 +22,7 @@ const StatusPageFooter: FunctionComponent<ComponentProps> = (
   if (!props.hidePoweredByOperationsBranding) {
     links.push({
       title: t("footer.poweredBy"),
-      to: URL.fromString("https://visca.ai"),
+      to: URL.fromString("https://latticeruntime.com"),
       openInNewTab: true,
     });
   }

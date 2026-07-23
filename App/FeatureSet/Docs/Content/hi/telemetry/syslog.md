@@ -13,10 +13,10 @@ OpenTelemetry Ingest service अब native Syslog payloads accept करती �
 ## Endpoint
 
 ```
-POST https://visca.ai/syslog/v1/logs
+POST https://latticeruntime.com/syslog/v1/logs
 ```
 
-- यदि आप Cast Operations self-host कर रहे हैं तो `visca.ai` को अपने host से बदलें।
+- यदि आप Cast Operations self-host कर रहे हैं तो `latticeruntime.com` को अपने host से बदलें।
 - Request में हमेशा `x-cast-operations-token` header शामिल करें।
 
 ## Request Body
@@ -42,7 +42,7 @@ Newline-delimited Syslog strings या एक JSON payload `messages` array क
 
 ```bash
 curl \
-  -X POST https://visca.ai/syslog/v1/logs \
+  -X POST https://latticeruntime.com/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
   -H "x-cast-operations-service-name: production-web" \
@@ -72,7 +72,7 @@ curl \
 
    action(
      type="omhttp"
-     server="visca.ai"
+     server="latticeruntime.com"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"

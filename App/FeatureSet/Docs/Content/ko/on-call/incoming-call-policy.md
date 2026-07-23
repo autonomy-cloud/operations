@@ -321,4 +321,4 @@ graph TB
 
 1. Twilio 콘솔에서 오류 로그를 확인합니다
 2. Cast Operations 서버 로그를 검토합니다
-3. [hello@visca.ai](mailto:hello@visca.ai)으로 지원팀에 문의합니다
+3. [hello@latticeruntime.com](mailto:hello@latticeruntime.com)으로 지원팀에 문의합니다

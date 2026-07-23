@@ -48,7 +48,7 @@ Cast Operations принимает данные профилирования к�
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "cast-operations" {
   endpoint {
-    url = "https://visca.ai/pyroscope"
+    url = "https://latticeruntime.com/pyroscope"
     headers = {
       "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ pyroscope.write "cast-operations" {
 ```bash
 # Запустите Java-приложение с агентом OpenTelemetry Java
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
+  -Dotel.exporter.otlp.endpoint=https://latticeruntime.com/otlp \
   -Dotel.exporter.otlp.headers=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -142,7 +142,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -181,4 +181,4 @@ Cast Operations отображает данные профилей в виде �
 
 ## Нужна помощь?
 
-Обращайтесь по адресу support@visca.ai при необходимости помощи с настройкой профилирования в Cast Operations.
+Обращайтесь по адресу support@latticeruntime.com при необходимости помощи с настройкой профилирования в Cast Operations.

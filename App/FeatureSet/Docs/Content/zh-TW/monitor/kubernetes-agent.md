@@ -5,13 +5,13 @@ Cast Operations Kubernetes agent 會從您的 Kubernetes 叢集收集叢集指�
 ## 快速開始
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
@@ -28,7 +28,7 @@ helm install cast-operations-agent cast-operations/kubernetes-agent \
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod \
   --set cast-operations.labels.team=payments \
@@ -41,7 +41,7 @@ helm install cast-operations-agent cast-operations/kubernetes-agent \
 ```yaml
 # values.yaml
 cast-operations:
-  url: https://visca.ai
+  url: https://latticeruntime.com
   apiKey: <YOUR_API_KEY>
   labels:
     team: payments
@@ -77,7 +77,7 @@ helm install cast-operations-agent cast-operations/kubernetes-agent \
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
@@ -87,7 +87,7 @@ helm install cast-operations-agent cast-operations/kubernetes-agent \
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
@@ -98,7 +98,7 @@ helm install cast-operations-agent cast-operations/kubernetes-agent \
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate

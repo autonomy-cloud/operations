@@ -212,6 +212,6 @@ GitHub統合に関する問題は、以下の手順で対応してください�
 
 1. 上記のトラブルシューティングセクションを確認する
 2. Cast Operationsのログで詳細なエラーメッセージを確認する
-3. [hello@visca.ai](mailto:hello@visca.ai) に連絡する
+3. [hello@latticeruntime.com](mailto:hello@latticeruntime.com) に連絡する
 
 この統合の改善のためのフィードバックをお待ちしています！

@@ -123,4 +123,4 @@ Om du stöter på problem:
 
 ## Support
 
-Vi vill förbättra denna integration, så feedback är mer än välkommen. Skicka gärna feedback till [hello@visca.ai](mailto:hello@visca.ai)
+Vi vill förbättra denna integration, så feedback är mer än välkommen. Skicka gärna feedback till [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

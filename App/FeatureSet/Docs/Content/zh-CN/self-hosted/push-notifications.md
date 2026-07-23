@@ -31,4 +31,4 @@ Expo Push Token 不再有效。这通常意味着应用已卸载或用户撤销�
 
 1. 查看上方的故障排查部分
 2. 查看 Cast Operations 日志以获取详细错误消息
-3. 通过 [hello@visca.ai](mailto:hello@visca.ai) 联系我们
+3. 通过 [hello@latticeruntime.com](mailto:hello@latticeruntime.com) 联系我们

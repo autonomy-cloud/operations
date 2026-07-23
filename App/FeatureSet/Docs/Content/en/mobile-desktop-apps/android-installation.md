@@ -32,7 +32,7 @@ The APK is built and signed by Cast Operations from the same source as the Play 
 ## First Launch and Sign-in
 
 1. **Server URL**
-   - If you use Cast Operations Cloud, leave the default `https://visca.ai`.
+   - If you use Cast Operations Cloud, leave the default `https://latticeruntime.com`.
    - If you are self-hosting, enter the URL of your Cast Operations instance (e.g. `https://operations.example.com`).
    - The app verifies the server is reachable before continuing.
 2. **Sign In**

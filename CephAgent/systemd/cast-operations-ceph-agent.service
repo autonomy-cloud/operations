@@ -1,6 +1,6 @@
 [Unit]
 Description=Cast Operations Ceph Agent (OpenTelemetry Collector)
-Documentation=https://visca.ai/docs/telemetry/ceph
+Documentation=https://latticeruntime.com/docs/telemetry/ceph
 After=network-online.target docker.service
 Wants=network-online.target
 Requires=docker.service

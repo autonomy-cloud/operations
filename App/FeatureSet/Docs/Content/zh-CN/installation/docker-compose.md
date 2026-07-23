@@ -47,10 +47,10 @@ npm start
 
 ```
 # 从 config.env 文件读取环境变量并运行 docker compose up
-(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)
+(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)
 
 # 如果绑定端口时遇到权限问题，请使用 sudo
-sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
+sudo bash -c "(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)"
 ```
 
 ### 访问 Cast Operations

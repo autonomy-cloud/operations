@@ -251,6 +251,6 @@ Cast Operations 设计为支持多个入站邮件提供商。目前支持：
 
 1. 查看上方的故障排查部分
 2. 查看 Cast Operations 日志以获取详细错误消息
-3. 通过 [hello@visca.ai](mailto:hello@visca.ai) 联系我们
+3. 通过 [hello@latticeruntime.com](mailto:hello@latticeruntime.com) 联系我们
 
 我们欢迎您的反馈以改进此集成！

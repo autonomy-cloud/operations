@@ -1,6 +1,6 @@
 # 受信リクエストイングレス
 
-カスタムプローブはオプションで **インバウンドHTTPリスナー** を実行できます。このリスナーはプライベートネットワーク内からの `heartbeat` および `incoming-request` 呼び出しを受け付け、Cast Operationsに転送します。これにより、**アウトバウンドのインターネットアクセスがない** サービスでも、`visca.ai` に直接リクエストを送信する代わりにローカルネットワーク上のプローブにリクエストを送信することで、[受信リクエストモニター](/docs/monitor/incoming-request-monitor) に報告できます。
+カスタムプローブはオプションで **インバウンドHTTPリスナー** を実行できます。このリスナーはプライベートネットワーク内からの `heartbeat` および `incoming-request` 呼び出しを受け付け、Cast Operationsに転送します。これにより、**アウトバウンドのインターネットアクセスがない** サービスでも、`latticeruntime.com` に直接リクエストを送信する代わりにローカルネットワーク上のプローブにリクエストを送信することで、[受信リクエストモニター](/docs/monitor/incoming-request-monitor) に報告できます。
 
 ## 概要
 
@@ -24,7 +24,7 @@
 - Cast Operationsへの到達が許可されている単一のエグレスポイント（プローブ）を必要とする
 - [カスタムプローブ](/docs/probe/custom-probe) を既にデプロイしており、インバウンドハートビートにも再利用したい
 
-サービスが `https://visca.ai`（またはセルフホストURL）に直接アクセスできる場合は、この機能は不要です。サービスから直接ハートビートURLを呼び出してください。
+サービスが `https://latticeruntime.com`（またはセルフホストURL）に直接アクセスできる場合は、この機能は不要です。サービスから直接ハートビートURLを呼び出してください。
 
 ## イングレスリスナーの有効化
 
@@ -36,7 +36,7 @@
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ spec:
 公開ハートビートURLを：
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 プローブのイングレスURLに置き換えます。
@@ -171,7 +171,7 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 
 ## セキュリティに関する考慮事項
 
-- **エンドポイントは設計上認証なしです** — URLパス内のシークレットキーが認証手段であり、公開 `visca.ai` エンドポイントと同様です。シークレットキーは認証情報として扱ってください。
+- **エンドポイントは設計上認証なしです** — URLパス内のシークレットキーが認証手段であり、公開 `latticeruntime.com` エンドポイントと同様です。シークレットキーは認証情報として扱ってください。
 - **プライベートインターフェースのみにバインドしてください。** イングレスリスナーはパブリックインターネットから到達できてはなりません。ネットワークポリシー、ファイアウォールルール、または `ClusterIP` サービスを使用してアクセスを制限してください。
 - **転送中の暗号化が必要な場合はHTTPS終端を使用してください。** プローブのリスナーはプレーンHTTPで通信します。インバウンドホップにTLSが必要な場合は、内部ロードバランサー/イングレスコントローラーの背後に置いてください。プローブからCast Operationsへの転送レッグは常にHTTPSを使用します（`CAST_OPERATIONS_URL` が `https://` の場合）。
 - **リソース制限。** リスナーは最大50MBのリクエストボディを受け付けます。より厳しい制限が必要な場合は、前段にリバースプロキシを置いてください。

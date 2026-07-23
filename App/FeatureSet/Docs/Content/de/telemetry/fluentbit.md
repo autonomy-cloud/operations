@@ -30,7 +30,7 @@ Die vollständige Liste der unterstützten Quellen finden Sie [hier](https://doc
 ## Voraussetzungen
 
 - **Schritt 1: FluentBit auf Ihrem System installieren** - Sie können FluentBit gemäß den [hier](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit) bereitgestellten Anweisungen installieren
-- **Schritt 2: Für Cast Operations-Konto anmelden** - Sie können sich [hier](https://visca.ai) für ein kostenloses Konto anmelden. Beachten Sie, dass das Konto zwar kostenlos ist, die Log-Aufnahme jedoch eine kostenpflichtige Funktion ist.
+- **Schritt 2: Für Cast Operations-Konto anmelden** - Sie können sich [hier](https://latticeruntime.com) für ein kostenloses Konto anmelden. Beachten Sie, dass das Konto zwar kostenlos ist, die Log-Aufnahme jedoch eine kostenpflichtige Funktion ist.
 - **Schritt 3: Cast Operations-Projekt erstellen** - Sobald Sie das Konto haben, können Sie ein Projekt über das Cast Operations-Dashboard erstellen.
 - **Schritt 4: Telemetrie-Ingestion-Token erstellen** - Sobald Sie ein Cast Operations-Konto erstellt haben, können Sie ein Telemetrie-Ingestion-Token erstellen.
 
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "visca.ai"
+    host: "latticeruntime.com"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -87,4 +87,4 @@ pipeline:
 
 ## Verwendung
 
-Sobald Sie die Konfiguration zur FluentBit-Konfigurationsdatei hinzugefügt haben, können Sie den FluentBit-Dienst neu starten. Sobald der Dienst neu gestartet wurde, werden die Telemetriedaten an die Cast Operations HTTP-Quelle gesendet. Sie können die Telemetriedaten jetzt im Cast Operations-Dashboard sehen. Bei Fragen oder wenn Sie Hilfe bei der Konfiguration benötigen, wenden Sie sich bitte an support@visca.ai
+Sobald Sie die Konfiguration zur FluentBit-Konfigurationsdatei hinzugefügt haben, können Sie den FluentBit-Dienst neu starten. Sobald der Dienst neu gestartet wurde, werden die Telemetriedaten an die Cast Operations HTTP-Quelle gesendet. Sie können die Telemetriedaten jetzt im Cast Operations-Dashboard sehen. Bei Fragen oder wenn Sie Hilfe bei der Konfiguration benötigen, wenden Sie sich bitte an support@latticeruntime.com

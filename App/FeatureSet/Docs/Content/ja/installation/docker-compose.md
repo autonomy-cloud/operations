@@ -47,10 +47,10 @@ npm を使用したくない場合またはインストールされていない�
 
 ```
 # config.env ファイルから環境変数を読み込み、docker compose up を実行します。
-(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)
+(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)
 
 # ポートバインディングに関する権限の問題がある場合は sudo を使用します。
-sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
+sudo bash -c "(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)"
 ```
 
 ### Cast Operations へのアクセス

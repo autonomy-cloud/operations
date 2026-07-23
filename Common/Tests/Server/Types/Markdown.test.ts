@@ -104,3 +104,19 @@ describe("Markdown.slugify", () => {
     });
   });
 });
+
+describe("Markdown.convertToPlainText", () => {
+  test("removes every HTML tag from untrusted text", () => {
+    expect(
+      Markdown.convertToPlainText(
+        "<strong>Hello</strong> <script>alert('x')</script>world",
+      ),
+    ).toBe("Hello alert('x')world");
+  });
+
+  test("decodes supported entities exactly once", () => {
+    expect(Markdown.convertToPlainText("&amp;lt;safe&amp;gt;")).toBe(
+      "&lt;safe&gt;",
+    );
+  });
+});

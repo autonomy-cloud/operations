@@ -9,7 +9,7 @@
 要获取状态页面上资源的整体状态，您可以向以下端点发送 POST 请求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 以下是 API 的响应：
@@ -20,11 +20,11 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
     // 监控器状态对象
     // 整体状态是状态页面上所有监控器和组中最差的状态。
     // 您可以在此处找到有关监控器状态的更多详细信息。
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // 您可以在此处找到有关计划维护公开备注的更多详细信息。
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // 计划维护公开备注对象
     },
@@ -34,7 +34,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "statusPageHistoryChartBarColorRules": [
     // 您可以在此处找到有关状态页面历史图表条形颜色规则的更多详细信息。
-    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
+    // https://latticeruntime.com/reference/status-page-history-chart-bar-color-rule
     {
       // 状态页面历史图表条形颜色规则对象
     },
@@ -44,7 +44,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "scheduledMaintenanceEvents": [
     // 您可以在此处找到有关计划维护事件的更多详细信息。
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // 计划维护事件对象
     },
@@ -54,7 +54,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "activeAnnouncements": [
     // 您可以在此处找到有关活跃公告的更多详细信息。
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // 状态页面公告对象
     },
@@ -64,7 +64,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "incidentPublicNotes": [
     // 您可以在此处找到有关事件公开备注的更多详细信息。
-    // https://visca.ai/reference/incident-public-note
+    // https://latticeruntime.com/reference/incident-public-note
     {
       // 事件公开备注对象
     },
@@ -74,7 +74,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "activeIncidents": [
     // 您可以在此处找到有关活跃事件的更多详细信息。
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // 事件对象
     },
@@ -84,7 +84,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "monitorStatusTimelines": [
     // 您可以在此处找到有关监控器状态时间线的更多详细信息。
-    // https://visca.ai/reference/monitor-status-timeline
+    // https://latticeruntime.com/reference/monitor-status-timeline
     {
       // 监控器状态时间线对象
     },
@@ -94,7 +94,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "resourceGroups": [
     // 您可以在此处找到有关资源组的更多详细信息。
-    // https://visca.ai/reference/resource-group
+    // https://latticeruntime.com/reference/resource-group
     {
       // 资源组对象
     },
@@ -104,7 +104,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "monitorStatuses": [
     // 您可以在此处找到有关监控器状态的更多详细信息。
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
     {
       // 监控器状态对象
     },
@@ -114,7 +114,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "statusPageResources": [
     // 您可以在此处找到有关状态页面资源的更多详细信息。
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // 状态页面资源对象
     },
@@ -124,7 +124,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "incidentStateTimelines": [
     // 您可以在此处找到有关事件状态时间线的更多详细信息。
-    // https://visca.ai/reference/incident-state-timeline
+    // https://latticeruntime.com/reference/incident-state-timeline
     {
       // 事件状态时间线对象
     },
@@ -134,11 +134,11 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "statusPage": {
     // 您可以在此处找到有关状态页面的更多详细信息。
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // 您可以在此处找到有关计划维护状态时间线的更多详细信息。
-    // https://visca.ai/reference/scheduled-maintenance-state-timeline
+    // https://latticeruntime.com/reference/scheduled-maintenance-state-timeline
     {
       // 计划维护状态时间线对象
     },
@@ -162,7 +162,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
 要获取所有资源的整体正常运行时间，您可以向以下端点发送 POST 请求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **请求体（可选）：**
@@ -257,7 +257,7 @@ curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
 此 API 将获取状态页面上的所有事件。要获取状态页面上的所有事件，您可以向以下端点发送 POST 请求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 以下是 API 的响应：
@@ -266,7 +266,7 @@ curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 {
   "incidents": [
     // 您可以在此处找到有关事件的更多详细信息。
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // 事件对象
     },
@@ -282,7 +282,7 @@ curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 此 API 将获取状态页面上的所有计划维护。要获取状态页面上的所有计划维护，您可以向以下端点发送 POST 请求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 以下是 API 的响应：
@@ -291,7 +291,7 @@ curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageI
 {
   "scheduledMaintenanceEvents": [
     // 您可以在此处找到有关计划维护事件的更多详细信息。
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // 计划维护事件对象
     },
@@ -307,7 +307,7 @@ curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageI
 此 API 将获取状态页面上的所有公告。要获取状态页面上的所有公告，您可以向以下端点发送 POST 请求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 以下是 API 的响应：
@@ -316,7 +316,7 @@ curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
 {
   "announcements": [
     // 您可以在此处找到有关公告的更多详细信息。
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // 公告对象
     },

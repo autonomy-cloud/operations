@@ -321,4 +321,4 @@ Pour les problèmes avec la fonctionnalité de politique d'appels entrants, veui
 
 1. Consulter la console Twilio pour les journaux d'erreurs
 2. Examiner les journaux du serveur Cast Operations
-3. Contacter le support à [hello@visca.ai](mailto:hello@visca.ai)
+3. Contacter le support à [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

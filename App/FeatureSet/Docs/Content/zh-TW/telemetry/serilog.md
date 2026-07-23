@@ -8,8 +8,8 @@
 
 ## 先決條件
 
-- **註冊 Cast Operations 帳號** – 您可以在[這裡](https://visca.ai)註冊免費帳號。請注意，雖然帳號是免費的，但日誌擷取是付費功能。您可以在[這裡](https://visca.ai/pricing)找到更多關於定價的詳細資訊。
-- **建立 Cast Operations 專案** – 擁有帳號後，從 Cast Operations 儀表板建立一個專案。如果您需要協助，請透過 support@visca.ai 與我們聯絡。
+- **註冊 Cast Operations 帳號** – 您可以在[這裡](https://latticeruntime.com)註冊免費帳號。請注意，雖然帳號是免費的，但日誌擷取是付費功能。您可以在[這裡](https://latticeruntime.com/pricing)找到更多關於定價的詳細資訊。
+- **建立 Cast Operations 專案** – 擁有帳號後，從 Cast Operations 儀表板建立一個專案。如果您需要協助，請透過 support@latticeruntime.com 與我們聯絡。
 - **建立 Telemetry 擷取權杖（Ingestion Token）** – 您需要一個權杖來驗證您的日誌。
 
 註冊 Cast Operations 並建立專案後，點選導覽列中的「More」，再點選「Project Settings」。
@@ -26,13 +26,13 @@
 
 | 設定      | 值                                                  |
 | --------- | --------------------------------------------------- |
-| OTLP 端點 | `https://visca.ai/otlp`                        |
+| OTLP 端點 | `https://latticeruntime.com/otlp`                        |
 | 驗證標頭  | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN` |
 | 服務名稱  | 您的服務應顯示的名稱，例如 `my-service`             |
 
-> **自行託管 Cast Operations？** 請將 `https://visca.ai/otlp` 替換為 `https://YOUR-OPERATIONS-HOST/otlp`（如果您沒有終止 TLS，則為 `http://...`）。其餘的一切維持不變。
+> **自行託管 Cast Operations？** 請將 `https://latticeruntime.com/otlp` 替換為 `https://YOUR-OPERATIONS-HOST/otlp`（如果您沒有終止 TLS，則為 `http://...`）。其餘的一切維持不變。
 
-此 sink 使用 OTLP 的 **HTTP/protobuf** 協定，並會自動將 `/v1/logs` 路徑附加到端點上，因此它最終 POST 的 URL 為 `https://visca.ai/otlp/v1/logs`。您只需要提供基礎的 `/otlp` 端點。
+此 sink 使用 OTLP 的 **HTTP/protobuf** 協定，並會自動將 `/v1/logs` 路徑附加到端點上，因此它最終 POST 的 URL 為 `https://latticeruntime.com/otlp/v1/logs`。您只需要提供基礎的 `/otlp` 端點。
 
 ## 步驟 1 — 安裝 NuGet 套件
 
@@ -70,7 +70,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.OpenTelemetry(options =>
     {
         // Base OTLP endpoint. The sink appends /v1/logs automatically.
-        options.Endpoint = "https://visca.ai/otlp";
+        options.Endpoint = "https://latticeruntime.com/otlp";
         options.Protocol = OtlpProtocol.HttpProtobuf;
 
         // Authenticate with your Cast Operations telemetry ingestion token.
@@ -115,7 +115,7 @@ finally
       {
         "Name": "OpenTelemetry",
         "Args": {
-          "endpoint": "https://visca.ai/otlp",
+          "endpoint": "https://latticeruntime.com/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
             "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
@@ -165,7 +165,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.OpenTelemetry(options =>
         {
-            options.Endpoint = "https://visca.ai/otlp";
+            options.Endpoint = "https://latticeruntime.com/otlp";
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
@@ -228,10 +228,10 @@ Cast Operations 會偵測這些屬性，並自動將該錯誤匯整到 **Excepti
 
 ## 疑難排解
 
-- **沒有任何日誌出現** – 仔細檢查 `x-cast-operations-token` 的值，並確認它屬於您正在檢視的專案。確認端點為 `https://visca.ai/otlp`（僅基礎路徑 — 請勿自行附加 `/v1/logs`）。
+- **沒有任何日誌出現** – 仔細檢查 `x-cast-operations-token` 的值，並確認它屬於您正在檢視的專案。確認端點為 `https://latticeruntime.com/otlp`（僅基礎路徑 — 請勿自行附加 `/v1/logs`）。
 - **日誌只在應用程式結束時才出現，或最後幾筆日誌遺失** – 請確保 `Log.CloseAndFlush()` 會在關閉時執行。此 sink 會將事件分批，因此若行程在未清空（flush）的情況下被終止，緩衝中的日誌就會遺失。
 - **`401 Unauthorized` / 沒有任何內容被擷取** – 權杖遺漏或無效。請確認標頭鍵正好是 `x-cast-operations-token`。
 - **服務名稱錯誤** – 請在 `ResourceAttributes`（程式碼）或 `resourceAttributes`（appsettings.json）中設定 `service.name`。若未設定，日誌會回退到預設／未知的服務。
 - **連線到自行託管執行個體時發生連線錯誤** – 請確認協定與您的端點配置（scheme）相符（`https://` 對比 `http://`），且您的 Cast Operations 主機可從應用程式連線到。
 
-如果您有任何問題或需要協助，請透過 support@visca.ai 與我們聯絡。
+如果您有任何問題或需要協助，請透過 support@latticeruntime.com 與我們聯絡。

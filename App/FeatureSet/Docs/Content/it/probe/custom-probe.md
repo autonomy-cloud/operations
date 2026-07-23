@@ -11,7 +11,7 @@ Per iniziare è necessario creare un probe personalizzato nelle Impostazioni Pro
 Per eseguire un probe, assicurarsi di avere Docker installato. È possibile eseguire un probe personalizzato con:
 
 ```
-docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://latticeruntime.com -d cast-operations/probe:release
 ```
 
 Se si ospita autonomamente Cast Operations, è possibile cambiare `CAST_OPERATIONS_URL` con la propria istanza self-hosted personalizzata.
@@ -25,7 +25,7 @@ Se il probe deve passare attraverso un server proxy per raggiungere Cast Operati
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -34,7 +34,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -43,7 +43,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       # Configurazione proxy (opzionale)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 ##### Con Configurazione Proxy
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             # Configurazione proxy (opzionale)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -194,7 +194,7 @@ Il probe supporta le seguenti variabili d'ambiente:
 
 - `PROBE_KEY` - La chiave del probe dal proprio dashboard Cast Operations
 - `PROBE_ID` - L'ID del probe dal proprio dashboard Cast Operations
-- `CAST_OPERATIONS_URL` - L'URL della propria istanza Cast Operations (predefinito: https://visca.ai)
+- `CAST_OPERATIONS_URL` - L'URL della propria istanza Cast Operations (predefinito: https://latticeruntime.com)
 
 #### Variabili Opzionali
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Verifica
 
-Se il probe è in esecuzione correttamente, dovrebbe mostrare `Connesso` nel dashboard di Cast Operations. Se non appare come connesso, controllare i log del container. Se si hanno ancora problemi, creare un issue su [GitHub](https://github.com/autonomy-cloud/operations) o [contattare il supporto](https://visca.ai/support).
+Se il probe è in esecuzione correttamente, dovrebbe mostrare `Connesso` nel dashboard di Cast Operations. Se non appare come connesso, controllare i log del container. Se si hanno ancora problemi, creare un issue su [GitHub](https://github.com/autonomy-cloud/operations) o [contattare il supporto](https://latticeruntime.com/support).

@@ -13,7 +13,7 @@ describe("Email()", () => {
   });
 
   test("should be a business email", () => {
-    const email: Email = new Email("dev@visca.ai");
+    const email: Email = new Email("dev@latticeruntime.com");
     expect(email.isBusinessEmail()).toBeTruthy();
   });
 
@@ -23,9 +23,9 @@ describe("Email()", () => {
   });
 
   test("should return the domain of the email address", () => {
-    expect(new Email("hello@visca.ai").getEmailDomain().hostname).toBe(
-      "visca.ai",
-    );
+    expect(
+      new Email("hello@latticeruntime.com").getEmailDomain().hostname,
+    ).toBe("latticeruntime.com");
   });
 
   test("value of email instance should be mutable", () => {

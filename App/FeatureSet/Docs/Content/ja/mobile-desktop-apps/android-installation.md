@@ -32,7 +32,7 @@ APK は Play ストアリリースと同じソースから Cast Operations に�
 ## 初回起動とサインイン
 
 1. **サーバー URL**
-   - Cast Operations Cloud をご利用の場合は、デフォルトの `https://visca.ai` のままにします。
+   - Cast Operations Cloud をご利用の場合は、デフォルトの `https://latticeruntime.com` のままにします。
    - セルフホスティングの場合は、Cast Operations インスタンスの URL を入力します(例: `https://operations.example.com`)。
    - アプリは続行前にサーバーが到達可能か確認します。
 2. **サインイン**

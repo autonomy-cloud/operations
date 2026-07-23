@@ -1,7 +1,7 @@
 Cast Operations Kubernetes Agent has been installed.
 
 Cluster Name: {{ .Values.clusterName }}
-Cast Operations URL: {{ .Values.cast-operations.url }}
+Cast Operations URL: {{ (index .Values "cast-operations").url }}
 
 The agent is now collecting:
   - Node, pod, and container resource metrics (kubeletstats)
@@ -72,12 +72,12 @@ To turn eBPF auto-instrumentation off:
 {{- end }}
 
 Your cluster should appear in Cast Operations within a few minutes at:
-  {{ .Values.cast-operations.url }}/dashboard/<project-id>/kubernetes
+  {{ (index .Values "cast-operations").url }}/dashboard/<project-id>/kubernetes
 
 If it stays "Disconnected" or no data shows up (most often a wrong/revoked
 ingestion key — which is silently dropped, so the collector logs look clean),
 run the diagnostic script for a one-shot root-cause verdict:
-  curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh | bash -s -- -n {{ .Release.Namespace }}
+  curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/develop/HelmChart/Public/kubernetes-agent/troubleshoot.sh | bash -s -- -n {{ .Release.Namespace }}
 
 Or validate your ingestion key directly (200 = valid, 401 = unknown/revoked):
-  curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" {{ .Values.cast-operations.url }}/otlp/v1/validate
+  curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" {{ (index .Values "cast-operations").url }}/otlp/v1/validate

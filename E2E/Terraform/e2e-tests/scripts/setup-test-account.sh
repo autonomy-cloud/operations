@@ -7,7 +7,7 @@ CAST_OPERATIONS_URL="${CAST_OPERATIONS_URL:-http://localhost}"
 
 # Generate unique test values
 TIMESTAMP=$(date +%s)
-TEST_EMAIL="terraform-test-${TIMESTAMP}@test.visca.ai"
+TEST_EMAIL="terraform-test-${TIMESTAMP}@test.latticeruntime.com"
 TEST_PASSWORD="TestPassword123!"
 TEST_NAME="Terraform E2E Test User"
 

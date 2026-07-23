@@ -41,14 +41,14 @@ Når du har konfigurert telemetritjenesten i applikasjonen din, kan du integrere
 | Miljøvariabel               | Verdi                                          |
 | --------------------------- | ---------------------------------------------- |
 | OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
-| OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
+| OTEL_EXPORTER_OTLP_ENDPOINT | https://latticeruntime.com/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **Eksempel**
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -56,7 +56,7 @@ export OTEL_SERVICE_NAME=my-service
 
 Hvis du selvhoster Cast Operations, kan dette endres til ditt selvhostede OpenTelemetry Collector-endepunkt (f.eks. `http(s)://YOUR-OPERATIONS-HOST/otlp`)
 
-Når du kjører applikasjonen, bør du se loggene på Cast Operations telemetritjenestesiden. Ta kontakt med support@visca.ai hvis du trenger hjelp.
+Når du kjører applikasjonen, bør du se loggene på Cast Operations telemetritjenestesiden. Ta kontakt med support@latticeruntime.com hvis du trenger hjelp.
 
 #### Bruke OpenTelemetry Collector
 
@@ -77,7 +77,7 @@ receivers:
 exporters:
   # Eksporter over HTTP
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     # Krever bruk av JSON-koder i stedet for standard Proto(buf)
     encoding: json
     headers:

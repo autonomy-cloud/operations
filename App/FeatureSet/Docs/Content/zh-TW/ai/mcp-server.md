@@ -10,7 +10,7 @@ Cast Operations MCP Server 是大型語言模型（LLM）與您的 Cast Operatio
 
 MCP server 與您的 Cast Operations 執行個體一同託管，並透過 Streamable HTTP 傳輸方式存取。無需在本機安裝任何東西。
 
-**雲端使用者**：`https://visca.ai/mcp`
+**雲端使用者**：`https://latticeruntime.com/mcp`
 **自我託管使用者**：`https://your-operations-domain.com/mcp`
 
 ## 主要功能
@@ -73,7 +73,7 @@ API 金鑰以專案為範圍：MCP server 會從金鑰推斷出您的專案，�
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ API 金鑰以專案為範圍：MCP server 會從金鑰推斷出您的專案，�
 
 ### 適用於自我託管的 Cast Operations
 
-將 `visca.ai` 替換為您的 Cast Operations 網域：
+將 `latticeruntime.com` 替換為您的 Cast Operations 網域：
 
 ```json
 {
@@ -109,7 +109,7 @@ API 金鑰以專案為範圍：MCP server 會從金鑰推斷出您的專案，�
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ VS Code 原生支援搭配 GitHub Copilot（版本 1.99 以上）使用 MCP serv
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -296,7 +296,7 @@ MCP server 支援兩種運作模式：
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -306,7 +306,7 @@ curl https://your-operations-domain.com/mcp/health
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

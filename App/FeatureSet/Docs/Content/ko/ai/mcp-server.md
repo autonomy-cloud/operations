@@ -10,7 +10,7 @@ Cast Operations MCP 서버는 대형 언어 모델(LLM)과 Cast Operations 인�
 
 MCP 서버는 Cast Operations 인스턴스와 함께 호스팅되며 Streamable HTTP 전송을 통해 액세스할 수 있습니다. 로컬 설치가 필요하지 않습니다.
 
-**클라우드 사용자**: `https://visca.ai/mcp`
+**클라우드 사용자**: `https://latticeruntime.com/mcp`
 **자체 호스팅 사용자**: `https://your-operations-domain.com/mcp`
 
 ## 주요 기능
@@ -73,7 +73,7 @@ Claude Desktop 구성 파일을 찾습니다:
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ Claude Desktop 구성 파일을 찾습니다:
 
 ### 자체 호스팅 Cast Operations의 경우
 
-`visca.ai`을 Cast Operations 도메인으로 교체합니다:
+`latticeruntime.com`을 Cast Operations 도메인으로 교체합니다:
 
 ```json
 {
@@ -109,7 +109,7 @@ Claude Desktop 구성 파일을 찾습니다:
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ VS Code는 GitHub Copilot (버전 1.99+)을 통해 MCP 서버를 기본적으로
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -296,7 +296,7 @@ MCP 서버가 실행 중인지 확인합니다:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -306,7 +306,7 @@ curl https://your-operations-domain.com/mcp/health
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

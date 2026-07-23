@@ -18,7 +18,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -71,7 +71,7 @@ L'utilisation d'une version de fournisseur qui ne correspond pas à votre instal
 ### Méthode 2 : API
 
 ```bash
-curl https://votre-instance-visca.ai/api/version | jq '.version'
+curl https://votre-instance-latticeruntime.com/api/version | jq '.version'
 ```
 
 ### Méthode 3 : Docker
@@ -110,7 +110,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # À ajuster pour l'auto-hébergé
+  cast_operations_url = "https://latticeruntime.com"  # À ajuster pour l'auto-hébergé
   api_key       = var.cast_operations_api_key
 }
 

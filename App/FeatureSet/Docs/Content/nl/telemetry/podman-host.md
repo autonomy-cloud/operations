@@ -66,7 +66,7 @@ podman compose up -d
 
 | Variable                  | Required | Description                                                                                                         |
 | ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | Yes      | Your Cast Operations instance URL (for example `https://visca.ai` or your self-hosted host)                          |
+| `CAST_OPERATIONS_URL`           | Yes      | Your Cast Operations instance URL (for example `https://latticeruntime.com` or your self-hosted host)                          |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | Yes      | Telemetry ingestion token from _Project Settings → Telemetry Ingestion Keys_                                        |
 | `PODMAN_HOST_NAME`        | No       | Friendly name for this host. Defaults to `podman-host`. Set it to something stable per host (e.g. `prod-podman-01`) |
 

@@ -288,4 +288,4 @@ Para problemas con la función de Política de llamadas entrantes, por favor:
 
 1. Revisa los registros de errores en la consola de Twilio
 2. Revisa los registros del servidor de Cast Operations
-3. Contacta con soporte en [hello@visca.ai](mailto:hello@visca.ai)
+3. Contacta con soporte en [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

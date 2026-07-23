@@ -12,7 +12,7 @@
 
 ### 適用於 Cast Operations 雲端
 
-1. 前往 [Cast Operations Cloud](https://visca.ai) 並登入
+1. 前往 [Cast Operations Cloud](https://latticeruntime.com) 並登入
 2. 導覽至 **Settings** → **API Keys**
 3. 點選 **Create API Key**
 4. 將其命名為「Terraform Provider」
@@ -49,7 +49,7 @@ terraform {
 
 provider "cast-operations" {
   # For Cloud customers
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
 
   # For Self-Hosted customers - use your instance URL
   # cast_operations_url = "https://operations.yourcompany.com"
@@ -140,7 +140,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```

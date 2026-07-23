@@ -114,7 +114,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
@@ -333,7 +333,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -385,7 +385,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -448,7 +448,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -744,7 +744,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -788,7 +788,7 @@ OpenTelemetry Collector respekterar standardmiljövariablerna `HTTPS_PROXY` / `H
   - Lägg till `service.telemetry.logs.level: debug` i konfigurationen och starta om collectorn för utförlig utdata.
   - **Linux / macOS:** `journalctl -u otelcol-contrib -f` (Linux) eller `tail -f /var/log/otelcol-contrib.err.log` (macOS).
   - **Windows:** titta under _Event Viewer → Windows Logs → Application_ efter källan `otelcol-contrib`.
-  - Bekräfta att värden kan nå `https://visca.ai/otlp` (eller din självhostade slutpunkt): `curl -v https://visca.ai/otlp` från samma maskin.
+  - Bekräfta att värden kan nå `https://latticeruntime.com/otlp` (eller din självhostade slutpunkt): `curl -v https://latticeruntime.com/otlp` från samma maskin.
 - **HTTP 401 från exportören** — inmatningstoken är ogiltig eller återkallad. Generera en ny från _Project Settings → Telemetry Ingestion Keys_.
 - **Windows Event Log `Security` returnerar access denied** — tjänsten körs inte med tillräckliga behörigheter. Återskapa den under `LocalSystem` (standard med `sc.exe create`) eller ge tjänstkontot användarrättigheten _Manage auditing and security log_.
 - **`journald`-mottagaren misslyckas med att starta** — se till att `journalctl` finns i collectorns `PATH` och att `/var/log/journal` existerar (kör `sudo systemd-tmpfiles --create --prefix /var/log/journal` om inte).

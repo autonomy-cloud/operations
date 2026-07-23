@@ -123,4 +123,4 @@ microsoftTeamsApp:
 
 ## Support
 
-हम इस integration को improve करना चाहते हैं, इसलिए feedback स्वागत है। कृपया हमें [hello@visca.ai](mailto:hello@visca.ai) पर भेजें
+हम इस integration को improve करना चाहते हैं, इसलिए feedback स्वागत है। कृपया हमें [hello@latticeruntime.com](mailto:hello@latticeruntime.com) पर भेजें

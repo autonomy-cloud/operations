@@ -108,4 +108,4 @@ Bei Problemen:
 
 ## Support
 
-Wir möchten diese Integration verbessern, daher ist Feedback sehr willkommen. Bitte senden Sie uns Feedback an [hello@visca.ai](mailto:hello@visca.ai)
+Wir möchten diese Integration verbessern, daher ist Feedback sehr willkommen. Bitte senden Sie uns Feedback an [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

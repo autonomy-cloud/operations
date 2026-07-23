@@ -48,7 +48,7 @@ The script prompts for your Cast Operations URL, telemetry ingestion key, cluste
 Download `docker-compose.yml` and `otel-collector-config.yaml` from this directory into a folder, then create a `.env` file next to them:
 
 ```bash
-CAST_OPERATIONS_URL=https://visca.ai
+CAST_OPERATIONS_URL=https://latticeruntime.com
 CAST_OPERATIONS_TELEMETRY_INGESTION_KEY=your-telemetry-ingestion-key
 PROXMOX_CLUSTER_NAME=my-proxmox-cluster
 PVE_HOST=192.168.1.10
@@ -160,7 +160,7 @@ You lose per-unit filtering (syslog carries everything, not just the eight PVE s
 
 Proxmox VE 9.0 and later can push metrics directly to Cast Operations via the built-in OpenTelemetry metric server (*Datacenter → Metric Server → Add → OpenTelemetry*) — no agent or exporter required:
 
-- **Server**: your Cast Operations host (e.g. `visca.ai`)
+- **Server**: your Cast Operations host (e.g. `latticeruntime.com`)
 - **Port**: `443`, **Protocol**: `https`
 - **Path**: `/otlp/v1/metrics`
 - **Headers**: `{"x-cast-operations-token": "your-telemetry-ingestion-key"}`
@@ -170,7 +170,7 @@ Two trade-offs to be aware of:
 1. **Cluster discovery**: the agent path is what powers cluster auto-registration in Cast Operations, because it stamps the `proxmox.cluster.name` resource attribute. With the native push, set *Resource Attributes* to `proxmox.cluster.name=my-proxmox-cluster` so the cluster registers itself; without it the metrics ingest but no Proxmox cluster appears.
 2. **Metric names differ**: the native push emits `proxmox_node_*` / `proxmox_vm_*` / `proxmox_storage_*` series, while the agent emits pve-exporter's `pve_*` series. Cast Operations’ built-in Proxmox monitor catalog and alert templates target the `pve_*` names.
 
-See the [Proxmox telemetry docs](https://visca.ai/docs/telemetry/proxmox) for the full walkthrough.
+See the [Proxmox telemetry docs](https://latticeruntime.com/docs/telemetry/proxmox) for the full walkthrough.
 
 ## Auto-tag with Project Labels
 

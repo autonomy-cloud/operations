@@ -41,14 +41,14 @@
 | Переменная среды            | Значение                                       |
 | --------------------------- | ---------------------------------------------- |
 | OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
-| OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
+| OTEL_EXPORTER_OTLP_ENDPOINT | https://latticeruntime.com/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **Пример**
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -56,7 +56,7 @@ export OTEL_SERVICE_NAME=my-service
 
 При самостоятельном хостинге значение можно изменить на вашу конечную точку коллектора OpenTelemetry (например: `http(s)://YOUR-OPERATIONS-HOST/otlp`)
 
-После запуска приложения журналы должны появиться на странице телеметрического сервиса Cast Operations. При необходимости помощи обращайтесь по адресу support@visca.ai
+После запуска приложения журналы должны появиться на странице телеметрического сервиса Cast Operations. При необходимости помощи обращайтесь по адресу support@latticeruntime.com
 
 #### Использование коллектора OpenTelemetry
 
@@ -77,7 +77,7 @@ receivers:
 exporters:
   # Экспорт через HTTP
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     # Требует использования JSON-кодировщика вместо Proto(buf) по умолчанию
     encoding: json
     headers:

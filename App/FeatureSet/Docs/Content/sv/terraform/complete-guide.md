@@ -42,7 +42,7 @@ terraform {
 
 ```hcl
 provider "cast-operations" {
-  cast_operations_url = "https://your-operations-instance.com"  # Or https://visca.ai for cloud
+  cast_operations_url = "https://your-operations-instance.com"  # Or https://latticeruntime.com for cloud
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -90,7 +90,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Use your instance URL
+  cast_operations_url = "https://latticeruntime.com"  # Use your instance URL
   api_key       = var.cast_operations_api_key
 }
 

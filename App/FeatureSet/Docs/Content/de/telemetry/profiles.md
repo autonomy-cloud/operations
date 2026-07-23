@@ -42,7 +42,7 @@ Setzen Sie die folgenden Umgebungsvariablen, um Ihren Profiler auf Cast Operatio
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -62,7 +62,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "cast-operations" {
   endpoint {
-    url = "https://visca.ai/pyroscope"
+    url = "https://latticeruntime.com/pyroscope"
     headers = {
       "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_SERVICE_TOKEN",
     }
@@ -76,7 +76,7 @@ Für Java-Anwendungen verwenden Sie [async-profiler](https://github.com/async-pr
 
 ```bash
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
+  -Dotel.exporter.otlp.endpoint=https://latticeruntime.com/otlp \
   -Dotel.exporter.otlp.headers=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -102,4 +102,4 @@ Die Profildaten-Aufbewahrung wird pro Telemetrie-Dienst in Ihren Cast Operations
 
 ## Hilfe benötigt?
 
-Wenden Sie sich bitte an support@visca.ai, wenn Sie Hilfe bei der Einrichtung von Profiling mit Cast Operations benötigen.
+Wenden Sie sich bitte an support@latticeruntime.com, wenn Sie Hilfe bei der Einrichtung von Profiling mit Cast Operations benötigen.

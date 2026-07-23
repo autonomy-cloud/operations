@@ -19,7 +19,7 @@ podman run -d \
   --restart unless-stopped \
   -v /run/podman/podman.sock:/run/podman/podman.sock:ro \
   -v /var/lib/containers/storage:/var/lib/containers/storage:ro \
-  -e CAST_OPERATIONS_URL="https://visca.ai" \
+  -e CAST_OPERATIONS_URL="https://latticeruntime.com" \
   -e CAST_OPERATIONS_SERVICE_TOKEN="your-service-token" \
   -e PODMAN_HOST_NAME="my-podman-host" \
   cast-operations/podman-agent:release
@@ -32,7 +32,7 @@ That's it. The host will appear automatically in the Podman section of Cast Oper
 Create a `.env` file:
 
 ```bash
-CAST_OPERATIONS_URL=https://visca.ai
+CAST_OPERATIONS_URL=https://latticeruntime.com
 CAST_OPERATIONS_SERVICE_TOKEN=your-service-token
 PODMAN_HOST_NAME=my-podman-host
 ```

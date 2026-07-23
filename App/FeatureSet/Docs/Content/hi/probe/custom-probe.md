@@ -11,7 +11,7 @@
 probe चलाने के लिए, सुनिश्चित करें कि docker installed है। आप custom probe निम्नानुसार चला सकते हैं:
 
 ```
-docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://latticeruntime.com -d cast-operations/probe:release
 ```
 
 यदि आप Cast Operations self-host कर रहे हैं, तो `CAST_OPERATIONS_URL` को अपने custom self-hosted instance में बदल सकते हैं।
@@ -25,7 +25,7 @@ docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> 
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -34,7 +34,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -43,7 +43,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       # Proxy configuration (वैकल्पिक)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 ##### Proxy Configuration के साथ
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             # Proxy configuration (वैकल्पिक)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -187,7 +187,7 @@ Probe निम्नलिखित environment variables का समर्�
 
 - `PROBE_KEY` - आपके Cast Operations dashboard से probe key
 - `PROBE_ID` - आपके Cast Operations dashboard से probe ID
-- `CAST_OPERATIONS_URL` - आपके Cast Operations instance का URL (default: https://visca.ai)
+- `CAST_OPERATIONS_URL` - आपके Cast Operations instance का URL (default: https://latticeruntime.com)
 
 #### वैकल्पिक Variables
 
@@ -229,4 +229,4 @@ http://[username:password@]proxy.server.com:port
 
 ### सत्यापन
 
-यदि probe successfully चल रहा है। यह आपके Cast Operations dashboard पर `Connected` दिखाई देना चाहिए। यदि यह connected नहीं दिखता। आपको container के logs जांचने होंगे। यदि आप अभी भी trouble में हैं। कृपया [GitHub](https://github.com/autonomy-cloud/operations) पर एक issue बनाएं या [support से संपर्क करें](https://visca.ai/support)
+यदि probe successfully चल रहा है। यह आपके Cast Operations dashboard पर `Connected` दिखाई देना चाहिए। यदि यह connected नहीं दिखता। आपको container के logs जांचने होंगे। यदि आप अभी भी trouble में हैं। कृपया [GitHub](https://github.com/autonomy-cloud/operations) पर एक issue बनाएं या [support से संपर्क करें](https://latticeruntime.com/support)

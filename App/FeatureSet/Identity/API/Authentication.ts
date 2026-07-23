@@ -316,7 +316,7 @@ router.post(
 
           API.post({
             url: URL.fromString(
-              "https://visca.ai/api/open-source-deployment/register",
+              "https://latticeruntime.com/api/open-source-deployment/register",
             ),
             data: {
               email: savedUser.email?.toString() || "",

@@ -30,8 +30,8 @@ Du finner den fullstendige listen over støttede kilder [her](https://www.fluent
 ## Forutsetninger
 
 - **Trinn 1: Installer Fluentd på systemet ditt** – Du kan installere Fluentd ved hjelp av instruksjonene gitt [her](https://docs.fluentd.org/installation)
-- **Trinn 2: Registrer deg for Cast Operations-konto** – Du kan registrere deg for en gratis konto [her](https://visca.ai). Merk at selv om kontoen er gratis, er logginnhenting en betalt funksjon. Du finner mer detaljer om prissetting [her](https://visca.ai/pricing).
-- **Trinn 3: Opprett Cast Operations-prosjekt** – Når du har kontoen, kan du opprette et prosjekt fra Cast Operations-dashbordet. Hvis du trenger hjelp med å opprette et prosjekt eller har spørsmål, ta kontakt med oss på support@visca.ai
+- **Trinn 2: Registrer deg for Cast Operations-konto** – Du kan registrere deg for en gratis konto [her](https://latticeruntime.com). Merk at selv om kontoen er gratis, er logginnhenting en betalt funksjon. Du finner mer detaljer om prissetting [her](https://latticeruntime.com/pricing).
+- **Trinn 3: Opprett Cast Operations-prosjekt** – Når du har kontoen, kan du opprette et prosjekt fra Cast Operations-dashbordet. Hvis du trenger hjelp med å opprette et prosjekt eller har spørsmål, ta kontakt med oss på support@latticeruntime.com
 - **Trinn 4: Opprett telemetriinnhentingstoken** – Når du har opprettet en Cast Operations-konto, kan du opprette et telemetriinnhentingstoken for å hente inn logger, metrikker og spor fra applikasjonen din.
 
 Etter at du har registrert deg for Cast Operations og opprettet et prosjekt, klikker du på "More" i navigasjonslinjen og klikker på "Project Settings".
@@ -55,7 +55,7 @@ Du må erstatte `YOUR_SERVICE_TOKEN` med tokenet du opprettet i forrige trinn. D
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -90,7 +90,7 @@ bind 0.0.0.0
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -111,4 +111,4 @@ flush_interval 10s
 
 ## Bruk
 
-Når du har lagt til konfigurasjonen i Fluentd-konfigurasjonsfilen, kan du starte Fluentd-tjenesten på nytt. Når tjenesten er startet på nytt, vil telemetridataene sendes til Cast Operations HTTP Source. Du kan nå begynne å se telemetridataene i Cast Operations-dashbordet. Hvis du har spørsmål eller trenger hjelp med konfigurasjonen, ta kontakt med oss på support@visca.ai
+Når du har lagt til konfigurasjonen i Fluentd-konfigurasjonsfilen, kan du starte Fluentd-tjenesten på nytt. Når tjenesten er startet på nytt, vil telemetridataene sendes til Cast Operations HTTP Source. Du kan nå begynne å se telemetridataene i Cast Operations-dashbordet. Hvis du har spørsmål eller trenger hjelp med konfigurasjonen, ta kontakt med oss på support@latticeruntime.com

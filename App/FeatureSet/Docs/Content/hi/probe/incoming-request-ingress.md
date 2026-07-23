@@ -1,6 +1,6 @@
 # Incoming Request Ingress
 
-एक Custom Probe वैकल्पिक रूप से एक **inbound HTTP listener** चला सकता है जो आपके private network के अंदर से `heartbeat` और `incoming-request` calls accept करता है और उन्हें Cast Operations पर forward करता है। यह उन services को सक्षम बनाता है जिनके पास **outbound internet access नहीं है** वे `visca.ai` directly के बजाय local network पर probe को request भेजकर [Incoming Request Monitor](/docs/monitor/incoming-request-monitor) को report कर सकती हैं।
+एक Custom Probe वैकल्पिक रूप से एक **inbound HTTP listener** चला सकता है जो आपके private network के अंदर से `heartbeat` और `incoming-request` calls accept करता है और उन्हें Cast Operations पर forward करता है। यह उन services को सक्षम बनाता है जिनके पास **outbound internet access नहीं है** वे `latticeruntime.com` directly के बजाय local network पर probe को request भेजकर [Incoming Request Monitor](/docs/monitor/incoming-request-monitor) को report कर सकती हैं।
 
 ## Overview
 
@@ -24,7 +24,7 @@ Ingress listener उपयोग करें जब:
 - आप एक single egress point — probe — चाहते हैं जो Cast Operations तक पहुंचने की अनुमति हो
 - आपने पहले से एक [Custom Probe](/docs/probe/custom-probe) deploy किया है और इसे inbound heartbeats के लिए reuse करना चाहते हैं
 
-यदि आपकी services पहले से `https://visca.ai` (या आपका self-hosted URL) directly reach कर सकती हैं, तो आपको इस feature की आवश्यकता **नहीं है** — service से directly heartbeat URL call करें।
+यदि आपकी services पहले से `https://latticeruntime.com` (या आपका self-hosted URL) directly reach कर सकती हैं, तो आपको इस feature की आवश्यकता **नहीं है** — service से directly heartbeat URL call करें।
 
 ## Ingress listener सक्षम करना
 
@@ -36,7 +36,7 @@ Ingress listener उपयोग करें जब:
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ Internal services फिर `http://cast-operations-probe-ingress.<namespace>.sv
 Public heartbeat URL बदलें:
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 probe के ingress URL से:
@@ -171,7 +171,7 @@ Standard probe variables (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, proxy 
 
 ## Security considerations
 
-- **Endpoint design से unauthenticated है** — URL path में secret key _ही_ authentication है, जैसा public `visca.ai` endpoint पर होता है। Secret key को credential के रूप में treat करें।
+- **Endpoint design से unauthenticated है** — URL path में secret key _ही_ authentication है, जैसा public `latticeruntime.com` endpoint पर होता है। Secret key को credential के रूप में treat करें।
 - **केवल private interface पर Bind करें।** Ingress listener public internet से reachable नहीं होना चाहिए। Access restrict करने के लिए network policy, firewall rule, या `ClusterIP` service उपयोग करें।
 - **यदि आपको transit में encryption की आवश्यकता है तो HTTPS termination उपयोग करें।** Probe का listener plain HTTP बोलता है। यदि आपको inbound hop पर TLS चाहिए तो इसे internal load balancer/ingress controller के पीछे रखें। Forward leg probe → Cast Operations always HTTPS उपयोग करती है (assuming `CAST_OPERATIONS_URL` `https://` है)।
 - **Resource limits.** Listener 50 MB तक request bodies accept करता है। यदि आपको tighter cap चाहिए, तो probe के सामने reverse proxy रखें।

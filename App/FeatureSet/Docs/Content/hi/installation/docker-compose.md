@@ -47,10 +47,10 @@ npm start
 
 ```
 # config.env फ़ाइल से env vars पढ़ें और docker compose up चलाएं।
-(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)
+(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)
 
 # यदि ports binding में permission issues आ रहे हैं तो sudo उपयोग करें।
-sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
+sudo bash -c "(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)"
 ```
 
 ### Cast Operations तक पहुंचना

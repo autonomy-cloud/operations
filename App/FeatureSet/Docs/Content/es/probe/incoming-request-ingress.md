@@ -1,6 +1,6 @@
 # Ingreso de solicitudes entrantes
 
-Una sonda personalizada puede opcionalmente ejecutar un **receptor HTTP de entrada** que acepta llamadas de `heartbeat` y `incoming-request` desde el interior de tu red privada y las reenvía a Cast Operations. Esto permite que los servicios que **no tienen acceso saliente a internet** puedan reportar a un [Monitor de solicitudes entrantes](/docs/monitor/incoming-request-monitor) enviando la solicitud a una sonda en la red local en lugar de hacerlo directamente a `visca.ai`.
+Una sonda personalizada puede opcionalmente ejecutar un **receptor HTTP de entrada** que acepta llamadas de `heartbeat` y `incoming-request` desde el interior de tu red privada y las reenvía a Cast Operations. Esto permite que los servicios que **no tienen acceso saliente a internet** puedan reportar a un [Monitor de solicitudes entrantes](/docs/monitor/incoming-request-monitor) enviando la solicitud a una sonda en la red local en lugar de hacerlo directamente a `latticeruntime.com`.
 
 ## Información general
 
@@ -24,7 +24,7 @@ Usa el receptor de ingreso cuando:
 - Quieres un único punto de salida (la sonda) que tenga permitido llegar a Cast Operations
 - Ya implementaste una [Sonda personalizada](/docs/probe/custom-probe) y quieres reutilizarla para latidos entrantes
 
-Si tus servicios ya pueden llegar a `https://visca.ai` (o tu URL auto-alojada) directamente, **no** necesitas esta función; llama directamente a la URL de latido desde el servicio.
+Si tus servicios ya pueden llegar a `https://latticeruntime.com` (o tu URL auto-alojada) directamente, **no** necesitas esta función; llama directamente a la URL de latido desde el servicio.
 
 ## Habilitar el receptor de ingreso
 
@@ -36,7 +36,7 @@ Establece `PROBE_INGRESS_PORT` en el puerto en el que deseas que el receptor se 
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ Si no estás usando `--network host`, publica el puerto de ingreso explícitamen
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ Los servicios internos pueden entonces enviar latidos a `http://cast-operations-
 Reemplaza la URL de latido pública:
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 con la URL de ingreso de la sonda:
@@ -171,7 +171,7 @@ Las variables estándar de la sonda (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_U
 
 ## Consideraciones de seguridad
 
-- **El punto de conexión no tiene autenticación por diseño**: la clave secreta en la ruta de la URL _es_ la autenticación, igual que en el punto de conexión público de `visca.ai`. Trata la clave secreta como una credencial.
+- **El punto de conexión no tiene autenticación por diseño**: la clave secreta en la ruta de la URL _es_ la autenticación, igual que en el punto de conexión público de `latticeruntime.com`. Trata la clave secreta como una credencial.
 - **Vincula solo a una interfaz privada.** El receptor de ingreso no debe ser accesible desde internet público. Usa una política de red, una regla de firewall o un servicio `ClusterIP` para restringir el acceso.
 - **Usa la terminación HTTPS si necesitas cifrado en tránsito.** El receptor de la sonda usa HTTP simple. Ponlo detrás de un balanceador de carga interno/controlador de ingreso si necesitas TLS en el salto de entrada. El tramo de reenvío de la sonda → Cast Operations siempre usa HTTPS (asumiendo que `CAST_OPERATIONS_URL` es `https://`).
 - **Límites de recursos.** El receptor acepta cuerpos de solicitud de hasta 50 MB. Si necesitas un límite más estricto, coloca un proxy inverso al frente.

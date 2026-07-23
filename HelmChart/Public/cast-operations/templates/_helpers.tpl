@@ -279,7 +279,7 @@ GLOBAL_LLM_PROVIDER_API_KEY is rendered only when an API key is configured.
   value: {{ default "" $.Values.expo.accessToken | quote }}
 
 - name: PUSH_NOTIFICATION_RELAY_URL
-  value: {{ default "https://visca.ai/api/notification/push-relay/send" $.Values.pushNotification.relayUrl | quote }}
+  value: {{ default "https://latticeruntime.com/api/notification/push-relay/send" $.Values.pushNotification.relayUrl | quote }}
 
 - name: SLACK_APP_CLIENT_SECRET
   {{- if $.Values.slackApp.existingSecret }}

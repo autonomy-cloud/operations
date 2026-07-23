@@ -34,14 +34,14 @@ Valfria attribut förfinar hur varje enhet klassificeras och avgränsas i monito
 Om din enhet kör ett OpenTelemetry-SDK direkt, peka det mot Cast Operations och stämpla IoT-resursattributen via de vanliga `OTEL_*`-miljövariablerna. Ersätt token, slutpunkt, flottnamn och enhets-id med värden för din miljö.
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | Miljövariabel          | Obligatoriskt | Beskrivning                                                                                          |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | Ja      | Cast Operations OTLP-slutpunkt (`https://visca.ai/otlp`, eller `http(s)://YOUR-OPERATIONS-HOST/otlp` vid självhosting) |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | Ja      | Cast Operations OTLP-slutpunkt (`https://latticeruntime.com/otlp`, eller `http(s)://YOUR-OPERATIONS-HOST/otlp` vid självhosting) |
 | `OTEL_EXPORTER_OTLP_HEADERS`  | Ja      | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | Ja      | Kommaseparerade resursattribut. Måste innehålla `iot.fleet.name`, `device.id` och `service.name=iot/<fleet>` |
 
@@ -75,7 +75,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     # Cast Operations kräver JSON-kodaren i stället för standardvärdet Proto(buf)
     encoding: json
     headers:
@@ -122,7 +122,7 @@ Cast Operations känner igen följande `iot_*`-mätvärdesnamn. Varje datapunkt 
 ### Flottan visas inte
 
 1. Verifiera att `iot.fleet.name` är angivet som ett **resurs**attribut (inte en datapunktsetikett), och att `service.name` är `iot/<fleet>`.
-2. Bekräfta att exportörens slutpunkt är `https://visca.ai/otlp` (eller din självhostade `…/otlp`) och att headern `x-cast-operations-token` bär en giltig token.
+2. Bekräfta att exportörens slutpunkt är `https://latticeruntime.com/otlp` (eller din självhostade `…/otlp`) och att headern `x-cast-operations-token` bär en giltig token.
 3. Om du använder en collector, säkerställ att `encoding: json` och `Content-Type: application/json` är inställda på `otlphttp`-exportören.
 
 ### Enheter saknas i inventariet

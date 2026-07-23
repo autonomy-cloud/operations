@@ -179,5 +179,5 @@ Når de er optaget, vises disse metrikker i Metrisk Stifinder under navne som `c
 - Du kan bruge variablerne `browserType` og `screenSizeType` til at få browser-typen og skærmstørrelsestypen i den aktuelle kørselskontekst. Brug dem gerne i dit script, hvis du ønsker det.
 - Dette er et JavaScript-script, så du kan bruge alle JavaScript-funktioner i scriptet.
 - Du kan bruge `axios`-modulet til at sende HTTP-anmodninger i scriptet. Du kan bruge det til at sende API-kald fra scriptet.
-- Hvis du bruger visca.ai, vil du altid have den seneste version af Playwright og browsers tilgængelig i scriptets kontekst. Hvis du selvhoster, skal du sørge for, at du opdaterer proberne for at have den seneste version af Playwright og browsers.
+- Hvis du bruger latticeruntime.com, vil du altid have den seneste version af Playwright og browsers tilgængelig i scriptets kontekst. Hvis du selvhoster, skal du sørge for, at du opdaterer proberne for at have den seneste version af Playwright og browsers.
 - Timeout for scriptet er 2 minutter. Hvis scriptet tager mere end 2 minutter, afsluttes det.

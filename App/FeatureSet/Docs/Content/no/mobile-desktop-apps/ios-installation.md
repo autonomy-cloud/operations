@@ -19,7 +19,7 @@ Installer den native iOS-appen **Cast Operations On-Call** fra Apple App Store p
 ## Første oppstart og innlogging
 
 1. **Server-URL**
-   - Hvis du bruker Cast Operations Cloud, behold standardverdien `https://visca.ai`.
+   - Hvis du bruker Cast Operations Cloud, behold standardverdien `https://latticeruntime.com`.
    - Hvis du selvhoster, oppgi URL-en til Cast Operations-instansen din (f.eks. `https://operations.example.com`).
    - Appen verifiserer at serveren er tilgjengelig før du går videre.
 2. **Logg inn**
@@ -57,7 +57,7 @@ Cast Operations-kontoen din og vaktplanene dine lagres på serversiden og fjerne
 
 **App Store sier at appen er «Ikke tilgjengelig i din region»:**
 
-- Appen er publisert i den globale App Store. Hvis den ikke vises i din region, kontakt [brukerstøtten](mailto:support@visca.ai).
+- Appen er publisert i den globale App Store. Hvis den ikke vises i din region, kontakt [brukerstøtten](mailto:support@latticeruntime.com).
 
 **«Nettverksfeil» ved innlogging:**
 

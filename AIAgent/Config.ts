@@ -9,7 +9,7 @@ if (!process.env["CAST_OPERATIONS_URL"]) {
 }
 
 export const CAST_OPERATIONS_URL: URL = URL.fromString(
-  process.env["CAST_OPERATIONS_URL"] || "https://visca.ai",
+  process.env["CAST_OPERATIONS_URL"] || "https://latticeruntime.com",
 );
 
 export const AI_AGENT_ID: ObjectID | null = process.env["AI_AGENT_ID"]

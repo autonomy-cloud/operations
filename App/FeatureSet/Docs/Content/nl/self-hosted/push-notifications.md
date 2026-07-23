@@ -31,4 +31,4 @@ Als u problemen ondervindt met push-meldingen:
 
 1. Controleer de bovenstaande sectie voor probleemoplossing
 2. Bekijk de Cast Operations-logboeken voor gedetailleerde foutmeldingen
-3. Neem contact op via [hello@visca.ai](mailto:hello@visca.ai)
+3. Neem contact op via [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

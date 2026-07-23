@@ -74,7 +74,7 @@ terraform {
 
 ```hcl
 provider "cast-operations" {
-  cast_operations_url = "https://your-operations-instance.com"  # Or https://visca.ai for cloud
+  cast_operations_url = "https://your-operations-instance.com"  # Or https://latticeruntime.com for cloud
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -130,7 +130,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Use your instance URL
+  cast_operations_url = "https://latticeruntime.com"  # Use your instance URL
   api_key       = var.cast_operations_api_key
 }
 
@@ -268,7 +268,7 @@ variable "project_id" {
 variable "cast_operations_url" {
   description = "Cast Operations URL"
   type        = string
-  default     = "https://visca.ai"
+  default     = "https://latticeruntime.com"
 }
 
 # Provider configuration
@@ -544,10 +544,10 @@ terraform apply
 
 ## 支援與資源
 
-- **文件**：[Cast Operations Docs](https://docs.visca.ai)
+- **文件**：[Cast Operations Docs](https://docs.latticeruntime.com)
 - **Terraform Registry**：[Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
 - **GitHub Issues**：[Cast Operations GitHub](https://github.com/autonomy-cloud/operations/issues)
-- **社群**：[Cast Operations Community](https://community.visca.ai)
+- **社群**：[Cast Operations Community](https://community.latticeruntime.com)
 
 ## 疑難排解
 

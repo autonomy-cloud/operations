@@ -64,7 +64,7 @@ Per una migliore consegnabilità e per evitare che le email vengano contrassegna
 | Campo                                      | Valore                                                                        |
 | ------------------------------------------ | ----------------------------------------------------------------------------- |
 | **Dominio di Ricezione**                   | Il proprio sottodominio inbound (ad es. `inbound.vostrodominio.com`)          |
-| **URL di Destinazione**                    | `https://vostro-dominio-visca.ai/incoming-email/sendgrid/VOSTRO_SEGRETO` |
+| **URL di Destinazione**                    | `https://vostro-dominio-latticeruntime.com/incoming-email/sendgrid/VOSTRO_SEGRETO` |
 | **Controlla le email in entrata per spam** | Opzionale - abilitare se desiderato                                           |
 | **Invia messaggio MIME completo**          | Lasciare deselezionato (non richiesto)                                        |
 | **POST del messaggio MIME completo**       | Lasciare deselezionato (non richiesto)                                        |
@@ -192,7 +192,7 @@ Usare i criteri "Email Ricevuta" per assicurarsi di ricevere email periodiche:
 1. **Assicurarsi che Cast Operations sia accessibile pubblicamente:**
 
    - L'URL del webhook deve essere raggiungibile da Internet
-   - Testare con: `curl -X POST https://vostro-dominio-visca.ai/incoming-email/sendgrid`
+   - Testare con: `curl -X POST https://vostro-dominio-latticeruntime.com/incoming-email/sendgrid`
 
 2. **Controllare le regole del firewall:**
 
@@ -251,6 +251,6 @@ In caso di problemi con l'integrazione SendGrid Email In Entrata:
 
 1. Controllare la sezione di risoluzione dei problemi sopra
 2. Esaminare i log di Cast Operations per messaggi di errore dettagliati
-3. Contattarci all'indirizzo [hello@visca.ai](mailto:hello@visca.ai)
+3. Contattarci all'indirizzo [hello@latticeruntime.com](mailto:hello@latticeruntime.com)
 
 Accogliamo con piacere i feedback per migliorare questa integrazione!

@@ -114,7 +114,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
@@ -333,7 +333,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -385,7 +385,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -448,7 +448,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -744,7 +744,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -788,7 +788,7 @@ OpenTelemetry Collector は、標準の `HTTPS_PROXY` / `HTTP_PROXY` / `NO_PROXY
   - 詳細な出力を得るために、設定に `service.telemetry.logs.level: debug` を追加してコレクターを再起動します。
   - **Linux / macOS:** `journalctl -u otelcol-contrib -f`（Linux）または `tail -f /var/log/otelcol-contrib.err.log`（macOS）。
   - **Windows:** _Event Viewer → Windows Logs → Application_ でソース `otelcol-contrib` を確認します。
-  - ホストが `https://visca.ai/otlp`（またはセルフホストのエンドポイント）に到達できることを確認します。同じマシンから `curl -v https://visca.ai/otlp` を実行します。
+  - ホストが `https://latticeruntime.com/otlp`（またはセルフホストのエンドポイント）に到達できることを確認します。同じマシンから `curl -v https://latticeruntime.com/otlp` を実行します。
 - **エクスポーターから HTTP 401 が返る** — 取り込みトークンが無効か失効しています。_Project Settings → Telemetry Ingestion Keys_ から新しいものを生成してください。
 - **`Security` の Windows イベントログでアクセス拒否が返る** — サービスが十分な権限で実行されていません。`LocalSystem`（`sc.exe create` のデフォルト）の下で再作成するか、サービスアカウントに _Manage auditing and security log_（監査とセキュリティログの管理）ユーザー権利を付与してください。
 - **`journald` レシーバーが起動に失敗する** — `journalctl` がコレクターの `PATH` 上にあること、および `/var/log/journal` が存在することを確認してください（存在しない場合は `sudo systemd-tmpfiles --create --prefix /var/log/journal` を実行）。

@@ -30,8 +30,8 @@ Você pode encontrar a lista completa de fontes suportadas [aqui](https://www.fl
 ## Pré-requisitos
 
 - **Passo 1: Instalar o Fluentd no seu sistema** - Você pode instalar o Fluentd usando as instruções fornecidas [aqui](https://docs.fluentd.org/installation)
-- **Passo 2: Registrar-se para uma conta do Cast Operations** - Você pode se registrar para uma conta gratuita [aqui](https://visca.ai). Observe que enquanto a conta é gratuita, a ingestão de logs é um recurso pago. Você pode encontrar mais detalhes sobre os preços [aqui](https://visca.ai/pricing).
-- **Passo 3: Criar Projeto do Cast Operations** - Depois de ter a conta, você pode criar um projeto no painel do Cast Operations. Se precisar de ajuda para criar um projeto ou tiver alguma dúvida, entre em contato conosco em support@visca.ai
+- **Passo 2: Registrar-se para uma conta do Cast Operations** - Você pode se registrar para uma conta gratuita [aqui](https://latticeruntime.com). Observe que enquanto a conta é gratuita, a ingestão de logs é um recurso pago. Você pode encontrar mais detalhes sobre os preços [aqui](https://latticeruntime.com/pricing).
+- **Passo 3: Criar Projeto do Cast Operations** - Depois de ter a conta, você pode criar um projeto no painel do Cast Operations. Se precisar de ajuda para criar um projeto ou tiver alguma dúvida, entre em contato conosco em support@latticeruntime.com
 - **Passo 4: Criar Token de Ingestão de Telemetria** - Depois de criar uma conta do Cast Operations, você pode criar um token de ingestão de telemetria para ingerir logs, métricas e rastreamentos do seu aplicativo.
 
 Depois de se registrar no Cast Operations e criar um projeto. Clique em "More" na barra de navegação e clique em "Project Settings".
@@ -55,7 +55,7 @@ Você precisa substituir `YOUR_SERVICE_TOKEN` pelo token que você criou na etap
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -90,7 +90,7 @@ bind 0.0.0.0
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -111,4 +111,4 @@ flush_interval 10s
 
 ## Uso
 
-Depois de adicionar a configuração ao arquivo de configuração do fluentd, você pode reiniciar o serviço fluentd. Depois que o serviço for reiniciado, os dados de telemetria serão enviados para a Fonte HTTP do Cast Operations. Agora você pode começar a ver os dados de telemetria no painel do Cast Operations. Se tiver alguma dúvida ou precisar de ajuda com a configuração, entre em contato conosco em support@visca.ai
+Depois de adicionar a configuração ao arquivo de configuração do fluentd, você pode reiniciar o serviço fluentd. Depois que o serviço for reiniciado, os dados de telemetria serão enviados para a Fonte HTTP do Cast Operations. Agora você pode começar a ver os dados de telemetria no painel do Cast Operations. Se tiver alguma dúvida ou precisar de ajuda com a configuração, entre em contato conosco em support@latticeruntime.com

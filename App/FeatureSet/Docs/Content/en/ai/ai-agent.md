@@ -62,7 +62,7 @@ The agent page in the dashboard shows this command pre-filled with your agent's 
 | --------------- | -------------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | The agent key shown when the agent was created                       |
 | `AI_AGENT_ID`   | The agent ID from the dashboard                                      |
-| `CAST_OPERATIONS_URL` | Your Cast Operations instance URL (`https://visca.ai` on Cloud)       |
+| `CAST_OPERATIONS_URL` | Your Cast Operations instance URL (`https://latticeruntime.com` on Cloud)       |
 
 The agent shows as connected on the **Settings** > **AI** > **AI Agents** page within a few minutes. If it does not, check the container logs (`docker logs cast-operations-ai-agent`) for credential or network errors.
 

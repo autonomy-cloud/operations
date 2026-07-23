@@ -9,7 +9,9 @@
 # Create a new db.
 # Make sure you have created the database and user before running this script. 
 
-export $(grep -v '^#' config.env | xargs)
+set -a
+. ./config.env
+set +a
 
 echo "Starting restore...."
 

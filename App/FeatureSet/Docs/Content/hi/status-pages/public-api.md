@@ -9,7 +9,7 @@
 Status page पर resources की overall status प्राप्त करने के लिए, आप निम्नलिखित endpoint पर एक POST request कर सकते हैं:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 API से response यह है:
@@ -20,11 +20,11 @@ API से response यह है:
     // Monitor Status Object
     // Overall Status सभी monitors और groups की status page पर worst status है।
     // monitor status पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // scheduled maintenance public note पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // Scheduled Maintenance Public Note Object
     },
@@ -34,7 +34,7 @@ API से response यह है:
   ],
   "statusPageHistoryChartBarColorRules": [
     // status page history chart bar color rule पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
+    // https://latticeruntime.com/reference/status-page-history-chart-bar-color-rule
     {
       // Status Page History Chart Bar Color Rule Object
     },
@@ -44,7 +44,7 @@ API से response यह है:
   ],
   "scheduledMaintenanceEvents": [
     // scheduled maintenance event पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -54,7 +54,7 @@ API से response यह है:
   ],
   "activeAnnouncements": [
     // active announcement पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Status Page Announcement Object
     },
@@ -64,7 +64,7 @@ API से response यह है:
   ],
   "incidentPublicNotes": [
     // incident public note पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/incident-public-note
+    // https://latticeruntime.com/reference/incident-public-note
     {
       // Incident Public Note Object
     },
@@ -74,7 +74,7 @@ API से response यह है:
   ],
   "activeIncidents": [
     // active incident पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Incident Object
     },
@@ -84,7 +84,7 @@ API से response यह है:
   ],
   "monitorStatusTimelines": [
     // monitor status timeline पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/monitor-status-timeline
+    // https://latticeruntime.com/reference/monitor-status-timeline
     {
       // Monitor Status Timeline Object
     },
@@ -94,7 +94,7 @@ API से response यह है:
   ],
   "resourceGroups": [
     // resource group पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/resource-group
+    // https://latticeruntime.com/reference/resource-group
     {
       // Resource Group Object
     },
@@ -104,7 +104,7 @@ API से response यह है:
   ],
   "monitorStatuses": [
     // monitor status पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
     {
       // Monitor Status Object
     },
@@ -114,7 +114,7 @@ API से response यह है:
   ],
   "statusPageResources": [
     // status page resource पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // Status Page Resource Object
     },
@@ -124,7 +124,7 @@ API से response यह है:
   ],
   "incidentStateTimelines": [
     // incident state timeline पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/incident-state-timeline
+    // https://latticeruntime.com/reference/incident-state-timeline
     {
       // Incident State Timeline Object
     },
@@ -134,11 +134,11 @@ API से response यह है:
   ],
   "statusPage": {
     // status page पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // scheduled maintenance state timeline पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/scheduled-maintenance-state-timeline
+    // https://latticeruntime.com/reference/scheduled-maintenance-state-timeline
     {
       // Scheduled Maintenance State Timeline Object
     },
@@ -162,7 +162,7 @@ API से response यह है:
 सभी resources का overall uptime प्राप्त करने के लिए, आप निम्नलिखित endpoint पर एक POST request कर सकते हैं:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **Request Body (वैकल्पिक):**
@@ -257,7 +257,7 @@ API से उदाहरण response यह है:
 यह API status page पर मौजूद सभी incidents को fetch करेगा। Status page पर सभी incidents प्राप्त करने के लिए, आप निम्नलिखित endpoint पर एक POST request कर सकते हैं:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 API से response यह है:
@@ -266,7 +266,7 @@ API से response यह है:
 {
   "incidents": [
     // incident पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Incident Object
     },
@@ -282,7 +282,7 @@ API से response यह है:
 यह API status page पर मौजूद सभी scheduled maintenance को fetch करेगा। Status page पर सभी scheduled maintenance प्राप्त करने के लिए, आप निम्नलिखित endpoint पर एक POST request कर सकते हैं:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 API से response यह है:
@@ -291,7 +291,7 @@ API से response यह है:
 {
   "scheduledMaintenanceEvents": [
     // scheduled maintenance event पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -307,7 +307,7 @@ API से response यह है:
 यह API status page पर मौजूद सभी announcements को fetch करेगा। Status page पर सभी announcements प्राप्त करने के लिए, आप निम्नलिखित endpoint पर एक POST request कर सकते हैं:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 API से response यह है:
@@ -316,7 +316,7 @@ API से response यह है:
 {
   "announcements": [
     // announcement पर अधिक details यहाँ मिल सकती हैं।
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Announcement Object
     },

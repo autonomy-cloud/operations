@@ -8,16 +8,16 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "cd .. && export $(grep -v '^#' config.env | xargs) && cd Common && node node_modules/.bin/jest --runInBand ./Tests --detectOpenHandles",
-    "test-file": "cd .. && export $(grep -v '^#' config.env | xargs) && cd Common && node node_modules/.bin/jest --runInBand $1 --detectOpenHandles",
+    "test": "cd .. && set -a && . ./config.env && set +a && cd Common && node node_modules/.bin/jest --runInBand ./Tests --detectOpenHandles",
+    "test-file": "cd .. && set -a && . ./config.env && set +a && cd Common && node node_modules/.bin/jest --runInBand $1 --detectOpenHandles",
     "coverage": "jest --detectOpenHandles --coverage",
     "compile": "tsc",
     "clear-modules": "rm -rf node_modules && rm package-lock.json && npm install",
-    "dep-check": "npm install -g depcheck && depcheck ./ --skip-missing=true",
-    "debug:test": "cd .. && export $(grep -v '^#' config.env | xargs) && cd Common && node --inspect node_modules/.bin/jest --runInBand ./Tests --detectOpenHandles",
-    "debug:test-file": "cd .. && export $(grep -v '^#' config.env | xargs) && cd Common && node --inspect node_modules/.bin/jest --runInBand $1 --detectOpenHandles"
+    "dep-check": "npm install -g depcheck && depcheck ./ --skip-missing=true --ignores=jest-mock-extended",
+    "debug:test": "cd .. && set -a && . ./config.env && set +a && cd Common && node --inspect node_modules/.bin/jest --runInBand ./Tests --detectOpenHandles",
+    "debug:test-file": "cd .. && set -a && . ./config.env && set +a && cd Common && node --inspect node_modules/.bin/jest --runInBand $1 --detectOpenHandles"
   },
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=26.0.0"
@@ -102,6 +102,7 @@
     "esbuild": "^0.28.1",
     "expo-server-sdk": "^3.15.0",
     "express": "^4.21.1",
+    "express-rate-limit": "^8.6.0",
     "formik": "^2.4.6",
     "history": "^5.3.0",
     "i18next": "^23.16.8",

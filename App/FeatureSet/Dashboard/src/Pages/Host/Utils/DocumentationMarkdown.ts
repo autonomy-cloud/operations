@@ -363,7 +363,7 @@ sc.exe start "otelcol-contrib"
 
 Logs are written to the Windows Application event log; view them in **Event Viewer → Windows Logs → Application**.
 
-> **Note:** The service runs as \`LocalSystem\` so it can read every Windows service. On Windows the \`load\` scraper only emulates a load average from the *Processor Queue Length* counter (it starts at 0); if it can't read the counter it is logged and skipped, so the rest of the \`hostmetrics\` config runs unchanged. See the [Host OpenTelemetry Collector docs](https://visca.ai/docs/telemetry/host-otel-collector) for the tarball, MSI, and self-build options.
+> **Note:** The service runs as \`LocalSystem\` so it can read every Windows service. On Windows the \`load\` scraper only emulates a load average from the *Processor Queue Length* counter (it starts at 0); if it can't read the counter it is logged and skipped, so the rest of the \`hostmetrics\` config runs unchanged. See the [Host OpenTelemetry Collector docs](https://latticeruntime.com/docs/telemetry/host-otel-collector) for the tarball, MSI, and self-build options.
 
 ## Step 3 — Enable the Windows Services tab
 

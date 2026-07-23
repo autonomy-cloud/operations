@@ -17,7 +17,7 @@
     "test": "rm -rf build && jest --detectOpenHandles",
     "coverage": "jest --detectOpenHandles --coverage"
   },
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "dependencies": {
     "Common": "file:../Common",

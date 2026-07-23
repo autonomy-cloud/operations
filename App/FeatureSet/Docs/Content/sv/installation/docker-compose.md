@@ -47,10 +47,10 @@ Om du inte vill använda npm eller inte har det installerat, kör detta iställe
 
 ```
 # Läs miljövariabler från config.env-filen och kör docker compose up.
-(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)
+(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)
 
 # Använd sudo om du har behörighetsproblem med att binda portar.
-sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
+sudo bash -c "(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)"
 ```
 
 ### Åtkomst till Cast Operations
