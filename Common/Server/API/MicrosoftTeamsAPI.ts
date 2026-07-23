@@ -3,7 +3,7 @@ import Express, {
   ExpressResponse,
   ExpressRouter,
 } from "../Utils/Express";
-import { rateLimit } from "express-rate-limit";
+import { rateLimit, type RateLimitRequestHandler } from "express-rate-limit";
 import Response from "../Utils/Response";
 import BadRequestException from "../../Types/Exception/BadRequestException";
 import logger, { getLogAttributesFromRequest } from "../Utils/Logger";
@@ -53,15 +53,17 @@ import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCom
  * authorization work. Bound those requests per client before any token
  * exchange or signature validation is attempted.
  */
-const microsoftTeamsAuthorizationRateLimit = rateLimit({
-  windowMs: 60_000,
-  limit: 30,
-  standardHeaders: "draft-8",
-  legacyHeaders: false,
-  message: {
-    error: "Too many Microsoft Teams authorization requests",
+const microsoftTeamsAuthorizationRateLimit: RateLimitRequestHandler = rateLimit(
+  {
+    windowMs: 60_000,
+    limit: 30,
+    standardHeaders: "draft-8",
+    legacyHeaders: false,
+    message: {
+      error: "Too many Microsoft Teams authorization requests",
+    },
   },
-});
+);
 
 export default class MicrosoftTeamsAPI {
   private static getTeamsAppManifest(): JSONObject {
