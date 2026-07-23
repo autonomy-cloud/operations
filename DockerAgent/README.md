@@ -19,7 +19,7 @@ docker run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
-  -e CAST_OPERATIONS_URL="https://visca.ai" \
+  -e CAST_OPERATIONS_URL="https://latticeruntime.com" \
   -e CAST_OPERATIONS_SERVICE_TOKEN="your-service-token" \
   -e DOCKER_HOST_NAME="my-docker-host" \
   cast-operations/docker-agent:release
@@ -32,7 +32,7 @@ That's it. The host will appear automatically in the Docker section of Cast Oper
 Create a `.env` file:
 
 ```bash
-CAST_OPERATIONS_URL=https://visca.ai
+CAST_OPERATIONS_URL=https://latticeruntime.com
 CAST_OPERATIONS_SERVICE_TOKEN=your-service-token
 DOCKER_HOST_NAME=my-docker-host
 ```

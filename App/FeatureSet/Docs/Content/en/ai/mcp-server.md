@@ -10,7 +10,7 @@ The Cast Operations MCP Server is a bridge between Large Language Models (LLMs) 
 
 The MCP server is hosted alongside your Cast Operations instance and accessible via the Streamable HTTP transport. No local installation is required.
 
-**Cloud Users**: `https://visca.ai/mcp`
+**Cloud Users**: `https://latticeruntime.com/mcp`
 **Self-Hosted Users**: `https://your-operations-domain.com/mcp`
 
 ## Key Features
@@ -73,7 +73,7 @@ Add the following configuration:
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ Add the following configuration:
 
 ### For Self-Hosted Cast Operations
 
-Replace `visca.ai` with your Cast Operations domain:
+Replace `latticeruntime.com` with your Cast Operations domain:
 
 ```json
 {
@@ -109,7 +109,7 @@ To use only public tools (status page information, help), you can connect withou
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ Alternatively, create `.vscode/mcp.json` in your workspace for project-specific 
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -298,7 +298,7 @@ Verify the MCP server is running:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -308,7 +308,7 @@ List available tools:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

@@ -1,6 +1,6 @@
 [Unit]
 Description=Cast Operations Podman Agent (OpenTelemetry Collector)
-Documentation=https://visca.ai/docs/podman-monitoring
+Documentation=https://latticeruntime.com/docs/podman-monitoring
 After=network-online.target podman.service
 Wants=network-online.target
 Requires=podman.socket

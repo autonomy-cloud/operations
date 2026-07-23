@@ -2,15 +2,15 @@
 // SEO Data - use passed seo object or fallback to defaults
 const pageTitle = (typeof seo !== 'undefined' && seo.title) ? seo.title : 'Cast Operations - One Complete Observability platform.';
 const pageDescription = (typeof seo !== 'undefined' && seo.description) ? seo.description : "Cast Operations monitors websites, APIs, and servers and alerts your team if something goes wrong. It also keeps your customers updated about any downtime.";
-const pageUrl = (typeof seo !== 'undefined' && seo.fullCanonicalUrl) ? seo.fullCanonicalUrl : (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai');
+const pageUrl = (typeof seo !== 'undefined' && seo.fullCanonicalUrl) ? seo.fullCanonicalUrl : (typeof homeUrl !== 'undefined' ? homeUrl : 'https://latticeruntime.com');
 const pageImage = (typeof seo !== 'undefined' && seo.ogImage) ? seo.ogImage : '/img/og-image.png';
-const pageImageUrl = pageImage.startsWith('http') ? pageImage : ((typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai') + pageImage);
+const pageImageUrl = pageImage.startsWith('http') ? pageImage : ((typeof homeUrl !== 'undefined' ? homeUrl : 'https://latticeruntime.com') + pageImage);
 const twitterCard = (typeof seo !== 'undefined' && seo.twitterCard) ? seo.twitterCard : 'summary_large_image';
 const ogType = (typeof seo !== 'undefined' && seo.ogType) ? seo.ogType : 'website';
 const pageType = (typeof seo !== 'undefined' && seo.pageType) ? seo.pageType : 'other';
 const breadcrumbs = (typeof seo !== 'undefined' && seo.breadcrumbs) ? seo.breadcrumbs : [{name: 'Home', url: '/'}];
 const softwareApp = (typeof seo !== 'undefined' && seo.softwareApplication) ? seo.softwareApplication : null;
-const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai').replace(/\/$/, '');
+const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://latticeruntime.com').replace(/\/$/, '');
 %>
 
 <!-- Open Graph / Facebook -->
@@ -34,8 +34,8 @@ const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai').
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Cast Operations",
-    "url": "https://visca.ai",
-    "logo": "https://visca.ai/img/CastOperationsSVG/icon.svg",
+    "url": "https://latticeruntime.com",
+    "logo": "https://latticeruntime.com/img/CastOperationsSVG/icon.svg",
     "sameAs": [
         "https://github.com/autonomy-cloud/operations"
     ],
@@ -43,7 +43,7 @@ const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai').
     "foundingDate": "2020",
     "contactPoint": {
         "@type": "ContactPoint",
-        "email": "support@visca.ai",
+        "email": "support@latticeruntime.com",
         "contactType": "customer service"
     }
 }
@@ -84,7 +84,7 @@ const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai').
     "author": {
         "@type": "Organization",
         "name": "Cast Operations",
-        "url": "https://visca.ai"
+        "url": "https://latticeruntime.com"
     },
     "offers": {
         "@type": "Offer",
@@ -120,14 +120,14 @@ const baseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai').
     "isPartOf": {
         "@type": "WebSite",
         "name": "Cast Operations",
-        "url": "https://visca.ai"
+        "url": "https://latticeruntime.com"
     },
     "publisher": {
         "@type": "Organization",
         "name": "Cast Operations",
         "logo": {
             "@type": "ImageObject",
-            "url": "https://visca.ai/img/ou-bb.svg"
+            "url": "https://latticeruntime.com/img/ou-bb.svg"
         }
     }
 }

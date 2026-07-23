@@ -12,7 +12,7 @@ import PageSEOConfig from "../Utils/PageSEO";
 import { getProductCompareSlugs } from "../Utils/ProductCompare";
 import { JSONObject } from "Common/Types/JSON";
 
-const homeUrl: string = "https://visca.ai";
+const homeUrl: string = "https://latticeruntime.com";
 
 describe("AIDiscovery", () => {
   test("llms.txt lists products and machine-readable resources", () => {
@@ -26,11 +26,11 @@ describe("AIDiscovery", () => {
     const txt: string = generateLlmsTxt(homeUrl, posts);
 
     expect(txt).toContain("# Cast Operations");
-    expect(txt).toContain("https://visca.ai/product/monitoring.md");
-    expect(txt).toContain("https://visca.ai/.well-known/mcp.json");
-    expect(txt).toContain("https://visca.ai/docs/llms.txt");
-    expect(txt).toContain("https://visca.ai/llms-full.txt");
-    expect(txt).toContain("https://visca.ai/api/openapi/spec");
+    expect(txt).toContain("https://latticeruntime.com/product/monitoring.md");
+    expect(txt).toContain("https://latticeruntime.com/.well-known/mcp.json");
+    expect(txt).toContain("https://latticeruntime.com/docs/llms.txt");
+    expect(txt).toContain("https://latticeruntime.com/llms-full.txt");
+    expect(txt).toContain("https://latticeruntime.com/api/openapi/spec");
     expect(txt).toContain("/blog/post/2026-01-01-some-post/markdown");
   });
 
@@ -40,9 +40,9 @@ describe("AIDiscovery", () => {
   });
 
   test("llms.txt normalizes a trailing slash on the home url", () => {
-    const txt: string = generateLlmsTxt("https://visca.ai/", []);
-    expect(txt).toContain("https://visca.ai/product/monitoring.md");
-    expect(txt).not.toContain("https://visca.ai//");
+    const txt: string = generateLlmsTxt("https://latticeruntime.com/", []);
+    expect(txt).toContain("https://latticeruntime.com/product/monitoring.md");
+    expect(txt).not.toContain("https://latticeruntime.com//");
   });
 
   test("llms-full.txt includes product features and comparisons", () => {
@@ -58,7 +58,7 @@ describe("AIDiscovery", () => {
     );
     expect(md).toContain("# Cast Operations Monitoring");
     expect(md).toContain("## Features");
-    expect(md).toContain("Canonical page: https://visca.ai/product/monitoring");
+    expect(md).toContain("Canonical page: https://latticeruntime.com/product/monitoring");
   });
 
   test("compare markdown renders tables and returns null for unknown slugs", () => {
@@ -72,9 +72,9 @@ describe("AIDiscovery", () => {
 
   test("mcp manifest points at the /mcp endpoint", () => {
     const manifest: JSONObject = generateMcpManifest(homeUrl);
-    expect(manifest["endpoint"]).toBe("https://visca.ai/mcp");
+    expect(manifest["endpoint"]).toBe("https://latticeruntime.com/mcp");
     expect(manifest["documentation"]).toBe(
-      "https://visca.ai/docs/ai/mcp-server",
+      "https://latticeruntime.com/docs/ai/mcp-server",
     );
   });
 

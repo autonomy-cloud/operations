@@ -74,7 +74,7 @@ terraform {
 
 ```hcl
 provider "cast-operations" {
-  cast_operations_url = "https://sua-instancia-visca.ai"  # Ou https://visca.ai para nuvem
+  cast_operations_url = "https://sua-instancia-latticeruntime.com"  # Ou https://latticeruntime.com para nuvem
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -84,7 +84,7 @@ provider "cast-operations" {
 Você pode configurar o provedor usando variáveis de ambiente:
 
 ```bash
-export CAST_OPERATIONS_URL="https://sua-instancia-visca.ai"
+export CAST_OPERATIONS_URL="https://sua-instancia-latticeruntime.com"
 export CAST_OPERATIONS_API_KEY="sua-chave-de-api-aqui"
 ```
 
@@ -130,7 +130,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Use a URL da sua instância
+  cast_operations_url = "https://latticeruntime.com"  # Use a URL da sua instância
   api_key       = var.cast_operations_api_key
 }
 
@@ -265,7 +265,7 @@ variable "project_id" {
 variable "cast_operations_url" {
   description = "URL do Cast Operations"
   type        = string
-  default     = "https://visca.ai"
+  default     = "https://latticeruntime.com"
 }
 
 # Configuração do provedor
@@ -540,10 +540,10 @@ terraform apply
 
 ## Suporte e Recursos
 
-- **Documentação**: [Docs do Cast Operations](https://docs.visca.ai)
+- **Documentação**: [Docs do Cast Operations](https://docs.latticeruntime.com)
 - **Registro Terraform**: [Provedor Cast Operations](https://registry.terraform.io/providers/autonomy-cloud/operations)
 - **Problemas GitHub**: [Cast Operations GitHub](https://github.com/autonomy-cloud/operations/issues)
-- **Comunidade**: [Comunidade Cast Operations](https://community.visca.ai)
+- **Comunidade**: [Comunidade Cast Operations](https://community.latticeruntime.com)
 
 ## Solução de Problemas
 

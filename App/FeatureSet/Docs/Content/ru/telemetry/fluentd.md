@@ -30,8 +30,8 @@ Fluentd поддерживает сотни источников данных, �
 ## Предварительные требования
 
 - **Шаг 1: Установите Fluentd на вашу систему** — инструкции по установке доступны [здесь](https://docs.fluentd.org/installation)
-- **Шаг 2: Зарегистрируйтесь в Cast Operations** — вы можете зарегистрировать бесплатный аккаунт [здесь](https://visca.ai). Обратите внимание: аккаунт бесплатный, но прием журналов является платной функцией. Подробнее о ценах [здесь](https://visca.ai/pricing).
-- **Шаг 3: Создайте проект Cast Operations** — после регистрации создайте проект на панели управления Cast Operations. При необходимости помощи напишите нам по адресу support@visca.ai
+- **Шаг 2: Зарегистрируйтесь в Cast Operations** — вы можете зарегистрировать бесплатный аккаунт [здесь](https://latticeruntime.com). Обратите внимание: аккаунт бесплатный, но прием журналов является платной функцией. Подробнее о ценах [здесь](https://latticeruntime.com/pricing).
+- **Шаг 3: Создайте проект Cast Operations** — после регистрации создайте проект на панели управления Cast Operations. При необходимости помощи напишите нам по адресу support@latticeruntime.com
 - **Шаг 4: Создайте токен приёма телеметрии** — после создания учётной записи Cast Operations создайте токен приёма телеметрии для приёма журналов, метрик и трассировок от вашего приложения.
 
 После регистрации в Cast Operations и создания проекта нажмите «Ещё» в панели навигации и выберите «Настройки проекта».
@@ -55,7 +55,7 @@ Fluentd поддерживает сотни источников данных, �
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -90,7 +90,7 @@ bind 0.0.0.0
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -111,4 +111,4 @@ flush_interval 10s
 
 ## Использование
 
-После добавления конфигурации в конфигурационный файл Fluentd перезапустите сервис. После перезапуска телеметрические данные будут отправляться в HTTP-источник Cast Operations. Вы сможете видеть данные на панели управления Cast Operations. При возникновении вопросов или необходимости помощи с конфигурацией напишите нам по адресу support@visca.ai
+После добавления конфигурации в конфигурационный файл Fluentd перезапустите сервис. После перезапуска телеметрические данные будут отправляться в HTTP-источник Cast Operations. Вы сможете видеть данные на панели управления Cast Operations. При возникновении вопросов или необходимости помощи с конфигурацией напишите нам по адресу support@latticeruntime.com

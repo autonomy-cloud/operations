@@ -25,8 +25,8 @@ ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 LABEL org.opencontainers.image.title="Cast Operations Home"
 LABEL org.opencontainers.image.description="Cast Operations marketing site, product pages, and documentation hub."
 LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
-LABEL org.opencontainers.image.url="https://visca.ai"
-LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.url="https://latticeruntime.com"
+LABEL org.opencontainers.image.documentation="https://latticeruntime.com/docs"
 LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 

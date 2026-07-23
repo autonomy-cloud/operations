@@ -77,7 +77,7 @@ PVE_EXPORTER_URL=your-exporter-host:9221
 
 | Variable                            | Required              | Description                                                                                                                                                                                                   |
 | ----------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`                     | Yes                   | Your Cast Operations instance URL (for example `https://visca.ai` or your self-hosted host)                                                                                                                    |
+| `CAST_OPERATIONS_URL`                     | Yes                   | Your Cast Operations instance URL (for example `https://latticeruntime.com` or your self-hosted host)                                                                                                                    |
 | `CAST_OPERATIONS_TELEMETRY_INGESTION_KEY` | Yes                   | Telemetry ingestion token from _Project Settings → Telemetry Ingestion Keys_                                                                                                                                  |
 | `PROXMOX_CLUSTER_NAME`              | Yes                   | Cluster identifier shown in Cast Operations, stamped on every metric as the `proxmox.cluster.name` resource attribute. Keep it stable — changing it later registers a second cluster. Defaults to `proxmox-cluster` |
 | `PVE_HOST`                          | Yes                   | Proxmox VE API host (any node of the cluster) the exporter queries, e.g. `192.168.1.10`                                                                                                                       |
@@ -181,7 +181,7 @@ Proxmox VE 9.0 and later ship a built-in **OpenTelemetry metric server** that pu
 
 | Field    | Value                                                                |
 | -------- | -------------------------------------------------------------------- |
-| Server   | Your Cast Operations host, e.g. `visca.ai` (or your self-hosted host) |
+| Server   | Your Cast Operations host, e.g. `latticeruntime.com` (or your self-hosted host) |
 | Port     | `443`                                                                |
 | Protocol | `https`                                                              |
 | Path     | `/otlp/v1/metrics`                                                   |

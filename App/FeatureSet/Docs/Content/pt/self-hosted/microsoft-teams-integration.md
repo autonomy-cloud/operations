@@ -16,8 +16,8 @@ Para integrar o Microsoft Teams com sua instância auto-hospedada do Cast Operat
 3. Preencha o formulário de registro:
    - **Name:** cast-operations
    - **Supported account types:** Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)
-   - **Redirect URI:** Web - `https://seu-dominio-visca.ai/api/microsoft-teams/auth`
-   - Adicione também: `https://seu-dominio-visca.ai/api/microsoft-teams/admin-consent/callback`
+   - **Redirect URI:** Web - `https://seu-dominio-latticeruntime.com/api/microsoft-teams/auth`
+   - Adicione também: `https://seu-dominio-latticeruntime.com/api/microsoft-teams/admin-consent/callback`
 4. Clique em "Register"
 5. Anote o "Application (client) ID" — você precisará disso mais tarde
 
@@ -71,7 +71,7 @@ Para integrar o Microsoft Teams com sua instância auto-hospedada do Cast Operat
 3. Clique em "Review + create" e depois em "Create"
 
 4. Após a implantação, vá para seu recurso de bot e navegue para "Configuration"
-5. Defina o "Messaging endpoint" como `https://seu-dominio-visca.ai/api/microsoft-bot/messages`
+5. Defina o "Messaging endpoint" como `https://seu-dominio-latticeruntime.com/api/microsoft-bot/messages`
 6. Salve a configuração
 
 ### Passo 5: Adicionar Canal Microsoft Teams ao Bot
@@ -121,7 +121,7 @@ microsoftTeamsApp:
 Se você encontrar problemas:
 
 - Certifique-se de que seu aplicativo tem as permissões corretas concedidas
-- Verifique se o URI de redirecionamento corresponde exatamente (substitua `seu-dominio-visca.ai` pelo seu domínio real)
+- Verifique se o URI de redirecionamento corresponde exatamente (substitua `seu-dominio-latticeruntime.com` pelo seu domínio real)
 - Verifique se suas variáveis de ambiente estão definidas corretamente
 - Certifique-se de que o endpoint de mensagens do bot está acessível pela internet
 - Verifique se o bot está corretamente configurado com o canal Teams
@@ -129,4 +129,4 @@ Se você encontrar problemas:
 
 ## Suporte
 
-Gostaríamos de melhorar esta integração, portanto o feedback é mais do que bem-vindo. Por favor, envie qualquer feedback para [hello@visca.ai](mailto:hello@visca.ai)
+Gostaríamos de melhorar esta integração, portanto o feedback é mais do que bem-vindo. Por favor, envie qualquer feedback para [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

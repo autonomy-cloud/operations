@@ -28,16 +28,16 @@ L'Agente Infrastrutturale di Cast Operations è un daemon leggero basato su Go c
 
 ```bash
 # Installare l'agente
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Configurare l'agente
-sudo cast-operations-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --cast-operations-url=https://latticeruntime.com
 
 # Avviare l'agente
 sudo cast-operations-infrastructure-agent start
 ```
 
-Sostituire `VOSTRA_CHIAVE_SEGRETA` con la chiave segreta mostrata nelle impostazioni del monitor, e `https://visca.ai` con l'URL della propria istanza Cast Operations se self-hosted.
+Sostituire `VOSTRA_CHIAVE_SEGRETA` con la chiave segreta mostrata nelle impostazioni del monitor, e `https://latticeruntime.com` con l'URL della propria istanza Cast Operations se self-hosted.
 
 ### Windows
 
@@ -49,7 +49,7 @@ Sostituire `VOSTRA_CHIAVE_SEGRETA` con la chiave segreta mostrata nelle impostaz
 
 ```bash
 # Configurare l'agente
-cast-operations-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --cast-operations-url=https://latticeruntime.com
 
 # Avviare l'agente
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 Se il server si connette a Internet tramite un proxy, è possibile configurare l'agente per usarlo:
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=VOSTRA_CHIAVE_SEGRETA --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Comandi dell'Agente

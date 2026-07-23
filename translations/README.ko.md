@@ -19,7 +19,7 @@
 </p>
 
 <div align="center">
-  <a href="https://visca.ai">
+  <a href="https://latticeruntime.com">
     <img alt="Cast Operations 로고" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
@@ -38,14 +38,14 @@
   </p>
 
   <p>
-    <a href="https://visca.ai"><b>웹사이트</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/docs"><b>문서</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com"><b>웹사이트</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/docs"><b>문서</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>빠른 시작</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/pricing"><b>가격</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/pricing"><b>가격</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>기여하기</b></a>
   </p>
 
-  <a href="https://visca.ai"><b>🚀 Cast Operations Cloud를 사용해 보세요 — 영구 무료 요금제, 신용카드 불필요 →</b></a>
+  <a href="https://latticeruntime.com"><b>🚀 Cast Operations Cloud를 사용해 보세요 — 영구 무료 요금제, 신용카드 불필요 →</b></a>
 </div>
 
 <br/>
@@ -123,7 +123,7 @@ AI 에이전트가 인시던트에 연결된 수정 사항을 담은 풀 리퀘�
 
 설정이 필요 없고, 항상 최신 상태이며, 오픈소스 프로젝트를 지원합니다.
 
-**→ [visca.ai에서 무료로 가입하세요](https://visca.ai)**
+**→ [latticeruntime.com에서 무료로 가입하세요](https://latticeruntime.com)**
 
 ### 🐳 Docker Compose로 셀프 호스팅
 
@@ -148,7 +148,7 @@ npm start
 ### ☸️ Helm을 사용한 Kubernetes — 프로덕션용
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm install cast-operations autonomy-cloud/operations
 ```
 
@@ -202,7 +202,7 @@ helm install cast-operations autonomy-cloud/operations
 | | **커뮤니티** | **엔터프라이즈** |
 |---|---|---|
 | **적합 대상** | 셀프 호스터 및 소규모 팀 | 프리미엄 지원이 필요한 규제 산업 팀 |
-| **비용** | 무료 및 오픈소스 | [영업팀 문의](mailto:sales@visca.ai) |
+| **비용** | 무료 및 오픈소스 | [영업팀 문의](mailto:sales@latticeruntime.com) |
 | **기능** | 전체 기능 세트 | 전체 기능 세트 + 강화된 이미지, 우선 지원, 맞춤형 기능 및 데이터 레지던시 |
 
 ---
@@ -231,7 +231,7 @@ Cast Operations이 유용하다면:
 
 - ⭐ **이 저장소에 스타를 눌러주세요** — 다른 사람들이 우리를 찾는 데 정말 도움이 됩니다
 - 💵 **[후원하기](https://github.com/autonomy-cloud/operations)** — 모든 후원금은 새로운 기능으로 이어집니다
-- 🛍️ **[굿즈 구매하기](https://shop.visca.ai)** — 모든 수익은 오픈소스 개발에 사용됩니다
+- 🛍️ **[굿즈 구매하기](https://shop.latticeruntime.com)** — 모든 수익은 오픈소스 개발에 사용됩니다
 
 ---
 
@@ -240,5 +240,5 @@ Cast Operations이 유용하다면:
 Cast Operations은 [Apache License 2.0](/LICENSE)에 따라 라이선스가 부여됩니다.
 
 <div align="center">
-  <sub><a href="https://visca.ai">Cast Operations</a> 팀과 <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">기여자들</a>이 ❤️를 담아 만들었습니다.</sub>
+  <sub><a href="https://latticeruntime.com">Cast Operations</a> 팀과 <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">기여자들</a>이 ❤️를 담아 만들었습니다.</sub>
 </div>

@@ -3488,17 +3488,17 @@ All monitoring checks are passing normally.`;
         {
           type: "Action.OpenUrl",
           title: "View Setup Guide",
-          url: "https://visca.ai/docs/workspace-connections/microsoft-teams",
+          url: "https://latticeruntime.com/docs/workspace-connections/microsoft-teams",
         },
         {
           type: "Action.OpenUrl",
           title: "Contact Support",
-          url: "mailto:support@visca.ai?subject=Cast Operations%20Microsoft%20Teams%20Bot",
+          url: "mailto:support@latticeruntime.com?subject=Cast Operations%20Microsoft%20Teams%20Bot",
         },
         {
           type: "Action.OpenUrl",
           title: "Open Cast Operations Dashboard",
-          url: "https://visca.ai/dashboard",
+          url: "https://latticeruntime.com/dashboard",
         },
       ],
     } as JSONObject;

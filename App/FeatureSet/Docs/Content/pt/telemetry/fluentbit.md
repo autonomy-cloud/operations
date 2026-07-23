@@ -30,8 +30,8 @@ Você pode encontrar a lista completa de fontes suportadas [aqui](https://docs.f
 ## Pré-requisitos
 
 - **Passo 1: Instalar o FluentBit no seu sistema** - Você pode instalar o FluentBit usando as instruções fornecidas [aqui](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)
-- **Passo 2: Registrar-se para uma conta do Cast Operations** - Você pode se registrar para uma conta gratuita [aqui](https://visca.ai). Observe que enquanto a conta é gratuita, a ingestão de logs é um recurso pago. Você pode encontrar mais detalhes sobre os preços [aqui](https://visca.ai/pricing).
-- **Passo 3: Criar Projeto do Cast Operations** - Depois de ter a conta, você pode criar um projeto no painel do Cast Operations. Se precisar de ajuda para criar um projeto ou tiver alguma dúvida, entre em contato conosco em support@visca.ai
+- **Passo 2: Registrar-se para uma conta do Cast Operations** - Você pode se registrar para uma conta gratuita [aqui](https://latticeruntime.com). Observe que enquanto a conta é gratuita, a ingestão de logs é um recurso pago. Você pode encontrar mais detalhes sobre os preços [aqui](https://latticeruntime.com/pricing).
+- **Passo 3: Criar Projeto do Cast Operations** - Depois de ter a conta, você pode criar um projeto no painel do Cast Operations. Se precisar de ajuda para criar um projeto ou tiver alguma dúvida, entre em contato conosco em support@latticeruntime.com
 - **Passo 4: Criar Token de Ingestão de Telemetria** - Depois de criar uma conta do Cast Operations, você pode criar um token de ingestão de telemetria para ingerir logs, métricas e rastreamentos do seu aplicativo.
 
 Depois de se registrar no Cast Operations e criar um projeto. Clique em "More" na barra de navegação e clique em "Project Settings".
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "visca.ai"
+    host: "latticeruntime.com"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "visca.ai"
+      host: "latticeruntime.com"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -131,7 +131,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "sua-instancia-visca.ai"
+    host: "sua-instancia-latticeruntime.com"
     port: 80
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## Uso
 
-Depois de adicionar a configuração ao arquivo de configuração do fluentbit, você pode reiniciar o serviço fluentbit. Depois que o serviço for reiniciado, os dados de telemetria serão enviados para a Fonte HTTP do Cast Operations. Agora você pode começar a ver os dados de telemetria no painel do Cast Operations. Se tiver alguma dúvida ou precisar de ajuda com a configuração, entre em contato conosco em support@visca.ai
+Depois de adicionar a configuração ao arquivo de configuração do fluentbit, você pode reiniciar o serviço fluentbit. Depois que o serviço for reiniciado, os dados de telemetria serão enviados para a Fonte HTTP do Cast Operations. Agora você pode começar a ver os dados de telemetria no painel do Cast Operations. Se tiver alguma dúvida ou precisar de ajuda com a configuração, entre em contato conosco em support@latticeruntime.com

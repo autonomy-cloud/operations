@@ -10,7 +10,7 @@ De Cast Operations MCP Server is een brug tussen Large Language Models (LLM's) e
 
 De MCP-server wordt gehost naast uw Cast Operations-instantie en is toegankelijk via het Streamable HTTP-transport. Er is geen lokale installatie vereist.
 
-**Cloudgebruikers**: `https://visca.ai/mcp`
+**Cloudgebruikers**: `https://latticeruntime.com/mcp`
 **Zelf-gehoste gebruikers**: `https://your-operations-domain.com/mcp`
 
 ## Belangrijkste functies
@@ -73,7 +73,7 @@ Voeg de volgende configuratie toe:
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ Voeg de volgende configuratie toe:
 
 ### Voor zelf-gehoste Cast Operations
 
-Vervang `visca.ai` door uw Cast Operations-domein:
+Vervang `latticeruntime.com` door uw Cast Operations-domein:
 
 ```json
 {
@@ -109,7 +109,7 @@ Om alleen publieke tools te gebruiken (statuspagina-informatie, hulp), kunt u ve
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ U kunt ook `.vscode/mcp.json` aanmaken in uw werkruimte voor projectspecifieke c
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -296,7 +296,7 @@ Controleer of de MCP-server actief is:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -306,7 +306,7 @@ Beschikbare tools weergeven:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

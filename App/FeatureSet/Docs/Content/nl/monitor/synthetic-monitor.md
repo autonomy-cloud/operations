@@ -179,5 +179,5 @@ Na vastlegging verschijnen deze metrics in de Metric Explorer onder namen zoals 
 - U kunt variabelen `browserType` en `screenSizeType` gebruiken om het browsertype en het schermformaattype in de huidige uitvoeringscontext te krijgen.
 - Dit is een JavaScript-script, dus u kunt alle JavaScript-functies gebruiken.
 - U kunt de `axios`-module gebruiken om HTTP-verzoeken te doen in het script.
-- Als u visca.ai gebruikt, heeft u altijd de nieuwste versie van Playwright en browsers beschikbaar. Als u zelf host, zorg er dan voor dat u de probes bijwerkt zodat ze de nieuwste versie van Playwright en de browsers hebben.
+- Als u latticeruntime.com gebruikt, heeft u altijd de nieuwste versie van Playwright en browsers beschikbaar. Als u zelf host, zorg er dan voor dat u de probes bijwerkt zodat ze de nieuwste versie van Playwright en de browsers hebben.
 - De time-out voor het script is 2 minuten. Als het script meer dan 2 minuten duurt, wordt het beëindigd.

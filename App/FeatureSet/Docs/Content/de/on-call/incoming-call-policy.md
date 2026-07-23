@@ -125,4 +125,4 @@ Bei Problemen:
 
 1. Überprüfen Sie die Twilio-Konsole auf Fehlerprotokolle
 2. Überprüfen Sie die Cast Operations-Server-Logs
-3. Kontaktieren Sie den Support unter [hello@visca.ai](mailto:hello@visca.ai)
+3. Kontaktieren Sie den Support unter [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

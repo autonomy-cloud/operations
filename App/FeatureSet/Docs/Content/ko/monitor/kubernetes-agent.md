@@ -5,13 +5,13 @@ Cast Operations Kubernetes 에이전트는 Kubernetes 클러스터에서 클러�
 ## 빠른 시작
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent \
   --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
@@ -37,7 +37,7 @@ Kubernetes 배포판마다 서로 다른 제약 조건이 있습니다 — 가�
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod
 ```
@@ -47,7 +47,7 @@ helm install cast-operations-agent cast-operations/kubernetes-agent \
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-gke-autopilot \
   --set preset=gke-autopilot
@@ -58,7 +58,7 @@ helm install cast-operations-agent cast-operations/kubernetes-agent \
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod-eks-fargate \
   --set preset=eks-fargate

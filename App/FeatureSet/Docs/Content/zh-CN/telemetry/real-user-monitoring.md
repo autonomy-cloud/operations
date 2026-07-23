@@ -29,7 +29,7 @@ import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 
 // Cast Operations OTLP/HTTP exporter:
 const exporter = new OTLPTraceExporter({
-  url: "https://visca.ai/otlp/v1/traces",
+  url: "https://latticeruntime.com/otlp/v1/traces",
   headers: { "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN" },
 });
 
@@ -44,7 +44,7 @@ const exporter = new OTLPTraceExporter({
 使用 OpenTelemetry Swift 或 Android SDK，设置 `service.name`，并将 OTLP 导出到 Cast Operations：
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://latticeruntime.com/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 ```
 

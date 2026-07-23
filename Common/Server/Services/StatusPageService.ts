@@ -849,7 +849,7 @@ export class Service extends DatabaseService<StatusPage> {
 
       const httpProtocol: Protocol = await DatabaseConfig.getHttpProtocol();
 
-      // 'https://local.visca.ai/status-page/40092fb5-cc33-4995-b532-b4e49c441c98'
+      // 'https://local.latticeruntime.com/status-page/40092fb5-cc33-4995-b532-b4e49c441c98'
       statusPageURL = new URL(httpProtocol, host)
         .addRoute("/status-page/" + statusPageId.toString())
         .toString();
@@ -874,7 +874,7 @@ export class Service extends DatabaseService<StatusPage> {
 
     const httpProtocol: Protocol = await DatabaseConfig.getHttpProtocol();
 
-    // 'https://local.visca.ai/status-page/40092fb5-cc33-4995-b532-b4e49c441c98'
+    // 'https://local.latticeruntime.com/status-page/40092fb5-cc33-4995-b532-b4e49c441c98'
     return new URL(httpProtocol, host)
       .addRoute("/status-page/" + statusPageId.toString())
       .toString();

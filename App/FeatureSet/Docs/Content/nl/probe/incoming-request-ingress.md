@@ -1,6 +1,6 @@
 # Inkomend verzoek-ingress
 
-Een aangepaste probe kan optioneel een **inkomende HTTP-listener** uitvoeren die `heartbeat`- en `incoming-request`-aanroepen accepteert vanuit uw privénetwerk en deze doorstuurt naar Cast Operations. Hierdoor kunnen diensten die **geen uitgaande internettoegang hebben** toch rapporteren aan een [Inkomend verzoek-monitor](/docs/monitor/incoming-request-monitor) door het verzoek te sturen naar een probe op het lokale netwerk in plaats van rechtstreeks naar `visca.ai`.
+Een aangepaste probe kan optioneel een **inkomende HTTP-listener** uitvoeren die `heartbeat`- en `incoming-request`-aanroepen accepteert vanuit uw privénetwerk en deze doorstuurt naar Cast Operations. Hierdoor kunnen diensten die **geen uitgaande internettoegang hebben** toch rapporteren aan een [Inkomend verzoek-monitor](/docs/monitor/incoming-request-monitor) door het verzoek te sturen naar een probe op het lokale netwerk in plaats van rechtstreeks naar `latticeruntime.com`.
 
 ## Overzicht
 
@@ -24,7 +24,7 @@ Gebruik de ingress-listener wanneer:
 - U een enkel uitgangspunt wilt — de probe — die Cast Operations mag bereiken
 - U al een [Aangepaste probe](/docs/probe/custom-probe) hebt geïmplementeerd en deze opnieuw wilt gebruiken voor inkomende heartbeats
 
-Als uw diensten al rechtstreeks `https://visca.ai` (of uw zelf-gehoste URL) kunnen bereiken, hebt u deze functie **niet** nodig — roep de heartbeat-URL rechtstreeks aan vanuit de dienst.
+Als uw diensten al rechtstreeks `https://latticeruntime.com` (of uw zelf-gehoste URL) kunnen bereiken, hebt u deze functie **niet** nodig — roep de heartbeat-URL rechtstreeks aan vanuit de dienst.
 
 ## De ingress-listener inschakelen
 
@@ -36,7 +36,7 @@ Stel `PROBE_INGRESS_PORT` in op de poort waarop u de listener wilt binden. Elke 
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ Als u `--network host` niet gebruikt, publiceer de ingress-poort dan expliciet:
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ Interne diensten kunnen dan heartbeats sturen naar `http://cast-operations-probe
 Vervang de openbare heartbeat-URL:
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 door de ingress-URL van de probe:
@@ -171,7 +171,7 @@ De standaard probe-variabelen (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, p
 
 ## Beveiligingsoverwegingen
 
-- **Het eindpunt is ontworpen zonder authenticatie** — de geheime sleutel in het URL-pad _is_ de authenticatie, net als op het openbare `visca.ai`-eindpunt. Behandel de geheime sleutel als een inloggegevens.
+- **Het eindpunt is ontworpen zonder authenticatie** — de geheime sleutel in het URL-pad _is_ de authenticatie, net als op het openbare `latticeruntime.com`-eindpunt. Behandel de geheime sleutel als een inloggegevens.
 - **Bind alleen aan een privé-interface.** De ingress-listener mag niet bereikbaar zijn vanaf het publieke internet. Gebruik een netwerkbeleid, firewallregel of `ClusterIP`-service om de toegang te beperken.
 - **Gebruik HTTPS-beëindiging als u versleuteling in transit vereist.** De listener van de probe spreekt gewoon HTTP. Plaats hem achter een interne load balancer/ingress controller als u TLS op de inkomende hop nodig heeft. Het doorstuurgedeelte van probe → Cast Operations gebruikt altijd HTTPS (aangenomen dat `CAST_OPERATIONS_URL` `https://` is).
 - **Resourcelimieten.** De listener accepteert verzoeklichamen tot 50 MB. Als u een strengere limiet nodig heeft, plaatst u een reverse proxy ervoor.

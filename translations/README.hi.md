@@ -19,7 +19,7 @@
 </p>
 
 <div align="center">
-  <a href="https://visca.ai">
+  <a href="https://latticeruntime.com">
     <img alt="Cast Operations लोगो" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
@@ -38,14 +38,14 @@
   </p>
 
   <p>
-    <a href="https://visca.ai"><b>वेबसाइट</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/docs"><b>दस्तावेज़</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com"><b>वेबसाइट</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/docs"><b>दस्तावेज़</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>क्विक स्टार्ट</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/pricing"><b>मूल्य निर्धारण</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/pricing"><b>मूल्य निर्धारण</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>योगदान करें</b></a>
   </p>
 
-  <a href="https://visca.ai"><b>🚀 Cast Operations Cloud आज़माएँ — हमेशा के लिए मुफ़्त प्लान, कोई क्रेडिट कार्ड नहीं →</b></a>
+  <a href="https://latticeruntime.com"><b>🚀 Cast Operations Cloud आज़माएँ — हमेशा के लिए मुफ़्त प्लान, कोई क्रेडिट कार्ड नहीं →</b></a>
 </div>
 
 <br/>
@@ -123,7 +123,7 @@ AI एजेंट फ़िक्स के साथ एक पुल रि�
 
 कोई सेटअप नहीं, हमेशा अप-टू-डेट, और यह ओपन-सोर्स प्रोजेक्ट को फ़ंड करता है।
 
-**→ [visca.ai पर मुफ़्त साइन अप करें](https://visca.ai)**
+**→ [latticeruntime.com पर मुफ़्त साइन अप करें](https://latticeruntime.com)**
 
 ### 🐳 Docker Compose के साथ सेल्फ़-होस्ट करें
 
@@ -148,7 +148,7 @@ Cast Operations अब **http://localhost** पर चल रहा है — �
 ### ☸️ Helm के साथ Kubernetes — प्रोडक्शन के लिए
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm install cast-operations autonomy-cloud/operations
 ```
 
@@ -202,7 +202,7 @@ helm install cast-operations autonomy-cloud/operations
 | | **कम्युनिटी** | **एंटरप्राइज़** |
 |---|---|---|
 | **किसके लिए सर्वश्रेष्ठ** | सेल्फ़-होस्टर और छोटी टीमें | प्रीमियम समर्थन की ज़रूरत वाली विनियमित टीमें |
-| **लागत** | मुफ़्त और ओपन सोर्स | [सेल्स से संपर्क करें](mailto:sales@visca.ai) |
+| **लागत** | मुफ़्त और ओपन सोर्स | [सेल्स से संपर्क करें](mailto:sales@latticeruntime.com) |
 | **फ़ीचर** | पूर्ण फ़ीचर सेट | पूर्ण फ़ीचर सेट + हार्डेंड इमेज, प्राथमिकता समर्थन, कस्टम फ़ीचर और डेटा रेज़िडेंसी |
 
 ---
@@ -231,7 +231,7 @@ helm install cast-operations autonomy-cloud/operations
 
 - ⭐ **इस रेपो को स्टार करें** — यह वाकई दूसरों को हमें खोजने में मदद करता है
 - 💵 **[हमें प्रायोजित करें](https://github.com/autonomy-cloud/operations)** — हर डॉलर नए फ़ीचर लाता है
-- 🛍️ **[कुछ मर्च लें](https://shop.visca.ai)** — सारी आय ओपन-सोर्स विकास को फ़ंड करती है
+- 🛍️ **[कुछ मर्च लें](https://shop.latticeruntime.com)** — सारी आय ओपन-सोर्स विकास को फ़ंड करती है
 
 ---
 
@@ -240,5 +240,5 @@ helm install cast-operations autonomy-cloud/operations
 Cast Operations [Apache License 2.0](/LICENSE) के तहत लाइसेंस प्राप्त है।
 
 <div align="center">
-  <sub><a href="https://visca.ai">Cast Operations</a> टीम और <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">योगदानकर्ताओं</a> द्वारा ❤️ के साथ बनाया गया।</sub>
+  <sub><a href="https://latticeruntime.com">Cast Operations</a> टीम और <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">योगदानकर्ताओं</a> द्वारा ❤️ के साथ बनाया गया।</sub>
 </div>

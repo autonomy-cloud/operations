@@ -17,7 +17,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Skift til selvhostet
+  cast_operations_url = "https://latticeruntime.com"  # Skift til selvhostet
   api_key       = var.cast_operations_api_key
 }
 

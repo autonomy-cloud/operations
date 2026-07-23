@@ -15,7 +15,7 @@ cast-operations login <api-key> <instance-url>
 | Argument         | Beskrivning                                                       |
 | ---------------- | ----------------------------------------------------------------- |
 | `<api-key>`      | Din Cast Operations API-nyckel (t.ex. `sk-your-api-key`)                |
-| `<instance-url>` | URL:en till din Cast Operations-instans (t.ex. `https://visca.ai`) |
+| `<instance-url>` | URL:en till din Cast Operations-instans (t.ex. `https://latticeruntime.com`) |
 
 **Alternativ:**
 
@@ -27,14 +27,14 @@ cast-operations login <api-key> <instance-url>
 
 ```bash
 # Logga in med standardkontext
-cast-operations login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://latticeruntime.com
 
 # Logga in med en namngiven kontext
-cast-operations login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://latticeruntime.com --context-name production
 
 # Konfigurera flera miljöer
-cast-operations login sk-prod-key https://visca.ai --context-name production
-cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://latticeruntime.com --context-name production
+cast-operations login sk-staging-key https://staging.latticeruntime.com --context-name staging
 ```
 
 ## Kontexter
@@ -95,14 +95,14 @@ Du kan blanda källor – till exempel använda en miljövariabel för API-nycke
 ### Använda CLI-flaggor
 
 ```bash
-cast-operations --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://latticeruntime.com incident list
 ```
 
 ### Använda miljövariabler
 
 ```bash
 export CAST_OPERATIONS_API_KEY=sk-abc123
-export CAST_OPERATIONS_URL=https://visca.ai
+export CAST_OPERATIONS_URL=https://latticeruntime.com
 
 cast-operations incident list
 ```
@@ -139,12 +139,12 @@ Autentiseringsuppgifter lagras i `~/.cast-operations/config.json` med begränsad
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://visca.ai",
+      "apiUrl": "https://latticeruntime.com",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.visca.ai",
+      "apiUrl": "https://staging.latticeruntime.com",
       "apiKey": "sk-..."
     }
   },

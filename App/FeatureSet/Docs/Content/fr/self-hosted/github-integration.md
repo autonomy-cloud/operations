@@ -20,11 +20,11 @@ Pour intégrer GitHub avec votre instance auto-hébergée Cast Operations, vous 
 
 3. Remplissez le formulaire d'inscription :
    - **Nom de l'application GitHub :** Cast Operations (ou tout nom unique) - **Notez ce nom, vous en aurez besoin pour la variable d'environnement `GITHUB_APP_NAME`**
-   - **URL de la page d'accueil :** `https://votre-domaine-visca.ai`
-   - **URL de rappel :** `https://votre-domaine-visca.ai/api/github/auth/callback`
-   - **URL de configuration :** `https://votre-domaine-visca.ai/api/github/auth/callback` - **Important : Il s'agit de l'URL vers laquelle GitHub redirige les utilisateurs après l'installation de l'application. Elle doit être définie pour que la redirection fonctionne.**
+   - **URL de la page d'accueil :** `https://votre-domaine-latticeruntime.com`
+   - **URL de rappel :** `https://votre-domaine-latticeruntime.com/api/github/auth/callback`
+   - **URL de configuration :** `https://votre-domaine-latticeruntime.com/api/github/auth/callback` - **Important : Il s'agit de l'URL vers laquelle GitHub redirige les utilisateurs après l'installation de l'application. Elle doit être définie pour que la redirection fonctionne.**
    - **Rediriger lors de la mise à jour :** Cochez cette option pour rediriger les utilisateurs après la mise à jour de l'installation de l'application
-   - **URL du webhook :** `https://votre-domaine-visca.ai/api/github/webhook`
+   - **URL du webhook :** `https://votre-domaine-latticeruntime.com/api/github/webhook`
    - **Secret du webhook :** Générez une chaîne aléatoire sécurisée (enregistrez-la pour plus tard)
 
 ### Étape 2 : Configurer les permissions de l'application
@@ -160,7 +160,7 @@ gitHubApp:
 
 **Non redirigé vers Cast Operations après l'installation de l'application GitHub :**
 
-- Assurez-vous que l'**URL de configuration** est configurée dans les paramètres de votre application GitHub vers : `https://votre-domaine-visca.ai/api/github/auth/callback`
+- Assurez-vous que l'**URL de configuration** est configurée dans les paramètres de votre application GitHub vers : `https://votre-domaine-latticeruntime.com/api/github/auth/callback`
 - Allez dans les paramètres de votre application GitHub > section « Post-installation » et vérifiez que l'URL de configuration est correctement définie
 - L'option « Rediriger lors de la mise à jour » doit également être cochée
 - Remarque : L'URL de configuration est différente de l'URL de rappel — les deux doivent pointer vers le même point d'accès `/api/github/auth/callback`
@@ -212,6 +212,6 @@ Si vous rencontrez des problèmes avec l'intégration GitHub, veuillez :
 
 1. Consulter la section de dépannage ci-dessus
 2. Examiner les journaux de Cast Operations pour les messages d'erreur détaillés
-3. Nous contacter à [hello@visca.ai](mailto:hello@visca.ai)
+3. Nous contacter à [hello@latticeruntime.com](mailto:hello@latticeruntime.com)
 
 Nous accueillons favorablement les retours pour améliorer cette intégration !

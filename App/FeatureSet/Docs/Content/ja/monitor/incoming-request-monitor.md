@@ -26,7 +26,7 @@
 作成後、モニターは以下の形式で一意のハートビートURLを持ちます。
 
 ```
-https://visca.ai/heartbeat/YOUR_SECRET_KEY
+https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 ```
 
 サービスはこのURLに定期的にHTTPの **GET** または **POST** リクエストを送信する必要があります。
@@ -37,10 +37,10 @@ https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 ```bash
 # シンプルなGETリクエスト
-curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
+curl https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 
 # カスタムボディを使ったPOSTリクエスト
-curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # cronジョブに追加して5分ごとにハートビートを送信
-*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### アプリケーションコードから実行する場合
@@ -57,16 +57,16 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.jsの例
 const https = require("https");
-https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
+https.get("https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Pythonの例
 import requests
-requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY')
 ```
 
-セルフホストの場合は、`https://visca.ai` をCast OperationsインスタンスのURLに置き換えてください。
+セルフホストの場合は、`https://latticeruntime.com` をCast OperationsインスタンスのURLに置き換えてください。
 
 ## 監視条件
 

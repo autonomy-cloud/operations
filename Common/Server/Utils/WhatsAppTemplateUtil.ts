@@ -8,7 +8,7 @@ import WhatsAppMessage, {
   WhatsAppMessagePayload,
 } from "../../Types/WhatsApp/WhatsAppMessage";
 
-const DEFAULT_ACTION_LINK: string = "https://visca.ai/dashboard";
+const DEFAULT_ACTION_LINK: string = "https://latticeruntime.com/dashboard";
 
 const templateDashboardLinkVariableMap: Partial<
   Record<WhatsAppTemplateId, string>

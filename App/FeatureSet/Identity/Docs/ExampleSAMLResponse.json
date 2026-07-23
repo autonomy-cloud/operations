@@ -198,7 +198,7 @@
             },
             "saml2:NameID": [
               {
-                "_": "simon.larsen@visca.ai",
+                "_": "simon.larsen@latticeruntime.com",
                 "$": {
                   "Format": "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
                 }

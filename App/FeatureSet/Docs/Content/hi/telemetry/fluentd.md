@@ -30,7 +30,7 @@ Fluentd सैकड़ों data sources का समर्थन करत�
 ## पूर्व आवश्यकताएं
 
 - **चरण 1: अपने system पर Fluentd Install करें** - आप [यहाँ](https://docs.fluentd.org/installation) दिए गए निर्देशों का उपयोग करके Fluentd install कर सकते हैं
-- **चरण 2: Cast Operations account के लिए sign up करें** - आप [यहाँ](https://visca.ai) एक free account के लिए sign up कर सकते हैं। कृपया ध्यान दें कि account free है, log ingestion एक paid feature है। आप pricing के बारे में अधिक details [यहाँ](https://visca.ai/pricing) पा सकते हैं।
+- **चरण 2: Cast Operations account के लिए sign up करें** - आप [यहाँ](https://latticeruntime.com) एक free account के लिए sign up कर सकते हैं। कृपया ध्यान दें कि account free है, log ingestion एक paid feature है। आप pricing के बारे में अधिक details [यहाँ](https://latticeruntime.com/pricing) पा सकते हैं।
 - **चरण 3: Cast Operations Project बनाएं** - Account होने के बाद, आप Cast Operations dashboard से एक project बना सकते हैं।
 - **चरण 4: Telemetry Ingestion Token बनाएं** - Cast Operations account बनाने के बाद, आप अपने application से logs, metrics और traces ingest करने के लिए एक telemetry ingestion token बना सकते हैं।
 
@@ -55,7 +55,7 @@ Token बनाने के बाद, token देखने के लिए "
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -90,7 +90,7 @@ bind 0.0.0.0
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -111,4 +111,4 @@ flush_interval 10s
 
 ## Usage
 
-एक बार जब आप fluentd configuration फ़ाइल में configuration जोड़ लें, तो आप fluentd service restart कर सकते हैं। Service restart होने के बाद, telemetry data Cast Operations HTTP Source को भेजा जाएगा। अब आप Cast Operations dashboard में telemetry data देखना शुरू कर सकते हैं। यदि आपके कोई प्रश्न हैं या configuration में सहायता की आवश्यकता है, तो कृपया हमसे support@visca.ai पर संपर्क करें।
+एक बार जब आप fluentd configuration फ़ाइल में configuration जोड़ लें, तो आप fluentd service restart कर सकते हैं। Service restart होने के बाद, telemetry data Cast Operations HTTP Source को भेजा जाएगा। अब आप Cast Operations dashboard में telemetry data देखना शुरू कर सकते हैं। यदि आपके कोई प्रश्न हैं या configuration में सहायता की आवश्यकता है, तो कृपया हमसे support@latticeruntime.com पर संपर्क करें।

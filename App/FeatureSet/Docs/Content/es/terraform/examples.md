@@ -17,7 +17,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Cambia para auto-alojado
+  cast_operations_url = "https://latticeruntime.com"  # Cambia para auto-alojado
   api_key       = var.cast_operations_api_key
 }
 

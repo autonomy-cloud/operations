@@ -121,7 +121,7 @@ If you encounter issues:
 - Verify your environment variables are set correctly
 - Make sure the bot is added to the channels you want to post to
 
-We would like to improve this integration, so feedback is more than welcome. Please send us any at hello@visca.ai
+We would like to improve this integration, so feedback is more than welcome. Please send us any at hello@latticeruntime.com
 
     `;
 

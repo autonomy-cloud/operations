@@ -126,7 +126,7 @@ export default class MigrateTelemetryToV3PrimaryEntityId extends DataMigrationBa
     await AnalyticsTableManagement.createMaterializedViews();
 
     logger.info(
-      "MigrateTelemetryToV3: DDL complete. V3 tables start fresh (forward-only cut); to carry V2 history forward manually, see the v11 upgrade guide: https://visca.ai/docs/installation/upgrading",
+      "MigrateTelemetryToV3: DDL complete. V3 tables start fresh (forward-only cut); to carry V2 history forward manually, see the v11 upgrade guide: https://latticeruntime.com/docs/installation/upgrading",
     );
   }
 

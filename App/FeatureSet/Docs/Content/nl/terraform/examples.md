@@ -17,7 +17,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Wijzig voor zelf-gehost
+  cast_operations_url = "https://latticeruntime.com"  # Wijzig voor zelf-gehost
   api_key       = var.cast_operations_api_key
 }
 

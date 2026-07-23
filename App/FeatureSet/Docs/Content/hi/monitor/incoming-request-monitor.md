@@ -26,7 +26,7 @@ Incoming Request monitors एक unique webhook URL प्रदान करत
 बनाने के बाद, आपके monitor में निम्नलिखित format में एक unique heartbeat URL होगी:
 
 ```
-https://visca.ai/heartbeat/YOUR_SECRET_KEY
+https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 ```
 
 आपकी service को नियमित intervals पर इस URL पर HTTP **GET** या **POST** requests भेजनी चाहिए।
@@ -37,10 +37,10 @@ https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 ```bash
 # Simple GET request
-curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
+curl https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 
 # Custom body के साथ POST request
-curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # हर 5 minutes में heartbeat भेजने के लिए crontab में जोड़ें
-*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### application code से
@@ -57,16 +57,16 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js example
 const https = require("https");
-https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
+https.get("https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python example
 import requests
-requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY')
 ```
 
-यदि self-hosted हैं तो `https://visca.ai` को अपने Cast Operations instance URL से बदलें।
+यदि self-hosted हैं तो `https://latticeruntime.com` को अपने Cast Operations instance URL से बदलें।
 
 ## Monitoring Criteria
 

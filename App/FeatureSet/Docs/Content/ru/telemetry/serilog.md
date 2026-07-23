@@ -8,8 +8,8 @@
 
 ## Предварительные требования
 
-- **Зарегистрируйте учётную запись Cast Operations** – Вы можете зарегистрировать бесплатную учётную запись [здесь](https://visca.ai). Обратите внимание, что хотя учётная запись бесплатна, приём логов является платной функцией. Подробнее о ценах можно узнать [здесь](https://visca.ai/pricing).
-- **Создайте проект Cast Operations** – После создания учётной записи создайте проект в панели управления Cast Operations. Если вам нужна помощь, свяжитесь с нами по адресу support@visca.ai.
+- **Зарегистрируйте учётную запись Cast Operations** – Вы можете зарегистрировать бесплатную учётную запись [здесь](https://latticeruntime.com). Обратите внимание, что хотя учётная запись бесплатна, приём логов является платной функцией. Подробнее о ценах можно узнать [здесь](https://latticeruntime.com/pricing).
+- **Создайте проект Cast Operations** – После создания учётной записи создайте проект в панели управления Cast Operations. Если вам нужна помощь, свяжитесь с нами по адресу support@latticeruntime.com.
 - **Создайте токен приёма телеметрии** – Вам нужен токен для аутентификации ваших логов.
 
 После регистрации в Cast Operations и создания проекта нажмите «More» в панели навигации, а затем нажмите «Project Settings».
@@ -26,13 +26,13 @@
 
 | Настройка                | Значение                                                               |
 | ------------------------ | ---------------------------------------------------------------------- |
-| Эндпоинт OTLP            | `https://visca.ai/otlp`                                           |
+| Эндпоинт OTLP            | `https://latticeruntime.com/otlp`                                           |
 | Заголовок аутентификации | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`                    |
 | Имя сервиса              | Имя, под которым должен отображаться ваш сервис, например `my-service` |
 
-> **Используете самостоятельно размещённый Cast Operations?** Замените `https://visca.ai/otlp` на `https://YOUR-OPERATIONS-HOST/otlp` (или `http://...`, если вы не используете TLS). Всё остальное остаётся прежним.
+> **Используете самостоятельно размещённый Cast Operations?** Замените `https://latticeruntime.com/otlp` на `https://YOUR-OPERATIONS-HOST/otlp` (или `http://...`, если вы не используете TLS). Всё остальное остаётся прежним.
 
-Приёмник использует протокол OTLP **HTTP/protobuf** и автоматически добавляет путь `/v1/logs` к эндпоинту, поэтому итоговый URL, на который он отправляет данные, — `https://visca.ai/otlp/v1/logs`. Вам нужно указать только базовый эндпоинт `/otlp`.
+Приёмник использует протокол OTLP **HTTP/protobuf** и автоматически добавляет путь `/v1/logs` к эндпоинту, поэтому итоговый URL, на который он отправляет данные, — `https://latticeruntime.com/otlp/v1/logs`. Вам нужно указать только базовый эндпоинт `/otlp`.
 
 ## Шаг 1 — Установите пакеты NuGet
 
@@ -70,7 +70,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.OpenTelemetry(options =>
     {
         // Base OTLP endpoint. The sink appends /v1/logs automatically.
-        options.Endpoint = "https://visca.ai/otlp";
+        options.Endpoint = "https://latticeruntime.com/otlp";
         options.Protocol = OtlpProtocol.HttpProtobuf;
 
         // Authenticate with your Cast Operations telemetry ingestion token.
@@ -115,7 +115,7 @@ finally
       {
         "Name": "OpenTelemetry",
         "Args": {
-          "endpoint": "https://visca.ai/otlp",
+          "endpoint": "https://latticeruntime.com/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
             "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
@@ -165,7 +165,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.OpenTelemetry(options =>
         {
-            options.Endpoint = "https://visca.ai/otlp";
+            options.Endpoint = "https://latticeruntime.com/otlp";
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
@@ -228,10 +228,10 @@ Cast Operations обнаруживает эти атрибуты и автома
 
 ## Устранение неполадок
 
-- **Логи не появляются** – Перепроверьте значение `x-cast-operations-token` и убедитесь, что оно принадлежит проекту, который вы просматриваете. Проверьте, что эндпоинт — `https://visca.ai/otlp` (только базовый путь — не добавляйте `/v1/logs` самостоятельно).
+- **Логи не появляются** – Перепроверьте значение `x-cast-operations-token` и убедитесь, что оно принадлежит проекту, который вы просматриваете. Проверьте, что эндпоинт — `https://latticeruntime.com/otlp` (только базовый путь — не добавляйте `/v1/logs` самостоятельно).
 - **Логи появляются только при выходе из приложения, или последние логи отсутствуют** – Убедитесь, что `Log.CloseAndFlush()` выполняется при завершении работы. Приёмник группирует события в пакеты, поэтому буферизованные логи теряются, если процесс завершается без сброса буфера.
 - **`401 Unauthorized` / ничего не принимается** – Токен отсутствует или недействителен. Убедитесь, что ключ заголовка — это в точности `x-cast-operations-token`.
 - **Неправильное имя сервиса** – Установите `service.name` в `ResourceAttributes` (код) или `resourceAttributes` (appsettings.json). Без него логи будут отнесены к сервису по умолчанию/неизвестному сервису.
 - **Ошибки подключения к самостоятельно размещённому экземпляру** – Убедитесь, что протокол соответствует схеме вашего эндпоинта (`https://` или `http://`) и что ваш хост Cast Operations доступен из приложения.
 
-Если у вас есть вопросы или нужна помощь, пожалуйста, свяжитесь с нами по адресу support@visca.ai.
+Если у вас есть вопросы или нужна помощь, пожалуйста, свяжитесь с нами по адресу support@latticeruntime.com.

@@ -314,7 +314,7 @@ export default function SettingsScreen(): React.JSX.Element {
             numberOfLines={1}
             ellipsizeMode="middle"
           >
-            {serverUrl || "visca.ai"}
+            {serverUrl || "latticeruntime.com"}
           </Text>
         </View>
       </View>
@@ -486,7 +486,7 @@ export default function SettingsScreen(): React.JSX.Element {
               numberOfLines={1}
               ellipsizeMode="middle"
             >
-              {serverUrl || "visca.ai"}
+              {serverUrl || "latticeruntime.com"}
             </Text>
           </View>
         </View>

@@ -595,14 +595,14 @@ export const VapidPrivateKey: string | undefined =
   process.env["VAPID_PRIVATE_KEY"] || undefined;
 
 export const VapidSubject: string =
-  process.env["VAPID_SUBJECT"] || "mailto:support@visca.ai";
+  process.env["VAPID_SUBJECT"] || "mailto:support@latticeruntime.com";
 
 export const ExpoAccessToken: string | undefined =
   process.env["EXPO_ACCESS_TOKEN"] || undefined;
 
 export const PushNotificationRelayUrl: string =
   process.env["PUSH_NOTIFICATION_RELAY_URL"] ||
-  "https://visca.ai/api/notification/push-relay/send";
+  "https://latticeruntime.com/api/notification/push-relay/send";
 
 // Inbound Email Configuration for Incoming Email Monitor
 export enum InboundEmailProviderType {

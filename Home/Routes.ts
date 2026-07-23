@@ -101,7 +101,7 @@ const HomeFeatureSet: FeatureSet = {
             res.locals["homeUrl"] = homeUrl;
           } catch {
             // Fallback hard-coded production domain if env misconfigured
-            res.locals["homeUrl"] = "https://visca.ai";
+            res.locals["homeUrl"] = "https://latticeruntime.com";
           }
         }
         // Inject SEO data for current path
@@ -1924,16 +1924,16 @@ const HomeFeatureSet: FeatureSet = {
       },
     );
 
-    // robots.txt (dynamic) - If domain is not visca.ai, disallow all.
+    // robots.txt (dynamic) - If domain is not latticeruntime.com, disallow all.
     app.get("/robots.txt", (_req: ExpressRequest, res: ExpressResponse) => {
       let body: string = "";
 
-      if (Host !== "visca.ai") {
+      if (Host !== "latticeruntime.com") {
         // Disallow everything on non-production / preview / on-prem domains so they are not indexed.
         body = [
           "User-agent: *",
           "Disallow: /",
-          "# Disallowed because host is not visca.ai",
+          "# Disallowed because host is not latticeruntime.com",
         ].join("\n");
       } else {
         /*
@@ -1941,7 +1941,7 @@ const HomeFeatureSet: FeatureSet = {
          * res.locals.homeUrl is set earlier middleware; fallback to canonical domain.
          */
         const homeUrl: string = (
-          res.locals["homeUrl"] || "https://visca.ai"
+          res.locals["homeUrl"] || "https://latticeruntime.com"
         ).replace(/\/$/, "");
         body = [
           `# LLM-friendly content index: ${homeUrl}/llms.txt`,

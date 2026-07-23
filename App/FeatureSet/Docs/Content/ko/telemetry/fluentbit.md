@@ -30,8 +30,8 @@ FluentBit은 수백 가지 데이터 소스를 지원하며 이러한 소스 중
 ## 전제 조건
 
 - **1단계: 시스템에 FluentBit 설치** - [여기](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)에 제공된 지침을 사용하여 FluentBit을 설치할 수 있습니다
-- **2단계: Cast Operations 계정 가입** - [여기](https://visca.ai)에서 무료 계정에 가입할 수 있습니다. 계정은 무료이지만 로그 수집은 유료 기능임을 참고하십시오. 가격에 대한 자세한 내용은 [여기](https://visca.ai/pricing)에서 찾을 수 있습니다.
-- **3단계: Cast Operations 프로젝트 생성** - 계정이 있으면 Cast Operations 대시보드에서 프로젝트를 생성할 수 있습니다. 프로젝트 생성에 대한 도움이 필요하거나 질문이 있으시면 support@visca.ai으로 연락하십시오
+- **2단계: Cast Operations 계정 가입** - [여기](https://latticeruntime.com)에서 무료 계정에 가입할 수 있습니다. 계정은 무료이지만 로그 수집은 유료 기능임을 참고하십시오. 가격에 대한 자세한 내용은 [여기](https://latticeruntime.com/pricing)에서 찾을 수 있습니다.
+- **3단계: Cast Operations 프로젝트 생성** - 계정이 있으면 Cast Operations 대시보드에서 프로젝트를 생성할 수 있습니다. 프로젝트 생성에 대한 도움이 필요하거나 질문이 있으시면 support@latticeruntime.com으로 연락하십시오
 - **4단계: 텔레메트리 수집 토큰 생성** - Cast Operations 계정을 만든 후 애플리케이션에서 로그, 메트릭 및 트레이스를 수집하기 위한 텔레메트리 수집 토큰을 생성할 수 있습니다.
 
 Cast Operations에 가입하고 프로젝트를 생성한 후. 내비게이션 바에서 "더보기"를 클릭하고 "프로젝트 설정"을 클릭합니다.
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "visca.ai"
+    host: "latticeruntime.com"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "visca.ai"
+      host: "latticeruntime.com"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## 사용
 
-fluentbit 구성 파일에 구성을 추가한 후 fluentbit 서비스를 재시작할 수 있습니다. 서비스가 재시작되면 텔레메트리 데이터가 Cast Operations HTTP 소스로 전송됩니다. 이제 Cast Operations 대시보드에서 텔레메트리 데이터를 볼 수 있습니다. 구성에 대한 질문이 있거나 도움이 필요한 경우 support@visca.ai으로 연락하십시오.
+fluentbit 구성 파일에 구성을 추가한 후 fluentbit 서비스를 재시작할 수 있습니다. 서비스가 재시작되면 텔레메트리 데이터가 Cast Operations HTTP 소스로 전송됩니다. 이제 Cast Operations 대시보드에서 텔레메트리 데이터를 볼 수 있습니다. 구성에 대한 질문이 있거나 도움이 필요한 경우 support@latticeruntime.com으로 연락하십시오.

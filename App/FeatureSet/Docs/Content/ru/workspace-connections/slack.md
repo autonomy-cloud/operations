@@ -4,7 +4,7 @@
 
 1. **Создайте учётную запись Cast Operations**
 
-   - Перейдите на [Cast Operations.com](https://visca.ai) и создайте учётную запись.
+   - Перейдите на [Cast Operations.com](https://latticeruntime.com) и создайте учётную запись.
    - После создания учётной записи создайте новый проект.
 
 2. **Подключите Slack к проекту Cast Operations**

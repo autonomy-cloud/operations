@@ -38,7 +38,7 @@ Tutte le risorse Terraform Cast Operations seguono una struttura semplificata:
 ### Metodo 2: Endpoint API
 
 ```bash
-curl https://vostra-istanza-visca.ai/api/status
+curl https://vostra-istanza-latticeruntime.com/api/status
 ```
 
 ### Metodo 3: Immagini Docker

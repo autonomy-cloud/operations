@@ -66,7 +66,7 @@ docker compose up -d
 
 | 变量                      | 是否必需 | 说明                                                                                            |
 | ------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | 是       | 你的 Cast Operations 实例 URL（例如 `https://visca.ai` 或你自托管的主机地址）                    |
+| `CAST_OPERATIONS_URL`           | 是       | 你的 Cast Operations 实例 URL（例如 `https://latticeruntime.com` 或你自托管的主机地址）                    |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | 是       | 来自 _Project Settings → Telemetry Ingestion Keys_ 的遥测摄取令牌                               |
 | `DOCKER_HOST_NAME`        | 否       | 该主机的友好名称。默认值为 `docker-host`。请为每台主机设置一个稳定的值（例如 `prod-docker-01`） |
 

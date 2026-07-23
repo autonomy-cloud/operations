@@ -114,7 +114,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
@@ -333,7 +333,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -385,7 +385,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -448,7 +448,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -744,7 +744,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -788,7 +788,7 @@ O OpenTelemetry Collector respeita as variáveis de ambiente padrão `HTTPS_PROX
   - Adicione `service.telemetry.logs.level: debug` à configuração e reinicie o coletor para uma saída detalhada.
   - **Linux / macOS:** `journalctl -u otelcol-contrib -f` (Linux) ou `tail -f /var/log/otelcol-contrib.err.log` (macOS).
   - **Windows:** procure em _Event Viewer → Windows Logs → Application_ pela origem `otelcol-contrib`.
-  - Confirme que o host consegue alcançar `https://visca.ai/otlp` (ou o seu endpoint auto-hospedado): `curl -v https://visca.ai/otlp` a partir da mesma máquina.
+  - Confirme que o host consegue alcançar `https://latticeruntime.com/otlp` (ou o seu endpoint auto-hospedado): `curl -v https://latticeruntime.com/otlp` a partir da mesma máquina.
 - **HTTP 401 do exporter** — o token de ingestão é inválido ou foi revogado. Gere um novo em _Project Settings → Telemetry Ingestion Keys_.
 - **O canal `Security` do Windows Event Log retorna acesso negado** — o serviço não está rodando com privilégios suficientes. Recrie-o sob `LocalSystem` (o padrão com `sc.exe create`) ou conceda à conta de serviço o direito de usuário _Manage auditing and security log_.
 - **O receiver `journald` falha ao iniciar** — certifique-se de que `journalctl` esteja no `PATH` do coletor e de que `/var/log/journal` exista (execute `sudo systemd-tmpfiles --create --prefix /var/log/journal` se não existir).

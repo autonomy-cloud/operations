@@ -321,4 +321,4 @@ For issues with the Incoming Call Policy feature, please:
 
 1. Check the Twilio Console for error logs
 2. Review the Cast Operations server logs
-3. Contact support at [hello@visca.ai](mailto:hello@visca.ai)
+3. Contact support at [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

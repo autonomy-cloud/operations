@@ -147,7 +147,7 @@ describe("ConfigManager", () => {
     it("should add a context and set it as current if first context", () => {
       ConfigManager.addContext({
         name: "prod",
-        apiUrl: "https://prod.visca.ai",
+        apiUrl: "https://prod.latticeruntime.com",
         apiKey: "sk-prod-123",
       });
 

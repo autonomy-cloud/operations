@@ -114,7 +114,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
@@ -333,7 +333,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -385,7 +385,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -448,7 +448,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -744,7 +744,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -788,7 +788,7 @@ The OpenTelemetry Collector respects the standard `HTTPS_PROXY` / `HTTP_PROXY` /
   - Add `service.telemetry.logs.level: debug` to the config and restart the collector for verbose output.
   - **Linux / macOS:** `journalctl -u otelcol-contrib -f` (Linux) or `tail -f /var/log/otelcol-contrib.err.log` (macOS).
   - **Windows:** look under _Event Viewer → Windows Logs → Application_ for source `otelcol-contrib`.
-  - Confirm the host can reach `https://visca.ai/otlp` (or your self-hosted endpoint): `curl -v https://visca.ai/otlp` from the same machine.
+  - Confirm the host can reach `https://latticeruntime.com/otlp` (or your self-hosted endpoint): `curl -v https://latticeruntime.com/otlp` from the same machine.
 - **HTTP 401 from the exporter** — the ingestion token is invalid or revoked. Generate a new one from _Project Settings → Telemetry Ingestion Keys_.
 - **`Security` Windows Event Log returns access denied** — the service is not running with sufficient privileges. Recreate it under `LocalSystem` (the default with `sc.exe create`) or grant the service account the _Manage auditing and security log_ user right.
 - **`journald` receiver fails to start** — make sure `journalctl` is on the collector's `PATH` and that `/var/log/journal` exists (run `sudo systemd-tmpfiles --create --prefix /var/log/journal` if not).

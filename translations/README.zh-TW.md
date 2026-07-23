@@ -19,7 +19,7 @@
 </p>
 
 <div align="center">
-  <a href="https://visca.ai">
+  <a href="https://latticeruntime.com">
     <img alt="Cast Operations 標誌" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
@@ -38,14 +38,14 @@
   </p>
 
   <p>
-    <a href="https://visca.ai"><b>網站</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/docs"><b>文件</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com"><b>網站</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/docs"><b>文件</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>快速開始</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/pricing"><b>定價</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/pricing"><b>定價</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>參與貢獻</b></a>
   </p>
 
-  <a href="https://visca.ai"><b>🚀 試用 Cast Operations Cloud — 永久免費方案，無需信用卡 →</b></a>
+  <a href="https://latticeruntime.com"><b>🚀 試用 Cast Operations Cloud — 永久免費方案，無需信用卡 →</b></a>
 </div>
 
 <br/>
@@ -123,7 +123,7 @@ AI 代理開出一個包含修復內容的拉取請求，連結到該事件，�
 
 零設定、永遠保持最新，還能支持這個開源專案。
 
-**→ [在 visca.ai 免費註冊](https://visca.ai)**
+**→ [在 latticeruntime.com 免費註冊](https://latticeruntime.com)**
 
 ### 🐳 使用 Docker Compose 自架
 
@@ -148,7 +148,7 @@ Cast Operations 現在已運行於 **http://localhost** — 打開它並建立�
 ### ☸️ 使用 Helm 部署 Kubernetes — 適用於生產環境
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm install cast-operations autonomy-cloud/operations
 ```
 
@@ -202,7 +202,7 @@ helm install cast-operations autonomy-cloud/operations
 | | **社群版** | **企業版** |
 |---|---|---|
 | **最適合** | 自架者與小型團隊 | 需要進階支援的受監管團隊 |
-| **費用** | 免費且開源 | [聯絡銷售](mailto:sales@visca.ai) |
+| **費用** | 免費且開源 | [聯絡銷售](mailto:sales@latticeruntime.com) |
 | **功能** | 完整功能集 | 完整功能集 + 加固映像、優先支援、客製功能與資料落地 |
 
 ---
@@ -231,7 +231,7 @@ helm install cast-operations autonomy-cloud/operations
 
 - ⭐ **為這個 repo 加星** — 這確實能幫助其他人找到我們
 - 💵 **[贊助我們](https://github.com/autonomy-cloud/operations)** — 每一塊錢都能推出新功能
-- 🛍️ **[選購週邊商品](https://shop.visca.ai)** — 所有收益都用於資助開源開發
+- 🛍️ **[選購週邊商品](https://shop.latticeruntime.com)** — 所有收益都用於資助開源開發
 
 ---
 
@@ -240,5 +240,5 @@ helm install cast-operations autonomy-cloud/operations
 Cast Operations 採用 [Apache License 2.0](/LICENSE) 授權。
 
 <div align="center">
-  <sub>由 <a href="https://visca.ai">Cast Operations</a> 團隊與<a href="https://github.com/autonomy-cloud/operations/graphs/contributors">貢獻者</a>用 ❤️ 打造。</sub>
+  <sub>由 <a href="https://latticeruntime.com">Cast Operations</a> 團隊與<a href="https://github.com/autonomy-cloud/operations/graphs/contributors">貢獻者</a>用 ❤️ 打造。</sub>
 </div>

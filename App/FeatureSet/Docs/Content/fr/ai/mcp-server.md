@@ -10,7 +10,7 @@ Le serveur MCP de Cast Operations est un pont entre les grands modèles de langa
 
 Le serveur MCP est hébergé aux côtés de votre instance Cast Operations et accessible via le transport HTTP Streamable. Aucune installation locale n'est requise.
 
-**Utilisateurs Cloud** : `https://visca.ai/mcp`
+**Utilisateurs Cloud** : `https://latticeruntime.com/mcp`
 **Utilisateurs auto-hébergés** : `https://your-operations-domain.com/mcp`
 
 ## Fonctionnalités clés
@@ -73,7 +73,7 @@ Ajoutez la configuration suivante :
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ Ajoutez la configuration suivante :
 
 ### Pour Cast Operations auto-hébergé
 
-Remplacez `visca.ai` par votre domaine Cast Operations :
+Remplacez `latticeruntime.com` par votre domaine Cast Operations :
 
 ```json
 {
@@ -109,7 +109,7 @@ Pour utiliser uniquement les outils publics (informations sur la page de statut,
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ Vous pouvez également créer `.vscode/mcp.json` dans votre espace de travail po
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -296,7 +296,7 @@ Vérifiez que le serveur MCP est en cours d'exécution :
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -306,7 +306,7 @@ Listez les outils disponibles :
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

@@ -179,5 +179,5 @@ return {
 - 您可以使用 `browserType` 與 `screenSizeType` 變數來取得目前執行內容中的瀏覽器類型與螢幕大小類型。如果您願意，可以在腳本中自由使用它們。
 - 這是一個 JavaScript 腳本，因此您可以在腳本中使用所有的 JavaScript 功能。
 - 您可以使用 `axios` 模組在腳本中發出 HTTP 請求。您可以使用它從腳本中發出 API 呼叫。
-- 如果您使用 visca.ai，您在腳本內容中將始終擁有最新版本的 Playwright 與瀏覽器。如果您是自架（self-hosting），請確保更新探針（probes）以擁有最新版本的 Playwright 與瀏覽器。
+- 如果您使用 latticeruntime.com，您在腳本內容中將始終擁有最新版本的 Playwright 與瀏覽器。如果您是自架（self-hosting），請確保更新探針（probes）以擁有最新版本的 Playwright 與瀏覽器。
 - 腳本的逾時時間為 2 分鐘。如果腳本執行超過 2 分鐘，它將會被終止。

@@ -48,7 +48,7 @@ terraform {
 }
 
 provider "${this.config.providerName}" {
-  cast_operations_url = "visca.ai"  # Optional, defaults to visca.ai (internally becomes visca.ai/api)
+  cast_operations_url = "latticeruntime.com"  # Optional, defaults to latticeruntime.com (internally becomes latticeruntime.com/api)
   api_key       = var.${this.config.providerName}_api_key
 }
 \`\`\`
@@ -61,7 +61,7 @@ provider "${this.config.providerName}" {
 
 ### Optional
 
-- \`cast_operations_url\` (String) The ${this.config.providerName} URL (without /api path). Defaults to 'visca.ai' if not specified. The provider automatically appends '/api' to the URL. Can also be set via the \`${StringUtils.toConstantCase(this.config.providerName)}_URL\` environment variable.
+- \`cast_operations_url\` (String) The ${this.config.providerName} URL (without /api path). Defaults to 'latticeruntime.com' if not specified. The provider automatically appends '/api' to the URL. Can also be set via the \`${StringUtils.toConstantCase(this.config.providerName)}_URL\` environment variable.
 `;
 
     await this.fileGenerator.writeFileInDir("docs", "index.md", providerDoc);
@@ -307,7 +307,7 @@ ${schemaItems.join("\n")}
 }
 
 provider "${this.config.providerName}" {
-  host    = "visca.ai"  # Optional, defaults to visca.ai (provider appends /api automatically)
+  host    = "latticeruntime.com"  # Optional, defaults to latticeruntime.com (provider appends /api automatically)
   api_key = var.${this.config.providerName}_api_key
 }
 

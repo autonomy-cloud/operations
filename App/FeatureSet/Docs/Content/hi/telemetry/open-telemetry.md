@@ -41,14 +41,14 @@ Token बनाने के बाद, token देखने के लिए "
 | Environment Variable        | Value                                          |
 | --------------------------- | ---------------------------------------------- |
 | OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
-| OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
+| OTEL_EXPORTER_OTLP_ENDPOINT | https://latticeruntime.com/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **उदाहरण**
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -56,7 +56,7 @@ export OTEL_SERVICE_NAME=my-service
 
 यदि आप cast-operations self-hosting कर रहे हैं, तो इसे आपके self-hosted OpenTelemetry collector endpoint पर बदला जा सकता है (जैसे: `http(s)://YOUR-OPERATIONS-HOST/otlp`)
 
-एक बार जब आप अपना application चलाते हैं, तो आपको Cast Operations telemetry service page में logs दिखने चाहिए। यदि आपको सहायता की आवश्यकता है तो कृपया support@visca.ai से संपर्क करें।
+एक बार जब आप अपना application चलाते हैं, तो आपको Cast Operations telemetry service page में logs दिखने चाहिए। यदि आपको सहायता की आवश्यकता है तो कृपया support@latticeruntime.com से संपर्क करें।
 
 #### OpenTelemetry Collector का उपयोग करना
 
@@ -77,7 +77,7 @@ receivers:
 exporters:
   # HTTP पर Export करें
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     # Default Proto(buf) के बजाय JSON encoder उपयोग आवश्यक
     encoding: json
     headers:

@@ -66,7 +66,7 @@ docker compose up -d
 
 | Переменная                | Обязательна | Описание                                                                                                                                 |
 | ------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | Да          | URL вашего экземпляра Cast Operations (например, `https://visca.ai` или ваш self-hosted хост)                                             |
+| `CAST_OPERATIONS_URL`           | Да          | URL вашего экземпляра Cast Operations (например, `https://latticeruntime.com` или ваш self-hosted хост)                                             |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | Да          | Токен загрузки телеметрии из _Project Settings → Telemetry Ingestion Keys_                                                               |
 | `DOCKER_HOST_NAME`        | Нет         | Понятное имя для этого хоста. По умолчанию `docker-host`. Задайте ему стабильное значение для каждого хоста (например, `prod-docker-01`) |
 

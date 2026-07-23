@@ -174,7 +174,7 @@ export const generateServiceProviderConfig: (
   req: ExpressRequest,
   scimId: string,
   scimType: "project" | "status-page",
-  documentationUrl: string = "https://visca.ai/docs/identity/scim",
+  documentationUrl: string = "https://latticeruntime.com/docs/identity/scim",
 ): JSONObject => {
   const baseUrl: string = `${req.protocol}://${req.get("host")}`;
   const endpointPath: string =

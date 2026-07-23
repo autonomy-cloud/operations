@@ -11,7 +11,7 @@
 프로브를 실행하려면 Docker가 설치되어 있는지 확인하십시오. 다음 명령으로 커스텀 프로브를 실행할 수 있습니다:
 
 ```
-docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://latticeruntime.com -d cast-operations/probe:release
 ```
 
 Cast Operations을 자체 호스팅하는 경우 `CAST_OPERATIONS_URL`을 커스텀 자체 호스팅 인스턴스로 변경할 수 있습니다.
@@ -25,7 +25,7 @@ Cast Operations을 자체 호스팅하는 경우 `CAST_OPERATIONS_URL`을 커스
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -34,7 +34,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -43,7 +43,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       # 프록시 구성 (선택 사항)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 ##### 프록시 구성과 함께
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             # 프록시 구성 (선택 사항)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -194,7 +194,7 @@ Cast Operations을 자체 호스팅하는 경우 `CAST_OPERATIONS_URL`을 커스
 
 - `PROBE_KEY` - Cast Operations 대시보드의 프로브 키
 - `PROBE_ID` - Cast Operations 대시보드의 프로브 ID
-- `CAST_OPERATIONS_URL` - Cast Operations 인스턴스의 URL (기본값: https://visca.ai)
+- `CAST_OPERATIONS_URL` - Cast Operations 인스턴스의 URL (기본값: https://latticeruntime.com)
 
 #### 선택적 변수
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### 확인
 
-프로브가 성공적으로 실행되고 있다면 Cast Operations 대시보드에서 `연결됨`으로 표시되어야 합니다. 연결됨으로 표시되지 않으면 컨테이너 로그를 확인해야 합니다. 여전히 문제가 있다면 [GitHub](https://github.com/autonomy-cloud/operations)에 이슈를 생성하거나 [지원팀에 문의](https://visca.ai/support)하십시오.
+프로브가 성공적으로 실행되고 있다면 Cast Operations 대시보드에서 `연결됨`으로 표시되어야 합니다. 연결됨으로 표시되지 않으면 컨테이너 로그를 확인해야 합니다. 여전히 문제가 있다면 [GitHub](https://github.com/autonomy-cloud/operations)에 이슈를 생성하거나 [지원팀에 문의](https://latticeruntime.com/support)하십시오.

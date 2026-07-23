@@ -41,14 +41,14 @@ OpenTelemetryを使用してアプリケーションログを収集します。C
 | 環境変数                    | 値                                             |
 | --------------------------- | ---------------------------------------------- |
 | OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
-| OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
+| OTEL_EXPORTER_OTLP_ENDPOINT | https://latticeruntime.com/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **例**
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -56,7 +56,7 @@ export OTEL_SERVICE_NAME=my-service
 
 Cast Operationsをセルフホストしている場合は、セルフホストのOpenTelemetryコレクターエンドポイントに変更できます（例：`http(s)://YOUR-OPERATIONS-HOST/otlp`）
 
-アプリケーションを実行すると、Cast Operationsのテレメトリーサービスページでログを確認できます。ご不明な点がある場合は、support@visca.ai にお問い合わせください。
+アプリケーションを実行すると、Cast Operationsのテレメトリーサービスページでログを確認できます。ご不明な点がある場合は、support@latticeruntime.com にお問い合わせください。
 
 #### OpenTelemetryコレクターを使用する
 
@@ -77,7 +77,7 @@ receivers:
 exporters:
   # HTTP経由でエクスポート
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     # デフォルトのProto(buf)の代わりにJSONエンコーダーを使用する必要があります
     encoding: json
     headers:

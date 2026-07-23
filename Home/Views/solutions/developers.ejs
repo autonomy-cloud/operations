@@ -593,7 +593,7 @@
 
 <span class="text-cyan-400">exporters</span>:
   <span class="text-purple-400">otlphttp</span>:
-    <span class="text-slate-400">endpoint</span>: <span class="syntax-string">"https://visca.ai/otlp"</span>
+    <span class="text-slate-400">endpoint</span>: <span class="syntax-string">"https://latticeruntime.com/otlp"</span>
     <span class="text-slate-400">headers</span>:
       <span class="text-slate-400">x-cast-operations-token</span>: <span class="syntax-string">"YOUR_TOKEN"</span>
 
@@ -918,7 +918,7 @@
 
 <span class="text-purple-400">func</span> <span class="text-cyan-400">main</span>() {
     exporter, _ := otlptrace.<span class="text-cyan-400">New</span>(ctx,
-        otlptrace.<span class="text-cyan-400">WithEndpoint</span>(<span class="syntax-string">"visca.ai/otlp"</span>),
+        otlptrace.<span class="text-cyan-400">WithEndpoint</span>(<span class="syntax-string">"latticeruntime.com/otlp"</span>),
         otlptrace.<span class="text-cyan-400">WithHeaders</span>(<span class="text-purple-400">map</span>[<span class="text-cyan-400">string</span>]<span class="text-cyan-400">string</span>{
             <span class="syntax-string">"x-cast-operations-token"</span>: <span class="syntax-string">"YOUR_TOKEN"</span>,
         }),
@@ -939,7 +939,7 @@
     <span class="text-purple-400">public static void</span> <span class="text-cyan-400">main</span>(String[] args) {
         OtlpGrpcSpanExporter exporter = OtlpGrpcSpanExporter
             .<span class="text-cyan-400">builder</span>()
-            .<span class="text-cyan-400">setEndpoint</span>(<span class="syntax-string">"https://visca.ai/otlp"</span>)
+            .<span class="text-cyan-400">setEndpoint</span>(<span class="syntax-string">"https://latticeruntime.com/otlp"</span>)
             .<span class="text-cyan-400">addHeader</span>(<span class="syntax-string">"x-cast-operations-token"</span>, <span class="syntax-string">"YOUR_TOKEN"</span>)
             .<span class="text-cyan-400">build</span>();
 
@@ -958,7 +958,7 @@
 
 <span class="syntax-comment"># Configure the exporter</span>
 exporter = <span class="text-cyan-400">OTLPSpanExporter</span>(
-    endpoint=<span class="syntax-string">"https://visca.ai/otlp"</span>,
+    endpoint=<span class="syntax-string">"https://latticeruntime.com/otlp"</span>,
     headers={<span class="syntax-string">"x-cast-operations-token"</span>: <span class="syntax-string">"YOUR_TOKEN"</span>}
 )
 
@@ -980,7 +980,7 @@ tracer = trace.<span class="text-cyan-400">get_tracer</span>(<span class="syntax
 );
 
 <span class="text-purple-400">const</span> exporter = <span class="text-purple-400">new</span> <span class="text-cyan-400">OTLPTraceExporter</span>({
-  url: <span class="syntax-string">'https://visca.ai/otlp/v1/traces'</span>,
+  url: <span class="syntax-string">'https://latticeruntime.com/otlp/v1/traces'</span>,
   headers: { <span class="syntax-string">'x-cast-operations-token'</span>: <span class="syntax-string">'YOUR_TOKEN'</span> }
 });
 
@@ -1006,7 +1006,7 @@ builder.Services.<span class="text-cyan-400">AddOpenTelemetry</span>()
     .<span class="text-cyan-400">WithTracing</span>(tracing => tracing
         .<span class="text-cyan-400">AddAspNetCoreInstrumentation</span>()
         .<span class="text-cyan-400">AddOtlpExporter</span>(opt => {
-            opt.Endpoint = <span class="text-purple-400">new</span> <span class="text-cyan-400">Uri</span>(<span class="syntax-string">"https://visca.ai/otlp"</span>);
+            opt.Endpoint = <span class="text-purple-400">new</span> <span class="text-cyan-400">Uri</span>(<span class="syntax-string">"https://latticeruntime.com/otlp"</span>);
             opt.Headers = <span class="syntax-string">"x-cast-operations-token=YOUR_TOKEN"</span>;
         })
     );
@@ -1026,7 +1026,7 @@ OpenTelemetry::SDK.<span class="text-cyan-400">configure</span> <span class="tex
   c.<span class="text-cyan-400">add_span_processor</span>(
     OpenTelemetry::SDK::Trace::Export::BatchSpanProcessor.<span class="text-cyan-400">new</span>(
       OpenTelemetry::Exporter::OTLP::Exporter.<span class="text-cyan-400">new</span>(
-        endpoint: <span class="syntax-string">'https://visca.ai/otlp'</span>,
+        endpoint: <span class="syntax-string">'https://latticeruntime.com/otlp'</span>,
         headers: { <span class="syntax-string">'x-cast-operations-token'</span> => <span class="syntax-string">'YOUR_TOKEN'</span> }
       )
     )
@@ -1045,7 +1045,7 @@ tracer.<span class="text-cyan-400">in_span</span>(<span class="syntax-string">'o
 <span class="text-purple-400">use</span> OpenTelemetry\\Contrib\\Otlp\\SpanExporter;
 
 <span class="text-cyan-400">$exporter</span> = <span class="text-purple-400">new</span> <span class="text-cyan-400">SpanExporter</span>(
-    <span class="syntax-string">'https://visca.ai/otlp'</span>,
+    <span class="syntax-string">'https://latticeruntime.com/otlp'</span>,
     [<span class="syntax-string">'x-cast-operations-token'</span> => <span class="syntax-string">'YOUR_TOKEN'</span>]
 );
 
@@ -1072,7 +1072,7 @@ tracer.<span class="text-cyan-400">in_span</span>(<span class="syntax-string">'o
         .<span class="text-cyan-400">with_exporter</span>(
             opentelemetry_otlp::new_exporter()
                 .<span class="text-cyan-400">http</span>()
-                .<span class="text-cyan-400">with_endpoint</span>(<span class="syntax-string">"https://visca.ai/otlp"</span>)
+                .<span class="text-cyan-400">with_endpoint</span>(<span class="syntax-string">"https://latticeruntime.com/otlp"</span>)
                 .<span class="text-cyan-400">with_headers</span>(<span class="text-cyan-400">HashMap::from</span>([(
                     <span class="syntax-string">"x-cast-operations-token"</span>.<span class="text-cyan-400">into</span>(),
                     <span class="syntax-string">"YOUR_TOKEN"</span>.<span class="text-cyan-400">into</span>()
@@ -1094,7 +1094,7 @@ tracer.<span class="text-cyan-400">in_span</span>(<span class="syntax-string">'o
 
 <span class="text-cyan-400">int</span> <span class="text-cyan-400">main</span>() {
     otlp::OtlpHttpExporterOptions opts;
-    opts.url = <span class="syntax-string">"https://visca.ai/otlp/v1/traces"</span>;
+    opts.url = <span class="syntax-string">"https://latticeruntime.com/otlp/v1/traces"</span>;
     opts.http_headers = {
         {<span class="syntax-string">"x-cast-operations-token"</span>, <span class="syntax-string">"YOUR_TOKEN"</span>}
     };
@@ -1116,7 +1116,7 @@ tracer.<span class="text-cyan-400">in_span</span>(<span class="syntax-string">'o
 <span class="text-purple-400">import</span> OtlpExporter
 
 <span class="text-purple-400">let</span> exporter = <span class="text-cyan-400">OtlpHttpTraceExporter</span>(
-    endpoint: <span class="text-cyan-400">URL</span>(string: <span class="syntax-string">"https://visca.ai/otlp"</span>)!,
+    endpoint: <span class="text-cyan-400">URL</span>(string: <span class="syntax-string">"https://latticeruntime.com/otlp"</span>)!,
     config: <span class="text-cyan-400">OtlpConfiguration</span>(
         headers: [(<span class="syntax-string">"x-cast-operations-token"</span>, <span class="syntax-string">"YOUR_TOKEN"</span>)]
     )

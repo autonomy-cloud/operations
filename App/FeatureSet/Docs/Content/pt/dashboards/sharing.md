@@ -4,7 +4,7 @@ Por padrão, os painéis são privados ao seu projeto — apenas membros logados
 
 ## Painéis privados (o padrão)
 
-Um painel é acessível apenas a membros logados do seu projeto. A URL se parece com `https://visca.ai/dashboards/<id>/view` e exige um login.
+Um painel é acessível apenas a membros logados do seu projeto. A URL se parece com `https://latticeruntime.com/dashboards/<id>/view` e exige um login.
 
 Dentro do projeto, donos e etiquetas controlam quem vê o quê — veja [Configuração e Permissões](/docs/dashboards/configuration).
 
@@ -51,7 +51,7 @@ Requisições de qualquer outro IP são rejeitadas.
 
 ## Domínios personalizados
 
-Por padrão, um painel público é servido em `visca.ai`. Para hospedá-lo no seu próprio subdomínio como `dashboard.acme.com`:
+Por padrão, um painel público é servido em `latticeruntime.com`. Para hospedá-lo no seu próprio subdomínio como `dashboard.acme.com`:
 
 1. Adicione um registro CNAME no seu DNS apontando o subdomínio para o destino do Cast Operations.
 2. Em **Painel → Configurações → Domínios Personalizados**, adicione o domínio.

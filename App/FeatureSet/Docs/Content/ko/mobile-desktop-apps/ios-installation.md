@@ -19,7 +19,7 @@ iPhone 또는 iPad에 Apple App Store에서 **Cast Operations On-Call** 네이�
 ## 첫 실행 및 로그인
 
 1. **서버 URL**
-   - Cast Operations Cloud를 사용하는 경우 기본값인 `https://visca.ai`을 그대로 두세요.
+   - Cast Operations Cloud를 사용하는 경우 기본값인 `https://latticeruntime.com`을 그대로 두세요.
    - 자체 호스팅 중이라면 Cast Operations 인스턴스의 URL을 입력하세요(예: `https://operations.example.com`).
    - 앱은 계속 진행하기 전에 서버에 연결 가능한지 확인합니다.
 2. **로그인**
@@ -57,7 +57,7 @@ Cast Operations 계정과 온콜 일정은 서버 측에 저장되며 앱을 제
 
 **App Store에 "사용 중인 지역에서 이용할 수 없음"이라고 표시되는 경우:**
 
-- 앱은 글로벌 App Store에 게시되어 있습니다. 사용 중인 지역에서 표시되지 않는다면 [지원팀](mailto:support@visca.ai)으로 문의하세요.
+- 앱은 글로벌 App Store에 게시되어 있습니다. 사용 중인 지역에서 표시되지 않는다면 [지원팀](mailto:support@latticeruntime.com)으로 문의하세요.
 
 **로그인 시 "네트워크 오류"가 발생하는 경우:**
 

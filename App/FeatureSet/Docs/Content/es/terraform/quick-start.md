@@ -12,7 +12,7 @@ Esta guía te ayudará a comenzar con el Proveedor Terraform de Cast Operations 
 
 ### Para Cast Operations Cloud
 
-1. Ve a [Cast Operations Cloud](https://visca.ai) e inicia sesión
+1. Ve a [Cast Operations Cloud](https://latticeruntime.com) e inicia sesión
 2. Navega a **Configuración** → **Claves de API**
 3. Haz clic en **Crear clave de API**
 4. Nómbrala "Proveedor Terraform"
@@ -49,7 +49,7 @@ terraform {
 
 provider "cast-operations" {
   # Para clientes en la nube
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
 
   # Para clientes auto-alojados: usa la URL de tu instancia
   # cast_operations_url = "https://operations.yourcompany.com"
@@ -140,7 +140,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```

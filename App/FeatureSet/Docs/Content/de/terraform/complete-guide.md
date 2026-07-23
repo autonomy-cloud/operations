@@ -42,7 +42,7 @@ terraform {
 
 ```hcl
 provider "cast-operations" {
-  cast_operations_url = "https://your-operations-instance.com"  # Oder https://visca.ai für Cloud
+  cast_operations_url = "https://your-operations-instance.com"  # Oder https://latticeruntime.com für Cloud
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -158,6 +158,6 @@ variable "environment" {
 
 ## Support und Ressourcen
 
-- **Dokumentation**: [Cast Operations Docs](https://docs.visca.ai)
+- **Dokumentation**: [Cast Operations Docs](https://docs.latticeruntime.com)
 - **Terraform Registry**: [Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
 - **GitHub Issues**: [Cast Operations GitHub](https://github.com/autonomy-cloud/operations/issues)

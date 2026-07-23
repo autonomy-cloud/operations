@@ -2,7 +2,7 @@
 
 Se você estiver usando o Cast Operations.com e quiser adicionar nossos IPs à lista de permissões por razões de segurança, pode fazê-lo seguindo as instruções abaixo.
 
-Por favor, adicione os seguintes IPs à lista de permissões do seu firewall para permitir que o visca.ai acesse seus recursos.
+Por favor, adicione os seguintes IPs à lista de permissões do seu firewall para permitir que o latticeruntime.com acesse seus recursos.
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ Esses IPs podem mudar; informaremos com antecedência se isso acontecer.
 Você também pode buscar a lista de endereços IP de saída dos probes programaticamente via o seguinte endpoint de API:
 
 ```
-GET https://visca.ai/ip-whitelist
+GET https://latticeruntime.com/ip-whitelist
 ```
 
 Isso retorna uma resposta JSON:

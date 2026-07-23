@@ -20,7 +20,7 @@ describe("CookieUtil.getSSOToken - SSO provider discriminator", () => {
     const user: User = new User();
     user.id = ObjectID.generate();
     user.name = new Name("Test User");
-    user.email = new Email("test@visca.ai");
+    user.email = new Email("test@latticeruntime.com");
     return user;
   };
 

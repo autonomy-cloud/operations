@@ -175,5 +175,5 @@ return {
 - आप `return` statement का उपयोग करके script से data return कर सकते हैं। Screenshots को provided `screenshots` object को assign करें।
 - आप वर्तमान run context में browser type और screen size type पाने के लिए `browserType` और `screenSizeType` variables उपयोग कर सकते हैं।
 - यह एक JavaScript script है, इसलिए आप script में सभी JavaScript features उपयोग कर सकते हैं।
-- यदि आप visca.ai उपयोग कर रहे हैं, तो script के context में Playwright और browsers का latest version हमेशा उपलब्ध होगा।
+- यदि आप latticeruntime.com उपयोग कर रहे हैं, तो script के context में Playwright और browsers का latest version हमेशा उपलब्ध होगा।
 - Script का Timeout 2 minutes है। यदि script 2 minutes से अधिक लेती है, तो इसे terminate कर दिया जाएगा।

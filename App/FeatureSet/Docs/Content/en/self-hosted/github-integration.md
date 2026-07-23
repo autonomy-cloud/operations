@@ -212,6 +212,6 @@ If you encounter issues with the GitHub integration, please:
 
 1. Check the troubleshooting section above
 2. Review the Cast Operations logs for detailed error messages
-3. Contact us at [hello@visca.ai](mailto:hello@visca.ai)
+3. Contact us at [hello@latticeruntime.com](mailto:hello@latticeruntime.com)
 
 We welcome feedback to improve this integration!

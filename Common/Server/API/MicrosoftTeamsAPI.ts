@@ -63,12 +63,12 @@ export default class MicrosoftTeamsAPI {
       id: MicrosoftTeamsAppClientId,
       developer: {
         name: "HackerBay Inc",
-        websiteUrl: "https://visca.ai",
-        privacyUrl: "https://visca.ai/legal/privacy",
-        termsOfUseUrl: "https://visca.ai/legal/terms",
+        websiteUrl: "https://latticeruntime.com",
+        privacyUrl: "https://latticeruntime.com/legal/privacy",
+        termsOfUseUrl: "https://latticeruntime.com/legal/terms",
       },
       publisherDocsUrl:
-        "https://visca.ai/docs/workspace-connections/microsoft-teams",
+        "https://latticeruntime.com/docs/workspace-connections/microsoft-teams",
       name: {
         short: "Cast Operations",
         full: "Cast Operations - Complete Observability Platform",
@@ -77,11 +77,11 @@ export default class MicrosoftTeamsAPI {
         short: "Complete open-source monitoring and observability platform. ",
         full: `<p>Cast Operations is a comprehensive solution for monitoring and managing your online services. Whether you need to check the availability of your website, dashboard, API, or any other online resource, Cast Operations can alert your team when downtime happens and keep your customers informed with a status page. Cast Operations also helps you handle incidents, set up on-call rotations, run tests, secure your services, analyze logs, track performance, and debug errors.</p>
 
-<p>In order to use the app, you need to have an active account with <a href="https://visca.ai" target="_blank">Cast Operations</a>. Please send an email to <a href="mailto:support@visca.ai">support@visca.ai</a> if you need more details.</p>
+<p>In order to use the app, you need to have an active account with <a href="https://latticeruntime.com" target="_blank">Cast Operations</a>. Please send an email to <a href="mailto:support@latticeruntime.com">support@latticeruntime.com</a> if you need more details.</p>
 
-<p><strong>Create a new Cast Operations Account:</strong> If you wish to sign up for a new account, you can do so by visiting <a href="https://visca.ai" target="_blank">Cast Operations Sign Up</a>.</p>
+<p><strong>Create a new Cast Operations Account:</strong> If you wish to sign up for a new account, you can do so by visiting <a href="https://latticeruntime.com" target="_blank">Cast Operations Sign Up</a>.</p>
 
-<p><strong>Help and Support:</strong> You can reach out to help and support via <a href="https://visca.ai/support" target="_blank">Support Page</a> or contact <a href="mailto:support@visca.ai">support@visca.ai</a>.</p>
+<p><strong>Help and Support:</strong> You can reach out to help and support via <a href="https://latticeruntime.com/support" target="_blank">Support Page</a> or contact <a href="mailto:support@latticeruntime.com">support@latticeruntime.com</a>.</p>
 `,
       },
       // Default to size-specific names; route will adjust if fallbacks are used
@@ -1007,7 +1007,7 @@ export default class MicrosoftTeamsAPI {
         function saveConfiguration() {
             microsoftTeams.settings.setSettings({
                 entityId: "cast-operations-connector",
-                contentUrl: "https://visca.ai",
+                contentUrl: "https://latticeruntime.com",
                 suggestedDisplayName: "Cast Operations Notifications"
             });
             microsoftTeams.settings.setValidityState(true);

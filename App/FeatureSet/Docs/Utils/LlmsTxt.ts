@@ -59,7 +59,7 @@ async function readEnglishMarkdown(pagePath: string): Promise<string | null> {
   return null;
 }
 
-// Base URL of this instance (e.g. https://visca.ai), no trailing slash.
+// Base URL of this instance (e.g. https://latticeruntime.com), no trailing slash.
 async function getBaseUrl(): Promise<string> {
   const baseUrl: URL = await DatabaseConfig.getHomeUrl();
   return baseUrl.toString().replace(/\/$/, "");

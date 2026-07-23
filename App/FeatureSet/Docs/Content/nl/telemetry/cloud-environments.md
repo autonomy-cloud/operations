@@ -44,7 +44,7 @@ OTEL_RESOURCE_DETECTORS=env,ecs
 ```yaml
 exporters:
   otlphttp/cast-operations:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 

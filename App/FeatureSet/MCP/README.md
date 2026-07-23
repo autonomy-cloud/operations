@@ -5,7 +5,7 @@ A Model Context Protocol (MCP) server that exposes Cast Operations to AI agents.
 ## How it works
 
 - **Transport**: Streamable HTTP at `/mcp`. The server is **stateless** — no session IDs are issued or required, so it is safe behind load balancers and multi-replica deployments.
-- **Hosted endpoint**: `https://visca.ai/mcp`
+- **Hosted endpoint**: `https://latticeruntime.com/mcp`
 - **Self-hosted endpoint**: `https://<your-host>/mcp` (served by the App container behind Nginx)
 - **Auth**: per-request API key via the `x-api-key` header or `Authorization: Bearer <key>` (scheme is case-insensitive). There is no environment-variable API key — every request carries its own key.
 
@@ -20,7 +20,7 @@ Add to `claude_desktop_config.json`:
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -32,7 +32,7 @@ Add to `claude_desktop_config.json`:
 ### Claude Code
 
 ```bash
-claude mcp add --transport http cast-operations https://visca.ai/mcp \
+claude mcp add --transport http cast-operations https://latticeruntime.com/mcp \
   --header "x-api-key: your-api-key-here"
 ```
 
@@ -45,7 +45,7 @@ claude mcp add --transport http cast-operations https://visca.ai/mcp \
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -70,7 +70,7 @@ claude mcp add --transport http cast-operations https://visca.ai/mcp \
 {
   "mcpServers": {
     "cast-operations": {
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -79,7 +79,7 @@ claude mcp add --transport http cast-operations https://visca.ai/mcp \
 }
 ```
 
-For self-hosted instances, replace `visca.ai` with your Cast Operations host in any of the above.
+For self-hosted instances, replace `latticeruntime.com` with your Cast Operations host in any of the above.
 
 ## Authentication
 
