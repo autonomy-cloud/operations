@@ -141,15 +141,19 @@ setup_gomplate() {
     fi
 }
 
-clone_cast-operations() {
+prepare_operations_repository() {
     if [[ ${IS_DOCKER:-false} != "true" ]]; then
-        local GIT_REPO_URL
-        GIT_REPO_URL=$(git config --get remote.origin.url || echo "")
-        
-        if [[ $GIT_REPO_URL != *cast-operations* ]]; then
+        # The installer may be invoked either from an existing Operations
+        # checkout (including forks) or from a parent directory. Prefer the
+        # current checkout and only clone when the repository markers are
+        # absent. This keeps CI idempotent and avoids relying on the retired
+        # cast-operations directory and remote names.
+        if [[ ! -f VERSION || ! -f package.json || ! -d Scripts/Install ]]; then
             print_info "Cloning Cast Operations repository..."
-            git clone https://github.com/autonomy-cloud/operations.git || true
-            cd cast-operations
+            if [[ ! -d operations/.git ]]; then
+                git clone https://github.com/autonomy-cloud/operations.git operations
+            fi
+            cd operations
         fi
 
         # Update repository if not in CI/CD
@@ -183,7 +187,7 @@ main() {
     setup_tsnode
 
     
-    clone_cast-operations
+    prepare_operations_repository
     
     # Configure environment
     touch config.env
