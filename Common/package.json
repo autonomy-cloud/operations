@@ -17,7 +17,7 @@
     "debug:test": "cd .. && export $(grep -v '^#' config.env | xargs) && cd Common && node --inspect node_modules/.bin/jest --runInBand ./Tests --detectOpenHandles",
     "debug:test-file": "cd .. && export $(grep -v '^#' config.env | xargs) && cd Common && node --inspect node_modules/.bin/jest --runInBand $1 --detectOpenHandles"
   },
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=26.0.0"

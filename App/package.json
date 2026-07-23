@@ -36,7 +36,7 @@
     "test": "cd .. && export $(grep -v '^#' config.env | xargs) && cd App && rm -rf build && node node_modules/.bin/jest --runInBand ./Tests --detectOpenHandles --passWithNoTests",
     "coverage": "jest --detectOpenHandles --coverage"
   },
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "dependencies": {
     "@grpc/grpc-js": "^1.12.5",

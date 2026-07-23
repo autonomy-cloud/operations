@@ -87,7 +87,7 @@
         "url": "git+https://github.com/autonomy-cloud/operations.git"
     },
     "keywords": [],
-    "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+    "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
     "license": "Apache-2.0",
     "engines": {
         "node": ">=26.0.0"

@@ -24,7 +24,7 @@
     "test": "jest --passWithNoTests --runInBand",
     "link": "npm link"
   },
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "dependencies": {
     "chalk": "^4.1.2",
