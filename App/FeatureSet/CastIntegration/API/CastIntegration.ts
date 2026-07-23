@@ -31,7 +31,7 @@ import Email from "Common/Types/Email";
 import Name from "Common/Types/Name";
 import NotAuthorizedException from "Common/Types/Exception/NotAuthorizedException";
 import ObjectID from "Common/Types/ObjectID";
-import SsoProviderType from "Common/Types/SSO/SSOProviderType";
+import SsoProviderType from "Common/Types/SSO/SsoProviderType";
 import crypto from "crypto";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import CastConsoleIdentityService, {

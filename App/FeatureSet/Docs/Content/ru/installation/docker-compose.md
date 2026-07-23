@@ -47,10 +47,10 @@ npm start
 
 ```
 # Прочитайте переменные окружения из файла config.env и запустите docker compose up.
-(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)
+(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)
 
 # Используйте sudo, если у вас возникают проблемы с правами при привязке портов.
-sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
+sudo bash -c "(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)"
 ```
 
 ### Доступ к Cast Operations

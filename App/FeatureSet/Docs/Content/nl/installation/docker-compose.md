@@ -47,10 +47,10 @@ Als u npm liever niet gebruikt of dit niet geïnstalleerd heeft, voer dan dit ui
 
 ```
 # Omgevingsvariabelen lezen uit config.env-bestand en docker compose up uitvoeren.
-(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)
+(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)
 
 # Gebruik sudo als u problemen heeft met machtigingen bij het binden van poorten.
-sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
+sudo bash -c "(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)"
 ```
 
 ### Cast Operations openen

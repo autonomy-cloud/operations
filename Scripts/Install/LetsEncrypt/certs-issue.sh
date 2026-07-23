@@ -1,5 +1,7 @@
 # This script generates or renews certs for this server. 
-export $(grep -v '^#' config.env | xargs)
+set -a
+. ./config.env
+set +a
 npm run prerun
 docker compose stop ingress
 sudo snap install core
