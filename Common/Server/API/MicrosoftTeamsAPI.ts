@@ -2,8 +2,8 @@ import Express, {
   ExpressRequest,
   ExpressResponse,
   ExpressRouter,
-  RequestHandler,
 } from "../Utils/Express";
+import { rateLimit } from "express-rate-limit";
 import Response from "../Utils/Response";
 import BadRequestException from "../../Types/Exception/BadRequestException";
 import logger, { getLogAttributesFromRequest } from "../Utils/Logger";
@@ -48,51 +48,20 @@ import UserMiddleware from "../Middleware/UserAuthorization";
 import CommonAPI from "./CommonAPI";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
 
-const teamsAuthorizationAttempts: Map<
-  string,
-  { count: number; resetAt: number }
-> = new Map();
-const teamsAuthorizationWindowMs: number = 60_000;
-const teamsAuthorizationMaxAttempts: number = 30;
-
 /*
  * OAuth callbacks and the interactive-message webhook all perform
  * authorization work. Bound those requests per client before any token
  * exchange or signature validation is attempted.
  */
-const microsoftTeamsAuthorizationRateLimit: RequestHandler = (
-  req: ExpressRequest,
-  res: ExpressResponse,
-  next: () => void,
-): void => {
-  const now: number = Date.now();
-  const clientKey: string = req.ip || req.socket.remoteAddress || "unknown";
-  const current: { count: number; resetAt: number } | undefined =
-    teamsAuthorizationAttempts.get(clientKey);
-
-  if (!current || current.resetAt <= now) {
-    teamsAuthorizationAttempts.set(clientKey, {
-      count: 1,
-      resetAt: now + teamsAuthorizationWindowMs,
-    });
-    next();
-    return;
-  }
-
-  current.count += 1;
-  if (current.count > teamsAuthorizationMaxAttempts) {
-    res.setHeader(
-      "Retry-After",
-      Math.max(1, Math.ceil((current.resetAt - now) / 1000)).toString(),
-    );
-    res.status(429).json({
-      error: "Too many Microsoft Teams authorization requests",
-    });
-    return;
-  }
-
-  next();
-};
+const microsoftTeamsAuthorizationRateLimit = rateLimit({
+  windowMs: 60_000,
+  limit: 30,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: {
+    error: "Too many Microsoft Teams authorization requests",
+  },
+});
 
 export default class MicrosoftTeamsAPI {
   private static getTeamsAppManifest(): JSONObject {
