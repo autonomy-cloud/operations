@@ -1,7 +1,7 @@
 {
     "name": "@cast-operations/root",
     "version": "11.5.9",
-    "description": "One Complete Observability platform.",
+    "description": "Cast Operations observability and incident-response platform.",
     "main": "ts",
     "type": "module",
     "dependencies": {
@@ -95,5 +95,5 @@
     "bugs": {
         "url": "https://github.com/autonomy-cloud/operations/issues"
     },
-    "homepage": "https://github.com/autonomy-cloud/operations#readme"
+    "homepage": "https://latticeruntime.com/"
 }
