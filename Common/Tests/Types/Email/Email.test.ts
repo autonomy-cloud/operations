@@ -23,9 +23,9 @@ describe("Email()", () => {
   });
 
   test("should return the domain of the email address", () => {
-    expect(new Email("hello@latticeruntime.com").getEmailDomain().hostname).toBe(
-      "latticeruntime.com",
-    );
+    expect(
+      new Email("hello@latticeruntime.com").getEmailDomain().hostname,
+    ).toBe("latticeruntime.com");
   });
 
   test("value of email instance should be mutable", () => {

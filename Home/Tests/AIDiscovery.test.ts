@@ -58,7 +58,9 @@ describe("AIDiscovery", () => {
     );
     expect(md).toContain("# Cast Operations Monitoring");
     expect(md).toContain("## Features");
-    expect(md).toContain("Canonical page: https://latticeruntime.com/product/monitoring");
+    expect(md).toContain(
+      "Canonical page: https://latticeruntime.com/product/monitoring",
+    );
   });
 
   test("compare markdown renders tables and returns null for unknown slugs", () => {
@@ -84,7 +86,9 @@ describe("AIDiscovery", () => {
     ] as Array<JSONObject>;
     expect(products.length).toBeGreaterThan(20);
     for (const product of products) {
-      expect(product["markdownUrl"]).toMatch(/^https:\/\/visca\.ai\/.+\.md$/);
+      expect(product["markdownUrl"]).toMatch(
+        /^https:\/\/latticeruntime\.com\/.+\.md$/,
+      );
     }
   });
 
