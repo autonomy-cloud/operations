@@ -94,6 +94,16 @@ jobs:
             exit 1
           fi
 
+          # A Git tag may exist without a GitHub Release. Reusing or moving
+          # that tag would make the published source ambiguous, so reject
+          # both supported tag spellings before any artifact is built.
+          for tag in "$VERSION_RAW" "v$VERSION_RAW"; do
+            if gh api "repos/$REPOSITORY/git/ref/tags/$tag" &>/dev/null; then
+              echo "::error::Git tag $tag already exists. Please update the VERSION file to a new version."
+              exit 1
+            fi
+          done
+
           echo "✅ Version $VERSION_RAW is not yet released. Proceeding with release."
 
           echo "semver_base=${VERSION_RAW}" >> "$GITHUB_OUTPUT"
