@@ -48,7 +48,7 @@ function getPagesByType(pageType: PageSEOData["pageType"]): Array<PageSEOData> {
 
 // Escape characters that would break a markdown table cell.
 function tableCell(value: string): string {
-  return value.replace(/\|/g, "\\|").replace(/\n/g, " ");
+  return value.replace(/\\/g, "\\\\").replace(/\|/g, "\\|").replace(/\n/g, " ");
 }
 
 /*

@@ -2,6 +2,7 @@ import Express, {
   ExpressRequest,
   ExpressResponse,
   ExpressRouter,
+  RequestHandler,
 } from "../Utils/Express";
 import Response from "../Utils/Response";
 import BadRequestException from "../../Types/Exception/BadRequestException";
@@ -46,6 +47,52 @@ import path from "path";
 import UserMiddleware from "../Middleware/UserAuthorization";
 import CommonAPI from "./CommonAPI";
 import DatabaseCommonInteractionProps from "../../Types/BaseDatabase/DatabaseCommonInteractionProps";
+
+const teamsAuthorizationAttempts: Map<
+  string,
+  { count: number; resetAt: number }
+> = new Map();
+const teamsAuthorizationWindowMs: number = 60_000;
+const teamsAuthorizationMaxAttempts: number = 30;
+
+/*
+ * OAuth callbacks and the interactive-message webhook all perform
+ * authorization work. Bound those requests per client before any token
+ * exchange or signature validation is attempted.
+ */
+const microsoftTeamsAuthorizationRateLimit: RequestHandler = (
+  req: ExpressRequest,
+  res: ExpressResponse,
+  next: () => void,
+): void => {
+  const now: number = Date.now();
+  const clientKey: string = req.ip || req.socket.remoteAddress || "unknown";
+  const current: { count: number; resetAt: number } | undefined =
+    teamsAuthorizationAttempts.get(clientKey);
+
+  if (!current || current.resetAt <= now) {
+    teamsAuthorizationAttempts.set(clientKey, {
+      count: 1,
+      resetAt: now + teamsAuthorizationWindowMs,
+    });
+    next();
+    return;
+  }
+
+  current.count += 1;
+  if (current.count > teamsAuthorizationMaxAttempts) {
+    res.setHeader(
+      "Retry-After",
+      Math.max(1, Math.ceil((current.resetAt - now) / 1000)).toString(),
+    );
+    res.status(429).json({
+      error: "Too many Microsoft Teams authorization requests",
+    });
+    return;
+  }
+
+  next();
+};
 
 export default class MicrosoftTeamsAPI {
   private static getTeamsAppManifest(): JSONObject {
@@ -291,6 +338,7 @@ export default class MicrosoftTeamsAPI {
      */
     router.get(
       "/microsoft-teams/auth",
+      microsoftTeamsAuthorizationRateLimit,
       async (req: ExpressRequest, res: ExpressResponse) => {
         if (!MicrosoftTeamsAppClientId) {
           return Response.sendErrorResponse(
@@ -601,6 +649,7 @@ export default class MicrosoftTeamsAPI {
      */
     router.get(
       "/microsoft-teams/admin-consent/callback",
+      microsoftTeamsAuthorizationRateLimit,
       async (req: ExpressRequest, res: ExpressResponse) => {
         try {
           const error: string | undefined = req.query["error"]?.toString();
@@ -903,6 +952,7 @@ export default class MicrosoftTeamsAPI {
     // Microsoft Teams webhook endpoint for interactive messages (legacy)
     router.post(
       "/microsoft-teams/webhook",
+      microsoftTeamsAuthorizationRateLimit,
       async (req: ExpressRequest, res: ExpressResponse) => {
         logger.debug(
           "Microsoft Teams Webhook Request: ",

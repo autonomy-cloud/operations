@@ -469,8 +469,8 @@ const HomeFeatureSet: FeatureSet = {
         const urlString: string | undefined = link
           ?.split(",")[1]
           ?.split(";")[0]
-          ?.replace("<", "")
-          .replace(">", "")
+          ?.replace(/</g, "")
+          .replace(/>/g, "")
           .trim();
         const url: URL = URL.fromString(urlString!);
         const commits: string = Number.parseInt(
