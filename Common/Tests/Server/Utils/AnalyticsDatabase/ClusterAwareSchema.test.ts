@@ -13,6 +13,7 @@ import {
   getStorageEngine,
   getStorageTableName,
   onClusterClause,
+  quoteClickhouseIdentifier,
 } from "../../../../Server/Utils/AnalyticsDatabase/ClusterConfig";
 import UpdateBy from "../../../../Server/Types/AnalyticsDatabase/UpdateBy";
 import "../../TestingUtils/Init";
@@ -73,6 +74,15 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
 
     test("storage table name always gets the Local suffix", () => {
       expect(getStorageTableName("SpanItemV3")).toBe("SpanItemV3Local");
+    });
+
+    test("database identifiers support branded names safely", () => {
+      expect(quoteClickhouseIdentifier("cast-operations")).toBe(
+        "`cast-operations`",
+      );
+      expect(quoteClickhouseIdentifier("tenant`analytics")).toBe(
+        "`tenant``analytics`",
+      );
     });
 
     test("engines always map to their Replicated variant", () => {
