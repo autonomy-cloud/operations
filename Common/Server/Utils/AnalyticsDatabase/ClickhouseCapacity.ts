@@ -96,10 +96,6 @@ function escapeStringLiteral(value: string): string {
   return value.replace(/'/g, "''");
 }
 
-function quoteIdentifier(value: string): string {
-  return `\`${value.replace(/`/g, "``")}\``;
-}
-
 function getClient(): ClickhouseClient {
   const client: ClickhouseClient | null = ClickhouseAppInstance.getDataSource();
 
@@ -519,8 +515,8 @@ export async function dropClickhousePartition(data: {
     );
   }
 
-  const database: string = quoteIdentifier(ClickhouseDatabase);
-  const tableName: string = quoteIdentifier(data.tableName);
+  const database: string = ClickhouseDatabase;
+  const tableName: string = data.tableName;
   const cluster: string = escapeStringLiteral(getClickhouseClusterName());
   const partitionId: string = escapeStringLiteral(data.partitionId);
 
