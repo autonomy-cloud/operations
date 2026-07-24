@@ -147,6 +147,9 @@ services:
       <<: *common-depends-on
     ports:
       - "9232:9229" # Debugging port.
+      # Development and API-only integration suites can address the API
+      # directly without starting the Nginx/frontend topology.
+      - "${APP_PORT}:${APP_PORT}"
     build:
       network: host
       context: .

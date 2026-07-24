@@ -15,11 +15,17 @@ dump_service_diagnostics() {
     echo ""
     echo "=== Cast Operations service diagnostics ==="
     cd "$ROOT_DIR"
+    set -a
+    if [ -f ./config.env ]; then
+        # shellcheck disable=SC1091
+        . ./config.env
+    fi
+    set +a
     docker compose -f docker-compose.dev.yml ps -a || true
     docker compose -f docker-compose.dev.yml logs \
         --no-color \
         --tail=300 \
-        app ingress clickhouse postgres redis || true
+        app clickhouse postgres redis || true
 }
 
 trap dump_service_diagnostics EXIT
@@ -63,15 +69,22 @@ cd "$ROOT_DIR"
 # Terraform provider tests exercise the API only. Starting the frontend
 # hot-reload toolchain here delays API readiness and can exhaust CI memory.
 export CAST_OPERATIONS_API_ONLY=true
-npm run dev
+# Scope Compose to the API service. Its declared dependencies bring up
+# PostgreSQL, Redis, and ClickHouse, while frontend/probe services remain off.
+npm_config_services=app npm run dev
 
 # Step 4: Wait for the API used by the provider
 echo ""
 echo "=== Step 4: Waiting for the API to be ready ==="
 cd "$ROOT_DIR"
+set -a
+# config-to-dev, invoked by npm run dev, generated the resolved local ports.
+# shellcheck disable=SC1091
+. ./config.env
+set +a
 bash ./Tests/Scripts/endpoint-status.sh \
     "Cast Operations API" \
-    "http://localhost/status/ready"
+    "http://localhost:${APP_PORT}/status/ready"
 
 # Step 5: Setup test account
 echo ""
