@@ -85,7 +85,7 @@ AI エージェントを実行するには、Docker がインストールされ�
 docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -d cast-operations/ai-agent:release
 ```
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 設定を適用します。
@@ -162,7 +162,7 @@ AI エージェントは以下の環境変数をサポートしています。
 | --------------- | ----------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | Cast Operations ダッシュボードからの AI エージェントキー                |
 | `AI_AGENT_ID`   | Cast Operations ダッシュボードからの AI エージェント ID                 |
-| `CAST_OPERATIONS_URL` | Cast Operations インスタンスの URL（デフォルト: https://visca.ai） |
+| `CAST_OPERATIONS_URL` | Cast Operations インスタンスの URL（デフォルト: https://latticeruntime.com） |
 
 ## AI エージェントの確認
 
@@ -203,4 +203,4 @@ AI エージェントで問題が発生した場合:
 
 1. 既知の問題を確認するために [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) をご確認ください
 2. 問題がまだ報告されていない場合は、新しいイシューを作成してください
-3. エンタープライズプランをご利用の場合は、[サポート](https://visca.ai/support) にお問い合わせください
+3. エンタープライズプランをご利用の場合は、[サポート](https://latticeruntime.com/support) にお問い合わせください

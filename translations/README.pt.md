@@ -19,7 +19,7 @@
 </p>
 
 <div align="center">
-  <a href="https://visca.ai">
+  <a href="https://latticeruntime.com">
     <img alt="Logotipo da Cast Operations" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
@@ -38,14 +38,14 @@
   </p>
 
   <p>
-    <a href="https://visca.ai"><b>Site</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/docs"><b>Documentação</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com"><b>Site</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/docs"><b>Documentação</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>Início Rápido</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/pricing"><b>Preços</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/pricing"><b>Preços</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>Contribuir</b></a>
   </p>
 
-  <a href="https://visca.ai"><b>🚀 Experimente a Cast Operations Cloud — plano gratuito para sempre, sem cartão de crédito →</b></a>
+  <a href="https://latticeruntime.com"><b>🚀 Experimente a Cast Operations Cloud — plano gratuito para sempre, sem cartão de crédito →</b></a>
 </div>
 
 <br/>
@@ -123,7 +123,7 @@ O agente de IA abre um pull request com a correção, vinculado ao incidente, co
 
 Zero configuração, sempre atualizado, e ajuda a financiar o projeto open-source.
 
-**→ [Cadastre-se gratuitamente em visca.ai](https://visca.ai)**
+**→ [Cadastre-se gratuitamente em latticeruntime.com](https://latticeruntime.com)**
 
 ### 🐳 Auto-hospede com Docker Compose
 
@@ -148,7 +148,7 @@ A Cast Operations já está rodando em **http://localhost** — abra e crie sua 
 ### ☸️ Kubernetes com Helm — para produção
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm install cast-operations autonomy-cloud/operations
 ```
 
@@ -202,7 +202,7 @@ Insira agentes prontos para copiar e colar, **baseados em OpenTelemetry**, para 
 | | **Community** | **Enterprise** |
 |---|---|---|
 | **Ideal para** | Auto-hospedagem e pequenas equipes | Equipes reguladas que precisam de suporte premium |
-| **Custo** | Gratuito e open source | [Fale com vendas](mailto:sales@visca.ai) |
+| **Custo** | Gratuito e open source | [Fale com vendas](mailto:sales@latticeruntime.com) |
 | **Recursos** | Conjunto completo de recursos | Conjunto completo de recursos + imagens reforçadas, suporte prioritário, recursos personalizados e residência de dados |
 
 ---
@@ -231,7 +231,7 @@ Se a Cast Operations for útil para você:
 
 - ⭐ **Dê uma estrela a este repositório** — isso realmente ajuda outras pessoas a nos encontrarem
 - 💵 **[Seja nosso patrocinador](https://github.com/autonomy-cloud/operations)** — cada dólar entrega novos recursos
-- 🛍️ **[Garanta alguns produtos](https://shop.visca.ai)** — toda a receita financia o desenvolvimento open-source
+- 🛍️ **[Garanta alguns produtos](https://shop.latticeruntime.com)** — toda a receita financia o desenvolvimento open-source
 
 ---
 
@@ -240,5 +240,5 @@ Se a Cast Operations for útil para você:
 A Cast Operations é licenciada sob a [Apache License 2.0](/LICENSE).
 
 <div align="center">
-  <sub>Feito com ❤️ pela equipe da <a href="https://visca.ai">Cast Operations</a> e pelos <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">contribuidores</a>.</sub>
+  <sub>Feito com ❤️ pela equipe da <a href="https://latticeruntime.com">Cast Operations</a> e pelos <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">contribuidores</a>.</sub>
 </div>

@@ -179,5 +179,5 @@ Uma vez capturadas, essas métricas aparecem no Explorador de Métricas com nome
 - Você pode usar as variáveis `browserType` e `screenSizeType` para obter o tipo de navegador e o tipo de tamanho de tela no contexto de execução atual.
 - Este é um script JavaScript, então você pode usar todos os recursos JavaScript no script.
 - Você pode usar o módulo `axios` para fazer requisições HTTP no script.
-- Se estiver usando o visca.ai, você sempre terá a versão mais recente do Playwright e navegadores disponíveis no contexto do script. Se você estiver auto-hospedando, certifique-se de atualizar os probes para ter a versão mais recente do Playwright e dos navegadores.
+- Se estiver usando o latticeruntime.com, você sempre terá a versão mais recente do Playwright e navegadores disponíveis no contexto do script. Se você estiver auto-hospedando, certifique-se de atualizar os probes para ter a versão mais recente do Playwright e dos navegadores.
 - O timeout para o script é de 2 minutos. Se o script levar mais de 2 minutos, será encerrado.

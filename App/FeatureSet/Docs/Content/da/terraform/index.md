@@ -35,7 +35,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -66,7 +66,7 @@ provider "cast-operations" {
 
 - **Terraform Registry**: [Cast Operations Provider](https://registry.terraform.io/providers/autonomy-cloud/operations)
 - **GitHub Repository**: [Cast Operations Source Code](https://github.com/autonomy-cloud/operations)
-- **Fællesskabssupport**: [Cast Operations Community](https://community.visca.ai)
+- **Fællesskabssupport**: [Cast Operations Community](https://community.latticeruntime.com)
 
 ## Tilgængelige ressourcer
 

@@ -4,7 +4,7 @@
 
 ## 私有仪表板(默认)
 
-仪表板只对已登录的项目成员可达。URL 形如 `https://visca.ai/dashboards/<id>/view`,需要登录。
+仪表板只对已登录的项目成员可达。URL 形如 `https://latticeruntime.com/dashboards/<id>/view`,需要登录。
 
 在项目内部,所有者和标签控制谁能看到什么——见 [配置与权限](/docs/dashboards/configuration)。
 
@@ -51,7 +51,7 @@
 
 ## 自定义域名
 
-开箱即用时,公开仪表板部署在 `visca.ai` 上。要把它托管在你自己的子域名比如 `dashboard.acme.com` 上:
+开箱即用时,公开仪表板部署在 `latticeruntime.com` 上。要把它托管在你自己的子域名比如 `dashboard.acme.com` 上:
 
 1. 在你的 DNS 上添加一条 CNAME 记录,把子域名指向 Cast Operations 的目标。
 2. 在 **仪表板 → 设置 → 自定义域名** 下,添加这个域名。

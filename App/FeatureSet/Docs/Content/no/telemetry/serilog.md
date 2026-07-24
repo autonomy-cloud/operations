@@ -8,8 +8,8 @@ Det finnes ingen Cast Operations-spesifikk pakke å installere — sinken kommun
 
 ## Forutsetninger
 
-- **Registrer en Cast Operations-konto** – Du kan registrere en gratis konto [her](https://visca.ai). Vær oppmerksom på at selv om kontoen er gratis, er logginnsamling en betalt funksjon. Du finner flere detaljer om prisene [her](https://visca.ai/pricing).
-- **Opprett et Cast Operations-prosjekt** – Når du har en konto, oppretter du et prosjekt fra Cast Operations-dashbordet. Hvis du trenger hjelp, ta kontakt med oss på support@visca.ai.
+- **Registrer en Cast Operations-konto** – Du kan registrere en gratis konto [her](https://latticeruntime.com). Vær oppmerksom på at selv om kontoen er gratis, er logginnsamling en betalt funksjon. Du finner flere detaljer om prisene [her](https://latticeruntime.com/pricing).
+- **Opprett et Cast Operations-prosjekt** – Når du har en konto, oppretter du et prosjekt fra Cast Operations-dashbordet. Hvis du trenger hjelp, ta kontakt med oss på support@latticeruntime.com.
 - **Opprett et token for telemetriinnsamling** – Du trenger et token for å autentisere loggene dine.
 
 Etter at du har registrert deg hos Cast Operations og opprettet et prosjekt, klikker du på "More" i navigasjonslinjen og deretter på "Project Settings".
@@ -26,13 +26,13 @@ Når du har opprettet et token, klikker du på "View" for å vise tokenet.
 
 | Innstilling    | Verdi                                                      |
 | -------------- | ---------------------------------------------------------- |
-| OTLP-endepunkt | `https://visca.ai/otlp`                               |
+| OTLP-endepunkt | `https://latticeruntime.com/otlp`                               |
 | Auth-header    | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`        |
 | Tjenestenavn   | Navnet tjenesten din skal vises under, f.eks. `my-service` |
 
-> **Selvhoster du Cast Operations?** Erstatt `https://visca.ai/otlp` med `https://YOUR-OPERATIONS-HOST/otlp` (eller `http://...` hvis du ikke terminerer TLS). Alt annet forblir det samme.
+> **Selvhoster du Cast Operations?** Erstatt `https://latticeruntime.com/otlp` med `https://YOUR-OPERATIONS-HOST/otlp` (eller `http://...` hvis du ikke terminerer TLS). Alt annet forblir det samme.
 
-Sinken bruker OTLP-protokollen **HTTP/protobuf** og legger automatisk til stien `/v1/logs` på endepunktet, slik at den endelige URL-en den sender til er `https://visca.ai/otlp/v1/logs`. Du trenger bare å oppgi grunnendepunktet `/otlp`.
+Sinken bruker OTLP-protokollen **HTTP/protobuf** og legger automatisk til stien `/v1/logs` på endepunktet, slik at den endelige URL-en den sender til er `https://latticeruntime.com/otlp/v1/logs`. Du trenger bare å oppgi grunnendepunktet `/otlp`.
 
 ## Steg 1 — Installer NuGet-pakkene
 
@@ -70,7 +70,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.OpenTelemetry(options =>
     {
         // Base OTLP endpoint. The sink appends /v1/logs automatically.
-        options.Endpoint = "https://visca.ai/otlp";
+        options.Endpoint = "https://latticeruntime.com/otlp";
         options.Protocol = OtlpProtocol.HttpProtobuf;
 
         // Authenticate with your Cast Operations telemetry ingestion token.
@@ -115,7 +115,7 @@ Hvis du foretrekker konfigurasjon fremfor kode, bruk `Serilog.Settings.Configura
       {
         "Name": "OpenTelemetry",
         "Args": {
-          "endpoint": "https://visca.ai/otlp",
+          "endpoint": "https://latticeruntime.com/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
             "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
@@ -165,7 +165,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.OpenTelemetry(options =>
         {
-            options.Endpoint = "https://visca.ai/otlp";
+            options.Endpoint = "https://latticeruntime.com/otlp";
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
@@ -228,10 +228,10 @@ Hvis applikasjonen din også er instrumentert med OpenTelemetry .NET SDK for tra
 
 ## Feilsøking
 
-- **Ingen logger vises** – Dobbeltsjekk verdien `x-cast-operations-token` og bekreft at den tilhører prosjektet du ser på. Verifiser at endepunktet er `https://visca.ai/otlp` (kun grunnsti — ikke legg til `/v1/logs` selv).
+- **Ingen logger vises** – Dobbeltsjekk verdien `x-cast-operations-token` og bekreft at den tilhører prosjektet du ser på. Verifiser at endepunktet er `https://latticeruntime.com/otlp` (kun grunnsti — ikke legg til `/v1/logs` selv).
 - **Logger vises bare når appen avsluttes, eller de siste loggene mangler** – Sørg for at `Log.CloseAndFlush()` kjører ved nedstengning. Sinken samler hendelser i batcher, så bufrede logger går tapt hvis prosessen avsluttes uten å tømme bufferen.
 - **`401 Unauthorized` / ingenting tas imot** – Tokenet mangler eller er ugyldig. Bekreft at headernøkkelen er nøyaktig `x-cast-operations-token`.
 - **Feil tjenestenavn** – Sett `service.name` i `ResourceAttributes` (kode) eller `resourceAttributes` (appsettings.json). Uten det faller loggene tilbake til en standard/ukjent tjeneste.
 - **Tilkoblingsfeil til en selvhostet instans** – Sørg for at protokollen samsvarer med endepunktets skjema (`https://` vs `http://`) og at Cast Operations-hosten din er tilgjengelig fra applikasjonen.
 
-Hvis du har spørsmål eller trenger hjelp, ta kontakt med oss på support@visca.ai.
+Hvis du har spørsmål eller trenger hjelp, ta kontakt med oss på support@latticeruntime.com.

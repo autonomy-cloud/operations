@@ -11,7 +11,7 @@ The script is **read-only** — it only runs `SELECT` queries and
 ## Run it
 
 ```console
-curl -sLO https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/diagnose.sh
+curl -sLO https://raw.githubusercontent.com/autonomy-cloud/operations/develop/HelmChart/Public/diagnose.sh
 chmod +x diagnose.sh
 
 # Auto-detects namespace and helm release name
@@ -30,7 +30,7 @@ change and the `helm upgrade` command to apply it.
 
 A full report is saved to `cast-operations-diagnostic-<timestamp>.txt` in your current
 directory. Attach this file to support tickets at
-[visca.ai/support](https://visca.ai/support) so we can help diagnose
+[latticeruntime.com/support](https://latticeruntime.com/support) so we can help diagnose
 faster.
 
 ## Options

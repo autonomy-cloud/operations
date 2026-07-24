@@ -30,7 +30,7 @@ SCIM 통합은 다음과 같은 이점을 제공합니다:
    - IdP 구성을 위한 **SCIM 기본 URL** 및 **Bearer 토큰**을 복사합니다
 
 3. **ID 공급자 구성**
-   - SCIM 기본 URL 사용: `https://visca.ai/scim/v2/{scimId}`
+   - SCIM 기본 URL 사용: `https://latticeruntime.com/scim/v2/{scimId}`
    - 제공된 토큰으로 bearer 토큰 인증 구성
    - 사용자 속성 매핑 (이메일 필수)
 
@@ -78,7 +78,7 @@ SCIM 통합은 다음과 같은 이점을 제공합니다:
    - IdP 구성을 위한 **SCIM 기본 URL** 및 **Bearer 토큰**을 복사합니다
 
 3. **ID 공급자 구성**
-   - SCIM 기본 URL 사용: `https://visca.ai/status-page-scim/v2/{scimId}`
+   - SCIM 기본 URL 사용: `https://latticeruntime.com/status-page-scim/v2/{scimId}`
    - 제공된 토큰으로 bearer 토큰 인증 구성
    - 사용자 속성 매핑 (이메일 필수)
 
@@ -144,7 +144,7 @@ Microsoft Entra ID는 강력한 SCIM 프로비저닝 기능을 갖춘 엔터프�
 2. **시작하기**를 클릭합니다
 3. **프로비저닝 모드**를 **자동**으로 설정합니다
 4. **관리자 자격 증명** 아래:
-   - **테넌트 URL**: Cast Operations의 SCIM 기본 URL 입력 (예: `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **테넌트 URL**: Cast Operations의 SCIM 기본 URL 입력 (예: `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **시크릿 토큰**: Cast Operations의 Bearer 토큰 입력
 5. **연결 테스트**를 클릭하여 구성을 확인합니다
 6. **저장**을 클릭합니다
@@ -263,7 +263,7 @@ Okta는 훌륭한 SCIM 지원을 갖춘 유연한 ID 관리를 제공합니다. 
 3. **API 통합 구성**을 클릭합니다
 4. **API 통합 활성화**를 체크합니다
 5. 다음을 구성합니다:
-   - **SCIM 커넥터 기본 URL**: Cast Operations의 SCIM 기본 URL 입력 (예: `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **SCIM 커넥터 기본 URL**: Cast Operations의 SCIM 기본 URL 입력 (예: `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **사용자의 고유 식별자 필드**: `userName` 입력
    - **지원되는 프로비저닝 작업**: 활성화할 작업 선택:
      - 새 사용자 및 프로필 업데이트 가져오기
@@ -340,7 +340,7 @@ Cast Operations에서 **그룹 푸시**를 활성화한 경우:
 
 Cast Operations의 SCIM 구현은 SCIM v2.0 사양을 따르며 호환 가능한 모든 ID 공급자와 함께 작동해야 합니다. 일반 구성 단계:
 
-1. **SCIM 기본 URL**: 프로젝트의 경우 `https://visca.ai/api/identity/scim/v2/{scim-id}`, 상태 페이지의 경우 `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}`
+1. **SCIM 기본 URL**: 프로젝트의 경우 `https://latticeruntime.com/api/identity/scim/v2/{scim-id}`, 상태 페이지의 경우 `https://latticeruntime.com/api/identity/status-page-scim/v2/{scim-id}`
 2. **인증**: HTTP Bearer 토큰
 3. **필수 사용자 속성**: `userName` (유효한 이메일 주소여야 함)
 4. **지원되는 작업**: 사용자 및 그룹에 대한 GET, POST, PUT, PATCH, DELETE

@@ -15,7 +15,7 @@ cast-operations login <api-key> <instance-url>
 | 引数             | 説明                                                        |
 | ---------------- | ----------------------------------------------------------- |
 | `<api-key>`      | Cast Operations API キー（例: `sk-your-api-key`）                 |
-| `<instance-url>` | Cast Operations インスタンスの URL（例: `https://visca.ai`） |
+| `<instance-url>` | Cast Operations インスタンスの URL（例: `https://latticeruntime.com`） |
 
 **オプション:**
 
@@ -27,14 +27,14 @@ cast-operations login <api-key> <instance-url>
 
 ```bash
 # デフォルトコンテキストでログイン
-cast-operations login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://latticeruntime.com
 
 # 名前付きコンテキストでログイン
-cast-operations login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://latticeruntime.com --context-name production
 
 # 複数の環境を設定する
-cast-operations login sk-prod-key https://visca.ai --context-name production
-cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://latticeruntime.com --context-name production
+cast-operations login sk-staging-key https://staging.latticeruntime.com --context-name staging
 ```
 
 ## コンテキスト
@@ -95,14 +95,14 @@ cast-operations context delete <name>
 ### CLI フラグの使用
 
 ```bash
-cast-operations --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://latticeruntime.com incident list
 ```
 
 ### 環境変数の使用
 
 ```bash
 export CAST_OPERATIONS_API_KEY=sk-abc123
-export CAST_OPERATIONS_URL=https://visca.ai
+export CAST_OPERATIONS_URL=https://latticeruntime.com
 
 cast-operations incident list
 ```
@@ -139,12 +139,12 @@ cast-operations whoami
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://visca.ai",
+      "apiUrl": "https://latticeruntime.com",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.visca.ai",
+      "apiUrl": "https://staging.latticeruntime.com",
       "apiKey": "sk-..."
     }
   },

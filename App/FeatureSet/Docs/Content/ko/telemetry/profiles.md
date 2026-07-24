@@ -48,7 +48,7 @@ Cast Operations은 OTLP 프로파일 프로토콜을 사용하여 gRPC 및 HTTP 
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "cast-operations" {
   endpoint {
-    url = "https://visca.ai/pyroscope"
+    url = "https://latticeruntime.com/pyroscope"
     headers = {
       "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ Java 애플리케이션의 경우 OTLP를 통해 프로파일링 데이터를 �
 ```bash
 # OpenTelemetry Java 에이전트로 Java 애플리케이션 시작
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
+  -Dotel.exporter.otlp.endpoint=https://latticeruntime.com/otlp \
   -Dotel.exporter.otlp.headers=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -142,7 +142,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -181,4 +181,4 @@ Cast Operations의 프로파일은 분산 트레이스와 연결될 수 있습�
 
 ## 도움이 필요하신가요?
 
-Cast Operations으로 프로파일링 설정에 도움이 필요한 경우 support@visca.ai으로 연락하십시오.
+Cast Operations으로 프로파일링 설정에 도움이 필요한 경우 support@latticeruntime.com으로 연락하십시오.

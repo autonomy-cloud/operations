@@ -12,7 +12,7 @@
 
 ### Cast Operations Cloudの場合
 
-1. [Cast Operations Cloud](https://visca.ai) にアクセスしてログイン
+1. [Cast Operations Cloud](https://latticeruntime.com) にアクセスしてログイン
 2. **設定** → **APIキー** に移動
 3. **APIキーの作成** をクリック
 4. 「Terraform Provider」と名前を付ける
@@ -49,7 +49,7 @@ terraform {
 
 provider "cast-operations" {
   # Cloudのお客様の場合
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
 
   # セルフホストのお客様の場合 — インスタンスURLを使用
   # cast_operations_url = "https://operations.yourcompany.com"
@@ -140,7 +140,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```

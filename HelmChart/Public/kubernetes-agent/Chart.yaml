@@ -1,11 +1,11 @@
 apiVersion: v2
 name: kubernetes-agent
 description: Cast Operations Kubernetes Monitoring Agent — collects cluster metrics, events, and logs via OpenTelemetry and sends them to your Cast Operations instance.
-icon: https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg
-home: https://visca.ai
+icon: https://raw.githubusercontent.com/autonomy-cloud/operations/develop/Common/UI/Images/logos/CastOperationsSVG/logo.svg
+home: https://latticeruntime.com
 sources:
   - https://github.com/autonomy-cloud/operations
-  - https://github.com/autonomy-cloud/operations/tree/master/HelmChart
+  - https://github.com/autonomy-cloud/operations/tree/develop/HelmChart
 keywords:
   - monitoring
   - observability
@@ -17,14 +17,14 @@ keywords:
   - apm
 maintainers:
   - name: Cast Operations
-    email: hello@visca.ai
-    url: https://visca.ai
+    email: hello@latticeruntime.com
+    url: https://latticeruntime.com
 
 type: application
 
-version: 0.6.0
+version: "11.5.11"
 
-appVersion: "1.0.0"
+appVersion: "11.5.11"
 
 annotations:
   artifacthub.io/license: MIT
@@ -32,7 +32,7 @@ annotations:
   artifacthub.io/prerelease: "false"
   artifacthub.io/links: |
     - name: documentation
-      url: https://visca.ai/docs
+      url: https://latticeruntime.com/docs
     - name: source
       url: https://github.com/autonomy-cloud/operations
     - name: support

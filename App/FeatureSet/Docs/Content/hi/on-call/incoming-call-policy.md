@@ -265,4 +265,4 @@ Incoming Call Policy feature में issues के लिए, कृपया:
 
 1. Twilio Console में error logs जांचें
 2. Cast Operations server logs review करें
-3. [hello@visca.ai](mailto:hello@visca.ai) पर support से संपर्क करें
+3. [hello@latticeruntime.com](mailto:hello@latticeruntime.com) पर support से संपर्क करें

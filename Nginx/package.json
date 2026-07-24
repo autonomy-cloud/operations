@@ -1,6 +1,6 @@
 {
   "name": "@cast-operations/nginx",
-  "version": "11.5.9",
+  "version": "11.5.11",
   "description": "",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "compile": "tsc",
     "dep-check": "npm install -g depcheck && depcheck ./ --skip-missing=true"
   },
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "dependencies": {
     "Common": "file:../Common",

@@ -12,7 +12,7 @@ if (!process.env["PROBE_INGEST_URL"] && !process.env["CAST_OPERATIONS_URL"]) {
 export const CAST_OPERATIONS_BASE_URL: URL = URL.fromString(
   process.env["CAST_OPERATIONS_URL"] ||
     process.env["PROBE_INGEST_URL"] ||
-    "https://visca.ai",
+    "https://latticeruntime.com",
 );
 
 export let PROBE_INGEST_URL: URL = URL.fromString(

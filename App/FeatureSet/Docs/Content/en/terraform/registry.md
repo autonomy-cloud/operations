@@ -18,7 +18,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -110,7 +110,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Adjust for self-hosted
+  cast_operations_url = "https://latticeruntime.com"  # Adjust for self-hosted
   api_key       = var.cast_operations_api_key
 }
 

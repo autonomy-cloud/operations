@@ -8,8 +8,8 @@
 
 ## पूर्वापेक्षाएँ
 
-- **Cast Operations खाते के लिए साइन अप करें** – आप यहाँ [here](https://visca.ai) एक निःशुल्क खाते के लिए साइन अप कर सकते हैं। कृपया ध्यान दें कि खाता निःशुल्क होने के बावजूद, लॉग ग्रहण एक भुगतान सुविधा है। आप मूल्य निर्धारण के बारे में अधिक विवरण यहाँ [here](https://visca.ai/pricing) पा सकते हैं।
-- **Cast Operations प्रोजेक्ट बनाएँ** – एक बार जब आपके पास खाता हो, तो Cast Operations डैशबोर्ड से एक प्रोजेक्ट बनाएँ। यदि आपको सहायता की आवश्यकता हो, तो हमसे support@visca.ai पर संपर्क करें।
+- **Cast Operations खाते के लिए साइन अप करें** – आप यहाँ [here](https://latticeruntime.com) एक निःशुल्क खाते के लिए साइन अप कर सकते हैं। कृपया ध्यान दें कि खाता निःशुल्क होने के बावजूद, लॉग ग्रहण एक भुगतान सुविधा है। आप मूल्य निर्धारण के बारे में अधिक विवरण यहाँ [here](https://latticeruntime.com/pricing) पा सकते हैं।
+- **Cast Operations प्रोजेक्ट बनाएँ** – एक बार जब आपके पास खाता हो, तो Cast Operations डैशबोर्ड से एक प्रोजेक्ट बनाएँ। यदि आपको सहायता की आवश्यकता हो, तो हमसे support@latticeruntime.com पर संपर्क करें।
 - **Telemetry Ingestion Token बनाएँ** – अपने लॉग को प्रमाणित करने के लिए आपको एक टोकन की आवश्यकता होती है।
 
 Cast Operations पर साइन अप करने और एक प्रोजेक्ट बनाने के बाद, नेविगेशन बार में "More" पर क्लिक करें और "Project Settings" पर क्लिक करें।
@@ -26,13 +26,13 @@ Telemetry Ingestion Key पृष्ठ पर, एक टोकन बनान
 
 | सेटिंग        | मान                                                                |
 | ------------- | ------------------------------------------------------------------ |
-| OTLP एंडपॉइंट | `https://visca.ai/otlp`                                       |
+| OTLP एंडपॉइंट | `https://latticeruntime.com/otlp`                                       |
 | Auth हेडर     | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`                |
 | सेवा का नाम   | वह नाम जिसके अंतर्गत आपकी सेवा दिखाई देनी चाहिए, उदा. `my-service` |
 
-> **Cast Operations को स्वयं-होस्ट कर रहे हैं?** `https://visca.ai/otlp` को `https://YOUR-OPERATIONS-HOST/otlp` से बदलें (या `http://...` यदि आप TLS समाप्त नहीं कर रहे हैं)। बाकी सब कुछ वैसा ही रहता है।
+> **Cast Operations को स्वयं-होस्ट कर रहे हैं?** `https://latticeruntime.com/otlp` को `https://YOUR-OPERATIONS-HOST/otlp` से बदलें (या `http://...` यदि आप TLS समाप्त नहीं कर रहे हैं)। बाकी सब कुछ वैसा ही रहता है।
 
-sink OTLP **HTTP/protobuf** प्रोटोकॉल का उपयोग करता है और स्वचालित रूप से एंडपॉइंट में `/v1/logs` पथ जोड़ता है, इसलिए यह जिस अंतिम URL पर पोस्ट करता है वह `https://visca.ai/otlp/v1/logs` है। आपको केवल आधार `/otlp` एंडपॉइंट प्रदान करना होगा।
+sink OTLP **HTTP/protobuf** प्रोटोकॉल का उपयोग करता है और स्वचालित रूप से एंडपॉइंट में `/v1/logs` पथ जोड़ता है, इसलिए यह जिस अंतिम URL पर पोस्ट करता है वह `https://latticeruntime.com/otlp/v1/logs` है। आपको केवल आधार `/otlp` एंडपॉइंट प्रदान करना होगा।
 
 ## चरण 1 — NuGet पैकेज इंस्टॉल करें
 
@@ -70,7 +70,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.OpenTelemetry(options =>
     {
         // Base OTLP endpoint. The sink appends /v1/logs automatically.
-        options.Endpoint = "https://visca.ai/otlp";
+        options.Endpoint = "https://latticeruntime.com/otlp";
         options.Protocol = OtlpProtocol.HttpProtobuf;
 
         // Authenticate with your Cast Operations telemetry ingestion token.
@@ -115,7 +115,7 @@ finally
       {
         "Name": "OpenTelemetry",
         "Args": {
-          "endpoint": "https://visca.ai/otlp",
+          "endpoint": "https://latticeruntime.com/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
             "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
@@ -165,7 +165,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.OpenTelemetry(options =>
         {
-            options.Endpoint = "https://visca.ai/otlp";
+            options.Endpoint = "https://latticeruntime.com/otlp";
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
@@ -228,10 +228,10 @@ Cast Operations इन एट्रिब्यूट का पता लगा
 
 ## समस्या निवारण
 
-- **कोई लॉग दिखाई नहीं देता** – `x-cast-operations-token` मान को दोबारा जाँचें और पुष्टि करें कि यह उसी प्रोजेक्ट से संबंधित है जिसे आप देख रहे हैं। सत्यापित करें कि एंडपॉइंट `https://visca.ai/otlp` है (केवल आधार पथ — `/v1/logs` को स्वयं न जोड़ें)।
+- **कोई लॉग दिखाई नहीं देता** – `x-cast-operations-token` मान को दोबारा जाँचें और पुष्टि करें कि यह उसी प्रोजेक्ट से संबंधित है जिसे आप देख रहे हैं। सत्यापित करें कि एंडपॉइंट `https://latticeruntime.com/otlp` है (केवल आधार पथ — `/v1/logs` को स्वयं न जोड़ें)।
 - **लॉग केवल तब दिखाई देते हैं जब ऐप बाहर निकलता है, या अंतिम लॉग गायब हैं** – सुनिश्चित करें कि shutdown पर `Log.CloseAndFlush()` चलता है। sink इवेंट को बैच करता है, इसलिए यदि प्रक्रिया को फ़्लश किए बिना समाप्त कर दिया जाता है तो बफ़र किए गए लॉग खो जाते हैं।
 - **`401 Unauthorized` / कुछ भी ग्रहण नहीं हुआ** – टोकन गायब है या अमान्य है। पुष्टि करें कि हेडर कुंजी ठीक `x-cast-operations-token` है।
 - **गलत सेवा नाम** – `ResourceAttributes` (कोड) या `resourceAttributes` (appsettings.json) में `service.name` सेट करें। इसके बिना, लॉग एक डिफ़ॉल्ट/अज्ञात सेवा पर वापस आ जाते हैं।
 - **स्वयं-होस्ट किए गए instance में कनेक्शन त्रुटियाँ** – सुनिश्चित करें कि प्रोटोकॉल आपके एंडपॉइंट स्कीम (`https://` बनाम `http://`) से मेल खाता है और आपका Cast Operations होस्ट एप्लिकेशन से पहुँच योग्य है।
 
-यदि आपके कोई प्रश्न हैं या सहायता की आवश्यकता है, तो कृपया हमसे support@visca.ai पर संपर्क करें।
+यदि आपके कोई प्रश्न हैं या सहायता की आवश्यकता है, तो कृपया हमसे support@latticeruntime.com पर संपर्क करें।

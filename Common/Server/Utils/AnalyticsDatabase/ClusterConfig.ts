@@ -113,7 +113,7 @@ export function getDistributedEngine(
     (modelShardingKey && modelShardingKey.trim().length > 0
       ? modelShardingKey.trim()
       : DEFAULT_CLICKHOUSE_SHARDING_KEY);
-  return `Distributed('${cluster}', ${database}, ${localTableName}, ${shardingKey})`;
+  return `Distributed('${cluster.replace(/\\/g, "\\\\").replace(/'/g, "\\'")}', ${quoteClickhouseIdentifier(database)}, ${quoteClickhouseIdentifier(localTableName)}, ${shardingKey})`;
 }
 
 /*

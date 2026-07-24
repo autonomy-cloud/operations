@@ -151,7 +151,11 @@ services:
     environment:
       CLICKHOUSE_USER: ${CLICKHOUSE_USER}
       CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
-      CLICKHOUSE_DB: ${CLICKHOUSE_DATABASE}
+      # The ClickHouse image interpolates this value into CREATE DATABASE without
+      # quoting it. Keep the application-facing database name unchanged while
+      # quoting the bootstrap identifier so names such as "cast-operations" are
+      # valid on a fresh volume.
+      CLICKHOUSE_DB: "`${CLICKHOUSE_DATABASE}`"
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
     networks:
       - cast-operations
@@ -190,7 +194,11 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready --username=$${POSTGRES_USER} --dbname=$${POSTGRES_DB}",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5

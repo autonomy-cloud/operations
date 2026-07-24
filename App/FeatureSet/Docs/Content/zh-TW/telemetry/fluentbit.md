@@ -30,8 +30,8 @@ FluentBit 支援數百種資料來源，您可以將來自任何這些來源的�
 ## 先決條件
 
 - **步驟 1：在您的系統上安裝 FluentBit** - 您可以依照[此處](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)提供的說明來安裝 FluentBit
-- **步驟 2：註冊 Cast Operations 帳戶** - 您可以於[此處](https://visca.ai)註冊免費帳戶。請注意，雖然帳戶是免費的，但記錄擷取是付費功能。您可以於[此處](https://visca.ai/pricing)找到更多關於價格的詳細資訊。
-- **步驟 3：建立 Cast Operations 專案** - 擁有帳戶後，您可以從 Cast Operations 儀表板建立專案。如果您在建立專案時需要任何協助或有任何問題，請透過 support@visca.ai 與我們聯絡
+- **步驟 2：註冊 Cast Operations 帳戶** - 您可以於[此處](https://latticeruntime.com)註冊免費帳戶。請注意，雖然帳戶是免費的，但記錄擷取是付費功能。您可以於[此處](https://latticeruntime.com/pricing)找到更多關於價格的詳細資訊。
+- **步驟 3：建立 Cast Operations 專案** - 擁有帳戶後，您可以從 Cast Operations 儀表板建立專案。如果您在建立專案時需要任何協助或有任何問題，請透過 support@latticeruntime.com 與我們聯絡
 - **步驟 4：建立遙測擷取權杖** - 在您建立 Cast Operations 帳戶後，您可以建立遙測擷取權杖，以從您的應用程式擷取記錄、指標與追蹤。
 
 在您註冊 Cast Operations 並建立專案後。點按導覽列中的「More」，然後點按「Project Settings」。
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "visca.ai"
+    host: "latticeruntime.com"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "visca.ai"
+      host: "latticeruntime.com"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## 使用方式
 
-在您將設定加入 fluentbit 設定檔後，您可以重新啟動 fluentbit 服務。服務重新啟動後，遙測資料便會傳送至 Cast Operations HTTP Source。您現在可以開始在 Cast Operations 儀表板中看到遙測資料。如果您有任何問題或在設定上需要協助，請透過 support@visca.ai 與我們聯絡
+在您將設定加入 fluentbit 設定檔後，您可以重新啟動 fluentbit 服務。服務重新啟動後，遙測資料便會傳送至 Cast Operations HTTP Source。您現在可以開始在 Cast Operations 儀表板中看到遙測資料。如果您有任何問題或在設定上需要協助，請透過 support@latticeruntime.com 與我們聯絡

@@ -4,7 +4,7 @@
 
 1. **Creare un Account su Cast Operations**
 
-   - Visitare [Cast Operations.com](https://visca.ai) e creare un account.
+   - Visitare [Cast Operations.com](https://latticeruntime.com) e creare un account.
    - Una volta creato l'account, creare un nuovo progetto.
 
 2. **Connettere Microsoft Teams al Progetto Cast Operations**

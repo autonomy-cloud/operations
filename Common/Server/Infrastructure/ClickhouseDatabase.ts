@@ -16,6 +16,7 @@ import HTTPResponse from "../../Types/API/HTTPResponse";
 import { JSONObject } from "../../Types/JSON";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import GracefulShutdown, { ShutdownPriority } from "../Utils/GracefulShutdown";
+import { quoteClickhouseIdentifier } from "../Utils/AnalyticsDatabase/ClusterConfig";
 
 export type ClickhouseClient = ClickHouseClient;
 
@@ -57,6 +58,14 @@ export default class ClickhouseDatabase {
   public async connect(
     dataSourceOptions: ClickHouseClientConfigOptions,
   ): Promise<ClickhouseClient> {
+    const databaseName: string | undefined = dataSourceOptions.database;
+
+    if (!databaseName) {
+      throw new DatabaseNotConnectedException(
+        "Clickhouse database name is not configured",
+      );
+    }
+
     let retry: number = 0;
 
     try {
@@ -69,7 +78,9 @@ export default class ClickhouseDatabase {
               database: "default",
             });
             await defaultDbClient.exec({
-              query: `CREATE DATABASE IF NOT EXISTS ${dataSourceOptions.database}`,
+              query: `CREATE DATABASE IF NOT EXISTS ${quoteClickhouseIdentifier(
+                databaseName,
+              )}`,
             });
 
             await defaultDbClient.close();

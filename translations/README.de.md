@@ -19,7 +19,7 @@
 </p>
 
 <div align="center">
-  <a href="https://visca.ai">
+  <a href="https://latticeruntime.com">
     <img alt="Cast Operations Logo" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
@@ -38,14 +38,14 @@
   </p>
 
   <p>
-    <a href="https://visca.ai"><b>Website</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/docs"><b>Dokumentation</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com"><b>Website</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/docs"><b>Dokumentation</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>Schnellstart</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/pricing"><b>Preise</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/pricing"><b>Preise</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>Mitwirken</b></a>
   </p>
 
-  <a href="https://visca.ai"><b>🚀 Cast Operations Cloud testen — für immer kostenloser Tarif, keine Kreditkarte →</b></a>
+  <a href="https://latticeruntime.com"><b>🚀 Cast Operations Cloud testen — für immer kostenloser Tarif, keine Kreditkarte →</b></a>
 </div>
 
 <br/>
@@ -123,7 +123,7 @@ Der KI-Agent öffnet einen Pull Request mit der Lösung, verknüpft mit dem Vorf
 
 Keine Einrichtung, immer auf dem neuesten Stand und finanziert das Open-Source-Projekt.
 
-**→ [Kostenlos anmelden auf visca.ai](https://visca.ai)**
+**→ [Kostenlos anmelden auf latticeruntime.com](https://latticeruntime.com)**
 
 ### 🐳 Selbst hosten mit Docker Compose
 
@@ -148,7 +148,7 @@ Cast Operations läuft jetzt unter **http://localhost** — öffnen Sie es und e
 ### ☸️ Kubernetes mit Helm — für die Produktion
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm install cast-operations autonomy-cloud/operations
 ```
 
@@ -202,7 +202,7 @@ Fügen Sie kopierfertige, **OpenTelemetry-basierte** Agenten ein, um alles zu ü
 | | **Community** | **Enterprise** |
 |---|---|---|
 | **Ideal für** | Selbst-Hoster und kleine Teams | Regulierte Teams, die Premium-Support benötigen |
-| **Kosten** | Kostenlos und Open Source | [Vertrieb kontaktieren](mailto:sales@visca.ai) |
+| **Kosten** | Kostenlos und Open Source | [Vertrieb kontaktieren](mailto:sales@latticeruntime.com) |
 | **Funktionen** | Vollständiger Funktionsumfang | Vollständiger Funktionsumfang + gehärtete Images, Prioritäts-Support, individuelle Funktionen und Datenresidenz |
 
 ---
@@ -231,7 +231,7 @@ Wenn Cast Operations für Sie nützlich ist:
 
 - ⭐ **Geben Sie diesem Repo einen Stern** — das hilft wirklich anderen, uns zu finden
 - 💵 **[Sponsern Sie uns](https://github.com/autonomy-cloud/operations)** — jeder Dollar bringt neue Funktionen hervor
-- 🛍️ **[Holen Sie sich etwas Merch](https://shop.visca.ai)** — alle Erlöse finanzieren die Open-Source-Entwicklung
+- 🛍️ **[Holen Sie sich etwas Merch](https://shop.latticeruntime.com)** — alle Erlöse finanzieren die Open-Source-Entwicklung
 
 ---
 
@@ -240,5 +240,5 @@ Wenn Cast Operations für Sie nützlich ist:
 Cast Operations ist unter der [Apache License 2.0](/LICENSE) lizenziert.
 
 <div align="center">
-  <sub>Mit ❤️ erstellt vom <a href="https://visca.ai">Cast Operations</a>-Team und <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">Mitwirkenden</a>.</sub>
+  <sub>Mit ❤️ erstellt vom <a href="https://latticeruntime.com">Cast Operations</a>-Team und <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">Mitwirkenden</a>.</sub>
 </div>

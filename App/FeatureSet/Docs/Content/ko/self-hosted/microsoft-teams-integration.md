@@ -129,4 +129,4 @@ microsoftTeamsApp:
 
 ## 지원
 
-이 통합을 개선하고 싶으므로 피드백은 대환영입니다. [hello@visca.ai](mailto:hello@visca.ai)으로 보내 주십시오.
+이 통합을 개선하고 싶으므로 피드백은 대환영입니다. [hello@latticeruntime.com](mailto:hello@latticeruntime.com)으로 보내 주십시오.

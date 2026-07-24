@@ -16,9 +16,9 @@ echo "--------------------------------------"
 echo "Run this on a Docker Swarm MANAGER node (the inventory poller needs the manager API)."
 echo ""
 
-printf "Cast Operations URL [https://visca.ai]: "
+printf "Cast Operations URL [https://latticeruntime.com]: "
 read -r CAST_OPERATIONS_URL
-CAST_OPERATIONS_URL="${CAST_OPERATIONS_URL:-https://visca.ai}"
+CAST_OPERATIONS_URL="${CAST_OPERATIONS_URL:-https://latticeruntime.com}"
 
 printf "Cast Operations Telemetry Ingestion Key: "
 read -r CAST_OPERATIONS_SERVICE_TOKEN

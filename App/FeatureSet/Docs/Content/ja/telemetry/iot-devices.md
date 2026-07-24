@@ -39,14 +39,14 @@ Cast Operations は、OpenTelemetry のリソース属性を使用して、デ�
 デバイスが OpenTelemetry SDK を直接実行している場合は、それを Cast Operations に向け、標準の `OTEL_*` 環境変数を介して IoT リソース属性をスタンプします。トークン、エンドポイント、フリート名、デバイス id を、ご利用の環境の値に置き換えてください。
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | 環境変数                       | 必須   | 説明                                                                                                 |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | はい     | Cast Operations OTLP エンドポイント (`https://visca.ai/otlp`、またはセルフホストの `http(s)://YOUR-OPERATIONS-HOST/otlp`) |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | はい     | Cast Operations OTLP エンドポイント (`https://latticeruntime.com/otlp`、またはセルフホストの `http(s)://YOUR-OPERATIONS-HOST/otlp`) |
 | `OTEL_EXPORTER_OTLP_HEADERS`  | はい     | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | はい     | カンマ区切りのリソース属性。`iot.fleet.name`、`device.id`、`service.name=iot/<fleet>` を含める必要があります |
 
@@ -80,7 +80,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     headers:
       "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
@@ -135,12 +135,12 @@ mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
-WebSocket 経由の Node.js `mqtt` の例 (visca.ai および任意のセルフホストインスタンスで動作します):
+WebSocket 経由の Node.js `mqtt` の例 (latticeruntime.com および任意のセルフホストインスタンスで動作します):
 
 ```javascript
 const mqtt = require("mqtt");
 
-const client = mqtt.connect("wss://visca.ai/mqtt", {
+const client = mqtt.connect("wss://latticeruntime.com/mqtt", {
   username: "cast-operations", // ignored — the token below is what authenticates
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
@@ -177,7 +177,7 @@ client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
 client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
-client.connect("visca.ai", 443)
+client.connect("latticeruntime.com", 443)
 
 client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
@@ -221,7 +221,7 @@ Cast Operations は、以下の `iot_*` メトリクス名を認識します。�
 ### フリートが表示されない
 
 1. `iot.fleet.name` が **リソース** 属性として設定されていること (データポイントのラベルではないこと)、および `service.name` が `iot/<fleet>` であることを確認します。
-2. エクスポーターのエンドポイントが `https://visca.ai/otlp` (またはセルフホストの `…/otlp`) であり、`x-cast-operations-token` ヘッダーが有効なトークンを保持していることを確認します。
+2. エクスポーターのエンドポイントが `https://latticeruntime.com/otlp` (またはセルフホストの `…/otlp`) であり、`x-cast-operations-token` ヘッダーが有効なトークンを保持していることを確認します。
 3. MQTT を使用している場合は、トピックが `cast-operations/<fleet>/<device>/…` に正確に従っていることを確認します — フリートを作成するのはトピックのフリートセグメントです。
 
 ### デバイスがインベントリに表示されない

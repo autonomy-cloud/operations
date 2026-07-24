@@ -1,6 +1,6 @@
 # 传入请求入口
 
-自定义探针可以选择运行一个**入站 HTTP 监听器**，接受来自私有网络内部的 `heartbeat` 和 `incoming-request` 调用，并将其转发到 Cast Operations。这使得**没有出站互联网访问**的服务仍然可以通过向本地网络上的探针（而非直接向 `visca.ai`）发送请求，向[传入请求监控器](/docs/monitor/incoming-request-monitor)报告。
+自定义探针可以选择运行一个**入站 HTTP 监听器**，接受来自私有网络内部的 `heartbeat` 和 `incoming-request` 调用，并将其转发到 Cast Operations。这使得**没有出站互联网访问**的服务仍然可以通过向本地网络上的探针（而非直接向 `latticeruntime.com`）发送请求，向[传入请求监控器](/docs/monitor/incoming-request-monitor)报告。
 
 ## 概述
 
@@ -24,7 +24,7 @@
 - 您希望只有一个出口点（探针）被允许访问 Cast Operations
 - 您已经部署了[自定义探针](/docs/probe/custom-probe)，并希望将其重用于入站心跳
 
-如果您的服务已经可以直接访问 `https://visca.ai`（或您的自托管 URL），您**不需要**此功能——直接从服务调用心跳 URL 即可。
+如果您的服务已经可以直接访问 `https://latticeruntime.com`（或您的自托管 URL），您**不需要**此功能——直接从服务调用心跳 URL 即可。
 
 ## 启用入口监听器
 
@@ -36,7 +36,7 @@
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ spec:
 将公共心跳 URL：
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 替换为探针的入口 URL：
@@ -171,7 +171,7 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 
 ## 安全注意事项
 
-- **端点根据设计是未认证的** — URL 路径中的密钥*就是*认证凭据，就像公共 `visca.ai` 端点一样。请将密钥视为凭据。
+- **端点根据设计是未认证的** — URL 路径中的密钥*就是*认证凭据，就像公共 `latticeruntime.com` 端点一样。请将密钥视为凭据。
 - **仅绑定到私有接口。** 入口监听器不应从公共互联网访问。使用网络策略、防火墙规则或 `ClusterIP` 服务来限制访问。
 - **如果需要传输中加密，请使用 HTTPS 终止。** 探针的监听器使用纯 HTTP。如果入站连接需要 TLS，请将其放在内部负载均衡器/入口控制器后面。从探针到 Cast Operations 的转发路段始终使用 HTTPS（假设 `CAST_OPERATIONS_URL` 是 `https://`）。
 - **资源限制。** 监听器接受最多 50 MB 的请求体。如果您需要更严格的限制，请在前面放置反向代理。

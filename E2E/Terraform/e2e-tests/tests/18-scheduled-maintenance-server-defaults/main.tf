@@ -1,13 +1,13 @@
 terraform {
   required_providers {
-    cast-operations = {
+    cast = {
       source  = "autonomy-cloud/operations"
       version = "1.0.0"
     }
   }
 }
 
-provider "cast-operations" {
+provider "cast" {
   cast_operations_url = var.cast_operations_url
   api_key       = var.api_key
 }

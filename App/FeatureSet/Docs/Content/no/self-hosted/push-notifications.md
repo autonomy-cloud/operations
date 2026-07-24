@@ -31,4 +31,4 @@ Hvis du støter på problemer med push-varsler, vennligst:
 
 1. Sjekk feilsøkingsseksjonen ovenfor
 2. Se gjennom Cast Operations-loggene for detaljerte feilmeldinger
-3. Kontakt oss på [hello@visca.ai](mailto:hello@visca.ai)
+3. Kontakt oss på [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

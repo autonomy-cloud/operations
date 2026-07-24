@@ -26,7 +26,7 @@
 생성 후 모니터는 다음 형식의 고유한 하트비트 URL을 가집니다:
 
 ```
-https://visca.ai/heartbeat/YOUR_SECRET_KEY
+https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 ```
 
 서비스는 정기적인 간격으로 이 URL에 HTTP **GET** 또는 **POST** 요청을 전송해야 합니다.
@@ -37,10 +37,10 @@ https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 ```bash
 # 간단한 GET 요청
-curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
+curl https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 
 # 커스텀 본문이 있는 POST 요청
-curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # 5분마다 하트비트를 전송하기 위해 crontab에 추가
-*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### 애플리케이션 코드에서
@@ -57,16 +57,16 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js 예시
 const https = require("https");
-https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
+https.get("https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python 예시
 import requests
-requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY')
 ```
 
-자체 호스팅하는 경우 `https://visca.ai`을 Cast Operations 인스턴스 URL로 교체합니다.
+자체 호스팅하는 경우 `https://latticeruntime.com`을 Cast Operations 인스턴스 URL로 교체합니다.
 
 ## 모니터링 기준
 

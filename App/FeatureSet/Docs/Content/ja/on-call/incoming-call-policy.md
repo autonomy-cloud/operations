@@ -321,4 +321,4 @@ graph TB
 
 1. TwilioコンソールでエラーログをN確認する
 2. Cast Operationsのサーバーログを確認する
-3. [hello@visca.ai](mailto:hello@visca.ai) にサポートを依頼する
+3. [hello@latticeruntime.com](mailto:hello@latticeruntime.com) にサポートを依頼する

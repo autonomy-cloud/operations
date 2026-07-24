@@ -30,8 +30,8 @@ Fluentd 支援數百種資料來源，您可以將這些來源中的任何日誌
 ## 先決條件
 
 - **步驟 1：在您的系統上安裝 Fluentd** - 您可以依照[此處](https://docs.fluentd.org/installation)提供的說明安裝 Fluentd
-- **步驟 2：註冊 Cast Operations 帳號** - 您可以在[此處](https://visca.ai)註冊免費帳號。請注意，雖然帳號是免費的，但日誌擷取是付費功能。您可以在[此處](https://visca.ai/pricing)找到關於定價的更多詳細資訊。
-- **步驟 3：建立 Cast Operations 專案** - 擁有帳號後，您可以從 Cast Operations 儀表板建立專案。如果您在建立專案時需要任何協助或有任何疑問，請透過 support@visca.ai 與我們聯絡
+- **步驟 2：註冊 Cast Operations 帳號** - 您可以在[此處](https://latticeruntime.com)註冊免費帳號。請注意，雖然帳號是免費的，但日誌擷取是付費功能。您可以在[此處](https://latticeruntime.com/pricing)找到關於定價的更多詳細資訊。
+- **步驟 3：建立 Cast Operations 專案** - 擁有帳號後，您可以從 Cast Operations 儀表板建立專案。如果您在建立專案時需要任何協助或有任何疑問，請透過 support@latticeruntime.com 與我們聯絡
 - **步驟 4：建立遙測擷取權杖** - 建立 Cast Operations 帳號後，您可以建立遙測擷取權杖，以從您的應用程式擷取日誌、指標與追蹤。
 
 註冊 Cast Operations 並建立專案後。點擊導覽列中的「More」，然後點擊「Project Settings」。
@@ -55,7 +55,7 @@ Fluentd 支援數百種資料來源，您可以將這些來源中的任何日誌
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -90,7 +90,7 @@ bind 0.0.0.0
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -111,4 +111,4 @@ flush_interval 10s
 
 ## 使用方式
 
-將設定加入 fluentd 設定檔後，您可以重新啟動 fluentd 服務。服務重新啟動後，遙測資料將被傳送到 Cast Operations HTTP Source。您現在可以開始在 Cast Operations 儀表板中看到遙測資料。如果您有任何疑問或在設定上需要協助，請透過 support@visca.ai 與我們聯絡
+將設定加入 fluentd 設定檔後，您可以重新啟動 fluentd 服務。服務重新啟動後，遙測資料將被傳送到 Cast Operations HTTP Source。您現在可以開始在 Cast Operations 儀表板中看到遙測資料。如果您有任何疑問或在設定上需要協助，請透過 support@latticeruntime.com 與我們聯絡

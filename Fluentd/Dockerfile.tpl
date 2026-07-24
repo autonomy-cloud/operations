@@ -6,8 +6,8 @@ FROM fluentd
 LABEL org.opencontainers.image.title="Cast Operations Fluentd"
 LABEL org.opencontainers.image.description="Cast Operations Fluentd log forwarder — ships container logs into the Cast Operations telemetry pipeline."
 LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
-LABEL org.opencontainers.image.url="https://visca.ai"
-LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.url="https://latticeruntime.com"
+LABEL org.opencontainers.image.documentation="https://latticeruntime.com/docs"
 LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 

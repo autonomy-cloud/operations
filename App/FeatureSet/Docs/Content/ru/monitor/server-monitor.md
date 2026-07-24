@@ -28,16 +28,16 @@
 
 ```bash
 # Установите агент
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Настройте агент
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Запустите агент
 sudo cast-operations-infrastructure-agent start
 ```
 
-Замените `YOUR_SECRET_KEY` секретным ключом, отображаемым в настройках монитора, а `https://visca.ai` — URL вашего экземпляра Cast Operations при самостоятельном хостинге.
+Замените `YOUR_SECRET_KEY` секретным ключом, отображаемым в настройках монитора, а `https://latticeruntime.com` — URL вашего экземпляра Cast Operations при самостоятельном хостинге.
 
 ### Windows
 
@@ -49,7 +49,7 @@ sudo cast-operations-infrastructure-agent start
 
 ```bash
 # Настройте агент
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Запустите агент
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 Если сервер подключается к интернету через прокси, можно настроить агент для работы с ним:
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Команды агента

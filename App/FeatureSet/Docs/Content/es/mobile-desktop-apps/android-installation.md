@@ -32,7 +32,7 @@ El APK lo crea y firma Cast Operations a partir del mismo código fuente que la 
 ## Primer inicio e inicio de sesión
 
 1. **URL del servidor**
-   - Si usa Cast Operations Cloud, deje el valor predeterminado `https://visca.ai`.
+   - Si usa Cast Operations Cloud, deje el valor predeterminado `https://latticeruntime.com`.
    - Si está autoalojando, introduzca la URL de su instancia de Cast Operations (p. ej., `https://operations.example.com`).
    - La aplicación verifica que el servidor sea accesible antes de continuar.
 2. **Iniciar sesión**

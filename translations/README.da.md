@@ -19,7 +19,7 @@
 </p>
 
 <div align="center">
-  <a href="https://visca.ai">
+  <a href="https://latticeruntime.com">
     <img alt="Cast Operations-logo" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
@@ -38,14 +38,14 @@
   </p>
 
   <p>
-    <a href="https://visca.ai"><b>Websted</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/docs"><b>Dokumentation</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com"><b>Websted</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/docs"><b>Dokumentation</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>Hurtig start</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/pricing"><b>Priser</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/pricing"><b>Priser</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>Bidrag</b></a>
   </p>
 
-  <a href="https://visca.ai"><b>🚀 Prøv Cast Operations Cloud — gratis for altid, intet kreditkort →</b></a>
+  <a href="https://latticeruntime.com"><b>🚀 Prøv Cast Operations Cloud — gratis for altid, intet kreditkort →</b></a>
 </div>
 
 <br/>
@@ -123,7 +123,7 @@ AI-agenten åbner en pull request med rettelsen, koblet til hændelsen, med grø
 
 Ingen opsætning, altid opdateret, og det finansierer open source-projektet.
 
-**→ [Tilmeld dig gratis på visca.ai](https://visca.ai)**
+**→ [Tilmeld dig gratis på latticeruntime.com](https://latticeruntime.com)**
 
 ### 🐳 Host selv med Docker Compose
 
@@ -148,7 +148,7 @@ Cast Operations kører nu på **http://localhost** — åbn det og opret din fø
 ### ☸️ Kubernetes med Helm — til produktion
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm install cast-operations autonomy-cloud/operations
 ```
 
@@ -202,7 +202,7 @@ Indsæt copy-paste, **OpenTelemetry-baserede** agenter til at holde øje med alt
 | | **Community** | **Enterprise** |
 |---|---|---|
 | **Bedst til** | Selv-hostere og små teams | Regulerede teams med behov for premium-support |
-| **Pris** | Gratis og open source | [Kontakt salg](mailto:sales@visca.ai) |
+| **Pris** | Gratis og open source | [Kontakt salg](mailto:sales@latticeruntime.com) |
 | **Funktioner** | Fuldt funktionssæt | Fuldt funktionssæt + hærdede images, prioriteret support, brugerdefinerede funktioner og dataophold |
 
 ---
@@ -231,7 +231,7 @@ Hvis Cast Operations er nyttigt for dig:
 
 - ⭐ **Giv denne repo en stjerne** — det hjælper virkelig andre med at finde os
 - 💵 **[Sponsorér os](https://github.com/autonomy-cloud/operations)** — hver krone leverer nye funktioner
-- 🛍️ **[Køb noget merch](https://shop.visca.ai)** — alt overskud finansierer open source-udvikling
+- 🛍️ **[Køb noget merch](https://shop.latticeruntime.com)** — alt overskud finansierer open source-udvikling
 
 ---
 
@@ -240,5 +240,5 @@ Hvis Cast Operations er nyttigt for dig:
 Cast Operations er licenseret under [Apache License 2.0](/LICENSE).
 
 <div align="center">
-  <sub>Lavet med ❤️ af <a href="https://visca.ai">Cast Operations</a>-teamet og <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">bidragydere</a>.</sub>
+  <sub>Lavet med ❤️ af <a href="https://latticeruntime.com">Cast Operations</a>-teamet og <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">bidragydere</a>.</sub>
 </div>

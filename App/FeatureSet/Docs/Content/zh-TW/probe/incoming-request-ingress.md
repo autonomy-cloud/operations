@@ -1,6 +1,6 @@
 # 傳入請求入口（Incoming Request Ingress）
 
-自訂探針（Custom Probe）可以選擇性地執行一個**傳入 HTTP 監聽器**，接受來自您私有網路內部的 `heartbeat` 與 `incoming-request` 呼叫，並將它們轉發到 Cast Operations。這讓**沒有對外網際網路存取能力**的服務，仍然可以透過將請求傳送到本地網路上的探針（而非直接傳送到 `visca.ai`），向[傳入請求監控（Incoming Request Monitor）](/docs/monitor/incoming-request-monitor)回報。
+自訂探針（Custom Probe）可以選擇性地執行一個**傳入 HTTP 監聽器**，接受來自您私有網路內部的 `heartbeat` 與 `incoming-request` 呼叫，並將它們轉發到 Cast Operations。這讓**沒有對外網際網路存取能力**的服務，仍然可以透過將請求傳送到本地網路上的探針（而非直接傳送到 `latticeruntime.com`），向[傳入請求監控（Incoming Request Monitor）](/docs/monitor/incoming-request-monitor)回報。
 
 ## 概觀
 
@@ -24,7 +24,7 @@
 - 您希望有單一的出口點——也就是探針——被允許連線到 Cast Operations
 - 您已經部署了[自訂探針（Custom Probe）](/docs/probe/custom-probe)，並想重複使用它來處理傳入的心跳（heartbeat）
 
-如果您的服務已經可以直接連線到 `https://visca.ai`（或您的自架 URL），那麼您**不**需要此功能——直接從服務呼叫心跳 URL 即可。
+如果您的服務已經可以直接連線到 `https://latticeruntime.com`（或您的自架 URL），那麼您**不**需要此功能——直接從服務呼叫心跳 URL 即可。
 
 ## 啟用入口監聽器
 
@@ -36,7 +36,7 @@
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ spec:
 將公開的心跳 URL：
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 替換為探針的入口 URL：
@@ -171,7 +171,7 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 
 ## 安全考量
 
-- **此端點在設計上即為未驗證（unauthenticated）的** ——URL 路徑中的密鑰*就是*驗證方式，正如它在公開的 `visca.ai` 端點上一樣。請將密鑰視為一項憑證。
+- **此端點在設計上即為未驗證（unauthenticated）的** ——URL 路徑中的密鑰*就是*驗證方式，正如它在公開的 `latticeruntime.com` 端點上一樣。請將密鑰視為一項憑證。
 - **僅綁定到私有介面。** 入口監聽器不應從公開網際網路存取。請使用網路原則（network policy）、防火牆規則或 `ClusterIP` 服務來限制存取。
 - **如果您需要傳輸過程中的加密，請使用 HTTPS 終止（termination）。** 探針的監聽器使用純 HTTP。如果您需要在傳入跳轉上使用 TLS，請將它置於內部負載平衡器／入口控制器（ingress controller）之後。從探針 → Cast Operations 的轉發環節一律使用 HTTPS（前提是 `CAST_OPERATIONS_URL` 為 `https://`）。
 - **資源限制。** 此監聽器接受最大 50 MB 的請求主體。如果您需要更嚴格的上限，請在前方放置反向代理（reverse proxy）。

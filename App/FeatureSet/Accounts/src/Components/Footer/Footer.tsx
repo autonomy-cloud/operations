@@ -14,12 +14,12 @@ const AccountsFooter: FunctionComponent = (): ReactElement => {
       links={[
         {
           title: t("footer.contact"),
-          to: URL.fromString("https://visca.ai/support"),
+          to: URL.fromString("https://latticeruntime.com/support"),
           openInNewTab: true,
         },
         {
           title: t("footer.privacyAndTerms"),
-          to: URL.fromString("https://visca.ai/legal"),
+          to: URL.fromString("https://latticeruntime.com/legal"),
           openInNewTab: true,
         },
         {

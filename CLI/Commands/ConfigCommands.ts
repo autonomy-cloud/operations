@@ -13,7 +13,7 @@ export function registerConfigCommands(program: Command): void {
     .argument("<api-key>", "API key for authentication")
     .argument(
       "<instance-url>",
-      "Cast Operations instance URL (e.g. https://visca.ai)",
+      "Cast Operations instance URL (e.g. https://latticeruntime.com)",
     )
     .option("--context-name <name>", "Name for this context", "default")
     .action(

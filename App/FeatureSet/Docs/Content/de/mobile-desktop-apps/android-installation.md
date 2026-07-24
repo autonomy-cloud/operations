@@ -32,7 +32,7 @@ Die APK wird von Cast Operations aus derselben Quelle wie die Play-Store-Veröff
 ## Erster Start und Anmeldung
 
 1. **Server-URL**
-   - Wenn Sie Cast Operations Cloud verwenden, belassen Sie den Standardwert `https://visca.ai`.
+   - Wenn Sie Cast Operations Cloud verwenden, belassen Sie den Standardwert `https://latticeruntime.com`.
    - Wenn Sie selbst hosten, geben Sie die URL Ihrer Cast Operations-Instanz ein (z. B. `https://operations.example.com`).
    - Die App überprüft, ob der Server erreichbar ist, bevor sie fortfährt.
 2. **Anmelden**

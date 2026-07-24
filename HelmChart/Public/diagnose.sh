@@ -869,7 +869,7 @@ print_summary() {
   echo "3. After each change, re-run this script to confirm the issue is gone:"
   echo "     ./diagnose.sh -n ${NAMESPACE} -r ${RELEASE}"
   echo "4. If issues persist, attach ${REPORT_FILE}"
-  echo "   to a support ticket at https://visca.ai/support"
+  echo "   to a support ticket at https://latticeruntime.com/support"
 }
 
 # ---------------------------------------------------------------------------

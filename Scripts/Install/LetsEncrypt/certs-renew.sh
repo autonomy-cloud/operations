@@ -1,5 +1,7 @@
 # Run this cron every day to see if the cert needs renewal. 
-export $(grep -v '^#' config.env | xargs)
+set -a
+. ./config.env
+set +a
 npm run prerun
 docker compose stop ingress
 sudo certbot renew

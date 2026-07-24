@@ -186,6 +186,6 @@ Om du stöter på problem med GitHub-integrationen:
 
 1. Kontrollera felsökningsavsnittet ovan
 2. Granska Cast Operations-loggarna för detaljerade felmeddelanden
-3. Kontakta oss på [hello@visca.ai](mailto:hello@visca.ai)
+3. Kontakta oss på [hello@latticeruntime.com](mailto:hello@latticeruntime.com)
 
 Vi välkomnar feedback för att förbättra denna integration!

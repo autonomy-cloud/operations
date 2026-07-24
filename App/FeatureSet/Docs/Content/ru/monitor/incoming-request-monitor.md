@@ -26,7 +26,7 @@
 После создания у монитора появится уникальный URL пульса в формате:
 
 ```
-https://visca.ai/heartbeat/YOUR_SECRET_KEY
+https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 ```
 
 Ваш сервис должен отправлять HTTP-запросы **GET** или **POST** на этот URL через регулярные промежутки времени.
@@ -37,10 +37,10 @@ https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 ```bash
 # Простой GET-запрос
-curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
+curl https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 
 # POST-запрос с телом запроса
-curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Добавьте в crontab для отправки пульса каждые 5 минут
-*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### Из кода приложения
@@ -57,16 +57,16 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Пример на Node.js
 const https = require("https");
-https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
+https.get("https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Пример на Python
 import requests
-requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY')
 ```
 
-При использовании самостоятельного хостинга замените `https://visca.ai` URL-адресом вашего экземпляра Cast Operations.
+При использовании самостоятельного хостинга замените `https://latticeruntime.com` URL-адресом вашего экземпляра Cast Operations.
 
 ## Критерии мониторинга
 

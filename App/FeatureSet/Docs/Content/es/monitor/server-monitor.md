@@ -28,16 +28,16 @@ El Agente de infraestructura de Cast Operations es un demonio ligero basado en G
 
 ```bash
 # Instalar el agente
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Configurar el agente
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Iniciar el agente
 sudo cast-operations-infrastructure-agent start
 ```
 
-Reemplaza `YOUR_SECRET_KEY` con la clave secreta mostrada en la configuración de tu monitor, y `https://visca.ai` con la URL de tu instancia de Cast Operations si es auto-alojada.
+Reemplaza `YOUR_SECRET_KEY` con la clave secreta mostrada en la configuración de tu monitor, y `https://latticeruntime.com` con la URL de tu instancia de Cast Operations si es auto-alojada.
 
 ### Windows
 
@@ -49,7 +49,7 @@ Reemplaza `YOUR_SECRET_KEY` con la clave secreta mostrada en la configuración d
 
 ```bash
 # Configurar el agente
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Iniciar el agente
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 Si tu servidor se conecta a internet a través de un proxy, puedes configurar el agente para usarlo:
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Comandos del agente

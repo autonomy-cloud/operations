@@ -28,16 +28,16 @@ Cast Operationsインフラストラクチャエージェントは、システ�
 
 ```bash
 # エージェントのインストール
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # エージェントの設定
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # エージェントの起動
 sudo cast-operations-infrastructure-agent start
 ```
 
-`YOUR_SECRET_KEY` はモニターの設定に表示されているシークレットキーに、セルフホストの場合は `https://visca.ai` をCast OperationsインスタンスのURLに置き換えてください。
+`YOUR_SECRET_KEY` はモニターの設定に表示されているシークレットキーに、セルフホストの場合は `https://latticeruntime.com` をCast OperationsインスタンスのURLに置き換えてください。
 
 ### Windows
 
@@ -49,7 +49,7 @@ sudo cast-operations-infrastructure-agent start
 
 ```bash
 # エージェントの設定
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # エージェントの起動
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 サーバーがプロキシ経由でインターネットに接続している場合、エージェントがプロキシを使用するように設定できます。
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## エージェントコマンド

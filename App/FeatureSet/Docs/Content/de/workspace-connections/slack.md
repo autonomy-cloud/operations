@@ -4,7 +4,7 @@
 
 1. **Ein Konto bei Cast Operations erstellen**
 
-   - Besuchen Sie [Cast Operations.com](https://visca.ai) und erstellen Sie ein Konto.
+   - Besuchen Sie [Cast Operations.com](https://latticeruntime.com) und erstellen Sie ein Konto.
    - Nach der Kontoerstellung erstellen Sie ein neues Projekt.
 
 2. **Slack mit dem Cast Operations-Projekt verbinden**

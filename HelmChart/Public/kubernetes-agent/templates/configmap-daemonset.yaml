@@ -389,7 +389,7 @@ data:
           - key: cast-operations.agent.version
             value: {{ .Chart.AppVersion | quote }}
             action: upsert
-          {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" .Values.cast-operations.labels "action" "upsert") | nindent 10 }}
+          {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" (index .Values "cast-operations").labels "action" "upsert") | nindent 10 }}
 
       # Set service.name from deployment/statefulset/daemonset name when available
       transform:
@@ -427,7 +427,7 @@ data:
 
     exporters:
       otlphttp:
-        endpoint: "{{ .Values.cast-operations.url }}/otlp"
+        endpoint: "{{ (index .Values "cast-operations").url }}/otlp"
         headers:
           x-cast-operations-token: "${env:CAST_OPERATIONS_API_KEY}"
         # Bound how much un-exported telemetry can buffer in RAM when the

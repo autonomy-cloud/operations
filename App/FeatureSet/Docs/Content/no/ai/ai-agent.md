@@ -85,7 +85,7 @@ For å kjøre en AI-agent, sørg for at Docker er installert. Kjør agenten med:
 docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -d cast-operations/ai-agent:release
 ```
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 Bruk konfigurasjonen:
@@ -162,7 +162,7 @@ AI-agenten støtter følgende miljøvariabler:
 | --------------- | -------------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | AI-agentnøkkelen fra Cast Operations-dashbordet ditt                       |
 | `AI_AGENT_ID`   | AI-agent-ID-en fra Cast Operations-dashbordet ditt                         |
-| `CAST_OPERATIONS_URL` | URL-en til Cast Operations-instansen din (standard: https://visca.ai) |
+| `CAST_OPERATIONS_URL` | URL-en til Cast Operations-instansen din (standard: https://latticeruntime.com) |
 
 ## Bekreft AI-agenten din
 
@@ -203,4 +203,4 @@ Hvis du støter på problemer med AI-agenten din:
 
 1. Sjekk [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) for kjente problemer
 2. Opprett en ny sak hvis problemet ditt ikke allerede er rapportert
-3. Kontakt [support](https://visca.ai/support) hvis du har en enterprise-plan
+3. Kontakt [support](https://latticeruntime.com/support) hvis du har en enterprise-plan

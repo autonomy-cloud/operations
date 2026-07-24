@@ -30,8 +30,8 @@ You can find the full list of supported sources [here](https://docs.fluentbit.io
 ## Prerequisites
 
 - **Step 1: Install FluentBit on your system** - You can install FluentBit using the instructions provided [here](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)
-- **Step 2: Sign up for Cast Operations account** - You can sign up for a free account [here](https://visca.ai). Please note while the account is free, log ingestion is a paid feature. You can find more details about the pricing [here](https://visca.ai/pricing).
-- **Step 3: Create Cast Operations Project** - Once you have the account, you can create a project from the Cast Operations dashboard. If you need any help with creating a project or have any questions, please reach out to us at support@visca.ai
+- **Step 2: Sign up for Cast Operations account** - You can sign up for a free account [here](https://latticeruntime.com). Please note while the account is free, log ingestion is a paid feature. You can find more details about the pricing [here](https://latticeruntime.com/pricing).
+- **Step 3: Create Cast Operations Project** - Once you have the account, you can create a project from the Cast Operations dashboard. If you need any help with creating a project or have any questions, please reach out to us at support@latticeruntime.com
 - **Step 4: Create Telemetry Ingestion Token** - Once you have created a Cast Operations account, you can create a telemetry ingestion token to ingest logs, metrics and traces from your application.
 
 After you sign up to Cast Operations and create a project. Click on "More" in the Navigation bar and click on "Project Settings".
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "visca.ai"
+    host: "latticeruntime.com"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "visca.ai"
+      host: "latticeruntime.com"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## Usage
 
-Once you have added the configuration to the fluentbit configuration file, you can restart the fluentbit service. Once the service is restarted, the telemetry data will be sent to the Cast Operations HTTP Source. You can now start seeing the telemetry data in the Cast Operations dashboard. If you have any questions or need help with the configuration, please reach out to us at support@visca.ai
+Once you have added the configuration to the fluentbit configuration file, you can restart the fluentbit service. Once the service is restarted, the telemetry data will be sent to the Cast Operations HTTP Source. You can now start seeing the telemetry data in the Cast Operations dashboard. If you have any questions or need help with the configuration, please reach out to us at support@latticeruntime.com

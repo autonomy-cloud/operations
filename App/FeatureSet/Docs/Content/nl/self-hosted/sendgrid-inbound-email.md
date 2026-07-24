@@ -243,6 +243,6 @@ Als u problemen ondervindt met de SendGrid Inbound E-mail-integratie:
 
 1. Controleer de bovenstaande sectie voor probleemoplossing
 2. Bekijk de Cast Operations-logboeken voor gedetailleerde foutmeldingen
-3. Neem contact op via [hello@visca.ai](mailto:hello@visca.ai)
+3. Neem contact op via [hello@latticeruntime.com](mailto:hello@latticeruntime.com)
 
 Feedback om deze integratie te verbeteren is van harte welkom!

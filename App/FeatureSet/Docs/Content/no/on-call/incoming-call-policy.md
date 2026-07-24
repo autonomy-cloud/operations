@@ -321,4 +321,4 @@ For problemer med innkommende samtalepolicy-funksjonen, vennligst:
 
 1. Sjekk Twilio Console for feillogger
 2. Se gjennom Cast Operations-serverloggene
-3. Kontakt støtte på [hello@visca.ai](mailto:hello@visca.ai)
+3. Kontakt støtte på [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

@@ -4,7 +4,7 @@
 
 ## プライベートダッシュボード (デフォルト)
 
-ダッシュボードは、ログインしているプロジェクトメンバーのみがアクセスできます。URL は `https://visca.ai/dashboards/<id>/view` のような形で、ログインが必要です。
+ダッシュボードは、ログインしているプロジェクトメンバーのみがアクセスできます。URL は `https://latticeruntime.com/dashboards/<id>/view` のような形で、ログインが必要です。
 
 プロジェクト内では、オーナーとラベルが誰が何を見られるかをコントロールします — [構成とアクセス権](/docs/dashboards/configuration) を参照してください。
 
@@ -51,7 +51,7 @@
 
 ## カスタムドメイン
 
-デフォルトでは、公開ダッシュボードは `visca.ai` で提供されます。`dashboard.acme.com` のような独自のサブドメインでホストするには:
+デフォルトでは、公開ダッシュボードは `latticeruntime.com` で提供されます。`dashboard.acme.com` のような独自のサブドメインでホストするには:
 
 1. DNS に CNAME レコードを追加し、サブドメインを Cast Operations のターゲットに向けます。
 2. **Dashboard → Settings → Custom Domains** でドメインを追加します。

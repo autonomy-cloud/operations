@@ -2,7 +2,7 @@ import Email from "./Email";
 import Typeof from "./Typeof";
 
 export default class EmailWithName {
-  private _email: Email = new Email("noreply@visca.ai");
+  private _email: Email = new Email("noreply@latticeruntime.com");
   public get email(): Email {
     return this._email;
   }

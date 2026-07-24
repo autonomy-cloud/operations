@@ -28,7 +28,7 @@ export default function ServerUrlScreen(): React.JSX.Element {
   const { setNeedsServerUrl } = useAuth();
   const navigation: ServerUrlNavigationProp =
     useNavigation<ServerUrlNavigationProp>();
-  const [url, setUrl] = useState("https://visca.ai");
+  const [url, setUrl] = useState("https://latticeruntime.com");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [urlFocused, setUrlFocused] = useState(false);
@@ -165,7 +165,7 @@ export default function ServerUrlScreen(): React.JSX.Element {
                 onBlur={() => {
                   return setUrlFocused(false);
                 }}
-                placeholder="https://visca.ai"
+                placeholder="https://latticeruntime.com"
                 placeholderTextColor={theme.colors.textTertiary}
                 autoCapitalize="none"
                 autoCorrect={false}

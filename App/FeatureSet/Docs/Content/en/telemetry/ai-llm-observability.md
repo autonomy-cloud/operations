@@ -35,7 +35,7 @@ from traceloop.sdk import Traceloop
 
 Traceloop.init(
     app_name="my-ai-agent",
-    api_endpoint="https://visca.ai/otlp",   # or your self-hosted host + /otlp
+    api_endpoint="https://latticeruntime.com/otlp",   # or your self-hosted host + /otlp
     headers={"x-cast-operations-token": "YOUR_INGESTION_TOKEN"},
 )
 
@@ -53,7 +53,7 @@ import * as traceloop from "@traceloop/node-server-sdk";
 
 traceloop.initialize({
   appName: "my-ai-agent",
-  baseUrl: "https://visca.ai/otlp", // or your self-hosted host + /otlp
+  baseUrl: "https://latticeruntime.com/otlp", // or your self-hosted host + /otlp
   headers: { "x-cast-operations-token": "YOUR_INGESTION_TOKEN" },
 });
 ```
@@ -63,12 +63,12 @@ traceloop.initialize({
 If you instrument with a native OpenTelemetry SDK, point the OTLP exporter at Cast Operations:
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://latticeruntime.com/otlp"
 export OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_INGESTION_TOKEN"
 export OTEL_SERVICE_NAME="my-ai-agent"
 ```
 
-Self-hosting Cast Operations? Replace `https://visca.ai/otlp` with `https://YOUR-OPERATIONS-HOST/otlp`.
+Self-hosting Cast Operations? Replace `https://latticeruntime.com/otlp` with `https://YOUR-OPERATIONS-HOST/otlp`.
 
 ## Attributes Cast Operations recognizes
 

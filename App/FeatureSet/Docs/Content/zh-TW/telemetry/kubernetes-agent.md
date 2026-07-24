@@ -16,7 +16,7 @@ Cast Operations Kubernetes Agent 是一個預先封裝好的 Helm chart，會在
 ## 步驟 1 — 加入 Cast Operations Helm Repository
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 ```
 
@@ -667,7 +667,7 @@ helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
 3. **驗證 ingestion key。** 直接向 Cast Operations 詢問您的 token 是否被接受（`200` = 有效，`401` = 未知/已撤銷）：
 
    ```bash
-   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://latticeruntime.com/otlp/v1/validate
    ```
 
    如果它回傳 `401`，表示您 release 中的 key 是錯誤的或已被撤銷。請從 _Project Settings → Telemetry Ingestion Keys_ 複製一個有效的 key 並重新部署：

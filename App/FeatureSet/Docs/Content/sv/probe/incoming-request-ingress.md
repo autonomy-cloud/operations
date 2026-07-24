@@ -1,6 +1,6 @@
 # Ingress för inkommande förfrågningar
 
-En anpassad sond kan valfritt köra en **inkommande HTTP-lyssnare** som accepterar `heartbeat`- och `incoming-request`-anrop från inside ditt privata nätverk och vidarebefordrar dem till Cast Operations. Detta gör det möjligt för tjänster som **inte har utgående internetåtkomst** att fortfarande rapportera till en [Monitor för inkommande förfrågningar](/docs/monitor/incoming-request-monitor) genom att skicka förfrågan till en sond i det lokala nätverket istället för direkt till `visca.ai`.
+En anpassad sond kan valfritt köra en **inkommande HTTP-lyssnare** som accepterar `heartbeat`- och `incoming-request`-anrop från inside ditt privata nätverk och vidarebefordrar dem till Cast Operations. Detta gör det möjligt för tjänster som **inte har utgående internetåtkomst** att fortfarande rapportera till en [Monitor för inkommande förfrågningar](/docs/monitor/incoming-request-monitor) genom att skicka förfrågan till en sond i det lokala nätverket istället för direkt till `latticeruntime.com`.
 
 ## Översikt
 
@@ -24,7 +24,7 @@ Använd ingress-lyssnaren när:
 - Du vill ha en enda utgångspunkt – sonden – som tillåts nå Cast Operations
 - Du redan distribuerade en [Anpassad sond](/docs/probe/custom-probe) och vill återanvända den för inkommande hjärtslag
 
-Om dina tjänster redan kan nå `https://visca.ai` (eller din egeninstallerade URL) direkt behöver du **inte** den här funktionen – anropa hjärtslagURL:en direkt från tjänsten.
+Om dina tjänster redan kan nå `https://latticeruntime.com` (eller din egeninstallerade URL) direkt behöver du **inte** den här funktionen – anropa hjärtslagURL:en direkt från tjänsten.
 
 ## Aktivera ingress-lyssnaren
 
@@ -36,7 +36,7 @@ Ange `PROBE_INGRESS_PORT` till den port du vill att lyssnaren ska binda. Valfrit
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ Om du inte använder `--network host`, publicera ingress-porten explicit:
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ Interna tjänster kan sedan skicka hjärtslag till `http://cast-operations-probe
 Ersätt den offentliga hjärtslagURL:en:
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 med sondens ingress-URL:
@@ -171,7 +171,7 @@ Standardsondvariablerna (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, proxyva
 
 ## Säkerhetsöverväganden
 
-- **Slutpunkten är oautentiserad av design** – den hemliga nyckeln i URL-sökvägen _är_ autentiseringen, precis som på den offentliga `visca.ai`-slutpunkten. Behandla den hemliga nyckeln som en autentiseringsuppgift.
+- **Slutpunkten är oautentiserad av design** – den hemliga nyckeln i URL-sökvägen _är_ autentiseringen, precis som på den offentliga `latticeruntime.com`-slutpunkten. Behandla den hemliga nyckeln som en autentiseringsuppgift.
 - **Bind bara till ett privat gränssnitt.** Ingress-lyssnaren bör inte vara nåbar från det offentliga internet. Använd en nätverkspolicy, brandväggsregel eller `ClusterIP`-tjänst för att begränsa åtkomsten.
 - **Använd HTTPS-terminering om du kräver kryptering under transport.** Sondens lyssnare talar plain HTTP. Placera den bakom en intern lastbalanserare/ingress-kontroller om du behöver TLS på det inkommande hoppet. Vidarebefordringsetappen från sond → Cast Operations använder alltid HTTPS (förutsatt att `CAST_OPERATIONS_URL` är `https://`).
 - **Resursbegränsningar.** Lyssnaren accepterar förfrågningsinnehåll upp till 50 MB. Om du behöver ett strängare tak, placera en omvänd proxy framför.

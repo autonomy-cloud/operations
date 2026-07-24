@@ -39,14 +39,14 @@ Gli attributi opzionali affinano il modo in cui ciascun dispositivo è classific
 Se il tuo dispositivo esegue direttamente un SDK OpenTelemetry, puntalo a Cast Operations e applica gli attributi di risorsa IoT tramite le variabili d'ambiente standard `OTEL_*`. Sostituisci il token, l'endpoint, il nome della flotta e il device id con i valori del tuo ambiente.
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | Variabile d'Ambiente          | Obbligatoria | Descrizione                                                                                          |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | Sì       | Endpoint OTLP di Cast Operations (`https://visca.ai/otlp`, oppure `http(s)://YOUR-OPERATIONS-HOST/otlp` in self-hosted) |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | Sì       | Endpoint OTLP di Cast Operations (`https://latticeruntime.com/otlp`, oppure `http(s)://YOUR-OPERATIONS-HOST/otlp` in self-hosted) |
 | `OTEL_EXPORTER_OTLP_HEADERS`  | Sì       | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | Sì       | Attributi di risorsa separati da virgole. Devono includere `iot.fleet.name`, `device.id` e `service.name=iot/<fleet>` |
 
@@ -80,7 +80,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     headers:
       "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
@@ -135,12 +135,12 @@ mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
-Esempio con `mqtt` per Node.js su WebSocket (funziona con visca.ai e con qualsiasi istanza self-hosted):
+Esempio con `mqtt` per Node.js su WebSocket (funziona con latticeruntime.com e con qualsiasi istanza self-hosted):
 
 ```javascript
 const mqtt = require("mqtt");
 
-const client = mqtt.connect("wss://visca.ai/mqtt", {
+const client = mqtt.connect("wss://latticeruntime.com/mqtt", {
   username: "cast-operations", // ignorato — è il token qui sotto che autentica
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
@@ -177,7 +177,7 @@ client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
 client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
-client.connect("visca.ai", 443)
+client.connect("latticeruntime.com", 443)
 
 client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
@@ -221,7 +221,7 @@ Cast Operations riconosce i seguenti nomi di metrica `iot_*`. Ogni datapoint dov
 ### La Flotta Non Appare
 
 1. Verifica che `iot.fleet.name` sia impostato come attributo di **risorsa** (non come etichetta del datapoint) e che `service.name` sia `iot/<fleet>`.
-2. Conferma che l'endpoint dell'exporter sia `https://visca.ai/otlp` (o il tuo `…/otlp` self-hosted) e che l'header `x-cast-operations-token` contenga un token valido.
+2. Conferma che l'endpoint dell'exporter sia `https://latticeruntime.com/otlp` (o il tuo `…/otlp` self-hosted) e che l'header `x-cast-operations-token` contenga un token valido.
 3. Se usi MQTT, conferma che il topic segua esattamente `cast-operations/<fleet>/<device>/…` — è il segmento di flotta del topic a creare la flotta.
 
 ### Dispositivi Mancanti dall'Inventario

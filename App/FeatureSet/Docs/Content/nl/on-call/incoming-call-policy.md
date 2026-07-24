@@ -321,4 +321,4 @@ Bij problemen met de functie Inkomend belbeleid:
 
 1. Controleer de Twilio Console op foutlogboeken
 2. Bekijk de Cast Operations-serverlogboeken
-3. Neem contact op met ondersteuning via [hello@visca.ai](mailto:hello@visca.ai)
+3. Neem contact op met ondersteuning via [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

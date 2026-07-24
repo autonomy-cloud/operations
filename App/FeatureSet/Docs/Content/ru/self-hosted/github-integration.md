@@ -212,6 +212,6 @@ gitHubApp:
 
 1. Изучите раздел устранения неполадок выше
 2. Просмотрите журналы Cast Operations для получения подробных сообщений об ошибках
-3. Напишите нам по адресу [hello@visca.ai](mailto:hello@visca.ai)
+3. Напишите нам по адресу [hello@latticeruntime.com](mailto:hello@latticeruntime.com)
 
 Мы приветствуем обратную связь для улучшения интеграции!

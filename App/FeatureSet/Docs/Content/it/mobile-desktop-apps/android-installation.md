@@ -32,7 +32,7 @@ L'APK è compilato e firmato da Cast Operations dallo stesso codice sorgente del
 ## Primo avvio e accesso
 
 1. **URL del server**
-   - Se utilizzi Cast Operations Cloud, lascia il valore predefinito `https://visca.ai`.
+   - Se utilizzi Cast Operations Cloud, lascia il valore predefinito `https://latticeruntime.com`.
    - Se sei in self-hosting, inserisci l'URL della tua istanza Cast Operations (ad esempio `https://operations.example.com`).
    - L'app verifica che il server sia raggiungibile prima di proseguire.
 2. **Accedi**

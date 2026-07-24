@@ -9,7 +9,7 @@ Detta API hämtar alla resurser som finns på statussidan, inklusive den övergr
 För att hämta den övergripande statusen för resurserna på statussidan kan du göra en POST-förfrågan till följande slutpunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 Detta är svaret från API:et:
@@ -20,11 +20,11 @@ Detta är svaret från API:et:
     // Monitor Status Object
     // Overall Status is the worst status of all the monitors and groups on the status page.
     // You can find more details on the monitor status here.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // You can find more details on the scheduled maintenance public note here.
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // Scheduled Maintenance Public Note Object
     },
@@ -34,28 +34,28 @@ Detta är svaret från API:et:
   ],
   "activeAnnouncements": [
     // You can find more details on the active announcement here.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Status Page Announcement Object
     }
   ],
   "activeIncidents": [
     // You can find more details on the active incident here.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Incident Object
     }
   ],
   "statusPageResources": [
     // You can find more details on the status page resource here.
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // Status Page Resource Object
     }
   ],
   "statusPage": {
     // You can find more details on the status page here.
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   }
 }
 ```
@@ -67,7 +67,7 @@ Detta API hämtar all drifttid för alla resurser på statussidan.
 För att hämta den övergripande drifttiden för alla resurser kan du göra en POST-förfrågan till följande slutpunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **Förfrågningsinnehåll (valfritt):**
@@ -88,7 +88,7 @@ Dessa datum bör inte vara mer än 90 dagar isär. Om du inte anger datum return
 Detta API hämtar alla incidenter som finns på statussidan. För att hämta alla incidenter på statussidan kan du göra en POST-förfrågan till följande slutpunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 Detta är svaret från API:et:
@@ -97,7 +97,7 @@ Detta är svaret från API:et:
 {
   "incidents": [
     // You can find more details on the incident here.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Incident Object
     }
@@ -110,7 +110,7 @@ Detta är svaret från API:et:
 Detta API hämtar alla planerade underhållshändelser som finns på statussidan. För att hämta alla planerade underhållshändelser på statussidan kan du göra en POST-förfrågan till följande slutpunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 Detta är svaret från API:et:
@@ -119,7 +119,7 @@ Detta är svaret från API:et:
 {
   "scheduledMaintenanceEvents": [
     // You can find more details on the scheduled maintenance event here.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     }
@@ -132,7 +132,7 @@ Detta är svaret från API:et:
 Detta API hämtar alla meddelanden som finns på statussidan. För att hämta alla meddelanden på statussidan kan du göra en POST-förfrågan till följande slutpunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 Detta är svaret från API:et:
@@ -141,7 +141,7 @@ Detta är svaret från API:et:
 {
   "announcements": [
     // You can find more details on the announcement here.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Announcement Object
     }

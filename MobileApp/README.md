@@ -7,7 +7,7 @@ Expo + React Native mobile app for Cast Operations on-call management.
 - Node.js 18+
 - npm
 - [Expo Go](https://expo.dev/go) app on your iOS or Android device (for quick testing)
-- A running Cast Operations instance (or use `https://visca.ai`)
+- A running Cast Operations instance (or use `https://latticeruntime.com`)
 
 For native builds:
 - **iOS**: macOS with Xcode 15+
@@ -58,7 +58,7 @@ npm run web
 
 On first launch, the app will ask for:
 
-1. **Server URL** - The URL of your Cast Operations instance (defaults to `https://visca.ai`). The app validates the URL by calling `/api/status` before proceeding.
+1. **Server URL** - The URL of your Cast Operations instance (defaults to `https://latticeruntime.com`). The app validates the URL by calling `/api/status` before proceeding.
 2. **Login** - Email and password for your Cast Operations account.
 
 Tokens are stored securely in the device Keychain. The server URL is stored in AsyncStorage.

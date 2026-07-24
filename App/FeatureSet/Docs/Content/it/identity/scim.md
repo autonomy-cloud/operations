@@ -30,7 +30,7 @@ Il SCIM di Progetto consente ai provider di identità di gestire i membri del te
    - Copia il **SCIM Base URL** e il **Bearer Token** per la configurazione del tuo IdP
 
 3. **Configura il tuo Provider di Identità**
-   - Usa il SCIM Base URL: `https://visca.ai/scim/v2/{scimId}`
+   - Usa il SCIM Base URL: `https://latticeruntime.com/scim/v2/{scimId}`
    - Configura l'autenticazione con bearer token con il token fornito
    - Mappa gli attributi degli utenti (l'email è obbligatoria)
 
@@ -78,7 +78,7 @@ Il SCIM della Pagina di Stato consente ai provider di identità di gestire i sub
    - Copia il **SCIM Base URL** e il **Bearer Token** per la configurazione del tuo IdP
 
 3. **Configura il tuo Provider di Identità**
-   - Usa il SCIM Base URL: `https://visca.ai/status-page-scim/v2/{scimId}`
+   - Usa il SCIM Base URL: `https://latticeruntime.com/status-page-scim/v2/{scimId}`
    - Configura l'autenticazione con bearer token con il token fornito
    - Mappa gli attributi degli utenti (l'email è obbligatoria)
 
@@ -144,7 +144,7 @@ Microsoft Entra ID fornisce gestione delle identità enterprise con robuste capa
 2. Clicca su **Inizia**
 3. Imposta la **Modalità di Provisioning** su **Automatico**
 4. In **Credenziali Amministratore**:
-   - **URL Tenant**: Inserisci il SCIM Base URL da Cast Operations (es. `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **URL Tenant**: Inserisci il SCIM Base URL da Cast Operations (es. `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **Token Segreto**: Inserisci il Bearer Token da Cast Operations
 5. Clicca su **Test Connessione** per verificare la configurazione
 6. Clicca su **Salva**
@@ -263,7 +263,7 @@ Okta fornisce una gestione delle identità flessibile con un eccellente supporto
 3. Clicca su **Configura integrazione API**
 4. Seleziona **Abilita integrazione API**
 5. Configura quanto segue:
-   - **URL base connettore SCIM**: Inserisci il SCIM Base URL da Cast Operations (es. `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **URL base connettore SCIM**: Inserisci il SCIM Base URL da Cast Operations (es. `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **Campo identificatore univoco per gli utenti**: Inserisci `userName`
    - **Azioni di provisioning supportate**: Seleziona le azioni che vuoi abilitare:
      - Importa nuovi utenti e aggiornamenti del profilo
@@ -340,7 +340,7 @@ Se hai abilitato **Push Groups** in Cast Operations:
 
 L'implementazione SCIM di Cast Operations segue la specifica SCIM v2.0 e dovrebbe funzionare con qualsiasi provider di identità conforme. Passaggi generali di configurazione:
 
-1. **SCIM Base URL**: `https://visca.ai/api/identity/scim/v2/{scim-id}` (per i progetti) o `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}` (per le pagine di stato)
+1. **SCIM Base URL**: `https://latticeruntime.com/api/identity/scim/v2/{scim-id}` (per i progetti) o `https://latticeruntime.com/api/identity/status-page-scim/v2/{scim-id}` (per le pagine di stato)
 2. **Autenticazione**: HTTP Bearer Token
 3. **Attributo Utente Obbligatorio**: `userName` (deve essere un indirizzo email valido)
 4. **Operazioni Supportate**: GET, POST, PUT, PATCH, DELETE per Utenti e Gruppi

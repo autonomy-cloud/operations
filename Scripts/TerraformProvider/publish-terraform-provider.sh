@@ -340,7 +340,7 @@ push_to_repository() {
     # Configure git user (must be after git init)
     print_status "Configuring git user..."
     git config user.name "Cast Operations Terraform Provider Bot"
-    git config user.email "terraform-provider@visca.ai"
+    git config user.email "terraform-provider@latticeruntime.com"
 
     # Set up remote
     if ! git remote get-url origin &> /dev/null; then

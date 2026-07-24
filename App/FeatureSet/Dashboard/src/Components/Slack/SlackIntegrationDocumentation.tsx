@@ -44,7 +44,7 @@ slackApp:
 
 You need to restart your Cast Operations server to apply these changes. Once you have restarted the server, you should see the "Connect to Slack" button on this page.
 
-We would like to improve this integration, so feedback is more than welcome. Please send us any at hello@visca.ai
+We would like to improve this integration, so feedback is more than welcome. Please send us any at hello@latticeruntime.com
 
 
     `;

@@ -85,7 +85,7 @@ Pour exécuter un agent IA, assurez-vous d'avoir Docker installé. Lancez l'agen
 docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -d cast-operations/ai-agent:release
 ```
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 Appliquez la configuration :
@@ -162,7 +162,7 @@ L'agent IA prend en charge les variables d'environnement suivantes :
 | --------------- | ---------------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | La clé de l'agent IA depuis votre tableau de bord Cast Operations            |
 | `AI_AGENT_ID`   | L'identifiant de l'agent IA depuis votre tableau de bord Cast Operations     |
-| `CAST_OPERATIONS_URL` | L'URL de votre instance Cast Operations (par défaut : https://visca.ai) |
+| `CAST_OPERATIONS_URL` | L'URL de votre instance Cast Operations (par défaut : https://latticeruntime.com) |
 
 ## Vérification de votre Agent IA
 
@@ -203,4 +203,4 @@ Si vous rencontrez des problèmes avec votre agent IA :
 
 1. Consultez les [problèmes GitHub de Cast Operations](https://github.com/autonomy-cloud/operations/issues) pour les problèmes connus
 2. Créez un nouveau ticket si votre problème n'est pas encore signalé
-3. Contactez le [support](https://visca.ai/support) si vous disposez d'un abonnement entreprise
+3. Contactez le [support](https://latticeruntime.com/support) si vous disposez d'un abonnement entreprise

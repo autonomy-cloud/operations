@@ -41,14 +41,14 @@
 | 环境变量                    | 值                                             |
 | --------------------------- | ---------------------------------------------- |
 | OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
-| OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
+| OTEL_EXPORTER_OTLP_ENDPOINT | https://latticeruntime.com/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **示例**
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -56,7 +56,7 @@ export OTEL_SERVICE_NAME=my-service
 
 如果您是自托管 Cast Operations，可以将其更改为您的自托管 OpenTelemetry 收集器端点（例如：`http(s)://YOUR-OPERATIONS-HOST/otlp`）
 
-运行应用程序后，您应该能在 Cast Operations 遥测服务页面中看到日志。如果需要任何帮助，请联系 support@visca.ai。
+运行应用程序后，您应该能在 Cast Operations 遥测服务页面中看到日志。如果需要任何帮助，请联系 support@latticeruntime.com。
 
 #### 使用 OpenTelemetry Collector
 
@@ -77,7 +77,7 @@ receivers:
 exporters:
   # 通过 HTTP 导出
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     # 需要使用 JSON 编码器而非默认的 Proto(buf)
     encoding: json
     headers:

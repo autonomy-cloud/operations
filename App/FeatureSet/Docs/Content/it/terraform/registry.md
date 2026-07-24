@@ -18,7 +18,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -71,7 +71,7 @@ L'uso di una versione del provider che non corrisponde all'installazione Cast Op
 ### Metodo 2: API
 
 ```bash
-curl https://vostra-istanza-visca.ai/api/version | jq '.version'
+curl https://vostra-istanza-latticeruntime.com/api/version | jq '.version'
 ```
 
 ### Metodo 3: Docker
@@ -110,7 +110,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Aggiustare per self-hosted
+  cast_operations_url = "https://latticeruntime.com"  # Aggiustare per self-hosted
   api_key       = var.cast_operations_api_key
 }
 

@@ -1,6 +1,6 @@
 # Eingehender Anfrage-Ingress
 
-Eine Benutzerdefinierte Probe kann optional einen **eingehenden HTTP-Listener** ausführen, der `heartbeat`- und `incoming-request`-Aufrufe aus Ihrem privaten Netzwerk akzeptiert und an Cast Operations weiterleitet. Dies ermöglicht Diensten, die **keinen ausgehenden Internetzugang** haben, trotzdem an einen [Eingehenden Anfrage-Monitor](/docs/monitor/incoming-request-monitor) zu berichten, indem sie die Anfrage an eine Probe im lokalen Netzwerk senden statt direkt an `visca.ai`.
+Eine Benutzerdefinierte Probe kann optional einen **eingehenden HTTP-Listener** ausführen, der `heartbeat`- und `incoming-request`-Aufrufe aus Ihrem privaten Netzwerk akzeptiert und an Cast Operations weiterleitet. Dies ermöglicht Diensten, die **keinen ausgehenden Internetzugang** haben, trotzdem an einen [Eingehenden Anfrage-Monitor](/docs/monitor/incoming-request-monitor) zu berichten, indem sie die Anfrage an eine Probe im lokalen Netzwerk senden statt direkt an `latticeruntime.com`.
 
 ## Übersicht
 
@@ -34,7 +34,7 @@ Setzen Sie `PROBE_INGRESS_PORT` auf den Port, an dem der Listener binden soll. J
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -45,7 +45,7 @@ Wenn Sie nicht `--network host` verwenden, veröffentlichen Sie den Ingress-Port
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -63,7 +63,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -95,7 +95,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -123,7 +123,7 @@ Interne Dienste können dann Heartbeats an `http://cast-operations-probe-ingress
 Ersetzen Sie die öffentliche Heartbeat-URL:
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 durch die Ingress-URL der Probe:

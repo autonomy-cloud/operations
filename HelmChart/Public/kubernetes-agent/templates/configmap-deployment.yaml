@@ -342,7 +342,7 @@ data:
           - key: cast-operations.agent.version
             value: {{ .Chart.AppVersion | quote }}
             action: insert
-          {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" .Values.cast-operations.labels "action" "insert") | nindent 10 }}
+          {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" (index .Values "cast-operations").labels "action" "insert") | nindent 10 }}
 
       # The k8sobjects receiver emits LogRecords without a severity, so
       # Kubernetes events and resource snapshots arrive at Cast Operations with
@@ -407,7 +407,7 @@ data:
 
     exporters:
       otlphttp:
-        endpoint: "{{ .Values.cast-operations.url }}/otlp"
+        endpoint: "{{ (index .Values "cast-operations").url }}/otlp"
         encoding: json
         headers:
           x-cast-operations-token: "${env:CAST_OPERATIONS_API_KEY}"

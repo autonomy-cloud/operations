@@ -10,7 +10,7 @@ MCP-сервер Cast Operations — это мост между большими
 
 MCP-сервер размещён вместе с вашим экземпляром Cast Operations и доступен через транспорт Streamable HTTP. Локальная установка не требуется.
 
-**Облачные пользователи**: `https://visca.ai/mcp`
+**Облачные пользователи**: `https://latticeruntime.com/mcp`
 **Пользователи с самостоятельным размещением**: `https://your-operations-domain.com/mcp`
 
 ## Ключевые возможности
@@ -73,7 +73,7 @@ MCP-сервер размещён вместе с вашим экземпляр�
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ MCP-сервер размещён вместе с вашим экземпляр�
 
 ### Для самостоятельно размещённого Cast Operations
 
-Замените `visca.ai` на ваш домен Cast Operations:
+Замените `latticeruntime.com` на ваш домен Cast Operations:
 
 ```json
 {
@@ -109,7 +109,7 @@ MCP-сервер размещён вместе с вашим экземпляр�
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ VS Code поддерживает MCP-серверы нативно с GitHub Cop
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -296,7 +296,7 @@ MCP-сервер поддерживает два режима работы:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -306,7 +306,7 @@ curl https://your-operations-domain.com/mcp/health
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

@@ -4,7 +4,7 @@
 
 1. **Cast Operations에서 계정 생성**
 
-   - [Cast Operations.com](https://visca.ai)을 방문하여 계정을 생성합니다.
+   - [Cast Operations.com](https://latticeruntime.com)을 방문하여 계정을 생성합니다.
    - 계정이 생성되면 새 프로젝트를 생성합니다.
 
 2. **Microsoft Teams를 Cast Operations 프로젝트에 연결**

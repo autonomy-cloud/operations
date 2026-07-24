@@ -15,7 +15,7 @@ cast-operations login <api-key> <instance-url>
 | 参数             | 描述                                                    |
 | ---------------- | ------------------------------------------------------- |
 | `<api-key>`      | 您的 Cast Operations API 密钥（例如 `sk-your-api-key`）       |
-| `<instance-url>` | 您的 Cast Operations 实例 URL（例如 `https://visca.ai`） |
+| `<instance-url>` | 您的 Cast Operations 实例 URL（例如 `https://latticeruntime.com`） |
 
 **选项：**
 
@@ -27,14 +27,14 @@ cast-operations login <api-key> <instance-url>
 
 ```bash
 # 使用默认上下文登录
-cast-operations login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://latticeruntime.com
 
 # 使用命名上下文登录
-cast-operations login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://latticeruntime.com --context-name production
 
 # 设置多个环境
-cast-operations login sk-prod-key https://visca.ai --context-name production
-cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://latticeruntime.com --context-name production
+cast-operations login sk-staging-key https://staging.latticeruntime.com --context-name staging
 ```
 
 ## 上下文
@@ -95,14 +95,14 @@ cast-operations context delete <name>
 ### 使用 CLI 标志
 
 ```bash
-cast-operations --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://latticeruntime.com incident list
 ```
 
 ### 使用环境变量
 
 ```bash
 export CAST_OPERATIONS_API_KEY=sk-abc123
-export CAST_OPERATIONS_URL=https://visca.ai
+export CAST_OPERATIONS_URL=https://latticeruntime.com
 
 cast-operations incident list
 ```
@@ -139,12 +139,12 @@ cast-operations whoami
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://visca.ai",
+      "apiUrl": "https://latticeruntime.com",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.visca.ai",
+      "apiUrl": "https://staging.latticeruntime.com",
       "apiKey": "sk-..."
     }
   },

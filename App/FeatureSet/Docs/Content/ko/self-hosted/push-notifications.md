@@ -31,4 +31,4 @@ Expo 푸시 토큰이 더 이상 유효하지 않습니다. 일반적으로 앱�
 
 1. 위의 문제 해결 섹션을 확인합니다
 2. 자세한 오류 메시지에 대한 Cast Operations 로그를 검토합니다
-3. [hello@visca.ai](mailto:hello@visca.ai)으로 문의합니다
+3. [hello@latticeruntime.com](mailto:hello@latticeruntime.com)으로 문의합니다

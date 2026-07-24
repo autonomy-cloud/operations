@@ -5,7 +5,7 @@ The Cast Operations Infrastructure Agent is a lightweight, open-source agent tha
 ### Installation
 
 ```
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | bash
 ```
 
 ### Configure the agent
@@ -16,7 +16,7 @@ Configure the agent as a system service
 - You can find the secret key on Cast Operations Dashboard. Click on "View Monitor" and go to "Settings" tab.
 
 ```bash
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 ```
 
 ### Starting the agent

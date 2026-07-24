@@ -1,6 +1,7 @@
-// Sync the VERSION file into the "version" field of every internal package.json.
-// Without this, internal packages (Common, App, Probe, ...) stay at 1.0.0 in source
-// and vulnerability scanners flag them as outdated.
+// Sync VERSION into every internal package.json, its package-lock root
+// metadata, and each published Helm chart.
+// VERSION is the Operations release version; npm packages, OCI images, and Helm
+// artifacts must not advertise independent versions for the same release.
 //
 // Usage:
 //   node Scripts/Install/SyncPackageVersions.js          # sync all package.json to VERSION
@@ -11,6 +12,22 @@ const path = require("path");
 
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const VERSION_FILE = path.join(REPO_ROOT, "VERSION");
+const RELEASE_CHARTS = [
+  path.join(
+    REPO_ROOT,
+    "HelmChart",
+    "Public",
+    "cast-operations",
+    "Chart.yaml",
+  ),
+  path.join(
+    REPO_ROOT,
+    "HelmChart",
+    "Public",
+    "kubernetes-agent",
+    "Chart.yaml",
+  ),
+];
 
 const IGNORED_DIRS = new Set([
   "node_modules",
@@ -74,11 +91,78 @@ function syncFile(file, version, checkOnly) {
   return { changed: true, prev: pkg.version };
 }
 
+function syncLockFile(file, version, checkOnly) {
+  const raw = fs.readFileSync(file, "utf8");
+  const lock = JSON.parse(raw);
+  const rootPackage = lock.packages && lock.packages[""];
+  const drifted = [];
+
+  if (typeof lock.version === "string" && lock.version !== version) {
+    drifted.push({ field: "version", prev: lock.version });
+  }
+  if (
+    rootPackage &&
+    typeof rootPackage.version === "string" &&
+    rootPackage.version !== version
+  ) {
+    drifted.push({ field: 'packages[""].version', prev: rootPackage.version });
+  }
+
+  if (!checkOnly && drifted.length > 0) {
+    let updated = raw.replace(
+      /("version"\s*:\s*")[^"]*(")/,
+      `$1${version}$2`,
+    );
+    updated = updated.replace(
+      /("packages"\s*:\s*\{\s*""\s*:\s*\{[\s\S]*?"version"\s*:\s*")[^"]*(")/,
+      `$1${version}$2`,
+    );
+    fs.writeFileSync(file, updated);
+  }
+
+  return drifted;
+}
+
+function syncChart(file, version, checkOnly) {
+  const raw = fs.readFileSync(file, "utf8");
+  const fields = ["version", "appVersion"];
+  let updated = raw;
+  const drifted = [];
+
+  for (const field of fields) {
+    const pattern = new RegExp(
+      `^(${field}:[ \\t]*)["']?([^"' \\t]+)["']?[ \\t]*$`,
+      "m",
+    );
+    const match = updated.match(pattern);
+    if (!match) {
+      throw new Error(`${path.relative(REPO_ROOT, file)} is missing ${field}`);
+    }
+    if (match[2] === version) continue;
+    drifted.push({ field, prev: match[2] });
+    if (!checkOnly) {
+      updated = updated.replace(pattern, `$1"${version}"`);
+    }
+  }
+
+  if (!checkOnly && drifted.length > 0) {
+    fs.writeFileSync(file, updated);
+  }
+  return drifted;
+}
+
 function main() {
   const args = new Set(process.argv.slice(2));
   const checkOnly = args.has("--check");
   const targetVersion = readTargetVersion();
   const files = walk(REPO_ROOT, []);
+  const lockFiles = [
+    ...new Set(
+      files
+        .map((file) => path.join(path.dirname(file), "package-lock.json"))
+        .filter((file) => fs.existsSync(file)),
+    ),
+  ];
 
   const drifted = [];
   let skipped = 0;
@@ -93,9 +177,33 @@ function main() {
     }
   }
 
-  if (drifted.length === 0) {
+  const driftedLocks = [];
+  for (const file of lockFiles) {
+    for (const drift of syncLockFile(file, targetVersion, checkOnly)) {
+      driftedLocks.push({
+        file: path.relative(REPO_ROOT, file),
+        ...drift,
+      });
+    }
+  }
+
+  const driftedCharts = [];
+  for (const file of RELEASE_CHARTS) {
+    for (const drift of syncChart(file, targetVersion, checkOnly)) {
+      driftedCharts.push({
+        file: path.relative(REPO_ROOT, file),
+        ...drift,
+      });
+    }
+  }
+
+  if (
+    drifted.length === 0 &&
+    driftedLocks.length === 0 &&
+    driftedCharts.length === 0
+  ) {
     console.log(
-      `All ${files.length - skipped} package.json file(s) already at ${targetVersion}.`,
+      `All ${files.length - skipped} package.json file(s), ${lockFiles.length} package-lock root(s), and ${RELEASE_CHARTS.length} Helm chart(s) already at ${targetVersion}.`,
     );
     return;
   }
@@ -105,19 +213,29 @@ function main() {
       `${checkOnly ? "drift" : "sync"}: ${file} (${prev} -> ${targetVersion})`,
     );
   }
+  for (const { file, field, prev } of driftedLocks) {
+    console.log(
+      `${checkOnly ? "drift" : "sync"}: ${file} ${field} (${prev} -> ${targetVersion})`,
+    );
+  }
+  for (const { file, field, prev } of driftedCharts) {
+    console.log(
+      `${checkOnly ? "drift" : "sync"}: ${file} ${field} (${prev} -> ${targetVersion})`,
+    );
+  }
 
   if (checkOnly) {
     console.error(
-      `\n${drifted.length} package.json file(s) out of sync with VERSION (${targetVersion}).`,
+      `\n${drifted.length} package.json field(s), ${driftedLocks.length} package-lock field(s), and ${driftedCharts.length} Helm chart field(s) out of sync with VERSION (${targetVersion}).`,
     );
     console.error(
-      "Run 'npm run sync-package-versions' from the repo root and commit the changes.",
+      "Run 'npm run sync-package-versions' from the repo root and commit the release metadata changes.",
     );
     process.exit(1);
   }
 
   console.log(
-    `\nSynced ${drifted.length} package.json file(s) to ${targetVersion}.`,
+    `\nSynced ${drifted.length} package.json file(s), ${driftedLocks.length} package-lock field(s), and ${driftedCharts.length} Helm chart field(s) to ${targetVersion}.`,
   );
 }
 

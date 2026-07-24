@@ -2,7 +2,7 @@
 
 Cast Operations.com をご利用で、セキュリティ上の理由から当社の IP をホワイトリストに登録したい場合は、以下の手順に従ってください。
 
-visca.ai がお客様のリソースに到達できるように、ファイアウォールで以下の IP をホワイトリストに登録してください。
+latticeruntime.com がお客様のリソースに到達できるように、ファイアウォールで以下の IP をホワイトリストに登録してください。
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ visca.ai がお客様のリソースに到達できるように、ファイア�
 以下の API エンドポイントを使用して、プローブの出口 IP アドレスのリストをプログラムで取得することもできます。
 
 ```
-GET https://visca.ai/ip-whitelist
+GET https://latticeruntime.com/ip-whitelist
 ```
 
 これにより、JSON レスポンスが返されます。

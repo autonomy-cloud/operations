@@ -10,7 +10,7 @@ Cast Operations MCP-servern är en brygga mellan stora språkmodeller (LLM:er) o
 
 MCP-servern körs tillsammans med din Cast Operations-instans och är åtkomlig via Streamable HTTP-transport. Ingen lokal installation krävs.
 
-**Molnanvändare**: `https://visca.ai/mcp`
+**Molnanvändare**: `https://latticeruntime.com/mcp`
 **Egeninstallerade användare**: `https://your-operations-domain.com/mcp`
 
 ## Nyckelfunktioner
@@ -73,7 +73,7 @@ Lägg till följande konfiguration:
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ Lägg till följande konfiguration:
 
 ### För egeninstallerad Cast Operations
 
-Ersätt `visca.ai` med din Cast Operations-domän:
+Ersätt `latticeruntime.com` med din Cast Operations-domän:
 
 ```json
 {
@@ -109,7 +109,7 @@ För att endast använda offentliga verktyg (statussideinformation, hjälp) kan 
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ Alternativt kan du skapa `.vscode/mcp.json` i din arbetsyta för projektspecifik
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -296,7 +296,7 @@ Verifiera att MCP-servern körs:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -306,7 +306,7 @@ Lista tillgängliga verktyg:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

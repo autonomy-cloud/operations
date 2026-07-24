@@ -3,11 +3,11 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEST_DIR="$(dirname "$SCRIPT_DIR")"
-CAST_OPERATIONS_URL="${CAST_OPERATIONS_URL:-http://localhost}"
+CAST_OPERATIONS_URL="${CAST_OPERATIONS_URL:-http://localhost:${APP_PORT:-80}}"
 
 # Generate unique test values
 TIMESTAMP=$(date +%s)
-TEST_EMAIL="terraform-test-${TIMESTAMP}@test.visca.ai"
+TEST_EMAIL="terraform-test-${TIMESTAMP}@test.latticeruntime.com"
 TEST_PASSWORD="TestPassword123!"
 TEST_NAME="Terraform E2E Test User"
 

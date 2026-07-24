@@ -30,7 +30,7 @@ SCIM 整合提供下列優點：
    - 複製 **SCIM Base URL** 與 **Bearer Token**，以供您的 IdP 設定使用
 
 3. **設定您的身分提供者**
-   - 使用 SCIM Base URL：`https://visca.ai/scim/v2/{scimId}`
+   - 使用 SCIM Base URL：`https://latticeruntime.com/scim/v2/{scimId}`
    - 使用提供的權杖設定 Bearer 權杖驗證
    - 對應使用者屬性（email 為必填）
 
@@ -78,7 +78,7 @@ SCIM 整合提供下列優點：
    - 複製 **SCIM Base URL** 與 **Bearer Token**，以供您的 IdP 設定使用
 
 3. **設定您的身分提供者**
-   - 使用 SCIM Base URL：`https://visca.ai/status-page-scim/v2/{scimId}`
+   - 使用 SCIM Base URL：`https://latticeruntime.com/status-page-scim/v2/{scimId}`
    - 使用提供的權杖設定 Bearer 權杖驗證
    - 對應使用者屬性（email 為必填）
 
@@ -144,7 +144,7 @@ Microsoft Entra ID 提供企業等級的身分管理，並具備強大的 SCIM �
 2. 點選 **Get started**
 3. 將 **Provisioning Mode** 設定為 **Automatic**
 4. 在 **Admin Credentials** 下：
-   - **Tenant URL**：輸入來自 Cast Operations 的 SCIM Base URL（例如 `https://visca.ai/api/identity/scim/v2/{your-scim-id}`）
+   - **Tenant URL**：輸入來自 Cast Operations 的 SCIM Base URL（例如 `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`）
    - **Secret Token**：輸入來自 Cast Operations 的 Bearer Token
 5. 點選 **Test Connection** 以驗證設定
 6. 點選 **Save**
@@ -263,7 +263,7 @@ Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照
 3. 點選 **Configure API Integration**
 4. 勾選 **Enable API integration**
 5. 設定下列項目：
-   - **SCIM connector base URL**：輸入來自 Cast Operations 的 SCIM Base URL（例如 `https://visca.ai/api/identity/scim/v2/{your-scim-id}`）
+   - **SCIM connector base URL**：輸入來自 Cast Operations 的 SCIM Base URL（例如 `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`）
    - **Unique identifier field for users**：輸入 `userName`
    - **Supported provisioning actions**：選取您想啟用的動作：
      - Import New Users and Profile Updates
@@ -340,7 +340,7 @@ Okta 提供具彈性的身分管理，並擁有絕佳的 SCIM 支援。請依照
 
 Cast Operations 的 SCIM 實作遵循 SCIM v2.0 規格，應可與任何符合規範的身分提供者搭配運作。一般設定步驟：
 
-1. **SCIM Base URL**：`https://visca.ai/api/identity/scim/v2/{scim-id}`（用於專案）或 `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}`（用於狀態頁面）
+1. **SCIM Base URL**：`https://latticeruntime.com/api/identity/scim/v2/{scim-id}`（用於專案）或 `https://latticeruntime.com/api/identity/status-page-scim/v2/{scim-id}`（用於狀態頁面）
 2. **驗證**：HTTP Bearer Token
 3. **必填使用者屬性**：`userName`（必須是有效的電子郵件地址）
 4. **支援的操作**：對 Users 與 Groups 進行 GET、POST、PUT、PATCH、DELETE

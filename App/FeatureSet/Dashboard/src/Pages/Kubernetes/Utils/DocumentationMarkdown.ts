@@ -19,7 +19,7 @@ export function getKubernetesInstallationMarkdown(
 ## Step 1: Add the Cast Operations Helm Repository
 
 \`\`\`bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 \`\`\`
 
