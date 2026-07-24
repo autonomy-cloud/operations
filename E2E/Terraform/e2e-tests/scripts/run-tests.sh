@@ -23,7 +23,8 @@ OS=$(go env GOOS)
 ARCH=$(go env GOARCH)
 INSTALL_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/autonomy-cloud/operations/1.0.0/${OS}_${ARCH}"
 mkdir -p "$INSTALL_DIR"
-cp terraform-provider-cast-operations "$INSTALL_DIR/"
+cp terraform-provider-cast-operations \
+  "$INSTALL_DIR/terraform-provider-operations_v1.0.0"
 
 # Use the provider's standard unpacked filesystem-mirror layout. Unlike
 # dev_overrides, a mirror lets `terraform init` select the local 1.0.0 version
