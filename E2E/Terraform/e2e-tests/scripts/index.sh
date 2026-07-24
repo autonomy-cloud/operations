@@ -82,9 +82,10 @@ set -a
 # shellcheck disable=SC1091
 . ./config.env
 set +a
+export CAST_OPERATIONS_URL="http://localhost:${APP_PORT}"
 bash ./Tests/Scripts/endpoint-status.sh \
     "Cast Operations API" \
-    "http://localhost:${APP_PORT}/status/ready"
+    "${CAST_OPERATIONS_URL}/status/ready"
 
 # Step 5: Setup test account
 echo ""
