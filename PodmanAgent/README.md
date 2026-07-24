@@ -58,7 +58,7 @@ podman compose up -d
 | `cast-operations/podman-agent:release` | Latest stable release (community) |
 | `cast-operations/podman-agent:enterprise-release` | Latest stable release (enterprise) |
 | `cast-operations/podman-agent:<version>` | Pinned version, e.g. `10.0.31` |
-| `ghcr.io/cast-operations/podman-agent:release` | Same image mirrored on GHCR |
+| `ghcr.io/autonomy-cloud/operations/podman-agent:release` | Same image mirrored on GHCR |
 
 ## Collected Metrics
 

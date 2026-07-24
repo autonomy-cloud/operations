@@ -32,6 +32,7 @@ CONTEXT="."
 PLATFORMS="linux/amd64,linux/arm64"
 GIT_SHA=""
 EXTRA_TAGS=()
+GHCR_REPOSITORY="${GHCR_REPOSITORY:-ghcr.io/autonomy-cloud/operations}"
 
 while [[ $# -gt 0 ]]; do
 	case "$1" in
@@ -105,11 +106,11 @@ build_image() {
 	local -a tag_args
 	tag_args=(
 		--tag "cast-operations/${IMAGE}:${SANITIZED_VERSION}${ARCH_SUFFIX}"
-		--tag "ghcr.io/cast-operations/${IMAGE}:${SANITIZED_VERSION}${ARCH_SUFFIX}"
+		--tag "${GHCR_REPOSITORY}/${IMAGE}:${SANITIZED_VERSION}${ARCH_SUFFIX}"
 	)
 	for tag_suffix in "${extras[@]+"${extras[@]}"}"; do
 		tag_args+=(--tag "cast-operations/${IMAGE}:${tag_suffix}${ARCH_SUFFIX}")
-		tag_args+=(--tag "ghcr.io/cast-operations/${IMAGE}:${tag_suffix}${ARCH_SUFFIX}")
+		tag_args+=(--tag "${GHCR_REPOSITORY}/${IMAGE}:${tag_suffix}${ARCH_SUFFIX}")
 	done
 
 	# No --cache-from/--cache-to: the GHA remote cache was removed because GitHub

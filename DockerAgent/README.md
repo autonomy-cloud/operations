@@ -58,7 +58,7 @@ docker compose up -d
 | `cast-operations/docker-agent:release`            | Latest stable release (community)  |
 | `cast-operations/docker-agent:enterprise-release` | Latest stable release (enterprise) |
 | `cast-operations/docker-agent:<version>`          | Pinned version, e.g. `10.0.31`     |
-| `ghcr.io/cast-operations/docker-agent:release`    | Same image mirrored on GHCR        |
+| `ghcr.io/autonomy-cloud/operations/docker-agent:release` | Same image mirrored on GHCR |
 
 ## Collected Metrics
 
