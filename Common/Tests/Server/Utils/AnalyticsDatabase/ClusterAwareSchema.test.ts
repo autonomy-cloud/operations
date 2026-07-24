@@ -109,7 +109,7 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
       // model sharding key is used
       expect(
         getDistributedEngine("SpanItemV3Local", "cityHash64(traceId)"),
-      ).toContain("SpanItemV3Local, cityHash64(traceId))");
+      ).toContain("`SpanItemV3Local`, cityHash64(traceId))");
       // no model key -> default cityHash64(projectId)
       expect(getDistributedEngine("LogItemV3Local")).toContain(
         "cityHash64(projectId))",
@@ -118,7 +118,7 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
       process.env[SHARDING_ENV_KEY] = "rand()";
       expect(
         getDistributedEngine("SpanItemV3Local", "cityHash64(traceId)"),
-      ).toContain("SpanItemV3Local, rand())");
+      ).toContain("`SpanItemV3Local`, rand())");
     });
   });
 
@@ -230,16 +230,22 @@ describe("ClickHouse cluster-aware schema (always-on)", () => {
       const q: string = spanGen.toDistributedTableCreateStatement().query;
       expect(q).toContain("ON CLUSTER 'cast-operations'");
       expect(q).toContain(
-        `Distributed('cast-operations', ${getClickhouseDatabaseName()}, SpanItemV3Local, cityHash64(traceId))`,
+        `Distributed('cast-operations', \`${getClickhouseDatabaseName()}\`, \`SpanItemV3Local\`, cityHash64(traceId))`,
+      );
+      expect(q).toContain(
+        `CREATE OR REPLACE TABLE \`${getClickhouseDatabaseName()}\`.\`SpanItemV3\``,
+      );
+      expect(q).toContain(
+        `AS \`${getClickhouseDatabaseName()}\`.\`SpanItemV3Local\``,
       );
       expect(q).toContain("AS ");
-      expect(q).toContain("SpanItemV3 "); // the app-facing distributed name
+      expect(q).toContain("`SpanItemV3`"); // the app-facing distributed name
     });
 
     test("global sharding-key override beats the model key in the Distributed engine", () => {
       process.env[SHARDING_ENV_KEY] = "rand()";
       expect(spanGen.toDistributedTableCreateStatement().query).toContain(
-        "SpanItemV3Local, rand())",
+        "`SpanItemV3Local`, rand())",
       );
     });
 

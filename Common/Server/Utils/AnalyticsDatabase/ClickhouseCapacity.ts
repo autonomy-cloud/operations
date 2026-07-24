@@ -5,7 +5,11 @@ import {
 } from "../../Infrastructure/ClickhouseDatabase";
 import AnalyticsTableName from "../../../Types/AnalyticsDatabase/AnalyticsTableName";
 import { JSONObject } from "../../../Types/JSON";
-import { getClickhouseClusterName, getStorageTableName } from "./ClusterConfig";
+import {
+  getClickhouseClusterName,
+  getStorageTableName,
+  quoteClickhouseIdentifier,
+} from "./ClusterConfig";
 
 export interface ClickhouseDiskSnapshot {
   shardNum: number;
@@ -539,6 +543,8 @@ export async function dropClickhousePartition(data: {
    * ALTER without it. The setting is still applied on every replica.
    */
   await getClient().command({
-    query: `ALTER TABLE ${database}.${tableName} ON CLUSTER '${cluster}' DROP PARTITION ID '${partitionId}' SETTINGS max_partition_size_to_drop = 0`,
+    query: `ALTER TABLE ${quoteClickhouseIdentifier(database)}.${quoteClickhouseIdentifier(
+      tableName,
+    )} ON CLUSTER '${cluster}' DROP PARTITION ID '${partitionId}' SETTINGS max_partition_size_to_drop = 0`,
   });
 }
