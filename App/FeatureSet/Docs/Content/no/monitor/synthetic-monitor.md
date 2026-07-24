@@ -179,5 +179,5 @@ Når de er fanget opp, vises disse metrikkene i Metric Explorer under navn som `
 - Du kan bruke variablene `browserType` og `screenSizeType` for å få nettlesertypen og skjermstørrelsestypen i gjeldende kjøringskontekst. Bruk dem gjerne i skriptet.
 - Dette er et JavaScript-skript, så du kan bruke alle JavaScript-funksjoner i skriptet.
 - Du kan bruke `axios`-modulen til å sende HTTP-forespørsler i skriptet. Du kan bruke den til å sende API-kall fra skriptet.
-- Hvis du bruker visca.ai, vil du alltid ha den nyeste versjonen av Playwright og nettlesere tilgjengelig i skriptets kontekst. Hvis du selvhoster, sørg for at du oppdaterer probene for å ha den nyeste versjonen av Playwright og nettleserne.
+- Hvis du bruker latticeruntime.com, vil du alltid ha den nyeste versjonen av Playwright og nettlesere tilgjengelig i skriptets kontekst. Hvis du selvhoster, sørg for at du oppdaterer probene for å ha den nyeste versjonen av Playwright og nettleserne.
 - Tidsavbrudd for skriptet er 2 minutter. Hvis skriptet tar mer enn 2 minutter, vil det avsluttes.

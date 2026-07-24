@@ -11,7 +11,7 @@ Para comenzar, necesitas crear una sonda personalizada en Configuración del pro
 Para ejecutar una sonda, asegúrate de tener Docker instalado. Puedes ejecutar la sonda personalizada con:
 
 ```
-docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://latticeruntime.com -d cast-operations/probe:release
 ```
 
 Si te auto-alojas en Cast Operations, puedes cambiar `CAST_OPERATIONS_URL` a tu instancia personalizada auto-alojada.
@@ -25,7 +25,7 @@ Si tu sonda necesita pasar por un servidor proxy para llegar a Cast Operations o
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -34,7 +34,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -43,7 +43,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       # Configuración de proxy (opcional)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 ##### Con configuración de proxy
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             # Configuración de proxy (opcional)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -194,7 +194,7 @@ La sonda admite las siguientes variables de entorno:
 
 - `PROBE_KEY`: La clave de la sonda de tu panel de Cast Operations
 - `PROBE_ID`: El ID de la sonda de tu panel de Cast Operations
-- `CAST_OPERATIONS_URL`: La URL de tu instancia de Cast Operations (predeterminado: https://visca.ai)
+- `CAST_OPERATIONS_URL`: La URL de tu instancia de Cast Operations (predeterminado: https://latticeruntime.com)
 
 #### Variables opcionales
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Verificar
 
-Si la sonda se está ejecutando correctamente, debería aparecer como `Conectada` en tu panel de Cast Operations. Si no aparece como conectada, necesitas revisar los registros del contenedor. Si aún tienes problemas, por favor crea un problema en [GitHub](https://github.com/autonomy-cloud/operations) o [contacta con soporte](https://visca.ai/support).
+Si la sonda se está ejecutando correctamente, debería aparecer como `Conectada` en tu panel de Cast Operations. Si no aparece como conectada, necesitas revisar los registros del contenedor. Si aún tienes problemas, por favor crea un problema en [GitHub](https://github.com/autonomy-cloud/operations) o [contacta con soporte](https://latticeruntime.com/support).

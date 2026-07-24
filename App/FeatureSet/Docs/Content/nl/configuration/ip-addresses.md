@@ -2,7 +2,7 @@
 
 Als u Cast Operations.com gebruikt en onze IP-adressen om beveiligingsredenen op een acceptatielijst wilt plaatsen, kunt u de onderstaande instructies volgen.
 
-Voeg de volgende IP-adressen toe aan uw firewall om visca.ai toegang te geven tot uw resources.
+Voeg de volgende IP-adressen toe aan uw firewall om latticeruntime.com toegang te geven tot uw resources.
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ Deze IP-adressen kunnen veranderen; wij informeren u van tevoren als dit het gev
 U kunt de lijst met egress-IP-adressen van de probe ook programmatisch ophalen via het volgende API-eindpunt:
 
 ```
-GET https://visca.ai/ip-whitelist
+GET https://latticeruntime.com/ip-whitelist
 ```
 
 Dit retourneert een JSON-response:

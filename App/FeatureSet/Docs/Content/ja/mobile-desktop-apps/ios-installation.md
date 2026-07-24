@@ -19,7 +19,7 @@ iPhone または iPad に Apple App Store から **Cast Operations On-Call** ネ
 ## 初回起動とサインイン
 
 1. **サーバー URL**
-   - Cast Operations Cloud をご利用の場合は、デフォルトの `https://visca.ai` のままにします。
+   - Cast Operations Cloud をご利用の場合は、デフォルトの `https://latticeruntime.com` のままにします。
    - セルフホスティングの場合は、Cast Operations インスタンスの URL を入力します(例: `https://operations.example.com`)。
    - アプリは続行前にサーバーが到達可能か確認します。
 2. **サインイン**
@@ -57,7 +57,7 @@ Cast Operations アカウントとオンコールスケジュールはサーバ�
 
 **App Store にアプリが「お住まいの地域では利用できません」と表示される場合:**
 
-- このアプリはグローバル App Store で公開されています。お住まいの地域で表示されない場合は、[サポート](mailto:support@visca.ai)までお問い合わせください。
+- このアプリはグローバル App Store で公開されています。お住まいの地域で表示されない場合は、[サポート](mailto:support@latticeruntime.com)までお問い合わせください。
 
 **サインイン時に「ネットワークエラー」が表示される場合:**
 

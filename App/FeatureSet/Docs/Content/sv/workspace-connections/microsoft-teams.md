@@ -4,7 +4,7 @@
 
 1. **Skapa ett konto på Cast Operations**
 
-   - Besök [Cast Operations.com](https://visca.ai) och skapa ett konto.
+   - Besök [Cast Operations.com](https://latticeruntime.com) och skapa ett konto.
    - När kontot har skapats skapar du ett nytt projekt.
 
 2. **Anslut Microsoft Teams till Cast Operations-projektet**

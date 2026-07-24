@@ -12,7 +12,7 @@ Deze gids helpt u binnen enkele minuten aan de slag te gaan met de Cast Operatio
 
 ### Voor Cast Operations Cloud
 
-1. Ga naar [Cast Operations Cloud](https://visca.ai) en log in
+1. Ga naar [Cast Operations Cloud](https://latticeruntime.com) en log in
 2. Navigeer naar **Instellingen** → **API-sleutels**
 3. Klik op **API-sleutel aanmaken**
 4. Noem het "Terraform Provider"
@@ -49,7 +49,7 @@ terraform {
 
 provider "cast-operations" {
   # Voor cloudklanten
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
 
   # Voor zelf-gehoste klanten - gebruik de URL van uw instantie
   # cast_operations_url = "https://operations.yourcompany.com"
@@ -140,7 +140,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```

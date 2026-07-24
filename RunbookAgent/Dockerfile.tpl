@@ -28,7 +28,7 @@ ENV NODE_OPTIONS="--use-openssl-ca"
 LABEL org.opencontainers.image.title="Cast Operations Runbook Agent"
 LABEL org.opencontainers.image.description="Executes Bash runbook steps in your own infrastructure and reports results back to Cast Operations."
 LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
-LABEL org.opencontainers.image.url="https://visca.ai"
+LABEL org.opencontainers.image.url="https://latticeruntime.com"
 LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 

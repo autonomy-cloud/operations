@@ -268,7 +268,7 @@ if [ "$SKIP_EGRESS" = 1 ]; then
   warn "Egress test skipped (--skip-egress)."; EGRESS="SKIPPED"
 elif [ -z "$BASE_URL" ]; then
   warn "CAST_OPERATIONS_URL is not set; cannot run the egress/token probe."; EGRESS="SKIPPED"
-  add_finding "Set CAST_OPERATIONS_URL in $ENV_FILE (e.g. https://visca.ai) and restart the agent."
+  add_finding "Set CAST_OPERATIONS_URL in $ENV_FILE (e.g. https://latticeruntime.com) and restart the agent."
 elif ! [[ "$TOKEN" =~ ^[A-Za-z0-9-]+$ ]]; then
   warn "Token unusable/missing; cannot run the authenticated probe (fix Section 4 first)."; EGRESS="SKIPPED"
 else

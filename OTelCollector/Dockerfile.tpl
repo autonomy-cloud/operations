@@ -10,8 +10,8 @@ FROM public.ecr.aws/ubuntu/ubuntu:26.04
 LABEL org.opencontainers.image.title="Cast Operations OpenTelemetry Collector"
 LABEL org.opencontainers.image.description="Cast Operations’ OpenTelemetry Collector distribution — preconfigured to ingest traces, metrics, and logs."
 LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
-LABEL org.opencontainers.image.url="https://visca.ai"
-LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.url="https://latticeruntime.com"
+LABEL org.opencontainers.image.documentation="https://latticeruntime.com/docs"
 LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 

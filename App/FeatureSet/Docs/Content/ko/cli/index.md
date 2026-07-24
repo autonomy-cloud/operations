@@ -20,7 +20,7 @@ npm install -g @cast-operations/cli
 
 ```bash
 # Cast Operations 인스턴스로 인증
-cast-operations login <your-api-key> https://visca.ai
+cast-operations login <your-api-key> https://latticeruntime.com
 
 # 모니터 목록 조회
 cast-operations monitor list

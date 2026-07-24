@@ -74,7 +74,7 @@ terraform {
 
 ```hcl
 provider "cast-operations" {
-  cast_operations_url = "https://your-operations-instance.com"  # O https://visca.ai para la nube
+  cast_operations_url = "https://your-operations-instance.com"  # O https://latticeruntime.com para la nube
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -130,7 +130,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Usa la URL de tu instancia
+  cast_operations_url = "https://latticeruntime.com"  # Usa la URL de tu instancia
   api_key       = var.cast_operations_api_key
 }
 
@@ -268,7 +268,7 @@ variable "project_id" {
 variable "cast_operations_url" {
   description = "URL de Cast Operations"
   type        = string
-  default     = "https://visca.ai"
+  default     = "https://latticeruntime.com"
 }
 
 # Configuración del proveedor
@@ -544,10 +544,10 @@ terraform apply
 
 ## Soporte y recursos
 
-- **Documentación**: [Documentos de Cast Operations](https://docs.visca.ai)
+- **Documentación**: [Documentos de Cast Operations](https://docs.latticeruntime.com)
 - **Registro de Terraform**: [Proveedor de Cast Operations](https://registry.terraform.io/providers/autonomy-cloud/operations)
 - **Problemas de GitHub**: [GitHub de Cast Operations](https://github.com/autonomy-cloud/operations/issues)
-- **Comunidad**: [Comunidad de Cast Operations](https://community.visca.ai)
+- **Comunidad**: [Comunidad de Cast Operations](https://community.latticeruntime.com)
 
 ## Solución de problemas
 

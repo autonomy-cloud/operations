@@ -57,7 +57,7 @@ Project maintainers who do not follow or enforce the Code of Conduct may be temp
 
 ## Reporting
 
-For incidents occurring in the Cast Operations community, contact <conduct@visca.ai>. You can expect a response within five business days.
+For incidents occurring in the Cast Operations community, contact <conduct@latticeruntime.com>. You can expect a response within five business days.
 
 ## Enforcement
 

@@ -141,10 +141,15 @@ services:
       CAST_OPERATIONS_EMBEDDED_MODE: "true"
       # Local Cast uses an HTTP localhost issuer; production remains HTTPS-only.
       CAST_INTEGRATION_ALLOW_INSECURE_LOCALHOST: "true"
+      # Integration suites can start the API without waiting for frontend builds.
+      CAST_OPERATIONS_API_ONLY: "${CAST_OPERATIONS_API_ONLY:-false}"
     depends_on:
       <<: *common-depends-on
     ports:
       - "9232:9229" # Debugging port.
+      # Development and API-only integration suites can address the API
+      # directly without starting the Nginx/frontend topology.
+      - "${APP_PORT}:${APP_PORT}"
     build:
       network: host
       context: .

@@ -30,7 +30,7 @@ SCIM 統合は以下のメリットを提供します。
    - IdP の設定に使用する **SCIM ベース URL** と **Bearer トークン** をコピーします
 
 3. **アイデンティティプロバイダーを設定する**
-   - SCIM ベース URL を使用: `https://visca.ai/scim/v2/{scimId}`
+   - SCIM ベース URL を使用: `https://latticeruntime.com/scim/v2/{scimId}`
    - 提供されたトークンで Bearer トークン認証を設定します
    - ユーザー属性をマッピングします（メールアドレスは必須）
 
@@ -78,7 +78,7 @@ SCIM 統合は以下のメリットを提供します。
    - IdP の設定に使用する **SCIM ベース URL** と **Bearer トークン** をコピーします
 
 3. **アイデンティティプロバイダーを設定する**
-   - SCIM ベース URL を使用: `https://visca.ai/status-page-scim/v2/{scimId}`
+   - SCIM ベース URL を使用: `https://latticeruntime.com/status-page-scim/v2/{scimId}`
    - 提供されたトークンで Bearer トークン認証を設定します
    - ユーザー属性をマッピングします（メールアドレスは必須）
 
@@ -144,7 +144,7 @@ Microsoft Entra ID は、堅牢な SCIM プロビジョニング機能を備え�
 2. **作業の開始** をクリックします
 3. **プロビジョニングモード** を **自動** に設定します
 4. **管理者の資格情報** で:
-   - **テナント URL**: Cast Operations の SCIM ベース URL を入力します（例: `https://visca.ai/api/identity/scim/v2/{your-scim-id}`）
+   - **テナント URL**: Cast Operations の SCIM ベース URL を入力します（例: `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`）
    - **シークレットトークン**: Cast Operations の Bearer トークンを入力します
 5. **接続テスト** をクリックして設定を確認します
 6. **保存** をクリックします
@@ -263,7 +263,7 @@ Okta は優れた SCIM サポートを備えた柔軟な ID 管理を提供し�
 3. **API 統合を設定** をクリックします
 4. **API 統合を有効にする** をチェックします
 5. 以下を設定します。
-   - **SCIM コネクタのベース URL**: Cast Operations の SCIM ベース URL を入力します（例: `https://visca.ai/api/identity/scim/v2/{your-scim-id}`）
+   - **SCIM コネクタのベース URL**: Cast Operations の SCIM ベース URL を入力します（例: `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`）
    - **ユーザーの一意識別子フィールド**: `userName` を入力します
    - **サポートされるプロビジョニングアクション**: 有効にするアクションを選択します:
      - 新しいユーザーとプロファイル更新をインポート
@@ -340,7 +340,7 @@ Cast Operations で **グループのプッシュ** を有効にした場合:
 
 Cast Operations の SCIM 実装は SCIM v2.0 仕様に準拠しており、任意の準拠したアイデンティティプロバイダーで動作します。一般的な設定手順は以下の通りです。
 
-1. **SCIM ベース URL**: `https://visca.ai/api/identity/scim/v2/{scim-id}`（プロジェクト用）または `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}`（ステータスページ用）
+1. **SCIM ベース URL**: `https://latticeruntime.com/api/identity/scim/v2/{scim-id}`（プロジェクト用）または `https://latticeruntime.com/api/identity/status-page-scim/v2/{scim-id}`（ステータスページ用）
 2. **認証**: HTTP Bearer トークン
 3. **必須ユーザー属性**: `userName`（有効なメールアドレスである必要があります）
 4. **サポートされる操作**: ユーザーとグループの GET、POST、PUT、PATCH、DELETE

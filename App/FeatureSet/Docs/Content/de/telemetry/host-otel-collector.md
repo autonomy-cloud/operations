@@ -114,7 +114,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
@@ -333,7 +333,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -385,7 +385,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -448,7 +448,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -744,7 +744,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -788,7 +788,7 @@ Der OpenTelemetry Collector berücksichtigt die standardmäßigen Umgebungsvaria
   - Fügen Sie `service.telemetry.logs.level: debug` zur Konfiguration hinzu und starten Sie den Collector für ausführliche Ausgaben neu.
   - **Linux / macOS:** `journalctl -u otelcol-contrib -f` (Linux) oder `tail -f /var/log/otelcol-contrib.err.log` (macOS).
   - **Windows:** Schauen Sie unter _Event Viewer → Windows Logs → Application_ nach der Quelle `otelcol-contrib`.
-  - Stellen Sie sicher, dass der Host `https://visca.ai/otlp` (oder Ihren selbst gehosteten Endpunkt) erreichen kann: `curl -v https://visca.ai/otlp` von demselben Rechner.
+  - Stellen Sie sicher, dass der Host `https://latticeruntime.com/otlp` (oder Ihren selbst gehosteten Endpunkt) erreichen kann: `curl -v https://latticeruntime.com/otlp` von demselben Rechner.
 - **HTTP 401 vom Exporter** — das Ingestion-Token ist ungültig oder widerrufen. Erstellen Sie ein neues unter _Project Settings → Telemetry Ingestion Keys_.
 - **Der Windows-Event-Log-Kanal `Security` gibt „access denied“ zurück** — der Dienst läuft nicht mit ausreichenden Berechtigungen. Erstellen Sie ihn unter `LocalSystem` neu (der Standard bei `sc.exe create`) oder erteilen Sie dem Dienstkonto das Benutzerrecht _Manage auditing and security log_.
 - **Der `journald`-Receiver startet nicht** — stellen Sie sicher, dass `journalctl` im `PATH` des Collectors liegt und dass `/var/log/journal` existiert (führen Sie andernfalls `sudo systemd-tmpfiles --create --prefix /var/log/journal` aus).

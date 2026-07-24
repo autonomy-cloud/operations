@@ -15,7 +15,7 @@ cast-operations login <api-key> <instance-url>
 | Argument         | विवरण                                                         |
 | ---------------- | ------------------------------------------------------------- |
 | `<api-key>`      | आपकी Cast Operations API key (जैसे `sk-your-api-key`)               |
-| `<instance-url>` | आपके Cast Operations instance का URL (जैसे `https://visca.ai`) |
+| `<instance-url>` | आपके Cast Operations instance का URL (जैसे `https://latticeruntime.com`) |
 
 **Options:**
 
@@ -27,14 +27,14 @@ cast-operations login <api-key> <instance-url>
 
 ```bash
 # डिफ़ॉल्ट context के साथ login करें
-cast-operations login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://latticeruntime.com
 
 # named context के साथ login करें
-cast-operations login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://latticeruntime.com --context-name production
 
 # अनेक environments सेट अप करें
-cast-operations login sk-prod-key https://visca.ai --context-name production
-cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://latticeruntime.com --context-name production
+cast-operations login sk-staging-key https://staging.latticeruntime.com --context-name staging
 ```
 
 ## Contexts
@@ -95,14 +95,14 @@ Credentials को निम्नलिखित प्राथमिकता
 ### CLI Flags का उपयोग
 
 ```bash
-cast-operations --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://latticeruntime.com incident list
 ```
 
 ### Environment Variables का उपयोग
 
 ```bash
 export CAST_OPERATIONS_API_KEY=sk-abc123
-export CAST_OPERATIONS_URL=https://visca.ai
+export CAST_OPERATIONS_URL=https://latticeruntime.com
 
 cast-operations incident list
 ```
@@ -139,12 +139,12 @@ Credentials प्रतिबंधित permissions (`0600`) के साथ
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://visca.ai",
+      "apiUrl": "https://latticeruntime.com",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.visca.ai",
+      "apiUrl": "https://staging.latticeruntime.com",
       "apiKey": "sk-..."
     }
   },

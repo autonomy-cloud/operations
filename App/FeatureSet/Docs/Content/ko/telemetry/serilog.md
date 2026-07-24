@@ -8,8 +8,8 @@
 
 ## 사전 준비 사항
 
-- **Cast Operations 계정 가입** – [여기](https://visca.ai)에서 무료 계정에 가입할 수 있습니다. 계정은 무료이지만 로그 수집은 유료 기능이라는 점에 유의하세요. 가격에 대한 자세한 내용은 [여기](https://visca.ai/pricing)에서 확인할 수 있습니다.
-- **Cast Operations 프로젝트 생성** – 계정을 만든 후, Cast Operations 대시보드에서 프로젝트를 생성하세요. 도움이 필요하면 support@visca.ai으로 연락해 주세요.
+- **Cast Operations 계정 가입** – [여기](https://latticeruntime.com)에서 무료 계정에 가입할 수 있습니다. 계정은 무료이지만 로그 수집은 유료 기능이라는 점에 유의하세요. 가격에 대한 자세한 내용은 [여기](https://latticeruntime.com/pricing)에서 확인할 수 있습니다.
+- **Cast Operations 프로젝트 생성** – 계정을 만든 후, Cast Operations 대시보드에서 프로젝트를 생성하세요. 도움이 필요하면 support@latticeruntime.com으로 연락해 주세요.
 - **Telemetry 수집 토큰 생성** – 로그를 인증하려면 토큰이 필요합니다.
 
 Cast Operations에 가입하고 프로젝트를 생성한 후, 내비게이션 바에서 "More"를 클릭한 다음 "Project Settings"를 클릭하세요.
@@ -26,13 +26,13 @@ Telemetry Ingestion Key 페이지에서 "Create Ingestion Key"를 클릭하여 �
 
 | 설정            | 값                                                  |
 | --------------- | --------------------------------------------------- |
-| OTLP 엔드포인트 | `https://visca.ai/otlp`                        |
+| OTLP 엔드포인트 | `https://latticeruntime.com/otlp`                        |
 | 인증 헤더       | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN` |
 | 서비스 이름     | 서비스가 표시될 이름, 예: `my-service`              |
 
-> **Cast Operations을 자체 호스팅하시나요?** `https://visca.ai/otlp`를 `https://YOUR-OPERATIONS-HOST/otlp`로 교체하세요(TLS를 종료하지 않는 경우 `http://...`). 그 외 나머지는 모두 동일하게 유지됩니다.
+> **Cast Operations을 자체 호스팅하시나요?** `https://latticeruntime.com/otlp`를 `https://YOUR-OPERATIONS-HOST/otlp`로 교체하세요(TLS를 종료하지 않는 경우 `http://...`). 그 외 나머지는 모두 동일하게 유지됩니다.
 
-이 싱크는 OTLP **HTTP/protobuf** 프로토콜을 사용하며 엔드포인트에 `/v1/logs` 경로를 자동으로 추가하므로, 최종적으로 게시되는 URL은 `https://visca.ai/otlp/v1/logs`가 됩니다. 기본 `/otlp` 엔드포인트만 제공하면 됩니다.
+이 싱크는 OTLP **HTTP/protobuf** 프로토콜을 사용하며 엔드포인트에 `/v1/logs` 경로를 자동으로 추가하므로, 최종적으로 게시되는 URL은 `https://latticeruntime.com/otlp/v1/logs`가 됩니다. 기본 `/otlp` 엔드포인트만 제공하면 됩니다.
 
 ## 1단계 — NuGet 패키지 설치
 
@@ -70,7 +70,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.OpenTelemetry(options =>
     {
         // Base OTLP endpoint. The sink appends /v1/logs automatically.
-        options.Endpoint = "https://visca.ai/otlp";
+        options.Endpoint = "https://latticeruntime.com/otlp";
         options.Protocol = OtlpProtocol.HttpProtobuf;
 
         // Authenticate with your Cast Operations telemetry ingestion token.
@@ -115,7 +115,7 @@ finally
       {
         "Name": "OpenTelemetry",
         "Args": {
-          "endpoint": "https://visca.ai/otlp",
+          "endpoint": "https://latticeruntime.com/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
             "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
@@ -165,7 +165,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.OpenTelemetry(options =>
         {
-            options.Endpoint = "https://visca.ai/otlp";
+            options.Endpoint = "https://latticeruntime.com/otlp";
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
@@ -228,10 +228,10 @@ Cast Operations은 이러한 속성을 감지하여 오류를 자동으로 **Exc
 
 ## 문제 해결
 
-- **로그가 표시되지 않음** – `x-cast-operations-token` 값을 다시 확인하고 그것이 보고 있는 프로젝트에 속하는지 확인하세요. 엔드포인트가 `https://visca.ai/otlp`인지 확인하세요(기본 경로만 사용 — `/v1/logs`를 직접 추가하지 마세요).
+- **로그가 표시되지 않음** – `x-cast-operations-token` 값을 다시 확인하고 그것이 보고 있는 프로젝트에 속하는지 확인하세요. 엔드포인트가 `https://latticeruntime.com/otlp`인지 확인하세요(기본 경로만 사용 — `/v1/logs`를 직접 추가하지 마세요).
 - **앱이 종료될 때만 로그가 표시되거나 마지막 로그가 누락됨** – 종료 시 `Log.CloseAndFlush()`가 실행되는지 확인하세요. 싱크는 이벤트를 일괄 처리하므로, 플러시 없이 프로세스가 종료되면 버퍼링된 로그가 손실됩니다.
 - **`401 Unauthorized` / 아무것도 수집되지 않음** – 토큰이 누락되었거나 유효하지 않습니다. 헤더 키가 정확히 `x-cast-operations-token`인지 확인하세요.
 - **잘못된 서비스 이름** – `ResourceAttributes`(코드) 또는 `resourceAttributes`(appsettings.json)에서 `service.name`을 설정하세요. 이를 설정하지 않으면 로그가 기본/알 수 없는 서비스로 대체됩니다.
 - **자체 호스팅 인스턴스에 대한 연결 오류** – 프로토콜이 엔드포인트 스킴(`https://` 대 `http://`)과 일치하는지, 그리고 Cast Operations 호스트가 애플리케이션에서 도달 가능한지 확인하세요.
 
-질문이 있거나 도움이 필요하면 support@visca.ai으로 연락해 주세요.
+질문이 있거나 도움이 필요하면 support@latticeruntime.com으로 연락해 주세요.

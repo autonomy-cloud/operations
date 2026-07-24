@@ -91,7 +91,7 @@ processor's existing semantics:
   - "upsert" — always set, overwriting any upstream value.
 
 Usage:
-  {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" .Values.cast-operations.labels "action" "insert") | nindent 10 }}
+  {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" (index .Values "cast-operations").labels "action" "insert") | nindent 10 }}
 */}}
 {{- define "kubernetes-agent.castOperationsLabels" -}}
 {{- $action := .action | default "insert" -}}
@@ -211,7 +211,7 @@ Usage (nindent to the `containers:` list-item column):
   {{- end }}
   resources:
     {{- toYaml .Values.debug.resources | nindent 4 }}
-  {{- with .Values.cast-operations.url }}
+  {{- with (index .Values "cast-operations").url }}
   env:
     # Convenience for `curl "$CAST_OPERATIONS_URL/otlp/v1/metrics"`.
     - name: CAST_OPERATIONS_URL

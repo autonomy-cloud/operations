@@ -321,4 +321,4 @@ graph TB
 
 1. 檢查 Twilio Console 中的錯誤記錄
 2. 檢視 Cast Operations 伺服器記錄
-3. 透過 [hello@visca.ai](mailto:hello@visca.ai) 聯繫支援團隊
+3. 透過 [hello@latticeruntime.com](mailto:hello@latticeruntime.com) 聯繫支援團隊

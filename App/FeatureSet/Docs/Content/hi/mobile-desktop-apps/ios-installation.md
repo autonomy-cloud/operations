@@ -19,7 +19,7 @@
 ## पहला Launch और Sign-in
 
 1. **Server URL**
-   - यदि आप Cast Operations Cloud का उपयोग कर रहे हैं, तो default `https://visca.ai` को छोड़ दें।
+   - यदि आप Cast Operations Cloud का उपयोग कर रहे हैं, तो default `https://latticeruntime.com` को छोड़ दें।
    - यदि आप self-hosting कर रहे हैं, तो अपने Cast Operations instance का URL enter करें (उदाहरण के लिए, `https://operations.example.com`)।
    - app आगे बढ़ने से पहले verify करता है कि server reachable है।
 2. **Sign In**
@@ -57,7 +57,7 @@ app को App Store के माध्यम से update किया जा
 
 **App Store कहता है कि app "Not Available in Your Region" है:**
 
-- app global App Store पर publish है। यदि यह आपके region में नहीं दिखाई देता है, तो [support](mailto:support@visca.ai) से संपर्क करें।
+- app global App Store पर publish है। यदि यह आपके region में नहीं दिखाई देता है, तो [support](mailto:support@latticeruntime.com) से संपर्क करें।
 
 **Sign in करते समय "Network Error":**
 

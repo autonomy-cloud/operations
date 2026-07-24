@@ -1,6 +1,6 @@
 {
   "name": "@cast-operations/kubernetes-log-tailer",
-  "version": "11.5.9",
+  "version": "11.5.11",
   "description": "Cast Operations Kubernetes log tailer — collects pod logs via the Kubernetes API (GKE Autopilot compatible) and forwards to Cast Operations via OTLP-HTTP.",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "dev": "npx nodemon",
     "test": "npm run compile && node --test Tests/NamespaceFilter.test.js"
   },
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "dependencies": {
     "@kubernetes/client-node": "^1.4.0",

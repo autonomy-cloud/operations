@@ -16,7 +16,7 @@ Cast Operations Kubernetes Agent एक पूर्व-पैकेज्ड He
 ## Step 1 — Cast Operations Helm Repository जोड़ें
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 ```
 
@@ -675,7 +675,7 @@ helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
 3. **Ingestion key सत्यापित करें।** Cast Operations से सीधे पूछें कि आपका token स्वीकार किया गया है या नहीं (`200` = वैध, `401` = अज्ञात/निरस्त):
 
    ```bash
-   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://latticeruntime.com/otlp/v1/validate
    ```
 
    यदि यह `401` लौटाता है, तो आपके रिलीज़ में key गलत है या निरस्त कर दी गई थी। _Project Settings → Telemetry Ingestion Keys_ से एक live key कॉपी करें और पुनः-डिप्लॉय करें:

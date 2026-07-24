@@ -4,7 +4,7 @@
 
 1. **Cast Operationsでアカウントを作成する**
 
-   - [Cast Operations.com](https://visca.ai) にアクセスしてアカウントを作成します。
+   - [Cast Operations.com](https://latticeruntime.com) にアクセスしてアカウントを作成します。
    - アカウントを作成したら、新しいプロジェクトを作成します。
 
 2. **Microsoft TeamsをCast Operationsプロジェクトに接続する**

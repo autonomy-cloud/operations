@@ -4,7 +4,7 @@
 
 ## 私有儀表板（預設）
 
-儀表板僅供您專案已登入的成員存取。其 URL 看起來像 `https://visca.ai/dashboards/<id>/view`，且需要登入。
+儀表板僅供您專案已登入的成員存取。其 URL 看起來像 `https://latticeruntime.com/dashboards/<id>/view`，且需要登入。
 
 在專案內，由擁有者與標籤控制誰可以看到什麼 — 請參閱[組態與權限](/docs/dashboards/configuration)。
 
@@ -51,7 +51,7 @@
 
 ## 自訂網域
 
-開箱即用時，公開儀表板會在 `visca.ai` 上提供。要將它託管於您自己的子網域，例如 `dashboard.acme.com`：
+開箱即用時，公開儀表板會在 `latticeruntime.com` 上提供。要將它託管於您自己的子網域，例如 `dashboard.acme.com`：
 
 1. 在您的 DNS 上新增一筆 CNAME 記錄，將子網域指向 Cast Operations 的目標。
 2. 在 **Dashboard → Settings → Custom Domains** 下，新增該網域。

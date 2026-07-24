@@ -28,16 +28,16 @@ Der Cast Operations Infrastruktur-Agent ist ein leichtgewichtiger Go-basierter D
 
 ```bash
 # Agent installieren
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Agent konfigurieren
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Agent starten
 sudo cast-operations-infrastructure-agent start
 ```
 
-Ersetzen Sie `YOUR_SECRET_KEY` durch den geheimen Schlüssel aus Ihren Monitor-Einstellungen, und `https://visca.ai` durch Ihre Cast Operations-Instanz-URL, wenn Sie es selbst hosten.
+Ersetzen Sie `YOUR_SECRET_KEY` durch den geheimen Schlüssel aus Ihren Monitor-Einstellungen, und `https://latticeruntime.com` durch Ihre Cast Operations-Instanz-URL, wenn Sie es selbst hosten.
 
 ### Windows
 
@@ -49,7 +49,7 @@ Ersetzen Sie `YOUR_SECRET_KEY` durch den geheimen Schlüssel aus Ihren Monitor-E
 
 ```bash
 # Agent konfigurieren
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Agent starten
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 Wenn Ihr Server über einen Proxy mit dem Internet verbunden ist, können Sie den Agent so konfigurieren, diesen zu verwenden:
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Agent-Befehle

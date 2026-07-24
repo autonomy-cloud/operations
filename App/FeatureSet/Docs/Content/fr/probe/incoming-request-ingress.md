@@ -1,6 +1,6 @@
 # Entrée de requêtes entrantes
 
-Une sonde personnalisée peut optionnellement exécuter un **écouteur HTTP entrant** qui accepte les appels `heartbeat` et `incoming-request` depuis l'intérieur de votre réseau privé et les transmet à Cast Operations. Cela permet aux services qui **n'ont pas d'accès Internet sortant** de tout de même rapporter à un [Moniteur de requêtes entrantes](/docs/monitor/incoming-request-monitor) en envoyant la requête à une sonde sur le réseau local plutôt que directement à `visca.ai`.
+Une sonde personnalisée peut optionnellement exécuter un **écouteur HTTP entrant** qui accepte les appels `heartbeat` et `incoming-request` depuis l'intérieur de votre réseau privé et les transmet à Cast Operations. Cela permet aux services qui **n'ont pas d'accès Internet sortant** de tout de même rapporter à un [Moniteur de requêtes entrantes](/docs/monitor/incoming-request-monitor) en envoyant la requête à une sonde sur le réseau local plutôt que directement à `latticeruntime.com`.
 
 ## Vue d'ensemble
 
@@ -24,7 +24,7 @@ Utilisez l'écouteur d'entrée lorsque :
 - Vous souhaitez un seul point de sortie — la sonde — autorisé à atteindre Cast Operations
 - Vous avez déjà déployé une [sonde personnalisée](/docs/probe/custom-probe) et souhaitez la réutiliser pour les signaux de vie entrants
 
-Si vos services peuvent déjà atteindre `https://visca.ai` (ou votre URL auto-hébergée) directement, vous **n'avez pas** besoin de cette fonctionnalité — appelez directement l'URL de signal de vie depuis le service.
+Si vos services peuvent déjà atteindre `https://latticeruntime.com` (ou votre URL auto-hébergée) directement, vous **n'avez pas** besoin de cette fonctionnalité — appelez directement l'URL de signal de vie depuis le service.
 
 ## Activer l'écouteur d'entrée
 
@@ -36,7 +36,7 @@ Définissez `PROBE_INGRESS_PORT` sur le port sur lequel vous souhaitez que l'éc
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ Si vous n'utilisez pas `--network host`, publiez le port d'entrée explicitement
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ Les services internes peuvent alors envoyer des signaux de vie à `http://cast-o
 Remplacez l'URL publique de signal de vie :
 
 ```
-https://visca.ai/heartbeat/<clé-secrète>
+https://latticeruntime.com/heartbeat/<clé-secrète>
 ```
 
 par l'URL d'entrée de la sonde :
@@ -171,7 +171,7 @@ Les variables standard de la sonde (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_UR
 
 ## Considérations de sécurité
 
-- **Le point d'accès est intentionnellement non authentifié** — la clé secrète dans le chemin d'URL _est_ l'authentification, comme c'est le cas sur le point d'accès public `visca.ai`. Traitez la clé secrète comme un identifiant.
+- **Le point d'accès est intentionnellement non authentifié** — la clé secrète dans le chemin d'URL _est_ l'authentification, comme c'est le cas sur le point d'accès public `latticeruntime.com`. Traitez la clé secrète comme un identifiant.
 - **Liez à une interface privée uniquement.** L'écouteur d'entrée ne doit pas être accessible depuis Internet public. Utilisez une politique réseau, une règle de pare-feu ou un service `ClusterIP` pour restreindre l'accès.
 - **Utilisez la terminaison HTTPS si vous nécessitez le chiffrement en transit.** L'écouteur de la sonde parle du HTTP brut. Placez-le derrière un équilibreur de charge interne / contrôleur d'entrée si vous avez besoin de TLS sur le saut entrant. La jambe de transmission sonde → Cast Operations utilise toujours HTTPS (en supposant que `CAST_OPERATIONS_URL` est `https://`).
 - **Limites de ressources.** L'écouteur accepte des corps de requête jusqu'à 50 Mo. Si vous avez besoin d'un plafond plus strict, placez un proxy inverse devant.

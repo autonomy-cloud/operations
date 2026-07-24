@@ -19,7 +19,7 @@
 ## 首次啟動與登入
 
 1. **伺服器 URL**
-   - 如果您使用 Cast Operations Cloud，請保留預設值 `https://visca.ai`。
+   - 如果您使用 Cast Operations Cloud，請保留預設值 `https://latticeruntime.com`。
    - 如果您是自架，請輸入您 Cast Operations 執行個體的 URL（例如 `https://operations.example.com`）。
    - 應用程式會在繼續之前驗證伺服器是否可連線。
 2. **登入**
@@ -57,7 +57,7 @@
 
 **App Store 顯示應用程式「Not Available in Your Region」（在您的地區無法使用）：**
 
-- 此應用程式發佈於全球 App Store。如果它未在您的地區出現，請聯絡[支援](mailto:support@visca.ai)。
+- 此應用程式發佈於全球 App Store。如果它未在您的地區出現，請聯絡[支援](mailto:support@latticeruntime.com)。
 
 **登入時出現「Network Error」（網路錯誤）：**
 

@@ -31,4 +31,4 @@ Se você encontrar problemas com notificações push, por favor:
 
 1. Verifique a seção de solução de problemas acima
 2. Revise os logs do Cast Operations para mensagens de erro detalhadas
-3. Entre em contato conosco em [hello@visca.ai](mailto:hello@visca.ai)
+3. Entre em contato conosco em [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

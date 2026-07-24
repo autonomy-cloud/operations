@@ -4,7 +4,7 @@ Som standard är instrumentpaneler privata för ditt projekt — endast inloggad
 
 ## Privata instrumentpaneler (standard)
 
-En instrumentpanel är endast nåbar för inloggade medlemmar i ditt projekt. URL:en ser ut som `https://visca.ai/dashboards/<id>/view` och kräver inloggning.
+En instrumentpanel är endast nåbar för inloggade medlemmar i ditt projekt. URL:en ser ut som `https://latticeruntime.com/dashboards/<id>/view` och kräver inloggning.
 
 Inom projektet styr ägare och etiketter vem som ser vad — se [Konfiguration & behörigheter](/docs/dashboards/configuration).
 
@@ -51,7 +51,7 @@ Förfrågningar från andra IP:er avvisas.
 
 ## Anpassade domäner
 
-Som standard serveras en offentlig instrumentpanel på `visca.ai`. För att hosta den på din egen subdomän som `dashboard.acme.com`:
+Som standard serveras en offentlig instrumentpanel på `latticeruntime.com`. För att hosta den på din egen subdomän som `dashboard.acme.com`:
 
 1. Lägg till en CNAME-post på din DNS som pekar subdomänen till Cast Operations mål.
 2. Under **Dashboard → Settings → Custom Domains**, lägg till domänen.

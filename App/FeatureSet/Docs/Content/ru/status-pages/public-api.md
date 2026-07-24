@@ -9,7 +9,7 @@
 Для получения общего статуса ресурсов на странице статуса выполните POST-запрос к следующей конечной точке:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 Ответ API:
@@ -20,11 +20,11 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
     // Объект статуса монитора
     // Общий статус — наихудший из всех мониторов и групп на странице статуса.
     // Подробнее об объекте статуса монитора:
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // Подробнее об объекте публичной заметки планового обслуживания:
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // Объект публичной заметки планового обслуживания
     },
@@ -34,7 +34,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "statusPageHistoryChartBarColorRules": [
     // Подробнее об объекте правила цвета столбца диаграммы истории страницы статуса:
-    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
+    // https://latticeruntime.com/reference/status-page-history-chart-bar-color-rule
     {
       // Объект правила цвета столбца диаграммы истории
     },
@@ -44,7 +44,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "scheduledMaintenanceEvents": [
     // Подробнее об объекте события планового обслуживания:
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Объект события планового обслуживания
     },
@@ -54,7 +54,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "activeAnnouncements": [
     // Подробнее об объекте активного объявления:
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Объект объявления страницы статуса
     },
@@ -64,7 +64,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "incidentPublicNotes": [
     // Подробнее об объекте публичной заметки инцидента:
-    // https://visca.ai/reference/incident-public-note
+    // https://latticeruntime.com/reference/incident-public-note
     {
       // Объект публичной заметки инцидента
     },
@@ -74,7 +74,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "activeIncidents": [
     // Подробнее об объекте инцидента:
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Объект инцидента
     },
@@ -84,7 +84,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "monitorStatusTimelines": [
     // Подробнее об объекте временной шкалы статуса монитора:
-    // https://visca.ai/reference/monitor-status-timeline
+    // https://latticeruntime.com/reference/monitor-status-timeline
     {
       // Объект временной шкалы статуса монитора
     },
@@ -94,7 +94,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "resourceGroups": [
     // Подробнее об объекте группы ресурсов:
-    // https://visca.ai/reference/resource-group
+    // https://latticeruntime.com/reference/resource-group
     {
       // Объект группы ресурсов
     },
@@ -104,7 +104,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "monitorStatuses": [
     // Подробнее об объекте статуса монитора:
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
     {
       // Объект статуса монитора
     },
@@ -114,7 +114,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "statusPageResources": [
     // Подробнее об объекте ресурса страницы статуса:
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // Объект ресурса страницы статуса
     },
@@ -124,7 +124,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "incidentStateTimelines": [
     // Подробнее об объекте временной шкалы состояния инцидента:
-    // https://visca.ai/reference/incident-state-timeline
+    // https://latticeruntime.com/reference/incident-state-timeline
     {
       // Объект временной шкалы состояния инцидента
     },
@@ -134,11 +134,11 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "statusPage": {
     // Подробнее об объекте страницы статуса:
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // Подробнее об объекте временной шкалы состояния планового обслуживания:
-    // https://visca.ai/reference/scheduled-maintenance-state-timeline
+    // https://latticeruntime.com/reference/scheduled-maintenance-state-timeline
     {
       // Объект временной шкалы состояния планового обслуживания
     },
@@ -162,7 +162,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
 Для получения общей доступности всех ресурсов выполните POST-запрос к следующей конечной точке:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **Тело запроса (необязательно):**
@@ -255,7 +255,7 @@ curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
 Этот API возвращает все инциденты на странице статуса. Для получения всех инцидентов выполните POST-запрос к следующей конечной точке:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 Ответ API:
@@ -264,7 +264,7 @@ curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 {
   "incidents": [
     // Подробнее об объекте инцидента:
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Объект инцидента
     },
@@ -280,7 +280,7 @@ curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 Этот API возвращает все плановые работы на странице статуса. Для получения всех плановых работ выполните POST-запрос к следующей конечной точке:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 Ответ API:
@@ -289,7 +289,7 @@ curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageI
 {
   "scheduledMaintenanceEvents": [
     // Подробнее об объекте события планового обслуживания:
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Объект события планового обслуживания
     },
@@ -305,7 +305,7 @@ curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageI
 Этот API возвращает все объявления на странице статуса. Для получения всех объявлений выполните POST-запрос к следующей конечной точке:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 Ответ API:
@@ -314,7 +314,7 @@ curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
 {
   "announcements": [
     // Подробнее об объекте объявления:
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Объект объявления
     },

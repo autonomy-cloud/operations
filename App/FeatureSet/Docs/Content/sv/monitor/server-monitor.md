@@ -28,16 +28,16 @@ Cast Operations Infrastrukturagenten är en lätt Go-baserad daemon som samlar i
 
 ```bash
 # Installera agenten
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Konfigurera agenten
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Starta agenten
 sudo cast-operations-infrastructure-agent start
 ```
 
-Ersätt `YOUR_SECRET_KEY` med den hemliga nyckel som visas i monitorns inställningar och `https://visca.ai` med din Cast Operations-instans-URL om du egeninstallerar.
+Ersätt `YOUR_SECRET_KEY` med den hemliga nyckel som visas i monitorns inställningar och `https://latticeruntime.com` med din Cast Operations-instans-URL om du egeninstallerar.
 
 ### Windows
 
@@ -49,7 +49,7 @@ Ersätt `YOUR_SECRET_KEY` med den hemliga nyckel som visas i monitorns inställn
 
 ```bash
 # Konfigurera agenten
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Starta agenten
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 Om din server ansluter till internet via en proxy kan du konfigurera agenten att använda den:
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Agentkommandon

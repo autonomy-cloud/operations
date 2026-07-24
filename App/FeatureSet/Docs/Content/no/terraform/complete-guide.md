@@ -74,7 +74,7 @@ terraform {
 
 ```hcl
 provider "cast-operations" {
-  cast_operations_url = "https://your-operations-instance.com"  # Eller https://visca.ai for sky
+  cast_operations_url = "https://your-operations-instance.com"  # Eller https://latticeruntime.com for sky
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -130,7 +130,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # Bruk instans-URL-en din
+  cast_operations_url = "https://latticeruntime.com"  # Bruk instans-URL-en din
   api_key       = var.cast_operations_api_key
 }
 
@@ -268,7 +268,7 @@ variable "project_id" {
 variable "cast_operations_url" {
   description = "Cast Operations-URL"
   type        = string
-  default     = "https://visca.ai"
+  default     = "https://latticeruntime.com"
 }
 
 # Leverandørkonfigurasjon
@@ -544,10 +544,10 @@ terraform apply
 
 ## Støtte og ressurser
 
-- **Dokumentasjon**: [Cast Operations-dokumenter](https://docs.visca.ai)
+- **Dokumentasjon**: [Cast Operations-dokumenter](https://docs.latticeruntime.com)
 - **Terraform Registry**: [Cast Operations-leverandør](https://registry.terraform.io/providers/autonomy-cloud/operations)
 - **GitHub-saker**: [Cast Operations GitHub](https://github.com/autonomy-cloud/operations/issues)
-- **Community**: [Cast Operations Community](https://community.visca.ai)
+- **Community**: [Cast Operations Community](https://community.latticeruntime.com)
 
 ## Feilsøking
 

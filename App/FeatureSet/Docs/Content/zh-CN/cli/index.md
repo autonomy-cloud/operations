@@ -20,7 +20,7 @@ npm install -g @cast-operations/cli
 
 ```bash
 # 向您的 Cast Operations 实例进行认证
-cast-operations login <your-api-key> https://visca.ai
+cast-operations login <your-api-key> https://latticeruntime.com
 
 # 列出您的监控器
 cast-operations monitor list

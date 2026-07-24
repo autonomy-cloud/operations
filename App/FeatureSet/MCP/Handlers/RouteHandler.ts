@@ -9,7 +9,7 @@
  * consecutive requests from the same client land on different workers.
  *
  * The previous implementation kept sessions in a per-process in-memory Map. With
- * more than one replica running (as on visca.ai), `initialize` created the
+ * more than one replica running (as on latticeruntime.com), `initialize` created the
  * session on one worker and every subsequent request was load-balanced to another
  * worker that had no record of it, so the whole MCP handshake failed with
  * "404 MCP session not found" — see GitHub issue #2459.

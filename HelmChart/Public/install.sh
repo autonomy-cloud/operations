@@ -143,7 +143,7 @@ then
 fi
 
 
-AVAILABLE_VERSION=$(curl https://visca.ai/api/version | jq '.server' | tr -d '"')
+AVAILABLE_VERSION=$(curl https://latticeruntime.com/api/version | jq '.server' | tr -d '"')
 AVAILABLE_VERSION_BUILD=$(echo $AVAILABLE_VERSION | tr "." "0")
 
 IMAGE_VERSION=$(sudo k get deployment fi-accounts -o=jsonpath='{$.spec.template.spec.containers[:1].image}' || echo 0)
@@ -165,7 +165,7 @@ then
 fi
 
 # Install cluster with helm-chart.
-sudo helm repo add cast-operations https://visca.ai/chart || echo "Cast Operations already added"
+sudo helm repo add cast-operations https://latticeruntime.com/chart || echo "Cast Operations already added"
 sudo helm repo update
 
 

@@ -20,11 +20,11 @@ Para integrar o GitHub com sua instância auto-hospedada do Cast Operations, voc
 
 3. Preencha o formulário de registro:
    - **GitHub App name:** Cast Operations (ou qualquer nome único) - **Salve este nome, você precisará dele para a variável de ambiente `GITHUB_APP_NAME`**
-   - **Homepage URL:** `https://seu-dominio-visca.ai`
-   - **Callback URL:** `https://seu-dominio-visca.ai/api/github/auth/callback`
-   - **Setup URL:** `https://seu-dominio-visca.ai/api/github/auth/callback` - **Importante: Esta URL é para onde o GitHub redireciona os usuários após instalarem o aplicativo. Ela deve ser definida para que o redirecionamento funcione.**
+   - **Homepage URL:** `https://seu-dominio-latticeruntime.com`
+   - **Callback URL:** `https://seu-dominio-latticeruntime.com/api/github/auth/callback`
+   - **Setup URL:** `https://seu-dominio-latticeruntime.com/api/github/auth/callback` - **Importante: Esta URL é para onde o GitHub redireciona os usuários após instalarem o aplicativo. Ela deve ser definida para que o redirecionamento funcione.**
    - **Redirect on update:** Marque esta opção para redirecionar usuários após atualizar a instalação do aplicativo
-   - **Webhook URL:** `https://seu-dominio-visca.ai/api/github/webhook`
+   - **Webhook URL:** `https://seu-dominio-latticeruntime.com/api/github/webhook`
    - **Webhook secret:** Gere uma string aleatória segura (salve para uso posterior)
 
 ### Passo 2: Configurar Permissões do Aplicativo
@@ -160,7 +160,7 @@ gitHubApp:
 
 **Não redirecionado de volta ao Cast Operations após instalar o GitHub App:**
 
-- Certifique-se de que a **Setup URL** está configurada nas configurações do seu GitHub App para: `https://seu-dominio-visca.ai/api/github/auth/callback`
+- Certifique-se de que a **Setup URL** está configurada nas configurações do seu GitHub App para: `https://seu-dominio-latticeruntime.com/api/github/auth/callback`
 - Vá para as configurações do seu GitHub App > seção "Post installation" e verifique se a Setup URL está definida corretamente
 - A opção "Redirect on update" também deve ser marcada
 - Nota: A Setup URL é diferente da Callback URL — ambas devem apontar para o mesmo endpoint `/api/github/auth/callback`
@@ -212,6 +212,6 @@ Se você encontrar problemas com a integração do GitHub, por favor:
 
 1. Verifique a seção de solução de problemas acima
 2. Revise os logs do Cast Operations para mensagens de erro detalhadas
-3. Entre em contato conosco em [hello@visca.ai](mailto:hello@visca.ai)
+3. Entre em contato conosco em [hello@latticeruntime.com](mailto:hello@latticeruntime.com)
 
 Recebemos feedback para melhorar esta integração!

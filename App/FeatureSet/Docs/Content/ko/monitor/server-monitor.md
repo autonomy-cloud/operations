@@ -28,16 +28,16 @@ Cast Operations 인프라 에이전트는 시스템 메트릭을 수집하고 30
 
 ```bash
 # 에이전트 설치
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # 에이전트 구성
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # 에이전트 시작
 sudo cast-operations-infrastructure-agent start
 ```
 
-`YOUR_SECRET_KEY`를 모니터 설정에 표시된 비밀 키로 교체하고, 자체 호스팅하는 경우 `https://visca.ai`을 Cast Operations 인스턴스 URL로 교체합니다.
+`YOUR_SECRET_KEY`를 모니터 설정에 표시된 비밀 키로 교체하고, 자체 호스팅하는 경우 `https://latticeruntime.com`을 Cast Operations 인스턴스 URL로 교체합니다.
 
 ### Windows
 
@@ -49,7 +49,7 @@ sudo cast-operations-infrastructure-agent start
 
 ```bash
 # 에이전트 구성
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # 에이전트 시작
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 서버가 프록시를 통해 인터넷에 연결하는 경우 프록시를 사용하도록 에이전트를 구성할 수 있습니다:
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## 에이전트 명령

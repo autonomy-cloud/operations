@@ -1,6 +1,6 @@
 {
   "name": "@cast-operations/e2e",
-  "version": "11.5.9",
+  "version": "11.5.11",
   "description": "",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "debug-tests": "playwright test --debug"
   },
   "keywords": [],
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/node": "^20.10.4"

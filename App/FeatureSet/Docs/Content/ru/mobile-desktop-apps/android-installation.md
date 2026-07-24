@@ -32,7 +32,7 @@ APK собирается и подписывается Cast Operations из то
 ## Первый запуск и вход в систему
 
 1. **URL сервера**
-   - Если вы используете Cast Operations Cloud, оставьте значение по умолчанию `https://visca.ai`.
+   - Если вы используете Cast Operations Cloud, оставьте значение по умолчанию `https://latticeruntime.com`.
    - Если вы используете self-hosted установку, введите URL вашего экземпляра Cast Operations (например, `https://operations.example.com`).
    - Приложение проверит доступность сервера перед продолжением.
 2. **Вход**

@@ -26,7 +26,7 @@ Les moniteurs de requêtes entrantes fournissent une URL webhook unique que vos 
 Une fois créé, votre moniteur aura une URL de signal de vie unique au format :
 
 ```
-https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE
+https://latticeruntime.com/heartbeat/VOTRE_CLÉ_SECRÈTE
 ```
 
 Votre service doit envoyer des requêtes HTTP **GET** ou **POST** à cette URL à intervalles réguliers.
@@ -37,10 +37,10 @@ Votre service doit envoyer des requêtes HTTP **GET** ou **POST** à cette URL �
 
 ```bash
 # Requête GET simple
-curl https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE
+curl https://latticeruntime.com/heartbeat/VOTRE_CLÉ_SECRÈTE
 
 # Requête POST avec corps personnalisé
-curl -X POST https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE \
+curl -X POST https://latticeruntime.com/heartbeat/VOTRE_CLÉ_SECRÈTE \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE \
 
 ```bash
 # Ajouter au crontab pour envoyer un signal de vie toutes les 5 minutes
-*/5 * * * * curl -s https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE > /dev/null
+*/5 * * * * curl -s https://latticeruntime.com/heartbeat/VOTRE_CLÉ_SECRÈTE > /dev/null
 ```
 
 #### Depuis le code d'application
@@ -57,16 +57,16 @@ curl -X POST https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE \
 ```javascript
 // Exemple Node.js
 const https = require("https");
-https.get("https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE");
+https.get("https://latticeruntime.com/heartbeat/VOTRE_CLÉ_SECRÈTE");
 ```
 
 ```python
 # Exemple Python
 import requests
-requests.get('https://visca.ai/heartbeat/VOTRE_CLÉ_SECRÈTE')
+requests.get('https://latticeruntime.com/heartbeat/VOTRE_CLÉ_SECRÈTE')
 ```
 
-Remplacez `https://visca.ai` par l'URL de votre instance Cast Operations si elle est auto-hébergée.
+Remplacez `https://latticeruntime.com` par l'URL de votre instance Cast Operations si elle est auto-hébergée.
 
 ## Critères de surveillance
 

@@ -4,7 +4,7 @@ Som standard er dashbord private for prosjektet ditt — bare innloggede teammed
 
 ## Private dashbord (standarden)
 
-Et dashbord er bare tilgjengelig for innloggede medlemmer av prosjektet ditt. URL-en ser ut som `https://visca.ai/dashboards/<id>/view` og krever innlogging.
+Et dashbord er bare tilgjengelig for innloggede medlemmer av prosjektet ditt. URL-en ser ut som `https://latticeruntime.com/dashboards/<id>/view` og krever innlogging.
 
 Innenfor prosjektet kontrollerer eiere og etiketter hvem som ser hva — se [Konfigurasjon & tillatelser](/docs/dashboards/configuration).
 
@@ -51,7 +51,7 @@ Forespørsler fra andre IP-er avvises.
 
 ## Egendefinerte domener
 
-Standard serveres et offentlig dashbord på `visca.ai`. For å hoste det på ditt eget subdomene som `dashboard.acme.com`:
+Standard serveres et offentlig dashbord på `latticeruntime.com`. For å hoste det på ditt eget subdomene som `dashboard.acme.com`:
 
 1. Legg til en CNAME-oppføring i DNS-en din som peker subdomenet til Cast Operations mål.
 2. Under **Dashbord → Innstillinger → Egendefinerte domener**, legg til domenet.

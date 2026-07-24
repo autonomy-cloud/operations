@@ -35,8 +35,8 @@ RUN npm install -g npm@latest
 LABEL org.opencontainers.image.title="Cast Operations E2E"
 LABEL org.opencontainers.image.description="Cast Operations end-to-end test runner (Playwright-based) for verifying releases."
 LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
-LABEL org.opencontainers.image.url="https://visca.ai"
-LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.url="https://latticeruntime.com"
+LABEL org.opencontainers.image.documentation="https://latticeruntime.com/docs"
 LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 

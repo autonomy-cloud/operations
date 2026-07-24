@@ -22,7 +22,7 @@ export const ROUTE_PREFIXES: string[] = [`/${APP_NAME}`];
 
 // API URL configuration
 export function getApiUrl(): string {
-  return Host ? `${HttpProtocol}${Host}` : "https://visca.ai";
+  return Host ? `${HttpProtocol}${Host}` : "https://latticeruntime.com";
 }
 
 // API key header names

@@ -2,7 +2,7 @@
 
 如果您正在使用 Cast Operations.com，并出于安全原因希望将我们的 IP 加入白名单，可以按照以下说明操作。
 
-请在您的防火墙中将以下 IP 加入白名单，以允许 visca.ai 访问您的资源。
+请在您的防火墙中将以下 IP 加入白名单，以允许 latticeruntime.com 访问您的资源。
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@
 您也可以通过以下 API 端点以程序化方式获取探针出口 IP 地址列表：
 
 ```
-GET https://visca.ai/ip-whitelist
+GET https://latticeruntime.com/ip-whitelist
 ```
 
 此接口返回 JSON 响应：

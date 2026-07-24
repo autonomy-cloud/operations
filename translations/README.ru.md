@@ -19,7 +19,7 @@
 </p>
 
 <div align="center">
-  <a href="https://visca.ai">
+  <a href="https://latticeruntime.com">
     <img alt="Логотип Cast Operations" width="55%" src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/>
   </a>
 
@@ -38,14 +38,14 @@
   </p>
 
   <p>
-    <a href="https://visca.ai"><b>Сайт</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/docs"><b>Документация</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com"><b>Сайт</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/docs"><b>Документация</b></a> &nbsp;•&nbsp;
     <a href="#quick-start"><b>Быстрый старт</b></a> &nbsp;•&nbsp;
-    <a href="https://visca.ai/pricing"><b>Цены</b></a> &nbsp;•&nbsp;
+    <a href="https://latticeruntime.com/pricing"><b>Цены</b></a> &nbsp;•&nbsp;
     <a href="#contributing"><b>Внести вклад</b></a>
   </p>
 
-  <a href="https://visca.ai"><b>🚀 Попробуйте Cast Operations Cloud — навсегда бесплатный тариф, без банковской карты →</b></a>
+  <a href="https://latticeruntime.com"><b>🚀 Попробуйте Cast Operations Cloud — навсегда бесплатный тариф, без банковской карты →</b></a>
 </div>
 
 <br/>
@@ -123,7 +123,7 @@ Cast Operations объединяет мониторинг, оповещения,
 
 Никакой настройки, всегда актуальная версия, и это финансирует проект с открытым исходным кодом.
 
-**→ [Зарегистрируйтесь бесплатно на visca.ai](https://visca.ai)**
+**→ [Зарегистрируйтесь бесплатно на latticeruntime.com](https://latticeruntime.com)**
 
 ### 🐳 Самостоятельное развёртывание с Docker Compose
 
@@ -148,7 +148,7 @@ Cast Operations теперь работает по адресу **http://localho
 ### ☸️ Kubernetes с Helm — для продакшена
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm install cast-operations autonomy-cloud/operations
 ```
 
@@ -202,7 +202,7 @@ helm install cast-operations autonomy-cloud/operations
 | | **Community** | **Enterprise** |
 |---|---|---|
 | **Лучше всего для** | Тех, кто разворачивает у себя, и небольших команд | Регулируемых команд, которым нужна премиум-поддержка |
-| **Стоимость** | Бесплатно и с открытым исходным кодом | [Связаться с отделом продаж](mailto:sales@visca.ai) |
+| **Стоимость** | Бесплатно и с открытым исходным кодом | [Связаться с отделом продаж](mailto:sales@latticeruntime.com) |
 | **Возможности** | Полный набор возможностей | Полный набор возможностей + защищённые образы, приоритетная поддержка, индивидуальные функции и резидентность данных |
 
 ---
@@ -231,7 +231,7 @@ helm install cast-operations autonomy-cloud/operations
 
 - ⭐ **Поставьте звезду этому репозиторию** — это действительно помогает другим найти нас
 - 💵 **[Станьте спонсором](https://github.com/autonomy-cloud/operations)** — каждый доллар приближает выход новых функций
-- 🛍️ **[Возьмите немного мерча](https://shop.visca.ai)** — вся выручка идёт на разработку с открытым исходным кодом
+- 🛍️ **[Возьмите немного мерча](https://shop.latticeruntime.com)** — вся выручка идёт на разработку с открытым исходным кодом
 
 ---
 
@@ -240,5 +240,5 @@ helm install cast-operations autonomy-cloud/operations
 Cast Operations распространяется по лицензии [Apache License 2.0](/LICENSE).
 
 <div align="center">
-  <sub>Сделано с ❤️ командой <a href="https://visca.ai">Cast Operations</a> и <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">участниками</a>.</sub>
+  <sub>Сделано с ❤️ командой <a href="https://latticeruntime.com">Cast Operations</a> и <a href="https://github.com/autonomy-cloud/operations/graphs/contributors">участниками</a>.</sub>
 </div>

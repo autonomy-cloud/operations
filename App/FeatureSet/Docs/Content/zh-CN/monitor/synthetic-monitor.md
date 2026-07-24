@@ -178,5 +178,5 @@ return {
 - 您可以使用 `browserType` 和 `screenSizeType` 变量获取当前运行上下文中的浏览器类型和屏幕尺寸类型。如果您喜欢，可以在脚本中自由使用它们。
 - 这是一个 JavaScript 脚本，因此您可以使用所有 JavaScript 功能。
 - 您可以在脚本中使用 `axios` 模块发出 HTTP 请求。您可以使用它从脚本中进行 API 调用。
-- 如果您使用 visca.ai，在脚本上下文中将始终提供最新版本的 Playwright 和浏览器。如果您是自托管，请确保更新探针以获取最新版本的 Playwright 和浏览器。
+- 如果您使用 latticeruntime.com，在脚本上下文中将始终提供最新版本的 Playwright 和浏览器。如果您是自托管，请确保更新探针以获取最新版本的 Playwright 和浏览器。
 - 脚本超时为 2 分钟。如果脚本运行超过 2 分钟，将被终止。

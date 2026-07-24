@@ -64,7 +64,7 @@ Para melhor entregabilidade e para evitar que emails sejam marcados como spam:
 | Campo                               | Valor                                                                   |
 | ----------------------------------- | ----------------------------------------------------------------------- |
 | **Receiving Domain**                | Seu subdomínio de entrada (ex.: `inbound.seudominio.com`)               |
-| **Destination URL**                 | `https://seu-dominio-visca.ai/incoming-email/sendgrid/YOUR_SECRET` |
+| **Destination URL**                 | `https://seu-dominio-latticeruntime.com/incoming-email/sendgrid/YOUR_SECRET` |
 | **Check incoming emails for spam**  | Opcional — habilite se desejar                                          |
 | **Send raw, full MIME message**     | Deixe desmarcado (não necessário)                                       |
 | **POST the raw, full MIME message** | Deixe desmarcado (não necessário)                                       |
@@ -192,7 +192,7 @@ Use critérios de "Email Received" para garantir que você receba emails periód
 1. **Certifique-se de que o Cast Operations está publicamente acessível:**
 
    - A URL do webhook deve ser acessível pela internet
-   - Teste com: `curl -X POST https://seu-dominio-visca.ai/incoming-email/sendgrid`
+   - Teste com: `curl -X POST https://seu-dominio-latticeruntime.com/incoming-email/sendgrid`
 
 2. **Verificar regras de firewall:**
 
@@ -243,6 +243,6 @@ Se você encontrar problemas com a integração de Email de Entrada do SendGrid:
 
 1. Verifique a seção de solução de problemas acima
 2. Revise os logs do Cast Operations para mensagens de erro detalhadas
-3. Entre em contato conosco em [hello@visca.ai](mailto:hello@visca.ai)
+3. Entre em contato conosco em [hello@latticeruntime.com](mailto:hello@latticeruntime.com)
 
 Recebemos feedback para melhorar esta integração!

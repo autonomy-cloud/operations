@@ -70,7 +70,7 @@ const DashboardFooter: () => JSX.Element = () => {
                 {t("footer.helpSupport")}
               </span>
             ),
-            to: URL.fromString("https://visca.ai/support"),
+            to: URL.fromString("https://latticeruntime.com/support"),
             openInNewTab: true,
           },
           {
@@ -80,7 +80,7 @@ const DashboardFooter: () => JSX.Element = () => {
                 {t("footer.legal")}
               </span>
             ),
-            to: URL.fromString("https://visca.ai/legal"),
+            to: URL.fromString("https://latticeruntime.com/legal"),
             openInNewTab: true,
           },
           {

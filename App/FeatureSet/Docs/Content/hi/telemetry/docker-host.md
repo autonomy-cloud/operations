@@ -66,7 +66,7 @@ docker compose up -d
 
 | वेरिएबल                   | आवश्यक | विवरण                                                                                                                       |
 | ------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | हाँ    | आपका Cast Operations इंस्टेंस URL (उदाहरण के लिए `https://visca.ai` या आपका स्वयं-होस्ट किया गया होस्ट)                      |
+| `CAST_OPERATIONS_URL`           | हाँ    | आपका Cast Operations इंस्टेंस URL (उदाहरण के लिए `https://latticeruntime.com` या आपका स्वयं-होस्ट किया गया होस्ट)                      |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | हाँ    | _Project Settings → Telemetry Ingestion Keys_ से Telemetry ingestion token                                                  |
 | `DOCKER_HOST_NAME`        | नहीं   | इस होस्ट के लिए सुलभ नाम। डिफ़ॉल्ट रूप से `docker-host`। इसे प्रति होस्ट किसी स्थिर मान पर सेट करें (उदा. `prod-docker-01`) |
 

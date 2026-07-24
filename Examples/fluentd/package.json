@@ -1,6 +1,6 @@
 {
   "name": "@cast-operations/fluentd",
-  "version": "11.5.9",
+  "version": "11.5.11",
   "description": "",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "dependencies": {
     "@fluent-org/logger": "^1.0.10",

@@ -33,7 +33,7 @@ The tests use environment variables for configuration. Set the following variabl
 ### Example
 
 ```bash
-export HOST=staging.visca.ai
+export HOST=staging.latticeruntime.com
 export HTTP_PROTOCOL=https
 ```
 

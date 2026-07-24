@@ -94,6 +94,16 @@ jobs:
             exit 1
           fi
 
+          # A Git tag may exist without a GitHub Release. Reusing or moving
+          # that tag would make the published source ambiguous, so reject
+          # both supported tag spellings before any artifact is built.
+          for tag in "$VERSION_RAW" "v$VERSION_RAW"; do
+            if gh api "repos/$REPOSITORY/git/ref/tags/$tag" &>/dev/null; then
+              echo "::error::Git tag $tag already exists. Please update the VERSION file to a new version."
+              exit 1
+            fi
+          done
+
           echo "✅ Version $VERSION_RAW is not yet released. Proceeding with release."
 
           echo "semver_base=${VERSION_RAW}" >> "$GITHUB_OUTPUT"
@@ -1149,28 +1159,28 @@ jobs:
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
             --tag cast-operations/${{ matrix.image }}:release \
-            ghcr.io/cast-operations/${{ matrix.image }}:${VERSION}
+            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:${VERSION}
 
       - name: Create GHCR release tag from version
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
-            --tag ghcr.io/cast-operations/${{ matrix.image }}:release \
-            ghcr.io/cast-operations/${{ matrix.image }}:${VERSION}
+            --tag ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:release \
+            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:${VERSION}
 
       - name: Create Docker Hub enterprise release tag from version
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
             --tag cast-operations/${{ matrix.image }}:enterprise-release \
-            ghcr.io/cast-operations/${{ matrix.image }}:enterprise-${VERSION}
+            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:enterprise-${VERSION}
 
       - name: Create GHCR enterprise release tag from version
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
-            --tag ghcr.io/cast-operations/${{ matrix.image }}:enterprise-release \
-            ghcr.io/cast-operations/${{ matrix.image }}:enterprise-${VERSION}
+            --tag ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:enterprise-release \
+            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:enterprise-${VERSION}
 
 
 
@@ -1270,7 +1280,9 @@ jobs:
           fi
       - name: Start Server with version tag
         run: |
-          export $(grep -v '^#' config.env | xargs)
+          set -a
+          source config.env
+          set +a
           export APP_TAG=${{needs.read-version.outputs.major_minor}}
           docker compose up --remove-orphans -d
           npm run status-check
@@ -1279,13 +1291,17 @@ jobs:
       - name: Pull E2E test image
         run: |
           set -euo pipefail
-          export $(grep -v '^#' config.env | xargs)
+          set -a
+          source config.env
+          set +a
           export APP_TAG=${{needs.read-version.outputs.major_minor}}
           docker compose -f docker-compose.e2e.yml pull e2e
       - name: Run E2E Tests. Run docker container e2e in docker compose file
         run: |
           set -euo pipefail
-          export $(grep -v '^#' config.env | xargs)
+          set -a
+          source config.env
+          set +a
           export APP_TAG=${{needs.read-version.outputs.major_minor}}
           trap 'docker compose -f docker-compose.e2e.yml down -v || true' EXIT
           if ! docker compose -f docker-compose.e2e.yml up --exit-code-from e2e --abort-on-container-exit e2e; then
@@ -1413,7 +1429,9 @@ jobs:
           fi
       - name: Start Server with version tag
         run: |
-          export $(grep -v '^#' config.env | xargs)
+          set -a
+          source config.env
+          set +a
           export APP_TAG=${{needs.read-version.outputs.major_minor}}
           docker compose up --remove-orphans -d
           npm run status-check
@@ -1422,13 +1440,17 @@ jobs:
       - name: Pull E2E test image
         run: |
           set -euo pipefail
-          export $(grep -v '^#' config.env | xargs)
+          set -a
+          source config.env
+          set +a
           export APP_TAG=${{needs.read-version.outputs.major_minor}}
           docker compose -f docker-compose.e2e.yml pull e2e
       - name: Run E2E Tests. Run docker container e2e in docker compose file
         run: |
           set -euo pipefail
-          export $(grep -v '^#' config.env | xargs)
+          set -a
+          source config.env
+          set +a
           export APP_TAG=${{needs.read-version.outputs.major_minor}}
           trap 'docker compose -f docker-compose.e2e.yml down -v || true' EXIT
           if ! docker compose -f docker-compose.e2e.yml up --exit-code-from e2e --abort-on-container-exit e2e; then

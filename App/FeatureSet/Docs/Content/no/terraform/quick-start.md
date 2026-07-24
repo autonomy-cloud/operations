@@ -12,7 +12,7 @@ Denne guiden hjelper deg med å komme i gang med Cast Operations Terraform-lever
 
 ### For Cast Operations Cloud
 
-1. Gå til [Cast Operations Cloud](https://visca.ai) og logg inn
+1. Gå til [Cast Operations Cloud](https://latticeruntime.com) og logg inn
 2. Naviger til **Settings** → **API Keys**
 3. Klikk **Create API Key**
 4. Gi den navnet "Terraform Provider"
@@ -49,7 +49,7 @@ terraform {
 
 provider "cast-operations" {
   # For Sky-kunder
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
 
   # For selvhostede kunder – bruk din instans-URL
   # cast_operations_url = "https://operations.yourcompany.com"
@@ -140,7 +140,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```

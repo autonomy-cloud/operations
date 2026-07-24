@@ -15,7 +15,7 @@ cast-operations login <api-key> <instance-url>
 | Argumento        | Descripción                                                                |
 | ---------------- | -------------------------------------------------------------------------- |
 | `<api-key>`      | Tu clave de API de Cast Operations (por ejemplo, `sk-your-api-key`)              |
-| `<instance-url>` | La URL de tu instancia de Cast Operations (por ejemplo, `https://visca.ai`) |
+| `<instance-url>` | La URL de tu instancia de Cast Operations (por ejemplo, `https://latticeruntime.com`) |
 
 **Opciones:**
 
@@ -27,14 +27,14 @@ cast-operations login <api-key> <instance-url>
 
 ```bash
 # Iniciar sesión con el contexto predeterminado
-cast-operations login sk-abc123 https://visca.ai
+cast-operations login sk-abc123 https://latticeruntime.com
 
 # Iniciar sesión con un contexto con nombre
-cast-operations login sk-abc123 https://visca.ai --context-name production
+cast-operations login sk-abc123 https://latticeruntime.com --context-name production
 
 # Configurar múltiples entornos
-cast-operations login sk-prod-key https://visca.ai --context-name production
-cast-operations login sk-staging-key https://staging.visca.ai --context-name staging
+cast-operations login sk-prod-key https://latticeruntime.com --context-name production
+cast-operations login sk-staging-key https://staging.latticeruntime.com --context-name staging
 ```
 
 ## Contextos
@@ -95,14 +95,14 @@ Puedes mezclar fuentes; por ejemplo, usar una variable de entorno para la clave 
 ### Uso de indicadores de CLI
 
 ```bash
-cast-operations --api-key sk-abc123 --url https://visca.ai incident list
+cast-operations --api-key sk-abc123 --url https://latticeruntime.com incident list
 ```
 
 ### Uso de variables de entorno
 
 ```bash
 export CAST_OPERATIONS_API_KEY=sk-abc123
-export CAST_OPERATIONS_URL=https://visca.ai
+export CAST_OPERATIONS_URL=https://latticeruntime.com
 
 cast-operations incident list
 ```
@@ -139,12 +139,12 @@ Las credenciales se almacenan en `~/.cast-operations/config.json` con permisos r
   "contexts": {
     "production": {
       "name": "production",
-      "apiUrl": "https://visca.ai",
+      "apiUrl": "https://latticeruntime.com",
       "apiKey": "sk-..."
     },
     "staging": {
       "name": "staging",
-      "apiUrl": "https://staging.visca.ai",
+      "apiUrl": "https://staging.latticeruntime.com",
       "apiKey": "sk-..."
     }
   },

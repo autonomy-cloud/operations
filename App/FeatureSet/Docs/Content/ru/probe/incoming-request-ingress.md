@@ -1,6 +1,6 @@
 # Входящие запросы через зонд
 
-Пользовательский зонд может дополнительно запускать **входящий HTTP-обработчик**, принимающий вызовы `heartbeat` и `incoming-request` из вашей частной сети и пересылающий их в Cast Operations. Это позволяет сервисам, **не имеющим исходящего доступа в интернет**, всё равно отчитываться перед [монитором входящих запросов](/docs/monitor/incoming-request-monitor), отправляя запросы на зонд в локальной сети вместо прямого обращения к `visca.ai`.
+Пользовательский зонд может дополнительно запускать **входящий HTTP-обработчик**, принимающий вызовы `heartbeat` и `incoming-request` из вашей частной сети и пересылающий их в Cast Operations. Это позволяет сервисам, **не имеющим исходящего доступа в интернет**, всё равно отчитываться перед [монитором входящих запросов](/docs/monitor/incoming-request-monitor), отправляя запросы на зонд в локальной сети вместо прямого обращения к `latticeruntime.com`.
 
 ## Обзор
 
@@ -24,7 +24,7 @@
 - Вы хотите иметь единую точку выхода — зонд — которому разрешён доступ к Cast Operations
 - Вы уже развернули [пользовательский зонд](/docs/probe/custom-probe) и хотите повторно использовать его для входящих пульсов
 
-Если ваши сервисы уже имеют прямой доступ к `https://visca.ai` (или вашему URL самостоятельного хостинга), данная функция **не нужна** — вызывайте URL пульса непосредственно из сервиса.
+Если ваши сервисы уже имеют прямой доступ к `https://latticeruntime.com` (или вашему URL самостоятельного хостинга), данная функция **не нужна** — вызывайте URL пульса непосредственно из сервиса.
 
 ## Включение входящего обработчика
 
@@ -36,7 +36,7 @@
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ spec:
 Замените публичный URL пульса:
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 на URL входящего обработчика зонда:
@@ -171,7 +171,7 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 
 ## Соображения безопасности
 
-- **Конечная точка намеренно не аутентифицирована** — секретный ключ в URL-пути _и есть_ аутентификация, так же как на публичной конечной точке `visca.ai`. Относитесь к секретному ключу как к учётным данным.
+- **Конечная точка намеренно не аутентифицирована** — секретный ключ в URL-пути _и есть_ аутентификация, так же как на публичной конечной точке `latticeruntime.com`. Относитесь к секретному ключу как к учётным данным.
 - **Привязывайтесь только к частному интерфейсу.** Входящий обработчик не должен быть доступен из публичного интернета. Используйте сетевую политику, правило брандмауэра или сервис `ClusterIP` для ограничения доступа.
 - **При необходимости шифрования трафика используйте HTTPS-терминацию.** Обработчик зонда работает по HTTP. Разместите перед ним внутренний балансировщик нагрузки / контроллер входящего трафика для использования TLS на входящем узле. Канал пересылки от зонда к Cast Operations всегда использует HTTPS (при условии, что `CAST_OPERATIONS_URL` начинается с `https://`).
 - **Ограничения ресурсов.** Обработчик принимает тела запросов размером до 50 МБ. При необходимости более строгого ограничения разместите перед ним обратный прокси.

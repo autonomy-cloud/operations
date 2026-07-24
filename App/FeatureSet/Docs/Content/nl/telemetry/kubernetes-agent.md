@@ -16,7 +16,7 @@ Deze pagina is de **installatiegids**. Voor het configureren van Kubernetes-moni
 ## Stap 1 — Voeg de Cast Operations Helm Repository toe
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 ```
 
@@ -674,7 +674,7 @@ De meest voorkomende reden — vooral na een herinstallatie — is een **verkeer
 3. **Valideer de ingestion-sleutel.** Vraag Cast Operations rechtstreeks of je token geaccepteerd wordt (`200` = geldig, `401` = onbekend/ingetrokken):
 
    ```bash
-   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://latticeruntime.com/otlp/v1/validate
    ```
 
    Als het `401` retourneert, is de sleutel in je release verkeerd of is deze ingetrokken. Kopieer een actieve sleutel uit _Project Settings → Telemetry Ingestion Keys_ en deploy opnieuw:

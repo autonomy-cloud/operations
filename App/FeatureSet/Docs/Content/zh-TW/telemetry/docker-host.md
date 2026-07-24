@@ -66,7 +66,7 @@ docker compose up -d
 
 | 變數                      | 必填 | 說明                                                                                            |
 | ------------------------- | ---- | ----------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | 是   | 您的 Cast Operations 執行個體 URL（例如 `https://visca.ai` 或您的自架主機）                      |
+| `CAST_OPERATIONS_URL`           | 是   | 您的 Cast Operations 執行個體 URL（例如 `https://latticeruntime.com` 或您的自架主機）                      |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | 是   | 來自 _Project Settings → Telemetry Ingestion Keys_ 的遙測擷取權杖                               |
 | `DOCKER_HOST_NAME`        | 否   | 此主機的易記名稱。預設為 `docker-host`。請為每台主機設定一個穩定的名稱（例如 `prod-docker-01`） |
 

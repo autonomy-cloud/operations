@@ -25,7 +25,7 @@ fi
 
 # Prompt for configuration
 if [ -z "$CAST_OPERATIONS_URL" ]; then
-    read -rp "Cast Operations URL (e.g., https://visca.ai): " CAST_OPERATIONS_URL
+    read -rp "Cast Operations URL (e.g., https://latticeruntime.com): " CAST_OPERATIONS_URL
 fi
 
 if [ -z "$CAST_OPERATIONS_TELEMETRY_INGESTION_KEY" ]; then

@@ -4,7 +4,7 @@ Standaard zijn dashboards privé voor je project — alleen ingelogde teamleden 
 
 ## Privé-dashboards (de standaard)
 
-Een dashboard is alleen bereikbaar voor ingelogde leden van je project. De URL ziet eruit als `https://visca.ai/dashboards/<id>/view` en vereist een login.
+Een dashboard is alleen bereikbaar voor ingelogde leden van je project. De URL ziet eruit als `https://latticeruntime.com/dashboards/<id>/view` en vereist een login.
 
 Binnen het project regelen eigenaren en labels wie wat ziet — zie [Configuratie en machtigingen](/docs/dashboards/configuration).
 
@@ -51,7 +51,7 @@ Verzoeken vanaf elk ander IP worden afgewezen.
 
 ## Custom domains
 
-Standaard wordt een publiek dashboard geserveerd op `visca.ai`. Om hem te hosten op je eigen subdomein zoals `dashboard.acme.com`:
+Standaard wordt een publiek dashboard geserveerd op `latticeruntime.com`. Om hem te hosten op je eigen subdomein zoals `dashboard.acme.com`:
 
 1. Voeg een CNAME-record toe op je DNS dat het subdomein laat verwijzen naar Cast Operations’ target.
 2. Voeg het domein toe onder **Dashboard → Settings → Custom Domains**.

@@ -49,7 +49,7 @@ describe("MCP Server Basic Tests", () => {
     it("should support environment variable checking", () => {
       const apiKey: string = process.env["CAST_OPERATIONS_API_KEY"] || "";
       const url: string =
-        process.env["CAST_OPERATIONS_URL"] || "https://visca.ai";
+        process.env["CAST_OPERATIONS_URL"] || "https://latticeruntime.com";
 
       expect(typeof apiKey).toBe("string");
       expect(typeof url).toBe("string");
@@ -173,7 +173,7 @@ describe("MCP Server Basic Tests", () => {
   describe("API Configuration", () => {
     it("should validate API configuration structure", () => {
       const config: Record<string, string> = {
-        url: "https://test.visca.ai",
+        url: "https://test.latticeruntime.com",
         apiKey: "test-key",
       };
 
@@ -184,7 +184,7 @@ describe("MCP Server Basic Tests", () => {
 
     it("should handle different URL formats", () => {
       const urls: string[] = [
-        "https://visca.ai",
+        "https://latticeruntime.com",
         "http://localhost:3000",
         "https://custom.domain.com:8080",
       ];

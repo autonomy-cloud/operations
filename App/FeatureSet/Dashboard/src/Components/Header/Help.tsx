@@ -26,7 +26,7 @@ const Help: () => JSX.Element = (): ReactElement => {
             title={t("help.supportEmail")}
             icon={IconProp.Email}
             openInNewTab={true}
-            url={URL.fromString("mailto:support@visca.ai")}
+            url={URL.fromString("mailto:support@latticeruntime.com")}
             onClick={() => {
               setIsDropdownVisible(false);
             }}
@@ -49,7 +49,7 @@ const Help: () => JSX.Element = (): ReactElement => {
               setIsDropdownVisible(false);
             }}
             openInNewTab={true}
-            url={URL.fromString("https://visca.ai/enterprise/demo")}
+            url={URL.fromString("https://latticeruntime.com/enterprise/demo")}
           />
         </IconDropdownRow>
       </IconDropdownMenu>

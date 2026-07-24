@@ -10,7 +10,7 @@ Cast Operations MCP Server, Large Language Models (LLMs) और आपके Cas
 
 MCP server आपके Cast Operations instance के साथ hosted है और Streamable HTTP transport के माध्यम से accessible है। कोई local installation आवश्यक नहीं है।
 
-**Cloud उपयोगकर्ता**: `https://visca.ai/mcp`
+**Cloud उपयोगकर्ता**: `https://latticeruntime.com/mcp`
 **Self-Hosted उपयोगकर्ता**: `https://your-operations-domain.com/mcp`
 
 ## मुख्य विशेषताएं
@@ -73,7 +73,7 @@ API keys project-scoped होती हैं: MCP server आपकी key स�
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ API keys project-scoped होती हैं: MCP server आपकी key स�
 
 ### Self-Hosted Cast Operations के लिए
 
-`visca.ai` को अपने Cast Operations domain से बदलें:
+`latticeruntime.com` को अपने Cast Operations domain से बदलें:
 
 ```json
 {
@@ -109,7 +109,7 @@ API keys project-scoped होती हैं: MCP server आपकी key स�
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ VS Code, GitHub Copilot (version 1.99+) के साथ MCP servers को nati
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -296,7 +296,7 @@ List tools `limit` (default 10, अधिकतम 100) और `skip` के स
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -306,7 +306,7 @@ curl https://your-operations-domain.com/mcp/health
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

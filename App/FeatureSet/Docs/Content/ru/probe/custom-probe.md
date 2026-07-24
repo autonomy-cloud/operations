@@ -11,7 +11,7 @@
 Для запуска зонда убедитесь, что Docker установлен. Пользовательский зонд можно запустить следующей командой:
 
 ```
-docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://latticeruntime.com -d cast-operations/probe:release
 ```
 
 При самостоятельном хостинге Cast Operations замените `CAST_OPERATIONS_URL` на URL вашего экземпляра.
@@ -25,7 +25,7 @@ docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> 
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -34,7 +34,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -43,7 +43,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       # Настройка прокси (необязательно)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 ##### С настройкой прокси
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             # Настройка прокси (необязательно)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -194,7 +194,7 @@ kubectl apply -f cast-operations-probe.yaml
 
 - `PROBE_KEY` — ключ зонда из вашей панели управления Cast Operations
 - `PROBE_ID` — идентификатор зонда из вашей панели управления Cast Operations
-- `CAST_OPERATIONS_URL` — URL вашего экземпляра Cast Operations (по умолчанию: https://visca.ai)
+- `CAST_OPERATIONS_URL` — URL вашего экземпляра Cast Operations (по умолчанию: https://latticeruntime.com)
 
 #### Необязательные переменные
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Проверка
 
-Если зонд успешно запущен, он должен отображаться как `Подключён` на вашей панели управления Cast Operations. Если статус не изменился — проверьте журналы контейнера. При наличии других проблем создайте запрос на [GitHub](https://github.com/autonomy-cloud/operations) или [обратитесь в поддержку](https://visca.ai/support).
+Если зонд успешно запущен, он должен отображаться как `Подключён` на вашей панели управления Cast Operations. Если статус не изменился — проверьте журналы контейнера. При наличии других проблем создайте запрос на [GitHub](https://github.com/autonomy-cloud/operations) или [обратитесь в поддержку](https://latticeruntime.com/support).

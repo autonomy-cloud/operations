@@ -11,7 +11,7 @@ För att börja behöver du skapa en anpassad sond i dina Projektinställningar 
 För att köra en sond, se till att du har Docker installerat. Du kan köra en anpassad sond med:
 
 ```
-docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://latticeruntime.com -d cast-operations/probe:release
 ```
 
 Om du egeninstallerar Cast Operations kan du ändra `CAST_OPERATIONS_URL` till din anpassade egeninstallerade instans.
@@ -25,7 +25,7 @@ Om din sond behöver gå via en proxyserver för att nå Cast Operations eller �
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -34,7 +34,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -43,7 +43,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       # Proxykonfiguration (valfritt)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 Kör sedan följande kommando:
@@ -150,7 +150,7 @@ Sonden stöder följande miljövariabler:
 
 - `PROBE_KEY` – Sondnyckeln från din Cast Operations-instrumentpanel
 - `PROBE_ID` – Sond-ID:t från din Cast Operations-instrumentpanel
-- `CAST_OPERATIONS_URL` – URL:en till din Cast Operations-instans (standard: https://visca.ai)
+- `CAST_OPERATIONS_URL` – URL:en till din Cast Operations-instans (standard: https://latticeruntime.com)
 
 #### Valfria variabler
 
@@ -185,4 +185,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Verifiera
 
-Om sonden körs framgångsrikt bör den visas som `Ansluten` på din Cast Operations-instrumentpanel. Om den inte visas som ansluten behöver du kontrollera containerns loggar. Om du fortfarande har problem kan du skapa ett ärende på [GitHub](https://github.com/autonomy-cloud/operations) eller [kontakta supporten](https://visca.ai/support).
+Om sonden körs framgångsrikt bör den visas som `Ansluten` på din Cast Operations-instrumentpanel. Om den inte visas som ansluten behöver du kontrollera containerns loggar. Om du fortfarande har problem kan du skapa ett ärende på [GitHub](https://github.com/autonomy-cloud/operations) eller [kontakta supporten](https://latticeruntime.com/support).

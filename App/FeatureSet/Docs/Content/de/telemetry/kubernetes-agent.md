@@ -16,7 +16,7 @@ Diese Seite ist die **Installationsanleitung**. Für die Konfiguration von Kuber
 ## Schritt 1 — Das Cast Operations Helm-Repository hinzufügen
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 ```
 
@@ -674,7 +674,7 @@ Der häufigste Grund — besonders nach einer Neuinstallation — ist ein **fals
 3. **Validieren Sie den Ingestion-Schlüssel.** Fragen Sie Cast Operations direkt, ob Ihr Token akzeptiert wird (`200` = gültig, `401` = unbekannt/widerrufen):
 
    ```bash
-   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://latticeruntime.com/otlp/v1/validate
    ```
 
    Wenn `401` zurückgegeben wird, ist der Schlüssel in Ihrem Release falsch oder wurde widerrufen. Kopieren Sie einen aktiven Schlüssel aus _Project Settings → Telemetry Ingestion Keys_ und deployen Sie erneut:

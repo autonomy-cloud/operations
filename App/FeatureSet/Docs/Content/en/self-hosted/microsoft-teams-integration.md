@@ -129,4 +129,4 @@ If you encounter issues:
 
 ## Support
 
-We would like to improve this integration, so feedback is more than welcome. Please send us any at [hello@visca.ai](mailto:hello@visca.ai)
+We would like to improve this integration, so feedback is more than welcome. Please send us any at [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

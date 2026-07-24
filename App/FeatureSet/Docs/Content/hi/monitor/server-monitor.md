@@ -28,16 +28,16 @@ Cast Operations Infrastructure Agent एक lightweight Go-based daemon है �
 
 ```bash
 # agent install करें
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # agent configure करें
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # agent start करें
 sudo cast-operations-infrastructure-agent start
 ```
 
-`YOUR_SECRET_KEY` को अपने monitor की settings में दिखाई दी secret key से बदलें, और यदि self-hosted हैं तो `https://visca.ai` को अपने Cast Operations instance URL से बदलें।
+`YOUR_SECRET_KEY` को अपने monitor की settings में दिखाई दी secret key से बदलें, और यदि self-hosted हैं तो `https://latticeruntime.com` को अपने Cast Operations instance URL से बदलें।
 
 ### Windows
 
@@ -49,7 +49,7 @@ sudo cast-operations-infrastructure-agent start
 
 ```bash
 # agent configure करें
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # agent start करें
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 यदि आपका server proxy के माध्यम से internet से connect होता है, तो आप agent को इसका उपयोग करने के लिए configure कर सकते हैं:
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Agent Commands

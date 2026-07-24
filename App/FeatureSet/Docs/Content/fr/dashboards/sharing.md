@@ -4,7 +4,7 @@ Par défaut, les tableaux de bord sont privés à votre projet — seuls les mem
 
 ## Tableaux de bord privés (par défaut)
 
-Un tableau de bord n'est accessible qu'aux membres connectés de votre projet. L'URL ressemble à `https://visca.ai/dashboards/<id>/view` et nécessite une connexion.
+Un tableau de bord n'est accessible qu'aux membres connectés de votre projet. L'URL ressemble à `https://latticeruntime.com/dashboards/<id>/view` et nécessite une connexion.
 
 À l'intérieur du projet, les propriétaires et les étiquettes contrôlent qui voit quoi — voir [Configuration et permissions](/docs/dashboards/configuration).
 
@@ -51,7 +51,7 @@ Les requêtes provenant d'une autre IP sont rejetées.
 
 ## Domaines personnalisés
 
-Par défaut, un tableau de bord public est servi sur `visca.ai`. Pour l'héberger sur votre propre sous-domaine comme `dashboard.acme.com` :
+Par défaut, un tableau de bord public est servi sur `latticeruntime.com`. Pour l'héberger sur votre propre sous-domaine comme `dashboard.acme.com` :
 
 1. Ajoutez un enregistrement CNAME sur votre DNS pointant le sous-domaine vers la cible Cast Operations.
 2. Sous **Dashboard → Settings → Custom Domains**, ajoutez le domaine.

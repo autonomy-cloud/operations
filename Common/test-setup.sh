@@ -5,8 +5,6 @@
 cd ..
 # Run Preinstall. 
 
-cp config.env.example config.env
-
 cat <<EOL > config.env
 NODE_ENV=test
 DATABASE_HOST=localhost
@@ -45,7 +43,9 @@ npm run prerun
 echo "config.env file"
 cat config.env
 
-export $(grep -v '^#' config.env | xargs) 
+set -a
+. ./config.env
+set +a
 
 # print env vars
 echo "env vars"

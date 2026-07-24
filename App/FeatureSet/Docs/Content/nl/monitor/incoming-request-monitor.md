@@ -26,7 +26,7 @@ Inkomend verzoek-monitors bieden een unieke webhook-URL die uw diensten op een s
 Na aanmaak heeft uw monitor een unieke heartbeat-URL in het formaat:
 
 ```
-https://visca.ai/heartbeat/YOUR_SECRET_KEY
+https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 ```
 
 Uw dienst moet met regelmatige tussenpozen HTTP **GET**- of **POST**-verzoeken naar deze URL sturen.
@@ -37,10 +37,10 @@ Uw dienst moet met regelmatige tussenpozen HTTP **GET**- of **POST**-verzoeken n
 
 ```bash
 # Eenvoudig GET-verzoek
-curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
+curl https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 
 # POST-verzoek met aangepast lichaam
-curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Voeg toe aan crontab om elke 5 minuten een heartbeat te versturen
-*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### Via applicatiecode
@@ -57,16 +57,16 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js voorbeeld
 const https = require("https");
-https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
+https.get("https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python voorbeeld
 import requests
-requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY')
 ```
 
-Vervang `https://visca.ai` door de URL van uw Cast Operations-instantie als u zelf host.
+Vervang `https://latticeruntime.com` door de URL van uw Cast Operations-instantie als u zelf host.
 
 ## Monitoringcriteria
 

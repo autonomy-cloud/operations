@@ -16,7 +16,7 @@ Denne side er **installationsvejledningen**. For at konfigurere Kubernetes-monit
 ## Trin 1 — Tilføj Cast Operations Helm-repositoriet
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 ```
 
@@ -674,7 +674,7 @@ Den mest almindelige grund — især efter en geninstallation — er en **forker
 3. **Validér ingestion-nøglen.** Spørg Cast Operations direkte, om dit token accepteres (`200` = gyldigt, `401` = ukendt/tilbagekaldt):
 
    ```bash
-   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://latticeruntime.com/otlp/v1/validate
    ```
 
    Hvis den returnerer `401`, er nøglen i din release forkert eller blev tilbagekaldt. Kopiér en aktiv nøgle fra _Project Settings → Telemetry Ingestion Keys_ og redeploy:

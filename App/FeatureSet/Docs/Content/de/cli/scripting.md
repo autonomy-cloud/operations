@@ -8,7 +8,7 @@ Setzen Sie diese Umgebungsvariablen, um sich ohne gespeicherte Kontexte zu authe
 
 ```bash
 export CAST_OPERATIONS_API_KEY=sk-your-api-key
-export CAST_OPERATIONS_URL=https://visca.ai
+export CAST_OPERATIONS_URL=https://latticeruntime.com
 ```
 
 Diese haben Vorrang vor gespeicherten Kontexten, werden aber von CLI-Flags überschrieben.
@@ -92,7 +92,7 @@ jobs:
       - name: Check for active incidents
         env:
           CAST_OPERATIONS_API_KEY: ${{ secrets.CAST_OPERATIONS_API_KEY }}
-          CAST_OPERATIONS_URL: https://visca.ai
+          CAST_OPERATIONS_URL: https://latticeruntime.com
         run: |
           INCIDENT_COUNT=$(cast-operations incident count)
           if [ "$INCIDENT_COUNT" -gt 0 ]; then
@@ -138,7 +138,7 @@ ENTRYPOINT ["cast-operations"]
 ```bash
 docker run --rm \
   -e CAST_OPERATIONS_API_KEY=sk-abc123 \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   cast-operations-cli incident list
 ```
 

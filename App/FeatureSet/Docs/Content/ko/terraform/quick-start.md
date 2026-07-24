@@ -12,7 +12,7 @@
 
 ### Cast Operations 클라우드의 경우
 
-1. [Cast Operations 클라우드](https://visca.ai)로 이동하여 로그인합니다
+1. [Cast Operations 클라우드](https://latticeruntime.com)로 이동하여 로그인합니다
 2. **설정** → **API 키**로 이동합니다
 3. **API 키 생성**을 클릭합니다
 4. 이름을 "Terraform 공급자"로 지정합니다
@@ -49,7 +49,7 @@ terraform {
 
 provider "cast-operations" {
   # 클라우드 고객의 경우
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
 
   # 자체 호스팅 고객의 경우 - 인스턴스 URL 사용
   # cast_operations_url = "https://operations.yourcompany.com"
@@ -140,7 +140,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```

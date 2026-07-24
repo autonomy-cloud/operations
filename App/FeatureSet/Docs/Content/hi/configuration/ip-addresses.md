@@ -13,7 +13,7 @@ Cast Operations.com को आपके resources तक पहुंचने �
 आप निम्नलिखित API endpoint के माध्यम से probe egress IP addresses की सूची programmatically भी प्राप्त कर सकते हैं:
 
 ```
-GET https://visca.ai/ip-whitelist
+GET https://latticeruntime.com/ip-whitelist
 ```
 
 यह एक JSON response लौटाता है:

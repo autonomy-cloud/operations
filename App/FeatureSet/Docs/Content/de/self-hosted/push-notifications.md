@@ -31,4 +31,4 @@ Bei Problemen mit Push-Benachrichtigungen:
 
 1. Prüfen Sie den Abschnitt zur Fehlerbehebung oben
 2. Überprüfen Sie die Cast Operations-Logs auf detaillierte Fehlermeldungen
-3. Kontaktieren Sie uns unter [hello@visca.ai](mailto:hello@visca.ai)
+3. Kontaktieren Sie uns unter [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

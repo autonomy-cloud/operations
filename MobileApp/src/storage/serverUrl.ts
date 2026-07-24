@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const STORAGE_KEY: string = "cast_operations_server_url";
-const DEFAULT_SERVER_URL: string = "https://visca.ai";
+const DEFAULT_SERVER_URL: string = "https://latticeruntime.com";
 
 function normalizeUrl(url: string): string {
   return url.replace(/\/+$/, "");

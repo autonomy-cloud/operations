@@ -23,45 +23,22 @@ OS=$(go env GOOS)
 ARCH=$(go env GOARCH)
 INSTALL_DIR="$HOME/.terraform.d/plugins/registry.terraform.io/autonomy-cloud/operations/1.0.0/${OS}_${ARCH}"
 mkdir -p "$INSTALL_DIR"
-cp terraform-provider-cast-operations "$INSTALL_DIR/"
+cp terraform-provider-cast-operations \
+  "$INSTALL_DIR/terraform-provider-operations_v1.0.0"
 
-# Pre-download the random provider before setting up dev_overrides — running
-# `terraform init` after dev_overrides is configured can silently no-op
-# (Terraform prints "Skip terraform init when using provider development
-# overrides"), leaving the lock file empty and breaking subsequent tests.
-echo ""
-echo "=== Downloading Random Provider ==="
-RANDOM_PROVIDER_DIR="/tmp/tf-random-provider"
-rm -rf "$RANDOM_PROVIDER_DIR"
-mkdir -p "$RANDOM_PROVIDER_DIR"
-cat > "$RANDOM_PROVIDER_DIR/main.tf" << 'TFEOF'
-terraform {
-  required_providers {
-    random = {
-      source  = "hashicorp/random"
-      version = "3.8.0"
-    }
-  }
-}
-TFEOF
-# Use an empty CLI config so the user's dev_overrides cannot interfere.
-(cd "$RANDOM_PROVIDER_DIR" && TF_CLI_CONFIG_FILE=/dev/null terraform init -input=false -upgrade)
-
-if [ ! -s "$RANDOM_PROVIDER_DIR/.terraform.lock.hcl" ] || \
-   ! grep -q "hashicorp/random" "$RANDOM_PROVIDER_DIR/.terraform.lock.hcl"; then
-    echo "ERROR: Failed to pre-download random provider — lock file missing or empty"
-    exit 1
-fi
-echo "Random provider downloaded"
-
-# Create Terraform CLI override config (after the pre-download so the
-# dev_override doesn't interfere with registry resolution above).
+# Use the provider's standard unpacked filesystem-mirror layout. Unlike
+# dev_overrides, a mirror lets `terraform init` select the local 1.0.0 version
+# and write a complete lock file alongside any public dependencies (for
+# example hashicorp/random) without contacting a nonexistent registry entry.
 cat > "$HOME/.terraformrc" << EOF
 provider_installation {
-  dev_overrides {
-    "autonomy-cloud/operations" = "$INSTALL_DIR"
+  filesystem_mirror {
+    path    = "$HOME/.terraform.d/plugins"
+    include = ["autonomy-cloud/operations"]
   }
-  direct {}
+  direct {
+    exclude = ["autonomy-cloud/operations"]
+  }
 }
 EOF
 
@@ -196,16 +173,14 @@ for test_name in "${TEST_DIRS[@]}"; do
     # 4. Destroy
     # 5. Verify Deletion via API
 
-    # Step 0: Initialize. We can't run `terraform init` here because the
-    # cast-operations provider isn't published to the public registry — even with
-    # dev_overrides, init still queries the registry for available versions
-    # and fails. So we plant the pre-downloaded random provider and lock
-    # file directly into the test's .terraform directory.
+    # Step 0: Initialize from the local operations filesystem mirror and the
+    # public registry for any additional providers.
     echo "  [0/5] Initializing..."
-    if grep -q "hashicorp/random" "$test_path/main.tf" 2>/dev/null; then
-        mkdir -p "$test_path/.terraform/providers/registry.terraform.io"
-        cp -r "$RANDOM_PROVIDER_DIR/.terraform/providers/registry.terraform.io/hashicorp" "$test_path/.terraform/providers/registry.terraform.io/"
-        cp "$RANDOM_PROVIDER_DIR/.terraform.lock.hcl" "$test_path/.terraform.lock.hcl"
+    if ! terraform init -input=false 2>&1; then
+        echo "  ✗ FAILED: Initialization failed"
+        FAILED+=("$test_name")
+        rm -rf tfplan terraform.tfstate terraform.tfstate.backup .terraform .terraform.lock.hcl
+        continue
     fi
 
     # Step 1: Plan

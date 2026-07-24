@@ -1,6 +1,6 @@
 # 수신 요청 인그레스
 
-커스텀 프로브는 선택적으로 프라이빗 네트워크 내부에서 `heartbeat` 및 `incoming-request` 호출을 수신하고 Cast Operations으로 전달하는 **인바운드 HTTP 리스너**를 실행할 수 있습니다. 이를 통해 **아웃바운드 인터넷 액세스가 없는** 서비스가 `visca.ai`에 직접 요청을 전송하는 대신 로컬 네트워크의 프로브에 요청을 전송하여 [수신 요청 모니터](/docs/monitor/incoming-request-monitor)에 보고할 수 있습니다.
+커스텀 프로브는 선택적으로 프라이빗 네트워크 내부에서 `heartbeat` 및 `incoming-request` 호출을 수신하고 Cast Operations으로 전달하는 **인바운드 HTTP 리스너**를 실행할 수 있습니다. 이를 통해 **아웃바운드 인터넷 액세스가 없는** 서비스가 `latticeruntime.com`에 직접 요청을 전송하는 대신 로컬 네트워크의 프로브에 요청을 전송하여 [수신 요청 모니터](/docs/monitor/incoming-request-monitor)에 보고할 수 있습니다.
 
 ## 개요
 
@@ -24,7 +24,7 @@
 - Cast Operations에 도달할 수 있는 단일 이그레스 포인트 — 프로브 — 를 원할 때
 - 이미 [커스텀 프로브](/docs/probe/custom-probe)를 배포했으며 인바운드 하트비트에 재사용하려고 할 때
 
-서비스가 이미 `https://visca.ai` (또는 자체 호스팅 URL)에 직접 도달할 수 있다면 이 기능이 필요하지 않습니다 — 서비스에서 직접 하트비트 URL을 호출하십시오.
+서비스가 이미 `https://latticeruntime.com` (또는 자체 호스팅 URL)에 직접 도달할 수 있다면 이 기능이 필요하지 않습니다 — 서비스에서 직접 하트비트 URL을 호출하십시오.
 
 ## 인그레스 리스너 활성화
 
@@ -36,7 +36,7 @@
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ spec:
 공개 하트비트 URL을 교체합니다:
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 프로브의 인그레스 URL로:
@@ -171,7 +171,7 @@ curl -X POST http://probe.internal:3875/heartbeat/YOUR_SECRET_KEY \
 
 ## 보안 고려 사항
 
-- **엔드포인트는 설계상 인증되지 않습니다** — URL 경로의 비밀 키가 공개 `visca.ai` 엔드포인트에서와 마찬가지로 인증입니다. 비밀 키를 자격 증명으로 취급하십시오.
+- **엔드포인트는 설계상 인증되지 않습니다** — URL 경로의 비밀 키가 공개 `latticeruntime.com` 엔드포인트에서와 마찬가지로 인증입니다. 비밀 키를 자격 증명으로 취급하십시오.
 - **프라이빗 인터페이스에만 바인딩합니다.** 인그레스 리스너는 공개 인터넷에서 액세스할 수 없어야 합니다. 네트워크 정책, 방화벽 규칙 또는 `ClusterIP` 서비스를 사용하여 액세스를 제한합니다.
 - **전송 중 암호화가 필요한 경우 HTTPS 종료를 사용합니다.** 프로브의 리스너는 일반 HTTP로 통신합니다. 인바운드 홉에 TLS가 필요한 경우 내부 로드 밸런서/인그레스 컨트롤러 뒤에 배치합니다. 프로브 → Cast Operations의 전달 경로는 항상 HTTPS를 사용합니다 (`CAST_OPERATIONS_URL`이 `https://`라고 가정).
 - **리소스 제한.** 리스너는 최대 50MB의 요청 본문을 허용합니다. 더 엄격한 제한이 필요한 경우 앞에 리버스 프록시를 배치합니다.

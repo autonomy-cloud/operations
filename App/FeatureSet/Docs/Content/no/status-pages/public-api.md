@@ -9,7 +9,7 @@ Dette API-et vil hente alle ressursene på statussiden, inkludert den overordned
 For å hente den overordnede statusen til ressursene på statussiden kan du sende en POST-forespørsel til følgende endepunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 Dette er svaret fra API-et:
@@ -20,11 +20,11 @@ Dette er svaret fra API-et:
     // Monitor Status-objekt
     // Den overordnede statusen er den dårligste statusen for alle monitorer og grupper på statussiden.
     // Du finner mer detaljer om monitorstatusen her.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // Du finner mer detaljer om offentlig notat for planlagt vedlikehold her.
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // Objekt for offentlig notat for planlagt vedlikehold
     },
@@ -34,7 +34,7 @@ Dette er svaret fra API-et:
   ],
   "statusPageHistoryChartBarColorRules": [
     // Du finner mer detaljer om fargeregel for historikkdiagram på statussiden her.
-    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
+    // https://latticeruntime.com/reference/status-page-history-chart-bar-color-rule
     {
       // Objekt for fargeregel for historikkdiagram på statussiden
     },
@@ -44,7 +44,7 @@ Dette er svaret fra API-et:
   ],
   "scheduledMaintenanceEvents": [
     // Du finner mer detaljer om planlagt vedlikeholdshendelse her.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Objekt for planlagt vedlikeholdshendelse
     },
@@ -54,7 +54,7 @@ Dette er svaret fra API-et:
   ],
   "activeAnnouncements": [
     // Du finner mer detaljer om aktiv kunngjøring her.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Kunngjøringsobjekt for statussiden
     },
@@ -64,7 +64,7 @@ Dette er svaret fra API-et:
   ],
   "incidentPublicNotes": [
     // Du finner mer detaljer om offentlig hendelsesnotat her.
-    // https://visca.ai/reference/incident-public-note
+    // https://latticeruntime.com/reference/incident-public-note
     {
       // Objekt for offentlig hendelsesnotat
     },
@@ -74,7 +74,7 @@ Dette er svaret fra API-et:
   ],
   "activeIncidents": [
     // Du finner mer detaljer om aktiv hendelse her.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Hendelsesobjekt
     },
@@ -84,7 +84,7 @@ Dette er svaret fra API-et:
   ],
   "monitorStatusTimelines": [
     // Du finner mer detaljer om monitorstatustidslinje her.
-    // https://visca.ai/reference/monitor-status-timeline
+    // https://latticeruntime.com/reference/monitor-status-timeline
     {
       // Objekt for monitorstatustidslinje
     },
@@ -94,7 +94,7 @@ Dette er svaret fra API-et:
   ],
   "resourceGroups": [
     // Du finner mer detaljer om ressursgruppe her.
-    // https://visca.ai/reference/resource-group
+    // https://latticeruntime.com/reference/resource-group
     {
       // Ressursguppeobjekt
     },
@@ -104,7 +104,7 @@ Dette er svaret fra API-et:
   ],
   "monitorStatuses": [
     // Du finner mer detaljer om monitorstatus her.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
     {
       // Monitor Status-objekt
     },
@@ -114,7 +114,7 @@ Dette er svaret fra API-et:
   ],
   "statusPageResources": [
     // Du finner mer detaljer om statussideressurs her.
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // Statussideressursobjekt
     },
@@ -124,7 +124,7 @@ Dette er svaret fra API-et:
   ],
   "incidentStateTimelines": [
     // Du finner mer detaljer om hendelsestilstandstidslinje her.
-    // https://visca.ai/reference/incident-state-timeline
+    // https://latticeruntime.com/reference/incident-state-timeline
     {
       // Objekt for hendelsestilstandstidslinje
     },
@@ -134,11 +134,11 @@ Dette er svaret fra API-et:
   ],
   "statusPage": {
     // Du finner mer detaljer om statussiden her.
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // Du finner mer detaljer om tidslinje for tilstand for planlagt vedlikehold her.
-    // https://visca.ai/reference/scheduled-maintenance-state-timeline
+    // https://latticeruntime.com/reference/scheduled-maintenance-state-timeline
     {
       // Objekt for tidslinje for tilstand for planlagt vedlikehold
     },
@@ -162,7 +162,7 @@ Dette API-et vil hente all oppetid for alle ressurser på statussiden.
 For å hente den overordnede oppetiden for alle ressurser kan du sende en POST-forespørsel til følgende endepunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **Forespørselskropp (valgfritt):**
@@ -257,7 +257,7 @@ Dette er eksempelsvaret fra API-et:
 Dette API-et vil hente alle hendelsene som er på statussiden. For å hente alle hendelsene på statussiden kan du sende en POST-forespørsel til følgende endepunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 Dette er svaret fra API-et:
@@ -266,7 +266,7 @@ Dette er svaret fra API-et:
 {
   "incidents": [
     // Du finner mer detaljer om hendelse her.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Hendelsesobjekt
     },
@@ -282,7 +282,7 @@ Dette er svaret fra API-et:
 Dette API-et vil hente all planlagt vedlikehold som er på statussiden. For å hente all planlagt vedlikehold på statussiden kan du sende en POST-forespørsel til følgende endepunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 Dette er svaret fra API-et:
@@ -291,7 +291,7 @@ Dette er svaret fra API-et:
 {
   "scheduledMaintenanceEvents": [
     // Du finner mer detaljer om planlagt vedlikeholdshendelse her.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Objekt for planlagt vedlikeholdshendelse
     },
@@ -307,7 +307,7 @@ Dette er svaret fra API-et:
 Dette API-et vil hente alle kunngjøringer som er på statussiden. For å hente alle kunngjøringer på statussiden kan du sende en POST-forespørsel til følgende endepunkt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 Dette er svaret fra API-et:
@@ -316,7 +316,7 @@ Dette er svaret fra API-et:
 {
   "announcements": [
     // Du finner mer detaljer om kunngjøring her.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Kunngjøringsobjekt
     },

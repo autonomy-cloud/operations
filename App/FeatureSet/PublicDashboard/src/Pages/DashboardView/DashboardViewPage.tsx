@@ -455,7 +455,7 @@ const DashboardViewPage: FunctionComponent<ComponentProps> = (
         <div className="flex items-center justify-center text-xs text-gray-400">
           <span>Powered by</span>
           <a
-            href="https://visca.ai"
+            href="https://latticeruntime.com"
             target="_blank"
             rel="noopener noreferrer"
             className="ml-1 text-gray-500 hover:text-gray-700 font-medium"

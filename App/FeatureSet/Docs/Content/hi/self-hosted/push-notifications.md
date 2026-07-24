@@ -31,4 +31,4 @@ Expo Push Token अब valid नहीं है। इसका मतलब �
 
 1. ऊपर troubleshooting section जांचें
 2. विस्तृत error messages के लिए Cast Operations logs review करें
-3. [hello@visca.ai](mailto:hello@visca.ai) पर हमसे संपर्क करें
+3. [hello@latticeruntime.com](mailto:hello@latticeruntime.com) पर हमसे संपर्क करें

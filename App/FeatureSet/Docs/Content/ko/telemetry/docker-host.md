@@ -66,7 +66,7 @@ docker compose up -d
 
 | 변수                      | 필수   | 설명                                                                                                                |
 | ------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | 예     | Cast Operations 인스턴스 URL (예: `https://visca.ai` 또는 자체 호스팅 호스트)                                        |
+| `CAST_OPERATIONS_URL`           | 예     | Cast Operations 인스턴스 URL (예: `https://latticeruntime.com` 또는 자체 호스팅 호스트)                                        |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | 예     | *Project Settings → Telemetry Ingestion Keys*에서 발급한 텔레메트리 수집 토큰                                       |
 | `DOCKER_HOST_NAME`        | 아니오 | 이 호스트의 친숙한 이름. 기본값은 `docker-host`입니다. 호스트별로 안정적인 값으로 설정하세요 (예: `prod-docker-01`) |
 

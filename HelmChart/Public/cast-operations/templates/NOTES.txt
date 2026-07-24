@@ -30,8 +30,8 @@ To use it with Cast Operations AI features, go to AI Agents > LLM Providers > Cr
 🚀 Cast Operations is deployed! 🚀
 
 
-We would like to hear your feedback to make this product better for you and for other users, please email us at hello@visca.ai.
+We would like to hear your feedback to make this product better for you and for other users, please email us at hello@latticeruntime.com.
 - If you notice a bug, we will fix it for you.
 - If you need a feature, we will add that to the roadmap and let you know the estimated time to ship.
-- If you are an enterprise customer, we offer dedicated engineering support to build cast-operations features you need to integrate Cast Operations for your organization. Please contact us at sales@visca.ai
-We would love to hear your feedback. Email: hello@visca.ai
+- If you are an enterprise customer, we offer dedicated engineering support to build cast-operations features you need to integrate Cast Operations for your organization. Please contact us at sales@latticeruntime.com
+We would love to hear your feedback. Email: hello@latticeruntime.com

@@ -9,7 +9,7 @@
 若要取得狀態頁面上各項資源的整體狀態，您可以向以下端點發出 POST 請求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 這是 API 的回應：
@@ -20,11 +20,11 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
     // Monitor Status Object
     // Overall Status is the worst status of all the monitors and groups on the status page.
     // You can find more details on the monitor status here.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // You can find more details on the scheduled maintenance public note here.
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // Scheduled Maintenance Public Note Object
     },
@@ -34,7 +34,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "statusPageHistoryChartBarColorRules": [
     // You can find more details on the status page history chart bar color rule here.
-    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
+    // https://latticeruntime.com/reference/status-page-history-chart-bar-color-rule
     {
       // Status Page History Chart Bar Color Rule Object
     },
@@ -44,7 +44,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "scheduledMaintenanceEvents": [
     // You can find more details on the scheduled maintenance event here.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -54,7 +54,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "activeAnnouncements": [
     // You can find more details on the active announcement here.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Status Page Announcement Object
     },
@@ -64,7 +64,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "incidentPublicNotes": [
     // You can find more details on the incident public note here.
-    // https://visca.ai/reference/incident-public-note
+    // https://latticeruntime.com/reference/incident-public-note
     {
       // Incident Public Note Object
     },
@@ -74,7 +74,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "activeIncidents": [
     // You can find more details on the active incident here.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Incident Object
     },
@@ -84,7 +84,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "monitorStatusTimelines": [
     // You can find more details on the monitor status timeline here.
-    // https://visca.ai/reference/monitor-status-timeline
+    // https://latticeruntime.com/reference/monitor-status-timeline
     {
       // Monitor Status Timeline Object
     },
@@ -94,7 +94,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "resourceGroups": [
     // You can find more details on the resource group here.
-    // https://visca.ai/reference/resource-group
+    // https://latticeruntime.com/reference/resource-group
     {
       // Resource Group Object
     },
@@ -104,7 +104,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "monitorStatuses": [
     // You can find more details on the monitor status here.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
     {
       // Monitor Status Object
     },
@@ -114,7 +114,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "statusPageResources": [
     // You can find more details on the status page resource here.
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // Status Page Resource Object
     },
@@ -124,7 +124,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "incidentStateTimelines": [
     // You can find more details on the incident state timeline here.
-    // https://visca.ai/reference/incident-state-timeline
+    // https://latticeruntime.com/reference/incident-state-timeline
     {
       // Incident State Timeline Object
     },
@@ -134,11 +134,11 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
   ],
   "statusPage": {
     // You can find more details on the status page here.
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // You can find more details on the scheduled maintenance state timeline here.
-    // https://visca.ai/reference/scheduled-maintenance-state-timeline
+    // https://latticeruntime.com/reference/scheduled-maintenance-state-timeline
     {
       // Scheduled Maintenance State Timeline Object
     },
@@ -162,7 +162,7 @@ curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
 若要取得所有資源的整體運作時間，您可以向以下端點發出 POST 請求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **請求主體（選填）：**
@@ -257,7 +257,7 @@ curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
 此 API 會擷取狀態頁面上的所有事件。若要取得狀態頁面上的所有事件，您可以向以下端點發出 POST 請求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 這是 API 的回應：
@@ -266,7 +266,7 @@ curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 {
   "incidents": [
     // You can find more details on the incident here.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Incident Object
     },
@@ -282,7 +282,7 @@ curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 此 API 會擷取狀態頁面上的所有排程維護作業。若要取得狀態頁面上的所有排程維護作業，您可以向以下端點發出 POST 請求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 這是 API 的回應：
@@ -291,7 +291,7 @@ curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageI
 {
   "scheduledMaintenanceEvents": [
     // You can find more details on the scheduled maintenance event here.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -307,7 +307,7 @@ curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageI
 此 API 會擷取狀態頁面上的所有公告。若要取得狀態頁面上的所有公告，您可以向以下端點發出 POST 請求：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 這是 API 的回應：
@@ -316,7 +316,7 @@ curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
 {
   "announcements": [
     // You can find more details on the announcement here.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Announcement Object
     },

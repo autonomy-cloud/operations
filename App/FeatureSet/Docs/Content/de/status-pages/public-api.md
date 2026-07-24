@@ -9,7 +9,7 @@ Diese API ruft alle Ressourcen auf der Status-Seite ab, einschließlich des Gesa
 Um den Gesamtstatus der Ressourcen auf der Status-Seite abzurufen, können Sie einen POST-Request an den folgenden Endpunkt senden:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 Dies ist die Antwort von der API:
@@ -20,11 +20,11 @@ Dies ist die Antwort von der API:
     // Monitor Status Object
     // Overall Status is the worst status of all the monitors and groups on the status page.
     // You can find more details on the monitor status here.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // You can find more details on the scheduled maintenance public note here.
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // Scheduled Maintenance Public Note Object
     },
@@ -114,7 +114,7 @@ Dies ist die Antwort von der API:
   ],
   "statusPage": {
     // You can find more details on the status page here.
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     {
@@ -140,7 +140,7 @@ Diese API ruft die Verfügbarkeit aller Ressourcen auf der Status-Seite ab.
 Um die Gesamtverfügbarkeit aller Ressourcen abzurufen, können Sie einen POST-Request an den folgenden Endpunkt senden:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **Anfragetext (optional):**
@@ -161,7 +161,7 @@ Diese Datumsangaben dürfen nicht mehr als 90 Tage auseinanderliegen. Wenn Sie k
 Diese API ruft alle Incidents auf der Status-Seite ab. Um alle Incidents abzurufen, können Sie einen POST-Request an den folgenden Endpunkt senden:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 ### Geplante Wartungs-API
@@ -169,7 +169,7 @@ curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
 Diese API ruft alle geplanten Wartungen auf der Status-Seite ab:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 ### Ankündigungs-API
@@ -177,5 +177,5 @@ curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageI
 Diese API ruft alle Ankündigungen auf der Status-Seite ab:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```

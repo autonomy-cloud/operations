@@ -47,7 +47,7 @@ if [[ -z "$IMAGE" || -z "$TAGS" ]]; then
 	exit 1
 fi
 
-GHCR="ghcr.io/cast-operations"
+GHCR="${GHCR_REPOSITORY:-ghcr.io/autonomy-cloud/operations}"
 DOCKER_HUB="cast-operations"
 
 IFS=',' read -ra TAG_LIST <<< "$TAGS"

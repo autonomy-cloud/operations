@@ -26,7 +26,7 @@ Innkommende forespørselsmonitorer gir en unik webhook-URL som tjenestene dine k
 Når den er opprettet, vil monitoren din ha en unik hjerteslag-URL i formatet:
 
 ```
-https://visca.ai/heartbeat/YOUR_SECRET_KEY
+https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 ```
 
 Tjenesten din skal sende HTTP **GET**- eller **POST**-forespørsler til denne URL-en med jevne mellomrom.
@@ -37,10 +37,10 @@ Tjenesten din skal sende HTTP **GET**- eller **POST**-forespørsler til denne UR
 
 ```bash
 # Enkel GET-forespørsel
-curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
+curl https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 
 # POST-forespørsel med egendefinert kropp
-curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Legg til i crontab for å sende hjerteslag hvert 5. minutt
-*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### Fra applikasjonskode
@@ -57,16 +57,16 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js-eksempel
 const https = require("https");
-https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
+https.get("https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python-eksempel
 import requests
-requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY')
 ```
 
-Erstatt `https://visca.ai` med URL-en til din Cast Operations-instans hvis du selvhoster.
+Erstatt `https://latticeruntime.com` med URL-en til din Cast Operations-instans hvis du selvhoster.
 
 ## Overvåkingskriterier
 

@@ -20,7 +20,7 @@ npm install -g @cast-operations/cli
 
 ```bash
 # Autenticarse con tu instancia de Cast Operations
-cast-operations login <your-api-key> https://visca.ai
+cast-operations login <your-api-key> https://latticeruntime.com
 
 # Listar tus monitores
 cast-operations monitor list

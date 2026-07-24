@@ -116,11 +116,14 @@ describe("StatementGenerator", () => {
       // Cluster mode: mutation targets the local table and dispatches ON CLUSTER.
       expectStatement(
         statement,
-        SQL`
-                ALTER TABLE ${getClickhouseDatabaseName()}.${"<table-name>Local"} ON CLUSTER 'cast-operations'
+        new Statement()
+          .append(
+            `ALTER TABLE \`${getClickhouseDatabaseName()}\`.\`<table-name>Local\` ON CLUSTER 'cast-operations'`,
+          )
+          .append(SQL`
                 UPDATE <set-statement>
                 WHERE TRUE <where-statement>
-            `,
+            `),
       );
       /* eslint-enable prettier/prettier */
     });
@@ -1160,9 +1163,12 @@ describe("StatementGenerator", () => {
 
       /* eslint-disable prettier/prettier */
       // Cluster mode: the local <table>Local table, Replicated engine, ON CLUSTER.
-      const expectedStatement: Statement = SQL`
-            CREATE TABLE IF NOT EXISTS ${getClickhouseDatabaseName()}.${"<table-name>Local"} ON CLUSTER 'cast-operations'
-    (
+      const expectedStatement: Statement = new Statement()
+        .append(
+          `CREATE TABLE IF NOT EXISTS \`${getClickhouseDatabaseName()}\`.\`<table-name>Local\` ON CLUSTER 'cast-operations'
+    (`,
+        )
+        .append(SQL`
         <columns-create-statement>
     )
     ENGINE = ReplicatedMergeTree
@@ -1170,7 +1176,7 @@ PARTITION BY (column_ObjectID)
 
     PRIMARY KEY (${"column_ObjectID"})
     ORDER BY (${"column_ObjectID"})
-    `;
+    `);
       /* eslint-enable prettier/prettier */
 
       // Normalize whitespace for comparison to avoid formatting issues

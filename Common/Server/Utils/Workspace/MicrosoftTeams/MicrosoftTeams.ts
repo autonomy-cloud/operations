@@ -703,11 +703,12 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
   public static isValidMicrosoftTeamsIncomingWebhookUrl(
     incomingWebhookUrl: URL,
   ): boolean {
-    // Check if the URL contains outlook.office.com or office.com webhook pattern
-    const urlString: string = incomingWebhookUrl.toString();
+    const hostname: string = incomingWebhookUrl.hostname.toString();
     return (
-      urlString.includes("outlook.office.com") ||
-      urlString.includes("office.com")
+      hostname === "outlook.office.com" ||
+      hostname.endsWith(".outlook.office.com") ||
+      hostname === "office.com" ||
+      hostname.endsWith(".office.com")
     );
   }
 
@@ -2159,9 +2160,24 @@ export default class MicrosoftTeamsUtil extends WorkspaceBase {
    * channel/chat message bodies are typically HTML (body.contentType "html").
    */
   private static toPlainTextFromTeamsMessageBody(rawContent: string): string {
-    return rawContent
-      .replace(/<at[^>]*>.*?<\/at>/g, "")
-      .replace(/<[^>]*>/g, "")
+    let plainText: string = "";
+    let insideTag: boolean = false;
+
+    for (const character of rawContent) {
+      if (character === "<") {
+        insideTag = true;
+        continue;
+      }
+      if (insideTag && character === ">") {
+        insideTag = false;
+        continue;
+      }
+      if (!insideTag) {
+        plainText += character;
+      }
+    }
+
+    return plainText
       .replace(/&nbsp;/g, " ")
       .replace(/\s+/g, " ")
       .trim();
@@ -3488,17 +3504,17 @@ All monitoring checks are passing normally.`;
         {
           type: "Action.OpenUrl",
           title: "View Setup Guide",
-          url: "https://visca.ai/docs/workspace-connections/microsoft-teams",
+          url: "https://latticeruntime.com/docs/workspace-connections/microsoft-teams",
         },
         {
           type: "Action.OpenUrl",
           title: "Contact Support",
-          url: "mailto:support@visca.ai?subject=Cast Operations%20Microsoft%20Teams%20Bot",
+          url: "mailto:support@latticeruntime.com?subject=Cast Operations%20Microsoft%20Teams%20Bot",
         },
         {
           type: "Action.OpenUrl",
           title: "Open Cast Operations Dashboard",
-          url: "https://visca.ai/dashboard",
+          url: "https://latticeruntime.com/dashboard",
         },
       ],
     } as JSONObject;
@@ -3890,9 +3906,7 @@ All monitoring checks are passing normally.`;
           const body: JSONObject = msg["body"] as JSONObject;
           let text: string = (body?.["content"] as string) || "";
 
-          // Remove HTML tags if present (Teams uses HTML)
-          text = text.replace(/<[^>]*>/g, "");
-          text = text.trim();
+          text = this.toPlainTextFromTeamsMessageBody(text);
 
           // Skip empty messages
           if (!text) {

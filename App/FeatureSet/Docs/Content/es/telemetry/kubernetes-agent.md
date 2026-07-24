@@ -16,7 +16,7 @@ Esta página es la **guía de instalación**. Para configurar monitores y alerta
 ## Paso 1 — Agregar el repositorio de Helm de Cast Operations
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 ```
 
@@ -674,7 +674,7 @@ La razón más común — especialmente después de una reinstalación — es un
 3. **Valida la clave de ingesta.** Pregúntale directamente a Cast Operations si tu token se acepta (`200` = válido, `401` = desconocido/revocado):
 
    ```bash
-   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://latticeruntime.com/otlp/v1/validate
    ```
 
    Si devuelve `401`, la clave en tu release es incorrecta o fue revocada. Copia una clave activa desde _Project Settings → Telemetry Ingestion Keys_ y vuelve a desplegar:

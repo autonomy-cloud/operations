@@ -13,10 +13,10 @@ OpenTelemetry 수집 서비스는 이제 네이티브 Syslog 페이로드를 허
 ## 엔드포인트
 
 ```
-POST https://visca.ai/syslog/v1/logs
+POST https://latticeruntime.com/syslog/v1/logs
 ```
 
-- Cast Operations을 자체 호스팅하는 경우 `visca.ai`을 호스트로 교체합니다.
+- Cast Operations을 자체 호스팅하는 경우 `latticeruntime.com`을 호스트로 교체합니다.
 - 항상 요청에 `x-cast-operations-token` 헤더를 포함합니다.
 
 ## 요청 본문
@@ -42,7 +42,7 @@ POST https://visca.ai/syslog/v1/logs
 
 ```bash
 curl \
-  -X POST https://visca.ai/syslog/v1/logs \
+  -X POST https://latticeruntime.com/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
   -H "x-cast-operations-service-name: production-web" \
@@ -72,7 +72,7 @@ curl \
 
    action(
      type="omhttp"
-     server="visca.ai"
+     server="latticeruntime.com"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
@@ -106,7 +106,7 @@ template(name="Cast OperationsJSON" type="list") {
 
 action(
   type="omhttp"
-  server="visca.ai"
+  server="latticeruntime.com"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
@@ -128,7 +128,7 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="visca.ai"
+  server="latticeruntime.com"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
@@ -155,7 +155,7 @@ action(
 [OUTPUT]
     Name              http
     Match             *
-    Host              visca.ai
+    Host              latticeruntime.com
     Port              443
     URI               /syslog/v1/logs
     Format            json

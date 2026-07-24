@@ -66,7 +66,7 @@ docker compose up -d
 
 | Variabel                  | Påkrævet | Beskrivelse                                                                                                                 |
 | ------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | Ja       | URL'en til din Cast Operations-instans (for eksempel `https://visca.ai` eller din selvhostede vært)                          |
+| `CAST_OPERATIONS_URL`           | Ja       | URL'en til din Cast Operations-instans (for eksempel `https://latticeruntime.com` eller din selvhostede vært)                          |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | Ja       | Telemetry ingestion-token fra _Project Settings → Telemetry Ingestion Keys_                                                 |
 | `DOCKER_HOST_NAME`        | Nej      | Brugervenligt navn til denne vært. Som standard `docker-host`. Sæt det til noget stabilt pr. vært (f.eks. `prod-docker-01`) |
 

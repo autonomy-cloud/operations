@@ -13,10 +13,10 @@ OpenTelemetry Ingest-tjänsten accepterar nu inbyggda Syslog-nyttolaster. Du kan
 ## Slutpunkt
 
 ```
-POST https://visca.ai/syslog/v1/logs
+POST https://latticeruntime.com/syslog/v1/logs
 ```
 
-- Ersätt `visca.ai` med din värd om du egeninstallerar Cast Operations.
+- Ersätt `latticeruntime.com` med din värd om du egeninstallerar Cast Operations.
 - Inkludera alltid `x-cast-operations-token`-huvudet i förfrågan.
 
 ## Förfrågningsinnehåll
@@ -42,7 +42,7 @@ Skicka radavgränsade Syslog-strängar eller en JSON-nyttolast med en `messages`
 
 ```bash
 curl \
-  -X POST https://visca.ai/syslog/v1/logs \
+  -X POST https://latticeruntime.com/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
   -H "x-cast-operations-service-name: production-web" \
@@ -72,7 +72,7 @@ curl \
 
    action(
      type="omhttp"
-     server="visca.ai"
+     server="latticeruntime.com"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"

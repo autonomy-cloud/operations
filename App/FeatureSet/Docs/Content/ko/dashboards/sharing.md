@@ -4,7 +4,7 @@
 
 ## 비공개 대시보드(기본값)
 
-대시보드는 로그인한 프로젝트 멤버만 접근할 수 있습니다. URL은 `https://visca.ai/dashboards/<id>/view` 형태이며 로그인이 필요합니다.
+대시보드는 로그인한 프로젝트 멤버만 접근할 수 있습니다. URL은 `https://latticeruntime.com/dashboards/<id>/view` 형태이며 로그인이 필요합니다.
 
 프로젝트 내에서 소유자와 라벨이 누가 무엇을 보는지 제어합니다. [구성 및 권한](/docs/dashboards/configuration)을 참조하시기 바랍니다.
 
@@ -51,7 +51,7 @@
 
 ## 커스텀 도메인
 
-기본적으로 공개 대시보드는 `visca.ai`에서 제공됩니다. `dashboard.acme.com`과 같은 자체 서브도메인에서 호스팅하려면 다음과 같이 합니다.
+기본적으로 공개 대시보드는 `latticeruntime.com`에서 제공됩니다. `dashboard.acme.com`과 같은 자체 서브도메인에서 호스팅하려면 다음과 같이 합니다.
 
 1. DNS에 CNAME 레코드를 추가하여 서브도메인을 Cast Operations의 타겟으로 가리키게 합니다.
 2. **Dashboard → Settings → Custom Domains**에서 도메인을 추가합니다.
