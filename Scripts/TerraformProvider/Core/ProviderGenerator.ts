@@ -21,6 +21,9 @@ export class ProviderGenerator {
   }
 
   private async generateProviderGo(): Promise<void> {
+    const terraformTypeName: string = StringUtils.toSnakeCase(
+      this.config.providerName,
+    );
     const providerGoContent: string = `package provider
 
 import (
@@ -53,7 +56,7 @@ type ${StringUtils.toPascalCase(this.config.providerName)}ProviderModel struct {
 }
 
 func (p *${StringUtils.toPascalCase(this.config.providerName)}Provider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-    resp.TypeName = "${this.config.providerName}"
+    resp.TypeName = "${terraformTypeName}"
     resp.Version = p.version
 }
 
