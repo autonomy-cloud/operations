@@ -40,7 +40,7 @@ global:
 ## 3. Install the chart
 
 ```console
-helm repo add cast-operations https://helm-chart.visca.ai/
+helm repo add cast-operations https://helm-chart.latticeruntime.com/
 helm install my-cast-operations autonomy-cloud/operations -f values.yaml
 ```
 

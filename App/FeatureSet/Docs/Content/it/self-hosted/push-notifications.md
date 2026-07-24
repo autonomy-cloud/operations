@@ -31,4 +31,4 @@ Se si incontrano problemi con le notifiche push, si prega di:
 
 1. Controllare la sezione di risoluzione dei problemi sopra
 2. Esaminare i log di Cast Operations per messaggi di errore dettagliati
-3. Contattarci all'indirizzo [hello@visca.ai](mailto:hello@visca.ai)
+3. Contattarci all'indirizzo [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

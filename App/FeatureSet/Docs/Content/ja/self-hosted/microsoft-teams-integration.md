@@ -129,4 +129,4 @@ microsoftTeamsApp:
 
 ## サポート
 
-この統合の改善のためのフィードバックをお待ちしています。[hello@visca.ai](mailto:hello@visca.ai) までお送りください。
+この統合の改善のためのフィードバックをお待ちしています。[hello@latticeruntime.com](mailto:hello@latticeruntime.com) までお送りください。

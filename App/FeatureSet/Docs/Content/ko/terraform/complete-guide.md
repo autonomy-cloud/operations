@@ -74,7 +74,7 @@ terraform {
 
 ```hcl
 provider "cast-operations" {
-  cast_operations_url = "https://your-operations-instance.com"  # 또는 클라우드의 경우 https://visca.ai
+  cast_operations_url = "https://your-operations-instance.com"  # 또는 클라우드의 경우 https://latticeruntime.com
   api_key       = var.cast_operations_api_key
 }
 ```
@@ -130,7 +130,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # 인스턴스 URL 사용
+  cast_operations_url = "https://latticeruntime.com"  # 인스턴스 URL 사용
   api_key       = var.cast_operations_api_key
 }
 
@@ -268,7 +268,7 @@ variable "project_id" {
 variable "cast_operations_url" {
   description = "Cast Operations URL"
   type        = string
-  default     = "https://visca.ai"
+  default     = "https://latticeruntime.com"
 }
 
 # 공급자 구성
@@ -544,10 +544,10 @@ terraform apply
 
 ## 지원 및 리소스
 
-- **문서**: [Cast Operations 문서](https://docs.visca.ai)
+- **문서**: [Cast Operations 문서](https://docs.latticeruntime.com)
 - **Terraform 레지스트리**: [Cast Operations 공급자](https://registry.terraform.io/providers/autonomy-cloud/operations)
 - **GitHub 이슈**: [Cast Operations GitHub](https://github.com/autonomy-cloud/operations/issues)
-- **커뮤니티**: [Cast Operations 커뮤니티](https://community.visca.ai)
+- **커뮤니티**: [Cast Operations 커뮤니티](https://community.latticeruntime.com)
 
 ## 문제 해결
 

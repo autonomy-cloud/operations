@@ -11,7 +11,7 @@ Um zu beginnen, müssen Sie eine benutzerdefinierte Probe in Ihren Projekteinste
 Um eine Probe auszuführen, stellen Sie sicher, dass Docker installiert ist. Sie können eine benutzerdefinierte Probe folgendermaßen ausführen:
 
 ```
-docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://latticeruntime.com -d cast-operations/probe:release
 ```
 
 Wenn Sie Cast Operations selbst hosten, können Sie `CAST_OPERATIONS_URL` auf Ihre benutzerdefinierte selbst gehostete Instanz ändern.
@@ -25,7 +25,7 @@ Wenn Ihre Probe einen Proxy-Server verwenden muss, um Cast Operations oder exter
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -34,7 +34,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -43,7 +43,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       # Proxy-Konfiguration (optional)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -125,7 +125,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 Führen Sie dann den folgenden Befehl aus:
@@ -142,7 +142,7 @@ Die Probe unterstützt die folgenden Umgebungsvariablen:
 
 - `PROBE_KEY` - Der Probe-Schlüssel aus Ihrem Cast Operations-Dashboard
 - `PROBE_ID` - Die Probe-ID aus Ihrem Cast Operations-Dashboard
-- `CAST_OPERATIONS_URL` - Die URL Ihrer Cast Operations-Instanz (Standard: https://visca.ai)
+- `CAST_OPERATIONS_URL` - Die URL Ihrer Cast Operations-Instanz (Standard: https://latticeruntime.com)
 
 #### Optionale Variablen
 
@@ -159,4 +159,4 @@ Die Probe unterstützt die folgenden Umgebungsvariablen:
 
 ### Verifizieren
 
-Wenn die Probe erfolgreich läuft, sollte sie in Ihrem Cast Operations-Dashboard als `Verbunden` angezeigt werden. Falls sie nicht als verbunden angezeigt wird, müssen Sie die Container-Logs prüfen. Wenn Sie weiterhin Probleme haben, erstellen Sie bitte ein Issue auf [GitHub](https://github.com/autonomy-cloud/operations) oder [kontaktieren Sie den Support](https://visca.ai/support)
+Wenn die Probe erfolgreich läuft, sollte sie in Ihrem Cast Operations-Dashboard als `Verbunden` angezeigt werden. Falls sie nicht als verbunden angezeigt wird, müssen Sie die Container-Logs prüfen. Wenn Sie weiterhin Probleme haben, erstellen Sie bitte ein Issue auf [GitHub](https://github.com/autonomy-cloud/operations) oder [kontaktieren Sie den Support](https://latticeruntime.com/support)

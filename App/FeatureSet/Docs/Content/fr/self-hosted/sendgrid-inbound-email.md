@@ -64,7 +64,7 @@ Pour une meilleure délivrabilité et éviter que les e-mails soient marqués co
 | Champ                                          | Valeur                                                                     |
 | ---------------------------------------------- | -------------------------------------------------------------------------- |
 | **Domaine récepteur**                          | Votre sous-domaine entrant (ex. : `inbound.votredomaine.com`)              |
-| **URL de destination**                         | `https://votre-domaine-visca.ai/incoming-email/sendgrid/VOTRE_SECRET` |
+| **URL de destination**                         | `https://votre-domaine-latticeruntime.com/incoming-email/sendgrid/VOTRE_SECRET` |
 | **Vérifier les e-mails entrants pour le spam** | Optionnel — activez si souhaité                                            |
 | **Envoyer le message MIME complet brut**       | Laisser décoché (non requis)                                               |
 | **Poster le message MIME complet brut**        | Laisser décoché (non requis)                                               |
@@ -192,7 +192,7 @@ Utilisez les critères « E-mail reçu » pour vous assurer de recevoir des e-ma
 1. **Assurez-vous que Cast Operations est publiquement accessible :**
 
    - L'URL du webhook doit être accessible depuis Internet
-   - Testez avec : `curl -X POST https://votre-domaine-visca.ai/incoming-email/sendgrid`
+   - Testez avec : `curl -X POST https://votre-domaine-latticeruntime.com/incoming-email/sendgrid`
 
 2. **Vérifier les règles de pare-feu :**
 
@@ -251,6 +251,6 @@ Si vous rencontrez des problèmes avec l'intégration des e-mails entrants SendG
 
 1. Consultez la section de dépannage ci-dessus
 2. Examinez les journaux de Cast Operations pour les messages d'erreur détaillés
-3. Nous contacter à [hello@visca.ai](mailto:hello@visca.ai)
+3. Nous contacter à [hello@latticeruntime.com](mailto:hello@latticeruntime.com)
 
 Nous accueillons favorablement les retours pour améliorer cette intégration !

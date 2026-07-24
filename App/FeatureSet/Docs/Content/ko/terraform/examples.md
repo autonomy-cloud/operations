@@ -17,7 +17,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"  # 자체 호스팅의 경우 변경
+  cast_operations_url = "https://latticeruntime.com"  # 자체 호스팅의 경우 변경
   api_key       = var.cast_operations_api_key
 }
 

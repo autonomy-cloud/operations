@@ -11,7 +11,7 @@
 要运行探针，请确保已安装 Docker。您可以通过以下方式运行自定义探针：
 
 ```
-docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://latticeruntime.com -d cast-operations/probe:release
 ```
 
 如果您是自托管 Cast Operations，可以将 `CAST_OPERATIONS_URL` 更改为您自定义的自托管实例。
@@ -25,7 +25,7 @@ docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> 
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -34,7 +34,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -43,7 +43,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       # 代理配置（可选）
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 ##### 带代理配置
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             # 代理配置（可选）
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -194,7 +194,7 @@ kubectl apply -f cast-operations-probe.yaml
 
 - `PROBE_KEY` - 来自您 Cast Operations 控制台的探针密钥
 - `PROBE_ID` - 来自您 Cast Operations 控制台的探针 ID
-- `CAST_OPERATIONS_URL` - 您的 Cast Operations 实例 URL（默认：https://visca.ai）
+- `CAST_OPERATIONS_URL` - 您的 Cast Operations 实例 URL（默认：https://latticeruntime.com）
 
 #### 可选变量
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### 验证
 
-如果探针运行成功，它应该在您的 Cast Operations 控制台上显示为 `Connected`（已连接）。如果未显示为已连接，您需要检查容器的日志。如果仍然遇到问题，请在 [GitHub](https://github.com/autonomy-cloud/operations) 上创建 Issue 或[联系支持](https://visca.ai/support)。
+如果探针运行成功，它应该在您的 Cast Operations 控制台上显示为 `Connected`（已连接）。如果未显示为已连接，您需要检查容器的日志。如果仍然遇到问题，请在 [GitHub](https://github.com/autonomy-cloud/operations) 上创建 Issue 或[联系支持](https://latticeruntime.com/support)。

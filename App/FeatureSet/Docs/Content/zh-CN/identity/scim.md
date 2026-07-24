@@ -30,7 +30,7 @@ SCIM 集成提供以下优势：
    - 复制 **SCIM 基础 URL** 和 **Bearer Token** 用于 IdP 配置
 
 3. **配置您的身份提供商**
-   - 使用 SCIM 基础 URL：`https://visca.ai/scim/v2/{scimId}`
+   - 使用 SCIM 基础 URL：`https://latticeruntime.com/scim/v2/{scimId}`
    - 使用提供的令牌配置 Bearer 令牌认证
    - 映射用户属性（电子邮件为必填项）
 
@@ -78,7 +78,7 @@ SCIM 集成提供以下优势：
    - 复制 **SCIM 基础 URL** 和 **Bearer Token** 用于 IdP 配置
 
 3. **配置您的身份提供商**
-   - 使用 SCIM 基础 URL：`https://visca.ai/status-page-scim/v2/{scimId}`
+   - 使用 SCIM 基础 URL：`https://latticeruntime.com/status-page-scim/v2/{scimId}`
    - 使用提供的令牌配置 Bearer 令牌认证
    - 映射用户属性（电子邮件为必填项）
 
@@ -144,7 +144,7 @@ Microsoft Entra ID 提供企业级身份管理，具备强大的 SCIM 配置能�
 2. 点击 **开始使用**
 3. 将 **预配模式** 设置为 **自动**
 4. 在 **管理员凭据** 下：
-   - **租户 URL**：输入 Cast Operations 中的 SCIM 基础 URL（例如 `https://visca.ai/api/identity/scim/v2/{your-scim-id}`）
+   - **租户 URL**：输入 Cast Operations 中的 SCIM 基础 URL（例如 `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`）
    - **机密令牌**：输入 Cast Operations 中的 Bearer Token
 5. 点击 **测试连接** 以验证配置
 6. 点击 **保存**
@@ -263,7 +263,7 @@ Okta 提供灵活的身份管理，具有出色的 SCIM 支持。按照以下详
 3. 点击 **配置 API 集成**
 4. 勾选 **启用 API 集成**
 5. 配置以下内容：
-   - **SCIM 连接器基础 URL**：输入 Cast Operations 中的 SCIM 基础 URL（例如 `https://visca.ai/api/identity/scim/v2/{your-scim-id}`）
+   - **SCIM 连接器基础 URL**：输入 Cast Operations 中的 SCIM 基础 URL（例如 `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`）
    - **用户的唯一标识符字段**：输入 `userName`
    - **支持的预配操作**：选择您要启用的操作：
      - 导入新用户和配置文件更新
@@ -340,7 +340,7 @@ Okta 提供灵活的身份管理，具有出色的 SCIM 支持。按照以下详
 
 Cast Operations 的 SCIM 实现遵循 SCIM v2.0 规范，应能与任何合规的身份提供商配合使用。通用配置步骤：
 
-1. **SCIM 基础 URL**：`https://visca.ai/api/identity/scim/v2/{scim-id}`（用于项目）或 `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}`（用于状态页面）
+1. **SCIM 基础 URL**：`https://latticeruntime.com/api/identity/scim/v2/{scim-id}`（用于项目）或 `https://latticeruntime.com/api/identity/status-page-scim/v2/{scim-id}`（用于状态页面）
 2. **认证**：HTTP Bearer 令牌
 3. **必填用户属性**：`userName`（必须是有效的电子邮件地址）
 4. **支持的操作**：GET、POST、PUT、PATCH、DELETE（用于用户和组）

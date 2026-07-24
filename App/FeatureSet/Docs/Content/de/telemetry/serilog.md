@@ -8,8 +8,8 @@ Es gibt kein Cast Operations-spezifisches Paket zu installieren – der Sink kom
 
 ## Voraussetzungen
 
-- **Registrieren Sie sich für ein Cast Operations-Konto** – Ein kostenloses Konto können Sie [hier](https://visca.ai) anlegen. Bitte beachten Sie, dass das Konto zwar kostenlos ist, die Log-Erfassung jedoch eine kostenpflichtige Funktion darstellt. Weitere Details zur Preisgestaltung finden Sie [hier](https://visca.ai/pricing).
-- **Erstellen Sie ein Cast Operations-Projekt** – Sobald Sie ein Konto haben, erstellen Sie ein Projekt über das Cast Operations-Dashboard. Wenn Sie Hilfe benötigen, kontaktieren Sie uns unter support@visca.ai.
+- **Registrieren Sie sich für ein Cast Operations-Konto** – Ein kostenloses Konto können Sie [hier](https://latticeruntime.com) anlegen. Bitte beachten Sie, dass das Konto zwar kostenlos ist, die Log-Erfassung jedoch eine kostenpflichtige Funktion darstellt. Weitere Details zur Preisgestaltung finden Sie [hier](https://latticeruntime.com/pricing).
+- **Erstellen Sie ein Cast Operations-Projekt** – Sobald Sie ein Konto haben, erstellen Sie ein Projekt über das Cast Operations-Dashboard. Wenn Sie Hilfe benötigen, kontaktieren Sie uns unter support@latticeruntime.com.
 - **Erstellen Sie ein Telemetry-Ingestion-Token** – Sie benötigen ein Token, um Ihre Logs zu authentifizieren.
 
 Nachdem Sie sich bei Cast Operations registriert und ein Projekt erstellt haben, klicken Sie in der Navigationsleiste auf "More" und anschließend auf "Project Settings".
@@ -26,13 +26,13 @@ Sobald Sie ein Token erstellt haben, klicken Sie auf "View", um das Token anzuze
 
 | Einstellung   | Wert                                                               |
 | ------------- | ------------------------------------------------------------------ |
-| OTLP-Endpunkt | `https://visca.ai/otlp`                                       |
+| OTLP-Endpunkt | `https://latticeruntime.com/otlp`                                       |
 | Auth-Header   | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`                |
 | Dienstname    | Der Name, unter dem Ihr Dienst erscheinen soll, z. B. `my-service` |
 
-> **Sie hosten Cast Operations selbst?** Ersetzen Sie `https://visca.ai/otlp` durch `https://YOUR-OPERATIONS-HOST/otlp` (oder `http://...`, falls Sie TLS nicht terminieren). Alles andere bleibt gleich.
+> **Sie hosten Cast Operations selbst?** Ersetzen Sie `https://latticeruntime.com/otlp` durch `https://YOUR-OPERATIONS-HOST/otlp` (oder `http://...`, falls Sie TLS nicht terminieren). Alles andere bleibt gleich.
 
-Der Sink verwendet das OTLP-Protokoll **HTTP/protobuf** und hängt automatisch den Pfad `/v1/logs` an den Endpunkt an, sodass die endgültige URL, an die er postet, `https://visca.ai/otlp/v1/logs` lautet. Sie müssen lediglich den Basis-Endpunkt `/otlp` angeben.
+Der Sink verwendet das OTLP-Protokoll **HTTP/protobuf** und hängt automatisch den Pfad `/v1/logs` an den Endpunkt an, sodass die endgültige URL, an die er postet, `https://latticeruntime.com/otlp/v1/logs` lautet. Sie müssen lediglich den Basis-Endpunkt `/otlp` angeben.
 
 ## Schritt 1 — Installieren Sie die NuGet-Pakete
 
@@ -70,7 +70,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.OpenTelemetry(options =>
     {
         // Base OTLP endpoint. The sink appends /v1/logs automatically.
-        options.Endpoint = "https://visca.ai/otlp";
+        options.Endpoint = "https://latticeruntime.com/otlp";
         options.Protocol = OtlpProtocol.HttpProtobuf;
 
         // Authenticate with your Cast Operations telemetry ingestion token.
@@ -115,7 +115,7 @@ Wenn Sie Konfiguration gegenüber Code bevorzugen, verwenden Sie `Serilog.Settin
       {
         "Name": "OpenTelemetry",
         "Args": {
-          "endpoint": "https://visca.ai/otlp",
+          "endpoint": "https://latticeruntime.com/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
             "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
@@ -165,7 +165,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.OpenTelemetry(options =>
         {
-            options.Endpoint = "https://visca.ai/otlp";
+            options.Endpoint = "https://latticeruntime.com/otlp";
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
@@ -228,10 +228,10 @@ Wenn Ihre Anwendung zusätzlich mit dem OpenTelemetry .NET SDK für Traces instr
 
 ## Fehlerbehebung
 
-- **Es erscheinen keine Logs** – Überprüfen Sie den Wert von `x-cast-operations-token` genau und stellen Sie sicher, dass er zu dem Projekt gehört, das Sie gerade ansehen. Vergewissern Sie sich, dass der Endpunkt `https://visca.ai/otlp` lautet (nur der Basispfad – hängen Sie nicht selbst `/v1/logs` an).
+- **Es erscheinen keine Logs** – Überprüfen Sie den Wert von `x-cast-operations-token` genau und stellen Sie sicher, dass er zu dem Projekt gehört, das Sie gerade ansehen. Vergewissern Sie sich, dass der Endpunkt `https://latticeruntime.com/otlp` lautet (nur der Basispfad – hängen Sie nicht selbst `/v1/logs` an).
 - **Logs erscheinen erst beim Beenden der Anwendung oder die letzten Logs fehlen** – Stellen Sie sicher, dass `Log.CloseAndFlush()` beim Herunterfahren ausgeführt wird. Der Sink fasst Ereignisse zu Batches zusammen, sodass gepufferte Logs verloren gehen, wenn der Prozess ohne vorheriges Flushen beendet wird.
 - **`401 Unauthorized` / nichts wird erfasst** – Das Token fehlt oder ist ungültig. Stellen Sie sicher, dass der Header-Schlüssel exakt `x-cast-operations-token` lautet.
 - **Falscher Dienstname** – Legen Sie `service.name` in `ResourceAttributes` (Code) bzw. `resourceAttributes` (appsettings.json) fest. Ohne diese Angabe fallen Logs auf einen Standard-/unbekannten Dienst zurück.
 - **Verbindungsfehler zu einer selbst gehosteten Instanz** – Stellen Sie sicher, dass das Protokoll zum Schema Ihres Endpunkts passt (`https://` vs. `http://`) und dass Ihr Cast Operations-Host von der Anwendung aus erreichbar ist.
 
-Wenn Sie Fragen haben oder Hilfe benötigen, kontaktieren Sie uns bitte unter support@visca.ai.
+Wenn Sie Fragen haben oder Hilfe benötigen, kontaktieren Sie uns bitte unter support@latticeruntime.com.

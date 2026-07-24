@@ -114,7 +114,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 ```
@@ -333,7 +333,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -385,7 +385,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -448,7 +448,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -744,7 +744,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: https://visca.ai/otlp
+    endpoint: https://latticeruntime.com/otlp
     headers:
       x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN
 
@@ -788,7 +788,7 @@ OpenTelemetry Collector respekterer standardmiljovariablene `HTTPS_PROXY` / `HTT
   - Legg til `service.telemetry.logs.level: debug` i konfigurasjonen og start collectoren pa nytt for detaljert utdata.
   - **Linux / macOS:** `journalctl -u otelcol-contrib -f` (Linux) eller `tail -f /var/log/otelcol-contrib.err.log` (macOS).
   - **Windows:** se under _Event Viewer → Windows Logs → Application_ etter kilden `otelcol-contrib`.
-  - Bekreft at hosten kan na `https://visca.ai/otlp` (eller ditt selvhostede endepunkt): `curl -v https://visca.ai/otlp` fra samme maskin.
+  - Bekreft at hosten kan na `https://latticeruntime.com/otlp` (eller ditt selvhostede endepunkt): `curl -v https://latticeruntime.com/otlp` fra samme maskin.
 - **HTTP 401 fra eksportoren** — ingestion-tokenet er ugyldig eller tilbakekalt. Generer et nytt fra _Project Settings → Telemetry Ingestion Keys_.
 - **`Security`-kanalen i Windows Event Log returnerer access denied** — tjenesten kjorer ikke med tilstrekkelige privilegier. Gjenopprett den under `LocalSystem` (standarden med `sc.exe create`) eller gi tjenestekontoen brukerrettigheten _Manage auditing and security log_.
 - **`journald`-receiveren klarer ikke a starte** — pass pa at `journalctl` er pa collectorens `PATH` og at `/var/log/journal` finnes (kjor `sudo systemd-tmpfiles --create --prefix /var/log/journal` hvis ikke).

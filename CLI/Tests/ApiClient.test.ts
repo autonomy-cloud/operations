@@ -76,7 +76,7 @@ describe("ApiClient", () => {
   });
 
   const baseOptions: ApiRequestOptions = {
-    apiUrl: "https://visca.ai",
+    apiUrl: "https://latticeruntime.com",
     apiKey: "test-api-key",
     apiPath: "/incident",
     operation: "create",

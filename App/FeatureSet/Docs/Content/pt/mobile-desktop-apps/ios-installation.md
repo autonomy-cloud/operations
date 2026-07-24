@@ -19,7 +19,7 @@ Instale o aplicativo nativo **Cast Operations On-Call** para iOS a partir da App
 ## Primeira Execução e Login
 
 1. **URL do Servidor**
-   - Se você usa o Cast Operations Cloud, mantenha o padrão `https://visca.ai`.
+   - Se você usa o Cast Operations Cloud, mantenha o padrão `https://latticeruntime.com`.
    - Se você é auto-hospedado, insira o URL da sua instância do Cast Operations (ex.: `https://operations.example.com`).
    - O aplicativo verifica se o servidor está acessível antes de prosseguir.
 2. **Entrar**
@@ -57,7 +57,7 @@ Sua conta do Cast Operations e as escalas de plantão são armazenadas no servid
 
 **A App Store informa que o aplicativo "Não Está Disponível na Sua Região":**
 
-- O aplicativo é publicado na App Store global. Se ele não aparecer na sua região, entre em contato com o [suporte](mailto:support@visca.ai).
+- O aplicativo é publicado na App Store global. Se ele não aparecer na sua região, entre em contato com o [suporte](mailto:support@latticeruntime.com).
 
 **"Erro de Rede" ao fazer login:**
 

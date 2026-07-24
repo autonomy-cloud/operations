@@ -345,9 +345,9 @@
 <link rel="image_src" type="image/png" href="/img/hou-wb.svg">
 
 <!-- Canonical URL -->
-<% const canonicalUrl = (typeof seo !== 'undefined' && seo.fullCanonicalUrl) ? seo.fullCanonicalUrl : (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai'); %>
+<% const canonicalUrl = (typeof seo !== 'undefined' && seo.fullCanonicalUrl) ? seo.fullCanonicalUrl : (typeof homeUrl !== 'undefined' ? homeUrl : 'https://latticeruntime.com'); %>
 <link rel="canonical" href="<%= canonicalUrl %>">
 
 <!-- Feed autodiscovery -->
-<% const feedBaseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://visca.ai').replace(/\/$/, ''); %>
+<% const feedBaseUrl = (typeof homeUrl !== 'undefined' ? homeUrl : 'https://latticeruntime.com').replace(/\/$/, ''); %>
 <link rel="alternate" type="application/rss+xml" title="Cast Operations Blog RSS Feed" href="<%= feedBaseUrl %>/blog/rss.xml">

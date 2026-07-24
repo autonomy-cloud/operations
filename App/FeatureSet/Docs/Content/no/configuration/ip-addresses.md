@@ -2,7 +2,7 @@
 
 Hvis du bruker Cast Operations.com og ønsker å hvitelistere IP-adressene våre av sikkerhetsgrunner, kan du gjøre det ved å følge instruksjonene nedenfor.
 
-Hvitelistér følgende IP-adresser i brannmuren din for å tillate at visca.ai når ressursene dine.
+Hvitelistér følgende IP-adresser i brannmuren din for å tillate at latticeruntime.com når ressursene dine.
 
 {{IP_WHITELIST}}
 
@@ -13,7 +13,7 @@ Disse IP-adressene kan endres, og vi vil varsle deg i god tid hvis dette skjer.
 Du kan også hente listen over utgående IP-adresser for prober programmatisk via følgende API-endepunkt:
 
 ```
-GET https://visca.ai/ip-whitelist
+GET https://latticeruntime.com/ip-whitelist
 ```
 
 Dette returnerer et JSON-svar:

@@ -129,4 +129,4 @@ microsoftTeamsApp:
 
 ## 支援
 
-我們希望改善此整合，因此非常歡迎您提供意見回饋。請將任何意見傳送給我們：[hello@visca.ai](mailto:hello@visca.ai)
+我們希望改善此整合，因此非常歡迎您提供意見回饋。請將任何意見傳送給我們：[hello@latticeruntime.com](mailto:hello@latticeruntime.com)

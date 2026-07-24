@@ -10,7 +10,7 @@ El servidor MCP de Cast Operations es un puente entre los Modelos de Lenguaje Gr
 
 El servidor MCP se aloja junto a tu instancia de Cast Operations y es accesible a través del transporte HTTP transmisible (Streamable HTTP). No se requiere instalación local.
 
-**Usuarios en la nube**: `https://visca.ai/mcp`
+**Usuarios en la nube**: `https://latticeruntime.com/mcp`
 **Usuarios auto-alojados**: `https://your-operations-domain.com/mcp`
 
 ## Características principales
@@ -73,7 +73,7 @@ Agrega la siguiente configuración:
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "your-api-key-here"
       }
@@ -84,7 +84,7 @@ Agrega la siguiente configuración:
 
 ### Para Cast Operations auto-alojado
 
-Reemplaza `visca.ai` con tu dominio de Cast Operations:
+Reemplaza `latticeruntime.com` con tu dominio de Cast Operations:
 
 ```json
 {
@@ -109,7 +109,7 @@ Para usar solo herramientas públicas (información de páginas de estado, ayuda
   "mcpServers": {
     "cast-operations": {
       "transport": "streamable-http",
-      "url": "https://visca.ai/mcp"
+      "url": "https://latticeruntime.com/mcp"
     }
   }
 }
@@ -142,7 +142,7 @@ Como alternativa, crea `.vscode/mcp.json` en tu espacio de trabajo para una conf
   "servers": {
     "cast-operations": {
       "type": "http",
-      "url": "https://visca.ai/mcp",
+      "url": "https://latticeruntime.com/mcp",
       "headers": {
         "x-api-key": "${input:cast-operations-api-key}"
       }
@@ -296,7 +296,7 @@ Verifica que el servidor MCP esté en ejecución:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/health
+curl https://latticeruntime.com/mcp/health
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/health
@@ -306,7 +306,7 @@ Lista las herramientas disponibles:
 
 ```bash
 # For Cast Operations Cloud
-curl https://visca.ai/mcp/tools
+curl https://latticeruntime.com/mcp/tools
 
 # For Self-Hosted
 curl https://your-operations-domain.com/mcp/tools

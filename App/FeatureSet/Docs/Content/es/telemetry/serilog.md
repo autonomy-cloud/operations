@@ -8,8 +8,8 @@ No hay ningún paquete específico de Cast Operations que instalar: el sink se c
 
 ## Requisitos previos
 
-- **Regístrate para obtener una cuenta de Cast Operations** – Puedes registrarte para obtener una cuenta gratuita [aquí](https://visca.ai). Ten en cuenta que, si bien la cuenta es gratuita, la ingesta de registros es una función de pago. Puedes encontrar más detalles sobre los precios [aquí](https://visca.ai/pricing).
-- **Crea un proyecto de Cast Operations** – Una vez que tengas una cuenta, crea un proyecto desde el panel de Cast Operations. Si necesitas ayuda, contáctanos en support@visca.ai.
+- **Regístrate para obtener una cuenta de Cast Operations** – Puedes registrarte para obtener una cuenta gratuita [aquí](https://latticeruntime.com). Ten en cuenta que, si bien la cuenta es gratuita, la ingesta de registros es una función de pago. Puedes encontrar más detalles sobre los precios [aquí](https://latticeruntime.com/pricing).
+- **Crea un proyecto de Cast Operations** – Una vez que tengas una cuenta, crea un proyecto desde el panel de Cast Operations. Si necesitas ayuda, contáctanos en support@latticeruntime.com.
 - **Crea un token de ingesta de telemetría** – Necesitas un token para autenticar tus registros.
 
 Después de registrarte en Cast Operations y crear un proyecto, haz clic en "More" en la barra de navegación y luego en "Project Settings".
@@ -26,13 +26,13 @@ Una vez que hayas creado un token, haz clic en "View" para ver el token.
 
 | Configuración               | Valor                                                               |
 | --------------------------- | ------------------------------------------------------------------- |
-| Endpoint OTLP               | `https://visca.ai/otlp`                                        |
+| Endpoint OTLP               | `https://latticeruntime.com/otlp`                                        |
 | Encabezado de autenticación | `x-cast-operations-token: YOUR_TELEMETRY_INGESTION_TOKEN`                 |
 | Nombre del servicio         | El nombre con el que debe aparecer tu servicio, p. ej. `my-service` |
 
-> **¿Alojas Cast Operations por tu cuenta?** Reemplaza `https://visca.ai/otlp` por `https://YOUR-OPERATIONS-HOST/otlp` (o `http://...` si no estás terminando TLS). Todo lo demás permanece igual.
+> **¿Alojas Cast Operations por tu cuenta?** Reemplaza `https://latticeruntime.com/otlp` por `https://YOUR-OPERATIONS-HOST/otlp` (o `http://...` si no estás terminando TLS). Todo lo demás permanece igual.
 
-El sink utiliza el protocolo OTLP **HTTP/protobuf** y agrega automáticamente la ruta `/v1/logs` al endpoint, por lo que la URL final a la que realiza el POST es `https://visca.ai/otlp/v1/logs`. Solo necesitas proporcionar el endpoint base `/otlp`.
+El sink utiliza el protocolo OTLP **HTTP/protobuf** y agrega automáticamente la ruta `/v1/logs` al endpoint, por lo que la URL final a la que realiza el POST es `https://latticeruntime.com/otlp/v1/logs`. Solo necesitas proporcionar el endpoint base `/otlp`.
 
 ## Paso 1 — Instala los paquetes NuGet
 
@@ -70,7 +70,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.OpenTelemetry(options =>
     {
         // Base OTLP endpoint. The sink appends /v1/logs automatically.
-        options.Endpoint = "https://visca.ai/otlp";
+        options.Endpoint = "https://latticeruntime.com/otlp";
         options.Protocol = OtlpProtocol.HttpProtobuf;
 
         // Authenticate with your Cast Operations telemetry ingestion token.
@@ -115,7 +115,7 @@ Si prefieres la configuración antes que el código, usa `Serilog.Settings.Confi
       {
         "Name": "OpenTelemetry",
         "Args": {
-          "endpoint": "https://visca.ai/otlp",
+          "endpoint": "https://latticeruntime.com/otlp",
           "protocol": "HttpProtobuf",
           "headers": {
             "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
@@ -165,7 +165,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.OpenTelemetry(options =>
         {
-            options.Endpoint = "https://visca.ai/otlp";
+            options.Endpoint = "https://latticeruntime.com/otlp";
             options.Protocol = OtlpProtocol.HttpProtobuf;
             options.Headers = new Dictionary<string, string>
             {
@@ -228,10 +228,10 @@ Si tu aplicación también está instrumentada con el SDK de OpenTelemetry para 
 
 ## Solución de problemas
 
-- **No aparece ningún registro** – Verifica nuevamente el valor de `x-cast-operations-token` y confirma que pertenece al proyecto que estás visualizando. Comprueba que el endpoint sea `https://visca.ai/otlp` (solo la ruta base; no agregues `/v1/logs` tú mismo).
+- **No aparece ningún registro** – Verifica nuevamente el valor de `x-cast-operations-token` y confirma que pertenece al proyecto que estás visualizando. Comprueba que el endpoint sea `https://latticeruntime.com/otlp` (solo la ruta base; no agregues `/v1/logs` tú mismo).
 - **Los registros solo aparecen cuando la aplicación finaliza, o faltan los últimos registros** – Asegúrate de que `Log.CloseAndFlush()` se ejecute durante el apagado. El sink agrupa los eventos en lotes, por lo que los registros almacenados en búfer se pierden si el proceso se detiene sin vaciarlos.
 - **`401 Unauthorized` / nada se ingiere** – El token falta o no es válido. Confirma que la clave del encabezado sea exactamente `x-cast-operations-token`.
 - **Nombre de servicio incorrecto** – Establece `service.name` en `ResourceAttributes` (código) o `resourceAttributes` (appsettings.json). Sin él, los registros recurren a un servicio predeterminado/desconocido.
 - **Errores de conexión a una instancia autoalojada** – Asegúrate de que el protocolo coincida con el esquema de tu endpoint (`https://` frente a `http://`) y de que tu host de Cast Operations sea accesible desde la aplicación.
 
-Si tienes alguna pregunta o necesitas ayuda, contáctanos en support@visca.ai.
+Si tienes alguna pregunta o necesitas ayuda, contáctanos en support@latticeruntime.com.

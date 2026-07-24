@@ -30,8 +30,8 @@ Fluentdは何百ものデータソースをサポートしており、これら�
 ## 前提条件
 
 - **ステップ1：Fluentdのインストール** — [こちら](https://docs.fluentd.org/installation)の手順に従ってFluentdをインストールします
-- **ステップ2：Cast Operationsアカウントへの登録** — [こちら](https://visca.ai)から無料アカウントを登録できます。アカウントは無料ですが、ログの取り込みは有料機能です。価格の詳細は[こちら](https://visca.ai/pricing)で確認できます。
-- **ステップ3：Cast Operationsプロジェクトの作成** — アカウントを取得したら、Cast Operations ダッシュボードからプロジェクトを作成できます。プロジェクトの作成に関してご不明な点がある場合は、support@visca.ai にお問い合わせください
+- **ステップ2：Cast Operationsアカウントへの登録** — [こちら](https://latticeruntime.com)から無料アカウントを登録できます。アカウントは無料ですが、ログの取り込みは有料機能です。価格の詳細は[こちら](https://latticeruntime.com/pricing)で確認できます。
+- **ステップ3：Cast Operationsプロジェクトの作成** — アカウントを取得したら、Cast Operations ダッシュボードからプロジェクトを作成できます。プロジェクトの作成に関してご不明な点がある場合は、support@latticeruntime.com にお問い合わせください
 - **ステップ4：テレメトリー取り込みトークンの作成** — Cast Operationsアカウントを作成したら、アプリケーションからログ、メトリクス、トレースを取り込むためのテレメトリー取り込みトークンを作成できます
 
 Cast Operationsに登録してプロジェクトを作成した後、ナビゲーションバーの「More」をクリックし、「プロジェクト設定」をクリックします。
@@ -55,7 +55,7 @@ Cast Operationsに登録してプロジェクトを作成した後、ナビゲ�
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -90,7 +90,7 @@ bind 0.0.0.0
 <match **>
 @type http
 
-endpoint https://visca.ai/fluentd/logs
+endpoint https://latticeruntime.com/fluentd/logs
 open_timeout 2
 
 headers {"x-cast-operations-token":"YOUR_SERVICE_TOKEN", "x-cast-operations-service-name":"YOUR_SERVICE_NAME"}
@@ -111,4 +111,4 @@ flush_interval 10s
 
 ## 使用方法
 
-fluentdの設定ファイルに設定を追加したら、fluentdサービスを再起動します。サービスを再起動すると、テレメトリーデータがCast Operations HTTPソースに送信されます。Cast Operations ダッシュボードでテレメトリーデータを確認できるようになります。設定に関してご不明な点がある場合は、support@visca.ai にお問い合わせください。
+fluentdの設定ファイルに設定を追加したら、fluentdサービスを再起動します。サービスを再起動すると、テレメトリーデータがCast Operations HTTPソースに送信されます。Cast Operations ダッシュボードでテレメトリーデータを確認できるようになります。設定に関してご不明な点がある場合は、support@latticeruntime.com にお問い合わせください。

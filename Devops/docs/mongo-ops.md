@@ -202,6 +202,6 @@ exit                                            # This is important.
 kubectl exec -it fi-mongodb-0 mongo
 use castoperationsdb
 db.auth('cast-operations','password')
-db.users.find({email: 'admin@visca.ai'}) # Master admin user. Should be already signed up.
-db.users.update({email: 'admin@visca.ai'}, {$set:{ role: 'master-admin'}}) # Update the user
+db.users.find({email: 'admin@latticeruntime.com'}) # Master admin user. Should be already signed up.
+db.users.update({email: 'admin@latticeruntime.com'}, {$set:{ role: 'master-admin'}}) # Update the user
 ```

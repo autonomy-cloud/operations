@@ -28,16 +28,16 @@ Cast Operations infrastrukturagenten er en letvægts Go-baseret dæmon, der inds
 
 ```bash
 # Installer agenten
-curl -sSL https://visca.ai/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
+curl -sSL https://latticeruntime.com/docs/static/scripts/infrastructure-agent/install.sh | sudo bash
 
 # Konfigurer agenten
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Start agenten
 sudo cast-operations-infrastructure-agent start
 ```
 
-Erstat `YOUR_SECRET_KEY` med den hemmelige nøgle vist i din monitors indstillinger, og `https://visca.ai` med din Cast Operations-instans-URL, hvis du selvhoster.
+Erstat `YOUR_SECRET_KEY` med den hemmelige nøgle vist i din monitors indstillinger, og `https://latticeruntime.com` med din Cast Operations-instans-URL, hvis du selvhoster.
 
 ### Windows
 
@@ -49,7 +49,7 @@ Erstat `YOUR_SECRET_KEY` med den hemmelige nøgle vist i din monitors indstillin
 
 ```bash
 # Konfigurer agenten
-cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai
+cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com
 
 # Start agenten
 cast-operations-infrastructure-agent start
@@ -60,7 +60,7 @@ cast-operations-infrastructure-agent start
 Hvis din server opretter forbindelse til internettet via en proxy, kan du konfigurere agenten til at bruge den:
 
 ```bash
-sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://visca.ai --proxy-url=http://proxy.example.com:8080
+sudo cast-operations-infrastructure-agent configure --secret-key=YOUR_SECRET_KEY --cast-operations-url=https://latticeruntime.com --proxy-url=http://proxy.example.com:8080
 ```
 
 ## Agentkommandoer

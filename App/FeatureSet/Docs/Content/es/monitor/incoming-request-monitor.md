@@ -26,7 +26,7 @@ Los monitores de solicitudes entrantes proporcionan una URL de webhook única qu
 Una vez creado, tu monitor tendrá una URL de latido única en el formato:
 
 ```
-https://visca.ai/heartbeat/YOUR_SECRET_KEY
+https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 ```
 
 Tu servicio debe enviar solicitudes HTTP **GET** o **POST** a esta URL a intervalos regulares.
@@ -37,10 +37,10 @@ Tu servicio debe enviar solicitudes HTTP **GET** o **POST** a esta URL a interva
 
 ```bash
 # Solicitud GET simple
-curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
+curl https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 
 # Solicitud POST con cuerpo personalizado
-curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Agregar al crontab para enviar un latido cada 5 minutos
-*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### Desde el código de la aplicación
@@ -57,16 +57,16 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Ejemplo en Node.js
 const https = require("https");
-https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
+https.get("https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Ejemplo en Python
 import requests
-requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY')
 ```
 
-Reemplaza `https://visca.ai` con la URL de tu instancia de Cast Operations si es auto-alojada.
+Reemplaza `https://latticeruntime.com` con la URL de tu instancia de Cast Operations si es auto-alojada.
 
 ## Criterios de monitoreo
 

@@ -1,6 +1,6 @@
 {
   "name": "@cast-operations/runbook-agent",
-  "version": "11.5.9",
+  "version": "11.5.11",
   "description": "Cast Operations Runbook Agent — executes bash runbook steps in your own infrastructure and reports results back to Cast Operations.",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "dep-check": "npm install -g depcheck && depcheck ./ --skip-missing=true",
     "test": "jest --detectOpenHandles --passWithNoTests"
   },
-  "author": "Cast Operations <hello@visca.ai> (https://visca.ai/)",
+  "author": "Cast Operations <hello@latticeruntime.com> (https://latticeruntime.com/)",
   "license": "Apache-2.0",
   "dependencies": {
     "axios": "^1.18.0",

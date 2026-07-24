@@ -1,6 +1,6 @@
 # Indgående anmodnings-indgang
 
-En brugerdefineret probe kan valgfrit køre en **indgående HTTP-lytter**, der accepterer `heartbeat`- og `incoming-request`-kald inde fra dit private netværk og videresender dem til Cast Operations. Dette giver tjenester, der **ikke har udgående internetadgang**, mulighed for stadig at rapportere til en [Indgående Anmodningsmonitor](/docs/monitor/incoming-request-monitor) ved at sende anmodningen til en probe på det lokale netværk i stedet for direkte til `visca.ai`.
+En brugerdefineret probe kan valgfrit køre en **indgående HTTP-lytter**, der accepterer `heartbeat`- og `incoming-request`-kald inde fra dit private netværk og videresender dem til Cast Operations. Dette giver tjenester, der **ikke har udgående internetadgang**, mulighed for stadig at rapportere til en [Indgående Anmodningsmonitor](/docs/monitor/incoming-request-monitor) ved at sende anmodningen til en probe på det lokale netværk i stedet for direkte til `latticeruntime.com`.
 
 ## Oversigt
 
@@ -24,7 +24,7 @@ Brug indgangs-lytteren, når:
 - Du vil have et enkelt udgangspunkt – proben – der har adgang til Cast Operations
 - Du allerede har deployeret en [Brugerdefineret Probe](/docs/probe/custom-probe) og vil genbruge den til indgående hjerteslag
 
-Hvis dine tjenester allerede kan nå `https://visca.ai` (eller din selvhostede URL) direkte, har du **ikke** brug for denne funktion – kald hjerteslag-URL'en direkte fra tjenesten.
+Hvis dine tjenester allerede kan nå `https://latticeruntime.com` (eller din selvhostede URL) direkte, har du **ikke** brug for denne funktion – kald hjerteslag-URL'en direkte fra tjenesten.
 
 ## Aktivering af indgangs-lytteren
 
@@ -36,7 +36,7 @@ Sæt `PROBE_INGRESS_PORT` til den port, du vil binde lytteren til. Enhver værdi
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ Hvis du ikke bruger `--network host`, skal du eksplicit publicere indgangsporten
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ Interne tjenester kan derefter sende hjerteslag til `http://cast-operations-prob
 Erstat den offentlige hjerteslag-URL:
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 med probens indgangs-URL:
@@ -171,7 +171,7 @@ Standard probe-variabler (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, proxyv
 
 ## Sikkerhedsovervejelser
 
-- **Endpointet er uautentificeret af design** – den hemmelige nøgle i URL-stien _er_ autentificeringen, ligesom det er på det offentlige `visca.ai`-endpoint. Behandl den hemmelige nøgle som et legitimationsoplysning.
+- **Endpointet er uautentificeret af design** – den hemmelige nøgle i URL-stien _er_ autentificeringen, ligesom det er på det offentlige `latticeruntime.com`-endpoint. Behandl den hemmelige nøgle som et legitimationsoplysning.
 - **Bind kun til en privat grænseflade.** Indgangs-lytteren bør ikke være tilgængelig fra det offentlige internet. Brug en netværkspolitik, firewallregel eller `ClusterIP`-service til at begrænse adgangen.
 - **Brug HTTPS-terminering, hvis du kræver kryptering under overførslen.** Probens lytter taler alm. HTTP. Placer den bag en intern load balancer/ingress-controller, hvis du har brug for TLS på det indgående hop. Videresendelsesben fra probe → Cast Operations bruger altid HTTPS (forudsat at `CAST_OPERATIONS_URL` er `https://`).
 - **Ressourcegrænser.** Lytteren accepterer anmodningsindhold op til 50 MB. Hvis du har brug for et strengere loft, skal du placere en reverse proxy foran.

@@ -9,7 +9,7 @@
 ステータスページのリソースの全体ステータスを取得するには、以下のエンドポイントにPOSTリクエストを送信します：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 APIからのレスポンスは次のとおりです：
@@ -20,11 +20,11 @@ APIからのレスポンスは次のとおりです：
     // モニターステータスオブジェクト
     // 全体ステータスはステータスページにあるすべてのモニターとグループの中で最も悪いステータスです。
     // モニターステータスの詳細はこちら。
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // スケジュールされたメンテナンスの公開メモの詳細はこちら。
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // スケジュールされたメンテナンスの公開メモオブジェクト
     },
@@ -34,7 +34,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "statusPageHistoryChartBarColorRules": [
     // ステータスページ履歴チャートのバーカラールールの詳細はこちら。
-    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
+    // https://latticeruntime.com/reference/status-page-history-chart-bar-color-rule
     {
       // ステータスページ履歴チャートのバーカラールールオブジェクト
     },
@@ -44,7 +44,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "scheduledMaintenanceEvents": [
     // スケジュールされたメンテナンスイベントの詳細はこちら。
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // スケジュールされたメンテナンスイベントオブジェクト
     },
@@ -54,7 +54,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "activeAnnouncements": [
     // アクティブなお知らせの詳細はこちら。
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // ステータスページお知らせオブジェクト
     },
@@ -64,7 +64,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "incidentPublicNotes": [
     // インシデントの公開メモの詳細はこちら。
-    // https://visca.ai/reference/incident-public-note
+    // https://latticeruntime.com/reference/incident-public-note
     {
       // インシデントの公開メモオブジェクト
     },
@@ -74,7 +74,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "activeIncidents": [
     // アクティブなインシデントの詳細はこちら。
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // インシデントオブジェクト
     },
@@ -84,7 +84,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "monitorStatusTimelines": [
     // モニターステータスタイムラインの詳細はこちら。
-    // https://visca.ai/reference/monitor-status-timeline
+    // https://latticeruntime.com/reference/monitor-status-timeline
     {
       // モニターステータスタイムラインオブジェクト
     },
@@ -94,7 +94,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "resourceGroups": [
     // リソースグループの詳細はこちら。
-    // https://visca.ai/reference/resource-group
+    // https://latticeruntime.com/reference/resource-group
     {
       // リソースグループオブジェクト
     },
@@ -104,7 +104,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "monitorStatuses": [
     // モニターステータスの詳細はこちら。
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
     {
       // モニターステータスオブジェクト
     },
@@ -114,7 +114,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "statusPageResources": [
     // ステータスページリソースの詳細はこちら。
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // ステータスページリソースオブジェクト
     },
@@ -124,7 +124,7 @@ APIからのレスポンスは次のとおりです：
   ],
   "incidentStateTimelines": [
     // インシデントステートタイムラインの詳細はこちら。
-    // https://visca.ai/reference/incident-state-timeline
+    // https://latticeruntime.com/reference/incident-state-timeline
     {
       // インシデントステートタイムラインオブジェクト
     },
@@ -134,11 +134,11 @@ APIからのレスポンスは次のとおりです：
   ],
   "statusPage": {
     // ステータスページの詳細はこちら。
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // スケジュールされたメンテナンスステートタイムラインの詳細はこちら。
-    // https://visca.ai/reference/scheduled-maintenance-state-timeline
+    // https://latticeruntime.com/reference/scheduled-maintenance-state-timeline
     {
       // スケジュールされたメンテナンスステートタイムラインオブジェクト
     },
@@ -162,7 +162,7 @@ APIからのレスポンスは次のとおりです：
 すべてのリソースの全体的な稼働率を取得するには、以下のエンドポイントにPOSTリクエストを送信します：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **リクエストボディ（オプション）：**
@@ -257,7 +257,7 @@ APIからのレスポンス例は次のとおりです：
 このAPIはステータスページにあるすべてのインシデントを取得します。ステータスページのすべてのインシデントを取得するには、以下のエンドポイントにPOSTリクエストを送信します：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 APIからのレスポンスは次のとおりです：
@@ -266,7 +266,7 @@ APIからのレスポンスは次のとおりです：
 {
   "incidents": [
     // インシデントの詳細はこちら。
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // インシデントオブジェクト
     },
@@ -282,7 +282,7 @@ APIからのレスポンスは次のとおりです：
 このAPIはステータスページにあるすべてのスケジュールされたメンテナンスを取得します。ステータスページのすべてのスケジュールされたメンテナンスを取得するには、以下のエンドポイントにPOSTリクエストを送信します：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 APIからのレスポンスは次のとおりです：
@@ -291,7 +291,7 @@ APIからのレスポンスは次のとおりです：
 {
   "scheduledMaintenanceEvents": [
     // スケジュールされたメンテナンスイベントの詳細はこちら。
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // スケジュールされたメンテナンスイベントオブジェクト
     },
@@ -307,7 +307,7 @@ APIからのレスポンスは次のとおりです：
 このAPIはステータスページにあるすべてのお知らせを取得します。ステータスページのすべてのお知らせを取得するには、以下のエンドポイントにPOSTリクエストを送信します：
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 APIからのレスポンスは次のとおりです：
@@ -316,7 +316,7 @@ APIからのレスポンスは次のとおりです：
 {
   "announcements": [
     // お知らせの詳細はこちら。
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // お知らせオブジェクト
     },

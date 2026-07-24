@@ -4,7 +4,7 @@
 
 1. **Een account aanmaken op Cast Operations**
 
-   - Ga naar [Cast Operations.com](https://visca.ai) en maak een account aan.
+   - Ga naar [Cast Operations.com](https://latticeruntime.com) en maak een account aan.
    - Zodra het account is aangemaakt, maakt u een nieuw project aan.
 
 2. **Slack verbinden met Cast Operations-project**

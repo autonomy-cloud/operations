@@ -5,7 +5,7 @@
 # hosts, containers, and container logs and ships them to Cast Operations.
 #
 # Users only need to supply a few environment variables:
-#   - CAST_OPERATIONS_URL               (e.g. https://visca.ai)
+#   - CAST_OPERATIONS_URL               (e.g. https://latticeruntime.com)
 #   - CAST_OPERATIONS_SERVICE_TOKEN     (telemetry ingestion token)
 #   - CAST_OPERATIONS_PROJECT_ID        (Cast Operations project ID)
 #   - DOCKER_HOST_NAME (optional) (friendly host name, defaults to docker-host)
@@ -19,8 +19,8 @@ FROM otel/opentelemetry-collector-contrib:0.154.0
 LABEL org.opencontainers.image.title="Cast Operations Docker Agent"
 LABEL org.opencontainers.image.description="Pre-configured OpenTelemetry Collector for monitoring Docker hosts and containers with Cast Operations."
 LABEL org.opencontainers.image.source="https://github.com/autonomy-cloud/operations"
-LABEL org.opencontainers.image.url="https://visca.ai"
-LABEL org.opencontainers.image.documentation="https://visca.ai/docs"
+LABEL org.opencontainers.image.url="https://latticeruntime.com"
+LABEL org.opencontainers.image.documentation="https://latticeruntime.com/docs"
 LABEL org.opencontainers.image.vendor="Cast Operations"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 

@@ -32,7 +32,7 @@ O APK é compilado e assinado pelo Cast Operations a partir da mesma fonte da ve
 ## Primeira Execução e Login
 
 1. **URL do Servidor**
-   - Se você usa o Cast Operations Cloud, mantenha o padrão `https://visca.ai`.
+   - Se você usa o Cast Operations Cloud, mantenha o padrão `https://latticeruntime.com`.
    - Se você é auto-hospedado, insira o URL da sua instância do Cast Operations (ex.: `https://operations.example.com`).
    - O aplicativo verifica se o servidor está acessível antes de prosseguir.
 2. **Entrar**

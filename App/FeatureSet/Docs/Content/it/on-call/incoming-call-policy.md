@@ -321,4 +321,4 @@ Per problemi con la funzionalità Policy di Chiamata In Entrata, si prega di:
 
 1. Controllare la Console Twilio per i log degli errori
 2. Esaminare i log del server Cast Operations
-3. Contattare il supporto all'indirizzo [hello@visca.ai](mailto:hello@visca.ai)
+3. Contattare il supporto all'indirizzo [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

@@ -176,5 +176,5 @@ return {
 - Du kan returnera data från skriptet med `return`-uttrycket. Tilldela skärmdumpar till det tillhandahållna `screenshots`-objektet så att de bevaras även om skriptet kastar ett undantag.
 - Du kan använda variablerna `browserType` och `screenSizeType` för att få webbläsartyp och skärmstorlek i den aktuella körningskontexten.
 - Detta är ett JavaScript-skript, så du kan använda alla JavaScript-funktioner i skriptet.
-- Om du använder visca.ai har du alltid den senaste versionen av Playwright och webbläsare tillgängliga i skriptets kontext. Om du egeninstallerar, se till att du uppdaterar sonderna för att ha den senaste versionen av Playwright och webbläsarna.
+- Om du använder latticeruntime.com har du alltid den senaste versionen av Playwright och webbläsare tillgängliga i skriptets kontext. Om du egeninstallerar, se till att du uppdaterar sonderna för att ha den senaste versionen av Playwright och webbläsarna.
 - Timeout för skriptet är 2 minuter. Om skriptet tar mer än 2 minuter avslutas det.

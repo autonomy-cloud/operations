@@ -181,7 +181,7 @@ describe("ResourceCommands", () => {
        * race conditions with other test files that share ~/.cast-operations/config.json
        */
       process.env["CAST_OPERATIONS_API_KEY"] = "test-key-12345";
-      process.env["CAST_OPERATIONS_URL"] = "https://test.visca.ai";
+      process.env["CAST_OPERATIONS_URL"] = "https://test.latticeruntime.com";
       mockExecuteApiRequest.mockResolvedValue({ data: [] });
     });
 

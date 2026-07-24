@@ -47,10 +47,10 @@ npm을 사용하지 않거나 설치되지 않은 경우 대신 다음을 실행
 
 ```
 # config.env 파일에서 환경 변수를 읽고 docker compose up을 실행합니다.
-(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)
+(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)
 
 # 포트 바인딩에 권한 문제가 있는 경우 sudo를 사용합니다.
-sudo bash -c "(export $(grep -v '^#' config.env | xargs) && docker compose up --remove-orphans -d)"
+sudo bash -c "(set -a && . ./config.env && set +a && docker compose up --remove-orphans -d)"
 ```
 
 ### Cast Operations 액세스

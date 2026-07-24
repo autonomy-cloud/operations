@@ -30,7 +30,7 @@ Cast Operations 以 `faas.name` 資源屬性作為每個函式的鍵：
 大多數語言的自動檢測都會遵循標準的 OpenTelemetry 環境變數：
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://latticeruntime.com/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
@@ -43,7 +43,7 @@ OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
-OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 

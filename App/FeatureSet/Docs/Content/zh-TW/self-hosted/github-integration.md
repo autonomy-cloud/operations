@@ -212,6 +212,6 @@ gitHubApp:
 
 1. 查看上方的疑難排解區段
 2. 檢閱 Cast Operations 記錄以取得詳細的錯誤訊息
-3. 透過 [hello@visca.ai](mailto:hello@visca.ai) 與我們聯絡
+3. 透過 [hello@latticeruntime.com](mailto:hello@latticeruntime.com) 與我們聯絡
 
 我們歡迎您提供意見回饋以改善此整合！

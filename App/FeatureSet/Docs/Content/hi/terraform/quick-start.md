@@ -12,7 +12,7 @@
 
 ### Cast Operations Cloud के लिए
 
-1. [Cast Operations Cloud](https://visca.ai) पर जाएं और log in करें
+1. [Cast Operations Cloud](https://latticeruntime.com) पर जाएं और log in करें
 2. **Settings** → **API Keys** पर जाएं
 3. **Create API Key** पर क्लिक करें
 4. इसे "Terraform Provider" नाम दें
@@ -49,7 +49,7 @@ terraform {
 
 provider "cast-operations" {
   # Cloud customers के लिए
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
 
   # Self-Hosted customers के लिए - अपना instance URL उपयोग करें
   # cast_operations_url = "https://operations.yourcompany.com"

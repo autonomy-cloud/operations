@@ -95,7 +95,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url    = "https://visca.ai"
+  cast_operations_url    = "https://latticeruntime.com"
   api_key = var.cast_operations_api_key
 }
 
@@ -154,11 +154,11 @@ The provider supports multiple authentication methods:
 ```hcl
 provider "cast-operations" {
   # Method 1: API Key
-  host    = "https://visca.ai"
+  host    = "https://latticeruntime.com"
   api_key = var.api_key
 
   # Method 2: Username/Password
-  host     = "https://visca.ai"
+  host     = "https://latticeruntime.com"
   username = var.username
   password = var.password
 }

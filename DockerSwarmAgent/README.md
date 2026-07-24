@@ -30,7 +30,7 @@ The script prompts for your Cast Operations URL, ingestion key, and cluster name
 Download `docker-compose.yml`, `otel-collector-config.yaml`, and `inventory-snapshot.sh` into a folder on a manager node, then create a `.env`:
 
 ```bash
-CAST_OPERATIONS_URL=https://visca.ai
+CAST_OPERATIONS_URL=https://latticeruntime.com
 CAST_OPERATIONS_SERVICE_TOKEN=your-telemetry-ingestion-key
 DOCKER_SWARM_CLUSTER_NAME=my-swarm
 ```
@@ -57,7 +57,7 @@ The cluster auto-registers in Cast Operations on first telemetry (keyed by `DOCK
 
 | Variable                            | Required | Default                 | Notes                                                          |
 | ----------------------------------- | -------- | ----------------------- | -------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`                     | yes      | `https://visca.ai` | Your Cast Operations instance                                        |
+| `CAST_OPERATIONS_URL`                     | yes      | `https://latticeruntime.com` | Your Cast Operations instance                                        |
 | `CAST_OPERATIONS_SERVICE_TOKEN`           | yes      | —                       | Telemetry ingestion key                                        |
 | `DOCKER_SWARM_CLUSTER_NAME`         | yes      | `docker-swarm`          | The cluster join key (matches the cluster's Name in Cast Operations) |
 | `DOCKER_INVENTORY_INTERVAL_SECONDS` | no       | `300`                   | How often the poller refreshes the inventory snapshot          |

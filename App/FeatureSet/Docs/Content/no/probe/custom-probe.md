@@ -11,7 +11,7 @@ For å begynne må du opprette en egendefinert probe i Prosjektinnstillinger > P
 For å kjøre en probe, sørg for at du har Docker installert. Du kan kjøre egendefinert probe ved å:
 
 ```
-docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://visca.ai -d cast-operations/probe:release
+docker run --name cast-operations-probe --network host -e PROBE_KEY=<probe-key> -e PROBE_ID=<probe-id> -e CAST_OPERATIONS_URL=https://latticeruntime.com -d cast-operations/probe:release
 ```
 
 Hvis du selvhoster Cast Operations, kan du endre `CAST_OPERATIONS_URL` til din egendefinerte selvhostede instans.
@@ -25,7 +25,7 @@ Hvis proben trenger å gå gjennom en proxy-server for å nå Cast Operations el
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -34,7 +34,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTPS_PROXY_URL=http://proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
   -d cast-operations/probe:release
@@ -43,7 +43,7 @@ docker run --name cast-operations-probe --network host \
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e HTTP_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e HTTPS_PROXY_URL=http://username:password@proxy.example.com:8080 \
   -e NO_PROXY=localhost,.internal.example.com \
@@ -64,7 +64,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -83,7 +83,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       # Proxy-konfigurasjon (valgfritt)
       - HTTP_PROXY_URL=http://proxy.example.com:8080
       - HTTPS_PROXY_URL=http://proxy.example.com:8080
@@ -131,7 +131,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 ##### Med proxy-konfigurasjon
@@ -161,7 +161,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             # Proxy-konfigurasjon (valgfritt)
             - name: HTTP_PROXY_URL
               value: "http://proxy.example.com:8080"
@@ -194,7 +194,7 @@ Proben støtter følgende miljøvariabler:
 
 - `PROBE_KEY` – Probe-nøkkelen fra Cast Operations-dashbordet ditt
 - `PROBE_ID` – Probe-ID-en fra Cast Operations-dashbordet ditt
-- `CAST_OPERATIONS_URL` – URL-en til din Cast Operations-instans (standard: https://visca.ai)
+- `CAST_OPERATIONS_URL` – URL-en til din Cast Operations-instans (standard: https://latticeruntime.com)
 
 #### Valgfrie variabler
 
@@ -236,4 +236,4 @@ http://[username:password@]proxy.server.com:port
 
 ### Verifisere
 
-Hvis proben kjører vellykket, skal den vises som `Connected` på Cast Operations-dashbordet. Hvis den ikke vises som tilkoblet, må du sjekke loggene til containeren. Hvis du fortsatt har problemer, vennligst opprett en sak på [GitHub](https://github.com/autonomy-cloud/operations) eller [kontakt støtte](https://visca.ai/support).
+Hvis proben kjører vellykket, skal den vises som `Connected` på Cast Operations-dashbordet. Hvis den ikke vises som tilkoblet, må du sjekke loggene til containeren. Hvis du fortsatt har problemer, vennligst opprett en sak på [GitHub](https://github.com/autonomy-cloud/operations) eller [kontakt støtte](https://latticeruntime.com/support).

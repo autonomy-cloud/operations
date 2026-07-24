@@ -16,7 +16,7 @@ Cast Operations Kubernetes エージェントは、OpenTelemetry ベースのコ
 ## ステップ 1 — Cast Operations Helm リポジトリを追加する
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 ```
 
@@ -674,7 +674,7 @@ helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
 3. **取り込みキーを検証します。** トークンが受け入れられるかどうかを Cast Operations に直接問い合わせます (`200` = 有効、`401` = 不明/失効):
 
    ```bash
-   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://latticeruntime.com/otlp/v1/validate
    ```
 
    `401` が返される場合、リリース内のキーが誤っているか失効しています。_Project Settings → Telemetry Ingestion Keys_ から有効なキーをコピーして再デプロイしてください。

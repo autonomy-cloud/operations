@@ -1,6 +1,6 @@
 # Ingress de Requisição de Entrada
 
-Uma Probe Personalizada pode opcionalmente executar um **listener HTTP de entrada** que aceita chamadas de `heartbeat` e `incoming-request` de dentro da sua rede privada e as encaminha para o Cast Operations. Isso permite que serviços sem **acesso à internet de saída** ainda se reportem a um [Monitor de Requisição de Entrada](/docs/monitor/incoming-request-monitor) enviando a requisição para uma probe na rede local em vez de `visca.ai` diretamente.
+Uma Probe Personalizada pode opcionalmente executar um **listener HTTP de entrada** que aceita chamadas de `heartbeat` e `incoming-request` de dentro da sua rede privada e as encaminha para o Cast Operations. Isso permite que serviços sem **acesso à internet de saída** ainda se reportem a um [Monitor de Requisição de Entrada](/docs/monitor/incoming-request-monitor) enviando a requisição para uma probe na rede local em vez de `latticeruntime.com` diretamente.
 
 ## Visão Geral
 
@@ -24,7 +24,7 @@ Use o listener de ingress quando:
 - Você quer um único ponto de egress — a probe — que tenha permissão para alcançar o Cast Operations
 - Você já implantou uma [Probe Personalizada](/docs/probe/custom-probe) e quer reutilizá-la para heartbeats de entrada
 
-Se seus serviços já podem alcançar `https://visca.ai` (ou sua URL auto-hospedada) diretamente, você **não** precisa deste recurso — chame a URL de heartbeat diretamente do serviço.
+Se seus serviços já podem alcançar `https://latticeruntime.com` (ou sua URL auto-hospedada) diretamente, você **não** precisa deste recurso — chame a URL de heartbeat diretamente do serviço.
 
 ## Habilitando o listener de ingress
 
@@ -36,7 +36,7 @@ Defina `PROBE_INGRESS_PORT` para a porta à qual você quer que o listener seja 
 docker run --name cast-operations-probe --network host \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -d cast-operations/probe:release
 ```
@@ -47,7 +47,7 @@ Se você não estiver usando `--network host`, publique a porta de ingress expli
 docker run --name cast-operations-probe \
   -e PROBE_KEY=<probe-key> \
   -e PROBE_ID=<probe-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -e PROBE_INGRESS_PORT=3875 \
   -p 3875:3875 \
   -d cast-operations/probe:release
@@ -65,7 +65,7 @@ services:
     environment:
       - PROBE_KEY=<probe-key>
       - PROBE_ID=<probe-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
       - PROBE_INGRESS_PORT=3875
     ports:
       - "3875:3875"
@@ -97,7 +97,7 @@ spec:
             - name: PROBE_ID
               value: "<probe-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
             - name: PROBE_INGRESS_PORT
               value: "3875"
           ports:
@@ -125,7 +125,7 @@ Os serviços internos podem então enviar heartbeats para `http://cast-operation
 Substitua a URL de heartbeat pública:
 
 ```
-https://visca.ai/heartbeat/<secret-key>
+https://latticeruntime.com/heartbeat/<secret-key>
 ```
 
 pela URL de ingress da probe:
@@ -171,7 +171,7 @@ As variáveis padrão de probe (`PROBE_KEY`, `PROBE_ID`, `CAST_OPERATIONS_URL`, 
 
 ## Considerações de segurança
 
-- **O endpoint não tem autenticação por design** — a chave secreta no caminho da URL _é_ a autenticação, assim como no endpoint público `visca.ai`. Trate a chave secreta como uma credencial.
+- **O endpoint não tem autenticação por design** — a chave secreta no caminho da URL _é_ a autenticação, assim como no endpoint público `latticeruntime.com`. Trate a chave secreta como uma credencial.
 - **Vincule apenas a uma interface privada.** O listener de ingress não deve ser acessível pela internet pública. Use uma política de rede, regra de firewall ou serviço `ClusterIP` para restringir o acesso.
 - **Use terminação HTTPS se precisar de criptografia em trânsito.** O listener da probe fala HTTP simples. Coloque-o atrás de um balanceador de carga interno / controlador de ingress se precisar de TLS na conexão de entrada. A etapa de encaminhamento da probe → Cast Operations sempre usa HTTPS (assumindo que `CAST_OPERATIONS_URL` seja `https://`).
 - **Limites de recursos.** O listener aceita corpos de requisição de até 50 MB. Se precisar de um limite mais restrito, coloque um proxy reverso na frente.

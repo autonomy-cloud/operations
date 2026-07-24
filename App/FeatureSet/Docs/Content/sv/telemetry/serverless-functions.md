@@ -30,7 +30,7 @@ Cast Operations nycklar varje funktion på resursattributet `faas.name`:
 De flesta automatiska instrumenteringar per språk respekterar standardmiljövariablerna för OpenTelemetry:
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="https://visca.ai/otlp"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://latticeruntime.com/otlp"
 OTEL_EXPORTER_OTLP_HEADERS="x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN"
 OTEL_RESOURCE_ATTRIBUTES="faas.name=checkout-handler,faas.version=1.4.2"
 ```
@@ -43,7 +43,7 @@ För AWS Lambda är den enklaste vägen [OpenTelemetry Lambda-lagret](https://op
 
 ```bash
 AWS_LAMBDA_EXEC_WRAPPER=/opt/otel-handler
-OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 ```
 

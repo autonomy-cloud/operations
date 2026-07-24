@@ -66,7 +66,7 @@ docker compose up -d
 
 | Variabel                  | Obligatorisk | Beskrivning                                                                                                                             |
 | ------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | Ja           | URL till din Cast Operations-instans (till exempel `https://visca.ai` eller din självhostade värd)                                       |
+| `CAST_OPERATIONS_URL`           | Ja           | URL till din Cast Operations-instans (till exempel `https://latticeruntime.com` eller din självhostade värd)                                       |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | Ja           | Telemetry ingestion-token från _Project Settings → Telemetry Ingestion Keys_                                                            |
 | `DOCKER_HOST_NAME`        | Nej          | Användarvänligt namn för den här värden. Standardvärdet är `docker-host`. Ange det till något stabilt per värd (t.ex. `prod-docker-01`) |
 

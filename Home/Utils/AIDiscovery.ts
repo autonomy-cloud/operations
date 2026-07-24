@@ -29,7 +29,7 @@ export interface RecentBlogPostLink {
 }
 
 function normalizeBaseUrl(homeUrl: string): string {
-  return (homeUrl || "https://visca.ai").replace(/\/$/, "");
+  return (homeUrl || "https://latticeruntime.com").replace(/\/$/, "");
 }
 
 // "Status Page | Free Public & Private Status Pages | Cast Operations" -> "Status Page"
@@ -48,7 +48,7 @@ function getPagesByType(pageType: PageSEOData["pageType"]): Array<PageSEOData> {
 
 // Escape characters that would break a markdown table cell.
 function tableCell(value: string): string {
-  return value.replace(/\|/g, "\\|").replace(/\n/g, " ");
+  return value.replace(/\\/g, "\\\\").replace(/\|/g, "\\|").replace(/\n/g, " ");
 }
 
 /*
@@ -92,7 +92,7 @@ export function generateLlmsTxt(
   lines.push("# Cast Operations");
   lines.push("");
   lines.push(
-    "> Cast Operations is an open-source (Apache 2.0), all-in-one observability platform: uptime monitoring, status pages, incident management, on-call scheduling and alerting, logs, metrics, traces, error tracking, dashboards, workflow automation, runbooks and an AI reliability agent. Available as a cloud service at https://visca.ai or self-hosted.",
+    "> Cast Operations is an open-source (Apache 2.0), all-in-one observability platform: uptime monitoring, status pages, incident management, on-call scheduling and alerting, logs, metrics, traces, error tracking, dashboards, workflow automation, runbooks and an AI reliability agent. Available as a cloud service at https://latticeruntime.com or self-hosted.",
   );
   lines.push("");
   lines.push(
@@ -187,7 +187,7 @@ export function generateLlmsFullTxt(
   lines.push("# Cast Operations");
   lines.push("");
   lines.push(
-    "> Cast Operations is an open-source (Apache 2.0), all-in-one observability platform: uptime monitoring, status pages, incident management, on-call scheduling and alerting, logs, metrics, traces, error tracking, dashboards, workflow automation, runbooks and an AI reliability agent. Available as a cloud service at https://visca.ai or self-hosted.",
+    "> Cast Operations is an open-source (Apache 2.0), all-in-one observability platform: uptime monitoring, status pages, incident management, on-call scheduling and alerting, logs, metrics, traces, error tracking, dashboards, workflow automation, runbooks and an AI reliability agent. Available as a cloud service at https://latticeruntime.com or self-hosted.",
   );
   lines.push("");
   lines.push(...machineReadableSection(baseUrl));

@@ -19,7 +19,7 @@
 ## 首次启动与登录
 
 1. **服务器 URL**
-   - 如果您使用 Cast Operations Cloud,请保留默认值 `https://visca.ai`。
+   - 如果您使用 Cast Operations Cloud,请保留默认值 `https://latticeruntime.com`。
    - 如果您是自托管,请输入您的 Cast Operations 实例的 URL(例如 `https://operations.example.com`)。
    - 应用会在继续之前验证服务器是否可访问。
 2. **登录**
@@ -57,7 +57,7 @@
 
 **App Store 提示该应用"在您所在的地区不可用":**
 
-- 该应用发布于全球 App Store。如果在您所在的地区未显示,请联系 [支持](mailto:support@visca.ai)。
+- 该应用发布于全球 App Store。如果在您所在的地区未显示,请联系 [支持](mailto:support@latticeruntime.com)。
 
 **登录时出现"网络错误":**
 

@@ -811,7 +811,7 @@ captcha:
 vapid:
   publicKey:
   privateKey:
-  subject: mailto:support@visca.ai
+  subject: mailto:support@latticeruntime.com
 
 # Expo access token for sending mobile push notifications directly via Expo SDK.
 # If not set, notifications are relayed through the push notification relay URL.
@@ -820,7 +820,7 @@ expo:
 
 # Push notification relay URL for self-hosted instances without Expo credentials
 pushNotification:
-  relayUrl: https://visca.ai/api/notification/push-relay/send
+  relayUrl: https://latticeruntime.com/api/notification/push-relay/send
 
 incidents:
   disableAutomaticCreation: false
@@ -1610,7 +1610,7 @@ gitHubApp:
 
 # Inbound Email Configuration
 # Required for Incoming Email Monitor feature
-# See documentation: https://visca.ai/docs/self-hosted/sendgrid-inbound-email
+# See documentation: https://latticeruntime.com/docs/self-hosted/sendgrid-inbound-email
 inboundEmail:
   # Email provider type (currently only SendGrid is supported)
   provider: SendGrid

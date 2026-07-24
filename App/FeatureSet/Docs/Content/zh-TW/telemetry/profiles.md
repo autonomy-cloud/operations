@@ -48,7 +48,7 @@ Cast Operations 使用 OTLP profiles 通訊協定，同時透過 gRPC 與 HTTP �
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -72,7 +72,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "cast-operations" {
   endpoint {
-    url = "https://visca.ai/pyroscope"
+    url = "https://latticeruntime.com/pyroscope"
     headers = {
       "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_SERVICE_TOKEN",
     }
@@ -87,7 +87,7 @@ pyroscope.write "cast-operations" {
 ```bash
 # Start your Java application with the OpenTelemetry Java agent
 java -javaagent:opentelemetry-javaagent.jar \
-  -Dotel.exporter.otlp.endpoint=https://visca.ai/otlp \
+  -Dotel.exporter.otlp.endpoint=https://latticeruntime.com/otlp \
   -Dotel.exporter.otlp.headers=x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN \
   -Dotel.service.name=my-java-service \
   -jar my-app.jar
@@ -142,7 +142,7 @@ receivers:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     encoding: json
     headers:
       "Content-Type": "application/json"
@@ -181,4 +181,4 @@ Cast Operations 中的剖析資料可以與分散式追蹤建立關聯。當剖�
 
 ## 需要協助嗎？
 
-如果您在設定 Cast Operations 的剖析功能時需要任何協助，請聯絡 support@visca.ai。
+如果您在設定 Cast Operations 的剖析功能時需要任何協助，請聯絡 support@latticeruntime.com。

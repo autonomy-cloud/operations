@@ -66,7 +66,7 @@ docker compose up -d
 
 | Variabele                 | Vereist | Beschrijving                                                                                                              |
 | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | Ja      | De URL van je Cast Operations-instantie (bijvoorbeeld `https://visca.ai` of je zelf-gehoste host)                          |
+| `CAST_OPERATIONS_URL`           | Ja      | De URL van je Cast Operations-instantie (bijvoorbeeld `https://latticeruntime.com` of je zelf-gehoste host)                          |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | Ja      | Telemetry ingestion token uit _Project Settings → Telemetry Ingestion Keys_                                               |
 | `DOCKER_HOST_NAME`        | Nee     | Vriendelijke naam voor deze host. Standaard `docker-host`. Stel hem in op iets stabiels per host (bijv. `prod-docker-01`) |
 

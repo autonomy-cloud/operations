@@ -1,22 +1,22 @@
 <!-- markdownlint-disable MD033 -->
-<h1 align="center"><img alt="cast-operations logo" width=50% src="https://raw.githubusercontent.com/autonomy-cloud/operations/master/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/></h1>
+<h1 align="center"><img alt="cast-operations logo" width=50% src="https://raw.githubusercontent.com/autonomy-cloud/operations/develop/Common/UI/Images/logos/CastOperationsSVG/logo.svg"/></h1>
 <!-- markdownlint-enable MD033 -->
 
 # Cast Operations Kubernetes Agent
 
 Collects cluster metrics, events, pod logs, **application traces (HTTP/gRPC via eBPF)**, and **OS-level node metrics** from your Kubernetes cluster and ships them to Cast Operations via OpenTelemetry. Install with one `helm install` command — no code changes or per-app SDK setup needed to see service traffic. **Continuous CPU profiles (eBPF flame graphs)** are also available — opt in with `--set profiling.enabled=true`.
 
-Full docs: [Install the Kubernetes Agent](https://visca.ai/docs/monitor/kubernetes-agent).
+Full docs: [Install the Kubernetes Agent](https://latticeruntime.com/docs/monitor/kubernetes-agent).
 
 ## Quick start
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<A_UNIQUE_NAME_FOR_THIS_CLUSTER>
 ```
@@ -38,7 +38,7 @@ The `preset` option picks compatible defaults for your Kubernetes distribution �
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod \
   --set preset=gke-autopilot
@@ -49,7 +49,7 @@ helm install cast-operations-agent cast-operations/kubernetes-agent \
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=prod \
   --set preset=eks-fargate
@@ -81,7 +81,7 @@ For one or two changes at install or upgrade time:
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   --set deployment.resources.requests.cpu=500m \
@@ -127,7 +127,7 @@ Apply it with `-f`:
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   -f my-values.yaml
@@ -294,7 +294,7 @@ Apply any of these with `-f`:
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   -f large.yaml
@@ -318,7 +318,7 @@ After installing or upgrading, run `kubectl top pod -n cast-operations-kubernete
 
 | Key | Description |
 | --- | --- |
-| `cast-operations.url` | URL of your Cast Operations instance (e.g. `https://visca.ai`). |
+| `cast-operations.url` | URL of your Cast Operations instance (e.g. `https://latticeruntime.com`). |
 | `cast-operations.apiKey` | Project API key. Create one at **Project Settings → API Keys**. |
 | `clusterName` | Unique name for this cluster. Stamped as `k8s.cluster.name` on every record. |
 
@@ -375,7 +375,7 @@ Profiling is **off by default** — it's heavier than the OBI auto-instrumentati
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   --set profiling.enabled=true
@@ -416,7 +416,7 @@ Turn it off if you don't want it:
 ```bash
 helm install cast-operations-agent cast-operations/kubernetes-agent \
   --namespace cast-operations-kubernetes-agent --create-namespace \
-  --set cast-operations.url=https://visca.ai \
+  --set cast-operations.url=https://latticeruntime.com \
   --set cast-operations.apiKey=<YOUR_API_KEY> \
   --set clusterName=<NAME> \
   --set ebpf.enabled=false
@@ -511,7 +511,7 @@ kubectl delete namespace cast-operations-kubernetes-agent
 
 ## Troubleshooting
 
-See the [Install the Kubernetes Agent](https://visca.ai/docs/monitor/kubernetes-agent) guide — it covers the "hostPath blocked" error, missing logs, and horizontal sharding for large clusters.
+See the [Install the Kubernetes Agent](https://latticeruntime.com/docs/monitor/kubernetes-agent) guide — it covers the "hostPath blocked" error, missing logs, and horizontal sharding for large clusters.
 
 ### The cluster shows "Disconnected" and/or no data appears — run the diagnostic script
 
@@ -520,7 +520,7 @@ This is usually one problem, not two: telemetry isn't being accepted, so the clu
 The bundled script checks pod health, decodes/validates the key, tests cluster egress, and asks Cast Operations whether the token is actually accepted — then prints a single root-cause verdict:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/master/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
+curl -fsSL https://raw.githubusercontent.com/autonomy-cloud/operations/develop/HelmChart/Public/kubernetes-agent/troubleshoot.sh \
   | bash -s -- -n cast-operations-agent
 ```
 
@@ -699,5 +699,5 @@ keys in [`values.yaml`](values.yaml) for all options.
 
 ## Source
 
-- Chart: [`HelmChart/Public/kubernetes-agent/`](https://github.com/autonomy-cloud/operations/tree/master/HelmChart/Public/kubernetes-agent)
-- Log-tailer image: [`KubernetesLogTailer/`](https://github.com/autonomy-cloud/operations/tree/master/KubernetesLogTailer)
+- Chart: [`HelmChart/Public/kubernetes-agent/`](https://github.com/autonomy-cloud/operations/tree/develop/HelmChart/Public/kubernetes-agent)
+- Log-tailer image: [`KubernetesLogTailer/`](https://github.com/autonomy-cloud/operations/tree/develop/KubernetesLogTailer)

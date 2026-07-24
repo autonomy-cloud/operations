@@ -32,7 +32,7 @@ APK:n byggs och signeras av Cast Operations från samma källkod som Play Store-
 ## Första start och inloggning
 
 1. **Server-URL**
-   - Om du använder Cast Operations Cloud, behåll standardvärdet `https://visca.ai`.
+   - Om du använder Cast Operations Cloud, behåll standardvärdet `https://latticeruntime.com`.
    - Om du har egen drift anger du URL:en till din Cast Operations-instans (t.ex. `https://operations.example.com`).
    - Appen verifierar att servern är nåbar innan den fortsätter.
 2. **Logga in**

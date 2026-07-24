@@ -30,7 +30,7 @@ FluentBit सैकड़ों data sources का समर्थन करत
 ## पूर्व आवश्यकताएं
 
 - **चरण 1: अपने system पर FluentBit Install करें** - आप [यहाँ](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit) दिए गए निर्देशों का उपयोग करके FluentBit install कर सकते हैं
-- **चरण 2: Cast Operations account के लिए sign up करें** - आप [यहाँ](https://visca.ai) एक free account के लिए sign up कर सकते हैं। कृपया ध्यान दें कि account free है, log ingestion एक paid feature है। आप pricing के बारे में अधिक details [यहाँ](https://visca.ai/pricing) पा सकते हैं।
+- **चरण 2: Cast Operations account के लिए sign up करें** - आप [यहाँ](https://latticeruntime.com) एक free account के लिए sign up कर सकते हैं। कृपया ध्यान दें कि account free है, log ingestion एक paid feature है। आप pricing के बारे में अधिक details [यहाँ](https://latticeruntime.com/pricing) पा सकते हैं।
 - **चरण 3: Cast Operations Project बनाएं** - Account होने के बाद, आप Cast Operations dashboard से एक project बना सकते हैं।
 - **चरण 4: Telemetry Ingestion Token बनाएं** - Cast Operations account बनाने के बाद, आप अपने application से logs, metrics और traces ingest करने के लिए एक telemetry ingestion token बना सकते हैं।
 
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "visca.ai"
+    host: "latticeruntime.com"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "visca.ai"
+      host: "latticeruntime.com"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## Usage
 
-एक बार जब आप fluentbit configuration फ़ाइल में configuration जोड़ लें, तो आप fluentbit service restart कर सकते हैं। Service restart होने के बाद, telemetry data Cast Operations HTTP Source को भेजा जाएगा। अब आप Cast Operations dashboard में telemetry data देखना शुरू कर सकते हैं। यदि आपके कोई प्रश्न हैं या configuration में सहायता की आवश्यकता है, तो कृपया हमसे support@visca.ai पर संपर्क करें।
+एक बार जब आप fluentbit configuration फ़ाइल में configuration जोड़ लें, तो आप fluentbit service restart कर सकते हैं। Service restart होने के बाद, telemetry data Cast Operations HTTP Source को भेजा जाएगा। अब आप Cast Operations dashboard में telemetry data देखना शुरू कर सकते हैं। यदि आपके कोई प्रश्न हैं या configuration में सहायता की आवश्यकता है, तो कृपया हमसे support@latticeruntime.com पर संपर्क करें।

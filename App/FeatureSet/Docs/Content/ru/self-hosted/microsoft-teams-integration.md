@@ -129,4 +129,4 @@ microsoftTeamsApp:
 
 ## Поддержка
 
-Мы стремимся улучшить эту интеграцию, поэтому будем рады вашим отзывам. Отправляйте их по адресу [hello@visca.ai](mailto:hello@visca.ai)
+Мы стремимся улучшить эту интеграцию, поэтому будем рады вашим отзывам. Отправляйте их по адресу [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

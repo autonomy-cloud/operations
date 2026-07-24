@@ -41,7 +41,7 @@ spec:
                 - ALL
           env:
             - name: CAST_OPERATIONS_URL
-              value: {{ .Values.cast-operations.url | quote }}
+              value: {{ (index .Values "cast-operations").url | quote }}
             - name: CAST_OPERATIONS_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -55,7 +55,7 @@ spec:
             # Cast Operations ingest pipeline promotes them into project Labels.
             - name: CAST_OPERATIONS_LABELS
               value: {{- $pairs := list -}}
-                {{- range $key, $value := .Values.cast-operations.labels -}}
+                {{- range $key, $value := (index .Values "cast-operations").labels -}}
                   {{- $pairs = append $pairs (printf "%s=%s" $key (toString $value)) -}}
                 {{- end }} {{ join "," $pairs | quote }}
             {{- $podLogInclude := include "kubernetes-agent.namespaceRulePatterns" (dict "root" . "action" "include" "scope" "podLogs") | fromJsonArray }}

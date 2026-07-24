@@ -8,7 +8,7 @@ Cast Operations CLI 专为自动化而设计。它支持基于环境变量的认
 
 ```bash
 export CAST_OPERATIONS_API_KEY=sk-your-api-key
-export CAST_OPERATIONS_URL=https://visca.ai
+export CAST_OPERATIONS_URL=https://latticeruntime.com
 ```
 
 这些变量优先于已保存的上下文，但会被 CLI 标志覆盖。
@@ -92,7 +92,7 @@ jobs:
       - name: Check for active incidents
         env:
           CAST_OPERATIONS_API_KEY: ${{ secrets.CAST_OPERATIONS_API_KEY }}
-          CAST_OPERATIONS_URL: https://visca.ai
+          CAST_OPERATIONS_URL: https://latticeruntime.com
         run: |
           INCIDENT_COUNT=$(cast-operations incident count)
           if [ "$INCIDENT_COUNT" -gt 0 ]; then
@@ -138,7 +138,7 @@ ENTRYPOINT ["cast-operations"]
 ```bash
 docker run --rm \
   -e CAST_OPERATIONS_API_KEY=sk-abc123 \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   cast-operations-cli incident list
 ```
 

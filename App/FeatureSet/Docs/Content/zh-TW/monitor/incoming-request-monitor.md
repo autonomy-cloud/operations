@@ -26,7 +26,7 @@
 建立後，您的監控器會擁有一個格式如下的獨特心跳 URL：
 
 ```
-https://visca.ai/heartbeat/YOUR_SECRET_KEY
+https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 ```
 
 您的服務應定期傳送 HTTP **GET** 或 **POST** 請求至此 URL。
@@ -37,10 +37,10 @@ https://visca.ai/heartbeat/YOUR_SECRET_KEY
 
 ```bash
 # Simple GET request
-curl https://visca.ai/heartbeat/YOUR_SECRET_KEY
+curl https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY
 
 # POST request with custom body
-curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
+curl -X POST https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY \
   -H "Content-Type: application/json" \
   -d '{"status": "healthy", "version": "1.2.3"}'
 ```
@@ -49,7 +49,7 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 
 ```bash
 # Add to crontab to send heartbeat every 5 minutes
-*/5 * * * * curl -s https://visca.ai/heartbeat/YOUR_SECRET_KEY > /dev/null
+*/5 * * * * curl -s https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY > /dev/null
 ```
 
 #### 從應用程式碼
@@ -57,16 +57,16 @@ curl -X POST https://visca.ai/heartbeat/YOUR_SECRET_KEY \
 ```javascript
 // Node.js example
 const https = require("https");
-https.get("https://visca.ai/heartbeat/YOUR_SECRET_KEY");
+https.get("https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY");
 ```
 
 ```python
 # Python example
 import requests
-requests.get('https://visca.ai/heartbeat/YOUR_SECRET_KEY')
+requests.get('https://latticeruntime.com/heartbeat/YOUR_SECRET_KEY')
 ```
 
-若為自架部署，請將 `https://visca.ai` 替換為您的 Cast Operations 執行個體 URL。
+若為自架部署，請將 `https://latticeruntime.com` 替換為您的 Cast Operations 執行個體 URL。
 
 ## 監控條件
 

@@ -30,7 +30,7 @@ Cast Operations поддерживает протокол SCIM v2.0 для ав�
    - Скопируйте **SCIM Base URL** и **Bearer Token** для настройки вашего IdP
 
 3. **Настройте поставщик удостоверений**
-   - Используйте SCIM Base URL: `https://visca.ai/scim/v2/{scimId}`
+   - Используйте SCIM Base URL: `https://latticeruntime.com/scim/v2/{scimId}`
    - Настройте аутентификацию на основе токена bearer с предоставленным токеном
    - Сопоставьте атрибуты пользователей (email обязателен)
 
@@ -78,7 +78,7 @@ SCIM страниц статуса позволяет поставщикам у�
    - Скопируйте **SCIM Base URL** и **Bearer Token** для настройки вашего IdP
 
 3. **Настройте поставщик удостоверений**
-   - Используйте SCIM Base URL: `https://visca.ai/status-page-scim/v2/{scimId}`
+   - Используйте SCIM Base URL: `https://latticeruntime.com/status-page-scim/v2/{scimId}`
    - Настройте аутентификацию на основе токена bearer с предоставленным токеном
    - Сопоставьте атрибуты пользователей (email обязателен)
 
@@ -144,7 +144,7 @@ Microsoft Entra ID предоставляет корпоративное упр�
 2. Нажмите **Get started**
 3. Установите **Provisioning Mode** на **Automatic**
 4. В разделе **Admin Credentials**:
-   - **Tenant URL**: Введите SCIM Base URL из Cast Operations (например, `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **Tenant URL**: Введите SCIM Base URL из Cast Operations (например, `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **Secret Token**: Введите Bearer Token из Cast Operations
 5. Нажмите **Test Connection** для проверки конфигурации
 6. Нажмите **Save**
@@ -263,7 +263,7 @@ Okta предоставляет гибкое управление удостов
 3. Нажмите **Configure API Integration**
 4. Отметьте **Enable API integration**
 5. Настройте следующее:
-   - **SCIM connector base URL**: Введите SCIM Base URL из Cast Operations (например, `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **SCIM connector base URL**: Введите SCIM Base URL из Cast Operations (например, `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **Unique identifier field for users**: Введите `userName`
    - **Supported provisioning actions**: Выберите действия, которые хотите включить:
      - Import New Users and Profile Updates
@@ -340,7 +340,7 @@ Okta предоставляет гибкое управление удостов
 
 Реализация SCIM в Cast Operations следует спецификации SCIM v2.0 и должна работать с любым совместимым поставщиком удостоверений. Общие шаги настройки:
 
-1. **SCIM Base URL**: `https://visca.ai/api/identity/scim/v2/{scim-id}` (для проектов) или `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}` (для страниц статуса)
+1. **SCIM Base URL**: `https://latticeruntime.com/api/identity/scim/v2/{scim-id}` (для проектов) или `https://latticeruntime.com/api/identity/status-page-scim/v2/{scim-id}` (для страниц статуса)
 2. **Аутентификация**: HTTP Bearer Token
 3. **Обязательный атрибут пользователя**: `userName` (должен быть действительным адресом электронной почты)
 4. **Поддерживаемые операции**: GET, POST, PUT, PATCH, DELETE для Users и Groups

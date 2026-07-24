@@ -66,7 +66,7 @@ docker compose up -d
 
 | Variable                  | Erforderlich | Beschreibung                                                                                                                               |
 | ------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `CAST_OPERATIONS_URL`           | Ja           | Die URL Ihrer Cast Operations-Instanz (zum Beispiel `https://visca.ai` oder Ihr selbst gehosteter Host)                                     |
+| `CAST_OPERATIONS_URL`           | Ja           | Die URL Ihrer Cast Operations-Instanz (zum Beispiel `https://latticeruntime.com` oder Ihr selbst gehosteter Host)                                     |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | Ja           | Telemetry Ingestion Token aus _Project Settings → Telemetry Ingestion Keys_                                                                |
 | `DOCKER_HOST_NAME`        | Nein         | Sprechender Name für diesen Host. Standardwert ist `docker-host`. Setzen Sie ihn pro Host auf einen stabilen Wert (z. B. `prod-docker-01`) |
 

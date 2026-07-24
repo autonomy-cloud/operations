@@ -10,12 +10,12 @@ Cast Operations exposes a **Pyroscope-compatible ingest API**. Anything that can
 
 | Setting                             | Value                                               |
 | ----------------------------------- | --------------------------------------------------- |
-| Base URL (Pyroscope server address) | `https://visca.ai/pyroscope`                   |
+| Base URL (Pyroscope server address) | `https://latticeruntime.com/pyroscope`                   |
 | Authentication header               | `x-cast-operations-token: YOUR_CAST_OPERATIONS_INGESTION_TOKEN` |
 
 Pyroscope SDKs append `/ingest` to the base URL and Grafana Alloy appends `/push.v1.PusherService/Push` — you always configure just the base URL. SDKs that take an `authToken` / `auth_token` option send it as `Authorization: Bearer <token>`, which Cast Operations accepts as an alias for the `x-cast-operations-token` header.
 
-**Self Hosted Cast Operations:** replace `https://visca.ai` with your own host, e.g. `http(s)://YOUR-OPERATIONS-HOST/pyroscope`.
+**Self Hosted Cast Operations:** replace `https://latticeruntime.com` with your own host, e.g. `http(s)://YOUR-OPERATIONS-HOST/pyroscope`.
 
 ## Supported Profile Formats
 
@@ -70,7 +70,7 @@ pyroscope.ebpf "default" {
 
 pyroscope.write "cast-operations" {
   endpoint {
-    url = "https://visca.ai/pyroscope"
+    url = "https://latticeruntime.com/pyroscope"
     headers = {
       "x-cast-operations-token" = "YOUR_CAST_OPERATIONS_INGESTION_TOKEN",
     }
@@ -113,7 +113,7 @@ import "github.com/grafana/pyroscope-go"
 
 pyroscope.Start(pyroscope.Config{
     ApplicationName: "my-service",
-    ServerAddress:   "https://visca.ai/pyroscope",
+    ServerAddress:   "https://latticeruntime.com/pyroscope",
     AuthToken:       "YOUR_CAST_OPERATIONS_INGESTION_TOKEN",
     ProfileTypes: []pyroscope.ProfileType{
         pyroscope.ProfileCPU,
@@ -132,7 +132,7 @@ pyroscope.Start(pyroscope.Config{
 const Pyroscope = require("@pyroscope/nodejs");
 
 Pyroscope.init({
-  serverAddress: "https://visca.ai/pyroscope",
+  serverAddress: "https://latticeruntime.com/pyroscope",
   appName: "my-service",
   authToken: "YOUR_CAST_OPERATIONS_INGESTION_TOKEN",
 });
@@ -147,12 +147,12 @@ import pyroscope
 
 pyroscope.configure(
     application_name="my-service",
-    server_address="https://visca.ai/pyroscope",
+    server_address="https://latticeruntime.com/pyroscope",
     auth_token="YOUR_CAST_OPERATIONS_INGESTION_TOKEN",
 )
 ```
 
-**.NET** (uploads pprof), **Ruby** and **Rust** (upload folded text) work the same way: install the [Pyroscope SDK for your language](https://grafana.com/docs/pyroscope/latest/configure-client/) and set the server address to `https://visca.ai/pyroscope` with your ingestion token as the auth token.
+**.NET** (uploads pprof), **Ruby** and **Rust** (upload folded text) work the same way: install the [Pyroscope SDK for your language](https://grafana.com/docs/pyroscope/latest/configure-client/) and set the server address to `https://latticeruntime.com/pyroscope` with your ingestion token as the auth token.
 
 ### Java
 
@@ -179,7 +179,7 @@ Anything else (for example a custom sample type) appears under "Other" with its 
 
    ```bash
    curl -i -H "x-cast-operations-token: YOUR_CAST_OPERATIONS_INGESTION_TOKEN" \
-     https://visca.ai/otlp/v1/validate
+     https://latticeruntime.com/otlp/v1/validate
    ```
 
    A valid token returns `200` with `{"valid": true, ...}`; an unknown or revoked token returns `401`.
@@ -214,4 +214,4 @@ To change the retention period for a service, navigate to **Telemetry > Services
 
 ## Need Help?
 
-Please contact support@visca.ai if you need any help setting up profiling with Cast Operations.
+Please contact support@latticeruntime.com if you need any help setting up profiling with Cast Operations.

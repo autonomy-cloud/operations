@@ -85,7 +85,7 @@ Cast Operations работает с любым LLM-провайдером. Вы 
 docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -d cast-operations/ai-agent:release
 ```
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 Примените конфигурацию:
@@ -162,7 +162,7 @@ AI-агент поддерживает следующие переменные �
 | --------------- | --------------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | Ключ AI-агента из вашей панели управления Cast Operations                   |
 | `AI_AGENT_ID`   | Идентификатор AI-агента из вашей панели управления Cast Operations          |
-| `CAST_OPERATIONS_URL` | URL вашего экземпляра Cast Operations (по умолчанию: https://visca.ai) |
+| `CAST_OPERATIONS_URL` | URL вашего экземпляра Cast Operations (по умолчанию: https://latticeruntime.com) |
 
 ## Проверка AI-агента
 
@@ -203,4 +203,4 @@ kubectl logs deployment/cast-operations-ai-agent
 
 1. Проверьте [GitHub Issues Cast Operations](https://github.com/autonomy-cloud/operations/issues) на наличие известных проблем
 2. Создайте новую задачу, если ваша проблема ещё не зарегистрирована
-3. Свяжитесь со [службой поддержки](https://visca.ai/support), если вы используете корпоративный план
+3. Свяжитесь со [службой поддержки](https://latticeruntime.com/support), если вы используете корпоративный план

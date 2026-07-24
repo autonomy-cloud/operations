@@ -4,7 +4,7 @@
 
 1. **在 Cast Operations 上建立帳戶**
 
-   - 前往 [Cast Operations.com](https://visca.ai) 並建立帳戶。
+   - 前往 [Cast Operations.com](https://latticeruntime.com) 並建立帳戶。
    - 建立帳戶後，建立一個新專案。
 
 2. **將 Slack 連接至 Cast Operations 專案**

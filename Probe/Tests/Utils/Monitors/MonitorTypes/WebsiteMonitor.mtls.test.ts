@@ -1,5 +1,5 @@
 // Set required env vars before importing anything that pulls Config.ts
-process.env["CAST_OPERATIONS_URL"] = "https://visca.ai";
+process.env["CAST_OPERATIONS_URL"] = "https://latticeruntime.com";
 process.env["PROBE_KEY"] = "test-probe-key";
 
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";

@@ -16,7 +16,7 @@
 ## Шаг 1 — Добавьте Helm-репозиторий Cast Operations
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 ```
 
@@ -674,7 +674,7 @@ helm upgrade kubernetes-agent cast-operations/kubernetes-agent \
 3. **Проверьте ключ приёма данных.** Спросите у Cast Operations напрямую, принимается ли ваш токен (`200` = действителен, `401` = неизвестен/отозван):
 
    ```bash
-   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://latticeruntime.com/otlp/v1/validate
    ```
 
    Если возвращается `401`, ключ в вашем релизе неверен или был отозван. Скопируйте действующий ключ из _Project Settings → Telemetry Ingestion Keys_ и разверните заново:

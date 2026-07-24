@@ -9,7 +9,7 @@
 상태 페이지의 리소스 전체 상태를 얻으려면 다음 엔드포인트에 POST 요청을 만들 수 있습니다:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 API의 응답은 다음과 같습니다:
@@ -20,11 +20,11 @@ API의 응답은 다음과 같습니다:
     // 모니터 상태 객체
     // 전체 상태는 상태 페이지의 모든 모니터 및 그룹의 최악 상태입니다.
     // 모니터 상태에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // 예정 유지보수 공개 노트에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // 예정 유지보수 공개 노트 객체
     },
@@ -34,7 +34,7 @@ API의 응답은 다음과 같습니다:
   ],
   "statusPageHistoryChartBarColorRules": [
     // 상태 페이지 기록 차트 막대 색상 규칙에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
+    // https://latticeruntime.com/reference/status-page-history-chart-bar-color-rule
     {
       // 상태 페이지 기록 차트 막대 색상 규칙 객체
     },
@@ -44,7 +44,7 @@ API의 응답은 다음과 같습니다:
   ],
   "scheduledMaintenanceEvents": [
     // 예정 유지보수 이벤트에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // 예정 유지보수 이벤트 객체
     },
@@ -54,7 +54,7 @@ API의 응답은 다음과 같습니다:
   ],
   "activeAnnouncements": [
     // 활성 공지에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // 상태 페이지 공지 객체
     },
@@ -64,7 +64,7 @@ API의 응답은 다음과 같습니다:
   ],
   "incidentPublicNotes": [
     // 인시던트 공개 노트에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/incident-public-note
+    // https://latticeruntime.com/reference/incident-public-note
     {
       // 인시던트 공개 노트 객체
     },
@@ -74,7 +74,7 @@ API의 응답은 다음과 같습니다:
   ],
   "activeIncidents": [
     // 활성 인시던트에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // 인시던트 객체
     },
@@ -84,7 +84,7 @@ API의 응답은 다음과 같습니다:
   ],
   "monitorStatusTimelines": [
     // 모니터 상태 타임라인에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/monitor-status-timeline
+    // https://latticeruntime.com/reference/monitor-status-timeline
     {
       // 모니터 상태 타임라인 객체
     },
@@ -94,7 +94,7 @@ API의 응답은 다음과 같습니다:
   ],
   "resourceGroups": [
     // 리소스 그룹에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/resource-group
+    // https://latticeruntime.com/reference/resource-group
     {
       // 리소스 그룹 객체
     },
@@ -104,7 +104,7 @@ API의 응답은 다음과 같습니다:
   ],
   "monitorStatuses": [
     // 모니터 상태에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
     {
       // 모니터 상태 객체
     },
@@ -114,7 +114,7 @@ API의 응답은 다음과 같습니다:
   ],
   "statusPageResources": [
     // 상태 페이지 리소스에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // 상태 페이지 리소스 객체
     },
@@ -124,7 +124,7 @@ API의 응답은 다음과 같습니다:
   ],
   "incidentStateTimelines": [
     // 인시던트 상태 타임라인에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/incident-state-timeline
+    // https://latticeruntime.com/reference/incident-state-timeline
     {
       // 인시던트 상태 타임라인 객체
     },
@@ -134,11 +134,11 @@ API의 응답은 다음과 같습니다:
   ],
   "statusPage": {
     // 상태 페이지에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // 예정 유지보수 상태 타임라인에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/scheduled-maintenance-state-timeline
+    // https://latticeruntime.com/reference/scheduled-maintenance-state-timeline
     {
       // 예정 유지보수 상태 타임라인 객체
     },
@@ -162,7 +162,7 @@ API의 응답은 다음과 같습니다:
 모든 리소스의 전체 업타임을 얻으려면 다음 엔드포인트에 POST 요청을 만들 수 있습니다:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **요청 본문 (선택 사항):**
@@ -257,7 +257,7 @@ API의 예시 응답은 다음과 같습니다:
 이 API는 상태 페이지의 모든 인시던트를 가져옵니다. 상태 페이지의 모든 인시던트를 얻으려면 다음 엔드포인트에 POST 요청을 만들 수 있습니다:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 API의 응답은 다음과 같습니다:
@@ -266,7 +266,7 @@ API의 응답은 다음과 같습니다:
 {
   "incidents": [
     // 인시던트에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // 인시던트 객체
     },
@@ -282,7 +282,7 @@ API의 응답은 다음과 같습니다:
 이 API는 상태 페이지의 모든 예정 유지보수를 가져옵니다. 상태 페이지의 모든 예정 유지보수를 얻으려면 다음 엔드포인트에 POST 요청을 만들 수 있습니다:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 API의 응답은 다음과 같습니다:
@@ -291,7 +291,7 @@ API의 응답은 다음과 같습니다:
 {
   "scheduledMaintenanceEvents": [
     // 예정 유지보수 이벤트에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // 예정 유지보수 이벤트 객체
     },
@@ -307,7 +307,7 @@ API의 응답은 다음과 같습니다:
 이 API는 상태 페이지의 모든 공지를 가져옵니다. 상태 페이지의 모든 공지를 얻으려면 다음 엔드포인트에 POST 요청을 만들 수 있습니다:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 API의 응답은 다음과 같습니다:
@@ -316,7 +316,7 @@ API의 응답은 다음과 같습니다:
 {
   "announcements": [
     // 공지에 대한 자세한 내용은 여기에서 찾을 수 있습니다.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // 공지 객체
     },

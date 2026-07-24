@@ -16,7 +16,7 @@ This page is the **installation guide**. For configuring Kubernetes monitors and
 ## Step 1 — Add the Cast Operations Helm Repository
 
 ```bash
-helm repo add cast-operations https://helm-chart.visca.ai
+helm repo add cast-operations https://helm-chart.latticeruntime.com
 helm repo update
 ```
 
@@ -676,7 +676,7 @@ The most common reason — especially after a reinstall — is a **wrong or revo
 3. **Validate the ingestion key.** Ask Cast Operations directly whether your token is accepted (`200` = valid, `401` = unknown/revoked):
 
    ```bash
-   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://visca.ai/otlp/v1/validate
+   curl -i -H "x-cast-operations-token: <YOUR_API_KEY>" https://latticeruntime.com/otlp/v1/validate
    ```
 
    If it returns `401`, the key in your release is wrong or was revoked. Copy a live key from _Project Settings → Telemetry Ingestion Keys_ and re-deploy:

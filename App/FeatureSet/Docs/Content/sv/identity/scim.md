@@ -30,7 +30,7 @@ Projekt-SCIM gör det möjligt för identitetsleverantörer att hantera teammedl
    - Kopiera **SCIM bas-URL** och **Bearer-token** för din IdP-konfiguration
 
 3. **Konfigurera din identitetsleverantör**
-   - Använd SCIM bas-URL:en: `https://visca.ai/scim/v2/{scimId}`
+   - Använd SCIM bas-URL:en: `https://latticeruntime.com/scim/v2/{scimId}`
    - Konfigurera bearer-tokenautentisering med den angivna token
    - Mappa användarattribut (e-post krävs)
 
@@ -78,7 +78,7 @@ Statussida-SCIM gör det möjligt för identitetsleverantörer att hantera prenu
    - Kopiera **SCIM bas-URL** och **Bearer-token** för din IdP-konfiguration
 
 3. **Konfigurera din identitetsleverantör**
-   - Använd SCIM bas-URL:en: `https://visca.ai/status-page-scim/v2/{scimId}`
+   - Använd SCIM bas-URL:en: `https://latticeruntime.com/status-page-scim/v2/{scimId}`
    - Konfigurera bearer-tokenautentisering med den angivna token
    - Mappa användarattribut (e-post krävs)
 
@@ -144,7 +144,7 @@ Microsoft Entra ID tillhandahåller enterprise-grade identitetshantering med rob
 2. Klicka på **Kom igång**
 3. Ange **Provisioneringsläge** till **Automatiskt**
 4. Under **Administratörsuppgifter**:
-   - **Klient-URL**: Ange SCIM bas-URL från Cast Operations (t.ex. `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **Klient-URL**: Ange SCIM bas-URL från Cast Operations (t.ex. `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **Hemlig token**: Ange Bearer-token från Cast Operations
 5. Klicka på **Testa anslutning** för att verifiera konfigurationen
 6. Klicka på **Spara**
@@ -263,7 +263,7 @@ Okta tillhandahåller flexibel identitetshantering med utmärkt SCIM-stöd. Föl
 3. Klicka på **Konfigurera API-integration**
 4. Markera **Aktivera API-integration**
 5. Konfigurera följande:
-   - **SCIM-anslutningsbasens URL**: Ange SCIM bas-URL från Cast Operations (t.ex. `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **SCIM-anslutningsbasens URL**: Ange SCIM bas-URL från Cast Operations (t.ex. `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **Unikt identifierarfält för användare**: Ange `userName`
    - **Provisioneringesåtgärder som stöds**: Välj de åtgärder du vill aktivera:
      - Importera nya användare och profiluppdateringar
@@ -340,7 +340,7 @@ Om du aktiverade **Push-grupper** i Cast Operations:
 
 Cast Operations SCIM-implementering följer SCIM v2.0-specifikationen och bör fungera med vilken kompatibel identitetsleverantör som helst. Allmänna konfigurationssteg:
 
-1. **SCIM bas-URL**: `https://visca.ai/api/identity/scim/v2/{scim-id}` (för projekt) eller `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}` (för statussidor)
+1. **SCIM bas-URL**: `https://latticeruntime.com/api/identity/scim/v2/{scim-id}` (för projekt) eller `https://latticeruntime.com/api/identity/status-page-scim/v2/{scim-id}` (för statussidor)
 2. **Autentisering**: HTTP Bearer-token
 3. **Obligatoriskt användarattribut**: `userName` (måste vara en giltig e-postadress)
 4. **Åtgärder som stöds**: GET, POST, PUT, PATCH, DELETE för användare och grupper

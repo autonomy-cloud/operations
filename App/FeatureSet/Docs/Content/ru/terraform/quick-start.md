@@ -12,7 +12,7 @@
 
 ### Для облачного Cast Operations
 
-1. Перейдите на [Cast Operations Cloud](https://visca.ai) и войдите в систему
+1. Перейдите на [Cast Operations Cloud](https://latticeruntime.com) и войдите в систему
 2. Перейдите в **Настройки** → **API-ключи**
 3. Нажмите **Создать API-ключ**
 4. Назовите его «Terraform Provider»
@@ -49,7 +49,7 @@ terraform {
 
 provider "cast-operations" {
   # Для облачных пользователей
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
 
   # Для пользователей с самостоятельным хостингом — используйте URL вашего экземпляра
   # cast_operations_url = "https://operations.yourcompany.com"
@@ -140,7 +140,7 @@ terraform {
 }
 
 provider "cast-operations" {
-  cast_operations_url = "https://visca.ai"
+  cast_operations_url = "https://latticeruntime.com"
   api_key       = var.cast_operations_api_key
 }
 ```

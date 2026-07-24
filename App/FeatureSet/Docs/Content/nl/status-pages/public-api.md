@@ -9,7 +9,7 @@ Deze API haalt alle resources op die op de statuspagina staan, inclusief de alge
 Om de algehele status van de resources op de statuspagina te krijgen, kunt u een POST-verzoek doen naar het volgende eindpunt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 Dit is de respons van de API:
@@ -20,11 +20,11 @@ Dit is de respons van de API:
     // Monitor Status Object
     // Overall Status is the worst status of all the monitors and groups on the status page.
     // You can find more details on the monitor status here.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // You can find more details on the scheduled maintenance public note here.
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // Scheduled Maintenance Public Note Object
     },
@@ -34,7 +34,7 @@ Dit is de respons van de API:
   ],
   "statusPageHistoryChartBarColorRules": [
     // You can find more details on the status page history chart bar color rule here.
-    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
+    // https://latticeruntime.com/reference/status-page-history-chart-bar-color-rule
     {
       // Status Page History Chart Bar Color Rule Object
     },
@@ -44,7 +44,7 @@ Dit is de respons van de API:
   ],
   "scheduledMaintenanceEvents": [
     // You can find more details on the scheduled maintenance event here.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -54,7 +54,7 @@ Dit is de respons van de API:
   ],
   "activeAnnouncements": [
     // You can find more details on the active announcement here.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Status Page Announcement Object
     },
@@ -64,7 +64,7 @@ Dit is de respons van de API:
   ],
   "incidentPublicNotes": [
     // You can find more details on the incident public note here.
-    // https://visca.ai/reference/incident-public-note
+    // https://latticeruntime.com/reference/incident-public-note
     {
       // Incident Public Note Object
     },
@@ -74,7 +74,7 @@ Dit is de respons van de API:
   ],
   "activeIncidents": [
     // You can find more details on the active incident here.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Incident Object
     },
@@ -84,7 +84,7 @@ Dit is de respons van de API:
   ],
   "monitorStatusTimelines": [
     // You can find more details on the monitor status timeline here.
-    // https://visca.ai/reference/monitor-status-timeline
+    // https://latticeruntime.com/reference/monitor-status-timeline
     {
       // Monitor Status Timeline Object
     },
@@ -94,7 +94,7 @@ Dit is de respons van de API:
   ],
   "resourceGroups": [
     // You can find more details on the resource group here.
-    // https://visca.ai/reference/resource-group
+    // https://latticeruntime.com/reference/resource-group
     {
       // Resource Group Object
     },
@@ -104,7 +104,7 @@ Dit is de respons van de API:
   ],
   "monitorStatuses": [
     // You can find more details on the monitor status here.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
     {
       // Monitor Status Object
     },
@@ -114,7 +114,7 @@ Dit is de respons van de API:
   ],
   "statusPageResources": [
     // You can find more details on the status page resource here.
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // Status Page Resource Object
     },
@@ -124,7 +124,7 @@ Dit is de respons van de API:
   ],
   "incidentStateTimelines": [
     // You can find more details on the incident state timeline here.
-    // https://visca.ai/reference/incident-state-timeline
+    // https://latticeruntime.com/reference/incident-state-timeline
     {
       // Incident State Timeline Object
     },
@@ -134,11 +134,11 @@ Dit is de respons van de API:
   ],
   "statusPage": {
     // You can find more details on the status page here.
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // You can find more details on the scheduled maintenance state timeline here.
-    // https://visca.ai/reference/scheduled-maintenance-state-timeline
+    // https://latticeruntime.com/reference/scheduled-maintenance-state-timeline
     {
       // Scheduled Maintenance State Timeline Object
     },
@@ -162,7 +162,7 @@ Deze API haalt de uptime op van alle resources op de statuspagina.
 Om de algehele uptime van alle resources te krijgen, kunt u een POST-verzoek doen naar het volgende eindpunt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **Verzoeklichaam (optioneel):**
@@ -257,7 +257,7 @@ Dit is de voorbeeldrespons van de API:
 Deze API haalt alle incidenten op die op de statuspagina staan. Om alle incidenten op de statuspagina te krijgen, kunt u een POST-verzoek doen naar het volgende eindpunt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 Dit is de respons van de API:
@@ -266,7 +266,7 @@ Dit is de respons van de API:
 {
   "incidents": [
     // You can find more details on the incident here.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Incident Object
     },
@@ -282,7 +282,7 @@ Dit is de respons van de API:
 Deze API haalt al het geplande onderhoud op dat op de statuspagina staat. Om al het geplande onderhoud op de statuspagina te krijgen, kunt u een POST-verzoek doen naar het volgende eindpunt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 Dit is de respons van de API:
@@ -291,7 +291,7 @@ Dit is de respons van de API:
 {
   "scheduledMaintenanceEvents": [
     // You can find more details on the scheduled maintenance event here.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Scheduled Maintenance Event Object
     },
@@ -307,7 +307,7 @@ Dit is de respons van de API:
 Deze API haalt alle aankondigingen op die op de statuspagina staan. Om alle aankondigingen op de statuspagina te krijgen, kunt u een POST-verzoek doen naar het volgende eindpunt:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 Dit is de respons van de API:
@@ -316,7 +316,7 @@ Dit is de respons van de API:
 {
   "announcements": [
     // You can find more details on the announcement here.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Announcement Object
     },

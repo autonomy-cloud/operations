@@ -85,7 +85,7 @@ AI 에이전트를 실행하려면 Docker가 설치되어 있는지 확인하십
 docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -d cast-operations/ai-agent:release
 ```
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 구성을 적용합니다:
@@ -162,7 +162,7 @@ AI 에이전트는 다음 환경 변수를 지원합니다:
 | --------------- | -------------------------------------------------------- |
 | `AI_AGENT_KEY`  | Cast Operations 대시보드의 AI 에이전트 키                      |
 | `AI_AGENT_ID`   | Cast Operations 대시보드의 AI 에이전트 ID                      |
-| `CAST_OPERATIONS_URL` | Cast Operations 인스턴스의 URL (기본값: https://visca.ai) |
+| `CAST_OPERATIONS_URL` | Cast Operations 인스턴스의 URL (기본값: https://latticeruntime.com) |
 
 ## AI 에이전트 확인
 
@@ -203,4 +203,4 @@ AI 에이전트에 문제가 발생한 경우:
 
 1. 알려진 문제에 대해 [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues)를 확인합니다
 2. 문제가 아직 보고되지 않은 경우 새 이슈를 생성합니다
-3. 엔터프라이즈 플랜을 사용하는 경우 [지원팀](https://visca.ai/support)에 문의합니다
+3. 엔터프라이즈 플랜을 사용하는 경우 [지원팀](https://latticeruntime.com/support)에 문의합니다

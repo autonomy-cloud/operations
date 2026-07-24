@@ -49,7 +49,7 @@ describe("OperationsApiService behavior", () => {
   let makeApiRequestSpy: jest.SpyInstance;
 
   beforeAll(() => {
-    OperationsApiService.initialize({ url: "https://test.visca.ai" });
+    OperationsApiService.initialize({ url: "https://test.latticeruntime.com" });
   });
 
   beforeEach(() => {

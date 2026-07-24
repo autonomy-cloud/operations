@@ -13,10 +13,10 @@ O serviço de Ingestão OpenTelemetry agora aceita payloads Syslog nativos. Voc�
 ## Endpoint
 
 ```
-POST https://visca.ai/syslog/v1/logs
+POST https://latticeruntime.com/syslog/v1/logs
 ```
 
-- Substitua `visca.ai` pelo seu host se você estiver auto-hospedando o Cast Operations.
+- Substitua `latticeruntime.com` pelo seu host se você estiver auto-hospedando o Cast Operations.
 - Sempre inclua o cabeçalho `x-cast-operations-token` na requisição.
 
 ## Corpo da Requisição
@@ -42,7 +42,7 @@ Envie strings Syslog delimitadas por nova linha ou um payload JSON com um array 
 
 ```bash
 curl \
-  -X POST https://visca.ai/syslog/v1/logs \
+  -X POST https://latticeruntime.com/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-cast-operations-token: YOUR_TELEMETRY_KEY" \
   -H "x-cast-operations-service-name: production-web" \
@@ -72,7 +72,7 @@ curl \
 
    action(
      type="omhttp"
-     server="visca.ai"
+     server="latticeruntime.com"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
@@ -106,7 +106,7 @@ template(name="Cast OperationsJSON" type="list") {
 
 action(
   type="omhttp"
-  server="visca.ai"
+  server="latticeruntime.com"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
@@ -128,7 +128,7 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="visca.ai"
+  server="latticeruntime.com"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
@@ -155,7 +155,7 @@ Se você já executa Fluent Bit ou Fluentd, mantenha-os para logs de contêinere
 [OUTPUT]
     Name              http
     Match             *
-    Host              visca.ai
+    Host              latticeruntime.com
     Port              443
     URI               /syslog/v1/logs
     Format            json

@@ -13,10 +13,10 @@ Le service d'ingestion OpenTelemetry accepte désormais les charges utiles Syslo
 ## Point d'accès
 
 ```
-POST https://visca.ai/syslog/v1/logs
+POST https://latticeruntime.com/syslog/v1/logs
 ```
 
-- Remplacez `visca.ai` par votre hôte si vous auto-hébergez Cast Operations.
+- Remplacez `latticeruntime.com` par votre hôte si vous auto-hébergez Cast Operations.
 - Incluez toujours l'en-tête `x-cast-operations-token` dans la requête.
 
 ## Corps de la requête
@@ -42,7 +42,7 @@ Envoyez des chaînes Syslog délimitées par des sauts de ligne ou une charge ut
 
 ```bash
 curl \
-  -X POST https://visca.ai/syslog/v1/logs \
+  -X POST https://latticeruntime.com/syslog/v1/logs \
   -H "Content-Type: application/json" \
   -H "x-cast-operations-token: VOTRE_CLÉ_TELEMETRIE" \
   -H "x-cast-operations-service-name: web-production" \
@@ -72,7 +72,7 @@ curl \
 
    action(
      type="omhttp"
-     server="visca.ai"
+     server="latticeruntime.com"
      serverport="443"
      usehttps="on"
      endpoint="/syslog/v1/logs"
@@ -106,7 +106,7 @@ template(name="Cast OperationsJSON" type="list") {
 
 action(
   type="omhttp"
-  server="visca.ai"
+  server="latticeruntime.com"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
@@ -128,7 +128,7 @@ module(load="omhttp")
 
 action(
   type="omhttp"
-  server="visca.ai"
+  server="latticeruntime.com"
   serverport="443"
   usehttps="on"
   endpoint="/syslog/v1/logs"
@@ -155,7 +155,7 @@ Si vous exécutez déjà Fluent Bit ou Fluentd, gardez-les pour les journaux de 
 [OUTPUT]
     Name              http
     Match             *
-    Host              visca.ai
+    Host              latticeruntime.com
     Port              443
     URI               /syslog/v1/logs
     Format            json

@@ -30,8 +30,8 @@ U vindt de volledige lijst met ondersteunde bronnen [hier](https://docs.fluentbi
 ## Vereisten
 
 - **Stap 1: FluentBit installeren op uw systeem** - U kunt FluentBit installeren aan de hand van de instructies [hier](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)
-- **Stap 2: Een Cast Operations-account aanmaken** - U kunt een gratis account aanmaken [hier](https://visca.ai). Houd er rekening mee dat hoewel het account gratis is, logboekingestie een betaalde functie is. U kunt meer informatie over de prijzen vinden [hier](https://visca.ai/pricing).
-- **Stap 3: Cast Operations-project aanmaken** - Zodra u het account heeft, kunt u een project aanmaken vanuit het Cast Operations-dashboard. Als u hulp nodig heeft bij het aanmaken van een project of vragen heeft, neem dan contact op via support@visca.ai
+- **Stap 2: Een Cast Operations-account aanmaken** - U kunt een gratis account aanmaken [hier](https://latticeruntime.com). Houd er rekening mee dat hoewel het account gratis is, logboekingestie een betaalde functie is. U kunt meer informatie over de prijzen vinden [hier](https://latticeruntime.com/pricing).
+- **Stap 3: Cast Operations-project aanmaken** - Zodra u het account heeft, kunt u een project aanmaken vanuit het Cast Operations-dashboard. Als u hulp nodig heeft bij het aanmaken van een project of vragen heeft, neem dan contact op via support@latticeruntime.com
 - **Stap 4: Telemetrie-ingestietoken aanmaken** - Zodra u een Cast Operations-account heeft aangemaakt, kunt u een telemetrie-ingestietoken aanmaken om logboeken, metrics en traces van uw applicatie te verwerken.
 
 Nadat u zich hebt aangemeld bij Cast Operations en een project hebt aangemaakt, klikt u op "Meer" in de navigatiebalk en vervolgens op "Projectinstellingen".
@@ -54,7 +54,7 @@ outputs:
     match: "*"
   - name: opentelemetry
     match: "*"
-    host: "visca.ai"
+    host: "latticeruntime.com"
     port: 443
     metrics_uri: "/otlp/v1/metrics"
     logs_uri: "/otlp/v1/logs"
@@ -111,7 +111,7 @@ pipeline:
       match: "*"
     - name: opentelemetry
       match: "*"
-      host: "visca.ai"
+      host: "latticeruntime.com"
       port: 443
       metrics_uri: "/otlp/v1/metrics"
       logs_uri: "/otlp/v1/logs"
@@ -142,4 +142,4 @@ outputs:
 
 ## Gebruik
 
-Zodra u de configuratie aan het FluentBit-configuratiebestand hebt toegevoegd, kunt u de FluentBit-dienst herstarten. Zodra de dienst is herstart, worden de telemetriegegevens naar de Cast Operations HTTP-bron gestuurd. U kunt nu de telemetriegegevens zien in het Cast Operations-dashboard. Als u vragen heeft of hulp nodig heeft bij de configuratie, neem dan contact op via support@visca.ai
+Zodra u de configuratie aan het FluentBit-configuratiebestand hebt toegevoegd, kunt u de FluentBit-dienst herstarten. Zodra de dienst is herstart, worden de telemetriegegevens naar de Cast Operations HTTP-bron gestuurd. U kunt nu de telemetriegegevens zien in het Cast Operations-dashboard. Als u vragen heeft of hulp nodig heeft bij de configuratie, neem dan contact op via support@latticeruntime.com

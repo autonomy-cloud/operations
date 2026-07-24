@@ -14,7 +14,7 @@ describe("Cast Operations MCP Server", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     process.env["CAST_OPERATIONS_API_KEY"] = "test-api-key";
-    process.env["CAST_OPERATIONS_URL"] = "https://test.visca.ai";
+    process.env["CAST_OPERATIONS_URL"] = "https://test.latticeruntime.com";
   });
 
   describe("Server Initialization", () => {
@@ -42,14 +42,14 @@ describe("Cast Operations MCP Server", () => {
       // Call the mocked functions to simulate server initialization
       ToolGenerator.generateAllTools();
       OperationsApiService.initialize({
-        url: "https://test.visca.ai",
+        url: "https://test.latticeruntime.com",
         apiKey: "test-api-key",
       });
 
       // Test that the functions were called
       expect(ToolGenerator.generateAllTools).toHaveBeenCalled();
       expect(OperationsApiService.initialize).toHaveBeenCalledWith({
-        url: "https://test.visca.ai",
+        url: "https://test.latticeruntime.com",
         apiKey: "test-api-key",
       });
     });
@@ -70,7 +70,7 @@ describe("Cast Operations MCP Server", () => {
 
       expect(() => {
         OperationsApiService.initialize({
-          url: "https://test.visca.ai",
+          url: "https://test.latticeruntime.com",
           apiKey: "",
         });
       }).toThrow("Cast Operations API key is required");

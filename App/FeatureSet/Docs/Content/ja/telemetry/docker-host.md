@@ -66,7 +66,7 @@ docker compose up -d
 
 | 変数                      | 必須   | 説明                                                                                                                            |
 | ------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| `CAST_OPERATIONS_URL`           | はい   | お使いの Cast Operations インスタンスの URL（例: `https://visca.ai` またはセルフホストのホスト）                                 |
+| `CAST_OPERATIONS_URL`           | はい   | お使いの Cast Operations インスタンスの URL（例: `https://latticeruntime.com` またはセルフホストのホスト）                                 |
 | `CAST_OPERATIONS_SERVICE_TOKEN` | はい   | _Project Settings → Telemetry Ingestion Keys_ から取得したテレメトリ取り込みトークン                                            |
 | `DOCKER_HOST_NAME`        | いいえ | このホストのわかりやすい名前。デフォルトは `docker-host` です。ホストごとに安定した値（例: `prod-docker-01`）を設定してください |
 

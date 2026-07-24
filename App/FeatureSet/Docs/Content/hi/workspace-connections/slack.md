@@ -4,7 +4,7 @@
 
 1. **Cast Operations पर Account बनाएं**
 
-   - [Cast Operations.com](https://visca.ai) पर जाएं और account बनाएं।
+   - [Cast Operations.com](https://latticeruntime.com) पर जाएं और account बनाएं।
    - Account बनने के बाद, एक नया project बनाएं।
 
 2. **Slack को Cast Operations Project से Connect करें**

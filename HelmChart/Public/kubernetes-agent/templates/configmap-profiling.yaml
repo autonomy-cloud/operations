@@ -55,7 +55,7 @@ data:
           - key: cast-operations.agent.version
             value: {{ .Chart.AppVersion | quote }}
             action: insert
-          {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" .Values.cast-operations.labels "action" "insert") | nindent 10 }}
+          {{- include "kubernetes-agent.castOperationsLabels" (dict "labels" (index .Values "cast-operations").labels "action" "insert") | nindent 10 }}
 
     exporters:
       # Direct to Cast Operations — bypassing the in-cluster collector
@@ -68,8 +68,8 @@ data:
       # against `/v1development/profiles` by default. Cast Operations’
       # ingest route is the stable `/otlp/v1/profiles` path.
       otlp_http/cast-operations:
-        endpoint: "{{ .Values.cast-operations.url }}/otlp"
-        profiles_endpoint: "{{ .Values.cast-operations.url }}/otlp/v1/profiles"
+        endpoint: "{{ (index .Values "cast-operations").url }}/otlp"
+        profiles_endpoint: "{{ (index .Values "cast-operations").url }}/otlp/v1/profiles"
         encoding: proto
         headers:
           x-cast-operations-token: "${env:CAST_OPERATIONS_API_KEY}"

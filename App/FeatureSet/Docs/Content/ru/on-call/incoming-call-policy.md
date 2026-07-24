@@ -321,4 +321,4 @@ graph TB
 
 1. Проверьте журналы ошибок в Twilio Console
 2. Просмотрите серверные журналы Cast Operations
-3. Обратитесь в поддержку по адресу [hello@visca.ai](mailto:hello@visca.ai)
+3. Обратитесь в поддержку по адресу [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

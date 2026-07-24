@@ -9,7 +9,7 @@ Questa API recupera tutte le risorse presenti nella pagina di stato, incluso lo 
 Per ottenere lo stato complessivo delle risorse nella pagina di stato, è possibile effettuare una richiesta POST al seguente endpoint:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/overview/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/overview/:statusPageId
 ```
 
 Questa è la risposta dell'API:
@@ -20,11 +20,11 @@ Questa è la risposta dell'API:
     // Oggetto Stato Monitor
     // Lo Stato Complessivo è il peggior stato di tutti i monitor e i gruppi nella pagina di stato.
     // Ulteriori dettagli sullo stato del monitor sono disponibili qui.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
   },
   "scheduledMaintenanceEventsPublicNotes": [
     // Ulteriori dettagli sulla nota pubblica della manutenzione programmata sono disponibili qui.
-    // https://visca.ai/reference/scheduled-maintenance-public-note
+    // https://latticeruntime.com/reference/scheduled-maintenance-public-note
     {
       // Oggetto Nota Pubblica Manutenzione Programmata
     },
@@ -34,7 +34,7 @@ Questa è la risposta dell'API:
   ],
   "statusPageHistoryChartBarColorRules": [
     // Ulteriori dettagli sulla regola colore barra grafico cronologia pagina di stato sono disponibili qui.
-    // https://visca.ai/reference/status-page-history-chart-bar-color-rule
+    // https://latticeruntime.com/reference/status-page-history-chart-bar-color-rule
     {
       // Oggetto Regola Colore Barra Grafico Cronologia Pagina di Stato
     },
@@ -44,7 +44,7 @@ Questa è la risposta dell'API:
   ],
   "scheduledMaintenanceEvents": [
     // Ulteriori dettagli sull'evento di manutenzione programmata sono disponibili qui.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Oggetto Evento Manutenzione Programmata
     },
@@ -54,7 +54,7 @@ Questa è la risposta dell'API:
   ],
   "activeAnnouncements": [
     // Ulteriori dettagli sull'annuncio attivo sono disponibili qui.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Oggetto Annuncio Pagina di Stato
     },
@@ -64,7 +64,7 @@ Questa è la risposta dell'API:
   ],
   "incidentPublicNotes": [
     // Ulteriori dettagli sulla nota pubblica dell'incidente sono disponibili qui.
-    // https://visca.ai/reference/incident-public-note
+    // https://latticeruntime.com/reference/incident-public-note
     {
       // Oggetto Nota Pubblica Incidente
     },
@@ -74,7 +74,7 @@ Questa è la risposta dell'API:
   ],
   "activeIncidents": [
     // Ulteriori dettagli sull'incidente attivo sono disponibili qui.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Oggetto Incidente
     },
@@ -84,7 +84,7 @@ Questa è la risposta dell'API:
   ],
   "monitorStatusTimelines": [
     // Ulteriori dettagli sulla cronologia dello stato del monitor sono disponibili qui.
-    // https://visca.ai/reference/monitor-status-timeline
+    // https://latticeruntime.com/reference/monitor-status-timeline
     {
       // Oggetto Cronologia Stato Monitor
     },
@@ -94,7 +94,7 @@ Questa è la risposta dell'API:
   ],
   "resourceGroups": [
     // Ulteriori dettagli sul gruppo di risorse sono disponibili qui.
-    // https://visca.ai/reference/resource-group
+    // https://latticeruntime.com/reference/resource-group
     {
       // Oggetto Gruppo di Risorse
     },
@@ -104,7 +104,7 @@ Questa è la risposta dell'API:
   ],
   "monitorStatuses": [
     // Ulteriori dettagli sullo stato del monitor sono disponibili qui.
-    // https://visca.ai/reference/monitor-status
+    // https://latticeruntime.com/reference/monitor-status
     {
       // Oggetto Stato Monitor
     },
@@ -114,7 +114,7 @@ Questa è la risposta dell'API:
   ],
   "statusPageResources": [
     // Ulteriori dettagli sulla risorsa della pagina di stato sono disponibili qui.
-    // https://visca.ai/reference/status-page-resource
+    // https://latticeruntime.com/reference/status-page-resource
     {
       // Oggetto Risorsa Pagina di Stato
     },
@@ -124,7 +124,7 @@ Questa è la risposta dell'API:
   ],
   "incidentStateTimelines": [
     // Ulteriori dettagli sulla cronologia dello stato dell'incidente sono disponibili qui.
-    // https://visca.ai/reference/incident-state-timeline
+    // https://latticeruntime.com/reference/incident-state-timeline
     {
       // Oggetto Cronologia Stato Incidente
     },
@@ -134,11 +134,11 @@ Questa è la risposta dell'API:
   ],
   "statusPage": {
     // Ulteriori dettagli sulla pagina di stato sono disponibili qui.
-    // https://visca.ai/reference/status-page
+    // https://latticeruntime.com/reference/status-page
   },
   "scheduledMaintenanceStateTimelines": [
     // Ulteriori dettagli sulla cronologia dello stato della manutenzione programmata sono disponibili qui.
-    // https://visca.ai/reference/scheduled-maintenance-state-timeline
+    // https://latticeruntime.com/reference/scheduled-maintenance-state-timeline
     {
       // Oggetto Cronologia Stato Manutenzione Programmata
     },
@@ -162,7 +162,7 @@ Questa API recupera l'uptime di tutte le risorse nella pagina di stato.
 Per ottenere l'uptime complessivo di tutte le risorse, è possibile effettuare una richiesta POST al seguente endpoint:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/uptime/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/uptime/:statusPageId
 ```
 
 **Corpo Richiesta (opzionale):**
@@ -257,7 +257,7 @@ Questa è la risposta di esempio dall'API:
 Questa API recupera tutti gli incidenti presenti nella pagina di stato. Per ottenere tutti gli incidenti nella pagina di stato, è possibile effettuare una richiesta POST al seguente endpoint:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/incidents/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/incidents/:statusPageId
 ```
 
 Questa è la risposta dell'API:
@@ -266,7 +266,7 @@ Questa è la risposta dell'API:
 {
   "incidents": [
     // Ulteriori dettagli sull'incidente sono disponibili qui.
-    // https://visca.ai/reference/incident
+    // https://latticeruntime.com/reference/incident
     {
       // Oggetto Incidente
     },
@@ -282,7 +282,7 @@ Questa è la risposta dell'API:
 Questa API recupera tutte le manutenzioni programmate presenti nella pagina di stato. Per ottenerle, è possibile effettuare una richiesta POST al seguente endpoint:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/scheduled-maintenance/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/scheduled-maintenance/:statusPageId
 ```
 
 Questa è la risposta dell'API:
@@ -291,7 +291,7 @@ Questa è la risposta dell'API:
 {
   "scheduledMaintenanceEvents": [
     // Ulteriori dettagli sull'evento di manutenzione programmata sono disponibili qui.
-    // https://visca.ai/reference/scheduled-maintenance
+    // https://latticeruntime.com/reference/scheduled-maintenance
     {
       // Oggetto Evento Manutenzione Programmata
     },
@@ -307,7 +307,7 @@ Questa è la risposta dell'API:
 Questa API recupera tutti gli annunci presenti nella pagina di stato. Per ottenerli, è possibile effettuare una richiesta POST al seguente endpoint:
 
 ```bash
-curl -X POST https://visca.ai/status-page-api/announcements/:statusPageId
+curl -X POST https://latticeruntime.com/status-page-api/announcements/:statusPageId
 ```
 
 Questa è la risposta dell'API:
@@ -316,7 +316,7 @@ Questa è la risposta dell'API:
 {
   "announcements": [
     // Ulteriori dettagli sull'annuncio sono disponibili qui.
-    // https://visca.ai/reference/status-page-announcement
+    // https://latticeruntime.com/reference/status-page-announcement
     {
       // Oggetto Annuncio
     },

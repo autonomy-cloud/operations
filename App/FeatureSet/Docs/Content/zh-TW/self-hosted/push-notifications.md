@@ -31,4 +31,4 @@ Cast Operations 行動應用程式會向後端註冊一個 Expo Push Token。當
 
 1. 查看上方的疑難排解章節
 2. 檢視 Cast Operations 記錄以取得詳細的錯誤訊息
-3. 透過 [hello@visca.ai](mailto:hello@visca.ai) 與我們聯絡
+3. 透過 [hello@latticeruntime.com](mailto:hello@latticeruntime.com) 與我們聯絡

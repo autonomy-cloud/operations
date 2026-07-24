@@ -32,7 +32,7 @@ APK는 Play Store 릴리스와 동일한 소스에서 Cast Operations이 빌드�
 ## 첫 실행 및 로그인
 
 1. **서버 URL**
-   - Cast Operations Cloud를 사용하는 경우 기본값인 `https://visca.ai`을 그대로 두세요.
+   - Cast Operations Cloud를 사용하는 경우 기본값인 `https://latticeruntime.com`을 그대로 두세요.
    - 자체 호스팅 중이라면 Cast Operations 인스턴스의 URL을 입력하세요(예: `https://operations.example.com`).
    - 앱은 계속 진행하기 전에 서버에 연결 가능한지 확인합니다.
 2. **로그인**

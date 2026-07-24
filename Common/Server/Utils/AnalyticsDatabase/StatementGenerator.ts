@@ -12,6 +12,7 @@ import {
   getStorageEngine,
   getStorageTableName,
   onClusterClause,
+  quoteClickhouseIdentifier,
 } from "./ClusterConfig";
 import AnalyticsBaseModel from "../../../Models/AnalyticsModels/AnalyticsBaseModel/AnalyticsBaseModel";
 import CommonModel, {
@@ -118,6 +119,9 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
   public toUpdateStatement(updateBy: UpdateBy<TBaseModel>): Statement {
     const setStatement: Statement = this.toSetStatement(updateBy.data);
     const whereStatement: Statement = this.toWhereStatement(updateBy.query);
+    const qualifiedStorageTableName: string = `${quoteClickhouseIdentifier(
+      this.database.getDatasourceOptions().database!,
+    )}.${quoteClickhouseIdentifier(getStorageTableName(this.model.tableName))}`;
 
     /*
      * `ALTER TABLE … UPDATE` is a mutation and cannot target a Distributed
@@ -128,10 +132,8 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
      * in single-node mode, leaving the original statement unchanged.
      */
     /* eslint-disable prettier/prettier */
-    const statement: Statement = SQL`
-            ALTER TABLE ${this.database.getDatasourceOptions().database!}.${getStorageTableName(
-              this.model.tableName,
-            )}`
+    const statement: Statement = new Statement()
+      .append(`ALTER TABLE ${qualifiedStorageTableName}`)
       .append(onClusterClause())
       .append(
         SQL`
@@ -215,9 +217,9 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
      * otherwise too many parts will be created.
      */
 
-    const statement: string = `INSERT INTO ${
-      this.database.getDatasourceOptions().database
-    }.${this.model.tableName} 
+    const statement: string = `INSERT INTO ${quoteClickhouseIdentifier(
+      this.database.getDatasourceOptions().database!,
+    )}.${quoteClickhouseIdentifier(this.model.tableName)}
         ( 
             ${columnNames.join(", ")}
         ) SETTINGS async_insert=1, wait_for_async_insert=0
@@ -1254,13 +1256,15 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
     oldColumnName: string,
     newColumnName: string,
   ): Promise<Statement> {
-    const statement: string = `ALTER TABLE ${
-      this.database.getDatasourceOptions().database
-    }.${getStorageTableName(
-      this.model.tableName,
-    )} RENAME COLUMN IF EXISTS ${oldColumnName} TO ${newColumnName}`;
+    const statement: string = `ALTER TABLE ${quoteClickhouseIdentifier(
+      this.database.getDatasourceOptions().database!,
+    )}.${quoteClickhouseIdentifier(
+      getStorageTableName(this.model.tableName),
+    )} RENAME COLUMN IF EXISTS ${quoteClickhouseIdentifier(
+      oldColumnName,
+    )} TO ${quoteClickhouseIdentifier(newColumnName)}`;
 
-    return SQL`${statement}`;
+    return new Statement().append(statement);
   }
 
   public toColumnsCreateStatement(
@@ -1488,10 +1492,11 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
      * `ADD INDEX` that addColumnInDatabase issues next never races a column that
      * has not yet propagated to the node the index DDL lands on.
      */
-    const statement: Statement = SQL`
-            ALTER TABLE ${this.database.getDatasourceOptions().database!}.${getStorageTableName(
-              this.model.tableName,
-            )}`
+    const qualifiedStorageTableName: string = `${quoteClickhouseIdentifier(
+      this.database.getDatasourceOptions().database!,
+    )}.${quoteClickhouseIdentifier(getStorageTableName(this.model.tableName))}`;
+    const statement: Statement = new Statement()
+      .append(`ALTER TABLE ${qualifiedStorageTableName}`)
       .append(onClusterClause())
       .append(" ADD COLUMN IF NOT EXISTS ")
       .append(columnDef);
@@ -1530,7 +1535,11 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
      * fails with "Missing columns: '<col>'" (Code 47).
      */
     statement.append(
-      `ALTER TABLE ${databaseName}.${getStorageTableName(this.model.tableName)}${onClusterClause()} ADD INDEX IF NOT EXISTS ${idx.name} ${columnExpr} TYPE ${idx.type}${paramsStr} GRANULARITY ${idx.granularity}`,
+      `ALTER TABLE ${quoteClickhouseIdentifier(databaseName)}.${quoteClickhouseIdentifier(
+        getStorageTableName(this.model.tableName),
+      )}${onClusterClause()} ADD INDEX IF NOT EXISTS ${quoteClickhouseIdentifier(
+        idx.name,
+      )} ${columnExpr} TYPE ${idx.type}${paramsStr} GRANULARITY ${idx.granularity}`,
     );
 
     logger.debug(`${this.model.tableName} Add Skip Index Statement`);
@@ -1541,7 +1550,13 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
 
   public toDropSkipIndexStatement(indexName: string): string {
     const databaseName: string = this.database.getDatasourceOptions().database!;
-    const statement: string = `ALTER TABLE ${databaseName}.${getStorageTableName(this.model.tableName)}${onClusterClause()} DROP INDEX IF EXISTS ${indexName}`;
+    const statement: string = `ALTER TABLE ${quoteClickhouseIdentifier(
+      databaseName,
+    )}.${quoteClickhouseIdentifier(
+      getStorageTableName(this.model.tableName),
+    )}${onClusterClause()} DROP INDEX IF EXISTS ${quoteClickhouseIdentifier(
+      indexName,
+    )}`;
 
     logger.debug(`${this.model.tableName} Drop Skip Index Statement`);
     logger.debug(statement);
@@ -1550,10 +1565,13 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
   }
 
   public toDropColumnStatement(columnName: string): string {
-    const statement: string = `ALTER TABLE ${this.database.getDatasourceOptions()
-      .database!}.${getStorageTableName(
-      this.model.tableName,
-    )}${onClusterClause()} DROP COLUMN IF EXISTS ${columnName}`;
+    const statement: string = `ALTER TABLE ${quoteClickhouseIdentifier(
+      this.database.getDatasourceOptions().database!,
+    )}.${quoteClickhouseIdentifier(
+      getStorageTableName(this.model.tableName),
+    )}${onClusterClause()} DROP COLUMN IF EXISTS ${quoteClickhouseIdentifier(
+      columnName,
+    )}`;
 
     logger.debug(`${this.model.tableName} Drop Column Statement`);
     logger.debug(statement);
@@ -1563,6 +1581,9 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
 
   public toTableCreateStatement(): Statement {
     const databaseName: string = this.database.getDatasourceOptions().database!;
+    const qualifiedStorageTableName: string = `${quoteClickhouseIdentifier(
+      databaseName,
+    )}.${quoteClickhouseIdentifier(getStorageTableName(this.model.tableName))}`;
     const columnsStatement: Statement = this.toColumnsCreateStatement(
       this.model.tableColumns,
     );
@@ -1583,14 +1604,12 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
       this.model.tableEngine,
     );
 
-    const storageTableName: string = getStorageTableName(this.model.tableName);
-
     const onCluster: string = onClusterClause();
 
     const partitionKey: string = this.model.partitionKey;
 
-    const statement: Statement = SQL`
-            CREATE TABLE IF NOT EXISTS ${databaseName}.${storageTableName}`
+    const statement: Statement = new Statement()
+      .append(`CREATE TABLE IF NOT EXISTS ${qualifiedStorageTableName}`)
       /*
        * ON CLUSTER is appended as RAW SQL — the SQL tag turns every ${..}
        * interpolation into a {pN:Identifier} parameter, which would wrongly
@@ -1673,6 +1692,12 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
     const databaseName: string = this.database.getDatasourceOptions().database!;
     const distributedTableName: string = this.model.tableName;
     const localTableName: string = getStorageTableName(this.model.tableName);
+    const qualifiedDistributedTableName: string = `${quoteClickhouseIdentifier(
+      databaseName,
+    )}.${quoteClickhouseIdentifier(distributedTableName)}`;
+    const qualifiedLocalTableName: string = `${quoteClickhouseIdentifier(
+      databaseName,
+    )}.${quoteClickhouseIdentifier(localTableName)}`;
     const onCluster: string = onClusterClause();
     const distributedEngine: string = getDistributedEngine(
       localTableName,
@@ -1681,7 +1706,7 @@ export default class StatementGenerator<TBaseModel extends AnalyticsBaseModel> {
 
     const statement: Statement = new Statement();
     statement.append(
-      `CREATE OR REPLACE TABLE ${databaseName}.${distributedTableName}${onCluster} AS ${databaseName}.${localTableName} ENGINE = ${distributedEngine}`,
+      `CREATE OR REPLACE TABLE ${qualifiedDistributedTableName}${onCluster} AS ${qualifiedLocalTableName} ENGINE = ${distributedEngine}`,
     );
 
     logger.debug(`${this.model.tableName} Distributed Table Create Statement`);

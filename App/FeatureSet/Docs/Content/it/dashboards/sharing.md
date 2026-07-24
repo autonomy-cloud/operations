@@ -4,7 +4,7 @@ Per impostazione predefinita, le dashboard sono private al tuo progetto — solo
 
 ## Dashboard private (il default)
 
-Una dashboard e raggiungibile solo dai membri autenticati del tuo progetto. L'URL e simile a `https://visca.ai/dashboards/<id>/view` e richiede l'accesso.
+Una dashboard e raggiungibile solo dai membri autenticati del tuo progetto. L'URL e simile a `https://latticeruntime.com/dashboards/<id>/view` e richiede l'accesso.
 
 All'interno del progetto, proprietari ed etichette controllano chi vede cosa — vedi [Configurazione e permessi](/docs/dashboards/configuration).
 
@@ -51,7 +51,7 @@ Le richieste da qualsiasi altro IP vengono rifiutate.
 
 ## Domini personalizzati
 
-Out of the box, una dashboard pubblica viene servita su `visca.ai`. Per ospitarla sul tuo sottodominio come `dashboard.acme.com`:
+Out of the box, una dashboard pubblica viene servita su `latticeruntime.com`. Per ospitarla sul tuo sottodominio come `dashboard.acme.com`:
 
 1. Aggiungi un record CNAME sul tuo DNS che punti il sottodominio al target di Cast Operations.
 2. Sotto **Dashboard → Settings → Custom Domains**, aggiungi il dominio.

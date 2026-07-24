@@ -1,4 +1,5 @@
 import { Renderer, marked } from "marked";
+import URL from "../../Types/API/URL";
 import CaptureSpan from "../Utils/Telemetry/CaptureSpan";
 import markdownSlugify from "./MarkdownSlugify";
 
@@ -21,8 +22,8 @@ export default class Markdown {
 
     let text: string = markdown;
 
-    // Remove HTML tags
-    text = text.replace(/<[^>]*>/g, "");
+    // Remove HTML tags without treating a regular expression as an HTML parser.
+    text = Markdown.stripHtmlTags(text);
 
     // Convert markdown links [text](url) to just text
     text = text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
@@ -56,13 +57,21 @@ export default class Markdown {
     text = text.replace(/^[\s]*[-*+]\s+/gm, "");
     text = text.replace(/^[\s]*\d+\.\s+/gm, "");
 
-    // Decode HTML entities
-    text = text.replace(/&lt;/g, "<");
-    text = text.replace(/&gt;/g, ">");
-    text = text.replace(/&amp;/g, "&");
-    text = text.replace(/&quot;/g, '"');
-    text = text.replace(/&#39;/g, "'");
-    text = text.replace(/&nbsp;/g, " ");
+    // Decode supported HTML entities once, so nested entities stay encoded.
+    const decodedEntities: Record<string, string> = {
+      "&lt;": "<",
+      "&gt;": ">",
+      "&amp;": "&",
+      "&quot;": '"',
+      "&#39;": "'",
+      "&nbsp;": " ",
+    };
+    text = text.replace(
+      /&(lt|gt|amp|quot|#39|nbsp);/g,
+      (entity: string): string => {
+        return decodedEntities[entity] || entity;
+      },
+    );
 
     // Normalize whitespace - collapse multiple spaces/newlines
     text = text.replace(/\n\s*\n/g, "\n");
@@ -126,6 +135,27 @@ export default class Markdown {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
+  }
+
+  private static stripHtmlTags(text: string): string {
+    let result: string = "";
+    let insideTag: boolean = false;
+
+    for (const character of text) {
+      if (character === "<") {
+        insideTag = true;
+        continue;
+      }
+      if (insideTag && character === ">") {
+        insideTag = false;
+        continue;
+      }
+      if (!insideTag) {
+        result += character;
+      }
+    }
+
+    return result;
   }
 
   private static getEmailRenderer(): Renderer {
@@ -505,9 +535,20 @@ export default class Markdown {
       const isHash: boolean = href.startsWith("#");
       const isMailTo: boolean = href.startsWith("mailto:");
       const isTel: boolean = href.startsWith("tel:");
+      let isLatticeRuntimeHost: boolean = false;
+      if (!href.startsWith("/") && !isHash && !isMailTo && !isTel) {
+        try {
+          const hostname: string = URL.fromString(href).hostname.toString();
+          isLatticeRuntimeHost =
+            hostname === "latticeruntime.com" ||
+            hostname.endsWith(".latticeruntime.com");
+        } catch {
+          isLatticeRuntimeHost = false;
+        }
+      }
       const isInternal: boolean =
         href.startsWith("/") ||
-        href.includes("visca.ai") ||
+        isLatticeRuntimeHost ||
         isHash ||
         isMailTo ||
         isTel;

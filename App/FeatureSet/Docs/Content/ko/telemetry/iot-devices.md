@@ -39,14 +39,14 @@ Cast Operations은 OpenTelemetry 리소스 속성을 사용하여 장치를 두 
 장치가 OpenTelemetry SDK를 직접 실행하는 경우, 이를 Cast Operations으로 향하게 하고 표준 `OTEL_*` 환경 변수를 통해 IoT 리소스 속성을 찍으세요. 토큰, 엔드포인트, 플릿 이름, 장치 id를 사용자 환경에 맞는 값으로 교체하세요.
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | 환경 변수                       | 필수 여부 | 설명                                                                                                  |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | 예       | Cast Operations OTLP 엔드포인트(`https://visca.ai/otlp`, 또는 자체 호스팅 시 `http(s)://YOUR-OPERATIONS-HOST/otlp`) |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | 예       | Cast Operations OTLP 엔드포인트(`https://latticeruntime.com/otlp`, 또는 자체 호스팅 시 `http(s)://YOUR-OPERATIONS-HOST/otlp`) |
 | `OTEL_EXPORTER_OTLP_HEADERS`  | 예       | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | 예       | 쉼표로 구분된 리소스 속성. `iot.fleet.name`, `device.id`, `service.name=iot/<fleet>`를 반드시 포함해야 합니다 |
 
@@ -80,7 +80,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     headers:
       "x-cast-operations-token": "YOUR_TELEMETRY_INGESTION_TOKEN"
 
@@ -135,12 +135,12 @@ mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
-WebSocket을 통한 Node.js `mqtt` 예시(visca.ai 및 모든 자체 호스팅 인스턴스에서 동작합니다):
+WebSocket을 통한 Node.js `mqtt` 예시(latticeruntime.com 및 모든 자체 호스팅 인스턴스에서 동작합니다):
 
 ```javascript
 const mqtt = require("mqtt");
 
-const client = mqtt.connect("wss://visca.ai/mqtt", {
+const client = mqtt.connect("wss://latticeruntime.com/mqtt", {
   username: "cast-operations", // 무시됩니다 — 아래의 토큰이 인증을 수행합니다
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
@@ -177,7 +177,7 @@ client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
 client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
-client.connect("visca.ai", 443)
+client.connect("latticeruntime.com", 443)
 
 client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
@@ -221,7 +221,7 @@ Cast Operations은 다음 `iot_*` 메트릭 이름을 인식합니다. 각 데�
 ### 플릿이 나타나지 않음
 
 1. `iot.fleet.name`이 데이터포인트 레이블이 아닌 **리소스** 속성으로 설정되어 있고, `service.name`이 `iot/<fleet>`인지 확인하세요.
-2. 익스포터 엔드포인트가 `https://visca.ai/otlp`(또는 자체 호스팅 `…/otlp`)이고 `x-cast-operations-token` 헤더에 유효한 토큰이 들어 있는지 확인하세요.
+2. 익스포터 엔드포인트가 `https://latticeruntime.com/otlp`(또는 자체 호스팅 `…/otlp`)이고 `x-cast-operations-token` 헤더에 유효한 토큰이 들어 있는지 확인하세요.
 3. MQTT를 사용하는 경우, 토픽이 `cast-operations/<fleet>/<device>/…` 형식을 정확히 따르는지 확인하세요 — 토픽의 플릿 세그먼트가 플릿을 생성하는 요소입니다.
 
 ### 인벤토리에서 장치 누락

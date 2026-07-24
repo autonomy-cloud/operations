@@ -103,7 +103,7 @@
   ],
   "start_url": "/dashboard/",
   "scope": "/dashboard/",
-  "scope_extensions": [{ "origin": "*.visca.ai" }],
+  "scope_extensions": [{ "origin": "*.latticeruntime.com" }],
   "launch_handler": {
     "client_mode": ["focus-existing"]
   },

@@ -1,9 +1,34 @@
 #!/bin/bash
-set -e
+set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEST_DIR="$(dirname "$SCRIPT_DIR")"
 ROOT_DIR="$(cd "$TEST_DIR/../../.." && pwd)"
+
+dump_service_diagnostics() {
+    local exit_code=$?
+
+    if [ "$exit_code" -eq 0 ]; then
+        return
+    fi
+
+    echo ""
+    echo "=== Cast Operations service diagnostics ==="
+    cd "$ROOT_DIR"
+    set -a
+    if [ -f ./config.env ]; then
+        # shellcheck disable=SC1091
+        . ./config.env
+    fi
+    set +a
+    docker compose -f docker-compose.dev.yml ps -a || true
+    docker compose -f docker-compose.dev.yml logs \
+        --no-color \
+        --tail=300 \
+        app clickhouse postgres redis || true
+}
+
+trap dump_service_diagnostics EXIT
 
 echo "=========================================="
 echo "Terraform Provider E2E Tests"
@@ -41,13 +66,26 @@ npm run generate-terraform-provider
 echo ""
 echo "=== Step 3: Starting Cast Operations Services ==="
 cd "$ROOT_DIR"
-npm run dev
+# Terraform provider tests exercise the API only. Starting the frontend
+# hot-reload toolchain here delays API readiness and can exhaust CI memory.
+export CAST_OPERATIONS_API_ONLY=true
+# Scope Compose to the API service. Its declared dependencies bring up
+# PostgreSQL, Redis, and ClickHouse, while frontend/probe services remain off.
+npm_config_services=app npm run dev
 
-# Step 4: Wait for services
+# Step 4: Wait for the API used by the provider
 echo ""
-echo "=== Step 4: Waiting for services to be ready ==="
+echo "=== Step 4: Waiting for the API to be ready ==="
 cd "$ROOT_DIR"
-npm run status-check
+set -a
+# config-to-dev, invoked by npm run dev, generated the resolved local ports.
+# shellcheck disable=SC1091
+. ./config.env
+set +a
+export CAST_OPERATIONS_URL="http://localhost:${APP_PORT}"
+bash ./Tests/Scripts/endpoint-status.sh \
+    "Cast Operations API" \
+    "${CAST_OPERATIONS_URL}/status/ready"
 
 # Step 5: Setup test account
 echo ""

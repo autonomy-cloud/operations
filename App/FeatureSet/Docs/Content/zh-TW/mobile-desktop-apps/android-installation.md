@@ -32,7 +32,7 @@
 ## 首次啟動與登入
 
 1. **伺服器 URL**
-   - 如果您使用 Cast Operations Cloud，請保留預設的 `https://visca.ai`。
+   - 如果您使用 Cast Operations Cloud，請保留預設的 `https://latticeruntime.com`。
    - 如果您是自架，請輸入您的 Cast Operations 執行個體的 URL（例如 `https://operations.example.com`）。
    - 應用程式會在繼續之前驗證伺服器是否可連線。
 2. **登入**

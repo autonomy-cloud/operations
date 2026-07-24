@@ -34,14 +34,14 @@ Cast Operations 使用 OpenTelemetry 資源屬性將你的裝置對應到兩個�
 如果你的裝置直接執行 OpenTelemetry SDK，請將它指向 Cast Operations，並透過標準的 `OTEL_*` 環境變數標記 IoT 資源屬性。請將權杖、端點、機群名稱與裝置 id 替換為你環境中的值。
 
 ```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN
 export OTEL_RESOURCE_ATTRIBUTES=iot.fleet.name=building-a-sensors,device.id=sensor-001,service.name=iot/building-a-sensors
 ```
 
 | 環境變數                      | 必填     | 說明                                                                                                 |
 | ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | 是       | Cast Operations OTLP 端點（`https://visca.ai/otlp`，或自我託管的 `http(s)://YOUR-OPERATIONS-HOST/otlp`） |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | 是       | Cast Operations OTLP 端點（`https://latticeruntime.com/otlp`，或自我託管的 `http(s)://YOUR-OPERATIONS-HOST/otlp`） |
 | `OTEL_EXPORTER_OTLP_HEADERS`  | 是       | `x-cast-operations-token=YOUR_TELEMETRY_INGESTION_TOKEN`                                                    |
 | `OTEL_RESOURCE_ATTRIBUTES`    | 是       | 以逗號分隔的資源屬性。必須包含 `iot.fleet.name`、`device.id` 與 `service.name=iot/<fleet>`            |
 
@@ -75,7 +75,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     # Cast Operations 需要 JSON 編碼器，而非預設的 Proto(buf)
     encoding: json
     headers:
@@ -133,12 +133,12 @@ mosquitto_pub -h YOUR-CAST_OPERATIONS-APP-HOST -p 1883 \
   -m '{"metrics":{"iot_device_up":1,"iot_battery_percent":87,"iot_temperature_celsius":21.5},"attributes":{"iot.device.type":"temp-sensor","iot.device.firmware":"1.4.2"}}'
 ```
 
-使用 Node.js `mqtt` 透過 WebSocket 的範例（可對 visca.ai 以及任何自我託管的執行個體運作）：
+使用 Node.js `mqtt` 透過 WebSocket 的範例（可對 latticeruntime.com 以及任何自我託管的執行個體運作）：
 
 ```javascript
 const mqtt = require("mqtt");
 
-const client = mqtt.connect("wss://visca.ai/mqtt", {
+const client = mqtt.connect("wss://latticeruntime.com/mqtt", {
   username: "cast-operations", // 會被忽略 — 進行驗證的是下方的權杖
   password: "YOUR_TELEMETRY_INGESTION_TOKEN",
   will: {
@@ -175,7 +175,7 @@ client.username_pw_set("cast-operations", "YOUR_TELEMETRY_INGESTION_TOKEN")
 client.tls_set()
 client.will_set("cast-operations/building-a-sensors/sensor-001/status", "offline")
 client.ws_set_options(path="/mqtt")
-client.connect("visca.ai", 443)
+client.connect("latticeruntime.com", 443)
 
 client.publish("cast-operations/building-a-sensors/sensor-001/status", "online")
 client.publish(
@@ -219,7 +219,7 @@ Cast Operations 可辨識下列 `iot_*` 指標名稱。每個資料點都應帶�
 ### 機群未出現
 
 1. 確認 `iot.fleet.name` 是設定為**資源（resource）**屬性（而非資料點標籤），並且 `service.name` 為 `iot/<fleet>`。
-2. 確認匯出器端點為 `https://visca.ai/otlp`（或你自我託管的 `…/otlp`），且 `x-cast-operations-token` 標頭攜帶有效的權杖。
+2. 確認匯出器端點為 `https://latticeruntime.com/otlp`（或你自我託管的 `…/otlp`），且 `x-cast-operations-token` 標頭攜帶有效的權杖。
 3. 如果使用 collector，請確保 `otlphttp` 匯出器上有設定 `encoding: json` 與 `Content-Type: application/json`。
 
 ### 裝置從清單中遺漏

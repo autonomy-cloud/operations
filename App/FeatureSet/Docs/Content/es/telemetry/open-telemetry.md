@@ -41,14 +41,14 @@ Una vez que hayas configurado el servicio de telemetría en tu aplicación, pued
 | Variable de entorno         | Valor                                          |
 | --------------------------- | ---------------------------------------------- |
 | OTEL_EXPORTER_OTLP_HEADERS  | x-cast-operations-token=YOUR_CAST_OPERATIONS_SERVICE_TOKEN |
-| OTEL_EXPORTER_OTLP_ENDPOINT | https://visca.ai/otlp                     |
+| OTEL_EXPORTER_OTLP_ENDPOINT | https://latticeruntime.com/otlp                     |
 | OTEL_SERVICE_NAME           | NAME_OF_YOUR_SERVICE                           |
 
 **Ejemplo**
 
 ```bash
 export OTEL_EXPORTER_OTLP_HEADERS=x-cast-operations-token=9c8806e0-a4aa-11ee-be95-010d5967b068
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://visca.ai/otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://latticeruntime.com/otlp
 export OTEL_SERVICE_NAME=my-service
 ```
 
@@ -56,7 +56,7 @@ export OTEL_SERVICE_NAME=my-service
 
 Si te auto-alojas en Cast Operations, esto puede cambiarse a tu punto de conexión del colector OpenTelemetry auto-alojado (por ejemplo: `http(s)://YOUR-OPERATIONS-HOST/otlp`)
 
-Una vez que ejecutes tu aplicación, deberías ver los registros en la página del servicio de telemetría de Cast Operations. Comunícate con support@visca.ai si necesitas ayuda.
+Una vez que ejecutes tu aplicación, deberías ver los registros en la página del servicio de telemetría de Cast Operations. Comunícate con support@latticeruntime.com si necesitas ayuda.
 
 #### Uso del Colector OpenTelemetry
 
@@ -77,7 +77,7 @@ receivers:
 exporters:
   # Exportar a través de HTTP
   otlphttp:
-    endpoint: "https://visca.ai/otlp"
+    endpoint: "https://latticeruntime.com/otlp"
     # Requiere usar el codificador JSON en lugar del predeterminado Proto(buf)
     encoding: json
     headers:

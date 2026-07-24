@@ -85,7 +85,7 @@ AI agent चलाने के लिए, सुनिश्चित करे
 docker run --name cast-operations-ai-agent --network host \
   -e AI_AGENT_KEY=<ai-agent-key> \
   -e AI_AGENT_ID=<ai-agent-id> \
-  -e CAST_OPERATIONS_URL=https://visca.ai \
+  -e CAST_OPERATIONS_URL=https://latticeruntime.com \
   -d cast-operations/ai-agent:release
 ```
 
@@ -105,7 +105,7 @@ services:
     environment:
       - AI_AGENT_KEY=<ai-agent-key>
       - AI_AGENT_ID=<ai-agent-id>
-      - CAST_OPERATIONS_URL=https://visca.ai
+      - CAST_OPERATIONS_URL=https://latticeruntime.com
     network_mode: host
     restart: always
 ```
@@ -143,7 +143,7 @@ spec:
             - name: AI_AGENT_ID
               value: "<ai-agent-id>"
             - name: CAST_OPERATIONS_URL
-              value: "https://visca.ai"
+              value: "https://latticeruntime.com"
 ```
 
 configuration लागू करें:
@@ -162,7 +162,7 @@ AI agent निम्नलिखित environment variables का समर�
 | --------------- | ---------------------------------------------------------------- |
 | `AI_AGENT_KEY`  | आपके Cast Operations dashboard से AI agent key                         |
 | `AI_AGENT_ID`   | आपके Cast Operations dashboard से AI agent ID                          |
-| `CAST_OPERATIONS_URL` | आपके Cast Operations instance का URL (डिफ़ॉल्ट: https://visca.ai) |
+| `CAST_OPERATIONS_URL` | आपके Cast Operations instance का URL (डिफ़ॉल्ट: https://latticeruntime.com) |
 
 ## अपने AI Agent को सत्यापित करना
 
@@ -203,4 +203,4 @@ kubectl logs deployment/cast-operations-ai-agent
 
 1. ज्ञात समस्याओं के लिए [Cast Operations GitHub Issues](https://github.com/autonomy-cloud/operations/issues) देखें
 2. यदि आपकी समस्या पहले से रिपोर्ट नहीं है तो एक नई issue बनाएं
-3. अपने deployment details के साथ [support](https://visca.ai/support) से संपर्क करें
+3. अपने deployment details के साथ [support](https://latticeruntime.com/support) से संपर्क करें

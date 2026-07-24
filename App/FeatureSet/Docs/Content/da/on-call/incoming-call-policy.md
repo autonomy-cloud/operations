@@ -321,4 +321,4 @@ For problemer med funktionen Indgående opkaldspolitik:
 
 1. Kontroller Twilio Console for fejllogge
 2. Gennemgå Cast Operations-serverlogge
-3. Kontakt support på [hello@visca.ai](mailto:hello@visca.ai)
+3. Kontakt support på [hello@latticeruntime.com](mailto:hello@latticeruntime.com)

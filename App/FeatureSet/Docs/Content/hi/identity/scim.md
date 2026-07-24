@@ -30,7 +30,7 @@ Project SCIM, identity providers को Cast Operations projects के भी�
    - अपने IdP configuration के लिए **SCIM Base URL** और **Bearer Token** copy करें
 
 3. **अपना Identity Provider Configure करें**
-   - SCIM Base URL उपयोग करें: `https://visca.ai/scim/v2/{scimId}`
+   - SCIM Base URL उपयोग करें: `https://latticeruntime.com/scim/v2/{scimId}`
    - provided token के साथ bearer token authentication configure करें
    - user attributes map करें (email आवश्यक है)
 
@@ -78,7 +78,7 @@ Status Page SCIM, identity providers को private status pages के subscrib
    - अपने IdP configuration के लिए **SCIM Base URL** और **Bearer Token** copy करें
 
 3. **अपना Identity Provider Configure करें**
-   - SCIM Base URL उपयोग करें: `https://visca.ai/status-page-scim/v2/{scimId}`
+   - SCIM Base URL उपयोग करें: `https://latticeruntime.com/status-page-scim/v2/{scimId}`
    - provided token के साथ bearer token authentication configure करें
    - user attributes map करें (email आवश्यक है)
 
@@ -144,7 +144,7 @@ Microsoft Entra ID robust SCIM provisioning capabilities के साथ enterp
 2. **Get started** पर क्लिक करें
 3. **Provisioning Mode** को **Automatic** पर सेट करें
 4. **Admin Credentials** के अंतर्गत:
-   - **Tenant URL**: Cast Operations से SCIM Base URL दर्ज करें (जैसे `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **Tenant URL**: Cast Operations से SCIM Base URL दर्ज करें (जैसे `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **Secret Token**: Cast Operations से Bearer Token दर्ज करें
 5. configuration सत्यापित करने के लिए **Test Connection** पर क्लिक करें
 6. **Save** पर क्लिक करें
@@ -263,7 +263,7 @@ Okta उत्कृष्ट SCIM support के साथ flexible identity ma
 3. **Configure API Integration** पर क्लिक करें
 4. **Enable API integration** चेक करें
 5. निम्नलिखित configure करें:
-   - **SCIM connector base URL**: Cast Operations से SCIM Base URL दर्ज करें (जैसे `https://visca.ai/api/identity/scim/v2/{your-scim-id}`)
+   - **SCIM connector base URL**: Cast Operations से SCIM Base URL दर्ज करें (जैसे `https://latticeruntime.com/api/identity/scim/v2/{your-scim-id}`)
    - **Unique identifier field for users**: `userName` दर्ज करें
    - **Supported provisioning actions**: वे actions चुनें जिन्हें आप सक्षम करना चाहते हैं:
      - Import New Users and Profile Updates
@@ -340,7 +340,7 @@ Okta उत्कृष्ट SCIM support के साथ flexible identity ma
 
 Cast Operations का SCIM implementation, SCIM v2.0 specification का पालन करता है और किसी भी compliant identity provider के साथ काम करना चाहिए। सामान्य configuration steps:
 
-1. **SCIM Base URL**: `https://visca.ai/api/identity/scim/v2/{scim-id}` (projects के लिए) या `https://visca.ai/api/identity/status-page-scim/v2/{scim-id}` (status pages के लिए)
+1. **SCIM Base URL**: `https://latticeruntime.com/api/identity/scim/v2/{scim-id}` (projects के लिए) या `https://latticeruntime.com/api/identity/status-page-scim/v2/{scim-id}` (status pages के लिए)
 2. **Authentication**: HTTP Bearer Token
 3. **आवश्यक User Attribute**: `userName` (एक valid email address होना चाहिए)
 4. **समर्थित Operations**: Users और Groups के लिए GET, POST, PUT, PATCH, DELETE

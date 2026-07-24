@@ -81,7 +81,7 @@ export default class RepositoryManager {
     await this.runGitCommand(repoPath, [
       "config",
       "user.email",
-      "ai-agent@visca.ai",
+      "ai-agent@latticeruntime.com",
     ]);
   }
 
