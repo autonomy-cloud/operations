@@ -1159,28 +1159,28 @@ jobs:
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
             --tag cast-operations/${{ matrix.image }}:release \
-            ghcr.io/cast-operations/${{ matrix.image }}:${VERSION}
+            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:${VERSION}
 
       - name: Create GHCR release tag from version
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
-            --tag ghcr.io/cast-operations/${{ matrix.image }}:release \
-            ghcr.io/cast-operations/${{ matrix.image }}:${VERSION}
+            --tag ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:release \
+            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:${VERSION}
 
       - name: Create Docker Hub enterprise release tag from version
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
             --tag cast-operations/${{ matrix.image }}:enterprise-release \
-            ghcr.io/cast-operations/${{ matrix.image }}:enterprise-${VERSION}
+            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:enterprise-${VERSION}
 
       - name: Create GHCR enterprise release tag from version
         run: |
           VERSION="${{needs.read-version.outputs.major_minor}}"
           docker buildx imagetools create \
-            --tag ghcr.io/cast-operations/${{ matrix.image }}:enterprise-release \
-            ghcr.io/cast-operations/${{ matrix.image }}:enterprise-${VERSION}
+            --tag ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:enterprise-release \
+            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:enterprise-${VERSION}
 
 
 
