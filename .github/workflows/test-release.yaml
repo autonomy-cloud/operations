@@ -21,9 +21,8 @@ jobs:
     steps:
       - name: Generate build number
         id: buildnumber
-        uses: onyxmueller/build-tag-number@v1.0.2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: echo "build_number=${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
       - run: echo "Build number is ${{ steps.buildnumber.outputs.build_number }}"
 
   read-version:
@@ -134,8 +133,7 @@ jobs:
             --context . \
             --platforms ${{ matrix.platform }} \
             --git-sha "${{ github.sha }}" \
-            --extra-tags test \
-            --extra-enterprise-tags enterprise-test
+            --extra-tags test
 
   nginx-docker-image-merge:
     needs: [nginx-docker-image-build, read-version]
@@ -158,7 +156,7 @@ jobs:
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image nginx \
-            --tags "${SANITIZED_VERSION},test,enterprise-${SANITIZED_VERSION},enterprise-test"
+            --tags "${SANITIZED_VERSION},test"
 
 
   e2e-docker-image-build:
@@ -199,8 +197,7 @@ jobs:
             --context . \
             --platforms ${{ matrix.platform }} \
             --git-sha "${{ github.sha }}" \
-            --extra-tags test \
-            --extra-enterprise-tags enterprise-test
+            --extra-tags test
 
   e2e-docker-image-merge:
     needs: [e2e-docker-image-build, read-version]
@@ -223,7 +220,7 @@ jobs:
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image e2e \
-            --tags "${SANITIZED_VERSION},test,enterprise-${SANITIZED_VERSION},enterprise-test"
+            --tags "${SANITIZED_VERSION},test"
 
   test-server-docker-image-build:
     needs: [read-version, generate-build-number]
@@ -263,8 +260,7 @@ jobs:
             --context . \
             --platforms ${{ matrix.platform }} \
             --git-sha "${{ github.sha }}" \
-            --extra-tags test \
-            --extra-enterprise-tags enterprise-test
+            --extra-tags test
 
   test-server-docker-image-merge:
     needs: [test-server-docker-image-build, read-version]
@@ -287,7 +283,7 @@ jobs:
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image test-server \
-            --tags "${SANITIZED_VERSION},test,enterprise-${SANITIZED_VERSION},enterprise-test"
+            --tags "${SANITIZED_VERSION},test"
 
   home-docker-image-build:
     needs: [read-version, generate-build-number]
@@ -338,8 +334,7 @@ jobs:
             --context . \
             --platforms ${{ matrix.platform }} \
             --git-sha "${{ github.sha }}" \
-            --extra-tags test \
-            --extra-enterprise-tags enterprise-test
+            --extra-tags test
 
   home-docker-image-merge:
     needs: [home-docker-image-build, read-version]
@@ -362,7 +357,7 @@ jobs:
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image home \
-            --tags "${SANITIZED_VERSION},test,enterprise-${SANITIZED_VERSION},enterprise-test"
+            --tags "${SANITIZED_VERSION},test"
 
   test-docker-image-build:
     needs: [read-version, generate-build-number]
@@ -402,8 +397,7 @@ jobs:
             --context . \
             --platforms ${{ matrix.platform }} \
             --git-sha "${{ github.sha }}" \
-            --extra-tags test \
-            --extra-enterprise-tags enterprise-test
+            --extra-tags test
 
   test-docker-image-merge:
     needs: [test-docker-image-build, read-version]
@@ -426,7 +420,7 @@ jobs:
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image test \
-            --tags "${SANITIZED_VERSION},test,enterprise-${SANITIZED_VERSION},enterprise-test"
+            --tags "${SANITIZED_VERSION},test"
 
   probe-docker-image-build:
     needs: [read-version, generate-build-number]
@@ -466,8 +460,7 @@ jobs:
             --context . \
             --platforms ${{ matrix.platform }} \
             --git-sha "${{ github.sha }}" \
-            --extra-tags test \
-            --extra-enterprise-tags enterprise-test
+            --extra-tags test
 
   probe-docker-image-merge:
     needs: [probe-docker-image-build, read-version]
@@ -490,7 +483,7 @@ jobs:
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image probe \
-            --tags "${SANITIZED_VERSION},test,enterprise-${SANITIZED_VERSION},enterprise-test"
+            --tags "${SANITIZED_VERSION},test"
 
   runbook-agent-docker-image-build:
     needs: [read-version, generate-build-number]
@@ -530,8 +523,7 @@ jobs:
             --context . \
             --platforms ${{ matrix.platform }} \
             --git-sha "${{ github.sha }}" \
-            --extra-tags test \
-            --extra-enterprise-tags enterprise-test
+            --extra-tags test
 
   runbook-agent-docker-image-merge:
     needs: [runbook-agent-docker-image-build, read-version]
@@ -554,7 +546,7 @@ jobs:
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image runbook-agent \
-            --tags "${SANITIZED_VERSION},test,enterprise-${SANITIZED_VERSION},enterprise-test"
+            --tags "${SANITIZED_VERSION},test"
 
   app-docker-image-build:
     needs: [read-version, generate-build-number]
@@ -594,8 +586,7 @@ jobs:
             --context . \
             --platforms ${{ matrix.platform }} \
             --git-sha "${{ github.sha }}" \
-            --extra-tags test \
-            --extra-enterprise-tags enterprise-test
+            --extra-tags test
 
   app-docker-image-merge:
     needs: [app-docker-image-build, read-version]
@@ -618,7 +609,7 @@ jobs:
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image app \
-            --tags "${SANITIZED_VERSION},test,enterprise-${SANITIZED_VERSION},enterprise-test"
+            --tags "${SANITIZED_VERSION},test"
 
   ai-agent-docker-image-build:
     needs: [read-version, generate-build-number]
@@ -658,8 +649,7 @@ jobs:
             --context . \
             --platforms ${{ matrix.platform }} \
             --git-sha "${{ github.sha }}" \
-            --extra-tags test \
-            --extra-enterprise-tags enterprise-test
+            --extra-tags test
 
   ai-agent-docker-image-merge:
     needs: [ai-agent-docker-image-build, read-version]
@@ -682,7 +672,7 @@ jobs:
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image ai-agent \
-            --tags "${SANITIZED_VERSION},test,enterprise-${SANITIZED_VERSION},enterprise-test"
+            --tags "${SANITIZED_VERSION},test"
 
   # ─── Non-Docker jobs (unchanged) ─────────────────────────────────────
 
