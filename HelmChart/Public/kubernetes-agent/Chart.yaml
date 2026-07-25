@@ -22,9 +22,9 @@ maintainers:
 
 type: application
 
-version: "11.5.12"
+version: "11.5.13"
 
-appVersion: "11.5.12"
+appVersion: "11.5.13"
 
 annotations:
   artifacthub.io/license: MIT
