@@ -1,0 +1,446 @@
+name: Recover Operations 11.5.17 release
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: Type publish-operations-11.5.17 to run the one-release recovery
+        required: true
+        type: string
+
+concurrency:
+  group: operations-release-11.5.17-recovery
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  RELEASE_VERSION: 11.5.17
+  RELEASE_SOURCE_SHA: 3ec55153ae4a7d7a64b1633507608a7df624b64a
+  RELEASE_RUN_ID: "30173129437"
+  RELEASE_RUN_ATTEMPT: "2"
+  GORELEASER_CONFIG_SHA256: 43489f94d06e4b449e12765226836c3da2ded295104b9999fa5045a9cfda99df
+
+jobs:
+  validate-release:
+    name: Validate failed release and recovery source
+    runs-on: ubuntu-24.04
+    outputs:
+      release_id: ${{ steps.release.outputs.release_id }}
+    permissions:
+      actions: read # validate every original publication and E2E gate
+      # GitHub omits draft releases from the releases list unless the token has
+      # push-level contents access. This job only reads and validates the
+      # existing draft; publication remains isolated to recover-release.
+      contents: write
+    steps:
+      - name: Require the protected default branch workflow
+        env:
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REF}" = "refs/heads/develop"
+          test "${CONFIRMATION}" = "publish-operations-11.5.17"
+
+      - name: Check out recovery source and full history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: Verify source delta is limited to the packaging fix
+        run: |
+          set -euo pipefail
+          test "$(tr -d ' \n' < VERSION)" = "${RELEASE_VERSION}"
+          changed_in_agent="$(
+            git diff --name-only "${RELEASE_SOURCE_SHA}" "${GITHUB_SHA}" \
+              -- InfrastructureAgent
+          )"
+          test "${changed_in_agent}" = "InfrastructureAgent/.goreleaser.yaml"
+          test "$(sha256sum InfrastructureAgent/.goreleaser.yaml | awk '{print $1}')" = \
+            "${GORELEASER_CONFIG_SHA256}"
+          test "$(yq -r '.builds[0].id' InfrastructureAgent/.goreleaser.yaml)" = \
+            "cast_operations"
+
+      - name: Verify original release gates and sole failure
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          run_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/actions/runs/${RELEASE_RUN_ID}")"
+          jq -e \
+            --arg source_sha "${RELEASE_SOURCE_SHA}" \
+            --argjson attempt "${RELEASE_RUN_ATTEMPT}" \
+            '.path == ".github/workflows/release.yml"
+             and .event == "push"
+             and .head_branch == "release"
+             and .head_sha == $source_sha
+             and .run_attempt == $attempt
+             and .status == "completed"
+             and .conclusion == "failure"' \
+            <<< "${run_json}" >/dev/null
+
+          jobs_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/actions/runs/${RELEASE_RUN_ID}/attempts/${RELEASE_RUN_ATTEMPT}/jobs?per_page=100")"
+          required_jobs='[
+            "read-version",
+            "helm-chart-deploy",
+            "nginx-docker-image-merge",
+            "e2e-docker-image-merge",
+            "home-docker-image-merge",
+            "test-server-docker-image-merge",
+            "test-docker-image-merge",
+            "probe-docker-image-merge",
+            "runbook-agent-docker-image-merge",
+            "docker-agent-docker-image-merge",
+            "podman-agent-docker-image-merge",
+            "kubernetes-log-tailer-docker-image-merge",
+            "app-docker-image-merge",
+            "ai-agent-docker-image-merge",
+            "verify-npm-packages",
+            "test-e2e-release-self-hosted",
+            "test-e2e-release-saas"
+          ]'
+          jq -e \
+            --argjson required_jobs "${required_jobs}" \
+            '([.jobs[] | select(.conclusion == "failure") | .name]
+                == ["infrastructure-agent-deploy"])
+             and
+             (($required_jobs
+               - [.jobs[] | select(.conclusion == "success") | .name])
+              | length == 0)' \
+            <<< "${jobs_json}" >/dev/null
+
+      - name: Resolve and verify the unique recoverable draft
+        id: release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          release_json="$(
+            gh api --paginate \
+              "repos/${GITHUB_REPOSITORY}/releases?per_page=100" |
+              jq -s -e \
+                --arg version "${RELEASE_VERSION}" \
+                'add
+                 | map(select(.tag_name == $version))
+                 | if length == 1
+                   then .[0]
+                   else error("expected exactly one release with the requested tag")
+                   end'
+          )"
+          jq -e \
+            --arg version "${RELEASE_VERSION}" \
+            '.tag_name == $version
+             and .draft == true
+             and .prerelease == false
+             and all(.assets[];
+               (.name == "checksums.txt")
+               or (.name | startswith("cast-operations-infrastructure-agent")))' \
+            <<< "${release_json}" >/dev/null
+          release_id="$(jq -r '.id' <<< "${release_json}")"
+          test "${release_id}" -gt 0
+          echo "release_id=${release_id}" >> "${GITHUB_OUTPUT}"
+
+          if tag_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/git/ref/tags/${RELEASE_VERSION}" \
+            2>/dev/null)"; then
+            jq -e \
+              --arg source_sha "${RELEASE_SOURCE_SHA}" \
+              '.object.type == "commit" and .object.sha == $source_sha' \
+              <<< "${tag_json}" >/dev/null
+          fi
+
+  verify-oci:
+    name: Verify immutable ${{ matrix.artifact.name }}
+    needs: validate-release
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: read # verify the immutable release images and charts
+    strategy:
+      fail-fast: false
+      matrix:
+        artifact:
+          - name: operations/nginx
+            digest: sha256:296116f5adc7eb4ccc1c6fc5617d6d6f8241c890e3c1fa32763d227d06561c5a
+          - name: operations/e2e
+            digest: sha256:63e4c62fceb90ea1d01104a39fb8ab81151273b1d731bf2d23eccd987f869739
+          - name: operations/home
+            digest: sha256:feac1927df87f1313cda8b14ab11590190ed4f823c4bb73f233be737e521a70d
+          - name: operations/test-server
+            digest: sha256:d44711e1c9e07e6c67fbf84d4f2fffdd3571bfa6864b0b93e4852ec07571c0fe
+          - name: operations/test
+            digest: sha256:e122ffcb11010b5c22718805b975f8e994594fc621b3cf8f159652378b3ab594
+          - name: operations/probe
+            digest: sha256:d6f9a0ca102503daba62c4693cf389c194ce6533c59fb9fdebf681833ec44d49
+          - name: operations/runbook-agent
+            digest: sha256:0a695113169fbd89597101339af8b3f622d3c6afa25032df0d72a43f4e27442b
+          - name: operations/docker-agent
+            digest: sha256:63cc31e6b489a95089c3e042f63ff88abb2fd2b748f47daac2bae03b5643c01b
+          - name: operations/podman-agent
+            digest: sha256:f778e8f2cfd94a5ff813881c47eefab6f269fc9f20c899dfbce91d220b60bbd0
+          - name: operations/kubernetes-log-tailer
+            digest: sha256:5d7dad5582796b7fd45fe948c12ad136884534d048470532047a21048ce0d8d2
+          - name: operations/app
+            digest: sha256:a6447d59668f25cbd18488a2d72e037578c8158b8d8b0e54ae5fc9fe171d7569
+          - name: operations/ai-agent
+            digest: sha256:249131e555105ed5357e08f576ae469056028afc0b53e2d3f55f6dd59be4fe49
+          - name: charts/cast-operations
+            digest: sha256:9b34ca05bca45ac8e9417c9c5dd9d462a4950e16c589c707dd64eb1a4b2cfaf2
+          - name: charts/kubernetes-agent
+            digest: sha256:8c2e63aa1ca0a7cfcd3f4fc6e78419f3ea111d411e35c54d523e226f3c9b385d
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 # v4.5.1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify tag and immutable digest
+        env:
+          ARTIFACT_NAME: ${{ matrix.artifact.name }}
+          EXPECTED_DIGEST: ${{ matrix.artifact.digest }}
+        run: |
+          set -euo pipefail
+          subject="ghcr.io/autonomy-cloud/${ARTIFACT_NAME}"
+          raw_manifest="$(mktemp)"
+          docker buildx imagetools inspect \
+            "${subject}:${RELEASE_VERSION}" --raw > "${raw_manifest}"
+          actual_digest="sha256:$(sha256sum "${raw_manifest}" | awk '{print $1}')"
+          test "${actual_digest}" = "${EXPECTED_DIGEST}"
+          docker buildx imagetools inspect \
+            "${subject}@${EXPECTED_DIGEST}" --raw >/dev/null
+
+  recover-release:
+    name: Build missing assets and publish existing draft
+    needs: [validate-release, verify-oci]
+    runs-on: ubuntu-24.04
+    env:
+      RELEASE_ID: ${{ needs.validate-release.outputs.release_id }}
+    permissions:
+      contents: write # upload assets, create the immutable tag, publish the draft
+    steps:
+      - name: Check out validated recovery source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: Set up Go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: InfrastructureAgent/go.mod
+          cache: false
+
+      - name: Install GoReleaser 2.17.0
+        uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94 # v7.2.3
+        with:
+          version: v2.17.0
+          install-only: true
+
+      - name: Build Infrastructure Agent release assets
+        working-directory: InfrastructureAgent
+        run: |
+          set -euo pipefail
+          export GORELEASER_CURRENT_TAG="${RELEASE_VERSION}"
+          goreleaser release --clean --snapshot
+          bash build-msi.sh "${RELEASE_VERSION}"
+
+      - name: Build complete release checksum set
+        working-directory: InfrastructureAgent
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          archives=(dist/*.tar.gz dist/*.zip)
+          packages=(dist/*.apk dist/*.deb dist/*.rpm dist/*.zst)
+          msis=(dist/*.msi)
+          test "${#archives[@]}" -eq 10
+          test "${#packages[@]}" -ge 8
+          test "${#msis[@]}" -eq 2
+          assets=("${archives[@]}" "${packages[@]}" "${msis[@]}")
+          (
+            cd dist
+            names=()
+            for asset in "${assets[@]}"; do
+              names+=("${asset#dist/}")
+            done
+            sha256sum "${names[@]}" | sort -k2 > checksums.txt
+          )
+
+      - name: Upload missing assets without overwriting
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: InfrastructureAgent
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          assets=(
+            dist/*.tar.gz
+            dist/*.zip
+            dist/*.apk
+            dist/*.deb
+            dist/*.rpm
+            dist/*.zst
+            dist/*.msi
+            dist/checksums.txt
+          )
+          test "${#assets[@]}" -ge 21
+
+          release_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}")"
+          jq -e \
+            --arg version "${RELEASE_VERSION}" \
+            '.id > 0
+             and .tag_name == $version
+             and .draft == true
+             and .prerelease == false' \
+            <<< "${release_json}" >/dev/null
+
+          for asset in "${assets[@]}"; do
+            name="${asset#dist/}"
+            remote_asset_id="$(jq -r \
+              --arg name "${name}" \
+              '.assets[] | select(.name == $name) | .id' \
+              <<< "${release_json}")"
+            if [ -n "${remote_asset_id}" ]; then
+              # GoReleaser archives are not byte-reproducible across separate
+              # workflow runs. Existing assets are immutable here and are
+              # validated against the release's own checksums manifest below.
+              continue
+            fi
+            encoded_name="$(jq -rn --arg name "${name}" '$name | @uri')"
+            gh api \
+              --method POST \
+              -H "Content-Type: application/octet-stream" \
+              "https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=${encoded_name}" \
+              --input "${asset}" >/dev/null
+            release_json="$(gh api \
+              "repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}")"
+          done
+
+      - name: Verify exact uploaded asset set
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: InfrastructureAgent
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          assets=(
+            dist/*.tar.gz
+            dist/*.zip
+            dist/*.apk
+            dist/*.deb
+            dist/*.rpm
+            dist/*.zst
+            dist/*.msi
+            dist/checksums.txt
+          )
+          expected_names="$(
+            for asset in "${assets[@]}"; do
+              printf '%s\n' "${asset#dist/}"
+            done | LC_ALL=C sort
+          )"
+
+          release_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}")"
+          remote_names="$(
+            jq -r '.assets[].name' <<< "${release_json}" |
+              LC_ALL=C sort
+          )"
+          test "${remote_names}" = "${expected_names}"
+
+          checksums_asset_id="$(jq -r \
+            '.assets[] | select(.name == "checksums.txt") | .id' \
+            <<< "${release_json}")"
+          test -n "${checksums_asset_id}"
+
+          remote_checksums="$(mktemp)"
+          trap 'rm -f "${remote_checksums}"' EXIT
+          gh api \
+            -H "Accept: application/octet-stream" \
+            "repos/${GITHUB_REPOSITORY}/releases/assets/${checksums_asset_id}" \
+            > "${remote_checksums}"
+
+          checksums_digest="sha256:$(sha256sum "${remote_checksums}" | awk '{print $1}')"
+          remote_checksums_digest="$(jq -r \
+            '.assets[] | select(.name == "checksums.txt") | .digest' \
+            <<< "${release_json}")"
+          test "${remote_checksums_digest}" = "${checksums_digest}"
+
+          manifest_count="$(awk 'NF >= 2 { count++ } END { print count + 0 }' \
+            "${remote_checksums}")"
+          unique_manifest_names="$(awk 'NF >= 2 { print $2 }' \
+            "${remote_checksums}" | LC_ALL=C sort -u | wc -l | tr -d ' ')"
+          remote_non_manifest_count="$(jq \
+            '[.assets[] | select(.name != "checksums.txt")] | length' \
+            <<< "${release_json}")"
+          test "${manifest_count}" -eq "${unique_manifest_names}"
+          test "${manifest_count}" -eq "${remote_non_manifest_count}"
+
+          while IFS= read -r remote_asset; do
+            name="$(jq -r '.name' <<< "${remote_asset}")"
+            digest="$(jq -r '.digest' <<< "${remote_asset}")"
+            expected_hash="$(awk -v name="${name}" \
+              '$2 == name { print $1 }' "${remote_checksums}")"
+            test -n "${expected_hash}"
+            test "${digest}" = "sha256:${expected_hash}"
+          done < <(jq -c \
+            '.assets[] | select(.name != "checksums.txt")' \
+            <<< "${release_json}")
+
+      - name: Create exact immutable Git tag if absent
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if tag_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/git/ref/tags/${RELEASE_VERSION}" \
+            2>/dev/null)"; then
+            jq -e \
+              --arg source_sha "${RELEASE_SOURCE_SHA}" \
+              '.object.type == "commit" and .object.sha == $source_sha' \
+              <<< "${tag_json}" >/dev/null
+          else
+            gh api \
+              --method POST \
+              "repos/${GITHUB_REPOSITORY}/git/refs" \
+              -f "ref=refs/tags/${RELEASE_VERSION}" \
+              -f "sha=${RELEASE_SOURCE_SHA}" >/dev/null
+          fi
+
+      - name: Publish the completed draft
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          release_json="$(
+            gh api \
+              --method PATCH \
+              "repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}" \
+              -F draft=false \
+              -f make_latest=true
+          )"
+          jq -e \
+            --arg version "${RELEASE_VERSION}" \
+            --argjson release_id "${RELEASE_ID}" \
+            '.id == $release_id
+             and .tag_name == $version
+             and .draft == false
+             and .prerelease == false
+             and (.published_at | type == "string")' \
+            <<< "${release_json}" >/dev/null
+          tag_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/git/ref/tags/${RELEASE_VERSION}")"
+          jq -e \
+            --arg source_sha "${RELEASE_SOURCE_SHA}" \
+            '.object.type == "commit" and .object.sha == $source_sha' \
+            <<< "${tag_json}" >/dev/null
