@@ -1,7 +1,7 @@
 {
   "name": "@cast-operations/public-dashboard",
   "license": "Apache-2.0",
-  "version": "11.5.12",
+  "version": "11.5.13",
   "private": false,
   "repository": {
     "type": "git",
@@ -34,10 +34,10 @@
   },
   "dependencies": {
     "Common": "file:../../../Common",
-    "ejs": "^3.1.10",
+    "ejs": "6.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.2",
+    "react-router-dom": "7.18.1",
     "use-async-effect": "^2.2.6"
   },
   "devDependencies": {

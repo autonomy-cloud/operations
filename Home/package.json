@@ -1,6 +1,6 @@
 {
   "name": "@cast-operations/home",
-  "version": "11.5.12",
+  "version": "11.5.13",
   "description": "",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "Common": "file:../Common",
-    "ejs": "^3.1.10",
+    "ejs": "6.0.1",
     "ts-node": "^10.9.1",
     "xmlbuilder2": "^4.0.3"
   },
