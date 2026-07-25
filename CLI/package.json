@@ -1,6 +1,6 @@
 {
   "name": "@cast-operations/cli",
-  "version": "11.5.12",
+  "version": "11.5.13",
   "description": "Cast Operations CLI - Command-line interface for managing Cast Operations resources",
   "repository": {
     "type": "git",
