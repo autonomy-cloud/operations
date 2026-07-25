@@ -10,45 +10,28 @@ test.describe("Account Registration", () => {
       return;
     }
 
-    // please make sure the dashboard is up before signing up the user.
-    let dashboardPageResult: Response | null = await page.goto(
-      URL.fromString(BASE_URL.toString()).addRoute("/dashboard").toString(),
-    );
+    const registerUrl: string = URL.fromString(BASE_URL.toString())
+      .addRoute("/accounts/register")
+      .toString();
 
-    while (
-      dashboardPageResult?.status() === 504 ||
-      dashboardPageResult?.status() === 502
-    ) {
-      try {
-        // reload page if it fails to load
-        dashboardPageResult = await page.reload();
-      } catch {
-        // reload page if it fails to load
-        dashboardPageResult = await page.goto(
-          URL.fromString(BASE_URL.toString()).addRoute("/dashboard").toString(),
-        );
+    let pageResult: Response | null = null;
+
+    for (let attempt: number = 1; attempt <= 10; attempt++) {
+      pageResult = await page.goto(registerUrl, {
+        waitUntil: "domcontentloaded",
+      });
+
+      if (pageResult?.status() !== 502 && pageResult?.status() !== 504) {
+        break;
       }
+
+      await page.waitForTimeout(1000);
     }
 
-    let pageResult: Response | null = await page.goto(
-      URL.fromString(BASE_URL.toString())
-        .addRoute("/accounts/register")
-        .toString(),
-    );
-
-    while (pageResult?.status() === 504 || pageResult?.status() === 502) {
-      try {
-        // reload page if it fails to load
-        pageResult = await page.reload();
-      } catch {
-        // reload page if it fails to load
-        pageResult = await page.goto(
-          URL.fromString(BASE_URL.toString())
-            .addRoute("/accounts/register")
-            .toString(),
-        );
-      }
-    }
+    expect(pageResult?.status()).not.toBe(502);
+    expect(pageResult?.status()).not.toBe(504);
+    await expect(page).toHaveURL(registerUrl);
+    await expect(page.getByTestId("email")).toBeVisible();
 
     await page.getByTestId("email").click();
     await page.getByTestId("email").fill(Faker.generateEmail().toString());
