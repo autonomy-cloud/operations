@@ -349,12 +349,13 @@ jobs:
                 --arg name "${asset#dist/}" \
                 --arg digest "sha256:$(sha256sum "${asset}" | awk '{print $1}')" \
                 '{name: $name, digest: $digest}'
-            done | jq -s 'sort_by(.name)'
+            done | jq -cS -s 'sort_by(.name)'
           )"
           remote_assets="$(
             gh api \
               "repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}" \
-              --jq '[.assets[] | {name, digest}] | sort_by(.name)'
+              --jq '[.assets[] | {name, digest}] | sort_by(.name)' |
+              jq -cS
           )"
           test "${remote_assets}" = "${local_assets}"
 
