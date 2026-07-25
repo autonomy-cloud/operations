@@ -26,7 +26,7 @@ docker run -d \
   -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
   -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  cast-operations/docker-agent:release
+  ghcr.io/autonomy-cloud/operations/docker-agent:release
 ```
 
 That is it. Once the agent connects, your Docker host will appear automatically in the **Docker** section of the Cast Operations dashboard.
@@ -38,7 +38,7 @@ If you prefer Docker Compose, drop the following into a `docker-compose.yml`:
 ```yaml
 services:
   cast-operations-docker-agent:
-    image: cast-operations/docker-agent:release
+    image: ghcr.io/autonomy-cloud/operations/docker-agent:release
     container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
@@ -91,7 +91,7 @@ Within a minute or so the host should appear in the Cast Operations dashboard wi
 ## Upgrading the Agent
 
 ```bash
-docker pull cast-operations/docker-agent:release
+docker pull ghcr.io/autonomy-cloud/operations/docker-agent:release
 docker rm -f cast-operations-docker-agent
 # Re-run the `docker run` command above
 ```

@@ -26,7 +26,7 @@ docker run -d \
   -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
   -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  cast-operations/docker-agent:release
+  ghcr.io/autonomy-cloud/operations/docker-agent:release
 ```
 
 이것이 전부입니다. 에이전트가 연결되면 Cast Operations 대시보드의 **Docker** 섹션에 Docker 호스트가 자동으로 표시됩니다.
@@ -38,7 +38,7 @@ Docker Compose를 선호하는 경우 다음 내용을 `docker-compose.yml`에 �
 ```yaml
 services:
   cast-operations-docker-agent:
-    image: cast-operations/docker-agent:release
+    image: ghcr.io/autonomy-cloud/operations/docker-agent:release
     container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
@@ -91,7 +91,7 @@ docker logs -f cast-operations-docker-agent
 ## 에이전트 업그레이드
 
 ```bash
-docker pull cast-operations/docker-agent:release
+docker pull ghcr.io/autonomy-cloud/operations/docker-agent:release
 docker rm -f cast-operations-docker-agent
 # 위의 `docker run` 명령을 다시 실행하세요
 ```

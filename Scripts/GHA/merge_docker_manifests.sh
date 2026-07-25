@@ -7,7 +7,7 @@ usage() {
 Usage: merge_docker_manifests.sh --image <name> --tags <tag1,tag2,...>
 
 Combines per-architecture images (tagged with -amd64 / -arm64 suffixes) into
-multi-arch manifests and pushes them to Docker Hub and GHCR.
+multi-arch manifests and pushes them to the Cast-owned GHCR repository.
 
 Required flags:
 	--image <name>       Image name without registry prefix (example: nginx)
@@ -48,7 +48,6 @@ if [[ -z "$IMAGE" || -z "$TAGS" ]]; then
 fi
 
 GHCR="${GHCR_REPOSITORY:-ghcr.io/autonomy-cloud/operations}"
-DOCKER_HUB="cast-operations"
 
 IFS=',' read -ra TAG_LIST <<< "$TAGS"
 
@@ -58,11 +57,11 @@ for tag in "${TAG_LIST[@]}"; do
 
 	echo "🔗 Creating multi-arch manifest for ${IMAGE}:${tag}"
 
-	# Use GHCR as the source for arch-specific images (no rate limits in GHA)
-	# and push the merged manifest to both registries
+	# Keep the complete immutable artifact path in GHCR. LRAI deploys only these
+	# versioned manifests, so the release cannot depend on legacy registry
+	# credentials or mutable public-registry mirrors.
 	docker buildx imagetools create \
 		--tag "${GHCR}/${IMAGE}:${tag}" \
-		--tag "${DOCKER_HUB}/${IMAGE}:${tag}" \
 		"${GHCR}/${IMAGE}:${tag}-amd64" \
 		"${GHCR}/${IMAGE}:${tag}-arm64"
 

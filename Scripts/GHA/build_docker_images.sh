@@ -105,11 +105,9 @@ build_image() {
 
 	local -a tag_args
 	tag_args=(
-		--tag "cast-operations/${IMAGE}:${SANITIZED_VERSION}${ARCH_SUFFIX}"
 		--tag "${GHCR_REPOSITORY}/${IMAGE}:${SANITIZED_VERSION}${ARCH_SUFFIX}"
 	)
 	for tag_suffix in "${extras[@]+"${extras[@]}"}"; do
-		tag_args+=(--tag "cast-operations/${IMAGE}:${tag_suffix}${ARCH_SUFFIX}")
 		tag_args+=(--tag "${GHCR_REPOSITORY}/${IMAGE}:${tag_suffix}${ARCH_SUFFIX}")
 	done
 
