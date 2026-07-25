@@ -30,7 +30,10 @@ jobs:
       release_id: ${{ steps.release.outputs.release_id }}
     permissions:
       actions: read # validate every original publication and E2E gate
-      contents: read
+      # GitHub omits draft releases from the releases list unless the token has
+      # push-level contents access. This job only reads and validates the
+      # existing draft; publication remains isolated to recover-release.
+      contents: write
     steps:
       - name: Require the protected default branch workflow
         env:
