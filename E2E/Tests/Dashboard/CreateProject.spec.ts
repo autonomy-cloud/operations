@@ -60,10 +60,11 @@ test.describe.skip("Project Creation", () => {
     // Fill in the project name
     const projectName: string =
       "E2E Test Project " + Faker.generateName().toString();
-    await page
-      .locator("#create-project-from input[type='text']")
-      .first()
-      .fill(projectName);
+    const projectNameInput: Locator = page
+      .locator("#create-project-form input[type='text']")
+      .first();
+    await projectNameInput.waitFor({ state: "visible", timeout: 30000 });
+    await projectNameInput.fill(projectName);
 
     await modalSubmitButton.click();
 
