@@ -66,10 +66,11 @@ export const registerAndCreateProject: RegisterAndCreateProjectFunction =
 
     const projectName: string =
       data.projectNamePrefix + " " + Faker.generateName().toString();
-    await page
-      .locator("#create-project-from input[type='text']")
-      .first()
-      .fill(projectName);
+    const projectNameInput: Locator = page
+      .locator("#create-project-form input[type='text']")
+      .first();
+    await projectNameInput.waitFor({ state: "visible", timeout: 30000 });
+    await projectNameInput.fill(projectName);
 
     await modalSubmitButton.click();
 
