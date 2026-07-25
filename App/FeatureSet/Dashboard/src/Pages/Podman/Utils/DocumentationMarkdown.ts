@@ -22,7 +22,7 @@ podman run -d \\
   -e CAST_OPERATIONS_URL="${data.castOperationsUrl}" \\
   -e CAST_OPERATIONS_SERVICE_TOKEN="${data.apiKey}" \\
   -e PODMAN_HOST_NAME="my-podman-host" \\
-  cast-operations/podman-agent:release
+  ghcr.io/autonomy-cloud/operations/podman-agent:release
 \`\`\`
 
 Replace \`my-podman-host\` with a friendly name for this host — it is how the host will appear in Cast Operations.
@@ -36,7 +36,7 @@ If you prefer Podman Compose, create a \`podman-compose.yml\`:
 \`\`\`yaml
 services:
   cast-operations-podman-agent:
-    image: cast-operations/podman-agent:release
+    image: ghcr.io/autonomy-cloud/operations/podman-agent:release
     container_name: cast-operations-podman-agent
     user: "0:0"
     restart: unless-stopped
@@ -87,7 +87,7 @@ Look for: \`"Everything is ready. Begin running and processing data."\`
 ## Upgrading the Agent
 
 \`\`\`bash
-podman pull cast-operations/podman-agent:release
+podman pull ghcr.io/autonomy-cloud/operations/podman-agent:release
 podman rm -f cast-operations-podman-agent
 # Re-run the \`podman run\` command above
 \`\`\`

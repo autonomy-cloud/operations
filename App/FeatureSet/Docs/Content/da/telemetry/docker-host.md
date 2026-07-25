@@ -26,7 +26,7 @@ docker run -d \
   -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
   -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  cast-operations/docker-agent:release
+  ghcr.io/autonomy-cloud/operations/docker-agent:release
 ```
 
 Det er alt. Når agenten først har forbindelse, vil din Docker-vært automatisk fremgå i **Docker**-sektionen af Cast Operations-dashboardet.
@@ -38,7 +38,7 @@ Hvis du foretrækker Docker Compose, så indsæt følgende i en `docker-compose.
 ```yaml
 services:
   cast-operations-docker-agent:
-    image: cast-operations/docker-agent:release
+    image: ghcr.io/autonomy-cloud/operations/docker-agent:release
     container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
@@ -91,7 +91,7 @@ Inden for cirka et minut bør værten fremgå i Cast Operations-dashboardet med 
 ## Opgradering af agenten
 
 ```bash
-docker pull cast-operations/docker-agent:release
+docker pull ghcr.io/autonomy-cloud/operations/docker-agent:release
 docker rm -f cast-operations-docker-agent
 # Kør `docker run`-kommandoen ovenfor igen
 ```

@@ -218,7 +218,7 @@ docker run ... <image>
 2. 将 `CAST_OPERATIONS_URL`、`CAST_OPERATIONS_SERVICE_TOKEN` 和 `DOCKER_HOST_NAME` 作为环境变量传入
 3. 确保要观察的容器使用 `json-file` 日志驱动程序（见上文）
 
-该 Agent 以 `cast-operations/docker-agent:release` 的形式发布在 Docker Hub 上。完整的 `docker run` 和 `docker compose` 示例请参见 [Docker Agent 安装指南](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent)。
+该 Agent 以 `ghcr.io/autonomy-cloud/operations/docker-agent:release` 的形式发布在 Docker Hub 上。完整的 `docker run` 和 `docker compose` 示例请参见 [Docker Agent 安装指南](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent)。
 
 ## 故障排查
 

@@ -1,4 +1,4 @@
-name: Push Release Images to Docker Hub and GitHub Container Registry
+name: Publish Cast Operations release artifacts
 
 on:
   push:
@@ -13,6 +13,16 @@ on:
         default: false
       publish_ios_to_store:
         description: 'Publish iOS app to App Store'
+        required: false
+        type: boolean
+        default: false
+      publish_terraform_provider:
+        description: 'Publish the separately distributed Terraform provider'
+        required: false
+        type: boolean
+        default: false
+      build_mobile_release_artifacts:
+        description: 'Build signed Android and iOS release artifacts'
         required: false
         type: boolean
         default: false
@@ -184,10 +194,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -212,10 +218,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -254,10 +256,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -282,10 +280,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -335,10 +329,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -363,10 +353,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -405,10 +391,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -433,10 +415,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -475,10 +453,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -503,10 +477,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -545,10 +515,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -573,10 +539,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -615,10 +577,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -643,10 +601,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -685,10 +639,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -715,10 +665,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -757,10 +703,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -787,10 +729,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -829,10 +767,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -859,10 +793,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -901,10 +831,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -929,10 +855,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -971,10 +893,6 @@ jobs:
       - name: Generate Dockerfile from Dockerfile.tpl
         run: npm run prerun
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
@@ -999,10 +917,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to GitHub Container Registry
         run: |
@@ -1049,6 +963,7 @@ jobs:
   # ─── Non-Docker jobs (downstream dependencies updated) ───────────────
 
   publish-terraform-provider:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.publish_terraform_provider == 'true'
     runs-on: ubuntu-latest
     needs: [generate-build-number, read-version]
     env:
@@ -1123,6 +1038,9 @@ jobs:
       - test-docker-image-merge
       - probe-docker-image-merge
       - runbook-agent-docker-image-merge
+      - docker-agent-docker-image-merge
+      - podman-agent-docker-image-merge
+      - kubernetes-log-tailer-docker-image-merge
       - app-docker-image-merge
       - ai-agent-docker-image-merge
       - test-e2e-release-saas
@@ -1139,6 +1057,9 @@ jobs:
           "test",
           "probe",
           "runbook-agent",
+          "docker-agent",
+          "podman-agent",
+          "kubernetes-log-tailer",
           "app",
           "ai-agent"
         ]
@@ -1146,20 +1067,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
-
-      - name: Create Docker Hub release tag from version
-        run: |
-          VERSION="${{needs.read-version.outputs.major_minor}}"
-          docker buildx imagetools create \
-            --tag cast-operations/${{ matrix.image }}:release \
-            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:${VERSION}
 
       - name: Create GHCR release tag from version
         run: |
@@ -1167,13 +1077,6 @@ jobs:
           docker buildx imagetools create \
             --tag ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:release \
             ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:${VERSION}
-
-      - name: Create Docker Hub enterprise release tag from version
-        run: |
-          VERSION="${{needs.read-version.outputs.major_minor}}"
-          docker buildx imagetools create \
-            --tag cast-operations/${{ matrix.image }}:enterprise-release \
-            ghcr.io/autonomy-cloud/operations/${{ matrix.image }}:enterprise-${VERSION}
 
       - name: Create GHCR enterprise release tag from version
         run: |
@@ -1607,6 +1510,7 @@ jobs:
   # Build Android release APK and attach to GitHub Release.
   # Required secrets setup guide: MobileApp/docs/RELEASE_SIGNING.md
   mobile-app-android-deploy:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.build_mobile_release_artifacts == 'true'
     needs: [draft-github-release, generate-build-number, read-version]
     runs-on: ubuntu-latest
     permissions:
@@ -1663,6 +1567,7 @@ jobs:
   # Build iOS release IPA and attach to GitHub Release.
   # Required secrets setup guide: MobileApp/docs/RELEASE_SIGNING.md
   mobile-app-ios-deploy:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.build_mobile_release_artifacts == 'true'
     needs: [draft-github-release, generate-build-number, read-version]
     runs-on: macos-latest
     permissions:

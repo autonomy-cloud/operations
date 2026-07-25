@@ -26,7 +26,7 @@ docker run -d \
   -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
   -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  cast-operations/docker-agent:release
+  ghcr.io/autonomy-cloud/operations/docker-agent:release
 ```
 
 Det er alt. Når agenten kobler til, vil Docker-verten din vises automatisk i **Docker**-seksjonen i Cast Operations-dashbordet.
@@ -38,7 +38,7 @@ Hvis du foretrekker Docker Compose, legg folgende inn i en `docker-compose.yml`:
 ```yaml
 services:
   cast-operations-docker-agent:
-    image: cast-operations/docker-agent:release
+    image: ghcr.io/autonomy-cloud/operations/docker-agent:release
     container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
@@ -91,7 +91,7 @@ I lopet av et minutt eller så skal verten vises i Cast Operations-dashbordet me
 ## Oppgradere agenten
 
 ```bash
-docker pull cast-operations/docker-agent:release
+docker pull ghcr.io/autonomy-cloud/operations/docker-agent:release
 docker rm -f cast-operations-docker-agent
 # Kjor `docker run`-kommandoen ovenfor på nytt
 ```
