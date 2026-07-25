@@ -17,7 +17,7 @@ export default defineConfig({
    * Keep CI release gates bounded. A hung browser, websocket, or dependency
    * must fail with artifacts instead of occupying a runner indefinitely.
    */
-  globalTimeout: process.env["CI"] ? 120 * 60 * 1000 : undefined,
+  ...(process.env["CI"] ? { globalTimeout: 120 * 60 * 1000 } : {}),
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
