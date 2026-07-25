@@ -9,9 +9,9 @@
         "eslint-plugin-unused-imports": "^4.3.0",
         "globals": "^15.15.0",
         "jest": "^30.2.0",
-        "mailparser": "^3.9.0",
+        "mailparser": "^3.9.14",
         "ts-node": "^10.9.2",
-        "typeorm": "^0.3.28"
+        "typeorm": "^0.3.31"
     },
     "devDependencies": {
         "@babel/core": "^7.17.8",
