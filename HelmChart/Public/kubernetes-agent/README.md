@@ -460,7 +460,7 @@ Useful knobs:
 
 | Key | Default | Description |
 | --- | --- | --- |
-| `logs.api.image.repository` | `cast-operations/kubernetes-log-tailer` | Image for the log tailer Deployment. |
+| `logs.api.image.repository` | `ghcr.io/autonomy-cloud/operations/kubernetes-log-tailer` | Image for the log tailer Deployment. |
 | `logs.api.image.tag` | `""` (tracks chart `appVersion` — the Cast Operations product version at release time) | Override to pin to a specific tag. |
 | `logs.api.replicas` | `1` | Number of log-tailer replicas. One replica handles a few thousand containers; shard by namespace for larger clusters. |
 | `logs.api.batchMaxRecords` | `500` | Flush after this many log records. |

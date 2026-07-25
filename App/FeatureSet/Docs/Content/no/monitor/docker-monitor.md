@@ -218,7 +218,7 @@ For å bruke Docker-overvåking må du:
 2. Angi `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_SERVICE_TOKEN` og `DOCKER_HOST_NAME` som miljøvariabler
 3. Sørge for at containerne du ønsker å observere bruker `json-file`-loggdriveren (se ovenfor)
 
-Agenten publiseres som `cast-operations/docker-agent:release` på Docker Hub. Se [installasjonsguiden for Docker-agenten](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) for fullstendige eksempler med `docker run` og `docker compose`.
+Agenten publiseres som `ghcr.io/autonomy-cloud/operations/docker-agent:release` på Docker Hub. Se [installasjonsguiden for Docker-agenten](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) for fullstendige eksempler med `docker run` og `docker compose`.
 
 ## Feilsøking
 

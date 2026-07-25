@@ -212,7 +212,7 @@ Um Docker-Monitoring zu verwenden, müssen Sie:
 2. `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_SERVICE_TOKEN` und `DOCKER_HOST_NAME` als Umgebungsvariablen übergeben
 3. Sicherstellen, dass die zu beobachtenden Container den `json-file`-Log-Treiber verwenden (siehe oben)
 
-Der Agent wird als `cast-operations/docker-agent:release` auf Docker Hub veröffentlicht.
+Der Agent wird als `ghcr.io/autonomy-cloud/operations/docker-agent:release` auf Docker Hub veröffentlicht.
 
 ## Fehlerbehebung
 

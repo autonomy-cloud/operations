@@ -32,8 +32,8 @@ up-to-date list see [`values.yaml`](../values.yaml).
 
 | Parameter             | Description                                                                              | Default              |
 |-----------------------|------------------------------------------------------------------------------------------|----------------------|
-| `image.registry`      | Docker image registry.                                                                   | `docker.io`          |
-| `image.repository`    | Docker image repository.                                                                 | `cast-operations`          |
+| `image.registry`      | Docker image registry.                                                                   | `ghcr.io`                         |
+| `image.repository`    | Docker image repository.                                                                 | `autonomy-cloud/operations`       |
 | `image.tag`           | Docker image tag. Pin this in production (see [Production checklist](production-checklist.md)). | `release`     |
 | `image.pullPolicy`    | Image pull policy.                                                                        | `IfNotPresent`       |
 | `image.restartPolicy` | Image restart policy.                                                                     | `Always`             |

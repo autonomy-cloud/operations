@@ -218,7 +218,7 @@ Para usar el monitoreo Docker, necesitas:
 2. Pasar `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_SERVICE_TOKEN` y `DOCKER_HOST_NAME` como variables de entorno
 3. Asegurarte de que los contenedores que deseas observar usen el controlador de registro `json-file` (consulta más arriba)
 
-El agente se publica como `cast-operations/docker-agent:release` en Docker Hub. Consulta la [guía de instalación del Agente Docker](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) para ver los ejemplos completos de `docker run` y `docker compose`.
+El agente se publica como `ghcr.io/autonomy-cloud/operations/docker-agent:release` en Docker Hub. Consulta la [guía de instalación del Agente Docker](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) para ver los ejemplos completos de `docker run` y `docker compose`.
 
 ## Solución de problemas
 

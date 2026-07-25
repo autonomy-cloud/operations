@@ -22,7 +22,7 @@ docker run -d \\
   -e CAST_OPERATIONS_URL="${data.castOperationsUrl}" \\
   -e CAST_OPERATIONS_SERVICE_TOKEN="${data.apiKey}" \\
   -e DOCKER_HOST_NAME="my-docker-host" \\
-  cast-operations/docker-agent:release
+  ghcr.io/autonomy-cloud/operations/docker-agent:release
 \`\`\`
 
 Replace \`my-docker-host\` with a friendly name for this host — it is how the host will appear in Cast Operations.
@@ -36,7 +36,7 @@ If you prefer Docker Compose, create a \`docker-compose.yml\`:
 \`\`\`yaml
 services:
   cast-operations-docker-agent:
-    image: cast-operations/docker-agent:release
+    image: ghcr.io/autonomy-cloud/operations/docker-agent:release
     container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
@@ -87,7 +87,7 @@ Look for: \`"Everything is ready. Begin running and processing data."\`
 ## Upgrading the Agent
 
 \`\`\`bash
-docker pull cast-operations/docker-agent:release
+docker pull ghcr.io/autonomy-cloud/operations/docker-agent:release
 docker rm -f cast-operations-docker-agent
 # Re-run the \`docker run\` command above
 \`\`\`

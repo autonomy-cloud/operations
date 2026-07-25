@@ -26,7 +26,7 @@ podman run -d \
   -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
   -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e PODMAN_HOST_NAME="my-podman-host" \
-  cast-operations/podman-agent:release
+  ghcr.io/autonomy-cloud/operations/podman-agent:release
 ```
 
 That is it. Once the agent connects, your Podman host will appear automatically in the **Podman** section of the Cast Operations dashboard.
@@ -38,7 +38,7 @@ If you prefer Podman Compose, drop the following into a `docker-compose.yml`:
 ```yaml
 services:
   cast-operations-podman-agent:
-    image: cast-operations/podman-agent:release
+    image: ghcr.io/autonomy-cloud/operations/podman-agent:release
     container_name: cast-operations-podman-agent
     user: "0:0"
     restart: unless-stopped
@@ -91,7 +91,7 @@ Within a minute or so the host should appear in the Cast Operations dashboard wi
 ## Upgrading the Agent
 
 ```bash
-podman pull cast-operations/podman-agent:release
+podman pull ghcr.io/autonomy-cloud/operations/podman-agent:release
 podman rm -f cast-operations-podman-agent
 # Re-run the `podman run` command above
 ```
