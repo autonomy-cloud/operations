@@ -1,0 +1,288 @@
+name: Backfill Operations release OCI evidence
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing immutable release version (MAJOR.MINOR.PATCH)
+        required: true
+        type: string
+      source_sha:
+        description: Full release commit SHA that built the artifacts
+        required: true
+        type: string
+      release_run_id:
+        description: Original release workflow run that built the artifacts
+        required: true
+        type: string
+
+concurrency:
+  group: operations-release-evidence-${{ inputs.version }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  validate-release:
+    name: Validate existing immutable release
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: read # verify the original release workflow run via the API
+      contents: read
+    outputs:
+      version: ${{ steps.validate.outputs.version }}
+      source_sha: ${{ steps.validate.outputs.source_sha }}
+      release_run_id: ${{ steps.validate.outputs.release_run_id }}
+      release_run_attempt: ${{ steps.validate.outputs.release_run_attempt }}
+      release_run_conclusion: ${{ steps.validate.outputs.release_run_conclusion }}
+      release_run_url: ${{ steps.validate.outputs.release_run_url }}
+    steps:
+      - name: Require the protected default branch workflow
+        run: test "${GITHUB_REF}" = "refs/heads/develop"
+
+      - name: Check out the recorded release source and tags
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.source_sha }}
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: Validate release identity and original workflow
+        id: validate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION_INPUT: ${{ inputs.version }}
+          SOURCE_SHA_INPUT: ${{ inputs.source_sha }}
+          RELEASE_RUN_ID_INPUT: ${{ inputs.release_run_id }}
+        run: |
+          set -euo pipefail
+
+          if [[ ! "${VERSION_INPUT}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "version must be MAJOR.MINOR.PATCH" >&2
+            exit 1
+          fi
+          if [[ ! "${SOURCE_SHA_INPUT}" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "source_sha must be a full lowercase Git commit SHA" >&2
+            exit 1
+          fi
+          if [[ ! "${RELEASE_RUN_ID_INPUT}" =~ ^[1-9][0-9]*$ ]]; then
+            echo "release_run_id must be a positive Actions run ID" >&2
+            exit 1
+          fi
+          # This workflow is deliberately a one-release repair, not a generic
+          # mechanism for manufacturing provenance after arbitrary releases.
+          test "${VERSION_INPUT}" = "11.5.17"
+          test "${SOURCE_SHA_INPUT}" = "3ec55153ae4a7d7a64b1633507608a7df624b64a"
+          test "${RELEASE_RUN_ID_INPUT}" = "30173129437"
+
+          test "$(git rev-parse HEAD)" = "${SOURCE_SHA_INPUT}"
+          test "$(tr -d ' \n' < VERSION)" = "${VERSION_INPUT}"
+          test "$(git rev-parse "${VERSION_INPUT}^{commit}")" = "${SOURCE_SHA_INPUT}"
+
+          run_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/actions/runs/${RELEASE_RUN_ID_INPUT}")"
+          jq -e \
+            --arg source_sha "${SOURCE_SHA_INPUT}" \
+            '.path == ".github/workflows/release.yml"
+             and .event == "push"
+             and .head_branch == "release"
+             and .head_sha == $source_sha
+             and .run_attempt == 2
+             and .status == "completed"
+             and .conclusion == "failure"' \
+            <<< "${run_json}" >/dev/null
+
+          jobs_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/actions/runs/${RELEASE_RUN_ID_INPUT}/attempts/2/jobs?per_page=100")"
+          required_jobs='[
+            "read-version",
+            "helm-chart-deploy",
+            "nginx-docker-image-merge",
+            "e2e-docker-image-merge",
+            "home-docker-image-merge",
+            "test-server-docker-image-merge",
+            "test-docker-image-merge",
+            "probe-docker-image-merge",
+            "runbook-agent-docker-image-merge",
+            "docker-agent-docker-image-merge",
+            "podman-agent-docker-image-merge",
+            "kubernetes-log-tailer-docker-image-merge",
+            "app-docker-image-merge",
+            "ai-agent-docker-image-merge",
+            "verify-npm-packages",
+            "test-e2e-release-self-hosted",
+            "test-e2e-release-saas"
+          ]'
+          jq -e \
+            --argjson required_jobs "${required_jobs}" \
+            '([.jobs[] | select(.conclusion == "failure") | .name]
+                == ["infrastructure-agent-deploy"])
+             and
+             (($required_jobs
+               - [.jobs[] | select(.conclusion == "success") | .name])
+              | length == 0)' \
+            <<< "${jobs_json}" >/dev/null
+
+          release_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/releases/tags/${VERSION_INPUT}")"
+          jq -e \
+            --arg version "${VERSION_INPUT}" \
+            '.tag_name == $version
+             and .draft == false
+             and .prerelease == false' \
+            <<< "${release_json}" >/dev/null
+
+          echo "version=${VERSION_INPUT}" >> "${GITHUB_OUTPUT}"
+          echo "source_sha=${SOURCE_SHA_INPUT}" >> "${GITHUB_OUTPUT}"
+          echo "release_run_id=${RELEASE_RUN_ID_INPUT}" >> "${GITHUB_OUTPUT}"
+          echo "release_run_attempt=$(jq -r '.run_attempt' <<< "${run_json}")" >> "${GITHUB_OUTPUT}"
+          echo "release_run_conclusion=$(jq -r '.conclusion' <<< "${run_json}")" >> "${GITHUB_OUTPUT}"
+          echo "release_run_url=$(jq -r '.html_url' <<< "${run_json}")" >> "${GITHUB_OUTPUT}"
+
+  backfill-evidence:
+    name: Sign and attest ${{ matrix.artifact }}
+    needs: validate-release
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write # publish Cosign signatures and OCI attestations
+      id-token: write # request the keyless Sigstore/GitHub attestation identity
+      attestations: write # persist release evidence in GitHub's attestation store
+    strategy:
+      fail-fast: false
+      matrix:
+        artifact:
+          - operations/nginx
+          - operations/e2e
+          - operations/home
+          - operations/test-server
+          - operations/test
+          - operations/probe
+          - operations/runbook-agent
+          - operations/docker-agent
+          - operations/podman-agent
+          - operations/kubernetes-log-tailer
+          - operations/app
+          - operations/ai-agent
+          - charts/cast-operations
+          - charts/kubernetes-agent
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 # v4.5.1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+
+      - name: Resolve existing immutable release digest
+        id: subject
+        env:
+          ARTIFACT: ${{ matrix.artifact }}
+          VERSION: ${{ needs.validate-release.outputs.version }}
+        run: |
+          set -euo pipefail
+          subject_name="ghcr.io/autonomy-cloud/${ARTIFACT}"
+          source_ref="${subject_name}:${VERSION}"
+          raw_manifest="$(mktemp)"
+          docker buildx imagetools inspect "${source_ref}" --raw > "${raw_manifest}"
+          digest="sha256:$(sha256sum "${raw_manifest}" | awk '{print $1}')"
+          if [[ ! "${digest}" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+            echo "invalid digest resolved for ${source_ref}: ${digest}" >&2
+            exit 1
+          fi
+          docker buildx imagetools inspect "${subject_name}@${digest}" --raw >/dev/null
+          echo "name=${subject_name}" >> "${GITHUB_OUTPUT}"
+          echo "digest=${digest}" >> "${GITHUB_OUTPUT}"
+          echo "Resolved ${source_ref} to ${subject_name}@${digest}"
+
+      - name: Sign existing immutable digest with GitHub OIDC
+        env:
+          SUBJECT_NAME: ${{ steps.subject.outputs.name }}
+          SUBJECT_DIGEST: ${{ steps.subject.outputs.digest }}
+        run: cosign sign --yes "${SUBJECT_NAME}@${SUBJECT_DIGEST}"
+
+      - name: Verify keyless backfill signature identity
+        env:
+          SUBJECT_NAME: ${{ steps.subject.outputs.name }}
+          SUBJECT_DIGEST: ${{ steps.subject.outputs.digest }}
+        run: |
+          cosign verify \
+            --certificate-identity "https://github.com/autonomy-cloud/operations/.github/workflows/backfill-release-oci-evidence.yml@refs/heads/develop" \
+            --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+            "${SUBJECT_NAME}@${SUBJECT_DIGEST}"
+
+      - name: Build release-evidence predicate
+        env:
+          SUBJECT_NAME: ${{ steps.subject.outputs.name }}
+          SUBJECT_DIGEST: ${{ steps.subject.outputs.digest }}
+          VERSION: ${{ needs.validate-release.outputs.version }}
+          SOURCE_SHA: ${{ needs.validate-release.outputs.source_sha }}
+          RELEASE_RUN_ID: ${{ needs.validate-release.outputs.release_run_id }}
+          RELEASE_RUN_ATTEMPT: ${{ needs.validate-release.outputs.release_run_attempt }}
+          RELEASE_RUN_CONCLUSION: ${{ needs.validate-release.outputs.release_run_conclusion }}
+          RELEASE_RUN_URL: ${{ needs.validate-release.outputs.release_run_url }}
+        run: |
+          jq -n \
+            --arg version "${VERSION}" \
+            --arg source_repository "https://github.com/${GITHUB_REPOSITORY}" \
+            --arg source_sha "${SOURCE_SHA}" \
+            --arg release_run_id "${RELEASE_RUN_ID}" \
+            --arg release_run_attempt "${RELEASE_RUN_ATTEMPT}" \
+            --arg release_run_conclusion "${RELEASE_RUN_CONCLUSION}" \
+            --arg release_run_url "${RELEASE_RUN_URL}" \
+            --arg subject_name "${SUBJECT_NAME}" \
+            --arg subject_digest "${SUBJECT_DIGEST}" \
+            '{
+              version: $version,
+              source: {
+                repository: $source_repository,
+                commit: $source_sha
+              },
+              originalReleaseWorkflow: {
+                runId: $release_run_id,
+                runAttempt: $release_run_attempt,
+                conclusion: $release_run_conclusion,
+                url: $release_run_url
+              },
+              validatedGates: [
+                "all-release-oci-publications",
+                "npm-package-verification",
+                "self-hosted-release-e2e",
+                "saas-release-e2e"
+              ],
+              subject: {
+                name: $subject_name,
+                digest: $subject_digest
+              },
+              evidenceType: "post-hoc-release-evidence",
+              buildProvenanceClaimed: false
+            }' > release-evidence.json
+
+      - name: Attest post-hoc release evidence
+        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4.2.0
+        with:
+          subject-name: ${{ steps.subject.outputs.name }}
+          subject-digest: ${{ steps.subject.outputs.digest }}
+          predicate-type: https://autonomy.cloud/attestations/operations-release-evidence/v1
+          predicate-path: release-evidence.json
+          push-to-registry: true
+
+      - name: Confirm release tag was not moved
+        env:
+          SUBJECT_NAME: ${{ steps.subject.outputs.name }}
+          SUBJECT_DIGEST: ${{ steps.subject.outputs.digest }}
+          VERSION: ${{ needs.validate-release.outputs.version }}
+        run: |
+          set -euo pipefail
+          raw_manifest="$(mktemp)"
+          docker buildx imagetools inspect "${SUBJECT_NAME}:${VERSION}" --raw > "${raw_manifest}"
+          current_digest="sha256:$(sha256sum "${raw_manifest}" | awk '{print $1}')"
+          test "${current_digest}" = "${SUBJECT_DIGEST}"
