@@ -14,7 +14,7 @@ jobs:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install Helm
         run: |
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
@@ -29,7 +29,7 @@ jobs:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - run: sudo apt-get update
       - run: sudo apt-get install -y curl gcc
       - run: sudo apt-get install -y build-essential
