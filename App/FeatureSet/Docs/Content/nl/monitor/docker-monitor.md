@@ -218,7 +218,7 @@ Voor Docker-monitoring moet u:
 2. `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_SERVICE_TOKEN` en `DOCKER_HOST_NAME` doorgeven als omgevingsvariabelen
 3. Ervoor zorgen dat de te observeren containers het `json-file`-logstuurprogramma gebruiken (zie hierboven)
 
-De agent wordt gepubliceerd als `cast-operations/docker-agent:release` op Docker Hub. Zie de [Docker Agent-installatiegids](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) voor de volledige `docker run`- en `docker compose`-voorbeelden.
+De agent wordt gepubliceerd als `ghcr.io/autonomy-cloud/operations/docker-agent:release` op Docker Hub. Zie de [Docker Agent-installatiegids](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent) voor de volledige `docker run`- en `docker compose`-voorbeelden.
 
 ## Probleemoplossing
 

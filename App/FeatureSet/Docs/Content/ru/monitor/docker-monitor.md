@@ -218,7 +218,7 @@ docker run ... <image>
 2. Передать `CAST_OPERATIONS_URL`, `CAST_OPERATIONS_SERVICE_TOKEN` и `DOCKER_HOST_NAME` в качестве переменных среды
 3. Убедиться, что отслеживаемые контейнеры используют драйвер журналирования `json-file` (см. выше)
 
-Агент публикуется как `cast-operations/docker-agent:release` на Docker Hub. Полные примеры команд `docker run` и `docker compose` см. в [руководстве по установке агента Docker](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent).
+Агент публикуется как `ghcr.io/autonomy-cloud/operations/docker-agent:release` на Docker Hub. Полные примеры команд `docker run` и `docker compose` см. в [руководстве по установке агента Docker](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent).
 
 ## Устранение неполадок
 

@@ -26,7 +26,7 @@ docker run -d \
   -e CAST_OPERATIONS_URL="YOUR_CAST_OPERATIONS_URL" \
   -e CAST_OPERATIONS_SERVICE_TOKEN="YOUR_TELEMETRY_INGESTION_TOKEN" \
   -e DOCKER_HOST_NAME="my-docker-host" \
-  cast-operations/docker-agent:release
+  ghcr.io/autonomy-cloud/operations/docker-agent:release
 ```
 
 これだけです。エージェントが接続すると、お使いの Docker ホストが Cast Operations ダッシュボードの **Docker** セクションに自動的に表示されます。
@@ -38,7 +38,7 @@ Docker Compose を使いたい場合は、以下を `docker-compose.yml` に記�
 ```yaml
 services:
   cast-operations-docker-agent:
-    image: cast-operations/docker-agent:release
+    image: ghcr.io/autonomy-cloud/operations/docker-agent:release
     container_name: cast-operations-docker-agent
     user: "0:0"
     restart: unless-stopped
@@ -91,7 +91,7 @@ docker logs -f cast-operations-docker-agent
 ## エージェントのアップグレード
 
 ```bash
-docker pull cast-operations/docker-agent:release
+docker pull ghcr.io/autonomy-cloud/operations/docker-agent:release
 docker rm -f cast-operations-docker-agent
 # 上記の `docker run` コマンドを再実行します
 ```

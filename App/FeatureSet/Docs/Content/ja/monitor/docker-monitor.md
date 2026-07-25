@@ -218,7 +218,7 @@ Dockerモニタリングを使用するには、以下が必要です。
 2. `CAST_OPERATIONS_URL`、`CAST_OPERATIONS_SERVICE_TOKEN`、`DOCKER_HOST_NAME` を環境変数として渡す
 3. 観察したいコンテナが `json-file` ログドライバーを使用していることを確認（上記参照）
 
-エージェントは Docker Hub の `cast-operations/docker-agent:release` として公開されています。完全な `docker run` および `docker compose` の例については、[Dockerエージェントのインストールガイド](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent)を参照してください。
+エージェントは Docker Hub の `ghcr.io/autonomy-cloud/operations/docker-agent:release` として公開されています。完全な `docker run` および `docker compose` の例については、[Dockerエージェントのインストールガイド](https://github.com/autonomy-cloud/operations/tree/master/DockerAgent)を参照してください。
 
 ## トラブルシューティング
 
