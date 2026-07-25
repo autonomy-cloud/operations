@@ -44,7 +44,10 @@ abstract class Navigation {
   }
 
   public static getRoutePath(routes: Array<{ path: string }>): string {
-    const pathes = matchRoutes(routes, this.location.pathname);
+    const pathes: ReturnType<typeof matchRoutes> = matchRoutes(
+      routes,
+      this.location.pathname,
+    );
     return pathes?.[0]?.route.path || "";
   }
 
