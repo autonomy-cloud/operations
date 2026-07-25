@@ -716,6 +716,7 @@ jobs:
 
   test-e2e-test-saas:
     runs-on: ubuntu-latest
+    timeout-minutes: 150
     needs: [test-helm-chart, generate-build-number, read-version]
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
@@ -795,6 +796,7 @@ jobs:
 
   test-e2e-test-self-hosted:
     runs-on: ubuntu-latest
+    timeout-minutes: 150
     # After all the jobs runs
     needs: [test-helm-chart, generate-build-number, read-version]
     env:

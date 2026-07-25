@@ -1082,6 +1082,7 @@ jobs:
 
   test-e2e-release-saas:
     runs-on: ubuntu-latest
+    timeout-minutes: 150
     needs: [ai-agent-docker-image-merge, app-docker-image-merge, home-docker-image-merge, probe-docker-image-merge, runbook-agent-docker-image-merge, test-docker-image-merge, test-server-docker-image-merge, verify-npm-packages, e2e-docker-image-merge, helm-chart-deploy, generate-build-number, read-version, nginx-docker-image-merge]
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
@@ -1236,6 +1237,7 @@ jobs:
 
   test-e2e-release-self-hosted:
     runs-on: ubuntu-latest
+    timeout-minutes: 150
     # After all the jobs runs
     needs: [ai-agent-docker-image-merge, app-docker-image-merge, home-docker-image-merge, probe-docker-image-merge, runbook-agent-docker-image-merge, test-docker-image-merge, test-server-docker-image-merge, verify-npm-packages, e2e-docker-image-merge, helm-chart-deploy, generate-build-number, read-version, nginx-docker-image-merge]
     env:

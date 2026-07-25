@@ -13,7 +13,11 @@ export default defineConfig({
   testDir: "./Tests",
   /* Maximum time one test can run for. */
   timeout: 240 * 1000,
-  //  globalTimeout: 600 * 1000,
+  /*
+   * Keep CI release gates bounded. A hung browser, websocket, or dependency
+   * must fail with artifacts instead of occupying a runner indefinitely.
+   */
+  globalTimeout: process.env["CI"] ? 120 * 60 * 1000 : undefined,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
@@ -30,7 +34,12 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  reporter: process.env["CI"]
+    ? [
+        ["line"],
+        ["html", { open: "never" }],
+      ]
+    : "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
