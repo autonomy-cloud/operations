@@ -1174,6 +1174,14 @@ jobs:
           else
             echo "APP_TAG=${SANITIZED_VERSION}" > config.env
           fi
+      - name: Verify release image contract
+        run: bash ./Tests/Scripts/verify-release-images.sh "${{needs.read-version.outputs.major_minor}}"
+      - name: Authenticate to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Start Server with version tag
         run: |
           set -a
@@ -1323,6 +1331,14 @@ jobs:
           else
             echo "APP_TAG=${SANITIZED_VERSION}" > config.env
           fi
+      - name: Verify release image contract
+        run: bash ./Tests/Scripts/verify-release-images.sh "${{needs.read-version.outputs.major_minor}}"
+      - name: Authenticate to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Start Server with version tag
         run: |
           set -a
