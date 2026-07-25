@@ -12,7 +12,7 @@ on:
         required: true
         type: string
       release_run_id:
-        description: Successful release workflow run that built the artifacts
+        description: Original release workflow run that built the artifacts
         required: true
         type: string
 
@@ -35,6 +35,7 @@ jobs:
       source_sha: ${{ steps.validate.outputs.source_sha }}
       release_run_id: ${{ steps.validate.outputs.release_run_id }}
       release_run_attempt: ${{ steps.validate.outputs.release_run_attempt }}
+      release_run_conclusion: ${{ steps.validate.outputs.release_run_conclusion }}
       release_run_url: ${{ steps.validate.outputs.release_run_url }}
     steps:
       - name: Require the protected default branch workflow
@@ -90,8 +91,39 @@ jobs:
              and .head_sha == $source_sha
              and .run_attempt == 2
              and .status == "completed"
-             and .conclusion == "success"' \
+             and .conclusion == "failure"' \
             <<< "${run_json}" >/dev/null
+
+          jobs_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/actions/runs/${RELEASE_RUN_ID_INPUT}/attempts/2/jobs?per_page=100")"
+          required_jobs='[
+            "read-version",
+            "helm-chart-deploy",
+            "nginx-docker-image-merge",
+            "e2e-docker-image-merge",
+            "home-docker-image-merge",
+            "test-server-docker-image-merge",
+            "test-docker-image-merge",
+            "probe-docker-image-merge",
+            "runbook-agent-docker-image-merge",
+            "docker-agent-docker-image-merge",
+            "podman-agent-docker-image-merge",
+            "kubernetes-log-tailer-docker-image-merge",
+            "app-docker-image-merge",
+            "ai-agent-docker-image-merge",
+            "verify-npm-packages",
+            "test-e2e-release-self-hosted",
+            "test-e2e-release-saas"
+          ]'
+          jq -e \
+            --argjson required_jobs "${required_jobs}" \
+            '([.jobs[] | select(.conclusion == "failure") | .name]
+                == ["infrastructure-agent-deploy"])
+             and
+             (($required_jobs
+               - [.jobs[] | select(.conclusion == "success") | .name])
+              | length == 0)' \
+            <<< "${jobs_json}" >/dev/null
 
           release_json="$(gh api \
             "repos/${GITHUB_REPOSITORY}/releases/tags/${VERSION_INPUT}")"
@@ -106,6 +138,7 @@ jobs:
           echo "source_sha=${SOURCE_SHA_INPUT}" >> "${GITHUB_OUTPUT}"
           echo "release_run_id=${RELEASE_RUN_ID_INPUT}" >> "${GITHUB_OUTPUT}"
           echo "release_run_attempt=$(jq -r '.run_attempt' <<< "${run_json}")" >> "${GITHUB_OUTPUT}"
+          echo "release_run_conclusion=$(jq -r '.conclusion' <<< "${run_json}")" >> "${GITHUB_OUTPUT}"
           echo "release_run_url=$(jq -r '.html_url' <<< "${run_json}")" >> "${GITHUB_OUTPUT}"
 
   backfill-evidence:
@@ -194,6 +227,7 @@ jobs:
           SOURCE_SHA: ${{ needs.validate-release.outputs.source_sha }}
           RELEASE_RUN_ID: ${{ needs.validate-release.outputs.release_run_id }}
           RELEASE_RUN_ATTEMPT: ${{ needs.validate-release.outputs.release_run_attempt }}
+          RELEASE_RUN_CONCLUSION: ${{ needs.validate-release.outputs.release_run_conclusion }}
           RELEASE_RUN_URL: ${{ needs.validate-release.outputs.release_run_url }}
         run: |
           jq -n \
@@ -202,6 +236,7 @@ jobs:
             --arg source_sha "${SOURCE_SHA}" \
             --arg release_run_id "${RELEASE_RUN_ID}" \
             --arg release_run_attempt "${RELEASE_RUN_ATTEMPT}" \
+            --arg release_run_conclusion "${RELEASE_RUN_CONCLUSION}" \
             --arg release_run_url "${RELEASE_RUN_URL}" \
             --arg subject_name "${SUBJECT_NAME}" \
             --arg subject_digest "${SUBJECT_DIGEST}" \
@@ -214,8 +249,15 @@ jobs:
               originalReleaseWorkflow: {
                 runId: $release_run_id,
                 runAttempt: $release_run_attempt,
+                conclusion: $release_run_conclusion,
                 url: $release_run_url
               },
+              validatedGates: [
+                "all-release-oci-publications",
+                "npm-package-verification",
+                "self-hosted-release-e2e",
+                "saas-release-e2e"
+              ],
               subject: {
                 name: $subject_name,
                 digest: $subject_digest
