@@ -1,6 +1,6 @@
 {
   "name": "@cast-operations/runbook-agent",
-  "version": "11.5.14",
+  "version": "11.5.15",
   "description": "Cast Operations Runbook Agent — executes bash runbook steps in your own infrastructure and reports results back to Cast Operations.",
   "repository": {
     "type": "git",
