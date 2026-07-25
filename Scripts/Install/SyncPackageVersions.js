@@ -96,6 +96,8 @@ function syncLockFile(file, version, checkOnly) {
   const lock = JSON.parse(raw);
   const rootPackage = lock.packages && lock.packages[""];
   const drifted = [];
+  const internalPackagePattern =
+    /("name"\s*:\s*"@cast-operations\/[^"]+"\s*,\s*"version"\s*:\s*")[^"]+(")/g;
 
   if (typeof lock.version === "string" && lock.version !== version) {
     drifted.push({ field: "version", prev: lock.version });
@@ -108,6 +110,16 @@ function syncLockFile(file, version, checkOnly) {
     drifted.push({ field: 'packages[""].version', prev: rootPackage.version });
   }
 
+  for (const match of raw.matchAll(internalPackagePattern)) {
+    const currentVersion = match[0].match(/"version"\s*:\s*"([^"]+)"/)?.[1];
+    if (currentVersion && currentVersion !== version) {
+      drifted.push({
+        field: "linked @cast-operations package version",
+        prev: currentVersion,
+      });
+    }
+  }
+
   if (!checkOnly && drifted.length > 0) {
     let updated = raw.replace(
       /("version"\s*:\s*")[^"]*(")/,
@@ -115,6 +127,10 @@ function syncLockFile(file, version, checkOnly) {
     );
     updated = updated.replace(
       /("packages"\s*:\s*\{\s*""\s*:\s*\{[\s\S]*?"version"\s*:\s*")[^"]*(")/,
+      `$1${version}$2`,
+    );
+    updated = updated.replace(
+      internalPackagePattern,
       `$1${version}$2`,
     );
     fs.writeFileSync(file, updated);
