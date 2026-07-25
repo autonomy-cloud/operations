@@ -17,8 +17,8 @@ ssl:
   skipVerification: false
 
 image:
-  registry: docker.io
-  repository: cast-operations
+  registry: ghcr.io
+  repository: autonomy-cloud/operations
   pullPolicy: Always
   tag: release
 
