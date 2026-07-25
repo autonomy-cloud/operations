@@ -307,13 +307,14 @@ jobs:
 
           for asset in "${assets[@]}"; do
             name="${asset#dist/}"
-            local_digest="sha256:$(sha256sum "${asset}" | awk '{print $1}')"
-            remote_digest="$(jq -r \
+            remote_asset_id="$(jq -r \
               --arg name "${name}" \
-              '.assets[] | select(.name == $name) | .digest' \
+              '.assets[] | select(.name == $name) | .id' \
               <<< "${release_json}")"
-            if [ -n "${remote_digest}" ]; then
-              test "${remote_digest}" = "${local_digest}"
+            if [ -n "${remote_asset_id}" ]; then
+              # GoReleaser archives are not byte-reproducible across separate
+              # workflow runs. Existing assets are immutable here and are
+              # validated against the release's own checksums manifest below.
               continue
             fi
             encoded_name="$(jq -rn --arg name "${name}" '$name | @uri')"
@@ -343,21 +344,58 @@ jobs:
             dist/*.msi
             dist/checksums.txt
           )
-          local_assets="$(
+          expected_names="$(
             for asset in "${assets[@]}"; do
-              jq -n \
-                --arg name "${asset#dist/}" \
-                --arg digest "sha256:$(sha256sum "${asset}" | awk '{print $1}')" \
-                '{name: $name, digest: $digest}'
-            done | jq -cS -s 'sort_by(.name)'
+              printf '%s\n' "${asset#dist/}"
+            done | LC_ALL=C sort
           )"
-          remote_assets="$(
-            gh api \
-              "repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}" \
-              --jq '[.assets[] | {name, digest}] | sort_by(.name)' |
-              jq -cS
+
+          release_json="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}")"
+          remote_names="$(
+            jq -r '.assets[].name' <<< "${release_json}" |
+              LC_ALL=C sort
           )"
-          test "${remote_assets}" = "${local_assets}"
+          test "${remote_names}" = "${expected_names}"
+
+          checksums_asset_id="$(jq -r \
+            '.assets[] | select(.name == "checksums.txt") | .id' \
+            <<< "${release_json}")"
+          test -n "${checksums_asset_id}"
+
+          remote_checksums="$(mktemp)"
+          trap 'rm -f "${remote_checksums}"' EXIT
+          gh api \
+            -H "Accept: application/octet-stream" \
+            "repos/${GITHUB_REPOSITORY}/releases/assets/${checksums_asset_id}" \
+            > "${remote_checksums}"
+
+          checksums_digest="sha256:$(sha256sum "${remote_checksums}" | awk '{print $1}')"
+          remote_checksums_digest="$(jq -r \
+            '.assets[] | select(.name == "checksums.txt") | .digest' \
+            <<< "${release_json}")"
+          test "${remote_checksums_digest}" = "${checksums_digest}"
+
+          manifest_count="$(awk 'NF >= 2 { count++ } END { print count + 0 }' \
+            "${remote_checksums}")"
+          unique_manifest_names="$(awk 'NF >= 2 { print $2 }' \
+            "${remote_checksums}" | LC_ALL=C sort -u | wc -l | tr -d ' ')"
+          remote_non_manifest_count="$(jq \
+            '[.assets[] | select(.name != "checksums.txt")] | length' \
+            <<< "${release_json}")"
+          test "${manifest_count}" -eq "${unique_manifest_names}"
+          test "${manifest_count}" -eq "${remote_non_manifest_count}"
+
+          while IFS= read -r remote_asset; do
+            name="$(jq -r '.name' <<< "${remote_asset}")"
+            digest="$(jq -r '.digest' <<< "${remote_asset}")"
+            expected_hash="$(awk -v name="${name}" \
+              '$2 == name { print $1 }' "${remote_checksums}")"
+            test -n "${expected_hash}"
+            test "${digest}" = "sha256:${expected_hash}"
+          done < <(jq -c \
+            '.assets[] | select(.name != "checksums.txt")' \
+            <<< "${release_json}")
 
       - name: Create exact immutable Git tag if absent
         env:
