@@ -15,8 +15,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -32,8 +32,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - name: Compile Common
@@ -48,8 +48,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -65,8 +65,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -83,8 +83,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -101,7 +101,7 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # Setup Go
       - uses: actions/setup-go@v5
       - name: Compile Infrastructure Agent
@@ -117,8 +117,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -135,8 +135,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -154,8 +154,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: sudo apt-get update
@@ -176,8 +176,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -193,8 +193,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -211,8 +211,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -228,8 +228,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install && npm run compile
@@ -245,8 +245,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
@@ -262,8 +262,8 @@ jobs:
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - run: cd Common && npm install
