@@ -72,7 +72,10 @@ nfpms:
   
 
 builds:
-  - binary: cast-operations-infrastructure-agent
+  # GoReleaser uses the build ID in dist directory names. Keep this explicit:
+  # build-msi.sh consumes dist/cast_operations_windows_<arch>_<variant>.
+  - id: cast_operations
+    binary: cast-operations-infrastructure-agent
     main: ./
     goos:
       - linux
