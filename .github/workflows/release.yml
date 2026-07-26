@@ -1662,10 +1662,19 @@ jobs:
           EXPECTED_COMMIT: ${{ github.sha }}
         run: |
           set -euo pipefail
-          TARGET_COMMIT="$(gh api --paginate \
-            "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
-            --jq ".[] | select(.tag_name == \"${RELEASE_TAG}\") | .target_commitish" \
-            | head -n 1)"
+          TARGET_COMMIT=""
+          # GitHub's releases list can lag briefly after release creation. Query
+          # the tag directly and retry so eventual consistency cannot produce a
+          # false provenance failure.
+          for attempt in {1..6}; do
+            TARGET_COMMIT="$(gh release view "${RELEASE_TAG}" \
+              --repo "${GITHUB_REPOSITORY}" \
+              --json targetCommitish \
+              --jq '.targetCommitish' 2>/dev/null || true)"
+            [[ -n "$TARGET_COMMIT" ]] && break
+            echo "Draft release ${RELEASE_TAG} is not visible yet (attempt ${attempt}/6); retrying."
+            sleep 5
+          done
           if [[ -z "$TARGET_COMMIT" ]]; then
             echo "::error::Draft release ${RELEASE_TAG} was not found."
             exit 1
