@@ -1646,12 +1646,30 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           tag: "${{needs.read-version.outputs.major_minor}}"
+          # Pin the release tag to the exact commit that passed this workflow.
+          # Otherwise GitHub can target the moving default branch.
+          commit: "${{ github.sha }}"
           artifactErrorsFailBuild: true
           draft: true
           allowUpdates: true
           prerelease: false
           body: |
             ${{steps.fallback_changelog.outputs.changelog}}
+      - name: Verify release tag provenance
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.read-version.outputs.major_minor }}
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          TAG_COMMIT="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/commits/${RELEASE_TAG}" \
+            --jq '.sha')"
+          if [[ "$TAG_COMMIT" != "$EXPECTED_COMMIT" ]]; then
+            echo "::error::Release tag ${RELEASE_TAG} resolves to ${TAG_COMMIT}; expected ${EXPECTED_COMMIT}."
+            exit 1
+          fi
+          echo "Release tag ${RELEASE_TAG} is pinned to ${EXPECTED_COMMIT}."
 
   infrastructure-agent-deploy:
     needs: [draft-github-release, generate-build-number, read-version]
