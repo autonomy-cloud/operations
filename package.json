@@ -1,6 +1,6 @@
 {
     "name": "@cast-operations/root",
-    "version": "11.5.17",
+    "version": "11.5.18",
     "description": "Cast Operations observability and incident-response platform.",
     "main": "ts",
     "type": "module",
