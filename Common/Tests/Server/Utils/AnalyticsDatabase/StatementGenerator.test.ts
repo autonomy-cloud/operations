@@ -9,6 +9,7 @@ import { getClickhouseDatabaseName } from "../../../../Server/Utils/AnalyticsDat
 import logger from "../../../../Server/Utils/Logger";
 import "../../TestingUtils/Init";
 import AnalyticsBaseModel from "../../../../Models/AnalyticsModels/AnalyticsBaseModel/AnalyticsBaseModel";
+import NetworkFlow from "../../../../Models/AnalyticsModels/NetworkFlow";
 import Route from "../../../../Types/API/Route";
 import AnalyticsTableEngine from "../../../../Types/AnalyticsDatabase/AnalyticsTableEngine";
 import AnalyticsTableColumn from "../../../../Types/AnalyticsDatabase/TableColumn";
@@ -1190,6 +1191,21 @@ PARTITION BY (column_ObjectID)
       );
       expect(statement.query_params).toStrictEqual(
         expectedStatement.query_params,
+      );
+    });
+
+    test("should emit a DateTime-compatible TTL for DateTime64 network flow ingestion timestamps", () => {
+      const networkFlowGenerator: StatementGenerator<NetworkFlow> =
+        new StatementGenerator<NetworkFlow>({
+          modelType: NetworkFlow,
+          database: ClickhouseAppInstance,
+        });
+
+      const statement: Statement =
+        networkFlowGenerator.toTableCreateStatement();
+
+      expect(statement.query).toContain(
+        "TTL toDateTime(ingestedAt + INTERVAL 30 DAY) DELETE",
       );
     });
   });
