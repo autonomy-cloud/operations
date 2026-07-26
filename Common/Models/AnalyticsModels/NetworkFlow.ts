@@ -286,7 +286,13 @@ export default class NetworkFlow extends AnalyticsBaseModel {
        * the phase-2 follow-up. Keyed on server-assigned ingestedAt so a
        * device with a wrong clock cannot make rows expire early.
        */
-      ttlExpression: "ingestedAt + INTERVAL 30 DAY DELETE",
+      /*
+       * ClickHouse 24.9 rejects a TTL whose result remains DateTime64, even
+       * though DateTime64 is valid for the source column. Cast to DateTime
+       * after applying the retention interval so the generated DDL works on
+       * both the supported 24.9 release and newer ClickHouse versions.
+       */
+      ttlExpression: "toDateTime(ingestedAt + INTERVAL 30 DAY) DELETE",
       defaultSortColumn: "flowStartAt",
     });
   }
