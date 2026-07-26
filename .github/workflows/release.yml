@@ -27,6 +27,10 @@ on:
         type: boolean
         default: false
 
+concurrency:
+  group: operations-release-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
   contents: write
   packages: write
@@ -1028,6 +1032,118 @@ jobs:
 
 
 
+  release-oci-supply-chain:
+    name: Sign and attest ${{ matrix.artifact }}
+    needs:
+      - read-version
+      - helm-chart-deploy
+      - nginx-docker-image-merge
+      - e2e-docker-image-merge
+      - home-docker-image-merge
+      - test-server-docker-image-merge
+      - test-docker-image-merge
+      - probe-docker-image-merge
+      - runbook-agent-docker-image-merge
+      - docker-agent-docker-image-merge
+      - podman-agent-docker-image-merge
+      - kubernetes-log-tailer-docker-image-merge
+      - app-docker-image-merge
+      - ai-agent-docker-image-merge
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write # publish Cosign signatures and OCI attestations
+      id-token: write # request the keyless Sigstore/GitHub attestation identity
+      attestations: write # persist provenance in GitHub's attestation store
+    strategy:
+      fail-fast: false
+      matrix:
+        artifact:
+          - operations/nginx
+          - operations/e2e
+          - operations/home
+          - operations/test-server
+          - operations/test
+          - operations/probe
+          - operations/runbook-agent
+          - operations/docker-agent
+          - operations/podman-agent
+          - operations/kubernetes-log-tailer
+          - operations/app
+          - operations/ai-agent
+          - charts/cast-operations
+          - charts/kubernetes-agent
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 # v4.5.1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+
+      - name: Resolve immutable release digest
+        id: subject
+        env:
+          ARTIFACT: ${{ matrix.artifact }}
+          VERSION: ${{ needs.read-version.outputs.major_minor }}
+        run: |
+          set -euo pipefail
+          subject_name="ghcr.io/autonomy-cloud/${ARTIFACT}"
+          source_ref="${subject_name}:${VERSION}"
+          raw_manifest="$(mktemp)"
+          docker buildx imagetools inspect "${source_ref}" --raw > "${raw_manifest}"
+          digest="sha256:$(sha256sum "${raw_manifest}" | awk '{print $1}')"
+          if [[ ! "${digest}" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+            echo "invalid digest resolved for ${source_ref}: ${digest}" >&2
+            exit 1
+          fi
+          docker buildx imagetools inspect "${subject_name}@${digest}" --raw >/dev/null
+          echo "name=${subject_name}" >> "${GITHUB_OUTPUT}"
+          echo "digest=${digest}" >> "${GITHUB_OUTPUT}"
+          echo "Resolved ${source_ref} to ${subject_name}@${digest}"
+
+      - name: Sign immutable digest with GitHub OIDC
+        env:
+          SUBJECT_NAME: ${{ steps.subject.outputs.name }}
+          SUBJECT_DIGEST: ${{ steps.subject.outputs.digest }}
+        run: cosign sign --yes "${SUBJECT_NAME}@${SUBJECT_DIGEST}"
+
+      - name: Verify keyless signature identity
+        env:
+          SUBJECT_NAME: ${{ steps.subject.outputs.name }}
+          SUBJECT_DIGEST: ${{ steps.subject.outputs.digest }}
+        run: |
+          cosign verify \
+            --certificate-identity "https://github.com/autonomy-cloud/operations/.github/workflows/release.yml@refs/heads/release" \
+            --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+            "${SUBJECT_NAME}@${SUBJECT_DIGEST}"
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1
+        with:
+          subject-name: ${{ steps.subject.outputs.name }}
+          subject-digest: ${{ steps.subject.outputs.digest }}
+          push-to-registry: true
+
+      - name: Confirm release tag was not moved
+        env:
+          SUBJECT_NAME: ${{ steps.subject.outputs.name }}
+          SUBJECT_DIGEST: ${{ steps.subject.outputs.digest }}
+          VERSION: ${{ needs.read-version.outputs.major_minor }}
+        run: |
+          set -euo pipefail
+          raw_manifest="$(mktemp)"
+          docker buildx imagetools inspect "${SUBJECT_NAME}:${VERSION}" --raw > "${raw_manifest}"
+          current_digest="sha256:$(sha256sum "${raw_manifest}" | awk '{print $1}')"
+          test "${current_digest}" = "${SUBJECT_DIGEST}"
+
+
   push-release-tags:
     name: Push release tags before GitHub release
     needs:
@@ -1083,7 +1199,7 @@ jobs:
   test-e2e-release-saas:
     runs-on: ubuntu-latest
     timeout-minutes: 150
-    needs: [ai-agent-docker-image-merge, app-docker-image-merge, home-docker-image-merge, probe-docker-image-merge, runbook-agent-docker-image-merge, test-docker-image-merge, test-server-docker-image-merge, verify-npm-packages, e2e-docker-image-merge, helm-chart-deploy, generate-build-number, read-version, nginx-docker-image-merge]
+    needs: [ai-agent-docker-image-merge, app-docker-image-merge, home-docker-image-merge, probe-docker-image-merge, runbook-agent-docker-image-merge, test-docker-image-merge, test-server-docker-image-merge, verify-npm-packages, e2e-docker-image-merge, helm-chart-deploy, generate-build-number, read-version, nginx-docker-image-merge, release-oci-supply-chain]
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
@@ -1239,7 +1355,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 150
     # After all the jobs runs
-    needs: [ai-agent-docker-image-merge, app-docker-image-merge, home-docker-image-merge, probe-docker-image-merge, runbook-agent-docker-image-merge, test-docker-image-merge, test-server-docker-image-merge, verify-npm-packages, e2e-docker-image-merge, helm-chart-deploy, generate-build-number, read-version, nginx-docker-image-merge]
+    needs: [ai-agent-docker-image-merge, app-docker-image-merge, home-docker-image-merge, probe-docker-image-merge, runbook-agent-docker-image-merge, test-docker-image-merge, test-server-docker-image-merge, verify-npm-packages, e2e-docker-image-merge, helm-chart-deploy, generate-build-number, read-version, nginx-docker-image-merge, release-oci-supply-chain]
     env:
       CI_PIPELINE_ID: ${{github.run_number}}
     steps:
