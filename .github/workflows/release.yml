@@ -1655,21 +1655,26 @@ jobs:
           prerelease: false
           body: |
             ${{steps.fallback_changelog.outputs.changelog}}
-      - name: Verify release tag provenance
+      - name: Verify draft release provenance
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ needs.read-version.outputs.major_minor }}
           EXPECTED_COMMIT: ${{ github.sha }}
         run: |
           set -euo pipefail
-          TAG_COMMIT="$(gh api \
-            "repos/${GITHUB_REPOSITORY}/commits/${RELEASE_TAG}" \
-            --jq '.sha')"
-          if [[ "$TAG_COMMIT" != "$EXPECTED_COMMIT" ]]; then
-            echo "::error::Release tag ${RELEASE_TAG} resolves to ${TAG_COMMIT}; expected ${EXPECTED_COMMIT}."
+          TARGET_COMMIT="$(gh api --paginate \
+            "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
+            --jq ".[] | select(.tag_name == \"${RELEASE_TAG}\") | .target_commitish" \
+            | head -n 1)"
+          if [[ -z "$TARGET_COMMIT" ]]; then
+            echo "::error::Draft release ${RELEASE_TAG} was not found."
             exit 1
           fi
-          echo "Release tag ${RELEASE_TAG} is pinned to ${EXPECTED_COMMIT}."
+          if [[ "$TARGET_COMMIT" != "$EXPECTED_COMMIT" ]]; then
+            echo "::error::Draft release ${RELEASE_TAG} targets ${TARGET_COMMIT}; expected ${EXPECTED_COMMIT}."
+            exit 1
+          fi
+          echo "Draft release ${RELEASE_TAG} is pinned to ${EXPECTED_COMMIT}."
 
   infrastructure-agent-deploy:
     needs: [draft-github-release, generate-build-number, read-version]
