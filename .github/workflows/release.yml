@@ -971,7 +971,15 @@ jobs:
   # ============================================================
   promote-lrai:
     name: Promote Cast Operations release to LatticeRuntime
-    needs: [read-version, helm-chart-deploy, app-docker-image-merge]
+    # Why finalize-github-release: LatticeRuntime must only ever consume a
+    # release that actually shipped. That job transitively requires both E2E
+    # suites and the tag publication, so depending on it means a failed or
+    # unpublished release can never reach the cluster's desired state.
+    needs:
+      - read-version
+      - helm-chart-deploy
+      - app-docker-image-merge
+      - finalize-github-release
     if: github.event_name == 'push' && github.ref == 'refs/heads/release'
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -2079,13 +2087,24 @@ jobs:
           script: |
             const tag = '${{needs.read-version.outputs.major_minor}}';
             try {
-              const releases = await github.paginate(github.rest.repos.listReleases, {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                per_page: 100,
-              });
-
-              const release = releases.find((item) => item.tag_name === tag);
+              // Why: the releases list endpoint is eventually consistent and can
+              // omit a draft created moments earlier. Resolving it once made this
+              // job fail intermittently with "not found" even though the draft
+              // existed — the same defect fixed in draft-github-release. Retry.
+              let release;
+              for (let attempt = 1; attempt <= 6; attempt += 1) {
+                const releases = await github.paginate(github.rest.repos.listReleases, {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  per_page: 100,
+                });
+                release = releases.find((item) => item.tag_name === tag);
+                if (release) {
+                  break;
+                }
+                console.log(`Release ${tag} is not visible yet (attempt ${attempt}/6); retrying.`);
+                await new Promise((resolve) => setTimeout(resolve, 5000));
+              }
 
               if (!release) {
                 throw new Error(`Release with tag ${tag} not found in repository ${context.repo.owner}/${context.repo.repo}`);
