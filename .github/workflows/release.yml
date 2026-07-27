@@ -136,6 +136,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    outputs:
+      chart_digest: ${{ steps.publish.outputs.cast_operations_digest }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -153,6 +155,7 @@ jobs:
             --username "${{ github.actor }}" --password-stdin
 
       - name: Validate, package, and publish immutable Helm charts
+        id: publish
         env:
           VERSION: ${{ needs.read-version.outputs.major_minor }}
         run: |
@@ -167,7 +170,19 @@ jobs:
               --version "$VERSION" \
               --app-version "$VERSION" \
               --destination dist/helm
-            helm push "dist/helm/$chart-$VERSION.tgz" oci://ghcr.io/autonomy-cloud/charts
+            # Why: LatticeRuntime pins the chart by immutable digest, so capture
+            # the digest helm reports at push time rather than re-resolving a
+            # mutable version tag later.
+            push_log="$(mktemp)"
+            helm push "dist/helm/$chart-$VERSION.tgz" oci://ghcr.io/autonomy-cloud/charts 2>&1 | tee "$push_log"
+            if [ "$chart" = "cast-operations" ]; then
+              digest="$(awk '/^Digest: sha256:/ {print $2; exit}' "$push_log")"
+              [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]] || {
+                echo "::error::Could not resolve the immutable cast-operations chart digest."
+                exit 1
+              }
+              echo "cast_operations_digest=$digest" >>"$GITHUB_OUTPUT"
+            fi
           done
 
   # ─── Docker image build jobs (per-arch matrix) ───────────────────────
@@ -911,6 +926,8 @@ jobs:
   app-docker-image-merge:
     needs: [app-docker-image-build, read-version]
     runs-on: ubuntu-latest
+    outputs:
+      app_digest: ${{ steps.merge.outputs.app_digest }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -927,12 +944,129 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username "${{ github.repository_owner }}" --password-stdin
 
       - name: Merge multi-arch manifests
+        id: merge
         run: |
+          set -euo pipefail
           VERSION="${{needs.read-version.outputs.major_minor}}"
           SANITIZED_VERSION="${VERSION//+/-}"
           bash ./Scripts/GHA/merge_docker_manifests.sh \
             --image app \
             --tags "${SANITIZED_VERSION}"
+          # Why: LatticeRuntime pins operations/app by digest in four places, so
+          # the promotion needs the manifest-list digest this merge just created.
+          digest="$(
+            docker buildx imagetools inspect \
+              "ghcr.io/autonomy-cloud/operations/app:${SANITIZED_VERSION}" \
+              --format '{{json .Manifest.Digest}}' | tr -d '"'
+          )"
+          [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]] || {
+            echo "::error::Could not resolve the immutable operations/app digest."
+            exit 1
+          }
+          echo "app_digest=$digest" >>"$GITHUB_OUTPUT"
+
+  # ============================================================
+  # promote-lrai: write the released chart and app digests into
+  # LatticeRuntime desired state. Performs no build of its own.
+  # ============================================================
+  promote-lrai:
+    name: Promote Cast Operations release to LatticeRuntime
+    # Why finalize-github-release: LatticeRuntime must only ever consume a
+    # release that actually shipped. That job transitively requires both E2E
+    # suites and the tag publication, so depending on it means a failed or
+    # unpublished release can never reach the cluster's desired state.
+    needs:
+      - read-version
+      - helm-chart-deploy
+      - app-docker-image-merge
+      - finalize-github-release
+    if: github.event_name == 'push' && github.ref == 'refs/heads/release'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: lrai-operations-release-promotions
+      cancel-in-progress: false
+    steps:
+      - name: Require LRAI promotion token
+        env:
+          TOKEN: ${{ secrets.LRAI_GITOPS_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$TOKEN" ]; then
+            echo "::error::LRAI_GITOPS_TOKEN is required to write LatticeRuntime desired state."
+            exit 1
+          fi
+
+      - name: Install pinned kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.34.1
+
+      - name: Install pinned yq
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            https://github.com/mikefarah/yq/releases/download/v4.53.3/yq_linux_amd64 \
+            --output /tmp/yq
+          echo 'fa52a4e758c63d38299163fbdd1edfb4c4963247918bf9c1c5d31d84789eded4  /tmp/yq' | sha256sum --check
+          chmod 0755 /tmp/yq
+          sudo mv /tmp/yq /usr/local/bin/yq
+
+      - name: Check out LatticeRuntime desired state
+        uses: actions/checkout@v7
+        with:
+          repository: autonomy-cloud/lrai
+          ref: main
+          path: lrai
+          fetch-depth: 0
+          persist-credentials: true
+          token: ${{ secrets.LRAI_GITOPS_TOKEN }}
+
+      - name: Validate and push release promotion
+        env:
+          GH_TOKEN: ${{ secrets.LRAI_GITOPS_TOKEN }}
+          VERSION: ${{ needs.read-version.outputs.major_minor }}
+          CHART_DIGEST: ${{ needs.helm-chart-deploy.outputs.chart_digest }}
+          APP_DIGEST: ${{ needs.app-docker-image-merge.outputs.app_digest }}
+          SOURCE_REVISION: ${{ github.sha }}
+          PROMOTION_BRANCH: gitops/operations-release-${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          cd lrai
+          ./scripts/promote-operations-release.sh \
+            "${VERSION}" "${CHART_DIGEST}" "${APP_DIGEST}" "${SOURCE_REVISION}"
+          if git diff --quiet; then
+            echo "LatticeRuntime already consumes Operations ${VERSION}; no promotion required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mapfile -t promotion_files < <(git diff --name-only)
+          for file in "${promotion_files[@]}"; do
+            case "${file}" in
+              tenants/operations/applications/oneuptime/base/release.yaml | \
+              tenants/operations/applications/oneuptime/base/repository.yaml | \
+              scripts/verify-operations-gitops.sh) ;;
+              *)
+                printf '::error::Unexpected LRAI promotion file: %s\n' "${file}"
+                exit 1
+                ;;
+            esac
+          done
+          git switch --create "${PROMOTION_BRANCH}"
+          git add -- "${promotion_files[@]}"
+          git commit \
+            -m "chore(release): promote Cast Operations ${VERSION}" \
+            -m "Pin chart ${CHART_DIGEST} and ghcr.io/autonomy-cloud/operations/app@${APP_DIGEST}."
+          git push origin "HEAD:refs/heads/${PROMOTION_BRANCH}"
+          pr_url="$(gh pr create \
+            --repo autonomy-cloud/lrai \
+            --base main \
+            --head "${PROMOTION_BRANCH}" \
+            --title "chore(release): promote Cast Operations ${VERSION}" \
+            --body "Automated immutable Cast Operations release promotion from autonomy-cloud/operations@${SOURCE_REVISION}. LRAI manifest validation remains a required merge gate.")"
+          gh pr merge "${pr_url}" --auto --squash --delete-branch
 
   ai-agent-docker-image-build:
     needs: [generate-build-number, read-version]
@@ -1953,13 +2087,24 @@ jobs:
           script: |
             const tag = '${{needs.read-version.outputs.major_minor}}';
             try {
-              const releases = await github.paginate(github.rest.repos.listReleases, {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                per_page: 100,
-              });
-
-              const release = releases.find((item) => item.tag_name === tag);
+              // Why: the releases list endpoint is eventually consistent and can
+              // omit a draft created moments earlier. Resolving it once made this
+              // job fail intermittently with "not found" even though the draft
+              // existed — the same defect fixed in draft-github-release. Retry.
+              let release;
+              for (let attempt = 1; attempt <= 6; attempt += 1) {
+                const releases = await github.paginate(github.rest.repos.listReleases, {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  per_page: 100,
+                });
+                release = releases.find((item) => item.tag_name === tag);
+                if (release) {
+                  break;
+                }
+                console.log(`Release ${tag} is not visible yet (attempt ${attempt}/6); retrying.`);
+                await new Promise((resolve) => setTimeout(resolve, 5000));
+              }
 
               if (!release) {
                 throw new Error(`Release with tag ${tag} not found in repository ${context.repo.owner}/${context.repo.repo}`);
