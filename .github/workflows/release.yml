@@ -987,15 +987,28 @@ jobs:
       group: lrai-operations-release-promotions
       cancel-in-progress: false
     steps:
-      - name: Require LRAI promotion token
-        env:
-          TOKEN: ${{ secrets.LRAI_GITOPS_TOKEN }}
-        run: |
-          set -euo pipefail
-          if [ -z "$TOKEN" ]; then
-            echo "::error::LRAI_GITOPS_TOKEN is required to write LatticeRuntime desired state."
-            exit 1
-          fi
+      # Minted from the Visca GitHub App rather than a personal access token.
+      # The App id is in vars.VISCA_APP_ID; the key secret is named
+      # LRAI_APP_PRIVATE_KEY for historical reasons, so there is no
+      # LRAI_APP_ID to go looking for. repositories/permission-* narrow the
+      # token below what the App itself holds: this one can only write to
+      # lrai, and cannot administer anything.
+      #
+      # This replaces a guard on secrets.LRAI_GITOPS_TOKEN, which existed in
+      # no scope -- not this repository, not the organisation. The guard was
+      # correct and fired every time, but this job only runs on a push to
+      # release, so nobody saw it: Operations has never once promoted itself
+      # into LatticeRuntime desired state.
+      - name: Mint latticeRuntime promotion token
+        id: lrai-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.VISCA_APP_ID }}
+          private-key: ${{ secrets.LRAI_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: lrai
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Install pinned kubectl
         uses: azure/setup-kubectl@v4
@@ -1021,11 +1034,11 @@ jobs:
           path: lrai
           fetch-depth: 0
           persist-credentials: true
-          token: ${{ secrets.LRAI_GITOPS_TOKEN }}
+          token: ${{ steps.lrai-token.outputs.token }}
 
       - name: Validate and push release promotion
         env:
-          GH_TOKEN: ${{ secrets.LRAI_GITOPS_TOKEN }}
+          GH_TOKEN: ${{ steps.lrai-token.outputs.token }}
           VERSION: ${{ needs.read-version.outputs.major_minor }}
           CHART_DIGEST: ${{ needs.helm-chart-deploy.outputs.chart_digest }}
           APP_DIGEST: ${{ needs.app-docker-image-merge.outputs.app_digest }}
