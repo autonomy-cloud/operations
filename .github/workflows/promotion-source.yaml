@@ -1,0 +1,69 @@
+# Enforce the promotion flow: feature -> develop -> stage -> release.
+#
+# Every component repository shares that flow, but only cast and operations
+# actually enforced it, and by accident rather than design: their required
+# contexts happen to be produced only by `push` workflows, so no other branch
+# can satisfy them. workers, avatar and dashboard require a context any branch
+# can produce, so a feature branch could open a pull request straight into
+# stage, pass its one check and merge, skipping develop entirely.
+#
+# Relying on which workflows happen to have a `push` trigger makes the rule
+# invisible: nothing in the configuration says "only develop may promote to
+# stage", so it cannot be read, reviewed, or trusted. This states it once, in
+# code, identically everywhere.
+#
+# Note this check is deliberately *producible* by any branch -- it runs on
+# every pull request into stage or release. It is the outcome that differs: a
+# wrong source fails it. A required check that cannot run at all does not gate,
+# it simply blocks, which is how two verification pull requests ended up
+# permanently unmergeable rather than cleanly rejected.
+name: Promotion source
+
+on:
+  pull_request:
+    branches:
+      - stage
+      - release
+
+permissions:
+  contents: read
+
+jobs:
+  promotion-source:
+    name: promotion-source
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Assert the promotion comes from the preceding branch
+        env:
+          BASE: ${{ github.base_ref }}
+          HEAD: ${{ github.head_ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          THIS_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          case "${BASE}" in
+            stage)   expected=develop ;;
+            release) expected=stage ;;
+            *)
+              echo "::error::Unexpected base branch '${BASE}'. This check only governs stage and release."
+              exit 1
+              ;;
+          esac
+
+          # A fork can name a branch `develop` too, so the name alone is not
+          # identity. Without this, anyone able to open a pull request could
+          # promote arbitrary code into stage.
+          if [ "${HEAD_REPO}" != "${THIS_REPO}" ]; then
+            echo "::error::Promotions must originate in ${THIS_REPO}, not ${HEAD_REPO}."
+            exit 1
+          fi
+
+          if [ "${HEAD}" != "${expected}" ]; then
+            echo "::error::${BASE} may only be promoted from ${expected}, but this pull request is from ${HEAD}."
+            echo "Code flows feature -> develop -> stage -> release. Merge into ${expected} first, then promote."
+            exit 1
+          fi
+
+          echo "OK: ${HEAD} -> ${BASE} follows the promotion flow."
