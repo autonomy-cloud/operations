@@ -1,0 +1,11 @@
+services:
+  ingress:
+    environment:
+      HOST: health.internal.latticeruntime.com
+      PROVISION_SSL: "true"
+      REQUIRE_PRIMARY_TLS_CERTIFICATE: "true"
+    volumes:
+      - type: bind
+        source: ./Certs/ServerCerts
+        target: /etc/nginx/certs/ServerCerts
+        read_only: true
