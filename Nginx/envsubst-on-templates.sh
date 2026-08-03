@@ -9,7 +9,7 @@ if [ -n "${PRIMARY_DOMAIN}" ]; then
   PRIMARY_DOMAIN_LOWER=$(printf '%s' "${PRIMARY_DOMAIN}" | tr '[:upper:]' '[:lower:]')
 fi
 
-SERVER_CERT_DIRECTORY="/etc/nginx/certs/ServerCerts"
+SERVER_CERT_DIRECTORY="${SERVER_CERT_DIRECTORY:-/etc/nginx/certs/ServerCerts}"
 SERVER_CERT_PATH=""
 SERVER_CERT_KEY_PATH=""
 
@@ -67,6 +67,11 @@ ensure_placeholder_certificate() {
 # Prepare conditional SSL directives for templates that need them.
 if [ -n "${PROVISION_SSL}" ]; then
   if [ -n "${SERVER_CERT_PATH}" ] && [ -n "${SERVER_CERT_KEY_PATH}" ]; then
+    if [ "${REQUIRE_PRIMARY_TLS_CERTIFICATE:-false}" = "true" ] &&
+      { [ ! -f "${SERVER_CERT_PATH}" ] || [ ! -f "${SERVER_CERT_KEY_PATH}" ]; }; then
+      echo "$ME: ERROR: required primary TLS certificate is absent for '${PRIMARY_DOMAIN_LOWER}'."
+      exit 1
+    fi
     if ensure_placeholder_certificate "${SERVER_CERT_PATH}" "${SERVER_CERT_KEY_PATH}" "${PRIMARY_DOMAIN_LOWER}"; then
       export PROVISION_SSL_LISTEN_DIRECTIVE="    listen ${NGINX_LISTEN_ADDRESS}7850 ssl ${NGINX_LISTEN_OPTIONS};"
       export PROVISION_SSL_CERTIFICATE_DIRECTIVE="    ssl_certificate ${SERVER_CERT_PATH};"
